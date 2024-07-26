@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/index.astro"
+---
+
+<Layout>
+	<ul>
+		<li>
+			<strong>render</strong>
+			<code>= target =&gt; config =&gt; options =&gt;</code>
+			<ul>
+				<li><code>target</code> is a DOM node (e.g., document.body)</li>
+				<li><code>config</code> is the element configuration</li>
+				<li>
+					<code>options</code> passed to <code>buildDomTree</code>
+					<ul>
+						<li>
+							currently only <code>level</code> for <code>Hn</code> elements
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Returns a function that takes an optional <code>arg</code> and uses it as the
+		operand or injects a argument from some other source (e.g., HTML element, query
+		string).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it matches the
+		<strong>type</strong>, otherwise returns an <code>Error</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsBoolean</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, Boolean)</code>
+		</li>
+		<li>
+			<strong>IsNumber</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, Number)</code>
+		</li>
+		<li>
+			<strong>IsString</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, String)</code>
+		</li>
+	</ul>
+</Layout>

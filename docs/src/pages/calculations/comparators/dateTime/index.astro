@@ -1,0 +1,49 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		These functions take a datatype, an operand, and a test, and return a
+		composed function.
+	</p>
+	<p>
+		The datatype defaults to "DateTime". The <code>operand</code> and
+		<code>test</code> arguments are <code>Operation</code> objects, which may be
+		nested to any depth, but must evaluate to <code>PlainDateTime</code>
+		objects.
+	</p>
+	<p>
+		The function returned takes an optional argument, which can be used as
+		either operand, the test, or both by means of the
+		<code><a href="/injectors">FromArgument</a></code> injector.
+	</p>
+	<p>
+		When the function is called, it returns the operand (evaluated) as a
+		<code>Right</code> if the operand is after or before the test value, respectively.
+		If it is not, or if an error is raised, then it returns a <code
+			>Left&lt;Error&gt;</code
+		>.
+	</p>
+	<p>
+		<strong>TODO</strong>: <code>DateTime</code> can be a
+		<code>String</code>, a <code>PlainDateTime</code>, or a
+		<code>ZonedDateTime</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsAfterDateTime</strong>
+			<code
+				>= (datatype = "DateTime") &rarr; operand &rarr; test &rarr; (arg &rarr;
+				Either&lt;Error, DateTime&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>IsBeforeDateTime</strong>
+			<code
+				>= (datatype = "DateTime") &rarr; operand &rarr; test &rarr; (arg &rarr;
+				Either&lt;Error, DateTime&gt;)</code
+			>
+		</li>
+	</ul>
+</Layout>

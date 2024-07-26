@@ -1,0 +1,46 @@
+---
+import "./styles/katex.css"
+import "./styles/highlight.css"
+import "./styles/global.css"
+
+import toTitleCase from "../utilities/toTitleCase"
+
+import Header from "../components/Header/index.astro"
+import Nav from "../components/Nav/index.astro"
+import Trail from "../components/Trail/index.astro"
+
+const { pathname } = Astro.url
+
+const path = pathname.split("/")
+const segments = path
+	.toReversed()
+	.filter((s) => s)
+	.map(toTitleCase)
+const title = segments.join(" :: ")
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			content="width=device-width"
+			name="viewport"
+		/>
+		<link
+			href="/favicon.ico"
+			rel="icon"
+		/>
+		<title>{title ? `${title} :: ` : ""} @sitebender API</title>
+	</head>
+	<body>
+		<Header />
+		<Trail {segments} />
+		<main id="main-content">
+			<Nav />
+			<article>
+				<h1>{segments.at(0) || "How @sitebender works"}</h1>
+				<slot />
+			</article>
+		</main>
+	</body>
+</html>

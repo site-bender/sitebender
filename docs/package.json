@@ -1,0 +1,35 @@
+{
+	"name": "docs",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"astro": "astro",
+		"build": "astro build",
+		"bump": "pnpm version patch --force",
+		"bump:major": "pnpm version major --force",
+		"bump:minor": "pnpm version minor --force",
+		"check:exports": "pnpx find-unused-exports",
+		"check:packages": "pnpx npm-check -u",
+		"dep": "pnpm fmt && pnpm lint && pnpm lint:fix && pnpm check:packages && pnpm build && rm -rf .cache .history dist",
+		"dep:prod": "pnpm dep:dev && vercel deploy",
+		"dev": "astro dev --port 4334",
+		"fmt": "pnpm prettier . --write",
+		"lint": "pnpx oxlint@latest",
+		"lint:css": "pnpm stylelint \"src/**/*.css\"",
+		"lint:fix": "pnpm stylelint \"src/**/*.css\" --fix",
+		"preview": "astro preview",
+		"push": "git add -A && pnpm bump && git push",
+		"start": "astro dev",
+		"test": "pnpm test:int"
+	},
+	"devDependencies": {
+		"@astrojs/sitemap": "^3.1.6",
+		"astro": "^4.12.2",
+		"prettier": "^3.3.3",
+		"prettier-plugin-astro": "^0.14.1",
+		"stylelint": "^16.7.0",
+		"stylelint-config-standard": "^36.0.1",
+		"vite": "^5.3.5",
+		"vite-plugin-compress": "^2.1.1"
+	}
+}

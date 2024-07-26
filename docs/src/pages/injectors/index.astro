@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/index.astro"
+---
+
+<Layout>
+	<ul>
+		<li>
+			<strong>Constant</strong>
+			<code>= (datatype = "Number") =&gt; value =&gt;</code>
+		</li>
+		<li>
+			<strong>FromArgument</strong>
+			<code>= (datatype = "Number") =&gt;</code>
+		</li>
+		<li>
+			<strong>FromElement</strong>
+			<code>= (datatype = "Number") =&gt; source =&gt;</code>
+			<ul>
+				<li><code>source</code> is a <code>selector</code> object</li>
+			</ul>
+		</li>
+		<li>
+			<strong>FromLocalStorage</strong>
+			<code>= (datatype = "Number") =&gt; key =&gt;</code>
+		</li>
+		<li>
+			<strong>FromLookup</strong>
+			<code>= (datatype = "Json") =&gt; id =&gt;</code>
+		</li>
+		<li>
+			<strong>FromLookupTable</strong>
+			<code>= (datatype = "Json") =&gt; (config = {}) =&gt;</code>
+			<ul>
+				<li>
+					<code>config</code> includes <code>column</code> (operation),
+					<code>tableId</code>, and <code>test</code> operations
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>FromQueryString</strong>
+			<code>= (datatype = "Number") =&gt; key =&gt;</code>
+		</li>
+		<li>
+			<strong>FromSessionStorage</strong>
+			<code>= (datatype = "Number") =&gt; key =&gt;</code>
+		</li>
+		<li>
+			<strong>FromUrlParameter</strong>
+			<code>= (datatype = "Number") =&gt; segment =&gt;</code>
+		</li>
+	</ul>
+</Layout>

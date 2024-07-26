@@ -1,0 +1,61 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Returns a function that takes an optional <code>arg</code> and uses it as the
+		operand or injects a argument from some other source (e.g., HTML element, query
+		string).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it matches the
+		<strong>type</strong>, otherwise returns an <code>Error</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsCalendar</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, Calendar)</code>
+		</li>
+		<li>
+			<strong>IsDuration</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, Duration)</code>
+		</li>
+		<li>
+			<strong>IsInstant</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, Instant)</code>
+		</li>
+		<li>
+			<strong>IsPlainDate</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, PlainDate)</code>
+		</li>
+		<li>
+			<strong>IsPlainDateTime</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, PlainDateTime)</code>
+		</li>
+		<li>
+			<strong>IsPlainMonthDay</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, PlainMonthDay)</code>
+		</li>
+		<li>
+			<strong>IsPlainTime</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, PlainTime)</code>
+		</li>
+		<li>
+			<strong>IsPlainYearMonth</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, PlainYearMonth)</code>
+		</li>
+		<li>
+			<strong>IsTimeZone</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, TimeZone)</code>
+		</li>
+		<li>
+			<strong>IsYearWeek</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, YearWeek)</code>
+		</li>
+		<li>
+			<strong>IsZonedDateTime</strong>
+			<code>= operand =&gt; (arg =&gt; Either&lt;Error, ZonedDateTime)</code>
+		</li>
+	</ul>
+</Layout>

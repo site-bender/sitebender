@@ -1,0 +1,59 @@
+---
+import Layout from "../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		<strong>Comparators</strong> are used for validation and conditional display.
+	</p>
+	<p>
+		<strong>Operators</strong> are used for calculations involving numbers (e.g.,
+		add, subtract, sine, mode).
+	</p>
+	<ul>
+		<li>
+			<strong>composeComparators</strong>
+			<code>= operation =&gt; (arg =&gt; Either)</code>
+			<ul>
+				<li>Returns <code>Either&lt;Error, Boolean&gt;</code></li>
+			</ul>
+		</li>
+		<li>
+			<strong>composeOperators</strong>
+			<code>= operation =&gt; (arg =&gt; Either)</code>
+			<ul>
+				<li>
+					Returns <code>Either&lt;Error, T&gt;</code> where
+					<code>T</code> is a number or integer
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<p>These wrap <code>composeComparators</code>:</p>
+	<p><strong>Conditionals</strong> are used for conditional display.</p>
+	<p><strong>Validators</strong> are used to validate form input.</p>
+	<ul>
+		<li>
+			<strong>composeConditional</strong>
+			<code>= operation =&gt; (arg =&gt; Boolean)</code>
+			<ul>
+				<li>Returns <code>Boolean</code></li>
+				<li>
+					Converts <code>Left</code> to <code>false</code> and
+					<code>Right</code> to <code>true</code>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>composeValidator</strong>
+			<code>= operation =&gt; (arg =&gt; Either)</code>
+			<ul>
+				<li>Returns <code>Either&lt;Error, value&gt;</code></li>
+				<li>
+					<code>value</code> can come from <code>arg</code> or any other source (query
+					string, session store, form input)
+				</li>
+			</ul>
+		</li>
+	</ul>
+</Layout>

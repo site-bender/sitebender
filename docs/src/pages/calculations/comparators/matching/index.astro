@@ -1,0 +1,34 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Matches <code>operand</code> against <code>pattern</code> (a
+		<code>RegExp</code> string) and returns a function that takes an optional <code
+			>arg</code
+		> and uses it as the operand or injects a argument from some other source (e.g.,
+		HTML element, query string, session storage).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it matches/does
+		not match the test pattern, otherwise returns an
+		<code>Error</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>DoesNotMatch</strong>
+			<code
+				>= operand =&gt; pattern =&gt; flags =&gt; (arg =&gt; Either&lt;Error,
+				String)</code
+			>
+		</li>
+		<li>
+			<strong>Matches</strong>
+			<code
+				>= operand =&gt; pattern =&gt; flags =&gt; (arg =&gt; Either&lt;Error,
+				String)</code
+			>
+		</li>
+	</ul>
+</Layout>

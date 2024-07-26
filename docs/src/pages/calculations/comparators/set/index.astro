@@ -1,0 +1,54 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Compares <code>operand</code> to <code>test</code> (a <code>Set</code>) and
+		returns a function that takes an optional <code>arg</code> and uses it as the
+		operand or injects a argument from some other source (e.g., HTML element, query
+		string, session storage).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it is disjoint, a
+		subset, a member, etc. of the test set, otherwise returns an
+		<code>Error</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsDisjointSet</strong>
+			<code
+				>= (datatype = "Set") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Set)</code
+			>
+		</li>
+		<li>
+			<strong>IsMember</strong>
+			<code
+				>= (datatype = "Member") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Member)</code
+			>
+		</li>
+		<li>
+			<strong>IsOverlappingSet</strong>
+			<code
+				>= (datatype = "Set") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Set)</code
+			>
+		</li>
+		<li>
+			<strong>IsSubset</strong>
+			<code
+				>= (datatype = "Set") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Set)</code
+			>
+		</li>
+		<li>
+			<strong>IsSuperset</strong>
+			<code
+				>= (datatype = "Set") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Set)</code
+			>
+		</li>
+	</ul>
+</Layout>

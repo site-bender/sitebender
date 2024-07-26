@@ -1,0 +1,330 @@
+---
+import Layout from "../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		<code>datatype</code> defaults to <code>Number</code> but can be
+		<code>Integer</code>. Mixes of integers and floats promote to floats.
+	</p>
+	<p>
+		The <code>operand</code> or operands are used in the calculation. The
+		<strong>return</strong> is a function that takes an optional
+		<code>arg</code> value and can use that in calculating the operand(s). Operands
+		are Operations and can be nested to any depth limited only by memory.
+	</p>
+	<p>
+		These can be composed using <code>composeOperators</code> into a single
+		<code>arg =&gt; Either&lt;Error, value&gt;</code> function.
+	</p>
+	<ul>
+		<li>
+			<strong>AbsoluteValue</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Add</strong>
+			<code
+				>= (datatype = "Number") =&gt; (addends = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcCosine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcHyperbolicCosine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcHyperbolicSine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcHyperbolicTangent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcSine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>ArcTangent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Average</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Ceiling</strong>
+			<code
+				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
+				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Cosecant</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Cosine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Cotangent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Divide</strong>
+			<code
+				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Exponent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Floor</strong>
+			<code
+				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
+				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>HyperbolicCosine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>HyperbolicSine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>HyperbolicTangent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Hypotenuse</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Log</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>LogBaseTwo</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Max</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Mean</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Median</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Min</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Mode</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Modulo</strong>
+			<code
+				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Multiply</strong>
+			<code
+				>= (datatype = "Number") =&gt; (multipliers = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>NaturalLog</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Negate</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Power</strong>
+			<code
+				>= (datatype = "Number") =&gt; base =&gt; exponent =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Reciprocal</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Remainder</strong>
+			<code
+				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Root</strong>
+			<code
+				>= (datatype = "Number") =&gt; radicand =&gt; index =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>RootMeanSquare</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Round</strong>
+			<code
+				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
+				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Secant</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Sign</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Sine</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>StandardDeviation</strong>
+			<code
+				>= (datatype = "Number") =&gt; (operands = []) =&gt; (usePopulation =
+				false) =&gt; (arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Subtract</strong>
+			<code
+				>= (datatype = "Number") =&gt; minuend =&gt; subtrahend =&gt; (arg =&gt;
+				Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Tangent</strong>
+			<code
+				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Number | Integer&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Truncate</strong>
+			<code
+				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
+				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
+			>
+		</li>
+	</ul>
+</Layout>

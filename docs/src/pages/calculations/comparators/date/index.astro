@@ -1,0 +1,52 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Compares <code>operand</code> to <code>test</code> (a <code>Date</code>) and
+		returns a function that takes an optional <code>arg</code> and uses it as the
+		operand or injects a argument from some other source (e.g., HTML element, query
+		string, session storage).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it is
+		before/after/etc. the test date, otherwise returns an
+		<code>Error</code>.
+	</p>
+	<p>
+		<strong>TODO</strong>: <code>DateTime</code> can be a
+		<code>String</code>, a <code>PlainDate</code>, a
+		<code>PlainDateTime</code>, or a <code>ZonedDateTime</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsAfterDate</strong>
+			<code
+				>= (datatype = "Date") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Date)</code
+			>
+		</li>
+		<li>
+			<strong>IsBeforeDate</strong>
+			<code
+				>= (datatype = "Date") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Date)</code
+			>
+		</li>
+		<li>
+			<strong>IsNotAfterDate</strong>
+			<code
+				>= (datatype = "Date") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Date)</code
+			>
+		</li>
+		<li>
+			<strong>IsNotBeforeDate</strong>
+			<code
+				>= (datatype = "Date") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, Date)</code
+			>
+		</li>
+	</ul>
+</Layout>

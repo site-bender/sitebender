@@ -1,0 +1,24 @@
+---
+import Layout from "../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>Can be nested.</p>
+	<ul>
+		<li>
+			<strong>Ternary</strong>
+			<code>= condition =&gt; ifTrue =&gt; ifFalse</code> where:
+			<ul>
+				<li><code>condition</code> is a comparator operation</li>
+				<li>
+					<code>ifTrue</code> and <code>ifFalse</code> are either both operator operations
+					or comparator operations depending on whether called by <code
+						>composeComparators</code
+					> or
+					<code>composeOperators</code>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<p><strong>TODO</strong>: Add switch?</p>
+</Layout>

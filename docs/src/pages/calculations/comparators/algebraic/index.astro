@@ -1,0 +1,33 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Combines comparisons using either Boolean <code>AND</code> or Boolean
+		<code>OR</code> and returns a function that takes an optional
+		<code>arg</code> and uses it as the operand operand or injects a argument from
+		some other source (e.g., HTML element, query string, session storage).
+	</p>
+	<p>
+		When called, the returned function returns the a Boolean if one/all are
+		true, otherwise an <code>Error</code>.
+	</p>
+	<p><strong>TODO</strong>: This needs more testing.</p>
+	<ul>
+		<li>
+			<strong>And</strong>
+			<code
+				>= datatype =&gt; (operands = []) =&gt; (arg =&gt; Either&lt;Error,
+				Boolean&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>Or</strong>
+			<code
+				>= datatype =&gt; (operands = []) =&gt; (arg =&gt; Either&lt;Error,
+				Boolean&gt;)</code
+			>
+		</li>
+	</ul>
+</Layout>

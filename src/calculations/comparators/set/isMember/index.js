@@ -1,0 +1,37 @@
+import Error from "../../../../constructors/Error"
+import isLeft from "../../../../utilities/isLeft"
+import composeComparators from "../../../composers/composeComparators"
+
+const IsMember = op => arg => {
+	const operand = composeComparators(op.operand)(arg)
+	const test = composeComparators(op.test)(arg)
+
+	if (isLeft(operand)) {
+		operand.left.push(test)
+		return operand
+	}
+
+	if (isLeft(test)) {
+		return { left: [operand, ...test.left] }
+	}
+
+	try {
+		const right = new Set(test.right)
+
+		return right.has(operand.right)
+			? operand
+			: {
+					left: [
+						Error(op)("IsMember")(
+							`${JSON.stringify(operand.right)} is not a member of ${JSON.stringify(test.right)}`,
+						),
+					],
+				}
+	} catch (e) {
+		return {
+			left: [Error(op)("IsMember")(`Error creating set: ${e}`)],
+		}
+	}
+}
+
+export default IsMember

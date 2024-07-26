@@ -1,0 +1,32 @@
+import { expect, test } from "vitest"
+
+import Constant from "../../../../injectors/constructors/Constant"
+import IsBoolean from "../constructors/IsBoolean"
+import isBoolean from "."
+
+test("[isBoolean] (calculations::comparators::scalar) returns value when a boolean", () => {
+	expect(isBoolean(IsBoolean(Constant("Boolean")(false)))()).toMatchObject({
+		right: false,
+	})
+})
+
+test("[isBoolean] (calculations::comparators::scalar) returns an error when not a boolean", () => {
+	expect(isBoolean(IsBoolean(Constant("Number")(66.6)))()).toMatchObject({
+		left: [
+			{
+				message: "66.6 is not a boolean value (true/false).",
+				operation: {
+					datatype: "Boolean",
+					operand: {
+						datatype: "Number",
+						tag: "Constant",
+						value: 66.6,
+					},
+					tag: "IsBoolean",
+				},
+				tag: "Error",
+				type: "IsBoolean",
+			},
+		],
+	})
+})

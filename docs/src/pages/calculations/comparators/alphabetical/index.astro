@@ -1,0 +1,47 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Compares <code>operand</code> (a <code>String</code>) to
+		<code>test</code> (a <code>String</code>) and returns a function that takes
+		an optional <code>arg</code> and uses it as the operand or injects a argument
+		from some other source (e.g., HTML element, query string, session storage).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it is
+		before/after/etc. the test string, alphabetically. Otherwise returns an
+		<code>Error</code>.
+	</p>
+	<ul>
+		<li>
+			<strong>IsAfterAlphabetically</strong>
+			<code
+				>= (datatype = "String") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, String&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>IsBeforeAlphabetically</strong>
+			<code
+				>= (datatype = "String") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, String&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>IsNotAfterAlphabetically</strong>
+			<code
+				>= (datatype = "String") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, String&gt;)</code
+			>
+		</li>
+		<li>
+			<strong>IsNotBeforeAlphabetically</strong>
+			<code
+				>= (datatype = "String") =&gt; operand =&gt; test =&gt; (arg =&gt;
+				Either&lt;Error, String&gt;)</code
+			>
+		</li>
+	</ul>
+</Layout>

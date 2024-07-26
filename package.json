@@ -1,14 +1,69 @@
 {
-  "name": "sitebender",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^5.3.1"
-  }
+	"name": "@sitebender/sitebender",
+	"version": "0.1.0",
+	"description": "Full app rendering from simple JSON configuration.",
+	"keywords": [
+		"no-code",
+		"low-code"
+	],
+	"homepage": "https://github.com/site-bender/sitebender",
+	"bugs": {
+		"url": "https://github.com/site-bender/sitebender/issues",
+		"email": "coder@craft-code.dev"
+	},
+	"repository": "github:/site-bender/sitebender",
+	"license": "MIT",
+	"author": "Charles F. Munat <coder@craft-code.dev>",
+	"type": "module",
+	"browser": "./src/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/main.es.js",
+			"require": "./dist/main.cjs.js"
+		}
+	},
+	"main": "./dist/main.cjs.js",
+	"module": "./dist/main.es.js",
+	"typings": "./dist/main.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "pnpm lint:fix && vite build",
+		"bump": "pnpm version patch --force",
+		"bump:major": "pnpm version major --force",
+		"bump:minor": "pnpm version minor --force",
+		"bundle": "spago bundle",
+		"check:exports": "pnpx find-unused-exports",
+		"check:packages": "pnpx npm-check -u",
+		"dep": "pnpm fmt && pnpm lint && pnpm lint:fix && pnpm check:packages && pnpm build && rm -rf .cache .history dist",
+		"dev": "vite",
+		"dev:ps": "spago bundle && vite",
+		"fmt": "pnpm prettier . --write",
+		"lint": "pnpx oxlint@latest && eslint",
+		"lint:fix": "eslint --fix",
+		"preview": "vite preview",
+		"pub": "npm publish --access=public",
+		"push": "git add -A && pnpm bump && git push",
+		"run": "spago run",
+		"start": "vite",
+		"test": "vitest",
+		"test:cov": "vitest --coverage.exclude=src/** --coverage"
+	},
+	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
+		"@vitest/coverage-v8": "^2.0.3",
+		"eslint": "^9.7.0",
+		"eslint-plugin-oxlint": "^0.5.0",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"eslint-plugin-unused-imports": "^4.0.0",
+		"fast-check": "^3.20.0",
+		"jsdom": "^24.1.1",
+		"prettier": "^3.3.3",
+		"temporal-polyfill": "^0.2.5",
+		"vite": "^5.3.4",
+		"vite-plugin-compress": "^2.1.1",
+		"vitest": "^2.0.3",
+		"vitest-localstorage-mock": "^0.1.2"
+	}
 }

@@ -1,0 +1,33 @@
+---
+import Layout from "../../../../layouts/index.astro"
+---
+
+<Layout>
+	<p>
+		Determines whether the passed array is ascending or descending,
+		respectively. Returns a function that takes an optional
+		<code>arg</code> and uses it as the operand or injects a argument from some other
+		source (e.g., HTML element, query string).
+	</p>
+	<p>
+		When called, the returned function returns the operand if it is
+		ascending/descending, otherwise returns an <code>Error</code>.
+	</p>
+	<p><strong>TODO</strong>: Potentially extensible to other iterators.</p>
+	<ul>
+		<li>
+			<strong>IsAscending</strong>
+			<code
+				>= (datatype = "Array") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Array)</code
+			>
+		</li>
+		<li>
+			<strong>IsDescending</strong>
+			<code
+				>= (datatype = "Array") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
+				Array)</code
+			>
+		</li>
+	</ul>
+</Layout>

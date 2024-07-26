@@ -1,0 +1,108 @@
+---
+import Layout from "../../layouts/index.astro"
+---
+
+<Layout>
+	<ul>
+		<li>
+			<strong>Error</strong>
+			<code>= operation =&gt; type =&gt; message =&gt; Error</code>
+			<ul>
+				<li>
+					Used to collect errors in a
+					<code>Left&lt;Array&lt;Error&gt;&gt;</code>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Lookup</strong>
+			<code>= (datatype = "Json") =&gt; id =&gt; value =&gt; Lookup</code>
+			<ul>
+				<li>
+					Creates an HTML <code>data</code> element with the
+					<code>value</code> attribute set to <code>value</code> and a
+					<code>data-type</code> attribute set to the datatype
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>LookupTable</strong>
+			<code>= (datatype = "Json") =&gt; id =&gt; table =&gt; LookupTable</code>
+			<ul>
+				<li>
+					Creates an HTML <code>data</code> element with the
+					<code>value</code> attribute set to the
+					<code>JSON</code> stringified value of the two-dimensional array,
+					<code>table</code>.
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<h3 id="lookup">Lookup</h3>
+	<p>This:</p>
+	<pre
+		data-role="codeBlock"
+		data-info="javascript"
+		class="language-javascript javascript"><code><span class="token function"><span class="token maybe-class-name">Lookup</span></span><span class="token punctuation">(</span><span class="token string">"Number"</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">"baseRate"</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">0.00066</span><span class="token punctuation">)</span>
+</code></pre>
+	<p>Creates this:</p>
+	<pre
+		data-role="codeBlock"
+		data-info="json"
+		class="language-json json"><code><span class="token punctuation">&#123;</span>
+  <span class="token property">"attributes"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"lookup"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"baseRate"</span><span class="token punctuation">,</span>
+    <span class="token property">"value"</span><span class="token operator">:</span> <span class="token number">0.00066</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"dataset"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Number"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"tag"</span><span class="token operator">:</span> <span class="token string">"Data"</span>
+<span class="token punctuation">&#125;</span>
+</code></pre>
+	<p>Which gets rendered to this:</p>
+	<pre
+		data-role="codeBlock"
+		data-info="html"
+		class="language-html html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>data</span>
+  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lookup<span class="token punctuation">"</span></span>
+  <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>baseRate<span class="token punctuation">"</span></span>
+  <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.00066<span class="token punctuation">"</span></span>
+  <span class="token attr-name">data-type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Number<span class="token punctuation">"</span></span>
+<span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>data</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+	<h3 id="lookuptable">LookupTable</h3>
+	<pre
+		data-role="codeBlock"
+		data-info="javascript"
+		class="language-javascript javascript"><code><span class="token function"><span class="token maybe-class-name">LookupTable</span></span><span class="token punctuation">(</span><span class="token string">"Json"</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">"someNumbers"</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">"[[500000,0.94],[750000,0.975],[1000000,0.95]]"</span><span class="token punctuation">)</span>
+</code></pre>
+	<p>Creates this:</p>
+	<pre
+		data-role="codeBlock"
+		data-info="json"
+		class="language-json json"><code><span class="token punctuation">&#123;</span>
+  <span class="token property">"attributes"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"lookup-table"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"someNumbers"</span><span class="token punctuation">,</span>
+    <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"[[500000,0.94],[750000,0.975],[1000000,0.95]]"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"dataset"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Json"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"tag"</span><span class="token operator">:</span> <span class="token string">"Data"</span>
+<span class="token punctuation">&#125;</span>
+</code></pre>
+	<p>Which gets rendered to this:</p>
+	<pre
+		data-role="codeBlock"
+		data-info="html"
+		class="language-html html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>data</span>
+  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lookup-table<span class="token punctuation">"</span></span>
+  <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>someNumbers<span class="token punctuation">"</span></span>
+  <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[[500000,0.94],[750000,0.975],[1000000,0.95]]<span class="token punctuation">"</span></span>
+  <span class="token attr-name">data-type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Json<span class="token punctuation">"</span></span>
+<span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>data</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+</Layout>

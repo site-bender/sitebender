@@ -1,0 +1,19 @@
+---
+const { pathname } = Astro.url
+---
+
+<header>
+	{
+		pathname === "/" ? (
+			<span class="logo">@sitebender</span>
+		) : (
+			<a
+				class="logo"
+				href="/"
+				title="To home page."
+			>
+				@sitebender
+			</a>
+		)
+	}
+</header>
