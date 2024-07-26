@@ -13,7 +13,7 @@ export default defineConfig({
 		sourcemap: true,
 		lib: {
 			entry: path.resolve(__dirname, "src/main.js"),
-			fileName: "sitebender",
+			fileName: "index",
 			formats: ["es", "cjs"],
 		},
 		rollupOptions: {},
