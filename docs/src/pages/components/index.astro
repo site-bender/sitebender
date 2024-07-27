@@ -1,5 +1,8 @@
 ---
 import Layout from "../../layouts/index.astro"
+import CodeBlock from "../../components/CodeBlock/index.astro"
+import * as stringFieldHtml from "../../snippets/html/string-field.md"
+import * as tabularStringFieldHtml from "../../snippets/html/tabular-string-field.md"
 ---
 
 <Layout>
@@ -8,98 +11,63 @@ import Layout from "../../layouts/index.astro"
 		simplifying the input, providing repeatability (DRY), but still permitting
 		extensive configuation.
 	</p>
-	<h3 id="formfield">FormField</h3>
-	<p>
-		<code>FormField</code> components group a <code>Label</code>, a form input
-		of some sort, and an (optional) help box. IDs are automatically generated.
-	</p>
-	<pre
-		data-role="codeBlock"
-		data-info="html"
-		class="language-html html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span>
-  <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_EpUcrcqdpMHcLzwvJsuE2e-wrapper<span class="token punctuation">"</span></span>
-  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-field string-field<span class="token punctuation">"</span></span>
-<span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span>
-    <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_EpUcrcqdpMHcLzwvJsuE2e-label<span class="token punctuation">"</span></span>
-    <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_EpUcrcqdpMHcLzwvJsuE2e<span class="token punctuation">"</span></span>
-  <span class="token punctuation">&gt;</span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span>
-  <span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
-    <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_EpUcrcqdpMHcLzwvJsuE2e<span class="token punctuation">"</span></span>
-    <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span>
-    <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Bob<span class="token punctuation">"</span></span>
-    <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Text<span class="token punctuation">"</span></span>
-  <span class="token punctuation">/&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-	<ul>
-		<li>
-			<strong>CheckboxField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>EmailField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>NumberField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>SelectField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>StringField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>TextField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-	</ul>
-	<h3 id="tabularformfield">TabularFormField</h3>
-	<p>
-		<code>TabularFormField</code> components return a <code>Tr</code> table row with
-		two cells: a <code>Th</code> containing the input's
-		<code>Label</code>, and a <code>Td</code> containing the form input.
-	</p>
-	<pre
-		data-role="codeBlock"
-		data-info="html"
-		class="language-html html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span>
-  <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>income-wrapper<span class="token punctuation">"</span></span>
-  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tabular-form-field dollars<span class="token punctuation">"</span></span>
-<span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_A3UW9FoSLxiwYiCp29Db9A<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span>
-      <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>income-label<span class="token punctuation">"</span></span>
-      <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>income<span class="token punctuation">"</span></span>
-      <span class="token punctuation">&gt;</span></span>Income<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span>
-    <span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_8voTWs6PYLjs58ioz8mwBu<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
-      <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>income<span class="token punctuation">"</span></span>
-      <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>income<span class="token punctuation">"</span></span>
-      <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Number<span class="token punctuation">"</span></span>
-    <span class="token punctuation">/&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-	<ul>
-		<li>
-			<strong>TabularBooleanField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>TabularCheckboxField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-		<li>
-			<strong>TabularNumberField</strong>
-			<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
-		</li>
-	</ul>
+	<section>
+		<h2 id="formfield">FormField</h2>
+		<p>
+			<code>FormField</code> components group a <code>Label</code>, a form input
+			of some sort, and an (optional) help box. IDs are automatically generated.
+		</p>
+		<CodeBlock snippet={stringFieldHtml} />
+		<ul>
+			<li>
+				<strong>CheckboxField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+			<li>
+				<strong>EmailField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+			<li>
+				<strong>NumberField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+			<li>
+				<strong>SelectField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+			<li>
+				<strong>StringField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+			<li>
+				<strong>TextField</strong>
+				<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+			</li>
+		</ul>
+		<section>
+			<h2 id="tabularformfield">TabularFormField</h2>
+			<p>
+				<code>TabularFormField</code> components return a <code>Tr</code> table row
+				with two cells: a <code>Th</code> containing the input's
+				<code>Label</code>, and a <code>Td</code> containing the form input.
+			</p>
+			<CodeBlock
+				snippet={tabularStringFieldHtml}
+				<ul
+			>
+				<li>
+					<strong>TabularBooleanField</strong>
+					<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+				</li>
+				<li>
+					<strong>TabularCheckboxField</strong>
+					<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+				</li>
+				<li>
+					<strong>TabularNumberField</strong>
+					<code>= (field = {}) =&gt; (attributes = {}) =&gt;</code>
+				</li>
+			</CodeBlock>
+		</section>
+	</section>
 </Layout>

@@ -1,1 +1,1 @@
-ignores: ["@astrojs/sitemap"]
+ignores: ["@astrojs/mdx", "@astrojs/sitemap"]

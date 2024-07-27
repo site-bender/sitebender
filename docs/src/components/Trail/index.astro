@@ -21,7 +21,7 @@ const trail = pathname
 
 {
 	path.filter((n) => n).length ? (
-		<section class="breadcrumbs">
+		<nav class="breadcrumbs">
 			<ul class="trail">
 				{trail.map(([href = "/", label]) => (
 					<li>
@@ -30,6 +30,6 @@ const trail = pathname
 				))}
 				<li class="this-page">{segments.at(0)}</li>
 			</ul>
-		</section>
+		</nav>
 	) : undefined
 }

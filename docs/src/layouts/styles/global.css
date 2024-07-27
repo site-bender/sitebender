@@ -5,6 +5,14 @@
 	--step-3: clamp(1.728rem, 1.62rem + 0.54vw, 2.16rem);
 	--step-4: clamp(2.0736rem, 1.944rem + 0.648vw, 2.592rem);
 	--step-5: clamp(2.4883rem, 2.3328rem + 0.7776vw, 3.1104rem);
+	--sb-color-green-shaded: #0e4e09;
+	--sb-color-code: var(--sb-color-green-shaded);
+	--sb-font-code: menlo, consolas, ui-monospace, "Cascadia Code",
+		"Source Code Pro", "DejaVu Sans Mono", monospace;
+}
+
+.sb-sr-only {
+	display: none !important;
 }
 
 html,
@@ -19,7 +27,7 @@ body {
 }
 
 body {
-	background-color: azure;
+	background-color: snow;
 	display: grid;
 	gap: 0;
 	grid-template-rows: min-content min-content 100%;
@@ -46,8 +54,9 @@ a:visited {
 }
 
 header {
-	background-color: hsl(249deg 60% 32%);
-	color: white;
+	background-color: darkslategray;
+	border-bottom: 1px solid gainsboro;
+	color: snow;
 	font-size: var(--step-2, 1.44rem);
 	font-weight: 400;
 	margin: 0;
@@ -66,12 +75,20 @@ a.logo:hover {
 	text-underline-offset: 3px;
 }
 
-h1 {
-	font-size: var(--step-2, 1.44rem);
+h1,
+h2 {
 	font-weight: 400;
 	margin-block: -0.25rem 1rem;
 	margin-inline: 0;
 	padding: 0;
+}
+
+h1 {
+	font-size: var(--step-2, 1.44rem);
+}
+
+h2 {
+	font-size: var(--step-1, 1.2rem);
 }
 
 main {
@@ -123,11 +140,6 @@ ul ul {
 	margin-block-end: 0;
 }
 
-code {
-	color: firebrick;
-	font-size: 1rem;
-}
-
 li {
 	line-height: 1.6;
 }
@@ -143,10 +155,10 @@ p {
 	padding: 0;
 }
 
-section.breadcrumbs {
-	background-color: #eee;
-	border-bottom: 1px solid #ddd;
-	color: #555;
+nav.breadcrumbs {
+	background-color: ghostwhite;
+	border-bottom: 1px solid gainsboro;
+	color: darkslategray;
 	font-size: 1rem;
 	margin: 0;
 	padding-block: 0;
@@ -180,5 +192,36 @@ section.breadcrumbs {
 	content: ">";
 	display: inline-block;
 	padding-inline: 0.5rem 0.75rem;
+	text-align: center;
+}
+
+#sb-editor {
+	border: 1px double gainsboro;
+	min-width: 80lvw;
+}
+
+#sb-editor > div {
+	min-height: 100%;
+}
+
+#sb-editor main {
+	padding: 0;
+}
+
+figure {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-start;
+	margin-block: 1.5rem;
+	margin-inline: 0;
+}
+
+figure img {
+	height: auto;
+	width: 100%;
+}
+
+figcaption {
+	font-size: var(--step-0);
 	text-align: center;
 }
