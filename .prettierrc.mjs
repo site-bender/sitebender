@@ -1,9 +1,13 @@
 /** @type {import("prettier").Config} */
 export default {
-	arrowParens: "avoid",
-	bracketSameLine: false,
-	bracketSpacing: true,
+	plugins: ["prettier-plugin-astro"],
 	overrides: [
+		{
+			files: "*.astro",
+			options: {
+				parser: "astro",
+			},
+		},
 		{
 			files: ["*.md"],
 			options: {
@@ -12,6 +16,9 @@ export default {
 			},
 		},
 	],
+	arrowParens: "avoid",
+	bracketSameLine: false,
+	bracketSpacing: true,
 	proseWrap: "always",
 	quoteProps: "consistent",
 	semi: false,

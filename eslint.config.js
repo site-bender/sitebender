@@ -22,7 +22,7 @@ export default [
 				},
 			],
 		},
-		files: ["src/**/*.js"],
+		files: ["lib/**/*.js"],
 	},
 	oxlint.configs["flat/recommended"], // oxlint should be the last one
 ]

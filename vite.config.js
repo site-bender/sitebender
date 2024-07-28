@@ -9,10 +9,10 @@ export default defineConfig({
 		minify: true,
 		outDir: path.join(__dirname, "dist"),
 		reportCompressedSize: true,
-		root: path.join(__dirname, "src"),
+		root: path.join(__dirname, "lib"),
 		sourcemap: true,
 		lib: {
-			entry: path.resolve(__dirname, "src/main.js"),
+			entry: path.resolve(__dirname, "lib/main.js"),
 			fileName: "index",
 			formats: ["es", "cjs"],
 		},

@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/index.astro"
+import Editor from "../../components/Editor/index.astro"
+import getExampleCode from "../../utilities/getExampleCode"
+
+const glob = import.meta.glob("../../examples/elements/quote/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const { css, html, js } = await getExampleCode(glob)
+---
+
+<Layout>
+	<p>Here be tutorials.</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
+</Layout>

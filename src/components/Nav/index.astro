@@ -1,0 +1,32 @@
+---
+import { readdirSync } from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+
+import toTitleCase from "../../utilities/toTitleCase"
+
+const { pathname } = Astro.url
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path
+	.dirname(__filename)
+	.replace("components/Nav", `pages${pathname}`)
+const folders = readdirSync(path.resolve(__dirname), { withFileTypes: true })
+	.filter((dirent) => dirent.isDirectory())
+	.map((dirent) => dirent.name)
+
+const dir = __dirname.split("pages").at(-1)
+const p = dir.length > 1 ? `${dir}/` : dir
+---
+
+<nav>
+	<ul>
+		{
+			folders.map((folder) => (
+				<li>
+					<a href={`${p}${folder}`}>{toTitleCase(folder)}</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

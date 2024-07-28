@@ -1,0 +1,95 @@
+---
+import CodeBlock from "../../../../components/CodeBlock/index.astro"
+import Layout from "../../../../layouts/index.astro"
+import Editor from "../../../../components/Editor/index.astro"
+import getExampleCode from "../../../../utilities/getExampleCode"
+import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
+import * as add from "../../../../../lib/calculations/operators/constructors/Add?raw"
+
+const glob = import.meta.glob("../../../../examples/calculations/add/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const { css, html, js } = await getExampleCode(glob)
+
+const frag1 = await getMarkdownFromCode(add)
+const frag2 = await getMarkdownFromCode(
+	"const add = operation => (arg? => Either<Array<Error>, result>)",
+)
+---
+
+<Layout>
+	<p>
+		<code>Add</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents an addition operation.
+	</p>
+	<p>
+		The first parameter to <code>Add</code> determines the datatype of the addends:
+		Number (float) or Integer. Because <code>Add</code> is curried, we can create
+		simplify our code by partial application: <code
+			>const AddInt = Add("Integer")</code
+		>. This returns a function that takes the array of addends and returns the
+		configuration object.
+	</p>
+	<p>
+		The second parameter is an array of <strong>operations</strong>, each of
+		which must evaluate to a numerical value. These may be nested operations of
+		any type (add, subtract, etc.), but at the bottom (leaf) level, they must
+		return values. Values are injected using <a href="../../../injectors"
+			>injectors</a
+		>.
+	</p>
+	<Fragment set:html={frag1} />
+	<p>See below for an example.</p>
+	<h2>The <code>add</code> function</h2>
+	<p>
+		We pass our configuration to <a
+			href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		> to return a function that takes an optional argument and returns the calculated
+		value as a Right, <code>&lbrace; right: 42 &rbrace;</code>, or a Left with
+		an array of <a href="/constructors/error"><code>Error</code></a> objects, <code
+			>&lbrace; left: [Error] &rbrace;</code
+		>.
+	</p>
+	<Fragment set:html={frag2} />
+	<p>
+		<code>composeOperators</code> recurses down through the configuration (<code
+			>operation</code
+		>) object, composing the individual operations, each of which returns a
+		function that takes an optional argument and returns a result. <code
+			>composeOperators</code
+		> then returns this composed function.
+	</p>
+	<p>
+		Injectors are not called until this function is run, which makes this lazy
+		evaluation.
+	</p>
+	<p>
+		See the <a href="/injectors">injectors</a> for a complete list of how values
+		may be injected. See the <a href="/calculations/operators"
+			>list of operators</a
+		>
+		for the full range of available mathematical operations.
+		<h2>Example</h2>
+		<p>
+			We can use <a href="/calculations/composers/composeOperators"
+				><code>composeOperators</code></a
+			> to run the addition and calculate the sum. Here we pass three addends. The
+			first is a nested division operation of two constants, the second is a constant,
+			and the third is passed in via the optional argument.
+			<a href="/injectors/constant"><code>Constant</code></a> and a third is passed
+			in as the argument to the function returned from <code
+				>composeOperators</code
+			> using
+			<a href="/injectors/fromArgument"><code>FromArgument</code></a>.
+		</p>
+		<p>Try leaving one of the numbers undefined to see an Error returned.</p>
+		<Editor
+			{css}
+			{html}
+			{js}
+		/>
+	</p>
+</Layout>

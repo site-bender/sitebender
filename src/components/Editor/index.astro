@@ -1,0 +1,65 @@
+---
+const { css, html, js, height = "20rem" } = Astro.props
+---
+
+<section
+	data-css={css}
+	data-html={html}
+	data-js={js}
+	id="sb-editor"
+>
+	<script
+		src="https://flems.io/flems.html"
+		type="text/javascript"
+		charset="utf-8"
+	></script>
+</section>
+<script>
+	const section = document.querySelector("#sb-editor")
+	const data = { ...section.dataset }
+	const css = data.css
+	const html = data.html
+	const js = data.js
+	delete section.dataset.css
+	delete section.dataset.html
+	delete section.dataset.js
+
+	const flems = Flems(section, {
+		files: [
+			{
+				name: "index.js",
+				content: js,
+			},
+			{
+				name: "index.css",
+				content: css,
+			},
+			{
+				name: "index.html",
+				content: html,
+			},
+		],
+		links: [
+			{
+				name: "sitebender",
+				type: "script",
+				url: "https://unpkg.com/@sitebender/sitebender@0.1.6",
+			},
+		],
+		middle: 50,
+		selected: ".js",
+		color: "rgb(38,50,56)",
+		theme: "material",
+		resizeable: true,
+		editable: true,
+		toolbar: true,
+		fileTabs: true,
+		linkTabs: false,
+		shareButton: false,
+		reloadButton: true,
+		console: false,
+		autoReload: true,
+		autoReloadDelay: 400,
+		autoHeight: true,
+	})
+</script>

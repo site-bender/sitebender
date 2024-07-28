@@ -1,6 +1,6 @@
 {
 	"name": "@sitebender/sitebender",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Full app rendering from simple JSON configuration.",
 	"keywords": [
 		"no-code",
@@ -27,30 +27,35 @@
 		"dist"
 	],
 	"scripts": {
+		"astro": "astro",
 		"build": "pnpm lint:fix && vite build",
+		"build:docs": "astro build",
 		"bump": "pnpm version patch --force",
 		"bump:major": "pnpm version major --force",
 		"bump:minor": "pnpm version minor --force",
-		"bundle": "spago bundle",
 		"check:exports": "pnpx find-unused-exports",
 		"check:packages": "pnpx npm-check -u",
 		"dep": "pnpm fmt && pnpm lint && pnpm lint:fix && pnpm check:packages && pnpm build && rm -rf .cache .history dist",
-		"dev": "vite",
-		"dev:ps": "spago bundle && vite",
+		"dev": "astro dev --port 4334",
 		"fmt": "pnpm prettier . --write",
 		"lint": "pnpx oxlint@latest && eslint",
+		"lint:css": "pnpm stylelint \"lib/**/*.css\"",
+		"lint:css:fix": "pnpm stylelint \"lib/**/*.css\" --fix",
 		"lint:fix": "eslint --fix",
 		"preview": "vite preview",
+		"preview:docs": "astro preview",
 		"pub": "npm publish --access=public",
 		"push": "git add -A && pnpm bump && git push",
-		"run": "spago run",
 		"start": "vite",
+		"start:docs": "astro dev",
 		"test": "vitest",
 		"test:cov": "vitest --coverage.exclude=src/** --coverage"
 	},
 	"devDependencies": {
+		"@astrojs/sitemap": "^3.1.6",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
 		"@vitest/coverage-v8": "^2.0.3",
+		"astro": "^4.12.2",
 		"eslint": "^9.7.0",
 		"eslint-plugin-oxlint": "^0.5.0",
 		"eslint-plugin-simple-import-sort": "^12.1.1",
@@ -58,10 +63,20 @@
 		"fast-check": "^3.20.0",
 		"jsdom": "^24.1.1",
 		"prettier": "^3.3.3",
+		"prettier-plugin-astro": "^0.14.1",
+		"rehype-document": "^7.0.3",
+		"rehype-format": "^5.0.0",
+		"rehype-pretty-code": "^0.13.2",
+		"stylelint": "^16.7.0",
+		"stylelint-config-standard": "^36.0.1",
 		"temporal-polyfill": "^0.2.5",
+		"unified": "^11.0.5",
 		"vite": "^5.3.4",
 		"vite-plugin-compress": "^2.1.1",
 		"vitest": "^2.0.3",
 		"vitest-localstorage-mock": "^0.1.2"
+	},
+	"dependencies": {
+		"remark-rehype": "^11.1.0"
 	}
 }
