@@ -24,6 +24,9 @@ const calculate = composeOperators(config)
 if (code) {
 	code.innerHTML = `${JSON.stringify(config, null, 2)}
 
-calculate(21) // ${JSON.stringify(calculate(21))} = (20 / 2) + 11 + 21
+Try (20 / 2) + 11 + 21:
+calculate(21)
+
+This returns: ${JSON.stringify(calculate(21), null, 2)}
 `
 }
