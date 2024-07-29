@@ -20,14 +20,16 @@ const folders = Object.keys(import.meta.glob("../../pages/**"))
 	.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])
 ---
 
-<nav>
-	<ul>
-		{
-			folders.map(([href, label]) => (
-				<li>
-					<a {href}>{label}</a>
-				</li>
-			))
-		}
-	</ul>
-</nav>
+{
+	folders.length ? (
+		<nav>
+			<ul>
+				{folders.map(([href, label]) => (
+					<li>
+						<a {href}>{label}</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	) : undefined
+}
