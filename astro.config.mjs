@@ -1,12 +1,10 @@
 import { defineConfig } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import sitebenderTheme from "./sitebender.theme.dark.json"
-import vercelServerless from "@astrojs/vercel/serverless"
+
+const ignore = []
 
 export default defineConfig({
-	adapter: vercelServerless({
-		imageService: true,
-	}),
 	devToolbar: {
 		enabled: false,
 	},
@@ -22,6 +20,6 @@ export default defineConfig({
 			theme: sitebenderTheme,
 		},
 	},
-	output: "server",
+	output: "static",
 	site: "https://sitebender.org/",
 })
