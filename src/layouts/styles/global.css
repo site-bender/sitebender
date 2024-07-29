@@ -53,6 +53,11 @@ a:visited {
 	color: blueviolet;
 }
 
+dt a:has(code):focus,
+dt a:has(code):hover {
+  color: darkgreen;
+}
+
 header {
 	background-color: darkslategray;
 	border-bottom: 1px solid gainsboro;
@@ -230,8 +235,43 @@ code {
   font-size: 1rem;
 }
 
+code:not(:has(*)) {
+  color: darkgreen;
+  font-weight: bold;
+  display: inline;
+  margin: -3px;
+  padding: 3px;
+}
+
+h1 code {
+  font-size: var(--step-2);
+}
+
+h2 code {
+  font-size: var(--step-1);
+}
+
+dt {
+  margin-block: 0.5rem;
+}
+
+dd {
+  margin-block: 0 1rem;
+  margin-inline: 0;
+}
+
+dd:has(pre),
+dd figure:has(pre),
+dd pre {
+  margin: 0;
+}
+
+section#sb-editor {
+  margin-block-end: 2rem;
+}
+
 [data-rehype-pretty-code-figure] pre {
-  padding-block: 0.25rem;
+  padding-block: 0.5rem;
 }
 
 [data-rehype-pretty-code-figure] code {

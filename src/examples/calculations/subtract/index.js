@@ -1,21 +1,21 @@
 import {
-	Add,
 	composeOperators,
 	Constant,
 	Divide,
 	FromArgument,
+	Subtract,
 } from "@sitebender/sitebender"
 
 const code = document.querySelector("#code-output")
 
-const Sum = Add("Integer")
+const Difference = Subtract("Integer")
 const Quotient = Divide("Integer")
 const Int = Constant("Integer")
 const Arg = FromArgument("Integer")
 
 // Generate an addition with nested division
 // from constants and the passed argument
-const config = Sum([Quotient(Int(20))(Int(2)), Int(11), Arg])
+const config = Difference(Quotient(Int(88))(Int(2)))(Arg)
 
 // Run the calculation returning Either<Error, Integer>
 const calculate = composeOperators(config)
@@ -26,10 +26,10 @@ if (code) {
 
 ${JSON.stringify(config, null, 2)}
 
-Calculate (20 / 2) + 11 + 21:
+Calculate (88 / 2) - 2:
 
-calculate(21)
+calculate(2)
 
-The return value: ${JSON.stringify(calculate(21), null, 2)}
+The return value: ${JSON.stringify(calculate(2), null, 2)}
 `
 }

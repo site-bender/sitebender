@@ -3,58 +3,58 @@ import Layout from "../../../../layouts/index.astro"
 import Editor from "../../../../components/Editor/index.astro"
 import getExampleCode from "../../../../utilities/getExampleCode"
 import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
-import * as add from "../../../../../lib/calculations/operators/constructors/Add?raw"
+import * as multiply from "../../../../../lib/calculations/operators/constructors/Multiply?raw"
 
 const glob1 = import.meta.glob("../../../../examples/calculations/*", {
 	query: "?raw",
 	import: "default",
 })
 
-const glob2 = import.meta.glob("../../../../examples/calculations/add/*", {
+const glob2 = import.meta.glob("../../../../examples/calculations/multiply/*", {
 	query: "?raw",
 	import: "default",
 })
 
 const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
 
-const frag1 = await getMarkdownFromCode(add)
+const frag1 = await getMarkdownFromCode(multiply)
 const frag2 = await getMarkdownFromCode(
-	"const add = operation => (arg? => Either<Array<Error>, result>)",
+	"const multiply = operation => (arg? => Either<Array<Error>, result>)",
 )
 ---
 
 <Layout>
 	<p>
-		<code>Add</code> is a curried constructor used to create a JS/JSON configuration
-		object that represents an <strong>addition operation</strong>.
+		<code>Multiply</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents a <strong>multiplication operation</strong>.
 	</p>
 	<Fragment set:html={frag1} />
 	<p>
-		The first parameter to <code>Add</code> determines the datatype of the return
-		value of the addition operation: <code>Number</code> (float) or <code
+		The first parameter to <code>Multiply</code> determines the datatype of the return
+		value of the multiplication operation: <code>Number</code> (float) or <code
 			>Integer</code
 		>.
 	</p>
 	<p>
 		The second parameter is an array of <strong>operations</strong>, each of
 		which must eventually evaluate to a numerical value. These are the <strong
-			>addends</strong
-		> that will be summed up.
+			>multipliers</strong
+		> that will be multiplied together.
 	</p>
 	<p>
-		The addend operations (add, subtract, etc.) may be nested to any depth, but
-		the bottom (leaf) nodes <strong>must return values</strong>. Values are
+		The multiplier operations (add, subtract, etc.) may be nested to any depth,
+		but the bottom (leaf) nodes <strong>must return values</strong>. Values are
 		injected with <a href="../../../injectors">injectors</a>.
 	</p>
 	<p>
-		Because <code>Add</code> is curried, we can simplify our code by partial application,
-		for example,
-		<code>const Sum = Add("Integer")</code>. This returns a function that takes
-		the array of addend operations and returns an Add configuration for working
-		with integers.
+		Because <code>Multiply</code> is curried, we can simplify our code by partial
+		application, for example,
+		<code>const Product = Multiply("Integer")</code>. This returns a function
+		that takes the array of multiplier operations and returns a Multiply
+		configuration object for working with integers.
 	</p>
 	<p>See below for an example.</p>
-	<h2>The <code>add</code> function</h2>
+	<h2>The <code>multiply</code> function</h2>
 	<p>
 		We pass our configuration object to <a
 			href="/calculations/composers/composeOperators"
@@ -94,12 +94,12 @@ const frag2 = await getMarkdownFromCode(
 			> to create a <code>calculate</code> function. We call the <code
 				>calculate</code
 			> function and pass it an (optional) argument to run our operation and calculate
-			the sum.
+			the product.
 		</p>
 		<p>
-			Here our operation includes three <strong>addends</strong>. The first is a
-			nested division operation of two constants, the second is a constant, and
-			the third value is passed in via the optional argument to <code
+			Here our operation includes three <strong>multipliers</strong>. The first
+			is a nested division operation of two constants, the second is a constant,
+			and the third value is passed in via the optional argument to <code
 				>calculate</code
 			>.
 		</p>

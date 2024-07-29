@@ -1,330 +1,253 @@
 ---
 import Layout from "../../../layouts/index.astro"
+import getMarkdownFromCode from "../../../utilities/getMarkdownFromCode"
+import getExampleCode from "../../../utilities/getExampleCode"
+import Editor from "../../../components/Editor/index.astro"
+
+const glob1 = import.meta.glob("../../../examples/calculations/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const glob2 = import.meta.glob("../../../examples/calculations/add/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
+
+const add = await getMarkdownFromCode("const @@ = datatype => (addends = []) => @@Op")
+const calculate = await getMarkdownFromCode("composeOperators(op) => (arg => Either<Array<Error>, Number | Integer>)")
+const decimals = await getMarkdownFromCode("const @@ = datatype => (decimalPlaces = 0) => operand => @@Op")
+const deviation = await getMarkdownFromCode(`const @@ = datatype => (operands = []) =>
+  (usePopulation = false) => @@Op`)
+const dividend = await getMarkdownFromCode("const @@ = datatype => dividend => divisor => @@Op")
+const generic = await getMarkdownFromCode("const @@ = datatype => operand => @@Op")
+const multiply = await getMarkdownFromCode("const @@ = datatype => (multipliers = []) => @@Op")
+const operands = await getMarkdownFromCode("const @@ = datatype => (operands = []) => @@Op")
+const power = await getMarkdownFromCode("const @@ = datatype => base => exponent => @@Op")
+const root = await getMarkdownFromCode("const @@ = datatype => radicand => index => @@Op")
+const subtract = await getMarkdownFromCode("const @@ = datatype => minuend => subtrahend => @@Op")
 ---
 
 <Layout>
 	<p>
-		<code>datatype</code> defaults to <code>Number</code> but can be
-		<code>Integer</code>. Mixes of integers and floats promote to floats.
+		All operator constructors are <strong>curried</strong>. The first parameter is the
+		<code>datatype</code> returned, which defaults to <code>Number</code> but can be set to <code>Integer</code>. Note:
+		mixes of integers and floats promote to floats.
 	</p>
 	<p>
-		The <code>operand</code> or operands are used in the calculation. The
-		<strong>return</strong> is a function that takes an optional
-		<code>arg</code> value and can use that in calculating the operand(s). Operands
-		are Operations and can be nested to any depth limited only by memory.
+		The remaining parameters are used to configure the <code>operand</code> or operands that will be used in the calculation.
+		In some special cases, they may configure other options such as the number of decimal places.
 	</p>
 	<p>
-		These can be composed using <code>composeOperators</code> into a single
-		<code>arg =&gt; Either&lt;Error, value&gt;</code> function.
+		The <code>operands</code> are themselves operations, which may be nested to any depth; however, the bottom (leaf) nodes
+		must be value <a href="/injectors">injectors</a>.
 	</p>
-	<ul>
-		<li>
-			<strong>AbsoluteValue</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
+	<p>
+		The result returned from the operator functions below is an <code>Operation</code> configuration object. For example:
+	</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
+	<p>
+		This object can be passed to the <a href="/calculations/composers/composeOperators"><code>composeOperators</code></a
+		>
+		function, which recurses through the <code>operations</code> returning and composing the mathematical functions and injectors.
+	</p>
+	<p>
+		The function returned from <code>composeOperators</code> takes an optional numerical argument and then runs the calculation
+		and returns either a <code>Left&lt;Array&lt;Error&gt;&gt;</code> if the calculation failed, or a
+		<code>Right&lt;Number | Integer&gt;</code>, e.g., <code>&lbrace; right: 42 &rbrace;</code>, if it succeeded. See the
+		above example.
+	</p>
+	<p>
+		We can use <code>composeOperators</code> to create the composed "calculate" function, as below. When we call <code
+			>calculate</code
+		>
+		with an optional argument, it does the calculation and returns an <code>Either</code> result, as above.
+	</p>
+	<div set:html={calculate} />
+	<h2>Operator constructors</h2>
+	<dl>
+		<dt><a href="/calculations/operators/absoluteValue"><code>AbsoluteValue</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "AbsoluteValue")} />
+		<dd>
+			The function this operation creates will return the absolute value of whatever the operand evaluates to. For
+			example, if the operand evaluates to
+			<code>&lbrace; right: -7 &rbrace;</code>, then the function will return <code>&lbrace; right: 7 &rbrace;</code>.
+		</dd>
+		<dt><a href="/calculations/operators/add"><code>Add</code></a></dt>
+		<dd set:html={add.replace(/@@/g, "Add")} />
+		<dd>
+			The function this operation creates will evaluate the operands and then sum the resulting numbers together and
+			return the result. For example, if the operands evaluate to <code
+				>[&lbrace; right: 2 &rbrace;,&lbrace; right: 2 &rbrace;]</code
 			>
-		</li>
-		<li>
-			<strong>Add</strong>
-			<code
-				>= (datatype = "Number") =&gt; (addends = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcCosine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcHyperbolicCosine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcHyperbolicSine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcHyperbolicTangent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcSine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>ArcTangent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Average</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Ceiling</strong>
-			<code
-				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
-				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Cosecant</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Cosine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Cotangent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Divide</strong>
-			<code
-				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Exponent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Floor</strong>
-			<code
-				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
-				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>HyperbolicCosine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>HyperbolicSine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>HyperbolicTangent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Hypotenuse</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Log</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>LogBaseTwo</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Max</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Mean</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Median</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Min</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Mode</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Modulo</strong>
-			<code
-				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Multiply</strong>
-			<code
-				>= (datatype = "Number") =&gt; (multipliers = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>NaturalLog</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Negate</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Power</strong>
-			<code
-				>= (datatype = "Number") =&gt; base =&gt; exponent =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Reciprocal</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Remainder</strong>
-			<code
-				>= (datatype = "Number") =&gt; dividend =&gt; divisor =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Root</strong>
-			<code
-				>= (datatype = "Number") =&gt; radicand =&gt; index =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>RootMeanSquare</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Round</strong>
-			<code
-				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
-				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Secant</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Sign</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Sine</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>StandardDeviation</strong>
-			<code
-				>= (datatype = "Number") =&gt; (operands = []) =&gt; (usePopulation =
-				false) =&gt; (arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Subtract</strong>
-			<code
-				>= (datatype = "Number") =&gt; minuend =&gt; subtrahend =&gt; (arg =&gt;
-				Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Tangent</strong>
-			<code
-				>= (datatype = "Number") =&gt; operand =&gt; (arg =&gt; Either&lt;Error,
-				Number | Integer&gt;)</code
-			>
-		</li>
-		<li>
-			<strong>Truncate</strong>
-			<code
-				>= (datatype = "Number") =&gt; (decimalPlaces = 0) =&gt; operand =&gt;
-				(arg =&gt; Either&lt;Error, Number | Integer&gt;)</code
-			>
-		</li>
-	</ul>
+			then the function will return <code>&lbrace; right: 4 &rbrace;</code>.
+		</dd>
+		<dt><a href="/calculations/operators/arcCosine"><code>ArcCosine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcCosine")} />
+		<dt><a href="/calculations/operators/arcHyperbolicCosine"><code>ArcHyperbolicCosine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicCosine")} />
+		<dt><a href="/calculations/operators/arcHyperbolicSine"><code>ArcHyperbolicSine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicSine")} />
+		<dt><a href="/calculations/operators/arcHyperbolicTangent"><code>ArcHyperbolicTangent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicTangent")} />
+		<dt><a href="/calculations/operators/arcSine"><code>ArcSine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcSine")} />
+		<dt><a href="/calculations/operators/arcTangent"><code>ArcTangent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "ArcTangent")} />
+		<dt><a href="/calculations/operators/average"><code>Average</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Average")} />
+		<dd>
+			The function this operation creates will evaluate the operands and sum the resulting numbers together, then divide
+			that number by the number of operands and return the result. For example, if the operands evaluate to <code
+				>[&lbrace; right: 5 &rbrace;,&lbrace; right: 9 &rbrace;]</code
+			> then the function will return <code>&lbrace; right: 7 &rbrace;</code>.
+		</dd>
+		<dt><a href="/calculations/operators/ceiling"><code>Ceiling</code></a></dt>
+		<dd set:html={decimals.replace(/@@/g, "Ceiling")} />
+		<dd>
+			<code>decimalPlaces</code> permits returning the ceiling of a <code>Number</code> to the specified decimal places.
+			You can also partially apply this constructor, e.g., <code>const Ceil2 = Ceiling()(2)</code> (<code>datatype</code
+			> defaults to <code>Number</code>).
+		</dd>
+		<dd>
+			Now you can use this partially-applied function to generate the Ceiling operation: <code
+				>const ceilingOp = Ceil2(Constant()(5.5555))</code
+			> which will return <code>&lbrace; right: 5.56 &rbrace;</code> when evaluated in a calculation.
+		</dd>
+		<dt><a href="/calculations/operators/cosecant"><code>Cosecant</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Cosecant")} />
+		<dt><a href="/calculations/operators/cosine"><code>Cosine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Cosine")} />
+		<dt><a href="/calculations/operators/cotangent"><code>Cotangent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Cotangent")} />
+		<dt><a href="/calculations/operators/divide"><code>Divide</code></a></dt>
+		<dd set:html={dividend.replace(/@@/g, "Divide")} />
+		<dd>
+			The <code>divisor</code> is divided into the <code>dividend</code> to return the <code>quotient</code>. For
+			example, if <code>divisor = 2</code> and <code>dividend = 12</code> then the quotient is <code>6</code>
+			because <code>12 / 2 === 6</code>.
+		</dd>
+		<dt><a href="/calculations/operators/exponent"><code>Exponent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Exponent")} />
+		<dt><a href="/calculations/operators/floor"><code>Floor</code></a></dt>
+		<dd set:html={decimals.replace(/@@/g, "Floor")} />
+		<dd>
+			<code>decimalPlaces</code> permits returning the floor of a <code>Number</code> to the specified decimal places. You
+			can also partially apply this constructor, e.g., <code>const Floor2 = Floor()(2)</code> (<code>datatype</code> defaults
+			to <code>Number</code>).
+		</dd>
+		<dd>
+			Now you can use this partially-applied function to generate the Floor operation: <code
+				>const floorOp = Floor2(Constant()(5.5555))</code
+			> which will return <code>&lbrace; right: 5.55 &rbrace;</code> when evaluated in a calculation.
+		</dd>
+		<dt><a href="/calculations/operators/hyperbolicCosine"><code>HyperbolicCosine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "HyperbolicCosine")} />
+		<dt><a href="/calculations/operators/hyperbolicSine"><code>HyperbolicSine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "HyperbolicSine")} />
+		<dt><a href="/calculations/operators/hyperbolicTangent"><code>HyperbolicTangent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "HyperbolicTangent")} />
+		<dt><a href="/calculations/operators/hypotenuse"><code>Hypotenuse</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Hypotenuse")} />
+		<dt><a href="/calculations/operators/log"><code>Log</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Log")} />
+		<dt><a href="/calculations/operators/logBaseTwo"><code>LogBaseTwo</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "LogBaseTwo")} />
+		<dt><a href="/calculations/operators/max"><code>Max</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Max")} />
+		<dt><a href="/calculations/operators/mean"><code>Mean</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Mean")} />
+		<dd>
+			<code>Mean</code> is the same as <code>Average</code> above.
+		</dd>
+		<dt><a href="/calculations/operators/median"><code>Median</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Median")} />
+		<dt><a href="/calculations/operators/min"><code>Min</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Min")} />
+		<dt><a href="/calculations/operators/mode"><code>Mode</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "Mode")} />
+		<dt><a href="/calculations/operators/modulo"><code>Modulo</code></a></dt>
+		<dd set:html={dividend.replace(/@@/g, "Modulo")} />
+		<dd>
+			The <code>divisor</code> is divided into the <code>dividend</code> to return the <code>modulus</code>. For
+			example, if <code>divisor = 2</code> and <code>dividend = 12</code> then the quotient is <code>6</code>
+			because <code>12 / 2 === 6</code>.
+		</dd>
+		<dt><a href="/calculations/operators/multiply"><code>Multiply</code></a></dt>
+		<dd set:html={multiply.replace(/@@/g, "Multiply")} />
+		<dt><a href="/calculations/operators/naturalLog"><code>NaturalLog</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "NaturalLog")} />
+		<dt><a href="/calculations/operators/negate"><code>Negate</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Negate")} />
+		<dt><a href="/calculations/operators/power"><code>Power</code></a></dt>
+		<dd set:html={power.replace(/@@/g, "Power")} />
+		<dt><a href="/calculations/operators/reciprocal"><code>Reciprocal</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Reciprocal")} />
+		<dt><a href="/calculations/operators/remainder"><code>Remainder</code></a></dt>
+		<dd set:html={dividend.replace(/@@/g, "Remainder")} />
+		<dt><a href="/calculations/operators/root"><code>Root</code></a></dt>
+		<dd set:html={root.replace(/@@/g, "Root")} />
+		<dd>
+			The <code>radicand</code> is the number for which we want the root, and the
+			<code>index</code> is the degree of the root. For example, if <code>radicand = 125</code>
+			and <code>index = 3</code>, then the result is <code>5</code> because <code>5 * 5 * 5 === 125</code>. Put another
+			way, the cube root of 125 is 5.
+		</dd>
+		<dt><a href="/calculations/operators/rootMeanSquare"><code>RootMeanSquare</code></a></dt>
+		<dd set:html={operands.replace(/@@/g, "RootMeanSquare")} />
+		<dt><a href="/calculations/operators/round"><code>Round</code></a></dt>
+		<dd set:html={decimals.replace(/@@/g, "Round")} />
+		<dd>
+			<code>decimalPlaces</code> permits returning the <code>Number</code> rounded to the specified decimal places. You can
+			also partially apply this constructor, e.g., <code>const Round2 = Round()(2)</code> (<code>datatype</code> defaults
+			to <code>Number</code>).
+		</dd>
+		<dd>
+			Now you can use this partially-applied function to generate the Round operation: <code
+				>const roundOp = Round2(Constant()(5.5555))</code
+			> which will return <code>&lbrace; right: 5.56 &rbrace;</code> when evaluated in a calculation. (<code
+				>5.5545</code
+			> will round to <code>5.55</code>.)
+		</dd>
+		<dt><a href="/calculations/operators/secant"><code>Secant</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Secant")} />
+		<dt><a href="/calculations/operators/sign"><code>Sign</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Sign")} />
+		<dt><a href="/calculations/operators/sine"><code>Sine</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Sine")} />
+		<dt><a href="/calculations/operators/standardDeviation"><code>StandardDeviation</code></a></dt>
+		<dd set:html={deviation.replace(/@@/g, "StandardDeviation")} />
+		<dd>
+			<code>usePopulation</code> permits calculation of the standard deviation from the mean (the default) or population
+			standard deviation from the mean.
+		</dd>
+		<dt><a href="/calculations/operators/subtract"><code>Subtract</code></a></dt>
+		<dd set:html={subtract.replace(/@@/g, "Subtract")} />
+		<dd>
+			The <code>subtrahend</code> is subtracted from the <code>minuend</code> to return the <code>difference</code>. For
+			example, if <code>minuend = 11</code> and <code>subtrahend = 7</code> then the difference is
+			<code>4</code> because <code>11 - 7 === 4</code>
+		</dd>
+		<dt><a href="/calculations/operators/tangent"><code>Tangent</code></a></dt>
+		<dd set:html={generic.replace(/@@/g, "Tangent")} />
+		<dt><a href="/calculations/operators/truncate"><code>Truncate</code></a></dt>
+		<dd set:html={decimals.replace(/@@/g, "Truncate")} />
+		<dd>
+			<code>decimalPlaces</code> permits returning the truncation of a <code>Number</code> to the specified decimal places.
+			You can also partially apply this constructor, e.g., <code>const Trunc2 = Truncate()(2)</code> (<code
+				>datatype</code
+			> defaults to <code>Number</code>).
+		</dd>
+		<dd>
+			Now you can use this partially-applied function to generate the Truncate operation: <code
+				>const truncOp = Trunc2(Constant()(-5.5555))</code
+			> which will return <code>&lbrace; right: -5.56 &rbrace;</code> when evaluated in a calculation.
+		</dd>
+	</dl>
 </Layout>

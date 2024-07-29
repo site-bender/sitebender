@@ -3,58 +3,60 @@ import Layout from "../../../../layouts/index.astro"
 import Editor from "../../../../components/Editor/index.astro"
 import getExampleCode from "../../../../utilities/getExampleCode"
 import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
-import * as add from "../../../../../lib/calculations/operators/constructors/Add?raw"
+import * as subtract from "../../../../../lib/calculations/operators/constructors/Subtract?raw"
 
 const glob1 = import.meta.glob("../../../../examples/calculations/*", {
 	query: "?raw",
 	import: "default",
 })
 
-const glob2 = import.meta.glob("../../../../examples/calculations/add/*", {
+const glob2 = import.meta.glob("../../../../examples/calculations/subtract/*", {
 	query: "?raw",
 	import: "default",
 })
 
 const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
 
-const frag1 = await getMarkdownFromCode(add)
+const frag1 = await getMarkdownFromCode(subtract)
 const frag2 = await getMarkdownFromCode(
-	"const add = operation => (arg? => Either<Array<Error>, result>)",
+	"const subtract = operation => (arg? => Either<Array<Error>, result>)",
 )
 ---
 
 <Layout>
 	<p>
-		<code>Add</code> is a curried constructor used to create a JS/JSON configuration
-		object that represents an <strong>addition operation</strong>.
+		<code>Subtract</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents a <strong>subtraction operation</strong>.
 	</p>
 	<Fragment set:html={frag1} />
 	<p>
-		The first parameter to <code>Add</code> determines the datatype of the return
-		value of the addition operation: <code>Number</code> (float) or <code
+		The first parameter to <code>Subtract</code> determines the datatype of the return
+		value of the subtraction operation: <code>Number</code> (float) or <code
 			>Integer</code
 		>.
 	</p>
 	<p>
-		The second parameter is an array of <strong>operations</strong>, each of
-		which must eventually evaluate to a numerical value. These are the <strong
-			>addends</strong
-		> that will be summed up.
+		The second parameter is the <code>minuend</code>; the third is the <code
+			>subtrahend</code
+		>. Both are <strong>operations</strong>, which must eventually evaluate to
+		values. The subtrahend will eventually be subtracted from the minuend to
+		produce the <strong>difference</strong> (result).
 	</p>
 	<p>
-		The addend operations (add, subtract, etc.) may be nested to any depth, but
-		the bottom (leaf) nodes <strong>must return values</strong>. Values are
-		injected with <a href="../../../injectors">injectors</a>.
+		The minuend and subtrahend operations (multiply, subtract, etc.) may be
+		nested to any depth, but the bottom (leaf) nodes <strong
+			>must return values</strong
+		>. Values are injected with <a href="../../../injectors">injectors</a>.
 	</p>
 	<p>
-		Because <code>Add</code> is curried, we can simplify our code by partial application,
-		for example,
-		<code>const Sum = Add("Integer")</code>. This returns a function that takes
-		the array of addend operations and returns an Add configuration for working
-		with integers.
+		Because <code>Subtract</code> is curried, we can simplify our code by partial
+		application, for example,
+		<code>const Quotient = Subtract("Integer")</code>. This returns a function
+		that takes the minuend and subtrahend operations and returns a Subtract
+		configuration for working with integers.
 	</p>
 	<p>See below for an example.</p>
-	<h2>The <code>add</code> function</h2>
+	<h2>The <code>subtract</code> function</h2>
 	<p>
 		We pass our configuration object to <a
 			href="/calculations/composers/composeOperators"
@@ -94,20 +96,15 @@ const frag2 = await getMarkdownFromCode(
 			> to create a <code>calculate</code> function. We call the <code
 				>calculate</code
 			> function and pass it an (optional) argument to run our operation and calculate
-			the sum.
+			the difference.
 		</p>
 		<p>
-			Here our operation includes three <strong>addends</strong>. The first is a
-			nested division operation of two constants, the second is a constant, and
-			the third value is passed in via the optional argument to <code
-				>calculate</code
-			>.
-		</p>
-		<p>
-			The leaf nodes are either constants (using <a href="/injectors/constant"
-				><code>Constant</code></a
-			>) or a value passed directly to to the <code>calculate</code> function (using
-			<a href="/injectors/fromArgument"><code>FromArgument</code></a>).
+			Here our minuend operation is a nested division operation of two constants
+			(using <a href="/injectors/constant"><code>Constant</code></a>). Our
+			subtrahend is also an operation that returns the argument passed to the
+			composed function (using <a href="/injectors/fromArgument"
+				><code>FromArgument</code></a
+			>).
 		</p>
 		<p>Try leaving one of the numbers undefined to see an Error returned.</p>
 		<Editor
