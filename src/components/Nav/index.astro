@@ -6,6 +6,7 @@ import { fileURLToPath } from "url"
 import toTitleCase from "../../utilities/toTitleCase"
 
 const { pathname } = Astro.url
+const path = pathname.replace(/\/$/, "")
 
 const folders = Object.keys(import.meta.glob("../../pages/**"))
 	.map(s => s.substring(11))
@@ -13,7 +14,7 @@ const folders = Object.keys(import.meta.glob("../../pages/**"))
 	.filter(s => {
 		const i = (s || "/").lastIndexOf("/")
 
-		return (s.substring(0, i) || "/") === pathname
+		return s.substring(0, i) === path
 	})
 	.filter(f => f)
 	.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])

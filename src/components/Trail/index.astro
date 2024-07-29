@@ -4,23 +4,18 @@ import toTitleCase from "../../utilities/toTitleCase"
 const { segments = [] } = Astro.props
 const { pathname } = Astro.url
 
-const path = pathname.split("/")
+const path = pathname.replace(/\/$/, "").split("/")
 const trail = pathname
 	.split("/")
 	.reduce(
-		(out, seg) => [
-			...out,
-			seg
-				? [(out.at(-1).at(0) || "") + "/" + seg, toTitleCase(seg)]
-				: [undefined, "Home"],
-		],
+		(out, seg) => [...out, seg ? [(out.at(-1).at(0) || "") + "/" + seg, toTitleCase(seg)] : [undefined, "Home"]],
 		[],
 	)
 	.slice(0, -1)
 ---
 
 {
-	path.filter((n) => n).length ? (
+	path.filter(n => n).length ? (
 		<nav class="breadcrumbs">
 			<ul class="trail">
 				{trail.map(([href = "/", label]) => (
