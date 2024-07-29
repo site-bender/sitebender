@@ -7,26 +7,24 @@ import toTitleCase from "../../utilities/toTitleCase"
 
 const { pathname } = Astro.url
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = `${__filename.split("/sitebender")[0]}/sitebender/src/pages`
-const folders = readdirSync(path.resolve(`${__dirname}${pathname}`), {
-	withFileTypes: true,
-})
-	.filter(dirent => dirent.isDirectory())
-	.map(dirent => dirent.name)
+const folders = Object.keys(import.meta.glob("../../pages/**"))
+	.map(s => s.substring(11))
+	.map(s => s.replace(/\/index.astro$/, ""))
+	.filter(s => {
+		const i = (s || "/").lastIndexOf("/")
 
-const dir = __dirname.split("pages").at(-1)
-const p = dir.length > 1 ? `${dir}/` : dir
-
-console.log("\nfolders", JSON.stringify(folders, null, 2))
+		return (s.substring(0, i) || "/") === pathname
+	})
+	.filter(f => f)
+	.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])
 ---
 
 <nav>
 	<ul>
 		{
-			folders.map(folder => (
+			folders.map(([href, label]) => (
 				<li>
-					<a href={`${p}${folder}`}>{toTitleCase(folder)}</a>
+					<a {href}>{label}</a>
 				</li>
 			))
 		}
