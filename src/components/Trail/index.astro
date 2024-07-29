@@ -5,8 +5,7 @@ const { segments = [] } = Astro.props
 const { pathname } = Astro.url
 
 const path = pathname.replace(/\/$/, "").split("/")
-const trail = pathname
-	.split("/")
+const trail = path
 	.reduce(
 		(out, seg) => [...out, seg ? [(out.at(-1).at(0) || "") + "/" + seg, toTitleCase(seg)] : [undefined, "Home"]],
 		[],
