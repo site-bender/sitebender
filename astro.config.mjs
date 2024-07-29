@@ -20,6 +20,7 @@ export default defineConfig({
 			theme: sitebenderTheme,
 		},
 	},
+	outDir: "build",
 	output: "static",
 	site: "https://sitebender.org/",
 })
