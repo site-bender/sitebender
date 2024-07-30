@@ -1,0 +1,121 @@
+---
+import Layout from "../../../../layouts/index.astro"
+import Editor from "../../../../components/Editor/index.astro"
+import getExampleCode from "../../../../utilities/getExampleCode"
+import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
+import * as hyperbolicSine from "../../../../../lib/calculations/operators/constructors/HyperbolicSine?raw"
+
+const glob1 = import.meta.glob("../../../../examples/calculations/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const glob2 = import.meta.glob(
+	"../../../../examples/calculations/hyperbolicSine/*",
+	{
+		query: "?raw",
+		import: "default",
+	},
+)
+
+const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
+
+const frag1 = await getMarkdownFromCode(hyperbolicSine)
+const frag2 = await getMarkdownFromCode(
+	"const hyperbolicSine = operation => (arg? => Either<Array<Error>, result>)",
+)
+---
+
+<Layout>
+	<p>
+		<code>HyperbolicSine</code> is a curried constructor used to create a JS/JSON
+		configuration object that represents an <a
+			href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sinh"
+			rel="external"
+			>hyperbolic sine operation</a
+		>.
+	</p>
+	<Fragment set:html={frag1} />
+	<p>
+		The first parameter to <code>HyperbolicSine</code> determines the datatype of
+		the return value of the hyperbolic sine operation: <code>Number</code>
+		(float) or
+		<code>Integer</code>.
+	</p>
+	<p>
+		The second parameter is an <strong>operation</strong> that must eventually evaluate
+		to a numerical value. This is the <strong>operand</strong> for which we will
+		calculate the hyperbolic sine.
+	</p>
+	<p>
+		The operand operation (add, subtract, etc.) may include nested operations to
+		any depth, but the bottom (leaf) nodes <strong>must return values</strong>.
+		Values are injected with <a href="../../../injectors">injectors</a>.
+	</p>
+	<p>
+		Because <code>HyperbolicSine</code> is curried, we can simplify our code by partial
+		application, for example,
+		<code>const HSin = HyperbolicSine("Number")</code>. This returns a function
+		that takes the operand operation and returns an HyperbolicSine configuration
+		object for working with floating point numbers.
+	</p>
+	<p>See below for an example.</p>
+	<h2>The <code>hyperbolicSine</code> function</h2>
+	<p>
+		We pass our configuration object to <a
+			href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		>, which composes the operations and returns a single function. This
+		function takes an optional argument and returns the result of the
+		calculation as a <code>Right</code>, e.g., <code
+			>&lbrace; right: 42 &rbrace;</code
+		>, or a <code>Left</code> with an array of <a href="/constructors/error"
+			><code>Error</code></a
+		> objects,
+		<code>&lbrace; left: [Error] &rbrace;</code>.
+	</p>
+	<Fragment set:html={frag2} />
+	<p>
+		<code>composeOperators</code> works by recursing down through the
+		<code>operation</code> object, calling the correct operator function based on
+		the <code>tag</code> (e.g., "HyperbolicSine"), and composing the functions returned.
+		<code>composeOperators</code> then returns this composed function. See <a
+			href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		> for a more detailed explanation.
+	</p>
+	<p>
+		The injectors are not called until this composed <code>calculate</code> function
+		is run. Hence, evaluation is lazy: the values are not injected until the last
+		moment.
+	</p>
+	<p>
+		See the <a href="/injectors">injectors</a> for a complete list of how values
+		may be injected. See the <a href="/calculations/operators"
+			>list of operators</a
+		>
+		for the full range of available mathematical operations.
+	</p>
+	<h2>Example</h2>
+	<p>
+		We use <a href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		> to create a <code>calculate</code> function, passing it our <code
+			>HyperbolicSine</code
+		> operation object. We call the <code>calculate</code> function and pass it an
+		(optional) argument to run our operation(s) and calculate the product.
+	</p>
+	<p>
+		Here our operation includes an <strong>operand</strong> in which the value is
+		passed in via the optional argument to <code>calculate</code>. This is done
+		using <a href="/injectors/fromArgument"><code>FromArgument</code></a>.
+	</p>
+	<p>
+		Try leaving one of the numbers undefined to see an <code>Error</code> returned.
+	</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
+</Layout>

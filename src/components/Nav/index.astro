@@ -30,21 +30,29 @@ const folders = mapFolders(children.length ? children : getChildren(parent))
 
 {
 	folders.length ? (
-		<nav>
-			<ul>
-				{folders.map(([href, label]) =>
-					href === pathname ? (
-						<li>
-							<span class="this-page">{label}</span>
-						</li>
-					) : (
-						<li>
-							<a {href}>{label}</a>
-							{href === pathname}
-						</li>
-					),
-				)}
-			</ul>
-		</nav>
+		<details
+			class="nav"
+			open
+		>
+			<summary>
+				<strong>Navigation</strong>
+			</summary>
+			<nav>
+				<ul>
+					{folders.map(([href, label]) =>
+						href === pathname ? (
+							<li>
+								<span class="this-page">{label}</span>
+							</li>
+						) : (
+							<li>
+								<a {href}>{label}</a>
+								{href === pathname}
+							</li>
+						),
+					)}
+				</ul>
+			</nav>
+		</details>
 	) : undefined
 }

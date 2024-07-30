@@ -105,21 +105,41 @@ main {
 	padding-inline: 3dvw;
 }
 
+details.nav summary {
+  display: none;
+}
+
 @media (width <= 48rem) {
   main {
     grid-template:
       "nav" min-content
       "article" auto / 1fr;
+    padding-inline: 3dvw;
+  }
+
+  .nav nav {
+    margin-inline-start: 5lvw;
+  }
+
+  details.nav {
+    margin-block-end: 2rem;
+  }
+
+  details.nav summary {
+    list-style-position: inside;
+    display: list-item;
+    font-size: var(--step-1);
+    margin-block-end: 0.5rem;
   }
 }
 
-main > nav {
-	display: none;
+main > details {
 	grid-area: nav;
+	display: none;
 	margin-inline-end: 0;
 }
 
-main > nav:has(li) {
+main > details:has(li) {
 	display: unset;
 	margin-inline-end: 4rem;
 }
@@ -217,6 +237,15 @@ dt a:has(code):hover {
 	display: inline-block;
 	padding-inline: 0.5rem 0.75rem;
 	text-align: center;
+}
+
+span.this-page {
+	color: firebrick;
+  font-weight: 500;
+}
+
+li:has(span.this-page) {
+  list-style-type: square;
 }
 
 #sb-editor {
