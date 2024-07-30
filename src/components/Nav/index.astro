@@ -7,13 +7,9 @@ const pathPattern = /^..\/..\/pages(.+)\/index.astro$/
 const path = pathname.replace(/\/$/, "")
 const parent = path.substring(0, path.lastIndexOf("/"))
 
-console.log("\n\npath parent", path, parent)
-
 const dirs = Object.keys(import.meta.glob("../../pages/**")).map(
 	s => s.match(pathPattern)?.[1],
 )
-
-console.log("\n\ndirs", dirs)
 
 const getChildren = p =>
 	dirs
@@ -25,8 +21,6 @@ const getChildren = p =>
 		.filter(f => f)
 
 const children = getChildren(path)
-
-console.log("\n\nchildren", children)
 
 const mapFolders = paths =>
 	paths.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])
