@@ -13,7 +13,7 @@ const Int = Constant("Integer")
 
 // Generate a population standard deviation operation
 // from constants
-const config = Psd([Int(5), Int(9), Int(7), Int(13), Int(11)])
+const config = Psd([Int(5), Int(9), Int(7), Int(13), Int(11), Int(13)])
 
 // Generate the calculate function by passing
 // the operation object to composeOperators
