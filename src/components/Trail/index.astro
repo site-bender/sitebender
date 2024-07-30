@@ -7,7 +7,12 @@ const { pathname } = Astro.url
 const path = pathname.replace(/\/$/, "").split("/")
 const trail = path
 	.reduce(
-		(out, seg) => [...out, seg ? [(out.at(-1).at(0) || "") + "/" + seg, toTitleCase(seg)] : [undefined, "Home"]],
+		(out, seg) => [
+			...out,
+			seg
+				? [(out.at(-1).at(0) || "") + "/" + seg, toTitleCase(seg)]
+				: [undefined, "Home"],
+		],
 		[],
 	)
 	.slice(0, -1)
@@ -22,7 +27,6 @@ const trail = path
 						<a {href}>{label}</a>
 					</li>
 				))}
-				<li class="this-page">{segments.at(0)}</li>
 			</ul>
 		</nav>
 	) : undefined

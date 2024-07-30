@@ -17,7 +17,8 @@ const Arg = FromArgument("Integer")
 // from constants and the passed argument
 const config = Sum([Quotient(Int(20))(Int(2)), Int(11), Arg])
 
-// Run the calculation returning Either<Error, Integer>
+// Generate the calculate function by passing
+// the operation object to composeOperators
 const calculate = composeOperators(config)
 
 // Show the config object and the sum

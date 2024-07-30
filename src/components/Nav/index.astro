@@ -2,29 +2,54 @@
 import toTitleCase from "../../utilities/toTitleCase"
 
 const { pathname } = Astro.url
+
+const pathPattern = /^..\/..\/pages(.+)\/index.astro$/
 const path = pathname.replace(/\/$/, "")
+const parent = path.substring(0, path.lastIndexOf("/"))
 
-const folders = Object.keys(import.meta.glob("../../pages/**"))
-	.map(s => s.substring(11))
-	.map(s => s.replace(/\/index.astro$/, ""))
-	.filter(s => {
-		const i = (s || "/").lastIndexOf("/")
+console.log("\n\npath parent", path, parent)
 
-		return s.substring(0, i) === path
-	})
-	.filter(f => f)
-	.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])
+const dirs = Object.keys(import.meta.glob("../../pages/**")).map(
+	s => s.match(pathPattern)?.[1],
+)
+
+console.log("\n\ndirs", dirs)
+
+const getChildren = p =>
+	dirs
+		.filter((s = "/") => {
+			const i = s.lastIndexOf("/")
+
+			return s.substring(0, i) === p
+		})
+		.filter(f => f)
+
+const children = getChildren(path)
+
+console.log("\n\nchildren", children)
+
+const mapFolders = paths =>
+	paths.map(s => [s, toTitleCase(s.substring(s.lastIndexOf("/") + 1))])
+
+const folders = mapFolders(children.length ? children : getChildren(parent))
 ---
 
 {
 	folders.length ? (
 		<nav>
 			<ul>
-				{folders.map(([href, label]) => (
-					<li>
-						<a {href}>{label}</a>
-					</li>
-				))}
+				{folders.map(([href, label]) =>
+					href === pathname ? (
+						<li>
+							<span class="this-page">{label}</span>
+						</li>
+					) : (
+						<li>
+							<a {href}>{label}</a>
+							{href === pathname}
+						</li>
+					),
+				)}
 			</ul>
 		</nav>
 	) : undefined

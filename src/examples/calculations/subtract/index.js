@@ -17,7 +17,8 @@ const Arg = FromArgument("Integer")
 // from constants and the passed argument
 const config = Difference(Quotient(Int(88))(Int(2)))(Arg)
 
-// Run the calculation returning Either<Error, Integer>
+// Generate the calculate function by passing
+// the operation object to composeOperators
 const calculate = composeOperators(config)
 
 // Show the config object and the sum

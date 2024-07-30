@@ -63,17 +63,19 @@ const frag2 = await getMarkdownFromCode(
 			><code>composeOperators</code></a
 		>, which composes the operations and returns a single function. This
 		function takes an optional argument and returns the result of the
-		calculation as a Right, e.g., <code>&lbrace; right: 42 &rbrace;</code>, or a
-		Left with an array of <a href="/constructors/error"><code>Error</code></a> objects,
+		calculation as a <code>Right</code>, e.g., <code
+			>&lbrace; right: 42 &rbrace;</code
+		>, or a <code>Left</code> with an array of <a href="/constructors/error"
+			><code>Error</code></a
+		> objects,
 		<code>&lbrace; left: [Error] &rbrace;</code>.
 	</p>
 	<Fragment set:html={frag2} />
 	<p>
 		<code>composeOperators</code> works by recursing down through the
 		<code>operation</code> object, calling the correct operator function based on
-		the <code>tag</code>, and composing the functions returned. <code
-			>composeOperators</code
-		> then returns this composed function. See <a
+		the <code>tag</code> (e.g., "Subtract"), and composing the functions returned.
+		<code>composeOperators</code> then returns this composed function. See <a
 			href="/calculations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> for a more detailed explanation.
@@ -89,28 +91,30 @@ const frag2 = await getMarkdownFromCode(
 			>list of operators</a
 		>
 		for the full range of available mathematical operations.
-		<h2>Example</h2>
-		<p>
-			We use <a href="/calculations/composers/composeOperators"
-				><code>composeOperators</code></a
-			> to create a <code>calculate</code> function. We call the <code
-				>calculate</code
-			> function and pass it an (optional) argument to run our operation and calculate
-			the difference.
-		</p>
-		<p>
-			Here our minuend operation is a nested division operation of two constants
-			(using <a href="/injectors/constant"><code>Constant</code></a>). Our
-			subtrahend is also an operation that returns the argument passed to the
-			composed function (using <a href="/injectors/fromArgument"
-				><code>FromArgument</code></a
-			>).
-		</p>
-		<p>Try leaving one of the numbers undefined to see an Error returned.</p>
-		<Editor
-			{css}
-			{html}
-			{js}
-		/>
 	</p>
+	<h2>Example</h2>
+	<p>
+		We use <a href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		> to create a <code>calculate</code> function, passing it our <code
+			>Subtract</code
+		> operation object. We call the <code>calculate</code> function and pass it an
+		(optional) argument to run our operation(s) and calculate the difference.
+	</p>
+	<p>
+		Here our minuend operation is a nested division operation of two constants
+		(using <a href="/injectors/constant"><code>Constant</code></a>). Our
+		subtrahend is also an operation that returns the argument passed to the
+		composed function (using <a href="/injectors/fromArgument"
+			><code>FromArgument</code></a
+		>).
+	</p>
+	<p>
+		Try leaving one of the numbers undefined to see an <code>Error</code> returned.
+	</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
 </Layout>

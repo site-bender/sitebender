@@ -3,59 +3,58 @@ import Layout from "../../../../layouts/index.astro"
 import Editor from "../../../../components/Editor/index.astro"
 import getExampleCode from "../../../../utilities/getExampleCode"
 import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
-import * as divide from "../../../../../lib/calculations/operators/constructors/Divide?raw"
+import * as average from "../../../../../lib/calculations/operators/constructors/Average?raw"
 
 const glob1 = import.meta.glob("../../../../examples/calculations/*", {
 	query: "?raw",
 	import: "default",
 })
 
-const glob2 = import.meta.glob("../../../../examples/calculations/divide/*", {
+const glob2 = import.meta.glob("../../../../examples/calculations/average/*", {
 	query: "?raw",
 	import: "default",
 })
 
 const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
 
-const frag1 = await getMarkdownFromCode(divide)
+const frag1 = await getMarkdownFromCode(average)
 const frag2 = await getMarkdownFromCode(
-	"const divide = operation => (arg? => Either<Array<Error>, result>)",
+	"const average = operation => (arg? => Either<Array<Error>, result>)",
 )
 ---
 
 <Layout>
 	<p>
-		<code>Divide</code> is a curried constructor used to create a JS/JSON configuration
-		object that represents a <strong>division operation</strong>.
+		<code>Average</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents an <strong>averaging operation</strong>.
 	</p>
 	<Fragment set:html={frag1} />
 	<p>
-		The first parameter to <code>Divide</code> determines the datatype of the return
-		value of the division operation: <code>Number</code> (float) or <code
+		The first parameter to <code>Average</code> determines the datatype of the return
+		value of the averaging operation: <code>Number</code> (float) or <code
 			>Integer</code
 		>.
 	</p>
 	<p>
-		The second parameter is the <code>dividend</code>; the third is the <code
-			>divisor</code
-		>. Both are <strong>operations</strong>, which must eventually evaluate to
-		values. The divisor will eventually be divided into the dividend to produce
-		the <strong>quotient</strong> (result).
+		The second parameter is an array of <strong>operations</strong>, each of
+		which must eventually evaluate to a numerical value. These are the <strong
+			>operands</strong
+		> that will be summed up.
 	</p>
 	<p>
-		The dividend and divisor operations (multiply, subtract, etc.) may be nested
-		to any depth, but the bottom (leaf) nodes <strong>must return values</strong
-		>. Values are injected with <a href="../../../injectors">injectors</a>.
+		The operand operations (add, subtract, etc.) may be nested to any depth, but
+		the bottom (leaf) nodes <strong>must return values</strong>. Values are
+		injected with <a href="../../../injectors">injectors</a>.
 	</p>
 	<p>
-		Because <code>Divide</code> is curried, we can simplify our code by partial application,
-		for example,
-		<code>const Quotient = Divide("Integer")</code>. This returns a function
-		that takes the dividend and divisor operations and returns a Divide
-		configuration for working with integers.
+		Because <code>Average</code> is curried, we can simplify our code by partial
+		application, for example,
+		<code>const Avg = Average("Integer")</code>. This returns a function that
+		takes the array of operand operations and returns an Average configuration
+		for working with integers.
 	</p>
 	<p>See below for an example.</p>
-	<h2>The <code>divide</code> function</h2>
+	<h2>The <code>average</code> function</h2>
 	<p>
 		We pass our configuration object to <a
 			href="/calculations/composers/composeOperators"
@@ -73,7 +72,7 @@ const frag2 = await getMarkdownFromCode(
 	<p>
 		<code>composeOperators</code> works by recursing down through the
 		<code>operation</code> object, calling the correct operator function based on
-		the <code>tag</code> (e.g., "Divide"), and composing the functions returned.
+		the <code>tag</code> (e.g., "Average"), and composing the functions returned.
 		<code>composeOperators</code> then returns this composed function. See <a
 			href="/calculations/composers/composeOperators"
 			><code>composeOperators</code></a
@@ -96,17 +95,22 @@ const frag2 = await getMarkdownFromCode(
 		We use <a href="/calculations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> to create a <code>calculate</code> function, passing it our <code
-			>Divide</code
+			>Average</code
 		> operation object. We call the <code>calculate</code> function and pass it an
-		(optional) argument to run our operation(s) and calculate the quotient.
+		(optional) argument to run our operation(s) and calculate the sum.
 	</p>
 	<p>
-		Here our dividend operation is a nested multiplication operation of three
-		constants (using <a href="/injectors/constant"><code>Constant</code></a>).
-		Our divisor is also an operation that returns the argument passed to the
-		composed function (using <a href="/injectors/fromArgument"
-			><code>FromArgument</code></a
-		>).
+		Here our operation includes three <strong>operands</strong>. The first is a
+		nested division operation of two constants, the second is a constant, and
+		the third value is passed in via the optional argument to <code
+			>calculate</code
+		>.
+	</p>
+	<p>
+		The leaf nodes are either constants (using <a href="/injectors/constant"
+			><code>Constant</code></a
+		>) or a value passed directly to to the <code>calculate</code> function (using
+		<a href="/injectors/fromArgument"><code>FromArgument</code></a>).
 	</p>
 	<p>
 		Try leaving one of the numbers undefined to see an <code>Error</code> returned.

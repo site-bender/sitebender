@@ -105,6 +105,14 @@ main {
 	padding-inline: 3dvw;
 }
 
+@media (width <= 48rem) {
+  main {
+    grid-template:
+      "nav" min-content
+      "article" auto / 1fr;
+  }
+}
+
 main > nav {
 	display: none;
 	grid-area: nav;
@@ -129,7 +137,7 @@ ul {
 }
 
 ul {
-	list-style-type: "\00B7\00A0\00A0";
+	list-style-type: none;
 }
 
 ol ol,
@@ -175,6 +183,17 @@ nav.breadcrumbs {
 	padding-block: 0.5rem;
 }
 
+.trail ul {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.trail li {
+  white-space: nowrap;
+}
+
 .trail a {
 	color: darkblue;
 	text-decoration: none;
@@ -193,8 +212,8 @@ dt a:has(code):hover {
 }
 
 .trail li:not(.this-page)::after {
-	color: #999;
-	content: ">";
+	color: #bbb;
+	content: "➤";
 	display: inline-block;
 	padding-inline: 0.5rem 0.75rem;
 	text-align: center;
@@ -202,7 +221,7 @@ dt a:has(code):hover {
 
 #sb-editor {
 	border: 1px double gainsboro;
-	min-width: 80lvw;
+	min-width: 75lvw;
 }
 
 #sb-editor > div {
