@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta content="width=device-width" name="viewport"><link href="/favicon.ico" rel="icon"><title>Composers :: Calculations ::  @sitebender API</title><link rel="stylesheet" href="/_astro/index.BSAm1KrG.css">
+<style>.code-block{align-items:stretch;display:flex;flex-direction:column-reverse;gap:0;justify-content:flex-start;margin:0 0 1.5rem}.code-block figcaption{text-align:center}.code-block pre{border-radius:5px;padding:0 .75rem;margin:0}.code-block pre,.code-block code{font-family:var( --font-code, Menlo, Consolas, ui-monospace, "Cascadia Code", "Source Code Pro", "DejaVu Sans Mono", monospace )}.code-block pre>code{display:flex;flex-direction:column;font-size:.85rem;gap:0;justify-content:flex-start;line-height:1.3;padding:0}.code-block pre>code .line{margin:0;padding:0}.code-block pre.astro-code>code>span:first-child:before{padding-top:.5rem}.code-block pre.astro-code>code>span:last-child:before{padding-bottom:.5rem}.code-block pre.astro-code{counter-reset:lines 0;position:relative}.code-block pre.astro-code span.line:before{border-right:1px solid var(--color-gray-7, #44444b);color:var(--color-highlight, #aaf5a3);content:counter(lines) "";counter-increment:lines 1;display:inline-block;margin-right:1rem;padding:.1rem .5rem .1rem 0;text-align:right;width:2ch}.code-block button.copy-to-clipboard{background:transparent;border-radius:5px;border:none;color:var(--color-gray-0, #fafafa);font-family:var( --font-body, Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif );font-size:1rem;padding:2px 4px;position:absolute;right:1rem;top:.5rem}.code-block button.copy-to-clipboard:focus,.code-block button.copy-to-clipboard:hover{background-color:var(--color-gray-8, #2c2c30);color:var(--color-highlight, #aaf5a3);outline-color:var(--color-highlight, #aaf5a3)}figure.is-indexed{counter-increment:figures 1}figure.is-indexed figcaption:before{content:"Figure " counter(figures) ": "}
+</style></head> <body> <header> <a class="logo" href="/" title="To home page.">
+@sitebender
+</a> </header> <nav class="breadcrumbs"><ul class="trail"><li><a href="/">Home</a></li><li><a href="/calculations">Calculations</a></li><li class="this-page">Composers</li></ul></nav> <main id="main-content"> <details class="nav" open><summary><strong>Navigation</strong></summary><nav><ul><li><a href="/calculations/composers/comparisons">Comparisons</a></li><li><a href="/calculations/composers/conditionals">Conditionals</a></li><li><a href="/calculations/composers/operators">Operators</a></li><li><a href="/calculations/composers/validation">Validation</a></li></ul></nav></details> <article> <h1>Composers</h1>  <p>
+There are four available compose functions. These compose <a href="/calculations/composers/comparators">comparators</a>, <a href="/calculations/composers/conditionals">conditionals</a>, <a href="/calculations/composers/operators">operators</a>, and <a href="/calculations/composers/validation">validation</a>,
+</p> <section id="comparators"> <h2>Comparators</h2> <p> <strong>Comparators</strong> are used for validation and conditional display.
+			The <a href="/calculations/comparators"><code>comparator</code></a> operations
+			are composed into a single function that does the potentially-nested comparison
+			(with <code>and</code> and <code>or</code>):
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#DCBDFB"> composeComparators</span><span style="color:#F47067"> =</span><span style="color:#F69D50"> operation</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> (arg</span><span style="color:#F47067">?</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> Either</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Array</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Error</span><span style="color:#F47067">></span><span style="color:#ADBAC7">, result</span><span style="color:#F47067">></span><span style="color:#ADBAC7">)</span></span></code></pre>
+</figure>
+ <p>
+Examples of comparator operations are <a href="/calculations/comparators/amount/isMoreThan"><code>IsMoreThan</code></a>, <a href="/calculations/comparators/alphabetical/isAfterAlphabetically"><code>IsAfterAlphabetically</code></a>, <a href="/calculations/comparators/dateTime/isBeforeDateTime"><code>IsBeforeDateTime</code></a>, <a href="/calculations/comparators/matching/matches"><code>Matches</code></a>, and <a href="/calculations/comparators/set/isDisjointSet"><code>IsDisjointSet</code></a>.
+</p> <p>
+If the comparison evaluates to <code>false</code>, then a <code>Left</code> is returned with one or more <code>Error</code> objects explaining which
+			comparison(s) failed.
+</p> <p>
+If the comparison evaluates to <code>true</code>, then a <code>Right</code> is returned
+<em>with the value that was tested.</em> See <a href="/calculations/composers/comparators"><code>composeComparators</code></a> for more detail.
+</p> </section> <section id="operators"> <h2>Operators</h2> <p> <strong>Operators</strong> are used for numerical calculations. Not only can
+			these operations be nested to any depth, but they can be used to generate the
+<code>operand</code> and/or <code>test</code> values for use in comparator
+			operations.
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#DCBDFB"> composeOperators</span><span style="color:#F47067"> =</span><span style="color:#F69D50"> operation</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> (arg</span><span style="color:#F47067">?</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> Either</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Array</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Error</span><span style="color:#F47067">></span><span style="color:#ADBAC7">, result</span><span style="color:#F47067">></span><span style="color:#ADBAC7">)</span></span></code></pre>
+</figure>
+ <p>
+Operators include the JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators" rel="external">arithmetic operators</a>
+and the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" rel="external">Math module</a> operations. Examples: <a href="/calculations/operators/add"><code>add</code></a>,
+<a href="/calculations/operators/subtract"><code>subtract</code></a>,
+<a href="/calculations/operators/multiply"><code>multiply</code></a>,
+<a href="/calculations/operators/divide"><code>divide</code></a>,
+<a href="/calculations/operators/floor"><code>floor</code></a>,
+<a href="/calculations/operators/mean"><code>mean</code></a>, and
+<a href="/calculations/operators/root"><code>root</code></a>. See the
+<a href="/calculations/operators">full list of operators</a>.
+</p> <p>
+If the operation fails, then a <code>Left</code> is returned with one or more
+<code>Error</code> objects explaining which comparison(s) failed. If the operations
+			succeeds, then a <code>Right</code>
+is returned containing the calculated value (a number). This result can be
+			used in other calculations, comparisons, etc.
+</p> </section> <section id="validation"> <h2>Validation</h2> <p>
+The <a href="/calculations/composers/composeValidation"><code>composeValidation</code></a>
+function wraps the <code>composeComparators</code> function, returning the
+			same results. In the future, there may be added functionality here.
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#DCBDFB"> composeValidator</span><span style="color:#F47067"> =</span><span style="color:#F69D50"> operation</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> (arg</span><span style="color:#F47067">?</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> Either</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Array</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Error</span><span style="color:#F47067">></span><span style="color:#ADBAC7">, result</span><span style="color:#F47067">></span><span style="color:#ADBAC7">)</span></span></code></pre>
+</figure>
+ </section> <section id="conditionals"> <h2>Conditionals</h2> <p>
+The <a href="/calculations/composers/composeConditional"><code>composeConditional</code></a>
+function wraps the <code>composeComparators</code> function, but returns a
+			plain Boolean value, <code>true</code> or <code>false</code>.
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#DCBDFB"> composeConditional</span><span style="color:#F47067"> =</span><span style="color:#F69D50"> operation</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> (arg</span><span style="color:#F47067">?</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> Boolean)</span></span></code></pre>
+</figure>
+ <p>
+This makes it easy to use the <code>composeComparators</code> function for
+			conditional display by returning a plain Boolean instead of an <code>Either</code>.
+</p> </section>  </article> </main> </body></html>

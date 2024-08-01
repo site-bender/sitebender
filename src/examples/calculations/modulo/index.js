@@ -13,13 +13,13 @@ const Arg = FromArgument("Integer")
 
 // Generate a modulo operation from
 // a constant and the passed argument
-const pos = Mod(Int(24))(Arg)
-const neg = Mod(Int(-24))(Arg)
+const pos = Mod(Int(7))(Arg)
+const neg = Mod(Int(-7))(Arg)
 
 // Generate the calculate function by passing
 // the operation object to composeOperators
 const getPos = composeOperators(pos)
-const getNeg = composeOperators(pos)
+const getNeg = composeOperators(neg)
 
 // Show the pos object and the product
 const out =
@@ -34,7 +34,7 @@ if (code) {
 
 // Check the console below, then compare with remainder
 // Modulo has same sign as the divisor
-console.log("24 mod 5 ===", JSON.stringify(getPos(5), null, 2))
-console.log("24 mod -5 ===", JSON.stringify(getPos(-5), null, 2))
-console.log("-24 mod 5 ===", JSON.stringify(getNeg(5), null, 2))
-console.log("-24 mod -5 ===", JSON.stringify(getNeg(-5), null, 2))
+console.log("7 mod 3 ===", JSON.stringify(getPos(3), null, 2))
+console.log("7 mod -3 ===", JSON.stringify(getPos(-3), null, 2))
+console.log("-7 mod 3 ===", JSON.stringify(getNeg(3), null, 2))
+console.log("-7 mod -3 ===", JSON.stringify(getNeg(-3), null, 2))

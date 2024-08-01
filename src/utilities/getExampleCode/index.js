@@ -1,6 +1,6 @@
-const convertKey = (key) => key.match(/index\.(css|html|js)/)[1]
+const convertKey = key => key.match(/index\.(css|html|js)/)[1]
 
-const getExampleCode = async (glob) => {
+const getExampleCode = async glob => {
 	const entries = Object.entries(glob).reduce(
 		(out, [key, value]) => ({
 			...out,
@@ -9,9 +9,9 @@ const getExampleCode = async (glob) => {
 		{},
 	)
 
-	const css = await entries.css()
-	const html = await entries.html()
-	const js = await entries.js()
+	const css = await entries.css?.()
+	const html = await entries.html?.()
+	const js = await entries.js?.()
 
 	return { css, html, js }
 }
