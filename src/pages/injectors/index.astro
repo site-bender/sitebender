@@ -1,53 +1,314 @@
 ---
 import Layout from "../../layouts/index.astro"
+import getMarkdownFromCode from "../../utilities/getMarkdownFromCode"
+import Editor from "../../components/Editor/index.astro"
+import getExampleCode from "../../utilities/getExampleCode"
+
+const glob1 = import.meta.glob("../../examples/calculations/index.css", {
+	query: "?raw",
+	import: "default",
+})
+
+const glob2 = import.meta.glob("../../examples/injectors/example/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
+
+const constant = await getMarkdownFromCode(
+	"const Constant = datatype => value => ConstantOp",
+)
+const arg = await getMarkdownFromCode(
+	"const FromArgument = datatype => FromArgumentOp",
+)
+const calculate = await getMarkdownFromCode(`const op = FromArgument()
+
+/* op is
+  {
+    "tag": "FromArgument",
+    "datatype": "Number"
+  }
+*/
+
+// composeOperators returns arg => Either<Array<Error>, Number>
+const calculate = composeOperators(op)
+
+console.log(calculate(7)) // returns { right: 7 }`)
+const elem = await getMarkdownFromCode(
+	"const FromElement = datatype => source => FromElementOp",
+)
+const key = await getMarkdownFromCode("const @@ = datatype => key => @@Op")
+const lookup = await getMarkdownFromCode(
+	"const Lookup = datatype => id => LookupOp",
+)
+const table = await getMarkdownFromCode(
+	"const LookupTable = datatype => config => LookupTableOp",
+)
+const url = await getMarkdownFromCode(
+	"const FromUrlParameter = datatype => segment => FromUrlParameterOp",
+)
 ---
 
 <Layout>
-	<ul>
+	<p>
+		<strong>Injectors</strong> are operations that inject values. They can be used
+		with any of the <code>compose-*</code> functions wherever an <code
+			>Operation</code
+		> object is required:
+	</p>
+	<ul class="bulleted">
 		<li>
-			<strong>Constant</strong>
-			<code>= (datatype = "Number") =&gt; value =&gt;</code>
+			<a href="/calculations/composers/comparisons">composeComparators</a>
 		</li>
 		<li>
-			<strong>FromArgument</strong>
-			<code>= (datatype = "Number") =&gt;</code>
+			<a href="/calculations/composers/conditionals">composeConditional</a>
 		</li>
-		<li>
-			<strong>FromElement</strong>
-			<code>= (datatype = "Number") =&gt; source =&gt;</code>
-			<ul>
-				<li><code>source</code> is a <code>selector</code> object</li>
-			</ul>
-		</li>
-		<li>
-			<strong>FromLocalStorage</strong>
-			<code>= (datatype = "Number") =&gt; key =&gt;</code>
-		</li>
-		<li>
-			<strong>FromLookup</strong>
-			<code>= (datatype = "Json") =&gt; id =&gt;</code>
-		</li>
-		<li>
-			<strong>FromLookupTable</strong>
-			<code>= (datatype = "Json") =&gt; (config = {}) =&gt;</code>
-			<ul>
-				<li>
-					<code>config</code> includes <code>column</code> (operation),
-					<code>tableId</code>, and <code>test</code> operations
-				</li>
-			</ul>
-		</li>
-		<li>
-			<strong>FromQueryString</strong>
-			<code>= (datatype = "Number") =&gt; key =&gt;</code>
-		</li>
-		<li>
-			<strong>FromSessionStorage</strong>
-			<code>= (datatype = "Number") =&gt; key =&gt;</code>
-		</li>
-		<li>
-			<strong>FromUrlParameter</strong>
-			<code>= (datatype = "Number") =&gt; segment =&gt;</code>
-		</li>
+		<li><a href="/calculations/composers/operators">composeOperators</a></li>
+		<li><a href="/calculations/composers/validation">composeValidation</a></li>
 	</ul>
+	<p>
+		They are the necessary <strong>leaf nodes</strong> in the operation tree:
+	</p>
+	<p>
+		<img
+			alt=""
+			src="/operation-tree.svg"
+		/>
+	</p>
+	<p>
+		Here is how the above example works. Check the HTML page to see where the
+		injectors are getting their values.
+	</p>
+	<p>
+		The second panel shows the JS/JSON object generated from the nested
+		operation/injector constructors. This object is then passed to the <code
+			>composeOperators</code
+		> function, which returns a function that takes an optional <code>arg</code>
+		(used by <code>FromArgument</code>) and returns the result of the
+		calculation.
+	</p>
+	<p>
+		Here we apply it immediately, passing it the value, 5. The result of the
+		calculation can be seen in the console below.
+	</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
+	<h2 id="types-of-injectors">Types of Injectors</h2>
+	<dl>
+		<dt>
+			<a href="/injectors/constant"><code>Constant</code></a>
+		</dt>
+		<dd>
+			The <code>Constant</code> constructor is a curried function used to generate
+			an <code>operation</code>
+			configuration that injects a <strong>known value</strong>, which is
+			included in the configuration object.
+		</dd>
+		<dd set:html={constant} />
+		<dd>
+			The first parameter is the datatype to be returned, which defaults to
+			"Number". The second parameter is the constant value to be returned.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromArgument"><code>FromArgument</code></a>
+		</dt>
+		<dd>
+			The <code>FromArgument</code> constructor is the simplest of the injector constructors.
+			It creates an operation configuration that tells the operation to use the optional
+			argument passed to the function returned from <code>composeOperators</code
+			>.
+		</dd>
+		<dd set:html={arg} />
+		<dd>
+			It takes a single parameter, the datatype to be returned, which defaults
+			to "Number".
+		</dd>
+		<dd set:html={calculate} />
+
+		<dt id="from-element">
+			<a href="/injectors/fromElement"><code>FromElement</code></a>
+		</dt>
+		<dd>
+			The <code>FromElement</code> injector is used to inject values from HTML elements
+			on the page, such as form inputs. As with all the operation constructors, it
+			is a curried function.
+		</dd>
+		<dd set:html={elem} />
+		<dd>
+			The first parameter is the datatype to be returned, which defaults to
+			"Number".
+		</dd>
+		<dd>
+			The second parameter,
+			<code>source</code>, is an object from which a CSS selector is created.
+			Keys include <code>form</code> (the ID of the form), <code>id</code> (the ID
+			of the element), <code>name</code> (of the form input), <code
+				>tagName</code
+			> (of the element), and <code>selector</code>, which sets a selector
+			directly and overrides all other keys.
+		</dd>
+		<dd>
+			The selector is used to obtain the HTML element (using <code
+				>document.querySelector</code
+			>). Depending on the type of element returned, the value is extracted from <code
+				>innerHTML</code
+			> or the
+			<code>value</code> attribute.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromLocalStorage"><code>FromLocalStorage</code></a>
+		</dt>
+		<dd>
+			The <code>FromLocalStorage</code> injector is used to retrieve values from
+			the browser's local storage.
+		</dd>
+		<dd set:html={key.replace(/@@/g, "FromLocalStorage")} />
+		<dd>
+			Values in local storage are stored as strings. The first parameter is the
+			datatype to which the value retrieved will be cast. It defaults to
+			"Number".
+		</dd>
+		<dd>
+			The second parameter is the key of the value stored in local storage.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromLookup"><code>FromLookup</code></a>
+		</dt>
+		<dd>
+			The <code>FromLookup</code> injector is used to lookup values stored as
+			<code>&lt;data&gt;</code> elements on the page, although hidden inputs could
+			also be used if the data is to be included in a form submission.
+		</dd>
+		<dd set:html={lookup} />
+		<dd>
+			The first parameter is the datatype to be returned, which defaults to
+			"Json". In this instance, <code>JSON.parse</code> will be used on the returned
+			value. But "Number", "Integer", "String", etc. are also options, in which case
+			the return value will be cast accordingly.
+		</dd>
+		<dd>
+			The second parameter is the <code>id</code> of the <code
+				>&lt;data&gt;</code
+			>
+			or <code>&lt;input type="hidden"&gt;</code> element.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromLookupTable"><code>FromLookupTable</code></a>
+		</dt>
+		<dd>
+			The <code>FromLookupTable</code> injector is used to lookup values stored as
+			<strong>tables</strong>
+			(multi-dimensional arrays) JSON "stringified" in
+			<code>&lt;data&gt;</code> elements on the page, although hidden inputs could
+			also be used if the data is to be included in a form submission.
+		</dd>
+		<dd set:html={table} />
+		<dd>
+			The first parameter is the datatype to be returned, which defaults to
+			"Json". In this instance, <code>JSON.parse</code> will be used on the returned
+			value. But "Number", "Integer", "String", etc. are also options, in which case
+			the return value will be cast accordingly.
+		</dd>
+		<dd>
+			The second parameter is a configuration object which determines how the
+			data is to be extracted from the table. This must contain a <code
+				>source</code
+			> key whose value is a source configuration object as described in <a
+				href="#from-element"><code>FromElement</code></a
+			>
+			above.
+		</dd>
+		<dd>
+			The <code>source</code> configuration must also include <code>column</code
+			> and
+			<code>test</code> keys whose values <strong
+				>are operations themselves</strong
+			>. In other words, the column of the table (one-based) from which to get
+			the value is determined by an operation, the simplest of which would be <code
+				>Constant("Integer")(2)</code
+			>, the second column. But this could also use a <a
+				href="/calculations/constructors/ternary"
+			>
+				<code>Ternary</code></a
+			> operation or even nested ternaries.
+		</dd>
+		<dd>
+			The <code>test</code> key is used to determine the <strong>row</strong> in
+			which the desired value is located. Most often, this will use a <code
+				>FromArgument</code
+			> operation, with the current value to be looked up passed in as an argument
+			at runtime.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromQueryString"><code>FromQueryString</code></a>
+		</dt>
+		<dd>
+			The <code>FromQueryString</code> injector is used to retrieve values from the
+			query (search) string in the page URL, e.g., <code
+				>sitebender.org?age=42</code
+			>.
+		</dd>
+		<dd set:html={key.replace(/@@/g, "FromQueryString")} />
+		<dd>
+			Values in the query/search string are returned as strings. The first
+			parameter to <code>FromQueryString</code> is the datatype to which the value
+			retrieved will be cast. It defaults to "Number".
+		</dd>
+		<dd>
+			The second parameter is the key of the value to be found in the query
+			string.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromSessionStorage"><code>FromSessionStorage</code></a
+			>
+		</dt>
+		<dd>
+			The <code>FromSessionStorage</code> injector is used to retrieve values from
+			the browser's session storage.
+		</dd>
+		<dd set:html={key.replace(/@@/g, "FromSessionStorage")} />
+		<dd>
+			Values in session storage are stored as strings. The first parameter is
+			the datatype to which the value retrieved will be cast. It defaults to
+			"Number".
+		</dd>
+		<dd>
+			The second parameter is the key of the value stored in session storage.
+		</dd>
+
+		<dt>
+			<a href="/injectors/fromUrlParameter"><code>FromUrlParameter</code></a>
+		</dt>
+		<dd>
+			The <code>FromUrlParameter</code> injector is used to retrieve values from
+			the path in the page URL, e.g., <code>sitebender.org/path/to/page</code>.
+		</dd>
+		<dd set:html={url} />
+		<dd>
+			Values in the path are returned as strings. The first parameter to <code
+				>FromUrlParameter</code
+			> is the datatype to which the value retrieved will be cast. It defaults to
+			"Number".
+		</dd>
+		<dd>
+			The second parameter is the number of the path segment where the value is
+			to be found. These are zero-based. For example, if the segment is <code
+				>1</code
+			> and the URL is <code>sitebender.org/path/to/page</code>, then <code
+				>FromUrlParameter("String")(1)</code
+			> will create an operation that, when composed and called, will return <code
+				>lbrace; right: "to" &rbrace;</code
+			>.
+		</dd>
+	</dl>
 </Layout>

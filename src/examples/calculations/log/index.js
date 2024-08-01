@@ -21,4 +21,4 @@ if (code) {
 
 // Check the console below
 // 10^2 is 100
-console.log("calculate(100) ->", calculate(100))
+console.log(JSON.stringify(calculate(100), null, 2))

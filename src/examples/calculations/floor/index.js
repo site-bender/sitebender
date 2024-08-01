@@ -20,6 +20,13 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(33.445566) ->", calculate(33.445566))
+console.log(
+	"floor(33.445566) ===",
+	JSON.stringify(calculate(33.445566), null, 2),
+)
 // Floor is toward -Infinity (compare with Truncate)
-console.log("calculate(-33.445566) ->", calculate(-33.445566))
+console.log(
+	"Toward -Infinity:\n",
+	"floor(-33.445566) ===",
+	JSON.stringify(calculate(-33.445566), null, 2),
+)

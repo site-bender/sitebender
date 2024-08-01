@@ -28,4 +28,4 @@ if (code) {
 
 // Check the console below
 // The reciprocal of 1 / 7 is 7
-console.log("calculate() ->", calculate())
+console.log(JSON.stringify(), null, 2)

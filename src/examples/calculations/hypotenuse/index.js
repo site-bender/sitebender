@@ -32,4 +32,4 @@ if (code) {
 
 // Check the console below
 // 3-4-5 right triangle
-console.log("calculate(4) ->", calculate(4))
+console.log(JSON.stringify(calculate(4), null, 2))

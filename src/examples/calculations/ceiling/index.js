@@ -21,6 +21,12 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(11.223344) ->", calculate(11.223344))
+console.log(
+	"ceiling(11.223344) ===",
+	JSON.stringify(calculate(11.223344), null, 2),
+)
 // Ceiling is toward Infinity
-console.log("calculate(-11.223344) ->", calculate(-11.223344))
+console.log(
+	"ceiling(-11.223344) ===",
+	JSON.stringify(calculate(-11.223344), null, 2),
+)

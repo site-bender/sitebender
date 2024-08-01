@@ -33,9 +33,39 @@ body {
 	grid-template-rows: min-content min-content 100%;
 }
 
-a {
+code {
+  font-size: 1rem;
+}
+
+code:not(:has(*)) {
+  color: darkgreen;
+  font-weight: bold;
+  display: inline;
+  margin: -3px;
+  padding: 3px;
+}
+
+h1 code {
+  font-size: var(--step-2);
+}
+
+h2 code {
+  font-size: var(--step-1);
+}
+
+a,
+a code {
 	color: darkblue;
 	text-decoration: none;
+}
+
+dt code {
+  font-size: var(--step-1);
+}
+
+[data-rehype-pretty-code-figure] code {
+  counter-reset: line;
+  font-size: 0.85rem;
 }
 
 a:focus,
@@ -45,11 +75,18 @@ a:hover {
 	text-underline-offset: 3px;
 }
 
-a:active {
+a:focus code,
+a:hover code {
+	color: blue;
+}
+
+a:active,
+a:active code {
 	color: firebrick;
 }
 
-a:visited {
+a:visited,
+a:visited code {
 	color: blueviolet;
 }
 
@@ -84,11 +121,11 @@ h2 {
 }
 
 h1 {
-	font-size: var(--step-2, 1.44rem);
+	font-size: var(--step-3, 1.44rem);
 }
 
 h2 {
-	font-size: var(--step-1, 1.2rem);
+	font-size: var(--step-2, 1.2rem);
 }
 
 main {
@@ -131,6 +168,10 @@ details.nav summary {
     font-size: var(--step-1);
     margin-block-end: 0.5rem;
   }
+
+  .trail .this-page {
+    display: none;
+  }
 }
 
 main > details {
@@ -168,8 +209,16 @@ ul ul {
 	margin-block-end: 0;
 }
 
+.bulleted {
+  list-style-type: disc;
+}
+
 li {
 	line-height: 1.6;
+}
+
+main > details li {
+  white-space: nowrap;
 }
 
 li strong {
@@ -279,32 +328,13 @@ figcaption {
 	text-align: center;
 }
 
-code {
-  font-size: 1rem;
-}
-
-code:not(:has(*)) {
-  color: darkgreen;
-  font-weight: bold;
-  display: inline;
-  margin: -3px;
-  padding: 3px;
-}
-
-h1 code {
-  font-size: var(--step-2);
-}
-
-h2 code {
+dt {
+  margin-block: 1rem 0;
   font-size: var(--step-1);
 }
 
-dt {
-  margin-block: 0.5rem;
-}
-
 dd {
-  margin-block: 0 1rem;
+  margin-block: 0.5rem 1rem;
   margin-inline: 0;
 }
 
@@ -324,11 +354,6 @@ span[data-line] {
 
 [data-rehype-pretty-code-figure] pre {
   padding-block: 0.5rem;
-}
-
-[data-rehype-pretty-code-figure] code {
-  counter-reset: line;
-  font-size: 0.85rem;
 }
 
 [data-rehype-pretty-code-figure] code > [data-line]::before {

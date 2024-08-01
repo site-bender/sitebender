@@ -14,7 +14,7 @@ const { pathname } = Astro.url
 const path = pathname.split("/")
 const segments = path
 	.toReversed()
-	.filter((s) => s)
+	.filter(s => s)
 	.map(toTitleCase)
 const title = segments.join(" :: ")
 ---

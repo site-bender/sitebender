@@ -30,4 +30,4 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(12) ->", calculate(12))
+console.log(JSON.stringify(calculate(12), null, 2))

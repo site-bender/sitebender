@@ -20,5 +20,5 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(42) ->", calculate(42))
-console.log("calculate(-24) ->", calculate(-24))
+console.log(JSON.stringify(calculate(42), null, 2))
+console.log(JSON.stringify(calculate(-24), null, 2))

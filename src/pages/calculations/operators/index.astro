@@ -4,7 +4,7 @@ import getMarkdownFromCode from "../../../utilities/getMarkdownFromCode"
 import getExampleCode from "../../../utilities/getExampleCode"
 import Editor from "../../../components/Editor/index.astro"
 
-const glob1 = import.meta.glob("../../../examples/calculations/*", {
+const glob1 = import.meta.glob("../../../examples/*", {
 	query: "?raw",
 	import: "default",
 })

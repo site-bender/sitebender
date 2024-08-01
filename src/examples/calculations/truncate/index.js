@@ -25,6 +25,6 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(33.445566) ->", calculate(33.445566))
+console.log(JSON.stringify(calculate(33.445566), null, 2))
 // Truncate is toward zero (compare with Floor)
-console.log("calculate(-33.445566) ->", calculate(-33.445566))
+console.log(JSON.stringify(calculate(-33.445566), null, 2))

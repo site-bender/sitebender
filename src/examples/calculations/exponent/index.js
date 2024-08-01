@@ -26,4 +26,4 @@ if (code) {
 
 // Check the console below
 // e^1 is 2.718281828459045...
-console.log("calculate(1) ->", calculate(1))
+console.log(JSON.stringify(calculate(1), null, 2))

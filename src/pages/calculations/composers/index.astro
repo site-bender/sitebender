@@ -1,59 +1,130 @@
 ---
 import Layout from "../../../layouts/index.astro"
+import getMarkdownFromCode from "../../../utilities/getMarkdownFromCode"
+
+const frag1 = await getMarkdownFromCode(
+	"const composeComparators = operation => (arg? => Either<Array<Error>, result>)",
+)
+const frag2 = await getMarkdownFromCode(
+	"const composeOperators = operation => (arg? => Either<Array<Error>, result>)",
+)
+const frag3 = await getMarkdownFromCode(
+	"const composeValidator = operation => (arg? => Either<Array<Error>, result>)",
+)
+const frag4 = await getMarkdownFromCode(
+	"const composeConditional = operation => (arg? => Boolean)",
+)
 ---
 
 <Layout>
 	<p>
-		<strong>Comparators</strong> are used for validation and conditional display.
+		There are four available compose functions. These compose <a
+			href="/calculations/composers/comparators">comparators</a
+		>, <a href="/calculations/composers/conditionals">conditionals</a>, <a
+			href="/calculations/composers/operators">operators</a
+		>, and <a href="/calculations/composers/validation">validation</a>,
 	</p>
-	<p>
-		<strong>Operators</strong> are used for calculations involving numbers (e.g.,
-		add, subtract, sine, mode).
-	</p>
-	<ul>
-		<li>
-			<strong>composeComparators</strong>
-			<code>= operation =&gt; (arg =&gt; Either)</code>
-			<ul>
-				<li>Returns <code>Either&lt;Error, Boolean&gt;</code></li>
-			</ul>
-		</li>
-		<li>
-			<strong>composeOperators</strong>
-			<code>= operation =&gt; (arg =&gt; Either)</code>
-			<ul>
-				<li>
-					Returns <code>Either&lt;Error, T&gt;</code> where
-					<code>T</code> is a number or integer
-				</li>
-			</ul>
-		</li>
-	</ul>
-	<p>These wrap <code>composeComparators</code>:</p>
-	<p><strong>Conditionals</strong> are used for conditional display.</p>
-	<p><strong>Validators</strong> are used to validate form input.</p>
-	<ul>
-		<li>
-			<strong>composeConditional</strong>
-			<code>= operation =&gt; (arg =&gt; Boolean)</code>
-			<ul>
-				<li>Returns <code>Boolean</code></li>
-				<li>
-					Converts <code>Left</code> to <code>false</code> and
-					<code>Right</code> to <code>true</code>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<strong>composeValidator</strong>
-			<code>= operation =&gt; (arg =&gt; Either)</code>
-			<ul>
-				<li>Returns <code>Either&lt;Error, value&gt;</code></li>
-				<li>
-					<code>value</code> can come from <code>arg</code> or any other source (query
-					string, session store, form input)
-				</li>
-			</ul>
-		</li>
-	</ul>
+	<section id="comparators">
+		<h2>Comparators</h2>
+		<p>
+			<strong>Comparators</strong> are used for validation and conditional display.
+			The <a href="/calculations/comparators"><code>comparator</code></a> operations
+			are composed into a single function that does the potentially-nested comparison
+			(with <code>and</code> and <code>or</code>):
+		</p>
+		<Fragment set:html={frag1} />
+		<p>
+			Examples of comparator operations are <a
+				href="/calculations/comparators/amount/isMoreThan"
+				><code>IsMoreThan</code></a
+			>, <a href="/calculations/comparators/alphabetical/isAfterAlphabetically"
+				><code>IsAfterAlphabetically</code></a
+			>, <a href="/calculations/comparators/dateTime/isBeforeDateTime"
+				><code>IsBeforeDateTime</code></a
+			>, <a href="/calculations/comparators/matching/matches"
+				><code>Matches</code></a
+			>, and <a href="/calculations/comparators/set/isDisjointSet"
+				><code>IsDisjointSet</code></a
+			>.
+		</p>
+		<p>
+			If the comparison evaluates to <code>false</code>, then a <code>Left</code
+			> is returned with one or more <code>Error</code> objects explaining which
+			comparison(s) failed.
+		</p>
+		<p>
+			If the comparison evaluates to <code>true</code>, then a <code>Right</code
+			> is returned
+			<em>with the value that was tested.</em> See <a
+				href="/calculations/composers/comparators"
+				><code>composeComparators</code></a
+			> for more detail.
+		</p>
+	</section>
+	<section id="operators">
+		<h2>Operators</h2>
+		<p>
+			<strong>Operators</strong> are used for numerical calculations. Not only can
+			these operations be nested to any depth, but they can be used to generate the
+			<code>operand</code> and/or <code>test</code> values for use in comparator
+			operations.
+		</p>
+		<Fragment set:html={frag2} />
+		<p>
+			Operators include the JavaScript <a
+				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators"
+				rel="external"
+				>arithmetic operators</a
+			>
+			and the <a
+				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"
+				rel="external"
+				>Math module</a
+			> operations. Examples: <a href="/calculations/operators/add"
+				><code>add</code></a
+			>,
+			<a href="/calculations/operators/subtract"><code>subtract</code></a>,
+			<a href="/calculations/operators/multiply"><code>multiply</code></a>,
+			<a href="/calculations/operators/divide"><code>divide</code></a>,
+			<a href="/calculations/operators/floor"><code>floor</code></a>,
+			<a href="/calculations/operators/mean"><code>mean</code></a>, and
+			<a href="/calculations/operators/root"><code>root</code></a>. See the
+			<a href="/calculations/operators">full list of operators</a>.
+		</p>
+		<p>
+			If the operation fails, then a <code>Left</code> is returned with one or more
+			<code>Error</code> objects explaining which comparison(s) failed. If the operations
+			succeeds, then a <code>Right</code>
+			is returned containing the calculated value (a number). This result can be
+			used in other calculations, comparisons, etc.
+		</p>
+	</section>
+	<section id="validation">
+		<h2>Validation</h2>
+		<p>
+			The <a href="/calculations/composers/composeValidation"
+				><code>composeValidation</code></a
+			>
+			function wraps the <code>composeComparators</code> function, returning the
+			same results. In the future, there may be added functionality here.
+		</p>
+		<Fragment set:html={frag3} />
+	</section>
+	<section id="conditionals">
+		<h2>Conditionals</h2>
+		<p>
+			The <a href="/calculations/composers/composeConditional"
+				><code>composeConditional</code></a
+			>
+			function wraps the <code>composeComparators</code> function, but returns a
+			plain Boolean value, <code>true</code> or <code>false</code>.
+		</p>
+		<Fragment set:html={frag4} />
+		<p>
+			This makes it easy to use the <code>composeComparators</code> function for
+			conditional display by returning a plain Boolean instead of an <code
+				>Either</code
+			>.
+		</p>
+	</section>
 </Layout>

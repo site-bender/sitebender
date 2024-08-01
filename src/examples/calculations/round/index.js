@@ -20,6 +20,6 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(11.223344) ->", calculate(11.223344))
+console.log(JSON.stringify(calculate(11.223344), null, 2))
 // Five rounds up, four rounds down
-console.log("calculate(-33.445566) ->", calculate(-33.445566))
+console.log(JSON.stringify(calculate(-33.445566), null, 2))

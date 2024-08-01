@@ -26,4 +26,4 @@ if (code) {
 
 // Check the console below
 // 2^4 is 16
-console.log("calculate(16) ->", calculate(16))
+console.log(JSON.stringify(calculate(16), null, 2))

@@ -30,4 +30,5 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(2) ->", calculate(2))
+console.log("divide by 2 ===", JSON.stringify(calculate(2), null, 2))
+console.log("divide by 0 ===", JSON.stringify(calculate(0), null, 2))

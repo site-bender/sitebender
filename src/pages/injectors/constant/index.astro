@@ -1,7 +1,120 @@
 ---
 import Layout from "../../../layouts/index.astro"
+import Editor from "../../../components/Editor/index.astro"
+import getExampleCode from "../../../utilities/getExampleCode"
+import getMarkdownFromCode from "../../../utilities/getMarkdownFromCode"
+import * as constant from "../../../../lib/injectors/constructors/Constant"
+
+const glob1 = import.meta.glob("../../../examples/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const glob2 = import.meta.glob("../../../examples/injectors/constant/*", {
+	query: "?raw",
+	import: "default",
+})
+
+const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
+
+const frag1 = await getMarkdownFromCode(constant)
+const frag2 = await getMarkdownFromCode(
+	"const constant = operation => (_ => Either<Array<Error>, result>)",
+)
+const ex = await getMarkdownFromCode(
+	`Constant()(42) // => { tag: "Constant", datatype: "Number", value: 42 }`,
+)
+const ex2 = await getMarkdownFromCode(
+	`const Int = Constant()
+
+Int(42) // => { tag: "Constant", datatype: "Number", value: 42 }`,
+)
 ---
 
 <Layout>
-	<code>Constant</code>
+	<p>
+		<code>Constant</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents an <strong>constant to be injected</strong> into an operation.
+	</p>
+	<Fragment set:html={frag1} />
+	<p>
+		The first parameter to <code>Constant</code> determines the datatype of the return
+		value injected. This defaults to "Number".
+	</p>
+	<p>
+		The second parameter is the value to be returned by the Constant operation.
+		Here's how it works:
+	</p>
+	<Fragment set:html={ex} />
+	<p>
+		Because <code>Constant</code> is curried, we can simplify our code by partial
+		application, for example,
+		<code>const Int = Constant("Integer")</code>. This returns a function that
+		takes an integer and returns the <code>Constant</code> operation:
+	</p>
+	<Fragment set:html={ex2} />
+	<p>
+		This can help to unclutter our code, reducing cognitive load. Be sure to
+		name well. See below for an example.
+	</p>
+	<h2>The <code>constant</code> function</h2>
+	<p>
+		We pass our configuration object to <a
+			href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		>, which composes the operation and returns a single function.
+	</p>
+	<p>
+		This function takes an optional argument (ignored in this instance) and
+		returns the injected constant as a <code>Right</code>, e.g., <code
+			>&lbrace; right: 42 &rbrace;</code
+		>, or a <code>Left</code> with an array of <a href="/constructors/error"
+			><code>Error</code></a
+		> objects if something goes wrong,
+		<code>&lbrace; left: [Error] &rbrace;</code>.
+	</p>
+	<Fragment set:html={frag2} />
+	<p>
+		<code>composeOperators</code> works by recursing down through the
+		<code>operation</code> object, calling the correct operator function based on
+		the <code>tag</code> (e.g., "Constant"), and composing the functions returned,
+		until it hits an Injector. At that point it rolls everything back up. <code
+			>composeOperators</code
+		> then returns this composed function.
+	</p>
+	<p>
+		See <a href="/calculations/composers/composeOperators"
+			><code>composeOperators</code></a
+		> for a more detailed explanation.
+	</p>
+	<p>
+		The injectors are not actually called until this composed <code
+			>calculate</code
+		> function is run. Hence, evaluation is lazy: the values are not injected until
+		the last moment. In the case of <code>Constant</code> this makes no difference,
+		as the value is, well, <em>constant</em>.
+	</p>
+	<p>
+		See the <a href="/injectors">injectors</a> for a complete list of how values
+		may be injected. See the <a href="/calculations/operators"
+			>list of operators</a
+		>
+		for the full range of available mathematical operations.
+	</p>
+	<h2>Example</h2>
+	<p>
+		Well, there's not much to see here. Constants are constant. But here's an
+		example to play with. We've taken advantage of currying (but you don't have
+		to).
+	</p>
+	<p>
+		Try passing bad data (e.g., change the 77 to "Bob") to see an <code
+			>Error</code
+		> returned in the console.
+	</p>
+	<Editor
+		{css}
+		{html}
+		{js}
+	/>
 </Layout>

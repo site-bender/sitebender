@@ -1,5 +1,80 @@
 ---
 import Layout from "../../layouts/index.astro"
+import getMarkdownFromCode from "../../utilities/getMarkdownFromCode"
+
+const frag1 = await getMarkdownFromCode(
+	"const composeOperators = operation => (arg? => Either<Array<Error>, result>)",
+)
 ---
 
-<Layout />
+<Layout>
+	<p>
+		The <strong>Calculations module</strong> is used to provide mathematical calculations
+		and comparison operations. Calculations involve numbers and return numerical
+		values. Comparison operations return Boolean values and can be used for conditional
+		display or validation. See below.
+	</p>
+	<p>
+		All values are returned in the form of an <code>Either</code>, which is
+		either a
+		<code>Left&lt;Array&lt;Error&gt;&gt;</code> or a <code
+			>Right&lt;Number | Integer&gt;</code
+		>.
+	</p>
+	<section id="comparators">
+		<h2>Comparators</h2>
+		<p>
+			The @sitebender <a href="/calculations/comparators"
+				><code>comparators</code></a
+			> provide the ability to perform deeply-nested Boolean algebra using
+			<a href="/calculations/comparators/algebraic/and"><code>and</code></a> and
+			<a href="/calculations/comparators/algebraic/or"><code>or</code></a>, as
+			well as
+		</p>
+	</section>
+	<section id="operators">
+		<h2>Operators</h2>
+		<p>
+			The @sitebender <a href="/calculations/operators"
+				><code>operators</code></a
+			>
+			are essentially wrappers around the JavaScript <a
+				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#arithmetic_operators"
+				rel="external"
+				>arithmetic operators</a
+			> and <a
+				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"
+				rel="external"
+				>Math module</a
+			> operations, e.g., <code>Math.abs</code> (absolute value).
+		</p>
+		<p>
+			Operators operate on <strong>operands</strong>, which may be <code
+				>addends</code
+			>,
+			<code>multipliers</code>, <code>dividends</code>, <code>divisors</code>, <code
+				>minuends</code
+			>,
+			<code>subtrahends</code>, etc.
+		</p>
+		<p>
+			These operands are themselves operations. They can be nested to any depth
+			(memory permitting). At the bottom of these trees of operations, the leaf
+			nodes <em>must</em> evaluate to numerical values. For this purpose, <a
+				href="/injectors"><code>injectors</code></a
+			> are used.
+		</p>
+		<p>
+			Injectors can inject values as constants (hard-coded into the config), or
+			from form inputs, session or local storage, cookies, the URL, or from the
+			optional argument (<code>arg</code>) to the function returned from
+			<a href="/calculations/composers/composeOperators"
+				><code>composeOperators</code></a
+			>:
+		</p>
+		<Fragment set:html={frag1} />
+		<p>
+			<code>composeOperators</code> is a <em>recursive</em> function.
+		</p>
+	</section>
+</Layout>

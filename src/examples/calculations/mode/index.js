@@ -28,4 +28,4 @@ if (code) {
 }
 
 // Check the console below
-console.log("calculate(13) ->", calculate(13))
+console.log(JSON.stringify(calculate(13), null, 2))

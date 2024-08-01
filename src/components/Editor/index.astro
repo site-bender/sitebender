@@ -8,21 +8,21 @@ const { css, html, js, height = "20rem" } = Astro.props
 	data-js={js}
 	id="sb-editor"
 >
-	<script
-		src="https://flems.io/flems.html"
-		type="text/javascript"
-		charset="utf-8"
-	></script>
 </section>
-<script>
+<script
+	src="/flems.html"
+	type="text/javascript"
+	charset="utf-8"
+></script>
+<script is:inline>
 	const section = document.querySelector("#sb-editor")
-	const data = { ...section.dataset }
+	const data = { ...section?.dataset }
 	const css = data.css
 	const html = data.html
 	const js = data.js
-	delete section.dataset.css
-	delete section.dataset.html
-	delete section.dataset.js
+	delete section?.dataset.css
+	delete section?.dataset.html
+	delete section?.dataset.js
 
 	const flems = Flems(section, {
 		files: [
