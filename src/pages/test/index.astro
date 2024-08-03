@@ -1,0 +1,204 @@
+---
+import "./_index.css"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Banners</title>
+		<!-- Font Awesome CDN -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+		/>
+		<!-- Google fonts - Ubuntu -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+		/>
+	</head>
+	<body>
+		<!--
+		The "banner" is a header, so we should use <header>.
+		This also sets the aria-role to "banner" for accessibility.
+    We don't need the class as we can get it with body > header
+	-->
+		<header>
+			<!--
+      The inner wrapper does nothing, so we can remove it and move
+      the CSS to the header.
+    -->
+			<div class="logo-section">
+				<!--
+          The alt attribute is meant to be equivalent to
+          the image it replaces, so the alt should be
+          the same as the logo. Otherwise, the logo is
+          just "Logo", which isn't helpful to a blind user.
+        -->
+				<img
+					alt="VPIS"
+					id="logo"
+					src="logo.png"
+					width="441px"
+				/>
+
+				<div
+					class="hamburger fas fa-bars"
+					id="hamburger"
+				>
+				</div>
+
+				<!--
+          Do we actually want this to overlap the header?
+          That hides the hamburger so it can't be used as a toggle,
+          and might be confusing UX-wise.
+        -->
+				<div
+					class="side-drawer"
+					id="sideDrawer"
+				>
+					<a href="#">
+						Settings
+						<!--
+              The <i> element has a specific meaning,
+              namely idiomatic text, so it expects text content.
+              The span element is better suited for an icon.
+            -->
+						<span class="fas fa-chevron-right"></span>
+					</a>
+					<a href="#">
+						Proposals
+						<span class="fas fa-chevron-right"></span>
+					</a>
+					<a href="#">
+						Registration
+						<span class="fas fa-chevron-right"></span>
+					</a>
+					<a href="#">
+						Reports
+						<span class="fas fa-chevron-right"></span>
+					</a>
+					<a href="#">
+						Notifications
+						<span class="fas fa-chevron-right"></span>
+					</a>
+					<p class="username">Meghan Hughes</p>
+					<p>Main Contact</p>
+					<p>Vet Practice Limited</p>
+					<p class="sign-out">SIGN OUT</p>
+				</div>
+
+				<p class="name">VPIS</p>
+			</div>
+
+			<!--
+        The right semantic element is a horizontal rule
+        as it represents a thematic break
+      -->
+			<hr class="vertical left" />
+
+			<nav class="title-section">
+				<ul>
+					<li class="nav-item">
+						Settings <span class="dropdown-arrow"
+							><span class="fas fa-chevron-down"></span></span
+						>
+						<div class="dropdown-content">Placeholder content</div>
+					</li>
+					<li class="nav-item">
+						Proposals <span class="dropdown-arrow"
+							><span class="fas fa-chevron-down"></span></span
+						>
+						<div class="dropdown-content">Placeholder content</div>
+					</li>
+					<li class="nav-item">
+						Registration <span class="dropdown-arrow"
+							><span class="fas fa-chevron-down"></span></span
+						>
+						<div class="dropdown-content">Placeholder content</div>
+					</li>
+					<li class="nav-item">
+						Reports <span class="dropdown-arrow"
+							><span class="fas fa-chevron-down"></span></span
+						>
+						<div class="dropdown-content">Placeholder content</div>
+					</li>
+					<li class="nav-item">
+						Notifications <span class="dropdown-arrow"
+							><span class="fas fa-chevron-down"></span></span
+						>
+						<div class="dropdown-content">Placeholder content</div>
+					</li>
+				</ul>
+			</nav>
+
+			<hr class="vertical right" />
+
+			<!-- Hide this section on mobile and put in side drawer instead -->
+			<div class="user-section">
+				<p class="username">Meghan Hughes</p>
+				<p>Main Contact</p>
+				<p>Vet Practice Limited</p>
+				<p class="sign-out">SIGN OUT</p>
+			</div>
+		</header>
+
+		<!-- The overlay is fixed, so can be anywhere in the body -->
+		<div
+			class="overlay"
+			id="overlay"
+		>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const hamburger = document.getElementById("hamburger")
+				const sideDrawer = document.getElementById("sideDrawer")
+				const overlay = document.getElementById("overlay")
+				const navItems = document.querySelectorAll(".nav-item")
+
+				// Clicking on the hamburger opens the side drawer
+				hamburger.addEventListener("click", function () {
+					sideDrawer.classList.toggle("open")
+					overlay.classList.toggle("open")
+				})
+
+				// Clicking outside of the side drawer on the overlay closes the side drawer
+				overlay.addEventListener("click", function () {
+					sideDrawer.classList.remove("open")
+					overlay.classList.remove("open")
+				})
+
+				// Clicking in the side drawer anywhere closes the side drawer
+				document.addEventListener("click", function ({ target }: MouseEvent) {
+					if (
+						!sideDrawer.contains(target as Node) &&
+						!hamburger.contains(target as Node)
+					) {
+						sideDrawer.classList.remove("open")
+						overlay.classList.remove("open")
+					}
+				})
+
+				// Clicking on the nav items either opens or closes the dropdown
+				navItems.forEach(item => {
+					item.addEventListener("click", function (event) {
+						// If the clicked item is already active, remove the active class
+						if (item.classList.contains("active")) {
+							item.classList.remove("active")
+						} else {
+							// Remove active class from all nav items
+							navItems.forEach(i => i.classList.remove("active"))
+							// Add active class to the clicked item
+							item.classList.add("active")
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>
