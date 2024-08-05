@@ -6,7 +6,10 @@ import rehypePrettyCode from "rehype-pretty-code"
 import { unified } from "unified"
 
 const getMarkdownFromCode = async (code, lang = "js") => {
-	const js = typeof code === "string" ? code : code.default.toString().replaceAll(/\t/g, "  ")
+	const js =
+		typeof code === "string"
+			? code
+			: code.default.toString().replaceAll(/\t/g, "  ")
 	const snippet = `
 \`\`\`${lang}
 ${js}
