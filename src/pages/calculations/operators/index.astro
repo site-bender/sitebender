@@ -9,7 +9,7 @@ const glob1 = import.meta.glob("../../../examples/*", {
 	import: "default",
 })
 
-const glob2 = import.meta.glob("../../../examples/calculations/add/*", {
+const glob2 = import.meta.glob("../../../examples/operations/add/*", {
 	query: "?raw",
 	import: "default",
 })
@@ -82,7 +82,7 @@ const subtract = await getMarkdownFromCode(
 	/>
 	<p>
 		This object can be passed to the <a
-			href="/calculations/composers/composeOperators"
+			href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		>
 		function, which recurses through the <code>operations</code> returning and composing
@@ -108,7 +108,7 @@ const subtract = await getMarkdownFromCode(
 	<h2>Operator constructors</h2>
 	<dl>
 		<dt>
-			<a href="/calculations/operators/absoluteValue"
+			<a href="/operations/operators/absoluteValue"
 				><code>AbsoluteValue</code></a
 			>
 		</dt>
@@ -121,7 +121,7 @@ const subtract = await getMarkdownFromCode(
 				>&lbrace; right: 7 &rbrace;</code
 			>.
 		</dd>
-		<dt><a href="/calculations/operators/add"><code>Add</code></a></dt>
+		<dt><a href="/operations/operators/add"><code>Add</code></a></dt>
 		<dd set:html={add.replace(/@@/g, "Add")} />
 		<dd>
 			The function this operation creates will evaluate the operands and then
@@ -132,34 +132,34 @@ const subtract = await getMarkdownFromCode(
 			then the function will return <code>&lbrace; right: 4 &rbrace;</code>.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/arcCosine"><code>ArcCosine</code></a>
+			<a href="/operations/operators/arcCosine"><code>ArcCosine</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "ArcCosine")} />
 		<dt>
-			<a href="/calculations/operators/arcHyperbolicCosine"
+			<a href="/operations/operators/arcHyperbolicCosine"
 				><code>ArcHyperbolicCosine</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicCosine")} />
 		<dt>
-			<a href="/calculations/operators/arcHyperbolicSine"
+			<a href="/operations/operators/arcHyperbolicSine"
 				><code>ArcHyperbolicSine</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicSine")} />
 		<dt>
-			<a href="/calculations/operators/arcHyperbolicTangent"
+			<a href="/operations/operators/arcHyperbolicTangent"
 				><code>ArcHyperbolicTangent</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "ArcHyperbolicTangent")} />
-		<dt><a href="/calculations/operators/arcSine"><code>ArcSine</code></a></dt>
+		<dt><a href="/operations/operators/arcSine"><code>ArcSine</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "ArcSine")} />
 		<dt>
-			<a href="/calculations/operators/arcTangent"><code>ArcTangent</code></a>
+			<a href="/operations/operators/arcTangent"><code>ArcTangent</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "ArcTangent")} />
-		<dt><a href="/calculations/operators/average"><code>Average</code></a></dt>
+		<dt><a href="/operations/operators/average"><code>Average</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Average")} />
 		<dd>
 			The function this operation creates will evaluate the operands and sum the
@@ -168,7 +168,7 @@ const subtract = await getMarkdownFromCode(
 				>[&lbrace; right: 5 &rbrace;,&lbrace; right: 9 &rbrace;]</code
 			> then the function will return <code>&lbrace; right: 7 &rbrace;</code>.
 		</dd>
-		<dt><a href="/calculations/operators/ceiling"><code>Ceiling</code></a></dt>
+		<dt><a href="/operations/operators/ceiling"><code>Ceiling</code></a></dt>
 		<dd set:html={decimals.replace(/@@/g, "Ceiling")} />
 		<dd>
 			<code>decimalPlaces</code> permits returning the ceiling of a <code
@@ -183,16 +183,16 @@ const subtract = await getMarkdownFromCode(
 			return <code>&lbrace; right: 5.56 &rbrace;</code> when evaluated in a calculation.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/cosecant"><code>Cosecant</code></a>
+			<a href="/operations/operators/cosecant"><code>Cosecant</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "Cosecant")} />
-		<dt><a href="/calculations/operators/cosine"><code>Cosine</code></a></dt>
+		<dt><a href="/operations/operators/cosine"><code>Cosine</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Cosine")} />
 		<dt>
-			<a href="/calculations/operators/cotangent"><code>Cotangent</code></a>
+			<a href="/operations/operators/cotangent"><code>Cotangent</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "Cotangent")} />
-		<dt><a href="/calculations/operators/divide"><code>Divide</code></a></dt>
+		<dt><a href="/operations/operators/divide"><code>Divide</code></a></dt>
 		<dd set:html={dividend.replace(/@@/g, "Divide")} />
 		<dd>
 			The <code>divisor</code> is divided into the <code>dividend</code> to return
@@ -202,10 +202,10 @@ const subtract = await getMarkdownFromCode(
 			because <code>12 / 2 === 6</code>.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/exponent"><code>Exponent</code></a>
+			<a href="/operations/operators/exponent"><code>Exponent</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "Exponent")} />
-		<dt><a href="/calculations/operators/floor"><code>Floor</code></a></dt>
+		<dt><a href="/operations/operators/floor"><code>Floor</code></a></dt>
 		<dd set:html={decimals.replace(/@@/g, "Floor")} />
 		<dd>
 			<code>decimalPlaces</code> permits returning the floor of a <code
@@ -220,47 +220,47 @@ const subtract = await getMarkdownFromCode(
 			return <code>&lbrace; right: 5.55 &rbrace;</code> when evaluated in a calculation.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/hyperbolicCosine"
+			<a href="/operations/operators/hyperbolicCosine"
 				><code>HyperbolicCosine</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "HyperbolicCosine")} />
 		<dt>
-			<a href="/calculations/operators/hyperbolicSine"
+			<a href="/operations/operators/hyperbolicSine"
 				><code>HyperbolicSine</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "HyperbolicSine")} />
 		<dt>
-			<a href="/calculations/operators/hyperbolicTangent"
+			<a href="/operations/operators/hyperbolicTangent"
 				><code>HyperbolicTangent</code></a
 			>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "HyperbolicTangent")} />
 		<dt>
-			<a href="/calculations/operators/hypotenuse"><code>Hypotenuse</code></a>
+			<a href="/operations/operators/hypotenuse"><code>Hypotenuse</code></a>
 		</dt>
 		<dd set:html={operands.replace(/@@/g, "Hypotenuse")} />
-		<dt><a href="/calculations/operators/log"><code>Log</code></a></dt>
+		<dt><a href="/operations/operators/log"><code>Log</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Log")} />
 		<dt>
-			<a href="/calculations/operators/logBaseTwo"><code>LogBaseTwo</code></a>
+			<a href="/operations/operators/logBaseTwo"><code>LogBaseTwo</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "LogBaseTwo")} />
-		<dt><a href="/calculations/operators/max"><code>Max</code></a></dt>
+		<dt><a href="/operations/operators/max"><code>Max</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Max")} />
-		<dt><a href="/calculations/operators/mean"><code>Mean</code></a></dt>
+		<dt><a href="/operations/operators/mean"><code>Mean</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Mean")} />
 		<dd>
 			<code>Mean</code> is the same as <code>Average</code> above.
 		</dd>
-		<dt><a href="/calculations/operators/median"><code>Median</code></a></dt>
+		<dt><a href="/operations/operators/median"><code>Median</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Median")} />
-		<dt><a href="/calculations/operators/min"><code>Min</code></a></dt>
+		<dt><a href="/operations/operators/min"><code>Min</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Min")} />
-		<dt><a href="/calculations/operators/mode"><code>Mode</code></a></dt>
+		<dt><a href="/operations/operators/mode"><code>Mode</code></a></dt>
 		<dd set:html={operands.replace(/@@/g, "Mode")} />
-		<dt><a href="/calculations/operators/modulo"><code>Modulo</code></a></dt>
+		<dt><a href="/operations/operators/modulo"><code>Modulo</code></a></dt>
 		<dd set:html={dividend.replace(/@@/g, "Modulo")} />
 		<dd>
 			The <code>divisor</code> is divided into the <code>dividend</code> to return
@@ -270,26 +270,26 @@ const subtract = await getMarkdownFromCode(
 			because <code>12 / 2 === 6</code>.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/multiply"><code>Multiply</code></a>
+			<a href="/operations/operators/multiply"><code>Multiply</code></a>
 		</dt>
 		<dd set:html={multiply.replace(/@@/g, "Multiply")} />
 		<dt>
-			<a href="/calculations/operators/naturalLog"><code>NaturalLog</code></a>
+			<a href="/operations/operators/naturalLog"><code>NaturalLog</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "NaturalLog")} />
-		<dt><a href="/calculations/operators/negate"><code>Negate</code></a></dt>
+		<dt><a href="/operations/operators/negate"><code>Negate</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Negate")} />
-		<dt><a href="/calculations/operators/power"><code>Power</code></a></dt>
+		<dt><a href="/operations/operators/power"><code>Power</code></a></dt>
 		<dd set:html={power.replace(/@@/g, "Power")} />
 		<dt>
-			<a href="/calculations/operators/reciprocal"><code>Reciprocal</code></a>
+			<a href="/operations/operators/reciprocal"><code>Reciprocal</code></a>
 		</dt>
 		<dd set:html={generic.replace(/@@/g, "Reciprocal")} />
 		<dt>
-			<a href="/calculations/operators/remainder"><code>Remainder</code></a>
+			<a href="/operations/operators/remainder"><code>Remainder</code></a>
 		</dt>
 		<dd set:html={dividend.replace(/@@/g, "Remainder")} />
-		<dt><a href="/calculations/operators/root"><code>Root</code></a></dt>
+		<dt><a href="/operations/operators/root"><code>Root</code></a></dt>
 		<dd set:html={root.replace(/@@/g, "Root")} />
 		<dd>
 			The <code>radicand</code> is the number for which we want the root, and the
@@ -301,12 +301,12 @@ const subtract = await getMarkdownFromCode(
 			>. Put another way, the cube root of 125 is 5.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/rootMeanSquare"
+			<a href="/operations/operators/rootMeanSquare"
 				><code>RootMeanSquare</code></a
 			>
 		</dt>
 		<dd set:html={operands.replace(/@@/g, "RootMeanSquare")} />
-		<dt><a href="/calculations/operators/round"><code>Round</code></a></dt>
+		<dt><a href="/operations/operators/round"><code>Round</code></a></dt>
 		<dd set:html={decimals.replace(/@@/g, "Round")} />
 		<dd>
 			<code>decimalPlaces</code> permits returning the <code>Number</code> rounded
@@ -320,14 +320,14 @@ const subtract = await getMarkdownFromCode(
 			return <code>&lbrace; right: 5.56 &rbrace;</code> when evaluated in a calculation.
 			(<code>5.5545</code> will round to <code>5.55</code>.)
 		</dd>
-		<dt><a href="/calculations/operators/secant"><code>Secant</code></a></dt>
+		<dt><a href="/operations/operators/secant"><code>Secant</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Secant")} />
-		<dt><a href="/calculations/operators/sign"><code>Sign</code></a></dt>
+		<dt><a href="/operations/operators/sign"><code>Sign</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Sign")} />
-		<dt><a href="/calculations/operators/sine"><code>Sine</code></a></dt>
+		<dt><a href="/operations/operators/sine"><code>Sine</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Sine")} />
 		<dt>
-			<a href="/calculations/operators/standardDeviation"
+			<a href="/operations/operators/standardDeviation"
 				><code>StandardDeviation</code></a
 			>
 		</dt>
@@ -337,7 +337,7 @@ const subtract = await getMarkdownFromCode(
 			the mean (the default) or population standard deviation from the mean.
 		</dd>
 		<dt>
-			<a href="/calculations/operators/subtract"><code>Subtract</code></a>
+			<a href="/operations/operators/subtract"><code>Subtract</code></a>
 		</dt>
 		<dd set:html={subtract.replace(/@@/g, "Subtract")} />
 		<dd>
@@ -347,10 +347,10 @@ const subtract = await getMarkdownFromCode(
 			> and <code>subtrahend = 7</code> then the difference is
 			<code>4</code> because <code>11 - 7 === 4</code>
 		</dd>
-		<dt><a href="/calculations/operators/tangent"><code>Tangent</code></a></dt>
+		<dt><a href="/operations/operators/tangent"><code>Tangent</code></a></dt>
 		<dd set:html={generic.replace(/@@/g, "Tangent")} />
 		<dt>
-			<a href="/calculations/operators/truncate"><code>Truncate</code></a>
+			<a href="/operations/operators/truncate"><code>Truncate</code></a>
 		</dt>
 		<dd set:html={decimals.replace(/@@/g, "Truncate")} />
 		<dd>

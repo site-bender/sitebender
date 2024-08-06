@@ -3,7 +3,7 @@ import Layout from "../../../../layouts/index.astro"
 import Editor from "../../../../components/Editor/index.astro"
 import getExampleCode from "../../../../utilities/getExampleCode"
 import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
-import * as arcHyperbolicSine from "../../../../../lib/calculations/operators/constructors/ArcHyperbolicSine?raw"
+import * as arcHyperbolicSine from "../../../../../lib/operations/operators/constructors/ArcHyperbolicSine?raw"
 
 const glob1 = import.meta.glob("../../../../examples/*", {
 	query: "?raw",
@@ -11,7 +11,7 @@ const glob1 = import.meta.glob("../../../../examples/*", {
 })
 
 const glob2 = import.meta.glob(
-	"../../../../examples/calculations/arcHyperbolicSine/*",
+	"../../../../examples/operations/arcHyperbolicSine/*",
 	{
 		query: "?raw",
 		import: "default",
@@ -63,7 +63,7 @@ const frag2 = await getMarkdownFromCode(
 	<h2>The <code>arcHyperbolicSine</code> function</h2>
 	<p>
 		We pass our configuration object to <a
-			href="/calculations/composers/composeOperators"
+			href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		>, which composes the operations and returns a single function. This
 		function takes an optional argument and returns the result of the
@@ -81,7 +81,7 @@ const frag2 = await getMarkdownFromCode(
 		the <code>tag</code> (e.g., "ArcHyperbolicSine"), and composing the functions
 		returned.
 		<code>composeOperators</code> then returns this composed function. See <a
-			href="/calculations/composers/composeOperators"
+			href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> for a more detailed explanation.
 	</p>
@@ -92,14 +92,14 @@ const frag2 = await getMarkdownFromCode(
 	</p>
 	<p>
 		See the <a href="/injectors">injectors</a> for a complete list of how values
-		may be injected. See the <a href="/calculations/operators"
+		may be injected. See the <a href="/operations/operators"
 			>list of operators</a
 		>
 		for the full range of available mathematical operations.
 	</p>
 	<h2>Example</h2>
 	<p>
-		We use <a href="/calculations/composers/composeOperators"
+		We use <a href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> to create a <code>calculate</code> function, passing it our <code
 			>ArcHyperbolicSine</code

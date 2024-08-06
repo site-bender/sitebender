@@ -3,20 +3,17 @@ import Layout from "../../../../layouts/index.astro"
 import Editor from "../../../../components/Editor/index.astro"
 import getExampleCode from "../../../../utilities/getExampleCode"
 import getMarkdownFromCode from "../../../../utilities/getMarkdownFromCode"
-import * as remainder from "../../../../../lib/calculations/operators/constructors/Remainder?raw"
+import * as remainder from "../../../../../lib/operations/operators/constructors/Remainder?raw"
 
 const glob1 = import.meta.glob("../../../../examples/*", {
 	query: "?raw",
 	import: "default",
 })
 
-const glob2 = import.meta.glob(
-	"../../../../examples/calculations/remainder/*",
-	{
-		query: "?raw",
-		import: "default",
-	},
-)
+const glob2 = import.meta.glob("../../../../examples/operations/remainder/*", {
+	query: "?raw",
+	import: "default",
+})
 
 const { css, html, js } = await getExampleCode({ ...glob1, ...glob2 })
 
@@ -60,7 +57,7 @@ const frag2 = await getMarkdownFromCode(
 	<h2>The <code>remainder</code> function</h2>
 	<p>
 		We pass our configuration object to <a
-			href="/calculations/composers/composeOperators"
+			href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		>, which composes the operations and returns a single function. This
 		function takes an optional argument and returns the result of the
@@ -77,7 +74,7 @@ const frag2 = await getMarkdownFromCode(
 		<code>operation</code> object, calling the correct operator function based on
 		the <code>tag</code> (e.g., "Remainder"), and composing the functions returned.
 		<code>composeOperators</code> then returns this composed function. See <a
-			href="/calculations/composers/composeOperators"
+			href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> for a more detailed explanation.
 	</p>
@@ -88,14 +85,14 @@ const frag2 = await getMarkdownFromCode(
 	</p>
 	<p>
 		See the <a href="/injectors">injectors</a> for a complete list of how values
-		may be injected. See the <a href="/calculations/operators"
+		may be injected. See the <a href="/operations/operators"
 			>list of operators</a
 		>
 		for the full range of available mathematical operations.
 	</p>
 	<h2>Example</h2>
 	<p>
-		We use <a href="/calculations/composers/composeOperators"
+		We use <a href="/operations/composers/composeOperators"
 			><code>composeOperators</code></a
 		> to create a <code>calculate</code> function, passing it our <code
 			>Remainder</code
@@ -114,7 +111,7 @@ const frag2 = await getMarkdownFromCode(
 		Try leaving one of the numbers undefined to see an <code>Error</code> returned.
 		Also, play around with positive and negative dividends and divisors, then compare
 		with
-		<a href="/calculations/operators/modulo"><code>Modulo</code></a>.
+		<a href="/operations/operators/modulo"><code>Modulo</code></a>.
 	</p>
 	<Editor
 		{css}

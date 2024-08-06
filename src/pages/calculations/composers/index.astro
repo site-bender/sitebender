@@ -19,31 +19,31 @@ const frag4 = await getMarkdownFromCode(
 <Layout>
 	<p>
 		There are four available compose functions. These compose <a
-			href="/calculations/composers/comparators">comparators</a
-		>, <a href="/calculations/composers/conditionals">conditionals</a>, <a
-			href="/calculations/composers/operators">operators</a
-		>, and <a href="/calculations/composers/validation">validation</a>,
+			href="/operations/composers/comparators">comparators</a
+		>, <a href="/operations/composers/conditionals">conditionals</a>, <a
+			href="/operations/composers/operators">operators</a
+		>, and <a href="/operations/composers/validation">validation</a>,
 	</p>
 	<section id="comparators">
 		<h2>Comparators</h2>
 		<p>
 			<strong>Comparators</strong> are used for validation and conditional display.
-			The <a href="/calculations/comparators"><code>comparator</code></a> operations
+			The <a href="/operations/comparators"><code>comparator</code></a> operations
 			are composed into a single function that does the potentially-nested comparison
 			(with <code>and</code> and <code>or</code>):
 		</p>
 		<Fragment set:html={frag1} />
 		<p>
 			Examples of comparator operations are <a
-				href="/calculations/comparators/amount/isMoreThan"
+				href="/operations/comparators/amount/isMoreThan"
 				><code>IsMoreThan</code></a
-			>, <a href="/calculations/comparators/alphabetical/isAfterAlphabetically"
+			>, <a href="/operations/comparators/alphabetical/isAfterAlphabetically"
 				><code>IsAfterAlphabetically</code></a
-			>, <a href="/calculations/comparators/dateTime/isBeforeDateTime"
+			>, <a href="/operations/comparators/dateTime/isBeforeDateTime"
 				><code>IsBeforeDateTime</code></a
-			>, <a href="/calculations/comparators/matching/matches"
+			>, <a href="/operations/comparators/matching/matches"
 				><code>Matches</code></a
-			>, and <a href="/calculations/comparators/set/isDisjointSet"
+			>, and <a href="/operations/comparators/set/isDisjointSet"
 				><code>IsDisjointSet</code></a
 			>.
 		</p>
@@ -56,7 +56,7 @@ const frag4 = await getMarkdownFromCode(
 			If the comparison evaluates to <code>true</code>, then a <code>Right</code
 			> is returned
 			<em>with the value that was tested.</em> See <a
-				href="/calculations/composers/comparators"
+				href="/operations/composers/comparators"
 				><code>composeComparators</code></a
 			> for more detail.
 		</p>
@@ -80,16 +80,16 @@ const frag4 = await getMarkdownFromCode(
 				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"
 				rel="external"
 				>Math module</a
-			> operations. Examples: <a href="/calculations/operators/add"
+			> operations. Examples: <a href="/operations/operators/add"
 				><code>add</code></a
 			>,
-			<a href="/calculations/operators/subtract"><code>subtract</code></a>,
-			<a href="/calculations/operators/multiply"><code>multiply</code></a>,
-			<a href="/calculations/operators/divide"><code>divide</code></a>,
-			<a href="/calculations/operators/floor"><code>floor</code></a>,
-			<a href="/calculations/operators/mean"><code>mean</code></a>, and
-			<a href="/calculations/operators/root"><code>root</code></a>. See the
-			<a href="/calculations/operators">full list of operators</a>.
+			<a href="/operations/operators/subtract"><code>subtract</code></a>,
+			<a href="/operations/operators/multiply"><code>multiply</code></a>,
+			<a href="/operations/operators/divide"><code>divide</code></a>,
+			<a href="/operations/operators/floor"><code>floor</code></a>,
+			<a href="/operations/operators/mean"><code>mean</code></a>, and
+			<a href="/operations/operators/root"><code>root</code></a>. See the
+			<a href="/operations/operators">full list of operators</a>.
 		</p>
 		<p>
 			If the operation fails, then a <code>Left</code> is returned with one or more
@@ -102,7 +102,7 @@ const frag4 = await getMarkdownFromCode(
 	<section id="validation">
 		<h2>Validation</h2>
 		<p>
-			The <a href="/calculations/composers/composeValidation"
+			The <a href="/operations/composers/composeValidation"
 				><code>composeValidation</code></a
 			>
 			function wraps the <code>composeComparators</code> function, returning the
@@ -113,7 +113,7 @@ const frag4 = await getMarkdownFromCode(
 	<section id="conditionals">
 		<h2>Conditionals</h2>
 		<p>
-			The <a href="/calculations/composers/composeConditional"
+			The <a href="/operations/composers/composeConditional"
 				><code>composeConditional</code></a
 			>
 			function wraps the <code>composeComparators</code> function, but returns a
