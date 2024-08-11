@@ -1,6 +1,6 @@
 {
 	"name": "@sitebender/sitebender",
-	"version": "0.1.37",
+	"version": "0.1.38",
 	"description": "Full app rendering from simple JSON configuration.",
 	"keywords": [
 		"no-code",
