@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta content="width=device-width" name="viewport"><link href="/favicon.ico" rel="icon"><title>Constant :: Injectors ::  @sitebender API</title><link rel="stylesheet" href="/_astro/index.BSAm1KrG.css">
+<style>.code-block{align-items:stretch;display:flex;flex-direction:column-reverse;gap:0;justify-content:flex-start;margin:0 0 1.5rem}.code-block figcaption{text-align:center}.code-block pre{border-radius:5px;padding:0 .75rem;margin:0}.code-block pre,.code-block code{font-family:var( --font-code, Menlo, Consolas, ui-monospace, "Cascadia Code", "Source Code Pro", "DejaVu Sans Mono", monospace )}.code-block pre>code{display:flex;flex-direction:column;font-size:.85rem;gap:0;justify-content:flex-start;line-height:1.3;padding:0}.code-block pre>code .line{margin:0;padding:0}.code-block pre.astro-code>code>span:first-child:before{padding-top:.5rem}.code-block pre.astro-code>code>span:last-child:before{padding-bottom:.5rem}.code-block pre.astro-code{counter-reset:lines 0;position:relative}.code-block pre.astro-code span.line:before{border-right:1px solid var(--color-gray-7, #44444b);color:var(--color-highlight, #aaf5a3);content:counter(lines) "";counter-increment:lines 1;display:inline-block;margin-right:1rem;padding:.1rem .5rem .1rem 0;text-align:right;width:2ch}.code-block button.copy-to-clipboard{background:transparent;border-radius:5px;border:none;color:var(--color-gray-0, #fafafa);font-family:var( --font-body, Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif );font-size:1rem;padding:2px 4px;position:absolute;right:1rem;top:.5rem}.code-block button.copy-to-clipboard:focus,.code-block button.copy-to-clipboard:hover{background-color:var(--color-gray-8, #2c2c30);color:var(--color-highlight, #aaf5a3);outline-color:var(--color-highlight, #aaf5a3)}figure.is-indexed{counter-increment:figures 1}figure.is-indexed figcaption:before{content:"Figure " counter(figures) ": "}
+</style></head> <body> <header> <a class="logo" href="/" title="To home page.">
+@sitebender
+</a> </header> <nav class="breadcrumbs"><ul class="trail"><li><a href="/">Home</a></li><li><a href="/injectors">Injectors</a></li><li class="this-page">Constant</li></ul></nav> <main id="main-content"> <details class="nav" open><summary><strong>Navigation</strong></summary><nav><ul><li><a href="/injectors/constant">Constant</a></li><li><a href="/injectors/fromArgument">From Argument</a></li></ul></nav></details> <article> <h1>Constant</h1>  <p> <code>Constant</code> is a curried constructor used to create a JS/JSON configuration
+		object that represents an <strong>constant to be injected</strong> into an operation.
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#ADBAC7">(</span><span style="color:#F69D50">datatype</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "Number"</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">=></span></span>
+<span data-line=""><span style="color:#F69D50">  value</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> ({</span></span>
+<span data-line=""><span style="color:#ADBAC7">    tag: </span><span style="color:#96D0FF">"Constant"</span><span style="color:#ADBAC7">,</span></span>
+<span data-line=""><span style="color:#ADBAC7">    datatype,</span></span>
+<span data-line=""><span style="color:#ADBAC7">    value,</span></span>
+<span data-line=""><span style="color:#ADBAC7">  })</span></span></code></pre>
+</figure>
+ <p>
+The first parameter to <code>Constant</code> determines the datatype of the return
+		value injected. This defaults to "Number".
+</p> <p>
+The second parameter is the value to be returned by the Constant operation.
+		Here's how it works:
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#DCBDFB">Constant</span><span style="color:#ADBAC7">()(</span><span style="color:#6CB6FF">42</span><span style="color:#ADBAC7">) </span><span style="color:#768390">// => { tag: "Constant", datatype: "Number", value: 42 }</span></span></code></pre>
+</figure>
+ <p>
+Because <code>Constant</code> is curried, we can simplify our code by partial
+		application, for example,
+<code>const Int = Constant("Integer")</code>. This returns a function that
+		takes an integer and returns the <code>Constant</code> operation:
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#6CB6FF"> Int</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> Constant</span><span style="color:#ADBAC7">()</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">Int</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">42</span><span style="color:#ADBAC7">) </span><span style="color:#768390">// => { tag: "Constant", datatype: "Number", value: 42 }</span></span></code></pre>
+</figure>
+ <p>
+This can help to unclutter our code, reducing cognitive load. Be sure to
+		name well. See below for an example.
+</p> <h2>The <code>constant</code> function</h2> <p>
+We pass our configuration object to <a href="/operations/composers/composeOperators"><code>composeOperators</code></a>, which composes the operation and returns a single function.
+</p> <p>
+This function takes an optional argument (ignored in this instance) and
+		returns the injected constant as a <code>Right</code>, e.g., <code>&lbrace; right: 42 &rbrace;</code>, or a <code>Left</code> with an array of <a href="/constructors/error"><code>Error</code></a> objects if something goes wrong,
+<code>&lbrace; left: [Error] &rbrace;</code>.
+</p> 
+<figure data-rehype-pretty-code-figure="">
+  <pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="js" data-theme="github-dark-dimmed"><code data-language="js" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#F47067">const</span><span style="color:#DCBDFB"> constant</span><span style="color:#F47067"> =</span><span style="color:#F69D50"> operation</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> (</span><span style="color:#F69D50">_</span><span style="color:#F47067"> =></span><span style="color:#ADBAC7"> Either</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Array</span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7">Error</span><span style="color:#F47067">></span><span style="color:#ADBAC7">, result</span><span style="color:#F47067">></span><span style="color:#ADBAC7">)</span></span></code></pre>
+</figure>
+ <p> <code>composeOperators</code> works by recursing down through the
+<code>operation</code> object, calling the correct operator function based on
+		the <code>tag</code> (e.g., "Constant"), and composing the functions returned,
+		until it hits an Injector. At that point it rolls everything back up. <code>composeOperators</code> then returns this composed function.
+</p> <p>
+See <a href="/operations/composers/composeOperators"><code>composeOperators</code></a> for a more detailed explanation.
+</p> <p>
+The injectors are not actually called until this composed <code>calculate</code> function is run. Hence, evaluation is lazy: the values are not injected until
+		the last moment. In the case of <code>Constant</code> this makes no difference,
+		as the value is, well, <em>constant</em>.
+</p> <p>
+See the <a href="/injectors">injectors</a> for a complete list of how values
+		may be injected. See the <a href="/operations/operators">list of operators</a>
+for the full range of available mathematical operations.
+</p> <h2>Example</h2> <p>
+Well, there's not much to see here. Constants are constant. But here's an
+		example to play with. We've taken advantage of currying (but you don't have
+		to).
+</p> <p>
+Try passing bad data (e.g., change the 77 to "Bob") to see an <code>Error</code> returned in the console.
+</p> <section data-css="body {
+	background-color: ghostwhite;
+	color: darkslategray;
+	font-family: system-ui, sans-serif;
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin: 1rem;
+}
+
+code {
+	font-size: 1rem;
+}
+" data-html="<!doctype html>
+<html lang=&#34;en&#34;>
+	<head></head>
+	<body>
+		<code><pre id=&#34;code-output&#34;></pre></code>
+	</body>
+</html>
+" data-js="import { composeOperators, Constant } from &#34;@sitebender/sitebender&#34;
+
+const code = document.querySelector(&#34;#code-output&#34;)
+
+const Int = Constant(&#34;Integer&#34;)
+
+// Generate an constant operation object
+const config = Int(77)
+
+// Generate the composed constant function
+const calculate = composeOperators(config)
+
+// Show the config object and the result
+const out =
+	&#34;The configuration generated by Constant:\n\n&#34; +
+	JSON.stringify(config, null, 2)
+
+if (code) {
+	code.innerHTML = out
+}
+
+// Check the console below
+console.log(JSON.stringify(calculate(calculate(), null, 2)))
+" id="sb-editor"></section> <script src="/flems.html" type="text/javascript" charset="utf-8"></script> <script>
+	const section = document.querySelector("#sb-editor")
+	const data = { ...section?.dataset }
+	const css = data.css
+	const html = data.html
+	const js = data.js
+	delete section?.dataset.css
+	delete section?.dataset.html
+	delete section?.dataset.js
+
+	const flems = Flems(section, {
+		files: [
+			{
+				name: "index.js",
+				content: js,
+			},
+			{
+				name: "index.css",
+				content: css,
+			},
+			{
+				name: "index.html",
+				content: html,
+			},
+		],
+		links: [
+			{
+				name: "sitebender",
+				type: "module",
+				url: "https://unpkg.com/@sitebender/sitebender@0.1.26",
+			},
+		],
+		middle: 50,
+		selected: ".js",
+		color: "rgb(38,50,56)",
+		theme: "material",
+		resizeable: true,
+		editable: true,
+		toolbar: true,
+		fileTabs: true,
+		linkTabs: false,
+		shareButton: false,
+		reloadButton: true,
+		console: true,
+		autoReload: true,
+		autoReloadDelay: 400,
+		autoHeight: true,
+	})
+</script>  </article> </main> </body></html>

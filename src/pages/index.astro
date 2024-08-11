@@ -1,5 +1,18 @@
 ---
 import Layout from "../layouts/index.astro"
+
+import FromAPI from "../../lib/injectors/constructors/FromAPI"
+import composeOperators from "../../lib/operations/composers/composeOperators"
+
+const op = FromAPI()({
+	url: "https://jsonplaceholder.typicode.com/users",
+	method: "GET",
+	headers: {
+		Accept: "application/json",
+	},
+})
+
+console.log(JSON.stringify(await composeOperators(op)(), null, 2))
 ---
 
 <Layout>

@@ -14,22 +14,22 @@ const castValue = datatype => value => {
 	}
 
 	if (isDefined(value.right)) {
-		switch (datatype) {
-			case "Integer":
+		switch (datatype.toLocaleLowerCase()) {
+			case "integer":
 				return castToInteger(value.right)
-			case "Number":
+			case "number":
 				return castToNumber(value.right)
-			case "Percent":
+			case "percent":
 				return castToPercent(value.right)
-			case "Boolean":
+			case "boolean":
 				return castToBoolean(value.right)
-			case "String":
+			case "string":
 				return castToString(value.right)
-			case "Date":
+			case "date":
 				return castToDate(value.right)
-			case "DateTime":
+			case "datetime":
 				return castToDateTime(value.right)
-			case "Json":
+			case "json":
 				return parseJson(value.right)
 			default:
 				return { left: "Unknown datatype." }
