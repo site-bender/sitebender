@@ -1,10 +1,12 @@
 import oxlint from "eslint-plugin-oxlint"
 import unusedImports from "eslint-plugin-unused-imports"
 import simpleImportSort from "eslint-plugin-simple-import-sort"
+import eslintPluginUnicorn from "eslint-plugin-unicorn"
 
 export default [
 	{
 		plugins: {
+			"unicorn": eslintPluginUnicorn,
 			"unused-imports": unusedImports,
 			"simple-import-sort": simpleImportSort,
 		},
