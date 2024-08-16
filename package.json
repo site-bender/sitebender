@@ -44,7 +44,7 @@
 		"lint:fix": "eslint --fix",
 		"preview": "vite preview",
 		"preview:docs": "astro preview",
-		"pub": "npm publish --access=public",
+		"pub": "pnpm build:lib && pnpm push && npm publish --access=public",
 		"push": "git add -A && pnpm bump && git push",
 		"start": "vite",
 		"start:docs": "astro dev",
