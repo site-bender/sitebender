@@ -142,10 +142,10 @@ test("casts the value to the actual type", () => {
 	expect(castValue("Json")({ right: `{"name":"Bob","` })).toMatchObject({
 		left: [
 			{
+				tag: "Error",
 				message:
 					"Cannot parse JSON: SyntaxError: Unterminated string in JSON at position 15 (line 1 column 16).",
 				operation: '{"name":"Bob","',
-				tag: "Error",
 				type: "parseJson",
 			},
 		],

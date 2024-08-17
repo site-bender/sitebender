@@ -1,7 +1,6 @@
 # sitebender
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/site-bender/sitebender/blob/main/LICENSE.txt) [![npm version](https://img.shields.io/npm/v/@sitebender/sitebender?style=flat)](https://www.npmjs.com/package/@sitebender/sitebender) 
- [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://sitebender.org/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-06f.svg)](https://github.com/site-bender/sitebender/blob/main/LICENSE.txt) [![npm version](https://img.shields.io/npm/v/@sitebender/sitebender?style=flat&color=393)](https://www.npmjs.com/package/@sitebender/sitebender) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-c6c.svg)](https://sitebender.org/) [![Build and Test](https://github.com/site-bender/sitebender/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/site-bender/sitebender/actions/workflows/build_and_test.yml) 
 
 Entire web apps from a JSON configuration object, including:
 
