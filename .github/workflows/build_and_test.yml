@@ -1,4 +1,4 @@
-name: Build and test with pnpm
+name: Build & test
 on:
   push:
 
