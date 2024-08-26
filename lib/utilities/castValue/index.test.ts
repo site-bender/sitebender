@@ -146,7 +146,7 @@ test("casts the value to the actual type", () => {
 			{
 				tag: "Error",
 				message:
-					"Cannot parse JSON: SyntaxError: Unterminated string in JSON at position 15.",
+					"Cannot parse JSON: SyntaxError: Unterminated string in JSON at position 15 (line 1 column 16).",
 				operation: '{"name":"Bob","',
 				type: "parseJson",
 			},
