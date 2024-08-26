@@ -1,10 +1,9 @@
-name: Build & test
-on:
-  push:
+on: ["push", "pull_request"]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    name: Build & test
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [20.x]
@@ -23,7 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
         
-    - name: Install dependencies
+    - name: pnpm install, make test-coverage
       run: |
         pnpm install
         make test-coverage
