@@ -1,7 +1,12 @@
-[![(Runtime) Build and Test](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml/badge.svg)](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml) 
-
-[![Build and Test](https://github.com/site-bender/sitebender/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/site-bender/sitebender/actions/workflows/build_and_test.yml) 
-
 ![Code Climate technical debt](https://img.shields.io/codeclimate/issues/site-bender/sitebender)
+
+
+![GitHub contributors](https://img.shields.io/github/contributors/site-bender/sitebender)
+
+
+![ClearlyDefined Score](https://img.shields.io/clearlydefined/score/npm/npmjs/-/%40sitebender%2Fsitebender/0.1.42)
+
+
+![Codecov](https://img.shields.io/codecov/c/github/site-bender/sitebender)
 
 

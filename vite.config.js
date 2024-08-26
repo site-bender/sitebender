@@ -18,4 +18,8 @@ export default defineConfig({
 		},
 		rollupOptions: {},
 	},
+	test: {
+		setupFiles: ["vitest-localstorage-mock"],
+		mockReset: false,
+	},
 })

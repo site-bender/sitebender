@@ -1,12 +1,15 @@
 import castToBoolean from "./castToBoolean"
-import castToDate from "./castToDate"
-import castToDateTime from "./castToDateTime"
+import castToPlainDate from "./castToPlainDate"
+import castToPlainDateTime from "./castToPlainDateTime"
 import castToInteger from "./castToInteger"
 import castToNumber from "./castToNumber"
 import castToPercent from "./castToPercent"
 import castToString from "./castToString"
 import parseJson from "./parseJson"
 import isDefined from "../isDefined"
+import castToPlainTime from "./castToPlainTime"
+import castToZonedDateTime from "./castToZonedDateTime"
+import Error from "../../constructors/Error"
 
 const castValue = datatype => value => {
 	if (isDefined(value.left)) {
@@ -25,18 +28,30 @@ const castValue = datatype => value => {
 				return castToBoolean(value.right)
 			case "string":
 				return castToString(value.right)
-			case "date":
-				return castToDate(value.right)
-			case "datetime":
-				return castToDateTime(value.right)
+			case "plaindatetime":
+				return castToPlainDateTime(value.right)
+			case "plaindate":
+				return castToPlainDate(value.right)
+			case "plaintime":
+				return castToPlainTime(value.right)
+			case "zoneddatetime":
+				return castToZonedDateTime(value.right)
 			case "json":
 				return parseJson(value.right)
 			default:
-				return { left: "Unknown datatype." }
+				return {
+					left: [Error(datatype)("castValue")(`Unknown datatype: ${datatype}`)],
+				}
 		}
 	}
 
-	return { left: "Unable to cast value." }
+	return {
+		left: [
+			Error(datatype)("castValue")(
+				`Unable to cast value: ${JSON.stringify(value)}`,
+			),
+		],
+	}
 }
 
 export default castValue

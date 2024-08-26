@@ -1,6 +1,7 @@
 import { expect, test } from "vitest"
 
 import castValue from "."
+import { Temporal } from "temporal-polyfill"
 
 test("casts the value to the actual type", () => {
 	expect(castValue("Boolean")({ right: false })).toMatchObject({ right: false })
@@ -101,33 +102,34 @@ test("casts the value to the actual type", () => {
 		],
 	})
 
-	expect(castValue("Date")({ right: 1000166400000 })).toMatchObject({
-		right: "2001-09-11",
+	expect(castValue("PlainDate")({ right: "2001-09-11" })).toMatchObject({
+		right: Temporal.PlainDate.from("2001-09-11"),
 	})
-	expect(castValue("Date")({ right: "1999-011-333" })).toMatchObject({
+	expect(castValue("PlainDate")({ right: "1999-011-333" })).toMatchObject({
 		left: [
 			{
 				message:
-					"Cannot cast 1999-011-333 to a date: RangeError: Invalid time value.",
+					"Cannot cast 1999-011-333 to a plain date: Cannot parse: 1999-011-333.",
 				operation: "1999-011-333",
 				tag: "Error",
-				type: "castToDate",
+				type: "castToPlainDate",
 			},
 		],
 	})
 
-	expect(castValue("DateTime")({ right: 1000166400123 })).toMatchObject({
-		right: new Date("2001-09-11T00:00:00.123Z"),
+	expect(
+		castValue("PlainDateTime")({ right: "2001-09-11T00:00:00.123" }),
+	).toMatchObject({
+		right: Temporal.PlainDateTime.from("2001-09-11T00:00:00.123"),
 	})
-	expect(castValue("DateTime")({ right: "1999-01-01T00" })).toMatchObject({
-		left: [
-			{
-				message: "Cannot cast 1999-01-01T00 to a date/time: Invalid date.",
-				operation: "1999-01-01T00",
-				tag: "Error",
-				type: "castToDateTime",
-			},
-		],
+	expect(castValue("PlainDateTime")({ right: "1999-01-01T00" })).toMatchObject({
+		right: Temporal.PlainDateTime.from("1999-01-01T00:00:00"),
+	})
+
+	expect(
+		castValue("ZonedDateTime")({ right: "2020-08-05T20:06:13+05:45[+05:45]" }),
+	).toMatchObject({
+		right: Temporal.ZonedDateTime.from("2020-08-05T20:06:13+05:45[+05:45]"),
 	})
 
 	expect(
@@ -144,9 +146,20 @@ test("casts the value to the actual type", () => {
 			{
 				tag: "Error",
 				message:
-					"Cannot parse JSON: SyntaxError: Unterminated string in JSON at position 15 (line 1 column 16).",
+					"Cannot parse JSON: SyntaxError: Unterminated string in JSON at position 15.",
 				operation: '{"name":"Bob","',
 				type: "parseJson",
+			},
+		],
+	})
+
+	expect(castValue("Grizmo")({ right: "Gribbet" })).toMatchObject({
+		left: [
+			{
+				tag: "Error",
+				message: "Unknown datatype: Grizmo",
+				operation: "Grizmo",
+				type: "castValue",
 			},
 		],
 	})

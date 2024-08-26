@@ -36,7 +36,7 @@ const quote = &#34;Whom the gods would destroy, they first make mad.&#34;
 const config = Q({ id: &#34;my-quote&#34; })(TextNode(`${quote}`))
 
 // render the <q> to an <output>
-render(output)(config)()
+await render(output)(config)()
 
 // let's take a look at the config object
 if (code) {
