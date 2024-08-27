@@ -18,6 +18,7 @@ dist/*
 
 temp/*
 coverage/
+todo/
 
 .vercel/
 docs/*
