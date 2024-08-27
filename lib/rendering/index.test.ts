@@ -1,12 +1,7 @@
 // @vitest-environment jsdom
-import { JSDOM } from "jsdom"
 import { expect, test } from "vitest"
 
 import render from "."
-
-const dom = new JSDOM(`<!DOCTYPE html>`)
-
-globalThis.document = dom.window.document
 
 const config = {
 	attributes: {
@@ -92,7 +87,4 @@ test("[render] renders the config to text HTML", () => {
 			`</header><main id="main-id">` +
 			`<p id="p-id">This is the content</p></main></body></html>`,
 	)
-
-	document.head.innerHTML = ""
-	document.body.innerHTML = ""
 })
