@@ -1,0 +1,205 @@
+{
+	"metadata_components": {
+		"overview": "Semantic HTML components for rich text markup with structured data that encode intent and meaning rather than just appearance",
+		"philosophy": "Transform simple text into rich semantic HTML with embedded structured data for screen readers, search engines, and machine readability",
+		"standards_compliance": [
+			"Schema.org structured data vocabulary",
+			"Dublin Core metadata element set",
+			"HTML5 Microdata embedded structured data",
+			"JSON-LD linked data format",
+			"ARIA accessibility attributes",
+			"BCP-47 language tags",
+			"W3C semantic web standards"
+		],
+		"dual_data_format_support": {
+			"microdata": "Default enabled - embedded directly in HTML attributes for immediate semantic context",
+			"json_ld": "Default enabled - rich linked data in script elements for SEO and knowledge graphs",
+			"disabling": "Disable with `disableMicrodata` or `disableLinkedData` props - both formats enabled by default for maximum semantic value"
+		}
+	},
+
+	"component_structure": {
+		"naming": "PascalCase following main project rules",
+		"folder_structure": "ComponentName/index.tsx",
+		"single_element_output": "Components must return a single HTML element, not fragments - all metadata should be nested within the main semantic element",
+		"props": {
+			"content": "Use explicit semantic props (title, name, etc.) instead of ambiguous children prop",
+			"children_prevention": "Use 'children?: never' in TypeScript to prevent children and force explicit props",
+			"intellisense_benefit": "Explicit props provide better IntelliSense, autocomplete, and API clarity",
+			"semantic_clarity": "Props like 'title' are self-documenting, unlike generic 'children'",
+			"metadata": "Rich metadata props following Schema.org vocabulary",
+			"formatting": "format prop for different display styles",
+			"structured_data": "itemProp for microdata, disableMicrodata and disableLinkedData for selective disabling",
+			"styling": "class, id, style props for customization"
+		},
+		"exports": "One component per file, exported as default on same line",
+		"types": "Use comprehensive TypeScript interfaces extending Schema.org properties from ~components/metadata/types/",
+		"microdata_nesting": "All microdata meta tags must be nested within the itemScope element, not adjacent to it, to maintain proper semantic relationships",
+		"json_ld_placement": "JSON-LD script tags should be nested within the component's main element for proper encapsulation"
+	},
+
+	"templating_system": {
+		"philosophy": "Custom DSL for flexible content formatting with security and semantic correctness",
+		"template_formats": {
+			"predefined": "Use constants from formats/ directory (e.g., BOOK_FORMATS.title)",
+			"custom": "Support custom templates with {{variable}} and {{function(args)}} syntax",
+			"fallback": "Always provide sensible defaults for unknown formats"
+		},
+		"formatting_functions": {
+			"semantic": "cite(), italicize(), bold() - for semantic markup",
+			"quotations": "quote(), quoteNonQuotation() - for proper quotation handling",
+			"links": "link(), linkIsbn(), linkDoi() - with rel attribute validation",
+			"typography": "ellipsis(), dash() - for proper punctuation",
+			"case_transformation": "upper(), lower(), sentence(), title() - respecting linguistic rules",
+			"dates": "year() - for date extraction and formatting",
+			"abbreviations": "abbr(), initialism(), acronym() - with proper expansion"
+		},
+		"function_usage_patterns": {
+			"title_formatting": {
+				"rule": "Use {{cite(title)}} for consistent semantic markup, {{bookTitle(title)}} for locale-aware formatting",
+				"semantic_priority": "{{cite(title)}} always produces <cite> tags regardless of locale",
+				"locale_aware": "{{bookTitle(title)}} uses quotation marks for some locales (French, German, etc.)",
+				"when_to_use_cite": "Use {{cite(title)}} in citation formats that require consistent italic formatting",
+				"when_to_use_bookTitle": "Use {{bookTitle(title)}} for general display that should respect locale conventions"
+			},
+			"name_formatting": {
+				"formatName": "{{formatName(author)}} - Returns full name as-is (e.g., 'Victor Hugo')",
+				"lastFirst": "{{lastFirst(author)}} - APA style with initials (e.g., 'Hugo, V.')",
+				"mlaName": "{{mlaName(author)}} - MLA style with full names (e.g., 'Hugo, Victor')",
+				"rule": "Always use appropriate name formatting function for citation style - never use bare {{author}}"
+			},
+			"doi_formatting": {
+				"rule": "Always include 'DOI:' prefix - use 'DOI:{{linkDOI(doi)}}' not just '{{linkDOI(doi)}}'",
+				"reasoning": "Standard academic citation requires the DOI prefix"
+			}
+		},
+		"common_mistakes": {
+			"bare_variables": "Never use {{author}} or {{title}} in citation templates - always use formatting functions",
+			"wrong_name_function": "Don't use {{formatName(author)}} in citations - use {{lastFirst(author)}} or {{mlaName(author)}}",
+			"inconsistent_title_markup": "Don't mix {{bookTitle(title)}} and {{cite(title)}} - choose based on semantic need",
+			"missing_doi_prefix": "Always include 'DOI:' prefix before DOI links",
+			"locale_assumptions": "Don't assume {{bookTitle(title)}} will use italics - it's locale-dependent"
+		},
+		"security": {
+			"html_escaping": "All templates must be escaped via escapeHtml() before processing",
+			"input_validation": "Validate all template expressions and function arguments",
+			"safe_defaults": "Provide safe fallbacks for undefined variables"
+		},
+		"auto_semantic_wrapping": "Automatically wrap bare {{title}} with {{cite(title)}} for semantic correctness"
+	},
+
+	"structured_data": {
+		"microdata": {
+			"required": "All components must include itemScope, itemType, and itemProp attributes",
+			"schema_org": "Use https://schema.org/ vocabulary for all itemType values",
+			"meta_tags": "Include hidden <meta> tags for non-visible metadata",
+			"nesting": "Properly nest related items (e.g., author as Person within CreativeWork)"
+		},
+		"json_ld": {
+			"conditional": "Generated by default, disabled when disableLinkedData prop is true",
+			"cleaning": "Remove undefined and null values via cleanObject() helper",
+			"context": "Always include '@context': 'https://schema.org'",
+			"type_mapping": "Map component types to proper Schema.org @type values",
+			"nesting": "Create proper nested objects for complex relationships"
+		},
+		"validation": "Ensure all structured data follows Schema.org specifications"
+	},
+
+	"helper_functions": {
+		"organization": "Group by functionality in helpers/ directory",
+		"naming": "camelCase following main project rules",
+		"purity": "All helpers must be pure functions with no side effects",
+		"type_safety": "Use comprehensive TypeScript types for all inputs and outputs",
+		"error_handling": "Graceful degradation with sensible fallbacks",
+		"security": "All user input must be sanitized and validated",
+		"examples": {
+			"formatTemplate": "Template processing with DSL function support",
+			"createJsonLdScript": "JSON-LD script generation with cleaning",
+			"escapeHtml": "HTML escaping for security",
+			"cleanObject": "Remove undefined/null values from objects"
+		}
+	},
+
+	"constants": {
+		"organization": "Group by component type and functionality",
+		"naming": "SCREAMING_SNAKE_CASE for constants, PascalCase for object keys",
+		"immutability": "Use 'as const' assertions for type safety",
+		"examples": {
+			"BOOK_FORMATS": "Predefined book citation formats",
+			"ARTICLE_FORMATS": "Academic article citation styles",
+			"FORMATTING_FUNCTIONS": "Available template functions"
+		},
+		"extensibility": "Easy to add new formats without breaking changes"
+	},
+
+	"types": {
+		"schema_org_compliance": "Model all Schema.org types and properties accurately",
+		"inheritance": "Use proper extends relationships (Thing -> CreativeWork -> Book)",
+		"enumerations": "Define all Schema.org enumerations as union types",
+		"runtime_vs_compile": "Distinguish between JavaScript runtime types (Js*) and JSON types (Json*)",
+		"optional_properties": "Most metadata properties should be optional with sensible defaults"
+	},
+
+	"accessibility": {
+		"semantic_html": "Use proper semantic elements (cite, abbr, etc.)",
+		"aria_attributes": "Include ARIA labels where semantic HTML is insufficient",
+		"language_tags": "Use BCP-47 language codes for inLanguage and lang attributes",
+		"screen_readers": "Ensure all content is properly exposed to assistive technologies",
+		"microdata_benefit": "Microdata provides additional context for screen readers"
+	},
+
+	"internationalization": {
+		"language_tags": "Support BCP-47 language codes with region and script variants",
+		"cultural_context": "Consider cultural differences in citation styles",
+		"date_formatting": "Use locale-appropriate date formats",
+		"quotation_marks": "Handle different quotation mark conventions by language"
+	},
+
+	"performance": {
+		"conditional_rendering": "Only generate JSON-LD when explicitly requested",
+		"template_caching": "Consider memoizing frequently used templates",
+		"lazy_loading": "Load complex metadata only when needed",
+		"minimal_dom": "Keep generated DOM as minimal as possible"
+	},
+
+	"seo_optimization": {
+		"json_ld_priority": "JSON-LD is Google's preferred structured data format",
+		"rich_snippets": "Proper structured data enables rich search results",
+		"knowledge_graphs": "Contributes to semantic web and knowledge graph construction",
+		"schema_org_completeness": "Include as much relevant Schema.org data as possible"
+	},
+
+	"testing": {
+		"structured_data_validation": "Test that generated microdata and JSON-LD are Schema.org compliant",
+		"template_rendering": "Test all template formats with various data combinations",
+		"accessibility_testing": "Verify screen reader compatibility",
+		"security_testing": "Test HTML escaping and input validation",
+		"cross_browser": "Test structured data recognition across browsers",
+		"citation_accuracy": {
+			"expected_vs_actual": "Always test both expected and actual output in test files",
+			"format_validation": "Verify citation formats match academic standards (APA, MLA, etc.)",
+			"edge_cases": "Test with missing data, special characters, and various locales",
+			"template_combinations": "Test both predefined formats and custom templates"
+		}
+	},
+
+	"development_workflow": {
+		"schema_org_first": "Always start with Schema.org documentation when creating new components",
+		"backwards_compatibility": "Maintain API compatibility when adding new features",
+		"documentation": "Document all new DSL functions and template formats",
+		"examples": "Provide comprehensive usage examples for all components",
+		"template_development": {
+			"function_selection": "Choose appropriate formatting functions based on citation style and semantic needs",
+			"testing_first": "Write expected output in test files before implementing templates",
+			"validation": "Verify templates with multiple data scenarios before finalizing"
+		}
+	},
+
+	"future_enhancements": {
+		"template_caching": "Implement memoization for template processing",
+		"citation_export": "Add support for BibTeX, RIS, EndNote export formats",
+		"cross_references": "Link related works and citations",
+		"validation_utilities": "Add ISBN, DOI, and other identifier validation",
+		"i18n_support": "Locale-specific formatting and citation styles"
+	}
+}

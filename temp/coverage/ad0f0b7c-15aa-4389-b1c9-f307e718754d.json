@@ -1,0 +1,19 @@
+{
+  "scriptId": "590",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/FieldSet/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 394, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "FieldSet",
+      "ranges": [
+        { "startOffset": 78, "endOffset": 393, "count": 20 },
+        { "startOffset": 318, "endOffset": 379, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

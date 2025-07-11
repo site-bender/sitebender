@@ -1,0 +1,27 @@
+{
+  "scriptId": "450",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/build/transpileComponentScripts/transpileScriptsRecursive/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2323, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "transpileScriptsRecursive",
+      "ranges": [
+        { "startOffset": 301, "endOffset": 2322, "count": 220 },
+        { "startOffset": 485, "endOffset": 2138, "count": 628 },
+        { "startOffset": 516, "endOffset": 2132, "count": 216 },
+        { "startOffset": 857, "endOffset": 1799, "count": 592 },
+        { "startOffset": 891, "endOffset": 923, "count": 408 },
+        { "startOffset": 924, "endOffset": 962, "count": 4 },
+        { "startOffset": 963, "endOffset": 997, "count": 4 },
+        { "startOffset": 999, "endOffset": 1787, "count": 4 },
+        { "startOffset": 1810, "endOffset": 1930, "count": 0 },
+        { "startOffset": 2143, "endOffset": 2299, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

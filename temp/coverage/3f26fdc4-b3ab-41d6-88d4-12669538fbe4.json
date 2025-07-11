@@ -1,0 +1,24 @@
+{
+  "scriptId": "457",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/build/transpileComponentScripts/transpileScriptsRecursive/transpileTypeScript/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1846, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "transpileTypeScript",
+      "ranges": [
+        { "startOffset": 15, "endOffset": 1845, "count": 5 },
+        { "startOffset": 1657, "endOffset": 1843, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 558, "endOffset": 788, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

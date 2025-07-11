@@ -1,0 +1,23 @@
+{
+  "scriptId": "610",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/composites/Legend/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 873, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Legend",
+      "ranges": [
+        { "startOffset": 204, "endOffset": 872, "count": 40 },
+        { "startOffset": 472, "endOffset": 494, "count": 25 },
+        { "startOffset": 495, "endOffset": 501, "count": 15 },
+        { "startOffset": 574, "endOffset": 581, "count": 0 },
+        { "startOffset": 786, "endOffset": 861, "count": 25 },
+        { "startOffset": 862, "endOffset": 868, "count": 15 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

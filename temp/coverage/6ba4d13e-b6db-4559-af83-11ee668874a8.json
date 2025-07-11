@@ -1,0 +1,16 @@
+{
+  "scriptId": "583",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/page/Main/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 286, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Main",
+      "ranges": [{ "startOffset": 78, "endOffset": 285, "count": 22 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

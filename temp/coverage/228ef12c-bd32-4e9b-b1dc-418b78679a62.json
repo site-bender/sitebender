@@ -1,0 +1,16 @@
+{
+  "scriptId": "615",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/elements/Checkbox/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 655, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Checkbox",
+      "ranges": [{ "startOffset": 145, "endOffset": 654, "count": 39 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

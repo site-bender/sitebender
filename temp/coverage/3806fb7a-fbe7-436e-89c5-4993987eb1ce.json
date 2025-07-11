@@ -1,0 +1,16 @@
+{
+  "scriptId": "571",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/templates/Legal/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 716, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Legal",
+      "ranges": [{ "startOffset": 312, "endOffset": 715, "count": 6 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

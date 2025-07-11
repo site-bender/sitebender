@@ -1,0 +1,16 @@
+{
+  "scriptId": "583",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/wrappers/MenuWrapper/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 560, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "MenuWrapper",
+      "ranges": [{ "startOffset": 434, "endOffset": 559, "count": 33 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

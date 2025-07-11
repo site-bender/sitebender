@@ -1,0 +1,16 @@
+{
+  "scriptId": "591",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/Form/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 430, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Form",
+      "ranges": [{ "startOffset": 78, "endOffset": 429, "count": 6 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

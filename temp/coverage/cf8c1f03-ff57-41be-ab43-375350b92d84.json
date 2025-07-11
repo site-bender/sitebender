@@ -1,0 +1,77 @@
+{
+  "scriptId": "333",
+  "url": "file:///Users/guy/Workspace/test/dasl/tests/build/createsCorrectFileStructure/index.test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2487, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "cleanTestOutput",
+      "ranges": [
+        { "startOffset": 252, "endOffset": 428, "count": 2 },
+        { "startOffset": 365, "endOffset": 426, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "fileExists",
+      "ranges": [
+        { "startOffset": 429, "endOffset": 551, "count": 10 },
+        { "startOffset": 519, "endOffset": 549, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "runBuild",
+      "ranges": [{ "startOffset": 552, "endOffset": 902, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "log",
+      "ranges": [{ "startOffset": 646, "endOffset": 652, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "info",
+      "ranges": [{ "startOffset": 664, "endOffset": 670, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "warn",
+      "ranges": [{ "startOffset": 682, "endOffset": 688, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "error",
+      "ranges": [{ "startOffset": 701, "endOffset": 707, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 953, "endOffset": 2484, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1051, "endOffset": 1421, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1488, "endOffset": 1880, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1960, "endOffset": 2162, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2213, "endOffset": 2424, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

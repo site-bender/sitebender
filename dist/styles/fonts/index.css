@@ -1,0 +1,42 @@
+@font-face {
+	font-family: "Raleway";
+	src: url("/fonts/Raleway-Italic-VariableFont_wght.woff2")
+		format("woff2-variations");
+	font-weight: 100 900;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Raleway";
+	src: url("/fonts/Raleway-VariableFont_wght.woff2") format("woff2-variations");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Serif";
+	src: url("/fonts/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.woff2")
+		format("woff2-variations");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Serif";
+	src: url("/fonts/RobotoSerif-Italic-VariableFont_GRAD,opsz,wdth,wght.woff2")
+		format("woff2-variations");
+	font-weight: 100 900;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Logo Font";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(/fonts/charm400.woff2) format("woff2");
+}

@@ -1,0 +1,39 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"baseUrl": ".",
+		"jsx": "react",
+		"jsxFactory": "createElement",
+		"jsxFragmentFactory": "Fragment",
+		"lib": ["esnext"],
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"noEmit": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+		"paths": {
+			"~components/*": ["./src/components/*"],
+			"~constants/*": ["./src/constants/*"],
+			"~layouts/*": ["./src/layouts/*"],
+			"~scripts/*": ["./scripts/*"],
+			"~tests/*": ["./tests/*"],
+			"~types/*": ["./src/types/*"],
+			"~utilities/*": ["./src/utilities/*"],
+			"~src/*": ["./src/*"],
+			"~*": ["./*"]
+		},
+		"target": "esnext",
+		"types": ["./src/types/jsx.d.ts"]
+	},
+	"include": ["src/**/*", "scripts/**/*"]
+}

@@ -1,0 +1,11 @@
+{
+  "scriptId": "620",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/constants/dialing-codes/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 27678, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

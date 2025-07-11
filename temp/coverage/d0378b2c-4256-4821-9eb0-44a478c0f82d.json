@@ -1,0 +1,16 @@
+{
+  "scriptId": "603",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/elements/Input/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 269, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Input",
+      "ranges": [{ "startOffset": 78, "endOffset": 268, "count": 40 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

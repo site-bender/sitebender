@@ -1,0 +1,19 @@
+{
+  "scriptId": "369",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/build/copyStaticAssets/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 442, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "copyStaticAssets",
+      "ranges": [
+        { "startOffset": 89, "endOffset": 441, "count": 3 },
+        { "startOffset": 340, "endOffset": 439, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

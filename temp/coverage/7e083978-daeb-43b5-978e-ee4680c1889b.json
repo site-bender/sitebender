@@ -1,0 +1,26 @@
+{
+  "scriptId": "608",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/composites/RadioGroup/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 981, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "RadioGroup",
+      "ranges": [{ "startOffset": 338, "endOffset": 980, "count": 20 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 710, "endOffset": 975, "count": 70 },
+        { "startOffset": 834, "endOffset": 839, "count": 45 },
+        { "startOffset": 929, "endOffset": 963, "count": 45 },
+        { "startOffset": 964, "endOffset": 968, "count": 25 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "scriptId": "446",
+  "url": "file:///Users/guy/.cache/npm/registry.npmjs.org/typescript/5.8.3/lib/typescript.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 151831, "count": 1 },
+        { "startOffset": 200, "endOffset": 337, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

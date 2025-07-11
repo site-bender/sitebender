@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/reset/index.css">
+    <link rel="stylesheet" href="/styles/fonts/index.css">
+    <link rel="stylesheet" href="/styles/root/colors/index.css">
+    <link rel="stylesheet" href="/styles/root/fonts/index.css">
+    <link rel="stylesheet" href="/styles/root/sizing/index.css">
+    <link rel="stylesheet" href="/styles/root/spacing/index.css">
+    <link rel="stylesheet" href="/styles/base/index.css">
+    <link rel="stylesheet" href="/styles/components/buttons/button-bar/index.css">
+    <link rel="stylesheet" href="/styles/components/buttons/button/index.css">
+    <link rel="stylesheet" href="/styles/components/buttons/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/composites/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/composites/label-wrapper/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/elements/help/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/elements/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/elements/input/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/elements/label/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/field-set/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/fields/email-address-field/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/fields/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/form/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/in-or-up/index.css">
+    <link rel="stylesheet" href="/styles/components/forms/index.css">
+    <link rel="stylesheet" href="/styles/components/index.css">
+    <link rel="stylesheet" href="/styles/components/navigation/aux/index.css">
+    <link rel="stylesheet" href="/styles/components/navigation/index.css">
+    <link rel="stylesheet" href="/styles/components/navigation/menu/index.css">
+    <link rel="stylesheet" href="/styles/components/navigation/skip-links-bar/index.css">
+    <link rel="stylesheet" href="/styles/components/page/footer/index.css">
+    <link rel="stylesheet" href="/styles/components/page/header/index.css">
+    <link rel="stylesheet" href="/styles/components/page/index.css">
+    <link rel="stylesheet" href="/styles/components/page/logo/index.css">
+    <link rel="stylesheet" href="/styles/components/page/main/index.css">
+    <link rel="stylesheet" href="/styles/components/templates/index.css">
+    <link rel="stylesheet" href="/styles/components/templates/transaction/index.css">
+    <link rel="stylesheet" href="/styles/components/wrappers/aux-wrapper/index.css">
+    <link rel="stylesheet" href="/styles/components/wrappers/index.css">
+    <link rel="stylesheet" href="/styles/components/wrappers/menu-wrapper/index.css">
+    <title>
+      Sign In or Sign Up
+    </title>
+    <meta name="description" content="Sign in to your account or create a new one.">
+    <link rel="stylesheet" href="/styles/utilities/index.css">
+  </head>
+  <body>
+    <nav class="skip-links-bar">
+      <span>Skip to:</span>
+      <ul>
+        <li>
+          <a href="#primary-navigation" title="To the primary site navigation.">Primary navigation</a>
+        </li>
+        <li>
+          <a href="#main-content" title="To the main page content.">Main content</a>
+        </li>
+        <li>
+          <a href="#page-footer" title="To the footer supplementary navigation.">Footer</a>
+        </li>
+      </ul>
+    </nav>
+    <header class="page-header">
+      <div class="logo">
+        <a href="/" title="To the home page">A Storied Life</a>
+      </div>
+      <nav class="dropdown" id="primary-navigation">
+        <header>
+          <h1 class="sr-only">
+            Navigation
+          </h1>
+          <label id="menu-icon" for="menu-toggle" title="Space bar to toggle menu.">
+            <span class="menu-icon open">≡</span>
+            <span class="menu-icon close">✕</span>
+            <input type="checkbox" id="menu-toggle">
+          </label>
+        </header>
+        <menu class="menu">
+          <li>
+            <a href="/backstage" id="primary-navigation">Backstage</a>
+          </li>
+          <li>
+            <a href="/backstage/manage">Manage</a>
+          </li>
+          <li>
+            <a href="/backstage/moderate">Moderate</a>
+          </li>
+          <li>
+            <a href="/backstage/contribute">Contribute</a>
+          </li>
+        </menu>
+      </nav>
+    </header>
+    <main id="main-content" class="template">
+      <article class="transaction">
+        <header>
+          <h1 class="sr-only">
+            Authentication
+          </h1>
+        </header>
+        <form class="in-or-up-form" method="POST" action="/api/auth/sign-in-or-up">
+          <input type="hidden" name="_charset_" value="UTF-8">
+          <fieldset class="fieldset" id="_JQXW8RBkCBM2TDDp93Ngjh" role="group">
+            <legend>
+              Sign in or up
+            </legend>
+            <p>
+              If you are already a member, enter your email address and use the
+              <em>Sign In or Up</em>
+              button to
+              <strong>sign in</strong>
+              .
+            </p>
+            <p>
+              Not yet a member? Enter the email address you will use for this account, then use the
+              <em>Sign In or Up</em>
+              button to
+              <strong>sign up</strong>
+              .
+            </p>
+            <label class="form-field email-address-field wrapper" id="_GDfv4UFZvwJM5jZ6DVVFpf-wrapper">
+              <div class="label" id="_GDfv4UFZvwJM5jZ6DVVFpf-label">
+                Email Address
+              </div>
+              <p class="help" aria-live="polite" id="_GDfv4UFZvwJM5jZ6DVVFpf-help">
+                Please provide a valid email address
+              </p>
+              <input class="input" type="email" id="_GDfv4UFZvwJM5jZ6DVVFpf" name="emailAddress" required="true" size="36" aria-labelledby="_GDfv4UFZvwJM5jZ6DVVFpf-label" aria-describedby="_GDfv4UFZvwJM5jZ6DVVFpf-help">
+            </label>
+          </fieldset>
+          <footer class="button-bar">
+            <button class="button" id="_WWMooucuwDKzdubUyieGpE" type="submit" name="bob">Sign in or up</button>
+          </footer>
+        </form>
+      </article>
+    </main>
+    <footer class="page-footer" id="page-footer">
+      <p>
+        © 2025
+        <span class="asl">A Storied Life</span>
+      </p>
+      <nav aria-labelledby="aux-nav-heading" class="aux">
+        <h2 class="sr-only" id="aux-nav-heading">
+          Auxiliary navigation
+        </h2>
+        <menu>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+          <li>
+            <a href="/cookie-policy">Cookies</a>
+          </li>
+          <li>
+            <a href="/privacy-policy">Privacy</a>
+          </li>
+          <li>
+            <a href="/terms-of-use">Terms</a>
+          </li>
+        </menu>
+      </nav>
+    </footer>
+  </body>
+</html>

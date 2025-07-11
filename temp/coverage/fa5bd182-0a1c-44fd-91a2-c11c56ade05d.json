@@ -1,0 +1,21 @@
+{
+  "scriptId": "613",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/getDialingCodeOptions/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 843, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getDialingCodeOptions",
+      "ranges": [{ "startOffset": 361, "endOffset": 842, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getDialingCode",
+      "ranges": [{ "startOffset": 421, "endOffset": 451, "count": 968 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

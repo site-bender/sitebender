@@ -1,0 +1,35 @@
+{
+  "scriptId": "628",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/serve/createServer/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1639, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createServer",
+      "ranges": [{ "startOffset": 118, "endOffset": 1638, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "handler",
+      "ranges": [
+        { "startOffset": 376, "endOffset": 1459, "count": 6 },
+        { "startOffset": 563, "endOffset": 602, "count": 4 },
+        { "startOffset": 602, "endOffset": 826, "count": 2 },
+        { "startOffset": 658, "endOffset": 826, "count": 0 },
+        { "startOffset": 939, "endOffset": 1248, "count": 5 },
+        { "startOffset": 1255, "endOffset": 1390, "count": 1 },
+        { "startOffset": 1323, "endOffset": 1384, "count": 0 },
+        { "startOffset": 1390, "endOffset": 1458, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "stop",
+      "ranges": [{ "startOffset": 1589, "endOffset": 1631, "count": 3 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

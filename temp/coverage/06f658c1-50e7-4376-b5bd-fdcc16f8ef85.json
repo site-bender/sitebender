@@ -1,0 +1,16 @@
+{
+  "scriptId": "575",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/templates/Contribute/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 726, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Contribute",
+      "ranges": [{ "startOffset": 312, "endOffset": 725, "count": 4 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

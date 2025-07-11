@@ -1,0 +1,32 @@
+{
+  "scriptId": "444",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/sortImports/sortFileImports/extractImports/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1786, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "extractImports",
+      "ranges": [
+        { "startOffset": 180, "endOffset": 1785, "count": 4 },
+        { "startOffset": 1370, "endOffset": 1658, "count": 3 },
+        { "startOffset": 1586, "endOffset": 1623, "count": 6 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "visit",
+      "ranges": [
+        { "startOffset": 362, "endOffset": 1051, "count": 134 },
+        { "startOffset": 423, "endOffset": 966, "count": 16 },
+        { "startOffset": 515, "endOffset": 527, "count": 15 },
+        { "startOffset": 528, "endOffset": 536, "count": 11 },
+        { "startOffset": 780, "endOffset": 788, "count": 5 },
+        { "startOffset": 789, "endOffset": 798, "count": 11 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

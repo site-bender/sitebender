@@ -1,0 +1,16 @@
+{
+  "scriptId": "572",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/templates/Transaction/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 788, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Transaction",
+      "ranges": [{ "startOffset": 312, "endOffset": 787, "count": 6 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

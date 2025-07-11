@@ -1,0 +1,120 @@
+:root {
+	/* colors */
+	--body-background-color: var(--lightest-gray);
+	--body-foreground-color: var(--dark-gray);
+	--heading-background-color: var(--body-background-color);
+	--heading-foreground-color: var(--body-color);
+
+	/* fonts */
+	--body-font: var(--serif-font);
+	--heading-font: var(--sans-font);
+
+	/* font sizes */
+	--body-font-size: var(--text-font-size);
+
+	/* font weights */
+	--body-font-weight: 350;
+	--heading-font-weight: 500;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--body-background-color: var(--darkest-gray);
+		--body-foreground-color: var(--light-gray);
+		--heading-background-color: var(--darkest-gray);
+		--heading-foreground-color: var(--light-gray);
+	}
+}
+
+html {
+	font-size: 18px;
+	line-height: 1.5;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--body-background-color);
+	color: var(--body-foreground-color);
+	display: flex;
+	flex-direction: column;
+	font-family: var(--body-font);
+	font-size: var(--body-font-size);
+	font-weight: var(--body-font-weight);
+	font-feature-settings: "onum";
+	font-variant-numeric: oldstyle-nums;
+	line-height: calc(1em + 1ex);
+	min-height: 100vh;
+	quotes: "" " " "" "''" "''";
+}
+
+@supports (height: 100svh) {
+	body {
+		min-height: 100svh;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	background-color: var(--heading-background-color);
+	color: var(--heading-foreground-color);
+	font-family: var(--heading-font);
+	font-weight: var(--heading-font-weight);
+	line-height: calc(1em + 0.25ex);
+}
+
+h1 {
+	font-size: var(--h1-font-size);
+}
+
+h2 {
+	font-size: var(--h2-font-size);
+}
+
+h3 {
+	font-size: var(--h3-font-size);
+}
+
+h4 {
+	font-size: var(--h4-font-size);
+}
+
+.hide-page {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-family: var(--sans-font);
+	gap: 1rem;
+	justify-content: center;
+	min-height: 100vh;
+	min-width: 100vw;
+	text-transform: lowercase;
+}
+
+@supports (height: 100svh) {
+	.hide-page {
+		min-height: 100svh;
+		min-width: 100svw;
+	}
+}
+
+.hide-page h1 {
+	font-family: var(--sans-font);
+	font-size: 4rem;
+	font-weight: 400;
+}
+
+p:not(:first-of-type) {
+	margin-block-start: 1rem;
+}
+
+cite.book {
+	font-style: italic;
+}
+
+cite.article {
+	font-style: normal;
+}

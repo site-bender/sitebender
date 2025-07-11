@@ -1,0 +1,14 @@
+.group {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: flex-start;
+	margin-block-end: 1rem;
+}
+
+.group > legend {
+	margin-block-end: var(--space-2xs);
+	width: 100%;
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "580",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/page/Footer/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 519, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Footer",
+      "ranges": [{ "startOffset": 146, "endOffset": 518, "count": 22 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

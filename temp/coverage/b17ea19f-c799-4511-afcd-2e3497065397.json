@@ -1,0 +1,27 @@
+{
+  "scriptId": "595",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/navigation/Menu/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1260, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Menu",
+      "ranges": [{ "startOffset": 78, "endOffset": 1259, "count": 55 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 779, "endOffset": 1253, "count": 220 },
+        { "startOffset": 836, "endOffset": 854, "count": 55 },
+        { "startOffset": 855, "endOffset": 859, "count": 165 },
+        { "startOffset": 921, "endOffset": 1019, "count": 0 },
+        { "startOffset": 1037, "endOffset": 1162, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

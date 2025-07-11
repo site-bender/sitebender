@@ -1,0 +1,122 @@
+fieldset.phone-number-field {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding-block: 5rem var(--space-s);
+	padding-inline: var(--space-xs);
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
+	position: relative;
+}
+
+fieldset.phone-number-field > legend {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: var(--space-xs);
+	left: var(--space-xs);
+	right: var(--space-xs);
+}
+
+fieldset.phone-number-field > .phone-number-inputs {
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: min-content 1fr min-content;
+	margin-block-end: var(--space-s);
+	max-width: 100%;
+	width: 100%;
+}
+
+fieldset.phone-number-field > .phone-number-inputs select {
+	max-width: 10ch;
+	box-sizing: border-box;
+}
+
+fieldset.phone-number-field > .phone-number-inputs input.input[type="number"] {
+	max-width: 8ch;
+	box-sizing: border-box;
+}
+
+fieldset.phone-number-field > .phone-number-inputs input[type="tel"] {
+	box-sizing: border-box;
+	min-width: 0;
+}
+
+fieldset.phone-number-field > .phone-number-inputs label {
+	display: grid;
+	grid-template-rows: min-content auto;
+	gap: 0.25rem;
+}
+
+fieldset.phone-number-field > details > summary {
+	font-family: var(--heading-font);
+	font-size: var(--text-font-size);
+}
+
+fieldset.phone-number-field > details[open] > summary {
+	margin-block-end: 1rem;
+}
+
+fieldset.phone-number-field > details > fieldset > legend {
+	font-size: var(--text-font-size);
+	font-weight: 300;
+}
+
+fieldset.phone-number-field > details ol,
+fieldset.phone-number-field > details ul {
+	line-height: 2;
+	list-style-type: none;
+	padding-inline-start: 1rem;
+}
+
+fieldset.phone-number-field > details label {
+	align-items: center;
+	display: flex;
+	font-size: var(--text-font-size);
+	gap: 0.5rem;
+	justify-content: flex-start;
+}
+
+fieldset.phone-number-field > details label .label-text {
+	order: 2;
+}
+
+fieldset.use {
+	display: grid;
+	grid-template-areas: "label label label" "personal work blank";
+	grid-template-columns: min-content min-content auto;
+	padding: 1rem;
+}
+
+fieldset.channels label,
+fieldset.use label,
+fieldset.phone-type label {
+	margin-inline-start: var(--space-2xs);
+}
+
+details.communication-channels fieldset.channels.checkbox-group,
+details.phone-use fieldset.use.checkbox-group,
+details.device-type fieldset.phone-type.radio-group {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.form-field .checkbox-options {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin: 1rem 0;
+}
+
+.form-field .checkbox-options label {
+	align-items: center;
+	display: flex;
+	font-size: var(--text-font-size);
+	gap: 0.5rem;
+	justify-content: flex-start;
+	margin-bottom: 0;
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "402",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/pascalToKebab/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 334, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "pascalToKebab",
+      "ranges": [{ "startOffset": 15, "endOffset": 333, "count": 5361 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

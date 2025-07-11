@@ -1,0 +1,57 @@
+{
+  "scriptId": "333",
+  "url": "file:///Users/guy/Workspace/test/dasl/tests/setup/index.test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2476, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "runGitCommand",
+      "ranges": [{ "startOffset": 84, "endOffset": 399, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getGitConfig",
+      "ranges": [
+        { "startOffset": 400, "endOffset": 561, "count": 3 },
+        { "startOffset": 552, "endOffset": 558, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "setGitConfig",
+      "ranges": [{ "startOffset": 562, "endOffset": 668, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unsetGitConfig",
+      "ranges": [{ "startOffset": 669, "endOffset": 774, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 815, "endOffset": 2473, "count": 1 },
+        { "startOffset": 2416, "endOffset": 2471, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 995, "endOffset": 1325, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1390, "endOffset": 1811, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1879, "endOffset": 2280, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

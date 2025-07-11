@@ -1,0 +1,15 @@
+input.input[data-format="postalCode"] {
+	max-width: 12ch;
+}
+
+input.input[data-format="zipPlus4"] {
+	max-width: 16ch;
+}
+
+input.input[data-format="creditCard"] {
+	max-width: 24ch;
+}
+
+input.input[data-format="isbn"] {
+	max-width: 22ch;
+}

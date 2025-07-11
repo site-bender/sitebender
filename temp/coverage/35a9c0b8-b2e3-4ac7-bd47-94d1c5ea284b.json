@@ -1,0 +1,16 @@
+{
+  "scriptId": "616",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/elements/Radio/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 641, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Radio",
+      "ranges": [{ "startOffset": 145, "endOffset": 640, "count": 42 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

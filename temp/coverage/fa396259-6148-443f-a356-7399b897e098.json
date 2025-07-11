@@ -1,0 +1,16 @@
+{
+  "scriptId": "612",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/getCountryDialingOptions/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 673, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getCountryDialingOptions",
+      "ranges": [{ "startOffset": 371, "endOffset": 630, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "616",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/elements/TextArea/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 278, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "TextArea",
+      "ranges": [{ "startOffset": 78, "endOffset": 277, "count": 2 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

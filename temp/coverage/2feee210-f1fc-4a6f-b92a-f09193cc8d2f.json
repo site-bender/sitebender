@@ -1,0 +1,11 @@
+{
+  "scriptId": "593",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/constants/skip-links/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 361, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

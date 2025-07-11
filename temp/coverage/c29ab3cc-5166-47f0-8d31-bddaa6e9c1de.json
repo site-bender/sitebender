@@ -1,0 +1,20 @@
+{
+  "scriptId": "601",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/fields/TrileanField/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2048, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "TrileanField",
+      "ranges": [
+        { "startOffset": 367, "endOffset": 2047, "count": 4 },
+        { "startOffset": 790, "endOffset": 1384, "count": 2 },
+        { "startOffset": 1385, "endOffset": 2044, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

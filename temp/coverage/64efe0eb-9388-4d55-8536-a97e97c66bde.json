@@ -1,0 +1,21 @@
+{
+  "scriptId": "567",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/routes/backstage/moderate/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 604, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Head",
+      "ranges": [{ "startOffset": 130, "endOffset": 396, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "default",
+      "ranges": [{ "startOffset": 412, "endOffset": 603, "count": 2 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "558",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/routes/_app.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1697, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "App",
+      "ranges": [{ "startOffset": 294, "endOffset": 1696, "count": 26 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

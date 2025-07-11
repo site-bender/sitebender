@@ -1,0 +1,21 @@
+{
+  "scriptId": "535",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/discoverComponentAssets/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 513, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "discoverComponentAssets",
+      "ranges": [{ "startOffset": 133, "endOffset": 512, "count": 48 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 313, "endOffset": 387, "count": 972 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

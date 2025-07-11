@@ -1,0 +1,21 @@
+{
+  "scriptId": "611",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/elements/Label/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 438, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Label",
+      "ranges": [
+        { "startOffset": 78, "endOffset": 437, "count": 75 },
+        { "startOffset": 238, "endOffset": 249, "count": 15 },
+        { "startOffset": 267, "endOffset": 349, "count": 60 },
+        { "startOffset": 350, "endOffset": 434, "count": 15 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

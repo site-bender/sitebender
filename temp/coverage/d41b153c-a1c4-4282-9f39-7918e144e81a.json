@@ -1,0 +1,16 @@
+{
+  "scriptId": "600",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/generateShortId/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 363, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "generateShortId",
+      "ranges": [{ "startOffset": 67, "endOffset": 362, "count": 80 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

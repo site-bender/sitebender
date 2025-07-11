@@ -1,0 +1,16 @@
+{
+  "scriptId": "594",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/fields/FormattedField/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1444, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "FormattedField",
+      "ranges": [{ "startOffset": 209, "endOffset": 1443, "count": 12 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

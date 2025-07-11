@@ -1,0 +1,21 @@
+{
+  "scriptId": "556",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/discoverComponentAssets/discoverAssetsForComponent/getPathHierarchy/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 398, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getPathHierarchy",
+      "ranges": [{ "startOffset": 74, "endOffset": 397, "count": 486 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 274, "endOffset": 389, "count": 1204 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

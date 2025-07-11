@@ -1,0 +1,23 @@
+{
+  "scriptId": "366",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/setup/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 828, "count": 1 },
+        { "startOffset": 807, "endOffset": 827, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "setup",
+      "ranges": [
+        { "startOffset": 45, "endOffset": 784, "count": 2 },
+        { "startOffset": 592, "endOffset": 681, "count": 0 },
+        { "startOffset": 686, "endOffset": 782, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

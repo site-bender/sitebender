@@ -1,0 +1,25 @@
+{
+  "scriptId": "443",
+  "url": "file:///Users/guy/Workspace/test/dasl/scripts/sortImports/sortFileImports/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 760, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "sortFileImports",
+      "ranges": [
+        { "startOffset": 121, "endOffset": 759, "count": 5 },
+        { "startOffset": 226, "endOffset": 318, "count": 4 },
+        { "startOffset": 318, "endOffset": 325, "count": 1 },
+        { "startOffset": 325, "endOffset": 495, "count": 3 },
+        { "startOffset": 495, "endOffset": 523, "count": 0 },
+        { "startOffset": 524, "endOffset": 567, "count": 3 },
+        { "startOffset": 620, "endOffset": 677, "count": 3 },
+        { "startOffset": 677, "endOffset": 757, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

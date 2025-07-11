@@ -1,0 +1,46 @@
+{
+  "scriptId": "555",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/utilities/discoverComponentAssets/discoverAssetsForComponent/discoverAssetsInFolder/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1093, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "discoverAssetsInFolder",
+      "ranges": [
+        { "startOffset": 131, "endOffset": 1092, "count": 2408 },
+        { "startOffset": 290, "endOffset": 363, "count": 12144 },
+        { "startOffset": 316, "endOffset": 357, "count": 3616 },
+        { "startOffset": 1063, "endOffset": 1090, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 595, "endOffset": 622, "count": 4308 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 693, "endOffset": 800, "count": 3616 },
+        { "startOffset": 722, "endOffset": 800, "count": 1212 },
+        { "startOffset": 745, "endOffset": 772, "count": 4 },
+        { "startOffset": 773, "endOffset": 800, "count": 4 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 806, "endOffset": 1040, "count": 2408 },
+        { "startOffset": 848, "endOffset": 917, "count": 2404 },
+        { "startOffset": 917, "endOffset": 1017, "count": 4 },
+        { "startOffset": 1017, "endOffset": 1039, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

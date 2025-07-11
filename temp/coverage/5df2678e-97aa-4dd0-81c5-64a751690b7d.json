@@ -1,0 +1,21 @@
+{
+  "scriptId": "598",
+  "url": "file:///Users/guy/Workspace/test/dasl/src/components/forms/fields/TextField/index.tsx",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1544, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "TextField",
+      "ranges": [
+        { "startOffset": 279, "endOffset": 1543, "count": 6 },
+        { "startOffset": 641, "endOffset": 665, "count": 0 },
+        { "startOffset": 1062, "endOffset": 1294, "count": 3 },
+        { "startOffset": 1295, "endOffset": 1539, "count": 3 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}
