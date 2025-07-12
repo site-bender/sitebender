@@ -27,7 +27,6 @@ export type PaymentMethod = string
 export type NewsMediaOrganization = string
 export type AdministrativeArea = string
 export type GeoShape = string
-export type Article = string
 export type OpeningHoursSpecification = string
 export type EducationalOccupationalProgram = string
 export type Nonprofit501c3 = string
@@ -76,6 +75,9 @@ export type ImageObject = string
 export type DefinedTermSet = string
 export type MeasurementMethodEnum = string
 export type MeasurementTypeEnumeration = string
+
+// Additional placeholders needed for Article
+export type SpeakableSpecification = string
 
 export type QualitativeValue = string
 
