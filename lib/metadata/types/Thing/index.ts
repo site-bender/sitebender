@@ -6,7 +6,7 @@ import type { Event } from "./Event/index.ts"
 export type URL = string
 
 // Additional basic types for Person
-export type EducationalOrganization = string
+// EducationalOrganization is now implemented in Organization module
 export type ContactPoint = string
 export type GenderType = string
 export type Certification = string

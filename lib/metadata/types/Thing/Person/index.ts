@@ -8,7 +8,6 @@ import type {
 	Demand,
 	Distance,
 	EducationalOccupationalCredential,
-	EducationalOrganization,
 	GenderType,
 	Grant,
 	InteractionCounter,
@@ -31,6 +30,7 @@ import type { Language } from "../Intangible/Language/index.ts"
 import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
+import type { EducationalOrganization } from "../Organization/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"
 

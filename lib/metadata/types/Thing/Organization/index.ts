@@ -38,6 +38,9 @@ import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"
 
+// Export EducationalOrganization
+export type { EducationalOrganization } from "./EducationalOrganization/index.ts"
+
 // Organization interface - extends Thing
 export interface Organization extends Thing {
 	acceptedPaymentMethod?: LoanOrCredit | PaymentMethod | Text
