@@ -2,10 +2,12 @@ import type { Text } from "../DataType/index.ts"
 import type { Action } from "./Action/index.ts"
 import type { CreativeWork } from "./CreativeWork/index.ts"
 import type { Event } from "./Event/index.ts"
-import type { ItemList } from "./Intangible/ItemList/index.ts"
-import type { ListItem } from "./Intangible/ListItem/index.ts"
 
 export type URL = string
+
+// Placeholder types for BioChemEntity and MedicalEntity
+export type BioChemEntity = string
+export type MedicalEntity = string
 
 // Additional basic types for Person
 // EducationalOrganization is now implemented in Organization module
@@ -120,7 +122,7 @@ export type Country = string
 export type AlignmentObject = string
 export type InteractionCounter = string
 export type Claim = string
-export type Grant = string
+
 export type Demand = string
 // Offer is now implemented in Intangible module
 export type PublicationEvent = string
