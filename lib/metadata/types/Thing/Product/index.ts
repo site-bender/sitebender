@@ -2,7 +2,6 @@ import type { Boolean, Date, Text } from "../../DataType/index.ts"
 import type {
 	AdultOrientedEnumeration,
 	AggregateRating,
-	Audience,
 	CategoryCode,
 	Certification,
 	Country,
@@ -28,6 +27,7 @@ import type {
 	URL,
 	WebContent,
 } from "../index.ts"
+import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { Organization } from "../Organization/index.ts"
 

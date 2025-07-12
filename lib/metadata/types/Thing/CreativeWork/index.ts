@@ -9,7 +9,6 @@ import type {
 import type {
 	AggregateRating,
 	AlignmentObject,
-	Audience,
 	AudioObject,
 	Claim,
 	Clip,
@@ -35,6 +34,7 @@ import type {
 	URL,
 	VideoObject,
 } from "../index.ts"
+import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"

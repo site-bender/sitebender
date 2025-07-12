@@ -8,7 +8,6 @@ import type {
 import type { CreativeWork } from "../CreativeWork/index.ts"
 import type {
 	AggregateRating,
-	Audience,
 	DefinedTerm,
 	Demand,
 	Duration,
@@ -25,6 +24,7 @@ import type {
 	URL,
 	VirtualLocation,
 } from "../index.ts"
+import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"

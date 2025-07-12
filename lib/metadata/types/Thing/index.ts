@@ -98,7 +98,7 @@ export type EventStatusType = string
 export type ItemList = string
 export type AggregateRating = string
 export type MediaObject = string
-export type Audience = string
+
 export type AudioObject = string
 export type Clip = string
 export type MusicRecording = string
