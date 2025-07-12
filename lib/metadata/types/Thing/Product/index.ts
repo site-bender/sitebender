@@ -13,7 +13,6 @@ import type {
 	ItemList,
 	ListItem,
 	MerchantReturnPolicy,
-	Offer,
 	OfferItemCondition,
 	PhysicalActivityCategory,
 	ProductModel,
@@ -28,6 +27,7 @@ import type {
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Offer } from "../Intangible/Offer/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
 

@@ -120,7 +120,7 @@ export type InteractionCounter = string
 export type Claim = string
 export type Grant = string
 export type Demand = string
-export type Offer = string
+// Offer is now implemented in Intangible module
 export type PublicationEvent = string
 export type SizeSpecification = string
 export type Duration = string
@@ -129,6 +129,18 @@ export type VideoObject = string
 export type PropertyValue = string
 export type Class = string
 export type Property = string
+
+// Additional placeholders needed for Offer
+export type AggregateOffer = string
+export type BusinessEntityType = string
+export type BusinessFunction = string
+export type DeliveryMethod = string
+export type ItemAvailability = string
+export type OfferShippingDetails = string
+export type Trip = string
+export type TypeAndQuantityNode = string
+export type WarrantyPromise = string
+export type MenuItem = string
 
 // Thing interface - the base Schema.org type
 export interface Thing {

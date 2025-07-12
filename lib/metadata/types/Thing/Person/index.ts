@@ -15,7 +15,6 @@ import type {
 	MemberProgramTier,
 	MonetaryAmount,
 	Occupation,
-	Offer,
 	OfferCatalog,
 	OwnershipInfo,
 	PostalAddress,
@@ -27,10 +26,11 @@ import type {
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
+import type { Offer } from "../Intangible/Offer/index.ts"
 import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
-import type { EducationalOrganization } from "../Organization/index.ts"
+import type { EducationalOrganization } from "../Organization/EducationalOrganization/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"
 

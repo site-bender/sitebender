@@ -20,7 +20,6 @@ import type {
 	InteractionCounter,
 	ItemList,
 	MusicRecording,
-	Offer,
 	PublicationEvent,
 	SizeSpecification,
 	Thing,
@@ -30,6 +29,7 @@ import type {
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
+import type { Offer } from "../Intangible/Offer/index.ts"
 import type { Rating } from "../Intangible/Rating/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
