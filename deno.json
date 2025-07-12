@@ -1,94 +1,95 @@
 {
-	"name": "@sitebender/metadata-components",
-	"version": "0.1.0",
-	"exports": "./lib/index.ts",
-	"tasks": {
-		"build": "deno run --allow-read --allow-write scripts/build/buildDev/index.ts",
-		"build:full": "deno run --allow-all scripts/build/index.ts",
-		"build:lib": "cd lib && deno task build",
-		"serve": "deno run --allow-net --allow-read jsr:@std/http/file-server --port=3000 dist/",
-		"start": "deno task build && deno task serve",
-		"clean": "deno run --allow-write scripts/clean/index.ts",
-		"dev": "deno run --allow-all scripts/serve/index.ts",
-		"fmt": "deno task sort && deno fmt",
-		"fmt:check": "deno fmt --check",
-		"fmt:quick": "deno fmt",
-		"lint": "deno lint",
-		"setup": "deno run -A scripts/setup/index.ts",
-		"sort": "deno run --allow-all scripts/sortImports/index.ts",
-		"test": "deno task build && bash scripts/e2e.sh && deno test tests/build/ -A --no-check && deno test tests/sort/ -A --no-check && deno test tests/setup/ -A --no-check && deno test tests/dev/ -A --no-check && deno test tests/a11y/ -A --no-check && deno test tests/clean/ -A --no-check",
-		"test:watch": "deno test tests/ -A --no-check --watch",
-		"test:cov": "deno test --coverage=coverage tests/ -A --no-check",
-		"test:cov:report": "deno task test:cov && deno coverage coverage --include=\"scripts/\"",
-		"test:build": "deno test tests/build/ -A --no-check",
-		"test:clean": "deno test tests/clean/ -A --no-check",
-		"test:setup": "deno test tests/setup/ -A --no-check",
-		"test:sort": "deno test tests/sort/ -A --no-check",
-		"test:dev": "deno test tests/dev/ -A --no-check",
-		"type-check": "deno check src/**/*.ts src/**/*.tsx scripts/**/*.ts lib/**/*.ts lib/**/*.tsx",
-		"e2e": "bash scripts/e2e.sh"
-	},
-	"imports": {
-		"@axe-core/playwright": "npm:@axe-core/playwright@^4.10.2",
-		"@playwright/mcp": "npm:@playwright/mcp@^0.0.29",
-		"playwright-mcp": "npm:@playwright/mcp@^0.0.29",
-		"~components/": "./src/components/",
-		"~constants/": "./src/constants/",
-		"~layouts/": "./src/layouts/",
-		"~lib/": "./lib/",
-		"~scripts/": "./scripts/",
-		"~src/": "./src/",
-		"~tests/": "./tests/",
-		"~types/": "./src/types/",
-		"~utilities/": "./utilities/",
-		"createElement": "./utilities/createElement/index.ts",
-		"Fragment": "./utilities/createElement/index.ts",
-		"fast-check": "https://esm.sh/fast-check@3.15.1",
-		"@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.1",
-		"@std/encoding": "jsr:@std/encoding@^1.0.5",
-		"playwright": "npm:playwright@^1.49.0"
-	},
-	"nodeModulesDir": "auto",
-	"compilerOptions": {
-		"jsx": "react",
-		"jsxFactory": "createElement",
-		"jsxFragmentFactory": "Fragment",
-		"strict": true,
-		"checkJs": false,
-		"lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"],
-		"types": ["./src/types/jsx.d.ts"]
-	},
-	"fmt": {
-		"useTabs": true,
-		"lineWidth": 80,
-		"indentWidth": 2,
-		"semiColons": false,
-		"singleQuote": false,
-		"proseWrap": "preserve",
-		"include": ["src/", "scripts/", "lib/"],
-		"exclude": ["dist/", "temp/", "static/"]
-	},
-	"lint": {
-		"include": ["src/", "scripts/", "lib/"],
-		"exclude": ["dist/", "temp/", "static/"],
-		"rules": {
-			"tags": ["recommended"],
-			"include": [
-				"ban-untagged-todo",
-				"camelcase",
-				"eqeqeq",
-				"no-await-in-loop",
-				"no-const-assign",
-				"no-sparse-arrays",
-				"no-throw-literal",
-				"prefer-const"
-			],
-			"exclude": []
-		}
-	},
-	"test": {
-		"include": ["tests/**/*.ts", "tests/**/*.tsx"],
-		"exclude": ["dist/", "temp/"]
-	},
-	"lock": false
+  "name": "@sitebender/metadata-components",
+  "version": "0.1.0",
+  "exports": "./lib/index.ts",
+  "tasks": {
+    "build": "deno run --allow-read --allow-write scripts/build/buildDev/index.ts",
+    "build:full": "deno run --allow-all scripts/build/index.ts",
+    "build:lib": "cd lib && deno task build",
+    "serve": "deno run --allow-net --allow-read jsr:@std/http/file-server --port=3000 dist/",
+    "start": "deno task build && deno task serve",
+    "clean": "deno run --allow-write scripts/clean/index.ts",
+    "dev": "deno run --allow-all scripts/serve/index.ts",
+    "fmt": "deno task sort && deno fmt",
+    "fmt:check": "deno fmt --check",
+    "fmt:quick": "deno fmt",
+    "lint": "deno lint",
+    "setup": "deno run -A scripts/setup/index.ts",
+    "sort": "deno run --allow-all scripts/sortImports/index.ts",
+    "test": "deno task build && bash scripts/e2e.sh && deno test tests/build/ -A --no-check && deno test tests/sort/ -A --no-check && deno test tests/setup/ -A --no-check && deno test tests/dev/ -A --no-check && deno test tests/a11y/ -A --no-check && deno test tests/clean/ -A --no-check",
+    "test:watch": "deno test tests/ -A --no-check --watch",
+    "test:cov": "deno test --coverage=coverage tests/ -A --no-check",
+    "test:cov:report": "deno task test:cov && deno coverage coverage --include=\"scripts/\"",
+    "test:build": "deno test tests/build/ -A --no-check",
+    "test:clean": "deno test tests/clean/ -A --no-check",
+    "test:setup": "deno test tests/setup/ -A --no-check",
+    "test:sort": "deno test tests/sort/ -A --no-check",
+    "test:dev": "deno test tests/dev/ -A --no-check",
+    "type-check": "deno check src/**/*.ts src/**/*.tsx scripts/**/*.ts lib/**/*.ts lib/**/*.tsx",
+    "e2e": "bash scripts/e2e.sh"
+  },
+  "imports": {
+    "@axe-core/playwright": "npm:@axe-core/playwright@^4.10.2",
+    "@playwright/mcp": "npm:@playwright/mcp@^0.0.29",
+    "playwright-mcp": "npm:@playwright/mcp@^0.0.29",
+    "~components/": "./src/components/",
+    "~constants/": "./src/constants/",
+    "~layouts/": "./src/layouts/",
+    "~lib/": "./lib/",
+    "~scripts/": "./scripts/",
+    "~src/": "./src/",
+    "~tests/": "./tests/",
+    "~types/": "./src/types/",
+    "~utilities/": "./utilities/",
+    "createElement": "./utilities/createElement/index.ts",
+    "Fragment": "./utilities/createElement/index.ts",
+    "fast-check": "https://esm.sh/fast-check@3.15.1",
+    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.1",
+    "@std/encoding": "jsr:@std/encoding@^1.0.5",
+    "playwright": "npm:playwright@^1.49.0"
+  },
+  "nodeModulesDir": "auto",
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "Fragment",
+    "strict": true,
+    "checkJs": false,
+    "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"],
+    "types": ["./src/types/jsx.d.ts"]
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "newLineKind": "lf",
+    "semiColons": false,
+    "singleQuote": false,
+    "proseWrap": "preserve",
+    "include": ["src/", "scripts/", "lib/"],
+    "exclude": ["dist/", "temp/", "static/"]
+  },
+  "lint": {
+    "include": ["src/", "scripts/", "lib/"],
+    "exclude": ["dist/", "temp/", "static/"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": [
+        "ban-untagged-todo",
+        "camelcase",
+        "eqeqeq",
+        "no-await-in-loop",
+        "no-const-assign",
+        "no-sparse-arrays",
+        "no-throw-literal",
+        "prefer-const"
+      ],
+      "exclude": []
+    }
+  },
+  "test": {
+    "include": ["tests/**/*.ts", "tests/**/*.tsx"],
+    "exclude": ["dist/", "temp/"]
+  },
+  "lock": false
 }
