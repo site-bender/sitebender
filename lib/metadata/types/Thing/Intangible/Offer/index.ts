@@ -36,12 +36,12 @@ import type {
 	URL,
 	WarrantyPromise,
 } from "../../index.ts"
-import type { QuantitativeValue } from "../StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../../Organization/index.ts"
 import type { Person } from "../../Person/index.ts"
 import type { Place } from "../../Place/index.ts"
 import type { Product } from "../../Product/index.ts"
 import type { Intangible } from "../index.ts"
+import type { QuantitativeValue } from "../StructuredValue/QuantitativeValue/index.ts"
 
 // Offer interface - extends Intangible
 // An offer to transfer some rights to an item or to provide a service

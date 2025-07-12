@@ -2,6 +2,8 @@ import type { Text } from "../DataType/index.ts"
 import type { Action } from "./Action/index.ts"
 import type { CreativeWork } from "./CreativeWork/index.ts"
 import type { Event } from "./Event/index.ts"
+import type { ItemList } from "./Intangible/ItemList/index.ts"
+import type { ListItem } from "./Intangible/ListItem/index.ts"
 
 export type URL = string
 
@@ -64,7 +66,7 @@ export type EnergyConsumptionDetails = string
 export type Service = string
 export type OfferItemCondition = string
 export type ProductModel = string
-export type ListItem = string
+
 export type WebContent = string
 
 // Placeholder types for complex Schema.org objects (temporary string aliases)
@@ -105,7 +107,7 @@ export type Schedule = string
 export type EventStatusType = string
 
 // Additional placeholders needed for CreativeWork
-export type ItemList = string
+
 export type AggregateRating = string
 export type MediaSubscription = string
 export type NewsArticle = string
