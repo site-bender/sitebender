@@ -101,7 +101,6 @@ export type NewsArticle = string
 export type AudioObject = string
 export type Clip = string
 export type MusicRecording = string
-export type Comment = string
 export type CorrectionComment = string
 export type Country = string
 export type AlignmentObject = string
