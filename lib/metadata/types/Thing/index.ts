@@ -82,6 +82,10 @@ export type SpeakableSpecification = string
 // Additional placeholders needed for Book
 export type BookFormatType = string
 
+// Additional placeholders needed for WebPage
+export type BreadcrumbList = string
+export type WebPageElement = string
+
 export type QualitativeValue = string
 
 // Additional placeholders needed for Action
