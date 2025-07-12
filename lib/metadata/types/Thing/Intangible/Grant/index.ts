@@ -1,6 +1,6 @@
-import type { BioChemEntity, MedicalEntity } from "../../index.ts"
 import type { CreativeWork } from "../../CreativeWork/index.ts"
 import type { Event } from "../../Event/index.ts"
+import type { BioChemEntity, MedicalEntity } from "../../index.ts"
 import type { Organization } from "../../Organization/index.ts"
 import type { Person } from "../../Person/index.ts"
 import type { Product } from "../../Product/index.ts"
