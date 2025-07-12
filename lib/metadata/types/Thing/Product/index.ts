@@ -5,7 +5,6 @@ import type {
 	CategoryCode,
 	Certification,
 	Country,
-	DefinedTerm,
 	Demand,
 	Distance,
 	EnergyConsumptionDetails,
@@ -29,6 +28,7 @@ import type {
 } from "../index.ts"
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
+import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Organization } from "../Organization/index.ts"
 
 // Product interface - extends Thing

@@ -73,7 +73,7 @@ export type TextObject = string
 export type ImageObject = string
 
 // Additional placeholders needed for PropertyValue
-export type DefinedTerm = string
+export type DefinedTermSet = string
 export type MeasurementMethodEnum = string
 export type MeasurementTypeEnumeration = string
 

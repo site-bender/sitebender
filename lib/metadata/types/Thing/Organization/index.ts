@@ -7,7 +7,6 @@ import type {
 	Article,
 	Certification,
 	ContactPoint,
-	DefinedTerm,
 	Demand,
 	EducationalOccupationalCredential,
 	GeoShape,
@@ -34,6 +33,7 @@ import type {
 	VirtualLocation,
 } from "../index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
+import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"

@@ -5,7 +5,6 @@ import type {
 	Certification,
 	ContactPoint,
 	Country,
-	DefinedTerm,
 	Demand,
 	Distance,
 	EducationalOccupationalCredential,
@@ -29,6 +28,7 @@ import type {
 	URL,
 } from "../index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
+import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Place } from "../Place/index.ts"

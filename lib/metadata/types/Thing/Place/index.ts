@@ -3,7 +3,6 @@ import type { Event } from "../Event/index.ts"
 import type {
 	AggregateRating,
 	Certification,
-	DefinedTerm,
 	GeoCoordinates,
 	GeoShape,
 	GeospatialGeometry,
@@ -18,6 +17,7 @@ import type {
 	Thing,
 	URL,
 } from "../index.ts"
+import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 
 // Place interface - extends Thing
 export interface Place extends Thing {

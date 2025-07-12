@@ -15,7 +15,6 @@ import type {
 	Comment,
 	CorrectionComment,
 	Country,
-	DefinedTerm,
 	Demand,
 	Duration,
 	Grant,
@@ -35,6 +34,7 @@ import type {
 	VideoObject,
 } from "../index.ts"
 import type { Audience } from "../Intangible/Audience/index.ts"
+import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
