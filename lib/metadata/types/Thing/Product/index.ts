@@ -1,4 +1,5 @@
 import type { Boolean, Date, Text } from "../../DataType/index.ts"
+import type { Review } from "../CreativeWork/Review/index.ts"
 import type {
 	AdultOrientedEnumeration,
 	AggregateRating,
@@ -18,7 +19,6 @@ import type {
 	ProductModel,
 	ProductReturnPolicy,
 	PropertyValue,
-	Review,
 	Service,
 	SizeSpecification,
 	Thing,

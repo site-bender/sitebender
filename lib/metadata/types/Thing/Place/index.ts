@@ -1,4 +1,5 @@
 import type { Boolean, Integer, Number, Text } from "../../DataType/index.ts"
+import type { Review } from "../CreativeWork/Review/index.ts"
 import type { Event } from "../Event/index.ts"
 import type {
 	AggregateRating,
@@ -13,7 +14,6 @@ import type {
 	Photograph,
 	PostalAddress,
 	PropertyValue,
-	Review,
 	Thing,
 	URL,
 } from "../index.ts"

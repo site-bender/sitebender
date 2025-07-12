@@ -1,5 +1,6 @@
 import type { Text } from "../../../DataType/index.ts"
-import type { AggregateRating, ImageObject, Review, URL } from "../../index.ts"
+import type { Review } from "../../CreativeWork/Review/index.ts"
+import type { AggregateRating, ImageObject, URL } from "../../index.ts"
 import type { Intangible } from "../index.ts"
 
 // Brand interface - extends Intangible

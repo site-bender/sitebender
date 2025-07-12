@@ -115,7 +115,6 @@ export type Grant = string
 export type Demand = string
 export type Offer = string
 export type PublicationEvent = string
-export type Review = string
 export type SizeSpecification = string
 export type Duration = string
 export type VideoObject = string

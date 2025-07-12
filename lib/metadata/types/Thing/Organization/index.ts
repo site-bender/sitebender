@@ -1,6 +1,7 @@
 import type { Date, Text } from "../../DataType/index.ts"
 import type { Article } from "../CreativeWork/Article/index.ts"
 import type { CreativeWork } from "../CreativeWork/index.ts"
+import type { Review } from "../CreativeWork/Review/index.ts"
 import type { Event } from "../Event/index.ts"
 import type {
 	AdministrativeArea,
@@ -25,7 +26,6 @@ import type {
 	PostalAddress,
 	ProductReturnPolicy,
 	ProgramMembership,
-	Review,
 	Thing,
 	URL,
 	VirtualLocation,

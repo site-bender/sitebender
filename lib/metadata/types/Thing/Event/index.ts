@@ -6,6 +6,7 @@ import type {
 	Time,
 } from "../../DataType/index.ts"
 import type { CreativeWork } from "../CreativeWork/index.ts"
+import type { Review } from "../CreativeWork/Review/index.ts"
 import type {
 	AggregateRating,
 	Demand,
@@ -16,7 +17,6 @@ import type {
 	Offer,
 	PerformingGroup,
 	PostalAddress,
-	Review,
 	Schedule,
 	Thing,
 	URL,
