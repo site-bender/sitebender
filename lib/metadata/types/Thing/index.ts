@@ -71,6 +71,7 @@ export type OfferItemCondition = string
 export type ProductModel = string
 
 export type WebContent = string
+export type DataFeed = string
 
 // Placeholder types for complex Schema.org objects (temporary string aliases)
 export type TextObject = string

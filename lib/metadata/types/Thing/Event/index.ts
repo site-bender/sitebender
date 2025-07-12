@@ -13,7 +13,6 @@ import type {
 	Duration,
 	EventAttendanceModeEnumeration,
 	EventStatusType,
-	Grant,
 	PerformingGroup,
 	PostalAddress,
 	Schedule,
@@ -23,6 +22,7 @@ import type {
 } from "../index.ts"
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Grant } from "../Intangible/Grant/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
 import type { Offer } from "../Intangible/Offer/index.ts"
 import type { Organization } from "../Organization/index.ts"
