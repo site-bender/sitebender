@@ -1,3 +1,43 @@
+import type { Date, Text } from "../../DataType/index.ts"
+import type { CreativeWork } from "../CreativeWork/index.ts"
+import type { Event } from "../Event/index.ts"
+import type {
+	AdministrativeArea,
+	AggregateRating,
+	Article,
+	Certification,
+	ContactPoint,
+	DefinedTerm,
+	Demand,
+	EducationalOccupationalCredential,
+	GeoShape,
+	Grant,
+	ImageObject,
+	InteractionCounter,
+	Language,
+	LoanOrCredit,
+	MemberProgramTier,
+	MerchantReturnPolicy,
+	NonprofitType,
+	Offer,
+	OfferCatalog,
+	OpeningHoursSpecification,
+	OwnershipInfo,
+	PaymentMethod,
+	PostalAddress,
+	ProductReturnPolicy,
+	ProgramMembership,
+	QuantitativeValue,
+	Review,
+	Thing,
+	URL,
+	VirtualLocation,
+} from "../index.ts"
+import type { Brand } from "../Intangible/Brand/index.ts"
+import type { Person } from "../Person/index.ts"
+import type { Place } from "../Place/index.ts"
+import type { Product } from "../Product/index.ts"
+
 // Organization interface - extends Thing
 export interface Organization extends Thing {
 	acceptedPaymentMethod?: LoanOrCredit | PaymentMethod | Text

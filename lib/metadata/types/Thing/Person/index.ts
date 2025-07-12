@@ -2,7 +2,6 @@ import type { Date, Text } from "../../DataType/index.ts"
 import type { CreativeWork } from "../CreativeWork/index.ts"
 import type { Event } from "../Event/index.ts"
 import type {
-	Brand,
 	Certification,
 	ContactPoint,
 	Country,
@@ -26,10 +25,11 @@ import type {
 	PriceSpecification,
 	ProgramMembership,
 	QuantitativeValue,
-	StructuredValue,
 	Thing,
 	URL,
 } from "../index.ts"
+import type { Brand } from "../Intangible/Brand/index.ts"
+import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"

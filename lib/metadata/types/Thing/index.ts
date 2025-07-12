@@ -1,18 +1,4 @@
-import type {
-	// Boolean,
-	// CssSelectorType,
-	// Date,
-	// DateTime,
-	// False,
-	// Float,
-	// Integer,
-	// Number,
-	// PronounceableText,
-	Text,
-	// Time,
-	// True,
-	// XPathType,
-} from "../DataType/index.ts"
+import type { Text } from "../DataType/index.ts"
 import type { Action } from "./Action/index.ts"
 import type { CreativeWork } from "./CreativeWork/index.ts"
 import type { Event } from "./Event/index.ts"
@@ -20,7 +6,6 @@ import type { Event } from "./Event/index.ts"
 export type URL = string
 
 // Additional basic types for Person
-export type Brand = string
 export type EducationalOrganization = string
 export type ContactPoint = string
 export type GenderType = string
@@ -92,7 +77,7 @@ export type DefinedTerm = string
 export type MeasurementMethodEnum = string
 export type MeasurementTypeEnumeration = string
 export type Enumeration = string
-export type StructuredValue = string
+
 export type QualitativeValue = string
 export type QuantitativeValue = string
 

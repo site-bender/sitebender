@@ -3,7 +3,6 @@ import type {
 	AdultOrientedEnumeration,
 	AggregateRating,
 	Audience,
-	Brand,
 	CategoryCode,
 	Certification,
 	Country,
@@ -29,6 +28,7 @@ import type {
 	URL,
 	WebContent,
 } from "../index.ts"
+import type { Brand } from "../Intangible/Brand/index.ts"
 import type { Organization } from "../Organization/index.ts"
 
 // Product interface - extends Thing
