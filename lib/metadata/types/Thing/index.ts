@@ -86,6 +86,9 @@ export type BookFormatType = string
 export type BreadcrumbList = string
 export type WebPageElement = string
 
+// Additional placeholders needed for Movie
+export type MusicGroup = string
+
 export type QualitativeValue = string
 
 // Additional placeholders needed for Action
