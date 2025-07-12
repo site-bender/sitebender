@@ -102,7 +102,6 @@ export type AudioObject = string
 export type Clip = string
 export type MusicRecording = string
 export type Comment = string
-export type Rating = string
 export type CorrectionComment = string
 export type Country = string
 export type AlignmentObject = string

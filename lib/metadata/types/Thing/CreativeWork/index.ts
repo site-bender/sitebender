@@ -26,7 +26,6 @@ import type {
 	Offer,
 	PublicationEvent,
 	QuantitativeValue,
-	Rating,
 	Review,
 	SizeSpecification,
 	Thing,
@@ -35,6 +34,7 @@ import type {
 } from "../index.ts"
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Rating } from "../Intangible/Rating/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
