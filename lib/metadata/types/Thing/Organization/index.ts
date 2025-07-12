@@ -1,5 +1,6 @@
 import type { Date, Text } from "../../DataType/index.ts"
 import type { Article } from "../CreativeWork/Article/index.ts"
+import type { EducationalOccupationalCredential } from "../CreativeWork/EducationalOccupationalCredential/index.ts"
 import type { CreativeWork } from "../CreativeWork/index.ts"
 import type { Review } from "../CreativeWork/Review/index.ts"
 import type { Event } from "../Event/index.ts"
@@ -9,9 +10,7 @@ import type {
 	Certification,
 	ContactPoint,
 	Demand,
-	EducationalOccupationalCredential,
 	GeoShape,
-	Grant,
 	ImageObject,
 	InteractionCounter,
 	LoanOrCredit,
@@ -31,6 +30,7 @@ import type {
 } from "../index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Grant } from "../Intangible/Grant/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
 import type { Offer } from "../Intangible/Offer/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"

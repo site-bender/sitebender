@@ -14,13 +14,14 @@ export type MedicalEntity = string
 export type ContactPoint = string
 export type GenderType = string
 export type Certification = string
-export type EducationalOccupationalCredential = string
-export type Occupation = string
+
+export type OccupationalExperienceRequirements = string
 export type OfferCatalog = string
 export type Distance = string
 export type MemberProgramTier = string
 export type ProgramMembership = string
 export type MonetaryAmount = string
+export type MonetaryAmountDistribution = string
 export type PriceSpecification = string
 export type OwnershipInfo = string
 export type Mass = string

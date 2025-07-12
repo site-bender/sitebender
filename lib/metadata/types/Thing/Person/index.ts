@@ -1,4 +1,5 @@
 import type { Date, Text } from "../../DataType/index.ts"
+import type { EducationalOccupationalCredential } from "../CreativeWork/EducationalOccupationalCredential/index.ts"
 import type { CreativeWork } from "../CreativeWork/index.ts"
 import type { Event } from "../Event/index.ts"
 import type {
@@ -7,14 +8,11 @@ import type {
 	Country,
 	Demand,
 	Distance,
-	EducationalOccupationalCredential,
 	GenderType,
-	Grant,
 	InteractionCounter,
 	Mass,
 	MemberProgramTier,
 	MonetaryAmount,
-	Occupation,
 	OfferCatalog,
 	OwnershipInfo,
 	PostalAddress,
@@ -25,7 +23,9 @@ import type {
 } from "../index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Grant } from "../Intangible/Grant/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
+import type { Occupation } from "../Intangible/Occupation/index.ts"
 import type { Offer } from "../Intangible/Offer/index.ts"
 import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
 import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
