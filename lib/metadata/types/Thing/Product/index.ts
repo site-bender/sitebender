@@ -18,7 +18,6 @@ import type {
 	ProductModel,
 	ProductReturnPolicy,
 	PropertyValue,
-	QuantitativeValue,
 	Review,
 	Service,
 	SizeSpecification,
@@ -29,6 +28,7 @@ import type {
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
 
 // Product interface - extends Thing

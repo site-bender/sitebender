@@ -78,7 +78,6 @@ export type MeasurementMethodEnum = string
 export type MeasurementTypeEnumeration = string
 
 export type QualitativeValue = string
-export type QuantitativeValue = string
 
 // Additional placeholders needed for Action
 export type HowTo = string

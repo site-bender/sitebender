@@ -25,7 +25,6 @@ import type {
 	PostalAddress,
 	ProductReturnPolicy,
 	ProgramMembership,
-	QuantitativeValue,
 	Review,
 	Thing,
 	URL,
@@ -34,6 +33,7 @@ import type {
 import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
+import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"

@@ -22,7 +22,6 @@ import type {
 	PostalAddress,
 	PriceSpecification,
 	ProgramMembership,
-	QuantitativeValue,
 	Thing,
 	URL,
 } from "../index.ts"
@@ -30,6 +29,7 @@ import type { Brand } from "../Intangible/Brand/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
 import type { Language } from "../Intangible/Language/index.ts"
 import type { StructuredValue } from "../Intangible/StructuredValue/index.ts"
+import type { QuantitativeValue } from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"
