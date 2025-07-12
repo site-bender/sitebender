@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+- **Accessibility first**: Every metadata component MUST have accessibility tests using @axe-core/playwright
+- **Behavior testing**: Test the generated HTML output and structured data, not implementation details
+- **Multiple formats**: Test that components generate correct Schema.org, JSON-LD, and microdata output

@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+- **Live examples**: Documentation site must include working examples of all metadata components
+- **Structured data visibility**: Show both HTML output and generated structured data (JSON-LD, microdata)
+- **Category navigation**: Organize documentation by component categories for easy discovery

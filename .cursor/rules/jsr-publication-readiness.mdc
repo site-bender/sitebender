@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+
+- **Version in lib/deno.json**: Maintain separate versioning for the library
+- **Relative imports only**: Ensure library can be consumed externally without internal tooling
+- **Zero dependencies**: Library must remain dependency-free for client-side usage
+- **Export patterns**: Use the established export patterns (default for components, named for types/constants)

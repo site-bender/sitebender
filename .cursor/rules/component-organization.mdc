@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+- **Category-based grouping**: Organize metadata components by semantic categories (scientific, textual, quotations, narrative, emotional, cultural, emphasis, creativeWorks)
+- **Helper functions**: Place formatting helpers, language detection, and template utilities in `lib/metadata/helpers/`
+- **Shared types**: Metadata-specific types go in `lib/metadata/types/`
