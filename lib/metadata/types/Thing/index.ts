@@ -76,7 +76,6 @@ export type ImageObject = string
 export type DefinedTerm = string
 export type MeasurementMethodEnum = string
 export type MeasurementTypeEnumeration = string
-export type Enumeration = string
 
 export type QualitativeValue = string
 export type QuantitativeValue = string
@@ -120,6 +119,8 @@ export type Duration = string
 export type VideoObject = string
 
 export type PropertyValue = string
+export type Class = string
+export type Property = string
 
 // Thing interface - the base Schema.org type
 export interface Thing {
