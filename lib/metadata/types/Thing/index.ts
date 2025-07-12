@@ -95,7 +95,8 @@ export type EventStatusType = string
 // Additional placeholders needed for CreativeWork
 export type ItemList = string
 export type AggregateRating = string
-export type MediaObject = string
+export type MediaSubscription = string
+export type NewsArticle = string
 
 export type AudioObject = string
 export type Clip = string

@@ -20,7 +20,6 @@ import type {
 	Grant,
 	InteractionCounter,
 	ItemList,
-	MediaObject,
 	MusicRecording,
 	Offer,
 	PublicationEvent,
@@ -39,6 +38,7 @@ import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
 import type { Place } from "../Place/index.ts"
 import type { Product } from "../Product/index.ts"
+import type { MediaObject } from "./MediaObject/index.ts"
 
 // CreativeWork interface - extends Thing
 export interface CreativeWork extends Thing {
