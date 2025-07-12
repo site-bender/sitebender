@@ -33,3 +33,14 @@ export const WEBSITE_FORMATS = {
 	title: "{{quoteNonQuotation(title)}}",
 	simple: "{{quoteNonQuotation(title)}} ({{url}})",
 } as const
+
+export const CREATIVE_WORK_FORMATS = {
+	title: "{{titleQuote(title)}}",
+	titleAuthor: "{{titleQuote(title)}} {{byWord()}} {{formatName(author)}}",
+	titleDate: "{{titleQuote(title)}} ({{formatYear(datePublished)}})",
+	simple: "{{formatName(author)}} - {{titleQuote(title)}}",
+	citation:
+		"{{lastFirst(author)}} ({{formatYear(datePublished)}}). {{titleQuote(title)}}. {{publisher}}.",
+	basic:
+		"{{titleQuote(title)}} {{byWord()}} {{formatName(author)}}, {{formatYear(datePublished)}}",
+} as const
