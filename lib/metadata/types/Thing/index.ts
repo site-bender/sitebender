@@ -105,7 +105,6 @@ export type Comment = string
 export type CorrectionComment = string
 export type Country = string
 export type AlignmentObject = string
-export type Language = string
 export type InteractionCounter = string
 export type Claim = string
 export type Grant = string

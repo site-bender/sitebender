@@ -20,7 +20,6 @@ import type {
 	Grant,
 	InteractionCounter,
 	ItemList,
-	Language,
 	MediaObject,
 	MusicRecording,
 	Offer,
@@ -34,6 +33,7 @@ import type {
 } from "../index.ts"
 import type { Audience } from "../Intangible/Audience/index.ts"
 import type { DefinedTerm } from "../Intangible/DefinedTerm/index.ts"
+import type { Language } from "../Intangible/Language/index.ts"
 import type { Rating } from "../Intangible/Rating/index.ts"
 import type { Organization } from "../Organization/index.ts"
 import type { Person } from "../Person/index.ts"
