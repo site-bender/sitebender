@@ -79,6 +79,9 @@ export type MeasurementTypeEnumeration = string
 // Additional placeholders needed for Article
 export type SpeakableSpecification = string
 
+// Additional placeholders needed for Book
+export type BookFormatType = string
+
 export type QualitativeValue = string
 
 // Additional placeholders needed for Action
