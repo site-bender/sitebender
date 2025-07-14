@@ -1,8 +1,8 @@
-import Book from "~lib/metadata/creativeWorks/Book/index.tsx"
-import Dialogue from "~lib/metadata/quotations/Dialogue/index.tsx"
-import TechnicalTerm from "~lib/metadata/scientific/TechnicalTerm/index.tsx"
-
-import Transaction from "~components/templates/Transaction/index.tsx"
+import Thing from "~lib/components/Thing/index.tsx"
+import Organization from "~lib/components/Thing/Organization/index.tsx"
+import Electrician from "~lib/components/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/Electrician/index.tsx"
+import HomeAndConstructionBusiness from "~lib/components/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.tsx"
+import LocalBusiness from "~lib/components/Thing/Organization/LocalBusiness/index.tsx"
 
 import { Fragment } from "~utilities/createElement/index.ts"
 
@@ -25,7 +25,7 @@ export function Head() {
 
 export default function ({ route }: Props = {}) {
 	return (
-		<Transaction route={route}>
+		<main>
 			<header class="form-header">
 				<h1>Test the Metadata Components!</h1>
 			</header>
@@ -33,45 +33,68 @@ export default function ({ route }: Props = {}) {
 			<section class="metadata-examples">
 				<h2>Metadata Components Demo</h2>
 
-				<h3>Scientific Terms</h3>
-				<p>
-					The molecule{" "}
-					<TechnicalTerm
-						termType="scientific"
-						field="biology"
-						title="Deoxyribonucleic acid"
-						generateJsonLd
-					>
-						DNA
-					</TechnicalTerm>{" "}
-					contains genetic information.
-				</p>
-
-				<h3>Book Citations</h3>
-				<p>
-					<Book
-						title="Pride and Prejudice"
-						author="Jane Austen"
-						publisher="T. Egerton"
-						datePublished="1813"
-						generateJsonLd
-					/>{" "}
-					remains a classic of English literature.
-				</p>
-
-				<h3>Literary Dialogue</h3>
-				<p>
-					<Dialogue
-						speaker="Elizabeth Bennet"
-						mood="sarcastic"
-						tone="formal"
-						generateJsonLd
-					>
-						It is a truth universally acknowledged, that a single man in
-						possession of a good fortune, must be in want of a wife.
-					</Dialogue>
-				</p>
+				<ul>
+					<li>
+						<p>Thing</p>
+						<p>
+							<Thing
+								alternativeName="Thingamajigger"
+								description="A thingamajigger is a device that does something."
+							/>
+						</p>
+					</li>
+					<li>
+						<p>Organization</p>
+						<p>
+							<Organization
+								alternativeName="Organismo"
+								brand="Organismatron"
+								description="An Organismo is a device that does nothing."
+								email="organismo@organismo.com"
+								foundingDate="2025-01-01"
+								foundingLocation="Organismopolis"
+								founder="Organismotron"
+								numberOfEmployees={100}
+								industry="Organismology"
+							/>
+						</p>
+					</li>
+					<li>
+						<p>LocalBusiness</p>
+						<p>
+							<LocalBusiness
+								alternativeName="Organismo"
+								brand="Organismatron"
+								currenciesAccepted={["USD", "EUR"]}
+								openingHours="Mo-Fr 09:00-17:00"
+								paymentAccepted={["Cash", "Credit Card"]}
+								priceRange="$$"
+								review="An Organismo is a device that does nothing."
+								reviews={["An Organismo is a device that does nothing."]}
+								description="An Organismo is a device that does nothing."
+								email="organismo@organismo.com"
+								foundingDate="2025-01-01"
+								foundingLocation="Organismopolis"
+								founder="Organismotron"
+								numberOfEmployees={100}
+								industry="Organismology"
+							/>
+						</p>
+					</li>
+					<li>
+						<p>HomeAndConstructionBusiness</p>
+						<p>
+							<HomeAndConstructionBusiness />
+						</p>
+					</li>
+					<li>
+						<p>Electrician</p>
+						<p>
+							<Electrician format="This is the format string!" />
+						</p>
+					</li>
+				</ul>
 			</section>
-		</Transaction>
+		</main>
 	)
 }
