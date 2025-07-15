@@ -1,0 +1,126 @@
+import type {
+	BaseComponentProps,
+	ExtractLevelProps,
+} from "../../../types/index.ts"
+import type ThingProps from "../../../types/Thing/index.ts"
+import type PlaceProps from "../../../types/Thing/Place/index.ts"
+
+import Thing from "./index.tsx"
+
+export type Props = BaseComponentProps<
+	PlaceProps,
+	"Place",
+	ExtractLevelProps<PlaceProps, ThingProps>
+>
+
+export default function Place(
+	{
+		additionalProperty,
+		address,
+		aggregateRating,
+		amenityFeature,
+		branchCode,
+		containedIn,
+		containedInPlace,
+		containsPlace,
+		event,
+		events,
+		faxNumber,
+		geo,
+		geoContains,
+		geoCoveredBy,
+		geoCovers,
+		geoCrosses,
+		geoDisjoint,
+		geoEquals,
+		geoIntersects,
+		geoOverlaps,
+		geoTouches,
+		geoWithin,
+		globalLocationNumber,
+		hasCertification,
+		hasDriveThroughService,
+		hasGS1DigitalLink,
+		hasMap,
+		isAccessibleForFree,
+		isicV4,
+		keywords,
+		latitude,
+		logo,
+		longitude,
+		map,
+		maps,
+		maximumAttendeeCapacity,
+		openingHoursSpecification,
+		photo,
+		photos,
+		publicAccess,
+		review,
+		reviews,
+		slogan,
+		smokingAllowed,
+		specialOpeningHoursSpecification,
+		telephone,
+		tourBookingPage,
+		schemaType = "Place",
+		subtypeProperties = {},
+		...props
+	}: Props,
+) {
+	return (
+		<Thing
+			{...props}
+			schemaType={schemaType}
+			subtypeProperties={{
+				additionalProperty,
+				address,
+				aggregateRating,
+				amenityFeature,
+				branchCode,
+				containedIn,
+				containedInPlace,
+				containsPlace,
+				event,
+				events,
+				faxNumber,
+				geo,
+				geoContains,
+				geoCoveredBy,
+				geoCovers,
+				geoCrosses,
+				geoDisjoint,
+				geoEquals,
+				geoIntersects,
+				geoOverlaps,
+				geoTouches,
+				geoWithin,
+				globalLocationNumber,
+				hasCertification,
+				hasDriveThroughService,
+				hasGS1DigitalLink,
+				hasMap,
+				isAccessibleForFree,
+				isicV4,
+				keywords,
+				latitude,
+				logo,
+				longitude,
+				map,
+				maps,
+				maximumAttendeeCapacity,
+				openingHoursSpecification,
+				photo,
+				photos,
+				publicAccess,
+				review,
+				reviews,
+				slogan,
+				smokingAllowed,
+				specialOpeningHoursSpecification,
+				telephone,
+				tourBookingPage,
+				...subtypeProperties,
+			}}
+		/>
+	)
+}
