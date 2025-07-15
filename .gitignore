@@ -61,4 +61,8 @@ pids
 .serverless/
 
 # Deno cache
-.deno/ 
+.deno/
+
+# Test artifacts
+playwright-report/
+test-results/
