@@ -35,7 +35,7 @@ export default function ({ route }: Props = {}) {
 
 				<ul>
 					<li>
-						<p>Thing</p>
+						<p>Thing (no format - debug view)</p>
 						<p>
 							<Thing
 								alternativeName="Thingamajigger"
@@ -44,9 +44,10 @@ export default function ({ route }: Props = {}) {
 						</p>
 					</li>
 					<li>
-						<p>Organization</p>
+						<p>Organization (nameOnly format)</p>
 						<p>
 							<Organization
+								name="Acme Corporation"
 								alternativeName="Organismo"
 								brand="Organismatron"
 								description="An Organismo is a device that does nothing."
@@ -56,41 +57,47 @@ export default function ({ route }: Props = {}) {
 								founder="Organismotron"
 								numberOfEmployees={100}
 								industry="Organismology"
+								format="nameOnly"
 							/>
 						</p>
 					</li>
 					<li>
-						<p>LocalBusiness</p>
+						<p>Organization (organizationInfo format)</p>
+						<p>
+							<Organization
+								name="Acme Corporation"
+								foundingDate="1985-03-15"
+								format="organizationInfo"
+							/>
+						</p>
+					</li>
+					<li>
+						<p>LocalBusiness (businessContact format)</p>
 						<p>
 							<LocalBusiness
-								alternativeName="Organismo"
-								brand="Organismatron"
-								currenciesAccepted={["USD", "EUR"]}
-								openingHours="Mo-Fr 09:00-17:00"
-								paymentAccepted={["Cash", "Credit Card"]}
-								priceRange="$$"
-								review="An Organismo is a device that does nothing."
-								reviews={["An Organismo is a device that does nothing."]}
-								description="An Organismo is a device that does nothing."
-								email="organismo@organismo.com"
-								foundingDate="2025-01-01"
-								foundingLocation="Organismopolis"
-								founder="Organismotron"
-								numberOfEmployees={100}
-								industry="Organismology"
+								name="Joe's Diner"
+								email="contact@joesdiner.com"
+								format="businessContact"
 							/>
 						</p>
 					</li>
 					<li>
-						<p>HomeAndConstructionBusiness</p>
+						<p>Electrician (custom format)</p>
 						<p>
-							<HomeAndConstructionBusiness />
+							<Electrician
+								name="Smith Electric"
+								foundingDate="2010-06-01"
+								format="{{cite(name)}} - Professional electricians since {{year(foundingDate)}}"
+							/>
 						</p>
 					</li>
 					<li>
-						<p>Electrician</p>
+						<p>Electrician (with escaped braces)</p>
 						<p>
-							<Electrician format="This is the format string!" />
+							<Electrician
+								name="Lightning Electric"
+								format="Call \{{{{cite(name)}} today!"
+							/>
 						</p>
 					</li>
 				</ul>
