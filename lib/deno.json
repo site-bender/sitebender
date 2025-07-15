@@ -37,7 +37,7 @@
 	"tasks": {
 		"build": "deno task compile",
 		"compile": "deno run --allow-read --allow-write build.ts",
-		"test": "deno test --allow-read --allow-write",
+		"test": "deno test --allow-read --allow-write tests",
 		"lint": "deno lint",
 		"fmt": "deno fmt"
 	},
