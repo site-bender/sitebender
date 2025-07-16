@@ -105,53 +105,96 @@ export default function ({ route }: Props = {}) {
 			</section>
 
 			<section class="semantic-examples">
-                <h2>Semantic Components Demo</h2>
+				<h2>Semantic Components Demo</h2>
 
-                <ul>
-                    <li>
-                        <p>ForeignTerm (basic French term)</p>
-                        <p>
-                            I said <ForeignTerm term="bonjour" lang="fr" translation="hello" /> to my friend.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (German loanword)</p>
-                        <p>
-                            He felt <ForeignTerm term="schadenfreude" lang="de" translation="a feeling of pleasure derived from someone else's misfortune" /> watching his rival fail.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (technical term)</p>
-                        <p>
-                            The citation used <ForeignTerm term="ibid" lang="la" translation="in the same place (used in citations)" termType="technical" /> to reference the previous source.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (proper noun)</p>
-                        <p>
-                            We attended <ForeignTerm term="San Fermín" lang="es" translation="The Running of the Bulls festival" termType="properNoun" /> in Pamplona.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (idiomatic phrase)</p>
-                        <p>
-                            When it started raining, she just shrugged and said <ForeignTerm term="c'est la vie" lang="fr" translation="that's life; such is life" termType="phrase" />.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (with custom formatting)</p>
-                        <p>
-                            The Latin phrase <ForeignTerm term="carpe diem" lang="la" translation="seize the day" format="<strong>{{term}}</strong> ({{translation}})" /> is often quoted.
-                        </p>
-                    </li>
-                    <li>
-                        <p>ForeignTerm (with microdata)</p>
-                        <p>
-                            The art technique <ForeignTerm term="chiaroscuro" lang="it" translation="artistic technique using light and shadow" class="art-term" itemProp="technique" /> was mastered by Caravaggio.
-                        </p>
-                    </li>
-                </ul>
-            </section>
+				<ul>
+					<li>
+						<p>ForeignTerm (basic French term)</p>
+						<p>
+							I said{" "}
+							<ForeignTerm term="bonjour" lang="fr" translation="hello" />{" "}
+							to my friend.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (German loanword)</p>
+						<p>
+							He felt{" "}
+							<ForeignTerm
+								term="schadenfreude"
+								lang="de"
+								translation="a feeling of pleasure derived from someone else's misfortune"
+							/>{" "}
+							watching his rival fail.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (technical term)</p>
+						<p>
+							The citation used{" "}
+							<ForeignTerm
+								term="ibid"
+								lang="la"
+								translation="in the same place (used in citations)"
+								termType="technical"
+							/>{" "}
+							to reference the previous source.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (proper noun)</p>
+						<p>
+							We attended{" "}
+							<ForeignTerm
+								term="San Fermín"
+								lang="es"
+								translation="The Running of the Bulls festival"
+								termType="properNoun"
+							/>{" "}
+							in Pamplona.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (idiomatic phrase)</p>
+						<p>
+							When it started raining, she just shrugged and said{" "}
+							<ForeignTerm
+								term="c'est la vie"
+								lang="fr"
+								translation="that's life; such is life"
+								termType="phrase"
+							/>.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (with custom formatting)</p>
+						<p>
+							The Latin phrase{" "}
+							<ForeignTerm
+								term="carpe diem"
+								lang="la"
+								translation="seize the day"
+								format="<strong>{{term}}</strong> ({{translation}})"
+							/>{" "}
+							is often quoted.
+						</p>
+					</li>
+					<li>
+						<p>ForeignTerm (with microdata)</p>
+						<p>
+							The art technique{" "}
+							<ForeignTerm
+								term="chiaroscuro"
+								lang="it"
+								translation="artistic technique using light and shadow"
+								class="art-term"
+								itemProp="technique"
+							/>{" "}
+							was mastered by Caravaggio.
+						</p>
+					</li>
+				</ul>
+			</section>
 		</main>
 	)
 }
