@@ -1,4 +1,4 @@
-export function createElement(
+export default function createElement(
 	tag: unknown,
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
@@ -21,9 +21,3 @@ export function createElement(
 
 	return tag
 }
-
-export function Fragment({ children }: { children?: unknown }): unknown {
-	return children
-}
-
-export default createElement
