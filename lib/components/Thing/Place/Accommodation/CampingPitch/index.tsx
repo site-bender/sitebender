@@ -5,7 +5,7 @@ import type {
 import type AccommodationProps from "../../../../../types/Thing/Accommodation/index.ts"
 import type CampingPitchProps from "../../../../../types/Thing/CampingPitch/index.ts"
 
-import Accommodation from "./index.tsx"
+import Accommodation from "../index.tsx"
 
 // CampingPitch adds no properties to the Accommodation schema type
 export type Props = BaseComponentProps<

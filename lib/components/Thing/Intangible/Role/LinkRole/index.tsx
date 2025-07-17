@@ -5,7 +5,7 @@ import type {
 import type LinkRoleProps from "../../../../../types/Thing/LinkRole/index.ts"
 import type RoleProps from "../../../../../types/Thing/Role/index.ts"
 
-import Role from "./index.tsx"
+import Role from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LinkRoleProps,

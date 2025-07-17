@@ -1,15 +1,22 @@
-export function createElement(
+export default function createElement(
 	tag: unknown,
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
+	// DEBUG: Log all createElement calls
+	if (typeof tag === "function" && tag.name) {
+		console.log(`DEBUG createElement - ${tag.name}:`, {
+			props: props || {},
+			children: children,
+			childrenLength: children.length,
+		})
+	}
+
 	if (typeof tag === "function") {
 		return tag({ ...props, children })
 	}
 
 	if (typeof tag === "string") {
-		// Always create virtual elements for renderToString compatibility
-		// This works for both server-side rendering and client-side when we just need HTML
 		return {
 			type: tag,
 			props: {
@@ -21,9 +28,3 @@ export function createElement(
 
 	return tag
 }
-
-export function Fragment({ children }: { children?: unknown }): unknown {
-	return children
-}
-
-export default createElement

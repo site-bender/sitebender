@@ -5,7 +5,7 @@ import type {
 import type BankAccountProps from "../../../../../../types/Thing/BankAccount/index.ts"
 import type FinancialProductProps from "../../../../../../types/Thing/FinancialProduct/index.ts"
 
-import FinancialProduct from "./index.tsx"
+import FinancialProduct from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	BankAccountProps,

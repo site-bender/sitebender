@@ -5,7 +5,7 @@ import type {
 import type ParentAudienceProps from "../../../../../../types/Thing/ParentAudience/index.ts"
 import type PeopleAudienceProps from "../../../../../../types/Thing/PeopleAudience/index.ts"
 
-import PeopleAudience from "./index.tsx"
+import PeopleAudience from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ParentAudienceProps,

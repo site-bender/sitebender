@@ -5,7 +5,7 @@ import type {
 import type DrugCostCategoryProps from "../../../../../../types/Thing/DrugCostCategory/index.ts"
 import type MedicalEnumerationProps from "../../../../../../types/Thing/MedicalEnumeration/index.ts"
 
-import MedicalEnumeration from "./index.tsx"
+import MedicalEnumeration from "../index.tsx"
 
 // DrugCostCategory adds no properties to the MedicalEnumeration schema type
 export type Props = BaseComponentProps<

@@ -1,3 +1,3 @@
-import MotorcycleDealer from "./index.tsx"
+import MotorcycleDealer from "../index.tsx"
 
 export default MotorcycleDealer

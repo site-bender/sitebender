@@ -5,7 +5,7 @@ import type {
 import type InteractActionProps from "../../../../../types/Thing/InteractAction/index.ts"
 import type LeaveActionProps from "../../../../../types/Thing/LeaveAction/index.ts"
 
-import InteractAction from "./index.tsx"
+import InteractAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LeaveActionProps,

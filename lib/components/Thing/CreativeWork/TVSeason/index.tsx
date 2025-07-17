@@ -1,3 +1,3 @@
-import TVSeason from "./index.tsx"
+import TVSeason from "../index.tsx"
 
 export default TVSeason

@@ -1,3 +1,3 @@
-import SportingGoodsStore from "./index.tsx"
+import SportingGoodsStore from "../index.tsx"
 
 export default SportingGoodsStore

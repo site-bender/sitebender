@@ -5,7 +5,7 @@ import type {
 import type EndorseActionProps from "../../../../../../types/Thing/EndorseAction/index.ts"
 import type ReactActionProps from "../../../../../../types/Thing/ReactAction/index.ts"
 
-import ReactAction from "./index.tsx"
+import ReactAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	EndorseActionProps,

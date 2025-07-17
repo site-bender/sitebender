@@ -5,7 +5,7 @@ import type {
 import type LymphaticVesselProps from "../../../../../../types/Thing/LymphaticVessel/index.ts"
 import type VesselProps from "../../../../../../types/Thing/Vessel/index.ts"
 
-import Vessel from "./index.tsx"
+import Vessel from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LymphaticVesselProps,

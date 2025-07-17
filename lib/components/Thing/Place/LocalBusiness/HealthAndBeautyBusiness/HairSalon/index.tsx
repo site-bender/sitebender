@@ -1,3 +1,3 @@
-import HairSalon from "./index.tsx"
+import HairSalon from "../index.tsx"
 
 export default HairSalon

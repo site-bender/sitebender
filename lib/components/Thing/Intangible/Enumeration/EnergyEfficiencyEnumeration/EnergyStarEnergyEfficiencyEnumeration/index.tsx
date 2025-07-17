@@ -5,7 +5,7 @@ import type {
 import type EnergyEfficiencyEnumerationProps from "../../../../../../types/Thing/EnergyEfficiencyEnumeration/index.ts"
 import type EnergyStarEnergyEfficiencyEnumerationProps from "../../../../../../types/Thing/EnergyStarEnergyEfficiencyEnumeration/index.ts"
 
-import EnergyEfficiencyEnumeration from "./index.tsx"
+import EnergyEfficiencyEnumeration from "../index.tsx"
 
 // EnergyStarEnergyEfficiencyEnumeration adds no properties to the EnergyEfficiencyEnumeration schema type
 export type Props = BaseComponentProps<

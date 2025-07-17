@@ -5,7 +5,7 @@ import type {
 import type BlogPostingProps from "../../../../../../types/Thing/BlogPosting/index.ts"
 import type SocialMediaPostingProps from "../../../../../../types/Thing/SocialMediaPosting/index.ts"
 
-import SocialMediaPosting from "./index.tsx"
+import SocialMediaPosting from "../index.tsx"
 
 // BlogPosting adds no properties to the SocialMediaPosting schema type
 export type Props = BaseComponentProps<

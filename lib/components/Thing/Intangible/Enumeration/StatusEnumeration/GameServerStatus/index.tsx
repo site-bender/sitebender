@@ -5,7 +5,7 @@ import type {
 import type GameServerStatusProps from "../../../../../../types/Thing/GameServerStatus/index.ts"
 import type StatusEnumerationProps from "../../../../../../types/Thing/StatusEnumeration/index.ts"
 
-import StatusEnumeration from "./index.tsx"
+import StatusEnumeration from "../index.tsx"
 
 // GameServerStatus adds no properties to the StatusEnumeration schema type
 export type Props = BaseComponentProps<

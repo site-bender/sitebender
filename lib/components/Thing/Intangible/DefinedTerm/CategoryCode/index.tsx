@@ -5,7 +5,7 @@ import type {
 import type CategoryCodeProps from "../../../../../types/Thing/CategoryCode/index.ts"
 import type DefinedTermProps from "../../../../../types/Thing/DefinedTerm/index.ts"
 
-import DefinedTerm from "./index.tsx"
+import DefinedTerm from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CategoryCodeProps,

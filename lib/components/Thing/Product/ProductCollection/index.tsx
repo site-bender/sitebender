@@ -5,7 +5,7 @@ import type {
 import type ProductProps from "../../../../types/Thing/Product/index.ts"
 import type ProductCollectionProps from "../../../../types/Thing/ProductCollection/index.ts"
 
-import Product from "./index.tsx"
+import Product from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ProductCollectionProps,

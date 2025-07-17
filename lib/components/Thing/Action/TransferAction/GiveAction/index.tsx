@@ -5,7 +5,7 @@ import type {
 import type GiveActionProps from "../../../../../types/Thing/GiveAction/index.ts"
 import type TransferActionProps from "../../../../../types/Thing/TransferAction/index.ts"
 
-import TransferAction from "./index.tsx"
+import TransferAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	GiveActionProps,

@@ -1,3 +1,3 @@
-import ToyStore from "./index.tsx"
+import ToyStore from "../index.tsx"
 
 export default ToyStore

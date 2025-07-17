@@ -1,3 +1,3 @@
-import GovernmentOffice from "./index.tsx"
+import GovernmentOffice from "../index.tsx"
 
 export default GovernmentOffice

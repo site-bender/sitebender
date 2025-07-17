@@ -1,3 +1,3 @@
-import BookStore from "./index.tsx"
+import BookStore from "../index.tsx"
 
 export default BookStore

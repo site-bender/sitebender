@@ -5,7 +5,7 @@ import type {
 import type HowToProps from "../../../../../types/Thing/HowTo/index.ts"
 import type RecipeProps from "../../../../../types/Thing/Recipe/index.ts"
 
-import HowTo from "./index.tsx"
+import HowTo from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	RecipeProps,

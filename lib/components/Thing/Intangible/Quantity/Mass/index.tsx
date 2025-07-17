@@ -5,7 +5,7 @@ import type {
 import type MassProps from "../../../../../types/Thing/Mass/index.ts"
 import type QuantityProps from "../../../../../types/Thing/Quantity/index.ts"
 
-import Quantity from "./index.tsx"
+import Quantity from "../index.tsx"
 
 // Mass adds no properties to the Quantity schema type
 export type Props = BaseComponentProps<

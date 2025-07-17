@@ -5,7 +5,7 @@ import type {
 import type LandformProps from "../../../../../types/Thing/Landform/index.ts"
 import type VolcanoProps from "../../../../../types/Thing/Volcano/index.ts"
 
-import Landform from "./index.tsx"
+import Landform from "../index.tsx"
 
 // Volcano adds no properties to the Landform schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type FindActionProps from "../../../../../types/Thing/FindAction/index.ts"
 import type TrackActionProps from "../../../../../types/Thing/TrackAction/index.ts"
 
-import FindAction from "./index.tsx"
+import FindAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TrackActionProps,

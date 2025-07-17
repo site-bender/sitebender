@@ -1,3 +1,3 @@
-import MedicalClinic from "./index.tsx"
+import MedicalClinic from "../index.tsx"
 
 export default MedicalClinic

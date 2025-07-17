@@ -1,3 +1,3 @@
-import Florist from "./index.tsx"
+import Florist from "../index.tsx"
 
 export default Florist

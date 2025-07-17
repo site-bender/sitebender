@@ -5,7 +5,7 @@ import type {
 import type AchieveActionProps from "../../../../../types/Thing/AchieveAction/index.ts"
 import type WinActionProps from "../../../../../types/Thing/WinAction/index.ts"
 
-import AchieveAction from "./index.tsx"
+import AchieveAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	WinActionProps,

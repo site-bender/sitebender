@@ -5,7 +5,7 @@ import type {
 import type IPTCDigitalSourceEnumerationProps from "../../../../../../types/Thing/IPTCDigitalSourceEnumeration/index.ts"
 import type MediaEnumerationProps from "../../../../../../types/Thing/MediaEnumeration/index.ts"
 
-import MediaEnumeration from "./index.tsx"
+import MediaEnumeration from "../index.tsx"
 
 // IPTCDigitalSourceEnumeration adds no properties to the MediaEnumeration schema type
 export type Props = BaseComponentProps<

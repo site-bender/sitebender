@@ -1,3 +1,3 @@
-import MusicStore from "./index.tsx"
+import MusicStore from "../index.tsx"
 
 export default MusicStore

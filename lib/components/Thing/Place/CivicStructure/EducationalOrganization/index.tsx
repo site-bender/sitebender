@@ -1,3 +1,3 @@
-import EducationalOrganization from "./index.tsx"
+import EducationalOrganization from "../index.tsx"
 
 export default EducationalOrganization

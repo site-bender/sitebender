@@ -5,7 +5,7 @@ import type {
 import type ContactPointOptionProps from "../../../../../types/Thing/ContactPointOption/index.ts"
 import type EnumerationProps from "../../../../../types/Thing/Enumeration/index.ts"
 
-import Enumeration from "./index.tsx"
+import Enumeration from "../index.tsx"
 
 // ContactPointOption adds no properties to the Enumeration schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type AudioObjectProps from "../../../../../../types/Thing/AudioObject/index.ts"
 import type AudioObjectSnapshotProps from "../../../../../../types/Thing/AudioObjectSnapshot/index.ts"
 
-import AudioObject from "./index.tsx"
+import AudioObject from "../index.tsx"
 
 // AudioObjectSnapshot adds no properties to the AudioObject schema type
 export type Props = BaseComponentProps<

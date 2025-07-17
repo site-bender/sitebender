@@ -5,7 +5,7 @@ import type {
 import type PaymentMethodProps from "../../../../../types/Thing/PaymentMethod/index.ts"
 import type PaymentServiceProps from "../../../../../types/Thing/PaymentService/index.ts"
 
-import PaymentMethod from "./index.tsx"
+import PaymentMethod from "../index.tsx"
 
 // PaymentService adds no properties to the PaymentMethod schema type
 export type Props = BaseComponentProps<

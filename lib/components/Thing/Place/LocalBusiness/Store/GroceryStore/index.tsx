@@ -1,3 +1,3 @@
-import GroceryStore from "./index.tsx"
+import GroceryStore from "../index.tsx"
 
 export default GroceryStore

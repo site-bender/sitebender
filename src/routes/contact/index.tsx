@@ -1,6 +1,6 @@
 import Transaction from "~components/templates/Transaction/index.tsx"
 
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 export type Props = {
 	route?: string

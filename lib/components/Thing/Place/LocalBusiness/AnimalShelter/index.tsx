@@ -1,3 +1,3 @@
-import AnimalShelter from "./index.tsx"
+import AnimalShelter from "../index.tsx"
 
 export default AnimalShelter

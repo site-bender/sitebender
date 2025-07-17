@@ -5,7 +5,7 @@ import type {
 import type LearningResourceProps from "../../../../../types/Thing/LearningResource/index.ts"
 import type QuizProps from "../../../../../types/Thing/Quiz/index.ts"
 
-import LearningResource from "./index.tsx"
+import LearningResource from "../index.tsx"
 
 // Quiz adds no properties to the LearningResource schema type
 export type Props = BaseComponentProps<

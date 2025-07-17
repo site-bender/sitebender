@@ -1,3 +1,3 @@
-import HowToSection from "./index.tsx"
+import HowToSection from "../index.tsx"
 
 export default HowToSection

@@ -5,7 +5,7 @@ import type {
 import type ApplyActionProps from "../../../../../types/Thing/ApplyAction/index.ts"
 import type OrganizeActionProps from "../../../../../types/Thing/OrganizeAction/index.ts"
 
-import OrganizeAction from "./index.tsx"
+import OrganizeAction from "../index.tsx"
 
 // ApplyAction adds no properties to the OrganizeAction schema type
 export type Props = BaseComponentProps<

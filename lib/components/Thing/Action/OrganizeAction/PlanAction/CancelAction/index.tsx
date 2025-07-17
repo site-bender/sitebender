@@ -5,7 +5,7 @@ import type {
 import type CancelActionProps from "../../../../../../types/Thing/CancelAction/index.ts"
 import type PlanActionProps from "../../../../../../types/Thing/PlanAction/index.ts"
 
-import PlanAction from "./index.tsx"
+import PlanAction from "../index.tsx"
 
 // CancelAction adds no properties to the PlanAction schema type
 export type Props = BaseComponentProps<

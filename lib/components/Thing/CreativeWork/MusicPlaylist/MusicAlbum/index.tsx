@@ -5,7 +5,7 @@ import type {
 import type MusicAlbumProps from "../../../../../types/Thing/MusicAlbum/index.ts"
 import type MusicPlaylistProps from "../../../../../types/Thing/MusicPlaylist/index.ts"
 
-import MusicPlaylist from "./index.tsx"
+import MusicPlaylist from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MusicAlbumProps,

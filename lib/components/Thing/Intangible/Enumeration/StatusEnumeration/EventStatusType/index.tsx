@@ -5,7 +5,7 @@ import type {
 import type EventStatusTypeProps from "../../../../../../types/Thing/EventStatusType/index.ts"
 import type StatusEnumerationProps from "../../../../../../types/Thing/StatusEnumeration/index.ts"
 
-import StatusEnumeration from "./index.tsx"
+import StatusEnumeration from "../index.tsx"
 
 // EventStatusType adds no properties to the StatusEnumeration schema type
 export type Props = BaseComponentProps<

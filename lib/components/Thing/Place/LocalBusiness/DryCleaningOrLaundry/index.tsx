@@ -1,3 +1,3 @@
-import DryCleaningOrLaundry from "./index.tsx"
+import DryCleaningOrLaundry from "../index.tsx"
 
 export default DryCleaningOrLaundry

@@ -5,7 +5,7 @@ import type {
 import type LibrarySystemProps from "../../../../types/Thing/LibrarySystem/index.ts"
 import type OrganizationProps from "../../../../types/Thing/Organization/index.ts"
 
-import Organization from "./index.tsx"
+import Organization from "../index.tsx"
 
 // LibrarySystem adds no properties to the Organization schema type
 export type Props = BaseComponentProps<

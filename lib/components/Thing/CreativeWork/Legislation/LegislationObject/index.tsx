@@ -5,7 +5,7 @@ import type {
 import type LegislationProps from "../../../../../types/Thing/Legislation/index.ts"
 import type LegislationObjectProps from "../../../../../types/Thing/LegislationObject/index.ts"
 
-import Legislation from "./index.tsx"
+import Legislation from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LegislationObjectProps,

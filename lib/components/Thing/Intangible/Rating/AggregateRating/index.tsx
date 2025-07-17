@@ -5,7 +5,7 @@ import type {
 import type AggregateRatingProps from "../../../../../types/Thing/AggregateRating/index.ts"
 import type RatingProps from "../../../../../types/Thing/Rating/index.ts"
 
-import Rating from "./index.tsx"
+import Rating from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AggregateRatingProps,

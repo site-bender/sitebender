@@ -5,7 +5,7 @@ import type {
 import type SellActionProps from "../../../../../types/Thing/SellAction/index.ts"
 import type TradeActionProps from "../../../../../types/Thing/TradeAction/index.ts"
 
-import TradeAction from "./index.tsx"
+import TradeAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	SellActionProps,

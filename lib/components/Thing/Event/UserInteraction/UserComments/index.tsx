@@ -5,7 +5,7 @@ import type {
 import type UserCommentsProps from "../../../../../types/Thing/UserComments/index.ts"
 import type UserInteractionProps from "../../../../../types/Thing/UserInteraction/index.ts"
 
-import UserInteraction from "./index.tsx"
+import UserInteraction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	UserCommentsProps,

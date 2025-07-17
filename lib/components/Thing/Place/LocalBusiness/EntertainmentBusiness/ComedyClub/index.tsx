@@ -1,3 +1,3 @@
-import ComedyClub from "./index.tsx"
+import ComedyClub from "../index.tsx"
 
 export default ComedyClub

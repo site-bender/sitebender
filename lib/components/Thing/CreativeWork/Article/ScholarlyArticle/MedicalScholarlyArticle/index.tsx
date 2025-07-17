@@ -5,7 +5,7 @@ import type {
 import type MedicalScholarlyArticleProps from "../../../../../../types/Thing/MedicalScholarlyArticle/index.ts"
 import type ScholarlyArticleProps from "../../../../../../types/Thing/ScholarlyArticle/index.ts"
 
-import ScholarlyArticle from "./index.tsx"
+import ScholarlyArticle from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalScholarlyArticleProps,

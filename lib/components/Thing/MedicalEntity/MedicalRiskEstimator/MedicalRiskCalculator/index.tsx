@@ -5,7 +5,7 @@ import type {
 import type MedicalRiskCalculatorProps from "../../../../../types/Thing/MedicalRiskCalculator/index.ts"
 import type MedicalRiskEstimatorProps from "../../../../../types/Thing/MedicalRiskEstimator/index.ts"
 
-import MedicalRiskEstimator from "./index.tsx"
+import MedicalRiskEstimator from "../index.tsx"
 
 // MedicalRiskCalculator adds no properties to the MedicalRiskEstimator schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type QAPageProps from "../../../../../types/Thing/QAPage/index.ts"
 import type WebPageProps from "../../../../../types/Thing/WebPage/index.ts"
 
-import WebPage from "./index.tsx"
+import WebPage from "../index.tsx"
 
 // QAPage adds no properties to the WebPage schema type
 export type Props = BaseComponentProps<

@@ -1,3 +1,3 @@
-import ShoppingCenter from "./index.tsx"
+import ShoppingCenter from "../index.tsx"
 
 export default ShoppingCenter

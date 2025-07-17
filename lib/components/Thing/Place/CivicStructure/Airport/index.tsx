@@ -5,7 +5,7 @@ import type {
 import type AirportProps from "../../../../../types/Thing/Airport/index.ts"
 import type CivicStructureProps from "../../../../../types/Thing/CivicStructure/index.ts"
 
-import CivicStructure from "./index.tsx"
+import CivicStructure from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AirportProps,

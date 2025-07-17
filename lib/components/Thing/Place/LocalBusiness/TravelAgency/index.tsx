@@ -1,3 +1,3 @@
-import TravelAgency from "./index.tsx"
+import TravelAgency from "../index.tsx"
 
 export default TravelAgency

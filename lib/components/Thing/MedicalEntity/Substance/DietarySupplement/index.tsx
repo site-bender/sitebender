@@ -1,3 +1,3 @@
-import DietarySupplement from "./index.tsx"
+import DietarySupplement from "../index.tsx"
 
 export default DietarySupplement

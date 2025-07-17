@@ -5,7 +5,7 @@ import type {
 import type ConstraintNodeProps from "../../../../../types/Thing/ConstraintNode/index.ts"
 import type StatisticalVariableProps from "../../../../../types/Thing/StatisticalVariable/index.ts"
 
-import ConstraintNode from "./index.tsx"
+import ConstraintNode from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	StatisticalVariableProps,

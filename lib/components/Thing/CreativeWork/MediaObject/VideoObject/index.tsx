@@ -5,7 +5,7 @@ import type {
 import type MediaObjectProps from "../../../../../types/Thing/MediaObject/index.ts"
 import type VideoObjectProps from "../../../../../types/Thing/VideoObject/index.ts"
 
-import MediaObject from "./index.tsx"
+import MediaObject from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	VideoObjectProps,

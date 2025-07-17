@@ -1,3 +1,3 @@
-import Distillery from "./index.tsx"
+import Distillery from "../index.tsx"
 
 export default Distillery

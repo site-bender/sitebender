@@ -1,3 +1,3 @@
-import Hospital from "./index.tsx"
+import Hospital from "../index.tsx"
 
 export default Hospital

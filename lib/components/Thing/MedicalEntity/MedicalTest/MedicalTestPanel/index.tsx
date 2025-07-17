@@ -5,7 +5,7 @@ import type {
 import type MedicalTestProps from "../../../../../types/Thing/MedicalTest/index.ts"
 import type MedicalTestPanelProps from "../../../../../types/Thing/MedicalTestPanel/index.ts"
 
-import MedicalTest from "./index.tsx"
+import MedicalTest from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalTestPanelProps,

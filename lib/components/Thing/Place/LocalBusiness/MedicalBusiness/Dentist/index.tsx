@@ -1,3 +1,3 @@
-import Dentist from "./index.tsx"
+import Dentist from "../index.tsx"
 
 export default Dentist

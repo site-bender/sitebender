@@ -5,7 +5,7 @@ import type {
 import type DeliveryChargeSpecificationProps from "../../../../../../types/Thing/DeliveryChargeSpecification/index.ts"
 import type PriceSpecificationProps from "../../../../../../types/Thing/PriceSpecification/index.ts"
 
-import PriceSpecification from "./index.tsx"
+import PriceSpecification from "../index.tsx"
 
 // DeliveryChargeSpecification adds no properties to the PriceSpecification schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type BarcodeProps from "../../../../../../types/Thing/Barcode/index.ts"
 import type ImageObjectProps from "../../../../../../types/Thing/ImageObject/index.ts"
 
-import ImageObject from "./index.tsx"
+import ImageObject from "../index.tsx"
 
 // Barcode adds no properties to the ImageObject schema type
 export type Props = BaseComponentProps<

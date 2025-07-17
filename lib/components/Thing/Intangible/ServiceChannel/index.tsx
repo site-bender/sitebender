@@ -5,7 +5,7 @@ import type {
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 import type ServiceChannelProps from "../../../../types/Thing/ServiceChannel/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ServiceChannelProps,

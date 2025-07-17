@@ -1,3 +1,3 @@
-import FoodEstablishment from "./index.tsx"
+import FoodEstablishment from "../index.tsx"
 
 export default FoodEstablishment

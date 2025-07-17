@@ -5,7 +5,7 @@ import type {
 import type ChooseActionProps from "../../../../../../types/Thing/ChooseAction/index.ts"
 import type VoteActionProps from "../../../../../../types/Thing/VoteAction/index.ts"
 
-import ChooseAction from "./index.tsx"
+import ChooseAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	VoteActionProps,

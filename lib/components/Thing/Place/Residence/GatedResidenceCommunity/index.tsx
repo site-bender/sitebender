@@ -5,7 +5,7 @@ import type {
 import type GatedResidenceCommunityProps from "../../../../../types/Thing/GatedResidenceCommunity/index.ts"
 import type ResidenceProps from "../../../../../types/Thing/Residence/index.ts"
 
-import Residence from "./index.tsx"
+import Residence from "../index.tsx"
 
 // GatedResidenceCommunity adds no properties to the Residence schema type
 export type Props = BaseComponentProps<

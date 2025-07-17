@@ -1,3 +1,3 @@
-import GardenStore from "./index.tsx"
+import GardenStore from "../index.tsx"
 
 export default GardenStore

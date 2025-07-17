@@ -5,7 +5,7 @@ import type {
 import type ClaimReviewProps from "../../../../../types/Thing/ClaimReview/index.ts"
 import type ReviewProps from "../../../../../types/Thing/Review/index.ts"
 
-import Review from "./index.tsx"
+import Review from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ClaimReviewProps,

@@ -1,3 +1,3 @@
-import CollegeOrUniversity from "./index.tsx"
+import CollegeOrUniversity from "../index.tsx"
 
 export default CollegeOrUniversity

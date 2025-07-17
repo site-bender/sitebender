@@ -1,3 +1,3 @@
-import Newspaper from "./index.tsx"
+import Newspaper from "../index.tsx"
 
 export default Newspaper

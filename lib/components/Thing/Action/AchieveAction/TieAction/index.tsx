@@ -5,7 +5,7 @@ import type {
 import type AchieveActionProps from "../../../../../types/Thing/AchieveAction/index.ts"
 import type TieActionProps from "../../../../../types/Thing/TieAction/index.ts"
 
-import AchieveAction from "./index.tsx"
+import AchieveAction from "../index.tsx"
 
 // TieAction adds no properties to the AchieveAction schema type
 export type Props = BaseComponentProps<

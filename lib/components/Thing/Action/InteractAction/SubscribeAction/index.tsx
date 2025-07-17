@@ -5,7 +5,7 @@ import type {
 import type InteractActionProps from "../../../../../types/Thing/InteractAction/index.ts"
 import type SubscribeActionProps from "../../../../../types/Thing/SubscribeAction/index.ts"
 
-import InteractAction from "./index.tsx"
+import InteractAction from "../index.tsx"
 
 // SubscribeAction adds no properties to the InteractAction schema type
 export type Props = BaseComponentProps<

@@ -1,3 +1,3 @@
-import PaymentCard from "./index.tsx"
+import PaymentCard from "../index.tsx"
 
 export default PaymentCard

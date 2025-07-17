@@ -1,3 +1,3 @@
-import MensClothingStore from "./index.tsx"
+import MensClothingStore from "../index.tsx"
 
 export default MensClothingStore

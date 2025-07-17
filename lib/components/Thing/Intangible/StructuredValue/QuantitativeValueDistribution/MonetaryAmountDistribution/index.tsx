@@ -5,7 +5,7 @@ import type {
 import type MonetaryAmountDistributionProps from "../../../../../../types/Thing/MonetaryAmountDistribution/index.ts"
 import type QuantitativeValueDistributionProps from "../../../../../../types/Thing/QuantitativeValueDistribution/index.ts"
 
-import QuantitativeValueDistribution from "./index.tsx"
+import QuantitativeValueDistribution from "../index.tsx"
 
 // MonetaryAmountDistribution adds no properties to the QuantitativeValueDistribution schema type
 export type Props = BaseComponentProps<

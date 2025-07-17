@@ -1,3 +1,3 @@
-import Hostel from "./index.tsx"
+import Hostel from "../index.tsx"
 
 export default Hostel

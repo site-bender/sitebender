@@ -5,7 +5,7 @@ import type {
 import type ConfirmActionProps from "../../../../../../../types/Thing/ConfirmAction/index.ts"
 import type InformActionProps from "../../../../../../../types/Thing/InformAction/index.ts"
 
-import InformAction from "./index.tsx"
+import InformAction from "../index.tsx"
 
 // ConfirmAction adds no properties to the InformAction schema type
 export type Props = BaseComponentProps<

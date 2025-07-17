@@ -5,7 +5,7 @@ import type {
 import type ClipProps from "../../../../../types/Thing/Clip/index.ts"
 import type TVClipProps from "../../../../../types/Thing/TVClip/index.ts"
 
-import Clip from "./index.tsx"
+import Clip from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TVClipProps,

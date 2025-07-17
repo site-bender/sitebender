@@ -5,7 +5,7 @@ import type {
 import type MusicGroupProps from "../../../../../types/Thing/MusicGroup/index.ts"
 import type PerformingGroupProps from "../../../../../types/Thing/PerformingGroup/index.ts"
 
-import PerformingGroup from "./index.tsx"
+import PerformingGroup from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MusicGroupProps,

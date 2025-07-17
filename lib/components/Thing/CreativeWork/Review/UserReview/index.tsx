@@ -5,7 +5,7 @@ import type {
 import type ReviewProps from "../../../../../types/Thing/Review/index.ts"
 import type UserReviewProps from "../../../../../types/Thing/UserReview/index.ts"
 
-import Review from "./index.tsx"
+import Review from "../index.tsx"
 
 // UserReview adds no properties to the Review schema type
 export type Props = BaseComponentProps<

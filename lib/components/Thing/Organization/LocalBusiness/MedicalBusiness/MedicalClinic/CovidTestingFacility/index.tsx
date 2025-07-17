@@ -1,3 +1,3 @@
-import CovidTestingFacility from "./index.tsx"
+import CovidTestingFacility from "../index.tsx"
 
 export default CovidTestingFacility

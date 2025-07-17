@@ -5,7 +5,7 @@ import type {
 import type CompoundPriceSpecificationProps from "../../../../../../types/Thing/CompoundPriceSpecification/index.ts"
 import type PriceSpecificationProps from "../../../../../../types/Thing/PriceSpecification/index.ts"
 
-import PriceSpecification from "./index.tsx"
+import PriceSpecification from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CompoundPriceSpecificationProps,

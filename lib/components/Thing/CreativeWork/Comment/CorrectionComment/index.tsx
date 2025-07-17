@@ -5,7 +5,7 @@ import type {
 import type CommentProps from "../../../../../types/Thing/Comment/index.ts"
 import type CorrectionCommentProps from "../../../../../types/Thing/CorrectionComment/index.ts"
 
-import Comment from "./index.tsx"
+import Comment from "../index.tsx"
 
 // CorrectionComment adds no properties to the Comment schema type
 export type Props = BaseComponentProps<

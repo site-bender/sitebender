@@ -5,7 +5,7 @@ import type {
 import type AgreeActionProps from "../../../../../../types/Thing/AgreeAction/index.ts"
 import type ReactActionProps from "../../../../../../types/Thing/ReactAction/index.ts"
 
-import ReactAction from "./index.tsx"
+import ReactAction from "../index.tsx"
 
 // AgreeAction adds no properties to the ReactAction schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type WebPageElementProps from "../../../../../types/Thing/WebPageElement/index.ts"
 import type WPAdBlockProps from "../../../../../types/Thing/WPAdBlock/index.ts"
 
-import WebPageElement from "./index.tsx"
+import WebPageElement from "../index.tsx"
 
 // WPAdBlock adds no properties to the WebPageElement schema type
 export type Props = BaseComponentProps<

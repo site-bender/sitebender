@@ -5,7 +5,7 @@ import type {
 import type MedicalWebPageProps from "../../../../../types/Thing/MedicalWebPage/index.ts"
 import type WebPageProps from "../../../../../types/Thing/WebPage/index.ts"
 
-import WebPage from "./index.tsx"
+import WebPage from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalWebPageProps,

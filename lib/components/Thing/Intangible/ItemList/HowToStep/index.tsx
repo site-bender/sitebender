@@ -1,3 +1,3 @@
-import HowToStep from "./index.tsx"
+import HowToStep from "../index.tsx"
 
 export default HowToStep

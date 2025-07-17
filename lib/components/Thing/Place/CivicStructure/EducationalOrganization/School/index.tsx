@@ -1,3 +1,3 @@
-import School from "./index.tsx"
+import School from "../index.tsx"
 
 export default School

@@ -5,7 +5,7 @@ import type {
 import type CreativeWorkSeriesProps from "../../../../../../types/Thing/CreativeWorkSeries/index.ts"
 import type PeriodicalProps from "../../../../../../types/Thing/Periodical/index.ts"
 
-import CreativeWorkSeries from "./index.tsx"
+import CreativeWorkSeries from "../index.tsx"
 
 // Periodical adds no properties to the CreativeWorkSeries schema type
 export type Props = BaseComponentProps<

@@ -1,3 +1,3 @@
-import HealthAndBeautyBusiness from "./index.tsx"
+import HealthAndBeautyBusiness from "../index.tsx"
 
 export default HealthAndBeautyBusiness

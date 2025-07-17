@@ -5,7 +5,7 @@ import type {
 import type BusOrCoachProps from "../../../../../types/Thing/BusOrCoach/index.ts"
 import type VehicleProps from "../../../../../types/Thing/Vehicle/index.ts"
 
-import Vehicle from "./index.tsx"
+import Vehicle from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	BusOrCoachProps,

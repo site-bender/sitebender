@@ -1,3 +1,3 @@
-import PetStore from "./index.tsx"
+import PetStore from "../index.tsx"
 
 export default PetStore

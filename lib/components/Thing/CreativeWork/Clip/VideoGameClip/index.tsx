@@ -5,7 +5,7 @@ import type {
 import type ClipProps from "../../../../../types/Thing/Clip/index.ts"
 import type VideoGameClipProps from "../../../../../types/Thing/VideoGameClip/index.ts"
 
-import Clip from "./index.tsx"
+import Clip from "../index.tsx"
 
 // VideoGameClip adds no properties to the Clip schema type
 export type Props = BaseComponentProps<

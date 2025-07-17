@@ -5,7 +5,7 @@ import type {
 import type InfectiousAgentClassProps from "../../../../../../types/Thing/InfectiousAgentClass/index.ts"
 import type MedicalEnumerationProps from "../../../../../../types/Thing/MedicalEnumeration/index.ts"
 
-import MedicalEnumeration from "./index.tsx"
+import MedicalEnumeration from "../index.tsx"
 
 // InfectiousAgentClass adds no properties to the MedicalEnumeration schema type
 export type Props = BaseComponentProps<

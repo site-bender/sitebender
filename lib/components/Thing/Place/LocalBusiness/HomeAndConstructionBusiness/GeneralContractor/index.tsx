@@ -1,3 +1,3 @@
-import GeneralContractor from "./index.tsx"
+import GeneralContractor from "../index.tsx"
 
 export default GeneralContractor

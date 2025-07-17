@@ -1,3 +1,3 @@
-import Casino from "./index.tsx"
+import Casino from "../index.tsx"
 
 export default Casino

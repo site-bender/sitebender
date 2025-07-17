@@ -1,3 +1,3 @@
-import NailSalon from "./index.tsx"
+import NailSalon from "../index.tsx"
 
 export default NailSalon

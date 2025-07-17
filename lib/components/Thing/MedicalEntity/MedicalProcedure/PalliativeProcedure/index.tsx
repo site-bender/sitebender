@@ -1,3 +1,3 @@
-import PalliativeProcedure from "./index.tsx"
+import PalliativeProcedure from "../index.tsx"
 
 export default PalliativeProcedure

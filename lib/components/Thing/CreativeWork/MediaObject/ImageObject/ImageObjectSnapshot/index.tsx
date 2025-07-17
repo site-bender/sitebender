@@ -5,7 +5,7 @@ import type {
 import type ImageObjectProps from "../../../../../../types/Thing/ImageObject/index.ts"
 import type ImageObjectSnapshotProps from "../../../../../../types/Thing/ImageObjectSnapshot/index.ts"
 
-import ImageObject from "./index.tsx"
+import ImageObject from "../index.tsx"
 
 // ImageObjectSnapshot adds no properties to the ImageObject schema type
 export type Props = BaseComponentProps<

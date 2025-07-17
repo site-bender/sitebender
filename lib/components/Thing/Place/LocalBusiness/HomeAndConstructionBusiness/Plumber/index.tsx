@@ -1,3 +1,3 @@
-import Plumber from "./index.tsx"
+import Plumber from "../index.tsx"
 
 export default Plumber

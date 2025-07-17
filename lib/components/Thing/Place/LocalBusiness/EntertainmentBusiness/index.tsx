@@ -1,3 +1,3 @@
-import EntertainmentBusiness from "./index.tsx"
+import EntertainmentBusiness from "../index.tsx"
 
 export default EntertainmentBusiness

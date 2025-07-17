@@ -1,3 +1,3 @@
-import TennisComplex from "./index.tsx"
+import TennisComplex from "../index.tsx"
 
 export default TennisComplex

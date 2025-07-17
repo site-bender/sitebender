@@ -5,7 +5,7 @@ import type {
 import type LifestyleModificationProps from "../../../../types/Thing/LifestyleModification/index.ts"
 import type MedicalEntityProps from "../../../../types/Thing/MedicalEntity/index.ts"
 
-import MedicalEntity from "./index.tsx"
+import MedicalEntity from "../index.tsx"
 
 // LifestyleModification adds no properties to the MedicalEntity schema type
 export type Props = BaseComponentProps<

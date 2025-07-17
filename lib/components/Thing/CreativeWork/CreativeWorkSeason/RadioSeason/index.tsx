@@ -5,7 +5,7 @@ import type {
 import type CreativeWorkSeasonProps from "../../../../../types/Thing/CreativeWorkSeason/index.ts"
 import type RadioSeasonProps from "../../../../../types/Thing/RadioSeason/index.ts"
 
-import CreativeWorkSeason from "./index.tsx"
+import CreativeWorkSeason from "../index.tsx"
 
 // RadioSeason adds no properties to the CreativeWorkSeason schema type
 export type Props = BaseComponentProps<

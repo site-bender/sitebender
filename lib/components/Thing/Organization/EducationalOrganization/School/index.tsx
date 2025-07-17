@@ -5,7 +5,7 @@ import type {
 import type EducationalOrganizationProps from "../../../../../types/Thing/EducationalOrganization/index.ts"
 import type SchoolProps from "../../../../../types/Thing/School/index.ts"
 
-import EducationalOrganization from "./index.tsx"
+import EducationalOrganization from "../index.tsx"
 
 // School adds no properties to the EducationalOrganization schema type
 export type Props = BaseComponentProps<

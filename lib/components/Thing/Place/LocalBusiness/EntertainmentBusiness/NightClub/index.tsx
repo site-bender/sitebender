@@ -1,3 +1,3 @@
-import NightClub from "./index.tsx"
+import NightClub from "../index.tsx"
 
 export default NightClub

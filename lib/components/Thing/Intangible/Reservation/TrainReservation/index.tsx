@@ -5,7 +5,7 @@ import type {
 import type ReservationProps from "../../../../../types/Thing/Reservation/index.ts"
 import type TrainReservationProps from "../../../../../types/Thing/TrainReservation/index.ts"
 
-import Reservation from "./index.tsx"
+import Reservation from "../index.tsx"
 
 // TrainReservation adds no properties to the Reservation schema type
 export type Props = BaseComponentProps<

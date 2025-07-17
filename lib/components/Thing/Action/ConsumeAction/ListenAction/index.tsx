@@ -5,7 +5,7 @@ import type {
 import type ConsumeActionProps from "../../../../../types/Thing/ConsumeAction/index.ts"
 import type ListenActionProps from "../../../../../types/Thing/ListenAction/index.ts"
 
-import ConsumeAction from "./index.tsx"
+import ConsumeAction from "../index.tsx"
 
 // ListenAction adds no properties to the ConsumeAction schema type
 export type Props = BaseComponentProps<

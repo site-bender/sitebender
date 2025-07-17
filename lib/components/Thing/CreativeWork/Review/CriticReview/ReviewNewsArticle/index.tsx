@@ -1,3 +1,3 @@
-import ReviewNewsArticle from "./index.tsx"
+import ReviewNewsArticle from "../index.tsx"
 
 export default ReviewNewsArticle

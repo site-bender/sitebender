@@ -5,7 +5,7 @@ import type {
 import type AggregateOfferProps from "../../../../../types/Thing/AggregateOffer/index.ts"
 import type OfferProps from "../../../../../types/Thing/Offer/index.ts"
 
-import Offer from "./index.tsx"
+import Offer from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AggregateOfferProps,

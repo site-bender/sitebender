@@ -1,3 +1,3 @@
-import EmploymentAgency from "./index.tsx"
+import EmploymentAgency from "../index.tsx"
 
 export default EmploymentAgency

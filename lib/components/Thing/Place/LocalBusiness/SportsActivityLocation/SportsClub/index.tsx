@@ -1,3 +1,3 @@
-import SportsClub from "./index.tsx"
+import SportsClub from "../index.tsx"
 
 export default SportsClub

@@ -1,3 +1,3 @@
-import InsuranceAgency from "./index.tsx"
+import InsuranceAgency from "../index.tsx"
 
 export default InsuranceAgency

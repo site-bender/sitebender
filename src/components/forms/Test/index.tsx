@@ -14,7 +14,7 @@ import Form from "~components/forms/Form/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
 // Make createElement available for JSX transformation in this module
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & {}
 

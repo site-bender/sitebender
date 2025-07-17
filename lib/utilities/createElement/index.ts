@@ -1,4 +1,4 @@
-export default function createElement(
+export function createElement(
 	tag: unknown,
 	props?: Record<string, unknown> | null,
 	...children: unknown[]

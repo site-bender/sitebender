@@ -5,7 +5,7 @@ import type {
 import type BankAccountProps from "../../../../../../../types/Thing/BankAccount/index.ts"
 import type DepositAccountProps from "../../../../../../../types/Thing/DepositAccount/index.ts"
 
-import BankAccount from "./index.tsx"
+import BankAccount from "../index.tsx"
 
 // DepositAccount adds no properties to the BankAccount schema type
 export type Props = BaseComponentProps<

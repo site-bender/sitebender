@@ -5,7 +5,7 @@ import type {
 import type CommentActionProps from "../../../../../../types/Thing/CommentAction/index.ts"
 import type CommunicateActionProps from "../../../../../../types/Thing/CommunicateAction/index.ts"
 
-import CommunicateAction from "./index.tsx"
+import CommunicateAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CommentActionProps,

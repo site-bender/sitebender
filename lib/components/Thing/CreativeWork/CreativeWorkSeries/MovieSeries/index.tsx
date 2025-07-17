@@ -1,3 +1,3 @@
-import MovieSeries from "./index.tsx"
+import MovieSeries from "../index.tsx"
 
 export default MovieSeries

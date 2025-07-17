@@ -1,3 +1,3 @@
-import BankOrCreditUnion from "./index.tsx"
+import BankOrCreditUnion from "../index.tsx"
 
 export default BankOrCreditUnion

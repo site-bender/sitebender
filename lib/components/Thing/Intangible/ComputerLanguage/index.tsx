@@ -5,7 +5,7 @@ import type {
 import type ComputerLanguageProps from "../../../../types/Thing/ComputerLanguage/index.ts"
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 // ComputerLanguage adds no properties to the Intangible schema type
 export type Props = BaseComponentProps<

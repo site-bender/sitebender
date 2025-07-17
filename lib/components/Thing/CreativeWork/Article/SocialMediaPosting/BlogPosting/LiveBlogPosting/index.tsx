@@ -5,7 +5,7 @@ import type {
 import type BlogPostingProps from "../../../../../../../types/Thing/BlogPosting/index.ts"
 import type LiveBlogPostingProps from "../../../../../../../types/Thing/LiveBlogPosting/index.ts"
 
-import BlogPosting from "./index.tsx"
+import BlogPosting from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LiveBlogPostingProps,

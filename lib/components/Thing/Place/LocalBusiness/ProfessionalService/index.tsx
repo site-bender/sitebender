@@ -1,3 +1,3 @@
-import ProfessionalService from "./index.tsx"
+import ProfessionalService from "../index.tsx"
 
 export default ProfessionalService

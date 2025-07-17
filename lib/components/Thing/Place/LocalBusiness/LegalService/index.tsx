@@ -1,3 +1,3 @@
-import LegalService from "./index.tsx"
+import LegalService from "../index.tsx"
 
 export default LegalService

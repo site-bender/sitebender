@@ -1,3 +1,3 @@
-import AutoBodyShop from "./index.tsx"
+import AutoBodyShop from "../index.tsx"
 
 export default AutoBodyShop

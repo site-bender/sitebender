@@ -5,7 +5,7 @@ import type {
 import type DigitalDocumentProps from "../../../../../types/Thing/DigitalDocument/index.ts"
 import type TextDigitalDocumentProps from "../../../../../types/Thing/TextDigitalDocument/index.ts"
 
-import DigitalDocument from "./index.tsx"
+import DigitalDocument from "../index.tsx"
 
 // TextDigitalDocument adds no properties to the DigitalDocument schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type LocalBusinessProps from "../../../../../types/Thing/LocalBusiness/index.ts"
 import type LodgingBusinessProps from "../../../../../types/Thing/LodgingBusiness/index.ts"
 
-import LocalBusiness from "./index.tsx"
+import LocalBusiness from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LodgingBusinessProps,

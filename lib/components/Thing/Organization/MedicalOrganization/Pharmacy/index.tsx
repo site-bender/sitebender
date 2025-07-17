@@ -5,7 +5,7 @@ import type {
 import type MedicalOrganizationProps from "../../../../../types/Thing/MedicalOrganization/index.ts"
 import type PharmacyProps from "../../../../../types/Thing/Pharmacy/index.ts"
 
-import MedicalOrganization from "./index.tsx"
+import MedicalOrganization from "../index.tsx"
 
 // Pharmacy adds no properties to the MedicalOrganization schema type
 export type Props = BaseComponentProps<

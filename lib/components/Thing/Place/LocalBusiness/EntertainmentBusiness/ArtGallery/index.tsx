@@ -1,3 +1,3 @@
-import ArtGallery from "./index.tsx"
+import ArtGallery from "../index.tsx"
 
 export default ArtGallery

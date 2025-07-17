@@ -1,3 +1,3 @@
-import LegislationObject from "./index.tsx"
+import LegislationObject from "../index.tsx"
 
 export default LegislationObject
