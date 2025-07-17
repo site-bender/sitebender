@@ -4,31 +4,36 @@ export default function createElement(
 	...children: unknown[]
 ): unknown {
 	// DEBUG: Log all createElement calls for components
-	if (typeof tag === "function" && tag.name) {
-		console.log(`DEBUG createElement - ${tag.name}:`, {
-			props: props || {},
-			children: children,
-			childrenLength: children.length,
-		})
-	}
+	// if (typeof tag === "function" && tag.name) {
+	// 	console.log(`DEBUG createElement - ${tag.name}:`, {
+	// 		props: props || {},
+	// 		children: children,
+	// 		childrenLength: children.length,
+	// 	})
+	// }
 
 	if (typeof tag === "function") {
-		// Flatten children to ANY depth using built-in method
+		// Always flatten children completely before passing to function
 		const flatChildren = children.flat(Infinity)
 
-		console.log(`DEBUG createElement - ${tag.name} flattened children:`, {
-			original: children,
-			flattened: flatChildren,
-			flattenedLength: flatChildren.length,
-		})
+		// Also flatten any children prop that was explicitly passed
+		if (props?.children) {
+			props.children = Array.isArray(props.children)
+				? props.children.flat(Infinity)
+				: props.children
+		}
+
+		// console.log(`DEBUG createElement - ${tag.name} DOUBLE flattened:`, {
+		// 	originalChildren: children,
+		// 	flatChildren,
+		// 	propsChildren: props?.children,
+		// })
 
 		return tag({ ...props, children: flatChildren })
 	}
 
 	if (typeof tag === "string") {
-		// Also flatten children for string elements (HTML tags)
 		const flatChildren = children.flat(Infinity)
-
 		return {
 			type: tag,
 			props: {
