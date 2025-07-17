@@ -3,7 +3,7 @@ export default function createElement(
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
-	// DEBUG: Log all createElement calls
+	// DEBUG: Log all createElement calls for components
 	if (typeof tag === "function" && tag.name) {
 		console.log(`DEBUG createElement - ${tag.name}:`, {
 			props: props || {},
@@ -13,15 +13,27 @@ export default function createElement(
 	}
 
 	if (typeof tag === "function") {
-		return tag({ ...props, children })
+		// Flatten children to ANY depth using built-in method
+		const flatChildren = children.flat(Infinity)
+
+		console.log(`DEBUG createElement - ${tag.name} flattened children:`, {
+			original: children,
+			flattened: flatChildren,
+			flattenedLength: flatChildren.length,
+		})
+
+		return tag({ ...props, children: flatChildren })
 	}
 
 	if (typeof tag === "string") {
+		// Also flatten children for string elements (HTML tags)
+		const flatChildren = children.flat(Infinity)
+
 		return {
 			type: tag,
 			props: {
 				...props,
-				children: children.length === 1 ? children[0] : children,
+				children: flatChildren.length === 1 ? flatChildren[0] : flatChildren,
 			},
 		}
 	}

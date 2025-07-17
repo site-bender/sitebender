@@ -18,17 +18,23 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 	children,
 	...elementAttributes
 }: BaseProps<T> & ElementAttributeMap[T]) {
-	// Process children to extract nested schema properties
-	const childProperties = processChildren(children)
+	// COMPLETELY FLATTEN children no matter how deeply nested
+	const flatChildren = Array.isArray(children) ? children.flat(Infinity) : children
+
+	console.log(`DEBUG Base - FLATTENED:`, {
+		original: children,
+		flattened: flatChildren,
+		originalLength: Array.isArray(children) ? children.length : "not array",
+		flattenedLength: Array.isArray(flatChildren) ? flatChildren.length : "not array",
+	})
+
+	// Process the flattened children
+	const childProperties = processChildren(Array.isArray(flatChildren) ? flatChildren : [flatChildren])
+
+	console.log(`DEBUG Base - processChildren extracted:`, childProperties)
 
 	// Merge props with child properties (children take precedence for conflicts)
 	const allProps = { ...props, ...childProperties }
-
-	// DEBUG: Log what we're working with
-	console.log("DEBUG - Original props:", props)
-	console.log("DEBUG - Child properties:", childProperties)
-	console.log("DEBUG - All props:", allProps)
-	console.log("DEBUG - Format:", format)
 
 	const Element = element
 
@@ -36,7 +42,7 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 	if (format) {
 		const formattedContent = formatTemplate(format, { props: allProps })
 
-		console.log("DEBUG - Formatted content:", formattedContent)
+		console.log(`DEBUG Base - formatted content:`, formattedContent)
 
 		return (
 			<Element {...elementAttributes}>
@@ -45,10 +51,10 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 		)
 	}
 
-	// Default behavior - just show the props as JSON for debugging
+	// Default behavior - render flattened children
 	return (
 		<Element {...elementAttributes}>
-			<pre>{JSON.stringify(allProps, null, 2)}</pre>
+			{flatChildren}
 		</Element>
 	)
 }
