@@ -1,11 +1,11 @@
-import { Text } from "../../../../DataType/index.ts"
-import RestrictedDiet from "../../../Intangible/Enumeration/RestrictedDiet/index.ts"
-import ItemList from "../../../Intangible/ItemList/index.ts"
-import Duration from "../../../Intangible/Quantity/Duration/index.ts"
-import NutritionInformation from "../../../Intangible/StructuredValue/NutritionInformation/index.ts"
-import QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import CreativeWork from "../..//index.ts"
-import HowTo from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type RestrictedDiet from "../../../Intangible/Enumeration/RestrictedDiet/index.ts"
+import type ItemList from "../../../Intangible/ItemList/index.ts"
+import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
+import type NutritionInformation from "../../../Intangible/StructuredValue/NutritionInformation/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type CreativeWork from "../../index.ts"
+import type HowTo from "../index.ts"
 
 export default interface Recipe extends HowTo {
 	/** The time it takes to actually cook the dish, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601). */

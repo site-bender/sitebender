@@ -1,4 +1,4 @@
-import AnatomicalStructure from "../index.ts"
+import type AnatomicalStructure from "../index.ts"
 
 // Vessel extends AnatomicalStructure but adds no additional properties
 

@@ -1,4 +1,4 @@
-import Project from "../index.ts"
+import type Project from "../index.ts"
 
 // FundingAgency extends Project but adds no additional properties
 

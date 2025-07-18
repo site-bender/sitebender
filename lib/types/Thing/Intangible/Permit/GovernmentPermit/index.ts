@@ -1,4 +1,4 @@
-import Permit from "../index.ts"
+import type Permit from "../index.ts"
 
 // GovernmentPermit extends Permit but adds no additional properties
 

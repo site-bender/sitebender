@@ -1,4 +1,4 @@
-import ImageObject from "../index.ts"
+import type ImageObject from "../index.ts"
 
 // ImageObjectSnapshot extends ImageObject but adds no additional properties
 

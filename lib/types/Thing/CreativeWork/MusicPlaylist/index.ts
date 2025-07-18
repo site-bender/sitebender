@@ -1,7 +1,7 @@
-import { Integer } from "../../../DataType/index.ts"
-import ItemList from "../../Intangible/ItemList/index.ts"
-import CreativeWork from "../index.ts"
-import MusicRecording from "../MusicRecording/index.ts"
+import type { Integer } from "../../../DataType/index.ts"
+import type ItemList from "../../Intangible/ItemList/index.ts"
+import type CreativeWork from "../index.ts"
+import type MusicRecording from "../MusicRecording/index.ts"
 
 export default interface MusicPlaylist extends CreativeWork {
 	/** The number of tracks in this album or playlist. */

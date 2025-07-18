@@ -1,4 +1,4 @@
-import EmergencyService from "../index.ts"
+import type EmergencyService from "../index.ts"
 
 // FireStation extends EmergencyService but adds no additional properties
 

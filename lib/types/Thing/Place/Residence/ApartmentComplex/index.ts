@@ -1,6 +1,6 @@
-import { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
-import QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Residence from "../index.ts"
+import type { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Residence from "../index.ts"
 
 export default interface ApartmentComplex extends Residence {
 	/** Indicates the total (available plus unavailable) number of accommodation units in an [[ApartmentComplex]], or the number of accommodation units for a specific [[FloorPlan]] (within its specific [[ApartmentComplex]]). See also [[numberOfAvailableAccommodationUnits]]. */

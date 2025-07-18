@@ -1,11 +1,11 @@
-import { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
-import DefinedTerm from "../../DefinedTerm/index.ts"
-import Enumeration from "../../Enumeration/index.ts"
-import MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
-import MeasurementTypeEnumeration from "../../Enumeration/MeasurementTypeEnumeration/index.ts"
-import QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
-import StructuredValue from "../index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
+import type DefinedTerm from "../../DefinedTerm/index.ts"
+import type Enumeration from "../../Enumeration/index.ts"
+import type MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
+import type MeasurementTypeEnumeration from "../../Enumeration/MeasurementTypeEnumeration/index.ts"
+import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type StructuredValue from "../index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
 export default interface PropertyValue extends StructuredValue {
 	/** The upper value of some characteristic or property. */

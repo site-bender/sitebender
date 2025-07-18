@@ -1,9 +1,9 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import Duration from "../../Intangible/Quantity/Duration/index.ts"
-import Organization from "../../Organization/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import CreativeWork from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type Duration from "../../Intangible/Quantity/Duration/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface EducationalOccupationalCredential
 	extends CreativeWork {

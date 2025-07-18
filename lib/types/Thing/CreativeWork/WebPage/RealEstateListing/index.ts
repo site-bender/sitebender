@@ -1,7 +1,7 @@
-import { Date, DateTime } from "../../../../DataType/index.ts"
-import Duration from "../../../Intangible/Quantity/Duration/index.ts"
-import QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import WebPage from "../index.ts"
+import type { Date, DateTime } from "../../../../DataType/index.ts"
+import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type WebPage from "../index.ts"
 
 export default interface RealEstateListing extends WebPage {
 	/** Publication date of an online listing. */

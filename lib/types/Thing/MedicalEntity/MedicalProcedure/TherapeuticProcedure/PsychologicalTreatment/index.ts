@@ -1,4 +1,4 @@
-import TherapeuticProcedure from "../index.ts"
+import type TherapeuticProcedure from "../index.ts"
 
 // PsychologicalTreatment extends TherapeuticProcedure but adds no additional properties
 

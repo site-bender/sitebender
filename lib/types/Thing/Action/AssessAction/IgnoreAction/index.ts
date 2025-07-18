@@ -1,4 +1,4 @@
-import AssessAction from "../index.ts"
+import type AssessAction from "../index.ts"
 
 // IgnoreAction extends AssessAction but adds no additional properties
 

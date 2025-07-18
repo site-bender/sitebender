@@ -1,6 +1,6 @@
-import { Date, DateTime, Time } from "../../../../DataType/index.ts"
-import DayOfWeek from "../../Enumeration/DayOfWeek/index.ts"
-import StructuredValue from "../index.ts"
+import type { Date, DateTime, Time } from "../../../../DataType/index.ts"
+import type DayOfWeek from "../../Enumeration/DayOfWeek/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface OpeningHoursSpecification extends StructuredValue {
 	/** The closing hour of the place or service on the given day(s) of the week. */

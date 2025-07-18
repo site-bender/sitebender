@@ -1,4 +1,4 @@
-import Church from "../index.ts"
+import type Church from "../index.ts"
 
 // CatholicChurch extends Church but adds no additional properties
 

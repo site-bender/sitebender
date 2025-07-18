@@ -1,4 +1,4 @@
-import ItemList from "../index.ts"
+import type ItemList from "../index.ts"
 
 // BreadcrumbList extends ItemList but adds no additional properties
 

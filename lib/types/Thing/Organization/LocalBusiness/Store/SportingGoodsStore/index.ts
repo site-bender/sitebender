@@ -1,4 +1,4 @@
-import Store from "../index.ts"
+import type Store from "../index.ts"
 
 // SportingGoodsStore extends Store but adds no additional properties
 

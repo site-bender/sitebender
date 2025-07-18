@@ -1,4 +1,4 @@
-import EmergencyService from "../index.ts"
+import type EmergencyService from "../index.ts"
 
 // PoliceStation extends EmergencyService but adds no additional properties
 

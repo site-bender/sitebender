@@ -1,9 +1,9 @@
-import FulfillmentTypeEnumeration from "../../Enumeration/FulfillmentTypeEnumeration/index.ts"
-import MemberProgramTier from "../../MemberProgramTier/index.ts"
-import StructuredValue from "../index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
-import ServicePeriod from "../ServicePeriod/index.ts"
-import ShippingConditions from "../ShippingConditions/index.ts"
+import type FulfillmentTypeEnumeration from "../../Enumeration/FulfillmentTypeEnumeration/index.ts"
+import type MemberProgramTier from "../../MemberProgramTier/index.ts"
+import type StructuredValue from "../index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
+import type ServicePeriod from "../ServicePeriod/index.ts"
+import type ShippingConditions from "../ShippingConditions/index.ts"
 
 export default interface ShippingService extends StructuredValue {
 	/** Type of fulfillment applicable to the [[ShippingService]]. */

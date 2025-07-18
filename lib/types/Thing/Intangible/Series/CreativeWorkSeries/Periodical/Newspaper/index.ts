@@ -1,4 +1,4 @@
-import Periodical from "../index.ts"
+import type Periodical from "../index.ts"
 
 // Newspaper extends Periodical but adds no additional properties
 

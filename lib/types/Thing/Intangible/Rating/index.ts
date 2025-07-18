@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Intangible from "../index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface Rating extends Intangible {
 	/** The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably. */

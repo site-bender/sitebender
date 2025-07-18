@@ -1,6 +1,6 @@
-import { Text } from "../../../DataType/index.ts"
-import BlogPosting from "../Article/SocialMediaPosting/BlogPosting/index.ts"
-import CreativeWork from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type BlogPosting from "../Article/SocialMediaPosting/BlogPosting/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Blog extends CreativeWork {
 	/** A posting that is part of this blog. */

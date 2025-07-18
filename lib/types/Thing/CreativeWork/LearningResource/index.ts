@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import AlignmentObject from "../../Intangible/AlignmentObject/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import CreativeWork from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type AlignmentObject from "../../Intangible/AlignmentObject/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface LearningResource extends CreativeWork {
 	/** The item being described is intended to assess the competency or learning outcome defined by the referenced term. */

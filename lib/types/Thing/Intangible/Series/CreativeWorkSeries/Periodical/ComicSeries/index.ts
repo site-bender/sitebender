@@ -1,4 +1,4 @@
-import Periodical from "../index.ts"
+import type Periodical from "../index.ts"
 
 // ComicSeries extends Periodical but adds no additional properties
 

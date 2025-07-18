@@ -1,7 +1,7 @@
-import { Text } from "../../../../../DataType/index.ts"
-import PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
-import PriceSpecification from "../index.ts"
-import UnitPriceSpecification from "../UnitPriceSpecification/index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
+import type PriceSpecification from "../index.ts"
+import type UnitPriceSpecification from "../UnitPriceSpecification/index.ts"
 
 export default interface CompoundPriceSpecification extends PriceSpecification {
 	/** This property links to all [[UnitPriceSpecification]] nodes that apply in parallel for the [[CompoundPriceSpecification]] node. */

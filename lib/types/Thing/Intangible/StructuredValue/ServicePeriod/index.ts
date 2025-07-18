@@ -1,9 +1,9 @@
-import { Time } from "../../../../DataType/index.ts"
-import DayOfWeek from "../../Enumeration/DayOfWeek/index.ts"
-import Duration from "../../Quantity/Duration/index.ts"
-import StructuredValue from "../index.ts"
-import OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { Time } from "../../../../DataType/index.ts"
+import type DayOfWeek from "../../Enumeration/DayOfWeek/index.ts"
+import type Duration from "../../Quantity/Duration/index.ts"
+import type StructuredValue from "../index.ts"
+import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
 export default interface ServicePeriod extends StructuredValue {
 	/** Days of the week when the merchant typically operates, indicated via opening hours markup. */

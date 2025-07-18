@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import TrainStation from "../../../Place/CivicStructure/TrainStation/index.ts"
-import Trip from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type TrainStation from "../../../Place/CivicStructure/TrainStation/index.ts"
+import type Trip from "../index.ts"
 
 export default interface TrainTrip extends Trip {
 	/** The platform where the train arrives. */

@@ -1,6 +1,6 @@
-import { Number } from "../../../../DataType/index.ts"
-import StructuredValue from "../index.ts"
-import MonetaryAmount from "../MonetaryAmount/index.ts"
+import type { Number } from "../../../../DataType/index.ts"
+import type StructuredValue from "../index.ts"
+import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
 export default interface RepaymentSpecification extends StructuredValue {
 	/** a type of payment made in cash during the onset of the purchase of an expensive good/service. The payment typically represents only a percentage of the full purchase price. */

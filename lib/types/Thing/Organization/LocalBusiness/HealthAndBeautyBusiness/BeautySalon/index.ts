@@ -1,4 +1,4 @@
-import HealthAndBeautyBusiness from "../index.ts"
+import type HealthAndBeautyBusiness from "../index.ts"
 
 // BeautySalon extends HealthAndBeautyBusiness but adds no additional properties
 

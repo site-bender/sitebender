@@ -1,9 +1,15 @@
-import { Boolean, Integer, Number, Text, URL } from "../../../DataType/index.ts"
-import ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
-import Accommodation from "../../Place/Accommodation/index.ts"
-import Intangible from "../index.ts"
-import LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type {
+	Boolean,
+	Integer,
+	Number,
+	Text,
+	URL,
+} from "../../../DataType/index.ts"
+import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
+import type Accommodation from "../../Place/Accommodation/index.ts"
+import type Intangible from "../index.ts"
+import type LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface FloorPlan extends Intangible {
 	/** An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs. */

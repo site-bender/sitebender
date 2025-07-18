@@ -1,10 +1,10 @@
-import { Text } from "../../../DataType/index.ts"
-import MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
-import Drug from "../../Product/Drug/index.ts"
-import MedicalEntity from "../index.ts"
-import MedicalCondition from "../MedicalCondition/index.ts"
-import MedicalSign from "../MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.ts"
-import MedicalDevice from "../MedicalDevice/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
+import type Drug from "../../Product/Drug/index.ts"
+import type MedicalEntity from "../index.ts"
+import type MedicalCondition from "../MedicalCondition/index.ts"
+import type MedicalSign from "../MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.ts"
+import type MedicalDevice from "../MedicalDevice/index.ts"
 
 export default interface MedicalTest extends MedicalEntity {
 	/** Drugs that affect the test's results. */

@@ -1,4 +1,4 @@
-import Intangible from "../index.ts"
+import type Intangible from "../index.ts"
 
 // StructuredValue extends Intangible but adds no additional properties
 

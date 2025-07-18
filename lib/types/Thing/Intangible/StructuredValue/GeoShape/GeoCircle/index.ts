@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../../../DataType/index.ts"
-import Distance from "../../../Quantity/Distance/index.ts"
-import GeoCoordinates from "../../GeoCoordinates/index.ts"
-import GeoShape from "../index.ts"
+import type { Number, Text } from "../../../../../DataType/index.ts"
+import type Distance from "../../../Quantity/Distance/index.ts"
+import type GeoCoordinates from "../../GeoCoordinates/index.ts"
+import type GeoShape from "../index.ts"
 
 export default interface GeoCircle extends GeoShape {
 	/** Indicates the GeoCoordinates at the centre of a GeoShape, e.g. GeoCircle. */

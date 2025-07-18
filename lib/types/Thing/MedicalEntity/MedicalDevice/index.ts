@@ -1,6 +1,6 @@
-import { Text } from "../../../DataType/index.ts"
-import MedicalEntity from "../index.ts"
-import MedicalContraindication from "../MedicalContraindication/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type MedicalEntity from "../index.ts"
+import type MedicalContraindication from "../MedicalContraindication/index.ts"
 
 export default interface MedicalDevice extends MedicalEntity {
 	/** A possible complication and/or side effect of this therapy. If it is known that an adverse outcome is serious (resulting in death, disability, or permanent damage; requiring hospitalization; or otherwise life-threatening or requiring immediate medical attention), tag it as a seriousAdverseOutcome instead. */

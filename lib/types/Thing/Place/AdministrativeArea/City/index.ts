@@ -1,4 +1,4 @@
-import AdministrativeArea from "../index.ts"
+import type AdministrativeArea from "../index.ts"
 
 // City extends AdministrativeArea but adds no additional properties
 

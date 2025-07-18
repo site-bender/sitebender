@@ -1,4 +1,4 @@
-import Action from "../index.ts"
+import type Action from "../index.ts"
 
 // AchieveAction extends Action but adds no additional properties
 

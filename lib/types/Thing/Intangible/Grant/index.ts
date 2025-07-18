@@ -1,11 +1,11 @@
-import BioChemEntity from "../../BioChemEntity/index.ts"
-import CreativeWork from "../../CreativeWork/index.ts"
-import Event from "../../Event/index.ts"
-import MedicalEntity from "../../MedicalEntity/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Product from "../../Product/index.ts"
-import Intangible from "../index.ts"
+import type BioChemEntity from "../../BioChemEntity/index.ts"
+import type CreativeWork from "../../CreativeWork/index.ts"
+import type Event from "../../Event/index.ts"
+import type MedicalEntity from "../../MedicalEntity/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Product from "../../Product/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface Grant extends Intangible {
 	/** Indicates something directly or indirectly funded or sponsored through a [[Grant]]. See also [[ownershipFundingInfo]]. */

@@ -1,4 +1,4 @@
-import DoseSchedule from "../index.ts"
+import type DoseSchedule from "../index.ts"
 
 // MaximumDoseSchedule extends DoseSchedule but adds no additional properties
 

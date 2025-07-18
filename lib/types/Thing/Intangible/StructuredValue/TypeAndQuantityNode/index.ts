@@ -1,8 +1,8 @@
-import { Number, Text, URL } from "../../../../DataType/index.ts"
-import Product from "../../../Product/index.ts"
-import BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
-import Service from "../../Service/index.ts"
-import StructuredValue from "../index.ts"
+import type { Number, Text, URL } from "../../../../DataType/index.ts"
+import type Product from "../../../Product/index.ts"
+import type BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
+import type Service from "../../Service/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface TypeAndQuantityNode extends StructuredValue {
 	/** The quantity of the goods included in the offer. */

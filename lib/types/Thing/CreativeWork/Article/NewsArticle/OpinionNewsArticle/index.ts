@@ -1,4 +1,4 @@
-import NewsArticle from "../index.ts"
+import type NewsArticle from "../index.ts"
 
 // OpinionNewsArticle extends NewsArticle but adds no additional properties
 

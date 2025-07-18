@@ -1,13 +1,13 @@
-import { Integer, Text, URL } from "../../../../../DataType/index.ts"
-import CreativeWorkSeason from "../../../../CreativeWork/CreativeWorkSeason/index.ts"
-import Episode from "../../../../CreativeWork/Episode/index.ts"
-import VideoObject from "../../../../CreativeWork/MediaObject/VideoObject/index.ts"
-import Organization from "../../../../Organization/index.ts"
-import PerformingGroup from "../../../../Organization/PerformingGroup/index.ts"
-import MusicGroup from "../../../../Organization/PerformingGroup/MusicGroup/index.ts"
-import Person from "../../../../Person/index.ts"
-import Country from "../../../../Place/AdministrativeArea/Country/index.ts"
-import CreativeWorkSeries from "../index.ts"
+import type { Integer, Text, URL } from "../../../../../DataType/index.ts"
+import type CreativeWorkSeason from "../../../../CreativeWork/CreativeWorkSeason/index.ts"
+import type Episode from "../../../../CreativeWork/Episode/index.ts"
+import type VideoObject from "../../../../CreativeWork/MediaObject/VideoObject/index.ts"
+import type Organization from "../../../../Organization/index.ts"
+import type PerformingGroup from "../../../../Organization/PerformingGroup/index.ts"
+import type MusicGroup from "../../../../Organization/PerformingGroup/MusicGroup/index.ts"
+import type Person from "../../../../Person/index.ts"
+import type Country from "../../../../Place/AdministrativeArea/Country/index.ts"
+import type CreativeWorkSeries from "../index.ts"
 
 export default interface TVSeries extends CreativeWorkSeries {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */

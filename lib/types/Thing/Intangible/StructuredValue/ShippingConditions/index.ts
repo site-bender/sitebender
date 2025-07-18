@@ -1,13 +1,13 @@
-import { Boolean } from "../../../../DataType/index.ts"
-import Distance from "../../Quantity/Distance/index.ts"
-import Mass from "../../Quantity/Mass/index.ts"
-import DefinedRegion from "../DefinedRegion/index.ts"
-import StructuredValue from "../index.ts"
-import MonetaryAmount from "../MonetaryAmount/index.ts"
-import OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
-import ServicePeriod from "../ServicePeriod/index.ts"
-import ShippingRateSettings from "../ShippingRateSettings/index.ts"
+import type { Boolean } from "../../../../DataType/index.ts"
+import type Distance from "../../Quantity/Distance/index.ts"
+import type Mass from "../../Quantity/Mass/index.ts"
+import type DefinedRegion from "../DefinedRegion/index.ts"
+import type StructuredValue from "../index.ts"
+import type MonetaryAmount from "../MonetaryAmount/index.ts"
+import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
+import type ServicePeriod from "../ServicePeriod/index.ts"
+import type ShippingRateSettings from "../ShippingRateSettings/index.ts"
 
 export default interface ShippingConditions extends StructuredValue {
 	/** The depth of the item. */

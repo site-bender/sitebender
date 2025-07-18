@@ -1,10 +1,10 @@
-import { Date, Text, URL } from "../../../DataType/index.ts"
-import CategoryCode from "../../Intangible/DefinedTerm/CategoryCode/index.ts"
-import LegalForceStatus from "../../Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import CreativeWork from "../index.ts"
+import type { Date, Text, URL } from "../../../DataType/index.ts"
+import type CategoryCode from "../../Intangible/DefinedTerm/CategoryCode/index.ts"
+import type LegalForceStatus from "../../Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Legislation extends CreativeWork {
 	/** Indicates a legal jurisdiction, e.g. of some legislation, or where some government service is based. */

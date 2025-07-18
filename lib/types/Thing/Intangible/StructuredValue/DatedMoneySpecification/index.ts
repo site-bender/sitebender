@@ -1,6 +1,11 @@
-import { Date, DateTime, Number, Text } from "../../../../DataType/index.ts"
-import StructuredValue from "../index.ts"
-import MonetaryAmount from "../MonetaryAmount/index.ts"
+import type {
+	Date,
+	DateTime,
+	Number,
+	Text,
+} from "../../../../DataType/index.ts"
+import type StructuredValue from "../index.ts"
+import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
 export default interface DatedMoneySpecification extends StructuredValue {
 	/** The amount of money. */

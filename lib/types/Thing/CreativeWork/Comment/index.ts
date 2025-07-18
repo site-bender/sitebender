@@ -1,5 +1,5 @@
-import { Integer } from "../../../DataType/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer } from "../../../DataType/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Comment extends CreativeWork {
 	/** The number of downvotes this question, answer or comment has received from the community. */

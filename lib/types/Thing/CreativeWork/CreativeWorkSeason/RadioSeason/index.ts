@@ -1,4 +1,4 @@
-import CreativeWorkSeason from "../index.ts"
+import type CreativeWorkSeason from "../index.ts"
 
 // RadioSeason extends CreativeWorkSeason but adds no additional properties
 

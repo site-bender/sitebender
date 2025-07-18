@@ -1,7 +1,7 @@
-import { Language } from "../../../bcp47/index.ts"
-import { Text } from "../../../DataType/index.ts"
-import Movie from "../../CreativeWork/Movie/index.ts"
-import Event from "../index.ts"
+import type { Language } from "../../../bcp47/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type Movie from "../../CreativeWork/Movie/index.ts"
+import type Event from "../index.ts"
 
 export default interface ScreeningEvent extends Event {
 	/** Languages in which subtitles/captions are available, in [IETF BCP 47 standard format](http://tools.ietf.org/html/bcp47). */

@@ -1,4 +1,4 @@
-import VideoObject from "../index.ts"
+import type VideoObject from "../index.ts"
 
 // VideoObjectSnapshot extends VideoObject but adds no additional properties
 

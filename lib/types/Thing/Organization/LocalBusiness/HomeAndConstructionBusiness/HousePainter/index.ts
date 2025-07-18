@@ -1,4 +1,4 @@
-import HomeAndConstructionBusiness from "../index.ts"
+import type HomeAndConstructionBusiness from "../index.ts"
 
 // HousePainter extends HomeAndConstructionBusiness but adds no additional properties
 

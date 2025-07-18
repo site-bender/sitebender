@@ -1,4 +1,4 @@
-import Landform from "../index.ts"
+import type Landform from "../index.ts"
 
 // Volcano extends Landform but adds no additional properties
 

@@ -1,9 +1,9 @@
-import { Text } from "../../../../../DataType/index.ts"
-import QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
-import GenderType from "../../GenderType/index.ts"
-import SizeGroupEnumeration from "../../SizeGroupEnumeration/index.ts"
-import SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
-import QualitativeValue from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
+import type GenderType from "../../GenderType/index.ts"
+import type SizeGroupEnumeration from "../../SizeGroupEnumeration/index.ts"
+import type SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
+import type QualitativeValue from "../index.ts"
 
 export default interface SizeSpecification extends QualitativeValue {
 	/** A measurement of an item, For example, the inseam of pants, the wheel size of a bicycle, the gauge of a screw, or the carbon footprint measured for certification by an authority. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings. */

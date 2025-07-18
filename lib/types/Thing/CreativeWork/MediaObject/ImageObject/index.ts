@@ -1,6 +1,6 @@
-import { Boolean, Text } from "../../../../DataType/index.ts"
-import PropertyValue from "../../../Intangible/StructuredValue/PropertyValue/index.ts"
-import MediaObject from "../index.ts"
+import type { Boolean, Text } from "../../../../DataType/index.ts"
+import type PropertyValue from "../../../Intangible/StructuredValue/PropertyValue/index.ts"
+import type MediaObject from "../index.ts"
 
 export default interface ImageObject extends MediaObject {
 	/** The caption for this object. For downloadable machine formats (closed caption, subtitles etc.) use MediaObject and indicate the [[encodingFormat]]. */

@@ -1,8 +1,8 @@
-import Audience from "../../../Intangible/Audience/index.ts"
-import DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import TransferAction from "../index.ts"
+import type Audience from "../../../Intangible/Audience/index.ts"
+import type DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type TransferAction from "../index.ts"
 
 export default interface ReceiveAction extends TransferAction {
 	/** A sub property of instrument. The method of delivery. */

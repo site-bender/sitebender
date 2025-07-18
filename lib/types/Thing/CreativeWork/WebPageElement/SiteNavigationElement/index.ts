@@ -1,4 +1,4 @@
-import WebPageElement from "../index.ts"
+import type WebPageElement from "../index.ts"
 
 // SiteNavigationElement extends WebPageElement but adds no additional properties
 

@@ -1,4 +1,4 @@
-import MedicalSign from "../index.ts"
+import type MedicalSign from "../index.ts"
 
 // VitalSign extends MedicalSign but adds no additional properties
 

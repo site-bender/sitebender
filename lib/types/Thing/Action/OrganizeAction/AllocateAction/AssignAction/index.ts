@@ -1,4 +1,4 @@
-import AllocateAction from "../index.ts"
+import type AllocateAction from "../index.ts"
 
 // AssignAction extends AllocateAction but adds no additional properties
 

@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../../DataType/index.ts"
-import AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
-import MaximumDoseSchedule from "../DoseSchedule/MaximumDoseSchedule/index.ts"
-import MedicalIntangible from "../index.ts"
+import type { Number, Text } from "../../../../DataType/index.ts"
+import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
+import type MaximumDoseSchedule from "../DoseSchedule/MaximumDoseSchedule/index.ts"
+import type MedicalIntangible from "../index.ts"
 
 export default interface DrugStrength extends MedicalIntangible {
 	/** An active ingredient, typically chemical compounds and/or biologic substances. */

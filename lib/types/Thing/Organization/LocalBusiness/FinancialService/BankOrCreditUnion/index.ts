@@ -1,4 +1,4 @@
-import FinancialService from "../index.ts"
+import type FinancialService from "../index.ts"
 
 // BankOrCreditUnion extends FinancialService but adds no additional properties
 

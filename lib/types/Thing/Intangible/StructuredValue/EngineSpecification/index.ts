@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../../DataType/index.ts"
-import QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
-import StructuredValue from "../index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type StructuredValue from "../index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
 export default interface EngineSpecification extends StructuredValue {
 	/** The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. \n\nTypical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches\n* Note 1: You can link to information about how the given value has been determined using the [[valueReference]] property.\n* Note 2: You can use [[minValue]] and [[maxValue]] to indicate ranges. */

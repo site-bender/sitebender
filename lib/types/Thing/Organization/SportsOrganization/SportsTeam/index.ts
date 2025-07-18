@@ -1,7 +1,7 @@
-import { Text } from "../../../../DataType/index.ts"
-import GenderType from "../../../Intangible/Enumeration/GenderType/index.ts"
-import Person from "../../../Person/index.ts"
-import SportsOrganization from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type GenderType from "../../../Intangible/Enumeration/GenderType/index.ts"
+import type Person from "../../../Person/index.ts"
+import type SportsOrganization from "../index.ts"
 
 export default interface SportsTeam extends SportsOrganization {
 	/** A person that acts as performing member of a sports team; a player as opposed to a coach. */

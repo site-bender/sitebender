@@ -1,4 +1,4 @@
-import FoodEstablishment from "../index.ts"
+import type FoodEstablishment from "../index.ts"
 
 // Restaurant extends FoodEstablishment but adds no additional properties
 

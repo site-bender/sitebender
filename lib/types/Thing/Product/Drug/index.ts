@@ -1,16 +1,20 @@
-import { Boolean, Text, URL } from "../../../DataType/index.ts"
-import DrugPregnancyCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugPregnancyCategory/index.ts"
-import DrugPrescriptionStatus from "../../Intangible/Enumeration/MedicalEnumeration/DrugPrescriptionStatus/index.ts"
-import MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
-import HealthInsurancePlan from "../../Intangible/HealthInsurancePlan/index.ts"
-import DrugClass from "../../MedicalEntity/DrugClass/index.ts"
-import DoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/index.ts"
-import MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
-import DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
-import DrugStrength from "../../MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
-import Product from "../index.ts"
+import type { Boolean, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
+import type DrugPregnancyCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugPregnancyCategory/index.ts"
+import type DrugPrescriptionStatus from "../../Intangible/Enumeration/MedicalEnumeration/DrugPrescriptionStatus/index.ts"
+import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
+import type HealthInsurancePlan from "../../Intangible/HealthInsurancePlan/index.ts"
+import type DrugClass from "../../MedicalEntity/DrugClass/index.ts"
+import type DoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/index.ts"
+import type MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
+import type DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
+import type DrugStrength from "../../MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
+import type Substance from "../../MedicalEntity/Substance/index.ts"
+import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
+import type Product from "../index.ts"
+import type { ProductProps } from "../index.ts"
 
-export default interface Drug extends Product {
+export interface DrugProps {
 	/** An active ingredient, typically chemical compounds and/or biologic substances. */
 	activeIngredient?: Text
 	/** A route by which this drug may be administered, e.g. 'oral'. */
@@ -72,3 +76,7 @@ export default interface Drug extends Product {
 	/** Any FDA or other warnings about the drug (text or URL). */
 	warning?: Text | URL
 }
+
+type Drug = Thing & ProductProps & SubstanceProps & DrugProps
+
+export default Drug

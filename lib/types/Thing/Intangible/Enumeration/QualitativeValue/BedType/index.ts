@@ -1,4 +1,4 @@
-import QualitativeValue from "../index.ts"
+import type QualitativeValue from "../index.ts"
 
 // BedType extends QualitativeValue but adds no additional properties
 

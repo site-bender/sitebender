@@ -1,4 +1,4 @@
-import LodgingBusiness from "../index.ts"
+import type LodgingBusiness from "../index.ts"
 
 // Hotel extends LodgingBusiness but adds no additional properties
 

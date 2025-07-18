@@ -1,4 +1,4 @@
-import Enumeration from "../index.ts"
+import type Enumeration from "../index.ts"
 
 // GameAvailabilityEnumeration extends Enumeration but adds no additional properties
 

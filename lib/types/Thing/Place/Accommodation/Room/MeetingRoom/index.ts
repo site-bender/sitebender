@@ -1,4 +1,4 @@
-import Room from "../index.ts"
+import type Room from "../index.ts"
 
 // MeetingRoom extends Room but adds no additional properties
 

@@ -1,4 +1,4 @@
-import Event from "../index.ts"
+import type Event from "../index.ts"
 
 // ChildrensEvent extends Event but adds no additional properties
 

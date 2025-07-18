@@ -1,11 +1,11 @@
-import { Language } from "../../../../bcp47/index.ts"
-import { Text } from "../../../../DataType/index.ts"
-import Thing from "../../../../index.ts"
-import Audience from "../../../Intangible/Audience/index.ts"
-import ContactPoint from "../../../Intangible/StructuredValue/ContactPoint/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import InteractAction from "../index.ts"
+import type { Language } from "../../../../bcp47/index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
+import type Audience from "../../../Intangible/Audience/index.ts"
+import type ContactPoint from "../../../Intangible/StructuredValue/ContactPoint/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type InteractAction from "../index.ts"
 
 export default interface CommunicateAction extends InteractAction {
 	/** The subject matter of the content. */

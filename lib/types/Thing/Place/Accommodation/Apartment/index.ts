@@ -1,6 +1,6 @@
-import { Number } from "../../../../DataType/index.ts"
-import QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Accommodation from "../index.ts"
+import type { Number } from "../../../../DataType/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Accommodation from "../index.ts"
 
 export default interface Apartment extends Accommodation {
 	/** The number of rooms (excluding bathrooms and closets) of the accommodation or lodging business. Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue. */

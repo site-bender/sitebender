@@ -1,6 +1,6 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import DefinedTermSet from "../../CreativeWork/DefinedTermSet/index.ts"
-import Intangible from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type DefinedTermSet from "../../CreativeWork/DefinedTermSet/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface DefinedTerm extends Intangible {
 	/** A [[DefinedTermSet]] that contains this term. */

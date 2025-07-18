@@ -1,4 +1,4 @@
-import AutomotiveBusiness from "../index.ts"
+import type AutomotiveBusiness from "../index.ts"
 
 // MotorcycleRepair extends AutomotiveBusiness but adds no additional properties
 

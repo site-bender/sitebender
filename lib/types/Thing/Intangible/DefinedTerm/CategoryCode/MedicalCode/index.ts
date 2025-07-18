@@ -1,5 +1,5 @@
-import { Text } from "../../../../../DataType/index.ts"
-import CategoryCode from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type CategoryCode from "../index.ts"
 
 export default interface MedicalCode extends CategoryCode {
 	/** A short textual code that uniquely identifies the value. */

@@ -1,4 +1,4 @@
-import Clip from "../index.ts"
+import type Clip from "../index.ts"
 
 // MovieClip extends Clip but adds no additional properties
 

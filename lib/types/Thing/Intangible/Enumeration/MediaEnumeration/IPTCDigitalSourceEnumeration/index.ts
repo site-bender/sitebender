@@ -1,4 +1,4 @@
-import MediaEnumeration from "../index.ts"
+import type MediaEnumeration from "../index.ts"
 
 // IPTCDigitalSourceEnumeration extends MediaEnumeration but adds no additional properties
 

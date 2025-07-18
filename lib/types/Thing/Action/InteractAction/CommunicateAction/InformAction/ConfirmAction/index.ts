@@ -1,4 +1,4 @@
-import InformAction from "../index.ts"
+import type InformAction from "../index.ts"
 
 // ConfirmAction extends InformAction but adds no additional properties
 

@@ -1,10 +1,10 @@
-import { Text, URL } from "../../../../DataType/index.ts"
-import Class from "../../Class/index.ts"
-import DefinedTerm from "../../DefinedTerm/index.ts"
-import Enumeration from "../../Enumeration/index.ts"
-import MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
-import Property from "../../Property/index.ts"
-import ConstraintNode from "../index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type Class from "../../Class/index.ts"
+import type DefinedTerm from "../../DefinedTerm/index.ts"
+import type Enumeration from "../../Enumeration/index.ts"
+import type MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
+import type Property from "../../Property/index.ts"
+import type ConstraintNode from "../index.ts"
 
 export default interface StatisticalVariable extends ConstraintNode {
 	/** The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties). */

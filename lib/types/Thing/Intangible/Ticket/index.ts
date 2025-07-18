@@ -1,9 +1,15 @@
-import { Date, DateTime, Number, Text, URL } from "../../../DataType/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Intangible from "../index.ts"
-import Seat from "../Seat/index.ts"
-import PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
+import type {
+	Date,
+	DateTime,
+	Number,
+	Text,
+	URL,
+} from "../../../DataType/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Intangible from "../index.ts"
+import type Seat from "../Seat/index.ts"
+import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
 export default interface Ticket extends Intangible {
 	/** The date the ticket was issued. */

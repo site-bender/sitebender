@@ -1,5 +1,5 @@
-import MedicalEntity from "../index.ts"
-import MedicalRiskFactor from "../MedicalRiskFactor/index.ts"
+import type MedicalEntity from "../index.ts"
+import type MedicalRiskFactor from "../MedicalRiskFactor/index.ts"
 
 export default interface MedicalRiskEstimator extends MedicalEntity {
 	/** The condition, complication, or symptom whose risk is being estimated. */

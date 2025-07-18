@@ -1,4 +1,4 @@
-import AssessAction from "../index.ts"
+import type AssessAction from "../index.ts"
 
 // ReactAction extends AssessAction but adds no additional properties
 

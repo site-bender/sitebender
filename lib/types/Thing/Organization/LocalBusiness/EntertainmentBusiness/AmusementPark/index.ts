@@ -1,4 +1,4 @@
-import EntertainmentBusiness from "../index.ts"
+import type EntertainmentBusiness from "../index.ts"
 
 // AmusementPark extends EntertainmentBusiness but adds no additional properties
 

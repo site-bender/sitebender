@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
-import Reservation from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type Reservation from "../index.ts"
 
 export default interface FlightReservation extends Reservation {
 	/** The airline-specific indicator of boarding order / preference. */

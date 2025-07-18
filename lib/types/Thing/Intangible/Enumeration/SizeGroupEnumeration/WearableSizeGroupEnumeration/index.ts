@@ -1,4 +1,4 @@
-import SizeGroupEnumeration from "../index.ts"
+import type SizeGroupEnumeration from "../index.ts"
 
 // WearableSizeGroupEnumeration extends SizeGroupEnumeration but adds no additional properties
 

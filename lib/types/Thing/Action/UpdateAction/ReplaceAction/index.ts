@@ -1,5 +1,5 @@
-import Thing from "../../../../index.ts"
-import UpdateAction from "../index.ts"
+import type Thing from "../../../../index.ts"
+import type UpdateAction from "../index.ts"
 
 export default interface ReplaceAction extends UpdateAction {
 	/** A sub property of object. The object that is being replaced. */

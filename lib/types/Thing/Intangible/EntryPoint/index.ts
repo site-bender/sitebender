@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import SoftwareApplication from "../../CreativeWork/SoftwareApplication/index.ts"
-import DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
-import Intangible from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type SoftwareApplication from "../../CreativeWork/SoftwareApplication/index.ts"
+import type DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface EntryPoint extends Intangible {
 	/** An application that can complete the request. */

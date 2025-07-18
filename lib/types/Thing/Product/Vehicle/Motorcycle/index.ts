@@ -1,4 +1,4 @@
-import Vehicle from "../index.ts"
+import type Vehicle from "../index.ts"
 
 // Motorcycle extends Vehicle but adds no additional properties
 

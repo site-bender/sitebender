@@ -1,4 +1,4 @@
-import Physician from "../index.ts"
+import type Physician from "../index.ts"
 
 // PhysiciansOffice extends Physician but adds no additional properties
 

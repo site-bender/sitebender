@@ -1,5 +1,5 @@
-import { Text } from "../../../../../DataType/index.ts"
-import TechArticle from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type TechArticle from "../index.ts"
 
 export default interface APIReference extends TechArticle {
 	/** Library file name, e.g., mscorlib.dll, system.web.dll. */

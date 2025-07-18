@@ -1,4 +1,4 @@
-import MedicalRiskEstimator from "../index.ts"
+import type MedicalRiskEstimator from "../index.ts"
 
 // MedicalRiskCalculator extends MedicalRiskEstimator but adds no additional properties
 

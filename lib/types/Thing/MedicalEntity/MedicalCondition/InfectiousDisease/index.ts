@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import InfectiousAgentClass from "../../../Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
-import MedicalCondition from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type InfectiousAgentClass from "../../../Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
+import type MedicalCondition from "../index.ts"
 
 export default interface InfectiousDisease extends MedicalCondition {
 	/** The actual infectious agent, such as a specific bacterium. */

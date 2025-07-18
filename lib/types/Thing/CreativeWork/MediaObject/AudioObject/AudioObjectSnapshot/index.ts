@@ -1,4 +1,4 @@
-import AudioObject from "../index.ts"
+import type AudioObject from "../index.ts"
 
 // AudioObjectSnapshot extends AudioObject but adds no additional properties
 

@@ -1,4 +1,4 @@
-import ControlAction from "../index.ts"
+import type ControlAction from "../index.ts"
 
 // DeactivateAction extends ControlAction but adds no additional properties
 

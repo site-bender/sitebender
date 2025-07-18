@@ -13,3 +13,5 @@ export type BaseComponentProps<
 	schemaType?: TSchemaType
 	subtypeProperties?: TSubtypeProps
 }
+
+export type { default } from "./Thing/index.ts"

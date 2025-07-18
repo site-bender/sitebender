@@ -1,7 +1,13 @@
-import PaymentMethodType from "../Enumeration/PaymentMethodType/index.ts"
-import Intangible from "../index.ts"
+import type Thing from "../../index.ts"
+import type PaymentMethodType from "../Enumeration/PaymentMethodType/index.ts"
+import type Intangible from "../index.ts"
+import type IntangibleProps from "../index.ts"
 
-export default interface PaymentMethod extends Intangible {
+export interface PaymentMethodProps {
 	/** The type of a payment method. */
 	paymentMethodType?: PaymentMethodType
 }
+
+type PaymentMethod = Thing & IntangibleProps & PaymentMethodProps
+
+export default PaymentMethod

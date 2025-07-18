@@ -1,3 +1,10 @@
+export type WordBreakAttributes = GlobalAttributes
+export type UnarticulatedAttributes = GlobalAttributes
+export type SmallAttributes = GlobalAttributes
+export type InputAttributes = GlobalAttributes
+export type IFrameAttributes = GlobalAttributes
+export type CiteAttributes = GlobalAttributes
+export type CaptionAttributes = GlobalAttributes
 export type Align = "left" | "right" | "center"
 
 export type AnchorTarget =
@@ -1832,7 +1839,7 @@ export type ElementAttributeMap = {
 	dt: DescriptionTermAttributes
 	em: EmphasisAttributes
 	embed: EmbedAttributes
-	fieldset: FieldsetAttributes
+	fieldset: FieldSetAttributes
 	figcaption: FigcaptionAttributes
 	figure: FigureAttributes
 	footer: FooterAttributes
@@ -1897,7 +1904,7 @@ export type ElementAttributeMap = {
 	tbody: TableBodyAttributes
 	td: TableDataAttributes
 	template: TemplateAttributes
-	textarea: TextareaAttributes
+	textarea: TextAreaAttributes
 	tfoot: TableFootAttributes
 	th: TableHeaderAttributes
 	thead: TableHeadAttributes

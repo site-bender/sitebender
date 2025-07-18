@@ -1,7 +1,7 @@
-import { Text } from "../../../../../DataType/index.ts"
-import MedicalEntity from "../../..//index.ts"
-import MedicalContraindication from "../../../MedicalContraindication/index.ts"
-import TherapeuticProcedure from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type MedicalEntity from "../../../index.ts"
+import type MedicalContraindication from "../../../MedicalContraindication/index.ts"
+import type TherapeuticProcedure from "../index.ts"
 
 export default interface MedicalTherapy extends TherapeuticProcedure {
 	/** A contraindication for this therapy. */

@@ -1,6 +1,6 @@
-import ActionAccessSpecification from "../../Intangible/ActionAccessSpecification/index.ts"
-import Offer from "../../Intangible/Offer/index.ts"
-import Action from "../index.ts"
+import type ActionAccessSpecification from "../../Intangible/ActionAccessSpecification/index.ts"
+import type Offer from "../../Intangible/Offer/index.ts"
+import type Action from "../index.ts"
 
 export default interface ConsumeAction extends Action {
 	/** A set of requirements that must be fulfilled in order to perform an Action. If more than one value is specified, fulfilling one set of requirements will allow the Action to be performed. */

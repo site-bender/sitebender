@@ -1,4 +1,4 @@
-import Article from "../index.ts"
+import type Article from "../index.ts"
 
 // AdvertiserContentArticle extends Article but adds no additional properties
 

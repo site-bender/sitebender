@@ -1,11 +1,11 @@
-import { Date, Number, Text, URL } from "../../../DataType/index.ts"
-import CarUsageType from "../../Intangible/Enumeration/CarUsageType/index.ts"
-import DriveWheelConfigurationValue from "../../Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
-import QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
-import SteeringPositionValue from "../../Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
-import EngineSpecification from "../../Intangible/StructuredValue/EngineSpecification/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Product from "../index.ts"
+import type { Date, Number, Text, URL } from "../../../DataType/index.ts"
+import type CarUsageType from "../../Intangible/Enumeration/CarUsageType/index.ts"
+import type DriveWheelConfigurationValue from "../../Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
+import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
+import type SteeringPositionValue from "../../Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
+import type EngineSpecification from "../../Intangible/StructuredValue/EngineSpecification/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Product from "../index.ts"
 
 export default interface Vehicle extends Product {
 	/** The time needed to accelerate the vehicle from a given start velocity to a given target velocity.\n\nTypical unit code(s): SEC for seconds\n\n* Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the [[name]] of the [[QuantitativeValue]], or use [[valueReference]] with a [[QuantitativeValue]] of 0..60 mph or 0..100 km/h to specify the reference speeds. */

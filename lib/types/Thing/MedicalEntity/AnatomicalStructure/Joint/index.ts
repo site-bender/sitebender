@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import MedicalEntity from "../..//index.ts"
-import AnatomicalStructure from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type MedicalEntity from "../../index.ts"
+import type AnatomicalStructure from "../index.ts"
 
 export default interface Joint extends AnatomicalStructure {
 	/** The biomechanical properties of the bone. */

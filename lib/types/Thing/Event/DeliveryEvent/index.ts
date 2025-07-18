@@ -1,6 +1,6 @@
-import { DateTime, Text } from "../../../DataType/index.ts"
-import DeliveryMethod from "../../Intangible/Enumeration/DeliveryMethod/index.ts"
-import Event from "../index.ts"
+import type { DateTime, Text } from "../../../DataType/index.ts"
+import type DeliveryMethod from "../../Intangible/Enumeration/DeliveryMethod/index.ts"
+import type Event from "../index.ts"
 
 export default interface DeliveryEvent extends Event {
 	/** Password, PIN, or access code needed for delivery (e.g. from a locker). */

@@ -1,4 +1,4 @@
-import MedicalIndication from "../index.ts"
+import type MedicalIndication from "../index.ts"
 
 // PreventionIndication extends MedicalIndication but adds no additional properties
 

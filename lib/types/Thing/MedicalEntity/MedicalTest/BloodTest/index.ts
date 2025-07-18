@@ -1,4 +1,4 @@
-import MedicalTest from "../index.ts"
+import type MedicalTest from "../index.ts"
 
 // BloodTest extends MedicalTest but adds no additional properties
 

@@ -1,4 +1,4 @@
-import PlanAction from "../index.ts"
+import type PlanAction from "../index.ts"
 
 // CancelAction extends PlanAction but adds no additional properties
 

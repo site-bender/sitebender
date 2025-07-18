@@ -1,4 +1,4 @@
-import SizeSystemEnumeration from "../index.ts"
+import type SizeSystemEnumeration from "../index.ts"
 
 // WearableSizeSystemEnumeration extends SizeSystemEnumeration but adds no additional properties
 

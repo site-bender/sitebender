@@ -1,4 +1,4 @@
-import Offer from "../index.ts"
+import type Offer from "../index.ts"
 
 // OfferForLease extends Offer but adds no additional properties
 

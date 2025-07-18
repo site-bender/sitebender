@@ -1,7 +1,7 @@
-import { Text } from "../../../DataType/index.ts"
-import Audience from "../../Intangible/Audience/index.ts"
-import Place from "../index.ts"
-import TouristAttraction from "../TouristAttraction/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type Audience from "../../Intangible/Audience/index.ts"
+import type Place from "../index.ts"
+import type TouristAttraction from "../TouristAttraction/index.ts"
 
 export default interface TouristDestination extends Place {
 	/** Attraction located at destination. */

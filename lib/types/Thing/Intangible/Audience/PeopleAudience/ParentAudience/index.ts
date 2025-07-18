@@ -1,5 +1,5 @@
-import { Number } from "../../../../../DataType/index.ts"
-import PeopleAudience from "../index.ts"
+import type { Number } from "../../../../../DataType/index.ts"
+import type PeopleAudience from "../index.ts"
 
 export default interface ParentAudience extends PeopleAudience {
 	/** Maximal age of the child. */

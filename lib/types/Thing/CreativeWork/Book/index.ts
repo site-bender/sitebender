@@ -1,7 +1,7 @@
-import { Boolean, Integer, Text } from "../../../DataType/index.ts"
-import BookFormatType from "../../Intangible/Enumeration/BookFormatType/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
+import type { Boolean, Integer, Text } from "../../../DataType/index.ts"
+import type BookFormatType from "../../Intangible/Enumeration/BookFormatType/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Book extends CreativeWork {
 	/** Indicates whether the book is an abridged edition. */

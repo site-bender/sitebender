@@ -1,5 +1,5 @@
-import { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
-import Intangible from "../index.ts"
+import type { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface Role extends Intangible {
 	/** The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)). */

@@ -1,4 +1,4 @@
-import Specialty from "../index.ts"
+import type Specialty from "../index.ts"
 
 // MedicalSpecialty extends Specialty but adds no additional properties
 

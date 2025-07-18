@@ -1,5 +1,5 @@
-import { Integer, Text } from "../../../DataType/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer, Text } from "../../../DataType/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface PublicationIssue extends CreativeWork {
 	/** Identifies the issue of publication; for example, "iii" or "2". */

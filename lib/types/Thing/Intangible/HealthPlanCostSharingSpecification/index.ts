@@ -1,6 +1,6 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import Intangible from "../index.ts"
-import PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type Intangible from "../index.ts"
+import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
 export default interface HealthPlanCostSharingSpecification extends Intangible {
 	/** Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set? */

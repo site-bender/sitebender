@@ -1,4 +1,4 @@
-import CreateAction from "../index.ts"
+import type CreateAction from "../index.ts"
 
 // DrawAction extends CreateAction but adds no additional properties
 

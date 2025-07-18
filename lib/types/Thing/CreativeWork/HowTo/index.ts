@@ -1,13 +1,13 @@
-import { Text } from "../../../DataType/index.ts"
-import ItemList from "../../Intangible/ItemList/index.ts"
-import HowToSupply from "../../Intangible/ListItem/HowToItem/HowToSupply/index.ts"
-import HowToTool from "../../Intangible/ListItem/HowToItem/HowToTool/index.ts"
-import HowToSection from "../../Intangible/ListItem/HowToSection/index.ts"
-import HowToStep from "../../Intangible/ListItem/HowToStep/index.ts"
-import Duration from "../../Intangible/Quantity/Duration/index.ts"
-import MonetaryAmount from "../../Intangible/StructuredValue/MonetaryAmount/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import CreativeWork from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type ItemList from "../../Intangible/ItemList/index.ts"
+import type HowToSupply from "../../Intangible/ListItem/HowToItem/HowToSupply/index.ts"
+import type HowToTool from "../../Intangible/ListItem/HowToItem/HowToTool/index.ts"
+import type HowToSection from "../../Intangible/ListItem/HowToSection/index.ts"
+import type HowToStep from "../../Intangible/ListItem/HowToStep/index.ts"
+import type Duration from "../../Intangible/Quantity/Duration/index.ts"
+import type MonetaryAmount from "../../Intangible/StructuredValue/MonetaryAmount/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface HowTo extends CreativeWork {
 	/** The estimated cost of the supply or supplies consumed when performing instructions. */

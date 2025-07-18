@@ -1,10 +1,15 @@
-import { Date, DateTime, Integer, Number } from "../../../DataType/index.ts"
-import MerchantReturnEnumeration from "../Enumeration/MerchantReturnEnumeration/index.ts"
-import RefundTypeEnumeration from "../Enumeration/RefundTypeEnumeration/index.ts"
-import ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/index.ts"
-import ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
-import Intangible from "../index.ts"
-import MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
+import type {
+	Date,
+	DateTime,
+	Integer,
+	Number,
+} from "../../../DataType/index.ts"
+import type MerchantReturnEnumeration from "../Enumeration/MerchantReturnEnumeration/index.ts"
+import type RefundTypeEnumeration from "../Enumeration/RefundTypeEnumeration/index.ts"
+import type ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/index.ts"
+import type ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
+import type Intangible from "../index.ts"
+import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 
 export default interface MerchantReturnPolicySeasonalOverride
 	extends Intangible {

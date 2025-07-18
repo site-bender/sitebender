@@ -1,7 +1,7 @@
-import Organization from "../../../Organization/index.ts"
-import RealEstateAgent from "../../../Organization/LocalBusiness/RealEstateAgent/index.ts"
-import Person from "../../../Person/index.ts"
-import TradeAction from "../index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type RealEstateAgent from "../../../Organization/LocalBusiness/RealEstateAgent/index.ts"
+import type Person from "../../../Person/index.ts"
+import type TradeAction from "../index.ts"
 
 export default interface RentAction extends TradeAction {
 	/** A sub property of participant. The owner of the real estate property. */

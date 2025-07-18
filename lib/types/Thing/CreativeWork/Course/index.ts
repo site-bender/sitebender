@@ -1,14 +1,15 @@
-import { Language } from "../../../bcp47/index.ts"
-import { Integer, Text, URL } from "../../../DataType/index.ts"
-import CourseInstance from "../../Event/CourseInstance/index.ts"
-import AlignmentObject from "../../Intangible/AlignmentObject/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import StructuredValue from "../../Intangible/StructuredValue/index.ts"
-import EducationalOccupationalCredential from "../EducationalOccupationalCredential/index.ts"
-import CreativeWork from "../index.ts"
-import Syllabus from "../LearningResource/Syllabus/index.ts"
+import type { Language } from "../../../bcp47/index.ts"
+import type { Integer, Text, URL } from "../../../DataType/index.ts"
+import type CourseInstance from "../../Event/CourseInstance/index.ts"
+import type AlignmentObject from "../../Intangible/AlignmentObject/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type StructuredValue from "../../Intangible/StructuredValue/index.ts"
+import type EducationalOccupationalCredential from "../EducationalOccupationalCredential/index.ts"
+import type CreativeWork from "../index.ts"
+import type LearningResource from "../LearningResource/index.ts"
+import type Syllabus from "../LearningResource/Syllabus/index.ts"
 
-export default interface Course extends CreativeWork {
+export default interface Course extends CreativeWork, LearningResource {
 	/** A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]. */
 	availableLanguage?: Text | Language
 	/** The identifier for the [[Course]] used by the course [[provider]] (e.g. CS101 or 6.001). */

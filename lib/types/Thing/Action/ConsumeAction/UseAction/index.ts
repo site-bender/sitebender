@@ -1,4 +1,4 @@
-import ConsumeAction from "../index.ts"
+import type ConsumeAction from "../index.ts"
 
 // UseAction extends ConsumeAction but adds no additional properties
 

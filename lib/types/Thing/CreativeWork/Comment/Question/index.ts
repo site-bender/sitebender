@@ -1,8 +1,8 @@
-import { Integer, Text } from "../../../../DataType/index.ts"
-import ItemList from "../../../Intangible/ItemList/index.ts"
-import CreativeWork from "../..//index.ts"
-import Answer from "../Answer/index.ts"
-import Comment from "../index.ts"
+import type { Integer, Text } from "../../../../DataType/index.ts"
+import type ItemList from "../../../Intangible/ItemList/index.ts"
+import type CreativeWork from "../../index.ts"
+import type Answer from "../Answer/index.ts"
+import type Comment from "../index.ts"
 
 export default interface Question extends Comment {
 	/** The answer(s) that has been accepted as best, typically on a Question/Answer site. Sites vary in their selection mechanisms, e.g. drawing on community opinion and/or the view of the Question author. */

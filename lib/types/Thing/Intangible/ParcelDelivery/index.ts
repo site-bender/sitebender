@@ -1,12 +1,12 @@
-import { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
-import DeliveryEvent from "../../Event/DeliveryEvent/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Product from "../../Product/index.ts"
-import DeliveryMethod from "../Enumeration/DeliveryMethod/index.ts"
-import Intangible from "../index.ts"
-import Order from "../Order/index.ts"
-import PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
+import type DeliveryEvent from "../../Event/DeliveryEvent/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Product from "../../Product/index.ts"
+import type DeliveryMethod from "../Enumeration/DeliveryMethod/index.ts"
+import type Intangible from "../index.ts"
+import type Order from "../Order/index.ts"
+import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
 export default interface ParcelDelivery extends Intangible {
 	/** 'carrier' is an out-dated term indicating the 'provider' for parcel delivery and flights. */

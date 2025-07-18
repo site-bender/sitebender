@@ -1,3 +1,15 @@
+declare global {
+	namespace JSX {
+		interface Element {
+			type: string
+			props: any
+			children?: any
+		}
+	}
+}
+
+export {}
+
 /**
  * Generic element constructor attributes type
  * Combines HTML-specific attributes with reactive system attributes

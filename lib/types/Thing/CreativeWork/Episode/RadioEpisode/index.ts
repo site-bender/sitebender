@@ -1,4 +1,4 @@
-import Episode from "../index.ts"
+import type Episode from "../index.ts"
 
 // RadioEpisode extends Episode but adds no additional properties
 

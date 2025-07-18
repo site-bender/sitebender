@@ -1,8 +1,8 @@
-import { Boolean } from "../../../DataType/index.ts"
-import BroadcastService from "../../Intangible/Service/BroadcastService/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Event from "../index.ts"
+import type { Boolean } from "../../../DataType/index.ts"
+import type BroadcastService from "../../Intangible/Service/BroadcastService/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Event from "../index.ts"
 
 export default interface PublicationEvent extends Event {
 	/** A flag to signal that the item, event, or place is accessible for free. */

@@ -1,5 +1,10 @@
-import { Date, DateTime, Number, Text } from "../../../../DataType/index.ts"
-import StructuredValue from "../index.ts"
+import type {
+	Date,
+	DateTime,
+	Number,
+	Text,
+} from "../../../../DataType/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface CDCPMDRecord extends StructuredValue {
 	/** collectiondate - Date for which patient counts are reported. */

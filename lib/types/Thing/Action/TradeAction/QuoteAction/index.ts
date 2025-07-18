@@ -1,4 +1,4 @@
-import TradeAction from "../index.ts"
+import type TradeAction from "../index.ts"
 
 // QuoteAction extends TradeAction but adds no additional properties
 

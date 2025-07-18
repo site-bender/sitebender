@@ -1,6 +1,6 @@
-import { Date, DateTime } from "../../../../../DataType/index.ts"
-import OpeningHoursSpecification from "../../OpeningHoursSpecification/index.ts"
-import PropertyValue from "../index.ts"
+import type { Date, DateTime } from "../../../../../DataType/index.ts"
+import type OpeningHoursSpecification from "../../OpeningHoursSpecification/index.ts"
+import type PropertyValue from "../index.ts"
 
 export default interface LocationFeatureSpecification extends PropertyValue {
 	/** The hours during which this service or contact is available. */

@@ -1,5 +1,5 @@
-import MenuItem from "../../Intangible/MenuItem/index.ts"
-import CreativeWork from "../index.ts"
+import type MenuItem from "../../Intangible/MenuItem/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface MenuSection extends CreativeWork {
 	/** A food or drink item contained in a menu or menu section. */

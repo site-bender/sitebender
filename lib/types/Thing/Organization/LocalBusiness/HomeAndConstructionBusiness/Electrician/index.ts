@@ -1,4 +1,4 @@
-import HomeAndConstructionBusiness from "../index.ts"
+import type HomeAndConstructionBusiness from "../index.ts"
 
 // Electrician extends HomeAndConstructionBusiness but adds no additional properties
 

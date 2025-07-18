@@ -1,4 +1,4 @@
-import NonprofitType from "../index.ts"
+import type NonprofitType from "../index.ts"
 
 // NLNonprofitType extends NonprofitType but adds no additional properties
 

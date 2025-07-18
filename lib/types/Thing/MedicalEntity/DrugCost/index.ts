@@ -1,8 +1,8 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import DrugCostCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
-import QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import MedicalEntity from "../index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type DrugCostCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
+import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type MedicalEntity from "../index.ts"
 
 export default interface DrugCost extends MedicalEntity {
 	/** The location in which the status applies. */

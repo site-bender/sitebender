@@ -1,9 +1,9 @@
-import { Number, Text, URL } from "../../../../../DataType/index.ts"
-import PriceComponentTypeEnumeration from "../../../Enumeration/PriceComponentTypeEnumeration/index.ts"
-import PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
-import Duration from "../../../Quantity/Duration/index.ts"
-import QuantitativeValue from "../../QuantitativeValue/index.ts"
-import PriceSpecification from "../index.ts"
+import type { Number, Text, URL } from "../../../../../DataType/index.ts"
+import type PriceComponentTypeEnumeration from "../../../Enumeration/PriceComponentTypeEnumeration/index.ts"
+import type PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
+import type Duration from "../../../Quantity/Duration/index.ts"
+import type QuantitativeValue from "../../QuantitativeValue/index.ts"
+import type PriceSpecification from "../index.ts"
 
 export default interface UnitPriceSpecification extends PriceSpecification {
 	/** Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property). */

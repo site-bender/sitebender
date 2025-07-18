@@ -1,8 +1,8 @@
-import { Text } from "../../../../DataType/index.ts"
-import PerformingGroup from "../../../Organization/PerformingGroup/index.ts"
-import MusicGroup from "../../../Organization/PerformingGroup/MusicGroup/index.ts"
-import Person from "../../../Person/index.ts"
-import MediaObject from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts"
+import type MusicGroup from "../../../Organization/PerformingGroup/MusicGroup/index.ts"
+import type Person from "../../../Person/index.ts"
+import type MediaObject from "../index.ts"
 
 export default interface VideoObject extends MediaObject {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */

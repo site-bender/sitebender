@@ -1,8 +1,8 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import BroadcastFrequencySpecification from "../BroadcastFrequencySpecification/index.ts"
-import Intangible from "../index.ts"
-import BroadcastService from "../Service/BroadcastService/index.ts"
-import CableOrSatelliteService from "../Service/CableOrSatelliteService/index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type BroadcastFrequencySpecification from "../BroadcastFrequencySpecification/index.ts"
+import type Intangible from "../index.ts"
+import type BroadcastService from "../Service/BroadcastService/index.ts"
+import type CableOrSatelliteService from "../Service/CableOrSatelliteService/index.ts"
 
 export default interface BroadcastChannel extends Intangible {
 	/** The unique address by which the BroadcastService can be identified in a provider lineup. In US, this is typically a number. */

@@ -1,4 +1,4 @@
-import BodyOfWater from "../index.ts"
+import type BodyOfWater from "../index.ts"
 
 // Canal extends BodyOfWater but adds no additional properties
 

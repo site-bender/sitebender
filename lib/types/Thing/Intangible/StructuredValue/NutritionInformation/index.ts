@@ -1,7 +1,7 @@
-import { Text } from "../../../../DataType/index.ts"
-import Energy from "../../Quantity/Energy/index.ts"
-import Mass from "../../Quantity/Mass/index.ts"
-import StructuredValue from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Energy from "../../Quantity/Energy/index.ts"
+import type Mass from "../../Quantity/Mass/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface NutritionInformation extends StructuredValue {
 	/** The number of calories. */

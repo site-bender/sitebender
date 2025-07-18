@@ -1,4 +1,4 @@
-import CollectionPage from "../index.ts"
+import type CollectionPage from "../index.ts"
 
 // MediaGallery extends CollectionPage but adds no additional properties
 

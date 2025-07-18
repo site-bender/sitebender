@@ -1,6 +1,6 @@
-import Organization from "../../Organization/index.ts"
-import Intangible from "../index.ts"
-import MemberProgramTier from "../MemberProgramTier/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Intangible from "../index.ts"
+import type MemberProgramTier from "../MemberProgramTier/index.ts"
 
 export default interface MemberProgram extends Intangible {
 	/** The tiers of a member program. */

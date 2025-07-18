@@ -1,4 +1,4 @@
-import GovernmentBuilding from "../index.ts"
+import type GovernmentBuilding from "../index.ts"
 
 // LegislativeBuilding extends GovernmentBuilding but adds no additional properties
 

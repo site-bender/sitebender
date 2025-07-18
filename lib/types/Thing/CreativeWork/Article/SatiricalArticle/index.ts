@@ -1,4 +1,4 @@
-import Article from "../index.ts"
+import type Article from "../index.ts"
 
 // SatiricalArticle extends Article but adds no additional properties
 

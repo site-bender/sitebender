@@ -1,4 +1,4 @@
-import ReactAction from "../index.ts"
+import type ReactAction from "../index.ts"
 
 // AgreeAction extends ReactAction but adds no additional properties
 

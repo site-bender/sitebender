@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import SportsTeam from "../../Organization/SportsOrganization/SportsTeam/index.ts"
-import Person from "../../Person/index.ts"
-import Event from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type SportsTeam from "../../Organization/SportsOrganization/SportsTeam/index.ts"
+import type Person from "../../Person/index.ts"
+import type Event from "../index.ts"
 
 export default interface SportsEvent extends Event {
 	/** The away team in a sports event. */

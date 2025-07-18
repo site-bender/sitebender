@@ -1,13 +1,13 @@
-import { Text } from "../../../../DataType/index.ts"
-import SportsEvent from "../../../Event/SportsEvent/index.ts"
-import Distance from "../../../Intangible/Quantity/Distance/index.ts"
-import Diet from "../../../MedicalEntity/LifestyleModification/Diet/index.ts"
-import ExercisePlan from "../../../MedicalEntity/LifestyleModification/PhysicalActivity/ExercisePlan/index.ts"
-import SportsActivityLocation from "../../../Organization/LocalBusiness/SportsActivityLocation/index.ts"
-import SportsTeam from "../../../Organization/SportsOrganization/SportsTeam/index.ts"
-import Person from "../../../Person/index.ts"
-import Place from "../../../Place/index.ts"
-import PlayAction from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type SportsEvent from "../../../Event/SportsEvent/index.ts"
+import type Distance from "../../../Intangible/Quantity/Distance/index.ts"
+import type Diet from "../../../MedicalEntity/LifestyleModification/Diet/index.ts"
+import type ExercisePlan from "../../../MedicalEntity/LifestyleModification/PhysicalActivity/ExercisePlan/index.ts"
+import type SportsActivityLocation from "../../../Organization/LocalBusiness/SportsActivityLocation/index.ts"
+import type SportsTeam from "../../../Organization/SportsOrganization/SportsTeam/index.ts"
+import type Person from "../../../Person/index.ts"
+import type Place from "../../../Place/index.ts"
+import type PlayAction from "../index.ts"
 
 export default interface ExerciseAction extends PlayAction {
 	/** A sub property of location. The course where this action was taken. */

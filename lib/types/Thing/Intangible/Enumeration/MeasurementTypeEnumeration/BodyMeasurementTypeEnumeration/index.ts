@@ -1,4 +1,4 @@
-import MeasurementTypeEnumeration from "../index.ts"
+import type MeasurementTypeEnumeration from "../index.ts"
 
 // BodyMeasurementTypeEnumeration extends MeasurementTypeEnumeration but adds no additional properties
 

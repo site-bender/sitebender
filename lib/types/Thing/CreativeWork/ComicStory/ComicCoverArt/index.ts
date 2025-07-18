@@ -1,4 +1,4 @@
-import ComicStory from "../index.ts"
+import type ComicStory from "../index.ts"
 
 // ComicCoverArt extends ComicStory but adds no additional properties
 

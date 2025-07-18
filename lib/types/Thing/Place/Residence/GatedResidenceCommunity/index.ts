@@ -1,4 +1,4 @@
-import Residence from "../index.ts"
+import type Residence from "../index.ts"
 
 // GatedResidenceCommunity extends Residence but adds no additional properties
 

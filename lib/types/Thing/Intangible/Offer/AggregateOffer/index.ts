@@ -1,6 +1,6 @@
-import { Integer, Number, Text } from "../../../../DataType/index.ts"
-import Demand from "../../Demand/index.ts"
-import Offer from "../index.ts"
+import type { Integer, Number, Text } from "../../../../DataType/index.ts"
+import type Demand from "../../Demand/index.ts"
+import type Offer from "../index.ts"
 
 export default interface AggregateOffer extends Offer {
 	/** The highest price of all offers available.\n\nUsage guidelines:\n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator. */

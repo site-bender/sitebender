@@ -1,6 +1,6 @@
-import AnatomicalSystem from "../../../AnatomicalSystem/index.ts"
-import AnatomicalStructure from "../..//index.ts"
-import Vessel from "../index.ts"
+import type AnatomicalSystem from "../../../AnatomicalSystem/index.ts"
+import type AnatomicalStructure from "../../index.ts"
+import type Vessel from "../index.ts"
 
 export default interface Vein extends Vessel {
 	/** The vasculature that the vein drains into. */

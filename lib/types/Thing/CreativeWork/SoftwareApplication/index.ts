@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import DataFeed from "../Dataset/DataFeed/index.ts"
-import CreativeWork from "../index.ts"
-import ImageObject from "../MediaObject/ImageObject/index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type DataFeed from "../Dataset/DataFeed/index.ts"
+import type CreativeWork from "../index.ts"
+import type ImageObject from "../MediaObject/ImageObject/index.ts"
 
 export default interface SoftwareApplication extends CreativeWork {
 	/** Type of software application, e.g. 'Game, Multimedia'. */

@@ -14,7 +14,7 @@ interface AnalysisPlan {
 	primaryLocation: TypeLocation
 	aliasLocations: TypeLocation[]
 	allInheritancePaths: string[][]
-	directParentsNeeded: string[]
+	parentsNeeded: string[]
 	consolidationAction:
 		| "multiple_inheritance"
 		| "already_correct"
@@ -138,34 +138,32 @@ class InheritanceDiscovery {
 			this.buildInheritancePath(loc.path)
 		)
 
-		// Determine what direct parents this type needs
-		// For multiple inheritance, we need the immediate parent of each non-alias location
-		const directParentsNeeded = new Set<string>()
+		// HERE'S THE KEY FIX: Get parents from ALL inheritance chains
+		// For each path, we want the immediate parent of where this type sits
+		const parentsNeeded = new Set<string>()
 
-		for (const location of locations) {
-			if (!location.isAlias) {
-				const path = this.buildInheritancePath(location.path)
-				if (path.length > 1) {
-					// The immediate parent is the one this type should extend
-					directParentsNeeded.add(path[path.length - 2])
-				}
+		for (const path of allInheritancePaths) {
+			if (path.length > 1) {
+				// The immediate parent in each chain is what we need to extend
+				const immediateParent = path[path.length - 2]
+				parentsNeeded.add(immediateParent)
 			}
 		}
 
-		const directParentsArray = Array.from(directParentsNeeded)
+		const parentsArray = Array.from(parentsNeeded)
 
 		// Determine what action is needed
 		let consolidationAction: AnalysisPlan["consolidationAction"]
 
-		if (directParentsArray.length <= 1) {
+		if (parentsArray.length <= 1) {
 			consolidationAction = "single_inheritance"
 		} else {
 			// Check if already has correct multiple inheritance
 			const currentExtends = new Set(primaryLocation.extendsFrom)
-			const hasAllParents = directParentsArray.every((parent) =>
+			const hasAllParents = parentsArray.every((parent) =>
 				currentExtends.has(parent)
 			)
-			const hasCorrectCount = currentExtends.size === directParentsArray.length
+			const hasCorrectCount = currentExtends.size === parentsArray.length
 
 			if (hasAllParents && hasCorrectCount) {
 				consolidationAction = "already_correct"
@@ -179,7 +177,7 @@ class InheritanceDiscovery {
 			primaryLocation,
 			aliasLocations,
 			allInheritancePaths,
-			directParentsNeeded: directParentsArray,
+			parentsNeeded: parentsArray,
 			consolidationAction,
 		}
 	}
@@ -200,23 +198,18 @@ class InheritanceDiscovery {
 		console.log(`   All inheritance paths:`)
 
 		plan.allInheritancePaths.forEach((path, index) => {
-			const location =
-				plan.primaryLocation.path === plan.allInheritancePaths[index]
-					? plan.primaryLocation
-					: plan.aliasLocations.find((a) =>
-						this.buildInheritancePath(a.path).join("/") === path.join("/")
-					)
+			const location = index === 0
+				? plan.primaryLocation
+				: plan.aliasLocations[index - 1]
 			const status = location?.isAlias ? "(alias)" : "(definition)"
 			console.log(`     ${path.join(" → ")} ${status}`)
 		})
 
-		console.log(
-			`   Direct parents needed: ${plan.directParentsNeeded.join(", ")}`,
-		)
+		console.log(`   Parents needed: ${plan.parentsNeeded.join(", ")}`)
 		console.log(`   Action: ${plan.consolidationAction}`)
 
 		if (plan.consolidationAction === "multiple_inheritance") {
-			console.log(`   🔧 Should extend: ${plan.directParentsNeeded.join(", ")}`)
+			console.log(`   🔧 Should extend: ${plan.parentsNeeded.join(", ")}`)
 			console.log(`   ✅ Ready for consolidation`)
 		} else if (plan.consolidationAction === "already_correct") {
 			console.log(`   ✅ Already correctly configured`)
@@ -257,7 +250,7 @@ class InheritanceDiscovery {
 			console.log(`\n🎯 TYPES NEEDING CONSOLIDATION:`)
 			needsConsolidation.forEach((plan) => {
 				console.log(
-					`  • ${plan.typeName}: extend ${plan.directParentsNeeded.join(", ")}`,
+					`  • ${plan.typeName}: extend ${plan.parentsNeeded.join(", ")}`,
 				)
 			})
 		}

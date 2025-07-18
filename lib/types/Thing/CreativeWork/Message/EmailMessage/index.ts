@@ -1,4 +1,4 @@
-import Message from "../index.ts"
+import type Message from "../index.ts"
 
 // EmailMessage extends Message but adds no additional properties
 

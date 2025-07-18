@@ -1,4 +1,4 @@
-import Store from "../index.ts"
+import type Store from "../index.ts"
 
 // HardwareStore extends Store but adds no additional properties
 

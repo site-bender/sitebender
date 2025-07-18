@@ -1,1 +1,1 @@
-export { default } from "../../../../Thing/CreativeWork/SoftwareApplication/VideoGame/index.ts"
+export type { default } from "../../../../Thing/CreativeWork/SoftwareApplication/VideoGame/index.ts"

@@ -1,10 +1,10 @@
-import { Text, URL } from "../DataType/index.ts"
-import Action from "./Action/index.ts"
-import CreativeWork from "./CreativeWork/index.ts"
-import ImageObject from "./CreativeWork/MediaObject/ImageObject/index.ts"
-import TextObject from "./CreativeWork/MediaObject/TextObject/index.ts"
-import Event from "./Event/index.ts"
-import PropertyValue from "./Intangible/StructuredValue/PropertyValue/index.ts"
+import type { Text, URL } from "../DataType/index.ts"
+import type Action from "./Action/index.ts"
+import type CreativeWork from "./CreativeWork/index.ts"
+import type ImageObject from "./CreativeWork/MediaObject/ImageObject/index.ts"
+import type TextObject from "./CreativeWork/MediaObject/TextObject/index.ts"
+import type Event from "./Event/index.ts"
+import type PropertyValue from "./Intangible/StructuredValue/PropertyValue/index.ts"
 
 export default interface Thing {
 	/** An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. Typically the value is a URI-identified RDF class, and in this case corresponds to the     use of rdf:type in RDF. Text values can be used sparingly, for cases where useful information can be added without their being an appropriate schema to reference. In the case of text values, the class label should follow the schema.org <a href="https://schema.org/docs/styleguide.html">style guide</a>. */

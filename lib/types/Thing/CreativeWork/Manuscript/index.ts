@@ -1,4 +1,4 @@
-import CreativeWork from "../index.ts"
+import type CreativeWork from "../index.ts"
 
 // Manuscript extends CreativeWork but adds no additional properties
 

@@ -1,4 +1,4 @@
-import DigitalDocument from "../index.ts"
+import type DigitalDocument from "../index.ts"
 
 // SpreadsheetDigitalDocument extends DigitalDocument but adds no additional properties
 

@@ -1,4 +1,4 @@
-import FinancialProduct from "../index.ts"
+import type FinancialProduct from "../index.ts"
 
 // CurrencyConversionService extends FinancialProduct but adds no additional properties
 

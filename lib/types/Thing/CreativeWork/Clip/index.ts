@@ -1,12 +1,12 @@
-import { Integer, Number, Text } from "../../../DataType/index.ts"
-import CreativeWorkSeries from "../../Intangible/Series/CreativeWorkSeries/index.ts"
-import PerformingGroup from "../../Organization/PerformingGroup/index.ts"
-import MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWorkSeason from "../CreativeWorkSeason/index.ts"
-import Episode from "../Episode/index.ts"
-import HyperTocEntry from "../HyperTocEntry/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer, Number, Text } from "../../../DataType/index.ts"
+import type CreativeWorkSeries from "../../Intangible/Series/CreativeWorkSeries/index.ts"
+import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
+import type MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWorkSeason from "../CreativeWorkSeason/index.ts"
+import type Episode from "../Episode/index.ts"
+import type HyperTocEntry from "../HyperTocEntry/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Clip extends CreativeWork {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */

@@ -1,10 +1,15 @@
-import { Boolean, Number, Text, URL } from "../../../../../DataType/index.ts"
-import Thing from "../../../../../index.ts"
-import Duration from "../../../Quantity/Duration/index.ts"
-import MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
-import QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
-import RepaymentSpecification from "../../../StructuredValue/RepaymentSpecification/index.ts"
-import FinancialProduct from "../index.ts"
+import type {
+	Boolean,
+	Number,
+	Text,
+	URL,
+} from "../../../../../DataType/index.ts"
+import type Thing from "../../../../../index.ts"
+import type Duration from "../../../Quantity/Duration/index.ts"
+import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
+import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
+import type RepaymentSpecification from "../../../StructuredValue/RepaymentSpecification/index.ts"
+import type FinancialProduct from "../index.ts"
 
 export default interface LoanOrCredit extends FinancialProduct {
 	/** The amount of money. */

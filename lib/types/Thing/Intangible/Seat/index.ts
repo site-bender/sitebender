@@ -1,6 +1,6 @@
-import { Text } from "../../../DataType/index.ts"
-import QualitativeValue from "../Enumeration/QualitativeValue/index.ts"
-import Intangible from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type QualitativeValue from "../Enumeration/QualitativeValue/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface Seat extends Intangible {
 	/** The location of the reserved seat (e.g., 27). */

@@ -1,4 +1,4 @@
-import UserInteraction from "../index.ts"
+import type UserInteraction from "../index.ts"
 
 // UserLikes extends UserInteraction but adds no additional properties
 

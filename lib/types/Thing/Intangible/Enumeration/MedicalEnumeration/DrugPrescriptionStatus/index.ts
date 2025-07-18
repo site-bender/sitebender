@@ -1,4 +1,4 @@
-import MedicalEnumeration from "../index.ts"
+import type MedicalEnumeration from "../index.ts"
 
 // DrugPrescriptionStatus extends MedicalEnumeration but adds no additional properties
 

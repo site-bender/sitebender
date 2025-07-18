@@ -1,8 +1,8 @@
-import { Integer, Number, Text } from "../../../../DataType/index.ts"
-import MedicalCondition from "../../../MedicalEntity/MedicalCondition/index.ts"
-import GenderType from "../../Enumeration/GenderType/index.ts"
-import QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
-import Audience from "../index.ts"
+import type { Integer, Number, Text } from "../../../../DataType/index.ts"
+import type MedicalCondition from "../../../MedicalEntity/MedicalCondition/index.ts"
+import type GenderType from "../../Enumeration/GenderType/index.ts"
+import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type Audience from "../index.ts"
 
 export default interface PeopleAudience extends Audience {
 	/** Specifying the health condition(s) of a patient, medical study, or other target audience. */

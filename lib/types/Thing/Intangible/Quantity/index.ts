@@ -1,4 +1,4 @@
-import Intangible from "../index.ts"
+import type Intangible from "../index.ts"
 
 // Quantity extends Intangible but adds no additional properties
 

@@ -1,12 +1,12 @@
-import { DateTime, Number, Text } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import ReservationStatusType from "../Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
-import Intangible from "../index.ts"
-import ProgramMembership from "../ProgramMembership/index.ts"
-import PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
-import Ticket from "../Ticket/index.ts"
+import type { DateTime, Number, Text } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type ReservationStatusType from "../Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
+import type Intangible from "../index.ts"
+import type ProgramMembership from "../ProgramMembership/index.ts"
+import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
+import type Ticket from "../Ticket/index.ts"
 
 export default interface Reservation extends Intangible {
 	/** 'bookingAgent' is an out-dated term indicating a 'broker' that serves as a booking agent. */

@@ -1,7 +1,11 @@
-import { Text } from "../../../DataType/index.ts"
-import Organization from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
+import type Place from "../../Place/index.ts"
+import type { PlaceProps } from "../../Place/index.ts"
+import type Organization from "../index.ts"
+import type { OrganizationProps } from "../index.ts"
 
-export default interface LocalBusiness extends Organization {
+export interface LocalBusinessProps {
 	/** The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical) [[branch]]. */
 	branchOf?: Organization
 	/** The currency accepted.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. "Ithaca HOUR". */
@@ -13,3 +17,7 @@ export default interface LocalBusiness extends Organization {
 	/** The price range of the business, for example ```$$$```. */
 	priceRange?: Text
 }
+
+type LocalBusiness = Thing & OrganizationProps & PlaceProps & LocalBusinessProps
+
+export default LocalBusiness

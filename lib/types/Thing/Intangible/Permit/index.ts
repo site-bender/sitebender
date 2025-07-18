@@ -1,10 +1,10 @@
-import { Date, DateTime } from "../../../DataType/index.ts"
-import Organization from "../../Organization/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import Audience from "../Audience/index.ts"
-import Intangible from "../index.ts"
-import Duration from "../Quantity/Duration/index.ts"
-import Service from "../Service/index.ts"
+import type { Date, DateTime } from "../../../DataType/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type Audience from "../Audience/index.ts"
+import type Intangible from "../index.ts"
+import type Duration from "../Quantity/Duration/index.ts"
+import type Service from "../Service/index.ts"
 
 export default interface Permit extends Intangible {
 	/** The organization issuing the item, for example a [[Permit]], [[Ticket]], or [[Certification]]. */

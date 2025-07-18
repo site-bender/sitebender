@@ -1,6 +1,6 @@
-import { Integer, URL } from "../../../DataType/index.ts"
-import Intangible from "../index.ts"
-import Property from "../Property/index.ts"
+import type { Integer, URL } from "../../../DataType/index.ts"
+import type Intangible from "../index.ts"
+import type Property from "../Property/index.ts"
 
 export default interface ConstraintNode extends Intangible {
 	/** Indicates a property used as a constraint. For example, in the definition of a [[StatisticalVariable]]. The value is a property, either from within Schema.org or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. */

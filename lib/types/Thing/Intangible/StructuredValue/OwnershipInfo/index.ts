@@ -1,9 +1,9 @@
-import { DateTime } from "../../../../DataType/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import Product from "../../../Product/index.ts"
-import Service from "../../Service/index.ts"
-import StructuredValue from "../index.ts"
+import type { DateTime } from "../../../../DataType/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type Product from "../../../Product/index.ts"
+import type Service from "../../Service/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface OwnershipInfo extends StructuredValue {
 	/** The organization or person from which the product was acquired. */

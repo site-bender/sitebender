@@ -1,5 +1,5 @@
-import { DateTime } from "../../../../../../DataType/index.ts"
-import BlogPosting from "../index.ts"
+import type { DateTime } from "../../../../../../DataType/index.ts"
+import type BlogPosting from "../index.ts"
 
 export default interface LiveBlogPosting extends BlogPosting {
 	/** The time when the live blog will stop covering the Event. Note that coverage may continue after the Event concludes. */

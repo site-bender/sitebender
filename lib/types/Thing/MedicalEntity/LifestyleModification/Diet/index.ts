@@ -1,7 +1,7 @@
-import { Text } from "../../../../DataType/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import LifestyleModification from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type LifestyleModification from "../index.ts"
 
 export default interface Diet extends LifestyleModification {
 	/** Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines. */

@@ -1,4 +1,4 @@
-import LocalBusiness from "../index.ts"
+import type LocalBusiness from "../index.ts"
 
 // RadioStation extends LocalBusiness but adds no additional properties
 

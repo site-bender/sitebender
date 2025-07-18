@@ -1,4 +1,4 @@
-import LearningResource from "../index.ts"
+import type LearningResource from "../index.ts"
 
 // Quiz extends LearningResource but adds no additional properties
 

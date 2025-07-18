@@ -1,6 +1,6 @@
-import { Text } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import BioChemEntity from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type BioChemEntity from "../index.ts"
 
 export default interface ChemicalSubstance extends BioChemEntity {
 	/** The chemical composition describes the identity and relative ratio of the chemical elements that make up the substance. */

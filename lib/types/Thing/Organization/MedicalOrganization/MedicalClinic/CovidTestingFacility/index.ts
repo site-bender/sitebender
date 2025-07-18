@@ -1,4 +1,4 @@
-import MedicalClinic from "../index.ts"
+import type MedicalClinic from "../index.ts"
 
 // CovidTestingFacility extends MedicalClinic but adds no additional properties
 

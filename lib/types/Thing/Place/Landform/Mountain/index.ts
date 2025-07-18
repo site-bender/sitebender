@@ -1,4 +1,4 @@
-import Landform from "../index.ts"
+import type Landform from "../index.ts"
 
 // Mountain extends Landform but adds no additional properties
 

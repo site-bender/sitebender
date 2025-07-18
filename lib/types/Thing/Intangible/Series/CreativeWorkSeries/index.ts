@@ -1,5 +1,5 @@
-import { Date, DateTime, Text } from "../../../../DataType/index.ts"
-import Series from "../index.ts"
+import type { Date, DateTime, Text } from "../../../../DataType/index.ts"
+import type Series from "../index.ts"
 
 export default interface CreativeWorkSeries extends Series {
 	/** The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)). */

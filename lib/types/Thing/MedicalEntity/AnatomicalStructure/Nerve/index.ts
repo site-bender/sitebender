@@ -1,7 +1,7 @@
-import SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
-import BrainStructure from "../BrainStructure/index.ts"
-import AnatomicalStructure from "../index.ts"
-import Muscle from "../Muscle/index.ts"
+import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
+import type BrainStructure from "../BrainStructure/index.ts"
+import type AnatomicalStructure from "../index.ts"
+import type Muscle from "../Muscle/index.ts"
 
 export default interface Nerve extends AnatomicalStructure {
 	/** The branches that delineate from the nerve bundle. Not to be confused with [[branchOf]]. */
