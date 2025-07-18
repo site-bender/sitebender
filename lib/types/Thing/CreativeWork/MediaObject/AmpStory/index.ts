@@ -1,4 +1,4 @@
-import MediaObject from "../index.ts"
+import type MediaObject from "../index.ts"
 
 // AmpStory extends MediaObject but adds no additional properties
 

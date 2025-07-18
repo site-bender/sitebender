@@ -5,7 +5,7 @@ import type {
 import type ServiceProps from "../../../../../types/Thing/Service/index.ts"
 import type TaxiProps from "../../../../../types/Thing/Taxi/index.ts"
 
-import Service from "./index.tsx"
+import Service from "../index.tsx"
 
 // Taxi adds no properties to the Service schema type
 export type Props = BaseComponentProps<

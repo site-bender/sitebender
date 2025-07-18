@@ -5,7 +5,7 @@ import type {
 import type CarProps from "../../../../../types/Thing/Car/index.ts"
 import type VehicleProps from "../../../../../types/Thing/Vehicle/index.ts"
 
-import Vehicle from "./index.tsx"
+import Vehicle from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CarProps,

@@ -5,7 +5,7 @@ import type {
 import type AggregateRatingProps from "../../../../../../types/Thing/AggregateRating/index.ts"
 import type EmployerAggregateRatingProps from "../../../../../../types/Thing/EmployerAggregateRating/index.ts"
 
-import AggregateRating from "./index.tsx"
+import AggregateRating from "../index.tsx"
 
 // EmployerAggregateRating adds no properties to the AggregateRating schema type
 export type Props = BaseComponentProps<

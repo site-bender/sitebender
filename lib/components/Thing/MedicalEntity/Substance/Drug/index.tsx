@@ -1,3 +1,3 @@
-import Drug from "./index.tsx"
+import Drug from "../index.tsx"
 
 export default Drug

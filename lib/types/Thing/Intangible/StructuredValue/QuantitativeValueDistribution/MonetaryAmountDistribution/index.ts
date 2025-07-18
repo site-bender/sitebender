@@ -1,5 +1,5 @@
-import { Text } from "../../../../../DataType/index.ts"
-import QuantitativeValueDistribution from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type QuantitativeValueDistribution from "../index.ts"
 
 export default interface MonetaryAmountDistribution
 	extends QuantitativeValueDistribution {

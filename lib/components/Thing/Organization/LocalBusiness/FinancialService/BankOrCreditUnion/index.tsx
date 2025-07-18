@@ -5,7 +5,7 @@ import type {
 import type BankOrCreditUnionProps from "../../../../../../types/Thing/BankOrCreditUnion/index.ts"
 import type FinancialServiceProps from "../../../../../../types/Thing/FinancialService/index.ts"
 
-import FinancialService from "./index.tsx"
+import FinancialService from "../index.tsx"
 
 // BankOrCreditUnion adds no properties to the FinancialService schema type
 export type Props = BaseComponentProps<

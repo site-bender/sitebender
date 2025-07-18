@@ -1,3 +1,3 @@
-import HobbyShop from "./index.tsx"
+import HobbyShop from "../index.tsx"
 
 export default HobbyShop

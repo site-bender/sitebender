@@ -1,3 +1,3 @@
-import DaySpa from "./index.tsx"
+import DaySpa from "../index.tsx"
 
 export default DaySpa

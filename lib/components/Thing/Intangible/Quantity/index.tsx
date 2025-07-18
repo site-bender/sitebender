@@ -5,7 +5,7 @@ import type {
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 import type QuantityProps from "../../../../types/Thing/Quantity/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 // Quantity adds no properties to the Intangible schema type
 export type Props = BaseComponentProps<

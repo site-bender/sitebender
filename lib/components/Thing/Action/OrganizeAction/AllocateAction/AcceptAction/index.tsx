@@ -5,7 +5,7 @@ import type {
 import type AcceptActionProps from "../../../../../../types/Thing/AcceptAction/index.ts"
 import type AllocateActionProps from "../../../../../../types/Thing/AllocateAction/index.ts"
 
-import AllocateAction from "./index.tsx"
+import AllocateAction from "../index.tsx"
 
 // AcceptAction adds no properties to the AllocateAction schema type
 export type Props = BaseComponentProps<

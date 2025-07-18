@@ -1,3 +1,3 @@
-import BedAndBreakfast from "./index.tsx"
+import BedAndBreakfast from "../index.tsx"
 
 export default BedAndBreakfast

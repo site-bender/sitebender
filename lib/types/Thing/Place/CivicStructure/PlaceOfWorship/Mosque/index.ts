@@ -1,4 +1,4 @@
-import PlaceOfWorship from "../index.ts"
+import type PlaceOfWorship from "../index.ts"
 
 // Mosque extends PlaceOfWorship but adds no additional properties
 

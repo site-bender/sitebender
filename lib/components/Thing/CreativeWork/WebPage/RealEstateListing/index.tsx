@@ -5,7 +5,7 @@ import type {
 import type RealEstateListingProps from "../../../../../types/Thing/RealEstateListing/index.ts"
 import type WebPageProps from "../../../../../types/Thing/WebPage/index.ts"
 
-import WebPage from "./index.tsx"
+import WebPage from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	RealEstateListingProps,

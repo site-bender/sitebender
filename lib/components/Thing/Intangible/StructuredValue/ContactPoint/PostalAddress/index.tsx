@@ -5,7 +5,7 @@ import type {
 import type ContactPointProps from "../../../../../../types/Thing/ContactPoint/index.ts"
 import type PostalAddressProps from "../../../../../../types/Thing/PostalAddress/index.ts"
 
-import ContactPoint from "./index.tsx"
+import ContactPoint from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PostalAddressProps,

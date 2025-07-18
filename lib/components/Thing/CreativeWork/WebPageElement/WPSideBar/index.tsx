@@ -5,7 +5,7 @@ import type {
 import type WebPageElementProps from "../../../../../types/Thing/WebPageElement/index.ts"
 import type WPSideBarProps from "../../../../../types/Thing/WPSideBar/index.ts"
 
-import WebPageElement from "./index.tsx"
+import WebPageElement from "../index.tsx"
 
 // WPSideBar adds no properties to the WebPageElement schema type
 export type Props = BaseComponentProps<

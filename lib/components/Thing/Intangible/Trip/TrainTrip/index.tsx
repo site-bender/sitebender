@@ -5,7 +5,7 @@ import type {
 import type TrainTripProps from "../../../../../types/Thing/TrainTrip/index.ts"
 import type TripProps from "../../../../../types/Thing/Trip/index.ts"
 
-import Trip from "./index.tsx"
+import Trip from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TrainTripProps,

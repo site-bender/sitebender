@@ -1,4 +1,4 @@
-import LocalBusiness from "../index.ts"
+import type LocalBusiness from "../index.ts"
 
 // RecyclingCenter extends LocalBusiness but adds no additional properties
 

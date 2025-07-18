@@ -1,8 +1,8 @@
-import { Number } from "../../../../DataType/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
-import Grant from "../index.ts"
+import type { Number } from "../../../../DataType/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
+import type Grant from "../index.ts"
 
 export default interface MonetaryGrant extends Grant {
 	/** The amount of money. */

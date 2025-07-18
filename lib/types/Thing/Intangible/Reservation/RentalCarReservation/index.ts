@@ -1,6 +1,6 @@
-import { DateTime } from "../../../../DataType/index.ts"
-import Place from "../../../Place/index.ts"
-import Reservation from "../index.ts"
+import type { DateTime } from "../../../../DataType/index.ts"
+import type Place from "../../../Place/index.ts"
+import type Reservation from "../index.ts"
 
 export default interface RentalCarReservation extends Reservation {
 	/** Where a rental car can be dropped off. */

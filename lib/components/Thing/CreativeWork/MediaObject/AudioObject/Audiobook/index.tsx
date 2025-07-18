@@ -5,7 +5,7 @@ import type {
 import type AudiobookProps from "../../../../../../types/Thing/Audiobook/index.ts"
 import type AudioObjectProps from "../../../../../../types/Thing/AudioObject/index.ts"
 
-import AudioObject from "./index.tsx"
+import AudioObject from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AudiobookProps,

@@ -5,7 +5,7 @@ import type {
 import type CookActionProps from "../../../../../types/Thing/CookAction/index.ts"
 import type CreateActionProps from "../../../../../types/Thing/CreateAction/index.ts"
 
-import CreateAction from "./index.tsx"
+import CreateAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CookActionProps,

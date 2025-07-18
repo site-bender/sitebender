@@ -1,6 +1,6 @@
-import PhysicalExam from "../../../../Intangible/Enumeration/MedicalEnumeration/PhysicalExam/index.ts"
-import MedicalTest from "../../../MedicalTest/index.ts"
-import MedicalSignOrSymptom from "../index.ts"
+import type PhysicalExam from "../../../../Intangible/Enumeration/MedicalEnumeration/PhysicalExam/index.ts"
+import type MedicalTest from "../../../MedicalTest/index.ts"
+import type MedicalSignOrSymptom from "../index.ts"
 
 export default interface MedicalSign extends MedicalSignOrSymptom {
 	/** A physical examination that can identify this sign. */

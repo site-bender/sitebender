@@ -1,7 +1,7 @@
-import { Text, URL } from "../../DataType/index.ts"
-import Thing from "../index.ts"
-import DefinedTerm from "../Intangible/DefinedTerm/index.ts"
-import PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
+import type { Text, URL } from "../../DataType/index.ts"
+import type Thing from "../index.ts"
+import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
+import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 
 export default interface Taxon extends Thing {
 	/** Closest child taxa of the taxon in question. */

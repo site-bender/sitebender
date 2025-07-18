@@ -1,4 +1,4 @@
-import SportsActivityLocation from "../index.ts"
+import type SportsActivityLocation from "../index.ts"
 
 // PublicSwimmingPool extends SportsActivityLocation but adds no additional properties
 

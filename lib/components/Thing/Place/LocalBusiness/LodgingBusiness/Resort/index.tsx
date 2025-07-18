@@ -1,3 +1,3 @@
-import Resort from "./index.tsx"
+import Resort from "../index.tsx"
 
 export default Resort

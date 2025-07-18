@@ -5,7 +5,7 @@ import type {
 import type InformActionProps from "../../../../../../../types/Thing/InformAction/index.ts"
 import type RsvpActionProps from "../../../../../../../types/Thing/RsvpAction/index.ts"
 
-import InformAction from "./index.tsx"
+import InformAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	RsvpActionProps,

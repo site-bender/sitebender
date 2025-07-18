@@ -5,7 +5,7 @@ import type {
 import type UseActionProps from "../../../../../../types/Thing/UseAction/index.ts"
 import type WearActionProps from "../../../../../../types/Thing/WearAction/index.ts"
 
-import UseAction from "./index.tsx"
+import UseAction from "../index.tsx"
 
 // WearAction adds no properties to the UseAction schema type
 export type Props = BaseComponentProps<

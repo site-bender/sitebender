@@ -5,7 +5,7 @@ import type {
 import type BroadcastEventProps from "../../../../../types/Thing/BroadcastEvent/index.ts"
 import type PublicationEventProps from "../../../../../types/Thing/PublicationEvent/index.ts"
 
-import PublicationEvent from "./index.tsx"
+import PublicationEvent from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	BroadcastEventProps,

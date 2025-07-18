@@ -5,7 +5,7 @@ import type {
 import type DistanceProps from "../../../../../types/Thing/Distance/index.ts"
 import type QuantityProps from "../../../../../types/Thing/Quantity/index.ts"
 
-import Quantity from "./index.tsx"
+import Quantity from "../index.tsx"
 
 // Distance adds no properties to the Quantity schema type
 export type Props = BaseComponentProps<

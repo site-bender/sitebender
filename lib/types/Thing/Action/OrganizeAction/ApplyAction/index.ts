@@ -1,4 +1,4 @@
-import OrganizeAction from "../index.ts"
+import type OrganizeAction from "../index.ts"
 
 // ApplyAction extends OrganizeAction but adds no additional properties
 

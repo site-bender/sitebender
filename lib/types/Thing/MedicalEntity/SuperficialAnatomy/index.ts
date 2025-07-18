@@ -1,9 +1,9 @@
-import { Text } from "../../../DataType/index.ts"
-import AnatomicalStructure from "../AnatomicalStructure/index.ts"
-import AnatomicalSystem from "../AnatomicalSystem/index.ts"
-import MedicalEntity from "../index.ts"
-import MedicalCondition from "../MedicalCondition/index.ts"
-import MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type AnatomicalStructure from "../AnatomicalStructure/index.ts"
+import type AnatomicalSystem from "../AnatomicalSystem/index.ts"
+import type MedicalEntity from "../index.ts"
+import type MedicalCondition from "../MedicalCondition/index.ts"
+import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export default interface SuperficialAnatomy extends MedicalEntity {
 	/** If applicable, a description of the pathophysiology associated with the anatomical system, including potential abnormal changes in the mechanical, physical, and biochemical functions of the system. */

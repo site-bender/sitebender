@@ -5,7 +5,7 @@ import type {
 import type CompleteDataFeedProps from "../../../../../../types/Thing/CompleteDataFeed/index.ts"
 import type DataFeedProps from "../../../../../../types/Thing/DataFeed/index.ts"
 
-import DataFeed from "./index.tsx"
+import DataFeed from "../index.tsx"
 
 // CompleteDataFeed adds no properties to the DataFeed schema type
 export type Props = BaseComponentProps<

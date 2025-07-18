@@ -1,4 +1,4 @@
-import Place from "../index.ts"
+import type Place from "../index.ts"
 
 // AdministrativeArea extends Place but adds no additional properties
 

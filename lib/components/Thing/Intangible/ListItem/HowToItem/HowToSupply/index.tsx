@@ -5,7 +5,7 @@ import type {
 import type HowToItemProps from "../../../../../../types/Thing/HowToItem/index.ts"
 import type HowToSupplyProps from "../../../../../../types/Thing/HowToSupply/index.ts"
 
-import HowToItem from "./index.tsx"
+import HowToItem from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	HowToSupplyProps,

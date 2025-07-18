@@ -1,7 +1,7 @@
-import { Text } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import BioChemEntity from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type BioChemEntity from "../index.ts"
 
 export default interface MolecularEntity extends BioChemEntity {
 	/** A role played by the BioChemEntity within a chemical context. */

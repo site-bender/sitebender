@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../../DataType/index.ts"
-import DefinedTerm from "../../../Intangible/DefinedTerm/index.ts"
-import MeasurementMethodEnum from "../../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
-import MediaObject from "../index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type DefinedTerm from "../../../Intangible/DefinedTerm/index.ts"
+import type MeasurementMethodEnum from "../../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
+import type MediaObject from "../index.ts"
 
 export default interface DataDownload extends MediaObject {
 	/** A subproperty of [[measurementTechnique]] that can be used for specifying specific methods, in particular via [[MeasurementMethodEnum]]. */

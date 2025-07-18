@@ -5,7 +5,7 @@ import type {
 import type CommentProps from "../../../../../types/Thing/Comment/index.ts"
 import type QuestionProps from "../../../../../types/Thing/Question/index.ts"
 
-import Comment from "./index.tsx"
+import Comment from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	QuestionProps,

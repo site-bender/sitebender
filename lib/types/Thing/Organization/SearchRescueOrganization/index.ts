@@ -1,4 +1,4 @@
-import Organization from "../index.ts"
+import type Organization from "../index.ts"
 
 // SearchRescueOrganization extends Organization but adds no additional properties
 

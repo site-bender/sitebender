@@ -1,4 +1,4 @@
-import TransferAction from "../index.ts"
+import type TransferAction from "../index.ts"
 
 // TakeAction extends TransferAction but adds no additional properties
 

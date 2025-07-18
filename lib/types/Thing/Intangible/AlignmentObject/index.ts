@@ -1,5 +1,5 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import Intangible from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface AlignmentObject extends Intangible {
 	/** A category of alignment between the learning resource and the framework node. Recommended values include: 'requires', 'textComplexity', 'readingLevel', and 'educationalSubject'. */

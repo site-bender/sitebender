@@ -1,8 +1,8 @@
-import { Integer, Text } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import ItemListOrderType from "../Enumeration/ItemListOrderType/index.ts"
-import Intangible from "../index.ts"
-import ListItem from "../ListItem/index.ts"
+import type { Integer, Text } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type ItemListOrderType from "../Enumeration/ItemListOrderType/index.ts"
+import type Intangible from "../index.ts"
+import type ListItem from "../ListItem/index.ts"
 
 export default interface ItemList extends Intangible {
 	/** Indicates a prototype of the elements in the list that is used to hold aggregate information (ratings, offers, etc.). */

@@ -5,7 +5,7 @@ import type {
 import type BusinessEntityTypeProps from "../../../../../types/Thing/BusinessEntityType/index.ts"
 import type EnumerationProps from "../../../../../types/Thing/Enumeration/index.ts"
 
-import Enumeration from "./index.tsx"
+import Enumeration from "../index.tsx"
 
 // BusinessEntityType adds no properties to the Enumeration schema type
 export type Props = BaseComponentProps<

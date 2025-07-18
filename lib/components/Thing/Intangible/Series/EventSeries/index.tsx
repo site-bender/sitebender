@@ -5,7 +5,7 @@ import type {
 import type EventSeriesProps from "../../../../../types/Thing/EventSeries/index.ts"
 import type SeriesProps from "../../../../../types/Thing/Series/index.ts"
 
-import Series from "./index.tsx"
+import Series from "../index.tsx"
 
 // EventSeries adds no properties to the Series schema type
 export type Props = BaseComponentProps<

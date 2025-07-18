@@ -1,3 +1,3 @@
-import GasStation from "./index.tsx"
+import GasStation from "../index.tsx"
 
 export default GasStation

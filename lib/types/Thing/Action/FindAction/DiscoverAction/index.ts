@@ -1,4 +1,4 @@
-import FindAction from "../index.ts"
+import type FindAction from "../index.ts"
 
 // DiscoverAction extends FindAction but adds no additional properties
 

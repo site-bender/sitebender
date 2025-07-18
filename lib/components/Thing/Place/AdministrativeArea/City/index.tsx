@@ -5,7 +5,7 @@ import type {
 import type AdministrativeAreaProps from "../../../../../types/Thing/AdministrativeArea/index.ts"
 import type CityProps from "../../../../../types/Thing/City/index.ts"
 
-import AdministrativeArea from "./index.tsx"
+import AdministrativeArea from "../index.tsx"
 
 // City adds no properties to the AdministrativeArea schema type
 export type Props = BaseComponentProps<

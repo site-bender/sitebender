@@ -1,10 +1,10 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import Product from "../../Product/index.ts"
-import OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
-import Intangible from "../index.ts"
-import ParcelDelivery from "../ParcelDelivery/index.ts"
-import Service from "../Service/index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type Product from "../../Product/index.ts"
+import type OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
+import type Intangible from "../index.ts"
+import type ParcelDelivery from "../ParcelDelivery/index.ts"
+import type Service from "../Service/index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface OrderItem extends Intangible {
 	/** The delivery of the parcel related to this order or order item. */

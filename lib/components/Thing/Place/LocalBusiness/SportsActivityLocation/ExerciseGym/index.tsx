@@ -1,3 +1,3 @@
-import ExerciseGym from "./index.tsx"
+import ExerciseGym from "../index.tsx"
 
 export default ExerciseGym

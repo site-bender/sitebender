@@ -5,7 +5,7 @@ import type {
 import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
 import type PublicationIssueProps from "../../../../types/Thing/PublicationIssue/index.ts"
 
-import CreativeWork from "./index.tsx"
+import CreativeWork from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PublicationIssueProps,

@@ -1,9 +1,9 @@
-import { URL } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import PostalAddress from "../../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Place from "../../Place/index.ts"
-import CreativeWork from "../index.ts"
+import type { URL } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type PostalAddress from "../../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Place from "../../Place/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Game extends CreativeWork {
 	/** A piece of data that represents a particular aspect of a fictional character (skill, power, character points, advantage, disadvantage). */

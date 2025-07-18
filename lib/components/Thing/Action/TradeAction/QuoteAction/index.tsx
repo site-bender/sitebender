@@ -5,7 +5,7 @@ import type {
 import type QuoteActionProps from "../../../../../types/Thing/QuoteAction/index.ts"
 import type TradeActionProps from "../../../../../types/Thing/TradeAction/index.ts"
 
-import TradeAction from "./index.tsx"
+import TradeAction from "../index.tsx"
 
 // QuoteAction adds no properties to the TradeAction schema type
 export type Props = BaseComponentProps<

@@ -1,4 +1,4 @@
-import MedicalTherapy from "../index.ts"
+import type MedicalTherapy from "../index.ts"
 
 // OccupationalTherapy extends MedicalTherapy but adds no additional properties
 

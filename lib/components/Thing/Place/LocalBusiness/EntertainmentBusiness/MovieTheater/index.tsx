@@ -1,3 +1,3 @@
-import MovieTheater from "./index.tsx"
+import MovieTheater from "../index.tsx"
 
 export default MovieTheater

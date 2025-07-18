@@ -1,11 +1,11 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import TierBenefitEnumeration from "../Enumeration/TierBenefitEnumeration/index.ts"
-import Intangible from "../index.ts"
-import MemberProgram from "../MemberProgram/index.ts"
-import CreditCard from "../PaymentMethod/PaymentCard/CreditCard/index.ts"
-import MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
-import UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type TierBenefitEnumeration from "../Enumeration/TierBenefitEnumeration/index.ts"
+import type Intangible from "../index.ts"
+import type MemberProgram from "../MemberProgram/index.ts"
+import type CreditCard from "../PaymentMethod/PaymentCard/CreditCard/index.ts"
+import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
+import type UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface MemberProgramTier extends Intangible {
 	/** A member benefit for a particular tier of a loyalty program. */

@@ -5,7 +5,7 @@ import type {
 import type EnumerationProps from "../../../../../types/Thing/Enumeration/index.ts"
 import type RsvpResponseTypeProps from "../../../../../types/Thing/RsvpResponseType/index.ts"
 
-import Enumeration from "./index.tsx"
+import Enumeration from "../index.tsx"
 
 // RsvpResponseType adds no properties to the Enumeration schema type
 export type Props = BaseComponentProps<

@@ -1,4 +1,4 @@
-import CivicStructure from "../index.ts"
+import type CivicStructure from "../index.ts"
 
 // RVPark extends CivicStructure but adds no additional properties
 

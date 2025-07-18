@@ -1,4 +1,4 @@
-import InteractAction from "../index.ts"
+import type InteractAction from "../index.ts"
 
 // RegisterAction extends InteractAction but adds no additional properties
 

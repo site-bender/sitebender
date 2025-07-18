@@ -5,7 +5,7 @@ import type {
 import type BefriendActionProps from "../../../../../types/Thing/BefriendAction/index.ts"
 import type InteractActionProps from "../../../../../types/Thing/InteractAction/index.ts"
 
-import InteractAction from "./index.tsx"
+import InteractAction from "../index.tsx"
 
 // BefriendAction adds no properties to the InteractAction schema type
 export type Props = BaseComponentProps<

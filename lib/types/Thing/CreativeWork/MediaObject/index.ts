@@ -1,4 +1,4 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -6,16 +6,16 @@ import {
 	Time,
 	URL,
 } from "../../../DataType/index.ts"
-import MediaSubscription from "../../Intangible/MediaSubscription/index.ts"
-import Distance from "../../Intangible/Quantity/Distance/index.ts"
-import Duration from "../../Intangible/Quantity/Duration/index.ts"
-import GeoShape from "../../Intangible/StructuredValue/GeoShape/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Organization from "../../Organization/index.ts"
-import Place from "../../Place/index.ts"
-import NewsArticle from "../Article/NewsArticle/index.ts"
-import Claim from "../Claim/index.ts"
-import CreativeWork from "../index.ts"
+import type MediaSubscription from "../../Intangible/MediaSubscription/index.ts"
+import type Distance from "../../Intangible/Quantity/Distance/index.ts"
+import type Duration from "../../Intangible/Quantity/Duration/index.ts"
+import type GeoShape from "../../Intangible/StructuredValue/GeoShape/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Place from "../../Place/index.ts"
+import type NewsArticle from "../Article/NewsArticle/index.ts"
+import type Claim from "../Claim/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface MediaObject extends CreativeWork {
 	/** A NewsArticle associated with the Media Object. */

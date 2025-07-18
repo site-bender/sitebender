@@ -1,4 +1,4 @@
-import MoveAction from "../index.ts"
+import type MoveAction from "../index.ts"
 
 // ArriveAction extends MoveAction but adds no additional properties
 

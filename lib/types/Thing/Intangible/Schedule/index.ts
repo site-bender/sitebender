@@ -1,8 +1,14 @@
-import { Date, DateTime, Integer, Text, Time } from "../../../DataType/index.ts"
-import DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
-import Intangible from "../index.ts"
-import Duration from "../Quantity/Duration/index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type {
+	Date,
+	DateTime,
+	Integer,
+	Text,
+	Time,
+} from "../../../DataType/index.ts"
+import type DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
+import type Intangible from "../index.ts"
+import type Duration from "../Quantity/Duration/index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface Schedule extends Intangible {
 	/** Defines the day(s) of the week on which a recurring [[Event]] takes place. May be specified using either [[DayOfWeek]], or alternatively [[Text]] conforming to iCal's syntax for byDay recurrence rules. */

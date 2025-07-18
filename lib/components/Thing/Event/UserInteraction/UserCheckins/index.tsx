@@ -5,7 +5,7 @@ import type {
 import type UserCheckinsProps from "../../../../../types/Thing/UserCheckins/index.ts"
 import type UserInteractionProps from "../../../../../types/Thing/UserInteraction/index.ts"
 
-import UserInteraction from "./index.tsx"
+import UserInteraction from "../index.tsx"
 
 // UserCheckins adds no properties to the UserInteraction schema type
 export type Props = BaseComponentProps<

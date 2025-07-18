@@ -5,7 +5,7 @@ import type {
 import type ArchiveComponentProps from "../../../../types/Thing/ArchiveComponent/index.ts"
 import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
 
-import CreativeWork from "./index.tsx"
+import CreativeWork from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ArchiveComponentProps,

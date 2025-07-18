@@ -5,7 +5,7 @@ import type {
 import type FoodEstablishmentProps from "../../../../../types/Thing/FoodEstablishment/index.ts"
 import type LocalBusinessProps from "../../../../../types/Thing/LocalBusiness/index.ts"
 
-import LocalBusiness from "./index.tsx"
+import LocalBusiness from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	FoodEstablishmentProps,

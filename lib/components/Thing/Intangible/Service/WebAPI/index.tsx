@@ -5,7 +5,7 @@ import type {
 import type ServiceProps from "../../../../../types/Thing/Service/index.ts"
 import type WebAPIProps from "../../../../../types/Thing/WebAPI/index.ts"
 
-import Service from "./index.tsx"
+import Service from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	WebAPIProps,

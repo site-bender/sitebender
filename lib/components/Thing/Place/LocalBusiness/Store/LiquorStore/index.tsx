@@ -1,3 +1,3 @@
-import LiquorStore from "./index.tsx"
+import LiquorStore from "../index.tsx"
 
 export default LiquorStore

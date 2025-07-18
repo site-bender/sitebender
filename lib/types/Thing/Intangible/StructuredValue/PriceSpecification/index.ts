@@ -1,13 +1,13 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
 	Number,
 	Text,
 } from "../../../../DataType/index.ts"
-import MemberProgramTier from "../../MemberProgramTier/index.ts"
-import StructuredValue from "../index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
+import type MemberProgramTier from "../../MemberProgramTier/index.ts"
+import type StructuredValue from "../index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
 export default interface PriceSpecification extends StructuredValue {
 	/** The interval and unit of measurement of ordering quantities for which the offer or price specification is valid. This allows e.g. specifying that a certain freight charge is valid only for a certain quantity. */

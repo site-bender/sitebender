@@ -5,7 +5,7 @@ import type {
 import type SiteNavigationElementProps from "../../../../../types/Thing/SiteNavigationElement/index.ts"
 import type WebPageElementProps from "../../../../../types/Thing/WebPageElement/index.ts"
 
-import WebPageElement from "./index.tsx"
+import WebPageElement from "../index.tsx"
 
 // SiteNavigationElement adds no properties to the WebPageElement schema type
 export type Props = BaseComponentProps<

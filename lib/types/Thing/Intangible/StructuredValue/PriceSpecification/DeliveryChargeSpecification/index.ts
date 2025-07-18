@@ -1,9 +1,9 @@
-import { Text } from "../../../../../DataType/index.ts"
-import AdministrativeArea from "../../../../Place/AdministrativeArea/index.ts"
-import Place from "../../../../Place/index.ts"
-import DeliveryMethod from "../../../Enumeration/DeliveryMethod/index.ts"
-import GeoShape from "../../GeoShape/index.ts"
-import PriceSpecification from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type AdministrativeArea from "../../../../Place/AdministrativeArea/index.ts"
+import type Place from "../../../../Place/index.ts"
+import type DeliveryMethod from "../../../Enumeration/DeliveryMethod/index.ts"
+import type GeoShape from "../../GeoShape/index.ts"
+import type PriceSpecification from "../index.ts"
 
 export default interface DeliveryChargeSpecification
 	extends PriceSpecification {

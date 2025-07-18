@@ -5,7 +5,7 @@ import type {
 import type CoverArtProps from "../../../../../types/Thing/CoverArt/index.ts"
 import type VisualArtworkProps from "../../../../../types/Thing/VisualArtwork/index.ts"
 
-import VisualArtwork from "./index.tsx"
+import VisualArtwork from "../index.tsx"
 
 // CoverArt adds no properties to the VisualArtwork schema type
 export type Props = BaseComponentProps<

@@ -1,4 +1,4 @@
-import CivicStructure from "../index.ts"
+import type CivicStructure from "../index.ts"
 
 // Aquarium extends CivicStructure but adds no additional properties
 

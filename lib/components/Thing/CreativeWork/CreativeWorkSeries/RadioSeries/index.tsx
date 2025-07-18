@@ -1,3 +1,3 @@
-import RadioSeries from "./index.tsx"
+import RadioSeries from "../index.tsx"
 
 export default RadioSeries

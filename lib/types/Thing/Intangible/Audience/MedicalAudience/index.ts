@@ -1,4 +1,4 @@
-import Audience from "../index.ts"
+import type Audience from "../index.ts"
 
 // MedicalAudience extends Audience but adds no additional properties
 

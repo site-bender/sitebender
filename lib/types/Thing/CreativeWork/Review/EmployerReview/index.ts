@@ -1,4 +1,4 @@
-import Review from "../index.ts"
+import type Review from "../index.ts"
 
 // EmployerReview extends Review but adds no additional properties
 

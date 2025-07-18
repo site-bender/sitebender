@@ -1,9 +1,9 @@
-import { Text, URL } from "../../../../DataType/index.ts"
-import MusicAlbum from "../../../CreativeWork/MusicPlaylist/MusicAlbum/index.ts"
-import MusicRecording from "../../../CreativeWork/MusicRecording/index.ts"
-import ItemList from "../../../Intangible/ItemList/index.ts"
-import Person from "../../../Person/index.ts"
-import PerformingGroup from "../index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type MusicAlbum from "../../../CreativeWork/MusicPlaylist/MusicAlbum/index.ts"
+import type MusicRecording from "../../../CreativeWork/MusicRecording/index.ts"
+import type ItemList from "../../../Intangible/ItemList/index.ts"
+import type Person from "../../../Person/index.ts"
+import type PerformingGroup from "../index.ts"
 
 export default interface MusicGroup extends PerformingGroup {
 	/** A music album. */

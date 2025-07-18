@@ -5,7 +5,7 @@ import type {
 import type DataDownloadProps from "../../../../../types/Thing/DataDownload/index.ts"
 import type MediaObjectProps from "../../../../../types/Thing/MediaObject/index.ts"
 
-import MediaObject from "./index.tsx"
+import MediaObject from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	DataDownloadProps,

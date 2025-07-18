@@ -1,7 +1,7 @@
 import type { Option } from "~types/forms/index.ts"
 
 import createElement from "~utilities/createElement/index.ts"
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 export type Props = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
 	classes?: Array<string>

@@ -1,4 +1,4 @@
-import WebPage from "../index.ts"
+import type WebPage from "../index.ts"
 
 // AboutPage extends WebPage but adds no additional properties
 

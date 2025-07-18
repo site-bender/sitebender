@@ -1,7 +1,12 @@
-import { DateTime, Integer, Text, Time } from "../../../../DataType/index.ts"
-import QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
-import QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
-import Reservation from "../index.ts"
+import type {
+	DateTime,
+	Integer,
+	Text,
+	Time,
+} from "../../../../DataType/index.ts"
+import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type Reservation from "../index.ts"
 
 export default interface LodgingReservation extends Reservation {
 	/** The earliest someone may check into a lodging establishment. */

@@ -1,6 +1,6 @@
-import { Text } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import Product from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type Product from "../index.ts"
 
 export default interface ProductGroup extends Product {
 	/** Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]]). */

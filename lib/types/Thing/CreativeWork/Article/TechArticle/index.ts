@@ -1,5 +1,5 @@
-import { Text } from "../../../../DataType/index.ts"
-import Article from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Article from "../index.ts"
 
 export default interface TechArticle extends Article {
 	/** Prerequisites needed to fulfill steps in article. */

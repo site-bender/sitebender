@@ -1,3 +1,3 @@
-import AutoPartsStore from "./index.tsx"
+import AutoPartsStore from "../index.tsx"
 
 export default AutoPartsStore

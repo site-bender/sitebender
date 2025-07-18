@@ -1,4 +1,4 @@
-import AchieveAction from "../index.ts"
+import type AchieveAction from "../index.ts"
 
 // TieAction extends AchieveAction but adds no additional properties
 

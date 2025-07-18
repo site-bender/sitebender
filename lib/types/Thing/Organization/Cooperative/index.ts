@@ -1,4 +1,4 @@
-import Organization from "../index.ts"
+import type Organization from "../index.ts"
 
 // Cooperative extends Organization but adds no additional properties
 

@@ -1,7 +1,7 @@
-import { Number } from "../../../../../../DataType/index.ts"
-import Comment from "../../../../../CreativeWork/Comment/index.ts"
-import RsvpResponseType from "../../../../../Intangible/Enumeration/RsvpResponseType/index.ts"
-import InformAction from "../index.ts"
+import type { Number } from "../../../../../../DataType/index.ts"
+import type Comment from "../../../../../CreativeWork/Comment/index.ts"
+import type RsvpResponseType from "../../../../../Intangible/Enumeration/RsvpResponseType/index.ts"
+import type InformAction from "../index.ts"
 
 export default interface RsvpAction extends InformAction {
 	/** If responding yes, the number of guests who will attend in addition to the invitee. */

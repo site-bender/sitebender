@@ -5,7 +5,7 @@ import type {
 import type SportsOrganizationProps from "../../../../../types/Thing/SportsOrganization/index.ts"
 import type SportsTeamProps from "../../../../../types/Thing/SportsTeam/index.ts"
 
-import SportsOrganization from "./index.tsx"
+import SportsOrganization from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	SportsTeamProps,

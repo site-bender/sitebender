@@ -1,5 +1,5 @@
-import { Text } from "../../../../DataType/index.ts"
-import MedicalGuideline from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type MedicalGuideline from "../index.ts"
 
 export default interface MedicalGuidelineRecommendation
 	extends MedicalGuideline {

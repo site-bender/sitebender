@@ -1,3 +1,3 @@
-import Preschool from "./index.tsx"
+import Preschool from "../index.tsx"
 
 export default Preschool

@@ -5,7 +5,7 @@ import type {
 import type ControlActionProps from "../../../../../types/Thing/ControlAction/index.ts"
 import type DeactivateActionProps from "../../../../../types/Thing/DeactivateAction/index.ts"
 
-import ControlAction from "./index.tsx"
+import ControlAction from "../index.tsx"
 
 // DeactivateAction adds no properties to the ControlAction schema type
 export type Props = BaseComponentProps<

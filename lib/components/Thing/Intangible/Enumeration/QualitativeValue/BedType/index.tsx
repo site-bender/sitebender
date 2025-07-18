@@ -5,7 +5,7 @@ import type {
 import type BedTypeProps from "../../../../../../types/Thing/BedType/index.ts"
 import type QualitativeValueProps from "../../../../../../types/Thing/QualitativeValue/index.ts"
 
-import QualitativeValue from "./index.tsx"
+import QualitativeValue from "../index.tsx"
 
 // BedType adds no properties to the QualitativeValue schema type
 export type Props = BaseComponentProps<

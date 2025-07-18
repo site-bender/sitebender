@@ -1,6 +1,6 @@
-import { Text, URL } from "../../../../../DataType/index.ts"
-import MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
-import FinancialProduct from "../index.ts"
+import type { Text, URL } from "../../../../../DataType/index.ts"
+import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
+import type FinancialProduct from "../index.ts"
 
 export default interface BankAccount extends FinancialProduct {
 	/** A minimum amount that has to be paid in every month. */

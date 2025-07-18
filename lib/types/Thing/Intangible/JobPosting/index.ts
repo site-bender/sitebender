@@ -1,4 +1,4 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -7,20 +7,20 @@ import {
 	Text,
 	URL,
 } from "../../../DataType/index.ts"
-import EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import Place from "../../Place/index.ts"
-import CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
-import DefinedTerm from "../DefinedTerm/index.ts"
-import Intangible from "../index.ts"
-import Occupation from "../Occupation/index.ts"
-import OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
-import ContactPoint from "../StructuredValue/ContactPoint/index.ts"
-import MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
-import PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
-import MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type Place from "../../Place/index.ts"
+import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type DefinedTerm from "../DefinedTerm/index.ts"
+import type Intangible from "../index.ts"
+import type Occupation from "../Occupation/index.ts"
+import type OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
+import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
+import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
+import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
+import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
 export default interface JobPosting extends Intangible {
 	/** The location(s) applicants can apply from. This is usually used for telecommuting jobs where the applicant does not need to be in a physical office. Note: This should not be used for citizenship or work visa requirements. */

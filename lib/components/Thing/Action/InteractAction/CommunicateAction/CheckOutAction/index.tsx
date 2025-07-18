@@ -5,7 +5,7 @@ import type {
 import type CheckOutActionProps from "../../../../../../types/Thing/CheckOutAction/index.ts"
 import type CommunicateActionProps from "../../../../../../types/Thing/CommunicateAction/index.ts"
 
-import CommunicateAction from "./index.tsx"
+import CommunicateAction from "../index.tsx"
 
 // CheckOutAction adds no properties to the CommunicateAction schema type
 export type Props = BaseComponentProps<

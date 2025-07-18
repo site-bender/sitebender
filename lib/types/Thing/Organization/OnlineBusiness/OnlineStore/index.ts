@@ -1,4 +1,4 @@
-import OnlineBusiness from "../index.ts"
+import type OnlineBusiness from "../index.ts"
 
 // OnlineStore extends OnlineBusiness but adds no additional properties
 

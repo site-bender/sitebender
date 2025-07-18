@@ -5,7 +5,7 @@ import type {
 import type PlaceProps from "../../../../types/Thing/Place/index.ts"
 import type TouristAttractionProps from "../../../../types/Thing/TouristAttraction/index.ts"
 
-import Place from "./index.tsx"
+import Place from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TouristAttractionProps,

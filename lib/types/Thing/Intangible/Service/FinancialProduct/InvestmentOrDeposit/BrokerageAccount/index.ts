@@ -1,4 +1,4 @@
-import InvestmentOrDeposit from "../index.ts"
+import type InvestmentOrDeposit from "../index.ts"
 
 // BrokerageAccount extends InvestmentOrDeposit but adds no additional properties
 

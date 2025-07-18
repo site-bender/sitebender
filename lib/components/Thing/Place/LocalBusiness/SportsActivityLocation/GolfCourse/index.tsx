@@ -1,3 +1,3 @@
-import GolfCourse from "./index.tsx"
+import GolfCourse from "../index.tsx"
 
 export default GolfCourse

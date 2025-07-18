@@ -5,7 +5,7 @@ import type {
 import type ActionProps from "../../../types/Thing/Action/index.ts"
 import type ThingProps from "../../../types/Thing/index.ts"
 
-import Thing from "./index.tsx"
+import Thing from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ActionProps,

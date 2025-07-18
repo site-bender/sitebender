@@ -1,4 +1,4 @@
-import Service from "../index.ts"
+import type Service from "../index.ts"
 
 // Taxi extends Service but adds no additional properties
 

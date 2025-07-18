@@ -1,3 +1,3 @@
-import Campground from "./index.tsx"
+import Campground from "../index.tsx"
 
 export default Campground

@@ -1,4 +1,4 @@
-import ListItem from "../index.ts"
+import type ListItem from "../index.ts"
 
 // HowToTip extends ListItem but adds no additional properties
 

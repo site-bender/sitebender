@@ -1,4 +1,4 @@
-import BroadcastService from "../index.ts"
+import type BroadcastService from "../index.ts"
 
 // RadioBroadcastService extends BroadcastService but adds no additional properties
 

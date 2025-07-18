@@ -1,11 +1,11 @@
-import { Text } from "../../../DataType/index.ts"
-import MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
-import EventStatusType from "../../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import MedicalEntity from "../index.ts"
-import MedicalCondition from "../MedicalCondition/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
+import type EventStatusType from "../../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type MedicalEntity from "../index.ts"
+import type MedicalCondition from "../MedicalCondition/index.ts"
 
 export default interface MedicalStudy extends MedicalEntity {
 	/** Specifying the health condition(s) of a patient, medical study, or other target audience. */

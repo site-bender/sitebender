@@ -1,3 +1,3 @@
-import OfficeEquipmentStore from "./index.tsx"
+import OfficeEquipmentStore from "../index.tsx"
 
 export default OfficeEquipmentStore

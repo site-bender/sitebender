@@ -5,7 +5,7 @@ import type {
 import type BreadcrumbListProps from "../../../../../types/Thing/BreadcrumbList/index.ts"
 import type ItemListProps from "../../../../../types/Thing/ItemList/index.ts"
 
-import ItemList from "./index.tsx"
+import ItemList from "../index.tsx"
 
 // BreadcrumbList adds no properties to the ItemList schema type
 export type Props = BaseComponentProps<

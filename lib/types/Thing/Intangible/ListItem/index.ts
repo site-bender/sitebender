@@ -1,6 +1,6 @@
-import { Integer, Text } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import Intangible from "../index.ts"
+import type { Integer, Text } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type Intangible from "../index.ts"
 
 export default interface ListItem extends Intangible {
 	/** An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists'). */

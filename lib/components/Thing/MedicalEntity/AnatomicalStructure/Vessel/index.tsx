@@ -5,7 +5,7 @@ import type {
 import type AnatomicalStructureProps from "../../../../../types/Thing/AnatomicalStructure/index.ts"
 import type VesselProps from "../../../../../types/Thing/Vessel/index.ts"
 
-import AnatomicalStructure from "./index.tsx"
+import AnatomicalStructure from "../index.tsx"
 
 // Vessel adds no properties to the AnatomicalStructure schema type
 export type Props = BaseComponentProps<

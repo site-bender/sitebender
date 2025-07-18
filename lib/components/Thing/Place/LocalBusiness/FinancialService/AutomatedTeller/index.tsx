@@ -1,3 +1,3 @@
-import AutomatedTeller from "./index.tsx"
+import AutomatedTeller from "../index.tsx"
 
 export default AutomatedTeller

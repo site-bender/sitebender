@@ -5,7 +5,7 @@ import type {
 import type OrganizationProps from "../../../../types/Thing/Organization/index.ts"
 import type ResearchOrganizationProps from "../../../../types/Thing/ResearchOrganization/index.ts"
 
-import Organization from "./index.tsx"
+import Organization from "../index.tsx"
 
 // ResearchOrganization adds no properties to the Organization schema type
 export type Props = BaseComponentProps<

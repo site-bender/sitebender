@@ -1,3 +1,3 @@
-import MovingCompany from "./index.tsx"
+import MovingCompany from "../index.tsx"
 
 export default MovingCompany

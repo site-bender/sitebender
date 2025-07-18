@@ -1,1 +1,1 @@
-export { default } from "../../../../../Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/DaySpa/index.ts"
+export type { default } from "../../../../../Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/DaySpa/index.ts"

@@ -1,3 +1,3 @@
-import TelevisionStation from "./index.tsx"
+import TelevisionStation from "../index.tsx"
 
 export default TelevisionStation

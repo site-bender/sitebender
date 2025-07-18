@@ -1,3 +1,3 @@
-import ExercisePlan from "./index.tsx"
+import ExercisePlan from "../index.tsx"
 
 export default ExercisePlan

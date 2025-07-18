@@ -1,8 +1,8 @@
-import Recipe from "../../../CreativeWork/HowTo/Recipe/index.ts"
-import FoodEvent from "../../../Event/FoodEvent/index.ts"
-import FoodEstablishment from "../../../Organization/LocalBusiness/FoodEstablishment/index.ts"
-import Place from "../../../Place/index.ts"
-import CreateAction from "../index.ts"
+import type Recipe from "../../../CreativeWork/HowTo/Recipe/index.ts"
+import type FoodEvent from "../../../Event/FoodEvent/index.ts"
+import type FoodEstablishment from "../../../Organization/LocalBusiness/FoodEstablishment/index.ts"
+import type Place from "../../../Place/index.ts"
+import type CreateAction from "../index.ts"
 
 export default interface CookAction extends CreateAction {
 	/** A sub property of location. The specific food establishment where the action occurred. */

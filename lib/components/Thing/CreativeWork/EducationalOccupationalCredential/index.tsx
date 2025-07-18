@@ -5,7 +5,7 @@ import type {
 import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
 import type EducationalOccupationalCredentialProps from "../../../../types/Thing/EducationalOccupationalCredential/index.ts"
 
-import CreativeWork from "./index.tsx"
+import CreativeWork from "../index.tsx"
 
 // EducationalOccupationalCredential adds no properties to the CreativeWork schema type
 export type Props = BaseComponentProps<

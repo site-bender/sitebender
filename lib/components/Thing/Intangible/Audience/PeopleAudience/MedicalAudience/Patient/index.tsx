@@ -1,3 +1,3 @@
-import Patient from "./index.tsx"
+import Patient from "../index.tsx"
 
 export default Patient

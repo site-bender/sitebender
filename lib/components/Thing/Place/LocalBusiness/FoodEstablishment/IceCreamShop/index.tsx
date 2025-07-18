@@ -1,3 +1,3 @@
-import IceCreamShop from "./index.tsx"
+import IceCreamShop from "../index.tsx"
 
 export default IceCreamShop

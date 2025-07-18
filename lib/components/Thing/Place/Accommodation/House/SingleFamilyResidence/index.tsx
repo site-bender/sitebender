@@ -5,7 +5,7 @@ import type {
 import type HouseProps from "../../../../../../types/Thing/House/index.ts"
 import type SingleFamilyResidenceProps from "../../../../../../types/Thing/SingleFamilyResidence/index.ts"
 
-import House from "./index.tsx"
+import House from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	SingleFamilyResidenceProps,

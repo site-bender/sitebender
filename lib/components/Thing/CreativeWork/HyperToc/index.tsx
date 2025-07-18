@@ -5,7 +5,7 @@ import type {
 import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
 import type HyperTocProps from "../../../../types/Thing/HyperToc/index.ts"
 
-import CreativeWork from "./index.tsx"
+import CreativeWork from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	HyperTocProps,

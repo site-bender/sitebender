@@ -5,7 +5,7 @@ import type {
 import type APIReferenceProps from "../../../../../../types/Thing/APIReference/index.ts"
 import type TechArticleProps from "../../../../../../types/Thing/TechArticle/index.ts"
 
-import TechArticle from "./index.tsx"
+import TechArticle from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	APIReferenceProps,

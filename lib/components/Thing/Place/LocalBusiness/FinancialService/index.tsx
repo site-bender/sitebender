@@ -1,3 +1,3 @@
-import FinancialService from "./index.tsx"
+import FinancialService from "../index.tsx"
 
 export default FinancialService

@@ -1,9 +1,9 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Intangible from "../index.ts"
-import MemberProgram from "../MemberProgram/index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Intangible from "../index.ts"
+import type MemberProgram from "../MemberProgram/index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface ProgramMembership extends Intangible {
 	/** The Organization (airline, travelers' club, retailer, etc.) the membership is made with or which offers the  MemberProgram. */

@@ -1,8 +1,8 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
-import Dataset from "../Dataset/index.ts"
-import CreativeWork from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
+import type Dataset from "../Dataset/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface DataCatalog extends CreativeWork {
 	/** A dataset contained in this catalog. */

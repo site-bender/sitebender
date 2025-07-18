@@ -5,7 +5,7 @@ import type {
 import type TableProps from "../../../../../types/Thing/Table/index.ts"
 import type WebPageElementProps from "../../../../../types/Thing/WebPageElement/index.ts"
 
-import WebPageElement from "./index.tsx"
+import WebPageElement from "../index.tsx"
 
 // Table adds no properties to the WebPageElement schema type
 export type Props = BaseComponentProps<

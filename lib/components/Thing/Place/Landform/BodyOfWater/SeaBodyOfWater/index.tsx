@@ -5,7 +5,7 @@ import type {
 import type BodyOfWaterProps from "../../../../../../types/Thing/BodyOfWater/index.ts"
 import type SeaBodyOfWaterProps from "../../../../../../types/Thing/SeaBodyOfWater/index.ts"
 
-import BodyOfWater from "./index.tsx"
+import BodyOfWater from "../index.tsx"
 
 // SeaBodyOfWater adds no properties to the BodyOfWater schema type
 export type Props = BaseComponentProps<

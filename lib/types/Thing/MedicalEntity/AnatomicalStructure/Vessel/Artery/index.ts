@@ -1,5 +1,5 @@
-import AnatomicalStructure from "../..//index.ts"
-import Vessel from "../index.ts"
+import type AnatomicalStructure from "../../index.ts"
+import type Vessel from "../index.ts"
 
 export default interface Artery extends Vessel {
 	/** The branches that comprise the arterial structure. */

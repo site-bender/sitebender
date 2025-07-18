@@ -1,4 +1,4 @@
-import UpdateAction from "../index.ts"
+import type UpdateAction from "../index.ts"
 
 // DeleteAction extends UpdateAction but adds no additional properties
 

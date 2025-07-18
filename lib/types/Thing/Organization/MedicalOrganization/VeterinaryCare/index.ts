@@ -1,4 +1,4 @@
-import MedicalOrganization from "../index.ts"
+import type MedicalOrganization from "../index.ts"
 
 // VeterinaryCare extends MedicalOrganization but adds no additional properties
 

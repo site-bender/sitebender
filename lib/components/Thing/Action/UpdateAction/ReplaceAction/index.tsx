@@ -5,7 +5,7 @@ import type {
 import type ReplaceActionProps from "../../../../../types/Thing/ReplaceAction/index.ts"
 import type UpdateActionProps from "../../../../../types/Thing/UpdateAction/index.ts"
 
-import UpdateAction from "./index.tsx"
+import UpdateAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ReplaceActionProps,

@@ -1,3 +1,3 @@
-import HVACBusiness from "./index.tsx"
+import HVACBusiness from "../index.tsx"
 
 export default HVACBusiness

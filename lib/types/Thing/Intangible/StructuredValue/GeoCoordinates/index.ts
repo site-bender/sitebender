@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../../DataType/index.ts"
-import Country from "../../../Place/AdministrativeArea/Country/index.ts"
-import PostalAddress from "../ContactPoint/PostalAddress/index.ts"
-import StructuredValue from "../index.ts"
+import type { Number, Text } from "../../../../DataType/index.ts"
+import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
+import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface GeoCoordinates extends StructuredValue {
 	/** Physical address of the item. */

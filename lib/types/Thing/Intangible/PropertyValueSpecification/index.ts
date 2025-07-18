@@ -1,6 +1,6 @@
-import { Boolean, Number, Text } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import Intangible from "../index.ts"
+import type { Boolean, Number, Text } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type Intangible from "../index.ts"
 
 export default interface PropertyValueSpecification extends Intangible {
 	/** The default value of the input.  For properties that expect a literal, the default is a literal value, for properties that expect an object, it's an ID reference to one of the current values. */

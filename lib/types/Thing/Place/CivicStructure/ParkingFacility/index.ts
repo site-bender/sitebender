@@ -1,4 +1,4 @@
-import CivicStructure from "../index.ts"
+import type CivicStructure from "../index.ts"
 
 // ParkingFacility extends CivicStructure but adds no additional properties
 

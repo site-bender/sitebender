@@ -5,7 +5,7 @@ import type {
 import type BookFormatTypeProps from "../../../../../types/Thing/BookFormatType/index.ts"
 import type EnumerationProps from "../../../../../types/Thing/Enumeration/index.ts"
 
-import Enumeration from "./index.tsx"
+import Enumeration from "../index.tsx"
 
 // BookFormatType adds no properties to the Enumeration schema type
 export type Props = BaseComponentProps<

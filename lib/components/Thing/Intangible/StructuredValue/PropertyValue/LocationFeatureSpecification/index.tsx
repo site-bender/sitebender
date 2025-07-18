@@ -5,7 +5,7 @@ import type {
 import type LocationFeatureSpecificationProps from "../../../../../../types/Thing/LocationFeatureSpecification/index.ts"
 import type PropertyValueProps from "../../../../../../types/Thing/PropertyValue/index.ts"
 
-import PropertyValue from "./index.tsx"
+import PropertyValue from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LocationFeatureSpecificationProps,

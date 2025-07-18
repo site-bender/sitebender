@@ -1,8 +1,8 @@
-import { Boolean, Number } from "../../../../DataType/index.ts"
-import DefinedRegion from "../DefinedRegion/index.ts"
-import StructuredValue from "../index.ts"
-import MonetaryAmount from "../MonetaryAmount/index.ts"
-import DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
+import type { Boolean, Number } from "../../../../DataType/index.ts"
+import type DefinedRegion from "../DefinedRegion/index.ts"
+import type StructuredValue from "../index.ts"
+import type MonetaryAmount from "../MonetaryAmount/index.ts"
+import type DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
 
 export default interface ShippingRateSettings extends StructuredValue {
 	/** Indicates when shipping to a particular [[shippingDestination]] is not available. */

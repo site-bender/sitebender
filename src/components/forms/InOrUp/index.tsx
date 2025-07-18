@@ -5,7 +5,7 @@ import FieldSet from "~components/forms/FieldSet/index.tsx"
 import Form from "~components/forms/Form/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & {}
 

@@ -5,7 +5,7 @@ import type {
 import type AtlasProps from "../../../../types/Thing/Atlas/index.ts"
 import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
 
-import CreativeWork from "./index.tsx"
+import CreativeWork from "../index.tsx"
 
 // Atlas adds no properties to the CreativeWork schema type
 export type Props = BaseComponentProps<

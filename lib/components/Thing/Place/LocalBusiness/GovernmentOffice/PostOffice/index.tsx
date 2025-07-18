@@ -1,3 +1,3 @@
-import PostOffice from "./index.tsx"
+import PostOffice from "../index.tsx"
 
 export default PostOffice

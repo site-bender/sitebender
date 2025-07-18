@@ -5,7 +5,7 @@ import type {
 import type EnergyProps from "../../../../../types/Thing/Energy/index.ts"
 import type QuantityProps from "../../../../../types/Thing/Quantity/index.ts"
 
-import Quantity from "./index.tsx"
+import Quantity from "../index.tsx"
 
 // Energy adds no properties to the Quantity schema type
 export type Props = BaseComponentProps<

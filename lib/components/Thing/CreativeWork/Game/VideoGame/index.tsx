@@ -1,3 +1,3 @@
-import VideoGame from "./index.tsx"
+import VideoGame from "../index.tsx"
 
 export default VideoGame

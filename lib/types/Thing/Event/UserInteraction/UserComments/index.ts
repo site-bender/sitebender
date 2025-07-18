@@ -1,8 +1,8 @@
-import { Date, DateTime, Text, URL } from "../../../../DataType/index.ts"
-import CreativeWork from "../../../CreativeWork/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import UserInteraction from "../index.ts"
+import type { Date, DateTime, Text, URL } from "../../../../DataType/index.ts"
+import type CreativeWork from "../../../CreativeWork/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type UserInteraction from "../index.ts"
 
 export default interface UserComments extends UserInteraction {
 	/** The text of the UserComment. */

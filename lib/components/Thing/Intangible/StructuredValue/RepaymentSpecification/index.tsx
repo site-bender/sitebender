@@ -5,7 +5,7 @@ import type {
 import type RepaymentSpecificationProps from "../../../../../types/Thing/RepaymentSpecification/index.ts"
 import type StructuredValueProps from "../../../../../types/Thing/StructuredValue/index.ts"
 
-import StructuredValue from "./index.tsx"
+import StructuredValue from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	RepaymentSpecificationProps,

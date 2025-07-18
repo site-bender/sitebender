@@ -1,3 +1,3 @@
-import DepositAccount from "./index.tsx"
+import DepositAccount from "../index.tsx"
 
 export default DepositAccount

@@ -5,7 +5,7 @@ import type {
 import type ExercisePlanProps from "../../../../../../types/Thing/ExercisePlan/index.ts"
 import type PhysicalActivityProps from "../../../../../../types/Thing/PhysicalActivity/index.ts"
 
-import PhysicalActivity from "./index.tsx"
+import PhysicalActivity from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ExercisePlanProps,

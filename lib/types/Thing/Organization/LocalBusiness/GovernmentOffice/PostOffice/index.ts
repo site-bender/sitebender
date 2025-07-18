@@ -1,4 +1,4 @@
-import GovernmentOffice from "../index.ts"
+import type GovernmentOffice from "../index.ts"
 
 // PostOffice extends GovernmentOffice but adds no additional properties
 

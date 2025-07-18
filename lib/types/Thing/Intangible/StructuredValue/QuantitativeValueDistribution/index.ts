@@ -1,7 +1,7 @@
-import { Number } from "../../../../DataType/index.ts"
-import Duration from "../../Quantity/Duration/index.ts"
-import StructuredValue from "../index.ts"
-import QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { Number } from "../../../../DataType/index.ts"
+import type Duration from "../../Quantity/Duration/index.ts"
+import type StructuredValue from "../index.ts"
+import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
 export default interface QuantitativeValueDistribution extends StructuredValue {
 	/** The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601). */

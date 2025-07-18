@@ -1,4 +1,4 @@
-import VisualArtwork from "../index.ts"
+import type VisualArtwork from "../index.ts"
 
 // CoverArt extends VisualArtwork but adds no additional properties
 

@@ -1,12 +1,12 @@
-import { Date, Text, URL } from "../../../DataType/index.ts"
-import Specialty from "../../Intangible/Enumeration/Specialty/index.ts"
-import BreadcrumbList from "../../Intangible/ItemList/BreadcrumbList/index.ts"
-import SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
-import ImageObject from "../MediaObject/ImageObject/index.ts"
-import WebPageElement from "../WebPageElement/index.ts"
+import type { Date, Text, URL } from "../../../DataType/index.ts"
+import type Specialty from "../../Intangible/Enumeration/Specialty/index.ts"
+import type BreadcrumbList from "../../Intangible/ItemList/BreadcrumbList/index.ts"
+import type SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
+import type ImageObject from "../MediaObject/ImageObject/index.ts"
+import type WebPageElement from "../WebPageElement/index.ts"
 
 export default interface WebPage extends CreativeWork {
 	/** A set of links that can help a user understand and navigate a website hierarchy. */

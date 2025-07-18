@@ -1,4 +1,5 @@
-import createElement, { Fragment } from "~utilities/createElement/index.ts"
+import createElement from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 import copyComponentStyles from "../copyComponentStyles/index.ts"
 import generatePages from "../generatePages/index.ts"
@@ -20,3 +21,4 @@ export default async function buildDev(): Promise<void> {
 if (import.meta.main) {
 	await buildDev()
 }
+

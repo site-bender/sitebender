@@ -5,7 +5,7 @@ import type {
 import type PreOrderActionProps from "../../../../../types/Thing/PreOrderAction/index.ts"
 import type TradeActionProps from "../../../../../types/Thing/TradeAction/index.ts"
 
-import TradeAction from "./index.tsx"
+import TradeAction from "../index.tsx"
 
 // PreOrderAction adds no properties to the TradeAction schema type
 export type Props = BaseComponentProps<

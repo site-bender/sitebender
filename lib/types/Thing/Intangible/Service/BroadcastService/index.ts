@@ -1,10 +1,10 @@
-import { Language } from "../../../../bcp47/index.ts"
-import { Text } from "../../../../DataType/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Place from "../../../Place/index.ts"
-import BroadcastChannel from "../../BroadcastChannel/index.ts"
-import BroadcastFrequencySpecification from "../../BroadcastFrequencySpecification/index.ts"
-import Service from "../index.ts"
+import type { Language } from "../../../../bcp47/index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Place from "../../../Place/index.ts"
+import type BroadcastChannel from "../../BroadcastChannel/index.ts"
+import type BroadcastFrequencySpecification from "../../BroadcastFrequencySpecification/index.ts"
+import type Service from "../index.ts"
 
 export default interface BroadcastService extends Service {
 	/** The area within which users can expect to reach the broadcast service. */

@@ -1,3 +1,3 @@
-import HousePainter from "./index.tsx"
+import HousePainter from "../index.tsx"
 
 export default HousePainter

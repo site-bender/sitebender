@@ -1,4 +1,4 @@
-import EducationalOrganization from "../index.ts"
+import type EducationalOrganization from "../index.ts"
 
 // Preschool extends EducationalOrganization but adds no additional properties
 

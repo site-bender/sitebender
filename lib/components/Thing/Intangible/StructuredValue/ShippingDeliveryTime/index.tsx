@@ -5,7 +5,7 @@ import type {
 import type ShippingDeliveryTimeProps from "../../../../../types/Thing/ShippingDeliveryTime/index.ts"
 import type StructuredValueProps from "../../../../../types/Thing/StructuredValue/index.ts"
 
-import StructuredValue from "./index.tsx"
+import StructuredValue from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ShippingDeliveryTimeProps,

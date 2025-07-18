@@ -5,7 +5,7 @@ import type {
 import type OfferProps from "../../../../../types/Thing/Offer/index.ts"
 import type OfferForPurchaseProps from "../../../../../types/Thing/OfferForPurchase/index.ts"
 
-import Offer from "./index.tsx"
+import Offer from "../index.tsx"
 
 // OfferForPurchase adds no properties to the Offer schema type
 export type Props = BaseComponentProps<

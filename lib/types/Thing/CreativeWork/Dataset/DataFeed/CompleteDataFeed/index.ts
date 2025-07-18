@@ -1,4 +1,4 @@
-import DataFeed from "../index.ts"
+import type DataFeed from "../index.ts"
 
 // CompleteDataFeed extends DataFeed but adds no additional properties
 

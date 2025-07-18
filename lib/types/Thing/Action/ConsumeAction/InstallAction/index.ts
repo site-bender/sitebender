@@ -1,4 +1,4 @@
-import ConsumeAction from "../index.ts"
+import type ConsumeAction from "../index.ts"
 
 // InstallAction extends ConsumeAction but adds no additional properties
 

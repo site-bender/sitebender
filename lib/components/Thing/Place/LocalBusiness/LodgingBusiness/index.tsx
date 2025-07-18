@@ -1,3 +1,3 @@
-import LodgingBusiness from "./index.tsx"
+import LodgingBusiness from "../index.tsx"
 
 export default LodgingBusiness

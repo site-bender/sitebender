@@ -5,7 +5,7 @@ import type {
 import type StoreProps from "../../../../../../types/Thing/Store/index.ts"
 import type WholesaleStoreProps from "../../../../../../types/Thing/WholesaleStore/index.ts"
 
-import Store from "./index.tsx"
+import Store from "../index.tsx"
 
 // WholesaleStore adds no properties to the Store schema type
 export type Props = BaseComponentProps<

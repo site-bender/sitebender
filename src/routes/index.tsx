@@ -1,4 +1,4 @@
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 // Head elements for this page - will be extracted by the build system
 export function Head() {

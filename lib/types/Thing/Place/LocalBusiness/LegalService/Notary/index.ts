@@ -1,1 +1,1 @@
-export { default } from "../../../../../Thing/Organization/LocalBusiness/LegalService/Notary/index.ts"
+export type { default } from "../../../../../Thing/Organization/LocalBusiness/LegalService/Notary/index.ts"

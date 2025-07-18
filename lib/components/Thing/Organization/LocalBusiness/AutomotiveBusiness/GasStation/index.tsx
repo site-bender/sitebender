@@ -5,7 +5,7 @@ import type {
 import type AutomotiveBusinessProps from "../../../../../../types/Thing/AutomotiveBusiness/index.ts"
 import type GasStationProps from "../../../../../../types/Thing/GasStation/index.ts"
 
-import AutomotiveBusiness from "./index.tsx"
+import AutomotiveBusiness from "../index.tsx"
 
 // GasStation adds no properties to the AutomotiveBusiness schema type
 export type Props = BaseComponentProps<

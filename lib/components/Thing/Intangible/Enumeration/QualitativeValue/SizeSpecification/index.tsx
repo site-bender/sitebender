@@ -5,7 +5,7 @@ import type {
 import type QualitativeValueProps from "../../../../../../types/Thing/QualitativeValue/index.ts"
 import type SizeSpecificationProps from "../../../../../../types/Thing/SizeSpecification/index.ts"
 
-import QualitativeValue from "./index.tsx"
+import QualitativeValue from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	SizeSpecificationProps,

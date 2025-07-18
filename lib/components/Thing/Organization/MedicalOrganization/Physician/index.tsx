@@ -5,7 +5,7 @@ import type {
 import type MedicalOrganizationProps from "../../../../../types/Thing/MedicalOrganization/index.ts"
 import type PhysicianProps from "../../../../../types/Thing/Physician/index.ts"
 
-import MedicalOrganization from "./index.tsx"
+import MedicalOrganization from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PhysicianProps,

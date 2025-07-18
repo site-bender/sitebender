@@ -1,12 +1,11 @@
-import Gene from "Gene/index.ts"
-
-import { Text, URL } from "../../DataType/index.ts"
-import Thing from "../index.ts"
-import DefinedTerm from "../Intangible/DefinedTerm/index.ts"
-import Grant from "../Intangible/Grant/index.ts"
-import PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
-import MedicalCondition from "../MedicalEntity/MedicalCondition/index.ts"
-import Taxon from "../Taxon/index.ts"
+import type { Text, URL } from "../../DataType/index.ts"
+import type Thing from "../index.ts"
+import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
+import type Grant from "../Intangible/Grant/index.ts"
+import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
+import type MedicalCondition from "../MedicalEntity/MedicalCondition/index.ts"
+import type Taxon from "../Taxon/index.ts"
+import type Gene from "./Gene/index.ts"
 
 export default interface BioChemEntity extends Thing {
 	/** Disease associated to this BioChemEntity. Such disease can be a MedicalCondition or a URL. If you want to add an evidence supporting the association, please use PropertyValue. */

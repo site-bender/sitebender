@@ -1,3 +1,3 @@
-import CreativeWorkSeries from "./index.tsx"
+import CreativeWorkSeries from "../index.tsx"
 
 export default CreativeWorkSeries

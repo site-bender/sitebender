@@ -5,7 +5,7 @@ import type {
 import type EmployeeRoleProps from "../../../../../../types/Thing/EmployeeRole/index.ts"
 import type OrganizationRoleProps from "../../../../../../types/Thing/OrganizationRole/index.ts"
 
-import OrganizationRole from "./index.tsx"
+import OrganizationRole from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	EmployeeRoleProps,

@@ -5,7 +5,7 @@ import type {
 import type DriveWheelConfigurationValueProps from "../../../../../../types/Thing/DriveWheelConfigurationValue/index.ts"
 import type QualitativeValueProps from "../../../../../../types/Thing/QualitativeValue/index.ts"
 
-import QualitativeValue from "./index.tsx"
+import QualitativeValue from "../index.tsx"
 
 // DriveWheelConfigurationValue adds no properties to the QualitativeValue schema type
 export type Props = BaseComponentProps<

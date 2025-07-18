@@ -5,7 +5,7 @@ import type {
 import type DoseScheduleProps from "../../../../../../types/Thing/DoseSchedule/index.ts"
 import type ReportedDoseScheduleProps from "../../../../../../types/Thing/ReportedDoseSchedule/index.ts"
 
-import DoseSchedule from "./index.tsx"
+import DoseSchedule from "../index.tsx"
 
 // ReportedDoseSchedule adds no properties to the DoseSchedule schema type
 export type Props = BaseComponentProps<

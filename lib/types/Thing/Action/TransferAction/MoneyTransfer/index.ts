@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../../DataType/index.ts"
-import MonetaryAmount from "../../../Intangible/StructuredValue/MonetaryAmount/index.ts"
-import BankOrCreditUnion from "../../../Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
-import TransferAction from "../index.ts"
+import type { Number, Text } from "../../../../DataType/index.ts"
+import type MonetaryAmount from "../../../Intangible/StructuredValue/MonetaryAmount/index.ts"
+import type BankOrCreditUnion from "../../../Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
+import type TransferAction from "../index.ts"
 
 export default interface MoneyTransfer extends TransferAction {
 	/** The amount of money. */

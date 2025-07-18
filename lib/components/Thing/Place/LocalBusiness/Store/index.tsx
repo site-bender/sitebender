@@ -1,3 +1,3 @@
-import Store from "./index.tsx"
+import Store from "../index.tsx"
 
 export default Store

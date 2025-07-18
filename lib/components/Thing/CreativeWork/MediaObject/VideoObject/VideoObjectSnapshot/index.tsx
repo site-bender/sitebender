@@ -5,7 +5,7 @@ import type {
 import type VideoObjectProps from "../../../../../../types/Thing/VideoObject/index.ts"
 import type VideoObjectSnapshotProps from "../../../../../../types/Thing/VideoObjectSnapshot/index.ts"
 
-import VideoObject from "./index.tsx"
+import VideoObject from "../index.tsx"
 
 // VideoObjectSnapshot adds no properties to the VideoObject schema type
 export type Props = BaseComponentProps<

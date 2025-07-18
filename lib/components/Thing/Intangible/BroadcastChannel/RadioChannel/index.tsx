@@ -5,7 +5,7 @@ import type {
 import type BroadcastChannelProps from "../../../../../types/Thing/BroadcastChannel/index.ts"
 import type RadioChannelProps from "../../../../../types/Thing/RadioChannel/index.ts"
 
-import BroadcastChannel from "./index.tsx"
+import BroadcastChannel from "../index.tsx"
 
 // RadioChannel adds no properties to the BroadcastChannel schema type
 export type Props = BaseComponentProps<

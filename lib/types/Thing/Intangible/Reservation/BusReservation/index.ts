@@ -1,4 +1,4 @@
-import Reservation from "../index.ts"
+import type Reservation from "../index.ts"
 
 // BusReservation extends Reservation but adds no additional properties
 

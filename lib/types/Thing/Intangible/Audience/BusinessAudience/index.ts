@@ -1,5 +1,5 @@
-import QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
-import Audience from "../index.ts"
+import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type Audience from "../index.ts"
 
 export default interface BusinessAudience extends Audience {
 	/** The number of employees in an organization, e.g. business. */

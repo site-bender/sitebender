@@ -1,3 +1,3 @@
-import ElectronicsStore from "./index.tsx"
+import ElectronicsStore from "../index.tsx"
 
 export default ElectronicsStore

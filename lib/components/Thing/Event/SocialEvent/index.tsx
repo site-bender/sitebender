@@ -5,7 +5,7 @@ import type {
 import type EventProps from "../../../../types/Thing/Event/index.ts"
 import type SocialEventProps from "../../../../types/Thing/SocialEvent/index.ts"
 
-import Event from "./index.tsx"
+import Event from "../index.tsx"
 
 // SocialEvent adds no properties to the Event schema type
 export type Props = BaseComponentProps<

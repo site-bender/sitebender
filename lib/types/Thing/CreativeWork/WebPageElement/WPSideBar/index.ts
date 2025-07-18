@@ -1,4 +1,4 @@
-import WebPageElement from "../index.ts"
+import type WebPageElement from "../index.ts"
 
 // WPSideBar extends WebPageElement but adds no additional properties
 

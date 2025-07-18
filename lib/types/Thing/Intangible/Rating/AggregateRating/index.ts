@@ -1,6 +1,6 @@
-import { Integer } from "../../../../DataType/index.ts"
-import Thing from "../../../../index.ts"
-import Rating from "../index.ts"
+import type { Integer } from "../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
+import type Rating from "../index.ts"
 
 export default interface AggregateRating extends Rating {
 	/** The item that is being reviewed/rated. */

@@ -1,6 +1,6 @@
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Claim extends CreativeWork {
 	/** Indicates an occurrence of a [[Claim]] in some [[CreativeWork]]. */

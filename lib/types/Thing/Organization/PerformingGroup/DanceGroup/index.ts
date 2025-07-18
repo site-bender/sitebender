@@ -1,4 +1,4 @@
-import PerformingGroup from "../index.ts"
+import type PerformingGroup from "../index.ts"
 
 // DanceGroup extends PerformingGroup but adds no additional properties
 

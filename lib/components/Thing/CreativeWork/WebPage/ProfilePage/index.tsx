@@ -5,7 +5,7 @@ import type {
 import type ProfilePageProps from "../../../../../types/Thing/ProfilePage/index.ts"
 import type WebPageProps from "../../../../../types/Thing/WebPage/index.ts"
 
-import WebPage from "./index.tsx"
+import WebPage from "../index.tsx"
 
 // ProfilePage adds no properties to the WebPage schema type
 export type Props = BaseComponentProps<

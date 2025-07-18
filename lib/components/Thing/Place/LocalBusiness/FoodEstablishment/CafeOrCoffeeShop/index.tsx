@@ -1,3 +1,3 @@
-import CafeOrCoffeeShop from "./index.tsx"
+import CafeOrCoffeeShop from "../index.tsx"
 
 export default CafeOrCoffeeShop

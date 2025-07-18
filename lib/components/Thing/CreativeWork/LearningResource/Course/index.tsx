@@ -1,3 +1,3 @@
-import Course from "./index.tsx"
+import Course from "../index.tsx"
 
 export default Course

@@ -1,4 +1,4 @@
-import PublicationEvent from "../index.ts"
+import type PublicationEvent from "../index.ts"
 
 // OnDemandEvent extends PublicationEvent but adds no additional properties
 

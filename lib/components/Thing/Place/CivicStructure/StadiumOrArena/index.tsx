@@ -1,3 +1,3 @@
-import StadiumOrArena from "./index.tsx"
+import StadiumOrArena from "../index.tsx"
 
 export default StadiumOrArena

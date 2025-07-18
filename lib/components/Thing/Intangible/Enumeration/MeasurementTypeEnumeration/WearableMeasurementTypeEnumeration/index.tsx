@@ -5,7 +5,7 @@ import type {
 import type MeasurementTypeEnumerationProps from "../../../../../../types/Thing/MeasurementTypeEnumeration/index.ts"
 import type WearableMeasurementTypeEnumerationProps from "../../../../../../types/Thing/WearableMeasurementTypeEnumeration/index.ts"
 
-import MeasurementTypeEnumeration from "./index.tsx"
+import MeasurementTypeEnumeration from "../index.tsx"
 
 // WearableMeasurementTypeEnumeration adds no properties to the MeasurementTypeEnumeration schema type
 export type Props = BaseComponentProps<

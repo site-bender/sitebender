@@ -5,7 +5,7 @@ import type {
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 import type StructuredValueProps from "../../../../types/Thing/StructuredValue/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 // StructuredValue adds no properties to the Intangible schema type
 export type Props = BaseComponentProps<

@@ -5,7 +5,7 @@ import type {
 import type PaymentStatusTypeProps from "../../../../../../types/Thing/PaymentStatusType/index.ts"
 import type StatusEnumerationProps from "../../../../../../types/Thing/StatusEnumeration/index.ts"
 
-import StatusEnumeration from "./index.tsx"
+import StatusEnumeration from "../index.tsx"
 
 // PaymentStatusType adds no properties to the StatusEnumeration schema type
 export type Props = BaseComponentProps<

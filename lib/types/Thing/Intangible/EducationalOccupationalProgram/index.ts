@@ -1,4 +1,4 @@
-import {
+import type {
 	Date,
 	DateTime,
 	Integer,
@@ -6,20 +6,20 @@ import {
 	Text,
 	URL,
 } from "../../../DataType/index.ts"
-import Course from "../../CreativeWork/Course/index.ts"
-import EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import AlignmentObject from "../AlignmentObject/index.ts"
-import CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
-import DefinedTerm from "../DefinedTerm/index.ts"
-import Demand from "../Demand/index.ts"
-import DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
-import Intangible from "../index.ts"
-import Offer from "../Offer/index.ts"
-import Duration from "../Quantity/Duration/index.ts"
-import StructuredValue from "../StructuredValue/index.ts"
-import MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type Course from "../../CreativeWork/Course/index.ts"
+import type EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type AlignmentObject from "../AlignmentObject/index.ts"
+import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type DefinedTerm from "../DefinedTerm/index.ts"
+import type Demand from "../Demand/index.ts"
+import type DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
+import type Intangible from "../index.ts"
+import type Offer from "../Offer/index.ts"
+import type Duration from "../Quantity/Duration/index.ts"
+import type StructuredValue from "../StructuredValue/index.ts"
+import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
 export default interface EducationalOccupationalProgram extends Intangible {
 	/** The date on which the program stops collecting applications for the next enrollment cycle. Flexible application deadlines (for example, a program with rolling admissions) can be described in a textual string, rather than as a DateTime. */

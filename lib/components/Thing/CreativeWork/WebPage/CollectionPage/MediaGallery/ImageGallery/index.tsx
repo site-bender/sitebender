@@ -5,7 +5,7 @@ import type {
 import type ImageGalleryProps from "../../../../../../../types/Thing/ImageGallery/index.ts"
 import type MediaGalleryProps from "../../../../../../../types/Thing/MediaGallery/index.ts"
 
-import MediaGallery from "./index.tsx"
+import MediaGallery from "../index.tsx"
 
 // ImageGallery adds no properties to the MediaGallery schema type
 export type Props = BaseComponentProps<

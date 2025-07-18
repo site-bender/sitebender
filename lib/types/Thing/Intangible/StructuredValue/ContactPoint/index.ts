@@ -1,12 +1,12 @@
-import { Language } from "../../../../bcp47/index.ts"
-import { Text } from "../../../../DataType/index.ts"
-import AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
-import Place from "../../../Place/index.ts"
-import Product from "../../../Product/index.ts"
-import ContactPointOption from "../../Enumeration/ContactPointOption/index.ts"
-import GeoShape from "../GeoShape/index.ts"
-import StructuredValue from "../index.ts"
-import OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
+import type { Language } from "../../../../bcp47/index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
+import type Place from "../../../Place/index.ts"
+import type Product from "../../../Product/index.ts"
+import type ContactPointOption from "../../Enumeration/ContactPointOption/index.ts"
+import type GeoShape from "../GeoShape/index.ts"
+import type StructuredValue from "../index.ts"
+import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
 
 export default interface ContactPoint extends StructuredValue {
 	/** The geographic area where a service or offered item is provided. */

@@ -1,6 +1,6 @@
-import Class from "../Class/index.ts"
-import Enumeration from "../Enumeration/index.ts"
-import Intangible from "../index.ts"
+import type Class from "../Class/index.ts"
+import type Enumeration from "../Enumeration/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface Property extends Intangible {
 	/** Relates a property to a class that is (one of) the type(s) the property is expected to be used on. */

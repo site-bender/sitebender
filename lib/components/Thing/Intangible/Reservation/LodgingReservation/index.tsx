@@ -5,7 +5,7 @@ import type {
 import type LodgingReservationProps from "../../../../../types/Thing/LodgingReservation/index.ts"
 import type ReservationProps from "../../../../../types/Thing/Reservation/index.ts"
 
-import Reservation from "./index.tsx"
+import Reservation from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	LodgingReservationProps,

@@ -1,4 +1,4 @@
-import Quantity from "../index.ts"
+import type Quantity from "../index.ts"
 
 // Energy extends Quantity but adds no additional properties
 

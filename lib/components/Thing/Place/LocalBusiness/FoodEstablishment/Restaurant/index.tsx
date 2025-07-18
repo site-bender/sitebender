@@ -1,3 +1,3 @@
-import Restaurant from "./index.tsx"
+import Restaurant from "../index.tsx"
 
 export default Restaurant

@@ -1,7 +1,7 @@
 import createAssetElements from "~scripts/build/createAssetElements/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 // Set up JSX runtime
 Object.assign(globalThis, { createElement, Fragment })

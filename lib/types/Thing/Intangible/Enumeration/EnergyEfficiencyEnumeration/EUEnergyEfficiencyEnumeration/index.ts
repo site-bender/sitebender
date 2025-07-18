@@ -1,4 +1,4 @@
-import EnergyEfficiencyEnumeration from "../index.ts"
+import type EnergyEfficiencyEnumeration from "../index.ts"
 
 // EUEnergyEfficiencyEnumeration extends EnergyEfficiencyEnumeration but adds no additional properties
 

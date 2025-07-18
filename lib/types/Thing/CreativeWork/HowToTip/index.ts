@@ -1,1 +1,3 @@
-export { default } from "../../../Thing/Intangible/ListItem/HowToTip/index.ts"
+import type ListItem from "../../Intangible/ListItem/index.ts"
+
+export type { default } from "../../../Thing/Intangible/ListItem/HowToTip/index.ts"

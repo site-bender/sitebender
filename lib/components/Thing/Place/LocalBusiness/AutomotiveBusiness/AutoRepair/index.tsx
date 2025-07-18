@@ -1,3 +1,3 @@
-import AutoRepair from "./index.tsx"
+import AutoRepair from "../index.tsx"
 
 export default AutoRepair

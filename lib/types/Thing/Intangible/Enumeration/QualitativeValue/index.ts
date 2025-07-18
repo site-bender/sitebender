@@ -1,10 +1,10 @@
-import { Text } from "../../../../DataType/index.ts"
-import DefinedTerm from "../../DefinedTerm/index.ts"
-import StructuredValue from "../../StructuredValue/index.ts"
-import PropertyValue from "../../StructuredValue/PropertyValue/index.ts"
-import QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
-import Enumeration from "../index.ts"
-import MeasurementTypeEnumeration from "../MeasurementTypeEnumeration/index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type DefinedTerm from "../../DefinedTerm/index.ts"
+import type StructuredValue from "../../StructuredValue/index.ts"
+import type PropertyValue from "../../StructuredValue/PropertyValue/index.ts"
+import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type Enumeration from "../index.ts"
+import type MeasurementTypeEnumeration from "../MeasurementTypeEnumeration/index.ts"
 
 export default interface QualitativeValue extends Enumeration {
 	/** A property-value pair representing an additional characteristic of the entity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\n\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. https://schema.org/width, https://schema.org/color, https://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism. */

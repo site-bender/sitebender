@@ -1,3 +1,3 @@
-import FurnitureStore from "./index.tsx"
+import FurnitureStore from "../index.tsx"
 
 export default FurnitureStore

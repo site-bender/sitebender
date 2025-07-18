@@ -1,4 +1,4 @@
-import MedicalSignOrSymptom from "../index.ts"
+import type MedicalSignOrSymptom from "../index.ts"
 
 // MedicalSymptom extends MedicalSignOrSymptom but adds no additional properties
 

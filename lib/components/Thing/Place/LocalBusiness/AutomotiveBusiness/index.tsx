@@ -1,3 +1,3 @@
-import AutomotiveBusiness from "./index.tsx"
+import AutomotiveBusiness from "../index.tsx"
 
 export default AutomotiveBusiness

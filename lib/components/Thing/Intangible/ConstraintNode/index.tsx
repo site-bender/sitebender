@@ -5,7 +5,7 @@ import type {
 import type ConstraintNodeProps from "../../../../types/Thing/ConstraintNode/index.ts"
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ConstraintNodeProps,

@@ -1,3 +1,3 @@
-import OutletStore from "./index.tsx"
+import OutletStore from "../index.tsx"
 
 export default OutletStore

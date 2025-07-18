@@ -1,12 +1,12 @@
-import { Text } from "../../../DataType/index.ts"
-import Duration from "../../Intangible/Quantity/Duration/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
-import MusicComposition from "../MusicComposition/index.ts"
-import MusicPlaylist from "../MusicPlaylist/index.ts"
-import MusicAlbum from "../MusicPlaylist/MusicAlbum/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type Duration from "../../Intangible/Quantity/Duration/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
+import type MusicComposition from "../MusicComposition/index.ts"
+import type MusicPlaylist from "../MusicPlaylist/index.ts"
+import type MusicAlbum from "../MusicPlaylist/MusicAlbum/index.ts"
 
 export default interface MusicRecording extends CreativeWork {
 	/** The artist that performed this album or recording. */

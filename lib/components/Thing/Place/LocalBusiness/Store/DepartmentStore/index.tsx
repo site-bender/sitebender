@@ -1,3 +1,3 @@
-import DepartmentStore from "./index.tsx"
+import DepartmentStore from "../index.tsx"
 
 export default DepartmentStore

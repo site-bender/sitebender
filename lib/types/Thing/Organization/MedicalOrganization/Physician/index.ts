@@ -1,13 +1,17 @@
-import { Text } from "../../../../DataType/index.ts"
-import CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/index.ts"
-import MedicalSpecialty from "../../../Intangible/Enumeration/Specialty/MedicalSpecialty/index.ts"
-import MedicalProcedure from "../../../MedicalEntity/MedicalProcedure/index.ts"
-import MedicalTherapy from "../../../MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
-import MedicalTest from "../../../MedicalEntity/MedicalTest/index.ts"
-import Hospital from "../Hospital/index.ts"
-import MedicalOrganization from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/index.ts"
+import type MedicalSpecialty from "../../../Intangible/Enumeration/Specialty/MedicalSpecialty/index.ts"
+import type MedicalProcedure from "../../../MedicalEntity/MedicalProcedure/index.ts"
+import type MedicalTherapy from "../../../MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
+import type MedicalTest from "../../../MedicalEntity/MedicalTest/index.ts"
+import type MedicalBusiness from "../../../Place/LocalBusiness/MedicalBusiness/index.ts"
+import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/index.ts"
+import type Hospital from "../Hospital/index.ts"
+import type MedicalOrganization from "../index.ts"
+import type { MedicalOrganizationProps } from "../index.ts"
 
-export default interface Physician extends MedicalOrganization {
+export interface PhysicianProps {
 	/** A medical service available from this provider. */
 	availableService?: MedicalProcedure | MedicalTest | MedicalTherapy
 	/** A hospital with which the physician or office is affiliated. */
@@ -19,3 +23,11 @@ export default interface Physician extends MedicalOrganization {
 	/** A <a href="https://en.wikipedia.org/wiki/National_Provider_Identifier">National Provider Identifier</a> (NPI)      is a unique 10-digit identification number issued to health care providers in the United States by the Centers for Medicare and Medicaid Services. */
 	usNPI?: Text
 }
+
+type Physician =
+	& Thing
+	& MedicalOrganizationProps
+	& MedicalBusinessProps
+	& PhysicianProps
+
+export default Physician

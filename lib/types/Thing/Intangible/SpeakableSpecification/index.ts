@@ -1,5 +1,5 @@
-import { CssSelectorType, XPathType } from "../../../DataType/index.ts"
-import Intangible from "../index.ts"
+import type { CssSelectorType, XPathType } from "../../../DataType/index.ts"
+import type Intangible from "../index.ts"
 
 export default interface SpeakableSpecification extends Intangible {
 	/** A CSS selector, e.g. of a [[SpeakableSpecification]] or [[WebPageElement]]. In the latter case, multiple matches within a page can constitute a single conceptual "Web page element". */

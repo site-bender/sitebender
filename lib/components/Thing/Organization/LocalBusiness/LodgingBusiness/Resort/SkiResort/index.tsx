@@ -1,3 +1,3 @@
-import SkiResort from "./index.tsx"
+import SkiResort from "../index.tsx"
 
 export default SkiResort

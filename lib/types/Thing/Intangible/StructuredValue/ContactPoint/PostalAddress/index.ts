@@ -1,6 +1,6 @@
-import { Text } from "../../../../../DataType/index.ts"
-import Country from "../../../../Place/AdministrativeArea/Country/index.ts"
-import ContactPoint from "../index.ts"
+import type { Text } from "../../../../../DataType/index.ts"
+import type Country from "../../../../Place/AdministrativeArea/Country/index.ts"
+import type ContactPoint from "../index.ts"
 
 export default interface PostalAddress extends ContactPoint {
 	/** The country. Recommended to be in 2-letter [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example "US". For backward compatibility, a 3-letter [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or a full country name such as "Singapore" can also be used. */

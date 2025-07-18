@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import QualitativeValue from "../Enumeration/QualitativeValue/index.ts"
-import Intangible from "../index.ts"
-import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type QualitativeValue from "../Enumeration/QualitativeValue/index.ts"
+import type Intangible from "../index.ts"
+import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 export default interface BroadcastFrequencySpecification extends Intangible {
 	/** The frequency in MHz for a particular broadcast. */

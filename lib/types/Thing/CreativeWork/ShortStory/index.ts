@@ -1,4 +1,4 @@
-import CreativeWork from "../index.ts"
+import type CreativeWork from "../index.ts"
 
 // ShortStory extends CreativeWork but adds no additional properties
 

@@ -5,7 +5,7 @@ import type {
 import type LifestyleModificationProps from "../../../../../types/Thing/LifestyleModification/index.ts"
 import type PhysicalActivityProps from "../../../../../types/Thing/PhysicalActivity/index.ts"
 
-import LifestyleModification from "./index.tsx"
+import LifestyleModification from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PhysicalActivityProps,

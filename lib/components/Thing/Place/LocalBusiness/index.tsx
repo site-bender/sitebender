@@ -1,3 +1,3 @@
-import LocalBusiness from "./index.tsx"
+import LocalBusiness from "../index.tsx"
 
 export default LocalBusiness

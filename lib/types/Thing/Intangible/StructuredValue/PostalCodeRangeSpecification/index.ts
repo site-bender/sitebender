@@ -1,5 +1,5 @@
-import { Text } from "../../../../DataType/index.ts"
-import StructuredValue from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type StructuredValue from "../index.ts"
 
 export default interface PostalCodeRangeSpecification extends StructuredValue {
 	/** First postal code in a range (included). */

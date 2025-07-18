@@ -1,6 +1,6 @@
-import CreativeWork from "../..//index.ts"
-import WebContent from "../../WebContent/index.ts"
-import Comment from "../index.ts"
+import type CreativeWork from "../../index.ts"
+import type WebContent from "../../WebContent/index.ts"
+import type Comment from "../index.ts"
 
 export default interface Answer extends Comment {
 	/** A step-by-step or full explanation about Answer. Can outline how this Answer was achieved or contain more broad clarification or statement about it. */

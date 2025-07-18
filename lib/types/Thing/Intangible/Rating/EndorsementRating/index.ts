@@ -1,4 +1,4 @@
-import Rating from "../index.ts"
+import type Rating from "../index.ts"
 
 // EndorsementRating extends Rating but adds no additional properties
 

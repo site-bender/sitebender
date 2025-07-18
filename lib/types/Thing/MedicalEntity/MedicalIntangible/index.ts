@@ -1,4 +1,4 @@
-import MedicalEntity from "../index.ts"
+import type MedicalEntity from "../index.ts"
 
 // MedicalIntangible extends MedicalEntity but adds no additional properties
 

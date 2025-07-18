@@ -1,11 +1,17 @@
-import { Boolean, Integer, Number, Text, URL } from "../../../DataType/index.ts"
-import BedDetails from "../../Intangible/BedDetails/index.ts"
-import BedType from "../../Intangible/Enumeration/QualitativeValue/BedType/index.ts"
-import FloorPlan from "../../Intangible/FloorPlan/index.ts"
-import Duration from "../../Intangible/Quantity/Duration/index.ts"
-import LocationFeatureSpecification from "../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Place from "../index.ts"
+import type {
+	Boolean,
+	Integer,
+	Number,
+	Text,
+	URL,
+} from "../../../DataType/index.ts"
+import type BedDetails from "../../Intangible/BedDetails/index.ts"
+import type BedType from "../../Intangible/Enumeration/QualitativeValue/BedType/index.ts"
+import type FloorPlan from "../../Intangible/FloorPlan/index.ts"
+import type Duration from "../../Intangible/Quantity/Duration/index.ts"
+import type LocationFeatureSpecification from "../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Place from "../index.ts"
 
 export default interface Accommodation extends Place {
 	/** Category of an [[Accommodation]], following real estate conventions, e.g. RESO (see [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field), and [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field) fields  for suggested values). */

@@ -1,4 +1,4 @@
-import SocialMediaPosting from "../index.ts"
+import type SocialMediaPosting from "../index.ts"
 
 // BlogPosting extends SocialMediaPosting but adds no additional properties
 

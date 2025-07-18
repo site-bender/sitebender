@@ -5,7 +5,7 @@ import type {
 import type EventProps from "../../../../types/Thing/Event/index.ts"
 import type ScreeningEventProps from "../../../../types/Thing/ScreeningEvent/index.ts"
 
-import Event from "./index.tsx"
+import Event from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ScreeningEventProps,

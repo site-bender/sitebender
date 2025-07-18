@@ -5,7 +5,7 @@ import type {
 import type PropertyValueProps from "../../../../../types/Thing/PropertyValue/index.ts"
 import type StructuredValueProps from "../../../../../types/Thing/StructuredValue/index.ts"
 
-import StructuredValue from "./index.tsx"
+import StructuredValue from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PropertyValueProps,

@@ -5,7 +5,7 @@ import type {
 import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
 import type RatingProps from "../../../../types/Thing/Rating/index.ts"
 
-import Intangible from "./index.tsx"
+import Intangible from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	RatingProps,

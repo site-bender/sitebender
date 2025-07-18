@@ -5,7 +5,7 @@ import type {
 import type GovernmentPermitProps from "../../../../../types/Thing/GovernmentPermit/index.ts"
 import type PermitProps from "../../../../../types/Thing/Permit/index.ts"
 
-import Permit from "./index.tsx"
+import Permit from "../index.tsx"
 
 // GovernmentPermit adds no properties to the Permit schema type
 export type Props = BaseComponentProps<

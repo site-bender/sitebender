@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Vehicle from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Vehicle from "../index.ts"
 
 export default interface Car extends Vehicle {
 	/** The ACRISS Car Classification Code is a code used by many car rental companies, for classifying vehicles. ACRISS stands for Association of Car Rental Industry Systems and Standards. */

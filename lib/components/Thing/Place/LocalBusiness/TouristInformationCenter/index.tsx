@@ -1,3 +1,3 @@
-import TouristInformationCenter from "./index.tsx"
+import TouristInformationCenter from "../index.tsx"
 
 export default TouristInformationCenter

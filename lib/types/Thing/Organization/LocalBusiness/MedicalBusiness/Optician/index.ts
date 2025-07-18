@@ -1,4 +1,4 @@
-import MedicalBusiness from "../index.ts"
+import type MedicalBusiness from "../index.ts"
 
 // Optician extends MedicalBusiness but adds no additional properties
 

@@ -1,22 +1,28 @@
-import { Boolean, Integer, Number, Text, URL } from "../../DataType/index.ts"
-import Certification from "../CreativeWork/Certification/index.ts"
-import Map from "../CreativeWork/Map/index.ts"
-import ImageObject from "../CreativeWork/MediaObject/ImageObject/index.ts"
-import Photograph from "../CreativeWork/Photograph/index.ts"
-import Review from "../CreativeWork/Review/index.ts"
-import Event from "../Event/index.ts"
-import Thing from "../index.ts"
-import DefinedTerm from "../Intangible/DefinedTerm/index.ts"
-import GeospatialGeometry from "../Intangible/GeospatialGeometry/index.ts"
-import AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
-import PostalAddress from "../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
-import GeoCoordinates from "../Intangible/StructuredValue/GeoCoordinates/index.ts"
-import GeoShape from "../Intangible/StructuredValue/GeoShape/index.ts"
-import OpeningHoursSpecification from "../Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
-import PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
-import LocationFeatureSpecification from "../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
+import type {
+	Boolean,
+	Integer,
+	Number,
+	Text,
+	URL,
+} from "../../DataType/index.ts"
+import type Certification from "../CreativeWork/Certification/index.ts"
+import type Map from "../CreativeWork/Map/index.ts"
+import type ImageObject from "../CreativeWork/MediaObject/ImageObject/index.ts"
+import type Photograph from "../CreativeWork/Photograph/index.ts"
+import type Review from "../CreativeWork/Review/index.ts"
+import type Event from "../Event/index.ts"
+import type Thing from "../index.ts"
+import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
+import type GeospatialGeometry from "../Intangible/GeospatialGeometry/index.ts"
+import type AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
+import type PostalAddress from "../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type GeoCoordinates from "../Intangible/StructuredValue/GeoCoordinates/index.ts"
+import type GeoShape from "../Intangible/StructuredValue/GeoShape/index.ts"
+import type OpeningHoursSpecification from "../Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
+import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
+import type LocationFeatureSpecification from "../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 
-export default interface Place extends Thing {
+export interface PlaceProps {
 	/** A property-value pair representing an additional characteristic of the entity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\n\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. https://schema.org/width, https://schema.org/color, https://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism. */
 	additionalProperty?: PropertyValue
 	/** Physical address of the item. */
@@ -112,3 +118,7 @@ export default interface Place extends Thing {
 	/** A page providing information on how to book a tour of some [[Place]], such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate setting, as well as other kinds of tours as appropriate. */
 	tourBookingPage?: URL
 }
+
+type Place = Thing & PlaceProps
+
+export default Place

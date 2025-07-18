@@ -1,7 +1,7 @@
-import { Boolean, Text, URL } from "../../../../DataType/index.ts"
-import Menu from "../../../CreativeWork/Menu/index.ts"
-import Rating from "../../../Intangible/Rating/index.ts"
-import LocalBusiness from "../index.ts"
+import type { Boolean, Text, URL } from "../../../../DataType/index.ts"
+import type Menu from "../../../CreativeWork/Menu/index.ts"
+import type Rating from "../../../Intangible/Rating/index.ts"
+import type LocalBusiness from "../index.ts"
 
 export default interface FoodEstablishment extends LocalBusiness {
 	/** Indicates whether a FoodEstablishment accepts reservations. Values can be Boolean, an URL at which reservations can be made or (for backwards compatibility) the strings ```Yes``` or ```No```. */

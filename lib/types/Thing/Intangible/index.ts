@@ -1,4 +1,4 @@
-import Thing from "../index.ts"
+import type Thing from "../index.ts"
 
 // Intangible extends Thing but adds no additional properties
 

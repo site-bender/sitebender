@@ -1,4 +1,4 @@
-import CommunicateAction from "../index.ts"
+import type CommunicateAction from "../index.ts"
 
 // ShareAction extends CommunicateAction but adds no additional properties
 

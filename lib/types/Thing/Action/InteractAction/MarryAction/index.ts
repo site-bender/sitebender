@@ -1,4 +1,4 @@
-import InteractAction from "../index.ts"
+import type InteractAction from "../index.ts"
 
 // MarryAction extends InteractAction but adds no additional properties
 

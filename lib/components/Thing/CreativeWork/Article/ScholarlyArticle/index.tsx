@@ -5,7 +5,7 @@ import type {
 import type ArticleProps from "../../../../../types/Thing/Article/index.ts"
 import type ScholarlyArticleProps from "../../../../../types/Thing/ScholarlyArticle/index.ts"
 
-import Article from "./index.tsx"
+import Article from "../index.tsx"
 
 // ScholarlyArticle adds no properties to the Article schema type
 export type Props = BaseComponentProps<

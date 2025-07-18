@@ -5,7 +5,7 @@ import type {
 import type NewspaperProps from "../../../../../../../types/Thing/Newspaper/index.ts"
 import type PeriodicalProps from "../../../../../../../types/Thing/Periodical/index.ts"
 
-import Periodical from "./index.tsx"
+import Periodical from "../index.tsx"
 
 // Newspaper adds no properties to the Periodical schema type
 export type Props = BaseComponentProps<

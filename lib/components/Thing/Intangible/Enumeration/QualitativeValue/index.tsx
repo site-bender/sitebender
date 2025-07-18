@@ -5,7 +5,7 @@ import type {
 import type EnumerationProps from "../../../../../types/Thing/Enumeration/index.ts"
 import type QualitativeValueProps from "../../../../../types/Thing/QualitativeValue/index.ts"
 
-import Enumeration from "./index.tsx"
+import Enumeration from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	QualitativeValueProps,

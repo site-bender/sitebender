@@ -1,4 +1,4 @@
-import StatusEnumeration from "../index.ts"
+import type StatusEnumeration from "../index.ts"
 
 // ReservationStatusType extends StatusEnumeration but adds no additional properties
 

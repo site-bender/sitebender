@@ -5,7 +5,7 @@ import type {
 import type NLNonprofitTypeProps from "../../../../../../types/Thing/NLNonprofitType/index.ts"
 import type NonprofitTypeProps from "../../../../../../types/Thing/NonprofitType/index.ts"
 
-import NonprofitType from "./index.tsx"
+import NonprofitType from "../index.tsx"
 
 // NLNonprofitType adds no properties to the NonprofitType schema type
 export type Props = BaseComponentProps<

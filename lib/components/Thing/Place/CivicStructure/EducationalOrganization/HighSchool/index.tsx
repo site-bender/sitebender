@@ -1,3 +1,3 @@
-import HighSchool from "./index.tsx"
+import HighSchool from "../index.tsx"
 
 export default HighSchool

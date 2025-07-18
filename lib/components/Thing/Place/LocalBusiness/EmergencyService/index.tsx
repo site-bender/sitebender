@@ -1,3 +1,3 @@
-import EmergencyService from "./index.tsx"
+import EmergencyService from "../index.tsx"
 
 export default EmergencyService

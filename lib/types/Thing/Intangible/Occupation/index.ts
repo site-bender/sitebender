@@ -1,12 +1,12 @@
-import { Number, Text } from "../../../DataType/index.ts"
-import EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
-import AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
-import DefinedTerm from "../DefinedTerm/index.ts"
-import Intangible from "../index.ts"
-import OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
-import MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
-import MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type { Number, Text } from "../../../DataType/index.ts"
+import type EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type DefinedTerm from "../DefinedTerm/index.ts"
+import type Intangible from "../index.ts"
+import type OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
+import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
+import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
 export default interface Occupation extends Intangible {
 	/** Educational background needed for the position or Occupation. */

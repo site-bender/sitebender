@@ -1,3 +1,3 @@
-import RoofingContractor from "./index.tsx"
+import RoofingContractor from "../index.tsx"
 
 export default RoofingContractor

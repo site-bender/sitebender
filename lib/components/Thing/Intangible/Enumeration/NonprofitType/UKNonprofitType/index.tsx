@@ -5,7 +5,7 @@ import type {
 import type NonprofitTypeProps from "../../../../../../types/Thing/NonprofitType/index.ts"
 import type UKNonprofitTypeProps from "../../../../../../types/Thing/UKNonprofitType/index.ts"
 
-import NonprofitType from "./index.tsx"
+import NonprofitType from "../index.tsx"
 
 // UKNonprofitType adds no properties to the NonprofitType schema type
 export type Props = BaseComponentProps<

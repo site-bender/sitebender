@@ -5,7 +5,7 @@ import type {
 import type OnDemandEventProps from "../../../../../types/Thing/OnDemandEvent/index.ts"
 import type PublicationEventProps from "../../../../../types/Thing/PublicationEvent/index.ts"
 
-import PublicationEvent from "./index.tsx"
+import PublicationEvent from "../index.tsx"
 
 // OnDemandEvent adds no properties to the PublicationEvent schema type
 export type Props = BaseComponentProps<

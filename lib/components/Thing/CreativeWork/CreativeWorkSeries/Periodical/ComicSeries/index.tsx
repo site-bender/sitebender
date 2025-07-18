@@ -1,3 +1,3 @@
-import ComicSeries from "./index.tsx"
+import ComicSeries from "../index.tsx"
 
 export default ComicSeries

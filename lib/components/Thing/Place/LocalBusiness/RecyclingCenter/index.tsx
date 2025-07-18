@@ -1,3 +1,3 @@
-import RecyclingCenter from "./index.tsx"
+import RecyclingCenter from "../index.tsx"
 
 export default RecyclingCenter

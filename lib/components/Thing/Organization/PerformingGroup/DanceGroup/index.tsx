@@ -5,7 +5,7 @@ import type {
 import type DanceGroupProps from "../../../../../types/Thing/DanceGroup/index.ts"
 import type PerformingGroupProps from "../../../../../types/Thing/PerformingGroup/index.ts"
 
-import PerformingGroup from "./index.tsx"
+import PerformingGroup from "../index.tsx"
 
 // DanceGroup adds no properties to the PerformingGroup schema type
 export type Props = BaseComponentProps<

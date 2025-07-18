@@ -1,3 +1,3 @@
-import MiddleSchool from "./index.tsx"
+import MiddleSchool from "../index.tsx"
 
 export default MiddleSchool

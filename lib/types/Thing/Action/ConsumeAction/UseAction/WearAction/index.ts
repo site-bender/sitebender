@@ -1,4 +1,4 @@
-import UseAction from "../index.ts"
+import type UseAction from "../index.ts"
 
 // WearAction extends UseAction but adds no additional properties
 

@@ -1,4 +1,4 @@
-import Enumeration from "../index.ts"
+import type Enumeration from "../index.ts"
 
 // MusicAlbumReleaseType extends Enumeration but adds no additional properties
 

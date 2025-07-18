@@ -5,7 +5,7 @@ import type {
 import type ProjectProps from "../../../../../types/Thing/Project/index.ts"
 import type ResearchProjectProps from "../../../../../types/Thing/ResearchProject/index.ts"
 
-import Project from "./index.tsx"
+import Project from "../index.tsx"
 
 // ResearchProject adds no properties to the Project schema type
 export type Props = BaseComponentProps<

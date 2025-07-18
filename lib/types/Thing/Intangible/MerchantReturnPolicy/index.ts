@@ -1,4 +1,4 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -7,18 +7,18 @@ import {
 	Text,
 	URL,
 } from "../../../DataType/index.ts"
-import Country from "../../Place/AdministrativeArea/Country/index.ts"
-import MerchantReturnEnumeration from "../Enumeration/MerchantReturnEnumeration/index.ts"
-import OfferItemCondition from "../Enumeration/OfferItemCondition/index.ts"
-import RefundTypeEnumeration from "../Enumeration/RefundTypeEnumeration/index.ts"
-import ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/index.ts"
-import ReturnLabelSourceEnumeration from "../Enumeration/ReturnLabelSourceEnumeration/index.ts"
-import ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
-import Intangible from "../index.ts"
-import MemberProgramTier from "../MemberProgramTier/index.ts"
-import MerchantReturnPolicySeasonalOverride from "../MerchantReturnPolicySeasonalOverride/index.ts"
-import MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
-import PropertyValue from "../StructuredValue/PropertyValue/index.ts"
+import type Country from "../../Place/AdministrativeArea/Country/index.ts"
+import type MerchantReturnEnumeration from "../Enumeration/MerchantReturnEnumeration/index.ts"
+import type OfferItemCondition from "../Enumeration/OfferItemCondition/index.ts"
+import type RefundTypeEnumeration from "../Enumeration/RefundTypeEnumeration/index.ts"
+import type ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/index.ts"
+import type ReturnLabelSourceEnumeration from "../Enumeration/ReturnLabelSourceEnumeration/index.ts"
+import type ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
+import type Intangible from "../index.ts"
+import type MemberProgramTier from "../MemberProgramTier/index.ts"
+import type MerchantReturnPolicySeasonalOverride from "../MerchantReturnPolicySeasonalOverride/index.ts"
+import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
+import type PropertyValue from "../StructuredValue/PropertyValue/index.ts"
 
 export default interface MerchantReturnPolicy extends Intangible {
 	/** A property-value pair representing an additional characteristic of the entity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\n\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. https://schema.org/width, https://schema.org/color, https://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism. */

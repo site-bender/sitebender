@@ -5,7 +5,7 @@ import type {
 import type EpisodeProps from "../../../../../types/Thing/Episode/index.ts"
 import type TVEpisodeProps from "../../../../../types/Thing/TVEpisode/index.ts"
 
-import Episode from "./index.tsx"
+import Episode from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TVEpisodeProps,

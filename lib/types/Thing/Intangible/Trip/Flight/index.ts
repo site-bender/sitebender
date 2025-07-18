@@ -1,12 +1,12 @@
-import { DateTime, Text } from "../../../../DataType/index.ts"
-import Organization from "../../../Organization/index.ts"
-import Person from "../../../Person/index.ts"
-import Airport from "../../../Place/CivicStructure/Airport/index.ts"
-import Vehicle from "../../../Product/Vehicle/index.ts"
-import BoardingPolicyType from "../../Enumeration/BoardingPolicyType/index.ts"
-import Distance from "../../Quantity/Distance/index.ts"
-import Duration from "../../Quantity/Duration/index.ts"
-import Trip from "../index.ts"
+import type { DateTime, Text } from "../../../../DataType/index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type Person from "../../../Person/index.ts"
+import type Airport from "../../../Place/CivicStructure/Airport/index.ts"
+import type Vehicle from "../../../Product/Vehicle/index.ts"
+import type BoardingPolicyType from "../../Enumeration/BoardingPolicyType/index.ts"
+import type Distance from "../../Quantity/Distance/index.ts"
+import type Duration from "../../Quantity/Duration/index.ts"
+import type Trip from "../index.ts"
 
 export default interface Flight extends Trip {
 	/** The kind of aircraft (e.g., "Boeing 747"). */

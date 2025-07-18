@@ -1,4 +1,4 @@
-import LegalService from "../index.ts"
+import type LegalService from "../index.ts"
 
 // Attorney extends LegalService but adds no additional properties
 

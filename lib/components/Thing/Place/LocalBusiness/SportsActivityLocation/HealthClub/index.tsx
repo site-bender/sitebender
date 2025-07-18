@@ -1,3 +1,3 @@
-import HealthClub from "./index.tsx"
+import HealthClub from "../index.tsx"
 
 export default HealthClub

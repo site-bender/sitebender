@@ -5,7 +5,7 @@ import type {
 import type DurationProps from "../../../../../types/Thing/Duration/index.ts"
 import type QuantityProps from "../../../../../types/Thing/Quantity/index.ts"
 
-import Quantity from "./index.tsx"
+import Quantity from "../index.tsx"
 
 // Duration adds no properties to the Quantity schema type
 export type Props = BaseComponentProps<

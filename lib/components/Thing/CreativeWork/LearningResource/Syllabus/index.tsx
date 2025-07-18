@@ -5,7 +5,7 @@ import type {
 import type LearningResourceProps from "../../../../../types/Thing/LearningResource/index.ts"
 import type SyllabusProps from "../../../../../types/Thing/Syllabus/index.ts"
 
-import LearningResource from "./index.tsx"
+import LearningResource from "../index.tsx"
 
 // Syllabus adds no properties to the LearningResource schema type
 export type Props = BaseComponentProps<

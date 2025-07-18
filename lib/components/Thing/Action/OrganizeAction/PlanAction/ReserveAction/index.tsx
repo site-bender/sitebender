@@ -5,7 +5,7 @@ import type {
 import type PlanActionProps from "../../../../../../types/Thing/PlanAction/index.ts"
 import type ReserveActionProps from "../../../../../../types/Thing/ReserveAction/index.ts"
 
-import PlanAction from "./index.tsx"
+import PlanAction from "../index.tsx"
 
 // ReserveAction adds no properties to the PlanAction schema type
 export type Props = BaseComponentProps<

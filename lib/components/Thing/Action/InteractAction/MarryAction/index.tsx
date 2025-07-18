@@ -5,7 +5,7 @@ import type {
 import type InteractActionProps from "../../../../../types/Thing/InteractAction/index.ts"
 import type MarryActionProps from "../../../../../types/Thing/MarryAction/index.ts"
 
-import InteractAction from "./index.tsx"
+import InteractAction from "../index.tsx"
 
 // MarryAction adds no properties to the InteractAction schema type
 export type Props = BaseComponentProps<

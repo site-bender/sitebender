@@ -1,4 +1,4 @@
-import StatusEnumeration from "../index.ts"
+import type StatusEnumeration from "../index.ts"
 
 // LegalForceStatus extends StatusEnumeration but adds no additional properties
 

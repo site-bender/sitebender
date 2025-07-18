@@ -1,9 +1,9 @@
-import { Text, URL } from "../../../../DataType/index.ts"
-import MediaObject from "../../../CreativeWork/MediaObject/index.ts"
-import Duration from "../../Quantity/Duration/index.ts"
-import HowToSupply from "../HowToItem/HowToSupply/index.ts"
-import HowToTool from "../HowToItem/HowToTool/index.ts"
-import ListItem from "../index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type MediaObject from "../../../CreativeWork/MediaObject/index.ts"
+import type Duration from "../../Quantity/Duration/index.ts"
+import type HowToSupply from "../HowToItem/HowToSupply/index.ts"
+import type HowToTool from "../HowToItem/HowToTool/index.ts"
+import type ListItem from "../index.ts"
 
 export default interface HowToDirection extends ListItem {
 	/** A media object representing the circumstances after performing this direction. */

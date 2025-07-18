@@ -1,3 +1,3 @@
-import Locksmith from "./index.tsx"
+import Locksmith from "../index.tsx"
 
 export default Locksmith

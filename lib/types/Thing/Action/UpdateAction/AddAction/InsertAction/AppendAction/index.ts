@@ -1,4 +1,4 @@
-import InsertAction from "../index.ts"
+import type InsertAction from "../index.ts"
 
 // AppendAction extends InsertAction but adds no additional properties
 

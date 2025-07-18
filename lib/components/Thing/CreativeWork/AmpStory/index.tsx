@@ -1,3 +1,3 @@
-import AmpStory from "./index.tsx"
+import AmpStory from "../index.tsx"
 
 export default AmpStory

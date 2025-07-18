@@ -1,8 +1,8 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import HealthPlanFormulary from "../HealthPlanFormulary/index.ts"
-import HealthPlanNetwork from "../HealthPlanNetwork/index.ts"
-import Intangible from "../index.ts"
-import ContactPoint from "../StructuredValue/ContactPoint/index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type HealthPlanFormulary from "../HealthPlanFormulary/index.ts"
+import type HealthPlanNetwork from "../HealthPlanNetwork/index.ts"
+import type Intangible from "../index.ts"
+import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 
 export default interface HealthInsurancePlan extends Intangible {
 	/** The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation. */

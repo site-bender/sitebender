@@ -1,8 +1,8 @@
-import { Language } from "../../../../bcp47/index.ts"
-import { Text, URL } from "../../../../DataType/index.ts"
-import TVSeries from "../../../Intangible/Series/CreativeWorkSeries/TVSeries/index.ts"
-import Country from "../../../Place/AdministrativeArea/Country/index.ts"
-import Episode from "../index.ts"
+import type { Language } from "../../../../bcp47/index.ts"
+import type { Text, URL } from "../../../../DataType/index.ts"
+import type TVSeries from "../../../Intangible/Series/CreativeWorkSeries/TVSeries/index.ts"
+import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
+import type Episode from "../index.ts"
 
 export default interface TVEpisode extends Episode {
 	/** The country of origin of something, including products as well as creative  works such as movie and TV content.  In the case of TV and movie, this would be the country of the principle offices of the production company or individual responsible for the movie. For other kinds of [[CreativeWork]] it is difficult to provide fully general guidance, and properties such as [[contentLocation]] and [[locationCreated]] may be more applicable.  In the case of products, the country of origin of the product. The exact interpretation of this may vary by context and product type, and cannot be fully enumerated here. */

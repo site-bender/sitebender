@@ -1,6 +1,6 @@
-import { Integer, Text, URL } from "../../../DataType/index.ts"
-import SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer, Text, URL } from "../../../DataType/index.ts"
+import type SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Article extends CreativeWork {
 	/** The actual body of the article. */

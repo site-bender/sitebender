@@ -1,9 +1,9 @@
-import { Text } from "../../../DataType/index.ts"
-import Event from "../../Event/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
-import MusicRecording from "../MusicRecording/index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type Event from "../../Event/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
+import type MusicRecording from "../MusicRecording/index.ts"
 
 export default interface MusicComposition extends CreativeWork {
 	/** The person or organization who wrote a composition, or who is the composer of a work performed at some event. */

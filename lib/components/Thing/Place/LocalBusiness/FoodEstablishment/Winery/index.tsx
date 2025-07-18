@@ -1,3 +1,3 @@
-import Winery from "./index.tsx"
+import Winery from "../index.tsx"
 
 export default Winery

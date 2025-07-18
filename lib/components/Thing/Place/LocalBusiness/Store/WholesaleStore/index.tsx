@@ -1,3 +1,3 @@
-import WholesaleStore from "./index.tsx"
+import WholesaleStore from "../index.tsx"
 
 export default WholesaleStore

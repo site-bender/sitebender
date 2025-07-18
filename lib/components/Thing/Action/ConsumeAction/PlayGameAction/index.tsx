@@ -5,7 +5,7 @@ import type {
 import type ConsumeActionProps from "../../../../../types/Thing/ConsumeAction/index.ts"
 import type PlayGameActionProps from "../../../../../types/Thing/PlayGameAction/index.ts"
 
-import ConsumeAction from "./index.tsx"
+import ConsumeAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PlayGameActionProps,

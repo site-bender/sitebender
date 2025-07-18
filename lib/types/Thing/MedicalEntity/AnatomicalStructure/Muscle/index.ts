@@ -1,7 +1,7 @@
-import { Text } from "../../../../DataType/index.ts"
-import AnatomicalStructure from "../index.ts"
-import Nerve from "../Nerve/index.ts"
-import Vessel from "../Vessel/index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type AnatomicalStructure from "../index.ts"
+import type Nerve from "../Nerve/index.ts"
+import type Vessel from "../Vessel/index.ts"
 
 export default interface Muscle extends AnatomicalStructure {
 	/** The muscle whose action counteracts the specified muscle. */

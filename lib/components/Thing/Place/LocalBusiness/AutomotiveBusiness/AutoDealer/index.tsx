@@ -1,3 +1,3 @@
-import AutoDealer from "./index.tsx"
+import AutoDealer from "../index.tsx"
 
 export default AutoDealer

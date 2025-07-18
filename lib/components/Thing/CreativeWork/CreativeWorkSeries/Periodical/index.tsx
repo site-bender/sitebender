@@ -1,3 +1,3 @@
-import Periodical from "./index.tsx"
+import Periodical from "../index.tsx"
 
 export default Periodical

@@ -1,3 +1,3 @@
-import VacationRental from "./index.tsx"
+import VacationRental from "../index.tsx"
 
 export default VacationRental

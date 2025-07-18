@@ -5,7 +5,7 @@ import type {
 import type HowToTipProps from "../../../../../types/Thing/HowToTip/index.ts"
 import type ListItemProps from "../../../../../types/Thing/ListItem/index.ts"
 
-import ListItem from "./index.tsx"
+import ListItem from "../index.tsx"
 
 // HowToTip adds no properties to the ListItem schema type
 export type Props = BaseComponentProps<

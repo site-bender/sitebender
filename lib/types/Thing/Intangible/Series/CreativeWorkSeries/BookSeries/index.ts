@@ -1,4 +1,4 @@
-import CreativeWorkSeries from "../index.ts"
+import type CreativeWorkSeries from "../index.ts"
 
 // BookSeries extends CreativeWorkSeries but adds no additional properties
 

@@ -1,11 +1,15 @@
-import { Boolean, Text } from "../../../DataType/index.ts"
-import MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
-import MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
-import RecommendedDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.ts"
-import DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
-import Product from "../index.ts"
+import type { Boolean, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
+import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
+import type MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
+import type RecommendedDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.ts"
+import type DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
+import type Substance from "../../MedicalEntity/Substance/index.ts"
+import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
+import type Product from "../index.ts"
+import type { ProductProps } from "../index.ts"
 
-export default interface DietarySupplement extends Product {
+export interface DietarySupplementProps {
 	/** An active ingredient, typically chemical compounds and/or biologic substances. */
 	activeIngredient?: Text
 	/** True if this item's name is a proprietary/brand name (vs. generic name). */
@@ -27,3 +31,11 @@ export default interface DietarySupplement extends Product {
 	/** Characteristics of the population for which this is intended, or which typically uses it, e.g. 'adults'. */
 	targetPopulation?: Text
 }
+
+type DietarySupplement =
+	& Thing
+	& ProductProps
+	& SubstanceProps
+	& DietarySupplementProps
+
+export default DietarySupplement

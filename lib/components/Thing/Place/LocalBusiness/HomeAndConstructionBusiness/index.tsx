@@ -1,3 +1,3 @@
-import HomeAndConstructionBusiness from "./index.tsx"
+import HomeAndConstructionBusiness from "../index.tsx"
 
 export default HomeAndConstructionBusiness

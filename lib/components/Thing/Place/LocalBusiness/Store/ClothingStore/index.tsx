@@ -1,3 +1,3 @@
-import ClothingStore from "./index.tsx"
+import ClothingStore from "../index.tsx"
 
 export default ClothingStore

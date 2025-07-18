@@ -1,8 +1,8 @@
-import { Text } from "../../../DataType/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import AnatomicalStructure from "../../MedicalEntity/AnatomicalStructure/index.ts"
-import AnatomicalSystem from "../../MedicalEntity/AnatomicalSystem/index.ts"
-import BioChemEntity from "../index.ts"
+import type { Text } from "../../../DataType/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type AnatomicalStructure from "../../MedicalEntity/AnatomicalStructure/index.ts"
+import type AnatomicalSystem from "../../MedicalEntity/AnatomicalSystem/index.ts"
+import type BioChemEntity from "../index.ts"
 
 export default interface Gene extends BioChemEntity {
 	/** Another gene which is a variation of this one. */

@@ -1,3 +1,3 @@
-import MedicalCode from "./index.tsx"
+import MedicalCode from "../index.tsx"
 
 export default MedicalCode

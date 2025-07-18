@@ -1,6 +1,6 @@
-import { Date, DateTime } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import Intangible from "../index.ts"
+import type { Date, DateTime } from "../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type Intangible from "../index.ts"
 
 export default interface DataFeedItem extends Intangible {
 	/** The date on which the CreativeWork was created or the item was added to a DataFeed. */

@@ -1,4 +1,4 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -6,14 +6,14 @@ import {
 	Time,
 	URL,
 } from "../../../DataType/index.ts"
-import Thing from "../../../index.ts"
-import Place from "../../Place/index.ts"
-import CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
-import PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
-import Intangible from "../index.ts"
-import MediaSubscription from "../MediaSubscription/index.ts"
-import Offer from "../Offer/index.ts"
-import GeoShape from "../StructuredValue/GeoShape/index.ts"
+import type Thing from "../../../index.ts"
+import type Place from "../../Place/index.ts"
+import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
+import type Intangible from "../index.ts"
+import type MediaSubscription from "../MediaSubscription/index.ts"
+import type Offer from "../Offer/index.ts"
+import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 
 export default interface ActionAccessSpecification extends Intangible {
 	/** The end of the availability of the product or service included in the offer. */

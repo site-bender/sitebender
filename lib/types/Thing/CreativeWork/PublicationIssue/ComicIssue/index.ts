@@ -1,6 +1,6 @@
-import { Text } from "../../../../DataType/index.ts"
-import Person from "../../../Person/index.ts"
-import PublicationIssue from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type Person from "../../../Person/index.ts"
+import type PublicationIssue from "../index.ts"
 
 export default interface ComicIssue extends PublicationIssue {
 	/** The primary artist for a work     	in a medium other than pencils or digital line art--for example, if the     	primary artwork is done in watercolors or digital paints. */

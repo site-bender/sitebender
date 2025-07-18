@@ -1,7 +1,7 @@
-import { Number, Text } from "../../../../../DataType/index.ts"
-import MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
-import PriceSpecification from "../../../StructuredValue/PriceSpecification/index.ts"
-import OrganizationRole from "../index.ts"
+import type { Number, Text } from "../../../../../DataType/index.ts"
+import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
+import type PriceSpecification from "../../../StructuredValue/PriceSpecification/index.ts"
+import type OrganizationRole from "../index.ts"
 
 export default interface EmployeeRole extends OrganizationRole {
 	/** The base salary of the job or of an employee in an EmployeeRole. */

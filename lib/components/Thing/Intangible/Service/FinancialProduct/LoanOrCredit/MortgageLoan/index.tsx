@@ -5,7 +5,7 @@ import type {
 import type LoanOrCreditProps from "../../../../../../../types/Thing/LoanOrCredit/index.ts"
 import type MortgageLoanProps from "../../../../../../../types/Thing/MortgageLoan/index.ts"
 
-import LoanOrCredit from "./index.tsx"
+import LoanOrCredit from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MortgageLoanProps,

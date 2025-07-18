@@ -5,7 +5,7 @@ import type {
 import type SportsActivityLocationProps from "../../../../../../types/Thing/SportsActivityLocation/index.ts"
 import type SportsClubProps from "../../../../../../types/Thing/SportsClub/index.ts"
 
-import SportsActivityLocation from "./index.tsx"
+import SportsActivityLocation from "../index.tsx"
 
 // SportsClub adds no properties to the SportsActivityLocation schema type
 export type Props = BaseComponentProps<

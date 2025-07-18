@@ -1,3 +1,3 @@
-import Notary from "./index.tsx"
+import Notary from "../index.tsx"
 
 export default Notary

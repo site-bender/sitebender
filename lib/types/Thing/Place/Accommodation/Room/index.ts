@@ -1,4 +1,4 @@
-import Accommodation from "../index.ts"
+import type Accommodation from "../index.ts"
 
 // Room extends Accommodation but adds no additional properties
 

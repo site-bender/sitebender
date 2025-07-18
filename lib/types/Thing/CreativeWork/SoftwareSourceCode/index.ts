@@ -1,8 +1,8 @@
-import { Language } from "../../../bcp47/index.ts"
-import { Text, URL } from "../../../DataType/index.ts"
-import ComputerLanguage from "../../Intangible/ComputerLanguage/index.ts"
-import CreativeWork from "../index.ts"
-import SoftwareApplication from "../SoftwareApplication/index.ts"
+import type { Language } from "../../../bcp47/index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type ComputerLanguage from "../../Intangible/ComputerLanguage/index.ts"
+import type CreativeWork from "../index.ts"
+import type SoftwareApplication from "../SoftwareApplication/index.ts"
 
 export default interface SoftwareSourceCode extends CreativeWork {
 	/** Link to the repository where the un-compiled, human readable code and related code is located (SVN, GitHub, CodePlex). */

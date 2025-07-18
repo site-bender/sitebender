@@ -1,3 +1,3 @@
-import AutoWash from "./index.tsx"
+import AutoWash from "../index.tsx"
 
 export default AutoWash

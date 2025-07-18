@@ -5,7 +5,7 @@ import type {
 import type AnatomicalStructureProps from "../../../../../types/Thing/AnatomicalStructure/index.ts"
 import type MuscleProps from "../../../../../types/Thing/Muscle/index.ts"
 
-import AnatomicalStructure from "./index.tsx"
+import AnatomicalStructure from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MuscleProps,

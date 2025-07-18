@@ -1,1 +1,1 @@
-export { default } from "../../../../../Thing/Person/Patient/index.ts"
+export type { default } from "../../../../../Thing/Person/Patient/index.ts"

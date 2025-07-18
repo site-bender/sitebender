@@ -1,3 +1,3 @@
-import Library from "./index.tsx"
+import Library from "../index.tsx"
 
 export default Library

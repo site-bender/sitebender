@@ -1,4 +1,4 @@
-import Place from "../index.ts"
+import type Place from "../index.ts"
 
 // Landform extends Place but adds no additional properties
 

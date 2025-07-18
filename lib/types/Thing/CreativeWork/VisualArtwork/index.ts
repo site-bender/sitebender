@@ -1,9 +1,9 @@
-import { Integer, Text, URL } from "../../../DataType/index.ts"
-import Distance from "../../Intangible/Quantity/Distance/index.ts"
-import Mass from "../../Intangible/Quantity/Mass/index.ts"
-import QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import Person from "../../Person/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer, Text, URL } from "../../../DataType/index.ts"
+import type Distance from "../../Intangible/Quantity/Distance/index.ts"
+import type Mass from "../../Intangible/Quantity/Mass/index.ts"
+import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type Person from "../../Person/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface VisualArtwork extends CreativeWork {
 	/** The number of copies when multiple copies of a piece of artwork are produced - e.g. for a limited edition of 20 prints, 'artEdition' refers to the total number of copies (in this example "20"). */

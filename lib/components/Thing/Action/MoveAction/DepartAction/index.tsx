@@ -5,7 +5,7 @@ import type {
 import type DepartActionProps from "../../../../../types/Thing/DepartAction/index.ts"
 import type MoveActionProps from "../../../../../types/Thing/MoveAction/index.ts"
 
-import MoveAction from "./index.tsx"
+import MoveAction from "../index.tsx"
 
 // DepartAction adds no properties to the MoveAction schema type
 export type Props = BaseComponentProps<

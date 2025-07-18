@@ -1,3 +1,3 @@
-import ComputerStore from "./index.tsx"
+import ComputerStore from "../index.tsx"
 
 export default ComputerStore

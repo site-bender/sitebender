@@ -5,7 +5,7 @@ import type {
 import type DeleteActionProps from "../../../../../types/Thing/DeleteAction/index.ts"
 import type UpdateActionProps from "../../../../../types/Thing/UpdateAction/index.ts"
 
-import UpdateAction from "./index.tsx"
+import UpdateAction from "../index.tsx"
 
 // DeleteAction adds no properties to the UpdateAction schema type
 export type Props = BaseComponentProps<

@@ -1,4 +1,4 @@
-import MediaGallery from "../index.ts"
+import type MediaGallery from "../index.ts"
 
 // VideoGallery extends MediaGallery but adds no additional properties
 

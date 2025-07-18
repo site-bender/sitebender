@@ -1,11 +1,11 @@
-import { Language } from "../../../bcp47/index.ts"
-import { Text, URL } from "../../../DataType/index.ts"
-import Place from "../../Place/index.ts"
-import Intangible from "../index.ts"
-import Duration from "../Quantity/Duration/index.ts"
-import Service from "../Service/index.ts"
-import ContactPoint from "../StructuredValue/ContactPoint/index.ts"
-import PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type { Language } from "../../../bcp47/index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type Place from "../../Place/index.ts"
+import type Intangible from "../index.ts"
+import type Duration from "../Quantity/Duration/index.ts"
+import type Service from "../Service/index.ts"
+import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
+import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
 export default interface ServiceChannel extends Intangible {
 	/** A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]. */

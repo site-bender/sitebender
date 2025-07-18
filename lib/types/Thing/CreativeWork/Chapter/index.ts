@@ -1,5 +1,5 @@
-import { Integer, Text } from "../../../DataType/index.ts"
-import CreativeWork from "../index.ts"
+import type { Integer, Text } from "../../../DataType/index.ts"
+import type CreativeWork from "../index.ts"
 
 export default interface Chapter extends CreativeWork {
 	/** The page on which the work ends; for example "138" or "xvi". */

@@ -5,7 +5,7 @@ import type {
 import type PerformanceRoleProps from "../../../../../types/Thing/PerformanceRole/index.ts"
 import type RoleProps from "../../../../../types/Thing/Role/index.ts"
 
-import Role from "./index.tsx"
+import Role from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PerformanceRoleProps,

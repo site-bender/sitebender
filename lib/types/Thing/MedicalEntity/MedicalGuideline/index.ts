@@ -1,6 +1,6 @@
-import { Date, Text } from "../../../DataType/index.ts"
-import MedicalEvidenceLevel from "../../Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.ts"
-import MedicalEntity from "../index.ts"
+import type { Date, Text } from "../../../DataType/index.ts"
+import type MedicalEvidenceLevel from "../../Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.ts"
+import type MedicalEntity from "../index.ts"
 
 export default interface MedicalGuideline extends MedicalEntity {
 	/** Strength of evidence of the data used to formulate the guideline (enumerated). */

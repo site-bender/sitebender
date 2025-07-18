@@ -5,7 +5,7 @@ import type {
 import type AllocateActionProps from "../../../../../../types/Thing/AllocateAction/index.ts"
 import type AuthorizeActionProps from "../../../../../../types/Thing/AuthorizeAction/index.ts"
 
-import AllocateAction from "./index.tsx"
+import AllocateAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AuthorizeActionProps,

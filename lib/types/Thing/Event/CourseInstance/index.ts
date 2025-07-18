@@ -1,7 +1,7 @@
-import { Text, URL } from "../../../DataType/index.ts"
-import Schedule from "../../Intangible/Schedule/index.ts"
-import Person from "../../Person/index.ts"
-import Event from "../index.ts"
+import type { Text, URL } from "../../../DataType/index.ts"
+import type Schedule from "../../Intangible/Schedule/index.ts"
+import type Person from "../../Person/index.ts"
+import type Event from "../index.ts"
 
 export default interface CourseInstance extends Event {
 	/** The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous). */

@@ -2,7 +2,7 @@ import SkipLinksBar from "~components/navigation/SkipLinksBar/index.tsx"
 import Logo from "~components/page/Logo/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
-import { Fragment } from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
 import { SKIP_LINKS } from "~constants/skip-links/index.ts"
 

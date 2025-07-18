@@ -1,8 +1,8 @@
-import { Number, Text } from "../../../../../DataType/index.ts"
-import Duration from "../../../../Intangible/Quantity/Duration/index.ts"
-import Energy from "../../../../Intangible/Quantity/Energy/index.ts"
-import QuantitativeValue from "../../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import PhysicalActivity from "../index.ts"
+import type { Number, Text } from "../../../../../DataType/index.ts"
+import type Duration from "../../../../Intangible/Quantity/Duration/index.ts"
+import type Energy from "../../../../Intangible/Quantity/Energy/index.ts"
+import type QuantitativeValue from "../../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type PhysicalActivity from "../index.ts"
 
 export default interface ExercisePlan extends PhysicalActivity {
 	/** Length of time to engage in the activity. */

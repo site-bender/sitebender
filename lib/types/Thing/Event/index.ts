@@ -1,5 +1,5 @@
-import { Language } from "../../bcp47/index.ts"
-import {
+import type { Language } from "../../bcp47/index.ts"
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -8,26 +8,26 @@ import {
 	Time,
 	URL,
 } from "../../DataType/index.ts"
-import CreativeWork from "../CreativeWork/index.ts"
-import Review from "../CreativeWork/Review/index.ts"
-import Thing from "../index.ts"
-import Audience from "../Intangible/Audience/index.ts"
-import DefinedTerm from "../Intangible/DefinedTerm/index.ts"
-import Demand from "../Intangible/Demand/index.ts"
-import EventAttendanceModeEnumeration from "../Intangible/Enumeration/EventAttendanceModeEnumeration/index.ts"
-import EventStatusType from "../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
-import Grant from "../Intangible/Grant/index.ts"
-import Offer from "../Intangible/Offer/index.ts"
-import Duration from "../Intangible/Quantity/Duration/index.ts"
-import AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
-import Schedule from "../Intangible/Schedule/index.ts"
-import PostalAddress from "../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
-import QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import VirtualLocation from "../Intangible/VirtualLocation/index.ts"
-import Organization from "../Organization/index.ts"
-import PerformingGroup from "../Organization/PerformingGroup/index.ts"
-import Person from "../Person/index.ts"
-import Place from "../Place/index.ts"
+import type CreativeWork from "../CreativeWork/index.ts"
+import type Review from "../CreativeWork/Review/index.ts"
+import type Thing from "../index.ts"
+import type Audience from "../Intangible/Audience/index.ts"
+import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
+import type Demand from "../Intangible/Demand/index.ts"
+import type EventAttendanceModeEnumeration from "../Intangible/Enumeration/EventAttendanceModeEnumeration/index.ts"
+import type EventStatusType from "../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
+import type Grant from "../Intangible/Grant/index.ts"
+import type Offer from "../Intangible/Offer/index.ts"
+import type Duration from "../Intangible/Quantity/Duration/index.ts"
+import type AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
+import type Schedule from "../Intangible/Schedule/index.ts"
+import type PostalAddress from "../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type VirtualLocation from "../Intangible/VirtualLocation/index.ts"
+import type Organization from "../Organization/index.ts"
+import type PerformingGroup from "../Organization/PerformingGroup/index.ts"
+import type Person from "../Person/index.ts"
+import type Place from "../Place/index.ts"
 
 export default interface Event extends Thing {
 	/** The subject matter of the content. */

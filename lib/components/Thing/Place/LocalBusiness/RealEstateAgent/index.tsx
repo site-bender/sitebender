@@ -1,3 +1,3 @@
-import RealEstateAgent from "./index.tsx"
+import RealEstateAgent from "../index.tsx"
 
 export default RealEstateAgent

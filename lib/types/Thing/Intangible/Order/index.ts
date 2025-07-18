@@ -1,4 +1,4 @@
-import {
+import type {
 	Boolean,
 	Date,
 	DateTime,
@@ -6,18 +6,18 @@ import {
 	Text,
 	URL,
 } from "../../../DataType/index.ts"
-import Organization from "../../Organization/index.ts"
-import Person from "../../Person/index.ts"
-import Product from "../../Product/index.ts"
-import OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
-import Intangible from "../index.ts"
-import Invoice from "../Invoice/index.ts"
-import Offer from "../Offer/index.ts"
-import OrderItem from "../OrderItem/index.ts"
-import ParcelDelivery from "../ParcelDelivery/index.ts"
-import PaymentMethod from "../PaymentMethod/index.ts"
-import Service from "../Service/index.ts"
-import PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type Product from "../../Product/index.ts"
+import type OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
+import type Intangible from "../index.ts"
+import type Invoice from "../Invoice/index.ts"
+import type Offer from "../Offer/index.ts"
+import type OrderItem from "../OrderItem/index.ts"
+import type ParcelDelivery from "../ParcelDelivery/index.ts"
+import type PaymentMethod from "../PaymentMethod/index.ts"
+import type Service from "../Service/index.ts"
+import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
 export default interface Order extends Intangible {
 	/** The offer(s) -- e.g., product, quantity and price combinations -- included in the order. */

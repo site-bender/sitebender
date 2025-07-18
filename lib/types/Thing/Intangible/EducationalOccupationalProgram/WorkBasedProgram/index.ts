@@ -1,7 +1,7 @@
-import { Text } from "../../../../DataType/index.ts"
-import CategoryCode from "../../DefinedTerm/CategoryCode/index.ts"
-import MonetaryAmountDistribution from "../../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
-import EducationalOccupationalProgram from "../index.ts"
+import type { Text } from "../../../../DataType/index.ts"
+import type CategoryCode from "../../DefinedTerm/CategoryCode/index.ts"
+import type MonetaryAmountDistribution from "../../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type EducationalOccupationalProgram from "../index.ts"
 
 export default interface WorkBasedProgram
 	extends EducationalOccupationalProgram {

@@ -1,3 +1,3 @@
-import MedicalSpecialty from "./index.tsx"
+import MedicalSpecialty from "../index.tsx"
 
 export default MedicalSpecialty

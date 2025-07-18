@@ -5,7 +5,7 @@ import type {
 import type MoveActionProps from "../../../../../types/Thing/MoveAction/index.ts"
 import type TravelActionProps from "../../../../../types/Thing/TravelAction/index.ts"
 
-import MoveAction from "./index.tsx"
+import MoveAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TravelActionProps,

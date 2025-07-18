@@ -1,3 +1,3 @@
-import Audiobook from "./index.tsx"
+import Audiobook from "../index.tsx"
 
 export default Audiobook

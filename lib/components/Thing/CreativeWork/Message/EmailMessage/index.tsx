@@ -5,7 +5,7 @@ import type {
 import type EmailMessageProps from "../../../../../types/Thing/EmailMessage/index.ts"
 import type MessageProps from "../../../../../types/Thing/Message/index.ts"
 
-import Message from "./index.tsx"
+import Message from "../index.tsx"
 
 // EmailMessage adds no properties to the Message schema type
 export type Props = BaseComponentProps<

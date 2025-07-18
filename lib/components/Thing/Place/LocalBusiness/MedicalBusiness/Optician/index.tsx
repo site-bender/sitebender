@@ -1,3 +1,3 @@
-import Optician from "./index.tsx"
+import Optician from "../index.tsx"
 
 export default Optician

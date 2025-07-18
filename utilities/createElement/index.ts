@@ -1,29 +1,47 @@
-export function createElement(
+export default function createElement(
 	tag: unknown,
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
+	// DEBUG: Log all createElement calls for components
+	// if (typeof tag === "function" && tag.name) {
+	// 	console.log(`DEBUG createElement - ${tag.name}:`, {
+	// 		props: props || {},
+	// 		children: children,
+	// 		childrenLength: children.length,
+	// 	})
+	// }
+
 	if (typeof tag === "function") {
-		return tag({ ...props, children })
+		// Always flatten children completely before passing to function
+		const flatChildren = children.flat(Infinity)
+
+		// Also flatten any children prop that was explicitly passed
+		if (props?.children) {
+			props.children = Array.isArray(props.children)
+				? props.children.flat(Infinity)
+				: props.children
+		}
+
+		// console.log(`DEBUG createElement - ${tag.name} DOUBLE flattened:`, {
+		// 	originalChildren: children,
+		// 	flatChildren,
+		// 	propsChildren: props?.children,
+		// })
+
+		return tag({ ...props, children: flatChildren })
 	}
 
 	if (typeof tag === "string") {
-		// Always create virtual elements for renderToString compatibility
-		// This works for both server-side rendering and client-side when we just need HTML
+		const flatChildren = children.flat(Infinity)
 		return {
 			type: tag,
 			props: {
 				...props,
-				children: children.length === 1 ? children[0] : children,
+				children: flatChildren.length === 1 ? flatChildren[0] : flatChildren,
 			},
 		}
 	}
 
 	return tag
 }
-
-export function Fragment({ children }: { children?: unknown }): unknown {
-	return children
-}
-
-export default createElement

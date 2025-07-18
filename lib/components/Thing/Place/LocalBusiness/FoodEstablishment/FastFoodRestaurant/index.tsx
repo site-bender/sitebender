@@ -1,3 +1,3 @@
-import FastFoodRestaurant from "./index.tsx"
+import FastFoodRestaurant from "../index.tsx"
 
 export default FastFoodRestaurant

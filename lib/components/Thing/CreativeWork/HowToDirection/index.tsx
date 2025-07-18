@@ -1,3 +1,3 @@
-import HowToDirection from "./index.tsx"
+import HowToDirection from "../index.tsx"
 
 export default HowToDirection

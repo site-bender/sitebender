@@ -1,3 +1,3 @@
-import ArchiveOrganization from "./index.tsx"
+import ArchiveOrganization from "../index.tsx"
 
 export default ArchiveOrganization

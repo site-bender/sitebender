@@ -1,12 +1,12 @@
-import { DateTime, Text, URL } from "../../../DataType/index.ts"
-import StatisticalVariable from "../../Intangible/ConstraintNode/StatisticalVariable/index.ts"
-import DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
-import Property from "../../Intangible/Property/index.ts"
-import PropertyValue from "../../Intangible/StructuredValue/PropertyValue/index.ts"
-import DataCatalog from "../DataCatalog/index.ts"
-import CreativeWork from "../index.ts"
-import DataDownload from "../MediaObject/DataDownload/index.ts"
+import type { DateTime, Text, URL } from "../../../DataType/index.ts"
+import type StatisticalVariable from "../../Intangible/ConstraintNode/StatisticalVariable/index.ts"
+import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
+import type MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
+import type Property from "../../Intangible/Property/index.ts"
+import type PropertyValue from "../../Intangible/StructuredValue/PropertyValue/index.ts"
+import type DataCatalog from "../DataCatalog/index.ts"
+import type CreativeWork from "../index.ts"
+import type DataDownload from "../MediaObject/DataDownload/index.ts"
 
 export default interface Dataset extends CreativeWork {
 	/** A data catalog which contains this dataset. */
