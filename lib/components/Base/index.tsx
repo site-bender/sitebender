@@ -19,17 +19,23 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 	...elementAttributes
 }: BaseProps<T> & ElementAttributeMap[T]) {
 	// COMPLETELY FLATTEN children no matter how deeply nested
-	const flatChildren = Array.isArray(children) ? children.flat(Infinity) : children
+	const flatChildren = Array.isArray(children)
+		? children.flat(Infinity)
+		: children
 
 	console.log(`DEBUG Base - FLATTENED:`, {
 		original: children,
 		flattened: flatChildren,
 		originalLength: Array.isArray(children) ? children.length : "not array",
-		flattenedLength: Array.isArray(flatChildren) ? flatChildren.length : "not array",
+		flattenedLength: Array.isArray(flatChildren)
+			? flatChildren.length
+			: "not array",
 	})
 
 	// Process the flattened children
-	const childProperties = processChildren(Array.isArray(flatChildren) ? flatChildren : [flatChildren])
+	const childProperties = processChildren(
+		Array.isArray(flatChildren) ? flatChildren : [flatChildren],
+	)
 
 	console.log(`DEBUG Base - processChildren extracted:`, childProperties)
 

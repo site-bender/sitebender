@@ -1,15 +1,3 @@
-import Claim from "Claim/index.ts"
-import Clip from "Clip/index.ts"
-import CorrectionComment from "Comment/CorrectionComment/index.ts"
-import Comment from "Comment/index.ts"
-import AudioObject from "MediaObject/AudioObject/index.ts"
-import ImageObject from "MediaObject/ImageObject/index.ts"
-import MediaObject from "MediaObject/index.ts"
-import VideoObject from "MediaObject/VideoObject/index.ts"
-import MusicRecording from "MusicRecording/index.ts"
-import Review from "Review/index.ts"
-import WebPage from "WebPage/index.ts"
-
 import { Language } from "../../bcp47/index.ts"
 import {
 	Boolean,
@@ -42,6 +30,17 @@ import Person from "../Person/index.ts"
 import Country from "../Place/AdministrativeArea/Country/index.ts"
 import Place from "../Place/index.ts"
 import Product from "../Product/index.ts"
+import Claim from "./Claim/index.ts"
+import Clip from "./Clip/index.ts"
+import CorrectionComment from "./Comment/CorrectionComment/index.ts"
+import Comment from "./Comment/index.ts"
+import AudioObject from "./MediaObject/AudioObject/index.ts"
+import ImageObject from "./MediaObject/ImageObject/index.ts"
+import MediaObject from "./MediaObject/index.ts"
+import VideoObject from "./MediaObject/VideoObject/index.ts"
+import MusicRecording from "./MusicRecording/index.ts"
+import Review from "./Review/index.ts"
+import WebPage from "./WebPage/index.ts"
 
 export default interface CreativeWork extends Thing {
 	/** The subject matter of the content. */

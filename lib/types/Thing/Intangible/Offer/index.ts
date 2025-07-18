@@ -1,5 +1,3 @@
-import AggregateOffer from "AggregateOffer/index.ts"
-
 import {
 	Boolean,
 	Date,
@@ -43,6 +41,7 @@ import QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 import TypeAndQuantityNode from "../StructuredValue/TypeAndQuantityNode/index.ts"
 import WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 import Trip from "../Trip/index.ts"
+import AggregateOffer from "./AggregateOffer/index.ts"
 
 export default interface Offer extends Intangible {
 	/** The payment method(s) that are accepted in general by an organization, or for some specific demand or offer. */

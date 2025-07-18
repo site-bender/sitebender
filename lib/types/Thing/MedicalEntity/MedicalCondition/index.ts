@@ -1,5 +1,3 @@
-import MedicalSignOrSymptom from "MedicalSignOrSymptom/index.ts"
-
 import { Text } from "../../../DataType/index.ts"
 import MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
 import EventStatusType from "../../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
@@ -13,6 +11,7 @@ import MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTher
 import MedicalRiskFactor from "../MedicalRiskFactor/index.ts"
 import MedicalTest from "../MedicalTest/index.ts"
 import SuperficialAnatomy from "../SuperficialAnatomy/index.ts"
+import MedicalSignOrSymptom from "./MedicalSignOrSymptom/index.ts"
 
 export default interface MedicalCondition extends MedicalEntity {
 	/** The anatomy of the underlying organ system or structures associated with this entity. */

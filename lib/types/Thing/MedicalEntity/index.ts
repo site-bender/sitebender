@@ -1,7 +1,3 @@
-import MedicalGuideline from "MedicalGuideline/index.ts"
-import DrugLegalStatus from "MedicalIntangible/DrugLegalStatus/index.ts"
-import MedicalStudy from "MedicalStudy/index.ts"
-
 import { Text } from "../../DataType/index.ts"
 import Thing from "../index.ts"
 import MedicalCode from "../Intangible/DefinedTerm/CategoryCode/MedicalCode/index.ts"
@@ -10,6 +6,9 @@ import MedicineSystem from "../Intangible/Enumeration/MedicalEnumeration/Medicin
 import MedicalSpecialty from "../Intangible/Enumeration/Specialty/MedicalSpecialty/index.ts"
 import Grant from "../Intangible/Grant/index.ts"
 import Organization from "../Organization/index.ts"
+import MedicalGuideline from "./MedicalGuideline/index.ts"
+import DrugLegalStatus from "./MedicalIntangible/DrugLegalStatus/index.ts"
+import MedicalStudy from "./MedicalStudy/index.ts"
 
 export default interface MedicalEntity extends Thing {
 	/** A medical code for the entity, taken from a controlled vocabulary or ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc. */
