@@ -1,4 +1,5 @@
 import type { Integer, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type CreativeWorkSeries from "../../Intangible/Series/CreativeWorkSeries/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
@@ -8,9 +9,10 @@ import type MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index
 import type Person from "../../Person/index.ts"
 import type CreativeWorkSeason from "../CreativeWorkSeason/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
-export default interface Episode extends CreativeWork {
+export interface EpisodeProps {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */
 	actor?: PerformingGroup | Person
 	/** An actor, e.g. in TV, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip. */
@@ -34,3 +36,10 @@ export default interface Episode extends CreativeWork {
 	/** The trailer of a movie or TV/radio series, season, episode, etc. */
 	trailer?: VideoObject
 }
+
+type Episode =
+	& Thing
+	& CreativeWorkProps
+	& EpisodeProps
+
+export default Episode

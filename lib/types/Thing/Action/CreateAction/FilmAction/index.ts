@@ -1,6 +1,15 @@
-import type CreateAction from "../index.ts"
-
 // FilmAction extends CreateAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { CreateActionProps } from "../index.ts"
 
-export default interface FilmAction extends CreateAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface FilmActionProps {}
+
+type FilmAction =
+	& Thing
+	& ActionProps
+	& CreateActionProps
+	& FilmActionProps
+
+export default FilmAction

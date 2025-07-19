@@ -1,6 +1,11 @@
+// Intangible extends Thing but adds no additional properties
 import type Thing from "../index.ts"
 
-// Intangible extends Thing but adds no additional properties
+// deno-lint-ignore no-empty-interface
+export interface IntangibleProps {}
 
-export default interface Intangible extends Thing {
-}
+type Intangible =
+	& Thing
+	& IntangibleProps
+
+export default Intangible

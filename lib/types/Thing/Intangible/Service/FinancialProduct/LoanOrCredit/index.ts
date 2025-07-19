@@ -1,17 +1,14 @@
-import type {
-	Boolean,
-	Number,
-	Text,
-	URL,
-} from "../../../../../DataType/index.ts"
 import type Thing from "../../../../../index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
 import type Duration from "../../../Quantity/Duration/index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
 import type RepaymentSpecification from "../../../StructuredValue/RepaymentSpecification/index.ts"
-import type FinancialProduct from "../index.ts"
+import type { ServiceProps } from "../../index.ts"
+import type { FinancialProductProps } from "../index.ts"
 
-export default interface LoanOrCredit extends FinancialProduct {
+export interface LoanOrCreditProps {
 	/** The amount of money. */
 	amount?: Number | MonetaryAmount
 	/** The currency in which the monetary amount is expressed.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. "Ithaca HOUR". */
@@ -31,3 +28,12 @@ export default interface LoanOrCredit extends FinancialProduct {
 	/** Assets required to secure loan or credit repayments. It may take form of third party pledge, goods, financial instruments (cash, securities, etc.) */
 	requiredCollateral?: Thing | Text
 }
+
+type LoanOrCredit =
+	& Thing
+	& FinancialProductProps
+	& IntangibleProps
+	& ServiceProps
+	& LoanOrCreditProps
+
+export default LoanOrCredit

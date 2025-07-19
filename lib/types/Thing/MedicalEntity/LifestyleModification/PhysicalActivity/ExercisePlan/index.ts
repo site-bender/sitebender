@@ -1,10 +1,13 @@
 import type { Number, Text } from "../../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
 import type Duration from "../../../../Intangible/Quantity/Duration/index.ts"
 import type Energy from "../../../../Intangible/Quantity/Energy/index.ts"
 import type QuantitativeValue from "../../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import type PhysicalActivity from "../index.ts"
+import type { MedicalEntityProps } from "../../../index.ts"
+import type { LifestyleModificationProps } from "../../index.ts"
+import type { PhysicalActivityProps } from "../index.ts"
 
-export default interface ExercisePlan extends PhysicalActivity {
+export interface ExercisePlanProps {
 	/** Length of time to engage in the activity. */
 	activityDuration?: QuantitativeValue | Duration
 	/** How often one should engage in the activity. */
@@ -22,3 +25,12 @@ export default interface ExercisePlan extends PhysicalActivity {
 	/** Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure. */
 	workload?: Energy | QuantitativeValue
 }
+
+type ExercisePlan =
+	& Thing
+	& LifestyleModificationProps
+	& MedicalEntityProps
+	& PhysicalActivityProps
+	& ExercisePlanProps
+
+export default ExercisePlan

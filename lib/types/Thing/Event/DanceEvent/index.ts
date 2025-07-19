@@ -1,6 +1,13 @@
-import type Event from "../index.ts"
-
 // DanceEvent extends Event but adds no additional properties
+import type Thing from "../../index.ts"
+import type { EventProps } from "../index.ts"
 
-export default interface DanceEvent extends Event {
-}
+// deno-lint-ignore no-empty-interface
+export interface DanceEventProps {}
+
+type DanceEvent =
+	& Thing
+	& EventProps
+	& DanceEventProps
+
+export default DanceEvent

@@ -1,12 +1,13 @@
 import type { Date, DateTime } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type Audience from "../Audience/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type Service from "../Service/index.ts"
 
-export default interface Permit extends Intangible {
+export interface PermitProps {
 	/** The organization issuing the item, for example a [[Permit]], [[Ticket]], or [[Certification]]. */
 	issuedBy?: Organization
 	/** The service through which the permit was granted. */
@@ -22,3 +23,10 @@ export default interface Permit extends Intangible {
 	/** The date when the item is no longer valid. */
 	validUntil?: Date
 }
+
+type Permit =
+	& Thing
+	& IntangibleProps
+	& PermitProps
+
+export default Permit

@@ -1,9 +1,10 @@
 import type { Text, URL } from "../../../DataType/index.ts"
 import type SoftwareApplication from "../../CreativeWork/SoftwareApplication/index.ts"
+import type Thing from "../../index.ts"
 import type DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface EntryPoint extends Intangible {
+export interface EntryPointProps {
 	/** An application that can complete the request. */
 	actionApplication?: SoftwareApplication
 	/** The high level platform(s) where the Action can be performed for the given URL. To specify a specific application or operating system instance, use actionApplication. */
@@ -19,3 +20,10 @@ export default interface EntryPoint extends Intangible {
 	/** An url template (RFC6570) that will be used to construct the target of the execution of the action. */
 	urlTemplate?: Text
 }
+
+type EntryPoint =
+	& Thing
+	& IntangibleProps
+	& EntryPointProps
+
+export default EntryPoint

@@ -1,16 +1,8 @@
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Number,
-	Text,
-	Time,
-	URL,
-} from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
 import type CreativeWork from "../../CreativeWork/index.ts"
 import type Review from "../../CreativeWork/Review/index.ts"
 import type Event from "../../Event/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
@@ -24,7 +16,7 @@ import type DeliveryMethod from "../Enumeration/DeliveryMethod/index.ts"
 import type ItemAvailability from "../Enumeration/ItemAvailability/index.ts"
 import type OfferItemCondition from "../Enumeration/OfferItemCondition/index.ts"
 import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type MemberProgramTier from "../MemberProgramTier/index.ts"
 import type MenuItem from "../MenuItem/index.ts"
 import type MerchantReturnPolicy from "../MerchantReturnPolicy/index.ts"
@@ -43,7 +35,7 @@ import type WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 import type Trip from "../Trip/index.ts"
 import type AggregateOffer from "./AggregateOffer/index.ts"
 
-export default interface Offer extends Intangible {
+export interface OfferProps {
 	/** The payment method(s) that are accepted in general by an organization, or for some specific demand or offer. */
 	acceptedPaymentMethod?: LoanOrCredit | Text | PaymentMethod
 	/** An additional offer that can only be obtained in combination with the first base offer (e.g. supplements and extensions that are available for a surcharge). */
@@ -160,3 +152,10 @@ export default interface Offer extends Intangible {
 	/** The warranty promise(s) included in the offer. */
 	warranty?: WarrantyPromise
 }
+
+type Offer =
+	& Thing
+	& IntangibleProps
+	& OfferProps
+
+export default Offer

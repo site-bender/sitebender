@@ -1,9 +1,11 @@
 import type { Number } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Duration from "../../Quantity/Duration/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
-export default interface QuantitativeValueDistribution extends StructuredValue {
+export interface QuantitativeValueDistributionProps {
 	/** The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601). */
 	duration?: QuantitativeValue | Duration
 	/** The median value. */
@@ -17,3 +19,11 @@ export default interface QuantitativeValueDistribution extends StructuredValue {
 	/** The 90th percentile value. */
 	percentile90?: Number
 }
+
+type QuantitativeValueDistribution =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& QuantitativeValueDistributionProps
+
+export default QuantitativeValueDistribution

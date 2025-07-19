@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // RsvpResponseType extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface RsvpResponseType extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface RsvpResponseTypeProps {}
+
+type RsvpResponseType =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& RsvpResponseTypeProps
+
+export default RsvpResponseType

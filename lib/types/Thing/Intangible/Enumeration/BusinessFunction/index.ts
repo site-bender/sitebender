@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // BusinessFunction extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface BusinessFunction extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface BusinessFunctionProps {}
+
+type BusinessFunction =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& BusinessFunctionProps
+
+export default BusinessFunction

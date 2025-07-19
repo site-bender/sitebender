@@ -1,11 +1,12 @@
 import type MenuSection from "../../CreativeWork/MenuSection/index.ts"
+import type Thing from "../../index.ts"
 import type Demand from "../Demand/index.ts"
 import type RestrictedDiet from "../Enumeration/RestrictedDiet/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Offer from "../Offer/index.ts"
 import type NutritionInformation from "../StructuredValue/NutritionInformation/index.ts"
 
-export default interface MenuItem extends Intangible {
+export interface MenuItemProps {
 	/** Additional menu item(s) such as a side dish of salad or side order of fries that can be added to this menu item. Additionally it can be a menu section containing allowed add-on menu items for this menu item. */
 	menuAddOn?: MenuItem | MenuSection
 	/** Nutrition information about the recipe or menu item. */
@@ -15,3 +16,10 @@ export default interface MenuItem extends Intangible {
 	/** Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc. */
 	suitableForDiet?: RestrictedDiet
 }
+
+type MenuItem =
+	& Thing
+	& IntangibleProps
+	& MenuItemProps
+
+export default MenuItem

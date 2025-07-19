@@ -1,14 +1,15 @@
 import type { Date, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Specialty from "../../Intangible/Enumeration/Specialty/index.ts"
 import type BreadcrumbList from "../../Intangible/ItemList/BreadcrumbList/index.ts"
 import type SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
 import type WebPageElement from "../WebPageElement/index.ts"
 
-export default interface WebPage extends CreativeWork {
+export interface WebPageProps {
 	/** A set of links that can help a user understand and navigate a website hierarchy. */
 	breadcrumb?: BreadcrumbList | Text
 	/** Date on which the content on this web page was last reviewed for accuracy and/or completeness. */
@@ -30,3 +31,10 @@ export default interface WebPage extends CreativeWork {
 	/** One of the domain specialities to which this web page's content applies. */
 	specialty?: Specialty
 }
+
+type WebPage =
+	& Thing
+	& CreativeWorkProps
+	& WebPageProps
+
+export default WebPage

@@ -1,6 +1,17 @@
-import type UseAction from "../index.ts"
-
 // WearAction extends UseAction but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { ActionProps } from "../../../index.ts"
+import type { ConsumeActionProps } from "../../index.ts"
+import type { UseActionProps } from "../index.ts"
 
-export default interface WearAction extends UseAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface WearActionProps {}
+
+type WearAction =
+	& Thing
+	& ActionProps
+	& ConsumeActionProps
+	& UseActionProps
+	& WearActionProps
+
+export default WearAction

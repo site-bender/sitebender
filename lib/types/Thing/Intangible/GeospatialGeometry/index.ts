@@ -1,7 +1,8 @@
+import type Thing from "../../index.ts"
 import type Place from "../../Place/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface GeospatialGeometry extends Intangible {
+export interface GeospatialGeometryProps {
 	/** Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. "a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). */
 	geoContains?: Place | GeospatialGeometry
 	/** Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). */
@@ -23,3 +24,10 @@ export default interface GeospatialGeometry extends Intangible {
 	/** Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). */
 	geoWithin?: Place | GeospatialGeometry
 }
+
+type GeospatialGeometry =
+	& Thing
+	& IntangibleProps
+	& GeospatialGeometryProps
+
+export default GeospatialGeometry

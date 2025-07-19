@@ -1,17 +1,11 @@
-import type {
-	Date,
-	DateTime,
-	Number,
-	Text,
-	URL,
-} from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Seat from "../Seat/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
-export default interface Ticket extends Intangible {
+export interface TicketProps {
 	/** The date the ticket was issued. */
 	dateIssued?: DateTime | Date
 	/** The organization issuing the item, for example a [[Permit]], [[Ticket]], or [[Certification]]. */
@@ -29,3 +23,10 @@ export default interface Ticket extends Intangible {
 	/** The person or organization the reservation or ticket is for. */
 	underName?: Organization | Person
 }
+
+type Ticket =
+	& Thing
+	& IntangibleProps
+	& TicketProps
+
+export default Ticket

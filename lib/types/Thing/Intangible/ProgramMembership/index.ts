@@ -1,11 +1,12 @@
 import type { Number, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type MemberProgram from "../MemberProgram/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface ProgramMembership extends Intangible {
+export interface ProgramMembershipProps {
 	/** The Organization (airline, travelers' club, retailer, etc.) the membership is made with or which offers the  MemberProgram. */
 	hostingOrganization?: Organization
 	/** A member of an Organization or a ProgramMembership. Organizations can be members of organizations; ProgramMembership is typically for individuals. */
@@ -21,3 +22,10 @@ export default interface ProgramMembership extends Intangible {
 	/** The program providing the membership. It is preferable to use [:program](https://schema.org/program) instead. */
 	programName?: Text
 }
+
+type ProgramMembership =
+	& Thing
+	& IntangibleProps
+	& ProgramMembershipProps
+
+export default ProgramMembership

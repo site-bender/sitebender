@@ -1,8 +1,10 @@
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Person from "../../../Person/index.ts"
-import type PublicationIssue from "../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { PublicationIssueProps } from "../index.ts"
 
-export default interface ComicIssue extends PublicationIssue {
+export interface ComicIssueProps {
 	/** The primary artist for a work     	in a medium other than pencils or digital line art--for example, if the     	primary artwork is done in watercolors or digital paints. */
 	artist?: Person
 	/** The individual who adds color to inked drawings. */
@@ -16,3 +18,11 @@ export default interface ComicIssue extends PublicationIssue {
 	/** A description of the variant cover     	for the issue, if the issue is a variant printing. For example, "Bryan Hitch     	Variant Cover" or "2nd Printing Variant". */
 	variantCover?: Text
 }
+
+type ComicIssue =
+	& Thing
+	& CreativeWorkProps
+	& PublicationIssueProps
+	& ComicIssueProps
+
+export default ComicIssue

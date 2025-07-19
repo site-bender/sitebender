@@ -9,7 +9,7 @@ import type Organization from "../Organization/index.ts"
 import type Person from "../Person/index.ts"
 import type Place from "../Place/index.ts"
 
-export default interface Action extends Thing {
+export interface ActionProps {
 	/** Description of the process by which the action was performed. */
 	actionProcess?: HowTo
 	/** Indicates the current disposition of the Action. */
@@ -37,3 +37,9 @@ export default interface Action extends Thing {
 	/** Indicates a target EntryPoint, or url, for an Action. */
 	target?: URL | EntryPoint
 }
+
+type Action =
+	& Thing
+	& ActionProps
+
+export default Action

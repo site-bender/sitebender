@@ -1,6 +1,17 @@
-import type ReactAction from "../index.ts"
-
 // DisagreeAction extends ReactAction but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { ActionProps } from "../../../index.ts"
+import type { AssessActionProps } from "../../index.ts"
+import type { ReactActionProps } from "../index.ts"
 
-export default interface DisagreeAction extends ReactAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface DisagreeActionProps {}
+
+type DisagreeAction =
+	& Thing
+	& ActionProps
+	& AssessActionProps
+	& ReactActionProps
+	& DisagreeActionProps
+
+export default DisagreeAction

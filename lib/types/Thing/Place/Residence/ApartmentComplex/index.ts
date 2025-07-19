@@ -1,8 +1,10 @@
 import type { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import type Residence from "../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { ResidenceProps } from "../index.ts"
 
-export default interface ApartmentComplex extends Residence {
+export interface ApartmentComplexProps {
 	/** Indicates the total (available plus unavailable) number of accommodation units in an [[ApartmentComplex]], or the number of accommodation units for a specific [[FloorPlan]] (within its specific [[ApartmentComplex]]). See also [[numberOfAvailableAccommodationUnits]]. */
 	numberOfAccommodationUnits?: QuantitativeValue
 	/** Indicates the number of available accommodation units in an [[ApartmentComplex]], or the number of accommodation units for a specific [[FloorPlan]] (within its specific [[ApartmentComplex]]). See also [[numberOfAccommodationUnits]]. */
@@ -14,3 +16,11 @@ export default interface ApartmentComplex extends Residence {
 	/** A page providing information on how to book a tour of some [[Place]], such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate setting, as well as other kinds of tours as appropriate. */
 	tourBookingPage?: URL
 }
+
+type ApartmentComplex =
+	& Thing
+	& PlaceProps
+	& ResidenceProps
+	& ApartmentComplexProps
+
+export default ApartmentComplex

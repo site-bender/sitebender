@@ -2,9 +2,11 @@ import type { Text, URL } from "../../../DataType/index.ts"
 import type Article from "../../CreativeWork/Article/index.ts"
 import type CreativeWork from "../../CreativeWork/index.ts"
 import type AboutPage from "../../CreativeWork/WebPage/AboutPage/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../index.ts"
+import type { OrganizationProps } from "../index.ts"
 
-export default interface NewsMediaOrganization extends Organization {
+export interface NewsMediaOrganizationProps {
 	/** For a [[NewsMediaOrganization]] or other news-related [[Organization]], a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication. */
 	actionableFeedbackPolicy?: CreativeWork | URL
 	/** For an [[Organization]] (e.g. [[NewsMediaOrganization]]), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors. */
@@ -28,3 +30,10 @@ export default interface NewsMediaOrganization extends Organization {
 	/** Disclosure about verification and fact-checking processes for a [[NewsMediaOrganization]] or other fact-checking [[Organization]]. */
 	verificationFactCheckingPolicy?: CreativeWork | URL
 }
+
+type NewsMediaOrganization =
+	& Thing
+	& OrganizationProps
+	& NewsMediaOrganizationProps
+
+export default NewsMediaOrganization

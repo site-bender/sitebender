@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // GameAvailabilityEnumeration extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface GameAvailabilityEnumeration extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface GameAvailabilityEnumerationProps {}
+
+type GameAvailabilityEnumeration =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& GameAvailabilityEnumerationProps
+
+export default GameAvailabilityEnumeration

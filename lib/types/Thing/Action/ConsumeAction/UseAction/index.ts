@@ -1,6 +1,15 @@
-import type ConsumeAction from "../index.ts"
-
 // UseAction extends ConsumeAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { ConsumeActionProps } from "../index.ts"
 
-export default interface UseAction extends ConsumeAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface UseActionProps {}
+
+type UseAction =
+	& Thing
+	& ActionProps
+	& ConsumeActionProps
+	& UseActionProps
+
+export default UseAction

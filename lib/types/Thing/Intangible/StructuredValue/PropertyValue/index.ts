@@ -1,13 +1,16 @@
 import type { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type DefinedTerm from "../../DefinedTerm/index.ts"
 import type Enumeration from "../../Enumeration/index.ts"
 import type MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
 import type MeasurementTypeEnumeration from "../../Enumeration/MeasurementTypeEnumeration/index.ts"
 import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
-export default interface PropertyValue extends StructuredValue {
+export interface PropertyValueProps {
 	/** The upper value of some characteristic or property. */
 	maxValue?: Number
 	/** A subproperty of [[measurementTechnique]] that can be used for specifying specific methods, in particular via [[MeasurementMethodEnum]]. */
@@ -35,3 +38,11 @@ export default interface PropertyValue extends StructuredValue {
 		| StructuredValue
 		| QuantitativeValue
 }
+
+type PropertyValue =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& PropertyValueProps
+
+export default PropertyValue

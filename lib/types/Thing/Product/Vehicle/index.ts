@@ -1,13 +1,14 @@
 import type { Date, Number, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type CarUsageType from "../../Intangible/Enumeration/CarUsageType/index.ts"
 import type DriveWheelConfigurationValue from "../../Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
 import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
 import type SteeringPositionValue from "../../Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
 import type EngineSpecification from "../../Intangible/StructuredValue/EngineSpecification/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import type Product from "../index.ts"
+import type { ProductProps } from "../index.ts"
 
-export default interface Vehicle extends Product {
+export interface VehicleProps {
 	/** The time needed to accelerate the vehicle from a given start velocity to a given target velocity.\n\nTypical unit code(s): SEC for seconds\n\n* Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the [[name]] of the [[QuantitativeValue]], or use [[valueReference]] with a [[QuantitativeValue]] of 0..60 mph or 0..100 km/h to specify the reference speeds. */
 	accelerationTime?: QuantitativeValue
 	/** Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.). */
@@ -87,3 +88,10 @@ export default interface Vehicle extends Product {
 	/** The distance between the centers of the front and rear wheels.\n\nTypical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet. */
 	wheelbase?: QuantitativeValue
 }
+
+type Vehicle =
+	& Thing
+	& ProductProps
+	& VehicleProps
+
+export default Vehicle

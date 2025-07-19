@@ -1,7 +1,8 @@
 import type { Integer, Text } from "../../../DataType/index.ts"
-import type CreativeWork from "../index.ts"
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface PublicationVolume extends CreativeWork {
+export interface PublicationVolumeProps {
 	/** The page on which the work ends; for example "138" or "xvi". */
 	pageEnd?: Text | Integer
 	/** The page on which the work starts; for example "135" or "xiii". */
@@ -11,3 +12,10 @@ export default interface PublicationVolume extends CreativeWork {
 	/** Identifies the volume of publication or multi-part work; for example, "iii" or "2". */
 	volumeNumber?: Integer | Text
 }
+
+type PublicationVolume =
+	& Thing
+	& CreativeWorkProps
+	& PublicationVolumeProps
+
+export default PublicationVolume

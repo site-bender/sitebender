@@ -1,14 +1,15 @@
 import type { DateTime, Number, Text } from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type ReservationStatusType from "../Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type ProgramMembership from "../ProgramMembership/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 import type Ticket from "../Ticket/index.ts"
 
-export default interface Reservation extends Intangible {
+export interface ReservationProps {
 	/** 'bookingAgent' is an out-dated term indicating a 'broker' that serves as a booking agent. */
 	bookingAgent?: Organization | Person
 	/** The date and time the reservation was booked. */
@@ -36,3 +37,10 @@ export default interface Reservation extends Intangible {
 	/** The person or organization the reservation or ticket is for. */
 	underName?: Organization | Person
 }
+
+type Reservation =
+	& Thing
+	& IntangibleProps
+	& ReservationProps
+
+export default Reservation

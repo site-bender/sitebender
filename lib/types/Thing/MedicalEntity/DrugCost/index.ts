@@ -1,10 +1,11 @@
 import type { Number, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type DrugCostCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
 import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import type MedicalEntity from "../index.ts"
+import type { MedicalEntityProps } from "../index.ts"
 
-export default interface DrugCost extends MedicalEntity {
+export interface DrugCostProps {
 	/** The location in which the status applies. */
 	applicableLocation?: AdministrativeArea
 	/** The category of cost, such as wholesale, retail, reimbursement cap, etc. */
@@ -18,3 +19,10 @@ export default interface DrugCost extends MedicalEntity {
 	/** The unit in which the drug is measured, e.g. '5 mg tablet'. */
 	drugUnit?: Text
 }
+
+type DrugCost =
+	& Thing
+	& MedicalEntityProps
+	& DrugCostProps
+
+export default DrugCost

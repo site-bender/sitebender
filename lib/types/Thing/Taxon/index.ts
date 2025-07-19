@@ -3,7 +3,7 @@ import type Thing from "../index.ts"
 import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 
-export default interface Taxon extends Thing {
+export interface TaxonProps {
 	/** Closest child taxa of the taxon in question. */
 	childTaxon?: Taxon | Text | URL
 	/** A Defined Term contained in this term set. */
@@ -13,3 +13,9 @@ export default interface Taxon extends Thing {
 	/** The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs. */
 	taxonRank?: PropertyValue | URL | Text
 }
+
+type Taxon =
+	& Thing
+	& TaxonProps
+
+export default Taxon

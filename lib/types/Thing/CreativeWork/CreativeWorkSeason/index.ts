@@ -1,13 +1,15 @@
 import type { Date, DateTime, Integer, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type CreativeWorkSeries from "../../Intangible/Series/CreativeWorkSeries/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
 import type Person from "../../Person/index.ts"
 import type Episode from "../Episode/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
-export default interface CreativeWorkSeason extends CreativeWork {
+export interface CreativeWorkSeasonProps {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */
 	actor?: PerformingGroup | Person
 	/** A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip. */
@@ -31,3 +33,10 @@ export default interface CreativeWorkSeason extends CreativeWork {
 	/** The trailer of a movie or TV/radio series, season, episode, etc. */
 	trailer?: VideoObject
 }
+
+type CreativeWorkSeason =
+	& Thing
+	& CreativeWorkProps
+	& CreativeWorkSeasonProps
+
+export default CreativeWorkSeason

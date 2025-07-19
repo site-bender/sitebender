@@ -1,10 +1,11 @@
 import type { Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type HealthPlanFormulary from "../HealthPlanFormulary/index.ts"
 import type HealthPlanNetwork from "../HealthPlanNetwork/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 
-export default interface HealthInsurancePlan extends Intangible {
+export interface HealthInsurancePlanProps {
 	/** The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation. */
 	benefitsSummaryUrl?: URL
 	/** A contact point for a person or organization. */
@@ -24,3 +25,10 @@ export default interface HealthInsurancePlan extends Intangible {
 	/** The standard for interpreting the Plan ID. The preferred is "HIOS". See the Centers for Medicare & Medicaid Services for more details. */
 	usesHealthPlanIdStandard?: URL | Text
 }
+
+type HealthInsurancePlan =
+	& Thing
+	& IntangibleProps
+	& HealthInsurancePlanProps
+
+export default HealthInsurancePlan

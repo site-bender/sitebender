@@ -1,6 +1,15 @@
-import type Clip from "../index.ts"
-
 // VideoGameClip extends Clip but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { ClipProps } from "../index.ts"
 
-export default interface VideoGameClip extends Clip {
-}
+// deno-lint-ignore no-empty-interface
+export interface VideoGameClipProps {}
+
+type VideoGameClip =
+	& Thing
+	& ClipProps
+	& CreativeWorkProps
+	& VideoGameClipProps
+
+export default VideoGameClip

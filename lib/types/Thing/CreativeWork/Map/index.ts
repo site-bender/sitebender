@@ -1,7 +1,15 @@
+import type Thing from "../../index.ts"
 import type MapCategoryType from "../../Intangible/Enumeration/MapCategoryType/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Map extends CreativeWork {
+export interface MapProps {
 	/** Indicates the kind of Map, from the MapCategoryType Enumeration. */
 	mapType?: MapCategoryType
 }
+
+type Map =
+	& Thing
+	& CreativeWorkProps
+	& MapProps
+
+export default Map

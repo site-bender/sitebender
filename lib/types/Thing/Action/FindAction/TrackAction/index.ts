@@ -1,7 +1,17 @@
+import type Thing from "../../../index.ts"
 import type DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/index.ts"
-import type FindAction from "../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { FindActionProps } from "../index.ts"
 
-export default interface TrackAction extends FindAction {
+export interface TrackActionProps {
 	/** A sub property of instrument. The method of delivery. */
 	deliveryMethod?: DeliveryMethod
 }
+
+type TrackAction =
+	& Thing
+	& ActionProps
+	& FindActionProps
+	& TrackActionProps
+
+export default TrackAction

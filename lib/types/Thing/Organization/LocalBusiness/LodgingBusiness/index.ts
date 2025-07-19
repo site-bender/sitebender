@@ -1,18 +1,13 @@
 import type { Language } from "../../../../bcp47/index.ts"
-import type {
-	Boolean,
-	DateTime,
-	Number,
-	Text,
-	Time,
-} from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Audience from "../../../Intangible/Audience/index.ts"
 import type Rating from "../../../Intangible/Rating/index.ts"
 import type LocationFeatureSpecification from "../../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import type LocalBusiness from "../index.ts"
+import type { PlaceProps } from "../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../Place/LocalBusiness/index.ts"
 
-export default interface LodgingBusiness extends LocalBusiness {
+export interface LodgingBusinessProps {
 	/** An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs. */
 	amenityFeature?: LocationFeatureSpecification
 	/** An intended audience, i.e. a group for whom something was created. */
@@ -30,3 +25,11 @@ export default interface LodgingBusiness extends LocalBusiness {
 	/** An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars). */
 	starRating?: Rating
 }
+
+type LodgingBusiness =
+	& Thing
+	& LocalBusinessProps
+	& PlaceProps
+	& LodgingBusinessProps
+
+export default LodgingBusiness

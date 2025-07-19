@@ -1,6 +1,13 @@
-import type CreativeWork from "../index.ts"
-
 // Manuscript extends CreativeWork but adds no additional properties
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Manuscript extends CreativeWork {
-}
+// deno-lint-ignore no-empty-interface
+export interface ManuscriptProps {}
+
+type Manuscript =
+	& Thing
+	& CreativeWorkProps
+	& ManuscriptProps
+
+export default Manuscript

@@ -1,10 +1,4 @@
-import type {
-	Boolean,
-	Integer,
-	Number,
-	Text,
-	URL,
-} from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type BedDetails from "../../Intangible/BedDetails/index.ts"
 import type BedType from "../../Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 import type FloorPlan from "../../Intangible/FloorPlan/index.ts"
@@ -12,8 +6,9 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type LocationFeatureSpecification from "../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Place from "../index.ts"
+import type { PlaceProps } from "../index.ts"
 
-export default interface Accommodation extends Place {
+export interface AccommodationProps {
 	/** Category of an [[Accommodation]], following real estate conventions, e.g. RESO (see [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field), and [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field) fields  for suggested values). */
 	accommodationCategory?: Text
 	/** A floorplan of some [[Accommodation]]. */
@@ -49,3 +44,10 @@ export default interface Accommodation extends Place {
 	/** The year an [[Accommodation]] was constructed. This corresponds to the [YearBuilt field in RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field). */
 	yearBuilt?: Number
 }
+
+type Accommodation =
+	& Thing
+	& PlaceProps
+	& AccommodationProps
+
+export default Accommodation

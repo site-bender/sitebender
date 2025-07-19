@@ -1,6 +1,15 @@
-import type Quantity from "../index.ts"
-
 // Energy extends Quantity but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { QuantityProps } from "../index.ts"
 
-export default interface Energy extends Quantity {
-}
+// deno-lint-ignore no-empty-interface
+export interface EnergyProps {}
+
+type Energy =
+	& Thing
+	& IntangibleProps
+	& QuantityProps
+	& EnergyProps
+
+export default Energy

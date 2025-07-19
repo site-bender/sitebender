@@ -1,6 +1,15 @@
-import type ItemList from "../index.ts"
-
 // BreadcrumbList extends ItemList but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { ItemListProps } from "../index.ts"
 
-export default interface BreadcrumbList extends ItemList {
-}
+// deno-lint-ignore no-empty-interface
+export interface BreadcrumbListProps {}
+
+type BreadcrumbList =
+	& Thing
+	& IntangibleProps
+	& ItemListProps
+	& BreadcrumbListProps
+
+export default BreadcrumbList

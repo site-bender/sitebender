@@ -1,9 +1,10 @@
 import type { Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type SportsTeam from "../../Organization/SportsOrganization/SportsTeam/index.ts"
 import type Person from "../../Person/index.ts"
-import type Event from "../index.ts"
+import type { EventProps } from "../index.ts"
 
-export default interface SportsEvent extends Event {
+export interface SportsEventProps {
 	/** The away team in a sports event. */
 	awayTeam?: Person | SportsTeam
 	/** A competitor in a sports event. */
@@ -15,3 +16,10 @@ export default interface SportsEvent extends Event {
 	/** A type of sport (e.g. Baseball). */
 	sport?: URL | Text
 }
+
+type SportsEvent =
+	& Thing
+	& EventProps
+	& SportsEventProps
+
+export default SportsEvent

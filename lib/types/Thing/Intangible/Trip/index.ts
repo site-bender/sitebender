@@ -1,13 +1,14 @@
 import type { DateTime, Time } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Place from "../../Place/index.ts"
 import type Demand from "../Demand/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type ItemList from "../ItemList/index.ts"
 import type Offer from "../Offer/index.ts"
 
-export default interface Trip extends Intangible {
+export interface TripProps {
 	/** The expected arrival time. */
 	arrivalTime?: Time | DateTime
 	/** The expected departure time. */
@@ -25,3 +26,10 @@ export default interface Trip extends Intangible {
 	/** The location of origin of the trip, prior to any destination(s). */
 	tripOrigin?: Place
 }
+
+type Trip =
+	& Thing
+	& IntangibleProps
+	& TripProps
+
+export default Trip

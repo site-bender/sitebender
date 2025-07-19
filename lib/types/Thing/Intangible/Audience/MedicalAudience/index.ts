@@ -1,6 +1,15 @@
-import type Audience from "../index.ts"
-
 // MedicalAudience extends Audience but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { AudienceProps } from "../index.ts"
 
-export default interface MedicalAudience extends Audience {
-}
+// deno-lint-ignore no-empty-interface
+export interface MedicalAudienceProps {}
+
+type MedicalAudience =
+	& Thing
+	& AudienceProps
+	& IntangibleProps
+	& MedicalAudienceProps
+
+export default MedicalAudience

@@ -1,6 +1,13 @@
-import type Intangible from "../index.ts"
-
 // StructuredValue extends Intangible but adds no additional properties
+import type Thing from "../../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface StructuredValue extends Intangible {
-}
+// deno-lint-ignore no-empty-interface
+export interface StructuredValueProps {}
+
+type StructuredValue =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+
+export default StructuredValue

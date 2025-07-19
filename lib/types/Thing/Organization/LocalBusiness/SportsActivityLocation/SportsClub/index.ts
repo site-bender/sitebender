@@ -1,6 +1,17 @@
-import type SportsActivityLocation from "../index.ts"
-
 // SportsClub extends SportsActivityLocation but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
+import type { SportsActivityLocationProps } from "../../../../Place/LocalBusiness/SportsActivityLocation/index.ts"
 
-export default interface SportsClub extends SportsActivityLocation {
-}
+// deno-lint-ignore no-empty-interface
+export interface SportsClubProps {}
+
+type SportsClub =
+	& Thing
+	& LocalBusinessProps
+	& PlaceProps
+	& SportsActivityLocationProps
+	& SportsClubProps
+
+export default SportsClub

@@ -1,6 +1,15 @@
-import type Service from "../index.ts"
-
 // FoodService extends Service but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { ServiceProps } from "../index.ts"
 
-export default interface FoodService extends Service {
-}
+// deno-lint-ignore no-empty-interface
+export interface FoodServiceProps {}
+
+type FoodService =
+	& Thing
+	& IntangibleProps
+	& ServiceProps
+	& FoodServiceProps
+
+export default FoodService

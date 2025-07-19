@@ -1,11 +1,12 @@
 import type { Integer, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Distance from "../../Intangible/Quantity/Distance/index.ts"
 import type Mass from "../../Intangible/Quantity/Mass/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Person from "../../Person/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface VisualArtwork extends CreativeWork {
+export interface VisualArtworkProps {
 	/** The number of copies when multiple copies of a piece of artwork are produced - e.g. for a limited edition of 20 prints, 'artEdition' refers to the total number of copies (in this example "20"). */
 	artEdition?: Integer | Text
 	/** The material used. (E.g. Oil, Watercolour, Acrylic, Linoprint, Marble, Cyanotype, Digital, Lithograph, DryPoint, Intaglio, Pastel, Woodcut, Pencil, Mixed Media, etc.) */
@@ -35,3 +36,10 @@ export default interface VisualArtwork extends CreativeWork {
 	/** The width of the item. */
 	width?: Distance | QuantitativeValue
 }
+
+type VisualArtwork =
+	& Thing
+	& CreativeWorkProps
+	& VisualArtworkProps
+
+export default VisualArtwork

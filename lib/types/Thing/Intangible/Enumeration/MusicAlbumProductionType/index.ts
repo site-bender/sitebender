@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // MusicAlbumProductionType extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface MusicAlbumProductionType extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface MusicAlbumProductionTypeProps {}
+
+type MusicAlbumProductionType =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& MusicAlbumProductionTypeProps
+
+export default MusicAlbumProductionType

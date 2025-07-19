@@ -1,8 +1,11 @@
 import type { Text } from "../../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
 import type Country from "../../../../Place/AdministrativeArea/Country/index.ts"
-import type ContactPoint from "../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { StructuredValueProps } from "../../index.ts"
+import type { ContactPointProps } from "../index.ts"
 
-export default interface PostalAddress extends ContactPoint {
+export interface PostalAddressProps {
 	/** The country. Recommended to be in 2-letter [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example "US". For backward compatibility, a 3-letter [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or a full country name such as "Singapore" can also be used. */
 	addressCountry?: Text | Country
 	/** The locality in which the street address is, and which is in the region. For example, Mountain View. */
@@ -18,3 +21,12 @@ export default interface PostalAddress extends ContactPoint {
 	/** The street address. For example, 1600 Amphitheatre Pkwy. */
 	streetAddress?: Text
 }
+
+type PostalAddress =
+	& Thing
+	& ContactPointProps
+	& IntangibleProps
+	& StructuredValueProps
+	& PostalAddressProps
+
+export default PostalAddress

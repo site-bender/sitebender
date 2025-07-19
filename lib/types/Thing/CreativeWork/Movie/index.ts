@@ -1,5 +1,6 @@
 import type { Language } from "../../../bcp47/index.ts"
 import type { Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Organization from "../../Organization/index.ts"
@@ -8,9 +9,10 @@ import type MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index
 import type Person from "../../Person/index.ts"
 import type Country from "../../Place/AdministrativeArea/Country/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
-export default interface Movie extends CreativeWork {
+export interface MovieProps {
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */
 	actor?: PerformingGroup | Person
 	/** An actor, e.g. in TV, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip. */
@@ -34,3 +36,10 @@ export default interface Movie extends CreativeWork {
 	/** The trailer of a movie or TV/radio series, season, episode, etc. */
 	trailer?: VideoObject
 }
+
+type Movie =
+	& Thing
+	& CreativeWorkProps
+	& MovieProps
+
+export default Movie

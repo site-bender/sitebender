@@ -1,6 +1,13 @@
-import type Intangible from "../index.ts"
-
 // Quantity extends Intangible but adds no additional properties
+import type Thing from "../../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface Quantity extends Intangible {
-}
+// deno-lint-ignore no-empty-interface
+export interface QuantityProps {}
+
+type Quantity =
+	& Thing
+	& IntangibleProps
+	& QuantityProps
+
+export default Quantity

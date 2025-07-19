@@ -1,15 +1,17 @@
 import type { Boolean } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Distance from "../../Quantity/Distance/index.ts"
 import type Mass from "../../Quantity/Mass/index.ts"
 import type DefinedRegion from "../DefinedRegion/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ServicePeriod from "../ServicePeriod/index.ts"
 import type ShippingRateSettings from "../ShippingRateSettings/index.ts"
 
-export default interface ShippingConditions extends StructuredValue {
+export interface ShippingConditionsProps {
 	/** The depth of the item. */
 	depth?: QuantitativeValue | Distance
 	/** Indicates when shipping to a particular [[shippingDestination]] is not available. */
@@ -35,3 +37,11 @@ export default interface ShippingConditions extends StructuredValue {
 	/** The width of the item. */
 	width?: Distance | QuantitativeValue
 }
+
+type ShippingConditions =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& ShippingConditionsProps
+
+export default ShippingConditions

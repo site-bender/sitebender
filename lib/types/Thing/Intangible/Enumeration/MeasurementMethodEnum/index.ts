@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // MeasurementMethodEnum extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface MeasurementMethodEnum extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface MeasurementMethodEnumProps {}
+
+type MeasurementMethodEnum =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& MeasurementMethodEnumProps
+
+export default MeasurementMethodEnum

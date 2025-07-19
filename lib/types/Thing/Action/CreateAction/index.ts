@@ -1,6 +1,13 @@
-import type Action from "../index.ts"
-
 // CreateAction extends Action but adds no additional properties
+import type Thing from "../../index.ts"
+import type { ActionProps } from "../index.ts"
 
-export default interface CreateAction extends Action {
-}
+// deno-lint-ignore no-empty-interface
+export interface CreateActionProps {}
+
+type CreateAction =
+	& Thing
+	& ActionProps
+	& CreateActionProps
+
+export default CreateAction

@@ -10,7 +10,7 @@ import type MedicalGuideline from "./MedicalGuideline/index.ts"
 import type DrugLegalStatus from "./MedicalIntangible/DrugLegalStatus/index.ts"
 import type MedicalStudy from "./MedicalStudy/index.ts"
 
-export default interface MedicalEntity extends Thing {
+export interface MedicalEntityProps {
 	/** A medical code for the entity, taken from a controlled vocabulary or ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc. */
 	code?: MedicalCode
 	/** A [[Grant]] that directly or indirectly provide funding or sponsorship for this item. See also [[ownershipFundingInfo]]. */
@@ -28,3 +28,9 @@ export default interface MedicalEntity extends Thing {
 	/** A medical study or trial related to this entity. */
 	study?: MedicalStudy
 }
+
+type MedicalEntity =
+	& Thing
+	& MedicalEntityProps
+
+export default MedicalEntity

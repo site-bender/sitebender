@@ -1,17 +1,11 @@
-import type {
-	Boolean,
-	Integer,
-	Number,
-	Text,
-	URL,
-} from "../../../DataType/index.ts"
 import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
+import type Thing from "../../index.ts"
 import type Accommodation from "../../Place/Accommodation/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface FloorPlan extends Intangible {
+export interface FloorPlanProps {
 	/** An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs. */
 	amenityFeature?: LocationFeatureSpecification
 	/** The size of the accommodation, e.g. in square meter or squarefoot. Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard. */
@@ -37,3 +31,10 @@ export default interface FloorPlan extends Intangible {
 	/** Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value. */
 	petsAllowed?: Boolean | Text
 }
+
+type FloorPlan =
+	& Thing
+	& IntangibleProps
+	& FloorPlanProps
+
+export default FloorPlan

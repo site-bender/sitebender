@@ -31,7 +31,7 @@ import type Country from "../Place/AdministrativeArea/Country/index.ts"
 import type Place from "../Place/index.ts"
 import type Product from "../Product/index.ts"
 
-export default interface Person extends Thing {
+export interface PersonProps {
 	/** An additional name for a Person, can be used for a middle name. */
 	additionalName?: Text
 	/** Physical address of the item. */
@@ -167,3 +167,9 @@ export default interface Person extends Thing {
 	/** Organizations that the person works for. */
 	worksFor?: Organization
 }
+
+type Person =
+	& Thing
+	& PersonProps
+
+export default Person

@@ -1,11 +1,13 @@
 import type { Date, DateTime } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Audience from "../../Intangible/Audience/index.ts"
 import type ContactPoint from "../../Intangible/StructuredValue/ContactPoint/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Message extends CreativeWork {
+export interface MessageProps {
 	/** A sub property of recipient. The recipient blind copied on a message. */
 	bccRecipient?: Organization | ContactPoint | Person
 	/** A sub property of recipient. The recipient copied on a message. */
@@ -25,3 +27,10 @@ export default interface Message extends CreativeWork {
 	/** A sub property of recipient. The recipient who was directly sent the message. */
 	toRecipient?: Audience | Organization | ContactPoint | Person
 }
+
+type Message =
+	& Thing
+	& CreativeWorkProps
+	& MessageProps
+
+export default Message

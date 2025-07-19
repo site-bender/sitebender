@@ -1,8 +1,10 @@
 import type { Integer, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Article extends CreativeWork {
+export interface ArticleProps {
 	/** The actual body of the article. */
 	articleBody?: Text
 	/** Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc. */
@@ -20,3 +22,10 @@ export default interface Article extends CreativeWork {
 	/** The number of words in the text of the CreativeWork such as an Article, Book, etc. */
 	wordCount?: Integer
 }
+
+type Article =
+	& Thing
+	& CreativeWorkProps
+	& ArticleProps
+
+export default Article

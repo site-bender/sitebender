@@ -1,6 +1,15 @@
-import type ConsumeAction from "../index.ts"
-
 // ListenAction extends ConsumeAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { ConsumeActionProps } from "../index.ts"
 
-export default interface ListenAction extends ConsumeAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface ListenActionProps {}
+
+type ListenAction =
+	& Thing
+	& ActionProps
+	& ConsumeActionProps
+	& ListenActionProps
+
+export default ListenAction

@@ -1,20 +1,12 @@
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Integer,
-	Number,
-	Text,
-	URL,
-} from "../../../DataType/index.ts"
 import type EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type Place from "../../Place/index.ts"
 import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
 import type DefinedTerm from "../DefinedTerm/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Occupation from "../Occupation/index.ts"
 import type OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
@@ -22,7 +14,7 @@ import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
-export default interface JobPosting extends Intangible {
+export interface JobPostingProps {
 	/** The location(s) applicants can apply from. This is usually used for telecommuting jobs where the applicant does not need to be in a physical office. Note: This should not be used for citizenship or work visa requirements. */
 	applicantLocationRequirements?: AdministrativeArea
 	/** Contact details for further information relevant to this job posting. */
@@ -98,3 +90,10 @@ export default interface JobPosting extends Intangible {
 	/** The typical working hours for this job (e.g. 1st shift, night shift, 8am-5pm). */
 	workHours?: Text
 }
+
+type JobPosting =
+	& Thing
+	& IntangibleProps
+	& JobPostingProps
+
+export default JobPosting

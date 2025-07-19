@@ -1,8 +1,9 @@
 import type { DateTime, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type DeliveryMethod from "../../Intangible/Enumeration/DeliveryMethod/index.ts"
-import type Event from "../index.ts"
+import type { EventProps } from "../index.ts"
 
-export default interface DeliveryEvent extends Event {
+export interface DeliveryEventProps {
 	/** Password, PIN, or access code needed for delivery (e.g. from a locker). */
 	accessCode?: Text
 	/** When the item is available for pickup from the store, locker, etc. */
@@ -12,3 +13,10 @@ export default interface DeliveryEvent extends Event {
 	/** Method used for delivery or shipping. */
 	hasDeliveryMethod?: DeliveryMethod
 }
+
+type DeliveryEvent =
+	& Thing
+	& EventProps
+	& DeliveryEventProps
+
+export default DeliveryEvent

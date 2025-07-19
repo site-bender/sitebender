@@ -1,11 +1,4 @@
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Text,
-	Time,
-	URL,
-} from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type MediaSubscription from "../../Intangible/MediaSubscription/index.ts"
 import type Distance from "../../Intangible/Quantity/Distance/index.ts"
 import type Duration from "../../Intangible/Quantity/Duration/index.ts"
@@ -17,7 +10,7 @@ import type NewsArticle from "../Article/NewsArticle/index.ts"
 import type Claim from "../Claim/index.ts"
 import type CreativeWork from "../index.ts"
 
-export default interface MediaObject extends CreativeWork {
+export interface MediaObjectProps {
 	/** A NewsArticle associated with the Media Object. */
 	associatedArticle?: NewsArticle
 	/** The bitrate of the media object. */
@@ -59,3 +52,9 @@ export default interface MediaObject extends CreativeWork {
 	/** The width of the item. */
 	width?: Distance | QuantitativeValue
 }
+
+type MediaObject =
+	& Thing
+	& MediaObjectProps
+
+export default MediaObject

@@ -1,14 +1,10 @@
-import type {
-	DateTime,
-	Integer,
-	Text,
-	Time,
-} from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
-import type Reservation from "../index.ts"
+import type { ReservationProps } from "../index.ts"
 
-export default interface LodgingReservation extends Reservation {
+export interface LodgingReservationProps {
 	/** The earliest someone may check into a lodging establishment. */
 	checkinTime?: DateTime | Time
 	/** The latest someone may check out of a lodging establishment. */
@@ -22,3 +18,11 @@ export default interface LodgingReservation extends Reservation {
 	/** The number of children staying in the unit. */
 	numChildren?: QuantitativeValue | Integer
 }
+
+type LodgingReservation =
+	& Thing
+	& IntangibleProps
+	& ReservationProps
+	& LodgingReservationProps
+
+export default LodgingReservation

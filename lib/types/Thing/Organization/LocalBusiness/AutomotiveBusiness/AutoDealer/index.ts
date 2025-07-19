@@ -1,6 +1,17 @@
-import type AutomotiveBusiness from "../index.ts"
-
 // AutoDealer extends AutomotiveBusiness but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { AutomotiveBusinessProps } from "../../../../Place/LocalBusiness/AutomotiveBusiness/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
 
-export default interface AutoDealer extends AutomotiveBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface AutoDealerProps {}
+
+type AutoDealer =
+	& Thing
+	& AutomotiveBusinessProps
+	& LocalBusinessProps
+	& PlaceProps
+	& AutoDealerProps
+
+export default AutoDealer

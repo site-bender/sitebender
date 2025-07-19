@@ -1,9 +1,11 @@
 import type { Number, Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
+import type { MedicalEntityProps } from "../../index.ts"
 import type MaximumDoseSchedule from "../DoseSchedule/MaximumDoseSchedule/index.ts"
-import type MedicalIntangible from "../index.ts"
+import type { MedicalIntangibleProps } from "../index.ts"
 
-export default interface DrugStrength extends MedicalIntangible {
+export interface DrugStrengthProps {
 	/** An active ingredient, typically chemical compounds and/or biologic substances. */
 	activeIngredient?: Text
 	/** The location in which the strength is available. */
@@ -15,3 +17,11 @@ export default interface DrugStrength extends MedicalIntangible {
 	/** The value of an active ingredient's strength, e.g. 325. */
 	strengthValue?: Number
 }
+
+type DrugStrength =
+	& Thing
+	& MedicalEntityProps
+	& MedicalIntangibleProps
+	& DrugStrengthProps
+
+export default DrugStrength

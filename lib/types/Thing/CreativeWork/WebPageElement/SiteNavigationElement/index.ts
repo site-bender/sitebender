@@ -1,6 +1,15 @@
-import type WebPageElement from "../index.ts"
-
 // SiteNavigationElement extends WebPageElement but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { WebPageElementProps } from "../index.ts"
 
-export default interface SiteNavigationElement extends WebPageElement {
-}
+// deno-lint-ignore no-empty-interface
+export interface SiteNavigationElementProps {}
+
+type SiteNavigationElement =
+	& Thing
+	& CreativeWorkProps
+	& WebPageElementProps
+	& SiteNavigationElementProps
+
+export default SiteNavigationElement

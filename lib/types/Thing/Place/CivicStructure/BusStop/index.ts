@@ -1,6 +1,15 @@
-import type CivicStructure from "../index.ts"
-
 // BusStop extends CivicStructure but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { CivicStructureProps } from "../index.ts"
 
-export default interface BusStop extends CivicStructure {
-}
+// deno-lint-ignore no-empty-interface
+export interface BusStopProps {}
+
+type BusStop =
+	& Thing
+	& CivicStructureProps
+	& PlaceProps
+	& BusStopProps
+
+export default BusStop

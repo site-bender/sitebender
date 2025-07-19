@@ -1,6 +1,17 @@
-import type MedicalBusiness from "../index.ts"
-
 // Optician extends MedicalBusiness but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
+import type { MedicalBusinessProps } from "../../../../Place/LocalBusiness/MedicalBusiness/index.ts"
 
-export default interface Optician extends MedicalBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface OpticianProps {}
+
+type Optician =
+	& Thing
+	& LocalBusinessProps
+	& MedicalBusinessProps
+	& PlaceProps
+	& OpticianProps
+
+export default Optician

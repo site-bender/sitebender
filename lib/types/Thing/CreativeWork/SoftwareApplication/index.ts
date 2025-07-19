@@ -1,9 +1,11 @@
 import type { Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type DataFeed from "../Dataset/DataFeed/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
 
-export default interface SoftwareApplication extends CreativeWork {
+export interface SoftwareApplicationProps {
 	/** Type of software application, e.g. 'Game, Multimedia'. */
 	applicationCategory?: URL | Text
 	/** Subcategory of the application, e.g. 'Arcade Game'. */
@@ -53,3 +55,10 @@ export default interface SoftwareApplication extends CreativeWork {
 	/** Supporting data for a SoftwareApplication. */
 	supportingData?: DataFeed
 }
+
+type SoftwareApplication =
+	& Thing
+	& CreativeWorkProps
+	& SoftwareApplicationProps
+
+export default SoftwareApplication

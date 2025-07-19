@@ -1,8 +1,10 @@
 import type { DateTime } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Place from "../../../Place/index.ts"
-import type Reservation from "../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { ReservationProps } from "../index.ts"
 
-export default interface RentalCarReservation extends Reservation {
+export interface RentalCarReservationProps {
 	/** Where a rental car can be dropped off. */
 	dropoffLocation?: Place
 	/** When a rental car can be dropped off. */
@@ -12,3 +14,11 @@ export default interface RentalCarReservation extends Reservation {
 	/** When a taxi will pick up a passenger or a rental car can be picked up. */
 	pickupTime?: DateTime
 }
+
+type RentalCarReservation =
+	& Thing
+	& IntangibleProps
+	& ReservationProps
+	& RentalCarReservationProps
+
+export default RentalCarReservation

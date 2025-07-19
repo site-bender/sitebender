@@ -3,6 +3,7 @@ import type Thing from "../../../index.ts"
 import type Certification from "../../CreativeWork/Certification/index.ts"
 import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
 import type Review from "../../CreativeWork/Review/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
@@ -14,7 +15,7 @@ import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
 import type Demand from "../Demand/index.ts"
 import type GovernmentBenefitsType from "../Enumeration/GovernmentBenefitsType/index.ts"
 import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type OfferCatalog from "../ItemList/OfferCatalog/index.ts"
 import type Offer from "../Offer/index.ts"
 import type AggregateRating from "../Rating/AggregateRating/index.ts"
@@ -22,7 +23,7 @@ import type ServiceChannel from "../ServiceChannel/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 import type OpeningHoursSpecification from "../StructuredValue/OpeningHoursSpecification/index.ts"
 
-export default interface Service extends Intangible {
+export interface ServiceProps {
 	/** The overall rating, based on a collection of reviews or ratings, of the item. */
 	aggregateRating?: AggregateRating
 	/** The geographic area where a service or offered item is provided. */
@@ -74,3 +75,10 @@ export default interface Service extends Intangible {
 	/** Human-readable terms of service documentation. */
 	termsOfService?: Text | URL
 }
+
+type Service =
+	& Thing
+	& IntangibleProps
+	& ServiceProps
+
+export default Service

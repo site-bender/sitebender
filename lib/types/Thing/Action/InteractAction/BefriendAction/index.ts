@@ -1,6 +1,15 @@
-import type InteractAction from "../index.ts"
-
 // BefriendAction extends InteractAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { InteractActionProps } from "../index.ts"
 
-export default interface BefriendAction extends InteractAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface BefriendActionProps {}
+
+type BefriendAction =
+	& Thing
+	& ActionProps
+	& InteractActionProps
+	& BefriendActionProps
+
+export default BefriendAction

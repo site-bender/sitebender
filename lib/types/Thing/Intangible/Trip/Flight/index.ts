@@ -1,14 +1,16 @@
 import type { DateTime, Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type Airport from "../../../Place/CivicStructure/Airport/index.ts"
 import type Vehicle from "../../../Product/Vehicle/index.ts"
 import type BoardingPolicyType from "../../Enumeration/BoardingPolicyType/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Distance from "../../Quantity/Distance/index.ts"
 import type Duration from "../../Quantity/Duration/index.ts"
-import type Trip from "../index.ts"
+import type { TripProps } from "../index.ts"
 
-export default interface Flight extends Trip {
+export interface FlightProps {
 	/** The kind of aircraft (e.g., "Boeing 747"). */
 	aircraft?: Vehicle | Text
 	/** The airport where the flight terminates. */
@@ -40,3 +42,11 @@ export default interface Flight extends Trip {
 	/** The time when a passenger can check into the flight online. */
 	webCheckinTime?: DateTime
 }
+
+type Flight =
+	& Thing
+	& IntangibleProps
+	& TripProps
+	& FlightProps
+
+export default Flight

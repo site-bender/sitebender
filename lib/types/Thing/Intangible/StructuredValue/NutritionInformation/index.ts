@@ -1,9 +1,11 @@
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Energy from "../../Quantity/Energy/index.ts"
 import type Mass from "../../Quantity/Mass/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-export default interface NutritionInformation extends StructuredValue {
+export interface NutritionInformationProps {
 	/** The number of calories. */
 	calories?: Energy
 	/** The number of grams of carbohydrates. */
@@ -29,3 +31,11 @@ export default interface NutritionInformation extends StructuredValue {
 	/** The number of grams of unsaturated fat. */
 	unsaturatedFatContent?: Mass
 }
+
+type NutritionInformation =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& NutritionInformationProps
+
+export default NutritionInformation

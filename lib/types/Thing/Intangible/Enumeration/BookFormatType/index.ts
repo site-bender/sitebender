@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // BookFormatType extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface BookFormatType extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface BookFormatTypeProps {}
+
+type BookFormatType =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& BookFormatTypeProps
+
+export default BookFormatType

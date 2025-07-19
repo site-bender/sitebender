@@ -1,12 +1,15 @@
 import type { Language } from "../../../../bcp47/index.ts"
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Place from "../../../Place/index.ts"
 import type BroadcastChannel from "../../BroadcastChannel/index.ts"
 import type BroadcastFrequencySpecification from "../../BroadcastFrequencySpecification/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Service from "../index.ts"
+import type { ServiceProps } from "../index.ts"
 
-export default interface BroadcastService extends Service {
+export interface BroadcastServiceProps {
 	/** The area within which users can expect to reach the broadcast service. */
 	area?: Place
 	/** The media network(s) whose content is broadcast on this station. */
@@ -30,3 +33,11 @@ export default interface BroadcastService extends Service {
 	/** The type of screening or video broadcast used (e.g. IMAX, 3D, SD, HD, etc.). */
 	videoFormat?: Text
 }
+
+type BroadcastService =
+	& Thing
+	& IntangibleProps
+	& ServiceProps
+	& BroadcastServiceProps
+
+export default BroadcastService

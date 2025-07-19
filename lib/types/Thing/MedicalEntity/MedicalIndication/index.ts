@@ -1,6 +1,13 @@
-import type MedicalEntity from "../index.ts"
-
 // MedicalIndication extends MedicalEntity but adds no additional properties
+import type Thing from "../../index.ts"
+import type { MedicalEntityProps } from "../index.ts"
 
-export default interface MedicalIndication extends MedicalEntity {
-}
+// deno-lint-ignore no-empty-interface
+export interface MedicalIndicationProps {}
+
+type MedicalIndication =
+	& Thing
+	& MedicalEntityProps
+	& MedicalIndicationProps
+
+export default MedicalIndication

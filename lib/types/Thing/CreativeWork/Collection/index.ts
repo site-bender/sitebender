@@ -1,7 +1,15 @@
 import type { Integer } from "../../../DataType/index.ts"
-import type CreativeWork from "../index.ts"
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Collection extends CreativeWork {
+export interface CollectionProps {
 	/** The number of items in the [[Collection]]. */
 	collectionSize?: Integer
 }
+
+type Collection =
+	& Thing
+	& CreativeWorkProps
+	& CollectionProps
+
+export default Collection

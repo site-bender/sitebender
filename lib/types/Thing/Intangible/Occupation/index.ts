@@ -1,14 +1,15 @@
 import type { Number, Text } from "../../../DataType/index.ts"
 import type EducationalOccupationalCredential from "../../CreativeWork/EducationalOccupationalCredential/index.ts"
+import type Thing from "../../index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
 import type DefinedTerm from "../DefinedTerm/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
-export default interface Occupation extends Intangible {
+export interface OccupationProps {
 	/** Educational background needed for the position or Occupation. */
 	educationRequirements?: Text | EducationalOccupationalCredential
 	/** An estimated salary for a job posting or occupation, based on a variety of variables including, but not limited to industry, job title, and location. Estimated salaries  are often computed by outside organizations rather than the hiring organization, who may not have committed to the estimated value. */
@@ -26,3 +27,10 @@ export default interface Occupation extends Intangible {
 	/** A statement of knowledge, skill, ability, task or any other assertion expressing a competency that is either claimed by a person, an organization or desired or required to fulfill a role or to work in an occupation. */
 	skills?: DefinedTerm | Text
 }
+
+type Occupation =
+	& Thing
+	& IntangibleProps
+	& OccupationProps
+
+export default Occupation

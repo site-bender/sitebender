@@ -1,13 +1,15 @@
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type MusicReleaseFormatType from "../../../Intangible/Enumeration/MusicReleaseFormatType/index.ts"
 import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
-import type MusicPlaylist from "../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { MusicPlaylistProps } from "../index.ts"
 import type MusicAlbum from "../MusicAlbum/index.ts"
 
-export default interface MusicRelease extends MusicPlaylist {
+export interface MusicReleaseProps {
 	/** The catalog number for the release. */
 	catalogNumber?: Text
 	/** The group the release is credited to if different than the byArtist. For example, Red and Blue is credited to "Stefani Germanotta Band", but by Lady Gaga. */
@@ -21,3 +23,11 @@ export default interface MusicRelease extends MusicPlaylist {
 	/** The album this is a release of. */
 	releaseOf?: MusicAlbum
 }
+
+type MusicRelease =
+	& Thing
+	& CreativeWorkProps
+	& MusicPlaylistProps
+	& MusicReleaseProps
+
+export default MusicRelease

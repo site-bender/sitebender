@@ -1,6 +1,15 @@
-import type Residence from "../index.ts"
-
 // GatedResidenceCommunity extends Residence but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { ResidenceProps } from "../index.ts"
 
-export default interface GatedResidenceCommunity extends Residence {
-}
+// deno-lint-ignore no-empty-interface
+export interface GatedResidenceCommunityProps {}
+
+type GatedResidenceCommunity =
+	& Thing
+	& PlaceProps
+	& ResidenceProps
+	& GatedResidenceCommunityProps
+
+export default GatedResidenceCommunity

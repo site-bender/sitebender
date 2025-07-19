@@ -1,12 +1,13 @@
 import type { Date, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type CategoryCode from "../../Intangible/DefinedTerm/CategoryCode/index.ts"
 import type LegalForceStatus from "../../Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Legislation extends CreativeWork {
+export interface LegislationProps {
 	/** Indicates a legal jurisdiction, e.g. of some legislation, or where some government service is based. */
 	jurisdiction?: AdministrativeArea | Text
 	/** Another legislation that this legislation amends, introducing legal changes. */
@@ -48,3 +49,10 @@ export default interface Legislation extends CreativeWork {
 	/** The type of the legislation. Examples of values are "law", "act", "directive", "decree", "regulation", "statutory instrument", "loi organique", "règlement grand-ducal", etc., depending on the country. */
 	legislationType?: CategoryCode | Text
 }
+
+type Legislation =
+	& Thing
+	& CreativeWorkProps
+	& LegislationProps
+
+export default Legislation

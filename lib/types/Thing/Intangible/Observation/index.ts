@@ -1,16 +1,17 @@
 import type { DateTime, Text, URL } from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Thing from "../../index.ts"
 import type Place from "../../Place/index.ts"
 import type StatisticalVariable from "../ConstraintNode/StatisticalVariable/index.ts"
 import type DefinedTerm from "../DefinedTerm/index.ts"
 import type Enumeration from "../Enumeration/index.ts"
 import type MeasurementMethodEnum from "../Enumeration/MeasurementMethodEnum/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Property from "../Property/index.ts"
 import type PropertyValue from "../StructuredValue/PropertyValue/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface Observation extends Intangible {
+export interface ObservationProps {
 	/** A [[marginOfError]] for an [[Observation]]. */
 	marginOfError?: QuantitativeValue
 	/** The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties). */
@@ -32,3 +33,10 @@ export default interface Observation extends Intangible {
 	/** The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue, or more explicitly as a [[StatisticalVariable]]. */
 	variableMeasured?: Property | StatisticalVariable | PropertyValue | Text
 }
+
+type Observation =
+	& Thing
+	& IntangibleProps
+	& ObservationProps
+
+export default Observation

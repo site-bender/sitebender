@@ -1,6 +1,15 @@
-import type WebPage from "../index.ts"
-
 // QAPage extends WebPage but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { WebPageProps } from "../index.ts"
 
-export default interface QAPage extends WebPage {
-}
+// deno-lint-ignore no-empty-interface
+export interface QAPageProps {}
+
+type QAPage =
+	& Thing
+	& CreativeWorkProps
+	& WebPageProps
+	& QAPageProps
+
+export default QAPage

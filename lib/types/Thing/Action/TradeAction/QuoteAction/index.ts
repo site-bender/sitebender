@@ -1,6 +1,15 @@
-import type TradeAction from "../index.ts"
-
 // QuoteAction extends TradeAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { TradeActionProps } from "../index.ts"
 
-export default interface QuoteAction extends TradeAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface QuoteActionProps {}
+
+type QuoteAction =
+	& Thing
+	& ActionProps
+	& TradeActionProps
+	& QuoteActionProps
+
+export default QuoteAction

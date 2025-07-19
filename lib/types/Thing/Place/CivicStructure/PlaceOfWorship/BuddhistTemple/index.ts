@@ -1,6 +1,17 @@
-import type PlaceOfWorship from "../index.ts"
-
 // BuddhistTemple extends PlaceOfWorship but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../index.ts"
+import type { CivicStructureProps } from "../../index.ts"
+import type { PlaceOfWorshipProps } from "../index.ts"
 
-export default interface BuddhistTemple extends PlaceOfWorship {
-}
+// deno-lint-ignore no-empty-interface
+export interface BuddhistTempleProps {}
+
+type BuddhistTemple =
+	& Thing
+	& CivicStructureProps
+	& PlaceProps
+	& PlaceOfWorshipProps
+	& BuddhistTempleProps
+
+export default BuddhistTemple

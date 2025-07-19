@@ -1,6 +1,13 @@
-import type Intangible from "../index.ts"
-
 // VirtualLocation extends Intangible but adds no additional properties
+import type Thing from "../../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface VirtualLocation extends Intangible {
-}
+// deno-lint-ignore no-empty-interface
+export interface VirtualLocationProps {}
+
+type VirtualLocation =
+	& Thing
+	& IntangibleProps
+	& VirtualLocationProps
+
+export default VirtualLocation

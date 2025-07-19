@@ -1,6 +1,15 @@
-import type CivicStructure from "../index.ts"
-
 // PlaceOfWorship extends CivicStructure but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { CivicStructureProps } from "../index.ts"
 
-export default interface PlaceOfWorship extends CivicStructure {
-}
+// deno-lint-ignore no-empty-interface
+export interface PlaceOfWorshipProps {}
+
+type PlaceOfWorship =
+	& Thing
+	& CivicStructureProps
+	& PlaceProps
+	& PlaceOfWorshipProps
+
+export default PlaceOfWorship

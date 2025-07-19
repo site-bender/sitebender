@@ -1,7 +1,15 @@
+import type Thing from "../../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface DefinedTermSet extends CreativeWork {
+export interface DefinedTermSetProps {
 	/** A Defined Term contained in this term set. */
 	hasDefinedTerm?: DefinedTerm
 }
+
+type DefinedTermSet =
+	& Thing
+	& CreativeWorkProps
+	& DefinedTermSetProps
+
+export default DefinedTermSet

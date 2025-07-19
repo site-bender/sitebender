@@ -1,11 +1,14 @@
 import type { Number, Text, URL } from "../../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
 import type PriceComponentTypeEnumeration from "../../../Enumeration/PriceComponentTypeEnumeration/index.ts"
 import type PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
+import type { IntangibleProps } from "../../../index.ts"
 import type Duration from "../../../Quantity/Duration/index.ts"
+import type { StructuredValueProps } from "../../index.ts"
 import type QuantitativeValue from "../../QuantitativeValue/index.ts"
-import type PriceSpecification from "../index.ts"
+import type { PriceSpecificationProps } from "../index.ts"
 
-export default interface UnitPriceSpecification extends PriceSpecification {
+export interface UnitPriceSpecificationProps {
 	/** Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property). */
 	billingDuration?: Duration | Number | QuantitativeValue
 	/** This property specifies the minimal quantity and rounding increment that will be the basis for the billing. The unit of measurement is specified by the unitCode property. */
@@ -23,3 +26,12 @@ export default interface UnitPriceSpecification extends PriceSpecification {
 	/** A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for <a href='unitCode'>unitCode</a>. */
 	unitText?: Text
 }
+
+type UnitPriceSpecification =
+	& Thing
+	& IntangibleProps
+	& PriceSpecificationProps
+	& StructuredValueProps
+	& UnitPriceSpecificationProps
+
+export default UnitPriceSpecification

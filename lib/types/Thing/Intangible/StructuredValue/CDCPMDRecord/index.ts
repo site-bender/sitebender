@@ -1,12 +1,8 @@
-import type {
-	Date,
-	DateTime,
-	Number,
-	Text,
-} from "../../../../DataType/index.ts"
-import type StructuredValue from "../index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-export default interface CDCPMDRecord extends StructuredValue {
+export interface CDCPMDRecordProps {
 	/** collectiondate - Date for which patient counts are reported. */
 	cvdCollectionDate?: Text | DateTime
 	/** Name of the County of the NHSN facility that this data record applies to. Use [[cvdFacilityId]] to identify the facility. To provide other details, [[healthcareReportingData]] can be used on a [[Hospital]] entry. */
@@ -42,3 +38,11 @@ export default interface CDCPMDRecord extends StructuredValue {
 	/** Publication date of an online listing. */
 	datePosted?: Date | DateTime
 }
+
+type CDCPMDRecord =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& CDCPMDRecordProps
+
+export default CDCPMDRecord

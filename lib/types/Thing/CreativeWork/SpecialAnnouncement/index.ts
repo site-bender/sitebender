@@ -1,5 +1,6 @@
 import type { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Thing from "../../index.ts"
 import type CategoryCode from "../../Intangible/DefinedTerm/CategoryCode/index.ts"
 import type PhysicalActivityCategory from "../../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 import type Observation from "../../Intangible/Observation/index.ts"
@@ -8,10 +9,10 @@ import type LocalBusiness from "../../Organization/LocalBusiness/index.ts"
 import type CivicStructure from "../../Place/CivicStructure/index.ts"
 import type DataFeed from "../Dataset/DataFeed/index.ts"
 import type Dataset from "../Dataset/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type WebContent from "../WebContent/index.ts"
 
-export default interface SpecialAnnouncement extends CreativeWork {
+export interface SpecialAnnouncementProps {
 	/** Indicates a specific [[CivicStructure]] or [[LocalBusiness]] associated with the SpecialAnnouncement. For example, a specific testing facility or business with special opening hours. For a larger geographic region like a quarantine of an entire region, use [[spatialCoverage]]. */
 	announcementLocation?: LocalBusiness | CivicStructure
 	/** A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy. */
@@ -39,3 +40,10 @@ export default interface SpecialAnnouncement extends CreativeWork {
 	/** The URL for a feed, e.g. associated with a podcast series, blog, or series of date-stamped updates. This is usually RSS or Atom. */
 	webFeed?: URL | DataFeed
 }
+
+type SpecialAnnouncement =
+	& Thing
+	& CreativeWorkProps
+	& SpecialAnnouncementProps
+
+export default SpecialAnnouncement

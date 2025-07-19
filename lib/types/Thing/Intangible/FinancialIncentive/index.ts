@@ -1,4 +1,5 @@
 import type { Date, DateTime, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
@@ -9,14 +10,14 @@ import type IncentiveQualifiedExpenseType from "../Enumeration/IncentiveQualifie
 import type IncentiveStatus from "../Enumeration/IncentiveStatus/index.ts"
 import type IncentiveType from "../Enumeration/IncentiveType/index.ts"
 import type PurchaseType from "../Enumeration/PurchaseType/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type LoanOrCredit from "../Service/FinancialProduct/LoanOrCredit/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface FinancialIncentive extends Intangible {
+export interface FinancialIncentiveProps {
 	/** The geographic area where a service or offered item is provided. */
 	areaServed?: AdministrativeArea | Place | GeoShape | Text
 	/** The supplier of the incentivized item/service for which the incentive is valid for such as a utility company, merchant, or contractor. */
@@ -46,3 +47,10 @@ export default interface FinancialIncentive extends Intangible {
 	/** The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours. */
 	validThrough?: Date | DateTime
 }
+
+type FinancialIncentive =
+	& Thing
+	& IntangibleProps
+	& FinancialIncentiveProps
+
+export default FinancialIncentive

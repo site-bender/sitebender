@@ -1,6 +1,13 @@
-import type CreativeWork from "../index.ts"
-
 // Atlas extends CreativeWork but adds no additional properties
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Atlas extends CreativeWork {
-}
+// deno-lint-ignore no-empty-interface
+export interface AtlasProps {}
+
+type Atlas =
+	& Thing
+	& CreativeWorkProps
+	& AtlasProps
+
+export default Atlas

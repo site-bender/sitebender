@@ -1,6 +1,13 @@
-import type Event from "../index.ts"
-
 // UserInteraction extends Event but adds no additional properties
+import type Thing from "../../index.ts"
+import type { EventProps } from "../index.ts"
 
-export default interface UserInteraction extends Event {
-}
+// deno-lint-ignore no-empty-interface
+export interface UserInteractionProps {}
+
+type UserInteraction =
+	& Thing
+	& EventProps
+	& UserInteractionProps
+
+export default UserInteraction

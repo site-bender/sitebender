@@ -1,6 +1,13 @@
-import type Organization from "../index.ts"
-
 // GovernmentOrganization extends Organization but adds no additional properties
+import type Thing from "../../index.ts"
+import type { OrganizationProps } from "../index.ts"
 
-export default interface GovernmentOrganization extends Organization {
-}
+// deno-lint-ignore no-empty-interface
+export interface GovernmentOrganizationProps {}
+
+type GovernmentOrganization =
+	& Thing
+	& OrganizationProps
+	& GovernmentOrganizationProps
+
+export default GovernmentOrganization

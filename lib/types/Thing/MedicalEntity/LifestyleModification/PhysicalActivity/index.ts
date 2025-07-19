@@ -1,13 +1,15 @@
 import type { Text, URL } from "../../../../DataType/index.ts"
 import type Thing from "../../../../index.ts"
+import type Thing from "../../../index.ts"
 import type CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/index.ts"
 import type PhysicalActivityCategory from "../../../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 import type AnatomicalStructure from "../../AnatomicalStructure/index.ts"
 import type AnatomicalSystem from "../../AnatomicalSystem/index.ts"
+import type { MedicalEntityProps } from "../../index.ts"
 import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
-import type LifestyleModification from "../index.ts"
+import type { LifestyleModificationProps } from "../index.ts"
 
-export default interface PhysicalActivity extends LifestyleModification {
+export interface PhysicalActivityProps {
 	/** The anatomy of the underlying organ system or structures associated with this entity. */
 	associatedAnatomy?:
 		| AnatomicalStructure
@@ -20,3 +22,11 @@ export default interface PhysicalActivity extends LifestyleModification {
 	/** Changes in the normal mechanical, physical, and biochemical functions that are associated with this activity or condition. */
 	pathophysiology?: Text
 }
+
+type PhysicalActivity =
+	& Thing
+	& LifestyleModificationProps
+	& MedicalEntityProps
+	& PhysicalActivityProps
+
+export default PhysicalActivity

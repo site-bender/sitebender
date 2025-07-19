@@ -1,6 +1,15 @@
-import type Episode from "../index.ts"
-
 // PodcastEpisode extends Episode but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { EpisodeProps } from "../index.ts"
 
-export default interface PodcastEpisode extends Episode {
-}
+// deno-lint-ignore no-empty-interface
+export interface PodcastEpisodeProps {}
+
+type PodcastEpisode =
+	& Thing
+	& CreativeWorkProps
+	& EpisodeProps
+	& PodcastEpisodeProps
+
+export default PodcastEpisode

@@ -1,9 +1,12 @@
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { MedicalEntityProps } from "../../index.ts"
 import type AnatomicalStructure from "../index.ts"
+import type { AnatomicalStructureProps } from "../index.ts"
 import type Nerve from "../Nerve/index.ts"
 import type Vessel from "../Vessel/index.ts"
 
-export default interface Muscle extends AnatomicalStructure {
+export interface MuscleProps {
 	/** The muscle whose action counteracts the specified muscle. */
 	antagonist?: Muscle
 	/** The blood vessel that carries blood from the heart to the muscle. */
@@ -15,3 +18,11 @@ export default interface Muscle extends AnatomicalStructure {
 	/** The underlying innervation associated with the muscle. */
 	nerve?: Nerve
 }
+
+type Muscle =
+	& Thing
+	& AnatomicalStructureProps
+	& MedicalEntityProps
+	& MuscleProps
+
+export default Muscle

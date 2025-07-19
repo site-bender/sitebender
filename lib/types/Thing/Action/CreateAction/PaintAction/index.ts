@@ -1,6 +1,15 @@
-import type CreateAction from "../index.ts"
-
 // PaintAction extends CreateAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { CreateActionProps } from "../index.ts"
 
-export default interface PaintAction extends CreateAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface PaintActionProps {}
+
+type PaintAction =
+	& Thing
+	& ActionProps
+	& CreateActionProps
+	& PaintActionProps
+
+export default PaintAction

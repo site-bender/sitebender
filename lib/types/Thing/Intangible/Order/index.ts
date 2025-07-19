@@ -1,16 +1,9 @@
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Number,
-	Text,
-	URL,
-} from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Product from "../../Product/index.ts"
 import type OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Invoice from "../Invoice/index.ts"
 import type Offer from "../Offer/index.ts"
 import type OrderItem from "../OrderItem/index.ts"
@@ -19,7 +12,7 @@ import type PaymentMethod from "../PaymentMethod/index.ts"
 import type Service from "../Service/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
-export default interface Order extends Intangible {
+export interface OrderProps {
 	/** The offer(s) -- e.g., product, quantity and price combinations -- included in the order. */
 	acceptedOffer?: Offer
 	/** The billing address for the order. */
@@ -65,3 +58,10 @@ export default interface Order extends Intangible {
 	/** An entity which offers (sells / leases / lends / loans) the services / goods.  A seller may also be a provider. */
 	seller?: Organization | Person
 }
+
+type Order =
+	& Thing
+	& IntangibleProps
+	& OrderProps
+
+export default Order

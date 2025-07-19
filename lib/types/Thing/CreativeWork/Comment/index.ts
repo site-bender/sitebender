@@ -1,7 +1,9 @@
 import type { Integer } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Comment extends CreativeWork {
+export interface CommentProps {
 	/** The number of downvotes this question, answer or comment has received from the community. */
 	downvoteCount?: Integer
 	/** The parent of a question, answer or item in general. Typically used for Q/A discussion threads e.g. a chain of comments with the first comment being an [[Article]] or other [[CreativeWork]]. See also [[comment]] which points from something to a comment about it. */
@@ -11,3 +13,10 @@ export default interface Comment extends CreativeWork {
 	/** The number of upvotes this question, answer or comment has received from the community. */
 	upvoteCount?: Integer
 }
+
+type Comment =
+	& Thing
+	& CreativeWorkProps
+	& CommentProps
+
+export default Comment

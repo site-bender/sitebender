@@ -1,10 +1,22 @@
+import type Thing from "../../../../index.ts"
 import type Audience from "../../../../Intangible/Audience/index.ts"
 import type ContactPoint from "../../../../Intangible/StructuredValue/ContactPoint/index.ts"
 import type Organization from "../../../../Organization/index.ts"
 import type Person from "../../../../Person/index.ts"
-import type AllocateAction from "../index.ts"
+import type { ActionProps } from "../../../index.ts"
+import type { OrganizeActionProps } from "../../index.ts"
+import type { AllocateActionProps } from "../index.ts"
 
-export default interface AuthorizeAction extends AllocateAction {
+export interface AuthorizeActionProps {
 	/** A sub property of participant. The participant who is at the receiving end of the action. */
 	recipient?: Organization | Audience | ContactPoint | Person
 }
+
+type AuthorizeAction =
+	& Thing
+	& ActionProps
+	& AllocateActionProps
+	& OrganizeActionProps
+	& AuthorizeActionProps
+
+export default AuthorizeAction

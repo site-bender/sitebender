@@ -1,10 +1,12 @@
 import type { Boolean, Number } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type DefinedRegion from "../DefinedRegion/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
 
-export default interface ShippingRateSettings extends StructuredValue {
+export interface ShippingRateSettingsProps {
 	/** Indicates when shipping to a particular [[shippingDestination]] is not available. */
 	doesNotShip?: Boolean
 	/** A monetary value above (or at) which the shipping rate becomes free. Intended to be used via an [[OfferShippingDetails]] with [[shippingSettingsLink]] matching this [[ShippingRateSettings]]. */
@@ -20,3 +22,11 @@ export default interface ShippingRateSettings extends StructuredValue {
 	/** Fraction of the weight that is used to compute the shipping price. */
 	weightPercentage?: Number
 }
+
+type ShippingRateSettings =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& ShippingRateSettingsProps
+
+export default ShippingRateSettings

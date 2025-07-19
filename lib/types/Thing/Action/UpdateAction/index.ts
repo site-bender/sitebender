@@ -1,9 +1,17 @@
 import type Thing from "../../../index.ts"
-import type Action from "../index.ts"
+import type Thing from "../../index.ts"
+import type { ActionProps } from "../index.ts"
 
-export default interface UpdateAction extends Action {
+export interface UpdateActionProps {
 	/** A sub property of object. The collection target of the action. */
 	collection?: Thing
 	/** A sub property of object. The collection target of the action. */
 	targetCollection?: Thing
 }
+
+type UpdateAction =
+	& Thing
+	& ActionProps
+	& UpdateActionProps
+
+export default UpdateAction

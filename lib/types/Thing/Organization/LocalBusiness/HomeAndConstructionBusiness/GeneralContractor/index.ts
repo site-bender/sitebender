@@ -1,6 +1,17 @@
-import type HomeAndConstructionBusiness from "../index.ts"
-
 // GeneralContractor extends HomeAndConstructionBusiness but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { HomeAndConstructionBusinessProps } from "../../../../Place/LocalBusiness/HomeAndConstructionBusiness/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
 
-export default interface GeneralContractor extends HomeAndConstructionBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface GeneralContractorProps {}
+
+type GeneralContractor =
+	& Thing
+	& HomeAndConstructionBusinessProps
+	& LocalBusinessProps
+	& PlaceProps
+	& GeneralContractorProps
+
+export default GeneralContractor

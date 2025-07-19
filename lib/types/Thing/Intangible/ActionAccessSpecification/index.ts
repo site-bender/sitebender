@@ -1,21 +1,14 @@
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Text,
-	Time,
-	URL,
-} from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Thing from "../../index.ts"
 import type Place from "../../Place/index.ts"
 import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
 import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type MediaSubscription from "../MediaSubscription/index.ts"
 import type Offer from "../Offer/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 
-export default interface ActionAccessSpecification extends Intangible {
+export interface ActionAccessSpecificationProps {
 	/** The end of the availability of the product or service included in the offer. */
 	availabilityEnds?: Date | DateTime | Time
 	/** The beginning of the availability of the product or service included in the offer. */
@@ -31,3 +24,10 @@ export default interface ActionAccessSpecification extends Intangible {
 	/** Indicates if use of the media require a subscription  (either paid or free). Allowed values are ```true``` or ```false``` (note that an earlier version had 'yes', 'no'). */
 	requiresSubscription?: MediaSubscription | Boolean
 }
+
+type ActionAccessSpecification =
+	& Thing
+	& IntangibleProps
+	& ActionAccessSpecificationProps
+
+export default ActionAccessSpecification

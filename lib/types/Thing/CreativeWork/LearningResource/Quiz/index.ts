@@ -1,6 +1,15 @@
-import type LearningResource from "../index.ts"
-
 // Quiz extends LearningResource but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { LearningResourceProps } from "../index.ts"
 
-export default interface Quiz extends LearningResource {
-}
+// deno-lint-ignore no-empty-interface
+export interface QuizProps {}
+
+type Quiz =
+	& Thing
+	& CreativeWorkProps
+	& LearningResourceProps
+	& QuizProps
+
+export default Quiz

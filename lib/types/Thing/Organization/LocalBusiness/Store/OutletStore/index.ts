@@ -1,6 +1,17 @@
-import type Store from "../index.ts"
-
 // OutletStore extends Store but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
+import type { StoreProps } from "../../../../Place/LocalBusiness/Store/index.ts"
 
-export default interface OutletStore extends Store {
-}
+// deno-lint-ignore no-empty-interface
+export interface OutletStoreProps {}
+
+type OutletStore =
+	& Thing
+	& LocalBusinessProps
+	& PlaceProps
+	& StoreProps
+	& OutletStoreProps
+
+export default OutletStore

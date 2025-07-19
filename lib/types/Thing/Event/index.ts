@@ -1,13 +1,4 @@
 import type { Language } from "../../bcp47/index.ts"
-import type {
-	Boolean,
-	Date,
-	DateTime,
-	Integer,
-	Text,
-	Time,
-	URL,
-} from "../../DataType/index.ts"
 import type CreativeWork from "../CreativeWork/index.ts"
 import type Review from "../CreativeWork/Review/index.ts"
 import type Thing from "../index.ts"
@@ -29,7 +20,7 @@ import type PerformingGroup from "../Organization/PerformingGroup/index.ts"
 import type Person from "../Person/index.ts"
 import type Place from "../Place/index.ts"
 
-export default interface Event extends Thing {
+export interface EventProps {
 	/** The subject matter of the content. */
 	about?: Thing
 	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */
@@ -113,3 +104,9 @@ export default interface Event extends Thing {
 	/** A work performed in some event, for example a play performed in a TheaterEvent. */
 	workPerformed?: CreativeWork
 }
+
+type Event =
+	& Thing
+	& EventProps
+
+export default Event

@@ -1,6 +1,13 @@
-import type CreativeWork from "../index.ts"
-
 // SheetMusic extends CreativeWork but adds no additional properties
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface SheetMusic extends CreativeWork {
-}
+// deno-lint-ignore no-empty-interface
+export interface SheetMusicProps {}
+
+type SheetMusic =
+	& Thing
+	& CreativeWorkProps
+	& SheetMusicProps
+
+export default SheetMusic

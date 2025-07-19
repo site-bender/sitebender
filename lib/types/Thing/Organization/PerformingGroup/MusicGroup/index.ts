@@ -1,11 +1,13 @@
 import type { Text, URL } from "../../../../DataType/index.ts"
 import type MusicAlbum from "../../../CreativeWork/MusicPlaylist/MusicAlbum/index.ts"
 import type MusicRecording from "../../../CreativeWork/MusicRecording/index.ts"
+import type Thing from "../../../index.ts"
 import type ItemList from "../../../Intangible/ItemList/index.ts"
 import type Person from "../../../Person/index.ts"
-import type PerformingGroup from "../index.ts"
+import type { OrganizationProps } from "../../index.ts"
+import type { PerformingGroupProps } from "../index.ts"
 
-export default interface MusicGroup extends PerformingGroup {
+export interface MusicGroupProps {
 	/** A music album. */
 	album?: MusicAlbum
 	/** A collection of music albums. */
@@ -19,3 +21,11 @@ export default interface MusicGroup extends PerformingGroup {
 	/** A music recording (track)&#x2014;usually a single song. */
 	tracks?: MusicRecording
 }
+
+type MusicGroup =
+	& Thing
+	& OrganizationProps
+	& PerformingGroupProps
+	& MusicGroupProps
+
+export default MusicGroup

@@ -1,6 +1,17 @@
-import type MedicalEnumeration from "../index.ts"
-
 // PhysicalExam extends MedicalEnumeration but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { EnumerationProps } from "../../index.ts"
+import type { MedicalEnumerationProps } from "../index.ts"
 
-export default interface PhysicalExam extends MedicalEnumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface PhysicalExamProps {}
+
+type PhysicalExam =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& MedicalEnumerationProps
+	& PhysicalExamProps
+
+export default PhysicalExam

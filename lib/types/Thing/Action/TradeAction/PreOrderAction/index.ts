@@ -1,6 +1,15 @@
-import type TradeAction from "../index.ts"
-
 // PreOrderAction extends TradeAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { TradeActionProps } from "../index.ts"
 
-export default interface PreOrderAction extends TradeAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface PreOrderActionProps {}
+
+type PreOrderAction =
+	& Thing
+	& ActionProps
+	& TradeActionProps
+	& PreOrderActionProps
+
+export default PreOrderAction

@@ -1,6 +1,13 @@
-import type CreativeWork from "../index.ts"
-
 // Play extends CreativeWork but adds no additional properties
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Play extends CreativeWork {
-}
+// deno-lint-ignore no-empty-interface
+export interface PlayProps {}
+
+type Play =
+	& Thing
+	& CreativeWorkProps
+	& PlayProps
+
+export default Play

@@ -1,6 +1,17 @@
-import type HealthAndBeautyBusiness from "../index.ts"
-
 // HairSalon extends HealthAndBeautyBusiness but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { HealthAndBeautyBusinessProps } from "../../../../Place/LocalBusiness/HealthAndBeautyBusiness/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
 
-export default interface HairSalon extends HealthAndBeautyBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface HairSalonProps {}
+
+type HairSalon =
+	& Thing
+	& HealthAndBeautyBusinessProps
+	& LocalBusinessProps
+	& PlaceProps
+	& HairSalonProps
+
+export default HairSalon

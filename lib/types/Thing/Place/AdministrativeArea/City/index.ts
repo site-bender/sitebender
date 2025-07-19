@@ -1,6 +1,15 @@
-import type AdministrativeArea from "../index.ts"
-
 // City extends AdministrativeArea but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { AdministrativeAreaProps } from "../index.ts"
 
-export default interface City extends AdministrativeArea {
-}
+// deno-lint-ignore no-empty-interface
+export interface CityProps {}
+
+type City =
+	& Thing
+	& AdministrativeAreaProps
+	& PlaceProps
+	& CityProps
+
+export default City

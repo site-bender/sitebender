@@ -1,9 +1,11 @@
 import type { Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type BioChemEntity from "../index.ts"
+import type { BioChemEntityProps } from "../index.ts"
 
-export default interface MolecularEntity extends BioChemEntity {
+export interface MolecularEntityProps {
 	/** A role played by the BioChemEntity within a chemical context. */
 	chemicalRole?: DefinedTerm
 	/** Non-proprietary identifier for molecular entity that can be used in printed and electronic data sources thus enabling easier linking of diverse data compilations. */
@@ -23,3 +25,10 @@ export default interface MolecularEntity extends BioChemEntity {
 	/** A specification in form of a line notation for describing the structure of chemical species using short ASCII strings.  Double bond stereochemistry \ indicators may need to be escaped in the string in formats where the backslash is an escape character. */
 	smiles?: Text
 }
+
+type MolecularEntity =
+	& Thing
+	& BioChemEntityProps
+	& MolecularEntityProps
+
+export default MolecularEntity

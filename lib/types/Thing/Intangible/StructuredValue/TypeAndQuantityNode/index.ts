@@ -1,10 +1,12 @@
 import type { Number, Text, URL } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type Product from "../../../Product/index.ts"
 import type BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Service from "../../Service/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-export default interface TypeAndQuantityNode extends StructuredValue {
+export interface TypeAndQuantityNodeProps {
 	/** The quantity of the goods included in the offer. */
 	amountOfThisGood?: Number
 	/** The business function (e.g. sell, lease, repair, dispose) of the offer or component of a bundle (TypeAndQuantityNode). The default is http://purl.org/goodrelations/v1#Sell. */
@@ -16,3 +18,11 @@ export default interface TypeAndQuantityNode extends StructuredValue {
 	/** A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for <a href='unitCode'>unitCode</a>. */
 	unitText?: Text
 }
+
+type TypeAndQuantityNode =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& TypeAndQuantityNodeProps
+
+export default TypeAndQuantityNode

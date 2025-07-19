@@ -1,12 +1,13 @@
 import type { Number, Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type Product from "../../Product/index.ts"
 import type OrderStatus from "../Enumeration/StatusEnumeration/OrderStatus/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type ParcelDelivery from "../ParcelDelivery/index.ts"
 import type Service from "../Service/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface OrderItem extends Intangible {
+export interface OrderItemProps {
 	/** The delivery of the parcel related to this order or order item. */
 	orderDelivery?: ParcelDelivery
 	/** The identifier of the order item. */
@@ -18,3 +19,10 @@ export default interface OrderItem extends Intangible {
 	/** The item ordered. */
 	orderedItem?: Service | OrderItem | Product
 }
+
+type OrderItem =
+	& Thing
+	& IntangibleProps
+	& OrderItemProps
+
+export default OrderItem

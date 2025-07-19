@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // StatusEnumeration extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface StatusEnumeration extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface StatusEnumerationProps {}
+
+type StatusEnumeration =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& StatusEnumerationProps
+
+export default StatusEnumeration

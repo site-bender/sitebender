@@ -1,6 +1,15 @@
-import type WebPage from "../index.ts"
-
 // SearchResultsPage extends WebPage but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { WebPageProps } from "../index.ts"
 
-export default interface SearchResultsPage extends WebPage {
-}
+// deno-lint-ignore no-empty-interface
+export interface SearchResultsPageProps {}
+
+type SearchResultsPage =
+	& Thing
+	& CreativeWorkProps
+	& WebPageProps
+	& SearchResultsPageProps
+
+export default SearchResultsPage

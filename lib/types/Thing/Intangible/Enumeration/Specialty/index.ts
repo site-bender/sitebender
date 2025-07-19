@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // Specialty extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface Specialty extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface SpecialtyProps {}
+
+type Specialty =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& SpecialtyProps
+
+export default Specialty

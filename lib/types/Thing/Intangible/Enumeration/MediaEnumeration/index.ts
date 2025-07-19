@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // MediaEnumeration extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface MediaEnumeration extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface MediaEnumerationProps {}
+
+type MediaEnumeration =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& MediaEnumerationProps
+
+export default MediaEnumeration

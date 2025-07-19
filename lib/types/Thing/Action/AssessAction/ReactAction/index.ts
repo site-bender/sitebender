@@ -1,6 +1,15 @@
-import type AssessAction from "../index.ts"
-
 // ReactAction extends AssessAction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { ActionProps } from "../../index.ts"
+import type { AssessActionProps } from "../index.ts"
 
-export default interface ReactAction extends AssessAction {
-}
+// deno-lint-ignore no-empty-interface
+export interface ReactActionProps {}
+
+type ReactAction =
+	& Thing
+	& ActionProps
+	& AssessActionProps
+	& ReactActionProps
+
+export default ReactAction

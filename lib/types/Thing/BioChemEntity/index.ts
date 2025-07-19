@@ -7,7 +7,7 @@ import type MedicalCondition from "../MedicalEntity/MedicalCondition/index.ts"
 import type Taxon from "../Taxon/index.ts"
 import type Gene from "./Gene/index.ts"
 
-export default interface BioChemEntity extends Thing {
+export interface BioChemEntityProps {
 	/** Disease associated to this BioChemEntity. Such disease can be a MedicalCondition or a URL. If you want to add an evidence supporting the association, please use PropertyValue. */
 	associatedDisease?: URL | PropertyValue | MedicalCondition
 	/** A BioChemEntity that is known to interact with this item. */
@@ -35,3 +35,9 @@ export default interface BioChemEntity extends Thing {
 	/** The taxonomic grouping of the organism that expresses, encodes, or in some way related to the BioChemEntity. */
 	taxonomicRange?: Taxon | Text | URL | DefinedTerm
 }
+
+type BioChemEntity =
+	& Thing
+	& BioChemEntityProps
+
+export default BioChemEntity

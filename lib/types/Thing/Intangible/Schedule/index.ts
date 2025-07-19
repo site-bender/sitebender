@@ -1,16 +1,10 @@
-import type {
-	Date,
-	DateTime,
-	Integer,
-	Text,
-	Time,
-} from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-export default interface Schedule extends Intangible {
+export interface ScheduleProps {
 	/** Defines the day(s) of the week on which a recurring [[Event]] takes place. May be specified using either [[DayOfWeek]], or alternatively [[Text]] conforming to iCal's syntax for byDay recurrence rules. */
 	byDay?: DayOfWeek | Text
 	/** Defines the month(s) of the year on which a recurring [[Event]] takes place. Specified as an [[Integer]] between 1-12. January is 1. */
@@ -38,3 +32,10 @@ export default interface Schedule extends Intangible {
 	/** The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. E.g. John wrote a book from *January* to December. For media, including audio and video, it's the time offset of the start of a clip within a larger file.\n\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions. */
 	startTime?: DateTime | Time
 }
+
+type Schedule =
+	& Thing
+	& IntangibleProps
+	& ScheduleProps
+
+export default Schedule

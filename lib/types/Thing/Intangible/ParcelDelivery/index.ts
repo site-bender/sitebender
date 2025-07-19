@@ -1,14 +1,15 @@
 import type { Date, DateTime, Text, URL } from "../../../DataType/index.ts"
 import type DeliveryEvent from "../../Event/DeliveryEvent/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Product from "../../Product/index.ts"
 import type DeliveryMethod from "../Enumeration/DeliveryMethod/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type Order from "../Order/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
-export default interface ParcelDelivery extends Intangible {
+export interface ParcelDeliveryProps {
 	/** 'carrier' is an out-dated term indicating the 'provider' for parcel delivery and flights. */
 	carrier?: Organization
 	/** Destination address. */
@@ -34,3 +35,10 @@ export default interface ParcelDelivery extends Intangible {
 	/** Tracking url for the parcel delivery. */
 	trackingUrl?: URL
 }
+
+type ParcelDelivery =
+	& Thing
+	& IntangibleProps
+	& ParcelDeliveryProps
+
+export default ParcelDelivery

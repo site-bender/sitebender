@@ -1,11 +1,14 @@
 import type { Text } from "../../../../../DataType/index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
 import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
 import type GenderType from "../../GenderType/index.ts"
+import type { EnumerationProps } from "../../index.ts"
 import type SizeGroupEnumeration from "../../SizeGroupEnumeration/index.ts"
 import type SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
-import type QualitativeValue from "../index.ts"
+import type { QualitativeValueProps } from "../index.ts"
 
-export default interface SizeSpecification extends QualitativeValue {
+export interface SizeSpecificationProps {
 	/** A measurement of an item, For example, the inseam of pants, the wheel size of a bicycle, the gauge of a screw, or the carbon footprint measured for certification by an authority. Usually an exact measurement, but can also be a range of measurements for adjustable products, for example belts and ski bindings. */
 	hasMeasurement?: QuantitativeValue
 	/** The size group (also known as "size type") for a product's size. Size groups are common in the fashion industry to define size segments and suggested audiences for wearable products. Multiple values can be combined, for example "men's big and tall", "petite maternity" or "regular". */
@@ -19,3 +22,12 @@ export default interface SizeSpecification extends QualitativeValue {
 	/** A suggested range of body measurements for the intended audience or person, for example inseam between 32 and 34 inches or height between 170 and 190 cm. Typically found on a size chart for wearable products. */
 	suggestedMeasurement?: QuantitativeValue
 }
+
+type SizeSpecification =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& QualitativeValueProps
+	& SizeSpecificationProps
+
+export default SizeSpecification

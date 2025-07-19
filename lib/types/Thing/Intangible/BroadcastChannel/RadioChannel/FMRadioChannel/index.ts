@@ -1,6 +1,17 @@
-import type RadioChannel from "../index.ts"
-
 // FMRadioChannel extends RadioChannel but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { BroadcastChannelProps } from "../../index.ts"
+import type { RadioChannelProps } from "../index.ts"
 
-export default interface FMRadioChannel extends RadioChannel {
-}
+// deno-lint-ignore no-empty-interface
+export interface FMRadioChannelProps {}
+
+type FMRadioChannel =
+	& Thing
+	& BroadcastChannelProps
+	& IntangibleProps
+	& RadioChannelProps
+	& FMRadioChannelProps
+
+export default FMRadioChannel

@@ -1,6 +1,15 @@
-import type UserInteraction from "../index.ts"
-
 // UserBlocks extends UserInteraction but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { EventProps } from "../../index.ts"
+import type { UserInteractionProps } from "../index.ts"
 
-export default interface UserBlocks extends UserInteraction {
-}
+// deno-lint-ignore no-empty-interface
+export interface UserBlocksProps {}
+
+type UserBlocks =
+	& Thing
+	& EventProps
+	& UserInteractionProps
+	& UserBlocksProps
+
+export default UserBlocks

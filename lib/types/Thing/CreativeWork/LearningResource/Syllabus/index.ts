@@ -1,6 +1,15 @@
-import type LearningResource from "../index.ts"
-
 // Syllabus extends LearningResource but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { LearningResourceProps } from "../index.ts"
 
-export default interface Syllabus extends LearningResource {
-}
+// deno-lint-ignore no-empty-interface
+export interface SyllabusProps {}
+
+type Syllabus =
+	& Thing
+	& CreativeWorkProps
+	& LearningResourceProps
+	& SyllabusProps
+
+export default Syllabus

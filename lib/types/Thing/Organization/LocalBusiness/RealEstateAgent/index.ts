@@ -1,6 +1,15 @@
-import type LocalBusiness from "../index.ts"
-
 // RealEstateAgent extends LocalBusiness but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../Place/LocalBusiness/index.ts"
 
-export default interface RealEstateAgent extends LocalBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface RealEstateAgentProps {}
+
+type RealEstateAgent =
+	& Thing
+	& LocalBusinessProps
+	& PlaceProps
+	& RealEstateAgentProps
+
+export default RealEstateAgent

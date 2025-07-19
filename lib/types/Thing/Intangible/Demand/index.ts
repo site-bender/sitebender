@@ -1,12 +1,6 @@
-import type {
-	Date,
-	DateTime,
-	Text,
-	Time,
-	URL,
-} from "../../../DataType/index.ts"
 import type CreativeWork from "../../CreativeWork/index.ts"
 import type Event from "../../Event/index.ts"
+import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
@@ -17,7 +11,7 @@ import type BusinessFunction from "../Enumeration/BusinessFunction/index.ts"
 import type DeliveryMethod from "../Enumeration/DeliveryMethod/index.ts"
 import type ItemAvailability from "../Enumeration/ItemAvailability/index.ts"
 import type OfferItemCondition from "../Enumeration/OfferItemCondition/index.ts"
-import type Intangible from "../index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type MenuItem from "../MenuItem/index.ts"
 import type AggregateOffer from "../Offer/AggregateOffer/index.ts"
 import type PaymentMethod from "../PaymentMethod/index.ts"
@@ -30,7 +24,7 @@ import type TypeAndQuantityNode from "../StructuredValue/TypeAndQuantityNode/ind
 import type WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 import type Trip from "../Trip/index.ts"
 
-export default interface Demand extends Intangible {
+export interface DemandProps {
 	/** The payment method(s) that are accepted in general by an organization, or for some specific demand or offer. */
 	acceptedPaymentMethod?: LoanOrCredit | Text | PaymentMethod
 	/** The amount of time that is required between accepting the offer and the actual usage of the resource or service. */
@@ -107,3 +101,10 @@ export default interface Demand extends Intangible {
 	/** The warranty promise(s) included in the offer. */
 	warranty?: WarrantyPromise
 }
+
+type Demand =
+	& Thing
+	& IntangibleProps
+	& DemandProps
+
+export default Demand

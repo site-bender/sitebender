@@ -1,6 +1,15 @@
-import type CivicStructure from "../index.ts"
-
 // Aquarium extends CivicStructure but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { CivicStructureProps } from "../index.ts"
 
-export default interface Aquarium extends CivicStructure {
-}
+// deno-lint-ignore no-empty-interface
+export interface AquariumProps {}
+
+type Aquarium =
+	& Thing
+	& CivicStructureProps
+	& PlaceProps
+	& AquariumProps
+
+export default Aquarium

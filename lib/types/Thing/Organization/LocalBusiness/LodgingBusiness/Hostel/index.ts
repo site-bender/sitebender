@@ -1,6 +1,17 @@
-import type LodgingBusiness from "../index.ts"
-
 // Hostel extends LodgingBusiness but adds no additional properties
+import type Thing from "../../../../index.ts"
+import type { PlaceProps } from "../../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
+import type { LodgingBusinessProps } from "../../../../Place/LocalBusiness/LodgingBusiness/index.ts"
 
-export default interface Hostel extends LodgingBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface HostelProps {}
+
+type Hostel =
+	& Thing
+	& LocalBusinessProps
+	& LodgingBusinessProps
+	& PlaceProps
+	& HostelProps
+
+export default Hostel

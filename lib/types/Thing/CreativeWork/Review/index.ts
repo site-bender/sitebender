@@ -1,12 +1,13 @@
 import type { Text } from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Thing from "../../index.ts"
 import type ItemList from "../../Intangible/ItemList/index.ts"
 import type ListItem from "../../Intangible/ListItem/index.ts"
 import type Rating from "../../Intangible/Rating/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type WebContent from "../WebContent/index.ts"
 
-export default interface Review extends CreativeWork {
+export interface ReviewProps {
 	/** An associated [[ClaimReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[relatedClaimReview]] would be used on [[MediaReview]]. */
 	associatedClaimReview?: Review
 	/** An associated [[MediaReview]], related by specific common content, topic or claim. The expectation is that this property would be most typically used in cases where a single activity is conducting both claim reviews and media reviews, in which case [[relatedMediaReview]] would commonly be used on a [[ClaimReview]], while [[relatedClaimReview]] would be used on [[MediaReview]]. */
@@ -26,3 +27,10 @@ export default interface Review extends CreativeWork {
 	/** The rating given in this review. Note that reviews can themselves be rated. The ```reviewRating``` applies to rating given by the review. The [[aggregateRating]] property applies to the review itself, as a creative work. */
 	reviewRating?: Rating
 }
+
+type Review =
+	& Thing
+	& CreativeWorkProps
+	& ReviewProps
+
+export default Review

@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // ItemListOrderType extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface ItemListOrderType extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface ItemListOrderTypeProps {}
+
+type ItemListOrderType =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& ItemListOrderTypeProps
+
+export default ItemListOrderType

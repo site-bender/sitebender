@@ -1,16 +1,18 @@
 import type { Boolean } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type MemberProgramTier from "../../MemberProgramTier/index.ts"
 import type Distance from "../../Quantity/Distance/index.ts"
 import type Mass from "../../Quantity/Mass/index.ts"
 import type DefinedRegion from "../DefinedRegion/index.ts"
-import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ShippingDeliveryTime from "../ShippingDeliveryTime/index.ts"
 import type ShippingRateSettings from "../ShippingRateSettings/index.ts"
 import type ShippingService from "../ShippingService/index.ts"
 
-export default interface OfferShippingDetails extends StructuredValue {
+export interface OfferShippingDetailsProps {
 	/** The total delay between the receipt of the order and the goods reaching the final customer. */
 	deliveryTime?: ShippingDeliveryTime
 	/** The depth of the item. */
@@ -34,3 +36,11 @@ export default interface OfferShippingDetails extends StructuredValue {
 	/** The width of the item. */
 	width?: Distance | QuantitativeValue
 }
+
+type OfferShippingDetails =
+	& Thing
+	& IntangibleProps
+	& StructuredValueProps
+	& OfferShippingDetailsProps
+
+export default OfferShippingDetails

@@ -1,10 +1,13 @@
 import type { Integer, Number, Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
 import type MedicalCondition from "../../../MedicalEntity/MedicalCondition/index.ts"
 import type GenderType from "../../Enumeration/GenderType/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 import type Audience from "../index.ts"
+import type { AudienceProps } from "../index.ts"
 
-export default interface PeopleAudience extends Audience {
+export interface PeopleAudienceProps {
 	/** Specifying the health condition(s) of a patient, medical study, or other target audience. */
 	healthCondition?: MedicalCondition
 	/** Audiences defined by a person's gender. */
@@ -24,3 +27,11 @@ export default interface PeopleAudience extends Audience {
 	/** Minimum recommended age in years for the audience or user. */
 	suggestedMinAge?: Number
 }
+
+type PeopleAudience =
+	& Thing
+	& AudienceProps
+	& IntangibleProps
+	& PeopleAudienceProps
+
+export default PeopleAudience

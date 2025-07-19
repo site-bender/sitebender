@@ -1,6 +1,15 @@
-import type Enumeration from "../index.ts"
-
 // IncentiveQualifiedExpenseType extends Enumeration but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-export default interface IncentiveQualifiedExpenseType extends Enumeration {
-}
+// deno-lint-ignore no-empty-interface
+export interface IncentiveQualifiedExpenseTypeProps {}
+
+type IncentiveQualifiedExpenseType =
+	& Thing
+	& EnumerationProps
+	& IntangibleProps
+	& IncentiveQualifiedExpenseTypeProps
+
+export default IncentiveQualifiedExpenseType

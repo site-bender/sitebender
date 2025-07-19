@@ -1,6 +1,15 @@
-import type LocalBusiness from "../index.ts"
-
 // EmploymentAgency extends LocalBusiness but adds no additional properties
+import type Thing from "../../../index.ts"
+import type { PlaceProps } from "../../../Place/index.ts"
+import type { LocalBusinessProps } from "../../../Place/LocalBusiness/index.ts"
 
-export default interface EmploymentAgency extends LocalBusiness {
-}
+// deno-lint-ignore no-empty-interface
+export interface EmploymentAgencyProps {}
+
+type EmploymentAgency =
+	& Thing
+	& LocalBusinessProps
+	& PlaceProps
+	& EmploymentAgencyProps
+
+export default EmploymentAgency

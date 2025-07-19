@@ -1,8 +1,9 @@
 import type { Boolean, Number, Text } from "../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type Intangible from "../index.ts"
+import type Thing from "../../index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-export default interface PropertyValueSpecification extends Intangible {
+export interface PropertyValueSpecificationProps {
 	/** The default value of the input.  For properties that expect a literal, the default is a literal value, for properties that expect an object, it's an ID reference to one of the current values. */
 	defaultValue?: Thing | Text
 	/** The upper value of some characteristic or property. */
@@ -26,3 +27,10 @@ export default interface PropertyValueSpecification extends Intangible {
 	/** Whether the property must be filled in to complete the action.  Default is false. */
 	valueRequired?: Boolean
 }
+
+type PropertyValueSpecification =
+	& Thing
+	& IntangibleProps
+	& PropertyValueSpecificationProps
+
+export default PropertyValueSpecification

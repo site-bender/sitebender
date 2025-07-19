@@ -42,7 +42,7 @@ import type MusicRecording from "./MusicRecording/index.ts"
 import type Review from "./Review/index.ts"
 import type WebPage from "./WebPage/index.ts"
 
-export default interface CreativeWork extends Thing {
+export interface CreativeWorkProps {
 	/** The subject matter of the content. */
 	about?: Thing
 	/** An abstract is a short description that summarizes a [[CreativeWork]]. */
@@ -274,3 +274,9 @@ export default interface CreativeWork extends Thing {
 	/** A work that is a translation of the content of this work. E.g. 西遊記 has an English workTranslation “Journey to the West”, a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo. */
 	workTranslation?: CreativeWork
 }
+
+type CreativeWork =
+	& Thing
+	& CreativeWorkProps
+
+export default CreativeWork

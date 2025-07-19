@@ -1,4 +1,5 @@
 import type { Text } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type ItemList from "../../Intangible/ItemList/index.ts"
 import type HowToSupply from "../../Intangible/ListItem/HowToItem/HowToSupply/index.ts"
 import type HowToTool from "../../Intangible/ListItem/HowToItem/HowToTool/index.ts"
@@ -8,8 +9,9 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type MonetaryAmount from "../../Intangible/StructuredValue/MonetaryAmount/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface HowTo extends CreativeWork {
+export interface HowToProps {
 	/** The estimated cost of the supply or supplies consumed when performing instructions. */
 	estimatedCost?: MonetaryAmount | Text
 	/** The length of time it takes to perform instructions or a direction (not including time to prepare the supplies), in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601). */
@@ -29,3 +31,10 @@ export default interface HowTo extends CreativeWork {
 	/** The quantity that results by performing instructions. For example, a paper airplane, 10 personalized candles. */
 	yield?: QuantitativeValue | Text
 }
+
+type HowTo =
+	& Thing
+	& CreativeWorkProps
+	& HowToProps
+
+export default HowTo

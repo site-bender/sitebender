@@ -1,6 +1,13 @@
-import type CreativeWork from "../index.ts"
-
 // Poster extends CreativeWork but adds no additional properties
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-export default interface Poster extends CreativeWork {
-}
+// deno-lint-ignore no-empty-interface
+export interface PosterProps {}
+
+type Poster =
+	& Thing
+	& CreativeWorkProps
+	& PosterProps
+
+export default Poster

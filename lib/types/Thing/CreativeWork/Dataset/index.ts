@@ -1,14 +1,15 @@
 import type { DateTime, Text, URL } from "../../../DataType/index.ts"
+import type Thing from "../../index.ts"
 import type StatisticalVariable from "../../Intangible/ConstraintNode/StatisticalVariable/index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 import type Property from "../../Intangible/Property/index.ts"
 import type PropertyValue from "../../Intangible/StructuredValue/PropertyValue/index.ts"
 import type DataCatalog from "../DataCatalog/index.ts"
-import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type DataDownload from "../MediaObject/DataDownload/index.ts"
 
-export default interface Dataset extends CreativeWork {
+export interface DatasetProps {
 	/** A data catalog which contains this dataset. */
 	catalog?: DataCatalog
 	/** The range of temporal applicability of a dataset, e.g. for a 2011 census dataset, the year 2011 (in ISO 8601 time interval format). */
@@ -28,3 +29,10 @@ export default interface Dataset extends CreativeWork {
 	/** The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue, or more explicitly as a [[StatisticalVariable]]. */
 	variableMeasured?: Property | StatisticalVariable | PropertyValue | Text
 }
+
+type Dataset =
+	& Thing
+	& CreativeWorkProps
+	& DatasetProps
+
+export default Dataset
