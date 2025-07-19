@@ -7,7 +7,7 @@ export type BaseComponentProps<
 	TSchemaType extends string,
 	TSubtypeProps,
 > = TProps & {
-	children?: unknown[] // Changed from never to unknown[]
+	children?: never
 	disableJsonLd?: boolean
 	format?: string
 	schemaType?: TSchemaType

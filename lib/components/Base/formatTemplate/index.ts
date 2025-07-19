@@ -6,9 +6,12 @@ import FORMATTERS from "./processTemplate/formatters/index.ts"
 import processTemplate from "./processTemplate/index.ts"
 
 export default function formatTemplate(
-	format: string,
-	context: FormatContext,
-): (string | JSX.Element)[] {
+	format?: string,
+	context?: FormatContext,
+): string {
+	// Handle undefined format
+	if (!format) return ""
+
 	const fullContext = { ...context, formatters: FORMATTERS }
 
 	if (!isUserDefinedFormat(format)) {
@@ -18,7 +21,7 @@ export default function formatTemplate(
 			return processTemplate(predefinedFormat, fullContext)
 		}
 		// Fallback if format not found
-		return [format]
+		return format
 	}
 
 	return processTemplate(format, fullContext)
