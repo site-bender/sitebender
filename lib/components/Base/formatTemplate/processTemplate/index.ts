@@ -1,48 +1,61 @@
 import type { FormatContext } from "../../../../types/formatters/index.ts"
 
-import { isFailure } from "../../../../types/Result/index.ts"
-import parseTemplateExpression from "./parseTemplateExpression/index.ts"
+import createElement from "../../../../../utilities/createElement/index.ts"
+import convertToString from "./convertToString/index.ts"
+import getNestedProperty from "./getNestedProperty/index.ts"
 
-// Process template string with {{}} replacements
+const TOKEN_REGEX = /\{\{[^}]+\}\}/g
+
 export default function processTemplate(
 	template: string,
 	context: FormatContext,
-): (string | JSX.Element)[] {
-	// Handle escaped braces \{{ -> {{
-	const processedTemplate = template.replace(/\\(\{\{)/g, "$1")
+): JSX.Element | string {
+	const tokens = template.match(TOKEN_REGEX) || []
 
-	// Split by template expressions
-	const parts = processedTemplate.split(/(\{\{[^}]+\}\})/)
+	if (tokens.length === 0) {
+		return template
+	}
 
-	return parts
-		.map((part): string | JSX.Element => {
-			if (part.startsWith("{{") && part.endsWith("}}")) {
-				// This is a template expression
-				const parseResult = parseTemplateExpression(part)
+	const parts: (string | JSX.Element)[] = []
+	let lastIndex = 0
 
-				if (isFailure(parseResult)) {
-					return "INVALID_EXPRESSION"
-				}
+	for (const token of tokens) {
+		const tokenIndex = template.indexOf(token, lastIndex)
 
-				const { functionName, propertyName, params } = parseResult.data
+		if (tokenIndex > lastIndex) {
+			parts.push(template.slice(lastIndex, tokenIndex))
+		}
 
-				if (functionName) {
-					// Function call: {{cite(name)}}
-					const formatter = context.formatters[functionName]
-					if (!formatter) {
-						return "INVALID_EXPRESSION"
-					}
+		const cleanToken = token.slice(2, -2).trim()
+		const formatterMatch = cleanToken.match(/^(\w+)\((.+)\)$/)
 
-					const propertyValue = context.props[propertyName] ?? "UNKNOWN"
-					return formatter(propertyValue, params)
-				} else {
-					// Property access: {{term}}
-					return String(context.props[propertyName] ?? "UNKNOWN")
-				}
+		if (formatterMatch) {
+			const [, formatterName, propertyPath] = formatterMatch
+			const formatter = context.formatters?.[formatterName]
+
+			if (formatter) {
+				const value = getNestedProperty(context.props, propertyPath)
+				const formattedValue = formatter(value)
+				parts.push(formattedValue || "UNKNOWN")
+			} else {
+				parts.push("UNKNOWN")
 			}
+		} else {
+			const value = getNestedProperty(context.props, cleanToken)
+			const stringValue = convertToString(value)
+			parts.push(stringValue || "UNKNOWN")
+		}
 
-			// This is plain text
-			return part
-		})
-		.filter((part): part is string | JSX.Element => part !== "")
+		lastIndex = tokenIndex + token.length
+	}
+
+	if (lastIndex < template.length) {
+		parts.push(template.slice(lastIndex))
+	}
+
+	if (parts.length === 1 && typeof parts[0] === "string") {
+		return parts[0]
+	}
+
+	return createElement("span", {}, ...parts)
 }
