@@ -1,3 +1,4 @@
+import Base from "~lib/components/Base/index.tsx"
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
 import Organization from "~lib/components/Thing/Organization/index.tsx"
 import Person from "~lib/components/Thing/Person/index.tsx"
@@ -24,35 +25,58 @@ export function Head() {
 export default function ({ route }: Props = {}) {
 	return (
 		<main>
-			<p>Simple string fallbacks</p>
-			<p>
-				<Book
-					title="Gravity's Rainbow"
-					author="Thomas Pynchon"
-					format="{{cite(title)}} by {{author}}"
-				/>
-			</p>
+			<h1>Template Testing</h1>
 
-			<p>Rich nested objects</p>
-			<p>
-				<Book
-					title="Gravity's Rainbow"
-					format="{{cite(title)}} by {{familyFirst(author)}}"
-				>
-					<Person property="author" familyName="Pynchon" givenName="Thomas" />
-				</Book>
-			</p>
+			<section>
+				<h2>Simple string fallbacks</h2>
+				<p>
+					<Base
+						format="{{cite(title)}} by {{familyFirst(author)}}"
+						props={{
+							title: "Gravity's Rainbow",
+							author: Person({
+								givenName: "Thomas",
+								familyName: "Pynchon",
+							}),
+						}}
+					/>
+				</p>
+			</section>
 
-			<p>Multiple nested objects</p>
-			<p>
-				<Book
-					title="The Hobbit"
-					format="{{cite(title)}} by {{familyFirst(author)}}, published by {{publisher.name}}"
-				>
-					<Person property="author" familyName="Tolkien" givenName="J.R.R." />
-					<Organization property="publisher" name="George Allen & Unwin" />
-				</Book>
-			</p>
+			<section>
+				<h2>Rich nested objects</h2>
+				<p>
+					<Base
+						format="{{cite(title)}} by {{familyFirst(author)}}"
+						props={{
+							title: "Gravity's Rainbow",
+							author: Person({
+								givenName: "Thomas",
+								familyName: "Pynchon",
+							}),
+						}}
+					/>
+				</p>
+			</section>
+
+			<section>
+				<h2>Multiple nested objects</h2>
+				<p>
+					<Base
+						format="{{cite(title)}} by {{familyFirst(author)}}, published by {{publisher.name}}"
+						props={{
+							title: "The Hobbit",
+							author: Person({
+								givenName: "J.R.R.",
+								familyName: "Tolkien",
+							}),
+							publisher: Organization({
+								name: "George Allen & Unwin",
+							}),
+						}}
+					/>
+				</p>
+			</section>
 		</main>
 	)
 }
