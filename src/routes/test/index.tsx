@@ -1,5 +1,6 @@
 import Base from "~lib/components/Base/index.tsx"
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
+import Drug from "~lib/components/Thing/Product/Drug/index.tsx"
 import Organization from "~lib/components/Thing/Organization/index.tsx"
 import Person from "~lib/components/Thing/Person/index.tsx"
 
@@ -74,6 +75,47 @@ export default function ({ route }: Props = {}) {
 								name: "George Allen & Unwin",
 							}),
 						}}
+					/>
+				</p>
+			</section>
+
+			<section>
+				<h2>Drug Components (New Composition Pattern)</h2>
+
+				<h3>Basic Drug</h3>
+				<p>
+					<Drug
+						name="Aspirin"
+						dosageForm="tablet"
+						drugUnit="325mg"
+						description="Pain reliever and fever reducer"
+					/>
+				</p>
+
+				<h3>Drug with Custom Format</h3>
+				<p>
+					<Drug
+						name="Ibuprofen"
+						dosageForm="capsule"
+						drugUnit="200mg"
+						activeIngredient="Ibuprofen"
+						administrationRoute="oral"
+						format="{{name}} - {{activeIngredient}} {{drugUnit}} {{dosageForm}} ({{administrationRoute}})"
+					/>
+				</p>
+
+				<h3>Complex Drug Information</h3>
+				<p>
+					<Drug
+						name="Metformin"
+						dosageForm="tablet"
+						drugUnit="500mg"
+						activeIngredient="Metformin hydrochloride"
+						administrationRoute="oral"
+						mechanismOfAction="Decreases hepatic glucose production"
+						isAvailableGenerically={true}
+						pregnancyCategory="B"
+						format="{{name}} ({{activeIngredient}}) - {{drugUnit}} {{dosageForm}}"
 					/>
 				</p>
 			</section>

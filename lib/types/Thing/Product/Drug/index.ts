@@ -9,6 +9,8 @@ import type DoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedul
 import type MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
 import type DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
 import type DrugStrength from "../../MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
+import type MedicalEntity from "../../MedicalEntity/index.ts"
+import type { MedicalEntityProps } from "../../MedicalEntity/index.ts"
 import type Substance from "../../MedicalEntity/Substance/index.ts"
 import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
 import type Product from "../index.ts"
@@ -77,6 +79,11 @@ export interface DrugProps {
 	warning?: Text | URL
 }
 
-type Drug = Thing & ProductProps & SubstanceProps & DrugProps
+type Drug =
+	& Thing
+	& ProductProps
+	& MedicalEntityProps
+	& SubstanceProps
+	& DrugProps
 
 export default Drug

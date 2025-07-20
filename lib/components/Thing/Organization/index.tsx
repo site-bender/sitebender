@@ -5,6 +5,7 @@ import type {
 import type ThingProps from "../../../types/Thing/index.ts"
 import type OrganizationProps from "../../../types/Thing/Organization/index.ts"
 
+import Base from "../../Base/index.tsx"
 import Thing from "../index.tsx"
 
 export type Props = BaseComponentProps<
@@ -13,9 +14,8 @@ export type Props = BaseComponentProps<
 	ExtractLevelProps<OrganizationProps, ThingProps>
 >
 
-export default function Organization(
-	{
-		acceptedPaymentMethod,
+export default function Organization(props: Props) {
+	const {
 		actionableFeedbackPolicy,
 		address,
 		agentInteractionStatistic,
@@ -25,7 +25,6 @@ export default function Organization(
 		award,
 		awards,
 		brand,
-		companyRegistration,
 		contactPoint,
 		contactPoints,
 		correctionsPolicy,
@@ -43,6 +42,7 @@ export default function Organization(
 		faxNumber,
 		founder,
 		founders,
+		founding,
 		foundingDate,
 		foundingLocation,
 		funder,
@@ -50,21 +50,16 @@ export default function Organization(
 		globalLocationNumber,
 		hasCertification,
 		hasCredential,
-		hasGS1DigitalLink,
-		hasMemberProgram,
 		hasMerchantReturnPolicy,
 		hasOfferCatalog,
 		hasPOS,
-		hasShippingService,
 		interactionStatistic,
 		isicV4,
 		iso6523Code,
 		keywords,
 		knowsAbout,
 		knowsLanguage,
-		legalAddress,
 		legalName,
-		legalRepresentative,
 		leiCode,
 		location,
 		logo,
@@ -81,27 +76,27 @@ export default function Organization(
 		publishingPrinciples,
 		review,
 		reviews,
-		schemaType = "Organization",
 		seeks,
 		serviceArea,
-		skills,
 		slogan,
 		sponsor,
 		subOrganization,
-		subtypeProperties = {},
 		taxID,
 		telephone,
 		unnamedSourcesPolicy,
 		vatID,
-		...props
-	}: Props,
-) {
+		format,
+		...restProps
+	} = props
+
+	const thingData = Thing(restProps)
+
 	return (
-		<Thing
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={{
-				acceptedPaymentMethod,
+		<Base
+			element="span"
+			format={format || "{{name}}"}
+			props={{
+				...thingData.props,
 				actionableFeedbackPolicy,
 				address,
 				agentInteractionStatistic,
@@ -111,7 +106,6 @@ export default function Organization(
 				award,
 				awards,
 				brand,
-				companyRegistration,
 				contactPoint,
 				contactPoints,
 				correctionsPolicy,
@@ -129,6 +123,7 @@ export default function Organization(
 				faxNumber,
 				founder,
 				founders,
+				founding,
 				foundingDate,
 				foundingLocation,
 				funder,
@@ -136,21 +131,16 @@ export default function Organization(
 				globalLocationNumber,
 				hasCertification,
 				hasCredential,
-				hasGS1DigitalLink,
-				hasMemberProgram,
 				hasMerchantReturnPolicy,
 				hasOfferCatalog,
 				hasPOS,
-				hasShippingService,
 				interactionStatistic,
 				isicV4,
 				iso6523Code,
 				keywords,
 				knowsAbout,
 				knowsLanguage,
-				legalAddress,
 				legalName,
-				legalRepresentative,
 				leiCode,
 				location,
 				logo,
@@ -169,7 +159,6 @@ export default function Organization(
 				reviews,
 				seeks,
 				serviceArea,
-				skills,
 				slogan,
 				sponsor,
 				subOrganization,
@@ -177,7 +166,6 @@ export default function Organization(
 				telephone,
 				unnamedSourcesPolicy,
 				vatID,
-				...subtypeProperties,
 			}}
 		/>
 	)

@@ -5,6 +5,8 @@ import type {
 import type CreativeWorkProps from "../../../types/Thing/CreativeWork/index.ts"
 import type ThingProps from "../../../types/Thing/index.ts"
 
+import createElement from "../../../../utilities/createElement/index.ts"
+import Base from "../../Base/index.tsx"
 import Thing from "../index.tsx"
 
 export type Props = BaseComponentProps<
@@ -13,8 +15,8 @@ export type Props = BaseComponentProps<
 	ExtractLevelProps<CreativeWorkProps, ThingProps>
 >
 
-export default function CreativeWork(
-	{
+export default function CreativeWork(props: Props) {
+	const {
 		about,
 		abstract,
 		accessMode,
@@ -130,16 +132,23 @@ export default function CreativeWork(
 		wordCount,
 		workExample,
 		workTranslation,
-		schemaType = "CreativeWork",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+		format,
+		schemaType,
+		subtypeProperties,
+		...restProps
+	} = props
+
+	// Get Thing data using composition
+	const thingData = Thing(restProps)
+
 	return (
-		<Thing
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={{
+		<Base
+			element="article"
+			format={format || "{{name}}"}
+			props={{
+				// Accumulate Thing props
+				...thingData.props,
+				// Add CreativeWork-specific props
 				about,
 				abstract,
 				accessMode,
@@ -255,7 +264,6 @@ export default function CreativeWork(
 				wordCount,
 				workExample,
 				workTranslation,
-				...subtypeProperties,
 			}}
 		/>
 	)

@@ -13,8 +13,9 @@ export type Props = BaseComponentProps<
 	ExtractLevelProps<ProductProps, ThingProps>
 >
 
-export default function Product(
-	{
+export default function Product(props: Props) {
+	// Destructure Product-specific props
+	const {
 		additionalProperty,
 		aggregateRating,
 		asin,
@@ -73,76 +74,78 @@ export default function Product(
 		slogan,
 		weight,
 		width,
-		schemaType = "Product",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
-	return (
-		<Thing
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={{
-				additionalProperty,
-				aggregateRating,
-				asin,
-				audience,
-				award,
-				awards,
-				brand,
-				category,
-				color,
-				colorSwatch,
-				countryOfAssembly,
-				countryOfLastProcessing,
-				countryOfOrigin,
-				depth,
-				funding,
-				gtin,
-				gtin12,
-				gtin13,
-				gtin14,
-				gtin8,
-				hasAdultConsideration,
-				hasCertification,
-				hasEnergyConsumptionDetails,
-				hasGS1DigitalLink,
-				hasMeasurement,
-				hasMerchantReturnPolicy,
-				height,
-				inProductGroupWithID,
-				isAccessoryOrSparePartFor,
-				isConsumableFor,
-				isFamilyFriendly,
-				isRelatedTo,
-				isSimilarTo,
-				isVariantOf,
-				itemCondition,
-				keywords,
-				logo,
-				manufacturer,
-				material,
-				mobileUrl,
-				model,
-				mpn,
-				negativeNotes,
-				nsn,
-				offers,
-				pattern,
-				positiveNotes,
-				productID,
-				productionDate,
-				purchaseDate,
-				releaseDate,
-				review,
-				reviews,
-				size,
-				sku,
-				slogan,
-				weight,
-				width,
-				...subtypeProperties,
-			}}
-		/>
-	)
+		schemaType,
+		subtypeProperties,
+		format,
+		...restProps
+	} = props
+
+	// Get Thing data using composition
+	const thingData = Thing(restProps)
+
+	return {
+		props: {
+			// Accumulate Thing props
+			...thingData.props,
+			// Add Product-specific props
+			additionalProperty,
+			aggregateRating,
+			asin,
+			audience,
+			award,
+			awards,
+			brand,
+			category,
+			color,
+			colorSwatch,
+			countryOfAssembly,
+			countryOfLastProcessing,
+			countryOfOrigin,
+			depth,
+			funding,
+			gtin,
+			gtin12,
+			gtin13,
+			gtin14,
+			gtin8,
+			hasAdultConsideration,
+			hasCertification,
+			hasEnergyConsumptionDetails,
+			hasGS1DigitalLink,
+			hasMeasurement,
+			hasMerchantReturnPolicy,
+			height,
+			inProductGroupWithID,
+			isAccessoryOrSparePartFor,
+			isConsumableFor,
+			isFamilyFriendly,
+			isRelatedTo,
+			isSimilarTo,
+			isVariantOf,
+			itemCondition,
+			keywords,
+			logo,
+			manufacturer,
+			material,
+			mobileUrl,
+			model,
+			mpn,
+			negativeNotes,
+			nsn,
+			offers,
+			pattern,
+			positiveNotes,
+			productID,
+			productionDate,
+			purchaseDate,
+			releaseDate,
+			review,
+			reviews,
+			size,
+			sku,
+			slogan,
+			weight,
+			width,
+		},
+	}
 }

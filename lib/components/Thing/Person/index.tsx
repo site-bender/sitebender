@@ -5,6 +5,7 @@ import type {
 import type ThingProps from "../../../types/Thing/index.ts"
 import type PersonProps from "../../../types/Thing/Person/index.ts"
 
+import Base from "../../Base/index.tsx"
 import Thing from "../index.tsx"
 
 export type Props = BaseComponentProps<
@@ -13,8 +14,8 @@ export type Props = BaseComponentProps<
 	ExtractLevelProps<PersonProps, ThingProps>
 >
 
-export default function Person(
-	{
+export default function Person(props: Props) {
+	const {
 		additionalName,
 		address,
 		affiliation,
@@ -82,16 +83,18 @@ export default function Person(
 		weight,
 		workLocation,
 		worksFor,
-		schemaType = "Person",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+		format,
+		...restProps
+	} = props
+
+	const thingData = Thing(restProps)
+
 	return (
-		<Thing
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={{
+		<Base
+			element="span"
+			format={format || "{{givenName}} {{familyName}}"}
+			props={{
+				...thingData.props,
 				additionalName,
 				address,
 				affiliation,
@@ -159,7 +162,6 @@ export default function Person(
 				weight,
 				workLocation,
 				worksFor,
-				...subtypeProperties,
 			}}
 		/>
 	)

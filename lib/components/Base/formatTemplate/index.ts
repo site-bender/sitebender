@@ -8,11 +8,14 @@ import processTemplate from "./processTemplate/index.ts"
 export default function formatTemplate(
 	format?: string,
 	context?: FormatContext,
-): string {
+): string | JSX.Element {
 	// Handle undefined format
 	if (!format) return ""
 
-	const fullContext = { ...context, formatters: FORMATTERS }
+	const fullContext: FormatContext = {
+		props: context?.props || {},
+		formatters: FORMATTERS,
+	}
 
 	if (!isUserDefinedFormat(format)) {
 		// This is a predefined format - look it up in constants

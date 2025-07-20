@@ -3,7 +3,7 @@ import type {
 	ExtractLevelProps,
 } from "../../../types/index.ts"
 import type ThingProps from "../../../types/Thing/index.ts"
-import type MedicalEntityProps from "../../../types/Thing/MedicalEntity/index.ts"
+import type { MedicalEntityProps } from "../../../types/Thing/MedicalEntity/index.ts"
 
 import Thing from "../index.tsx"
 
@@ -13,8 +13,8 @@ export type Props = BaseComponentProps<
 	ExtractLevelProps<MedicalEntityProps, ThingProps>
 >
 
-export default function MedicalEntity(
-	{
+export default function MedicalEntity(props: Props) {
+	const {
 		code,
 		funding,
 		guideline,
@@ -23,26 +23,25 @@ export default function MedicalEntity(
 		recognizingAuthority,
 		relevantSpecialty,
 		study,
-		schemaType = "MedicalEntity",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
-	return (
-		<Thing
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={{
-				code,
-				funding,
-				guideline,
-				legalStatus,
-				medicineSystem,
-				recognizingAuthority,
-				relevantSpecialty,
-				study,
-				...subtypeProperties,
-			}}
-		/>
-	)
+		schemaType,
+		subtypeProperties,
+		format,
+		...restProps
+	} = props
+
+	const thingData = Thing(restProps)
+
+	return {
+		props: {
+			...thingData.props,
+			code,
+			funding,
+			guideline,
+			legalStatus,
+			medicineSystem,
+			recognizingAuthority,
+			relevantSpecialty,
+			study,
+		},
+	}
 }

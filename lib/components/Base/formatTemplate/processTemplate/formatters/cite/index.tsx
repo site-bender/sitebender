@@ -1,3 +1,5 @@
+import createElement from "../../../../../../../utilities/createElement/index.ts"
+
 export default function cite(
 	value: unknown,
 	params?: Record<string, unknown>,

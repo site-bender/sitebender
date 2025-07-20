@@ -16,7 +16,7 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 	props,
 	element = "span" as T,
 	...elementAttributes
-}: BaseProps<T> & ElementAttributeMap[T]) {
+}: BaseProps<T> & ElementAttributeMap[T]): JSX.Element {
 	const processedProps = processComponentProps(props)
 	const Element = element
 
@@ -25,9 +25,10 @@ export default function Base<T extends keyof ElementAttributeMap = "span">({
 		formatters: {},
 	}
 
-	const content = formatTemplate(format, formatContext) ||
+	const formattedContent = formatTemplate(format, formatContext)
+	const content = formattedContent ||
 		(processedProps.name || processedProps.title) ||
 		""
 
-	return createElement(Element, elementAttributes, content)
+	return createElement(Element, elementAttributes, content) as JSX.Element
 }

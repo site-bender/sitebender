@@ -1,0 +1,1061 @@
+AMRadioChannel < BroadcastChannel < Thing
+APIReference < TechArticle < Article < CreativeWork < Thing
+AboutPage < WebPage < CreativeWork < Thing
+AcceptAction < Action < Thing
+Accommodation < Place < Thing
+AccountingService < FinancialService < LocalBusiness < Organization < Thing
+AccountingService < FinancialService < LocalBusiness < Place < Thing
+AchieveAction < Action < Thing
+Action < Thing
+ActionAccessSpecification < Thing
+ActivateAction < Action < Thing
+AddAction < UpdateAction < Action < Thing
+AdministrativeArea < Place < Thing
+AdultEntertainment < LocalBusiness < Organization < Thing
+AdultEntertainment < LocalBusiness < Place < Thing
+AdvertiserContentArticle < Article < CreativeWork < Thing
+AggregateOffer < Offer < Thing
+AggregateRating < Rating < Thing
+AgreeAction < Action < Thing
+Airline < Organization < Thing
+Airport < CivicStructure < Place < Thing
+AlignmentObject < Thing
+AllocateAction < Action < Thing
+AmpStory < CreativeWork < Thing
+AmpStory < MediaObject < CreativeWork < Thing
+AmusementPark < LocalBusiness < Organization < Thing
+AmusementPark < LocalBusiness < Place < Thing
+AnalysisNewsArticle < NewsArticle < Article < CreativeWork < Thing
+AnatomicalStructure < MedicalEntity < Thing
+AnatomicalSystem < MedicalEntity < Thing
+AnimalShelter < LocalBusiness < Organization < Thing
+AnimalShelter < LocalBusiness < Place < Thing
+Answer < Comment < CreativeWork < Thing
+Apartment < Accommodation < Place < Thing
+ApartmentComplex < Residence < Place < Thing
+AppendAction < InsertAction < UpdateAction < Action < Thing
+ApplyAction < Action < Thing
+ApprovedIndication < MedicalEntity < Thing
+Aquarium < CivicStructure < Place < Thing
+ArchiveComponent < CreativeWork < Thing
+ArchiveOrganization < LocalBusiness < Organization < Thing
+ArchiveOrganization < LocalBusiness < Place < Thing
+ArriveAction < MoveAction < Action < Thing
+ArtGallery < LocalBusiness < Organization < Thing
+ArtGallery < LocalBusiness < Place < Thing
+Artery < AnatomicalStructure < MedicalEntity < Thing
+Article < CreativeWork < Thing
+AskAction < CommunicateAction < Action < Thing
+AskPublicNewsArticle < NewsArticle < Article < CreativeWork < Thing
+AssessAction < Action < Thing
+AssignAction < Action < Thing
+Atlas < CreativeWork < Thing
+Attorney < LocalBusiness < Organization < Thing
+Attorney < LocalBusiness < Place < Thing
+Audience < Thing
+AudioObject < MediaObject < CreativeWork < Thing
+AudioObjectSnapshot < AudioObject < MediaObject < CreativeWork < Thing
+Audiobook < AudioObject < MediaObject < CreativeWork < Thing
+Audiobook < Book < CreativeWork < Thing
+AuthorizeAction < Action < Thing
+AutoBodyShop < LocalBusiness < Organization < Thing
+AutoBodyShop < LocalBusiness < Place < Thing
+AutoDealer < LocalBusiness < Organization < Thing
+AutoDealer < LocalBusiness < Place < Thing
+AutoPartsStore < LocalBusiness < Organization < Thing
+AutoPartsStore < LocalBusiness < Place < Thing
+AutoRental < LocalBusiness < Organization < Thing
+AutoRental < LocalBusiness < Place < Thing
+AutoRepair < LocalBusiness < Organization < Thing
+AutoRepair < LocalBusiness < Place < Thing
+AutoWash < LocalBusiness < Organization < Thing
+AutoWash < LocalBusiness < Place < Thing
+AutomatedTeller < FinancialService < LocalBusiness < Organization < Thing
+AutomatedTeller < FinancialService < LocalBusiness < Place < Thing
+AutomotiveBusiness < LocalBusiness < Organization < Thing
+AutomotiveBusiness < LocalBusiness < Place < Thing
+BackgroundNewsArticle < NewsArticle < Article < CreativeWork < Thing
+Bakery < FoodEstablishment < LocalBusiness < Organization < Thing
+Bakery < FoodEstablishment < LocalBusiness < Place < Thing
+BankAccount < FinancialProduct < Service < Thing
+BankOrCreditUnion < FinancialService < LocalBusiness < Organization < Thing
+BankOrCreditUnion < FinancialService < LocalBusiness < Place < Thing
+BarOrPub < FoodEstablishment < LocalBusiness < Organization < Thing
+BarOrPub < FoodEstablishment < LocalBusiness < Place < Thing
+Barcode < ImageObject < MediaObject < CreativeWork < Thing
+Beach < CivicStructure < Place < Thing
+BeautySalon < LocalBusiness < Organization < Thing
+BeautySalon < LocalBusiness < Place < Thing
+BedAndBreakfast < LodgingBusiness < LocalBusiness < Organization < Thing
+BedAndBreakfast < LodgingBusiness < LocalBusiness < Place < Thing
+BedDetails < Thing
+BedType < QualitativeValue < Enumeration < Thing
+BefriendAction < Action < Thing
+BikeStore < LocalBusiness < Organization < Thing
+BikeStore < LocalBusiness < Place < Thing
+BioChemEntity < Thing
+Blog < CreativeWork < Thing
+BlogPosting < SocialMediaPosting < Article < CreativeWork < Thing
+BloodTest < MedicalTest < MedicalEntity < Thing
+BoatReservation < Reservation < Thing
+BoatTerminal < CivicStructure < Place < Thing
+BoatTrip < Trip < Thing
+BodyOfWater < Place < Thing
+Bone < AnatomicalStructure < MedicalEntity < Thing
+Book < CreativeWork < Thing
+BookSeries < CreativeWorkSeries < CreativeWork < Thing
+BookSeries < CreativeWorkSeries < Thing
+BookStore < LocalBusiness < Organization < Thing
+BookStore < LocalBusiness < Place < Thing
+BookmarkAction < Action < Thing
+BorrowAction < TransferAction < Action < Thing
+BowlingAlley < LocalBusiness < Organization < Thing
+BowlingAlley < LocalBusiness < Place < Thing
+BrainStructure < AnatomicalStructure < MedicalEntity < Thing
+Brand < Thing
+BreadcrumbList < ItemList < Thing
+Brewery < FoodEstablishment < LocalBusiness < Organization < Thing
+Brewery < FoodEstablishment < LocalBusiness < Place < Thing
+Bridge < CivicStructure < Place < Thing
+BroadcastChannel < Thing
+BroadcastEvent < PublicationEvent < Event < Thing
+BroadcastFrequencySpecification < Thing
+BroadcastService < Service < Thing
+BrokerageAccount < InvestmentOrDeposit < FinancialProduct < Service < Thing
+BuddhistTemple < CivicStructure < Place < Thing
+BusOrCoach < Vehicle < Product < Thing
+BusReservation < Reservation < Thing
+BusStation < CivicStructure < Place < Thing
+BusStop < CivicStructure < Place < Thing
+BusTrip < Trip < Thing
+BusinessAudience < Audience < Thing
+BusinessEntityType < Enumeration < Thing
+BusinessEvent < Event < Thing
+BusinessFunction < Enumeration < Thing
+BuyAction < TradeAction < Action < Thing
+CDCPMDRecord < Thing
+CableOrSatelliteService < Service < Thing
+CafeOrCoffeeShop < FoodEstablishment < LocalBusiness < Organization < Thing
+CafeOrCoffeeShop < FoodEstablishment < LocalBusiness < Place < Thing
+Campground < CivicStructure < Place < Thing
+Campground < LodgingBusiness < LocalBusiness < Organization < Thing
+Campground < LodgingBusiness < LocalBusiness < Place < Thing
+CampingPitch < Accommodation < Place < Thing
+Canal < Place < Thing
+CancelAction < PlanAction < Action < Thing
+Car < Vehicle < Product < Thing
+Casino < LocalBusiness < Organization < Thing
+Casino < LocalBusiness < Place < Thing
+CategoryCode < DefinedTerm < Thing
+CategoryCodeSet < DefinedTermSet < CreativeWork < Thing
+CatholicChurch < CivicStructure < Place < Thing
+Cemetery < CivicStructure < Place < Thing
+Certification < CreativeWork < Thing
+Chapter < CreativeWork < Thing
+CheckAction < Action < Thing
+CheckInAction < CommunicateAction < Action < Thing
+CheckOutAction < CommunicateAction < Action < Thing
+CheckoutPage < WebPage < CreativeWork < Thing
+ChemicalSubstance < BioChemEntity < Thing
+ChildCare < LocalBusiness < Organization < Thing
+ChildCare < LocalBusiness < Place < Thing
+ChildrensEvent < Event < Thing
+ChooseAction < Action < Thing
+Church < CivicStructure < Place < Thing
+City < Place < Thing
+CityHall < CivicStructure < Place < Thing
+CivicStructure < Place < Thing
+Claim < CreativeWork < Thing
+ClaimReview < Review < CreativeWork < Thing
+Class < Thing
+Clip < CreativeWork < Thing
+ClothingStore < LocalBusiness < Organization < Thing
+ClothingStore < LocalBusiness < Place < Thing
+Code < CreativeWork < Thing
+Collection < CreativeWork < Thing
+CollectionPage < WebPage < CreativeWork < Thing
+CollegeOrUniversity < EducationalOrganization < CivicStructure < Place < Thing
+CollegeOrUniversity < EducationalOrganization < Organization < Thing
+ComedyClub < LocalBusiness < Organization < Thing
+ComedyClub < LocalBusiness < Place < Thing
+ComedyEvent < Event < Thing
+ComicCoverArt < ComicStory < CreativeWork < Thing
+ComicCoverArt < VisualArtwork < CreativeWork < Thing
+ComicIssue < PublicationIssue < CreativeWork < Thing
+ComicSeries < CreativeWorkSeries < CreativeWork < Thing
+ComicSeries < CreativeWorkSeries < Thing
+ComicStory < CreativeWork < Thing
+Comment < CreativeWork < Thing
+CommentAction < CommunicateAction < Action < Thing
+CommunicateAction < Action < Thing
+CommunityHealth < LocalBusiness < Organization < Thing
+CommunityHealth < LocalBusiness < Place < Thing
+CompleteDataFeed < DataFeed < Dataset < CreativeWork < Thing
+CompoundPriceSpecification < PriceSpecification < Thing
+ComputerLanguage < Thing
+ComputerStore < LocalBusiness < Organization < Thing
+ComputerStore < LocalBusiness < Place < Thing
+ConfirmAction < InformAction < CommunicateAction < Action < Thing
+Consortium < Organization < Thing
+ConstraintNode < Thing
+ConsumeAction < Action < Thing
+ContactPage < WebPage < CreativeWork < Thing
+ContactPoint < Thing
+Continent < Place < Thing
+ControlAction < Action < Thing
+ConvenienceStore < LocalBusiness < Organization < Thing
+ConvenienceStore < LocalBusiness < Place < Thing
+Conversation < CreativeWork < Thing
+CookAction < Action < Thing
+Cooperative < Organization < Thing
+Corporation < Organization < Thing
+CorrectionComment < Comment < CreativeWork < Thing
+Country < Place < Thing
+Course < CreativeWork < Thing
+Course < LearningResource < CreativeWork < Thing
+CourseInstance < Event < Thing
+Courthouse < CivicStructure < Place < Thing
+CoverArt < VisualArtwork < CreativeWork < Thing
+CovidTestingFacility < MedicalClinic < LocalBusiness < Organization < Thing
+CovidTestingFacility < MedicalClinic < LocalBusiness < Place < Thing
+CovidTestingFacility < MedicalClinic < MedicalOrganization < Organization < Thing
+CreateAction < Action < Thing
+CreativeWork < Thing
+CreativeWorkSeason < CreativeWork < Thing
+CreativeWorkSeries < CreativeWork < Thing
+CreativeWorkSeries < Thing
+CreditCard < LoanOrCredit < FinancialProduct < Service < Thing
+CreditCard < PaymentCard < FinancialProduct < Service < Thing
+CreditCard < PaymentCard < PaymentMethod < Thing
+Crematorium < CivicStructure < Place < Thing
+CriticReview < Review < CreativeWork < Thing
+CurrencyConversionService < FinancialProduct < Service < Thing
+DDxElement < MedicalEntity < Thing
+DanceEvent < Event < Thing
+DanceGroup < Organization < Thing
+DataCatalog < CreativeWork < Thing
+DataDownload < MediaObject < CreativeWork < Thing
+DataFeed < Dataset < CreativeWork < Thing
+DataFeedItem < Thing
+Dataset < CreativeWork < Thing
+DatedMoneySpecification < Thing
+DaySpa < LocalBusiness < Organization < Thing
+DaySpa < LocalBusiness < Place < Thing
+DeactivateAction < Action < Thing
+DefenceEstablishment < CivicStructure < Place < Thing
+DefinedRegion < Thing
+DefinedTerm < Thing
+DefinedTermSet < CreativeWork < Thing
+DeleteAction < UpdateAction < Action < Thing
+DeliveryChargeSpecification < PriceSpecification < Thing
+DeliveryEvent < Event < Thing
+DeliveryTimeSettings < Thing
+Demand < Thing
+Dentist < LocalBusiness < Organization < Thing
+Dentist < LocalBusiness < Place < Thing
+Dentist < MedicalOrganization < Organization < Thing
+DepartAction < MoveAction < Action < Thing
+DepartmentStore < LocalBusiness < Organization < Thing
+DepartmentStore < LocalBusiness < Place < Thing
+DepositAccount < BankAccount < FinancialProduct < Service < Thing
+DepositAccount < InvestmentOrDeposit < FinancialProduct < Service < Thing
+Dermatology < LocalBusiness < Organization < Thing
+Dermatology < LocalBusiness < Place < Thing
+DiagnosticLab < MedicalOrganization < Organization < Thing
+DiagnosticProcedure < MedicalProcedure < MedicalEntity < Thing
+Diet < CreativeWork < Thing
+Diet < MedicalEntity < Thing
+DietNutrition < LocalBusiness < Organization < Thing
+DietNutrition < LocalBusiness < Place < Thing
+DietarySupplement < Product < Thing
+DietarySupplement < Substance < MedicalEntity < Thing
+DigitalDocument < CreativeWork < Thing
+DigitalDocumentPermission < Thing
+DisagreeAction < Action < Thing
+DiscoverAction < Action < Thing
+DiscussionForumPosting < SocialMediaPosting < Article < CreativeWork < Thing
+DislikeAction < Action < Thing
+Distance < Thing
+Distillery < FoodEstablishment < LocalBusiness < Organization < Thing
+Distillery < FoodEstablishment < LocalBusiness < Place < Thing
+DonateAction < TransferAction < Action < Thing
+DoseSchedule < MedicalEntity < Thing
+DownloadAction < TransferAction < Action < Thing
+DrawAction < Action < Thing
+Drawing < CreativeWork < Thing
+DrinkAction < ConsumeAction < Action < Thing
+Drug < Product < Thing
+Drug < Substance < MedicalEntity < Thing
+DrugClass < MedicalEntity < Thing
+DrugCost < MedicalEntity < Thing
+DrugLegalStatus < MedicalEntity < Thing
+DrugStrength < MedicalEntity < Thing
+DryCleaningOrLaundry < LocalBusiness < Organization < Thing
+DryCleaningOrLaundry < LocalBusiness < Place < Thing
+Duration < Thing
+EatAction < ConsumeAction < Action < Thing
+EducationEvent < Event < Thing
+EducationalAudience < Audience < Thing
+EducationalOccupationalCredential < CreativeWork < Thing
+EducationalOccupationalProgram < Thing
+EducationalOrganization < CivicStructure < Place < Thing
+EducationalOrganization < Organization < Thing
+Electrician < LocalBusiness < Organization < Thing
+Electrician < LocalBusiness < Place < Thing
+ElectronicsStore < LocalBusiness < Organization < Thing
+ElectronicsStore < LocalBusiness < Place < Thing
+ElementarySchool < EducationalOrganization < CivicStructure < Place < Thing
+ElementarySchool < EducationalOrganization < Organization < Thing
+EmailMessage < Message < CreativeWork < Thing
+Embassy < CivicStructure < Place < Thing
+Emergency < LocalBusiness < Organization < Thing
+Emergency < LocalBusiness < Place < Thing
+EmergencyService < LocalBusiness < Organization < Thing
+EmergencyService < LocalBusiness < Place < Thing
+EmployerAggregateRating < AggregateRating < Rating < Thing
+EmployerReview < Review < CreativeWork < Thing
+EmploymentAgency < LocalBusiness < Organization < Thing
+EmploymentAgency < LocalBusiness < Place < Thing
+EndorseAction < Action < Thing
+EndorsementRating < Rating < Thing
+Energy < Thing
+EnergyConsumptionDetails < Thing
+EnergyEfficiencyEnumeration < Enumeration < Thing
+EngineSpecification < Thing
+EntertainmentBusiness < LocalBusiness < Organization < Thing
+EntertainmentBusiness < LocalBusiness < Place < Thing
+EntryPoint < Thing
+Enumeration < Thing
+Episode < CreativeWork < Thing
+Event < Thing
+EventReservation < Reservation < Thing
+EventSeries < Event < Thing
+EventSeries < Thing
+EventVenue < CivicStructure < Place < Thing
+ExchangeRateSpecification < Thing
+ExerciseAction < PlayAction < Action < Thing
+ExerciseGym < LocalBusiness < Organization < Thing
+ExerciseGym < LocalBusiness < Place < Thing
+ExercisePlan < CreativeWork < Thing
+ExercisePlan < PhysicalActivity < MedicalEntity < Thing
+ExhibitionEvent < Event < Thing
+FAQPage < WebPage < CreativeWork < Thing
+FMRadioChannel < BroadcastChannel < Thing
+FastFoodRestaurant < FoodEstablishment < LocalBusiness < Organization < Thing
+FastFoodRestaurant < FoodEstablishment < LocalBusiness < Place < Thing
+Festival < Event < Thing
+FilmAction < Action < Thing
+FinancialIncentive < Thing
+FinancialProduct < Service < Thing
+FinancialService < LocalBusiness < Organization < Thing
+FinancialService < LocalBusiness < Place < Thing
+FindAction < Action < Thing
+FireStation < CivicStructure < Place < Thing
+FireStation < LocalBusiness < Organization < Thing
+FireStation < LocalBusiness < Place < Thing
+Flight < Trip < Thing
+FlightReservation < Reservation < Thing
+FloorPlan < Thing
+Florist < LocalBusiness < Organization < Thing
+Florist < LocalBusiness < Place < Thing
+FollowAction < Action < Thing
+FoodEstablishment < LocalBusiness < Organization < Thing
+FoodEstablishment < LocalBusiness < Place < Thing
+FoodEstablishmentReservation < Reservation < Thing
+FoodEvent < Event < Thing
+FoodService < Service < Thing
+FundingAgency < Organization < Thing
+FundingScheme < Organization < Thing
+FurnitureStore < LocalBusiness < Organization < Thing
+FurnitureStore < LocalBusiness < Place < Thing
+Game < CreativeWork < Thing
+GameServer < Thing
+GardenStore < LocalBusiness < Organization < Thing
+GardenStore < LocalBusiness < Place < Thing
+GasStation < LocalBusiness < Organization < Thing
+GasStation < LocalBusiness < Place < Thing
+GatedResidenceCommunity < Residence < Place < Thing
+Gene < BioChemEntity < Thing
+GeneralContractor < LocalBusiness < Organization < Thing
+GeneralContractor < LocalBusiness < Place < Thing
+GeoCircle < GeoShape < Thing
+GeoCoordinates < Thing
+GeoShape < Thing
+GeospatialGeometry < Thing
+Geriatric < LocalBusiness < Organization < Thing
+Geriatric < LocalBusiness < Place < Thing
+GiveAction < TransferAction < Action < Thing
+GolfCourse < LocalBusiness < Organization < Thing
+GolfCourse < LocalBusiness < Place < Thing
+GovernmentBuilding < CivicStructure < Place < Thing
+GovernmentOffice < LocalBusiness < Organization < Thing
+GovernmentOffice < LocalBusiness < Place < Thing
+GovernmentOrganization < Organization < Thing
+GovernmentPermit < Permit < Thing
+GovernmentService < Service < Thing
+Grant < Thing
+GroceryStore < LocalBusiness < Organization < Thing
+GroceryStore < LocalBusiness < Place < Thing
+Guide < CreativeWork < Thing
+Gynecologic < LocalBusiness < Organization < Thing
+Gynecologic < LocalBusiness < Place < Thing
+HVACBusiness < LocalBusiness < Organization < Thing
+HVACBusiness < LocalBusiness < Place < Thing
+Hackathon < Event < Thing
+HairSalon < LocalBusiness < Organization < Thing
+HairSalon < LocalBusiness < Place < Thing
+HardwareStore < LocalBusiness < Organization < Thing
+HardwareStore < LocalBusiness < Place < Thing
+HealthAndBeautyBusiness < LocalBusiness < Organization < Thing
+HealthAndBeautyBusiness < LocalBusiness < Place < Thing
+HealthClub < LocalBusiness < Organization < Thing
+HealthClub < LocalBusiness < Place < Thing
+HealthInsurancePlan < Thing
+HealthPlanCostSharingSpecification < Thing
+HealthPlanFormulary < Thing
+HealthPlanNetwork < Thing
+HealthTopicContent < CreativeWork < Thing
+HighSchool < EducationalOrganization < CivicStructure < Place < Thing
+HighSchool < EducationalOrganization < Organization < Thing
+HinduTemple < CivicStructure < Place < Thing
+HobbyShop < LocalBusiness < Organization < Thing
+HobbyShop < LocalBusiness < Place < Thing
+HomeAndConstructionBusiness < LocalBusiness < Organization < Thing
+HomeAndConstructionBusiness < LocalBusiness < Place < Thing
+HomeGoodsStore < LocalBusiness < Organization < Thing
+HomeGoodsStore < LocalBusiness < Place < Thing
+Hospital < CivicStructure < Place < Thing
+Hospital < LocalBusiness < Organization < Thing
+Hospital < LocalBusiness < Place < Thing
+Hospital < MedicalOrganization < Organization < Thing
+Hostel < LodgingBusiness < LocalBusiness < Organization < Thing
+Hostel < LodgingBusiness < LocalBusiness < Place < Thing
+Hotel < LodgingBusiness < LocalBusiness < Organization < Thing
+Hotel < LodgingBusiness < LocalBusiness < Place < Thing
+HotelRoom < Accommodation < Place < Thing
+House < Accommodation < Place < Thing
+HousePainter < LocalBusiness < Organization < Thing
+HousePainter < LocalBusiness < Place < Thing
+HowTo < CreativeWork < Thing
+HowToDirection < CreativeWork < Thing
+HowToDirection < ListItem < Thing
+HowToItem < ListItem < Thing
+HowToSection < CreativeWork < Thing
+HowToSection < ItemList < Thing
+HowToSection < ListItem < Thing
+HowToStep < CreativeWork < Thing
+HowToStep < ItemList < Thing
+HowToStep < ListItem < Thing
+HowToSupply < HowToItem < ListItem < Thing
+HowToTip < CreativeWork < Thing
+HowToTip < ListItem < Thing
+HowToTool < HowToItem < ListItem < Thing
+HyperToc < CreativeWork < Thing
+HyperTocEntry < CreativeWork < Thing
+IceCreamShop < FoodEstablishment < LocalBusiness < Organization < Thing
+IceCreamShop < FoodEstablishment < LocalBusiness < Place < Thing
+IgnoreAction < Action < Thing
+ImageGallery < WebPage < CreativeWork < Thing
+ImageObject < MediaObject < CreativeWork < Thing
+ImageObjectSnapshot < ImageObject < MediaObject < CreativeWork < Thing
+ImagingTest < MedicalTest < MedicalEntity < Thing
+IndividualPhysician < Physician < LocalBusiness < Organization < Thing
+IndividualPhysician < Physician < LocalBusiness < Place < Thing
+IndividualPhysician < Physician < MedicalOrganization < Organization < Thing
+IndividualProduct < Product < Thing
+InfectiousDisease < MedicalCondition < MedicalEntity < Thing
+InformAction < CommunicateAction < Action < Thing
+InsertAction < UpdateAction < Action < Thing
+InstallAction < ConsumeAction < Action < Thing
+InsuranceAgency < FinancialService < LocalBusiness < Organization < Thing
+InsuranceAgency < FinancialService < LocalBusiness < Place < Thing
+Intangible < Thing
+InteractAction < Action < Thing
+InteractionCounter < Thing
+InternetCafe < LocalBusiness < Organization < Thing
+InternetCafe < LocalBusiness < Place < Thing
+InvestmentFund < InvestmentOrDeposit < FinancialProduct < Service < Thing
+InvestmentOrDeposit < FinancialProduct < Service < Thing
+InviteAction < CommunicateAction < Action < Thing
+Invoice < Thing
+ItemList < Thing
+ItemPage < WebPage < CreativeWork < Thing
+JewelryStore < LocalBusiness < Organization < Thing
+JewelryStore < LocalBusiness < Place < Thing
+JobPosting < Thing
+JoinAction < Action < Thing
+Joint < AnatomicalStructure < MedicalEntity < Thing
+LakeBodyOfWater < Place < Thing
+Landform < Place < Thing
+LandmarksOrHistoricalBuildings < Place < Thing
+Language < Thing
+LearningResource < CreativeWork < Thing
+LeaveAction < Action < Thing
+LegalService < LocalBusiness < Organization < Thing
+LegalService < LocalBusiness < Place < Thing
+Legislation < CreativeWork < Thing
+LegislationObject < Legislation < CreativeWork < Thing
+LegislationObject < MediaObject < CreativeWork < Thing
+LegislativeBuilding < CivicStructure < Place < Thing
+LendAction < TransferAction < Action < Thing
+Library < LocalBusiness < Organization < Thing
+Library < LocalBusiness < Place < Thing
+LibrarySystem < Organization < Thing
+LifestyleModification < MedicalEntity < Thing
+Ligament < AnatomicalStructure < MedicalEntity < Thing
+LikeAction < Action < Thing
+LiquorStore < LocalBusiness < Organization < Thing
+LiquorStore < LocalBusiness < Place < Thing
+ListItem < Thing
+ListenAction < ConsumeAction < Action < Thing
+LiteraryEvent < Event < Thing
+LiveBlogPosting < SocialMediaPosting < Article < CreativeWork < Thing
+LoanOrCredit < FinancialProduct < Service < Thing
+LocalBusiness < Organization < Thing
+LocalBusiness < Place < Thing
+LocationFeatureSpecification < PropertyValue < Thing
+Locksmith < LocalBusiness < Organization < Thing
+Locksmith < LocalBusiness < Place < Thing
+LodgingBusiness < LocalBusiness < Organization < Thing
+LodgingBusiness < LocalBusiness < Place < Thing
+LodgingReservation < Reservation < Thing
+LoseAction < Action < Thing
+LymphaticVessel < AnatomicalStructure < MedicalEntity < Thing
+Manuscript < CreativeWork < Thing
+Map < CreativeWork < Thing
+MarryAction < Action < Thing
+Mass < Thing
+MathSolver < CreativeWork < Thing
+MaximumDoseSchedule < DoseSchedule < MedicalEntity < Thing
+MeasurementTypeEnumeration < Enumeration < Thing
+MediaEnumeration < Enumeration < Thing
+MediaGallery < WebPage < CreativeWork < Thing
+MediaObject < CreativeWork < Thing
+MediaReview < Review < CreativeWork < Thing
+MediaReviewItem < CreativeWork < Thing
+MediaSubscription < Thing
+MedicalAudience < Audience < Thing
+MedicalAudience < PeopleAudience < Audience < Thing
+MedicalBusiness < LocalBusiness < Organization < Thing
+MedicalBusiness < LocalBusiness < Place < Thing
+MedicalCause < MedicalEntity < Thing
+MedicalClinic < LocalBusiness < Organization < Thing
+MedicalClinic < LocalBusiness < Place < Thing
+MedicalClinic < MedicalOrganization < Organization < Thing
+MedicalCode < CategoryCode < DefinedTerm < Thing
+MedicalCode < MedicalEntity < Thing
+MedicalCondition < MedicalEntity < Thing
+MedicalConditionStage < MedicalEntity < Thing
+MedicalContraindication < MedicalEntity < Thing
+MedicalDevice < MedicalEntity < Thing
+MedicalEntity < Thing
+MedicalEnumeration < Enumeration < Thing
+MedicalGuideline < MedicalEntity < Thing
+MedicalGuidelineContraindication < MedicalGuideline < MedicalEntity < Thing
+MedicalGuidelineRecommendation < MedicalGuideline < MedicalEntity < Thing
+MedicalIndication < MedicalEntity < Thing
+MedicalIntangible < MedicalEntity < Thing
+MedicalObservationalStudy < MedicalStudy < MedicalEntity < Thing
+MedicalOrganization < Organization < Thing
+MedicalProcedure < MedicalEntity < Thing
+MedicalRiskCalculator < MedicalRiskEstimator < MedicalEntity < Thing
+MedicalRiskEstimator < MedicalEntity < Thing
+MedicalRiskFactor < MedicalEntity < Thing
+MedicalRiskScore < MedicalRiskEstimator < MedicalEntity < Thing
+MedicalScholarlyArticle < Article < CreativeWork < Thing
+MedicalSign < MedicalSignOrSymptom < MedicalCondition < MedicalEntity < Thing
+MedicalSignOrSymptom < MedicalCondition < MedicalEntity < Thing
+MedicalStudy < MedicalEntity < Thing
+MedicalSymptom < MedicalSignOrSymptom < MedicalCondition < MedicalEntity < Thing
+MedicalTest < MedicalEntity < Thing
+MedicalTestPanel < MedicalTest < MedicalEntity < Thing
+MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+MedicalTrial < MedicalStudy < MedicalEntity < Thing
+MedicalWebPage < WebPage < CreativeWork < Thing
+MeetingRoom < Accommodation < Place < Thing
+MemberProgram < Thing
+MemberProgramTier < Thing
+MensClothingStore < LocalBusiness < Organization < Thing
+MensClothingStore < LocalBusiness < Place < Thing
+Menu < CreativeWork < Thing
+MenuItem < Thing
+MenuSection < CreativeWork < Thing
+MerchantReturnPolicy < Thing
+MerchantReturnPolicySeasonalOverride < Thing
+Message < CreativeWork < Thing
+MiddleSchool < EducationalOrganization < CivicStructure < Place < Thing
+MiddleSchool < EducationalOrganization < Organization < Thing
+Midwifery < LocalBusiness < Organization < Thing
+Midwifery < LocalBusiness < Place < Thing
+MobileApplication < SoftwareApplication < CreativeWork < Thing
+MobilePhoneStore < LocalBusiness < Organization < Thing
+MobilePhoneStore < LocalBusiness < Place < Thing
+MolecularEntity < BioChemEntity < Thing
+MonetaryAmount < Thing
+MonetaryAmountDistribution < QuantitativeValueDistribution < Thing
+MonetaryGrant < Grant < Thing
+MoneyTransfer < TransferAction < Action < Thing
+MortgageLoan < LoanOrCredit < FinancialProduct < Service < Thing
+Mosque < CivicStructure < Place < Thing
+Motel < LodgingBusiness < LocalBusiness < Organization < Thing
+Motel < LodgingBusiness < LocalBusiness < Place < Thing
+Motorcycle < Vehicle < Product < Thing
+MotorcycleDealer < LocalBusiness < Organization < Thing
+MotorcycleDealer < LocalBusiness < Place < Thing
+MotorcycleRepair < LocalBusiness < Organization < Thing
+MotorcycleRepair < LocalBusiness < Place < Thing
+MotorizedBicycle < Vehicle < Product < Thing
+Mountain < Place < Thing
+MoveAction < Action < Thing
+Movie < CreativeWork < Thing
+MovieClip < Clip < CreativeWork < Thing
+MovieRentalStore < LocalBusiness < Organization < Thing
+MovieRentalStore < LocalBusiness < Place < Thing
+MovieSeries < CreativeWorkSeries < CreativeWork < Thing
+MovieSeries < CreativeWorkSeries < Thing
+MovieTheater < CivicStructure < Place < Thing
+MovieTheater < LocalBusiness < Organization < Thing
+MovieTheater < LocalBusiness < Place < Thing
+MovingCompany < LocalBusiness < Organization < Thing
+MovingCompany < LocalBusiness < Place < Thing
+Muscle < AnatomicalStructure < MedicalEntity < Thing
+Museum < CivicStructure < Place < Thing
+MusicAlbum < MusicPlaylist < CreativeWork < Thing
+MusicComposition < CreativeWork < Thing
+MusicEvent < Event < Thing
+MusicGroup < Organization < Thing
+MusicPlaylist < CreativeWork < Thing
+MusicRecording < CreativeWork < Thing
+MusicRelease < MusicPlaylist < CreativeWork < Thing
+MusicStore < LocalBusiness < Organization < Thing
+MusicStore < LocalBusiness < Place < Thing
+MusicVenue < CivicStructure < Place < Thing
+MusicVideoObject < MediaObject < CreativeWork < Thing
+NGO < Organization < Thing
+NailSalon < LocalBusiness < Organization < Thing
+NailSalon < LocalBusiness < Place < Thing
+Nerve < AnatomicalStructure < MedicalEntity < Thing
+NewsArticle < Article < CreativeWork < Thing
+NewsMediaOrganization < Organization < Thing
+Newspaper < CreativeWorkSeries < CreativeWork < Thing
+Newspaper < CreativeWorkSeries < Thing
+NightClub < LocalBusiness < Organization < Thing
+NightClub < LocalBusiness < Place < Thing
+NonprofitType < Enumeration < Thing
+Notary < LocalBusiness < Organization < Thing
+Notary < LocalBusiness < Place < Thing
+NoteDigitalDocument < DigitalDocument < CreativeWork < Thing
+Nursing < LocalBusiness < Organization < Thing
+Nursing < LocalBusiness < Place < Thing
+NutritionInformation < Thing
+Observation < QuantitativeValue < Thing
+Observation < Thing
+Obstetric < LocalBusiness < Organization < Thing
+Obstetric < LocalBusiness < Place < Thing
+Occupation < Thing
+OccupationalExperienceRequirements < Thing
+OccupationalTherapy < MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+OceanBodyOfWater < Place < Thing
+Offer < Thing
+OfferCatalog < ItemList < Thing
+OfferForLease < Offer < Thing
+OfferForPurchase < Offer < Thing
+OfferShippingDetails < Thing
+OfficeEquipmentStore < LocalBusiness < Organization < Thing
+OfficeEquipmentStore < LocalBusiness < Place < Thing
+OnDemandEvent < PublicationEvent < Event < Thing
+Oncologic < LocalBusiness < Organization < Thing
+Oncologic < LocalBusiness < Place < Thing
+OnlineBusiness < Organization < Thing
+OnlineStore < Organization < Thing
+OpeningHoursSpecification < Thing
+OpinionNewsArticle < NewsArticle < Article < CreativeWork < Thing
+Optician < LocalBusiness < Organization < Thing
+Optician < LocalBusiness < Place < Thing
+Optometric < LocalBusiness < Organization < Thing
+Optometric < LocalBusiness < Place < Thing
+Order < Thing
+OrderAction < TradeAction < Action < Thing
+OrderItem < Thing
+Organization < Thing
+OrganizeAction < Action < Thing
+Otolaryngologic < LocalBusiness < Organization < Thing
+Otolaryngologic < LocalBusiness < Place < Thing
+OutletStore < LocalBusiness < Organization < Thing
+OutletStore < LocalBusiness < Place < Thing
+OwnershipInfo < Thing
+PaintAction < Action < Thing
+Painting < CreativeWork < Thing
+PalliativeProcedure < MedicalProcedure < MedicalEntity < Thing
+PalliativeProcedure < MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+ParcelDelivery < Thing
+ParentAudience < PeopleAudience < Audience < Thing
+Park < CivicStructure < Place < Thing
+ParkingFacility < CivicStructure < Place < Thing
+PathologyTest < MedicalTest < MedicalEntity < Thing
+Patient < MedicalAudience < Audience < Thing
+Patient < MedicalAudience < PeopleAudience < Audience < Thing
+Patient < Person < Thing
+PawnShop < LocalBusiness < Organization < Thing
+PawnShop < LocalBusiness < Place < Thing
+PayAction < TradeAction < Action < Thing
+PaymentCard < FinancialProduct < Service < Thing
+PaymentCard < PaymentMethod < Thing
+PaymentChargeSpecification < PriceSpecification < Thing
+PaymentMethod < Thing
+PaymentService < FinancialProduct < Service < Thing
+PaymentService < PaymentMethod < Thing
+Pediatric < LocalBusiness < Organization < Thing
+Pediatric < LocalBusiness < Place < Thing
+PeopleAudience < Audience < Thing
+PerformAction < PlayAction < Action < Thing
+PerformingArtsTheater < CivicStructure < Place < Thing
+PerformingGroup < Organization < Thing
+Periodical < CreativeWorkSeries < CreativeWork < Thing
+Periodical < CreativeWorkSeries < Thing
+Permit < Thing
+Person < Thing
+PetStore < LocalBusiness < Organization < Thing
+PetStore < LocalBusiness < Place < Thing
+Pharmacy < LocalBusiness < Organization < Thing
+Pharmacy < LocalBusiness < Place < Thing
+Pharmacy < MedicalOrganization < Organization < Thing
+Photograph < CreativeWork < Thing
+PhotographAction < Action < Thing
+PhysicalActivity < MedicalEntity < Thing
+PhysicalTherapy < MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+Physician < LocalBusiness < Organization < Thing
+Physician < LocalBusiness < Place < Thing
+Physician < MedicalOrganization < Organization < Thing
+PhysiciansOffice < Physician < LocalBusiness < Organization < Thing
+PhysiciansOffice < Physician < LocalBusiness < Place < Thing
+PhysiciansOffice < Physician < MedicalOrganization < Organization < Thing
+Physiotherapy < LocalBusiness < Organization < Thing
+Physiotherapy < LocalBusiness < Place < Thing
+Place < Thing
+PlaceOfWorship < CivicStructure < Place < Thing
+PlanAction < Action < Thing
+PlasticSurgery < LocalBusiness < Organization < Thing
+PlasticSurgery < LocalBusiness < Place < Thing
+Play < CreativeWork < Thing
+PlayAction < Action < Thing
+PlayGameAction < ConsumeAction < Action < Thing
+Playground < CivicStructure < Place < Thing
+Plumber < LocalBusiness < Organization < Thing
+Plumber < LocalBusiness < Place < Thing
+PodcastEpisode < Episode < CreativeWork < Thing
+PodcastSeason < CreativeWorkSeason < CreativeWork < Thing
+PodcastSeries < CreativeWorkSeries < CreativeWork < Thing
+PodcastSeries < CreativeWorkSeries < Thing
+Podiatric < LocalBusiness < Organization < Thing
+Podiatric < LocalBusiness < Place < Thing
+PoliceStation < CivicStructure < Place < Thing
+PoliceStation < LocalBusiness < Organization < Thing
+PoliceStation < LocalBusiness < Place < Thing
+PoliticalParty < Organization < Thing
+Pond < Place < Thing
+PostOffice < LocalBusiness < Organization < Thing
+PostOffice < LocalBusiness < Place < Thing
+PostalAddress < ContactPoint < Thing
+PostalCodeRangeSpecification < Thing
+Poster < CreativeWork < Thing
+PreOrderAction < TradeAction < Action < Thing
+PrependAction < InsertAction < UpdateAction < Action < Thing
+Preschool < EducationalOrganization < CivicStructure < Place < Thing
+Preschool < EducationalOrganization < Organization < Thing
+PresentationDigitalDocument < DigitalDocument < CreativeWork < Thing
+PreventionIndication < MedicalEntity < Thing
+PriceSpecification < Thing
+PrimaryCare < LocalBusiness < Organization < Thing
+PrimaryCare < LocalBusiness < Place < Thing
+Product < Thing
+ProductCollection < Collection < CreativeWork < Thing
+ProductCollection < Product < Thing
+ProductGroup < Product < Thing
+ProductModel < Product < Thing
+ProductReturnPolicy < Thing
+ProfessionalService < LocalBusiness < Organization < Thing
+ProfessionalService < LocalBusiness < Place < Thing
+ProfilePage < WebPage < CreativeWork < Thing
+ProgramMembership < Thing
+Project < Organization < Thing
+Property < Thing
+PropertyValue < Thing
+PropertyValueSpecification < Thing
+Protein < BioChemEntity < Thing
+Psychiatric < LocalBusiness < Organization < Thing
+Psychiatric < LocalBusiness < Place < Thing
+PsychologicalTreatment < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+PublicHealth < LocalBusiness < Organization < Thing
+PublicHealth < LocalBusiness < Place < Thing
+PublicSwimmingPool < LocalBusiness < Organization < Thing
+PublicSwimmingPool < LocalBusiness < Place < Thing
+PublicToilet < CivicStructure < Place < Thing
+PublicationEvent < Event < Thing
+PublicationIssue < CreativeWork < Thing
+PublicationVolume < CreativeWork < Thing
+QAPage < WebPage < CreativeWork < Thing
+QualitativeValue < Enumeration < Thing
+QuantitativeValue < Thing
+QuantitativeValueDistribution < Thing
+Quantity < Thing
+Question < Comment < CreativeWork < Thing
+Quiz < LearningResource < CreativeWork < Thing
+Quotation < CreativeWork < Thing
+QuoteAction < TradeAction < Action < Thing
+RVPark < CivicStructure < Place < Thing
+RadiationTherapy < MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+RadioBroadcastService < BroadcastService < Service < Thing
+RadioChannel < BroadcastChannel < Thing
+RadioClip < Clip < CreativeWork < Thing
+RadioEpisode < Episode < CreativeWork < Thing
+RadioSeason < CreativeWorkSeason < CreativeWork < Thing
+RadioSeries < CreativeWorkSeries < CreativeWork < Thing
+RadioSeries < CreativeWorkSeries < Thing
+RadioStation < LocalBusiness < Organization < Thing
+RadioStation < LocalBusiness < Place < Thing
+Rating < Thing
+ReactAction < Action < Thing
+ReadAction < ConsumeAction < Action < Thing
+RealEstateAgent < LocalBusiness < Organization < Thing
+RealEstateAgent < LocalBusiness < Place < Thing
+RealEstateListing < WebPage < CreativeWork < Thing
+ReceiveAction < TransferAction < Action < Thing
+Recipe < HowTo < CreativeWork < Thing
+Recommendation < Review < CreativeWork < Thing
+RecommendedDoseSchedule < DoseSchedule < MedicalEntity < Thing
+RecyclingCenter < LocalBusiness < Organization < Thing
+RecyclingCenter < LocalBusiness < Place < Thing
+RegisterAction < Action < Thing
+RejectAction < Action < Thing
+RentAction < TradeAction < Action < Thing
+RentalCarReservation < Reservation < Thing
+RepaymentSpecification < Thing
+ReplaceAction < UpdateAction < Action < Thing
+ReplyAction < CommunicateAction < Action < Thing
+Report < Article < CreativeWork < Thing
+ReportageNewsArticle < NewsArticle < Article < CreativeWork < Thing
+ReportedDoseSchedule < DoseSchedule < MedicalEntity < Thing
+ResearchOrganization < Organization < Thing
+ResearchProject < Organization < Thing
+Researcher < Audience < Thing
+Reservation < Thing
+ReservationPackage < Reservation < Thing
+ReserveAction < PlanAction < Action < Thing
+Reservoir < Place < Thing
+Residence < Place < Thing
+Resort < LodgingBusiness < LocalBusiness < Organization < Thing
+Resort < LodgingBusiness < LocalBusiness < Place < Thing
+RespiratoryTherapy < MedicalTherapy < TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+Restaurant < FoodEstablishment < LocalBusiness < Organization < Thing
+Restaurant < FoodEstablishment < LocalBusiness < Place < Thing
+ResumeAction < Action < Thing
+ReturnAction < TransferAction < Action < Thing
+Review < CreativeWork < Thing
+ReviewAction < Action < Thing
+ReviewNewsArticle < NewsArticle < Article < CreativeWork < Thing
+ReviewNewsArticle < Review < CreativeWork < Thing
+RiverBodyOfWater < Place < Thing
+RoofingContractor < LocalBusiness < Organization < Thing
+RoofingContractor < LocalBusiness < Place < Thing
+Room < Accommodation < Place < Thing
+RsvpAction < InformAction < CommunicateAction < Action < Thing
+SaleEvent < Event < Thing
+SatiricalArticle < Article < CreativeWork < Thing
+Schedule < Thing
+ScheduleAction < PlanAction < Action < Thing
+ScholarlyArticle < Article < CreativeWork < Thing
+School < EducationalOrganization < CivicStructure < Place < Thing
+School < EducationalOrganization < Organization < Thing
+SchoolDistrict < Place < Thing
+ScreeningEvent < Event < Thing
+Sculpture < CreativeWork < Thing
+SeaBodyOfWater < Place < Thing
+SearchAction < Action < Thing
+SearchRescueOrganization < Organization < Thing
+SearchResultsPage < WebPage < CreativeWork < Thing
+Season < CreativeWork < Thing
+Seat < Thing
+SeekToAction < Action < Thing
+SelfStorage < LocalBusiness < Organization < Thing
+SelfStorage < LocalBusiness < Place < Thing
+SellAction < TradeAction < Action < Thing
+SendAction < TransferAction < Action < Thing
+Series < Thing
+Service < Thing
+ServiceChannel < Thing
+ServicePeriod < Thing
+ShareAction < CommunicateAction < Action < Thing
+SheetMusic < CreativeWork < Thing
+ShippingConditions < Thing
+ShippingDeliveryTime < Thing
+ShippingRateSettings < Thing
+ShippingService < Thing
+ShoeStore < LocalBusiness < Organization < Thing
+ShoeStore < LocalBusiness < Place < Thing
+ShoppingCenter < LocalBusiness < Organization < Thing
+ShoppingCenter < LocalBusiness < Place < Thing
+ShortStory < CreativeWork < Thing
+SingleFamilyResidence < House < Accommodation < Place < Thing
+SiteNavigationElement < WebPageElement < CreativeWork < Thing
+SizeGroupEnumeration < Enumeration < Thing
+SizeSpecification < QualitativeValue < Enumeration < Thing
+SkiResort < LocalBusiness < Organization < Thing
+SkiResort < LocalBusiness < Place < Thing
+SkiResort < LodgingBusiness < LocalBusiness < Organization < Thing
+SkiResort < LodgingBusiness < LocalBusiness < Place < Thing
+SocialEvent < Event < Thing
+SocialMediaPosting < Article < CreativeWork < Thing
+SoftwareApplication < CreativeWork < Thing
+SoftwareSourceCode < CreativeWork < Thing
+SolveMathAction < Action < Thing
+SomeProducts < Product < Thing
+SpeakableSpecification < Thing
+SpecialAnnouncement < CreativeWork < Thing
+Specialty < Enumeration < Thing
+SportingGoodsStore < LocalBusiness < Organization < Thing
+SportingGoodsStore < LocalBusiness < Place < Thing
+SportsActivityLocation < LocalBusiness < Organization < Thing
+SportsActivityLocation < LocalBusiness < Place < Thing
+SportsClub < LocalBusiness < Organization < Thing
+SportsClub < LocalBusiness < Place < Thing
+SportsEvent < Event < Thing
+SportsOrganization < Organization < Thing
+SportsTeam < SportsOrganization < Organization < Thing
+SpreadsheetDigitalDocument < DigitalDocument < CreativeWork < Thing
+StadiumOrArena < CivicStructure < Place < Thing
+StadiumOrArena < LocalBusiness < Organization < Thing
+StadiumOrArena < LocalBusiness < Place < Thing
+State < Place < Thing
+Statement < CreativeWork < Thing
+StatisticalPopulation < Thing
+StatisticalVariable < ConstraintNode < Thing
+StatusEnumeration < Enumeration < Thing
+Store < LocalBusiness < Organization < Thing
+Store < LocalBusiness < Place < Thing
+StructuredValue < Thing
+StupidType < Thing
+SubscribeAction < Action < Thing
+Substance < MedicalEntity < Thing
+SubwayStation < CivicStructure < Place < Thing
+Suite < Accommodation < Place < Thing
+SuperficialAnatomy < MedicalEntity < Thing
+SurgicalProcedure < MedicalProcedure < MedicalEntity < Thing
+SuspendAction < Action < Thing
+Syllabus < LearningResource < CreativeWork < Thing
+Synagogue < CivicStructure < Place < Thing
+TVClip < Clip < CreativeWork < Thing
+TVEpisode < Episode < CreativeWork < Thing
+TVSeason < CreativeWork < Thing
+TVSeason < CreativeWorkSeason < CreativeWork < Thing
+TVSeries < CreativeWork < Thing
+TVSeries < CreativeWorkSeries < CreativeWork < Thing
+TVSeries < CreativeWorkSeries < Thing
+Table < WebPageElement < CreativeWork < Thing
+TakeAction < TransferAction < Action < Thing
+TattooParlor < LocalBusiness < Organization < Thing
+TattooParlor < LocalBusiness < Place < Thing
+Taxi < Service < Thing
+TaxiReservation < Reservation < Thing
+TaxiService < Service < Thing
+TaxiStand < CivicStructure < Place < Thing
+Taxon < Thing
+TechArticle < Article < CreativeWork < Thing
+TelevisionChannel < BroadcastChannel < Thing
+TelevisionStation < LocalBusiness < Organization < Thing
+TelevisionStation < LocalBusiness < Place < Thing
+TennisComplex < LocalBusiness < Organization < Thing
+TennisComplex < LocalBusiness < Place < Thing
+TextDigitalDocument < DigitalDocument < CreativeWork < Thing
+TextObject < MediaObject < CreativeWork < Thing
+TheaterEvent < Event < Thing
+TheaterGroup < Organization < Thing
+TherapeuticProcedure < MedicalProcedure < MedicalEntity < Thing
+Thesis < CreativeWork < Thing
+Thing
+Ticket < Thing
+TieAction < Action < Thing
+TipAction < TradeAction < Action < Thing
+TireShop < LocalBusiness < Organization < Thing
+TireShop < LocalBusiness < Place < Thing
+TouristAttraction < Place < Thing
+TouristDestination < Place < Thing
+TouristInformationCenter < LocalBusiness < Organization < Thing
+TouristInformationCenter < LocalBusiness < Place < Thing
+TouristTrip < Trip < Thing
+ToyStore < LocalBusiness < Organization < Thing
+ToyStore < LocalBusiness < Place < Thing
+TrackAction < Action < Thing
+TradeAction < Action < Thing
+TrainReservation < Reservation < Thing
+TrainStation < CivicStructure < Place < Thing
+TrainTrip < Trip < Thing
+TransferAction < Action < Thing
+TravelAction < MoveAction < Action < Thing
+TravelAgency < LocalBusiness < Organization < Thing
+TravelAgency < LocalBusiness < Place < Thing
+TreatmentIndication < MedicalEntity < Thing
+Trip < Thing
+TypeAndQuantityNode < Thing
+UnRegisterAction < Action < Thing
+UnitPriceSpecification < PriceSpecification < Thing
+UpdateAction < Action < Thing
+UseAction < ConsumeAction < Action < Thing
+UserBlocks < Event < Thing
+UserCheckins < Event < Thing
+UserComments < Event < Thing
+UserDownloads < Event < Thing
+UserInteraction < Event < Thing
+UserLikes < Event < Thing
+UserPageVisits < Event < Thing
+UserPlays < Event < Thing
+UserPlusOnes < Event < Thing
+UserReview < Review < CreativeWork < Thing
+UserTweets < Event < Thing
+VacationRental < LodgingBusiness < LocalBusiness < Organization < Thing
+VacationRental < LodgingBusiness < LocalBusiness < Place < Thing
+Vehicle < Product < Thing
+Vein < AnatomicalStructure < MedicalEntity < Thing
+Vessel < AnatomicalStructure < MedicalEntity < Thing
+VeterinaryCare < MedicalOrganization < Organization < Thing
+VideoGallery < WebPage < CreativeWork < Thing
+VideoGame < Game < CreativeWork < Thing
+VideoGame < SoftwareApplication < CreativeWork < Thing
+VideoGameClip < Clip < CreativeWork < Thing
+VideoGameSeries < CreativeWorkSeries < CreativeWork < Thing
+VideoGameSeries < CreativeWorkSeries < Thing
+VideoObject < MediaObject < CreativeWork < Thing
+VideoObjectSnapshot < VideoObject < MediaObject < CreativeWork < Thing
+ViewAction < ConsumeAction < Action < Thing
+VirtualLocation < Thing
+VisualArtsEvent < Event < Thing
+VisualArtwork < CreativeWork < Thing
+VitalSign < MedicalSign < MedicalSignOrSymptom < MedicalCondition < MedicalEntity < Thing
+Volcano < Place < Thing
+VoteAction < ChooseAction < Action < Thing
+WPAdBlock < WebPageElement < CreativeWork < Thing
+WPFooter < WebPageElement < CreativeWork < Thing
+WPHeader < WebPageElement < CreativeWork < Thing
+WPSideBar < WebPageElement < CreativeWork < Thing
+WantAction < Action < Thing
+WarrantyPromise < Thing
+WarrantyScope < Enumeration < Thing
+WatchAction < ConsumeAction < Action < Thing
+Waterfall < Place < Thing
+WearAction < ConsumeAction < Action < Thing
+WebAPI < Service < Thing
+WebApplication < SoftwareApplication < CreativeWork < Thing
+WebContent < CreativeWork < Thing
+WebPage < CreativeWork < Thing
+WebPageElement < CreativeWork < Thing
+WebSite < CreativeWork < Thing
+WholesaleStore < LocalBusiness < Organization < Thing
+WholesaleStore < LocalBusiness < Place < Thing
+WinAction < Action < Thing
+Winery < FoodEstablishment < LocalBusiness < Organization < Thing
+Winery < FoodEstablishment < LocalBusiness < Place < Thing
+WorkBasedProgram < EducationalOccupationalProgram < Thing
+WorkersUnion < Organization < Thing
+WriteAction < Action < Thing
+Zoo < CivicStructure < Place < Thing
+_3DModel < MediaObject < CreativeWork < Thing

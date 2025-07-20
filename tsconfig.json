@@ -32,8 +32,7 @@
 			"~src/*": ["./src/*"],
 			"~*": ["./*"]
 		},
-		"target": "esnext",
-		"types": ["./src/types/jsx.d.ts"]
+		"target": "esnext"
 	},
 	"include": ["src/**/*", "scripts/**/*"]
 }

@@ -2,8 +2,12 @@ declare global {
 	namespace JSX {
 		interface Element {
 			type: string
-			props: any
-			children?: any
+			props: Record<string, unknown>
+			children?: unknown
+		}
+
+		interface IntrinsicElements {
+			[elemName: string]: Record<string, unknown>
 		}
 	}
 }
