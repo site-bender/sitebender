@@ -99,9 +99,8 @@ function categorizeImports(imports: ImportStatement[]): ImportCategories {
 			categories.properties.push(imp)
 		} else if (
 			imp.path.startsWith("../") &&
-			(imp.defaultImport?.endsWith("Props") || imp.namedImports.some((n) =>
-				n.endsWith("Props")
-			))
+			(imp.defaultImport?.endsWith("Props") ||
+				imp.namedImports.some((n) => n.endsWith("Props")))
 		) {
 			// Inheritance imports (Props imports)
 			categories.inheritance.push(imp)
@@ -237,22 +236,24 @@ function mergeImports(
 	allImports.push(...existingCategories.bcp47)
 	allImports.push(...existingCategories.dataType)
 	allImports.push(...existingCategories.properties)
+	allImports.push(...existingCategories.inheritance)
 	allImports.push(...existingCategories.other)
 
-	// Merge inheritance imports, avoiding duplicates
-	const existingInheritancePaths = new Set(
-		existingCategories.inheritance.map((imp) =>
+	// Create set of ALL existing imports for proper deduplication
+	const existingImportKeys = new Set(
+		allImports.map((imp) =>
 			`${imp.defaultImport || imp.namedImports.join(",")}-${imp.path}`
 		),
 	)
 
+	// Add only new inheritance imports that don't already exist
 	for (const newImp of newInheritance) {
 		const key = `${
 			newImp.defaultImport || newImp.namedImports.join(",")
 		}-${newImp.path}`
-		if (!existingInheritancePaths.has(key)) {
+		if (!existingImportKeys.has(key)) {
 			allImports.push(newImp)
-			existingInheritancePaths.add(key)
+			existingImportKeys.add(key)
 		}
 	}
 
@@ -356,9 +357,8 @@ async function processFile(
 
 	// Check if changes are needed
 	const existingImportStatements = importLines
-	const hasChanges =
-		JSON.stringify(existingImportStatements) !==
-			JSON.stringify(newImportStatements)
+	const hasChanges = JSON.stringify(existingImportStatements) !==
+		JSON.stringify(newImportStatements)
 
 	if (hasChanges) {
 		console.log(`${dryRun ? "[DRY RUN] " : ""}Processing: ${filePath}`)

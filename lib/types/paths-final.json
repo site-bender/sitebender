@@ -52,18 +52,14 @@
       "Thing/Place/LocalBusiness/FinancialService/AccountingService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FinancialServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FinancialService": "Thing/Organization/LocalBusiness/FinancialService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FinancialService",
+      "Place"
+    ]
   },
   "AchieveAction": {
     "location": "Thing/Action/AchieveAction/index.ts",
@@ -130,18 +126,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/AdultEntertainment/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "AdultOrientedEnumeration": {
     "location": "Thing/Intangible/Enumeration/AdultOrientedEnumeration/index.ts",
@@ -229,14 +221,12 @@
       "Thing/CreativeWork/MediaObject/AmpStory/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { MediaObjectProps } from \"../../MediaObject/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "MediaObject": "Thing/MediaObject/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "MediaObject"
+    ]
   },
   "AmusementPark": {
     "location": "Thing/Organization/LocalBusiness/EntertainmentBusiness/AmusementPark/index.ts",
@@ -244,18 +234,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/AmusementPark/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "AnalysisNewsArticle": {
     "location": "Thing/CreativeWork/Article/NewsArticle/AnalysisNewsArticle/index.ts",
@@ -289,16 +275,13 @@
       "Thing/Place/LocalBusiness/AnimalShelter/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "Answer": {
     "location": "Thing/CreativeWork/Comment/Answer/index.ts",
@@ -379,16 +362,13 @@
       "Thing/Place/LocalBusiness/ArchiveOrganization/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "ArriveAction": {
     "location": "Thing/Action/MoveAction/ArriveAction/index.ts",
@@ -405,18 +385,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/ArtGallery/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "Artery": {
     "location": "Thing/MedicalEntity/AnatomicalStructure/Vessel/Artery/index.ts",
@@ -488,18 +464,14 @@
       "Thing/Place/LocalBusiness/LegalService/Attorney/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LegalServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LegalService": "Thing/Organization/LocalBusiness/LegalService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LegalService",
+      "Place"
+    ]
   },
   "Audience": {
     "location": "Thing/Intangible/Audience/index.ts",
@@ -534,18 +506,14 @@
       "Thing/CreativeWork/MediaObject/AudioObject/Audiobook/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { AudioObjectProps } from \"../../MediaObject/AudioObject/index.ts\"",
-      "import type { BookProps } from \"../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { MediaObjectProps } from \"../../../MediaObject/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Book": "Thing/CreativeWork/Book/index.ts",
-      "MediaObject": "Thing/MediaObject/index.ts",
-      "AudioObject": "Thing/CreativeWork/MediaObject/AudioObject/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Book",
+      "MediaObject",
+      "AudioObject"
+    ]
   },
   "AuthorizeAction": {
     "location": "Thing/Action/OrganizeAction/AllocateAction/AuthorizeAction/index.ts",
@@ -563,18 +531,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/AutoBodyShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "AutoDealer": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoDealer/index.ts",
@@ -582,18 +546,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/AutoDealer/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "AutoPartsStore": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoPartsStore/index.ts",
@@ -603,20 +563,15 @@
       "Thing/Place/LocalBusiness/Store/AutoPartsStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../../Store/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "AutoRental": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoRental/index.ts",
@@ -624,18 +579,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/AutoRental/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "AutoRepair": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoRepair/index.ts",
@@ -643,18 +594,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/AutoRepair/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "AutoWash": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoWash/index.ts",
@@ -662,18 +609,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/AutoWash/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "AutomatedTeller": {
     "location": "Thing/Organization/LocalBusiness/FinancialService/AutomatedTeller/index.ts",
@@ -681,18 +624,14 @@
       "Thing/Place/LocalBusiness/FinancialService/AutomatedTeller/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FinancialServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FinancialService": "Thing/Organization/LocalBusiness/FinancialService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FinancialService",
+      "Place"
+    ]
   },
   "AutomotiveBusiness": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
@@ -700,16 +639,13 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "BackgroundNewsArticle": {
     "location": "Thing/CreativeWork/Article/NewsArticle/BackgroundNewsArticle/index.ts",
@@ -727,18 +663,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/Bakery/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "BankAccount": {
     "location": "Thing/Intangible/Service/FinancialProduct/BankAccount/index.ts",
@@ -756,18 +688,14 @@
       "Thing/Place/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FinancialServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FinancialService": "Thing/Organization/LocalBusiness/FinancialService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FinancialService",
+      "Place"
+    ]
   },
   "BarOrPub": {
     "location": "Thing/Organization/LocalBusiness/FoodEstablishment/BarOrPub/index.ts",
@@ -775,18 +703,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/BarOrPub/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "Barcode": {
     "location": "Thing/CreativeWork/MediaObject/ImageObject/Barcode/index.ts",
@@ -813,18 +737,14 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/BeautySalon/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "Place"
+    ]
   },
   "BedAndBreakfast": {
     "location": "Thing/Organization/LocalBusiness/LodgingBusiness/BedAndBreakfast/index.ts",
@@ -832,18 +752,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/BedAndBreakfast/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "BedDetails": {
     "location": "Thing/Intangible/BedDetails/index.ts",
@@ -878,18 +794,14 @@
       "Thing/Place/LocalBusiness/Store/BikeStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "BioChemEntity": {
     "location": "Thing/BioChemEntity/index.ts",
@@ -1012,18 +924,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/BookSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "BookStore": {
     "location": "Thing/Organization/LocalBusiness/Store/BookStore/index.ts",
@@ -1031,18 +939,14 @@
       "Thing/Place/LocalBusiness/Store/BookStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "BookmarkAction": {
     "location": "Thing/Action/OrganizeAction/BookmarkAction/index.ts",
@@ -1068,18 +972,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/BowlingAlley/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "BrainStructure": {
     "location": "Thing/MedicalEntity/AnatomicalStructure/BrainStructure/index.ts",
@@ -1113,18 +1013,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/Brewery/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "Bridge": {
     "location": "Thing/Place/CivicStructure/Bridge/index.ts",
@@ -1303,18 +1199,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/CafeOrCoffeeShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "Campground": {
     "location": "Thing/Place/CivicStructure/Campground/index.ts",
@@ -1323,20 +1215,15 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/Campground/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../Organization/LocalBusiness/index.ts\"",
-      "import type { LodgingBusinessProps } from \"../../../Organization/LocalBusiness/LodgingBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../Organization/index.ts\"",
-      "import type { PlaceProps } from \"../../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts",
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts"
-    }
+    "inheritsFrom": [
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness"
+    ]
   },
   "CampingPitch": {
     "location": "Thing/Place/Accommodation/CampingPitch/index.ts",
@@ -1391,18 +1278,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/Casino/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "CategoryCode": {
     "location": "Thing/Intangible/DefinedTerm/CategoryCode/index.ts",
@@ -1519,16 +1402,13 @@
       "Thing/Place/LocalBusiness/ChildCare/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "ChildrensEvent": {
     "location": "Thing/Event/ChildrensEvent/index.ts",
@@ -1623,18 +1503,14 @@
       "Thing/Place/LocalBusiness/Store/ClothingStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Code": {
     "location": "Thing/CreativeWork/Code/index.ts",
@@ -1667,18 +1543,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/CollegeOrUniversity/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "ComedyClub": {
     "location": "Thing/Organization/LocalBusiness/EntertainmentBusiness/ComedyClub/index.ts",
@@ -1686,18 +1558,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/ComedyClub/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "ComedyEvent": {
     "location": "Thing/Event/ComedyEvent/index.ts",
@@ -1713,18 +1581,14 @@
       "Thing/CreativeWork/VisualArtwork/CoverArt/ComicCoverArt/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { ComicStoryProps } from \"../index.ts\"",
-      "import type { CoverArtProps } from \"../../VisualArtwork/CoverArt/index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { VisualArtworkProps } from \"../../VisualArtwork/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "ComicStory": "Thing/CreativeWork/ComicStory/index.ts",
-      "VisualArtwork": "Thing/CreativeWork/VisualArtwork/index.ts",
-      "CoverArt": "Thing/CreativeWork/VisualArtwork/CoverArt/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "ComicStory",
+      "VisualArtwork",
+      "CoverArt"
+    ]
   },
   "ComicIssue": {
     "location": "Thing/CreativeWork/PublicationIssue/ComicIssue/index.ts",
@@ -1741,20 +1605,15 @@
       "Thing/Intangible/Series/CreativeWorkSeries/Periodical/ComicSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../../index.ts\"",
-      "import type { IntangibleProps } from \"../../../../Intangible/index.ts\"",
-      "import type { PeriodicalProps } from \"../index.ts\"",
-      "import type { SeriesProps } from \"../../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Periodical": "Thing/CreativeWork/CreativeWorkSeries/Periodical/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Periodical",
+      "Intangible",
+      "Series"
+    ]
   },
   "ComicStory": {
     "location": "Thing/CreativeWork/ComicStory/index.ts",
@@ -1825,18 +1684,14 @@
       "Thing/Place/LocalBusiness/Store/ComputerStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "ConfirmAction": {
     "location": "Thing/Action/InteractAction/CommunicateAction/InformAction/ConfirmAction/index.ts",
@@ -1923,18 +1778,14 @@
       "Thing/Place/LocalBusiness/Store/ConvenienceStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Conversation": {
     "location": "Thing/CreativeWork/Conversation/index.ts",
@@ -1993,14 +1844,12 @@
       "Thing/CreativeWork/LearningResource/Course/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { LearningResourceProps } from \"../LearningResource/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "LearningResource": "Thing/CreativeWork/LearningResource/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "LearningResource"
+    ]
   },
   "CourseInstance": {
     "location": "Thing/Event/CourseInstance/index.ts",
@@ -2036,22 +1885,16 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/MedicalClinic/CovidTestingFacility/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalClinicProps } from \"../index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "MedicalClinic": "Thing/Organization/MedicalOrganization/MedicalClinic/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "MedicalClinic",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "CreateAction": {
     "location": "Thing/Action/CreateAction/index.ts",
@@ -2082,16 +1925,13 @@
       "Thing/Intangible/Series/CreativeWorkSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Intangible",
+      "Series"
+    ]
   },
   "CreditCard": {
     "location": "Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.ts",
@@ -2100,22 +1940,16 @@
       "Thing/Intangible/Service/FinancialProduct/PaymentCard/CreditCard/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FinancialProductProps } from \"../../../Service/FinancialProduct/index.ts\"",
-      "import type { IntangibleProps } from \"../../../index.ts\"",
-      "import type { LoanOrCreditProps } from \"../../../Service/FinancialProduct/LoanOrCredit/index.ts\"",
-      "import type { PaymentCardProps } from \"../index.ts\"",
-      "import type { PaymentMethodProps } from \"../../index.ts\"",
-      "import type { ServiceProps } from \"../../../Service/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "PaymentMethod": "Thing/Intangible/PaymentMethod/index.ts",
-      "PaymentCard": "Thing/Intangible/PaymentMethod/PaymentCard/index.ts",
-      "Service": "Thing/Intangible/Service/index.ts",
-      "FinancialProduct": "Thing/Intangible/Service/FinancialProduct/index.ts",
-      "LoanOrCredit": "Thing/Intangible/Service/FinancialProduct/LoanOrCredit/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "PaymentMethod",
+      "PaymentCard",
+      "Service",
+      "FinancialProduct",
+      "LoanOrCredit"
+    ]
   },
   "Crematorium": {
     "location": "Thing/Place/CivicStructure/Crematorium/index.ts",
@@ -2237,18 +2071,14 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/DaySpa/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "Place"
+    ]
   },
   "DeactivateAction": {
     "location": "Thing/Action/ControlAction/DeactivateAction/index.ts",
@@ -2347,20 +2177,15 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Dentist/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { MedicalBusinessProps } from \"../MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../../MedicalOrganization/index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "MedicalOrganization",
+      "Place"
+    ]
   },
   "DepartAction": {
     "location": "Thing/Action/MoveAction/DepartAction/index.ts",
@@ -2377,18 +2202,14 @@
       "Thing/Place/LocalBusiness/Store/DepartmentStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "DepositAccount": {
     "location": "Thing/Intangible/Service/FinancialProduct/BankAccount/DepositAccount/index.ts",
@@ -2396,20 +2217,15 @@
       "Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/DepositAccount/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../../index.ts\"",
-      "import type { BankAccountProps } from \"../index.ts\"",
-      "import type { FinancialProductProps } from \"../../index.ts\"",
-      "import type { IntangibleProps } from \"../../../../index.ts\"",
-      "import type { InvestmentOrDepositProps } from \"../../InvestmentOrDeposit/index.ts\"",
-      "import type { ServiceProps } from \"../../../index.ts\""
+      "import type Thing from \"../../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "Service": "Thing/Intangible/Service/index.ts",
-      "FinancialProduct": "Thing/Intangible/Service/FinancialProduct/index.ts",
-      "BankAccount": "Thing/Intangible/Service/FinancialProduct/BankAccount/index.ts",
-      "InvestmentOrDeposit": "Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "Service",
+      "FinancialProduct",
+      "BankAccount",
+      "InvestmentOrDeposit"
+    ]
   },
   "DiagnosticLab": {
     "location": "Thing/Organization/MedicalOrganization/DiagnosticLab/index.ts",
@@ -2435,16 +2251,13 @@
       "Thing/MedicalEntity/LifestyleModification/Diet/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { LifestyleModificationProps } from \"../../MedicalEntity/LifestyleModification/index.ts\"",
-      "import type { MedicalEntityProps } from \"../../MedicalEntity/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "LifestyleModification": "Thing/MedicalEntity/LifestyleModification/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "MedicalEntity",
+      "LifestyleModification"
+    ]
   },
   "DietarySupplement": {
     "location": "Thing/Product/DietarySupplement/index.ts",
@@ -2452,16 +2265,13 @@
       "Thing/MedicalEntity/Substance/DietarySupplement/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { MedicalEntityProps } from \"../../MedicalEntity/index.ts\"",
-      "import type { ProductProps } from \"../index.ts\"",
-      "import type { SubstanceProps } from \"../../MedicalEntity/Substance/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Product": "Thing/Product/index.ts",
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "Substance": "Thing/MedicalEntity/Substance/index.ts"
-    }
+    "inheritsFrom": [
+      "Product",
+      "MedicalEntity",
+      "Substance"
+    ]
   },
   "DigitalDocument": {
     "location": "Thing/CreativeWork/DigitalDocument/index.ts",
@@ -2551,18 +2361,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/Distillery/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "DonateAction": {
     "location": "Thing/Action/TransferAction/DonateAction/index.ts",
@@ -2633,16 +2439,13 @@
       "Thing/MedicalEntity/Substance/Drug/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { MedicalEntityProps } from \"../../MedicalEntity/index.ts\"",
-      "import type { ProductProps } from \"../index.ts\"",
-      "import type { SubstanceProps } from \"../../MedicalEntity/Substance/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Product": "Thing/Product/index.ts",
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "Substance": "Thing/MedicalEntity/Substance/index.ts"
-    }
+    "inheritsFrom": [
+      "Product",
+      "MedicalEntity",
+      "Substance"
+    ]
   },
   "DrugClass": {
     "location": "Thing/MedicalEntity/DrugClass/index.ts",
@@ -2714,16 +2517,13 @@
       "Thing/Place/LocalBusiness/DryCleaningOrLaundry/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "Duration": {
     "location": "Thing/Intangible/Quantity/Duration/index.ts",
@@ -2792,16 +2592,13 @@
       "Thing/Place/CivicStructure/EducationalOrganization/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../Place/CivicStructure/index.ts\"",
-      "import type { OrganizationProps } from \"../index.ts\"",
-      "import type { PlaceProps } from \"../../Place/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "Electrician": {
     "location": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/Electrician/index.ts",
@@ -2809,18 +2606,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/Electrician/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "ElectronicsStore": {
     "location": "Thing/Organization/LocalBusiness/Store/ElectronicsStore/index.ts",
@@ -2828,18 +2621,14 @@
       "Thing/Place/LocalBusiness/Store/ElectronicsStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "ElementarySchool": {
     "location": "Thing/Organization/EducationalOrganization/ElementarySchool/index.ts",
@@ -2847,18 +2636,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/ElementarySchool/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "EmailMessage": {
     "location": "Thing/CreativeWork/Message/EmailMessage/index.ts",
@@ -2885,16 +2670,13 @@
       "Thing/Place/LocalBusiness/EmergencyService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "EmployeeRole": {
     "location": "Thing/Intangible/Role/OrganizationRole/EmployeeRole/index.ts",
@@ -2931,16 +2713,13 @@
       "Thing/Place/LocalBusiness/EmploymentAgency/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "EndorseAction": {
     "location": "Thing/Action/AssessAction/ReactAction/EndorseAction/index.ts",
@@ -3012,16 +2791,13 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "EntryPoint": {
     "location": "Thing/Intangible/EntryPoint/index.ts",
@@ -3078,16 +2854,13 @@
       "Thing/Intangible/Series/EventSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { EventProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Event": "Thing/Event/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "Event",
+      "Intangible",
+      "Series"
+    ]
   },
   "EventStatusType": {
     "location": "Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts",
@@ -3132,18 +2905,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/ExerciseGym/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "ExercisePlan": {
     "location": "Thing/CreativeWork/ExercisePlan/index.ts",
@@ -3151,18 +2920,14 @@
       "Thing/MedicalEntity/LifestyleModification/PhysicalActivity/ExercisePlan/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { LifestyleModificationProps } from \"../../MedicalEntity/LifestyleModification/index.ts\"",
-      "import type { MedicalEntityProps } from \"../../MedicalEntity/index.ts\"",
-      "import type { PhysicalActivityProps } from \"../../MedicalEntity/LifestyleModification/PhysicalActivity/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "LifestyleModification": "Thing/MedicalEntity/LifestyleModification/index.ts",
-      "PhysicalActivity": "Thing/MedicalEntity/LifestyleModification/PhysicalActivity/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "MedicalEntity",
+      "LifestyleModification",
+      "PhysicalActivity"
+    ]
   },
   "ExhibitionEvent": {
     "location": "Thing/Event/ExhibitionEvent/index.ts",
@@ -3197,18 +2962,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/FastFoodRestaurant/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "Festival": {
     "location": "Thing/Event/Festival/index.ts",
@@ -3250,16 +3011,13 @@
       "Thing/Place/LocalBusiness/FinancialService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "FindAction": {
     "location": "Thing/Action/FindAction/index.ts",
@@ -3276,20 +3034,15 @@
       "Thing/Place/LocalBusiness/EmergencyService/FireStation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../index.ts\"",
-      "import type { EmergencyServiceProps } from \"../../../Organization/LocalBusiness/EmergencyService/index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../Organization/LocalBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../Organization/index.ts\"",
-      "import type { PlaceProps } from \"../../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts",
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EmergencyService": "Thing/Organization/LocalBusiness/EmergencyService/index.ts"
-    }
+    "inheritsFrom": [
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness",
+      "EmergencyService"
+    ]
   },
   "Flight": {
     "location": "Thing/Intangible/Trip/Flight/index.ts",
@@ -3323,18 +3076,14 @@
       "Thing/Place/LocalBusiness/Store/Florist/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "FollowAction": {
     "location": "Thing/Action/InteractAction/FollowAction/index.ts",
@@ -3351,16 +3100,13 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "FoodEstablishmentReservation": {
     "location": "Thing/Intangible/Reservation/FoodEstablishmentReservation/index.ts",
@@ -3420,18 +3166,14 @@
       "Thing/Place/LocalBusiness/Store/FurnitureStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Game": {
     "location": "Thing/CreativeWork/Game/index.ts",
@@ -3483,18 +3225,14 @@
       "Thing/Place/LocalBusiness/Store/GardenStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "GasStation": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/GasStation/index.ts",
@@ -3502,18 +3240,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/GasStation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "GatedResidenceCommunity": {
     "location": "Thing/Place/Residence/GatedResidenceCommunity/index.ts",
@@ -3547,18 +3281,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/GeneralContractor/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "GeoCircle": {
     "location": "Thing/Intangible/StructuredValue/GeoShape/GeoCircle/index.ts",
@@ -3611,18 +3341,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/GolfCourse/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "GovernmentBenefitsType": {
     "location": "Thing/Intangible/Enumeration/GovernmentBenefitsType/index.ts",
@@ -3648,16 +3374,13 @@
       "Thing/Place/LocalBusiness/GovernmentOffice/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "GovernmentOrganization": {
     "location": "Thing/Organization/GovernmentOrganization/index.ts",
@@ -3699,18 +3422,14 @@
       "Thing/Place/LocalBusiness/Store/GroceryStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Guide": {
     "location": "Thing/CreativeWork/Guide/index.ts",
@@ -3726,18 +3445,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/HVACBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "Hackathon": {
     "location": "Thing/Event/Hackathon/index.ts",
@@ -3753,18 +3468,14 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/HairSalon/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "Place"
+    ]
   },
   "HardwareStore": {
     "location": "Thing/Organization/LocalBusiness/Store/HardwareStore/index.ts",
@@ -3772,18 +3483,14 @@
       "Thing/Place/LocalBusiness/Store/HardwareStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "HealthAndBeautyBusiness": {
     "location": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
@@ -3791,16 +3498,13 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "HealthAspectEnumeration": {
     "location": "Thing/Intangible/Enumeration/HealthAspectEnumeration/index.ts",
@@ -3819,20 +3523,15 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/HealthClub/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../../SportsActivityLocation/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "HealthInsurancePlan": {
     "location": "Thing/Intangible/HealthInsurancePlan/index.ts",
@@ -3881,18 +3580,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/HighSchool/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "HinduTemple": {
     "location": "Thing/Place/CivicStructure/PlaceOfWorship/HinduTemple/index.ts",
@@ -3910,18 +3605,14 @@
       "Thing/Place/LocalBusiness/Store/HobbyShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "HomeAndConstructionBusiness": {
     "location": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
@@ -3929,16 +3620,13 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "HomeGoodsStore": {
     "location": "Thing/Organization/LocalBusiness/Store/HomeGoodsStore/index.ts",
@@ -3946,18 +3634,14 @@
       "Thing/Place/LocalBusiness/Store/HomeGoodsStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Hospital": {
     "location": "Thing/Organization/MedicalOrganization/Hospital/index.ts",
@@ -3967,22 +3651,16 @@
       "Thing/Place/LocalBusiness/EmergencyService/Hospital/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EmergencyServiceProps } from \"../../LocalBusiness/EmergencyService/index.ts\"",
-      "import type { LocalBusinessProps } from \"../../LocalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EmergencyService": "Thing/Organization/LocalBusiness/EmergencyService/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "LocalBusiness",
+      "EmergencyService",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "Hostel": {
     "location": "Thing/Organization/LocalBusiness/LodgingBusiness/Hostel/index.ts",
@@ -3990,18 +3668,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/Hostel/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "Hotel": {
     "location": "Thing/Organization/LocalBusiness/LodgingBusiness/Hotel/index.ts",
@@ -4009,18 +3683,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/Hotel/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "HotelRoom": {
     "location": "Thing/Place/Accommodation/Room/HotelRoom/index.ts",
@@ -4047,18 +3717,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/HousePainter/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "HowTo": {
     "location": "Thing/CreativeWork/HowTo/index.ts",
@@ -4074,16 +3740,13 @@
       "Thing/Intangible/ListItem/HowToDirection/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { ListItemProps } from \"../../Intangible/ListItem/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "ListItem": "Thing/Intangible/ListItem/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Intangible",
+      "ListItem"
+    ]
   },
   "HowToItem": {
     "location": "Thing/Intangible/ListItem/HowToItem/index.ts",
@@ -4101,18 +3764,14 @@
       "Thing/Intangible/ListItem/HowToSection/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { ItemListProps } from \"../../Intangible/ItemList/index.ts\"",
-      "import type { ListItemProps } from \"../../Intangible/ListItem/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "ItemList": "Thing/Intangible/ItemList/index.ts",
-      "ListItem": "Thing/Intangible/ListItem/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Intangible",
+      "ItemList",
+      "ListItem"
+    ]
   },
   "HowToStep": {
     "location": "Thing/CreativeWork/HowToStep/index.ts",
@@ -4121,18 +3780,14 @@
       "Thing/Intangible/ListItem/HowToStep/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { ItemListProps } from \"../../Intangible/ItemList/index.ts\"",
-      "import type { ListItemProps } from \"../../Intangible/ListItem/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "ItemList": "Thing/Intangible/ItemList/index.ts",
-      "ListItem": "Thing/Intangible/ListItem/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Intangible",
+      "ItemList",
+      "ListItem"
+    ]
   },
   "HowToSupply": {
     "location": "Thing/Intangible/ListItem/HowToItem/HowToSupply/index.ts",
@@ -4150,16 +3805,13 @@
       "Thing/Intangible/ListItem/HowToTip/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { ListItemProps } from \"../../Intangible/ListItem/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "ListItem": "Thing/Intangible/ListItem/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Intangible",
+      "ListItem"
+    ]
   },
   "HowToTool": {
     "location": "Thing/Intangible/ListItem/HowToItem/HowToTool/index.ts",
@@ -4203,18 +3855,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/IceCreamShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "IgnoreAction": {
     "location": "Thing/Action/AssessAction/IgnoreAction/index.ts",
@@ -4298,22 +3946,16 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Physician/IndividualPhysician/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PhysicianProps } from \"../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "Physician": "Thing/Organization/MedicalOrganization/Physician/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "Physician",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "IndividualProduct": {
     "location": "Thing/Product/IndividualProduct/index.ts",
@@ -4377,18 +4019,14 @@
       "Thing/Place/LocalBusiness/FinancialService/InsuranceAgency/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FinancialServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FinancialService": "Thing/Organization/LocalBusiness/FinancialService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FinancialService",
+      "Place"
+    ]
   },
   "Intangible": {
     "location": "Thing/Intangible/index.ts",
@@ -4420,16 +4058,13 @@
       "Thing/Place/LocalBusiness/InternetCafe/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "InvestmentFund": {
     "location": "Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/InvestmentFund/index.ts",
@@ -4511,18 +4146,14 @@
       "Thing/Place/LocalBusiness/Store/JewelryStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "JobPosting": {
     "location": "Thing/Intangible/JobPosting/index.ts",
@@ -4617,16 +4248,13 @@
       "Thing/Place/LocalBusiness/LegalService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "LegalValueLevel": {
     "location": "Thing/Intangible/Enumeration/LegalValueLevel/index.ts",
@@ -4651,16 +4279,13 @@
       "Thing/CreativeWork/MediaObject/LegislationObject/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { LegislationProps } from \"../index.ts\"",
-      "import type { MediaObjectProps } from \"../../../MediaObject/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Legislation": "Thing/CreativeWork/Legislation/index.ts",
-      "MediaObject": "Thing/MediaObject/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Legislation",
+      "MediaObject"
+    ]
   },
   "LegislativeBuilding": {
     "location": "Thing/Place/CivicStructure/GovernmentBuilding/LegislativeBuilding/index.ts",
@@ -4687,16 +4312,13 @@
       "Thing/Place/LocalBusiness/Library/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "LibrarySystem": {
     "location": "Thing/Organization/LibrarySystem/index.ts",
@@ -4748,18 +4370,14 @@
       "Thing/Place/LocalBusiness/Store/LiquorStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "ListItem": {
     "location": "Thing/Intangible/ListItem/index.ts",
@@ -4813,14 +4431,12 @@
       "Thing/Place/LocalBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../index.ts\"",
-      "import type { PlaceProps } from \"../../Place/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "Place"
+    ]
   },
   "LocationFeatureSpecification": {
     "location": "Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts",
@@ -4838,18 +4454,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/Locksmith/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "LodgingBusiness": {
     "location": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
@@ -4857,16 +4469,13 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "LodgingReservation": {
     "location": "Thing/Intangible/Reservation/LodgingReservation/index.ts",
@@ -5009,12 +4618,11 @@
       "Thing/CreativeWork/MediaObject/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../index.ts\"",
-      "import type { CreativeWorkProps } from \"../CreativeWork/index.ts\""
+      "import type Thing from \"../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork"
+    ]
   },
   "MediaReview": {
     "location": "Thing/CreativeWork/Review/MediaReview/index.ts",
@@ -5047,16 +4655,13 @@
       "Thing/Intangible/Audience/PeopleAudience/MedicalAudience/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { AudienceProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../index.ts\"",
-      "import type { PeopleAudienceProps } from \"../PeopleAudience/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "Audience": "Thing/Intangible/Audience/index.ts",
-      "PeopleAudience": "Thing/Intangible/Audience/PeopleAudience/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "Audience",
+      "PeopleAudience"
+    ]
   },
   "MedicalAudienceType": {
     "location": "Thing/Intangible/Enumeration/MedicalEnumeration/MedicalAudienceType/index.ts",
@@ -5074,16 +4679,13 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "MedicalCause": {
     "location": "Thing/MedicalEntity/MedicalCause/index.ts",
@@ -5100,20 +4702,15 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/MedicalClinic/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "MedicalCode": {
     "location": "Thing/MedicalEntity/MedicalIntangible/MedicalCode/index.ts",
@@ -5121,20 +4718,15 @@
       "Thing/Intangible/DefinedTerm/CategoryCode/MedicalCode/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CategoryCodeProps } from \"../../../Intangible/DefinedTerm/CategoryCode/index.ts\"",
-      "import type { DefinedTermProps } from \"../../../Intangible/DefinedTerm/index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { MedicalEntityProps } from \"../../index.ts\"",
-      "import type { MedicalIntangibleProps } from \"../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "MedicalIntangible": "Thing/MedicalEntity/MedicalIntangible/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "DefinedTerm": "Thing/Intangible/DefinedTerm/index.ts",
-      "CategoryCode": "Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
-    }
+    "inheritsFrom": [
+      "MedicalEntity",
+      "MedicalIntangible",
+      "Intangible",
+      "DefinedTerm",
+      "CategoryCode"
+    ]
   },
   "MedicalCondition": {
     "location": "Thing/MedicalEntity/MedicalCondition/index.ts",
@@ -5371,18 +4963,14 @@
       "Thing/Intangible/Enumeration/Specialty/MedicalSpecialty/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EnumerationProps } from \"../../index.ts\"",
-      "import type { IntangibleProps } from \"../../../index.ts\"",
-      "import type { MedicalEnumerationProps } from \"../index.ts\"",
-      "import type { SpecialtyProps } from \"../../Specialty/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "Enumeration": "Thing/Intangible/Enumeration/index.ts",
-      "MedicalEnumeration": "Thing/Intangible/Enumeration/MedicalEnumeration/index.ts",
-      "Specialty": "Thing/Intangible/Enumeration/Specialty/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "Enumeration",
+      "MedicalEnumeration",
+      "Specialty"
+    ]
   },
   "MedicalStudy": {
     "location": "Thing/MedicalEntity/MedicalStudy/index.ts",
@@ -5509,18 +5097,14 @@
       "Thing/Place/LocalBusiness/Store/MensClothingStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Menu": {
     "location": "Thing/CreativeWork/Menu/index.ts",
@@ -5585,18 +5169,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/MiddleSchool/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "MobileApplication": {
     "location": "Thing/CreativeWork/SoftwareApplication/MobileApplication/index.ts",
@@ -5613,18 +5193,14 @@
       "Thing/Place/LocalBusiness/Store/MobilePhoneStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "MolecularEntity": {
     "location": "Thing/BioChemEntity/MolecularEntity/index.ts",
@@ -5698,18 +5274,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/Motel/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "Motorcycle": {
     "location": "Thing/Product/Vehicle/Motorcycle/index.ts",
@@ -5726,18 +5298,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/MotorcycleDealer/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "MotorcycleRepair": {
     "location": "Thing/Organization/LocalBusiness/AutomotiveBusiness/MotorcycleRepair/index.ts",
@@ -5745,18 +5313,14 @@
       "Thing/Place/LocalBusiness/AutomotiveBusiness/MotorcycleRepair/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { AutomotiveBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "AutomotiveBusiness": "Thing/Organization/LocalBusiness/AutomotiveBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness",
+      "Place"
+    ]
   },
   "MotorizedBicycle": {
     "location": "Thing/Product/Vehicle/MotorizedBicycle/index.ts",
@@ -5807,18 +5371,14 @@
       "Thing/Place/LocalBusiness/Store/MovieRentalStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "MovieSeries": {
     "location": "Thing/CreativeWork/CreativeWorkSeries/MovieSeries/index.ts",
@@ -5826,18 +5386,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/MovieSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "MovieTheater": {
     "location": "Thing/Place/CivicStructure/MovieTheater/index.ts",
@@ -5846,20 +5402,15 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/MovieTheater/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../../../Organization/LocalBusiness/EntertainmentBusiness/index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../Organization/LocalBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../Organization/index.ts\"",
-      "import type { PlaceProps } from \"../../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts",
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts"
-    }
+    "inheritsFrom": [
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ]
   },
   "MovingCompany": {
     "location": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/MovingCompany/index.ts",
@@ -5867,18 +5418,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/MovingCompany/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "Muscle": {
     "location": "Thing/MedicalEntity/AnatomicalStructure/Muscle/index.ts",
@@ -5990,18 +5537,14 @@
       "Thing/Place/LocalBusiness/Store/MusicStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "MusicVenue": {
     "location": "Thing/Place/CivicStructure/MusicVenue/index.ts",
@@ -6045,18 +5588,14 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/NailSalon/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "Place"
+    ]
   },
   "Nerve": {
     "location": "Thing/MedicalEntity/AnatomicalStructure/Nerve/index.ts",
@@ -6090,20 +5629,15 @@
       "Thing/Intangible/Series/CreativeWorkSeries/Periodical/Newspaper/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../../index.ts\"",
-      "import type { IntangibleProps } from \"../../../../Intangible/index.ts\"",
-      "import type { PeriodicalProps } from \"../index.ts\"",
-      "import type { SeriesProps } from \"../../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Periodical": "Thing/CreativeWork/CreativeWorkSeries/Periodical/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Periodical",
+      "Intangible",
+      "Series"
+    ]
   },
   "NightClub": {
     "location": "Thing/Organization/LocalBusiness/EntertainmentBusiness/NightClub/index.ts",
@@ -6111,18 +5645,14 @@
       "Thing/Place/LocalBusiness/EntertainmentBusiness/NightClub/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { EntertainmentBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EntertainmentBusiness": "Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness",
+      "Place"
+    ]
   },
   "NonprofitType": {
     "location": "Thing/Intangible/Enumeration/NonprofitType/index.ts",
@@ -6139,18 +5669,14 @@
       "Thing/Place/LocalBusiness/LegalService/Notary/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LegalServiceProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LegalService": "Thing/Organization/LocalBusiness/LegalService/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LegalService",
+      "Place"
+    ]
   },
   "NoteDigitalDocument": {
     "location": "Thing/CreativeWork/DigitalDocument/NoteDigitalDocument/index.ts",
@@ -6176,16 +5702,13 @@
       "Thing/Intangible/StructuredValue/QuantitativeValue/Observation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { IntangibleProps } from \"../index.ts\"",
-      "import type { QuantitativeValueProps } from \"../StructuredValue/QuantitativeValue/index.ts\"",
-      "import type { StructuredValueProps } from \"../StructuredValue/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "StructuredValue": "Thing/Intangible/StructuredValue/index.ts",
-      "QuantitativeValue": "Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "StructuredValue",
+      "QuantitativeValue"
+    ]
   },
   "Occupation": {
     "location": "Thing/Intangible/Occupation/index.ts",
@@ -6283,18 +5806,14 @@
       "Thing/Place/LocalBusiness/Store/OfficeEquipmentStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "OnDemandEvent": {
     "location": "Thing/Event/PublicationEvent/OnDemandEvent/index.ts",
@@ -6347,18 +5866,14 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Optician/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { MedicalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "Order": {
     "location": "Thing/Intangible/Order/index.ts",
@@ -6425,18 +5940,14 @@
       "Thing/Place/LocalBusiness/Store/OutletStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "OwnershipInfo": {
     "location": "Thing/Intangible/StructuredValue/OwnershipInfo/index.ts",
@@ -6470,18 +5981,14 @@
       "Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/PalliativeProcedure/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { MedicalEntityProps } from \"../../index.ts\"",
-      "import type { MedicalProcedureProps } from \"../index.ts\"",
-      "import type { MedicalTherapyProps } from \"../TherapeuticProcedure/MedicalTherapy/index.ts\"",
-      "import type { TherapeuticProcedureProps } from \"../TherapeuticProcedure/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "MedicalProcedure": "Thing/MedicalEntity/MedicalProcedure/index.ts",
-      "TherapeuticProcedure": "Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/index.ts",
-      "MedicalTherapy": "Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
-    }
+    "inheritsFrom": [
+      "MedicalEntity",
+      "MedicalProcedure",
+      "TherapeuticProcedure",
+      "MedicalTherapy"
+    ]
   },
   "ParcelDelivery": {
     "location": "Thing/Intangible/ParcelDelivery/index.ts",
@@ -6535,20 +6042,15 @@
       "Thing/Intangible/Audience/PeopleAudience/MedicalAudience/Patient/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { AudienceProps } from \"../../Intangible/Audience/index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { MedicalAudienceProps } from \"../../Intangible/Audience/MedicalAudience/index.ts\"",
-      "import type { PeopleAudienceProps } from \"../../Intangible/Audience/PeopleAudience/index.ts\"",
-      "import type { PersonProps } from \"../index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Person": "Thing/Person/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Audience": "Thing/Intangible/Audience/index.ts",
-      "MedicalAudience": "Thing/Intangible/Audience/MedicalAudience/index.ts",
-      "PeopleAudience": "Thing/Intangible/Audience/PeopleAudience/index.ts"
-    }
+    "inheritsFrom": [
+      "Person",
+      "Intangible",
+      "Audience",
+      "MedicalAudience",
+      "PeopleAudience"
+    ]
   },
   "PawnShop": {
     "location": "Thing/Organization/LocalBusiness/Store/PawnShop/index.ts",
@@ -6556,18 +6058,14 @@
       "Thing/Place/LocalBusiness/Store/PawnShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "PayAction": {
     "location": "Thing/Action/TradeAction/PayAction/index.ts",
@@ -6584,18 +6082,14 @@
       "Thing/Intangible/Service/FinancialProduct/PaymentCard/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { FinancialProductProps } from \"../../Service/FinancialProduct/index.ts\"",
-      "import type { IntangibleProps } from \"../../index.ts\"",
-      "import type { PaymentMethodProps } from \"../index.ts\"",
-      "import type { ServiceProps } from \"../../Service/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "PaymentMethod": "Thing/Intangible/PaymentMethod/index.ts",
-      "Service": "Thing/Intangible/Service/index.ts",
-      "FinancialProduct": "Thing/Intangible/Service/FinancialProduct/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "PaymentMethod",
+      "Service",
+      "FinancialProduct"
+    ]
   },
   "PaymentChargeSpecification": {
     "location": "Thing/Intangible/StructuredValue/PriceSpecification/PaymentChargeSpecification/index.ts",
@@ -6630,18 +6124,14 @@
       "Thing/Intangible/Service/FinancialProduct/PaymentService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { FinancialProductProps } from \"../../Service/FinancialProduct/index.ts\"",
-      "import type { IntangibleProps } from \"../../index.ts\"",
-      "import type { PaymentMethodProps } from \"../index.ts\"",
-      "import type { ServiceProps } from \"../../Service/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Intangible": "Thing/Intangible/index.ts",
-      "PaymentMethod": "Thing/Intangible/PaymentMethod/index.ts",
-      "Service": "Thing/Intangible/Service/index.ts",
-      "FinancialProduct": "Thing/Intangible/Service/FinancialProduct/index.ts"
-    }
+    "inheritsFrom": [
+      "Intangible",
+      "PaymentMethod",
+      "Service",
+      "FinancialProduct"
+    ]
   },
   "PaymentStatusType": {
     "location": "Thing/Intangible/Enumeration/StatusEnumeration/PaymentStatusType/index.ts",
@@ -6703,18 +6193,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/Periodical/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "Permit": {
     "location": "Thing/Intangible/Permit/index.ts",
@@ -6737,18 +6223,14 @@
       "Thing/Place/LocalBusiness/Store/PetStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "Pharmacy": {
     "location": "Thing/Organization/MedicalOrganization/Pharmacy/index.ts",
@@ -6757,20 +6239,15 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Pharmacy/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "Photograph": {
     "location": "Thing/CreativeWork/Photograph/index.ts",
@@ -6813,20 +6290,15 @@
       "Thing/Intangible/Enumeration/MedicalEnumeration/PhysicalExam/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { EnumerationProps } from \"../../../Intangible/Enumeration/index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { MedicalEntityProps } from \"../../index.ts\"",
-      "import type { MedicalEnumerationProps } from \"../../../Intangible/Enumeration/MedicalEnumeration/index.ts\"",
-      "import type { MedicalProcedureProps } from \"../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "MedicalEntity": "Thing/MedicalEntity/index.ts",
-      "MedicalProcedure": "Thing/MedicalEntity/MedicalProcedure/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Enumeration": "Thing/Intangible/Enumeration/index.ts",
-      "MedicalEnumeration": "Thing/Intangible/Enumeration/MedicalEnumeration/index.ts"
-    }
+    "inheritsFrom": [
+      "MedicalEntity",
+      "MedicalProcedure",
+      "Intangible",
+      "Enumeration",
+      "MedicalEnumeration"
+    ]
   },
   "PhysicalTherapy": {
     "location": "Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/PhysicalTherapy/index.ts",
@@ -6846,20 +6318,15 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Physician/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "PhysiciansOffice": {
     "location": "Thing/Organization/MedicalOrganization/Physician/PhysiciansOffice/index.ts",
@@ -6868,22 +6335,16 @@
       "Thing/Place/LocalBusiness/MedicalBusiness/Physician/PhysiciansOffice/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../LocalBusiness/index.ts\"",
-      "import type { MedicalBusinessProps } from \"../../../LocalBusiness/MedicalBusiness/index.ts\"",
-      "import type { MedicalOrganizationProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PhysicianProps } from \"../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "MedicalOrganization": "Thing/Organization/MedicalOrganization/index.ts",
-      "Physician": "Thing/Organization/MedicalOrganization/Physician/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "MedicalBusiness": "Thing/Organization/LocalBusiness/MedicalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "MedicalOrganization",
+      "Physician",
+      "LocalBusiness",
+      "MedicalBusiness",
+      "Place"
+    ]
   },
   "Place": {
     "location": "Thing/Place/index.ts",
@@ -6950,18 +6411,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/Plumber/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "PodcastEpisode": {
     "location": "Thing/CreativeWork/Episode/PodcastEpisode/index.ts",
@@ -6987,18 +6444,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/PodcastSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "PoliceStation": {
     "location": "Thing/Place/CivicStructure/PoliceStation/index.ts",
@@ -7007,20 +6460,15 @@
       "Thing/Place/LocalBusiness/EmergencyService/PoliceStation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../index.ts\"",
-      "import type { EmergencyServiceProps } from \"../../../Organization/LocalBusiness/EmergencyService/index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../Organization/LocalBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../Organization/index.ts\"",
-      "import type { PlaceProps } from \"../../index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts",
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "EmergencyService": "Thing/Organization/LocalBusiness/EmergencyService/index.ts"
-    }
+    "inheritsFrom": [
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness",
+      "EmergencyService"
+    ]
   },
   "PoliticalParty": {
     "location": "Thing/Organization/PoliticalParty/index.ts",
@@ -7046,18 +6494,14 @@
       "Thing/Place/LocalBusiness/GovernmentOffice/PostOffice/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { GovernmentOfficeProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "GovernmentOffice": "Thing/Organization/LocalBusiness/GovernmentOffice/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "GovernmentOffice",
+      "Place"
+    ]
   },
   "PostalAddress": {
     "location": "Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts",
@@ -7112,18 +6556,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/Preschool/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "PresentationDigitalDocument": {
     "location": "Thing/CreativeWork/DigitalDocument/PresentationDigitalDocument/index.ts",
@@ -7183,16 +6623,13 @@
       "Thing/CreativeWork/Collection/ProductCollection/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CollectionProps } from \"../../CreativeWork/Collection/index.ts\"",
-      "import type { CreativeWorkProps } from \"../../CreativeWork/index.ts\"",
-      "import type { ProductProps } from \"../index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Product": "Thing/Product/index.ts",
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Collection": "Thing/CreativeWork/Collection/index.ts"
-    }
+    "inheritsFrom": [
+      "Product",
+      "CreativeWork",
+      "Collection"
+    ]
   },
   "ProductGroup": {
     "location": "Thing/Product/ProductGroup/index.ts",
@@ -7216,16 +6653,13 @@
       "Thing/Place/LocalBusiness/ProfessionalService/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "ProfilePage": {
     "location": "Thing/CreativeWork/WebPage/ProfilePage/index.ts",
@@ -7301,18 +6735,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/PublicSwimmingPool/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "PublicToilet": {
     "location": "Thing/Place/CivicStructure/PublicToilet/index.ts",
@@ -7507,18 +6937,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/RadioSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "RadioStation": {
     "location": "Thing/Organization/LocalBusiness/RadioStation/index.ts",
@@ -7526,16 +6952,13 @@
       "Thing/Place/LocalBusiness/RadioStation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "Rating": {
     "location": "Thing/Intangible/Rating/index.ts",
@@ -7569,16 +6992,13 @@
       "Thing/Place/LocalBusiness/RealEstateAgent/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "RealEstateListing": {
     "location": "Thing/CreativeWork/WebPage/RealEstateListing/index.ts",
@@ -7632,16 +7052,13 @@
       "Thing/Place/LocalBusiness/RecyclingCenter/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "RefundTypeEnumeration": {
     "location": "Thing/Intangible/Enumeration/RefundTypeEnumeration/index.ts",
@@ -7833,18 +7250,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/Resort/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "Restaurant": {
     "location": "Thing/Organization/LocalBusiness/FoodEstablishment/Restaurant/index.ts",
@@ -7852,18 +7265,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/Restaurant/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "RestrictedDiet": {
     "location": "Thing/Intangible/Enumeration/RestrictedDiet/index.ts",
@@ -7942,20 +7351,15 @@
       "Thing/CreativeWork/Review/CriticReview/ReviewNewsArticle/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { ArticleProps } from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../../index.ts\"",
-      "import type { CriticReviewProps } from \"../../../Review/CriticReview/index.ts\"",
-      "import type { NewsArticleProps } from \"../index.ts\"",
-      "import type { ReviewProps } from \"../../../Review/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Article": "Thing/CreativeWork/Article/index.ts",
-      "NewsArticle": "Thing/CreativeWork/Article/NewsArticle/index.ts",
-      "Review": "Thing/CreativeWork/Review/index.ts",
-      "CriticReview": "Thing/CreativeWork/Review/CriticReview/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Article",
+      "NewsArticle",
+      "Review",
+      "CriticReview"
+    ]
   },
   "RiverBodyOfWater": {
     "location": "Thing/Place/Landform/BodyOfWater/RiverBodyOfWater/index.ts",
@@ -7981,18 +7385,14 @@
       "Thing/Place/LocalBusiness/HomeAndConstructionBusiness/RoofingContractor/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HomeAndConstructionBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HomeAndConstructionBusiness": "Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness",
+      "Place"
+    ]
   },
   "Room": {
     "location": "Thing/Place/Accommodation/Room/index.ts",
@@ -8073,18 +7473,14 @@
       "Thing/Place/CivicStructure/EducationalOrganization/School/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../../../Place/CivicStructure/index.ts\"",
-      "import type { EducationalOrganizationProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "EducationalOrganization": "Thing/Organization/EducationalOrganization/index.ts",
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "EducationalOrganization",
+      "Place",
+      "CivicStructure"
+    ]
   },
   "SchoolDistrict": {
     "location": "Thing/Place/AdministrativeArea/SchoolDistrict/index.ts",
@@ -8176,16 +7572,13 @@
       "Thing/Place/LocalBusiness/SelfStorage/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "SellAction": {
     "location": "Thing/Action/TradeAction/SellAction/index.ts",
@@ -8298,18 +7691,14 @@
       "Thing/Place/LocalBusiness/Store/ShoeStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "ShoppingCenter": {
     "location": "Thing/Organization/LocalBusiness/ShoppingCenter/index.ts",
@@ -8317,16 +7706,13 @@
       "Thing/Place/LocalBusiness/ShoppingCenter/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "ShortStory": {
     "location": "Thing/CreativeWork/ShortStory/index.ts",
@@ -8391,22 +7777,16 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/SkiResort/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../../LodgingBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { ResortProps } from \"../../LodgingBusiness/Resort/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Resort": "Thing/Organization/LocalBusiness/LodgingBusiness/Resort/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "LodgingBusiness",
+      "Resort",
+      "Place"
+    ]
   },
   "SocialEvent": {
     "location": "Thing/Event/SocialEvent/index.ts",
@@ -8488,18 +7868,14 @@
       "Thing/Place/LocalBusiness/Store/SportingGoodsStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "SportsActivityLocation": {
     "location": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
@@ -8507,16 +7883,13 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "SportsClub": {
     "location": "Thing/Organization/LocalBusiness/SportsActivityLocation/SportsClub/index.ts",
@@ -8524,18 +7897,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/SportsClub/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "SportsEvent": {
     "location": "Thing/Event/SportsEvent/index.ts",
@@ -8578,20 +7947,15 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/StadiumOrArena/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CivicStructureProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../../Organization/LocalBusiness/index.ts\"",
-      "import type { OrganizationProps } from \"../../../Organization/index.ts\"",
-      "import type { PlaceProps } from \"../../index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../../../Organization/LocalBusiness/SportsActivityLocation/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Place": "Thing/Place/index.ts",
-      "CivicStructure": "Thing/Place/CivicStructure/index.ts",
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts"
-    }
+    "inheritsFrom": [
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ]
   },
   "State": {
     "location": "Thing/Place/AdministrativeArea/State/index.ts",
@@ -8652,16 +8016,13 @@
       "Thing/Place/LocalBusiness/Store/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "StructuredValue": {
     "location": "Thing/Intangible/StructuredValue/index.ts",
@@ -8775,14 +8136,12 @@
       "Thing/CreativeWork/CreativeWorkSeason/TVSeason/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { CreativeWorkSeasonProps } from \"../CreativeWorkSeason/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeason": "Thing/CreativeWork/CreativeWorkSeason/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeason"
+    ]
   },
   "TVSeries": {
     "location": "Thing/CreativeWork/TVSeries/index.ts",
@@ -8791,18 +8150,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/TVSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../CreativeWorkSeries/index.ts\"",
-      "import type { IntangibleProps } from \"../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "Table": {
     "location": "Thing/CreativeWork/WebPageElement/Table/index.ts",
@@ -8828,18 +8183,14 @@
       "Thing/Place/LocalBusiness/HealthAndBeautyBusiness/TattooParlor/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { HealthAndBeautyBusinessProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "HealthAndBeautyBusiness": "Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness",
+      "Place"
+    ]
   },
   "Taxi": {
     "location": "Thing/Intangible/Service/Taxi/index.ts",
@@ -8908,16 +8259,13 @@
       "Thing/Place/LocalBusiness/TelevisionStation/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "TennisComplex": {
     "location": "Thing/Organization/LocalBusiness/SportsActivityLocation/TennisComplex/index.ts",
@@ -8925,18 +8273,14 @@
       "Thing/Place/LocalBusiness/SportsActivityLocation/TennisComplex/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { SportsActivityLocationProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "SportsActivityLocation": "Thing/Organization/LocalBusiness/SportsActivityLocation/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation",
+      "Place"
+    ]
   },
   "TextDigitalDocument": {
     "location": "Thing/CreativeWork/DigitalDocument/TextDigitalDocument/index.ts",
@@ -9045,18 +8389,14 @@
       "Thing/Place/LocalBusiness/Store/TireShop/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "TouristAttraction": {
     "location": "Thing/Place/TouristAttraction/index.ts",
@@ -9080,16 +8420,13 @@
       "Thing/Place/LocalBusiness/TouristInformationCenter/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "TouristTrip": {
     "location": "Thing/Intangible/Trip/TouristTrip/index.ts",
@@ -9106,18 +8443,14 @@
       "Thing/Place/LocalBusiness/Store/ToyStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "TrackAction": {
     "location": "Thing/Action/FindAction/TrackAction/index.ts",
@@ -9186,16 +8519,13 @@
       "Thing/Place/LocalBusiness/TravelAgency/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../index.ts\"",
-      "import type { PlaceProps } from \"../../../Place/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Place"
+    ]
   },
   "TreatmentIndication": {
     "location": "Thing/MedicalEntity/MedicalIndication/TreatmentIndication/index.ts",
@@ -9383,18 +8713,14 @@
       "Thing/Place/LocalBusiness/LodgingBusiness/VacationRental/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { LodgingBusinessProps } from \"../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "LodgingBusiness": "Thing/Organization/LocalBusiness/LodgingBusiness/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness",
+      "Place"
+    ]
   },
   "Vehicle": {
     "location": "Thing/Product/Vehicle/index.ts",
@@ -9449,16 +8775,13 @@
       "Thing/CreativeWork/SoftwareApplication/VideoGame/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { GameProps } from \"../index.ts\"",
-      "import type { SoftwareApplicationProps } from \"../../SoftwareApplication/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "Game": "Thing/CreativeWork/Game/index.ts",
-      "SoftwareApplication": "Thing/CreativeWork/SoftwareApplication/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "Game",
+      "SoftwareApplication"
+    ]
   },
   "VideoGameClip": {
     "location": "Thing/CreativeWork/Clip/VideoGameClip/index.ts",
@@ -9475,18 +8798,14 @@
       "Thing/Intangible/Series/CreativeWorkSeries/VideoGameSeries/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../index.ts\"",
-      "import type { CreativeWorkProps } from \"../../index.ts\"",
-      "import type { CreativeWorkSeriesProps } from \"../index.ts\"",
-      "import type { IntangibleProps } from \"../../../Intangible/index.ts\"",
-      "import type { SeriesProps } from \"../../../Intangible/Series/index.ts\""
+      "import type Thing from \"../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "CreativeWork": "Thing/CreativeWork/index.ts",
-      "CreativeWorkSeries": "Thing/CreativeWork/CreativeWorkSeries/index.ts",
-      "Intangible": "Thing/Intangible/index.ts",
-      "Series": "Thing/Intangible/Series/index.ts"
-    }
+    "inheritsFrom": [
+      "CreativeWork",
+      "CreativeWorkSeries",
+      "Intangible",
+      "Series"
+    ]
   },
   "VideoObject": {
     "location": "Thing/CreativeWork/MediaObject/VideoObject/index.ts",
@@ -9749,18 +9068,14 @@
       "Thing/Place/LocalBusiness/Store/WholesaleStore/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\"",
-      "import type { StoreProps } from \"../index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "Store": "Thing/Organization/LocalBusiness/Store/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "Store",
+      "Place"
+    ]
   },
   "WinAction": {
     "location": "Thing/Action/AchieveAction/WinAction/index.ts",
@@ -9777,18 +9092,14 @@
       "Thing/Place/LocalBusiness/FoodEstablishment/Winery/index.ts"
     ],
     "imports": [
-      "import type Thing from \"../../../../index.ts\"",
-      "import type { FoodEstablishmentProps } from \"../index.ts\"",
-      "import type { LocalBusinessProps } from \"../../index.ts\"",
-      "import type { OrganizationProps } from \"../../../index.ts\"",
-      "import type { PlaceProps } from \"../../../../Place/index.ts\""
+      "import type Thing from \"../../../../index.ts\""
     ],
-    "inheritsFrom": {
-      "Organization": "Thing/Organization/index.ts",
-      "LocalBusiness": "Thing/Organization/LocalBusiness/index.ts",
-      "FoodEstablishment": "Thing/Organization/LocalBusiness/FoodEstablishment/index.ts",
-      "Place": "Thing/Place/index.ts"
-    }
+    "inheritsFrom": [
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment",
+      "Place"
+    ]
   },
   "WorkBasedProgram": {
     "location": "Thing/Intangible/EducationalOccupationalProgram/WorkBasedProgram/index.ts",
