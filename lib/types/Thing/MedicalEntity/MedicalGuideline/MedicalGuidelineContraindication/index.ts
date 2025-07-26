@@ -1,7 +1,14 @@
-import type MedicalGuideline from "../index.ts"
+import type Thing from "../../../index.ts"
+import type { MedicalEntityProps } from "../../index.ts"
+import type { MedicalGuidelineProps } from "../index.ts"
 
-// MedicalGuidelineContraindication extends MedicalGuideline but adds no additional properties
-
-export default interface MedicalGuidelineContraindication
-	extends MedicalGuideline {
+export interface MedicalGuidelineContraindicationProps {
 }
+
+type MedicalGuidelineContraindication =
+	& Thing
+	& MedicalEntityProps
+	& MedicalGuidelineProps
+	& MedicalGuidelineContraindicationProps
+
+export default MedicalGuidelineContraindication

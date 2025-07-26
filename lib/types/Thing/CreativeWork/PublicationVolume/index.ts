@@ -3,13 +3,9 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface PublicationVolumeProps {
-	/** The page on which the work ends; for example "138" or "xvi". */
-	pageEnd?: Text | Integer
-	/** The page on which the work starts; for example "135" or "xiii". */
-	pageStart?: Text | Integer
-	/** Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49". */
+	pageEnd?: Integer | Text
+	pageStart?: Integer | Text
 	pagination?: Text
-	/** Identifies the volume of publication or multi-part work; for example, "iii" or "2". */
 	volumeNumber?: Integer | Text
 }
 

@@ -1,7 +1,16 @@
-import type SizeSystemEnumeration from "../index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { EnumerationProps } from "../../index.ts"
+import type { SizeSystemEnumerationProps } from "../index.ts"
 
-// WearableSizeSystemEnumeration extends SizeSystemEnumeration but adds no additional properties
-
-export default interface WearableSizeSystemEnumeration
-	extends SizeSystemEnumeration {
+export interface WearableSizeSystemEnumerationProps {
 }
+
+type WearableSizeSystemEnumeration =
+	& Thing
+	& IntangibleProps
+	& EnumerationProps
+	& SizeSystemEnumerationProps
+	& WearableSizeSystemEnumerationProps
+
+export default WearableSizeSystemEnumeration

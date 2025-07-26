@@ -1,17 +1,18 @@
-// AutoRental extends AutomotiveBusiness but adds no additional properties
 import type Thing from "../../../../index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
-import type { AutomotiveBusinessProps } from "../../../../Place/LocalBusiness/AutomotiveBusiness/index.ts"
-import type { LocalBusinessProps } from "../../../../Place/LocalBusiness/index.ts"
+import type { LocalBusinessProps } from "../../index.ts"
+import type { AutomotiveBusinessProps } from "../index.ts"
+import type { OrganizationProps } from "../../../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface AutoRentalProps {}
+export interface AutoRentalProps {
+}
 
 type AutoRental =
 	& Thing
-	& AutomotiveBusinessProps
-	& LocalBusinessProps
 	& PlaceProps
+	& LocalBusinessProps
+	& AutomotiveBusinessProps
+	& OrganizationProps
 	& AutoRentalProps
 
 export default AutoRental

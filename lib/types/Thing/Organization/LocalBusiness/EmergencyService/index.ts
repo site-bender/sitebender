@@ -1,12 +1,16 @@
 import type Thing from "../../../index.ts"
-import type LocalBusiness from "../index.ts"
+import type { PlaceProps } from "../../../Place/index.ts"
 import type { LocalBusinessProps } from "../index.ts"
-
-// EmergencyService extends LocalBusiness but adds no additional properties
+import type { OrganizationProps } from "../../index.ts"
 
 export interface EmergencyServiceProps {
 }
 
-type EmergencyService = Thing & LocalBusinessProps & EmergencyServiceProps
+type EmergencyService =
+	& Thing
+	& PlaceProps
+	& LocalBusinessProps
+	& OrganizationProps
+	& EmergencyServiceProps
 
 export default EmergencyService

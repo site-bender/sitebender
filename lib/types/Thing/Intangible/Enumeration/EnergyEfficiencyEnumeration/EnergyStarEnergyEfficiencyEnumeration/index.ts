@@ -1,7 +1,16 @@
-import type EnergyEfficiencyEnumeration from "../index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { EnumerationProps } from "../../index.ts"
+import type { EnergyEfficiencyEnumerationProps } from "../index.ts"
 
-// EnergyStarEnergyEfficiencyEnumeration extends EnergyEfficiencyEnumeration but adds no additional properties
-
-export default interface EnergyStarEnergyEfficiencyEnumeration
-	extends EnergyEfficiencyEnumeration {
+export interface EnergyStarEnergyEfficiencyEnumerationProps {
 }
+
+type EnergyStarEnergyEfficiencyEnumeration =
+	& Thing
+	& IntangibleProps
+	& EnumerationProps
+	& EnergyEfficiencyEnumerationProps
+	& EnergyStarEnergyEfficiencyEnumerationProps
+
+export default EnergyStarEnergyEfficiencyEnumeration

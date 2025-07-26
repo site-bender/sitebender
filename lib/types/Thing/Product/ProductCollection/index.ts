@@ -1,8 +1,18 @@
-import type Collection from "../../CreativeWork/Collection/index.ts"
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../../CreativeWork/index.ts"
+import type { CollectionProps } from "../../CreativeWork/Collection/index.ts"
+import type { ProductProps } from "../index.ts"
 import type TypeAndQuantityNode from "../../Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
-import type Product from "../index.ts"
 
-export default interface ProductCollection extends Product, Collection {
-	/** This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]. */
+export interface ProductCollectionProps {
 	includesObject?: TypeAndQuantityNode
 }
+
+type ProductCollection =
+	& Thing
+	& CreativeWorkProps
+	& CollectionProps
+	& ProductProps
+	& ProductCollectionProps
+
+export default ProductCollection

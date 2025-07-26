@@ -3,7 +3,6 @@ import type Thing from "../../index.ts"
 import type { ActionProps } from "../index.ts"
 
 export interface SearchActionProps {
-	/** A sub property of instrument. The query used on this action. */
 	query?: Text
 }
 

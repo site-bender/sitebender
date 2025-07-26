@@ -1,18 +1,20 @@
 import type Thing from "../../../index.ts"
-import type MedicalBusiness from "../../../Place/LocalBusiness/MedicalBusiness/index.ts"
+import type { OrganizationProps } from "../../index.ts"
+import type { LocalBusinessProps } from "../../LocalBusiness/index.ts"
 import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/index.ts"
-import type MedicalOrganization from "../index.ts"
+import type { PlaceProps } from "../../../Place/index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
-
-// Pharmacy extends MedicalOrganization but adds no additional properties
 
 export interface PharmacyProps {
 }
 
 type Pharmacy =
 	& Thing
-	& MedicalOrganizationProps
+	& OrganizationProps
+	& LocalBusinessProps
 	& MedicalBusinessProps
+	& PlaceProps
+	& MedicalOrganizationProps
 	& PharmacyProps
 
 export default Pharmacy

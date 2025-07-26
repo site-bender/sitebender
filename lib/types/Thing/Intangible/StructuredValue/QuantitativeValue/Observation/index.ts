@@ -1,3 +1,1 @@
-import type Intangible from "../../../index.ts"
-
-export type { default } from "../../../../../Thing/Intangible/Observation/index.ts"
+export type { default } from "../../../Observation/index.ts"

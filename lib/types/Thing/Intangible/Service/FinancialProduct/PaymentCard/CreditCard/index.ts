@@ -1,1 +1,1 @@
-export type { default } from "../../../../../../Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.ts"
+export type { default } from "../../../../PaymentMethod/PaymentCard/CreditCard/index.ts"

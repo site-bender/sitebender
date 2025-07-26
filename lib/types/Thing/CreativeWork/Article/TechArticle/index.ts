@@ -4,16 +4,14 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { ArticleProps } from "../index.ts"
 
 export interface TechArticleProps {
-	/** Prerequisites needed to fulfill steps in article. */
 	dependencies?: Text
-	/** Proficiency needed for this content; expected values: 'Beginner', 'Expert'. */
 	proficiencyLevel?: Text
 }
 
 type TechArticle =
 	& Thing
-	& ArticleProps
 	& CreativeWorkProps
+	& ArticleProps
 	& TechArticleProps
 
 export default TechArticle

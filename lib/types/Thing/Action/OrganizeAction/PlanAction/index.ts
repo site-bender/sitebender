@@ -4,7 +4,6 @@ import type { ActionProps } from "../../index.ts"
 import type { OrganizeActionProps } from "../index.ts"
 
 export interface PlanActionProps {
-	/** The time the object is scheduled to. */
 	scheduledTime?: Date | DateTime
 }
 

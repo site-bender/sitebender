@@ -2,16 +2,16 @@ import type {
 	BaseComponentProps,
 	ExtractLevelProps,
 } from "../../../../types/index.ts"
-import type DrugProps from "../../../../types/Thing/Product/Drug/index.ts"
 import type { MedicalEntityProps } from "../../../../types/Thing/MedicalEntity/index.ts"
-import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
 import type { SubstanceProps } from "../../../../types/Thing/MedicalEntity/Substance/index.ts"
+import type DrugProps from "../../../../types/Thing/Product/Drug/index.ts"
+import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
 
 import Base from "../../../Base/index.tsx"
 import Thing from "../../index.tsx"
 import MedicalEntity from "../../MedicalEntity/index.tsx"
-import Product from "../index.tsx"
 import Substance from "../../MedicalEntity/Substance/index.tsx"
+import Product from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	DrugProps,

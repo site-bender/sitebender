@@ -1,15 +1,14 @@
-// PaymentMethodType extends Enumeration but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface PaymentMethodTypeProps {}
+export interface PaymentMethodTypeProps {
+}
 
 type PaymentMethodType =
 	& Thing
-	& EnumerationProps
 	& IntangibleProps
+	& EnumerationProps
 	& PaymentMethodTypeProps
 
 export default PaymentMethodType

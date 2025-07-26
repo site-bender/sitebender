@@ -1,7 +1,16 @@
-import type MedicalEnumeration from "../index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { EnumerationProps } from "../../index.ts"
+import type { MedicalEnumerationProps } from "../index.ts"
 
-// MedicalObservationalStudyDesign extends MedicalEnumeration but adds no additional properties
-
-export default interface MedicalObservationalStudyDesign
-	extends MedicalEnumeration {
+export interface MedicalObservationalStudyDesignProps {
 }
+
+type MedicalObservationalStudyDesign =
+	& Thing
+	& IntangibleProps
+	& EnumerationProps
+	& MedicalEnumerationProps
+	& MedicalObservationalStudyDesignProps
+
+export default MedicalObservationalStudyDesign

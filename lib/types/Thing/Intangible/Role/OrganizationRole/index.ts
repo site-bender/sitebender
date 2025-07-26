@@ -4,7 +4,6 @@ import type { IntangibleProps } from "../../index.ts"
 import type { RoleProps } from "../index.ts"
 
 export interface OrganizationRoleProps {
-	/** A number associated with a role in an organization, for example, the number on an athlete's jersey. */
 	numberedPosition?: Number
 }
 

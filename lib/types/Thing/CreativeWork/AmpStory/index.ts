@@ -1,3 +1,14 @@
-import type MediaObject from "../MediaObject/index.ts"
+import type Thing from "../../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
+import type { MediaObjectProps } from "../../MediaObject/index.ts"
 
-export type { default } from "../../../Thing/CreativeWork/MediaObject/AmpStory/index.ts"
+export interface AmpStoryProps {
+}
+
+type AmpStory =
+	& Thing
+	& CreativeWorkProps
+	& MediaObjectProps
+	& AmpStoryProps
+
+export default AmpStory

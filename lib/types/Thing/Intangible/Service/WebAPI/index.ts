@@ -1,12 +1,11 @@
 import type { URL } from "../../../../DataType/index.ts"
-import type CreativeWork from "../../../CreativeWork/index.ts"
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
+import type CreativeWork from "../../../CreativeWork/index.ts"
 
 export interface WebAPIProps {
-	/** Further documentation describing the Web API in more detail. */
-	documentation?: URL | CreativeWork
+	documentation?: CreativeWork | URL
 }
 
 type WebAPI =

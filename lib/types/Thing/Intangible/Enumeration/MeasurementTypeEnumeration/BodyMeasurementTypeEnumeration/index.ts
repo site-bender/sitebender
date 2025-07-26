@@ -1,7 +1,16 @@
-import type MeasurementTypeEnumeration from "../index.ts"
+import type Thing from "../../../../index.ts"
+import type { IntangibleProps } from "../../../index.ts"
+import type { EnumerationProps } from "../../index.ts"
+import type { MeasurementTypeEnumerationProps } from "../index.ts"
 
-// BodyMeasurementTypeEnumeration extends MeasurementTypeEnumeration but adds no additional properties
-
-export default interface BodyMeasurementTypeEnumeration
-	extends MeasurementTypeEnumeration {
+export interface BodyMeasurementTypeEnumerationProps {
 }
+
+type BodyMeasurementTypeEnumeration =
+	& Thing
+	& IntangibleProps
+	& EnumerationProps
+	& MeasurementTypeEnumerationProps
+	& BodyMeasurementTypeEnumerationProps
+
+export default BodyMeasurementTypeEnumeration

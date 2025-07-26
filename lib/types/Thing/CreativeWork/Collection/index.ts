@@ -3,7 +3,6 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface CollectionProps {
-	/** The number of items in the [[Collection]]. */
 	collectionSize?: Integer
 }
 

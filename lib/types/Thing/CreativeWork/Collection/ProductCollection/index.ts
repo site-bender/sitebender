@@ -1,1 +1,1 @@
-export type { default } from "../../../../Thing/Product/ProductCollection/index.ts"
+export type { default } from "../../../Product/ProductCollection/index.ts"

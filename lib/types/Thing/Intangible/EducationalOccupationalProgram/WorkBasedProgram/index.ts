@@ -1,12 +1,19 @@
 import type { Text } from "../../../../DataType/index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EducationalOccupationalProgramProps } from "../index.ts"
 import type CategoryCode from "../../DefinedTerm/CategoryCode/index.ts"
 import type MonetaryAmountDistribution from "../../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
-import type EducationalOccupationalProgram from "../index.ts"
 
-export default interface WorkBasedProgram
-	extends EducationalOccupationalProgram {
-	/** A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\n Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC. */
+export interface WorkBasedProgramProps {
 	occupationalCategory?: CategoryCode | Text
-	/** The estimated salary earned while in the program. */
 	trainingSalary?: MonetaryAmountDistribution
 }
+
+type WorkBasedProgram =
+	& Thing
+	& IntangibleProps
+	& EducationalOccupationalProgramProps
+	& WorkBasedProgramProps
+
+export default WorkBasedProgram

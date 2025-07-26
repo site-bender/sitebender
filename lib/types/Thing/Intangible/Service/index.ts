@@ -1,78 +1,52 @@
 import type { Text, URL } from "../../../DataType/index.ts"
-import type Thing from "../../../index.ts"
-import type Certification from "../../CreativeWork/Certification/index.ts"
-import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
-import type Review from "../../CreativeWork/Review/index.ts"
 import type Thing from "../../index.ts"
-import type Organization from "../../Organization/index.ts"
-import type Person from "../../Person/index.ts"
+import type { IntangibleProps } from "../index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
-import type Place from "../../Place/index.ts"
-import type Product from "../../Product/index.ts"
+import type AggregateRating from "../Rating/AggregateRating/index.ts"
 import type Audience from "../Audience/index.ts"
 import type Brand from "../Brand/index.ts"
 import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type Certification from "../../CreativeWork/Certification/index.ts"
 import type Demand from "../Demand/index.ts"
-import type GovernmentBenefitsType from "../Enumeration/GovernmentBenefitsType/index.ts"
-import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
-import type { IntangibleProps } from "../index.ts"
-import type OfferCatalog from "../ItemList/OfferCatalog/index.ts"
-import type Offer from "../Offer/index.ts"
-import type AggregateRating from "../Rating/AggregateRating/index.ts"
-import type ServiceChannel from "../ServiceChannel/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
+import type GovernmentBenefitsType from "../Enumeration/GovernmentBenefitsType/index.ts"
+import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.ts"
+import type Offer from "../Offer/index.ts"
+import type OfferCatalog from "../ItemList/OfferCatalog/index.ts"
 import type OpeningHoursSpecification from "../StructuredValue/OpeningHoursSpecification/index.ts"
+import type Organization from "../../Organization/index.ts"
+import type Person from "../../Person/index.ts"
+import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
+import type Place from "../../Place/index.ts"
+import type Product from "../../Product/index.ts"
+import type Review from "../../CreativeWork/Review/index.ts"
+import type ServiceChannel from "../ServiceChannel/index.ts"
 
 export interface ServiceProps {
-	/** The overall rating, based on a collection of reviews or ratings, of the item. */
 	aggregateRating?: AggregateRating
-	/** The geographic area where a service or offered item is provided. */
-	areaServed?: AdministrativeArea | Place | GeoShape | Text
-	/** An intended audience, i.e. a group for whom something was created. */
+	areaServed?: AdministrativeArea | GeoShape | Place | Text
 	audience?: Audience
-	/** A means of accessing the service (e.g. a phone bank, a web site, a location, etc.). */
 	availableChannel?: ServiceChannel
-	/** An award won by or for this item. */
 	award?: Text
-	/** The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person. */
 	brand?: Brand | Organization
-	/** An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred. */
 	broker?: Organization | Person
-	/** A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy. */
-	category?: Thing | PhysicalActivityCategory | Text | URL | CategoryCode
-	/** Certification information about a product, organization, service, place, or person. */
+	category?: CategoryCode | PhysicalActivityCategory | Text | Thing | URL
 	hasCertification?: Certification
-	/** Indicates an OfferCatalog listing for this Organization, Person, or Service. */
 	hasOfferCatalog?: OfferCatalog
-	/** The hours during which this service or contact is available. */
 	hoursAvailable?: OpeningHoursSpecification
-	/** A pointer to another, somehow related product (or multiple products). */
-	isRelatedTo?: Service | Product
-	/** A pointer to another, functionally similar product (or multiple products). */
+	isRelatedTo?: Product | Service
 	isSimilarTo?: Product | Service
-	/** An associated logo. */
-	logo?: URL | ImageObject
-	/** An offer to provide this item&#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event. Use [[businessFunction]] to indicate the kind of transaction offered, i.e. sell, lease, etc. This property can also be used to describe a [[Demand]]. While this property is listed as expected on a number of common types, it can be used in others. In that case, using a second type, such as Product or a subtype of Product, can clarify the nature of the offer. */
+	logo?: ImageObject | URL
 	offers?: Demand | Offer
-	/** The tangible thing generated by the service, e.g. a passport, permit, etc. */
 	produces?: Thing
-	/** The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller. */
 	provider?: Organization | Person
-	/** Indicates the mobility of a provided service (e.g. 'static', 'dynamic'). */
 	providerMobility?: Text
-	/** A review of the item. */
 	review?: Review
-	/** The geographic area where the service is provided. */
-	serviceArea?: Place | AdministrativeArea | GeoShape
-	/** The audience eligible for this service. */
+	serviceArea?: AdministrativeArea | GeoShape | Place
 	serviceAudience?: Audience
-	/** The tangible thing generated by the service, e.g. a passport, permit, etc. */
 	serviceOutput?: Thing
-	/** The type of service being offered, e.g. veterans' benefits, emergency relief, etc. */
 	serviceType?: GovernmentBenefitsType | Text
-	/** A slogan or motto associated with the item. */
 	slogan?: Text
-	/** Human-readable terms of service documentation. */
 	termsOfService?: Text | URL
 }
 

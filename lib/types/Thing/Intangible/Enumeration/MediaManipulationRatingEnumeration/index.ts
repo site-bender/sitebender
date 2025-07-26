@@ -1,7 +1,14 @@
-import type Enumeration from "../index.ts"
+import type Thing from "../../../index.ts"
+import type { IntangibleProps } from "../../index.ts"
+import type { EnumerationProps } from "../index.ts"
 
-// MediaManipulationRatingEnumeration extends Enumeration but adds no additional properties
-
-export default interface MediaManipulationRatingEnumeration
-	extends Enumeration {
+export interface MediaManipulationRatingEnumerationProps {
 }
+
+type MediaManipulationRatingEnumeration =
+	& Thing
+	& IntangibleProps
+	& EnumerationProps
+	& MediaManipulationRatingEnumerationProps
+
+export default MediaManipulationRatingEnumeration

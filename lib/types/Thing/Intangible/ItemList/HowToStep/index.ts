@@ -1,1 +1,1 @@
-export type { default } from "../../../../Thing/Intangible/ListItem/HowToStep/index.ts"
+export type { default } from "../../../CreativeWork/HowToStep/index.ts"

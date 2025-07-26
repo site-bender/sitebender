@@ -3,9 +3,7 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface WebPageElementProps {
-	/** A CSS selector, e.g. of a [[SpeakableSpecification]] or [[WebPageElement]]. In the latter case, multiple matches within a page can constitute a single conceptual "Web page element". */
 	cssSelector?: CssSelectorType
-	/** An XPath, e.g. of a [[SpeakableSpecification]] or [[WebPageElement]]. In the latter case, multiple matches within a page can constitute a single conceptual "Web page element". */
 	xpath?: XPathType
 }
 

@@ -1,1 +1,1 @@
-export type { default } from "../../../../Thing/CreativeWork/Legislation/LegislationObject/index.ts"
+export type { default } from "../../Legislation/LegislationObject/index.ts"

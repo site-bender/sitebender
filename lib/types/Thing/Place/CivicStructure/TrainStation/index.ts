@@ -1,15 +1,14 @@
-// TrainStation extends CivicStructure but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface TrainStationProps {}
+export interface TrainStationProps {
+}
 
 type TrainStation =
 	& Thing
-	& CivicStructureProps
 	& PlaceProps
+	& CivicStructureProps
 	& TrainStationProps
 
 export default TrainStation

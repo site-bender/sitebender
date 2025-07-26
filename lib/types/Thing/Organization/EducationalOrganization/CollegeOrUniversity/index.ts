@@ -1,17 +1,18 @@
-// CollegeOrUniversity extends EducationalOrganization but adds no additional properties
 import type Thing from "../../../index.ts"
-import type { EducationalOrganizationProps } from "../../../Place/CivicStructure/EducationalOrganization/index.ts"
-import type { CivicStructureProps } from "../../../Place/CivicStructure/index.ts"
 import type { PlaceProps } from "../../../Place/index.ts"
+import type { CivicStructureProps } from "../../../Place/CivicStructure/index.ts"
+import type { EducationalOrganizationProps } from "../index.ts"
+import type { OrganizationProps } from "../../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface CollegeOrUniversityProps {}
+export interface CollegeOrUniversityProps {
+}
 
 type CollegeOrUniversity =
 	& Thing
+	& PlaceProps
 	& CivicStructureProps
 	& EducationalOrganizationProps
-	& PlaceProps
+	& OrganizationProps
 	& CollegeOrUniversityProps
 
 export default CollegeOrUniversity

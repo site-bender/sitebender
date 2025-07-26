@@ -1,15 +1,14 @@
-// TieAction extends AchieveAction but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { AchieveActionProps } from "../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface TieActionProps {}
+export interface TieActionProps {
+}
 
 type TieAction =
 	& Thing
-	& AchieveActionProps
 	& ActionProps
+	& AchieveActionProps
 	& TieActionProps
 
 export default TieAction

@@ -1,3 +1,20 @@
-import type LodgingBusiness from "../../LocalBusiness/LodgingBusiness/index.ts"
+import type Thing from "../../../index.ts"
+import type { OrganizationProps } from "../../../Organization/index.ts"
+import type { LocalBusinessProps } from "../../../Organization/LocalBusiness/index.ts"
+import type { LodgingBusinessProps } from "../../../Organization/LocalBusiness/LodgingBusiness/index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { CivicStructureProps } from "../index.ts"
 
-export type { default } from "../../../../Thing/Organization/LocalBusiness/LodgingBusiness/Campground/index.ts"
+export interface CampgroundProps {
+}
+
+type Campground =
+	& Thing
+	& OrganizationProps
+	& LocalBusinessProps
+	& LodgingBusinessProps
+	& PlaceProps
+	& CivicStructureProps
+	& CampgroundProps
+
+export default Campground

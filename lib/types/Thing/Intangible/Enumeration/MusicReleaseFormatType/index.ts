@@ -1,15 +1,14 @@
-// MusicReleaseFormatType extends Enumeration but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface MusicReleaseFormatTypeProps {}
+export interface MusicReleaseFormatTypeProps {
+}
 
 type MusicReleaseFormatType =
 	& Thing
-	& EnumerationProps
 	& IntangibleProps
+	& EnumerationProps
 	& MusicReleaseFormatTypeProps
 
 export default MusicReleaseFormatType

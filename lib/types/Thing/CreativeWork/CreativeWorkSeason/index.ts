@@ -1,36 +1,24 @@
 import type { Date, DateTime, Integer, Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type CreativeWorkSeries from "../../Intangible/Series/CreativeWorkSeries/index.ts"
+import type { CreativeWorkProps } from "../index.ts"
+import type CreativeWorkSeries from "../CreativeWorkSeries/index.ts"
+import type Episode from "../Episode/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
 import type Person from "../../Person/index.ts"
-import type Episode from "../Episode/index.ts"
-import type CreativeWork from "../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
 export interface CreativeWorkSeasonProps {
-	/** An actor (individual or a group), e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip. */
 	actor?: PerformingGroup | Person
-	/** A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip. */
 	director?: Person
-	/** The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)). */
 	endDate?: Date | DateTime
-	/** An episode of a TV, radio or game media within a series or season. */
 	episode?: Episode
-	/** An episode of a TV/radio series or season. */
 	episodes?: Episode
-	/** The number of episodes in this season or series. */
 	numberOfEpisodes?: Integer
-	/** The series to which this episode or season belongs. */
 	partOfSeries?: CreativeWorkSeries
-	/** The production company or studio responsible for the item, e.g. series, video game, episode etc. */
 	productionCompany?: Organization
-	/** Position of the season within an ordered group of seasons. */
-	seasonNumber?: Text | Integer
-	/** The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)). */
+	seasonNumber?: Integer | Text
 	startDate?: Date | DateTime
-	/** The trailer of a movie or TV/radio series, season, episode, etc. */
 	trailer?: VideoObject
 }
 

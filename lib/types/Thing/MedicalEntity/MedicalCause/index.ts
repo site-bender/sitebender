@@ -1,9 +1,8 @@
 import type Thing from "../../index.ts"
-import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
+import type MedicalEntity from "../index.ts"
 
 export interface MedicalCauseProps {
-	/** The condition, complication, symptom, sign, etc. caused. */
 	causeOf?: MedicalEntity
 }
 

@@ -1,28 +1,28 @@
-import type Thing from "../../../index.ts"
+import type {
+	Boolean,
+	Date,
+	DateTime,
+	Text,
+	Time,
+	URL,
+} from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type Place from "../../Place/index.ts"
-import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
-import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
 import type { IntangibleProps } from "../index.ts"
+import type CategoryCode from "../DefinedTerm/CategoryCode/index.ts"
+import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 import type MediaSubscription from "../MediaSubscription/index.ts"
 import type Offer from "../Offer/index.ts"
-import type GeoShape from "../StructuredValue/GeoShape/index.ts"
+import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
+import type Place from "../../Place/index.ts"
 
 export interface ActionAccessSpecificationProps {
-	/** The end of the availability of the product or service included in the offer. */
 	availabilityEnds?: Date | DateTime | Time
-	/** The beginning of the availability of the product or service included in the offer. */
-	availabilityStarts?: Date | Time | DateTime
-	/** A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy. */
-	category?: Thing | PhysicalActivityCategory | Text | URL | CategoryCode
-	/** The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.\n\nSee also [[ineligibleRegion]]. */
-	eligibleRegion?: Place | GeoShape | Text
-	/** An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it. */
+	availabilityStarts?: Date | DateTime | Time
+	category?: CategoryCode | PhysicalActivityCategory | Text | Thing | URL
+	eligibleRegion?: GeoShape | Place | Text
 	expectsAcceptanceOf?: Offer
-	/** The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is not valid, e.g. a region where the transaction is not allowed.\n\nSee also [[eligibleRegion]]. */
-	ineligibleRegion?: Place | GeoShape | Text
-	/** Indicates if use of the media require a subscription  (either paid or free). Allowed values are ```true``` or ```false``` (note that an earlier version had 'yes', 'no'). */
-	requiresSubscription?: MediaSubscription | Boolean
+	ineligibleRegion?: GeoShape | Place | Text
+	requiresSubscription?: Boolean | MediaSubscription
 }
 
 type ActionAccessSpecification =

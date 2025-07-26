@@ -1,19 +1,22 @@
-// CreditCard extends PaymentCard but adds no additional properties
 import type Thing from "../../../../index.ts"
 import type { IntangibleProps } from "../../../index.ts"
-import type { FinancialProductProps } from "../../../Service/FinancialProduct/index.ts"
-import type { PaymentCardProps } from "../../../Service/FinancialProduct/PaymentCard/index.ts"
 import type { ServiceProps } from "../../../Service/index.ts"
+import type { FinancialProductProps } from "../../../Service/FinancialProduct/index.ts"
+import type { LoanOrCreditProps } from "../../../Service/FinancialProduct/LoanOrCredit/index.ts"
+import type { PaymentCardProps } from "../index.ts"
+import type { PaymentMethodProps } from "../../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface CreditCardProps {}
+export interface CreditCardProps {
+}
 
 type CreditCard =
 	& Thing
-	& FinancialProductProps
 	& IntangibleProps
-	& PaymentCardProps
 	& ServiceProps
+	& FinancialProductProps
+	& LoanOrCreditProps
+	& PaymentCardProps
+	& PaymentMethodProps
 	& CreditCardProps
 
 export default CreditCard

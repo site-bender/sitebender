@@ -4,7 +4,6 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalTestProps } from "../index.ts"
 
 export interface PathologyTestProps {
-	/** The type of tissue sample required for the test. */
 	tissueSample?: Text
 }
 

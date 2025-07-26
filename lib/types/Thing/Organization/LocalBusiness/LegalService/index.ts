@@ -1,15 +1,16 @@
-// LegalService extends LocalBusiness but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../../Place/index.ts"
-import type { LocalBusinessProps } from "../../../Place/LocalBusiness/index.ts"
+import type { LocalBusinessProps } from "../index.ts"
+import type { OrganizationProps } from "../../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface LegalServiceProps {}
+export interface LegalServiceProps {
+}
 
 type LegalService =
 	& Thing
-	& LocalBusinessProps
 	& PlaceProps
+	& LocalBusinessProps
+	& OrganizationProps
 	& LegalServiceProps
 
 export default LegalService

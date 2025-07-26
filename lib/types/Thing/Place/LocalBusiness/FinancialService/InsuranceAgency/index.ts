@@ -1,1 +1,1 @@
-export type { default } from "../../../../../Thing/Organization/LocalBusiness/FinancialService/InsuranceAgency/index.ts"
+export type { default } from "../../../../Organization/LocalBusiness/FinancialService/InsuranceAgency/index.ts"

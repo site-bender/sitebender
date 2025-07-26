@@ -4,14 +4,10 @@ import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 
 export interface TaxonProps {
-	/** Closest child taxa of the taxon in question. */
 	childTaxon?: Taxon | Text | URL
-	/** A Defined Term contained in this term set. */
 	hasDefinedTerm?: DefinedTerm
-	/** Closest parent taxon of the taxon in question. */
 	parentTaxon?: Taxon | Text | URL
-	/** The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs. */
-	taxonRank?: PropertyValue | URL | Text
+	taxonRank?: PropertyValue | Text | URL
 }
 
 type Taxon =

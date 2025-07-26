@@ -1,3 +1,20 @@
-import type EmergencyService from "../../LocalBusiness/EmergencyService/index.ts"
+import type Thing from "../../../index.ts"
+import type { OrganizationProps } from "../../../Organization/index.ts"
+import type { LocalBusinessProps } from "../../../Organization/LocalBusiness/index.ts"
+import type { EmergencyServiceProps } from "../../../Organization/LocalBusiness/EmergencyService/index.ts"
+import type { PlaceProps } from "../../index.ts"
+import type { CivicStructureProps } from "../index.ts"
 
-export type { default } from "../../../../Thing/Organization/LocalBusiness/EmergencyService/PoliceStation/index.ts"
+export interface PoliceStationProps {
+}
+
+type PoliceStation =
+	& Thing
+	& OrganizationProps
+	& LocalBusinessProps
+	& EmergencyServiceProps
+	& PlaceProps
+	& CivicStructureProps
+	& PoliceStationProps
+
+export default PoliceStation

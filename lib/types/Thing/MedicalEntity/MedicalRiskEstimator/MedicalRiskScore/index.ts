@@ -4,7 +4,6 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalRiskEstimatorProps } from "../index.ts"
 
 export interface MedicalRiskScoreProps {
-	/** The algorithm or rules to follow to compute the score. */
 	algorithm?: Text
 }
 

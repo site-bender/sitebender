@@ -1,1 +1,1 @@
-export type { default } from "../../../../Thing/Organization/LocalBusiness/TouristInformationCenter/index.ts"
+export type { default } from "../../../Organization/LocalBusiness/TouristInformationCenter/index.ts"

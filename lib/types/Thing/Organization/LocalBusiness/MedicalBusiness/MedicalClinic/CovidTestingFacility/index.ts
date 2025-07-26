@@ -1,1 +1,1 @@
-export type { default } from "../../../../../../Thing/Organization/MedicalOrganization/MedicalClinic/CovidTestingFacility/index.ts"
+export type { default } from "../../../../MedicalOrganization/MedicalClinic/CovidTestingFacility/index.ts"

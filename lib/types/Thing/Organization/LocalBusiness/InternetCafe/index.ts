@@ -1,15 +1,16 @@
-// InternetCafe extends LocalBusiness but adds no additional properties
 import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../../Place/index.ts"
-import type { LocalBusinessProps } from "../../../Place/LocalBusiness/index.ts"
+import type { LocalBusinessProps } from "../index.ts"
+import type { OrganizationProps } from "../../index.ts"
 
-// deno-lint-ignore no-empty-interface
-export interface InternetCafeProps {}
+export interface InternetCafeProps {
+}
 
 type InternetCafe =
 	& Thing
-	& LocalBusinessProps
 	& PlaceProps
+	& LocalBusinessProps
+	& OrganizationProps
 	& InternetCafeProps
 
 export default InternetCafe

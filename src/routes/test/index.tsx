@@ -1,8 +1,8 @@
 import Base from "~lib/components/Base/index.tsx"
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
-import Drug from "~lib/components/Thing/Product/Drug/index.tsx"
 import Organization from "~lib/components/Thing/Organization/index.tsx"
 import Person from "~lib/components/Thing/Person/index.tsx"
+import Drug from "~lib/components/Thing/Product/Drug/index.tsx"
 
 import Fragment from "~utilities/Fragment/index.ts"
 

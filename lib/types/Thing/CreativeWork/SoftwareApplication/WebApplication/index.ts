@@ -4,7 +4,6 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { SoftwareApplicationProps } from "../index.ts"
 
 export interface WebApplicationProps {
-	/** Specifies browser requirements in human-readable text. For example, 'requires HTML5 support'. */
 	browserRequirements?: Text
 }
 
