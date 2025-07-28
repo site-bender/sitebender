@@ -6,6 +6,8 @@ import type { FinancialProductProps } from "../../Service/FinancialProduct/index
 import type { PaymentMethodProps } from "../index.ts"
 import type MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
 
+import PaymentCardComponent from "../../../../../../components/Thing/Intangible/PaymentMethod/PaymentCard/index.tsx"
+
 export interface PaymentCardProps {
 	cashBack?: Boolean | Number
 	contactlessPayment?: Boolean

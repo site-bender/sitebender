@@ -6,6 +6,8 @@ import type AnatomicalSystem from "../AnatomicalSystem/index.ts"
 import type MedicalCondition from "../MedicalCondition/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+import SuperficialAnatomyComponent from "../../../../../components/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
+
 export interface SuperficialAnatomyProps {
 	associatedPathophysiology?: Text
 	relatedAnatomy?: AnatomicalStructure | AnatomicalSystem

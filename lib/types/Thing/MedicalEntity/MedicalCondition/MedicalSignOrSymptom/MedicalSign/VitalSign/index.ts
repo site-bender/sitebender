@@ -4,6 +4,8 @@ import type { MedicalConditionProps } from "../../../index.ts"
 import type { MedicalSignOrSymptomProps } from "../../index.ts"
 import type { MedicalSignProps } from "../index.ts"
 
+import VitalSignComponent from "../../../../../../../../components/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/VitalSign/index.tsx"
+
 export interface VitalSignProps {
 }
 

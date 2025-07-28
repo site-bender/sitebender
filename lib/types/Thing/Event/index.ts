@@ -29,6 +29,8 @@ import type Review from "../CreativeWork/Review/index.ts"
 import type Schedule from "../Intangible/Schedule/index.ts"
 import type VirtualLocation from "../Intangible/VirtualLocation/index.ts"
 
+import EventComponent from "../../../../components/Thing/Event/index.tsx"
+
 export interface EventProps {
 	about?: Thing
 	actor?: PerformingGroup | Person

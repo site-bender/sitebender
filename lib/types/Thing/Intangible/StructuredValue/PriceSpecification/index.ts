@@ -11,6 +11,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type MemberProgramTier from "../../MemberProgramTier/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
+import PriceSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
+
 export interface PriceSpecificationProps {
 	eligibleQuantity?: QuantitativeValue
 	eligibleTransactionVolume?: PriceSpecification

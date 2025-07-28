@@ -8,6 +8,8 @@ import type Place from "../../Place/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 import type Service from "../Service/index.ts"
 
+import ServiceChannelComponent from "../../../../../components/Thing/Intangible/ServiceChannel/index.tsx"
+
 export interface ServiceChannelProps {
 	availableLanguage?: Language | Text
 	processingTime?: Duration

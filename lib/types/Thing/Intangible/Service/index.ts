@@ -22,6 +22,8 @@ import type Product from "../../Product/index.ts"
 import type Review from "../../CreativeWork/Review/index.ts"
 import type ServiceChannel from "../ServiceChannel/index.ts"
 
+import ServiceComponent from "../../../../../components/Thing/Intangible/Service/index.tsx"
+
 export interface ServiceProps {
 	aggregateRating?: AggregateRating
 	areaServed?: AdministrativeArea | GeoShape | Place | Text

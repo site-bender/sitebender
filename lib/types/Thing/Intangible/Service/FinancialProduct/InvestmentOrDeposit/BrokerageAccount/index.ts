@@ -4,6 +4,8 @@ import type { ServiceProps } from "../../../index.ts"
 import type { FinancialProductProps } from "../../index.ts"
 import type { InvestmentOrDepositProps } from "../index.ts"
 
+import BrokerageAccountComponent from "../../../../../../../../components/Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/BrokerageAccount/index.tsx"
+
 export interface BrokerageAccountProps {
 }
 

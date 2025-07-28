@@ -8,6 +8,8 @@ import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
 import type Person from "../../Person/index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
+import CreativeWorkSeasonComponent from "../../../../../components/Thing/CreativeWork/CreativeWorkSeason/index.tsx"
+
 export interface CreativeWorkSeasonProps {
 	actor?: PerformingGroup | Person
 	director?: Person

@@ -4,6 +4,8 @@ import type { CreativeWorkProps } from "../index.ts"
 import type ComputerLanguage from "../../Intangible/ComputerLanguage/index.ts"
 import type SoftwareApplication from "../SoftwareApplication/index.ts"
 
+import SoftwareSourceCodeComponent from "../../../../../components/Thing/CreativeWork/SoftwareSourceCode/index.tsx"
+
 export interface SoftwareSourceCodeProps {
 	codeRepository?: URL
 	codeSampleType?: Text

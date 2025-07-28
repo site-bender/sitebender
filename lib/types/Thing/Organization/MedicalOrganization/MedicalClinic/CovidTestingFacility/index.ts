@@ -6,6 +6,8 @@ import type { MedicalClinicProps } from "../index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
 import type { MedicalOrganizationProps } from "../../index.ts"
 
+import CovidTestingFacilityComponent from "../../../../../../../components/Thing/Organization/MedicalOrganization/MedicalClinic/CovidTestingFacility/index.tsx"
+
 export interface CovidTestingFacilityProps {
 }
 

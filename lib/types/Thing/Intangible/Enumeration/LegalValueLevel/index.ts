@@ -2,6 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
+import LegalValueLevelComponent from "../../../../../../components/Thing/Intangible/Enumeration/LegalValueLevel/index.tsx"
+
 export interface LegalValueLevelProps {
 }
 

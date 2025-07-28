@@ -8,6 +8,8 @@ import type DataFeed from "../../Dataset/DataFeed/index.ts"
 import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import PodcastSeriesComponent from "../../../../../../components/Thing/CreativeWork/CreativeWorkSeries/PodcastSeries/index.tsx"
+
 export interface PodcastSeriesProps {
 	actor?: PerformingGroup | Person
 	webFeed?: DataFeed | URL

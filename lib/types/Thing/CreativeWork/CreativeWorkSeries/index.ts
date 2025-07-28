@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../../Intangible/index.ts"
 import type { SeriesProps } from "../../Intangible/Series/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import CreativeWorkSeriesComponent from "../../../../../components/Thing/CreativeWork/CreativeWorkSeries/index.tsx"
+
 export interface CreativeWorkSeriesProps {
 	endDate?: Date | DateTime
 	issn?: Text

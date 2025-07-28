@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../index.ts"
 import type DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
 import type SoftwareApplication from "../../CreativeWork/SoftwareApplication/index.ts"
 
+import EntryPointComponent from "../../../../../components/Thing/Intangible/EntryPoint/index.tsx"
+
 export interface EntryPointProps {
 	actionApplication?: SoftwareApplication
 	actionPlatform?: DigitalPlatformEnumeration | Text | URL

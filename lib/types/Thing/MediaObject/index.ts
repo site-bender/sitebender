@@ -19,6 +19,8 @@ import type Organization from "../Organization/index.ts"
 import type Place from "../Place/index.ts"
 import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.tsx"
+
 export interface MediaObjectProps {
 	associatedArticle?: NewsArticle
 	bitrate?: Text

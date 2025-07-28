@@ -6,6 +6,8 @@ import type BrainStructure from "../BrainStructure/index.ts"
 import type Muscle from "../Muscle/index.ts"
 import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
 
+import NerveComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Nerve/index.tsx"
+
 export interface NerveProps {
 	branch?: AnatomicalStructure
 	nerveMotor?: Muscle

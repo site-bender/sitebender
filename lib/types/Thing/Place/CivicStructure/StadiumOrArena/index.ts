@@ -5,6 +5,8 @@ import type { SportsActivityLocationProps } from "../../../Organization/LocalBus
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+import StadiumOrArenaComponent from "../../../../../../components/Thing/Place/CivicStructure/StadiumOrArena/index.tsx"
+
 export interface StadiumOrArenaProps {
 }
 

@@ -5,6 +5,8 @@ import type { OfferProps } from "../index.ts"
 import type Demand from "../../Demand/index.ts"
 import type Offer from "../index.ts"
 
+import AggregateOfferComponent from "../../../../../../components/Thing/Intangible/Offer/AggregateOffer/index.tsx"
+
 export interface AggregateOfferProps {
 	highPrice?: Number | Text
 	lowPrice?: Number | Text

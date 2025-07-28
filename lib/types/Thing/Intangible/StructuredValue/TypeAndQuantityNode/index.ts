@@ -6,6 +6,8 @@ import type BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
 import type Product from "../../../Product/index.ts"
 import type Service from "../../Service/index.ts"
 
+import TypeAndQuantityNodeComponent from "../../../../../../components/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.tsx"
+
 export interface TypeAndQuantityNodeProps {
 	amountOfThisGood?: Number
 	businessFunction?: BusinessFunction

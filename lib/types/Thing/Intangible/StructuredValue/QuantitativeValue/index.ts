@@ -9,6 +9,8 @@ import type PropertyValue from "../PropertyValue/index.ts"
 import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
 import type StructuredValue from "../index.ts"
 
+import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+
 export interface QuantitativeValueProps {
 	additionalProperty?: PropertyValue
 	maxValue?: Number

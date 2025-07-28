@@ -3,6 +3,8 @@ import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+import AirportComponent from "../../../../../../components/Thing/Place/CivicStructure/Airport/index.tsx"
+
 export interface AirportProps {
 	iataCode?: Text
 	icaoCode?: Text

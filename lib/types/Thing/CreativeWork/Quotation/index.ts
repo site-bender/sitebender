@@ -3,6 +3,8 @@ import type { CreativeWorkProps } from "../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import QuotationComponent from "../../../../../components/Thing/CreativeWork/Quotation/index.tsx"
+
 export interface QuotationProps {
 	spokenByCharacter?: Organization | Person
 }

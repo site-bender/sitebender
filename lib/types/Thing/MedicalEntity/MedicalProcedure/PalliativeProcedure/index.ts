@@ -4,6 +4,8 @@ import type { MedicalProcedureProps } from "../index.ts"
 import type { TherapeuticProcedureProps } from "../TherapeuticProcedure/index.ts"
 import type { MedicalTherapyProps } from "../TherapeuticProcedure/MedicalTherapy/index.ts"
 
+import PalliativeProcedureComponent from "../../../../../../components/Thing/MedicalEntity/MedicalProcedure/PalliativeProcedure/index.tsx"
+
 export interface PalliativeProcedureProps {
 }
 

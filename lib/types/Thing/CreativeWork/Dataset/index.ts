@@ -9,6 +9,8 @@ import type Property from "../../Intangible/Property/index.ts"
 import type PropertyValue from "../../Intangible/StructuredValue/PropertyValue/index.ts"
 import type StatisticalVariable from "../../Intangible/ConstraintNode/StatisticalVariable/index.ts"
 
+import DatasetComponent from "../../../../../components/Thing/CreativeWork/Dataset/index.tsx"
+
 export interface DatasetProps {
 	catalog?: DataCatalog
 	datasetTimeInterval?: DateTime

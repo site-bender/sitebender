@@ -3,6 +3,8 @@ import type { MedicalEntityProps } from "../../../index.ts"
 import type { MedicalIntangibleProps } from "../../index.ts"
 import type { DoseScheduleProps } from "../index.ts"
 
+import RecommendedDoseScheduleComponent from "../../../../../../../components/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.tsx"
+
 export interface RecommendedDoseScheduleProps {
 }
 

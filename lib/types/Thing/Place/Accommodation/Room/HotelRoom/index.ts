@@ -7,6 +7,8 @@ import type BedDetails from "../../../../Intangible/BedDetails/index.ts"
 import type BedType from "../../../../Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 import type QuantitativeValue from "../../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import HotelRoomComponent from "../../../../../../../components/Thing/Place/Accommodation/Room/HotelRoom/index.tsx"
+
 export interface HotelRoomProps {
 	bed?: BedDetails | BedType | Text
 	occupancy?: QuantitativeValue

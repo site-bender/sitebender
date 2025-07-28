@@ -4,6 +4,8 @@ import type { CreativeWorkProps } from "../index.ts"
 import type CreativeWork from "../index.ts"
 import type SpeakableSpecification from "../../Intangible/SpeakableSpecification/index.ts"
 
+import ArticleComponent from "../../../../../components/Thing/CreativeWork/Article/index.tsx"
+
 export interface ArticleProps {
 	articleBody?: Text
 	articleSection?: Text

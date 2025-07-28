@@ -17,6 +17,8 @@ import type PurchaseType from "../Enumeration/PurchaseType/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 import type UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
+import FinancialIncentiveComponent from "../../../../../components/Thing/Intangible/FinancialIncentive/index.tsx"
+
 export interface FinancialIncentiveProps {
 	areaServed?: AdministrativeArea | GeoShape | Place | Text
 	eligibleWithSupplier?: Organization

@@ -12,6 +12,8 @@ import type PropertyValue from "../StructuredValue/PropertyValue/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 import type StatisticalVariable from "../ConstraintNode/StatisticalVariable/index.ts"
 
+import ObservationComponent from "../../../../../components/Thing/Intangible/Observation/index.tsx"
+
 export interface ObservationProps {
 	marginOfError?: QuantitativeValue
 	measuredProperty?: Property

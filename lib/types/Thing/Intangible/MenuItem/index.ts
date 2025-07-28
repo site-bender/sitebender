@@ -6,6 +6,8 @@ import type NutritionInformation from "../StructuredValue/NutritionInformation/i
 import type Offer from "../Offer/index.ts"
 import type RestrictedDiet from "../Enumeration/RestrictedDiet/index.ts"
 
+import MenuItemComponent from "../../../../../components/Thing/Intangible/MenuItem/index.tsx"
+
 export interface MenuItemProps {
 	menuAddOn?: MenuItem | MenuSection
 	nutrition?: NutritionInformation

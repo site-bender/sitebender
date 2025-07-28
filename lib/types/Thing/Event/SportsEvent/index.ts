@@ -4,6 +4,8 @@ import type { EventProps } from "../index.ts"
 import type Person from "../../Person/index.ts"
 import type SportsTeam from "../../Organization/SportsOrganization/SportsTeam/index.ts"
 
+import SportsEventComponent from "../../../../../components/Thing/Event/SportsEvent/index.tsx"
+
 export interface SportsEventProps {
 	awayTeam?: Person | SportsTeam
 	competitor?: Person | SportsTeam

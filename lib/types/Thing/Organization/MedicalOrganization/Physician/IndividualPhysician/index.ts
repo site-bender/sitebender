@@ -7,6 +7,8 @@ import type { PlaceProps } from "../../../../Place/index.ts"
 import type { MedicalOrganizationProps } from "../../index.ts"
 import type MedicalOrganization from "../../index.ts"
 
+import IndividualPhysicianComponent from "../../../../../../../components/Thing/Organization/MedicalOrganization/Physician/IndividualPhysician/index.tsx"
+
 export interface IndividualPhysicianProps {
 	practicesAt?: MedicalOrganization
 }

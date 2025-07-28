@@ -2,6 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
+import PriceTypeEnumerationComponent from "../../../../../../components/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
+
 export interface PriceTypeEnumerationProps {
 }
 

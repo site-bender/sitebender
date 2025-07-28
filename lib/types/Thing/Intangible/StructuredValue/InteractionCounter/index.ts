@@ -14,6 +14,8 @@ import type SoftwareApplication from "../../../CreativeWork/SoftwareApplication/
 import type VirtualLocation from "../../VirtualLocation/index.ts"
 import type WebSite from "../../../CreativeWork/WebSite/index.ts"
 
+import InteractionCounterComponent from "../../../../../../components/Thing/Intangible/StructuredValue/InteractionCounter/index.tsx"
+
 export interface InteractionCounterProps {
 	endTime?: DateTime | Time
 	interactionService?: SoftwareApplication | WebSite

@@ -11,6 +11,8 @@ import type Observation from "../../Intangible/Observation/index.ts"
 import type PhysicalActivityCategory from "../../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 import type WebContent from "../WebContent/index.ts"
 
+import SpecialAnnouncementComponent from "../../../../../components/Thing/CreativeWork/SpecialAnnouncement/index.tsx"
+
 export interface SpecialAnnouncementProps {
 	announcementLocation?: CivicStructure | LocalBusiness
 	category?: CategoryCode | PhysicalActivityCategory | Text | Thing | URL

@@ -9,6 +9,8 @@ import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 import type OccupationalExperienceRequirements from "../OccupationalExperienceRequirements/index.ts"
 
+import OccupationComponent from "../../../../../components/Thing/Intangible/Occupation/index.tsx"
+
 export interface OccupationProps {
 	educationRequirements?: EducationalOccupationalCredential | Text
 	estimatedSalary?: MonetaryAmount | MonetaryAmountDistribution | Number

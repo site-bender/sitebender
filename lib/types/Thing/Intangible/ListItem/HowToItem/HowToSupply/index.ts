@@ -5,6 +5,8 @@ import type { ListItemProps } from "../../index.ts"
 import type { HowToItemProps } from "../index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 
+import HowToSupplyComponent from "../../../../../../../components/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.tsx"
+
 export interface HowToSupplyProps {
 	estimatedCost?: MonetaryAmount | Text
 }

@@ -3,6 +3,8 @@ import type { OrganizationProps } from "../../index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
 import type MedicalTest from "../../../MedicalEntity/MedicalTest/index.ts"
 
+import DiagnosticLabComponent from "../../../../../../components/Thing/Organization/MedicalOrganization/DiagnosticLab/index.tsx"
+
 export interface DiagnosticLabProps {
 	availableTest?: MedicalTest
 }

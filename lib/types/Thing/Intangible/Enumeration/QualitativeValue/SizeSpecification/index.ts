@@ -8,6 +8,8 @@ import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/i
 import type SizeGroupEnumeration from "../../SizeGroupEnumeration/index.ts"
 import type SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
 
+import SizeSpecificationComponent from "../../../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/SizeSpecification/index.tsx"
+
 export interface SizeSpecificationProps {
 	hasMeasurement?: QuantitativeValue
 	sizeGroup?: SizeGroupEnumeration | Text

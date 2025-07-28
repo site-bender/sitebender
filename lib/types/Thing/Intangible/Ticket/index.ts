@@ -12,6 +12,8 @@ import type Person from "../../Person/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 import type Seat from "../Seat/index.ts"
 
+import TicketComponent from "../../../../../components/Thing/Intangible/Ticket/index.tsx"
+
 export interface TicketProps {
 	dateIssued?: Date | DateTime
 	issuedBy?: Organization

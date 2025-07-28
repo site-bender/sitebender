@@ -4,6 +4,8 @@ import type { PlaceProps } from "../../index.ts"
 import type { ResidenceProps } from "../index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import ApartmentComplexComponent from "../../../../../../components/Thing/Place/Residence/ApartmentComplex/index.tsx"
+
 export interface ApartmentComplexProps {
 	numberOfAccommodationUnits?: QuantitativeValue
 	numberOfAvailableAccommodationUnits?: QuantitativeValue

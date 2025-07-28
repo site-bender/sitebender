@@ -6,6 +6,8 @@ import type AnatomicalStructure from "../index.ts"
 import type Nerve from "../Nerve/index.ts"
 import type Vessel from "../Vessel/index.ts"
 
+import MuscleComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
+
 export interface MuscleProps {
 	antagonist?: Muscle
 	bloodSupply?: Vessel

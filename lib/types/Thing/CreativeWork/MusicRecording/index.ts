@@ -9,6 +9,8 @@ import type MusicPlaylist from "../MusicPlaylist/index.ts"
 import type Person from "../../Person/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import MusicRecordingComponent from "../../../../../components/Thing/CreativeWork/MusicRecording/index.tsx"
+
 export interface MusicRecordingProps {
 	byArtist?: MusicGroup | Person
 	duration?: Duration | QuantitativeValue

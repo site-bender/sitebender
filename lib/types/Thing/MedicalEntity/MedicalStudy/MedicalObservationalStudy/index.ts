@@ -3,6 +3,8 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalStudyProps } from "../index.ts"
 import type MedicalObservationalStudyDesign from "../../../Intangible/Enumeration/MedicalEnumeration/MedicalObservationalStudyDesign/index.ts"
 
+import MedicalObservationalStudyComponent from "../../../../../../components/Thing/MedicalEntity/MedicalStudy/MedicalObservationalStudy/index.tsx"
+
 export interface MedicalObservationalStudyProps {
 	studyDesign?: MedicalObservationalStudyDesign
 }

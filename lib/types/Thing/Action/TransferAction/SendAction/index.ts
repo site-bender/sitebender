@@ -7,6 +7,8 @@ import type DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import SendActionComponent from "../../../../../../components/Thing/Action/TransferAction/SendAction/index.tsx"
+
 export interface SendActionProps {
 	deliveryMethod?: DeliveryMethod
 	recipient?: Audience | ContactPoint | Organization | Person

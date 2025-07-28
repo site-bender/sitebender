@@ -9,6 +9,8 @@ import type Place from "../Place/index.ts"
 import type PostalAddress from "../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import type VirtualLocation from "../Intangible/VirtualLocation/index.ts"
 
+import ActionComponent from "../../../../components/Thing/Action/index.tsx"
+
 export interface ActionProps {
 	actionProcess?: HowTo
 	actionStatus?: ActionStatusType

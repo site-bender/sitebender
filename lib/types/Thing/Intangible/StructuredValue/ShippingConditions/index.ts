@@ -11,6 +11,8 @@ import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ServicePeriod from "../ServicePeriod/index.ts"
 import type ShippingRateSettings from "../ShippingRateSettings/index.ts"
 
+import ShippingConditionsComponent from "../../../../../../components/Thing/Intangible/StructuredValue/ShippingConditions/index.tsx"
+
 export interface ShippingConditionsProps {
 	depth?: Distance | QuantitativeValue
 	doesNotShip?: Boolean

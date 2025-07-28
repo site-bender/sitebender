@@ -12,6 +12,8 @@ import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts
 import type Person from "../../../Person/index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 
+import RadioSeriesComponent from "../../../../../../components/Thing/CreativeWork/CreativeWorkSeries/RadioSeries/index.tsx"
+
 export interface RadioSeriesProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

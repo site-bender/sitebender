@@ -8,6 +8,8 @@ import type Language from "../../../Intangible/Language/index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import CommunicateActionComponent from "../../../../../../components/Thing/Action/InteractAction/CommunicateAction/index.tsx"
+
 export interface CommunicateActionProps {
 	about?: Thing
 	inLanguage?: Language | Text

@@ -4,6 +4,8 @@ import type { TransferActionProps } from "../index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import BorrowActionComponent from "../../../../../../components/Thing/Action/TransferAction/BorrowAction/index.tsx"
+
 export interface BorrowActionProps {
 	lender?: Organization | Person
 }

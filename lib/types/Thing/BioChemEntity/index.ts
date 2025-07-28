@@ -7,6 +7,8 @@ import type MedicalCondition from "../MedicalEntity/MedicalCondition/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 import type Taxon from "../Taxon/index.ts"
 
+import BioChemEntityComponent from "../../../../components/Thing/BioChemEntity/index.tsx"
+
 export interface BioChemEntityProps {
 	associatedDisease?: MedicalCondition | PropertyValue | URL
 	bioChemInteraction?: BioChemEntity

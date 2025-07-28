@@ -7,6 +7,8 @@ import type LegalForceStatus from "../../Intangible/Enumeration/StatusEnumeratio
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import LegislationComponent from "../../../../../components/Thing/CreativeWork/Legislation/index.tsx"
+
 export interface LegislationProps {
 	jurisdiction?: AdministrativeArea | Text
 	legislationAmends?: Legislation

@@ -5,6 +5,8 @@ import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type WarrantyPromise from "../../../Intangible/StructuredValue/WarrantyPromise/index.ts"
 
+import SellActionComponent from "../../../../../../components/Thing/Action/TradeAction/SellAction/index.tsx"
+
 export interface SellActionProps {
 	buyer?: Organization | Person
 	warrantyPromise?: WarrantyPromise

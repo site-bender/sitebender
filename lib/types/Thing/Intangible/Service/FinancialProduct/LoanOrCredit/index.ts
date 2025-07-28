@@ -13,6 +13,8 @@ import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.t
 import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/index.ts"
 import type RepaymentSpecification from "../../../StructuredValue/RepaymentSpecification/index.ts"
 
+import LoanOrCreditComponent from "../../../../../../../components/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/index.tsx"
+
 export interface LoanOrCreditProps {
 	amount?: MonetaryAmount | Number
 	currency?: Text

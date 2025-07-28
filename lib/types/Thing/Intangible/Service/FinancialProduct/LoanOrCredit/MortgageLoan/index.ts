@@ -6,6 +6,8 @@ import type { FinancialProductProps } from "../../index.ts"
 import type { LoanOrCreditProps } from "../index.ts"
 import type MonetaryAmount from "../../../../StructuredValue/MonetaryAmount/index.ts"
 
+import MortgageLoanComponent from "../../../../../../../../components/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/MortgageLoan/index.tsx"
+
 export interface MortgageLoanProps {
 	domiciledMortgage?: Boolean
 	loanMortgageMandateAmount?: MonetaryAmount

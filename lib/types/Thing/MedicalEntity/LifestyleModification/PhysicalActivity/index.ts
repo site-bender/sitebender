@@ -8,6 +8,8 @@ import type CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/inde
 import type PhysicalActivityCategory from "../../../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
 
+import PhysicalActivityComponent from "../../../../../../components/Thing/MedicalEntity/LifestyleModification/PhysicalActivity/index.tsx"
+
 export interface PhysicalActivityProps {
 	associatedAnatomy?:
 		| AnatomicalStructure

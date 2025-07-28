@@ -4,6 +4,8 @@ import type { LocalBusinessProps } from "../../index.ts"
 import type { FinancialServiceProps } from "../index.ts"
 import type { OrganizationProps } from "../../../index.ts"
 
+import AutomatedTellerComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/FinancialService/AutomatedTeller/index.tsx"
+
 export interface AutomatedTellerProps {
 }
 

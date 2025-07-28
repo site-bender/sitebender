@@ -8,6 +8,8 @@ import type Language from "../../Language/index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Place from "../../../Place/index.ts"
 
+import BroadcastServiceComponent from "../../../../../../components/Thing/Intangible/Service/BroadcastService/index.tsx"
+
 export interface BroadcastServiceProps {
 	area?: Place
 	broadcastAffiliateOf?: Organization

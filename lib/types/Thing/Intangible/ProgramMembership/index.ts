@@ -6,6 +6,8 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
+import ProgramMembershipComponent from "../../../../../components/Thing/Intangible/ProgramMembership/index.tsx"
+
 export interface ProgramMembershipProps {
 	hostingOrganization?: Organization
 	member?: Organization | Person

@@ -2,6 +2,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { ConsumeActionProps } from "../index.ts"
 
+import DrinkActionComponent from "../../../../../../components/Thing/Action/ConsumeAction/DrinkAction/index.tsx"
+
 export interface DrinkActionProps {
 }
 

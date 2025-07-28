@@ -11,6 +11,8 @@ import type Person from "../../Person/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
+import EpisodeComponent from "../../../../../components/Thing/CreativeWork/Episode/index.tsx"
+
 export interface EpisodeProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

@@ -8,6 +8,8 @@ import type MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/Dose
 import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
 import type RecommendedDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.ts"
 
+import DietarySupplementComponent from "../../../../../components/Thing/Product/DietarySupplement/index.tsx"
+
 export interface DietarySupplementProps {
 	activeIngredient?: Text
 	isProprietary?: Boolean

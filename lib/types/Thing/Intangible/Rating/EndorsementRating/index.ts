@@ -2,6 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { RatingProps } from "../index.ts"
 
+import EndorsementRatingComponent from "../../../../../../components/Thing/Intangible/Rating/EndorsementRating/index.tsx"
+
 export interface EndorsementRatingProps {
 }
 

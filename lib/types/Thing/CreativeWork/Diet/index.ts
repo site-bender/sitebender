@@ -6,6 +6,8 @@ import type { CreativeWorkProps } from "../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import DietComponent from "../../../../../components/Thing/CreativeWork/Diet/index.tsx"
+
 export interface DietProps {
 	dietFeatures?: Text
 	endorsers?: Organization | Person

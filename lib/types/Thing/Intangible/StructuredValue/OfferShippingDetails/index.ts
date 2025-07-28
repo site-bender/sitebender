@@ -12,6 +12,8 @@ import type ShippingDeliveryTime from "../ShippingDeliveryTime/index.ts"
 import type ShippingRateSettings from "../ShippingRateSettings/index.ts"
 import type ShippingService from "../ShippingService/index.ts"
 
+import OfferShippingDetailsComponent from "../../../../../../components/Thing/Intangible/StructuredValue/OfferShippingDetails/index.tsx"
+
 export interface OfferShippingDetailsProps {
 	deliveryTime?: ShippingDeliveryTime
 	depth?: Distance | QuantitativeValue

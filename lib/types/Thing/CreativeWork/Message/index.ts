@@ -7,6 +7,8 @@ import type CreativeWork from "../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import MessageComponent from "../../../../../components/Thing/CreativeWork/Message/index.tsx"
+
 export interface MessageProps {
 	bccRecipient?: ContactPoint | Organization | Person
 	ccRecipient?: ContactPoint | Organization | Person

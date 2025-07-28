@@ -5,6 +5,8 @@ import type { StructuredValueProps } from "../../index.ts"
 import type { ContactPointProps } from "../index.ts"
 import type Country from "../../../../Place/AdministrativeArea/Country/index.ts"
 
+import PostalAddressComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+
 export interface PostalAddressProps {
 	addressCountry?: Country | Text
 	addressLocality?: Text

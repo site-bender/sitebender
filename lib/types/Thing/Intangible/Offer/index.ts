@@ -43,6 +43,8 @@ import type Trip from "../Trip/index.ts"
 import type TypeAndQuantityNode from "../StructuredValue/TypeAndQuantityNode/index.ts"
 import type WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 
+import OfferComponent from "../../../../../components/Thing/Intangible/Offer/index.tsx"
+
 export interface OfferProps {
 	acceptedPaymentMethod?: LoanOrCredit | PaymentMethod | Text
 	additionalProperty?: PropertyValue

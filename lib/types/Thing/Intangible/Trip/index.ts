@@ -8,6 +8,8 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Place from "../../Place/index.ts"
 
+import TripComponent from "../../../../../components/Thing/Intangible/Trip/index.tsx"
+
 export interface TripProps {
 	arrivalTime?: DateTime | Time
 	departureTime?: DateTime | Time

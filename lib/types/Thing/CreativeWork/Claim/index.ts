@@ -4,6 +4,8 @@ import type CreativeWork from "../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import ClaimComponent from "../../../../../components/Thing/CreativeWork/Claim/index.tsx"
+
 export interface ClaimProps {
 	appearance?: CreativeWork
 	claimInterpreter?: Organization | Person

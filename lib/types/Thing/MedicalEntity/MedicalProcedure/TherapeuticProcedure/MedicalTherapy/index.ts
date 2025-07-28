@@ -6,6 +6,8 @@ import type { TherapeuticProcedureProps } from "../index.ts"
 import type MedicalContraindication from "../../../MedicalContraindication/index.ts"
 import type MedicalEntity from "../../../index.ts"
 
+import MedicalTherapyComponent from "../../../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
+
 export interface MedicalTherapyProps {
 	contraindication?: MedicalContraindication | Text
 	duplicateTherapy?: MedicalTherapy

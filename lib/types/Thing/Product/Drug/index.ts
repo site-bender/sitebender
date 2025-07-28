@@ -13,6 +13,8 @@ import type HealthInsurancePlan from "../../Intangible/HealthInsurancePlan/index
 import type MaximumDoseSchedule from "../../MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
 import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
 
+import DrugComponent from "../../../../../components/Thing/Product/Drug/index.tsx"
+
 export interface DrugProps {
 	activeIngredient?: Text
 	administrationRoute?: Text

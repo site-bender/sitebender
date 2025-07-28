@@ -5,6 +5,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
 import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 
+import GeoShapeComponent from "../../../../../../components/Thing/Intangible/StructuredValue/GeoShape/index.tsx"
+
 export interface GeoShapeProps {
 	address?: PostalAddress | Text
 	addressCountry?: Country | Text

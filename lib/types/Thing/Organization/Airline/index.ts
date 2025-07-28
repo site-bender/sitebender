@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { OrganizationProps } from "../index.ts"
 import type BoardingPolicyType from "../../Intangible/Enumeration/BoardingPolicyType/index.ts"
 
+import AirlineComponent from "../../../../../components/Thing/Organization/Airline/index.tsx"
+
 export interface AirlineProps {
 	boardingPolicy?: BoardingPolicyType
 	iataCode?: Text

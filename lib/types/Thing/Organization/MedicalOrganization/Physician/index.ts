@@ -12,6 +12,8 @@ import type MedicalSpecialty from "../../../Intangible/Enumeration/MedicalEnumer
 import type MedicalTest from "../../../MedicalEntity/MedicalTest/index.ts"
 import type MedicalTherapy from "../../../MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+import PhysicianComponent from "../../../../../../components/Thing/Organization/MedicalOrganization/Physician/index.tsx"
+
 export interface PhysicianProps {
 	availableService?: MedicalProcedure | MedicalTest | MedicalTherapy
 	hospitalAffiliation?: Hospital

@@ -12,6 +12,8 @@ import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.t
 import type LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
+import FloorPlanComponent from "../../../../../components/Thing/Intangible/FloorPlan/index.tsx"
+
 export interface FloorPlanProps {
 	amenityFeature?: LocationFeatureSpecification
 	floorSize?: QuantitativeValue

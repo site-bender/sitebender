@@ -5,6 +5,8 @@ import type { ReviewProps } from "../index.ts"
 import type CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/index.ts"
 import type PhysicalActivityCategory from "../../../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 
+import RecommendationComponent from "../../../../../../components/Thing/CreativeWork/Review/Recommendation/index.tsx"
+
 export interface RecommendationProps {
 	category?: CategoryCode | PhysicalActivityCategory | Text | Thing | URL
 }

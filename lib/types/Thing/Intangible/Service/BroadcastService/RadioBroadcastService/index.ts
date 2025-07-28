@@ -3,6 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { ServiceProps } from "../../index.ts"
 import type { BroadcastServiceProps } from "../index.ts"
 
+import RadioBroadcastServiceComponent from "../../../../../../../components/Thing/Intangible/Service/BroadcastService/RadioBroadcastService/index.tsx"
+
 export interface RadioBroadcastServiceProps {
 }
 

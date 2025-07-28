@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
 import type CreativeWork from "../../../CreativeWork/index.ts"
 
+import WebAPIComponent from "../../../../../../components/Thing/Intangible/Service/WebAPI/index.tsx"
+
 export interface WebAPIProps {
 	documentation?: CreativeWork | URL
 }

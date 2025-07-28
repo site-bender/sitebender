@@ -3,6 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { StatusEnumerationProps } from "../index.ts"
 
+import LegalForceStatusComponent from "../../../../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.tsx"
+
 export interface LegalForceStatusProps {
 }
 

@@ -8,6 +8,8 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type Energy from "../../Intangible/Quantity/Energy/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import ExercisePlanComponent from "../../../../../components/Thing/CreativeWork/ExercisePlan/index.tsx"
+
 export interface ExercisePlanProps {
 	activityDuration?: Duration | QuantitativeValue
 	activityFrequency?: QuantitativeValue | Text

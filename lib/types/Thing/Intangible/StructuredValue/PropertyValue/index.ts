@@ -10,6 +10,8 @@ import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type StructuredValue from "../index.ts"
 
+import PropertyValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+
 export interface PropertyValueProps {
 	maxValue?: Number
 	measurementMethod?: DefinedTerm | MeasurementMethodEnum | Text | URL

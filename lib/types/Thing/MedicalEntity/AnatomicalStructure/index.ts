@@ -6,6 +6,8 @@ import type ImageObject from "../../CreativeWork/MediaObject/ImageObject/index.t
 import type MedicalCondition from "../MedicalCondition/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+import AnatomicalStructureComponent from "../../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+
 export interface AnatomicalStructureProps {
 	associatedPathophysiology?: Text
 	bodyLocation?: Text

@@ -6,6 +6,8 @@ import type { CategoryCodeProps } from "../../../Intangible/DefinedTerm/Category
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
+import MedicalCodeComponent from "../../../../../../components/Thing/MedicalEntity/MedicalIntangible/MedicalCode/index.tsx"
+
 export interface MedicalCodeProps {
 	codeValue?: Text
 	codingSystem?: Text

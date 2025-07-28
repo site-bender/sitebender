@@ -7,6 +7,8 @@ import type MusicGroup from "../../../Organization/PerformingGroup/MusicGroup/in
 import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import VideoObjectComponent from "../../../../../../components/Thing/CreativeWork/MediaObject/VideoObject/index.tsx"
+
 export interface VideoObjectProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

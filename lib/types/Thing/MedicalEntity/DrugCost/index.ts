@@ -5,6 +5,8 @@ import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type DrugCostCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
 import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
 
+import DrugCostComponent from "../../../../../components/Thing/MedicalEntity/DrugCost/index.tsx"
+
 export interface DrugCostProps {
 	applicableLocation?: AdministrativeArea
 	costCategory?: DrugCostCategory

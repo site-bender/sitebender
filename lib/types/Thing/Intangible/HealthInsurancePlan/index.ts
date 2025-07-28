@@ -5,6 +5,8 @@ import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 import type HealthPlanFormulary from "../HealthPlanFormulary/index.ts"
 import type HealthPlanNetwork from "../HealthPlanNetwork/index.ts"
 
+import HealthInsurancePlanComponent from "../../../../../components/Thing/Intangible/HealthInsurancePlan/index.tsx"
+
 export interface HealthInsurancePlanProps {
 	benefitsSummaryUrl?: URL
 	contactPoint?: ContactPoint

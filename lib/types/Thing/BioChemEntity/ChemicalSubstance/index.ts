@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { BioChemEntityProps } from "../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 
+import ChemicalSubstanceComponent from "../../../../../components/Thing/BioChemEntity/ChemicalSubstance/index.tsx"
+
 export interface ChemicalSubstanceProps {
 	chemicalComposition?: Text
 	chemicalRole?: DefinedTerm

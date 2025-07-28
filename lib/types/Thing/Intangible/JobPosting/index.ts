@@ -23,6 +23,8 @@ import type Person from "../../Person/index.ts"
 import type Place from "../../Place/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
+import JobPostingComponent from "../../../../../components/Thing/Intangible/JobPosting/index.tsx"
+
 export interface JobPostingProps {
 	applicantLocationRequirements?: AdministrativeArea
 	applicationContact?: ContactPoint

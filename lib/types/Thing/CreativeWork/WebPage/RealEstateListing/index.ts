@@ -5,6 +5,8 @@ import type { WebPageProps } from "../index.ts"
 import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import RealEstateListingComponent from "../../../../../../components/Thing/CreativeWork/WebPage/RealEstateListing/index.tsx"
+
 export interface RealEstateListingProps {
 	datePosted?: Date | DateTime
 	leaseLength?: Duration | QuantitativeValue

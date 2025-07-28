@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 
+import FinancialProductComponent from "../../../../../../components/Thing/Intangible/Service/FinancialProduct/index.tsx"
+
 export interface FinancialProductProps {
 	annualPercentageRate?: Number | QuantitativeValue
 	feesAndCommissionsSpecification?: Text | URL

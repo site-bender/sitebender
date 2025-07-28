@@ -5,6 +5,8 @@ import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 
+import BankAccountComponent from "../../../../../../../components/Thing/Intangible/Service/FinancialProduct/BankAccount/index.tsx"
+
 export interface BankAccountProps {
 	accountMinimumInflow?: MonetaryAmount
 	accountOverdraftLimit?: MonetaryAmount

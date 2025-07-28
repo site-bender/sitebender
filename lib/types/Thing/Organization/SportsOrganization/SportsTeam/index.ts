@@ -5,6 +5,8 @@ import type { SportsOrganizationProps } from "../index.ts"
 import type GenderType from "../../../Intangible/Enumeration/GenderType/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import SportsTeamComponent from "../../../../../../components/Thing/Organization/SportsOrganization/SportsTeam/index.tsx"
+
 export interface SportsTeamProps {
 	athlete?: Person
 	coach?: Person

@@ -11,6 +11,8 @@ import type DayOfWeek from "../Enumeration/DayOfWeek/index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
+import ScheduleComponent from "../../../../../components/Thing/Intangible/Schedule/index.tsx"
+
 export interface ScheduleProps {
 	byDay?: DayOfWeek | Text
 	byMonth?: Integer

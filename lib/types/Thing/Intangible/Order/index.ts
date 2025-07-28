@@ -20,6 +20,8 @@ import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/in
 import type Product from "../../Product/index.ts"
 import type Service from "../Service/index.ts"
 
+import OrderComponent from "../../../../../components/Thing/Intangible/Order/index.tsx"
+
 export interface OrderProps {
 	acceptedOffer?: Offer
 	billingAddress?: PostalAddress

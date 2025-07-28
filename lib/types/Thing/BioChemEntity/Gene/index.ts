@@ -6,6 +6,8 @@ import type AnatomicalSystem from "../../MedicalEntity/AnatomicalSystem/index.ts
 import type BioChemEntity from "../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 
+import GeneComponent from "../../../../../components/Thing/BioChemEntity/Gene/index.tsx"
+
 export interface GeneProps {
 	alternativeOf?: Gene
 	encodesBioChemEntity?: BioChemEntity

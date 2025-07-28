@@ -5,6 +5,8 @@ import type { MediaObjectProps } from "../../../MediaObject/index.ts"
 import type MediaObject from "../../../MediaObject/index.ts"
 import type PropertyValue from "../../../Intangible/StructuredValue/PropertyValue/index.ts"
 
+import ImageObjectComponent from "../../../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+
 export interface ImageObjectProps {
 	caption?: MediaObject | Text
 	embeddedTextCaption?: Text

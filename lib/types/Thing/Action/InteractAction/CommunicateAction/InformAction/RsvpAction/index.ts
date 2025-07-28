@@ -7,6 +7,8 @@ import type { InformActionProps } from "../index.ts"
 import type Comment from "../../../../../CreativeWork/Comment/index.ts"
 import type RsvpResponseType from "../../../../../Intangible/Enumeration/RsvpResponseType/index.ts"
 
+import RsvpActionComponent from "../../../../../../../../components/Thing/Action/InteractAction/CommunicateAction/InformAction/RsvpAction/index.tsx"
+
 export interface RsvpActionProps {
 	additionalNumberOfGuests?: Number
 	comment?: Comment

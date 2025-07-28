@@ -6,6 +6,8 @@ import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
 import type Language from "../../../Intangible/Language/index.ts"
 import type TVSeries from "../../TVSeries/index.ts"
 
+import TVEpisodeComponent from "../../../../../../components/Thing/CreativeWork/Episode/TVEpisode/index.tsx"
+
 export interface TVEpisodeProps {
 	countryOfOrigin?: Country
 	partOfTVSeries?: TVSeries

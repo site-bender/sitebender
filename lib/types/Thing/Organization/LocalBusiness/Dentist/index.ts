@@ -5,6 +5,8 @@ import type { MedicalBusinessProps } from "../MedicalBusiness/index.ts"
 import type { MedicalOrganizationProps } from "../../MedicalOrganization/index.ts"
 import type { PlaceProps } from "../../../Place/index.ts"
 
+import DentistComponent from "../../../../../../components/Thing/Organization/LocalBusiness/Dentist/index.tsx"
+
 export interface DentistProps {
 }
 

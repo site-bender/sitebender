@@ -7,6 +7,8 @@ import type MusicRecording from "../MusicRecording/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import MusicCompositionComponent from "../../../../../components/Thing/CreativeWork/MusicComposition/index.tsx"
+
 export interface MusicCompositionProps {
 	composer?: Organization | Person
 	firstPerformance?: Event

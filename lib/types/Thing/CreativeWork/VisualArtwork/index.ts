@@ -6,6 +6,8 @@ import type Mass from "../../Intangible/Quantity/Mass/index.ts"
 import type Person from "../../Person/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import VisualArtworkComponent from "../../../../../components/Thing/CreativeWork/VisualArtwork/index.tsx"
+
 export interface VisualArtworkProps {
 	artEdition?: Integer | Text
 	artform?: Text | URL

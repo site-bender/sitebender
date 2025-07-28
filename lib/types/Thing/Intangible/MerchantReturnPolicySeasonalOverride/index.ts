@@ -12,6 +12,8 @@ import type RefundTypeEnumeration from "../Enumeration/RefundTypeEnumeration/ind
 import type ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/index.ts"
 import type ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
 
+import MerchantReturnPolicySeasonalOverrideComponent from "../../../../../components/Thing/Intangible/MerchantReturnPolicySeasonalOverride/index.tsx"
+
 export interface MerchantReturnPolicySeasonalOverrideProps {
 	endDate?: Date | DateTime
 	merchantReturnDays?: Date | DateTime | Integer

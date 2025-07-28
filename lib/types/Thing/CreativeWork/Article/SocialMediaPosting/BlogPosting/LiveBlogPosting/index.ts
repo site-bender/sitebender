@@ -6,6 +6,8 @@ import type { SocialMediaPostingProps } from "../../index.ts"
 import type { BlogPostingProps } from "../index.ts"
 import type BlogPosting from "../index.ts"
 
+import LiveBlogPostingComponent from "../../../../../../../../components/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/LiveBlogPosting/index.tsx"
+
 export interface LiveBlogPostingProps {
 	coverageEndTime?: DateTime
 	coverageStartTime?: DateTime

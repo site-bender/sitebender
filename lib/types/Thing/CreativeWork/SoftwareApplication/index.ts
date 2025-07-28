@@ -5,6 +5,8 @@ import type CreativeWork from "../index.ts"
 import type DataFeed from "../Dataset/DataFeed/index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
 
+import SoftwareApplicationComponent from "../../../../../components/Thing/CreativeWork/SoftwareApplication/index.tsx"
+
 export interface SoftwareApplicationProps {
 	applicationCategory?: Text | URL
 	applicationSubCategory?: Text | URL

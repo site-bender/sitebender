@@ -10,6 +10,8 @@ import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type Vehicle from "../../../Product/Vehicle/index.ts"
 
+import FlightComponent from "../../../../../../components/Thing/Intangible/Trip/Flight/index.tsx"
+
 export interface FlightProps {
 	aircraft?: Text | Vehicle
 	arrivalAirport?: Airport

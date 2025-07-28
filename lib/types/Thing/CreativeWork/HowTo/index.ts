@@ -11,6 +11,8 @@ import type ItemList from "../../Intangible/ItemList/index.ts"
 import type MonetaryAmount from "../../Intangible/StructuredValue/MonetaryAmount/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import HowToComponent from "../../../../../components/Thing/CreativeWork/HowTo/index.tsx"
+
 export interface HowToProps {
 	estimatedCost?: MonetaryAmount | Text
 	performTime?: Duration

@@ -6,6 +6,8 @@ import type ImageObject from "./CreativeWork/MediaObject/ImageObject/index.ts"
 import type PropertyValue from "./Intangible/StructuredValue/PropertyValue/index.ts"
 import type TextObject from "./CreativeWork/MediaObject/TextObject/index.ts"
 
+import ThingComponent from "../../../components/Thing/index.tsx"
+
 export interface Thing {
 	additionalType?: Text | URL
 	alternateName?: Text

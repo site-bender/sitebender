@@ -8,6 +8,8 @@ import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type PriceSpecification from "../../../Intangible/StructuredValue/PriceSpecification/index.ts"
 
+import DonateActionComponent from "../../../../../../components/Thing/Action/TransferAction/DonateAction/index.tsx"
+
 export interface DonateActionProps {
 	price?: Number | Text
 	priceCurrency?: Text

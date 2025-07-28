@@ -9,6 +9,8 @@ import type PropertyValue from "../../StructuredValue/PropertyValue/index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 import type StructuredValue from "../../StructuredValue/index.ts"
 
+import QualitativeValueComponent from "../../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+
 export interface QualitativeValueProps {
 	additionalProperty?: PropertyValue
 	equal?: QualitativeValue

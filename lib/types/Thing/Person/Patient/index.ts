@@ -7,6 +7,8 @@ import type { PersonProps } from "../index.ts"
 import type Drug from "../../Product/Drug/index.ts"
 import type MedicalCondition from "../../MedicalEntity/MedicalCondition/index.ts"
 
+import PatientComponent from "../../../../../components/Thing/Person/Patient/index.tsx"
+
 export interface PatientProps {
 	diagnosis?: MedicalCondition
 	drug?: Drug

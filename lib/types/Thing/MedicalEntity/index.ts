@@ -10,6 +10,8 @@ import type MedicalStudy from "./MedicalStudy/index.ts"
 import type MedicineSystem from "../Intangible/Enumeration/MedicalEnumeration/MedicineSystem/index.ts"
 import type Organization from "../Organization/index.ts"
 
+import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.tsx"
+
 export interface MedicalEntityProps {
 	code?: MedicalCode
 	funding?: Grant

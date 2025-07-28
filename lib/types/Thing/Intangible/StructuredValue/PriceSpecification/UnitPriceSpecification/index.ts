@@ -8,6 +8,8 @@ import type PriceComponentTypeEnumeration from "../../../Enumeration/PriceCompon
 import type PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
 import type QuantitativeValue from "../../QuantitativeValue/index.ts"
 
+import UnitPriceSpecificationComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
+
 export interface UnitPriceSpecificationProps {
 	billingDuration?: Duration | Number | QuantitativeValue
 	billingIncrement?: Number

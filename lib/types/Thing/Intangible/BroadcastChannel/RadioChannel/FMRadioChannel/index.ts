@@ -3,6 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { BroadcastChannelProps } from "../../index.ts"
 import type { RadioChannelProps } from "../index.ts"
 
+import FMRadioChannelComponent from "../../../../../../../components/Thing/Intangible/BroadcastChannel/RadioChannel/FMRadioChannel/index.tsx"
+
 export interface FMRadioChannelProps {
 }
 

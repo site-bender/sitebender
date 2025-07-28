@@ -5,6 +5,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type UnitPriceSpecification from "../PriceSpecification/UnitPriceSpecification/index.ts"
 
+import ExchangeRateSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/ExchangeRateSpecification/index.tsx"
+
 export interface ExchangeRateSpecificationProps {
 	currency?: Text
 	currentExchangeRate?: UnitPriceSpecification

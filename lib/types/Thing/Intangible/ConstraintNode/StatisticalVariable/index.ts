@@ -8,6 +8,8 @@ import type Enumeration from "../../Enumeration/index.ts"
 import type MeasurementMethodEnum from "../../Enumeration/MeasurementMethodEnum/index.ts"
 import type Property from "../../Property/index.ts"
 
+import StatisticalVariableComponent from "../../../../../../components/Thing/Intangible/ConstraintNode/StatisticalVariable/index.tsx"
+
 export interface StatisticalVariableProps {
 	measuredProperty?: Property
 	measurementDenominator?: StatisticalVariable

@@ -8,6 +8,8 @@ import type HowToSupply from "../../Intangible/ListItem/HowToItem/HowToSupply/in
 import type HowToTool from "../../Intangible/ListItem/HowToItem/HowToTool/index.ts"
 import type MediaObject from "../../MediaObject/index.ts"
 
+import HowToDirectionComponent from "../../../../../components/Thing/CreativeWork/HowToDirection/index.tsx"
+
 export interface HowToDirectionProps {
 	afterMedia?: MediaObject | URL
 	beforeMedia?: MediaObject | URL

@@ -6,6 +6,8 @@ import type DefinedRegion from "../DefinedRegion/index.ts"
 import type DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
+import ShippingRateSettingsComponent from "../../../../../../components/Thing/Intangible/StructuredValue/ShippingRateSettings/index.tsx"
+
 export interface ShippingRateSettingsProps {
 	doesNotShip?: Boolean
 	freeShippingThreshold?: DeliveryChargeSpecification | MonetaryAmount

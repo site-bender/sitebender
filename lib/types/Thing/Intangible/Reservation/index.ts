@@ -8,6 +8,8 @@ import type ProgramMembership from "../ProgramMembership/index.ts"
 import type ReservationStatusType from "../Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
 import type Ticket from "../Ticket/index.ts"
 
+import ReservationComponent from "../../../../../components/Thing/Intangible/Reservation/index.tsx"
+
 export interface ReservationProps {
 	bookingAgent?: Organization | Person
 	bookingTime?: DateTime

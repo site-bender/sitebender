@@ -3,6 +3,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { OrganizeActionProps } from "../index.ts"
 
+import PlanActionComponent from "../../../../../../components/Thing/Action/OrganizeAction/PlanAction/index.tsx"
+
 export interface PlanActionProps {
 	scheduledTime?: Date | DateTime
 }

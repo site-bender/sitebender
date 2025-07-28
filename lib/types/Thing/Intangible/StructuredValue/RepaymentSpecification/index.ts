@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
+import RepaymentSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/RepaymentSpecification/index.tsx"
+
 export interface RepaymentSpecificationProps {
 	downPayment?: MonetaryAmount | Number
 	earlyPrepaymentPenalty?: MonetaryAmount

@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { OrganizationProps } from "../index.ts"
 import type MedicalSpecialty from "../../Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.ts"
 
+import MedicalOrganizationComponent from "../../../../../components/Thing/Organization/MedicalOrganization/index.tsx"
+
 export interface MedicalOrganizationProps {
 	healthPlanNetworkId?: Text
 	isAcceptingNewPatients?: Boolean

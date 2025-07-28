@@ -6,6 +6,8 @@ import type { OrganizationRoleProps } from "../index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 import type PriceSpecification from "../../../StructuredValue/PriceSpecification/index.ts"
 
+import EmployeeRoleComponent from "../../../../../../../components/Thing/Intangible/Role/OrganizationRole/EmployeeRole/index.tsx"
+
 export interface EmployeeRoleProps {
 	baseSalary?: MonetaryAmount | Number | PriceSpecification
 	salaryCurrency?: Text

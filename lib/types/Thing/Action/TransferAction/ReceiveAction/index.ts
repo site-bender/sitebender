@@ -6,6 +6,8 @@ import type DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import ReceiveActionComponent from "../../../../../../components/Thing/Action/TransferAction/ReceiveAction/index.tsx"
+
 export interface ReceiveActionProps {
 	deliveryMethod?: DeliveryMethod
 	sender?: Audience | Organization | Person

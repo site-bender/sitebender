@@ -14,6 +14,8 @@ import type FloorPlan from "../../Intangible/FloorPlan/index.ts"
 import type LocationFeatureSpecification from "../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import AccommodationComponent from "../../../../../components/Thing/Place/Accommodation/index.tsx"
+
 export interface AccommodationProps {
 	accommodationCategory?: Text
 	accommodationFloorPlan?: FloorPlan

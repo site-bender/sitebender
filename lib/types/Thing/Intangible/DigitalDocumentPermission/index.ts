@@ -6,6 +6,8 @@ import type DigitalDocumentPermissionType from "../Enumeration/DigitalDocumentPe
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import DigitalDocumentPermissionComponent from "../../../../../components/Thing/Intangible/DigitalDocumentPermission/index.tsx"
+
 export interface DigitalDocumentPermissionProps {
 	grantee?: Audience | ContactPoint | Organization | Person
 	permissionType?: DigitalDocumentPermissionType

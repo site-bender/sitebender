@@ -2,6 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { DigitalDocumentProps } from "../index.ts"
 
+import TextDigitalDocumentComponent from "../../../../../../components/Thing/CreativeWork/DigitalDocument/TextDigitalDocument/index.tsx"
+
 export interface TextDigitalDocumentProps {
 }
 

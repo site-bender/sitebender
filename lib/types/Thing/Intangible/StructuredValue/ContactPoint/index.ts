@@ -10,6 +10,8 @@ import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.t
 import type Place from "../../../Place/index.ts"
 import type Product from "../../../Product/index.ts"
 
+import ContactPointComponent from "../../../../../../components/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+
 export interface ContactPointProps {
 	areaServed?: AdministrativeArea | GeoShape | Place | Text
 	availableLanguage?: Language | Text

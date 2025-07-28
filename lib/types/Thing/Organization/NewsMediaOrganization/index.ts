@@ -5,6 +5,8 @@ import type AboutPage from "../../CreativeWork/WebPage/AboutPage/index.ts"
 import type Article from "../../CreativeWork/Article/index.ts"
 import type CreativeWork from "../../CreativeWork/index.ts"
 
+import NewsMediaOrganizationComponent from "../../../../../components/Thing/Organization/NewsMediaOrganization/index.tsx"
+
 export interface NewsMediaOrganizationProps {
 	actionableFeedbackPolicy?: CreativeWork | URL
 	correctionsPolicy?: CreativeWork | URL

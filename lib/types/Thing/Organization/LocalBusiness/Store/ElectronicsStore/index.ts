@@ -4,6 +4,8 @@ import type { LocalBusinessProps } from "../../index.ts"
 import type { StoreProps } from "../index.ts"
 import type { OrganizationProps } from "../../../index.ts"
 
+import ElectronicsStoreComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/Store/ElectronicsStore/index.tsx"
+
 export interface ElectronicsStoreProps {
 }
 

@@ -4,6 +4,8 @@ import type { CollectionProps } from "../../CreativeWork/Collection/index.ts"
 import type { ProductProps } from "../index.ts"
 import type TypeAndQuantityNode from "../../Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
 
+import ProductCollectionComponent from "../../../../../components/Thing/Product/ProductCollection/index.tsx"
+
 export interface ProductCollectionProps {
 	includesObject?: TypeAndQuantityNode
 }

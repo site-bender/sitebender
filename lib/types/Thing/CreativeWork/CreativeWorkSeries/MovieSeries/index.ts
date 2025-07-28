@@ -9,6 +9,8 @@ import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts
 import type Person from "../../../Person/index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 
+import MovieSeriesComponent from "../../../../../../components/Thing/CreativeWork/CreativeWorkSeries/MovieSeries/index.tsx"
+
 export interface MovieSeriesProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

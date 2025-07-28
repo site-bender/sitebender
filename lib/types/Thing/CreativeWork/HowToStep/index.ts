@@ -4,6 +4,8 @@ import type { ItemListProps } from "../../Intangible/ItemList/index.ts"
 import type { ListItemProps } from "../../Intangible/ListItem/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import HowToStepComponent from "../../../../../components/Thing/CreativeWork/HowToStep/index.tsx"
+
 export interface HowToStepProps {
 }
 

@@ -9,6 +9,8 @@ import type MusicGroup from "../../Organization/PerformingGroup/MusicGroup/index
 import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
 import type Person from "../../Person/index.ts"
 
+import ClipComponent from "../../../../../components/Thing/CreativeWork/Clip/index.tsx"
+
 export interface ClipProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

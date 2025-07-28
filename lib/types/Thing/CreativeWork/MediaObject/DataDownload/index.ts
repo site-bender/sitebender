@@ -5,6 +5,8 @@ import type { MediaObjectProps } from "../../../MediaObject/index.ts"
 import type DefinedTerm from "../../../Intangible/DefinedTerm/index.ts"
 import type MeasurementMethodEnum from "../../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
+import DataDownloadComponent from "../../../../../../components/Thing/CreativeWork/MediaObject/DataDownload/index.tsx"
+
 export interface DataDownloadProps {
 	measurementMethod?: DefinedTerm | MeasurementMethodEnum | Text | URL
 	measurementTechnique?: DefinedTerm | MeasurementMethodEnum | Text | URL

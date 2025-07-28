@@ -5,6 +5,8 @@ import type { MedicalIntangibleProps } from "../index.ts"
 import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 import type MaximumDoseSchedule from "../DoseSchedule/MaximumDoseSchedule/index.ts"
 
+import DrugStrengthComponent from "../../../../../../components/Thing/MedicalEntity/MedicalIntangible/DrugStrength/index.tsx"
+
 export interface DrugStrengthProps {
 	activeIngredient?: Text
 	availableIn?: AdministrativeArea

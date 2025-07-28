@@ -6,6 +6,8 @@ import type MediaManipulationRatingEnumeration from "../../../Intangible/Enumera
 import type MediaObject from "../../../MediaObject/index.ts"
 import type WebPage from "../../WebPage/index.ts"
 
+import MediaReviewComponent from "../../../../../../components/Thing/CreativeWork/Review/MediaReview/index.tsx"
+
 export interface MediaReviewProps {
 	mediaAuthenticityCategory?: MediaManipulationRatingEnumeration
 	originalMediaContextDescription?: Text

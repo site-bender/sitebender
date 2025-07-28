@@ -5,6 +5,8 @@ import type { StoreProps } from "../../Store/index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
 import type { AutomotiveBusinessProps } from "../index.ts"
 
+import AutoPartsStoreComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoPartsStore/index.tsx"
+
 export interface AutoPartsStoreProps {
 }
 

@@ -21,6 +21,8 @@ import type ReturnFeesEnumeration from "../Enumeration/ReturnFeesEnumeration/ind
 import type ReturnLabelSourceEnumeration from "../Enumeration/ReturnLabelSourceEnumeration/index.ts"
 import type ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration/index.ts"
 
+import MerchantReturnPolicyComponent from "../../../../../components/Thing/Intangible/MerchantReturnPolicy/index.tsx"
+
 export interface MerchantReturnPolicyProps {
 	additionalProperty?: PropertyValue
 	applicableCountry?: Country | Text

@@ -10,6 +10,8 @@ import type Language from "../../Intangible/Language/index.ts"
 import type StructuredValue from "../../Intangible/StructuredValue/index.ts"
 import type Syllabus from "../LearningResource/Syllabus/index.ts"
 
+import CourseComponent from "../../../../../components/Thing/CreativeWork/Course/index.tsx"
+
 export interface CourseProps {
 	availableLanguage?: Language | Text
 	courseCode?: Text

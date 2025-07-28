@@ -6,6 +6,8 @@ import type MedicalEntity from "../index.ts"
 import type MedicalProcedureType from "../../Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.ts"
 import type MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
 
+import MedicalProcedureComponent from "../../../../../components/Thing/MedicalEntity/MedicalProcedure/index.tsx"
+
 export interface MedicalProcedureProps {
 	bodyLocation?: Text
 	followup?: Text

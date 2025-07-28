@@ -6,6 +6,8 @@ import type { PriceSpecificationProps } from "../index.ts"
 import type PriceTypeEnumeration from "../../../Enumeration/PriceTypeEnumeration/index.ts"
 import type UnitPriceSpecification from "../UnitPriceSpecification/index.ts"
 
+import CompoundPriceSpecificationComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/CompoundPriceSpecification/index.tsx"
+
 export interface CompoundPriceSpecificationProps {
 	priceComponent?: UnitPriceSpecification
 	priceType?: PriceTypeEnumeration | Text

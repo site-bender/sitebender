@@ -7,6 +7,8 @@ import type Person from "../../../Person/index.ts"
 import type Product from "../../../Product/index.ts"
 import type Service from "../../Service/index.ts"
 
+import OwnershipInfoComponent from "../../../../../../components/Thing/Intangible/StructuredValue/OwnershipInfo/index.tsx"
+
 export interface OwnershipInfoProps {
 	acquiredFrom?: Organization | Person
 	ownedFrom?: DateTime

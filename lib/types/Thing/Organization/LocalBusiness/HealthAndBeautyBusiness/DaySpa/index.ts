@@ -4,6 +4,8 @@ import type { LocalBusinessProps } from "../../index.ts"
 import type { HealthAndBeautyBusinessProps } from "../index.ts"
 import type { OrganizationProps } from "../../../index.ts"
 
+import DaySpaComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/DaySpa/index.tsx"
+
 export interface DaySpaProps {
 }
 

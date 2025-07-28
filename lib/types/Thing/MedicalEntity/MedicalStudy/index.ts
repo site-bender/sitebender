@@ -9,6 +9,8 @@ import type MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumera
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import MedicalStudyComponent from "../../../../../components/Thing/MedicalEntity/MedicalStudy/index.tsx"
+
 export interface MedicalStudyProps {
 	healthCondition?: MedicalCondition
 	sponsor?: Organization | Person

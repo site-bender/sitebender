@@ -6,6 +6,8 @@ import type CreativeWork from "../../../CreativeWork/index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import UserCommentsComponent from "../../../../../../components/Thing/Event/UserInteraction/UserComments/index.tsx"
+
 export interface UserCommentsProps {
 	commentText?: Text
 	commentTime?: Date | DateTime

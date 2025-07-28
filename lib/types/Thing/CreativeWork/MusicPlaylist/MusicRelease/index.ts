@@ -9,6 +9,8 @@ import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import MusicReleaseComponent from "../../../../../../components/Thing/CreativeWork/MusicPlaylist/MusicRelease/index.tsx"
+
 export interface MusicReleaseProps {
 	catalogNumber?: Text
 	creditedTo?: Organization | Person

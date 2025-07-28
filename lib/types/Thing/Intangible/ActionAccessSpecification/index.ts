@@ -15,6 +15,8 @@ import type Offer from "../Offer/index.ts"
 import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
 import type Place from "../../Place/index.ts"
 
+import ActionAccessSpecificationComponent from "../../../../../components/Thing/Intangible/ActionAccessSpecification/index.tsx"
+
 export interface ActionAccessSpecificationProps {
 	availabilityEnds?: Date | DateTime | Time
 	availabilityStarts?: Date | DateTime | Time

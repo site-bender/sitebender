@@ -1,6 +1,8 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import SculptureComponent from "../../../../../components/Thing/CreativeWork/Sculpture/index.tsx"
+
 export interface SculptureProps {
 }
 

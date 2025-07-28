@@ -17,6 +17,8 @@ import type PostalAddress from "../../../Intangible/StructuredValue/ContactPoint
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 
+import VideoGameSeriesComponent from "../../../../../../components/Thing/CreativeWork/CreativeWorkSeries/VideoGameSeries/index.tsx"
+
 export interface VideoGameSeriesProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

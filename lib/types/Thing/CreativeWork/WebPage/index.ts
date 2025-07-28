@@ -9,6 +9,8 @@ import type SpeakableSpecification from "../../Intangible/SpeakableSpecification
 import type Specialty from "../../Intangible/Enumeration/Specialty/index.ts"
 import type WebPageElement from "../WebPageElement/index.ts"
 
+import WebPageComponent from "../../../../../components/Thing/CreativeWork/WebPage/index.tsx"
+
 export interface WebPageProps {
 	breadcrumb?: BreadcrumbList | Text
 	lastReviewed?: Date

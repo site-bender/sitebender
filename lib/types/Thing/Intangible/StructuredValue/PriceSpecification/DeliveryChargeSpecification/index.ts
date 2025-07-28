@@ -8,6 +8,8 @@ import type DeliveryMethod from "../../../Enumeration/DeliveryMethod/index.ts"
 import type GeoShape from "../../GeoShape/index.ts"
 import type Place from "../../../../Place/index.ts"
 
+import DeliveryChargeSpecificationComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/DeliveryChargeSpecification/index.tsx"
+
 export interface DeliveryChargeSpecificationProps {
 	appliesToDeliveryMethod?: DeliveryMethod
 	areaServed?: AdministrativeArea | GeoShape | Place | Text

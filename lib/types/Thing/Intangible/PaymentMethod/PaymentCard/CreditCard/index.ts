@@ -6,6 +6,8 @@ import type { LoanOrCreditProps } from "../../../Service/FinancialProduct/LoanOr
 import type { PaymentCardProps } from "../index.ts"
 import type { PaymentMethodProps } from "../../index.ts"
 
+import CreditCardComponent from "../../../../../../../components/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.tsx"
+
 export interface CreditCardProps {
 }
 

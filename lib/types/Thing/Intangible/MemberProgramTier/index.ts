@@ -8,6 +8,8 @@ import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.t
 import type TierBenefitEnumeration from "../Enumeration/TierBenefitEnumeration/index.ts"
 import type UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
+import MemberProgramTierComponent from "../../../../../components/Thing/Intangible/MemberProgramTier/index.tsx"
+
 export interface MemberProgramTierProps {
 	hasTierBenefit?: TierBenefitEnumeration
 	hasTierRequirement?:

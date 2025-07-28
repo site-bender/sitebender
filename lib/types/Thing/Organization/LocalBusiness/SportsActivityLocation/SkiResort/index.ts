@@ -6,6 +6,8 @@ import type { ResortProps } from "../../LodgingBusiness/Resort/index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
 import type { SportsActivityLocationProps } from "../index.ts"
 
+import SkiResortComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/SportsActivityLocation/SkiResort/index.tsx"
+
 export interface SkiResortProps {
 }
 

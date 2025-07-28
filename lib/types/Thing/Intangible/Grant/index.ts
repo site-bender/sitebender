@@ -8,6 +8,8 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Product from "../../Product/index.ts"
 
+import GrantComponent from "../../../../../components/Thing/Intangible/Grant/index.tsx"
+
 export interface GrantProps {
 	fundedItem?:
 		| BioChemEntity

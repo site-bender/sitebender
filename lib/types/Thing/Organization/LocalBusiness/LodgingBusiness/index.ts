@@ -15,6 +15,8 @@ import type LocationFeatureSpecification from "../../../Intangible/StructuredVal
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Rating from "../../../Intangible/Rating/index.ts"
 
+import LodgingBusinessComponent from "../../../../../../components/Thing/Organization/LocalBusiness/LodgingBusiness/index.tsx"
+
 export interface LodgingBusinessProps {
 	amenityFeature?: LocationFeatureSpecification
 	audience?: Audience

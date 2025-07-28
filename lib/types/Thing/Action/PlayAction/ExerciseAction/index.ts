@@ -11,6 +11,8 @@ import type SportsActivityLocation from "../../../Organization/LocalBusiness/Spo
 import type SportsEvent from "../../../Event/SportsEvent/index.ts"
 import type SportsTeam from "../../../Organization/SportsOrganization/SportsTeam/index.ts"
 
+import ExerciseActionComponent from "../../../../../../components/Thing/Action/PlayAction/ExerciseAction/index.tsx"
+
 export interface ExerciseActionProps {
 	course?: Place
 	diet?: Diet

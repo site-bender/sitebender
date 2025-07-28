@@ -6,6 +6,8 @@ import type ListItem from "../../Intangible/ListItem/index.ts"
 import type Rating from "../../Intangible/Rating/index.ts"
 import type WebContent from "../WebContent/index.ts"
 
+import ReviewComponent from "../../../../../components/Thing/CreativeWork/Review/index.tsx"
+
 export interface ReviewProps {
 	associatedClaimReview?: Review
 	associatedMediaReview?: Review

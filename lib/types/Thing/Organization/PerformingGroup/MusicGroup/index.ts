@@ -7,6 +7,8 @@ import type MusicAlbum from "../../../CreativeWork/MusicPlaylist/MusicAlbum/inde
 import type MusicRecording from "../../../CreativeWork/MusicRecording/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import MusicGroupComponent from "../../../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.tsx"
+
 export interface MusicGroupProps {
 	album?: MusicAlbum
 	albums?: MusicAlbum

@@ -9,6 +9,8 @@ import type NutritionInformation from "../../../Intangible/StructuredValue/Nutri
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type RestrictedDiet from "../../../Intangible/Enumeration/RestrictedDiet/index.ts"
 
+import RecipeComponent from "../../../../../../components/Thing/CreativeWork/HowTo/Recipe/index.tsx"
+
 export interface RecipeProps {
 	cookingMethod?: Text
 	cookTime?: Duration

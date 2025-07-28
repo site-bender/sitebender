@@ -2,6 +2,8 @@ import type { Integer, Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import PublicationIssueComponent from "../../../../../components/Thing/CreativeWork/PublicationIssue/index.tsx"
+
 export interface PublicationIssueProps {
 	issueNumber?: Integer | Text
 	pageEnd?: Integer | Text

@@ -5,6 +5,8 @@ import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 
+import InvestmentOrDepositComponent from "../../../../../../../components/Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/index.tsx"
+
 export interface InvestmentOrDepositProps {
 	amount?: MonetaryAmount | Number
 }

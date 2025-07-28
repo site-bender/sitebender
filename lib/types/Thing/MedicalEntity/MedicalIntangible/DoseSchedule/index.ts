@@ -4,6 +4,8 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 import type QualitativeValue from "../../../Intangible/Enumeration/QualitativeValue/index.ts"
 
+import DoseScheduleComponent from "../../../../../../components/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/index.tsx"
+
 export interface DoseScheduleProps {
 	doseUnit?: Text
 	doseValue?: Number | QualitativeValue

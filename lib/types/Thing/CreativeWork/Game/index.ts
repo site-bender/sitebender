@@ -5,6 +5,8 @@ import type Place from "../../Place/index.ts"
 import type PostalAddress from "../../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import GameComponent from "../../../../../components/Thing/CreativeWork/Game/index.tsx"
+
 export interface GameProps {
 	characterAttribute?: Thing
 	gameItem?: Thing

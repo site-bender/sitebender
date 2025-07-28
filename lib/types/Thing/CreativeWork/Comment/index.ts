@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type CreativeWork from "../index.ts"
 
+import CommentComponent from "../../../../../components/Thing/CreativeWork/Comment/index.tsx"
+
 export interface CommentProps {
 	downvoteCount?: Integer
 	parentItem?: Comment | CreativeWork

@@ -7,6 +7,8 @@ import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.t
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ServicePeriod from "../ServicePeriod/index.ts"
 
+import ShippingDeliveryTimeComponent from "../../../../../../components/Thing/Intangible/StructuredValue/ShippingDeliveryTime/index.tsx"
+
 export interface ShippingDeliveryTimeProps {
 	businessDays?: DayOfWeek | OpeningHoursSpecification
 	cutoffTime?: Time

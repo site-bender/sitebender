@@ -5,6 +5,8 @@ import type BroadcastService from "../../Intangible/Service/BroadcastService/ind
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import PublicationEventComponent from "../../../../../components/Thing/Event/PublicationEvent/index.tsx"
+
 export interface PublicationEventProps {
 	free?: Boolean
 	publishedBy?: Organization | Person

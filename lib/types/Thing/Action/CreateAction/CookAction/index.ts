@@ -6,6 +6,8 @@ import type FoodEvent from "../../../Event/FoodEvent/index.ts"
 import type Place from "../../../Place/index.ts"
 import type Recipe from "../../../CreativeWork/HowTo/Recipe/index.ts"
 
+import CookActionComponent from "../../../../../../components/Thing/Action/CreateAction/CookAction/index.tsx"
+
 export interface CookActionProps {
 	foodEstablishment?: FoodEstablishment | Place
 	foodEvent?: FoodEvent

@@ -42,6 +42,8 @@ import type SizeSpecification from "../Intangible/Enumeration/QualitativeValue/S
 import type VideoObject from "./MediaObject/VideoObject/index.ts"
 import type WebPage from "./WebPage/index.ts"
 
+import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.tsx"
+
 export interface CreativeWorkProps {
 	about?: Thing
 	abstract?: Text

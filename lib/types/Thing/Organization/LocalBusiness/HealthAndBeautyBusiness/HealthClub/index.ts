@@ -5,6 +5,8 @@ import type { SportsActivityLocationProps } from "../../SportsActivityLocation/i
 import type { PlaceProps } from "../../../../Place/index.ts"
 import type { HealthAndBeautyBusinessProps } from "../index.ts"
 
+import HealthClubComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/HealthClub/index.tsx"
+
 export interface HealthClubProps {
 }
 

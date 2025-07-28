@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../index.ts"
 import type ItemListOrderType from "../Enumeration/ItemListOrderType/index.ts"
 import type ListItem from "../ListItem/index.ts"
 
+import ItemListComponent from "../../../../../components/Thing/Intangible/ItemList/index.tsx"
+
 export interface ItemListProps {
 	aggregateElement?: Thing
 	itemListElement?: ListItem | Text | Thing

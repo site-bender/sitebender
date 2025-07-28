@@ -6,6 +6,8 @@ import type AnatomicalStructure from "../../index.ts"
 import type AnatomicalSystem from "../../../AnatomicalSystem/index.ts"
 import type Vessel from "../index.ts"
 
+import VeinComponent from "../../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/Vein/index.tsx"
+
 export interface VeinProps {
 	drainsTo?: Vessel
 	regionDrained?: AnatomicalStructure | AnatomicalSystem

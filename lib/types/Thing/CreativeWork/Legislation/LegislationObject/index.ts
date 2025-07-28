@@ -4,6 +4,8 @@ import type { MediaObjectProps } from "../../../MediaObject/index.ts"
 import type { LegislationProps } from "../index.ts"
 import type LegalValueLevel from "../../../Intangible/Enumeration/LegalValueLevel/index.ts"
 
+import LegislationObjectComponent from "../../../../../../components/Thing/CreativeWork/Legislation/LegislationObject/index.tsx"
+
 export interface LegislationObjectProps {
 	legislationLegalValue?: LegalValueLevel
 }

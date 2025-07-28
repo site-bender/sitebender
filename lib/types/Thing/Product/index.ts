@@ -30,6 +30,8 @@ import type Service from "../Intangible/Service/index.ts"
 import type SizeSpecification from "../Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
 import type WebContent from "../CreativeWork/WebContent/index.ts"
 
+import ProductComponent from "../../../../components/Thing/Product/index.tsx"
+
 export interface ProductProps {
 	additionalProperty?: PropertyValue
 	aggregateRating?: AggregateRating

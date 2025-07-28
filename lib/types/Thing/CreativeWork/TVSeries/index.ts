@@ -13,6 +13,8 @@ import type PerformingGroup from "../../Organization/PerformingGroup/index.ts"
 import type Person from "../../Person/index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
+import TVSeriesComponent from "../../../../../components/Thing/CreativeWork/TVSeries/index.tsx"
+
 export interface TVSeriesProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

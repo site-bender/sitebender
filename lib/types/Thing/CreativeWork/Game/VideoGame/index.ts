@@ -11,6 +11,8 @@ import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts
 import type Person from "../../../Person/index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 
+import VideoGameComponent from "../../../../../../components/Thing/CreativeWork/Game/VideoGame/index.tsx"
+
 export interface VideoGameProps {
 	actor?: PerformingGroup | Person
 	actors?: Person

@@ -3,6 +3,8 @@ import type { PlaceProps } from "../../../index.ts"
 import type { LandformProps } from "../../index.ts"
 import type { BodyOfWaterProps } from "../index.ts"
 
+import WaterfallComponent from "../../../../../../../components/Thing/Place/Landform/BodyOfWater/Waterfall/index.tsx"
+
 export interface WaterfallProps {
 }
 

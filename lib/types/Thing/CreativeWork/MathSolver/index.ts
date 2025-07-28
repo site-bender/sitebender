@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type SolveMathAction from "../../Action/SolveMathAction/index.ts"
 
+import MathSolverComponent from "../../../../../components/Thing/CreativeWork/MathSolver/index.tsx"
+
 export interface MathSolverProps {
 	mathExpression?: SolveMathAction | Text
 }

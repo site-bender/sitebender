@@ -4,6 +4,8 @@ import type { CreativeWorkProps } from "../index.ts"
 import type BookFormatType from "../../Intangible/Enumeration/BookFormatType/index.ts"
 import type Person from "../../Person/index.ts"
 
+import BookComponent from "../../../../../components/Thing/CreativeWork/Book/index.tsx"
+
 export interface BookProps {
 	abridged?: Boolean
 	bookEdition?: Text

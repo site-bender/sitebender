@@ -9,6 +9,8 @@ import type Person from "../../Person/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 import type Product from "../../Product/index.ts"
 
+import ParcelDeliveryComponent from "../../../../../components/Thing/Intangible/ParcelDelivery/index.tsx"
+
 export interface ParcelDeliveryProps {
 	carrier?: Organization
 	deliveryAddress?: PostalAddress

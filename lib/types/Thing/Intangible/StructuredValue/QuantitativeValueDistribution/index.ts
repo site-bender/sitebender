@@ -5,6 +5,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type Duration from "../../Quantity/Duration/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
+import QuantitativeValueDistributionComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/index.tsx"
+
 export interface QuantitativeValueDistributionProps {
 	duration?: Duration | QuantitativeValue
 	median?: Number

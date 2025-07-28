@@ -4,6 +4,8 @@ import type { WebPageProps } from "../../../index.ts"
 import type { CollectionPageProps } from "../../index.ts"
 import type { MediaGalleryProps } from "../index.ts"
 
+import VideoGalleryComponent from "../../../../../../../../components/Thing/CreativeWork/WebPage/CollectionPage/MediaGallery/VideoGallery/index.tsx"
+
 export interface VideoGalleryProps {
 }
 

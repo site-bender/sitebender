@@ -4,6 +4,8 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { PublicationIssueProps } from "../index.ts"
 import type Person from "../../../Person/index.ts"
 
+import ComicIssueComponent from "../../../../../../components/Thing/CreativeWork/PublicationIssue/ComicIssue/index.tsx"
+
 export interface ComicIssueProps {
 	artist?: Person
 	colorist?: Person

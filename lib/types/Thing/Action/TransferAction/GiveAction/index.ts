@@ -6,6 +6,8 @@ import type ContactPoint from "../../../Intangible/StructuredValue/ContactPoint/
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import GiveActionComponent from "../../../../../../components/Thing/Action/TransferAction/GiveAction/index.tsx"
+
 export interface GiveActionProps {
 	recipient?: Audience | ContactPoint | Organization | Person
 }

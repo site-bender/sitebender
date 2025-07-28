@@ -6,6 +6,8 @@ import type AnatomicalStructure from "../../index.ts"
 import type AnatomicalSystem from "../../../AnatomicalSystem/index.ts"
 import type Vessel from "../index.ts"
 
+import LymphaticVesselComponent from "../../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/LymphaticVessel/index.tsx"
+
 export interface LymphaticVesselProps {
 	originatesFrom?: Vessel
 	regionDrained?: AnatomicalStructure | AnatomicalSystem

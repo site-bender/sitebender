@@ -7,6 +7,8 @@ import type MedicalDevice from "../MedicalDevice/index.ts"
 import type MedicalEnumeration from "../../Intangible/Enumeration/MedicalEnumeration/index.ts"
 import type MedicalSign from "../MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.ts"
 
+import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.tsx"
+
 export interface MedicalTestProps {
 	affectedBy?: Drug
 	normalRange?: MedicalEnumeration | Text

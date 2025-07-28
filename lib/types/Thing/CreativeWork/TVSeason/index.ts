@@ -5,6 +5,8 @@ import type { CreativeWorkSeasonProps } from "../CreativeWorkSeason/index.ts"
 import type Country from "../../Place/AdministrativeArea/Country/index.ts"
 import type TVSeries from "../TVSeries/index.ts"
 
+import TVSeasonComponent from "../../../../../components/Thing/CreativeWork/TVSeason/index.tsx"
+
 export interface TVSeasonProps {
 	countryOfOrigin?: Country
 	partOfTVSeries?: TVSeries

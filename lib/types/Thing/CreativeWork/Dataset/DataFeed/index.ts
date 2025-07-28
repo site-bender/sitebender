@@ -4,6 +4,8 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { DatasetProps } from "../index.ts"
 import type DataFeedItem from "../../../Intangible/DataFeedItem/index.ts"
 
+import DataFeedComponent from "../../../../../../components/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
+
 export interface DataFeedProps {
 	dataFeedElement?: DataFeedItem | Text | Thing
 }

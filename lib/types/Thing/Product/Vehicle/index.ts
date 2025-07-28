@@ -8,6 +8,8 @@ import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type SteeringPositionValue from "../../Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
 
+import VehicleComponent from "../../../../../components/Thing/Product/Vehicle/index.tsx"
+
 export interface VehicleProps {
 	accelerationTime?: QuantitativeValue
 	bodyType?: QualitativeValue | Text | URL

@@ -3,6 +3,8 @@ import type Thing from "../../index.ts"
 import type { EventProps } from "../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 
+import EducationEventComponent from "../../../../../components/Thing/Event/EducationEvent/index.tsx"
+
 export interface EducationEventProps {
 	assesses?: DefinedTerm | Text
 	educationalLevel?: DefinedTerm | Text | URL

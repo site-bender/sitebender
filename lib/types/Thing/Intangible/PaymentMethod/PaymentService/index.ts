@@ -4,6 +4,8 @@ import type { ServiceProps } from "../../Service/index.ts"
 import type { FinancialProductProps } from "../../Service/FinancialProduct/index.ts"
 import type { PaymentMethodProps } from "../index.ts"
 
+import PaymentServiceComponent from "../../../../../../components/Thing/Intangible/PaymentMethod/PaymentService/index.tsx"
+
 export interface PaymentServiceProps {
 }
 

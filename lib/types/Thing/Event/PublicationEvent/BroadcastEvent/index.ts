@@ -5,6 +5,8 @@ import type { PublicationEventProps } from "../index.ts"
 import type Event from "../../index.ts"
 import type Language from "../../../Intangible/Language/index.ts"
 
+import BroadcastEventComponent from "../../../../../../components/Thing/Event/PublicationEvent/BroadcastEvent/index.tsx"
+
 export interface BroadcastEventProps {
 	broadcastOfEvent?: Event
 	isLiveBroadcast?: Boolean

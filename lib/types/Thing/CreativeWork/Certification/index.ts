@@ -9,6 +9,8 @@ import type Organization from "../../Organization/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Rating from "../../Intangible/Rating/index.ts"
 
+import CertificationComponent from "../../../../../components/Thing/CreativeWork/Certification/index.tsx"
+
 export interface CertificationProps {
 	about?: Thing
 	auditDate?: Date | DateTime

@@ -12,6 +12,8 @@ import type Person from "../../Person/index.ts"
 import type PhysicalActivityCategory from "../Enumeration/PhysicalActivityCategory/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
+import InvoiceComponent from "../../../../../components/Thing/Intangible/Invoice/index.tsx"
+
 export interface InvoiceProps {
 	accountId?: Text
 	billingPeriod?: Duration

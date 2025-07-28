@@ -22,6 +22,8 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type StructuredValue from "../StructuredValue/index.ts"
 
+import EducationalOccupationalProgramComponent from "../../../../../components/Thing/Intangible/EducationalOccupationalProgram/index.tsx"
+
 export interface EducationalOccupationalProgramProps {
 	applicationDeadline?: Date | Text
 	applicationStartDate?: Date

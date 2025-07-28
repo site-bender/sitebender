@@ -5,6 +5,8 @@ import type ArchiveOrganization from "../../Organization/LocalBusiness/ArchiveOr
 import type Place from "../../Place/index.ts"
 import type PostalAddress from "../../Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 
+import ArchiveComponentComponent from "../../../../../components/Thing/CreativeWork/ArchiveComponent/index.tsx"
+
 export interface ArchiveComponentProps {
 	holdingArchive?: ArchiveOrganization
 	itemLocation?: Place | PostalAddress | Text

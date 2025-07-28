@@ -7,6 +7,8 @@ import type ContactPoint from "../../../../Intangible/StructuredValue/ContactPoi
 import type Organization from "../../../../Organization/index.ts"
 import type Person from "../../../../Person/index.ts"
 
+import AuthorizeActionComponent from "../../../../../../../components/Thing/Action/OrganizeAction/AllocateAction/AuthorizeAction/index.tsx"
+
 export interface AuthorizeActionProps {
 	recipient?: Audience | ContactPoint | Organization | Person
 }

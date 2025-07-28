@@ -9,6 +9,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
+import DatedMoneySpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/DatedMoneySpecification/index.tsx"
+
 export interface DatedMoneySpecificationProps {
 	amount?: MonetaryAmount | Number
 	currency?: Text

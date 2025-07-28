@@ -5,6 +5,8 @@ import type { EducationalOccupationalProgramProps } from "../index.ts"
 import type CategoryCode from "../../DefinedTerm/CategoryCode/index.ts"
 import type MonetaryAmountDistribution from "../../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
+import WorkBasedProgramComponent from "../../../../../../components/Thing/Intangible/EducationalOccupationalProgram/WorkBasedProgram/index.tsx"
+
 export interface WorkBasedProgramProps {
 	occupationalCategory?: CategoryCode | Text
 	trainingSalary?: MonetaryAmountDistribution

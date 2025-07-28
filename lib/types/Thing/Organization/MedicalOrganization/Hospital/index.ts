@@ -6,6 +6,8 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { CivicStructureProps } from "../../../Place/CivicStructure/index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
 
+import HospitalComponent from "../../../../../../components/Thing/Organization/MedicalOrganization/Hospital/index.tsx"
+
 export interface HospitalProps {
 }
 

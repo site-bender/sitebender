@@ -22,6 +22,8 @@ import type PostalAddress from "../Intangible/StructuredValue/ContactPoint/Posta
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 import type Review from "../CreativeWork/Review/index.ts"
 
+import PlaceComponent from "../../../../components/Thing/Place/index.tsx"
+
 export interface PlaceProps {
 	additionalProperty?: PropertyValue
 	address?: PostalAddress | Text

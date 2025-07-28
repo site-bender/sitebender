@@ -4,6 +4,8 @@ import type { CivicStructureProps } from "../../../Place/CivicStructure/index.ts
 import type { EducationalOrganizationProps } from "../index.ts"
 import type { OrganizationProps } from "../../index.ts"
 
+import ElementarySchoolComponent from "../../../../../../components/Thing/Organization/EducationalOrganization/ElementarySchool/index.tsx"
+
 export interface ElementarySchoolProps {
 }
 

@@ -1,6 +1,8 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import PosterComponent from "../../../../../components/Thing/CreativeWork/Poster/index.tsx"
+
 export interface PosterProps {
 }
 

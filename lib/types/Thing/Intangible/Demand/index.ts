@@ -31,6 +31,8 @@ import type Trip from "../Trip/index.ts"
 import type TypeAndQuantityNode from "../StructuredValue/TypeAndQuantityNode/index.ts"
 import type WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 
+import DemandComponent from "../../../../../components/Thing/Intangible/Demand/index.tsx"
+
 export interface DemandProps {
 	acceptedPaymentMethod?: LoanOrCredit | PaymentMethod | Text
 	advanceBookingRequirement?: QuantitativeValue

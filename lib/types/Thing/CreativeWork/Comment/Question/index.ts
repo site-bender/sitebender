@@ -7,6 +7,8 @@ import type Comment from "../index.ts"
 import type CreativeWork from "../../index.ts"
 import type ItemList from "../../../Intangible/ItemList/index.ts"
 
+import QuestionComponent from "../../../../../../components/Thing/CreativeWork/Comment/Question/index.tsx"
+
 export interface QuestionProps {
 	acceptedAnswer?: Answer | ItemList
 	answerCount?: Integer

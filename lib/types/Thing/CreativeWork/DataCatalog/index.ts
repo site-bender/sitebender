@@ -5,6 +5,8 @@ import type Dataset from "../Dataset/index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type MeasurementMethodEnum from "../../Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
+import DataCatalogComponent from "../../../../../components/Thing/CreativeWork/DataCatalog/index.tsx"
+
 export interface DataCatalogProps {
 	dataset?: Dataset
 	measurementMethod?: DefinedTerm | MeasurementMethodEnum | Text | URL

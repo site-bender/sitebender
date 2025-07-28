@@ -6,6 +6,8 @@ import type GenderType from "../../Enumeration/GenderType/index.ts"
 import type MedicalCondition from "../../../MedicalEntity/MedicalCondition/index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 
+import PeopleAudienceComponent from "../../../../../../components/Thing/Intangible/Audience/PeopleAudience/index.tsx"
+
 export interface PeopleAudienceProps {
 	healthCondition?: MedicalCondition
 	requiredGender?: Text

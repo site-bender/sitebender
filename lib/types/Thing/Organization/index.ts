@@ -36,6 +36,8 @@ import type Review from "../CreativeWork/Review/index.ts"
 import type ShippingService from "../Intangible/StructuredValue/ShippingService/index.ts"
 import type VirtualLocation from "../Intangible/VirtualLocation/index.ts"
 
+import OrganizationComponent from "../../../../components/Thing/Organization/index.tsx"
+
 export interface OrganizationProps {
 	acceptedPaymentMethod?: LoanOrCredit | PaymentMethod | Text
 	actionableFeedbackPolicy?: CreativeWork | URL

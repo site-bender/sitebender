@@ -5,6 +5,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
 import type PostalCodeRangeSpecification from "../PostalCodeRangeSpecification/index.ts"
 
+import DefinedRegionComponent from "../../../../../../components/Thing/Intangible/StructuredValue/DefinedRegion/index.tsx"
+
 export interface DefinedRegionProps {
 	addressCountry?: Country | Text
 	addressRegion?: Text

@@ -31,6 +31,8 @@ import type ProgramMembership from "../Intangible/ProgramMembership/index.ts"
 import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type StructuredValue from "../Intangible/StructuredValue/index.ts"
 
+import PersonComponent from "../../../../components/Thing/Person/index.tsx"
+
 export interface PersonProps {
 	additionalName?: Text
 	address?: PostalAddress | Text

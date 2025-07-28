@@ -2,6 +2,8 @@ import type Thing from "../../index.ts"
 import type { ActionProps } from "../index.ts"
 import type Place from "../../Place/index.ts"
 
+import MoveActionComponent from "../../../../../components/Thing/Action/MoveAction/index.tsx"
+
 export interface MoveActionProps {
 	fromLocation?: Place
 	toLocation?: Place

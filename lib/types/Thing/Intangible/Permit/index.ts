@@ -7,6 +7,8 @@ import type Duration from "../Quantity/Duration/index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Service from "../Service/index.ts"
 
+import PermitComponent from "../../../../../components/Thing/Intangible/Permit/index.tsx"
+
 export interface PermitProps {
 	issuedBy?: Organization
 	issuedThrough?: Service

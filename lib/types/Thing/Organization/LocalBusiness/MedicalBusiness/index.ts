@@ -3,6 +3,8 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 import type { OrganizationProps } from "../../index.ts"
 
+import MedicalBusinessComponent from "../../../../../../components/Thing/Organization/LocalBusiness/MedicalBusiness/index.tsx"
+
 export interface MedicalBusinessProps {
 }
 

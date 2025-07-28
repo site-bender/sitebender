@@ -5,6 +5,8 @@ import type { EmergencyServiceProps } from "../../../Organization/LocalBusiness/
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+import PoliceStationComponent from "../../../../../../components/Thing/Place/CivicStructure/PoliceStation/index.tsx"
+
 export interface PoliceStationProps {
 }
 

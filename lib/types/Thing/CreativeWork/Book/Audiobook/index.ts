@@ -7,6 +7,8 @@ import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
 import type Person from "../../../Person/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+import AudiobookComponent from "../../../../../../components/Thing/CreativeWork/Book/Audiobook/index.tsx"
+
 export interface AudiobookProps {
 	duration?: Duration | QuantitativeValue
 	readBy?: Person

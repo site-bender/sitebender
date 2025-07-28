@@ -5,6 +5,8 @@ import type { CreativeWorkSeriesProps } from "../../index.ts"
 import type { PeriodicalProps } from "../index.ts"
 import type { CreativeWorkProps } from "../../../index.ts"
 
+import NewspaperComponent from "../../../../../../../components/Thing/CreativeWork/CreativeWorkSeries/Periodical/Newspaper/index.tsx"
+
 export interface NewspaperProps {
 }
 

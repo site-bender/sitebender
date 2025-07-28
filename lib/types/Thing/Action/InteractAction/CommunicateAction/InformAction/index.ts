@@ -4,6 +4,8 @@ import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 import type Event from "../../../../Event/index.ts"
 
+import InformActionComponent from "../../../../../../../components/Thing/Action/InteractAction/CommunicateAction/InformAction/index.tsx"
+
 export interface InformActionProps {
 	event?: Event
 }

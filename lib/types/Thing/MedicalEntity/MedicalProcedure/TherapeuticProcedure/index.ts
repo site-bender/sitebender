@@ -5,6 +5,8 @@ import type DoseSchedule from "../../MedicalIntangible/DoseSchedule/index.ts"
 import type Drug from "../../../Product/Drug/index.ts"
 import type MedicalEntity from "../../index.ts"
 
+import TherapeuticProcedureComponent from "../../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/index.tsx"
+
 export interface TherapeuticProcedureProps {
 	adverseOutcome?: MedicalEntity
 	doseSchedule?: DoseSchedule

@@ -6,6 +6,8 @@ import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type Organization from "../../Organization/index.ts"
 
+import EducationalOccupationalCredentialComponent from "../../../../../components/Thing/CreativeWork/EducationalOccupationalCredential/index.tsx"
+
 export interface EducationalOccupationalCredentialProps {
 	competencyRequired?: DefinedTerm | Text | URL
 	credentialCategory?: DefinedTerm | Text | URL

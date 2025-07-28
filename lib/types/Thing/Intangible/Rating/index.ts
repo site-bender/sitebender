@@ -4,6 +4,8 @@ import type { IntangibleProps } from "../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 
+import RatingComponent from "../../../../../components/Thing/Intangible/Rating/index.tsx"
+
 export interface RatingProps {
 	author?: Organization | Person
 	bestRating?: Number | Text

@@ -3,6 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { MedicalEnumerationProps } from "../index.ts"
 
+import MedicineSystemComponent from "../../../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicineSystem/index.tsx"
+
 export interface MedicineSystemProps {
 }
 

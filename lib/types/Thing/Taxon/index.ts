@@ -3,6 +3,8 @@ import type Thing from "../index.ts"
 import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 
+import TaxonComponent from "../../../../components/Thing/Taxon/index.tsx"
+
 export interface TaxonProps {
 	childTaxon?: Taxon | Text | URL
 	hasDefinedTerm?: DefinedTerm

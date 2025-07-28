@@ -3,6 +3,8 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { NewsArticleProps } from "../index.ts"
 
+import OpinionNewsArticleComponent from "../../../../../../../components/Thing/CreativeWork/Article/NewsArticle/OpinionNewsArticle/index.tsx"
+
 export interface OpinionNewsArticleProps {
 }
 

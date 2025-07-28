@@ -6,6 +6,8 @@ import type { EntertainmentBusinessProps } from "../../../Organization/LocalBusi
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+import MovieTheaterComponent from "../../../../../../components/Thing/Place/CivicStructure/MovieTheater/index.tsx"
+
 export interface MovieTheaterProps {
 	screenCount?: Number
 }

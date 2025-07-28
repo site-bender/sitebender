@@ -7,6 +7,8 @@ import type MusicGroup from "../../../Organization/PerformingGroup/MusicGroup/in
 import type MusicRelease from "../MusicRelease/index.ts"
 import type Person from "../../../Person/index.ts"
 
+import MusicAlbumComponent from "../../../../../../components/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.tsx"
+
 export interface MusicAlbumProps {
 	albumProductionType?: MusicAlbumProductionType
 	albumRelease?: MusicRelease

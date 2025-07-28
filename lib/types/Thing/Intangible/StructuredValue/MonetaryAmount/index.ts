@@ -10,6 +10,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type StructuredValue from "../index.ts"
 
+import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+
 export interface MonetaryAmountProps {
 	currency?: Text
 	maxValue?: Number

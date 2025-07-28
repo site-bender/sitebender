@@ -14,6 +14,8 @@ import type MedicalTest from "../MedicalTest/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 import type SuperficialAnatomy from "../SuperficialAnatomy/index.ts"
 
+import MedicalConditionComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/index.tsx"
+
 export interface MedicalConditionProps {
 	associatedAnatomy?:
 		| AnatomicalStructure

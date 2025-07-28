@@ -5,6 +5,8 @@ import type BroadcastFrequencySpecification from "../BroadcastFrequencySpecifica
 import type BroadcastService from "../Service/BroadcastService/index.ts"
 import type CableOrSatelliteService from "../Service/CableOrSatelliteService/index.ts"
 
+import BroadcastChannelComponent from "../../../../../components/Thing/Intangible/BroadcastChannel/index.tsx"
+
 export interface BroadcastChannelProps {
 	broadcastChannelId?: Text
 	broadcastFrequency?: BroadcastFrequencySpecification | Text

@@ -7,6 +7,8 @@ import type Product from "../../Product/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 import type Service from "../Service/index.ts"
 
+import OrderItemComponent from "../../../../../components/Thing/Intangible/OrderItem/index.tsx"
+
 export interface OrderItemProps {
 	orderDelivery?: ParcelDelivery
 	orderedItem?: OrderItem | Product | Service
