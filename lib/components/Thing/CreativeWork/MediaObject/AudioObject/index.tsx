@@ -1,28 +1,25 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type AudioObjectProps from "../../../../../types/Thing/AudioObject/index.ts"
-import type MediaObjectProps from "../../../../../types/Thing/MediaObject/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
+import type ThingProps from "../../../../../types/Thing/index.ts"
+import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
+import type { MediaObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/index.ts"
+import type { AudioObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/AudioObject/index.ts"
 
 import MediaObject from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	AudioObjectProps,
 	"AudioObject",
-	ExtractLevelProps<AudioObjectProps, MediaObjectProps>
+	ExtractLevelProps<ThingProps, CreativeWorkProps, MediaObjectProps>
 >
 
-export default function AudioObject(
-	{
-		caption,
-		embeddedTextCaption,
-		transcript,
-		schemaType = "AudioObject",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function AudioObject({
+	caption,
+	embeddedTextCaption,
+	transcript,
+	schemaType = "AudioObject",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<MediaObject
 			{...props}

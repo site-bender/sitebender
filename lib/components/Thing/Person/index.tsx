@@ -1,100 +1,92 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../types/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../types/index.ts"
 import type ThingProps from "../../../types/Thing/index.ts"
-import type PersonProps from "../../../types/Thing/Person/index.ts"
+import type { PersonProps } from "../../../types/Thing/Person/index.ts"
 
-import Base from "../../Base/index.tsx"
 import Thing from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	PersonProps,
 	"Person",
-	ExtractLevelProps<PersonProps, ThingProps>
+	ExtractLevelProps<ThingProps>
 >
 
-export default function Person(props: Props) {
-	const {
-		additionalName,
-		address,
-		affiliation,
-		agentInteractionStatistic,
-		alumniOf,
-		award,
-		awards,
-		birthDate,
-		birthPlace,
-		brand,
-		callSign,
-		children,
-		colleague,
-		colleagues,
-		contactPoint,
-		contactPoints,
-		deathDate,
-		deathPlace,
-		duns,
-		email,
-		familyName,
-		faxNumber,
-		follows,
-		funder,
-		funding,
-		gender,
-		givenName,
-		globalLocationNumber,
-		hasCertification,
-		hasCredential,
-		hasOccupation,
-		hasOfferCatalog,
-		hasPOS,
-		height,
-		homeLocation,
-		honorificPrefix,
-		honorificSuffix,
-		interactionStatistic,
-		isicV4,
-		jobTitle,
-		knows,
-		knowsAbout,
-		knowsLanguage,
-		makesOffer,
-		memberOf,
-		naics,
-		nationality,
-		netWorth,
-		owns,
-		parent,
-		parents,
-		performerIn,
-		pronouns,
-		publishingPrinciples,
-		relatedTo,
-		seeks,
-		sibling,
-		siblings,
-		skills,
-		sponsor,
-		spouse,
-		taxID,
-		telephone,
-		vatID,
-		weight,
-		workLocation,
-		worksFor,
-		format,
-		...restProps
-	} = props
-
-	const thingData = Thing(restProps)
-
+export default function Person({
+	additionalName,
+	address,
+	affiliation,
+	agentInteractionStatistic,
+	alumniOf,
+	award,
+	awards,
+	birthDate,
+	birthPlace,
+	brand,
+	callSign,
+	children,
+	colleague,
+	colleagues,
+	contactPoint,
+	contactPoints,
+	deathDate,
+	deathPlace,
+	duns,
+	email,
+	familyName,
+	faxNumber,
+	follows,
+	funder,
+	funding,
+	gender,
+	givenName,
+	globalLocationNumber,
+	hasCertification,
+	hasCredential,
+	hasOccupation,
+	hasOfferCatalog,
+	hasPOS,
+	height,
+	homeLocation,
+	honorificPrefix,
+	honorificSuffix,
+	interactionStatistic,
+	isicV4,
+	jobTitle,
+	knows,
+	knowsAbout,
+	knowsLanguage,
+	makesOffer,
+	memberOf,
+	naics,
+	nationality,
+	netWorth,
+	owns,
+	parent,
+	parents,
+	performerIn,
+	pronouns,
+	publishingPrinciples,
+	relatedTo,
+	seeks,
+	sibling,
+	siblings,
+	skills,
+	sponsor,
+	spouse,
+	taxID,
+	telephone,
+	vatID,
+	weight,
+	workLocation,
+	worksFor,
+	schemaType = "Person",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
-		<Base
-			element="span"
-			format={format || "{{givenName}} {{familyName}}"}
-			props={{
-				...thingData.props,
+		<Thing
+			{...props}
+			schemaType={schemaType}
+			subtypeProperties={{
 				additionalName,
 				address,
 				affiliation,
@@ -162,6 +154,7 @@ export default function Person(props: Props) {
 				weight,
 				workLocation,
 				worksFor,
+				...subtypeProperties,
 			}}
 		/>
 	)

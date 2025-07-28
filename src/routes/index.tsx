@@ -3,13 +3,13 @@ import Fragment from "~utilities/Fragment/index.ts"
 // Head elements for this page - will be extracted by the build system
 export function Head() {
 	return (
-		<>
+		<Fragment>
 			<title>@sitebender/metadata-components - Semantic HTML Components</title>
 			<meta
 				name="description"
 				content="Semantic HTML components for rich text markup with structured data. Transform plain text into accessible, SEO-optimized content with Schema.org and JSON-LD support."
 			/>
-		</>
+		</Fragment>
 	)
 }
 

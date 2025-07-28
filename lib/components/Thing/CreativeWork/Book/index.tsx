@@ -1,38 +1,30 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type { BookProps } from "../../../../types/Thing/CreativeWork/Book/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type Props from "../../../../types/Thing/CreativeWork/Book/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BookProps,
-	"Book",
-	ExtractLevelProps<BookProps, CreativeWorkProps>
->
-
 export default function Book({
-	isbn,
-	numberOfPages,
+	abridged,
 	bookEdition,
 	bookFormat,
 	illustrator,
+	isbn,
+	numberOfPages,
 	schemaType = "Book",
 	subtypeProperties = {},
 	...props
-}: Props) {
+}: Props & BaseProps): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
 			schemaType={schemaType}
 			subtypeProperties={{
-				isbn,
-				numberOfPages,
+				abridged,
 				bookEdition,
 				bookFormat,
 				illustrator,
+				isbn,
+				numberOfPages,
 				...subtypeProperties,
 			}}
 		/>

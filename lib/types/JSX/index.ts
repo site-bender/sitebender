@@ -1,19 +1,3 @@
-declare global {
-	namespace JSX {
-		interface Element {
-			type: string
-			props: Record<string, unknown>
-			children?: unknown
-		}
-
-		interface IntrinsicElements {
-			[elemName: string]: Record<string, unknown>
-		}
-	}
-}
-
-export {}
-
 /**
  * Generic element constructor attributes type
  * Combines HTML-specific attributes with reactive system attributes

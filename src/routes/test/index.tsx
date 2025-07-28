@@ -1,10 +1,4 @@
-import Base from "~lib/components/Base/index.tsx"
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
-import Organization from "~lib/components/Thing/Organization/index.tsx"
-import Person from "~lib/components/Thing/Person/index.tsx"
-import Drug from "~lib/components/Thing/Product/Drug/index.tsx"
-
-import Fragment from "~utilities/Fragment/index.ts"
 
 export type Props = {
 	route?: string
@@ -31,92 +25,7 @@ export default function ({ route }: Props = {}) {
 			<section>
 				<h2>Simple string fallbacks</h2>
 				<p>
-					<Base
-						format="{{cite(title)}} by {{familyFirst(author)}}"
-						props={{
-							title: "Gravity's Rainbow",
-							author: Person({
-								givenName: "Thomas",
-								familyName: "Pynchon",
-							}),
-						}}
-					/>
-				</p>
-			</section>
-
-			<section>
-				<h2>Rich nested objects</h2>
-				<p>
-					<Base
-						format="{{cite(title)}} by {{familyFirst(author)}}"
-						props={{
-							title: "Gravity's Rainbow",
-							author: Person({
-								givenName: "Thomas",
-								familyName: "Pynchon",
-							}),
-						}}
-					/>
-				</p>
-			</section>
-
-			<section>
-				<h2>Multiple nested objects</h2>
-				<p>
-					<Base
-						format="{{cite(title)}} by {{familyFirst(author)}}, published by {{publisher.name}}"
-						props={{
-							title: "The Hobbit",
-							author: Person({
-								givenName: "J.R.R.",
-								familyName: "Tolkien",
-							}),
-							publisher: Organization({
-								name: "George Allen & Unwin",
-							}),
-						}}
-					/>
-				</p>
-			</section>
-
-			<section>
-				<h2>Drug Components (New Composition Pattern)</h2>
-
-				<h3>Basic Drug</h3>
-				<p>
-					<Drug
-						name="Aspirin"
-						dosageForm="tablet"
-						drugUnit="325mg"
-						description="Pain reliever and fever reducer"
-					/>
-				</p>
-
-				<h3>Drug with Custom Format</h3>
-				<p>
-					<Drug
-						name="Ibuprofen"
-						dosageForm="capsule"
-						drugUnit="200mg"
-						activeIngredient="Ibuprofen"
-						administrationRoute="oral"
-						format="{{name}} - {{activeIngredient}} {{drugUnit}} {{dosageForm}} ({{administrationRoute}})"
-					/>
-				</p>
-
-				<h3>Complex Drug Information</h3>
-				<p>
-					<Drug
-						name="Metformin"
-						dosageForm="tablet"
-						drugUnit="500mg"
-						activeIngredient="Metformin hydrochloride"
-						administrationRoute="oral"
-						mechanismOfAction="Decreases hepatic glucose production"
-						isAvailableGenerically={true}
-						pregnancyCategory="B"
-						format="{{name}} ({{activeIngredient}}) - {{drugUnit}} {{dosageForm}}"
-					/>
+					<Book name="The Great Gatsby" isbn="9780743273565" />
 				</p>
 			</section>
 		</main>

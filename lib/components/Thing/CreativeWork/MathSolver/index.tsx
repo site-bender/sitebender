@@ -1,26 +1,22 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
-import type MathSolverProps from "../../../../types/Thing/MathSolver/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
+import type ThingProps from "../../../../types/Thing/index.ts"
+import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type { MathSolverProps } from "../../../../types/Thing/CreativeWork/MathSolver/index.ts"
 
 import CreativeWork from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MathSolverProps,
 	"MathSolver",
-	ExtractLevelProps<MathSolverProps, CreativeWorkProps>
+	ExtractLevelProps<ThingProps, CreativeWorkProps>
 >
 
-export default function MathSolver(
-	{
-		mathExpression,
-		schemaType = "MathSolver",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function MathSolver({
+	mathExpression,
+	schemaType = "MathSolver",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<CreativeWork
 			{...props}

@@ -1,14 +1,9 @@
-import type { BaseComponentProps } from "../../types/index.ts"
-import type ThingProps from "../../types/Thing/index.ts"
+import type Props from "../../types/Thing/index.ts"
+import type BaseProps from "../../types/index.ts"
 
-export type Props = BaseComponentProps<
-	ThingProps,
-	"Thing",
-	Record<string, unknown>
->
+import Base from "../Base/index.tsx"
 
-export default function Thing(props: Props) {
-	const {
+export default function Thing({
 		additionalType,
 		alternateName,
 		description,
@@ -19,28 +14,33 @@ export default function Thing(props: Props) {
 		name,
 		potentialAction,
 		sameAs,
+		schemaType = "Thing",
 		subjectOf,
+		subtypeProperties = {},
 		url,
-		schemaType,
-		subtypeProperties,
-		format,
-		...restProps
-	} = props
+		...props
+	}: Props & BaseProps): JSX.Element {
+		const allProps = {
+			...props,
+			schemaType,
+			subtypeProperties: {
+				additionalType,
+				alternateName,
+				description,
+				disambiguatingDescription,
+				identifier,
+				image,
+				mainEntityOfPage,
+				name,
+				potentialAction,
+				sameAs,
+				subjectOf,
+				url,
+				...subtypeProperties, // Merge any additional properties
+			},
+		}
 
-	return {
-		props: {
-			additionalType,
-			alternateName,
-			description,
-			disambiguatingDescription,
-			identifier,
-			image,
-			mainEntityOfPage,
-			name,
-			potentialAction,
-			sameAs,
-			subjectOf,
-			url,
-		},
-	}
+	return (
+		<Base {...allProps} />
+	)
 }

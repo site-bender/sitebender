@@ -1,28 +1,24 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type MedicalOrganizationProps from "../../../../types/Thing/MedicalOrganization/index.ts"
-import type OrganizationProps from "../../../../types/Thing/Organization/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
+import type ThingProps from "../../../../types/Thing/index.ts"
+import type { OrganizationProps } from "../../../../types/Thing/Organization/index.ts"
+import type { MedicalOrganizationProps } from "../../../../types/Thing/Organization/MedicalOrganization/index.ts"
 
 import Organization from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalOrganizationProps,
 	"MedicalOrganization",
-	ExtractLevelProps<MedicalOrganizationProps, OrganizationProps>
+	ExtractLevelProps<ThingProps, OrganizationProps>
 >
 
-export default function MedicalOrganization(
-	{
-		healthPlanNetworkId,
-		isAcceptingNewPatients,
-		medicalSpecialty,
-		schemaType = "MedicalOrganization",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function MedicalOrganization({
+	healthPlanNetworkId,
+	isAcceptingNewPatients,
+	medicalSpecialty,
+	schemaType = "MedicalOrganization",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<Organization
 			{...props}

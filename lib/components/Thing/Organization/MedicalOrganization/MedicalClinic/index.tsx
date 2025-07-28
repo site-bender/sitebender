@@ -1,27 +1,24 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type MedicalClinicProps from "../../../../../types/Thing/MedicalClinic/index.ts"
-import type MedicalOrganizationProps from "../../../../../types/Thing/MedicalOrganization/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
+import type ThingProps from "../../../../../types/Thing/index.ts"
+import type { OrganizationProps } from "../../../../../types/Thing/Organization/index.ts"
+import type { MedicalOrganizationProps } from "../../../../../types/Thing/Organization/MedicalOrganization/index.ts"
+import type { MedicalClinicProps } from "../../../../../types/Thing/Organization/MedicalOrganization/MedicalClinic/index.ts"
 
 import MedicalOrganization from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalClinicProps,
 	"MedicalClinic",
-	ExtractLevelProps<MedicalClinicProps, MedicalOrganizationProps>
+	ExtractLevelProps<ThingProps, OrganizationProps, MedicalOrganizationProps>
 >
 
-export default function MedicalClinic(
-	{
-		availableService,
-		medicalSpecialty,
-		schemaType = "MedicalClinic",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function MedicalClinic({
+	availableService,
+	medicalSpecialty,
+	schemaType = "MedicalClinic",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<MedicalOrganization
 			{...props}

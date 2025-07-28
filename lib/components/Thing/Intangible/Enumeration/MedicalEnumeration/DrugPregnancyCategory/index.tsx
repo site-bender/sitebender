@@ -1,29 +1,3 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type DrugPregnancyCategoryProps from "../../../../../../types/Thing/DrugPregnancyCategory/index.ts"
-import type MedicalEnumerationProps from "../../../../../../types/Thing/MedicalEnumeration/index.ts"
+import DrugPregnancyCategory from "../index.tsx"
 
-import MedicalEnumeration from "../index.tsx"
-
-// DrugPregnancyCategory adds no properties to the MedicalEnumeration schema type
-export type Props = BaseComponentProps<
-	DrugPregnancyCategoryProps,
-	"DrugPregnancyCategory",
-	ExtractLevelProps<DrugPregnancyCategoryProps, MedicalEnumerationProps>
->
-
-export default function DrugPregnancyCategory({
-	schemaType = "DrugPregnancyCategory",
-	subtypeProperties = {},
-	...props
-}: Props) {
-	return (
-		<MedicalEnumeration
-			{...props}
-			schemaType={schemaType}
-			subtypeProperties={subtypeProperties}
-		/>
-	)
-}
+export default DrugPregnancyCategory

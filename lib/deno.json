@@ -52,7 +52,7 @@
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"],
-		"types": ["./jsx.d.ts"]
+		"types": ["./types/JSX/index.ts", "./types/JSX/attributes/index.ts"]
 	},
 	"lint": {
 		"rules": {

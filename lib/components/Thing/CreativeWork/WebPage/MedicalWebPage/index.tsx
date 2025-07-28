@@ -1,27 +1,24 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type MedicalWebPageProps from "../../../../../types/Thing/MedicalWebPage/index.ts"
-import type WebPageProps from "../../../../../types/Thing/WebPage/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
+import type ThingProps from "../../../../../types/Thing/index.ts"
+import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
+import type { WebPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/index.ts"
+import type { MedicalWebPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/MedicalWebPage/index.ts"
 
 import WebPage from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	MedicalWebPageProps,
 	"MedicalWebPage",
-	ExtractLevelProps<MedicalWebPageProps, WebPageProps>
+	ExtractLevelProps<ThingProps, CreativeWorkProps, WebPageProps>
 >
 
-export default function MedicalWebPage(
-	{
-		aspect,
-		medicalAudience,
-		schemaType = "MedicalWebPage",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function MedicalWebPage({
+	aspect,
+	medicalAudience,
+	schemaType = "MedicalWebPage",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<WebPage
 			{...props}

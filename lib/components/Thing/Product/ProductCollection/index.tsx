@@ -1,26 +1,22 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type ProductProps from "../../../../types/Thing/Product/index.ts"
-import type ProductCollectionProps from "../../../../types/Thing/ProductCollection/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
+import type ThingProps from "../../../../types/Thing/index.ts"
+import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
+import type { ProductCollectionProps } from "../../../../types/Thing/Product/ProductCollection/index.ts"
 
 import Product from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	ProductCollectionProps,
 	"ProductCollection",
-	ExtractLevelProps<ProductCollectionProps, ProductProps>
+	ExtractLevelProps<ThingProps, ProductProps>
 >
 
-export default function ProductCollection(
-	{
-		includesObject,
-		schemaType = "ProductCollection",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function ProductCollection({
+	includesObject,
+	schemaType = "ProductCollection",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<Product
 			{...props}

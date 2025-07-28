@@ -1,33 +1,29 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type IntangibleProps from "../../../../types/Thing/Intangible/index.ts"
-import type TicketProps from "../../../../types/Thing/Ticket/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
+import type ThingProps from "../../../../types/Thing/index.ts"
+import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type { TicketProps } from "../../../../types/Thing/Intangible/Ticket/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TicketProps,
 	"Ticket",
-	ExtractLevelProps<TicketProps, IntangibleProps>
+	ExtractLevelProps<ThingProps, IntangibleProps>
 >
 
-export default function Ticket(
-	{
-		dateIssued,
-		issuedBy,
-		priceCurrency,
-		ticketNumber,
-		ticketToken,
-		ticketedSeat,
-		totalPrice,
-		underName,
-		schemaType = "Ticket",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function Ticket({
+	dateIssued,
+	issuedBy,
+	priceCurrency,
+	ticketedSeat,
+	ticketNumber,
+	ticketToken,
+	totalPrice,
+	underName,
+	schemaType = "Ticket",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<Intangible
 			{...props}
@@ -36,9 +32,9 @@ export default function Ticket(
 				dateIssued,
 				issuedBy,
 				priceCurrency,
+				ticketedSeat,
 				ticketNumber,
 				ticketToken,
-				ticketedSeat,
 				totalPrice,
 				underName,
 				...subtypeProperties,

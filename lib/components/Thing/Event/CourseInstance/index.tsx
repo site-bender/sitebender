@@ -1,29 +1,25 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type CourseInstanceProps from "../../../../types/Thing/CourseInstance/index.ts"
-import type EventProps from "../../../../types/Thing/Event/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
+import type ThingProps from "../../../../types/Thing/index.ts"
+import type { EventProps } from "../../../../types/Thing/Event/index.ts"
+import type { CourseInstanceProps } from "../../../../types/Thing/Event/CourseInstance/index.ts"
 
 import Event from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	CourseInstanceProps,
 	"CourseInstance",
-	ExtractLevelProps<CourseInstanceProps, EventProps>
+	ExtractLevelProps<ThingProps, EventProps>
 >
 
-export default function CourseInstance(
-	{
-		courseMode,
-		courseSchedule,
-		courseWorkload,
-		instructor,
-		schemaType = "CourseInstance",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function CourseInstance({
+	courseMode,
+	courseSchedule,
+	courseWorkload,
+	instructor,
+	schemaType = "CourseInstance",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<Event
 			{...props}

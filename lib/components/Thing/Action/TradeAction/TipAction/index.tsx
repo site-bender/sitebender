@@ -1,26 +1,23 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type TipActionProps from "../../../../../types/Thing/TipAction/index.ts"
-import type TradeActionProps from "../../../../../types/Thing/TradeAction/index.ts"
+import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
+import type ThingProps from "../../../../../types/Thing/index.ts"
+import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
+import type { TradeActionProps } from "../../../../../types/Thing/Action/TradeAction/index.ts"
+import type { TipActionProps } from "../../../../../types/Thing/Action/TradeAction/TipAction/index.ts"
 
 import TradeAction from "../index.tsx"
 
 export type Props = BaseComponentProps<
 	TipActionProps,
 	"TipAction",
-	ExtractLevelProps<TipActionProps, TradeActionProps>
+	ExtractLevelProps<ThingProps, ActionProps, TradeActionProps>
 >
 
-export default function TipAction(
-	{
-		recipient,
-		schemaType = "TipAction",
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
+export default function TipAction({
+	recipient,
+	schemaType = "TipAction",
+	subtypeProperties = {},
+	...props
+}): Props {
 	return (
 		<TradeAction
 			{...props}

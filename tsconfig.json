@@ -9,18 +9,18 @@
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"noEmit": true,
-    "alwaysStrict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+		"alwaysStrict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
 		"paths": {
 			"~components/*": ["./src/components/*"],
 			"~constants/*": ["./src/constants/*"],
@@ -28,11 +28,12 @@
 			"~scripts/*": ["./scripts/*"],
 			"~tests/*": ["./tests/*"],
 			"~types/*": ["./src/types/*"],
-			"~utilities/*": ["./src/utilities/*"],
+			"~utilities/*": ["./utilities/*"],
 			"~src/*": ["./src/*"],
 			"~*": ["./*"]
 		},
-		"target": "esnext"
+		"target": "esnext",
+		"types": ["./lib/types/globals.d.ts"]
 	},
-	"include": ["src/**/*", "scripts/**/*"]
+	"include": ["src/**/*", "scripts/**/*", "lib/**/*"]
 }
