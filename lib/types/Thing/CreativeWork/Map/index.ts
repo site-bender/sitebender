@@ -1,16 +1,13 @@
 import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
 import type MapCategoryType from "../../Intangible/Enumeration/MapCategoryType/index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-import MapComponent from "../../../../../components/Thing/CreativeWork/Map/index.tsx"
+import MapCategoryTypeComponent from "../../../../components/Thing/Intangible/Enumeration/MapCategoryType/index.ts"
 
 export interface MapProps {
-	mapType?: MapCategoryType
+	mapType?: MapCategoryType | ReturnType<typeof MapCategoryTypeComponent>
 }
 
-type Map =
-	& Thing
-	& CreativeWorkProps
-	& MapProps
+type Map = Thing & CreativeWorkProps & MapProps
 
 export default Map

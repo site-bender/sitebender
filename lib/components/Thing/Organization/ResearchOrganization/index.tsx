@@ -1,3 +1,22 @@
-import ResearchOrganization from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { ResearchOrganizationProps } from "../../../../types/Thing/Organization/ResearchOrganization/index.ts"
 
-export default ResearchOrganization
+import Organization from "../index.tsx"
+
+export type Props = ResearchOrganizationProps & BaseProps
+
+export default function ResearchOrganization({
+	_type = "ResearchOrganization",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,29 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { CommentProps } from "../../../../types/Thing/CreativeWork/Comment/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CommentProps,
-	"Comment",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = CommentProps & BaseProps
 
 export default function Comment({
 	downvoteCount,
 	parentItem,
 	sharedContent,
 	upvoteCount,
-	schemaType = "Comment",
+	_type = "Comment",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				downvoteCount,
 				parentItem,

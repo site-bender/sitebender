@@ -3,16 +3,10 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { OrganizeActionProps } from "../index.ts"
 
-import PlanActionComponent from "../../../../../../components/Thing/Action/OrganizeAction/PlanAction/index.tsx"
-
 export interface PlanActionProps {
 	scheduledTime?: Date | DateTime
 }
 
-type PlanAction =
-	& Thing
-	& ActionProps
-	& OrganizeActionProps
-	& PlanActionProps
+type PlanAction = Thing & ActionProps & OrganizeActionProps & PlanActionProps
 
 export default PlanAction

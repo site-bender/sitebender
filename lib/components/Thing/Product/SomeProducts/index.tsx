@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { SomeProductsProps } from "../../../../types/Thing/Product/SomeProducts/index.ts"
 
 import Product from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SomeProductsProps,
-	"SomeProducts",
-	ExtractLevelProps<ThingProps, ProductProps>
->
+export type Props = SomeProductsProps & BaseProps
 
 export default function SomeProducts({
 	inventoryLevel,
-	schemaType = "SomeProducts",
+	_type = "SomeProducts",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Product
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				inventoryLevel,
 				...subtypeProperties,

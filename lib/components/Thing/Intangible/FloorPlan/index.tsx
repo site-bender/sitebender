@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { FloorPlanProps } from "../../../../types/Thing/Intangible/FloorPlan/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	FloorPlanProps,
-	"FloorPlan",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = FloorPlanProps & BaseProps
 
 export default function FloorPlan({
 	amenityFeature,
@@ -24,14 +18,14 @@ export default function FloorPlan({
 	numberOfPartialBathrooms,
 	numberOfRooms,
 	petsAllowed,
-	schemaType = "FloorPlan",
+	_type = "FloorPlan",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				amenityFeature,
 				floorSize,

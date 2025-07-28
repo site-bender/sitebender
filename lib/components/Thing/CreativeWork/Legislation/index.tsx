@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { LegislationProps } from "../../../../types/Thing/CreativeWork/Legislation/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LegislationProps,
-	"Legislation",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = LegislationProps & BaseProps
 
 export default function Legislation({
 	jurisdiction,
@@ -32,14 +26,14 @@ export default function Legislation({
 	legislationResponsible,
 	legislationTransposes,
 	legislationType,
-	schemaType = "Legislation",
+	_type = "Legislation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				jurisdiction,
 				legislationAmends,

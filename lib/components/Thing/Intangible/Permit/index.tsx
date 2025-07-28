@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { PermitProps } from "../../../../types/Thing/Intangible/Permit/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PermitProps,
-	"Permit",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = PermitProps & BaseProps
 
 export default function Permit({
 	issuedBy,
@@ -19,14 +13,14 @@ export default function Permit({
 	validFrom,
 	validIn,
 	validUntil,
-	schemaType = "Permit",
+	_type = "Permit",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				issuedBy,
 				issuedThrough,

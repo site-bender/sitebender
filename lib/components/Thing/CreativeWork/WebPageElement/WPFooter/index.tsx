@@ -1,3 +1,22 @@
-import WPFooter from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { WPFooterProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPFooter/index.ts"
 
-export default WPFooter
+import WebPageElement from "../index.tsx"
+
+export type Props = WPFooterProps & BaseProps
+
+export default function WPFooter({
+	_type = "WPFooter",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPageElement
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

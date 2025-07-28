@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { JobPostingProps } from "../../../../types/Thing/Intangible/JobPosting/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	JobPostingProps,
-	"JobPosting",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = JobPostingProps & BaseProps
 
 export default function JobPosting({
 	applicantLocationRequirements,
@@ -49,14 +43,14 @@ export default function JobPosting({
 	totalJobOpenings,
 	validThrough,
 	workHours,
-	schemaType = "JobPosting",
+	_type = "JobPosting",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				applicantLocationRequirements,
 				applicationContact,

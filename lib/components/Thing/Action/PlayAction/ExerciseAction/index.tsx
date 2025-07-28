@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { PlayActionProps } from "../../../../../types/Thing/Action/PlayAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ExerciseActionProps } from "../../../../../types/Thing/Action/PlayAction/ExerciseAction/index.ts"
 
 import PlayAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ExerciseActionProps,
-	"ExerciseAction",
-	ExtractLevelProps<ThingProps, ActionProps, PlayActionProps>
->
+export type Props = ExerciseActionProps & BaseProps
 
 export default function ExerciseAction({
 	course,
@@ -26,14 +19,14 @@ export default function ExerciseAction({
 	sportsEvent,
 	sportsTeam,
 	toLocation,
-	schemaType = "ExerciseAction",
+	_type = "ExerciseAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<PlayAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				course,
 				diet,

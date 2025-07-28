@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { ArticleProps } from "../../../../../types/Thing/CreativeWork/Article/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { NewsArticleProps } from "../../../../../types/Thing/CreativeWork/Article/NewsArticle/index.ts"
 
 import Article from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	NewsArticleProps,
-	"NewsArticle",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, ArticleProps>
->
+export type Props = NewsArticleProps & BaseProps
 
 export default function NewsArticle({
 	dateline,
@@ -18,14 +11,14 @@ export default function NewsArticle({
 	printEdition,
 	printPage,
 	printSection,
-	schemaType = "NewsArticle",
+	_type = "NewsArticle",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Article
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				dateline,
 				printColumn,

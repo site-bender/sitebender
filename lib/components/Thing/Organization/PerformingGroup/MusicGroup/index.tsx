@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { OrganizationProps } from "../../../../../types/Thing/Organization/index.ts"
-import type { PerformingGroupProps } from "../../../../../types/Thing/Organization/PerformingGroup/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { MusicGroupProps } from "../../../../../types/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 
 import PerformingGroup from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MusicGroupProps,
-	"MusicGroup",
-	ExtractLevelProps<ThingProps, OrganizationProps, PerformingGroupProps>
->
+export type Props = MusicGroupProps & BaseProps
 
 export default function MusicGroup({
 	album,
@@ -19,14 +12,14 @@ export default function MusicGroup({
 	musicGroupMember,
 	track,
 	tracks,
-	schemaType = "MusicGroup",
+	_type = "MusicGroup",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<PerformingGroup
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				album,
 				albums,

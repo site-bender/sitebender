@@ -1,3 +1,22 @@
-import Museum from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MuseumProps } from "../../../../../types/Thing/Place/CivicStructure/Museum/index.ts"
 
-export default Museum
+import CivicStructure from "../index.tsx"
+
+export type Props = MuseumProps & BaseProps
+
+export default function Museum({
+	_type = "Museum",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

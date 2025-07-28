@@ -3,10 +3,7 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { MedicalEnumerationProps } from "../index.ts"
 
-import DrugCostCategoryComponent from "../../../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.tsx"
-
-export interface DrugCostCategoryProps {
-}
+export interface DrugCostCategoryProps {}
 
 type DrugCostCategory =
 	& Thing

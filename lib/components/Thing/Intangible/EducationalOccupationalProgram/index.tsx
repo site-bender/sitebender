@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { EducationalOccupationalProgramProps } from "../../../../types/Thing/Intangible/EducationalOccupationalProgram/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EducationalOccupationalProgramProps,
-	"EducationalOccupationalProgram",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = EducationalOccupationalProgramProps & BaseProps
 
 export default function EducationalOccupationalProgram({
 	applicationDeadline,
@@ -36,14 +30,14 @@ export default function EducationalOccupationalProgram({
 	timeToComplete,
 	trainingSalary,
 	typicalCreditsPerTerm,
-	schemaType = "EducationalOccupationalProgram",
+	_type = "EducationalOccupationalProgram",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				applicationDeadline,
 				applicationStartDate,

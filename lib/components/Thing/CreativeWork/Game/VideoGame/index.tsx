@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { GameProps } from "../../../../../types/Thing/CreativeWork/Game/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { VideoGameProps } from "../../../../../types/Thing/CreativeWork/Game/VideoGame/index.ts"
 
 import Game from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VideoGameProps,
-	"VideoGame",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, GameProps>
->
+export type Props = VideoGameProps & BaseProps
 
 export default function VideoGame({
 	actor,
@@ -25,14 +18,14 @@ export default function VideoGame({
 	musicBy,
 	playMode,
 	trailer,
-	schemaType = "VideoGame",
+	_type = "VideoGame",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Game
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

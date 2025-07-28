@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { EpisodeProps } from "../../../../../types/Thing/CreativeWork/Episode/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { TVEpisodeProps } from "../../../../../types/Thing/CreativeWork/Episode/TVEpisode/index.ts"
 
 import Episode from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	TVEpisodeProps,
-	"TVEpisode",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, EpisodeProps>
->
+export type Props = TVEpisodeProps & BaseProps
 
 export default function TVEpisode({
 	countryOfOrigin,
 	partOfTVSeries,
 	subtitleLanguage,
 	titleEIDR,
-	schemaType = "TVEpisode",
+	_type = "TVEpisode",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Episode
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				countryOfOrigin,
 				partOfTVSeries,

@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function HowToStep({
-	schemaType = "HowToStep",
+	_type = "HowToStep",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<ListItem
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

@@ -1,3 +1,22 @@
-import NGO from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { NGOProps } from "../../../../types/Thing/Organization/NGO/index.ts"
 
-export default NGO
+import Organization from "../index.tsx"
+
+export type Props = NGOProps & BaseProps
+
+export default function NGO({
+	_type = "NGO",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

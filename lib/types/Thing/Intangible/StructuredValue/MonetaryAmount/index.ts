@@ -7,10 +7,10 @@ import type {
 } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
-import type { StructuredValueProps } from "../index.ts"
 import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import StructuredValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/index.ts"
 
 export interface MonetaryAmountProps {
 	currency?: Text
@@ -18,7 +18,12 @@ export interface MonetaryAmountProps {
 	minValue?: Number
 	validFrom?: Date | DateTime
 	validThrough?: Date | DateTime
-	value?: Boolean | Number | StructuredValue | Text
+	value?:
+		| Boolean
+		| Number
+		| StructuredValue
+		| Text
+		| ReturnType<typeof StructuredValueComponent>
 }
 
 type MonetaryAmount =

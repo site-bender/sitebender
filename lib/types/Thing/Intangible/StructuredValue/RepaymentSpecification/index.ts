@@ -4,12 +4,19 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
-import RepaymentSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/RepaymentSpecification/index.tsx"
+import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface RepaymentSpecificationProps {
-	downPayment?: MonetaryAmount | Number
-	earlyPrepaymentPenalty?: MonetaryAmount
-	loanPaymentAmount?: MonetaryAmount
+	downPayment?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
+	earlyPrepaymentPenalty?:
+		| MonetaryAmount
+		| ReturnType<typeof MonetaryAmountComponent>
+	loanPaymentAmount?:
+		| MonetaryAmount
+		| ReturnType<typeof MonetaryAmountComponent>
 	loanPaymentFrequency?: Number
 	numberOfLoanPayments?: Number
 }

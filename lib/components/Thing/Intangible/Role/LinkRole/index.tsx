@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { RoleProps } from "../../../../../types/Thing/Intangible/Role/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { LinkRoleProps } from "../../../../../types/Thing/Intangible/Role/LinkRole/index.ts"
 
 import Role from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LinkRoleProps,
-	"LinkRole",
-	ExtractLevelProps<ThingProps, IntangibleProps, RoleProps>
->
+export type Props = LinkRoleProps & BaseProps
 
 export default function LinkRole({
 	inLanguage,
 	linkRelationship,
-	schemaType = "LinkRole",
+	_type = "LinkRole",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Role
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				inLanguage,
 				linkRelationship,

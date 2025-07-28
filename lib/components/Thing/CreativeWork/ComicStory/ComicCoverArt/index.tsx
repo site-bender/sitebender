@@ -1,3 +1,22 @@
-import ComicCoverArt from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ComicCoverArtProps } from "../../../../../types/Thing/CreativeWork/ComicStory/ComicCoverArt/index.ts"
 
-export default ComicCoverArt
+import ComicStory from "../index.tsx"
+
+export type Props = ComicCoverArtProps & BaseProps
+
+export default function ComicCoverArt({
+	_type = "ComicCoverArt",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ComicStory
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

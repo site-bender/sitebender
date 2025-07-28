@@ -1,23 +1,34 @@
 import type { Boolean, Number, Text, URL } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { IntangibleProps } from "../../index.ts"
-import type { StructuredValueProps } from "../index.ts"
 import type DefinedTerm from "../../DefinedTerm/index.ts"
 import type Enumeration from "../../Enumeration/index.ts"
 import type MeasurementTypeEnumeration from "../../Enumeration/MeasurementTypeEnumeration/index.ts"
-import type PropertyValue from "../PropertyValue/index.ts"
 import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type StructuredValue from "../index.ts"
+import type { StructuredValueProps } from "../index.ts"
+import type PropertyValue from "../PropertyValue/index.ts"
 
-import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import DefinedTermComponent from "../../../../../components/Thing/Intangible/DefinedTerm/index.ts"
+import EnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/index.ts"
+import MeasurementTypeEnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.ts"
+import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
+import StructuredValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/index.ts"
+import PropertyValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface QuantitativeValueProps {
-	additionalProperty?: PropertyValue
+	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	maxValue?: Number
 	minValue?: Number
 	unitCode?: Text | URL
 	unitText?: Text
-	value?: Boolean | Number | StructuredValue | Text
+	value?:
+		| Boolean
+		| Number
+		| StructuredValue
+		| Text
+		| ReturnType<typeof StructuredValueComponent>
 	valueReference?:
 		| DefinedTerm
 		| Enumeration
@@ -27,6 +38,13 @@ export interface QuantitativeValueProps {
 		| QuantitativeValue
 		| StructuredValue
 		| Text
+		| ReturnType<typeof DefinedTermComponent>
+		| ReturnType<typeof EnumerationComponent>
+		| ReturnType<typeof MeasurementTypeEnumerationComponent>
+		| ReturnType<typeof PropertyValueComponent>
+		| ReturnType<typeof QualitativeValueComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
+		| ReturnType<typeof StructuredValueComponent>
 }
 
 type QuantitativeValue =

@@ -1,14 +1,17 @@
 import type { DateTime, Integer, Time } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
-import type { ReservationProps } from "../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type { ReservationProps } from "../index.ts"
 
-import FoodEstablishmentReservationComponent from "../../../../../../components/Thing/Intangible/Reservation/FoodEstablishmentReservation/index.tsx"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface FoodEstablishmentReservationProps {
 	endTime?: DateTime | Time
-	partySize?: Integer | QuantitativeValue
+	partySize?:
+		| Integer
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 	startTime?: DateTime | Time
 }
 

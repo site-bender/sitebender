@@ -1,3 +1,22 @@
-import HealthAspectEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { HealthAspectEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/HealthAspectEnumeration/index.ts"
 
-export default HealthAspectEnumeration
+import Enumeration from "../index.tsx"
+
+export type Props = HealthAspectEnumerationProps & BaseProps
+
+export default function HealthAspectEnumeration({
+	_type = "HealthAspectEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

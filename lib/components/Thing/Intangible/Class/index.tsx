@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ClassProps } from "../../../../types/Thing/Intangible/Class/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ClassProps,
-	"Class",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ClassProps & BaseProps
 
 export default function Class({
 	supersededBy,
-	schemaType = "Class",
+	_type = "Class",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				supersededBy,
 				...subtypeProperties,

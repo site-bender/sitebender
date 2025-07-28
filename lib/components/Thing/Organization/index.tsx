@@ -1,14 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../types/index.ts"
-import type ThingProps from "../../../types/Thing/index.ts"
+import type BaseProps from "../../../types/index.ts"
 import type { OrganizationProps } from "../../../types/Thing/Organization/index.ts"
 
 import Thing from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	OrganizationProps,
-	"Organization",
-	ExtractLevelProps<ThingProps>
->
+export type Props = OrganizationProps & BaseProps
 
 export default function Organization({
 	acceptedPaymentMethod,
@@ -88,14 +83,14 @@ export default function Organization({
 	telephone,
 	unnamedSourcesPolicy,
 	vatID,
-	schemaType = "Organization",
+	_type = "Organization",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Thing
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acceptedPaymentMethod,
 				actionableFeedbackPolicy,

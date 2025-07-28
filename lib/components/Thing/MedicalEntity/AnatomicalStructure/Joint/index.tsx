@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../types/Thing/MedicalEntity/index.ts"
-import type { AnatomicalStructureProps } from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { JointProps } from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Joint/index.ts"
 
 import AnatomicalStructure from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	JointProps,
-	"Joint",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, AnatomicalStructureProps>
->
+export type Props = JointProps & BaseProps
 
 export default function Joint({
 	biomechnicalClass,
 	functionalClass,
 	structuralClass,
-	schemaType = "Joint",
+	_type = "Joint",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<AnatomicalStructure
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				biomechnicalClass,
 				functionalClass,

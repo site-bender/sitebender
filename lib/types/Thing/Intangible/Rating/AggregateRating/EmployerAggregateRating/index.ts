@@ -3,10 +3,7 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { RatingProps } from "../../index.ts"
 import type { AggregateRatingProps } from "../index.ts"
 
-import EmployerAggregateRatingComponent from "../../../../../../../components/Thing/Intangible/Rating/AggregateRating/EmployerAggregateRating/index.tsx"
-
-export interface EmployerAggregateRatingProps {
-}
+export interface EmployerAggregateRatingProps {}
 
 type EmployerAggregateRating =
 	& Thing

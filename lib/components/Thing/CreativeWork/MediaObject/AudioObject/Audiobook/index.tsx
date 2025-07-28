@@ -17,7 +17,7 @@ export default function Audiobook(
 	{
 		duration,
 		readBy,
-		schemaType = "Audiobook",
+		_type = "Audiobook",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -25,7 +25,7 @@ export default function Audiobook(
 	return (
 		<AudioObject
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				duration,
 				readBy,

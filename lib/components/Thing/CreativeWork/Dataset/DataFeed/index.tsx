@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { DatasetProps } from "../../../../../types/Thing/CreativeWork/Dataset/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { DataFeedProps } from "../../../../../types/Thing/CreativeWork/Dataset/DataFeed/index.ts"
 
 import Dataset from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DataFeedProps,
-	"DataFeed",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, DatasetProps>
->
+export type Props = DataFeedProps & BaseProps
 
 export default function DataFeed({
 	dataFeedElement,
-	schemaType = "DataFeed",
+	_type = "DataFeed",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Dataset
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				dataFeedElement,
 				...subtypeProperties,

@@ -1,18 +1,16 @@
 import type Thing from "../../index.ts"
+import type Organization from "../../Organization/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type MemberProgramTier from "../MemberProgramTier/index.ts"
-import type Organization from "../../Organization/index.ts"
 
-import MemberProgramComponent from "../../../../../components/Thing/Intangible/MemberProgram/index.tsx"
+import MemberProgramTierComponent from "../../../../components/Thing/Intangible/MemberProgramTier/index.ts"
+import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 
 export interface MemberProgramProps {
-	hasTiers?: MemberProgramTier
-	hostingOrganization?: Organization
+	hasTiers?: MemberProgramTier | ReturnType<typeof MemberProgramTierComponent>
+	hostingOrganization?: Organization | ReturnType<typeof OrganizationComponent>
 }
 
-type MemberProgram =
-	& Thing
-	& IntangibleProps
-	& MemberProgramProps
+type MemberProgram = Thing & IntangibleProps & MemberProgramProps
 
 export default MemberProgram

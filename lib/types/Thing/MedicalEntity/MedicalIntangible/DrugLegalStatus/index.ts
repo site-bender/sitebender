@@ -1,12 +1,14 @@
 import type Thing from "../../../index.ts"
+import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
-import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 
-import DrugLegalStatusComponent from "../../../../../../components/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.tsx"
+import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface DrugLegalStatusProps {
-	applicableLocation?: AdministrativeArea
+	applicableLocation?:
+		| AdministrativeArea
+		| ReturnType<typeof AdministrativeAreaComponent>
 }
 
 type DrugLegalStatus =

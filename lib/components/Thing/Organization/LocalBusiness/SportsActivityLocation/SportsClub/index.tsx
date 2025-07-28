@@ -1,3 +1,22 @@
-import SportsClub from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { SportsClubProps } from "../../../../../../types/Thing/Organization/LocalBusiness/SportsActivityLocation/SportsClub/index.ts"
 
-export default SportsClub
+import SportsActivityLocation from "../index.tsx"
+
+export type Props = SportsClubProps & BaseProps
+
+export default function SportsClub({
+	_type = "SportsClub",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<SportsActivityLocation
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

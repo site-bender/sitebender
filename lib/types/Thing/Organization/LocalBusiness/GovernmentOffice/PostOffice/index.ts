@@ -1,13 +1,10 @@
 import type Thing from "../../../../index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
+import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { GovernmentOfficeProps } from "../index.ts"
-import type { OrganizationProps } from "../../../index.ts"
 
-import PostOfficeComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/GovernmentOffice/PostOffice/index.tsx"
-
-export interface PostOfficeProps {
-}
+export interface PostOfficeProps {}
 
 type PostOffice =
 	& Thing

@@ -1,3 +1,22 @@
-import USNonprofitType from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { USNonprofitTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/NonprofitType/USNonprofitType/index.ts"
 
-export default USNonprofitType
+import NonprofitType from "../index.tsx"
+
+export type Props = USNonprofitTypeProps & BaseProps
+
+export default function USNonprofitType({
+	_type = "USNonprofitType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<NonprofitType
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

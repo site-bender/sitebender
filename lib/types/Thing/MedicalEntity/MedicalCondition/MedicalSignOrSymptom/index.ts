@@ -1,12 +1,14 @@
 import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
-import type { MedicalConditionProps } from "../index.ts"
 import type MedicalTherapy from "../../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
+import type { MedicalConditionProps } from "../index.ts"
 
-import MedicalSignOrSymptomComponent from "../../../../../../components/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/index.tsx"
+import MedicalTherapyComponent from "../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export interface MedicalSignOrSymptomProps {
-	possibleTreatment?: MedicalTherapy
+	possibleTreatment?:
+		| MedicalTherapy
+		| ReturnType<typeof MedicalTherapyComponent>
 }
 
 type MedicalSignOrSymptom =

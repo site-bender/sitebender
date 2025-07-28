@@ -1,15 +1,19 @@
 import type { Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Organization from "../../../Organization/index.ts"
+import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
-import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
-import type Organization from "../../../Organization/index.ts"
 
-import GovernmentServiceComponent from "../../../../../../components/Thing/Intangible/Service/GovernmentService/index.tsx"
+import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
+import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface GovernmentServiceProps {
-	jurisdiction?: AdministrativeArea | Text
-	serviceOperator?: Organization
+	jurisdiction?:
+		| AdministrativeArea
+		| Text
+		| ReturnType<typeof AdministrativeAreaComponent>
+	serviceOperator?: Organization | ReturnType<typeof OrganizationComponent>
 }
 
 type GovernmentService =

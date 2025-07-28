@@ -1,3 +1,22 @@
-import EatAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { EatActionProps } from "../../../../../types/Thing/Action/ConsumeAction/EatAction/index.ts"
 
-export default EatAction
+import ConsumeAction from "../index.tsx"
+
+export type Props = EatActionProps & BaseProps
+
+export default function EatAction({
+	_type = "EatAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ConsumeAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

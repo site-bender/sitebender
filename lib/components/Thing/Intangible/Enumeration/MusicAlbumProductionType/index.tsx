@@ -1,3 +1,22 @@
-import MusicAlbumProductionType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MusicAlbumProductionTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/MusicAlbumProductionType/index.ts"
 
-export default MusicAlbumProductionType
+import Enumeration from "../index.tsx"
+
+export type Props = MusicAlbumProductionTypeProps & BaseProps
+
+export default function MusicAlbumProductionType({
+	_type = "MusicAlbumProductionType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

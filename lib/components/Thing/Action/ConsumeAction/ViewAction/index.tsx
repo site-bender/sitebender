@@ -1,3 +1,22 @@
-import ViewAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ViewActionProps } from "../../../../../types/Thing/Action/ConsumeAction/ViewAction/index.ts"
 
-export default ViewAction
+import ConsumeAction from "../index.tsx"
+
+export type Props = ViewActionProps & BaseProps
+
+export default function ViewAction({
+	_type = "ViewAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ConsumeAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

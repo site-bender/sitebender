@@ -1,3 +1,22 @@
-import ItemListOrderType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ItemListOrderTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/ItemListOrderType/index.ts"
 
-export default ItemListOrderType
+import Enumeration from "../index.tsx"
+
+export type Props = ItemListOrderTypeProps & BaseProps
+
+export default function ItemListOrderType({
+	_type = "ItemListOrderType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,28 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../../types/Thing/Action/index.ts"
-import type { UpdateActionProps } from "../../../../../../types/Thing/Action/UpdateAction/index.ts"
-import type { AddActionProps } from "../../../../../../types/Thing/Action/UpdateAction/AddAction/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { InsertActionProps } from "../../../../../../types/Thing/Action/UpdateAction/AddAction/InsertAction/index.ts"
 
 import AddAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	InsertActionProps,
-	"InsertAction",
-	ExtractLevelProps<ThingProps, ActionProps, UpdateActionProps, AddActionProps>
->
+export type Props = InsertActionProps & BaseProps
 
 export default function InsertAction({
 	toLocation,
-	schemaType = "InsertAction",
+	_type = "InsertAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<AddAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				toLocation,
 				...subtypeProperties,

@@ -1,3 +1,22 @@
-import CancelAction from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { CancelActionProps } from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/CancelAction/index.ts"
 
-export default CancelAction
+import PlanAction from "../index.tsx"
+
+export type Props = CancelActionProps & BaseProps
+
+export default function CancelAction({
+	_type = "CancelAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<PlanAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

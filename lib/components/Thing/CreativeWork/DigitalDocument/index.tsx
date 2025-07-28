@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DigitalDocumentProps } from "../../../../types/Thing/CreativeWork/DigitalDocument/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DigitalDocumentProps,
-	"DigitalDocument",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = DigitalDocumentProps & BaseProps
 
 export default function DigitalDocument({
 	hasDigitalDocumentPermission,
-	schemaType = "DigitalDocument",
+	_type = "DigitalDocument",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasDigitalDocumentPermission,
 				...subtypeProperties,

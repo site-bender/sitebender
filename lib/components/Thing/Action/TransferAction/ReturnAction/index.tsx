@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { TransferActionProps } from "../../../../../types/Thing/Action/TransferAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ReturnActionProps } from "../../../../../types/Thing/Action/TransferAction/ReturnAction/index.ts"
 
 import TransferAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ReturnActionProps,
-	"ReturnAction",
-	ExtractLevelProps<ThingProps, ActionProps, TransferActionProps>
->
+export type Props = ReturnActionProps & BaseProps
 
 export default function ReturnAction({
 	recipient,
-	schemaType = "ReturnAction",
+	_type = "ReturnAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<TransferAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				recipient,
 				...subtypeProperties,

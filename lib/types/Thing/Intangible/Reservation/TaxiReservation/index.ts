@@ -1,15 +1,19 @@
 import type { DateTime, Integer } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { IntangibleProps } from "../../index.ts"
-import type { ReservationProps } from "../index.ts"
 import type Place from "../../../Place/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type { ReservationProps } from "../index.ts"
 
-import TaxiReservationComponent from "../../../../../../components/Thing/Intangible/Reservation/TaxiReservation/index.tsx"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
+import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface TaxiReservationProps {
-	partySize?: Integer | QuantitativeValue
-	pickupLocation?: Place
+	partySize?:
+		| Integer
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
+	pickupLocation?: Place | ReturnType<typeof PlaceComponent>
 	pickupTime?: DateTime
 }
 

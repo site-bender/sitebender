@@ -23,7 +23,7 @@ export default function ExercisePlan(
 		repetitions,
 		restPeriods,
 		workload,
-		schemaType = "ExercisePlan",
+		_type = "ExercisePlan",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -31,7 +31,7 @@ export default function ExercisePlan(
 	return (
 		<PhysicalActivity
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				activityDuration,
 				activityFrequency,

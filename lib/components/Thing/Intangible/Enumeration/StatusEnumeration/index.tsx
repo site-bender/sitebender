@@ -1,3 +1,22 @@
-import StatusEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { StatusEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/index.ts"
 
-export default StatusEnumeration
+import Enumeration from "../index.tsx"
+
+export type Props = StatusEnumerationProps & BaseProps
+
+export default function StatusEnumeration({
+	_type = "StatusEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

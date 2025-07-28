@@ -1,3 +1,22 @@
-import TextDigitalDocument from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { TextDigitalDocumentProps } from "../../../../../types/Thing/CreativeWork/DigitalDocument/TextDigitalDocument/index.ts"
 
-export default TextDigitalDocument
+import DigitalDocument from "../index.tsx"
+
+export type Props = TextDigitalDocumentProps & BaseProps
+
+export default function TextDigitalDocument({
+	_type = "TextDigitalDocument",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<DigitalDocument
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

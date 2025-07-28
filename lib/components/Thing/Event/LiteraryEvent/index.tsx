@@ -1,3 +1,22 @@
-import LiteraryEvent from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { LiteraryEventProps } from "../../../../types/Thing/Event/LiteraryEvent/index.ts"
 
-export default LiteraryEvent
+import Event from "../index.tsx"
+
+export type Props = LiteraryEventProps & BaseProps
+
+export default function LiteraryEvent({
+	_type = "LiteraryEvent",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Event
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

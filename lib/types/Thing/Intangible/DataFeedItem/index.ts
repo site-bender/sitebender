@@ -2,18 +2,15 @@ import type { Date, DateTime } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import DataFeedItemComponent from "../../../../../components/Thing/Intangible/DataFeedItem/index.tsx"
+import ThingComponent from "../../../../components/Thing/index.ts"
 
 export interface DataFeedItemProps {
 	dateCreated?: Date | DateTime
 	dateDeleted?: Date | DateTime
 	dateModified?: Date | DateTime
-	item?: Thing
+	item?: Thing | ReturnType<typeof ThingComponent>
 }
 
-type DataFeedItem =
-	& Thing
-	& IntangibleProps
-	& DataFeedItemProps
+type DataFeedItem = Thing & IntangibleProps & DataFeedItemProps
 
 export default DataFeedItem

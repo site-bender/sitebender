@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { ArticleProps } from "../../../../../types/Thing/CreativeWork/Article/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { SocialMediaPostingProps } from "../../../../../types/Thing/CreativeWork/Article/SocialMediaPosting/index.ts"
 
 import Article from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SocialMediaPostingProps,
-	"SocialMediaPosting",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, ArticleProps>
->
+export type Props = SocialMediaPostingProps & BaseProps
 
 export default function SocialMediaPosting({
 	sharedContent,
-	schemaType = "SocialMediaPosting",
+	_type = "SocialMediaPosting",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Article
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				sharedContent,
 				...subtypeProperties,

@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function AmpStory({
-	schemaType = "AmpStory",
+	_type = "AmpStory",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<MediaObject
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

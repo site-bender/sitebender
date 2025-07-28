@@ -3,10 +3,7 @@ import type { PlaceProps } from "../../../index.ts"
 import type { LandformProps } from "../../index.ts"
 import type { BodyOfWaterProps } from "../index.ts"
 
-import OceanBodyOfWaterComponent from "../../../../../../../components/Thing/Place/Landform/BodyOfWater/OceanBodyOfWater/index.tsx"
-
-export interface OceanBodyOfWaterProps {
-}
+export interface OceanBodyOfWaterProps {}
 
 type OceanBodyOfWater =
 	& Thing

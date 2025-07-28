@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function PoliceStation({
-	schemaType = "PoliceStation",
+	_type = "PoliceStation",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<EmergencyService
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

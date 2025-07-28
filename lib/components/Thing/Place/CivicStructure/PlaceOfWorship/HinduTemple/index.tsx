@@ -1,3 +1,22 @@
-import HinduTemple from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { HinduTempleProps } from "../../../../../../types/Thing/Place/CivicStructure/PlaceOfWorship/HinduTemple/index.ts"
 
-export default HinduTemple
+import PlaceOfWorship from "../index.tsx"
+
+export type Props = HinduTempleProps & BaseProps
+
+export default function HinduTemple({
+	_type = "HinduTemple",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<PlaceOfWorship
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

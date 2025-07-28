@@ -1,16 +1,13 @@
 import type Thing from "../../index.ts"
-import type { MedicalEntityProps } from "../index.ts"
 import type Drug from "../../Product/Drug/index.ts"
+import type { MedicalEntityProps } from "../index.ts"
 
-import DrugClassComponent from "../../../../../components/Thing/MedicalEntity/DrugClass/index.tsx"
+import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
 export interface DrugClassProps {
-	drug?: Drug
+	drug?: Drug | ReturnType<typeof DrugComponent>
 }
 
-type DrugClass =
-	& Thing
-	& MedicalEntityProps
-	& DrugClassProps
+type DrugClass = Thing & MedicalEntityProps & DrugClassProps
 
 export default DrugClass

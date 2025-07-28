@@ -1,3 +1,22 @@
-import Cooperative from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { CooperativeProps } from "../../../../types/Thing/Organization/Cooperative/index.ts"
 
-export default Cooperative
+import Organization from "../index.tsx"
+
+export type Props = CooperativeProps & BaseProps
+
+export default function Cooperative({
+	_type = "Cooperative",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

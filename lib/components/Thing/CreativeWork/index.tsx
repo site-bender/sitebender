@@ -1,7 +1,9 @@
-import type Props from "../../../types/Thing/CreativeWork/index.ts"
 import type BaseProps from "../../../types/index.ts"
+import type { CreativeWorkProps } from "../../../types/Thing/CreativeWork/index.ts"
 
 import Thing from "../index.tsx"
+
+export type Props = CreativeWorkProps & BaseProps
 
 export default function CreativeWork({
 	about,
@@ -119,14 +121,14 @@ export default function CreativeWork({
 	wordCount,
 	workExample,
 	workTranslation,
-	schemaType = "CreativeWork",
+	_type = "CreativeWork",
 	subtypeProperties = {},
 	...props
-}: Props & BaseProps): JSX.Element {
+}: Props): JSX.Element {
 	return (
 		<Thing
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				about,
 				abstract,

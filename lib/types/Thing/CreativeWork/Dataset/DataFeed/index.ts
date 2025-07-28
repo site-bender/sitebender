@@ -1,19 +1,21 @@
 import type { Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type DataFeedItem from "../../../Intangible/DataFeedItem/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { DatasetProps } from "../index.ts"
-import type DataFeedItem from "../../../Intangible/DataFeedItem/index.ts"
 
-import DataFeedComponent from "../../../../../../components/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
+import ThingComponent from "../../../../../components/Thing/index.ts"
+import DataFeedItemComponent from "../../../../../components/Thing/Intangible/DataFeedItem/index.ts"
 
 export interface DataFeedProps {
-	dataFeedElement?: DataFeedItem | Text | Thing
+	dataFeedElement?:
+		| DataFeedItem
+		| Text
+		| Thing
+		| ReturnType<typeof DataFeedItemComponent>
+		| ReturnType<typeof ThingComponent>
 }
 
-type DataFeed =
-	& Thing
-	& CreativeWorkProps
-	& DatasetProps
-	& DataFeedProps
+type DataFeed = Thing & CreativeWorkProps & DatasetProps & DataFeedProps
 
 export default DataFeed

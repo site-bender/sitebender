@@ -1,30 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../../../types/Thing/Intangible/index.ts"
-import type { ServiceProps } from "../../../../../../../types/Thing/Intangible/Service/index.ts"
-import type { FinancialProductProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/index.ts"
-import type { LoanOrCreditProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/index.ts"
+import type BaseProps from "../../../../../../../types/index.ts"
 import type { MortgageLoanProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/MortgageLoan/index.ts"
 
 import LoanOrCredit from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MortgageLoanProps,
-	"MortgageLoan",
-	ExtractLevelProps<ThingProps, IntangibleProps, ServiceProps, FinancialProductProps, LoanOrCreditProps>
->
+export type Props = MortgageLoanProps & BaseProps
 
 export default function MortgageLoan({
 	domiciledMortgage,
 	loanMortgageMandateAmount,
-	schemaType = "MortgageLoan",
+	_type = "MortgageLoan",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<LoanOrCredit
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				domiciledMortgage,
 				loanMortgageMandateAmount,

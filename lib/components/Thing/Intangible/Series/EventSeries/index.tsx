@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function EventSeries({
-	schemaType = "EventSeries",
+	_type = "EventSeries",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<Series
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

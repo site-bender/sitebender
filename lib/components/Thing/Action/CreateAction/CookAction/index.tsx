@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { CreateActionProps } from "../../../../../types/Thing/Action/CreateAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { CookActionProps } from "../../../../../types/Thing/Action/CreateAction/CookAction/index.ts"
 
 import CreateAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CookActionProps,
-	"CookAction",
-	ExtractLevelProps<ThingProps, ActionProps, CreateActionProps>
->
+export type Props = CookActionProps & BaseProps
 
 export default function CookAction({
 	foodEstablishment,
 	foodEvent,
 	recipe,
-	schemaType = "CookAction",
+	_type = "CookAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreateAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				foodEstablishment,
 				foodEvent,

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DatasetProps } from "../../../../types/Thing/CreativeWork/Dataset/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DatasetProps,
-	"Dataset",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = DatasetProps & BaseProps
 
 export default function Dataset({
 	catalog,
@@ -22,14 +16,14 @@ export default function Dataset({
 	measurementTechnique,
 	variableMeasured,
 	variablesMeasured,
-	schemaType = "Dataset",
+	_type = "Dataset",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				catalog,
 				datasetTimeInterval,

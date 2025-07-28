@@ -1,3 +1,22 @@
-import FoodEvent from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { FoodEventProps } from "../../../../types/Thing/Event/FoodEvent/index.ts"
 
-export default FoodEvent
+import Event from "../index.tsx"
+
+export type Props = FoodEventProps & BaseProps
+
+export default function FoodEvent({
+	_type = "FoodEvent",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Event
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

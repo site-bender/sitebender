@@ -1,3 +1,22 @@
-import OrganizeAction from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { OrganizeActionProps } from "../../../../types/Thing/Action/OrganizeAction/index.ts"
 
-export default OrganizeAction
+import Action from "../index.tsx"
+
+export type Props = OrganizeActionProps & BaseProps
+
+export default function OrganizeAction({
+	_type = "OrganizeAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Action
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

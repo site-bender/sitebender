@@ -1,3 +1,22 @@
-import OnlineBusiness from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { OnlineBusinessProps } from "../../../../types/Thing/Organization/OnlineBusiness/index.ts"
 
-export default OnlineBusiness
+import Organization from "../index.tsx"
+
+export type Props = OnlineBusinessProps & BaseProps
+
+export default function OnlineBusiness({
+	_type = "OnlineBusiness",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,13 +1,13 @@
 import type Thing from "../../../../index.ts"
+import type Person from "../../../../Person/index.ts"
 import type { ActionProps } from "../../../index.ts"
 import type { AssessActionProps } from "../../index.ts"
 import type { ChooseActionProps } from "../index.ts"
-import type Person from "../../../../Person/index.ts"
 
-import VoteActionComponent from "../../../../../../../components/Thing/Action/AssessAction/ChooseAction/VoteAction/index.tsx"
+import PersonComponent from "../../../../../../components/Thing/Person/index.ts"
 
 export interface VoteActionProps {
-	candidate?: Person
+	candidate?: Person | ReturnType<typeof PersonComponent>
 }
 
 type VoteAction =

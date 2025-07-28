@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DrugProps } from "../../../../types/Thing/Product/Drug/index.ts"
 
 import Product from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DrugProps,
-	"Drug",
-	ExtractLevelProps<ThingProps, ProductProps>
->
+export type Props = DrugProps & BaseProps
 
 export default function Drug({
 	activeIngredient,
@@ -17,7 +11,6 @@ export default function Drug({
 	alcoholWarning,
 	availableStrength,
 	breastfeedingWarning,
-	clincalPharmacology,
 	clinicalPharmacology,
 	dosageForm,
 	doseSchedule,
@@ -42,21 +35,20 @@ export default function Drug({
 	relatedDrug,
 	rxcui,
 	warning,
-	schemaType = "Drug",
+	_type = "Drug",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Product
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				activeIngredient,
 				administrationRoute,
 				alcoholWarning,
 				availableStrength,
 				breastfeedingWarning,
-				clincalPharmacology,
 				clinicalPharmacology,
 				dosageForm,
 				doseSchedule,

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { CommentProps } from "../../../../../types/Thing/CreativeWork/Comment/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { QuestionProps } from "../../../../../types/Thing/CreativeWork/Comment/Question/index.ts"
 
 import Comment from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	QuestionProps,
-	"Question",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, CommentProps>
->
+export type Props = QuestionProps & BaseProps
 
 export default function Question({
 	acceptedAnswer,
@@ -18,14 +11,14 @@ export default function Question({
 	eduQuestionType,
 	parentItem,
 	suggestedAnswer,
-	schemaType = "Question",
+	_type = "Question",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Comment
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acceptedAnswer,
 				answerCount,

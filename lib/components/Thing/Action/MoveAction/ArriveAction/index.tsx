@@ -1,3 +1,22 @@
-import ArriveAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ArriveActionProps } from "../../../../../types/Thing/Action/MoveAction/ArriveAction/index.ts"
 
-export default ArriveAction
+import MoveAction from "../index.tsx"
+
+export type Props = ArriveActionProps & BaseProps
+
+export default function ArriveAction({
+	_type = "ArriveAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MoveAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

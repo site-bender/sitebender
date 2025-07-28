@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { InteractActionProps } from "../../../../../types/Thing/Action/InteractAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { LeaveActionProps } from "../../../../../types/Thing/Action/InteractAction/LeaveAction/index.ts"
 
 import InteractAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LeaveActionProps,
-	"LeaveAction",
-	ExtractLevelProps<ThingProps, ActionProps, InteractActionProps>
->
+export type Props = LeaveActionProps & BaseProps
 
 export default function LeaveAction({
 	event,
-	schemaType = "LeaveAction",
+	_type = "LeaveAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<InteractAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				event,
 				...subtypeProperties,

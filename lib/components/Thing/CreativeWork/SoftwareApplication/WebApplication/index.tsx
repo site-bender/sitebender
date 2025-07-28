@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { SoftwareApplicationProps } from "../../../../../types/Thing/CreativeWork/SoftwareApplication/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { WebApplicationProps } from "../../../../../types/Thing/CreativeWork/SoftwareApplication/WebApplication/index.ts"
 
 import SoftwareApplication from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	WebApplicationProps,
-	"WebApplication",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, SoftwareApplicationProps>
->
+export type Props = WebApplicationProps & BaseProps
 
 export default function WebApplication({
 	browserRequirements,
-	schemaType = "WebApplication",
+	_type = "WebApplication",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<SoftwareApplication
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				browserRequirements,
 				...subtypeProperties,

@@ -1,3 +1,22 @@
-import MedicalGuidelineContraindication from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MedicalGuidelineContraindicationProps } from "../../../../../types/Thing/MedicalEntity/MedicalGuideline/MedicalGuidelineContraindication/index.ts"
 
-export default MedicalGuidelineContraindication
+import MedicalGuideline from "../index.tsx"
+
+export type Props = MedicalGuidelineContraindicationProps & BaseProps
+
+export default function MedicalGuidelineContraindication({
+	_type = "MedicalGuidelineContraindication",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalGuideline
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

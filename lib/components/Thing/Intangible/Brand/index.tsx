@@ -1,29 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { BrandProps } from "../../../../types/Thing/Intangible/Brand/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BrandProps,
-	"Brand",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = BrandProps & BaseProps
 
 export default function Brand({
 	aggregateRating,
 	logo,
 	review,
 	slogan,
-	schemaType = "Brand",
+	_type = "Brand",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				aggregateRating,
 				logo,

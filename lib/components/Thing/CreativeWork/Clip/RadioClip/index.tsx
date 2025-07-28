@@ -1,3 +1,22 @@
-import RadioClip from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { RadioClipProps } from "../../../../../types/Thing/CreativeWork/Clip/RadioClip/index.ts"
 
-export default RadioClip
+import Clip from "../index.tsx"
+
+export type Props = RadioClipProps & BaseProps
+
+export default function RadioClip({
+	_type = "RadioClip",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Clip
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

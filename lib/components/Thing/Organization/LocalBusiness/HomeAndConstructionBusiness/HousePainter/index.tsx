@@ -1,3 +1,22 @@
-import HousePainter from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { HousePainterProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/HousePainter/index.ts"
 
-export default HousePainter
+import HomeAndConstructionBusiness from "../index.tsx"
+
+export type Props = HousePainterProps & BaseProps
+
+export default function HousePainter({
+	_type = "HousePainter",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<HomeAndConstructionBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

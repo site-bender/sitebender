@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DietarySupplementProps } from "../../../../types/Thing/Product/DietarySupplement/index.ts"
 
 import Product from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DietarySupplementProps,
-	"DietarySupplement",
-	ExtractLevelProps<ThingProps, ProductProps>
->
+export type Props = DietarySupplementProps & BaseProps
 
 export default function DietarySupplement({
 	activeIngredient,
@@ -22,14 +16,14 @@ export default function DietarySupplement({
 	recommendedIntake,
 	safetyConsideration,
 	targetPopulation,
-	schemaType = "DietarySupplement",
+	_type = "DietarySupplement",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Product
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				activeIngredient,
 				isProprietary,

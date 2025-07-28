@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DigitalDocumentPermissionProps } from "../../../../types/Thing/Intangible/DigitalDocumentPermission/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DigitalDocumentPermissionProps,
-	"DigitalDocumentPermission",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = DigitalDocumentPermissionProps & BaseProps
 
 export default function DigitalDocumentPermission({
 	grantee,
 	permissionType,
-	schemaType = "DigitalDocumentPermission",
+	_type = "DigitalDocumentPermission",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				grantee,
 				permissionType,

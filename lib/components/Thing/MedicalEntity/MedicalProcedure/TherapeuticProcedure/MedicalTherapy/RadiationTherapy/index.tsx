@@ -1,3 +1,22 @@
-import RadiationTherapy from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { RadiationTherapyProps } from "../../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/RadiationTherapy/index.ts"
 
-export default RadiationTherapy
+import MedicalTherapy from "../index.tsx"
+
+export type Props = RadiationTherapyProps & BaseProps
+
+export default function RadiationTherapy({
+	_type = "RadiationTherapy",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalTherapy
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

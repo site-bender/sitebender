@@ -23,7 +23,7 @@ export default function HowToDirection(
 		supply,
 		tool,
 		totalTime,
-		schemaType = "HowToDirection",
+		_type = "HowToDirection",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -31,7 +31,7 @@ export default function HowToDirection(
 	return (
 		<ListItem
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				afterMedia,
 				beforeMedia,

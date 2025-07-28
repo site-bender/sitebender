@@ -1,3 +1,22 @@
-import DryCleaningOrLaundry from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { DryCleaningOrLaundryProps } from "../../../../../types/Thing/Organization/LocalBusiness/DryCleaningOrLaundry/index.ts"
 
-export default DryCleaningOrLaundry
+import LocalBusiness from "../index.tsx"
+
+export type Props = DryCleaningOrLaundryProps & BaseProps
+
+export default function DryCleaningOrLaundry({
+	_type = "DryCleaningOrLaundry",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

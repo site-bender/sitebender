@@ -1,3 +1,22 @@
-import AdministrativeArea from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { AdministrativeAreaProps } from "../../../../types/Thing/Place/AdministrativeArea/index.ts"
 
-export default AdministrativeArea
+import Place from "../index.tsx"
+
+export type Props = AdministrativeAreaProps & BaseProps
+
+export default function AdministrativeArea({
+	_type = "AdministrativeArea",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Place
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { SoftwareApplicationProps } from "../../../../../types/Thing/CreativeWork/SoftwareApplication/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { MobileApplicationProps } from "../../../../../types/Thing/CreativeWork/SoftwareApplication/MobileApplication/index.ts"
 
 import SoftwareApplication from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MobileApplicationProps,
-	"MobileApplication",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, SoftwareApplicationProps>
->
+export type Props = MobileApplicationProps & BaseProps
 
 export default function MobileApplication({
 	carrierRequirements,
-	schemaType = "MobileApplication",
+	_type = "MobileApplication",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<SoftwareApplication
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				carrierRequirements,
 				...subtypeProperties,

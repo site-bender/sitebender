@@ -1,3 +1,22 @@
-import OfferForLease from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { OfferForLeaseProps } from "../../../../../types/Thing/Intangible/Offer/OfferForLease/index.ts"
 
-export default OfferForLease
+import Offer from "../index.tsx"
+
+export type Props = OfferForLeaseProps & BaseProps
+
+export default function OfferForLease({
+	_type = "OfferForLease",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Offer
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

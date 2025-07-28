@@ -1,3 +1,22 @@
-import AgreeAction from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { AgreeActionProps } from "../../../../../../types/Thing/Action/AssessAction/ReactAction/AgreeAction/index.ts"
 
-export default AgreeAction
+import ReactAction from "../index.tsx"
+
+export type Props = AgreeActionProps & BaseProps
+
+export default function AgreeAction({
+	_type = "AgreeAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ReactAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ArticleProps } from "../../../../types/Thing/CreativeWork/Article/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ArticleProps,
-	"Article",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = ArticleProps & BaseProps
 
 export default function Article({
 	articleBody,
@@ -20,14 +14,14 @@ export default function Article({
 	pagination,
 	speakable,
 	wordCount,
-	schemaType = "Article",
+	_type = "Article",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				articleBody,
 				articleSection,

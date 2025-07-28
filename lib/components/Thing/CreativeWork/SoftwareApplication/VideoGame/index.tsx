@@ -27,7 +27,7 @@ export default function VideoGame(
 		musicBy,
 		playMode,
 		trailer,
-		schemaType = "VideoGame",
+		_type = "VideoGame",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -35,7 +35,7 @@ export default function VideoGame(
 	return (
 		<SoftwareApplication
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

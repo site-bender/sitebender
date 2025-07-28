@@ -37,7 +37,7 @@ export default function VideoGameSeries(
 		season,
 		seasons,
 		trailer,
-		schemaType = "VideoGameSeries",
+		_type = "VideoGameSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -45,7 +45,7 @@ export default function VideoGameSeries(
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

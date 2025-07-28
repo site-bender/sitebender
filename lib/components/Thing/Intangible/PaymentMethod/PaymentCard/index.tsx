@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { PaymentMethodProps } from "../../../../../types/Thing/Intangible/PaymentMethod/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PaymentCardProps } from "../../../../../types/Thing/Intangible/PaymentMethod/PaymentCard/index.ts"
 
 import PaymentMethod from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PaymentCardProps,
-	"PaymentCard",
-	ExtractLevelProps<ThingProps, IntangibleProps, PaymentMethodProps>
->
+export type Props = PaymentCardProps & BaseProps
 
 export default function PaymentCard({
 	cashBack,
 	contactlessPayment,
 	floorLimit,
 	monthlyMinimumRepaymentAmount,
-	schemaType = "PaymentCard",
+	_type = "PaymentCard",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<PaymentMethod
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				cashBack,
 				contactlessPayment,

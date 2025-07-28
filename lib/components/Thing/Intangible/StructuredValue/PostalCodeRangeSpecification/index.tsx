@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PostalCodeRangeSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PostalCodeRangeSpecificationProps,
-	"PostalCodeRangeSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = PostalCodeRangeSpecificationProps & BaseProps
 
 export default function PostalCodeRangeSpecification({
 	postalCodeBegin,
 	postalCodeEnd,
-	schemaType = "PostalCodeRangeSpecification",
+	_type = "PostalCodeRangeSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				postalCodeBegin,
 				postalCodeEnd,

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { EventProps } from "../../../../../types/Thing/Event/index.ts"
-import type { UserInteractionProps } from "../../../../../types/Thing/Event/UserInteraction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { UserCommentsProps } from "../../../../../types/Thing/Event/UserInteraction/UserComments/index.ts"
 
 import UserInteraction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	UserCommentsProps,
-	"UserComments",
-	ExtractLevelProps<ThingProps, EventProps, UserInteractionProps>
->
+export type Props = UserCommentsProps & BaseProps
 
 export default function UserComments({
 	commentText,
@@ -18,14 +11,14 @@ export default function UserComments({
 	creator,
 	discusses,
 	replyToUrl,
-	schemaType = "UserComments",
+	_type = "UserComments",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<UserInteraction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				commentText,
 				commentTime,

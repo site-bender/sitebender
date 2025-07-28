@@ -1,3 +1,22 @@
-import BusStation from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { BusStationProps } from "../../../../../types/Thing/Place/CivicStructure/BusStation/index.ts"
 
-export default BusStation
+import CivicStructure from "../index.tsx"
+
+export type Props = BusStationProps & BaseProps
+
+export default function BusStation({
+	_type = "BusStation",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

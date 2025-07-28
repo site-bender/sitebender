@@ -1,3 +1,22 @@
-import MusicStore from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { MusicStoreProps } from "../../../../../../types/Thing/Organization/LocalBusiness/Store/MusicStore/index.ts"
 
-export default MusicStore
+import Store from "../index.tsx"
+
+export type Props = MusicStoreProps & BaseProps
+
+export default function MusicStore({
+	_type = "MusicStore",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Store
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function PalliativeProcedure({
-	schemaType = "PalliativeProcedure",
+	_type = "PalliativeProcedure",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<MedicalTherapy
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

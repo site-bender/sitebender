@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { EducationalOccupationalCredentialProps } from "../../../../types/Thing/CreativeWork/EducationalOccupationalCredential/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EducationalOccupationalCredentialProps,
-	"EducationalOccupationalCredential",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = EducationalOccupationalCredentialProps & BaseProps
 
 export default function EducationalOccupationalCredential({
 	competencyRequired,
@@ -18,14 +12,14 @@ export default function EducationalOccupationalCredential({
 	recognizedBy,
 	validFor,
 	validIn,
-	schemaType = "EducationalOccupationalCredential",
+	_type = "EducationalOccupationalCredential",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				competencyRequired,
 				credentialCategory,

@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function Dentist({
-	schemaType = "Dentist",
+	_type = "Dentist",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<MedicalOrganization
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

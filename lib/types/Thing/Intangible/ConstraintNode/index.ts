@@ -3,16 +3,13 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type Property from "../Property/index.ts"
 
-import ConstraintNodeComponent from "../../../../../components/Thing/Intangible/ConstraintNode/index.tsx"
+import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 
 export interface ConstraintNodeProps {
-	constraintProperty?: Property | URL
+	constraintProperty?: Property | URL | ReturnType<typeof PropertyComponent>
 	numConstraints?: Integer
 }
 
-type ConstraintNode =
-	& Thing
-	& IntangibleProps
-	& ConstraintNodeProps
+type ConstraintNode = Thing & IntangibleProps & ConstraintNodeProps
 
 export default ConstraintNode

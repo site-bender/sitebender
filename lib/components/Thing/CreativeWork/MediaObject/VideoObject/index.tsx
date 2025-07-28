@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { MediaObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { VideoObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/VideoObject/index.ts"
 
 import MediaObject from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VideoObjectProps,
-	"VideoObject",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, MediaObjectProps>
->
+export type Props = VideoObjectProps & BaseProps
 
 export default function VideoObject({
 	actor,
@@ -23,14 +16,14 @@ export default function VideoObject({
 	transcript,
 	videoFrameSize,
 	videoQuality,
-	schemaType = "VideoObject",
+	_type = "VideoObject",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MediaObject
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

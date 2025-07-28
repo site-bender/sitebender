@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function ComicSeries({
-	schemaType = "ComicSeries",
+	_type = "ComicSeries",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<Periodical
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

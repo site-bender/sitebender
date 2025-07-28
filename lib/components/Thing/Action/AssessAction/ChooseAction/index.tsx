@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { AssessActionProps } from "../../../../../types/Thing/Action/AssessAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ChooseActionProps } from "../../../../../types/Thing/Action/AssessAction/ChooseAction/index.ts"
 
 import AssessAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ChooseActionProps,
-	"ChooseAction",
-	ExtractLevelProps<ThingProps, ActionProps, AssessActionProps>
->
+export type Props = ChooseActionProps & BaseProps
 
 export default function ChooseAction({
 	actionOption,
 	option,
-	schemaType = "ChooseAction",
+	_type = "ChooseAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<AssessAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actionOption,
 				option,

@@ -1,14 +1,8 @@
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import VirtualLocationComponent from "../../../../../components/Thing/Intangible/VirtualLocation/index.tsx"
+export interface VirtualLocationProps {}
 
-export interface VirtualLocationProps {
-}
-
-type VirtualLocation =
-	& Thing
-	& IntangibleProps
-	& VirtualLocationProps
+type VirtualLocation = Thing & IntangibleProps & VirtualLocationProps
 
 export default VirtualLocation

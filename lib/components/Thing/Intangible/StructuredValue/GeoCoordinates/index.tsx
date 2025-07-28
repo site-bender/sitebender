@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { GeoCoordinatesProps } from "../../../../../types/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GeoCoordinatesProps,
-	"GeoCoordinates",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = GeoCoordinatesProps & BaseProps
 
 export default function GeoCoordinates({
 	address,
@@ -19,14 +12,14 @@ export default function GeoCoordinates({
 	latitude,
 	longitude,
 	postalCode,
-	schemaType = "GeoCoordinates",
+	_type = "GeoCoordinates",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				address,
 				addressCountry,

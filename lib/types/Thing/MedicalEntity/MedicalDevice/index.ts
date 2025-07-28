@@ -1,23 +1,26 @@
 import type { Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
+import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 import type MedicalContraindication from "../MedicalContraindication/index.ts"
-import type MedicalEntity from "../index.ts"
 
-import MedicalDeviceComponent from "../../../../../components/Thing/MedicalEntity/MedicalDevice/index.tsx"
+import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
+import MedicalContraindicationComponent from "../../../../components/Thing/MedicalEntity/MedicalContraindication/index.ts"
 
 export interface MedicalDeviceProps {
-	adverseOutcome?: MedicalEntity
-	contraindication?: MedicalContraindication | Text
+	adverseOutcome?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
+	contraindication?:
+		| MedicalContraindication
+		| Text
+		| ReturnType<typeof MedicalContraindicationComponent>
 	postOp?: Text
 	preOp?: Text
 	procedure?: Text
-	seriousAdverseOutcome?: MedicalEntity
+	seriousAdverseOutcome?:
+		| MedicalEntity
+		| ReturnType<typeof MedicalEntityComponent>
 }
 
-type MedicalDevice =
-	& Thing
-	& MedicalEntityProps
-	& MedicalDeviceProps
+type MedicalDevice = Thing & MedicalEntityProps & MedicalDeviceProps
 
 export default MedicalDevice

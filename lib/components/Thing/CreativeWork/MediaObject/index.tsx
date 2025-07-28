@@ -35,7 +35,7 @@ export default function MediaObject(
 		startTime,
 		uploadDate,
 		width,
-		schemaType = "MediaObject",
+		_type = "MediaObject",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -43,7 +43,7 @@ export default function MediaObject(
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				associatedArticle,
 				bitrate,

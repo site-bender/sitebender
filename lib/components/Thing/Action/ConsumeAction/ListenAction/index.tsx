@@ -1,3 +1,22 @@
-import ListenAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ListenActionProps } from "../../../../../types/Thing/Action/ConsumeAction/ListenAction/index.ts"
 
-export default ListenAction
+import ConsumeAction from "../index.tsx"
+
+export type Props = ListenActionProps & BaseProps
+
+export default function ListenAction({
+	_type = "ListenAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ConsumeAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

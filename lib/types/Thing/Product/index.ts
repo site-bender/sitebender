@@ -1,101 +1,208 @@
 import type { Boolean, Date, Text, URL } from "../../DataType/index.ts"
+import type Certification from "../CreativeWork/Certification/index.ts"
+import type ImageObject from "../CreativeWork/MediaObject/ImageObject/index.ts"
+import type Review from "../CreativeWork/Review/index.ts"
+import type WebContent from "../CreativeWork/WebContent/index.ts"
 import type Thing from "../index.ts"
-import type AdultOrientedEnumeration from "../Intangible/Enumeration/AdultOrientedEnumeration/index.ts"
-import type AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
 import type Audience from "../Intangible/Audience/index.ts"
 import type Brand from "../Intangible/Brand/index.ts"
 import type CategoryCode from "../Intangible/DefinedTerm/CategoryCode/index.ts"
-import type Certification from "../CreativeWork/Certification/index.ts"
-import type Country from "../Place/AdministrativeArea/Country/index.ts"
 import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
 import type Demand from "../Intangible/Demand/index.ts"
-import type Distance from "../Intangible/Quantity/Distance/index.ts"
 import type EnergyConsumptionDetails from "../Intangible/EnergyConsumptionDetails/index.ts"
+import type AdultOrientedEnumeration from "../Intangible/Enumeration/AdultOrientedEnumeration/index.ts"
+import type OfferItemCondition from "../Intangible/Enumeration/OfferItemCondition/index.ts"
+import type PhysicalActivityCategory from "../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
+import type SizeSpecification from "../Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
 import type Grant from "../Intangible/Grant/index.ts"
-import type ImageObject from "../CreativeWork/MediaObject/ImageObject/index.ts"
 import type ItemList from "../Intangible/ItemList/index.ts"
 import type ListItem from "../Intangible/ListItem/index.ts"
-import type Mass from "../Intangible/Quantity/Mass/index.ts"
 import type MerchantReturnPolicy from "../Intangible/MerchantReturnPolicy/index.ts"
 import type Offer from "../Intangible/Offer/index.ts"
-import type OfferItemCondition from "../Intangible/Enumeration/OfferItemCondition/index.ts"
-import type Organization from "../Organization/index.ts"
-import type PhysicalActivityCategory from "../Intangible/Enumeration/PhysicalActivityCategory/index.ts"
-import type ProductGroup from "./ProductGroup/index.ts"
-import type ProductModel from "./ProductModel/index.ts"
+import type Distance from "../Intangible/Quantity/Distance/index.ts"
+import type Mass from "../Intangible/Quantity/Mass/index.ts"
+import type AggregateRating from "../Intangible/Rating/AggregateRating/index.ts"
+import type Service from "../Intangible/Service/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
-import type Review from "../CreativeWork/Review/index.ts"
-import type Service from "../Intangible/Service/index.ts"
-import type SizeSpecification from "../Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
-import type WebContent from "../CreativeWork/WebContent/index.ts"
+import type Organization from "../Organization/index.ts"
+import type Country from "../Place/AdministrativeArea/Country/index.ts"
+import type ProductGroup from "./ProductGroup/index.ts"
+import type ProductModel from "./ProductModel/index.ts"
 
-import ProductComponent from "../../../../components/Thing/Product/index.tsx"
+import CertificationComponent from "../../../components/Thing/CreativeWork/Certification/index.ts"
+import ImageObjectComponent from "../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
+import ReviewComponent from "../../../components/Thing/CreativeWork/Review/index.ts"
+import WebContentComponent from "../../../components/Thing/CreativeWork/WebContent/index.ts"
+import ThingComponent from "../../../components/Thing/index.ts"
+import AudienceComponent from "../../../components/Thing/Intangible/Audience/index.ts"
+import BrandComponent from "../../../components/Thing/Intangible/Brand/index.ts"
+import CategoryCodeComponent from "../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
+import DefinedTermComponent from "../../../components/Thing/Intangible/DefinedTerm/index.ts"
+import DemandComponent from "../../../components/Thing/Intangible/Demand/index.ts"
+import EnergyConsumptionDetailsComponent from "../../../components/Thing/Intangible/EnergyConsumptionDetails/index.ts"
+import AdultOrientedEnumerationComponent from "../../../components/Thing/Intangible/Enumeration/AdultOrientedEnumeration/index.ts"
+import OfferItemConditionComponent from "../../../components/Thing/Intangible/Enumeration/OfferItemCondition/index.ts"
+import PhysicalActivityCategoryComponent from "../../../components/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.ts"
+import SizeSpecificationComponent from "../../../components/Thing/Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
+import GrantComponent from "../../../components/Thing/Intangible/Grant/index.ts"
+import ItemListComponent from "../../../components/Thing/Intangible/ItemList/index.ts"
+import ListItemComponent from "../../../components/Thing/Intangible/ListItem/index.ts"
+import MerchantReturnPolicyComponent from "../../../components/Thing/Intangible/MerchantReturnPolicy/index.ts"
+import OfferComponent from "../../../components/Thing/Intangible/Offer/index.ts"
+import DistanceComponent from "../../../components/Thing/Intangible/Quantity/Distance/index.ts"
+import MassComponent from "../../../components/Thing/Intangible/Quantity/Mass/index.ts"
+import AggregateRatingComponent from "../../../components/Thing/Intangible/Rating/AggregateRating/index.ts"
+import ServiceComponent from "../../../components/Thing/Intangible/Service/index.ts"
+import PropertyValueComponent from "../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
+import QuantitativeValueComponent from "../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
+import OrganizationComponent from "../../../components/Thing/Organization/index.ts"
+import CountryComponent from "../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
+import ProductComponent from "../../../components/Thing/Product/index.ts"
+import ProductGroupComponent from "../../../components/Thing/Product/ProductGroup/index.ts"
+import ProductModelComponent from "../../../components/Thing/Product/ProductModel/index.ts"
 
 export interface ProductProps {
-	additionalProperty?: PropertyValue
-	aggregateRating?: AggregateRating
+	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	aggregateRating?:
+		| AggregateRating
+		| ReturnType<typeof AggregateRatingComponent>
 	asin?: Text | URL
-	audience?: Audience
+	audience?: Audience | ReturnType<typeof AudienceComponent>
 	award?: Text
 	awards?: Text
-	brand?: Brand | Organization
-	category?: CategoryCode | PhysicalActivityCategory | Text | Thing | URL
+	brand?:
+		| Brand
+		| Organization
+		| ReturnType<typeof BrandComponent>
+		| ReturnType<typeof OrganizationComponent>
+	category?:
+		| CategoryCode
+		| PhysicalActivityCategory
+		| Text
+		| Thing
+		| URL
+		| ReturnType<typeof CategoryCodeComponent>
+		| ReturnType<typeof PhysicalActivityCategoryComponent>
+		| ReturnType<typeof ThingComponent>
 	color?: Text
-	colorSwatch?: ImageObject | URL
+	colorSwatch?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
 	countryOfAssembly?: Text
 	countryOfLastProcessing?: Text
-	countryOfOrigin?: Country
-	depth?: Distance | QuantitativeValue
-	funding?: Grant
+	countryOfOrigin?: Country | ReturnType<typeof CountryComponent>
+	depth?:
+		| Distance
+		| QuantitativeValue
+		| ReturnType<typeof DistanceComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
+	funding?: Grant | ReturnType<typeof GrantComponent>
 	gtin?: Text | URL
 	gtin12?: Text
 	gtin13?: Text
 	gtin14?: Text
 	gtin8?: Text
-	hasAdultConsideration?: AdultOrientedEnumeration
-	hasCertification?: Certification
-	hasEnergyConsumptionDetails?: EnergyConsumptionDetails
+	hasAdultConsideration?:
+		| AdultOrientedEnumeration
+		| ReturnType<typeof AdultOrientedEnumerationComponent>
+	hasCertification?: Certification | ReturnType<typeof CertificationComponent>
+	hasEnergyConsumptionDetails?:
+		| EnergyConsumptionDetails
+		| ReturnType<typeof EnergyConsumptionDetailsComponent>
 	hasGS1DigitalLink?: URL
-	hasMeasurement?: QuantitativeValue
-	hasMerchantReturnPolicy?: MerchantReturnPolicy
-	hasProductReturnPolicy?: MerchantReturnPolicy
-	height?: Distance | QuantitativeValue
+	hasMeasurement?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
+	hasMerchantReturnPolicy?:
+		| MerchantReturnPolicy
+		| ReturnType<typeof MerchantReturnPolicyComponent>
+	hasProductReturnPolicy?:
+		| MerchantReturnPolicy
+		| ReturnType<typeof MerchantReturnPolicyComponent>
+	height?:
+		| Distance
+		| QuantitativeValue
+		| ReturnType<typeof DistanceComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
 	inProductGroupWithID?: Text
-	isAccessoryOrSparePartFor?: Product
-	isConsumableFor?: Product
+	isAccessoryOrSparePartFor?: Product | ReturnType<typeof ProductComponent>
+	isConsumableFor?: Product | ReturnType<typeof ProductComponent>
 	isFamilyFriendly?: Boolean
-	isRelatedTo?: Product | Service
-	isSimilarTo?: Product | Service
-	isVariantOf?: ProductGroup | ProductModel
-	itemCondition?: OfferItemCondition
-	keywords?: DefinedTerm | Text | URL
-	logo?: ImageObject | URL
-	manufacturer?: Organization
-	material?: Product | Text | URL
+	isRelatedTo?:
+		| Product
+		| Service
+		| ReturnType<typeof ProductComponent>
+		| ReturnType<typeof ServiceComponent>
+	isSimilarTo?:
+		| Product
+		| Service
+		| ReturnType<typeof ProductComponent>
+		| ReturnType<typeof ServiceComponent>
+	isVariantOf?:
+		| ProductGroup
+		| ProductModel
+		| ReturnType<typeof ProductGroupComponent>
+		| ReturnType<typeof ProductModelComponent>
+	itemCondition?:
+		| OfferItemCondition
+		| ReturnType<typeof OfferItemConditionComponent>
+	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	logo?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
+	manufacturer?: Organization | ReturnType<typeof OrganizationComponent>
+	material?: Product | Text | URL | ReturnType<typeof ProductComponent>
 	mobileUrl?: Text
-	model?: ProductModel | Text
+	model?: ProductModel | Text | ReturnType<typeof ProductModelComponent>
 	mpn?: Text
-	negativeNotes?: ItemList | ListItem | Text | WebContent
+	negativeNotes?:
+		| ItemList
+		| ListItem
+		| Text
+		| WebContent
+		| ReturnType<typeof ItemListComponent>
+		| ReturnType<typeof ListItemComponent>
+		| ReturnType<typeof WebContentComponent>
 	nsn?: Text
-	offers?: Demand | Offer
-	pattern?: DefinedTerm | Text
-	positiveNotes?: ItemList | ListItem | Text | WebContent
+	offers?:
+		| Demand
+		| Offer
+		| ReturnType<typeof DemandComponent>
+		| ReturnType<typeof OfferComponent>
+	pattern?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
+	positiveNotes?:
+		| ItemList
+		| ListItem
+		| Text
+		| WebContent
+		| ReturnType<typeof ItemListComponent>
+		| ReturnType<typeof ListItemComponent>
+		| ReturnType<typeof WebContentComponent>
 	productID?: Text
 	productionDate?: Date
 	purchaseDate?: Date
 	releaseDate?: Date
-	review?: Review
-	reviews?: Review
-	size?: DefinedTerm | QuantitativeValue | SizeSpecification | Text
+	review?: Review | ReturnType<typeof ReviewComponent>
+	reviews?: Review | ReturnType<typeof ReviewComponent>
+	size?:
+		| DefinedTerm
+		| QuantitativeValue
+		| SizeSpecification
+		| Text
+		| ReturnType<typeof DefinedTermComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
+		| ReturnType<typeof SizeSpecificationComponent>
 	sku?: Text
 	slogan?: Text
-	weight?: Mass | QuantitativeValue
-	width?: Distance | QuantitativeValue
+	weight?:
+		| Mass
+		| QuantitativeValue
+		| ReturnType<typeof MassComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
+	width?:
+		| Distance
+		| QuantitativeValue
+		| ReturnType<typeof DistanceComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
-type Product =
-	& Thing
-	& ProductProps
+type Product = Thing & ProductProps
 
 export default Product

@@ -1,3 +1,22 @@
-import WantAction from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { WantActionProps } from "../../../../../../types/Thing/Action/AssessAction/ReactAction/WantAction/index.ts"
 
-export default WantAction
+import ReactAction from "../index.tsx"
+
+export type Props = WantActionProps & BaseProps
+
+export default function WantAction({
+	_type = "WantAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ReactAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

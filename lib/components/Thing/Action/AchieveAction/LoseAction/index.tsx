@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { AchieveActionProps } from "../../../../../types/Thing/Action/AchieveAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { LoseActionProps } from "../../../../../types/Thing/Action/AchieveAction/LoseAction/index.ts"
 
 import AchieveAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LoseActionProps,
-	"LoseAction",
-	ExtractLevelProps<ThingProps, ActionProps, AchieveActionProps>
->
+export type Props = LoseActionProps & BaseProps
 
 export default function LoseAction({
 	winner,
-	schemaType = "LoseAction",
+	_type = "LoseAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<AchieveAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				winner,
 				...subtypeProperties,

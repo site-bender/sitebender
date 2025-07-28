@@ -1,29 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ItemListProps } from "../../../../types/Thing/Intangible/ItemList/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ItemListProps,
-	"ItemList",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ItemListProps & BaseProps
 
 export default function ItemList({
 	aggregateElement,
 	itemListElement,
 	itemListOrder,
 	numberOfItems,
-	schemaType = "ItemList",
+	_type = "ItemList",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				aggregateElement,
 				itemListElement,

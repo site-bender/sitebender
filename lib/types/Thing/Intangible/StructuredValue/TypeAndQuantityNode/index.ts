@@ -1,17 +1,25 @@
 import type { Number, Text, URL } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { IntangibleProps } from "../../index.ts"
-import type { StructuredValueProps } from "../index.ts"
-import type BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
 import type Product from "../../../Product/index.ts"
+import type BusinessFunction from "../../Enumeration/BusinessFunction/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Service from "../../Service/index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-import TypeAndQuantityNodeComponent from "../../../../../../components/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.tsx"
+import BusinessFunctionComponent from "../../../../../components/Thing/Intangible/Enumeration/BusinessFunction/index.ts"
+import ServiceComponent from "../../../../../components/Thing/Intangible/Service/index.ts"
+import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
 export interface TypeAndQuantityNodeProps {
 	amountOfThisGood?: Number
-	businessFunction?: BusinessFunction
-	typeOfGood?: Product | Service
+	businessFunction?:
+		| BusinessFunction
+		| ReturnType<typeof BusinessFunctionComponent>
+	typeOfGood?:
+		| Product
+		| Service
+		| ReturnType<typeof ProductComponent>
+		| ReturnType<typeof ServiceComponent>
 	unitCode?: Text | URL
 	unitText?: Text
 }

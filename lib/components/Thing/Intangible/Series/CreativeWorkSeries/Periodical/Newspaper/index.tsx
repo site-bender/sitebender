@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function Newspaper({
-	schemaType = "Newspaper",
+	_type = "Newspaper",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<Periodical
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

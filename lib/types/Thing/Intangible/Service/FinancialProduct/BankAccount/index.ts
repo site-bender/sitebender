@@ -1,15 +1,19 @@
 import type { Text, URL } from "../../../../../DataType/index.ts"
 import type Thing from "../../../../index.ts"
 import type { IntangibleProps } from "../../../index.ts"
+import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
-import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 
-import BankAccountComponent from "../../../../../../../components/Thing/Intangible/Service/FinancialProduct/BankAccount/index.tsx"
+import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface BankAccountProps {
-	accountMinimumInflow?: MonetaryAmount
-	accountOverdraftLimit?: MonetaryAmount
+	accountMinimumInflow?:
+		| MonetaryAmount
+		| ReturnType<typeof MonetaryAmountComponent>
+	accountOverdraftLimit?:
+		| MonetaryAmount
+		| ReturnType<typeof MonetaryAmountComponent>
 	bankAccountType?: Text | URL
 }
 

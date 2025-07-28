@@ -1,14 +1,18 @@
 import type Thing from "../../../../index.ts"
 import type { MedicalEntityProps } from "../../../index.ts"
+import type AnatomicalStructure from "../../index.ts"
 import type { AnatomicalStructureProps } from "../../index.ts"
 import type { VesselProps } from "../index.ts"
-import type AnatomicalStructure from "../../index.ts"
 
-import ArteryComponent from "../../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/Artery/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.ts"
 
 export interface ArteryProps {
-	arterialBranch?: AnatomicalStructure
-	supplyTo?: AnatomicalStructure
+	arterialBranch?:
+		| AnatomicalStructure
+		| ReturnType<typeof AnatomicalStructureComponent>
+	supplyTo?:
+		| AnatomicalStructure
+		| ReturnType<typeof AnatomicalStructureComponent>
 }
 
 type Artery =

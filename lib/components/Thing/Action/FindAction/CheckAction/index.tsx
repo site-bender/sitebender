@@ -1,3 +1,22 @@
-import CheckAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { CheckActionProps } from "../../../../../types/Thing/Action/FindAction/CheckAction/index.ts"
 
-export default CheckAction
+import FindAction from "../index.tsx"
+
+export type Props = CheckActionProps & BaseProps
+
+export default function CheckAction({
+	_type = "CheckAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<FindAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

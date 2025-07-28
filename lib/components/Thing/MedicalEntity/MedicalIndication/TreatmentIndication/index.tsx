@@ -1,3 +1,22 @@
-import TreatmentIndication from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { TreatmentIndicationProps } from "../../../../../types/Thing/MedicalEntity/MedicalIndication/TreatmentIndication/index.ts"
 
-export default TreatmentIndication
+import MedicalIndication from "../index.tsx"
+
+export type Props = TreatmentIndicationProps & BaseProps
+
+export default function TreatmentIndication({
+	_type = "TreatmentIndication",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalIndication
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

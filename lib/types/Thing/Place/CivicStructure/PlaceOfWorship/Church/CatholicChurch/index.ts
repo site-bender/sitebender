@@ -4,10 +4,7 @@ import type { CivicStructureProps } from "../../../index.ts"
 import type { PlaceOfWorshipProps } from "../../index.ts"
 import type { ChurchProps } from "../index.ts"
 
-import CatholicChurchComponent from "../../../../../../../../components/Thing/Place/CivicStructure/PlaceOfWorship/Church/CatholicChurch/index.tsx"
-
-export interface CatholicChurchProps {
-}
+export interface CatholicChurchProps {}
 
 type CatholicChurch =
 	& Thing

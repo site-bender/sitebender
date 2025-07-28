@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { HowToProps } from "../../../../../types/Thing/CreativeWork/HowTo/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { RecipeProps } from "../../../../../types/Thing/CreativeWork/HowTo/Recipe/index.ts"
 
 import HowTo from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	RecipeProps,
-	"Recipe",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, HowToProps>
->
+export type Props = RecipeProps & BaseProps
 
 export default function Recipe({
 	cookingMethod,
@@ -23,14 +16,14 @@ export default function Recipe({
 	recipeInstructions,
 	recipeYield,
 	suitableForDiet,
-	schemaType = "Recipe",
+	_type = "Recipe",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<HowTo
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				cookingMethod,
 				cookTime,

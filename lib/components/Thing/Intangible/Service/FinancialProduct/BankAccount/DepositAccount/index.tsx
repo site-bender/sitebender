@@ -1,3 +1,22 @@
-import DepositAccount from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { DepositAccountProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/BankAccount/DepositAccount/index.ts"
 
-export default DepositAccount
+import BankAccount from "../index.tsx"
+
+export type Props = DepositAccountProps & BaseProps
+
+export default function DepositAccount({
+	_type = "DepositAccount",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<BankAccount
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import CoverArt from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { CoverArtProps } from "../../../../../types/Thing/CreativeWork/VisualArtwork/CoverArt/index.ts"
 
-export default CoverArt
+import VisualArtwork from "../index.tsx"
+
+export type Props = CoverArtProps & BaseProps
+
+export default function CoverArt({
+	_type = "CoverArt",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<VisualArtwork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

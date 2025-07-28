@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ExercisePlanProps } from "../../../../types/Thing/CreativeWork/ExercisePlan/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ExercisePlanProps,
-	"ExercisePlan",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = ExercisePlanProps & BaseProps
 
 export default function ExercisePlan({
 	activityDuration,
@@ -20,14 +14,14 @@ export default function ExercisePlan({
 	repetitions,
 	restPeriods,
 	workload,
-	schemaType = "ExercisePlan",
+	_type = "ExercisePlan",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				activityDuration,
 				activityFrequency,

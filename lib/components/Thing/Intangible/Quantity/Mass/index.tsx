@@ -1,3 +1,22 @@
-import Mass from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MassProps } from "../../../../../types/Thing/Intangible/Quantity/Mass/index.ts"
 
-export default Mass
+import Quantity from "../index.tsx"
+
+export type Props = MassProps & BaseProps
+
+export default function Mass({
+	_type = "Mass",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Quantity
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

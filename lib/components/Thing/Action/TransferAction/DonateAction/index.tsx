@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { TransferActionProps } from "../../../../../types/Thing/Action/TransferAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { DonateActionProps } from "../../../../../types/Thing/Action/TransferAction/DonateAction/index.ts"
 
 import TransferAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DonateActionProps,
-	"DonateAction",
-	ExtractLevelProps<ThingProps, ActionProps, TransferActionProps>
->
+export type Props = DonateActionProps & BaseProps
 
 export default function DonateAction({
 	price,
 	priceCurrency,
 	priceSpecification,
 	recipient,
-	schemaType = "DonateAction",
+	_type = "DonateAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<TransferAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				price,
 				priceCurrency,

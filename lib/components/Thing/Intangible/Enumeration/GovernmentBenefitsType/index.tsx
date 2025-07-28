@@ -1,3 +1,22 @@
-import GovernmentBenefitsType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { GovernmentBenefitsTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/GovernmentBenefitsType/index.ts"
 
-export default GovernmentBenefitsType
+import Enumeration from "../index.tsx"
+
+export type Props = GovernmentBenefitsTypeProps & BaseProps
+
+export default function GovernmentBenefitsType({
+	_type = "GovernmentBenefitsType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

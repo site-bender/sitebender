@@ -1,3 +1,22 @@
-import AnalysisNewsArticle from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { AnalysisNewsArticleProps } from "../../../../../../types/Thing/CreativeWork/Article/NewsArticle/AnalysisNewsArticle/index.ts"
 
-export default AnalysisNewsArticle
+import NewsArticle from "../index.tsx"
+
+export type Props = AnalysisNewsArticleProps & BaseProps
+
+export default function AnalysisNewsArticle({
+	_type = "AnalysisNewsArticle",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<NewsArticle
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

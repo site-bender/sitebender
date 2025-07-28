@@ -1,11 +1,11 @@
 import type Thing from "../../index.ts"
-import type { IntangibleProps } from "../index.ts"
 import type Class from "../Class/index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-import StatisticalPopulationComponent from "../../../../../components/Thing/Intangible/StatisticalPopulation/index.tsx"
+import ClassComponent from "../../../../components/Thing/Intangible/Class/index.ts"
 
 export interface StatisticalPopulationProps {
-	populationType?: Class
+	populationType?: Class | ReturnType<typeof ClassComponent>
 }
 
 type StatisticalPopulation =

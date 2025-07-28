@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { OrderItemProps } from "../../../../types/Thing/Intangible/OrderItem/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	OrderItemProps,
-	"OrderItem",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = OrderItemProps & BaseProps
 
 export default function OrderItem({
 	orderDelivery,
@@ -17,14 +11,14 @@ export default function OrderItem({
 	orderItemNumber,
 	orderItemStatus,
 	orderQuantity,
-	schemaType = "OrderItem",
+	_type = "OrderItem",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				orderDelivery,
 				orderedItem,

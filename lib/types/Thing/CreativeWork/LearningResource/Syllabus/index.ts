@@ -2,10 +2,7 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { LearningResourceProps } from "../index.ts"
 
-import SyllabusComponent from "../../../../../../components/Thing/CreativeWork/LearningResource/Syllabus/index.tsx"
-
-export interface SyllabusProps {
-}
+export interface SyllabusProps {}
 
 type Syllabus =
 	& Thing

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { PlaceProps } from "../../../../../types/Thing/Place/index.ts"
-import type { ResidenceProps } from "../../../../../types/Thing/Place/Residence/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ApartmentComplexProps } from "../../../../../types/Thing/Place/Residence/ApartmentComplex/index.ts"
 
 import Residence from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ApartmentComplexProps,
-	"ApartmentComplex",
-	ExtractLevelProps<ThingProps, PlaceProps, ResidenceProps>
->
+export type Props = ApartmentComplexProps & BaseProps
 
 export default function ApartmentComplex({
 	numberOfAccommodationUnits,
@@ -18,14 +11,14 @@ export default function ApartmentComplex({
 	numberOfBedrooms,
 	petsAllowed,
 	tourBookingPage,
-	schemaType = "ApartmentComplex",
+	_type = "ApartmentComplex",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Residence
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				numberOfAccommodationUnits,
 				numberOfAvailableAccommodationUnits,

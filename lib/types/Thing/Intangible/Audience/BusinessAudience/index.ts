@@ -1,14 +1,20 @@
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
-import type { AudienceProps } from "../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
+import type { AudienceProps } from "../index.ts"
 
-import BusinessAudienceComponent from "../../../../../../components/Thing/Intangible/Audience/BusinessAudience/index.tsx"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface BusinessAudienceProps {
-	numberOfEmployees?: QuantitativeValue
-	yearlyRevenue?: QuantitativeValue
-	yearsInOperation?: QuantitativeValue
+	numberOfEmployees?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
+	yearlyRevenue?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
+	yearsInOperation?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type BusinessAudience =

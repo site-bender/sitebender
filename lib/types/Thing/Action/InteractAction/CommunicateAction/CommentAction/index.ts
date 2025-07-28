@@ -1,13 +1,13 @@
+import type Comment from "../../../../CreativeWork/Comment/index.ts"
 import type Thing from "../../../../index.ts"
 import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
-import type Comment from "../../../../CreativeWork/Comment/index.ts"
 
-import CommentActionComponent from "../../../../../../../components/Thing/Action/InteractAction/CommunicateAction/CommentAction/index.tsx"
+import CommentComponent from "../../../../../../components/Thing/CreativeWork/Comment/index.ts"
 
 export interface CommentActionProps {
-	resultComment?: Comment
+	resultComment?: Comment | ReturnType<typeof CommentComponent>
 }
 
 type CommentAction =

@@ -1,17 +1,25 @@
 import type Thing from "../../../../index.ts"
-import type { MedicalEntityProps } from "../../../index.ts"
-import type { AnatomicalStructureProps } from "../../index.ts"
-import type { VesselProps } from "../index.ts"
-import type AnatomicalStructure from "../../index.ts"
 import type AnatomicalSystem from "../../../AnatomicalSystem/index.ts"
+import type { MedicalEntityProps } from "../../../index.ts"
+import type AnatomicalStructure from "../../index.ts"
+import type { AnatomicalStructureProps } from "../../index.ts"
 import type Vessel from "../index.ts"
+import type { VesselProps } from "../index.ts"
 
-import VeinComponent from "../../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/Vein/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.ts"
+import VesselComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
+import AnatomicalSystemComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
 export interface VeinProps {
-	drainsTo?: Vessel
-	regionDrained?: AnatomicalStructure | AnatomicalSystem
-	tributary?: AnatomicalStructure
+	drainsTo?: Vessel | ReturnType<typeof VesselComponent>
+	regionDrained?:
+		| AnatomicalStructure
+		| AnatomicalSystem
+		| ReturnType<typeof AnatomicalStructureComponent>
+		| ReturnType<typeof AnatomicalSystemComponent>
+	tributary?:
+		| AnatomicalStructure
+		| ReturnType<typeof AnatomicalStructureComponent>
 }
 
 type Vein =

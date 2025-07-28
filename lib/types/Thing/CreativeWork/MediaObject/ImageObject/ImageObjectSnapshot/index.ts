@@ -1,12 +1,9 @@
 import type Thing from "../../../../index.ts"
-import type { CreativeWorkProps } from "../../../index.ts"
 import type { MediaObjectProps } from "../../../../MediaObject/index.ts"
+import type { CreativeWorkProps } from "../../../index.ts"
 import type { ImageObjectProps } from "../index.ts"
 
-import ImageObjectSnapshotComponent from "../../../../../../../components/Thing/CreativeWork/MediaObject/ImageObject/ImageObjectSnapshot/index.tsx"
-
-export interface ImageObjectSnapshotProps {
-}
+export interface ImageObjectSnapshotProps {}
 
 type ImageObjectSnapshot =
 	& Thing

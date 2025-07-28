@@ -1,3 +1,22 @@
-import ThreeDModel from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ThreeDModelProps } from "../../../../../types/Thing/CreativeWork/MediaObject/ThreeDModel/index.ts"
 
-export default ThreeDModel
+import MediaObject from "../index.tsx"
+
+export type Props = ThreeDModelProps & BaseProps
+
+export default function ThreeDModel({
+	_type = "ThreeDModel",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MediaObject
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

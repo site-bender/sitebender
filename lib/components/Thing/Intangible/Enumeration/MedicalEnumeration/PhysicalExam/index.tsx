@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function PhysicalExam({
-	schemaType = "PhysicalExam",
+	_type = "PhysicalExam",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<MedicalEnumeration
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

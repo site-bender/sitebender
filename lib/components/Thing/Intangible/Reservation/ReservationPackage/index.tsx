@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ReservationProps } from "../../../../../types/Thing/Intangible/Reservation/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ReservationPackageProps } from "../../../../../types/Thing/Intangible/Reservation/ReservationPackage/index.ts"
 
 import Reservation from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ReservationPackageProps,
-	"ReservationPackage",
-	ExtractLevelProps<ThingProps, IntangibleProps, ReservationProps>
->
+export type Props = ReservationPackageProps & BaseProps
 
 export default function ReservationPackage({
 	subReservation,
-	schemaType = "ReservationPackage",
+	_type = "ReservationPackage",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Reservation
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				subReservation,
 				...subtypeProperties,

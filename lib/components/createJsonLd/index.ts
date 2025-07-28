@@ -1,5 +1,5 @@
 export default function createJsonLd(
-	schemaType: string,
+	_type: string,
 	props: Record<string, unknown>,
 	subtypeProperties: Record<string, unknown> = {},
 ): Record<string, unknown> {
@@ -9,7 +9,7 @@ export default function createJsonLd(
 	// Filter out component-specific properties
 	const {
 		disableJsonLd: _disableJsonLd,
-		schemaType: _schema,
+		_type: _schema,
 		subtypeProperties: _subtype,
 		...schemaProps
 	} = allProps
@@ -17,7 +17,7 @@ export default function createJsonLd(
 	// Create the JSON-LD object
 	return {
 		"@context": "https://schema.org",
-		"@type": schemaType,
+		"@type": _type,
 		...schemaProps,
 	}
 }

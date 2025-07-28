@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../types/Thing/MedicalEntity/index.ts"
-import type { LifestyleModificationProps } from "../../../../../types/Thing/MedicalEntity/LifestyleModification/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PhysicalActivityProps } from "../../../../../types/Thing/MedicalEntity/LifestyleModification/PhysicalActivity/index.ts"
 
 import LifestyleModification from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PhysicalActivityProps,
-	"PhysicalActivity",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, LifestyleModificationProps>
->
+export type Props = PhysicalActivityProps & BaseProps
 
 export default function PhysicalActivity({
 	associatedAnatomy,
 	category,
 	epidemiology,
 	pathophysiology,
-	schemaType = "PhysicalActivity",
+	_type = "PhysicalActivity",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<LifestyleModification
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				associatedAnatomy,
 				category,

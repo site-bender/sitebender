@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function Campground({
-	schemaType = "Campground",
+	_type = "Campground",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<LodgingBusiness
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

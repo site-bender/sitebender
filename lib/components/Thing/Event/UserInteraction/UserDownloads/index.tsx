@@ -1,3 +1,22 @@
-import UserDownloads from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { UserDownloadsProps } from "../../../../../types/Thing/Event/UserInteraction/UserDownloads/index.ts"
 
-export default UserDownloads
+import UserInteraction from "../index.tsx"
+
+export type Props = UserDownloadsProps & BaseProps
+
+export default function UserDownloads({
+	_type = "UserDownloads",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<UserInteraction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

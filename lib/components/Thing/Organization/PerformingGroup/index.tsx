@@ -1,3 +1,22 @@
-import PerformingGroup from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { PerformingGroupProps } from "../../../../types/Thing/Organization/PerformingGroup/index.ts"
 
-export default PerformingGroup
+import Organization from "../index.tsx"
+
+export type Props = PerformingGroupProps & BaseProps
+
+export default function PerformingGroup({
+	_type = "PerformingGroup",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

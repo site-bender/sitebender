@@ -1,14 +1,21 @@
 import type Thing from "../../index.ts"
-import type { IntangibleProps } from "../index.ts"
 import type EUEnergyEfficiencyEnumeration from "../Enumeration/EnergyEfficiencyEnumeration/EUEnergyEfficiencyEnumeration/index.ts"
 import type EnergyEfficiencyEnumeration from "../Enumeration/EnergyEfficiencyEnumeration/index.ts"
+import type { IntangibleProps } from "../index.ts"
 
-import EnergyConsumptionDetailsComponent from "../../../../../components/Thing/Intangible/EnergyConsumptionDetails/index.tsx"
+import EUEnergyEfficiencyEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EUEnergyEfficiencyEnumeration/index.ts"
+import EnergyEfficiencyEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/index.ts"
 
 export interface EnergyConsumptionDetailsProps {
-	energyEfficiencyScaleMax?: EUEnergyEfficiencyEnumeration
-	energyEfficiencyScaleMin?: EUEnergyEfficiencyEnumeration
-	hasEnergyEfficiencyCategory?: EnergyEfficiencyEnumeration
+	energyEfficiencyScaleMax?:
+		| EUEnergyEfficiencyEnumeration
+		| ReturnType<typeof EUEnergyEfficiencyEnumerationComponent>
+	energyEfficiencyScaleMin?:
+		| EUEnergyEfficiencyEnumeration
+		| ReturnType<typeof EUEnergyEfficiencyEnumerationComponent>
+	hasEnergyEfficiencyCategory?:
+		| EnergyEfficiencyEnumeration
+		| ReturnType<typeof EnergyEfficiencyEnumerationComponent>
 }
 
 type EnergyConsumptionDetails =

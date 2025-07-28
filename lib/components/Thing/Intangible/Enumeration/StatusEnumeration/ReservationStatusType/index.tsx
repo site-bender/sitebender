@@ -1,3 +1,22 @@
-import ReservationStatusType from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { ReservationStatusTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
 
-export default ReservationStatusType
+import StatusEnumeration from "../index.tsx"
+
+export type Props = ReservationStatusTypeProps & BaseProps
+
+export default function ReservationStatusType({
+	_type = "ReservationStatusType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<StatusEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

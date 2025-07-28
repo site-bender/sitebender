@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { GameProps } from "../../../../types/Thing/CreativeWork/Game/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GameProps,
-	"Game",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = GameProps & BaseProps
 
 export default function Game({
 	characterAttribute,
@@ -17,14 +11,14 @@ export default function Game({
 	gameLocation,
 	numberOfPlayers,
 	quest,
-	schemaType = "Game",
+	_type = "Game",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				characterAttribute,
 				gameItem,

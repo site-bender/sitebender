@@ -8,8 +8,6 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import CDCPMDRecordComponent from "../../../../../../components/Thing/Intangible/StructuredValue/CDCPMDRecord/index.tsx"
-
 export interface CDCPMDRecordProps {
 	cvdCollectionDate?: DateTime | Text
 	cvdFacilityCounty?: Text

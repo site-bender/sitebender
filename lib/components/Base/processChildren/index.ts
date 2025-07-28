@@ -28,7 +28,7 @@ export default function processChildren(
 					const property = childProps.property as string
 
 					if (property) {
-						const { property: _, schemaType, element, format, ...schemaData } =
+						const { property: _, _type, element, format, ...schemaData } =
 							childProps
 						return {
 							...acc,

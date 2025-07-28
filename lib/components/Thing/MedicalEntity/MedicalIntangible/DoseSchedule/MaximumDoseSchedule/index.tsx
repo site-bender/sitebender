@@ -1,3 +1,22 @@
-import MaximumDoseSchedule from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { MaximumDoseScheduleProps } from "../../../../../../types/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
 
-export default MaximumDoseSchedule
+import DoseSchedule from "../index.tsx"
+
+export type Props = MaximumDoseScheduleProps & BaseProps
+
+export default function MaximumDoseSchedule({
+	_type = "MaximumDoseSchedule",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<DoseSchedule
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

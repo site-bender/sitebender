@@ -1,3 +1,22 @@
-import PoliticalParty from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { PoliticalPartyProps } from "../../../../types/Thing/Organization/PoliticalParty/index.ts"
 
-export default PoliticalParty
+import Organization from "../index.tsx"
+
+export type Props = PoliticalPartyProps & BaseProps
+
+export default function PoliticalParty({
+	_type = "PoliticalParty",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DemandProps } from "../../../../types/Thing/Intangible/Demand/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DemandProps,
-	"Demand",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = DemandProps & BaseProps
 
 export default function Demand({
 	acceptedPaymentMethod,
@@ -46,14 +40,14 @@ export default function Demand({
 	validFrom,
 	validThrough,
 	warranty,
-	schemaType = "Demand",
+	_type = "Demand",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acceptedPaymentMethod,
 				advanceBookingRequirement,

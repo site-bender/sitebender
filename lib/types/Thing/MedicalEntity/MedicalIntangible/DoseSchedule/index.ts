@@ -1,14 +1,17 @@
 import type { Number, Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type QualitativeValue from "../../../Intangible/Enumeration/QualitativeValue/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
-import type QualitativeValue from "../../../Intangible/Enumeration/QualitativeValue/index.ts"
 
-import DoseScheduleComponent from "../../../../../../components/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/index.tsx"
+import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 
 export interface DoseScheduleProps {
 	doseUnit?: Text
-	doseValue?: Number | QualitativeValue
+	doseValue?:
+		| Number
+		| QualitativeValue
+		| ReturnType<typeof QualitativeValueComponent>
 	frequency?: Text
 	targetPopulation?: Text
 }

@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ServiceProps } from "../../../../../types/Thing/Intangible/Service/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { FinancialProductProps } from "../../../../../types/Thing/Intangible/Service/FinancialProduct/index.ts"
 
 import Service from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	FinancialProductProps,
-	"FinancialProduct",
-	ExtractLevelProps<ThingProps, IntangibleProps, ServiceProps>
->
+export type Props = FinancialProductProps & BaseProps
 
 export default function FinancialProduct({
 	annualPercentageRate,
 	feesAndCommissionsSpecification,
 	interestRate,
-	schemaType = "FinancialProduct",
+	_type = "FinancialProduct",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Service
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				annualPercentageRate,
 				feesAndCommissionsSpecification,

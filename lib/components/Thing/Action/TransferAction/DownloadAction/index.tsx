@@ -1,3 +1,22 @@
-import DownloadAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { DownloadActionProps } from "../../../../../types/Thing/Action/TransferAction/DownloadAction/index.ts"
 
-export default DownloadAction
+import TransferAction from "../index.tsx"
+
+export type Props = DownloadActionProps & BaseProps
+
+export default function DownloadAction({
+	_type = "DownloadAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<TransferAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

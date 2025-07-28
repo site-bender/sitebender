@@ -1,3 +1,22 @@
-import ContactPage from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ContactPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/ContactPage/index.ts"
 
-export default ContactPage
+import WebPage from "../index.tsx"
+
+export type Props = ContactPageProps & BaseProps
+
+export default function ContactPage({
+	_type = "ContactPage",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPage
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

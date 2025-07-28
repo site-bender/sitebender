@@ -17,7 +17,7 @@ export default function PodcastSeries(
 	{
 		actor,
 		webFeed,
-		schemaType = "PodcastSeries",
+		_type = "PodcastSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -25,7 +25,7 @@ export default function PodcastSeries(
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				webFeed,

@@ -1,3 +1,22 @@
-import StructuredValue from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { StructuredValueProps } from "../../../../types/Thing/Intangible/StructuredValue/index.ts"
 
-export default StructuredValue
+import Intangible from "../index.tsx"
+
+export type Props = StructuredValueProps & BaseProps
+
+export default function StructuredValue({
+	_type = "StructuredValue",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Intangible
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

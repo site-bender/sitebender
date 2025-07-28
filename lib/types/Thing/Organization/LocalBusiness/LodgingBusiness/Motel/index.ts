@@ -1,13 +1,10 @@
 import type Thing from "../../../../index.ts"
 import type { PlaceProps } from "../../../../Place/index.ts"
+import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { LodgingBusinessProps } from "../index.ts"
-import type { OrganizationProps } from "../../../index.ts"
 
-import MotelComponent from "../../../../../../../components/Thing/Organization/LocalBusiness/LodgingBusiness/Motel/index.tsx"
-
-export interface MotelProps {
-}
+export interface MotelProps {}
 
 type Motel =
 	& Thing

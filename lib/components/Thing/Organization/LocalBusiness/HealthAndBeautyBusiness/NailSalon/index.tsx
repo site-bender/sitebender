@@ -1,3 +1,22 @@
-import NailSalon from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { NailSalonProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/NailSalon/index.ts"
 
-export default NailSalon
+import HealthAndBeautyBusiness from "../index.tsx"
+
+export type Props = NailSalonProps & BaseProps
+
+export default function NailSalon({
+	_type = "NailSalon",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<HealthAndBeautyBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

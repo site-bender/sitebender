@@ -1,3 +1,22 @@
-import BankOrCreditUnion from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { BankOrCreditUnionProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
 
-export default BankOrCreditUnion
+import FinancialService from "../index.tsx"
+
+export type Props = BankOrCreditUnionProps & BaseProps
+
+export default function BankOrCreditUnion({
+	_type = "BankOrCreditUnion",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<FinancialService
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

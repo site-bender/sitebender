@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../types/Thing/MedicalEntity/index.ts"
-import type { MedicalIntangibleProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { DDxElementProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DDxElement/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DDxElementProps,
-	"DDxElement",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, MedicalIntangibleProps>
->
+export type Props = DDxElementProps & BaseProps
 
 export default function DDxElement({
 	diagnosis,
 	distinguishingSign,
-	schemaType = "DDxElement",
+	_type = "DDxElement",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalIntangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				diagnosis,
 				distinguishingSign,

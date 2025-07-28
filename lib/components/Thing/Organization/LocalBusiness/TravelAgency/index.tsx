@@ -1,3 +1,22 @@
-import TravelAgency from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { TravelAgencyProps } from "../../../../../types/Thing/Organization/LocalBusiness/TravelAgency/index.ts"
 
-export default TravelAgency
+import LocalBusiness from "../index.tsx"
+
+export type Props = TravelAgencyProps & BaseProps
+
+export default function TravelAgency({
+	_type = "TravelAgency",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

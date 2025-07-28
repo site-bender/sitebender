@@ -1,3 +1,22 @@
-import BusinessEntityType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { BusinessEntityTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/BusinessEntityType/index.ts"
 
-export default BusinessEntityType
+import Enumeration from "../index.tsx"
+
+export type Props = BusinessEntityTypeProps & BaseProps
+
+export default function BusinessEntityType({
+	_type = "BusinessEntityType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../types/Thing/MedicalEntity/index.ts"
-import type { MedicalConditionProps } from "../../../../../types/Thing/MedicalEntity/MedicalCondition/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { InfectiousDiseaseProps } from "../../../../../types/Thing/MedicalEntity/MedicalCondition/InfectiousDisease/index.ts"
 
 import MedicalCondition from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	InfectiousDiseaseProps,
-	"InfectiousDisease",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, MedicalConditionProps>
->
+export type Props = InfectiousDiseaseProps & BaseProps
 
 export default function InfectiousDisease({
 	infectiousAgent,
 	infectiousAgentClass,
 	transmissionMethod,
-	schemaType = "InfectiousDisease",
+	_type = "InfectiousDisease",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalCondition
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				infectiousAgent,
 				infectiousAgentClass,

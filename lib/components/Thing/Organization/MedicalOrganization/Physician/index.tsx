@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { OrganizationProps } from "../../../../../types/Thing/Organization/index.ts"
-import type { MedicalOrganizationProps } from "../../../../../types/Thing/Organization/MedicalOrganization/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PhysicianProps } from "../../../../../types/Thing/Organization/MedicalOrganization/Physician/index.ts"
 
 import MedicalOrganization from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PhysicianProps,
-	"Physician",
-	ExtractLevelProps<ThingProps, OrganizationProps, MedicalOrganizationProps>
->
+export type Props = PhysicianProps & BaseProps
 
 export default function Physician({
 	availableService,
@@ -18,14 +11,14 @@ export default function Physician({
 	medicalSpecialty,
 	occupationalCategory,
 	usNPI,
-	schemaType = "Physician",
+	_type = "Physician",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalOrganization
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				availableService,
 				hospitalAffiliation,

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { OfferShippingDetailsProps } from "../../../../../types/Thing/Intangible/StructuredValue/OfferShippingDetails/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	OfferShippingDetailsProps,
-	"OfferShippingDetails",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = OfferShippingDetailsProps & BaseProps
 
 export default function OfferShippingDetails({
 	deliveryTime,
@@ -27,14 +20,14 @@ export default function OfferShippingDetails({
 	validForMemberTier,
 	weight,
 	width,
-	schemaType = "OfferShippingDetails",
+	_type = "OfferShippingDetails",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				deliveryTime,
 				depth,

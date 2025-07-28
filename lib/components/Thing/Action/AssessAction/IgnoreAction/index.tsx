@@ -1,3 +1,22 @@
-import IgnoreAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { IgnoreActionProps } from "../../../../../types/Thing/Action/AssessAction/IgnoreAction/index.ts"
 
-export default IgnoreAction
+import AssessAction from "../index.tsx"
+
+export type Props = IgnoreActionProps & BaseProps
+
+export default function IgnoreAction({
+	_type = "IgnoreAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<AssessAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

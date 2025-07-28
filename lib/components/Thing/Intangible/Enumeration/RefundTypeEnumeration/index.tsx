@@ -1,3 +1,22 @@
-import RefundTypeEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { RefundTypeEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/RefundTypeEnumeration/index.ts"
 
-export default RefundTypeEnumeration
+import Enumeration from "../index.tsx"
+
+export type Props = RefundTypeEnumerationProps & BaseProps
+
+export default function RefundTypeEnumeration({
+	_type = "RefundTypeEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

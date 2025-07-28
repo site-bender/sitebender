@@ -1,24 +1,29 @@
 import type { Number, Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type { MedicalEntityProps } from "../index.ts"
-import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type DrugCostCategory from "../../Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
 import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue/index.ts"
+import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
+import type { MedicalEntityProps } from "../index.ts"
 
-import DrugCostComponent from "../../../../../components/Thing/MedicalEntity/DrugCost/index.tsx"
+import DrugCostCategoryComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.ts"
+import QualitativeValueComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
+import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface DrugCostProps {
-	applicableLocation?: AdministrativeArea
-	costCategory?: DrugCostCategory
+	applicableLocation?:
+		| AdministrativeArea
+		| ReturnType<typeof AdministrativeAreaComponent>
+	costCategory?: DrugCostCategory | ReturnType<typeof DrugCostCategoryComponent>
 	costCurrency?: Text
 	costOrigin?: Text
-	costPerUnit?: Number | QualitativeValue | Text
+	costPerUnit?:
+		| Number
+		| QualitativeValue
+		| Text
+		| ReturnType<typeof QualitativeValueComponent>
 	drugUnit?: Text
 }
 
-type DrugCost =
-	& Thing
-	& MedicalEntityProps
-	& DrugCostProps
+type DrugCost = Thing & MedicalEntityProps & DrugCostProps
 
 export default DrugCost

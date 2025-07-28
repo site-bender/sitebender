@@ -1,3 +1,22 @@
-import Manuscript from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { ManuscriptProps } from "../../../../types/Thing/CreativeWork/Manuscript/index.ts"
 
-export default Manuscript
+import CreativeWork from "../index.tsx"
+
+export type Props = ManuscriptProps & BaseProps
+
+export default function Manuscript({
+	_type = "Manuscript",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import Intangible from "../index.tsx"
+import type BaseProps from "../../../types/index.ts"
+import type { IntangibleProps } from "../../../types/Thing/Intangible/index.ts"
 
-export default Intangible
+import Thing from "../index.tsx"
+
+export type Props = IntangibleProps & BaseProps
+
+export default function Intangible({
+	_type = "Intangible",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Thing
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

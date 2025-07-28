@@ -1,3 +1,22 @@
-import AmusementPark from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { AmusementParkProps } from "../../../../../../types/Thing/Organization/LocalBusiness/EntertainmentBusiness/AmusementPark/index.ts"
 
-export default AmusementPark
+import EntertainmentBusiness from "../index.tsx"
+
+export type Props = AmusementParkProps & BaseProps
+
+export default function AmusementPark({
+	_type = "AmusementPark",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<EntertainmentBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

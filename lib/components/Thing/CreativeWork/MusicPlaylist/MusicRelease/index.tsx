@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { MusicPlaylistProps } from "../../../../../types/Thing/CreativeWork/MusicPlaylist/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { MusicReleaseProps } from "../../../../../types/Thing/CreativeWork/MusicPlaylist/MusicRelease/index.ts"
 
 import MusicPlaylist from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MusicReleaseProps,
-	"MusicRelease",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, MusicPlaylistProps>
->
+export type Props = MusicReleaseProps & BaseProps
 
 export default function MusicRelease({
 	catalogNumber,
@@ -19,14 +12,14 @@ export default function MusicRelease({
 	musicReleaseFormat,
 	recordLabel,
 	releaseOf,
-	schemaType = "MusicRelease",
+	_type = "MusicRelease",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MusicPlaylist
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				catalogNumber,
 				creditedTo,

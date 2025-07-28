@@ -1,3 +1,22 @@
-import FireStation from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { FireStationProps } from "../../../../../types/Thing/Place/CivicStructure/FireStation/index.ts"
 
-export default FireStation
+import CivicStructure from "../index.tsx"
+
+export type Props = FireStationProps & BaseProps
+
+export default function FireStation({
+	_type = "FireStation",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import InteractAction from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { InteractActionProps } from "../../../../types/Thing/Action/InteractAction/index.ts"
 
-export default InteractAction
+import Action from "../index.tsx"
+
+export type Props = InteractActionProps & BaseProps
+
+export default function InteractAction({
+	_type = "InteractAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Action
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

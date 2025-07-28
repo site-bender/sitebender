@@ -1,3 +1,22 @@
-import IPTCDigitalSourceEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { IPTCDigitalSourceEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/MediaEnumeration/IPTCDigitalSourceEnumeration/index.ts"
 
-export default IPTCDigitalSourceEnumeration
+import MediaEnumeration from "../index.tsx"
+
+export type Props = IPTCDigitalSourceEnumerationProps & BaseProps
+
+export default function IPTCDigitalSourceEnumeration({
+	_type = "IPTCDigitalSourceEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MediaEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

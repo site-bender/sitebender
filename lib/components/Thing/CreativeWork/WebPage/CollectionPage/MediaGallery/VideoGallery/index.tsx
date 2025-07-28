@@ -1,3 +1,22 @@
-import VideoGallery from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { VideoGalleryProps } from "../../../../../../../types/Thing/CreativeWork/WebPage/CollectionPage/MediaGallery/VideoGallery/index.ts"
 
-export default VideoGallery
+import MediaGallery from "../index.tsx"
+
+export type Props = VideoGalleryProps & BaseProps
+
+export default function VideoGallery({
+	_type = "VideoGallery",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MediaGallery
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ParcelDeliveryProps } from "../../../../types/Thing/Intangible/ParcelDelivery/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ParcelDeliveryProps,
-	"ParcelDelivery",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ParcelDeliveryProps & BaseProps
 
 export default function ParcelDelivery({
 	carrier,
@@ -24,14 +18,14 @@ export default function ParcelDelivery({
 	provider,
 	trackingNumber,
 	trackingUrl,
-	schemaType = "ParcelDelivery",
+	_type = "ParcelDelivery",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				carrier,
 				deliveryAddress,

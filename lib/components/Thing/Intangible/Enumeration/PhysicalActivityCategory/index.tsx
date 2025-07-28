@@ -1,3 +1,22 @@
-import PhysicalActivityCategory from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { PhysicalActivityCategoryProps } from "../../../../../types/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 
-export default PhysicalActivityCategory
+import Enumeration from "../index.tsx"
+
+export type Props = PhysicalActivityCategoryProps & BaseProps
+
+export default function PhysicalActivityCategory({
+	_type = "PhysicalActivityCategory",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

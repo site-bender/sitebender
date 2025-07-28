@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { EnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { QualitativeValueProps } from "../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 
 import Enumeration from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	QualitativeValueProps,
-	"QualitativeValue",
-	ExtractLevelProps<ThingProps, IntangibleProps, EnumerationProps>
->
+export type Props = QualitativeValueProps & BaseProps
 
 export default function QualitativeValue({
 	additionalProperty,
@@ -21,14 +14,14 @@ export default function QualitativeValue({
 	lesserOrEqual,
 	nonEqual,
 	valueReference,
-	schemaType = "QualitativeValue",
+	_type = "QualitativeValue",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Enumeration
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				additionalProperty,
 				equal,

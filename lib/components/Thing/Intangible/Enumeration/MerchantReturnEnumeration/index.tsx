@@ -1,3 +1,22 @@
-import MerchantReturnEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MerchantReturnEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/MerchantReturnEnumeration/index.ts"
 
-export default MerchantReturnEnumeration
+import Enumeration from "../index.tsx"
+
+export type Props = MerchantReturnEnumerationProps & BaseProps
+
+export default function MerchantReturnEnumeration({
+	_type = "MerchantReturnEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,15 +1,20 @@
 import type { Date, DateTime } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { CreativeWorkProps } from "../../index.ts"
-import type { WebPageProps } from "../index.ts"
 import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
+import type { WebPageProps } from "../index.ts"
 
-import RealEstateListingComponent from "../../../../../../components/Thing/CreativeWork/WebPage/RealEstateListing/index.tsx"
+import DurationComponent from "../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface RealEstateListingProps {
 	datePosted?: Date | DateTime
-	leaseLength?: Duration | QuantitativeValue
+	leaseLength?:
+		| Duration
+		| QuantitativeValue
+		| ReturnType<typeof DurationComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type RealEstateListing =

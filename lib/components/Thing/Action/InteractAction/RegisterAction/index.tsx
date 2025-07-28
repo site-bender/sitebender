@@ -1,3 +1,22 @@
-import RegisterAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { RegisterActionProps } from "../../../../../types/Thing/Action/InteractAction/RegisterAction/index.ts"
 
-export default RegisterAction
+import InteractAction from "../index.tsx"
+
+export type Props = RegisterActionProps & BaseProps
+
+export default function RegisterAction({
+	_type = "RegisterAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<InteractAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

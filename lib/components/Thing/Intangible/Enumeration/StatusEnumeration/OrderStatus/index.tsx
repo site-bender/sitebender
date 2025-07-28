@@ -1,3 +1,22 @@
-import OrderStatus from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { OrderStatusProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.ts"
 
-export default OrderStatus
+import StatusEnumeration from "../index.tsx"
+
+export type Props = OrderStatusProps & BaseProps
+
+export default function OrderStatus({
+	_type = "OrderStatus",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<StatusEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

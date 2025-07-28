@@ -4,10 +4,7 @@ import type { MedicalProcedureProps } from "../../../index.ts"
 import type { TherapeuticProcedureProps } from "../../index.ts"
 import type { MedicalTherapyProps } from "../index.ts"
 
-import PhysicalTherapyComponent from "../../../../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/PhysicalTherapy/index.tsx"
-
-export interface PhysicalTherapyProps {
-}
+export interface PhysicalTherapyProps {}
 
 type PhysicalTherapy =
 	& Thing

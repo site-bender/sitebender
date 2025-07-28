@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MerchantReturnPolicyProps } from "../../../../types/Thing/Intangible/MerchantReturnPolicy/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MerchantReturnPolicyProps,
-	"MerchantReturnPolicy",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = MerchantReturnPolicyProps & BaseProps
 
 export default function MerchantReturnPolicy({
 	additionalProperty,
@@ -34,14 +28,14 @@ export default function MerchantReturnPolicy({
 	returnPolicySeasonalOverride,
 	returnShippingFeesAmount,
 	validForMemberTier,
-	schemaType = "MerchantReturnPolicy",
+	_type = "MerchantReturnPolicy",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				additionalProperty,
 				applicableCountry,

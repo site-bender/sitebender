@@ -1,28 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../../types/Thing/Action/index.ts"
-import type { InteractActionProps } from "../../../../../../types/Thing/Action/InteractAction/index.ts"
-import type { CommunicateActionProps } from "../../../../../../types/Thing/Action/InteractAction/CommunicateAction/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { InviteActionProps } from "../../../../../../types/Thing/Action/InteractAction/CommunicateAction/InviteAction/index.ts"
 
 import CommunicateAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	InviteActionProps,
-	"InviteAction",
-	ExtractLevelProps<ThingProps, ActionProps, InteractActionProps, CommunicateActionProps>
->
+export type Props = InviteActionProps & BaseProps
 
 export default function InviteAction({
 	event,
-	schemaType = "InviteAction",
+	_type = "InviteAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CommunicateAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				event,
 				...subtypeProperties,

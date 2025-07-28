@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { EntryPointProps } from "../../../../types/Thing/Intangible/EntryPoint/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EntryPointProps,
-	"EntryPoint",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = EntryPointProps & BaseProps
 
 export default function EntryPoint({
 	actionApplication,
@@ -19,14 +13,14 @@ export default function EntryPoint({
 	encodingType,
 	httpMethod,
 	urlTemplate,
-	schemaType = "EntryPoint",
+	_type = "EntryPoint",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actionApplication,
 				actionPlatform,

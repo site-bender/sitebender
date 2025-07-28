@@ -1,3 +1,22 @@
-import DeactivateAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { DeactivateActionProps } from "../../../../../types/Thing/Action/ControlAction/DeactivateAction/index.ts"
 
-export default DeactivateAction
+import ControlAction from "../index.tsx"
+
+export type Props = DeactivateActionProps & BaseProps
+
+export default function DeactivateAction({
+	_type = "DeactivateAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<ControlAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ProgramMembershipProps } from "../../../../types/Thing/Intangible/ProgramMembership/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ProgramMembershipProps,
-	"ProgramMembership",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ProgramMembershipProps & BaseProps
 
 export default function ProgramMembership({
 	hostingOrganization,
@@ -19,14 +13,14 @@ export default function ProgramMembership({
 	membershipPointsEarned,
 	program,
 	programName,
-	schemaType = "ProgramMembership",
+	_type = "ProgramMembership",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hostingOrganization,
 				member,

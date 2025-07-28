@@ -1,3 +1,22 @@
-import MedicalAudience from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MedicalAudienceProps } from "../../../../../types/Thing/Intangible/Audience/MedicalAudience/index.ts"
 
-export default MedicalAudience
+import Audience from "../index.tsx"
+
+export type Props = MedicalAudienceProps & BaseProps
+
+export default function MedicalAudience({
+	_type = "MedicalAudience",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Audience
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import BookSeries from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { BookSeriesProps } from "../../../../../types/Thing/CreativeWork/CreativeWorkSeries/BookSeries/index.ts"
 
-export default BookSeries
+import CreativeWorkSeries from "../index.tsx"
+
+export type Props = BookSeriesProps & BaseProps
+
+export default function BookSeries({
+	_type = "BookSeries",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWorkSeries
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

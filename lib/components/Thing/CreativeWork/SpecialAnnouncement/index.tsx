@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { SpecialAnnouncementProps } from "../../../../types/Thing/CreativeWork/SpecialAnnouncement/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SpecialAnnouncementProps,
-	"SpecialAnnouncement",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = SpecialAnnouncementProps & BaseProps
 
 export default function SpecialAnnouncement({
 	announcementLocation,
@@ -25,14 +19,14 @@ export default function SpecialAnnouncement({
 	schoolClosuresInfo,
 	travelBans,
 	webFeed,
-	schemaType = "SpecialAnnouncement",
+	_type = "SpecialAnnouncement",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				announcementLocation,
 				category,

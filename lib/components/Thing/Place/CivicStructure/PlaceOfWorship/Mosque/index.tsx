@@ -1,3 +1,22 @@
-import Mosque from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { MosqueProps } from "../../../../../../types/Thing/Place/CivicStructure/PlaceOfWorship/Mosque/index.ts"
 
-export default Mosque
+import PlaceOfWorship from "../index.tsx"
+
+export type Props = MosqueProps & BaseProps
+
+export default function Mosque({
+	_type = "Mosque",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<PlaceOfWorship
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

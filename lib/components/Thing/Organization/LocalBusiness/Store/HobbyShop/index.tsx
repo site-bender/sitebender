@@ -1,3 +1,22 @@
-import HobbyShop from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { HobbyShopProps } from "../../../../../../types/Thing/Organization/LocalBusiness/Store/HobbyShop/index.ts"
 
-export default HobbyShop
+import Store from "../index.tsx"
+
+export type Props = HobbyShopProps & BaseProps
+
+export default function HobbyShop({
+	_type = "HobbyShop",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Store
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

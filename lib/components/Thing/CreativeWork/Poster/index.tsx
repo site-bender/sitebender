@@ -1,3 +1,22 @@
-import Poster from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { PosterProps } from "../../../../types/Thing/CreativeWork/Poster/index.ts"
 
-export default Poster
+import CreativeWork from "../index.tsx"
+
+export type Props = PosterProps & BaseProps
+
+export default function Poster({
+	_type = "Poster",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

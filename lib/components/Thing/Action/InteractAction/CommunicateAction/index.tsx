@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { InteractActionProps } from "../../../../../types/Thing/Action/InteractAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { CommunicateActionProps } from "../../../../../types/Thing/Action/InteractAction/CommunicateAction/index.ts"
 
 import InteractAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CommunicateActionProps,
-	"CommunicateAction",
-	ExtractLevelProps<ThingProps, ActionProps, InteractActionProps>
->
+export type Props = CommunicateActionProps & BaseProps
 
 export default function CommunicateAction({
 	about,
 	inLanguage,
 	language,
 	recipient,
-	schemaType = "CommunicateAction",
+	_type = "CommunicateAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<InteractAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				about,
 				inLanguage,

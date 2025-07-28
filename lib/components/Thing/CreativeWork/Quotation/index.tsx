@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { QuotationProps } from "../../../../types/Thing/CreativeWork/Quotation/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	QuotationProps,
-	"Quotation",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = QuotationProps & BaseProps
 
 export default function Quotation({
 	spokenByCharacter,
-	schemaType = "Quotation",
+	_type = "Quotation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				spokenByCharacter,
 				...subtypeProperties,

@@ -1,3 +1,22 @@
-import Winery from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { WineryProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/Winery/index.ts"
 
-export default Winery
+import FoodEstablishment from "../index.tsx"
+
+export type Props = WineryProps & BaseProps
+
+export default function Winery({
+	_type = "Winery",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<FoodEstablishment
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ProductProps } from "../../../../../types/Thing/Product/index.ts"
-import type { VehicleProps } from "../../../../../types/Thing/Product/Vehicle/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { BusOrCoachProps } from "../../../../../types/Thing/Product/Vehicle/BusOrCoach/index.ts"
 
 import Vehicle from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BusOrCoachProps,
-	"BusOrCoach",
-	ExtractLevelProps<ThingProps, ProductProps, VehicleProps>
->
+export type Props = BusOrCoachProps & BaseProps
 
 export default function BusOrCoach({
 	acrissCode,
 	roofLoad,
-	schemaType = "BusOrCoach",
+	_type = "BusOrCoach",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Vehicle
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acrissCode,
 				roofLoad,

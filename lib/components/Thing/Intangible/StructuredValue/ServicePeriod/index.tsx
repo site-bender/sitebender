@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ServicePeriodProps } from "../../../../../types/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ServicePeriodProps,
-	"ServicePeriod",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = ServicePeriodProps & BaseProps
 
 export default function ServicePeriod({
 	businessDays,
 	cutoffTime,
 	duration,
-	schemaType = "ServicePeriod",
+	_type = "ServicePeriod",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				businessDays,
 				cutoffTime,

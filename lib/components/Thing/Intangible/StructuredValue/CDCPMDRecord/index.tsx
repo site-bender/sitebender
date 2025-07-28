@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { CDCPMDRecordProps } from "../../../../../types/Thing/Intangible/StructuredValue/CDCPMDRecord/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CDCPMDRecordProps,
-	"CDCPMDRecord",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = CDCPMDRecordProps & BaseProps
 
 export default function CDCPMDRecord({
 	cvdCollectionDate,
@@ -30,14 +23,14 @@ export default function CDCPMDRecord({
 	cvdNumVent,
 	cvdNumVentUse,
 	datePosted,
-	schemaType = "CDCPMDRecord",
+	_type = "CDCPMDRecord",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				cvdCollectionDate,
 				cvdFacilityCounty,

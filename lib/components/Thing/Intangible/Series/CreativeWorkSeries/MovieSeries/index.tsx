@@ -22,7 +22,7 @@ export default function MovieSeries(
 		musicBy,
 		productionCompany,
 		trailer,
-		schemaType = "MovieSeries",
+		_type = "MovieSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -30,7 +30,7 @@ export default function MovieSeries(
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { LearningResourceProps } from "../../../../types/Thing/CreativeWork/LearningResource/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LearningResourceProps,
-	"LearningResource",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = LearningResourceProps & BaseProps
 
 export default function LearningResource({
 	assesses,
@@ -19,14 +13,14 @@ export default function LearningResource({
 	educationalUse,
 	learningResourceType,
 	teaches,
-	schemaType = "LearningResource",
+	_type = "LearningResource",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				assesses,
 				competencyRequired,

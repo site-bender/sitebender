@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { WebContentProps } from "../../../../../types/Thing/CreativeWork/WebContent/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { HealthTopicContentProps } from "../../../../../types/Thing/CreativeWork/WebContent/HealthTopicContent/index.ts"
 
 import WebContent from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	HealthTopicContentProps,
-	"HealthTopicContent",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, WebContentProps>
->
+export type Props = HealthTopicContentProps & BaseProps
 
 export default function HealthTopicContent({
 	hasHealthAspect,
-	schemaType = "HealthTopicContent",
+	_type = "HealthTopicContent",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<WebContent
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasHealthAspect,
 				...subtypeProperties,

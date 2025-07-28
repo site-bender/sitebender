@@ -1,19 +1,30 @@
 import type { DateTime } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { IntangibleProps } from "../../index.ts"
-import type { StructuredValueProps } from "../index.ts"
 import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type Product from "../../../Product/index.ts"
+import type { IntangibleProps } from "../../index.ts"
 import type Service from "../../Service/index.ts"
+import type { StructuredValueProps } from "../index.ts"
 
-import OwnershipInfoComponent from "../../../../../../components/Thing/Intangible/StructuredValue/OwnershipInfo/index.tsx"
+import ServiceComponent from "../../../../../components/Thing/Intangible/Service/index.ts"
+import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
+import PersonComponent from "../../../../../components/Thing/Person/index.ts"
+import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
 export interface OwnershipInfoProps {
-	acquiredFrom?: Organization | Person
+	acquiredFrom?:
+		| Organization
+		| Person
+		| ReturnType<typeof OrganizationComponent>
+		| ReturnType<typeof PersonComponent>
 	ownedFrom?: DateTime
 	ownedThrough?: DateTime
-	typeOfGood?: Product | Service
+	typeOfGood?:
+		| Product
+		| Service
+		| ReturnType<typeof ProductComponent>
+		| ReturnType<typeof ServiceComponent>
 }
 
 type OwnershipInfo =

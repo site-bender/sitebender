@@ -1,3 +1,22 @@
-import SurgicalProcedure from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { SurgicalProcedureProps } from "../../../../../types/Thing/MedicalEntity/MedicalProcedure/SurgicalProcedure/index.ts"
 
-export default SurgicalProcedure
+import MedicalProcedure from "../index.tsx"
+
+export type Props = SurgicalProcedureProps & BaseProps
+
+export default function SurgicalProcedure({
+	_type = "SurgicalProcedure",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalProcedure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

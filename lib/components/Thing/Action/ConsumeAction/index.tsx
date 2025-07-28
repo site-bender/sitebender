@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../types/Thing/Action/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ConsumeActionProps } from "../../../../types/Thing/Action/ConsumeAction/index.ts"
 
 import Action from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ConsumeActionProps,
-	"ConsumeAction",
-	ExtractLevelProps<ThingProps, ActionProps>
->
+export type Props = ConsumeActionProps & BaseProps
 
 export default function ConsumeAction({
 	actionAccessibilityRequirement,
 	expectsAcceptanceOf,
-	schemaType = "ConsumeAction",
+	_type = "ConsumeAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Action
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actionAccessibilityRequirement,
 				expectsAcceptanceOf,

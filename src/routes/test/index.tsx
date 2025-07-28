@@ -1,9 +1,13 @@
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
+// import Person from "~lib/components/Thing/Person/index.tsx"
+import WebPage from "~lib/components/Thing/CreativeWork/WebPage/index.tsx"
 
 export type Props = {
 	route?: string
 	assets?: Array<string>
 }
+
+//	author={<Person givenName="F. Scott" familyName="Fitzgerald" />}
 
 export function Head() {
 	return (
@@ -25,7 +29,16 @@ export default function ({ route }: Props = {}) {
 			<section>
 				<h2>Simple string fallbacks</h2>
 				<p>
-					<Book name="The Great Gatsby" isbn="9780743273565" />
+					<Book
+						archivedAt={<WebPage url="https://example.com/archived" />}
+						author={{
+							_type: "Person",
+							givenName: "F. Scott",
+							familyName: "Fitzgerald",
+						}}
+						name="The Great Gatsby"
+						isbn="9780743273565"
+					/>
 				</p>
 			</section>
 		</main>

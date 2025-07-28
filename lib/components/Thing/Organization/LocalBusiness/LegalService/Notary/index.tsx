@@ -1,3 +1,22 @@
-import Notary from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { NotaryProps } from "../../../../../../types/Thing/Organization/LocalBusiness/LegalService/Notary/index.ts"
 
-export default Notary
+import LegalService from "../index.tsx"
+
+export type Props = NotaryProps & BaseProps
+
+export default function Notary({
+	_type = "Notary",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LegalService
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

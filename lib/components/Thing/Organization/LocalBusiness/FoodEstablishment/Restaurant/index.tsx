@@ -1,3 +1,22 @@
-import Restaurant from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { RestaurantProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/Restaurant/index.ts"
 
-export default Restaurant
+import FoodEstablishment from "../index.tsx"
+
+export type Props = RestaurantProps & BaseProps
+
+export default function Restaurant({
+	_type = "Restaurant",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<FoodEstablishment
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

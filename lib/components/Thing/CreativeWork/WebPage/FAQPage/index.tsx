@@ -1,3 +1,22 @@
-import FAQPage from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { FAQPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/FAQPage/index.ts"
 
-export default FAQPage
+import WebPage from "../index.tsx"
+
+export type Props = FAQPageProps & BaseProps
+
+export default function FAQPage({
+	_type = "FAQPage",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPage
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

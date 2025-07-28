@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { EventProps } from "../../../../types/Thing/Event/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ScreeningEventProps } from "../../../../types/Thing/Event/ScreeningEvent/index.ts"
 
 import Event from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ScreeningEventProps,
-	"ScreeningEvent",
-	ExtractLevelProps<ThingProps, EventProps>
->
+export type Props = ScreeningEventProps & BaseProps
 
 export default function ScreeningEvent({
 	subtitleLanguage,
 	videoFormat,
 	workPresented,
-	schemaType = "ScreeningEvent",
+	_type = "ScreeningEvent",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Event
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				subtitleLanguage,
 				videoFormat,

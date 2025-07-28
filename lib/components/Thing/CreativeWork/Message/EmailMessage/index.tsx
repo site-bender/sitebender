@@ -1,3 +1,22 @@
-import EmailMessage from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { EmailMessageProps } from "../../../../../types/Thing/CreativeWork/Message/EmailMessage/index.ts"
 
-export default EmailMessage
+import Message from "../index.tsx"
+
+export type Props = EmailMessageProps & BaseProps
+
+export default function EmailMessage({
+	_type = "EmailMessage",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Message
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { OrganizationProps } from "../../../../../types/Thing/Organization/index.ts"
-import type { LocalBusinessProps } from "../../../../../types/Thing/Organization/LocalBusiness/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { FoodEstablishmentProps } from "../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/index.ts"
 
 import LocalBusiness from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	FoodEstablishmentProps,
-	"FoodEstablishment",
-	ExtractLevelProps<ThingProps, OrganizationProps, LocalBusinessProps>
->
+export type Props = FoodEstablishmentProps & BaseProps
 
 export default function FoodEstablishment({
 	acceptsReservations,
@@ -18,14 +11,14 @@ export default function FoodEstablishment({
 	menu,
 	servesCuisine,
 	starRating,
-	schemaType = "FoodEstablishment",
+	_type = "FoodEstablishment",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<LocalBusiness
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acceptsReservations,
 				hasMenu,

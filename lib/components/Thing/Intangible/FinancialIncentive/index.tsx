@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { FinancialIncentiveProps } from "../../../../types/Thing/Intangible/FinancialIncentive/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	FinancialIncentiveProps,
-	"FinancialIncentive",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = FinancialIncentiveProps & BaseProps
 
 export default function FinancialIncentive({
 	areaServed,
@@ -26,14 +20,14 @@ export default function FinancialIncentive({
 	qualifiedExpense,
 	validFrom,
 	validThrough,
-	schemaType = "FinancialIncentive",
+	_type = "FinancialIncentive",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				areaServed,
 				eligibleWithSupplier,

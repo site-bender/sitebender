@@ -1,3 +1,22 @@
-import ApprovedIndication from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ApprovedIndicationProps } from "../../../../../types/Thing/MedicalEntity/MedicalIndication/ApprovedIndication/index.ts"
 
-export default ApprovedIndication
+import MedicalIndication from "../index.tsx"
+
+export type Props = ApprovedIndicationProps & BaseProps
+
+export default function ApprovedIndication({
+	_type = "ApprovedIndication",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalIndication
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

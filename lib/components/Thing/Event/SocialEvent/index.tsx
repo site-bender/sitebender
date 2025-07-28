@@ -1,3 +1,22 @@
-import SocialEvent from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { SocialEventProps } from "../../../../types/Thing/Event/SocialEvent/index.ts"
 
-export default SocialEvent
+import Event from "../index.tsx"
+
+export type Props = SocialEventProps & BaseProps
+
+export default function SocialEvent({
+	_type = "SocialEvent",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Event
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

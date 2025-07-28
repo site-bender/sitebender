@@ -1,3 +1,22 @@
-import AnimalShelter from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { AnimalShelterProps } from "../../../../../types/Thing/Organization/LocalBusiness/AnimalShelter/index.ts"
 
-export default AnimalShelter
+import LocalBusiness from "../index.tsx"
+
+export type Props = AnimalShelterProps & BaseProps
+
+export default function AnimalShelter({
+	_type = "AnimalShelter",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

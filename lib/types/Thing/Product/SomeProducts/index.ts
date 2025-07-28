@@ -1,16 +1,15 @@
 import type Thing from "../../index.ts"
-import type { ProductProps } from "../index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type { ProductProps } from "../index.ts"
 
-import SomeProductsComponent from "../../../../../components/Thing/Product/SomeProducts/index.tsx"
+import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface SomeProductsProps {
-	inventoryLevel?: QuantitativeValue
+	inventoryLevel?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
-type SomeProducts =
-	& Thing
-	& ProductProps
-	& SomeProductsProps
+type SomeProducts = Thing & ProductProps & SomeProductsProps
 
 export default SomeProducts

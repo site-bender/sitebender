@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { TypeAndQuantityNodeProps } from "../../../../../types/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	TypeAndQuantityNodeProps,
-	"TypeAndQuantityNode",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = TypeAndQuantityNodeProps & BaseProps
 
 export default function TypeAndQuantityNode({
 	amountOfThisGood,
@@ -18,14 +11,14 @@ export default function TypeAndQuantityNode({
 	typeOfGood,
 	unitCode,
 	unitText,
-	schemaType = "TypeAndQuantityNode",
+	_type = "TypeAndQuantityNode",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				amountOfThisGood,
 				businessFunction,

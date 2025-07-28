@@ -1,3 +1,22 @@
-import PaymentService from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { PaymentServiceProps } from "../../../../../types/Thing/Intangible/PaymentMethod/PaymentService/index.ts"
 
-export default PaymentService
+import PaymentMethod from "../index.tsx"
+
+export type Props = PaymentServiceProps & BaseProps
+
+export default function PaymentService({
+	_type = "PaymentService",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<PaymentMethod
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

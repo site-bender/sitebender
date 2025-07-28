@@ -1,3 +1,22 @@
-import DaySpa from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { DaySpaProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HealthAndBeautyBusiness/DaySpa/index.ts"
 
-export default DaySpa
+import HealthAndBeautyBusiness from "../index.tsx"
+
+export type Props = DaySpaProps & BaseProps
+
+export default function DaySpa({
+	_type = "DaySpa",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<HealthAndBeautyBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

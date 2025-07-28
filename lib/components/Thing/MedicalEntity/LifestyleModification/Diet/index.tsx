@@ -20,7 +20,7 @@ export default function Diet(
 		expertConsiderations,
 		physiologicalBenefits,
 		risks,
-		schemaType = "Diet",
+		_type = "Diet",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -28,7 +28,7 @@ export default function Diet(
 	return (
 		<LifestyleModification
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				dietFeatures,
 				endorsers,

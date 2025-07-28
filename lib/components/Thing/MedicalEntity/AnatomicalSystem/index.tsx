@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../types/Thing/MedicalEntity/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { AnatomicalSystemProps } from "../../../../types/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
 import MedicalEntity from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	AnatomicalSystemProps,
-	"AnatomicalSystem",
-	ExtractLevelProps<ThingProps, MedicalEntityProps>
->
+export type Props = AnatomicalSystemProps & BaseProps
 
 export default function AnatomicalSystem({
 	associatedPathophysiology,
@@ -17,14 +11,14 @@ export default function AnatomicalSystem({
 	relatedCondition,
 	relatedStructure,
 	relatedTherapy,
-	schemaType = "AnatomicalSystem",
+	_type = "AnatomicalSystem",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalEntity
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				associatedPathophysiology,
 				comprisedOf,

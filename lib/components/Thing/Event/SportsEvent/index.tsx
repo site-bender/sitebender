@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { EventProps } from "../../../../types/Thing/Event/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { SportsEventProps } from "../../../../types/Thing/Event/SportsEvent/index.ts"
 
 import Event from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SportsEventProps,
-	"SportsEvent",
-	ExtractLevelProps<ThingProps, EventProps>
->
+export type Props = SportsEventProps & BaseProps
 
 export default function SportsEvent({
 	awayTeam,
@@ -17,14 +11,14 @@ export default function SportsEvent({
 	homeTeam,
 	referee,
 	sport,
-	schemaType = "SportsEvent",
+	_type = "SportsEvent",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Event
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				awayTeam,
 				competitor,

@@ -1,11 +1,14 @@
 import type { Text, URL } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
-import type CreativeWork from "../index.ts"
 import type DataFeed from "../Dataset/DataFeed/index.ts"
+import type CreativeWork from "../index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
 
-import SoftwareApplicationComponent from "../../../../../components/Thing/CreativeWork/SoftwareApplication/index.tsx"
+import DataFeedComponent from "../../../../components/Thing/CreativeWork/Dataset/DataFeed/index.ts"
+import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
+import ImageObjectComponent from "../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
+import SoftwareApplicationComponent from "../../../../components/Thing/CreativeWork/SoftwareApplication/index.ts"
 
 export interface SoftwareApplicationProps {
 	applicationCategory?: Text | URL
@@ -25,18 +28,17 @@ export interface SoftwareApplicationProps {
 	processorRequirements?: Text
 	releaseNotes?: Text | URL
 	requirements?: Text | URL
-	screenshot?: ImageObject | URL
-	softwareAddOn?: SoftwareApplication
-	softwareHelp?: CreativeWork
+	screenshot?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
+	softwareAddOn?:
+		| SoftwareApplication
+		| ReturnType<typeof SoftwareApplicationComponent>
+	softwareHelp?: CreativeWork | ReturnType<typeof CreativeWorkComponent>
 	softwareRequirements?: Text | URL
 	softwareVersion?: Text
 	storageRequirements?: Text | URL
-	supportingData?: DataFeed
+	supportingData?: DataFeed | ReturnType<typeof DataFeedComponent>
 }
 
-type SoftwareApplication =
-	& Thing
-	& CreativeWorkProps
-	& SoftwareApplicationProps
+type SoftwareApplication = Thing & CreativeWorkProps & SoftwareApplicationProps
 
 export default SoftwareApplication

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { TripProps } from "../../../../../types/Thing/Intangible/Trip/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { FlightProps } from "../../../../../types/Thing/Intangible/Trip/Flight/index.ts"
 
 import Trip from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	FlightProps,
-	"Flight",
-	ExtractLevelProps<ThingProps, IntangibleProps, TripProps>
->
+export type Props = FlightProps & BaseProps
 
 export default function Flight({
 	aircraft,
@@ -28,14 +21,14 @@ export default function Flight({
 	mealService,
 	seller,
 	webCheckinTime,
-	schemaType = "Flight",
+	_type = "Flight",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Trip
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				aircraft,
 				arrivalAirport,

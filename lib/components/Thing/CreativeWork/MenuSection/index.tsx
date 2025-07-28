@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MenuSectionProps } from "../../../../types/Thing/CreativeWork/MenuSection/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MenuSectionProps,
-	"MenuSection",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = MenuSectionProps & BaseProps
 
 export default function MenuSection({
 	hasMenuItem,
 	hasMenuSection,
-	schemaType = "MenuSection",
+	_type = "MenuSection",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasMenuItem,
 				hasMenuSection,

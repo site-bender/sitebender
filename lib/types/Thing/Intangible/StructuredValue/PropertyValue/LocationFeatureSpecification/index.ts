@@ -2,13 +2,15 @@ import type { Date, DateTime } from "../../../../../DataType/index.ts"
 import type Thing from "../../../../index.ts"
 import type { IntangibleProps } from "../../../index.ts"
 import type { StructuredValueProps } from "../../index.ts"
-import type { PropertyValueProps } from "../index.ts"
 import type OpeningHoursSpecification from "../../OpeningHoursSpecification/index.ts"
+import type { PropertyValueProps } from "../index.ts"
 
-import LocationFeatureSpecificationComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
+import OpeningHoursSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
 
 export interface LocationFeatureSpecificationProps {
-	hoursAvailable?: OpeningHoursSpecification
+	hoursAvailable?:
+		| OpeningHoursSpecification
+		| ReturnType<typeof OpeningHoursSpecificationComponent>
 	validFrom?: Date | DateTime
 	validThrough?: Date | DateTime
 }

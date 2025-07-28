@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { AlignmentObjectProps } from "../../../../types/Thing/Intangible/AlignmentObject/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	AlignmentObjectProps,
-	"AlignmentObject",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = AlignmentObjectProps & BaseProps
 
 export default function AlignmentObject({
 	alignmentType,
@@ -17,14 +11,14 @@ export default function AlignmentObject({
 	targetDescription,
 	targetName,
 	targetUrl,
-	schemaType = "AlignmentObject",
+	_type = "AlignmentObject",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				alignmentType,
 				educationalFramework,

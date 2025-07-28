@@ -1,3 +1,22 @@
-import ProfessionalService from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ProfessionalServiceProps } from "../../../../../types/Thing/Organization/LocalBusiness/ProfessionalService/index.ts"
 
-export default ProfessionalService
+import LocalBusiness from "../index.tsx"
+
+export type Props = ProfessionalServiceProps & BaseProps
+
+export default function ProfessionalService({
+	_type = "ProfessionalService",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

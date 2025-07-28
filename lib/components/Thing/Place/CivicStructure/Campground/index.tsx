@@ -1,3 +1,22 @@
-import Campground from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { CampgroundProps } from "../../../../../types/Thing/Place/CivicStructure/Campground/index.ts"
 
-export default Campground
+import CivicStructure from "../index.tsx"
+
+export type Props = CampgroundProps & BaseProps
+
+export default function Campground({
+	_type = "Campground",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

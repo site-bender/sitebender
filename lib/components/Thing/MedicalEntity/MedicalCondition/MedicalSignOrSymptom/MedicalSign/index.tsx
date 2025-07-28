@@ -1,29 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../../types/Thing/MedicalEntity/index.ts"
-import type { MedicalConditionProps } from "../../../../../../types/Thing/MedicalEntity/MedicalCondition/index.ts"
-import type { MedicalSignOrSymptomProps } from "../../../../../../types/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { MedicalSignProps } from "../../../../../../types/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.ts"
 
 import MedicalSignOrSymptom from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MedicalSignProps,
-	"MedicalSign",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, MedicalConditionProps, MedicalSignOrSymptomProps>
->
+export type Props = MedicalSignProps & BaseProps
 
 export default function MedicalSign({
 	identifyingExam,
 	identifyingTest,
-	schemaType = "MedicalSign",
+	_type = "MedicalSign",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalSignOrSymptom
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				identifyingExam,
 				identifyingTest,

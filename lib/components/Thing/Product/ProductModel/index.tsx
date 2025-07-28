@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ProductProps } from "../../../../types/Thing/Product/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ProductModelProps } from "../../../../types/Thing/Product/ProductModel/index.ts"
 
 import Product from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ProductModelProps,
-	"ProductModel",
-	ExtractLevelProps<ThingProps, ProductProps>
->
+export type Props = ProductModelProps & BaseProps
 
 export default function ProductModel({
 	isVariantOf,
 	predecessorOf,
 	successorOf,
-	schemaType = "ProductModel",
+	_type = "ProductModel",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Product
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				isVariantOf,
 				predecessorOf,

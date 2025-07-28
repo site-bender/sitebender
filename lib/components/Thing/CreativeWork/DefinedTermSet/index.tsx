@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DefinedTermSetProps } from "../../../../types/Thing/CreativeWork/DefinedTermSet/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DefinedTermSetProps,
-	"DefinedTermSet",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = DefinedTermSetProps & BaseProps
 
 export default function DefinedTermSet({
 	hasDefinedTerm,
-	schemaType = "DefinedTermSet",
+	_type = "DefinedTermSet",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasDefinedTerm,
 				...subtypeProperties,

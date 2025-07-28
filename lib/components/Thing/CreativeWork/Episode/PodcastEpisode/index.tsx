@@ -1,3 +1,22 @@
-import PodcastEpisode from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { PodcastEpisodeProps } from "../../../../../types/Thing/CreativeWork/Episode/PodcastEpisode/index.ts"
 
-export default PodcastEpisode
+import Episode from "../index.tsx"
+
+export type Props = PodcastEpisodeProps & BaseProps
+
+export default function PodcastEpisode({
+	_type = "PodcastEpisode",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Episode
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

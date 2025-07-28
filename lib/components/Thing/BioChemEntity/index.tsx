@@ -1,14 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../types/index.ts"
-import type ThingProps from "../../../types/Thing/index.ts"
+import type BaseProps from "../../../types/index.ts"
 import type { BioChemEntityProps } from "../../../types/Thing/BioChemEntity/index.ts"
 
 import Thing from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BioChemEntityProps,
-	"BioChemEntity",
-	ExtractLevelProps<ThingProps>
->
+export type Props = BioChemEntityProps & BaseProps
 
 export default function BioChemEntity({
 	associatedDisease,
@@ -24,14 +19,14 @@ export default function BioChemEntity({
 	isLocatedInSubcellularLocation,
 	isPartOfBioChemEntity,
 	taxonomicRange,
-	schemaType = "BioChemEntity",
+	_type = "BioChemEntity",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Thing
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				associatedDisease,
 				bioChemInteraction,

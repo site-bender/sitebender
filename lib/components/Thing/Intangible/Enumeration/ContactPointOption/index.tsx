@@ -1,3 +1,22 @@
-import ContactPointOption from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { ContactPointOptionProps } from "../../../../../types/Thing/Intangible/Enumeration/ContactPointOption/index.ts"
 
-export default ContactPointOption
+import Enumeration from "../index.tsx"
+
+export type Props = ContactPointOptionProps & BaseProps
+
+export default function ContactPointOption({
+	_type = "ContactPointOption",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

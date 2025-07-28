@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ContactPointProps } from "../../../../../types/Thing/Intangible/StructuredValue/ContactPoint/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ContactPointProps,
-	"ContactPoint",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = ContactPointProps & BaseProps
 
 export default function ContactPoint({
 	areaServed,
@@ -23,14 +16,14 @@ export default function ContactPoint({
 	productSupported,
 	serviceArea,
 	telephone,
-	schemaType = "ContactPoint",
+	_type = "ContactPoint",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				areaServed,
 				availableLanguage,

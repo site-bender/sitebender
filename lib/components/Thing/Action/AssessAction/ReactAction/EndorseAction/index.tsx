@@ -1,28 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../../types/Thing/Action/index.ts"
-import type { AssessActionProps } from "../../../../../../types/Thing/Action/AssessAction/index.ts"
-import type { ReactActionProps } from "../../../../../../types/Thing/Action/AssessAction/ReactAction/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { EndorseActionProps } from "../../../../../../types/Thing/Action/AssessAction/ReactAction/EndorseAction/index.ts"
 
 import ReactAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EndorseActionProps,
-	"EndorseAction",
-	ExtractLevelProps<ThingProps, ActionProps, AssessActionProps, ReactActionProps>
->
+export type Props = EndorseActionProps & BaseProps
 
 export default function EndorseAction({
 	endorsee,
-	schemaType = "EndorseAction",
+	_type = "EndorseAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<ReactAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				endorsee,
 				...subtypeProperties,

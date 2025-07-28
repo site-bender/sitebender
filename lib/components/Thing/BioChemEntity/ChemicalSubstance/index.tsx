@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { BioChemEntityProps } from "../../../../types/Thing/BioChemEntity/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ChemicalSubstanceProps } from "../../../../types/Thing/BioChemEntity/ChemicalSubstance/index.ts"
 
 import BioChemEntity from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ChemicalSubstanceProps,
-	"ChemicalSubstance",
-	ExtractLevelProps<ThingProps, BioChemEntityProps>
->
+export type Props = ChemicalSubstanceProps & BaseProps
 
 export default function ChemicalSubstance({
 	chemicalComposition,
 	chemicalRole,
 	potentialUse,
-	schemaType = "ChemicalSubstance",
+	_type = "ChemicalSubstance",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<BioChemEntity
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				chemicalComposition,
 				chemicalRole,

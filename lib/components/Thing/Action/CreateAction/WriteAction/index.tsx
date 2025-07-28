@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { CreateActionProps } from "../../../../../types/Thing/Action/CreateAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { WriteActionProps } from "../../../../../types/Thing/Action/CreateAction/WriteAction/index.ts"
 
 import CreateAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	WriteActionProps,
-	"WriteAction",
-	ExtractLevelProps<ThingProps, ActionProps, CreateActionProps>
->
+export type Props = WriteActionProps & BaseProps
 
 export default function WriteAction({
 	inLanguage,
 	language,
-	schemaType = "WriteAction",
+	_type = "WriteAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreateAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				inLanguage,
 				language,

@@ -1,20 +1,19 @@
 import type { DateTime, Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type { EventProps } from "../index.ts"
 import type DeliveryMethod from "../../Intangible/Enumeration/DeliveryMethod/index.ts"
+import type { EventProps } from "../index.ts"
 
-import DeliveryEventComponent from "../../../../../components/Thing/Event/DeliveryEvent/index.tsx"
+import DeliveryMethodComponent from "../../../../components/Thing/Intangible/Enumeration/DeliveryMethod/index.ts"
 
 export interface DeliveryEventProps {
 	accessCode?: Text
 	availableFrom?: DateTime
 	availableThrough?: DateTime
-	hasDeliveryMethod?: DeliveryMethod
+	hasDeliveryMethod?:
+		| DeliveryMethod
+		| ReturnType<typeof DeliveryMethodComponent>
 }
 
-type DeliveryEvent =
-	& Thing
-	& EventProps
-	& DeliveryEventProps
+type DeliveryEvent = Thing & EventProps & DeliveryEventProps
 
 export default DeliveryEvent

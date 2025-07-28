@@ -1,3 +1,22 @@
-import AppendAction from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { AppendActionProps } from "../../../../../../../types/Thing/Action/UpdateAction/AddAction/InsertAction/AppendAction/index.ts"
 
-export default AppendAction
+import InsertAction from "../index.tsx"
+
+export type Props = AppendActionProps & BaseProps
+
+export default function AppendAction({
+	_type = "AppendAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<InsertAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

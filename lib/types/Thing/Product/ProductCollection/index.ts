@@ -1,13 +1,15 @@
-import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../../CreativeWork/index.ts"
 import type { CollectionProps } from "../../CreativeWork/Collection/index.ts"
-import type { ProductProps } from "../index.ts"
+import type { CreativeWorkProps } from "../../CreativeWork/index.ts"
+import type Thing from "../../index.ts"
 import type TypeAndQuantityNode from "../../Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
+import type { ProductProps } from "../index.ts"
 
-import ProductCollectionComponent from "../../../../../components/Thing/Product/ProductCollection/index.tsx"
+import TypeAndQuantityNodeComponent from "../../../../components/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
 
 export interface ProductCollectionProps {
-	includesObject?: TypeAndQuantityNode
+	includesObject?:
+		| TypeAndQuantityNode
+		| ReturnType<typeof TypeAndQuantityNodeComponent>
 }
 
 type ProductCollection =

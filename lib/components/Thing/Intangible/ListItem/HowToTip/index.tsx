@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function HowToTip({
-	schemaType = "HowToTip",
+	_type = "HowToTip",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<ListItem
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

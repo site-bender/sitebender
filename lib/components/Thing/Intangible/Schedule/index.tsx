@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ScheduleProps } from "../../../../types/Thing/Intangible/Schedule/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ScheduleProps,
-	"Schedule",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ScheduleProps & BaseProps
 
 export default function Schedule({
 	byDay,
@@ -25,14 +19,14 @@ export default function Schedule({
 	scheduleTimezone,
 	startDate,
 	startTime,
-	schemaType = "Schedule",
+	_type = "Schedule",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				byDay,
 				byMonth,

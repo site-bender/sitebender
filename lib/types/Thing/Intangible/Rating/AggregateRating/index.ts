@@ -3,10 +3,10 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { RatingProps } from "../index.ts"
 
-import AggregateRatingComponent from "../../../../../../components/Thing/Intangible/Rating/AggregateRating/index.tsx"
+import ThingComponent from "../../../../../components/Thing/index.ts"
 
 export interface AggregateRatingProps {
-	itemReviewed?: Thing
+	itemReviewed?: Thing | ReturnType<typeof ThingComponent>
 	ratingCount?: Integer
 	reviewCount?: Integer
 }

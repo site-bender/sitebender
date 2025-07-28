@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { DefinedRegionProps } from "../../../../../types/Thing/Intangible/StructuredValue/DefinedRegion/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DefinedRegionProps,
-	"DefinedRegion",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = DefinedRegionProps & BaseProps
 
 export default function DefinedRegion({
 	addressCountry,
@@ -18,14 +11,14 @@ export default function DefinedRegion({
 	postalCode,
 	postalCodePrefix,
 	postalCodeRange,
-	schemaType = "DefinedRegion",
+	_type = "DefinedRegion",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				addressCountry,
 				addressRegion,

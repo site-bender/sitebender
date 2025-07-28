@@ -1,16 +1,17 @@
 import type { Boolean, Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
-import type { CreativeWorkProps } from "../../index.ts"
-import type { MediaObjectProps } from "../../../MediaObject/index.ts"
-import type MediaObject from "../../../MediaObject/index.ts"
 import type PropertyValue from "../../../Intangible/StructuredValue/PropertyValue/index.ts"
+import type MediaObject from "../../../MediaObject/index.ts"
+import type { MediaObjectProps } from "../../../MediaObject/index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
 
-import ImageObjectComponent from "../../../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import PropertyValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
+import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 
 export interface ImageObjectProps {
-	caption?: MediaObject | Text
+	caption?: MediaObject | Text | ReturnType<typeof MediaObjectComponent>
 	embeddedTextCaption?: Text
-	exifData?: PropertyValue | Text
+	exifData?: PropertyValue | Text | ReturnType<typeof PropertyValueComponent>
 	representativeOfPage?: Boolean
 }
 

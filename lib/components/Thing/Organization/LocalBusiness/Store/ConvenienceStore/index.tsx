@@ -1,3 +1,22 @@
-import ConvenienceStore from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { ConvenienceStoreProps } from "../../../../../../types/Thing/Organization/LocalBusiness/Store/ConvenienceStore/index.ts"
 
-export default ConvenienceStore
+import Store from "../index.tsx"
+
+export type Props = ConvenienceStoreProps & BaseProps
+
+export default function ConvenienceStore({
+	_type = "ConvenienceStore",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Store
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

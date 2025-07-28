@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MusicRecordingProps } from "../../../../types/Thing/CreativeWork/MusicRecording/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MusicRecordingProps,
-	"MusicRecording",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = MusicRecordingProps & BaseProps
 
 export default function MusicRecording({
 	byArtist,
@@ -18,14 +12,14 @@ export default function MusicRecording({
 	inPlaylist,
 	isrcCode,
 	recordingOf,
-	schemaType = "MusicRecording",
+	_type = "MusicRecording",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				byArtist,
 				duration,

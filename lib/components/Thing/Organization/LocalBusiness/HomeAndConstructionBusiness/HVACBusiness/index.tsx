@@ -1,3 +1,22 @@
-import HVACBusiness from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { HVACBusinessProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/HVACBusiness/index.ts"
 
-export default HVACBusiness
+import HomeAndConstructionBusiness from "../index.tsx"
+
+export type Props = HVACBusinessProps & BaseProps
+
+export default function HVACBusiness({
+	_type = "HVACBusiness",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<HomeAndConstructionBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

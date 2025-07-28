@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { EnergyConsumptionDetailsProps } from "../../../../types/Thing/Intangible/EnergyConsumptionDetails/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EnergyConsumptionDetailsProps,
-	"EnergyConsumptionDetails",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = EnergyConsumptionDetailsProps & BaseProps
 
 export default function EnergyConsumptionDetails({
 	energyEfficiencyScaleMax,
 	energyEfficiencyScaleMin,
 	hasEnergyEfficiencyCategory,
-	schemaType = "EnergyConsumptionDetails",
+	_type = "EnergyConsumptionDetails",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				energyEfficiencyScaleMax,
 				energyEfficiencyScaleMin,

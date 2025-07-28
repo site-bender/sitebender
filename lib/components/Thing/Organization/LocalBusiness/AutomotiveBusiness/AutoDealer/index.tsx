@@ -1,3 +1,22 @@
-import AutoDealer from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { AutoDealerProps } from "../../../../../../types/Thing/Organization/LocalBusiness/AutomotiveBusiness/AutoDealer/index.ts"
 
-export default AutoDealer
+import AutomotiveBusiness from "../index.tsx"
+
+export type Props = AutoDealerProps & BaseProps
+
+export default function AutoDealer({
+	_type = "AutoDealer",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<AutomotiveBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

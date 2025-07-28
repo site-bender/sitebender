@@ -1,3 +1,22 @@
-import GameAvailabilityEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { GameAvailabilityEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.ts"
 
-export default GameAvailabilityEnumeration
+import Enumeration from "../index.tsx"
+
+export type Props = GameAvailabilityEnumerationProps & BaseProps
+
+export default function GameAvailabilityEnumeration({
+	_type = "GameAvailabilityEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

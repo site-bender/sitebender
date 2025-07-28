@@ -4,8 +4,6 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { TechArticleProps } from "../index.ts"
 
-import APIReferenceComponent from "../../../../../../../components/Thing/CreativeWork/Article/TechArticle/APIReference/index.tsx"
-
 export interface APIReferenceProps {
 	assembly?: Text
 	assemblyVersion?: Text

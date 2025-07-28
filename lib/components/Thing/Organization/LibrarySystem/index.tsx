@@ -1,3 +1,22 @@
-import LibrarySystem from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { LibrarySystemProps } from "../../../../types/Thing/Organization/LibrarySystem/index.ts"
 
-export default LibrarySystem
+import Organization from "../index.tsx"
+
+export type Props = LibrarySystemProps & BaseProps
+
+export default function LibrarySystem({
+	_type = "LibrarySystem",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Organization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import Dentist from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { DentistProps } from "../../../../../types/Thing/Organization/LocalBusiness/Dentist/index.ts"
 
-export default Dentist
+import LocalBusiness from "../index.tsx"
+
+export type Props = DentistProps & BaseProps
+
+export default function Dentist({
+	_type = "Dentist",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

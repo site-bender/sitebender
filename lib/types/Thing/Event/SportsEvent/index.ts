@@ -1,22 +1,32 @@
 import type { Text, URL } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
-import type { EventProps } from "../index.ts"
-import type Person from "../../Person/index.ts"
 import type SportsTeam from "../../Organization/SportsOrganization/SportsTeam/index.ts"
+import type Person from "../../Person/index.ts"
+import type { EventProps } from "../index.ts"
 
-import SportsEventComponent from "../../../../../components/Thing/Event/SportsEvent/index.tsx"
+import SportsTeamComponent from "../../../../components/Thing/Organization/SportsOrganization/SportsTeam/index.ts"
+import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface SportsEventProps {
-	awayTeam?: Person | SportsTeam
-	competitor?: Person | SportsTeam
-	homeTeam?: Person | SportsTeam
-	referee?: Person
+	awayTeam?:
+		| Person
+		| SportsTeam
+		| ReturnType<typeof PersonComponent>
+		| ReturnType<typeof SportsTeamComponent>
+	competitor?:
+		| Person
+		| SportsTeam
+		| ReturnType<typeof PersonComponent>
+		| ReturnType<typeof SportsTeamComponent>
+	homeTeam?:
+		| Person
+		| SportsTeam
+		| ReturnType<typeof PersonComponent>
+		| ReturnType<typeof SportsTeamComponent>
+	referee?: Person | ReturnType<typeof PersonComponent>
 	sport?: Text | URL
 }
 
-type SportsEvent =
-	& Thing
-	& EventProps
-	& SportsEventProps
+type SportsEvent = Thing & EventProps & SportsEventProps
 
 export default SportsEvent

@@ -1,3 +1,22 @@
-import EventVenue from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { EventVenueProps } from "../../../../../types/Thing/Place/CivicStructure/EventVenue/index.ts"
 
-export default EventVenue
+import CivicStructure from "../index.tsx"
+
+export type Props = EventVenueProps & BaseProps
+
+export default function EventVenue({
+	_type = "EventVenue",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

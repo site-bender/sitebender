@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ActionAccessSpecificationProps } from "../../../../types/Thing/Intangible/ActionAccessSpecification/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ActionAccessSpecificationProps,
-	"ActionAccessSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ActionAccessSpecificationProps & BaseProps
 
 export default function ActionAccessSpecification({
 	availabilityEnds,
@@ -19,14 +13,14 @@ export default function ActionAccessSpecification({
 	expectsAcceptanceOf,
 	ineligibleRegion,
 	requiresSubscription,
-	schemaType = "ActionAccessSpecification",
+	_type = "ActionAccessSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				availabilityEnds,
 				availabilityStarts,

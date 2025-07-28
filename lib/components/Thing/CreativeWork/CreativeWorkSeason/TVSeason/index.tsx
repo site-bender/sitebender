@@ -18,7 +18,7 @@ export default function TVSeason(
 		countryOfOrigin,
 		partOfTVSeries,
 		titleEIDR,
-		schemaType = "TVSeason",
+		_type = "TVSeason",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -26,7 +26,7 @@ export default function TVSeason(
 	return (
 		<CreativeWorkSeason
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				countryOfOrigin,
 				partOfTVSeries,

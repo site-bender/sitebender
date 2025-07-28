@@ -1,3 +1,22 @@
-import Season from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { SeasonProps } from "../../../../types/Thing/CreativeWork/Season/index.ts"
 
-export default Season
+import CreativeWork from "../index.tsx"
+
+export type Props = SeasonProps & BaseProps
+
+export default function Season({
+	_type = "Season",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

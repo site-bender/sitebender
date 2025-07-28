@@ -1,3 +1,22 @@
-import EmployerReview from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { EmployerReviewProps } from "../../../../../types/Thing/CreativeWork/Review/EmployerReview/index.ts"
 
-export default EmployerReview
+import Review from "../index.tsx"
+
+export type Props = EmployerReviewProps & BaseProps
+
+export default function EmployerReview({
+	_type = "EmployerReview",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Review
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

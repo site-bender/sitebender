@@ -1,17 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../../types/Thing/Intangible/index.ts"
-import type { EnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/index.ts"
-import type { QualitativeValueProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { SizeSpecificationProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
 
 import QualitativeValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SizeSpecificationProps,
-	"SizeSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps, EnumerationProps, QualitativeValueProps>
->
+export type Props = SizeSpecificationProps & BaseProps
 
 export default function SizeSpecification({
 	hasMeasurement,
@@ -20,14 +12,14 @@ export default function SizeSpecification({
 	suggestedAge,
 	suggestedGender,
 	suggestedMeasurement,
-	schemaType = "SizeSpecification",
+	_type = "SizeSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<QualitativeValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasMeasurement,
 				sizeGroup,

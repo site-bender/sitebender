@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../types/Thing/Action/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { SearchActionProps } from "../../../../types/Thing/Action/SearchAction/index.ts"
 
 import Action from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SearchActionProps,
-	"SearchAction",
-	ExtractLevelProps<ThingProps, ActionProps>
->
+export type Props = SearchActionProps & BaseProps
 
 export default function SearchAction({
 	query,
-	schemaType = "SearchAction",
+	_type = "SearchAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Action
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				query,
 				...subtypeProperties,

@@ -1,3 +1,22 @@
-import PsychologicalTreatment from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { PsychologicalTreatmentProps } from "../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/PsychologicalTreatment/index.ts"
 
-export default PsychologicalTreatment
+import TherapeuticProcedure from "../index.tsx"
+
+export type Props = PsychologicalTreatmentProps & BaseProps
+
+export default function PsychologicalTreatment({
+	_type = "PsychologicalTreatment",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<TherapeuticProcedure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

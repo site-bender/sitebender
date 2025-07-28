@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DefinedTermProps } from "../../../../types/Thing/Intangible/DefinedTerm/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DefinedTermProps,
-	"DefinedTerm",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = DefinedTermProps & BaseProps
 
 export default function DefinedTerm({
 	inDefinedTermSet,
 	termCode,
-	schemaType = "DefinedTerm",
+	_type = "DefinedTerm",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				inDefinedTermSet,
 				termCode,

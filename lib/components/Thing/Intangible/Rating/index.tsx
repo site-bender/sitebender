@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { RatingProps } from "../../../../types/Thing/Intangible/Rating/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	RatingProps,
-	"Rating",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = RatingProps & BaseProps
 
 export default function Rating({
 	author,
@@ -18,14 +12,14 @@ export default function Rating({
 	ratingValue,
 	reviewAspect,
 	worstRating,
-	schemaType = "Rating",
+	_type = "Rating",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				author,
 				bestRating,

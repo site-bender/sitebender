@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../types/Thing/MedicalEntity/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MedicalCauseProps } from "../../../../types/Thing/MedicalEntity/MedicalCause/index.ts"
 
 import MedicalEntity from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MedicalCauseProps,
-	"MedicalCause",
-	ExtractLevelProps<ThingProps, MedicalEntityProps>
->
+export type Props = MedicalCauseProps & BaseProps
 
 export default function MedicalCause({
 	causeOf,
-	schemaType = "MedicalCause",
+	_type = "MedicalCause",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalEntity
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				causeOf,
 				...subtypeProperties,

@@ -2,10 +2,7 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
-import GameAvailabilityEnumerationComponent from "../../../../../../components/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.tsx"
-
-export interface GameAvailabilityEnumerationProps {
-}
+export interface GameAvailabilityEnumerationProps {}
 
 type GameAvailabilityEnumeration =
 	& Thing

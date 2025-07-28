@@ -18,7 +18,7 @@ export default function CreativeWorkSeries(
 		endDate,
 		issn,
 		startDate,
-		schemaType = "CreativeWorkSeries",
+		_type = "CreativeWorkSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -26,7 +26,7 @@ export default function CreativeWorkSeries(
 	return (
 		<Series
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				endDate,
 				issn,

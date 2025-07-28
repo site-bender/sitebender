@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MediaReviewItemProps } from "../../../../types/Thing/CreativeWork/MediaReviewItem/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MediaReviewItemProps,
-	"MediaReviewItem",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = MediaReviewItemProps & BaseProps
 
 export default function MediaReviewItem({
 	mediaItemAppearance,
-	schemaType = "MediaReviewItem",
+	_type = "MediaReviewItem",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				mediaItemAppearance,
 				...subtypeProperties,

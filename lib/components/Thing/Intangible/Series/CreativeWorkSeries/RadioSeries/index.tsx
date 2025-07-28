@@ -29,7 +29,7 @@ export default function RadioSeries(
 		season,
 		seasons,
 		trailer,
-		schemaType = "RadioSeries",
+		_type = "RadioSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -37,7 +37,7 @@ export default function RadioSeries(
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

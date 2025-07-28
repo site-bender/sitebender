@@ -1,3 +1,22 @@
-import RealEstateAgent from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { RealEstateAgentProps } from "../../../../../types/Thing/Organization/LocalBusiness/RealEstateAgent/index.ts"
 
-export default RealEstateAgent
+import LocalBusiness from "../index.tsx"
+
+export type Props = RealEstateAgentProps & BaseProps
+
+export default function RealEstateAgent({
+	_type = "RealEstateAgent",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<LocalBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { AudienceProps } from "../../../../../types/Thing/Intangible/Audience/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PeopleAudienceProps } from "../../../../../types/Thing/Intangible/Audience/PeopleAudience/index.ts"
 
 import Audience from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PeopleAudienceProps,
-	"PeopleAudience",
-	ExtractLevelProps<ThingProps, IntangibleProps, AudienceProps>
->
+export type Props = PeopleAudienceProps & BaseProps
 
 export default function PeopleAudience({
 	healthCondition,
@@ -22,14 +15,14 @@ export default function PeopleAudience({
 	suggestedMaxAge,
 	suggestedMeasurement,
 	suggestedMinAge,
-	schemaType = "PeopleAudience",
+	_type = "PeopleAudience",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Audience
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				healthCondition,
 				requiredGender,

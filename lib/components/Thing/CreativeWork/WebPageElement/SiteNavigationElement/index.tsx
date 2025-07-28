@@ -1,3 +1,22 @@
-import SiteNavigationElement from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { SiteNavigationElementProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/SiteNavigationElement/index.ts"
 
-export default SiteNavigationElement
+import WebPageElement from "../index.tsx"
+
+export type Props = SiteNavigationElementProps & BaseProps
+
+export default function SiteNavigationElement({
+	_type = "SiteNavigationElement",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPageElement
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

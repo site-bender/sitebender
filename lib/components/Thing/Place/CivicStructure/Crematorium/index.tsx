@@ -1,3 +1,22 @@
-import Crematorium from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { CrematoriumProps } from "../../../../../types/Thing/Place/CivicStructure/Crematorium/index.ts"
 
-export default Crematorium
+import CivicStructure from "../index.tsx"
+
+export type Props = CrematoriumProps & BaseProps
+
+export default function Crematorium({
+	_type = "Crematorium",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CivicStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import AdvertiserContentArticle from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { AdvertiserContentArticleProps } from "../../../../../types/Thing/CreativeWork/Article/AdvertiserContentArticle/index.ts"
 
-export default AdvertiserContentArticle
+import Article from "../index.tsx"
+
+export type Props = AdvertiserContentArticleProps & BaseProps
+
+export default function AdvertiserContentArticle({
+	_type = "AdvertiserContentArticle",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Article
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

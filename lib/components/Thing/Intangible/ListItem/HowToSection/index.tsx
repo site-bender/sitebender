@@ -16,7 +16,7 @@ export type Props = BaseComponentProps<
 export default function HowToSection(
 	{
 		steps,
-		schemaType = "HowToSection",
+		_type = "HowToSection",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -24,7 +24,7 @@ export default function HowToSection(
 	return (
 		<ListItem
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				steps,
 				...subtypeProperties,

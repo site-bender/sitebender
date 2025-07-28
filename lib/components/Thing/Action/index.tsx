@@ -1,14 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../types/index.ts"
-import type ThingProps from "../../../types/Thing/index.ts"
+import type BaseProps from "../../../types/index.ts"
 import type { ActionProps } from "../../../types/Thing/Action/index.ts"
 
 import Thing from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ActionProps,
-	"Action",
-	ExtractLevelProps<ThingProps>
->
+export type Props = ActionProps & BaseProps
 
 export default function Action({
 	actionProcess,
@@ -24,14 +19,14 @@ export default function Action({
 	result,
 	startTime,
 	target,
-	schemaType = "Action",
+	_type = "Action",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Thing
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actionProcess,
 				actionStatus,

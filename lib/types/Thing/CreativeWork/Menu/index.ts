@@ -1,18 +1,16 @@
 import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
 import type MenuItem from "../../Intangible/MenuItem/index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 import type MenuSection from "../MenuSection/index.ts"
 
-import MenuComponent from "../../../../../components/Thing/CreativeWork/Menu/index.tsx"
+import MenuSectionComponent from "../../../../components/Thing/CreativeWork/MenuSection/index.ts"
+import MenuItemComponent from "../../../../components/Thing/Intangible/MenuItem/index.ts"
 
 export interface MenuProps {
-	hasMenuItem?: MenuItem
-	hasMenuSection?: MenuSection
+	hasMenuItem?: MenuItem | ReturnType<typeof MenuItemComponent>
+	hasMenuSection?: MenuSection | ReturnType<typeof MenuSectionComponent>
 }
 
-type Menu =
-	& Thing
-	& CreativeWorkProps
-	& MenuProps
+type Menu = Thing & CreativeWorkProps & MenuProps
 
 export default Menu

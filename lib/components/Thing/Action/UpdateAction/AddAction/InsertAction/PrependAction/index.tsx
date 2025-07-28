@@ -1,3 +1,22 @@
-import PrependAction from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { PrependActionProps } from "../../../../../../../types/Thing/Action/UpdateAction/AddAction/InsertAction/PrependAction/index.ts"
 
-export default PrependAction
+import InsertAction from "../index.tsx"
+
+export type Props = PrependActionProps & BaseProps
+
+export default function PrependAction({
+	_type = "PrependAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<InsertAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

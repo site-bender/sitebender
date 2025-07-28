@@ -1,3 +1,22 @@
-import Pharmacy from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { PharmacyProps } from "../../../../../types/Thing/Organization/MedicalOrganization/Pharmacy/index.ts"
 
-export default Pharmacy
+import MedicalOrganization from "../index.tsx"
+
+export type Props = PharmacyProps & BaseProps
+
+export default function Pharmacy({
+	_type = "Pharmacy",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalOrganization
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

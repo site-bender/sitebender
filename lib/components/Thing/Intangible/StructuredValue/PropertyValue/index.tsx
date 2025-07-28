@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PropertyValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PropertyValueProps,
-	"PropertyValue",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = PropertyValueProps & BaseProps
 
 export default function PropertyValue({
 	maxValue,
@@ -22,14 +15,14 @@ export default function PropertyValue({
 	unitText,
 	value,
 	valueReference,
-	schemaType = "PropertyValue",
+	_type = "PropertyValue",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				maxValue,
 				measurementMethod,

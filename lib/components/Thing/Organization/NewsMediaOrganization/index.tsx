@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { OrganizationProps } from "../../../../types/Thing/Organization/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { NewsMediaOrganizationProps } from "../../../../types/Thing/Organization/NewsMediaOrganization/index.ts"
 
 import Organization from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	NewsMediaOrganizationProps,
-	"NewsMediaOrganization",
-	ExtractLevelProps<ThingProps, OrganizationProps>
->
+export type Props = NewsMediaOrganizationProps & BaseProps
 
 export default function NewsMediaOrganization({
 	actionableFeedbackPolicy,
@@ -23,14 +17,14 @@ export default function NewsMediaOrganization({
 	ownershipFundingInfo,
 	unnamedSourcesPolicy,
 	verificationFactCheckingPolicy,
-	schemaType = "NewsMediaOrganization",
+	_type = "NewsMediaOrganization",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Organization
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actionableFeedbackPolicy,
 				correctionsPolicy,

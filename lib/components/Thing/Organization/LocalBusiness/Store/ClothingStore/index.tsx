@@ -1,3 +1,22 @@
-import ClothingStore from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { ClothingStoreProps } from "../../../../../../types/Thing/Organization/LocalBusiness/Store/ClothingStore/index.ts"
 
-export default ClothingStore
+import Store from "../index.tsx"
+
+export type Props = ClothingStoreProps & BaseProps
+
+export default function ClothingStore({
+	_type = "ClothingStore",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Store
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

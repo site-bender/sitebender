@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ServiceProps } from "../../../../../types/Thing/Intangible/Service/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { BroadcastServiceProps } from "../../../../../types/Thing/Intangible/Service/BroadcastService/index.ts"
 
 import Service from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BroadcastServiceProps,
-	"BroadcastService",
-	ExtractLevelProps<ThingProps, IntangibleProps, ServiceProps>
->
+export type Props = BroadcastServiceProps & BaseProps
 
 export default function BroadcastService({
 	area,
@@ -24,14 +17,14 @@ export default function BroadcastService({
 	inLanguage,
 	parentService,
 	videoFormat,
-	schemaType = "BroadcastService",
+	_type = "BroadcastService",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Service
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				area,
 				broadcastAffiliateOf,

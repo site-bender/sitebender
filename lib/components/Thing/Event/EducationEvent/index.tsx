@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { EventProps } from "../../../../types/Thing/Event/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { EducationEventProps } from "../../../../types/Thing/Event/EducationEvent/index.ts"
 
 import Event from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EducationEventProps,
-	"EducationEvent",
-	ExtractLevelProps<ThingProps, EventProps>
->
+export type Props = EducationEventProps & BaseProps
 
 export default function EducationEvent({
 	assesses,
 	educationalLevel,
 	teaches,
-	schemaType = "EducationEvent",
+	_type = "EducationEvent",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Event
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				assesses,
 				educationalLevel,

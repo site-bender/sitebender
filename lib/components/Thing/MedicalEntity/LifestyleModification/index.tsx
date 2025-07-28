@@ -1,3 +1,22 @@
-import LifestyleModification from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { LifestyleModificationProps } from "../../../../types/Thing/MedicalEntity/LifestyleModification/index.ts"
 
-export default LifestyleModification
+import MedicalEntity from "../index.tsx"
+
+export type Props = LifestyleModificationProps & BaseProps
+
+export default function LifestyleModification({
+	_type = "LifestyleModification",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalEntity
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

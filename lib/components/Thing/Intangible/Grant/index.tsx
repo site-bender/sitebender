@@ -1,28 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { GrantProps } from "../../../../types/Thing/Intangible/Grant/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GrantProps,
-	"Grant",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = GrantProps & BaseProps
 
 export default function Grant({
 	fundedItem,
 	funder,
 	sponsor,
-	schemaType = "Grant",
+	_type = "Grant",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				fundedItem,
 				funder,

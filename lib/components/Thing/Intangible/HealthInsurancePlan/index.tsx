@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { HealthInsurancePlanProps } from "../../../../types/Thing/Intangible/HealthInsurancePlan/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	HealthInsurancePlanProps,
-	"HealthInsurancePlan",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = HealthInsurancePlanProps & BaseProps
 
 export default function HealthInsurancePlan({
 	benefitsSummaryUrl,
@@ -21,14 +15,14 @@ export default function HealthInsurancePlan({
 	includesHealthPlanFormulary,
 	includesHealthPlanNetwork,
 	usesHealthPlanIdStandard,
-	schemaType = "HealthInsurancePlan",
+	_type = "HealthInsurancePlan",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				benefitsSummaryUrl,
 				contactPoint,

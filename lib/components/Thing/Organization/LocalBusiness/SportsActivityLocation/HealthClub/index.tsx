@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function HealthClub({
-	schemaType = "HealthClub",
+	_type = "HealthClub",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<SportsActivityLocation
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

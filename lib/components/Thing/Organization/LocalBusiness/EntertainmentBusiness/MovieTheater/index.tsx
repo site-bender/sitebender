@@ -16,7 +16,7 @@ export type Props = BaseComponentProps<
 export default function MovieTheater(
 	{
 		screenCount,
-		schemaType = "MovieTheater",
+		_type = "MovieTheater",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -24,7 +24,7 @@ export default function MovieTheater(
 	return (
 		<EntertainmentBusiness
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				screenCount,
 				...subtypeProperties,

@@ -1,3 +1,22 @@
-import WearableMeasurementTypeEnumeration from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { WearableMeasurementTypeEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/WearableMeasurementTypeEnumeration/index.ts"
 
-export default WearableMeasurementTypeEnumeration
+import MeasurementTypeEnumeration from "../index.tsx"
+
+export type Props = WearableMeasurementTypeEnumerationProps & BaseProps
+
+export default function WearableMeasurementTypeEnumeration({
+	_type = "WearableMeasurementTypeEnumeration",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MeasurementTypeEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

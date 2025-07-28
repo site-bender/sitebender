@@ -1,16 +1,17 @@
 import type { Boolean, Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Language from "../../../Intangible/Language/index.ts"
+import type Event from "../../index.ts"
 import type { EventProps } from "../../index.ts"
 import type { PublicationEventProps } from "../index.ts"
-import type Event from "../../index.ts"
-import type Language from "../../../Intangible/Language/index.ts"
 
-import BroadcastEventComponent from "../../../../../../components/Thing/Event/PublicationEvent/BroadcastEvent/index.tsx"
+import EventComponent from "../../../../../components/Thing/Event/index.ts"
+import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
 export interface BroadcastEventProps {
-	broadcastOfEvent?: Event
+	broadcastOfEvent?: Event | ReturnType<typeof EventComponent>
 	isLiveBroadcast?: Boolean
-	subtitleLanguage?: Language | Text
+	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	videoFormat?: Text
 }
 

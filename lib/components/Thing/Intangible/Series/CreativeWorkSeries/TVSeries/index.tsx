@@ -31,7 +31,7 @@ export default function TVSeries(
 		seasons,
 		titleEIDR,
 		trailer,
-		schemaType = "TVSeries",
+		_type = "TVSeries",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -39,7 +39,7 @@ export default function TVSeries(
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

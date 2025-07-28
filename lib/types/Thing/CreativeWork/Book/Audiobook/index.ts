@@ -1,17 +1,23 @@
 import type Thing from "../../../index.ts"
-import type { CreativeWorkProps } from "../../index.ts"
+import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
+import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { MediaObjectProps } from "../../../MediaObject/index.ts"
+import type Person from "../../../Person/index.ts"
+import type { CreativeWorkProps } from "../../index.ts"
 import type { AudioObjectProps } from "../../MediaObject/AudioObject/index.ts"
 import type { BookProps } from "../index.ts"
-import type Duration from "../../../Intangible/Quantity/Duration/index.ts"
-import type Person from "../../../Person/index.ts"
-import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 
-import AudiobookComponent from "../../../../../../components/Thing/CreativeWork/Book/Audiobook/index.tsx"
+import DurationComponent from "../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
+import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
+import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface AudiobookProps {
-	duration?: Duration | QuantitativeValue
-	readBy?: Person
+	duration?:
+		| Duration
+		| QuantitativeValue
+		| ReturnType<typeof DurationComponent>
+		| ReturnType<typeof QuantitativeValueComponent>
+	readBy?: Person | ReturnType<typeof PersonComponent>
 }
 
 type Audiobook =

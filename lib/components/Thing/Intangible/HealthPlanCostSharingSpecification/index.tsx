@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { HealthPlanCostSharingSpecificationProps } from "../../../../types/Thing/Intangible/HealthPlanCostSharingSpecification/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	HealthPlanCostSharingSpecificationProps,
-	"HealthPlanCostSharingSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = HealthPlanCostSharingSpecificationProps & BaseProps
 
 export default function HealthPlanCostSharingSpecification({
 	healthPlanCoinsuranceOption,
@@ -17,14 +11,14 @@ export default function HealthPlanCostSharingSpecification({
 	healthPlanCopay,
 	healthPlanCopayOption,
 	healthPlanPharmacyCategory,
-	schemaType = "HealthPlanCostSharingSpecification",
+	_type = "HealthPlanCostSharingSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				healthPlanCoinsuranceOption,
 				healthPlanCoinsuranceRate,

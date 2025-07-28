@@ -1,3 +1,22 @@
-import BrainStructure from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { BrainStructureProps } from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/BrainStructure/index.ts"
 
-export default BrainStructure
+import AnatomicalStructure from "../index.tsx"
+
+export type Props = BrainStructureProps & BaseProps
+
+export default function BrainStructure({
+	_type = "BrainStructure",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<AnatomicalStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

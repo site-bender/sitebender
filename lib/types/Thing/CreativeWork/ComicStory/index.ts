@@ -1,20 +1,17 @@
 import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
 import type Person from "../../Person/index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-import ComicStoryComponent from "../../../../../components/Thing/CreativeWork/ComicStory/index.tsx"
+import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface ComicStoryProps {
-	artist?: Person
-	colorist?: Person
-	inker?: Person
-	letterer?: Person
-	penciler?: Person
+	artist?: Person | ReturnType<typeof PersonComponent>
+	colorist?: Person | ReturnType<typeof PersonComponent>
+	inker?: Person | ReturnType<typeof PersonComponent>
+	letterer?: Person | ReturnType<typeof PersonComponent>
+	penciler?: Person | ReturnType<typeof PersonComponent>
 }
 
-type ComicStory =
-	& Thing
-	& CreativeWorkProps
-	& ComicStoryProps
+type ComicStory = Thing & CreativeWorkProps & ComicStoryProps
 
 export default ComicStory

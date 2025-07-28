@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ConstraintNodeProps } from "../../../../../types/Thing/Intangible/ConstraintNode/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { StatisticalVariableProps } from "../../../../../types/Thing/Intangible/ConstraintNode/StatisticalVariable/index.ts"
 
 import ConstraintNode from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	StatisticalVariableProps,
-	"StatisticalVariable",
-	ExtractLevelProps<ThingProps, IntangibleProps, ConstraintNodeProps>
->
+export type Props = StatisticalVariableProps & BaseProps
 
 export default function StatisticalVariable({
 	measuredProperty,
@@ -20,14 +13,14 @@ export default function StatisticalVariable({
 	measurementTechnique,
 	populationType,
 	statType,
-	schemaType = "StatisticalVariable",
+	_type = "StatisticalVariable",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<ConstraintNode
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				measuredProperty,
 				measurementDenominator,

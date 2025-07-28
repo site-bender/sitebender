@@ -1,30 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../../types/Thing/MedicalEntity/index.ts"
-import type { AnatomicalStructureProps } from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/index.ts"
-import type { VesselProps } from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { VeinProps } from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/Vein/index.ts"
 
 import Vessel from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VeinProps,
-	"Vein",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, AnatomicalStructureProps, VesselProps>
->
+export type Props = VeinProps & BaseProps
 
 export default function Vein({
 	drainsTo,
 	regionDrained,
 	tributary,
-	schemaType = "Vein",
+	_type = "Vein",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Vessel
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				drainsTo,
 				regionDrained,

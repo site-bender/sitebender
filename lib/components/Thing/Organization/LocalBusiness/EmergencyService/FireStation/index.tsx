@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function FireStation({
-	schemaType = "FireStation",
+	_type = "FireStation",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<EmergencyService
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

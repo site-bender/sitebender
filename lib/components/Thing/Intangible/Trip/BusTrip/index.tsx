@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { TripProps } from "../../../../../types/Thing/Intangible/Trip/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { BusTripProps } from "../../../../../types/Thing/Intangible/Trip/BusTrip/index.ts"
 
 import Trip from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BusTripProps,
-	"BusTrip",
-	ExtractLevelProps<ThingProps, IntangibleProps, TripProps>
->
+export type Props = BusTripProps & BaseProps
 
 export default function BusTrip({
 	arrivalBusStop,
 	busName,
 	busNumber,
 	departureBusStop,
-	schemaType = "BusTrip",
+	_type = "BusTrip",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Trip
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				arrivalBusStop,
 				busName,

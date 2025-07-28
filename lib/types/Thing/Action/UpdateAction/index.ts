@@ -1,16 +1,13 @@
 import type Thing from "../../index.ts"
 import type { ActionProps } from "../index.ts"
 
-import UpdateActionComponent from "../../../../../components/Thing/Action/UpdateAction/index.tsx"
+import ThingComponent from "../../../../components/Thing/index.ts"
 
 export interface UpdateActionProps {
-	collection?: Thing
-	targetCollection?: Thing
+	collection?: Thing | ReturnType<typeof ThingComponent>
+	targetCollection?: Thing | ReturnType<typeof ThingComponent>
 }
 
-type UpdateAction =
-	& Thing
-	& ActionProps
-	& UpdateActionProps
+type UpdateAction = Thing & ActionProps & UpdateActionProps
 
 export default UpdateAction

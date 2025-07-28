@@ -1,3 +1,22 @@
-import RadioChannel from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { RadioChannelProps } from "../../../../../types/Thing/Intangible/BroadcastChannel/RadioChannel/index.ts"
 
-export default RadioChannel
+import BroadcastChannel from "../index.tsx"
+
+export type Props = RadioChannelProps & BaseProps
+
+export default function RadioChannel({
+	_type = "RadioChannel",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<BroadcastChannel
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

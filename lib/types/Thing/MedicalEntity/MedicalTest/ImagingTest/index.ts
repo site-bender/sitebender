@@ -1,12 +1,14 @@
 import type Thing from "../../../index.ts"
+import type MedicalImagingTechnique from "../../../Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalTestProps } from "../index.ts"
-import type MedicalImagingTechnique from "../../../Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.ts"
 
-import ImagingTestComponent from "../../../../../../components/Thing/MedicalEntity/MedicalTest/ImagingTest/index.tsx"
+import MedicalImagingTechniqueComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.ts"
 
 export interface ImagingTestProps {
-	imagingTechnique?: MedicalImagingTechnique
+	imagingTechnique?:
+		| MedicalImagingTechnique
+		| ReturnType<typeof MedicalImagingTechniqueComponent>
 }
 
 type ImagingTest =

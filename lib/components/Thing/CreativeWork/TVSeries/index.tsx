@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { TVSeriesProps } from "../../../../types/Thing/CreativeWork/TVSeries/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	TVSeriesProps,
-	"TVSeries",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = TVSeriesProps & BaseProps
 
 export default function TVSeries({
 	actor,
@@ -28,14 +22,14 @@ export default function TVSeries({
 	seasons,
 	titleEIDR,
 	trailer,
-	schemaType = "TVSeries",
+	_type = "TVSeries",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

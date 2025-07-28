@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ReservationProps } from "../../../../../types/Thing/Intangible/Reservation/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { LodgingReservationProps } from "../../../../../types/Thing/Intangible/Reservation/LodgingReservation/index.ts"
 
 import Reservation from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	LodgingReservationProps,
-	"LodgingReservation",
-	ExtractLevelProps<ThingProps, IntangibleProps, ReservationProps>
->
+export type Props = LodgingReservationProps & BaseProps
 
 export default function LodgingReservation({
 	checkinTime,
@@ -19,14 +12,14 @@ export default function LodgingReservation({
 	lodgingUnitType,
 	numAdults,
 	numChildren,
-	schemaType = "LodgingReservation",
+	_type = "LodgingReservation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Reservation
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				checkinTime,
 				checkoutTime,

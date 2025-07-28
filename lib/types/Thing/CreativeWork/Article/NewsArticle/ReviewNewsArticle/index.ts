@@ -1,14 +1,11 @@
 import type Thing from "../../../../index.ts"
 import type { CreativeWorkProps } from "../../../index.ts"
-import type { ReviewProps } from "../../../Review/index.ts"
 import type { CriticReviewProps } from "../../../Review/CriticReview/index.ts"
+import type { ReviewProps } from "../../../Review/index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { NewsArticleProps } from "../index.ts"
 
-import ReviewNewsArticleComponent from "../../../../../../../components/Thing/CreativeWork/Article/NewsArticle/ReviewNewsArticle/index.tsx"
-
-export interface ReviewNewsArticleProps {
-}
+export interface ReviewNewsArticleProps {}
 
 type ReviewNewsArticle =
 	& Thing

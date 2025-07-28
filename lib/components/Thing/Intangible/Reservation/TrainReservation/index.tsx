@@ -1,3 +1,22 @@
-import TrainReservation from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { TrainReservationProps } from "../../../../../types/Thing/Intangible/Reservation/TrainReservation/index.ts"
 
-export default TrainReservation
+import Reservation from "../index.tsx"
+
+export type Props = TrainReservationProps & BaseProps
+
+export default function TrainReservation({
+	_type = "TrainReservation",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Reservation
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

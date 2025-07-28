@@ -1,29 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../../types/Thing/Intangible/index.ts"
-import type { AudienceProps } from "../../../../../../types/Thing/Intangible/Audience/index.ts"
-import type { PeopleAudienceProps } from "../../../../../../types/Thing/Intangible/Audience/PeopleAudience/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { ParentAudienceProps } from "../../../../../../types/Thing/Intangible/Audience/PeopleAudience/ParentAudience/index.ts"
 
 import PeopleAudience from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ParentAudienceProps,
-	"ParentAudience",
-	ExtractLevelProps<ThingProps, IntangibleProps, AudienceProps, PeopleAudienceProps>
->
+export type Props = ParentAudienceProps & BaseProps
 
 export default function ParentAudience({
 	childMaxAge,
 	childMinAge,
-	schemaType = "ParentAudience",
+	_type = "ParentAudience",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<PeopleAudience
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				childMaxAge,
 				childMinAge,

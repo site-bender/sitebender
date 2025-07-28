@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { CreativeWorkSeriesProps } from "../../../../../types/Thing/CreativeWork/CreativeWorkSeries/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { VideoGameSeriesProps } from "../../../../../types/Thing/CreativeWork/CreativeWorkSeries/VideoGameSeries/index.ts"
 
 import CreativeWorkSeries from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VideoGameSeriesProps,
-	"VideoGameSeries",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, CreativeWorkSeriesProps>
->
+export type Props = VideoGameSeriesProps & BaseProps
 
 export default function VideoGameSeries({
 	actor,
@@ -35,14 +28,14 @@ export default function VideoGameSeries({
 	season,
 	seasons,
 	trailer,
-	schemaType = "VideoGameSeries",
+	_type = "VideoGameSeries",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				actor,
 				actors,

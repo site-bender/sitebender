@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../../types/Thing/CreativeWork/index.ts"
-import type { ReviewProps } from "../../../../../types/Thing/CreativeWork/Review/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ClaimReviewProps } from "../../../../../types/Thing/CreativeWork/Review/ClaimReview/index.ts"
 
 import Review from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ClaimReviewProps,
-	"ClaimReview",
-	ExtractLevelProps<ThingProps, CreativeWorkProps, ReviewProps>
->
+export type Props = ClaimReviewProps & BaseProps
 
 export default function ClaimReview({
 	claimReviewed,
-	schemaType = "ClaimReview",
+	_type = "ClaimReview",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Review
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				claimReviewed,
 				...subtypeProperties,

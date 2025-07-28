@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../types/Thing/Action/index.ts"
-import type { UpdateActionProps } from "../../../../../types/Thing/Action/UpdateAction/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ReplaceActionProps } from "../../../../../types/Thing/Action/UpdateAction/ReplaceAction/index.ts"
 
 import UpdateAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ReplaceActionProps,
-	"ReplaceAction",
-	ExtractLevelProps<ThingProps, ActionProps, UpdateActionProps>
->
+export type Props = ReplaceActionProps & BaseProps
 
 export default function ReplaceAction({
 	replacee,
 	replacer,
-	schemaType = "ReplaceAction",
+	_type = "ReplaceAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<UpdateAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				replacee,
 				replacer,

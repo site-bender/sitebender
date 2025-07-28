@@ -1,3 +1,22 @@
-import InfectiousAgentClass from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { InfectiousAgentClassProps } from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
 
-export default InfectiousAgentClass
+import MedicalEnumeration from "../index.tsx"
+
+export type Props = InfectiousAgentClassProps & BaseProps
+
+export default function InfectiousAgentClass({
+	_type = "InfectiousAgentClass",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

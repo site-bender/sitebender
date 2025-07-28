@@ -17,7 +17,7 @@ export default function MedicalCode(
 	{
 		codeValue,
 		codingSystem,
-		schemaType = "MedicalCode",
+		_type = "MedicalCode",
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -25,7 +25,7 @@ export default function MedicalCode(
 	return (
 		<CategoryCode
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				codeValue,
 				codingSystem,

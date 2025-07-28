@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { InteractionCounterProps } from "../../../../../types/Thing/Intangible/StructuredValue/InteractionCounter/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	InteractionCounterProps,
-	"InteractionCounter",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = InteractionCounterProps & BaseProps
 
 export default function InteractionCounter({
 	endTime,
@@ -19,14 +12,14 @@ export default function InteractionCounter({
 	location,
 	startTime,
 	userInteractionCount,
-	schemaType = "InteractionCounter",
+	_type = "InteractionCounter",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				endTime,
 				interactionService,

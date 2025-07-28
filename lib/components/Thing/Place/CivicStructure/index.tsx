@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { PlaceProps } from "../../../../types/Thing/Place/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { CivicStructureProps } from "../../../../types/Thing/Place/CivicStructure/index.ts"
 
 import Place from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CivicStructureProps,
-	"CivicStructure",
-	ExtractLevelProps<ThingProps, PlaceProps>
->
+export type Props = CivicStructureProps & BaseProps
 
 export default function CivicStructure({
 	openingHours,
-	schemaType = "CivicStructure",
+	_type = "CivicStructure",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Place
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				openingHours,
 				...subtypeProperties,

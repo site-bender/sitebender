@@ -1,29 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MemberProgramTierProps } from "../../../../types/Thing/Intangible/MemberProgramTier/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MemberProgramTierProps,
-	"MemberProgramTier",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = MemberProgramTierProps & BaseProps
 
 export default function MemberProgramTier({
 	hasTierBenefit,
 	hasTierRequirement,
 	isTierOf,
 	membershipPointsEarned,
-	schemaType = "MemberProgramTier",
+	_type = "MemberProgramTier",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				hasTierBenefit,
 				hasTierRequirement,

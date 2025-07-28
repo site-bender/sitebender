@@ -1,18 +1,14 @@
 import type Thing from "../../../index.ts"
+import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TransferActionProps } from "../index.ts"
-import type Person from "../../../Person/index.ts"
 
-import LendActionComponent from "../../../../../../components/Thing/Action/TransferAction/LendAction/index.tsx"
+import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface LendActionProps {
-	borrower?: Person
+	borrower?: Person | ReturnType<typeof PersonComponent>
 }
 
-type LendAction =
-	& Thing
-	& ActionProps
-	& TransferActionProps
-	& LendActionProps
+type LendAction = Thing & ActionProps & TransferActionProps & LendActionProps
 
 export default LendAction

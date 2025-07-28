@@ -3,8 +3,6 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { RoleProps } from "../index.ts"
 
-import OrganizationRoleComponent from "../../../../../../components/Thing/Intangible/Role/OrganizationRole/index.tsx"
-
 export interface OrganizationRoleProps {
 	numberedPosition?: Number
 }

@@ -1,3 +1,22 @@
-import Photograph from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { PhotographProps } from "../../../../types/Thing/CreativeWork/Photograph/index.ts"
 
-export default Photograph
+import CreativeWork from "../index.tsx"
+
+export type Props = PhotographProps & BaseProps
+
+export default function Photograph({
+	_type = "Photograph",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

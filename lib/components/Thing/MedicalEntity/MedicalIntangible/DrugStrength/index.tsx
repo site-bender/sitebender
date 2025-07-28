@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { MedicalEntityProps } from "../../../../../types/Thing/MedicalEntity/index.ts"
-import type { MedicalIntangibleProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { DrugStrengthProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DrugStrengthProps,
-	"DrugStrength",
-	ExtractLevelProps<ThingProps, MedicalEntityProps, MedicalIntangibleProps>
->
+export type Props = DrugStrengthProps & BaseProps
 
 export default function DrugStrength({
 	activeIngredient,
@@ -18,14 +11,14 @@ export default function DrugStrength({
 	maximumIntake,
 	strengthUnit,
 	strengthValue,
-	schemaType = "DrugStrength",
+	_type = "DrugStrength",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<MedicalIntangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				activeIngredient,
 				availableIn,

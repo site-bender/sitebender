@@ -4,10 +4,7 @@ import type { WebPageProps } from "../../../index.ts"
 import type { CollectionPageProps } from "../../index.ts"
 import type { MediaGalleryProps } from "../index.ts"
 
-import ImageGalleryComponent from "../../../../../../../../components/Thing/CreativeWork/WebPage/CollectionPage/MediaGallery/ImageGallery/index.tsx"
-
-export interface ImageGalleryProps {
-}
+export interface ImageGalleryProps {}
 
 type ImageGallery =
 	& Thing

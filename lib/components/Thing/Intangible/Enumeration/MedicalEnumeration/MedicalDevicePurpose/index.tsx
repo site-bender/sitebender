@@ -1,3 +1,22 @@
-import MedicalDevicePurpose from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { MedicalDevicePurposeProps } from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalDevicePurpose/index.ts"
 
-export default MedicalDevicePurpose
+import MedicalEnumeration from "../index.tsx"
+
+export type Props = MedicalDevicePurposeProps & BaseProps
+
+export default function MedicalDevicePurpose({
+	_type = "MedicalDevicePurpose",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalEnumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

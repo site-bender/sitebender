@@ -1,3 +1,22 @@
-import UserPageVisits from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { UserPageVisitsProps } from "../../../../../types/Thing/Event/UserInteraction/UserPageVisits/index.ts"
 
-export default UserPageVisits
+import UserInteraction from "../index.tsx"
+
+export type Props = UserPageVisitsProps & BaseProps
+
+export default function UserPageVisits({
+	_type = "UserPageVisits",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<UserInteraction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

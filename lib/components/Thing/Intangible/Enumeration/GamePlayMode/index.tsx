@@ -1,3 +1,22 @@
-import GamePlayMode from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { GamePlayModeProps } from "../../../../../types/Thing/Intangible/Enumeration/GamePlayMode/index.ts"
 
-export default GamePlayMode
+import Enumeration from "../index.tsx"
+
+export type Props = GamePlayModeProps & BaseProps
+
+export default function GamePlayMode({
+	_type = "GamePlayMode",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

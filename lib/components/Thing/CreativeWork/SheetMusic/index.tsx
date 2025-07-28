@@ -1,3 +1,22 @@
-import SheetMusic from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { SheetMusicProps } from "../../../../types/Thing/CreativeWork/SheetMusic/index.ts"
 
-export default SheetMusic
+import CreativeWork from "../index.tsx"
+
+export type Props = SheetMusicProps & BaseProps
+
+export default function SheetMusic({
+	_type = "SheetMusic",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

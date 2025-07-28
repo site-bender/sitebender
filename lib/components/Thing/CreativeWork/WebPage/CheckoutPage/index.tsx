@@ -1,3 +1,22 @@
-import CheckoutPage from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { CheckoutPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/CheckoutPage/index.ts"
 
-export default CheckoutPage
+import WebPage from "../index.tsx"
+
+export type Props = CheckoutPageProps & BaseProps
+
+export default function CheckoutPage({
+	_type = "CheckoutPage",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPage
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

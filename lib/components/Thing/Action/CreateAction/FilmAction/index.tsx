@@ -1,3 +1,22 @@
-import FilmAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { FilmActionProps } from "../../../../../types/Thing/Action/CreateAction/FilmAction/index.ts"
 
-export default FilmAction
+import CreateAction from "../index.tsx"
+
+export type Props = FilmActionProps & BaseProps
+
+export default function FilmAction({
+	_type = "FilmAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreateAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

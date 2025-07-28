@@ -1,3 +1,22 @@
-import QuoteAction from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { QuoteActionProps } from "../../../../../types/Thing/Action/TradeAction/QuoteAction/index.ts"
 
-export default QuoteAction
+import TradeAction from "../index.tsx"
+
+export type Props = QuoteActionProps & BaseProps
+
+export default function QuoteAction({
+	_type = "QuoteAction",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<TradeAction
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

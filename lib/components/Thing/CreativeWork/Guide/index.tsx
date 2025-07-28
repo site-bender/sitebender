@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { GuideProps } from "../../../../types/Thing/CreativeWork/Guide/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GuideProps,
-	"Guide",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = GuideProps & BaseProps
 
 export default function Guide({
 	reviewAspect,
-	schemaType = "Guide",
+	_type = "Guide",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				reviewAspect,
 				...subtypeProperties,

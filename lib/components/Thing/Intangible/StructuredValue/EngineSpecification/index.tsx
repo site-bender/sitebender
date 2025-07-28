@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { EngineSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/EngineSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	EngineSpecificationProps,
-	"EngineSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = EngineSpecificationProps & BaseProps
 
 export default function EngineSpecification({
 	engineDisplacement,
@@ -18,14 +11,14 @@ export default function EngineSpecification({
 	engineType,
 	fuelType,
 	torque,
-	schemaType = "EngineSpecification",
+	_type = "EngineSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				engineDisplacement,
 				enginePower,

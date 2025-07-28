@@ -1,29 +1,22 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { ExchangeRateSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/ExchangeRateSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ExchangeRateSpecificationProps,
-	"ExchangeRateSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = ExchangeRateSpecificationProps & BaseProps
 
 export default function ExchangeRateSpecification({
 	currency,
 	currentExchangeRate,
 	exchangeRateSpread,
-	schemaType = "ExchangeRateSpecification",
+	_type = "ExchangeRateSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				currency,
 				currentExchangeRate,

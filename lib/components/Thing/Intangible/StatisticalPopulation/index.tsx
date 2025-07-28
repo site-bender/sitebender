@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { StatisticalPopulationProps } from "../../../../types/Thing/Intangible/StatisticalPopulation/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	StatisticalPopulationProps,
-	"StatisticalPopulation",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = StatisticalPopulationProps & BaseProps
 
 export default function StatisticalPopulation({
 	populationType,
-	schemaType = "StatisticalPopulation",
+	_type = "StatisticalPopulation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				populationType,
 				...subtypeProperties,

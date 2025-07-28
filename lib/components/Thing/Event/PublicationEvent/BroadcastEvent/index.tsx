@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { EventProps } from "../../../../../types/Thing/Event/index.ts"
-import type { PublicationEventProps } from "../../../../../types/Thing/Event/PublicationEvent/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { BroadcastEventProps } from "../../../../../types/Thing/Event/PublicationEvent/BroadcastEvent/index.ts"
 
 import PublicationEvent from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	BroadcastEventProps,
-	"BroadcastEvent",
-	ExtractLevelProps<ThingProps, EventProps, PublicationEventProps>
->
+export type Props = BroadcastEventProps & BaseProps
 
 export default function BroadcastEvent({
 	broadcastOfEvent,
 	isLiveBroadcast,
 	subtitleLanguage,
 	videoFormat,
-	schemaType = "BroadcastEvent",
+	_type = "BroadcastEvent",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<PublicationEvent
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				broadcastOfEvent,
 				isLiveBroadcast,

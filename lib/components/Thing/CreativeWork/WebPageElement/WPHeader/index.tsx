@@ -1,3 +1,22 @@
-import WPHeader from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { WPHeaderProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPHeader/index.ts"
 
-export default WPHeader
+import WebPageElement from "../index.tsx"
+
+export type Props = WPHeaderProps & BaseProps
+
+export default function WPHeader({
+	_type = "WPHeader",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<WebPageElement
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,30 +1,23 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { OwnershipInfoProps } from "../../../../../types/Thing/Intangible/StructuredValue/OwnershipInfo/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	OwnershipInfoProps,
-	"OwnershipInfo",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = OwnershipInfoProps & BaseProps
 
 export default function OwnershipInfo({
 	acquiredFrom,
 	ownedFrom,
 	ownedThrough,
 	typeOfGood,
-	schemaType = "OwnershipInfo",
+	_type = "OwnershipInfo",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				acquiredFrom,
 				ownedFrom,

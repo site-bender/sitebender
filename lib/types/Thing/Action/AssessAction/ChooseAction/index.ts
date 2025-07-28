@@ -3,17 +3,13 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { AssessActionProps } from "../index.ts"
 
-import ChooseActionComponent from "../../../../../../components/Thing/Action/AssessAction/ChooseAction/index.tsx"
+import ThingComponent from "../../../../../components/Thing/index.ts"
 
 export interface ChooseActionProps {
-	actionOption?: Text | Thing
-	option?: Text | Thing
+	actionOption?: Text | Thing | ReturnType<typeof ThingComponent>
+	option?: Text | Thing | ReturnType<typeof ThingComponent>
 }
 
-type ChooseAction =
-	& Thing
-	& ActionProps
-	& AssessActionProps
-	& ChooseActionProps
+type ChooseAction = Thing & ActionProps & AssessActionProps & ChooseActionProps
 
 export default ChooseAction

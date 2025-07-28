@@ -1,3 +1,22 @@
-import SaleEvent from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { SaleEventProps } from "../../../../types/Thing/Event/SaleEvent/index.ts"
 
-export default SaleEvent
+import Event from "../index.tsx"
+
+export type Props = SaleEventProps & BaseProps
+
+export default function SaleEvent({
+	_type = "SaleEvent",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Event
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

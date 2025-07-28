@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { SpeakableSpecificationProps } from "../../../../types/Thing/Intangible/SpeakableSpecification/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	SpeakableSpecificationProps,
-	"SpeakableSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = SpeakableSpecificationProps & BaseProps
 
 export default function SpeakableSpecification({
 	cssSelector,
 	xpath,
-	schemaType = "SpeakableSpecification",
+	_type = "SpeakableSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				cssSelector,
 				xpath,

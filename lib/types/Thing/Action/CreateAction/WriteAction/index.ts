@@ -1,20 +1,16 @@
 import type { Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Language from "../../../Intangible/Language/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { CreateActionProps } from "../index.ts"
-import type Language from "../../../Intangible/Language/index.ts"
 
-import WriteActionComponent from "../../../../../../components/Thing/Action/CreateAction/WriteAction/index.tsx"
+import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
 export interface WriteActionProps {
-	inLanguage?: Language | Text
-	language?: Language
+	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
+	language?: Language | ReturnType<typeof LanguageComponent>
 }
 
-type WriteAction =
-	& Thing
-	& ActionProps
-	& CreateActionProps
-	& WriteActionProps
+type WriteAction = Thing & ActionProps & CreateActionProps & WriteActionProps
 
 export default WriteAction

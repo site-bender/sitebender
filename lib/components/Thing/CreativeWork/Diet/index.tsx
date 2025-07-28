@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { DietProps } from "../../../../types/Thing/CreativeWork/Diet/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DietProps,
-	"Diet",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = DietProps & BaseProps
 
 export default function Diet({
 	dietFeatures,
@@ -17,14 +11,14 @@ export default function Diet({
 	expertConsiderations,
 	physiologicalBenefits,
 	risks,
-	schemaType = "Diet",
+	_type = "Diet",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				dietFeatures,
 				endorsers,

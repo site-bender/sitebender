@@ -1,15 +1,12 @@
 import type Thing from "../../../../index.ts"
 import type { IntangibleProps } from "../../../index.ts"
-import type { ServiceProps } from "../../../Service/index.ts"
 import type { FinancialProductProps } from "../../../Service/FinancialProduct/index.ts"
 import type { LoanOrCreditProps } from "../../../Service/FinancialProduct/LoanOrCredit/index.ts"
-import type { PaymentCardProps } from "../index.ts"
+import type { ServiceProps } from "../../../Service/index.ts"
 import type { PaymentMethodProps } from "../../index.ts"
+import type { PaymentCardProps } from "../index.ts"
 
-import CreditCardComponent from "../../../../../../../components/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.tsx"
-
-export interface CreditCardProps {
-}
+export interface CreditCardProps {}
 
 type CreditCard =
 	& Thing

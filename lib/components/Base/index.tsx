@@ -1,4 +1,4 @@
-import BaseProps from "../../types/index.ts";
+import BaseProps from "../../types/index.ts"
 
 export default function Base({
 	children: _,
@@ -8,5 +8,5 @@ export default function Base({
 		<pre>
 			{JSON.stringify(props, null, 2)}
 		</pre>
-	);
+	)
 }

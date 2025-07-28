@@ -1,3 +1,22 @@
-import PurchaseType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { PurchaseTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/PurchaseType/index.ts"
 
-export default PurchaseType
+import Enumeration from "../index.tsx"
+
+export type Props = PurchaseTypeProps & BaseProps
+
+export default function PurchaseType({
+	_type = "PurchaseType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

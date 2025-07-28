@@ -1,3 +1,22 @@
-import DigitalDocumentPermissionType from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { DigitalDocumentPermissionTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/DigitalDocumentPermissionType/index.ts"
 
-export default DigitalDocumentPermissionType
+import Enumeration from "../index.tsx"
+
+export type Props = DigitalDocumentPermissionTypeProps & BaseProps
+
+export default function DigitalDocumentPermissionType({
+	_type = "DigitalDocumentPermissionType",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

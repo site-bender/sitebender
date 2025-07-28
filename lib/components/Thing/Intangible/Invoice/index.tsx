@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { InvoiceProps } from "../../../../types/Thing/Intangible/Invoice/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	InvoiceProps,
-	"Invoice",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = InvoiceProps & BaseProps
 
 export default function Invoice({
 	accountId,
@@ -28,14 +22,14 @@ export default function Invoice({
 	referencesOrder,
 	scheduledPaymentDate,
 	totalPaymentDue,
-	schemaType = "Invoice",
+	_type = "Invoice",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				accountId,
 				billingPeriod,

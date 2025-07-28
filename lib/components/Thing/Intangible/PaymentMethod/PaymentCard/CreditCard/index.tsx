@@ -1,3 +1,22 @@
-import CreditCard from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { CreditCardProps } from "../../../../../../types/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.ts"
 
-export default CreditCard
+import PaymentCard from "../index.tsx"
+
+export type Props = CreditCardProps & BaseProps
+
+export default function CreditCard({
+	_type = "CreditCard",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<PaymentCard
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

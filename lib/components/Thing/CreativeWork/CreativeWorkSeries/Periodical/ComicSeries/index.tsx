@@ -1,3 +1,22 @@
-import ComicSeries from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { ComicSeriesProps } from "../../../../../../types/Thing/CreativeWork/CreativeWorkSeries/Periodical/ComicSeries/index.ts"
 
-export default ComicSeries
+import Periodical from "../index.tsx"
+
+export type Props = ComicSeriesProps & BaseProps
+
+export default function ComicSeries({
+	_type = "ComicSeries",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Periodical
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

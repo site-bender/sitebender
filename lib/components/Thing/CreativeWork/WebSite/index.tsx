@@ -1,26 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { WebSiteProps } from "../../../../types/Thing/CreativeWork/WebSite/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	WebSiteProps,
-	"WebSite",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = WebSiteProps & BaseProps
 
 export default function WebSite({
 	issn,
-	schemaType = "WebSite",
+	_type = "WebSite",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				issn,
 				...subtypeProperties,

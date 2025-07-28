@@ -1,3 +1,22 @@
-import MusicVideoObject from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { MusicVideoObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/MusicVideoObject/index.ts"
 
-export default MusicVideoObject
+import MediaObject from "../index.tsx"
+
+export type Props = MusicVideoObjectProps & BaseProps
+
+export default function MusicVideoObject({
+	_type = "MusicVideoObject",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MediaObject
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

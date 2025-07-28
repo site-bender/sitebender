@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { MessageProps } from "../../../../types/Thing/CreativeWork/Message/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MessageProps,
-	"Message",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = MessageProps & BaseProps
 
 export default function Message({
 	bccRecipient,
@@ -21,14 +15,14 @@ export default function Message({
 	recipient,
 	sender,
 	toRecipient,
-	schemaType = "Message",
+	_type = "Message",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				bccRecipient,
 				ccRecipient,

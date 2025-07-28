@@ -1,27 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { PlaceProps } from "../../../../../types/Thing/Place/index.ts"
-import type { CivicStructureProps } from "../../../../../types/Thing/Place/CivicStructure/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { MovieTheaterProps } from "../../../../../types/Thing/Place/CivicStructure/MovieTheater/index.ts"
 
 import CivicStructure from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MovieTheaterProps,
-	"MovieTheater",
-	ExtractLevelProps<ThingProps, PlaceProps, CivicStructureProps>
->
+export type Props = MovieTheaterProps & BaseProps
 
 export default function MovieTheater({
 	screenCount,
-	schemaType = "MovieTheater",
+	_type = "MovieTheater",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CivicStructure
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				screenCount,
 				...subtypeProperties,

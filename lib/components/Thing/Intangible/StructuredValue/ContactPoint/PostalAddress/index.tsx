@@ -1,17 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../../types/Thing/Intangible/StructuredValue/index.ts"
-import type { ContactPointProps } from "../../../../../../types/Thing/Intangible/StructuredValue/ContactPoint/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { PostalAddressProps } from "../../../../../../types/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 
 import ContactPoint from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PostalAddressProps,
-	"PostalAddress",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps, ContactPointProps>
->
+export type Props = PostalAddressProps & BaseProps
 
 export default function PostalAddress({
 	addressCountry,
@@ -21,14 +13,14 @@ export default function PostalAddress({
 	postalCode,
 	postOfficeBoxNumber,
 	streetAddress,
-	schemaType = "PostalAddress",
+	_type = "PostalAddress",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<ContactPoint
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				addressCountry,
 				addressLocality,

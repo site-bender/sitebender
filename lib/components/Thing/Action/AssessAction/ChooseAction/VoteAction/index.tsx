@@ -1,28 +1,20 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../../types/index.ts"
-import type ThingProps from "../../../../../../types/Thing/index.ts"
-import type { ActionProps } from "../../../../../../types/Thing/Action/index.ts"
-import type { AssessActionProps } from "../../../../../../types/Thing/Action/AssessAction/index.ts"
-import type { ChooseActionProps } from "../../../../../../types/Thing/Action/AssessAction/ChooseAction/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
 import type { VoteActionProps } from "../../../../../../types/Thing/Action/AssessAction/ChooseAction/VoteAction/index.ts"
 
 import ChooseAction from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VoteActionProps,
-	"VoteAction",
-	ExtractLevelProps<ThingProps, ActionProps, AssessActionProps, ChooseActionProps>
->
+export type Props = VoteActionProps & BaseProps
 
 export default function VoteAction({
 	candidate,
-	schemaType = "VoteAction",
+	_type = "VoteAction",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<ChooseAction
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				candidate,
 				...subtypeProperties,

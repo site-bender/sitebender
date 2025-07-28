@@ -1,3 +1,22 @@
-import BloodTest from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { BloodTestProps } from "../../../../../types/Thing/MedicalEntity/MedicalTest/BloodTest/index.ts"
 
-export default BloodTest
+import MedicalTest from "../index.tsx"
+
+export type Props = BloodTestProps & BaseProps
+
+export default function BloodTest({
+	_type = "BloodTest",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<MedicalTest
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

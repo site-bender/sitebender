@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { CreativeWorkProps } from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ReviewProps } from "../../../../types/Thing/CreativeWork/Review/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ReviewProps,
-	"Review",
-	ExtractLevelProps<ThingProps, CreativeWorkProps>
->
+export type Props = ReviewProps & BaseProps
 
 export default function Review({
 	associatedClaimReview,
@@ -21,14 +15,14 @@ export default function Review({
 	reviewAspect,
 	reviewBody,
 	reviewRating,
-	schemaType = "Review",
+	_type = "Review",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<CreativeWork
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				associatedClaimReview,
 				associatedMediaReview,

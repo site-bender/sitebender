@@ -1,3 +1,22 @@
-import Painting from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { PaintingProps } from "../../../../types/Thing/CreativeWork/Painting/index.ts"
 
-export default Painting
+import CreativeWork from "../index.tsx"
+
+export type Props = PaintingProps & BaseProps
+
+export default function Painting({
+	_type = "Painting",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,3 +1,22 @@
-import CatholicChurch from "../index.tsx"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { CatholicChurchProps } from "../../../../../../../types/Thing/Place/CivicStructure/PlaceOfWorship/Church/CatholicChurch/index.ts"
 
-export default CatholicChurch
+import Church from "../index.tsx"
+
+export type Props = CatholicChurchProps & BaseProps
+
+export default function CatholicChurch({
+	_type = "CatholicChurch",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Church
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

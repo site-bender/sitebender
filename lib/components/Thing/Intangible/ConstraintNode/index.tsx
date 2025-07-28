@@ -1,27 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ConstraintNodeProps } from "../../../../types/Thing/Intangible/ConstraintNode/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ConstraintNodeProps,
-	"ConstraintNode",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ConstraintNodeProps & BaseProps
 
 export default function ConstraintNode({
 	constraintProperty,
 	numConstraints,
-	schemaType = "ConstraintNode",
+	_type = "ConstraintNode",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				constraintProperty,
 				numConstraints,

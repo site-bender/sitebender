@@ -1,3 +1,22 @@
-import HowToTip from "../index.tsx"
+import type BaseProps from "../../../../types/index.ts"
+import type { HowToTipProps } from "../../../../types/Thing/CreativeWork/HowToTip/index.ts"
 
-export default HowToTip
+import CreativeWork from "../index.tsx"
+
+export type Props = HowToTipProps & BaseProps
+
+export default function HowToTip({
+	_type = "HowToTip",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<CreativeWork
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

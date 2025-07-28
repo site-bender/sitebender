@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function BookSeries({
-	schemaType = "BookSeries",
+	_type = "BookSeries",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<CreativeWorkSeries
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

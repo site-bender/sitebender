@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { GeospatialGeometryProps } from "../../../../types/Thing/Intangible/GeospatialGeometry/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GeospatialGeometryProps,
-	"GeospatialGeometry",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = GeospatialGeometryProps & BaseProps
 
 export default function GeospatialGeometry({
 	geoContains,
@@ -22,14 +16,14 @@ export default function GeospatialGeometry({
 	geoOverlaps,
 	geoTouches,
 	geoWithin,
-	schemaType = "GeospatialGeometry",
+	_type = "GeospatialGeometry",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				geoContains,
 				geoCoveredBy,

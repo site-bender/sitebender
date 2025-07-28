@@ -1,3 +1,22 @@
-import Ligament from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { LigamentProps } from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Ligament/index.ts"
 
-export default Ligament
+import AnatomicalStructure from "../index.tsx"
+
+export type Props = LigamentProps & BaseProps
+
+export default function Ligament({
+	_type = "Ligament",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<AnatomicalStructure
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { PriceSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	PriceSpecificationProps,
-	"PriceSpecification",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = PriceSpecificationProps & BaseProps
 
 export default function PriceSpecification({
 	eligibleQuantity,
@@ -24,14 +17,14 @@ export default function PriceSpecification({
 	validFrom,
 	validThrough,
 	valueAddedTaxIncluded,
-	schemaType = "PriceSpecification",
+	_type = "PriceSpecification",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				eligibleQuantity,
 				eligibleTransactionVolume,

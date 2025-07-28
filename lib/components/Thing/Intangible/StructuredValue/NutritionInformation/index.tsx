@@ -1,16 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { StructuredValueProps } from "../../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { NutritionInformationProps } from "../../../../../types/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
 
 import StructuredValue from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	NutritionInformationProps,
-	"NutritionInformation",
-	ExtractLevelProps<ThingProps, IntangibleProps, StructuredValueProps>
->
+export type Props = NutritionInformationProps & BaseProps
 
 export default function NutritionInformation({
 	calories,
@@ -25,14 +18,14 @@ export default function NutritionInformation({
 	sugarContent,
 	transFatContent,
 	unsaturatedFatContent,
-	schemaType = "NutritionInformation",
+	_type = "NutritionInformation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<StructuredValue
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				calories,
 				carbohydrateContent,

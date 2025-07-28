@@ -1,16 +1,13 @@
 import type Thing from "../../index.ts"
-import type { CreativeWorkProps } from "../index.ts"
 import type MediaObject from "../../MediaObject/index.ts"
+import type { CreativeWorkProps } from "../index.ts"
 
-import MediaReviewItemComponent from "../../../../../components/Thing/CreativeWork/MediaReviewItem/index.tsx"
+import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
 export interface MediaReviewItemProps {
-	mediaItemAppearance?: MediaObject
+	mediaItemAppearance?: MediaObject | ReturnType<typeof MediaObjectComponent>
 }
 
-type MediaReviewItem =
-	& Thing
-	& CreativeWorkProps
-	& MediaReviewItemProps
+type MediaReviewItem = Thing & CreativeWorkProps & MediaReviewItemProps
 
 export default MediaReviewItem

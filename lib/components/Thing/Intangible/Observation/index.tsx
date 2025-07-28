@@ -1,15 +1,9 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../types/index.ts"
-import type ThingProps from "../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../types/Thing/Intangible/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type { ObservationProps } from "../../../../types/Thing/Intangible/Observation/index.ts"
 
 import Intangible from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ObservationProps,
-	"Observation",
-	ExtractLevelProps<ThingProps, IntangibleProps>
->
+export type Props = ObservationProps & BaseProps
 
 export default function Observation({
 	marginOfError,
@@ -22,14 +16,14 @@ export default function Observation({
 	observationDate,
 	observationPeriod,
 	variableMeasured,
-	schemaType = "Observation",
+	_type = "Observation",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Intangible
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				marginOfError,
 				measuredProperty,

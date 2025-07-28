@@ -3,12 +3,14 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
-import HealthPlanCostSharingSpecificationComponent from "../../../../../components/Thing/Intangible/HealthPlanCostSharingSpecification/index.tsx"
+import PriceSpecificationComponent from "../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
 export interface HealthPlanCostSharingSpecificationProps {
 	healthPlanCoinsuranceOption?: Text
 	healthPlanCoinsuranceRate?: Number
-	healthPlanCopay?: PriceSpecification
+	healthPlanCopay?:
+		| PriceSpecification
+		| ReturnType<typeof PriceSpecificationComponent>
 	healthPlanCopayOption?: Text
 	healthPlanPharmacyCategory?: Text
 }

@@ -15,14 +15,14 @@ export type Props = BaseComponentProps<
 >
 
 export default function AutoPartsStore({
-	schemaType = "AutoPartsStore",
+	_type = "AutoPartsStore",
 	subtypeProperties = {},
 	...props
 }: Props) {
 	return (
 		<Store
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={subtypeProperties}
 		/>
 	)

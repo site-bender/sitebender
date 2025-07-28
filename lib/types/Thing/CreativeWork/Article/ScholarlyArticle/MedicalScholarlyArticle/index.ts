@@ -4,8 +4,6 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { ScholarlyArticleProps } from "../index.ts"
 
-import MedicalScholarlyArticleComponent from "../../../../../../../components/Thing/CreativeWork/Article/ScholarlyArticle/MedicalScholarlyArticle/index.tsx"
-
 export interface MedicalScholarlyArticleProps {
 	publicationType?: Text
 }

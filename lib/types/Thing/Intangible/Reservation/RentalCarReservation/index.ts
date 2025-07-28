@@ -1,15 +1,15 @@
 import type { DateTime } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
+import type Place from "../../../Place/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ReservationProps } from "../index.ts"
-import type Place from "../../../Place/index.ts"
 
-import RentalCarReservationComponent from "../../../../../../components/Thing/Intangible/Reservation/RentalCarReservation/index.tsx"
+import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface RentalCarReservationProps {
-	dropoffLocation?: Place
+	dropoffLocation?: Place | ReturnType<typeof PlaceComponent>
 	dropoffTime?: DateTime
-	pickupLocation?: Place
+	pickupLocation?: Place | ReturnType<typeof PlaceComponent>
 	pickupTime?: DateTime
 }
 

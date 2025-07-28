@@ -1,28 +1,21 @@
-import type { BaseComponentProps, ExtractLevelProps } from "../../../../../types/index.ts"
-import type ThingProps from "../../../../../types/Thing/index.ts"
-import type { IntangibleProps } from "../../../../../types/Thing/Intangible/index.ts"
-import type { ServiceProps } from "../../../../../types/Thing/Intangible/Service/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
 import type { GovernmentServiceProps } from "../../../../../types/Thing/Intangible/Service/GovernmentService/index.ts"
 
 import Service from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	GovernmentServiceProps,
-	"GovernmentService",
-	ExtractLevelProps<ThingProps, IntangibleProps, ServiceProps>
->
+export type Props = GovernmentServiceProps & BaseProps
 
 export default function GovernmentService({
 	jurisdiction,
 	serviceOperator,
-	schemaType = "GovernmentService",
+	_type = "GovernmentService",
 	subtypeProperties = {},
 	...props
-}): Props {
+}: Props): JSX.Element {
 	return (
 		<Service
 			{...props}
-			schemaType={schemaType}
+			_type={_type}
 			subtypeProperties={{
 				jurisdiction,
 				serviceOperator,

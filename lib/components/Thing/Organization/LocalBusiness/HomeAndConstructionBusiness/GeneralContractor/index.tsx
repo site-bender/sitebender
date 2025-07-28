@@ -1,3 +1,22 @@
-import GeneralContractor from "../index.tsx"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { GeneralContractorProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/GeneralContractor/index.ts"
 
-export default GeneralContractor
+import HomeAndConstructionBusiness from "../index.tsx"
+
+export type Props = GeneralContractorProps & BaseProps
+
+export default function GeneralContractor({
+	_type = "GeneralContractor",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<HomeAndConstructionBusiness
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}

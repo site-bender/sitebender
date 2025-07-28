@@ -1,3 +1,22 @@
-import Specialty from "../index.tsx"
+import type BaseProps from "../../../../../types/index.ts"
+import type { SpecialtyProps } from "../../../../../types/Thing/Intangible/Enumeration/Specialty/index.ts"
 
-export default Specialty
+import Enumeration from "../index.tsx"
+
+export type Props = SpecialtyProps & BaseProps
+
+export default function Specialty({
+	_type = "Specialty",
+	subtypeProperties = {},
+	...props
+}: Props): JSX.Element {
+	return (
+		<Enumeration
+			{...props}
+			_type={_type}
+			subtypeProperties={{
+				...subtypeProperties,
+			}}
+		/>
+	)
+}
