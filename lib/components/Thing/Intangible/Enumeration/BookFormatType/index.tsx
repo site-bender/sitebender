@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BookFormatTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/BookFormatType/index.ts"
+import type BookFormatTypeProps from "../../../../../types/Thing/Intangible/Enumeration/BookFormatType/index.ts"
 
 import Enumeration from "../index.tsx"
 

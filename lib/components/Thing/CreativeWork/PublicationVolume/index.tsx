@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { PublicationVolumeProps } from "../../../../types/Thing/CreativeWork/PublicationVolume/index.ts"
+import type PublicationVolumeProps from "../../../../types/Thing/CreativeWork/PublicationVolume/index.ts"
 
 import CreativeWork from "../index.tsx"
 

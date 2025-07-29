@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { EmployeeRoleProps } from "../../../../../../types/Thing/Intangible/Role/OrganizationRole/EmployeeRole/index.ts"
+import type EmployeeRoleProps from "../../../../../../types/Thing/Intangible/Role/OrganizationRole/EmployeeRole/index.ts"
 
 import OrganizationRole from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { LocationFeatureSpecificationProps } from "../../../../../../types/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
+import type LocationFeatureSpecificationProps from "../../../../../../types/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 
 import PropertyValue from "../index.tsx"
 

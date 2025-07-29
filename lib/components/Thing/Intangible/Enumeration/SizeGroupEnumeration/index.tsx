@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SizeGroupEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/SizeGroupEnumeration/index.ts"
+import type SizeGroupEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/SizeGroupEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

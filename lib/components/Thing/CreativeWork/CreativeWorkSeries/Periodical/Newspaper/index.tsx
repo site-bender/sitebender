@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { NewspaperProps } from "../../../../../../types/Thing/CreativeWork/CreativeWorkSeries/Periodical/Newspaper/index.ts"
+import type NewspaperProps from "../../../../../../types/Thing/CreativeWork/CreativeWorkSeries/Periodical/Newspaper/index.ts"
 
 import Periodical from "../index.tsx"
 

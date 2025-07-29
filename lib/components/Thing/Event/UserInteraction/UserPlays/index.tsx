@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { UserPlaysProps } from "../../../../../types/Thing/Event/UserInteraction/UserPlays/index.ts"
+import type UserPlaysProps from "../../../../../types/Thing/Event/UserInteraction/UserPlays/index.ts"
 
 import UserInteraction from "../index.tsx"
 

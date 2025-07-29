@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MusicPlaylistProps } from "../../../../types/Thing/CreativeWork/MusicPlaylist/index.ts"
+import type MusicPlaylistProps from "../../../../types/Thing/CreativeWork/MusicPlaylist/index.ts"
 
 import CreativeWork from "../index.tsx"
 

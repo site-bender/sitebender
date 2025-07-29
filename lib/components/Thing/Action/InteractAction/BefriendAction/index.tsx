@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BefriendActionProps } from "../../../../../types/Thing/Action/InteractAction/BefriendAction/index.ts"
+import type BefriendActionProps from "../../../../../types/Thing/Action/InteractAction/BefriendAction/index.ts"
 
 import InteractAction from "../index.tsx"
 

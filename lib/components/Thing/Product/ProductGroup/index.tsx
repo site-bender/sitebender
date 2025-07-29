@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ProductGroupProps } from "../../../../types/Thing/Product/ProductGroup/index.ts"
+import type ProductGroupProps from "../../../../types/Thing/Product/ProductGroup/index.ts"
 
 import Product from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MoneyTransferProps } from "../../../../../types/Thing/Action/TransferAction/MoneyTransfer/index.ts"
+import type MoneyTransferProps from "../../../../../types/Thing/Action/TransferAction/MoneyTransfer/index.ts"
 
 import TransferAction from "../index.tsx"
 

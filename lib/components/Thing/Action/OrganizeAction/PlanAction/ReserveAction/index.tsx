@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ReserveActionProps } from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/ReserveAction/index.ts"
+import type ReserveActionProps from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/ReserveAction/index.ts"
 
 import PlanAction from "../index.tsx"
 

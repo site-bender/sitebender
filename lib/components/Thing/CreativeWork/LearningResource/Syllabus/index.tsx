@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SyllabusProps } from "../../../../../types/Thing/CreativeWork/LearningResource/Syllabus/index.ts"
+import type SyllabusProps from "../../../../../types/Thing/CreativeWork/LearningResource/Syllabus/index.ts"
 
 import LearningResource from "../index.tsx"
 

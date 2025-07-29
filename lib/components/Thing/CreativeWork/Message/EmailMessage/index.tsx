@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { EmailMessageProps } from "../../../../../types/Thing/CreativeWork/Message/EmailMessage/index.ts"
+import type EmailMessageProps from "../../../../../types/Thing/CreativeWork/Message/EmailMessage/index.ts"
 
 import Message from "../index.tsx"
 

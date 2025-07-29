@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { PostalCodeRangeSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.ts"
+import type PostalCodeRangeSpecificationProps from "../../../../../types/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 

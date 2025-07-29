@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { LeaveActionProps } from "../../../../../types/Thing/Action/InteractAction/LeaveAction/index.ts"
+import type LeaveActionProps from "../../../../../types/Thing/Action/InteractAction/LeaveAction/index.ts"
 
 import InteractAction from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { PaymentChargeSpecificationProps } from "../../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/PaymentChargeSpecification/index.ts"
+import type PaymentChargeSpecificationProps from "../../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/PaymentChargeSpecification/index.ts"
 
 import PriceSpecification from "../index.tsx"
 

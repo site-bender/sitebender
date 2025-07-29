@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { SearchActionProps } from "../../../../types/Thing/Action/SearchAction/index.ts"
+import type SearchActionProps from "../../../../types/Thing/Action/SearchAction/index.ts"
 
 import Action from "../index.tsx"
 

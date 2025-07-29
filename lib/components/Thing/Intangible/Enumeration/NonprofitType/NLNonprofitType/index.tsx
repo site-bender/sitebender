@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { NLNonprofitTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/NonprofitType/NLNonprofitType/index.ts"
+import type NLNonprofitTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/NonprofitType/NLNonprofitType/index.ts"
 
 import NonprofitType from "../index.tsx"
 

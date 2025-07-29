@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ServiceChannelProps } from "../../../../types/Thing/Intangible/ServiceChannel/index.ts"
+import type ServiceChannelProps from "../../../../types/Thing/Intangible/ServiceChannel/index.ts"
 
 import Intangible from "../index.tsx"
 

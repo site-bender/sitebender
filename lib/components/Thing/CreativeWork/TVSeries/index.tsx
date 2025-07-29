@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { TVSeriesProps } from "../../../../types/Thing/CreativeWork/TVSeries/index.ts"
+import type TVSeriesProps from "../../../../types/Thing/CreativeWork/TVSeries/index.ts"
 
 import CreativeWork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CertificationStatusEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/CertificationStatusEnumeration/index.ts"
+import type CertificationStatusEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/CertificationStatusEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

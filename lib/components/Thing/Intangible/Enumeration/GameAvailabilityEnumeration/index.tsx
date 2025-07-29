@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { GameAvailabilityEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.ts"
+import type GameAvailabilityEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

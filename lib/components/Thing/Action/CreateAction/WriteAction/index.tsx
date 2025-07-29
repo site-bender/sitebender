@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WriteActionProps } from "../../../../../types/Thing/Action/CreateAction/WriteAction/index.ts"
+import type WriteActionProps from "../../../../../types/Thing/Action/CreateAction/WriteAction/index.ts"
 
 import CreateAction from "../index.tsx"
 

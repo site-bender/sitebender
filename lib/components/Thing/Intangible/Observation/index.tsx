@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ObservationProps } from "../../../../types/Thing/Intangible/Observation/index.ts"
+import type ObservationProps from "../../../../types/Thing/Intangible/Observation/index.ts"
 
 import Intangible from "../index.tsx"
 

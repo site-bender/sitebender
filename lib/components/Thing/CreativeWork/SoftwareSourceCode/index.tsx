@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { SoftwareSourceCodeProps } from "../../../../types/Thing/CreativeWork/SoftwareSourceCode/index.ts"
+import type SoftwareSourceCodeProps from "../../../../types/Thing/CreativeWork/SoftwareSourceCode/index.ts"
 
 import CreativeWork from "../index.tsx"
 

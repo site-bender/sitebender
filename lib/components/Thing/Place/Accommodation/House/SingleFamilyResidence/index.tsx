@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { SingleFamilyResidenceProps } from "../../../../../../types/Thing/Place/Accommodation/House/SingleFamilyResidence/index.ts"
+import type SingleFamilyResidenceProps from "../../../../../../types/Thing/Place/Accommodation/House/SingleFamilyResidence/index.ts"
 
 import House from "../index.tsx"
 

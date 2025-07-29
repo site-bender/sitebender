@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DefinedTermProps } from "../../../../types/Thing/Intangible/DefinedTerm/index.ts"
+import type DefinedTermProps from "../../../../types/Thing/Intangible/DefinedTerm/index.ts"
 
 import Intangible from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { RatingProps } from "../../../../types/Thing/Intangible/Rating/index.ts"
+import type RatingProps from "../../../../types/Thing/Intangible/Rating/index.ts"
 
 import Intangible from "../index.tsx"
 

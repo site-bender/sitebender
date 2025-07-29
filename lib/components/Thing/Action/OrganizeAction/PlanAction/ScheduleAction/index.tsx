@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ScheduleActionProps } from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/ScheduleAction/index.ts"
+import type ScheduleActionProps from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/ScheduleAction/index.ts"
 
 import PlanAction from "../index.tsx"
 

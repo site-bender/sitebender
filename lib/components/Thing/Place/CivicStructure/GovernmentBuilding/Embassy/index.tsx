@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { EmbassyProps } from "../../../../../../types/Thing/Place/CivicStructure/GovernmentBuilding/Embassy/index.ts"
+import type EmbassyProps from "../../../../../../types/Thing/Place/CivicStructure/GovernmentBuilding/Embassy/index.ts"
 
 import GovernmentBuilding from "../index.tsx"
 

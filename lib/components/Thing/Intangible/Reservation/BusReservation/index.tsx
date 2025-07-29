@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BusReservationProps } from "../../../../../types/Thing/Intangible/Reservation/BusReservation/index.ts"
+import type BusReservationProps from "../../../../../types/Thing/Intangible/Reservation/BusReservation/index.ts"
 
 import Reservation from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ShippingServiceProps } from "../../../../../types/Thing/Intangible/StructuredValue/ShippingService/index.ts"
+import type ShippingServiceProps from "../../../../../types/Thing/Intangible/StructuredValue/ShippingService/index.ts"
 
 import StructuredValue from "../index.tsx"
 

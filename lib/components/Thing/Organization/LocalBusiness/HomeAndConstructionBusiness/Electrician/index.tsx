@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ElectricianProps } from "../../../../../../types/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/Electrician/index.ts"
+import type ElectricianProps from "../../../../../../types/Thing/Organization/LocalBusiness/HomeAndConstructionBusiness/Electrician/index.ts"
 
 import HomeAndConstructionBusiness from "../index.tsx"
 

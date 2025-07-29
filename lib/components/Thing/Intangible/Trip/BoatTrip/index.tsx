@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BoatTripProps } from "../../../../../types/Thing/Intangible/Trip/BoatTrip/index.ts"
+import type BoatTripProps from "../../../../../types/Thing/Intangible/Trip/BoatTrip/index.ts"
 
 import Trip from "../index.tsx"
 

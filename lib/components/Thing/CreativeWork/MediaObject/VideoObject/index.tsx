@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { VideoObjectProps } from "../../../../../types/Thing/CreativeWork/MediaObject/VideoObject/index.ts"
+import type VideoObjectProps from "../../../../../types/Thing/CreativeWork/MediaObject/VideoObject/index.ts"
 
 import MediaObject from "../index.tsx"
 

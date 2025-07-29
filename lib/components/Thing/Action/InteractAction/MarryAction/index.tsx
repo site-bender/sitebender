@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MarryActionProps } from "../../../../../types/Thing/Action/InteractAction/MarryAction/index.ts"
+import type MarryActionProps from "../../../../../types/Thing/Action/InteractAction/MarryAction/index.ts"
 
 import InteractAction from "../index.tsx"
 

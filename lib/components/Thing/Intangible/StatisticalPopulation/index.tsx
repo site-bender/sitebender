@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { StatisticalPopulationProps } from "../../../../types/Thing/Intangible/StatisticalPopulation/index.ts"
+import type StatisticalPopulationProps from "../../../../types/Thing/Intangible/StatisticalPopulation/index.ts"
 
 import Intangible from "../index.tsx"
 

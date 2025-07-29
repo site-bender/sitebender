@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CDCPMDRecordProps } from "../../../../../types/Thing/Intangible/StructuredValue/CDCPMDRecord/index.ts"
+import type CDCPMDRecordProps from "../../../../../types/Thing/Intangible/StructuredValue/CDCPMDRecord/index.ts"
 
 import StructuredValue from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { SheetMusicProps } from "../../../../types/Thing/CreativeWork/SheetMusic/index.ts"
+import type SheetMusicProps from "../../../../types/Thing/CreativeWork/SheetMusic/index.ts"
 
 import CreativeWork from "../index.tsx"
 

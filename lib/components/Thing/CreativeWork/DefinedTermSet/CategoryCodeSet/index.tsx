@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CategoryCodeSetProps } from "../../../../../types/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.ts"
+import type CategoryCodeSetProps from "../../../../../types/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.ts"
 
 import DefinedTermSet from "../index.tsx"
 

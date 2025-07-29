@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ArriveActionProps } from "../../../../../types/Thing/Action/MoveAction/ArriveAction/index.ts"
+import type ArriveActionProps from "../../../../../types/Thing/Action/MoveAction/ArriveAction/index.ts"
 
 import MoveAction from "../index.tsx"
 

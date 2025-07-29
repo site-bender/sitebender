@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { OfferCatalogProps } from "../../../../../types/Thing/Intangible/ItemList/OfferCatalog/index.ts"
+import type OfferCatalogProps from "../../../../../types/Thing/Intangible/ItemList/OfferCatalog/index.ts"
 
 import ItemList from "../index.tsx"
 

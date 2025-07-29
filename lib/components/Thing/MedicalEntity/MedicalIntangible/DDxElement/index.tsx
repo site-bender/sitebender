@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DDxElementProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DDxElement/index.ts"
+import type DDxElementProps from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DDxElement/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 

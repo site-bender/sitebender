@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MerchantReturnPolicySeasonalOverrideProps } from "../../../../types/Thing/Intangible/MerchantReturnPolicySeasonalOverride/index.ts"
+import type MerchantReturnPolicySeasonalOverrideProps from "../../../../types/Thing/Intangible/MerchantReturnPolicySeasonalOverride/index.ts"
 
 import Intangible from "../index.tsx"
 

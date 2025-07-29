@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WPAdBlockProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPAdBlock/index.ts"
+import type WPAdBlockProps from "../../../../../types/Thing/CreativeWork/WebPageElement/WPAdBlock/index.ts"
 
 import WebPageElement from "../index.tsx"
 

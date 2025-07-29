@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type { VitalSignProps } from "../../../../../../../types/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/VitalSign/index.ts"
+import type VitalSignProps from "../../../../../../../types/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/VitalSign/index.ts"
 
 import MedicalSign from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MusicReleaseFormatTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/MusicReleaseFormatType/index.ts"
+import type MusicReleaseFormatTypeProps from "../../../../../types/Thing/Intangible/Enumeration/MusicReleaseFormatType/index.ts"
 
 import Enumeration from "../index.tsx"
 

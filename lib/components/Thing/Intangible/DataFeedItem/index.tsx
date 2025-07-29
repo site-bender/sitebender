@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DataFeedItemProps } from "../../../../types/Thing/Intangible/DataFeedItem/index.ts"
+import type DataFeedItemProps from "../../../../types/Thing/Intangible/DataFeedItem/index.ts"
 
 import Intangible from "../index.tsx"
 

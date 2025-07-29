@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DigitalDocumentPermissionProps } from "../../../../types/Thing/Intangible/DigitalDocumentPermission/index.ts"
+import type DigitalDocumentPermissionProps from "../../../../types/Thing/Intangible/DigitalDocumentPermission/index.ts"
 
 import Intangible from "../index.tsx"
 

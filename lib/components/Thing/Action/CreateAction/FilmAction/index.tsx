@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { FilmActionProps } from "../../../../../types/Thing/Action/CreateAction/FilmAction/index.ts"
+import type FilmActionProps from "../../../../../types/Thing/Action/CreateAction/FilmAction/index.ts"
 
 import CreateAction from "../index.tsx"
 

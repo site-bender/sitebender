@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MapCategoryTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/MapCategoryType/index.ts"
+import type MapCategoryTypeProps from "../../../../../types/Thing/Intangible/Enumeration/MapCategoryType/index.ts"
 
 import Enumeration from "../index.tsx"
 

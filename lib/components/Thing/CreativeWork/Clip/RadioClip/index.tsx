@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RadioClipProps } from "../../../../../types/Thing/CreativeWork/Clip/RadioClip/index.ts"
+import type RadioClipProps from "../../../../../types/Thing/CreativeWork/Clip/RadioClip/index.ts"
 
 import Clip from "../index.tsx"
 

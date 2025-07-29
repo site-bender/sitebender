@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ScheduleProps } from "../../../../types/Thing/Intangible/Schedule/index.ts"
+import type ScheduleProps from "../../../../types/Thing/Intangible/Schedule/index.ts"
 
 import Intangible from "../index.tsx"
 

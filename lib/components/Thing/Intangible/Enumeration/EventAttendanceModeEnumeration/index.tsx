@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { EventAttendanceModeEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/EventAttendanceModeEnumeration/index.ts"
+import type EventAttendanceModeEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/EventAttendanceModeEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MobileApplicationProps } from "../../../../../types/Thing/CreativeWork/SoftwareApplication/MobileApplication/index.ts"
+import type MobileApplicationProps from "../../../../../types/Thing/CreativeWork/SoftwareApplication/MobileApplication/index.ts"
 
 import SoftwareApplication from "../index.tsx"
 

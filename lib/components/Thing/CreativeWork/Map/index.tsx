@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MapProps } from "../../../../types/Thing/CreativeWork/Map/index.ts"
+import type MapProps from "../../../../types/Thing/CreativeWork/Map/index.ts"
 
 import CreativeWork from "../index.tsx"
 

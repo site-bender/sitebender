@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MonetaryAmountProps } from "../../../../../types/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
+import type MonetaryAmountProps from "../../../../../types/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 import StructuredValue from "../index.tsx"
 

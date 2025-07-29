@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { VeinProps } from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/Vein/index.ts"
+import type VeinProps from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/Vein/index.ts"
 
 import Vessel from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type { RsvpActionProps } from "../../../../../../../types/Thing/Action/InteractAction/CommunicateAction/InformAction/RsvpAction/index.ts"
+import type RsvpActionProps from "../../../../../../../types/Thing/Action/InteractAction/CommunicateAction/InformAction/RsvpAction/index.ts"
 
 import InformAction from "../index.tsx"
 

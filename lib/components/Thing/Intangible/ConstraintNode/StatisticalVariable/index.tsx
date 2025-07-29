@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { StatisticalVariableProps } from "../../../../../types/Thing/Intangible/ConstraintNode/StatisticalVariable/index.ts"
+import type StatisticalVariableProps from "../../../../../types/Thing/Intangible/ConstraintNode/StatisticalVariable/index.ts"
 
 import ConstraintNode from "../index.tsx"
 

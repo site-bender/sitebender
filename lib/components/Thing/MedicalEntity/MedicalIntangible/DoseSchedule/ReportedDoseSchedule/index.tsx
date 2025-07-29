@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ReportedDoseScheduleProps } from "../../../../../../types/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/ReportedDoseSchedule/index.ts"
+import type ReportedDoseScheduleProps from "../../../../../../types/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/ReportedDoseSchedule/index.ts"
 
 import DoseSchedule from "../index.tsx"
 

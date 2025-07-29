@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CategoryCodeProps } from "../../../../../types/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
+import type CategoryCodeProps from "../../../../../types/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
 
 import DefinedTerm from "../index.tsx"
 

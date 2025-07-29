@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CheckoutPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/CheckoutPage/index.ts"
+import type CheckoutPageProps from "../../../../../types/Thing/CreativeWork/WebPage/CheckoutPage/index.ts"
 
 import WebPage from "../index.tsx"
 

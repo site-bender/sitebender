@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { AdministrativeAreaProps } from "../../../../types/Thing/Place/AdministrativeArea/index.ts"
+import type AdministrativeAreaProps from "../../../../types/Thing/Place/AdministrativeArea/index.ts"
 
 import Place from "../index.tsx"
 

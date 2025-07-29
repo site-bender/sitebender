@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { StadiumOrArenaProps } from "../../../../../types/Thing/Place/CivicStructure/StadiumOrArena/index.ts"
+import type StadiumOrArenaProps from "../../../../../types/Thing/Place/CivicStructure/StadiumOrArena/index.ts"
 
 import CivicStructure from "../index.tsx"
 

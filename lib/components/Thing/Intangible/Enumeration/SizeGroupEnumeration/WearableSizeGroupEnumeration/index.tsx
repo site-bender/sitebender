@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { WearableSizeGroupEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/SizeGroupEnumeration/WearableSizeGroupEnumeration/index.ts"
+import type WearableSizeGroupEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/SizeGroupEnumeration/WearableSizeGroupEnumeration/index.ts"
 
 import SizeGroupEnumeration from "../index.tsx"
 

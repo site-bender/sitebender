@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { RoleProps } from "../../../../types/Thing/Intangible/Role/index.ts"
+import type RoleProps from "../../../../types/Thing/Intangible/Role/index.ts"
 
 import Intangible from "../index.tsx"
 

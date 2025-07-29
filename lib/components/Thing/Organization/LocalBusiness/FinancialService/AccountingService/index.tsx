@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { AccountingServiceProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/AccountingService/index.ts"
+import type AccountingServiceProps from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/AccountingService/index.ts"
 
 import FinancialService from "../index.tsx"
 

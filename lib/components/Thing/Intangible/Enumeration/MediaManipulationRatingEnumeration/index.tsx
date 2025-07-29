@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MediaManipulationRatingEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/MediaManipulationRatingEnumeration/index.ts"
+import type MediaManipulationRatingEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/MediaManipulationRatingEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

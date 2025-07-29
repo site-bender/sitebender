@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ImageObjectSnapshotProps } from "../../../../../../types/Thing/CreativeWork/MediaObject/ImageObject/ImageObjectSnapshot/index.ts"
+import type ImageObjectSnapshotProps from "../../../../../../types/Thing/CreativeWork/MediaObject/ImageObject/ImageObjectSnapshot/index.ts"
 
 import ImageObject from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { CreditCardProps } from "../../../../../../types/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.ts"
+import type CreditCardProps from "../../../../../../types/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.ts"
 
 import PaymentCard from "../index.tsx"
 

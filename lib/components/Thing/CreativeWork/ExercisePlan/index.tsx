@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ExercisePlanProps } from "../../../../types/Thing/CreativeWork/ExercisePlan/index.ts"
+import type ExercisePlanProps from "../../../../types/Thing/CreativeWork/ExercisePlan/index.ts"
 
 import CreativeWork from "../index.tsx"
 

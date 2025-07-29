@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { IPTCDigitalSourceEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/MediaEnumeration/IPTCDigitalSourceEnumeration/index.ts"
+import type IPTCDigitalSourceEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/MediaEnumeration/IPTCDigitalSourceEnumeration/index.ts"
 
 import MediaEnumeration from "../index.tsx"
 

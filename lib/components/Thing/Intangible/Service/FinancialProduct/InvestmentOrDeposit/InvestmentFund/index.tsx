@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type { InvestmentFundProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/InvestmentFund/index.ts"
+import type InvestmentFundProps from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/InvestmentFund/index.ts"
 
 import InvestmentOrDeposit from "../index.tsx"
 

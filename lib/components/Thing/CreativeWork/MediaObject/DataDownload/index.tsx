@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DataDownloadProps } from "../../../../../types/Thing/CreativeWork/MediaObject/DataDownload/index.ts"
+import type DataDownloadProps from "../../../../../types/Thing/CreativeWork/MediaObject/DataDownload/index.ts"
 
 import MediaObject from "../index.tsx"
 

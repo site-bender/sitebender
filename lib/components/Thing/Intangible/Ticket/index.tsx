@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { TicketProps } from "../../../../types/Thing/Intangible/Ticket/index.ts"
+import type TicketProps from "../../../../types/Thing/Intangible/Ticket/index.ts"
 
 import Intangible from "../index.tsx"
 

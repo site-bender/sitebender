@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ContinentProps } from "../../../../../types/Thing/Place/Landform/Continent/index.ts"
+import type ContinentProps from "../../../../../types/Thing/Place/Landform/Continent/index.ts"
 
 import Landform from "../index.tsx"
 

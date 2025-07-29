@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { FloorPlanProps } from "../../../../types/Thing/Intangible/FloorPlan/index.ts"
+import type FloorPlanProps from "../../../../types/Thing/Intangible/FloorPlan/index.ts"
 
 import Intangible from "../index.tsx"
 

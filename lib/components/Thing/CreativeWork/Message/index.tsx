@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MessageProps } from "../../../../types/Thing/CreativeWork/Message/index.ts"
+import type MessageProps from "../../../../types/Thing/CreativeWork/Message/index.ts"
 
 import CreativeWork from "../index.tsx"
 

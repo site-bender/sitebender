@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { DriveWheelConfigurationValueProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
+import type DriveWheelConfigurationValueProps from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
 
 import QualitativeValue from "../index.tsx"
 

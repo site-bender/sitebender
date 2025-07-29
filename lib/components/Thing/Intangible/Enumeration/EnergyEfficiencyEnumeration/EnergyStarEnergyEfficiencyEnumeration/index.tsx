@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { EnergyStarEnergyEfficiencyEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EnergyStarEnergyEfficiencyEnumeration/index.ts"
+import type EnergyStarEnergyEfficiencyEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EnergyStarEnergyEfficiencyEnumeration/index.ts"
 
 import EnergyEfficiencyEnumeration from "../index.tsx"
 

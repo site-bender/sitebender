@@ -1,6 +1,5 @@
 import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
-// import Person from "~lib/components/Thing/Person/index.tsx"
-import WebPage from "~lib/components/Thing/CreativeWork/WebPage/index.tsx"
+import Person from "~lib/components/Thing/Person/index.tsx"
 
 export type Props = {
 	route?: string
@@ -30,11 +29,17 @@ export default function ({ route }: Props = {}) {
 				<h2>Simple string fallbacks</h2>
 				<p>
 					<Book
-						archivedAt={<WebPage url="https://example.com/archived" />}
-						author={{
+						author={
+							<Person
+								alternateName="Scott Fitzgerald"
+								givenName="F. Scott"
+								familyName="Fitzgerald"
+							/>
+						}
+						editor={{
 							_type: "Person",
-							givenName: "F. Scott",
-							familyName: "Fitzgerald",
+							givenName: "John",
+							familyName: "Doe",
 						}}
 						name="The Great Gatsby"
 						isbn="9780743273565"

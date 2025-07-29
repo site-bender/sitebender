@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ScholarlyArticleProps } from "../../../../../types/Thing/CreativeWork/Article/ScholarlyArticle/index.ts"
+import type ScholarlyArticleProps from "../../../../../types/Thing/CreativeWork/Article/ScholarlyArticle/index.ts"
 
 import Article from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MathSolverProps } from "../../../../types/Thing/CreativeWork/MathSolver/index.ts"
+import type MathSolverProps from "../../../../types/Thing/CreativeWork/MathSolver/index.ts"
 
 import CreativeWork from "../index.tsx"
 

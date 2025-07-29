@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { PostalAddressProps } from "../../../../../../types/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
+import type PostalAddressProps from "../../../../../../types/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 
 import ContactPoint from "../index.tsx"
 

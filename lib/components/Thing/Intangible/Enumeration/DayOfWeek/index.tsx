@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DayOfWeekProps } from "../../../../../types/Thing/Intangible/Enumeration/DayOfWeek/index.ts"
+import type DayOfWeekProps from "../../../../../types/Thing/Intangible/Enumeration/DayOfWeek/index.ts"
 
 import Enumeration from "../index.tsx"
 

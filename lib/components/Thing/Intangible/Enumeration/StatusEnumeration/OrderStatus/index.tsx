@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { OrderStatusProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.ts"
+import type OrderStatusProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

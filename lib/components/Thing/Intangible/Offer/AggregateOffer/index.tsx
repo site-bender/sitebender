@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { AggregateOfferProps } from "../../../../../types/Thing/Intangible/Offer/AggregateOffer/index.ts"
+import type AggregateOfferProps from "../../../../../types/Thing/Intangible/Offer/AggregateOffer/index.ts"
 
 import Offer from "../index.tsx"
 

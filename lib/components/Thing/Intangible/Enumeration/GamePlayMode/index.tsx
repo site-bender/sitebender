@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { GamePlayModeProps } from "../../../../../types/Thing/Intangible/Enumeration/GamePlayMode/index.ts"
+import type GamePlayModeProps from "../../../../../types/Thing/Intangible/Enumeration/GamePlayMode/index.ts"
 
 import Enumeration from "../index.tsx"
 

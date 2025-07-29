@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MemberProgramTierProps } from "../../../../types/Thing/Intangible/MemberProgramTier/index.ts"
+import type MemberProgramTierProps from "../../../../types/Thing/Intangible/MemberProgramTier/index.ts"
 
 import Intangible from "../index.tsx"
 

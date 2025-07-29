@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { GeoCoordinatesProps } from "../../../../../types/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
+import type GeoCoordinatesProps from "../../../../../types/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
 
 import StructuredValue from "../index.tsx"
 

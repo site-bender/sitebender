@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ScreeningEventProps } from "../../../../types/Thing/Event/ScreeningEvent/index.ts"
+import type ScreeningEventProps from "../../../../types/Thing/Event/ScreeningEvent/index.ts"
 
 import Event from "../index.tsx"
 

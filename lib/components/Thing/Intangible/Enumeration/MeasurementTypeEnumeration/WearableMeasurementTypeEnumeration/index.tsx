@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { WearableMeasurementTypeEnumerationProps } from "../../../../../../types/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/WearableMeasurementTypeEnumeration/index.ts"
+import type WearableMeasurementTypeEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/WearableMeasurementTypeEnumeration/index.ts"
 
 import MeasurementTypeEnumeration from "../index.tsx"
 

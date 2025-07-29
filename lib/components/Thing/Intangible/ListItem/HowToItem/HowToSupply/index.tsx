@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { HowToSupplyProps } from "../../../../../../types/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.ts"
+import type HowToSupplyProps from "../../../../../../types/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.ts"
 
 import HowToItem from "../index.tsx"
 

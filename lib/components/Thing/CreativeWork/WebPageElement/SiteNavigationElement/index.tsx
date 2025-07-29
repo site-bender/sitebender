@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SiteNavigationElementProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/SiteNavigationElement/index.ts"
+import type SiteNavigationElementProps from "../../../../../types/Thing/CreativeWork/WebPageElement/SiteNavigationElement/index.ts"
 
 import WebPageElement from "../index.tsx"
 

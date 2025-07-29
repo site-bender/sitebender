@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { BarcodeProps } from "../../../../../../types/Thing/CreativeWork/MediaObject/ImageObject/Barcode/index.ts"
+import type BarcodeProps from "../../../../../../types/Thing/CreativeWork/MediaObject/ImageObject/Barcode/index.ts"
 
 import ImageObject from "../index.tsx"
 

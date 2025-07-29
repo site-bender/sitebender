@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { PoliticalPartyProps } from "../../../../types/Thing/Organization/PoliticalParty/index.ts"
+import type PoliticalPartyProps from "../../../../types/Thing/Organization/PoliticalParty/index.ts"
 
 import Organization from "../index.tsx"
 

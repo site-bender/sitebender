@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RVParkProps } from "../../../../../types/Thing/Place/CivicStructure/RVPark/index.ts"
+import type RVParkProps from "../../../../../types/Thing/Place/CivicStructure/RVPark/index.ts"
 
 import CivicStructure from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { TradeActionProps } from "../../../../types/Thing/Action/TradeAction/index.ts"
+import type TradeActionProps from "../../../../types/Thing/Action/TradeAction/index.ts"
 
 import Action from "../index.tsx"
 

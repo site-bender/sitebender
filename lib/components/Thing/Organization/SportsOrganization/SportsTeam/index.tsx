@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SportsTeamProps } from "../../../../../types/Thing/Organization/SportsOrganization/SportsTeam/index.ts"
+import type SportsTeamProps from "../../../../../types/Thing/Organization/SportsOrganization/SportsTeam/index.ts"
 
 import SportsOrganization from "../index.tsx"
 

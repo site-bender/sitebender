@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { WebPageElementProps } from "../../../../types/Thing/CreativeWork/WebPageElement/index.ts"
+import type WebPageElementProps from "../../../../types/Thing/CreativeWork/WebPageElement/index.ts"
 
 import CreativeWork from "../index.tsx"
 

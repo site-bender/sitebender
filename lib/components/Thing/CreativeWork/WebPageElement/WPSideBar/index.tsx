@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WPSideBarProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPSideBar/index.ts"
+import type WPSideBarProps from "../../../../../types/Thing/CreativeWork/WebPageElement/WPSideBar/index.ts"
 
 import WebPageElement from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DemandProps } from "../../../../types/Thing/Intangible/Demand/index.ts"
+import type DemandProps from "../../../../types/Thing/Intangible/Demand/index.ts"
 
 import Intangible from "../index.tsx"
 

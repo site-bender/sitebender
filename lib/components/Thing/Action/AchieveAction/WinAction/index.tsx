@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WinActionProps } from "../../../../../types/Thing/Action/AchieveAction/WinAction/index.ts"
+import type WinActionProps from "../../../../../types/Thing/Action/AchieveAction/WinAction/index.ts"
 
 import AchieveAction from "../index.tsx"
 

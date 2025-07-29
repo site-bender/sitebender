@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { EngineSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/EngineSpecification/index.ts"
+import type EngineSpecificationProps from "../../../../../types/Thing/Intangible/StructuredValue/EngineSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ChurchProps } from "../../../../../../types/Thing/Place/CivicStructure/PlaceOfWorship/Church/index.ts"
+import type ChurchProps from "../../../../../../types/Thing/Place/CivicStructure/PlaceOfWorship/Church/index.ts"
 
 import PlaceOfWorship from "../index.tsx"
 

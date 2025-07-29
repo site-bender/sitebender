@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { CancelActionProps } from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/CancelAction/index.ts"
+import type CancelActionProps from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/CancelAction/index.ts"
 
 import PlanAction from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { TripProps } from "../../../../types/Thing/Intangible/Trip/index.ts"
+import type TripProps from "../../../../types/Thing/Intangible/Trip/index.ts"
 
 import Intangible from "../index.tsx"
 

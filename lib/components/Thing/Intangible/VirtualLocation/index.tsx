@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { VirtualLocationProps } from "../../../../types/Thing/Intangible/VirtualLocation/index.ts"
+import type VirtualLocationProps from "../../../../types/Thing/Intangible/VirtualLocation/index.ts"
 
 import Intangible from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DurationProps } from "../../../../../types/Thing/Intangible/Quantity/Duration/index.ts"
+import type DurationProps from "../../../../../types/Thing/Intangible/Quantity/Duration/index.ts"
 
 import Quantity from "../index.tsx"
 

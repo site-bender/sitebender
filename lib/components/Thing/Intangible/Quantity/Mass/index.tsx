@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MassProps } from "../../../../../types/Thing/Intangible/Quantity/Mass/index.ts"
+import type MassProps from "../../../../../types/Thing/Intangible/Quantity/Mass/index.ts"
 
 import Quantity from "../index.tsx"
 

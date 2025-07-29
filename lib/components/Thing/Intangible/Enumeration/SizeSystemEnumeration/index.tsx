@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SizeSystemEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/SizeSystemEnumeration/index.ts"
+import type SizeSystemEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/SizeSystemEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

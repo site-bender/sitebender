@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { LegislationProps } from "../../../../types/Thing/CreativeWork/Legislation/index.ts"
+import type LegislationProps from "../../../../types/Thing/CreativeWork/Legislation/index.ts"
 
 import CreativeWork from "../index.tsx"
 

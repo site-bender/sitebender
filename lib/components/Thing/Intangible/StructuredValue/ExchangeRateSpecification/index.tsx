@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ExchangeRateSpecificationProps } from "../../../../../types/Thing/Intangible/StructuredValue/ExchangeRateSpecification/index.ts"
+import type ExchangeRateSpecificationProps from "../../../../../types/Thing/Intangible/StructuredValue/ExchangeRateSpecification/index.ts"
 
 import StructuredValue from "../index.tsx"
 

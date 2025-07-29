@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ReplaceActionProps } from "../../../../../types/Thing/Action/UpdateAction/ReplaceAction/index.ts"
+import type ReplaceActionProps from "../../../../../types/Thing/Action/UpdateAction/ReplaceAction/index.ts"
 
 import UpdateAction from "../index.tsx"
 

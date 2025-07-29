@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DigitalPlatformEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.ts"
+import type DigitalPlatformEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

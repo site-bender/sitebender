@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BusinessFunctionProps } from "../../../../../types/Thing/Intangible/Enumeration/BusinessFunction/index.ts"
+import type BusinessFunctionProps from "../../../../../types/Thing/Intangible/Enumeration/BusinessFunction/index.ts"
 
 import Enumeration from "../index.tsx"
 

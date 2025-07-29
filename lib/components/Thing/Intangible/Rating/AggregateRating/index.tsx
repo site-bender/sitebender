@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { AggregateRatingProps } from "../../../../../types/Thing/Intangible/Rating/AggregateRating/index.ts"
+import type AggregateRatingProps from "../../../../../types/Thing/Intangible/Rating/AggregateRating/index.ts"
 
 import Rating from "../index.tsx"
 

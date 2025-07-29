@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { IncentiveQualifiedExpenseTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/IncentiveQualifiedExpenseType/index.ts"
+import type IncentiveQualifiedExpenseTypeProps from "../../../../../types/Thing/Intangible/Enumeration/IncentiveQualifiedExpenseType/index.ts"
 
 import Enumeration from "../index.tsx"
 

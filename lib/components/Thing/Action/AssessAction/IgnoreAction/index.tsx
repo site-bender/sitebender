@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { IgnoreActionProps } from "../../../../../types/Thing/Action/AssessAction/IgnoreAction/index.ts"
+import type IgnoreActionProps from "../../../../../types/Thing/Action/AssessAction/IgnoreAction/index.ts"
 
 import AssessAction from "../index.tsx"
 

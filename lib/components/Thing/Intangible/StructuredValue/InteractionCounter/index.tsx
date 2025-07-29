@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { InteractionCounterProps } from "../../../../../types/Thing/Intangible/StructuredValue/InteractionCounter/index.ts"
+import type InteractionCounterProps from "../../../../../types/Thing/Intangible/StructuredValue/InteractionCounter/index.ts"
 
 import StructuredValue from "../index.tsx"
 

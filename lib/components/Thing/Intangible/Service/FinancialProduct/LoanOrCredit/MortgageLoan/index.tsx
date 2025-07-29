@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type { MortgageLoanProps } from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/MortgageLoan/index.ts"
+import type MortgageLoanProps from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/LoanOrCredit/MortgageLoan/index.ts"
 
 import LoanOrCredit from "../index.tsx"
 

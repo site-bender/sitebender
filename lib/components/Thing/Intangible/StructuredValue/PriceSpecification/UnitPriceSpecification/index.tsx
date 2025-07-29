@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { UnitPriceSpecificationProps } from "../../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
+import type UnitPriceSpecificationProps from "../../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
 import PriceSpecification from "../index.tsx"
 

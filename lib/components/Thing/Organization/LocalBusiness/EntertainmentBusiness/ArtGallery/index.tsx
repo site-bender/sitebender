@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ArtGalleryProps } from "../../../../../../types/Thing/Organization/LocalBusiness/EntertainmentBusiness/ArtGallery/index.ts"
+import type ArtGalleryProps from "../../../../../../types/Thing/Organization/LocalBusiness/EntertainmentBusiness/ArtGallery/index.ts"
 
 import EntertainmentBusiness from "../index.tsx"
 

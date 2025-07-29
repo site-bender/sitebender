@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ReservationPackageProps } from "../../../../../types/Thing/Intangible/Reservation/ReservationPackage/index.ts"
+import type ReservationPackageProps from "../../../../../types/Thing/Intangible/Reservation/ReservationPackage/index.ts"
 
 import Reservation from "../index.tsx"
 

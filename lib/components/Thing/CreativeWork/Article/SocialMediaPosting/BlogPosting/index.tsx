@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { BlogPostingProps } from "../../../../../../types/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.ts"
+import type BlogPostingProps from "../../../../../../types/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.ts"
 
 import SocialMediaPosting from "../index.tsx"
 

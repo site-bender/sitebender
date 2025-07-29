@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { PsychologicalTreatmentProps } from "../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/PsychologicalTreatment/index.ts"
+import type PsychologicalTreatmentProps from "../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/PsychologicalTreatment/index.ts"
 
 import TherapeuticProcedure from "../index.tsx"
 

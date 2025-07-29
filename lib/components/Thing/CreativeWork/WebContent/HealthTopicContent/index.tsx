@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { HealthTopicContentProps } from "../../../../../types/Thing/CreativeWork/WebContent/HealthTopicContent/index.ts"
+import type HealthTopicContentProps from "../../../../../types/Thing/CreativeWork/WebContent/HealthTopicContent/index.ts"
 
 import WebContent from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MeasurementMethodEnumProps } from "../../../../../types/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
+import type MeasurementMethodEnumProps from "../../../../../types/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
 import Enumeration from "../index.tsx"
 

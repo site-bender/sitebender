@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { PermitProps } from "../../../../types/Thing/Intangible/Permit/index.ts"
+import type PermitProps from "../../../../types/Thing/Intangible/Permit/index.ts"
 
 import Intangible from "../index.tsx"
 

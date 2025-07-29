@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { PeopleAudienceProps } from "../../../../../types/Thing/Intangible/Audience/PeopleAudience/index.ts"
+import type PeopleAudienceProps from "../../../../../types/Thing/Intangible/Audience/PeopleAudience/index.ts"
 
 import Audience from "../index.tsx"
 

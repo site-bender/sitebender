@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ActionStatusTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ActionStatusType/index.ts"
+import type ActionStatusTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ActionStatusType/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

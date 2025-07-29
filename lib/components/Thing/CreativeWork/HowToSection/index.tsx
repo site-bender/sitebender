@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { HowToSectionProps } from "../../../../types/Thing/CreativeWork/HowToSection/index.ts"
+import type HowToSectionProps from "../../../../types/Thing/CreativeWork/HowToSection/index.ts"
 
 import CreativeWork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DrawingProps } from "../../../../types/Thing/CreativeWork/Drawing/index.ts"
+import type DrawingProps from "../../../../types/Thing/CreativeWork/Drawing/index.ts"
 
 import CreativeWork from "../index.tsx"
 

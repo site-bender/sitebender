@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { BedTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
+import type BedTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 
 import QualitativeValue from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { VideoGameClipProps } from "../../../../../types/Thing/CreativeWork/Clip/VideoGameClip/index.ts"
+import type VideoGameClipProps from "../../../../../types/Thing/CreativeWork/Clip/VideoGameClip/index.ts"
 
 import Clip from "../index.tsx"
 

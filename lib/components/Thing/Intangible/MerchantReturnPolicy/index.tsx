@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MerchantReturnPolicyProps } from "../../../../types/Thing/Intangible/MerchantReturnPolicy/index.ts"
+import type MerchantReturnPolicyProps from "../../../../types/Thing/Intangible/MerchantReturnPolicy/index.ts"
 
 import Intangible from "../index.tsx"
 

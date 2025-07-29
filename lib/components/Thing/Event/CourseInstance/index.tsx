@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { CourseInstanceProps } from "../../../../types/Thing/Event/CourseInstance/index.ts"
+import type CourseInstanceProps from "../../../../types/Thing/Event/CourseInstance/index.ts"
 
 import Event from "../index.tsx"
 

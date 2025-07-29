@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ReservoirProps } from "../../../../../../types/Thing/Place/Landform/BodyOfWater/Reservoir/index.ts"
+import type ReservoirProps from "../../../../../../types/Thing/Place/Landform/BodyOfWater/Reservoir/index.ts"
 
 import BodyOfWater from "../index.tsx"
 

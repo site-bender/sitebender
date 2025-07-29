@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DanceEventProps } from "../../../../types/Thing/Event/DanceEvent/index.ts"
+import type DanceEventProps from "../../../../types/Thing/Event/DanceEvent/index.ts"
 
 import Event from "../index.tsx"
 

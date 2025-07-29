@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { HowToDirectionProps } from "../../../../types/Thing/CreativeWork/HowToDirection/index.ts"
+import type HowToDirectionProps from "../../../../types/Thing/CreativeWork/HowToDirection/index.ts"
 
 import CreativeWork from "../index.tsx"
 

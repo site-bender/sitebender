@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { FMRadioChannelProps } from "../../../../../../types/Thing/Intangible/BroadcastChannel/RadioChannel/FMRadioChannel/index.ts"
+import type FMRadioChannelProps from "../../../../../../types/Thing/Intangible/BroadcastChannel/RadioChannel/FMRadioChannel/index.ts"
 
 import RadioChannel from "../index.tsx"
 

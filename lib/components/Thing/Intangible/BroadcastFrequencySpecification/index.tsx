@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { BroadcastFrequencySpecificationProps } from "../../../../types/Thing/Intangible/BroadcastFrequencySpecification/index.ts"
+import type BroadcastFrequencySpecificationProps from "../../../../types/Thing/Intangible/BroadcastFrequencySpecification/index.ts"
 
 import Intangible from "../index.tsx"
 

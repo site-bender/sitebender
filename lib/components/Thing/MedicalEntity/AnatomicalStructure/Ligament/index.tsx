@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { LigamentProps } from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Ligament/index.ts"
+import type LigamentProps from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Ligament/index.ts"
 
 import AnatomicalStructure from "../index.tsx"
 

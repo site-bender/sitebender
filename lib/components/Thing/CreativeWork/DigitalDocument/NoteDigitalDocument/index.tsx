@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { NoteDigitalDocumentProps } from "../../../../../types/Thing/CreativeWork/DigitalDocument/NoteDigitalDocument/index.ts"
+import type NoteDigitalDocumentProps from "../../../../../types/Thing/CreativeWork/DigitalDocument/NoteDigitalDocument/index.ts"
 
 import DigitalDocument from "../index.tsx"
 

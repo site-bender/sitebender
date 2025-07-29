@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DefinedRegionProps } from "../../../../../types/Thing/Intangible/StructuredValue/DefinedRegion/index.ts"
+import type DefinedRegionProps from "../../../../../types/Thing/Intangible/StructuredValue/DefinedRegion/index.ts"
 
 import StructuredValue from "../index.tsx"
 

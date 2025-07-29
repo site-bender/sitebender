@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { BarOrPubProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/BarOrPub/index.ts"
+import type BarOrPubProps from "../../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/BarOrPub/index.ts"
 
 import FoodEstablishment from "../index.tsx"
 

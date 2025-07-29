@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MolecularEntityProps } from "../../../../types/Thing/BioChemEntity/MolecularEntity/index.ts"
+import type MolecularEntityProps from "../../../../types/Thing/BioChemEntity/MolecularEntity/index.ts"
 
 import BioChemEntity from "../index.tsx"
 

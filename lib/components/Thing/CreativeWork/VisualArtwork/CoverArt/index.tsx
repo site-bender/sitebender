@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CoverArtProps } from "../../../../../types/Thing/CreativeWork/VisualArtwork/CoverArt/index.ts"
+import type CoverArtProps from "../../../../../types/Thing/CreativeWork/VisualArtwork/CoverArt/index.ts"
 
 import VisualArtwork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { GrantProps } from "../../../../types/Thing/Intangible/Grant/index.ts"
+import type GrantProps from "../../../../types/Thing/Intangible/Grant/index.ts"
 
 import Intangible from "../index.tsx"
 

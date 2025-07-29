@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { SchoolDistrictProps } from "../../../../../types/Thing/Place/AdministrativeArea/SchoolDistrict/index.ts"
+import type SchoolDistrictProps from "../../../../../types/Thing/Place/AdministrativeArea/SchoolDistrict/index.ts"
 
 import AdministrativeArea from "../index.tsx"
 

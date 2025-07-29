@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { GameServerProps } from "../../../../types/Thing/Intangible/GameServer/index.ts"
+import type GameServerProps from "../../../../types/Thing/Intangible/GameServer/index.ts"
 
 import Intangible from "../index.tsx"
 

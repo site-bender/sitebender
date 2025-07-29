@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ConsortiumProps } from "../../../../types/Thing/Organization/Consortium/index.ts"
+import type ConsortiumProps from "../../../../types/Thing/Organization/Consortium/index.ts"
 
 import Organization from "../index.tsx"
 

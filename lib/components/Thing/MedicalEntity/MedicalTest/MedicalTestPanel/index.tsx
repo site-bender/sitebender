@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { MedicalTestPanelProps } from "../../../../../types/Thing/MedicalEntity/MedicalTest/MedicalTestPanel/index.ts"
+import type MedicalTestPanelProps from "../../../../../types/Thing/MedicalEntity/MedicalTest/MedicalTestPanel/index.ts"
 
 import MedicalTest from "../index.tsx"
 

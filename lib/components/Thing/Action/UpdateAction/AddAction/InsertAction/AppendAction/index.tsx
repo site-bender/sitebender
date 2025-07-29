@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type { AppendActionProps } from "../../../../../../../types/Thing/Action/UpdateAction/AddAction/InsertAction/AppendAction/index.ts"
+import type AppendActionProps from "../../../../../../../types/Thing/Action/UpdateAction/AddAction/InsertAction/AppendAction/index.ts"
 
 import InsertAction from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DataCatalogProps } from "../../../../types/Thing/CreativeWork/DataCatalog/index.ts"
+import type DataCatalogProps from "../../../../types/Thing/CreativeWork/DataCatalog/index.ts"
 
 import CreativeWork from "../index.tsx"
 

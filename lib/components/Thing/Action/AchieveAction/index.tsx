@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { AchieveActionProps } from "../../../../types/Thing/Action/AchieveAction/index.ts"
+import type AchieveActionProps from "../../../../types/Thing/Action/AchieveAction/index.ts"
 
 import Action from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DownloadActionProps } from "../../../../../types/Thing/Action/TransferAction/DownloadAction/index.ts"
+import type DownloadActionProps from "../../../../../types/Thing/Action/TransferAction/DownloadAction/index.ts"
 
 import TransferAction from "../index.tsx"
 

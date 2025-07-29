@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { MonetaryAmountDistributionProps } from "../../../../../../types/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type MonetaryAmountDistributionProps from "../../../../../../types/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
 import QuantitativeValueDistribution from "../index.tsx"
 

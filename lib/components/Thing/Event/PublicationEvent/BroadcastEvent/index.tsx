@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BroadcastEventProps } from "../../../../../types/Thing/Event/PublicationEvent/BroadcastEvent/index.ts"
+import type BroadcastEventProps from "../../../../../types/Thing/Event/PublicationEvent/BroadcastEvent/index.ts"
 
 import PublicationEvent from "../index.tsx"
 

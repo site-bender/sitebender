@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { APIReferenceProps } from "../../../../../../types/Thing/CreativeWork/Article/TechArticle/APIReference/index.ts"
+import type APIReferenceProps from "../../../../../../types/Thing/CreativeWork/Article/TechArticle/APIReference/index.ts"
 
 import TechArticle from "../index.tsx"
 

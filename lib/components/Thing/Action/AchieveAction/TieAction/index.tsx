@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { TieActionProps } from "../../../../../types/Thing/Action/AchieveAction/TieAction/index.ts"
+import type TieActionProps from "../../../../../types/Thing/Action/AchieveAction/TieAction/index.ts"
 
 import AchieveAction from "../index.tsx"
 

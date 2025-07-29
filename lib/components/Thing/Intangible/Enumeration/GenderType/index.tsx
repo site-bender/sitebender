@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { GenderTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/GenderType/index.ts"
+import type GenderTypeProps from "../../../../../types/Thing/Intangible/Enumeration/GenderType/index.ts"
 
 import Enumeration from "../index.tsx"
 

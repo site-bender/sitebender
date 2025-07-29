@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { AboutPageProps } from "../../../../../types/Thing/CreativeWork/WebPage/AboutPage/index.ts"
+import type AboutPageProps from "../../../../../types/Thing/CreativeWork/WebPage/AboutPage/index.ts"
 
 import WebPage from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { LegalForceStatusProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.ts"
+import type LegalForceStatusProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

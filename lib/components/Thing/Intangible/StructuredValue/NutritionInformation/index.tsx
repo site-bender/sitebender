@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { NutritionInformationProps } from "../../../../../types/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
+import type NutritionInformationProps from "../../../../../types/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
 
 import StructuredValue from "../index.tsx"
 

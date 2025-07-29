@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { OfferItemConditionProps } from "../../../../../types/Thing/Intangible/Enumeration/OfferItemCondition/index.ts"
+import type OfferItemConditionProps from "../../../../../types/Thing/Intangible/Enumeration/OfferItemCondition/index.ts"
 
 import Enumeration from "../index.tsx"
 

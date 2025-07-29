@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WPFooterProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPFooter/index.ts"
+import type WPFooterProps from "../../../../../types/Thing/CreativeWork/WebPageElement/WPFooter/index.ts"
 
 import WebPageElement from "../index.tsx"
 

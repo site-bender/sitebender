@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ThreeDModelProps } from "../../../../../types/Thing/CreativeWork/MediaObject/ThreeDModel/index.ts"
+import type ThreeDModelProps from "../../../../../types/Thing/CreativeWork/MediaObject/ThreeDModel/index.ts"
 
 import MediaObject from "../index.tsx"
 

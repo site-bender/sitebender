@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { MedicalProcedureTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.ts"
+import type MedicalProcedureTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.ts"
 
 import MedicalEnumeration from "../index.tsx"
 

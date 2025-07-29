@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { OccupationalExperienceRequirementsProps } from "../../../../types/Thing/Intangible/OccupationalExperienceRequirements/index.ts"
+import type OccupationalExperienceRequirementsProps from "../../../../types/Thing/Intangible/OccupationalExperienceRequirements/index.ts"
 
 import Intangible from "../index.tsx"
 

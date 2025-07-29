@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MenuItemProps } from "../../../../types/Thing/Intangible/MenuItem/index.ts"
+import type MenuItemProps from "../../../../types/Thing/Intangible/MenuItem/index.ts"
 
 import Intangible from "../index.tsx"
 

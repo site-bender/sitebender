@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { StatementProps } from "../../../../types/Thing/CreativeWork/Statement/index.ts"
+import type StatementProps from "../../../../types/Thing/CreativeWork/Statement/index.ts"
 
 import CreativeWork from "../index.tsx"
 

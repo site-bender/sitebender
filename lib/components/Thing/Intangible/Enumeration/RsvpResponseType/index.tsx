@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RsvpResponseTypeProps } from "../../../../../types/Thing/Intangible/Enumeration/RsvpResponseType/index.ts"
+import type RsvpResponseTypeProps from "../../../../../types/Thing/Intangible/Enumeration/RsvpResponseType/index.ts"
 
 import Enumeration from "../index.tsx"
 

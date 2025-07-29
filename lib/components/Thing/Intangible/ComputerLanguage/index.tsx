@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ComputerLanguageProps } from "../../../../types/Thing/Intangible/ComputerLanguage/index.ts"
+import type ComputerLanguageProps from "../../../../types/Thing/Intangible/ComputerLanguage/index.ts"
 
 import Intangible from "../index.tsx"
 

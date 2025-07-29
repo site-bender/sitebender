@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { TheaterGroupProps } from "../../../../../types/Thing/Organization/PerformingGroup/TheaterGroup/index.ts"
+import type TheaterGroupProps from "../../../../../types/Thing/Organization/PerformingGroup/TheaterGroup/index.ts"
 
 import PerformingGroup from "../index.tsx"
 

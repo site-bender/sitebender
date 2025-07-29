@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { SolveMathActionProps } from "../../../../types/Thing/Action/SolveMathAction/index.ts"
+import type SolveMathActionProps from "../../../../types/Thing/Action/SolveMathAction/index.ts"
 
 import Action from "../index.tsx"
 

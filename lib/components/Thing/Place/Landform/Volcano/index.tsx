@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { VolcanoProps } from "../../../../../types/Thing/Place/Landform/Volcano/index.ts"
+import type VolcanoProps from "../../../../../types/Thing/Place/Landform/Volcano/index.ts"
 
 import Landform from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WarrantyScopeProps } from "../../../../../types/Thing/Intangible/Enumeration/WarrantyScope/index.ts"
+import type WarrantyScopeProps from "../../../../../types/Thing/Intangible/Enumeration/WarrantyScope/index.ts"
 
 import Enumeration from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MediaSubscriptionProps } from "../../../../types/Thing/Intangible/MediaSubscription/index.ts"
+import type MediaSubscriptionProps from "../../../../types/Thing/Intangible/MediaSubscription/index.ts"
 
 import Intangible from "../index.tsx"
 

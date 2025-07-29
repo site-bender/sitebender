@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { GeoCircleProps } from "../../../../../../types/Thing/Intangible/StructuredValue/GeoShape/GeoCircle/index.ts"
+import type GeoCircleProps from "../../../../../../types/Thing/Intangible/StructuredValue/GeoShape/GeoCircle/index.ts"
 
 import GeoShape from "../index.tsx"
 

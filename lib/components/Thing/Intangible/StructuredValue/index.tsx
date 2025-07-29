@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { StructuredValueProps } from "../../../../types/Thing/Intangible/StructuredValue/index.ts"
+import type StructuredValueProps from "../../../../types/Thing/Intangible/StructuredValue/index.ts"
 
 import Intangible from "../index.tsx"
 

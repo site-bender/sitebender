@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { GameServerStatusProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.ts"
+import type GameServerStatusProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

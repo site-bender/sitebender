@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WorkBasedProgramProps } from "../../../../../types/Thing/Intangible/EducationalOccupationalProgram/WorkBasedProgram/index.ts"
+import type WorkBasedProgramProps from "../../../../../types/Thing/Intangible/EducationalOccupationalProgram/WorkBasedProgram/index.ts"
 
 import EducationalOccupationalProgram from "../index.tsx"
 

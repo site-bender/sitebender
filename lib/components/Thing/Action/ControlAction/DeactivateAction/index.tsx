@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DeactivateActionProps } from "../../../../../types/Thing/Action/ControlAction/DeactivateAction/index.ts"
+import type DeactivateActionProps from "../../../../../types/Thing/Action/ControlAction/DeactivateAction/index.ts"
 
 import ControlAction from "../index.tsx"
 

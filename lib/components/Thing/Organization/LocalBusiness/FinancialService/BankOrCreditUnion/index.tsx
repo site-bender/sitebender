@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { BankOrCreditUnionProps } from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
+import type BankOrCreditUnionProps from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
 
 import FinancialService from "../index.tsx"
 

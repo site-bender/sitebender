@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CorrectionCommentProps } from "../../../../../types/Thing/CreativeWork/Comment/CorrectionComment/index.ts"
+import type CorrectionCommentProps from "../../../../../types/Thing/CreativeWork/Comment/CorrectionComment/index.ts"
 
 import Comment from "../index.tsx"
 

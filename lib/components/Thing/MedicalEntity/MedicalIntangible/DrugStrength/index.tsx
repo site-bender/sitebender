@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { DrugStrengthProps } from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
+import type DrugStrengthProps from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 

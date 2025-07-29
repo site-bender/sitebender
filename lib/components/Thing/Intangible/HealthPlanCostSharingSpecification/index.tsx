@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { HealthPlanCostSharingSpecificationProps } from "../../../../types/Thing/Intangible/HealthPlanCostSharingSpecification/index.ts"
+import type HealthPlanCostSharingSpecificationProps from "../../../../types/Thing/Intangible/HealthPlanCostSharingSpecification/index.ts"
 
 import Intangible from "../index.tsx"
 

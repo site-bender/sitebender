@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { SizeSpecificationProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
+import type SizeSpecificationProps from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/SizeSpecification/index.ts"
 
 import QualitativeValue from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { FlightReservationProps } from "../../../../../types/Thing/Intangible/Reservation/FlightReservation/index.ts"
+import type FlightReservationProps from "../../../../../types/Thing/Intangible/Reservation/FlightReservation/index.ts"
 
 import Reservation from "../index.tsx"
 

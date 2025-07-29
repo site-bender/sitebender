@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { QuoteActionProps } from "../../../../../types/Thing/Action/TradeAction/QuoteAction/index.ts"
+import type QuoteActionProps from "../../../../../types/Thing/Action/TradeAction/QuoteAction/index.ts"
 
 import TradeAction from "../index.tsx"
 

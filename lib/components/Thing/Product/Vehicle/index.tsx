@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { VehicleProps } from "../../../../types/Thing/Product/Vehicle/index.ts"
+import type VehicleProps from "../../../../types/Thing/Product/Vehicle/index.ts"
 
 import Product from "../index.tsx"
 

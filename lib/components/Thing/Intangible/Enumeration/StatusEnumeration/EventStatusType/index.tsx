@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { EventStatusTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
+import type EventStatusTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

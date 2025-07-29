@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { AtlasProps } from "../../../../types/Thing/CreativeWork/Atlas/index.ts"
+import type AtlasProps from "../../../../types/Thing/CreativeWork/Atlas/index.ts"
 
 import CreativeWork from "../index.tsx"
 

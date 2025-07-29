@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { TrackActionProps } from "../../../../../types/Thing/Action/FindAction/TrackAction/index.ts"
+import type TrackActionProps from "../../../../../types/Thing/Action/FindAction/TrackAction/index.ts"
 
 import FindAction from "../index.tsx"
 

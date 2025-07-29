@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { AlignmentObjectProps } from "../../../../types/Thing/Intangible/AlignmentObject/index.ts"
+import type AlignmentObjectProps from "../../../../types/Thing/Intangible/AlignmentObject/index.ts"
 
 import Intangible from "../index.tsx"
 

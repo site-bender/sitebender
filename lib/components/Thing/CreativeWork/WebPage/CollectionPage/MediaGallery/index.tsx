@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { MediaGalleryProps } from "../../../../../../types/Thing/CreativeWork/WebPage/CollectionPage/MediaGallery/index.ts"
+import type MediaGalleryProps from "../../../../../../types/Thing/CreativeWork/WebPage/CollectionPage/MediaGallery/index.ts"
 
 import CollectionPage from "../index.tsx"
 

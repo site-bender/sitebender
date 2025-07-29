@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ArchiveComponentProps } from "../../../../types/Thing/CreativeWork/ArchiveComponent/index.ts"
+import type ArchiveComponentProps from "../../../../types/Thing/CreativeWork/ArchiveComponent/index.ts"
 
 import CreativeWork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../types/index.ts"
-import type { TaxonProps } from "../../../types/Thing/Taxon/index.ts"
+import type TaxonProps from "../../../types/Thing/Taxon/index.ts"
 
 import Thing from "../index.tsx"
 

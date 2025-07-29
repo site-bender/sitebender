@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ServicePeriodProps } from "../../../../../types/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
+import type ServicePeriodProps from "../../../../../types/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
 
 import StructuredValue from "../index.tsx"
 

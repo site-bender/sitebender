@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { CompleteDataFeedProps } from "../../../../../../types/Thing/CreativeWork/Dataset/DataFeed/CompleteDataFeed/index.ts"
+import type CompleteDataFeedProps from "../../../../../../types/Thing/CreativeWork/Dataset/DataFeed/CompleteDataFeed/index.ts"
 
 import DataFeed from "../index.tsx"
 

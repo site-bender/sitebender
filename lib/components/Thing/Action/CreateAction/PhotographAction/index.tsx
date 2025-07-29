@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { PhotographActionProps } from "../../../../../types/Thing/Action/CreateAction/PhotographAction/index.ts"
+import type PhotographActionProps from "../../../../../types/Thing/Action/CreateAction/PhotographAction/index.ts"
 
 import CreateAction from "../index.tsx"
 

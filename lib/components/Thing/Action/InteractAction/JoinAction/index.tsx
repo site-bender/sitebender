@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { JoinActionProps } from "../../../../../types/Thing/Action/InteractAction/JoinAction/index.ts"
+import type JoinActionProps from "../../../../../types/Thing/Action/InteractAction/JoinAction/index.ts"
 
 import InteractAction from "../index.tsx"
 

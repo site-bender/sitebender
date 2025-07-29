@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { AllocateActionProps } from "../../../../../types/Thing/Action/OrganizeAction/AllocateAction/index.ts"
+import type AllocateActionProps from "../../../../../types/Thing/Action/OrganizeAction/AllocateAction/index.ts"
 
 import OrganizeAction from "../index.tsx"
 

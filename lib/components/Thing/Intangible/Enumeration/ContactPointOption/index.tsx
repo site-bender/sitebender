@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ContactPointOptionProps } from "../../../../../types/Thing/Intangible/Enumeration/ContactPointOption/index.ts"
+import type ContactPointOptionProps from "../../../../../types/Thing/Intangible/Enumeration/ContactPointOption/index.ts"
 
 import Enumeration from "../index.tsx"
 

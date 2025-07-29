@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { MenuProps } from "../../../../types/Thing/CreativeWork/Menu/index.ts"
+import type MenuProps from "../../../../types/Thing/CreativeWork/Menu/index.ts"
 
 import CreativeWork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BookmarkActionProps } from "../../../../../types/Thing/Action/OrganizeAction/BookmarkAction/index.ts"
+import type BookmarkActionProps from "../../../../../types/Thing/Action/OrganizeAction/BookmarkAction/index.ts"
 
 import OrganizeAction from "../index.tsx"
 

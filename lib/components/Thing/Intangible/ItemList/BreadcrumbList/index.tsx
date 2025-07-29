@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { BreadcrumbListProps } from "../../../../../types/Thing/Intangible/ItemList/BreadcrumbList/index.ts"
+import type BreadcrumbListProps from "../../../../../types/Thing/Intangible/ItemList/BreadcrumbList/index.ts"
 
 import ItemList from "../index.tsx"
 

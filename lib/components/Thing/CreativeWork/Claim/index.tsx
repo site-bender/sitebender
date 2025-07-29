@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { ClaimProps } from "../../../../types/Thing/CreativeWork/Claim/index.ts"
+import type ClaimProps from "../../../../types/Thing/CreativeWork/Claim/index.ts"
 
 import CreativeWork from "../index.tsx"
 

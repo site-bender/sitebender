@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WarrantyPromiseProps } from "../../../../../types/Thing/Intangible/StructuredValue/WarrantyPromise/index.ts"
+import type WarrantyPromiseProps from "../../../../../types/Thing/Intangible/StructuredValue/WarrantyPromise/index.ts"
 
 import StructuredValue from "../index.tsx"
 

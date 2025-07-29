@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { DietProps } from "../../../../types/Thing/CreativeWork/Diet/index.ts"
+import type DietProps from "../../../../types/Thing/CreativeWork/Diet/index.ts"
 
 import CreativeWork from "../index.tsx"
 

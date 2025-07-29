@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { HowToToolProps } from "../../../../../../types/Thing/Intangible/ListItem/HowToItem/HowToTool/index.ts"
+import type HowToToolProps from "../../../../../../types/Thing/Intangible/ListItem/HowToItem/HowToTool/index.ts"
 
 import HowToItem from "../index.tsx"
 

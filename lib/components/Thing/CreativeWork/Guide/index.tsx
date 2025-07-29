@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { GuideProps } from "../../../../types/Thing/CreativeWork/Guide/index.ts"
+import type GuideProps from "../../../../types/Thing/CreativeWork/Guide/index.ts"
 
 import CreativeWork from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { InfectiousAgentClassProps } from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
+import type InfectiousAgentClassProps from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
 
 import MedicalEnumeration from "../index.tsx"
 

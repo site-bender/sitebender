@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { SteeringPositionValueProps } from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
+import type SteeringPositionValueProps from "../../../../../../types/Thing/Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.ts"
 
 import QualitativeValue from "../index.tsx"
 

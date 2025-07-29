@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RefundTypeEnumerationProps } from "../../../../../types/Thing/Intangible/Enumeration/RefundTypeEnumeration/index.ts"
+import type RefundTypeEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/RefundTypeEnumeration/index.ts"
 
 import Enumeration from "../index.tsx"
 

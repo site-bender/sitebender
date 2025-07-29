@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { OpinionNewsArticleProps } from "../../../../../../types/Thing/CreativeWork/Article/NewsArticle/OpinionNewsArticle/index.ts"
+import type OpinionNewsArticleProps from "../../../../../../types/Thing/CreativeWork/Article/NewsArticle/OpinionNewsArticle/index.ts"
 
 import NewsArticle from "../index.tsx"
 

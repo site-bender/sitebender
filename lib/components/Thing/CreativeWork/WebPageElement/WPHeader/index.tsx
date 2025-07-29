@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { WPHeaderProps } from "../../../../../types/Thing/CreativeWork/WebPageElement/WPHeader/index.ts"
+import type WPHeaderProps from "../../../../../types/Thing/CreativeWork/WebPageElement/WPHeader/index.ts"
 
 import WebPageElement from "../index.tsx"
 

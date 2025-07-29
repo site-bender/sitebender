@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RealEstateListingProps } from "../../../../../types/Thing/CreativeWork/WebPage/RealEstateListing/index.ts"
+import type RealEstateListingProps from "../../../../../types/Thing/CreativeWork/WebPage/RealEstateListing/index.ts"
 
 import WebPage from "../index.tsx"
 

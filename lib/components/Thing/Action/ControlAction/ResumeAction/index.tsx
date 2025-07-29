@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { ResumeActionProps } from "../../../../../types/Thing/Action/ControlAction/ResumeAction/index.ts"
+import type ResumeActionProps from "../../../../../types/Thing/Action/ControlAction/ResumeAction/index.ts"
 
 import ControlAction from "../index.tsx"
 

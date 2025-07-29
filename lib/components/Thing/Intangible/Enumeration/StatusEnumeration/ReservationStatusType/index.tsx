@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type { ReservationStatusTypeProps } from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
+import type ReservationStatusTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 

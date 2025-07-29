@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type { GameProps } from "../../../../types/Thing/CreativeWork/Game/index.ts"
+import type GameProps from "../../../../types/Thing/CreativeWork/Game/index.ts"
 
 import CreativeWork from "../index.tsx"
 

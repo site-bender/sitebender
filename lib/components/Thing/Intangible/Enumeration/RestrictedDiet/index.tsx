@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { RestrictedDietProps } from "../../../../../types/Thing/Intangible/Enumeration/RestrictedDiet/index.ts"
+import type RestrictedDietProps from "../../../../../types/Thing/Intangible/Enumeration/RestrictedDiet/index.ts"
 
 import Enumeration from "../index.tsx"
 

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { CountryProps } from "../../../../../types/Thing/Place/AdministrativeArea/Country/index.ts"
+import type CountryProps from "../../../../../types/Thing/Place/AdministrativeArea/Country/index.ts"
 
 import AdministrativeArea from "../index.tsx"
 

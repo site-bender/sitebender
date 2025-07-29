@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type { LinkRoleProps } from "../../../../../types/Thing/Intangible/Role/LinkRole/index.ts"
+import type LinkRoleProps from "../../../../../types/Thing/Intangible/Role/LinkRole/index.ts"
 
 import Role from "../index.tsx"
 
