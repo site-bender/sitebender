@@ -6,8 +6,6 @@ export type Props = {
 	assets?: Array<string>
 }
 
-//	author={<Person givenName="F. Scott" familyName="Fitzgerald" />}
-
 export function Head() {
 	return (
 		<>
@@ -19,6 +17,16 @@ export function Head() {
 		</>
 	)
 }
+
+const tmplt = `
+	{{cite(name, style="color:red")}} by
+	{{author.givenName}}
+	{{link(
+		author.familyName,
+		href="https://craft-code.dev/",
+		class="author-link",
+		title="Da man!"
+	)}} (ISBN: {{isbn}})`
 
 export default function ({ route }: Props = {}) {
 	return (
@@ -32,8 +40,9 @@ export default function ({ route }: Props = {}) {
 						author={
 							<Person
 								alternateName="Scott Fitzgerald"
-								givenName="F. Scott"
 								familyName="Fitzgerald"
+								givenName="F. Scott"
+								isProp
 							/>
 						}
 						editor={{
@@ -41,6 +50,7 @@ export default function ({ route }: Props = {}) {
 							givenName: "John",
 							familyName: "Doe",
 						}}
+						_template={tmplt}
 						name="The Great Gatsby"
 						isbn="9780743273565"
 					/>

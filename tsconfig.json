@@ -5,7 +5,7 @@
 		"jsx": "react",
 		"jsxFactory": "createElement",
 		"jsxFragmentFactory": "Fragment",
-		"lib": ["esnext"],
+		"lib": ["esnext", "dom"],
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"noEmit": true,
