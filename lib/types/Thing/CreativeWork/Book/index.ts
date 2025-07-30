@@ -14,6 +14,7 @@ export interface BookProps {
 	illustrator?: Person | ReturnType<typeof PersonComponent>
 	isbn?: Text
 	numberOfPages?: Integer
+	title?: Text
 }
 
 type Book = Thing & CreativeWorkProps & BookProps

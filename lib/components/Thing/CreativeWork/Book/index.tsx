@@ -14,8 +14,15 @@ export default function Book({
 	numberOfPages,
 	_type = "Book",
 	subtypeProperties = {},
-	...props
+	...allProps
 }: Props): JSX.Element {
+	const { name, title } = allProps
+
+	// If `title` is provided, use it; otherwise, fall back to `name`
+	const props = {
+		...allProps,
+		name: name ?? title,
+	}
 	return (
 		<CreativeWork
 			{...props}

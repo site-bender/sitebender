@@ -18,7 +18,7 @@ export function Head() {
 	)
 }
 
-const tmplt = `
+const template = `
 	{{cite(name, style="color:red")}} by
 	{{author.givenName}}
 	{{link(
@@ -50,9 +50,9 @@ export default function ({ route }: Props = {}) {
 							givenName: "John",
 							familyName: "Doe",
 						}}
-						_template={tmplt}
-						name="The Great Gatsby"
+						_template={template}
 						isbn="9780743273565"
+						title="The Great Gatsby"
 					/>
 				</p>
 			</section>
