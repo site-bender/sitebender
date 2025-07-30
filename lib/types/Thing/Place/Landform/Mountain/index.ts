@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../index.ts"
 import type { LandformProps } from "../index.ts"
 
-export interface MountainProps {}
+export interface MountainProps {
+	"@type"?: "Mountain"}
 
 type Mountain = Thing & PlaceProps & LandformProps & MountainProps
 

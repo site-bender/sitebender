@@ -10,6 +10,7 @@ import BroadcastServiceComponent from "../../../../components/Thing/Intangible/S
 import CableOrSatelliteServiceComponent from "../../../../components/Thing/Intangible/Service/CableOrSatelliteService/index.ts"
 
 export interface BroadcastChannelProps {
+	"@type"?: "BroadcastChannel"
 	broadcastChannelId?: Text
 	broadcastFrequency?:
 		| BroadcastFrequencySpecification

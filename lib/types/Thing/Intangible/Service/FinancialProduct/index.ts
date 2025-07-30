@@ -7,6 +7,7 @@ import type { ServiceProps } from "../index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface FinancialProductProps {
+	"@type"?: "FinancialProduct"
 	annualPercentageRate?:
 		| Number
 		| QuantitativeValue

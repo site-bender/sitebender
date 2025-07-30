@@ -24,6 +24,7 @@ import GeoShapeComponent from "../../../../components/Thing/Intangible/Structure
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface ActionAccessSpecificationProps {
+	"@type"?: "ActionAccessSpecification"
 	availabilityEnds?: Date | DateTime | Time
 	availabilityStarts?: Date | DateTime | Time
 	category?:

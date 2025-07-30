@@ -16,6 +16,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface CommunicateActionProps {
+	"@type"?: "CommunicateAction"
 	about?: Thing | ReturnType<typeof ThingComponent>
 	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	language?: Language | ReturnType<typeof LanguageComponent>

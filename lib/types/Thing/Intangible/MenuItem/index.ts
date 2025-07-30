@@ -14,6 +14,7 @@ import OfferComponent from "../../../../components/Thing/Intangible/Offer/index.
 import NutritionInformationComponent from "../../../../components/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
 
 export interface MenuItemProps {
+	"@type"?: "MenuItem"
 	menuAddOn?:
 		| MenuItem
 		| MenuSection

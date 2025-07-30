@@ -6,6 +6,7 @@ import MenuSectionComponent from "../../../../components/Thing/CreativeWork/Menu
 import MenuItemComponent from "../../../../components/Thing/Intangible/MenuItem/index.ts"
 
 export interface MenuSectionProps {
+	"@type"?: "MenuSection"
 	hasMenuItem?: MenuItem | ReturnType<typeof MenuItemComponent>
 	hasMenuSection?: MenuSection | ReturnType<typeof MenuSectionComponent>
 }

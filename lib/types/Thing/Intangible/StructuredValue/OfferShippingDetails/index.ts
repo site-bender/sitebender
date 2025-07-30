@@ -23,6 +23,7 @@ import ShippingRateSettingsComponent from "../../../../../components/Thing/Intan
 import ShippingServiceComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingService/index.ts"
 
 export interface OfferShippingDetailsProps {
+	"@type"?: "OfferShippingDetails"
 	deliveryTime?:
 		| ShippingDeliveryTime
 		| ReturnType<typeof ShippingDeliveryTimeComponent>

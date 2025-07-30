@@ -12,6 +12,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface TipActionProps {
+	"@type"?: "TipAction"
 	recipient?:
 		| Audience
 		| ContactPoint

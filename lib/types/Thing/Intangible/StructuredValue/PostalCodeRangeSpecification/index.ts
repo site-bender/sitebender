@@ -4,6 +4,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
 export interface PostalCodeRangeSpecificationProps {
+	"@type"?: "PostalCodeRangeSpecification"
 	postalCodeBegin?: Text
 	postalCodeEnd?: Text
 }

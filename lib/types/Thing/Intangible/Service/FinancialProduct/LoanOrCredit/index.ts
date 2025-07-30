@@ -20,6 +20,7 @@ import QuantitativeValueComponent from "../../../../../../components/Thing/Intan
 import RepaymentSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/RepaymentSpecification/index.ts"
 
 export interface LoanOrCreditProps {
+	"@type"?: "LoanOrCredit"
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	currency?: Text
 	gracePeriod?: Duration | ReturnType<typeof DurationComponent>

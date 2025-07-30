@@ -10,6 +10,7 @@ import ArchiveOrganizationComponent from "../../../../components/Thing/Organizat
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface ArchiveComponentProps {
+	"@type"?: "ArchiveComponent"
 	holdingArchive?:
 		| ArchiveOrganization
 		| ReturnType<typeof ArchiveOrganizationComponent>

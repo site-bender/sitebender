@@ -4,6 +4,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { RoleProps } from "../index.ts"
 
 export interface PerformanceRoleProps {
+	"@type"?: "PerformanceRole"
 	characterName?: Text
 }
 

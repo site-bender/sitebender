@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { MedicalEnumerationProps } from "../index.ts"
 
-export interface MedicalProcedureTypeProps {}
+export interface MedicalProcedureTypeProps {
+	"@type"?: "MedicalProcedureType"}
 
 type MedicalProcedureType =
 	& Thing

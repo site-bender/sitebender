@@ -8,6 +8,7 @@ import type { HouseProps } from "../index.ts"
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface SingleFamilyResidenceProps {
+	"@type"?: "SingleFamilyResidence"
 	numberOfRooms?:
 		| Number
 		| QuantitativeValue

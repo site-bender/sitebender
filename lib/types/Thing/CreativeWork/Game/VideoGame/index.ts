@@ -21,6 +21,7 @@ import MusicGroupComponent from "../../../../../components/Thing/Organization/Pe
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface VideoGameProps {
+	"@type"?: "VideoGame"
 	actor?:
 		| PerformingGroup
 		| Person

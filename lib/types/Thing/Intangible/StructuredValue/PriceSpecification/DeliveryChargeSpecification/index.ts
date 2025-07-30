@@ -14,6 +14,7 @@ import AdministrativeAreaComponent from "../../../../../../components/Thing/Plac
 import PlaceComponent from "../../../../../../components/Thing/Place/index.ts"
 
 export interface DeliveryChargeSpecificationProps {
+	"@type"?: "DeliveryChargeSpecification"
 	appliesToDeliveryMethod?:
 		| DeliveryMethod
 		| ReturnType<typeof DeliveryMethodComponent>

@@ -10,6 +10,7 @@ import MonetaryAmountComponent from "../../../../../../components/Thing/Intangib
 import PriceSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
 export interface EmployeeRoleProps {
+	"@type"?: "EmployeeRole"
 	baseSalary?:
 		| MonetaryAmount
 		| Number

@@ -8,6 +8,7 @@ import AudienceComponent from "../../../../components/Thing/Intangible/Audience/
 import LanguageComponent from "../../../../components/Thing/Intangible/Language/index.ts"
 
 export interface TouristAttractionProps {
+	"@type"?: "TouristAttraction"
 	availableLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	touristType?: Audience | Text | ReturnType<typeof AudienceComponent>
 }

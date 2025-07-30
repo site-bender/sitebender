@@ -15,6 +15,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface DonateActionProps {
+	"@type"?: "DonateAction"
 	price?: Number | Text
 	priceCurrency?: Text
 	priceSpecification?:

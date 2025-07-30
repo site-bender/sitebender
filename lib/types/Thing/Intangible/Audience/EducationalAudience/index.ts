@@ -4,6 +4,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { AudienceProps } from "../index.ts"
 
 export interface EducationalAudienceProps {
+	"@type"?: "EducationalAudience"
 	educationalRole?: Text
 }
 

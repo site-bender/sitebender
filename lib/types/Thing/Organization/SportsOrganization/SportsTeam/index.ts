@@ -9,6 +9,7 @@ import GenderTypeComponent from "../../../../../components/Thing/Intangible/Enum
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface SportsTeamProps {
+	"@type"?: "SportsTeam"
 	athlete?: Person | ReturnType<typeof PersonComponent>
 	coach?: Person | ReturnType<typeof PersonComponent>
 	gender?: GenderType | Text | ReturnType<typeof GenderTypeComponent>

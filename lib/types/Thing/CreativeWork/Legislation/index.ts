@@ -15,6 +15,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface LegislationProps {
+	"@type"?: "Legislation"
 	jurisdiction?:
 		| AdministrativeArea
 		| Text

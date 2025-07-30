@@ -12,6 +12,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface PayActionProps {
+	"@type"?: "PayAction"
 	recipient?:
 		| Audience
 		| ContactPoint

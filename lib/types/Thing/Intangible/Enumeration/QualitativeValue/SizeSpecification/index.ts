@@ -14,6 +14,7 @@ import SizeSystemEnumerationComponent from "../../../../../../components/Thing/I
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface SizeSpecificationProps {
+	"@type"?: "SizeSpecification"
 	hasMeasurement?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

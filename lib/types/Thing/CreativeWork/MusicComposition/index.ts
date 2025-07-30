@@ -15,6 +15,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface MusicCompositionProps {
+	"@type"?: "MusicComposition"
 	composer?:
 		| Organization
 		| Person

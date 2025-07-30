@@ -22,6 +22,7 @@ import LocationFeatureSpecificationComponent from "../../../../../components/Thi
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface LodgingBusinessProps {
+	"@type"?: "LodgingBusiness"
 	amenityFeature?:
 		| LocationFeatureSpecification
 		| ReturnType<typeof LocationFeatureSpecificationComponent>

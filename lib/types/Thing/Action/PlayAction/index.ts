@@ -7,6 +7,7 @@ import EventComponent from "../../../../components/Thing/Event/index.ts"
 import AudienceComponent from "../../../../components/Thing/Intangible/Audience/index.ts"
 
 export interface PlayActionProps {
+	"@type"?: "PlayAction"
 	audience?: Audience | ReturnType<typeof AudienceComponent>
 	event?: Event | ReturnType<typeof EventComponent>
 }

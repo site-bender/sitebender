@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { LearningResourceProps } from "../index.ts"
 
-export interface SyllabusProps {}
+export interface SyllabusProps {
+	"@type"?: "Syllabus"}
 
 type Syllabus =
 	& Thing

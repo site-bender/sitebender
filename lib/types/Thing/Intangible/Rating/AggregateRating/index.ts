@@ -6,6 +6,7 @@ import type { RatingProps } from "../index.ts"
 import ThingComponent from "../../../../../components/Thing/index.ts"
 
 export interface AggregateRatingProps {
+	"@type"?: "AggregateRating"
 	itemReviewed?: Thing | ReturnType<typeof ThingComponent>
 	ratingCount?: Integer
 	reviewCount?: Integer

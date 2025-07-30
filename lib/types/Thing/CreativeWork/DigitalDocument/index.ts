@@ -5,6 +5,7 @@ import type { CreativeWorkProps } from "../index.ts"
 import DigitalDocumentPermissionComponent from "../../../../components/Thing/Intangible/DigitalDocumentPermission/index.ts"
 
 export interface DigitalDocumentProps {
+	"@type"?: "DigitalDocument"
 	hasDigitalDocumentPermission?:
 		| DigitalDocumentPermission
 		| ReturnType<typeof DigitalDocumentPermissionComponent>

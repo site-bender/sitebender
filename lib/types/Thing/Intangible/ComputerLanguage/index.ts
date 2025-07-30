@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-export interface ComputerLanguageProps {}
+export interface ComputerLanguageProps {
+	"@type"?: "ComputerLanguage"}
 
 type ComputerLanguage = Thing & IntangibleProps & ComputerLanguageProps
 

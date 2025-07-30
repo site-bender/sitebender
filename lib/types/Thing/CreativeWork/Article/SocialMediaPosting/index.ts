@@ -6,6 +6,7 @@ import type { ArticleProps } from "../index.ts"
 import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/index.ts"
 
 export interface SocialMediaPostingProps {
+	"@type"?: "SocialMediaPosting"
 	sharedContent?: CreativeWork | ReturnType<typeof CreativeWorkComponent>
 }
 

@@ -38,6 +38,7 @@ import AdministrativeAreaComponent from "../../../../components/Thing/Place/Admi
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface JobPostingProps {
+	"@type"?: "JobPosting"
 	applicantLocationRequirements?:
 		| AdministrativeArea
 		| ReturnType<typeof AdministrativeAreaComponent>

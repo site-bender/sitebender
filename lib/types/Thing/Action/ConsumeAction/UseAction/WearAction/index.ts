@@ -3,7 +3,8 @@ import type { ActionProps } from "../../../index.ts"
 import type { ConsumeActionProps } from "../../index.ts"
 import type { UseActionProps } from "../index.ts"
 
-export interface WearActionProps {}
+export interface WearActionProps {
+	"@type"?: "WearAction"}
 
 type WearAction =
 	& Thing

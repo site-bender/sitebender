@@ -7,6 +7,7 @@ import type { ChooseActionProps } from "../index.ts"
 import PersonComponent from "../../../../../../components/Thing/Person/index.ts"
 
 export interface VoteActionProps {
+	"@type"?: "VoteAction"
 	candidate?: Person | ReturnType<typeof PersonComponent>
 }
 

@@ -7,6 +7,7 @@ import CommentComponent from "../../../../components/Thing/CreativeWork/Comment/
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
 
 export interface CommentProps {
+	"@type"?: "Comment"
 	downvoteCount?: Integer
 	parentItem?:
 		| Comment

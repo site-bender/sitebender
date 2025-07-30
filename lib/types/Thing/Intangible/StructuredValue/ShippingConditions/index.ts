@@ -21,6 +21,7 @@ import ServicePeriodComponent from "../../../../../components/Thing/Intangible/S
 import ShippingRateSettingsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingRateSettings/index.ts"
 
 export interface ShippingConditionsProps {
+	"@type"?: "ShippingConditions"
 	depth?:
 		| Distance
 		| QuantitativeValue

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ArticleProps } from "../index.ts"
 
-export interface SatiricalArticleProps {}
+export interface SatiricalArticleProps {
+	"@type"?: "SatiricalArticle"}
 
 type SatiricalArticle =
 	& Thing

@@ -16,6 +16,7 @@ import PriceSpecificationComponent from "../../../../../components/Thing/Intangi
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface PriceSpecificationProps {
+	"@type"?: "PriceSpecification"
 	eligibleQuantity?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

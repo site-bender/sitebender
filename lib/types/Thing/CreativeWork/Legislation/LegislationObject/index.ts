@@ -7,6 +7,7 @@ import type { LegislationProps } from "../index.ts"
 import LegalValueLevelComponent from "../../../../../components/Thing/Intangible/Enumeration/LegalValueLevel/index.ts"
 
 export interface LegislationObjectProps {
+	"@type"?: "LegislationObject"
 	legislationLegalValue?:
 		| LegalValueLevel
 		| ReturnType<typeof LegalValueLevelComponent>

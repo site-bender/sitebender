@@ -6,6 +6,7 @@ import type { MedicalStudyProps } from "../index.ts"
 import MedicalObservationalStudyDesignComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalObservationalStudyDesign/index.ts"
 
 export interface MedicalObservationalStudyProps {
+	"@type"?: "MedicalObservationalStudy"
 	studyDesign?:
 		| MedicalObservationalStudyDesign
 		| ReturnType<typeof MedicalObservationalStudyDesignComponent>

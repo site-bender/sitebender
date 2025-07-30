@@ -7,6 +7,7 @@ import type { MedicalConditionProps } from "../index.ts"
 import InfectiousAgentClassComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.ts"
 
 export interface InfectiousDiseaseProps {
+	"@type"?: "InfectiousDisease"
 	infectiousAgent?: Text
 	infectiousAgentClass?:
 		| InfectiousAgentClass

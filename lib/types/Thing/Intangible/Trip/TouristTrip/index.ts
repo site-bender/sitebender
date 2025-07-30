@@ -7,6 +7,7 @@ import type { TripProps } from "../index.ts"
 import AudienceComponent from "../../../../../components/Thing/Intangible/Audience/index.ts"
 
 export interface TouristTripProps {
+	"@type"?: "TouristTrip"
 	touristType?: Audience | Text | ReturnType<typeof AudienceComponent>
 }
 

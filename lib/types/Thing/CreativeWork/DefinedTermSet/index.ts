@@ -5,6 +5,7 @@ import type { CreativeWorkProps } from "../index.ts"
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 
 export interface DefinedTermSetProps {
+	"@type"?: "DefinedTermSet"
 	hasDefinedTerm?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 }
 

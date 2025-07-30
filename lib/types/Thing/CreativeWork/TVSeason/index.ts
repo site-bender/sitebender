@@ -9,6 +9,7 @@ import TVSeriesComponent from "../../../../components/Thing/CreativeWork/TVSerie
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface TVSeasonProps {
+	"@type"?: "TVSeason"
 	countryOfOrigin?: Country | ReturnType<typeof CountryComponent>
 	partOfTVSeries?: TVSeries | ReturnType<typeof TVSeriesComponent>
 	titleEIDR?: Text | URL

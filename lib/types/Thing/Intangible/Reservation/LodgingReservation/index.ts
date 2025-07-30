@@ -14,6 +14,7 @@ import QualitativeValueComponent from "../../../../../components/Thing/Intangibl
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface LodgingReservationProps {
+	"@type"?: "LodgingReservation"
 	checkinTime?: DateTime | Time
 	checkoutTime?: DateTime | Time
 	lodgingUnitDescription?: Text

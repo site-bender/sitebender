@@ -8,6 +8,7 @@ import DefinedTermComponent from "../../../../components/Thing/Intangible/Define
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface MolecularEntityProps {
+	"@type"?: "MolecularEntity"
 	chemicalRole?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 	inChI?: Text
 	inChIKey?: Text

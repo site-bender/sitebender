@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { MediaEnumerationProps } from "../index.ts"
 
-export interface IPTCDigitalSourceEnumerationProps {}
+export interface IPTCDigitalSourceEnumerationProps {
+	"@type"?: "IPTCDigitalSourceEnumeration"}
 
 type IPTCDigitalSourceEnumeration =
 	& Thing

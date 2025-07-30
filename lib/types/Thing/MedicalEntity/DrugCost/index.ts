@@ -10,6 +10,7 @@ import QualitativeValueComponent from "../../../../components/Thing/Intangible/E
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface DrugCostProps {
+	"@type"?: "DrugCost"
 	applicableLocation?:
 		| AdministrativeArea
 		| ReturnType<typeof AdministrativeAreaComponent>

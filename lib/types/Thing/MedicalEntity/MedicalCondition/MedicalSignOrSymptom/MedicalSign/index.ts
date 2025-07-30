@@ -9,6 +9,7 @@ import PhysicalExamComponent from "../../../../../../components/Thing/MedicalEnt
 import MedicalTestComponent from "../../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
 export interface MedicalSignProps {
+	"@type"?: "MedicalSign"
 	identifyingExam?: PhysicalExam | ReturnType<typeof PhysicalExamComponent>
 	identifyingTest?: MedicalTest | ReturnType<typeof MedicalTestComponent>
 }

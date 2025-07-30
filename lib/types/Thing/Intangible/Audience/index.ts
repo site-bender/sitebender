@@ -6,6 +6,7 @@ import type { IntangibleProps } from "../index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface AudienceProps {
+	"@type"?: "Audience"
 	audienceType?: Text
 	geographicArea?:
 		| AdministrativeArea

@@ -22,6 +22,7 @@ import MonetaryAmountComponent from "../../../../components/Thing/Intangible/Str
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface HowToProps {
+	"@type"?: "HowTo"
 	estimatedCost?:
 		| MonetaryAmount
 		| Text

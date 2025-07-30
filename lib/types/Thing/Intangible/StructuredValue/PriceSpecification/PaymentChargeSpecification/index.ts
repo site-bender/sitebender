@@ -9,6 +9,7 @@ import DeliveryMethodComponent from "../../../../../../components/Thing/Intangib
 import PaymentMethodComponent from "../../../../../../components/Thing/Intangible/PaymentMethod/index.ts"
 
 export interface PaymentChargeSpecificationProps {
+	"@type"?: "PaymentChargeSpecification"
 	appliesToDeliveryMethod?:
 		| DeliveryMethod
 		| ReturnType<typeof DeliveryMethodComponent>

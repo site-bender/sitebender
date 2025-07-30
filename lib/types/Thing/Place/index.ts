@@ -40,6 +40,7 @@ import LocationFeatureSpecificationComponent from "../../../components/Thing/Int
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
 export interface PlaceProps {
+	"@type"?: "Place"
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	aggregateRating?:

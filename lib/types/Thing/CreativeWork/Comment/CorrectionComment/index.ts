@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { CommentProps } from "../index.ts"
 
-export interface CorrectionCommentProps {}
+export interface CorrectionCommentProps {
+	"@type"?: "CorrectionComment"}
 
 type CorrectionComment =
 	& Thing

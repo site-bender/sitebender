@@ -17,6 +17,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface MusicReleaseProps {
+	"@type"?: "MusicRelease"
 	catalogNumber?: Text
 	creditedTo?:
 		| Organization

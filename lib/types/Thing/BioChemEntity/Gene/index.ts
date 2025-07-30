@@ -13,6 +13,7 @@ import AnatomicalStructureComponent from "../../../../components/Thing/MedicalEn
 import AnatomicalSystemComponent from "../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
 export interface GeneProps {
+	"@type"?: "Gene"
 	alternativeOf?: Gene | ReturnType<typeof GeneComponent>
 	encodesBioChemEntity?:
 		| BioChemEntity

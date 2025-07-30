@@ -9,6 +9,7 @@ import DurationComponent from "../../../../../components/Thing/Intangible/Quanti
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface QuantitativeValueDistributionProps {
+	"@type"?: "QuantitativeValueDistribution"
 	duration?:
 		| Duration
 		| QuantitativeValue

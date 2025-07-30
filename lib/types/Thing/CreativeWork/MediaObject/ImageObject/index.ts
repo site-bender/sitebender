@@ -9,6 +9,7 @@ import PropertyValueComponent from "../../../../../components/Thing/Intangible/S
 import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 
 export interface ImageObjectProps {
+	"@type"?: "ImageObject"
 	caption?: MediaObject | Text | ReturnType<typeof MediaObjectComponent>
 	embeddedTextCaption?: Text
 	exifData?: PropertyValue | Text | ReturnType<typeof PropertyValueComponent>

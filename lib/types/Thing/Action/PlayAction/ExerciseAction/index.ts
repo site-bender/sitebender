@@ -21,6 +21,7 @@ import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface ExerciseActionProps {
+	"@type"?: "ExerciseAction"
 	course?: Place | ReturnType<typeof PlaceComponent>
 	diet?: Diet | ReturnType<typeof DietComponent>
 	distance?: Distance | ReturnType<typeof DistanceComponent>

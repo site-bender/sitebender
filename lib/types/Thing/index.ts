@@ -15,6 +15,7 @@ import EventComponent from "../../components/Thing/Event/index.ts"
 import PropertyValueComponent from "../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 
 export interface ThingProps {
+	"@type"?: "Thing"
 	additionalType?: Text | URL
 	alternateName?: Text
 	description?: Text | TextObject | ReturnType<typeof TextObjectComponent>

@@ -14,6 +14,7 @@ import ServicePeriodComponent from "../../../../../components/Thing/Intangible/S
 import ShippingConditionsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingConditions/index.ts"
 
 export interface ShippingServiceProps {
+	"@type"?: "ShippingService"
 	fulfillmentType?:
 		| FulfillmentTypeEnumeration
 		| ReturnType<typeof FulfillmentTypeEnumerationComponent>

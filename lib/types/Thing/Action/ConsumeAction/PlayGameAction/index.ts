@@ -7,6 +7,7 @@ import type { ConsumeActionProps } from "../index.ts"
 import GameAvailabilityEnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.ts"
 
 export interface PlayGameActionProps {
+	"@type"?: "PlayGameAction"
 	gameAvailabilityType?:
 		| GameAvailabilityEnumeration
 		| Text

@@ -56,6 +56,7 @@ import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
 export interface DemandProps {
+	"@type"?: "Demand"
 	acceptedPaymentMethod?:
 		| LoanOrCredit
 		| PaymentMethod

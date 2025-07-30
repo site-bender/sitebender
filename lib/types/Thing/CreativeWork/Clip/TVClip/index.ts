@@ -6,6 +6,7 @@ import type { ClipProps } from "../index.ts"
 import TVSeriesComponent from "../../../../../components/Thing/CreativeWork/TVSeries/index.ts"
 
 export interface TVClipProps {
+	"@type"?: "TVClip"
 	partOfTVSeries?: TVSeries | ReturnType<typeof TVSeriesComponent>
 }
 

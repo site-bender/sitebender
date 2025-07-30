@@ -18,6 +18,7 @@ import PropertyValueComponent from "../../../../../components/Thing/Intangible/S
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface QualitativeValueProps {
+	"@type"?: "QualitativeValue"
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	equal?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>
 	greater?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>

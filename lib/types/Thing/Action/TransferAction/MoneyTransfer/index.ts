@@ -9,6 +9,7 @@ import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/
 import BankOrCreditUnionComponent from "../../../../../components/Thing/Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
 
 export interface MoneyTransferProps {
+	"@type"?: "MoneyTransfer"
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	beneficiaryBank?:
 		| BankOrCreditUnion

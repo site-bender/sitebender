@@ -22,6 +22,7 @@ import VirtualLocationComponent from "../../../../../components/Thing/Intangible
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface InteractionCounterProps {
+	"@type"?: "InteractionCounter"
 	endTime?: DateTime | Time
 	interactionService?:
 		| SoftwareApplication

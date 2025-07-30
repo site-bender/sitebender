@@ -6,6 +6,7 @@ import type { MedicalOrganizationProps } from "../index.ts"
 import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
 export interface DiagnosticLabProps {
+	"@type"?: "DiagnosticLab"
 	availableTest?: MedicalTest | ReturnType<typeof MedicalTestComponent>
 }
 

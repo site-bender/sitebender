@@ -7,6 +7,7 @@ import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface RepaymentSpecificationProps {
+	"@type"?: "RepaymentSpecification"
 	downPayment?:
 		| MonetaryAmount
 		| Number

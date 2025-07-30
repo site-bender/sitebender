@@ -9,6 +9,7 @@ import BusStationComponent from "../../../../../components/Thing/Place/CivicStru
 import BusStopComponent from "../../../../../components/Thing/Place/CivicStructure/BusStop/index.ts"
 
 export interface BusTripProps {
+	"@type"?: "BusTrip"
 	arrivalBusStop?:
 		| BusStation
 		| BusStop

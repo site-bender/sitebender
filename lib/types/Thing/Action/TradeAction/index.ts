@@ -6,6 +6,7 @@ import type { ActionProps } from "../index.ts"
 import PriceSpecificationComponent from "../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
 export interface TradeActionProps {
+	"@type"?: "TradeAction"
 	price?: Number | Text
 	priceCurrency?: Text
 	priceSpecification?:

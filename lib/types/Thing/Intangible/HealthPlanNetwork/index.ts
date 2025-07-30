@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
 export interface HealthPlanNetworkProps {
+	"@type"?: "HealthPlanNetwork"
 	healthPlanCostSharing?: Boolean
 	healthPlanNetworkId?: Text
 	healthPlanNetworkTier?: Text

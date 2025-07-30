@@ -9,6 +9,7 @@ import PostalCodeRangeSpecificationComponent from "../../../../../components/Thi
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface DefinedRegionProps {
+	"@type"?: "DefinedRegion"
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	addressRegion?: Text
 	postalCode?: Text

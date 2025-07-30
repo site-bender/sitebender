@@ -7,6 +7,7 @@ import type { AddActionProps } from "../index.ts"
 import PlaceComponent from "../../../../../../components/Thing/Place/index.ts"
 
 export interface InsertActionProps {
+	"@type"?: "InsertAction"
 	toLocation?: Place | ReturnType<typeof PlaceComponent>
 }
 

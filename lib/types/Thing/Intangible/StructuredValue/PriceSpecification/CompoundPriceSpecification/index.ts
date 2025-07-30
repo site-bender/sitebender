@@ -10,6 +10,7 @@ import PriceTypeEnumerationComponent from "../../../../../../components/Thing/In
 import UnitPriceSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
 export interface CompoundPriceSpecificationProps {
+	"@type"?: "CompoundPriceSpecification"
 	priceComponent?:
 		| UnitPriceSpecification
 		| ReturnType<typeof UnitPriceSpecificationComponent>

@@ -7,6 +7,7 @@ import type { VehicleProps } from "../index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface BusOrCoachProps {
+	"@type"?: "BusOrCoach"
 	acrissCode?: Text
 	roofLoad?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
 }

@@ -18,6 +18,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface MedicalStudyProps {
+	"@type"?: "MedicalStudy"
 	healthCondition?:
 		| MedicalCondition
 		| ReturnType<typeof MedicalConditionComponent>

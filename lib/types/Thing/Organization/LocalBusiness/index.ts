@@ -7,6 +7,7 @@ import type { OrganizationProps } from "../index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 
 export interface LocalBusinessProps {
+	"@type"?: "LocalBusiness"
 	branchOf?: Organization | ReturnType<typeof OrganizationComponent>
 	currenciesAccepted?: Text
 	openingHours?: Text

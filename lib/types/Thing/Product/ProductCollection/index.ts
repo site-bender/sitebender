@@ -7,6 +7,7 @@ import type { ProductProps } from "../index.ts"
 import TypeAndQuantityNodeComponent from "../../../../components/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
 
 export interface ProductCollectionProps {
+	"@type"?: "ProductCollection"
 	includesObject?:
 		| TypeAndQuantityNode
 		| ReturnType<typeof TypeAndQuantityNodeComponent>

@@ -16,6 +16,7 @@ import AnatomicalSystemComponent from "../../../../../components/Thing/MedicalEn
 import SuperficialAnatomyComponent from "../../../../../components/Thing/MedicalEntity/SuperficialAnatomy/index.ts"
 
 export interface PhysicalActivityProps {
+	"@type"?: "PhysicalActivity"
 	associatedAnatomy?:
 		| AnatomicalStructure
 		| AnatomicalSystem

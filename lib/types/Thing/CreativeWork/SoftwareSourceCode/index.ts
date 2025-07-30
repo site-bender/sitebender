@@ -8,6 +8,7 @@ import SoftwareApplicationComponent from "../../../../components/Thing/CreativeW
 import ComputerLanguageComponent from "../../../../components/Thing/Intangible/ComputerLanguage/index.ts"
 
 export interface SoftwareSourceCodeProps {
+	"@type"?: "SoftwareSourceCode"
 	codeRepository?: URL
 	codeSampleType?: Text
 	programmingLanguage?:

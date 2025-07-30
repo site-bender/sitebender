@@ -12,6 +12,7 @@ import BedTypeComponent from "../../../../../../components/Thing/Intangible/Enum
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface HotelRoomProps {
+	"@type"?: "HotelRoom"
 	bed?:
 		| BedDetails
 		| BedType

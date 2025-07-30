@@ -13,6 +13,7 @@ import OpeningHoursSpecificationComponent from "../../../../../components/Thing/
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface ServicePeriodProps {
+	"@type"?: "ServicePeriod"
 	businessDays?:
 		| DayOfWeek
 		| OpeningHoursSpecification

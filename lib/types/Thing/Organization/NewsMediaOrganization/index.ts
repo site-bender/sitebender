@@ -10,6 +10,7 @@ import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/ind
 import AboutPageComponent from "../../../../components/Thing/CreativeWork/WebPage/AboutPage/index.ts"
 
 export interface NewsMediaOrganizationProps {
+	"@type"?: "NewsMediaOrganization"
 	actionableFeedbackPolicy?:
 		| CreativeWork
 		| URL

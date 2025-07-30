@@ -9,6 +9,7 @@ import EventComponent from "../../../../../components/Thing/Event/index.ts"
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
 export interface BroadcastEventProps {
+	"@type"?: "BroadcastEvent"
 	broadcastOfEvent?: Event | ReturnType<typeof EventComponent>
 	isLiveBroadcast?: Boolean
 	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>

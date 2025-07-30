@@ -8,6 +8,7 @@ import EnumerationComponent from "../../../../components/Thing/Intangible/Enumer
 import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 
 export interface EnumerationProps {
+	"@type"?: "Enumeration"
 	supersededBy?:
 		| Class
 		| Enumeration

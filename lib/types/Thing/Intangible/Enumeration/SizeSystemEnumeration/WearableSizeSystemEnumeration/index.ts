@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { SizeSystemEnumerationProps } from "../index.ts"
 
-export interface WearableSizeSystemEnumerationProps {}
+export interface WearableSizeSystemEnumerationProps {
+	"@type"?: "WearableSizeSystemEnumeration"}
 
 type WearableSizeSystemEnumeration =
 	& Thing

@@ -6,6 +6,7 @@ import type { ActionProps } from "../index.ts"
 import HyperTocEntryComponent from "../../../../components/Thing/CreativeWork/HyperTocEntry/index.ts"
 
 export interface SeekToActionProps {
+	"@type"?: "SeekToAction"
 	startOffset?:
 		| HyperTocEntry
 		| Number

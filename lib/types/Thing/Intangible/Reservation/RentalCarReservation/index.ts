@@ -7,6 +7,7 @@ import type { ReservationProps } from "../index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface RentalCarReservationProps {
+	"@type"?: "RentalCarReservation"
 	dropoffLocation?: Place | ReturnType<typeof PlaceComponent>
 	dropoffTime?: DateTime
 	pickupLocation?: Place | ReturnType<typeof PlaceComponent>

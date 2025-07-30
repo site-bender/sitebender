@@ -12,6 +12,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface EducationalOccupationalCredentialProps {
+	"@type"?: "EducationalOccupationalCredential"
 	competencyRequired?:
 		| DefinedTerm
 		| Text

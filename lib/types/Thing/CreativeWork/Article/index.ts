@@ -8,6 +8,7 @@ import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/ind
 import SpeakableSpecificationComponent from "../../../../components/Thing/Intangible/SpeakableSpecification/index.ts"
 
 export interface ArticleProps {
+	"@type"?: "Article"
 	articleBody?: Text
 	articleSection?: Text
 	backstory?: CreativeWork | Text | ReturnType<typeof CreativeWorkComponent>

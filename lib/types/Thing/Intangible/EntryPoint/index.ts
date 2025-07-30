@@ -8,6 +8,7 @@ import SoftwareApplicationComponent from "../../../../components/Thing/CreativeW
 import DigitalPlatformEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.ts"
 
 export interface EntryPointProps {
+	"@type"?: "EntryPoint"
 	actionApplication?:
 		| SoftwareApplication
 		| ReturnType<typeof SoftwareApplicationComponent>

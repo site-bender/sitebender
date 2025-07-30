@@ -10,6 +10,7 @@ import DefinedTermComponent from "../../../../components/Thing/Intangible/Define
 import MeasurementMethodEnumComponent from "../../../../components/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
 export interface DataCatalogProps {
+	"@type"?: "DataCatalog"
 	dataset?: Dataset | ReturnType<typeof DatasetComponent>
 	measurementMethod?:
 		| DefinedTerm

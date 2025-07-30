@@ -18,6 +18,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface TicketProps {
+	"@type"?: "Ticket"
 	dateIssued?: Date | DateTime
 	issuedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	priceCurrency?: Text

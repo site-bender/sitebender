@@ -4,6 +4,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { ArticleProps } from "../index.ts"
 
 export interface NewsArticleProps {
+	"@type"?: "NewsArticle"
 	dateline?: Text
 	printColumn?: Text
 	printEdition?: Text

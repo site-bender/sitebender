@@ -14,6 +14,7 @@ import MedicalDeviceComponent from "../../../../components/Thing/MedicalEntity/M
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
 export interface MedicalTestProps {
+	"@type"?: "MedicalTest"
 	affectedBy?: Drug | ReturnType<typeof DrugComponent>
 	normalRange?:
 		| MedicalEnumeration

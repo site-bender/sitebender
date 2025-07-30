@@ -9,6 +9,7 @@ import type { BlogPostingProps } from "../index.ts"
 import BlogPostingComponent from "../../../../../../../components/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.ts"
 
 export interface LiveBlogPostingProps {
+	"@type"?: "LiveBlogPosting"
 	coverageEndTime?: DateTime
 	coverageStartTime?: DateTime
 	liveBlogUpdate?: BlogPosting | ReturnType<typeof BlogPostingComponent>

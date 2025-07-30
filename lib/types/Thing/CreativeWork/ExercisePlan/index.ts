@@ -13,6 +13,7 @@ import EnergyComponent from "../../../../components/Thing/Intangible/Quantity/En
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface ExercisePlanProps {
+	"@type"?: "ExercisePlan"
 	activityDuration?:
 		| Duration
 		| QuantitativeValue

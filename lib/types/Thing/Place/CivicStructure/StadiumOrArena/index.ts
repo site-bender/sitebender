@@ -5,7 +5,8 @@ import type { SportsActivityLocationProps } from "../../../Organization/LocalBus
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
-export interface StadiumOrArenaProps {}
+export interface StadiumOrArenaProps {
+	"@type"?: "StadiumOrArena"}
 
 type StadiumOrArena =
 	& Thing

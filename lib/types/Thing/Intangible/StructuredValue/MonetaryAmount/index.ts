@@ -13,6 +13,7 @@ import type { StructuredValueProps } from "../index.ts"
 import StructuredValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/index.ts"
 
 export interface MonetaryAmountProps {
+	"@type"?: "MonetaryAmount"
 	currency?: Text
 	maxValue?: Number
 	minValue?: Number

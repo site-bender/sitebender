@@ -3,7 +3,8 @@ import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 
-export interface CheckInActionProps {}
+export interface CheckInActionProps {
+	"@type"?: "CheckInAction"}
 
 type CheckInAction =
 	& Thing

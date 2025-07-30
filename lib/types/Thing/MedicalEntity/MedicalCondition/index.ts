@@ -28,6 +28,7 @@ import SuperficialAnatomyComponent from "../../../../components/Thing/MedicalEnt
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
 export interface MedicalConditionProps {
+	"@type"?: "MedicalCondition"
 	associatedAnatomy?:
 		| AnatomicalStructure
 		| AnatomicalSystem

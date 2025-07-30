@@ -9,6 +9,7 @@ import QualitativeValueComponent from "../../../../../components/Thing/Intangibl
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface EngineSpecificationProps {
+	"@type"?: "EngineSpecification"
 	engineDisplacement?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

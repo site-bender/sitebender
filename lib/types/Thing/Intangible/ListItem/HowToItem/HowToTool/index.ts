@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { ListItemProps } from "../../index.ts"
 import type { HowToItemProps } from "../index.ts"
 
-export interface HowToToolProps {}
+export interface HowToToolProps {
+	"@type"?: "HowToTool"}
 
 type HowToTool =
 	& Thing

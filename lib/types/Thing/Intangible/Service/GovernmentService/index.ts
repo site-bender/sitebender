@@ -9,6 +9,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface GovernmentServiceProps {
+	"@type"?: "GovernmentService"
 	jurisdiction?:
 		| AdministrativeArea
 		| Text

@@ -23,6 +23,7 @@ import LocalBusinessComponent from "../../../../components/Thing/Organization/Lo
 import CivicStructureComponent from "../../../../components/Thing/Place/CivicStructure/index.ts"
 
 export interface SpecialAnnouncementProps {
+	"@type"?: "SpecialAnnouncement"
 	announcementLocation?:
 		| CivicStructure
 		| LocalBusiness

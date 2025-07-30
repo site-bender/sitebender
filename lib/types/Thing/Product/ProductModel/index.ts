@@ -6,6 +6,7 @@ import ProductGroupComponent from "../../../../components/Thing/Product/ProductG
 import ProductModelComponent from "../../../../components/Thing/Product/ProductModel/index.ts"
 
 export interface ProductModelProps {
+	"@type"?: "ProductModel"
 	isVariantOf?:
 		| ProductGroup
 		| ProductModel

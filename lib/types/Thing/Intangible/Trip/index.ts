@@ -17,6 +17,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface TripProps {
+	"@type"?: "Trip"
 	arrivalTime?: DateTime | Time
 	departureTime?: DateTime | Time
 	itinerary?:

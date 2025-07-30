@@ -9,6 +9,7 @@ import EnergyComponent from "../../../../../components/Thing/Intangible/Quantity
 import MassComponent from "../../../../../components/Thing/Intangible/Quantity/Mass/index.ts"
 
 export interface NutritionInformationProps {
+	"@type"?: "NutritionInformation"
 	calories?: Energy | ReturnType<typeof EnergyComponent>
 	carbohydrateContent?: Mass | ReturnType<typeof MassComponent>
 	cholesterolContent?: Mass | ReturnType<typeof MassComponent>

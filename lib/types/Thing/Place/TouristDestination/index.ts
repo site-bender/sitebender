@@ -8,6 +8,7 @@ import AudienceComponent from "../../../../components/Thing/Intangible/Audience/
 import TouristAttractionComponent from "../../../../components/Thing/Place/TouristAttraction/index.ts"
 
 export interface TouristDestinationProps {
+	"@type"?: "TouristDestination"
 	includesAttraction?:
 		| TouristAttraction
 		| ReturnType<typeof TouristAttractionComponent>

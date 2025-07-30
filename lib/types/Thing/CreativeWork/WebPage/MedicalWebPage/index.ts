@@ -9,6 +9,7 @@ import MedicalAudienceComponent from "../../../../../components/Thing/Intangible
 import MedicalAudienceTypeComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalAudienceType/index.ts"
 
 export interface MedicalWebPageProps {
+	"@type"?: "MedicalWebPage"
 	aspect?: Text
 	medicalAudience?:
 		| MedicalAudience

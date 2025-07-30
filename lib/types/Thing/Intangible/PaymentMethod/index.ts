@@ -5,6 +5,7 @@ import type { IntangibleProps } from "../index.ts"
 import PaymentMethodTypeComponent from "../../../../components/Thing/Intangible/Enumeration/PaymentMethodType/index.ts"
 
 export interface PaymentMethodProps {
+	"@type"?: "PaymentMethod"
 	paymentMethodType?:
 		| PaymentMethodType
 		| ReturnType<typeof PaymentMethodTypeComponent>

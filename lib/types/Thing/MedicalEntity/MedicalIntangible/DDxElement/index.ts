@@ -8,6 +8,7 @@ import MedicalConditionComponent from "../../../../../components/Thing/MedicalEn
 import MedicalSignOrSymptomComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/index.ts"
 
 export interface DDxElementProps {
+	"@type"?: "DDxElement"
 	diagnosis?: MedicalCondition | ReturnType<typeof MedicalConditionComponent>
 	distinguishingSign?:
 		| MedicalSignOrSymptom

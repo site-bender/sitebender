@@ -6,6 +6,7 @@ import type { TransferActionProps } from "../index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface LendActionProps {
+	"@type"?: "LendAction"
 	borrower?: Person | ReturnType<typeof PersonComponent>
 }
 

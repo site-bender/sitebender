@@ -47,7 +47,7 @@ export default function ({ route }: Props = {}) {
 							/>
 						}
 						editor={{
-							_type: "Person",
+							"@type": "Person",
 							givenName: "John",
 							familyName: "Doe",
 						}}

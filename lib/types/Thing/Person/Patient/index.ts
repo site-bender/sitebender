@@ -11,6 +11,7 @@ import MedicalConditionComponent from "../../../../components/Thing/MedicalEntit
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
 export interface PatientProps {
+	"@type"?: "Patient"
 	diagnosis?: MedicalCondition | ReturnType<typeof MedicalConditionComponent>
 	drug?: Drug | ReturnType<typeof DrugComponent>
 	healthCondition?:

@@ -19,6 +19,7 @@ import ReturnMethodEnumerationComponent from "../../../../components/Thing/Intan
 import MonetaryAmountComponent from "../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface MerchantReturnPolicySeasonalOverrideProps {
+	"@type"?: "MerchantReturnPolicySeasonalOverride"
 	endDate?: Date | DateTime
 	merchantReturnDays?: Date | DateTime | Integer
 	refundType?:

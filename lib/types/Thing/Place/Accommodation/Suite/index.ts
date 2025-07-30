@@ -11,6 +11,7 @@ import BedTypeComponent from "../../../../../components/Thing/Intangible/Enumera
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface SuiteProps {
+	"@type"?: "Suite"
 	bed?:
 		| BedDetails
 		| BedType

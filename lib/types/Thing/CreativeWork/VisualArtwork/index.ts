@@ -12,6 +12,7 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface VisualArtworkProps {
+	"@type"?: "VisualArtwork"
 	artEdition?: Integer | Text
 	artform?: Text | URL
 	artist?: Person | ReturnType<typeof PersonComponent>

@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
 export interface RoleProps {
+	"@type"?: "Role"
 	endDate?: Date | DateTime
 	namedPosition?: Text | URL
 	roleName?: Text | URL

@@ -9,6 +9,7 @@ import PostalAddressComponent from "../../../../../components/Thing/Intangible/S
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface GeoCoordinatesProps {
+	"@type"?: "GeoCoordinates"
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	elevation?: Number | Text

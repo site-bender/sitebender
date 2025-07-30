@@ -23,6 +23,7 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface ObservationProps {
+	"@type"?: "Observation"
 	marginOfError?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

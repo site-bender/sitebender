@@ -6,6 +6,7 @@ import type PriceSpecification from "../StructuredValue/PriceSpecification/index
 import PriceSpecificationComponent from "../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
 export interface HealthPlanCostSharingSpecificationProps {
+	"@type"?: "HealthPlanCostSharingSpecification"
 	healthPlanCoinsuranceOption?: Text
 	healthPlanCoinsuranceRate?: Number
 	healthPlanCopay?:

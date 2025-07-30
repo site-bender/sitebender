@@ -8,6 +8,7 @@ import PropertyValueComponent from "../../../components/Thing/Intangible/Structu
 import TaxonComponent from "../../../components/Thing/Taxon/index.ts"
 
 export interface TaxonProps {
+	"@type"?: "Taxon"
 	childTaxon?: Taxon | Text | URL | ReturnType<typeof TaxonComponent>
 	hasDefinedTerm?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 	parentTaxon?: Taxon | Text | URL | ReturnType<typeof TaxonComponent>

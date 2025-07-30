@@ -9,6 +9,7 @@ import DefinedTermComponent from "../../../../../components/Thing/Intangible/Def
 import MeasurementMethodEnumComponent from "../../../../../components/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
 export interface DataDownloadProps {
+	"@type"?: "DataDownload"
 	measurementMethod?:
 		| DefinedTerm
 		| MeasurementMethodEnum

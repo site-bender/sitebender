@@ -3,7 +3,8 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { WebPageProps } from "../../index.ts"
 import type { CollectionPageProps } from "../index.ts"
 
-export interface MediaGalleryProps {}
+export interface MediaGalleryProps {
+	"@type"?: "MediaGallery"}
 
 type MediaGallery =
 	& Thing

@@ -3,7 +3,8 @@ import type { ActionProps } from "../../../index.ts"
 import type { OrganizeActionProps } from "../../index.ts"
 import type { PlanActionProps } from "../index.ts"
 
-export interface ReserveActionProps {}
+export interface ReserveActionProps {
+	"@type"?: "ReserveAction"}
 
 type ReserveAction =
 	& Thing

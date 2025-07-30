@@ -8,6 +8,7 @@ import EnumerationComponent from "../../../../components/Thing/Intangible/Enumer
 import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 
 export interface PropertyProps {
+	"@type"?: "Property"
 	domainIncludes?: Class | ReturnType<typeof ClassComponent>
 	inverseOf?: Property | ReturnType<typeof PropertyComponent>
 	rangeIncludes?: Class | ReturnType<typeof ClassComponent>

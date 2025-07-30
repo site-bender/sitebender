@@ -4,6 +4,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { ReviewProps } from "../index.ts"
 
 export interface ClaimReviewProps {
+	"@type"?: "ClaimReview"
 	claimReviewed?: Text
 }
 

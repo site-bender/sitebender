@@ -13,6 +13,7 @@ import PerformingGroupComponent from "../../../../../components/Thing/Organizati
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface PodcastSeriesProps {
+	"@type"?: "PodcastSeries"
 	actor?:
 		| PerformingGroup
 		| Person

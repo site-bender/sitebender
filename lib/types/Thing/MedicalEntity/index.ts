@@ -21,6 +21,7 @@ import MedicalStudyComponent from "../../../components/Thing/MedicalEntity/Medic
 import OrganizationComponent from "../../../components/Thing/Organization/index.ts"
 
 export interface MedicalEntityProps {
+	"@type"?: "MedicalEntity"
 	code?: MedicalCode | ReturnType<typeof MedicalCodeComponent>
 	funding?: Grant | ReturnType<typeof GrantComponent>
 	guideline?: MedicalGuideline | ReturnType<typeof MedicalGuidelineComponent>

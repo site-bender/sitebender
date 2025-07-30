@@ -10,6 +10,7 @@ import MenuComponent from "../../../../../components/Thing/CreativeWork/Menu/ind
 import RatingComponent from "../../../../../components/Thing/Intangible/Rating/index.ts"
 
 export interface FoodEstablishmentProps {
+	"@type"?: "FoodEstablishment"
 	acceptsReservations?: Boolean | Text | URL
 	hasMenu?: Menu | Text | URL | ReturnType<typeof MenuComponent>
 	menu?: Menu | Text | URL | ReturnType<typeof MenuComponent>

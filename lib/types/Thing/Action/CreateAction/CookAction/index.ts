@@ -12,6 +12,7 @@ import FoodEstablishmentComponent from "../../../../../components/Thing/Organiza
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface CookActionProps {
+	"@type"?: "CookAction"
 	foodEstablishment?:
 		| FoodEstablishment
 		| Place

@@ -6,6 +6,7 @@ import type { IntangibleProps } from "../index.ts"
 import DefinedTermSetComponent from "../../../../components/Thing/CreativeWork/DefinedTermSet/index.ts"
 
 export interface DefinedTermProps {
+	"@type"?: "DefinedTerm"
 	inDefinedTermSet?:
 		| DefinedTermSet
 		| URL

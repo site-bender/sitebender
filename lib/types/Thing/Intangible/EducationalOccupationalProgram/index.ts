@@ -37,6 +37,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface EducationalOccupationalProgramProps {
+	"@type"?: "EducationalOccupationalProgram"
 	applicationDeadline?: Date | Text
 	applicationStartDate?: Date
 	dayOfWeek?: DayOfWeek | ReturnType<typeof DayOfWeekComponent>

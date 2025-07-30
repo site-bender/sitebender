@@ -4,7 +4,8 @@ import type { FinancialProductProps } from "../../Service/FinancialProduct/index
 import type { ServiceProps } from "../../Service/index.ts"
 import type { PaymentMethodProps } from "../index.ts"
 
-export interface PaymentServiceProps {}
+export interface PaymentServiceProps {
+	"@type"?: "PaymentService"}
 
 type PaymentService =
 	& Thing

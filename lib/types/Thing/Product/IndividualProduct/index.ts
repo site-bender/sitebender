@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { ProductProps } from "../index.ts"
 
 export interface IndividualProductProps {
+	"@type"?: "IndividualProduct"
 	serialNumber?: Text
 }
 

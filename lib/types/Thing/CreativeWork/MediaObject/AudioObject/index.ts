@@ -7,6 +7,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 
 export interface AudioObjectProps {
+	"@type"?: "AudioObject"
 	caption?: MediaObject | Text | ReturnType<typeof MediaObjectComponent>
 	embeddedTextCaption?: Text
 	transcript?: Text

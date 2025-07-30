@@ -8,6 +8,7 @@ import SportsTeamComponent from "../../../../components/Thing/Organization/Sport
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface SportsEventProps {
+	"@type"?: "SportsEvent"
 	awayTeam?:
 		| Person
 		| SportsTeam

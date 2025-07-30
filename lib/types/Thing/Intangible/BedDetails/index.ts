@@ -6,6 +6,7 @@ import type { IntangibleProps } from "../index.ts"
 import BedTypeComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 
 export interface BedDetailsProps {
+	"@type"?: "BedDetails"
 	numberOfBeds?: Number
 	typeOfBed?: BedType | Text | ReturnType<typeof BedTypeComponent>
 }

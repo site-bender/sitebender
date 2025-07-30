@@ -4,6 +4,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { SoftwareApplicationProps } from "../index.ts"
 
 export interface WebApplicationProps {
+	"@type"?: "WebApplication"
 	browserRequirements?: Text
 }
 

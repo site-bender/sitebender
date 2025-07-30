@@ -12,6 +12,7 @@ import EventStatusTypeComponent from "../../../../components/Thing/Intangible/En
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
 export interface MedicalProcedureProps {
+	"@type"?: "MedicalProcedure"
 	bodyLocation?: Text
 	followup?: Text
 	howPerformed?: Text

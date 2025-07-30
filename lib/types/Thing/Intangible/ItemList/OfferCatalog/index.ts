@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ItemListProps } from "../index.ts"
 
-export interface OfferCatalogProps {}
+export interface OfferCatalogProps {
+	"@type"?: "OfferCatalog"}
 
 type OfferCatalog = Thing & IntangibleProps & ItemListProps & OfferCatalogProps
 

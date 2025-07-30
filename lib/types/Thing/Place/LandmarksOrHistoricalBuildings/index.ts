@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { PlaceProps } from "../index.ts"
 
-export interface LandmarksOrHistoricalBuildingsProps {}
+export interface LandmarksOrHistoricalBuildingsProps {
+	"@type"?: "LandmarksOrHistoricalBuildings"}
 
 type LandmarksOrHistoricalBuildings =
 	& Thing

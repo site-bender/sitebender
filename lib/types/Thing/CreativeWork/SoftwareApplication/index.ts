@@ -11,6 +11,7 @@ import ImageObjectComponent from "../../../../components/Thing/CreativeWork/Medi
 import SoftwareApplicationComponent from "../../../../components/Thing/CreativeWork/SoftwareApplication/index.ts"
 
 export interface SoftwareApplicationProps {
+	"@type"?: "SoftwareApplication"
 	applicationCategory?: Text | URL
 	applicationSubCategory?: Text | URL
 	applicationSuite?: Text

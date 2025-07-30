@@ -6,6 +6,7 @@ import type { MedicalTestProps } from "../index.ts"
 import MedicalImagingTechniqueComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.ts"
 
 export interface ImagingTestProps {
+	"@type"?: "ImagingTest"
 	imagingTechnique?:
 		| MedicalImagingTechnique
 		| ReturnType<typeof MedicalImagingTechniqueComponent>

@@ -5,6 +5,7 @@ import type { MedicalEntityProps } from "../index.ts"
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
 export interface MedicalCauseProps {
+	"@type"?: "MedicalCause"
 	causeOf?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 }
 

@@ -3,7 +3,8 @@ import type { PlaceProps } from "../../../index.ts"
 import type { CivicStructureProps } from "../../index.ts"
 import type { GovernmentBuildingProps } from "../index.ts"
 
-export interface CourthouseProps {}
+export interface CourthouseProps {
+	"@type"?: "Courthouse"}
 
 type Courthouse =
 	& Thing

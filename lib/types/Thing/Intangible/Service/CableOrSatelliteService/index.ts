@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
 
-export interface CableOrSatelliteServiceProps {}
+export interface CableOrSatelliteServiceProps {
+	"@type"?: "CableOrSatelliteService"}
 
 type CableOrSatelliteService =
 	& Thing

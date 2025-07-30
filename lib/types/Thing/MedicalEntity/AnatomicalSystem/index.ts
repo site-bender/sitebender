@@ -11,6 +11,7 @@ import MedicalConditionComponent from "../../../../components/Thing/MedicalEntit
 import MedicalTherapyComponent from "../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export interface AnatomicalSystemProps {
+	"@type"?: "AnatomicalSystem"
 	associatedPathophysiology?: Text
 	comprisedOf?:
 		| AnatomicalStructure

@@ -6,6 +6,7 @@ import type { CreativeWorkProps } from "../index.ts"
 import BlogPostingComponent from "../../../../components/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.ts"
 
 export interface BlogProps {
+	"@type"?: "Blog"
 	blogPost?: BlogPosting | ReturnType<typeof BlogPostingComponent>
 	blogPosts?: BlogPosting | ReturnType<typeof BlogPostingComponent>
 	issn?: Text

@@ -4,7 +4,8 @@ import type { UpdateActionProps } from "../../../index.ts"
 import type { AddActionProps } from "../../index.ts"
 import type { InsertActionProps } from "../index.ts"
 
-export interface AppendActionProps {}
+export interface AppendActionProps {
+	"@type"?: "AppendAction"}
 
 type AppendAction =
 	& Thing

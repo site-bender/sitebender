@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-export interface QuantityProps {}
+export interface QuantityProps {
+	"@type"?: "Quantity"}
 
 type Quantity = Thing & IntangibleProps & QuantityProps
 

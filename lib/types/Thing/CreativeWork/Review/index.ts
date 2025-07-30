@@ -14,6 +14,7 @@ import ListItemComponent from "../../../../components/Thing/Intangible/ListItem/
 import RatingComponent from "../../../../components/Thing/Intangible/Rating/index.ts"
 
 export interface ReviewProps {
+	"@type"?: "Review"
 	associatedClaimReview?: Review | ReturnType<typeof ReviewComponent>
 	associatedMediaReview?: Review | ReturnType<typeof ReviewComponent>
 	associatedReview?: Review | ReturnType<typeof ReviewComponent>

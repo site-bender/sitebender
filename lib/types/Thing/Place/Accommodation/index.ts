@@ -22,6 +22,7 @@ import LocationFeatureSpecificationComponent from "../../../../components/Thing/
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface AccommodationProps {
+	"@type"?: "Accommodation"
 	accommodationCategory?: Text
 	accommodationFloorPlan?: FloorPlan | ReturnType<typeof FloorPlanComponent>
 	amenityFeature?:

@@ -9,6 +9,7 @@ import CategoryCodeComponent from "../../../../../components/Thing/Intangible/De
 import MonetaryAmountDistributionComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
 export interface WorkBasedProgramProps {
+	"@type"?: "WorkBasedProgram"
 	occupationalCategory?:
 		| CategoryCode
 		| Text

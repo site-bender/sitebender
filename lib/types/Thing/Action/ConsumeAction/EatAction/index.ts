@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { ConsumeActionProps } from "../index.ts"
 
-export interface EatActionProps {}
+export interface EatActionProps {
+	"@type"?: "EatAction"}
 
 type EatAction = Thing & ActionProps & ConsumeActionProps & EatActionProps
 

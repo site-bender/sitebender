@@ -10,6 +10,7 @@ import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/
 import WebContentComponent from "../../../../../components/Thing/CreativeWork/WebContent/index.ts"
 
 export interface AnswerProps {
+	"@type"?: "Answer"
 	answerExplanation?:
 		| Comment
 		| WebContent

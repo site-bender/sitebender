@@ -6,6 +6,7 @@ import type { MedicalConditionProps } from "../index.ts"
 import MedicalTherapyComponent from "../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export interface MedicalSignOrSymptomProps {
+	"@type"?: "MedicalSignOrSymptom"
 	possibleTreatment?:
 		| MedicalTherapy
 		| ReturnType<typeof MedicalTherapyComponent>

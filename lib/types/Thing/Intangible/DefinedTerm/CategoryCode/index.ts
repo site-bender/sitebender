@@ -7,6 +7,7 @@ import type { DefinedTermProps } from "../index.ts"
 import CategoryCodeSetComponent from "../../../../../components/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.ts"
 
 export interface CategoryCodeProps {
+	"@type"?: "CategoryCode"
 	codeValue?: Text
 	inCodeSet?:
 		| CategoryCodeSet

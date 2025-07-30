@@ -7,6 +7,7 @@ import type { ListItemProps } from "../index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface HowToItemProps {
+	"@type"?: "HowToItem"
 	requiredQuantity?:
 		| Number
 		| QuantitativeValue

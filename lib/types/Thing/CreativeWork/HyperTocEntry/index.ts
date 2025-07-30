@@ -7,6 +7,7 @@ import HyperTocEntryComponent from "../../../../components/Thing/CreativeWork/Hy
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
 export interface HyperTocEntryProps {
+	"@type"?: "HyperTocEntry"
 	associatedMedia?: MediaObject | ReturnType<typeof MediaObjectComponent>
 	tocContinuation?: HyperTocEntry | ReturnType<typeof HyperTocEntryComponent>
 	utterances?: Text

@@ -3,7 +3,8 @@ import type { MediaObjectProps } from "../../../../MediaObject/index.ts"
 import type { CreativeWorkProps } from "../../../index.ts"
 import type { AudioObjectProps } from "../index.ts"
 
-export interface AudioObjectSnapshotProps {}
+export interface AudioObjectSnapshotProps {
+	"@type"?: "AudioObjectSnapshot"}
 
 type AudioObjectSnapshot =
 	& Thing

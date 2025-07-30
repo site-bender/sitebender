@@ -10,6 +10,7 @@ import RealEstateAgentComponent from "../../../../../components/Thing/Organizati
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface RentActionProps {
+	"@type"?: "RentAction"
 	landlord?:
 		| Organization
 		| Person

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ClipProps } from "../index.ts"
 
-export interface VideoGameClipProps {}
+export interface VideoGameClipProps {
+	"@type"?: "VideoGameClip"}
 
 type VideoGameClip = Thing & CreativeWorkProps & ClipProps & VideoGameClipProps
 

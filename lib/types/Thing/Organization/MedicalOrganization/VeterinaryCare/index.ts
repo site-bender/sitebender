@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
 
-export interface VeterinaryCareProps {}
+export interface VeterinaryCareProps {
+	"@type"?: "VeterinaryCare"}
 
 type VeterinaryCare =
 	& Thing

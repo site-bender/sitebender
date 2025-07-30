@@ -8,6 +8,7 @@ import type { FinancialProductProps } from "../index.ts"
 import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface InvestmentOrDepositProps {
+	"@type"?: "InvestmentOrDeposit"
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 }
 

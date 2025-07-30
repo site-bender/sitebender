@@ -13,6 +13,7 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import ServicePeriodComponent from "../../../../../components/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
 
 export interface ShippingDeliveryTimeProps {
+	"@type"?: "ShippingDeliveryTime"
 	businessDays?:
 		| DayOfWeek
 		| OpeningHoursSpecification

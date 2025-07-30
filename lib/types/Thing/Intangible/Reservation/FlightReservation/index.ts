@@ -7,6 +7,7 @@ import type { ReservationProps } from "../index.ts"
 import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 
 export interface FlightReservationProps {
+	"@type"?: "FlightReservation"
 	boardingGroup?: Text
 	passengerPriorityStatus?:
 		| QualitativeValue

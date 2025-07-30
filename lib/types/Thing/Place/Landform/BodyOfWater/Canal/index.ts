@@ -3,7 +3,8 @@ import type { PlaceProps } from "../../../index.ts"
 import type { LandformProps } from "../../index.ts"
 import type { BodyOfWaterProps } from "../index.ts"
 
-export interface CanalProps {}
+export interface CanalProps {
+	"@type"?: "Canal"}
 
 type Canal = Thing & PlaceProps & LandformProps & BodyOfWaterProps & CanalProps
 

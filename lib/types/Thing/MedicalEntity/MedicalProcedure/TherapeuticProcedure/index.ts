@@ -10,6 +10,7 @@ import DoseScheduleComponent from "../../../../../components/Thing/MedicalEntity
 import DrugComponent from "../../../../../components/Thing/Product/Drug/index.ts"
 
 export interface TherapeuticProcedureProps {
+	"@type"?: "TherapeuticProcedure"
 	adverseOutcome?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 	doseSchedule?: DoseSchedule | ReturnType<typeof DoseScheduleComponent>
 	drug?: Drug | ReturnType<typeof DrugComponent>

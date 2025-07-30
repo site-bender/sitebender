@@ -23,6 +23,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface TVSeriesProps {
+	"@type"?: "TVSeries"
 	actor?:
 		| PerformingGroup
 		| Person

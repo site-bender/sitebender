@@ -6,6 +6,7 @@ import type { WebContentProps } from "../index.ts"
 import HealthAspectEnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/HealthAspectEnumeration/index.ts"
 
 export interface HealthTopicContentProps {
+	"@type"?: "HealthTopicContent"
 	hasHealthAspect?:
 		| HealthAspectEnumeration
 		| ReturnType<typeof HealthAspectEnumerationComponent>

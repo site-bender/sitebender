@@ -5,6 +5,7 @@ import type { ArticleProps } from "../../index.ts"
 import type { ScholarlyArticleProps } from "../index.ts"
 
 export interface MedicalScholarlyArticleProps {
+	"@type"?: "MedicalScholarlyArticle"
 	publicationType?: Text
 }
 

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { QuantityProps } from "../index.ts"
 
-export interface DistanceProps {}
+export interface DistanceProps {
+	"@type"?: "Distance"}
 
 type Distance = Thing & IntangibleProps & QuantityProps & DistanceProps
 

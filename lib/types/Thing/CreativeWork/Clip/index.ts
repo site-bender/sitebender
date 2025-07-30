@@ -18,6 +18,7 @@ import MusicGroupComponent from "../../../../components/Thing/Organization/Perfo
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface ClipProps {
+	"@type"?: "Clip"
 	actor?:
 		| PerformingGroup
 		| Person

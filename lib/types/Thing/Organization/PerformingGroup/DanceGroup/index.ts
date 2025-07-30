@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { PerformingGroupProps } from "../index.ts"
 
-export interface DanceGroupProps {}
+export interface DanceGroupProps {
+	"@type"?: "DanceGroup"}
 
 type DanceGroup =
 	& Thing

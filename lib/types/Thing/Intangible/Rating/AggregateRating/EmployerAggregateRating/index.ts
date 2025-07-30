@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { RatingProps } from "../../index.ts"
 import type { AggregateRatingProps } from "../index.ts"
 
-export interface EmployerAggregateRatingProps {}
+export interface EmployerAggregateRatingProps {
+	"@type"?: "EmployerAggregateRating"}
 
 type EmployerAggregateRating =
 	& Thing

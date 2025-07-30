@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface PublicationIssueProps {
+	"@type"?: "PublicationIssue"
 	issueNumber?: Integer | Text
 	pageEnd?: Integer | Text
 	pageStart?: Integer | Text

@@ -16,6 +16,7 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface ScheduleProps {
+	"@type"?: "Schedule"
 	byDay?: DayOfWeek | Text | ReturnType<typeof DayOfWeekComponent>
 	byMonth?: Integer
 	byMonthDay?: Integer

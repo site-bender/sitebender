@@ -15,6 +15,7 @@ import MedicalTherapyComponent from "../../../../../components/Thing/MedicalEnti
 import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
 export interface MedicalClinicProps {
+	"@type"?: "MedicalClinic"
 	availableService?:
 		| MedicalProcedure
 		| MedicalTest

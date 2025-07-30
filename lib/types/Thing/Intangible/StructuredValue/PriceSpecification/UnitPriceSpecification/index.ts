@@ -14,6 +14,7 @@ import DurationComponent from "../../../../../../components/Thing/Intangible/Qua
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface UnitPriceSpecificationProps {
+	"@type"?: "UnitPriceSpecification"
 	billingDuration?:
 		| Duration
 		| Number

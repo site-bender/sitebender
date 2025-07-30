@@ -5,6 +5,7 @@ import type { CreativeWorkProps } from "../index.ts"
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
 export interface MediaReviewItemProps {
+	"@type"?: "MediaReviewItem"
 	mediaItemAppearance?: MediaObject | ReturnType<typeof MediaObjectComponent>
 }
 

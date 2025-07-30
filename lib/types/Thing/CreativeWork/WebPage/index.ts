@@ -18,6 +18,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface WebPageProps {
+	"@type"?: "WebPage"
 	breadcrumb?:
 		| BreadcrumbList
 		| Text

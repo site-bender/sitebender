@@ -32,6 +32,7 @@ import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface VideoGameSeriesProps {
+	"@type"?: "VideoGameSeries"
 	actor?:
 		| PerformingGroup
 		| Person

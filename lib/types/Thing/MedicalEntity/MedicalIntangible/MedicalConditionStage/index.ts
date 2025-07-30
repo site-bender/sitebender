@@ -4,6 +4,7 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
 export interface MedicalConditionStageProps {
+	"@type"?: "MedicalConditionStage"
 	stageAsNumber?: Number
 	subStageSuffix?: Text
 }

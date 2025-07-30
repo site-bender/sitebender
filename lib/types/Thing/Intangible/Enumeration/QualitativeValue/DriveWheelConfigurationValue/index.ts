@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { QualitativeValueProps } from "../index.ts"
 
-export interface DriveWheelConfigurationValueProps {}
+export interface DriveWheelConfigurationValueProps {
+	"@type"?: "DriveWheelConfigurationValue"}
 
 type DriveWheelConfigurationValue =
 	& Thing

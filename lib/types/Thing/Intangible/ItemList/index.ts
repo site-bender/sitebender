@@ -9,6 +9,7 @@ import ItemListOrderTypeComponent from "../../../../components/Thing/Intangible/
 import ListItemComponent from "../../../../components/Thing/Intangible/ListItem/index.ts"
 
 export interface ItemListProps {
+	"@type"?: "ItemList"
 	aggregateElement?: Thing | ReturnType<typeof ThingComponent>
 	itemListElement?:
 		| ListItem

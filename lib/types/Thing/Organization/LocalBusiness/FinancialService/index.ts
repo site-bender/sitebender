@@ -5,6 +5,7 @@ import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 
 export interface FinancialServiceProps {
+	"@type"?: "FinancialService"
 	feesAndCommissionsSpecification?: Text | URL
 }
 

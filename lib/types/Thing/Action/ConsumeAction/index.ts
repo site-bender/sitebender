@@ -7,6 +7,7 @@ import ActionAccessSpecificationComponent from "../../../../components/Thing/Int
 import OfferComponent from "../../../../components/Thing/Intangible/Offer/index.ts"
 
 export interface ConsumeActionProps {
+	"@type"?: "ConsumeAction"
 	actionAccessibilityRequirement?:
 		| ActionAccessSpecification
 		| ReturnType<typeof ActionAccessSpecificationComponent>

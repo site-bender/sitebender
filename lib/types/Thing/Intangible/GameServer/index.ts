@@ -8,6 +8,7 @@ import VideoGameComponent from "../../../../components/Thing/CreativeWork/Game/V
 import GameServerStatusComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.ts"
 
 export interface GameServerProps {
+	"@type"?: "GameServer"
 	game?: VideoGame | ReturnType<typeof VideoGameComponent>
 	playersOnline?: Integer
 	serverStatus?: GameServerStatus | ReturnType<typeof GameServerStatusComponent>

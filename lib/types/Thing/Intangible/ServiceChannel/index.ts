@@ -16,6 +16,7 @@ import PostalAddressComponent from "../../../../components/Thing/Intangible/Stru
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface ServiceChannelProps {
+	"@type"?: "ServiceChannel"
 	availableLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	processingTime?: Duration | ReturnType<typeof DurationComponent>
 	providesService?: Service | ReturnType<typeof ServiceComponent>

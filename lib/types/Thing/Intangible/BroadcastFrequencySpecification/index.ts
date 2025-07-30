@@ -8,6 +8,7 @@ import QualitativeValueComponent from "../../../../components/Thing/Intangible/E
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface BroadcastFrequencySpecificationProps {
+	"@type"?: "BroadcastFrequencySpecification"
 	broadcastFrequencyValue?:
 		| Number
 		| QuantitativeValue

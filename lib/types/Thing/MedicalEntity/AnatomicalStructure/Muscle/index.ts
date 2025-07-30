@@ -12,6 +12,7 @@ import NerveComponent from "../../../../../components/Thing/MedicalEntity/Anatom
 import VesselComponent from "../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
 
 export interface MuscleProps {
+	"@type"?: "Muscle"
 	antagonist?: Muscle | ReturnType<typeof MuscleComponent>
 	bloodSupply?: Vessel | ReturnType<typeof VesselComponent>
 	insertion?:

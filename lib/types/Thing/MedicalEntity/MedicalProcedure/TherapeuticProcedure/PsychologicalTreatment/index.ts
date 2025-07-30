@@ -3,7 +3,8 @@ import type { MedicalEntityProps } from "../../../index.ts"
 import type { MedicalProcedureProps } from "../../index.ts"
 import type { TherapeuticProcedureProps } from "../index.ts"
 
-export interface PsychologicalTreatmentProps {}
+export interface PsychologicalTreatmentProps {
+	"@type"?: "PsychologicalTreatment"}
 
 type PsychologicalTreatment =
 	& Thing

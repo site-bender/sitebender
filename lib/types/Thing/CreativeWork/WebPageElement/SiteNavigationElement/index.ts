@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageElementProps } from "../index.ts"
 
-export interface SiteNavigationElementProps {}
+export interface SiteNavigationElementProps {
+	"@type"?: "SiteNavigationElement"}
 
 type SiteNavigationElement =
 	& Thing

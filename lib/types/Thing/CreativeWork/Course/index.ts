@@ -20,6 +20,7 @@ import LanguageComponent from "../../../../components/Thing/Intangible/Language/
 import StructuredValueComponent from "../../../../components/Thing/Intangible/StructuredValue/index.ts"
 
 export interface CourseProps {
+	"@type"?: "Course"
 	availableLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	courseCode?: Text
 	coursePrerequisites?:

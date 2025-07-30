@@ -17,6 +17,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
 export interface GrantProps {
+	"@type"?: "Grant"
 	fundedItem?:
 		| BioChemEntity
 		| CreativeWork

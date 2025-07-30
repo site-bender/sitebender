@@ -14,6 +14,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface PermitProps {
+	"@type"?: "Permit"
 	issuedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	issuedThrough?: Service | ReturnType<typeof ServiceComponent>
 	permitAudience?: Audience | ReturnType<typeof AudienceComponent>

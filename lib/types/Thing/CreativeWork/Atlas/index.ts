@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-export interface AtlasProps {}
+export interface AtlasProps {
+	"@type"?: "Atlas"}
 
 type Atlas = Thing & CreativeWorkProps & AtlasProps
 

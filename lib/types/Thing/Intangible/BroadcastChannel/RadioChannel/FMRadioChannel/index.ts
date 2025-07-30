@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { BroadcastChannelProps } from "../../index.ts"
 import type { RadioChannelProps } from "../index.ts"
 
-export interface FMRadioChannelProps {}
+export interface FMRadioChannelProps {
+	"@type"?: "FMRadioChannel"}
 
 type FMRadioChannel =
 	& Thing

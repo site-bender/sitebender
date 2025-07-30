@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
-export interface PurchaseTypeProps {}
+export interface PurchaseTypeProps {
+	"@type"?: "PurchaseType"}
 
 type PurchaseType =
 	& Thing

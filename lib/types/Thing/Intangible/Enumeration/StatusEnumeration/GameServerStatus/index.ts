@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { StatusEnumerationProps } from "../index.ts"
 
-export interface GameServerStatusProps {}
+export interface GameServerStatusProps {
+	"@type"?: "GameServerStatus"}
 
 type GameServerStatus =
 	& Thing

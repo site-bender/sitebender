@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageElementProps } from "../index.ts"
 
-export interface WPAdBlockProps {}
+export interface WPAdBlockProps {
+	"@type"?: "WPAdBlock"}
 
 type WPAdBlock =
 	& Thing

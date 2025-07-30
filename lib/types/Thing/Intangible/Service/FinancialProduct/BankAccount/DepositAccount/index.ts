@@ -5,7 +5,8 @@ import type { FinancialProductProps } from "../../index.ts"
 import type { InvestmentOrDepositProps } from "../../InvestmentOrDeposit/index.ts"
 import type { BankAccountProps } from "../index.ts"
 
-export interface DepositAccountProps {}
+export interface DepositAccountProps {
+	"@type"?: "DepositAccount"}
 
 type DepositAccount =
 	& Thing

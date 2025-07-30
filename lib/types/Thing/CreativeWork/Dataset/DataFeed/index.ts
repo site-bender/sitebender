@@ -8,6 +8,7 @@ import ThingComponent from "../../../../../components/Thing/index.ts"
 import DataFeedItemComponent from "../../../../../components/Thing/Intangible/DataFeedItem/index.ts"
 
 export interface DataFeedProps {
+	"@type"?: "DataFeed"
 	dataFeedElement?:
 		| DataFeedItem
 		| Text

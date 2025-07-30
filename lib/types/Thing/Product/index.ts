@@ -63,6 +63,7 @@ import ProductGroupComponent from "../../../components/Thing/Product/ProductGrou
 import ProductModelComponent from "../../../components/Thing/Product/ProductModel/index.ts"
 
 export interface ProductProps {
+	"@type"?: "Product"
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	aggregateRating?:
 		| AggregateRating

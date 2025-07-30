@@ -12,6 +12,7 @@ import DeliveryChargeSpecificationComponent from "../../../../../components/Thin
 import ShippingRateSettingsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingRateSettings/index.ts"
 
 export interface ShippingRateSettingsProps {
+	"@type"?: "ShippingRateSettings"
 	doesNotShip?: Boolean
 	freeShippingThreshold?:
 		| DeliveryChargeSpecification

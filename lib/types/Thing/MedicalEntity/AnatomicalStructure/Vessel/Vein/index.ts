@@ -11,6 +11,7 @@ import VesselComponent from "../../../../../../components/Thing/MedicalEntity/An
 import AnatomicalSystemComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
 export interface VeinProps {
+	"@type"?: "Vein"
 	drainsTo?: Vessel | ReturnType<typeof VesselComponent>
 	regionDrained?:
 		| AnatomicalStructure

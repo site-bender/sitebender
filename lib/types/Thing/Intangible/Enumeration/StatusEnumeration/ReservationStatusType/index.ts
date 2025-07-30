@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { StatusEnumerationProps } from "../index.ts"
 
-export interface ReservationStatusTypeProps {}
+export interface ReservationStatusTypeProps {
+	"@type"?: "ReservationStatusType"}
 
 type ReservationStatusType =
 	& Thing

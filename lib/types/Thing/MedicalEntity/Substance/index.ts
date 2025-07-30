@@ -6,6 +6,7 @@ import type MaximumDoseSchedule from "../MedicalIntangible/DoseSchedule/MaximumD
 import MaximumDoseScheduleComponent from "../../../../components/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.ts"
 
 export interface SubstanceProps {
+	"@type"?: "Substance"
 	activeIngredient?: Text
 	maximumIntake?:
 		| MaximumDoseSchedule

@@ -31,6 +31,7 @@ import OrganizationComponent from "../../../components/Thing/Organization/index.
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
 export interface MediaObjectProps {
+	"@type"?: "MediaObject"
 	associatedArticle?: NewsArticle | ReturnType<typeof NewsArticleComponent>
 	bitrate?: Text
 	contentSize?: Text

@@ -9,6 +9,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
 export interface CDCPMDRecordProps {
+	"@type"?: "CDCPMDRecord"
 	cvdCollectionDate?: DateTime | Text
 	cvdFacilityCounty?: Text
 	cvdFacilityId?: Text

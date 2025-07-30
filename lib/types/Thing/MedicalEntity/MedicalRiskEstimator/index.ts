@@ -7,6 +7,7 @@ import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/i
 import MedicalRiskFactorComponent from "../../../../components/Thing/MedicalEntity/MedicalRiskFactor/index.ts"
 
 export interface MedicalRiskEstimatorProps {
+	"@type"?: "MedicalRiskEstimator"
 	estimatesRiskOf?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 	includedRiskFactor?:
 		| MedicalRiskFactor

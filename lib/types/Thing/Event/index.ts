@@ -53,6 +53,7 @@ import PersonComponent from "../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
 export interface EventProps {
+	"@type"?: "Event"
 	about?: Thing | ReturnType<typeof ThingComponent>
 	actor?:
 		| PerformingGroup

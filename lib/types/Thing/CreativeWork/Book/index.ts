@@ -8,6 +8,7 @@ import BookFormatTypeComponent from "../../../../components/Thing/Intangible/Enu
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface BookProps {
+	"@type"?: "Book"
 	abridged?: Boolean
 	bookEdition?: Text
 	bookFormat?: BookFormatType | ReturnType<typeof BookFormatTypeComponent>

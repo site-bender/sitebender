@@ -6,6 +6,7 @@ import type { TripProps } from "../index.ts"
 import BoatTerminalComponent from "../../../../../components/Thing/Place/CivicStructure/BoatTerminal/index.ts"
 
 export interface BoatTripProps {
+	"@type"?: "BoatTrip"
 	arrivalBoatTerminal?: BoatTerminal | ReturnType<typeof BoatTerminalComponent>
 	departureBoatTerminal?:
 		| BoatTerminal

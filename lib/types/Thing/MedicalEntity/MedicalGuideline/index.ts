@@ -8,6 +8,7 @@ import MedicalEvidenceLevelComponent from "../../../../components/Thing/Intangib
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
 export interface MedicalGuidelineProps {
+	"@type"?: "MedicalGuideline"
 	evidenceLevel?:
 		| MedicalEvidenceLevel
 		| ReturnType<typeof MedicalEvidenceLevelComponent>

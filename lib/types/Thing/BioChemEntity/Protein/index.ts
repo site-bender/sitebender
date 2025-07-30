@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { BioChemEntityProps } from "../index.ts"
 
 export interface ProteinProps {
+	"@type"?: "Protein"
 	hasBioPolymerSequence?: Text
 }
 

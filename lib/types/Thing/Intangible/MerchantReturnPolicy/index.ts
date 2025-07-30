@@ -34,6 +34,7 @@ import PropertyValueComponent from "../../../../components/Thing/Intangible/Stru
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface MerchantReturnPolicyProps {
+	"@type"?: "MerchantReturnPolicy"
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	applicableCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	customerRemorseReturnFees?:

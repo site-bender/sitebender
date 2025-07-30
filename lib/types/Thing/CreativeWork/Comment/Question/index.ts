@@ -13,6 +13,7 @@ import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/
 import ItemListComponent from "../../../../../components/Thing/Intangible/ItemList/index.ts"
 
 export interface QuestionProps {
+	"@type"?: "Question"
 	acceptedAnswer?:
 		| Answer
 		| ItemList

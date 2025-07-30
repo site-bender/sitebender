@@ -11,6 +11,7 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface GameProps {
+	"@type"?: "Game"
 	characterAttribute?: Thing | ReturnType<typeof ThingComponent>
 	gameItem?: Thing | ReturnType<typeof ThingComponent>
 	gameLocation?:

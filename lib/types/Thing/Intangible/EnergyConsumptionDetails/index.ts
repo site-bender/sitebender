@@ -7,6 +7,7 @@ import EUEnergyEfficiencyEnumerationComponent from "../../../../components/Thing
 import EnergyEfficiencyEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/index.ts"
 
 export interface EnergyConsumptionDetailsProps {
+	"@type"?: "EnergyConsumptionDetails"
 	energyEfficiencyScaleMax?:
 		| EUEnergyEfficiencyEnumeration
 		| ReturnType<typeof EUEnergyEfficiencyEnumerationComponent>

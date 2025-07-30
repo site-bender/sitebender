@@ -9,6 +9,7 @@ import type { PaymentMethodProps } from "../index.ts"
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
 export interface PaymentCardProps {
+	"@type"?: "PaymentCard"
 	cashBack?: Boolean | Number
 	contactlessPayment?: Boolean
 	floorLimit?: MonetaryAmount | ReturnType<typeof MonetaryAmountComponent>

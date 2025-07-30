@@ -7,6 +7,7 @@ import type { LocalBusinessProps } from "../index.ts"
 import ArchiveComponentComponent from "../../../../../components/Thing/CreativeWork/ArchiveComponent/index.ts"
 
 export interface ArchiveOrganizationProps {
+	"@type"?: "ArchiveOrganization"
 	archiveHeld?: ArchiveComponent | ReturnType<typeof ArchiveComponentComponent>
 }
 

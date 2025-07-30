@@ -4,7 +4,8 @@ import type { EnumerationProps } from "../../index.ts"
 import type { SpecialtyProps } from "../../Specialty/index.ts"
 import type { MedicalEnumerationProps } from "../index.ts"
 
-export interface MedicalSpecialtyProps {}
+export interface MedicalSpecialtyProps {
+	"@type"?: "MedicalSpecialty"}
 
 type MedicalSpecialty =
 	& Thing

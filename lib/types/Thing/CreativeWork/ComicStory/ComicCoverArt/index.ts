@@ -4,7 +4,8 @@ import type { CoverArtProps } from "../../VisualArtwork/CoverArt/index.ts"
 import type { VisualArtworkProps } from "../../VisualArtwork/index.ts"
 import type { ComicStoryProps } from "../index.ts"
 
-export interface ComicCoverArtProps {}
+export interface ComicCoverArtProps {
+	"@type"?: "ComicCoverArt"}
 
 type ComicCoverArt =
 	& Thing

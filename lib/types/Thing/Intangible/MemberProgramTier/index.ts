@@ -16,6 +16,7 @@ import UnitPriceSpecificationComponent from "../../../../components/Thing/Intang
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface MemberProgramTierProps {
+	"@type"?: "MemberProgramTier"
 	hasTierBenefit?:
 		| TierBenefitEnumeration
 		| ReturnType<typeof TierBenefitEnumerationComponent>

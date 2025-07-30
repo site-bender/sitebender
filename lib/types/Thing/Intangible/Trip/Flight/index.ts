@@ -19,6 +19,7 @@ import AirportComponent from "../../../../../components/Thing/Place/CivicStructu
 import VehicleComponent from "../../../../../components/Thing/Product/Vehicle/index.ts"
 
 export interface FlightProps {
+	"@type"?: "Flight"
 	aircraft?: Text | Vehicle | ReturnType<typeof VehicleComponent>
 	arrivalAirport?: Airport | ReturnType<typeof AirportComponent>
 	arrivalGate?: Text

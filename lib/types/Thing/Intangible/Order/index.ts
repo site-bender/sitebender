@@ -33,6 +33,7 @@ import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
 export interface OrderProps {
+	"@type"?: "Order"
 	acceptedOffer?: Offer | ReturnType<typeof OfferComponent>
 	billingAddress?: PostalAddress | ReturnType<typeof PostalAddressComponent>
 	broker?:

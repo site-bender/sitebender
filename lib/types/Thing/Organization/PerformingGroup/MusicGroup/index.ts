@@ -13,6 +13,7 @@ import ItemListComponent from "../../../../../components/Thing/Intangible/ItemLi
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface MusicGroupProps {
+	"@type"?: "MusicGroup"
 	album?: MusicAlbum | ReturnType<typeof MusicAlbumComponent>
 	albums?: MusicAlbum | ReturnType<typeof MusicAlbumComponent>
 	genre?: Text | URL

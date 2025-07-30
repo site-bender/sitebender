@@ -8,6 +8,7 @@ import AlignmentObjectComponent from "../../../../components/Thing/Intangible/Al
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 
 export interface LearningResourceProps {
+	"@type"?: "LearningResource"
 	assesses?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
 	competencyRequired?:
 		| DefinedTerm

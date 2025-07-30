@@ -12,6 +12,7 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface AudiobookProps {
+	"@type"?: "Audiobook"
 	duration?:
 		| Duration
 		| QuantitativeValue

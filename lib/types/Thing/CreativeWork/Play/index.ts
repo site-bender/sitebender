@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-export interface PlayProps {}
+export interface PlayProps {
+	"@type"?: "Play"}
 
 type Play = Thing & CreativeWorkProps & PlayProps
 

@@ -16,6 +16,7 @@ import PerformingGroupComponent from "../../../../components/Thing/Organization/
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface CreativeWorkSeasonProps {
+	"@type"?: "CreativeWorkSeason"
 	actor?:
 		| PerformingGroup
 		| Person

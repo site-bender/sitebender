@@ -9,6 +9,7 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface ClaimProps {
+	"@type"?: "Claim"
 	appearance?: CreativeWork | ReturnType<typeof CreativeWorkComponent>
 	claimInterpreter?:
 		| Organization

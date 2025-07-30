@@ -6,6 +6,7 @@ import type { AssessActionProps } from "../index.ts"
 import ThingComponent from "../../../../../components/Thing/index.ts"
 
 export interface ChooseActionProps {
+	"@type"?: "ChooseAction"
 	actionOption?: Text | Thing | ReturnType<typeof ThingComponent>
 	option?: Text | Thing | ReturnType<typeof ThingComponent>
 }

@@ -18,6 +18,7 @@ import MonetaryAmountDistributionComponent from "../../../../components/Thing/In
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface OccupationProps {
+	"@type"?: "Occupation"
 	educationRequirements?:
 		| EducationalOccupationalCredential
 		| Text

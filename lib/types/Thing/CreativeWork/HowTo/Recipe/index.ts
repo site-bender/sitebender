@@ -17,6 +17,7 @@ import NutritionInformationComponent from "../../../../../components/Thing/Intan
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface RecipeProps {
+	"@type"?: "Recipe"
 	cookingMethod?: Text
 	cookTime?: Duration | ReturnType<typeof DurationComponent>
 	ingredients?: Text

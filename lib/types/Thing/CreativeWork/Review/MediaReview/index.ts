@@ -11,6 +11,7 @@ import MediaManipulationRatingEnumerationComponent from "../../../../../componen
 import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 
 export interface MediaReviewProps {
+	"@type"?: "MediaReview"
 	mediaAuthenticityCategory?:
 		| MediaManipulationRatingEnumeration
 		| ReturnType<typeof MediaManipulationRatingEnumerationComponent>

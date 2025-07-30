@@ -16,6 +16,7 @@ import MedicalConditionComponent from "../../../components/Thing/MedicalEntity/M
 import TaxonComponent from "../../../components/Thing/Taxon/index.ts"
 
 export interface BioChemEntityProps {
+	"@type"?: "BioChemEntity"
 	associatedDisease?:
 		| MedicalCondition
 		| PropertyValue

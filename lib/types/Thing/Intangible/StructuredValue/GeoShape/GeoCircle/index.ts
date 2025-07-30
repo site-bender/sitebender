@@ -10,6 +10,7 @@ import DistanceComponent from "../../../../../../components/Thing/Intangible/Qua
 import GeoCoordinatesComponent from "../../../../../../components/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
 
 export interface GeoCircleProps {
+	"@type"?: "GeoCircle"
 	geoMidpoint?: GeoCoordinates | ReturnType<typeof GeoCoordinatesComponent>
 	geoRadius?: Distance | Number | Text | ReturnType<typeof DistanceComponent>
 }

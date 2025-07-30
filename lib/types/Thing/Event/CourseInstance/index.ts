@@ -8,6 +8,7 @@ import ScheduleComponent from "../../../../components/Thing/Intangible/Schedule/
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface CourseInstanceProps {
+	"@type"?: "CourseInstance"
 	courseMode?: Text | URL
 	courseSchedule?: Schedule | ReturnType<typeof ScheduleComponent>
 	courseWorkload?: Text

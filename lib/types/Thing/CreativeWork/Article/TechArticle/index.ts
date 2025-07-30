@@ -4,6 +4,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { ArticleProps } from "../index.ts"
 
 export interface TechArticleProps {
+	"@type"?: "TechArticle"
 	dependencies?: Text
 	proficiencyLevel?: Text
 }

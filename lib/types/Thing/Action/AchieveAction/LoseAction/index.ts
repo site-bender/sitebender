@@ -6,6 +6,7 @@ import type { AchieveActionProps } from "../index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface LoseActionProps {
+	"@type"?: "LoseAction"
 	winner?: Person | ReturnType<typeof PersonComponent>
 }
 

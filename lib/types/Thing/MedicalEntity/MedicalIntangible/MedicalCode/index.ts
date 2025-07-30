@@ -7,6 +7,7 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
 export interface MedicalCodeProps {
+	"@type"?: "MedicalCode"
 	codeValue?: Text
 	codingSystem?: Text
 }

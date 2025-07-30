@@ -6,7 +6,8 @@ import type { MedicalBusinessProps } from "../../../LocalBusiness/MedicalBusines
 import type { MedicalOrganizationProps } from "../../index.ts"
 import type { PhysicianProps } from "../index.ts"
 
-export interface PhysiciansOfficeProps {}
+export interface PhysiciansOfficeProps {
+	"@type"?: "PhysiciansOffice"}
 
 type PhysiciansOffice =
 	& Thing

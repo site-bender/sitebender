@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
 export interface AlignmentObjectProps {
+	"@type"?: "AlignmentObject"
 	alignmentType?: Text
 	educationalFramework?: Text
 	targetDescription?: Text

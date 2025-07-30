@@ -7,6 +7,7 @@ import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
 export interface MovieTheaterProps {
+	"@type"?: "MovieTheater"
 	screenCount?: Number
 }
 

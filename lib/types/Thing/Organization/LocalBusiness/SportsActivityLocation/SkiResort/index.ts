@@ -6,7 +6,8 @@ import type { LodgingBusinessProps } from "../../LodgingBusiness/index.ts"
 import type { ResortProps } from "../../LodgingBusiness/Resort/index.ts"
 import type { SportsActivityLocationProps } from "../index.ts"
 
-export interface SkiResortProps {}
+export interface SkiResortProps {
+	"@type"?: "SkiResort"}
 
 type SkiResort =
 	& Thing

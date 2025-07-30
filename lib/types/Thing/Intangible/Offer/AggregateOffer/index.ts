@@ -9,6 +9,7 @@ import DemandComponent from "../../../../../components/Thing/Intangible/Demand/i
 import OfferComponent from "../../../../../components/Thing/Intangible/Offer/index.ts"
 
 export interface AggregateOfferProps {
+	"@type"?: "AggregateOffer"
 	highPrice?: Number | Text
 	lowPrice?: Number | Text
 	offerCount?: Integer

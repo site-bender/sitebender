@@ -16,6 +16,7 @@ import MeasurementMethodEnumComponent from "../../../../../components/Thing/Inta
 import PropertyComponent from "../../../../../components/Thing/Intangible/Property/index.ts"
 
 export interface StatisticalVariableProps {
+	"@type"?: "StatisticalVariable"
 	measuredProperty?: Property | ReturnType<typeof PropertyComponent>
 	measurementDenominator?:
 		| StatisticalVariable

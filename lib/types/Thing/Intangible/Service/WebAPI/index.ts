@@ -7,6 +7,7 @@ import type { ServiceProps } from "../index.ts"
 import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/index.ts"
 
 export interface WebAPIProps {
+	"@type"?: "WebAPI"
 	documentation?: CreativeWork | URL | ReturnType<typeof CreativeWorkComponent>
 }
 

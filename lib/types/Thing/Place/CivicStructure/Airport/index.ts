@@ -4,6 +4,7 @@ import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
 export interface AirportProps {
+	"@type"?: "Airport"
 	iataCode?: Text
 	icaoCode?: Text
 }

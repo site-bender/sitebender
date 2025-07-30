@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { StructuredValueProps } from "../../index.ts"
 import type { QuantitativeValueDistributionProps } from "../index.ts"
 
-export interface MonetaryAmountDistributionProps {}
+export interface MonetaryAmountDistributionProps {
+	"@type"?: "MonetaryAmountDistribution"}
 
 type MonetaryAmountDistribution =
 	& Thing

@@ -10,6 +10,7 @@ import HealthPlanNetworkComponent from "../../../../components/Thing/Intangible/
 import ContactPointComponent from "../../../../components/Thing/Intangible/StructuredValue/ContactPoint/index.ts"
 
 export interface HealthInsurancePlanProps {
+	"@type"?: "HealthInsurancePlan"
 	benefitsSummaryUrl?: URL
 	contactPoint?: ContactPoint | ReturnType<typeof ContactPointComponent>
 	healthPlanDrugOption?: Text

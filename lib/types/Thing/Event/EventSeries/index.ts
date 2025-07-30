@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../Intangible/index.ts"
 import type { SeriesProps } from "../../Intangible/Series/index.ts"
 import type { EventProps } from "../index.ts"
 
-export interface EventSeriesProps {}
+export interface EventSeriesProps {
+	"@type"?: "EventSeries"}
 
 type EventSeries =
 	& Thing

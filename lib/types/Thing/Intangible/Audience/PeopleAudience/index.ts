@@ -11,6 +11,7 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import MedicalConditionComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 
 export interface PeopleAudienceProps {
+	"@type"?: "PeopleAudience"
 	healthCondition?:
 		| MedicalCondition
 		| ReturnType<typeof MedicalConditionComponent>

@@ -10,6 +10,7 @@ import CategoryCodeComponent from "../../../../../components/Thing/Intangible/De
 import PhysicalActivityCategoryComponent from "../../../../../components/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.ts"
 
 export interface RecommendationProps {
+	"@type"?: "Recommendation"
 	category?:
 		| CategoryCode
 		| PhysicalActivityCategory

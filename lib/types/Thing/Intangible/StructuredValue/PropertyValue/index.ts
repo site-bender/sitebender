@@ -20,6 +20,7 @@ import PropertyValueComponent from "../../../../../components/Thing/Intangible/S
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface PropertyValueProps {
+	"@type"?: "PropertyValue"
 	maxValue?: Number
 	measurementMethod?:
 		| DefinedTerm

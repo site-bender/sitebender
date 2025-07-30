@@ -6,6 +6,7 @@ import type { ReservationProps } from "../index.ts"
 import ReservationComponent from "../../../../../components/Thing/Intangible/Reservation/index.ts"
 
 export interface ReservationPackageProps {
+	"@type"?: "ReservationPackage"
 	subReservation?: Reservation | ReturnType<typeof ReservationComponent>
 }
 

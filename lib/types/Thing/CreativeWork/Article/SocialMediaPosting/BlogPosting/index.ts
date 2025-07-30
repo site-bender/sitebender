@@ -3,7 +3,8 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { SocialMediaPostingProps } from "../index.ts"
 
-export interface BlogPostingProps {}
+export interface BlogPostingProps {
+	"@type"?: "BlogPosting"}
 
 type BlogPosting =
 	& Thing

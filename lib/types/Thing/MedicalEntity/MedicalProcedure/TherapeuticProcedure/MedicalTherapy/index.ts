@@ -11,6 +11,7 @@ import MedicalContraindicationComponent from "../../../../../../components/Thing
 import MedicalTherapyComponent from "../../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export interface MedicalTherapyProps {
+	"@type"?: "MedicalTherapy"
 	contraindication?:
 		| MedicalContraindication
 		| Text

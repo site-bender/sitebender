@@ -3,6 +3,7 @@ import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface PublicationVolumeProps {
+	"@type"?: "PublicationVolume"
 	pageEnd?: Integer | Text
 	pageStart?: Integer | Text
 	pagination?: Text

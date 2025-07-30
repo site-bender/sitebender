@@ -5,6 +5,7 @@ import type { PlaceProps } from "../index.ts"
 import FloorPlanComponent from "../../../../components/Thing/Intangible/FloorPlan/index.ts"
 
 export interface ResidenceProps {
+	"@type"?: "Residence"
 	accommodationFloorPlan?: FloorPlan | ReturnType<typeof FloorPlanComponent>
 }
 

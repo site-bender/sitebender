@@ -5,6 +5,7 @@ import type { AudienceProps } from "../../index.ts"
 import type { PeopleAudienceProps } from "../index.ts"
 
 export interface ParentAudienceProps {
+	"@type"?: "ParentAudience"
 	childMaxAge?: Number
 	childMinAge?: Number
 }

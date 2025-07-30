@@ -10,6 +10,7 @@ import ReviewComponent from "../../../../components/Thing/CreativeWork/Review/in
 import AggregateRatingComponent from "../../../../components/Thing/Intangible/Rating/AggregateRating/index.ts"
 
 export interface BrandProps {
+	"@type"?: "Brand"
 	aggregateRating?:
 		| AggregateRating
 		| ReturnType<typeof AggregateRatingComponent>

@@ -8,6 +8,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface BorrowActionProps {
+	"@type"?: "BorrowAction"
 	lender?:
 		| Organization
 		| Person

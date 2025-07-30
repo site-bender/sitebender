@@ -14,6 +14,7 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
 export interface HowToDirectionProps {
+	"@type"?: "HowToDirection"
 	afterMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>
 	beforeMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>
 	duringMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>

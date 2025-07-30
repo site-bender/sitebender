@@ -14,6 +14,7 @@ import RecommendedDoseScheduleComponent from "../../../../components/Thing/Medic
 import DrugLegalStatusComponent from "../../../../components/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
 
 export interface DietarySupplementProps {
+	"@type"?: "DietarySupplement"
 	activeIngredient?: Text
 	isProprietary?: Boolean
 	legalStatus?:

@@ -5,6 +5,7 @@ import type { CreativeWorkProps } from "../index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
 export interface ComicStoryProps {
+	"@type"?: "ComicStory"
 	artist?: Person | ReturnType<typeof PersonComponent>
 	colorist?: Person | ReturnType<typeof PersonComponent>
 	inker?: Person | ReturnType<typeof PersonComponent>

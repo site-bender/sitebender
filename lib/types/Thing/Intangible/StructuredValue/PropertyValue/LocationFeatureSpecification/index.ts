@@ -8,6 +8,7 @@ import type { PropertyValueProps } from "../index.ts"
 import OpeningHoursSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
 
 export interface LocationFeatureSpecificationProps {
+	"@type"?: "LocationFeatureSpecification"
 	hoursAvailable?:
 		| OpeningHoursSpecification
 		| ReturnType<typeof OpeningHoursSpecificationComponent>

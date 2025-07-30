@@ -6,6 +6,7 @@ import type Property from "../Property/index.ts"
 import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 
 export interface ConstraintNodeProps {
+	"@type"?: "ConstraintNode"
 	constraintProperty?: Property | URL | ReturnType<typeof PropertyComponent>
 	numConstraints?: Integer
 }

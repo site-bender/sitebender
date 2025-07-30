@@ -8,6 +8,7 @@ import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/i
 import MedicalContraindicationComponent from "../../../../components/Thing/MedicalEntity/MedicalContraindication/index.ts"
 
 export interface MedicalDeviceProps {
+	"@type"?: "MedicalDevice"
 	adverseOutcome?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 	contraindication?:
 		| MedicalContraindication

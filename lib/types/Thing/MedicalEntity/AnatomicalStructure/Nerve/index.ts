@@ -12,6 +12,7 @@ import MuscleComponent from "../../../../../components/Thing/MedicalEntity/Anato
 import SuperficialAnatomyComponent from "../../../../../components/Thing/MedicalEntity/SuperficialAnatomy/index.ts"
 
 export interface NerveProps {
+	"@type"?: "Nerve"
 	branch?: AnatomicalStructure | ReturnType<typeof AnatomicalStructureComponent>
 	nerveMotor?: Muscle | ReturnType<typeof MuscleComponent>
 	sensoryUnit?:

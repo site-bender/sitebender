@@ -6,6 +6,7 @@ import type { InteractActionProps } from "../index.ts"
 import EventComponent from "../../../../../components/Thing/Event/index.ts"
 
 export interface LeaveActionProps {
+	"@type"?: "LeaveAction"
 	event?: Event | ReturnType<typeof EventComponent>
 }
 

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { InteractActionProps } from "../index.ts"
 
-export interface BefriendActionProps {}
+export interface BefriendActionProps {
+	"@type"?: "BefriendAction"}
 
 type BefriendAction =
 	& Thing

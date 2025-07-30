@@ -5,6 +5,7 @@ import type { IntangibleProps } from "../index.ts"
 import ThingComponent from "../../../../components/Thing/index.ts"
 
 export interface DataFeedItemProps {
+	"@type"?: "DataFeedItem"
 	dateCreated?: Date | DateTime
 	dateDeleted?: Date | DateTime
 	dateModified?: Date | DateTime

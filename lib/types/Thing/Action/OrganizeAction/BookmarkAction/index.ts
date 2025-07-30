@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { OrganizeActionProps } from "../index.ts"
 
-export interface BookmarkActionProps {}
+export interface BookmarkActionProps {
+	"@type"?: "BookmarkAction"}
 
 type BookmarkAction =
 	& Thing

@@ -9,6 +9,7 @@ import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/
 import UnitPriceSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
 export interface ExchangeRateSpecificationProps {
+	"@type"?: "ExchangeRateSpecification"
 	currency?: Text
 	currentExchangeRate?:
 		| UnitPriceSpecification

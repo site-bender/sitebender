@@ -15,6 +15,7 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
 export interface OrderItemProps {
+	"@type"?: "OrderItem"
 	orderDelivery?: ParcelDelivery | ReturnType<typeof ParcelDeliveryComponent>
 	orderedItem?:
 		| OrderItem

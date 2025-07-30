@@ -65,6 +65,8 @@ import PlaceComponent from "../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../components/Thing/Product/index.ts"
 
 export interface PersonProps {
+	"@type"?: "Person"
+	"@type"?: "Person"
 	additionalName?: Text
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	affiliation?: Organization | ReturnType<typeof OrganizationComponent>

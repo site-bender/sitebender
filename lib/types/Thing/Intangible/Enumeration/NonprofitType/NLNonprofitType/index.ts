@@ -3,7 +3,8 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { NonprofitTypeProps } from "../index.ts"
 
-export interface NLNonprofitTypeProps {}
+export interface NLNonprofitTypeProps {
+	"@type"?: "NLNonprofitType"}
 
 type NLNonprofitType =
 	& Thing

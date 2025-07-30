@@ -5,7 +5,8 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { CreativeWorkSeriesProps } from "../../index.ts"
 import type { PeriodicalProps } from "../index.ts"
 
-export interface ComicSeriesProps {}
+export interface ComicSeriesProps {
+	"@type"?: "ComicSeries"}
 
 type ComicSeries =
 	& Thing

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalTestProps } from "../index.ts"
 
-export interface BloodTestProps {}
+export interface BloodTestProps {
+	"@type"?: "BloodTest"}
 
 type BloodTest = Thing & MedicalEntityProps & MedicalTestProps & BloodTestProps
 

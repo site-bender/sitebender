@@ -3,7 +3,8 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 
-export interface LibraryProps {}
+export interface LibraryProps {
+	"@type"?: "Library"}
 
 type Library =
 	& Thing

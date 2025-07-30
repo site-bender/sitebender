@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { AchieveActionProps } from "../index.ts"
 
-export interface TieActionProps {}
+export interface TieActionProps {
+	"@type"?: "TieAction"}
 
 type TieAction = Thing & ActionProps & AchieveActionProps & TieActionProps
 

@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { PlaceProps } from "../../index.ts"
 import type { ResidenceProps } from "../index.ts"
 
-export interface GatedResidenceCommunityProps {}
+export interface GatedResidenceCommunityProps {
+	"@type"?: "GatedResidenceCommunity"}
 
 type GatedResidenceCommunity =
 	& Thing

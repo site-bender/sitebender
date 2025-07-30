@@ -8,6 +8,7 @@ import MusicRecordingComponent from "../../../../components/Thing/CreativeWork/M
 import ItemListComponent from "../../../../components/Thing/Intangible/ItemList/index.ts"
 
 export interface MusicPlaylistProps {
+	"@type"?: "MusicPlaylist"
 	numTracks?: Integer
 	track?:
 		| ItemList

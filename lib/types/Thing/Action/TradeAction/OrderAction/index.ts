@@ -6,6 +6,7 @@ import type { TradeActionProps } from "../index.ts"
 import DeliveryMethodComponent from "../../../../../components/Thing/Intangible/Enumeration/DeliveryMethod/index.ts"
 
 export interface OrderActionProps {
+	"@type"?: "OrderAction"
 	deliveryMethod?: DeliveryMethod | ReturnType<typeof DeliveryMethodComponent>
 }
 

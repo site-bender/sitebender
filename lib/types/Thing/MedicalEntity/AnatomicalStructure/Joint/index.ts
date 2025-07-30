@@ -7,6 +7,7 @@ import type { AnatomicalStructureProps } from "../index.ts"
 import MedicalEntityComponent from "../../../../../components/Thing/MedicalEntity/index.ts"
 
 export interface JointProps {
+	"@type"?: "Joint"
 	biomechnicalClass?: Text
 	functionalClass?:
 		| MedicalEntity

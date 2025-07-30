@@ -11,6 +11,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface UserCommentsProps {
+	"@type"?: "UserComments"
 	commentText?: Text
 	commentTime?: Date | DateTime
 	creator?:

@@ -16,6 +16,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface BroadcastServiceProps {
+	"@type"?: "BroadcastService"
 	area?: Place | ReturnType<typeof PlaceComponent>
 	broadcastAffiliateOf?: Organization | ReturnType<typeof OrganizationComponent>
 	broadcastDisplayName?: Text

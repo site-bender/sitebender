@@ -19,6 +19,7 @@ import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
 export interface ContactPointProps {
+	"@type"?: "ContactPoint"
 	areaServed?:
 		| AdministrativeArea
 		| GeoShape

@@ -1,7 +1,8 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-export interface PosterProps {}
+export interface PosterProps {
+	"@type"?: "Poster"}
 
 type Poster = Thing & CreativeWorkProps & PosterProps
 

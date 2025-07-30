@@ -6,6 +6,7 @@ import type { OrganizationProps } from "../index.ts"
 import MedicalSpecialtyComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.ts"
 
 export interface MedicalOrganizationProps {
+	"@type"?: "MedicalOrganization"
 	healthPlanNetworkId?: Text
 	isAcceptingNewPatients?: Boolean
 	medicalSpecialty?:

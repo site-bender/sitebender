@@ -11,6 +11,7 @@ import CommentComponent from "../../../../../../../components/Thing/CreativeWork
 import RsvpResponseTypeComponent from "../../../../../../../components/Thing/Intangible/Enumeration/RsvpResponseType/index.ts"
 
 export interface RsvpActionProps {
+	"@type"?: "RsvpAction"
 	additionalNumberOfGuests?: Number
 	comment?: Comment | ReturnType<typeof CommentComponent>
 	rsvpResponse?: RsvpResponseType | ReturnType<typeof RsvpResponseTypeComponent>

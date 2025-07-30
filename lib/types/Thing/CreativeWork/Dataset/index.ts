@@ -18,6 +18,7 @@ import PropertyComponent from "../../../../components/Thing/Intangible/Property/
 import PropertyValueComponent from "../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 
 export interface DatasetProps {
+	"@type"?: "Dataset"
 	catalog?: DataCatalog | ReturnType<typeof DataCatalogComponent>
 	datasetTimeInterval?: DateTime
 	distribution?: DataDownload | ReturnType<typeof DataDownloadComponent>

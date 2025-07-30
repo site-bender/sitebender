@@ -6,6 +6,7 @@ import GeospatialGeometryComponent from "../../../../components/Thing/Intangible
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
 export interface GeospatialGeometryProps {
+	"@type"?: "GeospatialGeometry"
 	geoContains?:
 		| GeospatialGeometry
 		| Place

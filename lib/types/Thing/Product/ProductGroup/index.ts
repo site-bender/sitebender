@@ -8,6 +8,7 @@ import DefinedTermComponent from "../../../../components/Thing/Intangible/Define
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
 export interface ProductGroupProps {
+	"@type"?: "ProductGroup"
 	hasVariant?: Product | ReturnType<typeof ProductComponent>
 	productGroupID?: Text
 	variesBy?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>

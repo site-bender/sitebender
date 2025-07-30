@@ -9,6 +9,7 @@ import MaximumDoseScheduleComponent from "../../../../../components/Thing/Medica
 import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
 export interface DrugStrengthProps {
+	"@type"?: "DrugStrength"
 	activeIngredient?: Text
 	availableIn?:
 		| AdministrativeArea

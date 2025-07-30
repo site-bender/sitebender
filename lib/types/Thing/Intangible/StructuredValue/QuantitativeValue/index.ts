@@ -18,6 +18,7 @@ import PropertyValueComponent from "../../../../../components/Thing/Intangible/S
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface QuantitativeValueProps {
+	"@type"?: "QuantitativeValue"
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	maxValue?: Number
 	minValue?: Number

@@ -16,6 +16,7 @@ import EngineSpecificationComponent from "../../../../components/Thing/Intangibl
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
 export interface VehicleProps {
+	"@type"?: "Vehicle"
 	accelerationTime?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

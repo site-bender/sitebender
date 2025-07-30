@@ -9,6 +9,7 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
 export interface TaxiReservationProps {
+	"@type"?: "TaxiReservation"
 	partySize?:
 		| Integer
 		| QuantitativeValue

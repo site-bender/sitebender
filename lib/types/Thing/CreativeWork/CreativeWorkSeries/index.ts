@@ -5,6 +5,7 @@ import type { SeriesProps } from "../../Intangible/Series/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
 export interface CreativeWorkSeriesProps {
+	"@type"?: "CreativeWorkSeries"
 	endDate?: Date | DateTime
 	issn?: Text
 	startDate?: Date | DateTime

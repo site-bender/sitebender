@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { CreativeWorkSeasonProps } from "../index.ts"
 
-export interface RadioSeasonProps {}
+export interface RadioSeasonProps {
+	"@type"?: "RadioSeason"}
 
 type RadioSeason =
 	& Thing

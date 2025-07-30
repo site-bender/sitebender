@@ -11,6 +11,7 @@ import ServiceComponent from "../../../../../components/Thing/Intangible/Service
 import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
 export interface TypeAndQuantityNodeProps {
+	"@type"?: "TypeAndQuantityNode"
 	amountOfThisGood?: Number
 	businessFunction?:
 		| BusinessFunction

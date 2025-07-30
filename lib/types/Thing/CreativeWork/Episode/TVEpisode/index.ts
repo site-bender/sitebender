@@ -11,6 +11,7 @@ import LanguageComponent from "../../../../../components/Thing/Intangible/Langua
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
 export interface TVEpisodeProps {
+	"@type"?: "TVEpisode"
 	countryOfOrigin?: Country | ReturnType<typeof CountryComponent>
 	partOfTVSeries?: TVSeries | ReturnType<typeof TVSeriesComponent>
 	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>

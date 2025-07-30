@@ -11,6 +11,7 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
 export interface MonetaryGrantProps {
+	"@type"?: "MonetaryGrant"
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	funder?:
 		| Organization

@@ -13,6 +13,7 @@ import MedicalConditionComponent from "../../../../components/Thing/MedicalEntit
 import MedicalTherapyComponent from "../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
 export interface AnatomicalStructureProps {
+	"@type"?: "AnatomicalStructure"
 	associatedPathophysiology?: Text
 	bodyLocation?: Text
 	connectedTo?:

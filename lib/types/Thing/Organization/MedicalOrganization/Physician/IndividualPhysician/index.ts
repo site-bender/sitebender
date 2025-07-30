@@ -10,6 +10,7 @@ import type { PhysicianProps } from "../index.ts"
 import MedicalOrganizationComponent from "../../../../../../components/Thing/Organization/MedicalOrganization/index.ts"
 
 export interface IndividualPhysicianProps {
+	"@type"?: "IndividualPhysician"
 	practicesAt?:
 		| MedicalOrganization
 		| ReturnType<typeof MedicalOrganizationComponent>

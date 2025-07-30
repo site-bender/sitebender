@@ -2,7 +2,8 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ReviewProps } from "../index.ts"
 
-export interface CriticReviewProps {}
+export interface CriticReviewProps {
+	"@type"?: "CriticReview"}
 
 type CriticReview = Thing & CreativeWorkProps & ReviewProps & CriticReviewProps
 
