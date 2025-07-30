@@ -11,5 +11,6 @@ export default function flattenSubtypeProperties(
 			...(subtypeProperties as Record<string, unknown>),
 		}
 	}
+
 	return obj
 }

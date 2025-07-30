@@ -3,16 +3,11 @@ export default function createElement(
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
-	// DEBUG: Log all createElement calls for components
-	// if (typeof tag === "function" && tag.name) {
-	// 	console.log(`DEBUG createElement - ${tag.name}:`, {
-	// 		props: props || {},
-	// 		children: children,
-	// 		childrenLength: children.length,
-	// 	})
-	// }
-
 	if (typeof tag === "function") {
+		// console.group()
+		// console.log("tag:", tag.name || tag)
+		// console.log("props:", JSON.stringify(props, null, 2))
+		// console.groupEnd()
 		// Always flatten children completely before passing to function
 		const flatChildren = children.flat(Infinity)
 
@@ -22,12 +17,6 @@ export default function createElement(
 				? props.children.flat(Infinity)
 				: props.children
 		}
-
-		// console.log(`DEBUG createElement - ${tag.name} DOUBLE flattened:`, {
-		// 	originalChildren: children,
-		// 	flatChildren,
-		// 	propsChildren: props?.children,
-		// })
 
 		return tag({ ...props, children: flatChildren })
 	}
