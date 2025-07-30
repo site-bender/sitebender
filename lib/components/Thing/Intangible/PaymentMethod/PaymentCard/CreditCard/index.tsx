@@ -7,6 +7,7 @@ export type Props = CreditCardProps & BaseProps
 
 export default function CreditCard({
 	_type = "CreditCard",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CreditCard({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PaymentCard>
 	)
 }

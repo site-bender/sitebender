@@ -7,6 +7,7 @@ export type Props = ActionStatusTypeProps & BaseProps
 
 export default function ActionStatusType({
 	_type = "ActionStatusType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ActionStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

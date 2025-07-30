@@ -12,6 +12,7 @@ export default function UserComments({
 	discusses,
 	replyToUrl,
 	_type = "UserComments",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function UserComments({
 				replyToUrl,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

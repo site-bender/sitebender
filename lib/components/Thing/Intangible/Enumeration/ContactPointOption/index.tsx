@@ -7,6 +7,7 @@ export type Props = ContactPointOptionProps & BaseProps
 
 export default function ContactPointOption({
 	_type = "ContactPointOption",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ContactPointOption({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

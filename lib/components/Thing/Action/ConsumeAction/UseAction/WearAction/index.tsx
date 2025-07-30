@@ -7,6 +7,7 @@ export type Props = WearActionProps & BaseProps
 
 export default function WearAction({
 	_type = "WearAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WearAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UseAction>
 	)
 }

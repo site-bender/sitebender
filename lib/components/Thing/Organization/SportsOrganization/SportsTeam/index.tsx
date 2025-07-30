@@ -10,6 +10,7 @@ export default function SportsTeam({
 	coach,
 	gender,
 	_type = "SportsTeam",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function SportsTeam({
 				gender,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SportsOrganization>
 	)
 }

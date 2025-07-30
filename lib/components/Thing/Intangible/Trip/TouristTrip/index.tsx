@@ -8,6 +8,7 @@ export type Props = TouristTripProps & BaseProps
 export default function TouristTrip({
 	touristType,
 	_type = "TouristTrip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function TouristTrip({
 				touristType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Trip>
 	)
 }

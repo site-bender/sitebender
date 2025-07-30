@@ -8,6 +8,7 @@ export type Props = CommentActionProps & BaseProps
 export default function CommentAction({
 	resultComment,
 	_type = "CommentAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function CommentAction({
 				resultComment,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

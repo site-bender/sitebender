@@ -15,6 +15,7 @@ export default function Occupation({
 	responsibilities,
 	skills,
 	_type = "Occupation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function Occupation({
 				skills,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

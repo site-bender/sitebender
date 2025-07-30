@@ -10,6 +10,7 @@ export default function MediaReview({
 	originalMediaContextDescription,
 	originalMediaLink,
 	_type = "MediaReview",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function MediaReview({
 				originalMediaLink,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Review>
 	)
 }

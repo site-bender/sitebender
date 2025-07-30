@@ -7,6 +7,7 @@ export type Props = InfectiousAgentClassProps & BaseProps
 
 export default function InfectiousAgentClass({
 	_type = "InfectiousAgentClass",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function InfectiousAgentClass({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEnumeration>
 	)
 }

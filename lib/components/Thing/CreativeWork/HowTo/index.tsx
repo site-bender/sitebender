@@ -16,6 +16,7 @@ export default function HowTo({
 	totalTime,
 	yield,
 	_type = "HowTo",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function HowTo({
 				yield,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = HowToItemProps & BaseProps
 export default function HowToItem({
 	requiredQuantity,
 	_type = "HowToItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function HowToItem({
 				requiredQuantity,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ListItem>
 	)
 }

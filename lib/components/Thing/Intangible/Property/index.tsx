@@ -11,6 +11,7 @@ export default function Property({
 	rangeIncludes,
 	supersededBy,
 	_type = "Property",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Property({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

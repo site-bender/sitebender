@@ -7,6 +7,7 @@ export type Props = HousePainterProps & BaseProps
 
 export default function HousePainter({
 	_type = "HousePainter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HousePainter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HomeAndConstructionBusiness>
 	)
 }

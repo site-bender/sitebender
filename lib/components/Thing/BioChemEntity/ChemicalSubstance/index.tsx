@@ -10,6 +10,7 @@ export default function ChemicalSubstance({
 	chemicalRole,
 	potentialUse,
 	_type = "ChemicalSubstance",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ChemicalSubstance({
 				potentialUse,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BioChemEntity>
 	)
 }

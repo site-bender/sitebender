@@ -7,6 +7,7 @@ export type Props = MapCategoryTypeProps & BaseProps
 
 export default function MapCategoryType({
 	_type = "MapCategoryType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MapCategoryType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

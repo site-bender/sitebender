@@ -7,6 +7,7 @@ export type Props = LibraryProps & BaseProps
 
 export default function Library({
 	_type = "Library",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Library({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

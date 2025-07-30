@@ -7,6 +7,7 @@ export type Props = USNonprofitTypeProps & BaseProps
 
 export default function USNonprofitType({
 	_type = "USNonprofitType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function USNonprofitType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</NonprofitType>
 	)
 }

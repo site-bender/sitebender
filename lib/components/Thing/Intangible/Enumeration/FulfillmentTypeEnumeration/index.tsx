@@ -7,6 +7,7 @@ export type Props = FulfillmentTypeEnumerationProps & BaseProps
 
 export default function FulfillmentTypeEnumeration({
 	_type = "FulfillmentTypeEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FulfillmentTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function Campground({
 	_type = "Campground",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function Campground({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</CampgroundProps>
 	)
 }

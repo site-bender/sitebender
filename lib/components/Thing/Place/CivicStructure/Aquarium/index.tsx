@@ -7,6 +7,7 @@ export type Props = AquariumProps & BaseProps
 
 export default function Aquarium({
 	_type = "Aquarium",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Aquarium({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

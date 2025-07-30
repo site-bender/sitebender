@@ -7,6 +7,7 @@ export type Props = MusicAlbumProductionTypeProps & BaseProps
 
 export default function MusicAlbumProductionType({
 	_type = "MusicAlbumProductionType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MusicAlbumProductionType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

@@ -15,6 +15,7 @@ export default function ExercisePlan({
 	restPeriods,
 	workload,
 	_type = "ExercisePlan",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function ExercisePlan({
 				workload,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

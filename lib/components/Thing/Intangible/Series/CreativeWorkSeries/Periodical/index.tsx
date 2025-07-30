@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function Periodical({
 	_type = "Periodical",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function Periodical({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</PeriodicalProps>
 	)
 }

@@ -9,6 +9,7 @@ export default function ReplaceAction({
 	replacee,
 	replacer,
 	_type = "ReplaceAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ReplaceAction({
 				replacer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UpdateAction>
 	)
 }

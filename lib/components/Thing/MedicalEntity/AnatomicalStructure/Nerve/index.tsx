@@ -11,6 +11,7 @@ export default function Nerve({
 	sensoryUnit,
 	sourcedFrom,
 	_type = "Nerve",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Nerve({
 				sourcedFrom,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

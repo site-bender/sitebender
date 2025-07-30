@@ -29,6 +29,7 @@ export default function Order({
 	paymentUrl,
 	seller,
 	_type = "Order",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -61,6 +62,6 @@ export default function Order({
 				seller,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

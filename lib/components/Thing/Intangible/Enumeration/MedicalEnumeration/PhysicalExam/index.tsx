@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function PhysicalExam({
 	_type = "PhysicalExam",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function PhysicalExam({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</PhysicalExamProps>
 	)
 }

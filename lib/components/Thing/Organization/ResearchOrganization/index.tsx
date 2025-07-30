@@ -7,6 +7,7 @@ export type Props = ResearchOrganizationProps & BaseProps
 
 export default function ResearchOrganization({
 	_type = "ResearchOrganization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ResearchOrganization({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

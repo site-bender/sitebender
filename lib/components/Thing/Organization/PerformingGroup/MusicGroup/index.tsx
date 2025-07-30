@@ -13,6 +13,7 @@ export default function MusicGroup({
 	track,
 	tracks,
 	_type = "MusicGroup",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MusicGroup({
 				tracks,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PerformingGroup>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = HardwareStoreProps & BaseProps
 
 export default function HardwareStore({
 	_type = "HardwareStore",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HardwareStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Store>
 	)
 }

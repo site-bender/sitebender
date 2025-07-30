@@ -7,6 +7,7 @@ export type Props = AssignActionProps & BaseProps
 
 export default function AssignAction({
 	_type = "AssignAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AssignAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AllocateAction>
 	)
 }

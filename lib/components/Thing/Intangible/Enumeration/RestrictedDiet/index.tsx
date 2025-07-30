@@ -7,6 +7,7 @@ export type Props = RestrictedDietProps & BaseProps
 
 export default function RestrictedDiet({
 	_type = "RestrictedDiet",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RestrictedDiet({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

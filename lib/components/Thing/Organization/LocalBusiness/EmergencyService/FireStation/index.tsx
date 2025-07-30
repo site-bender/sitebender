@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function FireStation({
 	_type = "FireStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function FireStation({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</FireStationProps>
 	)
 }

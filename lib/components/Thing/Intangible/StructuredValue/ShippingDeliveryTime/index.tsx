@@ -11,6 +11,7 @@ export default function ShippingDeliveryTime({
 	handlingTime,
 	transitTime,
 	_type = "ShippingDeliveryTime",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function ShippingDeliveryTime({
 				transitTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

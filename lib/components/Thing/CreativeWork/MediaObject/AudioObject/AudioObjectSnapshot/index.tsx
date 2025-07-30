@@ -7,6 +7,7 @@ export type Props = AudioObjectSnapshotProps & BaseProps
 
 export default function AudioObjectSnapshot({
 	_type = "AudioObjectSnapshot",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AudioObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AudioObject>
 	)
 }

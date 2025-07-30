@@ -12,6 +12,7 @@ export default function LocalBusiness({
 	paymentAccepted,
 	priceRange,
 	_type = "LocalBusiness",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function LocalBusiness({
 				priceRange,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

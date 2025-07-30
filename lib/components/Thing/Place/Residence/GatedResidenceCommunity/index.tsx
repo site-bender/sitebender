@@ -7,6 +7,7 @@ export type Props = GatedResidenceCommunityProps & BaseProps
 
 export default function GatedResidenceCommunity({
 	_type = "GatedResidenceCommunity",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GatedResidenceCommunity({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Residence>
 	)
 }

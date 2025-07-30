@@ -9,6 +9,7 @@ export default function ConsumeAction({
 	actionAccessibilityRequirement,
 	expectsAcceptanceOf,
 	_type = "ConsumeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ConsumeAction({
 				expectsAcceptanceOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

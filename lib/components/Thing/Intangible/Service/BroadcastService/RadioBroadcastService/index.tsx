@@ -7,6 +7,7 @@ export type Props = RadioBroadcastServiceProps & BaseProps
 
 export default function RadioBroadcastService({
 	_type = "RadioBroadcastService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RadioBroadcastService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BroadcastService>
 	)
 }

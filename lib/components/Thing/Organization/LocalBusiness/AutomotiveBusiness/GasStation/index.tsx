@@ -7,6 +7,7 @@ export type Props = GasStationProps & BaseProps
 
 export default function GasStation({
 	_type = "GasStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GasStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AutomotiveBusiness>
 	)
 }

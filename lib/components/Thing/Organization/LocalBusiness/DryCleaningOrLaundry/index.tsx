@@ -7,6 +7,7 @@ export type Props = DryCleaningOrLaundryProps & BaseProps
 
 export default function DryCleaningOrLaundry({
 	_type = "DryCleaningOrLaundry",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DryCleaningOrLaundry({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

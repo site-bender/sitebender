@@ -8,6 +8,7 @@ export type Props = MedicalScholarlyArticleProps & BaseProps
 export default function MedicalScholarlyArticle({
 	publicationType,
 	_type = "MedicalScholarlyArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MedicalScholarlyArticle({
 				publicationType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ScholarlyArticle>
 	)
 }

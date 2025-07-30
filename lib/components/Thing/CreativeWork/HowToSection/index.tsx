@@ -7,6 +7,7 @@ export type Props = HowToSectionProps & BaseProps
 
 export default function HowToSection({
 	_type = "HowToSection",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HowToSection({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

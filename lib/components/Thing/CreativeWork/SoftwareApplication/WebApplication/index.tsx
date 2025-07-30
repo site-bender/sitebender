@@ -8,6 +8,7 @@ export type Props = WebApplicationProps & BaseProps
 export default function WebApplication({
 	browserRequirements,
 	_type = "WebApplication",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function WebApplication({
 				browserRequirements,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SoftwareApplication>
 	)
 }

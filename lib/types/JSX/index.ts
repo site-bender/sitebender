@@ -47,6 +47,8 @@ export type TextNodeConstructor = (content: unknown) => TextNodeConfig
  */
 export type ChildFilter = (child: unknown) => boolean
 
+export type ComponentType<P> = (props: P) => JSX.Element
+
 /**
  * Element configuration object structure (OUTPUT of constructors)
  */
@@ -62,3 +64,5 @@ export type ElementConfig<T = Record<string, unknown>> = {
 	readonly stylesheets?: unknown
 	readonly validation?: unknown
 }
+
+export type HtmlElement = keyof HTMLElementTagNameMap

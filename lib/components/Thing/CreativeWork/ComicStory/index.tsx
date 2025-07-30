@@ -12,6 +12,7 @@ export default function ComicStory({
 	letterer,
 	penciler,
 	_type = "ComicStory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function ComicStory({
 				penciler,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

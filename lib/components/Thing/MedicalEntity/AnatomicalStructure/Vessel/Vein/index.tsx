@@ -10,6 +10,7 @@ export default function Vein({
 	regionDrained,
 	tributary,
 	_type = "Vein",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Vein({
 				tributary,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vessel>
 	)
 }

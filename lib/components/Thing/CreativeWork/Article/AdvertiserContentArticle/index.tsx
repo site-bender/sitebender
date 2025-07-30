@@ -7,6 +7,7 @@ export type Props = AdvertiserContentArticleProps & BaseProps
 
 export default function AdvertiserContentArticle({
 	_type = "AdvertiserContentArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AdvertiserContentArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

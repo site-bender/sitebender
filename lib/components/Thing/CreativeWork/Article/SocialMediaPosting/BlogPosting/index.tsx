@@ -7,6 +7,7 @@ export type Props = BlogPostingProps & BaseProps
 
 export default function BlogPosting({
 	_type = "BlogPosting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BlogPosting({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SocialMediaPosting>
 	)
 }

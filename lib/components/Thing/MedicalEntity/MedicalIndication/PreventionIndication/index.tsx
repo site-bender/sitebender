@@ -7,6 +7,7 @@ export type Props = PreventionIndicationProps & BaseProps
 
 export default function PreventionIndication({
 	_type = "PreventionIndication",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PreventionIndication({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIndication>
 	)
 }

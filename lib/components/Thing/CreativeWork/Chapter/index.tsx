@@ -10,6 +10,7 @@ export default function Chapter({
 	pageStart,
 	pagination,
 	_type = "Chapter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Chapter({
 				pagination,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

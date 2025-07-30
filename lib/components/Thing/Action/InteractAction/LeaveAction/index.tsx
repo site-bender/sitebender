@@ -8,6 +8,7 @@ export type Props = LeaveActionProps & BaseProps
 export default function LeaveAction({
 	event,
 	_type = "LeaveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function LeaveAction({
 				event,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

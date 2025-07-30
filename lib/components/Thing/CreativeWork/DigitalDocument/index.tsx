@@ -8,6 +8,7 @@ export type Props = DigitalDocumentProps & BaseProps
 export default function DigitalDocument({
 	hasDigitalDocumentPermission,
 	_type = "DigitalDocument",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function DigitalDocument({
 				hasDigitalDocumentPermission,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

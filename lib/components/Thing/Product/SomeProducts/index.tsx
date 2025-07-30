@@ -8,6 +8,7 @@ export type Props = SomeProductsProps & BaseProps
 export default function SomeProducts({
 	inventoryLevel,
 	_type = "SomeProducts",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function SomeProducts({
 				inventoryLevel,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

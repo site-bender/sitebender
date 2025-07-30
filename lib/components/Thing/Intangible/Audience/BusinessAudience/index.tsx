@@ -10,6 +10,7 @@ export default function BusinessAudience({
 	yearlyRevenue,
 	yearsInOperation,
 	_type = "BusinessAudience",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function BusinessAudience({
 				yearsInOperation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Audience>
 	)
 }

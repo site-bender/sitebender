@@ -9,6 +9,7 @@ export default function MortgageLoan({
 	domiciledMortgage,
 	loanMortgageMandateAmount,
 	_type = "MortgageLoan",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MortgageLoan({
 				loanMortgageMandateAmount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LoanOrCredit>
 	)
 }

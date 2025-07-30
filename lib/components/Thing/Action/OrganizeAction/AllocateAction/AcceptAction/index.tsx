@@ -7,6 +7,7 @@ export type Props = AcceptActionProps & BaseProps
 
 export default function AcceptAction({
 	_type = "AcceptAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AcceptAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AllocateAction>
 	)
 }

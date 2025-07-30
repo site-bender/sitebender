@@ -10,6 +10,7 @@ export default function PublicationEvent({
 	publishedBy,
 	publishedOn,
 	_type = "PublicationEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function PublicationEvent({
 				publishedOn,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

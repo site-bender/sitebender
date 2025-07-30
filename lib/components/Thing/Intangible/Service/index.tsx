@@ -32,6 +32,7 @@ export default function Service({
 	slogan,
 	termsOfService,
 	_type = "Service",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -67,6 +68,6 @@ export default function Service({
 				termsOfService,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

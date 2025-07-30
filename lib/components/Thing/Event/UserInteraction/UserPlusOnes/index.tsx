@@ -7,6 +7,7 @@ export type Props = UserPlusOnesProps & BaseProps
 
 export default function UserPlusOnes({
 	_type = "UserPlusOnes",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserPlusOnes({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

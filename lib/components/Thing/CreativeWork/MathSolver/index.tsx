@@ -8,6 +8,7 @@ export type Props = MathSolverProps & BaseProps
 export default function MathSolver({
 	mathExpression,
 	_type = "MathSolver",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MathSolver({
 				mathExpression,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

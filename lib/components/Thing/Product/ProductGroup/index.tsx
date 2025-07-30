@@ -10,6 +10,7 @@ export default function ProductGroup({
 	productGroupID,
 	variesBy,
 	_type = "ProductGroup",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ProductGroup({
 				variesBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

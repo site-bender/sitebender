@@ -7,6 +7,7 @@ export type Props = TaxiProps & BaseProps
 
 export default function Taxi({
 	_type = "Taxi",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Taxi({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

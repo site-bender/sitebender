@@ -11,6 +11,7 @@ export default function PaymentCard({
 	floorLimit,
 	monthlyMinimumRepaymentAmount,
 	_type = "PaymentCard",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function PaymentCard({
 				monthlyMinimumRepaymentAmount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PaymentMethod>
 	)
 }

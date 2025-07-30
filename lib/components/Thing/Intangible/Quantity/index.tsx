@@ -7,6 +7,7 @@ export type Props = QuantityProps & BaseProps
 
 export default function Quantity({
 	_type = "Quantity",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Quantity({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

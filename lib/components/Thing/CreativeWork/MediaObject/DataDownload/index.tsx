@@ -9,6 +9,7 @@ export default function DataDownload({
 	measurementMethod,
 	measurementTechnique,
 	_type = "DataDownload",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function DataDownload({
 				measurementTechnique,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

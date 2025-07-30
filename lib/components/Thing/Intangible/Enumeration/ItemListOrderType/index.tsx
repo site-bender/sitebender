@@ -7,6 +7,7 @@ export type Props = ItemListOrderTypeProps & BaseProps
 
 export default function ItemListOrderType({
 	_type = "ItemListOrderType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ItemListOrderType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

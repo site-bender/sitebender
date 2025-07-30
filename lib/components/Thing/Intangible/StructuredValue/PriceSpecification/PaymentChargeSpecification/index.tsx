@@ -9,6 +9,7 @@ export default function PaymentChargeSpecification({
 	appliesToDeliveryMethod,
 	appliesToPaymentMethod,
 	_type = "PaymentChargeSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function PaymentChargeSpecification({
 				appliesToPaymentMethod,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PriceSpecification>
 	)
 }

@@ -9,6 +9,7 @@ export default function RealEstateListing({
 	datePosted,
 	leaseLength,
 	_type = "RealEstateListing",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function RealEstateListing({
 				leaseLength,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

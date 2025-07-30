@@ -18,6 +18,7 @@ export default function PriceSpecification({
 	validThrough,
 	valueAddedTaxIncluded,
 	_type = "PriceSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function PriceSpecification({
 				valueAddedTaxIncluded,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = ReportProps & BaseProps
 export default function Report({
 	reportNumber,
 	_type = "Report",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Report({
 				reportNumber,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

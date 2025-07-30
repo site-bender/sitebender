@@ -7,6 +7,7 @@ export type Props = CooperativeProps & BaseProps
 
 export default function Cooperative({
 	_type = "Cooperative",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Cooperative({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

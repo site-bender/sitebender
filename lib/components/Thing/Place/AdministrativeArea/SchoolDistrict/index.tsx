@@ -7,6 +7,7 @@ export type Props = SchoolDistrictProps & BaseProps
 
 export default function SchoolDistrict({
 	_type = "SchoolDistrict",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SchoolDistrict({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AdministrativeArea>
 	)
 }

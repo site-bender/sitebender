@@ -11,6 +11,7 @@ export default function PublicationIssue({
 	pageStart,
 	pagination,
 	_type = "PublicationIssue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function PublicationIssue({
 				pagination,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

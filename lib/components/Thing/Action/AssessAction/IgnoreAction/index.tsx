@@ -7,6 +7,7 @@ export type Props = IgnoreActionProps & BaseProps
 
 export default function IgnoreAction({
 	_type = "IgnoreAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function IgnoreAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AssessAction>
 	)
 }

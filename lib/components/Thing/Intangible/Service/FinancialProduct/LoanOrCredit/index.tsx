@@ -16,6 +16,7 @@ export default function LoanOrCredit({
 	renegotiableLoan,
 	requiredCollateral,
 	_type = "LoanOrCredit",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function LoanOrCredit({
 				requiredCollateral,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialProduct>
 	)
 }

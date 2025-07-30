@@ -7,6 +7,7 @@ export type Props = PurchaseTypeProps & BaseProps
 
 export default function PurchaseType({
 	_type = "PurchaseType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PurchaseType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

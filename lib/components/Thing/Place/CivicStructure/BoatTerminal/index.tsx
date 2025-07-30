@@ -7,6 +7,7 @@ export type Props = BoatTerminalProps & BaseProps
 
 export default function BoatTerminal({
 	_type = "BoatTerminal",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BoatTerminal({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

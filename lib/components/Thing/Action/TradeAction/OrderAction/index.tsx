@@ -8,6 +8,7 @@ export type Props = OrderActionProps & BaseProps
 export default function OrderAction({
 	deliveryMethod,
 	_type = "OrderAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function OrderAction({
 				deliveryMethod,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

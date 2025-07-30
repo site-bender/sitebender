@@ -7,6 +7,7 @@ export type Props = TieActionProps & BaseProps
 
 export default function TieAction({
 	_type = "TieAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TieAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AchieveAction>
 	)
 }

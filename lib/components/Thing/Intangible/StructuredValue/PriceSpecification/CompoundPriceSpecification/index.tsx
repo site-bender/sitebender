@@ -9,6 +9,7 @@ export default function CompoundPriceSpecification({
 	priceComponent,
 	priceType,
 	_type = "CompoundPriceSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function CompoundPriceSpecification({
 				priceType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PriceSpecification>
 	)
 }

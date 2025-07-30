@@ -7,6 +7,7 @@ export type Props = ShareActionProps & BaseProps
 
 export default function ShareAction({
 	_type = "ShareAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ShareAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

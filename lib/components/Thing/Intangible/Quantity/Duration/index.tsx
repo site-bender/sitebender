@@ -7,6 +7,7 @@ export type Props = DurationProps & BaseProps
 
 export default function Duration({
 	_type = "Duration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Duration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Quantity>
 	)
 }

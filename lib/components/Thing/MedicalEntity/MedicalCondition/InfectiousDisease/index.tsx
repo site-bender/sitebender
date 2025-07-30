@@ -10,6 +10,7 @@ export default function InfectiousDisease({
 	infectiousAgentClass,
 	transmissionMethod,
 	_type = "InfectiousDisease",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function InfectiousDisease({
 				transmissionMethod,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalCondition>
 	)
 }

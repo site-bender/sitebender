@@ -10,6 +10,7 @@ export default function Suite({
 	numberOfRooms,
 	occupancy,
 	_type = "Suite",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Suite({
 				occupancy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Accommodation>
 	)
 }

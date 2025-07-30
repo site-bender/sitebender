@@ -9,6 +9,7 @@ export default function MenuSection({
 	hasMenuItem,
 	hasMenuSection,
 	_type = "MenuSection",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MenuSection({
 				hasMenuSection,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

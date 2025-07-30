@@ -29,6 +29,7 @@ export default function MerchantReturnPolicy({
 	returnShippingFeesAmount,
 	validForMemberTier,
 	_type = "MerchantReturnPolicy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -61,6 +62,6 @@ export default function MerchantReturnPolicy({
 				validForMemberTier,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

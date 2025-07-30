@@ -14,6 +14,7 @@ export default function QuantitativeValue({
 	value,
 	valueReference,
 	_type = "QuantitativeValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function QuantitativeValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

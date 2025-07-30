@@ -9,6 +9,7 @@ export default function MonetaryGrant({
 	amount,
 	funder,
 	_type = "MonetaryGrant",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MonetaryGrant({
 				funder,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Grant>
 	)
 }

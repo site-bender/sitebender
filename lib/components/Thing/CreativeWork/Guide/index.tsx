@@ -8,6 +8,7 @@ export type Props = GuideProps & BaseProps
 export default function Guide({
 	reviewAspect,
 	_type = "Guide",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Guide({
 				reviewAspect,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

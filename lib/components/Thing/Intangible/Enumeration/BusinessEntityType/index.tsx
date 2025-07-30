@@ -7,6 +7,7 @@ export type Props = BusinessEntityTypeProps & BaseProps
 
 export default function BusinessEntityType({
 	_type = "BusinessEntityType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BusinessEntityType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

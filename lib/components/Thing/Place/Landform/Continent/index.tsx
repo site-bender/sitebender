@@ -7,6 +7,7 @@ export type Props = ContinentProps & BaseProps
 
 export default function Continent({
 	_type = "Continent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Continent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Landform>
 	)
 }

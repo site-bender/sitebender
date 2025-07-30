@@ -15,6 +15,7 @@ export default function Article({
 	speakable,
 	wordCount,
 	_type = "Article",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function Article({
 				wordCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

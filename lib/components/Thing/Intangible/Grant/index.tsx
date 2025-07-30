@@ -10,6 +10,7 @@ export default function Grant({
 	funder,
 	sponsor,
 	_type = "Grant",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Grant({
 				sponsor,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

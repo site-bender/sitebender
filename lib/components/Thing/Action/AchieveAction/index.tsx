@@ -7,6 +7,7 @@ export type Props = AchieveActionProps & BaseProps
 
 export default function AchieveAction({
 	_type = "AchieveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AchieveAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

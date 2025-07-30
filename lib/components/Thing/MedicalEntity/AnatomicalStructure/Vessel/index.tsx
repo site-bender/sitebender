@@ -7,6 +7,7 @@ export type Props = VesselProps & BaseProps
 
 export default function Vessel({
 	_type = "Vessel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Vessel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

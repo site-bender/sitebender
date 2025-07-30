@@ -7,6 +7,7 @@ export type Props = MountainProps & BaseProps
 
 export default function Mountain({
 	_type = "Mountain",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Mountain({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Landform>
 	)
 }

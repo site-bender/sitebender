@@ -8,6 +8,7 @@ export type Props = CivicStructureProps & BaseProps
 export default function CivicStructure({
 	openingHours,
 	_type = "CivicStructure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function CivicStructure({
 				openingHours,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

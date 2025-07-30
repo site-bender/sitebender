@@ -7,6 +7,7 @@ export type Props = ManuscriptProps & BaseProps
 
 export default function Manuscript({
 	_type = "Manuscript",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Manuscript({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

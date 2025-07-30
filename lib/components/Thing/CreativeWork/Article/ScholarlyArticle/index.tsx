@@ -7,6 +7,7 @@ export type Props = ScholarlyArticleProps & BaseProps
 
 export default function ScholarlyArticle({
 	_type = "ScholarlyArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ScholarlyArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

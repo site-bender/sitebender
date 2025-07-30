@@ -17,6 +17,7 @@ export default function Dataset({
 	variableMeasured,
 	variablesMeasured,
 	_type = "Dataset",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function Dataset({
 				variablesMeasured,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

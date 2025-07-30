@@ -9,6 +9,7 @@ export default function ChooseAction({
 	actionOption,
 	option,
 	_type = "ChooseAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ChooseAction({
 				option,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AssessAction>
 	)
 }

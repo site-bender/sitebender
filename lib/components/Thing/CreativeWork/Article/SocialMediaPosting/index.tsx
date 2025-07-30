@@ -8,6 +8,7 @@ export type Props = SocialMediaPostingProps & BaseProps
 export default function SocialMediaPosting({
 	sharedContent,
 	_type = "SocialMediaPosting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function SocialMediaPosting({
 				sharedContent,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

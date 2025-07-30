@@ -7,6 +7,7 @@ export type Props = PodcastEpisodeProps & BaseProps
 
 export default function PodcastEpisode({
 	_type = "PodcastEpisode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PodcastEpisode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Episode>
 	)
 }

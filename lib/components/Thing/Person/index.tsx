@@ -17,7 +17,7 @@ export default function Person({
 	birthPlace,
 	brand,
 	callSign,
-	children,
+	child,
 	colleague,
 	colleagues,
 	contactPoint,
@@ -74,6 +74,7 @@ export default function Person({
 	workLocation,
 	worksFor,
 	_type = "Person",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -93,7 +94,7 @@ export default function Person({
 				birthPlace,
 				brand,
 				callSign,
-				children,
+				child,
 				colleague,
 				colleagues,
 				contactPoint,
@@ -151,6 +152,6 @@ export default function Person({
 				worksFor,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

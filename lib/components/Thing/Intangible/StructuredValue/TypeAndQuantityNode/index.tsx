@@ -12,6 +12,7 @@ export default function TypeAndQuantityNode({
 	unitCode,
 	unitText,
 	_type = "TypeAndQuantityNode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function TypeAndQuantityNode({
 				unitText,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

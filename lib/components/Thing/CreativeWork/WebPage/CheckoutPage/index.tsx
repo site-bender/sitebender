@@ -7,6 +7,7 @@ export type Props = CheckoutPageProps & BaseProps
 
 export default function CheckoutPage({
 	_type = "CheckoutPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CheckoutPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

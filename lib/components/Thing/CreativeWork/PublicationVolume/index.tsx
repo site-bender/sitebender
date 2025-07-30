@@ -11,6 +11,7 @@ export default function PublicationVolume({
 	pagination,
 	volumeNumber,
 	_type = "PublicationVolume",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function PublicationVolume({
 				volumeNumber,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

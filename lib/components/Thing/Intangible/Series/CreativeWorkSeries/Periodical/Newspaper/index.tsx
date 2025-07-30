@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function Newspaper({
 	_type = "Newspaper",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function Newspaper({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</NewspaperProps>
 	)
 }

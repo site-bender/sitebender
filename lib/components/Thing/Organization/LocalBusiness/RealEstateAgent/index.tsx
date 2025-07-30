@@ -7,6 +7,7 @@ export type Props = RealEstateAgentProps & BaseProps
 
 export default function RealEstateAgent({
 	_type = "RealEstateAgent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RealEstateAgent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

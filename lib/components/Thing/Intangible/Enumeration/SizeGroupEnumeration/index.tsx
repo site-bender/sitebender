@@ -7,6 +7,7 @@ export type Props = SizeGroupEnumerationProps & BaseProps
 
 export default function SizeGroupEnumeration({
 	_type = "SizeGroupEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SizeGroupEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

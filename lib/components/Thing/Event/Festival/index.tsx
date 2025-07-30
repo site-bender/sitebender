@@ -7,6 +7,7 @@ export type Props = FestivalProps & BaseProps
 
 export default function Festival({
 	_type = "Festival",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Festival({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

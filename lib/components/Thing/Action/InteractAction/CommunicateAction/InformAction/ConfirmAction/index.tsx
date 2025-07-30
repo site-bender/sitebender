@@ -7,6 +7,7 @@ export type Props = ConfirmActionProps & BaseProps
 
 export default function ConfirmAction({
 	_type = "ConfirmAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ConfirmAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InformAction>
 	)
 }

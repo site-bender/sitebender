@@ -7,6 +7,7 @@ export type Props = MovingCompanyProps & BaseProps
 
 export default function MovingCompany({
 	_type = "MovingCompany",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MovingCompany({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HomeAndConstructionBusiness>
 	)
 }

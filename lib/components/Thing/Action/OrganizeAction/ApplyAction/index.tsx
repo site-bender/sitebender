@@ -7,6 +7,7 @@ export type Props = ApplyActionProps & BaseProps
 
 export default function ApplyAction({
 	_type = "ApplyAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ApplyAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</OrganizeAction>
 	)
 }

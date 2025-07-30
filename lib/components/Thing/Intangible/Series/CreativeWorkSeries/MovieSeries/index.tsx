@@ -23,6 +23,7 @@ export default function MovieSeries(
 		productionCompany,
 		trailer,
 		_type = "MovieSeries",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -41,6 +42,6 @@ export default function MovieSeries(
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MovieSeriesProps>
 	)
 }

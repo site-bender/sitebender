@@ -12,6 +12,7 @@ export default function DrugStrength({
 	strengthUnit,
 	strengthValue,
 	_type = "DrugStrength",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function DrugStrength({
 				strengthValue,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

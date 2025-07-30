@@ -8,6 +8,7 @@ export type Props = QuotationProps & BaseProps
 export default function Quotation({
 	spokenByCharacter,
 	_type = "Quotation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Quotation({
 				spokenByCharacter,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

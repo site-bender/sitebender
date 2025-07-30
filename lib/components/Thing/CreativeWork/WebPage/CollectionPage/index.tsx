@@ -7,6 +7,7 @@ export type Props = CollectionPageProps & BaseProps
 
 export default function CollectionPage({
 	_type = "CollectionPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CollectionPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

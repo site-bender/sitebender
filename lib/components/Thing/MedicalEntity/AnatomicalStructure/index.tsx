@@ -15,6 +15,7 @@ export default function AnatomicalStructure({
 	relatedTherapy,
 	subStructure,
 	_type = "AnatomicalStructure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function AnatomicalStructure({
 				subStructure,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

@@ -19,6 +19,7 @@ export default function NutritionInformation({
 	transFatContent,
 	unsaturatedFatContent,
 	_type = "NutritionInformation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -41,6 +42,6 @@ export default function NutritionInformation({
 				unsaturatedFatContent,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = CriticReviewProps & BaseProps
 
 export default function CriticReview({
 	_type = "CriticReview",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CriticReview({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Review>
 	)
 }

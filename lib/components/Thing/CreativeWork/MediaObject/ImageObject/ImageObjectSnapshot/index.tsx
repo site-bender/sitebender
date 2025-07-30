@@ -7,6 +7,7 @@ export type Props = ImageObjectSnapshotProps & BaseProps
 
 export default function ImageObjectSnapshot({
 	_type = "ImageObjectSnapshot",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ImageObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ImageObject>
 	)
 }

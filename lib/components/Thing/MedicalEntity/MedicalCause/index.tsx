@@ -8,6 +8,7 @@ export type Props = MedicalCauseProps & BaseProps
 export default function MedicalCause({
 	causeOf,
 	_type = "MedicalCause",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MedicalCause({
 				causeOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

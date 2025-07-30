@@ -22,6 +22,7 @@ export default function Flight({
 	seller,
 	webCheckinTime,
 	_type = "Flight",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -47,6 +48,6 @@ export default function Flight({
 				webCheckinTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Trip>
 	)
 }

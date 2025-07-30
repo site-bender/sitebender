@@ -8,6 +8,7 @@ export type Props = PathologyTestProps & BaseProps
 export default function PathologyTest({
 	tissueSample,
 	_type = "PathologyTest",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PathologyTest({
 				tissueSample,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalTest>
 	)
 }

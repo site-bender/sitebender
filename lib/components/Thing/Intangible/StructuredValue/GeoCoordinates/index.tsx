@@ -13,6 +13,7 @@ export default function GeoCoordinates({
 	longitude,
 	postalCode,
 	_type = "GeoCoordinates",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function GeoCoordinates({
 				postalCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = SubscribeActionProps & BaseProps
 
 export default function SubscribeAction({
 	_type = "SubscribeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SubscribeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

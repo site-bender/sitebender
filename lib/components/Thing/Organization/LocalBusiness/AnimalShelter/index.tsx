@@ -7,6 +7,7 @@ export type Props = AnimalShelterProps & BaseProps
 
 export default function AnimalShelter({
 	_type = "AnimalShelter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AnimalShelter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

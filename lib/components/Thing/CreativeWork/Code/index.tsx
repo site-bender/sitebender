@@ -7,6 +7,7 @@ export type Props = CodeProps & BaseProps
 
 export default function Code({
 	_type = "Code",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Code({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

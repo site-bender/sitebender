@@ -7,6 +7,7 @@ export type Props = PlumberProps & BaseProps
 
 export default function Plumber({
 	_type = "Plumber",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Plumber({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HomeAndConstructionBusiness>
 	)
 }

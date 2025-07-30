@@ -9,6 +9,7 @@ export default function Audiobook({
 	duration,
 	readBy,
 	_type = "Audiobook",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Audiobook({
 				readBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Book>
 	)
 }

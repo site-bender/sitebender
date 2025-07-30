@@ -8,6 +8,7 @@ export type Props = SeekToActionProps & BaseProps
 export default function SeekToAction({
 	startOffset,
 	_type = "SeekToAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function SeekToAction({
 				startOffset,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

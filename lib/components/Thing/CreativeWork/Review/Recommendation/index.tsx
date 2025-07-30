@@ -8,6 +8,7 @@ export type Props = RecommendationProps & BaseProps
 export default function Recommendation({
 	category,
 	_type = "Recommendation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Recommendation({
 				category,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Review>
 	)
 }

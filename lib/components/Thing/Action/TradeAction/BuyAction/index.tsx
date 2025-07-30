@@ -10,6 +10,7 @@ export default function BuyAction({
 	vendor,
 	warrantyPromise,
 	_type = "BuyAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function BuyAction({
 				warrantyPromise,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

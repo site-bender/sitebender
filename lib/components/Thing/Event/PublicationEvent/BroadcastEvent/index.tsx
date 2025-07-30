@@ -11,6 +11,7 @@ export default function BroadcastEvent({
 	subtitleLanguage,
 	videoFormat,
 	_type = "BroadcastEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function BroadcastEvent({
 				videoFormat,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PublicationEvent>
 	)
 }

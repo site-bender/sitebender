@@ -8,6 +8,7 @@ export type Props = DrugLegalStatusProps & BaseProps
 export default function DrugLegalStatus({
 	applicableLocation,
 	_type = "DrugLegalStatus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function DrugLegalStatus({
 				applicableLocation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

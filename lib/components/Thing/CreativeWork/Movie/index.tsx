@@ -18,6 +18,7 @@ export default function Movie({
 	titleEIDR,
 	trailer,
 	_type = "Movie",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function Movie({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

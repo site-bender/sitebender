@@ -10,6 +10,7 @@ export default function TradeAction({
 	priceCurrency,
 	priceSpecification,
 	_type = "TradeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function TradeAction({
 				priceSpecification,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

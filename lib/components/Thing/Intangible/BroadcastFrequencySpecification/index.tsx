@@ -10,6 +10,7 @@ export default function BroadcastFrequencySpecification({
 	broadcastSignalModulation,
 	broadcastSubChannel,
 	_type = "BroadcastFrequencySpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function BroadcastFrequencySpecification({
 				broadcastSubChannel,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

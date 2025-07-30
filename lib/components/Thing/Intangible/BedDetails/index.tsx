@@ -9,6 +9,7 @@ export default function BedDetails({
 	numberOfBeds,
 	typeOfBed,
 	_type = "BedDetails",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function BedDetails({
 				typeOfBed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

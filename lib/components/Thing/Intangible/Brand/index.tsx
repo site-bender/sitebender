@@ -11,6 +11,7 @@ export default function Brand({
 	review,
 	slogan,
 	_type = "Brand",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Brand({
 				slogan,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

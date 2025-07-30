@@ -7,6 +7,7 @@ export type Props = TrainStationProps & BaseProps
 
 export default function TrainStation({
 	_type = "TrainStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TrainStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

@@ -18,6 +18,7 @@ export default function Episode({
 	productionCompany,
 	trailer,
 	_type = "Episode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function Episode({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = CategoryCodeSetProps & BaseProps
 export default function CategoryCodeSet({
 	hasCategoryCode,
 	_type = "CategoryCodeSet",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function CategoryCodeSet({
 				hasCategoryCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DefinedTermSet>
 	)
 }

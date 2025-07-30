@@ -7,6 +7,7 @@ export type Props = MedicalIntangibleProps & BaseProps
 
 export default function MedicalIntangible({
 	_type = "MedicalIntangible",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MedicalIntangible({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

@@ -27,6 +27,7 @@ export default function Legislation({
 	legislationTransposes,
 	legislationType,
 	_type = "Legislation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -57,6 +58,6 @@ export default function Legislation({
 				legislationType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

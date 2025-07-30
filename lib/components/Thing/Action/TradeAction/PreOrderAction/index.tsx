@@ -7,6 +7,7 @@ export type Props = PreOrderActionProps & BaseProps
 
 export default function PreOrderAction({
 	_type = "PreOrderAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PreOrderAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

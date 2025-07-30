@@ -18,6 +18,7 @@ export default function Clip({
 	partOfSeries,
 	startOffset,
 	_type = "Clip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function Clip({
 				startOffset,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

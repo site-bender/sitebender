@@ -7,6 +7,7 @@ export type Props = AppendActionProps & BaseProps
 
 export default function AppendAction({
 	_type = "AppendAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AppendAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InsertAction>
 	)
 }

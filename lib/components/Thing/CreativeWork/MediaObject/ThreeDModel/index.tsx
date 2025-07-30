@@ -7,6 +7,7 @@ export type Props = ThreeDModelProps & BaseProps
 
 export default function ThreeDModel({
 	_type = "ThreeDModel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ThreeDModel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

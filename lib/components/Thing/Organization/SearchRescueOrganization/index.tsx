@@ -7,6 +7,7 @@ export type Props = SearchRescueOrganizationProps & BaseProps
 
 export default function SearchRescueOrganization({
 	_type = "SearchRescueOrganization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SearchRescueOrganization({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

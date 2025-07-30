@@ -7,6 +7,7 @@ export type Props = EnergyProps & BaseProps
 
 export default function Energy({
 	_type = "Energy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Energy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Quantity>
 	)
 }

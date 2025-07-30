@@ -8,6 +8,7 @@ export type Props = CollectionProps & BaseProps
 export default function Collection({
 	collectionSize,
 	_type = "Collection",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Collection({
 				collectionSize,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

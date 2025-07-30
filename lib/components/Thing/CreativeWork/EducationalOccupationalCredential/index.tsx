@@ -13,6 +13,7 @@ export default function EducationalOccupationalCredential({
 	validFor,
 	validIn,
 	_type = "EducationalOccupationalCredential",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function EducationalOccupationalCredential({
 				validIn,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

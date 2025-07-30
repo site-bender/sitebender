@@ -9,6 +9,7 @@ export default function CategoryCode({
 	codeValue,
 	inCodeSet,
 	_type = "CategoryCode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function CategoryCode({
 				inCodeSet,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DefinedTerm>
 	)
 }

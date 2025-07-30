@@ -21,6 +21,7 @@ export default function RadioSeries({
 	seasons,
 	trailer,
 	_type = "RadioSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -45,6 +46,6 @@ export default function RadioSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWorkSeries>
 	)
 }

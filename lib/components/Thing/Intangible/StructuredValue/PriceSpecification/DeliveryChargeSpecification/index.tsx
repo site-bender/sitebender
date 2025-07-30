@@ -11,6 +11,7 @@ export default function DeliveryChargeSpecification({
 	eligibleRegion,
 	ineligibleRegion,
 	_type = "DeliveryChargeSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DeliveryChargeSpecification({
 				ineligibleRegion,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PriceSpecification>
 	)
 }

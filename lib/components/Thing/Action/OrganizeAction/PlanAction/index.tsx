@@ -8,6 +8,7 @@ export type Props = PlanActionProps & BaseProps
 export default function PlanAction({
 	scheduledTime,
 	_type = "PlanAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PlanAction({
 				scheduledTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</OrganizeAction>
 	)
 }

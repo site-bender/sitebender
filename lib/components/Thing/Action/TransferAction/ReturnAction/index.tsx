@@ -8,6 +8,7 @@ export type Props = ReturnActionProps & BaseProps
 export default function ReturnAction({
 	recipient,
 	_type = "ReturnAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ReturnAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

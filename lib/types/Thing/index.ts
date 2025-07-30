@@ -1,4 +1,4 @@
-import type { Text, URL } from "../../DataType/index.ts"
+import type { Text, URL } from "../DataType/index.ts"
 import type Thing from "../index.ts"
 import type Action from "./Action/index.ts"
 import type CreativeWork from "./CreativeWork/index.ts"
@@ -40,6 +40,4 @@ export interface ThingProps {
 	url?: URL
 }
 
-type Thing = Thing & ThingProps
-
-export default Thing
+export default ThingProps

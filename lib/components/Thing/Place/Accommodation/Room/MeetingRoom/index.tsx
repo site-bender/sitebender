@@ -7,6 +7,7 @@ export type Props = MeetingRoomProps & BaseProps
 
 export default function MeetingRoom({
 	_type = "MeetingRoom",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MeetingRoom({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Room>
 	)
 }

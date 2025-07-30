@@ -7,6 +7,7 @@ export type Props = NotaryProps & BaseProps
 
 export default function Notary({
 	_type = "Notary",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Notary({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LegalService>
 	)
 }

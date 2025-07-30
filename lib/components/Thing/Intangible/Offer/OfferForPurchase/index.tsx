@@ -7,6 +7,7 @@ export type Props = OfferForPurchaseProps & BaseProps
 
 export default function OfferForPurchase({
 	_type = "OfferForPurchase",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OfferForPurchase({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Offer>
 	)
 }

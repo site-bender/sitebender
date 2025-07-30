@@ -21,6 +21,7 @@ export default function OfferShippingDetails({
 	weight,
 	width,
 	_type = "OfferShippingDetails",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -45,6 +46,6 @@ export default function OfferShippingDetails({
 				width,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

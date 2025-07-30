@@ -19,6 +19,7 @@ export default function Certification({
 	validFrom,
 	validIn,
 	_type = "Certification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -41,6 +42,6 @@ export default function Certification({
 				validIn,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

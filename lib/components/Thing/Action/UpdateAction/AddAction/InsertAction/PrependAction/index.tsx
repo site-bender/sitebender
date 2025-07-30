@@ -7,6 +7,7 @@ export type Props = PrependActionProps & BaseProps
 
 export default function PrependAction({
 	_type = "PrependAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PrependAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InsertAction>
 	)
 }

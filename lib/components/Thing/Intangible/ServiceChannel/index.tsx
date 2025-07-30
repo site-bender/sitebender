@@ -15,6 +15,7 @@ export default function ServiceChannel({
 	serviceSmsNumber,
 	serviceUrl,
 	_type = "ServiceChannel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function ServiceChannel({
 				serviceUrl,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

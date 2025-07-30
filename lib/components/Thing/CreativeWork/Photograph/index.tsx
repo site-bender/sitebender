@@ -7,6 +7,7 @@ export type Props = PhotographProps & BaseProps
 
 export default function Photograph({
 	_type = "Photograph",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Photograph({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

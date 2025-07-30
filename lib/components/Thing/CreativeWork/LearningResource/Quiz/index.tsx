@@ -7,6 +7,7 @@ export type Props = QuizProps & BaseProps
 
 export default function Quiz({
 	_type = "Quiz",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Quiz({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LearningResource>
 	)
 }

@@ -10,6 +10,7 @@ export default function ProductModel({
 	predecessorOf,
 	successorOf,
 	_type = "ProductModel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ProductModel({
 				successorOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

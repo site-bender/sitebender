@@ -8,6 +8,7 @@ export type Props = PaymentMethodProps & BaseProps
 export default function PaymentMethod({
 	paymentMethodType,
 	_type = "PaymentMethod",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PaymentMethod({
 				paymentMethodType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

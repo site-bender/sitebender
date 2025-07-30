@@ -8,6 +8,7 @@ export type Props = DataFeedProps & BaseProps
 export default function DataFeed({
 	dataFeedElement,
 	_type = "DataFeed",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function DataFeed({
 				dataFeedElement,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Dataset>
 	)
 }

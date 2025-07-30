@@ -7,6 +7,7 @@ export type Props = MediaManipulationRatingEnumerationProps & BaseProps
 
 export default function MediaManipulationRatingEnumeration({
 	_type = "MediaManipulationRatingEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MediaManipulationRatingEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

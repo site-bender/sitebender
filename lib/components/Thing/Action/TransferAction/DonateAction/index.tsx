@@ -11,6 +11,7 @@ export default function DonateAction({
 	priceSpecification,
 	recipient,
 	_type = "DonateAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DonateAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

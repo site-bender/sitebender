@@ -44,6 +44,7 @@ export default function JobPosting({
 	validThrough,
 	workHours,
 	_type = "JobPosting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -91,6 +92,6 @@ export default function JobPosting({
 				workHours,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

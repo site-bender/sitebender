@@ -7,6 +7,7 @@ export type Props = DiscussionForumPostingProps & BaseProps
 
 export default function DiscussionForumPosting({
 	_type = "DiscussionForumPosting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DiscussionForumPosting({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SocialMediaPosting>
 	)
 }

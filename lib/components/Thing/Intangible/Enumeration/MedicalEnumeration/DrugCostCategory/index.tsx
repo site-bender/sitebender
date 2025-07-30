@@ -7,6 +7,7 @@ export type Props = DrugCostCategoryProps & BaseProps
 
 export default function DrugCostCategory({
 	_type = "DrugCostCategory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DrugCostCategory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEnumeration>
 	)
 }

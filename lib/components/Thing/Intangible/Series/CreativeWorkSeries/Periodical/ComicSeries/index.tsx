@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function ComicSeries({
 	_type = "ComicSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function ComicSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</ComicSeriesProps>
 	)
 }

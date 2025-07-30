@@ -8,6 +8,7 @@ export type Props = SearchActionProps & BaseProps
 export default function SearchAction({
 	query,
 	_type = "SearchAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function SearchAction({
 				query,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

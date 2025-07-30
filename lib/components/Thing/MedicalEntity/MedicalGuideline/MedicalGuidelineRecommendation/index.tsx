@@ -8,6 +8,7 @@ export type Props = MedicalGuidelineRecommendationProps & BaseProps
 export default function MedicalGuidelineRecommendation({
 	recommendationStrength,
 	_type = "MedicalGuidelineRecommendation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MedicalGuidelineRecommendation({
 				recommendationStrength,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalGuideline>
 	)
 }

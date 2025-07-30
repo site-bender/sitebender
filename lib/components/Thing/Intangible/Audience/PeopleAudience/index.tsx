@@ -16,6 +16,7 @@ export default function PeopleAudience({
 	suggestedMeasurement,
 	suggestedMinAge,
 	_type = "PeopleAudience",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function PeopleAudience({
 				suggestedMinAge,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Audience>
 	)
 }

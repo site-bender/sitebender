@@ -7,6 +7,7 @@ export type Props = FAQPageProps & BaseProps
 
 export default function FAQPage({
 	_type = "FAQPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FAQPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = PlaceOfWorshipProps & BaseProps
 
 export default function PlaceOfWorship({
 	_type = "PlaceOfWorship",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PlaceOfWorship({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

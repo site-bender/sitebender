@@ -19,7 +19,7 @@ export function Head() {
 }
 
 const template = `
-	{{cite(name, style="color:red")}} by
+	{{cite(title)}} by
 	{{author.givenName}}
 	{{link(
 		author.familyName,
@@ -37,6 +37,7 @@ export default function ({ route }: Props = {}) {
 				<h2>Simple string fallbacks</h2>
 				<p>
 					<Book
+						_template={template}
 						author={
 							<Person
 								alternateName="Scott Fitzgerald"
@@ -50,10 +51,12 @@ export default function ({ route }: Props = {}) {
 							givenName: "John",
 							familyName: "Doe",
 						}}
-						_template={template}
+						element="div"
 						isbn="9780743273565"
 						title="The Great Gatsby"
-					/>
+					>
+						<p>Bob's yer uncle!</p>
+					</Book>
 				</p>
 			</section>
 		</main>

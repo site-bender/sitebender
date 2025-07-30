@@ -15,6 +15,7 @@ export default function LodgingBusiness({
 	petsAllowed,
 	starRating,
 	_type = "LodgingBusiness",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function LodgingBusiness({
 				starRating,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

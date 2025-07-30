@@ -7,6 +7,7 @@ export type Props = DigitalPlatformEnumerationProps & BaseProps
 
 export default function DigitalPlatformEnumeration({
 	_type = "DigitalPlatformEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DigitalPlatformEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = HealthTopicContentProps & BaseProps
 export default function HealthTopicContent({
 	hasHealthAspect,
 	_type = "HealthTopicContent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function HealthTopicContent({
 				hasHealthAspect,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebContent>
 	)
 }

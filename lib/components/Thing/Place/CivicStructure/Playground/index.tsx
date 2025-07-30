@@ -7,6 +7,7 @@ export type Props = PlaygroundProps & BaseProps
 
 export default function Playground({
 	_type = "Playground",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Playground({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

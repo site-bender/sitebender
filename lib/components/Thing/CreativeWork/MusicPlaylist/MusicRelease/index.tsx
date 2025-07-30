@@ -13,6 +13,7 @@ export default function MusicRelease({
 	recordLabel,
 	releaseOf,
 	_type = "MusicRelease",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MusicRelease({
 				releaseOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MusicPlaylist>
 	)
 }

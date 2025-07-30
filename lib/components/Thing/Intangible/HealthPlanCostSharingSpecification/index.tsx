@@ -12,6 +12,7 @@ export default function HealthPlanCostSharingSpecification({
 	healthPlanCopayOption,
 	healthPlanPharmacyCategory,
 	_type = "HealthPlanCostSharingSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function HealthPlanCostSharingSpecification({
 				healthPlanPharmacyCategory,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

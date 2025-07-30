@@ -7,6 +7,7 @@ export type Props = LegalForceStatusProps & BaseProps
 
 export default function LegalForceStatus({
 	_type = "LegalForceStatus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LegalForceStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

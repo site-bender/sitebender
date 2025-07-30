@@ -8,6 +8,7 @@ export type Props = PerformanceRoleProps & BaseProps
 export default function PerformanceRole({
 	characterName,
 	_type = "PerformanceRole",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PerformanceRole({
 				characterName,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Role>
 	)
 }

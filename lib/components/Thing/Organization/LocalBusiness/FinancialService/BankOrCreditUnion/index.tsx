@@ -7,6 +7,7 @@ export type Props = BankOrCreditUnionProps & BaseProps
 
 export default function BankOrCreditUnion({
 	_type = "BankOrCreditUnion",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BankOrCreditUnion({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialService>
 	)
 }

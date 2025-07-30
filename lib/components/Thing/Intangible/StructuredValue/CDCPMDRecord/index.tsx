@@ -24,6 +24,7 @@ export default function CDCPMDRecord({
 	cvdNumVentUse,
 	datePosted,
 	_type = "CDCPMDRecord",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -51,6 +52,6 @@ export default function CDCPMDRecord({
 				datePosted,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

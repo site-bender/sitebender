@@ -11,6 +11,7 @@ export default function AggregateOffer({
 	offerCount,
 	offers,
 	_type = "AggregateOffer",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function AggregateOffer({
 				offers,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Offer>
 	)
 }

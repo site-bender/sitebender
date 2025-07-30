@@ -7,6 +7,7 @@ export type Props = MaximumDoseScheduleProps & BaseProps
 
 export default function MaximumDoseSchedule({
 	_type = "MaximumDoseSchedule",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MaximumDoseSchedule({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DoseSchedule>
 	)
 }

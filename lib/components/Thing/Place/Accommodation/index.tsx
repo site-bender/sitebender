@@ -24,6 +24,7 @@ export default function Accommodation({
 	tourBookingPage,
 	yearBuilt,
 	_type = "Accommodation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -51,6 +52,6 @@ export default function Accommodation({
 				yearBuilt,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

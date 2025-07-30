@@ -7,6 +7,7 @@ export type Props = EmployerAggregateRatingProps & BaseProps
 
 export default function EmployerAggregateRating({
 	_type = "EmployerAggregateRating",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EmployerAggregateRating({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AggregateRating>
 	)
 }

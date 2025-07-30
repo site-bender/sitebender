@@ -7,6 +7,7 @@ export type Props = IPTCDigitalSourceEnumerationProps & BaseProps
 
 export default function IPTCDigitalSourceEnumeration({
 	_type = "IPTCDigitalSourceEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function IPTCDigitalSourceEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaEnumeration>
 	)
 }

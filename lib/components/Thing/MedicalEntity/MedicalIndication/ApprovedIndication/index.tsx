@@ -7,6 +7,7 @@ export type Props = ApprovedIndicationProps & BaseProps
 
 export default function ApprovedIndication({
 	_type = "ApprovedIndication",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ApprovedIndication({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIndication>
 	)
 }

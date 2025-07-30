@@ -7,6 +7,7 @@ export type Props = SelfStorageProps & BaseProps
 
 export default function SelfStorage({
 	_type = "SelfStorage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SelfStorage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

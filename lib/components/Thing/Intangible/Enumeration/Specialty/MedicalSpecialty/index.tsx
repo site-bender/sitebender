@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function MedicalSpecialty({
 	_type = "MedicalSpecialty",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function MedicalSpecialty({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</MedicalSpecialtyProps>
 	)
 }

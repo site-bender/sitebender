@@ -7,6 +7,7 @@ export type Props = MosqueProps & BaseProps
 
 export default function Mosque({
 	_type = "Mosque",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Mosque({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlaceOfWorship>
 	)
 }

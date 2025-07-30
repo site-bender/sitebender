@@ -10,6 +10,7 @@ export default function CreativeWorkSeries({
 	issn,
 	startDate,
 	_type = "CreativeWorkSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function CreativeWorkSeries({
 				startDate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

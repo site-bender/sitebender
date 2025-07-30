@@ -7,6 +7,7 @@ export type Props = ComicSeriesProps & BaseProps
 
 export default function ComicSeries({
 	_type = "ComicSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ComicSeries({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Periodical>
 	)
 }

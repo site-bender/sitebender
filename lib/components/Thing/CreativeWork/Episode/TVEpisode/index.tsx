@@ -11,6 +11,7 @@ export default function TVEpisode({
 	subtitleLanguage,
 	titleEIDR,
 	_type = "TVEpisode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function TVEpisode({
 				titleEIDR,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Episode>
 	)
 }

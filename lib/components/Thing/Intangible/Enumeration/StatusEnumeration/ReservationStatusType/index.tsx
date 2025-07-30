@@ -7,6 +7,7 @@ export type Props = ReservationStatusTypeProps & BaseProps
 
 export default function ReservationStatusType({
 	_type = "ReservationStatusType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ReservationStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

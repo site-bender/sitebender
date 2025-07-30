@@ -8,6 +8,7 @@ export type Props = PerformActionProps & BaseProps
 export default function PerformAction({
 	entertainmentBusiness,
 	_type = "PerformAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PerformAction({
 				entertainmentBusiness,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlayAction>
 	)
 }

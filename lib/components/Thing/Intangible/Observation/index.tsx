@@ -17,6 +17,7 @@ export default function Observation({
 	observationPeriod,
 	variableMeasured,
 	_type = "Observation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function Observation({
 				variableMeasured,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

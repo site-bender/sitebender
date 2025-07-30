@@ -16,6 +16,7 @@ export default function Review({
 	reviewBody,
 	reviewRating,
 	_type = "Review",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function Review({
 				reviewRating,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

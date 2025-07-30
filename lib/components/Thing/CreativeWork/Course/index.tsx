@@ -17,6 +17,7 @@ export default function Course({
 	syllabusSections,
 	totalHistoricalEnrollment,
 	_type = "Course",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function Course({
 				totalHistoricalEnrollment,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

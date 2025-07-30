@@ -7,6 +7,7 @@ export type Props = PaymentStatusTypeProps & BaseProps
 
 export default function PaymentStatusType({
 	_type = "PaymentStatusType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PaymentStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

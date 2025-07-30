@@ -7,6 +7,7 @@ export type Props = NewspaperProps & BaseProps
 
 export default function Newspaper({
 	_type = "Newspaper",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Newspaper({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Periodical>
 	)
 }

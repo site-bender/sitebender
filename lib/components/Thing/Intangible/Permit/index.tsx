@@ -14,6 +14,7 @@ export default function Permit({
 	validIn,
 	validUntil,
 	_type = "Permit",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function Permit({
 				validUntil,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

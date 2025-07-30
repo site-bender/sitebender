@@ -8,6 +8,7 @@ export type Props = DiagnosticLabProps & BaseProps
 export default function DiagnosticLab({
 	availableTest,
 	_type = "DiagnosticLab",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function DiagnosticLab({
 				availableTest,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalOrganization>
 	)
 }

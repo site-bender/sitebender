@@ -9,6 +9,7 @@ export default function MediaSubscription({
 	authenticator,
 	expectsAcceptanceOf,
 	_type = "MediaSubscription",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MediaSubscription({
 				expectsAcceptanceOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function AutoPartsStore({
 	_type = "AutoPartsStore",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function AutoPartsStore({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</AutoPartsStoreProps>
 	)
 }

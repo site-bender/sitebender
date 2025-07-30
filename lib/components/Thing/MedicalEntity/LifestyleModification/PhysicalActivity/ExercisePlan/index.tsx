@@ -24,6 +24,7 @@ export default function ExercisePlan(
 		restPeriods,
 		workload,
 		_type = "ExercisePlan",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -43,6 +44,6 @@ export default function ExercisePlan(
 				workload,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ExercisePlanProps>
 	)
 }

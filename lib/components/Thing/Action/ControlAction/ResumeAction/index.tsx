@@ -7,6 +7,7 @@ export type Props = ResumeActionProps & BaseProps
 
 export default function ResumeAction({
 	_type = "ResumeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ResumeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ControlAction>
 	)
 }

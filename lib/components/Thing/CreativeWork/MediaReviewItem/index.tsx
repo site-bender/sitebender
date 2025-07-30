@@ -8,6 +8,7 @@ export type Props = MediaReviewItemProps & BaseProps
 export default function MediaReviewItem({
 	mediaItemAppearance,
 	_type = "MediaReviewItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MediaReviewItem({
 				mediaItemAppearance,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = CheckActionProps & BaseProps
 
 export default function CheckAction({
 	_type = "CheckAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CheckAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FindAction>
 	)
 }

@@ -12,6 +12,7 @@ export default function OpeningHoursSpecification({
 	validFrom,
 	validThrough,
 	_type = "OpeningHoursSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function OpeningHoursSpecification({
 				validThrough,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = AssessActionProps & BaseProps
 
 export default function AssessAction({
 	_type = "AssessAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AssessAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

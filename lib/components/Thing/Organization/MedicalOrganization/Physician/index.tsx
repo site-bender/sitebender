@@ -12,6 +12,7 @@ export default function Physician({
 	occupationalCategory,
 	usNPI,
 	_type = "Physician",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function Physician({
 				usNPI,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalOrganization>
 	)
 }

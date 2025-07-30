@@ -7,6 +7,7 @@ export type Props = IncentiveStatusProps & BaseProps
 
 export default function IncentiveStatus({
 	_type = "IncentiveStatus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function IncentiveStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

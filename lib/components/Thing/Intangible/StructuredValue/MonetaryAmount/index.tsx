@@ -13,6 +13,7 @@ export default function MonetaryAmount({
 	validThrough,
 	value,
 	_type = "MonetaryAmount",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MonetaryAmount({
 				value,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

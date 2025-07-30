@@ -7,6 +7,7 @@ export type Props = PhotographActionProps & BaseProps
 
 export default function PhotographAction({
 	_type = "PhotographAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PhotographAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreateAction>
 	)
 }

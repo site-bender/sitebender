@@ -10,6 +10,7 @@ export default function FinancialProduct({
 	feesAndCommissionsSpecification,
 	interestRate,
 	_type = "FinancialProduct",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function FinancialProduct({
 				interestRate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

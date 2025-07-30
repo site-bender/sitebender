@@ -7,6 +7,7 @@ export type Props = RecyclingCenterProps & BaseProps
 
 export default function RecyclingCenter({
 	_type = "RecyclingCenter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RecyclingCenter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

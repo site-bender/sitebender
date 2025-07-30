@@ -7,6 +7,7 @@ export type Props = GenderTypeProps & BaseProps
 
 export default function GenderType({
 	_type = "GenderType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GenderType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

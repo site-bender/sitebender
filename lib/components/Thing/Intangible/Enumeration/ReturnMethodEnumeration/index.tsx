@@ -7,6 +7,7 @@ export type Props = ReturnMethodEnumerationProps & BaseProps
 
 export default function ReturnMethodEnumeration({
 	_type = "ReturnMethodEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ReturnMethodEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

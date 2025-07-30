@@ -19,6 +19,7 @@ export default function FloorPlan({
 	numberOfRooms,
 	petsAllowed,
 	_type = "FloorPlan",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -41,6 +42,6 @@ export default function FloorPlan({
 				petsAllowed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

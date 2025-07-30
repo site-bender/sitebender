@@ -7,6 +7,7 @@ export type Props = CancelActionProps & BaseProps
 
 export default function CancelAction({
 	_type = "CancelAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CancelAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlanAction>
 	)
 }

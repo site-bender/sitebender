@@ -16,6 +16,7 @@ export default function MolecularEntity({
 	potentialUse,
 	smiles,
 	_type = "MolecularEntity",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function MolecularEntity({
 				smiles,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BioChemEntity>
 	)
 }

@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function HowToTip({
 	_type = "HowToTip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function HowToTip({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</HowToTipProps>
 	)
 }

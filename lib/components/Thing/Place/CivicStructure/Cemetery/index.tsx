@@ -7,6 +7,7 @@ export type Props = CemeteryProps & BaseProps
 
 export default function Cemetery({
 	_type = "Cemetery",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Cemetery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

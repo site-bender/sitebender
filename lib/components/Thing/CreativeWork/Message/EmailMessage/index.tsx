@@ -7,6 +7,7 @@ export type Props = EmailMessageProps & BaseProps
 
 export default function EmailMessage({
 	_type = "EmailMessage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EmailMessage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Message>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = FundingSchemeProps & BaseProps
 
 export default function FundingScheme({
 	_type = "FundingScheme",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FundingScheme({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

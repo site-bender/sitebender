@@ -23,6 +23,7 @@ export default function MedicalCondition({
 	status,
 	typicalTest,
 	_type = "MedicalCondition",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -49,6 +50,6 @@ export default function MedicalCondition({
 				typicalTest,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = DriveWheelConfigurationValueProps & BaseProps
 
 export default function DriveWheelConfigurationValue({
 	_type = "DriveWheelConfigurationValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DriveWheelConfigurationValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</QualitativeValue>
 	)
 }

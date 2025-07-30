@@ -7,6 +7,7 @@ export type Props = ListenActionProps & BaseProps
 
 export default function ListenAction({
 	_type = "ListenAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ListenAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

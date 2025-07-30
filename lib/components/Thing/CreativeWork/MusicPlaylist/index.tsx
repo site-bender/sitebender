@@ -10,6 +10,7 @@ export default function MusicPlaylist({
 	track,
 	tracks,
 	_type = "MusicPlaylist",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function MusicPlaylist({
 				tracks,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

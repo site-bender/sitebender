@@ -8,6 +8,7 @@ export type Props = AuthorizeActionProps & BaseProps
 export default function AuthorizeAction({
 	recipient,
 	_type = "AuthorizeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function AuthorizeAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AllocateAction>
 	)
 }

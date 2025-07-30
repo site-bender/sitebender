@@ -7,6 +7,7 @@ export type Props = EmbassyProps & BaseProps
 
 export default function Embassy({
 	_type = "Embassy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Embassy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</GovernmentBuilding>
 	)
 }

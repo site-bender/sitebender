@@ -20,6 +20,7 @@ export default function Schedule({
 	startDate,
 	startTime,
 	_type = "Schedule",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function Schedule({
 				startTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

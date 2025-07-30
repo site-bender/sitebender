@@ -7,6 +7,7 @@ export type Props = ConversationProps & BaseProps
 
 export default function Conversation({
 	_type = "Conversation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Conversation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = TextDigitalDocumentProps & BaseProps
 
 export default function TextDigitalDocument({
 	_type = "TextDigitalDocument",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TextDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DigitalDocument>
 	)
 }

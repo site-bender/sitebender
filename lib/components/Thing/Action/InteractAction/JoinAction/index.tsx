@@ -8,6 +8,7 @@ export type Props = JoinActionProps & BaseProps
 export default function JoinAction({
 	event,
 	_type = "JoinAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function JoinAction({
 				event,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

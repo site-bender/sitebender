@@ -9,6 +9,7 @@ export default function MedicalConditionStage({
 	stageAsNumber,
 	subStageSuffix,
 	_type = "MedicalConditionStage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MedicalConditionStage({
 				subStageSuffix,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

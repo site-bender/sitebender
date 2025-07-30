@@ -11,6 +11,7 @@ export default function MusicAlbum({
 	albumReleaseType,
 	byArtist,
 	_type = "MusicAlbum",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function MusicAlbum({
 				byArtist,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MusicPlaylist>
 	)
 }

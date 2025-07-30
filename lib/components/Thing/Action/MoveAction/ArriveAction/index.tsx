@@ -7,6 +7,7 @@ export type Props = ArriveActionProps & BaseProps
 
 export default function ArriveAction({
 	_type = "ArriveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ArriveAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MoveAction>
 	)
 }

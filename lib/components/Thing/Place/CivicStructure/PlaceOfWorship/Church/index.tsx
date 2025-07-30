@@ -7,6 +7,7 @@ export type Props = ChurchProps & BaseProps
 
 export default function Church({
 	_type = "Church",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Church({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlaceOfWorship>
 	)
 }

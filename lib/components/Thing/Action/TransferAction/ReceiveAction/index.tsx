@@ -9,6 +9,7 @@ export default function ReceiveAction({
 	deliveryMethod,
 	sender,
 	_type = "ReceiveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ReceiveAction({
 				sender,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

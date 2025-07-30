@@ -7,6 +7,7 @@ export type Props = OrderStatusProps & BaseProps
 
 export default function OrderStatus({
 	_type = "OrderStatus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OrderStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

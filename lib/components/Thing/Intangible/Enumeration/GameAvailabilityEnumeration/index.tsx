@@ -7,6 +7,7 @@ export type Props = GameAvailabilityEnumerationProps & BaseProps
 
 export default function GameAvailabilityEnumeration({
 	_type = "GameAvailabilityEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GameAvailabilityEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

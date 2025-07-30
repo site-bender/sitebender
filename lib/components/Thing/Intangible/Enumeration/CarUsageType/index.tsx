@@ -7,6 +7,7 @@ export type Props = CarUsageTypeProps & BaseProps
 
 export default function CarUsageType({
 	_type = "CarUsageType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CarUsageType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

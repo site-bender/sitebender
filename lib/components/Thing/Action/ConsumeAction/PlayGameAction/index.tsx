@@ -8,6 +8,7 @@ export type Props = PlayGameActionProps & BaseProps
 export default function PlayGameAction({
 	gameAvailabilityType,
 	_type = "PlayGameAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PlayGameAction({
 				gameAvailabilityType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

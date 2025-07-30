@@ -7,6 +7,7 @@ export type Props = AboutPageProps & BaseProps
 
 export default function AboutPage({
 	_type = "AboutPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AboutPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

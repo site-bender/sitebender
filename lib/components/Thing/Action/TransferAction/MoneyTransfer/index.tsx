@@ -9,6 +9,7 @@ export default function MoneyTransfer({
 	amount,
 	beneficiaryBank,
 	_type = "MoneyTransfer",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MoneyTransfer({
 				beneficiaryBank,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

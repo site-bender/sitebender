@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function BookSeries({
 	_type = "BookSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function BookSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</BookSeriesProps>
 	)
 }

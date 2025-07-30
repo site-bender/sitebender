@@ -9,6 +9,7 @@ export default function Substance({
 	activeIngredient,
 	maximumIntake,
 	_type = "Substance",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Substance({
 				maximumIntake,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

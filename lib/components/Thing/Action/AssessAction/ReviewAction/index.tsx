@@ -8,6 +8,7 @@ export type Props = ReviewActionProps & BaseProps
 export default function ReviewAction({
 	resultReview,
 	_type = "ReviewAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ReviewAction({
 				resultReview,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AssessAction>
 	)
 }

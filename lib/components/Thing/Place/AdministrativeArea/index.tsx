@@ -7,6 +7,7 @@ export type Props = AdministrativeAreaProps & BaseProps
 
 export default function AdministrativeArea({
 	_type = "AdministrativeArea",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AdministrativeArea({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

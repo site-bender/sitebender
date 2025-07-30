@@ -14,6 +14,7 @@ export default function StatisticalVariable({
 	populationType,
 	statType,
 	_type = "StatisticalVariable",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function StatisticalVariable({
 				statType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConstraintNode>
 	)
 }

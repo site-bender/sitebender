@@ -7,6 +7,7 @@ export type Props = ContactPageProps & BaseProps
 
 export default function ContactPage({
 	_type = "ContactPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ContactPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

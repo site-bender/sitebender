@@ -7,6 +7,7 @@ export type Props = PondProps & BaseProps
 
 export default function Pond({
 	_type = "Pond",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Pond({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BodyOfWater>
 	)
 }

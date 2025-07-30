@@ -18,6 +18,7 @@ export default function MedicalCode(
 		codeValue,
 		codingSystem,
 		_type = "MedicalCode",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -31,6 +32,6 @@ export default function MedicalCode(
 				codingSystem,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalCodeProps>
 	)
 }

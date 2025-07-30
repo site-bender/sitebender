@@ -8,6 +8,7 @@ export type Props = GiveActionProps & BaseProps
 export default function GiveAction({
 	recipient,
 	_type = "GiveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function GiveAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

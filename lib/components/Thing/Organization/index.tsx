@@ -84,6 +84,7 @@ export default function Organization({
 	unnamedSourcesPolicy,
 	vatID,
 	_type = "Organization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -171,6 +172,6 @@ export default function Organization({
 				vatID,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

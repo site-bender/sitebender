@@ -10,6 +10,7 @@ export default function LocationFeatureSpecification({
 	validFrom,
 	validThrough,
 	_type = "LocationFeatureSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function LocationFeatureSpecification({
 				validThrough,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PropertyValue>
 	)
 }

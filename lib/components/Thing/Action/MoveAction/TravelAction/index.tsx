@@ -8,6 +8,7 @@ export type Props = TravelActionProps & BaseProps
 export default function TravelAction({
 	distance,
 	_type = "TravelAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function TravelAction({
 				distance,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MoveAction>
 	)
 }

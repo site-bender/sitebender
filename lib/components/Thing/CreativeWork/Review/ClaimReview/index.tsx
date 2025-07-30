@@ -8,6 +8,7 @@ export type Props = ClaimReviewProps & BaseProps
 export default function ClaimReview({
 	claimReviewed,
 	_type = "ClaimReview",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ClaimReview({
 				claimReviewed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Review>
 	)
 }

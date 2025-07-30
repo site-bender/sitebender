@@ -7,6 +7,7 @@ export type Props = BookStoreProps & BaseProps
 
 export default function BookStore({
 	_type = "BookStore",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BookStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Store>
 	)
 }

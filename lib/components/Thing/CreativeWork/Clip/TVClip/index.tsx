@@ -8,6 +8,7 @@ export type Props = TVClipProps & BaseProps
 export default function TVClip({
 	partOfTVSeries,
 	_type = "TVClip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function TVClip({
 				partOfTVSeries,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Clip>
 	)
 }

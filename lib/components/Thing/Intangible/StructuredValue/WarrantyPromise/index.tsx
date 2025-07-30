@@ -9,6 +9,7 @@ export default function WarrantyPromise({
 	durationOfWarranty,
 	warrantyScope,
 	_type = "WarrantyPromise",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function WarrantyPromise({
 				warrantyScope,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

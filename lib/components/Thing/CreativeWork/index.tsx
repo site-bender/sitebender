@@ -122,6 +122,7 @@ export default function CreativeWork({
 	workExample,
 	workTranslation,
 	_type = "CreativeWork",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -247,6 +248,8 @@ export default function CreativeWork({
 				workTranslation,
 				...subtypeProperties,
 			}}
-		/>
+		>
+			{children}
+		</Thing>
 	)
 }

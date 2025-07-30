@@ -13,6 +13,7 @@ export default function MusicRecording({
 	isrcCode,
 	recordingOf,
 	_type = "MusicRecording",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MusicRecording({
 				recordingOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

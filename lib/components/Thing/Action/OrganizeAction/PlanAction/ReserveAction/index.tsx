@@ -7,6 +7,7 @@ export type Props = ReserveActionProps & BaseProps
 
 export default function ReserveAction({
 	_type = "ReserveAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ReserveAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlanAction>
 	)
 }

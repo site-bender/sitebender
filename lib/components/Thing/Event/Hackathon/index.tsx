@@ -7,6 +7,7 @@ export type Props = HackathonProps & BaseProps
 
 export default function Hackathon({
 	_type = "Hackathon",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Hackathon({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

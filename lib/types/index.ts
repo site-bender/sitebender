@@ -1,9 +1,12 @@
+import type { HtmlElement } from "./JSX/index.ts"
+
 type BaseProps = {
 	_template?: string
 	_type?: string
-	children?: never
+	children?: JSX.Element | string | Array<JSX.Element | string>
 	disableJsonLd?: boolean
 	disableMicrodata?: boolean
+	element?: HtmlElement
 	isProp?: boolean
 	subtypeProperties?: Record<string, unknown>
 }

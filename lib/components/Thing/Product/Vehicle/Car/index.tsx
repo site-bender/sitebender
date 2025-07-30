@@ -9,6 +9,7 @@ export default function Car({
 	acrissCode,
 	roofLoad,
 	_type = "Car",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Car({
 				roofLoad,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vehicle>
 	)
 }

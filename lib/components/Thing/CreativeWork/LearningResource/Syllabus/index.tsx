@@ -7,6 +7,7 @@ export type Props = SyllabusProps & BaseProps
 
 export default function Syllabus({
 	_type = "Syllabus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Syllabus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LearningResource>
 	)
 }

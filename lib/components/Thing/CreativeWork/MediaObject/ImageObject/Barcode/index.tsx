@@ -7,6 +7,7 @@ export type Props = BarcodeProps & BaseProps
 
 export default function Barcode({
 	_type = "Barcode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Barcode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ImageObject>
 	)
 }

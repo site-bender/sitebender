@@ -7,6 +7,7 @@ export type Props = TouristInformationCenterProps & BaseProps
 
 export default function TouristInformationCenter({
 	_type = "TouristInformationCenter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TouristInformationCenter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

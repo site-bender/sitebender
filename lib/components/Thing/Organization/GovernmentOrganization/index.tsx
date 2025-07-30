@@ -7,6 +7,7 @@ export type Props = GovernmentOrganizationProps & BaseProps
 
 export default function GovernmentOrganization({
 	_type = "GovernmentOrganization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GovernmentOrganization({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

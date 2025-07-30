@@ -7,6 +7,7 @@ export type Props = HowToToolProps & BaseProps
 
 export default function HowToTool({
 	_type = "HowToTool",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HowToTool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HowToItem>
 	)
 }

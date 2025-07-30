@@ -7,6 +7,7 @@ export type Props = WPFooterProps & BaseProps
 
 export default function WPFooter({
 	_type = "WPFooter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WPFooter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

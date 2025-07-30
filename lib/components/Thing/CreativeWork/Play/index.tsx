@@ -7,6 +7,7 @@ export type Props = PlayProps & BaseProps
 
 export default function Play({
 	_type = "Play",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Play({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

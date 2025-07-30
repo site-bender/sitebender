@@ -8,6 +8,7 @@ export type Props = OccupationalExperienceRequirementsProps & BaseProps
 export default function OccupationalExperienceRequirements({
 	monthsOfExperience,
 	_type = "OccupationalExperienceRequirements",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function OccupationalExperienceRequirements({
 				monthsOfExperience,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

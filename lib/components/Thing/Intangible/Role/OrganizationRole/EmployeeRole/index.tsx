@@ -9,6 +9,7 @@ export default function EmployeeRole({
 	baseSalary,
 	salaryCurrency,
 	_type = "EmployeeRole",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function EmployeeRole({
 				salaryCurrency,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</OrganizationRole>
 	)
 }

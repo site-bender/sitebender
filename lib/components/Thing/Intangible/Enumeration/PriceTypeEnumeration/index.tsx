@@ -7,6 +7,7 @@ export type Props = PriceTypeEnumerationProps & BaseProps
 
 export default function PriceTypeEnumeration({
 	_type = "PriceTypeEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PriceTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

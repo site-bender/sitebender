@@ -47,6 +47,7 @@ export default function Vehicle({
 	weightTotal,
 	wheelbase,
 	_type = "Vehicle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -97,6 +98,6 @@ export default function Vehicle({
 				wheelbase,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

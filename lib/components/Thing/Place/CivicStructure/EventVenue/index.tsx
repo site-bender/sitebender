@@ -7,6 +7,7 @@ export type Props = EventVenueProps & BaseProps
 
 export default function EventVenue({
 	_type = "EventVenue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EventVenue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

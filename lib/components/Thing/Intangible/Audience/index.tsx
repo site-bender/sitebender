@@ -9,6 +9,7 @@ export default function Audience({
 	audienceType,
 	geographicArea,
 	_type = "Audience",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Audience({
 				geographicArea,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = StateProps & BaseProps
 
 export default function State({
 	_type = "State",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function State({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AdministrativeArea>
 	)
 }

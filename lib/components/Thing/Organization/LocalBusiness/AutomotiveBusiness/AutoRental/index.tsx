@@ -7,6 +7,7 @@ export type Props = AutoRentalProps & BaseProps
 
 export default function AutoRental({
 	_type = "AutoRental",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AutoRental({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AutomotiveBusiness>
 	)
 }

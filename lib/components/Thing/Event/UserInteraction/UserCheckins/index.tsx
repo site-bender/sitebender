@@ -7,6 +7,7 @@ export type Props = UserCheckinsProps & BaseProps
 
 export default function UserCheckins({
 	_type = "UserCheckins",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserCheckins({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

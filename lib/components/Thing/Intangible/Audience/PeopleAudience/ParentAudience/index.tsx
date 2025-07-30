@@ -9,6 +9,7 @@ export default function ParentAudience({
 	childMaxAge,
 	childMinAge,
 	_type = "ParentAudience",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ParentAudience({
 				childMinAge,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PeopleAudience>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = ComputerLanguageProps & BaseProps
 
 export default function ComputerLanguage({
 	_type = "ComputerLanguage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ComputerLanguage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

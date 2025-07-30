@@ -10,6 +10,7 @@ export default function DataCatalog({
 	measurementMethod,
 	measurementTechnique,
 	_type = "DataCatalog",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function DataCatalog({
 				measurementTechnique,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

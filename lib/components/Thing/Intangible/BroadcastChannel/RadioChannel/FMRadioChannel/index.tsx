@@ -7,6 +7,7 @@ export type Props = FMRadioChannelProps & BaseProps
 
 export default function FMRadioChannel({
 	_type = "FMRadioChannel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FMRadioChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</RadioChannel>
 	)
 }

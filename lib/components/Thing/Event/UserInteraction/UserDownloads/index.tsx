@@ -7,6 +7,7 @@ export type Props = UserDownloadsProps & BaseProps
 
 export default function UserDownloads({
 	_type = "UserDownloads",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserDownloads({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

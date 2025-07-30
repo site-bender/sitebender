@@ -7,6 +7,7 @@ export type Props = ControlActionProps & BaseProps
 
 export default function ControlAction({
 	_type = "ControlAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ControlAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

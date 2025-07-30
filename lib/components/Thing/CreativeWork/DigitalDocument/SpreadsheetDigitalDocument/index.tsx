@@ -7,6 +7,7 @@ export type Props = SpreadsheetDigitalDocumentProps & BaseProps
 
 export default function SpreadsheetDigitalDocument({
 	_type = "SpreadsheetDigitalDocument",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SpreadsheetDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DigitalDocument>
 	)
 }

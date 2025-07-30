@@ -9,6 +9,7 @@ export default function Airline({
 	boardingPolicy,
 	iataCode,
 	_type = "Airline",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Airline({
 				iataCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

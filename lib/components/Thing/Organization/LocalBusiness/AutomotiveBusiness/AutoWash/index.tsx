@@ -7,6 +7,7 @@ export type Props = AutoWashProps & BaseProps
 
 export default function AutoWash({
 	_type = "AutoWash",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AutoWash({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AutomotiveBusiness>
 	)
 }

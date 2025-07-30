@@ -7,6 +7,7 @@ export type Props = MuseumProps & BaseProps
 
 export default function Museum({
 	_type = "Museum",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Museum({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

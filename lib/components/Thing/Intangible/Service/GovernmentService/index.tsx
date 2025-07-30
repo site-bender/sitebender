@@ -9,6 +9,7 @@ export default function GovernmentService({
 	jurisdiction,
 	serviceOperator,
 	_type = "GovernmentService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function GovernmentService({
 				serviceOperator,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = AllocateActionProps & BaseProps
 
 export default function AllocateAction({
 	_type = "AllocateAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AllocateAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</OrganizeAction>
 	)
 }

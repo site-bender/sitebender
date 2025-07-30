@@ -7,6 +7,7 @@ export type Props = MovieClipProps & BaseProps
 
 export default function MovieClip({
 	_type = "MovieClip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MovieClip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Clip>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = AskActionProps & BaseProps
 export default function AskAction({
 	question,
 	_type = "AskAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function AskAction({
 				question,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

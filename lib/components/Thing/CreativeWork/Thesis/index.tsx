@@ -8,6 +8,7 @@ export type Props = ThesisProps & BaseProps
 export default function Thesis({
 	inSupportOf,
 	_type = "Thesis",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Thesis({
 				inSupportOf,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

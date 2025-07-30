@@ -11,6 +11,7 @@ export default function Taxon({
 	parentTaxon,
 	taxonRank,
 	_type = "Taxon",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Taxon({
 				taxonRank,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

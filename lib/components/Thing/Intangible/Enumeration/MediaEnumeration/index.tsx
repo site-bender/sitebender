@@ -7,6 +7,7 @@ export type Props = MediaEnumerationProps & BaseProps
 
 export default function MediaEnumeration({
 	_type = "MediaEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MediaEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

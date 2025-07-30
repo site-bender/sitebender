@@ -9,6 +9,7 @@ export default function MedicalSign({
 	identifyingExam,
 	identifyingTest,
 	_type = "MedicalSign",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MedicalSign({
 				identifyingTest,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalSignOrSymptom>
 	)
 }

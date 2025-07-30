@@ -7,6 +7,7 @@ export type Props = IntangibleProps & BaseProps
 
 export default function Intangible({
 	_type = "Intangible",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Intangible({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

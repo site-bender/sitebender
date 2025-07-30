@@ -7,6 +7,7 @@ export type Props = CoverArtProps & BaseProps
 
 export default function CoverArt({
 	_type = "CoverArt",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CoverArt({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</VisualArtwork>
 	)
 }

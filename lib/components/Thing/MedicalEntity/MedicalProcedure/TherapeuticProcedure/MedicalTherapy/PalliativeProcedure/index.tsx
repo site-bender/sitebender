@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function PalliativeProcedure({
 	_type = "PalliativeProcedure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function PalliativeProcedure({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</PalliativeProcedureProps>
 	)
 }

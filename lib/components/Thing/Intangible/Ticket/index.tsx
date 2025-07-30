@@ -15,6 +15,7 @@ export default function Ticket({
 	totalPrice,
 	underName,
 	_type = "Ticket",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function Ticket({
 				underName,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

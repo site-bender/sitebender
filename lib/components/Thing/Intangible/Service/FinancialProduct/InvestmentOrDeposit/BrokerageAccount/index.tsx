@@ -7,6 +7,7 @@ export type Props = BrokerageAccountProps & BaseProps
 
 export default function BrokerageAccount({
 	_type = "BrokerageAccount",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BrokerageAccount({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InvestmentOrDeposit>
 	)
 }

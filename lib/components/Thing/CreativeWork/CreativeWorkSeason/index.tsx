@@ -18,6 +18,7 @@ export default function CreativeWorkSeason({
 	startDate,
 	trailer,
 	_type = "CreativeWorkSeason",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function CreativeWorkSeason({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

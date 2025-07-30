@@ -8,6 +8,7 @@ export type Props = IndividualProductProps & BaseProps
 export default function IndividualProduct({
 	serialNumber,
 	_type = "IndividualProduct",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function IndividualProduct({
 				serialNumber,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

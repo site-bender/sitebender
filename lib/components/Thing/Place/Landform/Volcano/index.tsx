@@ -7,6 +7,7 @@ export type Props = VolcanoProps & BaseProps
 
 export default function Volcano({
 	_type = "Volcano",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Volcano({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Landform>
 	)
 }

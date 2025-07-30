@@ -7,6 +7,7 @@ export type Props = LibrarySystemProps & BaseProps
 
 export default function LibrarySystem({
 	_type = "LibrarySystem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LibrarySystem({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

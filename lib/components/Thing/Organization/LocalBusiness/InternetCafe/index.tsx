@@ -7,6 +7,7 @@ export type Props = InternetCafeProps & BaseProps
 
 export default function InternetCafe({
 	_type = "InternetCafe",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function InternetCafe({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

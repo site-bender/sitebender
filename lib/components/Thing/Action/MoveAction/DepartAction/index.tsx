@@ -7,6 +7,7 @@ export type Props = DepartActionProps & BaseProps
 
 export default function DepartAction({
 	_type = "DepartAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DepartAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MoveAction>
 	)
 }

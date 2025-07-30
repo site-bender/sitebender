@@ -17,6 +17,7 @@ export default function WebPage({
 	speakable,
 	specialty,
 	_type = "WebPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function WebPage({
 				specialty,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

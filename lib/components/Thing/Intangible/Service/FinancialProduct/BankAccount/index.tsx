@@ -10,6 +10,7 @@ export default function BankAccount({
 	accountOverdraftLimit,
 	bankAccountType,
 	_type = "BankAccount",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function BankAccount({
 				bankAccountType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialProduct>
 	)
 }

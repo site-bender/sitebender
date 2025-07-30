@@ -8,6 +8,7 @@ export type Props = MovieTheaterProps & BaseProps
 export default function MovieTheater({
 	screenCount,
 	_type = "MovieTheater",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MovieTheater({
 				screenCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

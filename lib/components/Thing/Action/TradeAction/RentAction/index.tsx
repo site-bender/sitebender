@@ -9,6 +9,7 @@ export default function RentAction({
 	landlord,
 	realEstateAgent,
 	_type = "RentAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function RentAction({
 				realEstateAgent,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

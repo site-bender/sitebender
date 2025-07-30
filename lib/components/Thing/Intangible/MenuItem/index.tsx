@@ -11,6 +11,7 @@ export default function MenuItem({
 	offers,
 	suitableForDiet,
 	_type = "MenuItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function MenuItem({
 				suitableForDiet,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -18,6 +18,7 @@ export default function PodcastSeries(
 		actor,
 		webFeed,
 		_type = "PodcastSeries",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -31,6 +32,6 @@ export default function PodcastSeries(
 				webFeed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PodcastSeriesProps>
 	)
 }

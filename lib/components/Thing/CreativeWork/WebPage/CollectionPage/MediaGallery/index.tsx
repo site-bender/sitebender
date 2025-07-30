@@ -7,6 +7,7 @@ export type Props = MediaGalleryProps & BaseProps
 
 export default function MediaGallery({
 	_type = "MediaGallery",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MediaGallery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CollectionPage>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = LifestyleModificationProps & BaseProps
 
 export default function LifestyleModification({
 	_type = "LifestyleModification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LifestyleModification({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

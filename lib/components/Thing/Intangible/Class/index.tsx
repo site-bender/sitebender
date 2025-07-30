@@ -8,6 +8,7 @@ export type Props = ClassProps & BaseProps
 export default function Class({
 	supersededBy,
 	_type = "Class",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Class({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

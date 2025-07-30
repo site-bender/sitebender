@@ -10,6 +10,7 @@ export default function Claim({
 	claimInterpreter,
 	firstAppearance,
 	_type = "Claim",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Claim({
 				firstAppearance,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

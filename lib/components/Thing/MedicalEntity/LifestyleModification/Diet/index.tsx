@@ -21,6 +21,7 @@ export default function Diet(
 		physiologicalBenefits,
 		risks,
 		_type = "Diet",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -37,6 +38,6 @@ export default function Diet(
 				risks,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DietProps>
 	)
 }

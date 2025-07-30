@@ -9,6 +9,7 @@ export default function TechArticle({
 	dependencies,
 	proficiencyLevel,
 	_type = "TechArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function TechArticle({
 				proficiencyLevel,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

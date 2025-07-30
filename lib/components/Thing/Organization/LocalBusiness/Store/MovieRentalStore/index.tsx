@@ -7,6 +7,7 @@ export type Props = MovieRentalStoreProps & BaseProps
 
 export default function MovieRentalStore({
 	_type = "MovieRentalStore",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MovieRentalStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Store>
 	)
 }

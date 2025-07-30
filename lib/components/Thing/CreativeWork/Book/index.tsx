@@ -3,7 +3,7 @@ import type BookProps from "../../../../types/Thing/CreativeWork/Book/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BookProps & BaseProps
+export type Props = BookProps & BaseProps & { name?: string | null }
 
 export default function Book({
 	abridged,
@@ -13,6 +13,7 @@ export default function Book({
 	isbn,
 	numberOfPages,
 	_type = "Book",
+	children,
 	subtypeProperties = {},
 	...allProps
 }: Props): JSX.Element {
@@ -36,6 +37,8 @@ export default function Book({
 				numberOfPages,
 				...subtypeProperties,
 			}}
-		/>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

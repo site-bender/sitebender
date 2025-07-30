@@ -7,6 +7,7 @@ export type Props = SatiricalArticleProps & BaseProps
 
 export default function SatiricalArticle({
 	_type = "SatiricalArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SatiricalArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

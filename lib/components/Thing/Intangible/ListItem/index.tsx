@@ -11,6 +11,7 @@ export default function ListItem({
 	position,
 	previousItem,
 	_type = "ListItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function ListItem({
 				previousItem,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

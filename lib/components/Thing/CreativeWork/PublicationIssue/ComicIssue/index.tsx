@@ -13,6 +13,7 @@ export default function ComicIssue({
 	penciler,
 	variantCover,
 	_type = "ComicIssue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function ComicIssue({
 				variantCover,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PublicationIssue>
 	)
 }

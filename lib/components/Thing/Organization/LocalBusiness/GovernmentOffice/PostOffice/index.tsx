@@ -7,6 +7,7 @@ export type Props = PostOfficeProps & BaseProps
 
 export default function PostOffice({
 	_type = "PostOffice",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PostOffice({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</GovernmentOffice>
 	)
 }

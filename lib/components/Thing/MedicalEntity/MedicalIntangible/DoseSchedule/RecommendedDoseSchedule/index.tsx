@@ -7,6 +7,7 @@ export type Props = RecommendedDoseScheduleProps & BaseProps
 
 export default function RecommendedDoseSchedule({
 	_type = "RecommendedDoseSchedule",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RecommendedDoseSchedule({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DoseSchedule>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = MedicineSystemProps & BaseProps
 
 export default function MedicineSystem({
 	_type = "MedicineSystem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MedicineSystem({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEnumeration>
 	)
 }

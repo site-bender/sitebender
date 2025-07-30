@@ -8,6 +8,7 @@ export type Props = ProteinProps & BaseProps
 export default function Protein({
 	hasBioPolymerSequence,
 	_type = "Protein",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Protein({
 				hasBioPolymerSequence,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BioChemEntity>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = WebSiteProps & BaseProps
 export default function WebSite({
 	issn,
 	_type = "WebSite",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function WebSite({
 				issn,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

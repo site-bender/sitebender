@@ -8,6 +8,7 @@ export type Props = EndorseActionProps & BaseProps
 export default function EndorseAction({
 	endorsee,
 	_type = "EndorseAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function EndorseAction({
 				endorsee,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ReactAction>
 	)
 }

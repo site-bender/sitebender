@@ -7,6 +7,7 @@ export type Props = TelevisionChannelProps & BaseProps
 
 export default function TelevisionChannel({
 	_type = "TelevisionChannel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TelevisionChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BroadcastChannel>
 	)
 }

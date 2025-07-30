@@ -8,6 +8,7 @@ export type Props = LoseActionProps & BaseProps
 export default function LoseAction({
 	winner,
 	_type = "LoseAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function LoseAction({
 				winner,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AchieveAction>
 	)
 }

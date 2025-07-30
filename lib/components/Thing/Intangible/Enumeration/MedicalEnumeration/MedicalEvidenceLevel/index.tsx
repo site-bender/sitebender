@@ -7,6 +7,7 @@ export type Props = MedicalEvidenceLevelProps & BaseProps
 
 export default function MedicalEvidenceLevel({
 	_type = "MedicalEvidenceLevel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MedicalEvidenceLevel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEnumeration>
 	)
 }

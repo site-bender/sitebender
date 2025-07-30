@@ -7,6 +7,7 @@ export type Props = DentistProps & BaseProps
 
 export default function Dentist({
 	_type = "Dentist",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Dentist({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

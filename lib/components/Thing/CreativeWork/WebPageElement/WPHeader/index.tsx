@@ -7,6 +7,7 @@ export type Props = WPHeaderProps & BaseProps
 
 export default function WPHeader({
 	_type = "WPHeader",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WPHeader({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

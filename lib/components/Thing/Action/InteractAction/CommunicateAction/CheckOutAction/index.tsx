@@ -7,6 +7,7 @@ export type Props = CheckOutActionProps & BaseProps
 
 export default function CheckOutAction({
 	_type = "CheckOutAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CheckOutAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

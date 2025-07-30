@@ -7,6 +7,7 @@ export type Props = AtlasProps & BaseProps
 
 export default function Atlas({
 	_type = "Atlas",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Atlas({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

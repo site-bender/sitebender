@@ -15,6 +15,7 @@ export default function GeoShape({
 	polygon,
 	postalCode,
 	_type = "GeoShape",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function GeoShape({
 				postalCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

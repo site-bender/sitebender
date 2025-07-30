@@ -9,6 +9,7 @@ export default function SingleFamilyResidence({
 	numberOfRooms,
 	occupancy,
 	_type = "SingleFamilyResidence",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function SingleFamilyResidence({
 				occupancy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</House>
 	)
 }

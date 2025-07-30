@@ -7,6 +7,7 @@ export type Props = SportsActivityLocationProps & BaseProps
 
 export default function SportsActivityLocation({
 	_type = "SportsActivityLocation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SportsActivityLocation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

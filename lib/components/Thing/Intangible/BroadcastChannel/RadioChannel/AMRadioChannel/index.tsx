@@ -7,6 +7,7 @@ export type Props = AMRadioChannelProps & BaseProps
 
 export default function AMRadioChannel({
 	_type = "AMRadioChannel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AMRadioChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</RadioChannel>
 	)
 }

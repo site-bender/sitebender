@@ -54,6 +54,7 @@ export default function Place({
 	telephone,
 	tourBookingPage,
 	_type = "Place",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -111,6 +112,6 @@ export default function Place({
 				tourBookingPage,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

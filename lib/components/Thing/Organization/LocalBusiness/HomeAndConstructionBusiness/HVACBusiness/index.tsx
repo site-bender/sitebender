@@ -7,6 +7,7 @@ export type Props = HVACBusinessProps & BaseProps
 
 export default function HVACBusiness({
 	_type = "HVACBusiness",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HVACBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HomeAndConstructionBusiness>
 	)
 }

@@ -17,6 +17,7 @@ export default function MusicComposition({
 	musicCompositionForm,
 	recordedAs,
 	_type = "MusicComposition",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function MusicComposition({
 				recordedAs,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

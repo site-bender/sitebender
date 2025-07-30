@@ -7,6 +7,7 @@ export type Props = TierBenefitEnumerationProps & BaseProps
 
 export default function TierBenefitEnumeration({
 	_type = "TierBenefitEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TierBenefitEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

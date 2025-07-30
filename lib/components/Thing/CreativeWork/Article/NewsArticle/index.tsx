@@ -12,6 +12,7 @@ export default function NewsArticle({
 	printPage,
 	printSection,
 	_type = "NewsArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function NewsArticle({
 				printSection,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Article>
 	)
 }

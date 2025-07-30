@@ -9,6 +9,7 @@ export default function DDxElement({
 	diagnosis,
 	distinguishingSign,
 	_type = "DDxElement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function DDxElement({
 				distinguishingSign,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

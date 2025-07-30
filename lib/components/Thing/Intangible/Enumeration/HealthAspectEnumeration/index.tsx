@@ -7,6 +7,7 @@ export type Props = HealthAspectEnumerationProps & BaseProps
 
 export default function HealthAspectEnumeration({
 	_type = "HealthAspectEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HealthAspectEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

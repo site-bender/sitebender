@@ -7,6 +7,7 @@ export type Props = SeriesProps & BaseProps
 
 export default function Series({
 	_type = "Series",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Series({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

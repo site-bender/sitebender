@@ -30,6 +30,7 @@ export default function RadioSeries(
 		seasons,
 		trailer,
 		_type = "RadioSeries",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -55,6 +56,6 @@ export default function RadioSeries(
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</RadioSeriesProps>
 	)
 }

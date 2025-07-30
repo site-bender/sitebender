@@ -10,6 +10,7 @@ export default function EnergyConsumptionDetails({
 	energyEfficiencyScaleMin,
 	hasEnergyEfficiencyCategory,
 	_type = "EnergyConsumptionDetails",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function EnergyConsumptionDetails({
 				hasEnergyEfficiencyCategory,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

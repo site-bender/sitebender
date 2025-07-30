@@ -12,6 +12,7 @@ export default function Diet({
 	physiologicalBenefits,
 	risks,
 	_type = "Diet",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function Diet({
 				risks,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -9,6 +9,7 @@ export default function ArchiveComponent({
 	holdingArchive,
 	itemLocation,
 	_type = "ArchiveComponent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ArchiveComponent({
 				itemLocation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

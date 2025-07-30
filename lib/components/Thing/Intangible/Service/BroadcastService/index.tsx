@@ -18,6 +18,7 @@ export default function BroadcastService({
 	parentService,
 	videoFormat,
 	_type = "BroadcastService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function BroadcastService({
 				videoFormat,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

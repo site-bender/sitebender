@@ -7,6 +7,7 @@ export type Props = EventSeriesProps & BaseProps
 
 export default function EventSeries({
 	_type = "EventSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EventSeries({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

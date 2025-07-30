@@ -7,6 +7,7 @@ export type Props = PublicSwimmingPoolProps & BaseProps
 
 export default function PublicSwimmingPool({
 	_type = "PublicSwimmingPool",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PublicSwimmingPool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SportsActivityLocation>
 	)
 }

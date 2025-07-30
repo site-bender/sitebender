@@ -11,6 +11,7 @@ export default function ImageObject({
 	exifData,
 	representativeOfPage,
 	_type = "ImageObject",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function ImageObject({
 				representativeOfPage,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

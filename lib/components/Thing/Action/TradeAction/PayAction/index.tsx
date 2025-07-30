@@ -8,6 +8,7 @@ export type Props = PayActionProps & BaseProps
 export default function PayAction({
 	recipient,
 	_type = "PayAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function PayAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

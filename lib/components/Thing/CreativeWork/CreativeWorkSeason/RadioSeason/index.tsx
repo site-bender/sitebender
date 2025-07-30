@@ -7,6 +7,7 @@ export type Props = RadioSeasonProps & BaseProps
 
 export default function RadioSeason({
 	_type = "RadioSeason",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RadioSeason({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWorkSeason>
 	)
 }

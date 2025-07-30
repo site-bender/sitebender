@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function EventSeries({
 	_type = "EventSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function EventSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</EventSeriesProps>
 	)
 }

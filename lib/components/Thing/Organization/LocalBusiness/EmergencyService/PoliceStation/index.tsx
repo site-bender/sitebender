@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function PoliceStation({
 	_type = "PoliceStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function PoliceStation({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</PoliceStationProps>
 	)
 }

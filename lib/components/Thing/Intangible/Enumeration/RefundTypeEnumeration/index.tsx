@@ -7,6 +7,7 @@ export type Props = RefundTypeEnumerationProps & BaseProps
 
 export default function RefundTypeEnumeration({
 	_type = "RefundTypeEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RefundTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

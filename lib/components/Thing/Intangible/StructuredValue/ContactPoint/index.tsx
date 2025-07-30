@@ -17,6 +17,7 @@ export default function ContactPoint({
 	serviceArea,
 	telephone,
 	_type = "ContactPoint",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function ContactPoint({
 				telephone,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

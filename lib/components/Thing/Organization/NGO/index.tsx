@@ -7,6 +7,7 @@ export type Props = NGOProps & BaseProps
 
 export default function NGO({
 	_type = "NGO",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function NGO({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

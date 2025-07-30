@@ -7,6 +7,7 @@ export type Props = ShortStoryProps & BaseProps
 
 export default function ShortStory({
 	_type = "ShortStory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ShortStory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

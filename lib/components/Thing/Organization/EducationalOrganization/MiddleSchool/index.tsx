@@ -7,6 +7,7 @@ export type Props = MiddleSchoolProps & BaseProps
 
 export default function MiddleSchool({
 	_type = "MiddleSchool",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MiddleSchool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</EducationalOrganization>
 	)
 }

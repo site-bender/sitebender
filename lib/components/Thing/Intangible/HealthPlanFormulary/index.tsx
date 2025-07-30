@@ -10,6 +10,7 @@ export default function HealthPlanFormulary({
 	healthPlanDrugTier,
 	offersPrescriptionByMail,
 	_type = "HealthPlanFormulary",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function HealthPlanFormulary({
 				offersPrescriptionByMail,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

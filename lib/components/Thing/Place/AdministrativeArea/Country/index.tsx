@@ -7,6 +7,7 @@ export type Props = CountryProps & BaseProps
 
 export default function Country({
 	_type = "Country",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Country({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AdministrativeArea>
 	)
 }

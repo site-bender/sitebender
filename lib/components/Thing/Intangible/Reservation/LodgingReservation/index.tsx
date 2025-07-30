@@ -13,6 +13,7 @@ export default function LodgingReservation({
 	numAdults,
 	numChildren,
 	_type = "LodgingReservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function LodgingReservation({
 				numChildren,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

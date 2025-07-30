@@ -16,6 +16,7 @@ export default function Message({
 	sender,
 	toRecipient,
 	_type = "Message",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function Message({
 				toRecipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

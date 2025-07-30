@@ -11,6 +11,7 @@ export default function DatedMoneySpecification({
 	endDate,
 	startDate,
 	_type = "DatedMoneySpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DatedMoneySpecification({
 				startDate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = SiteNavigationElementProps & BaseProps
 
 export default function SiteNavigationElement({
 	_type = "SiteNavigationElement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SiteNavigationElement({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

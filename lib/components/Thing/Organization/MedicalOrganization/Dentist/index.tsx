@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function Dentist({
 	_type = "Dentist",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function Dentist({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</DentistProps>
 	)
 }

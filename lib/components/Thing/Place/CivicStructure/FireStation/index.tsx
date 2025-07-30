@@ -7,6 +7,7 @@ export type Props = FireStationProps & BaseProps
 
 export default function FireStation({
 	_type = "FireStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FireStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

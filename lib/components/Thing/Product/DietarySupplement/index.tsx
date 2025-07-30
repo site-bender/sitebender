@@ -17,6 +17,7 @@ export default function DietarySupplement({
 	safetyConsideration,
 	targetPopulation,
 	_type = "DietarySupplement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function DietarySupplement({
 				targetPopulation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

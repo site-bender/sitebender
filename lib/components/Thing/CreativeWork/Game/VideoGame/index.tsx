@@ -19,6 +19,7 @@ export default function VideoGame({
 	playMode,
 	trailer,
 	_type = "VideoGame",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -41,6 +42,6 @@ export default function VideoGame({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Game>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = DownloadActionProps & BaseProps
 
 export default function DownloadAction({
 	_type = "DownloadAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DownloadAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

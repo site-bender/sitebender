@@ -8,6 +8,7 @@ export type Props = TipActionProps & BaseProps
 export default function TipAction({
 	recipient,
 	_type = "TipAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function TipAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

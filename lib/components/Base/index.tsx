@@ -4,10 +4,11 @@ import generateMicrodata from "./generateMicrodata/index.tsx"
 import processProps from "./processProps/index.ts"
 
 export default function Base({
-	children: _,
 	_template,
+	children,
 	disableJsonLd,
 	disableMicrodata,
+	element: Element = "span",
 	isProp,
 	...props
 }: BaseProps): JSX.Element | Record<string, unknown> | null {
@@ -21,8 +22,9 @@ export default function Base({
 	}
 
 	return (
-		<span>
+		<Element>
 			{createTemplate(_template)(processedProps)}
+			{children}
 			{disableMicrodata
 				? null
 				: Array.isArray(processedProps)
@@ -33,6 +35,6 @@ export default function Base({
 					{JSON.stringify(processedProps, null, 2)}
 				</script>
 			)}
-		</span>
+		</Element>
 	)
 }

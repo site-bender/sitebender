@@ -8,6 +8,7 @@ export type Props = EducationalAudienceProps & BaseProps
 export default function EducationalAudience({
 	educationalRole,
 	_type = "EducationalAudience",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function EducationalAudience({
 				educationalRole,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Audience>
 	)
 }

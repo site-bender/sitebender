@@ -7,6 +7,7 @@ export type Props = EventReservationProps & BaseProps
 
 export default function EventReservation({
 	_type = "EventReservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EventReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

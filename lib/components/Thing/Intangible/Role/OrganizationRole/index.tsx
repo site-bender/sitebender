@@ -8,6 +8,7 @@ export type Props = OrganizationRoleProps & BaseProps
 export default function OrganizationRole({
 	numberedPosition,
 	_type = "OrganizationRole",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function OrganizationRole({
 				numberedPosition,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Role>
 	)
 }

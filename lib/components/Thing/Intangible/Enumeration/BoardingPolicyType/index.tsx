@@ -7,6 +7,7 @@ export type Props = BoardingPolicyTypeProps & BaseProps
 
 export default function BoardingPolicyType({
 	_type = "BoardingPolicyType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BoardingPolicyType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

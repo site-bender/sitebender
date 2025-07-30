@@ -13,6 +13,7 @@ export default function InteractionCounter({
 	startTime,
 	userInteractionCount,
 	_type = "InteractionCounter",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function InteractionCounter({
 				userInteractionCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

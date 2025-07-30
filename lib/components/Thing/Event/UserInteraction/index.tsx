@@ -7,6 +7,7 @@ export type Props = UserInteractionProps & BaseProps
 
 export default function UserInteraction({
 	_type = "UserInteraction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserInteraction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

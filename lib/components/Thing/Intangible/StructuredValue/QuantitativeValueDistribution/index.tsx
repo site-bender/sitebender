@@ -13,6 +13,7 @@ export default function QuantitativeValueDistribution({
 	percentile75,
 	percentile90,
 	_type = "QuantitativeValueDistribution",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function QuantitativeValueDistribution({
 				percentile90,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

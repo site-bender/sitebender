@@ -9,6 +9,7 @@ export default function PlayAction({
 	audience,
 	event,
 	_type = "PlayAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function PlayAction({
 				event,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

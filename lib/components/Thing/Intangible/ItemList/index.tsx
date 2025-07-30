@@ -11,6 +11,7 @@ export default function ItemList({
 	itemListOrder,
 	numberOfItems,
 	_type = "ItemList",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function ItemList({
 				numberOfItems,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

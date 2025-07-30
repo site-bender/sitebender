@@ -15,6 +15,7 @@ export default function HowToDirection({
 	tool,
 	totalTime,
 	_type = "HowToDirection",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function HowToDirection({
 				totalTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = GeneralContractorProps & BaseProps
 
 export default function GeneralContractor({
 	_type = "GeneralContractor",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GeneralContractor({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HomeAndConstructionBusiness>
 	)
 }

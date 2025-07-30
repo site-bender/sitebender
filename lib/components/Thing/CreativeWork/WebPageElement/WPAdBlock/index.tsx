@@ -7,6 +7,7 @@ export type Props = WPAdBlockProps & BaseProps
 
 export default function WPAdBlock({
 	_type = "WPAdBlock",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WPAdBlock({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

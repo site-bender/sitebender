@@ -10,6 +10,7 @@ export default function Patient({
 	drug,
 	healthCondition,
 	_type = "Patient",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Patient({
 				healthCondition,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Person>
 	)
 }

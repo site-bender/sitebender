@@ -7,6 +7,7 @@ export type Props = OpinionNewsArticleProps & BaseProps
 
 export default function OpinionNewsArticle({
 	_type = "OpinionNewsArticle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OpinionNewsArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</NewsArticle>
 	)
 }

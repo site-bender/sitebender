@@ -7,6 +7,7 @@ export type Props = PerformingGroupProps & BaseProps
 
 export default function PerformingGroup({
 	_type = "PerformingGroup",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PerformingGroup({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

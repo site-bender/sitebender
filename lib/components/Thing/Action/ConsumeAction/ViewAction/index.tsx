@@ -7,6 +7,7 @@ export type Props = ViewActionProps & BaseProps
 
 export default function ViewAction({
 	_type = "ViewAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ViewAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

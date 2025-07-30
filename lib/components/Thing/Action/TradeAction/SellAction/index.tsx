@@ -9,6 +9,7 @@ export default function SellAction({
 	buyer,
 	warrantyPromise,
 	_type = "SellAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function SellAction({
 				warrantyPromise,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

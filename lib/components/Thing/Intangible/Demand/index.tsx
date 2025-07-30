@@ -41,6 +41,7 @@ export default function Demand({
 	validThrough,
 	warranty,
 	_type = "Demand",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -85,6 +86,6 @@ export default function Demand({
 				warranty,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

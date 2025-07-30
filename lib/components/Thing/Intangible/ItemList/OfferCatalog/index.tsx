@@ -7,6 +7,7 @@ export type Props = OfferCatalogProps & BaseProps
 
 export default function OfferCatalog({
 	_type = "OfferCatalog",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OfferCatalog({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ItemList>
 	)
 }

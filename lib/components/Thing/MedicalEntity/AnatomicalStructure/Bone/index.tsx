@@ -7,6 +7,7 @@ export type Props = BoneProps & BaseProps
 
 export default function Bone({
 	_type = "Bone",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Bone({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

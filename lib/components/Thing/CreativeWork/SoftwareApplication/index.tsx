@@ -31,6 +31,7 @@ export default function SoftwareApplication({
 	storageRequirements,
 	supportingData,
 	_type = "SoftwareApplication",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -65,6 +66,6 @@ export default function SoftwareApplication({
 				supportingData,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

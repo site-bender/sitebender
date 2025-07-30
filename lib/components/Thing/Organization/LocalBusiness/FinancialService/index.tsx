@@ -8,6 +8,7 @@ export type Props = FinancialServiceProps & BaseProps
 export default function FinancialService({
 	feesAndCommissionsSpecification,
 	_type = "FinancialService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function FinancialService({
 				feesAndCommissionsSpecification,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

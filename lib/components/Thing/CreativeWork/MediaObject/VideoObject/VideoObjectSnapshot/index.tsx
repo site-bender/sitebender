@@ -7,6 +7,7 @@ export type Props = VideoObjectSnapshotProps & BaseProps
 
 export default function VideoObjectSnapshot({
 	_type = "VideoObjectSnapshot",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function VideoObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</VideoObject>
 	)
 }

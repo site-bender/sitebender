@@ -11,6 +11,7 @@ export default function Role({
 	roleName,
 	startDate,
 	_type = "Role",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Role({
 				startDate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

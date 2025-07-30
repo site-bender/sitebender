@@ -7,6 +7,7 @@ export type Props = MarryActionProps & BaseProps
 
 export default function MarryAction({
 	_type = "MarryAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MarryAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

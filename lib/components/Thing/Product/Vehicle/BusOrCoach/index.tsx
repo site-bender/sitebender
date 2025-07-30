@@ -9,6 +9,7 @@ export default function BusOrCoach({
 	acrissCode,
 	roofLoad,
 	_type = "BusOrCoach",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function BusOrCoach({
 				roofLoad,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vehicle>
 	)
 }

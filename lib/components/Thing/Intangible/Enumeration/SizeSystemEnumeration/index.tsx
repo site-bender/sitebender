@@ -7,6 +7,7 @@ export type Props = SizeSystemEnumerationProps & BaseProps
 
 export default function SizeSystemEnumeration({
 	_type = "SizeSystemEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SizeSystemEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

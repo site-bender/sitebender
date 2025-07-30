@@ -19,6 +19,7 @@ export default function ParcelDelivery({
 	trackingNumber,
 	trackingUrl,
 	_type = "ParcelDelivery",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -41,6 +42,6 @@ export default function ParcelDelivery({
 				trackingUrl,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

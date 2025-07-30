@@ -7,6 +7,7 @@ export type Props = MusicVenueProps & BaseProps
 
 export default function MusicVenue({
 	_type = "MusicVenue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MusicVenue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

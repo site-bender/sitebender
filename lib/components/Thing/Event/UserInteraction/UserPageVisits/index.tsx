@@ -7,6 +7,7 @@ export type Props = UserPageVisitsProps & BaseProps
 
 export default function UserPageVisits({
 	_type = "UserPageVisits",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserPageVisits({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

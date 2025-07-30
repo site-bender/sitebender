@@ -12,6 +12,7 @@ export default function DefinedRegion({
 	postalCodePrefix,
 	postalCodeRange,
 	_type = "DefinedRegion",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function DefinedRegion({
 				postalCodeRange,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

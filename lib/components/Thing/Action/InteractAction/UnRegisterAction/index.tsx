@@ -7,6 +7,7 @@ export type Props = UnRegisterActionProps & BaseProps
 
 export default function UnRegisterAction({
 	_type = "UnRegisterAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UnRegisterAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = HowToTipProps & BaseProps
 
 export default function HowToTip({
 	_type = "HowToTip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HowToTip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

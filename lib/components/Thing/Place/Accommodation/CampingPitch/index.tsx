@@ -7,6 +7,7 @@ export type Props = CampingPitchProps & BaseProps
 
 export default function CampingPitch({
 	_type = "CampingPitch",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CampingPitch({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Accommodation>
 	)
 }

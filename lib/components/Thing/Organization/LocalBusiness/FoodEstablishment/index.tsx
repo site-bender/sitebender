@@ -12,6 +12,7 @@ export default function FoodEstablishment({
 	servesCuisine,
 	starRating,
 	_type = "FoodEstablishment",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function FoodEstablishment({
 				starRating,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

@@ -9,6 +9,7 @@ export default function Answer({
 	answerExplanation,
 	parentItem,
 	_type = "Answer",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Answer({
 				parentItem,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Comment>
 	)
 }

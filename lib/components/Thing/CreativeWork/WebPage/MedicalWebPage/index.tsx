@@ -9,6 +9,7 @@ export default function MedicalWebPage({
 	aspect,
 	medicalAudience,
 	_type = "MedicalWebPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MedicalWebPage({
 				medicalAudience,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

@@ -10,6 +10,7 @@ export default function ServicePeriod({
 	cutoffTime,
 	duration,
 	_type = "ServicePeriod",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ServicePeriod({
 				duration,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

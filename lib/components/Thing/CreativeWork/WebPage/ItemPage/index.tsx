@@ -7,6 +7,7 @@ export type Props = ItemPageProps & BaseProps
 
 export default function ItemPage({
 	_type = "ItemPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ItemPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

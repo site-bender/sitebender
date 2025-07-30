@@ -13,6 +13,7 @@ export default function BroadcastChannel({
 	inBroadcastLineup,
 	providesBroadcastService,
 	_type = "BroadcastChannel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function BroadcastChannel({
 				providesBroadcastService,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

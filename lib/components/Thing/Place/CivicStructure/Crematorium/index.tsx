@@ -7,6 +7,7 @@ export type Props = CrematoriumProps & BaseProps
 
 export default function Crematorium({
 	_type = "Crematorium",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Crematorium({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

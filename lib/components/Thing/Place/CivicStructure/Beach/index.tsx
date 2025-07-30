@@ -7,6 +7,7 @@ export type Props = BeachProps & BaseProps
 
 export default function Beach({
 	_type = "Beach",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Beach({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

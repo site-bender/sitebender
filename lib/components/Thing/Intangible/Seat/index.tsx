@@ -11,6 +11,7 @@ export default function Seat({
 	seatRow,
 	seatSection,
 	_type = "Seat",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Seat({
 				seatSection,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

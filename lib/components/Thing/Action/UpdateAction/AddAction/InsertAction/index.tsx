@@ -8,6 +8,7 @@ export type Props = InsertActionProps & BaseProps
 export default function InsertAction({
 	toLocation,
 	_type = "InsertAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function InsertAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AddAction>
 	)
 }

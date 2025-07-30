@@ -14,6 +14,7 @@ export default function ProgramMembership({
 	program,
 	programName,
 	_type = "ProgramMembership",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function ProgramMembership({
 				programName,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

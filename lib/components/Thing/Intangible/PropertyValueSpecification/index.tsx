@@ -18,6 +18,7 @@ export default function PropertyValueSpecification({
 	valuePattern,
 	valueRequired,
 	_type = "PropertyValueSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function PropertyValueSpecification({
 				valueRequired,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = DeactivateActionProps & BaseProps
 
 export default function DeactivateAction({
 	_type = "DeactivateAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DeactivateAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ControlAction>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = ReservationPackageProps & BaseProps
 export default function ReservationPackage({
 	subReservation,
 	_type = "ReservationPackage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ReservationPackage({
 				subReservation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

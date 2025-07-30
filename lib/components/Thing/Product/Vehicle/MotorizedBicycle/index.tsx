@@ -7,6 +7,7 @@ export type Props = MotorizedBicycleProps & BaseProps
 
 export default function MotorizedBicycle({
 	_type = "MotorizedBicycle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MotorizedBicycle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vehicle>
 	)
 }

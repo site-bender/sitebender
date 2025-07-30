@@ -12,6 +12,7 @@ export default function SportsEvent({
 	referee,
 	sport,
 	_type = "SportsEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function SportsEvent({
 				sport,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

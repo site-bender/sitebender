@@ -28,6 +28,7 @@ export default function VideoGame(
 		playMode,
 		trailer,
 		_type = "VideoGame",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -51,6 +52,6 @@ export default function VideoGame(
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</VideoGameProps>
 	)
 }

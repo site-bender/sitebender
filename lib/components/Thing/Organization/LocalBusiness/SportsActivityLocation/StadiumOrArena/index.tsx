@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function StadiumOrArena({
 	_type = "StadiumOrArena",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function StadiumOrArena({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</StadiumOrArenaProps>
 	)
 }

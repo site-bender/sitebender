@@ -7,6 +7,7 @@ export type Props = BookmarkActionProps & BaseProps
 
 export default function BookmarkAction({
 	_type = "BookmarkAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BookmarkAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</OrganizeAction>
 	)
 }

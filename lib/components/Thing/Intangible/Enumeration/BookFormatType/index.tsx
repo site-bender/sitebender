@@ -7,6 +7,7 @@ export type Props = BookFormatTypeProps & BaseProps
 
 export default function BookFormatType({
 	_type = "BookFormatType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BookFormatType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

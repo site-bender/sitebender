@@ -7,6 +7,7 @@ export type Props = PalliativeProcedureProps & BaseProps
 
 export default function PalliativeProcedure({
 	_type = "PalliativeProcedure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PalliativeProcedure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalProcedure>
 	)
 }

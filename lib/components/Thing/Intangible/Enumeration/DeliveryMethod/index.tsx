@@ -7,6 +7,7 @@ export type Props = DeliveryMethodProps & BaseProps
 
 export default function DeliveryMethod({
 	_type = "DeliveryMethod",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DeliveryMethod({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

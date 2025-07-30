@@ -17,6 +17,7 @@ export default function MovieTheater(
 	{
 		screenCount,
 		_type = "MovieTheater",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -29,6 +30,6 @@ export default function MovieTheater(
 				screenCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MovieTheaterProps>
 	)
 }

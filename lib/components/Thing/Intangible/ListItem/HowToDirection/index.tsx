@@ -24,6 +24,7 @@ export default function HowToDirection(
 		tool,
 		totalTime,
 		_type = "HowToDirection",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -43,6 +44,6 @@ export default function HowToDirection(
 				totalTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HowToDirectionProps>
 	)
 }

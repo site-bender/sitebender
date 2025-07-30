@@ -7,6 +7,7 @@ export type Props = GamePlayModeProps & BaseProps
 
 export default function GamePlayMode({
 	_type = "GamePlayMode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GamePlayMode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

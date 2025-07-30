@@ -7,6 +7,7 @@ export type Props = CorrectionCommentProps & BaseProps
 
 export default function CorrectionComment({
 	_type = "CorrectionComment",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CorrectionComment({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Comment>
 	)
 }

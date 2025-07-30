@@ -7,6 +7,7 @@ export type Props = CanalProps & BaseProps
 
 export default function Canal({
 	_type = "Canal",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Canal({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BodyOfWater>
 	)
 }

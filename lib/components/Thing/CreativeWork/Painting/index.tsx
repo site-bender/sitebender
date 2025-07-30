@@ -7,6 +7,7 @@ export type Props = PaintingProps & BaseProps
 
 export default function Painting({
 	_type = "Painting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Painting({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -10,6 +10,7 @@ export default function FoodEstablishmentReservation({
 	partySize,
 	startTime,
 	_type = "FoodEstablishmentReservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function FoodEstablishmentReservation({
 				startTime,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

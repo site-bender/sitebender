@@ -8,6 +8,7 @@ export type Props = InviteActionProps & BaseProps
 export default function InviteAction({
 	event,
 	_type = "InviteAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function InviteAction({
 				event,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = SynagogueProps & BaseProps
 
 export default function Synagogue({
 	_type = "Synagogue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Synagogue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlaceOfWorship>
 	)
 }

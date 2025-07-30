@@ -7,6 +7,7 @@ export type Props = WarrantyScopeProps & BaseProps
 
 export default function WarrantyScope({
 	_type = "WarrantyScope",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WarrantyScope({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

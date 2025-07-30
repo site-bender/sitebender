@@ -7,6 +7,7 @@ export type Props = VitalSignProps & BaseProps
 
 export default function VitalSign({
 	_type = "VitalSign",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function VitalSign({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalSign>
 	)
 }

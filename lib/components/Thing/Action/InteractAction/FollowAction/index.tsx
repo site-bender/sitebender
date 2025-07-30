@@ -8,6 +8,7 @@ export type Props = FollowActionProps & BaseProps
 export default function FollowAction({
 	followee,
 	_type = "FollowAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function FollowAction({
 				followee,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

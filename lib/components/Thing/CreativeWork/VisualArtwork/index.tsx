@@ -21,6 +21,7 @@ export default function VisualArtwork({
 	weight,
 	width,
 	_type = "VisualArtwork",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -45,6 +46,6 @@ export default function VisualArtwork({
 				width,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

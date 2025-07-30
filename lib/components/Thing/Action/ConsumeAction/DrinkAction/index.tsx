@@ -7,6 +7,7 @@ export type Props = DrinkActionProps & BaseProps
 
 export default function DrinkAction({
 	_type = "DrinkAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DrinkAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

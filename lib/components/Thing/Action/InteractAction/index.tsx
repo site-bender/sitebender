@@ -7,6 +7,7 @@ export type Props = InteractActionProps & BaseProps
 
 export default function InteractAction({
 	_type = "InteractAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function InteractAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

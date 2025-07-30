@@ -7,6 +7,7 @@ export type Props = HighSchoolProps & BaseProps
 
 export default function HighSchool({
 	_type = "HighSchool",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HighSchool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</EducationalOrganization>
 	)
 }

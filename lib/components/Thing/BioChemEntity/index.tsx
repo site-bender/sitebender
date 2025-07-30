@@ -20,6 +20,7 @@ export default function BioChemEntity({
 	isPartOfBioChemEntity,
 	taxonomicRange,
 	_type = "BioChemEntity",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function BioChemEntity({
 				taxonomicRange,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

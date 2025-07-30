@@ -7,6 +7,7 @@ export type Props = SculptureProps & BaseProps
 
 export default function Sculpture({
 	_type = "Sculpture",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Sculpture({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

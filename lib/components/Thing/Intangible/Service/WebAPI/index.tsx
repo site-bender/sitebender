@@ -8,6 +8,7 @@ export type Props = WebAPIProps & BaseProps
 export default function WebAPI({
 	documentation,
 	_type = "WebAPI",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function WebAPI({
 				documentation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

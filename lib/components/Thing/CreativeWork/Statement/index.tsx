@@ -7,6 +7,7 @@ export type Props = StatementProps & BaseProps
 
 export default function Statement({
 	_type = "Statement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Statement({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

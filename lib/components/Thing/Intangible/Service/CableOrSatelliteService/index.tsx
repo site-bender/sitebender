@@ -7,6 +7,7 @@ export type Props = CableOrSatelliteServiceProps & BaseProps
 
 export default function CableOrSatelliteService({
 	_type = "CableOrSatelliteService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CableOrSatelliteService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Service>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = WatchActionProps & BaseProps
 
 export default function WatchAction({
 	_type = "WatchAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WatchAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

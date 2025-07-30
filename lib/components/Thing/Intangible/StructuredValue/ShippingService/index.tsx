@@ -11,6 +11,7 @@ export default function ShippingService({
 	shippingConditions,
 	validForMemberTier,
 	_type = "ShippingService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function ShippingService({
 				validForMemberTier,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = DepositAccountProps & BaseProps
 
 export default function DepositAccount({
 	_type = "DepositAccount",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DepositAccount({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BankAccount>
 	)
 }

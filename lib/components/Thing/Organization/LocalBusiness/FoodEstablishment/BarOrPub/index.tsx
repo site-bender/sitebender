@@ -7,6 +7,7 @@ export type Props = BarOrPubProps & BaseProps
 
 export default function BarOrPub({
 	_type = "BarOrPub",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BarOrPub({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FoodEstablishment>
 	)
 }

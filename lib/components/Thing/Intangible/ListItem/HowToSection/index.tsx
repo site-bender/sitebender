@@ -17,6 +17,7 @@ export default function HowToSection(
 	{
 		steps,
 		_type = "HowToSection",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -29,6 +30,6 @@ export default function HowToSection(
 				steps,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HowToSectionProps>
 	)
 }

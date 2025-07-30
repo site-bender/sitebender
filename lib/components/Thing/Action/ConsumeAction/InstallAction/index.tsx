@@ -7,6 +7,7 @@ export type Props = InstallActionProps & BaseProps
 
 export default function InstallAction({
 	_type = "InstallAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function InstallAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ConsumeAction>
 	)
 }

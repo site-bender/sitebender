@@ -12,6 +12,7 @@ export default function MedicalStudy({
 	studyLocation,
 	studySubject,
 	_type = "MedicalStudy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function MedicalStudy({
 				studySubject,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

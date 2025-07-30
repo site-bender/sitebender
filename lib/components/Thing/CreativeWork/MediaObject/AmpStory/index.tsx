@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function AmpStory({
 	_type = "AmpStory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function AmpStory({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</AmpStoryProps>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = NoteDigitalDocumentProps & BaseProps
 
 export default function NoteDigitalDocument({
 	_type = "NoteDigitalDocument",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function NoteDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DigitalDocument>
 	)
 }

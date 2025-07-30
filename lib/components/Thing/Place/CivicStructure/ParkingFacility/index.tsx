@@ -7,6 +7,7 @@ export type Props = ParkingFacilityProps & BaseProps
 
 export default function ParkingFacility({
 	_type = "ParkingFacility",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ParkingFacility({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

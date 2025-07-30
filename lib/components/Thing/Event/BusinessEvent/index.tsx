@@ -7,6 +7,7 @@ export type Props = BusinessEventProps & BaseProps
 
 export default function BusinessEvent({
 	_type = "BusinessEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BusinessEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = PosterProps & BaseProps
 
 export default function Poster({
 	_type = "Poster",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Poster({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

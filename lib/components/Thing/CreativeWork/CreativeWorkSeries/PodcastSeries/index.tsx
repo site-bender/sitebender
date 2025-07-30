@@ -9,6 +9,7 @@ export default function PodcastSeries({
 	actor,
 	webFeed,
 	_type = "PodcastSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function PodcastSeries({
 				webFeed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWorkSeries>
 	)
 }

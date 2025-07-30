@@ -7,6 +7,7 @@ export type Props = MusicEventProps & BaseProps
 
 export default function MusicEvent({
 	_type = "MusicEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MusicEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

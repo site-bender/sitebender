@@ -7,6 +7,7 @@ export type Props = WantActionProps & BaseProps
 
 export default function WantAction({
 	_type = "WantAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WantAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ReactAction>
 	)
 }

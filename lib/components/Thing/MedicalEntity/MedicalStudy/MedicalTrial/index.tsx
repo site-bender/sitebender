@@ -8,6 +8,7 @@ export type Props = MedicalTrialProps & BaseProps
 export default function MedicalTrial({
 	trialDesign,
 	_type = "MedicalTrial",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MedicalTrial({
 				trialDesign,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalStudy>
 	)
 }

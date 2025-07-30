@@ -7,6 +7,7 @@ export type Props = SuspendActionProps & BaseProps
 
 export default function SuspendAction({
 	_type = "SuspendAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SuspendAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ControlAction>
 	)
 }

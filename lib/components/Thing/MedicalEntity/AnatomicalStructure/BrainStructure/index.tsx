@@ -7,6 +7,7 @@ export type Props = BrainStructureProps & BaseProps
 
 export default function BrainStructure({
 	_type = "BrainStructure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BrainStructure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

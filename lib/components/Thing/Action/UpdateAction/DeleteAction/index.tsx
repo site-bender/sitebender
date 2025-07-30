@@ -7,6 +7,7 @@ export type Props = DeleteActionProps & BaseProps
 
 export default function DeleteAction({
 	_type = "DeleteAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DeleteAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UpdateAction>
 	)
 }

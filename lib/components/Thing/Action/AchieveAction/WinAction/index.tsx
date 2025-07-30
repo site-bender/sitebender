@@ -8,6 +8,7 @@ export type Props = WinActionProps & BaseProps
 export default function WinAction({
 	loser,
 	_type = "WinAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function WinAction({
 				loser,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AchieveAction>
 	)
 }

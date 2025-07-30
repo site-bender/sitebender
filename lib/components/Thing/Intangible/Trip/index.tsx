@@ -15,6 +15,7 @@ export default function Trip({
 	subTrip,
 	tripOrigin,
 	_type = "Trip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function Trip({
 				tripOrigin,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

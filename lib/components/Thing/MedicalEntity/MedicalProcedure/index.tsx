@@ -13,6 +13,7 @@ export default function MedicalProcedure({
 	procedureType,
 	status,
 	_type = "MedicalProcedure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MedicalProcedure({
 				status,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

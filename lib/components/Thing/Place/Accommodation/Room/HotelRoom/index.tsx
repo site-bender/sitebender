@@ -9,6 +9,7 @@ export default function HotelRoom({
 	bed,
 	occupancy,
 	_type = "HotelRoom",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function HotelRoom({
 				occupancy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Room>
 	)
 }

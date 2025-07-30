@@ -7,6 +7,7 @@ export type Props = SearchResultsPageProps & BaseProps
 
 export default function SearchResultsPage({
 	_type = "SearchResultsPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SearchResultsPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

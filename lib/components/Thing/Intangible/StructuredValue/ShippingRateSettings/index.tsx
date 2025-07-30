@@ -15,6 +15,7 @@ export default function ShippingRateSettings({
 	shippingRate,
 	weightPercentage,
 	_type = "ShippingRateSettings",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function ShippingRateSettings({
 				weightPercentage,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

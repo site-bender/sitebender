@@ -11,6 +11,7 @@ export default function BusTrip({
 	busNumber,
 	departureBusStop,
 	_type = "BusTrip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function BusTrip({
 				departureBusStop,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Trip>
 	)
 }

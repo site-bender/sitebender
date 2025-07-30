@@ -11,6 +11,7 @@ export default function FlightReservation({
 	passengerSequenceNumber,
 	securityScreening,
 	_type = "FlightReservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function FlightReservation({
 				securityScreening,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

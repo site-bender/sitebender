@@ -8,6 +8,7 @@ export type Props = TrackActionProps & BaseProps
 export default function TrackAction({
 	deliveryMethod,
 	_type = "TrackAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function TrackAction({
 				deliveryMethod,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FindAction>
 	)
 }

@@ -18,6 +18,7 @@ export default function Audiobook(
 		duration,
 		readBy,
 		_type = "Audiobook",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -31,6 +32,6 @@ export default function Audiobook(
 				readBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AudiobookProps>
 	)
 }

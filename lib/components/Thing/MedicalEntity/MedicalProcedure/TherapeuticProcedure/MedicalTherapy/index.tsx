@@ -10,6 +10,7 @@ export default function MedicalTherapy({
 	duplicateTherapy,
 	seriousAdverseOutcome,
 	_type = "MedicalTherapy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function MedicalTherapy({
 				seriousAdverseOutcome,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TherapeuticProcedure>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = DigitalDocumentPermissionTypeProps & BaseProps
 
 export default function DigitalDocumentPermissionType({
 	_type = "DigitalDocumentPermissionType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DigitalDocumentPermissionType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

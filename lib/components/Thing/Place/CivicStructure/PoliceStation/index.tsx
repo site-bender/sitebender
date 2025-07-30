@@ -7,6 +7,7 @@ export type Props = PoliceStationProps & BaseProps
 
 export default function PoliceStation({
 	_type = "PoliceStation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PoliceStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

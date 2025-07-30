@@ -7,6 +7,7 @@ export type Props = RVParkProps & BaseProps
 
 export default function RVPark({
 	_type = "RVPark",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RVPark({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

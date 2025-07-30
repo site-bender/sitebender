@@ -17,6 +17,7 @@ export default function VideoObject({
 	videoFrameSize,
 	videoQuality,
 	_type = "VideoObject",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function VideoObject({
 				videoQuality,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

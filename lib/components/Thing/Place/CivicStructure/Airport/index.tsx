@@ -9,6 +9,7 @@ export default function Airport({
 	iataCode,
 	icaoCode,
 	_type = "Airport",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Airport({
 				icaoCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

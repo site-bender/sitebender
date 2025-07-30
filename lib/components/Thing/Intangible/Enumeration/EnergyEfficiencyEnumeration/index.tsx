@@ -7,6 +7,7 @@ export type Props = EnergyEfficiencyEnumerationProps & BaseProps
 
 export default function EnergyEfficiencyEnumeration({
 	_type = "EnergyEfficiencyEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EnergyEfficiencyEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

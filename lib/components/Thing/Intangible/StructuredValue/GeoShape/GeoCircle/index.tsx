@@ -9,6 +9,7 @@ export default function GeoCircle({
 	geoMidpoint,
 	geoRadius,
 	_type = "GeoCircle",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function GeoCircle({
 				geoRadius,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</GeoShape>
 	)
 }

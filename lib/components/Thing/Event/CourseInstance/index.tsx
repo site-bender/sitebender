@@ -11,6 +11,7 @@ export default function CourseInstance({
 	courseWorkload,
 	instructor,
 	_type = "CourseInstance",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function CourseInstance({
 				instructor,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

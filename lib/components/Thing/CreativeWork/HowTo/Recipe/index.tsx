@@ -17,6 +17,7 @@ export default function Recipe({
 	recipeYield,
 	suitableForDiet,
 	_type = "Recipe",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function Recipe({
 				suitableForDiet,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HowTo>
 	)
 }

@@ -10,6 +10,7 @@ export default function GameServer({
 	playersOnline,
 	serverStatus,
 	_type = "GameServer",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function GameServer({
 				serverStatus,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -9,6 +9,7 @@ export default function MedicalRiskEstimator({
 	estimatesRiskOf,
 	includedRiskFactor,
 	_type = "MedicalRiskEstimator",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MedicalRiskEstimator({
 				includedRiskFactor,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

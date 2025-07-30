@@ -7,6 +7,7 @@ export type Props = TableProps & BaseProps
 
 export default function Table({
 	_type = "Table",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Table({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

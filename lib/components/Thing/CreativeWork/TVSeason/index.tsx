@@ -10,6 +10,7 @@ export default function TVSeason({
 	partOfTVSeries,
 	titleEIDR,
 	_type = "TVSeason",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function TVSeason({
 				titleEIDR,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

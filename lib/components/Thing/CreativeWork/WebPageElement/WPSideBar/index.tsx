@@ -7,6 +7,7 @@ export type Props = WPSideBarProps & BaseProps
 
 export default function WPSideBar({
 	_type = "WPSideBar",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WPSideBar({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPageElement>
 	)
 }

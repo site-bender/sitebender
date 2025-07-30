@@ -7,6 +7,7 @@ export type Props = VideoGalleryProps & BaseProps
 
 export default function VideoGallery({
 	_type = "VideoGallery",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function VideoGallery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaGallery>
 	)
 }

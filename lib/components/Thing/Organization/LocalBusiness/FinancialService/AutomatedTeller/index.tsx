@@ -7,6 +7,7 @@ export type Props = AutomatedTellerProps & BaseProps
 
 export default function AutomatedTeller({
 	_type = "AutomatedTeller",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AutomatedTeller({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialService>
 	)
 }

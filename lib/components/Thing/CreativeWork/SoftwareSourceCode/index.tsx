@@ -14,6 +14,7 @@ export default function SoftwareSourceCode({
 	sampleType,
 	targetProduct,
 	_type = "SoftwareSourceCode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function SoftwareSourceCode({
 				targetProduct,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

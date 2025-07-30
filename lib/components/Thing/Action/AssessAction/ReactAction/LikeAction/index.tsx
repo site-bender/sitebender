@@ -7,6 +7,7 @@ export type Props = LikeActionProps & BaseProps
 
 export default function LikeAction({
 	_type = "LikeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LikeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ReactAction>
 	)
 }

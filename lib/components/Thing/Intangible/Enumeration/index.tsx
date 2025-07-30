@@ -8,6 +8,7 @@ export type Props = EnumerationProps & BaseProps
 export default function Enumeration({
 	supersededBy,
 	_type = "Enumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Enumeration({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

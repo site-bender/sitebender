@@ -7,6 +7,7 @@ export type Props = WebContentProps & BaseProps
 
 export default function WebContent({
 	_type = "WebContent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WebContent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

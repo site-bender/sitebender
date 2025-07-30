@@ -7,6 +7,7 @@ export type Props = MensClothingStoreProps & BaseProps
 
 export default function MensClothingStore({
 	_type = "MensClothingStore",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MensClothingStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Store>
 	)
 }

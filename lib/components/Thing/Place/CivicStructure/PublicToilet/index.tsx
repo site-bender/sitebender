@@ -7,6 +7,7 @@ export type Props = PublicToiletProps & BaseProps
 
 export default function PublicToilet({
 	_type = "PublicToilet",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PublicToilet({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

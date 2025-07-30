@@ -10,6 +10,7 @@ export default function Blog({
 	blogPosts,
 	issn,
 	_type = "Blog",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Blog({
 				issn,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

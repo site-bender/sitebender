@@ -38,6 +38,7 @@ export default function VideoGameSeries(
 		seasons,
 		trailer,
 		_type = "VideoGameSeries",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -71,6 +72,6 @@ export default function VideoGameSeries(
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</VideoGameSeriesProps>
 	)
 }

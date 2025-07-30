@@ -8,6 +8,7 @@ export type Props = ProductCollectionProps & BaseProps
 export default function ProductCollection({
 	includesObject,
 	_type = "ProductCollection",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ProductCollection({
 				includesObject,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

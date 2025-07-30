@@ -7,6 +7,7 @@ export type Props = OccupationalTherapyProps & BaseProps
 
 export default function OccupationalTherapy({
 	_type = "OccupationalTherapy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OccupationalTherapy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalTherapy>
 	)
 }

@@ -10,6 +10,7 @@ export default function HyperTocEntry({
 	tocContinuation,
 	utterances,
 	_type = "HyperTocEntry",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function HyperTocEntry({
 				utterances,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -9,6 +9,7 @@ export default function PostalCodeRangeSpecification({
 	postalCodeBegin,
 	postalCodeEnd,
 	_type = "PostalCodeRangeSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function PostalCodeRangeSpecification({
 				postalCodeEnd,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

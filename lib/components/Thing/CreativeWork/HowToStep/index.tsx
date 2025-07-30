@@ -7,6 +7,7 @@ export type Props = HowToStepProps & BaseProps
 
 export default function HowToStep({
 	_type = "HowToStep",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HowToStep({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -23,6 +23,7 @@ export default function Invoice({
 	scheduledPaymentDate,
 	totalPaymentDue,
 	_type = "Invoice",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -49,6 +50,6 @@ export default function Invoice({
 				totalPaymentDue,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

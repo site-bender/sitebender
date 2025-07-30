@@ -7,6 +7,7 @@ export type Props = SheetMusicProps & BaseProps
 
 export default function SheetMusic({
 	_type = "SheetMusic",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SheetMusic({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

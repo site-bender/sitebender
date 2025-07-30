@@ -13,6 +13,7 @@ export default function Rating({
 	reviewAspect,
 	worstRating,
 	_type = "Rating",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function Rating({
 				worstRating,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

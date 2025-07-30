@@ -8,6 +8,7 @@ export type Props = InformActionProps & BaseProps
 export default function InformAction({
 	event,
 	_type = "InformAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function InformAction({
 				event,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = ArchiveOrganizationProps & BaseProps
 export default function ArchiveOrganization({
 	archiveHeld,
 	_type = "ArchiveOrganization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ArchiveOrganization({
 				archiveHeld,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LocalBusiness>
 	)
 }

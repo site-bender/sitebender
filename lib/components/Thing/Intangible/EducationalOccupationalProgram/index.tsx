@@ -31,6 +31,7 @@ export default function EducationalOccupationalProgram({
 	trainingSalary,
 	typicalCreditsPerTerm,
 	_type = "EducationalOccupationalProgram",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -65,6 +66,6 @@ export default function EducationalOccupationalProgram({
 				typicalCreditsPerTerm,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

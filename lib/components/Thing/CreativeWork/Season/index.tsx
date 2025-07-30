@@ -7,6 +7,7 @@ export type Props = SeasonProps & BaseProps
 
 export default function Season({
 	_type = "Season",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Season({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

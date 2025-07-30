@@ -8,6 +8,7 @@ export type Props = MobileApplicationProps & BaseProps
 export default function MobileApplication({
 	carrierRequirements,
 	_type = "MobileApplication",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function MobileApplication({
 				carrierRequirements,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SoftwareApplication>
 	)
 }

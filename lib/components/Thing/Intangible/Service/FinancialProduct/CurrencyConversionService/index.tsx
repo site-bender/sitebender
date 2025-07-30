@@ -7,6 +7,7 @@ export type Props = CurrencyConversionServiceProps & BaseProps
 
 export default function CurrencyConversionService({
 	_type = "CurrencyConversionService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CurrencyConversionService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialProduct>
 	)
 }

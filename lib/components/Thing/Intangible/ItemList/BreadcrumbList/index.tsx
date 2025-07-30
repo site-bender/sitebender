@@ -7,6 +7,7 @@ export type Props = BreadcrumbListProps & BaseProps
 
 export default function BreadcrumbList({
 	_type = "BreadcrumbList",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BreadcrumbList({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ItemList>
 	)
 }

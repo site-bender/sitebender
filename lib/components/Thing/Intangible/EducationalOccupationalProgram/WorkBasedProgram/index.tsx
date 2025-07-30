@@ -9,6 +9,7 @@ export default function WorkBasedProgram({
 	occupationalCategory,
 	trainingSalary,
 	_type = "WorkBasedProgram",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function WorkBasedProgram({
 				trainingSalary,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</EducationalOccupationalProgram>
 	)
 }

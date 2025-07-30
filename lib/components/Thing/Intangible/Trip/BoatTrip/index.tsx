@@ -9,6 +9,7 @@ export default function BoatTrip({
 	arrivalBoatTerminal,
 	departureBoatTerminal,
 	_type = "BoatTrip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function BoatTrip({
 				departureBoatTerminal,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Trip>
 	)
 }

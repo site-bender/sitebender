@@ -7,6 +7,7 @@ export type Props = ReservoirProps & BaseProps
 
 export default function Reservoir({
 	_type = "Reservoir",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Reservoir({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BodyOfWater>
 	)
 }

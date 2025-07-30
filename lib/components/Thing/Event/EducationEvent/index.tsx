@@ -10,6 +10,7 @@ export default function EducationEvent({
 	educationalLevel,
 	teaches,
 	_type = "EducationEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function EducationEvent({
 				teaches,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

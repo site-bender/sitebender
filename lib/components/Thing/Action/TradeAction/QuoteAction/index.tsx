@@ -7,6 +7,7 @@ export type Props = QuoteActionProps & BaseProps
 
 export default function QuoteAction({
 	_type = "QuoteAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function QuoteAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TradeAction>
 	)
 }

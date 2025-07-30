@@ -11,6 +11,7 @@ export default function CommunicateAction({
 	language,
 	recipient,
 	_type = "CommunicateAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function CommunicateAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

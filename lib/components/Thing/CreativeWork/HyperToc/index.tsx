@@ -9,6 +9,7 @@ export default function HyperToc({
 	associatedMedia,
 	tocEntry,
 	_type = "HyperToc",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function HyperToc({
 				tocEntry,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

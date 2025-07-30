@@ -7,6 +7,7 @@ export type Props = CasinoProps & BaseProps
 
 export default function Casino({
 	_type = "Casino",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Casino({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</EntertainmentBusiness>
 	)
 }

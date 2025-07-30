@@ -8,6 +8,7 @@ export type Props = DefinedTermSetProps & BaseProps
 export default function DefinedTermSet({
 	hasDefinedTerm,
 	_type = "DefinedTermSet",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function DefinedTermSet({
 				hasDefinedTerm,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

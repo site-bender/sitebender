@@ -14,6 +14,7 @@ export default function EntryPoint({
 	httpMethod,
 	urlTemplate,
 	_type = "EntryPoint",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function EntryPoint({
 				urlTemplate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

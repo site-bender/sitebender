@@ -11,6 +11,7 @@ export default function Comment({
 	sharedContent,
 	upvoteCount,
 	_type = "Comment",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Comment({
 				upvoteCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -9,6 +9,7 @@ export default function LinkRole({
 	inLanguage,
 	linkRelationship,
 	_type = "LinkRole",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function LinkRole({
 				linkRelationship,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Role>
 	)
 }

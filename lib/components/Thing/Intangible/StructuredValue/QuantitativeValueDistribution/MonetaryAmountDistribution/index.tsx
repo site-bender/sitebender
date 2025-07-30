@@ -7,6 +7,7 @@ export type Props = MonetaryAmountDistributionProps & BaseProps
 
 export default function MonetaryAmountDistribution({
 	_type = "MonetaryAmountDistribution",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MonetaryAmountDistribution({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</QuantitativeValueDistribution>
 	)
 }

@@ -10,6 +10,7 @@ export default function HealthPlanNetwork({
 	healthPlanNetworkId,
 	healthPlanNetworkTier,
 	_type = "HealthPlanNetwork",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function HealthPlanNetwork({
 				healthPlanNetworkTier,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

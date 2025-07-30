@@ -7,6 +7,7 @@ export type Props = BefriendActionProps & BaseProps
 
 export default function BefriendAction({
 	_type = "BefriendAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BefriendAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

@@ -9,6 +9,7 @@ export default function DigitalDocumentPermission({
 	grantee,
 	permissionType,
 	_type = "DigitalDocumentPermission",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function DigitalDocumentPermission({
 				permissionType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

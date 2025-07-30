@@ -12,6 +12,7 @@ export default function Question({
 	parentItem,
 	suggestedAnswer,
 	_type = "Question",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function Question({
 				suggestedAnswer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Comment>
 	)
 }

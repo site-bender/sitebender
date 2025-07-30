@@ -7,6 +7,7 @@ export type Props = LegalValueLevelProps & BaseProps
 
 export default function LegalValueLevel({
 	_type = "LegalValueLevel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LegalValueLevel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

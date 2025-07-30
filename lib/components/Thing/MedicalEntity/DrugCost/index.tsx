@@ -13,6 +13,7 @@ export default function DrugCost({
 	costPerUnit,
 	drugUnit,
 	_type = "DrugCost",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function DrugCost({
 				drugUnit,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

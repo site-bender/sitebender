@@ -36,6 +36,7 @@ export default function Drug({
 	rxcui,
 	warning,
 	_type = "Drug",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -75,6 +76,6 @@ export default function Drug({
 				warning,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Product>
 	)
 }

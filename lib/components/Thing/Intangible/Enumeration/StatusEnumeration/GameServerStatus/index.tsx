@@ -7,6 +7,7 @@ export type Props = GameServerStatusProps & BaseProps
 
 export default function GameServerStatus({
 	_type = "GameServerStatus",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GameServerStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

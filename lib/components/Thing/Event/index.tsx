@@ -48,6 +48,7 @@ export default function Event({
 	workFeatured,
 	workPerformed,
 	_type = "Event",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -99,6 +100,6 @@ export default function Event({
 				workPerformed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

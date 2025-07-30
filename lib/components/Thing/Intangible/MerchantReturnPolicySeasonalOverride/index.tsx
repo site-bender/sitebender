@@ -16,6 +16,7 @@ export default function MerchantReturnPolicySeasonalOverride({
 	returnShippingFeesAmount,
 	startDate,
 	_type = "MerchantReturnPolicySeasonalOverride",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function MerchantReturnPolicySeasonalOverride({
 				startDate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = StatusEnumerationProps & BaseProps
 
 export default function StatusEnumeration({
 	_type = "StatusEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function StatusEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

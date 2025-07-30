@@ -7,6 +7,7 @@ export type Props = UserTweetsProps & BaseProps
 
 export default function UserTweets({
 	_type = "UserTweets",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserTweets({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</UserInteraction>
 	)
 }

@@ -12,6 +12,7 @@ export default function OrderItem({
 	orderItemStatus,
 	orderQuantity,
 	_type = "OrderItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function OrderItem({
 				orderQuantity,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

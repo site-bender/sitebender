@@ -16,6 +16,7 @@ export default function PropertyValue({
 	value,
 	valueReference,
 	_type = "PropertyValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function PropertyValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

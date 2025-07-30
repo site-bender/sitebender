@@ -8,6 +8,7 @@ export type Props = ResidenceProps & BaseProps
 export default function Residence({
 	accommodationFloorPlan,
 	_type = "Residence",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Residence({
 				accommodationFloorPlan,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

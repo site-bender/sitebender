@@ -7,6 +7,7 @@ export type Props = BloodTestProps & BaseProps
 
 export default function BloodTest({
 	_type = "BloodTest",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BloodTest({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalTest>
 	)
 }

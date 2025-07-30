@@ -7,6 +7,7 @@ export type Props = BusinessFunctionProps & BaseProps
 
 export default function BusinessFunction({
 	_type = "BusinessFunction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BusinessFunction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

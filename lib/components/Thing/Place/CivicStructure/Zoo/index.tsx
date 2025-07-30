@@ -7,6 +7,7 @@ export type Props = ZooProps & BaseProps
 
 export default function Zoo({
 	_type = "Zoo",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Zoo({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

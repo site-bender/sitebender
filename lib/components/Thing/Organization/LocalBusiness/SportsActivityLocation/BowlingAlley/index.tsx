@@ -7,6 +7,7 @@ export type Props = BowlingAlleyProps & BaseProps
 
 export default function BowlingAlley({
 	_type = "BowlingAlley",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BowlingAlley({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SportsActivityLocation>
 	)
 }

@@ -10,6 +10,7 @@ export default function AggregateRating({
 	ratingCount,
 	reviewCount,
 	_type = "AggregateRating",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function AggregateRating({
 				reviewCount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Rating>
 	)
 }

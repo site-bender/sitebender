@@ -7,6 +7,7 @@ export type Props = TakeActionProps & BaseProps
 
 export default function TakeAction({
 	_type = "TakeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TakeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

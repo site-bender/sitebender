@@ -13,6 +13,7 @@ export default function TrainTrip({
 	trainName,
 	trainNumber,
 	_type = "TrainTrip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function TrainTrip({
 				trainNumber,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Trip>
 	)
 }

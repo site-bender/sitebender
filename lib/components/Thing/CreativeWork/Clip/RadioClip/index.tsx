@@ -7,6 +7,7 @@ export type Props = RadioClipProps & BaseProps
 
 export default function RadioClip({
 	_type = "RadioClip",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RadioClip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Clip>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = CityHallProps & BaseProps
 
 export default function CityHall({
 	_type = "CityHall",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CityHall({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</GovernmentBuilding>
 	)
 }

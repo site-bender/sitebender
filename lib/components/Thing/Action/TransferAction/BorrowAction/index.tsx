@@ -8,6 +8,7 @@ export type Props = BorrowActionProps & BaseProps
 export default function BorrowAction({
 	lender,
 	_type = "BorrowAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function BorrowAction({
 				lender,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TransferAction>
 	)
 }

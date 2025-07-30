@@ -14,6 +14,7 @@ export default function PostalAddress({
 	postOfficeBoxNumber,
 	streetAddress,
 	_type = "PostalAddress",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function PostalAddress({
 				streetAddress,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ContactPoint>
 	)
 }

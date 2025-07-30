@@ -10,6 +10,7 @@ export default function RsvpAction({
 	comment,
 	rsvpResponse,
 	_type = "RsvpAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function RsvpAction({
 				rsvpResponse,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InformAction>
 	)
 }

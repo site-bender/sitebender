@@ -8,6 +8,7 @@ export type Props = ReplyActionProps & BaseProps
 export default function ReplyAction({
 	resultComment,
 	_type = "ReplyAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function ReplyAction({
 				resultComment,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CommunicateAction>
 	)
 }

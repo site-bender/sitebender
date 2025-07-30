@@ -11,6 +11,7 @@ export default function Gene({
 	expressedIn,
 	hasBioPolymerSequence,
 	_type = "Gene",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function Gene({
 				hasBioPolymerSequence,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BioChemEntity>
 	)
 }

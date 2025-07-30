@@ -7,6 +7,7 @@ export type Props = EventStatusTypeProps & BaseProps
 
 export default function EventStatusType({
 	_type = "EventStatusType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EventStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StatusEnumeration>
 	)
 }

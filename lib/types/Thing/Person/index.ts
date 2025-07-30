@@ -86,7 +86,7 @@ export interface PersonProps {
 		| ReturnType<typeof BrandComponent>
 		| ReturnType<typeof OrganizationComponent>
 	callSign?: Text
-	children?: Person | ReturnType<typeof PersonComponent>
+	child?: Person | ReturnType<typeof PersonComponent>
 	colleague?: Person | URL | ReturnType<typeof PersonComponent>
 	colleagues?: Person | ReturnType<typeof PersonComponent>
 	contactPoint?: ContactPoint | ReturnType<typeof ContactPointComponent>

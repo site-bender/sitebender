@@ -8,6 +8,7 @@ export type Props = MapProps & BaseProps
 export default function Map({
 	mapType,
 	_type = "Map",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Map({
 				mapType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

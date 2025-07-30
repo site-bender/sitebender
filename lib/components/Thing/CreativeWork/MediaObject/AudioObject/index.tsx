@@ -10,6 +10,7 @@ export default function AudioObject({
 	embeddedTextCaption,
 	transcript,
 	_type = "AudioObject",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function AudioObject({
 				transcript,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

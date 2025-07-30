@@ -7,6 +7,7 @@ export type Props = PaintActionProps & BaseProps
 
 export default function PaintAction({
 	_type = "PaintAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PaintAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreateAction>
 	)
 }

@@ -10,6 +10,7 @@ export default function ExchangeRateSpecification({
 	currentExchangeRate,
 	exchangeRateSpread,
 	_type = "ExchangeRateSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ExchangeRateSpecification({
 				exchangeRateSpread,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</StructuredValue>
 	)
 }

@@ -12,6 +12,7 @@ export default function AlignmentObject({
 	targetName,
 	targetUrl,
 	_type = "AlignmentObject",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function AlignmentObject({
 				targetUrl,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

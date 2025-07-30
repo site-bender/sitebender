@@ -7,6 +7,7 @@ export type Props = DrawActionProps & BaseProps
 
 export default function DrawAction({
 	_type = "DrawAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DrawAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreateAction>
 	)
 }

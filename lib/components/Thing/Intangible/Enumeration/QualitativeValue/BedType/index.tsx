@@ -7,6 +7,7 @@ export type Props = BedTypeProps & BaseProps
 
 export default function BedType({
 	_type = "BedType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BedType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</QualitativeValue>
 	)
 }

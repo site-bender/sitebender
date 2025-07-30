@@ -7,6 +7,7 @@ export type Props = QAPageProps & BaseProps
 
 export default function QAPage({
 	_type = "QAPage",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function QAPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</WebPage>
 	)
 }

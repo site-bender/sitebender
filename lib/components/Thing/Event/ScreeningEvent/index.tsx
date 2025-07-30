@@ -10,6 +10,7 @@ export default function ScreeningEvent({
 	videoFormat,
 	workPresented,
 	_type = "ScreeningEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function ScreeningEvent({
 				workPresented,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

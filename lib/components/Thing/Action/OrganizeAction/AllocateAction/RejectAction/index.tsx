@@ -7,6 +7,7 @@ export type Props = RejectActionProps & BaseProps
 
 export default function RejectAction({
 	_type = "RejectAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RejectAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AllocateAction>
 	)
 }

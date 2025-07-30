@@ -10,6 +10,7 @@ export default function Joint({
 	functionalClass,
 	structuralClass,
 	_type = "Joint",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function Joint({
 				structuralClass,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

@@ -61,6 +61,7 @@ export default function Offer({
 	validThrough,
 	warranty,
 	_type = "Offer",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -125,6 +126,6 @@ export default function Offer({
 				warranty,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

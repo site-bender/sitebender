@@ -7,6 +7,7 @@ export type Props = AgreeActionProps & BaseProps
 
 export default function AgreeAction({
 	_type = "AgreeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AgreeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ReactAction>
 	)
 }

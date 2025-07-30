@@ -7,6 +7,7 @@ export type Props = MassProps & BaseProps
 
 export default function Mass({
 	_type = "Mass",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Mass({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Quantity>
 	)
 }

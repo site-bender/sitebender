@@ -7,6 +7,7 @@ export type Props = FloristProps & BaseProps
 
 export default function Florist({
 	_type = "Florist",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Florist({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Store>
 	)
 }

@@ -9,6 +9,7 @@ export default function Artery({
 	arterialBranch,
 	supplyTo,
 	_type = "Artery",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Artery({
 				supplyTo,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vessel>
 	)
 }

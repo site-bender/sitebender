@@ -9,6 +9,7 @@ export default function TouristDestination({
 	includesAttraction,
 	touristType,
 	_type = "TouristDestination",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function TouristDestination({
 				touristType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

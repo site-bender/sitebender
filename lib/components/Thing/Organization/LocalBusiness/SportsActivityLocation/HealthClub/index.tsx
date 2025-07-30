@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function HealthClub({
 	_type = "HealthClub",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function HealthClub({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</HealthClubProps>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = ReturnLabelSourceEnumerationProps & BaseProps
 
 export default function ReturnLabelSourceEnumeration({
 	_type = "ReturnLabelSourceEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ReturnLabelSourceEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

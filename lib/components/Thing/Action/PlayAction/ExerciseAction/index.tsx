@@ -20,6 +20,7 @@ export default function ExerciseAction({
 	sportsTeam,
 	toLocation,
 	_type = "ExerciseAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function ExerciseAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlayAction>
 	)
 }

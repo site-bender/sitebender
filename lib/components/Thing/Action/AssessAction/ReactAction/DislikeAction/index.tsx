@@ -7,6 +7,7 @@ export type Props = DislikeActionProps & BaseProps
 
 export default function DislikeAction({
 	_type = "DislikeAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DislikeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ReactAction>
 	)
 }

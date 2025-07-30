@@ -15,6 +15,7 @@ export default function UnitPriceSpecification({
 	unitCode,
 	unitText,
 	_type = "UnitPriceSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function UnitPriceSpecification({
 				unitText,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PriceSpecification>
 	)
 }

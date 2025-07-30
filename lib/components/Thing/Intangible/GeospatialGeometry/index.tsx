@@ -17,6 +17,7 @@ export default function GeospatialGeometry({
 	geoTouches,
 	geoWithin,
 	_type = "GeospatialGeometry",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -37,6 +38,6 @@ export default function GeospatialGeometry({
 				geoWithin,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

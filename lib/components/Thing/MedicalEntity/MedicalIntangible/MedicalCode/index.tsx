@@ -9,6 +9,7 @@ export default function MedicalCode({
 	codeValue,
 	codingSystem,
 	_type = "MedicalCode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MedicalCode({
 				codingSystem,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

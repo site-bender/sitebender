@@ -1,4 +1,5 @@
 import type BaseProps from "../../types/index.ts"
+import type { ComponentType } from "../../types/JSX/index.ts"
 import type Props from "../../types/Thing/index.ts"
 
 import Base from "../Base/index.tsx"
@@ -16,6 +17,7 @@ export default function Thing({
 	sameAs,
 	_type = "Thing",
 	subjectOf,
+	children,
 	subtypeProperties = {},
 	url,
 	...props
@@ -40,5 +42,7 @@ export default function Thing({
 		},
 	}
 
-	return <Base {...allProps} />
+	const B = Base as ComponentType<BaseProps>
+
+	return <B {...allProps}>{children}</B>
 }

@@ -29,6 +29,7 @@ export default function VideoGameSeries({
 	seasons,
 	trailer,
 	_type = "VideoGameSeries",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -61,6 +62,6 @@ export default function VideoGameSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWorkSeries>
 	)
 }

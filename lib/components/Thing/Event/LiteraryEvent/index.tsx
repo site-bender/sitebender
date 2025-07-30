@@ -7,6 +7,7 @@ export type Props = LiteraryEventProps & BaseProps
 
 export default function LiteraryEvent({
 	_type = "LiteraryEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LiteraryEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

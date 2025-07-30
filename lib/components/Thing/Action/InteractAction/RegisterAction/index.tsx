@@ -7,6 +7,7 @@ export type Props = RegisterActionProps & BaseProps
 
 export default function RegisterAction({
 	_type = "RegisterAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RegisterAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</InteractAction>
 	)
 }

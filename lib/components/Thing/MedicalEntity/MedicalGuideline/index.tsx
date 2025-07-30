@@ -11,6 +11,7 @@ export default function MedicalGuideline({
 	guidelineDate,
 	guidelineSubject,
 	_type = "MedicalGuideline",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function MedicalGuideline({
 				guidelineSubject,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

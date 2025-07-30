@@ -7,6 +7,7 @@ export type Props = AccountingServiceProps & BaseProps
 
 export default function AccountingService({
 	_type = "AccountingService",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AccountingService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialService>
 	)
 }

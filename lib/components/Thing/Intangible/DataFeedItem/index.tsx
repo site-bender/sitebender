@@ -11,6 +11,7 @@ export default function DataFeedItem({
 	dateModified,
 	item,
 	_type = "DataFeedItem",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DataFeedItem({
 				item,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

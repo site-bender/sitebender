@@ -7,6 +7,7 @@ export type Props = ComedyClubProps & BaseProps
 
 export default function ComedyClub({
 	_type = "ComedyClub",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ComedyClub({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</EntertainmentBusiness>
 	)
 }

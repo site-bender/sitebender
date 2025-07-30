@@ -16,6 +16,7 @@ export type Props = BaseComponentProps<
 
 export default function HowToStep({
 	_type = "HowToStep",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props) {
@@ -24,6 +25,6 @@ export default function HowToStep({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		/>
+		>{children}</HowToStepProps>
 	)
 }

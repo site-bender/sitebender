@@ -9,6 +9,7 @@ export default function UpdateAction({
 	collection,
 	targetCollection,
 	_type = "UpdateAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function UpdateAction({
 				targetCollection,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

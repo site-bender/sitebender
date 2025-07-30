@@ -7,6 +7,7 @@ export type Props = FundingAgencyProps & BaseProps
 
 export default function FundingAgency({
 	_type = "FundingAgency",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function FundingAgency({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Project>
 	)
 }

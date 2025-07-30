@@ -9,6 +9,7 @@ export default function TransferAction({
 	fromLocation,
 	toLocation,
 	_type = "TransferAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function TransferAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

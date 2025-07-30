@@ -9,6 +9,7 @@ export default function WebPageElement({
 	cssSelector,
 	xpath,
 	_type = "WebPageElement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function WebPageElement({
 				xpath,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = OnDemandEventProps & BaseProps
 
 export default function OnDemandEvent({
 	_type = "OnDemandEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OnDemandEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PublicationEvent>
 	)
 }

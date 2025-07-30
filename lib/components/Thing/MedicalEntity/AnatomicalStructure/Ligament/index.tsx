@@ -7,6 +7,7 @@ export type Props = LigamentProps & BaseProps
 
 export default function Ligament({
 	_type = "Ligament",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Ligament({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AnatomicalStructure>
 	)
 }

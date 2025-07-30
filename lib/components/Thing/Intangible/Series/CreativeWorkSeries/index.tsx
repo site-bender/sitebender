@@ -19,6 +19,7 @@ export default function CreativeWorkSeries(
 		issn,
 		startDate,
 		_type = "CreativeWorkSeries",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -33,6 +34,6 @@ export default function CreativeWorkSeries(
 				startDate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWorkSeriesProps>
 	)
 }

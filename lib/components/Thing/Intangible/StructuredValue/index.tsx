@@ -7,6 +7,7 @@ export type Props = StructuredValueProps & BaseProps
 
 export default function StructuredValue({
 	_type = "StructuredValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function StructuredValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = RsvpResponseTypeProps & BaseProps
 
 export default function RsvpResponseType({
 	_type = "RsvpResponseType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function RsvpResponseType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

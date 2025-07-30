@@ -7,6 +7,7 @@ export type Props = AmpStoryProps & BaseProps
 
 export default function AmpStory({
 	_type = "AmpStory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AmpStory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

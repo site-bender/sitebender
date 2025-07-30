@@ -7,6 +7,7 @@ export type Props = MeasurementMethodEnumProps & BaseProps
 
 export default function MeasurementMethodEnum({
 	_type = "MeasurementMethodEnum",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MeasurementMethodEnum({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

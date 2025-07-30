@@ -10,6 +10,7 @@ export default function TherapeuticProcedure({
 	doseSchedule,
 	drug,
 	_type = "TherapeuticProcedure",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function TherapeuticProcedure({
 				drug,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalProcedure>
 	)
 }

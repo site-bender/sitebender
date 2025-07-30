@@ -7,6 +7,7 @@ export type Props = DayOfWeekProps & BaseProps
 
 export default function DayOfWeek({
 	_type = "DayOfWeek",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DayOfWeek({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

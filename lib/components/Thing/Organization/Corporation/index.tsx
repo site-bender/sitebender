@@ -8,6 +8,7 @@ export type Props = CorporationProps & BaseProps
 export default function Corporation({
 	tickerSymbol,
 	_type = "Corporation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function Corporation({
 				tickerSymbol,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

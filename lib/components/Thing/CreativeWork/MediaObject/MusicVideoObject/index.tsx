@@ -7,6 +7,7 @@ export type Props = MusicVideoObjectProps & BaseProps
 
 export default function MusicVideoObject({
 	_type = "MusicVideoObject",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MusicVideoObject({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObject>
 	)
 }

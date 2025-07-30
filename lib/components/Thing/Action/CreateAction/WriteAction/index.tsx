@@ -9,6 +9,7 @@ export default function WriteAction({
 	inLanguage,
 	language,
 	_type = "WriteAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function WriteAction({
 				language,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreateAction>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = StatisticalPopulationProps & BaseProps
 export default function StatisticalPopulation({
 	populationType,
 	_type = "StatisticalPopulation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function StatisticalPopulation({
 				populationType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -8,6 +8,7 @@ export type Props = HowToSupplyProps & BaseProps
 export default function HowToSupply({
 	estimatedCost,
 	_type = "HowToSupply",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function HowToSupply({
 				estimatedCost,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HowToItem>
 	)
 }

@@ -15,6 +15,7 @@ export default function QualitativeValue({
 	nonEqual,
 	valueReference,
 	_type = "QualitativeValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -33,6 +34,6 @@ export default function QualitativeValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

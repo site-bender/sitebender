@@ -16,6 +16,7 @@ export default function HealthInsurancePlan({
 	includesHealthPlanNetwork,
 	usesHealthPlanIdStandard,
 	_type = "HealthInsurancePlan",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -35,6 +36,6 @@ export default function HealthInsurancePlan({
 				usesHealthPlanIdStandard,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

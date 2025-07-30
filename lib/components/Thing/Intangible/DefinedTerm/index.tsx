@@ -9,6 +9,7 @@ export default function DefinedTerm({
 	inDefinedTermSet,
 	termCode,
 	_type = "DefinedTerm",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function DefinedTerm({
 				termCode,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

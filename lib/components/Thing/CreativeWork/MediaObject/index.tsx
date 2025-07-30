@@ -36,6 +36,7 @@ export default function MediaObject(
 		uploadDate,
 		width,
 		_type = "MediaObject",
+		children,
 		subtypeProperties = {},
 		...props
 	}: Props,
@@ -67,6 +68,6 @@ export default function MediaObject(
 				width,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MediaObjectProps>
 	)
 }

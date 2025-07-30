@@ -7,6 +7,7 @@ export type Props = CompleteDataFeedProps & BaseProps
 
 export default function CompleteDataFeed({
 	_type = "CompleteDataFeed",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CompleteDataFeed({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</DataFeed>
 	)
 }

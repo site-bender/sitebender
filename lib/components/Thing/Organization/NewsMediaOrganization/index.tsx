@@ -18,6 +18,7 @@ export default function NewsMediaOrganization({
 	unnamedSourcesPolicy,
 	verificationFactCheckingPolicy,
 	_type = "NewsMediaOrganization",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -39,6 +40,6 @@ export default function NewsMediaOrganization({
 				verificationFactCheckingPolicy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

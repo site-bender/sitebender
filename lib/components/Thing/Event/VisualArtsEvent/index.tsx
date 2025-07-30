@@ -7,6 +7,7 @@ export type Props = VisualArtsEventProps & BaseProps
 
 export default function VisualArtsEvent({
 	_type = "VisualArtsEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function VisualArtsEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

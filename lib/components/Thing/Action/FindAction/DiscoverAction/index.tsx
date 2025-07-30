@@ -7,6 +7,7 @@ export type Props = DiscoverActionProps & BaseProps
 
 export default function DiscoverAction({
 	_type = "DiscoverAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function DiscoverAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FindAction>
 	)
 }

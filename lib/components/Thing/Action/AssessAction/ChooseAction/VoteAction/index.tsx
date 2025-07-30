@@ -8,6 +8,7 @@ export type Props = VoteActionProps & BaseProps
 export default function VoteAction({
 	candidate,
 	_type = "VoteAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function VoteAction({
 				candidate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</ChooseAction>
 	)
 }

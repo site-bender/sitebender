@@ -11,6 +11,7 @@ export default function DeliveryEvent({
 	availableThrough,
 	hasDeliveryMethod,
 	_type = "DeliveryEvent",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DeliveryEvent({
 				hasDeliveryMethod,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Event>
 	)
 }

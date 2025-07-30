@@ -10,6 +10,7 @@ export default function LymphaticVessel({
 	regionDrained,
 	runsTo,
 	_type = "LymphaticVessel",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function LymphaticVessel({
 				runsTo,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Vessel>
 	)
 }

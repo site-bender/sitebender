@@ -7,6 +7,7 @@ export type Props = GovernmentBenefitsTypeProps & BaseProps
 
 export default function GovernmentBenefitsType({
 	_type = "GovernmentBenefitsType",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function GovernmentBenefitsType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

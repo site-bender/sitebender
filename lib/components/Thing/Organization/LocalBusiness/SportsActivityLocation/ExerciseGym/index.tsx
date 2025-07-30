@@ -7,6 +7,7 @@ export type Props = ExerciseGymProps & BaseProps
 
 export default function ExerciseGym({
 	_type = "ExerciseGym",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ExerciseGym({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</SportsActivityLocation>
 	)
 }

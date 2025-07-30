@@ -20,6 +20,7 @@ export default function SpecialAnnouncement({
 	travelBans,
 	webFeed,
 	_type = "SpecialAnnouncement",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function SpecialAnnouncement({
 				webFeed,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

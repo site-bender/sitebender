@@ -10,6 +10,7 @@ export default function LiveBlogPosting({
 	coverageStartTime,
 	liveBlogUpdate,
 	_type = "LiveBlogPosting",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function LiveBlogPosting({
 				liveBlogUpdate,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</BlogPosting>
 	)
 }

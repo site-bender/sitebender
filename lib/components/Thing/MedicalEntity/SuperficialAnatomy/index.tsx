@@ -12,6 +12,7 @@ export default function SuperficialAnatomy({
 	relatedTherapy,
 	significance,
 	_type = "SuperficialAnatomy",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function SuperficialAnatomy({
 				significance,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

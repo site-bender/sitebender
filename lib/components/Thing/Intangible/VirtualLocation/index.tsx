@@ -7,6 +7,7 @@ export type Props = VirtualLocationProps & BaseProps
 
 export default function VirtualLocation({
 	_type = "VirtualLocation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function VirtualLocation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

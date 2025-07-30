@@ -20,6 +20,7 @@ export default function Action({
 	startTime,
 	target,
 	_type = "Action",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function Action({
 				target,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

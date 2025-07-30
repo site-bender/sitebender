@@ -7,6 +7,7 @@ export type Props = OfferItemConditionProps & BaseProps
 
 export default function OfferItemCondition({
 	_type = "OfferItemCondition",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function OfferItemCondition({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

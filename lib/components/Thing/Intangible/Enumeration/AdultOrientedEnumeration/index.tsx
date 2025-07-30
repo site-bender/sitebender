@@ -7,6 +7,7 @@ export type Props = AdultOrientedEnumerationProps & BaseProps
 
 export default function AdultOrientedEnumeration({
 	_type = "AdultOrientedEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AdultOrientedEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

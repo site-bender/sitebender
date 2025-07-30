@@ -7,6 +7,7 @@ export type Props = BridgeProps & BaseProps
 
 export default function Bridge({
 	_type = "Bridge",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Bridge({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

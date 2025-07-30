@@ -8,6 +8,7 @@ export type Props = SolveMathActionProps & BaseProps
 export default function SolveMathAction({
 	eduQuestionType,
 	_type = "SolveMathAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function SolveMathAction({
 				eduQuestionType,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Action>
 	)
 }

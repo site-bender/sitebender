@@ -7,6 +7,7 @@ export type Props = ConsortiumProps & BaseProps
 
 export default function Consortium({
 	_type = "Consortium",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function Consortium({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

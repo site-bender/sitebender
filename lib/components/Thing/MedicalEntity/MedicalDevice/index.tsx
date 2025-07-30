@@ -13,6 +13,7 @@ export default function MedicalDevice({
 	procedure,
 	seriousAdverseOutcome,
 	_type = "MedicalDevice",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function MedicalDevice({
 				seriousAdverseOutcome,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalEntity>
 	)
 }

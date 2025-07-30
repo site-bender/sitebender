@@ -13,6 +13,7 @@ export default function SizeSpecification({
 	suggestedGender,
 	suggestedMeasurement,
 	_type = "SizeSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -29,6 +30,6 @@ export default function SizeSpecification({
 				suggestedMeasurement,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</QualitativeValue>
 	)
 }

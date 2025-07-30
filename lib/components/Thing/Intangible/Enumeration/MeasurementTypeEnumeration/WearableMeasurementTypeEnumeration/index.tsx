@@ -7,6 +7,7 @@ export type Props = WearableMeasurementTypeEnumerationProps & BaseProps
 
 export default function WearableMeasurementTypeEnumeration({
 	_type = "WearableMeasurementTypeEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WearableMeasurementTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MeasurementTypeEnumeration>
 	)
 }

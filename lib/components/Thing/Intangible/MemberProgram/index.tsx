@@ -9,6 +9,7 @@ export default function MemberProgram({
 	hasTiers,
 	hostingOrganization,
 	_type = "MemberProgram",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function MemberProgram({
 				hostingOrganization,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

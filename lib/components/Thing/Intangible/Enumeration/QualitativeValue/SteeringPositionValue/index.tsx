@@ -7,6 +7,7 @@ export type Props = SteeringPositionValueProps & BaseProps
 
 export default function SteeringPositionValue({
 	_type = "SteeringPositionValue",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function SteeringPositionValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</QualitativeValue>
 	)
 }

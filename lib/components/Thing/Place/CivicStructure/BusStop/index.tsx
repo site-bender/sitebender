@@ -7,6 +7,7 @@ export type Props = BusStopProps & BaseProps
 
 export default function BusStop({
 	_type = "BusStop",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function BusStop({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CivicStructure>
 	)
 }

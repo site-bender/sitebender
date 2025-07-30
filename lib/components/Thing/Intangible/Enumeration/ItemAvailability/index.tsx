@@ -7,6 +7,7 @@ export type Props = ItemAvailabilityProps & BaseProps
 
 export default function ItemAvailability({
 	_type = "ItemAvailability",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function ItemAvailability({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

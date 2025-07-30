@@ -21,6 +21,7 @@ export default function FinancialIncentive({
 	validFrom,
 	validThrough,
 	_type = "FinancialIncentive",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -45,6 +46,6 @@ export default function FinancialIncentive({
 				validThrough,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

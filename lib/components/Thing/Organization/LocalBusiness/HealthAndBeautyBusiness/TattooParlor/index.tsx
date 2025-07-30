@@ -7,6 +7,7 @@ export type Props = TattooParlorProps & BaseProps
 
 export default function TattooParlor({
 	_type = "TattooParlor",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TattooParlor({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</HealthAndBeautyBusiness>
 	)
 }

@@ -11,6 +11,7 @@ export default function DoseSchedule({
 	frequency,
 	targetPopulation,
 	_type = "DoseSchedule",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function DoseSchedule({
 				targetPopulation,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalIntangible>
 	)
 }

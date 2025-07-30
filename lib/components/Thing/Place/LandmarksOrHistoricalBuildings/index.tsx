@@ -7,6 +7,7 @@ export type Props = LandmarksOrHistoricalBuildingsProps & BaseProps
 
 export default function LandmarksOrHistoricalBuildings({
 	_type = "LandmarksOrHistoricalBuildings",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function LandmarksOrHistoricalBuildings({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Place>
 	)
 }

@@ -9,6 +9,7 @@ export default function ConstraintNode({
 	constraintProperty,
 	numConstraints,
 	_type = "ConstraintNode",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function ConstraintNode({
 				numConstraints,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

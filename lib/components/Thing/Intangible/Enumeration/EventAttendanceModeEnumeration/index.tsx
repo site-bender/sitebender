@@ -7,6 +7,7 @@ export type Props = EventAttendanceModeEnumerationProps & BaseProps
 
 export default function EventAttendanceModeEnumeration({
 	_type = "EventAttendanceModeEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EventAttendanceModeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

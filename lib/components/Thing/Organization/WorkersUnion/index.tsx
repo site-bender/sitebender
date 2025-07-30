@@ -7,6 +7,7 @@ export type Props = WorkersUnionProps & BaseProps
 
 export default function WorkersUnion({
 	_type = "WorkersUnion",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function WorkersUnion({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Organization>
 	)
 }

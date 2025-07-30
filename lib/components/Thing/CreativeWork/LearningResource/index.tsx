@@ -14,6 +14,7 @@ export default function LearningResource({
 	learningResourceType,
 	teaches,
 	_type = "LearningResource",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -31,6 +32,6 @@ export default function LearningResource({
 				teaches,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

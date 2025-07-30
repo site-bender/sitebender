@@ -9,6 +9,7 @@ export default function SpeakableSpecification({
 	cssSelector,
 	xpath,
 	_type = "SpeakableSpecification",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function SpeakableSpecification({
 				xpath,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -66,6 +66,7 @@ export default function Product({
 	weight,
 	width,
 	_type = "Product",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -135,6 +136,6 @@ export default function Product({
 				width,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Thing>
 	)
 }

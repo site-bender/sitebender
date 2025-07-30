@@ -12,6 +12,7 @@ export default function Game({
 	numberOfPlayers,
 	quest,
 	_type = "Game",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function Game({
 				quest,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreativeWork>
 	)
 }

@@ -7,6 +7,7 @@ export type Props = PhysicalActivityCategoryProps & BaseProps
 
 export default function PhysicalActivityCategory({
 	_type = "PhysicalActivityCategory",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function PhysicalActivityCategory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

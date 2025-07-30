@@ -7,6 +7,7 @@ export type Props = CovidTestingFacilityProps & BaseProps
 
 export default function CovidTestingFacility({
 	_type = "CovidTestingFacility",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function CovidTestingFacility({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</MedicalClinic>
 	)
 }

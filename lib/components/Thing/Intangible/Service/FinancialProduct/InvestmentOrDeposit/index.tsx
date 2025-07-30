@@ -8,6 +8,7 @@ export type Props = InvestmentOrDepositProps & BaseProps
 export default function InvestmentOrDeposit({
 	amount,
 	_type = "InvestmentOrDeposit",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -19,6 +20,6 @@ export default function InvestmentOrDeposit({
 				amount,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</FinancialProduct>
 	)
 }

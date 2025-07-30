@@ -7,6 +7,7 @@ export type Props = TrainReservationProps & BaseProps
 
 export default function TrainReservation({
 	_type = "TrainReservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function TrainReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Reservation>
 	)
 }

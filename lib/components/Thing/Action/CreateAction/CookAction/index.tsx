@@ -10,6 +10,7 @@ export default function CookAction({
 	foodEvent,
 	recipe,
 	_type = "CookAction",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -23,6 +24,6 @@ export default function CookAction({
 				recipe,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</CreateAction>
 	)
 }

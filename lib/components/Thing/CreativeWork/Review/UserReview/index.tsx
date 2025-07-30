@@ -7,6 +7,7 @@ export type Props = UserReviewProps & BaseProps
 
 export default function UserReview({
 	_type = "UserReview",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function UserReview({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Review>
 	)
 }

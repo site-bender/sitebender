@@ -9,6 +9,7 @@ export default function Apartment({
 	numberOfRooms,
 	occupancy,
 	_type = "Apartment",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -21,6 +22,6 @@ export default function Apartment({
 				occupancy,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Accommodation>
 	)
 }

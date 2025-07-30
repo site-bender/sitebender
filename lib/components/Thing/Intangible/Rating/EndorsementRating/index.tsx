@@ -7,6 +7,7 @@ export type Props = EndorsementRatingProps & BaseProps
 
 export default function EndorsementRating({
 	_type = "EndorsementRating",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function EndorsementRating({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Rating>
 	)
 }

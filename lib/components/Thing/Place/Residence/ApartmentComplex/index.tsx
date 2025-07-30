@@ -12,6 +12,7 @@ export default function ApartmentComplex({
 	petsAllowed,
 	tourBookingPage,
 	_type = "ApartmentComplex",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function ApartmentComplex({
 				tourBookingPage,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Residence>
 	)
 }

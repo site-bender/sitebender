@@ -7,6 +7,7 @@ export type Props = HinduTempleProps & BaseProps
 
 export default function HinduTemple({
 	_type = "HinduTemple",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function HinduTemple({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</PlaceOfWorship>
 	)
 }

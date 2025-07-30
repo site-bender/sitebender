@@ -7,6 +7,7 @@ export type Props = AutoBodyShopProps & BaseProps
 
 export default function AutoBodyShop({
 	_type = "AutoBodyShop",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function AutoBodyShop({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</AutomotiveBusiness>
 	)
 }

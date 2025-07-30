@@ -11,6 +11,7 @@ export default function MemberProgramTier({
 	isTierOf,
 	membershipPointsEarned,
 	_type = "MemberProgramTier",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function MemberProgramTier({
 				membershipPointsEarned,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

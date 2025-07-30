@@ -7,6 +7,7 @@ export type Props = MerchantReturnEnumerationProps & BaseProps
 
 export default function MerchantReturnEnumeration({
 	_type = "MerchantReturnEnumeration",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -17,6 +18,6 @@ export default function MerchantReturnEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Enumeration>
 	)
 }

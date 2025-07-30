@@ -20,6 +20,7 @@ export default function Reservation({
 	totalPrice,
 	underName,
 	_type = "Reservation",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -43,6 +44,6 @@ export default function Reservation({
 				underName,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</Intangible>
 	)
 }

@@ -11,6 +11,7 @@ export default function PhysicalActivity({
 	epidemiology,
 	pathophysiology,
 	_type = "PhysicalActivity",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -25,6 +26,6 @@ export default function PhysicalActivity({
 				pathophysiology,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</LifestyleModification>
 	)
 }

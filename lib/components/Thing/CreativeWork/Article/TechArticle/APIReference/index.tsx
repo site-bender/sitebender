@@ -12,6 +12,7 @@ export default function APIReference({
 	programmingModel,
 	targetPlatform,
 	_type = "APIReference",
+	children,
 	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
@@ -27,6 +28,6 @@ export default function APIReference({
 				targetPlatform,
 				...subtypeProperties,
 			}}
-		/>
+		>{children}</TechArticle>
 	)
 }
