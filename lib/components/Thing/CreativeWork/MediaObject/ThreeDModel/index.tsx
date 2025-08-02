@@ -18,6 +18,8 @@ export default function ThreeDModel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

@@ -18,6 +18,8 @@ export default function Zoo({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

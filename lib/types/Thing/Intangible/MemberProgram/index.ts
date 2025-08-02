@@ -6,8 +6,10 @@ import type MemberProgramTier from "../MemberProgramTier/index.ts"
 import MemberProgramTierComponent from "../../../../components/Thing/Intangible/MemberProgramTier/index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 
+export type MemberProgramType = "MemberProgram"
+
 export interface MemberProgramProps {
-	"@type"?: "MemberProgram"
+	"@type"?: MemberProgramType
 	hasTiers?: MemberProgramTier | ReturnType<typeof MemberProgramTierComponent>
 	hostingOrganization?: Organization | ReturnType<typeof OrganizationComponent>
 }

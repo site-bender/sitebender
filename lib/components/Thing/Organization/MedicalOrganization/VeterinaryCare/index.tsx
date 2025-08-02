@@ -18,6 +18,8 @@ export default function VeterinaryCare({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalOrganization>
+		>
+			{children}
+		</MedicalOrganization>
 	)
 }

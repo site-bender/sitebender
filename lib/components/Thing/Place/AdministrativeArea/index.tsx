@@ -18,6 +18,8 @@ export default function AdministrativeArea({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

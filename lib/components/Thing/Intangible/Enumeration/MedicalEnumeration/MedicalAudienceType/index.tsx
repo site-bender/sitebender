@@ -18,6 +18,8 @@ export default function MedicalAudienceType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEnumeration>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

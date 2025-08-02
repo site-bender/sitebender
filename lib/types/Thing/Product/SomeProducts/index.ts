@@ -4,8 +4,10 @@ import type { ProductProps } from "../index.ts"
 
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type SomeProductsType = "SomeProducts"
+
 export interface SomeProductsProps {
-	"@type"?: "SomeProducts"
+	"@type"?: SomeProductsType
 	inventoryLevel?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

@@ -55,8 +55,10 @@ import AdministrativeAreaComponent from "../../../../components/Thing/Place/Admi
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type DemandType = "Demand"
+
 export interface DemandProps {
-	"@type"?: "Demand"
+	"@type"?: DemandType
 	acceptedPaymentMethod?:
 		| LoanOrCredit
 		| PaymentMethod

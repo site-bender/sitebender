@@ -18,6 +18,8 @@ export default function AmpStory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

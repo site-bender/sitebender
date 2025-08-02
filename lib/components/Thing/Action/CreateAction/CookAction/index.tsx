@@ -24,6 +24,8 @@ export default function CookAction({
 				recipe,
 				...subtypeProperties,
 			}}
-		>{children}</CreateAction>
+		>
+			{children}
+		</CreateAction>
 	)
 }

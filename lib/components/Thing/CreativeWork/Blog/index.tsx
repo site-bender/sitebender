@@ -24,6 +24,8 @@ export default function Blog({
 				issn,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

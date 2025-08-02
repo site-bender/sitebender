@@ -30,6 +30,8 @@ export default function BroadcastChannel({
 				providesBroadcastService,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

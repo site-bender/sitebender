@@ -22,6 +22,8 @@ export default function Answer({
 				parentItem,
 				...subtypeProperties,
 			}}
-		>{children}</Comment>
+		>
+			{children}
+		</Comment>
 	)
 }

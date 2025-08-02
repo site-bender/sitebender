@@ -20,6 +20,8 @@ export default function MedicalScholarlyArticle({
 				publicationType,
 				...subtypeProperties,
 			}}
-		>{children}</ScholarlyArticle>
+		>
+			{children}
+		</ScholarlyArticle>
 	)
 }

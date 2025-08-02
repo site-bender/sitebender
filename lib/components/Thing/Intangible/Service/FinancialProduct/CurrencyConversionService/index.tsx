@@ -18,6 +18,8 @@ export default function CurrencyConversionService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FinancialProduct>
+		>
+			{children}
+		</FinancialProduct>
 	)
 }

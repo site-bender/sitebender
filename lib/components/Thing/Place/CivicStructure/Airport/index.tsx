@@ -22,6 +22,8 @@ export default function Airport({
 				icaoCode,
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

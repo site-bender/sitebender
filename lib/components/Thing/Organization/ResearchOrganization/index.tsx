@@ -18,6 +18,8 @@ export default function ResearchOrganization({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

@@ -34,6 +34,8 @@ export default function GeoShape({
 				postalCode,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

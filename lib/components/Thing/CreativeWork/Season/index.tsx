@@ -18,6 +18,8 @@ export default function Season({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

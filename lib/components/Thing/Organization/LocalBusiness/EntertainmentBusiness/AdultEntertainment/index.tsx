@@ -18,6 +18,8 @@ export default function AdultEntertainment({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EntertainmentBusiness>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

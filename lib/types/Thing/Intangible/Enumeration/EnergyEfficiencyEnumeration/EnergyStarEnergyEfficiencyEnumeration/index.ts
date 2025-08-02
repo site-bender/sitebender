@@ -3,8 +3,12 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { EnergyEfficiencyEnumerationProps } from "../index.ts"
 
+export type EnergyStarEnergyEfficiencyEnumerationType =
+	"EnergyStarEnergyEfficiencyEnumeration"
+
 export interface EnergyStarEnergyEfficiencyEnumerationProps {
-	"@type"?: "EnergyStarEnergyEfficiencyEnumeration"}
+	"@type"?: EnergyStarEnergyEfficiencyEnumerationType
+}
 
 type EnergyStarEnergyEfficiencyEnumeration =
 	& Thing

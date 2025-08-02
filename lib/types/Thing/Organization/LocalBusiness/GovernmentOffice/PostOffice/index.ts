@@ -4,8 +4,11 @@ import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { GovernmentOfficeProps } from "../index.ts"
 
+export type PostOfficeType = "PostOffice"
+
 export interface PostOfficeProps {
-	"@type"?: "PostOffice"}
+	"@type"?: PostOfficeType
+}
 
 type PostOffice =
 	& Thing

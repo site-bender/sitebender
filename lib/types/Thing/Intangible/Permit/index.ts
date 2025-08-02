@@ -6,6 +6,7 @@ import type Audience from "../Audience/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type Service from "../Service/index.ts"
+import type { GovernmentPermitType } from "./GovernmentPermit/index.ts"
 
 import AudienceComponent from "../../../../components/Thing/Intangible/Audience/index.ts"
 import DurationComponent from "../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
@@ -13,8 +14,10 @@ import ServiceComponent from "../../../../components/Thing/Intangible/Service/in
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type PermitType = "Permit" | GovernmentPermitType
+
 export interface PermitProps {
-	"@type"?: "Permit"
+	"@type"?: PermitType
 	issuedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	issuedThrough?: Service | ReturnType<typeof ServiceComponent>
 	permitAudience?: Audience | ReturnType<typeof AudienceComponent>

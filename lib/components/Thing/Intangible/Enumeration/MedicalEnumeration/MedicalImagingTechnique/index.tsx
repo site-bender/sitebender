@@ -18,6 +18,8 @@ export default function MedicalImagingTechnique({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEnumeration>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

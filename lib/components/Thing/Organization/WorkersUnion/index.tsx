@@ -18,6 +18,8 @@ export default function WorkersUnion({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

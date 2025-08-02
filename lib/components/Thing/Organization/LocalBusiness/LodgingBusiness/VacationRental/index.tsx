@@ -18,6 +18,8 @@ export default function VacationRental({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LodgingBusiness>
+		>
+			{children}
+		</LodgingBusiness>
 	)
 }

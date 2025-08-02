@@ -24,6 +24,8 @@ export default function MedicalTherapy({
 				seriousAdverseOutcome,
 				...subtypeProperties,
 			}}
-		>{children}</TherapeuticProcedure>
+		>
+			{children}
+		</TherapeuticProcedure>
 	)
 }

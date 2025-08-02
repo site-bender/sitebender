@@ -18,6 +18,8 @@ export default function RecommendedDoseSchedule({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DoseSchedule>
+		>
+			{children}
+		</DoseSchedule>
 	)
 }

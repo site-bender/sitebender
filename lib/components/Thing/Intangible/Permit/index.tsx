@@ -32,6 +32,8 @@ export default function Permit({
 				validUntil,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

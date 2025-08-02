@@ -18,6 +18,8 @@ export default function BloodTest({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTest>
+		>
+			{children}
+		</MedicalTest>
 	)
 }

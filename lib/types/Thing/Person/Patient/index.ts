@@ -10,8 +10,10 @@ import type { PersonProps } from "../index.ts"
 import MedicalConditionComponent from "../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
+export type PatientType = "Patient"
+
 export interface PatientProps {
-	"@type"?: "Patient"
+	"@type"?: PatientType
 	diagnosis?: MedicalCondition | ReturnType<typeof MedicalConditionComponent>
 	drug?: Drug | ReturnType<typeof DrugComponent>
 	healthCondition?:

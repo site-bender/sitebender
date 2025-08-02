@@ -18,6 +18,8 @@ export default function RadioSeason({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeason>
+		>
+			{children}
+		</CreativeWorkSeason>
 	)
 }

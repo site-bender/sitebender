@@ -18,6 +18,8 @@ export default function QuoteAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

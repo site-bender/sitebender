@@ -18,6 +18,8 @@ export default function ShortStory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -18,6 +18,8 @@ export default function PodcastSeason({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeason>
+		>
+			{children}
+		</CreativeWorkSeason>
 	)
 }

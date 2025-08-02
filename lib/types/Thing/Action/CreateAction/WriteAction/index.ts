@@ -6,8 +6,10 @@ import type { CreateActionProps } from "../index.ts"
 
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
+export type WriteActionType = "WriteAction"
+
 export interface WriteActionProps {
-	"@type"?: "WriteAction"
+	"@type"?: WriteActionType
 	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	language?: Language | ReturnType<typeof LanguageComponent>
 }

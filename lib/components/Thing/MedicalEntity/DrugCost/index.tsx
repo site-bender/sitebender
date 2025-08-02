@@ -30,6 +30,8 @@ export default function DrugCost({
 				drugUnit,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

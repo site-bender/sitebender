@@ -42,6 +42,8 @@ export default function Certification({
 				validIn,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

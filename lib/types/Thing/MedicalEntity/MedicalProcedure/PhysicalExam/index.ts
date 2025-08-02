@@ -5,8 +5,11 @@ import type { IntangibleProps } from "../../../Intangible/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalProcedureProps } from "../index.ts"
 
+export type PhysicalExamType = "PhysicalExam"
+
 export interface PhysicalExamProps {
-	"@type"?: "PhysicalExam"}
+	"@type"?: PhysicalExamType
+}
 
 type PhysicalExam =
 	& Thing

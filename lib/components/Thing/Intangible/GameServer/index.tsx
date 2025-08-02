@@ -24,6 +24,8 @@ export default function GameServer({
 				serverStatus,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type CreativeWorkSeriesProps from "../../../../../../types/Thing/CreativeWorkSeries/index.ts"
-import type RadioSeriesProps from "../../../../../../types/Thing/RadioSeries/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type RadioSeriesProps from "../../../../../../types/Thing/Intangible/Series/CreativeWorkSeries/RadioSeries/index.ts"
 
 import CreativeWorkSeries from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	RadioSeriesProps,
-	"RadioSeries",
-	ExtractLevelProps<RadioSeriesProps, CreativeWorkSeriesProps>
->
+// RadioSeries adds no properties to the ListItem schema type
+export type Props = RadioSeriesProps & BaseProps
 
 export default function RadioSeries(
 	{
@@ -56,6 +49,8 @@ export default function RadioSeries(
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</RadioSeriesProps>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

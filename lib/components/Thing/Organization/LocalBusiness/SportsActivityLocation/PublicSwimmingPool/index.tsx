@@ -18,6 +18,8 @@ export default function PublicSwimmingPool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SportsActivityLocation>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

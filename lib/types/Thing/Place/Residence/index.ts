@@ -1,11 +1,18 @@
 import type Thing from "../../index.ts"
 import type FloorPlan from "../../Intangible/FloorPlan/index.ts"
 import type { PlaceProps } from "../index.ts"
+import type { ApartmentComplexType } from "./ApartmentComplex/index.ts"
+import type { GatedResidenceCommunityType } from "./GatedResidenceCommunity/index.ts"
 
 import FloorPlanComponent from "../../../../components/Thing/Intangible/FloorPlan/index.ts"
 
+export type ResidenceType =
+	| "Residence"
+	| ApartmentComplexType
+	| GatedResidenceCommunityType
+
 export interface ResidenceProps {
-	"@type"?: "Residence"
+	"@type"?: ResidenceType
 	accommodationFloorPlan?: FloorPlan | ReturnType<typeof FloorPlanComponent>
 }
 

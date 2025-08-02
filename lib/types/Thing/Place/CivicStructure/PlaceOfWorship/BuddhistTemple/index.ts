@@ -3,8 +3,11 @@ import type { PlaceProps } from "../../../index.ts"
 import type { CivicStructureProps } from "../../index.ts"
 import type { PlaceOfWorshipProps } from "../index.ts"
 
+export type BuddhistTempleType = "BuddhistTemple"
+
 export interface BuddhistTempleProps {
-	"@type"?: "BuddhistTemple"}
+	"@type"?: BuddhistTempleType
+}
 
 type BuddhistTemple =
 	& Thing

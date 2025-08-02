@@ -18,6 +18,8 @@ export default function BoatTerminal({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

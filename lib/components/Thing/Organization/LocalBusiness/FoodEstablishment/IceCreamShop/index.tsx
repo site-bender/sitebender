@@ -18,6 +18,8 @@ export default function IceCreamShop({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FoodEstablishment>
+		>
+			{children}
+		</FoodEstablishment>
 	)
 }

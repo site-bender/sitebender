@@ -18,6 +18,8 @@ export default function BedAndBreakfast({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LodgingBusiness>
+		>
+			{children}
+		</LodgingBusiness>
 	)
 }

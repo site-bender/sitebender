@@ -14,6 +14,13 @@ import type QuantitativeValue from "../../../Intangible/StructuredValue/Quantita
 import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
+import type { BedAndBreakfastType } from "./BedAndBreakfast/index.ts"
+import type { CampgroundType } from "./Campground/index.ts"
+import type { HostelType } from "./Hostel/index.ts"
+import type { HotelType } from "./Hotel/index.ts"
+import type { MotelType } from "./Motel/index.ts"
+import type { ResortType } from "./Resort/index.ts"
+import type { VacationRentalType } from "./VacationRental/index.ts"
 
 import AudienceComponent from "../../../../../components/Thing/Intangible/Audience/index.ts"
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
@@ -21,8 +28,18 @@ import RatingComponent from "../../../../../components/Thing/Intangible/Rating/i
 import LocationFeatureSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type LodgingBusinessType =
+	| "LodgingBusiness"
+	| MotelType
+	| ResortType
+	| CampgroundType
+	| HotelType
+	| HostelType
+	| VacationRentalType
+	| BedAndBreakfastType
+
 export interface LodgingBusinessProps {
-	"@type"?: "LodgingBusiness"
+	"@type"?: LodgingBusinessType
 	amenityFeature?:
 		| LocationFeatureSpecification
 		| ReturnType<typeof LocationFeatureSpecificationComponent>

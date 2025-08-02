@@ -18,6 +18,8 @@ export default function HowToTip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -8,6 +8,8 @@ import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 import type MedicalCondition from "../MedicalCondition/index.ts"
+import type { MedicalObservationalStudyType } from "./MedicalObservationalStudy/index.ts"
+import type { MedicalTrialType } from "./MedicalTrial/index.ts"
 
 import MedicalStudyStatusComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
 import EventStatusTypeComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
@@ -17,8 +19,13 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type MedicalStudyType =
+	| "MedicalStudy"
+	| MedicalTrialType
+	| MedicalObservationalStudyType
+
 export interface MedicalStudyProps {
-	"@type"?: "MedicalStudy"
+	"@type"?: MedicalStudyType
 	healthCondition?:
 		| MedicalCondition
 		| ReturnType<typeof MedicalConditionComponent>

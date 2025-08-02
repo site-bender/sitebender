@@ -5,7 +5,11 @@ import type Grant from "../Intangible/Grant/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 import type MedicalCondition from "../MedicalEntity/MedicalCondition/index.ts"
 import type Taxon from "../Taxon/index.ts"
+import type { ChemicalSubstanceType } from "./ChemicalSubstance/index.ts"
 import type Gene from "./Gene/index.ts"
+import type { GeneType } from "./Gene/index.ts"
+import type { MolecularEntityType } from "./MolecularEntity/index.ts"
+import type { ProteinType } from "./Protein/index.ts"
 
 import GeneComponent from "../../../components/Thing/BioChemEntity/Gene/index.ts"
 import BioChemEntityComponent from "../../../components/Thing/BioChemEntity/index.ts"
@@ -15,8 +19,15 @@ import PropertyValueComponent from "../../../components/Thing/Intangible/Structu
 import MedicalConditionComponent from "../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import TaxonComponent from "../../../components/Thing/Taxon/index.ts"
 
+export type BioChemEntityType =
+	| "BioChemEntity"
+	| ProteinType
+	| GeneType
+	| MolecularEntityType
+	| ChemicalSubstanceType
+
 export interface BioChemEntityProps {
-	"@type"?: "BioChemEntity"
+	"@type"?: BioChemEntityType
 	associatedDisease?:
 		| MedicalCondition
 		| PropertyValue

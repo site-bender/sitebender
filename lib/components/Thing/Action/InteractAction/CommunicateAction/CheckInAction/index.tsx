@@ -18,6 +18,8 @@ export default function CheckInAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

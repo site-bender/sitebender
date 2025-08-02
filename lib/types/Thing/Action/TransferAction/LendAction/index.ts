@@ -5,8 +5,10 @@ import type { TransferActionProps } from "../index.ts"
 
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type LendActionType = "LendAction"
+
 export interface LendActionProps {
-	"@type"?: "LendAction"
+	"@type"?: LendActionType
 	borrower?: Person | ReturnType<typeof PersonComponent>
 }
 

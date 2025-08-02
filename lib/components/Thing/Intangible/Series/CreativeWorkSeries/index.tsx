@@ -1,17 +1,9 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type CreativeWorkSeriesProps from "../../../../../types/Thing/CreativeWorkSeries/index.ts"
-import type SeriesProps from "../../../../../types/Thing/Series/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type CreativeWorkSeriesProps from "../../../../../types/Thing/Intangible/Series/CreativeWorkSeries/index.ts"
 
 import Series from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	CreativeWorkSeriesProps,
-	"CreativeWorkSeries",
-	ExtractLevelProps<CreativeWorkSeriesProps, SeriesProps>
->
+export type Props = CreativeWorkSeriesProps & BaseProps
 
 export default function CreativeWorkSeries(
 	{
@@ -34,6 +26,8 @@ export default function CreativeWorkSeries(
 				startDate,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeriesProps>
+		>
+			{children}
+		</Series>
 	)
 }

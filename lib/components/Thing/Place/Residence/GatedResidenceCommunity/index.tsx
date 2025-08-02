@@ -18,6 +18,8 @@ export default function GatedResidenceCommunity({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Residence>
+		>
+			{children}
+		</Residence>
 	)
 }

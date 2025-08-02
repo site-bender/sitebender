@@ -18,6 +18,8 @@ export default function SurgicalProcedure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalProcedure>
+		>
+			{children}
+		</MedicalProcedure>
 	)
 }

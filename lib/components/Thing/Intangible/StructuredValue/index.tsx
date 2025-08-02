@@ -18,6 +18,8 @@ export default function StructuredValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

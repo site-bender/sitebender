@@ -18,6 +18,8 @@ export default function EmploymentAgency({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

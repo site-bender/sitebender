@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ReservationProps } from "../index.ts"
 
+export type TrainReservationType = "TrainReservation"
+
 export interface TrainReservationProps {
-	"@type"?: "TrainReservation"}
+	"@type"?: TrainReservationType
+}
 
 type TrainReservation =
 	& Thing

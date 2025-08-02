@@ -18,6 +18,8 @@ export default function DanceEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

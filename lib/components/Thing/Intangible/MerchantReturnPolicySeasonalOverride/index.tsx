@@ -36,6 +36,8 @@ export default function MerchantReturnPolicySeasonalOverride({
 				startDate,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

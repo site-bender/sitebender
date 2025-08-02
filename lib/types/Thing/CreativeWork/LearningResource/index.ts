@@ -3,12 +3,21 @@ import type Thing from "../../index.ts"
 import type AlignmentObject from "../../Intangible/AlignmentObject/index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { CourseType } from "./Course/index.ts"
+import type { QuizType } from "./Quiz/index.ts"
+import type { SyllabusType } from "./Syllabus/index.ts"
 
 import AlignmentObjectComponent from "../../../../components/Thing/Intangible/AlignmentObject/index.ts"
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 
+export type LearningResourceType =
+	| "LearningResource"
+	| CourseType
+	| QuizType
+	| SyllabusType
+
 export interface LearningResourceProps {
-	"@type"?: "LearningResource"
+	"@type"?: LearningResourceType
 	assesses?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
 	competencyRequired?:
 		| DefinedTerm

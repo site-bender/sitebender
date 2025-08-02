@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { DigitalDocumentProps } from "../index.ts"
 
+export type SpreadsheetDigitalDocumentType = "SpreadsheetDigitalDocument"
+
 export interface SpreadsheetDigitalDocumentProps {
-	"@type"?: "SpreadsheetDigitalDocument"}
+	"@type"?: SpreadsheetDigitalDocumentType
+}
 
 type SpreadsheetDigitalDocument =
 	& Thing

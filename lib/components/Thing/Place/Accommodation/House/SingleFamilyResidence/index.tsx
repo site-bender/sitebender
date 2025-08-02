@@ -22,6 +22,8 @@ export default function SingleFamilyResidence({
 				occupancy,
 				...subtypeProperties,
 			}}
-		>{children}</House>
+		>
+			{children}
+		</House>
 	)
 }

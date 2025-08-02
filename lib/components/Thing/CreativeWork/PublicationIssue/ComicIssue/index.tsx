@@ -30,6 +30,8 @@ export default function ComicIssue({
 				variantCover,
 				...subtypeProperties,
 			}}
-		>{children}</PublicationIssue>
+		>
+			{children}
+		</PublicationIssue>
 	)
 }

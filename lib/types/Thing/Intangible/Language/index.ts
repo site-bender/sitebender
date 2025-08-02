@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
+export type LanguageType = "Language"
+
 export interface LanguageProps {
-	"@type"?: "Language"}
+	"@type"?: LanguageType
+}
 
 type Language = Thing & IntangibleProps & LanguageProps
 

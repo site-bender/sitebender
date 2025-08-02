@@ -20,6 +20,8 @@ export default function Corporation({
 				tickerSymbol,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

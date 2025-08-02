@@ -18,6 +18,8 @@ export default function IgnoreAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AssessAction>
+		>
+			{children}
+		</AssessAction>
 	)
 }

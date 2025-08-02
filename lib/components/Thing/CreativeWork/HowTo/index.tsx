@@ -36,6 +36,8 @@ export default function HowTo({
 				yield,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

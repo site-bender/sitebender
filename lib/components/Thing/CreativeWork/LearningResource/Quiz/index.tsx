@@ -18,6 +18,8 @@ export default function Quiz({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LearningResource>
+		>
+			{children}
+		</LearningResource>
 	)
 }

@@ -36,6 +36,8 @@ export default function Message({
 				toRecipient,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { SoftwareApplicationProps } from "../index.ts"
 
+export type WebApplicationType = "WebApplication"
+
 export interface WebApplicationProps {
-	"@type"?: "WebApplication"
+	"@type"?: WebApplicationType
 	browserRequirements?: Text
 }
 

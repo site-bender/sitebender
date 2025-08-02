@@ -18,6 +18,8 @@ export default function BookmarkAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</OrganizeAction>
+		>
+			{children}
+		</OrganizeAction>
 	)
 }

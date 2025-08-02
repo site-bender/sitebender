@@ -26,6 +26,8 @@ export default function MemberProgramTier({
 				membershipPointsEarned,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

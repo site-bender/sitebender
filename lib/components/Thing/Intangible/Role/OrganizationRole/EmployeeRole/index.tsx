@@ -22,6 +22,8 @@ export default function EmployeeRole({
 				salaryCurrency,
 				...subtypeProperties,
 			}}
-		>{children}</OrganizationRole>
+		>
+			{children}
+		</OrganizationRole>
 	)
 }

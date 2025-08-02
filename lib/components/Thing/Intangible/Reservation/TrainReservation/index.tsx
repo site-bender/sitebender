@@ -18,6 +18,8 @@ export default function TrainReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

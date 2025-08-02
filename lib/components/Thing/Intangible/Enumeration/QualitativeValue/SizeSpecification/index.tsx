@@ -30,6 +30,8 @@ export default function SizeSpecification({
 				suggestedMeasurement,
 				...subtypeProperties,
 			}}
-		>{children}</QualitativeValue>
+		>
+			{children}
+		</QualitativeValue>
 	)
 }

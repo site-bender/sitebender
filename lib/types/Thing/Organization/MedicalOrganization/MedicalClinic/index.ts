@@ -8,14 +8,17 @@ import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../../LocalBusiness/index.ts"
 import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
+import type { CovidTestingFacilityType } from "./CovidTestingFacility/index.ts"
 
 import MedicalSpecialtyComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.ts"
 import MedicalProcedureComponent from "../../../../../components/Thing/MedicalEntity/MedicalProcedure/index.ts"
 import MedicalTherapyComponent from "../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
+export type MedicalClinicType = "MedicalClinic" | CovidTestingFacilityType
+
 export interface MedicalClinicProps {
-	"@type"?: "MedicalClinic"
+	"@type"?: MedicalClinicType
 	availableService?:
 		| MedicalProcedure
 		| MedicalTest

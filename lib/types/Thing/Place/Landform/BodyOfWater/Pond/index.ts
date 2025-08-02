@@ -3,8 +3,11 @@ import type { PlaceProps } from "../../../index.ts"
 import type { LandformProps } from "../../index.ts"
 import type { BodyOfWaterProps } from "../index.ts"
 
+export type PondType = "Pond"
+
 export interface PondProps {
-	"@type"?: "Pond"}
+	"@type"?: PondType
+}
 
 type Pond = Thing & PlaceProps & LandformProps & BodyOfWaterProps & PondProps
 

@@ -18,6 +18,8 @@ export default function LandmarksOrHistoricalBuildings({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

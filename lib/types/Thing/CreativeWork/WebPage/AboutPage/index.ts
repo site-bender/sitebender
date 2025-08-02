@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageProps } from "../index.ts"
 
+export type AboutPageType = "AboutPage"
+
 export interface AboutPageProps {
-	"@type"?: "AboutPage"}
+	"@type"?: AboutPageType
+}
 
 type AboutPage = Thing & CreativeWorkProps & WebPageProps & AboutPageProps
 

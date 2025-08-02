@@ -18,6 +18,8 @@ export default function TheaterGroup({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PerformingGroup>
+		>
+			{children}
+		</PerformingGroup>
 	)
 }

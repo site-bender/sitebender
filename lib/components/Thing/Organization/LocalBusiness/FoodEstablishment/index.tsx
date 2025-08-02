@@ -28,6 +28,8 @@ export default function FoodEstablishment({
 				starRating,
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

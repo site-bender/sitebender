@@ -42,6 +42,8 @@ export default function ParcelDelivery({
 				trackingUrl,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

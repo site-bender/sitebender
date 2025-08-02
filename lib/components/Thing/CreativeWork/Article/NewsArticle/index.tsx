@@ -28,6 +28,8 @@ export default function NewsArticle({
 				printSection,
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

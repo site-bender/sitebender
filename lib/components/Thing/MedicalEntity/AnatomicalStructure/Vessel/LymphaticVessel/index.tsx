@@ -24,6 +24,8 @@ export default function LymphaticVessel({
 				runsTo,
 				...subtypeProperties,
 			}}
-		>{children}</Vessel>
+		>
+			{children}
+		</Vessel>
 	)
 }

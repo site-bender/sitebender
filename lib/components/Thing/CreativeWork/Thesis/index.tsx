@@ -20,6 +20,8 @@ export default function Thesis({
 				inSupportOf,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

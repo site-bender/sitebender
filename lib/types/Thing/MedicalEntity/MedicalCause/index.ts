@@ -4,8 +4,10 @@ import type { MedicalEntityProps } from "../index.ts"
 
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
+export type MedicalCauseType = "MedicalCause"
+
 export interface MedicalCauseProps {
-	"@type"?: "MedicalCause"
+	"@type"?: MedicalCauseType
 	causeOf?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 }
 

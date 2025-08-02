@@ -66,6 +66,8 @@ export default function EducationalOccupationalProgram({
 				typicalCreditsPerTerm,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -18,6 +18,8 @@ export default function AssessAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

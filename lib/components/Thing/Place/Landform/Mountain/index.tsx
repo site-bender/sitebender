@@ -18,6 +18,8 @@ export default function Mountain({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Landform>
+		>
+			{children}
+		</Landform>
 	)
 }

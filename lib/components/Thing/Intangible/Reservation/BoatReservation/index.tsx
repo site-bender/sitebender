@@ -18,6 +18,8 @@ export default function BoatReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

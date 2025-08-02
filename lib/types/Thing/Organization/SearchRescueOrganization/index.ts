@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { OrganizationProps } from "../index.ts"
 
+export type SearchRescueOrganizationType = "SearchRescueOrganization"
+
 export interface SearchRescueOrganizationProps {
-	"@type"?: "SearchRescueOrganization"}
+	"@type"?: SearchRescueOrganizationType
+}
 
 type SearchRescueOrganization =
 	& Thing

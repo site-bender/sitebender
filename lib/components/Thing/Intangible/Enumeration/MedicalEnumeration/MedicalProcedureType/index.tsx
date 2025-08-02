@@ -18,6 +18,8 @@ export default function MedicalProcedureType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEnumeration>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

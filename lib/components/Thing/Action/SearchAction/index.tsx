@@ -20,6 +20,8 @@ export default function SearchAction({
 				query,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

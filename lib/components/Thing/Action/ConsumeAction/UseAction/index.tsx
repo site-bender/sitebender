@@ -18,6 +18,8 @@ export default function UseAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

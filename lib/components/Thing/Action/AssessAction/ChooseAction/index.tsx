@@ -22,6 +22,8 @@ export default function ChooseAction({
 				option,
 				...subtypeProperties,
 			}}
-		>{children}</AssessAction>
+		>
+			{children}
+		</AssessAction>
 	)
 }

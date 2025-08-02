@@ -8,8 +8,10 @@ import type UnitPriceSpecification from "../PriceSpecification/UnitPriceSpecific
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 import UnitPriceSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 
+export type ExchangeRateSpecificationType = "ExchangeRateSpecification"
+
 export interface ExchangeRateSpecificationProps {
-	"@type"?: "ExchangeRateSpecification"
+	"@type"?: ExchangeRateSpecificationType
 	currency?: Text
 	currentExchangeRate?:
 		| UnitPriceSpecification

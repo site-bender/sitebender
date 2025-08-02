@@ -18,6 +18,8 @@ export default function BarOrPub({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FoodEstablishment>
+		>
+			{children}
+		</FoodEstablishment>
 	)
 }

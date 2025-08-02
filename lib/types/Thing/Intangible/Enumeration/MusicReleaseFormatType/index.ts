@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
+export type MusicReleaseFormatTypeType = "MusicReleaseFormatType"
+
 export interface MusicReleaseFormatTypeProps {
-	"@type"?: "MusicReleaseFormatType"}
+	"@type"?: MusicReleaseFormatTypeType
+}
 
 type MusicReleaseFormatType =
 	& Thing

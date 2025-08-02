@@ -18,6 +18,8 @@ export default function ImageObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ImageObject>
+		>
+			{children}
+		</ImageObject>
 	)
 }

@@ -8,8 +8,10 @@ import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/ind
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type ClaimType = "Claim"
+
 export interface ClaimProps {
-	"@type"?: "Claim"
+	"@type"?: ClaimType
 	appearance?: CreativeWork | ReturnType<typeof CreativeWorkComponent>
 	claimInterpreter?:
 		| Organization

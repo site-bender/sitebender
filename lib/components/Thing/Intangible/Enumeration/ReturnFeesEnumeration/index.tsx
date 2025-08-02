@@ -18,6 +18,8 @@ export default function ReturnFeesEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

@@ -18,6 +18,8 @@ export default function ReportedDoseSchedule({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DoseSchedule>
+		>
+			{children}
+		</DoseSchedule>
 	)
 }

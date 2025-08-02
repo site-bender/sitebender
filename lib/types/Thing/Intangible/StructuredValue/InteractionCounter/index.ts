@@ -21,8 +21,10 @@ import PostalAddressComponent from "../../../../../components/Thing/Intangible/S
 import VirtualLocationComponent from "../../../../../components/Thing/Intangible/VirtualLocation/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
+export type InteractionCounterType = "InteractionCounter"
+
 export interface InteractionCounterProps {
-	"@type"?: "InteractionCounter"
+	"@type"?: InteractionCounterType
 	endTime?: DateTime | Time
 	interactionService?:
 		| SoftwareApplication

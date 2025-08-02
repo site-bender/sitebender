@@ -172,6 +172,8 @@ export default function Organization({
 				vatID,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

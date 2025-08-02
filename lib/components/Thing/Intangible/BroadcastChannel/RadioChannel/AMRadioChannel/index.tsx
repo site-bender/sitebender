@@ -18,6 +18,8 @@ export default function AMRadioChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</RadioChannel>
+		>
+			{children}
+		</RadioChannel>
 	)
 }

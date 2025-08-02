@@ -7,8 +7,10 @@ import type { TransferActionProps } from "../index.ts"
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type BorrowActionType = "BorrowAction"
+
 export interface BorrowActionProps {
-	"@type"?: "BorrowAction"
+	"@type"?: BorrowActionType
 	lender?:
 		| Organization
 		| Person

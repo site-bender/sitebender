@@ -18,6 +18,8 @@ export default function ReservationStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</StatusEnumeration>
+		>
+			{children}
+		</StatusEnumeration>
 	)
 }

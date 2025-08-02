@@ -28,6 +28,28 @@ import type Organization from "../Organization/index.ts"
 import type PerformingGroup from "../Organization/PerformingGroup/index.ts"
 import type Person from "../Person/index.ts"
 import type Place from "../Place/index.ts"
+import type { BusinessEventType } from "./BusinessEvent/index.ts"
+import type { ChildrensEventType } from "./ChildrensEvent/index.ts"
+import type { ComedyEventType } from "./ComedyEvent/index.ts"
+import type { CourseInstanceType } from "./CourseInstance/index.ts"
+import type { DanceEventType } from "./DanceEvent/index.ts"
+import type { DeliveryEventType } from "./DeliveryEvent/index.ts"
+import type { EducationEventType } from "./EducationEvent/index.ts"
+import type { EventSeriesType } from "./EventSeries/index.ts"
+import type { ExhibitionEventType } from "./ExhibitionEvent/index.ts"
+import type { FestivalType } from "./Festival/index.ts"
+import type { FoodEventType } from "./FoodEvent/index.ts"
+import type { HackathonType } from "./Hackathon/index.ts"
+import type { LiteraryEventType } from "./LiteraryEvent/index.ts"
+import type { MusicEventType } from "./MusicEvent/index.ts"
+import type { PublicationEventType } from "./PublicationEvent/index.ts"
+import type { SaleEventType } from "./SaleEvent/index.ts"
+import type { ScreeningEventType } from "./ScreeningEvent/index.ts"
+import type { SocialEventType } from "./SocialEvent/index.ts"
+import type { SportsEventType } from "./SportsEvent/index.ts"
+import type { TheaterEventType } from "./TheaterEvent/index.ts"
+import type { UserInteractionType } from "./UserInteraction/index.ts"
+import type { VisualArtsEventType } from "./VisualArtsEvent/index.ts"
 
 import CreativeWorkComponent from "../../../components/Thing/CreativeWork/index.ts"
 import ReviewComponent from "../../../components/Thing/CreativeWork/Review/index.ts"
@@ -52,8 +74,33 @@ import PerformingGroupComponent from "../../../components/Thing/Organization/Per
 import PersonComponent from "../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
+export type EventType =
+	| "Event"
+	| MusicEventType
+	| SaleEventType
+	| DeliveryEventType
+	| ChildrensEventType
+	| BusinessEventType
+	| CourseInstanceType
+	| ExhibitionEventType
+	| UserInteractionType
+	| EducationEventType
+	| EventSeriesType
+	| FoodEventType
+	| SocialEventType
+	| ComedyEventType
+	| HackathonType
+	| SportsEventType
+	| TheaterEventType
+	| FestivalType
+	| ScreeningEventType
+	| VisualArtsEventType
+	| PublicationEventType
+	| LiteraryEventType
+	| DanceEventType
+
 export interface EventProps {
-	"@type"?: "Event"
+	"@type"?: EventType
 	about?: Thing | ReturnType<typeof ThingComponent>
 	actor?:
 		| PerformingGroup

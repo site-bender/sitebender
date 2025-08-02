@@ -18,6 +18,8 @@ export default function ClothingStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Store>
+		>
+			{children}
+		</Store>
 	)
 }

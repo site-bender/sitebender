@@ -18,6 +18,8 @@ export default function Landform({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

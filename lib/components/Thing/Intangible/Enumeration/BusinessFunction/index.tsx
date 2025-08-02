@@ -18,6 +18,8 @@ export default function BusinessFunction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

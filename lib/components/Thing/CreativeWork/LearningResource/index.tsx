@@ -32,6 +32,8 @@ export default function LearningResource({
 				teaches,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

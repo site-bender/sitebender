@@ -22,6 +22,8 @@ export default function MediaSubscription({
 				expectsAcceptanceOf,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

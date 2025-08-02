@@ -4,8 +4,10 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { AudienceProps } from "../../index.ts"
 import type { PeopleAudienceProps } from "../index.ts"
 
+export type ParentAudienceType = "ParentAudience"
+
 export interface ParentAudienceProps {
-	"@type"?: "ParentAudience"
+	"@type"?: ParentAudienceType
 	childMaxAge?: Number
 	childMinAge?: Number
 }

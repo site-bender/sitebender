@@ -28,6 +28,8 @@ export default function UserComments({
 				replyToUrl,
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

@@ -18,6 +18,8 @@ export default function Campground({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

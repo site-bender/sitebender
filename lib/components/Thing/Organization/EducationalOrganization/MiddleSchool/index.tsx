@@ -18,6 +18,8 @@ export default function MiddleSchool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EducationalOrganization>
+		>
+			{children}
+		</EducationalOrganization>
 	)
 }

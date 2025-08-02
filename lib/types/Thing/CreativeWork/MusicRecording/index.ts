@@ -17,8 +17,10 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import MusicGroupComponent from "../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type MusicRecordingType = "MusicRecording"
+
 export interface MusicRecordingProps {
-	"@type"?: "MusicRecording"
+	"@type"?: MusicRecordingType
 	byArtist?:
 		| MusicGroup
 		| Person

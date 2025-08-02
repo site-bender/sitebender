@@ -18,6 +18,8 @@ export default function EntertainmentBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

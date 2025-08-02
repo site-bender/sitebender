@@ -13,8 +13,10 @@ import MaximumDoseScheduleComponent from "../../../../components/Thing/MedicalEn
 import RecommendedDoseScheduleComponent from "../../../../components/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.ts"
 import DrugLegalStatusComponent from "../../../../components/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
 
+export type DietarySupplementType = "DietarySupplement"
+
 export interface DietarySupplementProps {
-	"@type"?: "DietarySupplement"
+	"@type"?: DietarySupplementType
 	activeIngredient?: Text
 	isProprietary?: Boolean
 	legalStatus?:

@@ -22,6 +22,8 @@ export default function MortgageLoan({
 				loanMortgageMandateAmount,
 				...subtypeProperties,
 			}}
-		>{children}</LoanOrCredit>
+		>
+			{children}
+		</LoanOrCredit>
 	)
 }

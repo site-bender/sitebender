@@ -11,8 +11,10 @@ import FoodEventComponent from "../../../../../components/Thing/Event/FoodEvent/
 import FoodEstablishmentComponent from "../../../../../components/Thing/Organization/LocalBusiness/FoodEstablishment/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
+export type CookActionType = "CookAction"
+
 export interface CookActionProps {
-	"@type"?: "CookAction"
+	"@type"?: CookActionType
 	foodEstablishment?:
 		| FoodEstablishment
 		| Place

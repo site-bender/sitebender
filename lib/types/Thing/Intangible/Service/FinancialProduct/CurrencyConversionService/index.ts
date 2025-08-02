@@ -3,8 +3,11 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
 
+export type CurrencyConversionServiceType = "CurrencyConversionService"
+
 export interface CurrencyConversionServiceProps {
-	"@type"?: "CurrencyConversionService"}
+	"@type"?: CurrencyConversionServiceType
+}
 
 type CurrencyConversionService =
 	& Thing

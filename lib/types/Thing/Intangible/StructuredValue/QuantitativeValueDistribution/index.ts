@@ -4,12 +4,17 @@ import type { IntangibleProps } from "../../index.ts"
 import type Duration from "../../Quantity/Duration/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { MonetaryAmountDistributionType } from "./MonetaryAmountDistribution/index.ts"
 
 import DurationComponent from "../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type QuantitativeValueDistributionType =
+	| "QuantitativeValueDistribution"
+	| MonetaryAmountDistributionType
+
 export interface QuantitativeValueDistributionProps {
-	"@type"?: "QuantitativeValueDistribution"
+	"@type"?: QuantitativeValueDistributionType
 	duration?:
 		| Duration
 		| QuantitativeValue

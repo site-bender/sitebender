@@ -18,6 +18,8 @@ export default function FastFoodRestaurant({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FoodEstablishment>
+		>
+			{children}
+		</FoodEstablishment>
 	)
 }

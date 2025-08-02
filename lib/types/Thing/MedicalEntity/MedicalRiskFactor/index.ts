@@ -4,8 +4,10 @@ import type { MedicalEntityProps } from "../index.ts"
 
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
+export type MedicalRiskFactorType = "MedicalRiskFactor"
+
 export interface MedicalRiskFactorProps {
-	"@type"?: "MedicalRiskFactor"
+	"@type"?: MedicalRiskFactorType
 	increasesRiskOf?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 }
 

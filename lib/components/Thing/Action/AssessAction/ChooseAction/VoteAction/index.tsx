@@ -20,6 +20,8 @@ export default function VoteAction({
 				candidate,
 				...subtypeProperties,
 			}}
-		>{children}</ChooseAction>
+		>
+			{children}
+		</ChooseAction>
 	)
 }

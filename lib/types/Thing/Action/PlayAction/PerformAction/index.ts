@@ -5,8 +5,10 @@ import type { PlayActionProps } from "../index.ts"
 
 import EntertainmentBusinessComponent from "../../../../../components/Thing/Organization/LocalBusiness/EntertainmentBusiness/index.ts"
 
+export type PerformActionType = "PerformAction"
+
 export interface PerformActionProps {
-	"@type"?: "PerformAction"
+	"@type"?: PerformActionType
 	entertainmentBusiness?:
 		| EntertainmentBusiness
 		| ReturnType<typeof EntertainmentBusinessComponent>

@@ -3,12 +3,19 @@ import type Thing from "../../index.ts"
 import type MedicalEvidenceLevel from "../../Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.ts"
 import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
+import type { MedicalGuidelineContraindicationType } from "./MedicalGuidelineContraindication/index.ts"
+import type { MedicalGuidelineRecommendationType } from "./MedicalGuidelineRecommendation/index.ts"
 
 import MedicalEvidenceLevelComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.ts"
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
+export type MedicalGuidelineType =
+	| "MedicalGuideline"
+	| MedicalGuidelineRecommendationType
+	| MedicalGuidelineContraindicationType
+
 export interface MedicalGuidelineProps {
-	"@type"?: "MedicalGuideline"
+	"@type"?: MedicalGuidelineType
 	evidenceLevel?:
 		| MedicalEvidenceLevel
 		| ReturnType<typeof MedicalEvidenceLevelComponent>

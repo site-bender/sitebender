@@ -18,6 +18,8 @@ export default function MedicalIndication({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

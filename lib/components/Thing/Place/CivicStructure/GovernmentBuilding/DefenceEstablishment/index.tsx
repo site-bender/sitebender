@@ -18,6 +18,8 @@ export default function DefenceEstablishment({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentBuilding>
+		>
+			{children}
+		</GovernmentBuilding>
 	)
 }

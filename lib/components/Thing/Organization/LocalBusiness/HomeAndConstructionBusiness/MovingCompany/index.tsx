@@ -18,6 +18,8 @@ export default function MovingCompany({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HomeAndConstructionBusiness>
+		>
+			{children}
+		</HomeAndConstructionBusiness>
 	)
 }

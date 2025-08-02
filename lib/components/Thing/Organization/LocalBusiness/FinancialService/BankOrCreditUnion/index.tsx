@@ -18,6 +18,8 @@ export default function BankOrCreditUnion({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FinancialService>
+		>
+			{children}
+		</FinancialService>
 	)
 }

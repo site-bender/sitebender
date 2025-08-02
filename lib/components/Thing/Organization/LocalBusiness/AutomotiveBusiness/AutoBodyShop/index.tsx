@@ -18,6 +18,8 @@ export default function AutoBodyShop({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AutomotiveBusiness>
+		>
+			{children}
+		</AutomotiveBusiness>
 	)
 }

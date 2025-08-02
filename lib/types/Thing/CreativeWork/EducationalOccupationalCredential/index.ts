@@ -11,8 +11,11 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type EducationalOccupationalCredentialType =
+	"EducationalOccupationalCredential"
+
 export interface EducationalOccupationalCredentialProps {
-	"@type"?: "EducationalOccupationalCredential"
+	"@type"?: EducationalOccupationalCredentialType
 	competencyRequired?:
 		| DefinedTerm
 		| Text

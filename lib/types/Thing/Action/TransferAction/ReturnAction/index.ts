@@ -11,8 +11,10 @@ import ContactPointComponent from "../../../../../components/Thing/Intangible/St
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type ReturnActionType = "ReturnAction"
+
 export interface ReturnActionProps {
-	"@type"?: "ReturnAction"
+	"@type"?: ReturnActionType
 	recipient?:
 		| Audience
 		| ContactPoint

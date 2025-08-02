@@ -18,6 +18,8 @@ export default function ScheduleAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlanAction>
+		>
+			{children}
+		</PlanAction>
 	)
 }

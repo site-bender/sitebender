@@ -18,6 +18,8 @@ export default function Vessel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

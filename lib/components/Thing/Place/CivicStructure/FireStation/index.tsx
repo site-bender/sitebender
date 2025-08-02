@@ -18,6 +18,8 @@ export default function FireStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

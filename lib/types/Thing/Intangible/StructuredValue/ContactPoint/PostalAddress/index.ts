@@ -7,8 +7,10 @@ import type { ContactPointProps } from "../index.ts"
 
 import CountryComponent from "../../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type PostalAddressType = "PostalAddress"
+
 export interface PostalAddressProps {
-	"@type"?: "PostalAddress"
+	"@type"?: PostalAddressType
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	addressLocality?: Text
 	addressRegion?: Text

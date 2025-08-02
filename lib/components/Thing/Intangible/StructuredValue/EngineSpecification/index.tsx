@@ -28,6 +28,8 @@ export default function EngineSpecification({
 				torque,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

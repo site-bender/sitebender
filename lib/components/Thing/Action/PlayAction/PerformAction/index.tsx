@@ -20,6 +20,8 @@ export default function PerformAction({
 				entertainmentBusiness,
 				...subtypeProperties,
 			}}
-		>{children}</PlayAction>
+		>
+			{children}
+		</PlayAction>
 	)
 }

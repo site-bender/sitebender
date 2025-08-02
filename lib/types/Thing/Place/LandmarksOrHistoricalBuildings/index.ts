@@ -1,8 +1,12 @@
 import type Thing from "../../index.ts"
 import type { PlaceProps } from "../index.ts"
 
+export type LandmarksOrHistoricalBuildingsType =
+	"LandmarksOrHistoricalBuildings"
+
 export interface LandmarksOrHistoricalBuildingsProps {
-	"@type"?: "LandmarksOrHistoricalBuildings"}
+	"@type"?: LandmarksOrHistoricalBuildingsType
+}
 
 type LandmarksOrHistoricalBuildings =
 	& Thing

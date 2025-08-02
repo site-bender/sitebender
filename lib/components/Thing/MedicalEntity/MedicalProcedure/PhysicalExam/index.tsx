@@ -18,6 +18,8 @@ export default function PhysicalExam({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalProcedure>
+		>
+			{children}
+		</MedicalProcedure>
 	)
 }

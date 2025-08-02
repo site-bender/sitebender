@@ -18,6 +18,8 @@ export default function ShareAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

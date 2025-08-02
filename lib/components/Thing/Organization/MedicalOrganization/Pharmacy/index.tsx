@@ -18,6 +18,8 @@ export default function Pharmacy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalOrganization>
+		>
+			{children}
+		</MedicalOrganization>
 	)
 }

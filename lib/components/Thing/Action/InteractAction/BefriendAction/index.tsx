@@ -18,6 +18,8 @@ export default function BefriendAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

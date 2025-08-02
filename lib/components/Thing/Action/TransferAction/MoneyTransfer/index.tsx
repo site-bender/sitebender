@@ -22,6 +22,8 @@ export default function MoneyTransfer({
 				beneficiaryBank,
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

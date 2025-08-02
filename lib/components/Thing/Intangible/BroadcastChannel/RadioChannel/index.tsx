@@ -18,6 +18,8 @@ export default function RadioChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BroadcastChannel>
+		>
+			{children}
+		</BroadcastChannel>
 	)
 }

@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalProcedureProps } from "../index.ts"
 
+export type DiagnosticProcedureType = "DiagnosticProcedure"
+
 export interface DiagnosticProcedureProps {
-	"@type"?: "DiagnosticProcedure"}
+	"@type"?: DiagnosticProcedureType
+}
 
 type DiagnosticProcedure =
 	& Thing

@@ -18,6 +18,8 @@ export default function IncentiveStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

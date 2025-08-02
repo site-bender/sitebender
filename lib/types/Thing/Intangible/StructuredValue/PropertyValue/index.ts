@@ -9,6 +9,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type StructuredValue from "../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { LocationFeatureSpecificationType } from "./LocationFeatureSpecification/index.ts"
 
 import DefinedTermComponent from "../../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 import EnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/index.ts"
@@ -19,8 +20,12 @@ import StructuredValueComponent from "../../../../../components/Thing/Intangible
 import PropertyValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type PropertyValueType =
+	| "PropertyValue"
+	| LocationFeatureSpecificationType
+
 export interface PropertyValueProps {
-	"@type"?: "PropertyValue"
+	"@type"?: PropertyValueType
 	maxValue?: Number
 	measurementMethod?:
 		| DefinedTerm

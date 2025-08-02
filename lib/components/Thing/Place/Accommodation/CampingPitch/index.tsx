@@ -18,6 +18,8 @@ export default function CampingPitch({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Accommodation>
+		>
+			{children}
+		</Accommodation>
 	)
 }

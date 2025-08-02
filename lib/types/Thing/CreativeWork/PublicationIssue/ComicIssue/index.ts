@@ -6,8 +6,10 @@ import type { PublicationIssueProps } from "../index.ts"
 
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type ComicIssueType = "ComicIssue"
+
 export interface ComicIssueProps {
-	"@type"?: "ComicIssue"
+	"@type"?: ComicIssueType
 	artist?: Person | ReturnType<typeof PersonComponent>
 	colorist?: Person | ReturnType<typeof PersonComponent>
 	inker?: Person | ReturnType<typeof PersonComponent>

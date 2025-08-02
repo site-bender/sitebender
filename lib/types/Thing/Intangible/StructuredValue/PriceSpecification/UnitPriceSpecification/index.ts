@@ -13,8 +13,10 @@ import PriceTypeEnumerationComponent from "../../../../../../components/Thing/In
 import DurationComponent from "../../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type UnitPriceSpecificationType = "UnitPriceSpecification"
+
 export interface UnitPriceSpecificationProps {
-	"@type"?: "UnitPriceSpecification"
+	"@type"?: UnitPriceSpecificationType
 	billingDuration?:
 		| Duration
 		| Number

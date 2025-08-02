@@ -32,6 +32,8 @@ export default function SoftwareSourceCode({
 				targetProduct,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { EventProps } from "../../index.ts"
 import type { PublicationEventProps } from "../index.ts"
 
+export type OnDemandEventType = "OnDemandEvent"
+
 export interface OnDemandEventProps {
-	"@type"?: "OnDemandEvent"}
+	"@type"?: OnDemandEventType
+}
 
 type OnDemandEvent =
 	& Thing

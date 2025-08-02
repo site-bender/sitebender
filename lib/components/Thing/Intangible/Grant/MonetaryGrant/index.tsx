@@ -22,6 +22,8 @@ export default function MonetaryGrant({
 				funder,
 				...subtypeProperties,
 			}}
-		>{children}</Grant>
+		>
+			{children}
+		</Grant>
 	)
 }

@@ -8,6 +8,22 @@ import type VirtualLocation from "../Intangible/VirtualLocation/index.ts"
 import type Organization from "../Organization/index.ts"
 import type Person from "../Person/index.ts"
 import type Place from "../Place/index.ts"
+import type { AchieveActionType } from "./AchieveAction/index.ts"
+import type { AssessActionType } from "./AssessAction/index.ts"
+import type { ConsumeActionType } from "./ConsumeAction/index.ts"
+import type { ControlActionType } from "./ControlAction/index.ts"
+import type { CreateActionType } from "./CreateAction/index.ts"
+import type { FindActionType } from "./FindAction/index.ts"
+import type { InteractActionType } from "./InteractAction/index.ts"
+import type { MoveActionType } from "./MoveAction/index.ts"
+import type { OrganizeActionType } from "./OrganizeAction/index.ts"
+import type { PlayActionType } from "./PlayAction/index.ts"
+import type { SearchActionType } from "./SearchAction/index.ts"
+import type { SeekToActionType } from "./SeekToAction/index.ts"
+import type { SolveMathActionType } from "./SolveMathAction/index.ts"
+import type { TradeActionType } from "./TradeAction/index.ts"
+import type { TransferActionType } from "./TransferAction/index.ts"
+import type { UpdateActionType } from "./UpdateAction/index.ts"
 
 import HowToComponent from "../../../components/Thing/CreativeWork/HowTo/index.ts"
 import ThingComponent from "../../../components/Thing/index.ts"
@@ -19,8 +35,27 @@ import OrganizationComponent from "../../../components/Thing/Organization/index.
 import PersonComponent from "../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
+export type ActionType =
+	| "Action"
+	| TransferActionType
+	| CreateActionType
+	| SearchActionType
+	| FindActionType
+	| AssessActionType
+	| AchieveActionType
+	| SolveMathActionType
+	| InteractActionType
+	| OrganizeActionType
+	| UpdateActionType
+	| ConsumeActionType
+	| ControlActionType
+	| SeekToActionType
+	| PlayActionType
+	| MoveActionType
+	| TradeActionType
+
 export interface ActionProps {
-	"@type"?: "Action"
+	"@type"?: ActionType
 	actionProcess?: HowTo | ReturnType<typeof HowToComponent>
 	actionStatus?: ActionStatusType | ReturnType<typeof ActionStatusTypeComponent>
 	agent?:

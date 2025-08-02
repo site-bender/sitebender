@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { EnumerationProps } from "../index.ts"
 
+export type DigitalPlatformEnumerationType = "DigitalPlatformEnumeration"
+
 export interface DigitalPlatformEnumerationProps {
-	"@type"?: "DigitalPlatformEnumeration"}
+	"@type"?: DigitalPlatformEnumerationType
+}
 
 type DigitalPlatformEnumeration =
 	& Thing

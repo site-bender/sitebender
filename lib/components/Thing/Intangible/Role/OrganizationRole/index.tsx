@@ -20,6 +20,8 @@ export default function OrganizationRole({
 				numberedPosition,
 				...subtypeProperties,
 			}}
-		>{children}</Role>
+		>
+			{children}
+		</Role>
 	)
 }

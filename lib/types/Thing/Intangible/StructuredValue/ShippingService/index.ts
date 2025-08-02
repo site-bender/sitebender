@@ -13,8 +13,10 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import ServicePeriodComponent from "../../../../../components/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
 import ShippingConditionsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingConditions/index.ts"
 
+export type ShippingServiceType = "ShippingService"
+
 export interface ShippingServiceProps {
-	"@type"?: "ShippingService"
+	"@type"?: ShippingServiceType
 	fulfillmentType?:
 		| FulfillmentTypeEnumeration
 		| ReturnType<typeof FulfillmentTypeEnumerationComponent>

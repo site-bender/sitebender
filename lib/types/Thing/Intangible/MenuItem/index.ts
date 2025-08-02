@@ -13,8 +13,10 @@ import MenuItemComponent from "../../../../components/Thing/Intangible/MenuItem/
 import OfferComponent from "../../../../components/Thing/Intangible/Offer/index.ts"
 import NutritionInformationComponent from "../../../../components/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
 
+export type MenuItemType = "MenuItem"
+
 export interface MenuItemProps {
-	"@type"?: "MenuItem"
+	"@type"?: MenuItemType
 	menuAddOn?:
 		| MenuItem
 		| MenuSection

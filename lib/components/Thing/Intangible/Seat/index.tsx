@@ -26,6 +26,8 @@ export default function Seat({
 				seatSection,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

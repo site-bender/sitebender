@@ -34,6 +34,8 @@ export default function Article({
 				wordCount,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

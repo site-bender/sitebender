@@ -24,6 +24,8 @@ export default function InfectiousDisease({
 				transmissionMethod,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalCondition>
+		>
+			{children}
+		</MedicalCondition>
 	)
 }

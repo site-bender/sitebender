@@ -36,6 +36,8 @@ export default function PropertyValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

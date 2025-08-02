@@ -18,6 +18,8 @@ export default function GenderType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

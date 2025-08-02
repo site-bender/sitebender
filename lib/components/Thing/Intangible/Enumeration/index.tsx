@@ -20,6 +20,8 @@ export default function Enumeration({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -22,6 +22,8 @@ export default function Artery({
 				supplyTo,
 				...subtypeProperties,
 			}}
-		>{children}</Vessel>
+		>
+			{children}
+		</Vessel>
 	)
 }

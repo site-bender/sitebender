@@ -22,6 +22,8 @@ export default function BusOrCoach({
 				roofLoad,
 				...subtypeProperties,
 			}}
-		>{children}</Vehicle>
+		>
+			{children}
+		</Vehicle>
 	)
 }

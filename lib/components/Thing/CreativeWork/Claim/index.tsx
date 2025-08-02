@@ -24,6 +24,8 @@ export default function Claim({
 				firstAppearance,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

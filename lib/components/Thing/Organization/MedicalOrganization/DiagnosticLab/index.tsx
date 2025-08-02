@@ -20,6 +20,8 @@ export default function DiagnosticLab({
 				availableTest,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalOrganization>
+		>
+			{children}
+		</MedicalOrganization>
 	)
 }

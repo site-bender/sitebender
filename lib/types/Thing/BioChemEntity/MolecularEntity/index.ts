@@ -7,8 +7,10 @@ import type { BioChemEntityProps } from "../index.ts"
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type MolecularEntityType = "MolecularEntity"
+
 export interface MolecularEntityProps {
-	"@type"?: "MolecularEntity"
+	"@type"?: MolecularEntityType
 	chemicalRole?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 	inChI?: Text
 	inChIKey?: Text

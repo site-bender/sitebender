@@ -20,6 +20,8 @@ export default function MathSolver({
 				mathExpression,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

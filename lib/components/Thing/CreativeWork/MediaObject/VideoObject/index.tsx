@@ -38,6 +38,8 @@ export default function VideoObject({
 				videoQuality,
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

@@ -8,8 +8,10 @@ import type { PriceSpecificationProps } from "../index.ts"
 import DeliveryMethodComponent from "../../../../../../components/Thing/Intangible/Enumeration/DeliveryMethod/index.ts"
 import PaymentMethodComponent from "../../../../../../components/Thing/Intangible/PaymentMethod/index.ts"
 
+export type PaymentChargeSpecificationType = "PaymentChargeSpecification"
+
 export interface PaymentChargeSpecificationProps {
-	"@type"?: "PaymentChargeSpecification"
+	"@type"?: PaymentChargeSpecificationType
 	appliesToDeliveryMethod?:
 		| DeliveryMethod
 		| ReturnType<typeof DeliveryMethodComponent>

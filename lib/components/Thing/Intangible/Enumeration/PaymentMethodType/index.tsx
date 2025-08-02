@@ -18,6 +18,8 @@ export default function PaymentMethodType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

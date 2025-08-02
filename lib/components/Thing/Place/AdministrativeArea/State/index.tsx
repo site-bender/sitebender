@@ -18,6 +18,8 @@ export default function State({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AdministrativeArea>
+		>
+			{children}
+		</AdministrativeArea>
 	)
 }

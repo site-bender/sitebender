@@ -18,6 +18,8 @@ export default function ActionStatusType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</StatusEnumeration>
+		>
+			{children}
+		</StatusEnumeration>
 	)
 }

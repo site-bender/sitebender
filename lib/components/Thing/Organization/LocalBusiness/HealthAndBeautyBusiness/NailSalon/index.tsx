@@ -18,6 +18,8 @@ export default function NailSalon({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HealthAndBeautyBusiness>
+		>
+			{children}
+		</HealthAndBeautyBusiness>
 	)
 }

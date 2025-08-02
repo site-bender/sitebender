@@ -28,6 +28,8 @@ export default function SuperficialAnatomy({
 				significance,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

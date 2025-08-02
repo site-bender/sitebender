@@ -18,6 +18,8 @@ export default function RadioBroadcastService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BroadcastService>
+		>
+			{children}
+		</BroadcastService>
 	)
 }

@@ -18,6 +18,8 @@ export default function FilmAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreateAction>
+		>
+			{children}
+		</CreateAction>
 	)
 }

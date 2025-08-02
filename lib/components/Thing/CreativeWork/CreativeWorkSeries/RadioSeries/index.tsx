@@ -46,6 +46,8 @@ export default function RadioSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

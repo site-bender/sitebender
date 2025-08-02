@@ -33,8 +33,10 @@ import AdministrativeAreaComponent from "../../../../components/Thing/Place/Admi
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type FinancialIncentiveType = "FinancialIncentive"
+
 export interface FinancialIncentiveProps {
-	"@type"?: "FinancialIncentive"
+	"@type"?: FinancialIncentiveType
 	areaServed?:
 		| AdministrativeArea
 		| GeoShape

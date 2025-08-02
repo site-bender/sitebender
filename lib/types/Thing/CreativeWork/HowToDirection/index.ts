@@ -13,8 +13,10 @@ import HowToToolComponent from "../../../../components/Thing/Intangible/ListItem
 import DurationComponent from "../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
+export type HowToDirectionType = "HowToDirection"
+
 export interface HowToDirectionProps {
-	"@type"?: "HowToDirection"
+	"@type"?: HowToDirectionType
 	afterMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>
 	beforeMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>
 	duringMedia?: MediaObject | URL | ReturnType<typeof MediaObjectComponent>

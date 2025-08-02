@@ -18,6 +18,8 @@ export default function Beach({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

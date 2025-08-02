@@ -18,6 +18,8 @@ export default function MotorcycleDealer({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AutomotiveBusiness>
+		>
+			{children}
+		</AutomotiveBusiness>
 	)
 }

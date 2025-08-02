@@ -34,6 +34,8 @@ export default function ExercisePlan({
 				workload,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

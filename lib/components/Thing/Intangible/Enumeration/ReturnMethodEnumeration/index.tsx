@@ -18,6 +18,8 @@ export default function ReturnMethodEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

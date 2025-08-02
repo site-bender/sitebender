@@ -18,6 +18,8 @@ export default function SkiResort({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SportsActivityLocation>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

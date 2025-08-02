@@ -20,6 +20,8 @@ export default function HealthTopicContent({
 				hasHealthAspect,
 				...subtypeProperties,
 			}}
-		>{children}</WebContent>
+		>
+			{children}
+		</WebContent>
 	)
 }

@@ -5,14 +5,17 @@ import type Mass from "../../Intangible/Quantity/Mass/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { CoverArtType } from "./CoverArt/index.ts"
 
 import DistanceComponent from "../../../../components/Thing/Intangible/Quantity/Distance/index.ts"
 import MassComponent from "../../../../components/Thing/Intangible/Quantity/Mass/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type VisualArtworkType = "VisualArtwork" | CoverArtType
+
 export interface VisualArtworkProps {
-	"@type"?: "VisualArtwork"
+	"@type"?: VisualArtworkType
 	artEdition?: Integer | Text
 	artform?: Text | URL
 	artist?: Person | ReturnType<typeof PersonComponent>

@@ -18,6 +18,8 @@ export default function Notary({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LegalService>
+		>
+			{children}
+		</LegalService>
 	)
 }

@@ -20,6 +20,8 @@ export default function CivicStructure({
 				openingHours,
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

@@ -26,6 +26,8 @@ export default function MenuItem({
 				suitableForDiet,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

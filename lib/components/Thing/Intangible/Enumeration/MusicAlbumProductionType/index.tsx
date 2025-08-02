@@ -18,6 +18,8 @@ export default function MusicAlbumProductionType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

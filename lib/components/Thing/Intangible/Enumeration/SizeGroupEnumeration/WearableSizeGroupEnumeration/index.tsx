@@ -18,6 +18,8 @@ export default function WearableSizeGroupEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SizeGroupEnumeration>
+		>
+			{children}
+		</SizeGroupEnumeration>
 	)
 }

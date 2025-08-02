@@ -18,6 +18,8 @@ export default function ShoppingCenter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { OrganizationProps } from "../index.ts"
 
+export type PoliticalPartyType = "PoliticalParty"
+
 export interface PoliticalPartyProps {
-	"@type"?: "PoliticalParty"}
+	"@type"?: PoliticalPartyType
+}
 
 type PoliticalParty = Thing & OrganizationProps & PoliticalPartyProps
 

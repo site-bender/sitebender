@@ -10,8 +10,10 @@ import TVSeriesComponent from "../../../../../components/Thing/CreativeWork/TVSe
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type TVEpisodeType = "TVEpisode"
+
 export interface TVEpisodeProps {
-	"@type"?: "TVEpisode"
+	"@type"?: TVEpisodeType
 	countryOfOrigin?: Country | ReturnType<typeof CountryComponent>
 	partOfTVSeries?: TVSeries | ReturnType<typeof TVSeriesComponent>
 	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>

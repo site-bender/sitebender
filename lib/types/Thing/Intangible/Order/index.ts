@@ -32,8 +32,10 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type OrderType = "Order"
+
 export interface OrderProps {
-	"@type"?: "Order"
+	"@type"?: OrderType
 	acceptedOffer?: Offer | ReturnType<typeof OfferComponent>
 	billingAddress?: PostalAddress | ReturnType<typeof PostalAddressComponent>
 	broker?:

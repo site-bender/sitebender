@@ -26,6 +26,8 @@ export default function AggregateOffer({
 				offers,
 				...subtypeProperties,
 			}}
-		>{children}</Offer>
+		>
+			{children}
+		</Offer>
 	)
 }

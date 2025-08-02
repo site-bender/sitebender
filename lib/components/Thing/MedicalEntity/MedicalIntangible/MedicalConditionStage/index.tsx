@@ -22,6 +22,8 @@ export default function MedicalConditionStage({
 				subStageSuffix,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

@@ -18,6 +18,8 @@ export default function PoliticalParty({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

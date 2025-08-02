@@ -20,6 +20,8 @@ export default function ProductCollection({
 				includesObject,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

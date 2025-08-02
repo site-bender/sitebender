@@ -28,6 +28,8 @@ export default function DefinedRegion({
 				postalCodeRange,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

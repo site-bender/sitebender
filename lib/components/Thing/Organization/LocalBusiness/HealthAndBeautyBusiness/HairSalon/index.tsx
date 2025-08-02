@@ -18,6 +18,8 @@ export default function HairSalon({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HealthAndBeautyBusiness>
+		>
+			{children}
+		</HealthAndBeautyBusiness>
 	)
 }

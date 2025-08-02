@@ -20,6 +20,8 @@ export default function DigitalDocument({
 				hasDigitalDocumentPermission,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

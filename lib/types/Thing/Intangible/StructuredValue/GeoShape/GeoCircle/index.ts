@@ -9,8 +9,10 @@ import type { GeoShapeProps } from "../index.ts"
 import DistanceComponent from "../../../../../../components/Thing/Intangible/Quantity/Distance/index.ts"
 import GeoCoordinatesComponent from "../../../../../../components/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
 
+export type GeoCircleType = "GeoCircle"
+
 export interface GeoCircleProps {
-	"@type"?: "GeoCircle"
+	"@type"?: GeoCircleType
 	geoMidpoint?: GeoCoordinates | ReturnType<typeof GeoCoordinatesComponent>
 	geoRadius?: Distance | Number | Text | ReturnType<typeof DistanceComponent>
 }

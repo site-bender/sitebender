@@ -18,6 +18,8 @@ export default function GameServerStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</StatusEnumeration>
+		>
+			{children}
+		</StatusEnumeration>
 	)
 }

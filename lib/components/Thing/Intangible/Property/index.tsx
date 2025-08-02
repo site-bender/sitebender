@@ -26,6 +26,8 @@ export default function Property({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

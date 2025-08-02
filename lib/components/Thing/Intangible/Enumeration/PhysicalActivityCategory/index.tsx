@@ -18,6 +18,8 @@ export default function PhysicalActivityCategory({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

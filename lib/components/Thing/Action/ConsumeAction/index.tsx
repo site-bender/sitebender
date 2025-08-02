@@ -22,6 +22,8 @@ export default function ConsumeAction({
 				expectsAcceptanceOf,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

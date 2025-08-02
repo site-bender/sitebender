@@ -15,8 +15,10 @@ import PerformingGroupComponent from "../../../../../components/Thing/Organizati
 import MusicGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type MovieSeriesType = "MovieSeries"
+
 export interface MovieSeriesProps {
-	"@type"?: "MovieSeries"
+	"@type"?: MovieSeriesType
 	actor?:
 		| PerformingGroup
 		| Person

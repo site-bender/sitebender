@@ -8,8 +8,10 @@ import type { ReactActionProps } from "../index.ts"
 import OrganizationComponent from "../../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../../components/Thing/Person/index.ts"
 
+export type EndorseActionType = "EndorseAction"
+
 export interface EndorseActionProps {
-	"@type"?: "EndorseAction"
+	"@type"?: EndorseActionType
 	endorsee?:
 		| Organization
 		| Person

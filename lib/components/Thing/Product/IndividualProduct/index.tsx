@@ -20,6 +20,8 @@ export default function IndividualProduct({
 				serialNumber,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

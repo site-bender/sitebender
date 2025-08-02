@@ -18,6 +18,8 @@ export default function CheckoutPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

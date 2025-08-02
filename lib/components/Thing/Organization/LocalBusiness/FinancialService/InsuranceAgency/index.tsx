@@ -18,6 +18,8 @@ export default function InsuranceAgency({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FinancialService>
+		>
+			{children}
+		</FinancialService>
 	)
 }

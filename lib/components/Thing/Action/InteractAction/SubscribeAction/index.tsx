@@ -18,6 +18,8 @@ export default function SubscribeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

@@ -44,6 +44,8 @@ export default function ExerciseAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		>{children}</PlayAction>
+		>
+			{children}
+		</PlayAction>
 	)
 }

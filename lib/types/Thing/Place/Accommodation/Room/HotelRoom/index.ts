@@ -11,8 +11,10 @@ import BedDetailsComponent from "../../../../../../components/Thing/Intangible/B
 import BedTypeComponent from "../../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type HotelRoomType = "HotelRoom"
+
 export interface HotelRoomProps {
-	"@type"?: "HotelRoom"
+	"@type"?: HotelRoomType
 	bed?:
 		| BedDetails
 		| BedType

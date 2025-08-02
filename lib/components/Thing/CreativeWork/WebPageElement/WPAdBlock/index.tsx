@@ -18,6 +18,8 @@ export default function WPAdBlock({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPageElement>
+		>
+			{children}
+		</WebPageElement>
 	)
 }

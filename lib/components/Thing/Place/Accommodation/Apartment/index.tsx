@@ -22,6 +22,8 @@ export default function Apartment({
 				occupancy,
 				...subtypeProperties,
 			}}
-		>{children}</Accommodation>
+		>
+			{children}
+		</Accommodation>
 	)
 }

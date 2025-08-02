@@ -18,6 +18,8 @@ export default function EndorsementRating({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Rating>
+		>
+			{children}
+		</Rating>
 	)
 }

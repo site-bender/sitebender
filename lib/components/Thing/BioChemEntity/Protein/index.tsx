@@ -20,6 +20,8 @@ export default function Protein({
 				hasBioPolymerSequence,
 				...subtypeProperties,
 			}}
-		>{children}</BioChemEntity>
+		>
+			{children}
+		</BioChemEntity>
 	)
 }

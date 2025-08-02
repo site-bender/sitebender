@@ -18,6 +18,8 @@ export default function ProfilePage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

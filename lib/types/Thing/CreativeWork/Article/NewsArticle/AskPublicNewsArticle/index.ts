@@ -3,8 +3,11 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { NewsArticleProps } from "../index.ts"
 
+export type AskPublicNewsArticleType = "AskPublicNewsArticle"
+
 export interface AskPublicNewsArticleProps {
-	"@type"?: "AskPublicNewsArticle"}
+	"@type"?: AskPublicNewsArticleType
+}
 
 type AskPublicNewsArticle =
 	& Thing

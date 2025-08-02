@@ -18,6 +18,8 @@ export default function ToyStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Store>
+		>
+			{children}
+		</Store>
 	)
 }

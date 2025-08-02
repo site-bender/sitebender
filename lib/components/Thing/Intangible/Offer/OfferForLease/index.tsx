@@ -18,6 +18,8 @@ export default function OfferForLease({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Offer>
+		>
+			{children}
+		</Offer>
 	)
 }

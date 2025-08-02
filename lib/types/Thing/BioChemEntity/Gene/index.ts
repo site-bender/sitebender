@@ -12,8 +12,10 @@ import DefinedTermComponent from "../../../../components/Thing/Intangible/Define
 import AnatomicalStructureComponent from "../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.ts"
 import AnatomicalSystemComponent from "../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
+export type GeneType = "Gene"
+
 export interface GeneProps {
-	"@type"?: "Gene"
+	"@type"?: GeneType
 	alternativeOf?: Gene | ReturnType<typeof GeneComponent>
 	encodesBioChemEntity?:
 		| BioChemEntity

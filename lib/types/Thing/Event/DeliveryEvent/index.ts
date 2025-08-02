@@ -5,8 +5,10 @@ import type { EventProps } from "../index.ts"
 
 import DeliveryMethodComponent from "../../../../components/Thing/Intangible/Enumeration/DeliveryMethod/index.ts"
 
+export type DeliveryEventType = "DeliveryEvent"
+
 export interface DeliveryEventProps {
-	"@type"?: "DeliveryEvent"
+	"@type"?: DeliveryEventType
 	accessCode?: Text
 	availableFrom?: DateTime
 	availableThrough?: DateTime

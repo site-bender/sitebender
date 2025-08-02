@@ -20,6 +20,8 @@ export default function AuthorizeAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</AllocateAction>
+		>
+			{children}
+		</AllocateAction>
 	)
 }

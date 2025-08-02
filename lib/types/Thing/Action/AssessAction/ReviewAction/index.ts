@@ -5,8 +5,10 @@ import type { AssessActionProps } from "../index.ts"
 
 import ReviewComponent from "../../../../../components/Thing/CreativeWork/Review/index.ts"
 
+export type ReviewActionType = "ReviewAction"
+
 export interface ReviewActionProps {
-	"@type"?: "ReviewAction"
+	"@type"?: ReviewActionType
 	resultReview?: Review | ReturnType<typeof ReviewComponent>
 }
 

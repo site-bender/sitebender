@@ -18,6 +18,8 @@ export default function Casino({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EntertainmentBusiness>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

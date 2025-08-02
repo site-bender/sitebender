@@ -16,8 +16,10 @@ import DurationComponent from "../../../../../components/Thing/Intangible/Quanti
 import NutritionInformationComponent from "../../../../../components/Thing/Intangible/StructuredValue/NutritionInformation/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type RecipeType = "Recipe"
+
 export interface RecipeProps {
-	"@type"?: "Recipe"
+	"@type"?: RecipeType
 	cookingMethod?: Text
 	cookTime?: Duration | ReturnType<typeof DurationComponent>
 	ingredients?: Text

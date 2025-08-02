@@ -18,6 +18,8 @@ export default function RealEstateAgent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

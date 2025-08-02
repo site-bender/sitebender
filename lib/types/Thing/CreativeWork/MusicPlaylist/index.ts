@@ -3,12 +3,19 @@ import type Thing from "../../index.ts"
 import type ItemList from "../../Intangible/ItemList/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type MusicRecording from "../MusicRecording/index.ts"
+import type { MusicAlbumType } from "./MusicAlbum/index.ts"
+import type { MusicReleaseType } from "./MusicRelease/index.ts"
 
 import MusicRecordingComponent from "../../../../components/Thing/CreativeWork/MusicRecording/index.ts"
 import ItemListComponent from "../../../../components/Thing/Intangible/ItemList/index.ts"
 
+export type MusicPlaylistType =
+	| "MusicPlaylist"
+	| MusicAlbumType
+	| MusicReleaseType
+
 export interface MusicPlaylistProps {
-	"@type"?: "MusicPlaylist"
+	"@type"?: MusicPlaylistType
 	numTracks?: Integer
 	track?:
 		| ItemList

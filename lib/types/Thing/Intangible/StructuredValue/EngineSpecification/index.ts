@@ -8,8 +8,10 @@ import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type EngineSpecificationType = "EngineSpecification"
+
 export interface EngineSpecificationProps {
-	"@type"?: "EngineSpecification"
+	"@type"?: EngineSpecificationType
 	engineDisplacement?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

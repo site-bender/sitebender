@@ -28,6 +28,8 @@ export default function ComicStory({
 				penciler,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

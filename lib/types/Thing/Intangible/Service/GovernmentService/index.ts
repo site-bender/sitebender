@@ -8,8 +8,10 @@ import type { ServiceProps } from "../index.ts"
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type GovernmentServiceType = "GovernmentService"
+
 export interface GovernmentServiceProps {
-	"@type"?: "GovernmentService"
+	"@type"?: GovernmentServiceType
 	jurisdiction?:
 		| AdministrativeArea
 		| Text

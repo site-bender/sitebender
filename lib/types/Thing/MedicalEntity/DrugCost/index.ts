@@ -9,8 +9,10 @@ import DrugCostCategoryComponent from "../../../../components/Thing/Intangible/E
 import QualitativeValueComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type DrugCostType = "DrugCost"
+
 export interface DrugCostProps {
-	"@type"?: "DrugCost"
+	"@type"?: DrugCostType
 	applicableLocation?:
 		| AdministrativeArea
 		| ReturnType<typeof AdministrativeAreaComponent>

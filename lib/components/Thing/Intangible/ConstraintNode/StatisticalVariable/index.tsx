@@ -32,6 +32,8 @@ export default function StatisticalVariable({
 				statType,
 				...subtypeProperties,
 			}}
-		>{children}</ConstraintNode>
+		>
+			{children}
+		</ConstraintNode>
 	)
 }

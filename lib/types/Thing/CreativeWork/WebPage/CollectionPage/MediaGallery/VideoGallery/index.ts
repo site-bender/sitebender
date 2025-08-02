@@ -4,8 +4,11 @@ import type { WebPageProps } from "../../../index.ts"
 import type { CollectionPageProps } from "../../index.ts"
 import type { MediaGalleryProps } from "../index.ts"
 
+export type VideoGalleryType = "VideoGallery"
+
 export interface VideoGalleryProps {
-	"@type"?: "VideoGallery"}
+	"@type"?: VideoGalleryType
+}
 
 type VideoGallery =
 	& Thing

@@ -18,6 +18,8 @@ export default function LifestyleModification({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

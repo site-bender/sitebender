@@ -38,6 +38,8 @@ export default function Observation({
 				variableMeasured,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

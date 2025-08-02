@@ -18,6 +18,8 @@ export default function WPSideBar({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPageElement>
+		>
+			{children}
+		</WebPageElement>
 	)
 }

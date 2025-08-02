@@ -9,8 +9,10 @@ import CommentComponent from "../../../../../components/Thing/CreativeWork/Comme
 import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/index.ts"
 import WebContentComponent from "../../../../../components/Thing/CreativeWork/WebContent/index.ts"
 
+export type AnswerType = "Answer"
+
 export interface AnswerProps {
-	"@type"?: "Answer"
+	"@type"?: AnswerType
 	answerExplanation?:
 		| Comment
 		| WebContent

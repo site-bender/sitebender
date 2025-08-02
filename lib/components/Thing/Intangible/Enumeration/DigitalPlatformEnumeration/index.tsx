@@ -18,6 +18,8 @@ export default function DigitalPlatformEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

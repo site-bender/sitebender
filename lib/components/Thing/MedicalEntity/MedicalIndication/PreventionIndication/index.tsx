@@ -18,6 +18,8 @@ export default function PreventionIndication({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIndication>
+		>
+			{children}
+		</MedicalIndication>
 	)
 }

@@ -5,8 +5,10 @@ import type { InteractActionProps } from "../index.ts"
 
 import EventComponent from "../../../../../components/Thing/Event/index.ts"
 
+export type JoinActionType = "JoinAction"
+
 export interface JoinActionProps {
-	"@type"?: "JoinAction"
+	"@type"?: JoinActionType
 	event?: Event | ReturnType<typeof EventComponent>
 }
 

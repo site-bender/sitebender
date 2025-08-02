@@ -9,8 +9,10 @@ import ArticleComponent from "../../../../components/Thing/CreativeWork/Article/
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
 import AboutPageComponent from "../../../../components/Thing/CreativeWork/WebPage/AboutPage/index.ts"
 
+export type NewsMediaOrganizationType = "NewsMediaOrganization"
+
 export interface NewsMediaOrganizationProps {
-	"@type"?: "NewsMediaOrganization"
+	"@type"?: NewsMediaOrganizationType
 	actionableFeedbackPolicy?:
 		| CreativeWork
 		| URL

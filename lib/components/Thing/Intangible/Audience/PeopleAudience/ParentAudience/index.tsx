@@ -22,6 +22,8 @@ export default function ParentAudience({
 				childMinAge,
 				...subtypeProperties,
 			}}
-		>{children}</PeopleAudience>
+		>
+			{children}
+		</PeopleAudience>
 	)
 }

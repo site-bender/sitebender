@@ -18,6 +18,8 @@ export default function CorrectionComment({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Comment>
+		>
+			{children}
+		</Comment>
 	)
 }

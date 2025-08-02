@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type CampgroundProps from "../../../../../../types/Thing/Campground/index.ts"
-import type LodgingBusinessProps from "../../../../../../types/Thing/LodgingBusiness/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type CampgroundProps from "../../../../../../types/Thing/Organization/LocalBusiness/LodgingBusiness/Campground/index.ts"
 
 import LodgingBusiness from "../index.tsx"
 
-// Campground adds no properties to the LodgingBusiness schema type
-export type Props = BaseComponentProps<
-	CampgroundProps,
-	"Campground",
-	ExtractLevelProps<CampgroundProps, LodgingBusinessProps>
->
+// Campground adds no properties to the ListItem schema type
+export type Props = CampgroundProps & BaseProps
 
 export default function Campground({
 	_type = "Campground",
@@ -25,6 +17,8 @@ export default function Campground({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</CampgroundProps>
+		>
+			{children}
+		</LodgingBusiness>
 	)
 }

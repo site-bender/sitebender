@@ -10,6 +10,7 @@ import type HowToSection from "../HowToSection/index.ts"
 import type HowToStep from "../HowToStep/index.ts"
 import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { RecipeType } from "./Recipe/index.ts"
 
 import HowToSectionComponent from "../../../../components/Thing/CreativeWork/HowToSection/index.ts"
 import HowToStepComponent from "../../../../components/Thing/CreativeWork/HowToStep/index.ts"
@@ -21,8 +22,10 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import MonetaryAmountComponent from "../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type HowToType = "HowTo" | RecipeType
+
 export interface HowToProps {
-	"@type"?: "HowTo"
+	"@type"?: HowToType
 	estimatedCost?:
 		| MonetaryAmount
 		| Text

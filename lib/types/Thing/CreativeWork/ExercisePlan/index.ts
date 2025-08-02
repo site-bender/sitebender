@@ -12,8 +12,10 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import EnergyComponent from "../../../../components/Thing/Intangible/Quantity/Energy/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type ExercisePlanType = "ExercisePlan"
+
 export interface ExercisePlanProps {
-	"@type"?: "ExercisePlan"
+	"@type"?: ExercisePlanType
 	activityDuration?:
 		| Duration
 		| QuantitativeValue

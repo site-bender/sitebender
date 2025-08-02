@@ -18,6 +18,8 @@ export default function VirtualLocation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

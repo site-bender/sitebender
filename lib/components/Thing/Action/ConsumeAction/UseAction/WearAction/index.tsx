@@ -18,6 +18,8 @@ export default function WearAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UseAction>
+		>
+			{children}
+		</UseAction>
 	)
 }

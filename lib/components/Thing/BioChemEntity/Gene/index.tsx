@@ -26,6 +26,8 @@ export default function Gene({
 				hasBioPolymerSequence,
 				...subtypeProperties,
 			}}
-		>{children}</BioChemEntity>
+		>
+			{children}
+		</BioChemEntity>
 	)
 }

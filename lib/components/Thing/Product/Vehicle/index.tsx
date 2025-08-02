@@ -98,6 +98,8 @@ export default function Vehicle({
 				wheelbase,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

@@ -18,6 +18,8 @@ export default function AutomatedTeller({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FinancialService>
+		>
+			{children}
+		</FinancialService>
 	)
 }

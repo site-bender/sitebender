@@ -18,6 +18,8 @@ export default function GolfCourse({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SportsActivityLocation>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

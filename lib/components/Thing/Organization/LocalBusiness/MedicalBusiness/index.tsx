@@ -18,6 +18,8 @@ export default function MedicalBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

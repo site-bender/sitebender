@@ -7,8 +7,10 @@ import type { MedicalIntangibleProps } from "../index.ts"
 import MedicalConditionComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import MedicalSignOrSymptomComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/index.ts"
 
+export type DDxElementType = "DDxElement"
+
 export interface DDxElementProps {
-	"@type"?: "DDxElement"
+	"@type"?: DDxElementType
 	diagnosis?: MedicalCondition | ReturnType<typeof MedicalConditionComponent>
 	distinguishingSign?:
 		| MedicalSignOrSymptom

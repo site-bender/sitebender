@@ -18,6 +18,8 @@ export default function HomeAndConstructionBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

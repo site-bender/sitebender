@@ -20,6 +20,8 @@ export default function WebAPI({
 				documentation,
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

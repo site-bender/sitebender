@@ -30,6 +30,8 @@ export default function QuantitativeValueDistribution({
 				percentile90,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

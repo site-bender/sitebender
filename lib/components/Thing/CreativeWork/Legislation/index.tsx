@@ -58,6 +58,8 @@ export default function Legislation({
 				legislationType,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

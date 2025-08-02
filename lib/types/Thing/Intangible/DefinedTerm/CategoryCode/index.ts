@@ -3,11 +3,14 @@ import type CategoryCodeSet from "../../../CreativeWork/DefinedTermSet/CategoryC
 import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { DefinedTermProps } from "../index.ts"
+import type { MedicalCodeType } from "./MedicalCode/index.ts"
 
 import CategoryCodeSetComponent from "../../../../../components/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.ts"
 
+export type CategoryCodeType = "CategoryCode" | MedicalCodeType
+
 export interface CategoryCodeProps {
-	"@type"?: "CategoryCode"
+	"@type"?: CategoryCodeType
 	codeValue?: Text
 	inCodeSet?:
 		| CategoryCodeSet

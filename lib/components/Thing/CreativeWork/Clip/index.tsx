@@ -40,6 +40,8 @@ export default function Clip({
 				startOffset,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

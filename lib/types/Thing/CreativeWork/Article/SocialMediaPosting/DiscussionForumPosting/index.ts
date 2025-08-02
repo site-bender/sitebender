@@ -3,8 +3,11 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { SocialMediaPostingProps } from "../index.ts"
 
+export type DiscussionForumPostingType = "DiscussionForumPosting"
+
 export interface DiscussionForumPostingProps {
-	"@type"?: "DiscussionForumPosting"}
+	"@type"?: DiscussionForumPostingType
+}
 
 type DiscussionForumPosting =
 	& Thing

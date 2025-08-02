@@ -20,6 +20,8 @@ export default function SocialMediaPosting({
 				sharedContent,
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

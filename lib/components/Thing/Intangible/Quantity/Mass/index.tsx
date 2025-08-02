@@ -18,6 +18,8 @@ export default function Mass({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Quantity>
+		>
+			{children}
+		</Quantity>
 	)
 }

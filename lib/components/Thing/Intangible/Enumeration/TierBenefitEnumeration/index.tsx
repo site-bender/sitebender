@@ -18,6 +18,8 @@ export default function TierBenefitEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

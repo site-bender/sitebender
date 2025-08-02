@@ -18,6 +18,8 @@ export default function Hotel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LodgingBusiness>
+		>
+			{children}
+		</LodgingBusiness>
 	)
 }

@@ -32,6 +32,8 @@ export default function PostalAddress({
 				streetAddress,
 				...subtypeProperties,
 			}}
-		>{children}</ContactPoint>
+		>
+			{children}
+		</ContactPoint>
 	)
 }

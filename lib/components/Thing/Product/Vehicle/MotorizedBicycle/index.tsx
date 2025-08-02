@@ -18,6 +18,8 @@ export default function MotorizedBicycle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Vehicle>
+		>
+			{children}
+		</Vehicle>
 	)
 }

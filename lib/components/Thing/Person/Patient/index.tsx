@@ -24,6 +24,8 @@ export default function Patient({
 				healthCondition,
 				...subtypeProperties,
 			}}
-		>{children}</Person>
+		>
+			{children}
+		</Person>
 	)
 }

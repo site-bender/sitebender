@@ -20,6 +20,8 @@ export default function MobileApplication({
 				carrierRequirements,
 				...subtypeProperties,
 			}}
-		>{children}</SoftwareApplication>
+		>
+			{children}
+		</SoftwareApplication>
 	)
 }

@@ -4,8 +4,11 @@ import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { FinancialServiceProps } from "../index.ts"
 
+export type BankOrCreditUnionType = "BankOrCreditUnion"
+
 export interface BankOrCreditUnionProps {
-	"@type"?: "BankOrCreditUnion"}
+	"@type"?: BankOrCreditUnionType
+}
 
 type BankOrCreditUnion =
 	& Thing

@@ -18,6 +18,8 @@ export default function OnlineBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

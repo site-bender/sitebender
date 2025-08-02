@@ -22,6 +22,8 @@ export default function DDxElement({
 				distinguishingSign,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

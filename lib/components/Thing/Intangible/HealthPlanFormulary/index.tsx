@@ -24,6 +24,8 @@ export default function HealthPlanFormulary({
 				offersPrescriptionByMail,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

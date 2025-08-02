@@ -5,8 +5,11 @@ import type { LodgingBusinessProps } from "../../../Organization/LocalBusiness/L
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+export type CampgroundType = "Campground"
+
 export interface CampgroundProps {
-	"@type"?: "Campground"}
+	"@type"?: CampgroundType
+}
 
 type Campground =
 	& Thing

@@ -32,6 +32,8 @@ export default function ProgramMembership({
 				programName,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

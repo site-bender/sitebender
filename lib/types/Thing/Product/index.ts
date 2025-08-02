@@ -27,8 +27,16 @@ import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/inde
 import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Organization from "../Organization/index.ts"
 import type Country from "../Place/AdministrativeArea/Country/index.ts"
+import type { DietarySupplementType } from "./DietarySupplement/index.ts"
+import type { DrugType } from "./Drug/index.ts"
+import type { IndividualProductType } from "./IndividualProduct/index.ts"
+import type { ProductCollectionType } from "./ProductCollection/index.ts"
 import type ProductGroup from "./ProductGroup/index.ts"
+import type { ProductGroupType } from "./ProductGroup/index.ts"
 import type ProductModel from "./ProductModel/index.ts"
+import type { ProductModelType } from "./ProductModel/index.ts"
+import type { SomeProductsType } from "./SomeProducts/index.ts"
+import type { VehicleType } from "./Vehicle/index.ts"
 
 import CertificationComponent from "../../../components/Thing/CreativeWork/Certification/index.ts"
 import ImageObjectComponent from "../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
@@ -62,8 +70,19 @@ import ProductComponent from "../../../components/Thing/Product/index.ts"
 import ProductGroupComponent from "../../../components/Thing/Product/ProductGroup/index.ts"
 import ProductModelComponent from "../../../components/Thing/Product/ProductModel/index.ts"
 
+export type ProductType =
+	| "Product"
+	| SomeProductsType
+	| DietarySupplementType
+	| VehicleType
+	| ProductCollectionType
+	| ProductGroupType
+	| IndividualProductType
+	| ProductModelType
+	| DrugType
+
 export interface ProductProps {
-	"@type"?: "Product"
+	"@type"?: ProductType
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	aggregateRating?:
 		| AggregateRating

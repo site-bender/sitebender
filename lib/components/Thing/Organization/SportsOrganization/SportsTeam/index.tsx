@@ -24,6 +24,8 @@ export default function SportsTeam({
 				gender,
 				...subtypeProperties,
 			}}
-		>{children}</SportsOrganization>
+		>
+			{children}
+		</SportsOrganization>
 	)
 }

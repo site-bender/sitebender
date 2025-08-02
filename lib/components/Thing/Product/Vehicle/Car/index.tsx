@@ -22,6 +22,8 @@ export default function Car({
 				roofLoad,
 				...subtypeProperties,
 			}}
-		>{children}</Vehicle>
+		>
+			{children}
+		</Vehicle>
 	)
 }

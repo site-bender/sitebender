@@ -18,6 +18,8 @@ export default function ReactAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AssessAction>
+		>
+			{children}
+		</AssessAction>
 	)
 }

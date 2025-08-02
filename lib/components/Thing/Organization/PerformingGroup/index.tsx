@@ -18,6 +18,8 @@ export default function PerformingGroup({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

@@ -11,8 +11,10 @@ import MuscleComponent from "../../../../../components/Thing/MedicalEntity/Anato
 import NerveComponent from "../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Nerve/index.ts"
 import VesselComponent from "../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
 
+export type MuscleType = "Muscle"
+
 export interface MuscleProps {
-	"@type"?: "Muscle"
+	"@type"?: MuscleType
 	antagonist?: Muscle | ReturnType<typeof MuscleComponent>
 	bloodSupply?: Vessel | ReturnType<typeof VesselComponent>
 	insertion?:

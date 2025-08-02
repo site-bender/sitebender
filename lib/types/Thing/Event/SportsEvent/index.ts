@@ -7,8 +7,10 @@ import type { EventProps } from "../index.ts"
 import SportsTeamComponent from "../../../../components/Thing/Organization/SportsOrganization/SportsTeam/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type SportsEventType = "SportsEvent"
+
 export interface SportsEventProps {
-	"@type"?: "SportsEvent"
+	"@type"?: SportsEventType
 	awayTeam?:
 		| Person
 		| SportsTeam

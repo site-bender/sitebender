@@ -50,6 +50,8 @@ export default function Invoice({
 				totalPaymentDue,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

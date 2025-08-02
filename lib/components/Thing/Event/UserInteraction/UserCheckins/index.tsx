@@ -18,6 +18,8 @@ export default function UserCheckins({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

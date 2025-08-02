@@ -24,6 +24,8 @@ export default function FinancialProduct({
 				interestRate,
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

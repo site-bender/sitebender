@@ -8,8 +8,10 @@ import type TVSeries from "../TVSeries/index.ts"
 import TVSeriesComponent from "../../../../components/Thing/CreativeWork/TVSeries/index.ts"
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type TVSeasonType = "TVSeason"
+
 export interface TVSeasonProps {
-	"@type"?: "TVSeason"
+	"@type"?: TVSeasonType
 	countryOfOrigin?: Country | ReturnType<typeof CountryComponent>
 	partOfTVSeries?: TVSeries | ReturnType<typeof TVSeriesComponent>
 	titleEIDR?: Text | URL

@@ -18,6 +18,8 @@ export default function SeaBodyOfWater({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BodyOfWater>
+		>
+			{children}
+		</BodyOfWater>
 	)
 }

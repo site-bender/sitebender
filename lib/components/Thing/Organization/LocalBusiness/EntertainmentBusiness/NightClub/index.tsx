@@ -18,6 +18,8 @@ export default function NightClub({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EntertainmentBusiness>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

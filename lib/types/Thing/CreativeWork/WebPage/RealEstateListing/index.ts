@@ -8,8 +8,10 @@ import type { WebPageProps } from "../index.ts"
 import DurationComponent from "../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type RealEstateListingType = "RealEstateListing"
+
 export interface RealEstateListingProps {
-	"@type"?: "RealEstateListing"
+	"@type"?: RealEstateListingType
 	datePosted?: Date | DateTime
 	leaseLength?:
 		| Duration

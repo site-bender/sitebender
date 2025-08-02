@@ -18,6 +18,8 @@ export default function HVACBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HomeAndConstructionBusiness>
+		>
+			{children}
+		</HomeAndConstructionBusiness>
 	)
 }

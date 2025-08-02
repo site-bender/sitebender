@@ -5,8 +5,10 @@ import type { CreativeWorkProps } from "../index.ts"
 
 import SolveMathActionComponent from "../../../../components/Thing/Action/SolveMathAction/index.ts"
 
+export type MathSolverType = "MathSolver"
+
 export interface MathSolverProps {
-	"@type"?: "MathSolver"
+	"@type"?: MathSolverType
 	mathExpression?:
 		| SolveMathAction
 		| Text

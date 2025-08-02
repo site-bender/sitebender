@@ -26,6 +26,8 @@ export default function DonateAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

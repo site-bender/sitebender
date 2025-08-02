@@ -7,6 +7,9 @@ import type CreativeWorkSeries from "../CreativeWorkSeries/index.ts"
 import type Episode from "../Episode/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
+import type { PodcastSeasonType } from "./PodcastSeason/index.ts"
+import type { RadioSeasonType } from "./RadioSeason/index.ts"
+import type { TVSeasonType } from "./TVSeason/index.ts"
 
 import CreativeWorkSeriesComponent from "../../../../components/Thing/CreativeWork/CreativeWorkSeries/index.ts"
 import EpisodeComponent from "../../../../components/Thing/CreativeWork/Episode/index.ts"
@@ -15,8 +18,14 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PerformingGroupComponent from "../../../../components/Thing/Organization/PerformingGroup/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type CreativeWorkSeasonType =
+	| "CreativeWorkSeason"
+	| RadioSeasonType
+	| TVSeasonType
+	| PodcastSeasonType
+
 export interface CreativeWorkSeasonProps {
-	"@type"?: "CreativeWorkSeason"
+	"@type"?: CreativeWorkSeasonType
 	actor?:
 		| PerformingGroup
 		| Person

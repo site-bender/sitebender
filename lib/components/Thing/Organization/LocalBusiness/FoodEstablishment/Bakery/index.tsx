@@ -18,6 +18,8 @@ export default function Bakery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FoodEstablishment>
+		>
+			{children}
+		</FoodEstablishment>
 	)
 }

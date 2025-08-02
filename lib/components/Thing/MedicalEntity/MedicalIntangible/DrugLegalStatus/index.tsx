@@ -20,6 +20,8 @@ export default function DrugLegalStatus({
 				applicableLocation,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

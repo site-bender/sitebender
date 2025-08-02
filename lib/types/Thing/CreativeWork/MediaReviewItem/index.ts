@@ -4,8 +4,10 @@ import type { CreativeWorkProps } from "../index.ts"
 
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
+export type MediaReviewItemType = "MediaReviewItem"
+
 export interface MediaReviewItemProps {
-	"@type"?: "MediaReviewItem"
+	"@type"?: MediaReviewItemType
 	mediaItemAppearance?: MediaObject | ReturnType<typeof MediaObjectComponent>
 }
 

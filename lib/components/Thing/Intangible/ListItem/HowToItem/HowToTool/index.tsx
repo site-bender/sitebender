@@ -18,6 +18,8 @@ export default function HowToTool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HowToItem>
+		>
+			{children}
+		</HowToItem>
 	)
 }

@@ -18,6 +18,8 @@ export default function Conversation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

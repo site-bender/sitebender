@@ -18,6 +18,8 @@ export default function ReadAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

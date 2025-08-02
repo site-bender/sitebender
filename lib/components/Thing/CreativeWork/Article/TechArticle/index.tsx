@@ -22,6 +22,8 @@ export default function TechArticle({
 				proficiencyLevel,
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

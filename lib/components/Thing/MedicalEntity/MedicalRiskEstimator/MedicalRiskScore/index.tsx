@@ -20,6 +20,8 @@ export default function MedicalRiskScore({
 				algorithm,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalRiskEstimator>
+		>
+			{children}
+		</MedicalRiskEstimator>
 	)
 }

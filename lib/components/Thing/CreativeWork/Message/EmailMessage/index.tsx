@@ -18,6 +18,8 @@ export default function EmailMessage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Message>
+		>
+			{children}
+		</Message>
 	)
 }

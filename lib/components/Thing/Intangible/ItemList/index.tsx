@@ -26,6 +26,8 @@ export default function ItemList({
 				numberOfItems,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -24,6 +24,8 @@ export default function AggregateRating({
 				reviewCount,
 				...subtypeProperties,
 			}}
-		>{children}</Rating>
+		>
+			{children}
+		</Rating>
 	)
 }

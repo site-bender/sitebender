@@ -36,6 +36,8 @@ export default function PeopleAudience({
 				suggestedMinAge,
 				...subtypeProperties,
 			}}
-		>{children}</Audience>
+		>
+			{children}
+		</Audience>
 	)
 }

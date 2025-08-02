@@ -13,8 +13,10 @@ import SizeGroupEnumerationComponent from "../../../../../../components/Thing/In
 import SizeSystemEnumerationComponent from "../../../../../../components/Thing/Intangible/Enumeration/SizeSystemEnumeration/index.ts"
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type SizeSpecificationType = "SizeSpecification"
+
 export interface SizeSpecificationProps {
-	"@type"?: "SizeSpecification"
+	"@type"?: SizeSpecificationType
 	hasMeasurement?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

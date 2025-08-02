@@ -18,6 +18,8 @@ export default function PresentationDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DigitalDocument>
+		>
+			{children}
+		</DigitalDocument>
 	)
 }

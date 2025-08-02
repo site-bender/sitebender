@@ -18,6 +18,8 @@ export default function AcceptAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AllocateAction>
+		>
+			{children}
+		</AllocateAction>
 	)
 }

@@ -8,6 +8,17 @@ import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
 import type WebPageElement from "../WebPageElement/index.ts"
+import type { AboutPageType } from "./AboutPage/index.ts"
+import type { CheckoutPageType } from "./CheckoutPage/index.ts"
+import type { CollectionPageType } from "./CollectionPage/index.ts"
+import type { ContactPageType } from "./ContactPage/index.ts"
+import type { FAQPageType } from "./FAQPage/index.ts"
+import type { ItemPageType } from "./ItemPage/index.ts"
+import type { MedicalWebPageType } from "./MedicalWebPage/index.ts"
+import type { ProfilePageType } from "./ProfilePage/index.ts"
+import type { QAPageType } from "./QAPage/index.ts"
+import type { RealEstateListingType } from "./RealEstateListing/index.ts"
+import type { SearchResultsPageType } from "./SearchResultsPage/index.ts"
 
 import ImageObjectComponent from "../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
 import WebPageElementComponent from "../../../../components/Thing/CreativeWork/WebPageElement/index.ts"
@@ -17,8 +28,22 @@ import SpeakableSpecificationComponent from "../../../../components/Thing/Intang
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type WebPageType =
+	| "WebPage"
+	| ContactPageType
+	| CheckoutPageType
+	| MedicalWebPageType
+	| RealEstateListingType
+	| FAQPageType
+	| CollectionPageType
+	| AboutPageType
+	| SearchResultsPageType
+	| QAPageType
+	| ItemPageType
+	| ProfilePageType
+
 export interface WebPageProps {
-	"@type"?: "WebPage"
+	"@type"?: WebPageType
 	breadcrumb?:
 		| BreadcrumbList
 		| Text

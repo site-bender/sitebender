@@ -18,6 +18,8 @@ export default function FoodEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

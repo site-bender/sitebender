@@ -26,6 +26,8 @@ export default function Comment({
 				upvoteCount,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -18,6 +18,8 @@ export default function ExerciseGym({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SportsActivityLocation>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

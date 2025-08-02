@@ -2,11 +2,14 @@ import type { Text, URL } from "../../../DataType/index.ts"
 import type DefinedTermSet from "../../CreativeWork/DefinedTermSet/index.ts"
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
+import type { CategoryCodeType } from "./CategoryCode/index.ts"
 
 import DefinedTermSetComponent from "../../../../components/Thing/CreativeWork/DefinedTermSet/index.ts"
 
+export type DefinedTermType = "DefinedTerm" | CategoryCodeType
+
 export interface DefinedTermProps {
-	"@type"?: "DefinedTerm"
+	"@type"?: DefinedTermType
 	inDefinedTermSet?:
 		| DefinedTermSet
 		| URL

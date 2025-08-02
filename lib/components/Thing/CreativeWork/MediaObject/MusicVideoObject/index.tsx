@@ -18,6 +18,8 @@ export default function MusicVideoObject({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

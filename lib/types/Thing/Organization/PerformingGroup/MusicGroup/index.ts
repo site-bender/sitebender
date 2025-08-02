@@ -12,8 +12,10 @@ import MusicRecordingComponent from "../../../../../components/Thing/CreativeWor
 import ItemListComponent from "../../../../../components/Thing/Intangible/ItemList/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type MusicGroupType = "MusicGroup"
+
 export interface MusicGroupProps {
-	"@type"?: "MusicGroup"
+	"@type"?: MusicGroupType
 	album?: MusicAlbum | ReturnType<typeof MusicAlbumComponent>
 	albums?: MusicAlbum | ReturnType<typeof MusicAlbumComponent>
 	genre?: Text | URL

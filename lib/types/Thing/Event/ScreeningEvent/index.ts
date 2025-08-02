@@ -7,8 +7,10 @@ import type { EventProps } from "../index.ts"
 import MovieComponent from "../../../../components/Thing/CreativeWork/Movie/index.ts"
 import LanguageComponent from "../../../../components/Thing/Intangible/Language/index.ts"
 
+export type ScreeningEventType = "ScreeningEvent"
+
 export interface ScreeningEventProps {
-	"@type"?: "ScreeningEvent"
+	"@type"?: ScreeningEventType
 	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	videoFormat?: Text
 	workPresented?: Movie | ReturnType<typeof MovieComponent>

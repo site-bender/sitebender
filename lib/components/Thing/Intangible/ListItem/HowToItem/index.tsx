@@ -20,6 +20,8 @@ export default function HowToItem({
 				requiredQuantity,
 				...subtypeProperties,
 			}}
-		>{children}</ListItem>
+		>
+			{children}
+		</ListItem>
 	)
 }

@@ -18,6 +18,8 @@ export default function ResearchProject({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Project>
+		>
+			{children}
+		</Project>
 	)
 }

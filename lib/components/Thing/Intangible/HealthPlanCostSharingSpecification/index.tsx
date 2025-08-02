@@ -28,6 +28,8 @@ export default function HealthPlanCostSharingSpecification({
 				healthPlanPharmacyCategory,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

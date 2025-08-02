@@ -18,6 +18,8 @@ export default function MedicineSystem({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEnumeration>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

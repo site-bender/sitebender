@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type BookSeriesProps from "../../../../../../types/Thing/BookSeries/index.ts"
-import type CreativeWorkSeriesProps from "../../../../../../types/Thing/CreativeWorkSeries/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type BookSeriesProps from "../../../../../../types/Thing/Intangible/Series/CreativeWorkSeries/BookSeries/index.ts"
 
 import CreativeWorkSeries from "../index.tsx"
 
-// BookSeries adds no properties to the CreativeWorkSeries schema type
-export type Props = BaseComponentProps<
-	BookSeriesProps,
-	"BookSeries",
-	ExtractLevelProps<BookSeriesProps, CreativeWorkSeriesProps>
->
+// BookSeries adds no properties to the ListItem schema type
+export type Props = BookSeriesProps & BaseProps
 
 export default function BookSeries({
 	_type = "BookSeries",
@@ -25,6 +17,8 @@ export default function BookSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</BookSeriesProps>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

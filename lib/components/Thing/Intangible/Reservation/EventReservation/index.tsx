@@ -18,6 +18,8 @@ export default function EventReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

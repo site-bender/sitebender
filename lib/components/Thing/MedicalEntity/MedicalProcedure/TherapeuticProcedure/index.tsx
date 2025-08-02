@@ -24,6 +24,8 @@ export default function TherapeuticProcedure({
 				drug,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalProcedure>
+		>
+			{children}
+		</MedicalProcedure>
 	)
 }

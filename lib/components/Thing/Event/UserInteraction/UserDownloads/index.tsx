@@ -18,6 +18,8 @@ export default function UserDownloads({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

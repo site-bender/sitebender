@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type EntertainmentBusinessProps from "../../../../../../types/Thing/EntertainmentBusiness/index.ts"
-import type MovieTheaterProps from "../../../../../../types/Thing/MovieTheater/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type MovieTheaterProps from "../../../../../../types/Thing/Organization/LocalBusiness/EntertainmentBusiness/MovieTheater/index.ts"
 
 import EntertainmentBusiness from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MovieTheaterProps,
-	"MovieTheater",
-	ExtractLevelProps<MovieTheaterProps, EntertainmentBusinessProps>
->
+// MovieTheater adds no properties to the ListItem schema type
+export type Props = MovieTheaterProps & BaseProps
 
 export default function MovieTheater(
 	{
@@ -30,6 +23,8 @@ export default function MovieTheater(
 				screenCount,
 				...subtypeProperties,
 			}}
-		>{children}</MovieTheaterProps>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

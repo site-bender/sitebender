@@ -7,8 +7,10 @@ import type MedicalContraindication from "../MedicalContraindication/index.ts"
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 import MedicalContraindicationComponent from "../../../../components/Thing/MedicalEntity/MedicalContraindication/index.ts"
 
+export type MedicalDeviceType = "MedicalDevice"
+
 export interface MedicalDeviceProps {
-	"@type"?: "MedicalDevice"
+	"@type"?: MedicalDeviceType
 	adverseOutcome?: MedicalEntity | ReturnType<typeof MedicalEntityComponent>
 	contraindication?:
 		| MedicalContraindication

@@ -18,6 +18,8 @@ export default function AchieveAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

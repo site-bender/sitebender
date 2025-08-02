@@ -8,8 +8,10 @@ import type { TripProps } from "../index.ts"
 import BusStationComponent from "../../../../../components/Thing/Place/CivicStructure/BusStation/index.ts"
 import BusStopComponent from "../../../../../components/Thing/Place/CivicStructure/BusStop/index.ts"
 
+export type BusTripType = "BusTrip"
+
 export interface BusTripProps {
-	"@type"?: "BusTrip"
+	"@type"?: BusTripType
 	arrivalBusStop?:
 		| BusStation
 		| BusStop

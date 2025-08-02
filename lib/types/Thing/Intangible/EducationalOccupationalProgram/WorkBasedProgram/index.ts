@@ -8,8 +8,10 @@ import type { EducationalOccupationalProgramProps } from "../index.ts"
 import CategoryCodeComponent from "../../../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
 import MonetaryAmountDistributionComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
+export type WorkBasedProgramType = "WorkBasedProgram"
+
 export interface WorkBasedProgramProps {
-	"@type"?: "WorkBasedProgram"
+	"@type"?: WorkBasedProgramType
 	occupationalCategory?:
 		| CategoryCode
 		| Text

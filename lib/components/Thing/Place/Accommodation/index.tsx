@@ -52,6 +52,8 @@ export default function Accommodation({
 				yearBuilt,
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

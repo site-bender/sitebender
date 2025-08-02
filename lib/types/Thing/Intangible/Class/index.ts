@@ -7,8 +7,10 @@ import ClassComponent from "../../../../components/Thing/Intangible/Class/index.
 import EnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/index.ts"
 import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 
+export type ClassType = "Class"
+
 export interface ClassProps {
-	"@type"?: "Class"
+	"@type"?: ClassType
 	supersededBy?:
 		| Class
 		| Enumeration

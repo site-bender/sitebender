@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type AutoPartsStoreProps from "../../../../../../types/Thing/AutoPartsStore/index.ts"
-import type StoreProps from "../../../../../../types/Thing/Store/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type AutoPartsStoreProps from "../../../../../../types/Thing/Organization/LocalBusiness/Store/AutoPartsStore/index.ts"
 
 import Store from "../index.tsx"
 
-// AutoPartsStore adds no properties to the Store schema type
-export type Props = BaseComponentProps<
-	AutoPartsStoreProps,
-	"AutoPartsStore",
-	ExtractLevelProps<AutoPartsStoreProps, StoreProps>
->
+// AutoPartsStore adds no properties to the ListItem schema type
+export type Props = AutoPartsStoreProps & BaseProps
 
 export default function AutoPartsStore({
 	_type = "AutoPartsStore",
@@ -25,6 +17,8 @@ export default function AutoPartsStore({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</AutoPartsStoreProps>
+		>
+			{children}
+		</Store>
 	)
 }

@@ -18,6 +18,8 @@ export default function MeasurementTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

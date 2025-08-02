@@ -62,6 +62,8 @@ export default function MerchantReturnPolicy({
 				validForMemberTier,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

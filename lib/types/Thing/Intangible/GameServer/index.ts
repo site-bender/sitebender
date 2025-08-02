@@ -7,8 +7,10 @@ import type { IntangibleProps } from "../index.ts"
 import VideoGameComponent from "../../../../components/Thing/CreativeWork/Game/VideoGame/index.ts"
 import GameServerStatusComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.ts"
 
+export type GameServerType = "GameServer"
+
 export interface GameServerProps {
-	"@type"?: "GameServer"
+	"@type"?: GameServerType
 	game?: VideoGame | ReturnType<typeof VideoGameComponent>
 	playersOnline?: Integer
 	serverStatus?: GameServerStatus | ReturnType<typeof GameServerStatusComponent>

@@ -40,6 +40,8 @@ export default function Movie({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

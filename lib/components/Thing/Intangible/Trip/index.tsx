@@ -34,6 +34,8 @@ export default function Trip({
 				tripOrigin,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -9,8 +9,10 @@ import WarrantyPromiseComponent from "../../../../../components/Thing/Intangible
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type SellActionType = "SellAction"
+
 export interface SellActionProps {
-	"@type"?: "SellAction"
+	"@type"?: SellActionType
 	buyer?:
 		| Organization
 		| Person

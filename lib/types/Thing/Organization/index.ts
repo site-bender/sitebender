@@ -35,6 +35,26 @@ import type Person from "../Person/index.ts"
 import type AdministrativeArea from "../Place/AdministrativeArea/index.ts"
 import type Place from "../Place/index.ts"
 import type Product from "../Product/index.ts"
+import type { AirlineType } from "./Airline/index.ts"
+import type { ConsortiumType } from "./Consortium/index.ts"
+import type { CooperativeType } from "./Cooperative/index.ts"
+import type { CorporationType } from "./Corporation/index.ts"
+import type { EducationalOrganizationType } from "./EducationalOrganization/index.ts"
+import type { FundingSchemeType } from "./FundingScheme/index.ts"
+import type { GovernmentOrganizationType } from "./GovernmentOrganization/index.ts"
+import type { LibrarySystemType } from "./LibrarySystem/index.ts"
+import type { LocalBusinessType } from "./LocalBusiness/index.ts"
+import type { MedicalOrganizationType } from "./MedicalOrganization/index.ts"
+import type { NewsMediaOrganizationType } from "./NewsMediaOrganization/index.ts"
+import type { NGOType } from "./NGO/index.ts"
+import type { OnlineBusinessType } from "./OnlineBusiness/index.ts"
+import type { PerformingGroupType } from "./PerformingGroup/index.ts"
+import type { PoliticalPartyType } from "./PoliticalParty/index.ts"
+import type { ProjectType } from "./Project/index.ts"
+import type { ResearchOrganizationType } from "./ResearchOrganization/index.ts"
+import type { SearchRescueOrganizationType } from "./SearchRescueOrganization/index.ts"
+import type { SportsOrganizationType } from "./SportsOrganization/index.ts"
+import type { WorkersUnionType } from "./WorkersUnion/index.ts"
 
 import ArticleComponent from "../../../components/Thing/CreativeWork/Article/index.ts"
 import CertificationComponent from "../../../components/Thing/CreativeWork/Certification/index.ts"
@@ -74,8 +94,31 @@ import AdministrativeAreaComponent from "../../../components/Thing/Place/Adminis
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../components/Thing/Product/index.ts"
 
+export type OrganizationType =
+	| "Organization"
+	| ResearchOrganizationType
+	| OnlineBusinessType
+	| ConsortiumType
+	| SportsOrganizationType
+	| PoliticalPartyType
+	| NewsMediaOrganizationType
+	| CooperativeType
+	| EducationalOrganizationType
+	| SearchRescueOrganizationType
+	| ProjectType
+	| MedicalOrganizationType
+	| PerformingGroupType
+	| GovernmentOrganizationType
+	| FundingSchemeType
+	| CorporationType
+	| NGOType
+	| LocalBusinessType
+	| AirlineType
+	| LibrarySystemType
+	| WorkersUnionType
+
 export interface OrganizationProps {
-	"@type"?: "Organization"
+	"@type"?: OrganizationType
 	acceptedPaymentMethod?:
 		| LoanOrCredit
 		| PaymentMethod

@@ -7,6 +7,10 @@ import type SteeringPositionValue from "../../Intangible/Enumeration/Qualitative
 import type EngineSpecification from "../../Intangible/StructuredValue/EngineSpecification/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { ProductProps } from "../index.ts"
+import type { BusOrCoachType } from "./BusOrCoach/index.ts"
+import type { CarType } from "./Car/index.ts"
+import type { MotorcycleType } from "./Motorcycle/index.ts"
+import type { MotorizedBicycleType } from "./MotorizedBicycle/index.ts"
 
 import CarUsageTypeComponent from "../../../../components/Thing/Intangible/Enumeration/CarUsageType/index.ts"
 import DriveWheelConfigurationValueComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.ts"
@@ -15,8 +19,15 @@ import SteeringPositionValueComponent from "../../../../components/Thing/Intangi
 import EngineSpecificationComponent from "../../../../components/Thing/Intangible/StructuredValue/EngineSpecification/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type VehicleType =
+	| "Vehicle"
+	| BusOrCoachType
+	| CarType
+	| MotorcycleType
+	| MotorizedBicycleType
+
 export interface VehicleProps {
-	"@type"?: "Vehicle"
+	"@type"?: VehicleType
 	accelerationTime?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

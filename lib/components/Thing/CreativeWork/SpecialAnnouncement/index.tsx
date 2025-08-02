@@ -44,6 +44,8 @@ export default function SpecialAnnouncement({
 				webFeed,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

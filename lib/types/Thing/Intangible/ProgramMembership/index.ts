@@ -11,8 +11,10 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type ProgramMembershipType = "ProgramMembership"
+
 export interface ProgramMembershipProps {
-	"@type"?: "ProgramMembership"
+	"@type"?: ProgramMembershipType
 	hostingOrganization?: Organization | ReturnType<typeof OrganizationComponent>
 	member?:
 		| Organization

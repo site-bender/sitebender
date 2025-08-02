@@ -18,6 +18,8 @@ export default function BikeStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Store>
+		>
+			{children}
+		</Store>
 	)
 }

@@ -28,6 +28,8 @@ export default function AnatomicalSystem({
 				relatedTherapy,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

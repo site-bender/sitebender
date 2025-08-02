@@ -34,6 +34,8 @@ export default function AnatomicalStructure({
 				subStructure,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

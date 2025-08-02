@@ -20,6 +20,8 @@ export default function House({
 				numberOfRooms,
 				...subtypeProperties,
 			}}
-		>{children}</Accommodation>
+		>
+			{children}
+		</Accommodation>
 	)
 }

@@ -18,6 +18,8 @@ export default function MovieClip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Clip>
+		>
+			{children}
+		</Clip>
 	)
 }

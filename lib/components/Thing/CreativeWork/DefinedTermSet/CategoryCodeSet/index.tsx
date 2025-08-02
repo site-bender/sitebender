@@ -20,6 +20,8 @@ export default function CategoryCodeSet({
 				hasCategoryCode,
 				...subtypeProperties,
 			}}
-		>{children}</DefinedTermSet>
+		>
+			{children}
+		</DefinedTermSet>
 	)
 }

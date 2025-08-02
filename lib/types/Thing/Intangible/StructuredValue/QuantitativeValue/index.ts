@@ -8,6 +8,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type StructuredValue from "../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type PropertyValue from "../PropertyValue/index.ts"
+import type { ObservationType } from "./Observation/index.ts"
 
 import DefinedTermComponent from "../../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 import EnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/index.ts"
@@ -17,8 +18,10 @@ import StructuredValueComponent from "../../../../../components/Thing/Intangible
 import PropertyValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type QuantitativeValueType = "QuantitativeValue" | ObservationType
+
 export interface QuantitativeValueProps {
-	"@type"?: "QuantitativeValue"
+	"@type"?: QuantitativeValueType
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	maxValue?: Number
 	minValue?: Number

@@ -4,8 +4,10 @@ import type { UpdateActionProps } from "../index.ts"
 
 import ThingComponent from "../../../../../components/Thing/index.ts"
 
+export type ReplaceActionType = "ReplaceAction"
+
 export interface ReplaceActionProps {
-	"@type"?: "ReplaceAction"
+	"@type"?: ReplaceActionType
 	replacee?: Thing | ReturnType<typeof ThingComponent>
 	replacer?: Thing | ReturnType<typeof ThingComponent>
 }

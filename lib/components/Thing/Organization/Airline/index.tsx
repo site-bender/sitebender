@@ -22,6 +22,8 @@ export default function Airline({
 				iataCode,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

@@ -18,6 +18,8 @@ export default function AutoWash({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AutomotiveBusiness>
+		>
+			{children}
+		</AutomotiveBusiness>
 	)
 }

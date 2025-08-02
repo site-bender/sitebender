@@ -1,17 +1,9 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type SoftwareApplicationProps from "../../../../../types/Thing/SoftwareApplication/index.ts"
-import type VideoGameProps from "../../../../../types/Thing/VideoGame/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type VideoGameProps from "../../../../../types/Thing/CreativeWork/SoftwareApplication/VideoGame/index.ts"
 
 import SoftwareApplication from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	VideoGameProps,
-	"VideoGame",
-	ExtractLevelProps<VideoGameProps, SoftwareApplicationProps>
->
+export type Props = VideoGameProps & BaseProps
 
 export default function VideoGame(
 	{
@@ -52,6 +44,8 @@ export default function VideoGame(
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</VideoGameProps>
+		>
+			{children}
+		</SoftwareApplication>
 	)
 }

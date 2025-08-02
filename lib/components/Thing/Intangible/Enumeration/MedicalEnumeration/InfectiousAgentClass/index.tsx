@@ -18,6 +18,8 @@ export default function InfectiousAgentClass({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEnumeration>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

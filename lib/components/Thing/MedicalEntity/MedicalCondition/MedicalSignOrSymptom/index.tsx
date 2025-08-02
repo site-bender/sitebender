@@ -20,6 +20,8 @@ export default function MedicalSignOrSymptom({
 				possibleTreatment,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalCondition>
+		>
+			{children}
+		</MedicalCondition>
 	)
 }

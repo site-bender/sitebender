@@ -11,8 +11,10 @@ import DurationComponent from "../../../../../components/Thing/Intangible/Quanti
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type AudiobookType = "Audiobook"
+
 export interface AudiobookProps {
-	"@type"?: "Audiobook"
+	"@type"?: AudiobookType
 	duration?:
 		| Duration
 		| QuantitativeValue

@@ -26,6 +26,8 @@ export default function DoseSchedule({
 				targetPopulation,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

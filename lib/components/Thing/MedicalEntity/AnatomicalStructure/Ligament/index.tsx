@@ -18,6 +18,8 @@ export default function Ligament({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

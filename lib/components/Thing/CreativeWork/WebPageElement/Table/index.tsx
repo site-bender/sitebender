@@ -18,6 +18,8 @@ export default function Table({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPageElement>
+		>
+			{children}
+		</WebPageElement>
 	)
 }

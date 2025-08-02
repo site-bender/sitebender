@@ -26,6 +26,8 @@ export default function BroadcastEvent({
 				videoFormat,
 				...subtypeProperties,
 			}}
-		>{children}</PublicationEvent>
+		>
+			{children}
+		</PublicationEvent>
 	)
 }

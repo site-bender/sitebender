@@ -18,6 +18,8 @@ export default function Church({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlaceOfWorship>
+		>
+			{children}
+		</PlaceOfWorship>
 	)
 }

@@ -32,6 +32,8 @@ export default function QuantitativeValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

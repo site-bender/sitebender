@@ -62,6 +62,8 @@ export default function Order({
 				seller,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

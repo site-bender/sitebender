@@ -21,6 +21,7 @@ import type Offer from "../Offer/index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type StructuredValue from "../StructuredValue/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
+import type { WorkBasedProgramType } from "./WorkBasedProgram/index.ts"
 
 import CourseComponent from "../../../../components/Thing/CreativeWork/Course/index.ts"
 import EducationalOccupationalCredentialComponent from "../../../../components/Thing/CreativeWork/EducationalOccupationalCredential/index.ts"
@@ -36,8 +37,12 @@ import MonetaryAmountDistributionComponent from "../../../../components/Thing/In
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type EducationalOccupationalProgramType =
+	| "EducationalOccupationalProgram"
+	| WorkBasedProgramType
+
 export interface EducationalOccupationalProgramProps {
-	"@type"?: "EducationalOccupationalProgram"
+	"@type"?: EducationalOccupationalProgramType
 	applicationDeadline?: Date | Text
 	applicationStartDate?: Date
 	dayOfWeek?: DayOfWeek | ReturnType<typeof DayOfWeekComponent>

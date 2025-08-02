@@ -36,6 +36,8 @@ export default function MolecularEntity({
 				smiles,
 				...subtypeProperties,
 			}}
-		>{children}</BioChemEntity>
+		>
+			{children}
+		</BioChemEntity>
 	)
 }

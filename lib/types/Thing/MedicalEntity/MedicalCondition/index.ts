@@ -12,7 +12,9 @@ import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/Medica
 import type MedicalRiskFactor from "../MedicalRiskFactor/index.ts"
 import type MedicalTest from "../MedicalTest/index.ts"
 import type SuperficialAnatomy from "../SuperficialAnatomy/index.ts"
+import type { InfectiousDiseaseType } from "./InfectiousDisease/index.ts"
 import type MedicalSignOrSymptom from "./MedicalSignOrSymptom/index.ts"
+import type { MedicalSignOrSymptomType } from "./MedicalSignOrSymptom/index.ts"
 
 import MedicalStudyStatusComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
 import EventStatusTypeComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
@@ -27,8 +29,13 @@ import MedicalTestComponent from "../../../../components/Thing/MedicalEntity/Med
 import SuperficialAnatomyComponent from "../../../../components/Thing/MedicalEntity/SuperficialAnatomy/index.ts"
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
+export type MedicalConditionType =
+	| "MedicalCondition"
+	| InfectiousDiseaseType
+	| MedicalSignOrSymptomType
+
 export interface MedicalConditionProps {
-	"@type"?: "MedicalCondition"
+	"@type"?: MedicalConditionType
 	associatedAnatomy?:
 		| AnatomicalStructure
 		| AnatomicalSystem

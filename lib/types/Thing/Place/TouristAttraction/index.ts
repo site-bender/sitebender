@@ -7,8 +7,10 @@ import type { PlaceProps } from "../index.ts"
 import AudienceComponent from "../../../../components/Thing/Intangible/Audience/index.ts"
 import LanguageComponent from "../../../../components/Thing/Intangible/Language/index.ts"
 
+export type TouristAttractionType = "TouristAttraction"
+
 export interface TouristAttractionProps {
-	"@type"?: "TouristAttraction"
+	"@type"?: TouristAttractionType
 	availableLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	touristType?: Audience | Text | ReturnType<typeof AudienceComponent>
 }

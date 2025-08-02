@@ -20,6 +20,8 @@ export default function PathologyTest({
 				tissueSample,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTest>
+		>
+			{children}
+		</MedicalTest>
 	)
 }

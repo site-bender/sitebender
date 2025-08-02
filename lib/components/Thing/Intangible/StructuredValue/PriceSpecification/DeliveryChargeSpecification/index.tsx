@@ -26,6 +26,8 @@ export default function DeliveryChargeSpecification({
 				ineligibleRegion,
 				...subtypeProperties,
 			}}
-		>{children}</PriceSpecification>
+		>
+			{children}
+		</PriceSpecification>
 	)
 }

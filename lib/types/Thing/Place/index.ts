@@ -21,6 +21,15 @@ import type GeoShape from "../Intangible/StructuredValue/GeoShape/index.ts"
 import type OpeningHoursSpecification from "../Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 import type LocationFeatureSpecification from "../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
+import type { AccommodationType } from "./Accommodation/index.ts"
+import type { AdministrativeAreaType } from "./AdministrativeArea/index.ts"
+import type { CivicStructureType } from "./CivicStructure/index.ts"
+import type { LandformType } from "./Landform/index.ts"
+import type { LandmarksOrHistoricalBuildingsType } from "./LandmarksOrHistoricalBuildings/index.ts"
+import type { LocalBusinessType } from "./LocalBusiness/index.ts"
+import type { ResidenceType } from "./Residence/index.ts"
+import type { TouristAttractionType } from "./TouristAttraction/index.ts"
+import type { TouristDestinationType } from "./TouristDestination/index.ts"
 
 import CertificationComponent from "../../../components/Thing/CreativeWork/Certification/index.ts"
 import MapComponent from "../../../components/Thing/CreativeWork/Map/index.ts"
@@ -39,8 +48,20 @@ import PropertyValueComponent from "../../../components/Thing/Intangible/Structu
 import LocationFeatureSpecificationComponent from "../../../components/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
+export type PlaceType =
+	| "Place"
+	| ResidenceType
+	| LandformType
+	| TouristAttractionType
+	| AdministrativeAreaType
+	| TouristDestinationType
+	| CivicStructureType
+	| LocalBusinessType
+	| LandmarksOrHistoricalBuildingsType
+	| AccommodationType
+
 export interface PlaceProps {
-	"@type"?: "Place"
+	"@type"?: PlaceType
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	aggregateRating?:

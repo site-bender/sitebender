@@ -18,6 +18,8 @@ export default function MonetaryAmountDistribution({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</QuantitativeValueDistribution>
+		>
+			{children}
+		</QuantitativeValueDistribution>
 	)
 }

@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+export type SheetMusicType = "SheetMusic"
+
 export interface SheetMusicProps {
-	"@type"?: "SheetMusic"}
+	"@type"?: SheetMusicType
+}
 
 type SheetMusic = Thing & CreativeWorkProps & SheetMusicProps
 

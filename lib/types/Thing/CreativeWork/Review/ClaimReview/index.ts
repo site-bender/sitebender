@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ReviewProps } from "../index.ts"
 
+export type ClaimReviewType = "ClaimReview"
+
 export interface ClaimReviewProps {
-	"@type"?: "ClaimReview"
+	"@type"?: ClaimReviewType
 	claimReviewed?: Text
 }
 

@@ -2,11 +2,24 @@ import type { Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { IntangibleProps } from "../index.ts"
+import type { BusinessAudienceType } from "./BusinessAudience/index.ts"
+import type { EducationalAudienceType } from "./EducationalAudience/index.ts"
+import type { MedicalAudienceType } from "./MedicalAudience/index.ts"
+import type { PeopleAudienceType } from "./PeopleAudience/index.ts"
+import type { ResearcherType } from "./Researcher/index.ts"
 
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type AudienceType =
+	| "Audience"
+	| PeopleAudienceType
+	| BusinessAudienceType
+	| MedicalAudienceType
+	| ResearcherType
+	| EducationalAudienceType
+
 export interface AudienceProps {
-	"@type"?: "Audience"
+	"@type"?: AudienceType
 	audienceType?: Text
 	geographicArea?:
 		| AdministrativeArea

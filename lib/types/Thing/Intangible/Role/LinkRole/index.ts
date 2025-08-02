@@ -6,8 +6,10 @@ import type { RoleProps } from "../index.ts"
 
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
+export type LinkRoleType = "LinkRole"
+
 export interface LinkRoleProps {
-	"@type"?: "LinkRole"
+	"@type"?: LinkRoleType
 	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	linkRelationship?: Text
 }

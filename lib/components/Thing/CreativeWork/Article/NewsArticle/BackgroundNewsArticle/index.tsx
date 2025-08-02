@@ -18,6 +18,8 @@ export default function BackgroundNewsArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NewsArticle>
+		>
+			{children}
+		</NewsArticle>
 	)
 }

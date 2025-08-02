@@ -18,6 +18,8 @@ export default function Reservoir({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BodyOfWater>
+		>
+			{children}
+		</BodyOfWater>
 	)
 }

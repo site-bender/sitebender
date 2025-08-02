@@ -18,6 +18,8 @@ export default function SpreadsheetDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DigitalDocument>
+		>
+			{children}
+		</DigitalDocument>
 	)
 }

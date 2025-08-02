@@ -5,8 +5,10 @@ import type { IntangibleProps } from "../index.ts"
 
 import BedTypeComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 
+export type BedDetailsType = "BedDetails"
+
 export interface BedDetailsProps {
-	"@type"?: "BedDetails"
+	"@type"?: BedDetailsType
 	numberOfBeds?: Number
 	typeOfBed?: BedType | Text | ReturnType<typeof BedTypeComponent>
 }

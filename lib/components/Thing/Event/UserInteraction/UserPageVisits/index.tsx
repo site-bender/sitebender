@@ -18,6 +18,8 @@ export default function UserPageVisits({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

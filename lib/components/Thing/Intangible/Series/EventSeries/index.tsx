@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type EventSeriesProps from "../../../../../types/Thing/EventSeries/index.ts"
-import type SeriesProps from "../../../../../types/Thing/Series/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type EventSeriesProps from "../../../../../types/Thing/Intangible/Series/EventSeries/index.ts"
 
 import Series from "../index.tsx"
 
 // EventSeries adds no properties to the Series schema type
-export type Props = BaseComponentProps<
-	EventSeriesProps,
-	"EventSeries",
-	ExtractLevelProps<EventSeriesProps, SeriesProps>
->
+export type Props = EventSeriesProps & BaseProps
 
 export default function EventSeries({
 	_type = "EventSeries",
@@ -25,6 +17,8 @@ export default function EventSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</EventSeriesProps>
+		>
+			{children}
+		</Series>
 	)
 }

@@ -18,6 +18,8 @@ export default function GardenStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Store>
+		>
+			{children}
+		</Store>
 	)
 }

@@ -18,6 +18,8 @@ export default function OccupationalTherapy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTherapy>
+		>
+			{children}
+		</MedicalTherapy>
 	)
 }

@@ -18,6 +18,8 @@ export default function DaySpa({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HealthAndBeautyBusiness>
+		>
+			{children}
+		</HealthAndBeautyBusiness>
 	)
 }

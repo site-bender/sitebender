@@ -24,6 +24,8 @@ export default function ExchangeRateSpecification({
 				exchangeRateSpread,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

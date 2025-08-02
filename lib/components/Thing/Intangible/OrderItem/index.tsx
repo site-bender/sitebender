@@ -28,6 +28,8 @@ export default function OrderItem({
 				orderQuantity,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

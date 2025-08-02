@@ -36,6 +36,8 @@ export default function LoanOrCredit({
 				requiredCollateral,
 				...subtypeProperties,
 			}}
-		>{children}</FinancialProduct>
+		>
+			{children}
+		</FinancialProduct>
 	)
 }

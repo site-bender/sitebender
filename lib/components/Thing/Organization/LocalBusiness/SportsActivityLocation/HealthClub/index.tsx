@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type HealthClubProps from "../../../../../../types/Thing/HealthClub/index.ts"
-import type SportsActivityLocationProps from "../../../../../../types/Thing/SportsActivityLocation/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type HealthClubProps from "../../../../../../types/Thing/Organization/LocalBusiness/SportsActivityLocation/HealthClub/index.ts"
 
 import SportsActivityLocation from "../index.tsx"
 
-// HealthClub adds no properties to the SportsActivityLocation schema type
-export type Props = BaseComponentProps<
-	HealthClubProps,
-	"HealthClub",
-	ExtractLevelProps<HealthClubProps, SportsActivityLocationProps>
->
+// HealthClub adds no properties to the ListItem schema type
+export type Props = HealthClubProps & BaseProps
 
 export default function HealthClub({
 	_type = "HealthClub",
@@ -25,6 +17,8 @@ export default function HealthClub({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</HealthClubProps>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

@@ -10,8 +10,10 @@ import AnatomicalStructureComponent from "../../../../../../components/Thing/Med
 import VesselComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
 import AnatomicalSystemComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 
+export type LymphaticVesselType = "LymphaticVessel"
+
 export interface LymphaticVesselProps {
-	"@type"?: "LymphaticVessel"
+	"@type"?: LymphaticVesselType
 	originatesFrom?: Vessel | ReturnType<typeof VesselComponent>
 	regionDrained?:
 		| AnatomicalStructure

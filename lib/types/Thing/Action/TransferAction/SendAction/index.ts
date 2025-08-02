@@ -13,8 +13,10 @@ import ContactPointComponent from "../../../../../components/Thing/Intangible/St
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type SendActionType = "SendAction"
+
 export interface SendActionProps {
-	"@type"?: "SendAction"
+	"@type"?: SendActionType
 	deliveryMethod?: DeliveryMethod | ReturnType<typeof DeliveryMethodComponent>
 	recipient?:
 		| Audience

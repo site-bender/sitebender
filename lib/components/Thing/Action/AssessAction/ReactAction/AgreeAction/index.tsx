@@ -18,6 +18,8 @@ export default function AgreeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

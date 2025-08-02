@@ -1,9 +1,13 @@
 import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageProps } from "../index.ts"
+import type { MediaGalleryType } from "./MediaGallery/index.ts"
+
+export type CollectionPageType = "CollectionPage" | MediaGalleryType
 
 export interface CollectionPageProps {
-	"@type"?: "CollectionPage"}
+	"@type"?: CollectionPageType
+}
 
 type CollectionPage =
 	& Thing

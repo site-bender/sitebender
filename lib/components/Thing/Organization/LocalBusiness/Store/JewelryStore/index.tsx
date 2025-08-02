@@ -18,6 +18,8 @@ export default function JewelryStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Store>
+		>
+			{children}
+		</Store>
 	)
 }

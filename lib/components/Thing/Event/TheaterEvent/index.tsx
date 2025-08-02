@@ -18,6 +18,8 @@ export default function TheaterEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

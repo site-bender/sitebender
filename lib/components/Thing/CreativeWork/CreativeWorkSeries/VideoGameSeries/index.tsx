@@ -62,6 +62,8 @@ export default function VideoGameSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

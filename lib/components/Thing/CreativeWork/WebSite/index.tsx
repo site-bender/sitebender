@@ -20,6 +20,8 @@ export default function WebSite({
 				issn,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

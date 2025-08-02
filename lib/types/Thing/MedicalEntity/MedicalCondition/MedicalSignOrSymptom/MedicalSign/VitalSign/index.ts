@@ -4,8 +4,11 @@ import type { MedicalConditionProps } from "../../../index.ts"
 import type { MedicalSignOrSymptomProps } from "../../index.ts"
 import type { MedicalSignProps } from "../index.ts"
 
+export type VitalSignType = "VitalSign"
+
 export interface VitalSignProps {
-	"@type"?: "VitalSign"}
+	"@type"?: VitalSignType
+}
 
 type VitalSign =
 	& Thing

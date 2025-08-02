@@ -22,6 +22,8 @@ export default function PostalCodeRangeSpecification({
 				postalCodeEnd,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

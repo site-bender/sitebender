@@ -6,8 +6,10 @@ import type { CommunicateActionProps } from "../index.ts"
 
 import QuestionComponent from "../../../../../../components/Thing/CreativeWork/Comment/Question/index.ts"
 
+export type AskActionType = "AskAction"
+
 export interface AskActionProps {
-	"@type"?: "AskAction"
+	"@type"?: AskActionType
 	question?: Question | ReturnType<typeof QuestionComponent>
 }
 

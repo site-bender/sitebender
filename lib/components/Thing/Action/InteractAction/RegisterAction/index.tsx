@@ -18,6 +18,8 @@ export default function RegisterAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

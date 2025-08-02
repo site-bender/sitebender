@@ -18,6 +18,8 @@ export default function PalliativeProcedure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalProcedure>
+		>
+			{children}
+		</MedicalProcedure>
 	)
 }

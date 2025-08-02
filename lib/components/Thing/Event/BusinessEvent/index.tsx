@@ -18,6 +18,8 @@ export default function BusinessEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

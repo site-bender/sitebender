@@ -24,6 +24,8 @@ export default function CreativeWorkSeries({
 				startDate,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

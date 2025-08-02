@@ -44,6 +44,8 @@ export default function Schedule({
 				startTime,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

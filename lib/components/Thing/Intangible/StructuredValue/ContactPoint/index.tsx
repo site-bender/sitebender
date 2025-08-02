@@ -38,6 +38,8 @@ export default function ContactPoint({
 				telephone,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

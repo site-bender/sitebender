@@ -18,6 +18,8 @@ export default function CancelAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlanAction>
+		>
+			{children}
+		</PlanAction>
 	)
 }

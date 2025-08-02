@@ -20,6 +20,8 @@ export default function DrugClass({
 				drug,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

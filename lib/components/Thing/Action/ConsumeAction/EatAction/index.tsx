@@ -18,6 +18,8 @@ export default function EatAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

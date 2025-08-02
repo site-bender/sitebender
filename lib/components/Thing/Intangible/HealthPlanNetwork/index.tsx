@@ -24,6 +24,8 @@ export default function HealthPlanNetwork({
 				healthPlanNetworkTier,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

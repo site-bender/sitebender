@@ -20,6 +20,8 @@ export default function Class({
 				supersededBy,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

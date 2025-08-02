@@ -22,6 +22,8 @@ export default function MoveAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

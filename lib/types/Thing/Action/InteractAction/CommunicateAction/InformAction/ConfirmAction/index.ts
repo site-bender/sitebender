@@ -4,8 +4,11 @@ import type { InteractActionProps } from "../../../index.ts"
 import type { CommunicateActionProps } from "../../index.ts"
 import type { InformActionProps } from "../index.ts"
 
+export type ConfirmActionType = "ConfirmAction"
+
 export interface ConfirmActionProps {
-	"@type"?: "ConfirmAction"}
+	"@type"?: ConfirmActionType
+}
 
 type ConfirmAction =
 	& Thing

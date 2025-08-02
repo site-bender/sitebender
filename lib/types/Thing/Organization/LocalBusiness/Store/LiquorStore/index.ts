@@ -4,8 +4,11 @@ import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { StoreProps } from "../index.ts"
 
+export type LiquorStoreType = "LiquorStore"
+
 export interface LiquorStoreProps {
-	"@type"?: "LiquorStore"}
+	"@type"?: LiquorStoreType
+}
 
 type LiquorStore =
 	& Thing

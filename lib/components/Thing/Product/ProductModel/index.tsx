@@ -24,6 +24,8 @@ export default function ProductModel({
 				successorOf,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

@@ -18,6 +18,8 @@ export default function ComicSeries({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Periodical>
+		>
+			{children}
+		</Periodical>
 	)
 }

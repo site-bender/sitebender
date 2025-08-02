@@ -32,6 +32,8 @@ export default function ActionAccessSpecification({
 				requiresSubscription,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

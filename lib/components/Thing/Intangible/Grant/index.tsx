@@ -24,6 +24,8 @@ export default function Grant({
 				sponsor,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

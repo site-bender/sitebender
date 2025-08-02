@@ -22,6 +22,8 @@ export default function Audience({
 				geographicArea,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

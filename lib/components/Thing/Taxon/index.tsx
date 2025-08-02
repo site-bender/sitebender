@@ -26,6 +26,8 @@ export default function Taxon({
 				taxonRank,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

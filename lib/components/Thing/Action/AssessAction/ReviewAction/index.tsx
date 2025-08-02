@@ -20,6 +20,8 @@ export default function ReviewAction({
 				resultReview,
 				...subtypeProperties,
 			}}
-		>{children}</AssessAction>
+		>
+			{children}
+		</AssessAction>
 	)
 }

@@ -18,6 +18,8 @@ export default function Festival({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

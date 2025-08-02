@@ -18,6 +18,8 @@ export default function DriveWheelConfigurationValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</QualitativeValue>
+		>
+			{children}
+		</QualitativeValue>
 	)
 }

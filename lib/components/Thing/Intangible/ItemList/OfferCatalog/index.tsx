@@ -18,6 +18,8 @@ export default function OfferCatalog({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ItemList>
+		>
+			{children}
+		</ItemList>
 	)
 }

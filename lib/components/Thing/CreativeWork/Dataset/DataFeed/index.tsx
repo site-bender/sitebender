@@ -20,6 +20,8 @@ export default function DataFeed({
 				dataFeedElement,
 				...subtypeProperties,
 			}}
-		>{children}</Dataset>
+		>
+			{children}
+		</Dataset>
 	)
 }

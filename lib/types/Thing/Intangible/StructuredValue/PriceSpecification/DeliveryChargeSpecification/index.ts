@@ -13,8 +13,10 @@ import GeoShapeComponent from "../../../../../../components/Thing/Intangible/Str
 import AdministrativeAreaComponent from "../../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 import PlaceComponent from "../../../../../../components/Thing/Place/index.ts"
 
+export type DeliveryChargeSpecificationType = "DeliveryChargeSpecification"
+
 export interface DeliveryChargeSpecificationProps {
-	"@type"?: "DeliveryChargeSpecification"
+	"@type"?: DeliveryChargeSpecificationType
 	appliesToDeliveryMethod?:
 		| DeliveryMethod
 		| ReturnType<typeof DeliveryMethodComponent>

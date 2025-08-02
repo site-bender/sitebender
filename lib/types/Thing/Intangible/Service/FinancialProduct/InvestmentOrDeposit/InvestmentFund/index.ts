@@ -4,8 +4,11 @@ import type { ServiceProps } from "../../../index.ts"
 import type { FinancialProductProps } from "../../index.ts"
 import type { InvestmentOrDepositProps } from "../index.ts"
 
+export type InvestmentFundType = "InvestmentFund"
+
 export interface InvestmentFundProps {
-	"@type"?: "InvestmentFund"}
+	"@type"?: InvestmentFundType
+}
 
 type InvestmentFund =
 	& Thing

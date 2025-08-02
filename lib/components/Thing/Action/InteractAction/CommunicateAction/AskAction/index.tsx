@@ -20,6 +20,8 @@ export default function AskAction({
 				question,
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

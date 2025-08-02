@@ -18,6 +18,8 @@ export default function ContactPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

@@ -26,6 +26,8 @@ export default function PaymentCard({
 				monthlyMinimumRepaymentAmount,
 				...subtypeProperties,
 			}}
-		>{children}</PaymentMethod>
+		>
+			{children}
+		</PaymentMethod>
 	)
 }

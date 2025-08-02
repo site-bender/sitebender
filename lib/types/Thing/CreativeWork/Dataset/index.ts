@@ -8,6 +8,7 @@ import type PropertyValue from "../../Intangible/StructuredValue/PropertyValue/i
 import type DataCatalog from "../DataCatalog/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type DataDownload from "../MediaObject/DataDownload/index.ts"
+import type { DataFeedType } from "./DataFeed/index.ts"
 
 import DataCatalogComponent from "../../../../components/Thing/CreativeWork/DataCatalog/index.ts"
 import DataDownloadComponent from "../../../../components/Thing/CreativeWork/MediaObject/DataDownload/index.ts"
@@ -17,8 +18,10 @@ import MeasurementMethodEnumComponent from "../../../../components/Thing/Intangi
 import PropertyComponent from "../../../../components/Thing/Intangible/Property/index.ts"
 import PropertyValueComponent from "../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 
+export type DatasetType = "Dataset" | DataFeedType
+
 export interface DatasetProps {
-	"@type"?: "Dataset"
+	"@type"?: DatasetType
 	catalog?: DataCatalog | ReturnType<typeof DataCatalogComponent>
 	datasetTimeInterval?: DateTime
 	distribution?: DataDownload | ReturnType<typeof DataDownloadComponent>

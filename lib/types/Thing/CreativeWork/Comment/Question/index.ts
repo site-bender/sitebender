@@ -12,8 +12,10 @@ import CommentComponent from "../../../../../components/Thing/CreativeWork/Comme
 import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/index.ts"
 import ItemListComponent from "../../../../../components/Thing/Intangible/ItemList/index.ts"
 
+export type QuestionType = "Question"
+
 export interface QuestionProps {
-	"@type"?: "Question"
+	"@type"?: QuestionType
 	acceptedAnswer?:
 		| Answer
 		| ItemList

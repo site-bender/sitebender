@@ -20,6 +20,8 @@ export default function JoinAction({
 				event,
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

@@ -24,6 +24,8 @@ export default function LiveBlogPosting({
 				liveBlogUpdate,
 				...subtypeProperties,
 			}}
-		>{children}</BlogPosting>
+		>
+			{children}
+		</BlogPosting>
 	)
 }

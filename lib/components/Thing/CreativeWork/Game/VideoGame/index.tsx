@@ -42,6 +42,8 @@ export default function VideoGame({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</Game>
+		>
+			{children}
+		</Game>
 	)
 }

@@ -20,6 +20,8 @@ export default function FollowAction({
 				followee,
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

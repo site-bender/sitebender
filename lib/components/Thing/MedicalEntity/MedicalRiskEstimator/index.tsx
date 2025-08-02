@@ -22,6 +22,8 @@ export default function MedicalRiskEstimator({
 				includedRiskFactor,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

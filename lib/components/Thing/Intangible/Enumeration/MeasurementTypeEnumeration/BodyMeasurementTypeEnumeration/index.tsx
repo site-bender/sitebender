@@ -18,6 +18,8 @@ export default function BodyMeasurementTypeEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MeasurementTypeEnumeration>
+		>
+			{children}
+		</MeasurementTypeEnumeration>
 	)
 }

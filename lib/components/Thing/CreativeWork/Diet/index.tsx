@@ -28,6 +28,8 @@ export default function Diet({
 				risks,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

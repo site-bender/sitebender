@@ -22,6 +22,8 @@ export default function MemberProgram({
 				hostingOrganization,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

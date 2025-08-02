@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { FindActionProps } from "../index.ts"
 
+export type DiscoverActionType = "DiscoverAction"
+
 export interface DiscoverActionProps {
-	"@type"?: "DiscoverAction"}
+	"@type"?: DiscoverActionType
+}
 
 type DiscoverAction =
 	& Thing

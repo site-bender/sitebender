@@ -20,6 +20,8 @@ export default function PlanAction({
 				scheduledTime,
 				...subtypeProperties,
 			}}
-		>{children}</OrganizeAction>
+		>
+			{children}
+		</OrganizeAction>
 	)
 }

@@ -14,8 +14,10 @@ import PriceSpecificationComponent from "../../../../../components/Thing/Intangi
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type DonateActionType = "DonateAction"
+
 export interface DonateActionProps {
-	"@type"?: "DonateAction"
+	"@type"?: DonateActionType
 	price?: Number | Text
 	priceCurrency?: Text
 	priceSpecification?:

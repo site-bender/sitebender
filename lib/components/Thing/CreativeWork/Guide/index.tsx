@@ -20,6 +20,8 @@ export default function Guide({
 				reviewAspect,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

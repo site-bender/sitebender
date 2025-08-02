@@ -1,17 +1,9 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type CreativeWorkSeasonProps from "../../../../../types/Thing/CreativeWorkSeason/index.ts"
-import type TVSeasonProps from "../../../../../types/Thing/TVSeason/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type TVSeasonProps from "../../../../../types/Thing/CreativeWork/CreativeWorkSeason/TVSeason/index.ts"
 
 import CreativeWorkSeason from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	TVSeasonProps,
-	"TVSeason",
-	ExtractLevelProps<TVSeasonProps, CreativeWorkSeasonProps>
->
+export type Props = TVSeasonProps & BaseProps
 
 export default function TVSeason(
 	{
@@ -34,6 +26,8 @@ export default function TVSeason(
 				titleEIDR,
 				...subtypeProperties,
 			}}
-		>{children}</TVSeasonProps>
+		>
+			{children}
+		</CreativeWorkSeason>
 	)
 }

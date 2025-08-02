@@ -11,8 +11,10 @@ import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/
 import DeliveryChargeSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/DeliveryChargeSpecification/index.ts"
 import ShippingRateSettingsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingRateSettings/index.ts"
 
+export type ShippingRateSettingsType = "ShippingRateSettings"
+
 export interface ShippingRateSettingsProps {
-	"@type"?: "ShippingRateSettings"
+	"@type"?: ShippingRateSettingsType
 	doesNotShip?: Boolean
 	freeShippingThreshold?:
 		| DeliveryChargeSpecification

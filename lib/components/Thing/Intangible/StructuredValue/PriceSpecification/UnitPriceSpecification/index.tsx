@@ -34,6 +34,8 @@ export default function UnitPriceSpecification({
 				unitText,
 				...subtypeProperties,
 			}}
-		>{children}</PriceSpecification>
+		>
+			{children}
+		</PriceSpecification>
 	)
 }

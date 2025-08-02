@@ -18,6 +18,8 @@ export default function Room({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Accommodation>
+		>
+			{children}
+		</Accommodation>
 	)
 }

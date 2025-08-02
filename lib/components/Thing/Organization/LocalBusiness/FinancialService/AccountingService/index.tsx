@@ -18,6 +18,8 @@ export default function AccountingService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FinancialService>
+		>
+			{children}
+		</FinancialService>
 	)
 }

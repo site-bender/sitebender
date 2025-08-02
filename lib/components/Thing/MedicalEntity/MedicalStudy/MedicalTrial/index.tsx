@@ -20,6 +20,8 @@ export default function MedicalTrial({
 				trialDesign,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalStudy>
+		>
+			{children}
+		</MedicalStudy>
 	)
 }

@@ -5,8 +5,10 @@ import type { EventProps } from "../index.ts"
 
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 
+export type EducationEventType = "EducationEvent"
+
 export interface EducationEventProps {
-	"@type"?: "EducationEvent"
+	"@type"?: EducationEventType
 	assesses?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
 	educationalLevel?:
 		| DefinedTerm

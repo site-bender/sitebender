@@ -5,6 +5,13 @@ import type AnatomicalSystem from "../AnatomicalSystem/index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 import type MedicalCondition from "../MedicalCondition/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
+import type { BoneType } from "./Bone/index.ts"
+import type { BrainStructureType } from "./BrainStructure/index.ts"
+import type { JointType } from "./Joint/index.ts"
+import type { LigamentType } from "./Ligament/index.ts"
+import type { MuscleType } from "./Muscle/index.ts"
+import type { NerveType } from "./Nerve/index.ts"
+import type { VesselType } from "./Vessel/index.ts"
 
 import ImageObjectComponent from "../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
 import AnatomicalStructureComponent from "../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.ts"
@@ -12,8 +19,18 @@ import AnatomicalSystemComponent from "../../../../components/Thing/MedicalEntit
 import MedicalConditionComponent from "../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import MedicalTherapyComponent from "../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+export type AnatomicalStructureType =
+	| "AnatomicalStructure"
+	| NerveType
+	| BoneType
+	| BrainStructureType
+	| JointType
+	| VesselType
+	| LigamentType
+	| MuscleType
+
 export interface AnatomicalStructureProps {
-	"@type"?: "AnatomicalStructure"
+	"@type"?: AnatomicalStructureType
 	associatedPathophysiology?: Text
 	bodyLocation?: Text
 	connectedTo?:

@@ -10,8 +10,10 @@ import type { InformActionProps } from "../index.ts"
 import CommentComponent from "../../../../../../../components/Thing/CreativeWork/Comment/index.ts"
 import RsvpResponseTypeComponent from "../../../../../../../components/Thing/Intangible/Enumeration/RsvpResponseType/index.ts"
 
+export type RsvpActionType = "RsvpAction"
+
 export interface RsvpActionProps {
-	"@type"?: "RsvpAction"
+	"@type"?: RsvpActionType
 	additionalNumberOfGuests?: Number
 	comment?: Comment | ReturnType<typeof CommentComponent>
 	rsvpResponse?: RsvpResponseType | ReturnType<typeof RsvpResponseTypeComponent>

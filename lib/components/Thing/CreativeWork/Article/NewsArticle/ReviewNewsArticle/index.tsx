@@ -18,6 +18,8 @@ export default function ReviewNewsArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NewsArticle>
+		>
+			{children}
+		</NewsArticle>
 	)
 }

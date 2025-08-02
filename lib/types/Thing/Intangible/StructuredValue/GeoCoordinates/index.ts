@@ -8,8 +8,10 @@ import type { StructuredValueProps } from "../index.ts"
 import PostalAddressComponent from "../../../../../components/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type GeoCoordinatesType = "GeoCoordinates"
+
 export interface GeoCoordinatesProps {
-	"@type"?: "GeoCoordinates"
+	"@type"?: GeoCoordinatesType
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	elevation?: Number | Text

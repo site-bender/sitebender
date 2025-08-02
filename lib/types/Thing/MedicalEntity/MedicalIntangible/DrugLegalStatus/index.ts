@@ -5,8 +5,10 @@ import type { MedicalIntangibleProps } from "../index.ts"
 
 import AdministrativeAreaComponent from "../../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type DrugLegalStatusType = "DrugLegalStatus"
+
 export interface DrugLegalStatusProps {
-	"@type"?: "DrugLegalStatus"
+	"@type"?: DrugLegalStatusType
 	applicableLocation?:
 		| AdministrativeArea
 		| ReturnType<typeof AdministrativeAreaComponent>

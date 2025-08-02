@@ -34,6 +34,8 @@ export default function Occupation({
 				skills,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

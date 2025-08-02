@@ -4,11 +4,14 @@ import type { IntangibleProps } from "../../../index.ts"
 import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.ts"
 import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
+import type { DepositAccountType } from "./DepositAccount/index.ts"
 
 import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
+export type BankAccountType = "BankAccount" | DepositAccountType
+
 export interface BankAccountProps {
-	"@type"?: "BankAccount"
+	"@type"?: BankAccountType
 	accountMinimumInflow?:
 		| MonetaryAmount
 		| ReturnType<typeof MonetaryAmountComponent>

@@ -18,6 +18,8 @@ export default function MedicalIntangible({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

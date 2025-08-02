@@ -20,6 +20,8 @@ export default function FinancialService({
 				feesAndCommissionsSpecification,
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

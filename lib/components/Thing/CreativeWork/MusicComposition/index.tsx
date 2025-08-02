@@ -38,6 +38,8 @@ export default function MusicComposition({
 				recordedAs,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

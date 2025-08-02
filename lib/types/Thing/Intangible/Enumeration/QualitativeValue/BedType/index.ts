@@ -3,8 +3,11 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { QualitativeValueProps } from "../index.ts"
 
+export type BedTypeType = "BedType"
+
 export interface BedTypeProps {
-	"@type"?: "BedType"}
+	"@type"?: BedTypeType
+}
 
 type BedType =
 	& Thing

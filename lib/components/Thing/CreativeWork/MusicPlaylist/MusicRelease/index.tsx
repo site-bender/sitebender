@@ -30,6 +30,8 @@ export default function MusicRelease({
 				releaseOf,
 				...subtypeProperties,
 			}}
-		>{children}</MusicPlaylist>
+		>
+			{children}
+		</MusicPlaylist>
 	)
 }

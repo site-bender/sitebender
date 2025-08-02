@@ -18,6 +18,8 @@ export default function AdvertiserContentArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

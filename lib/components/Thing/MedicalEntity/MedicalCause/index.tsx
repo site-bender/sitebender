@@ -20,6 +20,8 @@ export default function MedicalCause({
 				causeOf,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

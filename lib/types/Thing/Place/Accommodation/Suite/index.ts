@@ -10,8 +10,10 @@ import BedDetailsComponent from "../../../../../components/Thing/Intangible/BedD
 import BedTypeComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type SuiteType = "Suite"
+
 export interface SuiteProps {
-	"@type"?: "Suite"
+	"@type"?: SuiteType
 	bed?:
 		| BedDetails
 		| BedType

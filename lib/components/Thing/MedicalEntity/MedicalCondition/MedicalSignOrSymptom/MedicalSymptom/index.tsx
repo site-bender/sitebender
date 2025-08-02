@@ -18,6 +18,8 @@ export default function MedicalSymptom({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalSignOrSymptom>
+		>
+			{children}
+		</MedicalSignOrSymptom>
 	)
 }

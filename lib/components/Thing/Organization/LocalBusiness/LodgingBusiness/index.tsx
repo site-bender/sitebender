@@ -34,6 +34,8 @@ export default function LodgingBusiness({
 				starRating,
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

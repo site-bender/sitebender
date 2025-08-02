@@ -8,8 +8,10 @@ import type { TransferActionProps } from "../index.ts"
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 import BankOrCreditUnionComponent from "../../../../../components/Thing/Organization/LocalBusiness/FinancialService/BankOrCreditUnion/index.ts"
 
+export type MoneyTransferType = "MoneyTransfer"
+
 export interface MoneyTransferProps {
-	"@type"?: "MoneyTransfer"
+	"@type"?: MoneyTransferType
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	beneficiaryBank?:
 		| BankOrCreditUnion

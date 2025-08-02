@@ -18,6 +18,8 @@ export default function UserPlays({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

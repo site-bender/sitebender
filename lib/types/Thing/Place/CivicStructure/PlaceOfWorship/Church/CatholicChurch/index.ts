@@ -4,8 +4,11 @@ import type { CivicStructureProps } from "../../../index.ts"
 import type { PlaceOfWorshipProps } from "../../index.ts"
 import type { ChurchProps } from "../index.ts"
 
+export type CatholicChurchType = "CatholicChurch"
+
 export interface CatholicChurchProps {
-	"@type"?: "CatholicChurch"}
+	"@type"?: CatholicChurchType
+}
 
 type CatholicChurch =
 	& Thing

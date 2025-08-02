@@ -18,6 +18,8 @@ export default function DiscussionForumPosting({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SocialMediaPosting>
+		>
+			{children}
+		</SocialMediaPosting>
 	)
 }

@@ -18,6 +18,8 @@ export default function VitalSign({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalSign>
+		>
+			{children}
+		</MedicalSign>
 	)
 }

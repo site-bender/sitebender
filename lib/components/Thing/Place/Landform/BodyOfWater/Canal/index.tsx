@@ -18,6 +18,8 @@ export default function Canal({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BodyOfWater>
+		>
+			{children}
+		</BodyOfWater>
 	)
 }

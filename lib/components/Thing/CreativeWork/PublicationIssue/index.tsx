@@ -26,6 +26,8 @@ export default function PublicationIssue({
 				pagination,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

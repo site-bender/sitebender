@@ -20,6 +20,8 @@ export default function StatisticalPopulation({
 				populationType,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

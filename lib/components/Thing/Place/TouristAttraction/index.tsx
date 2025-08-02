@@ -22,6 +22,8 @@ export default function TouristAttraction({
 				touristType,
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

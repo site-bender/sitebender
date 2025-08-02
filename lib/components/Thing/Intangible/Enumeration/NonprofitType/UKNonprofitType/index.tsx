@@ -18,6 +18,8 @@ export default function UKNonprofitType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NonprofitType>
+		>
+			{children}
+		</NonprofitType>
 	)
 }

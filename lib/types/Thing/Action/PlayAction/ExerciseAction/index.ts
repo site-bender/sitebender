@@ -20,8 +20,10 @@ import SportsTeamComponent from "../../../../../components/Thing/Organization/Sp
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
+export type ExerciseActionType = "ExerciseAction"
+
 export interface ExerciseActionProps {
-	"@type"?: "ExerciseAction"
+	"@type"?: ExerciseActionType
 	course?: Place | ReturnType<typeof PlaceComponent>
 	diet?: Diet | ReturnType<typeof DietComponent>
 	distance?: Distance | ReturnType<typeof DistanceComponent>

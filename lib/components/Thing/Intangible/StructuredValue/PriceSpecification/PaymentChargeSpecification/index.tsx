@@ -22,6 +22,8 @@ export default function PaymentChargeSpecification({
 				appliesToPaymentMethod,
 				...subtypeProperties,
 			}}
-		>{children}</PriceSpecification>
+		>
+			{children}
+		</PriceSpecification>
 	)
 }

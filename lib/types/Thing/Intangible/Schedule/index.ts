@@ -15,8 +15,10 @@ import DayOfWeekComponent from "../../../../components/Thing/Intangible/Enumerat
 import DurationComponent from "../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type ScheduleType = "Schedule"
+
 export interface ScheduleProps {
-	"@type"?: "Schedule"
+	"@type"?: ScheduleType
 	byDay?: DayOfWeek | Text | ReturnType<typeof DayOfWeekComponent>
 	byMonth?: Integer
 	byMonthDay?: Integer

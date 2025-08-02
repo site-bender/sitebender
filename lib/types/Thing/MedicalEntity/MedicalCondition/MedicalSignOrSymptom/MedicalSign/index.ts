@@ -4,12 +4,15 @@ import type PhysicalExam from "../../../MedicalProcedure/PhysicalExam/index.ts"
 import type MedicalTest from "../../../MedicalTest/index.ts"
 import type { MedicalConditionProps } from "../../index.ts"
 import type { MedicalSignOrSymptomProps } from "../index.ts"
+import type { VitalSignType } from "./VitalSign/index.ts"
 
 import PhysicalExamComponent from "../../../../../../components/Thing/MedicalEntity/MedicalProcedure/PhysicalExam/index.ts"
 import MedicalTestComponent from "../../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
+export type MedicalSignType = "MedicalSign" | VitalSignType
+
 export interface MedicalSignProps {
-	"@type"?: "MedicalSign"
+	"@type"?: MedicalSignType
 	identifyingExam?: PhysicalExam | ReturnType<typeof PhysicalExamComponent>
 	identifyingTest?: MedicalTest | ReturnType<typeof MedicalTestComponent>
 }

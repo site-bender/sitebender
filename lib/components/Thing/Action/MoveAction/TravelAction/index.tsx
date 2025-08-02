@@ -20,6 +20,8 @@ export default function TravelAction({
 				distance,
 				...subtypeProperties,
 			}}
-		>{children}</MoveAction>
+		>
+			{children}
+		</MoveAction>
 	)
 }

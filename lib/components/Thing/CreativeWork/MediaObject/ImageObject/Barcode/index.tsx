@@ -18,6 +18,8 @@ export default function Barcode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ImageObject>
+		>
+			{children}
+		</ImageObject>
 	)
 }

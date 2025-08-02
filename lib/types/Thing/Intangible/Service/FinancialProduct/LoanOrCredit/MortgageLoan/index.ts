@@ -8,8 +8,10 @@ import type { LoanOrCreditProps } from "../index.ts"
 
 import MonetaryAmountComponent from "../../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
+export type MortgageLoanType = "MortgageLoan"
+
 export interface MortgageLoanProps {
-	"@type"?: "MortgageLoan"
+	"@type"?: MortgageLoanType
 	domiciledMortgage?: Boolean
 	loanMortgageMandateAmount?:
 		| MonetaryAmount

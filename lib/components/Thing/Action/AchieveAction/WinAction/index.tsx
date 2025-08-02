@@ -20,6 +20,8 @@ export default function WinAction({
 				loser,
 				...subtypeProperties,
 			}}
-		>{children}</AchieveAction>
+		>
+			{children}
+		</AchieveAction>
 	)
 }

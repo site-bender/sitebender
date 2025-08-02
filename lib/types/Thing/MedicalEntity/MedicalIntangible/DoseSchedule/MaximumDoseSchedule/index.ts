@@ -3,8 +3,11 @@ import type { MedicalEntityProps } from "../../../index.ts"
 import type { MedicalIntangibleProps } from "../../index.ts"
 import type { DoseScheduleProps } from "../index.ts"
 
+export type MaximumDoseScheduleType = "MaximumDoseSchedule"
+
 export interface MaximumDoseScheduleProps {
-	"@type"?: "MaximumDoseSchedule"}
+	"@type"?: MaximumDoseScheduleType
+}
 
 type MaximumDoseSchedule =
 	& Thing

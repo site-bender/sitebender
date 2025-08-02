@@ -5,11 +5,14 @@ import type { FinancialProductProps } from "../../Service/FinancialProduct/index
 import type { ServiceProps } from "../../Service/index.ts"
 import type MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
 import type { PaymentMethodProps } from "../index.ts"
+import type { CreditCardType } from "./CreditCard/index.ts"
 
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
+export type PaymentCardType = "PaymentCard" | CreditCardType
+
 export interface PaymentCardProps {
-	"@type"?: "PaymentCard"
+	"@type"?: PaymentCardType
 	cashBack?: Boolean | Number
 	contactlessPayment?: Boolean
 	floorLimit?: MonetaryAmount | ReturnType<typeof MonetaryAmountComponent>

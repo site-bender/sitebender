@@ -5,8 +5,11 @@ import type { SportsActivityLocationProps } from "../../../Organization/LocalBus
 import type { PlaceProps } from "../../index.ts"
 import type { CivicStructureProps } from "../index.ts"
 
+export type StadiumOrArenaType = "StadiumOrArena"
+
 export interface StadiumOrArenaProps {
-	"@type"?: "StadiumOrArena"}
+	"@type"?: StadiumOrArenaType
+}
 
 type StadiumOrArena =
 	& Thing

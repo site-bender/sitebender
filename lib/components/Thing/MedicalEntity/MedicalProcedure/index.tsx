@@ -30,6 +30,8 @@ export default function MedicalProcedure({
 				status,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

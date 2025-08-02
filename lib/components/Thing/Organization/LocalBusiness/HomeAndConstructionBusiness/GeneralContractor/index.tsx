@@ -18,6 +18,8 @@ export default function GeneralContractor({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HomeAndConstructionBusiness>
+		>
+			{children}
+		</HomeAndConstructionBusiness>
 	)
 }

@@ -26,6 +26,8 @@ export default function OwnershipInfo({
 				typeOfGood,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

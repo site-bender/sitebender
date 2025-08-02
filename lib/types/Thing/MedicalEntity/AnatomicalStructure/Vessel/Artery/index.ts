@@ -6,8 +6,10 @@ import type { VesselProps } from "../index.ts"
 
 import AnatomicalStructureComponent from "../../../../../../components/Thing/MedicalEntity/AnatomicalStructure/index.ts"
 
+export type ArteryType = "Artery"
+
 export interface ArteryProps {
-	"@type"?: "Artery"
+	"@type"?: ArteryType
 	arterialBranch?:
 		| AnatomicalStructure
 		| ReturnType<typeof AnatomicalStructureComponent>

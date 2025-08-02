@@ -20,6 +20,8 @@ export default function InformAction({
 				event,
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

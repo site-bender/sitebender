@@ -5,8 +5,10 @@ import type { AchieveActionProps } from "../index.ts"
 
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type WinActionType = "WinAction"
+
 export interface WinActionProps {
-	"@type"?: "WinAction"
+	"@type"?: WinActionType
 	loser?: Person | ReturnType<typeof PersonComponent>
 }
 

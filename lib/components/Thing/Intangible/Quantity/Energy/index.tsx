@@ -18,6 +18,8 @@ export default function Energy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Quantity>
+		>
+			{children}
+		</Quantity>
 	)
 }

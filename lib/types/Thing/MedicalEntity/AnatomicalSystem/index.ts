@@ -10,8 +10,10 @@ import AnatomicalSystemComponent from "../../../../components/Thing/MedicalEntit
 import MedicalConditionComponent from "../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import MedicalTherapyComponent from "../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+export type AnatomicalSystemType = "AnatomicalSystem"
+
 export interface AnatomicalSystemProps {
-	"@type"?: "AnatomicalSystem"
+	"@type"?: AnatomicalSystemType
 	associatedPathophysiology?: Text
 	comprisedOf?:
 		| AnatomicalStructure

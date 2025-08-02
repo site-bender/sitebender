@@ -7,8 +7,10 @@ import type { InteractActionProps } from "../index.ts"
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type FollowActionType = "FollowAction"
+
 export interface FollowActionProps {
-	"@type"?: "FollowAction"
+	"@type"?: FollowActionType
 	followee?:
 		| Organization
 		| Person

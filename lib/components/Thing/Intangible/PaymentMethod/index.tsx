@@ -20,6 +20,8 @@ export default function PaymentMethod({
 				paymentMethodType,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

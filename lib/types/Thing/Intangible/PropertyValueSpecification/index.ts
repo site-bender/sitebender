@@ -4,8 +4,10 @@ import type { IntangibleProps } from "../index.ts"
 
 import ThingComponent from "../../../../components/Thing/index.ts"
 
+export type PropertyValueSpecificationType = "PropertyValueSpecification"
+
 export interface PropertyValueSpecificationProps {
-	"@type"?: "PropertyValueSpecification"
+	"@type"?: PropertyValueSpecificationType
 	defaultValue?: Text | Thing | ReturnType<typeof ThingComponent>
 	maxValue?: Number
 	minValue?: Number

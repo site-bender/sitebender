@@ -28,6 +28,8 @@ export default function TypeAndQuantityNode({
 				unitText,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

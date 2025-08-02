@@ -4,8 +4,11 @@ import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { SportsActivityLocationProps } from "../index.ts"
 
+export type GolfCourseType = "GolfCourse"
+
 export interface GolfCourseProps {
-	"@type"?: "GolfCourse"}
+	"@type"?: GolfCourseType
+}
 
 type GolfCourse =
 	& Thing

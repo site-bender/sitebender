@@ -32,6 +32,8 @@ export default function EntryPoint({
 				urlTemplate,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

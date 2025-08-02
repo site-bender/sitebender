@@ -8,8 +8,10 @@ import type PostalCodeRangeSpecification from "../PostalCodeRangeSpecification/i
 import PostalCodeRangeSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.ts"
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type DefinedRegionType = "DefinedRegion"
+
 export interface DefinedRegionProps {
-	"@type"?: "DefinedRegion"
+	"@type"?: DefinedRegionType
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	addressRegion?: Text
 	postalCode?: Text

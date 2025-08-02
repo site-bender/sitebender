@@ -30,6 +30,8 @@ export default function MusicRecording({
 				recordingOf,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

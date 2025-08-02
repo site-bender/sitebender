@@ -18,6 +18,8 @@ export default function Duration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Quantity>
+		>
+			{children}
+		</Quantity>
 	)
 }

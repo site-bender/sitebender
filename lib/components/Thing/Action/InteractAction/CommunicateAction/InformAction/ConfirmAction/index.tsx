@@ -18,6 +18,8 @@ export default function ConfirmAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InformAction>
+		>
+			{children}
+		</InformAction>
 	)
 }

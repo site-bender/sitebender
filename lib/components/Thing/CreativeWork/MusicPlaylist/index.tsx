@@ -24,6 +24,8 @@ export default function MusicPlaylist({
 				tracks,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

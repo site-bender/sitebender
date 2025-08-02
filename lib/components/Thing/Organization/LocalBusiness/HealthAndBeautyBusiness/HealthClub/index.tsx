@@ -18,6 +18,8 @@ export default function HealthClub({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HealthAndBeautyBusiness>
+		>
+			{children}
+		</HealthAndBeautyBusiness>
 	)
 }

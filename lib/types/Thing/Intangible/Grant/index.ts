@@ -7,6 +7,7 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type Product from "../../Product/index.ts"
 import type { IntangibleProps } from "../index.ts"
+import type { MonetaryGrantType } from "./MonetaryGrant/index.ts"
 
 import BioChemEntityComponent from "../../../../components/Thing/BioChemEntity/index.ts"
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
@@ -16,8 +17,10 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type GrantType = "Grant" | MonetaryGrantType
+
 export interface GrantProps {
-	"@type"?: "Grant"
+	"@type"?: GrantType
 	fundedItem?:
 		| BioChemEntity
 		| CreativeWork

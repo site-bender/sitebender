@@ -20,6 +20,8 @@ export default function MedicalRiskFactor({
 				increasesRiskOf,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

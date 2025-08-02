@@ -22,6 +22,8 @@ export default function WriteAction({
 				language,
 				...subtypeProperties,
 			}}
-		>{children}</CreateAction>
+		>
+			{children}
+		</CreateAction>
 	)
 }

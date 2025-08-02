@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type HowToDirectionProps from "../../../../../types/Thing/HowToDirection/index.ts"
-import type ListItemProps from "../../../../../types/Thing/ListItem/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type HowToDirectionProps from "../../../../../types/Thing/Intangible/ListItem/HowToDirection/index.ts"
 
 import ListItem from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	HowToDirectionProps,
-	"HowToDirection",
-	ExtractLevelProps<HowToDirectionProps, ListItemProps>
->
+// HowToDirection adds no properties to the ListItem schema type
+export type Props = HowToDirectionProps & BaseProps
 
 export default function HowToDirection(
 	{
@@ -44,6 +37,8 @@ export default function HowToDirection(
 				totalTime,
 				...subtypeProperties,
 			}}
-		>{children}</HowToDirectionProps>
+		>
+			{children}
+		</ListItem>
 	)
 }

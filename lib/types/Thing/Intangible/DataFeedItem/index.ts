@@ -4,8 +4,10 @@ import type { IntangibleProps } from "../index.ts"
 
 import ThingComponent from "../../../../components/Thing/index.ts"
 
+export type DataFeedItemType = "DataFeedItem"
+
 export interface DataFeedItemProps {
-	"@type"?: "DataFeedItem"
+	"@type"?: DataFeedItemType
 	dateCreated?: Date | DateTime
 	dateDeleted?: Date | DateTime
 	dateModified?: Date | DateTime

@@ -5,8 +5,10 @@ import type { MedicalOrganizationProps } from "../index.ts"
 
 import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 
+export type DiagnosticLabType = "DiagnosticLab"
+
 export interface DiagnosticLabProps {
-	"@type"?: "DiagnosticLab"
+	"@type"?: DiagnosticLabType
 	availableTest?: MedicalTest | ReturnType<typeof MedicalTestComponent>
 }
 

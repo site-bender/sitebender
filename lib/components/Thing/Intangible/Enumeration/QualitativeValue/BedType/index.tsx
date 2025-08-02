@@ -18,6 +18,8 @@ export default function BedType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</QualitativeValue>
+		>
+			{children}
+		</QualitativeValue>
 	)
 }

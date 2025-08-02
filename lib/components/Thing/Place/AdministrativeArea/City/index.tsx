@@ -18,6 +18,8 @@ export default function City({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AdministrativeArea>
+		>
+			{children}
+		</AdministrativeArea>
 	)
 }

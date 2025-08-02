@@ -18,6 +18,8 @@ export default function Series({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

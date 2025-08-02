@@ -42,6 +42,8 @@ export default function ShippingConditions({
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

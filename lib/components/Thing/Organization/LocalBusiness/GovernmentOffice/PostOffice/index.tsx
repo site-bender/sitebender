@@ -18,6 +18,8 @@ export default function PostOffice({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentOffice>
+		>
+			{children}
+		</GovernmentOffice>
 	)
 }

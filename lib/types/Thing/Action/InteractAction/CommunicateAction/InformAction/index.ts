@@ -3,11 +3,18 @@ import type Thing from "../../../../index.ts"
 import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
+import type { ConfirmActionType } from "./ConfirmAction/index.ts"
+import type { RsvpActionType } from "./RsvpAction/index.ts"
 
 import EventComponent from "../../../../../../components/Thing/Event/index.ts"
 
+export type InformActionType =
+	| "InformAction"
+	| RsvpActionType
+	| ConfirmActionType
+
 export interface InformActionProps {
-	"@type"?: "InformAction"
+	"@type"?: InformActionType
 	event?: Event | ReturnType<typeof EventComponent>
 }
 

@@ -3,12 +3,15 @@ import type Thing from "../../index.ts"
 import type BookFormatType from "../../Intangible/Enumeration/BookFormatType/index.ts"
 import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { AudiobookType } from "./Audiobook/index.ts"
 
 import BookFormatTypeComponent from "../../../../components/Thing/Intangible/Enumeration/BookFormatType/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type BookType = "Book" | AudiobookType
+
 export interface BookProps {
-	"@type"?: "Book"
+	"@type"?: BookType
 	abridged?: Boolean
 	bookEdition?: Text
 	bookFormat?: BookFormatType | ReturnType<typeof BookFormatTypeComponent>

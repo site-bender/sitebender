@@ -18,6 +18,8 @@ export default function UnRegisterAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

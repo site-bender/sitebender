@@ -44,6 +44,8 @@ export default function Reservation({
 				underName,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

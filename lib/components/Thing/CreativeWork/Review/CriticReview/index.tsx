@@ -18,6 +18,8 @@ export default function CriticReview({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

@@ -5,8 +5,11 @@ import type { ReviewProps } from "../../../Review/index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { NewsArticleProps } from "../index.ts"
 
+export type ReviewNewsArticleType = "ReviewNewsArticle"
+
 export interface ReviewNewsArticleProps {
-	"@type"?: "ReviewNewsArticle"}
+	"@type"?: ReviewNewsArticleType
+}
 
 type ReviewNewsArticle =
 	& Thing

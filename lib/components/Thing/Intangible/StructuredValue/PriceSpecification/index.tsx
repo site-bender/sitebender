@@ -40,6 +40,8 @@ export default function PriceSpecification({
 				valueAddedTaxIncluded,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

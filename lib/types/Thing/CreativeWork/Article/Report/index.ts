@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ArticleProps } from "../index.ts"
 
+export type ReportType = "Report"
+
 export interface ReportProps {
-	"@type"?: "Report"
+	"@type"?: ReportType
 	reportNumber?: Text
 }
 

@@ -3,12 +3,16 @@ import type Thing from "../../index.ts"
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type { IntangibleProps } from "../index.ts"
+import type { AggregateRatingType } from "./AggregateRating/index.ts"
+import type { EndorsementRatingType } from "./EndorsementRating/index.ts"
 
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type RatingType = "Rating" | EndorsementRatingType | AggregateRatingType
+
 export interface RatingProps {
-	"@type"?: "Rating"
+	"@type"?: RatingType
 	author?:
 		| Organization
 		| Person

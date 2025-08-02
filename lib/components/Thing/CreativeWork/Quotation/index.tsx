@@ -20,6 +20,8 @@ export default function Quotation({
 				spokenByCharacter,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

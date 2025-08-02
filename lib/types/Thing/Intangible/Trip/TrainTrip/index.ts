@@ -6,8 +6,10 @@ import type { TripProps } from "../index.ts"
 
 import TrainStationComponent from "../../../../../components/Thing/Place/CivicStructure/TrainStation/index.ts"
 
+export type TrainTripType = "TrainTrip"
+
 export interface TrainTripProps {
-	"@type"?: "TrainTrip"
+	"@type"?: TrainTripType
 	arrivalPlatform?: Text
 	arrivalStation?: TrainStation | ReturnType<typeof TrainStationComponent>
 	departurePlatform?: Text

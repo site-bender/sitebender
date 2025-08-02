@@ -11,8 +11,10 @@ import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
 import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
+export type DatedMoneySpecificationType = "DatedMoneySpecification"
+
 export interface DatedMoneySpecificationProps {
-	"@type"?: "DatedMoneySpecification"
+	"@type"?: DatedMoneySpecificationType
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	currency?: Text
 	endDate?: Date | DateTime

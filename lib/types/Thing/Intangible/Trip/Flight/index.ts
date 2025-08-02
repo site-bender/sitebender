@@ -18,8 +18,10 @@ import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 import AirportComponent from "../../../../../components/Thing/Place/CivicStructure/Airport/index.ts"
 import VehicleComponent from "../../../../../components/Thing/Product/Vehicle/index.ts"
 
+export type FlightType = "Flight"
+
 export interface FlightProps {
-	"@type"?: "Flight"
+	"@type"?: FlightType
 	aircraft?: Text | Vehicle | ReturnType<typeof VehicleComponent>
 	arrivalAirport?: Airport | ReturnType<typeof AirportComponent>
 	arrivalGate?: Text

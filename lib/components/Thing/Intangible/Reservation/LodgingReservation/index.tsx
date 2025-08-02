@@ -30,6 +30,8 @@ export default function LodgingReservation({
 				numChildren,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

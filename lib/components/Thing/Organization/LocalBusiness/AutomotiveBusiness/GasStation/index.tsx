@@ -18,6 +18,8 @@ export default function GasStation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AutomotiveBusiness>
+		>
+			{children}
+		</AutomotiveBusiness>
 	)
 }

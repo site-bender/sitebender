@@ -26,6 +26,8 @@ export default function RentalCarReservation({
 				pickupTime,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

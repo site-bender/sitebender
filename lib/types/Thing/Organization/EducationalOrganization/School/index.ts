@@ -4,8 +4,11 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { EducationalOrganizationProps } from "../index.ts"
 
+export type SchoolType = "School"
+
 export interface SchoolProps {
-	"@type"?: "School"}
+	"@type"?: SchoolType
+}
 
 type School =
 	& Thing

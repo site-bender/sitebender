@@ -20,6 +20,8 @@ export default function MedicalTestPanel({
 				subTest,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTest>
+		>
+			{children}
+		</MedicalTest>
 	)
 }

@@ -18,6 +18,8 @@ export default function USNonprofitType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NonprofitType>
+		>
+			{children}
+		</NonprofitType>
 	)
 }

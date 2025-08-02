@@ -9,8 +9,10 @@ import type { CreativeWorkProps } from "../index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type DietType = "Diet"
+
 export interface DietProps {
-	"@type"?: "Diet"
+	"@type"?: DietType
 	dietFeatures?: Text
 	endorsers?:
 		| Organization

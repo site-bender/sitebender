@@ -1,17 +1,9 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../types/index.ts"
-import type CreativeWorkProps from "../../../../types/Thing/CreativeWork/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 import type MediaObjectProps from "../../../../types/Thing/MediaObject/index.ts"
 
 import CreativeWork from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MediaObjectProps,
-	"MediaObject",
-	ExtractLevelProps<MediaObjectProps, CreativeWorkProps>
->
+export type Props = MediaObjectProps & BaseProps
 
 export default function MediaObject(
 	{
@@ -68,6 +60,8 @@ export default function MediaObject(
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</MediaObjectProps>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

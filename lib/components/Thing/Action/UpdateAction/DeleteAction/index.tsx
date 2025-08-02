@@ -18,6 +18,8 @@ export default function DeleteAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UpdateAction>
+		>
+			{children}
+		</UpdateAction>
 	)
 }

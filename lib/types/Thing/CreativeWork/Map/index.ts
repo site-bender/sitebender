@@ -4,8 +4,10 @@ import type { CreativeWorkProps } from "../index.ts"
 
 import MapCategoryTypeComponent from "../../../../components/Thing/Intangible/Enumeration/MapCategoryType/index.ts"
 
+export type MapType = "Map"
+
 export interface MapProps {
-	"@type"?: "Map"
+	"@type"?: MapType
 	mapType?: MapCategoryType | ReturnType<typeof MapCategoryTypeComponent>
 }
 

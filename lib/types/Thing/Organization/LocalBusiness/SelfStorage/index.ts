@@ -3,8 +3,11 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 
+export type SelfStorageType = "SelfStorage"
+
 export interface SelfStorageProps {
-	"@type"?: "SelfStorage"}
+	"@type"?: SelfStorageType
+}
 
 type SelfStorage =
 	& Thing

@@ -20,6 +20,8 @@ export default function ArchiveOrganization({
 				archiveHeld,
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

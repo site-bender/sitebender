@@ -42,6 +42,8 @@ export default function FloorPlan({
 				petsAllowed,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

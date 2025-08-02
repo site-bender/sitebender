@@ -22,6 +22,8 @@ export default function WarrantyPromise({
 				warrantyScope,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

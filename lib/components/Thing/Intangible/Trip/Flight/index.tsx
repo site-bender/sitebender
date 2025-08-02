@@ -48,6 +48,8 @@ export default function Flight({
 				webCheckinTime,
 				...subtypeProperties,
 			}}
-		>{children}</Trip>
+		>
+			{children}
+		</Trip>
 	)
 }

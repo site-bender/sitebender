@@ -7,6 +7,11 @@ import type Demand from "../Demand/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type ItemList from "../ItemList/index.ts"
 import type Offer from "../Offer/index.ts"
+import type { BoatTripType } from "./BoatTrip/index.ts"
+import type { BusTripType } from "./BusTrip/index.ts"
+import type { FlightType } from "./Flight/index.ts"
+import type { TouristTripType } from "./TouristTrip/index.ts"
+import type { TrainTripType } from "./TrainTrip/index.ts"
 
 import DemandComponent from "../../../../components/Thing/Intangible/Demand/index.ts"
 import ItemListComponent from "../../../../components/Thing/Intangible/ItemList/index.ts"
@@ -16,8 +21,16 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type TripType =
+	| "Trip"
+	| BusTripType
+	| FlightType
+	| TouristTripType
+	| BoatTripType
+	| TrainTripType
+
 export interface TripProps {
-	"@type"?: "Trip"
+	"@type"?: TripType
 	arrivalTime?: DateTime | Time
 	departureTime?: DateTime | Time
 	itinerary?:

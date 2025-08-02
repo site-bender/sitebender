@@ -112,6 +112,8 @@ export default function Place({
 				tourBookingPage,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

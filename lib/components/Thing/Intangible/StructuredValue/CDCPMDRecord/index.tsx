@@ -52,6 +52,8 @@ export default function CDCPMDRecord({
 				datePosted,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

@@ -18,6 +18,8 @@ export default function PaintAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreateAction>
+		>
+			{children}
+		</CreateAction>
 	)
 }

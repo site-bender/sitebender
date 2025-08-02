@@ -18,6 +18,8 @@ export default function CovidTestingFacility({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalClinic>
+		>
+			{children}
+		</MedicalClinic>
 	)
 }

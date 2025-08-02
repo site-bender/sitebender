@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { SoftwareApplicationProps } from "../index.ts"
 
+export type MobileApplicationType = "MobileApplication"
+
 export interface MobileApplicationProps {
-	"@type"?: "MobileApplication"
+	"@type"?: MobileApplicationType
 	carrierRequirements?: Text
 }
 

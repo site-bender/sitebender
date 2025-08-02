@@ -28,6 +28,8 @@ export default function LocalBusiness({
 				priceRange,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

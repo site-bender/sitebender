@@ -18,6 +18,8 @@ export default function DownloadAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

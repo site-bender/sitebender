@@ -32,6 +32,8 @@ export default function MovieSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

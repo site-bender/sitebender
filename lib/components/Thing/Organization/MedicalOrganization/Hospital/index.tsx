@@ -18,6 +18,8 @@ export default function Hospital({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalOrganization>
+		>
+			{children}
+		</MedicalOrganization>
 	)
 }

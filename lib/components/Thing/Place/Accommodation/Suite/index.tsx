@@ -24,6 +24,8 @@ export default function Suite({
 				occupancy,
 				...subtypeProperties,
 			}}
-		>{children}</Accommodation>
+		>
+			{children}
+		</Accommodation>
 	)
 }

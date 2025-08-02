@@ -18,6 +18,8 @@ export default function VideoObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</VideoObject>
+		>
+			{children}
+		</VideoObject>
 	)
 }

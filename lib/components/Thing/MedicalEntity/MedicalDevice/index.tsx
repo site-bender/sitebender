@@ -30,6 +30,8 @@ export default function MedicalDevice({
 				seriousAdverseOutcome,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

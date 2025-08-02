@@ -18,6 +18,8 @@ export default function Preschool({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EducationalOrganization>
+		>
+			{children}
+		</EducationalOrganization>
 	)
 }

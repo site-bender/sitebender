@@ -18,6 +18,8 @@ export default function MedicalGuidelineContraindication({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalGuideline>
+		>
+			{children}
+		</MedicalGuideline>
 	)
 }

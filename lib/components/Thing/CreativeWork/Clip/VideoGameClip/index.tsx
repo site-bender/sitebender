@@ -18,6 +18,8 @@ export default function VideoGameClip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Clip>
+		>
+			{children}
+		</Clip>
 	)
 }

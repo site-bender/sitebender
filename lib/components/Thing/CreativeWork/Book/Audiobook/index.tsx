@@ -22,6 +22,8 @@ export default function Audiobook({
 				readBy,
 				...subtypeProperties,
 			}}
-		>{children}</Book>
+		>
+			{children}
+		</Book>
 	)
 }

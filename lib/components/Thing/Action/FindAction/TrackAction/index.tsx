@@ -20,6 +20,8 @@ export default function TrackAction({
 				deliveryMethod,
 				...subtypeProperties,
 			}}
-		>{children}</FindAction>
+		>
+			{children}
+		</FindAction>
 	)
 }

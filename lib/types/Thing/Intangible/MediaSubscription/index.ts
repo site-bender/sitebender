@@ -6,8 +6,10 @@ import type Offer from "../Offer/index.ts"
 import OfferComponent from "../../../../components/Thing/Intangible/Offer/index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 
+export type MediaSubscriptionType = "MediaSubscription"
+
 export interface MediaSubscriptionProps {
-	"@type"?: "MediaSubscription"
+	"@type"?: MediaSubscriptionType
 	authenticator?: Organization | ReturnType<typeof OrganizationComponent>
 	expectsAcceptanceOf?: Offer | ReturnType<typeof OfferComponent>
 }

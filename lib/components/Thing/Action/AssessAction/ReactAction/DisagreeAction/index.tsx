@@ -18,6 +18,8 @@ export default function DisagreeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

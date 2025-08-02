@@ -8,6 +8,10 @@ import type CreativeWorkSeries from "../CreativeWorkSeries/index.ts"
 import type Episode from "../Episode/index.ts"
 import type HyperTocEntry from "../HyperTocEntry/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { MovieClipType } from "./MovieClip/index.ts"
+import type { RadioClipType } from "./RadioClip/index.ts"
+import type { TVClipType } from "./TVClip/index.ts"
+import type { VideoGameClipType } from "./VideoGameClip/index.ts"
 
 import CreativeWorkSeasonComponent from "../../../../components/Thing/CreativeWork/CreativeWorkSeason/index.ts"
 import CreativeWorkSeriesComponent from "../../../../components/Thing/CreativeWork/CreativeWorkSeries/index.ts"
@@ -17,8 +21,15 @@ import PerformingGroupComponent from "../../../../components/Thing/Organization/
 import MusicGroupComponent from "../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type ClipType =
+	| "Clip"
+	| RadioClipType
+	| TVClipType
+	| MovieClipType
+	| VideoGameClipType
+
 export interface ClipProps {
-	"@type"?: "Clip"
+	"@type"?: ClipType
 	actor?:
 		| PerformingGroup
 		| Person

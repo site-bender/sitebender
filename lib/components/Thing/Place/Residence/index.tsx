@@ -20,6 +20,8 @@ export default function Residence({
 				accommodationFloorPlan,
 				...subtypeProperties,
 			}}
-		>{children}</Place>
+		>
+			{children}
+		</Place>
 	)
 }

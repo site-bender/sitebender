@@ -18,6 +18,8 @@ export default function Courthouse({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentBuilding>
+		>
+			{children}
+		</GovernmentBuilding>
 	)
 }

@@ -9,8 +9,10 @@ import DatasetComponent from "../../../../components/Thing/CreativeWork/Dataset/
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 import MeasurementMethodEnumComponent from "../../../../components/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
 
+export type DataCatalogType = "DataCatalog"
+
 export interface DataCatalogProps {
-	"@type"?: "DataCatalog"
+	"@type"?: DataCatalogType
 	dataset?: Dataset | ReturnType<typeof DatasetComponent>
 	measurementMethod?:
 		| DefinedTerm

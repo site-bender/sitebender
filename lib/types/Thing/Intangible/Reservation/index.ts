@@ -7,6 +7,16 @@ import type { IntangibleProps } from "../index.ts"
 import type ProgramMembership from "../ProgramMembership/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 import type Ticket from "../Ticket/index.ts"
+import type { BoatReservationType } from "./BoatReservation/index.ts"
+import type { BusReservationType } from "./BusReservation/index.ts"
+import type { EventReservationType } from "./EventReservation/index.ts"
+import type { FlightReservationType } from "./FlightReservation/index.ts"
+import type { FoodEstablishmentReservationType } from "./FoodEstablishmentReservation/index.ts"
+import type { LodgingReservationType } from "./LodgingReservation/index.ts"
+import type { RentalCarReservationType } from "./RentalCarReservation/index.ts"
+import type { ReservationPackageType } from "./ReservationPackage/index.ts"
+import type { TaxiReservationType } from "./TaxiReservation/index.ts"
+import type { TrainReservationType } from "./TrainReservation/index.ts"
 
 import ThingComponent from "../../../../components/Thing/index.ts"
 import ReservationStatusTypeComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/ReservationStatusType/index.ts"
@@ -16,8 +26,21 @@ import TicketComponent from "../../../../components/Thing/Intangible/Ticket/inde
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type ReservationType =
+	| "Reservation"
+	| BusReservationType
+	| ReservationPackageType
+	| TrainReservationType
+	| EventReservationType
+	| LodgingReservationType
+	| RentalCarReservationType
+	| BoatReservationType
+	| FoodEstablishmentReservationType
+	| TaxiReservationType
+	| FlightReservationType
+
 export interface ReservationProps {
-	"@type"?: "Reservation"
+	"@type"?: ReservationType
 	bookingAgent?:
 		| Organization
 		| Person

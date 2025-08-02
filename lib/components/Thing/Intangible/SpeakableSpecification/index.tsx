@@ -22,6 +22,8 @@ export default function SpeakableSpecification({
 				xpath,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

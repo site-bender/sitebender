@@ -24,6 +24,8 @@ export default function AudioObject({
 				transcript,
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

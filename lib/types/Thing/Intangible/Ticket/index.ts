@@ -17,8 +17,10 @@ import PriceSpecificationComponent from "../../../../components/Thing/Intangible
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type TicketType = "Ticket"
+
 export interface TicketProps {
-	"@type"?: "Ticket"
+	"@type"?: TicketType
 	dateIssued?: Date | DateTime
 	issuedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	priceCurrency?: Text

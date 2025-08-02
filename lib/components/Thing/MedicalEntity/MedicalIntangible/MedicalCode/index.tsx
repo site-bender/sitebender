@@ -22,6 +22,8 @@ export default function MedicalCode({
 				codingSystem,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

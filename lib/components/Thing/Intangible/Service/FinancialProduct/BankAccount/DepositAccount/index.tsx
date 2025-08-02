@@ -18,6 +18,8 @@ export default function DepositAccount({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BankAccount>
+		>
+			{children}
+		</BankAccount>
 	)
 }

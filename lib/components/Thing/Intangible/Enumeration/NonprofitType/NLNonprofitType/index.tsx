@@ -18,6 +18,8 @@ export default function NLNonprofitType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NonprofitType>
+		>
+			{children}
+		</NonprofitType>
 	)
 }

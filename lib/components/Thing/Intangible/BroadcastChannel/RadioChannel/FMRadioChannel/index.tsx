@@ -18,6 +18,8 @@ export default function FMRadioChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</RadioChannel>
+		>
+			{children}
+		</RadioChannel>
 	)
 }

@@ -28,6 +28,8 @@ export default function Muscle({
 				nerve,
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

@@ -18,6 +18,8 @@ export default function DrinkAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

@@ -18,6 +18,8 @@ export default function CoverArt({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</VisualArtwork>
+		>
+			{children}
+		</VisualArtwork>
 	)
 }

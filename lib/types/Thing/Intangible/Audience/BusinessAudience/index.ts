@@ -5,8 +5,10 @@ import type { AudienceProps } from "../index.ts"
 
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type BusinessAudienceType = "BusinessAudience"
+
 export interface BusinessAudienceProps {
-	"@type"?: "BusinessAudience"
+	"@type"?: BusinessAudienceType
 	numberOfEmployees?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

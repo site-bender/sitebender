@@ -9,8 +9,10 @@ import PostalAddressComponent from "../../../../components/Thing/Intangible/Stru
 import ArchiveOrganizationComponent from "../../../../components/Thing/Organization/LocalBusiness/ArchiveOrganization/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type ArchiveComponentType = "ArchiveComponent"
+
 export interface ArchiveComponentProps {
-	"@type"?: "ArchiveComponent"
+	"@type"?: ArchiveComponentType
 	holdingArchive?:
 		| ArchiveOrganization
 		| ReturnType<typeof ArchiveOrganizationComponent>

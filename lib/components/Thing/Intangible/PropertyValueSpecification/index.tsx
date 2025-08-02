@@ -40,6 +40,8 @@ export default function PropertyValueSpecification({
 				valueRequired,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

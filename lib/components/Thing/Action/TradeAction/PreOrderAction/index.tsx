@@ -18,6 +18,8 @@ export default function PreOrderAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

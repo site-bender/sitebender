@@ -26,6 +26,8 @@ export default function PublicationVolume({
 				volumeNumber,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

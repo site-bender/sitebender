@@ -18,6 +18,8 @@ export default function Attorney({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LegalService>
+		>
+			{children}
+		</LegalService>
 	)
 }

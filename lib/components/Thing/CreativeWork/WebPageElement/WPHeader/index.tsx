@@ -18,6 +18,8 @@ export default function WPHeader({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPageElement>
+		>
+			{children}
+		</WebPageElement>
 	)
 }

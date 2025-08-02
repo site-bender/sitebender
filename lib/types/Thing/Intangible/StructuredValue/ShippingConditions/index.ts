@@ -20,8 +20,10 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import ServicePeriodComponent from "../../../../../components/Thing/Intangible/StructuredValue/ServicePeriod/index.ts"
 import ShippingRateSettingsComponent from "../../../../../components/Thing/Intangible/StructuredValue/ShippingRateSettings/index.ts"
 
+export type ShippingConditionsType = "ShippingConditions"
+
 export interface ShippingConditionsProps {
-	"@type"?: "ShippingConditions"
+	"@type"?: ShippingConditionsType
 	depth?:
 		| Distance
 		| QuantitativeValue

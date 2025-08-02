@@ -38,6 +38,8 @@ export default function DietarySupplement({
 				targetPopulation,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

@@ -18,6 +18,8 @@ export default function RiverBodyOfWater({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BodyOfWater>
+		>
+			{children}
+		</BodyOfWater>
 	)
 }

@@ -20,6 +20,8 @@ export default function ImagingTest({
 				imagingTechnique,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTest>
+		>
+			{children}
+		</MedicalTest>
 	)
 }

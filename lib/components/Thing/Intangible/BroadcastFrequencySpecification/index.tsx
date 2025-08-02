@@ -24,6 +24,8 @@ export default function BroadcastFrequencySpecification({
 				broadcastSubChannel,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

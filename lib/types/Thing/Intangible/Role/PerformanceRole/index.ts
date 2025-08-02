@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { RoleProps } from "../index.ts"
 
+export type PerformanceRoleType = "PerformanceRole"
+
 export interface PerformanceRoleProps {
-	"@type"?: "PerformanceRole"
+	"@type"?: PerformanceRoleType
 	characterName?: Text
 }
 

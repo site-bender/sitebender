@@ -18,6 +18,8 @@ export default function UserBlocks({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</UserInteraction>
+		>
+			{children}
+		</UserInteraction>
 	)
 }

@@ -22,6 +22,8 @@ export default function WebPageElement({
 				xpath,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

@@ -24,6 +24,8 @@ export default function EducationEvent({
 				teaches,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

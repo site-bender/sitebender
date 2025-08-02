@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type ExercisePlanProps from "../../../../../../types/Thing/ExercisePlan/index.ts"
-import type PhysicalActivityProps from "../../../../../../types/Thing/PhysicalActivity/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type ExercisePlanProps from "../../../../../../types/Thing/MedicalEntity/LifestyleModification/PhysicalActivity/ExercisePlan/index.ts"
 
 import PhysicalActivity from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	ExercisePlanProps,
-	"ExercisePlan",
-	ExtractLevelProps<ExercisePlanProps, PhysicalActivityProps>
->
+// ExercisePlan adds no properties to the ListItem schema type
+export type Props = ExercisePlanProps & BaseProps
 
 export default function ExercisePlan(
 	{
@@ -44,6 +37,8 @@ export default function ExercisePlan(
 				workload,
 				...subtypeProperties,
 			}}
-		>{children}</ExercisePlanProps>
+		>
+			{children}
+		</PhysicalActivity>
 	)
 }

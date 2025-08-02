@@ -20,6 +20,8 @@ export default function EndorseAction({
 				endorsee,
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

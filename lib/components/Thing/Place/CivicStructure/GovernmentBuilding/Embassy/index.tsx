@@ -18,6 +18,8 @@ export default function Embassy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentBuilding>
+		>
+			{children}
+		</GovernmentBuilding>
 	)
 }

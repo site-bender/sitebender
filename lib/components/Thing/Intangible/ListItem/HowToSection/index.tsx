@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type HowToSectionProps from "../../../../../types/Thing/HowToSection/index.ts"
-import type ListItemProps from "../../../../../types/Thing/ListItem/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type HowToSectionProps from "../../../../../types/Thing/Intangible/ListItem/HowToSection/index.ts"
 
 import ListItem from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	HowToSectionProps,
-	"HowToSection",
-	ExtractLevelProps<HowToSectionProps, ListItemProps>
->
+// HowToSection adds no properties to the ListItem schema type
+export type Props = HowToSectionProps & BaseProps
 
 export default function HowToSection(
 	{
@@ -30,6 +23,8 @@ export default function HowToSection(
 				steps,
 				...subtypeProperties,
 			}}
-		>{children}</HowToSectionProps>
+		>
+			{children}
+		</ListItem>
 	)
 }

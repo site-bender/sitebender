@@ -18,6 +18,8 @@ export default function TaxiService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

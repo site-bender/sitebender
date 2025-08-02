@@ -18,6 +18,8 @@ export default function InstallAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

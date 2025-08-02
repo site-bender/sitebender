@@ -18,6 +18,8 @@ export default function Continent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Landform>
+		>
+			{children}
+		</Landform>
 	)
 }

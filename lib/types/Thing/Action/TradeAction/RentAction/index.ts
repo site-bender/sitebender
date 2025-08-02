@@ -9,8 +9,10 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import RealEstateAgentComponent from "../../../../../components/Thing/Organization/LocalBusiness/RealEstateAgent/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type RentActionType = "RentAction"
+
 export interface RentActionProps {
-	"@type"?: "RentAction"
+	"@type"?: RentActionType
 	landlord?:
 		| Organization
 		| Person

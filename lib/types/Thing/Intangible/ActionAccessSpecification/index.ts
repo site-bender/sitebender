@@ -23,8 +23,10 @@ import OfferComponent from "../../../../components/Thing/Intangible/Offer/index.
 import GeoShapeComponent from "../../../../components/Thing/Intangible/StructuredValue/GeoShape/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type ActionAccessSpecificationType = "ActionAccessSpecification"
+
 export interface ActionAccessSpecificationProps {
-	"@type"?: "ActionAccessSpecification"
+	"@type"?: ActionAccessSpecificationType
 	availabilityEnds?: Date | DateTime | Time
 	availabilityStarts?: Date | DateTime | Time
 	category?:

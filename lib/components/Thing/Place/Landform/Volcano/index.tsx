@@ -18,6 +18,8 @@ export default function Volcano({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Landform>
+		>
+			{children}
+		</Landform>
 	)
 }

@@ -22,6 +22,8 @@ export default function MenuSection({
 				hasMenuSection,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

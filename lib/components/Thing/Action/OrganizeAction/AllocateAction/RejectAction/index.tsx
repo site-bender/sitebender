@@ -18,6 +18,8 @@ export default function RejectAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AllocateAction>
+		>
+			{children}
+		</AllocateAction>
 	)
 }

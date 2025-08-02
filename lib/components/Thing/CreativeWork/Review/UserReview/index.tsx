@@ -18,6 +18,8 @@ export default function UserReview({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

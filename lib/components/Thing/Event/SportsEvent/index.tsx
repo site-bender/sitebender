@@ -28,6 +28,8 @@ export default function SportsEvent({
 				sport,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

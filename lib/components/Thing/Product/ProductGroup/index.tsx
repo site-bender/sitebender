@@ -24,6 +24,8 @@ export default function ProductGroup({
 				variesBy,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

@@ -21,6 +21,14 @@ import type AggregateRating from "../Rating/AggregateRating/index.ts"
 import type ServiceChannel from "../ServiceChannel/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 import type OpeningHoursSpecification from "../StructuredValue/OpeningHoursSpecification/index.ts"
+import type { BroadcastServiceType } from "./BroadcastService/index.ts"
+import type { CableOrSatelliteServiceType } from "./CableOrSatelliteService/index.ts"
+import type { FinancialProductType } from "./FinancialProduct/index.ts"
+import type { FoodServiceType } from "./FoodService/index.ts"
+import type { GovernmentServiceType } from "./GovernmentService/index.ts"
+import type { TaxiType } from "./Taxi/index.ts"
+import type { TaxiServiceType } from "./TaxiService/index.ts"
+import type { WebAPIType } from "./WebAPI/index.ts"
 
 import CertificationComponent from "../../../../components/Thing/CreativeWork/Certification/index.ts"
 import ImageObjectComponent from "../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
@@ -45,8 +53,19 @@ import AdministrativeAreaComponent from "../../../../components/Thing/Place/Admi
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type ServiceType =
+	| "Service"
+	| TaxiServiceType
+	| FinancialProductType
+	| FoodServiceType
+	| CableOrSatelliteServiceType
+	| TaxiType
+	| WebAPIType
+	| BroadcastServiceType
+	| GovernmentServiceType
+
 export interface ServiceProps {
-	"@type"?: "Service"
+	"@type"?: ServiceType
 	aggregateRating?:
 		| AggregateRating
 		| ReturnType<typeof AggregateRatingComponent>

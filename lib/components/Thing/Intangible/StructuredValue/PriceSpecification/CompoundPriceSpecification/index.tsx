@@ -22,6 +22,8 @@ export default function CompoundPriceSpecification({
 				priceType,
 				...subtypeProperties,
 			}}
-		>{children}</PriceSpecification>
+		>
+			{children}
+		</PriceSpecification>
 	)
 }

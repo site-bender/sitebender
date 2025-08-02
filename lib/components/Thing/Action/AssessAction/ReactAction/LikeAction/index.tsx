@@ -18,6 +18,8 @@ export default function LikeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

@@ -8,6 +8,10 @@ import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/inde
 import type Enumeration from "../index.ts"
 import type { EnumerationProps } from "../index.ts"
 import type MeasurementTypeEnumeration from "../MeasurementTypeEnumeration/index.ts"
+import type { BedTypeType } from "./BedType/index.ts"
+import type { DriveWheelConfigurationValueType } from "./DriveWheelConfigurationValue/index.ts"
+import type { SizeSpecificationType } from "./SizeSpecification/index.ts"
+import type { SteeringPositionValueType } from "./SteeringPositionValue/index.ts"
 
 import DefinedTermComponent from "../../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 import EnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/index.ts"
@@ -17,8 +21,15 @@ import StructuredValueComponent from "../../../../../components/Thing/Intangible
 import PropertyValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type QualitativeValueType =
+	| "QualitativeValue"
+	| SizeSpecificationType
+	| DriveWheelConfigurationValueType
+	| BedTypeType
+	| SteeringPositionValueType
+
 export interface QualitativeValueProps {
-	"@type"?: "QualitativeValue"
+	"@type"?: QualitativeValueType
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	equal?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>
 	greater?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>

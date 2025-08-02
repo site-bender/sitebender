@@ -18,6 +18,8 @@ export default function ScholarlyArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

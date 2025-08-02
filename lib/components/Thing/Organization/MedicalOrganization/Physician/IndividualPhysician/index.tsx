@@ -20,6 +20,8 @@ export default function IndividualPhysician({
 				practicesAt,
 				...subtypeProperties,
 			}}
-		>{children}</Physician>
+		>
+			{children}
+		</Physician>
 	)
 }

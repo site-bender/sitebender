@@ -20,6 +20,8 @@ export default function Report({
 				reportNumber,
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

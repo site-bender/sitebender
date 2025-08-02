@@ -18,6 +18,8 @@ export default function CollectionPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

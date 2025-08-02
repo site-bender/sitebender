@@ -20,6 +20,8 @@ export default function TipAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

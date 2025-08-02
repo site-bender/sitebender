@@ -18,6 +18,8 @@ export default function BowlingAlley({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SportsActivityLocation>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

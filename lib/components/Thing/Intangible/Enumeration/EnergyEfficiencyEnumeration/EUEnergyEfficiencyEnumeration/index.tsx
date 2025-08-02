@@ -18,6 +18,8 @@ export default function EUEnergyEfficiencyEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EnergyEfficiencyEnumeration>
+		>
+			{children}
+		</EnergyEfficiencyEnumeration>
 	)
 }

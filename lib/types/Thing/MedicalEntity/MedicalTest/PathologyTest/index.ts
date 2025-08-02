@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalTestProps } from "../index.ts"
 
+export type PathologyTestType = "PathologyTest"
+
 export interface PathologyTestProps {
-	"@type"?: "PathologyTest"
+	"@type"?: PathologyTestType
 	tissueSample?: Text
 }
 

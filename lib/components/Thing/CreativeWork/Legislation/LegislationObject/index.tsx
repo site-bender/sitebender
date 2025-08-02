@@ -20,6 +20,8 @@ export default function LegislationObject({
 				legislationLegalValue,
 				...subtypeProperties,
 			}}
-		>{children}</Legislation>
+		>
+			{children}
+		</Legislation>
 	)
 }

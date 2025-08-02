@@ -26,6 +26,8 @@ export default function ShippingService({
 				validForMemberTier,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

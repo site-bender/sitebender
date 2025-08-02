@@ -2,11 +2,14 @@ import type { Text } from "../../../../DataType/index.ts"
 import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { AssessActionProps } from "../index.ts"
+import type { VoteActionType } from "./VoteAction/index.ts"
 
 import ThingComponent from "../../../../../components/Thing/index.ts"
 
+export type ChooseActionType = "ChooseAction" | VoteActionType
+
 export interface ChooseActionProps {
-	"@type"?: "ChooseAction"
+	"@type"?: ChooseActionType
 	actionOption?: Text | Thing | ReturnType<typeof ThingComponent>
 	option?: Text | Thing | ReturnType<typeof ThingComponent>
 }

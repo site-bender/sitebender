@@ -22,6 +22,8 @@ export default function LinkRole({
 				linkRelationship,
 				...subtypeProperties,
 			}}
-		>{children}</Role>
+		>
+			{children}
+		</Role>
 	)
 }

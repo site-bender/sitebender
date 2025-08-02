@@ -18,6 +18,8 @@ export default function TelevisionChannel({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</BroadcastChannel>
+		>
+			{children}
+		</BroadcastChannel>
 	)
 }

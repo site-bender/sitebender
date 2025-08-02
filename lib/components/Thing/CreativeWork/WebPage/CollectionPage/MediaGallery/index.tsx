@@ -18,6 +18,8 @@ export default function MediaGallery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CollectionPage>
+		>
+			{children}
+		</CollectionPage>
 	)
 }

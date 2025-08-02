@@ -18,6 +18,8 @@ export default function EmployerReview({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

@@ -18,6 +18,8 @@ export default function TakeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

@@ -22,6 +22,8 @@ export default function CategoryCode({
 				inCodeSet,
 				...subtypeProperties,
 			}}
-		>{children}</DefinedTerm>
+		>
+			{children}
+		</DefinedTerm>
 	)
 }

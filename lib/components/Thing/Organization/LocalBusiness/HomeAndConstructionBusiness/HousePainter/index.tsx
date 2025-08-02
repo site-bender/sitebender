@@ -18,6 +18,8 @@ export default function HousePainter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HomeAndConstructionBusiness>
+		>
+			{children}
+		</HomeAndConstructionBusiness>
 	)
 }

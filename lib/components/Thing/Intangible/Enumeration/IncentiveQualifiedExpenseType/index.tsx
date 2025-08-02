@@ -18,6 +18,8 @@ export default function IncentiveQualifiedExpenseType({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

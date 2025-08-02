@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type SportsActivityLocationProps from "../../../../../../types/Thing/SportsActivityLocation/index.ts"
-import type StadiumOrArenaProps from "../../../../../../types/Thing/StadiumOrArena/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type StadiumOrArenaProps from "../../../../../../types/Thing/Organization/LocalBusiness/SportsActivityLocation/StadiumOrArena/index.ts"
 
 import SportsActivityLocation from "../index.tsx"
 
-// StadiumOrArena adds no properties to the SportsActivityLocation schema type
-export type Props = BaseComponentProps<
-	StadiumOrArenaProps,
-	"StadiumOrArena",
-	ExtractLevelProps<StadiumOrArenaProps, SportsActivityLocationProps>
->
+// StadiumOrArena adds no properties to the ListItem schema type
+export type Props = StadiumOrArenaProps & BaseProps
 
 export default function StadiumOrArena({
 	_type = "StadiumOrArena",
@@ -25,6 +17,8 @@ export default function StadiumOrArena({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</StadiumOrArenaProps>
+		>
+			{children}
+		</SportsActivityLocation>
 	)
 }

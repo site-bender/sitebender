@@ -3,11 +3,14 @@ import type Thing from "../../../index.ts"
 import type QuantitativeValue from "../../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { PlaceProps } from "../../index.ts"
 import type { AccommodationProps } from "../index.ts"
+import type { SingleFamilyResidenceType } from "./SingleFamilyResidence/index.ts"
 
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type HouseType = "House" | SingleFamilyResidenceType
+
 export interface HouseProps {
-	"@type"?: "House"
+	"@type"?: HouseType
 	numberOfRooms?:
 		| Number
 		| QuantitativeValue

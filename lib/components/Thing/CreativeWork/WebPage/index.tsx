@@ -38,6 +38,8 @@ export default function WebPage({
 				specialty,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

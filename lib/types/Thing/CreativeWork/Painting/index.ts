@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+export type PaintingType = "Painting"
+
 export interface PaintingProps {
-	"@type"?: "Painting"}
+	"@type"?: PaintingType
+}
 
 type Painting = Thing & CreativeWorkProps & PaintingProps
 

@@ -20,6 +20,8 @@ export default function SomeProducts({
 				inventoryLevel,
 				...subtypeProperties,
 			}}
-		>{children}</Product>
+		>
+			{children}
+		</Product>
 	)
 }

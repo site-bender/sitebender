@@ -20,6 +20,8 @@ export default function InviteAction({
 				event,
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

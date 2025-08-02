@@ -18,6 +18,8 @@ export default function WantAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

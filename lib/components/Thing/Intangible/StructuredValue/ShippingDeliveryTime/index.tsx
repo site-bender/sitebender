@@ -26,6 +26,8 @@ export default function ShippingDeliveryTime({
 				transitTime,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

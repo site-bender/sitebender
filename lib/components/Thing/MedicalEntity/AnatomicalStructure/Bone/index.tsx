@@ -18,6 +18,8 @@ export default function Bone({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

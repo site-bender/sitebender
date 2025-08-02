@@ -20,6 +20,8 @@ export default function SportsOrganization({
 				sport,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

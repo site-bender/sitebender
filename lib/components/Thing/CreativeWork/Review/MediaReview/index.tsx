@@ -24,6 +24,8 @@ export default function MediaReview({
 				originalMediaLink,
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

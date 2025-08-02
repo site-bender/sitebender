@@ -10,8 +10,10 @@ import CreativeWorkComponent from "../../../../../components/Thing/CreativeWork/
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type UserCommentsType = "UserComments"
+
 export interface UserCommentsProps {
-	"@type"?: "UserComments"
+	"@type"?: UserCommentsType
 	commentText?: Text
 	commentTime?: Date | DateTime
 	creator?:

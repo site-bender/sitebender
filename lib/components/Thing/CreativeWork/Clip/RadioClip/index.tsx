@@ -18,6 +18,8 @@ export default function RadioClip({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Clip>
+		>
+			{children}
+		</Clip>
 	)
 }

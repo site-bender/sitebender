@@ -86,6 +86,8 @@ export default function Demand({
 				warranty,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

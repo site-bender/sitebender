@@ -4,8 +4,11 @@ import type { ItemListProps } from "../../Intangible/ItemList/index.ts"
 import type { ListItemProps } from "../../Intangible/ListItem/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+export type HowToStepType = "HowToStep"
+
 export interface HowToStepProps {
-	"@type"?: "HowToStep"}
+	"@type"?: HowToStepType
+}
 
 type HowToStep =
 	& Thing

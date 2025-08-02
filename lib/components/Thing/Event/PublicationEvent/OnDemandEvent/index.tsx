@@ -18,6 +18,8 @@ export default function OnDemandEvent({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PublicationEvent>
+		>
+			{children}
+		</PublicationEvent>
 	)
 }

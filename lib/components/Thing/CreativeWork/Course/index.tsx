@@ -38,6 +38,8 @@ export default function Course({
 				totalHistoricalEnrollment,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

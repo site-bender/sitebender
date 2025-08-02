@@ -4,14 +4,23 @@ import type DataFeed from "../Dataset/DataFeed/index.ts"
 import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type ImageObject from "../MediaObject/ImageObject/index.ts"
+import type { MobileApplicationType } from "./MobileApplication/index.ts"
+import type { VideoGameType } from "./VideoGame/index.ts"
+import type { WebApplicationType } from "./WebApplication/index.ts"
 
 import DataFeedComponent from "../../../../components/Thing/CreativeWork/Dataset/DataFeed/index.ts"
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
 import ImageObjectComponent from "../../../../components/Thing/CreativeWork/MediaObject/ImageObject/index.ts"
 import SoftwareApplicationComponent from "../../../../components/Thing/CreativeWork/SoftwareApplication/index.ts"
 
+export type SoftwareApplicationType =
+	| "SoftwareApplication"
+	| MobileApplicationType
+	| VideoGameType
+	| WebApplicationType
+
 export interface SoftwareApplicationProps {
-	"@type"?: "SoftwareApplication"
+	"@type"?: SoftwareApplicationType
 	applicationCategory?: Text | URL
 	applicationSubCategory?: Text | URL
 	applicationSuite?: Text

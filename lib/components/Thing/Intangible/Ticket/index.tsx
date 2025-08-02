@@ -34,6 +34,8 @@ export default function Ticket({
 				underName,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

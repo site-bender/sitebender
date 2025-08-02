@@ -24,6 +24,8 @@ export default function HyperTocEntry({
 				utterances,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

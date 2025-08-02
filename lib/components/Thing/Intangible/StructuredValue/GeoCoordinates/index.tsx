@@ -30,6 +30,8 @@ export default function GeoCoordinates({
 				postalCode,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

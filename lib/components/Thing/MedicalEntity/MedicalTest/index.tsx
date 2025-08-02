@@ -28,6 +28,8 @@ export default function MedicalTest({
 				usesDevice,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

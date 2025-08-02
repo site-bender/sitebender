@@ -31,16 +31,90 @@ import type Person from "../Person/index.ts"
 import type Country from "../Place/AdministrativeArea/Country/index.ts"
 import type Place from "../Place/index.ts"
 import type Product from "../Product/index.ts"
+import type { AmpStoryType } from "./AmpStory/index.ts"
+import type { ArchiveComponentType } from "./ArchiveComponent/index.ts"
+import type { ArticleType } from "./Article/index.ts"
+import type { AtlasType } from "./Atlas/index.ts"
+import type { BlogType } from "./Blog/index.ts"
+import type { BookType } from "./Book/index.ts"
+import type { CertificationType } from "./Certification/index.ts"
+import type { ChapterType } from "./Chapter/index.ts"
 import type Claim from "./Claim/index.ts"
+import type { ClaimType } from "./Claim/index.ts"
 import type Clip from "./Clip/index.ts"
+import type { ClipType } from "./Clip/index.ts"
+import type { CodeType } from "./Code/index.ts"
+import type { CollectionType } from "./Collection/index.ts"
+import type { ComicStoryType } from "./ComicStory/index.ts"
 import type CorrectionComment from "./Comment/CorrectionComment/index.ts"
 import type Comment from "./Comment/index.ts"
+import type { CommentType } from "./Comment/index.ts"
+import type { ConversationType } from "./Conversation/index.ts"
+import type { CourseType } from "./Course/index.ts"
+import type { CreativeWorkSeasonType } from "./CreativeWorkSeason/index.ts"
+import type { CreativeWorkSeriesType } from "./CreativeWorkSeries/index.ts"
+import type { DataCatalogType } from "./DataCatalog/index.ts"
+import type { DatasetType } from "./Dataset/index.ts"
+import type { DefinedTermSetType } from "./DefinedTermSet/index.ts"
+import type { DietType } from "./Diet/index.ts"
+import type { DigitalDocumentType } from "./DigitalDocument/index.ts"
+import type { DrawingType } from "./Drawing/index.ts"
+import type { EducationalOccupationalCredentialType } from "./EducationalOccupationalCredential/index.ts"
+import type { EpisodeType } from "./Episode/index.ts"
+import type { ExercisePlanType } from "./ExercisePlan/index.ts"
+import type { GameType } from "./Game/index.ts"
+import type { GuideType } from "./Guide/index.ts"
+import type { HowToType } from "./HowTo/index.ts"
+import type { HowToDirectionType } from "./HowToDirection/index.ts"
+import type { HowToSectionType } from "./HowToSection/index.ts"
+import type { HowToStepType } from "./HowToStep/index.ts"
+import type { HowToTipType } from "./HowToTip/index.ts"
+import type { HyperTocType } from "./HyperToc/index.ts"
+import type { HyperTocEntryType } from "./HyperTocEntry/index.ts"
+import type { LearningResourceType } from "./LearningResource/index.ts"
+import type { LegislationType } from "./Legislation/index.ts"
+import type { ManuscriptType } from "./Manuscript/index.ts"
+import type { MapType } from "./Map/index.ts"
+import type { MathSolverType } from "./MathSolver/index.ts"
 import type AudioObject from "./MediaObject/AudioObject/index.ts"
 import type ImageObject from "./MediaObject/ImageObject/index.ts"
+import type { MediaObjectType } from "./MediaObject/index.ts"
 import type VideoObject from "./MediaObject/VideoObject/index.ts"
+import type { MediaReviewItemType } from "./MediaReviewItem/index.ts"
+import type { MenuType } from "./Menu/index.ts"
+import type { MenuSectionType } from "./MenuSection/index.ts"
+import type { MessageType } from "./Message/index.ts"
+import type { MovieType } from "./Movie/index.ts"
+import type { MusicCompositionType } from "./MusicComposition/index.ts"
+import type { MusicPlaylistType } from "./MusicPlaylist/index.ts"
 import type MusicRecording from "./MusicRecording/index.ts"
+import type { MusicRecordingType } from "./MusicRecording/index.ts"
+import type { PaintingType } from "./Painting/index.ts"
+import type { PhotographType } from "./Photograph/index.ts"
+import type { PlayType } from "./Play/index.ts"
+import type { PosterType } from "./Poster/index.ts"
+import type { PublicationIssueType } from "./PublicationIssue/index.ts"
+import type { PublicationVolumeType } from "./PublicationVolume/index.ts"
+import type { QuotationType } from "./Quotation/index.ts"
 import type Review from "./Review/index.ts"
+import type { ReviewType } from "./Review/index.ts"
+import type { SculptureType } from "./Sculpture/index.ts"
+import type { SeasonType } from "./Season/index.ts"
+import type { SheetMusicType } from "./SheetMusic/index.ts"
+import type { ShortStoryType } from "./ShortStory/index.ts"
+import type { SoftwareApplicationType } from "./SoftwareApplication/index.ts"
+import type { SoftwareSourceCodeType } from "./SoftwareSourceCode/index.ts"
+import type { SpecialAnnouncementType } from "./SpecialAnnouncement/index.ts"
+import type { StatementType } from "./Statement/index.ts"
+import type { ThesisType } from "./Thesis/index.ts"
+import type { TVSeasonType } from "./TVSeason/index.ts"
+import type { TVSeriesType } from "./TVSeries/index.ts"
+import type { VisualArtworkType } from "./VisualArtwork/index.ts"
+import type { WebContentType } from "./WebContent/index.ts"
 import type WebPage from "./WebPage/index.ts"
+import type { WebPageType } from "./WebPage/index.ts"
+import type { WebPageElementType } from "./WebPageElement/index.ts"
+import type { WebSiteType } from "./WebSite/index.ts"
 
 import ClaimComponent from "../../../components/Thing/CreativeWork/Claim/index.ts"
 import ClipComponent from "../../../components/Thing/CreativeWork/Clip/index.ts"
@@ -78,8 +152,85 @@ import CountryComponent from "../../../components/Thing/Place/AdministrativeArea
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../components/Thing/Product/index.ts"
 
+export type CreativeWorkType =
+	| "CreativeWork"
+	| QuotationType
+	| GuideType
+	| ManuscriptType
+	| VisualArtworkType
+	| AmpStoryType
+	| HowToTipType
+	| SculptureType
+	| DrawingType
+	| MathSolverType
+	| MovieType
+	| LearningResourceType
+	| TVSeriesType
+	| CollectionType
+	| CreativeWorkSeasonType
+	| CourseType
+	| ComicStoryType
+	| WebContentType
+	| MusicPlaylistType
+	| CommentType
+	| ClipType
+	| EducationalOccupationalCredentialType
+	| DatasetType
+	| MenuSectionType
+	| HyperTocType
+	| EpisodeType
+	| PhotographType
+	| WebSiteType
+	| StatementType
+	| CodeType
+	| SpecialAnnouncementType
+	| DefinedTermSetType
+	| MediaObjectType
+	| MessageType
+	| DietType
+	| GameType
+	| ChapterType
+	| BlogType
+	| WebPageElementType
+	| MediaReviewItemType
+	| ArchiveComponentType
+	| MusicCompositionType
+	| MapType
+	| DigitalDocumentType
+	| MusicRecordingType
+	| PaintingType
+	| PublicationIssueType
+	| PublicationVolumeType
+	| ReviewType
+	| MenuType
+	| ExercisePlanType
+	| BookType
+	| SoftwareSourceCodeType
+	| ShortStoryType
+	| SoftwareApplicationType
+	| ThesisType
+	| SeasonType
+	| AtlasType
+	| LegislationType
+	| ArticleType
+	| HowToType
+	| TVSeasonType
+	| PlayType
+	| HowToDirectionType
+	| HyperTocEntryType
+	| HowToSectionType
+	| HowToStepType
+	| CreativeWorkSeriesType
+	| SheetMusicType
+	| DataCatalogType
+	| CertificationType
+	| PosterType
+	| ClaimType
+	| WebPageType
+	| ConversationType
+
 export interface CreativeWorkProps {
-	"@type"?: "CreativeWork"
+	"@type"?: CreativeWorkType
 	about?: Thing | ReturnType<typeof ThingComponent>
 	abstract?: Text
 	accessibilityAPI?: Text

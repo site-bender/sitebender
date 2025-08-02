@@ -18,6 +18,8 @@ export default function CreditCard({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PaymentCard>
+		>
+			{children}
+		</PaymentCard>
 	)
 }

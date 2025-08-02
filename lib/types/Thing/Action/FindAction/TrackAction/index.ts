@@ -5,8 +5,10 @@ import type { FindActionProps } from "../index.ts"
 
 import DeliveryMethodComponent from "../../../../../components/Thing/Intangible/Enumeration/DeliveryMethod/index.ts"
 
+export type TrackActionType = "TrackAction"
+
 export interface TrackActionProps {
-	"@type"?: "TrackAction"
+	"@type"?: TrackActionType
 	deliveryMethod?: DeliveryMethod | ReturnType<typeof DeliveryMethodComponent>
 }
 

@@ -18,6 +18,8 @@ export default function AssignAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AllocateAction>
+		>
+			{children}
+		</AllocateAction>
 	)
 }

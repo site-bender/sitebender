@@ -9,8 +9,10 @@ import type { OrganizationRoleProps } from "../index.ts"
 import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 import PriceSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 
+export type EmployeeRoleType = "EmployeeRole"
+
 export interface EmployeeRoleProps {
-	"@type"?: "EmployeeRole"
+	"@type"?: EmployeeRoleType
 	baseSalary?:
 		| MonetaryAmount
 		| Number

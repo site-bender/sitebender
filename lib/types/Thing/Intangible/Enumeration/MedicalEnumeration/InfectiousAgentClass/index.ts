@@ -3,8 +3,11 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { EnumerationProps } from "../../index.ts"
 import type { MedicalEnumerationProps } from "../index.ts"
 
+export type InfectiousAgentClassType = "InfectiousAgentClass"
+
 export interface InfectiousAgentClassProps {
-	"@type"?: "InfectiousAgentClass"}
+	"@type"?: InfectiousAgentClassType
+}
 
 type InfectiousAgentClass =
 	& Thing

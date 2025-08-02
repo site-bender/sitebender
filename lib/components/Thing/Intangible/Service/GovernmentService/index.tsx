@@ -22,6 +22,8 @@ export default function GovernmentService({
 				serviceOperator,
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

@@ -22,6 +22,8 @@ export default function ReceiveAction({
 				sender,
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

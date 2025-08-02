@@ -24,6 +24,8 @@ export default function BuyAction({
 				warrantyPromise,
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

@@ -12,8 +12,10 @@ import ContactPointComponent from "../../../../components/Thing/Intangible/Struc
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type DigitalDocumentPermissionType = "DigitalDocumentPermission"
+
 export interface DigitalDocumentPermissionProps {
-	"@type"?: "DigitalDocumentPermission"
+	"@type"?: DigitalDocumentPermissionType
 	grantee?:
 		| Audience
 		| ContactPoint

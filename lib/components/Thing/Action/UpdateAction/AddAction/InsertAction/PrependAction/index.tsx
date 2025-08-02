@@ -18,6 +18,8 @@ export default function PrependAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InsertAction>
+		>
+			{children}
+		</InsertAction>
 	)
 }

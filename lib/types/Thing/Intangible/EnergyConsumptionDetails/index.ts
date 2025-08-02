@@ -6,8 +6,10 @@ import type { IntangibleProps } from "../index.ts"
 import EUEnergyEfficiencyEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EUEnergyEfficiencyEnumeration/index.ts"
 import EnergyEfficiencyEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/index.ts"
 
+export type EnergyConsumptionDetailsType = "EnergyConsumptionDetails"
+
 export interface EnergyConsumptionDetailsProps {
-	"@type"?: "EnergyConsumptionDetails"
+	"@type"?: EnergyConsumptionDetailsType
 	energyEfficiencyScaleMax?:
 		| EUEnergyEfficiencyEnumeration
 		| ReturnType<typeof EUEnergyEfficiencyEnumerationComponent>

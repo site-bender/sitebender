@@ -30,6 +30,8 @@ export default function MusicGroup({
 				tracks,
 				...subtypeProperties,
 			}}
-		>{children}</PerformingGroup>
+		>
+			{children}
+		</PerformingGroup>
 	)
 }

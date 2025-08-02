@@ -10,8 +10,10 @@ import WebPageComponent from "../../../../../components/Thing/CreativeWork/WebPa
 import MediaManipulationRatingEnumerationComponent from "../../../../../components/Thing/Intangible/Enumeration/MediaManipulationRatingEnumeration/index.ts"
 import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 
+export type MediaReviewType = "MediaReview"
+
 export interface MediaReviewProps {
-	"@type"?: "MediaReview"
+	"@type"?: MediaReviewType
 	mediaAuthenticityCategory?:
 		| MediaManipulationRatingEnumeration
 		| ReturnType<typeof MediaManipulationRatingEnumerationComponent>

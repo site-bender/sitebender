@@ -24,6 +24,8 @@ export default function BankAccount({
 				bankAccountType,
 				...subtypeProperties,
 			}}
-		>{children}</FinancialProduct>
+		>
+			{children}
+		</FinancialProduct>
 	)
 }

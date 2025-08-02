@@ -44,6 +44,8 @@ export default function Action({
 				target,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

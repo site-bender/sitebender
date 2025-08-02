@@ -18,6 +18,8 @@ export default function CompleteDataFeed({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DataFeed>
+		>
+			{children}
+		</DataFeed>
 	)
 }

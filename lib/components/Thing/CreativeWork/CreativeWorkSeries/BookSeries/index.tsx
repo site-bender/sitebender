@@ -18,6 +18,8 @@ export default function BookSeries({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

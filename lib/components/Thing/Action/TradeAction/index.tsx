@@ -24,6 +24,8 @@ export default function TradeAction({
 				priceSpecification,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

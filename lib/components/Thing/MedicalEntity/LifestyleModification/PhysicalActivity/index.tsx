@@ -26,6 +26,8 @@ export default function PhysicalActivity({
 				pathophysiology,
 				...subtypeProperties,
 			}}
-		>{children}</LifestyleModification>
+		>
+			{children}
+		</LifestyleModification>
 	)
 }

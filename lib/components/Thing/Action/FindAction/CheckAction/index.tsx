@@ -18,6 +18,8 @@ export default function CheckAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</FindAction>
+		>
+			{children}
+		</FindAction>
 	)
 }

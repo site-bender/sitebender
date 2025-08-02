@@ -28,6 +28,8 @@ export default function ApartmentComplex({
 				tourBookingPage,
 				...subtypeProperties,
 			}}
-		>{children}</Residence>
+		>
+			{children}
+		</Residence>
 	)
 }

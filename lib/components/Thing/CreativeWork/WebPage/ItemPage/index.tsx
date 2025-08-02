@@ -18,6 +18,8 @@ export default function ItemPage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

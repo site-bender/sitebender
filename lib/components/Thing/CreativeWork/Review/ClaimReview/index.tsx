@@ -20,6 +20,8 @@ export default function ClaimReview({
 				claimReviewed,
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

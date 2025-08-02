@@ -34,6 +34,8 @@ export default function ShippingRateSettings({
 				weightPercentage,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

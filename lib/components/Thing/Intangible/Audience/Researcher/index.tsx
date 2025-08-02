@@ -18,6 +18,8 @@ export default function Researcher({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Audience>
+		>
+			{children}
+		</Audience>
 	)
 }

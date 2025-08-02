@@ -18,6 +18,8 @@ export default function AmusementPark({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EntertainmentBusiness>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

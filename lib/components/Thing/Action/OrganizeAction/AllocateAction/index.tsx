@@ -18,6 +18,8 @@ export default function AllocateAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</OrganizeAction>
+		>
+			{children}
+		</OrganizeAction>
 	)
 }

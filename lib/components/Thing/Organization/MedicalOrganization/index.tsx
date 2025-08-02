@@ -24,6 +24,8 @@ export default function MedicalOrganization({
 				medicalSpecialty,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

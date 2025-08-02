@@ -13,8 +13,10 @@ import type { ReservationProps } from "../index.ts"
 import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type LodgingReservationType = "LodgingReservation"
+
 export interface LodgingReservationProps {
-	"@type"?: "LodgingReservation"
+	"@type"?: LodgingReservationType
 	checkinTime?: DateTime | Time
 	checkoutTime?: DateTime | Time
 	lodgingUnitDescription?: Text

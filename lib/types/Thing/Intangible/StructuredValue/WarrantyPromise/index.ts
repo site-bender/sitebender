@@ -7,8 +7,10 @@ import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import WarrantyScopeComponent from "../../../../../components/Thing/Intangible/Enumeration/WarrantyScope/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type WarrantyPromiseType = "WarrantyPromise"
+
 export interface WarrantyPromiseProps {
-	"@type"?: "WarrantyPromise"
+	"@type"?: WarrantyPromiseType
 	durationOfWarranty?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

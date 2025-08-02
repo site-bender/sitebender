@@ -30,8 +30,10 @@ import QuantitativeValueComponent from "../../../components/Thing/Intangible/Str
 import OrganizationComponent from "../../../components/Thing/Organization/index.ts"
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 
+export type MediaObjectType = "MediaObject"
+
 export interface MediaObjectProps {
-	"@type"?: "MediaObject"
+	"@type"?: MediaObjectType
 	associatedArticle?: NewsArticle | ReturnType<typeof NewsArticleComponent>
 	bitrate?: Text
 	contentSize?: Text

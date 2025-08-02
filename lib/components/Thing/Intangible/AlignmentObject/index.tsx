@@ -28,6 +28,8 @@ export default function AlignmentObject({
 				targetUrl,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -20,6 +20,8 @@ export default function CommentAction({
 				resultComment,
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

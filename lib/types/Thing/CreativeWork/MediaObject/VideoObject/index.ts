@@ -6,14 +6,17 @@ import type PerformingGroup from "../../../Organization/PerformingGroup/index.ts
 import type MusicGroup from "../../../Organization/PerformingGroup/MusicGroup/index.ts"
 import type Person from "../../../Person/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
+import type { VideoObjectSnapshotType } from "./VideoObjectSnapshot/index.ts"
 
 import MediaObjectComponent from "../../../../../components/Thing/MediaObject/index.ts"
 import PerformingGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/index.ts"
 import MusicGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type VideoObjectType = "VideoObject" | VideoObjectSnapshotType
+
 export interface VideoObjectProps {
-	"@type"?: "VideoObject"
+	"@type"?: VideoObjectType
 	actor?:
 		| PerformingGroup
 		| Person

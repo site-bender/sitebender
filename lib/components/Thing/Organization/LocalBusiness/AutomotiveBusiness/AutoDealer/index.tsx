@@ -18,6 +18,8 @@ export default function AutoDealer({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AutomotiveBusiness>
+		>
+			{children}
+		</AutomotiveBusiness>
 	)
 }

@@ -26,6 +26,8 @@ export default function Nerve({
 				sourcedFrom,
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

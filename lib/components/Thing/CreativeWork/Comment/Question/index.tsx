@@ -28,6 +28,8 @@ export default function Question({
 				suggestedAnswer,
 				...subtypeProperties,
 			}}
-		>{children}</Comment>
+		>
+			{children}
+		</Comment>
 	)
 }

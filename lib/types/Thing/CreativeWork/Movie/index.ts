@@ -21,8 +21,10 @@ import MusicGroupComponent from "../../../../components/Thing/Organization/Perfo
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type MovieType = "Movie"
+
 export interface MovieProps {
-	"@type"?: "Movie"
+	"@type"?: MovieType
 	actor?:
 		| PerformingGroup
 		| Person

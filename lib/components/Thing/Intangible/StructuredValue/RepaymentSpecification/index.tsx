@@ -28,6 +28,8 @@ export default function RepaymentSpecification({
 				numberOfLoanPayments,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

@@ -5,8 +5,10 @@ import type { IntangibleProps } from "../index.ts"
 
 import QualitativeValueComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 
+export type SeatType = "Seat"
+
 export interface SeatProps {
-	"@type"?: "Seat"
+	"@type"?: SeatType
 	seatingType?:
 		| QualitativeValue
 		| Text

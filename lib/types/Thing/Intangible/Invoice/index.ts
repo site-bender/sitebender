@@ -24,8 +24,10 @@ import PriceSpecificationComponent from "../../../../components/Thing/Intangible
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type InvoiceType = "Invoice"
+
 export interface InvoiceProps {
-	"@type"?: "Invoice"
+	"@type"?: InvoiceType
 	accountId?: Text
 	billingPeriod?: Duration | ReturnType<typeof DurationComponent>
 	broker?:

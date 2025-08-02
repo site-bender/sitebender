@@ -18,6 +18,8 @@ export default function RadiationTherapy({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalTherapy>
+		>
+			{children}
+		</MedicalTherapy>
 	)
 }

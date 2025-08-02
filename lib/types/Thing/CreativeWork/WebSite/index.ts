@@ -2,8 +2,10 @@ import type { Text } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+export type WebSiteType = "WebSite"
+
 export interface WebSiteProps {
-	"@type"?: "WebSite"
+	"@type"?: WebSiteType
 	issn?: Text
 }
 

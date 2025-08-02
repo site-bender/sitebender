@@ -3,8 +3,11 @@ import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 
+export type ShareActionType = "ShareAction"
+
 export interface ShareActionProps {
-	"@type"?: "ShareAction"}
+	"@type"?: ShareActionType
+}
 
 type ShareAction =
 	& Thing

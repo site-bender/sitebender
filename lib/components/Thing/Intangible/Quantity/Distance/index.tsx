@@ -18,6 +18,8 @@ export default function Distance({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Quantity>
+		>
+			{children}
+		</Quantity>
 	)
 }

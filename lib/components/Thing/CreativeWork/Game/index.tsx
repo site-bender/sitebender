@@ -28,6 +28,8 @@ export default function Game({
 				quest,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

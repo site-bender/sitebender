@@ -18,6 +18,8 @@ export default function OnlineStore({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</OnlineBusiness>
+		>
+			{children}
+		</OnlineBusiness>
 	)
 }

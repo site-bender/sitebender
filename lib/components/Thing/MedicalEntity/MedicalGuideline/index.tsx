@@ -26,6 +26,8 @@ export default function MedicalGuideline({
 				guidelineSubject,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

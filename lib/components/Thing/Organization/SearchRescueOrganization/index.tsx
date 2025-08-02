@@ -18,6 +18,8 @@ export default function SearchRescueOrganization({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

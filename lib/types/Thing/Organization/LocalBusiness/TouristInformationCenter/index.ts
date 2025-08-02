@@ -3,8 +3,11 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 
+export type TouristInformationCenterType = "TouristInformationCenter"
+
 export interface TouristInformationCenterProps {
-	"@type"?: "TouristInformationCenter"}
+	"@type"?: TouristInformationCenterType
+}
 
 type TouristInformationCenter =
 	& Thing

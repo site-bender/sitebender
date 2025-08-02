@@ -12,8 +12,10 @@ import DataFeedComponent from "../../../../../components/Thing/CreativeWork/Data
 import PerformingGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type PodcastSeriesType = "PodcastSeries"
+
 export interface PodcastSeriesProps {
-	"@type"?: "PodcastSeries"
+	"@type"?: PodcastSeriesType
 	actor?:
 		| PerformingGroup
 		| Person

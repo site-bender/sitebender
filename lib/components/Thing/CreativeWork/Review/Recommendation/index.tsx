@@ -20,6 +20,8 @@ export default function Recommendation({
 				category,
 				...subtypeProperties,
 			}}
-		>{children}</Review>
+		>
+			{children}
+		</Review>
 	)
 }

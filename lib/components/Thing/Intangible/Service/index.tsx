@@ -68,6 +68,8 @@ export default function Service({
 				termsOfService,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -22,6 +22,8 @@ export default function DigitalDocumentPermission({
 				permissionType,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

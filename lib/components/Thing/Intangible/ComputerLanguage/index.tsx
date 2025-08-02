@@ -18,6 +18,8 @@ export default function ComputerLanguage({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

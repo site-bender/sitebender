@@ -18,6 +18,8 @@ export default function Synagogue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlaceOfWorship>
+		>
+			{children}
+		</PlaceOfWorship>
 	)
 }

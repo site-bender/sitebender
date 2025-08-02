@@ -11,8 +11,10 @@ import ContactPointComponent from "../../../../../components/Thing/Intangible/St
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type GiveActionType = "GiveAction"
+
 export interface GiveActionProps {
-	"@type"?: "GiveAction"
+	"@type"?: GiveActionType
 	recipient?:
 		| Audience
 		| ContactPoint

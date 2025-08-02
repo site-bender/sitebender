@@ -50,6 +50,8 @@ export default function TVSeries({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

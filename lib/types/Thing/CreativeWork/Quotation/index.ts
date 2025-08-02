@@ -6,8 +6,10 @@ import type { CreativeWorkProps } from "../index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type QuotationType = "Quotation"
+
 export interface QuotationProps {
-	"@type"?: "Quotation"
+	"@type"?: QuotationType
 	spokenByCharacter?:
 		| Organization
 		| Person

@@ -22,6 +22,8 @@ export default function BoatTrip({
 				departureBoatTerminal,
 				...subtypeProperties,
 			}}
-		>{children}</Trip>
+		>
+			{children}
+		</Trip>
 	)
 }

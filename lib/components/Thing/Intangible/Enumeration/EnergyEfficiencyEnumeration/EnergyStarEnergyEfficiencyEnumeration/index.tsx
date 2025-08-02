@@ -18,6 +18,8 @@ export default function EnergyStarEnergyEfficiencyEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EnergyEfficiencyEnumeration>
+		>
+			{children}
+		</EnergyEfficiencyEnumeration>
 	)
 }

@@ -7,8 +7,10 @@ import type SoftwareApplication from "../SoftwareApplication/index.ts"
 import SoftwareApplicationComponent from "../../../../components/Thing/CreativeWork/SoftwareApplication/index.ts"
 import ComputerLanguageComponent from "../../../../components/Thing/Intangible/ComputerLanguage/index.ts"
 
+export type SoftwareSourceCodeType = "SoftwareSourceCode"
+
 export interface SoftwareSourceCodeProps {
-	"@type"?: "SoftwareSourceCode"
+	"@type"?: SoftwareSourceCodeType
 	codeRepository?: URL
 	codeSampleType?: Text
 	programmingLanguage?:

@@ -18,6 +18,8 @@ export default function ArtGallery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</EntertainmentBusiness>
+		>
+			{children}
+		</EntertainmentBusiness>
 	)
 }

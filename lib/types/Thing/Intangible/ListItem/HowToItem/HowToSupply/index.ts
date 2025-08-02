@@ -7,8 +7,10 @@ import type { HowToItemProps } from "../index.ts"
 
 import MonetaryAmountComponent from "../../../../../../components/Thing/Intangible/StructuredValue/MonetaryAmount/index.ts"
 
+export type HowToSupplyType = "HowToSupply"
+
 export interface HowToSupplyProps {
-	"@type"?: "HowToSupply"
+	"@type"?: HowToSupplyType
 	estimatedCost?:
 		| MonetaryAmount
 		| Text

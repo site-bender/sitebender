@@ -18,6 +18,8 @@ export default function Newspaper({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Periodical>
+		>
+			{children}
+		</Periodical>
 	)
 }

@@ -38,6 +38,8 @@ export default function GeospatialGeometry({
 				geoWithin,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

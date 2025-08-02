@@ -18,6 +18,8 @@ export default function PhotographAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreateAction>
+		>
+			{children}
+		</CreateAction>
 	)
 }

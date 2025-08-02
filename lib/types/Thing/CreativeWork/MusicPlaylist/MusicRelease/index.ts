@@ -16,8 +16,10 @@ import QuantitativeValueComponent from "../../../../../components/Thing/Intangib
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type MusicReleaseType = "MusicRelease"
+
 export interface MusicReleaseProps {
-	"@type"?: "MusicRelease"
+	"@type"?: MusicReleaseType
 	catalogNumber?: Text
 	creditedTo?:
 		| Organization

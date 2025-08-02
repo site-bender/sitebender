@@ -20,6 +20,8 @@ export default function DefinedTermSet({
 				hasDefinedTerm,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

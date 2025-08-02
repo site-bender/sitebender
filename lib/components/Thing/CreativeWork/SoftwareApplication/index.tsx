@@ -66,6 +66,8 @@ export default function SoftwareApplication({
 				supportingData,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

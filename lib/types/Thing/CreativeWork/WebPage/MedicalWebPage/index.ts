@@ -8,8 +8,10 @@ import type { WebPageProps } from "../index.ts"
 import MedicalAudienceComponent from "../../../../../components/Thing/Intangible/Audience/MedicalAudience/index.ts"
 import MedicalAudienceTypeComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalAudienceType/index.ts"
 
+export type MedicalWebPageType = "MedicalWebPage"
+
 export interface MedicalWebPageProps {
-	"@type"?: "MedicalWebPage"
+	"@type"?: MedicalWebPageType
 	aspect?: Text
 	medicalAudience?:
 		| MedicalAudience

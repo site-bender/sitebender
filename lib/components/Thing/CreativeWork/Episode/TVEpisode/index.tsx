@@ -26,6 +26,8 @@ export default function TVEpisode({
 				titleEIDR,
 				...subtypeProperties,
 			}}
-		>{children}</Episode>
+		>
+			{children}
+		</Episode>
 	)
 }

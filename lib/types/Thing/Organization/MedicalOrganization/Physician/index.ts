@@ -11,6 +11,8 @@ import type { LocalBusinessProps } from "../../LocalBusiness/index.ts"
 import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/index.ts"
 import type Hospital from "../Hospital/index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
+import type { IndividualPhysicianType } from "./IndividualPhysician/index.ts"
+import type { PhysiciansOfficeType } from "./PhysiciansOffice/index.ts"
 
 import CategoryCodeComponent from "../../../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
 import MedicalSpecialtyComponent from "../../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.ts"
@@ -19,8 +21,13 @@ import MedicalTherapyComponent from "../../../../../components/Thing/MedicalEnti
 import MedicalTestComponent from "../../../../../components/Thing/MedicalEntity/MedicalTest/index.ts"
 import HospitalComponent from "../../../../../components/Thing/Organization/MedicalOrganization/Hospital/index.ts"
 
+export type PhysicianType =
+	| "Physician"
+	| IndividualPhysicianType
+	| PhysiciansOfficeType
+
 export interface PhysicianProps {
-	"@type"?: "Physician"
+	"@type"?: PhysicianType
 	availableService?:
 		| MedicalProcedure
 		| MedicalTest

@@ -4,8 +4,11 @@ import type { SeriesProps } from "../../../Intangible/Series/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { CreativeWorkSeriesProps } from "../index.ts"
 
+export type BookSeriesType = "BookSeries"
+
 export interface BookSeriesProps {
-	"@type"?: "BookSeries"}
+	"@type"?: BookSeriesType
+}
 
 type BookSeries =
 	& Thing

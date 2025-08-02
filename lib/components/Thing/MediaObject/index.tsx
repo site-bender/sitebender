@@ -58,6 +58,8 @@ export default function MediaObject({
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

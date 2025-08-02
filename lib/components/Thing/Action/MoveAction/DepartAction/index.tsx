@@ -18,6 +18,8 @@ export default function DepartAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MoveAction>
+		>
+			{children}
+		</MoveAction>
 	)
 }

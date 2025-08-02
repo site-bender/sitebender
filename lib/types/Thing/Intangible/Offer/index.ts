@@ -42,6 +42,9 @@ import type TypeAndQuantityNode from "../StructuredValue/TypeAndQuantityNode/ind
 import type WarrantyPromise from "../StructuredValue/WarrantyPromise/index.ts"
 import type Trip from "../Trip/index.ts"
 import type AggregateOffer from "./AggregateOffer/index.ts"
+import type { AggregateOfferType } from "./AggregateOffer/index.ts"
+import type { OfferForLeaseType } from "./OfferForLease/index.ts"
+import type { OfferForPurchaseType } from "./OfferForPurchase/index.ts"
 
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
 import ReviewComponent from "../../../../components/Thing/CreativeWork/Review/index.ts"
@@ -79,8 +82,14 @@ import AdministrativeAreaComponent from "../../../../components/Thing/Place/Admi
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type OfferType =
+	| "Offer"
+	| OfferForPurchaseType
+	| AggregateOfferType
+	| OfferForLeaseType
+
 export interface OfferProps {
-	"@type"?: "Offer"
+	"@type"?: OfferType
 	acceptedPaymentMethod?:
 		| LoanOrCredit
 		| PaymentMethod

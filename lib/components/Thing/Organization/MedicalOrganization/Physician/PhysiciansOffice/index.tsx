@@ -18,6 +18,8 @@ export default function PhysiciansOffice({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Physician>
+		>
+			{children}
+		</Physician>
 	)
 }

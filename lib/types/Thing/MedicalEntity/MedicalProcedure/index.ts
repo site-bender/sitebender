@@ -5,14 +5,27 @@ import type MedicalStudyStatus from "../../Intangible/Enumeration/MedicalEnumera
 import type EventStatusType from "../../Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
 import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
+import type { DiagnosticProcedureType } from "./DiagnosticProcedure/index.ts"
+import type { PalliativeProcedureType } from "./PalliativeProcedure/index.ts"
+import type { PhysicalExamType } from "./PhysicalExam/index.ts"
+import type { SurgicalProcedureType } from "./SurgicalProcedure/index.ts"
+import type { TherapeuticProcedureType } from "./TherapeuticProcedure/index.ts"
 
 import MedicalProcedureTypeComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.ts"
 import MedicalStudyStatusComponent from "../../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.ts"
 import EventStatusTypeComponent from "../../../../components/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.ts"
 import MedicalEntityComponent from "../../../../components/Thing/MedicalEntity/index.ts"
 
+export type MedicalProcedureType =
+	| "MedicalProcedure"
+	| PhysicalExamType
+	| SurgicalProcedureType
+	| DiagnosticProcedureType
+	| TherapeuticProcedureType
+	| PalliativeProcedureType
+
 export interface MedicalProcedureProps {
-	"@type"?: "MedicalProcedure"
+	"@type"?: MedicalProcedureType
 	bodyLocation?: Text
 	followup?: Text
 	howPerformed?: Text

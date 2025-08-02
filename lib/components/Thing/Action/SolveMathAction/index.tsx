@@ -20,6 +20,8 @@ export default function SolveMathAction({
 				eduQuestionType,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

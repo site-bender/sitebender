@@ -20,6 +20,8 @@ export default function PayAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

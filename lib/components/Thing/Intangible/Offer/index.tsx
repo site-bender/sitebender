@@ -126,6 +126,8 @@ export default function Offer({
 				warranty,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

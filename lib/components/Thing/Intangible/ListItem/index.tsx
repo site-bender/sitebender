@@ -26,6 +26,8 @@ export default function ListItem({
 				previousItem,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -26,6 +26,8 @@ export default function DatedMoneySpecification({
 				startDate,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

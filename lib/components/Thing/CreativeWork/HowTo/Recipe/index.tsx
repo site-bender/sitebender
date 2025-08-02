@@ -38,6 +38,8 @@ export default function Recipe({
 				suitableForDiet,
 				...subtypeProperties,
 			}}
-		>{children}</HowTo>
+		>
+			{children}
+		</HowTo>
 	)
 }

@@ -14,8 +14,10 @@ import ServiceComponent from "../../../../components/Thing/Intangible/Service/in
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type OrderItemType = "OrderItem"
+
 export interface OrderItemProps {
-	"@type"?: "OrderItem"
+	"@type"?: OrderItemType
 	orderDelivery?: ParcelDelivery | ReturnType<typeof ParcelDeliveryComponent>
 	orderedItem?:
 		| OrderItem

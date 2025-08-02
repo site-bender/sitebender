@@ -24,6 +24,8 @@ export default function ServicePeriod({
 				duration,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

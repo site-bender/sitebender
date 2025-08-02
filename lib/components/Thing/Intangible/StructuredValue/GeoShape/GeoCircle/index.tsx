@@ -22,6 +22,8 @@ export default function GeoCircle({
 				geoRadius,
 				...subtypeProperties,
 			}}
-		>{children}</GeoShape>
+		>
+			{children}
+		</GeoShape>
 	)
 }

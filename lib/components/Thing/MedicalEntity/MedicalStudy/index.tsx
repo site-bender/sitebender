@@ -28,6 +28,8 @@ export default function MedicalStudy({
 				studySubject,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

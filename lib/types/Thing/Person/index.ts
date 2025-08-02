@@ -30,6 +30,7 @@ import type Organization from "../Organization/index.ts"
 import type Country from "../Place/AdministrativeArea/Country/index.ts"
 import type Place from "../Place/index.ts"
 import type Product from "../Product/index.ts"
+import type { PatientType } from "./Patient/index.ts"
 
 import CertificationComponent from "../../../components/Thing/CreativeWork/Certification/index.ts"
 import EducationalOccupationalCredentialComponent from "../../../components/Thing/CreativeWork/EducationalOccupationalCredential/index.ts"
@@ -64,8 +65,10 @@ import CountryComponent from "../../../components/Thing/Place/AdministrativeArea
 import PlaceComponent from "../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../components/Thing/Product/index.ts"
 
+export type PersonType = "Person" | PatientType
+
 export interface PersonProps {
-	"@type"?: "Person"
+	"@type"?: PersonType
 	"@type"?: "Person"
 	additionalName?: Text
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>

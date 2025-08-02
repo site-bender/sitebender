@@ -18,6 +18,8 @@ export default function BodyOfWater({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Landform>
+		>
+			{children}
+		</Landform>
 	)
 }

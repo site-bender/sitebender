@@ -22,6 +22,8 @@ export default function MedicalWebPage({
 				medicalAudience,
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

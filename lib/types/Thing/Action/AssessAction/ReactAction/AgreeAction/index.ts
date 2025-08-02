@@ -3,8 +3,11 @@ import type { ActionProps } from "../../../index.ts"
 import type { AssessActionProps } from "../../index.ts"
 import type { ReactActionProps } from "../index.ts"
 
+export type AgreeActionType = "AgreeAction"
+
 export interface AgreeActionProps {
-	"@type"?: "AgreeAction"}
+	"@type"?: AgreeActionType
+}
 
 type AgreeAction =
 	& Thing

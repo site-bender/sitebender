@@ -20,6 +20,8 @@ export default function SeekToAction({
 				startOffset,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

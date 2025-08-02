@@ -28,6 +28,8 @@ export default function DrugStrength({
 				strengthValue,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalIntangible>
+		>
+			{children}
+		</MedicalIntangible>
 	)
 }

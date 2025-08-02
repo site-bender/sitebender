@@ -4,12 +4,15 @@ import type Country from "../../../Place/AdministrativeArea/Country/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 import type { StructuredValueProps } from "../index.ts"
+import type { GeoCircleType } from "./GeoCircle/index.ts"
 
 import PostalAddressComponent from "../../../../../components/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import CountryComponent from "../../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type GeoShapeType = "GeoShape" | GeoCircleType
+
 export interface GeoShapeProps {
-	"@type"?: "GeoShape"
+	"@type"?: GeoShapeType
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	addressCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	box?: Text

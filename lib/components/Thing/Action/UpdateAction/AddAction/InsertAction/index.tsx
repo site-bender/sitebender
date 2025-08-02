@@ -20,6 +20,8 @@ export default function InsertAction({
 				toLocation,
 				...subtypeProperties,
 			}}
-		>{children}</AddAction>
+		>
+			{children}
+		</AddAction>
 	)
 }

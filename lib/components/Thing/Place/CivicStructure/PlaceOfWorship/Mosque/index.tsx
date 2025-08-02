@@ -18,6 +18,8 @@ export default function Mosque({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlaceOfWorship>
+		>
+			{children}
+		</PlaceOfWorship>
 	)
 }

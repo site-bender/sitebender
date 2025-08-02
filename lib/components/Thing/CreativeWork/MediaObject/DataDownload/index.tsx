@@ -22,6 +22,8 @@ export default function DataDownload({
 				measurementTechnique,
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

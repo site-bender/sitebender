@@ -18,6 +18,8 @@ export default function ComicCoverArt({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ComicStory>
+		>
+			{children}
+		</ComicStory>
 	)
 }

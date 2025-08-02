@@ -46,6 +46,8 @@ export default function FinancialIncentive({
 				validThrough,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

@@ -5,13 +5,24 @@ import type { MedicalEntityProps } from "../../../index.ts"
 import type MedicalContraindication from "../../../MedicalContraindication/index.ts"
 import type { MedicalProcedureProps } from "../../index.ts"
 import type { TherapeuticProcedureProps } from "../index.ts"
+import type { OccupationalTherapyType } from "./OccupationalTherapy/index.ts"
+import type { PalliativeProcedureType } from "./PalliativeProcedure/index.ts"
+import type { PhysicalTherapyType } from "./PhysicalTherapy/index.ts"
+import type { RadiationTherapyType } from "./RadiationTherapy/index.ts"
 
 import MedicalEntityComponent from "../../../../../../components/Thing/MedicalEntity/index.ts"
 import MedicalContraindicationComponent from "../../../../../../components/Thing/MedicalEntity/MedicalContraindication/index.ts"
 import MedicalTherapyComponent from "../../../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+export type MedicalTherapyType =
+	| "MedicalTherapy"
+	| PhysicalTherapyType
+	| RadiationTherapyType
+	| OccupationalTherapyType
+	| PalliativeProcedureType
+
 export interface MedicalTherapyProps {
-	"@type"?: "MedicalTherapy"
+	"@type"?: MedicalTherapyType
 	contraindication?:
 		| MedicalContraindication
 		| Text

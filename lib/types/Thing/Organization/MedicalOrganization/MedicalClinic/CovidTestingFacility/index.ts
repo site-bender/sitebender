@@ -6,8 +6,11 @@ import type { MedicalBusinessProps } from "../../../LocalBusiness/MedicalBusines
 import type { MedicalOrganizationProps } from "../../index.ts"
 import type { MedicalClinicProps } from "../index.ts"
 
+export type CovidTestingFacilityType = "CovidTestingFacility"
+
 export interface CovidTestingFacilityProps {
-	"@type"?: "CovidTestingFacility"}
+	"@type"?: CovidTestingFacilityType
+}
 
 type CovidTestingFacility =
 	& Thing

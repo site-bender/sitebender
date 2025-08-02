@@ -24,6 +24,8 @@ export default function FoodEstablishmentReservation({
 				startTime,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

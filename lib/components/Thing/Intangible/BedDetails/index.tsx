@@ -22,6 +22,8 @@ export default function BedDetails({
 				typeOfBed,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

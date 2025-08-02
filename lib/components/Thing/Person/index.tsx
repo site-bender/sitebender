@@ -152,6 +152,8 @@ export default function Person({
 				worksFor,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

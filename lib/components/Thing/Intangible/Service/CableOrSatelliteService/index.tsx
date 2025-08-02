@@ -18,6 +18,8 @@ export default function CableOrSatelliteService({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

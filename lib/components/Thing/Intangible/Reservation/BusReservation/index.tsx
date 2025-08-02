@@ -18,6 +18,8 @@ export default function BusReservation({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

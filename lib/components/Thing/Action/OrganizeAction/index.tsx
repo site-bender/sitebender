@@ -18,6 +18,8 @@ export default function OrganizeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

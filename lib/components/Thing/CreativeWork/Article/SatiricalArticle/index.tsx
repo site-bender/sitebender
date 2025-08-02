@@ -18,6 +18,8 @@ export default function SatiricalArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Article>
+		>
+			{children}
+		</Article>
 	)
 }

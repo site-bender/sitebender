@@ -6,8 +6,10 @@ import type { CreativeWorkProps } from "../index.ts"
 import HyperTocEntryComponent from "../../../../components/Thing/CreativeWork/HyperTocEntry/index.ts"
 import MediaObjectComponent from "../../../../components/Thing/MediaObject/index.ts"
 
+export type HyperTocType = "HyperToc"
+
 export interface HyperTocProps {
-	"@type"?: "HyperToc"
+	"@type"?: HyperTocType
 	associatedMedia?: MediaObject | ReturnType<typeof MediaObjectComponent>
 	tocEntry?: HyperTocEntry | ReturnType<typeof HyperTocEntryComponent>
 }

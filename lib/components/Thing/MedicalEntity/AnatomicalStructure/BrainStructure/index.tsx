@@ -18,6 +18,8 @@ export default function BrainStructure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

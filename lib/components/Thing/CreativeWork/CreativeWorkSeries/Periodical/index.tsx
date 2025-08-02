@@ -18,6 +18,8 @@ export default function Periodical({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

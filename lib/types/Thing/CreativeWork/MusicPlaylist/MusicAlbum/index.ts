@@ -13,8 +13,10 @@ import MusicAlbumReleaseTypeComponent from "../../../../../components/Thing/Inta
 import MusicGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type MusicAlbumType = "MusicAlbum"
+
 export interface MusicAlbumProps {
-	"@type"?: "MusicAlbum"
+	"@type"?: MusicAlbumType
 	albumProductionType?:
 		| MusicAlbumProductionType
 		| ReturnType<typeof MusicAlbumProductionTypeComponent>

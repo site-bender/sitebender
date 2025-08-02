@@ -22,6 +22,8 @@ export default function WorkBasedProgram({
 				trainingSalary,
 				...subtypeProperties,
 			}}
-		>{children}</EducationalOccupationalProgram>
+		>
+			{children}
+		</EducationalOccupationalProgram>
 	)
 }

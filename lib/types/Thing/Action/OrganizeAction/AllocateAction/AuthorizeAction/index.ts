@@ -12,8 +12,10 @@ import ContactPointComponent from "../../../../../../components/Thing/Intangible
 import OrganizationComponent from "../../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../../components/Thing/Person/index.ts"
 
+export type AuthorizeActionType = "AuthorizeAction"
+
 export interface AuthorizeActionProps {
-	"@type"?: "AuthorizeAction"
+	"@type"?: AuthorizeActionType
 	recipient?:
 		| Audience
 		| ContactPoint

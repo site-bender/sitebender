@@ -14,8 +14,10 @@ import EventComponent from "../../../../components/Thing/Event/index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type MusicCompositionType = "MusicComposition"
+
 export interface MusicCompositionProps {
-	"@type"?: "MusicComposition"
+	"@type"?: MusicCompositionType
 	composer?:
 		| Organization
 		| Person

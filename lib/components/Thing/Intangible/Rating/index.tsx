@@ -30,6 +30,8 @@ export default function Rating({
 				worstRating,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

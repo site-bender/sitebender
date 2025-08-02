@@ -26,6 +26,8 @@ export default function FlightReservation({
 				securityScreening,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

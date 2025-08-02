@@ -22,6 +22,8 @@ export default function UpdateAction({
 				targetCollection,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

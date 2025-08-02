@@ -22,6 +22,8 @@ export default function PodcastSeries({
 				webFeed,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWorkSeries>
+		>
+			{children}
+		</CreativeWorkSeries>
 	)
 }

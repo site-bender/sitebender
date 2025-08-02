@@ -5,8 +5,10 @@ import type { DefinedTermSetProps } from "../index.ts"
 
 import CategoryCodeComponent from "../../../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
 
+export type CategoryCodeSetType = "CategoryCodeSet"
+
 export interface CategoryCodeSetProps {
-	"@type"?: "CategoryCodeSet"
+	"@type"?: CategoryCodeSetType
 	hasCategoryCode?: CategoryCode | ReturnType<typeof CategoryCodeComponent>
 }
 

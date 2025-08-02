@@ -28,6 +28,8 @@ export default function OpeningHoursSpecification({
 				validThrough,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

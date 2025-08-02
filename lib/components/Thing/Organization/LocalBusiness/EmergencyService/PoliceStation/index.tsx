@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type EmergencyServiceProps from "../../../../../../types/Thing/EmergencyService/index.ts"
-import type PoliceStationProps from "../../../../../../types/Thing/PoliceStation/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type PoliceStationProps from "../../../../../../types/Thing/Organization/LocalBusiness/EmergencyService/PoliceStation/index.ts"
 
 import EmergencyService from "../index.tsx"
 
-// PoliceStation adds no properties to the EmergencyService schema type
-export type Props = BaseComponentProps<
-	PoliceStationProps,
-	"PoliceStation",
-	ExtractLevelProps<PoliceStationProps, EmergencyServiceProps>
->
+// PoliceStation adds no properties to the ListItem schema type
+export type Props = PoliceStationProps & BaseProps
 
 export default function PoliceStation({
 	_type = "PoliceStation",
@@ -25,6 +17,8 @@ export default function PoliceStation({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</PoliceStationProps>
+		>
+			{children}
+		</EmergencyService>
 	)
 }

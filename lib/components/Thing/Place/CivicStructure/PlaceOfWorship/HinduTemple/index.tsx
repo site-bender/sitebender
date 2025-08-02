@@ -18,6 +18,8 @@ export default function HinduTemple({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PlaceOfWorship>
+		>
+			{children}
+		</PlaceOfWorship>
 	)
 }

@@ -20,6 +20,8 @@ export default function MedicalGuidelineRecommendation({
 				recommendationStrength,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalGuideline>
+		>
+			{children}
+		</MedicalGuideline>
 	)
 }

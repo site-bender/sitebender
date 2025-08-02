@@ -18,6 +18,8 @@ export default function Plumber({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HomeAndConstructionBusiness>
+		>
+			{children}
+		</HomeAndConstructionBusiness>
 	)
 }

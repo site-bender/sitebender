@@ -12,8 +12,10 @@ import OrganizationComponent from "../../../../../components/Thing/Organization/
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
+export type OwnershipInfoType = "OwnershipInfo"
+
 export interface OwnershipInfoProps {
-	"@type"?: "OwnershipInfo"
+	"@type"?: OwnershipInfoType
 	acquiredFrom?:
 		| Organization
 		| Person

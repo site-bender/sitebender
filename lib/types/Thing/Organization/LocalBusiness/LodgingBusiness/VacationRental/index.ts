@@ -4,8 +4,11 @@ import type { OrganizationProps } from "../../../index.ts"
 import type { LocalBusinessProps } from "../../index.ts"
 import type { LodgingBusinessProps } from "../index.ts"
 
+export type VacationRentalType = "VacationRental"
+
 export interface VacationRentalProps {
-	"@type"?: "VacationRental"}
+	"@type"?: VacationRentalType
+}
 
 type VacationRental =
 	& Thing

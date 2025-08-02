@@ -4,14 +4,17 @@ import type PostalAddress from "../../Intangible/StructuredValue/ContactPoint/Po
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type Place from "../../Place/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { VideoGameType } from "./VideoGame/index.ts"
 
 import ThingComponent from "../../../../components/Thing/index.ts"
 import PostalAddressComponent from "../../../../components/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type GameType = "Game" | VideoGameType
+
 export interface GameProps {
-	"@type"?: "Game"
+	"@type"?: GameType
 	characterAttribute?: Thing | ReturnType<typeof ThingComponent>
 	gameItem?: Thing | ReturnType<typeof ThingComponent>
 	gameLocation?:

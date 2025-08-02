@@ -36,6 +36,8 @@ export default function Review({
 				reviewRating,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

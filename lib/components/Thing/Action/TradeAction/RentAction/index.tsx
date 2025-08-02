@@ -22,6 +22,8 @@ export default function RentAction({
 				realEstateAgent,
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

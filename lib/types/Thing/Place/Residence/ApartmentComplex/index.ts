@@ -6,8 +6,10 @@ import type { ResidenceProps } from "../index.ts"
 
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type ApartmentComplexType = "ApartmentComplex"
+
 export interface ApartmentComplexProps {
-	"@type"?: "ApartmentComplex"
+	"@type"?: ApartmentComplexType
 	numberOfAccommodationUnits?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

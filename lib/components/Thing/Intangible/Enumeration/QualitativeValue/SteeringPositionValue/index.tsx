@@ -18,6 +18,8 @@ export default function SteeringPositionValue({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</QualitativeValue>
+		>
+			{children}
+		</QualitativeValue>
 	)
 }

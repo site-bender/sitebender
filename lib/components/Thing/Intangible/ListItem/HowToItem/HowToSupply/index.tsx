@@ -20,6 +20,8 @@ export default function HowToSupply({
 				estimatedCost,
 				...subtypeProperties,
 			}}
-		>{children}</HowToItem>
+		>
+			{children}
+		</HowToItem>
 	)
 }

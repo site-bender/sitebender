@@ -26,6 +26,8 @@ export default function CourseInstance({
 				instructor,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

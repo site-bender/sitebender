@@ -18,6 +18,8 @@ export default function IPTCDigitalSourceEnumeration({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MediaEnumeration>
+		>
+			{children}
+		</MediaEnumeration>
 	)
 }

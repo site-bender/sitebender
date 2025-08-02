@@ -22,6 +22,8 @@ export default function ArchiveComponent({
 				itemLocation,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

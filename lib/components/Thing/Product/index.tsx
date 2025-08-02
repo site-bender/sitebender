@@ -136,6 +136,8 @@ export default function Product({
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

@@ -20,6 +20,8 @@ export default function EducationalAudience({
 				educationalRole,
 				...subtypeProperties,
 			}}
-		>{children}</Audience>
+		>
+			{children}
+		</Audience>
 	)
 }

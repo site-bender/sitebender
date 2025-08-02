@@ -20,6 +20,8 @@ export default function ReservationPackage({
 				subReservation,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

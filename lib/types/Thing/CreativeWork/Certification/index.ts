@@ -18,8 +18,10 @@ import QuantitativeValueComponent from "../../../../components/Thing/Intangible/
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type CertificationType = "Certification"
+
 export interface CertificationProps {
-	"@type"?: "Certification"
+	"@type"?: CertificationType
 	about?: Thing | ReturnType<typeof ThingComponent>
 	auditDate?: Date | DateTime
 	certificationIdentification?:

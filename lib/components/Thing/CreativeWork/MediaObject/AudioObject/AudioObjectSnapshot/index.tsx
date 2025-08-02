@@ -18,6 +18,8 @@ export default function AudioObjectSnapshot({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AudioObject>
+		>
+			{children}
+		</AudioObject>
 	)
 }

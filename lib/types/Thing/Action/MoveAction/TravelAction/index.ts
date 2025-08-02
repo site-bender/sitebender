@@ -5,8 +5,10 @@ import type { MoveActionProps } from "../index.ts"
 
 import DistanceComponent from "../../../../../components/Thing/Intangible/Quantity/Distance/index.ts"
 
+export type TravelActionType = "TravelAction"
+
 export interface TravelActionProps {
-	"@type"?: "TravelAction"
+	"@type"?: TravelActionType
 	distance?: Distance | ReturnType<typeof DistanceComponent>
 }
 

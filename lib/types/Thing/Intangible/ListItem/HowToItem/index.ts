@@ -3,11 +3,15 @@ import type Thing from "../../../index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 import type { ListItemProps } from "../index.ts"
+import type { HowToSupplyType } from "./HowToSupply/index.ts"
+import type { HowToToolType } from "./HowToTool/index.ts"
 
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type HowToItemType = "HowToItem" | HowToSupplyType | HowToToolType
+
 export interface HowToItemProps {
-	"@type"?: "HowToItem"
+	"@type"?: HowToItemType
 	requiredQuantity?:
 		| Number
 		| QuantitativeValue

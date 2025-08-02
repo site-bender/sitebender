@@ -24,6 +24,8 @@ export default function EnergyConsumptionDetails({
 				hasEnergyEfficiencyCategory,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

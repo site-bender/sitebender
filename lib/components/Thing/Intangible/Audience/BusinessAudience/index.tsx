@@ -24,6 +24,8 @@ export default function BusinessAudience({
 				yearsInOperation,
 				...subtypeProperties,
 			}}
-		>{children}</Audience>
+		>
+			{children}
+		</Audience>
 	)
 }

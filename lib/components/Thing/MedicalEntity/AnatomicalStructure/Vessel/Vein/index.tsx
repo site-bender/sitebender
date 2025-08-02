@@ -24,6 +24,8 @@ export default function Vein({
 				tributary,
 				...subtypeProperties,
 			}}
-		>{children}</Vessel>
+		>
+			{children}
+		</Vessel>
 	)
 }

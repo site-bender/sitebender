@@ -22,6 +22,8 @@ export default function HotelRoom({
 				occupancy,
 				...subtypeProperties,
 			}}
-		>{children}</Room>
+		>
+			{children}
+		</Room>
 	)
 }

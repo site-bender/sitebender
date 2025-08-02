@@ -18,6 +18,8 @@ export default function Optician({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalBusiness>
+		>
+			{children}
+		</MedicalBusiness>
 	)
 }

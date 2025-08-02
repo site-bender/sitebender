@@ -22,6 +22,8 @@ export default function Substance({
 				maximumIntake,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

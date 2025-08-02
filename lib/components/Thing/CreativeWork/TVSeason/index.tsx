@@ -24,6 +24,8 @@ export default function TVSeason({
 				titleEIDR,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

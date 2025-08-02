@@ -30,6 +30,8 @@ export default function MonetaryAmount({
 				value,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

@@ -2,8 +2,11 @@ import type Thing from "../../../index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { ProjectProps } from "../index.ts"
 
+export type FundingAgencyType = "FundingAgency"
+
 export interface FundingAgencyProps {
-	"@type"?: "FundingAgency"}
+	"@type"?: FundingAgencyType
+}
 
 type FundingAgency =
 	& Thing

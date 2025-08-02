@@ -30,6 +30,8 @@ export default function InteractionCounter({
 				userInteractionCount,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

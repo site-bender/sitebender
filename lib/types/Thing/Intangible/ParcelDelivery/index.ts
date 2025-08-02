@@ -17,8 +17,10 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import ProductComponent from "../../../../components/Thing/Product/index.ts"
 
+export type ParcelDeliveryType = "ParcelDelivery"
+
 export interface ParcelDeliveryProps {
-	"@type"?: "ParcelDelivery"
+	"@type"?: ParcelDeliveryType
 	carrier?: Organization | ReturnType<typeof OrganizationComponent>
 	deliveryAddress?: PostalAddress | ReturnType<typeof PostalAddressComponent>
 	deliveryStatus?: DeliveryEvent | ReturnType<typeof DeliveryEventComponent>

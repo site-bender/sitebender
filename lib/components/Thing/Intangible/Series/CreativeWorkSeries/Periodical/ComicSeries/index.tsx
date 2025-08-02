@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../../types/index.ts"
-import type ComicSeriesProps from "../../../../../../../types/Thing/ComicSeries/index.ts"
-import type PeriodicalProps from "../../../../../../../types/Thing/Periodical/index.ts"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type ComicSeriesProps from "../../../../../../../types/Thing/Intangible/Series/CreativeWorkSeries/Periodical/ComicSeries/index.ts"
 
 import Periodical from "../index.tsx"
 
-// ComicSeries adds no properties to the Periodical schema type
-export type Props = BaseComponentProps<
-	ComicSeriesProps,
-	"ComicSeries",
-	ExtractLevelProps<ComicSeriesProps, PeriodicalProps>
->
+// ComicSeries adds no properties to the ListItem schema type
+export type Props = ComicSeriesProps & BaseProps
 
 export default function ComicSeries({
 	_type = "ComicSeries",
@@ -25,6 +17,8 @@ export default function ComicSeries({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</ComicSeriesProps>
+		>
+			{children}
+		</Periodical>
 	)
 }

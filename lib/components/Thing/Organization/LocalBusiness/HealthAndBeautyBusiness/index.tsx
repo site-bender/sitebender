@@ -18,6 +18,8 @@ export default function HealthAndBeautyBusiness({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LocalBusiness>
+		>
+			{children}
+		</LocalBusiness>
 	)
 }

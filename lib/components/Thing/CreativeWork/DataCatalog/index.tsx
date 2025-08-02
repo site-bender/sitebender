@@ -24,6 +24,8 @@ export default function DataCatalog({
 				measurementTechnique,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

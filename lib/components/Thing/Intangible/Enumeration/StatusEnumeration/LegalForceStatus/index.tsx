@@ -18,6 +18,8 @@ export default function LegalForceStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</StatusEnumeration>
+		>
+			{children}
+		</StatusEnumeration>
 	)
 }

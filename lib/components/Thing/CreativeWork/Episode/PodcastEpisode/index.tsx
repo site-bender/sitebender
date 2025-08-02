@@ -18,6 +18,8 @@ export default function PodcastEpisode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Episode>
+		>
+			{children}
+		</Episode>
 	)
 }

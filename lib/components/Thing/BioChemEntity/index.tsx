@@ -44,6 +44,8 @@ export default function BioChemEntity({
 				taxonomicRange,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

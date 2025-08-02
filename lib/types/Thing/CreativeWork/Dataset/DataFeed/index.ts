@@ -3,12 +3,15 @@ import type Thing from "../../../index.ts"
 import type DataFeedItem from "../../../Intangible/DataFeedItem/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { DatasetProps } from "../index.ts"
+import type { CompleteDataFeedType } from "./CompleteDataFeed/index.ts"
 
 import ThingComponent from "../../../../../components/Thing/index.ts"
 import DataFeedItemComponent from "../../../../../components/Thing/Intangible/DataFeedItem/index.ts"
 
+export type DataFeedType = "DataFeed" | CompleteDataFeedType
+
 export interface DataFeedProps {
-	"@type"?: "DataFeed"
+	"@type"?: DataFeedType
 	dataFeedElement?:
 		| DataFeedItem
 		| Text

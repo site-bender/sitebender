@@ -18,6 +18,8 @@ export default function MarryAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

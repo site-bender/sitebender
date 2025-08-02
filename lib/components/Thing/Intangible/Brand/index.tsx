@@ -26,6 +26,8 @@ export default function Brand({
 				slogan,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

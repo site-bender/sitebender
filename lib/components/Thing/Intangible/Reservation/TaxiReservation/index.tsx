@@ -24,6 +24,8 @@ export default function TaxiReservation({
 				pickupTime,
 				...subtypeProperties,
 			}}
-		>{children}</Reservation>
+		>
+			{children}
+		</Reservation>
 	)
 }

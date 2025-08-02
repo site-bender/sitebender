@@ -5,8 +5,10 @@ import type { BioChemEntityProps } from "../index.ts"
 
 import DefinedTermComponent from "../../../../components/Thing/Intangible/DefinedTerm/index.ts"
 
+export type ChemicalSubstanceType = "ChemicalSubstance"
+
 export interface ChemicalSubstanceProps {
-	"@type"?: "ChemicalSubstance"
+	"@type"?: ChemicalSubstanceType
 	chemicalComposition?: Text
 	chemicalRole?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 	potentialUse?: DefinedTerm | ReturnType<typeof DefinedTermComponent>

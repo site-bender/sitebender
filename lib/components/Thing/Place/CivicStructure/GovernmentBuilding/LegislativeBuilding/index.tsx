@@ -18,6 +18,8 @@ export default function LegislativeBuilding({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentBuilding>
+		>
+			{children}
+		</GovernmentBuilding>
 	)
 }

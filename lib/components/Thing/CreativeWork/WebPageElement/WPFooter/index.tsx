@@ -18,6 +18,8 @@ export default function WPFooter({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</WebPageElement>
+		>
+			{children}
+		</WebPageElement>
 	)
 }

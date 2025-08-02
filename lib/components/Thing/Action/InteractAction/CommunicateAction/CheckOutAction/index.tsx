@@ -18,6 +18,8 @@ export default function CheckOutAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

@@ -24,6 +24,8 @@ export default function Chapter({
 				pagination,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

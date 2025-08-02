@@ -4,8 +4,11 @@ import type { MedicalProcedureProps } from "../../../index.ts"
 import type { TherapeuticProcedureProps } from "../../index.ts"
 import type { MedicalTherapyProps } from "../index.ts"
 
+export type RadiationTherapyType = "RadiationTherapy"
+
 export interface RadiationTherapyProps {
-	"@type"?: "RadiationTherapy"}
+	"@type"?: RadiationTherapyType
+}
 
 type RadiationTherapy =
 	& Thing

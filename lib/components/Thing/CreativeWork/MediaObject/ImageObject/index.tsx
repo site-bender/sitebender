@@ -26,6 +26,8 @@ export default function ImageObject({
 				representativeOfPage,
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

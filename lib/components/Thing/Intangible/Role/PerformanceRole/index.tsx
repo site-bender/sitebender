@@ -20,6 +20,8 @@ export default function PerformanceRole({
 				characterName,
 				...subtypeProperties,
 			}}
-		>{children}</Role>
+		>
+			{children}
+		</Role>
 	)
 }

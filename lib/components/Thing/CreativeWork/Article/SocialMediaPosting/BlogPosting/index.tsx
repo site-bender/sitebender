@@ -18,6 +18,8 @@ export default function BlogPosting({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</SocialMediaPosting>
+		>
+			{children}
+		</SocialMediaPosting>
 	)
 }

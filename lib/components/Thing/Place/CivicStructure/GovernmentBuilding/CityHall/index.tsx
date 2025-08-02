@@ -18,6 +18,8 @@ export default function CityHall({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</GovernmentBuilding>
+		>
+			{children}
+		</GovernmentBuilding>
 	)
 }

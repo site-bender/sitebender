@@ -3,8 +3,11 @@ import type { ActionProps } from "../../../index.ts"
 import type { OrganizeActionProps } from "../../index.ts"
 import type { AllocateActionProps } from "../index.ts"
 
+export type AcceptActionType = "AcceptAction"
+
 export interface AcceptActionProps {
-	"@type"?: "AcceptAction"}
+	"@type"?: AcceptActionType
+}
 
 type AcceptAction =
 	& Thing

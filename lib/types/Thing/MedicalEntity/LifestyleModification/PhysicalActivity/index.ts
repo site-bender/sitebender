@@ -7,6 +7,7 @@ import type AnatomicalSystem from "../../AnatomicalSystem/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
 import type { LifestyleModificationProps } from "../index.ts"
+import type { ExercisePlanType } from "./ExercisePlan/index.ts"
 
 import ThingComponent from "../../../../../components/Thing/index.ts"
 import CategoryCodeComponent from "../../../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
@@ -15,8 +16,10 @@ import AnatomicalStructureComponent from "../../../../../components/Thing/Medica
 import AnatomicalSystemComponent from "../../../../../components/Thing/MedicalEntity/AnatomicalSystem/index.ts"
 import SuperficialAnatomyComponent from "../../../../../components/Thing/MedicalEntity/SuperficialAnatomy/index.ts"
 
+export type PhysicalActivityType = "PhysicalActivity" | ExercisePlanType
+
 export interface PhysicalActivityProps {
-	"@type"?: "PhysicalActivity"
+	"@type"?: PhysicalActivityType
 	associatedAnatomy?:
 		| AnatomicalStructure
 		| AnatomicalSystem

@@ -22,6 +22,8 @@ export default function ConstraintNode({
 				numConstraints,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

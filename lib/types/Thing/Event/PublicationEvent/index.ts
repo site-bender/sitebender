@@ -4,13 +4,20 @@ import type BroadcastService from "../../Intangible/Service/BroadcastService/ind
 import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type { EventProps } from "../index.ts"
+import type { BroadcastEventType } from "./BroadcastEvent/index.ts"
+import type { OnDemandEventType } from "./OnDemandEvent/index.ts"
 
 import BroadcastServiceComponent from "../../../../components/Thing/Intangible/Service/BroadcastService/index.ts"
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type PublicationEventType =
+	| "PublicationEvent"
+	| BroadcastEventType
+	| OnDemandEventType
+
 export interface PublicationEventProps {
-	"@type"?: "PublicationEvent"
+	"@type"?: PublicationEventType
 	free?: Boolean
 	publishedBy?:
 		| Organization

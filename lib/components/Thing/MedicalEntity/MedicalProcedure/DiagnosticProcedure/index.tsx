@@ -18,6 +18,8 @@ export default function DiagnosticProcedure({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalProcedure>
+		>
+			{children}
+		</MedicalProcedure>
 	)
 }

@@ -11,8 +11,10 @@ import AnatomicalSystemComponent from "../../../../components/Thing/MedicalEntit
 import MedicalConditionComponent from "../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 import MedicalTherapyComponent from "../../../../components/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
+export type SuperficialAnatomyType = "SuperficialAnatomy"
+
 export interface SuperficialAnatomyProps {
-	"@type"?: "SuperficialAnatomy"
+	"@type"?: SuperficialAnatomyType
 	associatedPathophysiology?: Text
 	relatedAnatomy?:
 		| AnatomicalStructure

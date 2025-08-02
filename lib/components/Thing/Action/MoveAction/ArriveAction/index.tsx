@@ -18,6 +18,8 @@ export default function ArriveAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MoveAction>
+		>
+			{children}
+		</MoveAction>
 	)
 }

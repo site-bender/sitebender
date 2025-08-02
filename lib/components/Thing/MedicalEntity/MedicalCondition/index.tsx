@@ -50,6 +50,8 @@ export default function MedicalCondition({
 				typicalTest,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalEntity>
+		>
+			{children}
+		</MedicalEntity>
 	)
 }

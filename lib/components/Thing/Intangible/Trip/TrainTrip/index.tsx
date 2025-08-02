@@ -30,6 +30,8 @@ export default function TrainTrip({
 				trainNumber,
 				...subtypeProperties,
 			}}
-		>{children}</Trip>
+		>
+			{children}
+		</Trip>
 	)
 }

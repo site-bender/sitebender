@@ -92,6 +92,8 @@ export default function JobPosting({
 				workHours,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

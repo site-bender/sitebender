@@ -33,8 +33,10 @@ import MonetaryAmountComponent from "../../../../components/Thing/Intangible/Str
 import PropertyValueComponent from "../../../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 import CountryComponent from "../../../../components/Thing/Place/AdministrativeArea/Country/index.ts"
 
+export type MerchantReturnPolicyType = "MerchantReturnPolicy"
+
 export interface MerchantReturnPolicyProps {
-	"@type"?: "MerchantReturnPolicy"
+	"@type"?: MerchantReturnPolicyType
 	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
 	applicableCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	customerRemorseReturnFees?:

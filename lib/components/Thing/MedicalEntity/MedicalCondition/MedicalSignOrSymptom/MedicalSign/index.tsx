@@ -22,6 +22,8 @@ export default function MedicalSign({
 				identifyingTest,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalSignOrSymptom>
+		>
+			{children}
+		</MedicalSignOrSymptom>
 	)
 }

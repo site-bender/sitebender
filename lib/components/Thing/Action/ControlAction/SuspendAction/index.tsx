@@ -18,6 +18,8 @@ export default function SuspendAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ControlAction>
+		>
+			{children}
+		</ControlAction>
 	)
 }

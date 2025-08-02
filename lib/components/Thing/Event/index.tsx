@@ -100,6 +100,8 @@ export default function Event({
 				workPerformed,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

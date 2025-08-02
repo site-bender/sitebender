@@ -18,6 +18,8 @@ export default function TattooParlor({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</HealthAndBeautyBusiness>
+		>
+			{children}
+		</HealthAndBeautyBusiness>
 	)
 }

@@ -18,6 +18,8 @@ export default function OrderStatus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</StatusEnumeration>
+		>
+			{children}
+		</StatusEnumeration>
 	)
 }

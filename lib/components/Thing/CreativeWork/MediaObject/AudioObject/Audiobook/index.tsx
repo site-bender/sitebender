@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type AudiobookProps from "../../../../../../types/Thing/Audiobook/index.ts"
-import type AudioObjectProps from "../../../../../../types/Thing/AudioObject/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type AudiobookProps from "../../../../../../types/Thing/CreativeWork/MediaObject/AudioObject/Audiobook/index.ts"
 
 import AudioObject from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	AudiobookProps,
-	"Audiobook",
-	ExtractLevelProps<AudiobookProps, AudioObjectProps>
->
+// Audiobook adds no properties to the ListItem schema type
+export type Props = AudiobookProps & BaseProps
 
 export default function Audiobook(
 	{
@@ -32,6 +25,8 @@ export default function Audiobook(
 				readBy,
 				...subtypeProperties,
 			}}
-		>{children}</AudiobookProps>
+		>
+			{children}
+		</AudioObject>
 	)
 }

@@ -20,6 +20,8 @@ export default function TouristTrip({
 				touristType,
 				...subtypeProperties,
 			}}
-		>{children}</Trip>
+		>
+			{children}
+		</Trip>
 	)
 }

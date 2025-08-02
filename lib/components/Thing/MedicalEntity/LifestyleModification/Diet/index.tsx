@@ -1,17 +1,9 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../types/index.ts"
-import type DietProps from "../../../../../types/Thing/Diet/index.ts"
-import type LifestyleModificationProps from "../../../../../types/Thing/LifestyleModification/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type DietProps from "../../../../../types/Thing/MedicalEntity/LifestyleModification/Diet/index.ts"
 
 import LifestyleModification from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	DietProps,
-	"Diet",
-	ExtractLevelProps<DietProps, LifestyleModificationProps>
->
+export type Props = DietProps & BaseProps
 
 export default function Diet(
 	{
@@ -38,6 +30,8 @@ export default function Diet(
 				risks,
 				...subtypeProperties,
 			}}
-		>{children}</DietProps>
+		>
+			{children}
+		</LifestyleModification>
 	)
 }

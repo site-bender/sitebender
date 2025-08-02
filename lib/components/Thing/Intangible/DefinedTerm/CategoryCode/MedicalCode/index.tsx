@@ -1,17 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type CategoryCodeProps from "../../../../../../types/Thing/CategoryCode/index.ts"
-import type MedicalCodeProps from "../../../../../../types/Thing/MedicalCode/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type MedicalCodeProps from "../../../../../../types/Thing/Intangible/DefinedTerm/CategoryCode/MedicalCode/index.ts"
 
 import CategoryCode from "../index.tsx"
 
-export type Props = BaseComponentProps<
-	MedicalCodeProps,
-	"MedicalCode",
-	ExtractLevelProps<MedicalCodeProps, CategoryCodeProps>
->
+// MedicalCode adds no properties to the ListItem schema type
+export type Props = MedicalCodeProps & BaseProps
 
 export default function MedicalCode(
 	{
@@ -32,6 +25,8 @@ export default function MedicalCode(
 				codingSystem,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalCodeProps>
+		>
+			{children}
+		</CategoryCode>
 	)
 }

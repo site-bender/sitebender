@@ -22,6 +22,8 @@ export default function DefinedTerm({
 				termCode,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

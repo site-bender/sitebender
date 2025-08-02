@@ -30,6 +30,8 @@ export default function EducationalOccupationalCredential({
 				validIn,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

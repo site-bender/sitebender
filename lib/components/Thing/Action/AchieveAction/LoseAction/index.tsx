@@ -20,6 +20,8 @@ export default function LoseAction({
 				winner,
 				...subtypeProperties,
 			}}
-		>{children}</AchieveAction>
+		>
+			{children}
+		</AchieveAction>
 	)
 }

@@ -5,8 +5,10 @@ import type { IntangibleProps } from "../index.ts"
 import GeospatialGeometryComponent from "../../../../components/Thing/Intangible/GeospatialGeometry/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type GeospatialGeometryType = "GeospatialGeometry"
+
 export interface GeospatialGeometryProps {
-	"@type"?: "GeospatialGeometry"
+	"@type"?: GeospatialGeometryType
 	geoContains?:
 		| GeospatialGeometry
 		| Place

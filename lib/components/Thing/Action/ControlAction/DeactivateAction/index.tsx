@@ -18,6 +18,8 @@ export default function DeactivateAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ControlAction>
+		>
+			{children}
+		</ControlAction>
 	)
 }

@@ -28,6 +28,8 @@ export default function Physician({
 				usNPI,
 				...subtypeProperties,
 			}}
-		>{children}</MedicalOrganization>
+		>
+			{children}
+		</MedicalOrganization>
 	)
 }

@@ -5,8 +5,10 @@ import type { OrganizationProps } from "../index.ts"
 
 import BoardingPolicyTypeComponent from "../../../../components/Thing/Intangible/Enumeration/BoardingPolicyType/index.ts"
 
+export type AirlineType = "Airline"
+
 export interface AirlineProps {
-	"@type"?: "Airline"
+	"@type"?: AirlineType
 	boardingPolicy?:
 		| BoardingPolicyType
 		| ReturnType<typeof BoardingPolicyTypeComponent>

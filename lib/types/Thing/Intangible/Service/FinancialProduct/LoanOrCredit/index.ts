@@ -12,6 +12,8 @@ import type QuantitativeValue from "../../../StructuredValue/QuantitativeValue/i
 import type RepaymentSpecification from "../../../StructuredValue/RepaymentSpecification/index.ts"
 import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
+import type { CreditCardType } from "./CreditCard/index.ts"
+import type { MortgageLoanType } from "./MortgageLoan/index.ts"
 
 import ThingComponent from "../../../../../../components/Thing/index.ts"
 import DurationComponent from "../../../../../../components/Thing/Intangible/Quantity/Duration/index.ts"
@@ -19,8 +21,13 @@ import MonetaryAmountComponent from "../../../../../../components/Thing/Intangib
 import QuantitativeValueComponent from "../../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import RepaymentSpecificationComponent from "../../../../../../components/Thing/Intangible/StructuredValue/RepaymentSpecification/index.ts"
 
+export type LoanOrCreditType =
+	| "LoanOrCredit"
+	| CreditCardType
+	| MortgageLoanType
+
 export interface LoanOrCreditProps {
-	"@type"?: "LoanOrCredit"
+	"@type"?: LoanOrCreditType
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	currency?: Text
 	gracePeriod?: Duration | ReturnType<typeof DurationComponent>

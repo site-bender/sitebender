@@ -26,6 +26,8 @@ export default function DeliveryEvent({
 				hasDeliveryMethod,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

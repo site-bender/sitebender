@@ -22,6 +22,8 @@ export default function RealEstateListing({
 				leaseLength,
 				...subtypeProperties,
 			}}
-		>{children}</WebPage>
+		>
+			{children}
+		</WebPage>
 	)
 }

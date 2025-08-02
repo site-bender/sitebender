@@ -4,8 +4,10 @@ import type { CreativeWorkProps } from "../../../index.ts"
 import type { ArticleProps } from "../../index.ts"
 import type { ScholarlyArticleProps } from "../index.ts"
 
+export type MedicalScholarlyArticleType = "MedicalScholarlyArticle"
+
 export interface MedicalScholarlyArticleProps {
-	"@type"?: "MedicalScholarlyArticle"
+	"@type"?: MedicalScholarlyArticleType
 	publicationType?: Text
 }
 

@@ -5,8 +5,10 @@ import type { CreativeWorkProps } from "../index.ts"
 import MenuSectionComponent from "../../../../components/Thing/CreativeWork/MenuSection/index.ts"
 import MenuItemComponent from "../../../../components/Thing/Intangible/MenuItem/index.ts"
 
+export type MenuSectionType = "MenuSection"
+
 export interface MenuSectionProps {
-	"@type"?: "MenuSection"
+	"@type"?: MenuSectionType
 	hasMenuItem?: MenuItem | ReturnType<typeof MenuItemComponent>
 	hasMenuSection?: MenuSection | ReturnType<typeof MenuSectionComponent>
 }

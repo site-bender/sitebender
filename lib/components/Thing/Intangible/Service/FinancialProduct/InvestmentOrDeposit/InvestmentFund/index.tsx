@@ -18,6 +18,8 @@ export default function InvestmentFund({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InvestmentOrDeposit>
+		>
+			{children}
+		</InvestmentOrDeposit>
 	)
 }

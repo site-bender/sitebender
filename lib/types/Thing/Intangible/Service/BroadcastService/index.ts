@@ -7,6 +7,7 @@ import type BroadcastFrequencySpecification from "../../BroadcastFrequencySpecif
 import type { IntangibleProps } from "../../index.ts"
 import type Language from "../../Language/index.ts"
 import type { ServiceProps } from "../index.ts"
+import type { RadioBroadcastServiceType } from "./RadioBroadcastService/index.ts"
 
 import BroadcastChannelComponent from "../../../../../components/Thing/Intangible/BroadcastChannel/index.ts"
 import BroadcastFrequencySpecificationComponent from "../../../../../components/Thing/Intangible/BroadcastFrequencySpecification/index.ts"
@@ -15,8 +16,12 @@ import BroadcastServiceComponent from "../../../../../components/Thing/Intangibl
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 
+export type BroadcastServiceType =
+	| "BroadcastService"
+	| RadioBroadcastServiceType
+
 export interface BroadcastServiceProps {
-	"@type"?: "BroadcastService"
+	"@type"?: BroadcastServiceType
 	area?: Place | ReturnType<typeof PlaceComponent>
 	broadcastAffiliateOf?: Organization | ReturnType<typeof OrganizationComponent>
 	broadcastDisplayName?: Text

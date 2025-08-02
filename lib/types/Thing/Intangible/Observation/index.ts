@@ -22,8 +22,10 @@ import PropertyValueComponent from "../../../../components/Thing/Intangible/Stru
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type ObservationType = "Observation"
+
 export interface ObservationProps {
-	"@type"?: "Observation"
+	"@type"?: ObservationType
 	marginOfError?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

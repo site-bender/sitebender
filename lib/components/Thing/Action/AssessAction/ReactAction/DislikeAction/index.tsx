@@ -18,6 +18,8 @@ export default function DislikeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ReactAction>
+		>
+			{children}
+		</ReactAction>
 	)
 }

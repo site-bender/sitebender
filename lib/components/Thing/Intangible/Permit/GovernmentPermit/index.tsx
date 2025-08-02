@@ -18,6 +18,8 @@ export default function GovernmentPermit({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Permit>
+		>
+			{children}
+		</Permit>
 	)
 }

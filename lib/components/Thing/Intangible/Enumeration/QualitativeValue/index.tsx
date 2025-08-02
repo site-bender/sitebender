@@ -34,6 +34,8 @@ export default function QualitativeValue({
 				valueReference,
 				...subtypeProperties,
 			}}
-		>{children}</Enumeration>
+		>
+			{children}
+		</Enumeration>
 	)
 }

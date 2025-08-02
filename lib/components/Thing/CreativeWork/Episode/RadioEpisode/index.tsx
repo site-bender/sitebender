@@ -18,6 +18,8 @@ export default function RadioEpisode({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Episode>
+		>
+			{children}
+		</Episode>
 	)
 }

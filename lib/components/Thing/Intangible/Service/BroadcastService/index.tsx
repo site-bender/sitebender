@@ -40,6 +40,8 @@ export default function BroadcastService({
 				videoFormat,
 				...subtypeProperties,
 			}}
-		>{children}</Service>
+		>
+			{children}
+		</Service>
 	)
 }

@@ -20,6 +20,8 @@ export default function InvestmentOrDeposit({
 				amount,
 				...subtypeProperties,
 			}}
-		>{children}</FinancialProduct>
+		>
+			{children}
+		</FinancialProduct>
 	)
 }

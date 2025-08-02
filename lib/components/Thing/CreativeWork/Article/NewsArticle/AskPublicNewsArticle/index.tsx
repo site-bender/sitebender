@@ -18,6 +18,8 @@ export default function AskPublicNewsArticle({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</NewsArticle>
+		>
+			{children}
+		</NewsArticle>
 	)
 }

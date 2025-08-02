@@ -9,8 +9,10 @@ import ImageObjectComponent from "../../../../components/Thing/CreativeWork/Medi
 import ReviewComponent from "../../../../components/Thing/CreativeWork/Review/index.ts"
 import AggregateRatingComponent from "../../../../components/Thing/Intangible/Rating/AggregateRating/index.ts"
 
+export type BrandType = "Brand"
+
 export interface BrandProps {
-	"@type"?: "Brand"
+	"@type"?: BrandType
 	aggregateRating?:
 		| AggregateRating
 		| ReturnType<typeof AggregateRatingComponent>

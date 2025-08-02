@@ -28,6 +28,8 @@ export default function APIReference({
 				targetPlatform,
 				...subtypeProperties,
 			}}
-		>{children}</TechArticle>
+		>
+			{children}
+		</TechArticle>
 	)
 }

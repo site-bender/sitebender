@@ -24,6 +24,8 @@ export default function LocationFeatureSpecification({
 				validThrough,
 				...subtypeProperties,
 			}}
-		>{children}</PropertyValue>
+		>
+			{children}
+		</PropertyValue>
 	)
 }

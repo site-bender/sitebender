@@ -7,8 +7,10 @@ import type { IntangibleProps } from "../index.ts"
 import SoftwareApplicationComponent from "../../../../components/Thing/CreativeWork/SoftwareApplication/index.ts"
 import DigitalPlatformEnumerationComponent from "../../../../components/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.ts"
 
+export type EntryPointType = "EntryPoint"
+
 export interface EntryPointProps {
-	"@type"?: "EntryPoint"
+	"@type"?: EntryPointType
 	actionApplication?:
 		| SoftwareApplication
 		| ReturnType<typeof SoftwareApplicationComponent>

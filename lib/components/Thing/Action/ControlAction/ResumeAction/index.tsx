@@ -18,6 +18,8 @@ export default function ResumeAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ControlAction>
+		>
+			{children}
+		</ControlAction>
 	)
 }

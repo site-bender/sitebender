@@ -6,8 +6,10 @@ import type { StructuredValueProps } from "../index.ts"
 
 import DayOfWeekComponent from "../../../../../components/Thing/Intangible/Enumeration/DayOfWeek/index.ts"
 
+export type OpeningHoursSpecificationType = "OpeningHoursSpecification"
+
 export interface OpeningHoursSpecificationProps {
-	"@type"?: "OpeningHoursSpecification"
+	"@type"?: OpeningHoursSpecificationType
 	closes?: Time
 	dayOfWeek?: DayOfWeek | ReturnType<typeof DayOfWeekComponent>
 	opens?: Time

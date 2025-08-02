@@ -24,8 +24,10 @@ import DrugLegalStatusComponent from "../../../../components/Thing/MedicalEntity
 import DrugStrengthComponent from "../../../../components/Thing/MedicalEntity/MedicalIntangible/DrugStrength/index.ts"
 import DrugComponent from "../../../../components/Thing/Product/Drug/index.ts"
 
+export type DrugType = "Drug"
+
 export interface DrugProps {
-	"@type"?: "Drug"
+	"@type"?: DrugType
 	activeIngredient?: Text
 	administrationRoute?: Text
 	alcoholWarning?: Text

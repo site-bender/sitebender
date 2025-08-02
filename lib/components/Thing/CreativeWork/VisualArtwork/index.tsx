@@ -46,6 +46,8 @@ export default function VisualArtwork({
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

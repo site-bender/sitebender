@@ -20,6 +20,8 @@ export default function Map({
 				mapType,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

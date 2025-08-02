@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { EventProps } from "../index.ts"
 
+export type SaleEventType = "SaleEvent"
+
 export interface SaleEventProps {
-	"@type"?: "SaleEvent"}
+	"@type"?: SaleEventType
+}
 
 type SaleEvent = Thing & EventProps & SaleEventProps
 

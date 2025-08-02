@@ -40,6 +40,8 @@ export default function CreativeWorkSeason({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

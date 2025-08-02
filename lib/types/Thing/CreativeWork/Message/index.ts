@@ -6,6 +6,7 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { EmailMessageType } from "./EmailMessage/index.ts"
 
 import CreativeWorkComponent from "../../../../components/Thing/CreativeWork/index.ts"
 import AudienceComponent from "../../../../components/Thing/Intangible/Audience/index.ts"
@@ -13,8 +14,10 @@ import ContactPointComponent from "../../../../components/Thing/Intangible/Struc
 import OrganizationComponent from "../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type MessageType = "Message" | EmailMessageType
+
 export interface MessageProps {
-	"@type"?: "Message"
+	"@type"?: MessageType
 	bccRecipient?:
 		| ContactPoint
 		| Organization

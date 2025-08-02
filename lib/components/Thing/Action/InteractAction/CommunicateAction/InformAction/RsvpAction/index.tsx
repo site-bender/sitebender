@@ -24,6 +24,8 @@ export default function RsvpAction({
 				rsvpResponse,
 				...subtypeProperties,
 			}}
-		>{children}</InformAction>
+		>
+			{children}
+		</InformAction>
 	)
 }

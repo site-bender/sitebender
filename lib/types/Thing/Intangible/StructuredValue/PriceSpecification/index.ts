@@ -10,13 +10,24 @@ import type { IntangibleProps } from "../../index.ts"
 import type MemberProgramTier from "../../MemberProgramTier/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
+import type { CompoundPriceSpecificationType } from "./CompoundPriceSpecification/index.ts"
+import type { DeliveryChargeSpecificationType } from "./DeliveryChargeSpecification/index.ts"
+import type { PaymentChargeSpecificationType } from "./PaymentChargeSpecification/index.ts"
+import type { UnitPriceSpecificationType } from "./UnitPriceSpecification/index.ts"
 
 import MemberProgramTierComponent from "../../../../../components/Thing/Intangible/MemberProgramTier/index.ts"
 import PriceSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/PriceSpecification/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type PriceSpecificationType =
+	| "PriceSpecification"
+	| CompoundPriceSpecificationType
+	| DeliveryChargeSpecificationType
+	| PaymentChargeSpecificationType
+	| UnitPriceSpecificationType
+
 export interface PriceSpecificationProps {
-	"@type"?: "PriceSpecification"
+	"@type"?: PriceSpecificationType
 	eligibleQuantity?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>

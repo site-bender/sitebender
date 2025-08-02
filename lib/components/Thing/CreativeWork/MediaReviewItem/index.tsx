@@ -20,6 +20,8 @@ export default function MediaReviewItem({
 				mediaItemAppearance,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

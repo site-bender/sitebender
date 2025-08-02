@@ -8,8 +8,10 @@ import type { StructuredValueProps } from "../index.ts"
 import EnergyComponent from "../../../../../components/Thing/Intangible/Quantity/Energy/index.ts"
 import MassComponent from "../../../../../components/Thing/Intangible/Quantity/Mass/index.ts"
 
+export type NutritionInformationType = "NutritionInformation"
+
 export interface NutritionInformationProps {
-	"@type"?: "NutritionInformation"
+	"@type"?: NutritionInformationType
 	calories?: Energy | ReturnType<typeof EnergyComponent>
 	carbohydrateContent?: Mass | ReturnType<typeof MassComponent>
 	cholesterolContent?: Mass | ReturnType<typeof MassComponent>

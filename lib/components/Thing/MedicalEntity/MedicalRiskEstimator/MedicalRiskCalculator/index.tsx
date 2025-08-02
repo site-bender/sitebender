@@ -18,6 +18,8 @@ export default function MedicalRiskCalculator({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MedicalRiskEstimator>
+		>
+			{children}
+		</MedicalRiskEstimator>
 	)
 }

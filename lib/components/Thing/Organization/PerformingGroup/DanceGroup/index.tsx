@@ -18,6 +18,8 @@ export default function DanceGroup({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</PerformingGroup>
+		>
+			{children}
+		</PerformingGroup>
 	)
 }

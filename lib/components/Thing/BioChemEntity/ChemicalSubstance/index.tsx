@@ -24,6 +24,8 @@ export default function ChemicalSubstance({
 				potentialUse,
 				...subtypeProperties,
 			}}
-		>{children}</BioChemEntity>
+		>
+			{children}
+		</BioChemEntity>
 	)
 }

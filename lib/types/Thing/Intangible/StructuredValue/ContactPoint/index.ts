@@ -9,6 +9,7 @@ import type Language from "../../Language/index.ts"
 import type GeoShape from "../GeoShape/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
+import type { PostalAddressType } from "./PostalAddress/index.ts"
 
 import ContactPointOptionComponent from "../../../../../components/Thing/Intangible/Enumeration/ContactPointOption/index.ts"
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
@@ -18,8 +19,10 @@ import AdministrativeAreaComponent from "../../../../../components/Thing/Place/A
 import PlaceComponent from "../../../../../components/Thing/Place/index.ts"
 import ProductComponent from "../../../../../components/Thing/Product/index.ts"
 
+export type ContactPointType = "ContactPoint" | PostalAddressType
+
 export interface ContactPointProps {
-	"@type"?: "ContactPoint"
+	"@type"?: ContactPointType
 	areaServed?:
 		| AdministrativeArea
 		| GeoShape

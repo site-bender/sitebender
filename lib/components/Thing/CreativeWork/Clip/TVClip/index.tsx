@@ -20,6 +20,8 @@ export default function TVClip({
 				partOfTVSeries,
 				...subtypeProperties,
 			}}
-		>{children}</Clip>
+		>
+			{children}
+		</Clip>
 	)
 }

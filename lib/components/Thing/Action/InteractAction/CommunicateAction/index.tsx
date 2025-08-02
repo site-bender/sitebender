@@ -26,6 +26,8 @@ export default function CommunicateAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

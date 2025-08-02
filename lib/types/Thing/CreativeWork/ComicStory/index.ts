@@ -1,11 +1,14 @@
 import type Thing from "../../index.ts"
 import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { ComicCoverArtType } from "./ComicCoverArt/index.ts"
 
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type ComicStoryType = "ComicStory" | ComicCoverArtType
+
 export interface ComicStoryProps {
-	"@type"?: "ComicStory"
+	"@type"?: ComicStoryType
 	artist?: Person | ReturnType<typeof PersonComponent>
 	colorist?: Person | ReturnType<typeof PersonComponent>
 	inker?: Person | ReturnType<typeof PersonComponent>

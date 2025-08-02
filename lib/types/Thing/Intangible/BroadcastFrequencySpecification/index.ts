@@ -7,8 +7,11 @@ import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.t
 import QualitativeValueComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type BroadcastFrequencySpecificationType =
+	"BroadcastFrequencySpecification"
+
 export interface BroadcastFrequencySpecificationProps {
-	"@type"?: "BroadcastFrequencySpecification"
+	"@type"?: BroadcastFrequencySpecificationType
 	broadcastFrequencyValue?:
 		| Number
 		| QuantitativeValue

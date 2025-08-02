@@ -18,6 +18,8 @@ export default function Quantity({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

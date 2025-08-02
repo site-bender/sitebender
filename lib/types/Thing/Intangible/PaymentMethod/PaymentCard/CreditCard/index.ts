@@ -6,8 +6,11 @@ import type { ServiceProps } from "../../../Service/index.ts"
 import type { PaymentMethodProps } from "../../index.ts"
 import type { PaymentCardProps } from "../index.ts"
 
+export type CreditCardType = "CreditCard"
+
 export interface CreditCardProps {
-	"@type"?: "CreditCard"}
+	"@type"?: CreditCardType
+}
 
 type CreditCard =
 	& Thing

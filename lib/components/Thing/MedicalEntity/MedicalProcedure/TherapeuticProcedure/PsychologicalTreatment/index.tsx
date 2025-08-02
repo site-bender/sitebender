@@ -18,6 +18,8 @@ export default function PsychologicalTreatment({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</TherapeuticProcedure>
+		>
+			{children}
+		</TherapeuticProcedure>
 	)
 }

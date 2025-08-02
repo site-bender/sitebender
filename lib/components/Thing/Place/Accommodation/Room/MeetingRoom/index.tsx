@@ -18,6 +18,8 @@ export default function MeetingRoom({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Room>
+		>
+			{children}
+		</Room>
 	)
 }

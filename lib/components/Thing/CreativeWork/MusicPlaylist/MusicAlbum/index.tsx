@@ -26,6 +26,8 @@ export default function MusicAlbum({
 				byArtist,
 				...subtypeProperties,
 			}}
-		>{children}</MusicPlaylist>
+		>
+			{children}
+		</MusicPlaylist>
 	)
 }

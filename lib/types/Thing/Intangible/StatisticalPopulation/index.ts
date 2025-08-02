@@ -4,8 +4,10 @@ import type { IntangibleProps } from "../index.ts"
 
 import ClassComponent from "../../../../components/Thing/Intangible/Class/index.ts"
 
+export type StatisticalPopulationType = "StatisticalPopulation"
+
 export interface StatisticalPopulationProps {
-	"@type"?: "StatisticalPopulation"
+	"@type"?: StatisticalPopulationType
 	populationType?: Class | ReturnType<typeof ClassComponent>
 }
 

@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../types/index.ts"
-import type MedicalEnumerationProps from "../../../../../../types/Thing/MedicalEnumeration/index.ts"
-import type PhysicalExamProps from "../../../../../../types/Thing/PhysicalExam/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type PhysicalExamProps from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/PhysicalExam/index.ts"
 
 import MedicalEnumeration from "../index.tsx"
 
-// PhysicalExam adds no properties to the MedicalEnumeration schema type
-export type Props = BaseComponentProps<
-	PhysicalExamProps,
-	"PhysicalExam",
-	ExtractLevelProps<PhysicalExamProps, MedicalEnumerationProps>
->
+// PhysicalExam adds no properties to the ListItem schema type
+export type Props = PhysicalExamProps & BaseProps
 
 export default function PhysicalExam({
 	_type = "PhysicalExam",
@@ -25,6 +17,8 @@ export default function PhysicalExam({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</PhysicalExamProps>
+		>
+			{children}
+		</MedicalEnumeration>
 	)
 }

@@ -3,8 +3,11 @@ import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalGuidelineProps } from "../index.ts"
 
+export type MedicalGuidelineRecommendationType =
+	"MedicalGuidelineRecommendation"
+
 export interface MedicalGuidelineRecommendationProps {
-	"@type"?: "MedicalGuidelineRecommendation"
+	"@type"?: MedicalGuidelineRecommendationType
 	recommendationStrength?: Text
 }
 

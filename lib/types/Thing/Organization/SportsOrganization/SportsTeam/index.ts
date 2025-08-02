@@ -8,8 +8,10 @@ import type { SportsOrganizationProps } from "../index.ts"
 import GenderTypeComponent from "../../../../../components/Thing/Intangible/Enumeration/GenderType/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type SportsTeamType = "SportsTeam"
+
 export interface SportsTeamProps {
-	"@type"?: "SportsTeam"
+	"@type"?: SportsTeamType
 	athlete?: Person | ReturnType<typeof PersonComponent>
 	coach?: Person | ReturnType<typeof PersonComponent>
 	gender?: GenderType | Text | ReturnType<typeof GenderTypeComponent>

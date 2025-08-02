@@ -1,11 +1,22 @@
 import type { Text, URL } from "../DataType/index.ts"
-import type Thing from "../index.ts"
 import type Action from "./Action/index.ts"
+import type { ActionType } from "./Action/index.ts"
+import type { BioChemEntityType } from "./BioChemEntity/index.ts"
 import type CreativeWork from "./CreativeWork/index.ts"
+import type { CreativeWorkType } from "./CreativeWork/index.ts"
 import type ImageObject from "./CreativeWork/MediaObject/ImageObject/index.ts"
 import type TextObject from "./CreativeWork/MediaObject/TextObject/index.ts"
 import type Event from "./Event/index.ts"
+import type { EventType } from "./Event/index.ts"
+import type { IntangibleType } from "./Intangible/index.ts"
 import type PropertyValue from "./Intangible/StructuredValue/PropertyValue/index.ts"
+import type { MediaObjectType } from "./MediaObject/index.ts"
+import type { MedicalEntityType } from "./MedicalEntity/index.ts"
+import type { OrganizationType } from "./Organization/index.ts"
+import type { PersonType } from "./Person/index.ts"
+import type { PlaceType } from "./Place/index.ts"
+import type { ProductType } from "./Product/index.ts"
+import type { TaxonType } from "./Taxon/index.ts"
 
 import ActionComponent from "../../components/Thing/Action/index.ts"
 import CreativeWorkComponent from "../../components/Thing/CreativeWork/index.ts"
@@ -14,8 +25,23 @@ import TextObjectComponent from "../../components/Thing/CreativeWork/MediaObject
 import EventComponent from "../../components/Thing/Event/index.ts"
 import PropertyValueComponent from "../../components/Thing/Intangible/StructuredValue/PropertyValue/index.ts"
 
+export type ThingType =
+	| "Thing"
+	| OrganizationType
+	| BioChemEntityType
+	| PersonType
+	| CreativeWorkType
+	| MediaObjectType
+	| ProductType
+	| ActionType
+	| TaxonType
+	| MedicalEntityType
+	| IntangibleType
+	| PlaceType
+	| EventType
+
 export interface ThingProps {
-	"@type"?: "Thing"
+	"@type"?: ThingType
 	additionalType?: Text | URL
 	alternateName?: Text
 	description?: Text | TextObject | ReturnType<typeof TextObjectComponent>

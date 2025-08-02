@@ -18,6 +18,8 @@ export default function TextObject({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MediaObject>
+		>
+			{children}
+		</MediaObject>
 	)
 }

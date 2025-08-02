@@ -18,6 +18,8 @@ export default function Syllabus({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</LearningResource>
+		>
+			{children}
+		</LearningResource>
 	)
 }

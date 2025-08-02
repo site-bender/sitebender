@@ -5,13 +5,20 @@ import type GenderType from "../../Enumeration/GenderType/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 import type { AudienceProps } from "../index.ts"
+import type { MedicalAudienceType } from "./MedicalAudience/index.ts"
+import type { ParentAudienceType } from "./ParentAudience/index.ts"
 
 import GenderTypeComponent from "../../../../../components/Thing/Intangible/Enumeration/GenderType/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 import MedicalConditionComponent from "../../../../../components/Thing/MedicalEntity/MedicalCondition/index.ts"
 
+export type PeopleAudienceType =
+	| "PeopleAudience"
+	| ParentAudienceType
+	| MedicalAudienceType
+
 export interface PeopleAudienceProps {
-	"@type"?: "PeopleAudience"
+	"@type"?: PeopleAudienceType
 	healthCondition?:
 		| MedicalCondition
 		| ReturnType<typeof MedicalConditionComponent>

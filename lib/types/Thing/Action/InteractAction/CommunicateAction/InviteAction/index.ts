@@ -6,8 +6,10 @@ import type { CommunicateActionProps } from "../index.ts"
 
 import EventComponent from "../../../../../../components/Thing/Event/index.ts"
 
+export type InviteActionType = "InviteAction"
+
 export interface InviteActionProps {
-	"@type"?: "InviteAction"
+	"@type"?: InviteActionType
 	event?: Event | ReturnType<typeof EventComponent>
 }
 

@@ -1,8 +1,11 @@
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+export type PhotographType = "Photograph"
+
 export interface PhotographProps {
-	"@type"?: "Photograph"}
+	"@type"?: PhotographType
+}
 
 type Photograph = Thing & CreativeWorkProps & PhotographProps
 

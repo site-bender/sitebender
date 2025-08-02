@@ -26,6 +26,8 @@ export default function BusTrip({
 				departureBusStop,
 				...subtypeProperties,
 			}}
-		>{children}</Trip>
+		>
+			{children}
+		</Trip>
 	)
 }

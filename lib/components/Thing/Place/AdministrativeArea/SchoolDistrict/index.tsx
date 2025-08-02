@@ -18,6 +18,8 @@ export default function SchoolDistrict({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AdministrativeArea>
+		>
+			{children}
+		</AdministrativeArea>
 	)
 }

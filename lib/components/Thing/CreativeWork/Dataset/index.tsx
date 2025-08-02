@@ -38,6 +38,8 @@ export default function Dataset({
 				variablesMeasured,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

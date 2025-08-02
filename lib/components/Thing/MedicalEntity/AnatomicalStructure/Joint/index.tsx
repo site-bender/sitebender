@@ -24,6 +24,8 @@ export default function Joint({
 				structuralClass,
 				...subtypeProperties,
 			}}
-		>{children}</AnatomicalStructure>
+		>
+			{children}
+		</AnatomicalStructure>
 	)
 }

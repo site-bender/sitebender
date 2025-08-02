@@ -24,6 +24,8 @@ export default function ScreeningEvent({
 				workPresented,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

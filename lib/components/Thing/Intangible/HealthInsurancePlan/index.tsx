@@ -36,6 +36,8 @@ export default function HealthInsurancePlan({
 				usesHealthPlanIdStandard,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

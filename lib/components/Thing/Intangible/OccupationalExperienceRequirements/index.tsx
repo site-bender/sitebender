@@ -20,6 +20,8 @@ export default function OccupationalExperienceRequirements({
 				monthsOfExperience,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

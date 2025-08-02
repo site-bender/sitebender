@@ -18,6 +18,8 @@ export default function TextDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DigitalDocument>
+		>
+			{children}
+		</DigitalDocument>
 	)
 }

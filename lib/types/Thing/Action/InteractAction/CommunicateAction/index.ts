@@ -7,6 +7,14 @@ import type Organization from "../../../Organization/index.ts"
 import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { InteractActionProps } from "../index.ts"
+import type { AskActionType } from "./AskAction/index.ts"
+import type { CheckInActionType } from "./CheckInAction/index.ts"
+import type { CheckOutActionType } from "./CheckOutAction/index.ts"
+import type { CommentActionType } from "./CommentAction/index.ts"
+import type { InformActionType } from "./InformAction/index.ts"
+import type { InviteActionType } from "./InviteAction/index.ts"
+import type { ReplyActionType } from "./ReplyAction/index.ts"
+import type { ShareActionType } from "./ShareAction/index.ts"
 
 import ThingComponent from "../../../../../components/Thing/index.ts"
 import AudienceComponent from "../../../../../components/Thing/Intangible/Audience/index.ts"
@@ -15,8 +23,19 @@ import ContactPointComponent from "../../../../../components/Thing/Intangible/St
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type CommunicateActionType =
+	| "CommunicateAction"
+	| CheckOutActionType
+	| ShareActionType
+	| InformActionType
+	| AskActionType
+	| CheckInActionType
+	| ReplyActionType
+	| InviteActionType
+	| CommentActionType
+
 export interface CommunicateActionProps {
-	"@type"?: "CommunicateAction"
+	"@type"?: CommunicateActionType
 	about?: Thing | ReturnType<typeof ThingComponent>
 	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	language?: Language | ReturnType<typeof LanguageComponent>

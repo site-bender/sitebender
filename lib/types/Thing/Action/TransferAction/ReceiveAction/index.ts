@@ -11,8 +11,10 @@ import DeliveryMethodComponent from "../../../../../components/Thing/Intangible/
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type ReceiveActionType = "ReceiveAction"
+
 export interface ReceiveActionProps {
-	"@type"?: "ReceiveAction"
+	"@type"?: ReceiveActionType
 	deliveryMethod?: DeliveryMethod | ReturnType<typeof DeliveryMethodComponent>
 	sender?:
 		| Audience

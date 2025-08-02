@@ -18,6 +18,8 @@ export default function BreadcrumbList({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</ItemList>
+		>
+			{children}
+		</ItemList>
 	)
 }

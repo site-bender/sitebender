@@ -20,6 +20,8 @@ export default function LendAction({
 				borrower,
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

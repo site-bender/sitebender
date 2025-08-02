@@ -20,6 +20,8 @@ export default function ReturnAction({
 				recipient,
 				...subtypeProperties,
 			}}
-		>{children}</TransferAction>
+		>
+			{children}
+		</TransferAction>
 	)
 }

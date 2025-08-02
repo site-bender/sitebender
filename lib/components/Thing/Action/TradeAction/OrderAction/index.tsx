@@ -20,6 +20,8 @@ export default function OrderAction({
 				deliveryMethod,
 				...subtypeProperties,
 			}}
-		>{children}</TradeAction>
+		>
+			{children}
+		</TradeAction>
 	)
 }

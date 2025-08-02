@@ -22,6 +22,8 @@ export default function ReplaceAction({
 				replacer,
 				...subtypeProperties,
 			}}
-		>{children}</UpdateAction>
+		>
+			{children}
+		</UpdateAction>
 	)
 }

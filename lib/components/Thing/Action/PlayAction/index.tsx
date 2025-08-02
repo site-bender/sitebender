@@ -22,6 +22,8 @@ export default function PlayAction({
 				event,
 				...subtypeProperties,
 			}}
-		>{children}</Action>
+		>
+			{children}
+		</Action>
 	)
 }

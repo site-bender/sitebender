@@ -18,6 +18,8 @@ export default function Country({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AdministrativeArea>
+		>
+			{children}
+		</AdministrativeArea>
 	)
 }

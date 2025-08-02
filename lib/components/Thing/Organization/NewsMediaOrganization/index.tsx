@@ -40,6 +40,8 @@ export default function NewsMediaOrganization({
 				verificationFactCheckingPolicy,
 				...subtypeProperties,
 			}}
-		>{children}</Organization>
+		>
+			{children}
+		</Organization>
 	)
 }

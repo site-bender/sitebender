@@ -18,6 +18,8 @@ export default function NoteDigitalDocument({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</DigitalDocument>
+		>
+			{children}
+		</DigitalDocument>
 	)
 }

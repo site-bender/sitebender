@@ -5,10 +5,29 @@ import type MedicalSpecialty from "../Intangible/Enumeration/MedicalEnumeration/
 import type MedicineSystem from "../Intangible/Enumeration/MedicalEnumeration/MedicineSystem/index.ts"
 import type Grant from "../Intangible/Grant/index.ts"
 import type Organization from "../Organization/index.ts"
+import type { AnatomicalStructureType } from "./AnatomicalStructure/index.ts"
+import type { AnatomicalSystemType } from "./AnatomicalSystem/index.ts"
+import type { DrugClassType } from "./DrugClass/index.ts"
+import type { DrugCostType } from "./DrugCost/index.ts"
+import type { LifestyleModificationType } from "./LifestyleModification/index.ts"
+import type { MedicalCauseType } from "./MedicalCause/index.ts"
+import type { MedicalConditionType } from "./MedicalCondition/index.ts"
+import type { MedicalContraindicationType } from "./MedicalContraindication/index.ts"
+import type { MedicalDeviceType } from "./MedicalDevice/index.ts"
 import type MedicalGuideline from "./MedicalGuideline/index.ts"
+import type { MedicalGuidelineType } from "./MedicalGuideline/index.ts"
+import type { MedicalIndicationType } from "./MedicalIndication/index.ts"
 import type DrugLegalStatus from "./MedicalIntangible/DrugLegalStatus/index.ts"
+import type { MedicalIntangibleType } from "./MedicalIntangible/index.ts"
 import type MedicalCode from "./MedicalIntangible/MedicalCode/index.ts"
+import type { MedicalProcedureType } from "./MedicalProcedure/index.ts"
+import type { MedicalRiskEstimatorType } from "./MedicalRiskEstimator/index.ts"
+import type { MedicalRiskFactorType } from "./MedicalRiskFactor/index.ts"
 import type MedicalStudy from "./MedicalStudy/index.ts"
+import type { MedicalStudyType } from "./MedicalStudy/index.ts"
+import type { MedicalTestType } from "./MedicalTest/index.ts"
+import type { SubstanceType } from "./Substance/index.ts"
+import type { SuperficialAnatomyType } from "./SuperficialAnatomy/index.ts"
 
 import MedicalEnumerationComponent from "../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/index.ts"
 import MedicalSpecialtyComponent from "../../../components/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.ts"
@@ -20,8 +39,30 @@ import MedicalCodeComponent from "../../../components/Thing/MedicalEntity/Medica
 import MedicalStudyComponent from "../../../components/Thing/MedicalEntity/MedicalStudy/index.ts"
 import OrganizationComponent from "../../../components/Thing/Organization/index.ts"
 
+export type MedicalEntityType =
+	| "MedicalEntity"
+	| MedicalProcedureType
+	| DrugClassType
+	| MedicalGuidelineType
+	| MedicalIndicationType
+	| MedicalConditionType
+	| MedicalRiskEstimatorType
+	| LifestyleModificationType
+	| MedicalDeviceType
+	| SubstanceType
+	| MedicalTestType
+	| AnatomicalStructureType
+	| SuperficialAnatomyType
+	| MedicalContraindicationType
+	| DrugCostType
+	| AnatomicalSystemType
+	| MedicalStudyType
+	| MedicalCauseType
+	| MedicalIntangibleType
+	| MedicalRiskFactorType
+
 export interface MedicalEntityProps {
-	"@type"?: "MedicalEntity"
+	"@type"?: MedicalEntityType
 	code?: MedicalCode | ReturnType<typeof MedicalCodeComponent>
 	funding?: Grant | ReturnType<typeof GrantComponent>
 	guideline?: MedicalGuideline | ReturnType<typeof MedicalGuidelineComponent>

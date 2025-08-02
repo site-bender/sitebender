@@ -1,18 +1,10 @@
-import type {
-	BaseComponentProps,
-	ExtractLevelProps,
-} from "../../../../../../../types/index.ts"
-import type MedicalTherapyProps from "../../../../../../../types/Thing/MedicalTherapy/index.ts"
-import type PalliativeProcedureProps from "../../../../../../../types/Thing/PalliativeProcedure/index.ts"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type PalliativeProcedureProps from "../../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/PalliativeProcedure/index.ts"
 
 import MedicalTherapy from "../index.tsx"
 
-// PalliativeProcedure adds no properties to the MedicalTherapy schema type
-export type Props = BaseComponentProps<
-	PalliativeProcedureProps,
-	"PalliativeProcedure",
-	ExtractLevelProps<PalliativeProcedureProps, MedicalTherapyProps>
->
+// PalliativeProcedure adds no properties to the ListItem schema type
+export type Props = PalliativeProcedureProps & BaseProps
 
 export default function PalliativeProcedure({
 	_type = "PalliativeProcedure",
@@ -25,6 +17,8 @@ export default function PalliativeProcedure({
 			{...props}
 			_type={_type}
 			subtypeProperties={subtypeProperties}
-		>{children}</PalliativeProcedureProps>
+		>
+			{children}
+		</MedicalTherapy>
 	)
 }

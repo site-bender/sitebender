@@ -34,6 +34,8 @@ export default function HowToDirection({
 				totalTime,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

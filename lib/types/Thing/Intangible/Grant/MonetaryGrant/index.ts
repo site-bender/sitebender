@@ -10,8 +10,10 @@ import MonetaryAmountComponent from "../../../../../components/Thing/Intangible/
 import OrganizationComponent from "../../../../../components/Thing/Organization/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type MonetaryGrantType = "MonetaryGrant"
+
 export interface MonetaryGrantProps {
-	"@type"?: "MonetaryGrant"
+	"@type"?: MonetaryGrantType
 	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
 	funder?:
 		| Organization

@@ -24,6 +24,8 @@ export default function PublicationEvent({
 				publishedOn,
 				...subtypeProperties,
 			}}
-		>{children}</Event>
+		>
+			{children}
+		</Event>
 	)
 }

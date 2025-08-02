@@ -15,8 +15,10 @@ import ContactPointComponent from "../../../../components/Thing/Intangible/Struc
 import PostalAddressComponent from "../../../../components/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.ts"
 import PlaceComponent from "../../../../components/Thing/Place/index.ts"
 
+export type ServiceChannelType = "ServiceChannel"
+
 export interface ServiceChannelProps {
-	"@type"?: "ServiceChannel"
+	"@type"?: ServiceChannelType
 	availableLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	processingTime?: Duration | ReturnType<typeof DurationComponent>
 	providesService?: Service | ReturnType<typeof ServiceComponent>

@@ -26,6 +26,8 @@ export default function DataFeedItem({
 				item,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

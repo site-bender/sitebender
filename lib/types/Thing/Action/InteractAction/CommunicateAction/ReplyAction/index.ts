@@ -6,8 +6,10 @@ import type { CommunicateActionProps } from "../index.ts"
 
 import CommentComponent from "../../../../../../components/Thing/CreativeWork/Comment/index.ts"
 
+export type ReplyActionType = "ReplyAction"
+
 export interface ReplyActionProps {
-	"@type"?: "ReplyAction"
+	"@type"?: ReplyActionType
 	resultComment?: Comment | ReturnType<typeof CommentComponent>
 }
 

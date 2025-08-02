@@ -20,8 +20,10 @@ import PerformingGroupComponent from "../../../../../components/Thing/Organizati
 import MusicGroupComponent from "../../../../../components/Thing/Organization/PerformingGroup/MusicGroup/index.ts"
 import PersonComponent from "../../../../../components/Thing/Person/index.ts"
 
+export type RadioSeriesType = "RadioSeries"
+
 export interface RadioSeriesProps {
-	"@type"?: "RadioSeries"
+	"@type"?: RadioSeriesType
 	actor?:
 		| PerformingGroup
 		| Person

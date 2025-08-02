@@ -20,6 +20,8 @@ export default function ReplyAction({
 				resultComment,
 				...subtypeProperties,
 			}}
-		>{children}</CommunicateAction>
+		>
+			{children}
+		</CommunicateAction>
 	)
 }

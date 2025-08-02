@@ -20,6 +20,8 @@ export default function MovieTheater({
 				screenCount,
 				...subtypeProperties,
 			}}
-		>{children}</CivicStructure>
+		>
+			{children}
+		</CivicStructure>
 	)
 }

@@ -20,6 +20,8 @@ export default function Collection({
 				collectionSize,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

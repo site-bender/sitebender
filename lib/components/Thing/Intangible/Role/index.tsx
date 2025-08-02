@@ -26,6 +26,8 @@ export default function Role({
 				startDate,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

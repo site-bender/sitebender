@@ -6,6 +6,7 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
+import type { LegislationObjectType } from "./LegislationObject/index.ts"
 
 import LegislationComponent from "../../../../components/Thing/CreativeWork/Legislation/index.ts"
 import CategoryCodeComponent from "../../../../components/Thing/Intangible/DefinedTerm/CategoryCode/index.ts"
@@ -14,8 +15,10 @@ import OrganizationComponent from "../../../../components/Thing/Organization/ind
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type LegislationType = "Legislation" | LegislationObjectType
+
 export interface LegislationProps {
-	"@type"?: "Legislation"
+	"@type"?: LegislationType
 	jurisdiction?:
 		| AdministrativeArea
 		| Text

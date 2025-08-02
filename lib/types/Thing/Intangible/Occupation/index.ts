@@ -17,8 +17,10 @@ import MonetaryAmountComponent from "../../../../components/Thing/Intangible/Str
 import MonetaryAmountDistributionComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 import AdministrativeAreaComponent from "../../../../components/Thing/Place/AdministrativeArea/index.ts"
 
+export type OccupationType = "Occupation"
+
 export interface OccupationProps {
-	"@type"?: "Occupation"
+	"@type"?: OccupationType
 	educationRequirements?:
 		| EducationalOccupationalCredential
 		| Text

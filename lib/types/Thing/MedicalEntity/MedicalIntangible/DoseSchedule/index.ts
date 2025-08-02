@@ -3,11 +3,20 @@ import type Thing from "../../../index.ts"
 import type QualitativeValue from "../../../Intangible/Enumeration/QualitativeValue/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
+import type { MaximumDoseScheduleType } from "./MaximumDoseSchedule/index.ts"
+import type { RecommendedDoseScheduleType } from "./RecommendedDoseSchedule/index.ts"
+import type { ReportedDoseScheduleType } from "./ReportedDoseSchedule/index.ts"
 
 import QualitativeValueComponent from "../../../../../components/Thing/Intangible/Enumeration/QualitativeValue/index.ts"
 
+export type DoseScheduleType =
+	| "DoseSchedule"
+	| ReportedDoseScheduleType
+	| RecommendedDoseScheduleType
+	| MaximumDoseScheduleType
+
 export interface DoseScheduleProps {
-	"@type"?: "DoseSchedule"
+	"@type"?: DoseScheduleType
 	doseUnit?: Text
 	doseValue?:
 		| Number

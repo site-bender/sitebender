@@ -12,8 +12,10 @@ import DurationComponent from "../../../../../components/Thing/Intangible/Quanti
 import OpeningHoursSpecificationComponent from "../../../../../components/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
 import QuantitativeValueComponent from "../../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type ServicePeriodType = "ServicePeriod"
+
 export interface ServicePeriodProps {
-	"@type"?: "ServicePeriod"
+	"@type"?: ServicePeriodType
 	businessDays?:
 		| DayOfWeek
 		| OpeningHoursSpecification

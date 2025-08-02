@@ -22,8 +22,10 @@ import GovernmentServiceComponent from "../../../../components/Thing/Intangible/
 import LocalBusinessComponent from "../../../../components/Thing/Organization/LocalBusiness/index.ts"
 import CivicStructureComponent from "../../../../components/Thing/Place/CivicStructure/index.ts"
 
+export type SpecialAnnouncementType = "SpecialAnnouncement"
+
 export interface SpecialAnnouncementProps {
-	"@type"?: "SpecialAnnouncement"
+	"@type"?: SpecialAnnouncementType
 	announcementLocation?:
 		| CivicStructure
 		| LocalBusiness

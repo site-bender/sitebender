@@ -18,6 +18,8 @@ export default function BrokerageAccount({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</InvestmentOrDeposit>
+		>
+			{children}
+		</InvestmentOrDeposit>
 	)
 }

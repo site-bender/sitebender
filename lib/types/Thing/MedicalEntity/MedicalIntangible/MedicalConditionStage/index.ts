@@ -3,8 +3,10 @@ import type Thing from "../../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
+export type MedicalConditionStageType = "MedicalConditionStage"
+
 export interface MedicalConditionStageProps {
-	"@type"?: "MedicalConditionStage"
+	"@type"?: MedicalConditionStageType
 	stageAsNumber?: Number
 	subStageSuffix?: Text
 }

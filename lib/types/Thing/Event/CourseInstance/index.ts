@@ -7,8 +7,10 @@ import type { EventProps } from "../index.ts"
 import ScheduleComponent from "../../../../components/Thing/Intangible/Schedule/index.ts"
 import PersonComponent from "../../../../components/Thing/Person/index.ts"
 
+export type CourseInstanceType = "CourseInstance"
+
 export interface CourseInstanceProps {
-	"@type"?: "CourseInstance"
+	"@type"?: CourseInstanceType
 	courseMode?: Text | URL
 	courseSchedule?: Schedule | ReturnType<typeof ScheduleComponent>
 	courseWorkload?: Text

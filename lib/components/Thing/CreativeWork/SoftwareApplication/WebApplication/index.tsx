@@ -20,6 +20,8 @@ export default function WebApplication({
 				browserRequirements,
 				...subtypeProperties,
 			}}
-		>{children}</SoftwareApplication>
+		>
+			{children}
+		</SoftwareApplication>
 	)
 }

@@ -18,6 +18,8 @@ export default function VideoGallery({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</MediaGallery>
+		>
+			{children}
+		</MediaGallery>
 	)
 }

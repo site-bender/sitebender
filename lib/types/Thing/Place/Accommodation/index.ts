@@ -13,6 +13,11 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type LocationFeatureSpecification from "../../Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../../Intangible/StructuredValue/QuantitativeValue/index.ts"
 import type { PlaceProps } from "../index.ts"
+import type { ApartmentType } from "./Apartment/index.ts"
+import type { CampingPitchType } from "./CampingPitch/index.ts"
+import type { HouseType } from "./House/index.ts"
+import type { RoomType } from "./Room/index.ts"
+import type { SuiteType } from "./Suite/index.ts"
 
 import BedDetailsComponent from "../../../../components/Thing/Intangible/BedDetails/index.ts"
 import BedTypeComponent from "../../../../components/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.ts"
@@ -21,8 +26,16 @@ import DurationComponent from "../../../../components/Thing/Intangible/Quantity/
 import LocationFeatureSpecificationComponent from "../../../../components/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import QuantitativeValueComponent from "../../../../components/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
 
+export type AccommodationType =
+	| "Accommodation"
+	| CampingPitchType
+	| RoomType
+	| HouseType
+	| SuiteType
+	| ApartmentType
+
 export interface AccommodationProps {
-	"@type"?: "Accommodation"
+	"@type"?: AccommodationType
 	accommodationCategory?: Text
 	accommodationFloorPlan?: FloorPlan | ReturnType<typeof FloorPlanComponent>
 	amenityFeature?:

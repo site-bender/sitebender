@@ -5,8 +5,10 @@ import type ProductGroup from "../ProductGroup/index.ts"
 import ProductGroupComponent from "../../../../components/Thing/Product/ProductGroup/index.ts"
 import ProductModelComponent from "../../../../components/Thing/Product/ProductModel/index.ts"
 
+export type ProductModelType = "ProductModel"
+
 export interface ProductModelProps {
-	"@type"?: "ProductModel"
+	"@type"?: ProductModelType
 	isVariantOf?:
 		| ProductGroup
 		| ProductModel

@@ -18,6 +18,8 @@ export default function Intangible({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

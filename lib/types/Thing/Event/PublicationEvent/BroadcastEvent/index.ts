@@ -8,8 +8,10 @@ import type { PublicationEventProps } from "../index.ts"
 import EventComponent from "../../../../../components/Thing/Event/index.ts"
 import LanguageComponent from "../../../../../components/Thing/Intangible/Language/index.ts"
 
+export type BroadcastEventType = "BroadcastEvent"
+
 export interface BroadcastEventProps {
-	"@type"?: "BroadcastEvent"
+	"@type"?: BroadcastEventType
 	broadcastOfEvent?: Event | ReturnType<typeof EventComponent>
 	isLiveBroadcast?: Boolean
 	subtitleLanguage?: Language | Text | ReturnType<typeof LanguageComponent>

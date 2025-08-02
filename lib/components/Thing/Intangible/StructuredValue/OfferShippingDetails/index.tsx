@@ -46,6 +46,8 @@ export default function OfferShippingDetails({
 				width,
 				...subtypeProperties,
 			}}
-		>{children}</StructuredValue>
+		>
+			{children}
+		</StructuredValue>
 	)
 }

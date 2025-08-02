@@ -34,6 +34,8 @@ export default function MedicalEntity({
 				study,
 				...subtypeProperties,
 			}}
-		>{children}</Thing>
+		>
+			{children}
+		</Thing>
 	)
 }

@@ -20,6 +20,8 @@ export default function LeaveAction({
 				event,
 				...subtypeProperties,
 			}}
-		>{children}</InteractAction>
+		>
+			{children}
+		</InteractAction>
 	)
 }

@@ -40,6 +40,8 @@ export default function Episode({
 				trailer,
 				...subtypeProperties,
 			}}
-		>{children}</CreativeWork>
+		>
+			{children}
+		</CreativeWork>
 	)
 }

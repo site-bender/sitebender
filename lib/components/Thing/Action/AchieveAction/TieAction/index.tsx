@@ -18,6 +18,8 @@ export default function TieAction({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AchieveAction>
+		>
+			{children}
+		</AchieveAction>
 	)
 }

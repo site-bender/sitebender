@@ -2,8 +2,11 @@ import type { Number } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
+export type OccupationalExperienceRequirementsType =
+	"OccupationalExperienceRequirements"
+
 export interface OccupationalExperienceRequirementsProps {
-	"@type"?: "OccupationalExperienceRequirements"
+	"@type"?: OccupationalExperienceRequirementsType
 	monthsOfExperience?: Number
 }
 

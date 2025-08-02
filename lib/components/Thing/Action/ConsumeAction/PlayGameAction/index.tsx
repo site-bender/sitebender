@@ -20,6 +20,8 @@ export default function PlayGameAction({
 				gameAvailabilityType,
 				...subtypeProperties,
 			}}
-		>{children}</ConsumeAction>
+		>
+			{children}
+		</ConsumeAction>
 	)
 }

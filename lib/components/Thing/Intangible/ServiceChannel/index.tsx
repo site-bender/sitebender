@@ -34,6 +34,8 @@ export default function ServiceChannel({
 				serviceUrl,
 				...subtypeProperties,
 			}}
-		>{children}</Intangible>
+		>
+			{children}
+		</Intangible>
 	)
 }

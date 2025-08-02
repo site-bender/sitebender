@@ -18,6 +18,8 @@ export default function EmployerAggregateRating({
 			subtypeProperties={{
 				...subtypeProperties,
 			}}
-		>{children}</AggregateRating>
+		>
+			{children}
+		</AggregateRating>
 	)
 }
