@@ -1,41 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type GeoShapeProps from "../../../../../types/Thing/Intangible/StructuredValue/GeoShape/index.ts"
+import type { GeoShape as GeoShapeProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = GeoShapeProps & BaseProps
 
 export default function GeoShape({
-	address,
-	addressCountry,
-	box,
-	circle,
-	elevation,
-	line,
-	polygon,
-	postalCode,
 	_type = "GeoShape",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				address,
-				addressCountry,
-				box,
-				circle,
-				elevation,
-				line,
-				polygon,
-				postalCode,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

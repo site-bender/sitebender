@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type NoteDigitalDocumentProps from "../../../../../types/Thing/CreativeWork/DigitalDocument/NoteDigitalDocument/index.ts"
+import type { NoteDigitalDocument as NoteDigitalDocumentProps } from "../../../../../types/index.ts"
 
 import DigitalDocument from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = NoteDigitalDocumentProps & BaseProps
 export default function NoteDigitalDocument({
 	_type = "NoteDigitalDocument",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<DigitalDocument
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</DigitalDocument>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

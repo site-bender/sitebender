@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type StoreProps from "../../../../../types/Thing/Organization/LocalBusiness/Store/index.ts"
+import type { Store as StoreProps } from "../../../../../types/index.ts"
 
 import LocalBusiness from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = StoreProps & BaseProps
 export default function Store({
 	_type = "Store",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<LocalBusiness
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</LocalBusiness>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

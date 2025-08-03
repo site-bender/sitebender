@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type RoleProps from "../../../../types/Thing/Intangible/Role/index.ts"
+import type { Role as RoleProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = RoleProps & BaseProps
 
 export default function Role({
-	endDate,
-	namedPosition,
-	roleName,
-	startDate,
 	_type = "Role",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				endDate,
-				namedPosition,
-				roleName,
-				startDate,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

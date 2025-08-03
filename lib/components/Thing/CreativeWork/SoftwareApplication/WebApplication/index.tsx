@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type WebApplicationProps from "../../../../../types/Thing/CreativeWork/SoftwareApplication/WebApplication/index.ts"
+import type { WebApplication as WebApplicationProps } from "../../../../../types/index.ts"
 
 import SoftwareApplication from "../index.tsx"
 
 export type Props = WebApplicationProps & BaseProps
 
 export default function WebApplication({
-	browserRequirements,
 	_type = "WebApplication",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<SoftwareApplication
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				browserRequirements,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</SoftwareApplication>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type MedicalCodeProps from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/MedicalCode/index.ts"
+import type { MedicalCode as MedicalCodeProps } from "../../../../../types/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 
 export type Props = MedicalCodeProps & BaseProps
 
 export default function MedicalCode({
-	codeValue,
-	codingSystem,
 	_type = "MedicalCode",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalIntangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				codeValue,
-				codingSystem,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalIntangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

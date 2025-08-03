@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type WebPageElementProps from "../../../../types/Thing/CreativeWork/WebPageElement/index.ts"
+import type { WebPageElement as WebPageElementProps } from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
 export type Props = WebPageElementProps & BaseProps
 
 export default function WebPageElement({
-	cssSelector,
-	xpath,
 	_type = "WebPageElement",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreativeWork
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				cssSelector,
-				xpath,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWork>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type BodyMeasurementTypeEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/BodyMeasurementTypeEnumeration/index.ts"
+import type { BodyMeasurementTypeEnumeration as BodyMeasurementTypeEnumerationProps } from "../../../../../../types/index.ts"
 
 import MeasurementTypeEnumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = BodyMeasurementTypeEnumerationProps & BaseProps
 export default function BodyMeasurementTypeEnumeration({
 	_type = "BodyMeasurementTypeEnumeration",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MeasurementTypeEnumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MeasurementTypeEnumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

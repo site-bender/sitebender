@@ -1,31 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ChapterProps from "../../../../types/Thing/CreativeWork/Chapter/index.ts"
+import type { Chapter as ChapterProps } from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
 export type Props = ChapterProps & BaseProps
 
 export default function Chapter({
-	pageEnd,
-	pageStart,
-	pagination,
 	_type = "Chapter",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreativeWork
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				pageEnd,
-				pageStart,
-				pagination,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWork>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

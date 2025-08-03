@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ReadActionProps from "../../../../../types/Thing/Action/ConsumeAction/ReadAction/index.ts"
+import type { ReadAction as ReadActionProps } from "../../../../../types/index.ts"
 
 import ConsumeAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ReadActionProps & BaseProps
 export default function ReadAction({
 	_type = "ReadAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ConsumeAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ConsumeAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

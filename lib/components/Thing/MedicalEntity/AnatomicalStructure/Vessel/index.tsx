@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type VesselProps from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.ts"
+import type { Vessel as VesselProps } from "../../../../../types/index.ts"
 
 import AnatomicalStructure from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = VesselProps & BaseProps
 export default function Vessel({
 	_type = "Vessel",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<AnatomicalStructure
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</AnatomicalStructure>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

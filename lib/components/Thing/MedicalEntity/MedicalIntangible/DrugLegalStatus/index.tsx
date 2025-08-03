@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type DrugLegalStatusProps from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.ts"
+import type { DrugLegalStatus as DrugLegalStatusProps } from "../../../../../types/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 
 export type Props = DrugLegalStatusProps & BaseProps
 
 export default function DrugLegalStatus({
-	applicableLocation,
 	_type = "DrugLegalStatus",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalIntangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				applicableLocation,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalIntangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

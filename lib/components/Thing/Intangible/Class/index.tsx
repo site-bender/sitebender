@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ClassProps from "../../../../types/Thing/Intangible/Class/index.ts"
+import type { Class as ClassProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = ClassProps & BaseProps
 
 export default function Class({
-	supersededBy,
 	_type = "Class",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				supersededBy,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

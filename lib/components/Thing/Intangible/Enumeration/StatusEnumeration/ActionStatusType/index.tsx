@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type ActionStatusTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/StatusEnumeration/ActionStatusType/index.ts"
+import type { ActionStatusType as ActionStatusTypeProps } from "../../../../../../types/index.ts"
 
 import StatusEnumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ActionStatusTypeProps & BaseProps
 export default function ActionStatusType({
 	_type = "ActionStatusType",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StatusEnumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StatusEnumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

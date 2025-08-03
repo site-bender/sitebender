@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type UpdateActionProps from "../../../../types/Thing/Action/UpdateAction/index.ts"
+import type { UpdateAction as UpdateActionProps } from "../../../../types/index.ts"
 
 import Action from "../index.tsx"
 
 export type Props = UpdateActionProps & BaseProps
 
 export default function UpdateAction({
-	collection,
-	targetCollection,
 	_type = "UpdateAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Action
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				collection,
-				targetCollection,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Action>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

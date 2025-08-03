@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type SpreadsheetDigitalDocumentProps from "../../../../../types/Thing/CreativeWork/DigitalDocument/SpreadsheetDigitalDocument/index.ts"
+import type { SpreadsheetDigitalDocument as SpreadsheetDigitalDocumentProps } from "../../../../../types/index.ts"
 
 import DigitalDocument from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = SpreadsheetDigitalDocumentProps & BaseProps
 export default function SpreadsheetDigitalDocument({
 	_type = "SpreadsheetDigitalDocument",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<DigitalDocument
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</DigitalDocument>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

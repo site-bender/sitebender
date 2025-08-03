@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type AcceptActionProps from "../../../../../../types/Thing/Action/OrganizeAction/AllocateAction/AcceptAction/index.ts"
+import type { AcceptAction as AcceptActionProps } from "../../../../../../types/index.ts"
 
 import AllocateAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = AcceptActionProps & BaseProps
 export default function AcceptAction({
 	_type = "AcceptAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<AllocateAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</AllocateAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,37 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type RatingProps from "../../../../types/Thing/Intangible/Rating/index.ts"
+import type { Rating as RatingProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = RatingProps & BaseProps
 
 export default function Rating({
-	author,
-	bestRating,
-	ratingExplanation,
-	ratingValue,
-	reviewAspect,
-	worstRating,
 	_type = "Rating",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				author,
-				bestRating,
-				ratingExplanation,
-				ratingValue,
-				reviewAspect,
-				worstRating,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,31 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ProductGroupProps from "../../../../types/Thing/Product/ProductGroup/index.ts"
+import type { ProductGroup as ProductGroupProps } from "../../../../types/index.ts"
 
 import Product from "../index.tsx"
 
 export type Props = ProductGroupProps & BaseProps
 
 export default function ProductGroup({
-	hasVariant,
-	productGroupID,
-	variesBy,
 	_type = "ProductGroup",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Product
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				hasVariant,
-				productGroupID,
-				variesBy,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Product>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

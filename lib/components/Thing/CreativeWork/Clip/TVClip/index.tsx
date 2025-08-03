@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type TVClipProps from "../../../../../types/Thing/CreativeWork/Clip/TVClip/index.ts"
+import type { TVClip as TVClipProps } from "../../../../../types/index.ts"
 
 import Clip from "../index.tsx"
 
 export type Props = TVClipProps & BaseProps
 
 export default function TVClip({
-	partOfTVSeries,
 	_type = "TVClip",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Clip
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				partOfTVSeries,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Clip>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

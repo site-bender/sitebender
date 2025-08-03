@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type DeliveryEventProps from "../../../../types/Thing/Event/DeliveryEvent/index.ts"
+import type { DeliveryEvent as DeliveryEventProps } from "../../../../types/index.ts"
 
 import Event from "../index.tsx"
 
 export type Props = DeliveryEventProps & BaseProps
 
 export default function DeliveryEvent({
-	accessCode,
-	availableFrom,
-	availableThrough,
-	hasDeliveryMethod,
 	_type = "DeliveryEvent",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Event
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				accessCode,
-				availableFrom,
-				availableThrough,
-				hasDeliveryMethod,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Event>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

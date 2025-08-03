@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type DrawActionProps from "../../../../../types/Thing/Action/CreateAction/DrawAction/index.ts"
+import type { DrawAction as DrawActionProps } from "../../../../../types/index.ts"
 
 import CreateAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = DrawActionProps & BaseProps
 export default function DrawAction({
 	_type = "DrawAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreateAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreateAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

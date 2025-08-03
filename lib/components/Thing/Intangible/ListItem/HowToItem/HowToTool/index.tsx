@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type HowToToolProps from "../../../../../../types/Thing/Intangible/ListItem/HowToItem/HowToTool/index.ts"
+import type { HowToTool as HowToToolProps } from "../../../../../../types/index.ts"
 
 import HowToItem from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = HowToToolProps & BaseProps
 export default function HowToTool({
 	_type = "HowToTool",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<HowToItem
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</HowToItem>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

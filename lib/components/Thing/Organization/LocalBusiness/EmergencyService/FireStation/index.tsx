@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type FireStationProps from "../../../../../../types/Thing/Organization/LocalBusiness/EmergencyService/FireStation/index.ts"
+import type { FireStation as FireStationProps } from "../../../../../../types/index.ts"
 
 import EmergencyService from "../index.tsx"
 
@@ -9,16 +9,7 @@ export type Props = FireStationProps & BaseProps
 export default function FireStation({
 	_type = "FireStation",
 	children,
-	subtypeProperties = {},
 	...props
-}: Props) {
-	return (
-		<EmergencyService
-			{...props}
-			_type={_type}
-			subtypeProperties={subtypeProperties}
-		>
-			{children}
-		</EmergencyService>
-	)
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

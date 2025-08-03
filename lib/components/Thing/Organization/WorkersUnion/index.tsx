@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type WorkersUnionProps from "../../../../types/Thing/Organization/WorkersUnion/index.ts"
+import type { WorkersUnion as WorkersUnionProps } from "../../../../types/index.ts"
 
 import Organization from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = WorkersUnionProps & BaseProps
 export default function WorkersUnion({
 	_type = "WorkersUnion",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Organization
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Organization>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

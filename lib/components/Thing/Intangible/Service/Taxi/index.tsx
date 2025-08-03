@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type TaxiProps from "../../../../../types/Thing/Intangible/Service/Taxi/index.ts"
+import type { Taxi as TaxiProps } from "../../../../../types/index.ts"
 
 import Service from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = TaxiProps & BaseProps
 export default function Taxi({
 	_type = "Taxi",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Service
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Service>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

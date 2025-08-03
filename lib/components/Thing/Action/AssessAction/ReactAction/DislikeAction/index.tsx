@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type DislikeActionProps from "../../../../../../types/Thing/Action/AssessAction/ReactAction/DislikeAction/index.ts"
+import type { DislikeAction as DislikeActionProps } from "../../../../../../types/index.ts"
 
 import ReactAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = DislikeActionProps & BaseProps
 export default function DislikeAction({
 	_type = "DislikeAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ReactAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ReactAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

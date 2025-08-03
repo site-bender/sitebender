@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type HouseProps from "../../../../../types/Thing/Place/Accommodation/House/index.ts"
+import type { House as HouseProps } from "../../../../../types/index.ts"
 
 import Accommodation from "../index.tsx"
 
 export type Props = HouseProps & BaseProps
 
 export default function House({
-	numberOfRooms,
 	_type = "House",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Accommodation
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				numberOfRooms,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Accommodation>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

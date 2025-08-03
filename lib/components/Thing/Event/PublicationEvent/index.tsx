@@ -1,31 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type PublicationEventProps from "../../../../types/Thing/Event/PublicationEvent/index.ts"
+import type { PublicationEvent as PublicationEventProps } from "../../../../types/index.ts"
 
 import Event from "../index.tsx"
 
 export type Props = PublicationEventProps & BaseProps
 
 export default function PublicationEvent({
-	free,
-	publishedBy,
-	publishedOn,
 	_type = "PublicationEvent",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Event
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				free,
-				publishedBy,
-				publishedOn,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Event>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

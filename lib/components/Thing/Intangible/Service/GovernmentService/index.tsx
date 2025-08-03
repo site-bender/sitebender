@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type GovernmentServiceProps from "../../../../../types/Thing/Intangible/Service/GovernmentService/index.ts"
+import type { GovernmentService as GovernmentServiceProps } from "../../../../../types/index.ts"
 
 import Service from "../index.tsx"
 
 export type Props = GovernmentServiceProps & BaseProps
 
 export default function GovernmentService({
-	jurisdiction,
-	serviceOperator,
 	_type = "GovernmentService",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Service
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				jurisdiction,
-				serviceOperator,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Service>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

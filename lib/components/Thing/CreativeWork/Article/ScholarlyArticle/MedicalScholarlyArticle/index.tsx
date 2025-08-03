@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type MedicalScholarlyArticleProps from "../../../../../../types/Thing/CreativeWork/Article/ScholarlyArticle/MedicalScholarlyArticle/index.ts"
+import type { MedicalScholarlyArticle as MedicalScholarlyArticleProps } from "../../../../../../types/index.ts"
 
 import ScholarlyArticle from "../index.tsx"
 
 export type Props = MedicalScholarlyArticleProps & BaseProps
 
 export default function MedicalScholarlyArticle({
-	publicationType,
 	_type = "MedicalScholarlyArticle",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ScholarlyArticle
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				publicationType,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ScholarlyArticle>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

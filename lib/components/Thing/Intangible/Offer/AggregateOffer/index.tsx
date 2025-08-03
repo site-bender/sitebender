@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type AggregateOfferProps from "../../../../../types/Thing/Intangible/Offer/AggregateOffer/index.ts"
+import type { AggregateOffer as AggregateOfferProps } from "../../../../../types/index.ts"
 
 import Offer from "../index.tsx"
 
 export type Props = AggregateOfferProps & BaseProps
 
 export default function AggregateOffer({
-	highPrice,
-	lowPrice,
-	offerCount,
-	offers,
 	_type = "AggregateOffer",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Offer
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				highPrice,
-				lowPrice,
-				offerCount,
-				offers,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Offer>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

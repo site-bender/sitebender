@@ -1,51 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ExerciseActionProps from "../../../../../types/Thing/Action/PlayAction/ExerciseAction/index.ts"
+import type { ExerciseAction as ExerciseActionProps } from "../../../../../types/index.ts"
 
 import PlayAction from "../index.tsx"
 
 export type Props = ExerciseActionProps & BaseProps
 
 export default function ExerciseAction({
-	course,
-	diet,
-	distance,
-	exerciseCourse,
-	exercisePlan,
-	exerciseRelatedDiet,
-	exerciseType,
-	fromLocation,
-	opponent,
-	sportsActivityLocation,
-	sportsEvent,
-	sportsTeam,
-	toLocation,
 	_type = "ExerciseAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PlayAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				course,
-				diet,
-				distance,
-				exerciseCourse,
-				exercisePlan,
-				exerciseRelatedDiet,
-				exerciseType,
-				fromLocation,
-				opponent,
-				sportsActivityLocation,
-				sportsEvent,
-				sportsTeam,
-				toLocation,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PlayAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type BreadcrumbListProps from "../../../../../types/Thing/Intangible/ItemList/BreadcrumbList/index.ts"
+import type { BreadcrumbList as BreadcrumbListProps } from "../../../../../types/index.ts"
 
 import ItemList from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = BreadcrumbListProps & BaseProps
 export default function BreadcrumbList({
 	_type = "BreadcrumbList",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ItemList
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ItemList>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

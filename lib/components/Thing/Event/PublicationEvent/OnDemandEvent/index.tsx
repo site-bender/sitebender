@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type OnDemandEventProps from "../../../../../types/Thing/Event/PublicationEvent/OnDemandEvent/index.ts"
+import type { OnDemandEvent as OnDemandEventProps } from "../../../../../types/index.ts"
 
 import PublicationEvent from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = OnDemandEventProps & BaseProps
 export default function OnDemandEvent({
 	_type = "OnDemandEvent",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PublicationEvent
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PublicationEvent>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

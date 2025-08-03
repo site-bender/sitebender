@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type DataFeedItemProps from "../../../../types/Thing/Intangible/DataFeedItem/index.ts"
+import type { DataFeedItem as DataFeedItemProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = DataFeedItemProps & BaseProps
 
 export default function DataFeedItem({
-	dateCreated,
-	dateDeleted,
-	dateModified,
-	item,
 	_type = "DataFeedItem",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				dateCreated,
-				dateDeleted,
-				dateModified,
-				item,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

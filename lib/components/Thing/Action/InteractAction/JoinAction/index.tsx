@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type JoinActionProps from "../../../../../types/Thing/Action/InteractAction/JoinAction/index.ts"
+import type { JoinAction as JoinActionProps } from "../../../../../types/index.ts"
 
 import InteractAction from "../index.tsx"
 
 export type Props = JoinActionProps & BaseProps
 
 export default function JoinAction({
-	event,
 	_type = "JoinAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<InteractAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				event,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</InteractAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

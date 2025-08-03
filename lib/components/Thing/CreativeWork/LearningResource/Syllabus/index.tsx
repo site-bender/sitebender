@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type SyllabusProps from "../../../../../types/Thing/CreativeWork/LearningResource/Syllabus/index.ts"
+import type { Syllabus as SyllabusProps } from "../../../../../types/index.ts"
 
 import LearningResource from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = SyllabusProps & BaseProps
 export default function Syllabus({
 	_type = "Syllabus",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<LearningResource
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</LearningResource>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

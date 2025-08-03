@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type DDxElementProps from "../../../../../types/Thing/MedicalEntity/MedicalIntangible/DDxElement/index.ts"
+import type { DDxElement as DDxElementProps } from "../../../../../types/index.ts"
 
 import MedicalIntangible from "../index.tsx"
 
 export type Props = DDxElementProps & BaseProps
 
 export default function DDxElement({
-	diagnosis,
-	distinguishingSign,
 	_type = "DDxElement",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalIntangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				diagnosis,
-				distinguishingSign,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalIntangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

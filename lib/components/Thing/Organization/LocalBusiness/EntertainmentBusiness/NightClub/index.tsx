@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type NightClubProps from "../../../../../../types/Thing/Organization/LocalBusiness/EntertainmentBusiness/NightClub/index.ts"
+import type { NightClub as NightClubProps } from "../../../../../../types/index.ts"
 
 import EntertainmentBusiness from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = NightClubProps & BaseProps
 export default function NightClub({
 	_type = "NightClub",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<EntertainmentBusiness
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</EntertainmentBusiness>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

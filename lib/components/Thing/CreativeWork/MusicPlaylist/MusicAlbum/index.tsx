@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type MusicAlbumProps from "../../../../../types/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.ts"
+import type { MusicAlbum as MusicAlbumProps } from "../../../../../types/index.ts"
 
 import MusicPlaylist from "../index.tsx"
 
 export type Props = MusicAlbumProps & BaseProps
 
 export default function MusicAlbum({
-	albumProductionType,
-	albumRelease,
-	albumReleaseType,
-	byArtist,
 	_type = "MusicAlbum",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MusicPlaylist
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				albumProductionType,
-				albumRelease,
-				albumReleaseType,
-				byArtist,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MusicPlaylist>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

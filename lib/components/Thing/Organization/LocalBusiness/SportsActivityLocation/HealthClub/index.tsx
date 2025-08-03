@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type HealthClubProps from "../../../../../../types/Thing/Organization/LocalBusiness/SportsActivityLocation/HealthClub/index.ts"
+import type { HealthClub as HealthClubProps } from "../../../../../../types/index.ts"
 
 import SportsActivityLocation from "../index.tsx"
 
@@ -9,16 +9,7 @@ export type Props = HealthClubProps & BaseProps
 export default function HealthClub({
 	_type = "HealthClub",
 	children,
-	subtypeProperties = {},
 	...props
-}: Props) {
-	return (
-		<SportsActivityLocation
-			{...props}
-			_type={_type}
-			subtypeProperties={subtypeProperties}
-		>
-			{children}
-		</SportsActivityLocation>
-	)
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

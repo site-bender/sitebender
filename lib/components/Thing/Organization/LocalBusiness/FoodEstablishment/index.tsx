@@ -1,35 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type FoodEstablishmentProps from "../../../../../types/Thing/Organization/LocalBusiness/FoodEstablishment/index.ts"
+import type { FoodEstablishment as FoodEstablishmentProps } from "../../../../../types/index.ts"
 
 import LocalBusiness from "../index.tsx"
 
 export type Props = FoodEstablishmentProps & BaseProps
 
 export default function FoodEstablishment({
-	acceptsReservations,
-	hasMenu,
-	menu,
-	servesCuisine,
-	starRating,
 	_type = "FoodEstablishment",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<LocalBusiness
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				acceptsReservations,
-				hasMenu,
-				menu,
-				servesCuisine,
-				starRating,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</LocalBusiness>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

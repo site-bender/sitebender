@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type WearableMeasurementTypeEnumerationProps from "../../../../../../types/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/WearableMeasurementTypeEnumeration/index.ts"
+import type { WearableMeasurementTypeEnumeration as WearableMeasurementTypeEnumerationProps } from "../../../../../../types/index.ts"
 
 import MeasurementTypeEnumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = WearableMeasurementTypeEnumerationProps & BaseProps
 export default function WearableMeasurementTypeEnumeration({
 	_type = "WearableMeasurementTypeEnumeration",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MeasurementTypeEnumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MeasurementTypeEnumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

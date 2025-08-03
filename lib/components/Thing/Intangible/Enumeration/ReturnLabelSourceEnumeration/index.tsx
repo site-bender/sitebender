@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ReturnLabelSourceEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/ReturnLabelSourceEnumeration/index.ts"
+import type { ReturnLabelSourceEnumeration as ReturnLabelSourceEnumerationProps } from "../../../../../types/index.ts"
 
 import Enumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ReturnLabelSourceEnumerationProps & BaseProps
 export default function ReturnLabelSourceEnumeration({
 	_type = "ReturnLabelSourceEnumeration",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Enumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Enumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

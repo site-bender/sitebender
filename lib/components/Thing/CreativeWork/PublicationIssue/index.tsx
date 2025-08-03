@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type PublicationIssueProps from "../../../../types/Thing/CreativeWork/PublicationIssue/index.ts"
+import type { PublicationIssue as PublicationIssueProps } from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
 export type Props = PublicationIssueProps & BaseProps
 
 export default function PublicationIssue({
-	issueNumber,
-	pageEnd,
-	pageStart,
-	pagination,
 	_type = "PublicationIssue",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreativeWork
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				issueNumber,
-				pageEnd,
-				pageStart,
-				pagination,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWork>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

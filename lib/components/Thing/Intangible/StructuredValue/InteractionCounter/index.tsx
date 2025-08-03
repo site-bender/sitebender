@@ -1,37 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type InteractionCounterProps from "../../../../../types/Thing/Intangible/StructuredValue/InteractionCounter/index.ts"
+import type { InteractionCounter as InteractionCounterProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = InteractionCounterProps & BaseProps
 
 export default function InteractionCounter({
-	endTime,
-	interactionService,
-	interactionType,
-	location,
-	startTime,
-	userInteractionCount,
 	_type = "InteractionCounter",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				endTime,
-				interactionService,
-				interactionType,
-				location,
-				startTime,
-				userInteractionCount,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

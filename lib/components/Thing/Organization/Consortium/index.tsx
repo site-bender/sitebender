@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ConsortiumProps from "../../../../types/Thing/Organization/Consortium/index.ts"
+import type { Consortium as ConsortiumProps } from "../../../../types/index.ts"
 
 import Organization from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ConsortiumProps & BaseProps
 export default function Consortium({
 	_type = "Consortium",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Organization
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Organization>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

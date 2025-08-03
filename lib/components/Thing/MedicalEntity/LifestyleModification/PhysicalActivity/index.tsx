@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type PhysicalActivityProps from "../../../../../types/Thing/MedicalEntity/LifestyleModification/PhysicalActivity/index.ts"
+import type { PhysicalActivity as PhysicalActivityProps } from "../../../../../types/index.ts"
 
 import LifestyleModification from "../index.tsx"
 
 export type Props = PhysicalActivityProps & BaseProps
 
 export default function PhysicalActivity({
-	associatedAnatomy,
-	category,
-	epidemiology,
-	pathophysiology,
 	_type = "PhysicalActivity",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<LifestyleModification
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				associatedAnatomy,
-				category,
-				epidemiology,
-				pathophysiology,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</LifestyleModification>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

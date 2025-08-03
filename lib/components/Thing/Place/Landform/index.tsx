@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type LandformProps from "../../../../types/Thing/Place/Landform/index.ts"
+import type { Landform as LandformProps } from "../../../../types/index.ts"
 
 import Place from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = LandformProps & BaseProps
 export default function Landform({
 	_type = "Landform",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Place
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Place>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

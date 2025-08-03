@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type ScheduleActionProps from "../../../../../../types/Thing/Action/OrganizeAction/PlanAction/ScheduleAction/index.ts"
+import type { ScheduleAction as ScheduleActionProps } from "../../../../../../types/index.ts"
 
 import PlanAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ScheduleActionProps & BaseProps
 export default function ScheduleAction({
 	_type = "ScheduleAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PlanAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PlanAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

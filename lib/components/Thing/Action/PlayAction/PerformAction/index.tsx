@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type PerformActionProps from "../../../../../types/Thing/Action/PlayAction/PerformAction/index.ts"
+import type { PerformAction as PerformActionProps } from "../../../../../types/index.ts"
 
 import PlayAction from "../index.tsx"
 
 export type Props = PerformActionProps & BaseProps
 
 export default function PerformAction({
-	entertainmentBusiness,
 	_type = "PerformAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PlayAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				entertainmentBusiness,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PlayAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

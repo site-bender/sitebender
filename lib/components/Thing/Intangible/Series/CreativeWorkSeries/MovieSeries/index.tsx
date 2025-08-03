@@ -1,42 +1,15 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type MovieSeriesProps from "../../../../../../types/Thing/Intangible/Series/CreativeWorkSeries/MovieSeries/index.ts"
+import type { MovieSeries as MovieSeriesProps } from "../../../../../../types/index.ts"
 
 import CreativeWorkSeries from "../index.tsx"
 
 // MovieSeries adds no properties to the ListItem schema type
 export type Props = MovieSeriesProps & BaseProps
 
-export default function MovieSeries(
-	{
-		actor,
-		actors,
-		director,
-		directors,
-		musicBy,
-		productionCompany,
-		trailer,
-		_type = "MovieSeries",
-		children,
-		subtypeProperties = {},
-		...props
-	}: Props,
-) {
-	return (
-		<CreativeWorkSeries
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				actor,
-				actors,
-				director,
-				directors,
-				musicBy,
-				productionCompany,
-				trailer,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWorkSeries>
-	)
+export default function MovieSeries({
+	_type = "MovieSeries",
+	children,
+	...props
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type InformActionProps from "../../../../../../types/Thing/Action/InteractAction/CommunicateAction/InformAction/index.ts"
+import type { InformAction as InformActionProps } from "../../../../../../types/index.ts"
 
 import CommunicateAction from "../index.tsx"
 
 export type Props = InformActionProps & BaseProps
 
 export default function InformAction({
-	event,
 	_type = "InformAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CommunicateAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				event,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CommunicateAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

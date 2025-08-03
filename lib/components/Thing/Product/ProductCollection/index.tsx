@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ProductCollectionProps from "../../../../types/Thing/Product/ProductCollection/index.ts"
+import type { ProductCollection as ProductCollectionProps } from "../../../../types/index.ts"
 
 import Product from "../index.tsx"
 
 export type Props = ProductCollectionProps & BaseProps
 
 export default function ProductCollection({
-	includesObject,
 	_type = "ProductCollection",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Product
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				includesObject,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Product>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

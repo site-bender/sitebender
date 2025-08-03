@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type ArteryProps from "../../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Vessel/Artery/index.ts"
+import type { Artery as ArteryProps } from "../../../../../../types/index.ts"
 
 import Vessel from "../index.tsx"
 
 export type Props = ArteryProps & BaseProps
 
 export default function Artery({
-	arterialBranch,
-	supplyTo,
 	_type = "Artery",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Vessel
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				arterialBranch,
-				supplyTo,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Vessel>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

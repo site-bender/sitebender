@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type PaymentMethodTypeProps from "../../../../../types/Thing/Intangible/Enumeration/PaymentMethodType/index.ts"
+import type { PaymentMethodType as PaymentMethodTypeProps } from "../../../../../types/index.ts"
 
 import Enumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = PaymentMethodTypeProps & BaseProps
 export default function PaymentMethodType({
 	_type = "PaymentMethodType",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Enumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Enumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

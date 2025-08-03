@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type IncentiveStatusProps from "../../../../../types/Thing/Intangible/Enumeration/IncentiveStatus/index.ts"
+import type { IncentiveStatus as IncentiveStatusProps } from "../../../../../types/index.ts"
 
 import Enumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = IncentiveStatusProps & BaseProps
 export default function IncentiveStatus({
 	_type = "IncentiveStatus",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Enumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Enumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

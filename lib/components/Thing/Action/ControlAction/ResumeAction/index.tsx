@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ResumeActionProps from "../../../../../types/Thing/Action/ControlAction/ResumeAction/index.ts"
+import type { ResumeAction as ResumeActionProps } from "../../../../../types/index.ts"
 
 import ControlAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ResumeActionProps & BaseProps
 export default function ResumeAction({
 	_type = "ResumeAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ControlAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ControlAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

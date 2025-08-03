@@ -1,37 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type GeoCoordinatesProps from "../../../../../types/Thing/Intangible/StructuredValue/GeoCoordinates/index.ts"
+import type { GeoCoordinates as GeoCoordinatesProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = GeoCoordinatesProps & BaseProps
 
 export default function GeoCoordinates({
-	address,
-	addressCountry,
-	elevation,
-	latitude,
-	longitude,
-	postalCode,
 	_type = "GeoCoordinates",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				address,
-				addressCountry,
-				elevation,
-				latitude,
-				longitude,
-				postalCode,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

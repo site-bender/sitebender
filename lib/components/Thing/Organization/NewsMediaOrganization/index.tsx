@@ -1,47 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type NewsMediaOrganizationProps from "../../../../types/Thing/Organization/NewsMediaOrganization/index.ts"
+import type { NewsMediaOrganization as NewsMediaOrganizationProps } from "../../../../types/index.ts"
 
 import Organization from "../index.tsx"
 
 export type Props = NewsMediaOrganizationProps & BaseProps
 
 export default function NewsMediaOrganization({
-	actionableFeedbackPolicy,
-	correctionsPolicy,
-	diversityPolicy,
-	diversityStaffingReport,
-	ethicsPolicy,
-	masthead,
-	missionCoveragePrioritiesPolicy,
-	noBylinesPolicy,
-	ownershipFundingInfo,
-	unnamedSourcesPolicy,
-	verificationFactCheckingPolicy,
 	_type = "NewsMediaOrganization",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Organization
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				actionableFeedbackPolicy,
-				correctionsPolicy,
-				diversityPolicy,
-				diversityStaffingReport,
-				ethicsPolicy,
-				masthead,
-				missionCoveragePrioritiesPolicy,
-				noBylinesPolicy,
-				ownershipFundingInfo,
-				unnamedSourcesPolicy,
-				verificationFactCheckingPolicy,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Organization>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

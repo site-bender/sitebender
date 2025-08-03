@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type TableProps from "../../../../../types/Thing/CreativeWork/WebPageElement/Table/index.ts"
+import type { Table as TableProps } from "../../../../../types/index.ts"
 
 import WebPageElement from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = TableProps & BaseProps
 export default function Table({
 	_type = "Table",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<WebPageElement
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</WebPageElement>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

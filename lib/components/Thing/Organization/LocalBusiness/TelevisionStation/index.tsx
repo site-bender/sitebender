@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type TelevisionStationProps from "../../../../../types/Thing/Organization/LocalBusiness/TelevisionStation/index.ts"
+import type { TelevisionStation as TelevisionStationProps } from "../../../../../types/index.ts"
 
 import LocalBusiness from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = TelevisionStationProps & BaseProps
 export default function TelevisionStation({
 	_type = "TelevisionStation",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<LocalBusiness
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</LocalBusiness>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

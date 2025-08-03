@@ -1,39 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ActionAccessSpecificationProps from "../../../../types/Thing/Intangible/ActionAccessSpecification/index.ts"
+import type { ActionAccessSpecification as ActionAccessSpecificationProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = ActionAccessSpecificationProps & BaseProps
 
 export default function ActionAccessSpecification({
-	availabilityEnds,
-	availabilityStarts,
-	category,
-	eligibleRegion,
-	expectsAcceptanceOf,
-	ineligibleRegion,
-	requiresSubscription,
 	_type = "ActionAccessSpecification",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				availabilityEnds,
-				availabilityStarts,
-				category,
-				eligibleRegion,
-				expectsAcceptanceOf,
-				ineligibleRegion,
-				requiresSubscription,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

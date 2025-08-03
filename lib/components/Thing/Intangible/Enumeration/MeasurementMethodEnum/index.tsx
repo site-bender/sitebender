@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type MeasurementMethodEnumProps from "../../../../../types/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.ts"
+import type { MeasurementMethodEnum as MeasurementMethodEnumProps } from "../../../../../types/index.ts"
 
 import Enumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = MeasurementMethodEnumProps & BaseProps
 export default function MeasurementMethodEnum({
 	_type = "MeasurementMethodEnum",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Enumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Enumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

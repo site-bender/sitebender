@@ -1,35 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type OpeningHoursSpecificationProps from "../../../../../types/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.ts"
+import type { OpeningHoursSpecification as OpeningHoursSpecificationProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = OpeningHoursSpecificationProps & BaseProps
 
 export default function OpeningHoursSpecification({
-	closes,
-	dayOfWeek,
-	opens,
-	validFrom,
-	validThrough,
 	_type = "OpeningHoursSpecification",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				closes,
-				dayOfWeek,
-				opens,
-				validFrom,
-				validThrough,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

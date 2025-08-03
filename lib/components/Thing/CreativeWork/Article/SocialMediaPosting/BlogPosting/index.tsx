@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type BlogPostingProps from "../../../../../../types/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.ts"
+import type { BlogPosting as BlogPostingProps } from "../../../../../../types/index.ts"
 
 import SocialMediaPosting from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = BlogPostingProps & BaseProps
 export default function BlogPosting({
 	_type = "BlogPosting",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<SocialMediaPosting
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</SocialMediaPosting>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

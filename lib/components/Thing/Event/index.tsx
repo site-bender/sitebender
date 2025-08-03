@@ -1,107 +1,14 @@
 import type BaseProps from "../../../types/index.ts"
-import type EventProps from "../../../types/Thing/Event/index.ts"
+import type { Event as EventProps } from "../../../types/index.ts"
 
 import Thing from "../index.tsx"
 
 export type Props = EventProps & BaseProps
 
 export default function Event({
-	about,
-	actor,
-	aggregateRating,
-	attendee,
-	attendees,
-	audience,
-	composer,
-	contributor,
-	director,
-	doorTime,
-	duration,
-	endDate,
-	eventAttendanceMode,
-	eventSchedule,
-	eventStatus,
-	funder,
-	funding,
-	inLanguage,
-	isAccessibleForFree,
-	keywords,
-	location,
-	maximumAttendeeCapacity,
-	maximumPhysicalAttendeeCapacity,
-	maximumVirtualAttendeeCapacity,
-	offers,
-	organizer,
-	performer,
-	performers,
-	previousStartDate,
-	recordedIn,
-	remainingAttendeeCapacity,
-	review,
-	sponsor,
-	startDate,
-	subEvent,
-	subEvents,
-	superEvent,
-	translator,
-	typicalAgeRange,
-	workFeatured,
-	workPerformed,
 	_type = "Event",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Thing
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				about,
-				actor,
-				aggregateRating,
-				attendee,
-				attendees,
-				audience,
-				composer,
-				contributor,
-				director,
-				doorTime,
-				duration,
-				endDate,
-				eventAttendanceMode,
-				eventSchedule,
-				eventStatus,
-				funder,
-				funding,
-				inLanguage,
-				isAccessibleForFree,
-				keywords,
-				location,
-				maximumAttendeeCapacity,
-				maximumPhysicalAttendeeCapacity,
-				maximumVirtualAttendeeCapacity,
-				offers,
-				organizer,
-				performer,
-				performers,
-				previousStartDate,
-				recordedIn,
-				remainingAttendeeCapacity,
-				review,
-				sponsor,
-				startDate,
-				subEvent,
-				subEvents,
-				superEvent,
-				translator,
-				typicalAgeRange,
-				workFeatured,
-				workPerformed,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Thing>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type HowToSectionProps from "../../../../types/Thing/CreativeWork/HowToSection/index.ts"
+import type { HowToSection as HowToSectionProps } from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = HowToSectionProps & BaseProps
 export default function HowToSection({
 	_type = "HowToSection",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreativeWork
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWork>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

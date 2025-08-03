@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type MonetaryGrantProps from "../../../../../types/Thing/Intangible/Grant/MonetaryGrant/index.ts"
+import type { MonetaryGrant as MonetaryGrantProps } from "../../../../../types/index.ts"
 
 import Grant from "../index.tsx"
 
 export type Props = MonetaryGrantProps & BaseProps
 
 export default function MonetaryGrant({
-	amount,
-	funder,
 	_type = "MonetaryGrant",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Grant
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				amount,
-				funder,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Grant>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

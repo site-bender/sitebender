@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type BedDetailsProps from "../../../../types/Thing/Intangible/BedDetails/index.ts"
+import type { BedDetails as BedDetailsProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = BedDetailsProps & BaseProps
 
 export default function BedDetails({
-	numberOfBeds,
-	typeOfBed,
 	_type = "BedDetails",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				numberOfBeds,
-				typeOfBed,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

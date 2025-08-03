@@ -1,37 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ComicIssueProps from "../../../../../types/Thing/CreativeWork/PublicationIssue/ComicIssue/index.ts"
+import type { ComicIssue as ComicIssueProps } from "../../../../../types/index.ts"
 
 import PublicationIssue from "../index.tsx"
 
 export type Props = ComicIssueProps & BaseProps
 
 export default function ComicIssue({
-	artist,
-	colorist,
-	inker,
-	letterer,
-	penciler,
-	variantCover,
 	_type = "ComicIssue",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PublicationIssue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				artist,
-				colorist,
-				inker,
-				letterer,
-				penciler,
-				variantCover,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PublicationIssue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

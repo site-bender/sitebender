@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type MedicalImagingTechniqueProps from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.ts"
+import type { MedicalImagingTechnique as MedicalImagingTechniqueProps } from "../../../../../../types/index.ts"
 
 import MedicalEnumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = MedicalImagingTechniqueProps & BaseProps
 export default function MedicalImagingTechnique({
 	_type = "MedicalImagingTechnique",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalEnumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalEnumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

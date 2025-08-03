@@ -1,31 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type HealthPlanNetworkProps from "../../../../types/Thing/Intangible/HealthPlanNetwork/index.ts"
+import type { HealthPlanNetwork as HealthPlanNetworkProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = HealthPlanNetworkProps & BaseProps
 
 export default function HealthPlanNetwork({
-	healthPlanCostSharing,
-	healthPlanNetworkId,
-	healthPlanNetworkTier,
 	_type = "HealthPlanNetwork",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				healthPlanCostSharing,
-				healthPlanNetworkId,
-				healthPlanNetworkTier,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

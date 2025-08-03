@@ -1,119 +1,14 @@
 import type BaseProps from "../../../types/index.ts"
-import type PlaceProps from "../../../types/Thing/Place/index.ts"
+import type { Place as PlaceProps } from "../../../types/index.ts"
 
 import Thing from "../index.tsx"
 
 export type Props = PlaceProps & BaseProps
 
 export default function Place({
-	additionalProperty,
-	address,
-	aggregateRating,
-	amenityFeature,
-	branchCode,
-	containedIn,
-	containedInPlace,
-	containsPlace,
-	event,
-	events,
-	faxNumber,
-	geo,
-	geoContains,
-	geoCoveredBy,
-	geoCovers,
-	geoCrosses,
-	geoDisjoint,
-	geoEquals,
-	geoIntersects,
-	geoOverlaps,
-	geoTouches,
-	geoWithin,
-	globalLocationNumber,
-	hasCertification,
-	hasDriveThroughService,
-	hasGS1DigitalLink,
-	hasMap,
-	isAccessibleForFree,
-	isicV4,
-	keywords,
-	latitude,
-	logo,
-	longitude,
-	map,
-	maps,
-	maximumAttendeeCapacity,
-	openingHoursSpecification,
-	photo,
-	photos,
-	publicAccess,
-	review,
-	reviews,
-	slogan,
-	smokingAllowed,
-	specialOpeningHoursSpecification,
-	telephone,
-	tourBookingPage,
 	_type = "Place",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Thing
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				additionalProperty,
-				address,
-				aggregateRating,
-				amenityFeature,
-				branchCode,
-				containedIn,
-				containedInPlace,
-				containsPlace,
-				event,
-				events,
-				faxNumber,
-				geo,
-				geoContains,
-				geoCoveredBy,
-				geoCovers,
-				geoCrosses,
-				geoDisjoint,
-				geoEquals,
-				geoIntersects,
-				geoOverlaps,
-				geoTouches,
-				geoWithin,
-				globalLocationNumber,
-				hasCertification,
-				hasDriveThroughService,
-				hasGS1DigitalLink,
-				hasMap,
-				isAccessibleForFree,
-				isicV4,
-				keywords,
-				latitude,
-				logo,
-				longitude,
-				map,
-				maps,
-				maximumAttendeeCapacity,
-				openingHoursSpecification,
-				photo,
-				photos,
-				publicAccess,
-				review,
-				reviews,
-				slogan,
-				smokingAllowed,
-				specialOpeningHoursSpecification,
-				telephone,
-				tourBookingPage,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Thing>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

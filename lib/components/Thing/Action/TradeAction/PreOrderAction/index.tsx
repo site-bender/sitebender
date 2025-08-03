@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type PreOrderActionProps from "../../../../../types/Thing/Action/TradeAction/PreOrderAction/index.ts"
+import type { PreOrderAction as PreOrderActionProps } from "../../../../../types/index.ts"
 
 import TradeAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = PreOrderActionProps & BaseProps
 export default function PreOrderAction({
 	_type = "PreOrderAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<TradeAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</TradeAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

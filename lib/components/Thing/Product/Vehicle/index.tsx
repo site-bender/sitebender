@@ -1,105 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type VehicleProps from "../../../../types/Thing/Product/Vehicle/index.ts"
+import type { Vehicle as VehicleProps } from "../../../../types/index.ts"
 
 import Product from "../index.tsx"
 
 export type Props = VehicleProps & BaseProps
 
 export default function Vehicle({
-	accelerationTime,
-	bodyType,
-	callSign,
-	cargoVolume,
-	dateVehicleFirstRegistered,
-	driveWheelConfiguration,
-	emissionsCO2,
-	fuelCapacity,
-	fuelConsumption,
-	fuelEfficiency,
-	fuelType,
-	knownVehicleDamages,
-	meetsEmissionStandard,
-	mileageFromOdometer,
-	modelDate,
-	numberOfAirbags,
-	numberOfAxles,
-	numberOfDoors,
-	numberOfForwardGears,
-	numberOfPreviousOwners,
-	payload,
-	productionDate,
-	purchaseDate,
-	seatingCapacity,
-	speed,
-	steeringPosition,
-	stupidProperty,
-	tongueWeight,
-	trailerWeight,
-	vehicleConfiguration,
-	vehicleEngine,
-	vehicleIdentificationNumber,
-	vehicleInteriorColor,
-	vehicleInteriorType,
-	vehicleModelDate,
-	vehicleSeatingCapacity,
-	vehicleSpecialUsage,
-	vehicleTransmission,
-	weightTotal,
-	wheelbase,
 	_type = "Vehicle",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Product
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				accelerationTime,
-				bodyType,
-				callSign,
-				cargoVolume,
-				dateVehicleFirstRegistered,
-				driveWheelConfiguration,
-				emissionsCO2,
-				fuelCapacity,
-				fuelConsumption,
-				fuelEfficiency,
-				fuelType,
-				knownVehicleDamages,
-				meetsEmissionStandard,
-				mileageFromOdometer,
-				modelDate,
-				numberOfAirbags,
-				numberOfAxles,
-				numberOfDoors,
-				numberOfForwardGears,
-				numberOfPreviousOwners,
-				payload,
-				productionDate,
-				purchaseDate,
-				seatingCapacity,
-				speed,
-				steeringPosition,
-				stupidProperty,
-				tongueWeight,
-				trailerWeight,
-				vehicleConfiguration,
-				vehicleEngine,
-				vehicleIdentificationNumber,
-				vehicleInteriorColor,
-				vehicleInteriorType,
-				vehicleModelDate,
-				vehicleSeatingCapacity,
-				vehicleSpecialUsage,
-				vehicleTransmission,
-				weightTotal,
-				wheelbase,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Product>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

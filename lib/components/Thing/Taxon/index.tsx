@@ -1,33 +1,14 @@
 import type BaseProps from "../../../types/index.ts"
-import type TaxonProps from "../../../types/Thing/Taxon/index.ts"
+import type { Taxon as TaxonProps } from "../../../types/index.ts"
 
 import Thing from "../index.tsx"
 
 export type Props = TaxonProps & BaseProps
 
 export default function Taxon({
-	childTaxon,
-	hasDefinedTerm,
-	parentTaxon,
-	taxonRank,
 	_type = "Taxon",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Thing
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				childTaxon,
-				hasDefinedTerm,
-				parentTaxon,
-				taxonRank,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Thing>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

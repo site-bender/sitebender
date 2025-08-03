@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ShippingServiceProps from "../../../../../types/Thing/Intangible/StructuredValue/ShippingService/index.ts"
+import type { ShippingService as ShippingServiceProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = ShippingServiceProps & BaseProps
 
 export default function ShippingService({
-	fulfillmentType,
-	handlingTime,
-	shippingConditions,
-	validForMemberTier,
 	_type = "ShippingService",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				fulfillmentType,
-				handlingTime,
-				shippingConditions,
-				validForMemberTier,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

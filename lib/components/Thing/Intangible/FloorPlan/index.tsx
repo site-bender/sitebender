@@ -1,49 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type FloorPlanProps from "../../../../types/Thing/Intangible/FloorPlan/index.ts"
+import type { FloorPlan as FloorPlanProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = FloorPlanProps & BaseProps
 
 export default function FloorPlan({
-	amenityFeature,
-	floorSize,
-	isPlanForApartment,
-	layoutImage,
-	numberOfAccommodationUnits,
-	numberOfAvailableAccommodationUnits,
-	numberOfBathroomsTotal,
-	numberOfBedrooms,
-	numberOfFullBathrooms,
-	numberOfPartialBathrooms,
-	numberOfRooms,
-	petsAllowed,
 	_type = "FloorPlan",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				amenityFeature,
-				floorSize,
-				isPlanForApartment,
-				layoutImage,
-				numberOfAccommodationUnits,
-				numberOfAvailableAccommodationUnits,
-				numberOfBathroomsTotal,
-				numberOfBedrooms,
-				numberOfFullBathrooms,
-				numberOfPartialBathrooms,
-				numberOfRooms,
-				petsAllowed,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

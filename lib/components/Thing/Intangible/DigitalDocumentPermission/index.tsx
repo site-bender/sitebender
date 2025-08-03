@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type DigitalDocumentPermissionProps from "../../../../types/Thing/Intangible/DigitalDocumentPermission/index.ts"
+import type { DigitalDocumentPermission as DigitalDocumentPermissionProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = DigitalDocumentPermissionProps & BaseProps
 
 export default function DigitalDocumentPermission({
-	grantee,
-	permissionType,
 	_type = "DigitalDocumentPermission",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				grantee,
-				permissionType,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

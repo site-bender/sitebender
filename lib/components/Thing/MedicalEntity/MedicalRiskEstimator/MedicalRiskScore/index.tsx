@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type MedicalRiskScoreProps from "../../../../../types/Thing/MedicalEntity/MedicalRiskEstimator/MedicalRiskScore/index.ts"
+import type { MedicalRiskScore as MedicalRiskScoreProps } from "../../../../../types/index.ts"
 
 import MedicalRiskEstimator from "../index.tsx"
 
 export type Props = MedicalRiskScoreProps & BaseProps
 
 export default function MedicalRiskScore({
-	algorithm,
 	_type = "MedicalRiskScore",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalRiskEstimator
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				algorithm,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalRiskEstimator>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

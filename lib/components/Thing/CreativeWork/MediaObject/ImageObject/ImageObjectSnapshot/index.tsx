@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type ImageObjectSnapshotProps from "../../../../../../types/Thing/CreativeWork/MediaObject/ImageObject/ImageObjectSnapshot/index.ts"
+import type { ImageObjectSnapshot as ImageObjectSnapshotProps } from "../../../../../../types/index.ts"
 
 import ImageObject from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ImageObjectSnapshotProps & BaseProps
 export default function ImageObjectSnapshot({
 	_type = "ImageObjectSnapshot",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<ImageObject
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</ImageObject>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

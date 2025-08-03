@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type AccountingServiceProps from "../../../../../../types/Thing/Organization/LocalBusiness/FinancialService/AccountingService/index.ts"
+import type { AccountingService as AccountingServiceProps } from "../../../../../../types/index.ts"
 
 import FinancialService from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = AccountingServiceProps & BaseProps
 export default function AccountingService({
 	_type = "AccountingService",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<FinancialService
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</FinancialService>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

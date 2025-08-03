@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ContinentProps from "../../../../../types/Thing/Place/Landform/Continent/index.ts"
+import type { Continent as ContinentProps } from "../../../../../types/index.ts"
 
 import Landform from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ContinentProps & BaseProps
 export default function Continent({
 	_type = "Continent",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Landform
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Landform>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

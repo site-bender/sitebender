@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type EventSeriesProps from "../../../../../types/Thing/Intangible/Series/EventSeries/index.ts"
+import type { EventSeries as EventSeriesProps } from "../../../../../types/index.ts"
 
 import Series from "../index.tsx"
 
@@ -9,16 +9,7 @@ export type Props = EventSeriesProps & BaseProps
 export default function EventSeries({
 	_type = "EventSeries",
 	children,
-	subtypeProperties = {},
 	...props
-}: Props) {
-	return (
-		<Series
-			{...props}
-			_type={_type}
-			subtypeProperties={subtypeProperties}
-		>
-			{children}
-		</Series>
-	)
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

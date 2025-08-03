@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type AudioObjectSnapshotProps from "../../../../../../types/Thing/CreativeWork/MediaObject/AudioObject/AudioObjectSnapshot/index.ts"
+import type { AudioObjectSnapshot as AudioObjectSnapshotProps } from "../../../../../../types/index.ts"
 
 import AudioObject from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = AudioObjectSnapshotProps & BaseProps
 export default function AudioObjectSnapshot({
 	_type = "AudioObjectSnapshot",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<AudioObject
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</AudioObject>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

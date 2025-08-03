@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type InvestmentFundProps from "../../../../../../../types/Thing/Intangible/Service/FinancialProduct/InvestmentOrDeposit/InvestmentFund/index.ts"
+import type { InvestmentFund as InvestmentFundProps } from "../../../../../../../types/index.ts"
 
 import InvestmentOrDeposit from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = InvestmentFundProps & BaseProps
 export default function InvestmentFund({
 	_type = "InvestmentFund",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<InvestmentOrDeposit
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</InvestmentOrDeposit>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

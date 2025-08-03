@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type AutoPartsStoreProps from "../../../../../../types/Thing/Organization/LocalBusiness/Store/AutoPartsStore/index.ts"
+import type { AutoPartsStore as AutoPartsStoreProps } from "../../../../../../types/index.ts"
 
 import Store from "../index.tsx"
 
@@ -9,16 +9,7 @@ export type Props = AutoPartsStoreProps & BaseProps
 export default function AutoPartsStore({
 	_type = "AutoPartsStore",
 	children,
-	subtypeProperties = {},
 	...props
-}: Props) {
-	return (
-		<Store
-			{...props}
-			_type={_type}
-			subtypeProperties={subtypeProperties}
-		>
-			{children}
-		</Store>
-	)
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

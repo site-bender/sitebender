@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type MusicEventProps from "../../../../types/Thing/Event/MusicEvent/index.ts"
+import type { MusicEvent as MusicEventProps } from "../../../../types/index.ts"
 
 import Event from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = MusicEventProps & BaseProps
 export default function MusicEvent({
 	_type = "MusicEvent",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Event
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Event>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

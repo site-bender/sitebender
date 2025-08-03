@@ -1,45 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type ObservationProps from "../../../../types/Thing/Intangible/Observation/index.ts"
+import type { Observation as ObservationProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = ObservationProps & BaseProps
 
 export default function Observation({
-	marginOfError,
-	measuredProperty,
-	measurementDenominator,
-	measurementMethod,
-	measurementQualifier,
-	measurementTechnique,
-	observationAbout,
-	observationDate,
-	observationPeriod,
-	variableMeasured,
 	_type = "Observation",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				marginOfError,
-				measuredProperty,
-				measurementDenominator,
-				measurementMethod,
-				measurementQualifier,
-				measurementTechnique,
-				observationAbout,
-				observationDate,
-				observationPeriod,
-				variableMeasured,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

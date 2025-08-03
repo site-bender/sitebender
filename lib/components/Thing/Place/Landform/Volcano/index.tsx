@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type VolcanoProps from "../../../../../types/Thing/Place/Landform/Volcano/index.ts"
+import type { Volcano as VolcanoProps } from "../../../../../types/index.ts"
 
 import Landform from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = VolcanoProps & BaseProps
 export default function Volcano({
 	_type = "Volcano",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Landform
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Landform>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type MedicalEvidenceLevelProps from "../../../../../../types/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.ts"
+import type { MedicalEvidenceLevel as MedicalEvidenceLevelProps } from "../../../../../../types/index.ts"
 
 import MedicalEnumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = MedicalEvidenceLevelProps & BaseProps
 export default function MedicalEvidenceLevel({
 	_type = "MedicalEvidenceLevel",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<MedicalEnumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</MedicalEnumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

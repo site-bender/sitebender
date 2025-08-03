@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type NLNonprofitTypeProps from "../../../../../../types/Thing/Intangible/Enumeration/NonprofitType/NLNonprofitType/index.ts"
+import type { NLNonprofitType as NLNonprofitTypeProps } from "../../../../../../types/index.ts"
 
 import NonprofitType from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = NLNonprofitTypeProps & BaseProps
 export default function NLNonprofitType({
 	_type = "NLNonprofitType",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<NonprofitType
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</NonprofitType>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

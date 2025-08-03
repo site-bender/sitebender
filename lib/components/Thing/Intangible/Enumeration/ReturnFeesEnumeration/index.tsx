@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ReturnFeesEnumerationProps from "../../../../../types/Thing/Intangible/Enumeration/ReturnFeesEnumeration/index.ts"
+import type { ReturnFeesEnumeration as ReturnFeesEnumerationProps } from "../../../../../types/index.ts"
 
 import Enumeration from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ReturnFeesEnumerationProps & BaseProps
 export default function ReturnFeesEnumeration({
 	_type = "ReturnFeesEnumeration",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Enumeration
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Enumeration>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

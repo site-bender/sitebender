@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type AchieveActionProps from "../../../../types/Thing/Action/AchieveAction/index.ts"
+import type { AchieveAction as AchieveActionProps } from "../../../../types/index.ts"
 
 import Action from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = AchieveActionProps & BaseProps
 export default function AchieveAction({
 	_type = "AchieveAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Action
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Action>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

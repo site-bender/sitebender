@@ -1,27 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type DataFeedProps from "../../../../../types/Thing/CreativeWork/Dataset/DataFeed/index.ts"
+import type { DataFeed as DataFeedProps } from "../../../../../types/index.ts"
 
 import Dataset from "../index.tsx"
 
 export type Props = DataFeedProps & BaseProps
 
 export default function DataFeed({
-	dataFeedElement,
 	_type = "DataFeed",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Dataset
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				dataFeedElement,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Dataset>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

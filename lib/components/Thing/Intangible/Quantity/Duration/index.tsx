@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type DurationProps from "../../../../../types/Thing/Intangible/Quantity/Duration/index.ts"
+import type { Duration as DurationProps } from "../../../../../types/index.ts"
 
 import Quantity from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = DurationProps & BaseProps
 export default function Duration({
 	_type = "Duration",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Quantity
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Quantity>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

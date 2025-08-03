@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type PublicSwimmingPoolProps from "../../../../../../types/Thing/Organization/LocalBusiness/SportsActivityLocation/PublicSwimmingPool/index.ts"
+import type { PublicSwimmingPool as PublicSwimmingPoolProps } from "../../../../../../types/index.ts"
 
 import SportsActivityLocation from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = PublicSwimmingPoolProps & BaseProps
 export default function PublicSwimmingPool({
 	_type = "PublicSwimmingPool",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<SportsActivityLocation
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</SportsActivityLocation>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

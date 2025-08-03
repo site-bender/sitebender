@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type RejectActionProps from "../../../../../../types/Thing/Action/OrganizeAction/AllocateAction/RejectAction/index.ts"
+import type { RejectAction as RejectActionProps } from "../../../../../../types/index.ts"
 
 import AllocateAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = RejectActionProps & BaseProps
 export default function RejectAction({
 	_type = "RejectAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<AllocateAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</AllocateAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

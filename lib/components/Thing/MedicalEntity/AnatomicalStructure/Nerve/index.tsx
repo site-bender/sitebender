@@ -1,33 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type NerveProps from "../../../../../types/Thing/MedicalEntity/AnatomicalStructure/Nerve/index.ts"
+import type { Nerve as NerveProps } from "../../../../../types/index.ts"
 
 import AnatomicalStructure from "../index.tsx"
 
 export type Props = NerveProps & BaseProps
 
 export default function Nerve({
-	branch,
-	nerveMotor,
-	sensoryUnit,
-	sourcedFrom,
 	_type = "Nerve",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<AnatomicalStructure
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				branch,
-				nerveMotor,
-				sensoryUnit,
-				sourcedFrom,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</AnatomicalStructure>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

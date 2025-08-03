@@ -1,41 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type HowToDirectionProps from "../../../../types/Thing/CreativeWork/HowToDirection/index.ts"
+import type { HowToDirection as HowToDirectionProps } from "../../../../types/index.ts"
 
 import CreativeWork from "../index.tsx"
 
 export type Props = HowToDirectionProps & BaseProps
 
 export default function HowToDirection({
-	afterMedia,
-	beforeMedia,
-	duringMedia,
-	performTime,
-	prepTime,
-	supply,
-	tool,
-	totalTime,
 	_type = "HowToDirection",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CreativeWork
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				afterMedia,
-				beforeMedia,
-				duringMedia,
-				performTime,
-				prepTime,
-				supply,
-				tool,
-				totalTime,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CreativeWork>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

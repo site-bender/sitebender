@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type HighSchoolProps from "../../../../../types/Thing/Organization/EducationalOrganization/HighSchool/index.ts"
+import type { HighSchool as HighSchoolProps } from "../../../../../types/index.ts"
 
 import EducationalOrganization from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = HighSchoolProps & BaseProps
 export default function HighSchool({
 	_type = "HighSchool",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<EducationalOrganization
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</EducationalOrganization>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

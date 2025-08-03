@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type FMRadioChannelProps from "../../../../../../types/Thing/Intangible/BroadcastChannel/RadioChannel/FMRadioChannel/index.ts"
+import type { FMRadioChannel as FMRadioChannelProps } from "../../../../../../types/index.ts"
 
 import RadioChannel from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = FMRadioChannelProps & BaseProps
 export default function FMRadioChannel({
 	_type = "FMRadioChannel",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<RadioChannel
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</RadioChannel>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

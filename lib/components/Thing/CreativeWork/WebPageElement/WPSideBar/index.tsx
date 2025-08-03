@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type WPSideBarProps from "../../../../../types/Thing/CreativeWork/WebPageElement/WPSideBar/index.ts"
+import type { WPSideBar as WPSideBarProps } from "../../../../../types/index.ts"
 
 import WebPageElement from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = WPSideBarProps & BaseProps
 export default function WPSideBar({
 	_type = "WPSideBar",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<WebPageElement
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</WebPageElement>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

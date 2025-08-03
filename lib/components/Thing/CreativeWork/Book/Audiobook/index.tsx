@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type AudiobookProps from "../../../../../types/Thing/CreativeWork/Book/Audiobook/index.ts"
+import type { Audiobook as AudiobookProps } from "../../../../../types/index.ts"
 
 import Book from "../index.tsx"
 
 export type Props = AudiobookProps & BaseProps
 
 export default function Audiobook({
-	duration,
-	readBy,
 	_type = "Audiobook",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Book
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				duration,
-				readBy,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Book>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

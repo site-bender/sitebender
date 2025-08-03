@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type SubscribeActionProps from "../../../../../types/Thing/Action/InteractAction/SubscribeAction/index.ts"
+import type { SubscribeAction as SubscribeActionProps } from "../../../../../types/index.ts"
 
 import InteractAction from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = SubscribeActionProps & BaseProps
 export default function SubscribeAction({
 	_type = "SubscribeAction",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<InteractAction
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</InteractAction>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

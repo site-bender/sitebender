@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type EmployeeRoleProps from "../../../../../../types/Thing/Intangible/Role/OrganizationRole/EmployeeRole/index.ts"
+import type { EmployeeRole as EmployeeRoleProps } from "../../../../../../types/index.ts"
 
 import OrganizationRole from "../index.tsx"
 
 export type Props = EmployeeRoleProps & BaseProps
 
 export default function EmployeeRole({
-	baseSalary,
-	salaryCurrency,
 	_type = "EmployeeRole",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<OrganizationRole
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				baseSalary,
-				salaryCurrency,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</OrganizationRole>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

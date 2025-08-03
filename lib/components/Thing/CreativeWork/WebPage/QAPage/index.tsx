@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type QAPageProps from "../../../../../types/Thing/CreativeWork/WebPage/QAPage/index.ts"
+import type { QAPage as QAPageProps } from "../../../../../types/index.ts"
 
 import WebPage from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = QAPageProps & BaseProps
 export default function QAPage({
 	_type = "QAPage",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<WebPage
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</WebPage>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

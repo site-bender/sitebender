@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type SatiricalArticleProps from "../../../../../types/Thing/CreativeWork/Article/SatiricalArticle/index.ts"
+import type { SatiricalArticle as SatiricalArticleProps } from "../../../../../types/index.ts"
 
 import Article from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = SatiricalArticleProps & BaseProps
 export default function SatiricalArticle({
 	_type = "SatiricalArticle",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Article
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Article>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

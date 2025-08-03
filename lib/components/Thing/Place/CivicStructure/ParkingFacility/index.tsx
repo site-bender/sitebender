@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type ParkingFacilityProps from "../../../../../types/Thing/Place/CivicStructure/ParkingFacility/index.ts"
+import type { ParkingFacility as ParkingFacilityProps } from "../../../../../types/index.ts"
 
 import CivicStructure from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = ParkingFacilityProps & BaseProps
 export default function ParkingFacility({
 	_type = "ParkingFacility",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CivicStructure
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CivicStructure>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

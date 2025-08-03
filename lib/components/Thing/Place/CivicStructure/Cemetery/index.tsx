@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type CemeteryProps from "../../../../../types/Thing/Place/CivicStructure/Cemetery/index.ts"
+import type { Cemetery as CemeteryProps } from "../../../../../types/index.ts"
 
 import CivicStructure from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = CemeteryProps & BaseProps
 export default function Cemetery({
 	_type = "Cemetery",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CivicStructure
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CivicStructure>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

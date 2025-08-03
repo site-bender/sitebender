@@ -1,39 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type QuantitativeValueProps from "../../../../../types/Thing/Intangible/StructuredValue/QuantitativeValue/index.ts"
+import type { QuantitativeValue as QuantitativeValueProps } from "../../../../../types/index.ts"
 
 import StructuredValue from "../index.tsx"
 
 export type Props = QuantitativeValueProps & BaseProps
 
 export default function QuantitativeValue({
-	additionalProperty,
-	maxValue,
-	minValue,
-	unitCode,
-	unitText,
-	value,
-	valueReference,
 	_type = "QuantitativeValue",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<StructuredValue
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				additionalProperty,
-				maxValue,
-				minValue,
-				unitCode,
-				unitText,
-				value,
-				valueReference,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</StructuredValue>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

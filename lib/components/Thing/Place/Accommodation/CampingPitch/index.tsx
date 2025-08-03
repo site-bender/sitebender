@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type CampingPitchProps from "../../../../../types/Thing/Place/Accommodation/CampingPitch/index.ts"
+import type { CampingPitch as CampingPitchProps } from "../../../../../types/index.ts"
 
 import Accommodation from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = CampingPitchProps & BaseProps
 export default function CampingPitch({
 	_type = "CampingPitch",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Accommodation
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Accommodation>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

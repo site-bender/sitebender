@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type LinkRoleProps from "../../../../../types/Thing/Intangible/Role/LinkRole/index.ts"
+import type { LinkRole as LinkRoleProps } from "../../../../../types/index.ts"
 
 import Role from "../index.tsx"
 
 export type Props = LinkRoleProps & BaseProps
 
 export default function LinkRole({
-	inLanguage,
-	linkRelationship,
 	_type = "LinkRole",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Role
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				inLanguage,
-				linkRelationship,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Role>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

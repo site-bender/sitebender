@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type TouristDestinationProps from "../../../../types/Thing/Place/TouristDestination/index.ts"
+import type { TouristDestination as TouristDestinationProps } from "../../../../types/index.ts"
 
 import Place from "../index.tsx"
 
 export type Props = TouristDestinationProps & BaseProps
 
 export default function TouristDestination({
-	includesAttraction,
-	touristType,
 	_type = "TouristDestination",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Place
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				includesAttraction,
-				touristType,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Place>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

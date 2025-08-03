@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../../../types/index.ts"
-import type PalliativeProcedureProps from "../../../../../../../types/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/PalliativeProcedure/index.ts"
+import type { PalliativeProcedure as PalliativeProcedureProps } from "../../../../../../../types/index.ts"
 
 import MedicalTherapy from "../index.tsx"
 
@@ -9,16 +9,7 @@ export type Props = PalliativeProcedureProps & BaseProps
 export default function PalliativeProcedure({
 	_type = "PalliativeProcedure",
 	children,
-	subtypeProperties = {},
 	...props
-}: Props) {
-	return (
-		<MedicalTherapy
-			{...props}
-			_type={_type}
-			subtypeProperties={subtypeProperties}
-		>
-			{children}
-		</MedicalTherapy>
-	)
+}: Props): JSX.Element {
+	return <Base _type={_type} {...props}>{children}</Base>
 }

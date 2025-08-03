@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
-import type LandmarksOrHistoricalBuildingsProps from "../../../../types/Thing/Place/LandmarksOrHistoricalBuildings/index.ts"
+import type { LandmarksOrHistoricalBuildings as LandmarksOrHistoricalBuildingsProps } from "../../../../types/index.ts"
 
 import Place from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = LandmarksOrHistoricalBuildingsProps & BaseProps
 export default function LandmarksOrHistoricalBuildings({
 	_type = "LandmarksOrHistoricalBuildings",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Place
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Place>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

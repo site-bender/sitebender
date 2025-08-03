@@ -1,31 +1,14 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type BusinessAudienceProps from "../../../../../types/Thing/Intangible/Audience/BusinessAudience/index.ts"
+import type { BusinessAudience as BusinessAudienceProps } from "../../../../../types/index.ts"
 
 import Audience from "../index.tsx"
 
 export type Props = BusinessAudienceProps & BaseProps
 
 export default function BusinessAudience({
-	numberOfEmployees,
-	yearlyRevenue,
-	yearsInOperation,
 	_type = "BusinessAudience",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Audience
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				numberOfEmployees,
-				yearlyRevenue,
-				yearsInOperation,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Audience>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

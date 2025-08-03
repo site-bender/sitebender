@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../types/index.ts"
-import type MemberProgramProps from "../../../../types/Thing/Intangible/MemberProgram/index.ts"
+import type { MemberProgram as MemberProgramProps } from "../../../../types/index.ts"
 
 import Intangible from "../index.tsx"
 
 export type Props = MemberProgramProps & BaseProps
 
 export default function MemberProgram({
-	hasTiers,
-	hostingOrganization,
 	_type = "MemberProgram",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<Intangible
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				hasTiers,
-				hostingOrganization,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</Intangible>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

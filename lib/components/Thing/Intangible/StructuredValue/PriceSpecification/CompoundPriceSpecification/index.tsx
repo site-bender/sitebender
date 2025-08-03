@@ -1,29 +1,14 @@
 import type BaseProps from "../../../../../../types/index.ts"
-import type CompoundPriceSpecificationProps from "../../../../../../types/Thing/Intangible/StructuredValue/PriceSpecification/CompoundPriceSpecification/index.ts"
+import type { CompoundPriceSpecification as CompoundPriceSpecificationProps } from "../../../../../../types/index.ts"
 
 import PriceSpecification from "../index.tsx"
 
 export type Props = CompoundPriceSpecificationProps & BaseProps
 
 export default function CompoundPriceSpecification({
-	priceComponent,
-	priceType,
 	_type = "CompoundPriceSpecification",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<PriceSpecification
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				priceComponent,
-				priceType,
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</PriceSpecification>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }

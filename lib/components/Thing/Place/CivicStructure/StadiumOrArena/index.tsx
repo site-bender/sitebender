@@ -1,5 +1,5 @@
 import type BaseProps from "../../../../../types/index.ts"
-import type StadiumOrArenaProps from "../../../../../types/Thing/Place/CivicStructure/StadiumOrArena/index.ts"
+import type { StadiumOrArena as StadiumOrArenaProps } from "../../../../../types/index.ts"
 
 import CivicStructure from "../index.tsx"
 
@@ -8,18 +8,7 @@ export type Props = StadiumOrArenaProps & BaseProps
 export default function StadiumOrArena({
 	_type = "StadiumOrArena",
 	children,
-	subtypeProperties = {},
 	...props
 }: Props): JSX.Element {
-	return (
-		<CivicStructure
-			{...props}
-			_type={_type}
-			subtypeProperties={{
-				...subtypeProperties,
-			}}
-		>
-			{children}
-		</CivicStructure>
-	)
+	return <Base _type={_type} {...props}>{children}</Base>
 }
