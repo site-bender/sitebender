@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { JoinAction as JoinActionProps } from "../../../../../types/index.ts"
 
-import InteractAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = JoinActionProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { WorkBasedProgram as WorkBasedProgramProps } from "../../../../../types/index.ts"
 
-import EducationalOccupationalProgram from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = WorkBasedProgramProps & BaseProps
 

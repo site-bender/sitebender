@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ReviewAction as ReviewActionProps } from "../../../../../types/index.ts"
 
-import AssessAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ReviewActionProps & BaseProps
 

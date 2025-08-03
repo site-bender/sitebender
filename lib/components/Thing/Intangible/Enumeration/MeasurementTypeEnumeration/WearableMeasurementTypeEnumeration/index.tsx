@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { WearableMeasurementTypeEnumeration as WearableMeasurementTypeEnumerationProps } from "../../../../../../types/index.ts"
 
-import MeasurementTypeEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = WearableMeasurementTypeEnumerationProps & BaseProps
 

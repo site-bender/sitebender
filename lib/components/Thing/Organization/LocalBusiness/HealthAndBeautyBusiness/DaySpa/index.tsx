@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { DaySpa as DaySpaProps } from "../../../../../../types/index.ts"
 
-import HealthAndBeautyBusiness from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = DaySpaProps & BaseProps
 

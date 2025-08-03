@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { Drug as DrugProps } from "../../../../types/index.ts"
 
-import Product from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = DrugProps & BaseProps
 

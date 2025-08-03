@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { RentalCarReservation as RentalCarReservationProps } from "../../../../../types/index.ts"
 
-import Reservation from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = RentalCarReservationProps & BaseProps
 

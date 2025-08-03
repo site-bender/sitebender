@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Preschool as PreschoolProps } from "../../../../../types/index.ts"
 
-import EducationalOrganization from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = PreschoolProps & BaseProps
 

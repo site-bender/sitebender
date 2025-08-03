@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Recipe as RecipeProps } from "../../../../../types/index.ts"
 
-import HowTo from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = RecipeProps & BaseProps
 

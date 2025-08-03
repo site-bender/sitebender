@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Duration as DurationProps } from "../../../../../types/index.ts"
 
-import Quantity from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DurationProps & BaseProps
 

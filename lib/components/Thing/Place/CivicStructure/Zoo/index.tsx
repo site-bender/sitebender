@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Zoo as ZooProps } from "../../../../../types/index.ts"
 
-import CivicStructure from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ZooProps & BaseProps
 

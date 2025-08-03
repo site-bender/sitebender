@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { CurrencyConversionService as CurrencyConversionServiceProps } from "../../../../../../types/index.ts"
 
-import FinancialProduct from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = CurrencyConversionServiceProps & BaseProps
 

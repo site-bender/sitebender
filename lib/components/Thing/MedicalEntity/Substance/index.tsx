@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { Substance as SubstanceProps } from "../../../../types/index.ts"
 
-import MedicalEntity from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = SubstanceProps & BaseProps
 

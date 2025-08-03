@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { WPHeader as WPHeaderProps } from "../../../../../types/index.ts"
 
-import WebPageElement from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = WPHeaderProps & BaseProps
 

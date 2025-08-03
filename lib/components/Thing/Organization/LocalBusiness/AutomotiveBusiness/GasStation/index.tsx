@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { GasStation as GasStationProps } from "../../../../../../types/index.ts"
 
-import AutomotiveBusiness from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = GasStationProps & BaseProps
 

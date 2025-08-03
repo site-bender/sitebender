@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { MedicalRiskEstimator as MedicalRiskEstimatorProps } from "../../../../types/index.ts"
 
-import MedicalEntity from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = MedicalRiskEstimatorProps & BaseProps
 

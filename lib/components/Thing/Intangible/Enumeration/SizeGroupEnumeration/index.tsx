@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { SizeGroupEnumeration as SizeGroupEnumerationProps } from "../../../../../types/index.ts"
 
-import Enumeration from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = SizeGroupEnumerationProps & BaseProps
 

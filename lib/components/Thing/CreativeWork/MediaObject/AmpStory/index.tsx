@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { AmpStory as AmpStoryProps } from "../../../../../types/index.ts"
 
-import MediaObject from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 // AmpStory adds no properties to the MediaObject schema type
 export type Props = AmpStoryProps & BaseProps

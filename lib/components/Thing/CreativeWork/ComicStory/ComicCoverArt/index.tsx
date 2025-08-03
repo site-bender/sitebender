@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ComicCoverArt as ComicCoverArtProps } from "../../../../../types/index.ts"
 
-import ComicStory from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ComicCoverArtProps & BaseProps
 

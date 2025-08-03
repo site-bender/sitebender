@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { DeliveryEvent as DeliveryEventProps } from "../../../../types/index.ts"
 
-import Event from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = DeliveryEventProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MediaGallery as MediaGalleryProps } from "../../../../../../types/index.ts"
 
-import CollectionPage from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MediaGalleryProps & BaseProps
 

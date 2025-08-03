@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { DDxElement as DDxElementProps } from "../../../../../types/index.ts"
 
-import MedicalIntangible from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DDxElementProps & BaseProps
 

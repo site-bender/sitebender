@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { Newspaper as NewspaperProps } from "../../../../../../../types/index.ts"
 
-import Periodical from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 // Newspaper adds no properties to the ListItem schema type
 export type Props = NewspaperProps & BaseProps

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { AcceptAction as AcceptActionProps } from "../../../../../../types/index.ts"
 
-import AllocateAction from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = AcceptActionProps & BaseProps
 

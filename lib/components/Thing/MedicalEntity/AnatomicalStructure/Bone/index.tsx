@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Bone as BoneProps } from "../../../../../types/index.ts"
 
-import AnatomicalStructure from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = BoneProps & BaseProps
 

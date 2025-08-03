@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { PaymentStatusType as PaymentStatusTypeProps } from "../../../../../../types/index.ts"
 
-import StatusEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = PaymentStatusTypeProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { SteeringPositionValue as SteeringPositionValueProps } from "../../../../../../types/index.ts"
 
-import QualitativeValue from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = SteeringPositionValueProps & BaseProps
 

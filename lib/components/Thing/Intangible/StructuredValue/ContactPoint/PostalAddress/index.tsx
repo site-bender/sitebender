@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { PostalAddress as PostalAddressProps } from "../../../../../../types/index.ts"
 
-import ContactPoint from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = PostalAddressProps & BaseProps
 

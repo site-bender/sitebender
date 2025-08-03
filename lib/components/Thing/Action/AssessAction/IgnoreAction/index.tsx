@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { IgnoreAction as IgnoreActionProps } from "../../../../../types/index.ts"
 
-import AssessAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = IgnoreActionProps & BaseProps
 

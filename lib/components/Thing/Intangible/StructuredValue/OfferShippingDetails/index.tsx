@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { OfferShippingDetails as OfferShippingDetailsProps } from "../../../../../types/index.ts"
 
-import StructuredValue from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = OfferShippingDetailsProps & BaseProps
 

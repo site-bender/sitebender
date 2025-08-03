@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { BreadcrumbList as BreadcrumbListProps } from "../../../../../types/index.ts"
 
-import ItemList from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = BreadcrumbListProps & BaseProps
 

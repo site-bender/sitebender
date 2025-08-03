@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MedicalCode as MedicalCodeProps } from "../../../../../../types/index.ts"
 
-import CategoryCode from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // MedicalCode adds no properties to the ListItem schema type
 export type Props = MedicalCodeProps & BaseProps

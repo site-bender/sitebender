@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { TheaterGroup as TheaterGroupProps } from "../../../../../types/index.ts"
 
-import PerformingGroup from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = TheaterGroupProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ResumeAction as ResumeActionProps } from "../../../../../types/index.ts"
 
-import ControlAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ResumeActionProps & BaseProps
 

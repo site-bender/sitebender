@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { SizeSpecification as SizeSpecificationProps } from "../../../../../../types/index.ts"
 
-import QualitativeValue from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = SizeSpecificationProps & BaseProps
 

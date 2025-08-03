@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Campground as CampgroundProps } from "../../../../../../types/index.ts"
 
-import LodgingBusiness from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // Campground adds no properties to the ListItem schema type
 export type Props = CampgroundProps & BaseProps

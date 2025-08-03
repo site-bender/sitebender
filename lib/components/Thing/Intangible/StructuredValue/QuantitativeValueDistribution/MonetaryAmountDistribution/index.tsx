@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MonetaryAmountDistribution as MonetaryAmountDistributionProps } from "../../../../../../types/index.ts"
 
-import QuantitativeValueDistribution from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MonetaryAmountDistributionProps & BaseProps
 

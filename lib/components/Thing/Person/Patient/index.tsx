@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { Patient as PatientProps } from "../../../../types/index.ts"
 
-import Person from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = PatientProps & BaseProps
 

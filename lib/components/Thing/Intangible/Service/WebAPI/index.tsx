@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { WebAPI as WebAPIProps } from "../../../../../types/index.ts"
 
-import Service from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = WebAPIProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { EventStatusType as EventStatusTypeProps } from "../../../../../../types/index.ts"
 
-import StatusEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = EventStatusTypeProps & BaseProps
 

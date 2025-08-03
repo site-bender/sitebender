@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Optician as OpticianProps } from "../../../../../../types/index.ts"
 
-import MedicalBusiness from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = OpticianProps & BaseProps
 

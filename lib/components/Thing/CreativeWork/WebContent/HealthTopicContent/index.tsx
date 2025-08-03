@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { HealthTopicContent as HealthTopicContentProps } from "../../../../../types/index.ts"
 
-import WebContent from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = HealthTopicContentProps & BaseProps
 

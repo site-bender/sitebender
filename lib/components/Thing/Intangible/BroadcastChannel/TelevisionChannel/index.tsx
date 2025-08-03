@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { TelevisionChannel as TelevisionChannelProps } from "../../../../../types/index.ts"
 
-import BroadcastChannel from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = TelevisionChannelProps & BaseProps
 

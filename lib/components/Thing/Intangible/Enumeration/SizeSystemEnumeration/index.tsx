@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { SizeSystemEnumeration as SizeSystemEnumerationProps } from "../../../../../types/index.ts"
 
-import Enumeration from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = SizeSystemEnumerationProps & BaseProps
 

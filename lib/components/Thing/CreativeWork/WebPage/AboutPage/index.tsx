@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { AboutPage as AboutPageProps } from "../../../../../types/index.ts"
 
-import WebPage from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = AboutPageProps & BaseProps
 

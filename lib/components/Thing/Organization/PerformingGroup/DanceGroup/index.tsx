@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { DanceGroup as DanceGroupProps } from "../../../../../types/index.ts"
 
-import PerformingGroup from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DanceGroupProps & BaseProps
 

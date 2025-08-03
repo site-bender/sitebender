@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { OccupationalTherapy as OccupationalTherapyProps } from "../../../../../../../types/index.ts"
 
-import MedicalTherapy from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = OccupationalTherapyProps & BaseProps
 

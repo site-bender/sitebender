@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Barcode as BarcodeProps } from "../../../../../../types/index.ts"
 
-import ImageObject from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = BarcodeProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { LegislationObject as LegislationObjectProps } from "../../../../../types/index.ts"
 
-import Legislation from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = LegislationObjectProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { MusicRelease as MusicReleaseProps } from "../../../../../types/index.ts"
 
-import MusicPlaylist from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = MusicReleaseProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Joint as JointProps } from "../../../../../types/index.ts"
 
-import AnatomicalStructure from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = JointProps & BaseProps
 

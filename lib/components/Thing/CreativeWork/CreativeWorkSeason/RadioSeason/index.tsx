@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { RadioSeason as RadioSeasonProps } from "../../../../../types/index.ts"
 
-import CreativeWorkSeason from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = RadioSeasonProps & BaseProps
 

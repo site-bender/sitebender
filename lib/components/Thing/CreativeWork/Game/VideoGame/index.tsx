@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { VideoGame as VideoGameProps } from "../../../../../types/index.ts"
 
-import Game from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = VideoGameProps & BaseProps
 

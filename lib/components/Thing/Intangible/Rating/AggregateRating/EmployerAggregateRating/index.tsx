@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { EmployerAggregateRating as EmployerAggregateRatingProps } from "../../../../../../types/index.ts"
 
-import AggregateRating from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = EmployerAggregateRatingProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ProductCollection as ProductCollectionProps } from "../../../../../types/index.ts"
 
-import Collection from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ProductCollectionProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Pond as PondProps } from "../../../../../../types/index.ts"
 
-import BodyOfWater from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = PondProps & BaseProps
 

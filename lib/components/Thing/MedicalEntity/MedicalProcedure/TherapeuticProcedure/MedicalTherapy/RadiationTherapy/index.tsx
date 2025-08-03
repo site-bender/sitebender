@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { RadiationTherapy as RadiationTherapyProps } from "../../../../../../../types/index.ts"
 
-import MedicalTherapy from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = RadiationTherapyProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../types/index.ts"
 import type { Place as PlaceProps } from "../../../types/index.ts"
 
-import Thing from "../index.tsx"
+import Base from "../../Base/index.tsx"
 
 export type Props = PlaceProps & BaseProps
 

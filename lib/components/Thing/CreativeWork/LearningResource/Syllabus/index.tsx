@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Syllabus as SyllabusProps } from "../../../../../types/index.ts"
 
-import LearningResource from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = SyllabusProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { DislikeAction as DislikeActionProps } from "../../../../../../types/index.ts"
 
-import ReactAction from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = DislikeActionProps & BaseProps
 

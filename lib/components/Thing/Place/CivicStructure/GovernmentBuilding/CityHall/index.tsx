@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { CityHall as CityHallProps } from "../../../../../../types/index.ts"
 
-import GovernmentBuilding from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = CityHallProps & BaseProps
 

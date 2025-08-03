@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { BloodTest as BloodTestProps } from "../../../../../types/index.ts"
 
-import MedicalTest from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = BloodTestProps & BaseProps
 

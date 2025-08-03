@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Notary as NotaryProps } from "../../../../../../types/index.ts"
 
-import LegalService from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = NotaryProps & BaseProps
 

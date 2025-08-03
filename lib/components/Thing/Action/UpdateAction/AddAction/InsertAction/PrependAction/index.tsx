@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { PrependAction as PrependActionProps } from "../../../../../../../types/index.ts"
 
-import InsertAction from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = PrependActionProps & BaseProps
 

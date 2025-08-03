@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { DataFeed as DataFeedProps } from "../../../../../types/index.ts"
 
-import Dataset from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DataFeedProps & BaseProps
 

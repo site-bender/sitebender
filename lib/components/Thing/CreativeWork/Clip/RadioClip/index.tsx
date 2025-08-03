@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { RadioClip as RadioClipProps } from "../../../../../types/index.ts"
 
-import Clip from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = RadioClipProps & BaseProps
 

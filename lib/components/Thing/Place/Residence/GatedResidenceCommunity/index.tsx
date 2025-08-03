@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { GatedResidenceCommunity as GatedResidenceCommunityProps } from "../../../../../types/index.ts"
 
-import Residence from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = GatedResidenceCommunityProps & BaseProps
 

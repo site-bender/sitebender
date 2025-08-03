@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { LiveBlogPosting as LiveBlogPostingProps } from "../../../../../../../types/index.ts"
 
-import BlogPosting from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = LiveBlogPostingProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { GovernmentPermit as GovernmentPermitProps } from "../../../../../types/index.ts"
 
-import Permit from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = GovernmentPermitProps & BaseProps
 

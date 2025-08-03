@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { TouristTrip as TouristTripProps } from "../../../../../types/index.ts"
 
-import Trip from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = TouristTripProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MedicalScholarlyArticle as MedicalScholarlyArticleProps } from "../../../../../../types/index.ts"
 
-import ScholarlyArticle from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MedicalScholarlyArticleProps & BaseProps
 

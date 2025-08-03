@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { TaxiStand as TaxiStandProps } from "../../../../../types/index.ts"
 
-import CivicStructure from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = TaxiStandProps & BaseProps
 

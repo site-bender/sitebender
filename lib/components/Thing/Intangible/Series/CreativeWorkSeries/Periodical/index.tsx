@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Periodical as PeriodicalProps } from "../../../../../../types/index.ts"
 
-import CreativeWorkSeries from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // Periodical adds no properties to the ListItem schema type
 export type Props = PeriodicalProps & BaseProps

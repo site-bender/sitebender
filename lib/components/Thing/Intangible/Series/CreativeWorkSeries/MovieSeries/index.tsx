@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MovieSeries as MovieSeriesProps } from "../../../../../../types/index.ts"
 
-import CreativeWorkSeries from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // MovieSeries adds no properties to the ListItem schema type
 export type Props = MovieSeriesProps & BaseProps

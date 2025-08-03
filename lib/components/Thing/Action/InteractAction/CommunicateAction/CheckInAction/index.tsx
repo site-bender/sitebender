@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { CheckInAction as CheckInActionProps } from "../../../../../../types/index.ts"
 
-import CommunicateAction from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = CheckInActionProps & BaseProps
 

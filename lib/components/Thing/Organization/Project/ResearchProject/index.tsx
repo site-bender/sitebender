@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ResearchProject as ResearchProjectProps } from "../../../../../types/index.ts"
 
-import Project from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ResearchProjectProps & BaseProps
 

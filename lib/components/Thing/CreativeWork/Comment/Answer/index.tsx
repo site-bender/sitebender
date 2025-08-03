@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Answer as AnswerProps } from "../../../../../types/index.ts"
 
-import Comment from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = AnswerProps & BaseProps
 

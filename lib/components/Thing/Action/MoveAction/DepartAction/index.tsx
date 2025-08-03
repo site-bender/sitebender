@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { DepartAction as DepartActionProps } from "../../../../../types/index.ts"
 
-import MoveAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DepartActionProps & BaseProps
 

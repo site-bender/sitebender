@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { PoliceStation as PoliceStationProps } from "../../../../../../types/index.ts"
 
-import EmergencyService from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // PoliceStation adds no properties to the ListItem schema type
 export type Props = PoliceStationProps & BaseProps

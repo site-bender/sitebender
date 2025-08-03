@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { ConfirmAction as ConfirmActionProps } from "../../../../../../../types/index.ts"
 
-import InformAction from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = ConfirmActionProps & BaseProps
 

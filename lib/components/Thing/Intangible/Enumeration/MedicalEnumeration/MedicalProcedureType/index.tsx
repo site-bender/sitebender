@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MedicalProcedureType as MedicalProcedureTypeProps } from "../../../../../../types/index.ts"
 
-import MedicalEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MedicalProcedureTypeProps & BaseProps
 

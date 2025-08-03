@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { EmailMessage as EmailMessageProps } from "../../../../../types/index.ts"
 
-import Message from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = EmailMessageProps & BaseProps
 

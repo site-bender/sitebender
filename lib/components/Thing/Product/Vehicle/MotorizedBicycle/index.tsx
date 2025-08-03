@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { MotorizedBicycle as MotorizedBicycleProps } from "../../../../../types/index.ts"
 
-import Vehicle from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = MotorizedBicycleProps & BaseProps
 

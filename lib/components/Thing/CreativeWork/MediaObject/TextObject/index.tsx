@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { TextObject as TextObjectProps } from "../../../../../types/index.ts"
 
-import MediaObject from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = TextObjectProps & BaseProps
 

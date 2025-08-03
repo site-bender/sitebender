@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { HealthClub as HealthClubProps } from "../../../../../../types/index.ts"
 
-import SportsActivityLocation from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // HealthClub adds no properties to the ListItem schema type
 export type Props = HealthClubProps & BaseProps

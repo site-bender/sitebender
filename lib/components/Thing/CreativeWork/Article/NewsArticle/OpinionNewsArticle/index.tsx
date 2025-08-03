@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { OpinionNewsArticle as OpinionNewsArticleProps } from "../../../../../../types/index.ts"
 
-import NewsArticle from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = OpinionNewsArticleProps & BaseProps
 

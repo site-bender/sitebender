@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { ExercisePlan as ExercisePlanProps } from "../../../../../../types/index.ts"
 
-import PhysicalActivity from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // ExercisePlan adds no properties to the ListItem schema type
 export type Props = ExercisePlanProps & BaseProps

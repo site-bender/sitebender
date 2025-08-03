@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { MobileApplication as MobileApplicationProps } from "../../../../../types/index.ts"
 
-import SoftwareApplication from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = MobileApplicationProps & BaseProps
 

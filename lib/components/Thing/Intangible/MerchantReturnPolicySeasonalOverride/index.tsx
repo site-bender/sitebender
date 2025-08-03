@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { MerchantReturnPolicySeasonalOverride as MerchantReturnPolicySeasonalOverrideProps } from "../../../../types/index.ts"
 
-import Intangible from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = MerchantReturnPolicySeasonalOverrideProps & BaseProps
 

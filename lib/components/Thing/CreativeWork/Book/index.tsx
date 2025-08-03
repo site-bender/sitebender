@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { Book as BookProps } from "../../../../types/index.ts"
 
-import CreativeWork from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = BookProps & BaseProps & { name?: string | null }
 

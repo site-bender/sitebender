@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { UserPlays as UserPlaysProps } from "../../../../../types/index.ts"
 
-import UserInteraction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = UserPlaysProps & BaseProps
 

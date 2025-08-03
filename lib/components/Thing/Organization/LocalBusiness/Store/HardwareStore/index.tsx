@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { HardwareStore as HardwareStoreProps } from "../../../../../../types/index.ts"
 
-import Store from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = HardwareStoreProps & BaseProps
 

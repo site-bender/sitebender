@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { CriticReview as CriticReviewProps } from "../../../../../types/index.ts"
 
-import Review from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = CriticReviewProps & BaseProps
 

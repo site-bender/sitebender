@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { CoverArt as CoverArtProps } from "../../../../../types/index.ts"
 
-import VisualArtwork from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = CoverArtProps & BaseProps
 

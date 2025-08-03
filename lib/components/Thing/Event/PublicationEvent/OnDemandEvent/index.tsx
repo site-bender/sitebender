@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { OnDemandEvent as OnDemandEventProps } from "../../../../../types/index.ts"
 
-import PublicationEvent from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = OnDemandEventProps & BaseProps
 

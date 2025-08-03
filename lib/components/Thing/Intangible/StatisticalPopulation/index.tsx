@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { StatisticalPopulation as StatisticalPopulationProps } from "../../../../types/index.ts"
 
-import Intangible from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = StatisticalPopulationProps & BaseProps
 

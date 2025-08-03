@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { MortgageLoan as MortgageLoanProps } from "../../../../../../../types/index.ts"
 
-import LoanOrCredit from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = MortgageLoanProps & BaseProps
 

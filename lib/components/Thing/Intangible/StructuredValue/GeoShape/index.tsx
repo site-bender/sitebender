@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { GeoShape as GeoShapeProps } from "../../../../../types/index.ts"
 
-import StructuredValue from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = GeoShapeProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { IPTCDigitalSourceEnumeration as IPTCDigitalSourceEnumerationProps } from "../../../../../../types/index.ts"
 
-import MediaEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = IPTCDigitalSourceEnumerationProps & BaseProps
 

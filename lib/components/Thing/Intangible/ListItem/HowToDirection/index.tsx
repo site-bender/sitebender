@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { HowToDirection as HowToDirectionProps } from "../../../../../types/index.ts"
 
-import ListItem from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 // HowToDirection adds no properties to the ListItem schema type
 export type Props = HowToDirectionProps & BaseProps

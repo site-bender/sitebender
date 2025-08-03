@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { RoofingContractor as RoofingContractorProps } from "../../../../../../types/index.ts"
 
-import HomeAndConstructionBusiness from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = RoofingContractorProps & BaseProps
 

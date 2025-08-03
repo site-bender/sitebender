@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { CorrectionComment as CorrectionCommentProps } from "../../../../../types/index.ts"
 
-import Comment from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = CorrectionCommentProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { WearableSizeSystemEnumeration as WearableSizeSystemEnumerationProps } from "../../../../../../types/index.ts"
 
-import SizeSystemEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = WearableSizeSystemEnumerationProps & BaseProps
 

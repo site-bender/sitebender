@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Distance as DistanceProps } from "../../../../../types/index.ts"
 
-import Quantity from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DistanceProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { ParcelDelivery as ParcelDeliveryProps } from "../../../../types/index.ts"
 
-import Intangible from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = ParcelDeliveryProps & BaseProps
 

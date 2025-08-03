@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { ImageObjectSnapshot as ImageObjectSnapshotProps } from "../../../../../../types/index.ts"
 
-import ImageObject from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = ImageObjectSnapshotProps & BaseProps
 

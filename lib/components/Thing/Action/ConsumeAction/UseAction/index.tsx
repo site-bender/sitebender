@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { UseAction as UseActionProps } from "../../../../../types/index.ts"
 
-import ConsumeAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = UseActionProps & BaseProps
 

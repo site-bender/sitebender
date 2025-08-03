@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { EnergyEfficiencyEnumeration as EnergyEfficiencyEnumerationProps } from "../../../../../types/index.ts"
 
-import Enumeration from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = EnergyEfficiencyEnumerationProps & BaseProps
 

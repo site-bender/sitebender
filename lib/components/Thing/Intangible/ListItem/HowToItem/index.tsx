@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { HowToItem as HowToItemProps } from "../../../../../types/index.ts"
 
-import ListItem from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = HowToItemProps & BaseProps
 

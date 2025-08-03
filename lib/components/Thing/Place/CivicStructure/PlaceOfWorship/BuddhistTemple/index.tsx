@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { BuddhistTemple as BuddhistTempleProps } from "../../../../../../types/index.ts"
 
-import PlaceOfWorship from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = BuddhistTempleProps & BaseProps
 

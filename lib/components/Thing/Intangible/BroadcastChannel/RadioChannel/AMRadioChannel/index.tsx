@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { AMRadioChannel as AMRadioChannelProps } from "../../../../../../types/index.ts"
 
-import RadioChannel from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = AMRadioChannelProps & BaseProps
 

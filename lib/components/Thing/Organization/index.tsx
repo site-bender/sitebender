@@ -1,7 +1,7 @@
 import type BaseProps from "../../../types/index.ts"
 import type { Organization as OrganizationProps } from "../../../types/index.ts"
 
-import Thing from "../index.tsx"
+import Base from "../../Base/index.tsx"
 
 export type Props = OrganizationProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { NLNonprofitType as NLNonprofitTypeProps } from "../../../../../../types/index.ts"
 
-import NonprofitType from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = NLNonprofitTypeProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ImagingTest as ImagingTestProps } from "../../../../../types/index.ts"
 
-import MedicalTest from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ImagingTestProps & BaseProps
 

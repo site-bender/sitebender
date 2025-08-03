@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { EventSeries as EventSeriesProps } from "../../../../types/index.ts"
 
-import Event from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = EventSeriesProps & BaseProps
 

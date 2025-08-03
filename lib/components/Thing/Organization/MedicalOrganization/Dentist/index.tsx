@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Dentist as DentistProps } from "../../../../../types/index.ts"
 
-import MedicalOrganization from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 // Dentist adds no properties to the MedicalOrganization schema type
 export type Props = DentistProps & BaseProps

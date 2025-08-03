@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { RecommendedDoseSchedule as RecommendedDoseScheduleProps } from "../../../../../../types/index.ts"
 
-import DoseSchedule from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = RecommendedDoseScheduleProps & BaseProps
 

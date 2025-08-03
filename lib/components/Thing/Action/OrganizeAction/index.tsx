@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { OrganizeAction as OrganizeActionProps } from "../../../../types/index.ts"
 
-import Action from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = OrganizeActionProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { LodgingBusiness as LodgingBusinessProps } from "../../../../../types/index.ts"
 
-import LocalBusiness from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = LodgingBusinessProps & BaseProps
 

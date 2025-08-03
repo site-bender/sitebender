@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { PodcastEpisode as PodcastEpisodeProps } from "../../../../../types/index.ts"
 
-import Episode from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = PodcastEpisodeProps & BaseProps
 

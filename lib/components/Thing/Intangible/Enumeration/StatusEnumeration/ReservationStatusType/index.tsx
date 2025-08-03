@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { ReservationStatusType as ReservationStatusTypeProps } from "../../../../../../types/index.ts"
 
-import StatusEnumeration from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = ReservationStatusTypeProps & BaseProps
 

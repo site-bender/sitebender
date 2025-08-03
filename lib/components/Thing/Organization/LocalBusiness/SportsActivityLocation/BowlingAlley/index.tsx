@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { BowlingAlley as BowlingAlleyProps } from "../../../../../../types/index.ts"
 
-import SportsActivityLocation from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = BowlingAlleyProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { CompleteDataFeed as CompleteDataFeedProps } from "../../../../../../types/index.ts"
 
-import DataFeed from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = CompleteDataFeedProps & BaseProps
 

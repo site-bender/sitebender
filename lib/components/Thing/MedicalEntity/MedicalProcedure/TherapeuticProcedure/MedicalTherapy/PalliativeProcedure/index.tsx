@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { PalliativeProcedure as PalliativeProcedureProps } from "../../../../../../../types/index.ts"
 
-import MedicalTherapy from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 // PalliativeProcedure adds no properties to the ListItem schema type
 export type Props = PalliativeProcedureProps & BaseProps

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { PaymentCard as PaymentCardProps } from "../../../../../types/index.ts"
 
-import PaymentMethod from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = PaymentCardProps & BaseProps
 

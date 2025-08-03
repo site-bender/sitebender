@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { EndorsementRating as EndorsementRatingProps } from "../../../../../types/index.ts"
 
-import Rating from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = EndorsementRatingProps & BaseProps
 

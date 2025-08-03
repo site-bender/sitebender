@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Audiobook as AudiobookProps } from "../../../../../types/index.ts"
 
-import Book from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = AudiobookProps & BaseProps
 

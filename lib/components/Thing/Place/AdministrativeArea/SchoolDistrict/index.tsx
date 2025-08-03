@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { SchoolDistrict as SchoolDistrictProps } from "../../../../../types/index.ts"
 
-import AdministrativeArea from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = SchoolDistrictProps & BaseProps
 

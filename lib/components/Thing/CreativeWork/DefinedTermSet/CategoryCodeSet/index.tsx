@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { CategoryCodeSet as CategoryCodeSetProps } from "../../../../../types/index.ts"
 
-import DefinedTermSet from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = CategoryCodeSetProps & BaseProps
 

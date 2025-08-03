@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { LifestyleModification as LifestyleModificationProps } from "../../../../types/index.ts"
 
-import MedicalEntity from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = LifestyleModificationProps & BaseProps
 

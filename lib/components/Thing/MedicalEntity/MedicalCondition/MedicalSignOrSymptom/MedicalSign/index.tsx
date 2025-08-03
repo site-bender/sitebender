@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MedicalSign as MedicalSignProps } from "../../../../../../types/index.ts"
 
-import MedicalSignOrSymptom from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MedicalSignProps & BaseProps
 

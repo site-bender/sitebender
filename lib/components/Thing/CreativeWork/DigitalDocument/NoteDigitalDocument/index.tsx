@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { NoteDigitalDocument as NoteDigitalDocumentProps } from "../../../../../types/index.ts"
 
-import DigitalDocument from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = NoteDigitalDocumentProps & BaseProps
 

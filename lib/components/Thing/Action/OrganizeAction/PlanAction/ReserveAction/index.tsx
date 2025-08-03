@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { ReserveAction as ReserveActionProps } from "../../../../../../types/index.ts"
 
-import PlanAction from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = ReserveActionProps & BaseProps
 

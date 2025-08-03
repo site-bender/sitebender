@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Audiobook as AudiobookProps } from "../../../../../../types/index.ts"
 
-import AudioObject from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 // Audiobook adds no properties to the ListItem schema type
 export type Props = AudiobookProps & BaseProps

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Canal as CanalProps } from "../../../../../../types/index.ts"
 
-import BodyOfWater from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = CanalProps & BaseProps
 

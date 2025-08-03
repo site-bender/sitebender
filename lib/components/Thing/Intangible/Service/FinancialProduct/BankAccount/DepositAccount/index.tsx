@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../../types/index.ts"
 import type { DepositAccount as DepositAccountProps } from "../../../../../../../types/index.ts"
 
-import BankAccount from "../index.tsx"
+import Base from "../../../../../../Base/index.tsx"
 
 export type Props = DepositAccountProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { HowToStep as HowToStepProps } from "../../../../../types/index.ts"
 
-import ListItem from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 // HowToStep adds no properties to the ListItem schema type
 export type Props = HowToStepProps & BaseProps

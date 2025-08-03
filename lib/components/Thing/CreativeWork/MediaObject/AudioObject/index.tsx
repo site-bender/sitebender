@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { AudioObject as AudioObjectProps } from "../../../../../types/index.ts"
 
-import MediaObject from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = AudioObjectProps & BaseProps
 

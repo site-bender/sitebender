@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { SellAction as SellActionProps } from "../../../../../types/index.ts"
 
-import TradeAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = SellActionProps & BaseProps
 

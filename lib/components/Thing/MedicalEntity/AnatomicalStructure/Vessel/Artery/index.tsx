@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { Artery as ArteryProps } from "../../../../../../types/index.ts"
 
-import Vessel from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = ArteryProps & BaseProps
 

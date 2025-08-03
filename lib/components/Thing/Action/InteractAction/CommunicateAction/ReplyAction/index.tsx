@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { ReplyAction as ReplyActionProps } from "../../../../../../types/index.ts"
 
-import CommunicateAction from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = ReplyActionProps & BaseProps
 

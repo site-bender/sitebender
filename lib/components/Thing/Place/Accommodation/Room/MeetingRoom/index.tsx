@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { MeetingRoom as MeetingRoomProps } from "../../../../../../types/index.ts"
 
-import Room from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = MeetingRoomProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 import type { FundingScheme as FundingSchemeProps } from "../../../../types/index.ts"
 
-import Organization from "../index.tsx"
+import Base from "../../../Base/index.tsx"
 
 export type Props = FundingSchemeProps & BaseProps
 

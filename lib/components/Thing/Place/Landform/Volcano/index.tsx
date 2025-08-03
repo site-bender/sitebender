@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { Volcano as VolcanoProps } from "../../../../../types/index.ts"
 
-import Landform from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = VolcanoProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { MovieSeries as MovieSeriesProps } from "../../../../../types/index.ts"
 
-import CreativeWorkSeries from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = MovieSeriesProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { UserDownloads as UserDownloadsProps } from "../../../../../types/index.ts"
 
-import UserInteraction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = UserDownloadsProps & BaseProps
 

@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { ReceiveAction as ReceiveActionProps } from "../../../../../types/index.ts"
 
-import TransferAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = ReceiveActionProps & BaseProps
 

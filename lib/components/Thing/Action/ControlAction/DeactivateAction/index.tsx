@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { DeactivateAction as DeactivateActionProps } from "../../../../../types/index.ts"
 
-import ControlAction from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = DeactivateActionProps & BaseProps
 

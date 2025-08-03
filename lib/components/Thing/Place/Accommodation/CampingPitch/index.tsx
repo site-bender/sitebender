@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../types/index.ts"
 import type { CampingPitch as CampingPitchProps } from "../../../../../types/index.ts"
 
-import Accommodation from "../index.tsx"
+import Base from "../../../../Base/index.tsx"
 
 export type Props = CampingPitchProps & BaseProps
 

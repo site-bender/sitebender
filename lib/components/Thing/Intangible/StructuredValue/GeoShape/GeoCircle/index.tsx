@@ -1,7 +1,7 @@
 import type BaseProps from "../../../../../../types/index.ts"
 import type { GeoCircle as GeoCircleProps } from "../../../../../../types/index.ts"
 
-import GeoShape from "../index.tsx"
+import Base from "../../../../../Base/index.tsx"
 
 export type Props = GeoCircleProps & BaseProps
 
