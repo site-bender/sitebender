@@ -1,5 +1,5 @@
-import Book from "~lib/components/Thing/CreativeWork/Book/index.tsx"
-import Person from "~lib/components/Thing/Person/index.tsx"
+import { Book } from "~lib/components/index.tsx"
+import { Person } from "~lib/components/index.tsx"
 
 export type Props = {
 	route?: string

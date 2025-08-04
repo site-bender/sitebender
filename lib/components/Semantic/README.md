@@ -7,6 +7,8 @@ Components for marking up text with semantic meaning, enabling proper formatting
 Components for enhanced accessibility and screen reader support:
 
 - **ErrorMessage** - Form error messages with ARIA attributes and role="alert"
+- **Help** - Links to help documentation with rel="help" attribute
+- **HelpTooltip** - Contextual help displayed in tooltip format
 - **LiveRegion** - Dynamic content regions that announce changes to screen readers
 - **SkipToContent** - Skip navigation links for keyboard users, visible on focus
 - **VisuallyHidden** - Content hidden visually but accessible to screen readers
@@ -28,13 +30,22 @@ Components for document structure and academic writing:
 
 - **Abstract** - Summary section for academic papers and reports, with optional keywords
 - **Appendix** - Supplementary sections at the end of documents
+- **Article** - Semantic article wrapper for self-contained content
 - **Bibliography** - List of works cited or references, containing Citation components
 - **Caption** - Captions for figures, tables, code listings, or other content
 - **Citation** - Bibliographic citations with configurable style (MLA, APA, Chicago, etc.)
 - **Footnoted** - Footnote references and content with bidirectional linking
+- **Glossary** - Container for glossary of terms
+- **GlossaryEntry** - Individual glossary term with definition
+- **GlossaryTerm** - Terms defined in a glossary
+- **Heading** - Semantic headings (h1-h6) with configurable level
 - **Indexed** - Index entries with terms, page references, and sub-entries
 - **LegalCitation** - Citations for legal documents, cases, and statutes
 - **LegalReference** - References to legal concepts, laws, or regulations
+- **PageNavigation** - In-page navigation using anchor links
+- **Section** - Document section container with optional heading
+- **Sidebar** - Complementary content using aside element
+- **SiteNavigation** - Site-wide navigation with internal URLs
 - **TableOfContents** - Navigational structure for document sections
 - **TableOfFigures** - List of figures, tables, or other captioned elements
 
@@ -70,8 +81,22 @@ Components for marking emotional tone and delivery:
 
 General-purpose semantic components:
 
-- **List** - Semantic lists (ordered or unordered) with proper markup and ARIA labels
-- **Table** - Accessible data tables with captions, headers, and proper scope attributes
+### List Components
+- **NumberedList** - Ordered list (ol) with start, type, and reversed attributes
+- **BulletedList** - Unordered list (ul) with semantic markup
+- **ListItem** - List item (li) with optional value attribute
+- **Dictionary** - Definition list (dl) for term-definition pairs
+- **DictionaryTerm** - Definition term (dt) element
+- **DictionaryDefinition** - Definition description (dd) element
+
+### Table Components
+- **Table** - Accessible table wrapper with proper structure
+- **TableCaption** - Table caption for describing contents
+- **TableHeader** - Table header section (thead)
+- **TableBody** - Table body section (tbody)
+- **TableFooter** - Table footer section (tfoot)
+- **TableRow** - Table row (tr) container
+- **TableCell** - Table cell (td/th) with scope attributes
 
 ## Narrative
 
@@ -115,18 +140,21 @@ Components for time-related information:
 - **DateTime** - Combined date and time values with ISO 8601 support
 - **Duration** - Time spans or durations (e.g., "2 hours", "3 days")
 - **Time** - Specific times of day with various display formats
+- **Timestamp** - Precise moment in time (Temporal Instant)
 - **TimeZone** - Timezone information with abbreviations and offsets
 
 ## Textual
 
 Components for linguistic and textual elements:
 
+### Abbreviations
 - **Abbreviation** - Abbreviated forms with optional expansion
 - **Acronym** - Acronyms with optional expansion of full form
+- **Initialism** - Initialisms (pronounced letter by letter)
+
+### Other Textual Components
 - **CrossReference** - References to other parts of the document
 - **ForeignTerm** - Terms in foreign languages with translation
-- **GlossaryTerm** - Terms defined in a glossary
-- **Initialism** - Initialisms (pronounced letter by letter)
 - **Jargon** - Specialized vocabulary for specific fields
 - **Letter** - Individual letters when discussed as letters
 - **Loanword** - Words borrowed from other languages

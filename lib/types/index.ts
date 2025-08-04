@@ -8,7 +8,6 @@ type BaseProps = {
 	disableMicrodata?: boolean
 	element?: HtmlElement
 	isProp?: boolean
-	subtypeProperties?: Record<string, unknown>
 }
 
 export type Formatter = (
