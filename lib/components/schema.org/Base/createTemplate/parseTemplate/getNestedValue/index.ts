@@ -1,4 +1,4 @@
-import type { TemplateData } from "../../../../../types/index.ts"
+import type { TemplateData } from "../../../../../../types/index.ts"
 
 export default function getNestedValue(
 	obj: TemplateData,

@@ -1,4 +1,4 @@
-import type { Formatters, TemplateData } from "../../../../types/index.ts"
+import type { Formatters, TemplateData } from "../../../../../types/index.ts"
 
 import DEFAULT_FORMATTERS from "../defaultFormatters/index.tsx"
 import getNestedValue from "./getNestedValue/index.ts"

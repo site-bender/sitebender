@@ -1,10 +1,12 @@
-import BaseProps from "../../types/index.ts"
+import BaseProps from "../../../types/index.ts"
+import createJsonLd from "./createJsonLd/index.ts"
 import createTemplate from "./createTemplate/index.tsx"
 import generateMicrodata from "./generateMicrodata/index.tsx"
 import processProps from "./processProps/index.ts"
 
 export default function Base({
 	_template,
+	_type,
 	children,
 	disableJsonLd,
 	disableMicrodata,
@@ -30,9 +32,15 @@ export default function Base({
 				: Array.isArray(processedProps)
 				? generateMicrodata(processedProps[0] || {})
 				: generateMicrodata(processedProps)}
-			{disableJsonLd ? null : (
+			{disableJsonLd || !_type ? null : (
 				<script type="application/ld+json">
-					{JSON.stringify(processedProps, null, 2)}
+					{JSON.stringify(
+						Array.isArray(processedProps)
+							? createJsonLd(_type, processedProps[0] || {})
+							: createJsonLd(_type, processedProps),
+						null,
+						2
+					)}
 				</script>
 			)}
 		</Element>

@@ -1,4 +1,4 @@
-import type { Formatters } from "../../../../types/index.ts"
+import type { Formatters } from "../../../../../types/index.ts"
 
 const DEFAULT_FORMATTERS: Formatters = {
 	bold: (text, props = {}) => <strong {...props}>{text}</strong>,
