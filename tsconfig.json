@@ -16,6 +16,7 @@
 		"noImplicitThis": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
+		"resolveJsonModule": true,
 		"strict": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,

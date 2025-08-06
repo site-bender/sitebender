@@ -1,6 +1,4 @@
-import postalCodes from "../../../static/json/postalCodes/index.json" with {
-	type: "json",
-}
+import postalCodes from "../../../static/json/postalCodes/index.json"
 
 export type CountryCode = keyof typeof postalCodes
 

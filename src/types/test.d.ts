@@ -5,15 +5,15 @@ declare global {
 	function afterEach(fn: () => void | Promise<void>): void
 
 	interface Expected {
-		toBe(expected: any): void
-		toEqual(expected: any): void
-		toContain(expected: any): void
+		toBe(expected: unknown): void
+		toEqual(expected: unknown): void
+		toContain(expected: unknown): void
 		toHaveLength(expected: number): void
-		anything(constructor?: any): any
-		any(constructor: any): any
+		anything(constructor?: unknown): unknown
+		any(constructor: unknown): unknown
 	}
 
-	function expect(value: any): Expected
+	function expect(value: unknown): Expected
 }
 
 export {}

@@ -1,4 +1,6 @@
-import BaseProps from "../../../types/index.ts"
+import toKebabCase from "~utilities/toKebabCase/index.ts"
+
+import BaseProps from "../../../types/schema.org/index.ts"
 import createJsonLd from "./createJsonLd/index.ts"
 import createTemplate from "./createTemplate/index.tsx"
 import generateMicrodata from "./generateMicrodata/index.tsx"
@@ -15,6 +17,7 @@ export default function Base({
 	...props
 }: BaseProps): JSX.Element | Record<string, unknown> | null {
 	const processedProps = processProps(props)
+	const cls = `ld-${toKebabCase(_type || "Base")}`
 
 	if (isProp) {
 		if (Array.isArray(processedProps)) {
@@ -24,7 +27,7 @@ export default function Base({
 	}
 
 	return (
-		<Element>
+		<Element class={cls} data-type={_type}>
 			{createTemplate(_template)(processedProps)}
 			{children}
 			{disableMicrodata
@@ -39,7 +42,7 @@ export default function Base({
 							? createJsonLd(_type, processedProps[0] || {})
 							: createJsonLd(_type, processedProps),
 						null,
-						2
+						2,
 					)}
 				</script>
 			)}

@@ -1,8 +1,8 @@
 export type Logger = {
-	error: (...args: any[]) => void
-	info: (...args: any[]) => void
-	log: (...args: any[]) => void
-	warn: (...args: any[]) => void
+	error: (...args: unknown[]) => void
+	info: (...args: unknown[]) => void
+	log: (...args: unknown[]) => void
+	warn: (...args: unknown[]) => void
 }
 
 export type ServerOptions = {

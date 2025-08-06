@@ -13,4 +13,3 @@
  *   smartphone
  * </Anachronism>
  */
-

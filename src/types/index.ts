@@ -1,4 +1,4 @@
-/// <reference path="./jsx.d.ts" />
+
 /// <reference path="./test.d.ts" />
 
 /**

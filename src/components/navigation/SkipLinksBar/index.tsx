@@ -12,9 +12,9 @@ export default function SkipLinksBar({ classes = [], links, ...props }: Props) {
 		<nav class={clss}>
 			<span>Skip to:</span>
 			<ul {...props}>
-				{links.map(({ href, label, title }: any) => (
+				{links.map(({ href, label, title }: Record<string, unknown>) => (
 					<li>
-						<a href={href} title={title}>
+						<a href={href} title={title as string | undefined}>
 							{label}
 						</a>
 					</li>
