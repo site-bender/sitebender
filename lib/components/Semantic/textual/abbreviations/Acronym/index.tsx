@@ -1,23 +1,100 @@
 /**
  * Acronym component
  *
- * Renders an abbreviation in an abbr element for acronyms, which
- * are initialisms that can be pronounced as a word. Can include a
- * data-expansion/title attribute to provide the full form of the
- * abbreviation. Also a lang attribute and a data-pronunciation
- * attribute permitting the pronunciation of the abbreviation to
- * be specified in IPA. Can include an href to link to a definition
- * or explanation in a glossary of terms.
+ * Marks up acronyms - initialisms that are pronounced as words
+ * rather than letter by letter. Provides expansion, pronunciation,
+ * and contextual information for accessibility.
  *
  * Example usage:
  *
- * <Acronym
- *   expansion="Mothers Against Drunk Driving"
- *   lang="en"
- *   pronunciation="mæd"
- * >
- *   MADD
+ * <Acronym expansion="National Aeronautics and Space Administration">
+ *   NASA
  * </Acronym>
- * has saved countless lives by raising awareness about the dangers
- * of drunk driving.
+ *
+ * <Acronym
+ *   expansion="Light Amplification by Stimulated Emission of Radiation"
+ *   ipa="/ˈleɪzər/"
+ *   commonWord
+ * >
+ *   laser
+ * </Acronym>
+ *
+ * <Acronym
+ *   expansion="Self-Contained Underwater Breathing Apparatus"
+ *   field="diving"
+ *   pronunciation="SKOO-bah"
+ * >
+ *   SCUBA
+ * </Acronym>
  */
+import type { BCP47LanguageTag } from "../../../../../types/bcp47/index.ts"
+
+export type Props = {
+	children?: JSX.Element | Array<JSX.Element> | string
+	// Whether it's become a common word (like radar, laser)
+	commonWord?: boolean
+	// Description for accessibility
+	description?: string
+	// Full expansion
+	expansion: string
+	// Field or domain
+	field?: string
+	// Link to definition
+	href?: string
+	// IPA pronunciation
+	ipa?: string
+	// Language
+	lang?: BCP47LanguageTag
+	// Phonetic pronunciation
+	pronunciation?: string
+	// Style preference
+	style?: "uppercase" | "lowercase" | "mixed"
+}
+
+export default function Acronym({
+	children,
+	commonWord = false,
+	description,
+	expansion,
+	field,
+	href,
+	ipa,
+	lang,
+	pronunciation,
+	style = "uppercase",
+	...props
+}: Props): JSX.Element {
+	const ariaLabel = [
+		commonWord ? "acronym now common word" : "acronym",
+		expansion,
+		pronunciation && `pronounced ${pronunciation}`
+	].filter(Boolean).join(", ")
+
+	const content = (
+		<abbr
+			aria-label={ariaLabel}
+			class={`acronym acronym-${style}${commonWord ? " acronym-common-word" : ""}`}
+			data-common-word={commonWord}
+			data-expansion={expansion}
+			data-field={field}
+			data-ipa={ipa}
+			data-pronunciation={pronunciation}
+			data-style={style}
+			lang={lang}
+			title={expansion}
+			{...props}
+		>
+			{children}
+		</abbr>
+	)
+
+	if (href) {
+		return (
+			<a href={href} class="acronym-link">
+				{content}
+			</a>
+		)
+	}
+
+	return content
+}
