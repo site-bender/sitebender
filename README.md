@@ -1,2 +1,2 @@
-# @sitebender Metadata Component Library
+# @sitebender Component Library
 

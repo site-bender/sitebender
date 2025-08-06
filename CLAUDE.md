@@ -2,6 +2,46 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Progressive Enhancement Philosophy
+
+**CRITICAL**: This library follows a strict progressive enhancement approach:
+
+1. **No JavaScript Required**: ALL components MUST work without JavaScript
+   - Forms submit normally via standard HTTP POST/GET
+   - Interactive features are enhancements, not requirements
+   - Server-side rendering is the default, client-side is enhancement
+
+2. **Browser-First APIs**: 
+   - Use native browser validation for forms
+   - Leverage all WHATWG/W3C standards
+   - CSS3/4 for theming and styling
+   - Web Components may enhance but not replace base functionality
+
+3. **Future JavaScript Enhancements** (not yet implemented):
+   - TypeScript scripts compiled to vanilla JS
+   - DOM manipulation for enhanced interactivity
+   - Form submissions captured and converted to AJAX when JS available
+   - State management via:
+     - IndexedDB for complex offline data
+     - LocalStorage/SessionStorage for simple state
+     - Cookies for server-readable state
+     - URL parameters for shareable state
+   - Offline-first with eventual synchronization
+   - Live updates (like RelativeTime) as progressive enhancements
+
+4. **Accessibility Standards**:
+   - Target WCAG 2.3 AAA compliance (or newest standard)
+   - Semantic HTML is non-negotiable
+   - ARIA only to enhance, never to fix bad markup
+   - Keyboard navigation for all interactive elements
+   - Screen reader tested
+
+5. **Component Resilience**:
+   - Must work with CSS disabled (semantic HTML)
+   - Must work with JS disabled (forms, navigation)
+   - Must work offline (with appropriate fallbacks)
+   - Must be themeable via CSS custom properties
+
 ## Project Overview
 
 This is a Deno-based semantic HTML component library (@sitebender/metadata-components) in `lib` that transforms plain text into accessible, SEO-optimized content with Schema.org structured data support. The library provides both Microdata and JSON-LD output formats.
