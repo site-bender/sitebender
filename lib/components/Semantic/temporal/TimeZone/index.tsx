@@ -134,9 +134,13 @@ export default function TimeZone({
 	referenceDate,
 	locale,
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	// Get reference date
 	const refDate = referenceDate 
 		? (typeof referenceDate === "string" ? new Date(referenceDate) : referenceDate)

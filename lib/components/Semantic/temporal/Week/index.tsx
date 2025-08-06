@@ -69,9 +69,13 @@ export default function Week({
 	showRange = false,
 	showYear = true,
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	let year: number
 	let weekNumber: number
 	let referenceDate: Date
@@ -126,8 +130,8 @@ export default function Week({
 	let display: string
 	
 	// Get localized "Week" label
-	const weekLabel = format === "short" ? "W" :
-		new Intl.DisplayNames(locale || "en", { type: "dateTimeField" }).of("week") || "Week"
+	// Note: Intl.DisplayNames doesn't support "week", so we use a simple approach
+	const weekLabel = format === "short" ? "W" : "Week"
 	
 	if (format === "short") {
 		display = `${weekLabel}${weekNumber}`

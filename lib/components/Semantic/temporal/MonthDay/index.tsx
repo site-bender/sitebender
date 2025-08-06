@@ -45,9 +45,13 @@ export default function MonthDay({
 	format = "long",
 	formatOptions,
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	// Parse the value
 	let month: number
 	let day: number

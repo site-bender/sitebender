@@ -1,4 +1,4 @@
-import Date from "~lib/components/semantic/temporal/Date/index.tsx"
+import DateComponent from "~lib/components/semantic/temporal/Date/index.tsx"
 import Time from "~lib/components/semantic/temporal/Time/index.tsx"
 import DateTime from "~lib/components/semantic/temporal/DateTime/index.tsx"
 import Duration from "~lib/components/semantic/temporal/Duration/index.tsx"
@@ -42,22 +42,22 @@ export default function ({ route }: Props = {}) {
 				<dl>
 					<dt>Simple date</dt>
 					<dd>
-						<Date value="2024-01-15" />
+						<DateComponent value="2024-01-15" />
 					</dd>
 					
 					<dt>Date with locale (French)</dt>
 					<dd>
-						<Date value="2024-01-15" locale="fr-FR" />
+						<DateComponent value="2024-01-15" locale="fr-FR" />
 					</dd>
 					
 					<dt>Date with Hebrew calendar</dt>
 					<dd>
-						<Date value="2024-01-15" calendar="hebrew" locale="he-IL" />
+						<DateComponent value="2024-01-15" calendar="hebrew" locale="he-IL" />
 					</dd>
 					
 					<dt>Relative date</dt>
 					<dd>
-						<Date value={yesterday} format="relative" relativeTo={now} />
+						<DateComponent value={yesterday} format="relative" relativeTo={now} />
 					</dd>
 				</dl>
 			</section>

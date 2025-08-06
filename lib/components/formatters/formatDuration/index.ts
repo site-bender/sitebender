@@ -91,10 +91,18 @@ export default function formatDuration(
 	}
 	
 	// Join with locale-appropriate list formatting
-	const formatter = new Intl.ListFormat(locale || "en-US", {
-		style: format === "narrow" ? "narrow" : "long",
-		type: "conjunction"
-	})
+	if (parts.length === 0) {
+		return "0"
+	}
 	
-	return formatter.format(parts) || "0"
+	try {
+		const formatter = new Intl.ListFormat(locale || "en-US", {
+			style: format === "narrow" ? "narrow" : "long",
+			type: "conjunction"
+		})
+		return formatter.format(parts)
+	} catch (error) {
+		// Fallback to simple join
+		return parts.join(", ")
+	}
 }

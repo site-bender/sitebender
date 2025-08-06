@@ -68,9 +68,13 @@ export default function Timestamp({
 	showMilliseconds,
 	showMicroseconds,
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

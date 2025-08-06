@@ -39,7 +39,7 @@ export type Props = TemporalBaseProps & {
 	// Additional Date-specific props could go here
 }
 
-export default function Date({
+export default function DateComponent({
 	value,
 	timezone,
 	locale,
@@ -49,9 +49,13 @@ export default function Date({
 	relativeTo,
 	showZone,
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	// Parse the value
 	const parsed = typeof value === "string" 
 		? parseTemporalString(value)
@@ -91,6 +95,10 @@ export default function Date({
 		}
 		
 		display = formatDate(date, locale, options)
+		// Fallback if formatting fails
+		if (!display) {
+			display = `${parsed.year}-${String(parsed.month).padStart(2, "0")}-${String(parsed.day).padStart(2, "0")}`
+		}
 	}
 	
 	// Handle render prop

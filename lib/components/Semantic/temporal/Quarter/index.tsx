@@ -99,9 +99,13 @@ export default function Quarter({
 	showYear = true,
 	fiscalYearLabel = "FY",
 	className,
-	children,
+	children: childrenProp,
 	...props
 }: Props): JSX.Element {
+	// Handle children from JSX - could be array, string, or function
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
+		? undefined 
+		: childrenProp
 	let year: number
 	let quarter: number
 	let isFiscal = fiscalYearStart !== 1
@@ -154,7 +158,8 @@ export default function Quarter({
 		// Long format with ordinal
 		const ordinals = ["1st", "2nd", "3rd", "4th"]
 		const ordinal = new Intl.PluralRules(locale || "en-US", { type: "ordinal" }).select(quarter)
-		const quarterWord = new Intl.DisplayNames(locale || "en", { type: "dateTimeField" }).of("quarter") || "Quarter"
+		// Note: Using hardcoded "Quarter" as Intl.DisplayNames support for "quarter" is inconsistent
+		const quarterWord = "Quarter"
 		display = `${ordinals[quarter - 1]} ${quarterWord}`
 	} else {
 		// Medium format

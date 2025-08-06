@@ -10,11 +10,16 @@ export default function formatDate(
 ): string {
 	const date = typeof value === "string" ? new Date(value) : value
 	
-	const formatter = new Intl.DateTimeFormat(locale || "en-US", {
-		...options,
-		timeZone: options?.timeZone,
-		calendar: options?.calendar
-	})
+	// Check if date is valid
+	if (isNaN(date.getTime())) {
+		return value.toString()
+	}
 	
-	return formatter.format(date)
+	try {
+		const formatter = new Intl.DateTimeFormat(locale || "en-US", options || {})
+		return formatter.format(date)
+	} catch (error) {
+		// Fallback to ISO string if Intl fails
+		return date.toISOString().split('T')[0]
+	}
 }

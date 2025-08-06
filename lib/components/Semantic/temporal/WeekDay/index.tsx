@@ -134,7 +134,8 @@ export default function WeekDay({
 	
 	if (showWeek) {
 		const week = getWeekNumber(date, weekSystem)
-		const weekLabel = new Intl.DisplayNames(locale || "en", { type: "dateTimeField" }).of("week") || "Week"
+		// Note: Intl.DisplayNames doesn't support "week", so we use a simple approach
+		const weekLabel = "Week"
 		parts.push(`${weekLabel} ${week}`)
 	}
 	
@@ -145,7 +146,7 @@ export default function WeekDay({
 	
 	if (showDayOfYear) {
 		const dayOfYear = getDayOfYear(date)
-		const dayLabel = new Intl.DisplayNames(locale || "en", { type: "dateTimeField" }).of("day") || "Day"
+		const dayLabel = "Day"
 		parts.push(`${dayLabel} ${dayOfYear}`)
 	}
 	
