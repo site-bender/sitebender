@@ -38,12 +38,12 @@
  * <RelativeTime value={recentDate} live />
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString } from "../utils/parsers.ts"
-import { formatRelativeTime } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import formatRelativeTime from "../formatRelativeTime/index.ts"
 import { useEffect, useState } from "preact/hooks"
 
-export interface RelativeTimeProps extends Omit<TemporalBaseProps, "format" | "formatOptions" | "showZone" | "timezone" | "calendar"> {
+export type Props = Omit<TemporalBaseProps, "format" | "formatOptions" | "showZone" | "timezone" | "calendar"> & {
 	// Numeric display style
 	numeric?: "always" | "auto"
 	
@@ -127,7 +127,7 @@ export default function RelativeTime({
 	className,
 	children,
 	...props
-}: RelativeTimeProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const targetDate = typeof value === "string"
 		? (() => {

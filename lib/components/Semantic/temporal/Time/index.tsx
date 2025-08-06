@@ -26,11 +26,13 @@
  * <Time value="14:30:45.123456" showSeconds showMicroseconds />
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatTime, getTimezoneAbbreviation } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatTime from "../formatTime/index.ts"
+import getTimezoneAbbreviation from "../getTimezoneAbbreviation/index.ts"
 
-export type TimeProps = TemporalBaseProps & {
+export type Props = TemporalBaseProps & {
 	// Show seconds in display
 	showSeconds?: boolean
 	// Show microseconds in display (requires showSeconds)
@@ -52,7 +54,7 @@ export default function Time({
 	className,
 	children,
 	...props
-}: TimeProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

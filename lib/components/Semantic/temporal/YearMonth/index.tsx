@@ -30,11 +30,12 @@
  * // → Expires: 12/25
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatDate } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatDate from "../formatDate/index.ts"
 
-export interface YearMonthProps extends Omit<TemporalBaseProps, "showZone" | "timezone"> {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone"> & {
 	// Display format
 	format?: "numeric" | "short" | "medium" | "long" | "full"
 }
@@ -48,7 +49,7 @@ export default function YearMonth({
 	className,
 	children,
 	...props
-}: YearMonthProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

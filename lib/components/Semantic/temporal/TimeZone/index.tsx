@@ -40,9 +40,10 @@
  * // → CEST (summer time)
  */
 
-import { getTimezoneAbbreviation } from "../utils/formatters.ts"
+import type { TimeZoneInfo } from "../../../../types/temporal/index.ts"
+import getTimezoneAbbreviation from "../getTimezoneAbbreviation/index.ts"
 
-export interface TimeZoneProps {
+export type Props = {
 	// IANA timezone name
 	value: string
 	
@@ -71,25 +72,6 @@ export interface TimeZoneProps {
 	children?: string | ((info: TimeZoneInfo) => JSX.Element)
 }
 
-export interface TimeZoneInfo {
-	// Timezone abbreviation (e.g., "EST")
-	abbreviation: string
-	
-	// Full timezone name (e.g., "Eastern Standard Time")
-	fullName?: string
-	
-	// UTC offset string (e.g., "-05:00")
-	offset?: string
-	
-	// Offset in minutes from UTC
-	offsetMinutes?: number
-	
-	// Current time in timezone (if requested)
-	currentTime?: string
-	
-	// Is currently in DST
-	isDST?: boolean
-}
 
 // Get timezone offset in minutes
 function getTimezoneOffset(timezone: string, date: Date): number {
@@ -154,7 +136,7 @@ export default function TimeZone({
 	className,
 	children,
 	...props
-}: TimeZoneProps): JSX.Element {
+}: Props): JSX.Element {
 	// Get reference date
 	const refDate = referenceDate 
 		? (typeof referenceDate === "string" ? new Date(referenceDate) : referenceDate)

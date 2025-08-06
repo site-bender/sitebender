@@ -36,11 +36,14 @@
  * // → January 15, 2024, 7:30 PM UTC
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatDate, formatRelativeTime, getTimezoneAbbreviation } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatDate from "../formatDate/index.ts"
+import formatRelativeTime from "../formatRelativeTime/index.ts"
+import getTimezoneAbbreviation from "../getTimezoneAbbreviation/index.ts"
 
-export type DateTimeProps = TemporalBaseProps & {
+export type Props = TemporalBaseProps & {
 	// Show seconds in time display
 	showSeconds?: boolean
 	// Show milliseconds/microseconds (requires showSeconds)
@@ -63,7 +66,7 @@ export default function DateTime({
 	className,
 	children,
 	...props
-}: DateTimeProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

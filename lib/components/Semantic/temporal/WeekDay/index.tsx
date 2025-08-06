@@ -38,12 +38,14 @@
  * // → Monday (JD 2460325)
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString } from "../utils/parsers.ts"
-import { formatWeekday } from "../utils/formatters.ts"
-import { getWeekNumber, getQuarter, getJulianDayNumber, WeekNumberingSystem } from "../utils/calendars.ts"
+import type { TemporalBaseProps, WeekNumberingSystem } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import formatWeekday from "../formatWeekday/index.ts"
+import getWeekNumber from "../getWeekNumber/index.ts"
+import getQuarter from "../getQuarter/index.ts"
+import getJulianDayNumber from "../getJulianDayNumber/index.ts"
 
-export interface WeekDayProps extends Omit<TemporalBaseProps, "showZone" | "timezone"> {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone"> & {
 	// Weekday format
 	format?: "narrow" | "short" | "long"
 	
@@ -101,7 +103,7 @@ export default function WeekDay({
 	className,
 	children,
 	...props
-}: WeekDayProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

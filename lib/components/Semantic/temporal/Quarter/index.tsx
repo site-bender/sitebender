@@ -31,12 +31,12 @@
  * // → T1 2024 (janv. - mars)
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString } from "../utils/parsers.ts"
-import { formatDate } from "../utils/formatters.ts"
-import { getQuarter } from "../utils/calendars.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import formatDate from "../formatDate/index.ts"
+import getQuarter from "../getQuarter/index.ts"
 
-export interface QuarterProps extends Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> & {
 	// Display format
 	format?: "short" | "medium" | "long"
 	
@@ -101,7 +101,7 @@ export default function Quarter({
 	className,
 	children,
 	...props
-}: QuarterProps): JSX.Element {
+}: Props): JSX.Element {
 	let year: number
 	let quarter: number
 	let isFiscal = fiscalYearStart !== 1

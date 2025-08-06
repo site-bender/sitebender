@@ -29,11 +29,12 @@
  * </MonthDay>
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatDate } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatDate from "../formatDate/index.ts"
 
-export interface MonthDayProps extends Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> & {
 	// Display format
 	format?: "numeric" | "short" | "medium" | "long" | "full"
 }
@@ -46,7 +47,7 @@ export default function MonthDay({
 	className,
 	children,
 	...props
-}: MonthDayProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	let month: number
 	let day: number

@@ -29,23 +29,10 @@
  * </Duration>
  */
 
-import type { FormatOptions } from "../utils/formatters.ts"
-import { formatDuration } from "../utils/formatters.ts"
+import type { FormatOptions, DurationValue } from "../../../../types/temporal/index.ts"
+import formatDuration from "../formatDuration/index.ts"
 
-export interface DurationValue {
-	years?: number
-	months?: number
-	weeks?: number
-	days?: number
-	hours?: number
-	minutes?: number
-	seconds?: number
-	milliseconds?: number
-	microseconds?: number
-	nanoseconds?: number
-}
-
-export interface DurationProps {
+export type Props = {
 	// Duration value - ISO 8601 string, object, or milliseconds
 	value: string | DurationValue | number
 	
@@ -176,7 +163,7 @@ export default function Duration({
 	className,
 	children,
 	...props
-}: DurationProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the duration value
 	let duration: DurationValue
 	

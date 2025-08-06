@@ -40,11 +40,14 @@
  * // → 3 days ago
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatDate, formatRelativeTime, getTimezoneAbbreviation } from "../utils/formatters.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatDate from "../formatDate/index.ts"
+import formatRelativeTime from "../formatRelativeTime/index.ts"
+import getTimezoneAbbreviation from "../getTimezoneAbbreviation/index.ts"
 
-export type TimestampProps = TemporalBaseProps & {
+export type Props = TemporalBaseProps & {
 	// Show milliseconds in display
 	showMilliseconds?: boolean
 	// Show microseconds in display
@@ -67,7 +70,7 @@ export default function Timestamp({
 	className,
 	children,
 	...props
-}: TimestampProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string"
 		? parseTemporalString(value)

@@ -28,12 +28,14 @@
  * </Date>
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString, buildDateTimeAttribute } from "../utils/parsers.ts"
-import { formatDate, formatRelativeTime } from "../utils/formatters.ts"
-import { getCalendarExtension } from "../utils/calendars.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
+import formatDate from "../formatDate/index.ts"
+import formatRelativeTime from "../formatRelativeTime/index.ts"
+import getCalendarExtension from "../getCalendarExtension/index.ts"
 
-export type DateProps = TemporalBaseProps & {
+export type Props = TemporalBaseProps & {
 	// Additional Date-specific props could go here
 }
 
@@ -49,7 +51,7 @@ export default function Date({
 	className,
 	children,
 	...props
-}: DateProps): JSX.Element {
+}: Props): JSX.Element {
 	// Parse the value
 	const parsed = typeof value === "string" 
 		? parseTemporalString(value)

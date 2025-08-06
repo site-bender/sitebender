@@ -31,12 +31,13 @@
  * // → W3 2024
  */
 
-import type { TemporalBaseProps } from "../utils/types.ts"
-import { parseTemporalString } from "../utils/parsers.ts"
-import { formatDate } from "../utils/formatters.ts"
-import { getWeekNumber, getWeekStartDate, WeekNumberingSystem } from "../utils/calendars.ts"
+import type { TemporalBaseProps, WeekNumberingSystem } from "../../../../types/temporal/index.ts"
+import parseTemporalString from "../parseTemporalString/index.ts"
+import formatDate from "../formatDate/index.ts"
+import getWeekNumber from "../getWeekNumber/index.ts"
+import getWeekStartDate from "../getWeekStartDate/index.ts"
 
-export interface WeekProps extends Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> & {
 	// Week numbering system
 	weekSystem?: WeekNumberingSystem
 	
@@ -70,7 +71,7 @@ export default function Week({
 	className,
 	children,
 	...props
-}: WeekProps): JSX.Element {
+}: Props): JSX.Element {
 	let year: number
 	let weekNumber: number
 	let referenceDate: Date
