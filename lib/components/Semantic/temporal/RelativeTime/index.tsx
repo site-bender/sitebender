@@ -33,15 +33,11 @@
  * // With locale
  * <RelativeTime value="2024-01-10" locale="es-ES" />
  * // → hace 3 días
- *
- * // Live updating (re-renders periodically)
- * <RelativeTime value={recentDate} live />
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
-import { useEffect, useState } from "preact/hooks"
 
 export type Props = Omit<TemporalBaseProps, "format" | "formatOptions" | "showZone" | "timezone" | "calendar"> & {
 	// Numeric display style
@@ -49,12 +45,6 @@ export type Props = Omit<TemporalBaseProps, "format" | "formatOptions" | "showZo
 	
 	// Force specific unit
 	unit?: Intl.RelativeTimeFormatUnit
-	
-	// Update interval for live updating (in seconds)
-	updateInterval?: number
-	
-	// Enable live updating
-	live?: boolean
 	
 	// Custom now function (for testing)
 	now?: () => Date
@@ -121,8 +111,6 @@ export default function RelativeTime({
 	locale,
 	numeric = "always",
 	unit,
-	updateInterval = 60,
-	live = false,
 	now = () => new Date(),
 	className,
 	children,
@@ -144,28 +132,11 @@ export default function RelativeTime({
 		: value
 	
 	// Parse relative date
-	const getRelativeDate = () => {
-		if (!relativeTo) return now()
-		return typeof relativeTo === "string"
+	const relativeDate = !relativeTo 
+		? now()
+		: typeof relativeTo === "string"
 			? new Date(relativeTo)
 			: relativeTo
-	}
-	
-	// State for live updating
-	const [relativeDate, setRelativeDate] = useState(getRelativeDate)
-	const [, setUpdateTrigger] = useState(0)
-	
-	// Set up live updating
-	useEffect(() => {
-		if (!live) return
-		
-		const interval = setInterval(() => {
-			setRelativeDate(getRelativeDate())
-			setUpdateTrigger(prev => prev + 1)
-		}, updateInterval * 1000)
-		
-		return () => clearInterval(interval)
-	}, [live, updateInterval, relativeTo])
 	
 	// Calculate relative time
 	let relativeValue: number
