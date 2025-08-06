@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Deno-based semantic HTML component library (@sitebender/metadata-components) that transforms plain text into accessible, SEO-optimized content with Schema.org structured data support. The library provides both Microdata and JSON-LD output formats.
+This is a Deno-based semantic HTML component library (@sitebender/metadata-components) in `lib` that transforms plain text into accessible, SEO-optimized content with Schema.org structured data support. The library provides both Microdata and JSON-LD output formats.
+
+The library also provides a large set of semantic components intended to extend the semantics of HTML, allowing developers to create rich, structured content that is both machine-readable and accessible.
+
+Finally, the library includes a documentation site (in `src`) that demonstrates all components with live examples and structured data visibility.
 
 ## Essential Commands
 
@@ -65,8 +69,9 @@ This is a dual-purpose codebase with strict separation:
 
 Components are organized by semantic categories:
 - **`/lib/components/`**
-  - `Base/` - Base component that all others extend
-  - `Thing/` - Schema.org hierarchy (CreativeWork, Person, Organization, etc.)
+  - `schema.org` - Components that extend Schema.org types
+    - `Base/` - Base component that all others extend
+    - `Thing/` - Schema.org hierarchy (CreativeWork, Person, Organization, etc.)
   - `semantic/` - Organized by categories:
     - `scientific/` - TechnicalTerm, TaxonomicName, etc.
     - `textual/` - ForeignTerm, WordAsWord, etc.
@@ -75,9 +80,32 @@ Components are organized by semantic categories:
     - `emotional/` - Sarcasm, Irony, etc.
     - `cultural/` - Idiom, Archaism, etc.
     - `emphasis/` - Various emphasis patterns
-  - `helpers/` - Formatting helpers, language detection, template utilities
   
 - **`/lib/types/`** - Metadata-specific types in correct subfolders
+
+### File and Folder Structure Rules
+
+1. **One Function/Component Per File**: All functions and components are one per file. Helper functions must be extracted to their own files. Every function/component is exported as default.
+
+2. **Naming Convention**: 
+   - Component names (PascalCase) and function names (camelCase) go on the *folder*, not the file
+   - Every folder must have an `index.ts` or `index.tsx` file
+   - Example: `lib/components/semantic/temporal/formatDate/index.ts` exports `formatDate`
+
+3. **Folder Hierarchy**: Folders are nested at the *lowest* branching node below which *all* uses of that function occur. This ensures functions are co-located with their usage context.
+
+4. **Functional Programming**: 
+   - Prefer `type` over `interface` for strict FP (exceptions: schema.org component types)
+   - All data structures should be immutable
+   - Avoid classes except for components extending Base
+
+5. **Type Organization**:
+   - Component Props are exported as named exports from the component file, always named `Props`
+   - All other types belong in `/lib/types/` organized by domain
+   - Types and constants can be collected in `index.ts` files with named exports
+   - Large type files should be broken into folders (still using `index.ts`)
+
+6. **Constants**: Domain-specific constants go in a `constants/index.ts` file within the relevant component folder
 
 - **`/tests/`** - Comprehensive test suite
   - `e2e/` - Playwright end-to-end tests
