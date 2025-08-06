@@ -27,10 +27,10 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
-import formatTime from "../formatTime/index.ts"
-import getTimezoneAbbreviation from "../getTimezoneAbbreviation/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import formatTime from "../../../formatters/formatTime/index.ts"
+import getTimezoneAbbreviation from "../../../formatters/getTimezoneAbbreviation/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show seconds in display

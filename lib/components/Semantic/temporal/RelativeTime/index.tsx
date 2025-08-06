@@ -39,8 +39,8 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import formatRelativeTime from "../formatRelativeTime/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
 import { useEffect, useState } from "preact/hooks"
 
 export type Props = Omit<TemporalBaseProps, "format" | "formatOptions" | "showZone" | "timezone" | "calendar"> & {

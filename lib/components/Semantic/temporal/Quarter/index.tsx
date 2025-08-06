@@ -32,9 +32,9 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import formatDate from "../formatDate/index.ts"
-import getQuarter from "../getQuarter/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import formatDate from "../../../formatters/formatDate/index.ts"
+import getQuarter from "../../../calendars/getQuarter/index.ts"
 
 export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> & {
 	// Display format

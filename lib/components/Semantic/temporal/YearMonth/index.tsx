@@ -31,9 +31,9 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
-import formatDate from "../formatDate/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import formatDate from "../../../formatters/formatDate/index.ts"
 
 export type Props = Omit<TemporalBaseProps, "showZone" | "timezone"> & {
 	// Display format

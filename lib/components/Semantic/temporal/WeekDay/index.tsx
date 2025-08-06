@@ -39,11 +39,11 @@
  */
 
 import type { TemporalBaseProps, WeekNumberingSystem } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import formatWeekday from "../formatWeekday/index.ts"
-import getWeekNumber from "../getWeekNumber/index.ts"
-import getQuarter from "../getQuarter/index.ts"
-import getJulianDayNumber from "../getJulianDayNumber/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import formatWeekday from "../../../formatters/formatWeekday/index.ts"
+import getWeekNumber from "../../../calendars/getWeekNumber/index.ts"
+import getQuarter from "../../../calendars/getQuarter/index.ts"
+import getJulianDayNumber from "../../../calendars/getJulianDayNumber/index.ts"
 
 export type Props = Omit<TemporalBaseProps, "showZone" | "timezone"> & {
 	// Weekday format

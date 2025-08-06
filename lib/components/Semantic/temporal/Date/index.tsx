@@ -29,11 +29,11 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../buildDateTimeAttribute/index.ts"
-import formatDate from "../formatDate/index.ts"
-import formatRelativeTime from "../formatRelativeTime/index.ts"
-import getCalendarExtension from "../getCalendarExtension/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import formatDate from "../../../formatters/formatDate/index.ts"
+import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
+import getCalendarExtension from "../../../calendars/getCalendarExtension/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Additional Date-specific props could go here
