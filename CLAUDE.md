@@ -92,7 +92,12 @@ Components are organized by semantic categories:
    - Every folder must have an `index.ts` or `index.tsx` file
    - Example: `lib/components/semantic/temporal/formatDate/index.ts` exports `formatDate`
 
-3. **Folder Hierarchy**: Folders are nested at the *lowest* branching node below which *all* uses of that function occur. This ensures functions are co-located with their usage context.
+3. **Folder Hierarchy**: 
+   - Folders are nested at the *lowest* branching node below which *all* uses of that function occur
+   - If function `f1` is used only by `f2`, and `f2` is used only by `f3`, the folder structure should be `f3/f2/f1/index.ts`
+   - This nesting applies recursively through the entire dependency chain
+   - Helper functions used only within one parent function should be nested inside that parent's folder
+   - Functions used by multiple consumers or externally must remain at the appropriate shared level
 
 4. **Functional Programming**: 
    - Prefer `type` over `interface` for strict FP (exceptions: schema.org component types)
