@@ -26,7 +26,8 @@ export default function Home() {
 			<section class="overview">
 				<h2>Transform Plain Text into Rich Semantic Content</h2>
 				<p>
-					<a href="/components">Browse Components</a> to see how you can enhance your content.
+					<a href="/components">Browse Components</a>{" "}
+					to see how you can enhance your content.
 				</p>
 				<p>
 					Our metadata components library extends basic HTML elements with

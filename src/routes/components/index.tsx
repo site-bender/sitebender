@@ -19,7 +19,7 @@ export default function ({ route }: Props = {}) {
 	return (
 		<main>
 			<h1>Component Library</h1>
-			
+
 			<section>
 				<h2>Categories</h2>
 				<nav>

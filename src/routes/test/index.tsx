@@ -1,6 +1,9 @@
 import { Book } from "~lib/components/index.tsx"
 import { Person } from "~lib/components/index.tsx"
-import { EMOJI, TONE } from "~lib/components/semantic/wrappers/constants/index.ts"
+import {
+	EMOJI,
+	TONE,
+} from "~lib/components/semantic/wrappers/constants/index.ts"
 import SpokenAs from "~lib/components/semantic/wrappers/SpokenAs/index.tsx"
 import WithTone from "~lib/components/semantic/wrappers/WithTone/index.tsx"
 
