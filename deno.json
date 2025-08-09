@@ -56,7 +56,7 @@
     "strict": true,
     "checkJs": false,
     "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"],
-    "types": ["./src/types/jsx.d.ts"]
+    "types": ["./lib/types/globals.d.ts"]
   },
   "fmt": {
     "useTabs": true,
