@@ -3,9 +3,6 @@ export default function createElement(
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
-	console.log(
-		"**************************************** HEY ****************************************",
-	)
 	if (typeof tag === "function") {
 		const flatChildren = children.flat(Infinity)
 
