@@ -1,7 +1,7 @@
 {
-	"name": "@sitebender/metadata-components",
+	"name": "@sitebender/adaptive",
 	"version": "0.1.0",
-	"description": "Semantic HTML components for rich text markup with structured data",
+	"description": "Adaptive web components with progressive enhancement and build-time validation",
 	"license": "MIT",
 	"exports": {
 		".": "./index.ts"

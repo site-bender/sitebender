@@ -4,10 +4,10 @@ import Fragment from "~utilities/Fragment/index.ts"
 export function Head() {
 	return (
 		<Fragment>
-			<title>@sitebender/metadata-components - Semantic HTML Components</title>
+			<title>@sitebender/adaptive - Adaptive Web Components</title>
 			<meta
 				name="description"
-				content="Semantic HTML components for rich text markup with structured data. Transform plain text into accessible, SEO-optimized content with Schema.org and JSON-LD support."
+				content="Adaptive web components with progressive enhancement and build-time validation. Create type-safe, semantic HTML that works everywhere and weighs nothing."
 			/>
 		</Fragment>
 	)
@@ -17,9 +17,9 @@ export default function Home() {
 	return (
 		<main class="home">
 			<header class="hero">
-				<h1>@sitebender/metadata-components</h1>
+				<h1>@sitebender/adaptive</h1>
 				<p class="tagline">
-					Semantic HTML components for rich text markup with structured data
+					Adaptive web components with progressive enhancement
 				</p>
 			</header>
 
@@ -66,7 +66,7 @@ export default function Home() {
 
 			<section class="quick-start">
 				<h2>Quick Start</h2>
-				<pre><code>import &#123; TechnicalTerm, Book, Dialogue &#125; from "@sitebender/metadata-components"</code></pre>
+				<pre><code>import &#123; TechnicalTerm, Book, Dialogue &#125; from "@sitebender/adaptive"</code></pre>
 				<p>
 					<a href="/components">Browse Components</a> |
 					<a href="/examples">View Examples</a> |
