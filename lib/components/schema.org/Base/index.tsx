@@ -1,6 +1,5 @@
-import toKebabCase from "~utilities/toKebabCase/index.ts"
-
 import BaseProps from "../../../types/schema.org/index.ts"
+import toKebabCase from "../../../utilities/toKebabCase/index.ts"
 import createJsonLd from "./createJsonLd/index.ts"
 import createTemplate from "./createTemplate/index.tsx"
 import generateMicrodata from "./generateMicrodata/index.tsx"
