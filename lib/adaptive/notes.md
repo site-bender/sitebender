@@ -332,7 +332,7 @@ The key is creating a bridge that preserves the strengths of each approach while
 
 ## Overview
 
-The `lib/adaptive/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main metadata-components library.
+The `lib/adaptive/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender/adaptive library.
 
 ## Core Purpose
 

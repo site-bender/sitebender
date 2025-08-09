@@ -1,4 +1,4 @@
-# @sitebender/metadata-components
+# @sitebender/adaptive
 
 **Write type-safe, semantic components that work everywhere, weigh nothing, and never break in production.**
 
@@ -96,10 +96,10 @@ The structured data and semantic markup make your content perfectly consumable b
 
 ```bash
 # Install from JSR
-deno add @sitebender/metadata-components
+deno add @sitebender/adaptive
 
 # Or import directly
-import { Button, Form, Input } from "jsr:@sitebender/metadata-components"
+import { Button, Form, Input } from "jsr:@sitebender/adaptive"
 ```
 
 ## Core Features
@@ -199,7 +199,7 @@ The combination of build-time validation, progressive enhancement, semantic HTML
 
 ## Documentation
 
-Full documentation and live examples available at the [documentation site](https://sitebender.io/metadata-components).
+Full documentation and live examples available at the [documentation site](https://sitebender.io/adaptive).
 
 ## License
 
@@ -211,6 +211,6 @@ Contributions welcome! Please read [CONTRIBUTING.md](../CONTRIBUTING.md) for gui
 
 ## Support
 
-- [GitHub Issues](https://github.com/sitebender/metadata-components/issues)
-- [Documentation](https://sitebender.io/metadata-components)
-- [Examples](https://sitebender.io/metadata-components/examples)
+- [GitHub Issues](https://github.com/sitebender/adaptive/issues)
+- [Documentation](https://sitebender.io/adaptive)
+- [Examples](https://sitebender.io/adaptive/examples)

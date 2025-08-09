@@ -1,6 +1,6 @@
-# @sitebender/metadata-components
+# @sitebender/adaptive
 
-Semantic HTML components for rich text markup with structured data. Transform plain text into accessible, SEO-optimized content with Schema.org and JSON-LD support.
+Adaptive web components with progressive enhancement and build-time validation. Create type-safe, semantic HTML that works everywhere and weighs nothing.
 
 ## Features
 
@@ -13,13 +13,13 @@ Semantic HTML components for rich text markup with structured data. Transform pl
 ## Installation
 
 ```bash
-deno add @sitebender/metadata-components
+deno add @sitebender/adaptive
 ```
 
 ## Quick Start
 
 ```typescript
-import { TechnicalTerm, Book, Dialogue } from "@sitebender/metadata-components"
+import { TechnicalTerm, Book, Dialogue } from "@sitebender/adaptive"
 
 // Technical terminology with JSON-LD
 <TechnicalTerm 
@@ -107,7 +107,7 @@ import { TechnicalTerm, Book, Dialogue } from "@sitebender/metadata-components"
 
 ## Documentation
 
-Visit [our documentation site](https://metadata-components.deno.dev) for:
+Visit [our documentation site](https://adaptive.deno.dev) for:
 
 - Complete component API reference
 - Live examples and demos
