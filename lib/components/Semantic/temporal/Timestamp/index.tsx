@@ -11,7 +11,7 @@
  * <Timestamp value="2024-01-15T19:30:00.123456Z" />
  *
  * // Display in specific timezone
- * <Timestamp 
+ * <Timestamp
  *   value="2024-01-15T19:30:00.123456Z"
  *   timezone="America/Los_Angeles"
  *   locale="en-US"
@@ -19,21 +19,21 @@
  * // → January 15, 2024, 11:30:00 AM PST
  *
  * // Show microseconds
- * <Timestamp 
+ * <Timestamp
  *   value="2024-01-15T19:30:00.123456Z"
  *   showMicroseconds
  * />
  * // → January 15, 2024, 7:30:00.123456 PM UTC
  *
  * // Show as epoch milliseconds
- * <Timestamp 
+ * <Timestamp
  *   value="2024-01-15T19:30:00.123456Z"
  *   format="epoch"
  * />
  * // → 1705347000123
  *
  * // Relative time
- * <Timestamp 
+ * <Timestamp
  *   value="2024-01-15T19:30:00Z"
  *   format="relative"
  * />
@@ -41,11 +41,12 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+
 import formatDate from "../../../formatters/formatDate/index.ts"
 import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
 import getTimezoneAbbreviation from "../../../formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show milliseconds in display
@@ -53,7 +54,15 @@ export type Props = TemporalBaseProps & {
 	// Show microseconds in display
 	showMicroseconds?: boolean
 	// Display as epoch milliseconds/microseconds
-	format?: "short" | "medium" | "long" | "full" | "iso" | "relative" | "epoch" | "epochMicro"
+	format?:
+		| "short"
+		| "medium"
+		| "long"
+		| "full"
+		| "iso"
+		| "relative"
+		| "epoch"
+		| "epochMicro"
 }
 
 export default function Timestamp({
@@ -72,34 +81,34 @@ export default function Timestamp({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	// Parse the value
-	const parsed = typeof value === "string"
-		? parseTemporalString(value)
-		: {
-			year: value.getUTCFullYear(),
-			month: value.getUTCMonth() + 1,
-			day: value.getUTCDate(),
-			hour: value.getUTCHours(),
-			minute: value.getUTCMinutes(),
-			second: value.getUTCSeconds(),
-			millisecond: value.getUTCMilliseconds(),
-			offset: "Z",
-			timezone: "UTC",
-			type: "instant" as const,
-			original: value.toISOString()
-		}
-	
+	const parsed = typeof value === "string" ? parseTemporalString(value) : {
+		year: value.getUTCFullYear(),
+		month: value.getUTCMonth() + 1,
+		day: value.getUTCDate(),
+		hour: value.getUTCHours(),
+		minute: value.getUTCMinutes(),
+		second: value.getUTCSeconds(),
+		millisecond: value.getUTCMilliseconds(),
+		offset: "Z",
+		timezone: "UTC",
+		type: "instant" as const,
+		original: value.toISOString(),
+	}
+
 	// Validate that this is an instant (has offset)
 	if (!parsed.offset && parsed.type !== "instant") {
-		throw new Error("Timestamp component requires an instant value with timezone/offset (e.g., ends with Z or +00:00)")
+		throw new Error(
+			"Timestamp component requires an instant value with timezone/offset (e.g., ends with Z or +00:00)",
+		)
 	}
-	
+
 	// Build datetime attribute (always include the Z or offset)
 	const datetime = buildDateTimeAttribute(parsed, false, true)
-	
+
 	// Create Date object for formatting
 	const date = new Date(
 		Date.UTC(
@@ -109,16 +118,16 @@ export default function Timestamp({
 			parsed.hour!,
 			parsed.minute!,
 			parsed.second || 0,
-			parsed.millisecond || 0
-		)
+			parsed.millisecond || 0,
+		),
 	)
-	
+
 	// Add microseconds if present
 	const epochMicros = date.getTime() * 1000 + (parsed.microsecond || 0)
-	
+
 	// Format the display
 	let display: string
-	
+
 	if (format === "epoch") {
 		// Show as epoch milliseconds
 		display = String(date.getTime())
@@ -127,15 +136,19 @@ export default function Timestamp({
 		display = String(epochMicros)
 	} else if (format === "relative" && relativeTo) {
 		// Relative time
-		display = formatRelativeTime(date, relativeTo instanceof Date ? relativeTo : new Date(relativeTo), locale)
+		display = formatRelativeTime(
+			date,
+			relativeTo instanceof Date ? relativeTo : new Date(relativeTo),
+			locale,
+		)
 	} else {
 		// Standard date/time formatting
 		const displayTimezone = timezone || parsed.timezone || "UTC"
-		
+
 		const options = formatOptions || {
 			...(format !== "iso" && {
 				dateStyle: format as any,
-				timeStyle: format as any
+				timeStyle: format as any,
 			}),
 			...(format === "iso" && {
 				year: "numeric",
@@ -144,25 +157,29 @@ export default function Timestamp({
 				hour: "2-digit",
 				minute: "2-digit",
 				second: "2-digit",
-				fractionalSecondDigits: showMicroseconds ? 6 : showMilliseconds ? 3 : undefined,
+				fractionalSecondDigits: showMicroseconds
+					? 6
+					: showMilliseconds
+					? 3
+					: undefined,
 				hour12: false,
-				timeZoneName: "short"
+				timeZoneName: "short",
 			}),
 			...(showMilliseconds && { fractionalSecondDigits: 3 }),
 			...(showMicroseconds && { fractionalSecondDigits: 6 }),
 			timeZone: displayTimezone,
-			calendar
+			calendar,
 		}
-		
+
 		display = formatDate(date, locale, options)
-		
+
 		// Add timezone abbreviation if not already included and requested
 		if (showZone && format !== "iso" && !formatOptions?.timeZoneName) {
 			const tzAbbr = getTimezoneAbbreviation(displayTimezone, date, locale)
 			display += ` ${tzAbbr}`
 		}
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		const displayTimezone = timezone || parsed.timezone || "UTC"
@@ -174,15 +191,15 @@ export default function Timestamp({
 				data-epoch-micros={showMicroseconds ? epochMicros : undefined}
 				{...props}
 			>
-				{children({ 
-					display, 
+				{children({
+					display,
 					datetime,
-					timezone: getTimezoneAbbreviation(displayTimezone, date, locale)
+					timezone: getTimezoneAbbreviation(displayTimezone, date, locale),
 				})}
 			</time>
 		)
 	}
-	
+
 	return (
 		<time
 			dateTime={datetime}

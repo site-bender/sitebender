@@ -15,7 +15,7 @@
  * // → 15 January 2024, 14:30
  *
  * // With timezone (becomes ZonedDateTime)
- * <DateTime 
+ * <DateTime
  *   value="2024-01-15T14:30:00"
  *   timezone="America/New_York"
  *   locale="en-US"
@@ -37,11 +37,12 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+
 import formatDate from "../../../formatters/formatDate/index.ts"
 import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
 import getTimezoneAbbreviation from "../../../formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show seconds in time display
@@ -68,36 +69,34 @@ export default function DateTime({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	// Parse the value
-	const parsed = typeof value === "string"
-		? parseTemporalString(value)
-		: {
-			year: value.getFullYear(),
-			month: value.getMonth() + 1,
-			day: value.getDate(),
-			hour: value.getHours(),
-			minute: value.getMinutes(),
-			second: value.getSeconds(),
-			millisecond: value.getMilliseconds(),
-			type: "datetime" as const,
-			original: value.toISOString()
-		}
-	
+	const parsed = typeof value === "string" ? parseTemporalString(value) : {
+		year: value.getFullYear(),
+		month: value.getMonth() + 1,
+		day: value.getDate(),
+		hour: value.getHours(),
+		minute: value.getMinutes(),
+		second: value.getSeconds(),
+		millisecond: value.getMilliseconds(),
+		type: "datetime" as const,
+		original: value.toISOString(),
+	}
+
 	// Add timezone and calendar to parsed result
 	if (timezone) parsed.timezone = timezone
 	if (calendar) parsed.calendar = calendar
-	
+
 	// For instant values (with Z or offset), extract timezone
 	if (parsed.offset && !timezone) {
 		parsed.timezone = parsed.offset === "Z" ? "UTC" : undefined
 	}
-	
+
 	// Build datetime attribute
 	const datetime = buildDateTimeAttribute(parsed, true, true)
-	
+
 	// Format the display
 	let display: string
 	if (format === "relative" && relativeTo) {
@@ -108,9 +107,13 @@ export default function DateTime({
 			parsed.hour!,
 			parsed.minute!,
 			parsed.second || 0,
-			parsed.millisecond || 0
+			parsed.millisecond || 0,
 		)
-		display = formatRelativeTime(date, relativeTo instanceof Date ? relativeTo : new Date(relativeTo), locale)
+		display = formatRelativeTime(
+			date,
+			relativeTo instanceof Date ? relativeTo : new Date(relativeTo),
+			locale,
+		)
 	} else {
 		const date = new Date(
 			parsed.year!,
@@ -119,14 +122,16 @@ export default function DateTime({
 			parsed.hour!,
 			parsed.minute!,
 			parsed.second || 0,
-			parsed.millisecond || 0
+			parsed.millisecond || 0,
 		)
-		
+
 		// Determine format options
 		const options = formatOptions || {
 			...(format !== "iso" && {
 				dateStyle: format as any,
-				timeStyle: format === "full" || format === "long" ? "medium" : format as any
+				timeStyle: format === "full" || format === "long"
+					? "medium"
+					: format as any,
 			}),
 			...(format === "iso" && {
 				year: "numeric",
@@ -135,18 +140,22 @@ export default function DateTime({
 				hour: "2-digit",
 				minute: "2-digit",
 				second: showSeconds ? "2-digit" : undefined,
-				fractionalSecondDigits: showMicroseconds ? 6 : showMilliseconds ? 3 : undefined,
-				hour12: false
+				fractionalSecondDigits: showMicroseconds
+					? 6
+					: showMilliseconds
+					? 3
+					: undefined,
+				hour12: false,
 			}),
 			...(showSeconds && { second: "2-digit" }),
 			...(showMilliseconds && { fractionalSecondDigits: 3 }),
 			...(showMicroseconds && { fractionalSecondDigits: 6 }),
 			timeZone: parsed.timezone || timezone,
-			calendar
+			calendar,
 		}
-		
+
 		display = formatDate(date, locale, options)
-		
+
 		// Add timezone abbreviation if requested
 		if (showZone && (parsed.timezone || timezone)) {
 			const tz = parsed.timezone || timezone || "UTC"
@@ -154,7 +163,7 @@ export default function DateTime({
 			display += ` ${tzAbbr}`
 		}
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		const tz = parsed.timezone || timezone
@@ -164,15 +173,17 @@ export default function DateTime({
 				className={className}
 				{...props}
 			>
-				{children({ 
-					display, 
+				{children({
+					display,
 					datetime,
-					timezone: tz ? getTimezoneAbbreviation(tz, new Date(), locale) : undefined
+					timezone: tz
+						? getTimezoneAbbreviation(tz, new Date(), locale)
+						: undefined,
 				})}
 			</time>
 		)
 	}
-	
+
 	return (
 		<time
 			dateTime={datetime}

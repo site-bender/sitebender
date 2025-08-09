@@ -29,11 +29,12 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+
+import getCalendarExtension from "../../../calendars/getCalendarExtension/index.ts"
 import formatDate from "../../../formatters/formatDate/index.ts"
 import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
-import getCalendarExtension from "../../../calendars/getCalendarExtension/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Additional Date-specific props could go here
@@ -53,58 +54,62 @@ export default function DateComponent({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	// Parse the value
-	const parsed = typeof value === "string" 
-		? parseTemporalString(value)
-		: {
-			year: value.getFullYear(),
-			month: value.getMonth() + 1,
-			day: value.getDate(),
-			type: "date" as const,
-			original: value.toISOString().split("T")[0]
-		}
-	
+	const parsed = typeof value === "string" ? parseTemporalString(value) : {
+		year: value.getFullYear(),
+		month: value.getMonth() + 1,
+		day: value.getDate(),
+		type: "date" as const,
+		original: value.toISOString().split("T")[0],
+	}
+
 	// Add timezone and calendar to parsed result
 	if (timezone) parsed.timezone = timezone
 	if (calendar) parsed.calendar = calendar
-	
+
 	// Build datetime attribute
 	const datetime = buildDateTimeAttribute(parsed, true, true)
-	
+
 	// Format the display
 	let display: string
 	if (format === "relative" && relativeTo) {
 		const date = new Date(parsed.year!, parsed.month! - 1, parsed.day!)
-		display = formatRelativeTime(date, relativeTo instanceof Date ? relativeTo : new Date(relativeTo), locale)
+		display = formatRelativeTime(
+			date,
+			relativeTo instanceof Date ? relativeTo : new Date(relativeTo),
+			locale,
+		)
 	} else {
 		const date = new Date(parsed.year!, parsed.month! - 1, parsed.day!)
-		
+
 		// Determine format options
 		const options = formatOptions || {
 			dateStyle: format === "iso" ? undefined : format as any,
 			...(format === "iso" && {
 				year: "numeric",
 				month: "2-digit",
-				day: "2-digit"
+				day: "2-digit",
 			}),
 			timeZone: timezone,
-			calendar
+			calendar,
 		}
-		
+
 		display = formatDate(date, locale, options)
 		// Fallback if formatting fails
 		if (!display) {
-			display = `${parsed.year}-${String(parsed.month).padStart(2, "0")}-${String(parsed.day).padStart(2, "0")}`
+			display = `${parsed.year}-${String(parsed.month).padStart(2, "0")}-${
+				String(parsed.day).padStart(2, "0")
+			}`
 		}
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		return (
-			<time 
+			<time
 				dateTime={datetime}
 				className={className}
 				{...props}
@@ -113,9 +118,9 @@ export default function DateComponent({
 			</time>
 		)
 	}
-	
+
 	return (
-		<time 
+		<time
 			dateTime={datetime}
 			className={className}
 			{...props}

@@ -11,7 +11,7 @@
  *
  * <WordAsWord lang="es">Amigo</WordAsWord> means "friend" in Spanish.
  *
- * The word <WordAsWord partOfSpeech="adjective">quick</WordAsWord> 
+ * The word <WordAsWord partOfSpeech="adjective">quick</WordAsWord>
  * modifies the noun.
  */
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
@@ -26,7 +26,16 @@ export type Props = {
 	// Language of the word
 	lang?: BCP47LanguageTag
 	// Grammatical part of speech
-	partOfSpeech?: "noun" | "verb" | "adjective" | "adverb" | "pronoun" | "preposition" | "conjunction" | "interjection" | "article"
+	partOfSpeech?:
+		| "noun"
+		| "verb"
+		| "adjective"
+		| "adverb"
+		| "pronoun"
+		| "preposition"
+		| "conjunction"
+		| "interjection"
+		| "article"
 	// Word form (lemma, inflected, etc.)
 	form?: "lemma" | "inflected" | "compound" | "derived"
 }
@@ -44,7 +53,7 @@ export default function WordAsWord({
 	const ariaLabel = [
 		"word",
 		lang && `in ${lang}`,
-		partOfSpeech
+		partOfSpeech,
 	].filter(Boolean).join(" ")
 
 	const content = (

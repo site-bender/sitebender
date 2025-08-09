@@ -24,7 +24,7 @@
  * // → AEDT (3:45 PM)
  *
  * // All available info
- * <TimeZone 
+ * <TimeZone
  *   value="America/Los_Angeles"
  *   format="long"
  *   showOffset
@@ -33,7 +33,7 @@
  * // → Pacific Standard Time (UTC-8, 11:30 AM)
  *
  * // Custom reference date (for DST)
- * <TimeZone 
+ * <TimeZone
  *   value="Europe/Paris"
  *   referenceDate="2024-07-15"
  * />
@@ -41,59 +41,59 @@
  */
 
 import type { TimeZoneInfo } from "../../../../types/temporal/index.ts"
+
 import getTimezoneAbbreviation from "../../../formatters/getTimezoneAbbreviation/index.ts"
 
 export type Props = {
 	// IANA timezone name
 	value: string
-	
+
 	// Display format
 	format?: "short" | "long"
-	
+
 	// Show UTC offset
 	showOffset?: boolean
-	
+
 	// Show current time in timezone
 	showTime?: boolean
-	
+
 	// Time format when showTime is true
 	timeFormat?: "short" | "medium" | "long"
-	
+
 	// Reference date for DST calculation
 	referenceDate?: string | Date
-	
+
 	// Locale for formatting
 	locale?: string
-	
+
 	// Custom className
 	className?: string
-	
+
 	// Custom content or static content
 	children?: string | ((info: TimeZoneInfo) => JSX.Element)
 }
-
 
 // Get timezone offset in minutes
 function getTimezoneOffset(timezone: string, date: Date): number {
 	// Create formatter that includes timezone offset
 	const formatter = new Intl.DateTimeFormat("en-US", {
 		timeZone: timezone,
-		timeZoneName: "longOffset"
+		timeZoneName: "longOffset",
 	})
-	
+
 	const parts = formatter.formatToParts(date)
-	const offsetPart = parts.find(part => part.type === "timeZoneName")
-	
+	const offsetPart = parts.find((part) => part.type === "timeZoneName")
+
 	if (!offsetPart?.value) return 0
-	
+
 	// Parse offset like "GMT-5" or "GMT+5:30"
 	const match = offsetPart.value.match(/GMT([+-])(\d+)(?::(\d+))?/)
 	if (!match) return 0
-	
+
 	const sign = match[1] === "+" ? 1 : -1
 	const hours = parseInt(match[2])
 	const minutes = parseInt(match[3] || "0")
-	
+
 	return sign * (hours * 60 + minutes)
 }
 
@@ -103,7 +103,7 @@ function formatOffset(minutes: number): string {
 	const absMinutes = Math.abs(minutes)
 	const hours = Math.floor(absMinutes / 60)
 	const mins = absMinutes % 60
-	
+
 	if (mins === 0) {
 		return `UTC${sign}${hours}`
 	}
@@ -114,11 +114,11 @@ function formatOffset(minutes: number): string {
 function isDaylightSaving(timezone: string, date: Date): boolean {
 	const jan = new Date(date.getFullYear(), 0, 1)
 	const jul = new Date(date.getFullYear(), 6, 1)
-	
+
 	const janOffset = getTimezoneOffset(timezone, jan)
 	const julOffset = getTimezoneOffset(timezone, jul)
 	const currentOffset = getTimezoneOffset(timezone, date)
-	
+
 	// Northern hemisphere: DST in summer (larger offset)
 	// Southern hemisphere: DST in winter
 	const maxOffset = Math.max(janOffset, julOffset)
@@ -138,33 +138,35 @@ export default function TimeZone({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	// Get reference date
-	const refDate = referenceDate 
-		? (typeof referenceDate === "string" ? new Date(referenceDate) : referenceDate)
+	const refDate = referenceDate
+		? (typeof referenceDate === "string"
+			? new Date(referenceDate)
+			: referenceDate)
 		: new Date()
-	
+
 	// Get timezone information
 	const abbreviation = getTimezoneAbbreviation(value, refDate, locale)
-	
+
 	// Build timezone info object
 	const info: TimeZoneInfo = {
-		abbreviation
+		abbreviation,
 	}
-	
+
 	// Add full name if requested
 	if (format === "long") {
 		const formatter = new Intl.DateTimeFormat(locale || "en-US", {
 			timeZone: value,
-			timeZoneName: "long"
+			timeZoneName: "long",
 		})
 		const parts = formatter.formatToParts(refDate)
-		const tzPart = parts.find(part => part.type === "timeZoneName")
+		const tzPart = parts.find((part) => part.type === "timeZoneName")
 		info.fullName = tzPart?.value
 	}
-	
+
 	// Add offset if requested
 	if (showOffset) {
 		const offsetMinutes = getTimezoneOffset(value, refDate)
@@ -172,27 +174,29 @@ export default function TimeZone({
 		info.offset = formatOffset(offsetMinutes)
 		info.isDST = isDaylightSaving(value, refDate)
 	}
-	
+
 	// Add current time if requested
 	if (showTime) {
 		const timeFormatter = new Intl.DateTimeFormat(locale || "en-US", {
 			timeZone: value,
-			timeStyle: timeFormat
+			timeStyle: timeFormat,
 		})
 		info.currentTime = timeFormatter.format(new Date())
 	}
-	
+
 	// Build display string
-	let display = format === "long" && info.fullName ? info.fullName : abbreviation
-	
+	let display = format === "long" && info.fullName
+		? info.fullName
+		: abbreviation
+
 	if (showOffset && info.offset) {
 		display += ` (${info.offset})`
 	}
-	
+
 	if (showTime && info.currentTime) {
 		display += `, ${info.currentTime}`
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		return (
@@ -207,7 +211,7 @@ export default function TimeZone({
 			</span>
 		)
 	}
-	
+
 	return (
 		<span
 			className={className}

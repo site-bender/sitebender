@@ -1,4 +1,7 @@
-import type { ParsedTemporal, CalendarSystem } from "../../../../types/temporal/index.ts"
+import type {
+	CalendarSystem,
+	ParsedTemporal,
+} from "../../../../types/temporal/index.ts"
 
 /**
  * Parse a Temporal-style string with bracket notation
@@ -11,17 +14,17 @@ import type { ParsedTemporal, CalendarSystem } from "../../../../types/temporal/
  */
 export default function parseTemporalString(value: string): ParsedTemporal {
 	const original = value
-	
+
 	// Extract timezone and calendar from brackets
 	const bracketMatch = value.match(/\[([^\]]+)\]/g)
 	let timezone: string | undefined
 	let calendar: CalendarSystem | undefined
 	let cleanValue = value
-	
+
 	if (bracketMatch) {
-		bracketMatch.forEach(match => {
+		bracketMatch.forEach((match) => {
 			const content = match.slice(1, -1) // Remove brackets
-			
+
 			if (content.startsWith("u-ca=")) {
 				// Calendar extension
 				calendar = content.slice(5) as CalendarSystem
@@ -29,12 +32,12 @@ export default function parseTemporalString(value: string): ParsedTemporal {
 				// Timezone
 				timezone = content
 			}
-			
+
 			// Remove from clean value
 			cleanValue = cleanValue.replace(match, "")
 		})
 	}
-	
+
 	// Detect type and parse accordingly
 	if (cleanValue.includes("T")) {
 		// DateTime or Instant
@@ -55,7 +58,7 @@ export default function parseTemporalString(value: string): ParsedTemporal {
 		// Duration
 		return parseDurationString(cleanValue, original)
 	}
-	
+
 	throw new Error(`Invalid temporal string: ${value}`)
 }
 
@@ -63,11 +66,11 @@ function parseDateString(
 	value: string,
 	timezone?: string,
 	calendar?: CalendarSystem,
-	original?: string
+	original?: string,
 ): ParsedTemporal {
 	const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
 	if (!match) throw new Error(`Invalid date string: ${value}`)
-	
+
 	return {
 		year: parseInt(match[1], 10),
 		month: parseInt(match[2], 10),
@@ -75,7 +78,7 @@ function parseDateString(
 		timezone,
 		calendar,
 		original: original || value,
-		type: "date"
+		type: "date",
 	}
 }
 
@@ -83,23 +86,23 @@ function parseTimeString(
 	value: string,
 	timezone?: string,
 	calendar?: CalendarSystem,
-	original?: string
+	original?: string,
 ): ParsedTemporal {
 	const match = value.match(/^(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d+))?$/)
 	if (!match) throw new Error(`Invalid time string: ${value}`)
-	
+
 	const fractional = match[4]
 	let millisecond = 0
 	let microsecond = 0
 	let nanosecond = 0
-	
+
 	if (fractional) {
 		const padded = fractional.padEnd(9, "0")
 		millisecond = parseInt(padded.slice(0, 3), 10)
 		microsecond = parseInt(padded.slice(3, 6), 10)
 		nanosecond = parseInt(padded.slice(6, 9), 10)
 	}
-	
+
 	return {
 		hour: parseInt(match[1], 10),
 		minute: parseInt(match[2], 10),
@@ -110,7 +113,7 @@ function parseTimeString(
 		timezone,
 		calendar,
 		original: original || value,
-		type: "time"
+		type: "time",
 	}
 }
 
@@ -118,28 +121,28 @@ function parseDateTimeString(
 	value: string,
 	timezone?: string,
 	calendar?: CalendarSystem,
-	original?: string
+	original?: string,
 ): ParsedTemporal {
 	const match = value.match(
-		/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d+))?(?:Z|([+-]\d{2}:\d{2}))?$/
+		/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d+))?(?:Z|([+-]\d{2}:\d{2}))?$/,
 	)
 	if (!match) throw new Error(`Invalid datetime string: ${value}`)
-	
+
 	const fractional = match[7]
 	let millisecond = 0
 	let microsecond = 0
 	let nanosecond = 0
-	
+
 	if (fractional) {
 		const padded = fractional.padEnd(9, "0")
 		millisecond = parseInt(padded.slice(0, 3), 10)
 		microsecond = parseInt(padded.slice(3, 6), 10)
 		nanosecond = parseInt(padded.slice(6, 9), 10)
 	}
-	
+
 	const offset = value.endsWith("Z") ? "Z" : match[8]
 	const isInstant = !!offset
-	
+
 	return {
 		year: parseInt(match[1], 10),
 		month: parseInt(match[2], 10),
@@ -154,41 +157,41 @@ function parseDateTimeString(
 		offset,
 		calendar,
 		original: original || value,
-		type: isInstant ? "instant" : "datetime"
+		type: isInstant ? "instant" : "datetime",
 	}
 }
 
 function parseYearMonthString(
 	value: string,
 	calendar?: CalendarSystem,
-	original?: string
+	original?: string,
 ): ParsedTemporal {
 	const match = value.match(/^(\d{4})-(\d{2})$/)
 	if (!match) throw new Error(`Invalid year-month string: ${value}`)
-	
+
 	return {
 		year: parseInt(match[1], 10),
 		month: parseInt(match[2], 10),
 		calendar,
 		original: original || value,
-		type: "yearmonth"
+		type: "yearmonth",
 	}
 }
 
 function parseMonthDayString(
 	value: string,
 	calendar?: CalendarSystem,
-	original?: string
+	original?: string,
 ): ParsedTemporal {
 	const match = value.match(/^--(\d{2})-(\d{2})$/)
 	if (!match) throw new Error(`Invalid month-day string: ${value}`)
-	
+
 	return {
 		month: parseInt(match[1], 10),
 		day: parseInt(match[2], 10),
 		calendar,
 		original: original || value,
-		type: "monthday"
+		type: "monthday",
 	}
 }
 
@@ -198,9 +201,9 @@ function parseDurationString(value: string, original?: string): ParsedTemporal {
 	if (!value.match(/^P/)) {
 		throw new Error(`Invalid duration string: ${value}`)
 	}
-	
+
 	return {
 		original: original || value,
-		type: "duration"
+		type: "duration",
 	}
 }

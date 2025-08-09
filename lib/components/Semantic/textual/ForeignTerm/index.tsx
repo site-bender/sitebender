@@ -64,7 +64,7 @@ export default function ForeignTerm({
 	const ariaLabel = [
 		translation,
 		romanized && `romanized as ${romanized}`,
-		`in ${lang}`
+		`in ${lang}`,
 	].filter(Boolean).join(", ")
 
 	const content = (

@@ -20,7 +20,7 @@
  * </CrossReference>
  */
 
-export type ReferenceType = 
+export type ReferenceType =
 	| "section"
 	| "chapter"
 	| "figure"
@@ -55,11 +55,11 @@ export default function CrossReference({
 	...props
 }: Props): JSX.Element {
 	const href = target ? `#${target}` : undefined
-	
+
 	const ariaLabel = [
 		"cross-reference to",
 		type,
-		target || (page && `page ${page}`)
+		target || (page && `page ${page}`),
 	].filter(Boolean).join(" ")
 
 	if (href && Element === "span") {

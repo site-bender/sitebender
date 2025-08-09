@@ -7,30 +7,30 @@
  *
  * Example usage:
  *
- * <WithRegister 
- *   level="colloquial" 
+ * <WithRegister
+ *   level="colloquial"
  *   dialect="Southern US"
  * >
  *   Y'all come back now, ya hear?
  * </WithRegister>
  *
- * <WithRegister 
- *   level="academic" 
+ * <WithRegister
+ *   level="academic"
  *   field="medicine"
  * >
  *   The patient presented with acute myocardial infarction.
  * </WithRegister>
  */
 
-export type RegisterLevel = 
-	| "frozen"      // Ceremonial, unchanging (prayers, pledges)
-	| "formal"      // Academic, professional
+export type RegisterLevel =
+	| "frozen" // Ceremonial, unchanging (prayers, pledges)
+	| "formal" // Academic, professional
 	| "consultative" // Standard business, teaching
-	| "casual"      // Friends, colleagues
-	| "intimate"    // Family, close friends
-	| "colloquial"  // Everyday informal
-	| "slang"       // Very informal, group-specific
-	| "vulgar"      // Profane or taboo
+	| "casual" // Friends, colleagues
+	| "intimate" // Family, close friends
+	| "colloquial" // Everyday informal
+	| "slang" // Very informal, group-specific
+	| "vulgar" // Profane or taboo
 
 export type Props = {
 	// Age group appropriateness
@@ -41,7 +41,12 @@ export type Props = {
 	// Regional or social dialect
 	dialect?: string
 	// Education level assumed
-	education?: "elementary" | "secondary" | "undergraduate" | "graduate" | "professional"
+	education?:
+		| "elementary"
+		| "secondary"
+		| "undergraduate"
+		| "graduate"
+		| "professional"
 	element?: "div" | "span" | "p" | "quote" | "section"
 	// Specialized field or domain
 	field?: string
@@ -73,9 +78,9 @@ export default function WithRegister({
 		`register: ${level}`,
 		field && `field: ${field}`,
 		dialect && `dialect: ${dialect}`,
-		region && `region: ${region}`
+		region && `region: ${region}`,
 	].filter(Boolean)
-	
+
 	const ariaLabel = registerParts.join(", ")
 
 	return (

@@ -37,14 +37,14 @@
  */
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
-export type TransliterationSystem = 
-	| "ISO"          // ISO standards
-	| "ALA-LC"       // American Library Association
-	| "BGN/PCGN"     // US/UK geographic names
-	| "UNGEGN"       // UN Group of Experts
-	| "Pinyin"       // Chinese romanization
-	| "Romaji"       // Japanese romanization
-	| "custom"       // Custom system
+export type TransliterationSystem =
+	| "ISO" // ISO standards
+	| "ALA-LC" // American Library Association
+	| "BGN/PCGN" // US/UK geographic names
+	| "UNGEGN" // UN Group of Experts
+	| "Pinyin" // Chinese romanization
+	| "Romaji" // Japanese romanization
+	| "custom" // Custom system
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string
@@ -85,7 +85,7 @@ export default function TransliteratedTerm({
 		script || from,
 		original,
 		system !== "custom" && `using ${system}`,
-		meaning && `meaning ${meaning}`
+		meaning && `meaning ${meaning}`,
 	].filter(Boolean).join(" ")
 
 	const title = meaning || original || description

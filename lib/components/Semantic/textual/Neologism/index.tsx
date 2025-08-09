@@ -11,7 +11,7 @@
  *   doomscrolling
  * </Neologism>
  *
- * <Neologism 
+ * <Neologism
  *   coined="2019"
  *   by="Greta Thunberg"
  *   type="compound"
@@ -29,24 +29,24 @@
  * </Neologism>
  */
 
-export type FormationType = 
-	| "blend"        // Parts of two words (brunch)
-	| "portmanteau"  // Complete blend (spork)
-	| "compound"     // Two whole words (smartphone)
-	| "derivation"   // Affixes added (unfriend)
-	| "acronym"      // From initials (radar)
-	| "clipping"     // Shortened (app from application)
-	| "conversion"   // Changed part of speech (to google)
-	| "borrowing"    // From another language
-	| "coinage"      // Completely new
-	| "eponym"       // From person's name
+export type FormationType =
+	| "blend" // Parts of two words (brunch)
+	| "portmanteau" // Complete blend (spork)
+	| "compound" // Two whole words (smartphone)
+	| "derivation" // Affixes added (unfriend)
+	| "acronym" // From initials (radar)
+	| "clipping" // Shortened (app from application)
+	| "conversion" // Changed part of speech (to google)
+	| "borrowing" // From another language
+	| "coinage" // Completely new
+	| "eponym" // From person's name
 
-export type AdoptionStatus = 
-	| "emerging"     // Just appearing
-	| "trending"     // Gaining popularity  
-	| "established"  // Widely recognized
-	| "mainstream"   // Fully adopted
-	| "obsolete"     // No longer used
+export type AdoptionStatus =
+	| "emerging" // Just appearing
+	| "trending" // Gaining popularity
+	| "established" // Widely recognized
+	| "mainstream" // Fully adopted
+	| "obsolete" // No longer used
 
 export type Props = {
 	// Who coined the term
@@ -87,10 +87,11 @@ export default function Neologism({
 		type !== "coinage" && type,
 		coined && `coined ${coined}`,
 		by && `by ${by}`,
-		from && from.length > 0 && `from ${from.join(" + ")}`
+		from && from.length > 0 && `from ${from.join(" + ")}`,
 	].filter(Boolean).join(", ")
 
-	const title = definition || description || (from && `from ${from.join(" + ")}`)
+	const title = definition || description ||
+		(from && `from ${from.join(" + ")}`)
 
 	const content = (
 		<Element

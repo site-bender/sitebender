@@ -11,7 +11,7 @@
  *   404 error
  * </Jargon>
  *
- * <Jargon 
+ * <Jargon
  *   field="medicine"
  *   definition="heart attack"
  *   formal="myocardial infarction"
@@ -65,7 +65,7 @@ export default function Jargon({
 	const ariaLabel = [
 		field && `${field} jargon:`,
 		definition || expansion || formal,
-		acronym && `abbreviated as ${acronym}`
+		acronym && `abbreviated as ${acronym}`,
 	].filter(Boolean).join(" ")
 
 	const title = definition || expansion || formal || description

@@ -7,8 +7,8 @@
  *
  * Example usage:
  *
- * <WithContext 
- *   setting="Victorian England" 
+ * <WithContext
+ *   setting="Victorian England"
  *   period="1880s"
  *   situation="formal dinner"
  * >
@@ -57,8 +57,8 @@ export default function WithContext({
 	if (cultural) contextParts.push(`cultural context: ${cultural}`)
 	if (situation) contextParts.push(`situation: ${situation}`)
 	if (formality) contextParts.push(`formality: ${formality}`)
-	
-	const ariaLabel = contextParts.length > 0 
+
+	const ariaLabel = contextParts.length > 0
 		? contextParts.join(", ")
 		: undefined
 

@@ -59,13 +59,13 @@ export default function Initialism({
 	const letterSpacing = {
 		individual: "spell out each letter",
 		grouped: "pronounce as group",
-		pairs: "pronounce in pairs"
+		pairs: "pronounce in pairs",
 	}
 
 	const ariaLabel = [
 		"initialism",
 		expansion,
-		letterSpacing[spacing]
+		letterSpacing[spacing],
 	].filter(Boolean).join(", ")
 
 	const content = (

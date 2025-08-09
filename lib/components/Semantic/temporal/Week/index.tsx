@@ -31,25 +31,31 @@
  * // → W3 2024
  */
 
-import type { TemporalBaseProps, WeekNumberingSystem } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
-import formatDate from "../../../formatters/formatDate/index.ts"
+import type {
+	TemporalBaseProps,
+	WeekNumberingSystem,
+} from "../../../../types/temporal/index.ts"
+
 import getWeekNumber from "../../../calendars/getWeekNumber/index.ts"
 import getWeekStartDate from "../../../calendars/getWeekStartDate/index.ts"
+import formatDate from "../../../formatters/formatDate/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 
-export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar"> & {
-	// Week numbering system
-	weekSystem?: WeekNumberingSystem
-	
-	// Display format
-	format?: "short" | "medium" | "long"
-	
-	// Show date range
-	showRange?: boolean
-	
-	// Show year
-	showYear?: boolean
-}
+export type Props =
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar">
+	& {
+		// Week numbering system
+		weekSystem?: WeekNumberingSystem
+
+		// Display format
+		format?: "short" | "medium" | "long"
+
+		// Show date range
+		showRange?: boolean
+
+		// Show year
+		showYear?: boolean
+	}
 
 // Parse ISO week format (YYYY-Www)
 function parseISOWeek(value: string): { year: number; week: number } | null {
@@ -57,7 +63,7 @@ function parseISOWeek(value: string): { year: number; week: number } | null {
 	if (!match) return null
 	return {
 		year: parseInt(match[1]),
-		week: parseInt(match[2])
+		week: parseInt(match[2]),
 	}
 }
 
@@ -73,13 +79,13 @@ export default function Week({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	let year: number
 	let weekNumber: number
 	let referenceDate: Date
-	
+
 	// Parse the value
 	if (typeof value === "string") {
 		const isoWeek = parseISOWeek(value)
@@ -90,7 +96,9 @@ export default function Week({
 			const jan4 = new Date(year, 0, 4)
 			const dayOfWeek = jan4.getDay()
 			const isoWeekStart = new Date(jan4)
-			isoWeekStart.setDate(jan4.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1))
+			isoWeekStart.setDate(
+				jan4.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1),
+			)
 			isoWeekStart.setDate(isoWeekStart.getDate() + (weekNumber - 1) * 7)
 			referenceDate = isoWeekStart
 		} else {
@@ -105,59 +113,60 @@ export default function Week({
 		year = value.getFullYear()
 		weekNumber = getWeekNumber(value, weekSystem)
 	}
-	
+
 	// Get week start date
 	const weekStart = getWeekStartDate(referenceDate, weekSystem)
 	const weekEnd = new Date(weekStart)
 	weekEnd.setDate(weekEnd.getDate() + 6)
-	
+
 	// Adjust year for weeks that span year boundaries
 	if (weekSystem === "ISO") {
 		// In ISO system, week 1 might start in previous year
 		if (weekNumber === 1 && referenceDate.getMonth() === 11) {
 			year = referenceDate.getFullYear() + 1
-		}
-		// Or last week might extend into next year
+		} // Or last week might extend into next year
 		else if (weekNumber >= 52 && referenceDate.getMonth() === 0) {
 			year = referenceDate.getFullYear() - 1
 		}
 	}
-	
+
 	// Build datetime attribute (ISO week format)
-	const datetime = `${String(year).padStart(4, "0")}-W${String(weekNumber).padStart(2, "0")}`
-	
+	const datetime = `${String(year).padStart(4, "0")}-W${
+		String(weekNumber).padStart(2, "0")
+	}`
+
 	// Format the display
 	let display: string
-	
+
 	// Get localized "Week" label
 	// Note: Intl.DisplayNames doesn't support "week", so we use a simple approach
 	const weekLabel = format === "short" ? "W" : "Week"
-	
+
 	if (format === "short") {
 		display = `${weekLabel}${weekNumber}`
 		if (showYear) display += ` ${year}`
 	} else {
 		display = `${weekLabel} ${weekNumber}`
 		if (showYear) display += `, ${year}`
-		
+
 		if (weekSystem !== "ISO") {
 			display += ` (${weekSystem})`
 		}
 	}
-	
+
 	// Add date range if requested
 	if (showRange) {
 		const rangeFormat: Intl.DateTimeFormatOptions = {
 			month: format === "short" ? "numeric" : "short",
-			day: "numeric"
+			day: "numeric",
 		}
-		
+
 		const startStr = formatDate(weekStart, locale, rangeFormat)
 		const endStr = formatDate(weekEnd, locale, rangeFormat)
-		
+
 		display += ` (${startStr} - ${endStr})`
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		return (
@@ -169,18 +178,18 @@ export default function Week({
 				data-week-system={weekSystem}
 				{...props}
 			>
-				{children({ 
-					display, 
+				{children({
+					display,
 					datetime,
 					weekNumber,
 					year,
 					startDate: weekStart,
-					endDate: weekEnd
+					endDate: weekEnd,
 				})}
 			</time>
 		)
 	}
-	
+
 	return (
 		<time
 			dateTime={datetime}

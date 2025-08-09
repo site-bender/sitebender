@@ -67,13 +67,15 @@ export default function Acronym({
 	const ariaLabel = [
 		commonWord ? "acronym now common word" : "acronym",
 		expansion,
-		pronunciation && `pronounced ${pronunciation}`
+		pronunciation && `pronounced ${pronunciation}`,
 	].filter(Boolean).join(", ")
 
 	const content = (
 		<abbr
 			aria-label={ariaLabel}
-			class={`acronym acronym-${style}${commonWord ? " acronym-common-word" : ""}`}
+			class={`acronym acronym-${style}${
+				commonWord ? " acronym-common-word" : ""
+			}`}
 			data-common-word={commonWord}
 			data-expansion={expansion}
 			data-field={field}

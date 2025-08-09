@@ -7,15 +7,15 @@
  *
  * Example usage:
  *
- * <WithGesture 
- *   action="shrug" 
+ * <WithGesture
+ *   action="shrug"
  *   hands="raised"
  * >
  *   I don't know what you want me to say.
  * </WithGesture>
  *
- * <WithGesture 
- *   facial="eyebrow-raise" 
+ * <WithGesture
+ *   facial="eyebrow-raise"
  *   head="tilt"
  *   expression="skeptical"
  * >
@@ -76,9 +76,9 @@ export default function WithGesture({
 		action && `gesture: ${action}`,
 		facial && `facial: ${facial}`,
 		expression && `expression: ${expression}`,
-		intensity !== "moderate" && `intensity: ${intensity}`
+		intensity !== "moderate" && `intensity: ${intensity}`,
 	].filter(Boolean)
-	
+
 	const ariaLabel = gestureParts.length > 0
 		? gestureParts.join(", ")
 		: undefined

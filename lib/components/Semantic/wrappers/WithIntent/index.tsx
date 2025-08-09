@@ -7,23 +7,23 @@
  *
  * Example usage:
  *
- * <WithIntent 
- *   purpose="persuade" 
+ * <WithIntent
+ *   purpose="persuade"
  *   action="purchase"
  *   urgency="high"
  * >
  *   Limited time offer - Act now before it's gone!
  * </WithIntent>
  *
- * <WithIntent 
- *   purpose="inform" 
+ * <WithIntent
+ *   purpose="inform"
  *   expectation="acknowledgment"
  * >
  *   The meeting has been rescheduled to 3 PM.
  * </WithIntent>
  */
 
-export type IntentPurpose = 
+export type IntentPurpose =
 	| "inform"
 	| "persuade"
 	| "entertain"
@@ -47,7 +47,12 @@ export type Props = {
 	description?: string
 	element?: "div" | "span" | "p" | "section" | "aside"
 	// What response is expected
-	expectation?: "none" | "acknowledgment" | "response" | "action" | "consideration"
+	expectation?:
+		| "none"
+		| "acknowledgment"
+		| "response"
+		| "action"
+		| "consideration"
 	// Hidden or implied meaning
 	implication?: string
 	// Primary purpose of the content
@@ -77,7 +82,7 @@ export default function WithIntent({
 		`intent: ${purpose}`,
 		expectation !== "none" && `expecting ${expectation}`,
 		urgency && `urgency: ${urgency}`,
-		target && `for: ${target}`
+		target && `for: ${target}`,
 	].filter(Boolean).join(", ")
 
 	return (

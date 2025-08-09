@@ -9,7 +9,7 @@
  *
  * <PhoneticTranscription notation="ipa">/fəˈnɛtɪk/</PhoneticTranscription>
  *
- * <PhoneticTranscription 
+ * <PhoneticTranscription
  *   notation="respelling"
  *   word="phonetic"
  * >
@@ -17,13 +17,13 @@
  * </PhoneticTranscription>
  */
 
-export type NotationType = 
-	| "ipa"           // International Phonetic Alphabet
-	| "respelling"    // Dictionary-style respelling
-	| "x-sampa"       // Extended Speech Assessment Methods Phonetic Alphabet
-	| "arpabet"       // CMU Pronouncing Dictionary notation
-	| "pinyin"        // Chinese romanization
-	| "romaji"        // Japanese romanization
+export type NotationType =
+	| "ipa" // International Phonetic Alphabet
+	| "respelling" // Dictionary-style respelling
+	| "x-sampa" // Extended Speech Assessment Methods Phonetic Alphabet
+	| "arpabet" // CMU Pronouncing Dictionary notation
+	| "pinyin" // Chinese romanization
+	| "romaji" // Japanese romanization
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string
@@ -53,7 +53,7 @@ export default function PhoneticTranscription({
 	const ariaLabel = [
 		notation === "ipa" ? "IPA transcription" : `${notation} transcription`,
 		word && `for "${word}"`,
-		dialect && `in ${dialect} dialect`
+		dialect && `in ${dialect} dialect`,
 	].filter(Boolean).join(" ")
 
 	const content = (

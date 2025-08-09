@@ -7,7 +7,7 @@
  *
  * Example usage:
  *
- * The term <MentionedTerm>algorithm</MentionedTerm> comes from 
+ * The term <MentionedTerm>algorithm</MentionedTerm> comes from
  * the name of a Persian mathematician.
  *
  * <MentionedTerm defining glossaryId="recursion">
@@ -15,7 +15,7 @@
  * </MentionedTerm>
  * is when a function calls itself.
  *
- * <MentionedTerm 
+ * <MentionedTerm
  *   firstUse
  *   definition="a step-by-step procedure"
  * >
@@ -58,13 +58,15 @@ export default function MentionedTerm({
 		defining && "defining",
 		firstUse && "first use of",
 		"term",
-		definition && `meaning: ${definition}`
+		definition && `meaning: ${definition}`,
 	].filter(Boolean).join(" ")
 
 	const content = (
 		<Element
 			aria-label={ariaLabel}
-			class={`mentioned-term${defining ? " mentioned-term-defining" : ""}${firstUse ? " mentioned-term-first-use" : ""}`}
+			class={`mentioned-term${defining ? " mentioned-term-defining" : ""}${
+				firstUse ? " mentioned-term-first-use" : ""
+			}`}
 			data-defining={defining}
 			data-definition={definition}
 			data-first-use={firstUse}

@@ -7,14 +7,14 @@
  *
  * Example usage:
  *
- * <WithNuance 
+ * <WithNuance
  *   subtext="disappointment"
  *   implies="you should have known better"
  * >
  *   Oh, you decided to show up.
  * </WithNuance>
  *
- * <WithNuance 
+ * <WithNuance
  *   layered
  *   surface="compliment"
  *   underlying="insult"
@@ -50,7 +50,13 @@ export type Props = {
 	// Surface-level meaning
 	surface?: string
 	// Communication technique used
-	technique?: "euphemism" | "understatement" | "overstatement" | "backhanded" | "passive-aggressive" | "doublespeak"
+	technique?:
+		| "euphemism"
+		| "understatement"
+		| "overstatement"
+		| "backhanded"
+		| "passive-aggressive"
+		| "doublespeak"
 	// Underlying or true meaning
 	underlying?: string
 }
@@ -77,12 +83,10 @@ export default function WithNuance({
 		subtext && `subtext: ${subtext}`,
 		implies && `implies: ${implies}`,
 		technique && `technique: ${technique}`,
-		layered && "layered meaning"
+		layered && "layered meaning",
 	].filter(Boolean)
-	
-	const ariaLabel = nuanceParts.length > 0
-		? nuanceParts.join(", ")
-		: undefined
+
+	const ariaLabel = nuanceParts.length > 0 ? nuanceParts.join(", ") : undefined
 
 	return (
 		<Element

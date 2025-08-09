@@ -11,8 +11,8 @@
  *   I... never... saw... it... coming.
  * </WithPace>
  *
- * <WithPace 
- *   speed="fast" 
+ * <WithPace
+ *   speed="fast"
  *   rhythm="staccato"
  *   breathless
  * >
@@ -20,21 +20,21 @@
  * </WithPace>
  */
 
-export type Speed = 
+export type Speed =
 	| "x-slow"
-	| "slow" 
+	| "slow"
 	| "medium-slow"
 	| "medium"
 	| "medium-fast"
 	| "fast"
 	| "x-fast"
 
-export type PauseDuration = 
-	| "x-short"  // ~100ms
-	| "short"    // ~250ms
-	| "medium"   // ~500ms
-	| "long"     // ~1000ms
-	| "x-long"   // ~2000ms
+export type PauseDuration =
+	| "x-short" // ~100ms
+	| "short" // ~250ms
+	| "medium" // ~500ms
+	| "long" // ~1000ms
+	| "x-long" // ~2000ms
 
 export type Props = {
 	// Accelerating pace
@@ -81,9 +81,9 @@ export default function WithPace({
 		rhythm && `rhythm: ${rhythm}`,
 		accelerate && "accelerating",
 		decelerate && "decelerating",
-		breathless && "breathless"
+		breathless && "breathless",
 	].filter(Boolean)
-	
+
 	const ariaLabel = paceAttributes.join(", ")
 
 	return (

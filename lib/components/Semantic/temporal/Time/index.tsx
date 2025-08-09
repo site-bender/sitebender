@@ -27,10 +27,11 @@
  */
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
-import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+
 import formatTime from "../../../formatters/formatTime/index.ts"
 import getTimezoneAbbreviation from "../../../formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show seconds in display
@@ -56,27 +57,25 @@ export default function Time({
 	...props
 }: Props): JSX.Element {
 	// Handle children from JSX - could be array, string, or function
-	const children = Array.isArray(childrenProp) && childrenProp.length === 0 
-		? undefined 
+	const children = Array.isArray(childrenProp) && childrenProp.length === 0
+		? undefined
 		: childrenProp
 	// Parse the value
-	const parsed = typeof value === "string"
-		? parseTemporalString(value)
-		: {
-			hour: value.getHours(),
-			minute: value.getMinutes(),
-			second: value.getSeconds(),
-			millisecond: value.getMilliseconds(),
-			type: "time" as const,
-			original: value.toTimeString().split(" ")[0]
-		}
-	
+	const parsed = typeof value === "string" ? parseTemporalString(value) : {
+		hour: value.getHours(),
+		minute: value.getMinutes(),
+		second: value.getSeconds(),
+		millisecond: value.getMilliseconds(),
+		type: "time" as const,
+		original: value.toTimeString().split(" ")[0],
+	}
+
 	// Add timezone to parsed result
 	if (timezone) parsed.timezone = timezone
-	
+
 	// Build datetime attribute
 	const datetime = buildDateTimeAttribute(parsed, true, false)
-	
+
 	// Format the display
 	const options = formatOptions || {
 		hour: "numeric",
@@ -84,23 +83,23 @@ export default function Time({
 		...(showSeconds && { second: "2-digit" }),
 		...(showMicroseconds && showSeconds && { fractionalSecondDigits: 6 }),
 		...(hour12 !== undefined && { hour12 }),
-		...(timezone && { timeZone: timezone })
+		...(timezone && { timeZone: timezone }),
 	}
-	
+
 	let display = formatTime(
 		parsed.hour!,
 		parsed.minute!,
 		showSeconds ? parsed.second : undefined,
 		locale,
-		options
+		options,
 	)
-	
+
 	// Add timezone abbreviation if requested
 	if (showZone && timezone) {
 		const tzAbbr = getTimezoneAbbreviation(timezone, new Date(), locale)
 		display += ` ${tzAbbr}`
 	}
-	
+
 	// Handle render prop
 	if (typeof children === "function") {
 		return (
@@ -113,7 +112,7 @@ export default function Time({
 			</time>
 		)
 	}
-	
+
 	return (
 		<time
 			dateTime={datetime}

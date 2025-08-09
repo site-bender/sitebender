@@ -48,7 +48,13 @@ export type Props = {
 	// Semantic evolution notes
 	semanticShift?: string
 	// Type of etymology
-	type?: "borrowing" | "compound" | "derivation" | "blend" | "calque" | "coinage"
+	type?:
+		| "borrowing"
+		| "compound"
+		| "derivation"
+		| "blend"
+		| "calque"
+		| "coinage"
 	// Intermediate languages in borrowing chain
 	via?: BCP47LanguageTag[]
 }
@@ -71,9 +77,9 @@ export default function WithEtymology({
 	const etymParts = [
 		`from ${originLang}: ${root}`,
 		meaning && `"${meaning}"`,
-		via && via.length > 0 && `via ${via.join(", ")}`
+		via && via.length > 0 && `via ${via.join(", ")}`,
 	].filter(Boolean)
-	
+
 	const ariaLabel = etymParts.join(", ")
 
 	return (

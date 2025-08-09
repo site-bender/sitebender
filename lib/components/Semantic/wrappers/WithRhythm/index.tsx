@@ -7,14 +7,14 @@
  *
  * Example usage:
  *
- * <WithRhythm 
+ * <WithRhythm
  *   meter="iambic-pentameter"
  *   feet={5}
  * >
  *   But soft, what light through yonder window breaks?
  * </WithRhythm>
  *
- * <WithRhythm 
+ * <WithRhythm
  *   pattern="stressed unstressed unstressed"
  *   repeat={3}
  *   style="waltz"
@@ -23,15 +23,15 @@
  * </WithRhythm>
  */
 
-export type Meter = 
-	| "iambic"         // da-DUM
-	| "trochaic"       // DUM-da
-	| "anapestic"      // da-da-DUM
-	| "dactylic"       // DUM-da-da
-	| "spondaic"       // DUM-DUM
-	| "pyrrhic"        // da-da
-	| "free-verse"     // No fixed pattern
-	| "blank-verse"    // Unrhymed iambic pentameter
+export type Meter =
+	| "iambic" // da-DUM
+	| "trochaic" // DUM-da
+	| "anapestic" // da-da-DUM
+	| "dactylic" // DUM-da-da
+	| "spondaic" // DUM-DUM
+	| "pyrrhic" // da-da
+	| "free-verse" // No fixed pattern
+	| "blank-verse" // Unrhymed iambic pentameter
 
 export type Props = {
 	// Musical beats per minute
@@ -86,12 +86,10 @@ export default function WithRhythm({
 		meter && `meter: ${meter}`,
 		feet && `${feet} feet`,
 		style !== "prose" && `style: ${style}`,
-		bpm && `${bpm} bpm`
+		bpm && `${bpm} bpm`,
 	].filter(Boolean)
-	
-	const ariaLabel = rhythmParts.length > 0
-		? rhythmParts.join(", ")
-		: undefined
+
+	const ariaLabel = rhythmParts.length > 0 ? rhythmParts.join(", ") : undefined
 
 	return (
 		<Element

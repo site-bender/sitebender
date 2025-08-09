@@ -8,7 +8,7 @@
  * Example usage:
  *
  * The letter <LetterAsLetter>A</LetterAsLetter> is the first letter of the alphabet.
- * 
+ *
  * In Spanish, <LetterAsLetter>ñ</LetterAsLetter> is considered a separate letter.
  */
 
@@ -31,7 +31,7 @@ export default function LetterAsLetter({
 	phoneticName,
 	...props
 }: Props): JSX.Element {
-	const ariaLabel = phoneticName 
+	const ariaLabel = phoneticName
 		? `letter ${phoneticName}`
 		: `letter ${children}`
 

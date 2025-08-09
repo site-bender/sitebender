@@ -62,7 +62,7 @@ export default function Abbreviation({
 	const ariaLabel = [
 		"abbreviation for",
 		expansion,
-		context && `in ${context} context`
+		context && `in ${context} context`,
 	].filter(Boolean).join(" ")
 
 	const content = (

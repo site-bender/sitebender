@@ -5,16 +5,16 @@
  * It can include phonetic transcription or IPA notation.
  * The component can be used to provide additional context
  * for how the text should be spoken or pronounced.
- * 
+ *
  * Example usage:
  *
  * <SpokenAs ipa="/mʌˈnɒt/" phonetic="muh-NAHT">
  *   Munat
  * </SpokenAs>
  *
- * <SpokenAs 
- *   ipa="/ˈpærɪs/" 
- *   phonetic="PAR-iss" 
+ * <SpokenAs
+ *   ipa="/ˈpærɪs/"
+ *   phonetic="PAR-iss"
  *   lang="en-US"
  *   audio="/audio/paris-pronunciation.mp3"
  * >

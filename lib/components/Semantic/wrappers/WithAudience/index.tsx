@@ -7,15 +7,15 @@
  *
  * Example usage:
  *
- * <WithAudience 
- *   age="5-8" 
+ * <WithAudience
+ *   age="5-8"
  *   expertise="beginner"
  *   interests="dinosaurs"
  * >
  *   T-Rex was a very big dinosaur with sharp teeth!
  * </WithAudience>
  *
- * <WithAudience 
+ * <WithAudience
  *   profession="software-engineers"
  *   expertise="expert"
  *   familiarity="high"
@@ -24,10 +24,10 @@
  * </WithAudience>
  */
 
-export type ExpertiseLevel = 
+export type ExpertiseLevel =
 	| "novice"
 	| "beginner"
-	| "intermediate" 
+	| "intermediate"
 	| "advanced"
 	| "expert"
 
@@ -84,9 +84,9 @@ export default function WithAudience({
 		age && `age: ${age}`,
 		expertise && `expertise: ${expertise}`,
 		profession && `profession: ${profession}`,
-		size !== "individual" && `audience size: ${size}`
+		size !== "individual" && `audience size: ${size}`,
 	].filter(Boolean)
-	
+
 	const ariaLabel = audienceParts.length > 0
 		? `for ${audienceParts.join(", ")}`
 		: undefined

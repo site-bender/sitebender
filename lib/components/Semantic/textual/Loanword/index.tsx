@@ -11,7 +11,7 @@
  *   café
  * </Loanword>
  *
- * <Loanword 
+ * <Loanword
  *   from="ja"
  *   period="1990s"
  *   originalForm="絵文字"
@@ -69,14 +69,14 @@ export default function Loanword({
 }: Props): JSX.Element {
 	const borrowingPath = [
 		`from ${from}`,
-		via && via.length > 0 && `via ${via.join(", ")}`
+		via && via.length > 0 && `via ${via.join(", ")}`,
 	].filter(Boolean).join(" ")
 
 	const ariaLabel = [
 		"loanword",
 		borrowingPath,
 		period && `borrowed in ${period}`,
-		adapted && "adapted"
+		adapted && "adapted",
 	].filter(Boolean).join(", ")
 
 	const title = meaning || originalForm || description
