@@ -1,0 +1,11 @@
+const isSubsetOf = <T>(options: readonly T[]) => (value: unknown): boolean => {
+	if (typeof value !== "string") {
+		return options.includes(value as T)
+	}
+
+	const tokens = value.split(/[,\s]+/).filter((token) => token.length > 0)
+
+	return tokens.every((token) => options.includes(token as T))
+}
+
+export default isSubsetOf
