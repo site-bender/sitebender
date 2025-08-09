@@ -39,15 +39,35 @@ Build-time validation catches errors before deployment. No runtime surprises. Wo
 
 ### Scenario 1: E-commerce Form That MUST Work
 ```typescript
+// Import form fields and validation constructors
+import { Form, IntegerField } from "@sitebender/adaptive/forms"
+import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/adaptive/constructors"
+
 <Form action="/checkout" method="post">
-  <Input 
+  <IntegerField
     name="quantity"
-    type="number"
-    validation={Between(1, 99)}
-    calculation={Multiply([Self, FromAPI("/api/price")])}
+    label="Quantity"
+    min={1}
+    max={99}
+    step={1}
+    required={true}
+    help="Enter quantity (1-99)"
+    validation={And([
+      IsNoLessThan({ test: Constant(1) }),
+      IsNoMoreThan({ test: Constant(99) })
+    ])}
+    calculation={Multiply([
+      FromElement("#quantity"),
+      FromAPI("/api/price")
+    ])}
   />
-  {/* Works without JS: native HTML form submission */}
-  {/* With JS: real-time price calculation, instant validation */}
+  {/* Generates HTML (no JS needed): */}
+  {/* <input type="number" name="quantity" min="1" max="99" step="1" required /> */}
+  
+  {/* With JS enhancement adds: */}
+  {/* - element.__sbValidate for client-side validation */}
+  {/* - element.__sbCalculate for real-time price updates */}
+  {/* - Same validation logic on client and server */}
 </Form>
 ```
 
@@ -108,7 +128,23 @@ import { Button, Form, Input } from "jsr:@sitebender/adaptive"
 
 1. **Adaptive Runtime Engine** - Functional HTML generation with validation and reactive rendering
 2. **Schema.org/Semantic Components** - Type-safe components with built-in structured data
-3. **UI Components Library** - Production-ready buttons, forms, navigation with progressive enhancement
+3. **Form Components Library** - DataType-based fields that intelligently render appropriate HTML elements
+
+### Smart Form Fields
+
+Form fields are named by the **data type** they handle, not the HTML element they render:
+
+- `TextField` → Renders `<input type="text">` or `<textarea>` based on expected length
+- `IntegerField` → Renders `<input type="number" step="1">` with integer validation
+- `FloatField` → Renders `<input type="number" step="any">` with decimal support
+- `EmailAddressField` → Renders `<input type="email">` with email validation
+- `ChooseOneField` → Renders `<select>` or radio group based on number of options
+- `ChooseManyField` → Renders checkboxes or multi-select based on options
+
+Each field automatically includes:
+- Proper HTML validation attributes (`min`, `max`, `step`, `pattern`, `required`)
+- Progressive enhancement hooks for client-side validation
+- Accessibility features (labels, help text, ARIA attributes)
 
 ### Build-Time Validation
 ```typescript
@@ -120,6 +156,23 @@ import { Button, Form, Input } from "jsr:@sitebender/adaptive"
   Submit
 </Button>
 ```
+
+### Dual Validation Strategy
+
+The library uses a two-tier validation approach:
+
+1. **HTML Attributes** - For browser-native validation (works without JS)
+   - Set via props: `min={1}`, `max={99}`, `pattern={/^[A-Z]+$/}`, `required={true}`
+   - Renders to HTML: `<input min="1" max="99" pattern="^[A-Z]+$" required>`
+   - Browser handles basic validation on form submission
+
+2. **Validation Constructors** - For enhanced client/server validation (with JS)
+   - Compose complex validation logic: `And([IsNoLessThan({test: Constant(1)}), IsNoMoreThan({test: Constant(99)})])`
+   - Attached to element as `__sbValidate` function
+   - Enables identical validation logic on client and server
+   - Provides detailed error messages and custom validation rules
+
+Currently, HTML attributes and validation constructors are specified separately. A future enhancement could automatically derive HTML attributes from validation constructors where possible.
 
 ### Progressive Enhancement Built-In
 ```typescript
