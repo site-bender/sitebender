@@ -1,5 +1,5 @@
-// @sitebender/adaptive
-// Convenience exports for all adaptive components
+// @sitebender/sitebender
+// Convenience exports for all sitebender components
 
 // Creative Works
 export { default as CreativeWork } from "./metadata/Thing/CreativeWork/index.tsx"

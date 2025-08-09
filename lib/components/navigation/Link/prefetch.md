@@ -279,7 +279,7 @@ function createAdaptivePrefetchEnhancer(
 // In the Link component
 <Link 
   to="/about" 
-  prefetch="visible" // or "hover", "eager", "adaptive"
+  prefetch="visible" // or "hover", "eager", "sitebender"
 >
   About
 </Link>
@@ -297,7 +297,7 @@ type PrefetchStrategy =
 	| "hover"
 	| "visible"
 	| "eager"
-	| "adaptive"
+	| "sitebender"
 	| "predictive"
 
 function initPrefetching(): () => void {
@@ -338,7 +338,7 @@ function createPrefetchEnhancer(
 		case "eager":
 			prefetchResource(element.href, cache)
 			return () => {}
-		case "adaptive":
+		case "sitebender":
 			return createAdaptivePrefetchEnhancer(element, cache)
 		case "predictive":
 			return createPredictivePrefetchEnhancer(element, cache)

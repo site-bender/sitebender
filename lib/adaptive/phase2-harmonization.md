@@ -5,13 +5,13 @@
 Based on user requirements, we need to achieve:
 
 1. **Construction-time validation for SSG** - Vital for static site generation
-2. **Progressive enhancement via data-* attributes** - Store adaptive configs in HTML
+2. **Progressive enhancement via data-* attributes** - Store sitebender configs in HTML
 3. **Tree-shakable architecture** - Only load functions that are actually used
 4. **Works without JavaScript** - Pure HTML/CSS fallback
 
 ## Core Concept: Unified Object Format
 
-Instead of dual-mode createElement, we harmonize the object formats so JSX components generate adaptive-compatible configurations that can be:
+Instead of dual-mode createElement, we harmonize the object formats so JSX components generate sitebender-compatible configurations that can be:
 - Validated at build time
 - Serialized to data-* attributes
 - Hydrated client-side when JS is available
@@ -46,7 +46,7 @@ Instead of dual-mode createElement, we harmonize the object formats so JSX compo
 ```typescript
 // During build (SSG phase)
 function createElement(tag, props, ...children) {
-  // 1. Map to adaptive constructor for validation
+  // 1. Map to sitebender constructor for validation
   const Constructor = getAdaptiveConstructor(tag)
   
   if (Constructor) {
@@ -138,8 +138,8 @@ export default function handleApi(element, config) {
 ### What Stays the Same
 
 1. **Validation at construction** - All components validated during build
-2. **Component mapping** - JSX components map to adaptive validators
-3. **Feature completeness** - All adaptive features available
+2. **Component mapping** - JSX components map to sitebender validators
+3. **Feature completeness** - All sitebender features available
 4. **Type safety** - Full TypeScript support
 
 ## Implementation Phases
@@ -151,13 +151,13 @@ export default function handleApi(element, config) {
 4. Implement HTML-first output
 
 ### Phase 2b: Component Validators
-1. Create validation-only versions of adaptive constructors
+1. Create validation-only versions of sitebender constructors
 2. Map all JSX components to validators
 3. Implement content model checking
 4. Add build-time error reporting
 
 ### Phase 2c: Enhancement Modules
-1. Split adaptive features into separate modules
+1. Split sitebender features into separate modules
 2. Create lazy-loading hydration system
 3. Implement tree-shakable bundles
 4. Add progressive enhancement detection
@@ -253,7 +253,7 @@ export default function handleApi(element, config) {
 
 ### For New Components
 1. Write JSX as normal
-2. Use adaptive props for enhancements
+2. Use sitebender props for enhancements
 3. Get validation automatically
 4. Progressive enhancement built-in
 
@@ -281,4 +281,4 @@ This refined approach achieves all stated goals:
 - ✅ Tree-shakable architecture
 - ✅ Works without JavaScript
 
-By harmonizing object formats and using HTML as the transport mechanism, we get the best of both worlds: powerful validation and features from adaptive, with the simplicity and progressive enhancement of semantic HTML.
+By harmonizing object formats and using HTML as the transport mechanism, we get the best of both worlds: powerful validation and features from sitebender, with the simplicity and progressive enhancement of semantic HTML.

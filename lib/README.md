@@ -1,4 +1,4 @@
-# @sitebender/adaptive
+# @sitebender/sitebender
 
 **Write type-safe, semantic components that work everywhere, weigh nothing, and never break in production.**
 
@@ -13,7 +13,7 @@ Most libraries pay lip service to progressive enhancement. This one actually bui
 Build-time validation for SSG is brilliant. Catching errors at construction time rather than runtime means broken components never reach production. The type safety extends beyond TypeScript into actual HTML semantics and content models.
 
 ### 3. Declarative Power Without the Weight
-The adaptive system's declarative configurations (calculations, validations, conditionals) are powerful yet compile to efficient HTML with data attributes. You get React-like declarative programming without shipping a massive runtime.
+The sitebender system's declarative configurations (calculations, validations, conditionals) are powerful yet compile to efficient HTML with data attributes. You get React-like declarative programming without shipping a massive runtime.
 
 ### 4. Truly Tree-Shakable
 The dynamic import strategy means you only load what you use. A form that just needs email validation doesn't load 60+ mathematical operations. This respects users' bandwidth and devices.
@@ -40,8 +40,8 @@ Build-time validation catches errors before deployment. No runtime surprises. Wo
 ### Scenario 1: E-commerce Form That MUST Work
 ```typescript
 // Import form fields and validation constructors
-import { Form, IntegerField } from "@sitebender/adaptive/forms"
-import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/adaptive/constructors"
+import { Form, IntegerField } from "@sitebender/sitebender/forms"
+import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/sitebender/constructors"
 
 <Form action="/checkout" method="post">
   <IntegerField
@@ -87,14 +87,26 @@ import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Consta
 
 ### Scenario 3: Content Site With Perfect SEO
 ```typescript
-<Article typeof="NewsArticle">
-  <Headline property="headline">{title}</Headline>
-  <Author property="author" typeof="Person">
-    <Name property="name">{authorName}</Name>
-  </Author>
-  {/* Google sees: perfect Schema.org markup */}
-  {/* Users see: beautiful, accessible content */}
-  {/* Developers see: type-safe, validated components */}
+import { Article, Person } from "@sitebender/sitebender/schema.org"
+
+<Article 
+  _type="NewsArticle"
+  headline={title}
+  datePublished="2024-12-08"
+  author={
+    <Person 
+      name={authorName}
+      jobTitle="Tech Writer"
+      url="https://example.com/authors/jane"
+    />
+  }
+>
+  {articleContent}
+  {/* Generates semantic HTML with: */}
+  {/* - Microdata attributes automatically added */}
+  {/* - JSON-LD script with full Schema.org structure */}
+  {/* - Type-safe props validated at build time */}
+  {/* - Perfect for Google's rich results */}
 </Article>
 ```
 
@@ -116,10 +128,10 @@ The structured data and semantic markup make your content perfectly consumable b
 
 ```bash
 # Install from JSR
-deno add @sitebender/adaptive
+deno add @sitebender/sitebender
 
 # Or import directly
-import { Button, Form, Input } from "jsr:@sitebender/adaptive"
+import { Button, Form, Input } from "jsr:@sitebender/sitebender"
 ```
 
 ## Core Features
@@ -252,7 +264,7 @@ The combination of build-time validation, progressive enhancement, semantic HTML
 
 ## Documentation
 
-Full documentation and live examples available at the [documentation site](https://sitebender.io/adaptive).
+Full documentation and live examples available at the [documentation site](https://sitebender.io/sitebender).
 
 ## License
 
@@ -264,6 +276,6 @@ Contributions welcome! Please read [CONTRIBUTING.md](../CONTRIBUTING.md) for gui
 
 ## Support
 
-- [GitHub Issues](https://github.com/sitebender/adaptive/issues)
-- [Documentation](https://sitebender.io/adaptive)
-- [Examples](https://sitebender.io/adaptive/examples)
+- [GitHub Issues](https://github.com/sitebender/sitebender/issues)
+- [Documentation](https://sitebender.io/sitebender)
+- [Examples](https://sitebender.io/sitebender/examples)

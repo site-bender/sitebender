@@ -3,7 +3,7 @@
  *
  * Specifies the intended audience for content, helping AI systems
  * adjust language, complexity, and cultural references appropriately.
- * Useful for educational content, marketing, and adaptive interfaces.
+ * Useful for educational content, marketing, and sitebender interfaces.
  *
  * Example usage:
  *
