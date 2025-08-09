@@ -44,7 +44,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Deno-based adaptive web component library (@sitebender/adaptive) in `lib` that provides type-safe, progressively enhanced components with build-time validation, reactive calculations, and Schema.org structured data support. The library generates semantic HTML that works without JavaScript while supporting powerful client-side enhancements.
+This is a Deno-based adaptive web component library (@sitebender/sitebender) in `lib` that provides type-safe, progressively enhanced components with build-time validation, reactive calculations, and Schema.org structured data support. The library generates semantic HTML that works without JavaScript while supporting powerful client-side enhancements.
 
 The library also provides a large set of semantic components intended to extend the semantics of HTML, allowing developers to create rich, structured content that is both machine-readable and accessible.
 

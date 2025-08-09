@@ -4,7 +4,7 @@
 
 This codebase consists of three distinct libraries built at different times and merged together:
 
-1. **Adaptive Runtime Engine** (`lib/adaptive/`) - Functional HTML generation and rendering system
+1. **Adaptive Runtime Engine** (`lib/sitebender/`) - Functional HTML generation and rendering system
 2. **Schema.org/Semantic Components** (`lib/components/{schema.org,semantic,calendars,formatters,parsers}`) - JSX/TSX components for structured data
 3. **UI Components Library** (`lib/components/{buttons,forms,navigation,page,wrappers}`) - JSX/TSX interactive components
 
@@ -31,7 +31,7 @@ This codebase consists of three distinct libraries built at different times and 
 **Current Organization:**
 
 - `lib/types/schema.org/` - Schema.org component types (well organized)
-- `lib/adaptive/types/` - Adaptive library types (well organized)
+- `lib/sitebender/types/` - Adaptive library types (well organized)
 - `src/types/` - UI component types (WRONG LOCATION - breaks library independence)
 - Mixed imports using `~types/` alias pointing to `src/types/` (breaks in library context)
 
@@ -47,15 +47,15 @@ This codebase consists of three distinct libraries built at different times and 
 
 ```typescript
 // Only outputs JSX elements or calls function components
-// Cannot generate adaptive configuration objects
+// Cannot generate sitebender configuration objects
 // Limited isProp support for data extraction
 ```
 
 **Needed Capabilities:**
 
 - Output mode selection (HTML string vs configuration object)
-- Integration with adaptive's validation system
-- Support for adaptive's enhancement hooks
+- Integration with sitebender's validation system
+- Support for sitebender's enhancement hooks
 - Maintain isProp functionality for JSON-LD
 
 ### 4. Missing Integration Layer
@@ -74,7 +74,7 @@ Currently no bridge between:
 1. **Moved Component Types** - Copied all types from `src/types/` to `lib/types/components/`
 2. **Updated All Imports** - Replaced all alias imports (`~types/`, `~components/`, `~utilities/`, `~constants/`) with relative paths
 3. **Created lib/constants/** - Copied necessary constants from `src/constants/` to `lib/constants/`
-4. **Fixed Adaptive Library** - Updated internal adaptive library aliases to relative paths
+4. **Fixed Adaptive Library** - Updated internal sitebender library aliases to relative paths
 5. **Verified Independence** - Confirmed zero remaining alias imports in lib/
 
 ### Files Updated:
@@ -82,7 +82,7 @@ Currently no bridge between:
 - **67 files** with utilities imports converted to relative paths
 - **32 files** with types imports converted to relative paths
 - **20+ files** with components imports converted to relative paths
-- **900+ import statements** in adaptive library converted to relative paths
+- **900+ import statements** in sitebender library converted to relative paths
 
 The library is now **completely self-contained** with only relative imports, making it ready for JSR publication.
 
@@ -94,12 +94,12 @@ The current JSX type definitions in `lib/types/globals.d.ts` and `lib/types/JSX/
 **Current State:**
 - Basic JSX.Element and JSX.IntrinsicElements defined in globals.d.ts
 - Missing HTML element attribute interfaces (FormHTMLAttributes, ButtonHTMLAttributes, etc.)
-- Two different type systems in play (adaptive's type system vs JSX component types)
+- Two different type systems in play (sitebender's type system vs JSX component types)
 
 **Needs Investigation:**
 - Consolidate JSX type definitions from other libraries
 - Decide between extending React-style types or creating custom minimal types
-- Ensure compatibility with both adaptive and JSX component systems
+- Ensure compatibility with both sitebender and JSX component systems
 
 ---
 
@@ -107,7 +107,7 @@ The current JSX type definitions in `lib/types/globals.d.ts` and `lib/types/JSX/
 
 ### Phase 2: Unified createElement Strategy
 
-Create a dual-mode createElement that can output both HTML strings and adaptive configurations:
+Create a dual-mode createElement that can output both HTML strings and sitebender configurations:
 
 ```typescript
 // lib/utilities/createElement/index.ts
@@ -116,9 +116,9 @@ export function createElement(
 	props?: Record<string, unknown> | null,
 	...children: unknown[]
 ): unknown {
-	const mode = globalConfig.renderMode || "html" // 'html' | 'adaptive'
+	const mode = globalConfig.renderMode || "html" // 'html' | 'sitebender'
 
-	if (mode === "adaptive") {
+	if (mode === "sitebender") {
 		return createAdaptiveConfig(tag, props, children)
 	}
 
@@ -127,7 +127,7 @@ export function createElement(
 
 // Adaptive configuration generation
 function createAdaptiveConfig(tag, props, children) {
-	// Map JSX to adaptive constructor
+	// Map JSX to sitebender constructor
 	const Constructor = getAdaptiveConstructor(tag)
 	if (Constructor) {
 		return Constructor(props)(children)
@@ -162,23 +162,23 @@ lib/types/
 
 ### 3. Component Integration Layer
 
-Create adapters between JSX components and adaptive system:
+Create adapters between JSX components and sitebender system:
 
 ```typescript
 // lib/components/adapters/index.ts
 
-// Convert JSX component to adaptive constructor
+// Convert JSX component to sitebender constructor
 export function adaptComponent(Component: Function) {
 	return (props: any) => (children: any[]) => {
 		// Get JSX representation
 		const jsx = Component({ ...props, children })
 
-		// Convert to adaptive config with validation
+		// Convert to sitebender config with validation
 		return convertToAdaptive(jsx)
 	}
 }
 
-// Add adaptive features to JSX components
+// Add sitebender features to JSX components
 export function enhanceComponent(Component: Function) {
 	return (props: any) => {
 		// Add validation
@@ -207,7 +207,7 @@ export function enhanceComponent(Component: Function) {
 
 **Phase 2: Dual-Mode createElement**
 
-- Extend createElement to support adaptive output
+- Extend createElement to support sitebender output
 - Add mode configuration
 - Maintain backward compatibility
 
@@ -228,7 +228,7 @@ export function enhanceComponent(Component: Function) {
 **For Developers:**
 
 - Write components once using familiar JSX
-- Get adaptive's validation and enhancement for free
+- Get sitebender's validation and enhancement for free
 - Choose rendering mode based on use case
 - Type safety across entire system
 
@@ -252,7 +252,7 @@ export default function MyComponent(props: Props) {
 	// Core rendering
 	const element = <div {...validated}>{props.children}</div>
 
-	// Enhancement hooks (if in adaptive mode)
+	// Enhancement hooks (if in sitebender mode)
 	if (isAdaptiveMode()) {
 		return enhanceWithAdaptive(element, props)
 	}
@@ -268,7 +268,7 @@ export type Props = {
 
 ### 7. Validation and Content Model Integration
 
-Leverage adaptive's sophisticated content model validation:
+Leverage sitebender's sophisticated content model validation:
 
 ```typescript
 // lib/components/guards/jsx/index.ts
@@ -295,7 +295,7 @@ For database/file storage of component configurations:
 ```typescript
 // Adaptive configuration format (JSON-serializable)
 {
-  "type": "adaptive:component",
+  "type": "sitebender:component",
   "version": "1.0",
   "component": "Button",
   "props": {
@@ -332,11 +332,11 @@ The key is creating a bridge that preserves the strengths of each approach while
 
 ## Overview
 
-The `lib/adaptive/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender/adaptive library.
+The `lib/sitebender/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender/sitebender library.
 
 ## Core Purpose
 
-The adaptive library provides:
+The sitebender library provides:
 
 1. **Declarative HTML Element Construction** - Creates HTML elements through functional composition rather than imperative DOM manipulation
 2. **Advanced Content Model Validation** - Enforces HTML5 content model rules with sophisticated filtering
@@ -438,9 +438,9 @@ Multi-stage rendering process:
 
 ## Integration with Main Library
 
-The adaptive library provides the foundation for the semantic components:
+The sitebender library provides the foundation for the semantic components:
 
-1. **Base Infrastructure**: All semantic components extend adaptive's constructor patterns
+1. **Base Infrastructure**: All semantic components extend sitebender's constructor patterns
 2. **Content Validation**: Advanced filters ensure semantic HTML validity
 3. **Progressive Enhancement**: Hooks for client-side behavior and formatting
 4. **Rendering**: Converts semantic configurations to HTML/DOM

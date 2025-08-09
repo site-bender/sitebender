@@ -1,4 +1,4 @@
-# @sitebender/adaptive
+# @sitebender/sitebender
 
 Adaptive web components with progressive enhancement and build-time validation. Create type-safe, semantic HTML that works everywhere and weighs nothing.
 
@@ -13,13 +13,13 @@ Adaptive web components with progressive enhancement and build-time validation. 
 ## Installation
 
 ```bash
-deno add @sitebender/adaptive
+deno add @sitebender/sitebender
 ```
 
 ## Quick Start
 
 ```typescript
-import { TechnicalTerm, Book, Dialogue } from "@sitebender/adaptive"
+import { TechnicalTerm, Book, Dialogue } from "@sitebender/sitebender"
 
 // Technical terminology with JSON-LD
 <TechnicalTerm 
@@ -107,7 +107,7 @@ import { TechnicalTerm, Book, Dialogue } from "@sitebender/adaptive"
 
 ## Documentation
 
-Visit [our documentation site](https://adaptive.deno.dev) for:
+Visit [our documentation site](https://sitebender.deno.dev) for:
 
 - Complete component API reference
 - Live examples and demos

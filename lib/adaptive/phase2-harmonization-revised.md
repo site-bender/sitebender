@@ -2,11 +2,11 @@
 
 ## Critical Correction
 
-The adaptive library already has a sophisticated system of multiple data-* attributes, each with specialized compose functions that attach executable functions to DOM elements as properties. We must preserve ALL of this functionality.
+The sitebender library already has a sophisticated system of multiple data-* attributes, each with specialized compose functions that attach executable functions to DOM elements as properties. We must preserve ALL of this functionality.
 
 ## Existing Adaptive Data-* Attribute System
 
-The adaptive library uses these specialized attributes and element properties:
+The sitebender library uses these specialized attributes and element properties:
 
 ### 1. **data-calculation** → `__sbCalculate`
 - Uses `composeOperators` to create calculation functions
@@ -39,8 +39,8 @@ The adaptive library uses these specialized attributes and element properties:
 ### Core Principle: Preserve and Extend
 
 Instead of reducing everything to a single `data-enhance` attribute, we:
-1. **Preserve** all existing adaptive data-* attributes
-2. **Map** JSX props to appropriate adaptive configurations
+1. **Preserve** all existing sitebender data-* attributes
+2. **Map** JSX props to appropriate sitebender configurations
 3. **Generate** multiple data-* attributes as needed
 4. **Attach** composed functions during hydration
 
@@ -81,7 +81,7 @@ Instead of reducing everything to a single `data-enhance` attribute, we:
 ### Client-Side Hydration
 
 ```typescript
-// Hydration preserves all adaptive library power
+// Hydration preserves all sitebender library power
 async function hydrateAdaptive() {
   const elements = document.querySelectorAll('[data-calculation], [data-validate], [data-display], [data-format], [data-enhance]')
   
@@ -111,7 +111,7 @@ async function hydrateAdaptive() {
       document.__sbDisplayCallbacks[element.id] = async () => {
         const shouldDisplay = await displayFn()
         if (!shouldDisplay) {
-          // Move to template element (adaptive's approach)
+          // Move to template element (sitebender's approach)
           const template = document.createElement('template')
           template.dataset.sbHidden = element.id
           element.replaceWith(template)
@@ -145,7 +145,7 @@ async function hydrateAdaptive() {
 ```typescript
 // Modified createElement for build-time validation
 function createElement(tag, props, ...children) {
-  // 1. Map to adaptive constructor for validation
+  // 1. Map to sitebender constructor for validation
   const Constructor = getAdaptiveConstructor(tag)
   
   if (Constructor) {
@@ -155,7 +155,7 @@ function createElement(tag, props, ...children) {
       throw new BuildError(`Validation failed for ${tag}: ${validation.error}`)
     }
     
-    // 3. Extract all adaptive configurations
+    // 3. Extract all sitebender configurations
     const configs = {
       calculation: extractCalculation(props),
       validation: extractValidation(props),
@@ -300,18 +300,18 @@ export async function composeConditional(config) {
 
 ## Key Improvements Over Previous Plan
 
-1. **Preserves ALL adaptive functionality** - No loss of power
+1. **Preserves ALL sitebender functionality** - No loss of power
 2. **Multiple specialized data-* attributes** - Not everything in data-enhance
 3. **Proper compose functions** - composeOperators, composeValidator, composeConditional
 4. **Element properties maintained** - __sbCalculate, __sbValidate, __sbFormat, etc.
 5. **Document registries preserved** - __sbCalculators, __sbFormatters, __sbDisplayCallbacks
-6. **Template-based hiding** - Elements moved to template when hidden (adaptive's approach)
+6. **Template-based hiding** - Elements moved to template when hidden (sitebender's approach)
 
 ## Implementation Phases
 
 ### Phase 2a: JSX to Adaptive Mapping
 1. Create prop extractors for each data-* type
-2. Map JSX validation props to adaptive configs
+2. Map JSX validation props to sitebender configs
 3. Generate proper data-* attributes
 4. Maintain build-time validation
 
@@ -328,25 +328,25 @@ export async function composeConditional(config) {
 4. Measure bundle impact
 
 ### Phase 2d: Testing & Validation
-1. Verify all adaptive features work
+1. Verify all sitebender features work
 2. Test progressive enhancement
 3. Validate tree-shaking
 4. Ensure SSG compatibility
 
 ## Success Metrics
 
-1. **100% adaptive feature preservation** - All compose functions work
+1. **100% sitebender feature preservation** - All compose functions work
 2. **< 10kb base bundle** - Rest loads dynamically
 3. **Build-time validation** - Errors caught during SSG
 4. **Full HTML fallback** - Works without JavaScript
-5. **Reactive updates** - All adaptive reactivity maintained
+5. **Reactive updates** - All sitebender reactivity maintained
 
 ## Conclusion
 
-This revised approach fully preserves the adaptive library's sophisticated capabilities while achieving the harmonization goals. By maintaining the multiple specialized data-* attributes and their corresponding compose functions, we keep all the power of the adaptive system while enabling:
+This revised approach fully preserves the sitebender library's sophisticated capabilities while achieving the harmonization goals. By maintaining the multiple specialized data-* attributes and their corresponding compose functions, we keep all the power of the sitebender system while enabling:
 
 - ✅ Construction-time validation for SSG
 - ✅ Progressive enhancement via multiple data-* attributes
 - ✅ Tree-shakable architecture with dynamic imports
 - ✅ Works without JavaScript (HTML fallback)
-- ✅ Full adaptive functionality preserved
+- ✅ Full sitebender functionality preserved

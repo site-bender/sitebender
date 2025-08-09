@@ -1,4 +1,4 @@
-# @sitebender/adaptive
+# @sitebender/sitebender
 
 **Write type-safe, semantic components that work everywhere, weigh nothing, and never break in production.**
 
@@ -13,7 +13,7 @@ Most libraries pay lip service to progressive enhancement. This one actually bui
 Build-time validation for SSG is brilliant. Catching errors at construction time rather than runtime means broken components never reach production. The type safety extends beyond TypeScript into actual HTML semantics and content models.
 
 ### 3. Declarative Power Without the Weight
-The adaptive system's declarative configurations (calculations, validations, conditionals) are powerful yet compile to efficient HTML with data attributes. You get React-like declarative programming without shipping a massive runtime.
+The sitebender system's declarative configurations (calculations, validations, conditionals) are powerful yet compile to efficient HTML with data attributes. You get React-like declarative programming without shipping a massive runtime.
 
 ### 4. Truly Tree-Shakable
 The dynamic import strategy means you only load what you use. A form that just needs email validation doesn't load 60+ mathematical operations. This respects users' bandwidth and devices.
@@ -39,15 +39,35 @@ Build-time validation catches errors before deployment. No runtime surprises. Wo
 
 ### Scenario 1: E-commerce Form That MUST Work
 ```typescript
+// Import form fields and validation constructors
+import { Form, IntegerField } from "@sitebender/sitebender/forms"
+import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/sitebender/constructors"
+
 <Form action="/checkout" method="post">
-  <Input 
+  <IntegerField
     name="quantity"
-    type="number"
-    validation={Between(1, 99)}
-    calculation={Multiply([Self, FromAPI("/api/price")])}
+    label="Quantity"
+    min={1}
+    max={99}
+    step={1}
+    required={true}
+    help="Enter quantity (1-99)"
+    validation={And([
+      IsNoLessThan({ test: Constant(1) }),
+      IsNoMoreThan({ test: Constant(99) })
+    ])}
+    calculation={Multiply([
+      FromElement("#quantity"),
+      FromAPI("/api/price")
+    ])}
   />
-  {/* Works without JS: native HTML form submission */}
-  {/* With JS: real-time price calculation, instant validation */}
+  {/* Generates HTML (no JS needed): */}
+  {/* <input type="number" name="quantity" min="1" max="99" step="1" required /> */}
+  
+  {/* With JS enhancement adds: */}
+  {/* - element.__sbValidate for client-side validation */}
+  {/* - element.__sbCalculate for real-time price updates */}
+  {/* - Same validation logic on client and server */}
 </Form>
 ```
 
@@ -67,14 +87,26 @@ Build-time validation catches errors before deployment. No runtime surprises. Wo
 
 ### Scenario 3: Content Site With Perfect SEO
 ```typescript
-<Article typeof="NewsArticle">
-  <Headline property="headline">{title}</Headline>
-  <Author property="author" typeof="Person">
-    <Name property="name">{authorName}</Name>
-  </Author>
-  {/* Google sees: perfect Schema.org markup */}
-  {/* Users see: beautiful, accessible content */}
-  {/* Developers see: type-safe, validated components */}
+import { Article, Person } from "@sitebender/sitebender/schema.org"
+
+<Article 
+  _type="NewsArticle"
+  headline={title}
+  datePublished="2024-12-08"
+  author={
+    <Person 
+      name={authorName}
+      jobTitle="Tech Writer"
+      url="https://example.com/authors/jane"
+    />
+  }
+>
+  {articleContent}
+  {/* Generates semantic HTML with: */}
+  {/* - Microdata attributes automatically added */}
+  {/* - JSON-LD script with full Schema.org structure */}
+  {/* - Type-safe props validated at build time */}
+  {/* - Perfect for Google's rich results */}
 </Article>
 ```
 
@@ -96,10 +128,10 @@ The structured data and semantic markup make your content perfectly consumable b
 
 ```bash
 # Install from JSR
-deno add @sitebender/adaptive
+deno add @sitebender/sitebender
 
 # Or import directly
-import { Button, Form, Input } from "jsr:@sitebender/adaptive"
+import { Button, Form, Input } from "jsr:@sitebender/sitebender"
 ```
 
 ## Core Features
@@ -108,7 +140,23 @@ import { Button, Form, Input } from "jsr:@sitebender/adaptive"
 
 1. **Adaptive Runtime Engine** - Functional HTML generation with validation and reactive rendering
 2. **Schema.org/Semantic Components** - Type-safe components with built-in structured data
-3. **UI Components Library** - Production-ready buttons, forms, navigation with progressive enhancement
+3. **Form Components Library** - DataType-based fields that intelligently render appropriate HTML elements
+
+### Smart Form Fields
+
+Form fields are named by the **data type** they handle, not the HTML element they render:
+
+- `TextField` → Renders `<input type="text">` or `<textarea>` based on expected length
+- `IntegerField` → Renders `<input type="number" step="1">` with integer validation
+- `FloatField` → Renders `<input type="number" step="any">` with decimal support
+- `EmailAddressField` → Renders `<input type="email">` with email validation
+- `ChooseOneField` → Renders `<select>` or radio group based on number of options
+- `ChooseManyField` → Renders checkboxes or multi-select based on options
+
+Each field automatically includes:
+- Proper HTML validation attributes (`min`, `max`, `step`, `pattern`, `required`)
+- Progressive enhancement hooks for client-side validation
+- Accessibility features (labels, help text, ARIA attributes)
 
 ### Build-Time Validation
 ```typescript
@@ -120,6 +168,23 @@ import { Button, Form, Input } from "jsr:@sitebender/adaptive"
   Submit
 </Button>
 ```
+
+### Dual Validation Strategy
+
+The library uses a two-tier validation approach:
+
+1. **HTML Attributes** - For browser-native validation (works without JS)
+   - Set via props: `min={1}`, `max={99}`, `pattern={/^[A-Z]+$/}`, `required={true}`
+   - Renders to HTML: `<input min="1" max="99" pattern="^[A-Z]+$" required>`
+   - Browser handles basic validation on form submission
+
+2. **Validation Constructors** - For enhanced client/server validation (with JS)
+   - Compose complex validation logic: `And([IsNoLessThan({test: Constant(1)}), IsNoMoreThan({test: Constant(99)})])`
+   - Attached to element as `__sbValidate` function
+   - Enables identical validation logic on client and server
+   - Provides detailed error messages and custom validation rules
+
+Currently, HTML attributes and validation constructors are specified separately. A future enhancement could automatically derive HTML attributes from validation constructors where possible.
 
 ### Progressive Enhancement Built-In
 ```typescript
@@ -199,7 +264,7 @@ The combination of build-time validation, progressive enhancement, semantic HTML
 
 ## Documentation
 
-Full documentation and live examples available at the [documentation site](https://sitebender.io/adaptive).
+Full documentation and live examples available at the [documentation site](https://sitebender.io/sitebender).
 
 ## License
 
@@ -211,6 +276,6 @@ Contributions welcome! Please read [CONTRIBUTING.md](../CONTRIBUTING.md) for gui
 
 ## Support
 
-- [GitHub Issues](https://github.com/sitebender/adaptive/issues)
-- [Documentation](https://sitebender.io/adaptive)
-- [Examples](https://sitebender.io/adaptive/examples)
+- [GitHub Issues](https://github.com/sitebender/sitebender/issues)
+- [Documentation](https://sitebender.io/sitebender)
+- [Examples](https://sitebender.io/sitebender/examples)
