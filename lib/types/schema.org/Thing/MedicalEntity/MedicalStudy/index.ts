@@ -11,13 +11,13 @@ import type MedicalCondition from "../MedicalCondition/index.ts"
 import type { MedicalObservationalStudyType } from "./MedicalObservationalStudy/index.ts"
 import type { MedicalTrialType } from "./MedicalTrial/index.ts"
 
-import { MedicalStudyStatus as MedicalStudyStatusComponent } from "../../../../../components/index.tsx"
+import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 import { EventStatusType as EventStatusTypeComponent } from "../../../../../components/index.tsx"
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
 import { MedicalCondition as MedicalConditionComponent } from "../../../../../components/index.tsx"
+import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
+import { MedicalStudyStatus as MedicalStudyStatusComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 
 export type MedicalStudyType =
 	| "MedicalStudy"

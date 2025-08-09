@@ -15,10 +15,10 @@ import { DefinedTerm as DefinedTermComponent } from "../../../../../../component
 import { Enumeration as EnumerationComponent } from "../../../../../../components/index.tsx"
 import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../../components/index.tsx"
 import { MeasurementTypeEnumeration as MeasurementTypeEnumerationComponent } from "../../../../../../components/index.tsx"
-import { QualitativeValue as QualitativeValueComponent } from "../../../../../../components/index.tsx"
-import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
 import { PropertyValue as PropertyValueComponent } from "../../../../../../components/index.tsx"
+import { QualitativeValue as QualitativeValueComponent } from "../../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
 
 export type PropertyValueType =
 	| "PropertyValue"

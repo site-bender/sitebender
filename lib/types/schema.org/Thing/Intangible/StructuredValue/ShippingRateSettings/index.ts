@@ -7,8 +7,8 @@ import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
 
 import { DefinedRegion as DefinedRegionComponent } from "../../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../components/index.tsx"
 import { DeliveryChargeSpecification as DeliveryChargeSpecificationComponent } from "../../../../../../components/index.tsx"
+import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../components/index.tsx"
 import { ShippingRateSettings as ShippingRateSettingsComponent } from "../../../../../../components/index.tsx"
 
 export type ShippingRateSettingsType = "ShippingRateSettings"

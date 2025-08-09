@@ -9,8 +9,8 @@ import type { MedicalAudienceType } from "./MedicalAudience/index.ts"
 import type { ParentAudienceType } from "./ParentAudience/index.ts"
 
 import { GenderType as GenderTypeComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 import { MedicalCondition as MedicalConditionComponent } from "../../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 
 export type PeopleAudienceType =
 	| "PeopleAudience"

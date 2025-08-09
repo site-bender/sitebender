@@ -12,9 +12,9 @@ import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/in
 import { DeliveryEvent as DeliveryEventComponent } from "../../../../../components/index.tsx"
 import { DeliveryMethod as DeliveryMethodComponent } from "../../../../../components/index.tsx"
 import { Order as OrderComponent } from "../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { PostalAddress as PostalAddressComponent } from "../../../../../components/index.tsx"
 import { Product as ProductComponent } from "../../../../../components/index.tsx"
 
 export type ParcelDeliveryType = "ParcelDelivery"

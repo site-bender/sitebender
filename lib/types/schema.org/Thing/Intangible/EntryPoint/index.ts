@@ -4,8 +4,8 @@ import type Thing from "../../index.ts"
 import type DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../components/index.tsx"
 import { DigitalPlatformEnumeration as DigitalPlatformEnumerationComponent } from "../../../../../components/index.tsx"
+import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../components/index.tsx"
 
 export type EntryPointType = "EntryPoint"
 

@@ -12,10 +12,10 @@ import type { IntangibleProps } from "../index.ts"
 import type LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
+import { Accommodation as AccommodationComponent } from "../../../../../components/index.tsx"
 import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
 import { LocationFeatureSpecification as LocationFeatureSpecificationComponent } from "../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
-import { Accommodation as AccommodationComponent } from "../../../../../components/index.tsx"
 
 export type FloorPlanType = "FloorPlan"
 

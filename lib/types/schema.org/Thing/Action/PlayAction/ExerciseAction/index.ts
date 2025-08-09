@@ -12,13 +12,13 @@ import type { ActionProps } from "../../index.ts"
 import type { PlayActionProps } from "../index.ts"
 
 import { Diet as DietComponent } from "../../../../../../components/index.tsx"
-import { ExercisePlan as ExercisePlanComponent } from "../../../../../../components/index.tsx"
-import { SportsEvent as SportsEventComponent } from "../../../../../../components/index.tsx"
 import { Distance as DistanceComponent } from "../../../../../../components/index.tsx"
-import { SportsActivityLocation as SportsActivityLocationComponent } from "../../../../../../components/index.tsx"
-import { SportsTeam as SportsTeamComponent } from "../../../../../../components/index.tsx"
+import { ExercisePlan as ExercisePlanComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
+import { SportsActivityLocation as SportsActivityLocationComponent } from "../../../../../../components/index.tsx"
+import { SportsEvent as SportsEventComponent } from "../../../../../../components/index.tsx"
+import { SportsTeam as SportsTeamComponent } from "../../../../../../components/index.tsx"
 
 export type ExerciseActionType = "ExerciseAction"
 

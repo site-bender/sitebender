@@ -16,10 +16,10 @@ import type { SteeringPositionValueType } from "./SteeringPositionValue/index.ts
 import { DefinedTerm as DefinedTermComponent } from "../../../../../../components/index.tsx"
 import { Enumeration as EnumerationComponent } from "../../../../../../components/index.tsx"
 import { MeasurementTypeEnumeration as MeasurementTypeEnumerationComponent } from "../../../../../../components/index.tsx"
-import { QualitativeValue as QualitativeValueComponent } from "../../../../../../components/index.tsx"
-import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
 import { PropertyValue as PropertyValueComponent } from "../../../../../../components/index.tsx"
+import { QualitativeValue as QualitativeValueComponent } from "../../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
 
 export type QualitativeValueType =
 	| "QualitativeValue"

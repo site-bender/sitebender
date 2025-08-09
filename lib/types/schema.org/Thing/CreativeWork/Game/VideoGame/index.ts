@@ -12,13 +12,13 @@ import type { SoftwareApplicationProps } from "../../SoftwareApplication/index.t
 import type { GameProps } from "../index.ts"
 
 import { CreativeWork as CreativeWorkComponent } from "../../../../../../components/index.tsx"
-import { VideoObject as VideoObjectComponent } from "../../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
 import { GamePlayMode as GamePlayModeComponent } from "../../../../../../components/index.tsx"
 import { GameServer as GameServerComponent } from "../../../../../../components/index.tsx"
-import { PerformingGroup as PerformingGroupComponent } from "../../../../../../components/index.tsx"
 import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
+import { PerformingGroup as PerformingGroupComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
+import { VideoObject as VideoObjectComponent } from "../../../../../../components/index.tsx"
 
 export type VideoGameType = "VideoGame"
 

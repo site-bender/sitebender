@@ -9,9 +9,9 @@ import type SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
 import type { QualitativeValueProps } from "../index.ts"
 
 import { GenderType as GenderTypeComponent } from "../../../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
 import { SizeGroupEnumeration as SizeGroupEnumerationComponent } from "../../../../../../../components/index.tsx"
 import { SizeSystemEnumeration as SizeSystemEnumerationComponent } from "../../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
 
 export type SizeSpecificationType = "SizeSpecification"
 

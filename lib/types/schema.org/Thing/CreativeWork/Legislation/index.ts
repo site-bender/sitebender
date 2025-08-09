@@ -8,12 +8,12 @@ import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { LegislationObjectType } from "./LegislationObject/index.ts"
 
-import { Legislation as LegislationComponent } from "../../../../../components/index.tsx"
+import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 import { CategoryCode as CategoryCodeComponent } from "../../../../../components/index.tsx"
 import { LegalForceStatus as LegalForceStatusComponent } from "../../../../../components/index.tsx"
+import { Legislation as LegislationComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 
 export type LegislationType = "Legislation" | LegislationObjectType
 

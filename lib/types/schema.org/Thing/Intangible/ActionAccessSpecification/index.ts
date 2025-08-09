@@ -15,13 +15,13 @@ import type MediaSubscription from "../MediaSubscription/index.ts"
 import type Offer from "../Offer/index.ts"
 import type GeoShape from "../StructuredValue/GeoShape/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 import { CategoryCode as CategoryCodeComponent } from "../../../../../components/index.tsx"
-import { PhysicalActivityCategory as PhysicalActivityCategoryComponent } from "../../../../../components/index.tsx"
+import { GeoShape as GeoShapeComponent } from "../../../../../components/index.tsx"
 import { MediaSubscription as MediaSubscriptionComponent } from "../../../../../components/index.tsx"
 import { Offer as OfferComponent } from "../../../../../components/index.tsx"
-import { GeoShape as GeoShapeComponent } from "../../../../../components/index.tsx"
+import { PhysicalActivityCategory as PhysicalActivityCategoryComponent } from "../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 
 export type ActionAccessSpecificationType = "ActionAccessSpecification"
 

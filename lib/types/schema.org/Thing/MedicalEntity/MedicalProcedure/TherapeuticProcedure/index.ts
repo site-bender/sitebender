@@ -7,9 +7,9 @@ import type { MedicalProcedureProps } from "../index.ts"
 import type { MedicalTherapyType } from "./MedicalTherapy/index.ts"
 import type { PsychologicalTreatmentType } from "./PsychologicalTreatment/index.ts"
 
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../../components/index.tsx"
 import { DoseSchedule as DoseScheduleComponent } from "../../../../../../components/index.tsx"
 import { Drug as DrugComponent } from "../../../../../../components/index.tsx"
+import { MedicalEntity as MedicalEntityComponent } from "../../../../../../components/index.tsx"
 
 export type TherapeuticProcedureType =
 	| "TherapeuticProcedure"

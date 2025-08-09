@@ -13,10 +13,10 @@ import type { IntangibleProps } from "../index.ts"
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 
 import { MerchantReturnEnumeration as MerchantReturnEnumerationComponent } from "../../../../../components/index.tsx"
+import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
 import { RefundTypeEnumeration as RefundTypeEnumerationComponent } from "../../../../../components/index.tsx"
 import { ReturnFeesEnumeration as ReturnFeesEnumerationComponent } from "../../../../../components/index.tsx"
 import { ReturnMethodEnumeration as ReturnMethodEnumerationComponent } from "../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
 
 export type MerchantReturnPolicySeasonalOverrideType =
 	"MerchantReturnPolicySeasonalOverride"

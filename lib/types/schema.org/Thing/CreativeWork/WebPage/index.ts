@@ -20,13 +20,13 @@ import type { QAPageType } from "./QAPage/index.ts"
 import type { RealEstateListingType } from "./RealEstateListing/index.ts"
 import type { SearchResultsPageType } from "./SearchResultsPage/index.ts"
 
-import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
-import { WebPageElement as WebPageElementComponent } from "../../../../../components/index.tsx"
-import { Specialty as SpecialtyComponent } from "../../../../../components/index.tsx"
 import { BreadcrumbList as BreadcrumbListComponent } from "../../../../../components/index.tsx"
-import { SpeakableSpecification as SpeakableSpecificationComponent } from "../../../../../components/index.tsx"
+import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { SpeakableSpecification as SpeakableSpecificationComponent } from "../../../../../components/index.tsx"
+import { Specialty as SpecialtyComponent } from "../../../../../components/index.tsx"
+import { WebPageElement as WebPageElementComponent } from "../../../../../components/index.tsx"
 
 export type WebPageType =
 	| "WebPage"

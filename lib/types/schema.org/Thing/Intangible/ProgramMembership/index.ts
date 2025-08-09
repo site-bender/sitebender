@@ -7,9 +7,9 @@ import type MemberProgram from "../MemberProgram/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
 import { MemberProgram as MemberProgramComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 
 export type ProgramMembershipType = "ProgramMembership"
 

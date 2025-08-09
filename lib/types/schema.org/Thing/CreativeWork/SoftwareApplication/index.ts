@@ -8,8 +8,8 @@ import type { MobileApplicationType } from "./MobileApplication/index.ts"
 import type { VideoGameType } from "./VideoGame/index.ts"
 import type { WebApplicationType } from "./WebApplication/index.ts"
 
-import { DataFeed as DataFeedComponent } from "../../../../../components/index.tsx"
 import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
+import { DataFeed as DataFeedComponent } from "../../../../../components/index.tsx"
 import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
 import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../components/index.tsx"
 

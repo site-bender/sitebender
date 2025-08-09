@@ -10,11 +10,11 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { HowToProps } from "../index.ts"
 
 import { CreativeWork as CreativeWorkComponent } from "../../../../../../components/index.tsx"
-import { RestrictedDiet as RestrictedDietComponent } from "../../../../../../components/index.tsx"
-import { ItemList as ItemListComponent } from "../../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
+import { ItemList as ItemListComponent } from "../../../../../../components/index.tsx"
 import { NutritionInformation as NutritionInformationComponent } from "../../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import { RestrictedDiet as RestrictedDietComponent } from "../../../../../../components/index.tsx"
 
 export type RecipeType = "Recipe"
 

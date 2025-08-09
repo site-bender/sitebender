@@ -11,10 +11,10 @@ import type { PhysicalExamType } from "./PhysicalExam/index.ts"
 import type { SurgicalProcedureType } from "./SurgicalProcedure/index.ts"
 import type { TherapeuticProcedureType } from "./TherapeuticProcedure/index.ts"
 
-import { MedicalProcedureType as MedicalProcedureTypeComponent } from "../../../../../components/index.tsx"
-import { MedicalStudyStatus as MedicalStudyStatusComponent } from "../../../../../components/index.tsx"
 import { EventStatusType as EventStatusTypeComponent } from "../../../../../components/index.tsx"
 import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
+import { MedicalProcedureType as MedicalProcedureTypeComponent } from "../../../../../components/index.tsx"
+import { MedicalStudyStatus as MedicalStudyStatusComponent } from "../../../../../components/index.tsx"
 
 export type MedicalProcedureType =
 	| "MedicalProcedure"

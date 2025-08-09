@@ -10,12 +10,12 @@ import type Distance from "../../Quantity/Distance/index.ts"
 import type Duration from "../../Quantity/Duration/index.ts"
 import type { TripProps } from "../index.ts"
 
+import { Airport as AirportComponent } from "../../../../../../components/index.tsx"
 import { BoardingPolicyType as BoardingPolicyTypeComponent } from "../../../../../../components/index.tsx"
 import { Distance as DistanceComponent } from "../../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
-import { Airport as AirportComponent } from "../../../../../../components/index.tsx"
 import { Vehicle as VehicleComponent } from "../../../../../../components/index.tsx"
 
 export type FlightType = "Flight"

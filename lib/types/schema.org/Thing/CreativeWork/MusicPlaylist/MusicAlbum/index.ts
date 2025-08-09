@@ -7,10 +7,10 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { MusicPlaylistProps } from "../index.ts"
 import type MusicRelease from "../MusicRelease/index.ts"
 
-import { MusicRelease as MusicReleaseComponent } from "../../../../../../components/index.tsx"
 import { MusicAlbumProductionType as MusicAlbumProductionTypeComponent } from "../../../../../../components/index.tsx"
 import { MusicAlbumReleaseType as MusicAlbumReleaseTypeComponent } from "../../../../../../components/index.tsx"
 import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
+import { MusicRelease as MusicReleaseComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
 
 export type MusicAlbumType = "MusicAlbum"

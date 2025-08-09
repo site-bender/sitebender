@@ -12,10 +12,10 @@ import type { IntangibleProps } from "../index.ts"
 import type Seat from "../Seat/index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
-import { Seat as SeatComponent } from "../../../../../components/index.tsx"
-import { PriceSpecification as PriceSpecificationComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { PriceSpecification as PriceSpecificationComponent } from "../../../../../components/index.tsx"
+import { Seat as SeatComponent } from "../../../../../components/index.tsx"
 
 export type TicketType = "Ticket"
 

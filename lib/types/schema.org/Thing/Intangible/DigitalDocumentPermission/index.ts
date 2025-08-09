@@ -7,8 +7,8 @@ import type { IntangibleProps } from "../index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 
 import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
-import { DigitalDocumentPermissionType as DigitalDocumentPermissionTypeComponent } from "../../../../../components/index.tsx"
 import { ContactPoint as ContactPointComponent } from "../../../../../components/index.tsx"
+import { DigitalDocumentPermissionType as DigitalDocumentPermissionTypeComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
 

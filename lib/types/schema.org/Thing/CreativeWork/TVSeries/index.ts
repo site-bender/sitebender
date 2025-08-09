@@ -13,14 +13,14 @@ import type Episode from "../Episode/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type VideoObject from "../MediaObject/VideoObject/index.ts"
 
+import { Country as CountryComponent } from "../../../../../components/index.tsx"
 import { CreativeWorkSeason as CreativeWorkSeasonComponent } from "../../../../../components/index.tsx"
 import { Episode as EpisodeComponent } from "../../../../../components/index.tsx"
-import { VideoObject as VideoObjectComponent } from "../../../../../components/index.tsx"
+import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { PerformingGroup as PerformingGroupComponent } from "../../../../../components/index.tsx"
-import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
-import { Country as CountryComponent } from "../../../../../components/index.tsx"
+import { VideoObject as VideoObjectComponent } from "../../../../../components/index.tsx"
 
 export type TVSeriesType = "TVSeries"
 

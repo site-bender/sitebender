@@ -15,11 +15,11 @@ import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
 import { Action as ActionComponent } from "../../../../../../components/index.tsx"
-import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../../components/index.tsx"
-import { WebSite as WebSiteComponent } from "../../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
-import { VirtualLocation as VirtualLocationComponent } from "../../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
+import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
+import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../../components/index.tsx"
+import { VirtualLocation as VirtualLocationComponent } from "../../../../../../components/index.tsx"
+import { WebSite as WebSiteComponent } from "../../../../../../components/index.tsx"
 
 export type InteractionCounterType = "InteractionCounter"
 

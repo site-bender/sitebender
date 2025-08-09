@@ -19,16 +19,16 @@ import type QuantitativeValue from "../Intangible/StructuredValue/QuantitativeVa
 import type Organization from "../Organization/index.ts"
 import type Place from "../Place/index.ts"
 
-import { NewsArticle as NewsArticleComponent } from "../../../../components/index.tsx"
 import { Claim as ClaimComponent } from "../../../../components/index.tsx"
 import { CreativeWork as CreativeWorkComponent } from "../../../../components/index.tsx"
-import { MediaSubscription as MediaSubscriptionComponent } from "../../../../components/index.tsx"
 import { Distance as DistanceComponent } from "../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../components/index.tsx"
 import { GeoShape as GeoShapeComponent } from "../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../components/index.tsx"
+import { MediaSubscription as MediaSubscriptionComponent } from "../../../../components/index.tsx"
+import { NewsArticle as NewsArticleComponent } from "../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../components/index.tsx"
 
 export type MediaObjectType = "MediaObject"
 

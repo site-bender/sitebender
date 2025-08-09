@@ -6,11 +6,11 @@ import type AnatomicalSystem from "../../MedicalEntity/AnatomicalSystem/index.ts
 import type BioChemEntity from "../index.ts"
 import type { BioChemEntityProps } from "../index.ts"
 
-import { Gene as GeneComponent } from "../../../../../components/index.tsx"
-import { BioChemEntity as BioChemEntityComponent } from "../../../../../components/index.tsx"
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
 import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../components/index.tsx"
 import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../components/index.tsx"
+import { BioChemEntity as BioChemEntityComponent } from "../../../../../components/index.tsx"
+import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
+import { Gene as GeneComponent } from "../../../../../components/index.tsx"
 
 export type GeneType = "Gene"
 

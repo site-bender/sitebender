@@ -7,8 +7,8 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { BarcodeType } from "./Barcode/index.ts"
 import type { ImageObjectSnapshotType } from "./ImageObjectSnapshot/index.ts"
 
-import { PropertyValue as PropertyValueComponent } from "../../../../../../components/index.tsx"
 import { MediaObject as MediaObjectComponent } from "../../../../../../components/index.tsx"
+import { PropertyValue as PropertyValueComponent } from "../../../../../../components/index.tsx"
 
 export type ImageObjectType =
 	| "ImageObject"

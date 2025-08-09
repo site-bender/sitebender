@@ -9,13 +9,13 @@ import type MusicComposition from "../MusicComposition/index.ts"
 import type MusicPlaylist from "../MusicPlaylist/index.ts"
 import type MusicAlbum from "../MusicPlaylist/MusicAlbum/index.ts"
 
-import { MusicComposition as MusicCompositionComponent } from "../../../../../components/index.tsx"
-import { MusicPlaylist as MusicPlaylistComponent } from "../../../../../components/index.tsx"
-import { MusicAlbum as MusicAlbumComponent } from "../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import { MusicAlbum as MusicAlbumComponent } from "../../../../../components/index.tsx"
+import { MusicComposition as MusicCompositionComponent } from "../../../../../components/index.tsx"
 import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
+import { MusicPlaylist as MusicPlaylistComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 
 export type MusicRecordingType = "MusicRecording"
 

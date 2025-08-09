@@ -15,11 +15,11 @@ import type { IndividualPhysicianType } from "./IndividualPhysician/index.ts"
 import type { PhysiciansOfficeType } from "./PhysiciansOffice/index.ts"
 
 import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
-import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
-import { MedicalProcedure as MedicalProcedureComponent } from "../../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
-import { MedicalTest as MedicalTestComponent } from "../../../../../../components/index.tsx"
 import { Hospital as HospitalComponent } from "../../../../../../components/index.tsx"
+import { MedicalProcedure as MedicalProcedureComponent } from "../../../../../../components/index.tsx"
+import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
+import { MedicalTest as MedicalTestComponent } from "../../../../../../components/index.tsx"
+import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
 
 export type PhysicianType =
 	| "Physician"

@@ -4,8 +4,8 @@ import type MedicalEntity from "../index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 import type MedicalContraindication from "../MedicalContraindication/index.ts"
 
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
 import { MedicalContraindication as MedicalContraindicationComponent } from "../../../../../components/index.tsx"
+import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
 
 export type MedicalDeviceType = "MedicalDevice"
 

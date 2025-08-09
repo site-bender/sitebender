@@ -5,8 +5,8 @@ import type { ActionProps } from "../index.ts"
 import type { ExerciseActionType } from "./ExerciseAction/index.ts"
 import type { PerformActionType } from "./PerformAction/index.ts"
 
-import { Event as EventComponent } from "../../../../../components/index.tsx"
 import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
+import { Event as EventComponent } from "../../../../../components/index.tsx"
 
 export type PlayActionType =
 	| "PlayAction"

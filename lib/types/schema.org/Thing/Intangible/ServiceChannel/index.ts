@@ -8,12 +8,12 @@ import type Service from "../Service/index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
-import { Language as LanguageComponent } from "../../../../../components/index.tsx"
-import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { Service as ServiceComponent } from "../../../../../components/index.tsx"
 import { ContactPoint as ContactPointComponent } from "../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../components/index.tsx"
+import { Duration as DurationComponent } from "../../../../../components/index.tsx"
+import { Language as LanguageComponent } from "../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import { PostalAddress as PostalAddressComponent } from "../../../../../components/index.tsx"
+import { Service as ServiceComponent } from "../../../../../components/index.tsx"
 
 export type ServiceChannelType = "ServiceChannel"
 

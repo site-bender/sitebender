@@ -4,8 +4,8 @@ import type SportsTeam from "../../Organization/SportsOrganization/SportsTeam/in
 import type Person from "../../Person/index.ts"
 import type { EventProps } from "../index.ts"
 
-import { SportsTeam as SportsTeamComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { SportsTeam as SportsTeamComponent } from "../../../../../components/index.tsx"
 
 export type SportsEventType = "SportsEvent"
 

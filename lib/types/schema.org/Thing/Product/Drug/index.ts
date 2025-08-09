@@ -13,16 +13,16 @@ import type DrugStrength from "../../MedicalEntity/MedicalIntangible/DrugStrengt
 import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
 import type { ProductProps } from "../index.ts"
 
+import { DoseSchedule as DoseScheduleComponent } from "../../../../../components/index.tsx"
+import { Drug as DrugComponent } from "../../../../../components/index.tsx"
+import { DrugClass as DrugClassComponent } from "../../../../../components/index.tsx"
+import { DrugLegalStatus as DrugLegalStatusComponent } from "../../../../../components/index.tsx"
 import { DrugPregnancyCategory as DrugPregnancyCategoryComponent } from "../../../../../components/index.tsx"
 import { DrugPrescriptionStatus as DrugPrescriptionStatusComponent } from "../../../../../components/index.tsx"
-import { MedicalEnumeration as MedicalEnumerationComponent } from "../../../../../components/index.tsx"
-import { HealthInsurancePlan as HealthInsurancePlanComponent } from "../../../../../components/index.tsx"
-import { DrugClass as DrugClassComponent } from "../../../../../components/index.tsx"
-import { DoseSchedule as DoseScheduleComponent } from "../../../../../components/index.tsx"
-import { MaximumDoseSchedule as MaximumDoseScheduleComponent } from "../../../../../components/index.tsx"
-import { DrugLegalStatus as DrugLegalStatusComponent } from "../../../../../components/index.tsx"
 import { DrugStrength as DrugStrengthComponent } from "../../../../../components/index.tsx"
-import { Drug as DrugComponent } from "../../../../../components/index.tsx"
+import { HealthInsurancePlan as HealthInsurancePlanComponent } from "../../../../../components/index.tsx"
+import { MaximumDoseSchedule as MaximumDoseScheduleComponent } from "../../../../../components/index.tsx"
+import { MedicalEnumeration as MedicalEnumerationComponent } from "../../../../../components/index.tsx"
 
 export type DrugType = "Drug"
 

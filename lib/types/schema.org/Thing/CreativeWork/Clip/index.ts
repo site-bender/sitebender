@@ -17,8 +17,8 @@ import { CreativeWorkSeason as CreativeWorkSeasonComponent } from "../../../../.
 import { CreativeWorkSeries as CreativeWorkSeriesComponent } from "../../../../../components/index.tsx"
 import { Episode as EpisodeComponent } from "../../../../../components/index.tsx"
 import { HyperTocEntry as HyperTocEntryComponent } from "../../../../../components/index.tsx"
-import { PerformingGroup as PerformingGroupComponent } from "../../../../../components/index.tsx"
 import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
+import { PerformingGroup as PerformingGroupComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
 
 export type ClipType =

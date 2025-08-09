@@ -10,9 +10,9 @@ import type { TransferActionProps } from "../index.ts"
 
 import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
 import { ContactPoint as ContactPointComponent } from "../../../../../../components/index.tsx"
-import { PriceSpecification as PriceSpecificationComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { PriceSpecification as PriceSpecificationComponent } from "../../../../../../components/index.tsx"
 
 export type DonateActionType = "DonateAction"
 

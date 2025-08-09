@@ -8,9 +8,9 @@ import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { EmailMessageType } from "./EmailMessage/index.ts"
 
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
 import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
 import { ContactPoint as ContactPointComponent } from "../../../../../components/index.tsx"
+import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
 

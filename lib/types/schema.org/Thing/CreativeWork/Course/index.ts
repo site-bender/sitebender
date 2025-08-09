@@ -10,14 +10,14 @@ import type { CreativeWorkProps } from "../index.ts"
 import type { LearningResourceProps } from "../LearningResource/index.ts"
 import type Syllabus from "../LearningResource/Syllabus/index.ts"
 
-import { Course as CourseComponent } from "../../../../../components/index.tsx"
-import { EducationalOccupationalCredential as EducationalOccupationalCredentialComponent } from "../../../../../components/index.tsx"
-import { Syllabus as SyllabusComponent } from "../../../../../components/index.tsx"
-import { CourseInstance as CourseInstanceComponent } from "../../../../../components/index.tsx"
 import { AlignmentObject as AlignmentObjectComponent } from "../../../../../components/index.tsx"
+import { Course as CourseComponent } from "../../../../../components/index.tsx"
+import { CourseInstance as CourseInstanceComponent } from "../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
+import { EducationalOccupationalCredential as EducationalOccupationalCredentialComponent } from "../../../../../components/index.tsx"
 import { Language as LanguageComponent } from "../../../../../components/index.tsx"
 import { StructuredValue as StructuredValueComponent } from "../../../../../components/index.tsx"
+import { Syllabus as SyllabusComponent } from "../../../../../components/index.tsx"
 
 export type CourseType = "Course"
 

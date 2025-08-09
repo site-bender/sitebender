@@ -12,15 +12,15 @@ import type PropertyValue from "../StructuredValue/PropertyValue/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 import type { QuantitativeValueProps } from "../StructuredValue/QuantitativeValue/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
-import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
 import { Enumeration as EnumerationComponent } from "../../../../../components/index.tsx"
 import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../components/index.tsx"
+import { Place as PlaceComponent } from "../../../../../components/index.tsx"
 import { Property as PropertyComponent } from "../../../../../components/index.tsx"
 import { PropertyValue as PropertyValueComponent } from "../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 
 export type ObservationType = "Observation"
 

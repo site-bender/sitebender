@@ -8,8 +8,8 @@ import type { AudioObjectProps } from "../../MediaObject/AudioObject/index.ts"
 import type { BookProps } from "../index.ts"
 
 import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 
 export type AudiobookType = "Audiobook"
 

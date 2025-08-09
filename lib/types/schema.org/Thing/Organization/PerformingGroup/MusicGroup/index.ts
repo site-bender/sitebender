@@ -7,9 +7,9 @@ import type Person from "../../../Person/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { PerformingGroupProps } from "../index.ts"
 
+import { ItemList as ItemListComponent } from "../../../../../../components/index.tsx"
 import { MusicAlbum as MusicAlbumComponent } from "../../../../../../components/index.tsx"
 import { MusicRecording as MusicRecordingComponent } from "../../../../../../components/index.tsx"
-import { ItemList as ItemListComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
 
 export type MusicGroupType = "MusicGroup"

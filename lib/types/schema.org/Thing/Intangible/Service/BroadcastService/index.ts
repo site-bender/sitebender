@@ -11,8 +11,8 @@ import type { RadioBroadcastServiceType } from "./RadioBroadcastService/index.ts
 
 import { BroadcastChannel as BroadcastChannelComponent } from "../../../../../../components/index.tsx"
 import { BroadcastFrequencySpecification as BroadcastFrequencySpecificationComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
 import { BroadcastService as BroadcastServiceComponent } from "../../../../../../components/index.tsx"
+import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
 

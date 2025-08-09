@@ -14,10 +14,10 @@ import type { MotorizedBicycleType } from "./MotorizedBicycle/index.ts"
 
 import { CarUsageType as CarUsageTypeComponent } from "../../../../../components/index.tsx"
 import { DriveWheelConfigurationValue as DriveWheelConfigurationValueComponent } from "../../../../../components/index.tsx"
-import { QualitativeValue as QualitativeValueComponent } from "../../../../../components/index.tsx"
-import { SteeringPositionValue as SteeringPositionValueComponent } from "../../../../../components/index.tsx"
 import { EngineSpecification as EngineSpecificationComponent } from "../../../../../components/index.tsx"
+import { QualitativeValue as QualitativeValueComponent } from "../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import { SteeringPositionValue as SteeringPositionValueComponent } from "../../../../../components/index.tsx"
 
 export type VehicleType =
 	| "Vehicle"

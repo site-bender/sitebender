@@ -9,11 +9,11 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 import type { CreativeWorkSeriesProps } from "../index.ts"
 
-import { VideoObject as VideoObjectComponent } from "../../../../../../components/index.tsx"
+import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { PerformingGroup as PerformingGroupComponent } from "../../../../../../components/index.tsx"
-import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { VideoObject as VideoObjectComponent } from "../../../../../../components/index.tsx"
 
 export type MovieSeriesType = "MovieSeries"
 

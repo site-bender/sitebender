@@ -16,10 +16,10 @@ import type { TrainTripType } from "./TrainTrip/index.ts"
 import { Demand as DemandComponent } from "../../../../../components/index.tsx"
 import { ItemList as ItemListComponent } from "../../../../../components/index.tsx"
 import { Offer as OfferComponent } from "../../../../../components/index.tsx"
-import { Trip as TripComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
 import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import { Trip as TripComponent } from "../../../../../components/index.tsx"
 
 export type TripType =
 	| "Trip"

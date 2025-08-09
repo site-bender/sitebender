@@ -9,12 +9,12 @@ import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
 import type { LifestyleModificationProps } from "../index.ts"
 import type { ExercisePlanType } from "./ExercisePlan/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
-import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
-import { PhysicalActivityCategory as PhysicalActivityCategoryComponent } from "../../../../../../components/index.tsx"
 import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../../components/index.tsx"
 import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../../components/index.tsx"
+import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
+import { PhysicalActivityCategory as PhysicalActivityCategoryComponent } from "../../../../../../components/index.tsx"
 import { SuperficialAnatomy as SuperficialAnatomyComponent } from "../../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
 
 export type PhysicalActivityType = "PhysicalActivity" | ExercisePlanType
 

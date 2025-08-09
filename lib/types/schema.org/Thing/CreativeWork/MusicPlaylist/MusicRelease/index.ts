@@ -9,12 +9,12 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { MusicPlaylistProps } from "../index.ts"
 import type MusicAlbum from "../MusicAlbum/index.ts"
 
+import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
 import { MusicAlbum as MusicAlbumComponent } from "../../../../../../components/index.tsx"
 import { MusicReleaseFormatType as MusicReleaseFormatTypeComponent } from "../../../../../../components/index.tsx"
-import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
 
 export type MusicReleaseType = "MusicRelease"
 

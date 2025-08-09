@@ -6,10 +6,10 @@ import type Organization from "../../Organization/index.ts"
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
+import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 
 export type EducationalOccupationalCredentialType =
 	"EducationalOccupationalCredential"

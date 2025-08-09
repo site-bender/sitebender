@@ -11,12 +11,12 @@ import type { GeneType } from "./Gene/index.ts"
 import type { MolecularEntityType } from "./MolecularEntity/index.ts"
 import type { ProteinType } from "./Protein/index.ts"
 
-import { Gene as GeneComponent } from "../../../../components/index.tsx"
 import { BioChemEntity as BioChemEntityComponent } from "../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../components/index.tsx"
+import { Gene as GeneComponent } from "../../../../components/index.tsx"
 import { Grant as GrantComponent } from "../../../../components/index.tsx"
-import { PropertyValue as PropertyValueComponent } from "../../../../components/index.tsx"
 import { MedicalCondition as MedicalConditionComponent } from "../../../../components/index.tsx"
+import { PropertyValue as PropertyValueComponent } from "../../../../components/index.tsx"
 import { Taxon as TaxonComponent } from "../../../../components/index.tsx"
 
 export type BioChemEntityType =

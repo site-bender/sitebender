@@ -8,9 +8,9 @@ import type { HowToSectionType } from "./HowToSection/index.ts"
 import type { HowToStepType } from "./HowToStep/index.ts"
 import type { OfferCatalogType } from "./OfferCatalog/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 import { ItemListOrderType as ItemListOrderTypeComponent } from "../../../../../components/index.tsx"
 import { ListItem as ListItemComponent } from "../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 
 export type ItemListType =
 	| "ItemList"

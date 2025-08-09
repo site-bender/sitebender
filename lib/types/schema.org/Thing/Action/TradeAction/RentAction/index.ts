@@ -6,8 +6,8 @@ import type { ActionProps } from "../../index.ts"
 import type { TradeActionProps } from "../index.ts"
 
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { RealEstateAgent as RealEstateAgentComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { RealEstateAgent as RealEstateAgentComponent } from "../../../../../../components/index.tsx"
 
 export type RentActionType = "RentAction"
 

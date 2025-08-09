@@ -9,11 +9,11 @@ import type Property from "../../Property/index.ts"
 import type { ConstraintNodeProps } from "../index.ts"
 
 import { Class as ClassComponent } from "../../../../../../components/index.tsx"
-import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../../components/index.tsx"
 import { Enumeration as EnumerationComponent } from "../../../../../../components/index.tsx"
 import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../../components/index.tsx"
 import { Property as PropertyComponent } from "../../../../../../components/index.tsx"
+import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../../components/index.tsx"
 
 export type StatisticalVariableType = "StatisticalVariable"
 

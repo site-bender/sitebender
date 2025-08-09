@@ -12,11 +12,11 @@ import type { DataFeedType } from "./DataFeed/index.ts"
 
 import { DataCatalog as DataCatalogComponent } from "../../../../../components/index.tsx"
 import { DataDownload as DataDownloadComponent } from "../../../../../components/index.tsx"
-import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
 import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../components/index.tsx"
 import { Property as PropertyComponent } from "../../../../../components/index.tsx"
 import { PropertyValue as PropertyValueComponent } from "../../../../../components/index.tsx"
+import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../components/index.tsx"
 
 export type DatasetType = "Dataset" | DataFeedType
 

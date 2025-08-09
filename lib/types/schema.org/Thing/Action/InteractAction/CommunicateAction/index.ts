@@ -16,12 +16,12 @@ import type { InviteActionType } from "./InviteAction/index.ts"
 import type { ReplyActionType } from "./ReplyAction/index.ts"
 import type { ShareActionType } from "./ShareAction/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
 import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
 import { ContactPoint as ContactPointComponent } from "../../../../../../components/index.tsx"
+import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
 
 export type CommunicateActionType =
 	| "CommunicateAction"

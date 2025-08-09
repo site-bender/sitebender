@@ -21,8 +21,8 @@ import type { SuiteType } from "./Suite/index.ts"
 
 import { BedDetails as BedDetailsComponent } from "../../../../../components/index.tsx"
 import { BedType as BedTypeComponent } from "../../../../../components/index.tsx"
-import { FloorPlan as FloorPlanComponent } from "../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../components/index.tsx"
+import { FloorPlan as FloorPlanComponent } from "../../../../../components/index.tsx"
 import { LocationFeatureSpecification as LocationFeatureSpecificationComponent } from "../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 

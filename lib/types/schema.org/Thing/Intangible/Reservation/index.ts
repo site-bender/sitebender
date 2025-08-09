@@ -18,13 +18,13 @@ import type { ReservationPackageType } from "./ReservationPackage/index.ts"
 import type { TaxiReservationType } from "./TaxiReservation/index.ts"
 import type { TrainReservationType } from "./TrainReservation/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
-import { ReservationStatusType as ReservationStatusTypeComponent } from "../../../../../components/index.tsx"
-import { ProgramMembership as ProgramMembershipComponent } from "../../../../../components/index.tsx"
-import { PriceSpecification as PriceSpecificationComponent } from "../../../../../components/index.tsx"
-import { Ticket as TicketComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { PriceSpecification as PriceSpecificationComponent } from "../../../../../components/index.tsx"
+import { ProgramMembership as ProgramMembershipComponent } from "../../../../../components/index.tsx"
+import { ReservationStatusType as ReservationStatusTypeComponent } from "../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../components/index.tsx"
+import { Ticket as TicketComponent } from "../../../../../components/index.tsx"
 
 export type ReservationType =
 	| "Reservation"

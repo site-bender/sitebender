@@ -5,9 +5,9 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TradeActionProps } from "../index.ts"
 
-import { WarrantyPromise as WarrantyPromiseComponent } from "../../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import { WarrantyPromise as WarrantyPromiseComponent } from "../../../../../../components/index.tsx"
 
 export type SellActionType = "SellAction"
 

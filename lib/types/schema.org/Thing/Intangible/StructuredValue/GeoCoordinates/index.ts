@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
 import { Country as CountryComponent } from "../../../../../../components/index.tsx"
+import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
 
 export type GeoCoordinatesType = "GeoCoordinates"
 

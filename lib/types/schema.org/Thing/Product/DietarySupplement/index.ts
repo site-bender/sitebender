@@ -8,10 +8,10 @@ import type DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLega
 import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
 import type { ProductProps } from "../index.ts"
 
-import { MedicalEnumeration as MedicalEnumerationComponent } from "../../../../../components/index.tsx"
-import { MaximumDoseSchedule as MaximumDoseScheduleComponent } from "../../../../../components/index.tsx"
-import { RecommendedDoseSchedule as RecommendedDoseScheduleComponent } from "../../../../../components/index.tsx"
 import { DrugLegalStatus as DrugLegalStatusComponent } from "../../../../../components/index.tsx"
+import { MaximumDoseSchedule as MaximumDoseScheduleComponent } from "../../../../../components/index.tsx"
+import { MedicalEnumeration as MedicalEnumerationComponent } from "../../../../../components/index.tsx"
+import { RecommendedDoseSchedule as RecommendedDoseScheduleComponent } from "../../../../../components/index.tsx"
 
 export type DietarySupplementType = "DietarySupplement"
 

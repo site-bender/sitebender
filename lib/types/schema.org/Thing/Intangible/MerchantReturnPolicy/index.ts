@@ -21,17 +21,17 @@ import type MerchantReturnPolicySeasonalOverride from "../MerchantReturnPolicySe
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type PropertyValue from "../StructuredValue/PropertyValue/index.ts"
 
+import { Country as CountryComponent } from "../../../../../components/index.tsx"
+import { MemberProgramTier as MemberProgramTierComponent } from "../../../../../components/index.tsx"
 import { MerchantReturnEnumeration as MerchantReturnEnumerationComponent } from "../../../../../components/index.tsx"
+import { MerchantReturnPolicySeasonalOverride as MerchantReturnPolicySeasonalOverrideComponent } from "../../../../../components/index.tsx"
+import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
 import { OfferItemCondition as OfferItemConditionComponent } from "../../../../../components/index.tsx"
+import { PropertyValue as PropertyValueComponent } from "../../../../../components/index.tsx"
 import { RefundTypeEnumeration as RefundTypeEnumerationComponent } from "../../../../../components/index.tsx"
 import { ReturnFeesEnumeration as ReturnFeesEnumerationComponent } from "../../../../../components/index.tsx"
 import { ReturnLabelSourceEnumeration as ReturnLabelSourceEnumerationComponent } from "../../../../../components/index.tsx"
 import { ReturnMethodEnumeration as ReturnMethodEnumerationComponent } from "../../../../../components/index.tsx"
-import { MemberProgramTier as MemberProgramTierComponent } from "../../../../../components/index.tsx"
-import { MerchantReturnPolicySeasonalOverride as MerchantReturnPolicySeasonalOverrideComponent } from "../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
-import { PropertyValue as PropertyValueComponent } from "../../../../../components/index.tsx"
-import { Country as CountryComponent } from "../../../../../components/index.tsx"
 
 export type MerchantReturnPolicyType = "MerchantReturnPolicy"
 

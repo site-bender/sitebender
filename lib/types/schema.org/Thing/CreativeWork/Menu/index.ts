@@ -3,8 +3,8 @@ import type MenuItem from "../../Intangible/MenuItem/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type MenuSection from "../MenuSection/index.ts"
 
-import { MenuSection as MenuSectionComponent } from "../../../../../components/index.tsx"
 import { MenuItem as MenuItemComponent } from "../../../../../components/index.tsx"
+import { MenuSection as MenuSectionComponent } from "../../../../../components/index.tsx"
 
 export type MenuType = "Menu"
 

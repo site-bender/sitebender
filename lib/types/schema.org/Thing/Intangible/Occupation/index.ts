@@ -9,13 +9,13 @@ import type OccupationalExperienceRequirements from "../OccupationalExperienceRe
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
-import { EducationalOccupationalCredential as EducationalOccupationalCredentialComponent } from "../../../../../components/index.tsx"
+import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 import { CategoryCode as CategoryCodeComponent } from "../../../../../components/index.tsx"
 import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
-import { OccupationalExperienceRequirements as OccupationalExperienceRequirementsComponent } from "../../../../../components/index.tsx"
+import { EducationalOccupationalCredential as EducationalOccupationalCredentialComponent } from "../../../../../components/index.tsx"
 import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
 import { MonetaryAmountDistribution as MonetaryAmountDistributionComponent } from "../../../../../components/index.tsx"
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
+import { OccupationalExperienceRequirements as OccupationalExperienceRequirementsComponent } from "../../../../../components/index.tsx"
 
 export type OccupationType = "Occupation"
 

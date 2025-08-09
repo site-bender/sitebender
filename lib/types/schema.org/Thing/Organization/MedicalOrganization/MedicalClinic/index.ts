@@ -10,10 +10,10 @@ import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/i
 import type { MedicalOrganizationProps } from "../index.ts"
 import type { CovidTestingFacilityType } from "./CovidTestingFacility/index.ts"
 
-import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
 import { MedicalProcedure as MedicalProcedureComponent } from "../../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
+import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
 import { MedicalTest as MedicalTestComponent } from "../../../../../../components/index.tsx"
+import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
 
 export type MedicalClinicType = "MedicalClinic" | CovidTestingFacilityType
 

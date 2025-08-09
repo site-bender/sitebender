@@ -24,9 +24,9 @@ import type { VacationRentalType } from "./VacationRental/index.ts"
 
 import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
 import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
-import { Rating as RatingComponent } from "../../../../../../components/index.tsx"
 import { LocationFeatureSpecification as LocationFeatureSpecificationComponent } from "../../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import { Rating as RatingComponent } from "../../../../../../components/index.tsx"
 
 export type LodgingBusinessType =
 	| "LodgingBusiness"

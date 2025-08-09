@@ -5,9 +5,9 @@ import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 
+import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 import { DrugCostCategory as DrugCostCategoryComponent } from "../../../../../components/index.tsx"
 import { QualitativeValue as QualitativeValueComponent } from "../../../../../components/index.tsx"
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
 
 export type DrugCostType = "DrugCost"
 

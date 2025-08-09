@@ -6,8 +6,8 @@ import type AnatomicalStructure from "../index.ts"
 import type { AnatomicalStructureProps } from "../index.ts"
 import type Muscle from "../Muscle/index.ts"
 
-import { BrainStructure as BrainStructureComponent } from "../../../../../../components/index.tsx"
 import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../../components/index.tsx"
+import { BrainStructure as BrainStructureComponent } from "../../../../../../components/index.tsx"
 import { Muscle as MuscleComponent } from "../../../../../../components/index.tsx"
 import { SuperficialAnatomy as SuperficialAnatomyComponent } from "../../../../../../components/index.tsx"
 

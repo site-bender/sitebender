@@ -13,9 +13,9 @@ import type { MuscleType } from "./Muscle/index.ts"
 import type { NerveType } from "./Nerve/index.ts"
 import type { VesselType } from "./Vessel/index.ts"
 
-import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
 import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../components/index.tsx"
 import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../components/index.tsx"
+import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
 import { MedicalCondition as MedicalConditionComponent } from "../../../../../components/index.tsx"
 import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../components/index.tsx"
 

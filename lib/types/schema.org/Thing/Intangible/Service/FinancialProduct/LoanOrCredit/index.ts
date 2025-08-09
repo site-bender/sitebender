@@ -15,11 +15,11 @@ import type { FinancialProductProps } from "../index.ts"
 import type { CreditCardType } from "./CreditCard/index.ts"
 import type { MortgageLoanType } from "./MortgageLoan/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../../../components/index.tsx"
 import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../../components/index.tsx"
 import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
 import { RepaymentSpecification as RepaymentSpecificationComponent } from "../../../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../../../components/index.tsx"
 
 export type LoanOrCreditType =
 	| "LoanOrCredit"

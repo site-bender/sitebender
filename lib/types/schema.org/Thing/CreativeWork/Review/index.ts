@@ -12,12 +12,12 @@ import type { MediaReviewType } from "./MediaReview/index.ts"
 import type { RecommendationType } from "./Recommendation/index.ts"
 import type { UserReviewType } from "./UserReview/index.ts"
 
-import { Review as ReviewComponent } from "../../../../../components/index.tsx"
-import { WebContent as WebContentComponent } from "../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
 import { ItemList as ItemListComponent } from "../../../../../components/index.tsx"
 import { ListItem as ListItemComponent } from "../../../../../components/index.tsx"
 import { Rating as RatingComponent } from "../../../../../components/index.tsx"
+import { Review as ReviewComponent } from "../../../../../components/index.tsx"
+import { Thing as ThingComponent } from "../../../../../components/index.tsx"
+import { WebContent as WebContentComponent } from "../../../../../components/index.tsx"
 
 export type ReviewType =
 	| "Review"

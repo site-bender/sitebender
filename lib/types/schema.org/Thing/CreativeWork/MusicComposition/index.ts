@@ -8,9 +8,9 @@ import type { CreativeWorkProps } from "../index.ts"
 import type MusicRecording from "../MusicRecording/index.ts"
 
 import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
+import { Event as EventComponent } from "../../../../../components/index.tsx"
 import { MusicComposition as MusicCompositionComponent } from "../../../../../components/index.tsx"
 import { MusicRecording as MusicRecordingComponent } from "../../../../../components/index.tsx"
-import { Event as EventComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
 

@@ -6,9 +6,9 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type TVSeries from "../../TVSeries/index.ts"
 import type { EpisodeProps } from "../index.ts"
 
-import { TVSeries as TVSeriesComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
 import { Country as CountryComponent } from "../../../../../../components/index.tsx"
+import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
+import { TVSeries as TVSeriesComponent } from "../../../../../../components/index.tsx"
 
 export type TVEpisodeType = "TVEpisode"
 

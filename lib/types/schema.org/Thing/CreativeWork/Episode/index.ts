@@ -16,13 +16,13 @@ import type { TVEpisodeType } from "./TVEpisode/index.ts"
 
 import { CreativeWorkSeason as CreativeWorkSeasonComponent } from "../../../../../components/index.tsx"
 import { CreativeWorkSeries as CreativeWorkSeriesComponent } from "../../../../../components/index.tsx"
-import { VideoObject as VideoObjectComponent } from "../../../../../components/index.tsx"
 import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
 import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
 import { PerformingGroup as PerformingGroupComponent } from "../../../../../components/index.tsx"
-import { MusicGroup as MusicGroupComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import { VideoObject as VideoObjectComponent } from "../../../../../components/index.tsx"
 
 export type EpisodeType =
 	| "Episode"

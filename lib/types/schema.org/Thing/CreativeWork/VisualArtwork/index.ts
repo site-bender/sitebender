@@ -9,8 +9,8 @@ import type { CoverArtType } from "./CoverArt/index.ts"
 
 import { Distance as DistanceComponent } from "../../../../../components/index.tsx"
 import { Mass as MassComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 
 export type VisualArtworkType = "VisualArtwork" | CoverArtType
 
