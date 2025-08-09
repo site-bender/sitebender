@@ -1,0 +1,33 @@
+:root {
+	--legend-background-color: var(--form-background-color);
+	--legend-foreground-color: var(--form-foreground-color);
+	--legend-font-family: var(--heading-font);
+	--legend-font-size: var(--h4-font-size);
+
+	@media (prefers-color-scheme: dark) {
+		--legend-background-color: var(--darkest-gray);
+		--legend-foreground-color: var(--light-gray);
+	}
+}
+
+fieldset {
+	border: none;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-m);
+	margin: 0;
+	padding: 0;
+}
+
+legend {
+	background-color: var(--legend-background-color);
+	color: var(--legend-foreground-color);
+	font-family: var(--legend-font-family);
+	font-size: var(--legend-font-size);
+	font-weight: 500;
+	margin-block-end: var(--space-s);
+}
+
+fieldset fieldset legend {
+	margin-block-start: 0;
+}

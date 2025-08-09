@@ -1,0 +1,118 @@
+.tag-input-container {
+	width: 100%;
+	margin-block: 0;
+	position: relative;
+}
+
+.tags {
+	/* Fallback: Simple block container */
+	padding: 0;
+}
+
+.tag {
+	/* Fallback: inline-block with right margin for consistent spacing */
+	background-color: #e0e0e0;
+	padding: var(--space-2xs) var(--space-xs);
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	vertical-align: top;
+}
+
+@supports (border-radius: 0.375rem) {
+	.tag {
+		border-radius: 0.375rem;
+	}
+}
+
+@supports (display: flex) {
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.tag {
+		display: flex;
+		align-items: center;
+		margin-right: 0;
+		margin-bottom: 0;
+	}
+}
+
+@supports (gap: 5px) {
+	.tags {
+		gap: 5px;
+	}
+}
+
+.tag .remove {
+	cursor: pointer;
+	color: #888;
+	/* Fallback positioning */
+	margin-left: 5px;
+}
+
+@supports (display: flex) {
+	.tag .remove {
+		margin-left: 0;
+		/* Reset when flex gap handles spacing */
+	}
+}
+
+@supports (gap: 5px) {
+	.tag {
+		gap: 5px;
+		/* Specific gap for tag content */
+	}
+}
+
+.tag .remove:hover {
+	color: #333;
+}
+
+#tag-input {
+	border: var(--form-field-input-border);
+	background: var(--form-field-input-background-color);
+	color: var(--form-field-input-foreground-color);
+	margin-block-start: 5px;
+	max-width: 36ch;
+	padding: 8px;
+	width: 100%;
+}
+
+@supports (border-radius: 0.375rem) {
+	#tag-input {
+		border-radius: var(--form-field-input-border-radius, 0.375rem);
+	}
+}
+
+#tag-input:focus {
+	background: var(--input-background-color);
+	color: var(--input-foreground-color);
+}
+
+.autocomplete-list {
+	position: absolute;
+	width: 100%;
+	max-height: 11.7rem;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	border-top: none;
+	background-color: #fff;
+	display: none;
+	z-index: 100;
+}
+
+.autocomplete-item {
+	padding: 8px;
+	cursor: pointer;
+}
+
+.autocomplete-item.focused {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.autocomplete-item:hover {
+	background-color: #f0f0f0;
+}
