@@ -86,6 +86,21 @@ Currently no bridge between:
 
 The library is now **completely self-contained** with only relative imports, making it ready for JSR publication.
 
+### Known Issues to Address
+
+#### JSX Type Definitions (High Priority)
+The current JSX type definitions in `lib/types/globals.d.ts` and `lib/types/JSX/` are incomplete. Components are using JSX namespace types like `JSX.FormHTMLAttributes<HTMLFormElement>` that don't exist in our definitions. This causes TypeScript errors but doesn't prevent the code from working.
+
+**Current State:**
+- Basic JSX.Element and JSX.IntrinsicElements defined in globals.d.ts
+- Missing HTML element attribute interfaces (FormHTMLAttributes, ButtonHTMLAttributes, etc.)
+- Two different type systems in play (adaptive's type system vs JSX component types)
+
+**Needs Investigation:**
+- Consolidate JSX type definitions from other libraries
+- Decide between extending React-style types or creating custom minimal types
+- Ensure compatibility with both adaptive and JSX component systems
+
 ---
 
 ## Remaining Phases (To Be Discussed)
