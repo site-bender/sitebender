@@ -1,5 +1,5 @@
 {
-	"name": "@sitebender/sitebender",
+	"name": "@sitebender",
 	"version": "0.1.0",
 	"description": "Adaptive web components with progressive enhancement and build-time validation",
 	"license": "MIT",
