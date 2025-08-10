@@ -27,7 +27,7 @@
 			"~constants/*": ["./src/constants/*"],
 			"~layouts/*": ["./src/layouts/*"],
 			"~scripts/*": ["./scripts/*"],
-			"~tests/*": ["./tests/*"],
+			"~tests/*": ["temp/tests/*"],
 			"~types/*": ["./src/types/*"],
 			"~utilities/*": ["./utilities/*"],
 			"~src/*": ["./src/*"],
@@ -36,5 +36,5 @@
 		"target": "esnext",
 		"types": ["./lib/types/globals.d.ts"]
 	},
-	"include": ["src/**/*", "scripts/**/*", "lib/**/*"]
+	"include": ["src/**/*", "scripts/**/*", "lib/**/*", "utilities/**/*"]
 }
