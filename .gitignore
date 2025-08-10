@@ -66,3 +66,5 @@ pids
 # Test artifacts
 playwright-report/
 test-results/
+
+temp/
