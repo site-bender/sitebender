@@ -1,4 +1,4 @@
-import Transaction from "~components/template/Transaction/index.tsx"
+import Transaction from "~components/templates/Transaction/index.tsx"
 
 import Fragment from "~utilities/Fragment/index.ts"
 
