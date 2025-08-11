@@ -1,0 +1,43 @@
+nav.aux menu {
+	display: flex;
+	gap: 1rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav.aux a {
+	font-weight: 500;
+	font-variant: small-caps;
+	letter-spacing: 0.5px;
+	text-decoration: none;
+	text-transform: lowercase;
+}
+
+nav.aux a:focus,
+nav.aux a:hover {
+	border-radius: 2px;
+	outline-offset: 5px;
+	outline: 1px solid currentcolor;
+}
+
+nav.aux .this-page {
+	font-weight: 500;
+	font-variant: small-caps;
+	letter-spacing: 1px;
+	text-decoration: overline;
+	text-transform: lowercase;
+}
+
+@media (width < 32rem) {
+	nav.aux menu {
+		align-items: center;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	nav.aux a {
+		padding-block: 0.5rem;
+		padding-inline: 1rem;
+	}
+}
