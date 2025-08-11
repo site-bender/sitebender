@@ -1,4 +1,4 @@
-# @sitebender/sitebender
+# @sitebender
 
 **Write type-safe, semantic components that work everywhere, weigh nothing, and never break in production.**
 
@@ -40,8 +40,8 @@ Build-time validation catches errors before deployment. No runtime surprises. Wo
 ### Scenario 1: E-commerce Form That MUST Work
 ```typescript
 // Import form fields and validation constructors
-import { Form, IntegerField } from "@sitebender/sitebender/forms"
-import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/sitebender/constructors"
+import { Form, IntegerField } from "@sitebender/forms"
+import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Constant } from "@sitebender/constructors"
 
 <Form action="/checkout" method="post">
   <IntegerField
@@ -87,7 +87,7 @@ import { And, IsNoLessThan, IsNoMoreThan, Multiply, FromElement, FromAPI, Consta
 
 ### Scenario 3: Content Site With Perfect SEO
 ```typescript
-import { Article, Person } from "@sitebender/sitebender/schema.org"
+import { Article, Person } from "@sitebender/schema.org"
 
 <Article 
   _type="NewsArticle"
@@ -128,10 +128,10 @@ The structured data and semantic markup make your content perfectly consumable b
 
 ```bash
 # Install from JSR
-deno add @sitebender/sitebender
+deno add @sitebender
 
 # Or import directly
-import { Button, Form, Input } from "jsr:@sitebender/sitebender"
+import { Button, Form, Input } from "jsr:@sitebender"
 ```
 
 ## Core Features

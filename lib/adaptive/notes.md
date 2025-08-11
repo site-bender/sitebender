@@ -332,7 +332,7 @@ The key is creating a bridge that preserves the strengths of each approach while
 
 ## Overview
 
-The `lib/sitebender/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender/sitebender library.
+The `lib/sitebender/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender library.
 
 ## Core Purpose
 

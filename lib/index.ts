@@ -1,4 +1,4 @@
-// @sitebender/sitebender
+// @sitebender
 // Convenience exports for all sitebender components
 
 // Creative Works

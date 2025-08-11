@@ -1,3 +1,3 @@
-# @sitebender Component Library
+# @sitebender
 
 ![Header](./github-sitebender-banner.png)
