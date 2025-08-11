@@ -1,5 +1,5 @@
 {
-  "name": "@sitebender",
+  "name": "@sitebender/sitebender",
   "version": "0.1.0",
   "exports": "./lib/index.ts",
   "tasks": {
