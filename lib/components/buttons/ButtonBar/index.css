@@ -1,6 +1,0 @@
-.button-bar {
-	display: flex;
-	justify-content: center;
-	gap: var(--space-s);
-	margin-block: var(--space-m);
-}
