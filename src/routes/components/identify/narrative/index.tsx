@@ -1,7 +1,21 @@
-import PageWrapper from "~components/page/PageWrapper/index.tsx"
-import ComponentList from "~components/ComponentList/index.tsx"
+export type Props = {
+	route?: string
+	assets?: Array<string>
+}
 
-export default function NarrativePage() {
+export function Head() {
+	return (
+		<>
+			<title>Narrative Components - Identify Components</title>
+			<meta
+				name="description"
+				content="Components for identifying and marking narrative elements in text, including character relationships, story structure, and narrative techniques."
+			/>
+		</>
+	)
+}
+
+export default function ({ route }: Props = {}) {
 	const components = [
 		// Character Components
 		{
@@ -157,13 +171,21 @@ export default function NarrativePage() {
 	]
 
 	return (
-		<PageWrapper route="/components/identify/narrative">
+		<main>
 			<h1>Narrative Components</h1>
 			<p>
 				Components for identifying and marking narrative elements in text,
 				including character relationships, story structure, and narrative techniques.
 			</p>
-			<ComponentList components={components} basePath="identify/narrative" />
-		</PageWrapper>
+			<div class="component-list">
+				{components.map((comp) => (
+					<div class="component-item">
+						<h3>{comp.name}</h3>
+						<p>{comp.description}</p>
+						<pre><code>{comp.example}</code></pre>
+					</div>
+				))}
+			</div>
+		</main>
 	)
 }

@@ -1,4 +1,4 @@
-import AuxWrapper from "~components/wrap/AuxWrapper/index.tsx"
+import AuxWrapper from "~components/wrappers/AuxWrapper/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
 
