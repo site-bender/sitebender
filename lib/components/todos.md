@@ -12,21 +12,22 @@
 ### Group 1: Complete Empty Narrative Components (Priority: High)
 Most of these files have JSDoc comments but no actual implementation (missing export default):
 
-**Batch 1A - Character Components** (5 components):
-- [ ] `identify/narrative/CharacterName` - Names of characters in fiction
-- [ ] `identify/narrative/CharacterRelationship` - Relationships between characters
-- [ ] `identify/narrative/CharacterRole` - Roles/archetypes (hero, villain, etc.)
-- [ ] `identify/narrative/Protagonist` - Main character/hero
-- [ ] `identify/narrative/Antagonist` - Opposing character/force
-- [ ] `identify/narrative/SideCharacter` - Secondary characters
+**Batch 1A - Character Components** (6 components) ✅ COMPLETED:
+- [x] `identify/narrative/CharacterName` - Names of characters in fiction
+- [x] `identify/narrative/CharacterRelationship` - Relationships between characters
+- [x] `identify/narrative/CharacterRole` - Roles/archetypes (hero, villain, etc.)
+- [x] `identify/narrative/Protagonist` - Main character/hero
+- [x] `identify/narrative/Antagonist` - Opposing character/force
+- [x] `identify/narrative/SideCharacter` - Secondary characters
 
-**Batch 1B - Story Structure** (6 components):
-- [ ] `identify/narrative/Anecdote` - Short stories within narrative
-- [ ] `identify/narrative/Backstory` - Background information
-- [ ] `identify/narrative/Cliffhanger` - Suspenseful endings
-- [ ] `identify/narrative/Exposition` - Background/context
-- [ ] `identify/narrative/Flashback` - Past sequences
-- [ ] `identify/narrative/Foreshadowing` - Hints about future events
+**Batch 1B - Narrative Structure** (7 components) ✅ COMPLETED:
+- [x] `identify/narrative/Dialogue` - Spoken dialogue in narratives
+- [x] `identify/narrative/InternalMonologue` - Character thoughts/self-dialogue
+- [x] `identify/narrative/Narration` - Narrative text and description
+- [x] `identify/narrative/StageDirection` - Stage directions in plays/scripts
+- [x] `identify/narrative/SceneSetting` - Scene locations and settings
+- [x] `identify/narrative/Flashback` - Flashback sequences (wrapper component)
+- [x] `identify/narrative/Foreshadowing` - Hints about future events
 
 **Batch 1C - Narrative Techniques** (6 components):
 - [ ] `identify/narrative/Metafiction` - Self-referential narrative

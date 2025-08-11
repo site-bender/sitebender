@@ -1,4 +1,4 @@
-import Link from "~lib/components/navigation/Link/index.tsx"
+import Link from "~lib/components/interact/navigation/Link/index.tsx"
 
 export type Props = {
 	route?: string

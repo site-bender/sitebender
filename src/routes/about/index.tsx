@@ -1,4 +1,4 @@
-import Page from "~components/templates/Page/index.tsx"
+import Page from "~components/template/Page/index.tsx"
 
 import Fragment from "~utilities/Fragment/index.ts"
 

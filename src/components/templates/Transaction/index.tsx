@@ -1,7 +1,7 @@
 import Footer from "~components/page/Footer/index.tsx"
 import Header from "~components/page/Header/index.tsx"
 import Main from "~components/page/Main/index.tsx"
-import MenuWrapper from "~components/wrappers/MenuWrapper/index.tsx"
+import MenuWrapper from "~components/wrap/MenuWrapper/index.tsx"
 
 import createElement from "~utilities/createElement/index.ts"
 

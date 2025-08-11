@@ -1,9 +1,9 @@
 import {
 	EMOJI,
 	TONE,
-} from "~lib/components/semantic/wrappers/constants/index.ts"
-import SpokenAs from "~lib/components/semantic/wrappers/SpokenAs/index.tsx"
-import WithTone from "~lib/components/semantic/wrappers/WithTone/index.tsx"
+} from "~lib/components/annotate/constants/index.ts"
+import SpokenAs from "~lib/components/annotate/linguistic/SpokenAs/index.tsx"
+import WithTone from "~lib/components/annotate/performance/WithTone/index.tsx"
 
 export type Props = {
 	route?: string

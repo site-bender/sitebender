@@ -1,13 +1,13 @@
-import DateComponent from "~lib/components/semantic/temporal/Date/index.tsx"
-import DateTime from "~lib/components/semantic/temporal/DateTime/index.tsx"
-import Duration from "~lib/components/semantic/temporal/Duration/index.tsx"
-import MonthDay from "~lib/components/semantic/temporal/MonthDay/index.tsx"
-import Quarter from "~lib/components/semantic/temporal/Quarter/index.tsx"
-import RelativeTime from "~lib/components/semantic/temporal/RelativeTime/index.tsx"
-import Time from "~lib/components/semantic/temporal/Time/index.tsx"
-import TimeZone from "~lib/components/semantic/temporal/TimeZone/index.tsx"
-import Week from "~lib/components/semantic/temporal/Week/index.tsx"
-import YearMonth from "~lib/components/semantic/temporal/YearMonth/index.tsx"
+import DateComponent from "~lib/components/identify/temporal/Date/index.tsx"
+import DateTime from "~lib/components/identify/temporal/DateTime/index.tsx"
+import Duration from "~lib/components/identify/temporal/Duration/index.tsx"
+import MonthDay from "~lib/components/identify/temporal/MonthDay/index.tsx"
+import Quarter from "~lib/components/identify/temporal/Quarter/index.tsx"
+import RelativeTime from "~lib/components/identify/temporal/RelativeTime/index.tsx"
+import Time from "~lib/components/identify/temporal/Time/index.tsx"
+import TimeZone from "~lib/components/identify/temporal/TimeZone/index.tsx"
+import Week from "~lib/components/identify/temporal/Week/index.tsx"
+import YearMonth from "~lib/components/identify/temporal/YearMonth/index.tsx"
 
 export type Props = {
 	route?: string

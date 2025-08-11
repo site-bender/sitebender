@@ -1,5 +1,5 @@
 import createElement from "../../../utilities/createElement/index.ts"
-import AuxWrapper from "../../wrappers/AuxWrapper/index.tsx"
+import AuxWrapper from "../../wrap/AuxWrapper/index.tsx"
 
 export type Props = JSX.HTMLAttributes<HTMLElement> & {
 	route: string

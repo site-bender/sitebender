@@ -37,8 +37,8 @@
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatRelativeTime from "../../../formatters/formatRelativeTime/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"
+import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
 
 export type Props =
 	& Omit<

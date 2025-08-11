@@ -1,4 +1,4 @@
-import Legal from "~components/templates/Legal/index.tsx"
+import Legal from "~components/template/Legal/index.tsx"
 
 import Fragment from "~utilities/Fragment/index.ts"
 

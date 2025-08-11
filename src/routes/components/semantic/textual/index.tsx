@@ -1,12 +1,12 @@
-import Abbreviation from "~lib/components/semantic/textual/abbreviations/Abbreviation/index.tsx"
-import Acronym from "~lib/components/semantic/textual/abbreviations/Acronym/index.tsx"
-import Initialism from "~lib/components/semantic/textual/abbreviations/Initialism/index.tsx"
-import ForeignTerm from "~lib/components/semantic/textual/ForeignTerm/index.tsx"
-import Jargon from "~lib/components/semantic/textual/Jargon/index.tsx"
-import MentionedTerm from "~lib/components/semantic/textual/MentionedTerm/index.tsx"
-import Neologism from "~lib/components/semantic/textual/Neologism/index.tsx"
-import TransliteratedTerm from "~lib/components/semantic/textual/TransliteratedTerm/index.tsx"
-import WordAsWord from "~lib/components/semantic/textual/WordAsWord/index.tsx"
+import Abbreviation from "~lib/components/identify/linguistic/Abbreviation/index.tsx"
+import Acronym from "~lib/components/identify/linguistic/Acronym/index.tsx"
+import Initialism from "~lib/components/identify/linguistic/Initialism/index.tsx"
+import ForeignTerm from "~lib/components/identify/linguistic/ForeignTerm/index.tsx"
+import Jargon from "~lib/components/identify/linguistic/Jargon/index.tsx"
+import MentionedTerm from "~lib/components/identify/linguistic/MentionedTerm/index.tsx"
+import Neologism from "~lib/components/identify/linguistic/Neologism/index.tsx"
+import TransliteratedTerm from "~lib/components/identify/linguistic/TransliteratedTerm/index.tsx"
+import WordAsWord from "~lib/components/identify/linguistic/WordAsWord/index.tsx"
 
 export type Props = {
 	route?: string

@@ -36,10 +36,10 @@ import type {
 	WeekNumberingSystem,
 } from "../../../../types/temporal/index.ts"
 
-import getWeekNumber from "../../../calendars/getWeekNumber/index.ts"
-import getWeekStartDate from "../../../calendars/getWeekStartDate/index.ts"
-import formatDate from "../../../formatters/formatDate/index.ts"
-import parseTemporalString from "../../../parsers/parseTemporalString/index.ts"
+import getWeekNumber from "../../../../utilities/calendars/getWeekNumber/index.ts"
+import getWeekStartDate from "../../../../utilities/calendars/getWeekStartDate/index.ts"
+import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
+import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
 
 export type Props =
 	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar">
