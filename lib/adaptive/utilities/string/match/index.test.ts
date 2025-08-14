@@ -1,15 +1,16 @@
-import match from "."
-import { expect, test } from "vitest"
+import { assertEquals } from "jsr:@std/assert"
+
+import match from "./index.ts"
 
 const str1 = "bobity bob bob bobbers!"
 const str2 = "sam is as sam does"
 
-test("[match] (string) returns an array of matches for the regular expression in the passed string", () => {
-	expect(match(/bob/)(str1)).toStrictEqual(["bob", "bob", "bob", "bob"])
-	expect(match(/sam/)(str2)).toStrictEqual(["sam", "sam"])
+Deno.test("[match] (string) returns an array of matches for the regular expression in the passed string", () => {
+	assertEquals(match(/bob/g)(str1), ["bob", "bob", "bob", "bob"])
+	assertEquals(match(/sam/g)(str2), ["sam", "sam"])
 })
 
-test("[match] (string) returns an empty array if no matches are found", () => {
-	expect(match(/blob/)(str1)).toStrictEqual([])
-	expect(match(/scam/)(str2)).toStrictEqual([])
+Deno.test("[match] (string) returns an empty array if no matches are found", () => {
+	assertEquals(match(/blob/g)(str1), [])
+	assertEquals(match(/scam/g)(str2), [])
 })

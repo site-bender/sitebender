@@ -5,22 +5,26 @@ const BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 const len = BigInt(BASE58.length)
 
 /**
- * Recursively converts a BigInt to base58 string
+ * Converts a BigInt to base58 string
  *
  * @param bigInt - The BigInt to convert
- * @param out - Accumulator for the output string
  * @returns Base58 encoded string
+ * @example
+ * ```typescript
+ * convertBigIntToBase58(123456789n) // "BukQL93"
+ * convertBigIntToBase58(0n) // ""
+ * ```
  */
-export default function convertBigIntToBase58(
-	bigInt: bigint,
-	out = "",
-): string {
-	return bigInt > 0
-		? convertBigIntToBase58(
-			bigInt / len,
-			BASE58[parseInt((bigInt % len).toString(), 10)] + out,
-		)
-		: out
+export default function convertBigIntToBase58(bigInt: bigint): string {
+	const convert = (n: bigint, out: string): string => {
+		return n > 0
+			? convert(
+				n / len,
+				BASE58[parseInt((n % len).toString(), 10)] + out
+			)
+			: out
+	}
+	return convert(bigInt, "")
 }
 
 export { convertBigIntToBase58 }

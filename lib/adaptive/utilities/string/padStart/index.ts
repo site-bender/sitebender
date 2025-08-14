@@ -1,5 +1,17 @@
-import repeat from "../repeat.js"
+import repeat from "../repeat/index.ts"
 
-const padStart = (chars) => (times) => (str) => `${repeat(chars)(times)}${str}`
+/**
+ * Pads a string with specified characters at the start to reach a target length
+ * 
+ * @param chars - Characters to use for padding
+ * @returns Function that takes length and returns function that pads string at start
+ * @example
+ * ```typescript
+ * padStart("-")(10)("test") // "------test"
+ * padStart(" ")(8)("hi") // "      hi"
+ * ```
+ */
+const padStart = (chars: string) => (length: number) => (str: string): string =>
+	`${repeat(chars)(Math.max(0, length - str.length))}${str}`
 
 export default padStart

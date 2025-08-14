@@ -1,4 +1,4 @@
-import convertUUIDToBase58 from "./convertUUIDToBase58/index.ts"
+import convertUuidToBase58 from "./convertUuidToBase58/index.ts"
 
 /**
  * Generates a short ID by converting a UUID to base58 format
@@ -7,7 +7,7 @@ import convertUUIDToBase58 from "./convertUUIDToBase58/index.ts"
  * @returns Short ID string prefixed with underscore
  */
 export default function generateShortId(uuid = crypto.randomUUID()): string {
-	return `_${convertUUIDToBase58(uuid)}`
+	return `_${convertUuidToBase58(uuid)}`
 }
 
 export { generateShortId }
