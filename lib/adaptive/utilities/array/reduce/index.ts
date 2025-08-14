@@ -1,13 +1,19 @@
 /**
- * Functional programming wrapper for Array.reduce()
- * Curried version: takes reducer function, then initial value, then array
- *
- * @param f - Reducer function that takes (accumulator, current, index, array)
- * @returns Function that takes initial value and returns function that takes array
+ * Reduces an array to a single value using a reducer function
+ * 
+ * @param fn - Reducer function that accumulates values
+ * @param initial - Initial value for the accumulator
+ * @param array - The array to reduce
+ * @returns The final accumulated value
+ * @example
+ * ```typescript
+ * reduce((acc, n) => acc + n, 0)([1, 2, 3]) // 6
+ * reduce((acc, s) => acc + s, "")([\"a\", \"b\", \"c\"]) // "abc"
+ * ```
  */
-const reduce =
-	<T, U>(f: (acc: U, curr: T, index: number, array: readonly T[]) => U) =>
-	(i: U) =>
-	(arr: readonly T[]): U => arr.reduce(f, i)
-
-export default reduce
+export default function reduce<T, U>(
+	fn: (acc: U, item: T, index?: number) => U,
+	initial: U,
+) {
+	return (array: Array<T>): U => array.reduce(fn, initial)
+}

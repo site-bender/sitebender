@@ -1,9 +1,16 @@
 /**
- * Checks if a value is defined (not undefined)
- *
- * @param value - Value to check
- * @returns true if value is not undefined
+ * Type guard that checks if a value is defined (not null or undefined)
+ * 
+ * @param value - The value to check
+ * @returns True if the value is not null or undefined
+ * @example
+ * ```typescript
+ * isDefined("hello") // true
+ * isDefined(0) // true
+ * isDefined(null) // false
+ * isDefined(undefined) // false
+ * ```
  */
-export const isDefined = (value: unknown): boolean => value !== undefined
+const isDefined = <T>(value: T | null | undefined): value is T => value != null
 
 export default isDefined

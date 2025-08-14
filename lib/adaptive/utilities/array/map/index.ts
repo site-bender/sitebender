@@ -1,12 +1,15 @@
 /**
- * Functional programming wrapper for Array.map()
- * Curried version: takes transform function, then array
- *
- * @param f - Transform function that takes (value, index, array)
- * @returns Function that takes array and returns mapped array
+ * Maps an array to a new array using a transformation function
+ * 
+ * @param fn - Function that transforms each element
+ * @param array - The array to map
+ * @returns A new array with transformed elements
+ * @example
+ * ```typescript
+ * map((n: number) => n * 2)([1, 2, 3]) // [2, 4, 6]
+ * map((s: string) => s.toUpperCase())(["a", "b"]) // ["A", "B"]
+ * ```
  */
-const map =
-	<T, U>(f: (value: T, index: number, array: readonly T[]) => U) =>
-	(arr: readonly T[]): readonly U[] => arr.map(f)
-
-export default map
+export default function map<T, U>(fn: (item: T, index?: number) => U) {
+	return (array: Array<T>): Array<U> => array.map(fn)
+}

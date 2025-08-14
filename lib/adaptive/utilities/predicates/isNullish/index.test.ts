@@ -1,15 +1,16 @@
-import isNullish from "."
-import { expect, test } from "vitest"
+import { assertEquals } from "jsr:@std/assert"
 
-test("[isNullish] (predicates) returns true if the argument is null or undefined", () => {
+import isNullish from "./index.ts"
+
+Deno.test("[isNullish] (predicates) returns true if the argument is null or undefined", () => {
 	const isNull = null
 	const isUndefined = undefined
 
-	expect(isNullish(isNull)).toBeTruthy()
-	expect(isNullish(isUndefined)).toBeTruthy()
+	assertEquals(isNullish(isNull), true)
+	assertEquals(isNullish(isUndefined), true)
 })
 
-test("[isNullish] (predicates) returns false if the argument is neither null nor undefined", () => {
+Deno.test("[isNullish] (predicates) returns false if the argument is neither null nor undefined", () => {
 	const isBoolean = false
 	const isNumber = 0
 	const isString = ""
@@ -17,10 +18,10 @@ test("[isNullish] (predicates) returns false if the argument is neither null nor
 	const isObject = {}
 	const isFunction = () => null
 
-	expect(isNullish(isBoolean)).toBeFalsy()
-	expect(isNullish(isNumber)).toBeFalsy()
-	expect(isNullish(isString)).toBeFalsy()
-	expect(isNullish(isArray)).toBeFalsy()
-	expect(isNullish(isObject)).toBeFalsy()
-	expect(isNullish(isFunction)).toBeFalsy()
+	assertEquals(isNullish(isBoolean), false)
+	assertEquals(isNullish(isNumber), false)
+	assertEquals(isNullish(isString), false)
+	assertEquals(isNullish(isArray), false)
+	assertEquals(isNullish(isObject), false)
+	assertEquals(isNullish(isFunction), false)
 })

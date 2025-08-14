@@ -1,11 +1,15 @@
 /**
- * Functional programming wrapper for Array.includes()
- * Curried version: takes item to search for, then array
- *
- * @param item - Item to search for in the array
- * @returns Function that takes array and returns boolean
+ * Checks if an array includes a specific item
+ * 
+ * @param item - The item to search for
+ * @param array - The array to search in
+ * @returns True if the item is found, false otherwise
+ * @example
+ * ```typescript
+ * includes(3)([1, 2, 3, 4]) // true
+ * includes("hello")(["hi", "bye"]) // false
+ * ```
  */
-const includes = <T>(item: T) => (arr: readonly T[]): boolean =>
-	arr.includes(item)
-
-export default includes
+export default function includes<T>(item: T) {
+	return (array: Array<T>): boolean => array.includes(item)
+}

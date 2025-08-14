@@ -3,9 +3,15 @@
  * Curried version: takes separator, then array
  *
  * @param separator - String to use as separator between elements
- * @returns Function that takes array and returns joined string
+ * @param arr - The array to join
+ * @returns Joined string
+ * @example
+ * ```typescript
+ * join(", ")(["a", "b", "c"]) // "a, b, c"
+ * join("-")(["one", "two"]) // "one-two"
+ * ```
  */
-const join = (separator: string) => (arr: readonly unknown[]): string =>
+const join = (separator: string) => (arr: ReadonlyArray<string>): string =>
 	arr.join(separator)
 
 export default join
