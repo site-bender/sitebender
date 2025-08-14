@@ -1,22 +1,45 @@
-import Error from "../../constructors/Error/index.js"
-import isDefined from "../isDefined/index.js"
-import castToBoolean from "./castToBoolean/index.js"
-import castToInteger from "./castToInteger/index.js"
-import castToNumber from "./castToNumber/index.js"
-import castToPercent from "./castToPercent/index.js"
-import castToPlainDate from "./castToPlainDate/index.js"
-import castToPlainDateTime from "./castToPlainDateTime/index.js"
-import castToPlainTime from "./castToPlainTime/index.js"
-import castToString from "./castToString/index.js"
-import castToZonedDateTime from "./castToZonedDateTime/index.js"
-import parseJson from "./parseJson/index.js"
+import type {
+	AdaptiveError,
+	Datatype,
+	Either,
+	Value,
+} from "../../types/index.ts"
+import { isLeft, isRight } from "../../types/index.ts"
 
-const castValue = (datatype) => (value) => {
-	if (isDefined(value.left)) {
+import Error from "../../constructors/Error/index.ts"
+import isDefined from "../isDefined/index.ts"
+import castToBoolean from "./castToBoolean/index.ts"
+import castToInteger from "./castToInteger/index.ts"
+import castToNumber from "./castToNumber/index.ts"
+import castToPercent from "./castToPercent/index.ts"
+import castToPlainDate from "./castToPlainDate/index.ts"
+import castToPlainDateTime from "./castToPlainDateTime/index.ts"
+import castToPlainTime from "./castToPlainTime/index.ts"
+import castToString from "./castToString/index.ts"
+import castToZonedDateTime from "./castToZonedDateTime/index.ts"
+import parseJson from "./parseJson/index.ts"
+
+/**
+ * Casts a value to a specific datatype
+ * 
+ * @param datatype - The target datatype to cast to
+ * @returns Function that takes an Either value and returns cast result
+ * @example
+ * ```typescript
+ * castValue("integer")({ right: "123" }) // { right: 123 }
+ * castValue("boolean")({ right: "true" }) // { right: true }
+ * ```
+ */
+const castValue =
+	(datatype: Datatype) =>
+	(
+		value: Either<Array<AdaptiveError>, Value>,
+	): Either<Array<AdaptiveError>, Value> => {
+	if (isLeft(value)) {
 		return value
 	}
 
-	if (isDefined(value.right)) {
+	if (isRight(value)) {
 		switch (datatype.toLocaleLowerCase()) {
 			case "integer":
 				return castToInteger(value.right)
@@ -37,10 +60,12 @@ const castValue = (datatype) => (value) => {
 			case "zoneddatetime":
 				return castToZonedDateTime(value.right)
 			case "json":
-				return parseJson(value.right)
+				return parseJson(String(value.right))
 			default:
 				return {
-					left: [Error(datatype)("castValue")(`Unknown datatype: ${datatype}`)],
+					left: [
+						Error(datatype)("castValue")(`Unknown datatype: ${datatype}`),
+					],
 				}
 		}
 	}

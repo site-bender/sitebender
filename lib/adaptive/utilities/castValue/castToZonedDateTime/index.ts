@@ -1,8 +1,14 @@
-import { Temporal } from "temporal-polyfill"
+import type {
+	AdaptiveError,
+	Either,
+	Value,
+} from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error.js"
+import Error from "../../../constructors/Error/index.ts"
 
-const castToZonedDateTime = (value) => {
+const castToZonedDateTime = (
+	value: Value,
+): Either<Array<AdaptiveError>, Value> => {
 	try {
 		const zdt = Temporal.ZonedDateTime.from(value)
 
@@ -10,8 +16,8 @@ const castToZonedDateTime = (value) => {
 	} catch (e) {
 		return {
 			left: [
-				Error(value)("castToZonedDateTime")(
-					`Cannot cast ${value} to a zoned date-time: ${e}.`,
+				Error("castToZonedDateTime")("ZonedDateTime")(
+					`Cannot cast ${value} to a zoned date-time: ${(e as Error).message}.`,
 				),
 			],
 		}

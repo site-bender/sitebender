@@ -1,8 +1,12 @@
-import { Temporal } from "temporal-polyfill"
+import type {
+	AdaptiveError,
+	Either,
+	Value,
+} from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error.js"
+import Error from "../../../constructors/Error/index.ts"
 
-const castToPlainDate = (value) => {
+const castToPlainDate = (value: Value): Either<Array<AdaptiveError>, Value> => {
 	try {
 		const d = Temporal.PlainDate.from(value)
 
@@ -10,8 +14,8 @@ const castToPlainDate = (value) => {
 	} catch (e) {
 		return {
 			left: [
-				Error(value)("castToPlainDate")(
-					`Cannot cast ${value} to a plain date: ${e.message}.`,
+				Error("castToPlainDate")("PlainDate")(
+					`Cannot cast ${value} to a plain date: ${(e as Error).message}.`,
 				),
 			],
 		}

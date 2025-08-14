@@ -1,15 +1,19 @@
-import Error from "../../../constructors/Error.js"
+import type { AdaptiveError, Either, Value } from "../../../types/index.ts"
 
-const parseJson = (value) => {
-	if (typeof value !== "string") {
-		return { right: value }
+import Error from "../../../constructors/Error/index.ts"
+
+const parseJson = (value: string): Either<Array<AdaptiveError>, Value> => {
+	if (!value) {
+		return {
+			left: [Error("parseJson")("JSON")(`Cannot parse JSON: empty value.`)],
+		}
 	}
 
 	try {
 		return { right: JSON.parse(value) }
 	} catch (e) {
 		return {
-			left: [Error(value)("parseJson")(`Cannot parse JSON: ${e}.`)],
+			left: [Error("parseJson")("JSON")(`Cannot parse JSON: ${e}.`)],
 		}
 	}
 }

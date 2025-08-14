@@ -1,8 +1,23 @@
-import { Temporal } from "temporal-polyfill"
+import type {
+	AdaptiveError,
+	Either,
+	Value,
+} from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error.js"
+import Error from "../../../constructors/Error/index.ts"
 
-const castToDateTime = (value) => {
+/**
+ * Casts a value to a Temporal.PlainDateTime
+ * 
+ * @param value - The value to cast to a PlainDateTime
+ * @returns Either an error or the PlainDateTime value
+ * @example
+ * ```typescript
+ * castToPlainDateTime("2024-01-15T10:30:00") // { right: PlainDateTime }
+ * castToPlainDateTime("invalid") // { left: [Error] }
+ * ```
+ */
+const castToPlainDateTime = (value: Value): Either<Array<AdaptiveError>, Value> => {
 	try {
 		const dt = Temporal.PlainDateTime.from(value)
 
@@ -10,12 +25,12 @@ const castToDateTime = (value) => {
 	} catch (e) {
 		return {
 			left: [
-				Error(value)("castToPlainDateTime")(
-					`Cannot cast ${value} to a plain date-time: ${e}.`,
+				Error("castToPlainDateTime")("PlainDateTime")(
+					`Cannot cast ${value} to a plain date-time: ${(e as Error).message}.`,
 				),
 			],
 		}
 	}
 }
 
-export default castToDateTime
+export default castToPlainDateTime

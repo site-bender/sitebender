@@ -1,6 +1,24 @@
-import Error from "../../../constructors/Error.js"
+import type {
+	AdaptiveError,
+	Either,
+	Value,
+} from "../../../types/index.ts"
 
-const castToBoolean = (value) => {
+import Error from "../../../constructors/Error/index.ts"
+
+/**
+ * Casts a value to a boolean
+ * 
+ * @param value - The value to cast to boolean
+ * @returns Either an error or the boolean value
+ * @example
+ * ```typescript
+ * castToBoolean("true") // { right: true }
+ * castToBoolean(0) // { right: false }
+ * castToBoolean("yes") // { right: true }
+ * ```
+ */
+const castToBoolean = (value: Value): Either<Array<AdaptiveError>, Value> => {
 	if (typeof value === "boolean") {
 		return { right: value }
 	}
@@ -27,7 +45,7 @@ const castToBoolean = (value) => {
 
 	return {
 		left: [
-			Error(value)("castToBoolean")(
+			Error("castToBoolean")("Boolean")(
 				`Cannot cast ${JSON.stringify(value)} to a boolean.`,
 			),
 		],
