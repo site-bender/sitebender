@@ -1,3 +1,4 @@
-const getFromInnerHtml = (element) => element?.innerHTML.trim()
+const getFromInnerHtml = (element: Element | null | undefined): string =>
+	element?.innerHTML.trim() ?? ""
 
 export default getFromInnerHtml

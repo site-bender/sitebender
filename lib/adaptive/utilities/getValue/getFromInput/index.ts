@@ -1,3 +1,4 @@
-const getFromInput = (input) => input?.value
+const getFromInput = (input: HTMLInputElement | null | undefined): string =>
+	input?.value ?? ""
 
 export default getFromInput

@@ -1,8 +1,9 @@
-import isDefined from "../../isDefined"
-import not from "../../predicates/not.js"
+import type { Value } from "../../../types/index.ts"
 
-const getFromCheckbox = (input) => {
-	if (not(input?.checked)) {
+import isDefined from "../../isDefined/index.ts"
+
+const getFromCheckbox = (input: HTMLInputElement): Value => {
+	if (!input.checked) {
 		return false
 	}
 
@@ -13,6 +14,8 @@ const getFromCheckbox = (input) => {
 
 		return input.value
 	}
+
+	return true
 }
 
 export default getFromCheckbox

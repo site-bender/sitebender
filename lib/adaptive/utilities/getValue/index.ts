@@ -1,26 +1,35 @@
-import Error from "../../constructors/Error"
-import getSelector from "../getSelector"
-import isDefined from "../isDefined"
-import isUndefined from "../isUndefined"
-import not from "../predicates/not.js"
-import getFromCheckbox from "./getFromCheckbox"
-import getFromDataset from "./getFromDataset"
-import getFromInnerHtml from "./getFromInnerHtml"
-import getFromInput from "./getFromInput"
-import getFromLocal from "./getFromLocal"
-import getFromSelect from "./getFromSelect"
-import getFromTextArea from "./getFromTextArea"
+import type { ElementConfig, GlobalAttributes } from "../../types/index.ts"
 
-const getValue = (op) => (localValues) => {
-	const selector = getSelector(op.source)
+import Error from "../../constructors/Error/index.ts"
+import getSelector from "../getSelector/index.ts"
+import isDefined from "../isDefined/index.ts"
+import isUndefined from "../isUndefined/index.ts"
+import not from "../predicates/not/index.ts"
+import getFromCheckbox from "./getFromCheckbox/index.ts"
+import getFromDataset from "./getFromDataset/index.ts"
+import getFromInnerHtml from "./getFromInnerHtml/index.ts"
+import getFromInput from "./getFromInput/index.ts"
+import getFromLocal from "./getFromLocal/index.ts"
+import getFromSelect from "./getFromSelect/index.ts"
+import getFromTextArea from "./getFromTextArea/index.ts"
+
+/**
+ * Retrieves a value from a DOM element based on element configuration
+ * 
+ * @param op - Element configuration containing selector information
+ * @returns Function that takes local values and returns either an error or the element value
+ * @example
+ * ```typescript
+ * getValue({ id: "myInput" })()
+ * getValue({ name: "fieldName", tag: "input" })(localValues)
+ * ```
+ */
+const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
+	const selector = getSelector(op)
 
 	if (not(selector)) {
 		return {
-			left: [
-				Error(op)(op.tag)(
-					"Must provide a selector by which to select element.",
-				),
-			],
+			left: [Error(op)(op.tag)(`Invalid selector.`)],
 		}
 	}
 

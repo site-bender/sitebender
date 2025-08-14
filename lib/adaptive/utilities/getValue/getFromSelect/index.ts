@@ -1,3 +1,5 @@
-const getFromSelect = (select) => select?.value
+const getFromSelect = (
+	select: HTMLSelectElement | null | undefined,
+): string => select?.value ?? ""
 
 export default getFromSelect
