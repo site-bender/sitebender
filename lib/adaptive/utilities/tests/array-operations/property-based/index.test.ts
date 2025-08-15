@@ -319,7 +319,7 @@ describe("Array Operation Properties", () => {
 					(arr, n) => {
 						const taken = take(n)(arr)
 						const dropped = drop(n)(arr)
-						const combined = concat(taken)(dropped)
+						const combined = concat(dropped)(taken)  // concat takes second array first
 						expect(combined).toEqual(arr)
 					},
 				),
