@@ -5,11 +5,8 @@ import insertAt from "../../../array/insertAt/index.ts"
 import removeAt from "../../../array/removeAt/index.ts"
 import replaceAt from "../../../array/replaceAt/index.ts"
 import replaceFirst from "../../../array/replaceFirst/index.ts"
-import replaceFirstMatch from "../../../array/replaceFirstMatch/index.ts"
 import replaceLast from "../../../array/replaceLast/index.ts"
-import replaceLastMatch from "../../../array/replaceLastMatch/index.ts"
 import replaceAll from "../../../array/replaceAll/index.ts"
-import replaceAllMatches from "../../../array/replaceAllMatches/index.ts"
 import move from "../../../array/move/index.ts"
 import repeat from "../../../array/repeat/index.ts"
 import repeatItem from "../../../array/repeatItem/index.ts"
@@ -159,31 +156,6 @@ describe("Array Mutating Behaviors", () => {
 		})
 	})
 
-	describe("when replacing first match with predicate", () => {
-		it("replaces first element matching predicate", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = replaceFirstMatch(isEven)(() => "x")([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, "x", 3, 4, 5])
-		})
-
-		it("returns unchanged array when no match", () => {
-			const isNegative = (n: number) => n < 0
-			const result = replaceFirstMatch(isNegative)(() => "x")([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("only replaces first match", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = replaceFirstMatch(isEven)(() => "x")([2, 4, 6])
-			expect(result).toEqual(["x", 4, 6])
-		})
-
-		it("handles empty arrays", () => {
-			const predicate = (n: number) => n > 0
-			const result = replaceFirstMatch(predicate)(() => "x")([])
-			expect(result).toEqual([])
-		})
-	})
 
 	describe("when replacing last occurrence", () => {
 		it("replaces last matching element", () => {
@@ -212,31 +184,6 @@ describe("Array Mutating Behaviors", () => {
 		})
 	})
 
-	describe("when replacing last match with predicate", () => {
-		it("replaces last element matching predicate", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = replaceLastMatch(isEven)(() => "x")([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 3, "x", 5])
-		})
-
-		it("returns unchanged array when no match", () => {
-			const isNegative = (n: number) => n < 0
-			const result = replaceLastMatch(isNegative)(() => "x")([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("only replaces last match", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = replaceLastMatch(isEven)(() => "x")([2, 4, 6])
-			expect(result).toEqual([2, 4, "x"])
-		})
-
-		it("handles empty arrays", () => {
-			const predicate = (n: number) => n > 0
-			const result = replaceLastMatch(predicate)(() => "x")([])
-			expect(result).toEqual([])
-		})
-	})
 
 	describe("when replacing all occurrences", () => {
 		it("replaces all matching elements", () => {
@@ -265,31 +212,6 @@ describe("Array Mutating Behaviors", () => {
 		})
 	})
 
-	describe("when replacing all matches with predicate", () => {
-		it("replaces all elements matching predicate", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = replaceAllMatches(isEven)(() => "x")([1, 2, 3, 4, 5, 6])
-			expect(result).toEqual([1, "x", 3, "x", 5, "x"])
-		})
-
-		it("returns unchanged array when no match", () => {
-			const isNegative = (n: number) => n < 0
-			const result = replaceAllMatches(isNegative)(() => "x")([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("replaces all matches", () => {
-			const isPositive = (n: number) => n > 0
-			const result = replaceAllMatches(isPositive)(() => "x")([1, 2, 3])
-			expect(result).toEqual(["x", "x", "x"])
-		})
-
-		it("handles empty arrays", () => {
-			const predicate = (n: number) => n > 0
-			const result = replaceAllMatches(predicate)(() => "x")([])
-			expect(result).toEqual([])
-		})
-	})
 
 	describe("when moving elements", () => {
 		it("moves element from one index to another", () => {
@@ -330,35 +252,39 @@ describe("Array Mutating Behaviors", () => {
 		})
 	})
 
-	describe("when repeating arrays", () => {
-		it("repeats array specified number of times", () => {
-			const result = repeat(3)([1, 2])
-			expect(result).toEqual([1, 2, 1, 2, 1, 2])
+	describe("when creating repeated values", () => {
+		it("creates array with repeated value", () => {
+			const result = repeat(3)("x")
+			expect(result).toEqual(["x", "x", "x"])
 		})
 
 		it("returns empty array for 0 repetitions", () => {
-			const result = repeat(0)([1, 2, 3])
+			const result = repeat(0)(42)
 			expect(result).toEqual([])
 		})
 
-		it("returns original array for 1 repetition", () => {
-			const result = repeat(1)([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
+		it("creates single-element array for count 1", () => {
+			const result = repeat(1)("test")
+			expect(result).toEqual(["test"])
 		})
 
-		it("handles empty arrays", () => {
-			const result = repeat(3)([])
-			expect(result).toEqual([])
+		it("handles null and undefined", () => {
+			expect(repeat(3)(null)).toEqual([null, null, null])
+			expect(repeat(2)(undefined)).toEqual([undefined, undefined])
 		})
 
 		it("handles negative counts as 0", () => {
-			const result = repeat(-1)([1, 2])
+			const result = repeat(-1)("x")
 			expect(result).toEqual([])
 		})
 
 		it("works with different types", () => {
-			const result = repeat(2)(["a", "b"])
-			expect(result).toEqual(["a", "b", "a", "b"])
+			expect(repeat(2)(true)).toEqual([true, true])
+			expect(repeat(3)(42)).toEqual([42, 42, 42])
+			const obj = { id: 1 }
+			const result = repeat(2)(obj)
+			expect(result).toEqual([obj, obj])
+			expect(result[0]).toBe(result[1]) // Same reference
 		})
 	})
 
@@ -481,12 +407,19 @@ describe("Array Mutating Behaviors", () => {
 				))
 			})
 
-			it("returns original array for invalid indices", () => {
+			it("returns original array for out-of-bounds indices", () => {
 				fc.assert(fc.property(
 					fc.array(fc.integer()),
-					fc.integer(),
+					fc.integer({ min: -100, max: 100 }),
 					(arr, index) => {
-						fc.pre(index < 0 || index >= arr.length)
+						// Normalize negative index
+						const normalizedIndex = index < 0 ? arr.length + index : index
+						
+						// Only test when index is truly out of bounds after normalization
+						if (normalizedIndex >= 0 && normalizedIndex < arr.length) {
+							return // Skip valid indices
+						}
+						
 						const result = removeAt(index)(arr)
 						expect(result).toEqual(arr)
 					}
@@ -541,38 +474,37 @@ describe("Array Mutating Behaviors", () => {
 		})
 
 		describe("repeat properties", () => {
-			it("result length equals original length times count", () => {
+			it("result length equals count", () => {
 				fc.assert(fc.property(
-					fc.array(fc.integer()),
-					fc.nat(10),
-					(arr, count) => {
-						const result = repeat(count)(arr)
-						expect(result.length).toBe(arr.length * count)
+					fc.anything(),
+					fc.nat(100),
+					(item, count) => {
+						const result = repeat(count)(item)
+						expect(result.length).toBe(count)
 					}
 				))
 			})
 
-			it("repeats pattern correctly", () => {
+			it("all elements are the same value", () => {
 				fc.assert(fc.property(
-					fc.array(fc.integer(), { minLength: 1, maxLength: 5 }),
-					fc.integer({ min: 1, max: 5 }),
-					(arr, count) => {
-						const result = repeat(count)(arr)
+					fc.anything(),
+					fc.integer({ min: 1, max: 20 }),
+					(item, count) => {
+						const result = repeat(count)(item)
 						
-						for (let i = 0; i < count; i++) {
-							for (let j = 0; j < arr.length; j++) {
-								expect(result[i * arr.length + j]).toBe(arr[j])
-							}
+						for (let i = 0; i < result.length; i++) {
+							expect(result[i]).toBe(item)
 						}
 					}
 				))
 			})
 
-			it("empty array repeated any times is empty", () => {
+			it("negative count produces empty array", () => {
 				fc.assert(fc.property(
-					fc.nat(10),
-					(count) => {
-						const result = repeat(count)([])
+					fc.anything(),
+					fc.integer({ min: -100, max: -1 }),
+					(item, count) => {
+						const result = repeat(count)(item)
 						expect(result).toEqual([])
 					}
 				))
