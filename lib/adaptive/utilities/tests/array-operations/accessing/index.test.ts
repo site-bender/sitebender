@@ -129,12 +129,12 @@ describe("Array Accessing Behaviors", () => {
 			expect(nth(4)(arr)).toBe(50)
 		})
 
-		it("returns undefined for negative index", () => {
-			// Note: Current implementation doesn't support negative indices
+		it("supports negative indices (counting from end)", () => {
+			// Note: nth uses array.at() which supports negative indices
 			const arr = [10, 20, 30, 40, 50]
-			expect(nth(-1)(arr)).toBeUndefined()
-			expect(nth(-2)(arr)).toBeUndefined()
-			expect(nth(-5)(arr)).toBeUndefined()
+			expect(nth(-1)(arr)).toBe(50)  // last element
+			expect(nth(-2)(arr)).toBe(40)  // second to last
+			expect(nth(-5)(arr)).toBe(10)  // first element (5 from end)
 		})
 
 		it("returns undefined for out-of-bounds positive index", () => {
@@ -281,18 +281,15 @@ describe("Array Accessing Behaviors", () => {
 			)
 		})
 
-		it("nth is consistent with array indexing", () => {
+		it("nth is consistent with array.at() method", () => {
 			fc.assert(
 				fc.property(
 					fc.array(fc.anything(), { minLength: 1 }),
 					fc.integer(),
 					(arr, index) => {
 						const result = nth(index)(arr)
-						if (index >= 0 && index < arr.length) {
-							expect(result).toEqual(arr[index])
-						} else {
-							expect(result).toBeUndefined()
-						}
+						const expected = arr.at(index)
+						expect(result).toEqual(expected)
 					},
 				),
 			)
