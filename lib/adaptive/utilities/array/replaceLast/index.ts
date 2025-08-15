@@ -1,18 +1,29 @@
 import replaceAt from "../replaceAt/index.ts"
 
 /**
- * Replaces the last occurrence of an item using a transformation function
+ * Replaces the last occurrence of a value using a transformation function
  * 
- * @param item - The item to find and replace
- * @returns Function that takes a transformer function and returns function that replaces last occurrence
+ * Uses strict equality (===) to find the item. Returns original array
+ * if item not found. Only replaces the last occurrence.
+ * 
+ * @curried (target) => (replacer) => (array) => result
+ * @param target - The value to find and replace
+ * @param replacer - Function to transform the found item
+ * @param array - The array to search in
+ * @returns New array with last occurrence replaced
  * @example
  * ```typescript
  * replaceLast(2)(n => n * 10)([1, 2, 3, 2, 4]) // [1, 2, 3, 20, 4]
  * replaceLast("old")(s => "new")(["old", "test", "old"]) // ["old", "test", "new"]
+ * replaceLast(5)(n => n)([1, 2, 3]) // [1, 2, 3] (not found)
+ * 
+ * // Update last error
+ * const fixLastError = replaceLast("ERROR")(s => "WARNING")
+ * fixLastError(["ERROR", "info", "ERROR"]) // ["ERROR", "info", "WARNING"]
  * ```
  */
 const replaceLast =
-	<T>(item: T) => (f: (item: T) => T) => (arr: Array<T>): Array<T> =>
-		replaceAt<T>(arr.lastIndexOf(item))(f)(arr)
+	<T>(target: T) => (replacer: (item: T) => T) => (array: Array<T>): Array<T> =>
+		replaceAt<T>(array.lastIndexOf(target))(replacer)(array)
 
 export default replaceLast

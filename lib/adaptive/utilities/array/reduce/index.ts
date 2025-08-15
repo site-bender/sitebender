@@ -1,19 +1,45 @@
 /**
- * Reduces an array to a single value using a reducer function
+ * Transforms an array into any type through successive applications of a function
  * 
- * @param fn - Reducer function that accumulates values
- * @param initial - Initial value for the accumulator
- * @param array - The array to reduce
- * @returns The final accumulated value
+ * The most fundamental array operation - can implement map, filter, flatMap, and
+ * virtually any other array transformation. Not limited to "reducing" - can expand,
+ * transform, reorganize, or build entirely new data structures.
+ * 
+ * @curried (fn) => (initial) => (array) => result
+ * @param fn - Accumulator function (acc: U, item: T, index?: number) => U
+ * @param initial - Starting value (becomes acc on first call)
+ * @param array - The array to transform
+ * @returns The final accumulated result of any type
  * @example
  * ```typescript
- * reduce((acc, n) => acc + n, 0)([1, 2, 3]) // 6
- * reduce((acc, s) => acc + s, "")([\"a\", \"b\", \"c\"]) // "abc"
+ * // Sum numbers
+ * reduce((acc, n) => acc + n)(0)([1, 2, 3]) // 6
+ * 
+ * // Build new array (map)
+ * reduce((acc, n) => [...acc, n * 2])([])(
+([1, 2, 3]) // [2, 4, 6]
+ * 
+ * // Filter
+ * reduce((acc, n) => n > 2 ? [...acc, n] : acc)([])(
+([1, 2, 3, 4]) // [3, 4]
+ * 
+ * // Build object
+ * reduce((acc, [k, v]) => ({...acc, [k]: v}))({})(
+([["a", 1], ["b", 2]]) // {a: 1, b: 2}
+ * 
+ * // Flatten
+ * reduce((acc, arr) => acc.concat(arr))([])(
+([[1, 2], [3, 4]]) // [1, 2, 3, 4]
  * ```
  */
-export default function reduce<T, U>(
-	fn: (acc: U, item: T, index?: number) => U,
-	initial: U,
-) {
-	return (array: Array<T>): U => array.reduce(fn, initial)
-}
+// INVARIANT: This function is correctly curried as (fn) => (initial) => (array)
+// DO NOT CHANGE THE CURRYING PATTERN
+const reduce = <T, U>(
+	fn: (acc: U, item: T, index?: number) => U
+) => (
+	initial: U
+) => (
+	array: Array<T>
+): U => array.reduce(fn, initial)
+
+export default reduce

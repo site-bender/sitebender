@@ -1,20 +1,29 @@
 /**
- * Replaces an item at a specific index using a transformation function
+ * Replaces an element at a specific index using a transformation function
  * 
- * @param i - Index of the item to replace
- * @returns Function that takes a transformer function and returns function that replaces item at index
+ * The replacer function receives the current value at that index.
+ * Returns original array if index is out of bounds.
+ * 
+ * @curried (index) => (replacer) => (array) => result
+ * @param index - Position to replace at (0-based)
+ * @param replacer - Function to transform the element at index
+ * @param array - The array to operate on
+ * @returns New array with element at index transformed
  * @example
  * ```typescript
  * replaceAt(1)(n => n * 2)([1, 2, 3, 4]) // [1, 4, 3, 4]
  * replaceAt(0)(s => s.toUpperCase())(["hello", "world"]) // ["HELLO", "world"]
- * replaceAt(10)(x => x)([1, 2, 3]) // [1, 2, 3] (invalid index, returns original)
+ * replaceAt(10)(x => x)([1, 2, 3]) // [1, 2, 3] (out of bounds)
+ * 
+ * // Update specific position
+ * const doubleSecond = replaceAt(1)((n: number) => n * 2)
+ * doubleSecond([10, 20, 30]) // [10, 40, 30]
  * ```
  */
 const replaceAt =
-	<T>(i: number) => (f: (item: T) => T) => (arr: Array<T>): Array<T> =>
-		i < 0 || i >= arr.length ? arr : arr
-			.slice(0, i)
-			.concat(f(arr[i]))
-			.concat(arr.slice(i + 1))
+	<T>(index: number) => (replacer: (item: T) => T) => (array: Array<T>): Array<T> =>
+		index < 0 || index >= array.length 
+			? array 
+			: [...array.slice(0, index), replacer(array[index]), ...array.slice(index + 1)]
 
 export default replaceAt

@@ -1,18 +1,30 @@
 /**
  * Inserts an item at a specific index in an array
  * 
- * @param i - Index where to insert the item (must be valid index)
- * @returns Function that takes an item and returns a function that inserts it into an array
+ * Returns a new array with the item inserted at the specified position.
+ * If index is out of bounds (negative or > length), returns original array unchanged.
+ * Index equal to length appends to the end.
+ * 
+ * @curried (index) => (item) => (array) => result
+ * @param index - Position to insert at (0-based)
+ * @param item - The item to insert
+ * @param array - The array to insert into
+ * @returns New array with item inserted at index
  * @example
  * ```typescript
- * insertAt(1)("x")([1, 2, 3]) // [1, "x", 2, 3]
- * insertAt(0)("start")(["a", "b"]) // ["start", "a", "b"]
- * insertAt(10)("x")([1, 2]) // [1, 2] (invalid index, returns original)
+ * insertAt(1)("x")(["a", "b", "c"]) // ["a", "x", "b", "c"]
+ * insertAt(0)("start")(["a", "b"])  // ["start", "a", "b"]
+ * insertAt(3)("end")(["a", "b", "c"]) // ["a", "b", "c", "end"]
+ * insertAt(10)("x")([1, 2]) // [1, 2] (out of bounds, unchanged)
+ * 
+ * // Useful for building lists
+ * const addHeader = insertAt(0)("# Header")
+ * addHeader(["line1", "line2"]) // ["# Header", "line1", "line2"]
  * ```
  */
-const insertAt = (i: number) => <T>(item: T) => (arr: Array<T>): Array<T> =>
-	i >= 0 && i < arr.length + 1
-		? arr.slice(0, i).concat([item]).concat(arr.slice(i))
-		: arr
+const insertAt = (index: number) => <T>(item: T) => (array: Array<T>): Array<T> =>
+	index >= 0 && index <= array.length
+		? [...array.slice(0, index), item, ...array.slice(index)]
+		: array
 
 export default insertAt
