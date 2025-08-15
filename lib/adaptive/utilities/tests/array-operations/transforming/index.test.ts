@@ -90,41 +90,41 @@ describe("Array Transforming Behaviors", () => {
 	})
 
 	describe("when flattening arrays", () => {
-		it("flattens one level by default", () => {
-			const result = flatten([[1, 2], [3, 4], [5]])
+		it("flattens one level with depth 1", () => {
+			const result = flatten(1)([[1, 2], [3, 4], [5]])
 			expect(result).toEqual([1, 2, 3, 4, 5])
 		})
 
 		it("flattens to specified depth", () => {
 			const nested = [1, [2, [3, [4]]]]
-			expect(flatten(nested, 1)).toEqual([1, 2, [3, [4]]])
-			expect(flatten(nested, 2)).toEqual([1, 2, 3, [4]])
-			expect(flatten(nested, 3)).toEqual([1, 2, 3, 4])
+			expect(flatten(1)(nested)).toEqual([1, 2, [3, [4]]])
+			expect(flatten(2)(nested)).toEqual([1, 2, 3, [4]])
+			expect(flatten(3)(nested)).toEqual([1, 2, 3, 4])
 		})
 
 		it("flattens deeply with Infinity", () => {
 			const deeplyNested = [1, [2, [3, [4, [5, [6]]]]]]
-			const result = flatten(deeplyNested, Infinity)
+			const result = flatten(Infinity)(deeplyNested)
 			expect(result).toEqual([1, 2, 3, 4, 5, 6])
 		})
 
 		it("handles empty arrays", () => {
-			expect(flatten([])).toEqual([])
-			expect(flatten([[], [], []])).toEqual([])
+			expect(flatten(1)([])).toEqual([])
+			expect(flatten(1)([[], [], []])).toEqual([])
 		})
 
 		it("handles mixed content", () => {
 			const mixed = [1, [2, 3], [[4]], 5]
-			expect(flatten(mixed)).toEqual([1, 2, 3, [4], 5])
+			expect(flatten(1)(mixed)).toEqual([1, 2, 3, [4], 5])
 		})
 
 		it("preserves non-array elements", () => {
-			const result = flatten([1, 2, [3, 4], 5])
+			const result = flatten(1)([1, 2, [3, 4], 5])
 			expect(result).toEqual([1, 2, 3, 4, 5])
 		})
 
 		it("handles arrays with nullish values", () => {
-			const result = flatten([null, [undefined, 1], [2, null]])
+			const result = flatten(1)([null, [undefined, 1], [2, null]])
 			expect(result).toEqual([null, undefined, 1, 2, null])
 		})
 	})
@@ -132,13 +132,13 @@ describe("Array Transforming Behaviors", () => {
 	describe("when reducing arrays", () => {
 		it("accumulates values from left to right", () => {
 			const sum = (acc: number, val: number) => acc + val
-			const result = reduce(sum, 0)([1, 2, 3, 4])
+			const result = reduce(sum)(0)([1, 2, 3, 4])
 			expect(result).toBe(10)
 		})
 
 		it("works with different accumulator types", () => {
 			const concat = (acc: string, val: number) => acc + val
-			const result = reduce(concat, "")([1, 2, 3])
+			const result = reduce(concat)("")([1, 2, 3])
 			expect(result).toBe("123")
 		})
 
@@ -148,22 +148,22 @@ describe("Array Transforming Behaviors", () => {
 				[key, val]: [string, number],
 			) => ({ ...acc, [key]: val })
 			const pairs: Array<[string, number]> = [["a", 1], ["b", 2], ["c", 3]]
-			const result = reduce(toObject, {})(pairs)
+			const result = reduce(toObject)({})(pairs)
 			expect(result).toEqual({ a: 1, b: 2, c: 3 })
 		})
 
 		it("handles empty arrays with initial value", () => {
 			const sum = (acc: number, val: number) => acc + val
-			const result = reduce(sum, 10)([])
+			const result = reduce(sum)(10)([])
 			expect(result).toBe(10)
 		})
 
 		it("passes index as third argument", () => {
-			const withIndex = (acc: Array<string>, val: string, idx: number) => [
+			const withIndex = (acc: Array<string>, val: string, idx?: number) => [
 				...acc,
 				`${val}-${idx}`,
 			]
-			const result = reduce(withIndex, [] as Array<string>)(["a", "b", "c"])
+			const result = reduce(withIndex)([] as Array<string>)(["a", "b", "c"])
 			expect(result).toEqual(["a-0", "b-1", "c-2"])
 		})
 
@@ -173,9 +173,8 @@ describe("Array Transforming Behaviors", () => {
 			) => (arr: Array<T>) =>
 				reduce(
 					(acc: Array<T>, val: T) =>
-						predicate(val) ? [...acc, val] : acc,
-					[] as Array<T>,
-				)(arr)
+						predicate(val) ? [...acc, val] : acc
+				)([] as Array<T>)(arr)
 
 			const isEven = (n: number) => n % 2 === 0
 			const result = filter(isEven)([1, 2, 3, 4, 5])
@@ -274,8 +273,8 @@ describe("Array Transforming Behaviors", () => {
 				{ id: 3, value: 2 },
 			]
 			const byValue = (
-				a: { value: number },
-				b: { value: number },
+				a: { id: number; value: number },
+				b: { id: number; value: number },
 			) => a.value - b.value
 			const result = sort(byValue)(items)
 			expect(result[1].id).toBe(1)
@@ -291,7 +290,7 @@ describe("Array Transforming Behaviors", () => {
 
 		it("handles empty arrays", () => {
 			expect(concat([2, 3])([1])).toEqual([1, 2, 3])
-			expect(concat([])([1, 2])).toEqual([1, 2])
+			expect(concat<number>([])([1, 2])).toEqual([1, 2])
 			expect(concat([1, 2])([])).toEqual([1, 2])
 		})
 
@@ -523,7 +522,7 @@ describe("Array Transforming Behaviors", () => {
 		it("sort produces ordered result", () => {
 			fc.assert(
 				fc.property(fc.array(fc.integer()), (arr) => {
-					const sorted = sort((a, b) => a - b)(arr)
+					const sorted = sort((a: number, b: number) => a - b)(arr)
 					for (let i = 1; i < sorted.length; i++) {
 						expect(sorted[i - 1]).toBeLessThanOrEqual(sorted[i])
 					}
