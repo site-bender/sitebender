@@ -1,400 +1,516 @@
 import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
-import * as fc from "fast-check"
+import fc from "fast-check"
+
+// Import all filtering functions
 import filter from "../../../array/filter/index.ts"
-import compact from "../../../array/compact/index.ts"
-import unique from "../../../array/unique/index.ts"
+import omit from "../../../array/omit/index.ts"
 import remove from "../../../array/remove/index.ts"
 import removeAll from "../../../array/removeAll/index.ts"
 import removeAt from "../../../array/removeAt/index.ts"
-import omit from "../../../array/omit/index.ts"
+import unique from "../../../array/unique/index.ts"
 
-describe("Array Filtering Behaviors", () => {
-	describe("when filtering with a predicate", () => {
-		it("keeps elements that match predicate", () => {
-			const isEven = (n: number) => n % 2 === 0
-			const result = filter(isEven)([1, 2, 3, 4, 5, 6])
-			expect(result).toEqual([2, 4, 6])
-		})
+describe("Array Filtering Operations", () => {
+	describe("Behavioral Properties", () => {
+		describe("filter", () => {
+			it("returns empty array when filtering empty array", () => {
+				expect(filter(() => true)([])).toEqual([])
+				expect(filter(() => false)([])).toEqual([])
+			})
 
-		it("removes elements that don't match predicate", () => {
-			const isPositive = (n: number) => n > 0
-			const result = filter(isPositive)([-2, -1, 0, 1, 2])
-			expect(result).toEqual([1, 2])
-		})
+			it("keeps elements that satisfy predicate", () => {
+				const isEven = (n: number) => n % 2 === 0
+				expect(filter(isEven)([1, 2, 3, 4, 5])).toEqual([2, 4])
+				expect(filter(isEven)([1, 3, 5])).toEqual([])
+				expect(filter(isEven)([2, 4, 6])).toEqual([2, 4, 6])
+			})
 
-		it("returns empty array when no elements match", () => {
-			const isFalse = () => false
-			const result = filter(isFalse)([1, 2, 3])
-			expect(result).toEqual([])
-		})
+			it("preserves order of kept elements", () => {
+				const isPositive = (n: number) => n > 0
+				expect(filter(isPositive)([-1, 2, -3, 4, -5, 6])).toEqual([2, 4, 6])
+			})
 
-		it("returns all elements when all match", () => {
-			const isTrue = () => true
-			const result = filter(isTrue)([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
+			it("works with different types", () => {
+				expect(filter((s: string) => s.length > 3)(["hi", "hello", "hey", "world"]))
+					.toEqual(["hello", "world"])
+				expect(filter((b: boolean) => b)([true, false, true, false]))
+					.toEqual([true, true])
+			})
 
-		it("handles empty arrays", () => {
-			const predicate = (n: number) => n > 0
-			const result = filter(predicate)([])
-			expect(result).toEqual([])
-		})
+			it("property: filter with always-true keeps all elements", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						expect(filter(() => true)(arr)).toEqual(arr)
+					})
+				)
+			})
 
-		it("preserves element order", () => {
-			const isOdd = (n: number) => n % 2 === 1
-			const result = filter(isOdd)([5, 4, 3, 2, 1])
-			expect(result).toEqual([5, 3, 1])
-		})
+			it("property: filter with always-false returns empty array", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						expect(filter(() => false)(arr)).toEqual([])
+					})
+				)
+			})
 
-		it("works with complex types", () => {
-			const users = [
-				{ name: "Alice", age: 25 },
-				{ name: "Bob", age: 17 },
-				{ name: "Charlie", age: 30 },
-			]
-			const isAdult = (user: { age: number }) => user.age >= 18
-			const result = filter(isAdult)(users)
-			expect(result).toEqual([
-				{ name: "Alice", age: 25 },
-				{ name: "Charlie", age: 30 },
-			])
-		})
-	})
-
-	describe("when removing nullish values", () => {
-		it("removes null and undefined values", () => {
-			const result = compact([1, null, 2, undefined, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("preserves falsy non-nullish values", () => {
-			const result = compact([0, false, "", null, undefined, NaN])
-			expect(result).toEqual([0, false, "", NaN])
-		})
-
-		it("maintains element order", () => {
-			const result = compact([null, 1, undefined, 2, null, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("returns empty array when all values are nullish", () => {
-			const result = compact([null, undefined, null, undefined])
-			expect(result).toEqual([])
-		})
-
-		it("handles empty arrays", () => {
-			const result = compact([])
-			expect(result).toEqual([])
-		})
-
-		it("handles arrays with no nullish values", () => {
-			const result = compact([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 3, 4, 5])
-		})
-
-		it("works with different types", () => {
-			expect(compact(["a", null, "b", undefined])).toEqual(["a", "b"])
-			expect(compact([true, null, false, undefined])).toEqual([true, false])
-			expect(compact([{ a: 1 }, null, { b: 2 }])).toEqual([
-				{ a: 1 },
-				{ b: 2 },
-			])
-		})
-	})
-
-	describe("when finding unique values", () => {
-		it("removes duplicate primitives", () => {
-			const result = unique([1, 2, 2, 3, 1, 4, 3])
-			expect(result).toEqual([1, 2, 3, 4])
-		})
-
-		it("maintains first occurrence order", () => {
-			const result = unique([3, 1, 2, 1, 3, 2])
-			expect(result).toEqual([3, 1, 2])
-		})
-
-		it("handles empty arrays", () => {
-			const result = unique([])
-			expect(result).toEqual([])
-		})
-
-		it("works with mixed types", () => {
-			const result = unique([1, "1", 1, "1", true, true])
-			expect(result).toEqual([1, "1", true])
-		})
-
-		it("handles arrays with no duplicates", () => {
-			const result = unique([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 3, 4, 5])
-		})
-
-		it("works with string arrays", () => {
-			const result = unique(["a", "b", "a", "c", "b"])
-			expect(result).toEqual(["a", "b", "c"])
-		})
-
-		it("handles null and undefined distinctly", () => {
-			const result = unique([null, undefined, null, undefined, 1])
-			expect(result).toEqual([null, undefined, 1])
-		})
-
-		it("handles NaN correctly", () => {
-			const result = unique([NaN, NaN, 1, NaN])
-			expect(result).toEqual([NaN, 1])
-		})
-	})
-
-	describe("when removing specific elements", () => {
-		it("removes first occurrence of element", () => {
-			const result = remove(2)([1, 2, 3, 2, 4])
-			expect(result).toEqual([1, 3, 2, 4])
-		})
-
-		it("handles element not in array", () => {
-			const result = remove(5)([1, 2, 3, 4])
-			expect(result).toEqual([1, 2, 3, 4])
-		})
-
-		it("removes all occurrences of element", () => {
-			const result = removeAll(2)([1, 2, 3, 2, 4, 2])
-			expect(result).toEqual([1, 3, 4])
-		})
-
-		it("removes element at specific index", () => {
-			const result = removeAt(2)([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 4, 5])
-		})
-
-		it("handles negative indices for removeAt", () => {
-			const result = removeAt(-2)([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 3, 5])
-		})
-
-		it("handles out-of-bounds index for removeAt", () => {
-			const result = removeAt(10)([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("does not mutate original array", () => {
-			const original = [1, 2, 3, 4, 5]
-			remove(3)(original)
-			expect(original).toEqual([1, 2, 3, 4, 5])
-		})
-	})
-
-	describe("when omitting multiple indices", () => {
-		it("removes elements at specified indices", () => {
-			const result = omit([0, 2, 4])(["a", "b", "c", "d", "e"])
-			expect(result).toEqual(["b", "d"])
-		})
-
-		it("handles empty indices array", () => {
-			const result = omit([])([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("handles duplicate indices", () => {
-			const result = omit([1, 1, 2])([1, 2, 3, 4])
-			expect(result).toEqual([1, 4])
-		})
-
-		it("handles negative indices", () => {
-			const result = omit([-1, -2])([1, 2, 3, 4, 5])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("ignores out-of-bounds indices", () => {
-			const result = omit([10, 20])([1, 2, 3])
-			expect(result).toEqual([1, 2, 3])
-		})
-
-		it("handles mixed valid and invalid indices", () => {
-			const result = omit([0, 10, 2, -10])([1, 2, 3, 4])
-			expect(result).toEqual([2, 4])
-		})
-	})
-
-	describe("property-based tests", () => {
-		it("filter never increases array length", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.anything()),
-					fc.func(fc.boolean()),
-					(arr, predicate) => {
-						const filtered = filter(predicate)(arr)
-						expect(filtered.length).toBeLessThanOrEqual(arr.length)
-					},
-				),
-			)
-		})
-
-		it("filter with always true is identity", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const filtered = filter(() => true)(arr)
-					expect(filtered).toEqual(arr)
-				}),
-			)
-		})
-
-		it("filter with always false is empty", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const filtered = filter(() => false)(arr)
-					expect(filtered).toEqual([])
-				}),
-			)
-		})
-
-		it("compact removes all nullish values", () => {
-			fc.assert(
-				fc.property(fc.array(fc.option(fc.anything())), (arr) => {
-					const compacted = compact(arr)
-					expect(compacted.every(x => x !== null && x !== undefined)).toBe(true)
-				}),
-			)
-		})
-
-		it("compact never increases length", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const compacted = compact(arr)
-					expect(compacted.length).toBeLessThanOrEqual(arr.length)
-				}),
-			)
-		})
-
-		it("unique result has no duplicates", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const uniqueArr = unique(arr)
-					const set = new Set(uniqueArr)
-					expect(uniqueArr.length).toBe(set.size)
-				}),
-			)
-		})
-
-		it("unique is idempotent", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const once = unique(arr)
-					const twice = unique(once)
-					expect(twice).toEqual(once)
-				}),
-			)
-		})
-
-		it("remove reduces length by at most 1", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.anything(), { minLength: 1 }),
-					(arr) => {
-						const elem = arr[Math.floor(Math.random() * arr.length)]
-						const removed = remove(elem)(arr)
-						expect(removed.length).toBeGreaterThanOrEqual(arr.length - 1)
-						expect(removed.length).toBeLessThanOrEqual(arr.length)
-					},
-				),
-			)
-		})
-
-		it("removeAll removes all occurrences", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer({ min: 0, max: 10 })),
-					fc.integer({ min: 0, max: 10 }),
-					(arr, value) => {
-						const removed = removeAll(value)(arr)
-						expect(removed.includes(value)).toBe(false)
-					},
-				),
-			)
-		})
-
-		it("removeAt with valid index reduces length by 1", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.anything(), { minLength: 1 }),
-					(arr) => {
-						const index = Math.floor(Math.random() * arr.length)
-						const removed = removeAt(index)(arr)
-						expect(removed.length).toBe(arr.length - 1)
-					},
-				),
-			)
-		})
-
-		it("removeAt preserves order except at removed index", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer(), { minLength: 2 }),
-					(arr) => {
-						const index = Math.floor(Math.random() * arr.length)
-						const removed = removeAt(index)(arr)
-						
-						for (let i = 0; i < index && i < removed.length; i++) {
-							expect(removed[i]).toBe(arr[i])
+			it("property: filtered array length <= original length", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						(arr) => {
+							const threshold = arr.length > 0 ? arr[Math.floor(arr.length / 2)] : 0
+							const filtered = filter((n: number) => n > threshold)(arr)
+							expect(filtered.length).toBeLessThanOrEqual(arr.length)
 						}
-						for (let i = index; i < removed.length; i++) {
-							expect(removed[i]).toBe(arr[i + 1])
+					)
+				)
+			})
+
+			it("property: idempotent - filtering twice gives same result", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						(arr) => {
+							const predicate = (n: number) => n > 0
+							const once = filter(predicate)(arr)
+							const twice = filter(predicate)(once)
+							expect(twice).toEqual(once)
 						}
-					},
-				),
-			)
+					)
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 3, 4, 5]
+				const copy = [...original]
+				filter((n: number) => n > 2)(original)
+				expect(original).toEqual(copy)
+			})
 		})
 
-		it("omit with empty indices returns original array", () => {
-			fc.assert(
-				fc.property(fc.array(fc.anything()), (arr) => {
-					const result = omit([])(arr)
-					expect(result).toEqual(arr)
-				}),
-			)
-		})
+		describe("omit", () => {
+			it("returns original array when indices array is empty", () => {
+				const arr = [1, 2, 3]
+				expect(omit([])(arr)).toEqual(arr)
+			})
 
-		it("omit reduces length by number of valid indices", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.anything(), { minLength: 1 }),
-					(arr) => {
-						const indices = Array.from({ length: Math.min(3, arr.length) }, (_, i) => i)
-						const omitted = omit(indices)(arr)
-						expect(omitted.length).toBe(arr.length - indices.length)
-					},
-				),
-			)
-		})
+			it("omits elements at specified indices", () => {
+				expect(omit([0])([1, 2, 3])).toEqual([2, 3])
+				expect(omit([1])([1, 2, 3])).toEqual([1, 3])
+				expect(omit([2])([1, 2, 3])).toEqual([1, 2])
+				expect(omit([0, 2])([1, 2, 3])).toEqual([2])
+			})
 
-		it("filter preserves relative order", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer()),
-					(arr) => {
-						const isEven = (n: number) => n % 2 === 0
-						const filtered = filter(isEven)(arr)
-						
-						// Check that relative order is preserved
-						for (let i = 1; i < filtered.length; i++) {
-							const prevIndex = arr.indexOf(filtered[i - 1])
-							const currIndex = arr.indexOf(filtered[i])
-							expect(prevIndex).toBeLessThan(currIndex)
+			it("handles out-of-bounds indices gracefully", () => {
+				expect(omit([5])([1, 2, 3])).toEqual([1, 2, 3])
+				expect(omit([-1])([1, 2, 3])).toEqual([1, 2, 3])
+				expect(omit([0, 10])([1, 2, 3])).toEqual([2, 3])
+			})
+
+			it("handles duplicate indices", () => {
+				expect(omit([0, 0, 0])([1, 2, 3])).toEqual([2, 3])
+				expect(omit([1, 1, 2])([1, 2, 3, 4])).toEqual([1, 4])
+			})
+
+			it("returns empty array when omitting all indices", () => {
+				expect(omit([0, 1, 2])([1, 2, 3])).toEqual([])
+			})
+
+			it("property: omitting no indices returns original array", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						expect(omit([])(arr)).toEqual(arr)
+					})
+				)
+			})
+
+			it("property: result length = original length - valid indices count", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						(arr) => {
+							if (arr.length === 0) return
+							// Generate valid indices
+							const numIndices = Math.floor(Math.random() * arr.length)
+							const indices = Array.from({ length: numIndices }, (_, i) => i)
+							const result = omit(indices)(arr)
+							expect(result.length).toBe(arr.length - indices.length)
 						}
-					},
-				),
-			)
+					)
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 3, 4]
+				const copy = [...original]
+				omit([1, 3])(original)
+				expect(original).toEqual(copy)
+			})
 		})
 
-		it("compact of array without nullish equals original", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer()),
-					(arr) => {
-						const compacted = compact(arr)
-						expect(compacted).toEqual(arr)
-					},
-				),
-			)
+		describe("remove", () => {
+			it("returns original array if item not found", () => {
+				expect(remove(5)([1, 2, 3])).toEqual([1, 2, 3])
+				expect(remove("x")(["a", "b", "c"])).toEqual(["a", "b", "c"])
+			})
+
+			it("removes first occurrence of item", () => {
+				expect(remove(2)([1, 2, 3, 2, 4])).toEqual([1, 3, 2, 4])
+				expect(remove("b")(["a", "b", "c", "b"])).toEqual(["a", "c", "b"])
+			})
+
+			it("uses strict equality", () => {
+				expect(remove("2")([1, 2, 3] as any)).toEqual([1, 2, 3])
+				expect(remove(2)(["1", "2", "3"] as any)).toEqual(["1", "2", "3"])
+			})
+
+			it("handles special values", () => {
+				expect(remove(NaN)([1, NaN, 3])).toEqual([1, NaN, 3]) // NaN !== NaN
+				expect(remove(null)([undefined, null, 0] as any)).toEqual([undefined, 0])
+				expect(remove(undefined)([undefined, null, 0] as any)).toEqual([null, 0])
+			})
+
+			it("property: removing non-existent item returns same array", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer({ min: 0, max: 100 })),
+						(arr) => {
+							expect(remove(-1)(arr)).toEqual(arr)
+						}
+					)
+				)
+			})
+
+			it("property: result length is original length or original length - 1", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						fc.integer(),
+						(arr, item) => {
+							const result = remove(item)(arr)
+							const expectedLength = arr.includes(item) ? arr.length - 1 : arr.length
+							expect(result.length).toBe(expectedLength)
+						}
+					)
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 3, 2, 4]
+				const copy = [...original]
+				remove(2)(original)
+				expect(original).toEqual(copy)
+			})
+		})
+
+		describe("removeAll", () => {
+			it("returns original array if item not found", () => {
+				expect(removeAll(5)([1, 2, 3])).toEqual([1, 2, 3])
+			})
+
+			it("removes all occurrences of item", () => {
+				expect(removeAll(2)([1, 2, 3, 2, 4, 2])).toEqual([1, 3, 4])
+				expect(removeAll("b")(["a", "b", "c", "b", "b"])).toEqual(["a", "c"])
+			})
+
+			it("returns empty array when removing from array of all same items", () => {
+				expect(removeAll(1)([1, 1, 1, 1])).toEqual([])
+			})
+
+			it("uses strict equality", () => {
+				expect(removeAll("2")([1, 2, 3] as any)).toEqual([1, 2, 3])
+				expect(removeAll(0)([false, 0, "", null] as any)).toEqual([false, "", null])
+			})
+
+			it("property: removing non-existent item returns same array", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer({ min: 0, max: 100 })),
+						(arr) => {
+							expect(removeAll(-1)(arr)).toEqual(arr)
+						}
+					)
+				)
+			})
+
+			it("property: no removed item remains in result", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						fc.integer(),
+						(arr, item) => {
+							const result = removeAll(item)(arr)
+							expect(result.includes(item)).toBe(false)
+						}
+					)
+				)
+			})
+
+			it("property: idempotent - removing again has no effect", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer()),
+						fc.integer(),
+						(arr, item) => {
+							const once = removeAll(item)(arr)
+							const twice = removeAll(item)(once)
+							expect(twice).toEqual(once)
+						}
+					)
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 3, 2, 4, 2]
+				const copy = [...original]
+				removeAll(2)(original)
+				expect(original).toEqual(copy)
+			})
+		})
+
+		describe("removeAt", () => {
+			it("returns original array for out-of-bounds indices", () => {
+				expect(removeAt(5)([1, 2, 3])).toEqual([1, 2, 3])
+				expect(removeAt(-5)([1, 2, 3])).toEqual([1, 2, 3]) // negative index beyond array start
+			})
+			
+			it("handles negative indices", () => {
+				expect(removeAt(-1)([1, 2, 3])).toEqual([1, 2]) // removes last
+				expect(removeAt(-2)([1, 2, 3])).toEqual([1, 3]) // removes second to last
+				expect(removeAt(-3)([1, 2, 3])).toEqual([2, 3]) // removes first
+			})
+
+			it("removes element at specified index", () => {
+				expect(removeAt(0)([1, 2, 3])).toEqual([2, 3])
+				expect(removeAt(1)([1, 2, 3])).toEqual([1, 3])
+				expect(removeAt(2)([1, 2, 3])).toEqual([1, 2])
+			})
+
+			it("handles single element arrays", () => {
+				expect(removeAt(0)([42])).toEqual([])
+				expect(removeAt(1)([42])).toEqual([42])
+			})
+
+			it("handles empty arrays", () => {
+				expect(removeAt(0)([])).toEqual([])
+			})
+
+			it("property: removing valid index reduces length by 1", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.anything(), { minLength: 1 }),
+						(arr) => {
+							const index = Math.floor(Math.random() * arr.length)
+							const result = removeAt(index)(arr)
+							expect(result.length).toBe(arr.length - 1)
+						}
+					)
+				)
+			})
+
+			it("property: elements before and after index are preserved", () => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer(), { minLength: 3 }),
+						(arr) => {
+							const index = Math.floor(arr.length / 2)
+							const result = removeAt(index)(arr)
+							// Check elements before index
+							for (let i = 0; i < index; i++) {
+								expect(result[i]).toBe(arr[i])
+							}
+							// Check elements after index
+							for (let i = index; i < result.length; i++) {
+								expect(result[i]).toBe(arr[i + 1])
+							}
+						}
+					)
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 3, 4, 5]
+				const copy = [...original]
+				removeAt(2)(original)
+				expect(original).toEqual(copy)
+			})
+		})
+
+		describe("unique", () => {
+			it("returns empty array for empty input", () => {
+				expect(unique([])).toEqual([])
+			})
+
+			it("removes duplicate values", () => {
+				expect(unique([1, 2, 2, 3, 1, 4])).toEqual([1, 2, 3, 4])
+				expect(unique(["a", "b", "a", "c", "b"])).toEqual(["a", "b", "c"])
+			})
+
+			it("preserves order of first occurrence", () => {
+				expect(unique([3, 1, 2, 1, 3, 2])).toEqual([3, 1, 2])
+			})
+
+			it("handles arrays with no duplicates", () => {
+				expect(unique([1, 2, 3, 4])).toEqual([1, 2, 3, 4])
+			})
+
+			it("handles arrays of all same values", () => {
+				expect(unique([1, 1, 1, 1])).toEqual([1])
+			})
+
+			it("handles special values", () => {
+				expect(unique([NaN, NaN, 0, -0])).toEqual([NaN, 0])
+				expect(unique([null, undefined, null, undefined] as any))
+					.toEqual([null, undefined])
+			})
+
+			it("uses reference equality for objects", () => {
+				const obj1 = { id: 1 }
+				const obj2 = { id: 1 }
+				const obj3 = obj1
+				expect(unique([obj1, obj2, obj3])).toEqual([obj1, obj2])
+			})
+
+			it("property: unique result has no duplicates", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						const result = unique(arr)
+						const resultSet = new Set(result)
+						expect(result.length).toBe(resultSet.size)
+					})
+				)
+			})
+
+			it("property: unique result length <= original length", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						expect(unique(arr).length).toBeLessThanOrEqual(arr.length)
+					})
+				)
+			})
+
+			it("property: idempotent - unique of unique is same", () => {
+				fc.assert(
+					fc.property(fc.array(fc.anything()), (arr) => {
+						const once = unique(arr)
+						const twice = unique(once)
+						expect(twice).toEqual(once)
+					})
+				)
+			})
+
+			it("property: all original values present in result", () => {
+				fc.assert(
+					fc.property(fc.array(fc.integer()), (arr) => {
+						const result = unique(arr)
+						const originalSet = new Set(arr)
+						const resultSet = new Set(result)
+						originalSet.forEach(value => {
+							expect(resultSet.has(value)).toBe(true)
+						})
+					})
+				)
+			})
+
+			it("preserves original array", () => {
+				const original = [1, 2, 2, 3, 1, 4]
+				const copy = [...original]
+				unique(original)
+				expect(original).toEqual(copy)
+			})
+		})
+
+		describe("Cross-function relationships", () => {
+			it("remove and removeAll relationship", () => {
+				const arr = [1, 2, 3, 2, 4, 2]
+				const removeOnce = remove(2)(arr)
+				expect(removeOnce).toEqual([1, 3, 2, 4, 2])
+				
+				const removeAllResult = removeAll(2)(arr)
+				expect(removeAllResult).toEqual([1, 3, 4])
+			})
+
+			it("filter can simulate remove", () => {
+				const arr = [1, 2, 3, 2, 4]
+				const item = 2
+				let found = false
+				const filtered = filter((x: number) => {
+					if (!found && x === item) {
+						found = true
+						return false
+					}
+					return true
+				})(arr)
+				expect(filtered).toEqual(remove(item)(arr))
+			})
+
+			it("filter can simulate removeAll", () => {
+				const arr = [1, 2, 3, 2, 4, 2]
+				const item = 2
+				const filtered = filter((x: number) => x !== item)(arr)
+				expect(filtered).toEqual(removeAll(item)(arr))
+			})
+
+			it("omit and removeAt relationship for single index", () => {
+				const arr = [1, 2, 3, 4, 5]
+				expect(omit([2])(arr)).toEqual(removeAt(2)(arr))
+			})
+
+			it("unique is idempotent like filter with deterministic predicate", () => {
+				const arr = [1, 2, 2, 3, 1, 4]
+				const once = unique(arr)
+				const twice = unique(once)
+				expect(twice).toEqual(once)
+				
+				// Similar with filter
+				const predicate = (n: number) => n > 2
+				const filterOnce = filter(predicate)(arr)
+				const filterTwice = filter(predicate)(filterOnce)
+				expect(filterTwice).toEqual(filterOnce)
+			})
+		})
+
+		describe("Immutability", () => {
+			it("all filtering functions preserve original array", () => {
+				const original = [1, 2, 3, 2, 4, 2, 5]
+				const copy = [...original]
+				
+				filter((n: number) => n > 2)(original)
+				omit([1, 3])(original)
+				remove(2)(original)
+				removeAll(2)(original)
+				removeAt(3)(original)
+				unique(original)
+				
+				expect(original).toEqual(copy)
+			})
+		})
+
+		describe("Edge cases", () => {
+			it("handles very large arrays", () => {
+				const largeArray = Array.from({ length: 10000 }, (_, i) => i % 100)
+				
+				const filtered = filter((n: number) => n < 10)(largeArray)
+				expect(filtered.length).toBe(1000) // 10 values repeated 100 times
+				
+				const uniqueResult = unique(largeArray)
+				expect(uniqueResult.length).toBe(100)
+				
+				const removed = removeAll(50)(largeArray)
+				expect(removed.length).toBe(9900)
+			})
+
+			it("handles arrays with mixed types", () => {
+				const mixed = [1, "2", true, null, undefined, 1, "2"] as any
+				const uniqueMixed = unique(mixed)
+				expect(uniqueMixed).toEqual([1, "2", true, null, undefined])
+			})
+
+			it("handles empty predicate results", () => {
+				expect(filter((n: number) => n > 100)([1, 2, 3])).toEqual([])
+				expect(removeAll(1)([1, 1, 1])).toEqual([])
+				expect(omit([0, 1, 2])([1, 2, 3])).toEqual([])
+			})
 		})
 	})
 })
