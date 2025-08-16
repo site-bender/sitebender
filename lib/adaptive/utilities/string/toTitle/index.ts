@@ -17,13 +17,42 @@ const TITLE_CASE_EXCEPTIONS = [
 /**
  * Converts a string to Title Case with proper grammar rules
  * 
+ * Transforms a string to Title Case format following English title
+ * capitalization rules. Capitalizes the first letter of major words
+ * while keeping articles, conjunctions, and short prepositions lowercase
+ * (except when they are the first or last word). Handles various input
+ * formats including camelCase, kebab-case, snake_case, and mixed formats.
+ * 
+ * @curried Single parameter - already curried
  * @param s - The string to convert to Title Case
  * @returns The string in Title Case format
  * @example
  * ```typescript
- * toTitle("hello world") // "Hello World"
+ * // Basic title case
+ * toTitle("hello world")         // "Hello World"
  * toTitle("the lord of the rings") // "The Lord of the Rings"
- * toTitle("a tale of two cities") // "A Tale of Two Cities"
+ * toTitle("a tale of two cities")  // "A Tale of Two Cities"
+ * 
+ * // Preserves articles and prepositions
+ * toTitle("war and peace")       // "War and Peace"
+ * toTitle("the cat in the hat")  // "The Cat in the Hat"
+ * toTitle("to be or not to be")  // "To Be or Not to Be"
+ * 
+ * // From different formats
+ * toTitle("snake_case_title")    // "Snake Case Title"
+ * toTitle("kebab-case-title")    // "Kebab Case Title"
+ * toTitle("camelCaseTitle")      // "Camel Case Title"
+ * toTitle("SCREAMING_TITLE")     // "Screaming Title"
+ * 
+ * // Special cases
+ * toTitle("HTML and CSS")        // "Html and Css"
+ * toTitle("iOS vs android")      // "Ios vs Android"
+ * 
+ * // Edge cases
+ * toTitle("")                    // ""
+ * toTitle("a")                   // "A" (single word always capitalized)
+ * toTitle("the")                 // "The" (single word always capitalized)
+ * toTitle("123 main street")     // "123 Main Street"
  * ```
  */
 const toTitle = (s: string): string => {

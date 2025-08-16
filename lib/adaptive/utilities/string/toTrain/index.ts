@@ -1,11 +1,40 @@
 import not from "../../predicates/not/index.ts"
 
 /**
- * Converts a string to Train-Case (also known as HTTP-Header-Case)
- * Each word is capitalized and separated by hyphens
+ * Converts a string to Train-Case (HTTP-Header-Case)
+ * 
+ * Transforms a string to Train-Case format where each word starts with
+ * an uppercase letter and words are separated by hyphens. Commonly used
+ * for HTTP headers and similar conventions. Handles various input formats
+ * including camelCase, snake_case, kebab-case, and space-separated.
+ * 
+ * @curried Single parameter - already curried
+ * @param s - The string to convert to Train-Case
+ * @returns The string in Train-Case format
  * @example
- * toTrain("hello world") // "Hello-World"
- * toTrain("content_type") // "Content-Type"
+ * ```typescript
+ * // From different formats
+ * toTrain("hello world")      // "Hello-World"
+ * toTrain("content_type")     // "Content-Type"
+ * toTrain("helloWorld")       // "Hello-World"
+ * toTrain("foo-bar-baz")      // "Foo-Bar-Baz"
+ * toTrain("SCREAMING_SNAKE")  // "Screaming-Snake"
+ * 
+ * // HTTP header examples
+ * toTrain("accept_encoding")  // "Accept-Encoding"
+ * toTrain("x-forwarded-for")  // "X-Forwarded-For"
+ * toTrain("contentLength")    // "Content-Length"
+ * 
+ * // Mixed formats
+ * toTrain("mixed_case-string") // "Mixed-Case-String"
+ * toTrain("API_KEY")          // "Api-Key"
+ * 
+ * // Edge cases
+ * toTrain("")                 // ""
+ * toTrain("a")                // "A"
+ * toTrain("123-456")          // "123-456"
+ * toTrain("---")              // "---"
+ * ```
  */
 const toTrain = (s: string): string => {
 	if (not(s)) return s
