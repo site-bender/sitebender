@@ -35,7 +35,7 @@
  * 
  * const isComment = startsWith("//")
  * isComment("// TODO: fix this") // true
- * isComment("/* comment */")     // false
+ * isComment("/* comment * /")    // false (space added to avoid nesting)
  * ```
  */
 const startsWith = (searchString: string) => (str: string): boolean =>

@@ -30,7 +30,7 @@
  * test(/^[\w._%+-]+@[\w.-]+\.[A-Z|a-z]{2,}$/)("invalid.email")    // false
  * 
  * // Edge cases
- * test(/.*/)("")              // true (matches everything)
+ * test(/.* /)("")             // true (matches everything, space added to avoid comment issue)
  * test(/^$/)("")              // true (empty pattern matches empty string)
  * test(/^$/)("anything")      // false
  * 
