@@ -1,6 +1,6 @@
-import Error from "../../constructors/Error"
-import getFromLocal from "../../utilities/getValue/getFromLocal"
-import isDefined from "../../utilities/isDefined.js"
+import Error from "../../constructors/Error/index.ts"
+import getFromLocal from "../../utilities/getValue/getFromLocal/index.ts"
+import isDefined from "../../utilities/isDefined.ts"
 
 const fromApi = (op = {}) => async (_, localValues) => {
 	const { method = "GET", url, options = {} } = op

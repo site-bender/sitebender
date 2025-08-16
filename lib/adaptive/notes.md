@@ -1,519 +1,352 @@
-# Library Integration Analysis and Recommendations
+# @sitebender Adaptive Library - Comprehensive Analysis and Implementation Plan
 
-## Current State: Three Libraries Merged Into One
+## Executive Summary
 
-This codebase consists of three distinct libraries built at different times and merged together:
+The adaptive library is a sophisticated, functional programming-based reactive DOM construction system that bridges declarative configuration and runtime DOM manipulation. It enables building progressively enhanced web applications that work without JavaScript while supporting powerful reactive calculations, validations, and conditional display logic when JavaScript is available.
 
-1. **Adaptive Runtime Engine** (`lib/sitebender/`) - Functional HTML generation and rendering system
-2. **Schema.org/Semantic Components** (`lib/components/{schema.org,semantic,calendars,formatters,parsers}`) - JSX/TSX components for structured data
-3. **UI Components Library** (`lib/components/{buttons,forms,navigation,page,wrappers}`) - JSX/TSX interactive components
+**Current Status**: The core library is complete with constructors for operators, comparators, injectors, and formatters. JSX components are being created to provide a declarative interface. The JSX-to-adaptive transformer exists but needs completion.
 
-## Key Integration Issues and Conflicts
+## A. Intent and Core Philosophy
 
-### 1. Two Competing Paradigms
+### Primary Goals
 
-**Adaptive Library:**
+1. **Progressive Enhancement First**: Components work completely without JavaScript, with reactive features as enhancements
+2. **Declarative Reactivity**: Define reactive behavior through configuration objects, not imperative code
+3. **Zero Runtime Dependencies**: All operations compose at build/render time without external libraries
+4. **Type-Safe Functional Programming**: Immutable data structures, pure functions, and comprehensive TypeScript types
+5. **Accessibility by Default**: Built-in ARIA support, semantic HTML generation, and WCAG compliance
 
-- Functional constructors: `Button(attrs)(children)`
-- Configuration objects: `{ tag: "button", attributes: {...}, children: [...] }`
-- Built-in validation and content model enforcement
-- Sophisticated rendering pipeline with progressive enhancement hooks
+### Key Innovation
 
-**JSX/TSX Components:**
+The library introduces a **constructor-based architecture** where every UI element, calculation, validation, and data source is represented as a configuration object. These configurations are composed functionally and can be:
 
-- JSX syntax: `<Button id="submit">Click me</Button>`
-- createElement function converts to: `{ type: "button", props: {...} }`
-- Simple string concatenation for HTML output
-- Limited validation and enhancement capabilities
+- Rendered to static HTML (no JS required)
+- Enhanced with reactive capabilities (when JS available)
+- Serialized to JSON for storage/transmission
+- Compiled from JSX for developer ergonomics
 
-### 2. Type System Fragmentation
+## B. Current Architecture
 
-**Current Organization:**
+### 1. Constructor System
 
-- `lib/types/schema.org/` - Schema.org component types (well organized)
-- `lib/sitebender/types/` - Adaptive library types (well organized)
-- `src/types/` - UI component types (WRONG LOCATION - breaks library independence)
-- Mixed imports using `~types/` alias pointing to `src/types/` (breaks in library context)
-
-**Problems:**
-
-- Library components incorrectly import from documentation site types
-- Violates requirement that library must be self-contained
-- Path aliases break when library is published to JSR
-
-### 3. createElement Limitations
-
-**Current createElement:**
+The foundation is a consistent constructor pattern across all system components:
 
 ```typescript
-// Only outputs JSX elements or calls function components
-// Cannot generate sitebender configuration objects
-// Limited isProp support for data extraction
+// Example: Operator Constructor Pattern
+const Add = (datatype = "Number") => (addends = []) => ({
+	tag: "Add",
+	type: OPERAND_TYPES.operator,
+	datatype,
+	addends,
+})
+
+// Example: Comparator Constructor Pattern (NEEDS FIX - see issues)
+const IsLessThan = (datatype = "Number") => (operand) => (test) => ({
+	tag: "IsLessThan",
+	type: OPERAND_TYPES.comparator, // Currently using "operator" - BUG!
+	datatype,
+	operand,
+	test,
+})
 ```
 
-**Needed Capabilities:**
-
-- Output mode selection (HTML string vs configuration object)
-- Integration with sitebender's validation system
-- Support for sitebender's enhancement hooks
-- Maintain isProp functionality for JSON-LD
+**Constructor Categories:**
 
-### 4. Missing Integration Layer
+#### a. Element Constructors (`constructors/elements/`)
 
-Currently no bridge between:
+- Generate HTML element configurations
+- Use `Filtered` higher-order function for consistent behavior
+- Handle attribute filtering, ARIA attributes, ID generation
+- **Status**: Complete
 
-- JSX components → Adaptive configuration objects
-- Adaptive validations → JSX component props
-- JSX createElement → Adaptive rendering pipeline
-- Component progressive enhancement → Adaptive hooks
+#### b. Operator Constructors (`constructors/operators/`)
 
-## Phase 1 Completed: Type System Reorganization ✅
+- Mathematical and logical operations (47 total)
+- Support various data types (Number, String, Date, Duration)
+- **Status**: Complete
+- **JSX Components Created**: 4 of 47 (Add, Subtract, Multiply, Divide)
 
-### What Was Done:
+#### c. Injector Constructors (`constructors/injectors/`)
 
-1. **Moved Component Types** - Copied all types from `src/types/` to `lib/types/components/`
-2. **Updated All Imports** - Replaced all alias imports (`~types/`, `~components/`, `~utilities/`, `~constants/`) with relative paths
-3. **Created lib/constants/** - Copied necessary constants from `src/constants/` to `lib/constants/`
-4. **Fixed Adaptive Library** - Updated internal sitebender library aliases to relative paths
-5. **Verified Independence** - Confirmed zero remaining alias imports in lib/
+- Define data sources for calculations
+- **Status**: Missing FromCookie
+- **JSX Components Created**: 3 of 10 (Constant, FromElement, FromLocalStorage)
 
-### Files Updated:
+#### d. Comparator Constructors (`constructors/comparators/`)
 
-- **67 files** with utilities imports converted to relative paths
-- **32 files** with types imports converted to relative paths
-- **20+ files** with components imports converted to relative paths
-- **900+ import statements** in sitebender library converted to relative paths
+- Conditional logic for validations and display
+- **Status**: Complete but using wrong type (OPERAND_TYPES.operator instead of .comparator)
+- **JSX Components Created**: 4 of ~50 (IsEqualTo, IsLessThan, IsMoreThan, Matches)
 
-The library is now **completely self-contained** with only relative imports, making it ready for JSR publication.
+#### e. Formatter Constructors (`constructors/formatters/`)
 
-### Known Issues to Address
+- Transform values for display
+- **Status**: Only AsMonetaryAmount exists
+- **JSX Components Created**: 0 of 1
 
-#### JSX Type Definitions (High Priority)
-The current JSX type definitions in `lib/types/globals.d.ts` and `lib/types/JSX/` are incomplete. Components are using JSX namespace types like `JSX.FormHTMLAttributes<HTMLFormElement>` that don't exist in our definitions. This causes TypeScript errors but doesn't prevent the code from working.
-
-**Current State:**
-- Basic JSX.Element and JSX.IntrinsicElements defined in globals.d.ts
-- Missing HTML element attribute interfaces (FormHTMLAttributes, ButtonHTMLAttributes, etc.)
-- Two different type systems in play (sitebender's type system vs JSX component types)
-
-**Needs Investigation:**
-- Consolidate JSX type definitions from other libraries
-- Decide between extending React-style types or creating custom minimal types
-- Ensure compatibility with both sitebender and JSX component systems
-
----
+#### f. Logical Constructors (`constructors/comparators/algebraic/`)
 
-## Remaining Phases (To Be Discussed)
-
-### Phase 2: Unified createElement Strategy
+- Boolean logic operations
+- **Status**: Complete but using wrong type
+- **JSX Components Created**: 2 of 2 (And, Or)
 
-Create a dual-mode createElement that can output both HTML strings and sitebender configurations:
+### 2. JSX Component Layer (`lib/components/adaptive/`)
 
-```typescript
-// lib/utilities/createElement/index.ts
-export function createElement(
-	tag: unknown,
-	props?: Record<string, unknown> | null,
-	...children: unknown[]
-): unknown {
-	const mode = globalConfig.renderMode || "html" // 'html' | 'sitebender'
+JSX components wrap the constructor functions, providing a declarative interface:
 
-	if (mode === "sitebender") {
-		return createAdaptiveConfig(tag, props, children)
-	}
+```tsx
+// Developer writes:
+<Add type="Number">
+  <FromElement id="price" />
+  <FromElement id="tax" />
+</Add>
 
-	return createHTMLElement(tag, props, children)
-}
-
-// Adaptive configuration generation
-function createAdaptiveConfig(tag, props, children) {
-	// Map JSX to sitebender constructor
-	const Constructor = getAdaptiveConstructor(tag)
-	if (Constructor) {
-		return Constructor(props)(children)
-	}
-	// Fallback for unknown elements
-	return { tag, attributes: props, children }
-}
-```
-
-### 2. Type System Reorganization
-
-**Move all component types to lib/types/:**
-
-```
-lib/types/
-├── schema.org/          # Existing schema.org types
-├── components/          # NEW - consolidated from src/types/
-│   ├── forms/
-│   ├── navigation/
-│   ├── buttons/
-│   ├── page/
-│   └── wrappers/
-├── jsx/                 # JSX element types
-├── temporal/            # Date/time types
-└── index.ts            # Central export point
-```
-
-**Fix all imports in lib/ components:**
-
-- Replace `~types/` with relative imports
-- Ensure no dependencies on src/
-
-### 3. Component Integration Layer
-
-Create adapters between JSX components and sitebender system:
-
-```typescript
-// lib/components/adapters/index.ts
-
-// Convert JSX component to sitebender constructor
-export function adaptComponent(Component: Function) {
-	return (props: any) => (children: any[]) => {
-		// Get JSX representation
-		const jsx = Component({ ...props, children })
-
-		// Convert to sitebender config with validation
-		return convertToAdaptive(jsx)
-	}
-}
-
-// Add sitebender features to JSX components
-export function enhanceComponent(Component: Function) {
-	return (props: any) => {
-		// Add validation
-		const validated = validateProps(props)
-
-		// Add enhancement hooks
-		const enhanced = {
-			...validated,
-			calculations: props.calculations,
-			formatters: props.formatters,
-			conditionals: props.conditionals,
-		}
-
-		return Component(enhanced)
-	}
-}
-```
-
-### 4. Progressive Migration Path
-
-**Phase 1: Fix Type Organization**
-
-- Move src/types/ to lib/types/components/
-- Update all imports to use relative paths
-- Ensure library is self-contained
-
-**Phase 2: Dual-Mode createElement**
-
-- Extend createElement to support sitebender output
-- Add mode configuration
-- Maintain backward compatibility
-
-**Phase 3: Component Adapters**
-
-- Create adapters for existing JSX components
-- Add validation layer
-- Enable progressive enhancement hooks
-
-**Phase 4: Unified API**
-
-- Single component API supporting both paradigms
-- Automatic mode detection based on context
-- Full feature parity between modes
-
-### 5. Benefits of Integration
-
-**For Developers:**
-
-- Write components once using familiar JSX
-- Get sitebender's validation and enhancement for free
-- Choose rendering mode based on use case
-- Type safety across entire system
-
-**For End Users:**
-
-- Better HTML5 compliance through validation
-- Progressive enhancement built-in
-- Smaller bundle sizes with shared infrastructure
-- Consistent behavior across components
-
-### 6. Component Architecture Alignment
-
-**Standardize component patterns:**
-
-```typescript
-// All components follow same structure
-export default function MyComponent(props: Props) {
-	// Validation
-	const validated = validateProps(props)
-
-	// Core rendering
-	const element = <div {...validated}>{props.children}</div>
-
-	// Enhancement hooks (if in sitebender mode)
-	if (isAdaptiveMode()) {
-		return enhanceWithAdaptive(element, props)
-	}
-
-	return element
-}
-
-// Props always exported as named export
-export type Props = {
-	// Component-specific props
-}
-```
-
-### 7. Validation and Content Model Integration
-
-Leverage sitebender's sophisticated content model validation:
-
-```typescript
-// lib/components/guards/jsx/index.ts
-
-export function validateJSXChildren(
-	element: string,
-	children: unknown[],
-): unknown[] {
-	const filter = getContentModelFilter(element)
-	return filter ? filter(children) : children
-}
-
-// Use in createElement
-function createElement(tag, props, ...children) {
-	const validatedChildren = validateJSXChildren(tag, children)
-	// Continue with validated children
-}
-```
-
-### 8. Configuration Storage Format
-
-For database/file storage of component configurations:
-
-```typescript
-// Adaptive configuration format (JSON-serializable)
+// Transforms to configuration:
 {
-  "type": "sitebender:component",
-  "version": "1.0",
-  "component": "Button",
-  "props": {
-    "id": "submit-btn",
-    "class": "primary",
-    "calculations": [{
-      "target": "disabled",
-      "operation": {
-        "type": "FromLocalStorage",
-        "key": "userLoggedIn",
-        "transform": "not"
-      }
-    }]
-  },
-  "children": [
-    { "type": "TextNode", "value": "Submit" }
+  tag: "Add",
+  type: "operator",
+  datatype: "Number",
+  addends: [
+    { tag: "FromElement", type: "injector", source: "price", datatype: "Number" },
+    { tag: "FromElement", type: "injector", source: "tax", datatype: "Number" }
   ]
 }
 ```
 
-## Summary
+### 3. Rendering Pipeline
 
-The three libraries have excellent individual architectures but need integration work:
+Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX elements with data attributes for client-side hydration.
 
-1. **Adaptive** provides sophisticated validation and rendering
-2. **JSX components** provide familiar developer experience
-3. **Integration layer** will unite them for maximum benefit
+## C. Critical Issues to Fix
 
-The key is creating a bridge that preserves the strengths of each approach while enabling them to work together seamlessly. This will require careful refactoring of the createElement function, reorganization of types, and creation of adapter layers, but will result in a more powerful and cohesive library.
+### 1. Type Constants Bug
 
----
+**Problem**: Comparators and logical operators use `OPERAND_TYPES.operator` instead of proper types
+**Files Affected**: All comparator constructors, And/Or constructors
+**Fix Required**: Update all to use `OPERAND_TYPES.comparator` or `OPERAND_TYPES.logical`
 
-# Adaptive Library Analysis
+### 2. JSX Transform Incomplete
 
-## Overview
+**Problem**: The jsx-to-adaptive transformer is not fully integrated
+**Impact**: JSX components don't properly transform children to configurations
+**Fix Required**: Complete transformer integration, ensure proper child handling
 
-The `lib/sitebender/` library is a sophisticated **functional HTML generation and rendering system** designed to create dynamic, reactive web applications through declarative configuration objects. It serves as the foundational infrastructure for the main @sitebender library.
+### 3. Missing JSX Components
 
-## Core Purpose
+**Problem**: Only ~13 of ~110 constructor functions have JSX component wrappers
+**Impact**: Developers can't use most functionality through JSX
 
-The sitebender library provides:
+## D. Implementation Plan
 
-1. **Declarative HTML Element Construction** - Creates HTML elements through functional composition rather than imperative DOM manipulation
-2. **Advanced Content Model Validation** - Enforces HTML5 content model rules with sophisticated filtering
-3. **Dynamic Value Injection and Operations** - Supports complex mathematical operations, data injection from various sources, and reactive updates
-4. **Server-Side and Client-Side Rendering** - Can render to both static HTML strings and live DOM trees
-5. **Progressive Enhancement Pipeline** - Provides hooks for calculations, formatting, conditionals, and client-side enhancements
+### Phase 1: Fix Critical Bugs (Immediate)
 
-## Architecture Components
+1. **Fix OPERAND_TYPES Usage**
+   - Update all comparator constructors to use `OPERAND_TYPES.comparator`
+   - Update And/Or to use `OPERAND_TYPES.logical`
+   - Ensure constants include all needed types
 
-### 1. Element Construction System (`constructors/`)
+2. **Fix JSX Component Return Types**
+   - Components currently use placeholder returns (`null as any`)
+   - Need proper configuration object construction
 
-- **HTML Element Constructors**: All standard HTML elements (Button, Div, Form, etc.) with proper typing
-- **Abstracted Base Patterns**:
-  - `Filtered` - Elements with filtered children
-  - `FilteredAllowText` - Elements allowing text nodes and filtered children
-  - `FilteredEmpty` - Self-closing elements with filtered attributes
-  - `GlobalEmpty` - Self-closing elements with global attributes only
-  - `GlobalOnly` - Elements with global attributes and any children
-- **Constructor Signature**: `Tag(attributes)(children) => ConfigObject`
+### Phase 2: Complete Core JSX Components (Week 1)
 
-### 2. Advanced Content Model Validation (`guards/`)
+#### Operators to Create (43 remaining):
 
-Sophisticated filtering system enforcing HTML5 content models:
+**Trigonometric (12)**:
 
-- **Phrasing Non-Interactive Filter**: For Button/Label - allows phrasing content, excludes interactive
-- **Flow Non-Interactive Filter**: For A elements - allows flow content, excludes interactive elements
-- **Details Content Filter**: Smart reorganization moving Summary elements to first position
-- **Self-Excluding Filter**: For Form/Address preventing nested instances
-- **Legend Content Filter**: Allows phrasing OR heading content with exclusions
-- **Custom Filters**: Table cells, Select options, Ruby annotations, etc.
+- Sine, Cosine, Tangent, Cosecant, Secant, Cotangent
+- ArcSine, ArcCosine, ArcTangent
+- HyperbolicSine, HyperbolicCosine, HyperbolicTangent
 
-### 3. Operations Engine (`operations/`)
+**Mathematical (15)**:
 
-#### Operators (Mathematical/Logical)
+- AbsoluteValue, Ceiling, Floor, Round, Truncate
+- Power, Root, Exponent, NaturalLog, Log, LogBaseTwo
+- Modulo, Remainder, Reciprocal, Sign
 
-- **Arithmetic**: Add, Subtract, Multiply, Divide, Modulo, Power, etc.
-- **Trigonometric**: Sine, Cosine, Tangent, ArcSine, Hyperbolic functions, etc.
-- **Statistical**: Average, Mean, Median, Mode, StandardDeviation, etc.
-- **Rounding**: Floor, Ceiling, Round, Truncate
+**Statistical (8)**:
 
-#### Comparators
+- Average, Mean, Median, Mode
+- StandardDeviation, RootMeanSquare
+- Max, Min
 
-- **Equality**: IsEqualTo, IsUnequalTo
-- **Numerical**: IsLessThan, IsMoreThan, IsNoLessThan, IsNoMoreThan
-- **String**: IsAfterAlphabetically, IsBeforeAlphabetically, IsSameAlphabetically
-- **Temporal**: IsAfterDate, IsBeforeDate, IsSameDate (Date/DateTime/Time variants)
-- **Set Operations**: IsMember, IsSubset, IsSuperset, IsDisjointSet, IsOverlappingSet
-- **Length**: IsLength, IsLongerThan, IsShorterThan, IsSameLength
-- **Type Guards**: IsBoolean, IsNumber, IsString, IsInteger, IsPrecisionNumber
-- **Algebraic**: And, Or combinations
+**Other (8)**:
 
-#### Composers
+- Negate, Hypotenuse, ProportionedRate, Ternary
+- ArcHyperbolicSine, ArcHyperbolicCosine, ArcHyperbolicTangent
 
-- `composeOperators` - Chains mathematical operations
-- `composeComparators` - Combines comparison operations
-- `composeConditional` - Creates conditional logic trees
-- `composeValidator` - Builds validation pipelines
+#### Comparators to Create (~46 remaining):
 
-### 4. Data Injection System (`injectors/`)
+**Amount (2)**: IsNoLessThan, IsNoMoreThan
 
-Multiple data sources for dynamic content:
+**Alphabetical (6)**: IsAfterAlphabetically, IsBeforeAlphabetically, IsNotAfterAlphabetically, IsNotBeforeAlphabetically, IsNotSameAlphabetically, IsSameAlphabetically
 
-- **Constant**: Static values
-- **FromApi**: Fetch data from APIs
-- **FromElement**: Extract values from DOM elements
-- **FromLocalStorage/SessionStorage**: Browser storage
-- **FromQueryString**: URL query parameters
-- **FromUrlParameter**: URL path segments or patterns
-- **FromLookup**: Single key-value lookups
-- **FromLookupTable**: Multi-key lookup tables
-- **FromArgument**: Function arguments (for operations)
+**Date (5)**: IsNotAfterDate, IsNotBeforeDate, IsNotSameDate, IsSameDate, IsAfterDate, IsBeforeDate
 
-All injectors return `Either<Error[], T>` for robust error handling.
+**DateTime (2)**: IsAfterDateTime, IsBeforeDateTime
 
-### 5. Rendering Pipeline (`rendering/`)
+**Equality (1)**: IsUnequalTo
 
-Multi-stage rendering process:
+**Length (8)**: IsLength, IsLongerThan, IsNoLongerThan, IsNoShorterThan, IsNotLength, IsNotSameLength, IsSameLength, IsShorterThan
 
-1. **buildDomTree**: Core DOM construction
-   - `addAttributes` - Applies HTML attributes
-   - `addDataAttributes` - Adds data-* attributes
-   - `addCalculation` - Attaches calculation hooks
-   - `addFormatter` - Attaches formatting functions
-   - `addValidation` - Adds validation logic
-   - `appendChildren` - Recursively builds child elements
+**Matching (1)**: DoesNotMatch
 
-2. **renderTo**: Main rendering orchestrator
-   - Collects and deduplicates stylesheets/scripts
-   - Converts selectors to unique IDs
-   - Builds the DOM tree
-   - Adds conditionals for show/hide logic
-   - Runs calculations and formatters
-   - Executes display callbacks
+**Numerical (3)**: IsInteger, IsPrecisionNumber, IsRealNumber
 
-3. **Enhancement Hooks**:
-   - `runAllCalculations` - Executes attached calculations
-   - `runAllFormatters` - Applies formatting transformations
-   - `runAllDisplayCallbacks` - Handles conditional visibility
+**Scalar (3)**: IsBoolean, IsNumber, IsString
 
-## Integration with Main Library
+**Sequence (2)**: IsAscending, IsDescending
 
-The sitebender library provides the foundation for the semantic components:
+**Set (5)**: IsDisjointSet, IsMember, IsOverlappingSet, IsSubset, IsSuperset
 
-1. **Base Infrastructure**: All semantic components extend sitebender's constructor patterns
-2. **Content Validation**: Advanced filters ensure semantic HTML validity
-3. **Progressive Enhancement**: Hooks for client-side behavior and formatting
-4. **Rendering**: Converts semantic configurations to HTML/DOM
+**Temporal (11)**: IsCalendar, IsDuration, IsInstant, IsPlainDate, IsPlainDateTime, IsPlainMonthDay, IsPlainTime, IsPlainYearMonth, IsTimeZone, IsYearWeek, IsZonedDateTime
 
-## Key Design Patterns
+**Time (6)**: IsAfterTime, IsBeforeTime, IsNotAfterTime, IsNotBeforeTime, IsNotSameTime, IsSameTime
 
-### Functional Programming
+**Vector (3)**: IsArray, IsMap, IsSet
 
-- **Curried Functions**: All constructors use currying for partial application
-- **Either Monad**: Comprehensive error handling without exceptions
-- **Pure Functions**: No side effects during construction
-- **Composition**: Complex behaviors built from simple operations
+#### Injectors to Create (7 remaining):
 
-### HTML5 Compliance
+- FromApi, FromArgument, FromQueryString, FromSessionStorage
+- FromUrlParameter, FromLookup, FromLookupTable
+- FromCookie (needs constructor first)
 
-- **Content Model Enforcement**: Automatic filtering of invalid children
-- **Smart Reorganization**: Elements can reorganize children (e.g., Details/Summary)
-- **Self-Exclusion**: Prevents invalid nesting (e.g., Form within Form)
+#### Wrappers Needed for Non-Commutative Operations:
 
-### Progressive Enhancement
+**Already Created**: Value, From, Amount, By, Threshold, ExpectedValue, Pattern
 
-- **Configuration-First**: Declarative configuration objects
-- **Multi-Stage Rendering**: Separate construction and enhancement phases
-- **Hook System**: Extensible attachment points for behavior
+**Need to Create**:
 
-### Type Safety
+- Base, Exponent (for Power)
+- Date (for date comparators)
+- Minuend, Subtrahend (aliases for Subtract)
+- Dividend, Divisor (aliases for Divide)
 
-- **Comprehensive Types**: Full HTML element and attribute typing
-- **Runtime Validation**: Guards beyond compile-time checks
-- **Content Categories**: Proper typing for flow/phrasing/metadata content
+### Phase 3: Complete JSX Transform (Week 2)
 
-### Async-First Design
+1. **Integrate jsx-to-adaptive.ts**
+   - Hook into build pipeline
+   - Ensure proper child transformation
+   - Handle wrapper components correctly
 
-- **Promise-Based**: All operations support async resolution
-- **Nested Composition**: Complex operations flatten efficiently
-- **Error Aggregation**: Multiple errors collected and reported
+2. **Update Component Implementations**
+   - Remove placeholder returns
+   - Properly construct configuration objects
+   - Handle children transformation
 
-## Usage Example
+### Phase 4: Client-Side Reactivity (Week 3)
 
-```typescript
-// Create a button with dynamic content
-const submitButton = Button({
-	id: "submit",
-	class: "primary",
-	disabled: FromLocalStorage("userLoggedIn").map((v) => !v),
-})([
-	TextNode("Submit"),
-	Span({ class: "count" })([
-		TextNode("("),
-		FromApi("/api/pending-count"),
-		TextNode(")"),
-	]),
-])
+1. **Complete Runtime Enhancement**
+   - Implement calculation execution
+   - Set up dependency tracking
+   - Add event listeners
 
-// Render to DOM with enhancements
-await renderTo(document.body)(submitButton)
-```
+2. **Testing Infrastructure**
+   - Unit tests for all components
+   - Integration tests for reactivity
+   - E2E tests for user interactions
 
-## File Organization
+### Phase 5: Documentation & Examples (Week 4)
 
-The library follows strict patterns:
+1. **Component Documentation**
+   - Document all JSX components
+   - Provide usage examples
+   - Create playground/demo pages
 
-- One function/component per file
-- Folder names indicate the export (PascalCase for components, camelCase for functions)
-- All folders contain `index.ts` or `index.tsx`
-- Hierarchical nesting based on usage patterns
-- Helper functions nested within their parent's folder
+2. **Migration Guide**
+   - How to convert from constructor to JSX syntax
+   - Best practices
+   - Common patterns
 
-## Testing
+## E. Component Naming Strategy
 
-Comprehensive test coverage includes:
+### Semantic Wrapper Names for Non-Commutative Operations
 
-- Unit tests for individual operations and constructors
-- Integration tests for composed operations
-- Property-based testing for mathematical operations
-- Validation tests for content model enforcement
+**Mathematical Operations**:
+
+- Subtract: `<From>` (minuend) and `<Amount>` (subtrahend)
+- Divide: `<Value>` (dividend) and `<By>` (divisor)
+- Power: `<Base>` and `<Exponent>`
+- Modulo/Remainder: `<Value>` and `<By>`
+
+**Comparisons**:
+
+- Amount comparisons: `<Value>` and `<Threshold>`
+- Equality: `<Value>` and `<ExpectedValue>`
+- Pattern matching: `<Value>` and `<Pattern>`
+- Date/Time: `<Value>` and `<Date>` or `<Time>`
+
+**Aliases for Mathematical Precision**:
+
+- Provide both semantic and mathematical names
+- Document clearly in component JSDoc
+- Example: `<Minuend>` as alias for `<From>`
+
+## F. Technical Decisions
+
+### 1. Type System
+
+- All constructors should return properly typed configurations
+- JSX components should have explicit return types
+- Use discriminated unions for configuration types
+
+### 2. Error Handling
+
+- Use Either/Result types consistently
+- Provide clear error messages for invalid configurations
+- Validate at build time where possible
+
+### 3. Performance
+
+- Configurations are POJOs - no classes or prototypes
+- Minimize runtime overhead
+- Lazy evaluation where appropriate
+
+## G. Next Steps Priority Order
+
+1. **Immediate** (Today):
+   - Fix OPERAND_TYPES bug in all constructors ✓
+   - Update ssrRenderAdaptive to handle all types correctly ✓
+   - Fix existing JSX components to return proper configs
+
+2. **High Priority** (This Week):
+   - Create remaining wrapper components
+   - Implement 10 most common operators as JSX
+   - Implement 10 most common comparators as JSX
+
+3. **Medium Priority** (Next Week):
+   - Complete all operator JSX components
+   - Complete all comparator JSX components
+   - Integrate JSX transformer
+
+4. **Lower Priority** (Following Weeks):
+   - Add more formatters
+   - Implement client-side reactivity
+   - Create comprehensive test suite
+
+## H. Success Metrics
+
+1. **Coverage**: 100% of constructors have JSX component wrappers
+2. **Type Safety**: All components fully typed with no `any`
+3. **Testing**: 100% unit test coverage
+4. **Documentation**: Every component has examples
+5. **Performance**: Sub-millisecond configuration generation
+6. **Developer Experience**: IntelliSense works for all components
+
+## Questions Resolved
+
+1. **Q: Should constructors use different types?**
+   A: Yes - comparators should use `OPERAND_TYPES.comparator`, logical should use `OPERAND_TYPES.logical`
+
+2. **Q: How should JSX components handle children?**
+   A: Through the jsx-to-adaptive transformer, which converts JSX children to configuration objects
+
+3. **Q: What about server vs client rendering?**
+   A: SSR generates HTML with data attributes, client hydrates from these attributes
+
+## Conclusion
+
+The adaptive library is well-architected but needs completion of the JSX component layer to be developer-friendly. With ~100 components to create and some critical bugs to fix, we have a clear path forward. The vision of declarative, progressively-enhanced reactivity without framework lock-in is compelling and achievable.
+
+The immediate focus should be on fixing the type constants bug and creating the most commonly-used JSX components, allowing developers to start using the system while we complete the remaining components.

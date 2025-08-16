@@ -8,8 +8,8 @@ export interface Right<A> {
 	readonly right: A
 }
 
-export type InferEitherTuple<T extends Array<Either<any, any>>> = {
-	[K in keyof T]: T[K] extends Either<any, infer U> ? U : never
+export type InferEitherTuple<T extends Array<Either<unknown, unknown>>> = {
+	[K in keyof T]: T[K] extends Either<unknown, infer U> ? U : never
 }
 
 export type Either<E, A> = Left<E> | Right<A>

@@ -1,6 +1,6 @@
-import render from "."
-// @vitest-environment jsdom
-import { expect, test } from "vitest"
+import { assertEquals } from "jsr:@std/assert"
+
+import render from "./index.ts"
 
 const config = {
 	attributes: {
@@ -78,8 +78,8 @@ const config = {
 	tag: "Html",
 }
 
-test("[render] renders the config to text HTML", () => {
-	expect(render(config)).toEqual(
+Deno.test("[render] renders the config to text HTML", () => {
+	assertEquals(render(config),
 		`<html id="html-id" lang="en"><head id="head-id">` +
 			`<title>SSR test</title></head><body id="body-id">` +
 			`<header id="header-id"><h1 id="h1-id">SSR Test</h1>` +

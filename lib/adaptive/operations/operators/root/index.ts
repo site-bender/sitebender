@@ -1,23 +1,37 @@
-import Error from "../../../constructors/Error/index.js"
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedRoot } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const root = ({ radicand, degree, ...op }) => async (arg, localValues) => {
-	const resolvedRadicand = await radicand(arg, localValues)
-	if (isLeft(resolvedRadicand)) return resolvedRadicand
+import Error from "../../../constructors/Error/index.ts"
+import { isLeft } from "../../../types/index.ts"
 
-	const resolvedDegree = await degree(arg, localValues)
-	if (isLeft(resolvedDegree)) return resolvedDegree
+const root =
+	({ radicand, index, ...op }: HydratedRoot): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedRadicand = await radicand(arg, localValues)
+		if (isLeft(resolvedRadicand)) return resolvedRadicand
 
-	if (resolvedDegree.right === 0) {
+		const resolvedDegree = await degree(arg, localValues)
+		if (isLeft(resolvedDegree)) return resolvedDegree
+
+		if (resolvedDegree.right === 0) {
+			return {
+				left: [Error(op)("Root")("The degree of a root cannot be zero.")],
+			}
+		}
+
 		return {
-			left: [Error(op)("Root")("The degree of a root cannot be zero.")],
+			right: Math.sign(resolvedRadicand.right) *
+				Math.pow(Math.abs(resolvedRadicand.right), 1 / resolvedDegree.right),
 		}
 	}
-
-	return {
-		right: Math.sign(resolvedRadicand.right) *
-			Math.pow(Math.abs(resolvedRadicand.right), 1 / resolvedDegree.right),
-	}
-}
 
 export default root

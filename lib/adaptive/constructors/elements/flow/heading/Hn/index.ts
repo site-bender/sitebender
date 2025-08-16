@@ -1,3 +1,8 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+} from "../../../../../types/index.ts"
+
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
@@ -9,7 +14,7 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Hn element
  * Allows global attributes and validates role attribute against HEADING_ROLES
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+export const filterAttributes = (attributes: Record<string, Value>) => {
 	const { id, role, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(role)

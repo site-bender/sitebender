@@ -1,6 +1,7 @@
 # Component Implementation TODOs
 
 ## Overview
+
 - **Total Components**: ~1315
 - **Actually Implemented** (with export default): ~1191
 - **False Positives** (JSDoc only, no implementation): ~91
@@ -10,9 +11,11 @@
 ## Implementation Groups
 
 ### Group 1: Complete Empty Narrative Components (Priority: High)
+
 Most of these files have JSDoc comments but no actual implementation (missing export default):
 
 **Batch 1A - Character Components** (6 components) ✅ COMPLETED:
+
 - [x] `identify/narrative/CharacterName` - Names of characters in fiction
 - [x] `identify/narrative/CharacterRelationship` - Relationships between characters
 - [x] `identify/narrative/CharacterRole` - Roles/archetypes (hero, villain, etc.)
@@ -21,6 +24,7 @@ Most of these files have JSDoc comments but no actual implementation (missing ex
 - [x] `identify/narrative/SideCharacter` - Secondary characters
 
 **Batch 1B - Narrative Structure** (7 components) ✅ COMPLETED:
+
 - [x] `identify/narrative/Dialogue` - Spoken dialogue in narratives
 - [x] `identify/narrative/InternalMonologue` - Character thoughts/self-dialogue
 - [x] `identify/narrative/Narration` - Narrative text and description
@@ -30,6 +34,7 @@ Most of these files have JSDoc comments but no actual implementation (missing ex
 - [x] `identify/narrative/Foreshadowing` - Hints about future events
 
 **Batch 1C - Narrative Techniques** (6 components) ✅ COMPLETED:
+
 - [x] `identify/narrative/Metafiction` - Self-referential narrative
 - [x] `identify/narrative/NonlinearNarrative` - Non-linear storytelling
 - [x] `identify/narrative/PointOfView` - Narrative perspective
@@ -38,26 +43,32 @@ Most of these files have JSDoc comments but no actual implementation (missing ex
 - [x] `identify/narrative/VoiceOver` - Narration/commentary
 
 ### Group 2: Complete Empty Scientific Components (Priority: High)
+
 These files exist but lack implementation:
 
 **Batch 2A - Chemical Components** (4 components):
+
 - [ ] `identify/scientific/Compound` - Chemical compounds
 - [ ] `identify/scientific/Element` - Chemical elements
 - [ ] `identify/scientific/Formula` - Chemical/mathematical formulas
 - [ ] `identify/scientific/Reaction` - Chemical reactions
 
 **Batch 2B - Mathematical/Measurement** (3 components):
+
 - [ ] `identify/scientific/Equation` - Mathematical equations (MathML support)
 - [ ] `identify/scientific/Measurement` - Numeric measurements
 - [ ] `identify/scientific/MeasurementUnit` - Units of measurement
 
 ### Group 3: Complete Empty Quotation Components (Priority: Medium)
+
 - [ ] `identify/quotations/Narration` - Narrative text
 - [ ] `identify/quotations/Paraphrase` - Reworded text
 - [ ] `identify/quotations/Testimonial` - Endorsements
 
 ### Group 4: Complete Unimplemented Historical Components (Priority: High)
+
 All 5 components have JSDoc but no implementation:
+
 - [ ] `identify/historical/HistoricalEvent` - Historical events and periods
 - [ ] `identify/historical/HistoricalFigure` - Historical persons
 - [ ] `identify/historical/HistoricalPlace` - Historical locations
@@ -65,7 +76,9 @@ All 5 components have JSDoc but no implementation:
 - [ ] `identify/historical/HistoricalTerm` - Historical terminology
 
 ### Group 5: Complete Unimplemented Cultural Components (Priority: High)
+
 All 12 components have JSDoc but no implementation:
+
 - [ ] `identify/cultural/Anachronism` - Chronologically misplaced elements
 - [ ] `identify/cultural/Archaism` - Archaic terms
 - [ ] `identify/cultural/Colloquialism` - Informal expressions
@@ -80,9 +93,11 @@ All 12 components have JSDoc but no implementation:
 - [ ] `identify/cultural/VesselName` - Ship and vessel names
 
 ### Group 6: Core Interactive Components (Priority: High)
+
 Many of these were moved from top-level folders but still need review/updates:
 
 **Batch 4A - Form Components**:
+
 - [ ] `interact/forms/Form` - Enhanced form wrapper
 - [ ] `interact/forms/Input` - Text input with validation
 - [ ] `interact/forms/Select` - Dropdown selection
@@ -92,13 +107,16 @@ Many of these were moved from top-level folders but still need review/updates:
 - [ ] `interact/forms/FileInput` - File upload
 
 **Batch 4B - Button Components**:
+
 - [ ] `interact/buttons/Button` - Base button component
 - [ ] `interact/buttons/SubmitButton` - Form submission
 - [ ] `interact/buttons/ResetButton` - Form reset
 - [ ] `interact/buttons/ToggleButton` - On/off state
 
 ### Group 5: Layout Components (Priority: Medium)
+
 **Batch 5A - Page Regions**:
+
 - [ ] `layout/regions/Header` - Page header
 - [ ] `layout/regions/Footer` - Page footer
 - [ ] `layout/regions/Main` - Main content area
@@ -106,6 +124,7 @@ Many of these were moved from top-level folders but still need review/updates:
 - [ ] `layout/regions/Nav` - Navigation region
 
 **Batch 5B - Containers**:
+
 - [ ] `layout/containers/Container` - Content container
 - [ ] `layout/containers/Grid` - CSS Grid wrapper
 - [ ] `layout/containers/Flex` - Flexbox wrapper
@@ -113,6 +132,7 @@ Many of these were moved from top-level folders but still need review/updates:
 - [ ] `layout/containers/Panel` - Panel container
 
 ### Group 6: Media Components (Priority: Medium)
+
 - [ ] `media/images/Figure` - Figure with caption
 - [ ] `media/images/ResponsiveImage` - Responsive images
 - [ ] `media/audio/Audio` - Audio player wrapper
@@ -122,7 +142,9 @@ Many of these were moved from top-level folders but still need review/updates:
 - [ ] `media/video/Subtitles` - Video subtitles
 
 ### Group 7: Dynamic UI Components (Priority: Low)
+
 Progressive enhancement components:
+
 - [ ] `interact/dynamic/Accordion` - Collapsible sections
 - [ ] `interact/dynamic/Tab` - Tab navigation
 - [ ] `interact/dynamic/Modal` - Modal dialogs
@@ -130,19 +152,24 @@ Progressive enhancement components:
 - [ ] `interact/dynamic/Tooltip` - Hover tooltips
 
 ### Group 8: Additional Linguistic Components (Priority: Low)
+
 New components to add:
+
 - [ ] `identify/linguistic/Etymology` - Word origins
 - [ ] `identify/linguistic/Homonym` - Same spelling/sound
 - [ ] `identify/linguistic/Synonym` - Same meaning
 - [ ] `identify/linguistic/Antonym` - Opposite meaning
 
 ### Group 9: Additional Format Components (Priority: Low)
+
 - [ ] `format/code/Algorithm` - Algorithm presentation
 - [ ] `format/code/Pseudocode` - Pseudocode formatting
 - [ ] `format/code/Terminal` - Terminal/console output
 
 ### Group 10: Template Components (Priority: Low)
+
 Page-level templates:
+
 - [ ] `templates/ArticlePage` - Blog/article layout
 - [ ] `templates/DocumentationPage` - Docs layout
 - [ ] `templates/LandingPage` - Marketing page
@@ -152,18 +179,23 @@ Page-level templates:
 ## Implementation Strategy
 
 ### Phase 1: Core Functionality (Groups 1-3)
+
 Complete all empty component files that already exist. These are high priority because they're already referenced in documentation.
 
 ### Phase 2: Interactive Foundation (Group 4)
+
 Build the essential form and button components that enable user interaction. These are critical for any web application.
 
 ### Phase 3: Structure & Layout (Groups 5-6)
+
 Create layout and media components that provide page structure and content presentation.
 
 ### Phase 4: Progressive Enhancement (Group 7)
+
 Add dynamic UI components that enhance user experience when JavaScript is available but degrade gracefully.
 
 ### Phase 5: Expansion (Groups 8-10)
+
 Add new semantic components and page templates to round out the library.
 
 ## Technical Requirements for All Components

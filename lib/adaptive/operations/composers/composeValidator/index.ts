@@ -1,4 +1,4 @@
-import composeComparators from "../composeComparators/index.js"
+import composeComparators from "../composeComparators/index.ts"
 
 const composeValidator = (op) => composeComparators(op)
 

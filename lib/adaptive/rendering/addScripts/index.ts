@@ -1,5 +1,5 @@
-import collectScriptElements from "../../utilities/collectScriptElements"
-import buildDomTree from "../buildDomTree.js"
+import collectScriptElements from "../../utilities/collectScriptElements/index.ts"
+import buildDomTree from "../buildDomTree/index.ts"
 
 const addScripts = (component) => {
 	const head = document && document.head

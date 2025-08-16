@@ -18,8 +18,9 @@ type SelectorSource = {
  * getSelector({ selector: ".custom" }) // ".custom"
  * ```
  */
-const getSelector = (source: SelectorSource): string => {
-	const { form, id, name, selector, tag = "" } = source || {}
+const getSelector = (source: SelectorSource): string | null => {
+	if (!source) return null
+	const { form, id, name, selector, tag } = source
 
 	const formId = form ? `#${form} ` : ""
 
@@ -32,10 +33,15 @@ const getSelector = (source: SelectorSource): string => {
 	}
 
 	if (name) {
-		return `${formId}${tag.toLocaleLowerCase()}[name=${name}]`
+		const tagPart = tag ? tag.toLocaleLowerCase() : ""
+		return `${formId}${tagPart}[name=${name}]`
 	}
 
-	return `${formId}${tag.toLocaleLowerCase()}`
+	if (tag) {
+		return `${formId}${tag.toLocaleLowerCase()}`
+	}
+	
+	return null
 }
 
 export default getSelector

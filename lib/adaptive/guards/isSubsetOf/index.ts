@@ -1,4 +1,4 @@
-const isSubsetOf = <T>(options: readonly T[]) => (value: unknown): boolean => {
+const isSubsetOf = <T>(options: readonly T[]) => (value: Value): boolean => {
 	if (typeof value !== "string") {
 		return options.includes(value as T)
 	}

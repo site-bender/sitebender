@@ -1,4 +1,4 @@
-import formatter from "../../../format"
+import formatter from "../../../formatters/index.ts"
 import collectDependencies from "../../../rendering/helpers/collectDependencies/index.ts"
 
 const FROM_VALUE = ["DATA", "INPUT", "SELECT", "TEXTAREA"]

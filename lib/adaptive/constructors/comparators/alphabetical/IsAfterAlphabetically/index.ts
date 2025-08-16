@@ -1,4 +1,4 @@
-import makeAlphabeticalConstructor from "../makeAlphabeticalConstructor.js"
+import makeAlphabeticalConstructor from "../makeAlphabeticalConstructor/index.ts"
 
 const IsAfterAlphabetically = makeAlphabeticalConstructor(
 	"IsAfterAlphabetically",

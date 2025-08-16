@@ -1,4 +1,4 @@
-import { Element } from "."
+import { Element } from "./index.ts"
 
 export type Fragment = {
 	children?: Array<Element>

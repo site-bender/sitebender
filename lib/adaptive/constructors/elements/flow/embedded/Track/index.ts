@@ -1,10 +1,15 @@
-import type { TrackAttributes } from "../../../../../constructors/elements/types/attributes/index.ts"
 import type {
-	ElementAttributes,
-	ElementConfig,
-} from "../../../../../constructors/elements/types/index.ts"
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { NoAriaAttributes } from "../../../types/aria/index.ts"
+import type { TrackAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
 
-import FilteredEmpty from "../../../../../constructors/abstracted/FilteredEmpty/index.ts"
+import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
 import isBoolean from "../../../../../guards/isBoolean/index.ts"
@@ -24,12 +29,24 @@ const TRACK_KINDS = [
 ] as const
 
 /**
+ * Extended Track attributes including reactive properties and ARIA
+ * Track elements have limited ARIA support (mainly aria-hidden)
+ */
+export type TrackElementAttributes = TrackAttributes & NoAriaAttributes & {
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+/**
  * Filters attributes for Track element
  * Allows global attributes and validates track-specific attributes
  */
-export const filterAttributes = (
-	attributes: Record<string, unknown>,
-) => {
+export const filterAttributes = (attributes: TrackElementAttributes) => {
 	const {
 		id,
 		default: defaultTrack,
@@ -37,26 +54,68 @@ export const filterAttributes = (
 		label,
 		src,
 		srcLang,
+		// ARIA attributes (limited for Track elements)
+		"aria-hidden": ariaHidden,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
 		...otherAttributes
 	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("default")(defaultTrack),
-		...filterAttribute(isMemberOf(TRACK_KINDS))("kind")(kind),
-		...filterAttribute(isString)("label")(label),
-		...filterAttribute(isString)("src")(src),
-		...filterAttribute(isString)("srclang")(srcLang),
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Add track-specific attributes
+	if (isDefined(defaultTrack)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("default")(defaultTrack),
+		)
 	}
+	if (isDefined(kind)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(TRACK_KINDS))("kind")(kind),
+		)
+	}
+	if (isDefined(label)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("label")(label))
+	}
+	if (isDefined(src)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
+	}
+	if (isDefined(srcLang)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("srclang")(srcLang))
+	}
+
+	// Add ARIA attributes (limited for Track elements)
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
+	}
+
+	return filteredAttrs
 }
 
 /**
  * Creates a Track element configuration object
  *
  * The track element provides text tracks for audio and video elements.
- * It is a void element and cannot contain children.
+ * This is a void element (cannot have children).
  *
  * @example
  * ```typescript
@@ -69,6 +128,35 @@ export const filterAttributes = (
  * })
  * ```
  */
-export const Track = FilteredEmpty("Track")(filterAttributes)
+export const Track = (
+	attributes: TrackElementAttributes = {},
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
+
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: [], // Void element
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Track",
+	}
+}
 
 export default Track

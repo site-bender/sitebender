@@ -1,3 +1,9 @@
+import type {
+	NumericDatatype,
+	Operand,
+	StandardDeviationOperator,
+} from "../../../types/index.ts"
+
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
 
 const StandardDeviation =

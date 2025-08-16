@@ -1,14 +1,14 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
+import type { ScriptElement } from "../../scripting/script/index.ts"
+import type { TemplateElement } from "../../scripting/template/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
-import type { ScriptElement } from "../scripting/script"
-import type { TemplateElement } from "../scripting/template"
-import type { DescriptionDetailsElement } from "./dd"
-import type { DescriptionTermElement } from "./dt"
+import type { DescriptionDetailsElement } from "../dd/index.ts"
+import type { DescriptionTermElement } from "../dt/index.ts"
 
 export interface DivisionElement {
 	attributes?: Override<

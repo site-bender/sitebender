@@ -1,11 +1,18 @@
+import type { ElementAttributes } from "../../../types/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
+import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
+import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
+import { getInputAllowedRoles } from "../../../constants/aria-roles.ts"
 
 /**
  * Gets the appropriate inputMode for the given input type
  */
 const getInputMode =
-	(type: string) => (attribs: Record<string, any>): Record<string, any> => {
+	(type: string) =>
+	(attribs: Record<string, unknown>): Record<string, unknown> => {
 		switch (type.toLowerCase()) {
 			case "email":
 				return { inputmode: "email" }
@@ -25,6 +32,19 @@ const getInputMode =
 	}
 
 /**
+ * Validates and filters the role attribute for the given input type
+ */
+const validateInputRole =
+	(type: string) => (role: unknown): Record<string, unknown> => {
+		if (!isDefined(role)) {
+			return {}
+		}
+
+		const allowedRoles = getInputAllowedRoles(type)
+		return filterAttribute(isMemberOf(allowedRoles))("role")(role)
+	}
+
+/**
  * Base Input constructor that creates input elements of specified type
  *
  * @param type - The input type (e.g., "Text", "Email", "Password")
@@ -33,11 +53,12 @@ const getInputMode =
  */
 const Input = (type: string = "Text") =>
 (
-	filterAttributes: (attributes: Record<string, any>) => Record<string, any> = (
-		a,
-	) => a,
+	filterAttributes: (attributes: ElementAttributes) => Record<string, unknown> =
+		(
+			a,
+		) => a,
 ) =>
-(attributes: Record<string, any> = {}): any => {
+(attributes: ElementAttributes = {}): ElementConfig => {
 	const {
 		calculation,
 		dataset,
@@ -48,12 +69,16 @@ const Input = (type: string = "Text") =>
 		validation,
 		...attrs
 	} = attributes
-	const { id, ...attribs } = filterAttributes(attrs)
+
+	// Extract role for validation before filtering other attributes
+	const { role, ...attrsWithoutRole } = attrs
+	const { id, ...attribs } = filterAttributes(attrsWithoutRole)
 
 	return {
 		attributes: {
 			...getId(id),
 			...attribs,
+			...validateInputRole(type)(role),
 			...getInputMode(type)(attribs),
 			type: type.toLowerCase(),
 		},

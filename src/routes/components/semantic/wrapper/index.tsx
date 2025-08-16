@@ -1,9 +1,6 @@
-import {
-	EMOJI,
-	TONE,
-} from "~lib/components/annotate/constants/index.ts"
-import SpokenAs from "~lib/components/annotate/linguistic/SpokenAs/index.tsx"
-import WithTone from "~lib/components/annotate/performance/WithTone/index.tsx"
+import { EMOJI, TONE } from "~lib/components/wrap/constants/index.ts"
+import SpokenAs from "~lib/components/wrap/linguistic/SpokenAs/index.tsx"
+import WithTone from "~lib/components/wrap/performance/WithTone/index.tsx"
 
 export type Props = {
 	route?: string
@@ -120,18 +117,18 @@ export default function ({ route }: Props = {}) {
 					padding: 2px 4px;
 					border-radius: 3px;
 				}
-				
+
 				dl {
 					margin: 1.5rem 0;
 				}
-				
+
 				dt {
 					font-weight: bold;
 					margin-top: 1rem;
 					margin-bottom: 0.5rem;
 					color: #333;
 				}
-				
+
 				dd {
 					margin-left: 2rem;
 					margin-bottom: 1rem;

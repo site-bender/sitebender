@@ -1,11 +1,11 @@
+import type { HeadingContent } from "../../categories/heading/index.ts"
+import type { ParagraphElement } from "../../grouping/p/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { HeadingContent } from "../categories/heading"
-import type { ParagraphElement } from "../grouping/p"
 
 export interface HeadingGroupElement {
 	attributes?: Override<

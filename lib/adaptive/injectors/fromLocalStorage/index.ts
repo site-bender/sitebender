@@ -1,7 +1,7 @@
-import Error from "../../constructors/Error"
-import castValue from "../../utilities/castValue"
-import getFromLocal from "../../utilities/getValue/getFromLocal"
-import isDefined from "../../utilities/isDefined.js"
+import Error from "../../constructors/Error/index.ts"
+import castValue from "../../utilities/castValue/index.ts"
+import getFromLocal from "../../utilities/getValue/getFromLocal/index.ts"
+import isDefined from "../../utilities/isDefined.ts"
 
 const fromLocalStorage = (op) => async (_, localValues) => {
 	const local = getFromLocal(op)(localValues)

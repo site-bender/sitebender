@@ -1,9 +1,11 @@
+import type { ElementConfig } from "../../../types/index.ts"
+
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 
 /**
  * Child filter for Menu element - allows li, script, and template elements
  */
-const isValidMenuChild = (child: any): boolean => {
+const isValidMenuChild = (child: ElementConfig): boolean => {
 	if (!child || typeof child !== "object" || !child.tag) {
 		return false
 	}

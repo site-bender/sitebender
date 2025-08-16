@@ -2,6 +2,8 @@ import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
 } from "../../../constructors/elements/types/index.ts"
 
 import isDefined from "../../../../utilities/isDefined/index.ts"

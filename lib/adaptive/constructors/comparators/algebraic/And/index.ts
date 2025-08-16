@@ -1,10 +1,18 @@
-import { OPERAND_TYPES } from "../../../../constants.ts.js"
+import type {
+	ComparatorConfig,
+	Datatype,
+	LogicalConfig,
+} from "../../../../types/index.ts"
 
-const And = (datatype) => (operands = []) => ({
-	tag: "And",
-	type: OPERAND_TYPES.operator,
-	operands,
-	datatype,
-})
+import { OPERAND_TYPES } from "../../../constants/index.ts"
+
+const And =
+	(datatype: Datatype = "Boolean") =>
+	(operands: Array<ComparatorConfig | LogicalConfig> = []): LogicalConfig => ({
+		tag: "And",
+		type: OPERAND_TYPES.logical,
+		datatype,
+		operands,
+	})
 
 export default And

@@ -1,7 +1,7 @@
 import type { ElementConfig } from "../../../constructors/elements/types/index.ts"
 
-import find from "../../../../utilities/array/find/index.ts"
-import includes from "../../../../utilities/array/includes/index.ts"
+import find from "../../../utilities/array/find/index.ts"
+import includes from "../../../utilities/array/includes/index.ts"
 import flatMapDescendants from "./flatMapDescendants/index.ts"
 
 /**

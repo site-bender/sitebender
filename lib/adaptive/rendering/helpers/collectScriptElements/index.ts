@@ -1,14 +1,21 @@
-const collectScriptElements = (component: any): any[] => {
+import type { ElementConfig } from "../../../types/html/index.ts"
+
+const collectScriptElements = (
+	component: Record<string, any>,
+): Array<string> => {
 	const scriptElements = Object.entries(component).reduce(
-		(scripts: any[], [key, value]: [string, any]) => {
+		(scripts: Array<string>, [key, value]: [string, any]) => {
 			if (key === "scripts") {
 				scripts.push(...value)
 			}
 
 			if (key === "children") {
-				const childScripts = value?.reduce((out: any[], item: any) => {
-					return out.concat(collectScriptElements(item))
-				}, [])
+				const childScripts = value?.reduce(
+					(out: Array<string>, item: ElementConfig) => {
+						return out.concat(collectScriptElements(item))
+					},
+					[],
+				)
 
 				if (childScripts) {
 					scripts.push(...childScripts)

@@ -1,11 +1,11 @@
-import addConditionals from "../addConditionals"
-import addScripts from "../addScripts"
-import addStylesheets from "../addStylesheets"
-import buildDomTree from "../buildDomTree"
-import convertSelectorsToIds from "../convertSelectorsToIds"
-import runAllCalculations from "../runAllCalculations"
-import runAllDisplayCallbacks from "../runAllDisplayCallbacks"
-import runAllFormatters from "../runAllFormatters.js"
+import addConditionals from "../addConditionals/index.ts"
+import addScripts from "../addScripts/index.ts"
+import addStylesheets from "../addStylesheets/index.ts"
+import buildDomTree from "../buildDomTree/index.ts"
+import convertSelectorsToIds from "../convertSelectorsToIds/index.ts"
+import runAllCalculations from "../runAllCalculations/index.ts"
+import runAllDisplayCallbacks from "../runAllDisplayCallbacks/index.ts"
+import runAllFormatters from "../runAllFormatters/index.ts"
 
 const renderTo = (target) => (config) => (options) => {
 	const opts = { level: 0, ...options }

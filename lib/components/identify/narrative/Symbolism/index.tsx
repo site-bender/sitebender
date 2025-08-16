@@ -1,5 +1,6 @@
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import type { BaseProps } from "../../../../types/index.ts"
+
+import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "em" | "strong"
@@ -25,12 +26,12 @@ export type Props = BaseProps & {
 /**
  * Marks symbolic representations in narrative text.
  * Used for metaphors, allegories, motifs, and other symbolic elements.
- * 
+ *
  * @example
  * <Symbolism represents="hope" symbolType="metaphor">
  *   The single green shoot pushing through the concrete
  * </Symbolism>
- * 
+ *
  * @example
  * <Symbolism represents="isolation" theme="loneliness" symbolType="motif">
  *   the locked door

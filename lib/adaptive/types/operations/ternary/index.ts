@@ -1,4 +1,4 @@
-import type { ConditionalOperation } from "../makeConditional/types"
+import type { ConditionalOperation } from "../conditionals/index.ts"
 import type { AllowedNumericOperands } from "../operators/index.ts"
 
 import { OPERATION_TAGS } from "../../../constructors/constants/index.ts"

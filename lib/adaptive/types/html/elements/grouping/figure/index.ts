@@ -1,11 +1,11 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
-import type { FigcaptionElement } from "./figcaption"
+import type { FigcaptionElement } from "../figcaption/index.ts"
 
 export interface FigureElementWithCaption {
 	attributes?: Override<

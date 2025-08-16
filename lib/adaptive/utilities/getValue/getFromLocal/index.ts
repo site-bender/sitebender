@@ -14,19 +14,22 @@ const getFromLocal = (op: ElementConfig) =>
 	localValues?: GlobalAttributes,
 ): Either<Array<AdaptiveError>, Value> | undefined => {
 	if (isDefined(localValues)) {
-		const { local, id, name } = op.source || op.options || {}
+		// Check direct properties first, then nested source/options
+		const { local, id, name } = op.source || op.options || op
 		const key = local || id || name
 
-		const right = localValues[key]
+		// Check if localValues has the key, or if localValues.id matches
+		const value = localValues[key] ?? 
+			(op.id && localValues.id === op.id ? localValues.value : undefined) ??
+			(op.name && localValues.name === op.name ? localValues.value : undefined)
 
-		if (isDefined(right)) {
-			return { right }
+		if (isDefined(value)) {
+			return { right: value }
 		}
 
-		return {
-			left: [
-				Error(op)("getFromLocal")(`Cannot find local value at key: ${key}.`),
-			],
+		// Only return error if we expected to find something
+		if (key && localValues[key] === undefined) {
+			return undefined // Let it fall through to DOM
 		}
 	}
 

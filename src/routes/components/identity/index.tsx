@@ -37,20 +37,20 @@ export default function ({ route }: Props = {}) {
 							Characters, relationships, roles, and story elements
 						</li>
 						<li>
-							<strong>Linguistic</strong> (coming soon) - Foreign terms,
-							technical vocabulary, etymology
+							<strong>Linguistic</strong>{" "}
+							(coming soon) - Foreign terms, technical vocabulary, etymology
 						</li>
 						<li>
-							<strong>Scientific</strong> (coming soon) - Taxonomic names,
-							chemical formulas, units
+							<strong>Scientific</strong>{" "}
+							(coming soon) - Taxonomic names, chemical formulas, units
 						</li>
 						<li>
-							<strong>Cultural</strong> (coming soon) - Idioms, proverbs,
-							cultural references
+							<strong>Cultural</strong>{" "}
+							(coming soon) - Idioms, proverbs, cultural references
 						</li>
 						<li>
-							<strong>Quotations</strong> (coming soon) - Dialogue, citations,
-							epigraphs
+							<strong>Quotations</strong>{" "}
+							(coming soon) - Dialogue, citations, epigraphs
 						</li>
 					</ul>
 				</nav>

@@ -1,10 +1,10 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
 
 export interface CanvasElement {
 	attributes?: Override<

@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## The prime directive
+
+Your number one rule in working with this project in *any* capacity is this:
+
+> DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS.
+
+You may think that you are saving time, energy, and resources. YOU ARE NOT. Every time you cheat by guessing or assuming, you make a mess of it and end up wasting far more time, energy, resources, and MONEY.
+
+So don't do it. Work in smaller increments if you must, but check everything carefully before you act and ESPECIALLY before you write code or commit. EVERY SINGLE TIME. NO EXCEPTIONS.
+
+If you cannot do this, then you are of no use at all. This is the MOST IMPORTANT rule.
+
 ## Progressive Enhancement Philosophy
 
 **CRITICAL**: This library follows a strict progressive enhancement approach:
@@ -193,6 +205,7 @@ Components are organized by semantic categories:
 - **No semicolons**: Configured in deno.fmt
 - **Import sorting**: Automatic with `deno task fmt`
 - **TypeScript**: Strict mode with all checks enabled
+- **Array Types**: Always use `Array<T>` syntax instead of `T[]` for better readability and explicitness in type definitions
 
 ### Component Development
 

@@ -25,8 +25,8 @@ type FlowContentOptions = {
  * @param options - Validation options (ancestors, etc.)
  * @returns Function that validates if an element config represents flow content
  */
-export default function isFlowContent(options: any = {}) {
-	return (config: any = {}) => {
+export default function isFlowContent(options: unknown = {}) {
+	return (config: unknown = {}) => {
 		const { attributes = {}, tag } = config
 		const { ancestors = [] } = options
 

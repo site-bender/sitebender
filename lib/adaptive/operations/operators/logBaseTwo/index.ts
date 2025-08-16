@@ -1,13 +1,27 @@
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedLogBaseTwo } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const logBaseTwo = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
+const logBaseTwo =
+	({ operand, ...op }: HydratedLogBaseTwo): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: Math.log2(resolvedOperand.right) }
 	}
-
-	return { right: Math.log2(resolvedOperand.right) }
-}
 
 export default logBaseTwo

@@ -1,12 +1,11 @@
-// @vitest-environment jsdom
-import { expect, test } from "vitest"
+import { assertEquals } from "jsr:@std/assert"
 
-import Constant from "../../../injectors/constructors/Constant/index.js"
-import Add from "../../operators/constructors/Add/index.js"
-import Multiply from "../../operators/constructors/Multiply/index.js"
-import composeOperators from "./index.js"
+import Constant from "../../../constructors/injectors/Constant/index.ts"
+import Add from "../../../constructors/operators/Add/index.ts"
+import Multiply from "../../../constructors/operators/Multiply/index.ts"
+import composeOperators from "./index.ts"
 
-test("[composeOperators] correctly handles a complex nested operation", async () => {
+Deno.test("[composeOperators] correctly handles a complex nested operation", async () => {
 	// This test evaluates: 5 * (10 + 20) = 150
 	const complexConfig = Multiply("Integer")([
 		Constant("Integer")(5),
@@ -16,10 +15,10 @@ test("[composeOperators] correctly handles a complex nested operation", async ()
 	const composedFunction = await composeOperators(complexConfig)
 	const result = await composedFunction()
 
-	expect(result).toMatchObject({ right: 150 })
+	assertEquals(result, { right: 150 })
 })
 
-test("[composeOperators] correctly handles multiple levels of nesting", async () => {
+Deno.test("[composeOperators] correctly handles multiple levels of nesting", async () => {
 	// This test evaluates: (5 + 10) * (2 + 3) = 75
 	const complexConfig = Multiply("Integer")([
 		Add("Integer")([Constant("Integer")(5), Constant("Integer")(10)]),
@@ -29,5 +28,5 @@ test("[composeOperators] correctly handles multiple levels of nesting", async ()
 	const composedFunction = await composeOperators(complexConfig)
 	const result = await composedFunction()
 
-	expect(result).toMatchObject({ right: 75 })
+	assertEquals(result, { right: 75 })
 })

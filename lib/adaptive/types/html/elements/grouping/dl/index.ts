@@ -1,14 +1,14 @@
+import type { ScriptElement } from "../../scripting/script/index.ts"
+import type { TemplateElement } from "../../scripting/template/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { ScriptElement } from "../scripting/script"
-import type { TemplateElement } from "../scripting/template"
-import type { DescriptionDetailsElement } from "./dd"
-import type { DivisionElement } from "./div"
-import type { DescriptionTermElement } from "./dt"
+import type { DescriptionDetailsElement } from "../dd/index.ts"
+import type { DivisionElement } from "../div/index.ts"
+import type { DescriptionTermElement } from "../dt/index.ts"
 
 export interface DescriptionListElement {
 	attributes?: Override<

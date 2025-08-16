@@ -2,13 +2,15 @@ import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
 } from "../../../constructors/elements/types/index.ts"
 
-import filter from "../../../../utilities/array/filter/index.ts"
 import isDefined from "../../../../utilities/isDefined/index.ts"
 import getAriaAttributes from "../../../constructors/helpers/getAriaAttributes/index.ts"
 import getId from "../../../constructors/helpers/getId/index.ts"
 import pickGlobalAttributes from "../../../guards/pickGlobalAttributes/index.ts"
+import filter from "../../../utilities/array/filter/index.ts"
 
 /**
  * Creates an element constructor that only accepts global attributes

@@ -1,4 +1,4 @@
-import makeTimeConstructor from "../makeTimeConstructor.js"
+import makeTimeConstructor from "../makeTimeConstructor/index.ts"
 
 const IsAfterTime = makeTimeConstructor("IsAfterTime")
 

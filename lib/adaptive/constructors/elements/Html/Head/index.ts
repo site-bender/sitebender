@@ -1,23 +1,77 @@
-import type { HeadAttributes } from "../../../../constructors/elements/types/attributes/index.ts"
 import type {
-	ElementAttributes,
-	ElementConfig,
-} from "../../../../constructors/elements/types/index.ts"
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { NoAriaAttributes } from "../../../types/aria/index.ts"
+import type { HeadAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
 
-import GlobalOnly from "../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isMetadataContent from "../../../../guards/isMetadataContent/index.ts"
+import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
+import getId from "../../../../../constructors/helpers/getId/index.ts"
+import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
+import isBoolean from "../../../../../guards/isBoolean/index.ts"
+import isMetadataContent from "../../../../../guards/isMetadataContent/index.ts"
+import isString from "../../../../../guards/isString/index.ts"
+import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "../../../../utilities/isDefined/index.ts"
 
 /**
- * Child filter that validates metadata content
+ * Extended Head attributes including reactive properties and ARIA
  */
-const metadataContentFilter = (child: unknown): boolean => {
-	// Accept text nodes and other primitive content
-	if (!child || typeof child !== "object" || !("tag" in child)) {
-		return true
+export type HeadElementAttributes = HeadAttributes & NoAriaAttributes & {
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+/**
+ * Filters attributes for Head element
+ * Allows global attributes only (no element-specific attributes)
+ */
+export const filterAttributes = (attributes: HeadElementAttributes) => {
+	const {
+		id,
+		// ARIA attributes
+		"aria-hidden": ariaHidden,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
+		...otherAttributes
+	} = attributes
+	const globals = pickGlobalAttributes(otherAttributes)
+
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Head has no element-specific attributes beyond global
+
+	// Add ARIA attributes
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
 	}
 
-	// For element configs, check if they're valid metadata content
-	return isMetadataContent(child)
+	return filteredAttrs
 }
 
 /**
@@ -37,10 +91,52 @@ const metadataContentFilter = (child: unknown): boolean => {
  * ])
  * ```
  */
-export const Head: (
-	attributes: ElementAttributes<HeadAttributes>,
-) => (children: Array<unknown>) => ElementConfig<HeadAttributes> = GlobalOnly<
-	HeadAttributes
->("Head")(metadataContentFilter)
+export const Head = (attributes: HeadElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig | string = [],
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
+
+	// Convert string children to TextNode and filter children
+	const kids = isString(children)
+		? [TextNode(children)]
+		: Array.isArray(children)
+		? children.filter((child) => {
+			// Accept text nodes and other primitive content
+			if (!child || typeof child !== "object" || !("tag" in child)) {
+				return true
+			}
+			// Allow only metadata content
+			return isMetadataContent(child)
+		})
+		: isMetadataContent(children)
+		? [children]
+		: []
+
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: kids,
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Head",
+	}
+}
 
 export default Head

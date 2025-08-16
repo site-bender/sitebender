@@ -1,5 +1,14 @@
-import Error from "../../../../constructors/Error/index.js"
-import isLeft from "../../../../utilities/isLeft/index.js"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "../../../../types/index.ts"
+
+import Error from "../../../../constructors/Error/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const isSameAlphabetically =
 	({ left, right, ...op }) => async (arg, localValues) => {

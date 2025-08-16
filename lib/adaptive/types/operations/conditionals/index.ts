@@ -1,8 +1,11 @@
-import type { AllowedNumericOperands } from "../makeCalculator/types"
+import type { AllowedNumericOperands } from "../index.ts"
 import type { Operation } from "../operators/index.ts"
 
+import {
+	AlgebraicOperations,
+	ConditionalOperations,
+} from "../../../constructors/constants/index.ts"
 import { OPERATION_TAGS } from "../../../constructors/constants/index.ts"
-import { AlgebraicOperations, ConditionalOperations } from "./constants"
 
 // Algebraic
 

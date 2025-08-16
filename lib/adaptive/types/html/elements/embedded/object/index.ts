@@ -1,11 +1,11 @@
-import type { MediaType } from "../../media"
+import type { MediaType } from "../../../media/index.ts"
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
 
 export interface ObjectElement {
 	attributes?: Override<

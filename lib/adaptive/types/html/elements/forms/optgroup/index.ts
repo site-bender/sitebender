@@ -1,5 +1,9 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { OptionElement } from "./option"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { OptionElement } from "../option/index.ts"
 
 export interface OptionGroupElement {
 	attributes?: Override<

@@ -1,13 +1,13 @@
+import type { ScriptElement } from "../../scripting/script/index.ts"
+import type { TemplateElement } from "../../scripting/template/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { ScriptElement } from "../scripting/script"
-import type { TemplateElement } from "../scripting/template"
-import type { TableDataCellElement } from "./td"
-import type { TableHeaderCellElement } from "./th"
+import type { TableDataCellElement } from "../td/index.ts"
+import type { TableHeaderCellElement } from "../th/index.ts"
 
 export interface TableRowElement {
 	attributes?: Override<

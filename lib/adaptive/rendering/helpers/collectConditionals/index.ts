@@ -1,12 +1,12 @@
-const collectConditionals = (component: any) => {
+const collectConditionals = (component: unknown) => {
 	const conditions = Object.entries(component).reduce(
-		(conds: any, [key, value]: [string, any]) => {
+		(conds: unknown, [key, value]: [string, any]) => {
 			if (key === "display" && component.attributes?.id) {
 				conds[component.attributes?.id] = value
 			}
 
 			if (key === "children") {
-				const childDeps = value?.reduce((out: any, item: any) => {
+				const childDeps = value?.reduce((out: unknown, item: unknown) => {
 					return {
 						...out,
 						...collectConditionals(item),

@@ -1,6 +1,8 @@
 import type {
 	ElementAttributes,
 	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
 } from "../../../constructors/elements/types/index.ts"
 
 import isDefined from "../../../../utilities/isDefined/index.ts"
@@ -11,7 +13,7 @@ const Filtered =
 	<T extends Record<string, unknown>>(tag = "A") =>
 	(filterAttributes: (attrs: T) => T) =>
 	(attributes: ElementAttributes<T> = {} as ElementAttributes<T>) =>
-	(children: Array<unknown> = []): ElementConfig<T> => {
+	(children: Array<ElementConfig> = []): ElementConfig<T> => {
 		const {
 			aria,
 			calculation,

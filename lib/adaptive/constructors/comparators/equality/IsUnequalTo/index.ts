@@ -1,4 +1,4 @@
-import makeAmountConstructor from "../../../amount/constructors/makeAmountConstructor.js"
+import makeAmountConstructor from "../../amount/makeAmountConstructor/index.ts"
 
 const IsUnequalTo = makeAmountConstructor("IsUnequalTo")
 

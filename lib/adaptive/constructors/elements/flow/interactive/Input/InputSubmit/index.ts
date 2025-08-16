@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { InputSubmitAttributes } from "../../types/attributes/index.ts"
+
 import {
 	FORM_METHODS,
 	FORM_TARGETS,
@@ -13,7 +26,22 @@ import Input from "../index.ts"
 /**
  * Filters attributes for InputSubmit
  */
-export const filterAttributes = (attributes: Record<string, any>) => {
+
+/**
+ * Extended InputSubmit attributes including reactive properties
+ */
+export type InputSubmitElementAttributes = InputSubmitAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: InputSubmitAttributes) => {
 	const {
 		autofocus,
 		disabled,

@@ -1,7 +1,21 @@
-import isLeft from "../../../../utilities/isLeft"
-import composeComparators from "../../../composers/composeComparators/index.js"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	Operand,
+	OperationFunction,
+} from "../../../../types/index.ts"
 
-const and = (op) => async (arg, localValues) => {
+import { isLeft } from "../../../../types/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
+
+const and = (op: ComparatorConfig): OperationFunction<boolean> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, boolean>> => {
 	return await op.operands.reduce(async (out, val) => {
 		const operand = await composeComparators(val)(arg, localValues)
 

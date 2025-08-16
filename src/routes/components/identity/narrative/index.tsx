@@ -35,8 +35,8 @@ export default function ({ route }: Props = {}) {
 			<h1>Narrative Components</h1>
 			<p>
 				Components for identifying characters, relationships, and narrative
-				elements in text. These components support progressive enhancement
-				with optional Schema.org enrichment.
+				elements in text. These components support progressive enhancement with
+				optional Schema.org enrichment.
 			</p>
 
 			<section>
@@ -181,8 +181,8 @@ export default function ({ route }: Props = {}) {
 			<section>
 				<h2>CharacterRole</h2>
 				<p>
-					Identifies narrative functions and archetypal patterns that
-					characters fulfill.
+					Identifies narrative functions and archetypal patterns that characters
+					fulfill.
 				</p>
 
 				<dl>
@@ -833,8 +833,8 @@ export default function ({ route }: Props = {}) {
 			<section>
 				<h2>Foreshadowing</h2>
 				<p>
-					Marks up hints and clues about future events in the narrative,
-					helping readers identify predictive elements.
+					Marks up hints and clues about future events in the narrative, helping
+					readers identify predictive elements.
 				</p>
 
 				<dl>
@@ -893,8 +893,8 @@ export default function ({ route }: Props = {}) {
 						The <code>enrich</code> prop controls Schema.org metadata:
 						<ul>
 							<li>
-								<code>undefined</code> (default): Lightweight with data
-								attributes only
+								<code>undefined</code>{" "}
+								(default): Lightweight with data attributes only
 							</li>
 							<li>
 								<code>"microdata"</code>: Adds Schema.org microdata

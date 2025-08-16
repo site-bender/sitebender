@@ -4,7 +4,7 @@ import type {
 	InjectFromForm,
 	InjectFromMap,
 } from "../injectors/index.ts"
-import type { TernaryOperation } from "../makeTernary/types"
+import type { TernaryOperation } from "../ternary/index.ts"
 
 import {
 	MATH_OPERATORS,

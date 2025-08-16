@@ -39,8 +39,8 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 		return local
 	}
 
-	if (isDefined(document)) {
-		const element = document.querySelector(selector)
+	if (typeof globalThis !== 'undefined' && globalThis.document) {
+		const element = globalThis.document.querySelector(selector)
 
 		if (isUndefined(element)) {
 			return {
@@ -50,7 +50,8 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 
 		switch (element.tagName.toLocaleLowerCase()) {
 			case "input":
-				return element.type === "checkbox"
+				const inputType = (element as any).type || element.getAttribute('type')
+				return inputType === "checkbox"
 					? { right: getFromCheckbox(element) }
 					: { right: getFromInput(element) }
 			case "table":
@@ -60,9 +61,13 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 			case "textarea":
 				return { right: getFromTextArea(element) }
 			case "data":
-				return { right: getFromInput(element) }
+				// data element uses value attribute, not data-value
+				const dataValue = element.getAttribute('value')
+				return { right: dataValue || getFromInnerHtml(element) }
 			default:
-				return element.dataset?.value
+				const hasDataValue = element.getAttribute('data-value') || 
+					(element as any).dataset?.value
+				return hasDataValue
 					? { right: getFromDataset(element) }
 					: { right: getFromInnerHtml(element) }
 		}

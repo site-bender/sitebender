@@ -1,5 +1,9 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { FlowContent } from "../categories/flow"
+import type { FlowContent } from "../../categories/flow/index.ts"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
 
 export interface SlotElement {
 	attributes?: Override<Partial<HTMLSlotElement>, GlobalAttributeOverrides>

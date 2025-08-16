@@ -1,9 +1,36 @@
-import { OPERAND_TYPES } from "../../../../constants.ts.js"
+import type {
+	Datatype,
+	NumericDatatype,
+	Operand,
+} from "../../../../types/index.ts"
+
+import { OPERAND_TYPES } from "../../../constants/index.ts"
+
+type LengthComparatorTag =
+	| "IsLength"
+	| "IsLongerThan"
+	| "IsNoLongerThan"
+	| "IsNoShorterThan"
+	| "IsNotLength"
+	| "IsNotSameLength"
+	| "IsSameLength"
+	| "IsShorterThan"
+
+interface LengthComparator {
+	tag: LengthComparatorTag
+	type: typeof OPERAND_TYPES.comparator
+	datatype: NumericDatatype
+	operand: Operand
+	test: Operand
+}
 
 const makeLengthConstructor =
-	(tag) => (datatype = "String") => (operand) => (test) => ({
+	<T extends LengthComparatorTag>(tag: T) =>
+	(datatype: NumericDatatype = "Number") =>
+	(operand: Operand) =>
+	(test: Operand): LengthComparator => ({
 		tag,
-		type: OPERAND_TYPES.operator,
+		type: OPERAND_TYPES.comparator,
 		datatype,
 		operand,
 		test,

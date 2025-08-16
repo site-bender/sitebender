@@ -1,12 +1,12 @@
+import type { PhrasingContent } from "../../categories/phrasing/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { PhrasingContent } from "../categories/phrasing"
-import type { RubyFallbackParenthesisElement } from "./rp"
-import type { RubyTextElement } from "./rt"
+import type { RubyFallbackParenthesisElement } from "../rp/index.ts"
+import type { RubyTextElement } from "../rt/index.ts"
 
 export interface RubyElement {
 	attributes?: Override<

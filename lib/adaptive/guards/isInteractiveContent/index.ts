@@ -1,3 +1,5 @@
+import type { GlobalAttributes } from "../../types/index.ts"
+
 import { ELEMENTS } from "../../guards/constants/index.ts"
 
 /**

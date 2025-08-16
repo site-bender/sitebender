@@ -1,5 +1,9 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { TableColumnElement } from "./col"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { TableColumnElement } from "../col/index.ts"
 
 export interface TableColumnGroupElementWithSpan {
 	attributes?: Override<

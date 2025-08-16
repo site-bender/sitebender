@@ -64,8 +64,10 @@ export const MATH_OPERATORS_VALUES = Object.values(MATH_OPERATORS)
 export const MULTIPLICATION_IDENTITY = 1
 
 export const OPERAND_TYPES = {
-	operator: "operator",
+	comparator: "comparator",
 	injector: "injector",
+	logical: "logical",
+	operator: "operator",
 } as const
 
 export const OPERATION_TAGS = {

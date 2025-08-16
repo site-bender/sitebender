@@ -1,4 +1,19 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { TextAreaAttributes } from "../types/attributes/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
+import { TEXTAREA_ROLES } from "../../../../../constructors/elements/constants/aria-roles.ts"
 import {
 	AUTOCOMPLETES,
 	WRAPS,
@@ -16,7 +31,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for TextArea element
  * Allows global attributes and validates textarea-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended TextArea attributes including reactive properties
+ */
+export type TextAreaElementAttributes = TextAreaAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: TextAreaAttributes) => {
 	const {
 		autoComplete,
 		cols,
@@ -29,6 +59,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		placeholder,
 		readOnly,
 		required,
+		role,
 		rows,
 		wrap,
 		...attrs
@@ -48,6 +79,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		...filterAttribute(isString)("placeholder")(placeholder),
 		...filterAttribute(isBoolean)("readOnly")(readOnly),
 		...filterAttribute(isBoolean)("required")(required),
+		...filterAttribute(isMemberOf(TEXTAREA_ROLES))("role")(role),
 		...filterAttribute(isInteger)("rows")(rows),
 		...filterAttribute(isMemberOf(WRAPS))("wrap")(wrap),
 	}
@@ -74,7 +106,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ```
  */
 const TextArea =
-	(attributes: Record<string, unknown> = {}) => (content?: string) => {
+	(attributes: Record<string, Value> = {}) => (content?: string) => {
 		const {
 			calculation,
 			dataset,

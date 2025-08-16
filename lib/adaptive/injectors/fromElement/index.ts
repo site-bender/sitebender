@@ -1,9 +1,29 @@
-import Error from "../../constructors/Error"
-import castValue from "../../utilities/castValue"
-import getValue from "../../utilities/getValue"
-import isDefined from "../../utilities/isDefined.js"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "../../types/index.ts"
 
-const fromElement = (op) => async (_arg, localValues) => {
+import Error from "../../constructors/Error/index.ts"
+import castValue from "../../utilities/castValue/index.ts"
+import getValue from "../../utilities/getValue/index.ts"
+import isDefined from "../../utilities/isDefined.ts"
+
+interface HydratedFromElement {
+	tag: "FromElement"
+	type: "injector"
+	datatype: string
+	source: string
+}
+
+const fromElement = (op: HydratedFromElement): OperationFunction =>
+async (
+	_arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, Value>> => {
 	const { datatype = "Number" } = op
 
 	const result = castValue(datatype)(getValue(op)(localValues))

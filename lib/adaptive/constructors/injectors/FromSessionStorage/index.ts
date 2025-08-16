@@ -1,13 +1,28 @@
-import { OPERAND_TYPES } from "../../../operations/constants.js"
+import type {
+	Datatype,
+	FromSessionStorageInjector,
+	Value,
+} from "../../../types/index.ts"
 
-const FromSessionStorage = (datatype = "Number") => (key) => ({
-	tag: "FromSessionStorage",
-	type: OPERAND_TYPES.injector,
-	datatype,
-	key,
+import { OPERAND_TYPES } from "../../constants/index.ts"
+
+interface FromSessionStorageWithOptions extends FromSessionStorageInjector {
 	options: {
-		local: key,
-	},
-})
+		local: string
+	}
+}
+
+const FromSessionStorage =
+	(datatype: Datatype = "Number") =>
+	(key: string, defaultValue?: Value): FromSessionStorageWithOptions => ({
+		tag: "FromSessionStorage",
+		type: OPERAND_TYPES.injector,
+		datatype,
+		key,
+		defaultValue,
+		options: {
+			local: key,
+		},
+	})
 
 export default FromSessionStorage

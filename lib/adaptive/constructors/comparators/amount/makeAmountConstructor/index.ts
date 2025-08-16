@@ -1,9 +1,35 @@
-import { OPERAND_TYPES } from "../../../../constants.ts.js"
+import type {
+	Datatype,
+	NumericDatatype,
+	Operand,
+	TemporalDatatype,
+} from "../../../../types/index.ts"
+
+import { OPERAND_TYPES } from "../../../constants/index.ts"
+
+type AmountComparatorTag =
+	| "IsLessThan"
+	| "IsMoreThan"
+	| "IsNoLessThan"
+	| "IsNoMoreThan"
+
+type AmountDatatype = NumericDatatype | TemporalDatatype
+
+interface AmountComparator {
+	tag: AmountComparatorTag
+	type: typeof OPERAND_TYPES.comparator
+	datatype: AmountDatatype
+	operand: Operand
+	test: Operand
+}
 
 const makeAmountConstructor =
-	(tag) => (datatype = "Number") => (operand) => (test) => ({
+	<T extends AmountComparatorTag>(tag: T) =>
+	(datatype: AmountDatatype = "Number") =>
+	(operand: Operand) =>
+	(test: Operand): AmountComparator => ({
 		tag,
-		type: OPERAND_TYPES.operator,
+		type: OPERAND_TYPES.comparator,
 		datatype,
 		operand,
 		test,

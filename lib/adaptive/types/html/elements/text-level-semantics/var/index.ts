@@ -1,10 +1,10 @@
+import type { PhrasingContent } from "../../categories/phrasing/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { PhrasingContent } from "../categories/phrasing"
 
 export interface VariableElement {
 	attributes?: Override<

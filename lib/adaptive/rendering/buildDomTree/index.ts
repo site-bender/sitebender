@@ -1,12 +1,12 @@
-import addAttributes from "./addAttributes"
-import addCalculation from "./addCalculation"
-import addDataAttributes from "./addDataAttributes"
-import addFormatter from "./addFormatter"
-import addValidation from "./addValidation"
-import appendChildren from "./appendChildren"
-import appendTextNode from "./appendTextNode"
-import handleFragment from "./handleFragment"
-import setLevel from "./setLevel"
+import addAttributes from "./addAttributes/index.ts"
+import addCalculation from "./addCalculation/index.ts"
+import addDataAttributes from "./addDataAttributes/index.ts"
+import addFormatter from "./addFormatter/index.ts"
+import addValidation from "./addValidation/index.ts"
+import appendChildren from "./appendChildren/index.ts"
+import appendTextNode from "./appendTextNode/index.ts"
+import handleFragment from "./handleFragment/index.ts"
+import setLevel from "./setLevel/index.ts"
 
 const buildDomTree = (parent) => (config) => (options = {}) => {
 	const { level: lvl = 0 } = options

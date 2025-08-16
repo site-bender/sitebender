@@ -175,7 +175,8 @@ export default function ({ route }: Props = {}) {
 			<h1>Narrative Components</h1>
 			<p>
 				Components for identifying and marking narrative elements in text,
-				including character relationships, story structure, and narrative techniques.
+				including character relationships, story structure, and narrative
+				techniques.
 			</p>
 			<div class="component-list">
 				{components.map((comp) => (

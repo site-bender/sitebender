@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { TimeAttributes } from "../types/attributes/index.ts"
+
 import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
@@ -9,7 +22,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Time element
  * Allows global attributes and validates time-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Time attributes including reactive properties
+ */
+export type TimeElementAttributes = TimeAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: TimeAttributes) => {
 	const { id, datetime, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -38,7 +66,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 /**
  * Child filter that validates phrasing content
  */
-const isValidTimeChild = (child: any): boolean => {
+const isValidTimeChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {
 		return true
@@ -48,14 +76,16 @@ const isValidTimeChild = (child: any): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Time = (attributes: any = {}) => (children: any = []) => {
-	const filteredChildren = Array.isArray(children)
-		? children.filter(isValidTimeChild)
-		: isValidTimeChild(children)
-		? [children]
-		: []
+export const Time =
+	(attributes: Record<string, Value> = {}) =>
+	(children: Record<string, Value> = []) => {
+		const filteredChildren = Array.isArray(children)
+			? children.filter(isValidTimeChild)
+			: isValidTimeChild(children)
+			? [children]
+			: []
 
-	return Filtered("Time")(filterAttributes)(attributes)(filteredChildren)
-}
+		return Filtered("Time")(filterAttributes)(attributes)(filteredChildren)
+	}
 
 export default Time

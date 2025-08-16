@@ -1,29 +1,127 @@
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
+import type { ObjectAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
+
+import isDefined from "../../../../../../utilities/isDefined/index.ts"
+import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
+import isBoolean from "../../../../../guards/isBoolean/index.ts"
 import isInteger from "../../../../../guards/isInteger/index.ts"
 import isString from "../../../../../guards/isString/index.ts"
 import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
 
 /**
+ * Extended Obj attributes including reactive properties and ARIA
+ */
+export type ObjElementAttributes = ObjectAttributes & ImageAriaAttributes & {
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+/**
  * Filters attributes for Object element
  * Allows global attributes and validates object-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
-	const { id, data, form, height, name, type, width, ...otherAttributes } =
-		attributes
+export const filterAttributes = (attributes: ObjElementAttributes) => {
+	const {
+		id,
+		data,
+		form,
+		height,
+		name,
+		type,
+		width,
+		// ARIA attributes
+		role,
+		"aria-label": ariaLabel,
+		"aria-labelledby": ariaLabelledby,
+		"aria-describedby": ariaDescribedby,
+		"aria-hidden": ariaHidden,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
+		...otherAttributes
+	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("data")(data),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isInteger)("height")(height),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("type")(type),
-		...filterAttribute(isInteger)("width")(width),
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Add object-specific attributes
+	if (isDefined(data)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("data")(data))
 	}
+	if (isDefined(form)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
+	}
+	if (isDefined(height)) {
+		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+	}
+	if (isDefined(name)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
+	}
+	if (isDefined(type)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
+	}
+	if (isDefined(width)) {
+		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
+	}
+
+	// Add ARIA attributes
+	if (isDefined(role)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("role")(role))
+	}
+	if (isDefined(ariaLabel)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-label")(ariaLabel),
+		)
+	}
+	if (isDefined(ariaLabelledby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
+		)
+	}
+	if (isDefined(ariaDescribedby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
+		)
+	}
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
+	}
+
+	return filteredAttrs
 }
 
 /**
@@ -44,10 +142,45 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ])
  * ```
  */
-export const Obj = (attributes: any = {}) => (children: any = []) => {
-	const filteredChildren = Array.isArray(children) ? children : [children]
+export const Obj = (attributes: ObjElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig | string = [],
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
 
-	return Filtered("Object")(filterAttributes)(attributes)(filteredChildren)
+	// Convert string children to TextNode and filter children
+	const kids = isString(children)
+		? [TextNode(children)]
+		: Array.isArray(children)
+		? children.filter(ADVANCED_FILTERS.objectContent)
+		: ADVANCED_FILTERS.objectContent(children)
+		? [children]
+		: []
+
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: kids,
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Object",
+	}
 }
 
 export default Obj

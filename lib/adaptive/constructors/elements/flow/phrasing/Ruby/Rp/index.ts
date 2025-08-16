@@ -1,3 +1,8 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+} from "../../../../../../types/index.ts"
+
 import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/index.ts"
 
 /**
@@ -16,7 +21,7 @@ import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/ind
  * ```
  */
 export const Rp = GlobalOnly("Rp")(
-	(child: any) => child.tag?.toLowerCase() === "textnode",
+	(child: ElementConfig) => child.tag?.toLowerCase() === "textnode",
 )
 
 export default Rp

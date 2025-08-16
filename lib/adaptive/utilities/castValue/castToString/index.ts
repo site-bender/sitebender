@@ -8,7 +8,7 @@ import Error from "../../../constructors/Error/index.ts"
 
 /**
  * Casts a value to a string
- * 
+ *
  * @param value - The value to cast to string
  * @returns Either an error or the string value
  * @example
@@ -29,6 +29,14 @@ const castToString = (value: Value): Either<Array<AdaptiveError>, Value> => {
 
 	if (typeof value === "boolean") {
 		return { right: value ? "true" : "false" }
+	}
+
+	if (typeof value === "object" && value !== null) {
+		return { right: JSON.stringify(value) }
+	}
+
+	if (value === null) {
+		return { right: "null" }
 	}
 
 	return {

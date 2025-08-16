@@ -1,5 +1,5 @@
 {
-	"name": "@sitebender",
+	"name": "@sitebender/sitebender",
 	"version": "0.1.0",
 	"description": "Adaptive web components with progressive enhancement and build-time validation",
 	"license": "MIT",
@@ -9,8 +9,8 @@
 	"imports": {},
 	"tasks": {
 		"build": "deno task compile",
-		"compile": "deno run --allow-read --allow-write build.ts",
-		"test": "deno test --allow-read --allow-write tests",
+		"compile": "deno run --unstable-temporal --allow-read --allow-write build.ts",
+		"test": "deno test --unstable-temporal --allow-read --allow-write tests",
 		"lint": "deno lint",
 		"fmt": "deno fmt"
 	},

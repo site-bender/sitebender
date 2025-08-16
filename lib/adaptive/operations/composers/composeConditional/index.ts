@@ -1,5 +1,5 @@
-import isRight from "../../../utilities/isRight"
-import composeComparators from "../composeComparators/index.js"
+import { isRight } from "../../../types/index.ts"
+import composeComparators from "../composeComparators/index.ts"
 
 const composeConditional = (op) => async (arg, localValues) => {
 	const conditional = await composeComparators(op)(arg, localValues)

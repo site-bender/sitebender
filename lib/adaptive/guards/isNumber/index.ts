@@ -1,3 +1,5 @@
+import type { GlobalAttributes, Value } from "../../types/index.ts"
+
 import { MATCHERS } from "../../guards/constants/index.ts"
 
 /**
@@ -16,6 +18,6 @@ import { MATCHERS } from "../../guards/constants/index.ts"
  * isNumber("") // false
  * ```
  */
-export default function isNumber(value: unknown): value is number {
+export default function isNumber(value: Value): value is number {
 	return MATCHERS.number.test(String(value))
 }

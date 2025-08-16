@@ -1,10 +1,13 @@
-import { OPERAND_TYPES } from "../../../operations/constants.js"
+import type { ConstantInjector, Datatype, Value } from "../../../types/index.ts"
 
-const Constant = (datatype = "Number") => (value) => ({
-	tag: "Constant",
-	type: OPERAND_TYPES.injector,
-	datatype,
-	value,
-})
+import { OPERAND_TYPES } from "../../constants/index.ts"
+
+const Constant =
+	(datatype: Datatype = "Number") => (value: Value): ConstantInjector => ({
+		tag: "Constant",
+		type: OPERAND_TYPES.injector,
+		datatype,
+		value,
+	})
 
 export default Constant

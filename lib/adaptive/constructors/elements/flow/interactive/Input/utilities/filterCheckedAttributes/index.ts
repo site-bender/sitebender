@@ -1,3 +1,8 @@
+import type {
+	GlobalAttributes,
+	Value,
+} from "../../../../../../../types/index.ts"
+
 import filterAttribute from "../../../../../../../guards/filterAttribute/index.ts"
 import isBoolean from "../../../../../../../guards/isBoolean/index.ts"
 import isString from "../../../../../../../guards/isString/index.ts"
@@ -7,7 +12,7 @@ import pickGlobalAttributes from "../../../../../../../guards/pickGlobalAttribut
  * Filters attributes for checked input types (checkbox, radio)
  * Validates common checked input attributes
  */
-const filterCheckedAttributes = (attributes: Record<string, any>) => {
+const filterCheckedAttributes = (attributes: Record<string, Value>) => {
 	const { checked, form, name, required, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 

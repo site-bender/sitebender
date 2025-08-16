@@ -1,10 +1,14 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { TableCaptionElement } from "./caption"
-import type { TableColumnGroupElement } from "./colgroup"
-import type { TableBodyElement } from "./tbody"
-import type { TableFooterElement } from "./tfoot"
-import type { TableHeaderElement } from "./thead"
-import type { TableRowElement } from "./tr"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { TableCaptionElement } from "../caption/index.ts"
+import type { TableColumnGroupElement } from "../colgroup/index.ts"
+import type { TableBodyElement } from "../tbody/index.ts"
+import type { TableFooterElement } from "../tfoot/index.ts"
+import type { TableHeaderElement } from "../thead/index.ts"
+import type { TableRowElement } from "../tr/index.ts"
 
 export interface TableElement {
 	attributes?: Override<

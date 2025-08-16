@@ -1,5 +1,6 @@
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import type { BaseProps } from "../../../../types/index.ts"
+
+import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "section" | "aside"
@@ -21,12 +22,12 @@ export type Props = BaseProps & {
 /**
  * Marks self-referential narrative elements that acknowledge their fictional nature.
  * Used for text that breaks the fourth wall or comments on its own narrative construction.
- * 
+ *
  * @example
  * <Metafiction metaType="author-intrusion">
  *   Dear reader, you may wonder why I'm telling you this...
  * </Metafiction>
- * 
+ *
  * @example
  * <Metafiction selfAwareness="explicit" referenceTarget="genre">
  *   This isn't like those detective stories where the butler did it.

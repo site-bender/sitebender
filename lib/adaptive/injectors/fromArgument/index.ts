@@ -1,6 +1,6 @@
-import Error from "../../constructors/Error"
-import isNumber from "../../utilities/isNumber"
-import isUndefined from "../../utilities/isUndefined.js"
+import Error from "../../constructors/Error/index.ts"
+import isNumber from "../../utilities/isNumber/index.ts"
+import isUndefined from "../../utilities/isUndefined.ts"
 
 const fromArgument = (operation = {}) => async (arg, localValues) => {
 	const { datatype } = operation

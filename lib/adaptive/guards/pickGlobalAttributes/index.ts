@@ -1,3 +1,5 @@
+import type { GlobalAttributes, Value } from "../../types/index.ts"
+
 import isBoolean from "../../guards/isBoolean/index.ts"
 import isCharacter from "../../guards/isCharacter/index.ts"
 import isCSSStyleDeclaration from "../../guards/isCSSStyleDeclaration/index.ts"
@@ -67,7 +69,7 @@ const globalAttributes = {
  * @param attributes - Input attributes object
  * @returns Validated global attributes
  */
-export default function pickGlobalAttributes(attributes: any = {}) {
+export default function pickGlobalAttributes(attributes: unknown = {}) {
 	const out = Object.fromEntries(
 		Object.entries(attributes)
 			.filter(([key, value]) => {

@@ -1,6 +1,7 @@
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
-import { Place, Event } from "../../../enrich/index.ts"
 import type { BaseProps } from "../../../../types/index.ts"
+
+import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
+import { Event, Place } from "../../../enrich/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "p" | "span"
@@ -30,12 +31,12 @@ export type Props = BaseProps & {
 /**
  * Describes the time and place where narrative events occur.
  * Used for establishing context and atmosphere in storytelling.
- * 
+ *
  * @example
  * <Setting location="Victorian London" timePeriod="1888" atmosphere="foggy">
  *   The gas lamps flickered in the dense fog that rolled through the cobblestone streets.
  * </Setting>
- * 
+ *
  * @example
  * <Setting settingType="psychological" atmosphere="tense">
  *   The room felt smaller with each passing moment, the walls seeming to close in.

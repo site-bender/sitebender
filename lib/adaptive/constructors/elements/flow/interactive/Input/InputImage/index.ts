@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { InputImageAttributes } from "../../types/attributes/index.ts"
+
 import {
 	FORM_METHODS,
 	FORM_TARGETS,
@@ -14,7 +27,22 @@ import Input from "../index.ts"
 /**
  * Filters attributes for InputImage
  */
-export const filterAttributes = (attributes: Record<string, any>) => {
+
+/**
+ * Extended InputImage attributes including reactive properties
+ */
+export type InputImageElementAttributes = InputImageAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: InputImageAttributes) => {
 	const {
 		alt,
 		autofocus,

@@ -1,14 +1,20 @@
-const collectLinkElements = (component: any): any[] => {
+import type { ElementConfig } from "../../../types/html/index.ts"
+import type { Value } from "../../../types/index.ts"
+
+const collectLinkElements = (component: Record<string, any>): Array<Value> => {
 	const linkElements = Object.entries(component).reduce(
-		(links: any[], [key, value]: [string, any]) => {
+		(links: Array<Value>, [key, value]: [string, any]) => {
 			if (key === "dependencies") {
 				links.push(...value)
 			}
 
 			if (key === "children") {
-				const childLinks = value?.reduce((out: any[], item: any) => {
-					return out.concat(collectLinkElements(item))
-				}, [])
+				const childLinks = value?.reduce(
+					(out: Array<Value>, item: ElementConfig) => {
+						return out.concat(collectLinkElements(item))
+					},
+					[],
+				)
 
 				if (childLinks) {
 					links.push(...childLinks)

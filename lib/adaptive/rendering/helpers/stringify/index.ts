@@ -2,7 +2,7 @@
  * Converts a value to a string representation
  * Handles various types including functions, objects, arrays, and primitives
  */
-const stringify = (value: any, spaceLength = 2): string => {
+const stringify = (value: unknown, spaceLength = 2): string => {
 	if (value === null) return "null"
 	if (value === undefined) return "undefined"
 	if (typeof value === "function") return value.toString()

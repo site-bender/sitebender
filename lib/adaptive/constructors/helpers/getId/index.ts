@@ -1,3 +1,6 @@
+import type { GlobalAttributes, Value } from "../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
+
 import generateShortId from "../../../../utilities/generateShortId/index.ts"
 
 /**
@@ -6,7 +9,7 @@ import generateShortId from "../../../../utilities/generateShortId/index.ts"
  * @param id - ID value (string, boolean, null, or undefined)
  * @returns Object with id property or empty object
  */
-export const getId = (id: unknown): Record<string, string> => {
+export const getId = (id: Value): Record<string, string> => {
 	if (id === true || id === undefined) {
 		return { id: generateShortId() }
 	}

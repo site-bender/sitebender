@@ -1,4 +1,4 @@
-import type { MediaType } from "../../media"
+import type { MediaType } from "../../../media/index.ts"
 import type {
 	AriaRole,
 	Dataset,

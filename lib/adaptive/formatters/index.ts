@@ -1,5 +1,5 @@
-import Error from "../constructors/Error.js"
-import asMonetaryAmount from "./formatters/asMonetaryAmount"
+import Error from "../constructors/Error/index.ts"
+import asMonetaryAmount from "./asMonetaryAmount/index.ts"
 
 const format = (operation) => {
 	switch (operation.tag) {

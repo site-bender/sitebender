@@ -1,13 +1,27 @@
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedSecant } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const secant = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
+const secant =
+	({ operand, ...op }: HydratedSecant): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: 1 / Math.cos(resolvedOperand.right) }
 	}
-
-	return { right: 1 / Math.cos(resolvedOperand.right) }
-}
 
 export default secant

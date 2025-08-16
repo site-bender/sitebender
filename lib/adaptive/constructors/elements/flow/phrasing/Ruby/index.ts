@@ -1,3 +1,8 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+} from "../../../../../types/index.ts"
+
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
 
@@ -20,7 +25,7 @@ import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
 /**
  * Child filter that validates ruby content (phrasing content + Rt + Rp)
  */
-const rubyContentFilter = (child: any): boolean => {
+const rubyContentFilter = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {
 		return true

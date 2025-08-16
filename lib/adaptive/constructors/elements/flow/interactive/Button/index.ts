@@ -1,14 +1,24 @@
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { ButtonAriaAttributes } from "../../../types/aria/index.ts"
+import type { ButtonAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import {
 	BUTTON_ROLES,
 	BUTTON_TYPES,
+	FORM_ENCTYPES,
 	FORM_METHODS,
 	FORM_TARGETS,
 	POPOVER_TARGET_ACTIONS,
 } from "../../../../../constructors/elements/constants/index.ts"
 import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getAriaAttributes from "../../../../../constructors/helpers/getAriaAttributes/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
@@ -18,10 +28,26 @@ import isString from "../../../../../guards/isString/index.ts"
 import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
 
 /**
+ * Extended Button attributes including reactive properties and ARIA
+ */
+export type ButtonElementAttributes =
+	& ButtonAttributes
+	& ButtonAriaAttributes
+	& {
+		calculation?: Operand
+		dataset?: Record<string, Value>
+		display?: ComparatorConfig | LogicalConfig
+		format?: OperatorConfig
+		scripts?: string[]
+		stylesheets?: string[]
+		validation?: ComparatorConfig | LogicalConfig
+	}
+
+/**
  * Filters attributes for Button element
  * Allows global attributes and validates button-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+export const filterAttributes = (attributes: ButtonElementAttributes) => {
 	const {
 		id,
 		autofocus,
@@ -38,30 +64,215 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		role,
 		type,
 		value,
+		// ARIA attributes
+		"aria-pressed": ariaPressed,
+		"aria-expanded": ariaExpanded,
+		"aria-controls": ariaControls,
+		"aria-haspopup": ariaHaspopup,
+		"aria-label": ariaLabel,
+		"aria-labelledby": ariaLabelledby,
+		"aria-describedby": ariaDescribedby,
+		"aria-disabled": ariaDisabled,
+		"aria-hidden": ariaHidden,
+		"aria-current": ariaCurrent,
+		"aria-live": ariaLive,
+		"aria-atomic": ariaAtomic,
+		"aria-busy": ariaBusy,
+		"aria-relevant": ariaRelevant,
+		"aria-keyshortcuts": ariaKeyshortcuts,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
 		...otherAttributes
 	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("formAction")(formAction),
-		...filterAttribute(isString)("formEncType")(formEncType),
-		...filterAttribute(isMemberOf(FORM_METHODS))("formMethod")(formMethod),
-		...filterAttribute(isBoolean)("formNoValidate")(formNoValidate),
-		...filterAttribute(isMemberOf(FORM_TARGETS))("formTarget")(formTarget),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("popoverTarget")(popoverTarget),
-		...filterAttribute(isMemberOf(POPOVER_TARGET_ACTIONS))(
-			"popoverTargetAction",
-		)(popoverTargetAction),
-		...filterAttribute(isMemberOf(BUTTON_ROLES))("role")(role),
-		...filterAttribute(isMemberOf(BUTTON_TYPES))("type")(type),
-		...filterAttribute(isString)("value")(value),
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Add button-specific attributes
+	if (isDefined(autofocus)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("autofocus")(autofocus),
+		)
 	}
+	if (isDefined(disabled)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("disabled")(disabled),
+		)
+	}
+	if (isDefined(form)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
+	}
+	if (isDefined(formAction)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("formAction")(formAction),
+		)
+	}
+	if (isDefined(formEncType)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(FORM_ENCTYPES))("formEncType")(formEncType),
+		)
+	}
+	if (isDefined(formMethod)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(FORM_METHODS))("formMethod")(formMethod),
+		)
+	}
+	if (isDefined(formNoValidate)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("formNoValidate")(formNoValidate),
+		)
+	}
+	if (isDefined(formTarget)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(FORM_TARGETS))("formTarget")(formTarget),
+		)
+	}
+	if (isDefined(name)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
+	}
+	if (isDefined(popoverTarget)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("popoverTarget")(popoverTarget),
+		)
+	}
+	if (isDefined(popoverTargetAction)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(POPOVER_TARGET_ACTIONS))(
+				"popoverTargetAction",
+			)(popoverTargetAction),
+		)
+	}
+	if (isDefined(role)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(BUTTON_ROLES))("role")(role),
+		)
+	}
+	if (isDefined(type)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(BUTTON_TYPES))("type")(type),
+		)
+	}
+	if (isDefined(value)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("value")(value))
+	}
+
+	// Add ARIA attributes
+	if (isDefined(ariaLabel)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-label")(ariaLabel),
+		)
+	}
+	if (isDefined(ariaLabelledby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
+		)
+	}
+	if (isDefined(ariaDescribedby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
+		)
+	}
+	if (isDefined(ariaControls)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-controls")(ariaControls),
+		)
+	}
+	if (isDefined(ariaPressed)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-pressed")(ariaPressed),
+		)
+	}
+	if (isDefined(ariaExpanded)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-expanded")(ariaExpanded),
+		)
+	}
+	if (isDefined(ariaDisabled)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-disabled")(ariaDisabled),
+		)
+	}
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
+	}
+	if (isDefined(ariaCurrent)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-current")(ariaCurrent),
+		)
+	}
+	if (isDefined(ariaHaspopup)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-haspopup")(ariaHaspopup),
+		)
+	}
+	if (isDefined(ariaLive)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-live")(ariaLive),
+		)
+	}
+	if (isDefined(ariaAtomic)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-atomic")(ariaAtomic),
+		)
+	}
+	if (isDefined(ariaBusy)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-busy")(ariaBusy),
+		)
+	}
+	if (isDefined(ariaRelevant)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-relevant")(ariaRelevant),
+		)
+	}
+	if (isDefined(ariaKeyshortcuts)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-keyshortcuts")(ariaKeyshortcuts),
+		)
+	}
+
+	return filteredAttrs
 }
 
 /**
@@ -81,46 +292,45 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ])
  * ```
  */
-export const Button =
-	(attributes: any = {}) => (children: unknown = []): any => {
-		const {
-			aria,
-			calculation,
-			dataset,
-			display,
-			format,
-			scripts,
-			stylesheets,
-			validation,
-			...attrs
-		} = attributes
-		const { id, ...attribs } = filterAttributes(attrs)
+export const Button = (attributes: ButtonElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig | string = [],
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
 
-		// Convert string children to TextNode and filter children
-		const kids = isString(children)
-			? [TextNode(children)]
-			: Array.isArray(children)
-			? children.filter(ADVANCED_FILTERS.buttonContent)
-			: ADVANCED_FILTERS.buttonContent(children)
-			? [children]
-			: []
+	// Convert string children to TextNode and filter children
+	const kids = isString(children)
+		? [TextNode(children)]
+		: Array.isArray(children)
+		? children.filter(ADVANCED_FILTERS.buttonContent)
+		: ADVANCED_FILTERS.buttonContent(children)
+		? [children]
+		: []
 
-		return {
-			attributes: {
-				...getId(id),
-				...getAriaAttributes(aria),
-				...attribs,
-			},
-			children: kids,
-			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
-			...(isDefined(display) ? { display } : {}),
-			...(isDefined(format) ? { format } : {}),
-			...(isDefined(scripts) ? { scripts } : {}),
-			...(isDefined(stylesheets) ? { stylesheets } : {}),
-			...(isDefined(validation) ? { validation } : {}),
-			tag: "Button",
-		}
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: kids,
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Button",
 	}
+}
 
 export default Button

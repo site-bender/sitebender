@@ -4,7 +4,7 @@ import type {
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { TableRowElement } from "./tr"
+import type { TableRowElement } from "../tr/index.ts"
 
 export interface TableHeaderElement {
 	attributes?: Override<

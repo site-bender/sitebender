@@ -1,6 +1,5 @@
-import buildDomTree from ".."
-
-import appendTextNode from "../appendTextNode.js"
+import buildDomTree from "../../index.ts"
+import appendTextNode from "../appendTextNode/index.ts"
 
 const appendChildren = (elem) => (children = []) => (options) => {
 	children.forEach((child) => {

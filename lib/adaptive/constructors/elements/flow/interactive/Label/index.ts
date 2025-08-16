@@ -1,3 +1,17 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { LabelAttributes } from "../types/attributes/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
@@ -12,7 +26,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Label element
  * Allows global attributes and validates label-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Label attributes including reactive properties
+ */
+export type LabelElementAttributes = LabelAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: LabelAttributes) => {
 	const { id, for: forAttr, form, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -40,46 +69,45 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ])
  * ```
  */
-export const Label =
-	(attributes: any = {}) => (children: unknown = []): any => {
-		const {
-			aria,
-			calculation,
-			dataset,
-			display,
-			format,
-			scripts,
-			stylesheets,
-			validation,
-			...attrs
-		} = attributes
-		const { id, ...attribs } = filterAttributes(attrs)
+export const Label = (attributes: LabelElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig | string = [],
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
 
-		// Convert string children to TextNode and filter children
-		const kids = isString(children)
-			? [TextNode(children)]
-			: Array.isArray(children)
-			? children.filter(ADVANCED_FILTERS.labelContent)
-			: ADVANCED_FILTERS.labelContent(children)
-			? [children]
-			: []
+	// Convert string children to TextNode and filter children
+	const kids = isString(children)
+		? [TextNode(children)]
+		: Array.isArray(children)
+		? children.filter(ADVANCED_FILTERS.labelContent)
+		: ADVANCED_FILTERS.labelContent(children)
+		? [children]
+		: []
 
-		return {
-			attributes: {
-				...getId(id),
-				...getAriaAttributes(aria),
-				...attribs,
-			},
-			children: kids,
-			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
-			...(isDefined(display) ? { display } : {}),
-			...(isDefined(format) ? { format } : {}),
-			...(isDefined(scripts) ? { scripts } : {}),
-			...(isDefined(stylesheets) ? { stylesheets } : {}),
-			...(isDefined(validation) ? { validation } : {}),
-			tag: "Label",
-		}
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: kids,
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Label",
 	}
+}
 
 export default Label

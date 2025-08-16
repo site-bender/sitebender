@@ -1,16 +1,31 @@
-import { OPERAND_TYPES } from "../../../operations/constants.js"
+import type {
+	ComplexDatatype,
+	FromLookupTableInjector,
+	GlobalAttributes,
+} from "../../../types/index.ts"
 
-const FromLookupTable = (datatype = "Json") => (config = {}) => {
-	const { column, local = "local", tableName, test } = config
+import { OPERAND_TYPES } from "../../constants/index.ts"
 
-	return {
-		tag: "FromLookupTable",
-		type: OPERAND_TYPES.injector,
-		column,
-		datatype,
-		source: { class: "lookup-table", local, name: tableName },
-		test,
-	}
+interface LookupTableConfig {
+	column: string
+	local?: string
+	tableName: string
+	test: Operand // TODO: Should be Operand
 }
+
+const FromLookupTable =
+	(datatype: ComplexDatatype = "Json") =>
+	(config: LookupTableConfig): FromLookupTableInjector => {
+		const { column, local = "local", tableName, test } = config
+
+		return {
+			tag: "FromLookupTable",
+			type: OPERAND_TYPES.injector,
+			column,
+			datatype,
+			source: { class: "lookup-table", local, name: tableName },
+			test,
+		}
+	}
 
 export default FromLookupTable

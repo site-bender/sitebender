@@ -1,6 +1,7 @@
+import type { BaseProps } from "../../../../types/index.ts"
+
 import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import { Person } from "../../../enrich/index.ts"
-import type { BaseProps } from "../../../../types/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "aside" | "p" | "span"
@@ -26,12 +27,12 @@ export type Props = BaseProps & {
 /**
  * Marks narration or commentary that overlays the main narrative.
  * Often used for omniscient narration, retrospective commentary, or character thoughts.
- * 
+ *
  * @example
  * <VoiceOver narrator="Older Scout" timing="retrospective">
  *   Looking back now, I realize we never really understood Boo Radley.
  * </VoiceOver>
- * 
+ *
  * @example
  * <VoiceOver voiceType="commentary" tone="ironic">
  *   (Little did they know, their troubles were just beginning.)
@@ -60,7 +61,9 @@ export default function VoiceOver({
 			{...props}
 			{...dataAttributes}
 			class={`voice-over ${props.class || ""}`}
-			aria-label={narrator ? `Voice-over by ${narrator}` : "Voice-over narration"}
+			aria-label={narrator
+				? `Voice-over by ${narrator}`
+				: "Voice-over narration"}
 		>
 			{children}
 		</Element>

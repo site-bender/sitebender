@@ -1,6 +1,9 @@
-import type { Element } from ".."
-
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { Element } from "../../index.ts"
 
 export interface TemplateElement {
 	attributes?: Override<

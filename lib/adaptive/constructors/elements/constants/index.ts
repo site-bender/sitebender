@@ -158,12 +158,21 @@ export const FETCH_PRIORITIES = Object.values(FETCH_PRIORITY)
 
 export const FOOTER_ROLES = ["group", "presentation", "none"]
 
-export const FORM_METHOD = {
-	get: "GET",
-	post: "POST",
+export const FORM_ENCTYPE = {
+	urlencoded: "application/x-www-form-urlencoded",
+	multipart: "multipart/form-data",
+	text: "text/plain",
 }
 
-export const FORM_METHODS = ["GET", "POST", "get", "post"]
+export const FORM_ENCTYPES = Object.values(FORM_ENCTYPE)
+
+export const FORM_METHOD = {
+	dialog: "dialog",
+	get: "get",
+	post: "post",
+}
+
+export const FORM_METHODS = Object.values(FORM_METHOD)
 
 export const FORM_TARGET = {
 	_blank: "_blank",

@@ -1,4 +1,19 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { SelectAttributes } from "../types/attributes/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
+import { getSelectAllowedRoles } from "../../../../../constructors/elements/constants/aria-roles.ts"
 import { AUTOCOMPLETES } from "../../../../../constructors/elements/constants/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
@@ -12,7 +27,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Select element
  * Allows global attributes and validates select-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Select attributes including reactive properties
+ */
+export type SelectElementAttributes = SelectAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: SelectAttributes) => {
 	const {
 		autoComplete,
 		disabled,
@@ -20,11 +50,15 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		multiple,
 		name,
 		required,
+		role,
 		size,
 		value,
 		...attrs
 	} = attributes
 	const globals = pickGlobalAttributes(attrs)
+
+	// Get allowed roles based on multiple attribute
+	const allowedRoles = getSelectAllowedRoles(Boolean(multiple))
 
 	return {
 		...globals,
@@ -34,6 +68,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		...filterAttribute(isBoolean)("multiple")(multiple),
 		...filterAttribute(isString)("name")(name),
 		...filterAttribute(isBoolean)("required")(required),
+		...filterAttribute(isMemberOf(allowedRoles))("role")(role),
 		...filterAttribute(isInteger)("size")(size),
 		...filterAttribute(isString)("value")(value),
 	}
@@ -60,7 +95,8 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ```
  */
 const Select =
-	(attributes: Record<string, unknown> = {}) => (children: unknown[] = []) => {
+	(attributes: Record<string, Value> = {}) =>
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const {
 			calculation,
 			dataset,

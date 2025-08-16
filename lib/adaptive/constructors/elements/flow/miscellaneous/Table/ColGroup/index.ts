@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { TableColumnGroupAttributes } from "../../types/attributes/index.ts"
+
 import Filtered from "../../../../../../constructors/abstracted/Filtered/index.ts"
 import getId from "../../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
@@ -8,7 +21,22 @@ import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/
  * Filters attributes for ColGroup element
  * Allows global attributes and validates span attribute
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended ColGroup attributes including reactive properties
+ */
+export type ColGroupElementAttributes = TableColumnGroupAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: TableColumnGroupAttributes) => {
 	const { id, span, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -22,7 +50,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 /**
  * Child filter that validates column content (col, script, template)
  */
-const colGroupFilter = (child: unknown): boolean => {
+const colGroupFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		const tag = (child as { tag?: string }).tag?.toLowerCase()
 		return tag === "col" || tag === "script" || tag === "template"

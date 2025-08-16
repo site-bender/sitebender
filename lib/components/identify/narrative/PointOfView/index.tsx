@@ -1,5 +1,6 @@
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import type { BaseProps } from "../../../../types/index.ts"
+
+import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "p"
@@ -25,12 +26,12 @@ export type Props = BaseProps & {
 /**
  * Marks narrative sections with a specific point of view or perspective.
  * Used to indicate shifts in narrative voice or focalization.
- * 
+ *
  * @example
  * <PointOfView perspective="first-person" narrator="Alice">
  *   I never thought I'd see the day when...
  * </PointOfView>
- * 
+ *
  * @example
  * <PointOfView perspective="third-person-limited" narrator="omniscient" access="internal">
  *   She wondered if anyone else noticed the strange occurrence.

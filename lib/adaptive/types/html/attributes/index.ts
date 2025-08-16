@@ -2,9 +2,9 @@ import type { NumericOperation } from "@sitebender/operations/lib/types"
 
 import type { Either } from "../../fp/either/index.ts"
 import type { Option } from "../../fp/option/index.ts"
-import type { Element } from "./elements"
-import type { LinkElement } from "./elements/metadata/link"
-import type { ScriptElement } from "./elements/scripting/script"
+import type { Element } from "../elements/index.ts"
+import type { LinkElement } from "../elements/metadata/link/index.ts"
+import type { ScriptElement } from "../elements/scripting/script/index.ts"
 
 export type Override<T1, T2> = Omit<T1, keyof T2> & T2
 

@@ -1,8 +1,28 @@
-import Error from "../../constructors/Error/index.js"
-import isNumber from "../../utilities/isNumber/index.js"
-import isUndefined from "../../utilities/isUndefined/index.js"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "../../types/index.ts"
 
-const constant = (operation = {}) => async () => {
+import Error from "../../constructors/Error/index.ts"
+import isNumber from "../../utilities/isNumber/index.ts"
+import isUndefined from "../../utilities/isUndefined/index.ts"
+
+interface HydratedConstant {
+	tag: "Constant"
+	type: "injector"
+	datatype: string
+	value: Value
+}
+
+const constant = (operation: HydratedConstant): OperationFunction =>
+async (
+	_arg: unknown,
+	_localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, Value>> => {
 	const { datatype, value } = operation
 
 	if (value == null) {

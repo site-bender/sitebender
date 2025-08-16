@@ -1,5 +1,9 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { MetadataContent } from "../categories/metadata"
+import type { MetadataContent } from "../../categories/metadata/index.ts"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
 
 export interface HeadElement {
 	attributes?: Override<Partial<HTMLHeadElement>, GlobalAttributeOverrides>

@@ -1,4 +1,4 @@
-import unique from "../utilities/array/unique.js"
+import unique from "../utilities/array/unique/index.ts"
 
 export const BASE_ELEMENTS = ["Body", "Head", "Html"]
 

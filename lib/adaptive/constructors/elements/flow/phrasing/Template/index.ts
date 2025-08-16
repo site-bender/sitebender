@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { TemplateAttributes } from "../types/attributes/index.ts"
+
 import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
 import { SHADOW_ROOT_MODES } from "../../../../../constructors/elements/constants/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
@@ -11,7 +24,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Template element
  * Allows global attributes and validates template-specific shadow DOM attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Template attributes including reactive properties
+ */
+export type TemplateElementAttributes = TemplateAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: TemplateAttributes) => {
 	const {
 		id,
 		shadowrootmode,
@@ -58,7 +86,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 /**
  * Child filter that validates flow content
  */
-const isValidTemplateChild = (child: any): boolean => {
+const isValidTemplateChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {
 		return true
@@ -73,14 +101,16 @@ const isValidTemplateChild = (child: any): boolean => {
 	return isFlowContent()(child)
 }
 
-export const Template = (attributes: any = {}) => (children: any = []) => {
-	const filteredChildren = Array.isArray(children)
-		? children.filter(isValidTemplateChild)
-		: isValidTemplateChild(children)
-		? [children]
-		: []
+export const Template =
+	(attributes: Record<string, Value> = {}) =>
+	(children: Record<string, Value> = []) => {
+		const filteredChildren = Array.isArray(children)
+			? children.filter(isValidTemplateChild)
+			: isValidTemplateChild(children)
+			? [children]
+			: []
 
-	return Filtered("Template")(filterAttributes)(attributes)(filteredChildren)
-}
+		return Filtered("Template")(filterAttributes)(attributes)(filteredChildren)
+	}
 
 export default Template

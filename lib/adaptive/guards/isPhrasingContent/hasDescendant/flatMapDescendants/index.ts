@@ -1,6 +1,10 @@
-import type { ElementConfig } from "../../../../constructors/elements/types/index.ts"
+import type {
+	ElementConfig,
+	GlobalAttributes,
+} from "../../../../constructors/elements/types/index.ts"
+import type { ElementConfig } from "../../../../types/html/index.ts"
 
-import reduce from "../../../../../utilities/array/reduce/index.ts"
+import reduce from "../../../../utilities/array/reduce/index.ts"
 
 /**
  * Flattens child elements to get all descendant tags
@@ -11,7 +15,7 @@ import reduce from "../../../../../utilities/array/reduce/index.ts"
 export default function flatMapDescendants(
 	children: readonly unknown[],
 ): readonly string[] {
-	return reduce((out: readonly string[], child: unknown) => {
+	return reduce((out: readonly string[], child: ElementConfig) => {
 		if (typeof child === "object" && child !== null && "tag" in child) {
 			const childElement = child as ElementConfig
 			return [

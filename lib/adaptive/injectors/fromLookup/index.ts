@@ -1,7 +1,7 @@
-import Error from "../../constructors/Error"
-import castValue from "../../utilities/castValue"
-import getValue from "../../utilities/getValue"
-import isDefined from "../../utilities/isDefined.js"
+import Error from "../../constructors/Error/index.ts"
+import castValue from "../../utilities/castValue/index.ts"
+import getValue from "../../utilities/getValue/index.ts"
+import isDefined from "../../utilities/isDefined.ts"
 
 const fromLookup = (op) => async (_arg, localValues) => {
 	const { datatype } = op

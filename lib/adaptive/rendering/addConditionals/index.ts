@@ -1,7 +1,7 @@
-import composeConditional from "../../operations/composers/composeConditional"
+import composeConditional from "../../operations/composers/composeConditional/index.ts"
 import collectConditionals from "../../rendering/helpers/collectConditionals/index.ts"
 import collectDependencies from "../../rendering/helpers/collectDependencies/index.ts"
-import makeDisplayToggle from "./makeDisplayToggle"
+import makeDisplayToggle from "./makeDisplayToggle/index.ts"
 
 const addConditionals = (element) => (component) => {
 	const conditionals = collectConditionals(component)

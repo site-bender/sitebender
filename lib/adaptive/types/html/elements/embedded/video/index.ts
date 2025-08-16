@@ -1,3 +1,4 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	CrossOrigin,
@@ -5,9 +6,8 @@ import type {
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
-import type { SourceElement } from "./source"
-import type { TrackElement } from "./track"
+import type { SourceElement } from "../source/index.ts"
+import type { TrackElement } from "../track/index.ts"
 
 // TODO
 export interface VideoElement {

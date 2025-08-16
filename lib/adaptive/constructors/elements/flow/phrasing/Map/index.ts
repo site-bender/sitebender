@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { ImageMapAttributes } from "../types/attributes/index.ts"
+
 import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
@@ -8,7 +21,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Map element
  * Allows global attributes and validates map-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Map attributes including reactive properties
+ */
+export type MapElementAttributes = ImageMapAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: ImageMapAttributes) => {
 	const { id, name, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -35,10 +63,12 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ])
  * ```
  */
-export const Map = (attributes: any = {}) => (children: any = []) => {
-	const filteredChildren = Array.isArray(children) ? children : [children]
+export const Map =
+	(attributes: Record<string, Value> = {}) =>
+	(children: Record<string, Value> = []) => {
+		const filteredChildren = Array.isArray(children) ? children : [children]
 
-	return Filtered("Map")(filterAttributes)(attributes)(filteredChildren)
-}
+		return Filtered("Map")(filterAttributes)(attributes)(filteredChildren)
+	}
 
 export default Map

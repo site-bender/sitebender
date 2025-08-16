@@ -1,4 +1,4 @@
-import composeValidator from "../../../operations/composers/composeValidator.js"
+import composeValidator from "../../../operations/composers/composeValidator/index.ts"
 
 const addValidation = (elem) => (validation) => {
 	if (validation) {

@@ -1,3 +1,4 @@
+import type { PhrasingContent } from "../../categories/phrasing/index.ts"
 import type {
 	AriaRole,
 	Dataset,
@@ -9,7 +10,6 @@ import type {
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { PhrasingContent } from "../categories/phrasing"
 
 export interface ButtonElement {
 	attributes?: Override<

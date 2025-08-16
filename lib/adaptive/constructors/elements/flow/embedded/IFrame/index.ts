@@ -1,4 +1,15 @@
-import FilteredEmpty from "../../../../../constructors/abstracted/FilteredEmpty/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
+import type { InlineFrameAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
+
+import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
 	LOADINGS,
 	REFERRER_POLICIES,
@@ -15,10 +26,26 @@ import isValidIframeAllow from "../../../../../guards/isValidIframeAllow/index.t
 import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
 
 /**
+ * Extended IFrame attributes including reactive properties and ARIA
+ */
+export type IFrameElementAttributes =
+	& InlineFrameAttributes
+	& ImageAriaAttributes
+	& {
+		calculation?: Operand
+		dataset?: Record<string, Value>
+		display?: ComparatorConfig | LogicalConfig
+		format?: OperatorConfig
+		scripts?: string[]
+		stylesheets?: string[]
+		validation?: ComparatorConfig | LogicalConfig
+	}
+
+/**
  * Filters attributes for IFrame element
  * Allows global attributes and validates iframe-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+export const filterAttributes = (attributes: IFrameElementAttributes) => {
 	const {
 		id,
 		allow,
@@ -31,32 +58,119 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		src,
 		srcdoc,
 		width,
+		// ARIA attributes
+		role,
+		"aria-label": ariaLabel,
+		"aria-labelledby": ariaLabelledby,
+		"aria-describedby": ariaDescribedby,
+		"aria-hidden": ariaHidden,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
 		...otherAttributes
 	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isValidIframeAllow)("allow")(allow),
-		...filterAttribute(isBoolean)("allowfullscreen")(allowfullscreen),
-		...filterAttribute(isInteger)("height")(height),
-		...filterAttribute(isMemberOf(LOADINGS))("loading")(loading),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
-			referrerpolicy,
-		),
-		...filterAttribute(isSubsetOf(SANDBOXES))("sandbox")(sandbox),
-		...filterAttribute(isString)("src")(src),
-		...filterAttribute(isString)("srcdoc")(srcdoc),
-		...filterAttribute(isInteger)("width")(width),
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Add iframe-specific attributes
+	if (isDefined(allow)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isValidIframeAllow)("allow")(allow),
+		)
 	}
+	if (isDefined(allowfullscreen)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("allowfullscreen")(allowfullscreen),
+		)
+	}
+	if (isDefined(height)) {
+		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+	}
+	if (isDefined(loading)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(LOADINGS))("loading")(loading),
+		)
+	}
+	if (isDefined(name)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
+	}
+	if (isDefined(referrerpolicy)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
+				referrerpolicy,
+			),
+		)
+	}
+	if (isDefined(sandbox)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isSubsetOf(SANDBOXES))("sandbox")(sandbox),
+		)
+	}
+	if (isDefined(src)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
+	}
+	if (isDefined(srcdoc)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("srcdoc")(srcdoc))
+	}
+	if (isDefined(width)) {
+		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
+	}
+
+	// Add ARIA attributes
+	if (isDefined(role)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("role")(role))
+	}
+	if (isDefined(ariaLabel)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-label")(ariaLabel),
+		)
+	}
+	if (isDefined(ariaLabelledby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
+		)
+	}
+	if (isDefined(ariaDescribedby)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
+		)
+	}
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
+	}
+
+	return filteredAttrs
 }
 
 /**
  * Creates an IFrame element configuration object
  *
  * The iframe element represents a nested browsing context, embedding another HTML page.
+ * This is a void element (cannot have children).
  *
  * @example
  * ```typescript
@@ -69,6 +183,35 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * })
  * ```
  */
-export const IFrame = FilteredEmpty("IFrame")(filterAttributes)
+export const IFrame = (
+	attributes: IFrameElementAttributes = {},
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
+
+	return {
+		attributes: {
+			id,
+			...attribs,
+		},
+		children: [], // Void element
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "IFrame",
+	}
+}
 
 export default IFrame

@@ -1,5 +1,5 @@
-import concat from "../../utilities/array/concat"
-import unique from "../../utilities/array/unique.js"
+import concat from "../../utilities/array/concat/index.ts"
+import unique from "../../utilities/array/unique/index.ts"
 
 const runFormatters = () => {
 	const formats = Object.entries(document.__sbFormatted || {})

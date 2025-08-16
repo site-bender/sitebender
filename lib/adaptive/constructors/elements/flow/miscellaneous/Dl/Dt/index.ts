@@ -1,10 +1,15 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+} from "../../../../../../types/index.ts"
+
 import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/index.ts"
 import isFlowContent from "../../../../../../guards/isFlowContent/index.ts"
 
 /**
  * Child filter that validates flow content
  */
-const flowContentFilter = (child: any): boolean => {
+const flowContentFilter = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {
 		return true

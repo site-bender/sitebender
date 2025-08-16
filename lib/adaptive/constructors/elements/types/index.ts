@@ -1,3 +1,11 @@
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../types/index.ts"
+
 /**
  * Generic element constructor attributes type
  * Combines HTML-specific attributes with reactive system attributes
@@ -7,16 +15,16 @@ export type ElementAttributes<T> = T & {
 	aria?: Record<string, unknown>
 
 	/** Reactive calculation configuration */
-	calculation?: unknown
+	calculation?: Operand
 
 	/** Data attributes (becomes data-* on the element) */
 	dataset?: Record<string, unknown>
 
 	/** Conditional display configuration */
-	display?: unknown
+	display?: ComparatorConfig | LogicalConfig
 
 	/** Value formatting configuration */
-	format?: unknown
+	format?: OperatorConfig
 
 	/** JavaScript files to include */
 	scripts?: Array<string>
@@ -25,7 +33,7 @@ export type ElementAttributes<T> = T & {
 	stylesheets?: Array<string>
 
 	/** Form validation configuration */
-	validation?: unknown
+	validation?: ComparatorConfig | LogicalConfig
 }
 
 /**
@@ -45,7 +53,7 @@ export type TextNodeConstructor = (content: unknown) => TextNodeConfig
  * Child filter function type used by element constructors
  * to validate and filter children elements
  */
-export type ChildFilter = (child: unknown) => boolean
+export type ChildFilter = (child: ElementConfig) => boolean
 
 /**
  * Element configuration object structure (OUTPUT of constructors)
@@ -54,11 +62,11 @@ export type ElementConfig<T = Record<string, unknown>> = {
 	readonly tag: string
 	readonly attributes: T
 	readonly children: readonly unknown[]
-	readonly calculation?: unknown
-	readonly dataset?: unknown
-	readonly display?: unknown
-	readonly format?: unknown
-	readonly scripts?: unknown
-	readonly stylesheets?: unknown
-	readonly validation?: unknown
+	readonly calculation?: Operand
+	readonly dataset?: Record<string, Value>
+	readonly display?: ComparatorConfig | LogicalConfig
+	readonly format?: OperatorConfig
+	readonly scripts?: readonly string[]
+	readonly stylesheets?: readonly string[]
+	readonly validation?: ComparatorConfig | LogicalConfig
 }

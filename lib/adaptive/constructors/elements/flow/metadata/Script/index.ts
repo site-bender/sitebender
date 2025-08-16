@@ -1,3 +1,14 @@
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
+import type { NoAriaAttributes } from "../../../types/aria/index.ts"
+import type { ScriptAttributes } from "../../../types/attributes/index.ts"
+import type { ElementConfig } from "../../../types/index.ts"
+
 import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
 	BLOCKINGS,
@@ -16,7 +27,25 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Script element
  * Allows global attributes and validates script-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Script attributes including reactive properties and ARIA
+ */
+export type ScriptElementAttributes = ScriptAttributes & NoAriaAttributes & {
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+/**
+ * Filters attributes for Script element
+ * Allows global attributes and validates script-specific attributes
+ */
+export const filterAttributes = (attributes: ScriptElementAttributes) => {
 	const {
 		id,
 		async,
@@ -29,28 +58,92 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		referrerpolicy,
 		src,
 		type,
+		// ARIA attributes
+		"aria-hidden": ariaHidden,
+		// Reactive properties (to be excluded from HTML attributes)
+		calculation: _calculation,
+		dataset: _dataset,
+		display: _display,
+		format: _format,
+		scripts: _scripts,
+		stylesheets: _stylesheets,
+		validation: _validation,
 		...otherAttributes
 	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("async")(async),
-		...filterAttribute(isMemberOf(BLOCKINGS))("blocking")(blocking),
-		...filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
-		...filterAttribute(isBoolean)("defer")(defer),
-		...filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchpriority")(
-			fetchpriority,
-		),
-		...filterAttribute(isString)("integrity")(integrity),
-		...filterAttribute(isBoolean)("nomodule")(nomodule),
-		...filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
-			referrerpolicy,
-		),
-		...filterAttribute(isString)("src")(src),
-		...filterAttribute(isString)("type")(type),
+	// Build the filtered attributes object step by step to avoid union type complexity
+	const filteredAttrs: Record<string, unknown> = {}
+
+	// Add ID if present
+	Object.assign(filteredAttrs, getId(id))
+
+	// Add global attributes
+	Object.assign(filteredAttrs, globals)
+
+	// Add script-specific attributes
+	if (isDefined(async)) {
+		Object.assign(filteredAttrs, filterAttribute(isBoolean)("async")(async))
 	}
+	if (isDefined(blocking)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(BLOCKINGS))("blocking")(blocking),
+		)
+	}
+	if (isDefined(crossorigin)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+		)
+	}
+	if (isDefined(defer)) {
+		Object.assign(filteredAttrs, filterAttribute(isBoolean)("defer")(defer))
+	}
+	if (isDefined(fetchpriority)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchpriority")(
+				fetchpriority,
+			),
+		)
+	}
+	if (isDefined(integrity)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("integrity")(integrity),
+		)
+	}
+	if (isDefined(nomodule)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("nomodule")(nomodule),
+		)
+	}
+	if (isDefined(referrerpolicy)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
+				referrerpolicy,
+			),
+		)
+	}
+	if (isDefined(src)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
+	}
+	if (isDefined(type)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
+	}
+
+	// Add ARIA attributes (only aria-hidden for metadata elements)
+	if (isDefined(ariaHidden)) {
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
+		)
+	}
+
+	return filteredAttrs
 }
 
 /**
@@ -62,40 +155,42 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * @example
  * ```typescript
  * const script = Script({
- *   src: "script.js",
+ *   src: "script.ts",
  *   type: "module"
  * })([])
  * ```
  */
-export const Script =
-	(attributes: Record<string, unknown> = {}) => (children: unknown[] = []) => {
-		const {
-			calculation,
-			dataset,
-			display,
-			format,
-			scripts,
-			stylesheets,
-			validation,
-			...attrs
-		} = attributes
-		const { type = "module", ...attribs } = filterAttributes(attrs)
+export const Script = (attributes: ScriptElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig | string = [],
+): ElementConfig => {
+	const { id, type = "module", ...attribs } = filterAttributes(attributes)
+	const {
+		calculation,
+		dataset,
+		display,
+		format,
+		scripts,
+		stylesheets,
+		validation,
+	} = attributes
 
-		return {
-			attributes: {
-				type,
-				...attribs,
-			},
-			children,
-			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
-			...(isDefined(display) ? { display } : {}),
-			...(isDefined(format) ? { format } : {}),
-			...(isDefined(scripts) ? { scripts } : {}),
-			...(isDefined(stylesheets) ? { stylesheets } : {}),
-			...(isDefined(validation) ? { validation } : {}),
-			tag: "Script",
-		}
+	return {
+		attributes: {
+			id,
+			type,
+			...attribs,
+		},
+		children,
+		...(isDefined(calculation) ? { calculation } : {}),
+		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(display) ? { display } : {}),
+		...(isDefined(format) ? { format } : {}),
+		...(isDefined(scripts) ? { scripts } : {}),
+		...(isDefined(stylesheets) ? { stylesheets } : {}),
+		...(isDefined(validation) ? { validation } : {}),
+		tag: "Script",
 	}
+}
 
 export default Script

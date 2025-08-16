@@ -1,4 +1,8 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
 
 export interface SourceElement {
 	attributes?: Override<Partial<HTMLSourceElement>, GlobalAttributeOverrides>

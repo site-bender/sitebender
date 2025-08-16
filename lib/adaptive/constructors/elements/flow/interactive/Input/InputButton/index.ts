@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { InputButtonAttributes } from "../../types/attributes/index.ts"
+
 import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
 import isBoolean from "../../../../../../guards/isBoolean/index.ts"
 import isString from "../../../../../../guards/isString/index.ts"
@@ -7,7 +20,22 @@ import Input from "../index.ts"
 /**
  * Filters attributes for InputButton
  */
-export const filterAttributes = (attributes: Record<string, any>) => {
+
+/**
+ * Extended InputButton attributes including reactive properties
+ */
+export type InputButtonElementAttributes = InputButtonAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: InputButtonAttributes) => {
 	const { autofocus, disabled, form, name, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 

@@ -1,13 +1,27 @@
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedReciprocal } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const reciprocal = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
+const reciprocal =
+	({ operand, ...op }: HydratedReciprocal): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: 1 / resolvedOperand.right }
 	}
-
-	return { right: 1 / resolvedOperand.right }
-}
 
 export default reciprocal

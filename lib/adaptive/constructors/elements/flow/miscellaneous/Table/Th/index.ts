@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { TableHeaderCellAttributes } from "../../types/attributes/index.ts"
+
 import Filtered from "../../../../../../constructors/abstracted/Filtered/index.ts"
 import { SCOPES } from "../../../../../../constructors/elements/constants/index.ts"
 import getId from "../../../../../../constructors/helpers/getId/index.ts"
@@ -7,12 +20,28 @@ import isInteger from "../../../../../../guards/isInteger/index.ts"
 import isMemberOf from "../../../../../../guards/isMemberOf/index.ts"
 import isString from "../../../../../../guards/isString/index.ts"
 import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
+import { TH_ROLES } from "../../../../constants/aria-roles.ts"
 
 /**
  * Filters attributes for Th element
  * Allows global attributes and validates th-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Th attributes including reactive properties
+ */
+export type ThElementAttributes = TableHeaderCellAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: TableHeaderCellAttributes) => {
 	const {
 		id,
 		abbr,
@@ -21,6 +50,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		rowSpan,
 		scope,
 		sorted,
+		role,
 		...otherAttributes
 	} = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
@@ -34,6 +64,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 		...filterAttribute(isInteger)("rowSpan")(rowSpan),
 		...filterAttribute(isMemberOf(SCOPES))("scope")(scope),
 		...filterAttribute(isBoolean)("sorted")(sorted),
+		...filterAttribute(isMemberOf(TH_ROLES))("role")(role),
 	}
 }
 

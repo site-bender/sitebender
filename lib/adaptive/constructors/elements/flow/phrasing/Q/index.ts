@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { QuotationAttributes } from "../types/attributes/index.ts"
+
 import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
@@ -9,7 +22,22 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Q element
  * Allows global attributes and validates q-specific attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended Q attributes including reactive properties
+ */
+export type QElementAttributes = QuotationAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: QuotationAttributes) => {
 	const { id, cite, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -39,7 +67,7 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
 /**
  * Child filter that validates phrasing content
  */
-const isValidQChild = (child: any): boolean => {
+const isValidQChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {
 		return true
@@ -49,14 +77,16 @@ const isValidQChild = (child: any): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Q = (attributes: any = {}) => (children: any = []) => {
-	const filteredChildren = Array.isArray(children)
-		? children.filter(isValidQChild)
-		: isValidQChild(children)
-		? [children]
-		: []
+export const Q =
+	(attributes: Record<string, Value> = {}) =>
+	(children: Record<string, Value> = []) => {
+		const filteredChildren = Array.isArray(children)
+			? children.filter(isValidQChild)
+			: isValidQChild(children)
+			? [children]
+			: []
 
-	return Filtered("Q")(filterAttributes)(attributes)(filteredChildren)
-}
+		return Filtered("Q")(filterAttributes)(attributes)(filteredChildren)
+	}
 
 export default Q

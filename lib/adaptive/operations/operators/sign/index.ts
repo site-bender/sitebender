@@ -1,13 +1,27 @@
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedSign } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const sign = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
+const sign =
+	({ operand, ...op }: HydratedSign): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: Math.sign(resolvedOperand.right) }
 	}
-
-	return { right: Math.sign(resolvedOperand.right) }
-}
 
 export default sign

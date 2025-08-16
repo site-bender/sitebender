@@ -1,21 +1,35 @@
-import Error from "../../../constructors/Error/index.js"
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedRemainder } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const remainder =
-	({ dividend, divisor, ...op }) => async (arg, localValues) => {
-		const resolvedDividend = await dividend(arg, localValues)
-		if (isLeft(resolvedDividend)) return resolvedDividend
+import Error from "../../../constructors/Error/index.ts"
+import { isLeft } from "../../../types/index.ts"
 
-		const resolvedDivisor = await divisor(arg, localValues)
-		if (isLeft(resolvedDivisor)) return resolvedDivisor
+const remainder = (
+	{ dividend, divisor, ...op }: HydratedRemainder,
+): OperationFunction<number> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, number>> => {
+	const resolvedDividend = await dividend(arg, localValues)
+	if (isLeft(resolvedDividend)) return resolvedDividend
 
-		if (resolvedDivisor.right === 0) {
-			return {
-				left: [Error(op)("Remainder")("Cannot divide by zero.")],
-			}
+	const resolvedDivisor = await divisor(arg, localValues)
+	if (isLeft(resolvedDivisor)) return resolvedDivisor
+
+	if (resolvedDivisor.right === 0) {
+		return {
+			left: [Error(op)("Remainder")("Cannot divide by zero.")],
 		}
-
-		return { right: resolvedDividend.right % resolvedDivisor.right }
 	}
+
+	return { right: resolvedDividend.right % resolvedDivisor.right }
+}
 
 export default remainder

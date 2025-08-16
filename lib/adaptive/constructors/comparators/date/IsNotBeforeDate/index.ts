@@ -1,4 +1,4 @@
-import makeDateConstructor from "../makeDateConstructor.js"
+import makeDateConstructor from "../makeDateConstructor/index.ts"
 
 const IsNotBeforeDate = makeDateConstructor("IsNotBeforeDate")
 

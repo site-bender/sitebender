@@ -1,9 +1,15 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../types/index.ts"
+
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 
 /**
  * Child filter for Dl element - allows dt, dd, script, and template elements
  */
-const isValidDlChild = (child: any): boolean => {
+const isValidDlChild = (child: ElementConfig): boolean => {
 	if (!child || typeof child !== "object" || !child.tag) {
 		return false
 	}

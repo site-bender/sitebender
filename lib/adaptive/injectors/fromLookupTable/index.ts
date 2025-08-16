@@ -1,9 +1,9 @@
-import Error from "../../constructors/Error"
-import composeOperators from "../../operations/composers/composeOperators"
-import castValue from "../../utilities/castValue"
-import getValue from "../../utilities/getValue"
-import isDefined from "../../utilities/isDefined"
-import isRight from "../../utilities/isRight.js"
+import Error from "../../constructors/Error/index.ts"
+import composeOperators from "../../operations/composers/composeOperators/index.ts"
+import { isRight } from "../../types/index.ts"
+import castValue from "../../utilities/castValue/index.ts"
+import getValue from "../../utilities/getValue/index.ts"
+import isDefined from "../../utilities/isDefined/index.ts"
 
 const fromLookupTable = (op) => async (arg, localValues) => {
 	const { datatype = "Json" } = op

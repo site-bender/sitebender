@@ -1,8 +1,8 @@
-import Error from "../../constructors/Error"
-import getFromLocal from "../../utilities/getValue/getFromLocal"
-import isDefined from "../../utilities/isDefined.js"
-import getByPattern from "./getByPattern"
-import getBySegment from "./getBySegment"
+import Error from "../../constructors/Error/index.ts"
+import getFromLocal from "../../utilities/getValue/getFromLocal/index.ts"
+import isDefined from "../../utilities/isDefined.ts"
+import getByPattern from "./getByPattern/index.ts"
+import getBySegment from "./getBySegment/index.ts"
 
 const fromUrlParameter = (op = {}) => async (_, localValues) => {
 	const local = getFromLocal(op)(localValues)

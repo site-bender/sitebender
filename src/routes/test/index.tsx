@@ -1,10 +1,7 @@
 import { Book, Person } from "~lib/components/enrich/index.ts"
-import {
-	EMOJI,
-	TONE,
-} from "~lib/components/annotate/constants/index.ts"
-import SpokenAs from "~lib/components/annotate/linguistic/SpokenAs/index.tsx"
-import WithTone from "~lib/components/annotate/performance/WithTone/index.tsx"
+import { EMOJI, TONE } from "~lib/components/wrap/constants/index.ts"
+import SpokenAs from "~lib/components/wrap/linguistic/SpokenAs/index.tsx"
+import WithTone from "~lib/components/wrap/performance/WithTone/index.tsx"
 
 export type Props = {
 	route?: string

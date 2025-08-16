@@ -1,4 +1,4 @@
-import type { HeadingGroupElement } from "../sections/hgroup"
+import type { HeadingGroupElement } from "../../sections/hgroup/index.ts"
 import type {
 	Heading1Element,
 	Heading2Element,

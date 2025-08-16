@@ -1,12 +1,12 @@
+import type { HorizontalRuleElement } from "../../grouping/hr/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { HorizontalRuleElement } from "../grouping/hr"
-import type { OptionGroupElement } from "./optgroup"
-import type { OptionElement } from "./option"
+import type { OptionGroupElement } from "../optgroup/index.ts"
+import type { OptionElement } from "../option/index.ts"
 
 export interface SelectElementMultiple {
 	attributes?: Override<

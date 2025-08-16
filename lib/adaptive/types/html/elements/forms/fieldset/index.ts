@@ -1,11 +1,11 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	Dataset,
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
-import type { LegendElement } from "./legend"
+import type { LegendElement } from "../legend/index.ts"
 
 export interface FieldSetElement {
 	attributes?: Override<

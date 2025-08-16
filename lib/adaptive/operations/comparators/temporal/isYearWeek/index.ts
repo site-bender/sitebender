@@ -1,7 +1,18 @@
-import Error from "../../../../constructors/Error"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	Operand,
+	OperationFunction,
+	Value,
+} from "../../../../types/index.ts"
+
+import Error from "../../../../constructors/Error/index.ts"
 import { MATCHERS } from "../../../../guards/constants/index.ts"
-import isLeft from "../../../../utilities/isLeft"
-import composeComparators from "../../../composers/composeComparators/index.js"
+import { isLeft } from "../../../../types/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const longYears = [
 	"1976",
@@ -29,7 +40,11 @@ const longYears = [
 	"2099",
 ]
 
-const isYearWeek = (op) => async (arg, localValues) => {
+const isYearWeek = (op: ComparatorConfig): OperationFunction<boolean> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, boolean>> => {
 	const operand = await composeComparators(op.operand)(arg, localValues)
 
 	if (isLeft(operand)) {

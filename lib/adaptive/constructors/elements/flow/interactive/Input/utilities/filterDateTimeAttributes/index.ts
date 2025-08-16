@@ -1,3 +1,9 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../../types/index.ts"
+
 import { AUTOCOMPLETES } from "../../../../../../../constructors/elements/constants/index.ts"
 import filterAttribute from "../../../../../../../guards/filterAttribute/index.ts"
 import isBoolean from "../../../../../../../guards/isBoolean/index.ts"
@@ -10,7 +16,7 @@ import pickGlobalAttributes from "../../../../../../../guards/pickGlobalAttribut
  * Filters attributes for date/time input types
  * Validates common date/time input attributes
  */
-const filterDateTimeAttributes = (attributes: Record<string, any>) => {
+const filterDateTimeAttributes = (attributes: Record<string, Value>) => {
 	const {
 		autocomplete,
 		form,

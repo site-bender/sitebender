@@ -1,8 +1,17 @@
 import Set from "core-js-pure/actual/set"
 
-import Error from "../../../../constructors/Error"
-import isLeft from "../../../../utilities/isLeft"
-import composeComparators from "../../../composers/composeComparators/index.js"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "../../../../types/index.ts"
+
+import Error from "../../../../constructors/Error/index.ts"
+import { isLeft } from "../../../../types/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const IsSuperset = (op) => async (arg, localValues) => {
 	const operand = await composeComparators(op.operand)(arg, localValues)

@@ -4,7 +4,7 @@ import type {
 	HttpEquiv,
 	Override,
 } from "../../shared"
-import type { TextNode } from "../text-node"
+import type { TextNode } from "../../text-node/index.ts"
 
 export interface StyleElement {
 	attributes?: Override<

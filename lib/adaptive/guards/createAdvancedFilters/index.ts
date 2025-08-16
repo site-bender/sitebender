@@ -1,3 +1,5 @@
+import type { GlobalAttributes } from "../../types/index.ts"
+
 import isFlowContent from "../../guards/isFlowContent/index.ts"
 import isHeadingContent from "../../guards/isHeadingContent/index.ts"
 import isInteractiveContent from "../../guards/isInteractiveContent/index.ts"
@@ -22,7 +24,7 @@ type PartialElementConfig = {
 export const createPhrasingNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
-(child: unknown): boolean => {
+(child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !("tag" in child)) {
 		return true
@@ -55,7 +57,7 @@ export const createPhrasingNonInteractiveFilter = (
 export const createFlowNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
-(child: unknown): boolean => {
+(child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !("tag" in child)) {
 		return true
@@ -88,7 +90,7 @@ export const createFlowNonInteractiveFilter = (
 export const createLegendContentFilter = (
 	exclusions: string[] = [],
 ) =>
-(child: unknown): boolean => {
+(child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !("tag" in child)) {
 		return true
@@ -179,7 +181,7 @@ export const createDetailsContentFilter =
  * @returns Child filter function
  */
 export const createSelfExcludingFilter =
-	(selfTag: string) => (child: unknown): boolean => {
+	(selfTag: string) => (child: ElementConfig): boolean => {
 		// Accept text nodes and other primitive content
 		if (!child || typeof child !== "object" || !("tag" in child)) {
 			return true

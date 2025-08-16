@@ -1,3 +1,9 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../../types/index.ts"
+
 import { AUTOCOMPLETES } from "../../../../../../../constructors/elements/constants/index.ts"
 import filterAttribute from "../../../../../../../guards/filterAttribute/index.ts"
 import isBoolean from "../../../../../../../guards/isBoolean/index.ts"
@@ -10,7 +16,7 @@ import pickGlobalAttributes from "../../../../../../../guards/pickGlobalAttribut
  * Filters attributes for text-based input types
  * Validates common text input attributes
  */
-export const filterTextAttributes = (attributes: Record<string, any>) => {
+export const filterTextAttributes = (attributes: Record<string, Value>) => {
 	const {
 		autocomplete,
 		dirname,

@@ -1,4 +1,4 @@
-import makeAmountConstructor from "../makeAmountConstructor.js"
+import makeAmountConstructor from "../makeAmountConstructor/index.ts"
 
 const IsLessThan = makeAmountConstructor("IsLessThan")
 

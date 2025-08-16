@@ -1,5 +1,10 @@
-import compare from "../../compare.js"
+import type { AdaptiveError, ComparatorConfig, Either, GlobalAttributes, LocalValues, OperationFunction, Value } from "../../../../types/index.ts"
 
-const isLongerThan = compare((operand, test) => operand.length > test)
+import compare from "../../compare.ts"
+
+const isLongerThan = (op: ComparatorConfig): OperationFunction<boolean> => async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, boolean>> => {
 
 export default isLongerThan

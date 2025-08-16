@@ -1,3 +1,5 @@
+import type { ScriptElement } from "../../scripting/script/index.ts"
+import type { TemplateElement } from "../../scripting/template/index.ts"
 import type {
 	AriaRole,
 	Dataset,
@@ -5,9 +7,7 @@ import type {
 	ListType,
 	Override,
 } from "../../shared"
-import type { ScriptElement } from "../scripting/script"
-import type { TemplateElement } from "../scripting/template"
-import type { ListItemElement } from "./li"
+import type { ListItemElement } from "../li/index.ts"
 
 export interface OrderedListElement {
 	attributes?: Override<

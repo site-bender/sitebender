@@ -1,6 +1,14 @@
 /**
  * Base type for all element configurations in the Sitebender library
  */
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../index.ts"
+
 export type ElementTag =
 	| "TextNode"
 	| "Html"
@@ -30,7 +38,7 @@ export type TextNodeConfig = {
 /**
  * Type for the TextNode constructor function
  */
-export type TextNodeConstructor = (content: unknown) => TextNodeConfig
+export type TextNodeConstructor = (content: Value) => TextNodeConfig
 
 /**
  * Global HTML attributes that can be applied to any element
@@ -66,10 +74,10 @@ export type AriaAttributes = {
  * Special properties that can be attached to elements
  */
 export type SpecialProperties = {
-	readonly calculation?: unknown | undefined
+	readonly calculation?: Operand | undefined
 	readonly dataset?: Record<string, unknown> | undefined
-	readonly display?: unknown | undefined
-	readonly format?: unknown | undefined
+	readonly display?: ComparatorConfig | LogicalConfig | undefined
+	readonly format?: OperatorConfig | undefined
 	readonly scripts?: readonly string[] | undefined
 	readonly stylesheets?: readonly string[] | undefined
 }
@@ -100,7 +108,7 @@ export type DivAttributes = GlobalAttributes & SpecialProperties & {
  */
 export type DivConstructor = (
 	attributes?: Record<string, unknown>,
-) => (children: unknown) => DivConfig
+) => (children: Array<ElementConfig>) => DivConfig
 
 /**
  * Configuration object returned by GlobalEmpty constructor

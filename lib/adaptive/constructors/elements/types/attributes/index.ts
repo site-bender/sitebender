@@ -111,31 +111,16 @@ export type GlobalAttributes = {
 export type HtmlAttributes = GlobalAttributes & {
 	manifest?: string
 	xmlns?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // HEAD
 export type HeadAttributes = GlobalAttributes & {
 	// No element-specific attributes beyond global
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // BODY
 export type BodyAttributes = GlobalAttributes & {
 	// No element-specific attributes beyond global
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 /* +++++ Embedded Content +++++ */
@@ -253,11 +238,6 @@ export type SourceAttributes = GlobalAttributes & {
 	media?: string
 	width?: number
 	height?: number
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // VIDEO
@@ -289,11 +269,6 @@ export type TrackAttributes = GlobalAttributes & {
 	label?: string
 	src: string
 	srcLang?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 /* +++++ Form Elements +++++ */
@@ -313,11 +288,6 @@ export type FieldSetAttributes = GlobalAttributes & {
 // LEGEND
 export type LegendAttributes = GlobalAttributes & {
 	// No element-specific attributes beyond global
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // METER
@@ -329,11 +299,6 @@ export type MeterAttributes = GlobalAttributes & {
 	min?: number
 	optimum?: number
 	value: number
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: "meter"
 }
 
 // OUTPUT
@@ -445,11 +410,6 @@ export type SummaryAttributes = GlobalAttributes & {
 export type LabelAttributes = GlobalAttributes & {
 	for?: string
 	form?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // SELECT
@@ -530,11 +490,6 @@ export type LinkAttributes = GlobalAttributes & {
 	sizes?: string
 	title?: string
 	referrerPolicy?: ReferrerPolicy
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // META
@@ -544,21 +499,11 @@ export type MetaAttributes = GlobalAttributes & {
 	httpEquiv?: string
 	name?: string
 	media?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // NOSCRIPT
 export type NoScriptAttributes = GlobalAttributes & {
 	// no element-specific attributes
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // SCRIPT
@@ -570,32 +515,17 @@ export type ScriptAttributes = GlobalAttributes & {
 	referrerPolicy?: ReferrerPolicy
 	src?: string
 	type?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // TITLE
 export type TitleAttributes = GlobalAttributes & {
 	// no element-specific attributes
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // BASE
 export type BaseAttributes = GlobalAttributes & {
 	href?: string
 	target?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // STYLE
@@ -603,11 +533,6 @@ export type StyleAttributes = GlobalAttributes & {
 	media?: string
 	type?: string
 	nonce?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 /* +++++ Phrasing Elements +++++ */
@@ -817,11 +742,6 @@ export type KeyboardInputAttributes = GlobalAttributes & {
 // MAP
 export type ImageMapAttributes = GlobalAttributes & {
 	name: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // MARK
@@ -1257,21 +1177,11 @@ export type TableCaptionAttributes = GlobalAttributes & {
 // COL
 export type TableColumnAttributes = GlobalAttributes & {
 	span?: number
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: "columnheader"
 }
 
 // COLGROUP
 export type TableColumnGroupAttributes = GlobalAttributes & {
 	span?: number
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: "columnheader"
 }
 
 // TBODY
@@ -1344,24 +1254,22 @@ export type TableRowAttributes = GlobalAttributes & {
 
 // INPUT type="button"
 export type InputButtonAttributes = GlobalAttributes & {
-	type: "button"
 	autofocus?: boolean
 	disabled?: boolean
 	form?: string
+	formaction?: string
+	formenctype?: FormEncType
+	formmethod?: FormMethod
+	formnovalidate?: boolean
+	formtarget?: AnchorTarget
 	name?: string
+	popovertarget?: string
+	popovertargetaction?: "hide" | "show" | "toggle"
 	value?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-pressed"?: boolean
-	"aria-expanded"?: boolean
-	"aria-hidden"?: boolean
-	role?: "button"
 }
 
 // INPUT type="checkbox"
 export type InputCheckboxAttributes = GlobalAttributes & {
-	type: "checkbox"
 	autofocus?: boolean
 	checked?: boolean
 	disabled?: boolean
@@ -1369,17 +1277,10 @@ export type InputCheckboxAttributes = GlobalAttributes & {
 	name?: string
 	required?: boolean
 	value?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-checked"?: boolean
-	"aria-hidden"?: boolean
-	role?: "checkbox"
 }
 
 // INPUT type="color"
 export type InputColorAttributes = GlobalAttributes & {
-	type: "color"
 	autocomplete?: string
 	autofocus?: boolean
 	disabled?: boolean
@@ -1387,11 +1288,6 @@ export type InputColorAttributes = GlobalAttributes & {
 	list?: string
 	name?: string
 	value?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: string
 }
 
 // INPUT type="date"
@@ -1440,27 +1336,22 @@ export type InputDateTimeLocalAttributes = GlobalAttributes & {
 
 // INPUT type="email"
 export type InputEmailAttributes = GlobalAttributes & {
-	type: "email"
 	autocomplete?: string
 	autofocus?: boolean
+	dirname?: string
 	disabled?: boolean
 	form?: string
 	list?: string
-	maxLength?: number
-	minLength?: number
+	maxlength?: number
+	minlength?: number
 	multiple?: boolean
 	name?: string
 	pattern?: string
 	placeholder?: string
-	readOnly?: boolean
+	readonly?: boolean
 	required?: boolean
 	size?: number
 	value?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: "textbox"
 }
 
 // INPUT type="file"
@@ -1707,26 +1598,21 @@ export type InputTelAttributes = GlobalAttributes & {
 
 // INPUT type="text"
 export type InputTextAttributes = GlobalAttributes & {
-	type: "text"
 	autocomplete?: string
 	autofocus?: boolean
+	dirname?: string
 	disabled?: boolean
 	form?: string
 	list?: string
-	maxLength?: number
-	minLength?: number
+	maxlength?: number
+	minlength?: number
 	name?: string
 	pattern?: string
 	placeholder?: string
-	readOnly?: boolean
+	readonly?: boolean
 	required?: boolean
 	size?: number
 	value?: string
-
-	"aria-label"?: string
-	"aria-labelledby"?: string
-	"aria-hidden"?: boolean
-	role?: "textbox"
 }
 
 // INPUT type="time"

@@ -1,23 +1,42 @@
-import Error from "../../../constructors/Error/index.js"
-import getOperandKeys from "../../../operations/helpers/getOperandKeys/index.ts"
-import not from "../../../utilities/predicates/not/index.js"
-import toCamelCase from "../../../utilities/string/toCamelCase/index.js"
-import { OPERAND_TYPES } from "../../constants.js"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	GlobalAttributes,
+	LogicalConfig,
+	Operand,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const composeComparators = async (operation) => {
-	if (not(operation) || not(operation.tag)) {
+import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
+import Error from "../../../constructors/Error/index.ts"
+import getOperandKeys from "../../../operations/helpers/getOperandKeys/index.ts"
+import not from "../../../utilities/predicates/not/index.ts"
+import toCamel from "../../../utilities/string/toCamel/index.ts"
+
+type ComparatorOperand = ComparatorConfig | LogicalConfig | Operand
+
+const composeComparators = async (
+	operation: ComparatorOperand | undefined,
+): Promise<OperationFunction<boolean>> => {
+	if (not(operation) || not((operation as ComparatorConfig).tag)) {
 		return () =>
-			Error(operation)("Comparison")(
-				`Comparison undefined or malformed: ${JSON.stringify(operation)}.`,
-			)
+			Promise.resolve({
+				left: [
+					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
+						`Comparison undefined or malformed: ${JSON.stringify(operation)}.`,
+					) as AdaptiveError,
+				],
+			})
 	}
 
-	const operandKeys = getOperandKeys(operation)
+	const operandKeys = getOperandKeys(operation as Operand)
 
-	const resolvedOperandPromises = operandKeys.map(async (key) => {
-		const value = operation[key]
+	const resolvedOperandPromises = operandKeys.map(async (key: string) => {
+		const value = (operation as Record<string, unknown>)[key]
 		const resolvedValue = Array.isArray(value)
-			? await Promise.all(value.map((op) => composeComparators(op)))
+			? await Promise.all(
+				value.map((op: ComparatorOperand) => composeComparators(op)),
+			)
 			: await composeComparators(value)
 		return [key, resolvedValue]
 	})
@@ -30,28 +49,46 @@ const composeComparators = async (operation) => {
 
 	try {
 		// All comparators are organized by comparison type (alphabetical, numerical, etc.)
-		if (operation.type === "comparator") {
+		if ((operation as ComparatorConfig).type === "comparator") {
 			const { default: comparatorExecutor } = await import(
-				`../../comparators/${operation.comparison}/${
-					toCamelCase(operation.tag)
+				`../../comparators/${((operation as
+					| ComparatorConfig
+					| LogicalConfig
+					| Operand).comparison)}/${
+					toCamel((operation as ComparatorConfig).tag)
 				}/index.js`
 			)
 			return comparatorExecutor(hydratedOperation)
 		}
 
-		if (operation.type === OPERAND_TYPES.injector) {
+		if ((operation as ComparatorConfig).type === OPERAND_TYPES.injector) {
 			const { default: injectorExecutor } = await import(
-				`../../../injectors/${toCamelCase(operation.tag)}/index.js`
+				`../../../injectors/${
+					toCamel((operation as ComparatorConfig).tag)
+				}/index.js`
 			)
 			return injectorExecutor(hydratedOperation)
 		}
 
-		throw new Error(`Unknown type: ${operation.type}`)
-	} catch (e) {
 		return () =>
-			Error(operation)("Comparison")(
-				`Comparison "${operation.tag}" with type "${operation.type}" could not be loaded. ${e.message}`,
-			)
+			Promise.resolve({
+				left: [
+					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
+						`Unknown type: ${(operation as ComparatorConfig).type}`,
+					) as AdaptiveError,
+				],
+			})
+	} catch (e: Error) {
+		return () =>
+			Promise.resolve({
+				left: [
+					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
+						`Comparison "${(operation as ComparatorConfig).tag}" with type "${
+							(operation as ComparatorConfig).type
+						}" could not be loaded. ${e.message}`,
+					) as AdaptiveError,
+				],
+			})
 	}
 }
 

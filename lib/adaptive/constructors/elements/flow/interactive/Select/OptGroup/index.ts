@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { OptionGroupAttributes } from "../../types/attributes/index.ts"
+
 import isDefined from "../../../../../../../utilities/isDefined/index.ts"
 import getId from "../../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
@@ -9,7 +22,22 @@ import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/
  * Filters attributes for OptGroup element
  * Allows global attributes and validates disabled and label attributes
  */
-export const filterAttributes = (attributes: Record<string, unknown>) => {
+
+/**
+ * Extended OptGroup attributes including reactive properties
+ */
+export type OptGroupElementAttributes = OptionGroupAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: OptionGroupAttributes) => {
 	const { disabled, label, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
@@ -42,7 +70,8 @@ export const filterAttributes = (attributes: Record<string, unknown>) => {
  * ```
  */
 const OptGroup =
-	(attributes: Record<string, unknown> = {}) => (children: unknown[] = []) => {
+	(attributes: Record<string, Value> = {}) =>
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const { dataset, display, id, ...attrs } = attributes
 		const { ...attribs } = filterAttributes(attrs)
 

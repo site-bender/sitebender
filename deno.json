@@ -25,6 +25,9 @@
     "test:setup": "deno test --unstable-temporal tests/setup/ -A --no-check",
     "test:sort": "deno test --unstable-temporal tests/sort/ -A --no-check",
     "test:dev": "deno test --unstable-temporal tests/dev/ -A --no-check",
+    "test:utilities": "deno test --unstable-temporal lib/adaptive/utilities/ --allow-all --no-check",
+    "test:utilities:cov": "deno test --unstable-temporal lib/adaptive/utilities/ --allow-all --no-check --coverage=coverage && deno coverage coverage",
+    "test:utilities:watch": "deno test --unstable-temporal lib/adaptive/utilities/ --allow-all --no-check --watch",
     "type-check": "deno check --unstable-temporal src/**/*.ts src/**/*.tsx scripts/**/*.ts lib/**/*.ts lib/**/*.tsx",
     "e2e": "bash scripts/e2e.sh"
   },

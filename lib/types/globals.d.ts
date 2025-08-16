@@ -16,6 +16,21 @@ declare global {
 			[elemName: string]: Record<string, unknown>
 		}
 	}
+
+	namespace Temporal {
+		class PlainDate {
+			static from(item: unknown): PlainDate
+		}
+		class PlainTime {
+			static from(item: unknown): PlainTime
+		}
+		class PlainDateTime {
+			static from(item: unknown): PlainDateTime
+		}
+		class ZonedDateTime {
+			static from(item: unknown): ZonedDateTime
+		}
+	}
 }
 
 export {}

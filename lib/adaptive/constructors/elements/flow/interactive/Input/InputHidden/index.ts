@@ -1,3 +1,16 @@
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
+} from "../../../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type { InputHiddenAttributes } from "../../types/attributes/index.ts"
+
 import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
 import isString from "../../../../../../guards/isString/index.ts"
 import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
@@ -6,7 +19,22 @@ import Input from "../index.ts"
 /**
  * Filters attributes for InputHidden
  */
-export const filterAttributes = (attributes: Record<string, any>) => {
+
+/**
+ * Extended InputHidden attributes including reactive properties
+ */
+export type InputHiddenElementAttributes = InputHiddenAttributes & {
+	aria?: Record<string, Value>
+	calculation?: Operand
+	dataset?: Record<string, Value>
+	display?: ComparatorConfig | LogicalConfig
+	format?: OperatorConfig
+	scripts?: string[]
+	stylesheets?: string[]
+	validation?: ComparatorConfig | LogicalConfig
+}
+
+export const filterAttributes = (attributes: InputHiddenAttributes) => {
 	const { form, name, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 

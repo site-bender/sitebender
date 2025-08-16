@@ -49,7 +49,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 		it("returns error for null and undefined", () => {
 			const nullResult = castToBoolean(null)
 			expect(nullResult.left).toBeDefined()
-			
+
 			const undefinedResult = castToBoolean(undefined)
 			expect(undefinedResult.left).toBeDefined()
 		})
@@ -57,7 +57,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 		it("returns error for objects and arrays", () => {
 			const objResult = castToBoolean({ value: true })
 			expect(objResult.left).toBeDefined()
-			
+
 			const arrResult = castToBoolean([true])
 			expect(arrResult.left).toBeDefined()
 		})
@@ -97,10 +97,10 @@ describe("Primitive Type Conversion Behaviors", () => {
 		it("returns error for NaN and Infinity", () => {
 			const nanResult = castToInteger(NaN)
 			expect(nanResult.left).toBeDefined()
-			
+
 			const infResult = castToInteger(Infinity)
 			expect(infResult.left).toBeDefined()
-			
+
 			const negInfResult = castToInteger(-Infinity)
 			expect(negInfResult.left).toBeDefined()
 		})
@@ -155,7 +155,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 		it("returns error for Infinity", () => {
 			const infResult = castToNumber(Infinity)
 			expect(infResult.left).toBeDefined()
-			
+
 			const negInfResult = castToNumber(-Infinity)
 			expect(negInfResult.left).toBeDefined()
 		})
@@ -251,7 +251,22 @@ describe("Primitive Type Conversion Behaviors", () => {
 
 		it("converts null and undefined to strings", () => {
 			expect(castToString(null)).toEqual({ right: "null" })
-			expect(castToString(undefined)).toEqual({ right: "undefined" })
+			expect(castToString(undefined)).toEqual({
+				left: [
+					{
+						message: "Cannot cast undefined to a string.",
+						operation: "castToString",
+						tag: "Error",
+						type: "String",
+					},
+				],
+			})
+		})
+
+		it("converts objects to JSON strings", () => {
+			const obj = { name: "test", value: 42 }
+			const result = castToString(obj)
+			expect(result).toEqual({ right: JSON.stringify(obj) })
 		})
 
 		it("converts objects to JSON strings", () => {
@@ -295,7 +310,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 					fc.integer(),
 					(num) => {
 						const result = castToBoolean(num)
-						
+
 						if (num === 0) {
 							expect(result.right).toBe(false)
 						} else {
@@ -496,8 +511,8 @@ describe("Primitive Type Conversion Behaviors", () => {
 						const intResult = castToInteger(invalidInput)
 						const numResult = castToNumber(invalidInput)
 						const percentResult = castToPercent(invalidInput)
-						
-						if (invalidInput === null || invalidInput === undefined || 
+
+						if (invalidInput === null || invalidInput === undefined ||
 							typeof invalidInput === "object") {
 							expect(boolResult.left).toBeDefined()
 							expect(intResult.left).toBeDefined()
@@ -519,7 +534,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 						const intResult = castToInteger(specialValue)
 						const numResult = castToNumber(specialValue)
 						const percentResult = castToPercent(specialValue)
-						
+
 						expect(intResult.left).toBeDefined()
 						expect(numResult.left).toBeDefined()
 						expect(percentResult.left).toBeDefined()
@@ -552,7 +567,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 						const boolResult = castToBoolean(int)
 						const numResult = castToNumber(int)
 						const stringResult = castToString(int)
-						
+
 						expect(typeof boolResult.right).toBe("boolean")
 						expect(typeof numResult.right).toBe("number")
 						expect(typeof stringResult.right).toBe("string")
@@ -568,7 +583,7 @@ describe("Primitive Type Conversion Behaviors", () => {
 					(int) => {
 						const directInt = castToInteger(int)
 						const throughNumber = castToInteger(castToNumber(int).right!)
-						
+
 						expect(directInt.right).toBe(throughNumber.right)
 					}
 				))

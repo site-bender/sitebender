@@ -1,14 +1,27 @@
-import Error from "../../../constructors/Error/index.js"
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedArcCosine } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const arcCosine = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
+const arcCosine =
+	({ operand, ...op }: HydratedArcCosine): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: Math.acos(resolvedOperand.right) }
 	}
-
-	return { right: Math.acos(resolvedOperand.right) }
-}
 
 export default arcCosine

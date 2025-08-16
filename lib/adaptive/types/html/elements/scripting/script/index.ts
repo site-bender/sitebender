@@ -6,7 +6,7 @@ import type {
 	Override,
 	ReferrerPolicy,
 } from "../../shared"
-import type { TextNode } from "../text-node"
+import type { TextNode } from "../../text-node/index.ts"
 
 export interface ScriptElement {
 	attributes?: Override<

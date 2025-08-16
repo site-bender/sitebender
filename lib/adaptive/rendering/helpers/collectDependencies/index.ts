@@ -1,6 +1,8 @@
-import getSelector from "../../../../utilities/getSelector/index.ts"
+import type { GlobalAttributes, Value } from "../../../types/index.ts"
 
-const collectDependencies = (condition: any = {}): string[] => {
+import getSelector from "../../../utilities/getSelector/index.ts"
+
+const collectDependencies = (condition: unknown = {}): string[] => {
 	const dependencies: string[] = typeof condition === "object"
 		? Object.entries(condition).reduce(
 			(deps: string[], [key, value]: [string, any]): string[] => {

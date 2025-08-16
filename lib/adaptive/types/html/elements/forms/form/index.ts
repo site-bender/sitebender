@@ -1,3 +1,4 @@
+import type { FlowContent } from "../../categories/flow/index.ts"
 import type {
 	AriaRole,
 	Autocapitalize,
@@ -9,7 +10,6 @@ import type {
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { FlowContent } from "../categories/flow"
 
 export interface FormElement {
 	attributes?: Override<

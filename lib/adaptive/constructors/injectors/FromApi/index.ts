@@ -1,10 +1,25 @@
-import { OPERAND_TYPES } from "../../../operations/constants.js"
+import type {
+	ComplexDatatype,
+	FromApiInjector,
+	Value,
+} from "../../../types/index.ts"
 
-const FromApi = (datatype = "Json") => (options = {}) => ({
-	tag: "FromApi",
-	type: OPERAND_TYPES.injector,
-	datatype,
-	...options,
-})
+import { OPERAND_TYPES } from "../../constants/index.ts"
+
+interface ApiOptions {
+	endpoint: string
+	method?: "GET" | "POST" | "PUT" | "DELETE"
+	headers?: Record<string, string>
+	body?: Value
+}
+
+const FromApi =
+	(datatype: ComplexDatatype = "Json") =>
+	(options: ApiOptions): FromApiInjector => ({
+		tag: "FromApi",
+		type: OPERAND_TYPES.injector,
+		datatype,
+		...options,
+	})
 
 export default FromApi

@@ -1,6 +1,6 @@
-const deduplicate = (arr: any[] = []): any[] => {
+const deduplicate = (arr: Array<Value> = []): Array<Value> => {
 	const seen = new Set()
-	const result: any[] = []
+	const result: Array<Value> = []
 
 	for (const item of arr) {
 		const key = JSON.stringify(item)

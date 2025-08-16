@@ -4,7 +4,7 @@ import type {
 	GlobalAttributeOverrides,
 	Override,
 } from "../../shared"
-import type { TextNode } from "../text-node"
+import type { TextNode } from "../../text-node/index.ts"
 
 export interface RubyFallbackParenthesisElement {
 	attributes?: Override<

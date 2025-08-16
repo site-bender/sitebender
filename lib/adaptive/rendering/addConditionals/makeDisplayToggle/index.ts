@@ -1,5 +1,5 @@
-import moveElementToDisplayCache from "./moveElementToDisplayCache"
-import replaceElementFromDisplayCache from "./replaceElementFromDisplayCache"
+import moveElementToDisplayCache from "./moveElementToDisplayCache/index.ts"
+import replaceElementFromDisplayCache from "./replaceElementFromDisplayCache/index.ts"
 
 const makeDisplayToggle =
 	(id) => (testCondition) => async (arg, localValues) => {

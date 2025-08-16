@@ -1,5 +1,6 @@
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import type { BaseProps } from "../../../../types/index.ts"
+
+import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "aside"
@@ -25,12 +26,12 @@ export type Props = BaseProps & {
 /**
  * Wrapper for non-linear storytelling segments that don't follow chronological order.
  * Used for parallel narratives, circular structures, or fragmented timelines.
- * 
+ *
  * @example
  * <NonlinearNarrative structure="parallel" timeline="past">
  *   <p>Meanwhile, twenty years earlier...</p>
  * </NonlinearNarrative>
- * 
+ *
  * @example
  * <NonlinearNarrative structure="circular" sequence="end-as-beginning">
  *   <p>And so we return to where we started...</p>

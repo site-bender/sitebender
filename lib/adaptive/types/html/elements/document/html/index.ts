@@ -1,6 +1,10 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { HeadElement } from "../metadata/head"
-import type { BodyElement } from "../sections/body"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { HeadElement } from "../../metadata/head/index.ts"
+import type { BodyElement } from "../../sections/body/index.ts"
 
 export interface HtmlElement {
 	attributes?: Override<

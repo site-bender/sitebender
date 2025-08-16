@@ -1,7 +1,21 @@
-import isLeft from "../../../../utilities/isLeft"
-import composeComparators from "../../../composers/composeComparators/index.js"
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "../../../../types/index.ts"
 
-const ternary = (op) => async (arg, localValues) => {
+import { isLeft } from "../../../../types/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
+
+const ternary = (op: ComparatorConfig): OperationFunction<boolean> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, boolean>> => {
 	const condition = await composeComparators(op.condition)(arg, localValues)
 	const ifFalse = await composeComparators(op.ifFalse)(arg, localValues)
 	const ifTrue = await composeComparators(op.ifTrue)(arg, localValues)

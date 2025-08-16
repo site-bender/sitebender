@@ -1,4 +1,4 @@
-import makeLengthConstructor from "../makeLengthConstructor.js"
+import makeLengthConstructor from "../makeLengthConstructor/index.ts"
 
 const IsShorterThan = makeLengthConstructor("IsShorterThan")
 

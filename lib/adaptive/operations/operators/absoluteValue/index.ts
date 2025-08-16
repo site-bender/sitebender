@@ -1,14 +1,34 @@
-import Error from "../../../constructors/Error/index.js"
-import isLeft from "../../../utilities/isLeft/index.js"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+	OperatorConfig,
+} from "../../../types/index.ts"
 
-const absoluteValue = ({ operand, ...op }) => async (arg, localValues) => {
-	const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-	if (isLeft(resolvedOperand)) {
-		return resolvedOperand
-	}
-
-	return { right: Math.abs(resolvedOperand.right) }
+interface HydratedAbsoluteValue {
+	tag: "AbsoluteValue"
+	type: "operator"
+	datatype: string
+	operand: OperationFunction<number>
 }
+
+const absoluteValue =
+	({ operand, ...op }: HydratedAbsoluteValue): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<AdaptiveError[], number>> => {
+		const resolvedOperand = await operand(arg, localValues)
+
+		if (isLeft(resolvedOperand)) {
+			return resolvedOperand
+		}
+
+		return { right: Math.abs(resolvedOperand.right) }
+	}
 
 export default absoluteValue

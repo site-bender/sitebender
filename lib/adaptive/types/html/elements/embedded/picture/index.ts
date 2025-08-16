@@ -1,6 +1,10 @@
-import type { Dataset, GlobalAttributeOverrides, Override } from "../../shared"
-import type { ImageElement } from "./img"
-import type { SourceElement } from "./source"
+import type {
+	Dataset,
+	GlobalAttributeOverrides,
+	Override,
+} from "../../index.ts"
+import type { ImageElement } from "../img/index.ts"
+import type { SourceElement } from "../source/index.ts"
 
 // TODO
 export interface PictureElement {

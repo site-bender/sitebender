@@ -1,8 +1,22 @@
-import Error from "../../../constructors/Error/index.js"
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedStandardDeviation } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	AriaAttributes,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
+
+import Error from "../../../constructors/Error/index.ts"
+import { isLeft } from "../../../types/index.ts"
 
 const standardDeviation =
-	({ usePopulation, operands, ...op }) => async (arg, localValues) => {
+	({ operands, ...op }: HydratedStandardDeviation): OperationFunction<number> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, number>> => {
 		const resolvedOperands = await Promise.all(
 			operands.map((operand) => operand(arg, localValues)),
 		)

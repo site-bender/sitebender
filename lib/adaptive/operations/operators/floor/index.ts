@@ -1,18 +1,32 @@
-import isLeft from "../../../utilities/isLeft/index.js"
+import type { HydratedFloor } from "../../../types/hydrated/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	GlobalAttributes,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const floor =
-	({ decimalPlaces, operand, ...op }) => async (arg, localValues) => {
-		const resolvedOperand = await operand(arg, localValues)
+import { isLeft } from "../../../types/index.ts"
 
-		if (isLeft(resolvedOperand)) {
-			return resolvedOperand
-		}
+const floor = (
+	{ decimalPlaces, operand, ...op }: HydratedFloor,
+): OperationFunction<number> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, number>> => {
+	const resolvedOperand = await operand(arg, localValues)
 
-		const multiplier = Math.pow(10, Math.max(0, decimalPlaces))
-
-		return {
-			right: Math.floor(resolvedOperand.right * multiplier) / multiplier,
-		}
+	if (isLeft(resolvedOperand)) {
+		return resolvedOperand
 	}
+
+	const multiplier = Math.pow(10, Math.max(0, decimalPlaces))
+
+	return {
+		right: Math.floor(resolvedOperand.right * multiplier) / multiplier,
+	}
+}
 
 export default floor
