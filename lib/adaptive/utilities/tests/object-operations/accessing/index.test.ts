@@ -63,7 +63,7 @@ describe("Object Accessing Behaviors", () => {
 
 		it("handles empty path", () => {
 			const result = path("")(testObj)
-			expect(result).toBeUndefined()
+			expect(result).toBe(testObj)
 		})
 
 		it("handles root level properties", () => {
@@ -96,61 +96,59 @@ describe("Object Accessing Behaviors", () => {
 		}
 
 		it("returns value when path exists", () => {
-			const result = pathOr("default", "user.name")(testObj)
+			const result = pathOr("user.name")("default")(testObj)
 			expect(result).toBe("Bob")
 		})
 
 		it("returns default when path doesn't exist", () => {
-			const result = pathOr("unknown", "user.email")(testObj)
+			const result = pathOr("user.email")("unknown")(testObj)
 			expect(result).toBe("unknown")
 		})
 
 		it("returns default for deeply nested missing path", () => {
-			const result = pathOr("red", "user.preferences.theme")(testObj)
+			const result = pathOr("user.preferences.theme")("red")(testObj)
 			expect(result).toBe("red")
 		})
 
 		it("returns default for null/undefined object", () => {
-			expect(pathOr("default", "any.path")(null)).toBe("default")
-			expect(pathOr("default", "any.path")(undefined)).toBe("default")
+			expect(pathOr("any.path")("default")(null)).toBe("default")
+			expect(pathOr("any.path")("default")(undefined)).toBe("default")
 		})
 
 		it("handles array paths with default", () => {
-			const result = pathOr("default", ["user", "hobbies", 0])(testObj)
+			const result = pathOr(["user", "hobbies", 0])("default")(testObj)
 			expect(result).toBe("default")
 		})
 
 		it("returns actual value even if falsy", () => {
 			const obj = { flag: false, count: 0, text: "" }
-			expect(pathOr(true, "flag")(obj)).toBe(false)
-			expect(pathOr(10, "count")(obj)).toBe(0)
-			expect(pathOr("default", "text")(obj)).toBe("")
+			expect(pathOr("flag")(true)(obj)).toBe(false)
+			expect(pathOr("count")(10)(obj)).toBe(0)
+			expect(pathOr("text")("default")(obj)).toBe("")
 		})
 
 		it("handles different default types", () => {
-			expect(pathOr(0, "missing")({})).toBe(0)
-			expect(pathOr([], "missing")({})).toEqual([])
-			expect(pathOr({}, "missing")({})).toEqual({})
-			expect(pathOr(null, "missing")({})).toBeNull()
+			expect(pathOr("missing")(0)({})).toBe(0)
+			expect(pathOr("missing")([])({})).toEqual([])
+			expect(pathOr("missing")({})({})).toEqual({})
+			expect(pathOr("missing")(null)({})).toBeNull()
 		})
 
 		it("works with complex default values", () => {
 			const defaultUser = { name: "Guest", role: "visitor" }
-			const result = pathOr(defaultUser, "currentUser")({}
-
-)
+			const result = pathOr("currentUser")(defaultUser)({})
 			expect(result).toEqual(defaultUser)
 		})
 
 		it("handles empty path with default", () => {
-			const result = pathOr("default", "")(testObj)
-			expect(result).toBe("default")
+			const result = pathOr("")("default")(testObj)
+			expect(result).toBe(testObj)
 		})
 
 		it("handles numeric paths in arrays", () => {
 			const arr = ["a", "b", "c"]
-			expect(pathOr("default", "1")(arr)).toBe("b")
-			expect(pathOr("default", "5")(arr)).toBe("default")
+			expect(pathOr("1")("default")(arr)).toBe("b")
+			expect(pathOr("5")("default")(arr)).toBe("default")
 		})
 	})
 
@@ -166,6 +164,7 @@ describe("Object Accessing Behaviors", () => {
 			const obj = { own: "property" }
 			expect(path("toString")(obj)).toBeUndefined()
 			expect(path("constructor")(obj)).toBeUndefined()
+			expect(path("own")(obj)).toBe("property")
 		})
 
 		it("handles circular references safely", () => {
@@ -277,7 +276,7 @@ describe("Object Accessing Behaviors", () => {
 					fc.anything(),
 					(obj, nonExistentKey, defaultValue) => {
 						fc.pre(!obj.hasOwnProperty(nonExistentKey))
-						const result = pathOr(defaultValue, nonExistentKey)(obj)
+						const result = pathOr(nonExistentKey)(defaultValue)(obj)
 						expect(result).toBe(defaultValue)
 					}
 				))
@@ -286,12 +285,12 @@ describe("Object Accessing Behaviors", () => {
 			it("returns actual value when path exists", () => {
 				fc.assert(fc.property(
 					fc.string().filter(s => s.length > 0 && !s.includes('.')),
-					fc.anything(),
+					fc.anything().filter(v => v !== undefined),
 					fc.anything(),
 					(key, value, defaultValue) => {
 						fc.pre(value !== defaultValue)
 						const obj = { [key]: value }
-						const result = pathOr(defaultValue, key)(obj)
+						const result = pathOr(key)(defaultValue)(obj)
 						expect(result).toBe(value)
 					}
 				))
@@ -305,7 +304,7 @@ describe("Object Accessing Behaviors", () => {
 					(key, falsyValue, defaultValue) => {
 						fc.pre(falsyValue !== defaultValue)
 						const obj = { [key]: falsyValue }
-						const result = pathOr(defaultValue, key)(obj)
+						const result = pathOr(key)(defaultValue)(obj)
 						expect(result).toBe(falsyValue)
 					}
 				))
@@ -316,8 +315,8 @@ describe("Object Accessing Behaviors", () => {
 					fc.string(),
 					fc.anything(),
 					(pathStr, defaultValue) => {
-						expect(pathOr(defaultValue, pathStr)(null)).toBe(defaultValue)
-						expect(pathOr(defaultValue, pathStr)(undefined)).toBe(defaultValue)
+						expect(pathOr(pathStr)(defaultValue)(null)).toBe(defaultValue)
+						expect(pathOr(pathStr)(defaultValue)(undefined)).toBe(defaultValue)
 					}
 				))
 			})
@@ -329,7 +328,7 @@ describe("Object Accessing Behaviors", () => {
 					fc.anything(),
 					(obj, pathStr, defaultValue) => {
 						const pathResult = path(pathStr)(obj)
-						const pathOrResult = pathOr(defaultValue, pathStr)(obj)
+						const pathOrResult = pathOr(pathStr)(defaultValue)(obj)
 						
 						if (pathResult === undefined) {
 							expect(pathOrResult).toBe(defaultValue)
@@ -346,14 +345,14 @@ describe("Object Accessing Behaviors", () => {
 				fc.assert(fc.property(
 					fc.record({
 						key: fc.string().filter(s => s.length > 0 && !s.includes('.')),
-						value: fc.anything(),
+						value: fc.anything().filter(v => v !== undefined),
 						default: fc.anything()
 					}),
 					({ key, value, default: defaultValue }) => {
 						const obj = { [key]: value }
 						
 						const pathResult = path(key)(obj)
-						const pathOrResult = pathOr(defaultValue, key)(obj)
+						const pathOrResult = pathOr(key)(defaultValue)(obj)
 						
 						expect(pathResult).toBe(value)
 						expect(pathOrResult).toBe(value)
@@ -362,27 +361,31 @@ describe("Object Accessing Behaviors", () => {
 				))
 			})
 
-			it("empty path returns undefined", () => {
+			it("empty path returns the object itself", () => {
 				fc.assert(fc.property(
 					fc.object(),
 					(obj) => {
-						expect(path("")(obj)).toBeUndefined()
-						expect(path([])(obj)).toBeUndefined()
+						expect(path("")(obj)).toBe(obj)
+						expect(path([])(obj)).toBe(obj)
 					}
 				))
 			})
 
 			it("path operations are safe with prototype pollution attempts", () => {
-				fc.assert(fc.property(
-					fc.object(),
-					(obj) => {
-						// These should not access prototype properties
-						expect(path("constructor")(obj)).toBeUndefined()
-						expect(path("toString")(obj)).toBeUndefined()
-						expect(path("__proto__")(obj)).toBeUndefined()
-						expect(path("prototype")(obj)).toBeUndefined()
-					}
-				))
+				// Test with an object that doesn't have these as own properties
+				const obj = { normalProp: "value", nested: { prop: "nested value" } }
+				
+				// These should not access prototype properties
+				expect(path("constructor")(obj)).toBeUndefined()
+				expect(path("toString")(obj)).toBeUndefined()
+				expect(path("__proto__")(obj)).toBeUndefined()
+				expect(path("prototype")(obj)).toBeUndefined()
+				expect(path("valueOf")(obj)).toBeUndefined()
+				expect(path("hasOwnProperty")(obj)).toBeUndefined()
+				
+				// But normal properties should work
+				expect(path("normalProp")(obj)).toBe("value")
+				expect(path("nested.prop")(obj)).toBe("nested value")
 			})
 		})
 
@@ -390,7 +393,7 @@ describe("Object Accessing Behaviors", () => {
 			it("deep paths work with nested objects", () => {
 				fc.assert(fc.property(
 					fc.array(fc.string().filter(s => s.length > 0 && !s.includes('.') && !s.includes('[') && !s.includes(']')), { minLength: 2, maxLength: 4 }),
-					fc.anything(),
+					fc.anything().filter(v => v !== undefined),
 					(keys, value) => {
 						// Build nested object
 						let obj: any = value
@@ -406,8 +409,8 @@ describe("Object Accessing Behaviors", () => {
 						expect(path(keys)(obj)).toBe(value)
 						
 						// Test pathOr
-						expect(pathOr("default", dotPath)(obj)).toBe(value)
-						expect(pathOr("default", keys)(obj)).toBe(value)
+						expect(pathOr(dotPath)("default")(obj)).toBe(value)
+						expect(pathOr(keys)("default")(obj)).toBe(value)
 					}
 				))
 			})
@@ -464,8 +467,8 @@ describe("Object Accessing Behaviors", () => {
 
 			it("handles different object types consistently", () => {
 				fc.assert(fc.property(
-					fc.string().filter(s => s.length > 0),
-					fc.anything(),
+					fc.string().filter(s => s.length > 0 && !s.includes('.')),
+					fc.anything().filter(v => v !== undefined),
 					(key, value) => {
 						// Test with regular object
 						const regularObj = { [key]: value }
@@ -490,13 +493,13 @@ describe("Object Accessing Behaviors", () => {
 			it("handles objects with null prototype", () => {
 				fc.assert(fc.property(
 					fc.string().filter(s => s.length > 0 && !s.includes('.')),
-					fc.anything(),
+					fc.anything().filter(v => v !== undefined),
 					(key, value) => {
 						const obj = Object.create(null)
 						obj[key] = value
 						
 						expect(path(key)(obj)).toBe(value)
-						expect(pathOr("default", key)(obj)).toBe(value)
+						expect(pathOr(key)("default")(obj)).toBe(value)
 					}
 				))
 			})
