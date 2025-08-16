@@ -284,25 +284,25 @@ describe("Array Transforming Behaviors", () => {
 
 	describe("when concatenating arrays", () => {
 		it("combines two arrays", () => {
-			const result = concat([3, 4])([1, 2])
+			const result = concat([1, 2])([3, 4])
 			expect(result).toEqual([1, 2, 3, 4])
 		})
 
 		it("handles empty arrays", () => {
-			expect(concat([2, 3])([1])).toEqual([1, 2, 3])
-			expect(concat<number>([])([1, 2])).toEqual([1, 2])
-			expect(concat([1, 2])([])).toEqual([1, 2])
+			expect(concat([1])([2, 3])).toEqual([1, 2, 3])
+			expect(concat<number>([1, 2])([])).toEqual([1, 2])
+			expect(concat([])([1, 2])).toEqual([1, 2])
 		})
 
 		it("preserves types", () => {
-			const strings = concat(["c", "d"])(["a", "b"])
+			const strings = concat(["a", "b"])(["c", "d"])
 			expect(strings).toEqual(["a", "b", "c", "d"])
 		})
 
 		it("does not mutate original arrays", () => {
 			const arr1 = [1, 2]
 			const arr2 = [3, 4]
-			const result = concat(arr2)(arr1)
+			const result = concat(arr1)(arr2)
 			expect(arr1).toEqual([1, 2])
 			expect(arr2).toEqual([3, 4])
 			expect(result).toEqual([1, 2, 3, 4])
@@ -311,7 +311,7 @@ describe("Array Transforming Behaviors", () => {
 		it("handles arrays with mixed types when types match", () => {
 			const mixed1 = [1, "a", true]
 			const mixed2 = [2, "b", false]
-			const result = concat(mixed2)(mixed1)
+			const result = concat(mixed1)(mixed2)
 			expect(result).toEqual([1, "a", true, 2, "b", false])
 		})
 	})
