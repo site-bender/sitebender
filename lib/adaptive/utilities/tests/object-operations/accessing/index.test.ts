@@ -3,6 +3,7 @@ import { expect } from "@std/expect"
 import * as fc from "fast-check"
 import path from "../../../object/path/index.ts"
 import pathOr from "../../../object/pathOr/index.ts"
+import has from "../../../object/has/index.ts"
 
 describe("Object Accessing Behaviors", () => {
 	describe("when accessing nested properties with path", () => {
@@ -489,7 +490,136 @@ describe("Object Accessing Behaviors", () => {
 			})
 		})
 
-		describe("edge case properties", () => {
+		describe("when checking property existence with has", () => {
+		const testObj = {
+			name: "Alice",
+			age: 30,
+			value: undefined,
+			nullable: null,
+			nested: {
+				prop: "value",
+				deep: {
+					leaf: true
+				}
+			},
+			arr: [1, 2, 3],
+			empty: {}
+		}
+
+		it("returns true for existing top-level properties", () => {
+			expect(has("name")(testObj)).toBe(true)
+			expect(has("age")(testObj)).toBe(true)
+			expect(has("nested")(testObj)).toBe(true)
+		})
+
+		it("returns true for properties with undefined values", () => {
+			expect(has("value")(testObj)).toBe(true)
+			expect(has("nullable")(testObj)).toBe(true)
+		})
+
+		it("returns false for non-existent properties", () => {
+			expect(has("missing")(testObj)).toBe(false)
+			expect(has("email")(testObj)).toBe(false)
+		})
+
+		it("checks nested properties with dot notation", () => {
+			expect(has("nested.prop")(testObj)).toBe(true)
+			expect(has("nested.deep.leaf")(testObj)).toBe(true)
+			expect(has("nested.missing")(testObj)).toBe(false)
+			expect(has("nested.deep.missing")(testObj)).toBe(false)
+		})
+
+		it("checks nested properties with array notation", () => {
+			expect(has(["nested", "prop"])(testObj)).toBe(true)
+			expect(has(["nested", "deep", "leaf"])(testObj)).toBe(true)
+			expect(has(["nested", "missing"])(testObj)).toBe(false)
+		})
+
+		it("checks array indices", () => {
+			expect(has("arr.0")(testObj)).toBe(true)
+			expect(has("arr.1")(testObj)).toBe(true)
+			expect(has("arr.2")(testObj)).toBe(true)
+			expect(has("arr.3")(testObj)).toBe(false)
+			expect(has(["arr", 0])(testObj)).toBe(true)
+			expect(has(["arr", 3])(testObj)).toBe(false)
+		})
+
+		it("returns false for null/undefined objects", () => {
+			expect(has("any")(null)).toBe(false)
+			expect(has("any")(undefined)).toBe(false)
+			expect(has("")(null)).toBe(false)
+			expect(has("")(undefined)).toBe(false)
+		})
+
+		it("returns true for empty path on existing object", () => {
+			expect(has("")(testObj)).toBe(true)
+			expect(has([])({ any: "object" })).toBe(true)
+			expect(has("")({})).toBe(true)
+		})
+
+		it("doesn't check prototype properties", () => {
+			const obj = { own: "property" }
+			expect(has("own")(obj)).toBe(true)
+			expect(has("toString")(obj)).toBe(false)
+			expect(has("constructor")(obj)).toBe(false)
+			expect(has("hasOwnProperty")(obj)).toBe(false)
+		})
+
+		it("handles objects with null prototype", () => {
+			const obj = Object.create(null)
+			obj.prop = "value"
+			expect(has("prop")(obj)).toBe(true)
+			expect(has("missing")(obj)).toBe(false)
+		})
+
+		it("returns false when path traverses through non-objects", () => {
+			expect(has("name.length")({ name: "John" })).toBe(false) // string is primitive
+			expect(has("age.value")({ age: 30 })).toBe(false) // number is primitive
+			expect(has("flag.prop")({ flag: true })).toBe(false) // boolean is primitive
+		})
+
+		it("works with Maps", () => {
+			const map = new Map([["key1", "value1"], ["key2", { nested: true }]])
+			const obj = { data: map }
+			
+			// Can check that map exists
+			expect(has("data")(obj)).toBe(true)
+			// But can't traverse into Maps with dot notation
+			expect(has("data.key1")(obj)).toBe(false)
+		})
+
+		it("works with Sets", () => {
+			const set = new Set([1, 2, 3])
+			const obj = { items: set }
+			
+			// Can check that set exists
+			expect(has("items")(obj)).toBe(true)
+			// But can't traverse into Sets
+			expect(has("items.0")(obj)).toBe(false)
+		})
+
+		it("handles circular references safely", () => {
+			const obj: any = { a: { b: {} } }
+			obj.a.b.c = obj
+			
+			expect(has("a")(obj)).toBe(true)
+			expect(has("a.b")(obj)).toBe(true)
+			expect(has("a.b.c")(obj)).toBe(true)
+			expect(has("a.b.c.a.b")(obj)).toBe(true)
+		})
+
+		it("works with partial application", () => {
+			const hasName = has("name")
+			expect(hasName({ name: "John" })).toBe(true)
+			expect(hasName({ age: 30 })).toBe(false)
+			
+			const hasUserId = has("user.id")
+			expect(hasUserId({ user: { id: 1 } })).toBe(true)
+			expect(hasUserId({ user: { name: "John" } })).toBe(false)
+		})
+	})
+
+	describe("edge case properties", () => {
 			it("handles objects with null prototype", () => {
 				fc.assert(fc.property(
 					fc.string().filter(s => s.length > 0 && !s.includes('.')),
@@ -522,7 +652,133 @@ describe("Object Accessing Behaviors", () => {
 				))
 			})
 
-			it("handles numeric string keys consistently", () => {
+			describe("has properties", () => {
+			it("has returns true if path returns a value", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.string(),
+					(obj, pathStr) => {
+						const hasResult = has(pathStr)(obj)
+						const pathResult = path(pathStr)(obj)
+						
+						// If path returns undefined, has could be true or false
+						// (property might exist with undefined value)
+						// But if path returns a non-undefined value, has must be true
+						if (pathResult !== undefined) {
+							expect(hasResult).toBe(true)
+						}
+					}
+				))
+			})
+
+			it("has is consistent for existing properties", () => {
+				fc.assert(fc.property(
+					fc.string().filter(s => s.length > 0 && !s.includes('.')),
+					fc.anything(),
+					(key, value) => {
+						const obj = { [key]: value }
+						expect(has(key)(obj)).toBe(true)
+						expect(has([key])(obj)).toBe(true)
+					}
+				))
+			})
+
+			it("has returns false for non-existent properties", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.string().filter(s => s.length > 0 && !s.includes('.')),
+					(obj, key) => {
+						fc.pre(!obj.hasOwnProperty(key))
+						expect(has(key)(obj)).toBe(false)
+						expect(has([key])(obj)).toBe(false)
+					}
+				))
+			})
+
+			it("has handles null and undefined consistently", () => {
+				fc.assert(fc.property(
+					fc.string(),
+					(pathStr) => {
+						expect(has(pathStr)(null)).toBe(false)
+						expect(has(pathStr)(undefined)).toBe(false)
+					}
+				))
+			})
+
+			it("has handles nested paths correctly", () => {
+				fc.assert(fc.property(
+					fc.array(fc.string().filter(s => s.length > 0 && !s.includes('.')), { minLength: 2, maxLength: 4 }),
+					fc.anything(),
+					(keys, value) => {
+						// Build nested object
+						let obj: any = value
+						for (let i = keys.length - 1; i >= 0; i--) {
+							obj = { [keys[i]]: obj }
+						}
+						
+						// Check all partial paths
+						for (let i = 1; i <= keys.length; i++) {
+							const partialKeys = keys.slice(0, i)
+							const partialPath = partialKeys.join('.')
+							
+							// All partial paths should exist
+							expect(has(partialPath)(obj)).toBe(true)
+							expect(has(partialKeys)(obj)).toBe(true)
+						}
+						
+						// Non-existent path at any level
+						const wrongPath = [...keys.slice(0, -1), "nonexistent"]
+						expect(has(wrongPath)(obj)).toBe(false)
+					}
+				))
+			})
+
+			it("empty path returns true for any non-null object", () => {
+				fc.assert(fc.property(
+					fc.oneof(fc.object(), fc.array(fc.anything()), fc.string(), fc.integer(), fc.boolean()),
+					(value) => {
+						if (value != null) {
+							expect(has("")(value)).toBe(true)
+							expect(has([])(value)).toBe(true)
+						}
+					}
+				))
+			})
+
+			it("has doesn't access prototype properties", () => {
+				const prototypeProps = ["toString", "valueOf", "constructor", "hasOwnProperty", "__proto__"]
+				
+				fc.assert(fc.property(
+					fc.object(),
+					(obj) => {
+						for (const prop of prototypeProps) {
+							if (!obj.hasOwnProperty(prop)) {
+								expect(has(prop)(obj)).toBe(false)
+							}
+						}
+					}
+				))
+			})
+
+			it("has handles arrays correctly", () => {
+				fc.assert(fc.property(
+					fc.array(fc.anything(), { minLength: 1, maxLength: 10 }),
+					(arr) => {
+						for (let i = 0; i < arr.length; i++) {
+							expect(has(String(i))(arr)).toBe(true)
+							expect(has([i])(arr)).toBe(true)
+						}
+						
+						// Out of bounds
+						expect(has(String(arr.length))(arr)).toBe(false)
+						expect(has([arr.length])(arr)).toBe(false)
+						expect(has("-1")(arr)).toBe(false)
+					}
+				))
+			})
+		})
+
+		it("handles numeric string keys consistently", () => {
 				fc.assert(fc.property(
 					fc.integer({ min: 0, max: 100 }),
 					fc.anything(),

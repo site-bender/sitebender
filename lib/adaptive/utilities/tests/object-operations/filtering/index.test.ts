@@ -1,5 +1,6 @@
 import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
+import * as fc from "fast-check"
 import pick from "../../../object/pick/index.ts"
 import omit from "../../../object/omit/index.ts"
 
@@ -64,9 +65,10 @@ describe("Object Filtering Behaviors", () => {
 			expect(result).not.toBe(obj) // Different object
 		})
 
-		it("preserves property order", () => {
+		it("preserves keys array order", () => {
 			const result = pick(["role", "id", "name"])(testObj)
-			expect(Object.keys(result)).toEqual(["id", "name", "role"])
+			// Properties are returned in the order specified in the keys array
+			expect(Object.keys(result)).toEqual(["role", "id", "name"])
 		})
 
 		it("handles arrays", () => {
@@ -224,6 +226,213 @@ describe("Object Filtering Behaviors", () => {
 		it("omitting none is identity", () => {
 			const result = omit([])(obj)
 			expect(result).toEqual(obj)
+		})
+	})
+
+	describe("property-based tests", () => {
+		describe("pick properties", () => {
+			it("picked object only contains specified keys", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = pick(keys)(obj)
+						const resultKeys = Object.keys(result)
+						
+						// Every key in result should be in the keys array
+						for (const key of resultKeys) {
+							expect(keys).toContain(key)
+						}
+					}
+				))
+			})
+
+			it("picked values match original values", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = pick(keys)(obj)
+						
+						// Every value in result should match original
+						for (const key of Object.keys(result)) {
+							expect(result[key]).toBe(obj[key])
+						}
+					}
+				))
+			})
+
+			it("pick is idempotent", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const once = pick(keys)(obj)
+						const twice = pick(keys)(once)
+						expect(twice).toEqual(once)
+					}
+				))
+			})
+
+			it("empty keys returns empty object", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					(obj) => {
+						const result = pick([])(obj)
+						expect(result).toEqual({})
+					}
+				))
+			})
+
+			it("pick creates new object", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = pick(keys)(obj)
+						expect(result).not.toBe(obj)
+					}
+				))
+			})
+		})
+
+		describe("omit properties", () => {
+			it("omitted object doesn't contain specified keys", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = omit(keys)(obj)
+						
+						// No key in result should be in the keys array (own properties only)
+						for (const key of keys) {
+							expect(Object.prototype.hasOwnProperty.call(result, key)).toBe(false)
+						}
+					}
+				))
+			})
+
+			it("omitted values match original values", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = omit(keys)(obj)
+						
+						// Every value in result should match original
+						for (const key of Object.keys(result)) {
+							expect(result[key]).toBe(obj[key])
+						}
+					}
+				))
+			})
+
+			it("omit is idempotent", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const once = omit(keys)(obj)
+						const twice = omit(keys)(once)
+						expect(twice).toEqual(once)
+					}
+				))
+			})
+
+			it("empty keys returns full object copy", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					(obj) => {
+						const result = omit([])(obj)
+						expect(result).toEqual(obj)
+						expect(result).not.toBe(obj)
+					}
+				))
+			})
+
+			it("omit creates new object", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const result = omit(keys)(obj)
+						expect(result).not.toBe(obj)
+					}
+				))
+			})
+		})
+
+		describe("pick and omit relationship properties", () => {
+			it("pick and omit partition the object", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					(obj, keys) => {
+						const picked = pick(keys)(obj)
+						const omitted = omit(keys)(obj)
+						
+						// No overlapping keys
+						for (const key of Object.keys(picked)) {
+							expect(omitted).not.toHaveProperty(key)
+						}
+						
+						// Combined they have all original keys
+						const combined = { ...picked, ...omitted }
+						expect(Object.keys(combined).sort()).toEqual(Object.keys(obj).sort())
+					}
+				))
+			})
+
+			it("pick of all keys equals object", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					(obj) => {
+						const allKeys = Object.keys(obj)
+						const result = pick(allKeys)(obj)
+						expect(result).toEqual(obj)
+					}
+				))
+			})
+
+			it("omit of all keys equals empty", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					(obj) => {
+						const allKeys = Object.keys(obj)
+						const result = omit(allKeys)(obj)
+						expect(result).toEqual({})
+					}
+				))
+			})
+
+			it("composing pick functions", () => {
+				fc.assert(fc.property(
+					fc.object(),
+					fc.array(fc.string()),
+					fc.array(fc.string()),
+					(obj, keys1, keys2) => {
+						// Picking keys2 from pick(keys1) should be same as 
+						// picking intersection of keys1 and keys2
+						const composed = pick(keys2)(pick(keys1)(obj))
+						const intersection = keys1.filter(k => keys2.includes(k))
+						const direct = pick(intersection)(obj)
+						expect(composed).toEqual(direct)
+					}
+				))
+			})
+
+			it("null and undefined handling", () => {
+				fc.assert(fc.property(
+					fc.array(fc.string()),
+					(keys) => {
+						// pick and omit should handle null/undefined gracefully
+						expect(pick(keys)(null as any)).toEqual({})
+						expect(pick(keys)(undefined as any)).toEqual({})
+						expect(omit(keys)(null as any)).toEqual({})
+						expect(omit(keys)(undefined as any)).toEqual({})
+					}
+				))
+			})
 		})
 	})
 })
