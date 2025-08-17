@@ -93,19 +93,13 @@ const partition = <T>(
 		return [[], []]
 	}
 	
-	const pass: Array<T> = []
-	const fail: Array<T> = []
-	
-	for (let i = 0; i < array.length; i++) {
-		const element = array[i]
-		if (predicate(element, i, array)) {
-			pass.push(element)
-		} else {
-			fail.push(element)
-		}
-	}
-	
-	return [pass, fail]
+	return array.reduce<[Array<T>, Array<T>]>(
+		([pass, fail], element, index) => 
+			predicate(element, index, array)
+				? [[...pass, element], fail]
+				: [pass, [...fail, element]],
+		[[], []]
+	)
 }
 
 export default partition

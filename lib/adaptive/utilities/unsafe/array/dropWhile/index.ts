@@ -43,13 +43,9 @@
  * dropWhile((x: number, i: number) => i < 3)([10, 20, 30, 40, 50])
  * // [40, 50]
  * 
- * // Drop while accumulating sum is small
- * let sum = 0
- * dropWhile((x: number) => {
- *   sum += x
- *   return sum < 10
- * })([2, 3, 4, 5, 6])
- * // [5, 6]  (dropped 2, 3, 4 which sum to 9)
+ * // Drop while values are small
+ * dropWhile((x: number) => x < 5)([2, 3, 4, 5, 6])
+ * // [5, 6]  (dropped 2, 3, 4)
  * 
  * // Skip header rows
  * dropWhile((row: string) => row.startsWith("#"))([
@@ -108,17 +104,11 @@ const dropWhile = <T>(
 		return []
 	}
 	
-	let dropIndex = 0
+	const dropIndex = array.findIndex((element, index) => 
+		!predicate(element, index, array)
+	)
 	
-	for (let i = 0; i < array.length; i++) {
-		if (!predicate(array[i], i, array)) {
-			dropIndex = i
-			break
-		}
-		dropIndex = i + 1
-	}
-	
-	return array.slice(dropIndex)
+	return dropIndex === -1 ? [] : array.slice(dropIndex)
 }
 
 export default dropWhile

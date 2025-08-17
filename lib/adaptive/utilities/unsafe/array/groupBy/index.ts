@@ -94,19 +94,14 @@ const groupBy = <T, K extends string | number>(
 		return {}
 	}
 	
-	const result: Record<string, Array<T>> = {}
-	
-	for (const element of array) {
+	return array.reduce((acc: Record<string, Array<T>>, element: T) => {
 		const key = String(keyFn(element))
 		
-		if (!(key in result)) {
-			result[key] = []
+		return {
+			...acc,
+			[key]: [...(acc[key] || []), element]
 		}
-		
-		result[key].push(element)
-	}
-	
-	return result
+	}, {})
 }
 
 export default groupBy

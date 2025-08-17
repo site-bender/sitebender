@@ -328,3 +328,56 @@ export const fold = <L, R, B>(
 	onRight: (r: R) => B
 ) => (either: Either<L, R>): B =>
 	isLeft(either) ? onLeft(either.left) : onRight(either.right)
+
+// ============================================================================
+// Result type aliases for those who prefer Rust-style naming
+// ============================================================================
+
+/**
+ * Result type - alias for Either with error-first convention
+ * @example
+ * ```typescript
+ * // Using Result instead of Either
+ * const success: Result<string, number> = ok(42)
+ * const failure: Result<string, number> = err("Failed")
+ * 
+ * // Works exactly like Either
+ * ok(5)
+ *   .map(x => x * 2)
+ *   .fold(
+ *     error => console.error(error),
+ *     value => console.log(value)
+ *   )
+ * ```
+ */
+export type Result<E, T> = Either<E, T>
+
+/**
+ * Error case of Result - alias for Left
+ */
+export type Err<E> = Left<E>
+
+/**
+ * Success case of Result - alias for Right  
+ */
+export type Ok<T> = Right<T>
+
+/**
+ * Create an error result - alias for left
+ */
+export const err = left
+
+/**
+ * Create a success result - alias for right
+ */
+export const ok = right
+
+/**
+ * Type guard to check if Result is an error - alias for isLeft
+ */
+export const isErr = isLeft
+
+/**
+ * Type guard to check if Result is ok - alias for isRight
+ */
+export const isOk = isRight

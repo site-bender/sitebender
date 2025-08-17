@@ -19,22 +19,14 @@
  * takeWhile((x: number) => x % 2 === 0)([2, 4, 6, 7, 8, 10])
  * // [2, 4, 6]  (stops at 7)
  * 
- * // Take while string length increases
- * let lastLength = 0
- * takeWhile((s: string) => {
- *   const take = s.length > lastLength
- *   lastLength = s.length
- *   return take
- * })(["a", "ab", "abc", "ab", "abcd"])
- * // ["a", "ab", "abc"]  (stops when length doesn't increase)
+ * // Take while string length is short
+ * takeWhile((s: string) => s.length <= 3)(["a", "ab", "abc", "abcd", "abcde"])
+ * // ["a", "ab", "abc"]  (stops at "abcd" which has length 4)
  * 
- * // Take while ascending
- * let last = -Infinity
- * takeWhile((x: number) => {
- *   const take = x > last
- *   last = x
- *   return take
- * })([1, 2, 3, 2, 4, 5])
+ * // Take while ascending (using index to check previous)
+ * takeWhile((x: number, i: number, arr: ReadonlyArray<number>) => 
+ *   i === 0 || x > arr[i - 1]
+ * )([1, 2, 3, 2, 4, 5])
  * // [1, 2, 3]  (stops when order breaks)
  * 
  * // Take objects while property is true
@@ -50,13 +42,9 @@
  * takeWhile((x: number, i: number) => i < 3)([10, 20, 30, 40, 50])
  * // [10, 20, 30]
  * 
- * // Take while sum is under limit
- * let sum = 0
- * takeWhile((x: number) => {
- *   sum += x
- *   return sum <= 10
- * })([2, 3, 4, 5, 6])
- * // [2, 3, 4]  (sum = 9, adding 5 would exceed 10)
+ * // Take while values are under limit
+ * takeWhile((x: number) => x <= 4)([2, 3, 4, 5, 6])
+ * // [2, 3, 4]  (stops at 5 which exceeds 4)
  * 
  * // Partial application for reusable takers
  * const takePositive = takeWhile((x: number) => x > 0)
@@ -99,17 +87,11 @@ const takeWhile = <T>(
 		return []
 	}
 	
-	const result: Array<T> = []
+	const takeIndex = array.findIndex((element, index) => 
+		!predicate(element, index, array)
+	)
 	
-	for (let i = 0; i < array.length; i++) {
-		const element = array[i]
-		if (!predicate(element, i, array)) {
-			break
-		}
-		result.push(element)
-	}
-	
-	return result
+	return takeIndex === -1 ? [...array] : array.slice(0, takeIndex)
 }
 
 export default takeWhile
