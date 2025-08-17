@@ -2,10 +2,10 @@ import type { Either } from "../../../types/either/index.ts"
 import { left, right } from "../../../types/either/index.ts"
 import partitionUnsafe from "../../../unsafe/array/partition/index.ts"
 
-export interface PartitionError extends Error {
+export interface PartitionError<T> extends Error {
 	name: "PartitionError"
-	predicate: <T>(element: T, index: number, array: ReadonlyArray<T>) => boolean
-	array: ReadonlyArray<unknown> | null | undefined
+	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
+	array: ReadonlyArray<T> | null | undefined
 }
 
 /**
@@ -53,16 +53,16 @@ const partition = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
 ) => (
 	array: ReadonlyArray<T> | null | undefined
-): Either<PartitionError, [Array<T>, Array<T>]> => {
+): Either<PartitionError<T>, [Array<T>, Array<T>]> => {
 	try {
 		// Validate predicate
 		if (typeof predicate !== "function") {
-			const error: PartitionError = {
+			const error: PartitionError<T> = {
 				name: "PartitionError",
 				message: `Predicate must be a function, got ${typeof predicate}`,
 				predicate,
 				array
-			} as PartitionError
+			} as PartitionError<T>
 			return left(error)
 		}
 		
@@ -70,12 +70,12 @@ const partition = <T>(
 		const result = partitionUnsafe(predicate)(array)
 		return right(result)
 	} catch (err) {
-		const error: PartitionError = {
+		const error: PartitionError<T> = {
 			name: "PartitionError",
 			message: err instanceof Error ? err.message : String(err),
 			predicate,
 			array
-		} as PartitionError
+		} as PartitionError<T>
 		return left(error)
 	}
 }

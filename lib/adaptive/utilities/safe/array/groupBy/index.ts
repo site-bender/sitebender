@@ -2,10 +2,10 @@ import type { Either } from "../../../types/either/index.ts"
 import { left, right } from "../../../types/either/index.ts"
 import groupByUnsafe from "../../../unsafe/array/groupBy/index.ts"
 
-export interface GroupByError extends Error {
+export interface GroupByError<T> extends Error {
 	name: "GroupByError"
-	array: ReadonlyArray<unknown> | null | undefined
-	keyFn: <T>(element: T) => string | number
+	array: ReadonlyArray<T> | null | undefined
+	keyFn: (element: T) => string | number
 }
 
 /**
@@ -57,16 +57,16 @@ const groupBy = <T, K extends string | number>(
 	keyFn: (element: T) => K
 ) => (
 	array: ReadonlyArray<T> | null | undefined
-): Either<GroupByError, Record<string, Array<T>>> => {
+): Either<GroupByError<T>, Record<string, Array<T>>> => {
 	try {
 		// Validate keyFn
 		if (typeof keyFn !== "function") {
-			const error: GroupByError = {
+			const error: GroupByError<T> = {
 				name: "GroupByError",
 				message: `Key function must be a function, got ${typeof keyFn}`,
 				array,
 				keyFn
-			} as GroupByError
+			} as GroupByError<T>
 			return left(error)
 		}
 		
@@ -74,12 +74,12 @@ const groupBy = <T, K extends string | number>(
 		const result = groupByUnsafe(keyFn)(array)
 		return right(result)
 	} catch (err) {
-		const error: GroupByError = {
+		const error: GroupByError<T> = {
 			name: "GroupByError",
 			message: err instanceof Error ? err.message : String(err),
 			array,
 			keyFn
-		} as GroupByError
+		} as GroupByError<T>
 		return left(error)
 	}
 }

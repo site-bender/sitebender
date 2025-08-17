@@ -41,7 +41,7 @@
  * // }
  * 
  * // Group objects by type
- * groupBy((item: any) => item.type)([
+ * groupBy((item: { type: string; name: string }) => item.type)([
  *   { type: "fruit", name: "apple" },
  *   { type: "vegetable", name: "carrot" },
  *   { type: "fruit", name: "banana" },

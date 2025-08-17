@@ -1,4 +1,4 @@
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 /**
  * Retrieves a nested value from an object using a path
@@ -82,9 +82,13 @@ const path = (pathInput: string | Array<string | number>) => (obj: Value): Value
 			} else {
 				// For plain objects, use hasOwnProperty to avoid prototype pollution
 				const strKey = String(key)
-				return Object.prototype.hasOwnProperty.call(acc, strKey) 
-					? (acc as any)[strKey] 
-					: undefined
+				if (!Object.prototype.hasOwnProperty.call(acc, strKey)) {
+					return undefined
+				}
+				// Type assertion is safe here because we verified the property exists
+				// and acc is an object type (checked above)
+				const objAcc = acc as Record<string, Value>
+				return objAcc[strKey]
 			}
 		}
 		

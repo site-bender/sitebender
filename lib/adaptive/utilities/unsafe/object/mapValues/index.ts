@@ -33,16 +33,16 @@ import type { Value } from "../../../../types/index.ts"
  * // { name: "string", age: "number", active: "boolean" }
  * 
  * // Nested object transformation
- * mapValues((user: any) => user.name)({
+ * mapValues((user: { name: string; age: number }) => user.name)({
  *   user1: { name: "Alice", age: 30 },
  *   user2: { name: "Bob", age: 25 }
  * })
  * // { user1: "Alice", user2: "Bob" }
  * 
  * // Using index in transformation
- * const withIndex = <T>(fn: (val: T, key: string) => any) =>
+ * const withIndex = <T, R>(fn: (val: T, key: string) => R) =>
  *   (obj: Record<string, T>) => {
- *     const result: Record<string, any> = {}
+ *     const result: Record<string, R> = {}
  *     for (const key in obj) {
  *       if (Object.prototype.hasOwnProperty.call(obj, key)) {
  *         result[key] = fn(obj[key], key)

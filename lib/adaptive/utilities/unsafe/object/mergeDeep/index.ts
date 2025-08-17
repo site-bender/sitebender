@@ -44,7 +44,7 @@ import type { Value } from "../../../../types/index.ts"
  * mergeDeep(null)({ a: { b: 1 } })          // { a: { b: 1 } }
  * 
  * // Circular reference handling
- * const circular: any = { a: 1 }
+ * const circular: Record<string, Value> = { a: 1 }
  * circular.self = circular
  * mergeDeep(circular)({ b: 2 })             // { a: 1, b: 2 } (circular ref handled)
  * 

@@ -2,10 +2,10 @@ import type { Either } from "../../../types/either/index.ts"
 import { left, right } from "../../../types/either/index.ts"
 import takeWhileUnsafe from "../../../unsafe/array/takeWhile/index.ts"
 
-export interface TakeWhileError extends Error {
+export interface TakeWhileError<T> extends Error {
 	name: "TakeWhileError"
-	predicate: <T>(element: T, index: number, array: ReadonlyArray<T>) => boolean
-	array: ReadonlyArray<unknown> | null | undefined
+	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
+	array: ReadonlyArray<T> | null | undefined
 }
 
 /**
@@ -50,16 +50,16 @@ const takeWhile = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
 ) => (
 	array: ReadonlyArray<T> | null | undefined
-): Either<TakeWhileError, Array<T>> => {
+): Either<TakeWhileError<T>, Array<T>> => {
 	try {
 		// Validate predicate
 		if (typeof predicate !== "function") {
-			const error: TakeWhileError = {
+			const error: TakeWhileError<T> = {
 				name: "TakeWhileError",
 				message: `Predicate must be a function, got ${typeof predicate}`,
 				predicate: predicate as typeof error.predicate,
 				array
-			} as TakeWhileError
+			} as TakeWhileError<T>
 			return left(error)
 		}
 		
@@ -67,12 +67,12 @@ const takeWhile = <T>(
 		const result = takeWhileUnsafe(predicate)(array)
 		return right(result)
 	} catch (err) {
-		const error: TakeWhileError = {
+		const error: TakeWhileError<T> = {
 			name: "TakeWhileError",
 			message: err instanceof Error ? err.message : String(err),
 			predicate,
 			array
-		} as TakeWhileError
+		} as TakeWhileError<T>
 		return left(error)
 	}
 }

@@ -80,7 +80,7 @@ const pathSafe = (pathInput: string | Array<string | number>) =>
 	if (keys.length === 0) return right(obj)
 	
 	// Traverse the path
-	let current: any = obj
+	let current: Value = obj
 	const traversedPath: Array<string | number> = []
 	
 	for (const key of keys) {
@@ -130,7 +130,8 @@ const pathSafe = (pathInput: string | Array<string | number>) =>
 						pathInput
 					))
 				}
-				current = current[strKey]
+				const objCurrent = current as Record<string, Value>
+				current = objCurrent[strKey]
 			}
 		} else {
 			// Trying to traverse through a primitive

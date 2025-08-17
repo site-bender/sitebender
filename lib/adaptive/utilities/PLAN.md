@@ -49,12 +49,15 @@ lib/adaptive/utilities/
 ### 1. TypeScript Requirements
 
 **ABSOLUTELY NO CHEATING**:
-- ❌ NO `any` types - use `unknown` for untyped inputs
+- ❌ NO `any` types EVER - all inputs have types, use proper types or generics
+- ❌ NO `unknown` unless utterly unavoidable (must be explicitly justified)
 - ❌ NO `Function` type - use specific signatures like `(value: T) => R`
 - ❌ NO `as any` casts - properly type everything
+- ❌ NO type assertions without explicit justification
 - ✅ USE `Value` type from `types/index.ts` for recursive structures
 - ✅ USE specific function signatures for all callbacks
 - ✅ USE generic types for maximum flexibility
+- ✅ USE proper type guards when narrowing types
 
 ### 2. Function Design Patterns
 
@@ -137,8 +140,8 @@ import functionUnsafe from "../../../unsafe/category/function/index.ts"
 // Specific error type with all context
 export interface FunctionError extends Error {
   name: "FunctionError"  // Literal type
-  param1: unknown        // Include all parameters
-  param2: unknown        // for debugging
+  param1: Type1          // Include actual parameter types
+  param2: Type2          // for debugging
 }
 
 const functionSafe = (param1: Type1) => (param2: Type2): Either<FunctionError, Result> => {
@@ -380,7 +383,7 @@ These may not need safe versions since they return boolean:
 
 ## Common Pitfalls to Avoid
 
-1. **DON'T use `any` or `Function` types** - Be specific
+1. **DON'T use `any` EVER, NO `unknown` without justification, NO `Function` type** - Be specific with all types
 2. **DON'T mutate input data** - Always return new
 3. **DON'T throw in safe functions** - Return Left
 4. **DON'T forget null checks** - Handle gracefully  
@@ -395,7 +398,7 @@ These may not need safe versions since they return boolean:
 
 From `lib/adaptive/types/index.ts`:
 ```typescript
-// Use these instead of any
+// Use proper types - NEVER use any
 type Value = PrimitiveValue | Array<Value> | { [key: string]: Value } | ...
 type PrimitiveValue = string | number | boolean | null | undefined
 
@@ -412,7 +415,7 @@ When implementing a new function:
 
 - [ ] Create unsafe version in `/unsafe/category/functionName/index.ts`
 - [ ] Add comprehensive JSDoc with examples
-- [ ] Use proper TypeScript types (no `any` or `Function`)
+- [ ] Use proper TypeScript types (NO `any` EVER, NO `Function`, NO `unknown` without justification)
 - [ ] Make it curried with data-last
 - [ ] Handle null/undefined gracefully
 - [ ] Ensure immutability
@@ -432,7 +435,7 @@ When implementing a new function:
 
 1. Does this function already exist in unsafe? Create safe version first.
 2. What should happen with null/undefined input? Return empty or error?
-3. What's the most specific type signature? Avoid `unknown` if possible.
+3. What's the most specific type signature? Use proper types, generics, or Value type.
 4. Can this be composed with other functions? Design for composition.
 5. What error information would help debugging? Include in error type.
 6. Is the JSDoc clear enough for a new user? Add more examples.
@@ -443,6 +446,6 @@ When implementing a new function:
 
 This utilities library provides a complete functional programming toolkit with a unique dual paradigm approach. Every function exists in both unsafe (traditional) and safe (monadic) versions, allowing developers to choose the right tool for their needs. The safe versions enable railway-oriented programming through the Either monad, while unsafe versions provide familiar, performant alternatives.
 
-All code must be properly typed (no `any`), fully documented (comprehensive JSDoc), thoroughly tested (behavioral + property-based), and consistently structured (curried, immutable, data-last).
+All code must be properly typed (NO `any` EVER, NO `unknown` without explicit justification), fully documented (comprehensive JSDoc), thoroughly tested (behavioral + property-based), and consistently structured (curried, immutable, data-last).
 
 The goal is a zero-dependency, tree-shakable, type-safe utility library that rivals Ramda in functionality while exceeding it in type safety and error handling.

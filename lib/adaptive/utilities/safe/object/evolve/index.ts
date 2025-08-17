@@ -5,7 +5,7 @@ import evolveUnsafe from "../../../unsafe/object/evolve/index.ts"
 
 export interface EvolveError extends Error {
 	name: "EvolveError"
-	transformations: Record<string, unknown>
+	transformations: Record<string | symbol, Value | ((value: Value) => Value)>
 	object: Record<string, Value> | null | undefined
 }
 
@@ -60,7 +60,7 @@ export interface EvolveError extends Error {
  * ```
  */
 const evolve = <T extends Record<string, Value>>(
-	transformations: Record<string, unknown>
+	transformations: Record<string | symbol, Value | ((value: Value) => Value)>
 ) => (obj: T | null | undefined): Either<EvolveError, T> => {
 	try {
 		// Validate transformations

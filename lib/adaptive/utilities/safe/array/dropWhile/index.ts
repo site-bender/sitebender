@@ -2,10 +2,10 @@ import type { Either } from "../../../types/either/index.ts"
 import { left, right } from "../../../types/either/index.ts"
 import dropWhileUnsafe from "../../../unsafe/array/dropWhile/index.ts"
 
-export interface DropWhileError extends Error {
+export interface DropWhileError<T> extends Error {
 	name: "DropWhileError"
-	predicate: <T>(element: T, index: number, array: ReadonlyArray<T>) => boolean
-	array: ReadonlyArray<unknown> | null | undefined
+	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
+	array: ReadonlyArray<T> | null | undefined
 }
 
 /**
@@ -51,16 +51,16 @@ const dropWhile = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean
 ) => (
 	array: ReadonlyArray<T> | null | undefined
-): Either<DropWhileError, Array<T>> => {
+): Either<DropWhileError<T>, Array<T>> => {
 	try {
 		// Validate predicate
 		if (typeof predicate !== "function") {
-			const error: DropWhileError = {
+			const error: DropWhileError<T> = {
 				name: "DropWhileError",
 				message: `Predicate must be a function, got ${typeof predicate}`,
 				predicate: predicate as typeof error.predicate,
 				array
-			} as DropWhileError
+			} as DropWhileError<T>
 			return left(error)
 		}
 		
@@ -68,12 +68,12 @@ const dropWhile = <T>(
 		const result = dropWhileUnsafe(predicate)(array)
 		return right(result)
 	} catch (err) {
-		const error: DropWhileError = {
+		const error: DropWhileError<T> = {
 			name: "DropWhileError",
 			message: err instanceof Error ? err.message : String(err),
 			predicate,
 			array
-		} as DropWhileError
+		} as DropWhileError<T>
 		return left(error)
 	}
 }

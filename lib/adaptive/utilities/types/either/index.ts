@@ -112,16 +112,16 @@ export const left = <L, R = never>(value: L): Either<L, R> => ({
 	isLeft: () => true,
 	isRight: () => false,
 	
-	map: () => left(value),
-	flatMap: () => left(value),
-	fold: (onLeft) => onLeft(value),
-	getOrElse: (defaultValue) => defaultValue,
-	orElse: (fn) => fn(value),
+	map: <R2>(_fn: (r: never) => R2) => left<L, R2>(value),
+	flatMap: <R2>(_fn: (r: never) => Either<L, R2>) => left<L, R2>(value),
+	fold: <B>(onLeft: (l: L) => B, _onRight: (r: never) => B) => onLeft(value),
+	getOrElse: <T>(defaultValue: T) => defaultValue,
+	orElse: <L2, R2>(fn: (l: L) => Either<L2, R2>) => fn(value),
 	
 	toMaybe: () => nothing(),
 	toArray: () => [],
 	toString: () => `Left(${String(value)})`,
-})
+} as Either<L, R>)
 
 /**
  * Create a Right value
@@ -134,16 +134,16 @@ export const right = <R, L = never>(value: R): Either<L, R> => ({
 	isLeft: () => false,
 	isRight: () => true,
 	
-	map: (fn) => right(fn(value)),
-	flatMap: (fn) => fn(value),
-	fold: (_, onRight) => onRight(value),
-	getOrElse: () => value,
-	orElse: () => right(value),
+	map: <R2>(fn: (r: R) => R2) => right<R2, L>(fn(value)),
+	flatMap: <L2, R2>(fn: (r: R) => Either<L2, R2>) => fn(value),
+	fold: <B>(_onLeft: (l: never) => B, onRight: (r: R) => B) => onRight(value),
+	getOrElse: <T>(_defaultValue: T) => value,
+	orElse: <L2, R2>(_fn: (l: never) => Either<L2, R2>) => right<R, L2>(value),
 	
 	toMaybe: () => just(value),
 	toArray: () => [value],
 	toString: () => `Right(${String(value)})`,
-})
+} as Either<L, R>)
 
 /**
  * Create an Either from a nullable value
@@ -260,7 +260,7 @@ const just = <A>(value: A): Just<A> => ({
 export const map = <L, R, R2>(
 	fn: (r: R) => R2
 ) => (either: Either<L, R>): Either<L, R2> =>
-	isRight(either) ? right(fn(either.right)) : either
+	isRight(either) ? right<R2, L>(fn(either.right)) : left<L, R2>(either.left)
 
 /**
  * FlatMap over Either (also known as chain or bind)
@@ -288,7 +288,7 @@ export const ap = <L, A, B>(
 export const lift = <L, A, B>(
 	fn: (a: A) => B
 ) => (either: Either<L, A>): Either<L, B> =>
-	map(fn)(either)
+	map<L, A, B>(fn)(either)
 
 /**
  * Lift a binary function to work with Either values

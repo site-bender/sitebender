@@ -4,7 +4,7 @@ import wordsUnsafe from "../../../unsafe/string/words/index.ts"
 
 export interface WordsError extends Error {
 	name: "WordsError"
-	input: unknown
+	input: string | null | undefined
 }
 
 /**
@@ -43,23 +43,8 @@ export interface WordsError extends Error {
  * processIdentifier("getUserById") // Right("get-user-by-id")
  * ```
  */
-const words = (str: unknown): Either<WordsError, Array<string>> => {
+const words = (str: string | null | undefined): Either<WordsError, Array<string>> => {
 	try {
-		// Allow null/undefined (returns empty array)
-		if (str == null) {
-			return right([])
-		}
-		
-		// Validate input type
-		if (typeof str !== "string") {
-			const error: WordsError = {
-				name: "WordsError",
-				message: `Input must be a string, got ${typeof str}`,
-				input: str
-			} as WordsError
-			return left(error)
-		}
-		
 		const result = wordsUnsafe(str)
 		return right(result)
 	} catch (err) {
