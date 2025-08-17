@@ -83,22 +83,17 @@ const mapValues = <T extends Value, R extends Value>(
 		return {} as Record<K, R>
 	}
 	
-	const result = {} as Record<K, R>
+	// Get all keys (both string and symbol)
+	const allKeys = [
+		...Object.keys(obj),
+		...Object.getOwnPropertySymbols(obj)
+	]
 	
-	// Handle string keys
-	for (const key in obj) {
-		if (Object.prototype.hasOwnProperty.call(obj, key)) {
-			result[key] = fn(obj[key])
-		}
-	}
-	
-	// Handle symbol keys
-	const symbols = Object.getOwnPropertySymbols(obj)
-	for (const sym of symbols) {
-		(result as Record<K | symbol, R>)[sym] = fn((obj as Record<K | symbol, T>)[sym])
-	}
-	
-	return result
+	// Use reduce to build the result object
+	return allKeys.reduce((acc, key) => ({
+		...acc,
+		[key]: fn((obj as Record<string | symbol, T>)[key])
+	}), {} as Record<K, R>)
 }
 
 export default mapValues

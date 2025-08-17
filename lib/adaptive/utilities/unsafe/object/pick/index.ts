@@ -51,14 +51,16 @@ const pick = <T extends Record<string, Value>, K extends keyof T>(
 		return {} as Pick<T, K>
 	}
 	
-	// Build result with only specified keys
-	const result: Record<string, Value> = {}
-	for (const key of keys) {
+	// Build result with only specified keys using reduce
+	return keys.reduce((acc, key) => {
 		if (Object.prototype.hasOwnProperty.call(obj, key as string)) {
-			result[key as string] = obj[key]
+			return {
+				...acc,
+				[key as string]: obj[key]
+			}
 		}
-	}
-	return result as Pick<T, K>
+		return acc
+	}, {} as Pick<T, K>)
 }
 
 export default pick

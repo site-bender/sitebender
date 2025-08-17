@@ -151,70 +151,56 @@ const evolve = <T extends Record<string, Value>>(
 		
 		// Handle arrays
 		if (Array.isArray(target)) {
-			const result = [...target]
-			
-			// Apply transformations to array indices if specified
-			for (const key in trans) {
-				const index = parseInt(key, 10)
-				if (!isNaN(index) && index >= 0 && index < result.length) {
-					const transformation = trans[key]
-					if (typeof transformation === "function") {
-						result[index] = transformation(result[index])
-					} else if (typeof transformation === "object") {
-						result[index] = evolveRecursive(transformation, result[index])
-					}
-				}
-			}
-			
-			return result
-		}
-		
-		// Handle objects
-		const result: Record<string, Value> = {}
-		
-		// Copy all properties from target
-		for (const key in target) {
-			if (Object.prototype.hasOwnProperty.call(target, key)) {
-				result[key] = target[key]
-			}
-		}
-		
-		// Apply transformations
-		for (const key in trans) {
-			if (Object.prototype.hasOwnProperty.call(trans, key)) {
-				const transformation = trans[key]
-				
+			return target.map((item, index) => {
+				const transformation = trans[index]
 				if (typeof transformation === "function") {
-					// Apply function transformation
-					if (key in target) {
-						result[key] = transformation(target[key])
-					}
-				} else if (transformation != null && typeof transformation === "object") {
-					// Recursively evolve nested objects
-					result[key] = evolveRecursive(transformation, target[key] || {})
+					return transformation(item)
+				} else if (typeof transformation === "object") {
+					return evolveRecursive(transformation, item)
 				}
-				// Non-function, non-object values are ignored
+				return item
+			})
+		}
+		
+		// Handle objects - combine all keys
+		const allKeys = [
+			...Object.keys(target),
+			...Object.keys(trans),
+			...Object.getOwnPropertySymbols(target),
+			...Object.getOwnPropertySymbols(trans)
+		]
+		
+		// Use reduce to build the result object
+		return allKeys.reduce((acc, key) => {
+			const isSymbol = typeof key === "symbol"
+			const targetValue = isSymbol 
+				? (target as Record<string | symbol, Value>)[key]
+				: target[key as string]
+			const transformation = isSymbol
+				? (trans as Record<string | symbol, TransformationSpec>)[key]
+				: trans[key as string]
+			
+			// Determine the value for this key
+			const newValue = (() => {
+				if (typeof transformation === "function" && targetValue !== undefined) {
+					return (transformation as Transformation)(targetValue)
+				} else if (transformation != null && typeof transformation === "object") {
+					return evolveRecursive(transformation, targetValue || {})
+				} else if (targetValue !== undefined) {
+					return targetValue
+				}
+				return undefined
+			})()
+			
+			// Only add to result if value is defined
+			if (newValue !== undefined) {
+				return {
+					...acc,
+					[key]: newValue
+				}
 			}
-		}
-		
-		// Handle symbol keys in target
-		const targetSymbols = Object.getOwnPropertySymbols(target)
-		for (const sym of targetSymbols) {
-			result[sym as keyof typeof result] = (target as Record<string | symbol, Value>)[sym]
-		}
-		
-		// Apply symbol transformations if any
-		const transSymbols = Object.getOwnPropertySymbols(trans)
-		for (const sym of transSymbols) {
-			const transformation = (trans as Record<string | symbol, TransformationSpec>)[sym]
-			if (typeof transformation === "function" && sym in target) {
-				result[sym as keyof typeof result] = (transformation as Transformation)((target as Record<string | symbol, Value>)[sym]) as Value
-			} else if (transformation != null && typeof transformation === "object") {
-				result[sym as keyof typeof result] = evolveRecursive(transformation, (target as Record<string | symbol, Value>)[sym] || {}) as Value
-			}
-		}
-		
-		return result
+			return acc
+		}, {} as Record<string | symbol, Value>)
 	}
 	
 	return evolveRecursive(transformations, obj)

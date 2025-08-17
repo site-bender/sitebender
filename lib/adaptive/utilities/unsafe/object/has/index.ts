@@ -67,13 +67,16 @@ const has = (pathInput: string | Array<string | number>) => (obj: Value): boolea
 	// Empty path means check if object exists
 	if (keys.length === 0) return true
 	
-	// Traverse the path
-	let current: Value = obj
-	for (const key of keys) {
+	// Traverse the path using recursion
+	const checkPath = (current: Value, remainingKeys: Array<string | number>): boolean => {
+		if (remainingKeys.length === 0) return true
+		
 		// Check if we can continue traversing
 		if (current == null || typeof current !== "object") {
 			return false
 		}
+		
+		const [key, ...rest] = remainingKeys
 		
 		// Check for property existence
 		if (Array.isArray(current)) {
@@ -82,12 +85,9 @@ const has = (pathInput: string | Array<string | number>) => (obj: Value): boolea
 			if (isNaN(index) || index < 0 || index >= current.length) {
 				return false
 			}
-			current = current[index]
-		} else if (current instanceof Map) {
-			// Maps don't support dot notation traversal
-			return false
-		} else if (current instanceof Set) {
-			// Sets don't have indexed/keyed access
+			return checkPath(current[index], rest)
+		} else if (current instanceof Map || current instanceof Set) {
+			// Maps and Sets don't support dot notation traversal
 			return false
 		} else {
 			// For plain objects, check own properties only
@@ -95,12 +95,11 @@ const has = (pathInput: string | Array<string | number>) => (obj: Value): boolea
 			if (!Object.prototype.hasOwnProperty.call(current, strKey)) {
 				return false
 			}
-			const objCurrent = current as Record<string, Value>
-			current = objCurrent[strKey]
+			return checkPath((current as Record<string, Value>)[strKey], rest)
 		}
 	}
 	
-	return true
+	return checkPath(obj, keys)
 }
 
 export default has

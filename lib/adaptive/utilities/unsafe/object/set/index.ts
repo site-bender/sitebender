@@ -93,36 +93,41 @@ const set = (pathInput: string | Array<string | number>) =>
 		const isLastKey = rest.length === 0
 		
 		// Initialize current if null/undefined
-		if (current == null) {
-			current = shouldBeArray(key) ? [] : {}
-		}
+		const initializedCurrent = current == null 
+			? (shouldBeArray(key) ? [] : {})
+			: current
 		
 		// Handle arrays
-		if (Array.isArray(current)) {
+		if (Array.isArray(initializedCurrent)) {
 			const index = typeof key === "number" ? key : parseInt(String(key), 10)
 			if (isNaN(index)) {
 				// Key is not numeric for array, convert to object
-				const obj: Record<string, Value> = { ...current as Array<Value> }
-				obj[key] = isLastKey ? value : setRecursive(obj[key], rest)
-				return obj
+				const obj: Record<string, Value> = 
+					initializedCurrent.reduce((acc, val, i) => ({ ...acc, [i]: val }), {})
+				return {
+					...obj,
+					[key]: isLastKey ? value : setRecursive(obj[key], rest)
+				}
 			}
 			
-			// Clone array and update index
-			const newArray = [...current]
-			// Extend array if necessary
-			while (newArray.length <= index) {
-				newArray.push(undefined)
-			}
-			newArray[index] = isLastKey ? value : setRecursive(newArray[index], rest)
-			return newArray
+			// Create new array with proper length
+			const extendedArray = Array(Math.max(initializedCurrent.length, index + 1))
+				.fill(undefined)
+				.map((_, i) => i < initializedCurrent.length ? initializedCurrent[i] : undefined)
+			
+			return extendedArray.map((item, i) => 
+				i === index 
+					? (isLastKey ? value : setRecursive(item, rest))
+					: item
+			)
 		}
 		
 		// Handle objects
-		if (typeof current === "object") {
+		if (typeof initializedCurrent === "object") {
 			const strKey = String(key)
 			return {
-				...current,
-				[strKey]: isLastKey ? value : setRecursive(current[strKey], rest)
+				...initializedCurrent,
+				[strKey]: isLastKey ? value : setRecursive(initializedCurrent[strKey], rest)
 			}
 		}
 		

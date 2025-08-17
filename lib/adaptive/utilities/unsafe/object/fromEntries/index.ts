@@ -84,26 +84,29 @@ const fromEntries = <K extends string | number | symbol, V extends Value>(
 		return {} as Record<K, V>
 	}
 	
-	const result = {} as Record<K, V>
-	
 	try {
-		for (const entry of entries) {
+		// Convert iterable to array and use reduce
+		const entriesArray = Array.from(entries)
+		
+		return entriesArray.reduce((acc, entry) => {
 			// Skip invalid entries
 			if (entry == null || !Array.isArray(entry) || entry.length < 2) {
-				continue
+				return acc
 			}
 			
 			const [key, value] = entry
 			// Convert key to string if necessary (except symbols)
 			const finalKey = (typeof key === "symbol" ? key : String(key)) as K
-			result[finalKey] = value
-		}
+			
+			return {
+				...acc,
+				[finalKey]: value
+			}
+		}, {} as Record<K, V>)
 	} catch (_err) {
-		// If iteration fails, return what we have so far
-		return result
+		// If iteration fails, return empty object
+		return {} as Record<K, V>
 	}
-	
-	return result
 }
 
 export default fromEntries

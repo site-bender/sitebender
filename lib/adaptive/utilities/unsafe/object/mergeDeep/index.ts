@@ -84,73 +84,49 @@ import type { Value } from "../../../../types/index.ts"
 const mergeDeep = <T extends Record<string | symbol, Value>>(
 	...sources: Array<Record<string | symbol, Value> | null | undefined>
 ) => (target: T | null | undefined): T & Record<string | symbol, Value> => {
-	// Track visited objects to handle circular references
-	const visited = new WeakSet()
-	
-	const deepMergeRecursive = (
+	const deepMergeTwo = (
 		dst: Record<string | symbol, Value>,
 		src: Record<string | symbol, Value> | null | undefined
 	): Record<string | symbol, Value> => {
 		if (!src || typeof src !== "object") return dst
 		
-		// Check for circular reference
-		if (visited.has(src)) return dst
-		visited.add(src)
+		// Get all keys (both string and symbol)
+		const allKeys = [
+			...Object.keys(src),
+			...Object.getOwnPropertySymbols(src)
+		]
 		
-		// Merge properties
-		for (const key in src) {
-			if (!Object.prototype.hasOwnProperty.call(src, key)) continue
-			
-			const srcValue = src[key]
-			const dstValue = dst[key]
+		// Use reduce to build merged object
+		return allKeys.reduce((acc, key) => {
+			const srcValue = (src as Record<string | symbol, Value>)[key]
+			const dstValue = (acc as Record<string | symbol, Value>)[key]
 			
 			// If both values are objects (but not arrays), merge them recursively
 			if (
 				srcValue && typeof srcValue === "object" && !Array.isArray(srcValue) &&
 				dstValue && typeof dstValue === "object" && !Array.isArray(dstValue)
 			) {
-				dst[key] = deepMergeRecursive({ ...dstValue }, srcValue)
-			} else {
-				// Otherwise, source value replaces destination value
-				dst[key] = srcValue
+				return {
+					...acc,
+					[key]: deepMergeTwo(dstValue, srcValue)
+				}
 			}
-		}
-		
-		// Handle symbol keys
-		const symbols = Object.getOwnPropertySymbols(src)
-		for (const sym of symbols) {
-			const srcValue = src[sym as keyof typeof src]
-			const dstValue = dst[sym as keyof typeof dst]
 			
-			if (
-				srcValue && typeof srcValue === "object" && !Array.isArray(srcValue) &&
-				dstValue && typeof dstValue === "object" && !Array.isArray(dstValue)
-			) {
-				dst[sym as keyof typeof dst] = deepMergeRecursive({ ...dstValue }, srcValue) as Value
-			} else {
-				dst[sym as keyof typeof dst] = srcValue as Value
+			// Otherwise, source value replaces destination value
+			return {
+				...acc,
+				[key]: srcValue
 			}
-		}
-		
-		return dst
+		}, { ...dst })
 	}
 	
-	// Start with empty result
-	let result: Record<string | symbol, Value> = {}
+	// Merge all sources and target using reduce
+	const allToMerge = [...sources, target].filter(x => x != null && typeof x === "object")
 	
-	// First merge all sources together (left to right)
-	for (const source of sources) {
-		if (source && typeof source === "object") {
-			result = deepMergeRecursive(result, source)
-		}
-	}
-	
-	// Then apply target (target overrides sources)
-	if (target && typeof target === "object") {
-		result = deepMergeRecursive(result, target)
-	}
-	
-	return result as T & Record<string | symbol, Value>
+	return allToMerge.reduce(
+		(acc, current) => deepMergeTwo(acc, current),
+		{} as Record<string | symbol, Value>
+	) as T & Record<string | symbol, Value>
 }
 
 export default mergeDeep
