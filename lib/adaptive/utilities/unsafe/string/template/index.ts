@@ -123,19 +123,24 @@ const template = (
 	
 	const pattern = patterns[syntax]
 	
-	// Helper to get nested property value
+	// Helper to get nested property value using recursion
 	const getNestedValue = (obj: Value | Record<string, Value>, path: string): Value | undefined => {
 		const keys = path.split(".")
-		let current: Value | Record<string, Value> | undefined = obj
 		
-		for (const key of keys) {
-			if (current == null || typeof current !== "object") {
+		const traverse = (current: Value | Record<string, Value> | undefined, remainingKeys: Array<string>): Value | undefined => {
+			if (remainingKeys.length === 0 || current == null) {
+				return current
+			}
+			
+			if (typeof current !== "object") {
 				return undefined
 			}
-			current = (current as Record<string, Value>)[key]
+			
+			const [key, ...rest] = remainingKeys
+			return traverse((current as Record<string, Value>)[key], rest)
 		}
 		
-		return current
+		return traverse(obj, keys)
 	}
 	
 	// Replace placeholders
@@ -146,16 +151,15 @@ const template = (
 		}
 		
 		// Parse placeholder for name and default value
-		let key: string
-		let defaultValue: string | undefined
-		
-		if (syntax === "colon") {
-			key = placeholder
-		} else {
-			const parts = placeholder.trim().split(":")
-			key = parts[0].trim()
-			defaultValue = parts[1]?.trim()
-		}
+		const { key, defaultValue } = syntax === "colon"
+			? { key: placeholder, defaultValue: undefined }
+			: (() => {
+				const parts = placeholder.trim().split(":")
+				return {
+					key: parts[0].trim(),
+					defaultValue: parts[1]?.trim()
+				}
+			})()
 		
 		// Get the value from data
 		const value = getNestedValue(data, key)

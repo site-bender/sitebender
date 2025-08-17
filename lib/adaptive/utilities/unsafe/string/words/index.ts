@@ -61,89 +61,73 @@ const words = (str: string | null | undefined): Array<string> => {
 		return []
 	}
 	
-	// Strategy:
-	// 1. Handle transitions from lowercase to uppercase (camelCase)
-	// 2. Handle transitions from multiple uppercase to uppercase followed by lowercase (XMLHttp -> XML, Http)
-	// 3. Handle underscores, hyphens, spaces as delimiters
-	// 4. Handle numbers as separate words or part of words
-	// 5. Remove non-alphanumeric characters (except during parsing)
+	// Convert string to array for functional processing
+	const chars = Array.from(str)
 	
-	const result: Array<string> = []
-	let current = ""
-	
-	for (let i = 0; i < str.length; i++) {
-		const char = str[i]
-		const nextChar = str[i + 1] || ""
-		const prevChar = str[i - 1] || ""
-		
-		// Check if character is a delimiter
-		if (/[-_\s]/.test(char)) {
-			if (current) {
-				result.push(current)
-				current = ""
-			}
-			continue
-		}
-		
-		// Skip non-alphanumeric characters
-		if (!/[a-zA-Z0-9]/.test(char)) {
-			if (current) {
-				result.push(current)
-				current = ""
-			}
-			continue
-		}
-		
-		// Handle numbers
-		if (/\d/.test(char)) {
-			// If we have a current word and this is a number, split
-			if (current && /[a-zA-Z]/.test(current[current.length - 1])) {
-				result.push(current)
-				current = char
-			} else {
-				current += char
-			}
-			continue
-		}
-		
-		// Handle letters
-		if (/[a-zA-Z]/.test(char)) {
-			// Transition from number to letter
-			if (current && /\d/.test(current[current.length - 1])) {
-				result.push(current)
-				current = char
-				continue
+	// Process characters using reduce to build words
+	const wordsWithEmpty = chars.reduce<{ words: Array<string>, current: string }>(
+		(acc, char, i) => {
+			const nextChar = chars[i + 1] || ""
+			const prevChar = chars[i - 1] || ""
+			
+			// Check if character is a delimiter
+			if (/[-_\s]/.test(char)) {
+				return acc.current 
+					? { words: [...acc.words, acc.current], current: "" }
+					: acc
 			}
 			
-			// Transition from lowercase to uppercase (camelCase boundary)
-			if (/[a-z]/.test(prevChar) && /[A-Z]/.test(char)) {
-				result.push(current)
-				current = char
-				continue
+			// Skip non-alphanumeric characters
+			if (!/[a-zA-Z0-9]/.test(char)) {
+				return acc.current
+					? { words: [...acc.words, acc.current], current: "" }
+					: acc
 			}
 			
-			// Multiple uppercase letters (acronym handling)
-			if (/[A-Z]/.test(prevChar) && /[A-Z]/.test(char)) {
-				// If next is lowercase, this is end of acronym
-				if (/[a-z]/.test(nextChar)) {
-					result.push(current)
-					current = char
-				} else {
-					current += char
+			// Handle numbers
+			if (/\d/.test(char)) {
+				// If we have a current word and this is a number, split
+				if (acc.current && /[a-zA-Z]/.test(acc.current[acc.current.length - 1])) {
+					return { words: [...acc.words, acc.current], current: char }
 				}
-				continue
+				return { ...acc, current: acc.current + char }
 			}
 			
-			current += char
-		}
-	}
+			// Handle letters
+			if (/[a-zA-Z]/.test(char)) {
+				// Transition from number to letter
+				if (acc.current && /\d/.test(acc.current[acc.current.length - 1])) {
+					return { words: [...acc.words, acc.current], current: char }
+				}
+				
+				// Transition from lowercase to uppercase (camelCase boundary)
+				if (/[a-z]/.test(prevChar) && /[A-Z]/.test(char)) {
+					return { words: [...acc.words, acc.current], current: char }
+				}
+				
+				// Multiple uppercase letters (acronym handling)
+				if (/[A-Z]/.test(prevChar) && /[A-Z]/.test(char)) {
+					// If next is lowercase, this is end of acronym
+					if (/[a-z]/.test(nextChar)) {
+						return { words: [...acc.words, acc.current], current: char }
+					}
+					return { ...acc, current: acc.current + char }
+				}
+				
+				return { ...acc, current: acc.current + char }
+			}
+			
+			return acc
+		},
+		{ words: [], current: "" }
+	)
 	
-	// Don't forget the last word
-	if (current) {
-		result.push(current)
-	}
+	// Add the last word if present and filter empty strings
+	const allWords = wordsWithEmpty.current 
+		? [...wordsWithEmpty.words, wordsWithEmpty.current]
+		: wordsWithEmpty.words
 	
-	return result.filter(word => word.length > 0)
+	return allWords.filter(word => word.length > 0)
 }
 
 export default words
