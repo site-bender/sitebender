@@ -1,13 +1,13 @@
-import toCamel from "../toCamel/index.ts"
-import toKebab from "../toKebab/index.ts"
-import toLower from "../toLower/index.ts"
-import toPascal from "../toPascal/index.ts"
-import toScreamingSnake from "../toScreamingSnake/index.ts"
-import toSentence from "../toSentence/index.ts"
-import toSnake from "../toSnake/index.ts"
-import toTitle from "../toTitle/index.ts"
-import toTrain from "../toTrain/index.ts"
-import toUpper from "../toUpper/index.ts"
+import toCamel from "./toCamel/index.ts"
+import toKebab from "./toKebab/index.ts"
+import toLower from "./toLower/index.ts"
+import toPascal from "./toPascal/index.ts"
+import toScreamingSnake from "./toScreamingSnake/index.ts"
+import toSentence from "./toSentence/index.ts"
+import toSnake from "./toSnake/index.ts"
+import toTitle from "./toTitle/index.ts"
+import toTrain from "./toTrain/index.ts"
+import toUpper from "./toUpper/index.ts"
 
 type CaseConverter = (s: string) => string
 
