@@ -3,71 +3,119 @@
 ## Current Functions
 
 ### array/
-- all
-- chunk
-- combinations
-- compact
-- concat
-- concatTo
-- drop
-- dropLast
-- dropWhile
-- filter
-- find
-- findIndex
-- findLast
-- findLastIndex
-- first
-- flatMap
-- flatten
-- groupBy
-- head
-- includes
-- indexOf
-- insertAt
-- intersperse
-- isEmpty
-- join
-- last
-- lastIndexOf
-- lastIndexOfMatch
-- map
-- move
-- none
-- nth
-- omit
-- partition
-- permutations
-- reduce
-- remove
-- removeAll
-- removeAt
-- repeat
-- repeatItem
-- replaceAll
-- replaceAllMatches
-- replaceAt
-- replaceFirst
-- replaceFirstMatch
-- replaceLast
-- replaceLastMatch
-- reverse
-- scan
-- slice
-- sliceFrom
-- sliding
-- some
-- sort
-- span
-- splitEvery
-- subsequences
-- tail
-- take
-- takeLast
-- takeWhile
-- unfold
-- unique
-- zipWith
+- all - Returns true if all elements satisfy the predicate
+- aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
+- cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
+- chunk - Splits array into chunks of specified size
+- combinations - Generates all combinations of array elements
+- compact - Removes falsy values from array
+- concat - Concatenates arrays together
+- concatTo - Flipped version of concat
+- countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function
+- cycle - Returns an infinite repetition of the given array (generator function)
+- difference - Returns elements in the first array that are not in the second array
+- differenceWith - Like difference but uses a comparator function to determine equality
+- drop - Removes n elements from the beginning of array
+- dropLast - Removes n elements from the end of array
+- dropRepeats - Returns a new array without consecutive duplicate elements
+- dropRepeatsWith - Like dropRepeats but uses a comparator function
+- dropWhile - Removes elements from beginning while predicate is true
+- endsWith - Checks if an array ends with the provided suffix array
+- filter - Filters array elements based on predicate
+- find - Finds first element that satisfies predicate
+- findIndex - Finds index of first element that satisfies predicate
+- findIndices - Returns all indices of elements that satisfy the predicate
+- findLast - Finds last element that satisfies predicate
+- findLastIndex - Finds index of last element that satisfies predicate
+- first - Returns first element of array (alias: head)
+- flatMap - Maps function over array and flattens result
+- flatten - Flattens nested arrays by one level
+- groupBy - Groups array elements by key function result
+- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
+- head - Returns first element of array (alias: first)
+- includes - Checks if array contains element
+- indexBy - Creates an object indexing the array elements by the given key
+- indexOf - Returns index of first occurrence of element
+- insertAt - Inserts element at specified index
+- intersection - Returns elements that exist in both arrays
+- intersectionWith - Like intersection but uses a comparator function
+- intersperse - Inserts separator between array elements
+- isEmpty - Checks if array is empty
+- join - Joins array elements into string
+- last - Returns last element of array
+- lastIndexOf - Returns index of last occurrence of element
+- lastIndexOfMatch - Returns index of last element matching predicate
+- map - Maps function over array elements
+- mapAccum - Combines map and reduce, returning both accumulated value and mapped array
+- mapAccumRight - Like mapAccum but processes the array from right to left
+- maximumBy - Finds the maximum element according to a comparator function
+- minimumBy - Finds the minimum element according to a comparator function
+- move - Moves element from one index to another
+- none - Returns true if no elements satisfy the predicate
+- nub - Removes duplicate elements from an array (alias: unique)
+- nubBy - Like nub but uses a custom equality function
+- nth - Returns element at specified index
+- omit - Removes elements at specified indices
+- pairwise - Returns an array of adjacent pairs from the input array
+- partition - Splits array into two based on predicate
+- permutations - Generates all permutations of array elements
+- pluck - Extracts a list of property values from an array of objects
+- range - Generates an array of numbers from start to end
+- rangeStep - Like range but with a custom step value
+- reduce - Reduces array to single value using reducer function
+- reduceRight - Like reduce but processes the array from right to left
+- reduceWhile - Reduce that stops when predicate returns false
+- reject - The complement of filter - keeps elements that don't satisfy the predicate
+- remove - Removes all occurrences of element
+- removeAll - Removes all elements matching predicate
+- removeAt - Removes element at specified index
+- repeat - Repeats array n times
+- repeatItem - Creates array with element repeated n times
+- replaceAll - Replaces all occurrences of element
+- replaceAllMatches - Replaces all elements matching predicate
+- replaceAt - Replaces element at specified index
+- replaceFirst - Replaces first occurrence of element
+- replaceFirstMatch - Replaces first element matching predicate
+- replaceLast - Replaces last occurrence of element
+- replaceLastMatch - Replaces last element matching predicate
+- reverse - Reverses array order
+- rotateLeft - Rotates array elements to the left by n positions
+- rotateRight - Rotates array elements to the right by n positions
+- sample - Returns a random element from the array
+- sampleSize - Returns n random elements from the array
+- scan - Like reduce but returns array of intermediate results
+- shuffle - Returns a new array with elements randomly shuffled
+- slice - Extracts section of array
+- sliceFrom - Slices array from index to end
+- sliding - Creates sliding window over array elements
+- some - Returns true if any element satisfies predicate
+- sort - Sorts array elements
+- sortBy - Sorts an array based on a mapping function
+- sortWith - Sorts an array using multiple comparator functions
+- span - Splits array at first element that doesn't satisfy predicate
+- splitEvery - Splits array into chunks of specified size
+- startsWith - Checks if an array starts with the provided prefix array
+- subsequences - Generates all subsequences of array
+- symmetricDifference - Returns elements that are in either array but not both
+- symmetricDifferenceWith - Like symmetricDifference but uses a comparator function
+- tail - Returns all elements except the first
+- take - Takes first n elements
+- takeLast - Takes last n elements
+- takeLastWhile - Takes elements from the end while predicate is true
+- takeWhile - Takes elements from beginning while predicate is true
+- times - Calls a function n times and collects the results in an array
+- transpose - Transposes a matrix (2D array)
+- unfold - Generates array from seed value using generator function
+- union - Returns the union of two arrays (all unique elements from both)
+- unionWith - Like union but uses a comparator function
+- unique - Removes duplicate elements from array (alias: nub)
+- unzip - The opposite of zip - separates an array of pairs into two arrays
+- update - Returns a new array with the element at index replaced by the result of a function
+- xprod - Returns the Cartesian product of two arrays (alias: cartesianProduct)
+- zip - Combines two arrays into an array of pairs
+- zipAll - Like zip but continues until the longest array is exhausted, using undefined for missing values
+- zipObj - Creates an object from arrays of keys and values
+- zipWith - Combines arrays using custom function
 
 ### conversion/
 - castValue
@@ -154,11 +202,24 @@
 - union - Returns all unique elements from both Sets
 - unionWith - Like union but uses custom equality function
 
-### string/
+### string/ (68 functions)
+- chars - Splits string into array of characters
+- chomp - Removes trailing newline characters
 - concat - Concatenates a string to the end of another string
 - concatTo - Concatenates a string to the beginning of another string (flipped concat)
+- contains - Checks if string contains a substring
+- countMatches - Counts occurrences of a pattern in a string
+- deburr - Removes diacritical marks from characters
 - endsWith - Checks if a string ends with a specified suffix
+- escape - Escapes special HTML characters
+- escapeRegExp - Escapes special regex characters
+- indent - Adds indentation to each line
+- indexOf - Returns index of first occurrence of substring
+- isBlank - Checks if string is empty or only whitespace
+- lastIndexOf - Returns index of last occurrence of substring
+- lines - Splits string into array of lines
 - match - Matches a regular expression against a string
+- normalize - Normalizes Unicode characters
 - padBoth - Pads both sides of a string to reach a target length
 - padBothTo - Curried version of padBoth with fill string first
 - padBothToFromEnd - Pads both sides starting from the end
@@ -167,19 +228,32 @@
 - padEndTo - Curried version of padEnd with fill string first
 - padStart - Pads the start of a string to reach a target length
 - padStartTo - Curried version of padStart with fill string first
+- quote - Wraps string in quotes
+- remove - Removes all occurrences of a substring
+- removePrefix - Removes a prefix if present
+- removeSuffix - Removes a suffix if present
 - repeat - Repeats a string n times
 - replace - Replaces first occurrence of a pattern in a string
 - replaceAll - Replaces all occurrences of a pattern in a string
+- reverse - Reverses the string
+- slice - Extracts a section of the string
+- slugify - Converts string to URL-safe slug
+- splice - Changes string by removing/replacing characters
 - split - Splits a string by a separator
 - splitAt - Splits a string at a specific index
 - splitEvery - Splits a string into chunks of specified length
 - startsWith - Checks if a string starts with a specified prefix
+- stripIndent - Removes common leading whitespace from lines
+- substr - Extracts substring (starting at position for length)
+- substring - Extracts substring between two indices
+- swapCase - Swaps case of all characters
 - template - Processes template strings with variable substitution
 - test - Tests if a string matches a regular expression
 - toCamel - Converts string to camelCase
 - toCase - Converts string to specified case (kebab-case, snake_case, etc.)
 - toKebab - Converts string to kebab-case
 - toLower - Converts string to lowercase
+- toLowerFirst - Lowercases only the first character
 - toPascal - Converts string to PascalCase
 - toScreamingSnake - Converts string to SCREAMING_SNAKE_CASE
 - toSentence - Capitalizes only the first character
@@ -187,62 +261,26 @@
 - toTitle - Converts string to Title Case
 - toTrain - Converts string to Train-Case
 - toUpper - Converts string to uppercase
+- toUpperFirst - Uppercases only the first character
 - trim - Removes whitespace from both ends of a string
 - trimEnd - Removes whitespace from the end of a string
 - trimStart - Removes whitespace from the start of a string
+- truncate - Truncates string to specified length with ellipsis
+- unescape - Unescapes HTML entities
+- unquote - Removes surrounding quotes if present
 - words - Splits a string into an array of words
+- wrap - Wraps string at specified width
+- wrapWith - Wraps string with prefix and suffix
 
 ## Proposed Additions
 
 ### array/
-- aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
-- cartesianProduct - Returns the Cartesian product of two arrays
-- countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function
-- cycle - Returns an infinite repetition of the given array (generator function)
-- difference - Returns elements in the first array that are not in the second array
-- differenceWith - Like difference but uses a comparator function to determine equality
-- dropRepeats - Returns a new array without consecutive duplicate elements
-- dropRepeatsWith - Like dropRepeats but uses a comparator function
-- endsWith - Checks if an array ends with the provided suffix array
-- findIndices - Returns all indices of elements that satisfy the predicate
-- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
-- indexBy - Creates an object indexing the array elements by the given key
-- intersection - Returns elements that exist in both arrays
-- intersectionWith - Like intersection but uses a comparator function
-- mapAccum - Combines map and reduce, returning both accumulated value and mapped array
-- mapAccumRight - Like mapAccum but processes the array from right to left
-- maximumBy - Finds the maximum element according to a comparator function
-- minimumBy - Finds the minimum element according to a comparator function
-- nub - Removes duplicate elements from an array (alias for unique with different semantics)
-- nubBy - Like nub but uses a custom equality function
-- pairwise - Returns an array of adjacent pairs from the input array
-- pluck - Extracts a list of property values from an array of objects
-- range - Generates an array of numbers from start to end
-- rangeStep - Like range but with a custom step value
-- reduceRight - Like reduce but processes the array from right to left
-- reduceWhile - Reduce that stops when predicate returns false
-- reject - The complement of filter - keeps elements that don't satisfy the predicate
-- rotateLeft - Rotates array elements to the left by n positions
-- rotateRight - Rotates array elements to the right by n positions
-- sample - Returns a random element from the array
-- sampleSize - Returns n random elements from the array
-- shuffle - Returns a new array with elements randomly shuffled
-- sortBy - Sorts an array based on a mapping function
-- sortWith - Sorts an array using multiple comparator functions
-- startsWith - Checks if an array starts with the provided prefix array
-- symmetricDifference - Returns elements that are in either array but not both
-- symmetricDifferenceWith - Like symmetricDifference but uses a comparator function
-- takeLastWhile - Takes elements from the end while predicate is true
-- times - Calls a function n times and collects the results in an array
-- transpose - Transposes a matrix (2D array)
-- union - Returns the union of two arrays (all unique elements from both)
-- unionWith - Like union but uses a comparator function
-- unzip - The opposite of zip - separates an array of pairs into two arrays
-- update - Returns a new array with the element at index replaced by the result of a function
-- xprod - Returns the Cartesian product of two arrays (all possible pairs)
-- zip - Combines two arrays into an array of pairs
-- zipAll - Like zip but continues until the longest array is exhausted, using undefined for missing values
-- zipObj - Creates an object from arrays of keys and values
+**All array functions have been completed and moved to the Current Functions section above.**
+
+**Duplicate function notes:**
+- `nub` and `unique` are the same (nub is preferred, unique is alias)
+- `first` and `head` are the same (head is preferred, first is alias)  
+- `cartesianProduct` and `xprod` are the same (cartesianProduct is preferred, xprod is alias)
 
 ### functions/
 - compose - Right-to-left function composition (opposite of pipe)
@@ -367,40 +405,6 @@
 - lte - Less than or equal comparison
 - neither - Returns true if neither predicate returns true
 - nonePass - Returns true if no predicates return true
-
-### string/
-- chars - Splits string into array of characters
-- chomp - Removes trailing newline characters
-- contains - Checks if string contains a substring
-- countMatches - Counts occurrences of a pattern in a string
-- deburr - Removes diacritical marks from characters
-- escape - Escapes special HTML characters
-- escapeRegExp - Escapes special regex characters
-- indent - Adds indentation to each line
-- indexOf - Returns index of first occurrence of substring
-- isBlank - Checks if string is empty or only whitespace
-- lastIndexOf - Returns index of last occurrence of substring
-- lines - Splits string into array of lines
-- normalize - Normalizes Unicode characters
-- quote - Wraps string in quotes
-- remove - Removes all occurrences of a substring
-- removePrefix - Removes a prefix if present
-- removeSuffix - Removes a suffix if present
-- reverse - Reverses the string
-- slice - Extracts a section of the string
-- slugify - Converts string to URL-safe slug
-- splice - Changes string by removing/replacing characters
-- stripIndent - Removes common leading whitespace from lines
-- substr - Extracts substring (starting at position for length)
-- substring - Extracts substring between two indices
-- swapCase - Swaps case of all characters
-- toLowerFirst - Lowercases only the first character
-- toUpperFirst - Uppercases only the first character
-- truncate - Truncates string to specified length with ellipsis
-- unescape - Unescapes HTML entities
-- unquote - Removes surrounding quotes if present
-- wrap - Wraps string at specified width
-- wrapWith - Wraps string with prefix and suffix
 
 ### math/
 - add - Adds two numbers

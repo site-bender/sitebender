@@ -1,11 +1,14 @@
+import nub from "../nub/index.ts"
+
 /**
  * Returns a new array with duplicate elements removed
  * 
- * Uses Set internally for efficient deduplication. Preserves order
- * of first occurrence. Works with primitive values using strict
- * equality. Objects are compared by reference.
+ * Alias for `nub`. The term "unique" is more commonly used in JavaScript/TypeScript
+ * while "nub" comes from Haskell. Both functions are identical - they remove
+ * duplicate elements from an array, keeping only the first occurrence of each
+ * unique element. Uses SameValueZero equality for comparison.
  * 
- * @property idempotent - Applying unique multiple times gives same result
+ * @see nub - The primary implementation with comprehensive documentation
  * @param array - The array to remove duplicates from
  * @returns New array with only unique elements
  * @example
@@ -20,7 +23,6 @@
  * unique(ids) // [1, 2, 3, 4]
  * ```
  */
-const unique = <T>(array: Array<T>): Array<T> =>
-	Array.from(new Set(array))
+const unique = nub
 
 export default unique
