@@ -2,18 +2,6 @@
 
 ## Current Functions
 
-### async/ (10 functions)
-- delay - Creates a Promise that resolves after specified milliseconds with an optional value
-- delayReject - Creates a Promise that rejects after specified milliseconds with an optional error
-- parallel - Executes async functions concurrently and collects all results in order
-- parallelLimit - Executes async functions concurrently with a maximum concurrency limit
-- race - Returns the result of the first async function to complete (resolve or reject)
-- retry - Retries an async function on failure with configurable attempts and delays
-- series - Executes async functions sequentially, collecting all results in order
-- timeout - Adds a timeout to a Promise, rejecting if it doesn't resolve in time
-- waterfall - Executes async functions in series, passing each result to the next function
-- whilst - Repeatedly executes an async function while a condition is true
-
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
@@ -129,32 +117,17 @@
 - zipObj - Creates an object from arrays of keys and values
 - zipWith - Combines arrays using custom function
 
-### conversion/
-- castValue
-  - castToBoolean
-  - castToInteger
-  - castToNumber
-  - castToPercent
-  - castToPlainDate
-  - castToPlainDateTime
-  - castToPlainTime
-  - castToString
-  - castToZonedDateTime
-  - parseJson
-- stringify
-
-### dom/
-- collectLinkElements
-- collectScriptElements
-- getSelector
-- getValue
-  - getFromCheckbox
-  - getFromDataset
-  - getFromInnerHtml
-  - getFromInput
-  - getFromLocal
-  - getFromSelect
-  - getFromTextArea
+### async/ (10 functions)
+- delay - Creates a Promise that resolves after specified milliseconds with an optional value
+- delayReject - Creates a Promise that rejects after specified milliseconds with an optional error
+- parallel - Executes async functions concurrently and collects all results in order
+- parallelLimit - Executes async functions concurrently with a maximum concurrency limit
+- race - Returns the result of the first async function to complete (resolve or reject)
+- retry - Retries an async function on failure with configurable attempts and delays
+- series - Executes async functions sequentially, collecting all results in order
+- timeout - Adds a timeout to a Promise, rejecting if it doesn't resolve in time
+- waterfall - Executes async functions in series, passing each result to the next function
+- whilst - Repeatedly executes an async function while a condition is true
 
 ### functions/ (50 functions)
 - always - Returns a function that always returns the given value
@@ -199,12 +172,6 @@
 - useWith - Transforms arguments before passing to a function
 - when - Conditionally applies a function based on a predicate
 - wrap - Wraps a function with a wrapper function
-
-### misc/
-- generateShortId
-  - convertUuidToBase58
-    - convertBigIntToBase58
-- getOperands
 
 ### object/ (69 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
@@ -260,13 +227,55 @@
 - zipObj - Creates object from arrays of keys and values
 - zipObject - Creates object from arrays of keys and values (alias: zipObj)
 
-### predicates/
-- isDefined
-- isNotNullish
-- isNullish
-- isNumber
-- isUndefined
-- not
+### predicates/ (47 functions)
+- allPass - Returns true if all predicates return true for the input
+- anyPass - Returns true if any predicate returns true for the input
+- both - Returns true if both predicates return true
+- either - Returns true if either predicate returns true
+- equals - Deep equality comparison
+- gt - Greater than comparison
+- gte - Greater than or equal comparison
+- identical - Strict equality comparison (===)
+- is - Checks if value is an instance of a constructor
+- isArray - Checks if value is an array
+- isArrayLike - Checks if value has a length property and is indexable
+- isBoolean - Checks if value is a boolean
+- isDate - Checks if value is a Date object
+- isDefined - Checks if value is neither null nor undefined
+- isEmpty - Checks if value is empty (works for strings, arrays, objects)
+- isError - Checks if value is an Error object
+- isEven - Checks if number is even
+- isFalsy - Checks if value is falsy
+- isFinite - Checks if value is a finite number
+- isFunction - Checks if value is a function
+- isInteger - Checks if value is an integer
+- isMap - Checks if value is a Map
+- isNaN - Checks if value is NaN
+- isNegative - Checks if number is negative
+- isNil - Checks if value is null or undefined
+- isNotNullish - Checks if value is not nullish using strict equality
+- isNullish - Checks if value is null or undefined using == null
+- isNumber - Validates if a string representation is a parseable number
+- isObject - Checks if value is an object
+- isOdd - Checks if number is odd
+- isPlainObject - Checks if value is a plain object (not class instance)
+- isPositive - Checks if number is positive
+- isPrimitive - Checks if value is a primitive type
+- isPromise - Checks if value is a Promise
+- isRegExp - Checks if value is a RegExp
+- isSet - Checks if value is a Set
+- isString - Checks if value is a string
+- isSymbol - Checks if value is a Symbol
+- isTruthy - Checks if value is truthy
+- isUndefined - Checks if value is strictly undefined (not null)
+- isWeakMap - Checks if value is a WeakMap
+- isWeakSet - Checks if value is a WeakSet
+- isZero - Checks if number equals zero
+- lt - Less than comparison
+- lte - Less than or equal comparison
+- neither - Returns true if neither predicate returns true
+- nonePass - Returns true if no predicates return true
+- not - Returns logical negation of any value's truthiness
 
 ### set/ (22 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
@@ -386,47 +395,7 @@
 - `zipObject` is an alias for `zipObj` (both create object from arrays)
 
 ### predicates/
-- allPass - Returns true if all predicates return true for the input
-- anyPass - Returns true if any predicate returns true for the input
-- both - Returns true if both predicates return true
-- either - Returns true if either predicate returns true
-- equals - Deep equality comparison
-- gt - Greater than comparison
-- gte - Greater than or equal comparison
-- identical - Strict equality comparison (===)
-- is - Checks if value is an instance of a constructor
-- isArray - Checks if value is an array
-- isArrayLike - Checks if value has a length property and is indexable
-- isBoolean - Checks if value is a boolean
-- isDate - Checks if value is a Date object
-- isEmpty - Checks if value is empty (works for strings, arrays, objects)
-- isError - Checks if value is an Error object
-- isEven - Checks if number is even
-- isFalsy - Checks if value is falsy
-- isFinite - Checks if value is a finite number
-- isFunction - Checks if value is a function
-- isInteger - Checks if value is an integer
-- isMap - Checks if value is a Map
-- isNaN - Checks if value is NaN
-- isNegative - Checks if number is negative
-- isNil - Checks if value is null or undefined
-- isObject - Checks if value is an object
-- isOdd - Checks if number is odd
-- isPlainObject - Checks if value is a plain object (not class instance)
-- isPositive - Checks if number is positive
-- isPromise - Checks if value is a Promise
-- isRegExp - Checks if value is a RegExp
-- isSet - Checks if value is a Set
-- isString - Checks if value is a string
-- isSymbol - Checks if value is a Symbol
-- isTruthy - Checks if value is truthy
-- isWeakMap - Checks if value is a WeakMap
-- isWeakSet - Checks if value is a WeakSet
-- isZero - Checks if number equals zero
-- lt - Less than comparison
-- lte - Less than or equal comparison
-- neither - Returns true if neither predicate returns true
-- nonePass - Returns true if no predicates return true
+**All predicate functions have been completed and moved to the Current Functions section above.**
 
 ### math/
 - add - Adds two numbers
@@ -579,3 +548,39 @@
 - maxLength - Validates maximum length
 - matches - Validates against regex pattern
 - required - Validates non-empty value
+
+## NOT TO BE DONE YET
+
+
+### conversion/ (12 functions)
+- castValue - Casts a value to a specific datatype using type-safe Either monad
+  - castToBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
+  - castToInteger - Strictly parses values as integers (no decimals or scientific notation)
+  - castToNumber - Flexibly parses values as floating-point numbers
+  - castToPercent - Converts values to percentage format (0-100 range)
+  - castToPlainDate - Parses values into Temporal PlainDate objects
+  - castToPlainDateTime - Parses values into Temporal PlainDateTime objects
+  - castToPlainTime - Parses values into Temporal PlainTime objects
+  - castToString - Safely converts any value to its string representation
+  - castToZonedDateTime - Parses values into Temporal ZonedDateTime objects with timezone
+  - parseJson - Safely parses JSON strings with error handling
+- stringify - Creates deterministic string representation of objects/arrays
+
+### dom/ (11 functions)
+- collectLinkElements - Collects all link elements from document or element
+- collectScriptElements - Collects all script elements from document or element
+- getSelector - Generates a unique CSS selector for an element
+- getValue - Retrieves values from various DOM sources
+  - getFromCheckbox - Gets checked state from checkbox inputs
+  - getFromDataset - Extracts data attributes from elements
+  - getFromInnerHtml - Retrieves inner HTML content
+  - getFromInput - Gets value from input elements
+  - getFromLocal - Retrieves data from localStorage
+  - getFromSelect - Gets selected value from select elements
+  - getFromTextArea - Gets text content from textarea elements
+
+### misc/ (4 functions)
+- generateShortId - Generates a short, unique identifier
+  - convertUuidToBase58 - Converts UUID to Base58 encoded string
+    - convertBigIntToBase58 - Converts BigInt to Base58 representation
+- getOperands - Extracts operands from mathematical expressions
