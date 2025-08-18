@@ -194,21 +194,59 @@
     - convertBigIntToBase58
 - getOperands
 
-### object/
-- entries
-- evolve
-- fromEntries
-- has
-- keys
-- mapValues
-- merge
-- mergeDeep
-- omit
-- path
-- pathOr
-- pick
-- set
-- values
+### object/ (69 functions)
+- assoc - Returns a shallow clone of an object with a property set to a value
+- assocPath - Sets a nested property using a path, creating missing objects
+- clone - Creates a deep clone of an object, handling circular references
+- dissoc - Returns a shallow clone with a property removed
+- dissocPath - Removes a nested property using a path
+- entries - Converts object to array of [key, value] pairs
+- eqProps - Checks if two objects have equal values for a property
+- evolve - Recursively evolves object by applying functions to properties
+- fromEntries - Creates object from array of [key, value] pairs
+- has - Checks if object has own property
+- hasPath - Checks if object has property at a given path
+- invert - Swaps keys and values in an object
+- invertBy - Inverts object with custom grouping for duplicate values
+- keys - Returns array of object's own keys
+- lens - Creates a lens for functional property access and modification
+- lensIndex - Creates a lens focused on an array index
+- lensPath - Creates a lens focused on a nested path
+- lensProp - Creates a lens focused on an object property
+- mapKeys - Maps a function over the keys of an object
+- mapValues - Maps a function over the values of an object
+- merge - Merges objects with target properties taking precedence
+- mergeDeep - Deep merges objects recursively
+- modify - Modifies a property value using a function
+- modifyPath - Modifies a nested property using a path
+- objOf - Creates an object with a single key-value pair
+- omit - Returns object without specified keys
+- over - Applies a function to a value at a lens focus
+- path - Gets value at path in object
+- pathOr - Gets value at path with default fallback
+- pick - Creates object with only specified keys
+- pickAll - Like pick but includes missing keys as undefined
+- pickBy - Picks properties that satisfy a predicate
+- project - Applies pick to each object in an array
+- prop - Returns the value of a property
+- propEq - Checks if a property equals a value
+- propOr - Returns property value or default if missing
+- props - Returns array of values for specified properties
+- propSatisfies - Checks if property satisfies a predicate
+- reject - Returns object with properties that don't satisfy predicate
+- renameKeys - Returns object with keys renamed according to mapping
+- set - Sets a property value immutably
+- toPairs - Converts object to array of [key, value] pairs
+- toPairsIn - Like toPairs but includes inherited properties
+- transform - Transforms object using transformation specification
+- values - Returns array of object's own values
+- view - Extracts a value using a lens
+- where - Checks if object satisfies spec of predicates
+- whereEq - Checks if object properties equal spec values
+- without - Returns object without specified keys (alias: omit)
+- xform - Transforms object structure recursively
+- zipObj - Creates object from arrays of keys and values
+- zipObject - Creates object from arrays of keys and values (alias: zipObj)
 
 ### predicates/
 - isDefined
@@ -329,43 +367,11 @@
 - `arity` and `nAry` are the same (both names are commonly used in FP libraries)
 
 ### object/
-- assoc - Returns a shallow clone of an object with a property set to a value
-- assocPath - Like assoc but sets a nested property using a path
-- clone - Creates a deep clone of an object
-- dissoc - Returns a shallow clone of an object with a property removed
-- dissocPath - Like dissoc but removes a nested property using a path
-- eqProps - Checks if two objects have equal values for a property
-- hasPath - Checks if an object has a property at a given path
-- invert - Swaps keys and values in an object
-- invertBy - Like invert but allows custom grouping of keys with same values
-- lens - Creates a lens for functional property access and modification
-- lensIndex - Creates a lens focused on an array index
-- lensPath - Creates a lens focused on a nested path
-- lensProp - Creates a lens focused on an object property
-- mapKeys - Maps a function over the keys of an object
-- modify - Modifies a property value using a function
-- modifyPath - Like modify but for nested properties
-- objOf - Creates an object with a single key-value pair
-- over - Applies a function to a value at a lens focus
-- pickAll - Like pick but includes keys even if they don't exist (as undefined)
-- pickBy - Picks properties that satisfy a predicate
-- project - Acts like pick on arrays of objects
-- prop - Returns the value of a property
-- propEq - Checks if a property equals a value
-- propOr - Like prop but with a default value
-- props - Returns an array of property values
-- propSatisfies - Checks if a property satisfies a predicate
-- reject - Returns object with properties that don't satisfy predicate
-- renameKeys - Returns object with keys renamed according to a mapping
-- toPairs - Converts object to array of [key, value] pairs
-- toPairsIn - Like toPairs but includes inherited properties
-- transform - Transforms an object using a transformation spec
-- view - Extracts a value using a lens
-- where - Checks if an object satisfies a spec object of predicates
-- whereEq - Like where but checks for strict equality
-- without - Returns object without specified keys
-- xform - Transforms an object structure recursively
-- zipObject - Creates an object from arrays of keys and values
+**All object functions have been completed and moved to the Current Functions section above.**
+
+**Alias notes:**
+- `without` is an alias for `omit` (both remove specified keys)
+- `zipObject` is an alias for `zipObj` (both create object from arrays)
 
 ### predicates/
 - allPass - Returns true if all predicates return true for the input
