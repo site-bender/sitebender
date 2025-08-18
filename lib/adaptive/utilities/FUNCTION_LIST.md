@@ -2,6 +2,18 @@
 
 ## Current Functions
 
+### async/ (10 functions)
+- delay - Creates a Promise that resolves after specified milliseconds with an optional value
+- delayReject - Creates a Promise that rejects after specified milliseconds with an optional error
+- parallel - Executes async functions concurrently and collects all results in order
+- parallelLimit - Executes async functions concurrently with a maximum concurrency limit
+- race - Returns the result of the first async function to complete (resolve or reject)
+- retry - Retries an async function on failure with configurable attempts and delays
+- series - Executes async functions sequentially, collecting all results in order
+- timeout - Adds a timeout to a Promise, rejecting if it doesn't resolve in time
+- waterfall - Executes async functions in series, passing each result to the next function
+- whilst - Repeatedly executes an async function while a condition is true
+
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
@@ -470,17 +482,6 @@
 - when - Applies function when predicate is true
 - unless - Applies function when predicate is false
 
-### async/
-- delay - Returns a Promise that resolves after specified milliseconds
-- delayReject - Returns a Promise that rejects after specified milliseconds
-- parallel - Runs async functions in parallel
-- parallelLimit - Runs async functions in parallel with concurrency limit
-- race - Returns first async result to complete
-- retry - Retries an async function on failure
-- series - Runs async functions in series
-- timeout - Adds timeout to a Promise
-- waterfall - Runs async functions in series, passing results
-- whilst - Repeatedly calls async function while condition is true
 
 ### date/
 - addDays - Adds days to a date
