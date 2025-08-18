@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions
+## Current Functions (381 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -129,7 +129,7 @@
 - waterfall - Executes async functions in series, passing each result to the next function
 - whilst - Repeatedly executes an async function while a condition is true
 
-### functions/ (50 functions)
+### combinator/ (50 functions)
 - always - Returns a function that always returns the given value
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
@@ -227,7 +227,7 @@
 - zipObj - Creates object from arrays of keys and values
 - zipObject - Creates object from arrays of keys and values (alias: zipObj)
 
-### predicates/ (47 functions)
+### validation/ (49 functions)
 - allPass - Returns true if all predicates return true for the input
 - anyPass - Returns true if any predicate returns true for the input
 - both - Returns true if both predicates return true
@@ -239,10 +239,11 @@
 - is - Checks if value is an instance of a constructor
 - isArray - Checks if value is an array
 - isArrayLike - Checks if value has a length property and is indexable
+- isBlank - Checks if string is empty or only whitespace (moved from string/)
 - isBoolean - Checks if value is a boolean
 - isDate - Checks if value is a Date object
 - isDefined - Checks if value is neither null nor undefined
-- isEmpty - Checks if value is empty (works for strings, arrays, objects)
+- isEmpty - Checks if value is empty (unified - works for strings, arrays, objects, Maps, Sets)
 - isError - Checks if value is an Error object
 - isEven - Checks if number is even
 - isFalsy - Checks if value is falsy
@@ -314,7 +315,6 @@
 - escapeRegExp - Escapes special regex characters
 - indent - Adds indentation to each line
 - indexOf - Returns index of first occurrence of substring
-- isBlank - Checks if string is empty or only whitespace
 - lastIndexOf - Returns index of last occurrence of substring
 - lines - Splits string into array of lines
 - match - Matches a regular expression against a string
@@ -348,19 +348,19 @@
 - swapCase - Swaps case of all characters
 - template - Processes template strings with variable substitution
 - test - Tests if a string matches a regular expression
-- toCamel - Converts string to camelCase
-- toCase - Converts string to specified case (kebab-case, snake_case, etc.)
-- toKebab - Converts string to kebab-case
-- toLower - Converts string to lowercase
-- toLowerFirst - Lowercases only the first character
-- toPascal - Converts string to PascalCase
-- toScreamingSnake - Converts string to SCREAMING_SNAKE_CASE
-- toSentence - Capitalizes only the first character
-- toSnake - Converts string to snake_case
-- toTitle - Converts string to Title Case
-- toTrain - Converts string to Train-Case
-- toUpper - Converts string to uppercase
-- toUpperFirst - Uppercases only the first character
+- toCase - Converts string to specified case (contains nested case converters):
+  - toCamel - Converts string to camelCase
+  - toKebab - Converts string to kebab-case
+  - toLower - Converts string to lowercase
+  - toLowerFirst - Lowercases only the first character
+  - toPascal - Converts string to PascalCase
+  - toScreamingSnake - Converts string to SCREAMING_SNAKE_CASE
+  - toSentence - Capitalizes only the first character
+  - toSnake - Converts string to snake_case
+  - toTitle - Converts string to Title Case
+  - toTrain - Converts string to Train-Case
+  - toUpper - Converts string to uppercase
+  - toUpperFirst - Uppercases only the first character
 - trim - Removes whitespace from both ends of a string
 - trimEnd - Removes whitespace from the end of a string
 - trimStart - Removes whitespace from the start of a string
@@ -395,7 +395,17 @@
 - `zipObject` is an alias for `zipObj` (both create object from arrays)
 
 ### predicates/
-**All predicate functions have been completed and moved to the Current Functions section above.**
+**All predicate functions have been completed and moved to validation/ in the Current Functions section above.**
+
+### conversion/
+**All conversion functions have been completed and moved to the Current Functions section above.**
+
+**Implementation notes:**
+- `toNumber` renamed to `toFloat` for clarity
+- `toPrecision` added for rounding to decimal places
+- `toPercent` and `toZonedDateTime` not yet implemented (pending requirements)
+- Date functions use Temporal API with strict validation (`overflow: 'reject'`)
+- All functions return null/NaN for invalid inputs (safe for monadic wrapping)
 
 ### math/
 - add - Adds two numbers
@@ -452,36 +462,80 @@
 - unless - Applies function when predicate is false
 
 
-### date/
-- addDays - Adds days to a date
-- addHours - Adds hours to a date
-- addMinutes - Adds minutes to a date
-- addMonths - Adds months to a date
-- addSeconds - Adds seconds to a date
-- addYears - Adds years to a date
-- diffDays - Calculates difference in days
-- diffHours - Calculates difference in hours
-- diffMinutes - Calculates difference in minutes
-- diffMonths - Calculates difference in months
-- diffSeconds - Calculates difference in seconds
-- diffYears - Calculates difference in years
-- endOfDay - Returns end of day for a date
-- endOfMonth - Returns end of month for a date
-- endOfWeek - Returns end of week for a date
-- endOfYear - Returns end of year for a date
-- format - Formats date according to pattern
-- isAfter - Checks if date is after another
-- isBefore - Checks if date is before another
-- isBetween - Checks if date is between two dates
+### map/ (1 function)
+- toObject - Converts Map to object
+
+### conversion/ (14 functions)
+- castValue - Dispatcher for type conversions:
+  - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
+  - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
+  - toInteger - Strictly parses values as integers (truncates decimals)
+  - toPlainDate - Parses values into Temporal PlainDate objects
+  - toPlainDateTime - Parses values into Temporal PlainDateTime objects
+  - toPlainTime - Parses values into Temporal PlainTime objects
+  - toPrecision - Converts to number with specified decimal places (rounds)
+  - toString - Safely converts any value to its string representation
+- fromJson - Parses JSON strings (returns null on error)
+- stringify - Creates deterministic string keys from objects/arrays (sorted keys)
+- toJson - Converts values to JSON strings with optional formatting
+
+### date/ (Temporal API based)
+- addDays - Adds days to a Temporal date/datetime
+- addHours - Adds hours to a Temporal time/datetime
+- addMinutes - Adds minutes to a Temporal time/datetime
+- addMonths - Adds months to a Temporal date/datetime
+- addSeconds - Adds seconds to a Temporal time/datetime
+- addYears - Adds years to a Temporal date/datetime
+- addDuration - Adds a Temporal.Duration to a date/time
+- compare - Compares two Temporal objects (-1, 0, 1)
+- diffDays - Calculates difference in days between dates
+- diffHours - Calculates difference in hours between times
+- diffMinutes - Calculates difference in minutes between times
+- diffMonths - Calculates difference in months between dates
+- diffSeconds - Calculates difference in seconds between times
+- diffYears - Calculates difference in years between dates
+- duration - Creates a Temporal.Duration from units
+- endOfDay - Returns end of day for a date (23:59:59.999)
+- endOfMonth - Returns last day of month for a date
+- endOfWeek - Returns end of week for a date (configurable week start)
+- endOfYear - Returns last day of year for a date
+- equals - Checks if two Temporal objects are equal
+- format - Formats Temporal object according to pattern
+- fromISO - Parses ISO string to appropriate Temporal object
+- getCalendar - Gets calendar from Temporal date
+- getDay - Gets day of month from date
+- getDayOfWeek - Gets day of week (1-7, Monday-Sunday)
+- getDayOfYear - Gets day of year (1-366)
+- getHour - Gets hour from time/datetime
+- getMinute - Gets minute from time/datetime
+- getMonth - Gets month from date
+- getSecond - Gets second from time/datetime
+- getTimeZone - Gets timezone from ZonedDateTime
+- getWeekOfYear - Gets ISO week number
+- getYear - Gets year from date
+- isAfter - Checks if date/time is after another
+- isBefore - Checks if date/time is before another
+- isBetween - Checks if date/time is between two others
 - isSameDay - Checks if dates are on same day
 - isSameMonth - Checks if dates are in same month
 - isSameYear - Checks if dates are in same year
-- isValid - Checks if date is valid
-- parse - Parses date from string
-- startOfDay - Returns start of day for a date
-- startOfMonth - Returns start of month for a date
-- startOfWeek - Returns start of week for a date
-- startOfYear - Returns start of year for a date
+- isValid - Checks if date/time is valid
+- now - Gets current Temporal.Instant
+- parse - Parses date/time from string with format
+- startOfDay - Returns start of day for a date (00:00:00)
+- startOfMonth - Returns first day of month for a date
+- startOfWeek - Returns start of week for a date (configurable week start)
+- startOfYear - Returns first day of year for a date
+- subtractDuration - Subtracts a Temporal.Duration from date/time
+- today - Gets current PlainDate
+- toISO - Converts Temporal object to ISO string
+- toPlainDate - Converts to Temporal.PlainDate
+- toPlainDateTime - Converts ZonedDateTime to PlainDateTime
+- toPlainTime - Converts to Temporal.PlainTime
+- toZonedDateTime - Converts PlainDateTime to ZonedDateTime
+- totalDuration - Gets total duration in specific unit
+- withCalendar - Changes calendar system of date
+- withTimeZone - Converts datetime to specific timezone
 
 ### either/ (Error handling monads)
 - left - Creates a Left value (error case)
@@ -527,7 +581,7 @@
 - expect - Like unwrap but with custom error message
 - expectErr - Like unwrapErr but with custom message
 
-### validation/
+### validation/ (format validators - proposed additions)
 - email - Validates email format
 - url - Validates URL format
 - uuid - Validates UUID format
@@ -551,20 +605,6 @@
 
 ## NOT TO BE DONE YET
 
-
-### conversion/ (12 functions)
-- castValue - Casts a value to a specific datatype using type-safe Either monad
-  - castToBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
-  - castToInteger - Strictly parses values as integers (no decimals or scientific notation)
-  - castToNumber - Flexibly parses values as floating-point numbers
-  - castToPercent - Converts values to percentage format (0-100 range)
-  - castToPlainDate - Parses values into Temporal PlainDate objects
-  - castToPlainDateTime - Parses values into Temporal PlainDateTime objects
-  - castToPlainTime - Parses values into Temporal PlainTime objects
-  - castToString - Safely converts any value to its string representation
-  - castToZonedDateTime - Parses values into Temporal ZonedDateTime objects with timezone
-  - parseJson - Safely parses JSON strings with error handling
-- stringify - Creates deterministic string representation of objects/arrays
 
 ### dom/ (11 functions)
 - collectLinkElements - Collects all link elements from document or element
