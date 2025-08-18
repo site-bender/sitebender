@@ -149,7 +149,7 @@
  * const closestTo = (target: number) => 
  *   (a: number, b: number) => Math.abs(a - target) - Math.abs(b - target)
  * minimumBy(closestTo(10))([5, 15, 8, 20, 12])
- * // 12 (closest to 10)
+ * // 8 (closest to 10)
  * 
  * // File size comparison
  * type File = { name: string; size: number; modified: Date }
