@@ -2,7 +2,7 @@
 
 ## Current Functions
 
-### array/
+### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
@@ -144,9 +144,49 @@
   - getFromSelect
   - getFromTextArea
 
-### functions/
-- identity
-- pipe
+### functions/ (50 functions)
+- always - Returns a function that always returns the given value
+- apply - Calls a function with an array of arguments
+- arity - Wraps a function to report a specific arity (alias: nAry)
+- binary - Wraps a function to accept exactly 2 arguments
+- bind - Creates a function bound to a specific context (this)
+- call - Calls a function with individual arguments
+- complement - Returns the logical complement of a predicate function
+- compose - Right-to-left function composition (opposite of pipe)
+- composeAsync - Async version of compose for Promise-returning functions
+- construct - Wraps a constructor function for use without 'new'
+- constructN - Like construct but with specified arity
+- converge - Applies multiple functions to the same arguments and combines results
+- curry - Auto-curry a function to allow partial application
+- curryN - Curry a function to exactly n arguments
+- debounce - Returns a debounced version of a function that delays invoking
+- flip - Flips the first two arguments of a function
+- identity - Returns its argument unchanged
+- juxt - Applies an array of functions to a value and returns array of results
+- lift - Lifts a function to work with functors/applicatives
+- liftN - Like lift but with specified arity
+- memoize - Returns a memoized version of a function that caches results
+- memoizeWith - Like memoize but uses a custom cache key generator
+- nAry - Creates a function that accepts exactly n arguments (alias: arity)
+- nthArg - Returns a function that returns its nth argument
+- of - Wraps a value in an array (singleton)
+- once - Ensures a function can only be called once
+- partial - Partially applies a function with fixed arguments
+- partialRight - Like partial but fixes arguments from the right
+- pipe - Left-to-right function composition
+- pipeAsync - Async version of pipe for Promise-returning functions
+- pipeWith - Like pipe but uses a custom composition function
+- tap - Runs a side effect function on a value and returns the value
+- throttle - Returns a throttled version that invokes at most once per wait period
+- thunkify - Converts a function to a thunk (zero-argument function)
+- tryCatch - Wraps a function to catch errors and call an error handler
+- unary - Wraps a function to accept exactly 1 argument
+- uncurry - Converts a curried function to a function on tuples
+- unless - Applies function when predicate is false
+- until - Calls a function repeatedly until a predicate returns true
+- useWith - Transforms arguments before passing to a function
+- when - Conditionally applies a function based on a predicate
+- wrap - Wraps a function with a wrapper function
 
 ### misc/
 - generateShortId
@@ -178,7 +218,7 @@
 - isUndefined
 - not
 
-### set/
+### set/ (22 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
 - delete - Removes an element from a Set (returns new Set)
@@ -283,46 +323,10 @@
 - `cartesianProduct` and `xprod` are the same (cartesianProduct is preferred, xprod is alias)
 
 ### functions/
-- compose - Right-to-left function composition (opposite of pipe)
-- composeAsync - Async version of compose for Promise-returning functions
-- curry - Auto-curry a function to allow partial application
-- curryN - Curry a function to exactly n arguments
-- debounce - Returns a debounced version of a function that delays invoking until after wait milliseconds
-- throttle - Returns a throttled version of a function that only invokes at most once per wait milliseconds
-- flip - Flips the first two arguments of a function
-- memoize - Returns a memoized version of a function that caches results
-- memoizeWith - Like memoize but uses a custom cache key generator
-- once - Ensures a function can only be called once
-- partial - Partially applies a function with fixed arguments
-- partialRight - Like partial but fixes arguments from the right
-- tap - Runs a side effect function on a value and returns the value (for debugging)
-- tryCatch - Wraps a function to catch errors and call an error handler
-- uncurry - Converts a curried function to a function on tuples
-- until - Calls a function repeatedly until a predicate returns true
-- useWith - Transforms arguments before passing to a function
-- when - Conditionally applies a function based on a predicate
-- unless - The opposite of when - applies function when predicate is false
-- always - Returns a function that always returns the given value
-- apply - Calls a function with an array of arguments
-- arity - Wraps a function to report a specific arity
-- binary - Wraps a function to accept exactly 2 arguments
-- bind - Creates a function bound to a specific context (this)
-- call - Calls a function with individual arguments
-- complement - Returns the logical complement of a predicate function
-- construct - Wraps a constructor function for use without 'new'
-- constructN - Like construct but with specified arity
-- converge - Applies multiple functions to the same arguments and combines results
-- juxt - Applies an array of functions to a value and returns array of results
-- lift - Lifts a function to work with functors/applicatives
-- liftN - Like lift but with specified arity
-- nAry - Creates a function that accepts exactly n arguments
-- nthArg - Returns a function that returns its nth argument
-- of - Wraps a value in an array (singleton)
-- pipeAsync - Async version of pipe for Promise-returning functions
-- pipeWith - Like pipe but uses a custom composition function
-- thunkify - Converts a function to a thunk (zero-argument function)
-- unary - Wraps a function to accept exactly 1 argument
-- wrap - Wraps a function with a wrapper function
+**All function utilities have been completed and moved to the Current Functions section above.**
+
+**Alias notes:**
+- `arity` and `nAry` are the same (both names are commonly used in FP libraries)
 
 ### object/
 - assoc - Returns a shallow clone of an object with a property set to a value
