@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (517 functions total)
+## Current Functions (535 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -375,6 +375,26 @@
 - zipObj - Creates object from arrays of keys and values
 - zipObject - Creates object from arrays of keys and values (alias: zipObj)
 
+### result/ (18 functions)
+- bimap - Maps functions over both Err and Ok values
+- chain - Flat maps over Ok value (monadic bind)
+- chainErr - Flat maps over Err value
+- err - Creates an Err result (wrapper for Either's left)
+- errWithInspect - Creates an Err result with enhanced debugging output
+- fold - Folds Result to a single value using handlers
+- getOrElse - Extracts Ok value or returns default
+- isErr - Checks if Result is Err
+- isOk - Checks if Result is Ok
+- map - Maps function over Ok value
+- mapErr - Maps function over Err value
+- ok - Creates an Ok result (wrapper for Either's right)
+- okWithInspect - Creates an Ok result with enhanced debugging output
+- orElse - Returns alternative Result if Err
+- result - Extracts value using err/ok handlers
+- show - Converts Result to string representation
+- swap - Swaps Ok and Err values
+- tryCatch - Converts try/catch to Result
+
 ### set/ (22 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
@@ -590,20 +610,6 @@
 - isOdd - Checks if number is odd
 - random - Generates random number in range
 - randomInt - Generates random integer in range
-
-### result/ (Alternative error handling)
-- ok - Creates an Ok result
-- err - Creates an Err result
-- isOk - Checks if Result is Ok
-- isErr - Checks if Result is Err
-- map - Maps function over Ok value
-- mapErr - Maps function over Err value
-- chain - Flat maps over Ok value
-- unwrap - Extracts Ok value (throws if Err)
-- unwrapOr - Extracts Ok value or returns default
-- unwrapErr - Extracts Err value (throws if Ok)
-- expect - Like unwrap but with custom error message
-- expectErr - Like unwrapErr but with custom message
 
 ### validation/ (format validators - proposed additions)
 - email - Validates email format
