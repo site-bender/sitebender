@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (500 functions total)
+## Current Functions (517 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -302,6 +302,25 @@
 ### map/ (1 function)
 - toObject - Converts Map to an object
 
+### maybe/ (17 functions)
+- just - Creates a Just value (Some)
+- justWithInspect - Creates a Just value with enhanced debugging output
+- nothing - Creates a Nothing value (None)
+- nothingWithInspect - Creates a Nothing value with enhanced debugging output
+- isJust - Checks if Maybe is Just
+- isNothing - Checks if Maybe is Nothing
+- maybe - Extracts value using nothing/just handlers
+- map - Maps function over Just value
+- chain - Flat maps over Just value (monadic bind)
+- filter - Converts to Nothing if predicate fails
+- getOrElse - Extracts Just value or returns default
+- orElse - Returns alternative Maybe if Nothing
+- fold - Folds Maybe to a single value using handlers
+- fromNullable - Converts nullable value to Maybe
+- toEither - Converts Maybe to Either
+- toNullable - Converts Maybe to nullable value
+- show - Converts Maybe to string representation
+
 ### object/ (69 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
@@ -571,19 +590,6 @@
 - isOdd - Checks if number is odd
 - random - Generates random number in range
 - randomInt - Generates random integer in range
-
-### maybe/ (Optional value monad)
-- just - Creates a Just value (Some)
-- nothing - Creates a Nothing value (None)
-- isJust - Checks if Maybe is Just
-- isNothing - Checks if Maybe is Nothing
-- maybe - Extracts value with default
-- map - Maps function over Just value
-- chain - Flat maps over Just value
-- filter - Converts to Nothing if predicate fails
-- getOrElse - Extracts Just value or returns default
-- orElse - Returns alternative Maybe if Nothing
-- toEither - Converts Maybe to Either
 
 ### result/ (Alternative error handling)
 - ok - Creates an Ok result
