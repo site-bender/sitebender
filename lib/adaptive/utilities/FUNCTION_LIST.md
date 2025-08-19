@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (480 functions total)
+## Current Functions (500 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -549,20 +549,26 @@
 - random - Generates random number in range
 - randomInt - Generates random integer in range
 
-### either/ (Error handling monads)
-- left - Creates a Left value (error case)
-- right - Creates a Right value (success case)
-- isLeft - Checks if Either is Left
-- isRight - Checks if Either is Right
-- either - Extracts value using left/right handlers
-- map - Maps function over Right value
-- mapLeft - Maps function over Left value
+### debug/ (1 function)
+- withInspect - Attaches custom inspection method for better console output
+
+### either/ (19 functions)
 - bimap - Maps functions over both Left and Right
 - chain - Flat maps over Right value (monadic bind)
 - chainLeft - Flat maps over Left value
+- either - Extracts value using left/right handlers
 - fold - Folds Either to a single value
 - getOrElse - Extracts Right value or returns default
+- isLeft - Checks if Either is Left
+- isRight - Checks if Either is Right
+- left - Creates a Left value (error case)
+- leftWithInspect - Creates a Left value with enhanced debugging output
+- map - Maps function over Right value
+- mapLeft - Maps function over Left value
 - orElse - Returns alternative Either if Left
+- right - Creates a Right value (success case)
+- rightWithInspect - Creates a Right value with enhanced debugging output
+- show - Converts Either to string representation
 - swap - Swaps Left and Right
 - tryCatch - Converts try/catch to Either
 

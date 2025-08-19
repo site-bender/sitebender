@@ -10,7 +10,12 @@
 - **Type safety** - Good TypeScript usage, though could be stronger in places
 
 **Design Observations:**
-- The shift from `unsafe/safe` dual-layer to just `simple/` was a good simplification
+- The `simple/safe` dual-layer architecture is well-conceived:
+  - `simple/` contains pure FP functions that work with plain values
+  - `safe/` (currently empty) will contain monadic versions working with Either/Maybe
+  - Both will have identical function names for consistency
+  - Safe versions will delegate to simple versions where possible
+- The naming choice of `simple` instead of `unsafe` is better UX - less scary for users
 - The currying approach is consistent and enables excellent composition
 - The Temporal API adoption for dates is forward-thinking (though requires `--unstable-temporal` flag)
 
@@ -66,7 +71,82 @@
 - `lens` composition operators
 - `transduce` - Transducer support
 
-## d) Other Relevant Observations
+## d) Implementation Strategy for Safe/Monadic Layer
+
+**Architecture Approach:**
+1. **Mirror Structure** - The `safe/` folder should mirror `simple/` exactly:
+   ```
+   safe/
+   ├── array/
+   │   ├── map/        # Works with Either<E, Array<T>>
+   │   ├── filter/     # Returns Either<E, Array<T>>
+   │   └── ...
+   ├── string/
+   │   ├── split/      # Returns Either<E, Array<string>>
+   │   └── ...
+   └── ...
+   ```
+
+2. **Function Signatures** - Safe versions wrap inputs/outputs in Either:
+   ```typescript
+   // simple/array/map
+   const map = <T, R>(fn: (t: T) => R) => (arr: Array<T>): Array<R>
+   
+   // safe/array/map  
+   const map = <E, T, R>(fn: (t: T) => Either<E, R>) => 
+     (arr: Either<E, Array<T>>): Either<E, Array<R>>
+   ```
+
+3. **Delegation Pattern** - Safe functions should delegate to simple where possible:
+   ```typescript
+   // safe/array/filter
+   import filterSimple from "../../simple/array/filter/index.ts"
+   import { map, right } from "../../../types/either/index.ts"
+   
+   const filter = <E, T>(predicate: (t: T) => boolean) =>
+     map<E, Array<T>, Array<T>>(filterSimple(predicate))
+   ```
+
+4. **Error Propagation** - Functions should short-circuit on Left values:
+   ```typescript
+   // safe/array/concat
+   const concat = <E, T>(arr2: Either<E, Array<T>>) => 
+     (arr1: Either<E, Array<T>>): Either<E, Array<T>> =>
+       isLeft(arr1) ? arr1 :
+       isLeft(arr2) ? arr2 :
+       right(concatSimple(arr2.right)(arr1.right))
+   ```
+
+5. **Lifting Strategy** - Create lift utilities for common patterns:
+   ```typescript
+   // safe/lift/liftUnary
+   const liftUnary = <A, B>(fn: (a: A) => B) =>
+     <E>(either: Either<E, A>): Either<E, B> =>
+       map(fn)(either)
+   
+   // safe/lift/liftBinary
+   const liftBinary = <A, B, C>(fn: (a: A) => (b: B) => C) =>
+     <E>(a: Either<E, A>) => (b: Either<E, B>): Either<E, C> =>
+       isLeft(a) ? a :
+       isLeft(b) ? b :
+       right(fn(a.right)(b.right))
+   ```
+
+**Priority Functions for Safe Implementation:**
+1. Core array operations: map, filter, reduce, flatMap
+2. Object operations: path, prop, assoc (handle missing keys)
+3. String parsing: split, match, parse functions
+4. Type conversions: all conversion functions (already return null on error)
+5. Async operations: naturally fit Either for error handling
+
+**Benefits of This Approach:**
+- **Consistency** - Same function names in both layers
+- **Discoverability** - Easy to find safe version of any function
+- **Composability** - Monadic chaining for error handling
+- **Gradual Adoption** - Users can mix simple/safe as needed
+- **Type Safety** - Errors are encoded in the type system
+
+## e) Other Relevant Observations
 
 **Deno-Specific Considerations:**
 1. **Import maps** - Could benefit from import map for cleaner imports
