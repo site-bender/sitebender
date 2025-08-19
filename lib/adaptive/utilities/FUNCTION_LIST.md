@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (381 functions total)
+## Current Functions (480 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -173,6 +173,112 @@
 - when - Conditionally applies a function based on a predicate
 - wrap - Wraps a function with a wrapper function
 
+### conversion/ (14 functions)
+- castValue - Dispatcher for type conversions:
+  - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
+  - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
+  - toInteger - Strictly parses values as integers (truncates decimals)
+  - toPlainDate - Parses values into Temporal PlainDate objects
+  - toPlainDateTime - Parses values into Temporal PlainDateTime objects
+  - toPlainTime - Parses values into Temporal PlainTime objects
+  - toPrecision - Converts to number with specified decimal places (rounds)
+  - toString - Safely converts any value to its string representation
+- fromJson - Parses JSON strings (returns null on error)
+- stringify - Creates deterministic string keys from objects/arrays (sorted keys)
+- toJson - Converts values to JSON strings with optional formatting
+- toPercent - Converts a number to a percentage string (e.g. 0.123 -> "12.30%")
+
+### date/ (Temporal API based — 71 functions)
+- addDays - Adds days to a Temporal date/datetime
+- addDuration - Adds a Temporal.Duration to a date/time
+- addHours - Adds hours to a Temporal time/datetime
+- addMinutes - Adds minutes to a Temporal time/datetime
+- addMonths - Adds months to a Temporal date/datetime
+- addSeconds - Adds seconds to a Temporal time/datetime
+- addYears - Adds years to a Temporal date/datetime
+- adjustTime - Adjusts time components while preserving date
+- clampDate - Constrains date between min and max bounds
+- compare - Compares two Temporal objects (-1, 0, 1)
+- dateRange - Generates array of dates between start and end
+- diffDays - Calculates difference in days between dates
+- diffHours - Calculates difference in hours between times
+- diffMinutes - Calculates difference in minutes between times
+- diffMonths - Calculates difference in months between dates
+- diffSeconds - Calculates difference in seconds between times
+- diffYears - Calculates difference in years between dates
+- duration - Creates a Temporal.Duration from units
+- endOfDay - Returns end of day for a date (23:59:59.999)
+- endOfMonth - Returns last day of month for a date
+- endOfWeek - Returns end of week for a date (configurable week start)
+- endOfYear - Returns last day of year for a date
+- equals - Checks if two Temporal objects are equal
+- format - Formats Temporal object according to pattern
+- fromISO - Parses ISO string to appropriate Temporal object
+- getCalendar - Gets calendar from Temporal date
+- getDay - Gets day of month from date
+- getDayOfWeek - Gets day of week (1-7, Monday-Sunday)
+- getDayOfYear - Gets day of year (1-366)
+- getDaysInMonth - Gets number of days in a specific month
+- getDaysInYear - Gets number of days in a specific year (365/366)
+- getHour - Gets hour from time/datetime
+- getMillisecond - Gets millisecond from time/datetime
+- getMinute - Gets minute from time/datetime
+- getMonth - Gets month from date
+- getNanosecond - Gets nanosecond from time/datetime
+- getQuarter - Gets quarter (1-4) from date
+- getSecond - Gets second from time/datetime
+- getTimeZone - Gets timezone from ZonedDateTime
+- getWeekday - Alias for getDayOfWeek with clearer name
+- getWeekOfYear - Gets ISO week number
+- getYear - Gets year from date
+- isLeapYear - Checks if a year is a leap year
+- isWeekday - Checks if date falls on weekday (Mon-Fri)
+- isWeekend - Checks if date falls on weekend (Sat-Sun)
+- now - Gets current Temporal.Instant
+- parse - Parses date/time from string with format
+- round - Rounds datetime to nearest unit (hour, minute, etc.)
+- setDay - Returns new date with day set to value
+- setHour - Returns new time/datetime with hour set
+- setMinute - Returns new time/datetime with minute set
+- setMonth - Returns new date with month set to value
+- setSecond - Returns new time/datetime with second set
+- setYear - Returns new date with year set to value
+- since - Calculates duration since a reference date/time
+- startOfDay - Returns start of day for a date (00:00:00)
+- startOfMonth - Returns first day of month for a date
+- startOfWeek - Returns start of week for a date (configurable week start)
+- startOfYear - Returns first day of year for a date
+- subtractDuration - Subtracts a Temporal.Duration from date/time
+- today - Gets current PlainDate
+- toISO - Converts Temporal object to ISO string
+- toPlainDate - Converts to Temporal.PlainDate
+- toPlainDateTime - Converts ZonedDateTime to PlainDateTime
+- toPlainTime - Converts to Temporal.PlainTime
+- toZonedDateTime - Converts PlainDateTime to ZonedDateTime
+- totalDuration - Gets total duration in specific unit
+- until - Calculates duration until a target date/time
+- withCalendar - Changes calendar system of date
+- withTime - Combines PlainDate with PlainTime to create PlainDateTime
+- withTimeZone - Converts datetime to specific timezone
+
+### logic/ (13 functions)
+- and - Logical AND of two values
+- cond - Multi-way conditional (like switch/case)
+- defaultTo - Returns default value if input is null/undefined
+- ifElse - Conditional function application
+- iff - Logical biconditional (if and only if)
+- implies - Logical implication (if A then B)
+- nand - Logical NAND
+- nor - Logical NOR
+- not - Logical NOT of a value
+- or - Logical OR of two values
+- unless - Applies function when predicate is false
+- when - Applies function when predicate is true
+- xor - Logical XOR of two values
+
+### map/ (1 function)
+- toObject - Converts Map to an object
+
 ### object/ (69 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
@@ -226,57 +332,6 @@
 - xform - Transforms object structure recursively
 - zipObj - Creates object from arrays of keys and values
 - zipObject - Creates object from arrays of keys and values (alias: zipObj)
-
-### validation/ (49 functions)
-- allPass - Returns true if all predicates return true for the input
-- anyPass - Returns true if any predicate returns true for the input
-- both - Returns true if both predicates return true
-- either - Returns true if either predicate returns true
-- equals - Deep equality comparison
-- gt - Greater than comparison
-- gte - Greater than or equal comparison
-- identical - Strict equality comparison (===)
-- is - Checks if value is an instance of a constructor
-- isArray - Checks if value is an array
-- isArrayLike - Checks if value has a length property and is indexable
-- isBlank - Checks if string is empty or only whitespace (moved from string/)
-- isBoolean - Checks if value is a boolean
-- isDate - Checks if value is a Date object
-- isDefined - Checks if value is neither null nor undefined
-- isEmpty - Checks if value is empty (unified - works for strings, arrays, objects, Maps, Sets)
-- isError - Checks if value is an Error object
-- isEven - Checks if number is even
-- isFalsy - Checks if value is falsy
-- isFinite - Checks if value is a finite number
-- isFunction - Checks if value is a function
-- isInteger - Checks if value is an integer
-- isMap - Checks if value is a Map
-- isNaN - Checks if value is NaN
-- isNegative - Checks if number is negative
-- isNil - Checks if value is null or undefined
-- isNotNullish - Checks if value is not nullish using strict equality
-- isNullish - Checks if value is null or undefined using == null
-- isNumber - Validates if a string representation is a parseable number
-- isObject - Checks if value is an object
-- isOdd - Checks if number is odd
-- isPlainObject - Checks if value is a plain object (not class instance)
-- isPositive - Checks if number is positive
-- isPrimitive - Checks if value is a primitive type
-- isPromise - Checks if value is a Promise
-- isRegExp - Checks if value is a RegExp
-- isSet - Checks if value is a Set
-- isString - Checks if value is a string
-- isSymbol - Checks if value is a Symbol
-- isTruthy - Checks if value is truthy
-- isUndefined - Checks if value is strictly undefined (not null)
-- isWeakMap - Checks if value is a WeakMap
-- isWeakSet - Checks if value is a WeakSet
-- isZero - Checks if number equals zero
-- lt - Less than comparison
-- lte - Less than or equal comparison
-- neither - Returns true if neither predicate returns true
-- nonePass - Returns true if no predicates return true
-- not - Returns logical negation of any value's truthiness
 
 ### set/ (22 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
@@ -371,6 +426,57 @@
 - wrap - Wraps string at specified width
 - wrapWith - Wraps string with prefix and suffix
 
+### validation/ (49 functions)
+- allPass - Returns true if all predicates return true for the input
+- anyPass - Returns true if any predicate returns true for the input
+- both - Returns true if both predicates return true
+- either - Returns true if either predicate returns true
+- equals - Deep equality comparison
+- gt - Greater than comparison
+- gte - Greater than or equal comparison
+- identical - Strict equality comparison (===)
+- is - Checks if value is an instance of a constructor
+- isArray - Checks if value is an array
+- isArrayLike - Checks if value has a length property and is indexable
+- isBlank - Checks if string is empty or only whitespace (moved from string/)
+- isBoolean - Checks if value is a boolean
+- isDate - Checks if value is a Date object
+- isDefined - Checks if value is neither null nor undefined
+- isEmpty - Checks if value is empty (unified - works for strings, arrays, objects, Maps, Sets)
+- isError - Checks if value is an Error object
+- isEven - Checks if number is even
+- isFalsy - Checks if value is falsy
+- isFinite - Checks if value is a finite number
+- isFunction - Checks if value is a function
+- isInteger - Checks if value is an integer
+- isMap - Checks if value is a Map
+- isNaN - Checks if value is NaN
+- isNegative - Checks if number is negative
+- isNil - Checks if value is null or undefined
+- isNotNullish - Checks if value is not nullish using strict equality
+- isNullish - Checks if value is null or undefined using == null
+- isNumber - Validates if a string representation is a parseable number
+- isObject - Checks if value is an object
+- isOdd - Checks if number is odd
+- isPlainObject - Checks if value is a plain object (not class instance)
+- isPositive - Checks if number is positive
+- isPrimitive - Checks if value is a primitive type
+- isPromise - Checks if value is a Promise
+- isRegExp - Checks if value is a RegExp
+- isSet - Checks if value is a Set
+- isString - Checks if value is a string
+- isSymbol - Checks if value is a Symbol
+- isTruthy - Checks if value is truthy
+- isUndefined - Checks if value is strictly undefined (not null)
+- isWeakMap - Checks if value is a WeakMap
+- isWeakSet - Checks if value is a WeakSet
+- isZero - Checks if number equals zero
+- lt - Less than comparison
+- lte - Less than or equal comparison
+- neither - Returns true if neither predicate returns true
+- nonePass - Returns true if no predicates return true
+- not - Returns logical negation of any value's truthiness
+
 ## Proposed Additions
 
 ### array/
@@ -401,9 +507,6 @@
 **All conversion functions have been completed and moved to the Current Functions section above.**
 
 **Implementation notes:**
-- `toNumber` renamed to `toFloat` for clarity
-- `toPrecision` added for rounding to decimal places
-- `toPercent` and `toZonedDateTime` not yet implemented (pending requirements)
 - Date functions use Temporal API with strict validation (`overflow: 'reject'`)
 - All functions return null/NaN for invalid inputs (safe for monadic wrapping)
 
@@ -445,97 +548,6 @@
 - isOdd - Checks if number is odd
 - random - Generates random number in range
 - randomInt - Generates random integer in range
-
-### logic/
-- and - Logical AND of two values
-- or - Logical OR of two values
-- xor - Logical XOR of two values
-- not - Logical NOT of a value
-- implies - Logical implication (if A then B)
-- iff - Logical biconditional (if and only if)
-- nand - Logical NAND
-- nor - Logical NOR
-- cond - Multi-way conditional (like switch/case)
-- defaultTo - Returns default value if input is null/undefined
-- ifElse - Conditional function application
-- when - Applies function when predicate is true
-- unless - Applies function when predicate is false
-
-
-### map/ (1 function)
-- toObject - Converts Map to object
-
-### conversion/ (14 functions)
-- castValue - Dispatcher for type conversions:
-  - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
-  - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
-  - toInteger - Strictly parses values as integers (truncates decimals)
-  - toPlainDate - Parses values into Temporal PlainDate objects
-  - toPlainDateTime - Parses values into Temporal PlainDateTime objects
-  - toPlainTime - Parses values into Temporal PlainTime objects
-  - toPrecision - Converts to number with specified decimal places (rounds)
-  - toString - Safely converts any value to its string representation
-- fromJson - Parses JSON strings (returns null on error)
-- stringify - Creates deterministic string keys from objects/arrays (sorted keys)
-- toJson - Converts values to JSON strings with optional formatting
-
-### date/ (Temporal API based)
-- addDays - Adds days to a Temporal date/datetime
-- addHours - Adds hours to a Temporal time/datetime
-- addMinutes - Adds minutes to a Temporal time/datetime
-- addMonths - Adds months to a Temporal date/datetime
-- addSeconds - Adds seconds to a Temporal time/datetime
-- addYears - Adds years to a Temporal date/datetime
-- addDuration - Adds a Temporal.Duration to a date/time
-- compare - Compares two Temporal objects (-1, 0, 1)
-- diffDays - Calculates difference in days between dates
-- diffHours - Calculates difference in hours between times
-- diffMinutes - Calculates difference in minutes between times
-- diffMonths - Calculates difference in months between dates
-- diffSeconds - Calculates difference in seconds between times
-- diffYears - Calculates difference in years between dates
-- duration - Creates a Temporal.Duration from units
-- endOfDay - Returns end of day for a date (23:59:59.999)
-- endOfMonth - Returns last day of month for a date
-- endOfWeek - Returns end of week for a date (configurable week start)
-- endOfYear - Returns last day of year for a date
-- equals - Checks if two Temporal objects are equal
-- format - Formats Temporal object according to pattern
-- fromISO - Parses ISO string to appropriate Temporal object
-- getCalendar - Gets calendar from Temporal date
-- getDay - Gets day of month from date
-- getDayOfWeek - Gets day of week (1-7, Monday-Sunday)
-- getDayOfYear - Gets day of year (1-366)
-- getHour - Gets hour from time/datetime
-- getMinute - Gets minute from time/datetime
-- getMonth - Gets month from date
-- getSecond - Gets second from time/datetime
-- getTimeZone - Gets timezone from ZonedDateTime
-- getWeekOfYear - Gets ISO week number
-- getYear - Gets year from date
-- isAfter - Checks if date/time is after another
-- isBefore - Checks if date/time is before another
-- isBetween - Checks if date/time is between two others
-- isSameDay - Checks if dates are on same day
-- isSameMonth - Checks if dates are in same month
-- isSameYear - Checks if dates are in same year
-- isValid - Checks if date/time is valid
-- now - Gets current Temporal.Instant
-- parse - Parses date/time from string with format
-- startOfDay - Returns start of day for a date (00:00:00)
-- startOfMonth - Returns first day of month for a date
-- startOfWeek - Returns start of week for a date (configurable week start)
-- startOfYear - Returns first day of year for a date
-- subtractDuration - Subtracts a Temporal.Duration from date/time
-- today - Gets current PlainDate
-- toISO - Converts Temporal object to ISO string
-- toPlainDate - Converts to Temporal.PlainDate
-- toPlainDateTime - Converts ZonedDateTime to PlainDateTime
-- toPlainTime - Converts to Temporal.PlainTime
-- toZonedDateTime - Converts PlainDateTime to ZonedDateTime
-- totalDuration - Gets total duration in specific unit
-- withCalendar - Changes calendar system of date
-- withTimeZone - Converts datetime to specific timezone
 
 ### either/ (Error handling monads)
 - left - Creates a Left value (error case)
@@ -592,15 +604,48 @@
 - postalCode - Validates postal code for country
 - iban - Validates IBAN format
 - isbn - Validates ISBN format
+- isAfterDate - Checks if PlainDate is after another
+- isAfterDateTime - Checks if PlainDateTime is after another
+- isAfterInstant - Checks if Instant is after another
+- isAfterTime - Checks if PlainTime is after another
 - isAlpha - Validates alphabetic characters only
 - isAlphanumeric - Validates alphanumeric characters
-- isNumeric - Validates numeric characters only
-- isHexColor - Validates hex color format
 - isBase64 - Validates base64 encoding
+- isBeforeDate - Checks if PlainDate is before another
+- isBeforeDateTime - Checks if PlainDateTime is before another
+- isBeforeInstant - Checks if Instant is before another
+- isBeforeTime - Checks if PlainTime is before another
+- isBetweenDates - Checks if PlainDate is between two dates
+- isBetweenDateTimes - Checks if PlainDateTime is between two datetimes
+- isBetweenTimes - Checks if PlainTime is between two times
+- isFutureDate - Checks if PlainDate is in the future
+- isFutureDateTime - Checks if PlainDateTime is in the future
+- isFutureInstant - Checks if Instant is in the future
+- isHexColor - Validates hex color format
 - isJSON - Validates JSON string
-- minLength - Validates minimum length
-- maxLength - Validates maximum length
+- isNumeric - Validates numeric characters only
+- isPastDate - Checks if PlainDate is in the past
+- isPastDateTime - Checks if PlainDateTime is in the past
+- isPastInstant - Checks if Instant is in the past
+- isSameOrAfterDate - Checks if PlainDate is same or after another
+- isSameOrAfterDateTime - Checks if PlainDateTime is same or after another
+- isSameOrAfterTime - Checks if PlainTime is same or after another
+- isSameOrBeforeDate - Checks if PlainDate is same or before another
+- isSameOrBeforeDateTime - Checks if PlainDateTime is same or before another
+- isSameOrBeforeTime - Checks if PlainTime is same or before another
+- isTemporalDate - Checks if value is a Temporal.PlainDate
+- isTemporalDateTime - Checks if value is a Temporal.PlainDateTime
+- isTemporalDuration - Checks if value is a Temporal.Duration
+- isTemporalInstant - Checks if value is a Temporal.Instant
+- isTemporalTime - Checks if value is a Temporal.PlainTime
+- isTemporalZonedDateTime - Checks if value is a Temporal.ZonedDateTime
+- isToday - Checks if PlainDate is today
+- isTomorrow - Checks if PlainDate is tomorrow
+- isValidDate - Validates if a date/time is valid (not just type check)
+- isYesterday - Checks if PlainDate is yesterday
 - matches - Validates against regex pattern
+- maxLength - Validates maximum length
+- minLength - Validates minimum length
 - required - Validates non-empty value
 
 ## NOT TO BE DONE YET
