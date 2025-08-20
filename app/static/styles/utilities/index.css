@@ -1,0 +1,38 @@
+/* Screen Reader Only */
+.sr-only {
+	/* Fallback for browsers that don't support clip-path */
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+@supports (clip-path: inset(50%)) {
+	.sr-only {
+		clip: auto;
+		clip-path: inset(50%);
+	}
+}
+
+input[data-dashlane-filled],
+input.lastpass-filled,
+input[data-com-onepassword-filled],
+input:is(:-webkit-autofill, :autofill) {
+	-webkit-box-shadow: 0 0 0 1000px #ccf inset !important;
+	-webkit-text-fill-color: #004 !important;
+	border: 3px solid blue !important;
+}
+
+@media (prefers-color-scheme: dark) {
+
+	input[data-dashlane-filled],
+	input.lastpass-filled,
+	input[data-com-onepassword-filled],
+	input:is(:-webkit-autofill, :autofill) {
+		-webkit-box-shadow: 0 0 0 1000px #004 inset !important;
+		-webkit-text-fill-color: #ccf !important;
+		border: 3px solid blue !important;
+	}
+}

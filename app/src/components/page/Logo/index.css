@@ -1,0 +1,39 @@
+:root {
+	--logo-font: var(--fancy-font);
+}
+
+.logo {
+	font-family: var(--logo-font);
+	/* Fallback font size for browsers without clamp() */
+	font-size: 1.5rem;
+	font-weight: 400;
+	padding-block: 0.5rem;
+}
+
+@supports (font-size: clamp(1rem, 1vw, 2rem)) {
+	.logo {
+		font-size: clamp(1.125rem, 0.6467rem + 2.3913vw, 2.5rem);
+	}
+}
+
+.logo a {
+	color: currentcolor;
+	outline: none;
+	text-decoration: none;
+}
+
+.logo a:focus {
+	outline: 1px solid currentcolor;
+	outline-offset: 5px;
+}
+
+@supports (border-radius: 5px) {
+	.logo a:focus {
+		border-radius: 5px;
+	}
+}
+
+.asl {
+	font-family: var(--logo-font);
+	font-size: 1.2rem;
+}

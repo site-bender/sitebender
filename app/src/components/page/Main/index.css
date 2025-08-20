@@ -1,0 +1,26 @@
+main {
+	/* Fallback layout without flexbox */
+	text-align: center;
+	background-color: var(--body-background-color);
+	color: var(--body-foreground-color);
+	margin: 0;
+	padding-block: 1rem 3rem;
+	width: 100vw;
+}
+
+@supports (display: flex) {
+	main {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		justify-content: center;
+		text-align: initial;
+	}
+}
+
+@supports (width: 100svw) {
+	main {
+		width: 100svw;
+	}
+}
