@@ -106,34 +106,20 @@ deno test tests/a11y/
 
 This is a dual-purpose codebase with strict separation:
 
-- **`/lib/`** - Standalone library (published to JSR)
+- **`/libraries/`** - Standalone libraries (published to JSR)
   - Zero dependencies, client-side ready
   - MUST use relative imports only (no aliases)
   - Self-contained with no external dependencies
   - Version maintained in `lib/deno.json`
-  
-- **`/src/`** - Documentation site  
+  - Three libraries
+    - `@sitebender/adaptive` - Adaptive components for responsive design
+    - `@sitebender/components` - Accessible UI components
+    - `@sitebender/toolkit` - Utility functions and components
+
+- **`/app/`** - Documentation site
   - MAY use path mapping aliases (~components, ~constants, etc.)
   - Demonstrates all components with live examples
   - Shows both HTML output and structured data
-
-### Component Organization
-
-Components are organized by semantic categories:
-- **`/lib/components/`**
-  - `schema.org` - Components that extend Schema.org types
-    - `Base/` - Base component that all others extend
-    - `Thing/` - Schema.org hierarchy (CreativeWork, Person, Organization, etc.)
-  - `semantic/` - Organized by categories:
-    - `scientific/` - TechnicalTerm, TaxonomicName, etc.
-    - `textual/` - ForeignTerm, WordAsWord, etc.
-    - `quotations/` - Dialogue, CitedQuote, etc.
-    - `narrative/` - StageDirection, InternalMonologue, etc.
-    - `emotional/` - Sarcasm, Irony, etc.
-    - `cultural/` - Idiom, Archaism, etc.
-    - `emphasis/` - Various emphasis patterns
-  
-- **`/lib/types/`** - Metadata-specific types in correct subfolders
 
 ### File and Folder Structure Rules
 
@@ -158,36 +144,35 @@ Components are organized by semantic categories:
 
 5. **Type Organization**:
    - Component Props are exported as named exports from the component file, always named `Props`
-   - All other types belong in `/lib/types/` organized by domain
+   - All other types belong in `types/` folders organized by domain
    - Types and constants can be collected in `index.ts` files with named exports
    - Large type files should be broken into folders (still using `index.ts`)
 
 6. **Constants**: Domain-specific constants go in a `constants/index.ts` file within the relevant component folder
 
 - **`/tests/`** - Comprehensive test suite
-  - `e2e/` - Playwright end-to-end tests
-  - `a11y/` - Accessibility tests (REQUIRED for all components)
-  - `unit/` - Component unit tests
 
 ### Key Architectural Patterns
 
 1. **Component Standards**:
-   - All components extend from `Base` providing template handling and structured data
+   - All `enrich` components extend from `Base` providing template handling and structured data
    - Generate valid semantic HTML with proper structured data
-   - Support multiple formats: Schema.org, Dublin Core, JSON-LD, and microdata
+   - `enrich` components support multiple formats: Schema.org, Dublin Core, JSON-LD, and microdata
    - Use custom template system with variable substitution
    - Follow BCP-47 language tag standards
    - All props must be immutable types only
 
 2. **Import Patterns**:
-   - **Library code (`/lib/`)**: MUST use relative imports only - no aliases
-   - **Documentation (`/src/`)**: MAY use aliases (~components, ~lib, etc.)
+   - **Library code (`/libraries/`)**: MUST use relative imports only - no aliases
+   - **Documentation (`/app/`)**: MAY use aliases (~components, ~lib, etc.)
    - Always separate type imports from value imports:
    ```tsx
    import type { MyType } from "./types"
+
    import { MyComponent } from "./components"
    ```
    - Maintain alphabetical order within import groups
+   - Separate import groups with a single blank line
 
 3. **Error Handling**:
    - Use Either/Result types everywhere - never throw exceptions
@@ -195,7 +180,7 @@ Components are organized by semantic categories:
    - Components should gracefully degrade to basic HTML when features fail
 
 4. **Build System**:
-   - Dual compilation: library (JSR) + documentation site
+   - Dual compilation: libraries (JSR) + documentation site
    - Automatically discover and include component styles/scripts
    - Library build must be completely self-contained
 
@@ -211,24 +196,9 @@ Components are organized by semantic categories:
 
 When creating new components:
 
-1. Extend from appropriate base class (usually `Base` or a `Thing` subclass)
-2. Follow existing patterns in similar components
-3. Include proper Schema.org type annotations
-4. Add comprehensive tests (unit + E2E)
-5. Ensure accessibility compliance
-
-Example component structure:
-```tsx
-export default class MyComponent extends Base {
-  static properties = ["requiredProp", "optionalProp"]
-  static tag = "my-component"
-  static schemaOrgType = "https://schema.org/Thing"
-  
-  constructor(props: MyComponentProps) {
-    super(props)
-  }
-}
-```
+1. Follow existing patterns in similar components
+2. Add comprehensive tests: behavioral, property-based, and accessibility (axe)
+3. Ensure accessibility compliance
 
 ### Testing Requirements
 
@@ -244,17 +214,19 @@ export default class MyComponent extends Base {
 - **Structured Data Visibility**: Show both HTML output and generated structured data
 - **Category Navigation**: Organize by component categories for easy discovery
 
+We will discuss this more when we get to it.
+
 ### JSR Publication Requirements
 
-- Maintain version in `lib/deno.json` separately from main project
+- Maintain version in `libraries/**/deno.json` separately from main project
 - Library uses relative imports only (no aliases) for external compatibility
 - Must remain zero-dependency for client-side usage
-- Export patterns: default for components, named for types/constants
+- Export patterns: default for components and functions, named for types and constants
 
 ### Build Process
 
 The build system supports:
-- **Dual compilation**: Library for JSR + documentation site generation
-- **Asset discovery**: Automatically includes component styles/scripts
+- **Dual compilation**: Libraries for JSR + documentation site generation
+- **Asset discovery**: Automatically includes component styles/scripts (to be discussed)
 - **Self-contained output**: Library build has no external dependencies
-- Outputs to `/dist/` for documentation, `/lib/` published to JSR
+- Outputs to `/dist/` for documentation, `/libraries/**` published to JSR
