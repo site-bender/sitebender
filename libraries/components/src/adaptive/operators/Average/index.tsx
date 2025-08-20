@@ -1,0 +1,33 @@
+/**
+ * Average JSX Component
+ *
+ * Wrapper for the Average operator constructor.
+ * Calculates the average of all operands.
+ *
+ * @example
+ * <Average type="Number">
+ *   <FromElement id="score1" />
+ *   <FromElement id="score2" />
+ *   <FromElement id="score3" />
+ * </Average>
+ */
+
+import AverageConstructor from "../../../../adaptive/constructors/operators/Average/index.ts"
+
+export type AverageProps = {
+	type?: "Number"
+	datatype?: "Number"
+	children?: JSX.Element | JSX.Element[]
+}
+
+export default function Average({
+	type = "Number",
+	datatype,
+	children = [],
+}: AverageProps): ReturnType<typeof AverageConstructor> {
+	const actualType = datatype || type
+	const childArray = Array.isArray(children) ? children : [children]
+
+	// Average constructor signature: (datatype) => (operands)
+	return AverageConstructor(actualType)(childArray as any)
+}

@@ -1,0 +1,43 @@
+:root {
+	--help-font: var(--sans-font);
+	--help-font-size: 1rem;
+	--help-font-style: italic;
+	--help-font-weight: 400;
+	--help-color: var(--dark-gray);
+	--help-transition: color 0.2s ease, font-weight 0.2s ease;
+	--help-error-color: var(--dark-orange);
+	--help-error-font-weight: 400;
+	--help-success-color: var(--dark-green);
+	--help-success-font-weight: 400;
+
+	@media (prefers-color-scheme: dark) {
+		--help-color: var(--lightest-gray);
+		--help-error-color: var(--light-orange);
+		--help-success-color: var(--light-green);
+	}
+}
+
+.help {
+	font-family: var(--help-font);
+	font-size: var(--help-font-size);
+	font-style: var(--help-font-style);
+	color: var(--help-color);
+	line-height: 1;
+	margin-block-end: 0.3rem;
+	transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+/* Help text validation states */
+.help[role="alert"] {
+	color: var(--help-error-color, var(--dark-orange));
+	font-weight: var(--help-error-font-weight, 400);
+	font-family: var(--help-font);
+	/* Added font-family */
+}
+
+.help[role="status"] {
+	color: var(--help-success-color, var(--dark-green));
+	font-weight: var(--help-success-font-weight, 400);
+	font-family: var(--help-font);
+	/* Added font-family */
+}

@@ -1,0 +1,62 @@
+import { CreativeWork } from "../../../enrich/index.ts"
+
+export default function StageDirection({
+	category,
+	characterId,
+	children,
+	element: Element = "span",
+	enrich,
+	placement = "inline",
+	type = "action",
+	...props
+}: Props): JSX.Element {
+	const ariaLabel = [
+		"stage direction",
+		type !== "action" && type,
+		category && `${category} direction`,
+		characterId && `for character ${characterId}`,
+	].filter(Boolean).join(", ")
+
+	const baseElement = (
+		<Element
+			aria-label={ariaLabel}
+			class={`stage-direction direction-${type} placement-${placement}`}
+			data-category={category}
+			data-character-id={characterId}
+			data-placement={placement}
+			data-type={type}
+			{...props}
+		>
+			{children}
+		</Element>
+	)
+
+	// Wrap with CreativeWork for enrichment
+	if (enrich) {
+		return (
+			<CreativeWork
+				text={children}
+				disableJsonLd={enrich === "microdata"}
+				disableMicrodata={enrich === "linkedData"}
+			>
+				{baseElement}
+			</CreativeWork>
+		)
+	}
+
+	// Default: lightweight with data attributes and basic microdata
+	return (
+		<Element
+			aria-label={ariaLabel}
+			class={`stage-direction direction-${type} placement-${placement}`}
+			data-category={category}
+			data-character-id={characterId}
+			data-placement={placement}
+			data-type={type}
+			itemProp="workExample"
+			{...props}
+		>
+			{children}
+		</Element>
+	)
+}
