@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (579 functions total)
+## Current Functions (618 functions total)
 
 ### array/ (118 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -338,8 +338,47 @@
 - when - Applies function when predicate is true
 - xor - Logical XOR of two values
 
-### map/ (1 function)
+### map/ (40 functions)
+- clear - Creates a new empty Map
+- delete - Removes a key-value pair from a Map (returns new Map)
+- deleteAll - Removes multiple keys from a Map
+- difference - Returns a Map with keys in first but not in second
+- differenceWith - Like difference but uses custom equality for keys
+- entries - Returns an array of [key, value] pairs from a Map
+- filter - Filters a Map based on predicate (returns new Map)
+- filterKeys - Filters a Map based on key predicate
+- filterValues - Filters a Map based on value predicate
+- frequency - Count occurrences of each value across all Map values
+- fromArray - Creates a Map from an array of [key, value] pairs
+- fromEntries - Creates a Map from entries (alias for fromArray)
+- fromObject - Creates a Map from an object
+- get - Gets a value from a Map by key
+- getOr - Gets a value from a Map with a default fallback
+- groupBy - Groups Map entries by a key function result
+- has - Checks if a Map contains a key
+- interleave - Alternate entries from multiple Maps
+- intersection - Returns a Map with keys present in both Maps
+- intersectionWith - Like intersection but uses custom equality
+- isEmpty - Checks if a Map is empty
+- keys - Returns an array of Map keys
+- map - Maps a function over Map values (returns new Map)
+- mapEntries - Maps a function over Map entries
+- mapKeys - Maps a function over Map keys
+- merge - Merges multiple Maps (later values override earlier)
+- mergeWith - Merges Maps using a custom merge function
+- partition - Splits a Map into two based on predicate
+- partitionBy - Partition Map by consecutive entries satisfying predicate
+- reduce - Reduces a Map to a single value
+- set - Sets a key-value pair in a Map (returns new Map)
+- setAll - Sets multiple key-value pairs in a Map
+- size - Returns the size of a Map
+- sliding - Creates array of sliding windows over Map entries
+- symmetricDifference - Returns keys in either Map but not both
 - toObject - Converts Map to an object
+- union - Combines multiple Maps (alias for merge)
+- update - Updates a value in a Map using a function
+- values - Returns an array of Map values
+- withDefault - Wraps a Map to provide default values for missing keys
 
 ### maybe/ (17 functions)
 - just - Creates a Just value (Some)
@@ -589,48 +628,6 @@
 - not - Returns logical negation of any value's truthiness
 
 ## Proposed Additions
-
-### map/ (39 functions)
-- clear - Creates a new empty Map
-- delete - Removes a key-value pair from a Map (returns new Map)
-- deleteAll - Removes multiple keys from a Map
-- difference - Returns a Map with keys in first but not in second
-- differenceWith - Like difference but uses custom equality for keys
-- entries - Returns an array of [key, value] pairs from a Map
-- filter - Filters a Map based on predicate (returns new Map)
-- filterKeys - Filters a Map based on key predicate
-- filterValues - Filters a Map based on value predicate
-- frequency - Count occurrences of each value across all Map values
-- fromArray - Creates a Map from an array of [key, value] pairs
-- fromEntries - Creates a Map from entries (alias for fromArray)
-- fromObject - Creates a Map from an object
-- get - Gets a value from a Map by key
-- getOr - Gets a value from a Map with a default fallback
-- groupBy - Groups Map entries by a key function result
-- has - Checks if a Map contains a key
-- interleave - Alternate entries from multiple Maps
-- intersection - Returns a Map with keys present in both Maps
-- intersectionWith - Like intersection but uses custom equality
-- isEmpty - Checks if a Map is empty
-- keys - Returns an array of Map keys
-- map - Maps a function over Map values (returns new Map)
-- mapEntries - Maps a function over Map entries
-- mapKeys - Maps a function over Map keys
-- merge - Merges multiple Maps (later values override earlier)
-- mergeWith - Merges Maps using a custom merge function
-- partition - Splits a Map into two based on predicate
-- partitionBy - Partition Map by consecutive entries satisfying predicate
-- reduce - Reduces a Map to a single value
-- set - Sets a key-value pair in a Map (returns new Map)
-- setAll - Sets multiple key-value pairs in a Map
-- size - Returns the size of a Map
-- sliding - Creates array of sliding windows over Map entries
-- symmetricDifference - Returns keys in either Map but not both
-- union - Combines multiple Maps (alias for merge)
-- update - Updates a value in a Map using a function
-- values - Returns an array of Map values
-- withDefault - Wraps a Map to provide default values for missing keys
-
 
 ### math/ (37 functions)
 - abs - Returns absolute value
