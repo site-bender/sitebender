@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (618 functions total)
+## Current Functions (631 functions total)
 
 ### array/ (118 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -575,6 +575,21 @@
 - words - Splits a string into an array of words
 - wrap - Wraps string at specified width
 - wrapWith - Wraps string with prefix and suffix
+
+### tuple/ (13 functions)
+- bimap - Maps two different functions over the elements of a pair
+- curry - Converts a function that takes a tuple into a curried function
+- first - Extracts the first element from a tuple or array
+- fromArray - Converts an array to a tuple with runtime validation
+- mapTuple - Maps a function over all elements of a tuple, preserving its structure
+- pair - Creates a two-element tuple (Pair) from two values
+- second - Extracts the second element from a tuple or array
+- singleton - Creates a one-element tuple (Singleton) from a value
+- swap - Swaps the elements of a pair
+- third - Extracts the third element from a tuple or array
+- toArray - Converts a tuple to a regular array
+- triple - Creates a three-element tuple (Triple) from three values
+- uncurry - Converts a curried function into a function that takes a tuple
 
 ### validation/ (49 functions)
 - allPass - Returns true if all predicates return true for the input
