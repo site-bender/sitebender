@@ -13,7 +13,7 @@ It works in conjunction with the adaptive module, which enhances these component
 
 ## Component Categories
 
-### `accommodate/`
+### `afford/`
 
 Components specifically for accessibility enhancement:
 

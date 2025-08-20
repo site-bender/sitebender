@@ -14,7 +14,7 @@ tests/
 ├── identify/         # Semantic identification components
 ├── format/           # Text formatting components
 ├── interact/         # Interactive components (forms, buttons)
-├── accommodate/      # Accessibility components
+├── afford/      # Accessibility components
 ├── structure/        # Document structure components
 ├── wrap/            # Context wrapper components
 └── helpers/         # Shared test utilities
@@ -361,7 +361,7 @@ describe("Emphasized component behavior", () => {
 ### Testing Accessibility Components
 
 ```typescript
-// tests/accommodate/skip/SkipLink/index.ts
+// tests/afford/skip/SkipLink/index.ts
 import { test, expect } from "playwright-mcp"
 
 test.describe("SkipLink behavior", () => {
