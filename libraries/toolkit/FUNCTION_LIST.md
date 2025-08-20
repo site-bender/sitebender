@@ -1,8 +1,8 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (554 functions total)
+## Current Functions (579 functions total)
 
-### array/ (113 functions)
+### array/ (118 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
@@ -30,6 +30,7 @@
 - first - Returns first element of array (alias: head)
 - flatMap - Maps function over array and flattens result
 - flatten - Flattens nested arrays by one level
+- frequency - Count occurrences of each unique element (returns Map<T, number>)
 - groupBy - Groups array elements by key function result
 - groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
 - head - Returns first element of array (alias: first)
@@ -39,6 +40,7 @@
 - insertAt - Inserts element at specified index
 - intersection - Returns elements that exist in both arrays
 - intersectionWith - Like intersection but uses a comparator function
+- interleave - Alternate elements from multiple arrays
 - intersperse - Inserts separator between array elements
 - isEmpty - Checks if array is empty
 - join - Joins array elements into string
@@ -58,6 +60,7 @@
 - omit - Removes elements at specified indices
 - pairwise - Returns an array of adjacent pairs from the input array
 - partition - Splits array into two based on predicate
+- partitionBy - Partition by consecutive elements satisfying predicate
 - permutations - Generates all permutations of array elements
 - pluck - Extracts a list of property values from an array of objects
 - range - Generates an array of numbers from start to end
@@ -88,6 +91,7 @@
 - slice - Extracts section of array
 - sliceFrom - Slices array from index to end
 - sliding - Creates sliding window over array elements
+- slidingWithStep - Creates sliding window with custom step size
 - some - Returns true if any element satisfies predicate
 - sort - Sorts array elements
 - sortBy - Sorts an array based on a mapping function
@@ -105,6 +109,7 @@
 - takeWhile - Takes elements from beginning while predicate is true
 - times - Calls a function n times and collects the results in an array
 - transpose - Transposes a matrix (2D array)
+- unflatten - Reconstructs nested arrays from flattened array with depth info
 - unfold - Generates array from seed value using generator function
 - union - Returns the union of two arrays (all unique elements from both)
 - unionWith - Like union but uses a comparator function
@@ -129,8 +134,7 @@
 - waterfall - Executes async functions in series, passing each result to the next function
 - whilst - Repeatedly executes an async function while a condition is true
 
-### combinator/ (50 functions)
-- always - Returns a function that always returns the given value
+### combinator/ (56 functions)
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
 - binary - Wraps a function to accept exactly 2 arguments
@@ -139,6 +143,7 @@
 - complement - Returns the logical complement of a predicate function
 - compose - Right-to-left function composition (opposite of pipe)
 - composeAsync - Async version of compose for Promise-returning functions
+- constant - Returns a function that always returns the given value
 - construct - Wraps a constructor function for use without 'new'
 - constructN - Like construct but with specified arity
 - converge - Applies multiple functions to the same arguments and combines results
@@ -149,7 +154,14 @@
 - identity - Returns its argument unchanged
 - juxt - Applies an array of functions to a value and returns array of results
 - lift - Lifts a function to work with functors/applicatives
+- liftA2 - Lifts a binary function to work with applicative functors
+- liftA3 - Lifts a ternary function to work with applicative functors  
+- liftA4 - Lifts a quaternary function to work with applicative functors
+- liftA5 - Lifts a 5-ary function to work with applicative functors
+- liftBinary - Lifts a binary function to work with functors (pairwise)
 - liftN - Like lift but with specified arity
+- liftTernary - Lifts a ternary function to work with functors (element-wise)
+- liftUnary - Lifts a unary function to work with functors
 - memoize - Returns a memoized version of a function that caches results
 - memoizeWith - Like memoize but uses a custom cache key generator
 - nAry - Creates a function that accepts exactly n arguments (alias: arity)
@@ -166,7 +178,6 @@
 - thunkify - Converts a function to a thunk (zero-argument function)
 - tryCatch - Wraps a function to catch errors and call an error handler
 - unary - Wraps a function to accept exactly 1 argument
-- uncurry - Converts a curried function to a function on tuples
 - unless - Applies function when predicate is false
 - until - Calls a function repeatedly until a predicate returns true
 - useWith - Transforms arguments before passing to a function
@@ -305,6 +316,13 @@
 - of - Lifts a pure value into IO context
 - runIO - Executes an IO computation and returns the result
 
+### lens/ (5 functions)
+- composeLens - Composes multiple lenses
+- lensEq - Checks equality at lens focus
+- lensGte - Checks if value at lens focus is >= another
+- lensLte - Checks if value at lens focus is <= another  
+- lensSatisfies - Checks if value at lens focus satisfies predicate
+
 ### logic/ (13 functions)
 - and - Logical AND of two values
 - cond - Multi-way conditional (like switch/case)
@@ -342,7 +360,7 @@
 - toNullable - Converts Maybe to nullable value
 - show - Converts Maybe to string representation
 
-### object/ (69 functions)
+### object/ (71 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
 - clone - Creates a deep clone of an object, handling circular references
@@ -351,6 +369,7 @@
 - entries - Converts object to array of [key, value] pairs
 - eqProps - Checks if two objects have equal values for a property
 - evolve - Recursively evolves object by applying functions to properties
+- frequency - Count occurrences of each unique value (returns Map<V, number>)
 - fromEntries - Creates object from array of [key, value] pairs
 - has - Checks if object has own property
 - hasPath - Checks if object has property at a given path
@@ -370,6 +389,7 @@
 - objOf - Creates an object with a single key-value pair
 - omit - Returns object without specified keys
 - over - Applies a function to a value at a lens focus
+- partitionBy - Partition object entries by predicate
 - path - Gets value at path in object
 - pathOr - Gets value at path with default fallback
 - pick - Creates object with only specified keys
@@ -416,15 +436,17 @@
 - swap - Swaps Ok and Err values
 - tryCatch - Converts try/catch to Result
 
-### set/ (22 functions)
+### set/ (26 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
 - delete - Removes an element from a Set (returns new Set)
 - difference - Returns elements in first Set but not in second
 - differenceWith - Like difference but uses custom equality function
 - filter - Filters a Set based on predicate
+- frequency - Returns Map with element frequencies (always 1 for sets)
 - fromArray - Creates a Set from an array
 - has - Checks if Set contains an element
+- interleave - Alternate elements from multiple sets
 - intersection - Returns elements present in both Sets
 - intersectionWith - Like intersection but uses custom equality function
 - isDisjointFrom - Checks if Sets have no elements in common
@@ -432,7 +454,9 @@
 - isSubsetOf - Checks if first Set is subset of second
 - isSupersetOf - Checks if first Set is superset of second
 - map - Maps a function over Set elements (returns new Set)
+- partitionBy - Partition set by predicate into multiple sets
 - reduce - Reduces a Set to a single value
+- sliding - Creates array of sliding windows over set elements
 - size - Returns the size of a Set
 - symmetricDifference - Returns elements in either Set but not both
 - symmetricDifferenceWith - Like symmetricDifference but uses custom equality
@@ -440,7 +464,7 @@
 - union - Returns all unique elements from both Sets
 - unionWith - Like union but uses custom equality function
 
-### string/ (68 functions)
+### string/ (72 functions)
 - chars - Splits string into array of characters
 - chomp - Removes trailing newline characters
 - concat - Concatenates a string to the end of another string
@@ -451,9 +475,11 @@
 - endsWith - Checks if a string ends with a specified suffix
 - escape - Escapes special HTML characters
 - escapeRegExp - Escapes special regex characters
+- hashCode - Generates consistent hash code for string
 - indent - Adds indentation to each line
 - indexOf - Returns index of first occurrence of substring
 - lastIndexOf - Returns index of last occurrence of substring
+- levenshtein - Calculates edit distance between two strings
 - lines - Splits string into array of lines
 - match - Matches a regular expression against a string
 - normalize - Normalizes Unicode characters
@@ -473,6 +499,7 @@
 - replace - Replaces first occurrence of a pattern in a string
 - replaceAll - Replaces all occurrences of a pattern in a string
 - reverse - Reverses the string
+- similarity - Calculates similarity percentage between strings (0-100)
 - slice - Extracts a section of the string
 - slugify - Converts string to URL-safe slug
 - splice - Changes string by removing/replacing characters
@@ -503,6 +530,7 @@
 - trimEnd - Removes whitespace from the end of a string
 - trimStart - Removes whitespace from the start of a string
 - truncate - Truncates string to specified length with ellipsis
+- truncateMiddle - Truncates string from middle with ellipsis
 - unescape - Unescapes HTML entities
 - unquote - Removes surrounding quotes if present
 - words - Splits a string into an array of words
@@ -561,6 +589,48 @@
 - not - Returns logical negation of any value's truthiness
 
 ## Proposed Additions
+
+### map/ (39 functions)
+- clear - Creates a new empty Map
+- delete - Removes a key-value pair from a Map (returns new Map)
+- deleteAll - Removes multiple keys from a Map
+- difference - Returns a Map with keys in first but not in second
+- differenceWith - Like difference but uses custom equality for keys
+- entries - Returns an array of [key, value] pairs from a Map
+- filter - Filters a Map based on predicate (returns new Map)
+- filterKeys - Filters a Map based on key predicate
+- filterValues - Filters a Map based on value predicate
+- frequency - Count occurrences of each value across all Map values
+- fromArray - Creates a Map from an array of [key, value] pairs
+- fromEntries - Creates a Map from entries (alias for fromArray)
+- fromObject - Creates a Map from an object
+- get - Gets a value from a Map by key
+- getOr - Gets a value from a Map with a default fallback
+- groupBy - Groups Map entries by a key function result
+- has - Checks if a Map contains a key
+- interleave - Alternate entries from multiple Maps
+- intersection - Returns a Map with keys present in both Maps
+- intersectionWith - Like intersection but uses custom equality
+- isEmpty - Checks if a Map is empty
+- keys - Returns an array of Map keys
+- map - Maps a function over Map values (returns new Map)
+- mapEntries - Maps a function over Map entries
+- mapKeys - Maps a function over Map keys
+- merge - Merges multiple Maps (later values override earlier)
+- mergeWith - Merges Maps using a custom merge function
+- partition - Splits a Map into two based on predicate
+- partitionBy - Partition Map by consecutive entries satisfying predicate
+- reduce - Reduces a Map to a single value
+- set - Sets a key-value pair in a Map (returns new Map)
+- setAll - Sets multiple key-value pairs in a Map
+- size - Returns the size of a Map
+- sliding - Creates array of sliding windows over Map entries
+- symmetricDifference - Returns keys in either Map but not both
+- union - Combines multiple Maps (alias for merge)
+- update - Updates a value in a Map using a function
+- values - Returns an array of Map values
+- withDefault - Wraps a Map to provide default values for missing keys
+
 
 ### math/ (37 functions)
 - abs - Returns absolute value
