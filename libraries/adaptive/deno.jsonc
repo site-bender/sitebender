@@ -1,0 +1,29 @@
+{
+  // Adaptive UI library - Reactive calculations and progressive enhancement
+  "name": "@sitebender/adaptive",
+  "version": "0.1.0",
+  "description": "A library for adaptive user interfaces with reactive calculations and progressive enhancement.",
+  
+  // Main export point for the library
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  
+  "tasks": {
+    // Run tests - all behavioral tests together
+    "test": "deno test --unstable-temporal tests/ --allow-read",
+    "test:watch": "deno test --unstable-temporal tests/ --allow-read --watch",
+    "test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage",
+    
+    // Code quality (inherits config from root workspace)
+    "lint": "deno lint src/",
+    "fmt": "deno fmt src/",
+    "type-check": "deno check --unstable-temporal src/**/*.ts src/**/*.tsx"
+  },
+  
+  // Test configuration
+  "test": {
+    "include": ["tests/"],
+    "exclude": ["src/", "tests/helpers/"]
+  }
+}
