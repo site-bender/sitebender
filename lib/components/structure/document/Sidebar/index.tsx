@@ -1,1 +1,0 @@
-/** Sidebar - Complementary content (aside) */
