@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (535 functions total)
+## Current Functions (554 functions total)
 
 ### array/ (113 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -283,6 +283,27 @@
 - show - Converts Either to string representation
 - swap - Swaps Left and Right
 - tryCatch - Converts try/catch to Either
+
+### io/ (19 functions)
+- ap - Applies an IO function to an IO value (Applicative)
+- chain - Flat maps a function that returns an IO (Monad bind)
+- chainIOEither - Flat maps a function returning IOEither
+- chainIOMaybe - Flat maps a function returning IOMaybe
+- fromEither - Lifts an Either&lt;E,A> into IOEither&lt;E,A>
+- fromIO - Converts IO&lt;A> to IOMaybe&lt;A> or IOEither&lt;E,A>
+- fromMaybe - Lifts a Maybe&lt;A> into IOMaybe&lt;A>
+- io - Creates an IO from a thunk (deferred computation)
+- ioEither - Creates an IOEither from a thunk returning Either
+- ioMaybe - Creates an IOMaybe from a thunk returning Maybe
+- ioToIOEither - Converts IO&lt;A> to IOEither&lt;E,A>
+- ioToIOMaybe - Converts IO&lt;A> to IOMaybe&lt;A>
+- liftEither - Lifts a function returning Either into IOEither
+- liftMaybe - Lifts a function returning Maybe into IOMaybe
+- map - Maps a function over the value inside an IO (Functor)
+- mapIOEither - Maps a function over the Either value inside IOEither
+- mapIOMaybe - Maps a function over the Maybe value inside IOMaybe
+- of - Lifts a pure value into IO context
+- runIO - Executes an IO computation and returns the result
 
 ### logic/ (13 functions)
 - and - Logical AND of two values
