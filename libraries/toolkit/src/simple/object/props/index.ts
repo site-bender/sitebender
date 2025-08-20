@@ -1,4 +1,4 @@
-import type { Value } from "../../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 
 /**
  * Returns an array of values for the specified properties

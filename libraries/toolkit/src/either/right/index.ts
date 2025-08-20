@@ -1,4 +1,4 @@
-import type { Either, Right } from "../../../types/fp/either/index.ts"
+import type { Either, Right } from "../../types/fp/either/index.ts"
 
 /**
  * Creates a Right value representing the success case in an Either

@@ -1,4 +1,4 @@
-import type { Result } from "../../../types/fp/result/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
 import getOrElseEither from "../../either/getOrElse/index.ts"
 
 /**

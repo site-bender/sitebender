@@ -1,4 +1,4 @@
-import type { Err, Result } from "../../../types/fp/result/index.ts"
+import type { Err, Result } from "../../types/fp/result/index.ts"
 import isLeft from "../../either/isLeft/index.ts"
 
 /**

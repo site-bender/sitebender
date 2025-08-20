@@ -1,4 +1,4 @@
-import type { Either } from "../../../types/fp/either/index.ts"
+import type { Either } from "../../types/fp/either/index.ts"
 import fold from "../fold/index.ts"
 
 /**
@@ -138,6 +138,6 @@ const either = <E, A, B>(
 	rightHandler: (a: A) => B
 ) => (
 	either: Either<E, A>
-): B => fold(leftHandler)(rightHandler)(either)
+): B => fold<E, A, B>(leftHandler)(rightHandler)(either)
 
 export default either

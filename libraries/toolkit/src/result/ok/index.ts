@@ -1,4 +1,4 @@
-import type { Result } from "../../../types/fp/result/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
 import right from "../../either/right/index.ts"
 
 /**

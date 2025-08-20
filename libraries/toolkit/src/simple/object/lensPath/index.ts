@@ -1,5 +1,5 @@
 import type { Lens } from "../lens/index.ts"
-import type { Value } from "../../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 import lens from "../lens/index.ts"
 import path from "../path/index.ts"
 import assocPath from "../assocPath/index.ts"

@@ -171,9 +171,9 @@
  * 
  * const time = Temporal.PlainTime.from("10:30:00")
  * matchesMinutePattern(time, "30")        // true
- * matchesMinutePattern(time, "*/15")      // true (every 15 minutes)
+ * matchesMinutePattern(time, "*\/15")      // true (every 15 minutes)
  * matchesMinutePattern(time, "0,15,30,45") // true
- * matchesMinutePattern(time, "*/10")      // true (every 10 minutes)
+ * matchesMinutePattern(time, "*\/10")      // true (every 10 minutes)
  * 
  * // Time slot availability
  * function getAvailableMinutes(

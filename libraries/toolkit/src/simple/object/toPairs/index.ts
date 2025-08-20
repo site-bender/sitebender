@@ -1,4 +1,4 @@
-import type { Value } from "../../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 
 /**
  * Converts an object to an array of [key, value] pairs

@@ -1,4 +1,4 @@
-import type { Value } from "../../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 
 /**
  * Returns the value of a property or a default value if not found

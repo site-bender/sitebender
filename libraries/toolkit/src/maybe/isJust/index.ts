@@ -1,4 +1,4 @@
-import type { Just, Maybe } from "../../../types/fp/maybe/index.ts"
+import type { Just, Maybe } from "../../types/fp/maybe/index.ts"
 
 /**
  * Type guard that checks if a Maybe value is Just

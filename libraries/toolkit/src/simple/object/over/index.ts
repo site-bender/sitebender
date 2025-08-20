@@ -1,5 +1,5 @@
 import type { Lens } from "../lens/index.ts"
-import type { Value } from "../../../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 
 /**
  * Applies a function to a value at a lens focus

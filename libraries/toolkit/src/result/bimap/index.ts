@@ -1,4 +1,4 @@
-import type { Result } from "../../../types/fp/result/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
 import bimapEither from "../../either/bimap/index.ts"
 
 /**

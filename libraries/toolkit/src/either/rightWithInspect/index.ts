@@ -1,4 +1,4 @@
-import type { Either } from "../../../types/fp/either/index.ts"
+import type { Either } from "../../types/fp/either/index.ts"
 import right from "../right/index.ts"
 import withInspect from "../../debug/withInspect/index.ts"
 

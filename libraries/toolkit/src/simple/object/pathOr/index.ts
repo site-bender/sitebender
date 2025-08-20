@@ -1,4 +1,4 @@
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 import path from "../path/index.ts"
 
 /**

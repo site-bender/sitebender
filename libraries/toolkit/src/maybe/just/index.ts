@@ -1,4 +1,4 @@
-import type { Just, Maybe } from "../../../types/fp/maybe/index.ts"
+import type { Just, Maybe } from "../../types/fp/maybe/index.ts"
 
 /**
  * Creates a Just value representing the presence of a value in a Maybe

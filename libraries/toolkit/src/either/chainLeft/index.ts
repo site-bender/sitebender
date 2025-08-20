@@ -1,4 +1,4 @@
-import type { Either } from "../../../types/fp/either/index.ts"
+import type { Either } from "../../types/fp/either/index.ts"
 import isRight from "../isRight/index.ts"
 
 /**

@@ -151,7 +151,7 @@
  * 
  * const time = Temporal.PlainTime.from("10:30:15")
  * matchesSecondPattern(time, "15")        // true
- * matchesSecondPattern(time, "*/15")      // true (every 15 seconds)
+ * matchesSecondPattern(time, "*\/15")      // true (every 15 seconds)
  * matchesSecondPattern(time, "0,15,30,45") // true
  * matchesSecondPattern(time, "10-20")     // true (seconds 10-20)
  * 

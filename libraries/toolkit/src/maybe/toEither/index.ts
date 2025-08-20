@@ -1,5 +1,5 @@
-import type { Maybe } from "../../../types/fp/maybe/index.ts"
-import type { Either } from "../../../types/fp/either/index.ts"
+import type { Maybe } from "../../types/fp/maybe/index.ts"
+import type { Either } from "../../types/fp/either/index.ts"
 import isNothing from "../isNothing/index.ts"
 import left from "../../either/left/index.ts"
 import right from "../../either/right/index.ts"

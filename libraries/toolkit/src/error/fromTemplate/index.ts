@@ -1,5 +1,5 @@
 import type { AdaptiveError, ErrorCode } from "../../types/error/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 import createError from "../createError/index.ts"
 import * as templates from "../templates/index.ts"
 

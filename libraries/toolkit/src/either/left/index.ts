@@ -1,4 +1,4 @@
-import type { Either, Left } from "../../../types/fp/either/index.ts"
+import type { Either, Left } from "../../types/fp/either/index.ts"
 
 /**
  * Creates a Left value representing the error/failure case in an Either

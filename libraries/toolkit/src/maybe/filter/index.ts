@@ -1,4 +1,4 @@
-import type { Maybe } from "../../../types/fp/maybe/index.ts"
+import type { Maybe } from "../../types/fp/maybe/index.ts"
 import isNothing from "../isNothing/index.ts"
 import nothing from "../nothing/index.ts"
 

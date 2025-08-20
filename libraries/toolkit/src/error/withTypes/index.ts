@@ -1,5 +1,5 @@
 import type { AdaptiveError } from "../../types/error/index.ts"
-import type { Value, Datatype } from "../../../types/index.ts"
+import type { Value, Datatype } from "../../types/index.ts"
 
 /**
  * Adds type information to an error

@@ -1,4 +1,4 @@
-import type { Maybe, Nothing } from "../../../types/fp/maybe/index.ts"
+import type { Maybe, Nothing } from "../../types/fp/maybe/index.ts"
 
 /**
  * Creates a Nothing value representing the absence of a value in a Maybe

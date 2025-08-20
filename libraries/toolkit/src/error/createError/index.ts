@@ -1,5 +1,5 @@
 import type { AdaptiveError, ErrorCode } from "../../types/error/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 
 /**
  * Creates a basic error object with minimal required fields

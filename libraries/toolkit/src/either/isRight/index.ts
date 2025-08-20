@@ -1,4 +1,4 @@
-import type { Either, Right } from "../../../types/fp/either/index.ts"
+import type { Either, Right } from "../../types/fp/either/index.ts"
 
 /**
  * Type guard that checks if an Either is a Right value

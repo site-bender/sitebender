@@ -1,5 +1,5 @@
 import type { AdaptiveError } from "../../types/error/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 import pipeError from "../pipeError/index.ts"
 import withCause from "../withCause/index.ts"
 

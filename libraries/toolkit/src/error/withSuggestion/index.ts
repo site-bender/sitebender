@@ -1,5 +1,5 @@
 import type { AdaptiveError } from "../../types/error/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 
 /**
  * Adds a suggestion for fixing the error
