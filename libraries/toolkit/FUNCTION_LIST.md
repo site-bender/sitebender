@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (696 functions total)
+## Current Functions (697 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -139,7 +139,7 @@
 - waterfall - Executes async functions in series, passing each result to the next function
 - whilst - Repeatedly executes an async function while a condition is true
 
-### combinator/ (48 functions)
+### combinator/ (49 functions)
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
 - binary - Wraps a function to accept exactly 2 arguments
@@ -188,6 +188,7 @@
 - useWith - Transforms arguments before passing to a function
 - when - Conditionally applies a function based on a predicate
 - wrap - Wraps a function with a wrapper function
+- memoizeKey - Creates consistent cache keys for memoization
 
 ### conversion/ (16 functions)
 - castValue - Dispatcher for type conversions:
@@ -783,8 +784,6 @@
 
 
 
-### combinator/ (additional functions from examples)
-- memoizeKey - Creates consistent cache keys for memoization
 
 ## Notes
 
