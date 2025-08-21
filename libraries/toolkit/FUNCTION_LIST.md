@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (692 functions total)
+## Current Functions (696 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -628,7 +628,7 @@
 - triple - Creates a three-element tuple (Triple) from three values
 - uncurry - Converts a curried function into a function that takes a tuple
 
-### validation/ (102 functions)
+### validation/ (106 functions)
 - allPass - Returns true if all predicates return true for the input
 - anyPass - Returns true if any predicate returns true for the input
 - both - Returns true if both predicates return true
@@ -731,6 +731,10 @@
 - neither - Returns true if neither predicate returns true
 - nonePass - Returns true if no predicates return true
 - not - Returns logical negation of any value's truthiness
+- validateConfig - Validates configuration objects against schema
+- validateField - Validates a single form field with rules
+- validateForm - Validates entire form data, returns array of errors
+- validateRange - Checks if value is within specified range
 
 ## Proposed Additions
 
@@ -778,11 +782,6 @@
 
 
 
-### validation/ (additional functions from examples)
-- validateConfig - Validates configuration objects against schema
-- validateField - Validates a single form field with rules
-- validateForm - Validates entire form data, returns array of errors
-- validateRange - Checks if value is within specified range
 
 ### combinator/ (additional functions from examples)
 - memoizeKey - Creates consistent cache keys for memoization
