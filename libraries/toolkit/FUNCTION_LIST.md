@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (586 functions total)
+## Current Functions (590 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -512,7 +512,7 @@
 - wrap - Wraps string at specified width
 - wrapWith - Wraps string with prefix and suffix
 
-### temporal/ (71 functions — Temporal API based)
+### temporal/ (75 functions — Temporal API based)
 - addDays - Adds days to a Temporal date/datetime
 - addDuration - Adds a Temporal.Duration to a date/time
 - addHours - Adds hours to a Temporal time/datetime
@@ -584,6 +584,10 @@
 - withCalendar - Changes calendar system of date
 - withTime - Combines PlainDate with PlainTime to create PlainDateTime
 - withTimeZone - Converts datetime to specific timezone
+- durationToMinutes - Converts a Temporal.Duration to total minutes
+- durationToSeconds - Converts a Temporal.Duration to total seconds
+- formatDuration - Formats duration in human-readable format (e.g., "2h 30m")
+- getNextOccurrence - Finds next occurrence of a recurring event
 
 ### tuple/ (13 functions)
 - bimap - Maps two different functions over the elements of a pair
@@ -748,10 +752,6 @@
 - trunc - Removes decimal part
 
 ### temporal/ (additional functions from examples)
-- durationToMinutes - Converts a Temporal.Duration to total minutes
-- durationToSeconds - Converts a Temporal.Duration to total seconds
-- formatDuration - Formats duration in human-readable format (e.g., "2h 30m")
-- getNextOccurrence - Finds next occurrence of a recurring event
 - getOffsetTransitions - Gets timezone offset transition points
 - parseTime - Parses time strings into Temporal.PlainTime objects
 - serializeZonedDateTime - Serializes ZonedDateTime for storage/transmission
