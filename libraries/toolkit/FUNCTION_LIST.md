@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (631 functions total)
+## Current Functions (670 functions total)
 
 ### array/ (118 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -591,7 +591,7 @@
 - triple - Creates a three-element tuple (Triple) from three values
 - uncurry - Converts a curried function into a function that takes a tuple
 
-### validation/ (49 functions)
+### validation/ (88 functions)
 - allPass - Returns true if all predicates return true for the input
 - anyPass - Returns true if any predicate returns true for the input
 - both - Returns true if both predicates return true
@@ -601,19 +601,44 @@
 - gte - Greater than or equal comparison
 - identical - Strict equality comparison (===)
 - is - Checks if value is an instance of a constructor
+- isAfterDate - Checks if PlainDate is after another
+- isAfterDateTime - Checks if PlainDateTime is after another
+- isAfterInstant - Checks if Instant is after another
+- isAfterTime - Checks if PlainTime is after another
+- isAlpha - Validates alphabetic characters only
+- isAlphanumeric - Validates alphanumeric characters
 - isArray - Checks if value is an array
 - isArrayLike - Checks if value has a length property and is indexable
+- isBase64 - Validates base64 encoding
+- isBeforeDate - Checks if PlainDate is before another
+- isBeforeDateTime - Checks if PlainDateTime is before another
+- isBeforeInstant - Checks if Instant is before another
+- isBeforeTime - Checks if PlainTime is before another
+- isBetweenDateTimes - Checks if PlainDateTime is between two datetimes
+- isBetweenDates - Checks if PlainDate is between two dates
+- isBetweenTimes - Checks if PlainTime is between two times
 - isBlank - Checks if string is empty or only whitespace (moved from string/)
 - isBoolean - Checks if value is a boolean
+- isCreditCard - Validates credit card number (Luhn)
 - isDate - Checks if value is a Date object
 - isDefined - Checks if value is neither null nor undefined
+- isEmail - Validates email format
 - isEmpty - Checks if value is empty (unified - works for strings, arrays, objects, Maps, Sets)
 - isError - Checks if value is an Error object
 - isEven - Checks if number is even
 - isFalsy - Checks if value is falsy
 - isFinite - Checks if value is a finite number
 - isFunction - Checks if value is a function
+- isFutureDate - Checks if PlainDate is in the future
+- isFutureDateTime - Checks if PlainDateTime is in the future
+- isFutureInstant - Checks if Instant is in the future
+- isHexColor - Validates hex color format
+- isIban - Validates IBAN format
 - isInteger - Checks if value is an integer
+- isIpv4 - Validates IPv4 address
+- isIpv6 - Validates IPv6 address
+- isIsbn - Validates ISBN format
+- isJSON - Validates JSON string
 - isMap - Checks if value is a Map
 - isNaN - Checks if value is NaN
 - isNegative - Checks if number is negative
@@ -621,23 +646,51 @@
 - isNotNullish - Checks if value is not nullish using strict equality
 - isNullish - Checks if value is null or undefined using == null
 - isNumber - Validates if a string representation is a parseable number
+- isNumeric - Validates numeric characters only
 - isObject - Checks if value is an object
 - isOdd - Checks if number is odd
+- isPastDate - Checks if PlainDate is in the past
+- isPastDateTime - Checks if PlainDateTime is in the past
+- isPastInstant - Checks if Instant is in the past
+- isPhone - Validates phone number format
 - isPlainObject - Checks if value is a plain object (not class instance)
 - isPositive - Checks if number is positive
+- isPostalCode - Validates postal code for country
 - isPrimitive - Checks if value is a primitive type
 - isPromise - Checks if value is a Promise
 - isRegExp - Checks if value is a RegExp
+- isRequired - Validates non-empty value
+- isSameOrAfterDate - Checks if PlainDate is same or after another
+- isSameOrAfterDateTime - Checks if PlainDateTime is same or after another
+- isSameOrAfterTime - Checks if PlainTime is same or after another
+- isSameOrBeforeDate - Checks if PlainDate is same or before another
+- isSameOrBeforeDateTime - Checks if PlainDateTime is same or before another
+- isSameOrBeforeTime - Checks if PlainTime is same or before another
 - isSet - Checks if value is a Set
 - isString - Checks if value is a string
 - isSymbol - Checks if value is a Symbol
+- isTemporalDate - Checks if value is a Temporal.PlainDate
+- isTemporalDateTime - Checks if value is a Temporal.PlainDateTime
+- isTemporalDuration - Checks if value is a Temporal.Duration
+- isTemporalInstant - Checks if value is a Temporal.Instant
+- isTemporalTime - Checks if value is a Temporal.PlainTime
+- isTemporalZonedDateTime - Checks if value is a Temporal.ZonedDateTime
+- isToday - Checks if PlainDate is today
+- isTomorrow - Checks if PlainDate is tomorrow
 - isTruthy - Checks if value is truthy
 - isUndefined - Checks if value is strictly undefined (not null)
+- isUrl - Validates URL format
+- isUuid - Validates UUID format
+- isValidDate - Validates if a date/time is valid (not just type check)
 - isWeakMap - Checks if value is a WeakMap
 - isWeakSet - Checks if value is a WeakSet
+- isYesterday - Checks if PlainDate is yesterday
 - isZero - Checks if number equals zero
 - lt - Less than comparison
 - lte - Less than or equal comparison
+- matches - Validates against regex pattern
+- maxLength - Validates maximum length
+- minLength - Validates minimum length
 - neither - Returns true if neither predicate returns true
 - nonePass - Returns true if no predicates return true
 - not - Returns logical negation of any value's truthiness
@@ -682,61 +735,6 @@
 - subtract - Subtracts second number from first
 - sum - Sums an array of numbers
 - trunc - Removes decimal part
-
-### validation/ (53 functions)
-- isAfterDate - Checks if PlainDate is after another
-- isAfterDateTime - Checks if PlainDateTime is after another
-- isAfterInstant - Checks if Instant is after another
-- isAfterTime - Checks if PlainTime is after another
-- isAlpha - Validates alphabetic characters only
-- isAlphanumeric - Validates alphanumeric characters
-- isBase64 - Validates base64 encoding
-- isBeforeDate - Checks if PlainDate is before another
-- isBeforeDateTime - Checks if PlainDateTime is before another
-- isBeforeInstant - Checks if Instant is before another
-- isBeforeTime - Checks if PlainTime is before another
-- isBetweenDates - Checks if PlainDate is between two dates
-- isBetweenDateTimes - Checks if PlainDateTime is between two datetimes
-- isBetweenTimes - Checks if PlainTime is between two times
-- isCreditCard - Validates credit card number (Luhn)
-- isEmail - Validates email format
-- isFutureDate - Checks if PlainDate is in the future
-- isFutureDateTime - Checks if PlainDateTime is in the future
-- isFutureInstant - Checks if Instant is in the future
-- isHexColor - Validates hex color format
-- isIban - Validates IBAN format
-- isIpv4 - Validates IPv4 address
-- isIpv6 - Validates IPv6 address
-- isIsbn - Validates ISBN format
-- isJSON - Validates JSON string
-- isNumeric - Validates numeric characters only
-- isPastDate - Checks if PlainDate is in the past
-- isPastDateTime - Checks if PlainDateTime is in the past
-- isPastInstant - Checks if Instant is in the past
-- isPhone - Validates phone number format
-- isPostalCode - Validates postal code for country
-- isRequired - Validates non-empty value
-- isSameOrAfterDate - Checks if PlainDate is same or after another
-- isSameOrAfterDateTime - Checks if PlainDateTime is same or after another
-- isSameOrAfterTime - Checks if PlainTime is same or after another
-- isSameOrBeforeDate - Checks if PlainDate is same or before another
-- isSameOrBeforeDateTime - Checks if PlainDateTime is same or before another
-- isSameOrBeforeTime - Checks if PlainTime is same or before another
-- isTemporalDate - Checks if value is a Temporal.PlainDate
-- isTemporalDateTime - Checks if value is a Temporal.PlainDateTime
-- isTemporalDuration - Checks if value is a Temporal.Duration
-- isTemporalInstant - Checks if value is a Temporal.Instant
-- isTemporalTime - Checks if value is a Temporal.PlainTime
-- isTemporalZonedDateTime - Checks if value is a Temporal.ZonedDateTime
-- isToday - Checks if PlainDate is today
-- isTomorrow - Checks if PlainDate is tomorrow
-- isUrl - Validates URL format
-- isUuid - Validates UUID format
-- isValidDate - Validates if a date/time is valid (not just type check)
-- isYesterday - Checks if PlainDate is yesterday
-- matches - Validates against regex pattern
-- maxLength - Validates maximum length
-- minLength - Validates minimum length
 
 ## Notes
 
