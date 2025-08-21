@@ -1,3 +1,5 @@
+import type { CaseConverter, CaseType } from "../../../types/string/index.ts"
+
 import toCamel from "./toCamel/index.ts"
 import toKebab from "./toKebab/index.ts"
 import toLower from "./toLower/index.ts"
@@ -8,20 +10,6 @@ import toSnake from "./toSnake/index.ts"
 import toTitle from "./toTitle/index.ts"
 import toTrain from "./toTrain/index.ts"
 import toUpper from "./toUpper/index.ts"
-
-type CaseConverter = (s: string) => string
-
-type CaseType = 
-	| "camel"     // camelCase
-	| "kebab"     // kebab-case
-	| "lower"     // lowercase
-	| "pascal"    // PascalCase
-	| "sentence"  // Sentence case
-	| "snake"     // snake_case
-	| "SNAKE"     // SCREAMING_SNAKE_CASE
-	| "title"     // Title Case
-	| "train"     // Train-Case
-	| "upper"     // UPPERCASE
 
 /**
  * Returns a case conversion function based on the case type

@@ -1,16 +1,4 @@
-type PlainDateLike = {
-	year: number
-	month: number
-	day: number
-}
-
-type DateInput = 
-	| string                        // ISO date string
-	| Date                          // JS Date
-	| Temporal.PlainDate           
-	| Temporal.PlainDateTime        // Extract date part
-	| Temporal.ZonedDateTime        // Extract date part
-	| PlainDateLike                // Object with year/month/day
+import type { DateInput, PlainDateLike } from "../../../../types/temporal/index.ts"
 
 /**
  * Parses values into Temporal PlainDate objects

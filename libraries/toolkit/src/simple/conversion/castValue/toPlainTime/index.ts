@@ -1,19 +1,4 @@
-type PlainTimeLike = {
-	hour?: number
-	minute?: number
-	second?: number
-	millisecond?: number
-	microsecond?: number
-	nanosecond?: number
-}
-
-type TimeInput = 
-	| string                        // ISO time string
-	| Date                          // Extract time
-	| Temporal.PlainTime
-	| Temporal.PlainDateTime        // Extract time part
-	| Temporal.ZonedDateTime        // Extract time part  
-	| PlainTimeLike                // Object with hour/minute/etc
+import type { PlainTimeLike, TimeInput } from "../../../../types/temporal/index.ts"
 
 /**
  * Parses values into Temporal PlainTime objects

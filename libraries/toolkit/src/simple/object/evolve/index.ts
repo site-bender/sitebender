@@ -1,3 +1,4 @@
+import type { Transformation, TransformationSpec } from "../../../types/object/index.ts"
 import type { Value } from "../../../types/index.ts"
 
 /**
@@ -125,9 +126,6 @@ import type { Value } from "../../../types/index.ts"
  * @property Selective - only transforms specified paths
  * @property Preserving - unspecified paths remain unchanged
  */
-type Transformation<T = Value> = (value: T) => Value
-type TransformationSpec = Value | Transformation | Record<string, TransformationSpec>
-
 const evolve = <T extends Record<string, Value>>(
 	transformations: Record<string, TransformationSpec>
 ) => (obj: T | null | undefined): T => {

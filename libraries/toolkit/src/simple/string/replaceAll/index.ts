@@ -1,3 +1,5 @@
+import type { ReplacerFunction } from "../../../types/string/index.ts"
+
 /**
  * Replaces all occurrences of a pattern in a string
  * 
@@ -44,11 +46,6 @@
  * removeSpaces("no spaces")    // "nospaces"
  * ```
  */
-type ReplacerFunction = (
-	substring: string,
-	...args: Array<string | number>
-) => string
-
 const replaceAll = (searchValue: string | RegExp) =>
 (replaceValue: string | ReplacerFunction) =>
 (str: string): string => {

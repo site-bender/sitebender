@@ -1,3 +1,5 @@
+import type { ReplacerFunction } from "../../../types/string/index.ts"
+
 /**
  * Replaces the first occurrence of a pattern in a string
  * 
@@ -53,11 +55,6 @@
  * fixTypo("teh quick brown fox") // "the quick brown fox"
  * ```
  */
-type ReplacerFunction = (
-	substring: string,
-	...args: Array<string | number>
-) => string
-
 const replace = (searchValue: string | RegExp) =>
 (replaceValue: string | ReplacerFunction) =>
 (str: string): string => {

@@ -1,20 +1,9 @@
+import type { CastResult, CastType } from "../../../types/conversion/index.ts"
+
 import toBoolean from "./toBoolean/index.ts"
 import toFloat from "./toFloat/index.ts"
 import toInteger from "./toInteger/index.ts"
 import toString from "./toString/index.ts"
-
-type CastType = 
-	| "boolean"
-	| "float"
-	| "integer" 
-	| "string"
-
-type CastResult<T extends CastType> = 
-	T extends "boolean" ? boolean :
-	T extends "float" ? number :
-	T extends "integer" ? number :
-	T extends "string" ? string :
-	never
 
 /**
  * Casts a value to a specific datatype

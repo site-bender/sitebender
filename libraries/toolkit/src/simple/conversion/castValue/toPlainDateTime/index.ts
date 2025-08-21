@@ -1,23 +1,4 @@
-type PlainDateTimeLike = {
-	year: number
-	month: number
-	day: number
-	hour?: number
-	minute?: number
-	second?: number
-	millisecond?: number
-	microsecond?: number
-	nanosecond?: number
-}
-
-type DateTimeInput =
-	| string                        // ISO datetime string
-	| Date                          // JS Date
-	| Temporal.PlainDateTime
-	| Temporal.PlainDate           // Add midnight
-	| Temporal.PlainTime           // Add 1970-01-01
-	| Temporal.ZonedDateTime        // Remove timezone
-	| PlainDateTimeLike            // Object with all fields
+import type { DateTimeInput, PlainDateTimeLike } from "../../../../types/temporal/index.ts"
 
 /**
  * Parses values into Temporal PlainDateTime objects
