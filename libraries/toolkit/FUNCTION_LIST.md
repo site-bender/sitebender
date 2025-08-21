@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (690 functions total)
+## Current Functions (692 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -347,7 +347,7 @@
 - toNullable - Converts Maybe to nullable value
 - show - Converts Maybe to string representation
 
-### object/ (54 functions)
+### object/ (56 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
 - clone - Creates a deep clone of an object, handling circular references
@@ -402,6 +402,8 @@
 - xform - Transforms object structure recursively
 - zipObj - Creates object from arrays of keys and values
 - zipObject - Creates object from arrays of keys and values (alias: zipObj)
+- accumulate - Accumulates data from multiple sources into single object
+- smartMerge - Merges objects with intelligent type-aware conflict resolution
 
 ### result/ (18 functions)
 - bimap - Maps functions over both Err and Ok values
@@ -775,9 +777,6 @@
 
 
 
-### object/ (additional functions from examples)
-- accumulate - Accumulates data from multiple sources into single object
-- smartMerge - Merges objects with intelligent type-aware conflict resolution
 
 ### validation/ (additional functions from examples)
 - validateConfig - Validates configuration objects against schema
