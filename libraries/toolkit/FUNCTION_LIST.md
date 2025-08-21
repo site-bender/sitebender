@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (736 functions total)
+## Current Functions (751 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -329,7 +329,7 @@
 - values - Returns an array of Map values
 - withDefault - Wraps a Map to provide default values for missing keys
 
-### math/ (39 functions)
+### math/ (45 functions)
 - absoluteValue - Returns absolute value
 - add - Adds two numbers
 - average - Calculates arithmetic mean of an array (alias: mean)
@@ -339,16 +339,20 @@
 - decrement - Subtracts 1 from a number
 - digitSum - Calculates sum of digits in a number
 - divide - Divides first number by second
+- exponential - Calculates e raised to the power of x (e^x)
 - factorial - Calculates factorial
 - fibonacci - Returns nth Fibonacci number
 - floor - Rounds down to integer
 - gcd - Greatest common divisor
+- geometricMean - Calculates geometric mean (useful for growth rates)
+- harmonicMean - Calculates harmonic mean (useful for rates and ratios)
 - increment - Adds 1 to a number
 - inRange - Checks if number is within range
 - isEven - Checks if number is even
 - isOdd - Checks if number is odd
 - isPrime - Checks if number is prime
 - lcm - Least common multiple
+- logarithm - Natural log and log with arbitrary base
 - max - Finds maximum of two values
 - maxBy - Finds maximum using a mapping function
 - mean - Calculates arithmetic mean (alias: average)
@@ -361,8 +365,11 @@
 - negate - Negates a number
 - power - Raises to a power
 - product - Multiplies all numbers in an array
+- quadratic - Solves quadratic equations (a)(b)(c) → Pair<x₁, x₂> using quadratic formula
 - random - Generates random number in range
 - randomInteger - Generates random integer in range
+- rms - Root mean square (alias: rootMeanSquare)
+- rootMeanSquare - Calculates RMS value of an array (useful for signal processing)
 - round - Rounds to nearest integer
 - sign - Returns sign of number (-1, 0, or 1)
 - squareRoot - Returns square root
@@ -778,9 +785,151 @@
 - validateForm - Validates entire form data, returns array of errors
 - validateRange - Checks if value is within specified range
 
+### statistics/ (3 functions)
+- standardDeviation - Calculates population or sample standard deviation
+- std - Standard deviation (alias: standardDeviation)
+- variance - Calculates statistical variance
+
+### trigonometry/ (4 functions)
+- cosine - Basic cosine function
+- degreesToRadians - Converts degrees to radians
+- radiansToDegrees - Converts radians to degrees
+- sine - Basic sine function
+
+### geometry/ (2 functions)
+- dotProduct - Vector dot product
+- euclideanDistance - Distance between n-dimensional points
+
+### interpolation/ (2 functions)
+- lerp - Linear interpolation (alias: linearInterpolation)
+- linearInterpolation - Linear interpolation between two values
+
 ## Proposed Additions
 
-(All math functions have been implemented and moved to the Current Functions section)
+### math/ (additional functions)
+- logarithmBase10 - Common (base 10) logarithm
+- combinations - nCr combinations calculation (number theory)
+- permutations - nPr permutations calculation
+- binomialCoefficient - Pascal's triangle values
+- modularExponentiation - Efficient (base)(exp)(mod) calculation
+- totient - Euler's totient function φ(n)
+- divisors - Find all divisors of a number
+- primeFactorization - Return prime factors with multiplicities
+
+### statistics/ (additional functions)
+- covariance - Calculate covariance between two arrays
+- correlation - Pearson correlation coefficient
+- percentile - Find nth percentile of dataset
+- interquartileRange - IQR for outlier detection
+- zScore - Calculate z-score (standard score)
+- skewness - Measure of asymmetry in distribution
+- kurtosis - Measure of distribution tail weight
+
+### trigonometry/ (additional functions)
+- tangent - Basic tangent function
+- arcSine - Inverse sine function
+- arcCosine - Inverse cosine function
+- arcTangent - Inverse tangent function
+- arcTangent2 - Two-argument arctangent (atan2)
+- hypotenuse - Calculate hypotenuse for multiple dimensions
+- polarToCartesian - Convert polar coordinates (r)(θ) → [x, y]
+- cartesianToPolar - Convert cartesian (x)(y) → [r, θ]
+- hyperbolicSine - sinh function
+- hyperbolicCosine - cosh function
+- hyperbolicTangent - tanh function
+
+### geometry/ (additional functions)
+- manhattanDistance - L1 distance (taxicab metric)
+- chebyshevDistance - L∞ distance (chessboard metric)
+- haversineDistance - Great-circle distance on sphere
+- crossProduct - 3D vector cross product
+- magnitude - Vector magnitude/norm
+- normalize - Normalize vector to unit length
+- anglesBetweenVectors - Angle between two vectors
+- vectorProjection - Project one vector onto another
+
+### interpolation/ (additional functions)
+- inverseLinearInterpolation - Find t value from interpolated result
+- bilinearInterpolation - 2D interpolation on a rectangle
+- smoothstep - Smooth interpolation with ease-in/ease-out
+- cubicInterpolation - Cubic spline interpolation
+- bezierInterpolation - Bezier curve interpolation
+
+### matrix/ (new folder)
+- determinant2x2 - 2x2 matrix determinant
+- determinant3x3 - 3x3 matrix determinant
+- matrixMultiply - Matrix multiplication
+- matrixTranspose - Matrix transpose (different from array transpose)
+- matrixTrace - Sum of diagonal elements
+- matrixInverse2x2 - Inverse of 2x2 matrix
+- matrixInverse3x3 - Inverse of 3x3 matrix
+- identityMatrix - Generate identity matrix of size n
+- matrixAddition - Element-wise matrix addition
+- matrixScalarMultiply - Multiply matrix by scalar
+
+### finance/ (new folder)
+- compoundInterest - Calculate compound interest
+- presentValue - PV of future cash flows
+- futureValue - FV with periodic contributions
+- annuity - Annuity calculations
+- internalRateOfReturn - IRR calculation
+- netPresentValue - NPV of cash flows
+- paymentAmount - Calculate loan payment amount
+- amortizationSchedule - Generate loan amortization table
+
+### physics/ (new folder)
+- kineticEnergy - Calculate kinetic energy (½mv²)
+- potentialEnergy - Calculate gravitational potential energy
+- momentum - Calculate momentum (p = mv)
+- force - Calculate force (F = ma)
+- acceleration - Calculate acceleration from force and mass
+- velocity - Calculate velocity from distance and time
+- frequency - Calculate frequency from period
+- wavelength - Calculate wavelength from frequency and speed
+
+### activation/ (new folder for ML/neural network functions)
+- rectifiedLinearUnit - ReLU activation function
+- leakyRectifiedLinearUnit - Leaky ReLU variant
+- sigmoid - Logistic function (1/(1+e^-x))
+- softmax - Softmax normalization for probability distribution
+- softplus - Smooth approximation of ReLU
+- gaussianErrorLinearUnit - GELU activation
+- swish - Self-gated activation function
+
+### special/ (new folder for special mathematical functions)
+- errorFunction - erf(x) for statistics and probability
+- complementaryErrorFunction - erfc(x) = 1 - erf(x)
+- gammaFunction - Gamma function approximation
+- betaFunction - Beta function B(x,y)
+- besselJ - Bessel function of first kind
+- stirlingApproximation - Stirling's approximation for factorials
+
+### Proposed Aliases (for power users and mathematicians)
+
+**Mathematical standard abbreviations:**
+- `erf` → `errorFunction`
+- `erfc` → `complementaryErrorFunction`
+- `tanh` → `hyperbolicTangent`
+- `sinh` → `hyperbolicSine`
+- `cosh` → `hyperbolicCosine`
+
+**ML/Graphics common names:**
+- `relu` → `rectifiedLinearUnit`
+- `gelu` → `gaussianErrorLinearUnit`
+
+**Statistical abbreviations:**
+- `cov` → `covariance`
+- `corr` → `correlation`
+- `iqr` → `interquartileRange`
+
+**Other common abbreviations:**
+- `atan2` → `arcTangent2`
+
+**Finance abbreviations:**
+- `irr` → `internalRateOfReturn`
+- `npv` → `netPresentValue`
+- `pv` → `presentValue`
+- `fv` → `futureValue`
 
 
 
