@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (580 functions total)
+## Current Functions (586 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -433,9 +433,11 @@
 - union - Returns all unique elements from both Sets
 - unionWith - Like union but uses custom equality function
 
-### string/ (71 functions)
+### string/ (77 functions)
+- changeExtension - Changes the file extension of a filename
 - chars - Splits string into array of characters
 - chomp - Removes trailing newline characters
+- cleanFilename - Removes invalid characters from filenames (filesystem-safe)
 - concat - Concatenates a string to the end of another string
 - concatTo - Concatenates a string to the beginning of another string (flipped concat)
 - contains - Checks if string contains a substring
@@ -444,6 +446,8 @@
 - endsWith - Checks if a string ends with a specified suffix
 - escape - Escapes special HTML characters
 - escapeRegExp - Escapes special regex characters
+- extractAfter - Extracts substring after a specified marker
+- findExtension - Extracts file extension from a filename
 - hashCode - Generates consistent hash code for string
 - indent - Adds indentation to each line
 - indexOf - Returns index of first occurrence of substring
@@ -452,6 +456,7 @@
 - lines - Splits string into array of lines
 - match - Matches a regular expression against a string
 - normalize - Normalizes Unicode characters
+- normalizeForComparison - Normalizes string for comparison (lowercase, remove special chars)
 - padBoth - Pads both sides of a string to reach a target length
 - padBothTo - Curried version of padBoth with fill string first
 - padBothToFromEnd - Pads both sides starting from the end
@@ -468,6 +473,7 @@
 - replace - Replaces first occurrence of a pattern in a string
 - replaceAll - Replaces all occurrences of a pattern in a string
 - reverse - Reverses the string
+- sanitize - Sanitizes strings for safe use in HTML/URLs
 - similarity - Calculates similarity percentage between strings (0-100)
 - slice - Extracts a section of the string
 - slugify - Converts string to URL-safe slug
@@ -740,14 +746,6 @@
 - subtract - Subtracts second number from first
 - sum - Sums an array of numbers
 - trunc - Removes decimal part
-
-### string/ (additional functions from examples)
-- changeExtension - Changes the file extension of a filename
-- cleanFilename - Removes invalid characters from filenames (filesystem-safe)
-- extractAfter - Extracts substring after a specified marker
-- findExtension - Extracts file extension from a filename
-- normalize - Normalizes string for comparison (lowercase, remove special chars)
-- sanitize - Sanitizes strings for safe use in HTML/URLs
 
 ### temporal/ (additional functions from examples)
 - durationToMinutes - Converts a Temporal.Duration to total minutes
