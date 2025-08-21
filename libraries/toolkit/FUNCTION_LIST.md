@@ -137,7 +137,7 @@
 - waterfall - Executes async functions in series, passing each result to the next function
 - whilst - Repeatedly executes an async function while a condition is true
 
-### combinator/ (56 functions)
+### combinator/ (48 functions)
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
 - binary - Wraps a function to accept exactly 2 arguments
@@ -329,7 +329,7 @@
 - toNullable - Converts Maybe to nullable value
 - show - Converts Maybe to string representation
 
-### object/ (71 functions)
+### object/ (54 functions)
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
 - clone - Creates a deep clone of an object, handling circular references
@@ -405,7 +405,7 @@
 - swap - Swaps Ok and Err values
 - tryCatch - Converts try/catch to Result
 
-### set/ (26 functions)
+### set/ (22 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
 - delete - Removes an element from a Set (returns new Set)
