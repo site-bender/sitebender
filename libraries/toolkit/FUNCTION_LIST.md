@@ -199,79 +199,6 @@
 - toJson - Converts values to JSON strings with optional formatting
 - toPercent - Converts a number to a percentage string (e.g. 0.123 -> "12.30%")
 
-### temporal/ (Temporal API based — 71 functions)
-- addDays - Adds days to a Temporal date/datetime
-- addDuration - Adds a Temporal.Duration to a date/time
-- addHours - Adds hours to a Temporal time/datetime
-- addMinutes - Adds minutes to a Temporal time/datetime
-- addMonths - Adds months to a Temporal date/datetime
-- addSeconds - Adds seconds to a Temporal time/datetime
-- addYears - Adds years to a Temporal date/datetime
-- adjustTime - Adjusts time components while preserving date
-- clampDate - Constrains date between min and max bounds
-- compare - Compares two Temporal objects (-1, 0, 1)
-- dateRange - Generates array of dates between start and end
-- diffDays - Calculates difference in days between dates
-- diffHours - Calculates difference in hours between times
-- diffMinutes - Calculates difference in minutes between times
-- diffMonths - Calculates difference in months between dates
-- diffSeconds - Calculates difference in seconds between times
-- diffYears - Calculates difference in years between dates
-- duration - Creates a Temporal.Duration from units
-- endOfDay - Returns end of day for a date (23:59:59.999)
-- endOfMonth - Returns last day of month for a date
-- endOfWeek - Returns end of week for a date (configurable week start)
-- endOfYear - Returns last day of year for a date
-- equals - Checks if two Temporal objects are equal
-- format - Formats Temporal object according to pattern
-- fromISO - Parses ISO string to appropriate Temporal object
-- getCalendar - Gets calendar from Temporal date
-- getDay - Gets day of month from date
-- getDayOfWeek - Gets day of week (1-7, Monday-Sunday)
-- getDayOfYear - Gets day of year (1-366)
-- getDaysInMonth - Gets number of days in a specific month
-- getDaysInYear - Gets number of days in a specific year (365/366)
-- getHour - Gets hour from time/datetime
-- getMillisecond - Gets millisecond from time/datetime
-- getMinute - Gets minute from time/datetime
-- getMonth - Gets month from date
-- getNanosecond - Gets nanosecond from time/datetime
-- getQuarter - Gets quarter (1-4) from date
-- getSecond - Gets second from time/datetime
-- getTimeZone - Gets timezone from ZonedDateTime
-- getWeekday - Alias for getDayOfWeek with clearer name
-- getWeekOfYear - Gets ISO week number
-- getYear - Gets year from date
-- isLeapYear - Checks if a year is a leap year
-- isWeekday - Checks if date falls on weekday (Mon-Fri)
-- isWeekend - Checks if date falls on weekend (Sat-Sun)
-- now - Gets current Temporal.Instant
-- parse - Parses date/time from string with format
-- round - Rounds datetime to nearest unit (hour, minute, etc.)
-- setDay - Returns new date with day set to value
-- setHour - Returns new time/datetime with hour set
-- setMinute - Returns new time/datetime with minute set
-- setMonth - Returns new date with month set to value
-- setSecond - Returns new time/datetime with second set
-- setYear - Returns new date with year set to value
-- since - Calculates duration since a reference date/time
-- startOfDay - Returns start of day for a date (00:00:00)
-- startOfMonth - Returns first day of month for a date
-- startOfWeek - Returns start of week for a date (configurable week start)
-- startOfYear - Returns first day of year for a date
-- subtractDuration - Subtracts a Temporal.Duration from date/time
-- today - Gets current PlainDate
-- toISO - Converts Temporal object to ISO string
-- toPlainDate - Converts to Temporal.PlainDate
-- toPlainDateTime - Converts ZonedDateTime to PlainDateTime
-- toPlainTime - Converts to Temporal.PlainTime
-- toZonedDateTime - Converts PlainDateTime to ZonedDateTime
-- totalDuration - Gets total duration in specific unit
-- until - Calculates duration until a target date/time
-- withCalendar - Changes calendar system of date
-- withTime - Combines PlainDate with PlainTime to create PlainDateTime
-- withTimeZone - Converts datetime to specific timezone
-
 ### debug/ (1 function)
 - withInspect - Attaches custom inspection method for better console output
 
@@ -576,6 +503,79 @@
 - wrap - Wraps string at specified width
 - wrapWith - Wraps string with prefix and suffix
 
+### temporal/ (71 functions — Temporal API based)
+- addDays - Adds days to a Temporal date/datetime
+- addDuration - Adds a Temporal.Duration to a date/time
+- addHours - Adds hours to a Temporal time/datetime
+- addMinutes - Adds minutes to a Temporal time/datetime
+- addMonths - Adds months to a Temporal date/datetime
+- addSeconds - Adds seconds to a Temporal time/datetime
+- addYears - Adds years to a Temporal date/datetime
+- adjustTime - Adjusts time components while preserving date
+- clampDate - Constrains date between min and max bounds
+- compare - Compares two Temporal objects (-1, 0, 1)
+- dateRange - Generates array of dates between start and end
+- diffDays - Calculates difference in days between dates
+- diffHours - Calculates difference in hours between times
+- diffMinutes - Calculates difference in minutes between times
+- diffMonths - Calculates difference in months between dates
+- diffSeconds - Calculates difference in seconds between times
+- diffYears - Calculates difference in years between dates
+- duration - Creates a Temporal.Duration from units
+- endOfDay - Returns end of day for a date (23:59:59.999)
+- endOfMonth - Returns last day of month for a date
+- endOfWeek - Returns end of week for a date (configurable week start)
+- endOfYear - Returns last day of year for a date
+- equals - Checks if two Temporal objects are equal
+- format - Formats Temporal object according to pattern
+- fromISO - Parses ISO string to appropriate Temporal object
+- getCalendar - Gets calendar from Temporal date
+- getDay - Gets day of month from date
+- getDayOfWeek - Gets day of week (1-7, Monday-Sunday)
+- getDayOfYear - Gets day of year (1-366)
+- getDaysInMonth - Gets number of days in a specific month
+- getDaysInYear - Gets number of days in a specific year (365/366)
+- getHour - Gets hour from time/datetime
+- getMillisecond - Gets millisecond from time/datetime
+- getMinute - Gets minute from time/datetime
+- getMonth - Gets month from date
+- getNanosecond - Gets nanosecond from time/datetime
+- getQuarter - Gets quarter (1-4) from date
+- getSecond - Gets second from time/datetime
+- getTimeZone - Gets timezone from ZonedDateTime
+- getWeekday - Alias for getDayOfWeek with clearer name
+- getWeekOfYear - Gets ISO week number
+- getYear - Gets year from date
+- isLeapYear - Checks if a year is a leap year
+- isWeekday - Checks if date falls on weekday (Mon-Fri)
+- isWeekend - Checks if date falls on weekend (Sat-Sun)
+- now - Gets current Temporal.Instant
+- parse - Parses date/time from string with format
+- round - Rounds datetime to nearest unit (hour, minute, etc.)
+- setDay - Returns new date with day set to value
+- setHour - Returns new time/datetime with hour set
+- setMinute - Returns new time/datetime with minute set
+- setMonth - Returns new date with month set to value
+- setSecond - Returns new time/datetime with second set
+- setYear - Returns new date with year set to value
+- since - Calculates duration since a reference date/time
+- startOfDay - Returns start of day for a date (00:00:00)
+- startOfMonth - Returns first day of month for a date
+- startOfWeek - Returns start of week for a date (configurable week start)
+- startOfYear - Returns first day of year for a date
+- subtractDuration - Subtracts a Temporal.Duration from date/time
+- today - Gets current PlainDate
+- toISO - Converts Temporal object to ISO string
+- toPlainDate - Converts to Temporal.PlainDate
+- toPlainDateTime - Converts ZonedDateTime to PlainDateTime
+- toPlainTime - Converts to Temporal.PlainTime
+- toZonedDateTime - Converts PlainDateTime to ZonedDateTime
+- totalDuration - Gets total duration in specific unit
+- until - Calculates duration until a target date/time
+- withCalendar - Changes calendar system of date
+- withTime - Combines PlainDate with PlainTime to create PlainDateTime
+- withTimeZone - Converts datetime to specific timezone
+
 ### tuple/ (13 functions)
 - bimap - Maps two different functions over the elements of a pair
 - curry - Converts a function that takes a tuple into a curried function
@@ -773,345 +773,3 @@
     - convertBigIntToBase58 - Converts BigInt to Base58 representation
 - getOperands - Extracts operands from mathematical expressions
 
-### IO
-
-https://chatgpt.com/share/68a44c84-5fd4-8000-844a-f108f240012e
-
-```ts
-// A simple IO type
-export type IO<A> = () => A;
-
-// Construct an IO from a thunk
-export const IO = <A>(thunk: () => A): IO<A> => thunk;
-
-// Run the IO (explicitly!)
-export const runIO = <A>(io: IO<A>): A => io();
-
-// Functor: map
-export const map = <A, B>(f: (a: A) => B) =>
-  (io: IO<A>): IO<B> =>
-    () => f(io());
-
-// Monad: chain (aka flatMap / bind)
-export const chain = <A, B>(f: (a: A) => IO<B>) =>
-  (io: IO<A>): IO<B> =>
-    () => f(io())();
-
-// Apply (for completeness)
-export const ap = <A, B>(ioF: IO<(a: A) => B>) =>
-  (ioA: IO<A>): IO<B> =>
-    () => ioF()(ioA());
-```
-
-```ts
-// Your impure function turned into IO
-export const generateShortIdIO: IO<string> = IO(() =>
-  "_" + base58(crypto.randomUUID())
-);
-
-// Mapping over it
-const upperIdIO = map((id: string) => id.toUpperCase())(generateShortIdIO);
-
-// Chaining
-const withPrefixIO = chain((id: string) => IO(() => "ID-" + id))(generateShortIdIO);
-
-// Actually *run* the IO (side effect happens here)
-console.log(runIO(generateShortIdIO));   // "_5GbR..."
-console.log(runIO(upperIdIO));           // "_5GBR..."
-console.log(runIO(withPrefixIO));        // "ID-_5GbR..."
-```
-
-```ts
-// IO
-export type IO<A> = () => A;
-export const IO = <A>(thunk: () => A): IO<A> => thunk;
-export const runIO = <A>(io: IO<A>): A => io();
-```
-
-```ts
-// IO<Maybe<A>>
-export type IOMaybe<A> = IO<Maybe<A>>;
-
-// Constructors
-export const IOMaybe = <A>(thunk: () => Maybe<A>): IOMaybe<A> => thunk;
-export const fromIO = <A>(io: IO<A>): IOMaybe<A> =>
-  () => Just(io());
-
-// Functor
-export const mapIOMaybe = <A, B>(f: (a: A) => B) =>
-  (io: IOMaybe<A>): IOMaybe<B> =>
-    () => {
-      const m = io();
-      return m.tag === "Just" ? Just(f(m.value)) : Nothing;
-    };
-
-// Monad
-export const chainIOMaybe = <A, B>(f: (a: A) => IOMaybe<B>) =>
-  (io: IOMaybe<A>): IOMaybe<B> =>
-    () => {
-      const m = io();
-      return m.tag === "Just" ? f(m.value)() : Nothing;
-    };
-```
-
-```ts
-const getMaybeIdIO: IOMaybe<string> =
-  IOMaybe(() => Just("_" + crypto.randomUUID()));
-
-// Run it
-console.log(runIO(getMaybeIdIO)); // Just("_abc...") or Nothing
-```
-
-```ts
-// IO<Either<E, A>>
-export type IOEither<E, A> = IO<Either<E, A>>;
-
-// Constructors
-export const IOEither = <E, A>(thunk: () => Either<E, A>): IOEither<E, A> => thunk;
-export const fromIOEither = <E, A>(io: IO<A>): IOEither<E, A> =>
-  () => Right(io());
-
-// Functor
-export const mapIOEither = <E, A, B>(f: (a: A) => B) =>
-  (io: IOEither<E, A>): IOEither<E, B> =>
-    () => {
-      const e = io();
-      return e.tag === "Right" ? Right(f(e.right)) : e;
-    };
-
-// Monad
-export const chainIOEither = <E, A, B>(f: (a: A) => IOEither<E, B>) =>
-  (io: IOEither<E, A>): IOEither<E, B> =>
-    () => {
-      const e = io();
-      return e.tag === "Right" ? f(e.right)() : e;
-    };
-```
-
-```ts
-const safeShortId: IOEither<Error, string> = IOEither(() => {
-  try {
-    return Right("_" + crypto.randomUUID());
-  } catch (err) {
-    return Left(err as Error);
-  }
-});
-
-console.log(runIO(safeShortId)); // Right("_abc...") or Left(Error)
-```
-
-#### Why this rocks
-
-- Purity preserved: generateShortIdIO is just a value until you call runIO.
-- Composable: can map, chain, etc. just like Maybe/Either.
-- Testable: you can mock or replace IOs easily in tests.
-- IOMaybe: Models an effect that might not produce a value.
-- IOEither: Models an effect that might fail with an error.
-- Both integrate naturally with your pure Maybe/Either and IO.
-- You can write generic combinators that work across these monads.
-
-That gives you a clean way to represent all your impure functions (Date.now, randomness, file I/O, etc.) while keeping your FP style consistent.
-
-```ts
-// Lift a pure Maybe<A> into IOMaybe<A>
-export const fromMaybe = <A>(m: Maybe<A>): IOMaybe<A> =>
-  () => m;
-
-// Lift a pure function returning Maybe<A>
-export const liftMaybe = <A>(f: () => Maybe<A>): IOMaybe<A> =>
-  () => f();
-```
-
-```ts
-const findUser = (id: string): Maybe<string> =>
-  id === "42" ? Just("Douglas Adams") : Nothing;
-
-// Turn into IOMaybe
-const findUserIO = (id: string): IOMaybe<string> =>
-  liftMaybe(() => findUser(id));
-
-console.log(runIO(findUserIO("42"))); // Just("Douglas Adams")
-console.log(runIO(findUserIO("7")));  // Nothing
-```
-
-```ts
-// Lift a pure Either<E, A> into IOEither<E, A>
-export const fromEither = <E, A>(e: Either<E, A>): IOEither<E, A> =>
-  () => e;
-
-// Lift a pure function returning Either<E, A>
-export const liftEither = <E, A>(f: () => Either<E, A>): IOEither<E, A> =>
-  () => f();
-```
-
-```ts
-const parseJson = (s: string): Either<Error, unknown> => {
-  try {
-    return Right(JSON.parse(s));
-  } catch (err) {
-    return Left(err as Error);
-  }
-};
-
-const parseJsonIO = (s: string): IOEither<Error, unknown> =>
-  liftEither(() => parseJson(s));
-
-console.log(runIO(parseJsonIO("{\"x\":1}"))); // Right({ x: 1 })
-console.log(runIO(parseJsonIO("oops")));     // Left(SyntaxError)
-```
-
-Sometimes you already have an IO (impure but guaranteed to return a value) and want to integrate with Maybe/Either.
-
-```ts
-// IO<A> → IOMaybe<A>
-export const ioToIOMaybe = <A>(io: IO<A>): IOMaybe<A> =>
-  () => Just(io());
-
-// IO<A> → IOEither<E, A>
-export const ioToIOEither = <E, A>(io: IO<A>): IOEither<E, A> =>
-  () => Right(io());
-```
-
-```ts
-const generateShortIdIO: IO<string> =
-  () => "_" + crypto.randomUUID();
-
-// Chain IO → IOMaybe
-const shortIdIOMaybe: IOMaybe<string> =
-  ioToIOMaybe(generateShortIdIO);
-
-// Add validation inside IOMaybe
-const validShortIdIOMaybe = chainIOMaybe((id: string) =>
-  id.length > 5 ? fromMaybe(Just(id)) : fromMaybe(Nothing)
-)(shortIdIOMaybe);
-
-console.log(runIO(validShortIdIOMaybe)); // Just("_abc123...") or Nothing
-```
-
-- fromMaybe / fromEither lift pure values into effectful versions.
-- liftMaybe / liftEither lift pure functions.
-- ioToIOMaybe / ioToIOEither lift IO computations.
-- This makes your library ergonomic and keeps the “FP onion layers” (pure Maybe/Either → IO → IOMaybe/IOEither) smooth.
-
-In FP-land, that means typeclasses (Functor, Monad, etc.) and “instances” for each of your types (Maybe, Either, IO, IOMaybe, IOEither).
-
-```ts
-// Functor: can map over a context
-export interface Functor<F> {
-  map: <A, B>(fa: HKT<F, A>, f: (a: A) => B) => HKT<F, B>;
-}
-
-// Monad: flatMap / chain
-export interface Monad<F> extends Functor<F> {
-  of: <A>(a: A) => HKT<F, A>;
-  chain: <A, B>(fa: HKT<F, A>, f: (a: A) => HKT<F, B>) => HKT<F, B>;
-}
-```
-
-```ts
-// "URI" identifies a type constructor
-export interface HKT<URI, A> {
-  readonly _URI: URI;
-  readonly _A: A;
-}
-
-export type Type<URI, A> = HKT<URI, A> & { readonly value: any };
-```
-
-```ts
-export const URI_Maybe = "Maybe";
-export type URI_Maybe = typeof URI_Maybe;
-
-export interface HKMaybe<A> extends HKT<URI_Maybe, A> {
-  readonly value: Maybe<A>;
-}
-
-export const FunctorMaybe: Functor<URI_Maybe> = {
-  map: <A, B>(fa: HKMaybe<A>, f: (a: A) => B): HKMaybe<B> => ({
-    _URI: URI_Maybe,
-    _A: undefined as any,
-    value: fa.value.tag === "Just" ? Just(f(fa.value.value)) : Nothing
-  })
-};
-
-export const MonadMaybe: Monad<URI_Maybe> = {
-  ...FunctorMaybe,
-  of: <A>(a: A): HKMaybe<A> => ({ _URI: URI_Maybe, _A: undefined as any, value: Just(a) }),
-  chain: <A, B>(fa: HKMaybe<A>, f: (a: A) => HKMaybe<B>): HKMaybe<B> =>
-    fa.value.tag === "Just" ? f(fa.value.value) : { _URI: URI_Maybe, _A: undefined as any, value: Nothing }
-};
-```
-
-```ts
-export const URI_IO = "IO";
-export type URI_IO = typeof URI_IO;
-
-export interface HKIO<A> extends HKT<URI_IO, A> {
-  readonly value: IO<A>;
-}
-
-export const FunctorIO: Functor<URI_IO> = {
-  map: <A, B>(fa: HKIO<A>, f: (a: A) => B): HKIO<B> => ({
-    _URI: URI_IO,
-    _A: undefined as any,
-    value: () => f(fa.value())
-  })
-};
-
-export const MonadIO: Monad<URI_IO> = {
-  ...FunctorIO,
-  of: <A>(a: A): HKIO<A> => ({ _URI: URI_IO, _A: undefined as any, value: () => a }),
-  chain: <A, B>(fa: HKIO<A>, f: (a: A) => HKIO<B>): HKIO<B> => ({
-    _URI: URI_IO,
-    _A: undefined as any,
-    value: () => f(fa.value()).value()
-  })
-};
-```
-
-```ts
-// Generic map
-function fmap<F, A, B>(
-  functor: Functor<F>,
-  fa: HKT<F, A>,
-  f: (a: A) => B
-): HKT<F, B> {
-  return functor.map(fa, f);
-}
-
-// Generic chain
-function flatMap<F, A, B>(
-  monad: Monad<F>,
-  fa: HKT<F, A>,
-  f: (a: A) => HKT<F, B>
-): HKT<F, B> {
-  return monad.chain(fa, f);
-}
-```
-
-```ts
-// Maybe
-const maybeNum: HKMaybe<number> = { _URI: URI_Maybe, _A: 0, value: Just(5) };
-
-const maybeDouble = fmap(FunctorMaybe, maybeNum, x => x * 2);
-console.log(maybeDouble.value); // Just(10)
-
-// IO
-const ioNum: HKIO<number> = { _URI: URI_IO, _A: 0, value: () => 7 };
-
-const ioDouble = flatMap(MonadIO, ioNum, n => ({
-  _URI: URI_IO,
-  _A: 0,
-  value: () => n * 2
-}));
-
-console.log(ioDouble.value()); // 14
-```
-
-What we’ve got now:
-
-- Functor and Monad abstractions.
-- Maybe and IO instances.
-- Generic fmap / flatMap that work across them.
-
-Next natural step: define IOEither and IOMaybe instances of Monad the same way, so they integrate seamlessly.
