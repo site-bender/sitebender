@@ -1,12 +1,13 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (577 functions total)
+## Current Functions (580 functions total)
 
-### array/ (120 functions)
+### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
 - chunk - Splits array into chunks of specified size
+- closest - Finds the value closest to a target number
 - combinations - Generates all combinations of array elements
 - compact - Removes falsy values from array
 - concat - Concatenates arrays together
@@ -23,10 +24,12 @@
 - endsWith - Checks if an array ends with the provided suffix array
 - filter - Filters array elements based on predicate
 - find - Finds first element that satisfies predicate
+- findDuplicates - Returns array of elements that appear more than once
 - findIndex - Finds index of first element that satisfies predicate
 - findIndices - Returns all indices of elements that satisfy the predicate
 - findLast - Finds last element that satisfies predicate
 - findLastIndex - Finds index of last element that satisfies predicate
+- findMostCommon - Finds the most frequently occurring element(s)
 - first - Returns first element of array (alias: head)
 - flatMap - Maps function over array and flattens result
 - flatten - Flattens nested arrays by one level
@@ -697,13 +700,15 @@
 
 ## Proposed Additions
 
-### math/ (37 functions)
+### math/ (39 functions)
 - abs - Returns absolute value
 - add - Adds two numbers
+- average - Calculates arithmetic mean of an array (alias: mean)
 - cbrt - Returns cube root
 - ceil - Rounds up to integer
 - clamp - Constrains a number between min and max
 - decrement - Subtracts 1 from a number
+- digitSum - Calculates sum of digits in a number
 - divide - Divides first number by second
 - factorial - Calculates factorial
 - fibonacci - Returns nth Fibonacci number
@@ -717,7 +722,7 @@
 - lcm - Least common multiple
 - max - Finds maximum of two values
 - maxBy - Finds maximum using a mapping function
-- mean - Calculates arithmetic mean
+- mean - Calculates arithmetic mean (alias: average)
 - median - Finds the median value
 - min - Finds minimum of two values
 - minBy - Finds minimum using a mapping function
@@ -735,6 +740,42 @@
 - subtract - Subtracts second number from first
 - sum - Sums an array of numbers
 - trunc - Removes decimal part
+
+### string/ (additional functions from examples)
+- changeExtension - Changes the file extension of a filename
+- cleanFilename - Removes invalid characters from filenames (filesystem-safe)
+- extractAfter - Extracts substring after a specified marker
+- findExtension - Extracts file extension from a filename
+- normalize - Normalizes string for comparison (lowercase, remove special chars)
+- sanitize - Sanitizes strings for safe use in HTML/URLs
+
+### temporal/ (additional functions from examples)
+- durationToMinutes - Converts a Temporal.Duration to total minutes
+- durationToSeconds - Converts a Temporal.Duration to total seconds
+- formatDuration - Formats duration in human-readable format (e.g., "2h 30m")
+- getNextOccurrence - Finds next occurrence of a recurring event
+- getOffsetTransitions - Gets timezone offset transition points
+- parseTime - Parses time strings into Temporal.PlainTime objects
+- serializeZonedDateTime - Serializes ZonedDateTime for storage/transmission
+- sortByAbsoluteTime - Comparator for sorting by absolute time
+
+### conversion/ (additional functions from examples)
+- safeParse - Safely parses a value, returns null on failure
+- safeParseFloat - Safely parses to float, returns null on failure
+- safeParseInt - Safely parses to integer, returns null on failure
+
+### object/ (additional functions from examples)
+- accumulate - Accumulates data from multiple sources into single object
+- smartMerge - Merges objects with intelligent type-aware conflict resolution
+
+### validation/ (additional functions from examples)
+- validateConfig - Validates configuration objects against schema
+- validateField - Validates a single form field with rules
+- validateForm - Validates entire form data, returns array of errors
+- validateRange - Checks if value is within specified range
+
+### combinator/ (additional functions from examples)
+- memoizeKey - Creates consistent cache keys for memoization
 
 ## Notes
 
