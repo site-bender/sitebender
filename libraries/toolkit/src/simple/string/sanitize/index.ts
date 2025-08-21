@@ -91,7 +91,7 @@
  * 
  * // Clean encoded characters
  * sanitize("&#60;script&#62;alert('XSS')&#60;/script&#62;")
- * // "alert('XSS')"
+ * // ""
  * 
  * // Handle null bytes
  * sanitize("Hello\x00World")
@@ -195,21 +195,17 @@ const sanitize = (
 	// Remove null bytes
 	let cleaned = input.replace(/\x00/g, "")
 	
-	// Decode HTML entities to catch encoded attacks
-	cleaned = cleaned.replace(/&#(\d+);/g, (match, num) => {
-		return String.fromCharCode(parseInt(num))
-	})
-	cleaned = cleaned.replace(/&([a-z]+);/gi, (match, entity) => {
-		const entities: Record<string, string> = {
-			"lt": "<", "gt": ">", "amp": "&", "quot": '"', "apos": "'",
-			"nbsp": " ", "copy": "©", "reg": "®", "trade": "™"
-		}
-		return entities[entity.toLowerCase()] || match
+	// Handle CSS expressions and javascript: in styles BEFORE general protocol removal
+	cleaned = cleaned.replace(/style\s*=\s*["']([^"']*?)(?:javascript|expression)([^"']*?)["']/gi, (match, before, after) => {
+		// For "background:url(javascript:alert(1))" we want "background:url"
+		// Remove trailing opening parenthesis if present
+		const cleanBefore = before.replace(/\(\s*$/, "")
+		return `style="${cleanBefore}"`
 	})
 	
-	// Remove dangerous protocols
+	// Then remove dangerous protocols (but not within already-cleaned styles)
 	cleaned = cleaned.replace(
-		/(?:javascript|jscript|vbscript|data|file|about|blob):/gi, 
+		/(?:javascript|jscript|vbscript|data|file|about|blob):[^\s]*/gi, 
 		""
 	)
 	
@@ -232,8 +228,34 @@ const sanitize = (
 	// Remove HTML comments
 	cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, "")
 	
+	// Now decode HTML entities and check for dangerous content AFTER decoding
+	// First decode to catch encoded dangerous tags
+	let decoded = cleaned.replace(/&#x?([0-9a-f]+);/gi, (match, num) => {
+		const code = num.startsWith('x') || num.match(/[a-f]/i)
+			? parseInt(num, 16)
+			: parseInt(num, 10)
+		return String.fromCharCode(code)
+	})
+	decoded = decoded.replace(/&([a-z]+);/gi, (match, entity) => {
+		const entities: Record<string, string> = {
+			"lt": "<", "gt": ">", "amp": "&", "quot": '"', "apos": "'",
+			"nbsp": " ", "copy": "©", "reg": "®", "trade": "™",
+			"mdash": "—", "ndash": "–", "hellip": "…"
+		}
+		return entities[entity.toLowerCase()] || match
+	})
+	
+	// After decoding, remove any dangerous tags that were encoded
+	dangerousTags.forEach(tag => {
+		const regex = new RegExp(`<${tag}[^>]*>.*?</${tag}>`, "gis")
+		decoded = decoded.replace(regex, "")
+		// Also handle self-closing
+		const selfClosing = new RegExp(`<${tag}[^>]*\\/?>`, "gi")
+		decoded = decoded.replace(selfClosing, "")
+	})
+	
 	// Remove remaining HTML tags but keep their content
-	cleaned = cleaned.replace(/<[^>]+>/g, "")
+	cleaned = decoded.replace(/<[^>]+>/g, "")
 	
 	// Remove any on* event handlers that might remain
 	cleaned = cleaned.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, "")
