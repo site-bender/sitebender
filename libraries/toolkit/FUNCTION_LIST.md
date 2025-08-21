@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (697 functions total)
+## Current Functions (736 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -328,6 +328,47 @@
 - update - Updates a value in a Map using a function
 - values - Returns an array of Map values
 - withDefault - Wraps a Map to provide default values for missing keys
+
+### math/ (39 functions)
+- abs - Returns absolute value
+- add - Adds two numbers
+- average - Calculates arithmetic mean of an array (alias: mean)
+- cbrt - Returns cube root
+- ceil - Rounds up to integer
+- clamp - Constrains a number between min and max
+- decrement - Subtracts 1 from a number
+- digitSum - Calculates sum of digits in a number
+- divide - Divides first number by second
+- factorial - Calculates factorial
+- fibonacci - Returns nth Fibonacci number
+- floor - Rounds down to integer
+- gcd - Greatest common divisor
+- increment - Adds 1 to a number
+- inRange - Checks if number is within range
+- isEven - Checks if number is even
+- isOdd - Checks if number is odd
+- isPrime - Checks if number is prime
+- lcm - Least common multiple
+- max - Finds maximum of two values
+- maxBy - Finds maximum using a mapping function
+- mean - Calculates arithmetic mean (alias: average)
+- median - Finds the median value
+- min - Finds minimum of two values
+- minBy - Finds minimum using a mapping function
+- mode - Finds the most frequent value(s)
+- modulo - Returns remainder of division
+- multiply - Multiplies two numbers
+- negate - Negates a number
+- pow - Raises to a power
+- product - Multiplies all numbers in an array
+- random - Generates random number in range
+- randomInt - Generates random integer in range
+- round - Rounds to nearest integer
+- sign - Returns sign of number (-1, 0, or 1)
+- sqrt - Returns square root
+- subtract - Subtracts second number from first
+- sum - Sums an array of numbers
+- trunc - Removes decimal part
 
 ### maybe/ (17 functions)
 - just - Creates a Just value (Some)
@@ -739,46 +780,7 @@
 
 ## Proposed Additions
 
-### math/ (39 functions)
-- abs - Returns absolute value
-- add - Adds two numbers
-- average - Calculates arithmetic mean of an array (alias: mean)
-- cbrt - Returns cube root
-- ceil - Rounds up to integer
-- clamp - Constrains a number between min and max
-- decrement - Subtracts 1 from a number
-- digitSum - Calculates sum of digits in a number
-- divide - Divides first number by second
-- factorial - Calculates factorial
-- fibonacci - Returns nth Fibonacci number
-- floor - Rounds down to integer
-- gcd - Greatest common divisor
-- increment - Adds 1 to a number
-- inRange - Checks if number is within range
-- isEven - Checks if number is even
-- isOdd - Checks if number is odd
-- isPrime - Checks if number is prime
-- lcm - Least common multiple
-- max - Finds maximum of two values
-- maxBy - Finds maximum using a mapping function
-- mean - Calculates arithmetic mean (alias: average)
-- median - Finds the median value
-- min - Finds minimum of two values
-- minBy - Finds minimum using a mapping function
-- mode - Finds the most frequent value(s)
-- modulo - Returns remainder of division
-- multiply - Multiplies two numbers
-- negate - Negates a number
-- pow - Raises to a power
-- product - Multiplies all numbers in an array
-- random - Generates random number in range
-- randomInt - Generates random integer in range
-- round - Rounds to nearest integer
-- sign - Returns sign of number (-1, 0, or 1)
-- sqrt - Returns square root
-- subtract - Subtracts second number from first
-- sum - Sums an array of numbers
-- trunc - Removes decimal part
+(All math functions have been implemented and moved to the Current Functions section)
 
 
 
