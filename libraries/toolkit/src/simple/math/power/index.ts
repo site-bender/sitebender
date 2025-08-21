@@ -12,140 +12,140 @@
  * @example
  * ```typescript
  * // Basic exponentiation
- * pow(2)(3)
+ * power(2)(3)
  * // 9 (3^2)
  * 
- * pow(3)(2)
+ * power(3)(2)
  * // 8 (2^3)
  * 
- * pow(2)(10)
+ * power(2)(10)
  * // 100 (10^2)
  * 
  * // Power of 1 (identity)
- * pow(1)(5)
+ * power(1)(5)
  * // 5
  * 
- * pow(1)(100)
+ * power(1)(100)
  * // 100
  * 
  * // Power of 0 (always 1)
- * pow(0)(5)
+ * power(0)(5)
  * // 1
  * 
- * pow(0)(100)
+ * power(0)(100)
  * // 1
  * 
- * pow(0)(0)
+ * power(0)(0)
  * // 1
  * 
  * // Negative exponents (reciprocals)
- * pow(-1)(2)
+ * power(-1)(2)
  * // 0.5 (1/2)
  * 
- * pow(-2)(2)
+ * power(-2)(2)
  * // 0.25 (1/4)
  * 
- * pow(-3)(2)
+ * power(-3)(2)
  * // 0.125 (1/8)
  * 
  * // Fractional exponents (roots)
- * pow(0.5)(4)
+ * power(0.5)(4)
  * // 2 (square root of 4)
  * 
- * pow(0.5)(9)
+ * power(0.5)(9)
  * // 3 (square root of 9)
  * 
- * pow(1/3)(8)
+ * power(1/3)(8)
  * // 2 (cube root of 8)
  * 
- * pow(1/3)(27)
+ * power(1/3)(27)
  * // 3 (cube root of 27)
  * 
  * // Negative bases
- * pow(2)(-3)
+ * power(2)(-3)
  * // 9
  * 
- * pow(3)(-2)
+ * power(3)(-2)
  * // -8
  * 
- * pow(2)(-4)
+ * power(2)(-4)
  * // 16
  * 
  * // Decimal bases
- * pow(2)(1.5)
+ * power(2)(1.5)
  * // 2.25
  * 
- * pow(3)(0.5)
+ * power(3)(0.5)
  * // 0.125
  * 
- * pow(2)(2.5)
+ * power(2)(2.5)
  * // 6.25
  * 
  * // Large exponents
- * pow(10)(2)
+ * power(10)(2)
  * // 1024
  * 
- * pow(20)(2)
+ * power(20)(2)
  * // 1048576
  * 
- * pow(100)(10)
+ * power(100)(10)
  * // 1e+100
  * 
  * // Special values
- * pow(2)(Infinity)
+ * power(2)(Infinity)
  * // Infinity
  * 
- * pow(2)(-Infinity)
+ * power(2)(-Infinity)
  * // 0
  * 
- * pow(Infinity)(2)
+ * power(Infinity)(2)
  * // Infinity
  * 
- * pow(-Infinity)(3)
+ * power(-Infinity)(3)
  * // -Infinity
  * 
- * pow(0)(0)
+ * power(0)(0)
  * // 1 (by convention)
  * 
- * pow(2)(NaN)
+ * power(2)(NaN)
  * // NaN
  * 
- * pow(NaN)(2)
+ * power(NaN)(2)
  * // NaN
  * 
  * // Invalid inputs
- * pow(null)(2)
+ * power(null)(2)
  * // NaN
  * 
- * pow(2)(undefined)
+ * power(2)(undefined)
  * // NaN
  * 
- * pow("2")(3)
+ * power("2")(3)
  * // NaN
  * 
- * pow(2)("3")
+ * power(2)("3")
  * // NaN
  * 
  * // Partial application
- * const square = pow(2)
+ * const square = power(2)
  * square(5)
  * // 25
  * square(7)
  * // 49
  * 
- * const cube = pow(3)
+ * const cube = power(3)
  * cube(3)
  * // 27
  * cube(4)
  * // 64
  * 
- * const sqrt = pow(0.5)
+ * const sqrt = power(0.5)
  * sqrt(16)
  * // 4
  * sqrt(25)
  * // 5
  * 
- * const reciprocal = pow(-1)
+ * const reciprocal = power(-1)
  * reciprocal(2)
  * // 0.5
  * reciprocal(4)
@@ -174,18 +174,18 @@
  * 
  * // Compound interest
  * const compound = (principal: number, rate: number, time: number) =>
- *   principal * pow(time)(1 + rate)
+ *   principal * power(time)(1 + rate)
  * compound(1000, 0.05, 3)
  * // 1157.625
  * 
  * // Circle area from radius
- * const circleArea = (radius: number) => Math.PI * pow(2)(radius)
+ * const circleArea = (radius: number) => Math.PI * power(2)(radius)
  * circleArea(5)
  * // 78.539...
  * 
  * // Sphere volume from radius
  * const sphereVolume = (radius: number) => 
- *   (4/3) * Math.PI * pow(3)(radius)
+ *   (4/3) * Math.PI * power(3)(radius)
  * sphereVolume(3)
  * // 113.097...
  * 
@@ -197,27 +197,27 @@
  * 
  * // Exponential decay
  * const decay = (initial: number, rate: number, time: number) =>
- *   initial * pow(time)(Math.E * rate)
+ *   initial * power(time)(Math.E * rate)
  * decay(100, -0.1, 5)
  * // 60.653...
  * 
  * // Binary to decimal
  * const binaryToDecimal = (binary: string) =>
  *   binary.split('').reverse().reduce((acc, bit, i) => 
- *     acc + parseInt(bit) * pow(i)(2), 0)
+ *     acc + parseInt(bit) * power(i)(2), 0)
  * binaryToDecimal("1010")
  * // 10
  * 
  * // Scientific notation
  * const scientific = (mantissa: number) => (exponent: number) =>
- *   mantissa * pow(exponent)(10)
+ *   mantissa * power(exponent)(10)
  * scientific(3.14)(2)
  * // 314
  * scientific(6.02)(23)
  * // 6.02e+23
  * 
  * // Logarithm inverse
- * const exp = pow // e^x when base is Math.E
+ * const exp = power // e^x when base is Math.E
  * const natural = (x: number) => pow(x)(Math.E)
  * natural(1)
  * // 2.718... (e)
@@ -243,14 +243,14 @@
  * // Energy calculations (E = mc²)
  * const energy = (mass: number) => {
  *   const c = 299792458 // speed of light in m/s
- *   return mass * pow(2)(c)
+ *   return mass * power(2)(c)
  * }
  * 
  * // Safe pow with validation
  * const safePow = (exp: unknown) => (base: unknown): number | null => {
  *   const expNum = typeof exp === 'number' ? exp : NaN
  *   const baseNum = typeof base === 'number' ? base : NaN
- *   const result = pow(expNum)(baseNum)
+ *   const result = power(expNum)(baseNum)
  *   return isNaN(result) ? null : result
  * }
  * safePow(2)(3)
@@ -263,7 +263,7 @@
  * @property Safe - Returns NaN for invalid inputs
  * @property Mathematical - Follows standard exponentiation rules
  */
-const pow = (
+const power = (
 	exponent: number | null | undefined
 ) => (
 	base: number | null | undefined
@@ -279,4 +279,4 @@ const pow = (
 	return Math.pow(base, exponent)
 }
 
-export default pow
+export default power

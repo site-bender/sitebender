@@ -11,103 +11,103 @@
  * @example
  * ```typescript
  * // Perfect cubes
- * cbrt(8)
+ * cubeRoot(8)
  * // 2
  * 
- * cbrt(27)
+ * cubeRoot(27)
  * // 3
  * 
- * cbrt(125)
+ * cubeRoot(125)
  * // 5
  * 
- * cbrt(1000)
+ * cubeRoot(1000)
  * // 10
  * 
  * // Negative numbers
- * cbrt(-8)
+ * cubeRoot(-8)
  * // -2
  * 
- * cbrt(-27)
+ * cubeRoot(-27)
  * // -3
  * 
- * cbrt(-125)
+ * cubeRoot(-125)
  * // -5
  * 
  * // Zero
- * cbrt(0)
+ * cubeRoot(0)
  * // 0
  * 
- * cbrt(-0)
+ * cubeRoot(-0)
  * // -0
  * 
  * // One
- * cbrt(1)
+ * cubeRoot(1)
  * // 1
  * 
- * cbrt(-1)
+ * cubeRoot(-1)
  * // -1
  * 
  * // Non-perfect cubes
- * cbrt(2)
+ * cubeRoot(2)
  * // 1.2599210498948732
  * 
- * cbrt(10)
+ * cubeRoot(10)
  * // 2.154434690031884
  * 
- * cbrt(100)
+ * cubeRoot(100)
  * // 4.641588833612779
  * 
  * // Decimal numbers
- * cbrt(0.125)
+ * cubeRoot(0.125)
  * // 0.5
  * 
- * cbrt(0.001)
+ * cubeRoot(0.001)
  * // 0.1
  * 
- * cbrt(2.5)
+ * cubeRoot(2.5)
  * // 1.3572088082974532
  * 
  * // Very small numbers
- * cbrt(0.000001)
+ * cubeRoot(0.000001)
  * // 0.01
  * 
- * cbrt(1e-9)
+ * cubeRoot(1e-9)
  * // 0.001
  * 
  * // Very large numbers
- * cbrt(1000000)
+ * cubeRoot(1000000)
  * // 100
  * 
- * cbrt(1e9)
+ * cubeRoot(1e9)
  * // 1000
  * 
  * // Special values
- * cbrt(Infinity)
+ * cubeRoot(Infinity)
  * // Infinity
  * 
- * cbrt(-Infinity)
+ * cubeRoot(-Infinity)
  * // -Infinity
  * 
- * cbrt(NaN)
+ * cubeRoot(NaN)
  * // NaN
  * 
  * // Invalid inputs return NaN
- * cbrt(null)
+ * cubeRoot(null)
  * // NaN
  * 
- * cbrt(undefined)
+ * cubeRoot(undefined)
  * // NaN
  * 
- * cbrt("8")
+ * cubeRoot("8")
  * // NaN
  * 
- * cbrt("abc")
+ * cubeRoot("abc")
  * // NaN
  * 
- * cbrt({})
+ * cubeRoot({})
  * // NaN
  * 
- * cbrt([])
+ * cubeRoot([])
  * // NaN
  * 
  * // Volume calculations
@@ -116,7 +116,7 @@
  * }
  * 
  * function cubeSideFromVolume(volume: number): number {
- *   return cbrt(volume)
+ *   return cubeRoot(volume)
  * }
  * 
  * cubeSideFromVolume(125)
@@ -125,14 +125,14 @@
  * // Physics calculations
  * function sphereRadiusFromVolume(volume: number): number {
  *   // V = (4/3)πr³, so r = ∛(3V/4π)
- *   return cbrt((3 * volume) / (4 * Math.PI))
+ *   return cubeRoot((3 * volume) / (4 * Math.PI))
  * }
  * sphereRadiusFromVolume(4188.79) // Volume ≈ 4188.79
  * // 10 (approximately)
  * 
  * // Scaling calculations
  * function scaleFactorFromVolumeRatio(ratio: number): number {
- *   return cbrt(ratio)
+ *   return cubeRoot(ratio)
  * }
  * scaleFactorFromVolumeRatio(8)
  * // 2 (double the linear dimensions = 8x the volume)
@@ -151,7 +151,7 @@
  * function cubeRootMeanCube(values: Array<number>): number {
  *   const cubes = values.map(v => v ** 3)
  *   const meanCube = cubes.reduce((a, b) => a + b, 0) / values.length
- *   return cbrt(meanCube)
+ *   return cubeRoot(meanCube)
  * }
  * cubeRootMeanCube([1, 2, 3, 4, 5])
  * // 3.936... (cube root of mean of cubes)
@@ -159,13 +159,13 @@
  * // Chemistry calculations (molar volume)
  * function atomicRadius(molarVolume: number, avogadro: number = 6.022e23): number {
  *   // Simplified: r ≈ ∛(3V/4πN)
- *   return cbrt((3 * molarVolume) / (4 * Math.PI * avogadro))
+ *   return cubeRoot((3 * molarVolume) / (4 * Math.PI * avogadro))
  * }
  * 
  * // Engineering calculations
  * function beamDeflection(load: number, length: number, elasticity: number): number {
  *   // Simplified formula involving cube root
- *   return cbrt(load * length ** 3 / elasticity)
+ *   return cubeRoot(load * length ** 3 / elasticity)
  * }
  * 
  * // Data normalization
@@ -176,7 +176,7 @@
  * // Growth rate calculations
  * function compoundGrowthRate(initial: number, final: number, periods: number): number {
  *   if (periods === 3) {
- *     return cbrt(final / initial) - 1
+ *     return cubeRoot(final / initial) - 1
  *   }
  *   return Math.pow(final / initial, 1 / periods) - 1
  * }
@@ -185,7 +185,7 @@
  * 
  * // Safe calculation with error handling
  * function safeCubeRoot(value: unknown): number | null {
- *   const num = typeof value === 'number' ? cbrt(value) : NaN
+ *   const num = typeof value === 'number' ? cubeRoot(value) : NaN
  *   return isNaN(num) ? null : num
  * }
  * safeCubeRoot(27)
@@ -197,7 +197,7 @@
  * @property Safe - Returns NaN for invalid inputs
  * @property Symmetric - Works with both positive and negative numbers
  */
-const cbrt = (
+const cubeRoot = (
 	n: number | null | undefined
 ): number => {
 	if (n == null || typeof n !== 'number') {
@@ -207,4 +207,4 @@ const cbrt = (
 	return Math.cbrt(n)
 }
 
-export default cbrt
+export default cubeRoot

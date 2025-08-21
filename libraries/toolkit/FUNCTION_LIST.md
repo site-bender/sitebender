@@ -330,12 +330,12 @@
 - withDefault - Wraps a Map to provide default values for missing keys
 
 ### math/ (39 functions)
-- abs - Returns absolute value
+- absoluteValue - Returns absolute value
 - add - Adds two numbers
 - average - Calculates arithmetic mean of an array (alias: mean)
-- cbrt - Returns cube root
-- ceil - Rounds up to integer
+- ceiling - Rounds up to integer
 - clamp - Constrains a number between min and max
+- cubeRoot - Returns cube root
 - decrement - Subtracts 1 from a number
 - digitSum - Calculates sum of digits in a number
 - divide - Divides first number by second
@@ -359,16 +359,16 @@
 - modulo - Returns remainder of division
 - multiply - Multiplies two numbers
 - negate - Negates a number
-- pow - Raises to a power
+- power - Raises to a power
 - product - Multiplies all numbers in an array
 - random - Generates random number in range
-- randomInt - Generates random integer in range
+- randomInteger - Generates random integer in range
 - round - Rounds to nearest integer
 - sign - Returns sign of number (-1, 0, or 1)
-- sqrt - Returns square root
+- squareRoot - Returns square root
 - subtract - Subtracts second number from first
 - sum - Sums an array of numbers
-- trunc - Removes decimal part
+- truncate - Removes decimal part
 
 ### maybe/ (17 functions)
 - just - Creates a Just value (Some)

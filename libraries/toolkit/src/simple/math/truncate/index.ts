@@ -10,98 +10,98 @@
  * @example
  * ```typescript
  * // Positive numbers
- * trunc(3.7)
+ * truncate(3.7)
  * // 3
  * 
- * trunc(3.2)
+ * truncate(3.2)
  * // 3
  * 
- * trunc(3.9999)
+ * truncate(3.9999)
  * // 3
  * 
- * trunc(10.5)
+ * truncate(10.5)
  * // 10
  * 
  * // Negative numbers (toward zero)
- * trunc(-3.7)
+ * truncate(-3.7)
  * // -3
  * 
- * trunc(-3.2)
+ * truncate(-3.2)
  * // -3
  * 
- * trunc(-3.9999)
+ * truncate(-3.9999)
  * // -3
  * 
- * trunc(-10.5)
+ * truncate(-10.5)
  * // -10
  * 
  * // Already integers
- * trunc(5)
+ * truncate(5)
  * // 5
  * 
- * trunc(-10)
+ * truncate(-10)
  * // -10
  * 
- * trunc(0)
+ * truncate(0)
  * // 0
  * 
  * // Very small decimals
- * trunc(0.1)
+ * truncate(0.1)
  * // 0
  * 
- * trunc(0.9)
+ * truncate(0.9)
  * // 0
  * 
- * trunc(0.00001)
+ * truncate(0.00001)
  * // 0
  * 
- * trunc(-0.1)
+ * truncate(-0.1)
  * // 0
  * 
- * trunc(-0.9)
+ * truncate(-0.9)
  * // 0
  * 
  * // Large numbers
- * trunc(1000000.999)
+ * truncate(1000000.999)
  * // 1000000
  * 
- * trunc(999999.1)
+ * truncate(999999.1)
  * // 999999
  * 
- * trunc(Number.MAX_SAFE_INTEGER - 0.5)
+ * truncate(Number.MAX_SAFE_INTEGER - 0.5)
  * // 9007199254740990
  * 
  * // Special values
- * trunc(Infinity)
+ * truncate(Infinity)
  * // Infinity
  * 
- * trunc(-Infinity)
+ * truncate(-Infinity)
  * // -Infinity
  * 
- * trunc(NaN)
+ * truncate(NaN)
  * // NaN
  * 
  * // Invalid inputs
- * trunc(null)
+ * truncate(null)
  * // NaN
  * 
- * trunc(undefined)
+ * truncate(undefined)
  * // NaN
  * 
- * trunc("3.5")
+ * truncate("3.5")
  * // NaN
  * 
- * trunc({})
+ * truncate({})
  * // NaN
  * 
- * trunc([])
+ * truncate([])
  * // NaN
  * 
  * // Comparison with floor and ceil
  * const n1 = 3.7
  * Math.floor(n1)
  * // 3
- * trunc(n1)
+ * truncate(n1)
  * // 3
  * Math.ceil(n1)
  * // 4
@@ -109,7 +109,7 @@
  * const n2 = -3.7
  * Math.floor(n2)
  * // -4 (floor goes down)
- * trunc(n2)
+ * truncate(n2)
  * // -3 (trunc goes toward zero)
  * Math.ceil(n2)
  * // -3
@@ -125,30 +125,30 @@
  * 
  * // Currency truncation (remove cents)
  * const amount = 123.45
- * trunc(amount)
+ * truncate(amount)
  * // 123
  * 
  * const amount2 = -67.89
- * trunc(amount2)
+ * truncate(amount2)
  * // -67
  * 
  * // Time truncation (remove fractional hours)
  * const hours = 5.75
- * trunc(hours)
+ * truncate(hours)
  * // 5
  * 
  * const hours2 = -2.25
- * trunc(hours2)
+ * truncate(hours2)
  * // -2
  * 
  * // Score truncation
  * const score = 87.6
- * trunc(score)
+ * truncate(score)
  * // 87
  * 
  * // Percentage truncation
  * const percentage = 99.9
- * trunc(percentage)
+ * truncate(percentage)
  * // 99
  * 
  * // Division with truncation
@@ -190,17 +190,17 @@
  * 
  * // Age calculation (years only)
  * const exactAge = 25.8
- * trunc(exactAge)
+ * truncate(exactAge)
  * // 25
  * 
  * // Progress bar (percentage)
  * const progress = 67.89
- * trunc(progress)
+ * truncate(progress)
  * // 67
  * 
  * // Frame counting
  * const frameTime = 16.67
- * const frameCount = trunc(1000 / frameTime)
+ * const frameCount = truncate(1000 / frameTime)
  * // 59 (frames per second)
  * 
  * // Bitwise operation alternative
@@ -213,34 +213,34 @@
  * 
  * // Number of complete units
  * const totalMinutes = 185
- * const completeHours = trunc(totalMinutes / 60)
+ * const completeHours = truncate(totalMinutes / 60)
  * // 3
  * 
  * // Page calculation
  * const itemsPerPage = 10
  * const itemNumber = 47
- * const pageNumber = trunc(itemNumber / itemsPerPage)
+ * const pageNumber = truncate(itemNumber / itemsPerPage)
  * // 4 (zero-indexed)
  * 
  * // Grid positioning
  * const gridSize = 32
  * const worldX = 150.7
- * const gridX = trunc(worldX / gridSize)
+ * const gridX = truncate(worldX / gridSize)
  * // 4
  * 
  * // Statistical binning
  * const value = 73.6
  * const binSize = 10
- * const binIndex = trunc(value / binSize)
+ * const binIndex = truncate(value / binSize)
  * // 7
  * 
  * // Fixed-point conversion
  * const floatValue = 3.14159
- * const fixedPoint = trunc(floatValue * 1000) / 1000
+ * const fixedPoint = truncate(floatValue * 1000) / 1000
  * // 3.141
  * 
  * // Modulo implementation helper
- * const mod = (a: number, b: number) => a - trunc(a / b) * b
+ * const mod = (a: number, b: number) => a - truncate(a / b) * b
  * mod(10, 3)
  * // 1
  * mod(-10, 3)
@@ -253,22 +253,22 @@
  * // 1.41
  * 
  * // Safe trunc with validation
- * const safeTrunc = (value: unknown): number | null => {
+ * const safeTruncate = (value: unknown): number | null => {
  *   const num = typeof value === 'number' ? value : NaN
- *   const result = trunc(num)
+ *   const result = truncate(num)
  *   return isNaN(result) ? null : result
  * }
- * safeTrunc(3.7)
+ * safeTruncate(3.7)
  * // 3
- * safeTrunc("3.7")
+ * safeTruncate("3.7")
  * // null
  * ```
  * @property Pure - Always returns same result for same input
  * @property Safe - Returns NaN for invalid inputs
  * @property Toward-zero - Always truncates toward zero, not down or up
- * @property Idempotent - trunc(trunc(n)) === trunc(n)
+ * @property Idempotent - truncate(truncate(n)) === truncate(n)
  */
-const trunc = (
+const truncate = (
 	n: number | null | undefined
 ): number => {
 	if (n == null || typeof n !== 'number') {
@@ -278,4 +278,4 @@ const trunc = (
 	return Math.trunc(n)
 }
 
-export default trunc
+export default truncate

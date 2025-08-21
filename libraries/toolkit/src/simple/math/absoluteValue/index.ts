@@ -11,74 +11,74 @@
  * @example
  * ```typescript
  * // Positive numbers unchanged
- * abs(5)
+ * absoluteValue(5)
  * // 5
  * 
- * abs(42.7)
+ * absoluteValue(42.7)
  * // 42.7
  * 
  * // Negative numbers become positive
- * abs(-5)
+ * absoluteValue(-5)
  * // 5
  * 
- * abs(-42.7)
+ * absoluteValue(-42.7)
  * // 42.7
  * 
  * // Zero remains zero
- * abs(0)
+ * absoluteValue(0)
  * // 0
  * 
- * abs(-0)
+ * absoluteValue(-0)
  * // 0
  * 
  * // Special numeric values
- * abs(Infinity)
+ * absoluteValue(Infinity)
  * // Infinity
  * 
- * abs(-Infinity)
+ * absoluteValue(-Infinity)
  * // Infinity
  * 
- * abs(NaN)
+ * absoluteValue(NaN)
  * // NaN
  * 
  * // Very small numbers
- * abs(-0.0000001)
+ * absoluteValue(-0.0000001)
  * // 0.0000001
  * 
- * abs(-1e-10)
+ * absoluteValue(-1e-10)
  * // 1e-10
  * 
  * // Very large numbers
- * abs(-9999999999999)
+ * absoluteValue(-9999999999999)
  * // 9999999999999
  * 
- * abs(-Number.MAX_VALUE)
+ * absoluteValue(-Number.MAX_VALUE)
  * // Number.MAX_VALUE
  * 
  * // Edge cases near zero
- * abs(-Number.MIN_VALUE)
+ * absoluteValue(-Number.MIN_VALUE)
  * // Number.MIN_VALUE
  * 
- * abs(Number.EPSILON)
+ * absoluteValue(Number.EPSILON)
  * // Number.EPSILON
  * 
  * // Invalid inputs return NaN
- * abs(null)
+ * absoluteValue(null)
  * // NaN
  * 
- * abs(undefined)
+ * absoluteValue(undefined)
  * // NaN
  * 
- * abs("5")
+ * absoluteValue("5")
  * // NaN
  * 
- * abs("abc")
+ * absoluteValue("abc")
  * // NaN
  * 
- * abs({})
+ * absoluteValue({})
  * // NaN
  * 
- * abs([])
+ * absoluteValue([])
  * // NaN
  * 
  * // Use in calculations
@@ -154,9 +154,9 @@
  * ```
  * @property Pure - Always returns same result for same input
  * @property Safe - Returns NaN for invalid inputs
- * @property Idempotent - abs(abs(x)) === abs(x)
+ * @property Idempotent - absoluteValue(absoluteValue(x)) === absoluteValue(x)
  */
-const abs = (
+const absoluteValue = (
 	n: number | null | undefined
 ): number => {
 	if (n == null || typeof n !== 'number') {
@@ -166,4 +166,4 @@ const abs = (
 	return Math.abs(n)
 }
 
-export default abs
+export default absoluteValue

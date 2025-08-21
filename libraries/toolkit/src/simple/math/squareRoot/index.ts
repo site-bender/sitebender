@@ -10,112 +10,112 @@
  * @example
  * ```typescript
  * // Perfect squares
- * sqrt(4)
+ * squareRoot(4)
  * // 2
  * 
- * sqrt(9)
+ * squareRoot(9)
  * // 3
  * 
- * sqrt(16)
+ * squareRoot(16)
  * // 4
  * 
- * sqrt(25)
+ * squareRoot(25)
  * // 5
  * 
- * sqrt(100)
+ * squareRoot(100)
  * // 10
  * 
  * // Non-perfect squares
- * sqrt(2)
+ * squareRoot(2)
  * // 1.4142135623730951
  * 
- * sqrt(3)
+ * squareRoot(3)
  * // 1.7320508075688772
  * 
- * sqrt(5)
+ * squareRoot(5)
  * // 2.23606797749979
  * 
- * sqrt(10)
+ * squareRoot(10)
  * // 3.1622776601683795
  * 
  * // Decimal numbers
- * sqrt(0.25)
+ * squareRoot(0.25)
  * // 0.5
  * 
- * sqrt(0.5)
+ * squareRoot(0.5)
  * // 0.7071067811865476
  * 
- * sqrt(1.5)
+ * squareRoot(1.5)
  * // 1.224744871391589
  * 
- * sqrt(2.25)
+ * squareRoot(2.25)
  * // 1.5
  * 
  * // Zero
- * sqrt(0)
+ * squareRoot(0)
  * // 0
  * 
- * sqrt(-0)
+ * squareRoot(-0)
  * // 0
  * 
  * // One
- * sqrt(1)
+ * squareRoot(1)
  * // 1
  * 
  * // Large numbers
- * sqrt(1000000)
+ * squareRoot(1000000)
  * // 1000
  * 
- * sqrt(1000000000)
+ * squareRoot(1000000000)
  * // 31622.776601683792
  * 
- * sqrt(Number.MAX_SAFE_INTEGER)
+ * squareRoot(Number.MAX_SAFE_INTEGER)
  * // 94906265.62425154
  * 
  * // Very small numbers
- * sqrt(0.0001)
+ * squareRoot(0.0001)
  * // 0.01
  * 
- * sqrt(0.000001)
+ * squareRoot(0.000001)
  * // 0.001
  * 
- * sqrt(Number.EPSILON)
+ * squareRoot(Number.EPSILON)
  * // 1.4901161193847656e-8
  * 
  * // Negative numbers (no real root)
- * sqrt(-1)
+ * squareRoot(-1)
  * // NaN
  * 
- * sqrt(-4)
+ * squareRoot(-4)
  * // NaN
  * 
- * sqrt(-100)
+ * squareRoot(-100)
  * // NaN
  * 
  * // Special values
- * sqrt(Infinity)
+ * squareRoot(Infinity)
  * // Infinity
  * 
- * sqrt(-Infinity)
+ * squareRoot(-Infinity)
  * // NaN
  * 
- * sqrt(NaN)
+ * squareRoot(NaN)
  * // NaN
  * 
  * // Invalid inputs
- * sqrt(null)
+ * squareRoot(null)
  * // NaN
  * 
- * sqrt(undefined)
+ * squareRoot(undefined)
  * // NaN
  * 
- * sqrt("4")
+ * squareRoot("4")
  * // NaN
  * 
- * sqrt({})
+ * squareRoot({})
  * // NaN
  * 
- * sqrt([])
+ * squareRoot([])
  * // NaN
  * 
  * // Array operations
@@ -155,12 +155,12 @@
  * 
  * // Standard deviation helper
  * const variance = 16
- * const stdDev = sqrt(variance)
+ * const stdDev = squareRoot(variance)
  * // 4
  * 
  * // Quadratic formula helper
  * const discriminant = 25
- * const sqrtDiscriminant = sqrt(discriminant)
+ * const sqrtDiscriminant = squareRoot(discriminant)
  * // 5
  * 
  * // Root mean square
@@ -200,18 +200,18 @@
  * 
  * // Finance: volatility
  * const annualVolatility = 0.04 // 4% squared
- * const dailyVolatility = sqrt(annualVolatility / 252)
+ * const dailyVolatility = squareRoot(annualVolatility / 252)
  * // 0.0126... (1.26% daily)
  * 
  * // Signal processing: amplitude
  * const realPart = 3
  * const imagPart = 4
- * const amplitude = sqrt(realPart * realPart + imagPart * imagPart)
+ * const amplitude = squareRoot(realPart * realPart + imagPart * imagPart)
  * // 5
  * 
  * // Normalization
  * const normalize = (x: number, y: number) => {
- *   const length = sqrt(x * x + y * y)
+ *   const length = squareRoot(x * x + y * y)
  *   return { x: x / length, y: y / length }
  * }
  * normalize(3, 4)
@@ -223,7 +223,7 @@
  * 
  * // Checking perfect squares
  * const isPerfectSquare = (n: number) => {
- *   const root = sqrt(n)
+ *   const root = squareRoot(n)
  *   return Number.isInteger(root)
  * }
  * isPerfectSquare(16)
@@ -240,30 +240,30 @@
  *   return iterate(guess, iterations)
  * }
  * // Compare with built-in
- * sqrt(2)
+ * squareRoot(2)
  * // 1.4142135623730951
  * newtonSqrt(2)
  * // 1.4142135623730951 (same precision)
  * 
  * // Safe sqrt with validation
- * const safeSqrt = (value: unknown): number | null => {
+ * const safeSquareRoot = (value: unknown): number | null => {
  *   const num = typeof value === 'number' ? value : NaN
- *   const result = sqrt(num)
+ *   const result = squareRoot(num)
  *   return isNaN(result) ? null : result
  * }
- * safeSqrt(9)
+ * safeSquareRoot(9)
  * // 3
- * safeSqrt("9")
+ * safeSquareRoot("9")
  * // null
- * safeSqrt(-9)
+ * safeSquareRoot(-9)
  * // null
  * ```
  * @property Pure - Always returns same result for same input
  * @property Safe - Returns NaN for invalid or negative inputs
  * @property Mathematical - Computes principal (non-negative) square root
- * @property Inverse - sqrt(n * n) === Math.abs(n) for real n
+ * @property Inverse - squareRoot(n * n) === Math.abs(n) for real n
  */
-const sqrt = (
+const squareRoot = (
 	n: number | null | undefined
 ): number => {
 	if (n == null || typeof n !== 'number') {
@@ -273,4 +273,4 @@ const sqrt = (
 	return Math.sqrt(n)
 }
 
-export default sqrt
+export default squareRoot

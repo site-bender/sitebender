@@ -12,80 +12,80 @@
  * @example
  * ```typescript
  * // Basic integer ranges
- * const r1 = randomInt(0)(10)
+ * const r1 = randomInteger(0)(10)
  * // Random integer from 0 to 9
  * 
- * const r2 = randomInt(1)(7)
+ * const r2 = randomInteger(1)(7)
  * // Random integer from 1 to 6 (dice roll)
  * 
- * const r3 = randomInt(1)(101)
+ * const r3 = randomInteger(1)(101)
  * // Random integer from 1 to 100
  * 
  * // Negative ranges
- * const r4 = randomInt(-10)(10)
+ * const r4 = randomInteger(-10)(10)
  * // Random integer from -10 to 9
  * 
- * const r5 = randomInt(-100)(-50)
+ * const r5 = randomInteger(-100)(-50)
  * // Random integer from -100 to -51
  * 
  * // Single value range (always returns min)
- * randomInt(5)(6)
+ * randomInteger(5)(6)
  * // Always 5 (only one possible value)
  * 
  * // Invalid range (min >= max)
- * randomInt(10)(5)
+ * randomInteger(10)(5)
  * // NaN
  * 
- * randomInt(5)(5)
+ * randomInteger(5)(5)
  * // NaN
  * 
  * // Non-integer bounds return NaN
- * randomInt(1.5)(10)
+ * randomInteger(1.5)(10)
  * // NaN
  * 
- * randomInt(0)(10.5)
+ * randomInteger(0)(10.5)
  * // NaN
  * 
- * randomInt(3.14)(6.28)
+ * randomInteger(3.14)(6.28)
  * // NaN
  * 
  * // Special values
- * randomInt(0)(Infinity)
+ * randomInteger(0)(Infinity)
  * // NaN (Infinity is not an integer)
  * 
- * randomInt(-Infinity)(0)
+ * randomInteger(-Infinity)(0)
  * // NaN
  * 
- * randomInt(0)(NaN)
+ * randomInteger(0)(NaN)
  * // NaN
  * 
- * randomInt(NaN)(10)
+ * randomInteger(NaN)(10)
  * // NaN
  * 
  * // Invalid inputs
- * randomInt(null)(10)
+ * randomInteger(null)(10)
  * // NaN
  * 
- * randomInt(0)(undefined)
+ * randomInteger(0)(undefined)
  * // NaN
  * 
- * randomInt("0")(10)
+ * randomInteger("0")(10)
  * // NaN
  * 
- * randomInt(0)("10")
+ * randomInteger(0)("10")
  * // NaN
  * 
  * // Partial application for specific ranges
- * const coinFlip = randomInt(0)(2)
+ * const coinFlip = randomInteger(0)(2)
  * // 0 or 1
  * 
- * const d6 = randomInt(1)(7)
+ * const d6 = randomInteger(1)(7)
  * // 1 through 6 (standard die)
  * 
- * const d20 = randomInt(1)(21)
+ * const d20 = randomInteger(1)(21)
  * // 1 through 20 (D&D die)
  * 
- * const percentile = randomInt(1)(101)
+ * const percentile = randomInteger(1)(101)
  * // 1 through 100
  * 
  * // Array index selection
@@ -97,23 +97,23 @@
  * // Random element
  * 
  * // Random card from deck
- * const randomCard = randomInt(0)(52)
+ * const randomCard = randomInteger(0)(52)
  * // 0 to 51 (representing 52 cards)
  * 
  * // Random month (1-12)
- * const randomMonth = randomInt(1)(13)
+ * const randomMonth = randomInteger(1)(13)
  * // 1 through 12
  * 
  * // Random day of month (assuming 31 days)
- * const randomDay = randomInt(1)(32)
+ * const randomDay = randomInteger(1)(32)
  * // 1 through 31
  * 
  * // Random hour (24-hour format)
- * const randomHour = randomInt(0)(24)
+ * const randomHour = randomInteger(0)(24)
  * // 0 through 23
  * 
  * // Random RGB color component
- * const randomRGB = randomInt(0)(256)
+ * const randomRGB = randomInteger(0)(256)
  * const color = {
  *   r: randomRGB,
  *   g: randomRGB,
@@ -122,11 +122,11 @@
  * // Random RGB values
  * 
  * // Random port number (common range)
- * const randomPort = randomInt(1024)(65536)
+ * const randomPort = randomInteger(1024)(65536)
  * // 1024 through 65535
  * 
  * // Random ASCII printable character code
- * const randomAscii = randomInt(32)(127)
+ * const randomAscii = randomInteger(32)(127)
  * String.fromCharCode(randomAscii)
  * // Random printable character
  * 
@@ -140,43 +140,43 @@
  * // 1-100
  * 
  * // Random boolean as 0 or 1
- * const randomBinary = randomInt(0)(2)
+ * const randomBinary = randomInteger(0)(2)
  * Boolean(randomBinary)
  * // true or false
  * 
  * // Random team selection
  * const teamSize = 5
- * const randomTeamMember = randomInt(0)(teamSize)
+ * const randomTeamMember = randomInteger(0)(teamSize)
  * // 0 to 4 (team member index)
  * 
  * // Random grid position
  * const gridWidth = 10
  * const gridHeight = 10
- * const randomX = randomInt(0)(gridWidth)
- * const randomY = randomInt(0)(gridHeight)
+ * const randomX = randomInteger(0)(gridWidth)
+ * const randomY = randomInteger(0)(gridHeight)
  * const position = { x: randomX, y: randomY }
  * 
  * // Lottery number generator
- * const lotteryNumber = randomInt(1)(50)
+ * const lotteryNumber = randomInteger(1)(50)
  * const picks = Array.from({ length: 6 }, () => lotteryNumber)
  * // Six random numbers 1-49
  * 
  * // Random priority level
- * const randomPriority = randomInt(1)(6)
+ * const randomPriority = randomInteger(1)(6)
  * // 1 (highest) to 5 (lowest)
  * 
  * // Weighted random selection using ranges
  * const weightedRandom = () => {
- *   const r = randomInt(0)(100)
+ *   const r = randomInteger(0)(100)
  *   if (r < 60) return 'common'    // 60% chance
  *   if (r < 90) return 'uncommon'  // 30% chance
  *   return 'rare'                  // 10% chance
  * }
  * 
  * // Random test data generation
- * const randomAge = randomInt(0)(120)
- * const randomScore = randomInt(0)(101)
- * const randomQuantity = randomInt(1)(1000)
+ * const randomAge = randomInteger(0)(120)
+ * const randomScore = randomInteger(0)(101)
+ * const randomQuantity = randomInteger(1)(1000)
  * 
  * // Shuffling helper
  * const randomSwapIndex = (length: number) => 
@@ -188,7 +188,7 @@
  *   const results: Array<number> = []
  *   const used = new Set<number>()
  *   while (results.length < n) {
- *     const value = randomInt(min)(max)
+ *     const value = randomInteger(min)(max)
  *     if (!used.has(value)) {
  *       used.add(value)
  *       results.push(value)
@@ -201,7 +201,7 @@
  * 
  * // Random enum value
  * enum Status { Pending = 0, Active = 1, Complete = 2 }
- * const randomStatus = randomInt(0)(3) as Status
+ * const randomStatus = randomInteger(0)(3) as Status
  * 
  * // Random array partition
  * const partitionIndex = <T>(arr: Array<T>) => 
@@ -219,7 +219,7 @@
  * 
  * // Random walk step
  * const randomStep = () => {
- *   const r = randomInt(0)(4)
+ *   const r = randomInteger(0)(4)
  *   if (r === 0) return { dx: 0, dy: -1 }  // up
  *   if (r === 1) return { dx: 1, dy: 0 }   // right
  *   if (r === 2) return { dx: 0, dy: 1 }   // down
@@ -228,20 +228,20 @@
  * 
  * // Random error code generation
  * const errorCodes = [400, 401, 403, 404, 500, 502, 503]
- * const randomErrorIndex = randomInt(0)(errorCodes.length)
+ * const randomErrorIndex = randomInteger(0)(errorCodes.length)
  * errorCodes[randomErrorIndex]
  * // Random error code
  * 
- * // Safe randomInt with validation
- * const safeRandomInt = (min: unknown) => (max: unknown): number | null => {
+ * // Safe randomInteger with validation
+ * const safeRandomInteger = (min: unknown) => (max: unknown): number | null => {
  *   const minNum = typeof min === 'number' ? min : NaN
  *   const maxNum = typeof max === 'number' ? max : NaN
- *   const result = randomInt(minNum)(maxNum)
+ *   const result = randomInteger(minNum)(maxNum)
  *   return isNaN(result) ? null : result
  * }
- * safeRandomInt(0)(10)
+ * safeRandomInteger(0)(10)
  * // Random integer or null
- * safeRandomInt("0")(10)
+ * safeRandomInteger("0")(10)
  * // null
  * ```
  * @property Impure - Returns different results each call (uses Math.random)
@@ -250,7 +250,7 @@
  * @property Uniform - Generates uniformly distributed integers
  * @property Integer-only - Requires integer bounds, returns integers only
  */
-const randomInt = (
+const randomInteger = (
 	min: number | null | undefined
 ) => (
 	max: number | null | undefined
@@ -282,4 +282,4 @@ const randomInt = (
 	return Math.floor(Math.random() * (max - min)) + min
 }
 
-export default randomInt
+export default randomInteger
