@@ -1,8 +1,8 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (670 functions total)
+## Current Functions (577 functions total)
 
-### array/ (118 functions)
+### array/ (120 functions)
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
@@ -184,7 +184,7 @@
 - when - Conditionally applies a function based on a predicate
 - wrap - Wraps a function with a wrapper function
 
-### conversion/ (14 functions)
+### conversion/ (13 functions)
 - castValue - Dispatcher for type conversions:
   - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
   - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
@@ -199,7 +199,7 @@
 - toJson - Converts values to JSON strings with optional formatting
 - toPercent - Converts a number to a percentage string (e.g. 0.123 -> "12.30%")
 
-### date/ (Temporal API based — 71 functions)
+### temporal/ (Temporal API based — 71 functions)
 - addDays - Adds days to a Temporal date/datetime
 - addDuration - Adds a Temporal.Duration to a date/time
 - addHours - Adds hours to a Temporal time/datetime
@@ -503,7 +503,7 @@
 - union - Returns all unique elements from both Sets
 - unionWith - Like union but uses custom equality function
 
-### string/ (72 functions)
+### string/ (71 functions)
 - chars - Splits string into array of characters
 - chomp - Removes trailing newline characters
 - concat - Concatenates a string to the end of another string
@@ -591,7 +591,7 @@
 - triple - Creates a three-element tuple (Triple) from three values
 - uncurry - Converts a curried function into a function that takes a tuple
 
-### validation/ (88 functions)
+### validation/ (102 functions)
 - allPass - Returns true if all predicates return true for the input
 - anyPass - Returns true if any predicate returns true for the input
 - both - Returns true if both predicates return true
