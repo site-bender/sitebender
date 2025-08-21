@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (594 functions total)
+## Current Functions (687 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -40,6 +40,7 @@
 - includes - Checks if array contains element
 - indexBy - Creates an object indexing the array elements by the given key
 - indexOf - Returns index of first occurrence of element
+- init - Returns all elements except the last one
 - insertAt - Inserts element at specified index
 - intersection - Returns elements that exist in both arrays
 - intersectionWith - Like intersection but uses a comparator function
@@ -111,6 +112,7 @@
 - takeLastWhile - Takes elements from the end while predicate is true
 - takeWhile - Takes elements from beginning while predicate is true
 - times - Calls a function n times and collects the results in an array
+- toSet - Converts array to Set (removes duplicates)
 - transpose - Transposes a matrix (2D array)
 - unflatten - Reconstructs nested arrays from flattened array with depth info
 - unfold - Generates array from seed value using generator function
@@ -205,7 +207,20 @@
 ### debug/ (1 function)
 - withInspect - Attaches custom inspection method for better console output
 
-### either/ (19 functions)
+### error/ (11 functions)
+- createError - Creates a custom error with enhanced properties
+- createNullError - Creates an error for null/undefined values
+- createTypeError - Creates a type validation error
+- fromException - Converts exception to enhanced error
+- fromTemplate - Creates error from template string
+- pipeError - Chains error transformations
+- templates - Pre-defined error templates
+- withCause - Adds cause to error chain
+- withFailedArg - Attaches failed argument to error
+- withSuggestion - Adds suggestion for fixing error
+- withTypes - Adds type information to error
+
+### either/ (18 functions)
 - bimap - Maps functions over both Left and Right
 - chain - Flat maps over Right value (monadic bind)
 - chainLeft - Flat maps over Left value
@@ -405,7 +420,7 @@
 - swap - Swaps Ok and Err values
 - tryCatch - Converts try/catch to Result
 
-### set/ (22 functions)
+### set/ (26 functions)
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
 - delete - Removes an element from a Set (returns new Set)
