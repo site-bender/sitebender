@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (687 functions total)
+## Current Functions (690 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -189,7 +189,7 @@
 - when - Conditionally applies a function based on a predicate
 - wrap - Wraps a function with a wrapper function
 
-### conversion/ (13 functions)
+### conversion/ (16 functions)
 - castValue - Dispatcher for type conversions:
   - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
   - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
@@ -200,6 +200,9 @@
   - toPrecision - Converts to number with specified decimal places (rounds)
   - toString - Safely converts any value to its string representation
 - fromJson - Parses JSON strings (returns null on error)
+- safeParse - Safely parses a value with a parser function, returns null on failure
+- safeParseFloat - Safely parses to float, returns null on failure
+- safeParseInt - Safely parses to integer with optional radix, returns null on failure
 - stringify - Creates deterministic string keys from objects/arrays (sorted keys)
 - toJson - Converts values to JSON strings with optional formatting
 - toPercent - Converts a number to a percentage string (e.g. 0.123 -> "12.30%")
@@ -771,10 +774,6 @@
 - trunc - Removes decimal part
 
 
-### conversion/ (additional functions from examples)
-- safeParse - Safely parses a value, returns null on failure
-- safeParseFloat - Safely parses to float, returns null on failure
-- safeParseInt - Safely parses to integer, returns null on failure
 
 ### object/ (additional functions from examples)
 - accumulate - Accumulates data from multiple sources into single object
