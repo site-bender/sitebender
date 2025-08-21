@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (590 functions total)
+## Current Functions (594 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -512,7 +512,7 @@
 - wrap - Wraps string at specified width
 - wrapWith - Wraps string with prefix and suffix
 
-### temporal/ (75 functions — Temporal API based)
+### temporal/ (79 functions — Temporal API based)
 - addDays - Adds days to a Temporal date/datetime
 - addDuration - Adds a Temporal.Duration to a date/time
 - addHours - Adds hours to a Temporal time/datetime
@@ -588,6 +588,10 @@
 - durationToSeconds - Converts a Temporal.Duration to total seconds
 - formatDuration - Formats duration in human-readable format (e.g., "2h 30m")
 - getNextOccurrence - Finds next occurrence of a recurring event
+- getOffsetTransitions - Gets timezone offset transition points
+- parseTime - Parses time strings into Temporal.PlainTime objects
+- serializeZonedDateTime - Serializes ZonedDateTime for storage/transmission
+- sortByAbsoluteTime - Comparator for sorting by absolute time
 
 ### tuple/ (13 functions)
 - bimap - Maps two different functions over the elements of a pair
@@ -751,11 +755,6 @@
 - sum - Sums an array of numbers
 - trunc - Removes decimal part
 
-### temporal/ (additional functions from examples)
-- getOffsetTransitions - Gets timezone offset transition points
-- parseTime - Parses time strings into Temporal.PlainTime objects
-- serializeZonedDateTime - Serializes ZonedDateTime for storage/transmission
-- sortByAbsoluteTime - Comparator for sorting by absolute time
 
 ### conversion/ (additional functions from examples)
 - safeParse - Safely parses a value, returns null on failure
