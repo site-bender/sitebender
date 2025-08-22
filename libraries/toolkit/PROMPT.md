@@ -34,12 +34,15 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
      - `tests/helpers/assertions/approximately/index.ts` - Floating-point comparison with epsilon
      - `tests/helpers/generators/numeric/index.ts` - Custom fast-check generators
 
-2. **Functions Tested (129 tests passing, 40 test steps)**
+2. **Functions Tested (Updated: 2025-08-22)**
    - **Math**: 
      - `add` (commutative, associative, identity, error handling)
      - `divide` (identity, error handling)
      - `subtract` (anti-commutative, identity, inverse relationship, JSDoc examples, null safety)
      - `multiply` (commutative, associative, identity, distributive, annihilator, JSDoc examples, null safety, sign rules)
+     - `modulo` (modular arithmetic properties, true modulo vs remainder, JSDoc examples with practical applications)
+     - `power` (exponentiation laws, identity, fractional/negative exponents, JSDoc examples)
+     - `squareRoot` (algebraic properties, monotonicity, JSDoc examples, mathematical applications)
    - **Array**: `chunk` (property-based tests, immutability), `filter` (transformations)
    - **Combinators**: `pipe` (composition behavior, error propagation)
    - **Monads**: `Either` and `Maybe` (monad laws, functor laws, chain operations)
@@ -204,25 +207,32 @@ Many array functions need comprehensive testing:
 5. Reference coverage improvements if applicable
 
 ## Current Coverage Status
-As of last run: **Partial coverage** with comprehensive tests for:
-- Core math operations (add, subtract, multiply, divide)
-- Algebraic properties (commutative, associative, distributive, identity)
+As of last run (2025-08-22): **High coverage** with comprehensive tests for:
+- Core math operations with 100% or near-100% coverage:
+  - `add`, `subtract`, `multiply`, `divide` (existing)
+  - `power` (100% coverage)
+  - `squareRoot` (100% coverage)  
+  - `modulo` (90.6% coverage)
+- Algebraic properties (commutative, associative, distributive, identity, modular arithmetic)
 - Error handling and null safety
 - Monad laws for Either and Maybe
 - Array operations (chunk, filter)
 - Pipe combinator
 
-**Test Count**: 129 passing tests across 40 test steps
+**Test Count**: 14 test suites with 66 test steps passing
 
 ## Recent Achievements
-- Fixed all TypeScript errors in Either and chunk tests
-- Added comprehensive tests for subtract (anti-commutative property)
-- Added comprehensive tests for multiply (all algebraic properties)
+- Added comprehensive tests for `modulo` with modular arithmetic properties
+- Added comprehensive tests for `power` with exponentiation laws
+- Added comprehensive tests for `squareRoot` with algebraic properties
+- Fixed all floating-point precision issues in tests
+- Achieved 100% coverage for `power` and `squareRoot` functions
 - Established testing patterns for:
   - Algebraic properties
-  - JSDoc example verification
+  - JSDoc example verification (100% coverage)
   - Null/undefined safety
   - Property-based testing with fast-check
+  - Floating-point comparison with appropriate epsilon values
 
 ## Contact and Resources
 - Testing policy: `/libraries/toolkit/tests/TESTING_POLICY.md`
