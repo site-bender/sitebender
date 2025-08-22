@@ -16,8 +16,8 @@ Before ANY work, you MUST read and follow these files IN ORDER:
 ### 2. File Naming Convention (CRITICAL)
 The project uses a specific naming convention that MUST be followed:
 - Function/component names go on the **folder**, NOT the file
-- Every folder must have an `index.ts` file
-- Example: `tests/behaviors/algebraic/commutative/add/index.ts` (NOT `add.test.ts`)
+- Every folder must have an `index.test.ts` file
+- Example: `tests/behaviors/algebraic/commutative/add/index.test.ts` (NOT `add.test.ts`)
 - When moving/renaming files, ALWAYS update all import paths
 
 ### 3. Import Path Structure
@@ -131,7 +131,7 @@ deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts'
 deno task test:toolkit:cov
 
 # Run specific test file
-deno test --unstable-temporal libraries/toolkit/tests/behaviors/algebraic/commutative/add/index.ts
+deno test --unstable-temporal libraries/toolkit/tests/behaviors/algebraic/commutative/add/index.test.ts
 
 # Run tests with quiet output
 deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts' --quiet

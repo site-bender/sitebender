@@ -40,8 +40,8 @@ Test functions as they compose:
 
 **IMPORTANT**: Following the project's naming convention:
 - Function/test names go on the **folder**, not the file
-- Every test folder must have an `index.ts` file
-- Example: `tests/behaviors/algebraic/commutative/add/index.ts` tests the `add` function
+- Every test folder must have an `index.test.ts` file
+- Example: `tests/behaviors/algebraic/commutative/add/index.test.ts` tests the `add` function
 
 ```
 libraries/toolkit/tests/
@@ -49,9 +49,9 @@ libraries/toolkit/tests/
 │   ├── algebraic/           # Algebraic properties (all math/stats functions)
 │   │   ├── commutative/     # Addition, multiplication, etc.
 │   │   │   ├── add/
-│   │   │   │   └── index.ts
+│   │   │   │   └── index.test.ts
 │   │   │   └── multiply/
-│   │   │       └── index.ts
+│   │   │       └── index.test.ts
 │   │   ├── associative/     # String concat, array operations
 │   │   ├── distributive/    # Mathematical distributions
 │   │   └── identity/        # Identity elements (0 for +, 1 for ×)
@@ -100,7 +100,7 @@ libraries/toolkit/tests/
 #### Mathematical Properties
 
 ```typescript
-// tests/behaviors/algebraic/commutative/index.ts
+// tests/behaviors/algebraic/commutative/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { add, multiply } from "@sitebender/toolkit"
 
@@ -119,7 +119,7 @@ Deno.test("addition is commutative", () => {
 #### Functional Laws
 
 ```typescript
-// tests/behaviors/functional/functor-laws/index.ts
+// tests/behaviors/functional/functor-laws/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { Maybe, map, identity } from "@sitebender/toolkit"
 
@@ -137,7 +137,7 @@ Deno.test("Maybe satisfies functor identity law", () => {
 #### Error Handling
 
 ```typescript
-// tests/behaviors/error-handling/null-safety/index.ts
+// tests/behaviors/error-handling/null-safety/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { divide } from "@sitebender/toolkit"
 
@@ -173,7 +173,7 @@ Every example in a function's JSDoc must have a corresponding test that verifies
 // chunk(2)([1, 2, 3, 4, 5])
 // // [[1, 2], [3, 4], [5]]
 
-// tests/behaviors/transformations/array-ops/chunk/index.ts
+// tests/behaviors/transformations/array-ops/chunk/index.test.ts
 Deno.test("JSDoc examples", async (t) => {
   await t.step("chunks array into pairs with remainder", () => {
     const result = chunk(2)([1, 2, 3, 4, 5])
@@ -199,7 +199,7 @@ If a function has too many examples (>10), consolidate them:
 ### Testing Random Functions
 
 ```typescript
-// tests/behaviors/randomness/distribution/index.ts
+// tests/behaviors/randomness/distribution/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { randomInteger, randomBoolean } from "@sitebender/toolkit"
 
@@ -244,7 +244,7 @@ Deno.test("randomBoolean respects probability", () => {
 ### Testing Curried Functions
 
 ```typescript
-// tests/behaviors/functional/currying/index.ts
+// tests/behaviors/functional/currying/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { add, subtract, divide } from "@sitebender/toolkit"
 
@@ -285,7 +285,7 @@ Deno.test("curried chain maintains correctness", () => {
 ### Testing Monadic Chains
 
 ```typescript
-// tests/behaviors/functional/monad-laws/index.ts
+// tests/behaviors/functional/monad-laws/index.test.ts
 import * as fc from "npm:fast-check@3.x.x"
 import { Either, Result, Maybe } from "@sitebender/toolkit"
 
@@ -378,7 +378,8 @@ deno test tests/behaviors/ --filter "property"
 
 ### Coverage Goals
 - **Code Coverage**: 100% - NO EXCEPTIONS
-  - If a branch/line cannot be tested, it must be excluded with `/* c8 ignore next */` or `/* c8 ignore start/stop */` with a comment explaining WHY
+  - If a branch/line cannot be tested, it must be excluded with `// deno-coverage-ignore` on the line above **with an explanation** (no exceptions)
+  - Or `// deno-coverage-ignore-start` **with a comment explaining WHY** above (no exceptions) and `// deno-coverage-ignore-stop` below the block to be ignored
   - There should be virtually no excluded lines in the toolkit - all pure functions are fully testable
 - **JSDoc Example Coverage**: 100% - Every example in every function's JSDoc MUST be tested
   - This ensures function correctness
