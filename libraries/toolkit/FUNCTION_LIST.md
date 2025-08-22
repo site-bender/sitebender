@@ -1,4 +1,6 @@
-# Function List for lib/adaptive/utilities
+# Function List for the toolkit library
+
+**Testing Progress: 2.9% (25/854 functions with 100% coverage)**
 
 ## Current Functions (854 functions total)
 

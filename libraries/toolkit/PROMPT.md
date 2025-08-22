@@ -25,7 +25,14 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
 - To source: `../../../../../src/simple/math/[function]/index.ts` (5 levels up)
 - To helpers: `../../../../helpers/[helper]/[function]/index.ts` (4 levels up)
 
-## Current Testing Status
+## Current Testing Status (Updated: 2025-08-22)
+
+**Overall Progress: 2.9% tested (25/854 functions with 100% coverage)**
+
+### Important Instructions for Next Session
+1. **Track Progress**: Update the "percent tested" at the top of `/libraries/toolkit/FUNCTION_LIST.md` after each batch of tests
+2. **Run Tests from Project Root**: Always run `deno` commands from the project root, not from within the libraries folder
+3. **Use Existing Commands**: Use `deno task test:toolkit` or similar commands defined in root `deno.jsonc`
 
 ### What Has Been Completed
 1. **Test Infrastructure**
@@ -34,19 +41,26 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
      - `tests/helpers/assertions/approximately/index.ts` - Floating-point comparison with epsilon
      - `tests/helpers/generators/numeric/index.ts` - Custom fast-check generators
 
-2. **Functions Tested (Updated: 2025-08-22)**
-   - **Math**: 
-     - `add` (commutative, associative, identity, error handling)
-     - `divide` (identity, error handling)
-     - `subtract` (anti-commutative, identity, inverse relationship, JSDoc examples, null safety)
-     - `multiply` (commutative, associative, identity, distributive, annihilator, JSDoc examples, null safety, sign rules)
-     - `modulo` (modular arithmetic properties, true modulo vs remainder, JSDoc examples with practical applications)
-     - `power` (exponentiation laws, identity, fractional/negative exponents, JSDoc examples)
-     - `squareRoot` (algebraic properties, monotonicity, JSDoc examples, mathematical applications)
-   - **Array**: `chunk` (property-based tests, immutability), `filter` (transformations)
-   - **Combinators**: `pipe` (composition behavior, error propagation)
-   - **Monads**: `Either` and `Maybe` (monad laws, functor laws, chain operations)
-   - **Random**: `randomBoolean` (statistical distribution)
+2. **Functions with 100% Coverage (25 total)**
+   - **Math (11)**: 
+     - `absoluteValue` - idempotent, non-negativity, distance, multiplicative, triangle inequality properties
+     - `add` - commutative, associative, identity, error handling
+     - `divide` - identity, error handling
+     - `max` - ordering properties, total ordering, identity element (-Infinity)
+     - `min` - ordering properties, total ordering, identity element (Infinity), duality with max
+     - `multiply` - commutative, associative, identity, distributive, annihilator, JSDoc examples, null safety, sign rules
+     - `negate` - involutive property, additive inverse, sign reversal
+     - `power` - exponentiation laws, identity, fractional/negative exponents, JSDoc examples
+     - `sign` - ternary property, sign preservation, ordering property
+     - `squareRoot` - algebraic properties, monotonicity, JSDoc examples, mathematical applications
+     - `subtract` - anti-commutative, identity, inverse relationship, JSDoc examples, null safety
+   - **Array (2)**: `chunk` (property-based tests, immutability), `filter` (transformations)
+   - **Combinators (1)**: `pipe` (composition behavior, error propagation)
+   - **Monads (10)**: 
+     - Either: `chain`, `isLeft`, `left`, `map`, `right`
+     - Maybe: `chain`, `isNothing`, `just`, `map`, `nothing`
+   - **Random (1)**: `randomBoolean` (statistical distribution)
+   - **Partial Coverage (1)**: `modulo` (90.6% - modular arithmetic properties, true modulo vs remainder)
 
 3. **Test Organization**
    ```
