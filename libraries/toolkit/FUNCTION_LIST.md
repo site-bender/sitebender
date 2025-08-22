@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (751 functions total)
+## Current Functions (846 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -139,6 +139,15 @@
 - waterfall - Executes async functions in series, passing each result to the next function
 - whilst - Repeatedly executes an async function while a condition is true
 
+### activation/ (7 functions)
+- leakyRectifiedLinearUnit - Leaky ReLU variant with small gradient for negative inputs
+- rectifiedLinearUnit - ReLU activation function
+- relu - Alias for rectifiedLinearUnit
+- sigmoid - Logistic function (1/(1+e^-x))
+- softmax - Converts vector to probability distribution
+- softplus - Smooth approximation of ReLU (ln(1 + e^x))
+- swish - Self-gated activation (x × sigmoid(βx))
+
 ### combinator/ (49 functions)
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
@@ -244,6 +253,35 @@
 - swap - Swaps Left and Right
 - tryCatch - Converts try/catch to Either
 
+### finance/ (6 functions)
+- compoundInterest - Calculate compound interest
+- futureValue - FV with compound interest and periodic payments
+- fv - Alias for futureValue
+- netPresentValue - NPV of cash flows
+- npv - Alias for netPresentValue
+- presentValue - PV of future cash flows
+- pv - Alias for presentValue
+
+### geometry/ (10 functions)
+- anglesBetweenVectors - Angle between n-dimensional vectors
+- chebyshevDistance - L∞ distance (chessboard metric)
+- crossProduct - 3D vector cross product
+- dotProduct - Vector dot product
+- euclideanDistance - Distance between n-dimensional points
+- haversineDistance - Great-circle distance on sphere
+- magnitude - Vector magnitude/length
+- manhattanDistance - L1 distance (taxicab metric)
+- normalize - Normalize vector to unit length
+- vectorProjection - Project one vector onto another
+
+### interpolation/ (6 functions)
+- bilinearInterpolation - 2D interpolation on a rectangle
+- cubicInterpolation - Cubic interpolation through four points
+- inverseLinearInterpolation - Find t value from interpolated result
+- lerp - Alias for linearInterpolation
+- linearInterpolation - Linear interpolation between two values
+- smoothstep - Smooth S-curve interpolation
+
 ### io/ (19 functions)
 - ap - Applies an IO function to an IO value (Applicative)
 - chain - Flat maps a function that returns an IO (Monad bind)
@@ -329,16 +367,19 @@
 - values - Returns an array of Map values
 - withDefault - Wraps a Map to provide default values for missing keys
 
-### math/ (45 functions)
+### math/ (53 functions)
 - absoluteValue - Returns absolute value
 - add - Adds two numbers
 - average - Calculates arithmetic mean of an array (alias: mean)
+- binomialCoefficient - Pascal's triangle values (n choose k)
 - ceiling - Rounds up to integer
 - clamp - Constrains a number between min and max
+- combinations - nCr combinations calculation
 - cubeRoot - Returns cube root
 - decrement - Subtracts 1 from a number
 - digitSum - Calculates sum of digits in a number
 - divide - Divides first number by second
+- divisors - Find all divisors of a positive integer
 - exponential - Calculates e raised to the power of x (e^x)
 - factorial - Calculates factorial
 - fibonacci - Returns nth Fibonacci number
@@ -353,6 +394,7 @@
 - isPrime - Checks if number is prime
 - lcm - Least common multiple
 - logarithm - Natural log and log with arbitrary base
+- logarithmBase10 - Common (base 10) logarithm
 - max - Finds maximum of two values
 - maxBy - Finds maximum using a mapping function
 - mean - Calculates arithmetic mean (alias: average)
@@ -360,10 +402,13 @@
 - min - Finds minimum of two values
 - minBy - Finds minimum using a mapping function
 - mode - Finds the most frequent value(s)
+- modularExponentiation - Efficient (base^exp) mod modulus calculation
 - modulo - Returns remainder of division
 - multiply - Multiplies two numbers
 - negate - Negates a number
+- permutations - nPr permutations calculation
 - power - Raises to a power
+- primeFactorization - Returns prime factors with multiplicities as Map
 - product - Multiplies all numbers in an array
 - quadratic - Solves quadratic equations (a)(b)(c) → Pair<x₁, x₂> using quadratic formula
 - random - Generates random number in range
@@ -375,7 +420,18 @@
 - squareRoot - Returns square root
 - subtract - Subtracts second number from first
 - sum - Sums an array of numbers
+- totient - Euler's totient function φ(n)
 - truncate - Removes decimal part
+
+### matrix/ (8 functions)
+- determinant2x2 - 2x2 matrix determinant
+- determinant3x3 - 3x3 matrix determinant
+- identityMatrix - Generate identity matrix of size n
+- matrixAddition - Element-wise matrix addition
+- matrixMultiply - Matrix multiplication
+- matrixScalarMultiply - Multiply matrix by scalar
+- matrixTrace - Sum of diagonal elements
+- matrixTranspose - Transpose matrix (swap rows and columns)
 
 ### maybe/ (17 functions)
 - just - Creates a Just value (Some)
@@ -454,6 +510,16 @@
 - accumulate - Accumulates data from multiple sources into single object
 - smartMerge - Merges objects with intelligent type-aware conflict resolution
 
+### physics/ (8 functions)
+- acceleration - Calculates acceleration from force and mass (a = F/m)
+- force - Calculates force using Newton's second law (F = ma)
+- frequency - Calculate frequency from period (f = 1/T)
+- kineticEnergy - Calculates KE = ½mv²
+- momentum - Calculates p = mv
+- potentialEnergy - Gravitational PE = mgh
+- velocity - Calculate velocity from distance and time (v = d/t)
+- wavelength - Calculate wavelength from frequency and speed (λ = v/f)
+
 ### result/ (18 functions)
 - bimap - Maps functions over both Err and Ok values
 - chain - Flat maps over Ok value (monadic bind)
@@ -501,6 +567,30 @@
 - toArray - Converts a Set to an array
 - union - Returns all unique elements from both Sets
 - unionWith - Like union but uses custom equality function
+
+### special/ (7 functions)
+- betaFunction - Beta function B(x,y)
+- complementaryErrorFunction - Complementary error function erfc(x)
+- erf - Alias for errorFunction
+- erfc - Alias for complementaryErrorFunction
+- errorFunction - Error function for statistics
+- gammaFunction - Gamma function Γ(x)
+- stirlingApproximation - Stirling's approximation for factorials
+
+### statistics/ (12 functions)
+- corr - Alias for correlation
+- correlation - Pearson correlation coefficient
+- covariance - Measure of joint variability
+- cov - Alias for covariance
+- interquartileRange - IQR (Q3 - Q1) for robust spread measurement
+- iqr - Alias for interquartileRange
+- kurtosis - Excess kurtosis measuring tail weight
+- percentile - Nth percentile of dataset
+- skewness - Measure of distribution asymmetry
+- standardDeviation - Calculates population or sample standard deviation
+- std - Alias for standardDeviation
+- variance - Calculates statistical variance
+- zScore - Standard score (z-score)
 
 ### string/ (77 functions)
 - changeExtension - Changes the file extension of a filename
@@ -662,6 +752,27 @@
 - serializeZonedDateTime - Serializes ZonedDateTime for storage/transmission
 - sortByAbsoluteTime - Comparator for sorting by absolute time
 
+### trigonometry/ (19 functions)
+- arcCosine - Inverse cosine function
+- arcSine - Inverse sine function
+- arcTangent - Inverse tangent function
+- arcTangent2 - Two-argument arctangent (atan2)
+- atan2 - Alias for arcTangent2
+- cartesianToPolar - Convert Cartesian (x,y) to polar (r,θ) coordinates
+- cosh - Alias for hyperbolicCosine
+- cosine - Basic cosine function
+- degreesToRadians - Converts degrees to radians
+- hyperbolicCosine - Hyperbolic cosine function
+- hyperbolicSine - Hyperbolic sine function
+- hyperbolicTangent - Hyperbolic tangent function
+- hypotenuse - Multi-dimensional Pythagorean theorem
+- polarToCartesian - Convert polar (r,θ) to Cartesian (x,y) coordinates
+- radiansToDegrees - Converts radians to degrees
+- sine - Basic sine function
+- sinh - Alias for hyperbolicSine
+- tangent - Basic tangent function
+- tanh - Alias for hyperbolicTangent
+
 ### tuple/ (13 functions)
 - bimap - Maps two different functions over the elements of a pair
 - curry - Converts a function that takes a tuple into a curried function
@@ -785,168 +896,53 @@
 - validateForm - Validates entire form data, returns array of errors
 - validateRange - Checks if value is within specified range
 
-### statistics/ (3 functions)
-- standardDeviation - Calculates population or sample standard deviation
-- std - Standard deviation (alias: standardDeviation)
-- variance - Calculates statistical variance
-
-### trigonometry/ (4 functions)
-- cosine - Basic cosine function
-- degreesToRadians - Converts degrees to radians
-- radiansToDegrees - Converts radians to degrees
-- sine - Basic sine function
-
-### geometry/ (2 functions)
-- dotProduct - Vector dot product
-- euclideanDistance - Distance between n-dimensional points
-
-### interpolation/ (2 functions)
-- lerp - Linear interpolation (alias: linearInterpolation)
-- linearInterpolation - Linear interpolation between two values
-
-## Proposed Additions
-
-### math/ (additional functions)
-- logarithmBase10 - Common (base 10) logarithm
-- combinations - nCr combinations calculation (number theory)
-- permutations - nPr permutations calculation
-- binomialCoefficient - Pascal's triangle values
-- modularExponentiation - Efficient (base)(exp)(mod) calculation
-- totient - Euler's totient function φ(n)
-- divisors - Find all divisors of a number
-- primeFactorization - Return prime factors with multiplicities
-
-### statistics/ (additional functions)
-- covariance - Calculate covariance between two arrays
-- correlation - Pearson correlation coefficient
-- percentile - Find nth percentile of dataset
-- interquartileRange - IQR for outlier detection
-- zScore - Calculate z-score (standard score)
-- skewness - Measure of asymmetry in distribution
-- kurtosis - Measure of distribution tail weight
-
-### trigonometry/ (additional functions)
-- tangent - Basic tangent function
-- arcSine - Inverse sine function
-- arcCosine - Inverse cosine function
-- arcTangent - Inverse tangent function
-- arcTangent2 - Two-argument arctangent (atan2)
-- hypotenuse - Calculate hypotenuse for multiple dimensions
-- polarToCartesian - Convert polar coordinates (r)(θ) → [x, y]
-- cartesianToPolar - Convert cartesian (x)(y) → [r, θ]
-- hyperbolicSine - sinh function
-- hyperbolicCosine - cosh function
-- hyperbolicTangent - tanh function
-
-### geometry/ (additional functions)
-- manhattanDistance - L1 distance (taxicab metric)
-- chebyshevDistance - L∞ distance (chessboard metric)
-- haversineDistance - Great-circle distance on sphere
-- crossProduct - 3D vector cross product
-- magnitude - Vector magnitude/norm
-- normalize - Normalize vector to unit length
-- anglesBetweenVectors - Angle between two vectors
-- vectorProjection - Project one vector onto another
-
-### interpolation/ (additional functions)
-- inverseLinearInterpolation - Find t value from interpolated result
-- bilinearInterpolation - 2D interpolation on a rectangle
-- smoothstep - Smooth interpolation with ease-in/ease-out
-- cubicInterpolation - Cubic spline interpolation
-- bezierInterpolation - Bezier curve interpolation
-
-### matrix/ (new folder)
-- determinant2x2 - 2x2 matrix determinant
-- determinant3x3 - 3x3 matrix determinant
-- matrixMultiply - Matrix multiplication
-- matrixTranspose - Matrix transpose (different from array transpose)
-- matrixTrace - Sum of diagonal elements
-- matrixInverse2x2 - Inverse of 2x2 matrix
-- matrixInverse3x3 - Inverse of 3x3 matrix
-- identityMatrix - Generate identity matrix of size n
-- matrixAddition - Element-wise matrix addition
-- matrixScalarMultiply - Multiply matrix by scalar
-
-### finance/ (new folder)
-- compoundInterest - Calculate compound interest
-- presentValue - PV of future cash flows
-- futureValue - FV with periodic contributions
-- annuity - Annuity calculations
-- internalRateOfReturn - IRR calculation
-- netPresentValue - NPV of cash flows
-- paymentAmount - Calculate loan payment amount
-- amortizationSchedule - Generate loan amortization table
-
-### physics/ (new folder)
-- kineticEnergy - Calculate kinetic energy (½mv²)
-- potentialEnergy - Calculate gravitational potential energy
-- momentum - Calculate momentum (p = mv)
-- force - Calculate force (F = ma)
-- acceleration - Calculate acceleration from force and mass
-- velocity - Calculate velocity from distance and time
-- frequency - Calculate frequency from period
-- wavelength - Calculate wavelength from frequency and speed
-
-### activation/ (new folder for ML/neural network functions)
-- rectifiedLinearUnit - ReLU activation function
-- leakyRectifiedLinearUnit - Leaky ReLU variant
-- sigmoid - Logistic function (1/(1+e^-x))
-- softmax - Softmax normalization for probability distribution
-- softplus - Smooth approximation of ReLU
-- gaussianErrorLinearUnit - GELU activation
-- swish - Self-gated activation function
-
-### special/ (new folder for special mathematical functions)
-- errorFunction - erf(x) for statistics and probability
-- complementaryErrorFunction - erfc(x) = 1 - erf(x)
-- gammaFunction - Gamma function approximation
-- betaFunction - Beta function B(x,y)
-- besselJ - Bessel function of first kind
-- stirlingApproximation - Stirling's approximation for factorials
-
-### Proposed Aliases (for power users and mathematicians)
-
-**Mathematical standard abbreviations:**
-- `erf` → `errorFunction`
-- `erfc` → `complementaryErrorFunction`
-- `tanh` → `hyperbolicTangent`
-- `sinh` → `hyperbolicSine`
-- `cosh` → `hyperbolicCosine`
-
-**ML/Graphics common names:**
-- `relu` → `rectifiedLinearUnit`
-- `gelu` → `gaussianErrorLinearUnit`
-
-**Statistical abbreviations:**
-- `cov` → `covariance`
-- `corr` → `correlation`
-- `iqr` → `interquartileRange`
-
-**Other common abbreviations:**
-- `atan2` → `arcTangent2`
-
-**Finance abbreviations:**
-- `irr` → `internalRateOfReturn`
-- `npv` → `netPresentValue`
-- `pv` → `presentValue`
-- `fv` → `futureValue`
-
-
-
-
-
 
 ## Notes
 
-**Duplicate function notes:**
-- `nub` and `unique` are the same (nub is preferred, unique is alias)
-- `first` and `head` are the same (head is preferred, first is alias)  
-- `cartesianProduct` and `xprod` are the same (cartesianProduct is preferred, xprod is alias)
+**Alias notes (complete list of all aliases in the library):**
 
-**Alias notes:**
-- `arity` and `nAry` are the same (both names are commonly used in FP libraries)
-- `without` is an alias for `omit` (both remove specified keys)
-- `zipObject` is an alias for `zipObj` (both create object from arrays)
+*Array aliases:*
+- `first` → `head` (returns first element)
+- `unique` → `nub` (removes duplicates)
+- `xprod` → `cartesianProduct` (Cartesian product)
+
+*Math/Statistics aliases:*
+- `mean` → `average` (arithmetic mean)
+- `std` → `standardDeviation` (standard deviation)
+- `corr` → `correlation` (Pearson correlation)
+- `cov` → `covariance` (statistical covariance)
+- `iqr` → `interquartileRange` (IQR)
+- `rms` → `rootMeanSquare` (RMS)
+
+*Trigonometry aliases:*
+- `atan2` → `arcTangent2` (two-argument arctangent)
+- `cosh` → `hyperbolicCosine` (hyperbolic cosine)
+- `sinh` → `hyperbolicSine` (hyperbolic sine)
+- `tanh` → `hyperbolicTangent` (hyperbolic tangent)
+
+*Finance aliases:*
+- `irr` → `internalRateOfReturn` (IRR)
+- `npv` → `netPresentValue` (NPV)
+- `pv` → `presentValue` (present value)
+- `fv` → `futureValue` (future value)
+
+*Activation function aliases:*
+- `relu` → `rectifiedLinearUnit` (ReLU)
+- `gelu` → `gaussianErrorLinearUnit` (GELU)
+
+*Special function aliases:*
+- `erf` → `errorFunction` (error function)
+- `erfc` → `complementaryErrorFunction` (complementary error function)
+
+*Interpolation aliases:*
+- `lerp` → `linearInterpolation` (linear interpolation)
+
+*Object aliases:*
+- `without` → `omit` (removes specified keys)
+- `zipObject` → `zipObj` (creates object from key/value arrays)
+
+*Combinator aliases:*
+- `nAry` → `arity` (limits function arity)
 
 **Implementation notes:**
 - Date functions use Temporal API with strict validation (`overflow: 'reject'`)
