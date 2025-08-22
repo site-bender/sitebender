@@ -3,26 +3,26 @@
   "name": "@sitebender/toolkit",
   "version": "0.1.0",
   "description": "Functional programming utilities with Either/Maybe monads and comprehensive array/string operations.",
-  
+
   // Main export point for the library
   "exports": {
     ".": "./src/index.ts"
   },
-  
+
   "tasks": {
     // Run tests
     "test": "deno test --unstable-temporal tests/",
     "test:watch": "deno test --unstable-temporal tests/ --watch",
-    "test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage",
+    "test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$'",
     "test:unit": "deno test --unstable-temporal tests/ --filter='/^(?!.*integration).*/'",
     "test:integration": "deno test --unstable-temporal tests/integration/",
-    
+
     // Code quality (inherits config from root workspace)
     "lint": "deno lint src/",
     "fmt": "deno fmt src/",
     "type-check": "deno check --unstable-temporal src/**/*.ts"
   },
-  
+
   // Test configuration
   "test": {
     "include": ["tests/"],
