@@ -38,11 +38,20 @@ Test functions as they compose:
 
 ### Folder Structure
 
+**IMPORTANT**: Following the project's naming convention:
+- Function/test names go on the **folder**, not the file
+- Every test folder must have an `index.ts` file
+- Example: `tests/behaviors/algebraic/commutative/add/index.ts` tests the `add` function
+
 ```
 libraries/toolkit/tests/
 ├── behaviors/
 │   ├── algebraic/           # Algebraic properties (all math/stats functions)
 │   │   ├── commutative/     # Addition, multiplication, etc.
+│   │   │   ├── add/
+│   │   │   │   └── index.ts
+│   │   │   └── multiply/
+│   │   │       └── index.ts
 │   │   ├── associative/     # String concat, array operations
 │   │   ├── distributive/    # Mathematical distributions
 │   │   └── identity/        # Identity elements (0 for +, 1 for ×)
