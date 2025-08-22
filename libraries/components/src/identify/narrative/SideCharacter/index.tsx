@@ -1,10 +1,10 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function SideCharacter({
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	fate,
 	function: characterFunction,
 	presence = "recurring",
@@ -28,18 +28,18 @@ export default function SideCharacter({
 			data-role="side-character"
 			{...props}
 		>
-			{enrich ? <span itemProp="name">{children}</span> : children}
+			{define ? <span itemProp="name">{children}</span> : children}
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && characterId) {
+	// Wrap with Person component if defineing
+	if (define && characterId) {
 		return (
 			<Person
 				id={characterId}
 				name={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

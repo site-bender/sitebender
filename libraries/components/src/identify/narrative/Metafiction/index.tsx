@@ -4,7 +4,7 @@ import { getDataAttributes } from "../../../../utilities/getDataAttributes/index
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "section" | "aside"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * Type of metafiction (e.g., "author-intrusion", "breaking-fourth-wall", "frame-story")
 	 */
@@ -35,7 +35,7 @@ export type Props = BaseProps & {
  */
 export default function Metafiction({
 	element: Element = "span",
-	enrich,
+	define,
 	metaType,
 	selfAwareness,
 	referenceTarget,
@@ -59,7 +59,7 @@ export default function Metafiction({
 		</Element>
 	)
 
-	// For metafiction, we could potentially enrich with CreativeWork schema
+	// For metafiction, we could potentially define with CreativeWork schema
 	// but it's primarily a narrative technique marker
 	return baseElement
 }

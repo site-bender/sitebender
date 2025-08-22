@@ -1,10 +1,10 @@
-import { Place } from "../../../enrich/index.ts"
+import { Place } from "../../../define/index.ts"
 
 export default function SceneSetting({
 	atmosphere,
 	children,
 	element: Element = "div",
-	enrich,
+	define,
 	interiorExterior,
 	location,
 	period,
@@ -39,14 +39,14 @@ export default function SceneSetting({
 		</Element>
 	)
 
-	// Wrap with Place for enrichment
-	if (enrich && location) {
+	// Wrap with Place for definement
+	if (define && location) {
 		return (
 			<Place
 				name={location}
 				description={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Place>

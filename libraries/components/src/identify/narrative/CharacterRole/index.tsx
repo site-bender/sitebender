@@ -1,11 +1,11 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function CharacterRole({
 	archetype,
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	function: narrativeFunction,
 	importance = "major",
 	...props
@@ -31,14 +31,14 @@ export default function CharacterRole({
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && characterId) {
+	// Wrap with Person component if defineing
+	if (define && characterId) {
 		return (
 			<Person
 				id={characterId}
 				name={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

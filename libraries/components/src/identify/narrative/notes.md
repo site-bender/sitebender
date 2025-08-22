@@ -54,7 +54,7 @@ export default function CharacterName({
 ### Current State
 
 - **Identify components**: Currently include Schema.org microdata directly (itemScope, itemType, itemProp)
-- **Enrich components**: Exist separately in `/lib/components/enrich/` for full Schema.org support
+- **Enrich components**: Exist separately in `/lib/components/define/` for full Schema.org support
 - **Data attributes**: Provide machine-readable metadata for AI/MCP tools
 
 ### Key Questions and Considerations
@@ -71,21 +71,21 @@ Even without microdata, identify components serve valuable purposes:
 
 #### B. Relationship with Enrich Components
 
-The `/lib/components/enrich/` folder contains full Schema.org components like Person. We could:
+The `/lib/components/define/` folder contains full Schema.org components like Person. We could:
 
 **Option 1: Composition Pattern (Recommended)**
 
 ```tsx
-// identify/narrative/CharacterName can optionally wrap with enrich/Person
-import Person from "../../../enrich/Person"
+// identify/narrative/CharacterName can optionally wrap with define/Person
+import Person from "../../../define/Person"
 
 export default function CharacterName({
-	enrichWithSchema = false,
+	defineWithSchema = false,
 	// ... other props
 }: Props): JSX.Element {
 	const content = <span itemProp="name">{children}</span>
 
-	if (enrichWithSchema && characterId) {
+	if (defineWithSchema && characterId) {
 		return (
 			<Person
 				id={characterId}
@@ -119,21 +119,21 @@ type MetadataLevel = "none" | "minimal" | "full"
 
 // "none": Just data attributes and ARIA
 // "minimal": Add basic microdata (current approach)
-// "full": Wrap with enrich components for complete Schema.org
+// "full": Wrap with define components for complete Schema.org
 ```
 
 **Option 3: Separate Concerns**
 
 - Keep identify components focused on narrative semantics (data attributes + ARIA)
-- Let users explicitly wrap with enrich components when needed
+- Let users explicitly wrap with define components when needed
 - This maintains single responsibility and composability
 
 ### Recommendations
 
 1. **Default to Minimal Microdata**: Include basic itemProp attributes that don't require itemScope/itemType
-2. **Optional Schema Enhancement**: Add an `enrichWithSchema` boolean prop that wraps with appropriate enrich components
+2. **Optional Schema Enhancement**: Add an `defineWithSchema` boolean prop that wraps with appropriate define components
 3. **Keep Data Attributes Always**: These are lightweight and valuable for AI/MCP tools
-4. **Document Composition Patterns**: Show users how to combine identify + enrich components
+4. **Document Composition Patterns**: Show users how to combine identify + define components
 
 ### Example Usage Patterns
 
@@ -141,10 +141,10 @@ type MetadataLevel = "none" | "minimal" | "full"
 // Basic narrative marking (minimal microdata)
 <CharacterName characterId="elizabeth">Elizabeth</CharacterName>
 
-// With full Schema.org (uses enrich/Person internally)
+// With full Schema.org (uses define/Person internally)
 <CharacterName 
   characterId="elizabeth"
-  enrichWithSchema={true}
+  defineWithSchema={true}
   fullName="Elizabeth Bennet"
 >
   Lizzy
@@ -167,13 +167,13 @@ type MetadataLevel = "none" | "minimal" | "full"
 ### Phase 1: Update Existing Components
 
 1. Add `element` prop to all character components
-2. Add `enrichWithSchema` prop (default false)
+2. Add `defineWithSchema` prop (default false)
 3. Maintain backward compatibility
 
 ### Phase 2: Establish Patterns
 
 1. Create helper functions for common metadata patterns
-2. Document best practices for identify + enrich composition
+2. Document best practices for identify + define composition
 3. Add examples showing different metadata levels
 
 ### Phase 3: Consistency Check
@@ -187,7 +187,7 @@ type MetadataLevel = "none" | "minimal" | "full"
 1. **Progressive Enhancement**: Start simple, add complexity as needed
 2. **Flexibility**: Users can choose appropriate metadata level for their use case
 3. **Performance**: Minimal overhead by default, opt-in for richer metadata
-4. **Clarity**: Clear separation between narrative identification and data enrichment
+4. **Clarity**: Clear separation between narrative identification and data definement
 5. **Composability**: Components work well together without tight coupling
 
 ## 5. Final Recommendations (UPDATED)
@@ -203,9 +203,9 @@ Based on the codebase patterns and user requirements for ease of use:
 
 ### For Metadata Strategy - REVISED
 
-1. **Add `enrich` prop with enumeration** for ease of use
-2. **Automatically wrap with enrich components** when enrich prop is provided
-3. **Keep data attributes always** - They serve AI/MCP tools regardless of enrichment level
+1. **Add `define` prop with enumeration** for ease of use
+2. **Automatically wrap with define components** when define prop is provided
+3. **Keep data attributes always** - They serve AI/MCP tools regardless of definement level
 4. **Prioritize user convenience** over implementation simplicity
 
 ### Enrichment Levels
@@ -216,7 +216,7 @@ type EnrichmentLevel = "microdata" | "linkedData" | "both"
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string
 	element?: "span" | "b" | "strong" | "cite" | "mark"
-	enrich?: EnrichmentLevel // undefined = no enrichment (lightweight default)
+	define?: EnrichmentLevel // undefined = no definement (lightweight default)
 	// ... other props
 }
 ```
@@ -224,13 +224,13 @@ export type Props = {
 ### Implementation Pattern
 
 ```typescript
-import Person from "../../../enrich/Person"
+import Person from "../../../define/Person"
 
 export default function CharacterName({
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	fullName,
 	nickname,
 	role,
@@ -256,19 +256,19 @@ export default function CharacterName({
 			data-title={title}
 			{...props}
 		>
-			{enrich ? <span itemProp="name">{displayName}</span> : displayName}
+			{define ? <span itemProp="name">{displayName}</span> : displayName}
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && characterId) {
+	// Wrap with Person component if defineing
+	if (define && characterId) {
 		return (
 			<Person
 				id={characterId}
 				name={fullName || displayName}
 				alternateName={nickname}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>
@@ -285,7 +285,7 @@ export default function CharacterName({
 			data-nickname={nickname}
 			data-role={role}
 			data-title={title}
-			itemProp="character" // Basic microdata when not enriched
+			itemProp="character" // Basic microdata when not defineed
 			{...props}
 		>
 			{displayName}
@@ -296,8 +296,8 @@ export default function CharacterName({
 
 ### Benefits of This Approach
 
-1. **Zero friction adoption**: Users just add `enrich="both"` to get full semantic markup
-2. **Clear upgrade path**: Start simple, add enrichment as needed
+1. **Zero friction adoption**: Users just add `define="both"` to get full semantic markup
+2. **Clear upgrade path**: Start simple, add definement as needed
 3. **Library mission fulfilled**: Encourages maximum semantic and open data with minimal effort
 4. **Performance conscious**: Lightweight by default, opt-in for richer metadata
 5. **Flexibility maintained**: Users can still manually compose for complex cases

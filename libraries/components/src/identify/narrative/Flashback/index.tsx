@@ -1,9 +1,9 @@
-import { CreativeWork, Event } from "../../../enrich/index.ts"
+import { CreativeWork, Event } from "../../../define/index.ts"
 
 export default function Flashback({
 	children,
 	element: Element = "aside",
-	enrich,
+	define,
 	timeShift,
 	transitionStyle = "fade",
 	trigger,
@@ -28,15 +28,15 @@ export default function Flashback({
 		</Element>
 	)
 
-	// Wrap with Event and CreativeWork for enrichment
-	if (enrich) {
+	// Wrap with Event and CreativeWork for definement
+	if (define) {
 		const eventElement = timeShift
 			? (
 				<Event
 					name={`Flashback to ${timeShift}`}
 					description={typeof children === "string" ? children : undefined}
-					disableJsonLd={enrich === "microdata"}
-					disableMicrodata={enrich === "linkedData"}
+					disableJsonLd={define === "microdata"}
+					disableMicrodata={define === "linkedData"}
 				>
 					{baseElement}
 				</Event>
@@ -44,8 +44,8 @@ export default function Flashback({
 			: (
 				<CreativeWork
 					text={typeof children === "string" ? children : undefined}
-					disableJsonLd={enrich === "microdata"}
-					disableMicrodata={enrich === "linkedData"}
+					disableJsonLd={define === "microdata"}
+					disableMicrodata={define === "linkedData"}
 				>
 					{baseElement}
 				</CreativeWork>

@@ -1,11 +1,11 @@
 import type { BaseProps } from "../../../../types/index.ts"
 
 import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
-import { Event, Place } from "../../../enrich/index.ts"
+import { Event, Place } from "../../../define/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "p" | "span"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * The location of the setting
 	 */
@@ -44,7 +44,7 @@ export type Props = BaseProps & {
  */
 export default function Setting({
 	element: Element = "div",
-	enrich,
+	define,
 	location,
 	timePeriod,
 	settingType,
@@ -72,26 +72,26 @@ export default function Setting({
 		</Element>
 	)
 
-	// Optionally enrich with Place or Event schema
-	if (enrich && location) {
+	// Optionally define with Place or Event schema
+	if (define && location) {
 		return (
 			<Place
 				name={location}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Place>
 		)
 	}
 
-	if (enrich && timePeriod) {
+	if (define && timePeriod) {
 		return (
 			<Event
 				name={`Setting: ${timePeriod}`}
 				startDate={timePeriod}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Event>

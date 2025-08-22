@@ -10,7 +10,7 @@ Tests mirror the source structure, organized by component behaviors:
 
 ```
 tests/
-├── enrich/           # Schema.org components (Thing hierarchy)
+├── define/           # Schema.org components (Thing hierarchy)
 ├── identify/         # Semantic identification components
 ├── format/           # Text formatting components
 ├── interact/         # Interactive components (forms, buttons)
@@ -25,13 +25,13 @@ tests/
 ### Testing Schema.org Components (Enrich)
 
 ```typescript
-// tests/enrich/Person/index.ts
+// tests/define/Person/index.ts
 import { assertEquals, assertStringIncludes } from "@std/testing/asserts"
 import { describe, it } from "@std/testing/bdd"
 import { renderToString } from "preact-render-to-string"
 
-import Person from "../../../src/enrich/Thing/Person/index.tsx"
-import Book from "../../../src/enrich/Thing/CreativeWork/Book/index.tsx"
+import Person from "../../../src/define/Thing/Person/index.tsx"
+import Book from "../../../src/define/Thing/CreativeWork/Book/index.tsx"
 
 describe("Person component behavior", () => {
   it("renders with template and generates structured data", () => {
@@ -519,7 +519,7 @@ export async function createTestPage(
 deno task test
 
 # Run specific component category tests
-deno test tests/enrich/
+deno test tests/define/
 deno test tests/identify/
 
 # E2E tests with Playwright

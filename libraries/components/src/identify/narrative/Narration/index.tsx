@@ -1,9 +1,9 @@
-import { CreativeWork, Person } from "../../../enrich/index.ts"
+import { CreativeWork, Person } from "../../../define/index.ts"
 
 export default function Narration({
 	children,
 	element: Element = "div",
-	enrich,
+	define,
 	narrator,
 	narratorId,
 	narratorType = "omniscient",
@@ -36,13 +36,13 @@ export default function Narration({
 		</Element>
 	)
 
-	// Wrap with CreativeWork and/or Person for enrichment
-	if (enrich) {
+	// Wrap with CreativeWork and/or Person for definement
+	if (define) {
 		const workElement = (
 			<CreativeWork
 				text={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</CreativeWork>
@@ -53,8 +53,8 @@ export default function Narration({
 				<Person
 					id={narratorId}
 					name={narrator}
-					disableJsonLd={enrich === "microdata"}
-					disableMicrodata={enrich === "linkedData"}
+					disableJsonLd={define === "microdata"}
+					disableMicrodata={define === "linkedData"}
 				>
 					{workElement}
 				</Person>

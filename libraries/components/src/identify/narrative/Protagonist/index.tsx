@@ -1,11 +1,11 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function Protagonist({
 	arcType = "growth",
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	journeyStage,
 	multiProtagonist = false,
 	...props
@@ -27,18 +27,18 @@ export default function Protagonist({
 			data-role="protagonist"
 			{...props}
 		>
-			{enrich ? <span itemProp="name">{children}</span> : children}
+			{define ? <span itemProp="name">{children}</span> : children}
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && characterId) {
+	// Wrap with Person component if defineing
+	if (define && characterId) {
 		return (
 			<Person
 				id={characterId}
 				name={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

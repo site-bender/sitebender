@@ -1,11 +1,11 @@
-import { CreativeWork, Person } from "../../../enrich/index.ts"
+import { CreativeWork, Person } from "../../../define/index.ts"
 
 export default function InternalMonologue({
 	character,
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	mood,
 	style = "reflective",
 	...props
@@ -31,13 +31,13 @@ export default function InternalMonologue({
 		</Element>
 	)
 
-	// Wrap with CreativeWork and/or Person for enrichment
-	if (enrich) {
+	// Wrap with CreativeWork and/or Person for definement
+	if (define) {
 		const workElement = (
 			<CreativeWork
 				text={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</CreativeWork>
@@ -48,8 +48,8 @@ export default function InternalMonologue({
 				<Person
 					id={characterId}
 					name={character}
-					disableJsonLd={enrich === "microdata"}
-					disableMicrodata={enrich === "linkedData"}
+					disableJsonLd={define === "microdata"}
+					disableMicrodata={define === "linkedData"}
 				>
 					{workElement}
 				</Person>

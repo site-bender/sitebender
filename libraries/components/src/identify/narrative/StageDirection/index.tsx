@@ -1,11 +1,11 @@
-import { CreativeWork } from "../../../enrich/index.ts"
+import { CreativeWork } from "../../../define/index.ts"
 
 export default function StageDirection({
 	category,
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	placement = "inline",
 	type = "action",
 	...props
@@ -31,13 +31,13 @@ export default function StageDirection({
 		</Element>
 	)
 
-	// Wrap with CreativeWork for enrichment
-	if (enrich) {
+	// Wrap with CreativeWork for definement
+	if (define) {
 		return (
 			<CreativeWork
 				text={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</CreativeWork>

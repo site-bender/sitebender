@@ -1,9 +1,9 @@
-import { CreativeWork } from "../../../enrich/index.ts"
+import { CreativeWork } from "../../../define/index.ts"
 
 export default function Foreshadowing({
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	subtlety = "moderate",
 	type = "direct",
 	...props
@@ -26,13 +26,13 @@ export default function Foreshadowing({
 		</Element>
 	)
 
-	// Wrap with CreativeWork for enrichment
-	if (enrich) {
+	// Wrap with CreativeWork for definement
+	if (define) {
 		return (
 			<CreativeWork
 				text={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</CreativeWork>

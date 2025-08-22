@@ -4,7 +4,7 @@ import { getDataAttributes } from "../../../../utilities/getDataAttributes/index
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "aside"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * Type of non-linear structure (e.g., "parallel", "circular", "fragmented", "branching")
 	 */
@@ -39,7 +39,7 @@ export type Props = BaseProps & {
  */
 export default function NonlinearNarrative({
 	element: Element = "section",
-	enrich,
+	define,
 	structure,
 	sequence,
 	timeline,

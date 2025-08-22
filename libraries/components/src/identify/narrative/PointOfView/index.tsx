@@ -4,7 +4,7 @@ import { getDataAttributes } from "../../../../utilities/getDataAttributes/index
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "p"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * Narrative perspective (e.g., "first-person", "second-person", "third-person-limited", "third-person-omniscient")
 	 */
@@ -39,7 +39,7 @@ export type Props = BaseProps & {
  */
 export default function PointOfView({
 	element: Element = "div",
-	enrich,
+	define,
 	perspective,
 	narrator,
 	reliability,

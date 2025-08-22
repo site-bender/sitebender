@@ -1,10 +1,10 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function CharacterName({
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	fullName,
 	nickname,
 	role,
@@ -30,19 +30,19 @@ export default function CharacterName({
 			data-title={title}
 			{...props}
 		>
-			{enrich ? <span itemProp="name">{displayName}</span> : displayName}
+			{define ? <span itemProp="name">{displayName}</span> : displayName}
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && characterId) {
+	// Wrap with Person component if defineing
+	if (define && characterId) {
 		return (
 			<Person
 				id={characterId}
 				name={fullName || displayName}
 				alternateName={nickname}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

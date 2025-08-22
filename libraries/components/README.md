@@ -28,9 +28,9 @@ Components for media content:
 - `audio/` - Audio content (Audio, Transcript, Lyrics)
 - `video/` - Video content (Video, Captions, Subtitles)
 
-### `enrich/`
+### `define/`
 
-Components that enrich content with Schema.org structured data:
+Components that define content with Schema.org structured data:
 
 - `Base/` - Base component all others extend from, never used directly
 - `Thing/` - Schema.org type hierarchy (Person, Organization, CreativeWork, etc.)

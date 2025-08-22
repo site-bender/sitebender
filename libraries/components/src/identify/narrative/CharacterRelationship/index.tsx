@@ -1,9 +1,9 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function CharacterRelationship({
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	from,
 	reciprocal = false,
 	status = "current",
@@ -34,14 +34,14 @@ export default function CharacterRelationship({
 		</Element>
 	)
 
-	// Wrap with Person component if enriching
-	if (enrich && to) {
+	// Wrap with Person component if defineing
+	if (define && to) {
 		return (
 			<Person
 				id={to}
 				name={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 				itemProp="knows"
 			>
 				{baseElement}

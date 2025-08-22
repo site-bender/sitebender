@@ -1,9 +1,9 @@
-import { Person, Quotation } from "../../../enrich/index.ts"
+import { Person, Quotation } from "../../../define/index.ts"
 
 export default function Dialogue({
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	internal = false,
 	lang,
 	speaker,
@@ -28,7 +28,7 @@ export default function Dialogue({
 			lang={lang}
 			{...props}
 		>
-			{enrich && Element === "q" ? children : (
+			{define && Element === "q" ? children : (
 				Element === "q" || Element === "blockquote"
 					? <q>{children}</q>
 					: children
@@ -36,13 +36,13 @@ export default function Dialogue({
 		</Element>
 	)
 
-	// Wrap with Quotation and/or Person for enrichment
-	if (enrich) {
+	// Wrap with Quotation and/or Person for definement
+	if (define) {
 		const quotationElement = (
 			<Quotation
 				spokenByCharacter={speaker}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Quotation>
@@ -53,8 +53,8 @@ export default function Dialogue({
 				<Person
 					id={speakerId}
 					name={speaker}
-					disableJsonLd={enrich === "microdata"}
-					disableMicrodata={enrich === "linkedData"}
+					disableJsonLd={define === "microdata"}
+					disableMicrodata={define === "linkedData"}
 				>
 					{quotationElement}
 				</Person>

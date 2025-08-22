@@ -1,10 +1,10 @@
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export default function Antagonist({
 	characterId,
 	children,
 	element: Element = "span",
-	enrich,
+	define,
 	motivation,
 	redeemable = false,
 	type = "character",
@@ -28,20 +28,20 @@ export default function Antagonist({
 			data-type={type}
 			{...props}
 		>
-			{enrich && type === "character"
+			{define && type === "character"
 				? <span itemProp="name">{children}</span>
 				: children}
 		</Element>
 	)
 
-	// Wrap with Person component if enriching and it's a character
-	if (enrich && characterId && type === "character") {
+	// Wrap with Person component if defineing and it's a character
+	if (define && characterId && type === "character") {
 		return (
 			<Person
 				id={characterId}
 				name={children}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

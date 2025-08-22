@@ -4,7 +4,7 @@ import { getDataAttributes } from "../../../../utilities/getDataAttributes/index
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "em" | "strong"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * What this symbol represents
 	 */
@@ -39,7 +39,7 @@ export type Props = BaseProps & {
  */
 export default function Symbolism({
 	element: Element = "span",
-	enrich,
+	define,
 	represents,
 	symbolType,
 	explicitness,

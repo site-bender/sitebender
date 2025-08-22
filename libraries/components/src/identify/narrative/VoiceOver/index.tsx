@@ -1,11 +1,11 @@
 import type { BaseProps } from "../../../../types/index.ts"
 
 import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
-import { Person } from "../../../enrich/index.ts"
+import { Person } from "../../../define/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "aside" | "p" | "span"
-	enrich?: "microdata" | "linkedData" | "both"
+	define?: "microdata" | "linkedData" | "both"
 	/**
 	 * The narrator providing the voice-over
 	 */
@@ -40,7 +40,7 @@ export type Props = BaseProps & {
  */
 export default function VoiceOver({
 	element: Element = "aside",
-	enrich,
+	define,
 	narrator,
 	voiceType,
 	timing,
@@ -69,13 +69,13 @@ export default function VoiceOver({
 		</Element>
 	)
 
-	// Optionally enrich with Person schema for the narrator
-	if (enrich && narrator) {
+	// Optionally define with Person schema for the narrator
+	if (define && narrator) {
 		return (
 			<Person
 				name={narrator}
-				disableJsonLd={enrich === "microdata"}
-				disableMicrodata={enrich === "linkedData"}
+				disableJsonLd={define === "microdata"}
+				disableMicrodata={define === "linkedData"}
 			>
 				{baseElement}
 			</Person>
