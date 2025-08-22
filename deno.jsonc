@@ -1,10 +1,10 @@
 {
   // Workspace configuration for the Sitebender monorepo
-  "workspaces": [
+  "workspace": [
     "./libraries/*",
     "./app"
   ],
-  
+
   "tasks": {
     // === Formatting and Code Quality ===
     "fmt": "deno task sort && deno fmt",
@@ -12,32 +12,33 @@
     "fmt:check": "deno fmt --check libraries/ app/ scripts/",
     "lint": "deno lint libraries/ app/ scripts/",
     "lint:all": "deno lint libraries/ app/ scripts/",
-    
+
     // === Testing ===
-    "test": "deno task test:all",
-    "test:all": "deno task --cwd libraries/toolkit test && deno task --cwd libraries/adaptive test && deno task --cwd libraries/components test && deno task --cwd app test",
-    "test:adaptive": "deno task --cwd libraries/adaptive test",
-    "test:components": "deno task --cwd libraries/components test",
-    "test:toolkit": "deno task --cwd libraries/toolkit test",
-    
+    "test:adaptive": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.ts'",
+    "test:components": "deno test --unstable-temporal 'libraries/components/tests/**/*.ts'",
+    "test:toolkit": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts'",
+    "test:adaptive:cov": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
+    "test:components:cov": "deno test --unstable-temporal 'libraries/components/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
+    "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
+
     // === Type Checking ===
     "type-check": "deno check --unstable-temporal app/src/**/*.ts app/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
-    
+
     // === Import Management ===
     "sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
     "sort:all": "deno task sort --dir=app && deno task sort --dir=libraries/adaptive && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
-    
+
     // === Setup and Maintenance ===
     "setup": "deno run --unstable-temporal -A scripts/setup/index.ts",
     "clean": "deno run --unstable-temporal --allow-write scripts/clean/index.ts",
     "clean:all": "deno task clean && deno task --cwd app clean",
-    
+
     // === Development Shortcuts ===
     "dev": "deno task --cwd app dev",
     "build": "deno task --cwd app build",
     "build:full": "deno task --cwd app build:full"
   },
-  
+
   // Shared compiler options for all workspace members
   "compilerOptions": {
     "jsx": "react",
@@ -47,7 +48,7 @@
     "checkJs": false,
     "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"]
   },
-  
+
   // Shared formatting configuration
   "fmt": {
     "useTabs": true,
@@ -60,7 +61,7 @@
     "include": ["app/", "libraries/", "scripts/"],
     "exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"]
   },
-  
+
   // Shared linting configuration
   "lint": {
     "include": ["app/src/", "libraries/*/src/", "scripts/"],
@@ -80,13 +81,13 @@
       "exclude": []
     }
   },
-  
+
   // Node modules support for npm packages
   "nodeModulesDir": "auto",
-  
+
   // No lock file for now (can be enabled later for reproducible builds)
   "lock": false,
-  
+
   // Test configuration (workspace-wide defaults)
   "test": {
     "include": ["*/tests/", "libraries/*/tests/", "app/tests/"],
