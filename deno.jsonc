@@ -17,9 +17,9 @@
     "test:adaptive": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.ts'",
     "test:components": "deno test --unstable-temporal 'libraries/components/tests/**/*.ts'",
     "test:toolkit": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts'",
-    "test:adaptive:cov": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
-    "test:components:cov": "deno test --unstable-temporal 'libraries/components/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
-    "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts' --coverage=coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
+    "test:adaptive:cov": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.ts' --coverage=libraries/adaptive/coverage && deno coverage coverage --exclude='libraries/adaptive/tests/.*\\.ts$'",
+    "test:components:cov": "deno test --unstable-temporal 'libraries/components/tests/**/*.ts' --coverage=libraries/components/coverage && deno coverage coverage --exclude='libraries/components/tests/.*\\.ts$'",
+    "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --exclude='libraries/toolkit/tests/.*\\.ts$'",
 
     // === Type Checking ===
     "type-check": "deno check --unstable-temporal app/src/**/*.ts app/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
