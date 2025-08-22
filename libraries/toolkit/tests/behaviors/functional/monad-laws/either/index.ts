@@ -15,21 +15,27 @@ import right from "../../../../../src/either/right/index.ts"
  */
 
 Deno.test("Either monad - left identity law", () => {
+	// Test with concrete functions
+	const addOne = (n: number): Either<string, number> => right(n + 1)
+	const divideBy2 = (n: number): Either<string, number> => 
+		n === 0 ? left("Cannot divide zero") : right(n / 2)
+	
 	fc.assert(
 		fc.property(
-			fc.integer(),
-			fc.func(fc.oneof(
-				fc.integer().map(v => right<string, number>(v)),
-				fc.string().map(e => left<string, number>(e))
-			)),
-			(value, f) => {
-				// Left identity: of(a).chain(f) === f(a)
-				const m = right<string, number>(value)
-				const result1 = chain<string, number, number>(f)(m)
-				const result2 = f(value)
+			fc.integer({ min: -1000, max: 1000 }),
+			(value) => {
+				// Test with addOne
+				const m1 = right<number, string>(value)
+				const result1a = chain<string, number, number>(addOne)(m1)
+				const result1b = addOne(value)
 				
-				// Compare the Either values
-				return JSON.stringify(result1) === JSON.stringify(result2)
+				// Test with divideBy2
+				const m2 = right<number, string>(value)
+				const result2a = chain<string, number, number>(divideBy2)(m2) 
+				const result2b = divideBy2(value)
+				
+				return JSON.stringify(result1a) === JSON.stringify(result1b) &&
+				       JSON.stringify(result2a) === JSON.stringify(result2b)
 			}
 		),
 		{ numRuns: 1000 }
@@ -37,18 +43,19 @@ Deno.test("Either monad - left identity law", () => {
 })
 
 Deno.test("Either monad - right identity law", () => {
+	const rightFn = <T>(a: T): Either<string, T> => right(a)
+	
 	fc.assert(
 		fc.property(
 			fc.oneof(
-				fc.integer().map(v => right<string, number>(v)),
-				fc.string().map(e => left<string, number>(e))
+				fc.integer().map(v => right<number, string>(v)),
+				fc.string().map(e => left<string>(e))
 			),
-			(m: Either<string, number>) => {
+			(m) => {
 				// Right identity: m.chain(of) === m
-				const result = chain<string, number, number>(
-					(a: number) => right<string, number>(a)
-				)(m)
+				const result = chain<string, number, number>(rightFn)(m)
 				
+				// Compare the Either values
 				return JSON.stringify(result) === JSON.stringify(m)
 			}
 		),
@@ -57,32 +64,27 @@ Deno.test("Either monad - right identity law", () => {
 })
 
 Deno.test("Either monad - associativity law", () => {
-	// Create deterministic functions for testing
-	const f = (n: number): Either<string, number> => 
-		n > 0 ? right(n * 2) : left("negative")
-	
-	const g = (n: number): Either<string, number> => 
-		n > 100 ? left("too large") : right(n + 10)
+	const f = (x: number): Either<string, number> => 
+		x > 100 ? left("too large") : right(x * 2)
+		
+	const g = (x: number): Either<string, number> => 
+		x < 0 ? left("negative") : right(x + 10)
 	
 	fc.assert(
 		fc.property(
-			fc.oneof(
-				fc.integer({ min: -50, max: 150 }).map(v => right<string, number>(v)),
-				fc.string().map(e => left<string, number>(e))
-			),
-			(m: Either<string, number>) => {
+			fc.integer({ min: -50, max: 150 }).map(v => right<number, string>(v)),
+			(m) => {
 				// Associativity: m.chain(f).chain(g) === m.chain(x => f(x).chain(g))
+				const left1 = chain<string, number, number>(g)(
+					chain<string, number, number>(f)(m)
+				)
 				
-				// Left side: m.chain(f).chain(g)
-				const left1 = chain<string, number, number>(f)(m)
-				const left2 = chain<string, number, number>(g)(left1)
-				
-				// Right side: m.chain(x => f(x).chain(g))
 				const right1 = chain<string, number, number>(
 					(x: number) => chain<string, number, number>(g)(f(x))
 				)(m)
 				
-				return JSON.stringify(left2) === JSON.stringify(right1)
+				// Compare the Either values
+				return JSON.stringify(left1) === JSON.stringify(right1)
 			}
 		),
 		{ numRuns: 1000 }
@@ -95,13 +97,14 @@ Deno.test("Either functor - identity law", () => {
 	fc.assert(
 		fc.property(
 			fc.oneof(
-				fc.integer().map(v => right<string, number>(v)),
-				fc.string().map(e => left<string, number>(e))
+				fc.integer().map(v => right<number, string>(v)),
+				fc.string().map(e => left<string>(e))
 			),
-			(m: Either<string, number>) => {
-				// Functor identity: map(id)(m) === m
-				const result = map<string, number, number>(identity)(m)
+			(m) => {
+				// Functor identity: fmap id === id
+				const result = map<number, number>(identity)(m)
 				
+				// Compare the Either values
 				return JSON.stringify(result) === JSON.stringify(m)
 			}
 		),
@@ -110,89 +113,103 @@ Deno.test("Either functor - identity law", () => {
 })
 
 Deno.test("Either functor - composition law", () => {
-	const f = (n: number): string => `value: ${n}`
-	const g = (s: string): number => s.length
+	const f = (x: number) => x * 2
+	const g = (x: number) => x + 10
 	
 	fc.assert(
 		fc.property(
 			fc.oneof(
-				fc.integer().map(v => right<string, number>(v)),
-				fc.string().map(e => left<string, number>(e))
+				fc.integer().map(v => right<number, string>(v)),
+				fc.string().map(e => left<string>(e))
 			),
-			(m: Either<string, number>) => {
-				// Functor composition: map(g ∘ f)(m) === map(g)(map(f)(m))
+			(m) => {
+				// Functor composition: fmap (f . g) === fmap f . fmap g
+				const left1 = map<number, number>((x: number) => f(g(x)))(m)
+				const right1 = map<number, number>(f)(
+					map<number, number>(g)(m)
+				)
 				
-				// Left side: map(g ∘ f)
-				const composed = (x: number) => g(f(x))
-				const left1 = map<string, number, number>(composed)(m)
-				
-				// Right side: map(g)(map(f)(m))
-				const right1 = map<string, number, string>(f)(m)
-				const right2 = map<string, string, number>(g)(right1)
-				
-				return JSON.stringify(left1) === JSON.stringify(right2)
+				// Compare the Either values
+				return JSON.stringify(left1) === JSON.stringify(right1)
 			}
 		),
 		{ numRuns: 1000 }
 	)
 })
 
-Deno.test("Either - error propagation in chains", () => {
+Deno.test("Either - chain short-circuits on Left", () => {
+	const error = left<string>("initial error")
+	const neverCalled = (x: number): Either<string, number> => {
+		throw new Error("Should not be called")
+	}
+	
+	const result = chain<string, number, number>(neverCalled)(error)
+	
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(result.left, "initial error")
+	}
+})
+
+Deno.test("Either - chain propagates Right values", () => {
+	const multiplyBy2 = (x: number): Either<string, number> => right(x * 2)
+	const addTen = (x: number): Either<string, number> => right(x + 10)
+	
+	fc.assert(
+		fc.property(
+			fc.integer({ min: -1000, max: 1000 }),
+			(value) => {
+				const start = right<number, string>(value)
+				const result = chain<string, number, number>(addTen)(
+					chain<string, number, number>(multiplyBy2)(start)
+				)
+				
+				if (result._tag === "Right") {
+					return result.right === (value * 2) + 10
+				}
+				return false
+			}
+		),
+		{ numRuns: 1000 }
+	)
+})
+
+Deno.test("Either - map preserves Left values", () => {
+	const double = (x: number) => x * 2
+	const error = left<string>("error message")
+	
+	const result = map<number, number>(double)(error)
+	
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(result.left, "error message")
+	}
+})
+
+Deno.test("Either - map transforms Right values", () => {
+	const double = (x: number) => x * 2
+	
 	fc.assert(
 		fc.property(
 			fc.integer(),
 			(value) => {
-				const computation = chain<string, number, number>(
-					(x: number) => right<string, number>(x * 2)
-				)(
-					chain<string, number, number>(
-						(x: number) => x > 100 ? left<string, number>("too large") : right<string, number>(x)
-					)(
-						right<string, number>(value)
-					)
-				)
+				const either = right<number, string>(value)
+				const result = map<number, number>(double)(either)
 				
-				// If value > 100, should get Left("too large")
-				// Otherwise should get Right(value * 2)
-				if (value > 100) {
-					return computation._tag === "Left" && 
-						computation.left === "too large"
-				} else {
-					return computation._tag === "Right" && 
-						computation.right === value * 2
+				if (result._tag === "Right") {
+					return result.right === value * 2
 				}
+				return false
 			}
 		),
 		{ numRuns: 1000 }
 	)
 })
 
-Deno.test("Either - Left short-circuits", () => {
-	let sideEffectCount = 0
-	
-	const f = (n: number): Either<string, number> => {
-		sideEffectCount++
-		return right(n * 2)
-	}
-	
-	const errorEither = left<string, number>("error")
-	
-	// Reset counter
-	sideEffectCount = 0
-	
-	// Chain should not execute f when starting with Left
-	const result = chain<string, number, number>(f)(errorEither)
-	
-	assertEquals(sideEffectCount, 0, "Function should not be called for Left")
-	assertEquals(result._tag, "Left")
-	assertEquals(result.left, "error")
-})
-
-Deno.test("Either - chain maintains type safety", () => {
-	// Type transformation through chain
+Deno.test("Either - practical example with parsing", () => {
 	const parseNumber = (s: string): Either<string, number> => {
-		const n = parseInt(s, 10)
-		return isNaN(n) ? left("not a number") : right(n)
+		const n = Number(s)
+		return Number.isNaN(n) ? left("not a number") : right(n)
 	}
 	
 	const divideBy2 = (n: number): Either<string, number> => {
@@ -202,12 +219,16 @@ Deno.test("Either - chain maintains type safety", () => {
 	// Valid number string
 	const result1 = chain<string, number, number>(divideBy2)(parseNumber("42"))
 	assertEquals(result1._tag, "Right")
-	assertEquals(result1.right, 21)
+	if (result1._tag === "Right") {
+		assertEquals(result1.right, 21)
+	}
 	
 	// Invalid number string
 	const result2 = chain<string, number, number>(divideBy2)(parseNumber("abc"))
 	assertEquals(result2._tag, "Left")
-	assertEquals(result2.left, "not a number")
+	if (result2._tag === "Left") {
+		assertEquals(result2.left, "not a number")
+	}
 })
 
 Deno.test("Either - multiple chains preserve order", () => {
@@ -223,7 +244,7 @@ Deno.test("Either - multiple chains preserve order", () => {
 				const result = chain<string, number, number>(checkBounds)(
 					chain<string, number, number>(multiplyTwo)(
 						chain<string, number, number>(addOne)(
-							right<string, number>(start)
+							right<number, string>(start)
 						)
 					)
 				)

@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assert, assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import chunk from "../../../../../src/simple/array/chunk/index.ts"
@@ -162,8 +162,8 @@ Deno.test("chunk - immutability", () => {
 	// Original array should not be modified
 	assertEquals(original, originalCopy)
 	
-	// Result should be a new array
-	assertEquals(result !== original, true)
+	// Result should be a new array (different reference)
+	assert(result !== (original as unknown))
 })
 
 Deno.test("chunk - handles various input types", () => {

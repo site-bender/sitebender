@@ -98,8 +98,8 @@ Deno.test("pipe - error propagation", () => {
 	try {
 		pipeline(5)
 		assertEquals(true, false, "Should have thrown")
-	} catch (e) {
-		assertEquals(e.message, "Test error")
+	} catch (e: unknown) {
+		assertEquals((e as Error).message, "Test error")
 	}
 })
 
