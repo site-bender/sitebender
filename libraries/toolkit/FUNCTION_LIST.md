@@ -1,6 +1,6 @@
 # Function List for lib/adaptive/utilities
 
-## Current Functions (846 functions total)
+## Current Functions (854 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate
@@ -896,6 +896,15 @@
 - validateForm - Validates entire form data, returns array of errors
 - validateRange - Checks if value is within specified range
 
+### random/ (8 functions)
+- generateShortId - Generates HTML-safe unique ID with underscore prefix
+- randomBoolean - Random boolean with optional probability bias
+- randomChoice - Select random element from Array or Set
+- randomFloat - Random float in range [min, max)
+- randomInt - Alias for randomInteger
+- randomInteger - Random integer in range [min, max]
+- randomString - Random string with custom character set
+- randomSubset - Random subset from Array or Set
 
 ## Notes
 
@@ -944,28 +953,12 @@
 *Combinator aliases:*
 - `nAry` → `arity` (limits function arity)
 
+*Random function aliases:*
+- `randomInt` → `randomInteger` (random integer generation)
+
 **Implementation notes:**
 - Date functions use Temporal API with strict validation (`overflow: 'reject'`)
 - All functions return null/NaN for invalid inputs (safe for monadic wrapping)
-
-## NOT TO BE DONE YET (IGNORE THESE)
-
-### dom/ (11 functions)
-- collectLinkElements - Collects all link elements from document or element
-- collectScriptElements - Collects all script elements from document or element
-- getSelector - Generates a unique CSS selector for an element
-- getValue - Retrieves values from various DOM sources
-  - getFromCheckbox - Gets checked state from checkbox inputs
-  - getFromDataset - Extracts data attributes from elements
-  - getFromInnerHtml - Retrieves inner HTML content
-  - getFromInput - Gets value from input elements
-  - getFromLocal - Retrieves data from localStorage
-  - getFromSelect - Gets selected value from select elements
-  - getFromTextArea - Gets text content from textarea elements
-
-### misc/ (4 functions)
-- generateShortId - Generates a short, unique identifier
-  - convertUuidToBase58 - Converts UUID to Base58 encoded string
-    - convertBigIntToBase58 - Converts BigInt to Base58 representation
-- getOperands - Extracts operands from mathematical expressions
+- Random functions in `random/` folder are explicitly impure/non-deterministic
+- Lens functions moved to `simple/lens/` for consistency
 
