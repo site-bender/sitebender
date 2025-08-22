@@ -20,6 +20,11 @@ The project uses a specific naming convention that MUST be followed:
 - Example: `tests/behaviors/algebraic/commutative/add/index.ts` (NOT `add.test.ts`)
 - When moving/renaming files, ALWAYS update all import paths
 
+### 3. Import Path Structure
+From test files in `tests/behaviors/algebraic/[property]/[function]/`:
+- To source: `../../../../../src/simple/math/[function]/index.ts` (5 levels up)
+- To helpers: `../../../../helpers/[helper]/[function]/index.ts` (4 levels up)
+
 ## Current Testing Status
 
 ### What Has Been Completed
@@ -29,11 +34,15 @@ The project uses a specific naming convention that MUST be followed:
      - `tests/helpers/assertions/approximately/index.ts` - Floating-point comparison with epsilon
      - `tests/helpers/generators/numeric/index.ts` - Custom fast-check generators
 
-2. **Functions Tested (107 tests passing)**
-   - **Math**: `add` (commutative, associative, identity, error handling), `divide` (identity, error handling)
-   - **Array**: `chunk` (property-based tests), `filter` (transformations)
-   - **Combinators**: `pipe` (composition behavior)
-   - **Monads**: `Either` and `Maybe` (monad laws, functor laws)
+2. **Functions Tested (129 tests passing, 40 test steps)**
+   - **Math**: 
+     - `add` (commutative, associative, identity, error handling)
+     - `divide` (identity, error handling)
+     - `subtract` (anti-commutative, identity, inverse relationship, JSDoc examples, null safety)
+     - `multiply` (commutative, associative, identity, distributive, annihilator, JSDoc examples, null safety, sign rules)
+   - **Array**: `chunk` (property-based tests, immutability), `filter` (transformations)
+   - **Combinators**: `pipe` (composition behavior, error propagation)
+   - **Monads**: `Either` and `Maybe` (monad laws, functor laws, chain operations)
    - **Random**: `randomBoolean` (statistical distribution)
 
 3. **Test Organization**
@@ -41,21 +50,43 @@ The project uses a specific naming convention that MUST be followed:
    tests/
    ├── behaviors/
    │   ├── algebraic/          # Mathematical properties
+   │   │   ├── anti-commutative/
+   │   │   │   └── subtract/
    │   │   ├── associative/
+   │   │   │   ├── add/
+   │   │   │   └── multiply/
    │   │   ├── commutative/
+   │   │   │   ├── add/
+   │   │   │   └── multiply/
+   │   │   ├── distributive/
+   │   │   │   └── multiply/
    │   │   └── identity/
+   │   │       ├── add/
+   │   │       ├── divide/
+   │   │       └── multiply/
    │   ├── error-handling/     # Null/undefined/NaN handling
    │   │   └── null-safety/
+   │   │       ├── add/
+   │   │       ├── divide/
+   │   │       └── multiply/
    │   ├── functional/         # FP laws and composition
    │   │   ├── composition/
+   │   │   │   └── pipe/
    │   │   └── monad-laws/
+   │   │       ├── either/
+   │   │       └── maybe/
    │   ├── randomness/         # Statistical testing
    │   │   └── distribution/
+   │   │       └── randomBoolean/
    │   └── transformations/    # Data transformation behaviors
    │       └── array-ops/
+   │           ├── chunk/
+   │           └── filter/
    └── helpers/
        ├── assertions/
+       │   └── approximately/
        └── generators/
+           └── numeric/
    ```
 
 ## Testing Requirements (from TESTING_POLICY.md)
@@ -84,31 +115,35 @@ The project uses a specific naming convention that MUST be followed:
 2. **NaN comparison**: Use `Object.is()` or explicit `Number.isNaN()` checks
 3. **Random function testing**: Use statistical tolerance (typically 2-5% for 1000+ samples)
 4. **fast-check float constraints**: Use `Math.fround()` for 32-bit float values
+5. **Curried function behavior**: Remember `subtract(a)(b)` means `a - b`, not `b - a`
 
 ## How to Run Tests
 
 From project root:
 ```bash
 # Run all toolkit tests
-deno task test:toolkit
+deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts'
 
 # Run with coverage
 deno task test:toolkit:cov
 
-# Alternative from toolkit directory
-cd libraries/toolkit
-deno task test           # Run tests
-deno task test:cov       # With coverage
-deno task test:watch     # Watch mode
+# Run specific test file
+deno test --unstable-temporal libraries/toolkit/tests/behaviors/algebraic/commutative/add/index.ts
+
+# Run tests with quiet output
+deno test --unstable-temporal 'libraries/toolkit/tests/**/*.ts' --quiet
 ```
 
 ## Next Steps - Priority Order
 
-### 1. Complete Core Math Functions
+### 1. Complete Remaining Core Math Functions
 Test remaining math functions with algebraic properties:
-- `subtract` - NOT commutative, but associative
-- `multiply` - commutative, associative, identity (1), distributive
-- `modulo`, `power`, `squareRoot`, etc.
+- ✅ `subtract` - anti-commutative, identity, inverse relationship
+- ✅ `multiply` - commutative, associative, identity (1), distributive
+- `modulo`, `power`, `squareRoot`
+- `absoluteValue`, `negate`, `sign`
+- `max`, `min`, `clamp`
+- Statistical: `average`, `mean`, `median`, `mode`
 
 ### 2. Complete Array Operations
 Many array functions need comprehensive testing:
@@ -126,18 +161,20 @@ Many array functions need comprehensive testing:
 ### 4. String Operations
 - `trim`, `split`, `join`, `replace`
 - `toUpperCase`, `toLowerCase`, `capitalize`
+- `chomp`, `padLeft`, `padRight`
 - Pattern matching functions
 
 ### 5. Object Operations
 - `pick`, `omit`, `merge`, `deepMerge`
 - `keys`, `values`, `entries`
+- `mapValues`, `mapKeys`
 - Property: immutability, type preservation
 
 ### 6. Specialized Domains
-- Finance functions (if any)
-- Geometry/physics functions (if any)
-- Statistical functions
-- Temporal functions
+- Random functions: `randomInteger`, `randomFloat`
+- Combinators: `compose`, `curry`, `flip`
+- Predicates: `isEven`, `isOdd`, `isPrime`
+- Temporal functions (if any)
 
 ## Important Reminders
 
@@ -146,7 +183,7 @@ Many array functions need comprehensive testing:
 2. Always test ALL JSDoc examples (consolidate if >10)
 3. Add property-based tests for invariants
 4. Test edge cases systematically
-5. Ensure imports use correct relative paths
+5. Ensure imports use correct relative paths (5 levels up to src, 4 to helpers)
 
 ### Common Pitfalls to Avoid
 - Don't assume file locations - always verify paths
@@ -154,6 +191,7 @@ Many array functions need comprehensive testing:
 - Don't use `===` for NaN comparison (use `Object.is()` or `Number.isNaN()`)
 - Don't use absolute epsilon for large numbers (use relative epsilon)
 - Don't skip error cases - test null/undefined/invalid inputs
+- Remember curried function parameter order (first param is the one being curried)
 
 ### Git Workflow
 1. Check changes: `git status`
@@ -166,10 +204,25 @@ Many array functions need comprehensive testing:
 5. Reference coverage improvements if applicable
 
 ## Current Coverage Status
-As of last run: **100% coverage** for all tested source files.
-- Tests properly exclude test files from coverage report
-- All tested functions have 100% line and branch coverage
-- Helper functions are partially covered (as expected)
+As of last run: **Partial coverage** with comprehensive tests for:
+- Core math operations (add, subtract, multiply, divide)
+- Algebraic properties (commutative, associative, distributive, identity)
+- Error handling and null safety
+- Monad laws for Either and Maybe
+- Array operations (chunk, filter)
+- Pipe combinator
+
+**Test Count**: 129 passing tests across 40 test steps
+
+## Recent Achievements
+- Fixed all TypeScript errors in Either and chunk tests
+- Added comprehensive tests for subtract (anti-commutative property)
+- Added comprehensive tests for multiply (all algebraic properties)
+- Established testing patterns for:
+  - Algebraic properties
+  - JSDoc example verification
+  - Null/undefined safety
+  - Property-based testing with fast-check
 
 ## Contact and Resources
 - Testing policy: `/libraries/toolkit/tests/TESTING_POLICY.md`
