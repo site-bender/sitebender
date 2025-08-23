@@ -69,6 +69,10 @@ Fix any failing tests before proceeding.
     - Update hours remaining and working days estimate
     - Update the "Last updated" date
 - Update this PROMPT.md file for the next session
+- **IMPORTANT**: Ensure percentages are synchronized across ALL files:
+  - `/libraries/toolkit/FUNCTION_LIST.md`
+  - `/libraries/toolkit/tests/PROMPT.md` 
+  - `/libraries/toolkit/PROMPT.md`
 
 ### 5. Commit Changes
 Follow the commit process from CLAUDE.md

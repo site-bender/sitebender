@@ -25,9 +25,9 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
 - To source: `../../../../../src/simple/math/[function]/index.ts` (5 levels up)
 - To helpers: `../../../../helpers/[helper]/[function]/index.ts` (4 levels up)
 
-## Current Testing Status (Updated: 2025-08-22)
+## Current Testing Status (Updated: 2025-08-23)
 
-**Overall Progress: 2.9% tested (25/854 functions with 100% coverage)**
+**Overall Progress: 3.4% tested (29/854 functions with 100% coverage)**
 
 ### Important Instructions for Next Session
 1. **Track Progress**: Update the "percent tested" at the top of `/libraries/toolkit/FUNCTION_LIST.md` after each batch of tests
@@ -41,11 +41,14 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
      - `tests/helpers/assertions/approximately/index.ts` - Floating-point comparison with epsilon
      - `tests/helpers/generators/numeric/index.ts` - Custom fast-check generators
 
-2. **Functions with 100% Coverage (25 total)**
-   - **Math (11)**: 
+2. **Functions with 100% Coverage (29 total)**
+   - **Math (14)**: 
      - `absoluteValue` - idempotent, non-negativity, distance, multiplicative, triangle inequality properties
      - `add` - commutative, associative, identity, error handling
+     - `ceiling` - rounding up, monotonicity, idempotency, minimal distance property
+     - `clamp` - boundary constraints, idempotency, ordering, monotonicity
      - `divide` - identity, error handling
+     - `floor` - rounding down, monotonicity, relationship with ceiling
      - `max` - ordering properties, total ordering, identity element (-Infinity)
      - `min` - ordering properties, total ordering, identity element (Infinity), duality with max
      - `multiply` - commutative, associative, identity, distributive, annihilator, JSDoc examples, null safety, sign rules
