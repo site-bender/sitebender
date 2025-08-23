@@ -205,6 +205,10 @@ Many array functions need comprehensive testing:
 - Predicates: `isEven`, `isOdd`, `isPrime`
 - Temporal functions (if any)
 
+**VERY IMPORTANT**
+
+Write tests for seven functions in the toolkit library in a session, then update the FUNCTION_LIST.md file with the new test coverage information. Then update this document with the latest progress — this document is the Prompt for your next session, so it needs all the information you will need to start from scratch and yet continue this process without mistakes. Keep it up to date! And when you have done that, do one or more commits of everything that shows up in `git status` (even if you didn't do it — figure it out). Use Conventional Commit syntax and detailed commit messages. Check the `git log` for examples. Don't stop until you've done the commits (with all tests passing!).
+
 ## Important Reminders
 
 ### When Adding New Tests
