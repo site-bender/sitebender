@@ -2,7 +2,8 @@
   // Workspace configuration for the Sitebender monorepo
   "workspace": [
     "./libraries/*",
-    "./app"
+    "./app",
+		"./jexer"
   ],
 
   "tasks": {
