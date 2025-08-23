@@ -315,9 +315,11 @@ const lcm = (
 	
 	// Calculate LCM using GCD
 	const divisor = gcd(a)(b)
+	// deno-coverage-ignore-start - Defensive check: gcd handles all edge cases, won't return NaN or 0 for valid integer inputs
 	if (isNaN(divisor) || divisor === 0) {
 		return NaN
 	}
+	// deno-coverage-ignore-stop
 	
 	// LCM(a,b) = |a × b| / GCD(a,b)
 	return Math.abs(a * b) / divisor

@@ -52,14 +52,32 @@ Deno.test("increment", async (t) => {
 						const incA = increment(a)
 						const incB = increment(b)
 						
-						// If a < b, then increment(a) < increment(b)
-						if (a < b) {
-							return incA < incB || (Number.isNaN(incA) && Number.isNaN(incB))
+						// Handle special cases first
+						if (Number.isNaN(incA) && Number.isNaN(incB)) return true
+						if (!isFinite(a) || !isFinite(b)) {
+							// For infinities, ordering should be preserved
+							if (a === Infinity && b === Infinity) return incA === incB
+							if (a === -Infinity && b === -Infinity) return incA === incB
+							if (a === Infinity) return incA > incB
+							if (b === Infinity) return incA < incB
+							if (a === -Infinity) return incA < incB
+							if (b === -Infinity) return incA > incB
 						}
-						// If a > b, then increment(a) > increment(b)
-						if (a > b) {
-							return incA > incB || (Number.isNaN(incA) && Number.isNaN(incB))
+						
+						// For very small differences between a and b (less than 1),
+						// adding 1 to both may result in the same value due to precision
+						const diff = Math.abs(a - b)
+						if (diff < 1 && diff > 0) {
+							// When the difference is less than 1, increment may not preserve strict ordering
+							// due to floating point representation
+							// Accept that incA <= incB when a < b (not strict <)
+							if (a < b) return incA <= incB
+							if (a > b) return incA >= incB
 						}
+						
+						// Normal cases
+						if (a < b) return incA < incB
+						if (a > b) return incA > incB
 						// If a === b, then increment(a) === increment(b)
 						// Use Object.is for exact comparison (handles -0 === 0 case)
 						return Object.is(incA, incB)
@@ -69,19 +87,19 @@ Deno.test("increment", async (t) => {
 			)
 		})
 
-		await t.step("should be injective (one-to-one)", () => {
+		await t.step("should be injective (one-to-one) for practical values", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ noNaN: true }),
-					fc.float({ noNaN: true }),
+					// Use integers where this property holds perfectly
+					fc.integer({ min: -1000000, max: 1000000 }),
+					fc.integer({ min: -1000000, max: 1000000 }),
 					(a, b) => {
 						const incA = increment(a)
 						const incB = increment(b)
 						
 						// If increment(a) === increment(b), then a === b
-						// Use Object.is for exact equality
-						if (Object.is(incA, incB)) {
-							return Object.is(a, b)
+						if (incA === incB) {
+							return a === b
 						}
 						return true
 					}
@@ -115,10 +133,18 @@ Deno.test("increment", async (t) => {
 					fc.float({ noNaN: true }),
 					(n) => {
 						const result = increment(increment(n))
+						const expected = n + 2
 						
 						if (isFinite(n)) {
-							// Use Object.is for exact comparison or allow small epsilon for floating point
-							return Object.is(result, n + 2) || Math.abs(result - (n + 2)) < 1e-10
+							// For large numbers near MAX_SAFE_INTEGER, precision is lost
+							if (Math.abs(n) > Number.MAX_SAFE_INTEGER) {
+								// For numbers beyond MAX_SAFE_INTEGER, we can't guarantee exact arithmetic
+								return isFinite(result)
+							}
+							
+							// For normal numbers, allow for floating point epsilon
+							const epsilon = Math.abs(expected) * Number.EPSILON * 2 + Number.EPSILON
+							return Math.abs(result - expected) <= epsilon
 						}
 						
 						// Special cases

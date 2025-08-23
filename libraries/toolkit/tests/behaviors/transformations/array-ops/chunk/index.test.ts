@@ -82,7 +82,7 @@ Deno.test("chunk - property: preserves all elements", () => {
 				
 				// All elements should be preserved
 				return flattened.length === array.length &&
-					flattened.every((elem, i) => elem === array[i])
+					flattened.every((elem, i) => Object.is(elem, array[i]))
 			}
 		),
 		{ numRuns: 1000 }

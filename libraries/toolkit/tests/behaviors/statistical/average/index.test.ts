@@ -16,7 +16,9 @@ Deno.test("average", async (t) => {
 						const expectedSum = numbers.reduce((a, b) => a + b, 0)
 						const expectedAvg = expectedSum / numbers.length
 						
-						return approximately(result, expectedAvg, Math.abs(expectedAvg) * 1e-10)
+						// Use a minimum epsilon to handle zero average case
+						const epsilon = Math.max(Math.abs(expectedAvg) * 1e-10, 1e-10)
+						return approximately(result, expectedAvg, epsilon)
 					}
 				),
 				{ numRuns: 1000 }

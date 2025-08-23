@@ -241,6 +241,21 @@ Deno.test("modulo - edge cases", async (t) => {
 		assertStrictEquals(modulo(0.001)(0.0025), 0.0005)
 	})
 
+	await t.step("infinite divisor", () => {
+		// When divisor is infinite, returns dividend for finite numbers
+		assertStrictEquals(modulo(Infinity)(10), 10)
+		assertStrictEquals(modulo(Infinity)(-10), -10)
+		assertStrictEquals(modulo(Infinity)(0), 0)
+		assertStrictEquals(modulo(-Infinity)(10), 10)
+		assertStrictEquals(modulo(-Infinity)(-10), -10)
+		assertStrictEquals(modulo(-Infinity)(0), 0)
+		// Infinite dividend with infinite divisor returns NaN
+		assertStrictEquals(isNaN(modulo(Infinity)(Infinity)), true)
+		assertStrictEquals(isNaN(modulo(-Infinity)(Infinity)), true)
+		assertStrictEquals(isNaN(modulo(Infinity)(-Infinity)), true)
+		assertStrictEquals(isNaN(modulo(-Infinity)(-Infinity)), true)
+	})
+
 	await t.step("negative zero handling", () => {
 		// JavaScript's modulo preserves -0
 		assertStrictEquals(modulo(5)(-0), -0)

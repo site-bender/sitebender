@@ -108,8 +108,10 @@ Deno.test("clamp: ordering property - should preserve value when min <= value <=
 				const value = min + (max - min) * ratio // Ensure min <= value <= max
 				const result = clamp(min)(max)(value)
 				
+				// Use relative epsilon for large numbers
+				const epsilon = Math.max(1e-10, Math.abs(value) * 1e-14)
 				assertEquals(
-					approximately(result, value, 1e-10),
+					approximately(result, value, epsilon),
 					true,
 					`When value in range, should preserve value: ${result} !== ${value}`
 				)

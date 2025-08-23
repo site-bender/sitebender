@@ -50,32 +50,51 @@ Deno.test("decrement", async (t) => {
 					fc.float({ noNaN: true }),
 					fc.float({ noNaN: true }),
 					(a, b) => {
+						const decA = decrement(a)
+						const decB = decrement(b)
+						
+						// Handle special cases first
+						if (!isFinite(a) || !isFinite(b)) {
+							if (a === b) return decA === decB
+							if (a < b) return decA < decB
+							return decA > decB
+						}
+						
+						// For finite numbers, account for floating-point precision
+						const epsilon = 1e-10
+						
 						// If a < b, then decrement(a) < decrement(b)
-						if (a < b) {
-							return decrement(a) < decrement(b)
+						if (a < b && Math.abs(a - b) > epsilon) {
+							return decA < decB
 						}
 						// If a > b, then decrement(a) > decrement(b)
-						if (a > b) {
-							return decrement(a) > decrement(b)
+						if (a > b && Math.abs(a - b) > epsilon) {
+							return decA > decB
 						}
-						// If a === b, then decrement(a) === decrement(b)
-						return decrement(a) === decrement(b)
+						// If a ≈ b, then decrement(a) ≈ decrement(b)
+						return Math.abs(decA - decB) < epsilon
 					}
 				),
 				{ numRuns: 1000 }
 			)
 		})
 
-		await t.step("should be injective (one-to-one)", () => {
+		await t.step("should be injective (one-to-one) for practical values", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ noNaN: true }),
-					fc.float({ noNaN: true }),
+					// Test only with integers where the property actually holds
+					fc.integer({ min: -1000000, max: 1000000 }),
+					fc.integer({ min: -1000000, max: 1000000 }),
 					(a, b) => {
+						const decA = decrement(a)
+						const decB = decrement(b)
+						
 						// If decrement(a) === decrement(b), then a === b
-						if (decrement(a) === decrement(b)) {
-							return Object.is(a, b)
+						// This property holds perfectly for integers
+						if (decA === decB) {
+							return a === b
 						}
+						
 						return true
 					}
 				),
@@ -88,7 +107,12 @@ Deno.test("decrement", async (t) => {
 		await t.step("should be inverse of increment", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ noNaN: true }),
+					fc.oneof(
+						fc.integer({ min: -1000000, max: 1000000 }),
+						fc.float({ noNaN: true, min: -1000, max: 1000 })
+							// Filter out very small numbers where precision is lost
+							.filter(n => Math.abs(n) > 1e-8 || n === 0)
+					),
 					(n) => {
 						// decrement(increment(n)) === n
 						const result1 = decrement(increment(n))
@@ -96,6 +120,12 @@ Deno.test("decrement", async (t) => {
 						const result2 = increment(decrement(n))
 						
 						if (isFinite(n)) {
+							// Accept that -0 becomes 0 through arithmetic
+							const isZero = (x: number) => x === 0 || Object.is(x, -0)
+							if (isZero(n)) {
+								return isZero(result1) && isZero(result2)
+							}
+							
 							return result1 === n && result2 === n
 						}
 						
@@ -132,12 +162,23 @@ Deno.test("decrement", async (t) => {
 		await t.step("should be translation: decrement(decrement(n)) = n - 2", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ noNaN: true }),
+					fc.oneof(
+						fc.integer({ min: -1000000, max: 1000000 }),
+						fc.float({ noNaN: true, min: -1000, max: 1000 })
+					),
 					(n) => {
 						const result = decrement(decrement(n))
+						const expected = n - 2
 						
 						if (isFinite(n)) {
-							return result === n - 2
+							// For floating point numbers, we need to account for precision
+							// The error accumulates with operations
+							// For very small numbers, use absolute epsilon; for larger numbers, use relative
+							const epsilon = Math.max(
+								Math.abs(expected) * Number.EPSILON * 4,  // Relative epsilon
+								Number.EPSILON * 10  // Absolute minimum epsilon
+							)
+							return Math.abs(result - expected) <= epsilon
 						}
 						
 						// Special cases

@@ -78,7 +78,12 @@ Deno.test("product", async (t) => {
 					fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 20 }),
 					(numbers) => {
 						const withZero = [...numbers, 0]
-						return product(withZero) === 0
+						const result = product(withZero)
+						// Special case: Infinity * 0 = NaN in JavaScript
+						if (numbers.includes(Infinity) || numbers.includes(-Infinity)) {
+							return Number.isNaN(result)
+						}
+						return result === 0
 					}
 				),
 				{ numRuns: 1000 }
@@ -168,7 +173,7 @@ Deno.test("product", async (t) => {
 		await t.step("should distribute with exponentiation", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: 0.1, max: 10 }), { minLength: 1, maxLength: 5 }),
+					fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: 10 }), { minLength: 1, maxLength: 5 }),
 					fc.integer({ min: -3, max: 3 }),
 					(numbers, exponent) => {
 						// product(numbers)^exponent === product(numbers.map(n => n^exponent))
@@ -180,10 +185,15 @@ Deno.test("product", async (t) => {
 						}
 						
 						if (!isFinite(leftSide) || !isFinite(rightSide)) {
+							// Both should be infinity with the same sign, or both should be 0
+							if (leftSide === 0 || rightSide === 0) {
+								return Math.abs(leftSide) === Math.abs(rightSide)
+							}
 							return leftSide === rightSide
 						}
 						
-						return approximately(leftSide, rightSide, Math.abs(leftSide) * 1e-8 + 1e-10)
+						// Use more lenient epsilon for exponentiation due to accumulated error
+						return approximately(leftSide, rightSide, Math.abs(leftSide) * 1e-7 + 1e-10)
 					}
 				),
 				{ numRuns: 1000 }
@@ -358,13 +368,13 @@ Deno.test("product", async (t) => {
 		await t.step("probability calculations", () => {
 			const probabilities = [0.5, 0.8, 0.9]
 			const combinedProbability = product(probabilities)
-			assertEquals(combinedProbability, 0.36)
+			assertEquals(approximately(combinedProbability, 0.36, 1e-10), true)
 		})
 
 		await t.step("compound growth factors", () => {
 			const growthRates = [1.05, 1.08, 1.03, 1.07]
 			const totalGrowth = product(growthRates)
-			assertEquals(approximately(totalGrowth, 1.2476526, 1e-7), true)
+			assertEquals(approximately(totalGrowth, 1.2497814, 1e-6), true)
 		})
 
 		await t.step("volume calculation", () => {
@@ -423,7 +433,7 @@ Deno.test("product", async (t) => {
 		await t.step("risk factors", () => {
 			const survivalRates = [0.99, 0.98, 0.97, 0.96]
 			const overallSurvival = product(survivalRates)
-			assertEquals(approximately(overallSurvival, 0.90329184, 1e-8), true)
+			assertEquals(approximately(overallSurvival, 0.90345024, 1e-7), true)
 		})
 
 		await t.step("aspect ratio chain", () => {
@@ -435,7 +445,7 @@ Deno.test("product", async (t) => {
 		await t.step("quality degradation", () => {
 			const qualityFactors = [0.95, 0.98, 0.97, 0.99]
 			const finalQuality = product(qualityFactors)
-			assertEquals(approximately(finalQuality, 0.8940567, 1e-7), true)
+			assertEquals(approximately(finalQuality, 0.8940393, 1e-6), true)
 		})
 
 		await t.step("pipeline with validation", () => {
@@ -488,7 +498,7 @@ Deno.test("product", async (t) => {
 		await t.step("should handle edge case of many small numbers", () => {
 			const small = Array(10).fill(0.1)
 			const result = product(small)
-			assertEquals(result, 1e-10)
+			assertEquals(approximately(result, 1e-10, 1e-15), true)
 		})
 	})
 })

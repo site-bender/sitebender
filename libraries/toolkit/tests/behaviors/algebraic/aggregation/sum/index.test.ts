@@ -319,7 +319,7 @@ Deno.test("sum", async (t) => {
 		await t.step("energy consumption", () => {
 			const dailyUsage = [24.5, 26.3, 25.1, 27.8, 23.9, 24.6, 25.2]
 			const weeklyTotal = sum(dailyUsage)
-			assertEquals(weeklyTotal, 177.4)
+			assertEquals(approximately(weeklyTotal, 177.4, 1e-10), true)
 		})
 
 		await t.step("vote counting", () => {
