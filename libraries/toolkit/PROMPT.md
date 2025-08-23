@@ -27,12 +27,17 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
 
 ## Current Testing Status (Updated: 2025-08-23)
 
-**Overall Progress: 3.4% tested (29/854 functions with 100% coverage)**
+**Overall Progress: 3.7% tested (32/854 functions with 100% coverage)**
 
 ### Important Instructions for Next Session
 1. **Track Progress**: Update the "percent tested" at the top of `/libraries/toolkit/FUNCTION_LIST.md` after each batch of tests
 2. **Run Tests from Project Root**: Always run `deno` commands from the project root, not from within the libraries folder
 3. **Use Existing Commands**: Use `deno task test:toolkit` or similar commands defined in root `deno.jsonc`
+4. **CRITICAL**: When finishing a group of tests, ALWAYS:
+   - Update FUNCTION_LIST.md with progress and time estimates
+   - Update PROMPT.md with session context
+   - Commit ALL changes with conventional commit syntax
+   - Use detailed commit messages following project conventions
 
 ### What Has Been Completed
 1. **Test Infrastructure**
@@ -41,7 +46,11 @@ From test files in `tests/behaviors/algebraic/[property]/[function]/`:
      - `tests/helpers/assertions/approximately/index.ts` - Floating-point comparison with epsilon
      - `tests/helpers/generators/numeric/index.ts` - Custom fast-check generators
 
-2. **Functions with 100% Coverage (29 total)**
+2. **Functions with 100% Coverage (32 total)**
+   - **Statistical (3 new this session)**:
+     - `average` - arithmetic mean with linearity properties, robustness tests, extensive JSDoc examples (100% coverage)
+     - `median` - middle value with outlier resistance, order independence (100% coverage)  
+     - `mode` - most frequent values with multi-modal support (100% coverage)
    - **Math (14)**: 
      - `absoluteValue` - idempotent, non-negativity, distance, multiplicative, triangle inequality properties
      - `add` - commutative, associative, identity, error handling
@@ -163,7 +172,7 @@ Test remaining math functions with algebraic properties:
 - `modulo`, `power`, `squareRoot`
 - `absoluteValue`, `negate`, `sign`
 - `max`, `min`, `clamp`
-- Statistical: `average`, `mean`, `median`, `mode`
+- Statistical: ✅ `average`, ✅ `mean` (alias), ✅ `median`, ✅ `mode`
 
 ### 2. Complete Array Operations
 Many array functions need comprehensive testing:
@@ -224,7 +233,7 @@ Many array functions need comprehensive testing:
 5. Reference coverage improvements if applicable
 
 ## Current Coverage Status
-As of last run (2025-08-22): **High coverage** with comprehensive tests for:
+As of last run (2025-08-23): **High coverage** with comprehensive tests for:
 - Core math operations with 100% or near-100% coverage:
   - `add`, `subtract`, `multiply`, `divide` (existing)
   - `power` (100% coverage)
@@ -236,20 +245,20 @@ As of last run (2025-08-22): **High coverage** with comprehensive tests for:
 - Array operations (chunk, filter)
 - Pipe combinator
 
-**Test Count**: 14 test suites with 66 test steps passing
+**Test Count**: 17 test suites with 161 test steps passing
 
-## Recent Achievements
-- Added comprehensive tests for `modulo` with modular arithmetic properties
-- Added comprehensive tests for `power` with exponentiation laws
-- Added comprehensive tests for `squareRoot` with algebraic properties
-- Fixed all floating-point precision issues in tests
-- Achieved 100% coverage for `power` and `squareRoot` functions
-- Established testing patterns for:
-  - Algebraic properties
-  - JSDoc example verification (100% coverage)
-  - Null/undefined safety
-  - Property-based testing with fast-check
-  - Floating-point comparison with appropriate epsilon values
+## Recent Achievements (Session 2025-08-23)
+- Fixed failing tests for statistical functions:
+  - `average`: Fixed floating-point precision issues using `approximately` helper
+  - `median`: Verified all tests passing with 100% coverage
+  - `mode`: Verified all tests passing with 100% coverage
+- All three statistical functions now have:
+  - Complete property-based testing
+  - Comprehensive JSDoc example coverage
+  - Edge case handling (NaN, Infinity, empty arrays)
+  - Immutability verification
+  - Performance characteristics testing
+- Updated documentation with current progress (3.7% complete, 32/854 functions)
 
 ## Contact and Resources
 - Testing policy: `/libraries/toolkit/tests/TESTING_POLICY.md`

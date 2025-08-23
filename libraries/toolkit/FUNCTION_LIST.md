@@ -1,14 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 3.4% (29/854 functions with 100% coverage)**
+**Testing Progress: 3.7% (32/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~167 hours
-- **Remaining functions**: 825
+**Estimated Time to Completion**: ~164 hours
+- **Remaining functions**: 822 (854 total - 32 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~165 hours
+- **Hours remaining**: ~164 hours
 - **At 8 hours/day**: ~21 working days
 - **Last updated**: 2025-08-23
+- **Session progress**: Fixed and verified 3 statistical functions (average, median, mode) with 100% coverage
 
 ## Current Functions (854 functions total)
 
@@ -16,7 +17,7 @@
 - all - Returns true if all elements satisfy the predicate
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
-- chunk - Splits array into chunks of specified size
+- chunk - Splits array into chunks of specified size ✓
 - closest - Finds the value closest to a target number
 - combinations - Generates all combinations of array elements
 - compact - Removes falsy values from array
@@ -32,7 +33,7 @@
 - dropRepeatsWith - Like dropRepeats but uses a comparator function
 - dropWhile - Removes elements from beginning while predicate is true
 - endsWith - Checks if an array ends with the provided suffix array
-- filter - Filters array elements based on predicate
+- filter - Filters array elements based on predicate ✓
 - find - Finds first element that satisfies predicate
 - findDuplicates - Returns array of elements that appear more than once
 - findIndex - Finds index of first element that satisfies predicate
@@ -194,7 +195,7 @@
 - once - Ensures a function can only be called once
 - partial - Partially applies a function with fixed arguments
 - partialRight - Like partial but fixes arguments from the right
-- pipe - Left-to-right function composition
+- pipe - Left-to-right function composition ✓
 - pipeAsync - Async version of pipe for Promise-returning functions
 - pipeWith - Like pipe but uses a custom composition function
 - tap - Runs a side effect function on a value and returns the value
@@ -245,19 +246,19 @@
 
 ### either/ (18 functions)
 - bimap - Maps functions over both Left and Right
-- chain - Flat maps over Right value (monadic bind)
+- chain - Flat maps over Right value (monadic bind) ✓
 - chainLeft - Flat maps over Left value
 - either - Extracts value using left/right handlers
 - fold - Folds Either to a single value
 - getOrElse - Extracts Right value or returns default
-- isLeft - Checks if Either is Left
+- isLeft - Checks if Either is Left ✓
 - isRight - Checks if Either is Right
-- left - Creates a Left value (error case)
+- left - Creates a Left value (error case) ✓
 - leftWithInspect - Creates a Left value with enhanced debugging output
-- map - Maps function over Right value
+- map - Maps function over Right value ✓
 - mapLeft - Maps function over Left value
 - orElse - Returns alternative Either if Left
-- right - Creates a Right value (success case)
+- right - Creates a Right value (success case) ✓
 - rightWithInspect - Creates a Right value with enhanced debugging output
 - show - Converts Either to string representation
 - swap - Swaps Left and Right
@@ -378,22 +379,22 @@
 - withDefault - Wraps a Map to provide default values for missing keys
 
 ### math/ (53 functions)
-- absoluteValue - Returns absolute value
-- add - Adds two numbers
-- average - Calculates arithmetic mean of an array (alias: mean)
+- absoluteValue - Returns absolute value ✓
+- add - Adds two numbers ✓
+- average - Calculates arithmetic mean of an array (alias: mean) ✓
 - binomialCoefficient - Pascal's triangle values (n choose k)
-- ceiling - Rounds up to integer
+- ceiling - Rounds up to integer ✓
 - clamp - Constrains a number between min and max ✓
 - combinations - nCr combinations calculation
 - cubeRoot - Returns cube root
 - decrement - Subtracts 1 from a number
 - digitSum - Calculates sum of digits in a number
-- divide - Divides first number by second
+- divide - Divides first number by second ✓
 - divisors - Find all divisors of a positive integer
 - exponential - Calculates e raised to the power of x (e^x)
 - factorial - Calculates factorial
 - fibonacci - Returns nth Fibonacci number
-- floor - Rounds down to integer
+- floor - Rounds down to integer ✓
 - gcd - Greatest common divisor
 - geometricMean - Calculates geometric mean (useful for growth rates)
 - harmonicMean - Calculates harmonic mean (useful for rates and ratios)
@@ -405,19 +406,19 @@
 - lcm - Least common multiple
 - logarithm - Natural log and log with arbitrary base
 - logarithmBase10 - Common (base 10) logarithm
-- max - Finds maximum of two values
+- max - Finds maximum of two values ✓
 - maxBy - Finds maximum using a mapping function
 - mean - Calculates arithmetic mean (alias: average)
-- median - Finds the median value
-- min - Finds minimum of two values
+- median - Finds the median value ✓
+- min - Finds minimum of two values ✓
 - minBy - Finds minimum using a mapping function
-- mode - Finds the most frequent value(s)
+- mode - Finds the most frequent value(s) ✓
 - modularExponentiation - Efficient (base^exp) mod modulus calculation
-- modulo - Returns remainder of division
-- multiply - Multiplies two numbers
-- negate - Negates a number
+- modulo - Returns remainder of division (90.6% coverage)
+- multiply - Multiplies two numbers ✓
+- negate - Negates a number ✓
 - permutations - nPr permutations calculation
-- power - Raises to a power
+- power - Raises to a power ✓
 - primeFactorization - Returns prime factors with multiplicities as Map
 - product - Multiplies all numbers in an array
 - quadratic - Solves quadratic equations (a)(b)(c) → Pair<x₁, x₂> using quadratic formula
@@ -426,9 +427,9 @@
 - rms - Root mean square (alias: rootMeanSquare)
 - rootMeanSquare - Calculates RMS value of an array (useful for signal processing)
 - round - Rounds to nearest integer
-- sign - Returns sign of number (-1, 0, or 1)
-- squareRoot - Returns square root
-- subtract - Subtracts second number from first
+- sign - Returns sign of number (-1, 0, or 1) ✓
+- squareRoot - Returns square root ✓
+- subtract - Subtracts second number from first ✓
 - sum - Sums an array of numbers
 - totient - Euler's totient function φ(n)
 - truncate - Removes decimal part
@@ -444,15 +445,15 @@
 - matrixTranspose - Transpose matrix (swap rows and columns)
 
 ### maybe/ (17 functions)
-- just - Creates a Just value (Some)
+- just - Creates a Just value (Some) ✓
 - justWithInspect - Creates a Just value with enhanced debugging output
-- nothing - Creates a Nothing value (None)
+- nothing - Creates a Nothing value (None) ✓
 - nothingWithInspect - Creates a Nothing value with enhanced debugging output
 - isJust - Checks if Maybe is Just
-- isNothing - Checks if Maybe is Nothing
+- isNothing - Checks if Maybe is Nothing ✓
 - maybe - Extracts value using nothing/just handlers
-- map - Maps function over Just value
-- chain - Flat maps over Just value (monadic bind)
+- map - Maps function over Just value ✓
+- chain - Flat maps over Just value (monadic bind) ✓
 - filter - Converts to Nothing if predicate fails
 - getOrElse - Extracts Just value or returns default
 - orElse - Returns alternative Maybe if Nothing
@@ -908,7 +909,7 @@
 
 ### random/ (8 functions)
 - generateShortId - Generates HTML-safe unique ID with underscore prefix
-- randomBoolean - Random boolean with optional probability bias
+- randomBoolean - Random boolean with optional probability bias ✓
 - randomChoice - Select random element from Array or Set
 - randomFloat - Random float in range [min, max)
 - randomInt - Alias for randomInteger

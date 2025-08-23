@@ -2,10 +2,10 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import * as fc from "npm:fast-check@3"
 
-import mode from "../../../../../src/simple/math/mode/index.ts"
+import mode from "../../../../src/simple/math/mode/index.ts"
 
 Deno.test("mode", async (t) => {
-	Deno.test("statistical properties", async (t) => {
+	await t.step("statistical properties", async (t) => {
 		await t.step("should return most frequent value(s)", async (t) => {
 			fc.assert(
 				fc.property(
@@ -87,7 +87,7 @@ Deno.test("mode", async (t) => {
 		})
 	})
 
-	Deno.test("deterministic behavior", async (t) => {
+	await t.step("deterministic behavior", async (t) => {
 		await t.step("should always return same result for same input", async (t) => {
 			fc.assert(
 				fc.property(
@@ -106,240 +106,240 @@ Deno.test("mode", async (t) => {
 		})
 	})
 
-	Deno.test("single vs multiple modes", async (t) => {
+	await t.step("single vs multiple modes", async (t) => {
 		await t.step("should handle single mode", async (t) => {
-			expect(mode([1, 2, 2, 3, 4])).toEqual([2])
-			expect(mode([5, 5, 5, 1, 2, 3])).toEqual([5])
-			expect(mode([7, 7, 7, 7, 7])).toEqual([7])
+			assertEquals(mode([1, 2, 2, 3, 4]), [2])
+			assertEquals(mode([5, 5, 5, 1, 2, 3]), [5])
+			assertEquals(mode([7, 7, 7, 7, 7]), [7])
 		})
 
 		await t.step("should handle multiple modes (bimodal/multimodal)", async (t) => {
-			expect(mode([1, 1, 2, 2, 3])).toEqual([1, 2])
-			expect(mode([4, 4, 4, 6, 6, 6, 2])).toEqual([4, 6])
-			expect(mode([1, 2, 3, 1, 2, 3])).toEqual([1, 2, 3])
+			assertEquals(mode([1, 1, 2, 2, 3]), [1, 2])
+			assertEquals(mode([4, 4, 4, 6, 6, 6, 2]), [4, 6])
+			assertEquals(mode([1, 2, 3, 1, 2, 3]), [1, 2, 3])
 		})
 
 		await t.step("should handle no repeating values", async (t) => {
-			expect(mode([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5])
-			expect(mode([10])).toEqual([10])
+			assertEquals(mode([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5])
+			assertEquals(mode([10]), [10])
 		})
 	})
 
-	Deno.test("special values", async (t) => {
+	await t.step("special values", async (t) => {
 		await t.step("should handle Infinity correctly", async (t) => {
-			expect(mode([Infinity, Infinity, 1, 2])).toEqual([Infinity])
-			expect(mode([-Infinity, -Infinity, 0])).toEqual([-Infinity])
-			expect(mode([Infinity, -Infinity, Infinity])).toEqual([Infinity])
+			assertEquals(mode([Infinity, Infinity, 1, 2]), [Infinity])
+			assertEquals(mode([-Infinity, -Infinity, 0]), [-Infinity])
+			assertEquals(mode([Infinity, -Infinity, Infinity]), [Infinity])
 		})
 
 		await t.step("should handle zero correctly", async (t) => {
-			expect(mode([0, 0, 0, 1, 2])).toEqual([0])
-			expect(mode([0, 1, 0, 1, 0])).toEqual([0])
-			expect(mode([0, 0, 1, 1])).toEqual([0, 1])
+			assertEquals(mode([0, 0, 0, 1, 2]), [0])
+			assertEquals(mode([0, 1, 0, 1, 0]), [0])
+			assertEquals(mode([0, 0, 1, 1]), [0, 1])
 		})
 
 		await t.step("should handle negative numbers", async (t) => {
-			expect(mode([-1, -1, -2, -2, -3])).toEqual([-2, -1])
-			expect(mode([-5, -5, -5, 0, 1])).toEqual([-5])
+			assertEquals(mode([-1, -1, -2, -2, -3]), [-2, -1])
+			assertEquals(mode([-5, -5, -5, 0, 1]), [-5])
 		})
 
 		await t.step("should handle mixed positive and negative", async (t) => {
-			expect(mode([-2, -1, 0, 0, 1, 2])).toEqual([0])
-			expect(mode([-3, -3, 3, 3])).toEqual([-3, 3])
+			assertEquals(mode([-2, -1, 0, 0, 1, 2]), [0])
+			assertEquals(mode([-3, -3, 3, 3]), [-3, 3])
 		})
 
 		await t.step("should handle decimal numbers", async (t) => {
-			expect(mode([1.5, 2.5, 1.5, 3.5])).toEqual([1.5])
-			expect(mode([0.1, 0.2, 0.1, 0.2])).toEqual([0.1, 0.2])
-			expect(mode([3.14, 3.14, 2.71, 2.71])).toEqual([2.71, 3.14])
+			assertEquals(mode([1.5, 2.5, 1.5, 3.5]), [1.5])
+			assertEquals(mode([0.1, 0.2, 0.1, 0.2]), [0.1, 0.2])
+			assertEquals(mode([3.14, 3.14, 2.71, 2.71]), [2.71, 3.14])
 		})
 
 		await t.step("should handle large numbers", async (t) => {
-			expect(mode([1000000, 1000000, 2000000])).toEqual([1000000])
-			expect(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0])).toEqual([Number.MAX_SAFE_INTEGER])
+			assertEquals(mode([1000000, 1000000, 2000000]), [1000000])
+			assertEquals(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]), [Number.MAX_SAFE_INTEGER])
 		})
 	})
 
-	Deno.test("error handling", async (t) => {
+	await t.step("error handling", async (t) => {
 		await t.step("should return empty array for empty input", async (t) => {
-			expect(mode([])).toEqual([])
+			assertEquals(mode([]), [])
 		})
 
 		await t.step("should return empty array for null or undefined", async (t) => {
-			expect(mode(null as any)).toEqual([])
-			expect(mode(undefined as any)).toEqual([])
+			assertEquals(mode(null as any), [])
+			assertEquals(mode(undefined as any), [])
 		})
 
 		await t.step("should return empty array for non-array inputs", async (t) => {
-			expect(mode("not an array" as any)).toEqual([])
-			expect(mode(123 as any)).toEqual([])
-			expect(mode({} as any)).toEqual([])
+			assertEquals(mode("not an array" as any), [])
+			assertEquals(mode(123 as any), [])
+			assertEquals(mode({} as any), [])
 		})
 
 		await t.step("should return empty array for arrays with non-numeric values", async (t) => {
-			expect(mode([1, "2", 3] as any)).toEqual([])
-			expect(mode([1, null, 3] as any)).toEqual([])
-			expect(mode([1, undefined, 3] as any)).toEqual([])
-			expect(mode([1, 2, NaN, 3])).toEqual([])
-			expect(mode([1, {}, 3] as any)).toEqual([])
-			expect(mode([1, [], 3] as any)).toEqual([])
+			assertEquals(mode([1, "2", 3] as any), [])
+			assertEquals(mode([1, null, 3] as any), [])
+			assertEquals(mode([1, undefined, 3] as any), [])
+			assertEquals(mode([1, 2, NaN, 3]), [])
+			assertEquals(mode([1, {}, 3] as any), [])
+			assertEquals(mode([1, [], 3] as any), [])
 		})
 	})
 
-	Deno.test("JSDoc examples", async (t) => {
+	await t.step("JSDoc examples", async (t) => {
 		await t.step("should handle single mode", async (t) => {
-			expect(mode([1, 2, 2, 3, 4])).toEqual([2])
-			expect(mode([5, 5, 5, 1, 2, 3])).toEqual([5])
-			expect(mode([7, 7, 7, 7, 7])).toEqual([7])
+			assertEquals(mode([1, 2, 2, 3, 4]), [2])
+			assertEquals(mode([5, 5, 5, 1, 2, 3]), [5])
+			assertEquals(mode([7, 7, 7, 7, 7]), [7])
 		})
 
 		await t.step("should handle multiple modes", async (t) => {
-			expect(mode([1, 1, 2, 2, 3])).toEqual([1, 2])
-			expect(mode([4, 4, 4, 6, 6, 6, 2])).toEqual([4, 6])
-			expect(mode([1, 2, 3, 1, 2, 3])).toEqual([1, 2, 3])
+			assertEquals(mode([1, 1, 2, 2, 3]), [1, 2])
+			assertEquals(mode([4, 4, 4, 6, 6, 6, 2]), [4, 6])
+			assertEquals(mode([1, 2, 3, 1, 2, 3]), [1, 2, 3])
 		})
 
 		await t.step("should handle no repeating values", async (t) => {
-			expect(mode([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5])
-			expect(mode([10])).toEqual([10])
+			assertEquals(mode([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5])
+			assertEquals(mode([10]), [10])
 		})
 
 		await t.step("should handle negative numbers", async (t) => {
-			expect(mode([-1, -1, -2, -2, -3])).toEqual([-2, -1])
-			expect(mode([-5, -5, -5, 0, 1])).toEqual([-5])
+			assertEquals(mode([-1, -1, -2, -2, -3]), [-2, -1])
+			assertEquals(mode([-5, -5, -5, 0, 1]), [-5])
 		})
 
 		await t.step("should handle mixed positive and negative", async (t) => {
-			expect(mode([-2, -1, 0, 0, 1, 2])).toEqual([0])
-			expect(mode([-3, -3, 3, 3])).toEqual([-3, 3])
+			assertEquals(mode([-2, -1, 0, 0, 1, 2]), [0])
+			assertEquals(mode([-3, -3, 3, 3]), [-3, 3])
 		})
 
 		await t.step("should handle decimal numbers", async (t) => {
-			expect(mode([1.5, 2.5, 1.5, 3.5])).toEqual([1.5])
-			expect(mode([0.1, 0.2, 0.1, 0.2])).toEqual([0.1, 0.2])
-			expect(mode([3.14, 3.14, 2.71, 2.71])).toEqual([2.71, 3.14])
+			assertEquals(mode([1.5, 2.5, 1.5, 3.5]), [1.5])
+			assertEquals(mode([0.1, 0.2, 0.1, 0.2]), [0.1, 0.2])
+			assertEquals(mode([3.14, 3.14, 2.71, 2.71]), [2.71, 3.14])
 		})
 
 		await t.step("should handle large frequency differences", async (t) => {
-			expect(mode([1, 1, 1, 1, 1, 2, 3])).toEqual([1])
-			expect(mode([9, 9, 9, 9, 8, 8, 7])).toEqual([9])
+			assertEquals(mode([1, 1, 1, 1, 1, 2, 3]), [1])
+			assertEquals(mode([9, 9, 9, 9, 8, 8, 7]), [9])
 		})
 
 		await t.step("should handle sorted vs unsorted input", async (t) => {
-			expect(mode([3, 1, 2, 1, 3, 2, 1])).toEqual([1])
-			expect(mode([1, 1, 1, 2, 2, 3, 3])).toEqual([1])
+			assertEquals(mode([3, 1, 2, 1, 3, 2, 1]), [1])
+			assertEquals(mode([1, 1, 1, 2, 2, 3, 3]), [1])
 		})
 
 		await t.step("should handle zero", async (t) => {
-			expect(mode([0, 0, 0, 1, 2])).toEqual([0])
-			expect(mode([0, 1, 0, 1, 0])).toEqual([0])
+			assertEquals(mode([0, 0, 0, 1, 2]), [0])
+			assertEquals(mode([0, 1, 0, 1, 0]), [0])
 		})
 
 		await t.step("should handle large numbers", async (t) => {
-			expect(mode([1000000, 1000000, 2000000])).toEqual([1000000])
-			expect(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0])).toEqual([Number.MAX_SAFE_INTEGER])
+			assertEquals(mode([1000000, 1000000, 2000000]), [1000000])
+			assertEquals(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]), [Number.MAX_SAFE_INTEGER])
 		})
 
 		await t.step("should handle special numeric values", async (t) => {
-			expect(mode([Infinity, Infinity, 1, 2])).toEqual([Infinity])
-			expect(mode([-Infinity, -Infinity, 0])).toEqual([-Infinity])
-			expect(mode([1, 2, NaN, 3])).toEqual([])
+			assertEquals(mode([Infinity, Infinity, 1, 2]), [Infinity])
+			assertEquals(mode([-Infinity, -Infinity, 0]), [-Infinity])
+			assertEquals(mode([1, 2, NaN, 3]), [])
 		})
 
 		await t.step("should handle empty array", async (t) => {
-			expect(mode([])).toEqual([])
+			assertEquals(mode([]), [])
 		})
 
 		await t.step("should handle invalid inputs", async (t) => {
-			expect(mode(null as any)).toEqual([])
-			expect(mode(undefined as any)).toEqual([])
-			expect(mode("not an array" as any)).toEqual([])
+			assertEquals(mode(null as any), [])
+			assertEquals(mode(undefined as any), [])
+			assertEquals(mode("not an array" as any), [])
 		})
 
 		await t.step("should handle arrays with non-numeric values", async (t) => {
-			expect(mode([1, "2", 3] as any)).toEqual([])
-			expect(mode([1, null, 3] as any)).toEqual([])
-			expect(mode([1, undefined, 3] as any)).toEqual([])
+			assertEquals(mode([1, "2", 3] as any), [])
+			assertEquals(mode([1, null, 3] as any), [])
+			assertEquals(mode([1, undefined, 3] as any), [])
 		})
 
 		await t.step("should work for test scores", async (t) => {
 			const testScores = [85, 90, 85, 92, 85, 88, 90]
-			expect(mode(testScores)).toEqual([85])
+			assertEquals(mode(testScores), [85])
 		})
 
 		await t.step("should work for dice rolls", async (t) => {
 			const dicRolls = [1, 3, 6, 3, 4, 2, 6, 3, 6, 5]
-			expect(mode(dicRolls)).toEqual([3, 6])
+			assertEquals(mode(dicRolls), [3, 6])
 		})
 
 		await t.step("should work for shoe sizes", async (t) => {
 			const shoeSizes = [9, 10, 9, 10.5, 9, 11, 9, 10]
-			expect(mode(shoeSizes)).toEqual([9])
+			assertEquals(mode(shoeSizes), [9])
 		})
 
 		await t.step("should work for survey responses", async (t) => {
 			const ratings = [4, 5, 3, 5, 4, 5, 2, 5, 4, 3]
-			expect(mode(ratings)).toEqual([5])
+			assertEquals(mode(ratings), [5])
 		})
 
 		await t.step("should work for temperature readings", async (t) => {
 			const temps = [72, 73, 72, 71, 72, 74, 72]
-			expect(mode(temps)).toEqual([72])
+			assertEquals(mode(temps), [72])
 		})
 
 		await t.step("should work for class attendance", async (t) => {
 			const attendance = [28, 30, 29, 30, 28, 30, 29]
-			expect(mode(attendance)).toEqual([30])
+			assertEquals(mode(attendance), [30])
 		})
 
 		await t.step("should work for product defects", async (t) => {
 			const defects = [0, 1, 0, 2, 0, 1, 0, 3]
-			expect(mode(defects)).toEqual([0])
+			assertEquals(mode(defects), [0])
 		})
 
 		await t.step("should work for network latency", async (t) => {
 			const latencies = [45, 52, 45, 48, 45, 52, 50]
-			expect(mode(latencies)).toEqual([45])
+			assertEquals(mode(latencies), [45])
 		})
 
 		await t.step("should work for categorical data", async (t) => {
 			const categories = [1, 2, 1, 3, 1, 2, 1, 4]
-			expect(mode(categories)).toEqual([1])
+			assertEquals(mode(categories), [1])
 		})
 
 		await t.step("should work for lottery numbers", async (t) => {
 			const lotteryDraws = [7, 13, 7, 22, 7, 13, 35]
-			expect(mode(lotteryDraws)).toEqual([7])
+			assertEquals(mode(lotteryDraws), [7])
 		})
 
 		await t.step("should work for finding consensus", async (t) => {
 			const votes = [1, 2, 1, 1, 3, 2, 1]
-			expect(mode(votes)).toEqual([1])
+			assertEquals(mode(votes), [1])
 		})
 
 		await t.step("should work for bimodal distribution", async (t) => {
 			const bimodal = [20, 21, 20, 21, 20, 21, 25]
-			expect(mode(bimodal)).toEqual([20, 21])
+			assertEquals(mode(bimodal), [20, 21])
 		})
 
 		await t.step("should work for uniform distribution", async (t) => {
 			const uniform = [1, 2, 3, 4, 5, 6]
-			expect(mode(uniform)).toEqual([1, 2, 3, 4, 5, 6])
+			assertEquals(mode(uniform), [1, 2, 3, 4, 5, 6])
 		})
 
 		await t.step("should work for peak detection", async (t) => {
 			const histogram = [5, 5, 10, 10, 10, 8, 8, 3]
-			expect(mode(histogram)).toEqual([10])
+			assertEquals(mode(histogram), [10])
 		})
 
 		await t.step("should work for customer purchase quantities", async (t) => {
 			const quantities = [1, 2, 1, 3, 1, 2, 1, 4, 1]
-			expect(mode(quantities)).toEqual([1])
+			assertEquals(mode(quantities), [1])
 		})
 
 		await t.step("should work for error codes", async (t) => {
 			const errorCodes = [404, 500, 404, 403, 404, 500]
-			expect(mode(errorCodes)).toEqual([404])
+			assertEquals(mode(errorCodes), [404])
 		})
 
 		await t.step("should work with filtering pipeline", async (t) => {
@@ -347,7 +347,7 @@ Deno.test("mode", async (t) => {
 				const filtered = data.filter(x => x >= threshold)
 				return mode(filtered)
 			}
-			expect(getMostCommon([1, 2, 2, 3, 3, 3], 2)).toEqual([3])
+			assertEquals(getMostCommon([1, 2, 2, 3, 3, 3], 2), [3])
 		})
 
 		await t.step("should work for analyzing patterns", async (t) => {
@@ -362,12 +362,12 @@ Deno.test("mode", async (t) => {
 				const result = mode(values)
 				return result.length > 0 ? result : null
 			}
-			expect(safeMode([1, 1, 2, 3])).toEqual([1])
-			expect(safeMode("invalid")).toBe(null)
+			assertEquals(safeMode([1, 1, 2, 3]), [1])
+			assertEquals(safeMode("invalid"), null)
 		})
 	})
 
-	Deno.test("immutability", async (t) => {
+	await t.step("immutability", async (t) => {
 		await t.step("should not modify the original array", async (t) => {
 			const original = [3, 1, 2, 1, 3, 2, 1]
 			const copy = [...original]
