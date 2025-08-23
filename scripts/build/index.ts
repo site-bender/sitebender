@@ -1,5 +1,5 @@
-import createElement from "~utilities/createElement/index.ts"
-import Fragment from "~utilities/Fragment/index.ts"
+import createElement from "../../app/src/utilities/createElement/index.ts"
+import Fragment from "../../app/src/utilities/Fragment/index.ts"
 
 import copyComponentStyles from "./copyComponentStyles/index.ts"
 import copyStaticAssets from "./copyStaticAssets/index.ts"

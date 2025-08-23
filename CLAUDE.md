@@ -2,9 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## The prime directive
+
+Your number one rule in working with this project in *any* capacity is this:
+
+> DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS.
+
+You may think that you are saving time, energy, and resources. YOU ARE NOT. Every time you cheat by guessing or assuming, you make a mess of it and end up wasting far more time, energy, resources, and MONEY.
+
+So don't do it. Work in smaller increments if you must, but check everything carefully before you act and ESPECIALLY before you write code or commit. EVERY SINGLE TIME. NO EXCEPTIONS.
+
+If you cannot do this, then you are of no use at all. This is the MOST IMPORTANT rule.
+
 ## Progressive Enhancement Philosophy
 
-**CRITICAL**: This library follows a strict progressive enhancement approach:
+**CRITICAL**: This set of libraries and associated documentation web app follow a strict progressive enhancement approach:
 
 1. **No JavaScript Required**: ALL components MUST work without JavaScript
    - Forms submit normally via standard HTTP POST/GET
@@ -15,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Use native browser validation for forms
    - Leverage all WHATWG/W3C standards
    - CSS3/4 for theming and styling
-   - Web Components may enhance but not replace base functionality
+   - Components may enhance but not replace base functionality
 
 3. **Future JavaScript Enhancements** (not yet implemented):
    - TypeScript scripts compiled to vanilla JS
@@ -26,7 +38,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
      - LocalStorage/SessionStorage for simple state
      - Cookies for server-readable state
      - URL parameters for shareable state
-   - Offline-first with eventual synchronization
+   - Offline-first with eventual synchronization via CRDTs
    - Live updates (like RelativeTime) as progressive enhancements
 
 4. **Accessibility Standards**:
@@ -44,49 +56,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Deno-based adaptive web component library (@sitebender) in `lib` that provides type-safe, progressively enhanced components with build-time validation, reactive calculations, and Schema.org structured data support. The library generates semantic HTML that works without JavaScript while supporting powerful client-side enhancements.
+This project (@sitebender) includes a documentation app that uses the associated libraries fully. The docs app showcases all components and their usage, providing a comprehensive guide for developers. It is a Deno/TypeScript JSX app deployed to Deno Deploy. It does not use React or similar library or framework. It uses custom `createElement` and `Fragment` functions to compile JSX to vanilla HTML, and the associated libraries for components, utility functions, and reactivity.
 
-The library also provides a large set of semantic components intended to extend the semantics of HTML, allowing developers to create rich, structured content that is both machine-readable and accessible.
+There are three libraries that are part of the @sitebender project:
 
-Finally, the library includes a documentation site (in `src`) that demonstrates all components with live examples and structured data visibility.
-
-## Essential Commands
-
-### Development
-```bash
-# Start development server with hot reload (port 5556)
-deno task dev
-
-# Run tests (includes unit, E2E, and accessibility tests)
-deno task test
-
-# Format code (runs sort imports then deno fmt)
-deno task fmt
-
-# Lint code
-deno task lint
-
-# Build development version
-deno task build
-
-# Full production build
-deno task build:full
-
-# Clean build artifacts
-deno task clean
-```
-
-### Testing Specific Components
-```bash
-# Run a specific test file
-deno test tests/unit/components/Thing/Person.test.tsx
-
-# Run E2E tests only
-deno task test:e2e
-
-# Run accessibility tests
-deno test tests/a11y/
-```
+1. The `@sitebender/adaptive` library provides adaptive components for responsive design.
+2. The `@sitebender/components` library offers a set of accessible UI components.
+3. The `@sitebender/toolkit` library includes utility functions and components.
 
 ## Architecture
 
@@ -94,34 +70,21 @@ deno test tests/a11y/
 
 This is a dual-purpose codebase with strict separation:
 
-- **`/lib/`** - Standalone library (published to JSR)
+- **`/libraries/`** - Standalone libraries (published to JSR)
   - Zero dependencies, client-side ready
   - MUST use relative imports only (no aliases)
   - Self-contained with no external dependencies
   - Version maintained in `lib/deno.json`
-  
-- **`/src/`** - Documentation site  
-  - MAY use path mapping aliases (~components, ~constants, etc.)
+  - Three libraries
+    - `@sitebender/adaptive` - Adaptive components for responsive design
+    - `@sitebender/components` - Accessible UI components
+    - `@sitebender/toolkit` - Utility functions and components
+
+- **`/app/`** - Documentation site
+  - Should use path mapping aliases (~components, ~constants, etc.)
   - Demonstrates all components with live examples
   - Shows both HTML output and structured data
-
-### Component Organization
-
-Components are organized by semantic categories:
-- **`/lib/components/`**
-  - `schema.org` - Components that extend Schema.org types
-    - `Base/` - Base component that all others extend
-    - `Thing/` - Schema.org hierarchy (CreativeWork, Person, Organization, etc.)
-  - `semantic/` - Organized by categories:
-    - `scientific/` - TechnicalTerm, TaxonomicName, etc.
-    - `textual/` - ForeignTerm, WordAsWord, etc.
-    - `quotations/` - Dialogue, CitedQuote, etc.
-    - `narrative/` - StageDirection, InternalMonologue, etc.
-    - `emotional/` - Sarcasm, Irony, etc.
-    - `cultural/` - Idiom, Archaism, etc.
-    - `emphasis/` - Various emphasis patterns
-  
-- **`/lib/types/`** - Metadata-specific types in correct subfolders
+  - To the greatest extent possible, uses the associated libraries for components, utility functions, and reactivity.
 
 ### File and Folder Structure Rules
 
@@ -130,7 +93,7 @@ Components are organized by semantic categories:
 2. **Naming Convention**: 
    - Component names (PascalCase) and function names (camelCase) go on the *folder*, not the file
    - Every folder must have an `index.ts` or `index.tsx` file
-   - Example: `lib/components/semantic/temporal/formatDate/index.ts` exports `formatDate`
+   - Example: `libraries/toolkit/src/simple/string/chomp/index.ts` exports the `chomp` function.
 
 3. **Folder Hierarchy**: 
    - Folders are nested at the *lowest* branching node below which *all* uses of that function occur
@@ -142,50 +105,49 @@ Components are organized by semantic categories:
 4. **Functional Programming**: 
    - Prefer `type` over `interface` for strict FP (exceptions: schema.org component types)
    - All data structures should be immutable
-   - Avoid classes except for components extending Base
+   - Avoid classes and OOP patterns
 
 5. **Type Organization**:
    - Component Props are exported as named exports from the component file, always named `Props`
-   - All other types belong in `/lib/types/` organized by domain
+   - All other types belong in `types/` folders organized by domain
    - Types and constants can be collected in `index.ts` files with named exports
-   - Large type files should be broken into folders (still using `index.ts`)
+   - Large type files should be broken into subfolders (still using `index.ts`)
 
 6. **Constants**: Domain-specific constants go in a `constants/index.ts` file within the relevant component folder
 
 - **`/tests/`** - Comprehensive test suite
-  - `e2e/` - Playwright end-to-end tests
-  - `a11y/` - Accessibility tests (REQUIRED for all components)
-  - `unit/` - Component unit tests
 
 ### Key Architectural Patterns
 
 1. **Component Standards**:
-   - All components extend from `Base` providing template handling and structured data
+   - All `enrich` components extend from `Base` providing template handling and structured data
    - Generate valid semantic HTML with proper structured data
-   - Support multiple formats: Schema.org, Dublin Core, JSON-LD, and microdata
-   - Use custom template system with variable substitution
+   - `enrich` components support multiple formats: Schema.org, Dublin Core, JSON-LD, and microdata
+   - `enrich` components use custom template system with variable substitution
    - Follow BCP-47 language tag standards
    - All props must be immutable types only
 
 2. **Import Patterns**:
-   - **Library code (`/lib/`)**: MUST use relative imports only - no aliases
-   - **Documentation (`/src/`)**: MAY use aliases (~components, ~lib, etc.)
+   - **Library code (`/libraries/`)**: MUST use relative imports only - no aliases
+   - **Documentation (`/app/`)**: Should use aliases (~components, ~lib, etc.)
    - Always separate type imports from value imports:
    ```tsx
    import type { MyType } from "./types"
+
    import { MyComponent } from "./components"
    ```
    - Maintain alphabetical order within import groups
+   - Separate import groups with a single blank line
 
 3. **Error Handling**:
-   - Use Either/Result types everywhere - never throw exceptions
+   - Use Either/Result types everywhere - never throw exceptions (prefer Result)
    - All template strings must be validated before processing
    - Components should gracefully degrade to basic HTML when features fail
 
 4. **Build System**:
-   - Dual compilation: library (JSR) + documentation site
+   - Dual compilation: libraries (JSR) + documentation site
    - Automatically discover and include component styles/scripts
-   - Library build must be completely self-contained
+   - Library build must be completely self-contained (this may be tricky)
 
 ### Code Style
 
@@ -193,29 +155,15 @@ Components are organized by semantic categories:
 - **No semicolons**: Configured in deno.fmt
 - **Import sorting**: Automatic with `deno task fmt`
 - **TypeScript**: Strict mode with all checks enabled
+- **Array Types**: Always use `Array<T>` syntax instead of `T[]` for better readability and explicitness in type definitions
 
 ### Component Development
 
 When creating new components:
 
-1. Extend from appropriate base class (usually `Base` or a `Thing` subclass)
-2. Follow existing patterns in similar components
-3. Include proper Schema.org type annotations
-4. Add comprehensive tests (unit + E2E)
-5. Ensure accessibility compliance
-
-Example component structure:
-```tsx
-export default class MyComponent extends Base {
-  static properties = ["requiredProp", "optionalProp"]
-  static tag = "my-component"
-  static schemaOrgType = "https://schema.org/Thing"
-  
-  constructor(props: MyComponentProps) {
-    super(props)
-  }
-}
-```
+1. Follow existing patterns in similar components
+2. Add comprehensive tests: behavioral, property-based, and accessibility (axe) following the established patterns in the various `tests/README.md` files
+3. Ensure accessibility compliance, proper semantics, excellent UX, responsive design, offline- and mobile-first, and strict standards-compliance with graceful degradation.
 
 ### Testing Requirements
 
@@ -224,6 +172,7 @@ export default class MyComponent extends Base {
 - **Multiple Formats**: Test that components generate correct Schema.org, JSON-LD, and microdata output
 - E2E tests for user-facing functionality
 - Use property-based testing with fast-check where appropriate
+- See the `TESTING.md` file and individual `tests/README.md` files for more details.
 
 ### Documentation Standards
 
@@ -231,17 +180,19 @@ export default class MyComponent extends Base {
 - **Structured Data Visibility**: Show both HTML output and generated structured data
 - **Category Navigation**: Organize by component categories for easy discovery
 
+We will discuss this more when we get to it. We want to create something similar to Jupyter notebooks and/or storybook using Monaco Editor.
+
 ### JSR Publication Requirements
 
-- Maintain version in `lib/deno.json` separately from main project
+- Maintain version in `libraries/**/deno.json` separately from main project
 - Library uses relative imports only (no aliases) for external compatibility
 - Must remain zero-dependency for client-side usage
-- Export patterns: default for components, named for types/constants
+- Export patterns: default for components and functions, named for types and constants
 
 ### Build Process
 
 The build system supports:
-- **Dual compilation**: Library for JSR + documentation site generation
-- **Asset discovery**: Automatically includes component styles/scripts
+- **Dual compilation**: Libraries for JSR + documentation site generation
+- **Asset discovery**: Automatically includes component styles/scripts (to be discussed)
 - **Self-contained output**: Library build has no external dependencies
-- Outputs to `/dist/` for documentation, `/lib/` published to JSR
+- Outputs to `/dist/` for documentation, `/libraries/**` published to JSR
