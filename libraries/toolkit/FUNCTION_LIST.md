@@ -1,6 +1,6 @@
 # Function List for the toolkit library
 
-**Testing Progress: 2.9% (25/854 functions with 100% coverage)**
+**Testing Progress: 3.0% (26/854 functions with 100% coverage)**
 
 ## Current Functions (854 functions total)
 
@@ -375,7 +375,7 @@
 - average - Calculates arithmetic mean of an array (alias: mean)
 - binomialCoefficient - Pascal's triangle values (n choose k)
 - ceiling - Rounds up to integer
-- clamp - Constrains a number between min and max
+- clamp - Constrains a number between min and max ✓
 - combinations - nCr combinations calculation
 - cubeRoot - Returns cube root
 - decrement - Subtracts 1 from a number
