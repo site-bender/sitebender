@@ -20,7 +20,7 @@
     "test:toolkit": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
     "test:adaptive:cov": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage coverage",
     "test:components:cov": "deno test --unstable-temporal 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage coverage",
-    "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage",
+    "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",
 
     // === Type Checking ===
     "type-check": "deno check --unstable-temporal app/src/**/*.ts app/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
