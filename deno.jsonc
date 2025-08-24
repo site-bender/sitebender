@@ -1,18 +1,18 @@
 {
   // Workspace configuration for the Sitebender monorepo
   "workspace": [
-    "./libraries/*",
-    "./app",
-		"./jexer"
+    "./docs",
+		"./jexer",
+    "./libraries/*"
   ],
 
   "tasks": {
     // === Formatting and Code Quality ===
     "fmt": "deno task sort && deno fmt",
-    "fmt:all": "deno task sort:all && deno fmt libraries/ app/ scripts/",
-    "fmt:check": "deno fmt --check libraries/ app/ scripts/",
-    "lint": "deno lint libraries/ app/ scripts/",
-    "lint:all": "deno lint libraries/ app/ scripts/",
+    "fmt:all": "deno task sort:all && deno fmt libraries/ docs/ scripts/",
+    "fmt:check": "deno fmt --check libraries/ docs/ scripts/",
+    "lint": "deno lint libraries/ docs/ scripts/",
+    "lint:all": "deno lint libraries/ docs/ scripts/",
 
     // === Testing ===
     "test:adaptive": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.test.ts'",
@@ -23,21 +23,21 @@
     "test:toolkit:cov": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",
 
     // === Type Checking ===
-    "type-check": "deno check --unstable-temporal app/src/**/*.ts app/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
+    "type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
 
     // === Import Management ===
     "sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
-    "sort:all": "deno task sort --dir=app && deno task sort --dir=libraries/adaptive && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
+    "sort:all": "deno task sort --dir=docs && deno task sort --dir=libraries/adaptive && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
 
     // === Setup and Maintenance ===
     "setup": "deno run --unstable-temporal -A scripts/setup/index.ts",
     "clean": "deno run --unstable-temporal --allow-write scripts/clean/index.ts",
-    "clean:all": "deno task clean && deno task --cwd app clean",
+    "clean:all": "deno task clean && deno task --cwd docs clean",
 
     // === Development Shortcuts ===
-    "dev": "deno task --cwd app dev",
-    "build": "deno task --cwd app build",
-    "build:full": "deno task --cwd app build:full"
+    "dev": "deno task --cwd docs dev",
+    "build": "deno task --cwd docs build",
+    "build:full": "deno task --cwd docs build:full"
   },
 
   // Shared compiler options for all workspace members
@@ -59,13 +59,13 @@
     "semiColons": false,
     "singleQuote": false,
     "proseWrap": "preserve",
-    "include": ["app/", "libraries/", "scripts/"],
+    "include": ["docs/", "jexer/", "libraries/", "scripts/"],
     "exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"]
   },
 
   // Shared linting configuration
   "lint": {
-    "include": ["app/src/", "libraries/*/src/", "scripts/"],
+    "include": ["docs/src/", "jexer/src/", "libraries/*/src/", "scripts/"],
     "exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"],
     "rules": {
       "tags": ["recommended"],
@@ -91,7 +91,7 @@
 
   // Test configuration (workspace-wide defaults)
   "test": {
-    "include": ["*/tests/", "libraries/*/tests/", "app/tests/"],
+    "include": ["*/tests/", "libraries/*/tests/", "docs/tests/"],
     "exclude": ["**/node_modules/", "**/dist/", "**/coverage/", "**/fixtures/"]
   }
 }

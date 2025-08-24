@@ -1,6 +1,6 @@
 {
   // Documentation site configuration
-  "name": "@sitebender/documentation",
+  "name": "@sitebender/docs",
   "version": "0.1.0",
   "description": "Documentation and demonstration site for Sitebender libraries.",
 	"exports": {
