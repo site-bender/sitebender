@@ -5,31 +5,31 @@ This document provides context for continuing the comprehensive testing implemen
 
 ## Current Testing Status (Updated: 2025-08-24)
 
-**Overall Progress: 9.1% tested (78/854 functions with 100% coverage)**
+**Overall Progress: 10.5% tested (90/854 functions with 100% coverage)**
 
-### Latest Session Achievements (2025-08-24 - Session 3)
-- Added comprehensive tests for 6 new trigonometry functions with 100% coverage:
-  - `sine` - Basic sine function with periodicity and bounded range tests
-  - `cosine` - Basic cosine function with even function property tests
-  - `tangent` - Basic tangent function with asymptote handling
-  - `radiansToDegrees` - Angle conversion with round-trip verification
-  - `degreesToRadians` - Angle conversion with linearity properties
-  - `hypotenuse` - Multi-dimensional Pythagorean theorem with numerical stability
-- Fixed critical test issues:
-  - Corrected import paths to use proper relative paths
-  - Fixed floating-point precision issues in practical examples
-  - Ensured all property-based tests use Math.fround() for float constraints
-  - Verified all JSDoc examples against actual function outputs
-- All 539 tests now passing (1409 test steps)
+### Latest Session Achievements (2025-08-24 - Session 5)
+- Added comprehensive tests for 6 array transformation functions with 100% coverage:
+  - `map` - Maps function over array elements
+  - `reduce` - Reduces array to single value using reducer function
+  - `flatten` - Flattens nested arrays by one level
+  - `concat` - Concatenates arrays together
+  - `slice` - Extracts section of array
+  - `take` - Takes first n elements
+- Fixed edge cases:
+  - Corrected sparse array handling in flatten (JavaScript's flat() removes holes)
+  - Verified currying patterns for all functions
+  - Tested immutability and reference preservation
+  - Validated property-based laws (identity, composition, associativity)
+- All 156 new tests passing (838 total tests, 1708 test steps)
 
-### Previous Session Achievements (2025-01-24 - Session 2)
-- Added tests for 4 statistical/math functions: variance, standardDeviation, geometricMean, harmonicMean
+### Previous Session Achievements (2025-08-24 - Session 4)
+- Added comprehensive tests for 6 array predicate and search functions with 100% coverage: all, some, none, find, findIndex, findLast. Fixed sparse array handling edge cases.
 
-### Functions with 100% Coverage (78 total)
+### Functions with 100% Coverage (90 total)
 - **Math (47)**: absoluteValue, add, binomialCoefficient, ceiling, clamp, combinations, cubeRoot, decrement, digitSum, divide, divisors, exponential, factorial, fibonacci, floor, gcd, geometricMean, harmonicMean, increment, inRange, isEven, isOdd, isPrime, lcm, logarithm, logarithmBase10, max, min, multiply, negate, permutations, power, primeFactorization, product, quadratic, round, sign, squareRoot, subtract, sum, totient, truncate
 - **Statistical (5)**: average, median, mode, standardDeviation, variance
 - **Trigonometry (6)**: cosine, degreesToRadians, hypotenuse, radiansToDegrees, sine, tangent
-- **Array (2)**: chunk, filter
+- **Array (14)**: all, chunk, concat, filter, find, findIndex, findLast, flatten, map, none, reduce, slice, some, take
 - **Combinators (1)**: pipe
 - **Monads (10)**: Either (chain, isLeft, left, map, right), Maybe (chain, isNothing, just, map, nothing)
 - **Random (1)**: randomBoolean
@@ -81,17 +81,34 @@ This document provides context for continuing the comprehensive testing implemen
    - ✅ ALWAYS use `approximately()` helper or `assertAlmostEquals()`
    - ✅ ALWAYS use `Object.is()` for NaN and -0/+0 comparisons
 
-4. **Run tests BEFORE claiming success:**
-   - ❌ NEVER claim tests are complete without running them
-   - ✅ ALWAYS run the full test suite and verify all pass
-   - ✅ ALWAYS check coverage is actually 100%
+4. **Complete Quality Standards - NO EXCEPTIONS:**
+   - ✅ 100% code coverage (rare justified `// deno-coverage-ignore` only)
+   - ✅ ALL tests must pass
+   - ✅ Type checking must pass completely (`deno test` with NO `--no-check`)
+   - ✅ NO linter errors (`deno lint` must be clean)
+   - ❌ NEVER claim work is done without meeting ALL these standards
+   - ❌ Anything less than this is unacceptable, sloppy work
 
-5. **ALWAYS update BOTH files after completing tests:**
+5. **Run ALL checks BEFORE claiming success:**
+   - ✅ Run tests: `deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'`
+   - ✅ Check types: Tests must pass WITHOUT `--no-check` flag
+   - ✅ Check linting: `deno lint libraries/toolkit/tests/**/*.test.ts`
+   - ✅ Check coverage: `deno task test:toolkit:cov`
+
+6. **ALWAYS update BOTH files after completing tests:**
    - ✅ Update `/libraries/toolkit/FUNCTION_LIST.md` - progress percentage and function list
    - ✅ Update `/libraries/toolkit/tests/PROMPT.md` - session achievements and coverage count
    - ✅ Verify both show the SAME numbers before committing
 
-### 1. Project Standards (MUST READ)
+### 1. Quality Standards (ABSOLUTE REQUIREMENTS)
+**Work is NOT complete until:**
+- ✅ 100% code coverage achieved
+- ✅ ALL tests passing
+- ✅ Type checking passing (no `--no-check` flag needed)
+- ✅ ZERO linter errors
+- **This is the minimum acceptable standard. Anything less is unfinished work.**
+
+### 2. Project Standards (MUST READ)
 Before ANY work, you MUST read and follow these files IN ORDER:
 1. `/CLAUDE.md` - Project-wide coding standards and prime directive
 2. `/libraries/toolkit/tests/TESTING_POLICY.md` - Testing requirements and patterns
@@ -99,20 +116,20 @@ Before ANY work, you MUST read and follow these files IN ORDER:
 
 **PRIME DIRECTIVE from CLAUDE.md**: DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS. Check everything carefully before acting, especially before writing code or committing.
 
-### 2. File Naming Convention (CRITICAL)
+### 3. File Naming Convention (CRITICAL)
 The project uses a specific naming convention that MUST be followed:
 - Function/component names go on the **folder**, NOT the file
 - Every folder must have an `index.test.ts` file
 - Example: `tests/behaviors/algebraic/commutative/add/index.test.ts` (NOT `add.test.ts`)
 - When moving/renaming files, ALWAYS update all import paths
 
-### 3. Import Path Structure
+### 4. Import Path Structure
 From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 - To source: Use appropriate relative path (typically 4-5 levels up)
 - To helpers: Use appropriate relative path (typically 3-4 levels up)
 - Example: `import clamp from "../../../../src/simple/math/clamp/index.ts"`
 
-### 4. Common Edge Cases That Are Often Incorrect
+### 5. Common Edge Cases That Are Often Incorrect
 **These edge cases are frequently implemented wrong - ALWAYS verify:**
 - **Permutations**: P(n,n) = P(n,n-1) = n! (they're equal, not monotonic at the end)
 - **Exponential**: exp(Number.MIN_VALUE) returns exactly 1, not slightly > 1
@@ -121,7 +138,18 @@ From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 - **Curried Functions**: Need null/undefined checks on BOTH parameter applications
 - **Floating Point**: Use `Object.is()` for -0/+0 distinction and NaN comparison
 
-### 5. Test File Structure
+### 6. Linting Compliance (MANDATORY)
+**Common linting issues to avoid:**
+- ❌ NO `any` types - use specific types or `unknown` when truly unknown
+- ❌ NO sparse arrays without `// deno-lint-ignore no-sparse-arrays`
+- ❌ NO `let` for variables that aren't reassigned - use `const`
+- ❌ NO unused variables - prefix with `_` if intentional
+- ❌ NO type assertions to `any` - find a proper type
+- ✅ For sparse arrays in tests: Add `// deno-lint-ignore no-sparse-arrays`
+- ✅ For unavoidable `any`: Use `unknown` or add `// deno-lint-ignore no-explicit-any`
+- ✅ Always run `deno lint` before claiming completion
+
+### 7. Test File Structure
 ```typescript
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
@@ -132,6 +160,28 @@ Deno.test("functionName - test description", () => {
   // Test implementation
 })
 ```
+
+## Definition of Done (NON-NEGOTIABLE)
+
+**Work is NOT complete and CANNOT be committed until ALL of these are met:**
+
+✅ **100% Code Coverage**
+- Run: `deno task test:toolkit:cov`
+- Rare exceptions with `// deno-coverage-ignore` must be justified
+
+✅ **All Tests Passing**
+- Run: `deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'`
+- Zero failures, no skipped tests
+
+✅ **Type Checking Passes**
+- Tests must pass WITHOUT `--no-check` flag
+- No TypeScript errors whatsoever
+
+✅ **Zero Linter Errors**
+- Run: `deno lint libraries/toolkit/tests/**/*.test.ts`
+- Must return "Checked X files" with no errors
+
+**This is the Definition of Done. Anything less is incomplete, unacceptable work.**
 
 ## Session Workflow (COMPLETE THESE STEPS IN ORDER)
 
@@ -148,11 +198,19 @@ For each function:
 - Error handling
 - Behavioral properties
 
-### 3. Verify All Tests Pass
+### 3. Verify Definition of Done
+**MUST complete ALL before proceeding:**
 ```bash
-deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts' --quiet
+# 1. Run tests (must all pass)
+deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'
+
+# 2. Check linting (must be clean)
+deno lint libraries/toolkit/tests/**/*.test.ts
+
+# 3. Check coverage (must be 100%)
+deno task test:toolkit:cov
 ```
-Fix any failing tests before proceeding.
+Fix ANY issues before proceeding. Do NOT continue if any check fails.
 
 ### 4. Update Documentation
 - Update FUNCTION_LIST.md:
@@ -182,15 +240,15 @@ Fix any failing tests before proceeding.
 
 ## Next Session Priority
 
-1. **Fix existing tests** for average, median, mode
-2. **Complete remaining statistical functions**: 
-   - variance, standardDeviation
-   - geometricMean, harmonicMean
-3. **Test predicates**:
-   - isEven, isOdd, isPrime
-4. **Test basic array operations**:
-   - map, reduce, filter (already done)
-   - flatten, concat, slice
+1. **Continue array functions**:
+   - reverse, sort, unique/nub
+   - drop, dropLast, head, tail
+2. **Test more array predicates**:
+   - includes, indexOf, lastIndexOf
+3. **Test array transformations**:
+   - reverse, sort, unique/nub
+4. **Test validation predicates**:
+   - isArray, isEmpty, isArrayLike
 
 ## Testing Patterns Reference
 

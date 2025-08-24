@@ -1,27 +1,27 @@
 # Function List for the toolkit library
 
-**Testing Progress: 9.1% (78/854 functions with 100% coverage)**
+**Testing Progress: 10.5% (90/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~155 hours
-- **Remaining functions**: 776 (854 total - 78 completed)
+**Estimated Time to Completion**: ~153 hours
+- **Remaining functions**: 764 (854 total - 90 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~155 hours
+- **Hours remaining**: ~153 hours
 - **At 8 hours/day**: ~19 working days
 - **Last updated**: 2025-08-24
-- **Session progress**: Added comprehensive tests for 6 trigonometry functions with 100% coverage: sine, cosine, tangent, radiansToDegrees, degreesToRadians, hypotenuse. All 539 tests passing (1409 test steps). Fixed import paths and floating-point precision issues.
+- **Session progress**: Added comprehensive tests for 6 array transformation functions with 100% coverage: map, reduce, flatten, concat, slice, take. All 156 new tests passing (26+35+26+29+32+24 tests). Fixed sparse array behavior in flatten.
 
 ## Current Functions (854 functions total)
 
 ### array/ (123 functions)
-- all - Returns true if all elements satisfy the predicate
+- all - Returns true if all elements satisfy the predicate ✓
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
 - chunk - Splits array into chunks of specified size ✓
 - closest - Finds the value closest to a target number
 - combinations - Generates all combinations of array elements
 - compact - Removes falsy values from array
-- concat - Concatenates arrays together
+- concat - Concatenates arrays together ✓
 - concatTo - Flipped version of concat
 - countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function
 - cycle - Returns an infinite repetition of the given array (generator function)
@@ -34,16 +34,16 @@
 - dropWhile - Removes elements from beginning while predicate is true
 - endsWith - Checks if an array ends with the provided suffix array
 - filter - Filters array elements based on predicate ✓
-- find - Finds first element that satisfies predicate
+- find - Finds first element that satisfies predicate ✓
 - findDuplicates - Returns array of elements that appear more than once
-- findIndex - Finds index of first element that satisfies predicate
+- findIndex - Finds index of first element that satisfies predicate ✓
 - findIndices - Returns all indices of elements that satisfy the predicate
-- findLast - Finds last element that satisfies predicate
+- findLast - Finds last element that satisfies predicate ✓
 - findLastIndex - Finds index of last element that satisfies predicate
 - findMostCommon - Finds the most frequently occurring element(s)
 - first - Returns first element of array (alias: head)
 - flatMap - Maps function over array and flattens result
-- flatten - Flattens nested arrays by one level
+- flatten - Flattens nested arrays by one level ✓
 - frequency - Count occurrences of each unique element (returns Map<T, number>)
 - groupBy - Groups array elements by key function result
 - groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
@@ -62,13 +62,13 @@
 - last - Returns last element of array
 - lastIndexOf - Returns index of last occurrence of element
 - lastIndexOfMatch - Returns index of last element matching predicate
-- map - Maps function over array elements
+- map - Maps function over array elements ✓
 - mapAccum - Combines map and reduce, returning both accumulated value and mapped array
 - mapAccumRight - Like mapAccum but processes the array from right to left
 - maximumBy - Finds the maximum element according to a comparator function
 - minimumBy - Finds the minimum element according to a comparator function
 - move - Moves element from one index to another
-- none - Returns true if no elements satisfy the predicate
+- none - Returns true if no elements satisfy the predicate ✓
 - nub - Removes duplicate elements from an array (alias: unique)
 - nubBy - Like nub but uses a custom equality function
 - nth - Returns element at specified index
@@ -80,7 +80,7 @@
 - pluck - Extracts a list of property values from an array of objects
 - range - Generates an array of numbers from start to end
 - rangeStep - Like range but with a custom step value
-- reduce - Reduces array to single value using reducer function
+- reduce - Reduces array to single value using reducer function ✓
 - reduceRight - Like reduce but processes the array from right to left
 - reduceWhile - Reduce that stops when predicate returns false
 - reject - The complement of filter - keeps elements that don't satisfy the predicate
@@ -103,11 +103,11 @@
 - sampleSize - Returns n random elements from the array
 - scan - Like reduce but returns array of intermediate results
 - shuffle - Returns a new array with elements randomly shuffled
-- slice - Extracts section of array
+- slice - Extracts section of array ✓
 - sliceFrom - Slices array from index to end
 - sliding - Creates sliding window over array elements
 - slidingWithStep - Creates sliding window with custom step size
-- some - Returns true if any element satisfies predicate
+- some - Returns true if any element satisfies predicate ✓
 - sort - Sorts array elements
 - sortBy - Sorts an array based on a mapping function
 - sortWith - Sorts an array using multiple comparator functions
@@ -118,7 +118,7 @@
 - symmetricDifference - Returns elements that are in either array but not both
 - symmetricDifferenceWith - Like symmetricDifference but uses a comparator function
 - tail - Returns all elements except the first
-- take - Takes first n elements
+- take - Takes first n elements ✓
 - takeLast - Takes last n elements
 - takeLastWhile - Takes elements from the end while predicate is true
 - takeWhile - Takes elements from beginning while predicate is true
