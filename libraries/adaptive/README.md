@@ -53,6 +53,13 @@ const IsLessThan = (datatype = "Number") => (operand) => (test) => ({
 })
 ```
 
+### Runtime context, bus, and state
+
+- ComposeContext: `src/context/composeContext.ts` exposes `{ env, signal, now, bus, logger }` and is used by evaluators/hydrator.
+- Event bus: `src/runtime/bus.ts` provides CustomEvent (local) + BroadcastChannel (cross-tab) transports.
+- State: `src/runtime/store.ts` is a tiny FRP store with SSR-friendly usage and optional localStorage persistence.
+- Docs: `src/docs/anchoring.md` shows explicit `for` overrides; `src/docs/state.md` covers store patterns.
+
 **Constructor Categories:**
 
 #### a. Element Constructors (`constructors/elements/`)
@@ -632,3 +639,60 @@ Current test coverage is critically low (~1% for operations):
 
 _Last Updated: 2025-08-13_
 _Generated from comprehensive codebase audit_
+
+---
+
+## New Findings (2025-08-24) — Action Items
+
+These items come from a deep audit of `libraries/adaptive/src` to align with the Declarative JSX → IR plan. Do not edit `libraries/toolkit` as part of these tasks.
+
+### 🔴 Critical
+- [ ] Replace dynamic imports with explicit, tree-shakeable registries
+   - [ ] Create `operations/registries/{operators,injectors,comparators}.ts`
+   - [ ] Map tags to executor functions directly (no string path building, no `toCamel`, no `.js` suffixes)
+   - [ ] Update `composeOperators` and `composeComparators` to use registries
+- [ ] Add IR base fields and IDs to all configs
+   - [ ] Add `v` (semver), `id` (stable), and optional `meta` to base config shapes (operators, injectors, comparators, logical, elements)
+   - [ ] Support user-supplied `id`; otherwise generate via `generateShortId` (import from toolkit later; provide temporary local helper with a TODO to swap)
+   - [ ] Ensure IDs are deterministic where possible (compiler can seed)
+- [ ] Unify error monad (transition path)
+   - [ ] Introduce a thin adapter so current code can return a Result-like shape
+   - [ ] Leave a TODO to switch to toolkit `ResultAsync` once available; avoid expanding Either usage further
+
+### 🟠 High
+- [ ] Comparator resolution without a `comparison` field
+   - [ ] Remove reliance on `operation.comparison` for import paths in `composeComparators`
+   - [ ] In registry, declare category alongside executor; composers do not need `comparison` on the config
+   - [ ] Update any documentation that referenced `comparison`
+- [ ] SSR/CSR unification
+   - [ ] Implement `rendering/index.ts` to support SSR string output and CSR hydration entry points
+   - [ ] Choose MVP embed: single `<script type="application/adaptive+json" id="ir-root">…</script>` at root; document alternative per-node attributes
+   - [ ] Implement `hydrate(root, ir)` that performs a single walk, attaches validators/events/formatters/calculations, then runs `runAll*`
+- [ ] Environment boundary and server env guards
+   - [ ] Define `ComposeContext { env, signal, now, cache, logger }` and thread as an optional param to operations
+   - [ ] Add `serverEnv` and `clientEnv` adapters; DOM-only injectors return typed errors or deferrals on server
+   - [ ] Document which injectors are SSR-safe (e.g., QueryString, UrlParameter with server URL) vs client-only (FromElement)
+- [ ] Behavior anchoring (validation/conditional targets)
+   - [ ] Implement anchor resolution: attach behaviors to nearest element with stable `id` or `name`
+   - [ ] Auto-assign deterministic IDs when missing; add explicit override prop (`for` or `anchor`) in element attributes
+   - [ ] Ensure `collectConditionals` and validation wiring use the resolved anchors consistently
+
+### 🟡 Medium
+- [ ] Eager vs lazy injectors
+   - [ ] Add a config flag or policy to allow eager prefetch (on hydrate) vs lazy (on first use)
+   - [ ] Cache/memoize injector results by (`node.id`, key) with invalidation policy
+- [ ] Rendering helpers hardening
+   - [ ] Remove any direct `window`/`document` references in SSR code paths; guard with env
+   - [ ] Ensure `runAll*` hooks are no-ops server-side
+- [ ] Import path hygiene
+   - [ ] Update imports that reference moved utilities (e.g., `toCamel`) to point to toolkit later; for now, remove the dependency via registries
+
+### 🟢 Tests & Docs
+- [ ] Add “golden” tests (snapshot-style) for JSX → IR → HTML across the MVP slice
+- [ ] Add smoke tests for registries (tag resolves to executor), SSR render, and hydrate wiring
+- [ ] Author JSON Schema v1 (place under `libraries/adaptive/schema/v1.json`) and validate IR in dev paths
+- [ ] Document registries, env adapters, anchoring, and ID/version fields in this README
+
+Notes
+- Keep `libraries/**` zero-dependency and relative-import–only. Registries must not pull from app aliases.
+- Do not modify `libraries/toolkit` in this pass. Where toolkit utilities were moved (e.g., `toCamel`, `generateShortId`), add TODOs and local shims if strictly necessary; prefer removing the dependency.

@@ -398,6 +398,45 @@ test.describe("WCAG 2.3 AAA Compliance", () => {
     await expect(focused).toBeVisible()
     await expect(focused).toHaveCSS("outline-style", /solid|dotted|dashed/)
     
+## Golden and Smoke Tests
+
+### Goldens (snapshot-style)
+- No-JS SSR HTML snapshots for key pages: Home, Components index, Component detail, Examples (form, conditional, JSON-LD), Playground.
+- Snapshot both the HTML and the embedded root IR script payload shape (schema version, node ids present).
+- Tolerate dynamic IDs via stable serializers or deterministic seeds.
+
+### Smoke tests
+- Registry resolution by tag succeeds (operators, injectors, comparators) in the built app bundle.
+- SSR render returns a string without throwing for representative pages.
+- Hydrate walk runs once, attaches validators/events/calculations, and marks `[data-adaptive-hydrated="true"]`.
+- Playground: Worker starts, executes sandboxed code, console output captured, and network is blocked by default.
+
+## Performance & Security Budgets
+- Lighthouse budgets: TTFB, LCP, CLS thresholds; track trends in CI.
+- Bundle size ceilings for enhancement JS and CSS per route; enforce via CI diff checks.
+- CSP: strict default-src 'self'; allowlist Monaco/worker/CDN as needed; tests assert policy headers and no violations in console.
+- MSW or fetch mocks: deny-by-default for playground code; explicit allowlist for docs API examples.
+
+## Offline and Manifest
+- Validate presence and correctness of web app manifest.
+- Service Worker tests: cache key assets, fallback page works offline, playground executes offline demo.
+
+## Browser Support Policy
+- Baseline: pages function without JS or CSS (semantic HTML, standard form submits, full page reloads acceptable).
+- Enhancement: modern browsers get client-side validation, reactive updates, and playgrounds.
+- Include a test matrix doc and minimal automated checks for “no-JS”, “no-CSS”, and “legacy-ish” modes.
+
+## Privacy & Compliance
+- Document and test telemetry policy: no PII, no third-party beacons by default; explicit opt-in where applicable.
+- Validate adherence to W3C Privacy CG guidance and EU requirements (cookies/storage only for enhancements, with graceful degradation).
+
+## Collaboration & Offline Sync Tests (Future)
+- Local-first edits are persisted to IndexedDB; survive reload and offline restarts.
+- CRDT sync convergence: simulate two clients with divergent edits; ensure eventual consistency after reconnection.
+- Presence and cursors (optional later): basic presence messages exchanged; no personal data beyond pseudonymous IDs.
+- Conflict scenarios: large edits, reorders, deletes; verify CRDT resolves without data loss.
+- MCP tool smoke: AI assistant can read page context and propose tasks; guarded write operations require explicit user confirmation.
+
     // Navigate with arrow keys in menu
     await page.keyboard.press("ArrowDown")
     await expect(page.locator(":focus")).toHaveAttribute("role", "menuitem")
