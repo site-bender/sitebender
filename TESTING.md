@@ -38,7 +38,7 @@ libraries/adaptive/tests/
 └── helpers/               # Shared test utilities
     └── createTestDom/     # DOM injection helper
 
-app/tests/
+docs/tests/
 ├── routes/
 │   ├── documentation/     # E2E tests for documentation pages
 │   └── navigation/        # E2E tests for navigation behavior
@@ -120,7 +120,7 @@ describe("Addition behavior", () => {
 ### E2E Testing with Playwright-MCP
 
 ```typescript
-// app/tests/routes/documentation/index.ts
+// docs/tests/routes/documentation/index.ts
 import { test, expect } from "playwright-mcp"
 
 test.describe("Documentation behavior", () => {
@@ -205,7 +205,7 @@ libraries/adaptive/tests/
 At the application edges only:
 
 ```typescript
-// app/tests/helpers/setupTestServer/index.ts
+// docs/tests/helpers/setupTestServer/index.ts
 import { setupServer } from "msw/node"
 import { rest } from "msw"
 

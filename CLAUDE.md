@@ -80,7 +80,7 @@ This is a dual-purpose codebase with strict separation:
     - `@sitebender/components` - Accessible UI components
     - `@sitebender/toolkit` - Utility functions and components
 
-- **`/app/`** - Documentation site
+- **`/docs/`** - Documentation site
   - Should use path mapping aliases (~components, ~constants, etc.)
   - Demonstrates all components with live examples
   - Shows both HTML output and structured data
@@ -129,7 +129,7 @@ This is a dual-purpose codebase with strict separation:
 
 2. **Import Patterns**:
    - **Library code (`/libraries/`)**: MUST use relative imports only - no aliases
-   - **Documentation (`/app/`)**: Should use aliases (~components, ~lib, etc.)
+   - **Documentation (`/docs/`)**: Should use aliases (~components, ~lib, etc.)
    - Always separate type imports from value imports:
    ```tsx
    import type { MyType } from "./types"

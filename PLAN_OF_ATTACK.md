@@ -134,7 +134,7 @@ define/* behavior and metadata
 - Async: adopt AsyncResult (Promise<Result<...>>), expose composition helpers and cancellation in compose context.
 - Validation: support both short-circuit and accumulation; accumulation uses ErrorBag combine.
 - Eager and lazy: provide lazy iterator variants (e.g., mapLazy, filterLazy, slidingWithStep) where sensible to avoid large intermediates.
-- Import aliases: allowed in app/docs for ergonomics (e.g., @sitebender/toolkit/array/map); libraries keep relative imports per CLAUDE.md.
+- Import aliases: allowed in docs/ for ergonomics (e.g., @sitebender/toolkit/array/map); libraries keep relative imports per CLAUDE.md.
 
 ## Performance considerations
 - Partial evaluation at build for pure subtrees and constants.

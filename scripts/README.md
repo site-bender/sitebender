@@ -59,7 +59,7 @@ Scripts remain at the **root level** rather than inside individual packages beca
 
 Scripts are invoked through deno tasks defined in:
 - Root `deno.jsonc` - Workspace-wide tasks
-- `app/deno.jsonc` - App-specific build/serve tasks
+- `docs/deno.jsonc` - App-specific build/serve tasks
 
 ### Common Commands
 
@@ -81,8 +81,8 @@ deno task clean:all    # Clean all build artifacts
 ## Import Paths
 
 Scripts use **relative imports** to reference code from other packages:
-- App utilities: `../../app/src/utilities/...`
-- App types: `../../app/src/types/...`
+- App utilities: `../../docs/src/utilities/...`
+- App types: `../../docs/src/types/...`
 - Libraries: `../../libraries/[name]/src/...`
 
 This ensures scripts work regardless of the current working directory.
@@ -90,7 +90,7 @@ This ensures scripts work regardless of the current working directory.
 ## Future Considerations
 
 If scripts become package-specific in the future:
-- Move app-specific scripts (`build/`, `serve/`) to `app/scripts/`
+- Move app-specific scripts (`build/`, `serve/`) to `docs/scripts/`
 - Keep workspace tools (`sortImports/`, `setup/`) at root
 - Update task references accordingly
 

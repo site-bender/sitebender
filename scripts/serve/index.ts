@@ -1,4 +1,4 @@
-import type { Logger } from "../../app/src/types/scripts/index.ts"
+import type { Logger } from "../../docs/src/types/scripts/index.ts"
 
 import createServer from "./createServer/index.ts"
 import watchForChanges from "./watchForChanges/index.ts"
