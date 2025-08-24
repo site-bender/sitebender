@@ -79,6 +79,11 @@ This document provides context for continuing the comprehensive testing implemen
    - ✅ ALWAYS run the full test suite and verify all pass
    - ✅ ALWAYS check coverage is actually 100%
 
+5. **ALWAYS update BOTH files after completing tests:**
+   - ✅ Update `/libraries/toolkit/FUNCTION_LIST.md` - progress percentage and function list
+   - ✅ Update `/libraries/toolkit/tests/PROMPT.md` - session achievements and coverage count
+   - ✅ Verify both show the SAME numbers before committing
+
 ### 1. Project Standards (MUST READ)
 Before ANY work, you MUST read and follow these files IN ORDER:
 1. `/CLAUDE.md` - Project-wide coding standards and prime directive
@@ -152,41 +157,6 @@ Fix any failing tests before proceeding.
     - Update hours remaining and working days estimate
     - Update the "Last updated" date
 - Update this PROMPT.md file for the next session
-- **IMPORTANT**: Ensure percentages are synchronized across ALL files:
-  - `/libraries/toolkit/FUNCTION_LIST.md`
-  - `/libraries/toolkit/tests/PROMPT.md` 
-  - `/libraries/toolkit/PROMPT.md`
-
-### 5. Commit Changes
-Follow the commit process from CLAUDE.md
-
-## Current Testing Status (Updated: 2025-08-23)
-
-**Overall Progress: 3.4% tested (29/854 functions)**
-**Session Time: ~30 minutes**
-**Estimated Time Remaining: ~165 hours (~21 working days at 8 hours/day)**
-
-### Functions Completed This Session (3)
-1. ✓ `clamp` - Boundary enforcement, idempotency, ordering properties
-2. ✓ `ceiling` - Rounding up behavior, monotonicity, idempotency
-3. ✓ `floor` - Rounding down behavior, relationship with ceiling
-
-### Functions with 100% Coverage (29 total, 3 new this session)
-**Math (14)**: absoluteValue, add, ceiling ✓, clamp ✓, divide, floor ✓, max, min, multiply, negate, power, sign, squareRoot, subtract
-**Array (2)**: chunk, filter
-**Combinators (1)**: pipe
-**Monads (10)**: Either (chain, isLeft, left, map, right), Maybe (chain, isNothing, just, map, nothing)
-**Random (1)**: randomBoolean
-
-### Time Estimates
-- **Rate**: ~4.75 minutes per function
-- **Remaining**: 825 functions ≈ 65 hours
-- **Per 1%**: ~8.5 functions ≈ 40 minutes
-
-## Known Issues to Fix Next Session
-
-### Test File Conversion Issues
-The average, median, and mode test files were partially converted from a different testing framework and have structural issues:
 - Nested `Deno.test` calls need flattening
 - Remaining `expect` statements need conversion to `assertEquals`
 - Import paths need verification
