@@ -2,6 +2,25 @@
 
 Date: 2025-08-24
 
+## Decisions locked (2025-08-24)
+
+- IR embedding: single root `<script type="application/adaptive+json" id="ir-root">…</script>` plus per-element `data-ir-id` markers for deterministic hydration.
+- Versioning: `v` is semver; starting at `"0.1.0"`.
+- Namespaces for JSX wrappers (short, readable): `From.*`, `Op.*`, `When.*`, `Act.*`, `On.*`.
+- Deterministic IDs: `id = "n_" + base58(blake3(pageSeed | nodePath | anchor | kind | tag | stableAttrs)).slice(0, 12)`; collision guard extends length to 14 if a per-page collision is detected during build. `pageSeed` = route path (or build-provided seed). IDs are emitted into HTML via `data-ir-id` (and `id` attribute when appropriate) and are not recomputed from the live DOM during hydration.
+- Comparator naming: prioritize clarity. Examples:
+  - Length: `When.MinLength (>=)`, `When.MaxLength (<=)`
+  - Numeric: `When.GreaterThan (>)`, `When.GreaterThanOrEqual (>=)`, `When.LessThan (<)`, `When.LessThanOrEqual (<=)`
+  - Email: `When.IsEmailAddress`
+- Bus/pub-sub scopes: default scope is `"local"` (DOM `CustomEvent`). Cross-tab (`BroadcastChannel`) and cross-device (WebSocket/SSE) are opt-in only and feature-detected. Exposed via `ComposeContext.bus` with `publish/subscribe/unsubscribe`.
+- State model MVP: SSR-friendly sources (QueryString, FormElement, Dataset, Cookie, Local/SessionStorage) and sinks (SetValue, SetStorage, SetCookie, SetQueryString, Submit, Publish) with identical IR across SSR/CSR.
+- MVP tags to implement and register:
+  - Injectors (`From`): `Constant`, `Element`, `QueryString`, `LocalStorage`
+  - Operators (`Op`): `Add`, `Multiply`
+  - Comparators (`When`): `And`, `IsEmailAddress`, `MinLength`
+  - Actions (`Act`): `SetValue`, `Submit`, `SetQueryString`, `Publish`
+  - Events (`On`): `Input`, `Change`, `Blur`, `Submit`
+
 ## Goal
 Build a JSX-first, purely declarative authoring experience that compiles to a stable, versioned IR/AST (no functions in JSON), which can be serialized, rendered (SSR/SSG), and hydrated on the client to compose operators/comparators/injectors for validation, conditional display, calculations, and events—without authors needing to write JavaScript.
 
@@ -38,7 +57,7 @@ All items above are addressed in the sections below and in the MVP.
 - Use explicit registries (no dynamic import paths) in adaptive:
   - `operations/registries/{operators,injectors,comparators}.ts` map tags → executors
   - Composers resolve by tag via registries; no reliance on `comparison` on config
-- ComposeContext threads evaluation with `{ env, signal, now, bus, logger }` to unify SSR/CSR, enable cancellation/memoization, and avoid globals
+- ComposeContext threads evaluation with `{ env, signal, now, bus, logger }` to unify SSR/CSR, enable cancellation/memoization, and avoid globals. `bus` defaults to local-scope pub/sub; cross-tab/device are opt-in.
 - Add `v` (semver), `id` (stable, user-supplied or generated via toolkit `generateShortId()`), and optional `meta` to all config nodes
 - Use toolkit ResultAsync throughout adaptive (public surfaces); avoid expanding Either in adaptive
 - Injectors support `evaluation: "eager" | "lazy"` and caching by (`node.id`, key) with invalidation; SSR-safe injectors use server env, DOM-only injectors defer
@@ -73,7 +92,7 @@ Node kinds (minimum viable set)
 
 Notes
 - Leaves of operator/comparator graphs are always injectors.
-- DataType is a closed set: "String" | "Integer" | "Float" | "Boolean" | "PlainDate" | "DateTime" | ...
+- DataType is a closed set: "String" | "Integer" | "Float" | "Boolean" | "PlainDate" | "ZonedDateTime" | ...
 - Keep JSON schema strict and versioned.
 
 ## JSX → IR strategy
@@ -104,9 +123,7 @@ Transform folder scope (important)
 - ComposeContext for evaluation: { env, signal, now, cache, logger }.
 
 ## Rendering and hydration
-- SSR/SSG: render ElementNode to HTML, embed IR near the root via one of:
-  - &lt;script type="application/adaptive+json" id="ir-root">{...}&lt;/script>
-  - or data-ir="id:ir-root" markers on elements
+- SSR/SSG: render ElementNode to HTML, embed IR near the root via one script tag: `&lt;script type="application/adaptive+json" id="ir-root">{...}&lt;/script>` and mark elements with `data-ir-id`.
 - Hydration on client:
   - Parse IR, walk tree once
   - Find ValidatorNode and EventBindingNode; compose functions from referenced subgraphs
