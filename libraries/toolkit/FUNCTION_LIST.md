@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 8.0% (68/854 functions with 100% coverage)**
+**Testing Progress: 8.4% (72/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~157 hours
-- **Remaining functions**: 786 (854 total - 68 completed)
+**Estimated Time to Completion**: ~154 hours
+- **Remaining functions**: 782 (854 total - 72 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~157 hours
-- **At 8 hours/day**: ~20 working days
+- **Hours remaining**: ~154 hours
+- **At 8 hours/day**: ~19 working days
 - **Last updated**: 2025-01-24
-- **Session progress**: Added comprehensive tests for 4 math functions with 100% coverage: cubeRoot, exponential, logarithm, permutations. All 410 tests passing. Fixed property-based test structure and float constraints for fast-check compatibility.
+- **Session progress**: Added comprehensive tests for 4 statistical/math functions with 100% coverage: variance, standardDeviation, geometricMean, harmonicMean. All 458 tests passing (1391 test steps). Fixed JSDoc example discrepancies and floating-point precision issues.
 
 ## Current Functions (854 functions total)
 
@@ -396,8 +396,8 @@
 - fibonacci - Returns nth Fibonacci number ✓
 - floor - Rounds down to integer ✓
 - gcd - Greatest common divisor ✓
-- geometricMean - Calculates geometric mean (useful for growth rates)
-- harmonicMean - Calculates harmonic mean (useful for rates and ratios)
+- geometricMean - Calculates geometric mean (useful for growth rates) ✓
+- harmonicMean - Calculates harmonic mean (useful for rates and ratios) ✓
 - increment - Adds 1 to a number ✓
 - inRange - Checks if number is within range ✓
 - isEven - Checks if number is even ✓
@@ -598,9 +598,9 @@
 - kurtosis - Excess kurtosis measuring tail weight
 - percentile - Nth percentile of dataset
 - skewness - Measure of distribution asymmetry
-- standardDeviation - Calculates population or sample standard deviation
+- standardDeviation - Calculates population or sample standard deviation ✓
 - std - Alias for standardDeviation
-- variance - Calculates statistical variance
+- variance - Calculates statistical variance ✓
 - zScore - Standard score (z-score)
 
 ### string/ (77 functions)
