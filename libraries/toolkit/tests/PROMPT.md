@@ -37,6 +37,48 @@ This document provides context for continuing the comprehensive testing implemen
 
 ## Critical Instructions - READ FIRST
 
+### ⚠️ CRITICAL TEST WRITING RULES - DO NOT IGNORE ⚠️
+
+**ALWAYS write tests correctly THE FIRST TIME. These issues occur EVERY session:**
+
+1. **Property-based tests with fast-check:**
+   - ❌ NEVER put `fc.assert()` inside `await t.step()` - it will silently fail!
+   - ✅ ALWAYS use separate `Deno.test()` calls for each property test
+   - ✅ ALWAYS use `Math.fround()` on min/max constraints for `fc.float()`
+   ```typescript
+   // WRONG - Will appear to pass but doesn't actually run!
+   Deno.test("properties", async (t) => {
+     await t.step("some property", () => {
+       fc.assert(...) // THIS DOESN'T WORK!
+     })
+   })
+   
+   // CORRECT - Separate test
+   Deno.test("some property", () => {
+     fc.assert(
+       fc.property(
+         fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(100) }),
+         (x) => { ... }
+       )
+     )
+   })
+   ```
+
+2. **JSDoc examples:**
+   - ❌ NEVER copy JSDoc example values without verifying them first
+   - ✅ ALWAYS run the actual function to check the correct output
+   - ✅ ALWAYS use the actual computed values in tests, not the JSDoc values if they differ
+
+3. **Floating-point comparisons:**
+   - ❌ NEVER use `===` for floating-point equality
+   - ✅ ALWAYS use `approximately()` helper or `assertAlmostEquals()`
+   - ✅ ALWAYS use `Object.is()` for NaN and -0/+0 comparisons
+
+4. **Run tests BEFORE claiming success:**
+   - ❌ NEVER claim tests are complete without running them
+   - ✅ ALWAYS run the full test suite and verify all pass
+   - ✅ ALWAYS check coverage is actually 100%
+
 ### 1. Project Standards (MUST READ)
 Before ANY work, you MUST read and follow these files IN ORDER:
 1. `/CLAUDE.md` - Project-wide coding standards and prime directive
@@ -58,7 +100,16 @@ From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 - To helpers: Use appropriate relative path (typically 3-4 levels up)
 - Example: `import clamp from "../../../../src/simple/math/clamp/index.ts"`
 
-### 4. Test File Structure
+### 4. Common Edge Cases That Are Often Incorrect
+**These edge cases are frequently implemented wrong - ALWAYS verify:**
+- **Permutations**: P(n,n) = P(n,n-1) = n! (they're equal, not monotonic at the end)
+- **Exponential**: exp(Number.MIN_VALUE) returns exactly 1, not slightly > 1
+- **Logarithm**: log(Infinity)(x) has special behaviors, not always NaN
+- **Cube Root**: JSDoc examples may have calculation errors - always verify
+- **Curried Functions**: Need null/undefined checks on BOTH parameter applications
+- **Floating Point**: Use `Object.is()` for -0/+0 distinction and NaN comparison
+
+### 5. Test File Structure
 ```typescript
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
