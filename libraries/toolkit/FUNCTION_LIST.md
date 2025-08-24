@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 10.5% (90/854 functions with 100% coverage)**
+**Testing Progress: 11.3% (97/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~153 hours
-- **Remaining functions**: 764 (854 total - 90 completed)
+**Estimated Time to Completion**: ~151 hours
+- **Remaining functions**: 757 (854 total - 97 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~153 hours
+- **Hours remaining**: ~151 hours
 - **At 8 hours/day**: ~19 working days
 - **Last updated**: 2025-08-24
-- **Session progress**: Added comprehensive tests for 6 array transformation functions with 100% coverage: map, reduce, flatten, concat, slice, take. All 156 new tests passing (26+35+26+29+32+24 tests). Fixed sparse array behavior in flatten.
+- **Session progress**: Added comprehensive tests for 7 array functions with 100% coverage: reverse, sort, nub/unique, drop, dropLast, head/first. All 340 new tests passing (58 test groups, 167 test steps). Fixed edge cases for NaN handling and sparse arrays.
 
 ## Current Functions (854 functions total)
 
@@ -27,8 +27,8 @@
 - cycle - Returns an infinite repetition of the given array (generator function)
 - difference - Returns elements in the first array that are not in the second array
 - differenceWith - Like difference but uses a comparator function to determine equality
-- drop - Removes n elements from the beginning of array
-- dropLast - Removes n elements from the end of array
+- drop - Removes n elements from the beginning of array ✓
+- dropLast - Removes n elements from the end of array ✓
 - dropRepeats - Returns a new array without consecutive duplicate elements
 - dropRepeatsWith - Like dropRepeats but uses a comparator function
 - dropWhile - Removes elements from beginning while predicate is true
@@ -41,13 +41,13 @@
 - findLast - Finds last element that satisfies predicate ✓
 - findLastIndex - Finds index of last element that satisfies predicate
 - findMostCommon - Finds the most frequently occurring element(s)
-- first - Returns first element of array (alias: head)
+- first - Returns first element of array (alias: head) ✓
 - flatMap - Maps function over array and flattens result
 - flatten - Flattens nested arrays by one level ✓
 - frequency - Count occurrences of each unique element (returns Map<T, number>)
 - groupBy - Groups array elements by key function result
 - groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
-- head - Returns first element of array (alias: first)
+- head - Returns first element of array (alias: first) ✓
 - includes - Checks if array contains element
 - indexBy - Creates an object indexing the array elements by the given key
 - indexOf - Returns index of first occurrence of element
@@ -69,7 +69,7 @@
 - minimumBy - Finds the minimum element according to a comparator function
 - move - Moves element from one index to another
 - none - Returns true if no elements satisfy the predicate ✓
-- nub - Removes duplicate elements from an array (alias: unique)
+- nub - Removes duplicate elements from an array (alias: unique) ✓
 - nubBy - Like nub but uses a custom equality function
 - nth - Returns element at specified index
 - omit - Removes elements at specified indices
@@ -96,7 +96,7 @@
 - replaceFirstMatch - Replaces first element matching predicate
 - replaceLast - Replaces last occurrence of element
 - replaceLastMatch - Replaces last element matching predicate
-- reverse - Reverses array order
+- reverse - Reverses array order ✓
 - rotateLeft - Rotates array elements to the left by n positions
 - rotateRight - Rotates array elements to the right by n positions
 - sample - Returns a random element from the array
@@ -108,7 +108,7 @@
 - sliding - Creates sliding window over array elements
 - slidingWithStep - Creates sliding window with custom step size
 - some - Returns true if any element satisfies predicate ✓
-- sort - Sorts array elements
+- sort - Sorts array elements ✓
 - sortBy - Sorts an array based on a mapping function
 - sortWith - Sorts an array using multiple comparator functions
 - span - Splits array at first element that doesn't satisfy predicate
@@ -129,7 +129,7 @@
 - unfold - Generates array from seed value using generator function
 - union - Returns the union of two arrays (all unique elements from both)
 - unionWith - Like union but uses a comparator function
-- unique - Removes duplicate elements from array (alias: nub)
+- unique - Removes duplicate elements from array (alias: nub) ✓
 - unzip - The opposite of zip - separates an array of pairs into two arrays
 - update - Returns a new array with the element at index replaced by the result of a function
 - xprod - Returns the Cartesian product of two arrays (alias: cartesianProduct)
