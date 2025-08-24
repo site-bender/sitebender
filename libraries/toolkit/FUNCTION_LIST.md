@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 6.3% (54/854 functions with 100% coverage)**
+**Testing Progress: 6.9% (59/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~160 hours
-- **Remaining functions**: 800 (854 total - 54 completed)
+**Estimated Time to Completion**: ~159 hours
+- **Remaining functions**: 795 (854 total - 59 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~160 hours
+- **Hours remaining**: ~159 hours
 - **At 8 hours/day**: ~20 working days
-- **Last updated**: 2025-01-23
-- **Session progress**: Fixed 2 failing tests (clamp epsilon issue, chunk NaN comparison), added comprehensive tests for digitSum, inRange, and binomialCoefficient (4 new functions tested)
+- **Last updated**: 2025-01-24
+- **Session progress**: Successfully added comprehensive tests for 5 new math functions: combinations, permutations, cubeRoot, exponential, logarithm. All tests now passing with proper handling of JavaScript floating-point limitations. Tests use realistic tolerances and Math.fround() for fast-check constraints.
 
 ## Current Functions (854 functions total)
 
@@ -385,13 +385,13 @@
 - binomialCoefficient - Pascal's triangle values (n choose k) ✓
 - ceiling - Rounds up to integer ✓
 - clamp - Constrains a number between min and max ✓
-- combinations - nCr combinations calculation
-- cubeRoot - Returns cube root
+- combinations - nCr combinations calculation ✓
+- cubeRoot - Returns cube root ✓
 - decrement - Subtracts 1 from a number ✓
 - digitSum - Calculates sum of digits in a number ✓
 - divide - Divides first number by second ✓
 - divisors - Find all divisors of a positive integer
-- exponential - Calculates e raised to the power of x (e^x)
+- exponential - Calculates e raised to the power of x (e^x) ✓
 - factorial - Calculates factorial ✓
 - fibonacci - Returns nth Fibonacci number ✓
 - floor - Rounds down to integer ✓
@@ -404,7 +404,7 @@
 - isOdd - Checks if number is odd ✓
 - isPrime - Checks if number is prime ✓
 - lcm - Least common multiple ✓
-- logarithm - Natural log and log with arbitrary base
+- logarithm - Natural log and log with arbitrary base ✓
 - logarithmBase10 - Common (base 10) logarithm
 - max - Finds maximum of two values ✓
 - maxBy - Finds maximum using a mapping function
@@ -417,7 +417,7 @@
 - modulo - Returns remainder of division (90.6% coverage)
 - multiply - Multiplies two numbers ✓
 - negate - Negates a number ✓
-- permutations - nPr permutations calculation
+- permutations - nPr permutations calculation ✓
 - power - Raises to a power ✓
 - primeFactorization - Returns prime factors with multiplicities as Map
 - product - Multiplies all numbers in an array ✓
