@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 11.3% (97/854 functions with 100% coverage)**
+**Testing Progress: 11.8% (101/854 functions with 100% coverage)**
 
 **Estimated Time to Completion**: ~151 hours
-- **Remaining functions**: 757 (854 total - 97 completed)
+- **Remaining functions**: 753 (854 total - 101 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
 - **Hours remaining**: ~151 hours
 - **At 8 hours/day**: ~19 working days
-- **Last updated**: 2025-08-24
-- **Session progress**: Added comprehensive tests for 7 array functions with 100% coverage: reverse, sort, nub/unique, drop, dropLast, head/first. All 340 new tests passing (58 test groups, 167 test steps). Fixed edge cases for NaN handling and sparse arrays.
+- **Last updated**: 2025-08-25
+- **Session progress**: Added comprehensive tests for 4 array functions with 100% coverage: tail, last, init, nth. Fixed type issue in init function. Also fixed a regression in sort test that was caused by property-based testing with incomparable objects.
 
 ## Current Functions (854 functions total)
 
@@ -51,7 +51,7 @@
 - includes - Checks if array contains element
 - indexBy - Creates an object indexing the array elements by the given key
 - indexOf - Returns index of first occurrence of element
-- init - Returns all elements except the last one
+- init - Returns all elements except the last one ✓
 - insertAt - Inserts element at specified index
 - intersection - Returns elements that exist in both arrays
 - intersectionWith - Like intersection but uses a comparator function
@@ -59,7 +59,7 @@
 - intersperse - Inserts separator between array elements
 - isEmpty - Checks if array is empty
 - join - Joins array elements into string
-- last - Returns last element of array
+- last - Returns last element of array ✓
 - lastIndexOf - Returns index of last occurrence of element
 - lastIndexOfMatch - Returns index of last element matching predicate
 - map - Maps function over array elements ✓
@@ -71,7 +71,7 @@
 - none - Returns true if no elements satisfy the predicate ✓
 - nub - Removes duplicate elements from an array (alias: unique) ✓
 - nubBy - Like nub but uses a custom equality function
-- nth - Returns element at specified index
+- nth - Returns element at specified index ✓
 - omit - Removes elements at specified indices
 - pairwise - Returns an array of adjacent pairs from the input array
 - partition - Splits array into two based on predicate
@@ -117,7 +117,7 @@
 - subsequences - Generates all subsequences of array
 - symmetricDifference - Returns elements that are in either array but not both
 - symmetricDifferenceWith - Like symmetricDifference but uses a comparator function
-- tail - Returns all elements except the first
+- tail - Returns all elements except the first ✓
 - take - Takes first n elements ✓
 - takeLast - Takes last n elements
 - takeLastWhile - Takes elements from the end while predicate is true

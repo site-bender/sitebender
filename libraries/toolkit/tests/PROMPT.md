@@ -3,36 +3,38 @@
 ## Overview
 This document provides context for continuing the comprehensive testing implementation for the @sitebender/toolkit library. The library is a pure functional programming utility library with zero dependencies, consisting of mathematical functions, array/string operations, monadic types (Either, Maybe, Result), and IO operations.
 
-## Current Testing Status (Updated: 2025-08-24)
+## Current Testing Status (Updated: 2025-08-25)
 
-**Overall Progress: 11.3% tested (97/854 functions with 100% coverage)**
+**Overall Progress: 11.8% tested (101/854 functions with 100% coverage)**
 
-### Latest Session Achievements (2025-08-24 - Session 6)
-- Added comprehensive tests for 7 array functions with 100% coverage:
-  - `reverse` - Reverses array order
-  - `sort` - Sorts array elements with optional comparator
-  - `nub`/`unique` - Removes duplicate elements
-  - `drop` - Removes n elements from beginning
-  - `dropLast` - Removes n elements from end
-  - `head`/`first` - Returns first element
-- Fixed edge cases:
-  - Corrected NaN handling in dropLast (returns empty array)
-  - Fixed sparse array expectations in reverse (toReversed converts holes to undefined)
-  - Added proper type annotations for sort comparator functions
-  - Verified all aliases work correctly (first/head, unique/nub)
-- All 340 new tests passing (908 total tests, 1558 test steps)
+### Latest Session Achievements (2025-08-25 - Session 7)
+- Added comprehensive tests for 4 array functions with 100% coverage:
+  - `tail` - Returns all elements except the first
+  - `last` - Returns last element of array
+  - `init` - Returns all elements except the last one
+  - `nth` - Returns element at specified index
+- Fixed issues:
+  - Corrected type issue in init function (null/undefined handling)
+  - Fixed property test for tail preserving element order with duplicates
+  - Removed unnecessary lint-ignore comment in last test
+  - Fixed regression in sort test - property-based testing with `fc.anything()` was generating objects that couldn't be converted to primitives
+- All 73 new tests passing (981 total tests)
+- **Important Note**: Be careful with property-based tests that use `fc.anything()` - they can generate edge cases that break sorting and other operations
 
-### Previous Session Achievements (2025-08-24 - Session 5)
+### Previous Session Achievements (2025-08-24 - Session 6)
+- Added comprehensive tests for 7 array functions with 100% coverage: reverse, sort, nub/unique, drop, dropLast, head/first. Fixed NaN handling and sparse array edge cases.
+
+### Earlier Session Achievements (2025-08-24 - Session 5)
 - Added comprehensive tests for 6 array transformation functions with 100% coverage: map, reduce, flatten, concat, slice, take. Fixed sparse array handling and verified currying patterns.
 
 ### Earlier Session Achievements (2025-08-24 - Session 4)
 - Added comprehensive tests for 6 array predicate and search functions with 100% coverage: all, some, none, find, findIndex, findLast. Fixed sparse array handling edge cases.
 
-### Functions with 100% Coverage (97 total)
+### Functions with 100% Coverage (101 total)
 - **Math (47)**: absoluteValue, add, binomialCoefficient, ceiling, clamp, combinations, cubeRoot, decrement, digitSum, divide, divisors, exponential, factorial, fibonacci, floor, gcd, geometricMean, harmonicMean, increment, inRange, isEven, isOdd, isPrime, lcm, logarithm, logarithmBase10, max, min, multiply, negate, permutations, power, primeFactorization, product, quadratic, round, sign, squareRoot, subtract, sum, totient, truncate
 - **Statistical (5)**: average, median, mode, standardDeviation, variance
 - **Trigonometry (6)**: cosine, degreesToRadians, hypotenuse, radiansToDegrees, sine, tangent
-- **Array (21)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, first, flatten, head, map, none, nub, reduce, reverse, slice, some, sort, take, unique
+- **Array (25)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, first, flatten, head, init, last, map, none, nth, nub, reduce, reverse, slice, some, sort, tail, take, unique
 - **Combinators (1)**: pipe
 - **Monads (10)**: Either (chain, isLeft, left, map, right), Maybe (chain, isNothing, just, map, nothing)
 - **Random (1)**: randomBoolean
@@ -268,6 +270,12 @@ Fix ANY issues before proceeding. Do NOT continue if any check fails.
    - `repeatItem` - Creates array with element repeated n times
 
 ## Testing Patterns Reference
+
+### Property-Based Testing - IMPORTANT NOTES
+**WARNING**: Be very careful with `fc.anything()` - it can generate objects that break native JavaScript operations:
+- Objects with toString as non-function properties
+- Objects that can't be converted to primitives
+- Always use try-catch or more specific generators when testing functions that rely on JavaScript's type coercion
 
 ### Property-Based Testing
 ```typescript

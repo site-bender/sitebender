@@ -102,7 +102,11 @@ import dropLast from "../dropLast/index.ts"
  * @property Haskell-derived - Classic FP list operation
  * @property Safe - Returns empty array for empty/single-element inputs
  */
-const init = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => 
-	dropLast(1)(array as Array<T>)
+const init = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+	if (array === null || array === undefined) {
+		return []
+	}
+	return dropLast<T>(1)(array as Array<T>)
+}
 
 export default init
