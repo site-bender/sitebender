@@ -2,6 +2,8 @@
  * Wraps a function to catch errors and call an error handler
  * Provides a functional way to handle exceptions
  *
+ * @pure Creates a new function without side effects (error handling is functional)
+ * @curried Function is curried with error handler
  * @param tryFn - Function that might throw
  * @param catchFn - Function to handle errors
  * @returns Wrapped function that catches errors
@@ -19,21 +21,7 @@
  * safeParseJSON('{"valid": "json"}') // { valid: "json" }
  * safeParseJSON('invalid json') // null (logs error)
  *
- * // Use for API calls that might fail
- * const fetchUser = async (id: number) => {
- *   const response = await fetch(`/api/users/${id}`)
- *   if (!response.ok) throw new Error("User not found")
- *   return response.json()
- * }
- *
- * const safeFetchUser = tryCatch(
- *   fetchUser,
- *   (error, id) => ({ id, name: "Unknown", error: true })
- * )
- *
- * await safeFetchUser(999) // { id: 999, name: "Unknown", error: true }
- *
- * // Can rethrow or transform errors
+ * // Can transform errors
  * const divide = (a: number, b: number) => {
  *   if (b === 0) throw new Error("Division by zero")
  *   return a / b

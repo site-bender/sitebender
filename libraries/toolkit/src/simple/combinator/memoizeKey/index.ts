@@ -6,7 +6,7 @@
  * complex nested structures. Sorts object keys for consistency and handles
  * circular references safely. Optimized for cache key generation.
  *
- * @curried (options) => (...args) => key
+ * @curried
  * @param options - Key generation configuration
  * @param args - Arguments to create key from
  * @returns Deterministic cache key string
@@ -48,9 +48,6 @@
  * typedKey(123, "123", true)
  * // "number:123|string:123|boolean:true"
  *
- * typedKey(null, undefined, NaN)
- * // "null:null|undefined:undefined|number:NaN"
- *
  * // Hash long keys
  * const hashedKey = memoizeKey({
  *   maxLength: 50,
@@ -60,69 +57,6 @@
  * const longString = "a".repeat(100)
  * hashedKey(longString)
  * // Returns hashed version if over 50 chars
- *
- * // Memoization with custom keys
- * function expensiveOperation(config: any, data: any) {
- *   console.log("Computing...")
- *   return { config, data, timestamp: Date.now() }
- * }
- *
- * const keyGen = memoizeKey({ separator: ":" })
- * const cache = new Map()
- *
- * function memoizedOperation(config: any, data: any) {
- *   const key = keyGen(config, data)
- *
- *   if (cache.has(key)) {
- *     return cache.get(key)
- *   }
- *
- *   const result = expensiveOperation(config, data)
- *   cache.set(key, result)
- *   return result
- * }
- *
- * memoizedOperation({ type: "A" }, [1, 2])  // Computes
- * memoizedOperation({ type: "A" }, [1, 2])  // From cache
- *
- * // API endpoint caching
- * const apiKey = memoizeKey({
- *   separator: "/",
- *   transform: (arg: any) => {
- *     if (typeof arg === "object" && arg !== null) {
- *       // Convert query params to sorted string
- *       return new URLSearchParams(arg).toString()
- *     }
- *     return String(arg)
- *   }
- * })
- *
- * apiKey("users", { sort: "name", page: 1 })
- * // "users/page=1&sort=name"
- *
- * apiKey("posts", { author: 5, limit: 10 })
- * // "posts/author=5&limit=10"
- *
- * // Database query caching
- * const queryKey = memoizeKey({
- *   includeType: false,
- *   maxDepth: 3
- * })
- *
- * const queryCache = new Map()
- *
- * function cachedQuery(table: string, conditions: any, options: any) {
- *   const key = queryKey(table, conditions, options)
- *
- *   if (queryCache.has(key)) {
- *     return queryCache.get(key)
- *   }
- *
- *   // Perform actual database query
- *   const result = performQuery(table, conditions, options)
- *   queryCache.set(key, result)
- *   return result
- * }
  *
  * // Function argument caching
  * const fnKey = memoizeKey()
@@ -164,45 +98,9 @@
  * const date2 = new Date("2024-01-01")
  *
  * dateKey(date1) === dateKey(date2)      // true (same time value)
- *
- * // Set and Map handling
- * const collectionKey = memoizeKey()
- *
- * collectionKey(new Set([1, 2, 3]))      // "Set([1,2,3])"
- * collectionKey(new Map([["a", 1]]))     // "Map([["a",1]])"
- *
- * // Ignore certain properties
- * const filteredKey = memoizeKey({
- *   transform: (arg: any) => {
- *     if (typeof arg === "object" && arg !== null) {
- *       const { timestamp, _id, ...rest } = arg
- *       return rest
- *     }
- *     return arg
- *   }
- * })
- *
- * filteredKey({
- *   name: "John",
- *   timestamp: Date.now(),
- *   _id: "abc123"
- * })
- * // Only includes name in key
- *
- * // Performance optimization
- * const fastKey = memoizeKey({
- *   maxDepth: 2,
- *   maxLength: 100,
- *   hash: true
- * })
- *
- * // Use for large objects where deep equality isn't needed
- * fastKey(largeComplexObject)            // Fast, shallow key generation
  * ```
- * @property Pure - Always returns same key for same inputs
- * @property Deterministic - Sorted keys ensure consistency
- * @property Safe - Handles circular references and edge cases
- * @property Flexible - Highly configurable for different use cases
+ * @pure
+ * @curried
  */
 type KeyOptions = {
 	separator?: string

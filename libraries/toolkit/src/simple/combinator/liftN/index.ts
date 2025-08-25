@@ -18,14 +18,6 @@
  * const liftedSum3 = liftN(3, sum)
  * liftedSum3([1], [10], [100, 200]) // [111, 211]
  *
- * // Useful for functions where arity matters
- * const divide = (...nums: Array<number>) =>
- *   nums.reduce((a, b) => a / b)
- *
- * const liftedDivide2 = liftN(2, divide)
- * liftedDivide2([10, 20], [2, 5])
- * // [5, 2, 10, 4] (10/2, 10/5, 20/2, 20/5)
- *
  * // Control exact number of arrays processed
  * const process3 = liftN(3, (a: string, b: string, c: string) =>
  *   `${a}-${b}-${c}`)
@@ -47,6 +39,9 @@
  *
  * Note: This is useful when you need to control exactly how many
  * arrays are processed, especially with variadic functions.
+ * 
+ * @pure
+ * @curried
  */
 // deno-lint-ignore no-explicit-any
 const liftN = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
@@ -70,21 +65,14 @@ const liftN = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
 			return []
 		}
 
-		// Compute Cartesian product of n arrays
-		let cartesian: Array<Array<any>> = relevantArrays[0].map((x) => [x])
-
-		for (let i = 1; i < n; i++) {
-			const result: Array<Array<any>> = []
-			for (const combo of cartesian) {
-				for (const item of relevantArrays[i]) {
-					result.push([...combo, item])
-				}
-			}
-			cartesian = result
-		}
+		// Compute Cartesian product of n arrays functionally
+		const cartesian = relevantArrays.reduce(
+			(acc, arr) => acc.flatMap((combo) => arr.map((item) => [...combo, item])),
+			[[]] as Array<Array<any>>
+		)
 
 		// Apply function to each combination
-		return cartesian.map((args) => fn(...args.slice(0, n)))
+		return cartesian.map((args) => fn(...args))
 	}
 }
 

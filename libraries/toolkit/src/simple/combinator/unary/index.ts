@@ -2,6 +2,7 @@
  * Wraps a function to accept exactly 1 argument
  * Equivalent to arity(1, fn) but more semantic
  *
+ * @pure Creates a new function without side effects
  * @param fn - Function to wrap
  * @returns Unary function (accepts exactly 1 argument)
  * @example
@@ -24,23 +25,6 @@
  * const logValue = unary(console.log)
  * ["a", "b", "c"].forEach(logValue)
  * // Logs only values, not (value, index, array)
- *
- * // Create simple transformers
- * const getData = (obj: any, key?: string, defaultVal?: any) => {
- *   if (key) return obj[key] || defaultVal
- *   return obj
- * }
- *
- * const getDataSimple = unary(getData)
- * const objects = [{ name: "Alice" }, { name: "Bob" }]
- * objects.map(getDataSimple) // Returns objects as-is
- *
- * // Combine with other utilities
- * const double = (x: number) => x * 2
- * const add = (a: number, b: number) => a + b
- *
- * const doubleFirst = compose([double, unary(add)])
- * doubleFirst(5, 10) // 10 (ignores 10, doubles 5)
  * ```
  *
  * Note: This is a convenience function for the common case of

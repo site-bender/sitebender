@@ -2,6 +2,7 @@
  * Returns a throttled version of a function that only invokes
  * at most once per wait milliseconds
  *
+ * @impure Uses timers and maintains internal state
  * @param wait - Minimum milliseconds between invocations
  * @param fn - Function to throttle
  * @returns Throttled function with cancel method
@@ -19,9 +20,6 @@
  * throttled(event3) // Ignored (too soon)
  * // After 1000ms passes
  * throttled(event4) // Executes
- *
- * // Can cancel to reset throttle
- * throttled.cancel() // Resets throttle state
  * ```
  *
  * Note: Unlike debounce, throttle executes immediately on first call,

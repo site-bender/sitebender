@@ -2,6 +2,8 @@
  * Converts a function to a thunk (zero-argument function)
  * Delays execution by wrapping in a parameterless function
  *
+ * @pure Creates a new function without side effects
+ * @curried Function is curried with bound arguments
  * @param fn - Function to thunkify
  * @param args - Arguments to bind to the function
  * @returns Thunk that executes the function with bound arguments
@@ -25,38 +27,6 @@
  *   thunkify(console.log, "Third")
  * ]
  *
- * // Execute when ready
- * tasks.forEach(task => task())
- *
- * // Useful for lazy evaluation
- * const lazyValues = {
- *   expensive: thunkify(calculateExpensiveValue, config),
- *   database: thunkify(fetchFromDatabase, id),
- *   api: thunkify(callExternalApi, params)
- * }
- *
- * // Only compute what's needed
- * if (condition) {
- *   const data = lazyValues.database()
- * }
- *
- * // Combine with memoization for caching
- * const memoThunk = <T>(thunk: () => T): (() => T) => {
- *   let cached = false
- *   let result: T
- *   return () => {
- *     if (!cached) {
- *       result = thunk()
- *       cached = true
- *     }
- *     return result
- *   }
- * }
- *
- * const cachedExpensive = memoThunk(thunkify(expensiveCalc, 5, 5))
- * cachedExpensive() // Calculates
- * cachedExpensive() // Returns cached result
- *
  * // Works with async functions
  * const fetchUser = async (id: number) => {
  *   const response = await fetch(`/api/users/${id}`)
@@ -64,7 +34,6 @@
  * }
  *
  * const getUserLater = thunkify(fetchUser, 123)
- * // Later...
  * const user = await getUserLater()
  * ```
  *

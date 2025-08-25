@@ -2,6 +2,8 @@
  * Conditionally applies a function based on a predicate
  * If predicate returns true, applies the function; otherwise returns the value unchanged
  *
+ * @pure Creates a new function without side effects
+ * @curried Function is curried with predicate and transformer
  * @param predicate - Condition to check
  * @param fn - Function to apply when predicate is true
  * @returns Function that conditionally transforms its input
@@ -27,20 +29,6 @@
  *
  * promoteIfSenior({ years: 7, title: "Developer" })
  * // { years: 7, title: "Senior Developer" }
- *
- * promoteIfSenior({ years: 2, title: "Developer" })
- * // { years: 2, title: "Developer" }
- *
- * // Chain multiple conditional transformations
- * const processNumber = pipe([
- *   when((x: number) => x < 0, Math.abs),
- *   when((x: number) => x > 100, () => 100),
- *   when((x: number) => x % 2 === 1, (x: number) => x + 1)
- * ])
- *
- * processNumber(-55) // 56 (abs to 55, odd so add 1)
- * processNumber(200) // 100 (capped at 100)
- * processNumber(44) // 44 (no conditions met)
  * ```
  *
  * Note: The identity function is applied when predicate returns false,

@@ -1,5 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
+## 🚀 QUICK START FOR NEXT SESSION
+**Status**: 116/763 files complete (Math ✅, Logic ✅, Combinator ✅)
+**Next**: `conversion/` folder (16 files), then `string/` (30 files)
+**Time**: Sessions 1-7 took ~91 minutes total
+**Remember**: Check for duplicate @curried tags before adding new ones!
+
 ## IMPORTANT: Starting a New Session?
 
 1. **READ THIS FILE FIRST** for context on what we're doing
@@ -8,11 +14,21 @@
 4. **Use the Task tool** for batch processing (much faster!)
 5. **Track time** with timestamps before/after each session
 
+### CRITICAL REMINDERS FOR NEXT SESSION
+- **CHECK FOR DUPLICATE TAGS**: Many files have @curried in description AND at bottom - remove duplicates!
+- **Read files first**: Check existing tags before adding new ones
+- **Fix imperative code**: Replace `for`, `while`, `let`, `forEach`, mutations with FP patterns
+- **Reduce examples**: Most have 40-180 lines, reduce to 8-10 meaningful examples
+- **@impure for stateful**: memoize, debounce, throttle, once, tap need @impure tag
+- **User prefers speed WITH accuracy**: Work fast but double-check for duplicates
+
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Actual Time (so far)**: ~0.73 minutes per file (much faster than estimated!)
+**Completed So Far**: 116/763 files (15.2%) - Math, Logic, Combinator folders DONE
+**Actual Time**: ~0.78 minutes per file (very fast with Task tool!)
 **Approach**: Batch processing, 10-15 files per session using Task tool
+**Next Session**: Start with `conversion/` folder (16 files)
 
 ## Problems Identified
 
@@ -160,11 +176,11 @@
 
 ### Running Totals
 
-- **Total Sessions**: 6
-- **Files Completed**: 67/763 (MATH + LOGIC FOLDERS COMPLETE!)
-- **Total Time Spent**: ~50 minutes
-- **Average Time per File**: 0.75 minutes
-- **Estimated Completion**: ~9.5 hours total (at current pace)
+- **Total Sessions**: 7
+- **Files Completed**: 116/763 (MATH + LOGIC + COMBINATOR FOLDERS COMPLETE!)
+- **Total Time Spent**: ~91 minutes
+- **Average Time per File**: 0.78 minutes
+- **Estimated Completion**: ~10 hours total (at current pace)
 
 ## Quality Checklist per File
 
@@ -307,28 +323,30 @@
 - Removed invalid TypeScript examples
   **Notes**: Caught duplicate @curried issue early thanks to user feedback. More careful approach paid off.
 
-### Session 7 - 2025-08-25 17:24-17:30 (Phase 1)
-
-**Folder**: combinator/ (partial)
-**Files Processed**: constructN, converge, curry, curryN, debounce, flip, identity, juxt, lift, liftA2
-**Start Time**: 2025-08-25T17:24:00+12:00
-**End Time**: 2025-08-25T17:30:00+12:00  
-**Duration**: 6.0 minutes
+### Session 7 - 2025-08-25 17:04-17:45 (Phase 1)
+**Folder**: combinator/
+**Files Processed**: ALL 49 files (apply, arity, binary, bind, call, complement, compose, composeAsync, constant, construct, constructN, converge, curry, curryN, debounce, flip, identity, juxt, lift, liftA2-5, liftBinary/Ternary/Unary, liftN, memoize*, nAry, nthArg, of, once, partial*, pipe*, tap, throttle, thunkify, tryCatch, unary, unless, until, useWith, when, wrap)
+**Start Time**: 2025-08-25T17:04:15+12:00
+**End Time**: 2025-08-25T17:45:07+12:00
+**Duration**: 40.87 minutes
 **Issues Fixed**:
-
+- Replaced @property tags with @pure, @curried, @impure (for stateful functions), @idempotent
+- Reduced examples from 40-130+ lines to 8-10 per function
+- Fixed ALL imperative code:
+  - composeAsync: replaced for loop with reduceRight
+  - lift/liftA2-5/liftN: replaced nested for loops with flatMap/reduce
+  - pipeAsync/pipeWith: replaced for loops with reduce
+  - until: converted while loop to recursive implementation
+- Added @impure for stateful functions (debounce, memoize*, once, tap, throttle)
 - Removed duplicate @curried tags
-- Replaced @property tags with @pure, @curried, @impure (debounce), @idempotent (identity)
-- Reduced examples from 120+ to 8-10 per function (massive reduction in lift/liftA2)
-- Fixed imperative code in lift and liftA2 (replaced for loops with functional reduce/flatMap)
-- Removed invalid TypeScript examples
-  **Notes**: Very fast session targeting specific functions. Debounce correctly marked @impure for side effects.
+**Notes**: Massive improvements in lift functions. Some had 130+ lines of examples!
 
 ## Next Up: Phase 1 Continues
 
 **Next folders to process:**
 
 1. ~~`logic/` (13 files) - COMPLETE~~
-2. `combinator/` (39 files remaining) - already FP-focused
+2. ~~`combinator/` (49 files) - COMPLETE~~
 3. `conversion/` (16 files) - type conversions
 4. `string/` basic operations (30 files)
 

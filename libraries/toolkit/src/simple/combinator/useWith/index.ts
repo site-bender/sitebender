@@ -2,6 +2,8 @@
  * Transforms arguments before passing to a function
  * Accepts an array of transformer functions and applies them to corresponding arguments
  *
+ * @pure Creates a new function without side effects
+ * @curried Function is curried with transformers
  * @param fn - Function to call with transformed arguments
  * @param transformers - Array of functions to transform arguments
  * @returns Function that transforms arguments before calling fn
@@ -24,16 +26,6 @@
  *   ]
  * )
  * processData("alice", "25", "yes") // "ALICE is 25 and active"
- *
- * // Useful for adapting incompatible interfaces
- * const average = (nums: Array<number>) =>
- *   nums.reduce((a, b) => a + b, 0) / nums.length
- *
- * const averageStrings = useWith(
- *   average,
- *   [(strs: Array<string>) => strs.map(Number)]
- * )
- * averageStrings(["1", "2", "3", "4"]) // 2.5
  * ```
  *
  * Note: The number of transformers should match the number of arguments

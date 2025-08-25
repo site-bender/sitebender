@@ -2,6 +2,7 @@
  * Ensures a function can only be called once
  * Subsequent calls return the result of the first invocation
  *
+ * @impure
  * @param fn - Function to restrict to single invocation
  * @returns Function that executes only once with reset method
  * @example
@@ -15,19 +16,9 @@
  * incrementOnce() // 1 (still returns first result)
  * counter // 1 (only incremented once)
  *
- * // Useful for initialization functions
- * const initialize = once(() => {
- *   console.log("Initializing...")
- *   return { config: "loaded" }
- * })
- *
- * const config1 = initialize() // Logs "Initializing...", returns config
- * const config2 = initialize() // Returns same config, no log
- * config1 === config2 // true
- *
  * // Can reset to allow another call
- * initialize.reset()
- * initialize() // Logs "Initializing..." again
+ * incrementOnce.reset()
+ * incrementOnce() // 2 (executes again after reset)
  * ```
  *
  * Note: The function remembers its first result indefinitely unless reset.

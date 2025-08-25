@@ -2,6 +2,7 @@
  * Calls a function repeatedly until a predicate returns true
  * Applies the function to its own output until the condition is met
  *
+ * @pure Uses recursion instead of loops for functional purity
  * @param predicate - Condition to check (stops when true)
  * @param fn - Function to apply repeatedly
  * @param initial - Starting value
@@ -20,10 +21,8 @@
  * nextPowerOf2(100) // 128
  *
  * // Reduce a number to single digit by summing digits
- * const sumDigits = (n: number): number => {
- *   const sum = String(n).split('').reduce((a, b) => a + Number(b), 0)
- *   return sum
- * }
+ * const sumDigits = (n: number): number =>
+ *   String(n).split('').reduce((a, b) => a + Number(b), 0)
  *
  * const digitalRoot = (n: number) =>
  *   until(
@@ -34,14 +33,6 @@
  *
  * digitalRoot(99) // 9 (99 -> 18 -> 9)
  * digitalRoot(12345) // 6 (12345 -> 15 -> 6)
- *
- * // Find first Thursday from a date
- * const nextThursday = (date: Date) =>
- *   until(
- *     (d: Date) => d.getDay() === 4,
- *     (d: Date) => new Date(d.getTime() + 86400000),
- *     date
- *   )
  * ```
  *
  * Note: Be careful to ensure the predicate will eventually return true,
@@ -52,12 +43,6 @@ const until = <T>(
 	predicate: (value: T) => boolean,
 	fn: (value: T) => T,
 	initial: T,
-): T => {
-	let current = initial
-	while (!predicate(current)) {
-		current = fn(current)
-	}
-	return current
-}
+): T => predicate(initial) ? initial : until(predicate, fn, fn(initial))
 
 export default until

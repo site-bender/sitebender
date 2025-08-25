@@ -2,6 +2,7 @@
  * Returns a function that returns its nth argument
  * Useful for selecting specific arguments in functional pipelines
  *
+ * @pure
  * @param n - Zero-based index of argument to return
  * @returns Function that returns its nth argument
  * @example
@@ -18,37 +19,6 @@
  * // Returns undefined for out-of-bounds
  * const fifth = nthArg(4)
  * fifth("a", "b") // undefined
- *
- * // Useful with higher-order functions
- * const pairs = [
- *   ["name", "Alice"],
- *   ["age", 30],
- *   ["city", "NYC"]
- * ]
- *
- * pairs.map(nthArg(0)) // ["name", "age", "city"]
- * pairs.map(nthArg(1)) // ["Alice", 30, "NYC"]
- *
- * // Select from multiple arguments
- * const data = [
- *   [1, 2, 3, 4, 5],
- *   [10, 20, 30, 40, 50],
- *   [100, 200, 300, 400, 500]
- * ]
- *
- * const getThird = nthArg(2)
- * data.map(arr => apply(getThird, arr)) // [3, 30, 300]
- *
- * // Negative indices select from end
- * const last = nthArg(-1)
- * const secondLast = nthArg(-2)
- *
- * last("a", "b", "c", "d") // "d"
- * secondLast("a", "b", "c", "d") // "c"
- *
- * // Use in function composition
- * const getMax = converge(Math.max, [nthArg(0), nthArg(1)])
- * getMax(5, 10, 15) // 10 (max of first two args)
  * ```
  *
  * Note: Returns undefined if the index is out of bounds.

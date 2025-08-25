@@ -24,49 +24,9 @@
  *   `rgba(${r}, ${g}, ${b}, ${a})`
  * const liftedRgba = liftA4(rgba)
  *
- * liftedRgba([0, 255])([0, 255])([0, 255])([0.5, 1])
- * // All 16 RGBA combinations from the given values
- *
- * // Database record creation
- * const makeRecord = (
- *   id: number,
- *   type: string,
- *   status: string,
- *   priority: number
- * ) => ({
- *   id,
- *   type,
- *   status,
- *   priority,
- *   created: new Date()
- * })
- * const liftedMakeRecord = liftA4(makeRecord)
- *
- * liftedMakeRecord([1, 2])
- *                 (["task", "bug"])
- *                 (["open", "closed"])
- *                 ([1, 2, 3])
- * // 24 different record combinations
- *
- * // Complex validation
- * const validateRange = (
- *   value: number,
- *   min: number,
- *   max: number,
- *   strict: boolean
- * ) => {
- *   if (strict) {
- *     return value > min && value < max
- *   }
- *   return value >= min && value <= max
- * }
- * const liftedValidate = liftA4(validateRange)
- *
- * liftedValidate([5, 10, 15])
- *               ([0, 8])
- *               ([12, 20])
- *               ([true, false])
- * // All validation combinations with strict/non-strict modes
+ * liftedRgba([0, 255])([128])([64])([0.5, 1])
+ * // ["rgba(0, 128, 64, 0.5)", "rgba(0, 128, 64, 1)",
+ * //  "rgba(255, 128, 64, 0.5)", "rgba(255, 128, 64, 1)"]
  *
  * // URL construction
  * const buildUrl = (
@@ -77,11 +37,14 @@
  * ) => `${protocol}://${domain}${path}${query}`
  * const liftedBuildUrl = liftA4(buildUrl)
  *
- * liftedBuildUrl(["http", "https"])
- *               (["api.example.com", "test.example.com"])
+ * liftedBuildUrl(["https"])
+ *               (["api.example.com"])
  *               (["/v1/users", "/v2/users"])
- *               (["?active=true", "?limit=10", ""])
- * // All URL combinations
+ *               (["?active=true", ""])
+ * // ["https://api.example.com/v1/users?active=true",
+ * //  "https://api.example.com/v1/users",
+ * //  "https://api.example.com/v2/users?active=true",
+ * //  "https://api.example.com/v2/users"]
  *
  * // Date-time construction
  * const makeDateTime = (
@@ -92,11 +55,9 @@
  * ) => new Date(year, month - 1, day, hour)
  * const liftedMakeDateTime = liftA4(makeDateTime)
  *
- * liftedMakeDateTime([2024, 2025])
- *                   ([1, 6, 12])
- *                   ([1, 15])
- *                   ([0, 12])
- * // All datetime combinations
+ * liftedMakeDateTime([2024])([1])([15, 30])([9, 17])
+ * // [Date(2024-01-15 09:00), Date(2024-01-15 17:00),
+ * //  Date(2024-01-30 09:00), Date(2024-01-30 17:00)]
  *
  * // CSS box model
  * const boxModel = (
@@ -107,11 +68,12 @@
  * ) => `${top} ${right} ${bottom} ${left}`
  * const liftedBoxModel = liftA4(boxModel)
  *
- * liftedBoxModel(["10px", "20px"])
+ * liftedBoxModel(["10px"])
  *               (["10px", "20px"])
+ *               (["10px"])
  *               (["10px", "20px"])
- *               (["10px", "20px"])
- * // All 16 combinations for margin/padding values
+ * // ["10px 10px 10px 10px", "10px 10px 10px 20px",
+ * //  "10px 20px 10px 10px", "10px 20px 10px 20px"]
  *
  * // Configuration combinations
  * const makeConfig = (
@@ -127,8 +89,8 @@
  * })
  * const liftedMakeConfig = liftA4(makeConfig)
  *
- * liftedMakeConfig(["dev", "staging", "prod"])
- *                 (["us-east", "eu-west"])
+ * liftedMakeConfig(["dev"])
+ *                 (["us-east"])
  *                 (["featureA", "featureB"])
  *                 ([true, false])
  * // All configuration permutations
@@ -138,8 +100,8 @@
  *   (a + b) * (c - d)
  * const liftedCalculate = liftA4(calculate)
  *
- * liftedCalculate([1, 2])([3, 4])([5, 6])([1, 2])
- * // All calculation results
+ * liftedCalculate([1])([3])([5, 6])([1, 2])
+ * // All calculation results: [16, 8, 20, 12]
  *
  * // Empty array handling
  * liftedSum4([])([1])([2])([3])        // []
@@ -149,74 +111,9 @@
  *
  * // Single element arrays
  * liftedSum4([1])([2])([3])([4])  // [10]
- *
- * // Curried application
- * const withFirst = liftedSum4([1, 2])
- * const withFirstTwo = withFirst([10, 20])
- * const withFirstThree = withFirstTwo([100])
- *
- * withFirstThree([1000, 2000])
- * // [1111, 2111, 1121, 2121]
- *
- * // SQL query builder
- * const buildQuery = (
- *   table: string,
- *   column: string,
- *   operator: string,
- *   value: any
- * ) => `SELECT * FROM ${table} WHERE ${column} ${operator} '${value}'`
- * const liftedQuery = liftA4(buildQuery)
- *
- * liftedQuery(["users", "posts"])
- *            (["id", "status", "created"])
- *            (["=", ">", "<"])
- *            ([1, "active", "2024-01-01"])
- * // All query combinations
- *
- * // Game state combinations
- * const gameState = (
- *   level: number,
- *   lives: number,
- *   score: number,
- *   powerup: string
- * ) => ({
- *   level,
- *   lives,
- *   score,
- *   powerup,
- *   difficulty: level * 10 - lives * 5 + score / 100
- * })
- * const liftedGameState = liftA4(gameState)
- *
- * liftedGameState([1, 2, 3])
- *                ([3, 5])
- *                ([0, 1000, 5000])
- *                (["none", "shield", "speed"])
- * // All game state combinations
- *
- * // Network request configurations
- * const makeRequest = (
- *   method: string,
- *   endpoint: string,
- *   headers: Record<string, string>,
- *   timeout: number
- * ) => ({
- *   method,
- *   url: endpoint,
- *   headers,
- *   timeout
- * })
- * const liftedRequest = liftA4(makeRequest)
- *
- * liftedRequest(["GET", "POST"])
- *              (["/api/data", "/api/users"])
- *              ([{ "Content-Type": "json" }, { "Content-Type": "xml" }])
- *              ([5000, 10000])
- * // All request configurations
  * ```
- * @property Applicative - works with applicative functors (Arrays)
- * @property Cartesian-product - creates all combinations of four inputs
- * @property Type-safe - preserves types through the transformation
+ * @pure
+ * @curried
  */
 const liftA4 = <A, B, C, D, R>(
 	fn: (a: A, b: B, c: C, d: D) => R,
@@ -232,20 +129,13 @@ const liftA4 = <A, B, C, D, R>(
 ) =>
 (
 	fd: ReadonlyArray<D>,
-): Array<R> => {
-	const result: Array<R> = []
-
-	for (const a of fa) {
-		for (const b of fb) {
-			for (const c of fc) {
-				for (const d of fd) {
-					result.push(fn(a, b, c, d))
-				}
-			}
-		}
-	}
-
-	return result
-}
+): Array<R> =>
+	fa.flatMap((a) =>
+		fb.flatMap((b) =>
+			fc.flatMap((c) =>
+				fd.map((d) => fn(a, b, c, d))
+			)
+		)
+	)
 
 export default liftA4

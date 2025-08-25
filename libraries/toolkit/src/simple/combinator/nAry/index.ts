@@ -2,6 +2,7 @@
  * Creates a function that accepts exactly n arguments
  * Alias for arity with a different name convention
  *
+ * @pure
  * @param n - The exact number of arguments to accept
  * @param fn - Function to wrap
  * @returns Function that accepts exactly n arguments
