@@ -1,4 +1,4 @@
-// Helper function to filter out JSX-specific attributes that should not appear in HTML
+// Helper function to filter out JSX-only attributes that should not appear in emitted HTML
 function shouldIncludeAttribute(key: string): boolean {
 	const jsxOnlyAttributes = new Set([
 		"key",
@@ -54,7 +54,7 @@ function toHtmlAttributeName(jsxAttr: string): string {
 	return jsxAttr.replace(/([A-Z])/g, (match) => `-${match.toLowerCase()}`)
 }
 
-// Simple JSX to HTML renderer
+// Simple JSX to HTML renderer (framework-free)
 function renderToString(element: unknown): string {
 	if (typeof element === "string" || typeof element === "number") {
 		return String(element)
@@ -79,7 +79,8 @@ function renderToString(element: unknown): string {
 			}
 		}
 		const { type, props } = jsxElement
-		const { children, ...attributes } = props || {}
+		// Extract children and dangerouslySetInnerHTML specially
+		const { children, dangerouslySetInnerHTML, ...attributes } = props || {}
 
 		const voidElements = new Set([
 			"area",
@@ -97,7 +98,7 @@ function renderToString(element: unknown): string {
 			"wbr",
 		])
 
-		if (voidElements.has(type)) {
+			if (voidElements.has(type)) {
 			const attrs = Object.entries(attributes)
 				.filter(([key]) => shouldIncludeAttribute(key))
 				.map(([key, value]) => {
@@ -118,7 +119,14 @@ function renderToString(element: unknown): string {
 			})
 			.join("")
 
-		const childrenHtml = children ? renderToString(children) : ""
+			// If dangerouslySetInnerHTML is provided, use its __html content directly
+			let childrenHtml = ""
+			if (dangerouslySetInnerHTML && typeof dangerouslySetInnerHTML === "object" && "__html" in (dangerouslySetInnerHTML as Record<string, unknown>)) {
+				const raw = (dangerouslySetInnerHTML as { __html?: unknown }).__html
+				childrenHtml = raw === null || raw === undefined ? "" : String(raw)
+			} else {
+				childrenHtml = children ? renderToString(children) : ""
+			}
 
 		return `<${type}${attrs}>${childrenHtml}</${type}>`
 	}

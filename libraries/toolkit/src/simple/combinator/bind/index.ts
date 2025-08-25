@@ -5,6 +5,8 @@
  * @param fn - Function or method to bind
  * @param context - The value to use as 'this'
  * @returns Bound function
+ * @pure
+ * @curried
  * @example
  * ```typescript
  * // Bind object methods for standalone use
@@ -29,17 +31,6 @@
  * const messages = ["Error", "Warning", "Info"]
  * messages.forEach(bind(logger.log, logger))
  * // Logs: "[LOG] Error", "[LOG] Warning", "[LOG] Info"
- *
- * // Useful for array methods that lose context
- * const counter = {
- *   count: 0,
- *   increment() {
- *     return ++this.count
- *   }
- * }
- *
- * const inc = bind(counter.increment, counter)
- * [1, 2, 3].map(inc) // [1, 2, 3] (counter.count is now 3)
  *
  * // Bind built-in methods
  * const slice = bind(Array.prototype.slice, [1, 2, 3, 4, 5])

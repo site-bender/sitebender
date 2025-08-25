@@ -5,6 +5,7 @@
  * @param wait - Milliseconds to wait before invoking
  * @param fn - Function to debounce
  * @returns Debounced function with cancel method
+ * @impure
  * @example
  * ```typescript
  * const expensiveOperation = (value: string) => {
@@ -23,9 +24,6 @@
  * debounced("value")
  * debounced.cancel() // Prevents execution
  * ```
- *
- * Note: The returned function includes a `cancel` method to clear pending timeouts.
- * This is useful for cleanup in components or when you need to force-cancel.
  */
 const debounce = <T extends ReadonlyArray<unknown>, R>(
 	wait: number,

@@ -1,7 +1,5 @@
 import { walk } from "https://deno.land/std@0.220.1/fs/walk.ts"
 
-import type { Logger } from "~types/scripts/index.ts"
-
 import buildRoute from "./buildRoute/index.ts"
 
 const defaultLogger: Logger = {

@@ -135,13 +135,29 @@ export default function compile(
 		}
 
 		if (isOn(node)) {
-			const onNode = node as { __kind: "control:on"; event: string; handler?: unknown }
-			const behavior: BehaviorNode = { kind: "on", event: onNode.event, handler: onNode.handler }
-			const target = [...out].reverse().find((n) => n.kind === "element") as IRNode | undefined
+			const onNode = node as {
+				__kind: "control:on"
+				event: string
+				handler?: unknown
+			}
+			const behavior: BehaviorNode = {
+				kind: "on",
+				event: onNode.event,
+				handler: onNode.handler,
+			}
+			const target = [...out].reverse().find((n) => n.kind === "element") as
+				| IRNode
+				| undefined
 			if (target && target.kind === "element") {
 				target.behaviors = [...(target.behaviors || []), behavior]
 			} else {
-				out.push({ kind: "element", tag: "div", props: {}, children: [], behaviors: [behavior] })
+				out.push({
+					kind: "element",
+					tag: "div",
+					props: {},
+					children: [],
+					behaviors: [behavior],
+				})
 			}
 			continue
 		}

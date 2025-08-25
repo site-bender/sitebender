@@ -4,6 +4,7 @@
  *
  * @param predicate - Predicate function to negate
  * @returns Function that returns the opposite of the predicate
+ * @pure
  * @example
  * ```typescript
  * const isEven = (n: number) => n % 2 === 0
@@ -38,17 +39,6 @@
  *
  * partition(isPositive, [-2, -1, 0, 1, 2])
  * // [[1, 2], [-2, -1, 0]]
- *
- * // Chain with other functions
- * const isEmpty = (s: string) => s.length === 0
- * const isNotEmpty = complement(isEmpty)
- * const hasContent = pipe([
- *   (s: string) => s.trim(),
- *   isNotEmpty
- * ])
- *
- * hasContent("  ") // false
- * hasContent(" hello ") // true
  * ```
  *
  * Note: This is equivalent to composing with the not function,

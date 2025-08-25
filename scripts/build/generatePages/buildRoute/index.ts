@@ -1,7 +1,5 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
-import type { Logger } from "~types/scripts/index.ts"
-
 import analyzeFileAssets from "./analyzeFileAssets/index.ts"
 import prettyPrintHtml from "./prettyPrintHtml/index.ts"
 import renderPageWithApp from "./renderPageWithApp/index.ts"

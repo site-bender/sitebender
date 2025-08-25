@@ -14,9 +14,7 @@ export default function createElement(
 			type: tag,
 			props: {
 				...(props ?? {}),
-				children: flatChildren.length === 1
-					? flatChildren[0]
-					: flatChildren,
+				children: flatChildren.length === 1 ? flatChildren[0] : flatChildren,
 			},
 		}
 	}

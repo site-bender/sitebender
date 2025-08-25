@@ -4,7 +4,12 @@ export default function () {
 	return (
 		<body>
 			<h1>Sitebender Docs</h1>
-			<p><a href="/demo.tsx/">Open adaptive demo</a></p>
+			<p>
+				<a href="/demo.tsx/">Open adaptive demo</a>
+			</p>
+			<p>
+				<a href="/validation.tsx/">Open validation demo</a>
+			</p>
 		</body>
 	)
 }

@@ -5,6 +5,7 @@
  * @param fn - Function to call
  * @param args - Arguments to pass
  * @returns Result of function call
+ * @pure
  * @example
  * ```typescript
  * // Simple function call
@@ -14,8 +15,7 @@
  * // Useful for invoking functions dynamically
  * const operations = {
  *   add: (a: number, b: number) => a + b,
- *   multiply: (a: number, b: number) => a * b,
- *   subtract: (a: number, b: number) => a - b
+ *   multiply: (a: number, b: number) => a * b
  * }
  *
  * const operate = (op: keyof typeof operations, x: number, y: number) =>
@@ -23,17 +23,6 @@
  *
  * operate("add", 10, 5) // 15
  * operate("multiply", 10, 5) // 50
- *
- * // Call methods with proper context
- * const person = {
- *   name: "Bob",
- *   greet(greeting: string) {
- *     return `${greeting}, I'm ${this.name}`
- *   }
- * }
- *
- * // Use bind with call for methods
- * call(bind(person.greet, person), "Hi") // "Hi, I'm Bob"
  *
  * // Invoke functions from arrays
  * const funcs = [

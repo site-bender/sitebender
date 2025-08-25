@@ -1,7 +1,5 @@
 import { extname, join } from "jsr:@std/path"
 
-import type { Logger } from "../../../docs/src/types/scripts/index.ts"
-
 import getContentType from "./getContentType/index.ts"
 
 type ServerOptions = {

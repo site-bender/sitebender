@@ -30,6 +30,8 @@ const preCommitContent = [
 	"",
 	"deno task fp:components",
 	"",
+	"deno task lint:no-react-junk",
+	"",
 	'echo "[hooks] FP checks passed"',
 	"exit 0",
 ].join("\n")

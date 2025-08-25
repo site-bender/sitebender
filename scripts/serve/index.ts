@@ -1,6 +1,5 @@
-import type { Logger } from "../../docs/src/types/scripts/index.ts"
-
 import createServer from "./createServer/index.ts"
+import getFreePort from "./getFreePort/index.ts"
 import watchForChanges from "./watchForChanges/index.ts"
 
 const logger: Logger = {
@@ -21,8 +20,9 @@ try {
 	console.error("❌ Initial build failed:", error)
 }
 
-createServer(logger, { port: 5555 })
-console.log(`🚀 Dev server running at http://localhost:5555`)
+const port = getFreePort(5555)
+createServer(logger, { port })
+console.log(`🚀 Dev server running at http://localhost:${port}`)
 console.log("Press Ctrl+C to stop")
 
 await watchForChanges("scripts/build/index.ts")

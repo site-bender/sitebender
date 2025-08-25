@@ -5,6 +5,7 @@
  * @param n - Number of arguments to accept
  * @param Constructor - Constructor function to wrap
  * @returns Function that creates instances with n arguments
+ * @pure
  * @example
  * ```typescript
  * // Date constructor is variadic, limit it to specific arities
@@ -20,9 +21,6 @@
  * // Useful with array methods that pass extra arguments
  * class Point {
  *   constructor(public x: number, public y: number = 0, public z: number = 0) {}
- *   toString() {
- *     return `(${this.x}, ${this.y}, ${this.z})`
- *   }
  * }
  *
  * // map passes (value, index, array), but we only want value
@@ -33,27 +31,10 @@
  *
  * // Create 2D points from pairs
  * const createPoint2D = constructN(2, Point)
- * const pairs = [[1, 2], [3, 4], [5, 6]]
- * const points2D = pairs.map(p => apply(createPoint2D, p))
- * // [Point(1, 2, 0), Point(3, 4, 0), Point(5, 6, 0)]
- *
- * // Variadic constructors with fixed arity
- * class Collection {
- *   items: ReadonlyArray<unknown>
- *   constructor(...items: ReadonlyArray<unknown>) {
- *     this.items = items
- *   }
- * }
- *
- * const createPair = constructN(2, Collection)
- * const createTriple = constructN(3, Collection)
- *
- * createPair("a", "b").items // ["a", "b"]
- * createTriple(1, 2, 3, 4).items // [1, 2, 3] (4 is ignored)
+ * const pairs = [[1, 2], [3, 4]]
+ * const points2D = pairs.map(p => createPoint2D(...p))
+ * // [Point(1, 2, 0), Point(3, 4, 0)]
  * ```
- *
- * Note: This is particularly useful when constructors accept optional
- * parameters or when using with array methods that pass extra arguments.
  */
 // deno-lint-ignore no-explicit-any
 const constructN = <R>(n: number, Constructor: new (...args: any[]) => R) => {

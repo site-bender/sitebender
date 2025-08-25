@@ -4,6 +4,8 @@
  *
  * @param fn - Function to curry
  * @returns Curried version of the function
+ * @pure
+ * @curried
  * @example
  * ```typescript
  * const add = (a: number, b: number, c: number) => a + b + c
@@ -18,10 +20,6 @@
  * const add5and10 = add5(10)
  * add5and10(2) // 17
  * ```
- *
- * Note: The extensive use of 'any' is necessary for variadic curry.
- * TypeScript cannot properly infer the progressive application of arguments
- * without explicit overloads for each arity.
  */
 // deno-lint-ignore no-explicit-any
 const curry = (fn: (...args: any[]) => any): any => {

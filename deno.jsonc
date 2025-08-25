@@ -45,7 +45,8 @@
     "build": "deno task --cwd docs build",
     "build:full": "deno task --cwd docs build:full",
     // === Hooks ===
-  "hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install.ts"
+  "hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install.ts",
+  "lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts"
   },
 
   // Shared compiler options for all workspace members

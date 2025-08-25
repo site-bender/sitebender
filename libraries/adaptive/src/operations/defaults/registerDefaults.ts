@@ -6,7 +6,7 @@ import type {
 } from "../../../types/ir/index.ts"
 import type { ComposeContext } from "../../context/composeContext.ts"
 
-import { registerAction } from "../registries/actions.ts"
+import { getAction, registerAction } from "../registries/actions.ts"
 import { registerComparator } from "../registries/comparators.ts"
 import { registerEvent } from "../registries/events.ts"
 import { registerInjector } from "../registries/injectors.ts"
@@ -107,7 +107,8 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 	registerComparator(
 		"Is.NotEmpty",
 		async (node: ComparatorNode, evalArg) => {
-			const v = await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""))
+			const v =
+				await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""))
 			return toString(v).length > 0
 		},
 	)
@@ -174,6 +175,25 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		const topic = toString(node.args[0] ? await evalArg(node.args[0]) : "")
 		const payload = node.args[1] ? await evalArg(node.args[1]) : undefined
 		ctx.bus.publish(topic, payload)
+	})
+
+	// Conditional action: Act.If(condition, thenAction, elseAction?)
+	registerAction("Act.If", async (node: ActionNode, evalArg, ctx) => {
+		const [condNode, thenNode, elseNode] = node.args as unknown[] as Array<
+			{ kind?: string; action?: string }
+		>
+		const cond = Boolean(
+			condNode ? await evalArg(condNode as unknown as ComparatorNode) : false,
+		)
+		const run = async (n: unknown) => {
+			const a = n as { kind?: string; action?: string }
+			if (!a || a.kind !== "action" || !a.action) return
+			const exec = getAction(a.action)
+			if (!exec) return
+			await exec(a as unknown as ActionNode, evalArg, ctx)
+		}
+		if (cond) await run(thenNode)
+		else await run(elseNode)
 	})
 
 	// Events

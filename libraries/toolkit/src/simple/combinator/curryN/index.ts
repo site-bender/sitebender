@@ -5,6 +5,8 @@
  * @param n - The exact number of arguments to curry
  * @param fn - Function to curry
  * @returns Curried version accepting exactly n arguments
+ * @pure
+ * @curried
  * @example
  * ```typescript
  * // Math.max is variadic, but we want to curry it for exactly 3 arguments
@@ -18,9 +20,6 @@
  * sum4(1)(2)(3)(4) // 10
  * sum4(1, 2)(3, 4) // 10
  * ```
- *
- * Note: The 'any' types are necessary because TypeScript cannot
- * type curry with a dynamic arity parameter.
  */
 // deno-lint-ignore no-explicit-any
 const curryN = (n: number, fn: (...args: any[]) => any): any => {

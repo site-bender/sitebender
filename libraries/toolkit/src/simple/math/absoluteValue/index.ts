@@ -14,23 +14,23 @@
  * absoluteValue(5)      // 5
  * absoluteValue(-5)     // 5
  * absoluteValue(0)      // 0
- * 
+ *
  * // Special values
  * absoluteValue(-Infinity)  // Infinity
  * absoluteValue(NaN)        // NaN
- * 
+ *
  * // Edge cases
  * absoluteValue(null)       // NaN
  * absoluteValue(undefined)  // NaN
- * 
+ *
  * // Distance calculation
  * const distance = (a: number, b: number) => absoluteValue(a - b)
  * distance(3, 7)  // 4
- * 
+ *
  * // Array processing with composition
  * const numbers = [-5, 3, -2, 8, -1]
  * const absolutes = numbers.map(absoluteValue)  // [5, 3, 2, 8, 1]
- * 
+ *
  * // Finding closest to zero
  * const closest = numbers.reduce((min, val) =>
  *   absoluteValue(val) < absoluteValue(min) ? val : min

@@ -93,10 +93,16 @@ const modularExponentiation = (
 	}
 
 	// Normalize base to be positive within modulus range
-	const normalizedBase = base % modulus < 0 ? (base % modulus) + modulus : base % modulus
+	const normalizedBase = base % modulus < 0
+		? (base % modulus) + modulus
+		: base % modulus
 
 	// Binary exponentiation algorithm (recursive functional approach)
-	const binaryPower = (result: number, currentBase: number, currentExp: number): number => {
+	const binaryPower = (
+		result: number,
+		currentBase: number,
+		currentExp: number,
+	): number => {
 		if (currentExp === 0) {
 			return result
 		}
@@ -108,7 +114,7 @@ const modularExponentiation = (
 		return binaryPower(
 			newResult,
 			(currentBase * currentBase) % modulus,
-			Math.floor(currentExp / 2)
+			Math.floor(currentExp / 2),
 		)
 	}
 

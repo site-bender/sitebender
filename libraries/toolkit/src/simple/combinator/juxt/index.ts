@@ -4,6 +4,7 @@
  *
  * @param fns - Array of functions to apply
  * @returns Function that returns array of results
+ * @pure
  * @example
  * ```typescript
  * // Apply multiple operations to the same value
@@ -29,47 +30,21 @@
  * const transforms = juxt([
  *   (s: string) => s.toUpperCase(),
  *   (s: string) => s.toLowerCase(),
- *   (s: string) => s.length,
- *   (s: string) => s.split("").reverse().join("")
+ *   (s: string) => s.length
  * ])
  *
- * transforms("Hello") // ["HELLO", "hello", 5, "olleH"]
+ * transforms("Hello") // ["HELLO", "hello", 5]
  *
  * // Validation checks
  * const validators = juxt([
  *   (email: string) => email.includes("@"),
  *   (email: string) => email.includes("."),
- *   (email: string) => email.length > 5,
- *   (email: string) => !email.includes(" ")
+ *   (email: string) => email.length > 5
  * ])
  *
- * validators("test@example.com") // [true, true, true, true]
- * validators("invalid email") // [false, false, true, false]
- *
- * // Mathematical analysis
- * const analyze = juxt([
- *   Math.floor,
- *   Math.ceil,
- *   Math.round,
- *   (x: number) => x.toFixed(2)
- * ])
- *
- * analyze(3.7) // [3, 4, 4, "3.70"]
- * analyze(3.2) // [3, 4, 3, "3.20"]
- *
- * // Works with multiple arguments
- * const comparisons = juxt([
- *   (a: number, b: number) => a + b,
- *   (a: number, b: number) => a - b,
- *   (a: number, b: number) => a * b,
- *   (a: number, b: number) => a / b
- * ])
- *
- * comparisons(10, 2) // [12, 8, 20, 5]
+ * validators("test@example.com") // [true, true, true]
+ * validators("bad") // [false, false, false]
  * ```
- *
- * Note: This is like converge but returns the array directly
- * instead of passing it to another function.
  */
 const juxt = <T extends ReadonlyArray<unknown>, R>(
 	fns: ReadonlyArray<(...args: T) => R>,

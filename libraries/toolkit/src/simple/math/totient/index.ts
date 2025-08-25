@@ -17,10 +17,7 @@ import gcd from "../gcd/index.ts"
  * // 6 (1,2,3,4,5,6 are all coprime to 7)
  *
  * totient(11)
- * // 10 (all numbers 1-10 are coprime to 11)
- *
- * totient(13)
- * // 12
+ * // 10
  *
  * // Composite numbers
  * totient(9)
@@ -29,69 +26,25 @@ import gcd from "../gcd/index.ts"
  * totient(10)
  * // 4 (1,3,7,9 are coprime to 10)
  *
- * totient(12)
- * // 4 (1,5,7,11 are coprime to 12)
- *
  * // Powers of primes: φ(p^k) = p^k - p^(k-1)
  * totient(8) // 2^3
- * // 4 (φ(8) = 8 - 4 = 4: numbers 1,3,5,7)
+ * // 4
  *
  * totient(25) // 5^2
- * // 20 (φ(25) = 25 - 5 = 20)
+ * // 20
  *
- * // Special cases
+ * // Special case
  * totient(1)
- * // 1 (by definition, 1 is coprime to itself)
- *
- * totient(2)
- * // 1 (only 1 is coprime to 2)
- *
- * // Invalid inputs
- * totient(0)
- * // NaN (must be positive)
- *
- * totient(-5)
- * // NaN (must be positive)
- *
- * totient(3.5)
- * // NaN (must be integer)
- *
- * totient(null)
- * // NaN
+ * // 1
  *
  * // RSA cryptography relation
- * // For RSA with primes p and q:
- * // n = p * q
- * // φ(n) = (p-1) * (q-1)
  * const p = 11, q = 13
  * const n = p * q // 143
  * const phiN = totient(n)
  * // 120 (which equals (11-1) * (13-1))
- *
- * // Euler's theorem application
- * // If gcd(a,n) = 1, then a^φ(n) ≡ 1 (mod n)
- * const checkEuler = (a: number, n: number): boolean => {
- *   if (gcd(a)(n) !== 1) return false
- *   const phi = totient(n)
- *   // Would use modularExponentiation here
- *   return true // simplified
- * }
- *
- * // Counting reduced fractions
- * // φ(n) counts irreducible fractions with denominator n
- * const n = 6
- * const phi = totient(n) // 2
- * // Fractions: 1/6 and 5/6 are in lowest terms
- *
- * // Sum of totients equals n (for divisors)
- * // Σ φ(d) = n where d divides n
- * const divisorsOf12 = [1, 2, 3, 4, 6, 12]
- * const sum = divisorsOf12.map(totient).reduce((a, b) => a + b)
- * // 12 (1 + 1 + 2 + 2 + 2 + 4 = 12)
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns NaN for invalid inputs
- * @property Domain - Only valid for positive integers
+ * @pure Always returns same result for same input
+ * @safe Returns NaN for invalid inputs
  */
 const totient = (
 	n: number | null | undefined,

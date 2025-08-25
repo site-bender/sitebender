@@ -17,16 +17,16 @@
  * binomialCoefficient(4)(2)   // 6
  * binomialCoefficient(5)(3)   // 10
  * binomialCoefficient(10)(5)  // 252
- * 
+ *
  * // Edge cases
  * binomialCoefficient(5)(0)   // 1 (choose nothing)
  * binomialCoefficient(5)(5)   // 1 (choose everything)
  * binomialCoefficient(3)(5)   // NaN (k > n)
- * 
+ *
  * // Pascal's triangle row
  * const row5 = [0, 1, 2, 3, 4, 5].map(binomialCoefficient(5))
  * // [1, 5, 10, 10, 5, 1]
- * 
+ *
  * // Partial application
  * const choose6 = binomialCoefficient(6)
  * choose6(2)  // 15

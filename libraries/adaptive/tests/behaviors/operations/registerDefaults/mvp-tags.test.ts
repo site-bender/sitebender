@@ -5,14 +5,13 @@ import { createComposeContext } from "../../../../src/context/composeContext.ts"
 import { registerDefaultExecutors } from "../../../../src/operations/defaults/registerDefaults.ts"
 import { listComparators } from "../../../../src/operations/registries/comparators.ts"
 
-
 describe("registerDefaultExecutors - MVP comparator tags", () => {
-  it("includes NotEmpty and NoLongerThan", () => {
-    const ctx = createComposeContext({ env: "server" })
-    registerDefaultExecutors(ctx)
+	it("includes NotEmpty and NoLongerThan", () => {
+		const ctx = createComposeContext({ env: "server" })
+		registerDefaultExecutors(ctx)
 
-    const cmps = listComparators()
-    assert(cmps.includes("Is.NotEmpty"))
-    assert(cmps.includes("Is.NoLongerThan"))
-  })
+		const cmps = listComparators()
+		assert(cmps.includes("Is.NotEmpty"))
+		assert(cmps.includes("Is.NoLongerThan"))
+	})
 })

@@ -7,16 +7,16 @@
  */
 
 export type Props = {
-  event: string // e.g., "Click", "Input", "Submit" -> will map to On.<Event>
-  children?: JSX.Element | Array<JSX.Element>
+	event: string // e.g., "Click", "Input", "Submit" -> will map to On.<Event>
+	children?: JSX.Element | Array<JSX.Element>
 }
 
 export type OnMarker = {
-  __kind: "control:on"
-  event: string
-  handler?: JSX.Element | Array<JSX.Element>
+	__kind: "control:on"
+	event: string
+	handler?: JSX.Element | Array<JSX.Element>
 }
 
 export default function On({ event, children }: Props): OnMarker {
-  return { __kind: "control:on", event, handler: children }
+	return { __kind: "control:on", event, handler: children }
 }
