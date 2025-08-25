@@ -10,115 +10,37 @@
  * @returns Map of prime factors to their multiplicities, or empty Map if invalid
  * @example
  * ```typescript
- * // Simple factorizations
  * primeFactorization(12)
- * // Map { 2 => 2, 3 => 1 } (12 = 2² × 3)
+ * // Map { 2 => 2, 3 => 1 }
  *
- * primeFactorization(15)
- * // Map { 3 => 1, 5 => 1 } (15 = 3 × 5)
- *
- * primeFactorization(24)
- * // Map { 2 => 3, 3 => 1 } (24 = 2³ × 3)
- *
- * // Prime numbers
  * primeFactorization(7)
- * // Map { 7 => 1 } (7 is prime)
+ * // Map { 7 => 1 } (prime)
  *
- * primeFactorization(13)
- * // Map { 13 => 1 }
- *
- * primeFactorization(17)
- * // Map { 17 => 1 }
- *
- * // Perfect powers
  * primeFactorization(8)
- * // Map { 2 => 3 } (8 = 2³)
+ * // Map { 2 => 3 } (perfect power)
  *
- * primeFactorization(27)
- * // Map { 3 => 3 } (27 = 3³)
- *
- * primeFactorization(81)
- * // Map { 3 => 4 } (81 = 3⁴)
- *
- * // Larger numbers
  * primeFactorization(60)
- * // Map { 2 => 2, 3 => 1, 5 => 1 } (60 = 2² × 3 × 5)
+ * // Map { 2 => 2, 3 => 1, 5 => 1 }
  *
- * primeFactorization(100)
- * // Map { 2 => 2, 5 => 2 } (100 = 2² × 5²)
- *
- * primeFactorization(360)
- * // Map { 2 => 3, 3 => 2, 5 => 1 } (360 = 2³ × 3² × 5)
- *
- * // Edge cases
  * primeFactorization(1)
- * // Map {} (1 has no prime factors)
- *
- * primeFactorization(2)
- * // Map { 2 => 1 } (2 is the smallest prime)
- *
- * // Invalid inputs
- * primeFactorization(0)
- * // Map {} (invalid)
- *
- * primeFactorization(-12)
- * // Map {} (negative numbers not supported)
- *
- * primeFactorization(3.5)
- * // Map {} (non-integer)
- *
- * primeFactorization(null)
- * // Map {}
+ * // Map {} (no prime factors)
  *
  * // Reconstruct number from factorization
- * const reconstruct = (factors: Map<number, number>): number => {
- *   let result = 1
- *   for (const [prime, power] of factors) {
- *     result *= Math.pow(prime, power)
- *   }
- *   return result
- * }
+ * const reconstruct = (factors: Map<number, number>): number =>
+ *   Array.from(factors.entries())
+ *     .reduce((acc, [prime, power]) => acc * Math.pow(prime, power), 1)
  * const factors = primeFactorization(60)
  * reconstruct(factors) // 60
  *
- * // Count total divisors using factorization
- * const countDivisors = (n: number): number => {
- *   const factors = primeFactorization(n)
- *   let count = 1
- *   for (const power of factors.values()) {
- *     count *= (power + 1)
- *   }
- *   return count
- * }
- * countDivisors(12) // 6 (divisors: 1,2,3,4,6,12)
- *
- * // Check if perfect square
- * const isPerfectSquare = (n: number): boolean => {
- *   const factors = primeFactorization(n)
- *   for (const power of factors.values()) {
- *     if (power % 2 !== 0) return false
- *   }
- *   return true
- * }
- * isPerfectSquare(36) // true (6²)
- * isPerfectSquare(48) // false
- *
- * // Greatest common divisor via factorization
- * const gcdFactors = (a: number, b: number): number => {
- *   const factorsA = primeFactorization(a)
- *   const factorsB = primeFactorization(b)
- *   let result = 1
- *   for (const [prime, powerA] of factorsA) {
- *     const powerB = factorsB.get(prime) || 0
- *     result *= Math.pow(prime, Math.min(powerA, powerB))
- *   }
- *   return result
- * }
- * gcdFactors(12, 18) // 6
+ * // Count total divisors
+ * const countDivisors = (n: number): number =>
+ *   Array.from(primeFactorization(n).values())
+ *     .reduce((acc, power) => acc * (power + 1), 1)
+ * countDivisors(12) // 6
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns empty Map for invalid inputs
- * @property Efficient - O(√n) time complexity
+ * @pure Always returns same result for same input
+ * @safe Returns empty Map for invalid inputs
+ * @efficient O(√n) time complexity
  */
 const primeFactorization = (
 	n: number | null | undefined,
@@ -139,36 +61,33 @@ const primeFactorization = (
 		return result
 	}
 
-	let temp = n
-
-	// Factor out 2s
-	let count = 0
-	while (temp % 2 === 0) {
-		count++
-		temp = temp / 2
-	}
-	if (count > 0) {
-		result.set(2, count)
+	// Helper function to count and remove factors
+	const extractFactor = (num: number, factor: number): [number, number] => {
+		const countFactor = (current: number, acc: number): number =>
+			current % factor === 0
+				? countFactor(current / factor, acc + 1)
+				: acc
+		const count = countFactor(num, 0)
+		return [count === 0 ? num : Math.pow(factor, count) === num ? 1 : num / Math.pow(factor, count), count]
 	}
 
-	// Factor out odd primes
-	for (let i = 3; i * i <= temp; i += 2) {
-		count = 0
-		while (temp % i === 0) {
-			count++
-			temp = temp / i
+	// Extract factors recursively
+	const factorize = (num: number, currentFactor: number): Map<number, number> => {
+		if (num === 1 || currentFactor * currentFactor > num) {
+			return num > 1 ? new Map([[num, 1]]) : new Map()
 		}
+
+		const [remaining, count] = extractFactor(num, currentFactor)
+		const remainingFactors = factorize(remaining, currentFactor === 2 ? 3 : currentFactor + 2)
+
 		if (count > 0) {
-			result.set(i, count)
+			remainingFactors.set(currentFactor, count)
 		}
+
+		return remainingFactors
 	}
 
-	// If temp > 1, then it's a prime factor
-	if (temp > 1) {
-		result.set(temp, 1)
-	}
-
-	return result
+	return factorize(n, 2)
 }
 
 export default primeFactorization

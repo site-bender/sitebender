@@ -14,17 +14,9 @@ import factorial from "../factorial/index.ts"
  * @returns Number of permutations, or NaN if invalid
  * @example
  * ```typescript
- * // Basic permutations
  * permutations(5)(3)
  * // 60 (ways to arrange 3 from 5)
  *
- * permutations(4)(2)
- * // 12 (ways to arrange 2 from 4)
- *
- * permutations(10)(4)
- * // 5040 (ways to arrange 4 from 10)
- *
- * // Edge cases
  * permutations(5)(0)
  * // 1 (one way to arrange nothing)
  *
@@ -34,62 +26,22 @@ import factorial from "../factorial/index.ts"
  * permutations(0)(0)
  * // 1 (by definition)
  *
- * // Compare with combinations
- * permutations(5)(3) // 60 (order matters)
- * // vs combinations(5)(3) = 10 (order doesn't matter)
- * // P(n,r) = C(n,r) × r!
- *
- * // Invalid cases
  * permutations(3)(5)
  * // NaN (can't arrange 5 from 3)
  *
- * permutations(-1)(2)
- * // NaN (negative n)
- *
- * permutations(5)(-2)
- * // NaN (negative r)
- *
- * permutations(5.5)(2)
- * // NaN (non-integer)
- *
  * // Race finishing positions
  * permutations(8)(3)
- * // 336 (ways to fill gold, silver, bronze from 8)
- *
- * // Password from character set
- * permutations(26)(4)
- * // 358800 (4-letter arrangements from alphabet)
- *
- * // Seating arrangements
- * permutations(10)(5)
- * // 30240 (ways to seat 5 people in 10 chairs)
- *
- * // License plates (letters)
- * permutations(26)(3)
- * // 15600 (3-letter sequences, no repeats)
- *
- * // Tournament brackets
- * permutations(16)(4)
- * // 43680 (ways to arrange top 4 from 16 teams)
+ * // 336 (ways to fill gold, silver, bronze)
  *
  * // Partial application
  * const arrangeFrom10 = permutations(10)
- * arrangeFrom10(1) // 10
- * arrangeFrom10(2) // 90
- * arrangeFrom10(3) // 720
- * arrangeFrom10(4) // 5040
- * arrangeFrom10(5) // 30240
- *
- * // Compare permutations vs combinations
- * const n = 6, r = 3
- * const perms = permutations(n)(r) // 120
- * const combs = combinations(n)(r) // 20
- * const ratio = perms / combs // 6 (which is 3!)
+ * arrangeFrom10(3)
+ * // 720
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application
- * @property Safe - Returns NaN for invalid inputs
- * @property Mathematical - Order matters (unlike combinations)
+ * @pure Always returns same result for same inputs
+ * @curried Enables partial application
+ * @safe Returns NaN for invalid inputs
+ * @mathematical Order matters (unlike combinations)
  */
 const permutations = (
 	n: number | null | undefined,
@@ -131,12 +83,8 @@ const permutations = (
 
 	// For small values, use direct calculation to avoid factorial overflow
 	// P(n,r) = n × (n-1) × (n-2) × ... × (n-r+1)
-	let result = 1
-	for (let i = 0; i < r; i++) {
-		result *= n - i
-	}
-
-	return result
+	return Array.from({ length: r }, (_, i) => n - i)
+		.reduce((acc, val) => acc * val, 1)
 }
 
 export default permutations
