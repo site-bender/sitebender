@@ -1,4 +1,4 @@
-import type { GlobalAttributes } from "../../types/index.ts"
+import type { GlobalAttributes } from "../../../types/index.ts"
 
 import includes from "../../utilities/array/includes/index.ts"
 import hasDescendant from "./hasDescendant/index.ts"

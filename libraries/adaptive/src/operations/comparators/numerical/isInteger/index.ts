@@ -11,7 +11,7 @@ import type {
 
 import Error from "../../../../constructors/Error/index.ts"
 import isInt from "../../../../guards/isInteger/index.ts"
-import { isLeft } from "../../../../types/index.ts"
+import { isLeft } from "../../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isInteger = (op: ComparatorConfig): OperationFunction<boolean> =>

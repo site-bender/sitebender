@@ -1,4 +1,4 @@
-import type { HydratedReciprocal } from "../../../types/hydrated/index.ts"
+import type { HydratedReciprocal } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -7,7 +7,7 @@ import type {
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const reciprocal =
 	({ operand, ...op }: HydratedReciprocal): OperationFunction<number> =>

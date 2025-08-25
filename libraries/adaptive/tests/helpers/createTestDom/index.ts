@@ -26,12 +26,3 @@ export default function createTestDom(
 		},
 	}
 }
-
-/**
- * Creates a test DOM with specific HTML content in the body
- */
-export function createTestDomWithBody(bodyContent: string) {
-	return createTestDom(
-		`<!DOCTYPE html><html><head></head><body>${bodyContent}</body></html>`,
-	)
-}

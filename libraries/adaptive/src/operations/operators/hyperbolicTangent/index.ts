@@ -1,4 +1,4 @@
-import type { HydratedHyperbolicTangent } from "../../../types/hydrated/index.ts"
+import type { HydratedHyperbolicTangent } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -7,7 +7,7 @@ import type {
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const hyperbolicTangent =
 	({ operand, ...op }: HydratedHyperbolicTangent): OperationFunction<number> =>

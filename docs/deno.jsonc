@@ -57,6 +57,7 @@
     "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.1",
 
     // === Path Aliases for App Code ===
+  "~scripts/": "../scripts/",
     "~components/": "./src/components/",
     "~constants/": "./src/constants/",
     "~routes/": "./src/routes/",

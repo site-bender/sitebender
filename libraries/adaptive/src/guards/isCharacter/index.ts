@@ -1,4 +1,4 @@
-import type { GlobalAttributes, Value } from "../../types/index.ts"
+import type { GlobalAttributes, Value } from "../../../types/index.ts"
 
 import isString from "../../guards/isString/index.ts"
 

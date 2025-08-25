@@ -1,4 +1,4 @@
-import type { HydratedAverage } from "../../../types/hydrated/index.ts"
+import type { HydratedAverage } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -9,7 +9,7 @@ import type {
 
 import { ADDITION_IDENTITY } from "../../../constructors/constants/index.ts"
 import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const average =
 	({ operands, ...op }: HydratedAverage): OperationFunction<number> =>

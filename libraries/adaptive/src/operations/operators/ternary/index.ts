@@ -1,4 +1,4 @@
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const ternary =
 	({ condition, ifTrue, ifFalse }) => async (arg, localValues) => {

@@ -1,5 +1,5 @@
-import type { ElementConfig } from "../../../types/html/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { ElementConfig } from "../../../../types/html/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 const collectLinkElements = (component: Record<string, any>): Array<Value> => {
 	const linkElements = Object.entries(component).reduce(

@@ -1,4 +1,4 @@
-export type ComparatorExecutor = (...args: unknown[]) => Promise<boolean | unknown> | boolean | unknown
+import type { ComparatorExecutor } from "../../../types/operations/registries/comparators/index.ts"
 
 const comparators = new Map<string, ComparatorExecutor>()
 

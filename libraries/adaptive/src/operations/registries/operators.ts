@@ -1,4 +1,4 @@
-export type OperatorExecutor = (...args: unknown[]) => Promise<unknown> | unknown
+import type { OperatorExecutor } from "../../../types/operations/registries/operators/index.ts"
 
 const operators = new Map<string, OperatorExecutor>()
 

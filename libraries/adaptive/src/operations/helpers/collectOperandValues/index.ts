@@ -1,4 +1,4 @@
-import type { GlobalAttributes } from "../../../types/index.ts"
+import type { GlobalAttributes } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
 import filter from "../../../utilities/array/filter/index.ts"

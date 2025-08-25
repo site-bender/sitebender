@@ -1,6 +1,6 @@
 import composeOperators from "../../../operations/composers/composeOperators/index.ts"
 import collectDependencies from "../../../rendering/helpers/collectDependencies/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 import isDefined from "../../../utilities/isDefined/index.ts"
 
 const FROM_VALUE = ["DATA", "INPUT", "SELECT", "TEXTAREA"]

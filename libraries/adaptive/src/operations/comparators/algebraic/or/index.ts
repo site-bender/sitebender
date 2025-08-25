@@ -9,7 +9,7 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import { isRight } from "../../../../types/index.ts"
+import { isRight } from "../../../../../types/index.ts"
 import concat from "../../../../utilities/array/concat/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 

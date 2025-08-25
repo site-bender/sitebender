@@ -1,5 +1,5 @@
-import type { GlobalAttributes, Value } from "../../../types/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { GlobalAttributes, Value } from "../../../../types/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 import generateShortId from "../../../../utilities/generateShortId/index.ts"
 

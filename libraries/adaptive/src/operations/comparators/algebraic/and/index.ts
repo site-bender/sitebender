@@ -8,7 +8,7 @@ import type {
 	OperationFunction,
 } from "../../../../types/index.ts"
 
-import { isLeft } from "../../../../types/index.ts"
+import { isLeft } from "../../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const and = (op: ComparatorConfig): OperationFunction<boolean> =>

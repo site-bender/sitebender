@@ -56,8 +56,8 @@ const IsLessThan = (datatype = "Number") => (operand) => (test) => ({
 ### Runtime context, bus, and state
 
 - ComposeContext: `src/context/composeContext.ts` exposes `{ env, signal, now, bus, logger }` and is used by evaluators/hydrator.
-- Event bus: `src/runtime/bus.ts` provides CustomEvent (local) + BroadcastChannel (cross-tab) transports.
-- State: `src/runtime/store.ts` is a tiny FRP store with SSR-friendly usage and optional localStorage persistence.
+- Event bus: `src/runtime/bus/` provides `types.ts`, `createLocalBus.ts` (CustomEvent local), and `createBroadcastBus.ts` (cross-tab via BroadcastChannel).
+- State: `src/runtime/store/` exposes `createStore.ts` (tiny FRP store) and `persistToLocalStorage.ts` (SSR-friendly optional persistence).
 - Docs: `src/docs/anchoring.md` shows explicit `for` overrides; `src/docs/state.md` covers store patterns.
 
 **Constructor Categories:**

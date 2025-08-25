@@ -1,4 +1,4 @@
-import type { GlobalAttributes } from "../../types/index.ts"
+import type { GlobalAttributes } from "../../../types/index.ts"
 
 import isFlowContent from "../../guards/isFlowContent/index.ts"
 import isHeadingContent from "../../guards/isHeadingContent/index.ts"

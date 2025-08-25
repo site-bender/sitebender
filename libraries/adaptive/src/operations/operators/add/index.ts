@@ -9,7 +9,7 @@ import type {
 
 import { ADDITION_IDENTITY } from "../../../constructors/constants/index.ts"
 import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 interface HydratedAdd {
 	tag: "Add"

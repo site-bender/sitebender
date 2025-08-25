@@ -1,4 +1,4 @@
-export type InjectorExecutor = (...args: unknown[]) => Promise<unknown> | unknown
+import type { InjectorExecutor } from "../../../types/operations/registries/injectors/index.ts"
 
 const injectors = new Map<string, InjectorExecutor>()
 

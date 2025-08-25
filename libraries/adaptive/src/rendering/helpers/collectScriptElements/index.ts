@@ -1,4 +1,4 @@
-import type { ElementConfig } from "../../../types/html/index.ts"
+import type { ElementConfig } from "../../../../types/html/index.ts"
 
 const collectScriptElements = (
 	component: Record<string, any>,

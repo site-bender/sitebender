@@ -1,4 +1,4 @@
-import type { HydratedModulo } from "../../../types/hydrated/index.ts"
+import type { HydratedModulo } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -8,7 +8,7 @@ import type {
 } from "../../../types/index.ts"
 
 import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const modulo =
 	({ dividend, divisor, ...op }: HydratedModulo): OperationFunction<number> =>

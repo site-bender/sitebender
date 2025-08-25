@@ -1,5 +1,6 @@
-import type { Bus } from "../runtime/bus.ts"
-import { createBroadcastBus, createLocalBus } from "../runtime/bus.ts"
+import type { Bus } from "../../types/bus/index.ts"
+import createBroadcastBus from "../runtime/bus/createBroadcastBus/index.ts"
+import createLocalBus from "../runtime/bus/createLocalBus/index.ts"
 
 export type ComposeContext = {
   v: 1

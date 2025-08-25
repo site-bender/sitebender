@@ -1,4 +1,4 @@
-import type { GlobalAttributes, Value } from "../../types/index.ts"
+import type { GlobalAttributes, Value } from "../../../types/index.ts"
 
 import isBoolean from "../../guards/isBoolean/index.ts"
 import isCharacter from "../../guards/isCharacter/index.ts"

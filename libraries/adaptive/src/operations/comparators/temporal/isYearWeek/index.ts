@@ -11,7 +11,7 @@ import type {
 
 import Error from "../../../../constructors/Error/index.ts"
 import { MATCHERS } from "../../../../guards/constants/index.ts"
-import { isLeft } from "../../../../types/index.ts"
+import { isLeft } from "../../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const longYears = [

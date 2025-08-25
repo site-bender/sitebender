@@ -7,7 +7,7 @@ import type {
 	OperatorConfig,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 interface HydratedAbsoluteValue {
 	tag: "AbsoluteValue"

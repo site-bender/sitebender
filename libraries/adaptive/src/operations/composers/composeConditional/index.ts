@@ -1,4 +1,4 @@
-import { isRight } from "../../../types/index.ts"
+import { isRight } from "../../../../types/index.ts"
 import composeComparators from "../composeComparators/index.ts"
 
 const composeConditional = (op) => async (arg, localValues) => {

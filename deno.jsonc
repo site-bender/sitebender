@@ -50,6 +50,19 @@
     "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"]
   },
 
+  "imports": {
+    // Shared aliases for scripts that reference docs' app modules
+    "~utilities/": "./docs/src/utilities/",
+    "~components/": "./docs/src/components/",
+    "~constants/": "./docs/src/constants/",
+    "~routes/": "./docs/src/routes/",
+    "~src/": "./docs/src/",
+    "~static/": "./docs/static/",
+    "~tests/": "./docs/tests/",
+    "~types/": "./docs/src/types/",
+    "~scripts/": "./scripts/"
+  },
+
   // Shared formatting configuration
   "fmt": {
     "useTabs": true,

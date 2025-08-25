@@ -1,4 +1,4 @@
-import type { HydratedStandardDeviation } from "../../../types/hydrated/index.ts"
+import type { HydratedStandardDeviation } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	AriaAttributes,
@@ -9,7 +9,7 @@ import type {
 } from "../../../types/index.ts"
 
 import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const standardDeviation =
 	({ operands, ...op }: HydratedStandardDeviation): OperationFunction<number> =>

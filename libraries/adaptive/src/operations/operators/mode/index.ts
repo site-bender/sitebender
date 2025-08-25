@@ -1,4 +1,4 @@
-import type { HydratedMode } from "../../../types/hydrated/index.ts"
+import type { HydratedMode } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -8,7 +8,7 @@ import type {
 } from "../../../types/index.ts"
 
 import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const mode =
 	({ operands, ...op }: HydratedMode): OperationFunction<number> =>

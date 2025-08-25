@@ -1,4 +1,4 @@
-import type { Datatype, FromElementInjector } from "../../../types/index.ts"
+import type { Datatype, FromElementInjector } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../constants/index.ts"
 

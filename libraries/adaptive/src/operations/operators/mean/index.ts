@@ -1,4 +1,4 @@
-import type { HydratedMean } from "../../../types/hydrated/index.ts"
+import type { HydratedMean } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,

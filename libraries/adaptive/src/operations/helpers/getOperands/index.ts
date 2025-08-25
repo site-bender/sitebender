@@ -1,4 +1,4 @@
-import type { ComparatorConfig, Operand, OperatorConfig } from "../../../types/index.ts"
+import type { ComparatorConfig, Operand, OperatorConfig } from "../../../../types/index.ts"
 
 /**
  * Extracts all operands from an operations list

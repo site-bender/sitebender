@@ -1,10 +1,5 @@
-import type { AdaptiveError, ComparatorConfig, Either, GlobalAttributes, LocalValues, OperationFunction, Value } from "../../../../types/index.ts"
-
 import compare from "../../compare.ts"
 
-const isLessThan = (op: ComparatorConfig): OperationFunction<boolean> => async (
-	arg: unknown,
-	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, boolean>> => {
+const isLessThan = compare((o: number | Temporal.PlainDate | Temporal.PlainTime | Temporal.PlainDateTime, t: typeof o) => (o as any) < (t as any))
 
 export default isLessThan

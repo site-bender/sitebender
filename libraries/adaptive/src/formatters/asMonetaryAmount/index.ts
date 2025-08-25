@@ -1,5 +1,5 @@
 import composeOperators from "../../operations/composers/composeOperators/index.ts"
-import { isLeft } from "../../types/index.ts"
+import { isLeft } from "../../../types/index.ts"
 
 const asMonetaryAmount = (op) => async (arg, localValues) => {
 	const { locales, operand, options } = op

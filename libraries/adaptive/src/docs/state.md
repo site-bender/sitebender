@@ -8,7 +8,8 @@ Goals:
 ## Store API
 
 ```ts
-import { createStore, persistToLocalStorage } from "../runtime/store.ts"
+import createStore from "../runtime/store/createStore.ts"
+import persistToLocalStorage from "../runtime/store/persistToLocalStorage.ts"
 
 type State = { count: number }
 const store = createStore<State>({ count: 0 })

@@ -1,4 +1,4 @@
-import type { HydratedHyperbolicSine } from "../../../types/hydrated/index.ts"
+import type { HydratedHyperbolicSine } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -7,7 +7,7 @@ import type {
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const hyperbolicSine =
 	({ operand, ...op }: HydratedHyperbolicSine): OperationFunction<number> =>
