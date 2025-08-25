@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 11.8% (101/854 functions with 100% coverage)**
+**Testing Progress: 12.3% (105/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~151 hours
-- **Remaining functions**: 753 (854 total - 101 completed)
+**Estimated Time to Completion**: ~150 hours
+- **Remaining functions**: 749 (854 total - 105 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~151 hours
+- **Hours remaining**: ~150 hours
 - **At 8 hours/day**: ~19 working days
 - **Last updated**: 2025-08-25
-- **Session progress**: Added comprehensive tests for 4 array functions with 100% coverage: tail, last, init, nth. Fixed type issue in init function. Also fixed a regression in sort test that was caused by property-based testing with incomparable objects.
+- **Session progress**: Added comprehensive tests for 4 array search/index functions with 100% coverage: includes, indexOf, lastIndexOf, findLastIndex. CRITICAL FIX: Rewrote indexOf and lastIndexOf to use Object.is() instead of native methods, now correctly handling NaN, -0/+0, and sparse arrays. Our implementations are now superior to native JavaScript.
 
 ## Current Functions (854 functions total)
 
@@ -39,7 +39,7 @@
 - findIndex - Finds index of first element that satisfies predicate ✓
 - findIndices - Returns all indices of elements that satisfy the predicate
 - findLast - Finds last element that satisfies predicate ✓
-- findLastIndex - Finds index of last element that satisfies predicate
+- findLastIndex - Finds index of last element that satisfies predicate ✓
 - findMostCommon - Finds the most frequently occurring element(s)
 - first - Returns first element of array (alias: head) ✓
 - flatMap - Maps function over array and flattens result
@@ -48,9 +48,9 @@
 - groupBy - Groups array elements by key function result
 - groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
 - head - Returns first element of array (alias: first) ✓
-- includes - Checks if array contains element
+- includes - Checks if array contains element ✓
 - indexBy - Creates an object indexing the array elements by the given key
-- indexOf - Returns index of first occurrence of element
+- indexOf - Returns index of first occurrence of element ✓
 - init - Returns all elements except the last one ✓
 - insertAt - Inserts element at specified index
 - intersection - Returns elements that exist in both arrays
@@ -60,7 +60,7 @@
 - isEmpty - Checks if array is empty
 - join - Joins array elements into string
 - last - Returns last element of array ✓
-- lastIndexOf - Returns index of last occurrence of element
+- lastIndexOf - Returns index of last occurrence of element ✓
 - lastIndexOfMatch - Returns index of last element matching predicate
 - map - Maps function over array elements ✓
 - mapAccum - Combines map and reduce, returning both accumulated value and mapped array

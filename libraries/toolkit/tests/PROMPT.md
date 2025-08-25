@@ -5,23 +5,30 @@ This document provides context for continuing the comprehensive testing implemen
 
 ## Current Testing Status (Updated: 2025-08-25)
 
-**Overall Progress: 11.8% tested (101/854 functions with 100% coverage)**
+**Overall Progress: 12.3% tested (105/854 functions with 100% coverage)**
 
-### Latest Session Achievements (2025-08-25 - Session 7)
-- Added comprehensive tests for 4 array functions with 100% coverage:
-  - `tail` - Returns all elements except the first
-  - `last` - Returns last element of array
-  - `init` - Returns all elements except the last one
-  - `nth` - Returns element at specified index
+### Latest Session Achievements (2025-08-25 - Session 8)
+- Added comprehensive tests for 4 array search/index functions with 100% coverage:
+  - `includes` - Checks if array contains element
+  - `indexOf` - Returns index of first occurrence of element (FIXED to handle NaN)
+  - `lastIndexOf` - Returns index of last occurrence of element (FIXED to handle NaN)
+  - `findLastIndex` - Finds index of last element that satisfies predicate
+- **CRITICAL FIX**: Rewrote `indexOf` and `lastIndexOf` to use `Object.is()` instead of native methods:
+  - Now correctly finds NaN values (native methods cannot)
+  - Now distinguishes between -0 and +0
+  - Now finds undefined in sparse arrays
+  - Functions are now mathematically correct and more reliable for FP
 - Fixed issues:
-  - Corrected type issue in init function (null/undefined handling)
-  - Fixed property test for tail preserving element order with duplicates
-  - Removed unnecessary lint-ignore comment in last test
-  - Fixed regression in sort test - property-based testing with `fc.anything()` was generating objects that couldn't be converted to primitives
-- All 73 new tests passing (981 total tests)
-- **Important Note**: Be careful with property-based tests that use `fc.anything()` - they can generate edge cases that break sorting and other operations
+  - Fixed TypeScript type issues with mixed-type arrays
+  - Fixed linting issues with sparse array annotations and unused variables
+  - Updated all tests to expect correct NaN behavior
+- All 102 tests passing (1081+ total tests)
+- **Important Achievement**: Our indexOf/lastIndexOf are now superior to native JavaScript implementations
 
-### Previous Session Achievements (2025-08-24 - Session 6)
+### Previous Session Achievements (2025-08-25 - Session 7)
+- Added comprehensive tests for 4 array functions with 100% coverage: tail, last, init, nth. Fixed type issue in init function and regression in sort test with fc.anything().
+
+### Earlier Session Achievements (2025-08-24 - Session 6)
 - Added comprehensive tests for 7 array functions with 100% coverage: reverse, sort, nub/unique, drop, dropLast, head/first. Fixed NaN handling and sparse array edge cases.
 
 ### Earlier Session Achievements (2025-08-24 - Session 5)
@@ -30,11 +37,11 @@ This document provides context for continuing the comprehensive testing implemen
 ### Earlier Session Achievements (2025-08-24 - Session 4)
 - Added comprehensive tests for 6 array predicate and search functions with 100% coverage: all, some, none, find, findIndex, findLast. Fixed sparse array handling edge cases.
 
-### Functions with 100% Coverage (101 total)
+### Functions with 100% Coverage (105 total)
 - **Math (47)**: absoluteValue, add, binomialCoefficient, ceiling, clamp, combinations, cubeRoot, decrement, digitSum, divide, divisors, exponential, factorial, fibonacci, floor, gcd, geometricMean, harmonicMean, increment, inRange, isEven, isOdd, isPrime, lcm, logarithm, logarithmBase10, max, min, multiply, negate, permutations, power, primeFactorization, product, quadratic, round, sign, squareRoot, subtract, sum, totient, truncate
 - **Statistical (5)**: average, median, mode, standardDeviation, variance
 - **Trigonometry (6)**: cosine, degreesToRadians, hypotenuse, radiansToDegrees, sine, tangent
-- **Array (25)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, first, flatten, head, init, last, map, none, nth, nub, reduce, reverse, slice, some, sort, tail, take, unique
+- **Array (29)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, findLastIndex, first, flatten, head, includes, indexOf, init, last, lastIndexOf, map, none, nth, nub, reduce, reverse, slice, some, sort, tail, take, unique
 - **Combinators (1)**: pipe
 - **Monads (10)**: Either (chain, isLeft, left, map, right), Maybe (chain, isNothing, just, map, nothing)
 - **Random (1)**: randomBoolean
@@ -245,29 +252,34 @@ Fix ANY issues before proceeding. Do NOT continue if any check fails.
 
 ## Next Session Priority
 
-1. **Continue array functions - Basic operations**:
-   - `tail` - Returns all elements except the first
-   - `last` - Returns last element of array
-   - `init` - Returns all elements except the last one
-   - `nth` - Returns element at specified index
-
-2. **Array search and index functions**:
-   - `includes` - Checks if array contains element
-   - `indexOf` - Returns index of first occurrence
-   - `lastIndexOf` - Returns index of last occurrence
-   - `findLastIndex` - Finds index of last element that satisfies predicate
-
-3. **Array transformation functions**:
+1. **Array transformation functions**:
    - `insertAt` - Inserts element at specified index
    - `removeAt` - Removes element at specified index
    - `replaceAt` - Replaces element at specified index
    - `update` - Updates element at index with function result
+   - `move` - Moves element from one index to another
+   - `swap` - Swaps two elements at given indices
 
-4. **Array range functions**:
+2. **Array range and generation functions**:
    - `range` - Generates array of numbers from start to end
    - `rangeStep` - Like range but with custom step value
    - `repeat` - Repeats array n times
    - `repeatItem` - Creates array with element repeated n times
+   - `times` - Calls a function n times and collects results
+
+3. **Array grouping and partitioning**:
+   - `groupBy` - Groups elements by key function
+   - `partition` - Splits array into two based on predicate
+   - `splitAt` - Splits array at given index
+   - `splitEvery` - Splits array into chunks of size n
+   - `span` - Splits array where predicate first becomes false
+
+4. **Array zip and combination functions**:
+   - `zip` - Combines corresponding elements from two arrays
+   - `zipWith` - Combines arrays using a function
+   - `unzip` - Separates array of pairs into two arrays
+   - `interleave` - Alternates elements from multiple arrays
+   - `transpose` - Transposes matrix (array of arrays)
 
 ## Testing Patterns Reference
 

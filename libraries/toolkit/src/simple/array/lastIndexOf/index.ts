@@ -1,8 +1,9 @@
 /**
  * Finds the index of the last occurrence of a value in an array
  * 
- * Searches from end to start using strict equality (===). Returns 
- * undefined instead of -1 when not found, making it safer for FP composition.
+ * Searches from end to start using Object.is for comparison, which correctly
+ * handles NaN and -0/+0. Returns undefined instead of -1 when not found,
+ * making it safer for FP composition.
  * 
  * @curried (item) => (array) => result
  * @param item - The value to search for
@@ -13,6 +14,7 @@
  * lastIndexOf(3)([1, 2, 3, 2, 3]) // 4
  * lastIndexOf("hello")(["hello", "world", "hello"]) // 2
  * lastIndexOf(5)([1, 2, 3]) // undefined
+ * lastIndexOf(NaN)([NaN, 1, NaN, 3]) // 2 (correctly finds last NaN)
  * 
  * // Find last position of value
  * const findLastThree = lastIndexOf(3)
@@ -21,8 +23,12 @@
  * ```
  */
 const lastIndexOf = <T>(item: T) => (array: Array<T>): number | undefined => {
-	const index = array.lastIndexOf(item)
-	return index === -1 ? undefined : index
+	for (let i = array.length - 1; i >= 0; i--) {
+		if (Object.is(array[i], item)) {
+			return i
+		}
+	}
+	return undefined
 }
 
 export default lastIndexOf
