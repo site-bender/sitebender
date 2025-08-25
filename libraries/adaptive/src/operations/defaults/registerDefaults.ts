@@ -95,6 +95,23 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		},
 	)
 	registerComparator(
+		"Is.NoLongerThan",
+		async (node: ComparatorNode, evalArg) => {
+			const [val, max] = await Promise.all([
+				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""),
+				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(0),
+			])
+			return toString(val).length <= Number(max)
+		},
+	)
+	registerComparator(
+		"Is.NotEmpty",
+		async (node: ComparatorNode, evalArg) => {
+			const v = await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""))
+			return toString(v).length > 0
+		},
+	)
+	registerComparator(
 		"Is.EmailAddress",
 		async (node: ComparatorNode, evalArg) => {
 			const v =
