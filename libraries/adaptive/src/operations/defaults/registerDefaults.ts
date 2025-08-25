@@ -184,5 +184,11 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 	bind("Input")
 	bind("Change")
 	bind("Blur")
-	bind("Submit")
+	// Custom binder for submit: prevent default page navigation so actions control URL/state
+	registerEvent("On.Submit", (el, _node, dispatch) => {
+		el.addEventListener("submit", (e) => {
+			e.preventDefault()
+			void (dispatch as unknown as (e?: Event) => void)()
+		})
+	})
 }
