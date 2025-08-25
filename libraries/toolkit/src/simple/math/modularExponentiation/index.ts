@@ -14,77 +14,35 @@
  * @returns (base^exponent) mod modulus, or NaN if invalid
  * @example
  * ```typescript
- * // Simple cases
  * modularExponentiation(2)(3)(5)
  * // 3 (2^3 = 8, 8 mod 5 = 3)
  *
- * modularExponentiation(3)(4)(7)
- * // 4 (3^4 = 81, 81 mod 7 = 4)
- *
- * modularExponentiation(5)(2)(10)
- * // 5 (5^2 = 25, 25 mod 10 = 5)
- *
- * // Large exponents (would overflow without modular arithmetic)
  * modularExponentiation(2)(100)(13)
- * // 3 (2^100 mod 13 = 3)
- *
- * modularExponentiation(3)(1000)(7)
- * // 4 (3^1000 mod 7 = 4)
- *
- * // Edge cases
- * modularExponentiation(0)(5)(10)
- * // 0 (0^5 = 0)
+ * // 3 (efficient for large exponents)
  *
  * modularExponentiation(5)(0)(10)
  * // 1 (any number^0 = 1)
  *
- * modularExponentiation(1)(1000000)(7)
- * // 1 (1^anything = 1)
- *
- * // Negative base (works with modular arithmetic)
  * modularExponentiation(-2)(3)(5)
  * // 2 ((-2)^3 = -8, -8 mod 5 = 2)
  *
- * // Invalid inputs
- * modularExponentiation(2)(-1)(5)
- * // NaN (negative exponent)
+ * // Fermat's Little Theorem
+ * modularExponentiation(2)(10)(11)
+ * // 1 (2^10 mod 11 = 1)
  *
- * modularExponentiation(2)(3)(0)
- * // NaN (modulus must be positive)
- *
- * modularExponentiation(2.5)(3)(5)
- * // NaN (non-integer base)
- *
- * // Cryptographic example (RSA-like)
- * const message = 42
- * const publicExp = 65537
- * const modulus = 3233 // small example
- * const encrypted = modularExponentiation(message)(publicExp)(modulus)
- *
- * // Fermat's Little Theorem test
- * // If p is prime, then a^(p-1) ≡ 1 (mod p) for a not divisible by p
- * modularExponentiation(2)(10)(11) // 11 is prime
- * // 1 (2^10 mod 11 = 1, confirming theorem)
- *
- * // Partial application for fixed modulus
- * const mod7 = (base: number) => (exp: number) =>
- *   modularExponentiation(base)(exp)(7)
- * mod7(2)(3) // 1
- * mod7(3)(4) // 4
- * mod7(5)(2) // 4
+ * // Cryptographic example
+ * const encrypted = modularExponentiation(42)(65537)(3233)
  *
  * // Power cycling detection
- * const base = 3
- * const mod = 7
- * const powers = Array.from({length: 10}, (_, i) =>
- *   modularExponentiation(base)(i)(mod)
+ * const powers = Array.from({length: 6}, (_, i) =>
+ *   modularExponentiation(3)(i)(7)
  * )
- * // [1, 3, 2, 6, 4, 5, 1, 3, 2, 6] (cycle repeats every 6)
+ * // [1, 3, 2, 6, 4, 5]
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application and composition
- * @property Safe - Returns NaN for invalid inputs
- * @property Efficient - O(log n) time complexity
+ * @pure Always returns same result for same inputs
+ * @curried Enables partial application and composition
+ * @safe Returns NaN for invalid inputs
+ * @efficient O(log n) time complexity
  */
 const modularExponentiation = (
 	base: number | null | undefined,
