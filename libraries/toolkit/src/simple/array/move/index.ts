@@ -1,4 +1,4 @@
-import pipe from "../../functions/pipe/index.ts"
+import pipe from "../../combinator/pipe/index.ts"
 import insertAt from "../insertAt/index.ts"
 import removeAt from "../removeAt/index.ts"
 

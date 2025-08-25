@@ -5,27 +5,25 @@ This document provides context for continuing the comprehensive testing implemen
 
 ## Current Testing Status (Updated: 2025-08-25)
 
-**Overall Progress: 12.3% tested (105/854 functions with 100% coverage)**
+**Overall Progress: 13.0% tested (111/854 functions with 100% coverage)**
 
-### Latest Session Achievements (2025-08-25 - Session 8)
-- Added comprehensive tests for 4 array search/index functions with 100% coverage:
-  - `includes` - Checks if array contains element
-  - `indexOf` - Returns index of first occurrence of element (FIXED to handle NaN)
-  - `lastIndexOf` - Returns index of last occurrence of element (FIXED to handle NaN)
-  - `findLastIndex` - Finds index of last element that satisfies predicate
-- **CRITICAL FIX**: Rewrote `indexOf` and `lastIndexOf` to use `Object.is()` instead of native methods:
-  - Now correctly finds NaN values (native methods cannot)
-  - Now distinguishes between -0 and +0
-  - Now finds undefined in sparse arrays
-  - Functions are now mathematically correct and more reliable for FP
-- Fixed issues:
-  - Fixed TypeScript type issues with mixed-type arrays
-  - Fixed linting issues with sparse array annotations and unused variables
-  - Updated all tests to expect correct NaN behavior
-- All 102 tests passing (1081+ total tests)
-- **Important Achievement**: Our indexOf/lastIndexOf are now superior to native JavaScript implementations
+### Latest Session Achievements (2025-08-25 - Session 10)
+- **CRITICAL FIX**: Fixed all TypeScript type errors in test files
+  - Added explicit type parameters to generic curried functions (`replaceAt<T>`, `update<T>`, etc.)
+  - Tests now pass WITH type checking - no `--no-check` flag needed
+  - Maintained 100% coverage for all tested functions
+- **ADDITIONAL FIX**: Fixed NaN comparison issues in `head`, `last`, and `nth` tests
+  - Changed from `===` to `Object.is()` for proper NaN, -0/+0 comparison
+  - Ensures tests correctly verify consistency with native `array.at()` method
+- All tests passing with proper type safety and edge case handling
 
-### Previous Session Achievements (2025-08-25 - Session 7)
+### Previous Session Achievements (2025-08-25 - Session 9)
+- Added comprehensive tests for 5 array transformation functions with 100% coverage: insertAt, removeAt, replaceAt, update, move. Fixed import path for pipe and achieved bonus coverage.
+
+### Previous Session Achievements (2025-08-25 - Session 8)
+- Added comprehensive tests for 4 array search/index functions with 100% coverage: includes, indexOf, lastIndexOf, findLastIndex. Fixed critical issues with indexOf/lastIndexOf to use Object.is() for proper NaN handling.
+
+### Earlier Session Achievements (2025-08-25 - Session 7)
 - Added comprehensive tests for 4 array functions with 100% coverage: tail, last, init, nth. Fixed type issue in init function and regression in sort test with fc.anything().
 
 ### Earlier Session Achievements (2025-08-24 - Session 6)
@@ -37,12 +35,12 @@ This document provides context for continuing the comprehensive testing implemen
 ### Earlier Session Achievements (2025-08-24 - Session 4)
 - Added comprehensive tests for 6 array predicate and search functions with 100% coverage: all, some, none, find, findIndex, findLast. Fixed sparse array handling edge cases.
 
-### Functions with 100% Coverage (105 total)
+### Functions with 100% Coverage (111 total)
 - **Math (47)**: absoluteValue, add, binomialCoefficient, ceiling, clamp, combinations, cubeRoot, decrement, digitSum, divide, divisors, exponential, factorial, fibonacci, floor, gcd, geometricMean, harmonicMean, increment, inRange, isEven, isOdd, isPrime, lcm, logarithm, logarithmBase10, max, min, multiply, negate, permutations, power, primeFactorization, product, quadratic, round, sign, squareRoot, subtract, sum, totient, truncate
 - **Statistical (5)**: average, median, mode, standardDeviation, variance
 - **Trigonometry (6)**: cosine, degreesToRadians, hypotenuse, radiansToDegrees, sine, tangent
-- **Array (29)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, findLastIndex, first, flatten, head, includes, indexOf, init, last, lastIndexOf, map, none, nth, nub, reduce, reverse, slice, some, sort, tail, take, unique
-- **Combinators (1)**: pipe
+- **Array (34)**: all, chunk, concat, drop, dropLast, filter, find, findIndex, findLast, findLastIndex, first, flatten, head, includes, indexOf, init, insertAt, last, lastIndexOf, map, move, none, nth, nub, reduce, removeAt, replaceAt, reverse, slice, some, sort, tail, take, unique, update
+- **Combinators (2)**: pipe
 - **Monads (10)**: Either (chain, isLeft, left, map, right), Maybe (chain, isNothing, just, map, nothing)
 - **Random (1)**: randomBoolean
 - **Partial Coverage (1)**: modulo (90.6%)
@@ -252,13 +250,13 @@ Fix ANY issues before proceeding. Do NOT continue if any check fails.
 
 ## Next Session Priority
 
-1. **Array transformation functions**:
-   - `insertAt` - Inserts element at specified index
-   - `removeAt` - Removes element at specified index
-   - `replaceAt` - Replaces element at specified index
-   - `update` - Updates element at index with function result
-   - `move` - Moves element from one index to another
-   - `swap` - Swaps two elements at given indices
+1. **Array utility functions** (continue with untested array functions):
+   - `isEmpty` - Checks if array is empty
+   - `compact` - Removes falsy values from array
+   - `aperture` - Sliding window of consecutive n-tuples
+   - `cartesianProduct` / `xprod` - Cartesian product of two arrays
+   - `closest` - Finds value closest to target number
+   - `combinations` - Generates all combinations of array elements
 
 2. **Array range and generation functions**:
    - `range` - Generates array of numbers from start to end

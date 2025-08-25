@@ -46,7 +46,7 @@ Deno.test("head: consistency with array indexing", () => {
 Deno.test("head: consistency with at(0)", () => {
 	fc.assert(
 		fc.property(fc.array(fc.anything()), (arr) => {
-			return head(arr) === arr.at(0)
+			return Object.is(head(arr), arr.at(0))
 		}),
 		{ numRuns: 1000 }
 	)

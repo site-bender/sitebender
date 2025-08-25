@@ -1,15 +1,15 @@
 # Function List for the toolkit library
 
-**Testing Progress: 12.3% (105/854 functions with 100% coverage)**
+**Testing Progress: 13.0% (111/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~150 hours
-- **Remaining functions**: 749 (854 total - 105 completed)
+**Estimated Time to Completion**: ~148 hours
+- **Remaining functions**: 743 (854 total - 111 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~150 hours
-- **At 8 hours/day**: ~19 working days
+- **Hours remaining**: ~148 hours
+- **At 8 hours/day**: ~18.5 working days
 - **Last updated**: 2025-08-25
-- **Session progress**: Added comprehensive tests for 4 array search/index functions with 100% coverage: includes, indexOf, lastIndexOf, findLastIndex. CRITICAL FIX: Rewrote indexOf and lastIndexOf to use Object.is() instead of native methods, now correctly handling NaN, -0/+0, and sparse arrays. Our implementations are now superior to native JavaScript.
+- **Session progress**: Added comprehensive tests for 5 array transformation functions with 100% coverage: insertAt, removeAt, replaceAt, update, move. Fixed incorrect import path for pipe in move function. Also included pipe which now has 100% coverage.
 
 ## Current Functions (854 functions total)
 
@@ -52,7 +52,7 @@
 - indexBy - Creates an object indexing the array elements by the given key
 - indexOf - Returns index of first occurrence of element ✓
 - init - Returns all elements except the last one ✓
-- insertAt - Inserts element at specified index
+- insertAt - Inserts element at specified index ✓
 - intersection - Returns elements that exist in both arrays
 - intersectionWith - Like intersection but uses a comparator function
 - interleave - Alternate elements from multiple arrays
@@ -67,7 +67,7 @@
 - mapAccumRight - Like mapAccum but processes the array from right to left
 - maximumBy - Finds the maximum element according to a comparator function
 - minimumBy - Finds the minimum element according to a comparator function
-- move - Moves element from one index to another
+- move - Moves element from one index to another ✓
 - none - Returns true if no elements satisfy the predicate ✓
 - nub - Removes duplicate elements from an array (alias: unique) ✓
 - nubBy - Like nub but uses a custom equality function
@@ -86,12 +86,12 @@
 - reject - The complement of filter - keeps elements that don't satisfy the predicate
 - remove - Removes all occurrences of element
 - removeAll - Removes all elements matching predicate
-- removeAt - Removes element at specified index
+- removeAt - Removes element at specified index ✓
 - repeat - Repeats array n times
 - repeatItem - Creates array with element repeated n times
 - replaceAll - Replaces all occurrences of element
 - replaceAllMatches - Replaces all elements matching predicate
-- replaceAt - Replaces element at specified index
+- replaceAt - Replaces element at specified index ✓
 - replaceFirst - Replaces first occurrence of element
 - replaceFirstMatch - Replaces first element matching predicate
 - replaceLast - Replaces last occurrence of element
@@ -131,7 +131,7 @@
 - unionWith - Like union but uses a comparator function
 - unique - Removes duplicate elements from array (alias: nub) ✓
 - unzip - The opposite of zip - separates an array of pairs into two arrays
-- update - Returns a new array with the element at index replaced by the result of a function
+- update - Returns a new array with the element at index replaced by the result of a function ✓
 - xprod - Returns the Cartesian product of two arrays (alias: cartesianProduct)
 - zip - Combines two arrays into an array of pairs
 - zipAll - Like zip but continues until the longest array is exhausted, using undefined for missing values

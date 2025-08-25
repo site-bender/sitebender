@@ -237,7 +237,7 @@ Deno.test("nth property: consistent with array.at()", () => {
 			fc.array(fc.anything()),
 			fc.integer({ min: -100, max: 100 }),
 			(arr, index) => {
-				return nth(index)(arr) === arr.at(index)
+				return Object.is(nth(index)(arr), arr.at(index))
 			}
 		)
 	)

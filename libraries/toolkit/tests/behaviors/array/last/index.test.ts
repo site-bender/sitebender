@@ -204,7 +204,7 @@ Deno.test("last property: consistent with array.at(-1)", () => {
 		fc.property(
 			fc.array(fc.anything()),
 			(arr) => {
-				return last(arr) === arr.at(-1)
+				return Object.is(last(arr), arr.at(-1))
 			}
 		)
 	)
