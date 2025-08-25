@@ -1,5 +1,13 @@
 # Testing Implementation Session Context for @sitebender/toolkit
 
+## ⚠️ CRITICAL: SCOPE RESTRICTION ⚠️
+**THIS AI INSTANCE WORKS EXCLUSIVELY IN `/libraries/toolkit/`**
+- DO NOT touch ANYTHING in `/libraries/adaptive/` - another AI is working there
+- DO NOT touch ANYTHING in `/libraries/components/` - outside scope
+- DO NOT modify ANY files outside `/libraries/toolkit/`
+- ALL work, including tests and source fixes, must be within `/libraries/toolkit/`
+- Git commits should ONLY include files from `/libraries/toolkit/`
+
 ## Overview
 This document provides context for continuing the comprehensive testing implementation for the @sitebender/toolkit library. The library is a pure functional programming utility library with zero dependencies, consisting of mathematical functions, array/string operations, monadic types (Either, Maybe, Result), and IO operations.
 
