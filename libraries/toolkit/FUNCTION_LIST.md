@@ -1,26 +1,26 @@
 # Function List for the toolkit library
 
-**Testing Progress: 13.0% (111/854 functions with 100% coverage)**
+**Testing Progress: 13.8% (118/854 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~148 hours
-- **Remaining functions**: 743 (854 total - 111 completed)
+**Estimated Time to Completion**: ~147 hours
+- **Remaining functions**: 736 (854 total - 118 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~148 hours
-- **At 8 hours/day**: ~18.5 working days
+- **Hours remaining**: ~147 hours
+- **At 8 hours/day**: ~18.4 working days
 - **Last updated**: 2025-08-25
-- **Session progress**: Added comprehensive tests for 5 array transformation functions with 100% coverage: insertAt, removeAt, replaceAt, update, move. Fixed incorrect import path for pipe in move function. Also included pipe which now has 100% coverage.
+- **Session progress**: Added comprehensive tests for 7 array functions with 100% coverage: isEmpty, compact, aperture, cartesianProduct, xprod, closest, combinations. Fixed type errors and edge case test failures.
 
 ## Current Functions (854 functions total)
 
 ### array/ (123 functions)
 - all - Returns true if all elements satisfy the predicate ✓
-- aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1)
-- cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs)
+- aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1) ✓
+- cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs) ✓
 - chunk - Splits array into chunks of specified size ✓
-- closest - Finds the value closest to a target number
-- combinations - Generates all combinations of array elements
-- compact - Removes falsy values from array
+- closest - Finds the value closest to a target number ✓
+- combinations - Generates all combinations of array elements ✓
+- compact - Removes falsy values from array ✓
 - concat - Concatenates arrays together ✓
 - concatTo - Flipped version of concat
 - countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function
@@ -57,7 +57,7 @@
 - intersectionWith - Like intersection but uses a comparator function
 - interleave - Alternate elements from multiple arrays
 - intersperse - Inserts separator between array elements
-- isEmpty - Checks if array is empty
+- isEmpty - Checks if array is empty ✓
 - join - Joins array elements into string
 - last - Returns last element of array ✓
 - lastIndexOf - Returns index of last occurrence of element ✓
@@ -132,7 +132,7 @@
 - unique - Removes duplicate elements from array (alias: nub) ✓
 - unzip - The opposite of zip - separates an array of pairs into two arrays
 - update - Returns a new array with the element at index replaced by the result of a function ✓
-- xprod - Returns the Cartesian product of two arrays (alias: cartesianProduct)
+- xprod - Returns the Cartesian product of two arrays (alias: cartesianProduct) ✓
 - zip - Combines two arrays into an array of pairs
 - zipAll - Like zip but continues until the longest array is exhausted, using undefined for missing values
 - zipObj - Creates an object from arrays of keys and values
