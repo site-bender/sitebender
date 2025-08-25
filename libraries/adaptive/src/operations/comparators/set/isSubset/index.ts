@@ -1,4 +1,4 @@
-import Set from "core-js-pure/actual/set"
+// Use native Set; avoid external polyfills
 
 import type {
 	AdaptiveError,
@@ -26,11 +26,13 @@ const IsSubset = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-	try {
-		const left = new Set(operand.right)
-		const right = new Set(test.right)
+		try {
+			const left = new Set(operand.right as Iterable<unknown>)
+			const right = new Set(test.right as Iterable<unknown>)
 
-		return left.isSubsetOf(right) ? operand : {
+			const subset = Array.from(left.values()).every((v) => right.has(v))
+
+			return subset ? operand : {
 			left: [
 				Error(op)("IsSubset")(
 					`${JSON.stringify(operand.right)} is not a subset of ${

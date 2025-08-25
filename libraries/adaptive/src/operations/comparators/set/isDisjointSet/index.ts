@@ -1,4 +1,4 @@
-import Set from "core-js-pure/actual/set"
+// Use native Set; no external polyfill imports in Deno environment
 
 import type {
 	AdaptiveError,
@@ -26,11 +26,13 @@ const IsDisjointSet = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-	try {
-		const left = new Set(operand.right)
-		const right = new Set(test.right)
+		try {
+			const left = new Set(operand.right as Iterable<unknown>)
+			const right = new Set(test.right as Iterable<unknown>)
 
-		return left.isDisjointFrom(right) ? operand : {
+			const disjoint = Array.from(left.values()).every((v) => !right.has(v))
+
+			return disjoint ? operand : {
 			left: [
 				Error(op)("IsDisjointSet")(
 					`${JSON.stringify(operand.right)} is not disjoint from ${

@@ -20,13 +20,10 @@ type Init = Partial<Omit<ComposeContext, 'v' | 'env' | 'now' | 'bus'>> & {
 export function createComposeContext(init?: Init) : ComposeContext {
   const env: ComposeContext['env'] = typeof window === 'undefined' ? 'server' : (init?.env ?? 'client')
   const now = (init && 'now' in init && init.now) ? init.now : (() => Date.now())
-  let bus: Bus
-  if (env === 'client') {
-    const mode = init?.busMode ?? 'local'
-    bus = mode === 'broadcast' ? createBroadcastBus('sitebender', 'broadcast') : createLocalBus(document, 'local')
-  } else {
-    // server: noop bus
-    bus = { publish: () => {}, subscribe: () => () => {} }
-  }
+  const bus: Bus = env === 'client'
+    ? ((init?.busMode ?? 'local') === 'broadcast'
+        ? createBroadcastBus('sitebender', 'broadcast')
+        : createLocalBus(document, 'local'))
+    : ({ publish: () => {}, subscribe: () => () => {} } as Bus)
   return { v: 1, env, signal: init?.signal, now, bus, logger: init?.logger }
 }

@@ -1,9 +1,11 @@
 import type { Node } from "../../../../types/ir/index.ts"
 
 export default function resolveAnchor(node: Node): HTMLElement | null {
-  // pre-existing simple MVP: id-based lookup
-  const target = (node as unknown as { meta?: { anchor?: string } }).meta?.anchor
-  if (!target || typeof document === 'undefined') return null
-  const el = document.querySelector(`[data-ir-id="${target}"]`)
-  return el instanceof HTMLElement ? el : null
+  if (typeof document === 'undefined') return null
+  const id = (node as unknown as { id?: string }).id
+  if (!id) return null
+  const byData = document.querySelector(`[data-ir-id="${id}"]`)
+  if (byData && (byData as Element).nodeType === 1) return byData as HTMLElement
+  const byId = document.getElementById(id)
+  return byId && (byId as Element).nodeType === 1 ? (byId as HTMLElement) : null
 }

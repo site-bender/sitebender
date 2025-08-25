@@ -1,4 +1,4 @@
-import Set from "core-js-pure/actual/set"
+// Use native Set; avoid external polyfills
 
 import type {
 	AdaptiveError,
@@ -26,11 +26,13 @@ const IsOverlappingSet = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-	try {
-		const left = new Set(operand.right)
-		const right = new Set(test.right)
+		try {
+			const left = new Set(operand.right as Iterable<unknown>)
+			const right = new Set(test.right as Iterable<unknown>)
 
-		return left.intersection(right).size ? operand : {
+			const overlaps = Array.from(left.values()).some((v) => right.has(v))
+
+			return overlaps ? operand : {
 			left: [
 				Error(op)("IsOverlappingSet")(
 					`${JSON.stringify(operand.right)} does not overlap with ${

@@ -1,4 +1,4 @@
-import Set from "core-js-pure/actual/set"
+// Use native Set; avoid external polyfills
 
 import type {
 	AdaptiveError,
@@ -26,11 +26,13 @@ const IsSuperset = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-	try {
-		const left = new Set(operand.right)
-		const right = new Set(test.right)
+		try {
+			const left = new Set(operand.right as Iterable<unknown>)
+			const right = new Set(test.right as Iterable<unknown>)
 
-		return left.isSupersetOf(right) ? operand : {
+			const superset = Array.from(right.values()).every((v) => left.has(v))
+
+			return superset ? operand : {
 			left: [
 				Error(op)("IsSuperset")(
 					`${JSON.stringify(operand.right)} is a superset of ${
