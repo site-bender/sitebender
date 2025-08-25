@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../../types/index.ts"
-import type { ItemListOrderType as ItemListOrderTypeProps } from "../../../../../types/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { ItemListOrderType as ItemListOrderTypeProps } from "../../../../../../types/index.ts"
 
 import Base from "../../../../Base/index.tsx"
 

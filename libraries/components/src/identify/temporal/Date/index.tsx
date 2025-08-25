@@ -28,7 +28,7 @@
  * </Date>
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import getCalendarExtension from "../../../../utilities/calendars/getCalendarExtension/index.ts"
 import formatDate from "../../../../utilities/formatters/formatDate/index.ts"

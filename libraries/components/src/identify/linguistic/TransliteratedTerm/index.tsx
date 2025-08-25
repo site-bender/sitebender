@@ -35,7 +35,7 @@
  *   Beijing
  * </TransliteratedTerm>
  */
-import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
+import type { BCP47LanguageTag } from "../../../../../types/bcp47/index.ts"
 
 export type TransliterationSystem =
 	| "ISO" // ISO standards

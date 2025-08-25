@@ -1,7 +1,7 @@
 import type {
 	Country,
 	CountryDialingOption,
-} from "../../../../../../../types/components/forms/index.ts"
+} from "../../../../../../../../types/components/forms/index.ts"
 
 const toCountryDialingOption = (country: Country): CountryDialingOption => {
 	return {

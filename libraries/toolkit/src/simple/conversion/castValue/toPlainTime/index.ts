@@ -130,9 +130,8 @@ import type {
  * formatTime("9:5:3")               // "09:05:03"
  * formatTime({ hour: 14 })          // "14:00:00"
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns null instead of throwing errors
- * @property Temporal - Uses Temporal API for precise time handling
+ * @pure
+ * @safe
  */
 const toPlainTime = (
 	value: TimeInput | null | undefined,

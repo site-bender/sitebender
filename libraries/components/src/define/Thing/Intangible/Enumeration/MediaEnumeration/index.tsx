@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../../types/index.ts"
-import type { MediaEnumeration as MediaEnumerationProps } from "../../../../../types/index.ts"
+import type BaseProps from "../../../../../../types/index.ts"
+import type { MediaEnumeration as MediaEnumerationProps } from "../../../../../../types/index.ts"
 
 import Base from "../../../../Base/index.tsx"
 

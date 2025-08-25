@@ -1,4 +1,4 @@
-import type { FormMethod } from "../../../types/components/forms/index.ts"
+import type { FormMethod } from "../../../../types/components/forms/index.ts"
 
 import createElement from "../../../utilities/createElement/index.ts"
 

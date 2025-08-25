@@ -26,7 +26,7 @@
  * <Time value="14:30:45.123456" showSeconds showMicroseconds />
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import formatTime from "../../../../utilities/formatters/formatTime/index.ts"
 import getTimezoneAbbreviation from "../../../../utilities/formatters/getTimezoneAbbreviation/index.ts"

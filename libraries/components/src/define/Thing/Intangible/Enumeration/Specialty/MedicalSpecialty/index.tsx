@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../../../types/index.ts"
-import type { MedicalSpecialty as MedicalSpecialtyProps } from "../../../../../../types/index.ts"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { MedicalSpecialty as MedicalSpecialtyProps } from "../../../../../../../types/index.ts"
 
 import Base from "../../../../../Base/index.tsx"
 

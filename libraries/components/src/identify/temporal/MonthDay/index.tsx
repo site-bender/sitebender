@@ -29,7 +29,7 @@
  * </MonthDay>
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
 import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"

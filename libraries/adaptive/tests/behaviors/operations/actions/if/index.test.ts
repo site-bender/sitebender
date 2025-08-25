@@ -10,8 +10,8 @@ import type {
   IrDocument,
 } from "../../../../../types/ir/index.ts"
 
-import { createComposeContext } from "../../../../../src/context/composeContext.ts"
-import { registerDefaultExecutors } from "../../../../../src/operations/defaults/registerDefaults.ts"
+import { createComposeContext } from "../../../../../src/context/composeContext/index.ts"
+import { registerDefaultExecutors } from "../../../../../src/operations/defaults/registerDefaults/index.ts"
 import hydrate from "../../../../../src/runtime/hydrator/index.ts"
 import createTestDomWithBody from "../../../../helpers/createTestDom/createTestDomWithBody/index.ts"
 

@@ -1,7 +1,7 @@
 import type {
 	Country,
 	DialingCodeOption,
-} from "../../../../../../types/components/forms/index.ts"
+} from "../../../../../../../types/components/forms/index.ts"
 
 import { COUNTRY_AND_DIALING_CODES } from "../../../../../../../constants/dialing-codes/index.ts"
 import map from "../../../../../utilities/map/index.ts"

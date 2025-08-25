@@ -24,6 +24,14 @@ This is the single source of truth for where the adaptive library stands and the
   - `libraries/adaptive/src/runtime/hydrator/index.ts` hydrates IR, walks the tree, resolves anchors via `data-ir-id` then `getElementById`, binds events/actions.
   - Helpers folderized at `runtime/hydrator/walk/` and `runtime/hydrator/resolveAnchor/`; legacy single-file duplicates have been removed.
   - `resolveAnchor` now returns `HTMLElement | null` (was `Element | null`).
+   - Tutorial hydration now runs in the browser via a tiny bundle:
+      - Client entry: `docs/src/hydrate/adaptive.ts`.
+      - Bundled by Deno emit: `scripts/build/bundleHydrate/index.ts` → outputs `docs/dist/scripts/hydrate/adaptive.js`.
+      - Tutorial route references the bundle: `docs/src/routes/tutorial/index.tsx`.
+   - Playwright E2E added for tutorial behaviors:
+      - Tests: `docs/tests/e2e/tutorial.spec.ts`.
+      - Config: `playwright.config.ts` (webServer on 5556 serving `docs/dist/`, baseURL set).
+      - Task: `deno task --cwd docs test:e2e` builds then runs Playwright.
 - ComposeContext: `libraries/adaptive/src/context/composeContext.ts` uses top-level Bus types; defaults to local bus.
 - Store: folderized helpers exist (`runtime/store/createStore.ts`, `runtime/store/persistToLocalStorage.ts`). A deprecated `runtime/store.ts` re-export file still exists but has no known importers and can be removed safely.
 - Rendering helpers: minor strictness fixes (e.g., `rendering/buildDomTree/setLevel/index.ts` parameter types) and constants are centralized under `rendering/constants.ts`.
@@ -42,9 +50,20 @@ This is the single source of truth for where the adaptive library stands and the
 
 ## Quality gates snapshot (today)
 
-- Build/type-check: FAIL — first hard error in `comparators/*` stubs as listed above.
+- Build/type-check (libraries/adaptive): FAIL — first hard error in `comparators/*` stubs as listed above.
+- Docs build: PASS; E2E: PASS (3 tests passing).
 - Lint: Pending re-run after type-check goes green. Migration script was updated to satisfy lint (`path.SEPARATOR`, batched removals, sync import rewriter).
 - Tests: Not re-run after the migration. Hydrator behavior tests exist but may require path updates.
+
+## Requirements coverage (today)
+
+- Leave the toolkit alone: Done — no behavior changes to core runtime; only build wiring, docs, and tests were added.
+- Behavioral tests (Act.If, On.Submit preventDefault): Done — added and green.
+- Beginner tutorial via JSX, folder-based route, link from home: Done — `docs/src/routes/tutorial/index.tsx` with JSX authoring and link.
+- Fix dev server port conflict: Done — raw TCP probe in `scripts/serve/getFreePort`.
+- Hydration bundle (Option 1) works in dev/dist: Done — client entry bundled to `docs/dist/scripts/hydrate/adaptive.js` and referenced from tutorial.
+- Playwright E2E: Done — 3 tests passing via webServer serving `docs/dist` on 5556.
+- Update docs (this PROMPT.md) and commit: This update finalizes PROMPT.md; commits next.
 
 ## Exact NEXT STEPS to reach “stable for commit”
 
@@ -67,6 +86,20 @@ This is the single source of truth for where the adaptive library stands and the
 6. Docs cleanup:
    - Update any code examples that still reference `src/types` or `src/constants` to point at `libraries/adaptive/{types,constants}` or local relative paths, as appropriate.
 
+## How to verify today
+
+- Build docs (ensures hydrate bundle and pages):
+
+```sh
+deno task --cwd docs build
+```
+
+- Run E2E (serves docs/dist on port 5556 and runs tests):
+
+```sh
+deno task --cwd docs test:e2e
+```
+
 ## Backlog (post-stabilization, not blocking this commit)
 
 - Replace SHA-256 with `blake3` for ID derivation when available; keep base58 length 12 (extend to 14 on same-page collision).
@@ -83,4 +116,4 @@ This is the single source of truth for where the adaptive library stands and the
 
 ## Start here next session
 
-Fix the comparator stubs first (they block type-check). Then wire MVP registries, remove `runtime/store.ts`, and run type-check/lint/tests. When green, proceed with Conventional Commits for the migration and fixes.
+Fix the comparator stubs first (they block type-check). Then wire MVP registries, remove `runtime/store.ts`, and run type-check/lint/tests. When green, proceed with Conventional Commits for the migration and fixes. Docs E2E are already green.

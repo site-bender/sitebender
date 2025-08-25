@@ -1,4 +1,4 @@
-import type { CountryCode } from "../../../../types/components/formats/index.ts"
+import type { CountryCode } from "../../../../../types/components/formats/index.ts"
 
 import createElement from "../../../../utilities/createElement/index.ts"
 import generateShortId from "../../../../utilities/generateShortId/index.ts"

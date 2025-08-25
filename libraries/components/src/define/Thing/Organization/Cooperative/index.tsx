@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../types/index.ts"
-import type { Cooperative as CooperativeProps } from "../../../../types/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type { Cooperative as CooperativeProps } from "../../../../../types/index.ts"
 
 import Base from "../../../Base/index.tsx"
 

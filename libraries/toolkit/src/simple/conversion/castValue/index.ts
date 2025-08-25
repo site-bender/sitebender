@@ -145,9 +145,9 @@ import toString from "./toString/index.ts"
  * castField("price", "19.99")      // 19.99
  * castField("description", null)   // "null"
  * ```
- * @property Composable - Returns a converter function for partial application
- * @property Type-safe - TypeScript infers correct return type
- * @property Consistent - Uses same conversion rules as individual functions
+ * @pure
+ * @safe
+ * @curried
  */
 const castValue = <T extends CastType>(
 	type: T,

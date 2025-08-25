@@ -102,12 +102,18 @@ export default async function transpileScriptsRecursive(
 	relativePath: string = "",
 ): Promise<number> {
 	try {
-		const entries = await getDirectoryEntries(sourceDir)
+	const entries = await getDirectoryEntries(sourceDir)
 
 		// Get valid subdirectories (excluding helpers and types)
 		const validSubdirectories = entries.filter(shouldProcessDirectory)
 
-		// Process TypeScript files in each valid subdirectory
+		// First, process TypeScript files in the current directory (root of sourceDir)
+		const currentDirFiles = await processTypeScriptFiles(
+			sourceDir,
+			join(distComponentsDir, relativePath),
+		)
+
+		// Then process TypeScript files in each valid subdirectory
 		const fileResults = await Promise.all(
 			validSubdirectories.map((entry) => {
 				const entryPath = join(sourceDir, entry.name)
@@ -136,7 +142,7 @@ export default async function transpileScriptsRecursive(
 
 		const totalFileCount = fileResults.reduce(
 			(total, count) => total + count,
-			0,
+			currentDirFiles,
 		)
 		const totalRecursiveCount = recursiveResults.reduce(
 			(total, count) => total + count,

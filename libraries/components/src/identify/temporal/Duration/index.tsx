@@ -32,7 +32,7 @@
 import type {
 	DurationValue,
 	FormatOptions,
-} from "../../../../types/temporal/index.ts"
+} from "../../../../../types/temporal/index.ts"
 
 import formatDuration from "../../../../utilities/formatters/formatDuration/index.ts"
 

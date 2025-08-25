@@ -114,10 +114,8 @@
  * //   "name": "Alice"
  * // }
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns null instead of throwing errors
- * @property Curried - Indent parameter can be partially applied
- * @property Standard - Uses native JSON.stringify internally
+ * @pure
+ * @safe
  */
 const toJson = (indent: number = 0) => (value: unknown): string | null => {
 	// Handle values that are not serializable

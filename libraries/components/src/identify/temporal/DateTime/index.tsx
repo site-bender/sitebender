@@ -36,7 +36,7 @@
  * // → January 15, 2024, 7:30 PM UTC
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
 import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"

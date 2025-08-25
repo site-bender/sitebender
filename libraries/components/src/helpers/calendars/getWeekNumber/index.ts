@@ -1,4 +1,4 @@
-import type { WeekNumberingSystem } from "../../../../types/temporal/index.ts"
+import type { WeekNumberingSystem } from "../../../../../types/temporal/index.ts"
 
 import getISOWeekNumber from "../getISOWeekNumber/index.ts"
 

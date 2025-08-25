@@ -1,4 +1,4 @@
-import type { ParsedTemporal } from "../../../../types/temporal/index.ts"
+import type { ParsedTemporal } from "../../../../../types/temporal/index.ts"
 
 /**
  * Build a datetime attribute value from components

@@ -119,10 +119,8 @@
  * })
  * // "data:1;2;x:3;flags:debug:false;enabled:true;metadata:author:Alice;version:2"
  * ```
- * @property Pure - Always returns same result for same value
- * @property Deterministic - Same object different key order = same result
- * @property Recursive - Handles nested structures
- * @property Sortable - Output can be lexically sorted
+ * @pure
+ * @immutable
  */
 const stringify = (value: unknown): string => {
 	// Handle null and undefined

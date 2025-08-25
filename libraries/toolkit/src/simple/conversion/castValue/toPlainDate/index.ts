@@ -18,97 +18,32 @@ import type {
  * - PlainDateLike objects: must have year, month, day properties
  * - null/undefined: null
  *
+ * @pure
+ * @safe
  * @param value - The value to convert to PlainDate
  * @returns The PlainDate representation or null if invalid
  * @example
  * ```typescript
- * // ISO date strings
+ * // Basic usage
  * toPlainDate("2024-03-15")        // PlainDate 2024-03-15
  * toPlainDate("2024-12-31")        // PlainDate 2024-12-31
- * toPlainDate("2024-01-01")        // PlainDate 2024-01-01
- * toPlainDate("2024-02-05")        // PlainDate 2024-02-05
- *
- * // Invalid date strings
- * toPlainDate("2024-13-01")        // null (month 13 invalid)
- * toPlainDate("2024-02-30")        // null (Feb 30 invalid)
- * toPlainDate("2024-2-5")          // null (single digits not valid ISO)
- * toPlainDate("03/15/2024")        // null (wrong format)
- * toPlainDate("March 15, 2024")    // null (wrong format)
- * toPlainDate("2024")              // null (incomplete)
- * toPlainDate("")                  // null
- *
- * // Date objects
- * const jsDate = new Date("2024-03-15T12:30:00Z")
- * toPlainDate(jsDate)              // PlainDate 2024-03-15 (time stripped)
- *
- * // Temporal objects
- * const plainDate = Temporal.PlainDate.from("2024-03-15")
- * toPlainDate(plainDate)           // PlainDate 2024-03-15 (passes through)
+ * toPlainDate(new Date("2024-03-15T12:30:00Z"))  // PlainDate 2024-03-15
  *
  * // PlainDateLike objects
  * toPlainDate({ year: 2024, month: 3, day: 15 })  // PlainDate 2024-03-15
- * toPlainDate({ year: 2024, month: 12, day: 31 }) // PlainDate 2024-12-31
- * toPlainDate({ year: 2024, month: 13, day: 1 })  // null (invalid month)
- * toPlainDate({ year: 2024, month: 3 })           // null (missing day)
  *
- * // Nullish values
+ * // Invalid inputs
+ * toPlainDate("2024-13-01")        // null (invalid month)
+ * toPlainDate("03/15/2024")        // null (wrong format)
  * toPlainDate(null)                // null
- * toPlainDate(undefined)           // null
+ * toPlainDate(123)                 // null
  *
- * // Other types
- * toPlainDate(true)                // null
- * toPlainDate(123)                 // null (numbers not supported)
- * toPlainDate([2024, 3, 15])       // null (arrays not supported)
- *
- * // Form input parsing
- * const dateInput = document.querySelector('input[type="date"]')
- * const date = toPlainDate(dateInput?.value)
- * if (date) {
- *   console.log(`Selected: ${date.year}-${date.month}-${date.day}`)
- * }
- *
- * // Date validation
- * function isValidBirthdate(input: unknown): boolean {
- *   const date = toPlainDate(input)
- *   if (!date) return false
- *
- *   const today = Temporal.Now.plainDateISO()
- *   const age = today.since(date, { largestUnit: "years" }).years
- *
- *   return age >= 0 && age <= 150
- * }
- *
- * isValidBirthdate("1990-01-01")   // true
- * isValidBirthdate("2050-01-01")   // false (future)
- * isValidBirthdate("1850-01-01")   // false (too old)
- *
- * // Date calculations
- * function daysBetween(date1: unknown, date2: unknown): number | null {
- *   const d1 = toPlainDate(date1)
- *   const d2 = toPlainDate(date2)
- *
- *   if (!d1 || !d2) return null
- *
- *   return d2.since(d1, { largestUnit: "days" }).days
- * }
- *
- * daysBetween("2024-01-01", "2024-12-31")  // 365
- * daysBetween("2024-03-01", "2024-03-15")  // 14
- *
- * // Working with date components
- * const date = toPlainDate("2024-03-15")
- * if (date) {
- *   console.log(date.year)         // 2024
- *   console.log(date.month)        // 3
- *   console.log(date.day)          // 15
- *   console.log(date.dayOfWeek)    // 5 (Friday)
- *   console.log(date.dayOfYear)    // 75
- *   console.log(date.weekOfYear)   // 11
+ * // Date validation example
+ * const date = toPlainDate(userInput)
+ * if (!date) {
+ *   throw new Error("Invalid date format")
  * }
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns null instead of throwing errors
- * @property Temporal - Uses Temporal API for precise date handling
  */
 const toPlainDate = (
 	value: DateInput | null | undefined,

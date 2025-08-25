@@ -21,7 +21,7 @@
  *   Paris
  * </SpokenAs>
  */
-import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
+import type { BCP47LanguageTag } from "../../../../../types/bcp47/index.ts"
 
 export type Props = {
 	// Audio file URL for pronunciation reference

@@ -41,7 +41,7 @@
 import type {
 	TemporalBaseProps,
 	WeekNumberingSystem,
-} from "../../../../types/temporal/index.ts"
+} from "../../../../../types/temporal/index.ts"
 
 import getJulianDayNumber from "../../../../utilities/calendars/getJulianDayNumber/index.ts"
 import getQuarter from "../../../../utilities/calendars/getQuarter/index.ts"

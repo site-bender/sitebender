@@ -1,4 +1,4 @@
-import type { FormatOptions } from "../../../../types/temporal/index.ts"
+import type { FormatOptions } from "../../../../../types/temporal/index.ts"
 
 /**
  * Format a time value

@@ -15,104 +15,39 @@
  * - Empty string: false
  * - All other strings: true
  *
+ * @pure
+ * @safe
  * @param value - The value to convert to boolean
  * @returns The boolean representation of the value
  * @example
  * ```typescript
- * // Boolean values pass through
+ * // Basic usage
  * toBoolean(true)                  // true
- * toBoolean(false)                 // false
- *
- * // String representations
- * toBoolean("true")                // true
- * toBoolean("TRUE")                // true
- * toBoolean("True")                // true
  * toBoolean("yes")                 // true
- * toBoolean("YES")                 // true
- * toBoolean("y")                   // true
- * toBoolean("Y")                   // true
- * toBoolean("1")                   // true
- * toBoolean("on")                  // true
- * toBoolean("ON")                  // true
- *
- * toBoolean("false")               // false
- * toBoolean("FALSE")               // false
- * toBoolean("no")                  // false
- * toBoolean("n")                   // false
- * toBoolean("0")                   // false
- * toBoolean("off")                 // false
- *
- * // Numbers
  * toBoolean(1)                     // true
- * toBoolean(-1)                    // true
- * toBoolean(42)                    // true
+ * toBoolean(false)                 // false
+ * toBoolean("no")                  // false
  * toBoolean(0)                     // false
- * toBoolean(-0)                    // false
- * toBoolean(NaN)                   // false
- * toBoolean(Infinity)              // true
  *
- * // Nullish values
+ * // String representations (case-insensitive)
+ * toBoolean("TRUE")                // true
+ * toBoolean("false")               // false
+ * toBoolean("")                    // false
+ * toBoolean("hello")               // true
+ *
+ * // Edge cases
  * toBoolean(null)                  // false
- * toBoolean(undefined)             // false
- *
- * // Objects and arrays (always true when not null)
  * toBoolean({})                    // true
  * toBoolean([])                    // true
- * toBoolean({ a: 1 })              // true
- * toBoolean([1, 2, 3])             // true
- *
- * // Other strings (non-empty = true)
- * toBoolean("")                    // false
- * toBoolean(" ")                   // true
- * toBoolean("hello")               // true
- * toBoolean("anything")            // true
- *
- * // Use with form inputs
- * const checkbox = document.querySelector('input[type="checkbox"]')
- * const isChecked = toBoolean(checkbox?.checked)
- *
- * const selectValue = document.querySelector('select')?.value
- * const isEnabled = toBoolean(selectValue)
+ * toBoolean(NaN)                   // false
  *
  * // Configuration parsing
- * const config = {
- *   debug: "true",
- *   verbose: "yes",
- *   production: "0",
- *   features: {
- *     auth: "on",
- *     logging: "off"
- *   }
- * }
- *
+ * const config = { debug: "true", production: "0" }
  * const settings = {
- *   debug: toBoolean(config.debug),           // true
- *   verbose: toBoolean(config.verbose),       // true
- *   production: toBoolean(config.production), // false
- *   auth: toBoolean(config.features.auth),    // true
- *   logging: toBoolean(config.features.logging) // false
- * }
- *
- * // Environment variables
- * const isDev = toBoolean(process.env.DEV_MODE)
- * const isDebug = toBoolean(process.env.DEBUG)
- *
- * // API response handling
- * interface ApiResponse {
- *   success: string | number | boolean
- *   data?: unknown
- * }
- *
- * function handleResponse(response: ApiResponse) {
- *   if (toBoolean(response.success)) {
- *     return response.data
- *   }
- *   throw new Error("Request failed")
+ *   debug: toBoolean(config.debug),       // true
+ *   production: toBoolean(config.production) // false
  * }
  * ```
- * @property Pure - Always returns same result for same input
- * @property Type-coercion - Converts various types to boolean
- * @property Case-insensitive - String checks ignore case
  */
 const toBoolean = (value: unknown): boolean => {
 	// Handle nullish values

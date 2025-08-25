@@ -1,7 +1,7 @@
 import type {
 	Formatters,
 	TemplateData,
-} from "../../../../../types/schema.org/index.ts"
+} from "../../../../../../types/schema.org/index.ts"
 
 import DEFAULT_FORMATTERS from "../defaultFormatters/index.tsx"
 import getNestedValue from "./getNestedValue/index.ts"

@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../../../types/index.ts"
-import type { CityHall as CityHallProps } from "../../../../../../types/index.ts"
+import type BaseProps from "../../../../../../../types/index.ts"
+import type { CityHall as CityHallProps } from "../../../../../../../types/index.ts"
 
 import Base from "../../../../../Base/index.tsx"
 

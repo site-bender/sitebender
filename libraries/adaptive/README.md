@@ -2,6 +2,8 @@
 
 A library for adaptive user interfaces.
 
+> Getting started? See `libraries/adaptive/TUTORIAL.md` for a hands-on MVP walkthrough.
+
 ## Executive Summary
 
 The adaptive library is a sophisticated, functional programming-based reactive DOM construction system that bridges declarative configuration and runtime DOM manipulation. It enables building progressively enhanced web applications that work without JavaScript while supporting powerful reactive calculations, validations, and conditional display logic when JavaScript is available.

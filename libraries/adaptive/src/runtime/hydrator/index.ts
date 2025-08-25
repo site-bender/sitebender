@@ -9,8 +9,8 @@ import type {
 import {
 	type ComposeContext,
 	createComposeContext,
-} from "../../context/composeContext.ts"
-import { registerDefaultExecutors } from "../../operations/defaults/registerDefaults.ts"
+} from "../../context/composeContext/index.ts"
+import { registerDefaultExecutors } from "../../operations/defaults/registerDefaults/index.ts"
 import { getAction } from "../../operations/registries/actions.ts"
 import { getEvent } from "../../operations/registries/events.ts"
 import evaluate from "../evaluate/index.ts"

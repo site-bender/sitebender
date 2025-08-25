@@ -141,9 +141,8 @@ import type {
  *   console.log(dateTime.dayOfYear)         // 75
  * }
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns null instead of throwing errors
- * @property Temporal - Uses Temporal API for precise datetime handling
+ * @pure
+ * @safe
  */
 const toPlainDateTime = (
 	value: DateTimeInput | null | undefined,

@@ -111,10 +111,8 @@ import toFloat from "../toFloat/index.ts"
  * toPrecision(2)(1234567.89)       // 1234567.89
  * toPrecision(0)(1234567.89)       // 1234568
  * ```
- * @property Pure - Always returns same result for same input
- * @property Rounds - Uses standard rounding (0.5 rounds up)
- * @property Safe - Returns NaN instead of throwing errors
- * @property Curried - Partial application for reusable precision functions
+ * @pure
+ * @safe
  */
 const toPrecision = (places: number) => (value: unknown): number => {
 	// Parse the value as a float first

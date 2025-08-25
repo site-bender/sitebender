@@ -1,4 +1,4 @@
-import type { BaseProps } from "../../../../types/index.ts"
+import type { BaseProps } from "../../../../../types/index.ts"
 
 import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 

@@ -31,7 +31,7 @@
  * // → T1 2024 (janv. - mars)
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import getQuarter from "../../../../utilities/calendars/getQuarter/index.ts"
 import formatDate from "../../../../utilities/formatters/formatDate/index.ts"

@@ -1,4 +1,4 @@
-import type { MenuItem } from "../../../types/components/navigation/index.ts"
+import type { MenuItem } from "../../../../types/components/navigation/index.ts"
 
 import createElement from "../../../utilities/createElement/index.ts"
 

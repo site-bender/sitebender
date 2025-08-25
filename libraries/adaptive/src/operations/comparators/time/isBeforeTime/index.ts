@@ -7,7 +7,7 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import compare from "../../compare.ts"
+import compare from "../../comparator/index.ts"
 
 const isBeforeTime = compare(
 	(operand, test) => Temporal.PlainTime.compare(operand, test) < 0,

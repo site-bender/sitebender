@@ -34,7 +34,7 @@
 import type {
 	TemporalBaseProps,
 	WeekNumberingSystem,
-} from "../../../../types/temporal/index.ts"
+} from "../../../../../types/temporal/index.ts"
 
 import getWeekNumber from "../../../../utilities/calendars/getWeekNumber/index.ts"
 import getWeekStartDate from "../../../../utilities/calendars/getWeekStartDate/index.ts"

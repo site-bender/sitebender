@@ -10,6 +10,9 @@ export default function () {
 			<p>
 				<a href="/validation.tsx/">Open validation demo</a>
 			</p>
+			<p>
+				<a href="/tutorial/">Read the Adaptive Tutorial</a>
+			</p>
 		</body>
 	)
 }

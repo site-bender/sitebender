@@ -1,7 +1,7 @@
 import type {
 	TrileanFieldType,
 	TrileanType,
-} from "../../../../types/components/forms/index.ts"
+} from "../../../../../types/components/forms/index.ts"
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 

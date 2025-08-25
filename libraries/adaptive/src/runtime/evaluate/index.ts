@@ -4,7 +4,7 @@ import type {
 	Node,
 	OperatorNode,
 } from "../../../types/ir/index.ts"
-import type { ComposeContext } from "../../context/composeContext.ts"
+import type { ComposeContext } from "../../context/composeContext/index.ts"
 
 import { getComparator } from "../../operations/registries/comparators.ts"
 import { getInjector } from "../../operations/registries/injectors.ts"

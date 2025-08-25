@@ -9,7 +9,7 @@
 
 	"tasks": {
 		// === Build Tasks ===
-		"build": "deno run --unstable-temporal --allow-read --allow-write ../scripts/build/buildDev/index.ts",
+		"build": "deno run --unstable-temporal --allow-read --allow-write --allow-env ../scripts/build/buildDev/index.ts",
 		"build:full": "deno run --unstable-temporal --allow-all ../scripts/build/index.ts",
 
 		// === Development Server ===
@@ -26,7 +26,7 @@
 		"test:integration": "deno test --unstable-temporal tests/integration/ -A --no-check",
 		"test:build": "deno test --unstable-temporal tests/build/ -A --no-check",
 		"test:a11y": "deno test --unstable-temporal tests/a11y/ -A --no-check",
-		"test:e2e": "bash ../scripts/e2e.sh && deno test --unstable-temporal tests/e2e/ -A --no-check",
+		"test:e2e": "deno task build && npx playwright test -c ../playwright.config.ts",
 
 		// === Maintenance ===
 		"clean": "rm -rf dist/ coverage/",
@@ -43,8 +43,12 @@
 
 		// === Local Sitebender Libraries ===
 		"@sitebender/toolkit": "../libraries/toolkit/src/",
+		"@sitebender/toolkit/": "../libraries/toolkit/src/",
 		"@sitebender/adaptive": "../libraries/adaptive/src/",
+		"@sitebender/adaptive/": "../libraries/adaptive/src/",
+		"@sitebender/adaptive/jsx/index.tsx": "../libraries/adaptive/src/jsx/index.tsx",
 		"@sitebender/components": "../libraries/components/src/",
+		"@sitebender/components/": "../libraries/components/src/",
 
 		// === Deno Standard Library ===
 		"@std/expect": "jsr:@std/expect@^1.0.17",

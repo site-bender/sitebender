@@ -35,7 +35,7 @@
  * // → hace 3 días
  */
 
-import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
 
 import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"
 import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
