@@ -88,6 +88,8 @@ export { default as Dividend } from "./wrappers/Dividend/index.tsx"
 export { default as Divisor } from "./wrappers/Divisor/index.tsx"
 
 // Export types
+export { default as On } from "./control/On/index.tsx"
+export type { Props as OnProps } from "./control/On/index.tsx"
 export type { AddProps } from "./operators/Add/index.tsx"
 export type { SubtractProps } from "./operators/Subtract/index.tsx"
 export type { MultiplyProps } from "./operators/Multiply/index.tsx"

@@ -26,6 +26,7 @@ export type BehaviorNode =
 		ifFalse: IRNode[]
 	}
 	| { kind: "validation"; when: "input" | "blur" | "submit"; rule?: unknown }
+	| { kind: "on"; event: string; handler?: unknown }
 
 type MaybeVNode = unknown
 
@@ -56,6 +57,11 @@ const isConditional = (
 	ifTrue?: unknown
 	ifFalse?: unknown
 } => getKind(x) === "control:conditional"
+
+const isOn = (
+	x: unknown,
+): x is { __kind: "control:on"; event: string; handler?: unknown } =>
+	getKind(x) === "control:on"
 
 export default function compile(
 	children?: MaybeVNode | MaybeVNode[],
@@ -124,6 +130,18 @@ export default function compile(
 					children: [],
 					behaviors: [behavior],
 				})
+			}
+			continue
+		}
+
+		if (isOn(node)) {
+			const onNode = node as { __kind: "control:on"; event: string; handler?: unknown }
+			const behavior: BehaviorNode = { kind: "on", event: onNode.event, handler: onNode.handler }
+			const target = [...out].reverse().find((n) => n.kind === "element") as IRNode | undefined
+			if (target && target.kind === "element") {
+				target.behaviors = [...(target.behaviors || []), behavior]
+			} else {
+				out.push({ kind: "element", tag: "div", props: {}, children: [], behaviors: [behavior] })
 			}
 			continue
 		}
