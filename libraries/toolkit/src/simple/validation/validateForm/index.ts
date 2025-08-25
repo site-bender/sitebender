@@ -1,11 +1,11 @@
 /**
  * Validates entire form data, returns array of errors
- * 
+ *
  * Validates multiple form fields simultaneously using a schema that maps
  * field names to validation rules. Returns a comprehensive error object
  * with all validation failures or null if all fields are valid. Supports
  * field dependencies, cross-field validation, and conditional rules.
- * 
+ *
  * @curried (schema) => (formData) => errors | null
  * @param schema - Validation schema mapping field names to rules
  * @param formData - Form data object to validate
@@ -53,9 +53,9 @@
  *     message: "You must accept the terms and conditions"
  *   }
  * }
- * 
+ *
  * const validateRegistration = validateForm(registrationSchema)
- * 
+ *
  * validateRegistration({
  *   username: "john_doe",
  *   email: "john@example.com",
@@ -65,7 +65,7 @@
  *   terms: true
  * })
  * // null (all valid)
- * 
+ *
  * validateRegistration({
  *   username: "ab",
  *   email: "invalid",
@@ -82,7 +82,7 @@
  * //   age: "Minimum value is 13",
  * //   terms: "You must accept the terms and conditions"
  * // }
- * 
+ *
  * // Contact form validation
  * const contactSchema = {
  *   name: {
@@ -110,9 +110,9 @@
  *     maxLength: 1000
  *   }
  * }
- * 
+ *
  * const validateContact = validateForm(contactSchema)
- * 
+ *
  * validateContact({
  *   name: "Jane Doe",
  *   email: "jane@example.com",
@@ -120,7 +120,7 @@
  *   message: "I need help with my account"
  * })
  * // null (phone is optional)
- * 
+ *
  * // Payment form validation
  * const paymentSchema = {
  *   cardNumber: {
@@ -167,9 +167,9 @@
  *     message: "Please enter a valid ZIP code"
  *   }
  * }
- * 
+ *
  * const validatePayment = validateForm(paymentSchema)
- * 
+ *
  * validatePayment({
  *   cardNumber: "4111 1111 1111 1111",
  *   expiryMonth: 12,
@@ -178,7 +178,7 @@
  *   billingZip: "12345"
  * })
  * // null (valid test card)
- * 
+ *
  * // Conditional validation
  * const shippingSchema = {
  *   shippingMethod: {
@@ -201,9 +201,9 @@
  *     maxLength: 200
  *   }
  * }
- * 
+ *
  * const validateShipping = validateForm(shippingSchema)
- * 
+ *
  * validateShipping({
  *   shippingMethod: "express",
  *   address: "123 Main St, City, State 12345",
@@ -211,7 +211,7 @@
  *   isGift: false
  * })
  * // null (conditional field validated)
- * 
+ *
  * // Cross-field validation
  * const dateRangeSchema = {
  *   startDate: {
@@ -229,9 +229,9 @@
  *     minLength: 10
  *   }
  * }
- * 
+ *
  * const validateDateRange = validateForm(dateRangeSchema)
- * 
+ *
  * validateDateRange({
  *   startDate: "2024-01-01",
  *   endDate: "2023-12-31",
@@ -241,7 +241,7 @@
  * //   endDate: "End date must be after start date",
  * //   reason: "Minimum length is 10"
  * // }
- * 
+ *
  * // Dynamic field validation
  * const dynamicSchema = {
  *   fieldCount: {
@@ -258,9 +258,9 @@
  *     }
  *   })).reduce((acc, cur) => ({ ...acc, ...cur }), {})
  * }
- * 
+ *
  * const validateDynamic = validateForm(dynamicSchema)
- * 
+ *
  * validateDynamic({
  *   fieldCount: 3,
  *   field_1: "abc",
@@ -268,7 +268,7 @@
  *   field_3: "ghi"
  * })
  * // null (only first 3 fields required)
- * 
+ *
  * // Nested object validation
  * const profileSchema = {
  *   "user.name": {
@@ -290,9 +290,9 @@
  *     type: "boolean"
  *   }
  * }
- * 
+ *
  * const validateProfile = validateForm(profileSchema)
- * 
+ *
  * // Group validation with dependencies
  * const teamSchema = {
  *   teamName: {
@@ -321,9 +321,9 @@
  *     }
  *   }
  * }
- * 
+ *
  * const validateTeam = validateForm(teamSchema)
- * 
+ *
  * validateTeam({
  *   teamName: "Alpha Team",
  *   teamSize: 4,
@@ -360,8 +360,8 @@ type FormFieldRules = {
 type FormSchema = Record<string, FormFieldRules>
 type FormErrors = Record<string, string> | null
 
-const validateForm = (schema: FormSchema) =>
-	(formData: Record<string, any>): FormErrors => {
+const validateForm =
+	(schema: FormSchema) => (formData: Record<string, any>): FormErrors => {
 		const errors: Record<string, string> = {}
 
 		// First pass: validate all fields
@@ -457,14 +457,14 @@ const validateForm = (schema: FormSchema) =>
 			// String length validation
 			if (typeof value === "string") {
 				if (rules.minLength !== undefined && value.length < rules.minLength) {
-					errors[fieldName] =
-						rules.message || `Minimum length is ${rules.minLength}`
+					errors[fieldName] = rules.message ||
+						`Minimum length is ${rules.minLength}`
 					continue
 				}
 
 				if (rules.maxLength !== undefined && value.length > rules.maxLength) {
-					errors[fieldName] =
-						rules.message || `Maximum length is ${rules.maxLength}`
+					errors[fieldName] = rules.message ||
+						`Maximum length is ${rules.maxLength}`
 					continue
 				}
 			}
@@ -474,14 +474,12 @@ const validateForm = (schema: FormSchema) =>
 				const numValue = Number(value)
 
 				if (rules.min !== undefined && numValue < Number(rules.min)) {
-					errors[fieldName] =
-						rules.message || `Minimum value is ${rules.min}`
+					errors[fieldName] = rules.message || `Minimum value is ${rules.min}`
 					continue
 				}
 
 				if (rules.max !== undefined && numValue > Number(rules.max)) {
-					errors[fieldName] =
-						rules.message || `Maximum value is ${rules.max}`
+					errors[fieldName] = rules.message || `Maximum value is ${rules.max}`
 					continue
 				}
 			}
@@ -494,22 +492,20 @@ const validateForm = (schema: FormSchema) =>
 
 			// Enum validation
 			if (rules.enum && !rules.enum.includes(value)) {
-				errors[fieldName] =
-					rules.message || `Must be one of: ${rules.enum.join(", ")}`
+				errors[fieldName] = rules.message ||
+					`Must be one of: ${rules.enum.join(", ")}`
 				continue
 			}
 
 			// Equals validation
 			if (rules.equals !== undefined && value !== rules.equals) {
-				errors[fieldName] =
-					rules.message || `Must equal ${rules.equals}`
+				errors[fieldName] = rules.message || `Must equal ${rules.equals}`
 				continue
 			}
 
 			// Match another field
 			if (rules.match && value !== formData[rules.match]) {
-				errors[fieldName] =
-					rules.message || `Must match ${rules.match}`
+				errors[fieldName] = rules.message || `Must match ${rules.match}`
 				continue
 			}
 
@@ -520,8 +516,7 @@ const validateForm = (schema: FormSchema) =>
 				if (rules.after) {
 					const afterDate = new Date(formData[rules.after])
 					if (dateValue <= afterDate) {
-						errors[fieldName] =
-							rules.message || `Must be after ${rules.after}`
+						errors[fieldName] = rules.message || `Must be after ${rules.after}`
 						continue
 					}
 				}
@@ -529,8 +524,8 @@ const validateForm = (schema: FormSchema) =>
 				if (rules.before) {
 					const beforeDate = new Date(formData[rules.before])
 					if (dateValue >= beforeDate) {
-						errors[fieldName] =
-							rules.message || `Must be before ${rules.before}`
+						errors[fieldName] = rules.message ||
+							`Must be before ${rules.before}`
 						continue
 					}
 				}

@@ -10,22 +10,32 @@ Deno.test("absoluteValue: idempotent property", async (t) => {
 			fc.property(fc.float(), (n) => {
 				const once = absoluteValue(n)
 				const twice = absoluteValue(once)
-				
+
 				// Use Object.is for NaN comparison
 				return Object.is(once, twice) ||
 					(Number.isNaN(once) && Number.isNaN(twice))
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
 	await t.step("idempotent for special values", () => {
-		const specialValues = [0, -0, Infinity, -Infinity, NaN, Number.MAX_VALUE, -Number.MAX_VALUE, Number.MIN_VALUE, -Number.MIN_VALUE]
-		
+		const specialValues = [
+			0,
+			-0,
+			Infinity,
+			-Infinity,
+			NaN,
+			Number.MAX_VALUE,
+			-Number.MAX_VALUE,
+			Number.MIN_VALUE,
+			-Number.MIN_VALUE,
+		]
+
 		for (const value of specialValues) {
 			const once = absoluteValue(value)
 			const twice = absoluteValue(once)
-			
+
 			if (Number.isNaN(value)) {
 				assertEquals(Number.isNaN(once), true)
 				assertEquals(Number.isNaN(twice), true)
@@ -43,7 +53,7 @@ Deno.test("absoluteValue: non-negativity property", async (t) => {
 				const result = absoluteValue(n)
 				return Number.isNaN(result) || result >= 0
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -54,12 +64,12 @@ Deno.test("absoluteValue: distance property", async (t) => {
 			fc.property(fc.float(), (n) => {
 				const positive = absoluteValue(n)
 				const negative = absoluteValue(-n)
-				
+
 				return Object.is(positive, negative) ||
 					(Number.isNaN(positive) && Number.isNaN(negative)) ||
 					approximately(positive, negative)
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -73,25 +83,25 @@ Deno.test("absoluteValue: multiplicative property", async (t) => {
 				(x, y) => {
 					const productAbs = absoluteValue(x * y)
 					const absProduct = absoluteValue(x) * absoluteValue(y)
-					
+
 					// Handle infinity cases
 					if (!Number.isFinite(productAbs) || !Number.isFinite(absProduct)) {
 						return Object.is(productAbs, absProduct)
 					}
-					
+
 					// Handle zero cases (0 * anything = 0)
 					if (productAbs === 0 && absProduct === 0) {
 						return true
 					}
-					
+
 					// Use relative epsilon for non-zero numbers
 					const magnitude = Math.max(Math.abs(productAbs), Math.abs(absProduct))
 					const epsilon = Math.max(magnitude * 1e-10, 1e-14)
-					
+
 					return approximately(productAbs, absProduct, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -105,17 +115,17 @@ Deno.test("absoluteValue: triangle inequality", async (t) => {
 				(x, y) => {
 					const sumAbs = absoluteValue(x + y)
 					const absSum = absoluteValue(x) + absoluteValue(y)
-					
+
 					// Handle infinity cases
 					if (!Number.isFinite(sumAbs) || !Number.isFinite(absSum)) {
 						return true // Inequality holds for infinities
 					}
-					
+
 					// Triangle inequality with small tolerance for floating point
 					return sumAbs <= absSum + 1e-10
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -173,7 +183,9 @@ Deno.test("absoluteValue: JSDoc examples (consolidated)", async (t) => {
 
 		// Finding maximum deviation
 		const deviations = [-3, 2, -5, 1, -2]
-		const maxDeviation = deviations.map(absoluteValue).reduce((a, b) => Math.max(a, b))
+		const maxDeviation = deviations.map(absoluteValue).reduce((a, b) =>
+			Math.max(a, b)
+		)
 		assertEquals(maxDeviation, 5)
 
 		// Temperature difference
@@ -198,7 +210,7 @@ Deno.test("absoluteValue: JSDoc examples (consolidated)", async (t) => {
 
 		// Finding closest to zero
 		const values = [-5, 3, -2, 8, -1]
-		const closest = values.reduce((min, val) => 
+		const closest = values.reduce((min, val) =>
 			absoluteValue(val) < absoluteValue(min) ? val : min
 		)
 		assertEquals(closest, -1)
@@ -218,7 +230,7 @@ Deno.test("absoluteValue: error handling and null safety", async (t) => {
 
 	await t.step("type safety with unknown inputs", () => {
 		const safeCalc = (x: unknown): number => {
-			const val = typeof x === 'number' ? x : NaN
+			const val = typeof x === "number" ? x : NaN
 			return absoluteValue(val) * 2
 		}
 		assertEquals(Number.isNaN(safeCalc("invalid")), true)

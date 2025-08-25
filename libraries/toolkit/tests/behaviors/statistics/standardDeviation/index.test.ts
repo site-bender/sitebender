@@ -1,4 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import standardDeviation from "../../../../src/simple/statistics/standardDeviation/index.ts"
@@ -142,7 +145,14 @@ Deno.test("standardDeviation - edge cases", async (t) => {
 Deno.test("standardDeviation - non-negative property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-1000), max: Math.fround(1000) }), { minLength: 1 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-1000),
+					max: Math.fround(1000),
+				}),
+				{ minLength: 1 },
+			),
 			fc.boolean(),
 			(values, isSample) => {
 				// Skip sample standard deviation for single values
@@ -150,48 +160,66 @@ Deno.test("standardDeviation - non-negative property", () => {
 
 				const result = standardDeviation(isSample)(values)
 				return result >= 0 || Number.isNaN(result)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("standardDeviation - zero for identical values", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-1000), max: Math.fround(1000) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-1000),
+				max: Math.fround(1000),
+			}),
 			fc.integer({ min: 2, max: 100 }),
 			(value, count) => {
 				const values = Array(count).fill(value)
 				const popStd = standardDeviation(false)(values)
 				const sampStd = standardDeviation(true)(values)
 				return popStd === 0 && sampStd === 0
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("standardDeviation - sample >= population for non-uniform data", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 2, maxLength: 100 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 2, maxLength: 100 },
+			),
 			(values) => {
 				const popStd = standardDeviation(false)(values)
 				const sampStd = standardDeviation(true)(values)
 				// Sample std should be greater than or equal to population std
 				// They're equal only when all values are identical
 				return sampStd >= popStd || approximately(sampStd, popStd, 1e-10)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("standardDeviation - relationship with variance", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 100 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 100 },
+			),
 			fc.boolean(),
 			(values, isSample) => {
 				// Skip sample calculations for single values
@@ -202,16 +230,23 @@ Deno.test("standardDeviation - relationship with variance", () => {
 				// We verify this by checking that std^2 is non-negative
 				const variance = std * std
 				return variance >= 0 || Number.isNaN(variance)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("standardDeviation - scaling property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 50 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 50 },
+			),
 			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
 			fc.boolean(),
 			(values, scale, isSample) => {
@@ -219,22 +254,29 @@ Deno.test("standardDeviation - scaling property", () => {
 				if (isSample && values.length === 1) return true
 
 				const originalStd = standardDeviation(isSample)(values)
-				const scaledValues = values.map(v => v * scale)
+				const scaledValues = values.map((v) => v * scale)
 				const scaledStd = standardDeviation(isSample)(scaledValues)
 
 				// Standard deviation scales linearly with the scaling factor
 				const expectedStd = originalStd * Math.abs(scale)
 				return approximately(scaledStd, expectedStd, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 
 Deno.test("standardDeviation - translation invariance", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 50 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 50 },
+			),
 			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
 			fc.boolean(),
 			(values, shift, isSample) => {
@@ -242,14 +284,14 @@ Deno.test("standardDeviation - translation invariance", () => {
 				if (isSample && values.length === 1) return true
 
 				const originalStd = standardDeviation(isSample)(values)
-				const shiftedValues = values.map(v => v + shift)
+				const shiftedValues = values.map((v) => v + shift)
 				const shiftedStd = standardDeviation(isSample)(shiftedValues)
 
 				// Standard deviation should not change when adding a constant
 				return approximately(originalStd, shiftedStd, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 
@@ -283,7 +325,11 @@ Deno.test("standardDeviation - consistency with known formulas", () => {
 	// Population variance = 40/5 = 8, std = sqrt(8) ≈ 2.828
 	// Sample variance = 40/4 = 10, std = sqrt(10) ≈ 3.162
 
-	assertAlmostEquals(standardDeviation(false)(values), 2.8284271247461903, 1e-10)
+	assertAlmostEquals(
+		standardDeviation(false)(values),
+		2.8284271247461903,
+		1e-10,
+	)
 	assertAlmostEquals(standardDeviation(true)(values), 3.1622776601683795, 1e-10)
 })
 
@@ -292,7 +338,7 @@ Deno.test("standardDeviation - range relationship", () => {
 	const values = [1, 3, 5, 7, 9]
 	const range = Math.max(...values) - Math.min(...values)
 	const std = standardDeviation(false)(values)
-	
+
 	assertEquals(std <= range, true)
 	assertAlmostEquals(std, 2.8284271247461903, 1e-10)
 })

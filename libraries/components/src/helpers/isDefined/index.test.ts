@@ -25,8 +25,10 @@ describe("isDefined", () => {
 
 	describe("type guard behavior", () => {
 		it("should act as a type guard for TypeScript", () => {
-			const value: string | undefined = Math.random() > 0.5 ? "hello" : undefined
-			
+			const value: string | undefined = Math.random() > 0.5
+				? "hello"
+				: undefined
+
 			if (isDefined(value)) {
 				// TypeScript should know value is string here
 				expect(typeof value).toBe("string")
@@ -36,7 +38,7 @@ describe("isDefined", () => {
 
 		it("should narrow null | undefined types", () => {
 			const value: number | null | undefined = Math.random() > 0.5 ? 42 : null
-			
+
 			if (isDefined(value)) {
 				// TypeScript should know value is number here
 				expect(typeof value).toBe("number")
@@ -56,12 +58,12 @@ describe("isDefined", () => {
 		it("should distinguish between falsy and null/undefined", () => {
 			const falsyValues = [0, "", false, NaN]
 			const nullishValues = [null, undefined]
-			
-			falsyValues.forEach(value => {
+
+			falsyValues.forEach((value) => {
 				expect(isDefined(value)).toBe(true)
 			})
-			
-			nullishValues.forEach(value => {
+
+			nullishValues.forEach((value) => {
 				expect(isDefined(value)).toBe(false)
 			})
 		})
@@ -141,7 +143,7 @@ describe("isDefined", () => {
 
 		it("should handle function objects", () => {
 			expect(isDefined(() => {})).toBe(true)
-			expect(isDefined(function() {})).toBe(true)
+			expect(isDefined(function () {})).toBe(true)
 			expect(isDefined(Math.max)).toBe(true)
 		})
 	})
@@ -158,8 +160,8 @@ describe("isDefined", () => {
 						} else {
 							expect(result).toBe(true)
 						}
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -169,8 +171,8 @@ describe("isDefined", () => {
 					fc.anything(),
 					(value) => {
 						expect(isDefined(value)).toBe(!!isDefined(value))
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -181,8 +183,8 @@ describe("isDefined", () => {
 					(value) => {
 						const isNullish = value === null || value === undefined
 						expect(isDefined(value)).toBe(!isNullish)
-					}
-				)
+					},
+				),
 			)
 		})
 	})
@@ -195,11 +197,18 @@ describe("isDefined", () => {
 		})
 
 		it("should preserve type information in filtered arrays", () => {
-			const maybeNumbers: Array<number | null | undefined> = [1, 2, null, 3, undefined, 4]
+			const maybeNumbers: Array<number | null | undefined> = [
+				1,
+				2,
+				null,
+				3,
+				undefined,
+				4,
+			]
 			const definedNumbers = maybeNumbers.filter(isDefined)
 			// TypeScript should infer definedNumbers as number[]
 			expect(definedNumbers).toEqual([1, 2, 3, 4])
-			definedNumbers.forEach(num => {
+			definedNumbers.forEach((num) => {
 				expect(typeof num).toBe("number")
 			})
 		})
@@ -208,10 +217,14 @@ describe("isDefined", () => {
 			const sparse = new Array(5)
 			sparse[1] = "defined"
 			sparse[3] = 42
-			
-			const elements = sparse.map((val, index) => ({ index, val, isDefined: isDefined(val) }))
-			const definedElements = elements.filter(item => item.isDefined)
-			
+
+			const elements = sparse.map((val, index) => ({
+				index,
+				val,
+				isDefined: isDefined(val),
+			}))
+			const definedElements = elements.filter((item) => item.isDefined)
+
 			expect(definedElements.length).toBe(2)
 			expect(definedElements[0].index).toBe(1)
 			expect(definedElements[1].index).toBe(3)
@@ -220,8 +233,10 @@ describe("isDefined", () => {
 
 	describe("practical usage patterns", () => {
 		it("should work in conditional checks", () => {
-			const maybeValue: string | undefined = Math.random() > 0.5 ? "value" : undefined
-			
+			const maybeValue: string | undefined = Math.random() > 0.5
+				? "value"
+				: undefined
+
 			if (isDefined(maybeValue)) {
 				expect(typeof maybeValue).toBe("string")
 			} else {
@@ -232,7 +247,7 @@ describe("isDefined", () => {
 		it("should work in ternary expressions", () => {
 			const maybeValue: number | null = Math.random() > 0.5 ? 42 : null
 			const result = isDefined(maybeValue) ? maybeValue * 2 : 0
-			
+
 			if (maybeValue !== null) {
 				expect(result).toBe(84)
 			} else {
@@ -241,9 +256,11 @@ describe("isDefined", () => {
 		})
 
 		it("should work in logical AND expressions", () => {
-			const maybeValue: string | undefined = Math.random() > 0.5 ? "test" : undefined
+			const maybeValue: string | undefined = Math.random() > 0.5
+				? "test"
+				: undefined
 			const result = isDefined(maybeValue) && maybeValue.toUpperCase()
-			
+
 			if (maybeValue !== undefined) {
 				expect(result).toBe("TEST")
 			} else {
@@ -255,25 +272,25 @@ describe("isDefined", () => {
 	describe("performance characteristics", () => {
 		it("should be fast for primitive checks", () => {
 			const values = [null, undefined, 0, "", false, true, 42, "hello"]
-			
+
 			const start = Date.now()
 			for (let i = 0; i < 10000; i++) {
 				values.forEach(isDefined)
 			}
 			const end = Date.now()
-			
+
 			expect(end - start).toBeLessThan(100) // Should be very fast
 		})
 
 		it("should handle large arrays efficiently", () => {
-			const largeArray = new Array(10000).fill(null).map((_, i) => 
+			const largeArray = new Array(10000).fill(null).map((_, i) =>
 				i % 3 === 0 ? undefined : i % 3 === 1 ? null : i
 			)
-			
+
 			const start = Date.now()
 			const defined = largeArray.filter(isDefined)
 			const end = Date.now()
-			
+
 			expect(defined.length).toBe(Math.floor(10000 / 3))
 			expect(end - start).toBeLessThan(100) // Should be reasonably fast
 		})

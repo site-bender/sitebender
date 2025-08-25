@@ -2,13 +2,13 @@ import type { Value } from "../../../types/index.ts"
 
 /**
  * Transforms an object structure recursively
- * 
+ *
  * Recursively transforms an object and all its nested objects using a
  * transformation function. The transformer receives each object (including
  * nested ones) and can modify its structure. Handles circular references
  * by tracking visited objects. Arrays are traversed but not transformed
  * unless they contain objects.
- * 
+ *
  * @curried (transformer) => (obj) => result
  * @param transformer - Function to transform each object in the structure
  * @param obj - The object to transform recursively
@@ -28,7 +28,7 @@ import type { Value } from "../../../types/index.ts"
  * //   b: { c: 2, transformed: true },
  * //   transformed: true
  * // }
- * 
+ *
  * // Add timestamps to all objects
  * xform((obj: any) => ({
  *   ...obj,
@@ -42,7 +42,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // All objects get timestamp property
- * 
+ *
  * // Convert keys to uppercase recursively
  * xform((obj: any) => {
  *   const result: any = {}
@@ -64,7 +64,7 @@ import type { Value } from "../../../types/index.ts"
  * //     CITY: "NYC"
  * //   }
  * // }
- * 
+ *
  * // Filter properties recursively
  * xform((obj: any) => {
  *   const result: any = {}
@@ -86,7 +86,7 @@ import type { Value } from "../../../types/index.ts"
  * //   name: "Item",
  * //   data: { value: 100 }
  * // }
- * 
+ *
  * // Arrays with objects
  * xform((obj: any) => ({
  *   ...obj,
@@ -104,7 +104,7 @@ import type { Value } from "../../../types/index.ts"
  * //   ],
  * //   processed: true
  * // }
- * 
+ *
  * // Conditional transformation
  * xform((obj: any) => {
  *   if (obj.type === "user") {
@@ -120,19 +120,19 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // Both user objects get default role
- * 
+ *
  * // Circular reference handling
  * const circular: any = { a: 1 }
  * circular.self = circular
- * 
+ *
  * xform((obj: any) => ({
  *   ...obj,
  *   visited: true
  * }))(circular)
  * // Handles circular reference without infinite loop
- * 
+ *
  * // Practical use cases
- * 
+ *
  * // Add metadata to all nested objects
  * const addMetadata = xform((obj: any) => ({
  *   ...obj,
@@ -142,7 +142,7 @@ import type { Value } from "../../../types/index.ts"
  *     version: 1
  *   }
  * }))
- * 
+ *
  * addMetadata({
  *   product: {
  *     name: "Widget",
@@ -153,7 +153,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // All nested objects get _meta property
- * 
+ *
  * // Clean data recursively
  * const cleanData = xform((obj: any) => {
  *   const cleaned: any = {}
@@ -165,7 +165,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  *   return cleaned
  * })
- * 
+ *
  * cleanData({
  *   name: "Item",
  *   value: null,
@@ -179,7 +179,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // Removes all null, undefined, and empty string values recursively
- * 
+ *
  * // Normalize keys recursively
  * const normalizeKeys = xform((obj: any) => {
  *   const normalized: any = {}
@@ -189,7 +189,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  *   return normalized
  * })
- * 
+ *
  * normalizeKeys({
  *   userName: "Alice",
  *   userSettings: {
@@ -204,7 +204,7 @@ import type { Value } from "../../../types/index.ts"
  * //     font_size: 14
  * //   }
  * // }
- * 
+ *
  * // Add defaults recursively
  * const withDefaults = xform((obj: any) => {
  *   const defaults: Record<string, any> = {
@@ -214,7 +214,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  *   return { ...defaults, ...obj }
  * })
- * 
+ *
  * withDefaults({
  *   name: "Component",
  *   children: {
@@ -225,19 +225,19 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // All objects get default properties
- * 
+ *
  * // Type tagging
  * const addTypeInfo = xform((obj: any) => ({
  *   ...obj,
  *   __type: Array.isArray(obj) ? "array" : "object",
  *   __keys: Object.keys(obj).length
  * }))
- * 
+ *
  * // Redact sensitive data
  * const redactSensitive = xform((obj: any) => {
  *   const redacted: any = {}
  *   const sensitiveKeys = ["password", "ssn", "creditCard", "secret"]
- *   
+ *
  *   for (const key in obj) {
  *     if (sensitiveKeys.includes(key)) {
  *       redacted[key] = "[REDACTED]"
@@ -247,7 +247,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  *   return redacted
  * })
- * 
+ *
  * redactSensitive({
  *   user: "alice",
  *   password: "secret123",
@@ -264,13 +264,13 @@ import type { Value } from "../../../types/index.ts"
  * //     age: 30
  * //   }
  * // }
- * 
+ *
  * // Partial application for specific transformations
  * const addId = xform((obj: any) => ({
  *   ...obj,
  *   id: Math.random().toString(36).substr(2, 9)
  * }))
- * 
+ *
  * const tree = {
  *   node: "root",
  *   children: [
@@ -278,7 +278,7 @@ import type { Value } from "../../../types/index.ts"
  *     { node: "child2", children: [{ node: "grandchild" }] }
  *   ]
  * }
- * 
+ *
  * addId(tree)
  * // All objects in tree get unique id
  * ```
@@ -288,64 +288,67 @@ import type { Value } from "../../../types/index.ts"
  */
 const xform = <T extends Record<string | symbol, Value>>(
 	transformer: (obj: any) => any,
-) => (
+) =>
+(
 	obj: T,
 ): any => {
 	// Handle primitives and null/undefined
 	if (obj === null || obj === undefined || typeof obj !== "object") {
 		return obj
 	}
-	
+
 	// Track visited objects for circular reference handling
 	const visited = new WeakMap()
-	
+
 	const transformRecursive = (current: any): any => {
 		// Handle primitives
-		if (current === null || current === undefined || typeof current !== "object") {
+		if (
+			current === null || current === undefined || typeof current !== "object"
+		) {
 			return current
 		}
-		
+
 		// Check for circular reference
 		if (visited.has(current)) {
 			return visited.get(current)
 		}
-		
+
 		// Handle arrays - traverse but don't transform the array itself
 		if (Array.isArray(current)) {
 			const result: Array<any> = []
 			visited.set(current, result)
-			
+
 			current.forEach((item, index) => {
 				result[index] = transformRecursive(item)
 			})
-			
+
 			return result
 		}
-		
+
 		// Transform the object
 		const transformed = transformer(current)
 		visited.set(current, transformed)
-		
+
 		// Recursively transform nested objects
 		const result: Record<string | symbol, any> = {}
-		
+
 		for (const key in transformed) {
 			if (Object.prototype.hasOwnProperty.call(transformed, key)) {
 				const value = transformed[key]
 				result[key] = transformRecursive(value)
 			}
 		}
-		
+
 		// Handle symbol keys
 		const symbols = Object.getOwnPropertySymbols(transformed)
 		for (const sym of symbols) {
 			const value = transformed[sym]
 			result[sym] = transformRecursive(value)
 		}
-		
+
 		return result
 	}
-	
+
 	return transformRecursive(obj)
 }
 

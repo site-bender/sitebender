@@ -1,4 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import variance from "../../../../src/simple/statistics/variance/index.ts"
@@ -129,7 +132,14 @@ Deno.test("variance - edge cases", async (t) => {
 Deno.test("variance - non-negative property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-1000), max: Math.fround(1000) }), { minLength: 1 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-1000),
+					max: Math.fround(1000),
+				}),
+				{ minLength: 1 },
+			),
 			fc.boolean(),
 			(values, isSample) => {
 				// Skip sample variance for single values
@@ -137,48 +147,66 @@ Deno.test("variance - non-negative property", () => {
 
 				const result = variance(isSample)(values)
 				return result >= 0 || Number.isNaN(result)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("variance - zero for identical values", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-1000), max: Math.fround(1000) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-1000),
+				max: Math.fround(1000),
+			}),
 			fc.integer({ min: 2, max: 100 }),
 			(value, count) => {
 				const values = Array(count).fill(value)
 				const popVar = variance(false)(values)
 				const sampVar = variance(true)(values)
 				return popVar === 0 && sampVar === 0
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("variance - sample variance >= population variance", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 2, maxLength: 100 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 2, maxLength: 100 },
+			),
 			(values) => {
 				const popVar = variance(false)(values)
 				const sampVar = variance(true)(values)
 				// Sample variance should be greater than or equal to population variance
 				// They're equal only when all values are identical
 				return sampVar >= popVar || (approximately(sampVar, popVar, 1e-10))
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("variance - relationship with standard deviation", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 100 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 100 },
+			),
 			fc.boolean(),
 			(values, isSample) => {
 				// Skip sample variance for single values
@@ -189,16 +217,23 @@ Deno.test("variance - relationship with standard deviation", () => {
 				// We'll verify this property by checking that sqrt(variance) is non-negative
 				const std = Math.sqrt(var_)
 				return std >= 0 || Number.isNaN(std)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("variance - scaling property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 50 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 50 },
+			),
 			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
 			fc.boolean(),
 			(values, scale, isSample) => {
@@ -206,22 +241,29 @@ Deno.test("variance - scaling property", () => {
 				if (isSample && values.length === 1) return true
 
 				const originalVar = variance(isSample)(values)
-				const scaledValues = values.map(v => v * scale)
+				const scaledValues = values.map((v) => v * scale)
 				const scaledVar = variance(isSample)(scaledValues)
 
 				// Variance scales with the square of the scaling factor
 				const expectedVar = originalVar * scale * scale
 				return approximately(scaledVar, expectedVar, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 
 Deno.test("variance - translation invariance", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }), { minLength: 1, maxLength: 50 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 50 },
+			),
 			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
 			fc.boolean(),
 			(values, shift, isSample) => {
@@ -229,14 +271,14 @@ Deno.test("variance - translation invariance", () => {
 				if (isSample && values.length === 1) return true
 
 				const originalVar = variance(isSample)(values)
-				const shiftedValues = values.map(v => v + shift)
+				const shiftedValues = values.map((v) => v + shift)
 				const shiftedVar = variance(isSample)(shiftedValues)
 
 				// Variance should not change when adding a constant
 				return approximately(originalVar, shiftedVar, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 

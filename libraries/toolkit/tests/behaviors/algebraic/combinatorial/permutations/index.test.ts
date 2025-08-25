@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import permutations from "../../../../../src/simple/math/permutations/index.ts"
-import factorial from "../../../../../src/simple/math/factorial/index.ts"
 import combinations from "../../../../../src/simple/math/combinations/index.ts"
+import factorial from "../../../../../src/simple/math/factorial/index.ts"
+import permutations from "../../../../../src/simple/math/permutations/index.ts"
 
 Deno.test("permutations: JSDoc examples", async (t) => {
 	await t.step("basic permutations", () => {
@@ -87,9 +87,9 @@ Deno.test("permutations: relationship with factorial", () => {
 				const result = permutations(n)(n)
 				const expected = factorial(n)
 				return result === expected
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -98,7 +98,7 @@ Deno.test("permutations: relationship with combinations", () => {
 		fc.property(
 			fc.tuple(
 				fc.integer({ min: 0, max: 20 }),
-				fc.integer({ min: 0, max: 20 })
+				fc.integer({ min: 0, max: 20 }),
 			).filter(([n, r]) => r <= n),
 			([n, r]) => {
 				// P(n,r) = C(n,r) × r!
@@ -106,9 +106,9 @@ Deno.test("permutations: relationship with combinations", () => {
 				const combs = combinations(n)(r)
 				const expected = combs * factorial(r)
 				return perms === expected
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -117,29 +117,29 @@ Deno.test("permutations: monotonic in r for fixed n", () => {
 		fc.property(
 			fc.tuple(
 				fc.integer({ min: 0, max: 20 }),
-				fc.integer({ min: 0, max: 19 })
+				fc.integer({ min: 0, max: 19 }),
 			).filter(([n, r]) => r < n),
 			([n, r]) => {
 				// P(n,r) <= P(n,r+1) for r < n (non-decreasing)
 				const current = permutations(n)(r)
 				const next = permutations(n)(r + 1)
-				
+
 				// Special cases
 				if (r === 0) {
 					// P(n,0) = 1, P(n,1) = n
 					return next === n
 				}
-				
+
 				if (r + 1 === n) {
 					// P(n,n-1) = P(n,n) = n!
 					return next === current
 				}
-				
+
 				// General case: should be strictly increasing
 				return next > current
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -148,16 +148,16 @@ Deno.test("permutations: recurrence relation", () => {
 		fc.property(
 			fc.tuple(
 				fc.integer({ min: 1, max: 20 }),
-				fc.integer({ min: 1, max: 20 })
+				fc.integer({ min: 1, max: 20 }),
 			).filter(([n, r]) => r <= n),
 			([n, r]) => {
 				// P(n,r) = n × P(n-1,r-1)
 				const result = permutations(n)(r)
 				const expected = n * permutations(n - 1)(r - 1)
 				return result === expected
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -166,24 +166,24 @@ Deno.test("permutations: division property", () => {
 		fc.property(
 			fc.tuple(
 				fc.integer({ min: 0, max: 20 }),
-				fc.integer({ min: 0, max: 20 })
+				fc.integer({ min: 0, max: 20 }),
 			).filter(([n, r]) => r <= n),
 			([n, r]) => {
 				// P(n,r) = n! / (n-r)!
 				const result = permutations(n)(r)
 				const nFact = factorial(n)
 				const nMinusRFact = factorial(n - r)
-				
+
 				// Avoid division for edge cases
 				if (n === 0 || r === 0) {
 					return result === 1
 				}
-				
+
 				const expected = nFact / nMinusRFact
 				return Math.abs(result - expected) < 1e-10
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -193,14 +193,14 @@ Deno.test("permutations: currying and partial application", async (t) => {
 	await t.step("partial application preserves behavior", () => {
 		const arrangeFrom5 = permutations(5)
 		const arrangeFrom7 = permutations(7)
-		
+
 		assertEquals(arrangeFrom5(0), 1)
 		assertEquals(arrangeFrom5(1), 5)
 		assertEquals(arrangeFrom5(2), 20)
 		assertEquals(arrangeFrom5(3), 60)
 		assertEquals(arrangeFrom5(4), 120)
 		assertEquals(arrangeFrom5(5), 120)
-		
+
 		assertEquals(arrangeFrom7(0), 1)
 		assertEquals(arrangeFrom7(1), 7)
 		assertEquals(arrangeFrom7(2), 42)
@@ -210,11 +210,11 @@ Deno.test("permutations: currying and partial application", async (t) => {
 	await t.step("curried function can be reused", () => {
 		const arrangeFrom10 = permutations(10)
 		const results = []
-		
+
 		for (let r = 0; r <= 5; r++) {
 			results.push(arrangeFrom10(r))
 		}
-		
+
 		assertEquals(results, [1, 10, 90, 720, 5040, 30240])
 	})
 })
@@ -293,7 +293,7 @@ Deno.test("permutations: numerical accuracy", async (t) => {
 			{ n: 12, r: 5, expected: 95040 },
 			{ n: 15, r: 3, expected: 2730 },
 		]
-		
+
 		for (const { n, r, expected } of testCases) {
 			assertEquals(permutations(n)(r), expected)
 		}
@@ -311,13 +311,13 @@ Deno.test("permutations: numerical accuracy", async (t) => {
 		for (let n = 1; n <= 10; n++) {
 			for (let r = 0; r <= n; r++) {
 				const result = permutations(n)(r)
-				
+
 				// Direct calculation
 				let expected = 1
 				for (let i = 0; i < r; i++) {
-					expected *= (n - i)
+					expected *= n - i
 				}
-				
+
 				assertEquals(result, expected)
 			}
 		}

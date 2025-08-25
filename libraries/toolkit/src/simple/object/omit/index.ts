@@ -2,11 +2,11 @@ import type { Value } from "../../types/index.ts"
 
 /**
  * Creates a new object with specified keys omitted
- * 
+ *
  * Returns a shallow copy of the object with the specified keys removed.
  * The original object is not modified. Prototype properties are not
  * included in the result.
- * 
+ *
  * @curried (keys) => (obj) => result
  * @param keys - Array of keys to omit from the object
  * @param obj - The object to omit keys from
@@ -17,23 +17,23 @@ import type { Value } from "../../types/index.ts"
  * omit(["c"])({ a: 1, b: 2, c: 3 })      // { a: 1, b: 2 }
  * omit(["x", "y"])({ x: 1, y: 2, z: 3 }) // { z: 3 }
  * omit(["a"])({ a: 1 })                  // {}
- * 
+ *
  * // Omitting non-existent keys
  * omit(["d"])({ a: 1, b: 2, c: 3 })      // { a: 1, b: 2, c: 3 }
  * omit(["x", "y", "z"])({ a: 1 })        // { a: 1 }
- * 
+ *
  * // Empty keys array
  * omit([])({ a: 1, b: 2 })               // { a: 1, b: 2 }
- * 
+ *
  * // Nested objects (shallow operation)
  * omit(["user"])({ user: { name: "John" }, id: 1 }) // { id: 1 }
  * omit(["a"])({ a: { b: 2 }, c: 3 })     // { c: 3 }
- * 
+ *
  * // Partial application
  * const omitPrivate = omit(["_id", "_rev"])
  * omitPrivate({ _id: 1, _rev: 2, name: "John" }) // { name: "John" }
  * omitPrivate({ _id: 3, data: "test" })          // { data: "test" }
- * 
+ *
  * const omitPassword = omit(["password"])
  * omitPassword({ username: "john", password: "secret" }) // { username: "john" }
  * ```
@@ -47,13 +47,15 @@ const omit = <T extends Record<string, Value>, K extends keyof T>(
 	if (!obj || typeof obj !== "object") {
 		return {} as Omit<T, K>
 	}
-	
+
 	// Use reduce to build result object without specified keys
 	return Object.entries(obj).reduce((acc, [key, value]) => {
-		if (!keys.includes(key as K) && Object.prototype.hasOwnProperty.call(obj, key)) {
+		if (
+			!keys.includes(key as K) && Object.prototype.hasOwnProperty.call(obj, key)
+		) {
 			return {
 				...acc,
-				[key]: value
+				[key]: value,
 			}
 		}
 		return acc

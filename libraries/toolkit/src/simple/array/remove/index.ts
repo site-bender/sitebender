@@ -1,9 +1,9 @@
 /**
  * Removes the first occurrence of a value from an array
- * 
+ *
  * Uses strict equality (===) to find the item. Returns original array
  * if item not found. Only removes first occurrence, not all.
- * 
+ *
  * @curried (item) => (array) => result
  * @param item - The value to remove
  * @param array - The array to remove from
@@ -13,7 +13,7 @@
  * remove(2)([1, 2, 3, 2, 4]) // [1, 3, 2, 4]
  * remove("b")(["a", "b", "c", "b"]) // ["a", "c", "b"]
  * remove(5)([1, 2, 3]) // [1, 2, 3] (not found)
- * 
+ *
  * // Remove specific item
  * const removeNull = remove(null)
  * removeNull([1, null, 2, null]) // [1, 2, null]

@@ -19,7 +19,7 @@ export type ImportInfo = {
 async function main() {
 	const files: string[] = []
 
-	const roots = ["src", "tests", "scripts", "lib"]
+	const roots = ["docs", "jexer", "libraries", "scripts"]
 
 	for (const root of roots) {
 		for await (

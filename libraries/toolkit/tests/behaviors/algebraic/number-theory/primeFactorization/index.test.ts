@@ -1,7 +1,5 @@
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
-import {
-	assertEquals,
-} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import primeFactorization from "../../../../../src/simple/math/primeFactorization/index.ts"
@@ -61,7 +59,7 @@ describe("primeFactorization", () => {
 				const factors = primeFactorization(n)
 				let count = 1
 				for (const power of factors.values()) {
-					count *= (power + 1)
+					count *= power + 1
 				}
 				return count
 			}
@@ -109,9 +107,9 @@ describe("primeFactorization", () => {
 							reconstructed *= Math.pow(prime, power)
 						}
 						return reconstructed === n
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -135,9 +133,9 @@ describe("primeFactorization", () => {
 							}
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -153,9 +151,9 @@ describe("primeFactorization", () => {
 							}
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -167,17 +165,17 @@ describe("primeFactorization", () => {
 						// Run factorization multiple times
 						const factors1 = primeFactorization(n)
 						const factors2 = primeFactorization(n)
-						
+
 						// Should produce identical results
 						if (factors1.size !== factors2.size) return false
-						
+
 						for (const [prime, power] of factors1) {
 							if (factors2.get(prime) !== power) return false
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -190,7 +188,7 @@ describe("primeFactorization", () => {
 						const factorsA = primeFactorization(a)
 						const factorsB = primeFactorization(b)
 						const factorsAB = primeFactorization(a * b)
-						
+
 						// Combine factors of a and b
 						const combined = new Map<number, number>()
 						for (const [prime, power] of factorsA) {
@@ -199,22 +197,48 @@ describe("primeFactorization", () => {
 						for (const [prime, power] of factorsB) {
 							combined.set(prime, (combined.get(prime) || 0) + power)
 						}
-						
+
 						// Should match factorization of a * b
 						if (combined.size !== factorsAB.size) return false
-						
+
 						for (const [prime, power] of combined) {
 							if (factorsAB.get(prime) !== power) return false
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 500 }
+				{ numRuns: 500 },
 			)
 		})
 
 		it("should handle prime numbers correctly", () => {
-			const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+			const primes = [
+				2,
+				3,
+				5,
+				7,
+				11,
+				13,
+				17,
+				19,
+				23,
+				29,
+				31,
+				37,
+				41,
+				43,
+				47,
+				53,
+				59,
+				61,
+				67,
+				71,
+				73,
+				79,
+				83,
+				89,
+				97,
+			]
 			for (const p of primes) {
 				const factors = primeFactorization(p)
 				assertEquals(factors.size, 1)
@@ -237,15 +261,15 @@ describe("primeFactorization", () => {
 							}
 						}
 						if (!isPrime) return true // Skip non-primes
-						
+
 						const n = Math.pow(prime, exp)
 						if (n > Number.MAX_SAFE_INTEGER) return true // Skip overflow
-						
+
 						const factors = primeFactorization(n)
 						return factors.size === 1 && factors.get(prime) === exp
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})
@@ -271,7 +295,10 @@ describe("primeFactorization", () => {
 		it("should handle highly composite numbers", () => {
 			assertEquals(primeFactorization(120), new Map([[2, 3], [3, 1], [5, 1]]))
 			assertEquals(primeFactorization(720), new Map([[2, 4], [3, 2], [5, 1]]))
-			assertEquals(primeFactorization(5040), new Map([[2, 4], [3, 2], [5, 1], [7, 1]]))
+			assertEquals(
+				primeFactorization(5040),
+				new Map([[2, 4], [3, 2], [5, 1], [7, 1]]),
+			)
 		})
 
 		it("should handle large primes", () => {
@@ -284,7 +311,7 @@ describe("primeFactorization", () => {
 			// RSA-like numbers
 			const n = 91 // 7 * 13
 			assertEquals(primeFactorization(n), new Map([[7, 1], [13, 1]]))
-			
+
 			const n2 = 403 // 13 * 31
 			assertEquals(primeFactorization(n2), new Map([[13, 1], [31, 1]]))
 		})
@@ -310,23 +337,27 @@ describe("primeFactorization", () => {
 					(n) => {
 						const factors = primeFactorization(n)
 						return factors.size === 0
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
 		it("should return empty Map for non-integers", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true })
-						.filter(x => !Number.isInteger(x)),
+					fc.float({
+						min: Math.fround(0.1),
+						max: Math.fround(100),
+						noNaN: true,
+					})
+						.filter((x) => !Number.isInteger(x)),
 					(n) => {
 						const factors = primeFactorization(n)
 						return factors.size === 0
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -352,10 +383,10 @@ describe("primeFactorization", () => {
 			const start = performance.now()
 			const result = primeFactorization(1000000)
 			const end = performance.now()
-			
+
 			// Should complete quickly (under 5ms)
 			assertEquals(end - start < 5, true)
-			
+
 			// Verify result: 1000000 = 2^6 * 5^6
 			assertEquals(result, new Map([[2, 6], [5, 6]]))
 		})
@@ -366,7 +397,7 @@ describe("primeFactorization", () => {
 				primeFactorization(i)
 			}
 			const end = performance.now()
-			
+
 			// Should complete all 99 factorizations quickly
 			assertEquals(end - start < 10, true)
 		})
@@ -382,7 +413,7 @@ describe("primeFactorization", () => {
 				}
 				return Math.floor(result)
 			}
-			
+
 			assertEquals(totient(12), 4) // φ(12) = 4 (1, 5, 7, 11)
 			assertEquals(totient(20), 8) // φ(20) = 8
 			assertEquals(totient(30), 8) // φ(30) = 8
@@ -393,10 +424,10 @@ describe("primeFactorization", () => {
 				const factorsA = primeFactorization(a)
 				const factorsB = primeFactorization(b)
 				let result = 1
-				
+
 				// Collect all primes
 				const allPrimes = new Set([...factorsA.keys(), ...factorsB.keys()])
-				
+
 				for (const prime of allPrimes) {
 					const powerA = factorsA.get(prime) || 0
 					const powerB = factorsB.get(prime) || 0
@@ -404,7 +435,7 @@ describe("primeFactorization", () => {
 				}
 				return result
 			}
-			
+
 			assertEquals(lcmFactors(12, 18), 36)
 			assertEquals(lcmFactors(15, 20), 60)
 		})
@@ -417,7 +448,7 @@ describe("primeFactorization", () => {
 				}
 				return n > 1
 			}
-			
+
 			assertEquals(isSquareFree(15), true) // 3 × 5
 			assertEquals(isSquareFree(12), false) // 2² × 3
 			assertEquals(isSquareFree(30), true) // 2 × 3 × 5

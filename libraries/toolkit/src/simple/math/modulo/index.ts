@@ -253,15 +253,16 @@
  * @property Mathematical - Implements true modulo (not remainder)
  */
 const modulo = (
-	divisor: number | null | undefined
-) => (
-	dividend: number | null | undefined
+	divisor: number | null | undefined,
+) =>
+(
+	dividend: number | null | undefined,
 ): number => {
-	if (divisor == null || typeof divisor !== 'number') {
+	if (divisor == null || typeof divisor !== "number") {
 		return NaN
 	}
 
-	if (dividend == null || typeof dividend !== 'number') {
+	if (dividend == null || typeof dividend !== "number") {
 		return NaN
 	}
 

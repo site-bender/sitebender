@@ -10,7 +10,11 @@ Deno.test("findLastIndex - JSDoc example 1: findLastIndex((n: number) => n > 2)(
 })
 
 Deno.test("findLastIndex - JSDoc example 2: findLastIndex((s: string) => s.startsWith('h'))(['hello', 'hi', 'world'])", () => {
-	const result = findLastIndex((s: string) => s.startsWith("h"))(["hello", "hi", "world"])
+	const result = findLastIndex((s: string) => s.startsWith("h"))([
+		"hello",
+		"hi",
+		"world",
+	])
 	assertEquals(result, 1)
 })
 
@@ -46,13 +50,13 @@ Deno.test("findLastIndex - predicate receives correct arguments", () => {
 	const indices: Array<number> = []
 	const arrays: Array<Array<string>> = []
 	const testArray = ["a", "b", "c"]
-	
+
 	findLastIndex((_item: string, index: number, array: Array<string>) => {
 		indices.push(index)
 		arrays.push(array)
 		return false
 	})(testArray)
-	
+
 	// Should iterate from end to start
 	assertEquals(indices, [2, 1, 0])
 	assertEquals(arrays[0], testArray)
@@ -97,7 +101,7 @@ Deno.test("findLastIndex - works with objects", () => {
 		{ name: "Alice", age: 30 },
 		{ name: "Bob", age: 25 },
 		{ name: "Charlie", age: 35 },
-		{ name: "David", age: 25 }
+		{ name: "David", age: 25 },
 	]
 	const findLastYoung = findLastIndex((p: typeof people[0]) => p.age < 30)
 	assertEquals(findLastYoung(people), 3) // David at index 3
@@ -140,12 +144,12 @@ Deno.test("findLastIndex - property: returns valid index when found", () => {
 				if (arr.length === 0) return true
 				const target = arr[Math.floor(Math.random() * arr.length)]
 				const index = findLastIndex((x: number) => x === target)(arr)
-				return index !== undefined && 
-					   index >= 0 && 
-					   index < arr.length &&
-					   arr[index] === target
-			}
-		)
+				return index !== undefined &&
+					index >= 0 &&
+					index < arr.length &&
+					arr[index] === target
+			},
+		),
 	)
 })
 
@@ -156,8 +160,8 @@ Deno.test("findLastIndex - property: returns undefined when predicate never matc
 			(arr) => {
 				const neverMatch = findLastIndex((n: number) => n < 0)
 				return neverMatch(arr) === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -170,15 +174,15 @@ Deno.test("findLastIndex - property: returns last matching index", () => {
 				const index = findLastIndex((n: number) => n > threshold)(arr)
 				if (index === undefined) {
 					// No elements satisfy predicate
-					return arr.every(n => n <= threshold)
+					return arr.every((n) => n <= threshold)
 				}
 				// Check it's the last matching index
 				for (let i = index + 1; i < arr.length; i++) {
 					if (arr[i] > threshold) return false
 				}
 				return arr[index] > threshold
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -191,14 +195,14 @@ Deno.test("findLastIndex - property: consistent with findIndex for unique matche
 				const predicate = (x: number) => x === target
 				const lastIndex = findLastIndex(predicate)(arr)
 				const firstIndex = arr.findIndex(predicate)
-				
+
 				if (firstIndex === -1) {
 					return lastIndex === undefined
 				}
 				// In unique array, first and last should be the same
 				return lastIndex === firstIndex
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -207,20 +211,24 @@ Deno.test("findLastIndex - property: index >= 0 when found", () => {
 		fc.property(
 			fc.array(fc.string()),
 			(arr) => {
-				const index = findLastIndex((s: string) => s.length > 0)(arr.filter(s => s.length > 0).concat(["non-empty"]))
+				const index = findLastIndex((s: string) => s.length > 0)(
+					arr.filter((s) => s.length > 0).concat(["non-empty"]),
+				)
 				return index !== undefined && index >= 0
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("findLastIndex - handles null and undefined in predicate", () => {
 	const arr = [1, null, 2, undefined, 3]
-	
+
 	const findLastNull = findLastIndex((x: unknown) => x === null)
 	const findLastUndefined = findLastIndex((x: unknown) => x === undefined)
-	const findLastNumber = findLastIndex((x: unknown) => typeof x === "number" && !Number.isNaN(x))
-	
+	const findLastNumber = findLastIndex((x: unknown) =>
+		typeof x === "number" && !Number.isNaN(x)
+	)
+
 	assertEquals(findLastNull(arr), 1)
 	assertEquals(findLastUndefined(arr), 3)
 	assertEquals(findLastNumber(arr), 4)
@@ -229,11 +237,11 @@ Deno.test("findLastIndex - handles null and undefined in predicate", () => {
 Deno.test("findLastIndex - currying preserves behavior", () => {
 	const predicate = (n: number) => n > 5
 	const arr = [1, 6, 3, 8, 2]
-	
+
 	const curried = findLastIndex(predicate)
 	const result1 = curried(arr)
 	const result2 = findLastIndex(predicate)(arr)
-	
+
 	assertEquals(result1, result2)
 	assertEquals(result1, 3) // index of 8
 })

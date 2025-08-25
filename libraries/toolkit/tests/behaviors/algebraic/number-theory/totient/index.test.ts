@@ -1,13 +1,11 @@
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
-import {
-	assertEquals,
-} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import totient from "../../../../../src/simple/math/totient/index.ts"
-import gcd from "../../../../../src/simple/math/gcd/index.ts"
 import divisors from "../../../../../src/simple/math/divisors/index.ts"
+import gcd from "../../../../../src/simple/math/gcd/index.ts"
 import primeFactorization from "../../../../../src/simple/math/primeFactorization/index.ts"
+import totient from "../../../../../src/simple/math/totient/index.ts"
 
 describe("totient", () => {
 	describe("JSDoc examples", () => {
@@ -76,9 +74,9 @@ describe("totient", () => {
 					(n) => {
 						if (!isPrime(n)) return true // Skip non-primes
 						return totient(n) === n - 1
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -95,9 +93,9 @@ describe("totient", () => {
 							}
 						}
 						return phi === count
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -109,15 +107,15 @@ describe("totient", () => {
 					(a, b) => {
 						// Only test coprime pairs
 						if (gcd(a)(b) !== 1) return true
-						
+
 						const phiA = totient(a)
 						const phiB = totient(b)
 						const phiAB = totient(a * b)
-						
+
 						return phiAB === phiA * phiB
-					}
+					},
 				),
-				{ numRuns: 500 }
+				{ numRuns: 500 },
 			)
 		})
 
@@ -127,11 +125,11 @@ describe("totient", () => {
 					fc.integer({ min: 1, max: 100 }),
 					(n) => {
 						const divs = divisors(n)
-						const sum = divs.map(d => totient(d)).reduce((a, b) => a + b, 0)
+						const sum = divs.map((d) => totient(d)).reduce((a, b) => a + b, 0)
 						return sum === n
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -150,17 +148,17 @@ describe("totient", () => {
 							}
 						}
 						if (!isPrime) return true // Skip non-primes
-						
+
 						const n = Math.pow(p, k)
 						if (n > Number.MAX_SAFE_INTEGER) return true // Skip overflow
-						
+
 						const phi = totient(n)
 						const expected = Math.pow(p, k) - Math.pow(p, k - 1)
-						
+
 						return phi === expected
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -170,12 +168,12 @@ describe("totient", () => {
 				let current = n
 				let steps = 0
 				const maxSteps = 100
-				
+
 				while (current > 1 && steps < maxSteps) {
 					current = totient(current)
 					steps++
 				}
-				
+
 				return current
 			}
 
@@ -184,9 +182,9 @@ describe("totient", () => {
 					fc.integer({ min: 2, max: 1000 }),
 					(n) => {
 						return totientChain(n) === 1
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -197,9 +195,9 @@ describe("totient", () => {
 					(n) => {
 						const phi = totient(n)
 						return phi <= n - 1
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -210,9 +208,9 @@ describe("totient", () => {
 					(n) => {
 						const phi = totient(n)
 						return phi % 2 === 0
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -283,22 +281,26 @@ describe("totient", () => {
 					fc.integer({ max: -1 }),
 					(n) => {
 						return Number.isNaN(totient(n))
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
 		it("should return NaN for non-integers", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true })
-						.filter(x => !Number.isInteger(x)),
+					fc.float({
+						min: Math.fround(0.1),
+						max: Math.fround(100),
+						noNaN: true,
+					})
+						.filter((x) => !Number.isInteger(x)),
 					(n) => {
 						return Number.isNaN(totient(n))
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -324,10 +326,10 @@ describe("totient", () => {
 			const start = performance.now()
 			const result = totient(1000000)
 			const end = performance.now()
-			
+
 			// Should complete quickly (under 5ms)
 			assertEquals(end - start < 5, true)
-			
+
 			// Verify result using prime factorization method
 			// 1000000 = 2^6 * 5^6
 			// φ(1000000) = 1000000 * (1 - 1/2) * (1 - 1/5) = 1000000 * 1/2 * 4/5 = 400000
@@ -340,7 +342,7 @@ describe("totient", () => {
 				totient(i)
 			}
 			const end = performance.now()
-			
+
 			// Should complete all 100 calculations quickly
 			assertEquals(end - start < 10, true)
 		})
@@ -360,10 +362,10 @@ describe("totient", () => {
 		it("should identify numbers with high totient ratio", () => {
 			// Numbers where φ(n)/n is close to 1 are mostly prime
 			const totientRatio = (n: number): number => totient(n) / n
-			
+
 			// Primes have ratio (p-1)/p
 			assertEquals(totientRatio(97) > 0.98, true)
-			
+
 			// Highly composite numbers have lower ratios
 			assertEquals(totientRatio(30) < 0.3, true) // φ(30) = 8, ratio = 8/30 ≈ 0.267
 		})
@@ -375,7 +377,7 @@ describe("totient", () => {
 				// This equals φ(n)
 				return totient(n)
 			}
-			
+
 			assertEquals(countIrreducibleFractions(6), 2) // 1/6, 5/6
 			assertEquals(countIrreducibleFractions(8), 4) // 1/8, 3/8, 5/8, 7/8
 		})
@@ -384,13 +386,13 @@ describe("totient", () => {
 			// If gcd(a,n) = 1, then a^φ(n) ≡ 1 (mod n)
 			const verifyEulerTheorem = (a: number, n: number): boolean => {
 				if (gcd(a)(n) !== 1) return true // Skip non-coprime pairs
-				
+
 				const phi = totient(n)
 				// Calculate a^phi mod n
 				let result = 1
 				let base = a % n
 				let exp = phi
-				
+
 				while (exp > 0) {
 					if (exp % 2 === 1) {
 						result = (result * base) % n
@@ -398,10 +400,10 @@ describe("totient", () => {
 					base = (base * base) % n
 					exp = Math.floor(exp / 2)
 				}
-				
+
 				return result === 1
 			}
-			
+
 			// Test small values
 			assertEquals(verifyEulerTheorem(3, 7), true)
 			assertEquals(verifyEulerTheorem(5, 12), true)
@@ -416,7 +418,7 @@ describe("totient", () => {
 					fc.integer({ min: 2, max: 1000 }),
 					(n) => {
 						const phi1 = totient(n)
-						
+
 						// Calculate using prime factorization
 						const factors = primeFactorization(n)
 						let phi2 = n
@@ -424,11 +426,11 @@ describe("totient", () => {
 							phi2 = phi2 * (prime - 1) / prime
 						}
 						phi2 = Math.floor(phi2)
-						
+
 						return phi1 === phi2
-					}
+					},
 				),
-				{ numRuns: 500 }
+				{ numRuns: 500 },
 			)
 		})
 	})

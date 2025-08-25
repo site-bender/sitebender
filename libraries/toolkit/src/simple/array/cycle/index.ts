@@ -1,12 +1,12 @@
 /**
  * Returns an infinite repetition of the given array (generator function)
- * 
+ *
  * Creates a generator that yields elements from the array in a continuous
  * cycle, starting over from the beginning when it reaches the end. The
  * generator runs infinitely, so use with caution and always include a
  * termination condition when consuming it. Useful for round-robin selection,
  * creating repeating patterns, or infinite sequences.
- * 
+ *
  * @param array - Array to cycle through infinitely
  * @returns Generator that yields array elements in cycles
  * @example
@@ -18,7 +18,7 @@
  *   result.push(gen.next().value)
  * }
  * // result: [1, 2, 3, 1, 2, 3, 1]
- * 
+ *
  * // Take first n elements
  * function* take<T>(n: number, gen: Generator<T>): Generator<T> {
  *   for (let i = 0; i < n; i++) {
@@ -29,7 +29,7 @@
  * }
  * Array.from(take(10, cycle([1, 2, 3])))
  * // [1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
- * 
+ *
  * // Round-robin assignment
  * const workers = ["Alice", "Bob", "Charlie"]
  * const tasks = ["Task1", "Task2", "Task3", "Task4", "Task5", "Task6", "Task7"]
@@ -47,7 +47,7 @@
  * //   { task: "Task6", assignedTo: "Charlie" },
  * //   { task: "Task7", assignedTo: "Alice" }
  * // ]
- * 
+ *
  * // Create repeating pattern
  * const pattern = cycle(["●", "○"])
  * let output = ""
@@ -55,7 +55,7 @@
  *   output += pattern.next().value
  * }
  * // output: "●○●○●○●○●○"
- * 
+ *
  * // Traffic light simulation
  * const lights = cycle(["green", "yellow", "red"])
  * const simulation = []
@@ -63,7 +63,7 @@
  *   simulation.push(lights.next().value)
  * }
  * // ["green", "yellow", "red", "green", "yellow", "red", "green"]
- * 
+ *
  * // Day rotation
  * const days = cycle(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
  * const week = []
@@ -71,7 +71,7 @@
  *   week.push(days.next().value)
  * }
  * // ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"]
- * 
+ *
  * // Color cycling for UI elements
  * const colors = cycle(["#FF0000", "#00FF00", "#0000FF"])
  * const elements = ["Header", "Nav", "Main", "Sidebar", "Footer"]
@@ -86,7 +86,7 @@
  * //   { element: "Sidebar", color: "#FF0000" },
  * //   { element: "Footer", color: "#00FF00" }
  * // ]
- * 
+ *
  * // Alternating row styles
  * const rowStyles = cycle(["odd", "even"])
  * const data = ["Row1", "Row2", "Row3", "Row4", "Row5"]
@@ -101,7 +101,7 @@
  * //   { content: "Row4", class: "even" },
  * //   { content: "Row5", class: "odd" }
  * // ]
- * 
+ *
  * // Menu cycling
  * const menuOptions = cycle(["Pizza", "Burger", "Salad"])
  * const weekMenu = []
@@ -117,7 +117,7 @@
  * //   "Day 6: Salad",
  * //   "Day 7: Pizza"
  * // ]
- * 
+ *
  * // Single element cycles forever
  * const single = cycle([42])
  * const values = []
@@ -125,12 +125,12 @@
  *   values.push(single.next().value)
  * }
  * // [42, 42, 42, 42, 42]
- * 
+ *
  * // Empty array yields nothing
  * const empty = cycle([])
  * const emptyResult = empty.next()
  * // { value: undefined, done: true }
- * 
+ *
  * // Complex objects
  * const configs = cycle([
  *   { mode: "development", debug: true },
@@ -148,7 +148,7 @@
  * //   { mode: "development", debug: true },
  * //   { mode: "staging", debug: false }
  * // ]
- * 
+ *
  * // Use with for...of and break condition
  * const alphabet = cycle(["a", "b", "c"])
  * const letters = []
@@ -159,7 +159,7 @@
  *   if (count >= 8) break
  * }
  * // letters: ["a", "b", "c", "a", "b", "c", "a", "b"]
- * 
+ *
  * // Combine with other generators
  * function* zip<T, U>(gen1: Generator<T>, gen2: Generator<U>): Generator<[T, U]> {
  *   while (true) {
@@ -178,14 +178,14 @@
  *   if (!next.done) paired.push(next.value)
  * }
  * // [[1, "a"], [2, "b"], [1, "c"], [2, "a"], [1, "b"], [2, "c"]]
- * 
+ *
  * // Handle null/undefined gracefully
  * const nullGen = cycle(null)
  * nullGen.next() // { value: undefined, done: true }
- * 
+ *
  * const undefinedGen = cycle(undefined)
  * undefinedGen.next() // { value: undefined, done: true }
- * 
+ *
  * // Rotation schedule
  * const shifts = cycle(["morning", "afternoon", "night"])
  * const schedule = []
@@ -209,12 +209,12 @@
  * @property Infinite - cycles forever, use with termination conditions
  */
 function* cycle<T>(
-	array: ReadonlyArray<T> | null | undefined
+	array: ReadonlyArray<T> | null | undefined,
 ): Generator<T, void, unknown> {
 	if (array == null || !Array.isArray(array) || array.length === 0) {
 		return
 	}
-	
+
 	while (true) {
 		for (const element of array) {
 			yield element

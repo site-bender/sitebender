@@ -46,9 +46,9 @@ const toCamel = (str: string | null | undefined): string => {
 
 	return [
 		first.toLowerCase(),
-		...rest.map(word =>
+		...rest.map((word) =>
 			word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-		)
+		),
 	].join("")
 }
 

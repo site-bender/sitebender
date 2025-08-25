@@ -2,21 +2,21 @@
 // This file remains temporarily for backward compatibility and will be removed.
 
 export type {
-	Version,
-	DataType,
-	NodeId,
+	ActionNode,
 	BaseMeta,
 	BaseNode,
-	ElementNode,
-	InjectorNode,
-	OperatorNode,
 	ComparatorNode,
 	ConditionalNode,
-	ValidatorNode,
-	ActionNode,
+	DataType,
+	ElementNode,
 	EventBindingNode,
-	Node,
+	InjectorNode,
 	IrDocument,
+	Node,
+	NodeId,
+	OperatorNode,
+	ValidatorNode,
+	Version,
 } from "../../ir/index.ts"
 
 export { IR_VERSION } from "../../../constants/ir/index.ts"

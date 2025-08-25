@@ -94,7 +94,7 @@ Deno.test("removeAt - currying stages", () => {
 	const removeAtOne = removeAt(1)
 	const result1 = removeAtOne(["a", "b", "c"])
 	assertEquals(result1, ["a", "c"])
-	
+
 	const result2 = removeAtOne([1, 2, 3, 4])
 	assertEquals(result2, [1, 3, 4])
 })
@@ -113,22 +113,22 @@ Deno.test("removeAt - with arrays as elements", () => {
 
 Deno.test("removeAt - boundary conditions", () => {
 	const arr = [1, 2, 3, 4, 5]
-	
+
 	// First element
 	assertEquals(removeAt(0)(arr), [2, 3, 4, 5])
-	
+
 	// Last element
 	assertEquals(removeAt(4)(arr), [1, 2, 3, 4])
-	
+
 	// One past last (out of bounds)
 	assertEquals(removeAt(5)(arr), [1, 2, 3, 4, 5])
-	
+
 	// Negative first
 	assertEquals(removeAt(-5)(arr), [2, 3, 4, 5])
-	
+
 	// Negative last
 	assertEquals(removeAt(-1)(arr), [1, 2, 3, 4])
-	
+
 	// Negative out of bounds
 	assertEquals(removeAt(-6)(arr), [1, 2, 3, 4, 5])
 })
@@ -142,9 +142,9 @@ Deno.test("removeAt - property: result length is input length - 1 for valid inde
 				const validIndex = Math.floor(Math.random() * array.length)
 				const result = removeAt(validIndex)(array)
 				return result.length === array.length - 1
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -154,14 +154,14 @@ Deno.test("removeAt - property: original array unchanged for invalid index", () 
 			fc.array(fc.anything()),
 			fc.oneof(
 				fc.integer({ min: 100 }),
-				fc.integer({ max: -100 })
+				fc.integer({ max: -100 }),
 			),
 			(array, invalidIndex) => {
 				const result = removeAt(invalidIndex)(array)
 				return result === array
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -172,15 +172,15 @@ Deno.test("removeAt - property: elements before removed index unchanged", () => 
 			(array) => {
 				const index = Math.floor(Math.random() * array.length)
 				const result = removeAt(index)(array)
-				
+
 				// Check elements before removed index
 				for (let i = 0; i < index && i < result.length; i++) {
 					if (result[i] !== array[i]) return false
 				}
 				return true
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -191,15 +191,15 @@ Deno.test("removeAt - property: elements after removed index shifted", () => {
 			(array) => {
 				const index = Math.floor(Math.random() * array.length)
 				const result = removeAt(index)(array)
-				
+
 				// Check elements after removed index
 				for (let i = index; i < result.length; i++) {
 					if (result[i] !== array[i + 1]) return false
 				}
 				return true
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -210,15 +210,15 @@ Deno.test("removeAt - property: negative index works correctly", () => {
 			(array) => {
 				const negIndex = -(Math.floor(Math.random() * array.length) + 1)
 				const posIndex = array.length + negIndex
-				
+
 				const resultNeg = removeAt(negIndex)(array)
 				const resultPos = removeAt(posIndex)(array)
-				
+
 				return resultNeg.length === resultPos.length &&
 					resultNeg.every((v, i) => v === resultPos[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -230,13 +230,13 @@ Deno.test("removeAt - property: immutability", () => {
 			(array, index) => {
 				const original = [...array]
 				removeAt(index)(array)
-				
+
 				// Original should be unchanged
 				return array.length === original.length &&
 					array.every((v, i) => v === original[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -250,11 +250,11 @@ Deno.test("removeAt - property: removed element not in result", () => {
 				const index = Math.floor(Math.random() * uniqueArray.length)
 				const elementToRemove = uniqueArray[index]
 				const result = removeAt(index)(uniqueArray)
-				
+
 				// The removed element should not be at its original position
 				return result[index] !== elementToRemove || index >= result.length
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

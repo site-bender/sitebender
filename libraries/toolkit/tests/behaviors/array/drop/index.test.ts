@@ -37,9 +37,9 @@ Deno.test("drop: length property", () => {
 				const result = drop(n)(arr)
 				const expectedLength = Math.max(0, arr.length - n)
 				return result.length === expectedLength
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -52,9 +52,9 @@ Deno.test("drop: element preservation", () => {
 				const result = drop(n)(arr)
 				// Each element in result should match the corresponding element in original
 				return result.every((val, i) => val === arr[i + n])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -68,9 +68,9 @@ Deno.test("drop: composition with take", () => {
 				// Dropped elements should be the tail after skipping n
 				const expected = arr.slice(n)
 				return JSON.stringify(dropped) === JSON.stringify(expected)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -80,7 +80,7 @@ Deno.test("drop: dropping all elements", () => {
 			const result = drop(arr.length)(arr)
 			return result.length === 0
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -140,7 +140,11 @@ Deno.test("drop: edge cases", async (t) => {
 	})
 
 	await t.step("handles arrays with mixed types", () => {
-		assertEquals(drop(2)([1, "two", true, null, undefined]), [true, null, undefined])
+		assertEquals(drop(2)([1, "two", true, null, undefined]), [
+			true,
+			null,
+			undefined,
+		])
 	})
 
 	await t.step("handles sparse arrays", () => {
@@ -149,7 +153,7 @@ Deno.test("drop: edge cases", async (t) => {
 		const result = drop(2)(sparse)
 		assertEquals(result.length, 3)
 		assertEquals(result[0], 3)
-		assertEquals(1 in result, false)  // hole preserved
+		assertEquals(1 in result, false) // hole preserved
 		assertEquals(result[2], 5)
 	})
 
@@ -165,7 +169,7 @@ Deno.test("drop: edge cases", async (t) => {
 		const obj3 = { c: 3 }
 		const result = drop(1)([obj1, obj2, obj3])
 		assertEquals(result, [obj2, obj3])
-		assertEquals(result[0], obj2)  // Same reference
+		assertEquals(result[0], obj2) // Same reference
 	})
 })
 
@@ -197,21 +201,21 @@ Deno.test("drop: currying", async (t) => {
 Deno.test("drop: immutability", () => {
 	const original = [1, 2, 3, 4, 5]
 	const result = drop(2)(original)
-	
+
 	assertEquals(result, [3, 4, 5])
-	assertEquals(original, [1, 2, 3, 4, 5])  // Original unchanged
-	
+	assertEquals(original, [1, 2, 3, 4, 5]) // Original unchanged
+
 	// Modifying result should not affect original
 	result[0] = 999
 	assertEquals(original, [1, 2, 3, 4, 5])
-	
+
 	// For n <= 0, returns same array reference
 	const same = drop(0)(original)
 	assertEquals(same, original)
-	assertEquals(same === original, true)  // Same reference when n <= 0
-	
+	assertEquals(same === original, true) // Same reference when n <= 0
+
 	const sameNeg = drop(-1)(original)
-	assertEquals(sameNeg === original, true)  // Same reference for negative n
+	assertEquals(sameNeg === original, true) // Same reference for negative n
 })
 
 // Type preservation test
@@ -238,7 +242,7 @@ Deno.test("drop: practical use cases", async (t) => {
 		const csvData = [
 			"Name,Age,City",
 			"Alice,30,NYC",
-			"Bob,25,LA"
+			"Bob,25,LA",
 		]
 		const skipHeader = drop(1)
 		assertEquals(skipHeader(csvData), ["Alice,30,NYC", "Bob,25,LA"])
@@ -246,7 +250,7 @@ Deno.test("drop: practical use cases", async (t) => {
 
 	await t.step("pagination - skip items", () => {
 		const items = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`)
-		const page2 = drop(10)(items.slice(0, 20))  // Skip first 10 of first 20
+		const page2 = drop(10)(items.slice(0, 20)) // Skip first 10 of first 20
 		assertEquals(page2.length, 10)
 		assertEquals(page2[0], "Item 11")
 	})

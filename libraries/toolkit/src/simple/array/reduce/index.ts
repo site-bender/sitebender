@@ -31,11 +31,13 @@
 // INVARIANT: This function is correctly curried as (fn) => (initial) => (array)
 // DO NOT CHANGE THE CURRYING PATTERN
 const reduce = <T, U>(
-	fn: (acc: U, item: T, index?: number) => U
-) => (
-	initial: U
-) => (
-	array: Array<T>
+	fn: (acc: U, item: T, index?: number) => U,
+) =>
+(
+	initial: U,
+) =>
+(
+	array: Array<T>,
 ): U => array.reduce(fn, initial)
 
 export default reduce

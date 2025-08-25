@@ -1,8 +1,8 @@
-import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import {
-	assertEquals,
 	assertAlmostEquals,
+	assertEquals,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import quadratic from "../../../../src/simple/math/quadratic/index.ts"
@@ -98,14 +98,14 @@ describe("quadratic", () => {
 				{ a: 1, b: 0, c: -16 },
 				{ a: 3, b: -12, c: 9 },
 			]
-			
+
 			for (const { a, b, c } of testCases) {
 				const [x1, x2] = quadratic(a)(b)(c)
-				
+
 				// Verify roots satisfy the equation
 				const eq1 = a * x1 * x1 + b * x1 + c
 				const eq2 = a * x2 * x2 + b * x2 + c
-				
+
 				assertAlmostEquals(eq1, 0, 1e-10)
 				assertAlmostEquals(eq2, 0, 1e-10)
 			}
@@ -114,33 +114,39 @@ describe("quadratic", () => {
 		it("should satisfy Vieta's formulas: sum of roots = -b/a", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: -100, max: 100, noNaN: true }).filter(a => Math.abs(a) > 0.01),
+					fc.float({ min: -100, max: 100, noNaN: true }).filter((a) =>
+						Math.abs(a) > 0.01
+					),
 					fc.float({ min: -100, max: 100, noNaN: true }),
 					fc.float({ min: -100, max: 100, noNaN: true }),
 					(a, b, c) => {
 						const discriminant = b * b - 4 * a * c
 						// Only test when we have real roots
 						if (discriminant < 0) return true
-						
+
 						const [x1, x2] = quadratic(a)(b)(c)
 						const sum = x1 + x2
 						const expectedSum = -b / a
-						
-						return approximately(sum, expectedSum, Math.max(1e-10, Math.abs(expectedSum) * 1e-12))
-					}
+
+						return approximately(
+							sum,
+							expectedSum,
+							Math.max(1e-10, Math.abs(expectedSum) * 1e-12),
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		it("should satisfy Vieta's formulas: product of roots = c/a", () => {
 			// Test with specific values to avoid floating point issues
 			const testCases = [
-				{ a: 1, b: -5, c: 6 },   // roots 3, 2 => product = 6
-				{ a: 2, b: -8, c: 6 },   // roots 3, 1 => product = 3 = 6/2
-				{ a: 1, b: -7, c: 12 },  // roots 4, 3 => product = 12
+				{ a: 1, b: -5, c: 6 }, // roots 3, 2 => product = 6
+				{ a: 2, b: -8, c: 6 }, // roots 3, 1 => product = 3 = 6/2
+				{ a: 1, b: -7, c: 12 }, // roots 4, 3 => product = 12
 			]
-			
+
 			for (const { a, b, c } of testCases) {
 				const [x1, x2] = quadratic(a)(b)(c)
 				const product = x1 * x2
@@ -152,11 +158,11 @@ describe("quadratic", () => {
 		it("should return equal roots when discriminant is zero", () => {
 			// Test perfect squares with known double roots
 			const testCases = [
-				{ a: 1, b: -4, c: 4, root: 2 },    // (x-2)² = 0
-				{ a: 1, b: -6, c: 9, root: 3 },    // (x-3)² = 0
-				{ a: 4, b: -16, c: 16, root: 2 },  // 4(x-2)² = 0
+				{ a: 1, b: -4, c: 4, root: 2 }, // (x-2)² = 0
+				{ a: 1, b: -6, c: 9, root: 3 }, // (x-3)² = 0
+				{ a: 4, b: -16, c: 16, root: 2 }, // 4(x-2)² = 0
 			]
-			
+
 			for (const { a, b, c, root } of testCases) {
 				const [x1, x2] = quadratic(a)(b)(c)
 				assertAlmostEquals(x1, root, 1e-10)
@@ -167,22 +173,24 @@ describe("quadratic", () => {
 		it("should be symmetric with respect to roots", () => {
 			// Test that we can reconstruct the equation from known roots
 			const testCases = [
-				{ r1: 2, r2: 3, a: 1 },    // Roots 2 and 3
-				{ r1: -1, r2: 4, a: 2 },   // Roots -1 and 4
-				{ r1: 5, r2: 5, a: 1 },    // Double root at 5
+				{ r1: 2, r2: 3, a: 1 }, // Roots 2 and 3
+				{ r1: -1, r2: 4, a: 2 }, // Roots -1 and 4
+				{ r1: 5, r2: 5, a: 1 }, // Double root at 5
 			]
-			
+
 			for (const { r1, r2, a } of testCases) {
 				// Create equation from roots: a(x - r1)(x - r2) = 0
 				const b = -a * (r1 + r2)
 				const c = a * r1 * r2
-				
+
 				const [x1, x2] = quadratic(a)(b)(c)
-				
+
 				// Roots should match (order may differ)
-				const match1 = approximately(x1, r1, 1e-10) && approximately(x2, r2, 1e-10)
-				const match2 = approximately(x1, r2, 1e-10) && approximately(x2, r1, 1e-10)
-				
+				const match1 = approximately(x1, r1, 1e-10) &&
+					approximately(x2, r2, 1e-10)
+				const match2 = approximately(x1, r2, 1e-10) &&
+					approximately(x2, r1, 1e-10)
+
 				assertEquals(match1 || match2, true)
 			}
 		})
@@ -254,25 +262,33 @@ describe("quadratic", () => {
 					(b, c) => {
 						const [x1, x2] = quadratic(0)(b)(c)
 						return Number.isNaN(x1) && Number.isNaN(x2)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
 		it("should return NaN for negative discriminant", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-					fc.float({ min: Math.fround(-100), max: Math.fround(100), noNaN: true }),
+					fc.float({
+						min: Math.fround(0.1),
+						max: Math.fround(100),
+						noNaN: true,
+					}),
+					fc.float({
+						min: Math.fround(-100),
+						max: Math.fround(100),
+						noNaN: true,
+					}),
 					(a, b) => {
 						// Ensure negative discriminant: c > b²/4a
 						const c = (b * b) / (4 * a) + Math.abs(b) + 1
 						const [x1, x2] = quadratic(a)(b)(c)
 						return Number.isNaN(x1) && Number.isNaN(x2)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -323,7 +339,7 @@ describe("quadratic", () => {
 
 		it("should create reusable quadratic solvers", () => {
 			const monic = quadratic(1) // Monic quadratics (a = 1)
-			
+
 			const [x1, x2] = monic(-3)(2)
 			assertAlmostEquals(x1, 2, 1e-10)
 			assertAlmostEquals(x2, 1, 1e-10)
@@ -343,7 +359,8 @@ describe("quadratic", () => {
 
 			const [x1, x2] = solveForC(1)(-5)(2) // Want 2 to be a root
 			// One root should be 2
-			const hasTargetRoot = approximately(x1, 2, 1e-10) || approximately(x2, 2, 1e-10)
+			const hasTargetRoot = approximately(x1, 2, 1e-10) ||
+				approximately(x2, 2, 1e-10)
 			assertEquals(hasTargetRoot, true)
 		})
 	})

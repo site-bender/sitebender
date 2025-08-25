@@ -14,9 +14,11 @@ Scripts remain at the **root level** rather than inside individual packages beca
 ## Script Categories
 
 ### 📦 Build Scripts (`/build/`)
-**Purpose**: Build the documentation site  
-**Used by**: `app` package  
+
+**Purpose**: Build the documentation site\
+**Used by**: `app` package\
 **Key files**:
+
 - `index.ts` - Main build orchestrator
 - `buildDev/` - Development build (faster, skips optimization)
 - `copyStaticAssets/` - Copies static files to dist
@@ -25,9 +27,11 @@ Scripts remain at the **root level** rather than inside individual packages beca
 - `transpileStaticScripts/` - Processes static JS files
 
 ### 🚀 Development Server (`/serve/`)
-**Purpose**: Local development server with hot reload  
-**Used by**: `app` package during development  
+
+**Purpose**: Local development server with hot reload\
+**Used by**: `app` package during development\
 **Key files**:
+
 - `index.ts` - Main server entry point
 - `createServer/` - HTTP server implementation
 - `watchForChanges/` - File watcher for hot reload
@@ -35,35 +39,42 @@ Scripts remain at the **root level** rather than inside individual packages beca
 ### 🧹 Maintenance Scripts
 
 #### `clean/`
+
 - Removes build artifacts (`dist/` directory)
 - Used before fresh builds
 
 #### `setup/`
+
 - Initial project setup
 - Configures git hooks
 - One-time setup tasks
 
 #### `sortImports/`
+
 - Sorts and organizes imports across all files
 - Maintains consistent import ordering
 - Used by pre-commit hooks and format tasks
 
 ### 🧪 Test Utilities
+
 - `e2e.sh` - End-to-end test runner
 - `test-utilities.sh` - Test helper scripts
 
 ### 🔧 Other Utilities
+
 - `jsx.ts` - JSX transformation utilities
 
 ## Usage
 
 Scripts are invoked through deno tasks defined in:
+
 - Root `deno.jsonc` - Workspace-wide tasks
 - `docs/deno.jsonc` - App-specific build/serve tasks
 
 ### Common Commands
 
 From root directory:
+
 ```bash
 # Development
 deno task dev          # Start dev server (delegates to app)
@@ -81,6 +92,7 @@ deno task clean:all    # Clean all build artifacts
 ## Import Paths
 
 Scripts use **relative imports** to reference code from other packages:
+
 - App utilities: `../../docs/src/utilities/...`
 - App types: `../../docs/src/types/...`
 - Libraries: `../../libraries/[name]/src/...`
@@ -90,6 +102,7 @@ This ensures scripts work regardless of the current working directory.
 ## Future Considerations
 
 If scripts become package-specific in the future:
+
 - Move app-specific scripts (`build/`, `serve/`) to `docs/scripts/`
 - Keep workspace tools (`sortImports/`, `setup/`) at root
 - Update task references accordingly

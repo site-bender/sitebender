@@ -1,9 +1,9 @@
 /**
  * Tests approximate equality for floating-point numbers
- * 
+ *
  * Handles special cases like NaN, Infinity, and null/undefined.
  * Uses a small epsilon value to account for floating-point precision errors.
- * 
+ *
  * @param a - First number to compare
  * @param b - Second number to compare
  * @param epsilon - Maximum allowed difference (default 1e-10)
@@ -12,23 +12,23 @@
 const approximately = (
 	a: number | null | undefined,
 	b: number | null | undefined,
-	epsilon = 1e-10
+	epsilon = 1e-10,
 ): boolean => {
 	// Handle null/undefined cases
 	if (a == null || b == null) {
 		return a === b
 	}
-	
+
 	// Both NaN should be considered equal
 	if (Number.isNaN(a) && Number.isNaN(b)) {
 		return true
 	}
-	
+
 	// Handle infinite values
 	if (!Number.isFinite(a) || !Number.isFinite(b)) {
 		return a === b
 	}
-	
+
 	// Check if difference is within epsilon
 	return Math.abs(a - b) < epsilon
 }

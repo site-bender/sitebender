@@ -1,13 +1,13 @@
 import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
-import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	Value,
 } from "../../../../../types/index.ts"
 import type { QuotationAttributes } from "../types/attributes/index.ts"
 

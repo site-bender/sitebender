@@ -1,12 +1,12 @@
 /**
  * Serializes ZonedDateTime for storage/transmission
- * 
+ *
  * Converts a Temporal.ZonedDateTime into a serializable JSON object that
  * preserves all timezone and instant information. The serialized format
  * can be safely stored in databases, transmitted over networks, or cached,
  * and later reconstructed back to a ZonedDateTime. Returns null for invalid
  * inputs to support safe error handling.
- * 
+ *
  * @param zonedDateTime - The ZonedDateTime to serialize
  * @returns Serialized object with instant and timezone info, or null if invalid
  * @example
@@ -22,31 +22,31 @@
  * //   plainDateTime: "2024-03-15T14:30:00",
  * //   epochNanoseconds: "1710519000000000000"
  * // }
- * 
+ *
  * // Serialize different timezone
  * const london = Temporal.ZonedDateTime.from("2024-03-15T14:30:00[Europe/London]")
  * serializeZonedDateTime(london)
  * // {
  * //   instant: "2024-03-15T14:30:00Z",
- * //   timeZone: "Europe/London", 
+ * //   timeZone: "Europe/London",
  * //   calendar: "iso8601",
  * //   offset: "+00:00",
  * //   plainDateTime: "2024-03-15T14:30:00",
  * //   epochNanoseconds: "1710511800000000000"
  * // }
- * 
+ *
  * // Serialize with subsecond precision
  * const precise = Temporal.ZonedDateTime.from("2024-03-15T14:30:00.123456789[UTC]")
  * serializeZonedDateTime(precise)
  * // {
  * //   instant: "2024-03-15T14:30:00.123456789Z",
  * //   timeZone: "UTC",
- * //   calendar: "iso8601", 
+ * //   calendar: "iso8601",
  * //   offset: "+00:00",
  * //   plainDateTime: "2024-03-15T14:30:00.123456789",
  * //   epochNanoseconds: "1710511800123456789"
  * // }
- * 
+ *
  * // Serialize during DST transition
  * const dstTime = Temporal.ZonedDateTime.from("2024-03-10T14:30:00[America/New_York]")
  * serializeZonedDateTime(dstTime)
@@ -58,7 +58,7 @@
  * //   plainDateTime: "2024-03-10T14:30:00",
  * //   epochNanoseconds: "1710094200000000000"
  * // }
- * 
+ *
  * // Serialize with custom calendar
  * const customCal = zdt.withCalendar("hebrew")
  * serializeZonedDateTime(customCal)
@@ -70,7 +70,7 @@
  * //   plainDateTime: "2024-03-15T14:30:00",
  * //   epochNanoseconds: "1710519000000000000"
  * // }
- * 
+ *
  * // Database storage example
  * function saveAppointment(
  *   id: string,
@@ -81,7 +81,7 @@
  *   if (!serializedTime) {
  *     throw new Error("Invalid appointment time")
  *   }
- *   
+ *
  *   return {
  *     id,
  *     time: serializedTime,
@@ -89,13 +89,13 @@
  *     createdAt: new Date().toISOString()
  *   }
  * }
- * 
+ *
  * const appointment = saveAppointment(
  *   "apt-123",
  *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]"),
  *   "Doctor visit"
  * )
- * 
+ *
  * // API response serialization
  * function createEventResponse(events: Array<{
  *   name: string
@@ -108,7 +108,7 @@
  *     })).filter(event => event.time !== null)
  *   }
  * }
- * 
+ *
  * const events = [
  *   {
  *     name: "Meeting",
@@ -120,7 +120,7 @@
  *   }
  * ]
  * const response = createEventResponse(events)
- * 
+ *
  * // Cache serialization
  * function cacheZonedDateTime(
  *   key: string,
@@ -129,12 +129,12 @@
  *   const serialized = serializeZonedDateTime(zdt)
  *   return serialized ? JSON.stringify(serialized) : null
  * }
- * 
+ *
  * const cachedValue = cacheZonedDateTime(
  *   "meeting-time",
  *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]")
  * )
- * 
+ *
  * // Message queue serialization
  * function createTimeBasedMessage(
  *   type: string,
@@ -143,7 +143,7 @@
  * ): object | null {
  *   const serializedTime = serializeZonedDateTime(scheduledFor)
  *   if (!serializedTime) return null
- *   
+ *
  *   return {
  *     type,
  *     scheduledFor: serializedTime,
@@ -151,7 +151,7 @@
  *     messageId: crypto.randomUUID()
  *   }
  * }
- * 
+ *
  * // Log entry serialization
  * function logTimestampedEvent(
  *   event: string,
@@ -160,7 +160,7 @@
  * ): object | null {
  *   const serializedTime = serializeZonedDateTime(timestamp)
  *   if (!serializedTime) return null
- *   
+ *
  *   return {
  *     event,
  *     timestamp: serializedTime,
@@ -168,7 +168,7 @@
  *     logLevel: "info"
  *   }
  * }
- * 
+ *
  * // Audit trail serialization
  * function createAuditEntry(
  *   action: string,
@@ -177,7 +177,7 @@
  * ): object | null {
  *   const serializedTime = serializeZonedDateTime(timestamp)
  *   if (!serializedTime) return null
- *   
+ *
  *   return {
  *     action,
  *     userId,
@@ -185,7 +185,7 @@
  *     auditId: crypto.randomUUID()
  *   }
  * }
- * 
+ *
  * // Configuration serialization
  * function serializeScheduleConfig(config: {
  *   startTime: Temporal.ZonedDateTime
@@ -194,16 +194,16 @@
  * }): object | null {
  *   const serializedStart = serializeZonedDateTime(config.startTime)
  *   const serializedEnd = serializeZonedDateTime(config.endTime)
- *   
+ *
  *   if (!serializedStart || !serializedEnd) return null
- *   
+ *
  *   return {
  *     startTime: serializedStart,
  *     endTime: serializedEnd,
  *     repeatPattern: config.repeatPattern
  *   }
  * }
- * 
+ *
  * // Backup/restore operations
  * function backupTimestamps(
  *   data: Array<{ id: string; timestamp: Temporal.ZonedDateTime }>
@@ -213,12 +213,12 @@
  *       id: item.id,
  *       timestamp: serializeZonedDateTime(item.timestamp)
  *     }))
- *     .filter(item => item.timestamp !== null) as Array<{ 
- *       id: string; 
- *       timestamp: object 
+ *     .filter(item => item.timestamp !== null) as Array<{
+ *       id: string;
+ *       timestamp: object
  *     }>
  * }
- * 
+ *
  * // State persistence
  * function persistTimerState(state: {
  *   isRunning: boolean
@@ -227,29 +227,29 @@
  * }): object {
  *   return {
  *     isRunning: state.isRunning,
- *     ...(state.startTime && { 
- *       startTime: serializeZonedDateTime(state.startTime) 
+ *     ...(state.startTime && {
+ *       startTime: serializeZonedDateTime(state.startTime)
  *     }),
- *     ...(state.pausedAt && { 
- *       pausedAt: serializeZonedDateTime(state.pausedAt) 
+ *     ...(state.pausedAt && {
+ *       pausedAt: serializeZonedDateTime(state.pausedAt)
  *     })
  *   }
  * }
- * 
+ *
  * // Null/undefined handling
  * serializeZonedDateTime(null)
  * // null
- * 
+ *
  * serializeZonedDateTime(undefined)
  * // null
- * 
+ *
  * // Invalid input handling
  * serializeZonedDateTime("not a zoned datetime")
  * // null
- * 
+ *
  * serializeZonedDateTime(new Date())
  * // null
- * 
+ *
  * // Batch serialization
  * function serializeZonedDateTimes(
  *   zdts: Array<Temporal.ZonedDateTime>
@@ -258,7 +258,7 @@
  *     .map(serializeZonedDateTime)
  *     .filter((serialized): serialized is object => serialized !== null)
  * }
- * 
+ *
  * // Round-trip example (serialize then deserialize)
  * function deserializeZonedDateTime(serialized: {
  *   instant: string
@@ -269,14 +269,14 @@
  *   return instant.toZonedDateTimeISO(serialized.timeZone)
  *     .withCalendar(serialized.calendar || "iso8601")
  * }
- * 
+ *
  * const original = Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]")
  * const serialized = serializeZonedDateTime(original)
  * if (serialized) {
  *   const restored = deserializeZonedDateTime(serialized)
  *   console.log(Temporal.ZonedDateTime.compare(original, restored) === 0) // true
  * }
- * 
+ *
  * // Migration helper for legacy timestamps
  * function migrateLegacyTimestamp(
  *   legacyTimestamp: string,
@@ -290,7 +290,7 @@
  *     return null
  *   }
  * }
- * 
+ *
  * // Cross-timezone meeting serialization
  * function serializeMeetingTimes(meeting: {
  *   title: string
@@ -299,14 +299,14 @@
  * }): object | null {
  *   const serializedBase = serializeZonedDateTime(meeting.baseTime)
  *   if (!serializedBase) return null
- *   
+ *
  *   const participantTimes = meeting.participants.map(participant => ({
  *     name: participant.name,
  *     localTime: serializeZonedDateTime(
  *       meeting.baseTime.withTimeZone(participant.timeZone)
  *     )
  *   }))
- *   
+ *
  *   return {
  *     title: meeting.title,
  *     baseTime: serializedBase,
@@ -321,7 +321,7 @@
  * @property Standards - Uses ISO 8601 instant format for maximum compatibility
  */
 const serializeZonedDateTime = (
-	zonedDateTime: Temporal.ZonedDateTime | null | undefined
+	zonedDateTime: Temporal.ZonedDateTime | null | undefined,
 ): {
 	instant: string
 	timeZone: string
@@ -333,30 +333,30 @@ const serializeZonedDateTime = (
 	if (zonedDateTime == null) {
 		return null
 	}
-	
+
 	if (!(zonedDateTime instanceof Temporal.ZonedDateTime)) {
 		return null
 	}
-	
+
 	try {
 		return {
 			// ISO 8601 instant string (UTC) - universally compatible
 			instant: zonedDateTime.toInstant().toString(),
-			
+
 			// Timezone identifier for reconstruction
 			timeZone: zonedDateTime.timeZoneId,
-			
+
 			// Calendar system
 			calendar: zonedDateTime.calendarId,
-			
+
 			// Current offset at this specific time (handles DST)
 			offset: zonedDateTime.offset,
-			
+
 			// Local date/time representation
 			plainDateTime: zonedDateTime.toPlainDateTime().toString(),
-			
+
 			// Nanoseconds since epoch for precise reconstruction
-			epochNanoseconds: zonedDateTime.epochNanoseconds.toString()
+			epochNanoseconds: zonedDateTime.epochNanoseconds.toString(),
 		}
 	} catch {
 		return null

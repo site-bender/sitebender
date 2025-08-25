@@ -2,11 +2,11 @@ import type { Value } from "../../../types/index.ts"
 
 /**
  * Deeply merges objects recursively with target properties taking precedence
- * 
+ *
  * Performs a deep recursive merge where nested objects are merged rather than
- * replaced. Arrays are replaced (not concatenated). Useful for deeply nested 
+ * replaced. Arrays are replaced (not concatenated). Useful for deeply nested
  * configuration objects. Handles circular references safely.
- * 
+ *
  * @curried (...sources) => (target) => result
  * @param sources - Default objects to be recursively merged and overridden by target
  * @param target - The object whose properties take precedence at all levels
@@ -25,11 +25,11 @@ import type { Value } from "../../../types/index.ts"
  * //   user: { name: "Alice", role: "user" },
  * //   settings: { theme: "dark", notifications: true }
  * // }
- * 
+ *
  * // Arrays are replaced, not merged
  * mergeDeep({ tags: ["default"] })({ tags: ["custom", "user"] })
  * // { tags: ["custom", "user"] }
- * 
+ *
  * // Multiple sources (merged left to right, then target overrides)
  * const withDefaults = mergeDeep(
  *   { level1: { a: 1, b: 2 } },
@@ -38,16 +38,16 @@ import type { Value } from "../../../types/index.ts"
  * )
  * withDefaults({ level1: { a: 100 } })
  * // { level1: { a: 100, b: 20, c: 3 }, level2: { x: 10 } }
- * 
+ *
  * // Handles null/undefined gracefully
  * mergeDeep({ a: { b: 1 } })(null)          // { a: { b: 1 } }
  * mergeDeep(null)({ a: { b: 1 } })          // { a: { b: 1 } }
- * 
+ *
  * // Circular reference handling
  * const circular: Record<string, Value> = { a: 1 }
  * circular.self = circular
  * mergeDeep(circular)({ b: 2 })             // { a: 1, b: 2 } (circular ref handled)
- * 
+ *
  * // Configuration merging use case
  * const defaultConfig = {
  *   server: {
@@ -57,7 +57,7 @@ import type { Value } from "../../../types/index.ts"
  *   },
  *   features: { auth: true, logging: true }
  * }
- * 
+ *
  * const userConfig = {
  *   server: {
  *     port: 8080,
@@ -65,7 +65,7 @@ import type { Value } from "../../../types/index.ts"
  *   },
  *   features: { logging: false }
  * }
- * 
+ *
  * mergeDeep(defaultConfig)(userConfig)
  * // {
  * //   server: {
@@ -83,24 +83,25 @@ import type { Value } from "../../../types/index.ts"
  */
 const mergeDeep = <T extends Record<string | symbol, Value>>(
 	...sources: Array<Record<string | symbol, Value> | null | undefined>
-) => (target: T | null | undefined): T & Record<string | symbol, Value> => {
+) =>
+(target: T | null | undefined): T & Record<string | symbol, Value> => {
 	const deepMergeTwo = (
 		dst: Record<string | symbol, Value>,
-		src: Record<string | symbol, Value> | null | undefined
+		src: Record<string | symbol, Value> | null | undefined,
 	): Record<string | symbol, Value> => {
 		if (!src || typeof src !== "object") return dst
-		
+
 		// Get all keys (both string and symbol)
 		const allKeys = [
 			...Object.keys(src),
-			...Object.getOwnPropertySymbols(src)
+			...Object.getOwnPropertySymbols(src),
 		]
-		
+
 		// Use reduce to build merged object
 		return allKeys.reduce((acc, key) => {
 			const srcValue = (src as Record<string | symbol, Value>)[key]
 			const dstValue = (acc as Record<string | symbol, Value>)[key]
-			
+
 			// If both values are objects (but not arrays), merge them recursively
 			if (
 				srcValue && typeof srcValue === "object" && !Array.isArray(srcValue) &&
@@ -108,24 +109,26 @@ const mergeDeep = <T extends Record<string | symbol, Value>>(
 			) {
 				return {
 					...acc,
-					[key]: deepMergeTwo(dstValue, srcValue)
+					[key]: deepMergeTwo(dstValue, srcValue),
 				}
 			}
-			
+
 			// Otherwise, source value replaces destination value
 			return {
 				...acc,
-				[key]: srcValue
+				[key]: srcValue,
 			}
 		}, { ...dst })
 	}
-	
+
 	// Merge all sources and target using reduce
-	const allToMerge = [...sources, target].filter(x => x != null && typeof x === "object")
-	
+	const allToMerge = [...sources, target].filter((x) =>
+		x != null && typeof x === "object"
+	)
+
 	return allToMerge.reduce(
 		(acc, current) => deepMergeTwo(acc, current),
-		{} as Record<string | symbol, Value>
+		{} as Record<string | symbol, Value>,
 	) as T & Record<string | symbol, Value>
 }
 

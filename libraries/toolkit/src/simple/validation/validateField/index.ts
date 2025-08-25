@@ -1,11 +1,11 @@
 /**
  * Validates a single form field with rules
- * 
+ *
  * Applies a set of validation rules to a single field value, returning
  * the first error message encountered or null if valid. Supports common
  * validation rules like required, length, pattern, and custom validators.
  * Designed for form field validation with user-friendly error messages.
- * 
+ *
  * @curried (rules) => (value) => error | null
  * @param rules - Validation rules to apply to the field
  * @param value - The field value to validate
@@ -18,12 +18,12 @@
  *   type: "email",
  *   maxLength: 255
  * })
- * 
+ *
  * validateEmail("")                        // "This field is required"
  * validateEmail("invalid")                 // "Please enter a valid email address"
  * validateEmail("user@example.com")        // null (valid)
  * validateEmail("a@b." + "c".repeat(250)) // "Maximum length is 255 characters"
- * 
+ *
  * // Password validation
  * const validatePassword = validateField({
  *   required: true,
@@ -34,12 +34,12 @@
  *     message: "Password must contain lowercase, uppercase, and number"
  *   }
  * })
- * 
+ *
  * validatePassword("")                     // "This field is required"
  * validatePassword("short")                // "Minimum length is 8 characters"
  * validatePassword("alllowercase")         // "Password must contain lowercase, uppercase, and number"
  * validatePassword("ValidPass123")         // null (valid)
- * 
+ *
  * // Username validation
  * const validateUsername = validateField({
  *   required: true,
@@ -56,12 +56,12 @@
  *     return null
  *   }
  * })
- * 
+ *
  * validateUsername("ab")                   // "Minimum length is 3 characters"
  * validateUsername("user@123")             // "Username can only contain letters, numbers, and underscores"
  * validateUsername("admin")                // "This username is reserved"
  * validateUsername("john_doe")             // null (valid)
- * 
+ *
  * // Age validation
  * const validateAge = validateField({
  *   required: true,
@@ -69,25 +69,25 @@
  *   min: { value: 13, message: "Must be at least 13 years old" },
  *   max: { value: 120, message: "Please enter a valid age" }
  * })
- * 
+ *
  * validateAge("")                          // "This field is required"
  * validateAge("abc")                       // "Please enter a valid number"
  * validateAge("10")                        // "Must be at least 13 years old"
  * validateAge("150")                       // "Please enter a valid age"
  * validateAge("25")                        // null (valid)
- * 
+ *
  * // URL validation
  * const validateUrl = validateField({
  *   required: false,
  *   type: "url",
  *   allowedProtocols: ["http", "https"]
  * })
- * 
+ *
  * validateUrl("")                          // null (optional field)
  * validateUrl("not-a-url")                 // "Please enter a valid URL"
  * validateUrl("ftp://example.com")         // "URL must use http or https protocol"
  * validateUrl("https://example.com")       // null (valid)
- * 
+ *
  * // Phone number validation
  * const validatePhone = validateField({
  *   required: true,
@@ -97,12 +97,12 @@
  *   },
  *   transform: (value: string) => value.replace(/\s/g, "")
  * })
- * 
+ *
  * validatePhone("")                        // "This field is required"
  * validatePhone("123")                     // "Please enter a valid international phone number"
  * validatePhone("+1 555 123 4567")        // null (valid, spaces removed by transform)
  * validatePhone("+44 20 7123 4567")       // null (valid)
- * 
+ *
  * // Date validation
  * const validateBirthDate = validateField({
  *   required: true,
@@ -116,12 +116,12 @@
  *     message: "Birth date cannot be in the future"
  *   }
  * })
- * 
+ *
  * validateBirthDate("")                    // "This field is required"
  * validateBirthDate("invalid-date")        // "Please enter a valid date"
  * validateBirthDate("2050-01-01")         // "Birth date cannot be in the future"
  * validateBirthDate("1990-05-15")         // null (valid)
- * 
+ *
  * // Credit card validation
  * const validateCreditCard = validateField({
  *   required: true,
@@ -134,7 +134,7 @@
  *     const digits = value.split("").map(Number)
  *     let sum = 0
  *     let isEven = false
- *     
+ *
  *     for (let i = digits.length - 1; i >= 0; i--) {
  *       let digit = digits[i]
  *       if (isEven) {
@@ -144,28 +144,28 @@
  *       sum += digit
  *       isEven = !isEven
  *     }
- *     
+ *
  *     return sum % 10 === 0 ? null : "Invalid card number"
  *   },
  *   transform: (value: string) => value.replace(/\s/g, "")
  * })
- * 
+ *
  * validateCreditCard("4111 1111 1111 1111") // null (valid Visa test card)
  * validateCreditCard("1234567812345678")    // "Invalid card number"
- * 
+ *
  * // Conditional validation
  * const validateConfirmEmail = (email: string) => validateField({
  *   required: !!email,
  *   type: "email",
- *   custom: (value: string) => 
+ *   custom: (value: string) =>
  *     value !== email ? "Email addresses must match" : null
  * })
- * 
+ *
  * const confirmValidator = validateConfirmEmail("user@example.com")
  * confirmValidator("")                     // "This field is required"
  * confirmValidator("different@example.com") // "Email addresses must match"
  * confirmValidator("user@example.com")     // null (valid)
- * 
+ *
  * // File upload validation
  * const validateFileUpload = validateField({
  *   required: true,
@@ -179,7 +179,7 @@
  *     return null
  *   }
  * })
- * 
+ *
  * // Select field validation
  * const validateCountry = validateField({
  *   required: true,
@@ -189,7 +189,7 @@
  *     enum: "Please select a valid country"
  *   }
  * })
- * 
+ *
  * validateCountry("")                     // "Please select a country"
  * validateCountry("FR")                   // "Please select a valid country"
  * validateCountry("US")                   // null (valid)
@@ -227,8 +227,8 @@ type ValidationRules = {
 	}
 }
 
-const validateField = (rules: ValidationRules) =>
-	(value: any): string | null => {
+const validateField =
+	(rules: ValidationRules) => (value: any): string | null => {
 		// Apply transform if provided
 		let transformedValue = value
 		if (rules.transform) {
@@ -280,7 +280,9 @@ const validateField = (rules: ValidationRules) =>
 						if (rules.allowedProtocols) {
 							const protocol = url.protocol.slice(0, -1) // Remove trailing ':'
 							if (!rules.allowedProtocols.includes(protocol)) {
-								return `URL must use ${rules.allowedProtocols.join(" or ")} protocol`
+								return `URL must use ${
+									rules.allowedProtocols.join(" or ")
+								} protocol`
 							}
 						}
 					} catch {
@@ -306,14 +308,20 @@ const validateField = (rules: ValidationRules) =>
 
 		// String length validations
 		if (typeof transformedValue === "string") {
-			if (rules.minLength !== undefined && transformedValue.length < rules.minLength) {
+			if (
+				rules.minLength !== undefined &&
+				transformedValue.length < rules.minLength
+			) {
 				return (
 					rules.messages?.minLength ||
 					`Minimum length is ${rules.minLength} characters`
 				)
 			}
 
-			if (rules.maxLength !== undefined && transformedValue.length > rules.maxLength) {
+			if (
+				rules.maxLength !== undefined &&
+				transformedValue.length > rules.maxLength
+			) {
 				return (
 					rules.messages?.maxLength ||
 					`Maximum length is ${rules.maxLength} characters`
@@ -326,7 +334,9 @@ const validateField = (rules: ValidationRules) =>
 			const numValue = Number(transformedValue)
 
 			if (rules.min !== undefined) {
-				const minConfig = typeof rules.min === "object" ? rules.min : { value: rules.min }
+				const minConfig = typeof rules.min === "object"
+					? rules.min
+					: { value: rules.min }
 				if (numValue < Number(minConfig.value)) {
 					return (
 						minConfig.message ||
@@ -337,7 +347,9 @@ const validateField = (rules: ValidationRules) =>
 			}
 
 			if (rules.max !== undefined) {
-				const maxConfig = typeof rules.max === "object" ? rules.max : { value: rules.max }
+				const maxConfig = typeof rules.max === "object"
+					? rules.max
+					: { value: rules.max }
 				if (numValue > Number(maxConfig.value)) {
 					return (
 						maxConfig.message ||
@@ -353,7 +365,9 @@ const validateField = (rules: ValidationRules) =>
 			const dateValue = new Date(transformedValue)
 
 			if (rules.min !== undefined) {
-				const minConfig = typeof rules.min === "object" ? rules.min : { value: rules.min }
+				const minConfig = typeof rules.min === "object"
+					? rules.min
+					: { value: rules.min }
 				const minDate = new Date(String(minConfig.value))
 				if (dateValue < minDate) {
 					return (
@@ -365,7 +379,9 @@ const validateField = (rules: ValidationRules) =>
 			}
 
 			if (rules.max !== undefined) {
-				const maxConfig = typeof rules.max === "object" ? rules.max : { value: rules.max }
+				const maxConfig = typeof rules.max === "object"
+					? rules.max
+					: { value: rules.max }
 				const maxDate = new Date(String(maxConfig.value))
 				if (dateValue > maxDate) {
 					return (
@@ -379,10 +395,9 @@ const validateField = (rules: ValidationRules) =>
 
 		// Pattern validation
 		if (rules.pattern) {
-			const patternConfig =
-				rules.pattern instanceof RegExp
-					? { regex: rules.pattern }
-					: rules.pattern
+			const patternConfig = rules.pattern instanceof RegExp
+				? { regex: rules.pattern }
+				: rules.pattern
 
 			if (!patternConfig.regex.test(String(transformedValue))) {
 				return (
@@ -411,7 +426,10 @@ const validateField = (rules: ValidationRules) =>
 				)
 			}
 
-			if (rules.allowedTypes && !rules.allowedTypes.includes(transformedValue.type)) {
+			if (
+				rules.allowedTypes &&
+				!rules.allowedTypes.includes(transformedValue.type)
+			) {
 				return (
 					rules.messages?.allowedTypes ||
 					`File type must be: ${rules.allowedTypes.join(", ")}`

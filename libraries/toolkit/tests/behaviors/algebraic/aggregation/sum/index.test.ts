@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import sum from "../../../../../src/simple/math/sum/index.ts"
@@ -10,20 +9,23 @@ Deno.test("sum", async (t) => {
 		await t.step("should calculate the sum of all elements", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1e6, max: 1e6 }), { minLength: 0, maxLength: 100 }),
+					fc.array(fc.float({ noNaN: true, min: -1e6, max: 1e6 }), {
+						minLength: 0,
+						maxLength: 100,
+					}),
 					(numbers) => {
 						const result = sum(numbers)
-						
+
 						if (numbers.length === 0) {
 							return result === 0
 						}
-						
+
 						// Manual calculation for verification
 						let expected = 0
 						for (const num of numbers) {
 							expected += num
 						}
-						
+
 						// Check for special cases
 						if (numbers.includes(Infinity) && numbers.includes(-Infinity)) {
 							return Number.isNaN(result)
@@ -34,15 +36,15 @@ Deno.test("sum", async (t) => {
 						if (numbers.includes(-Infinity)) {
 							return result === -Infinity
 						}
-						
+
 						// Use relative epsilon for floating point comparison
 						if (expected === 0) {
 							return Math.abs(result) < 1e-10
 						}
 						return approximately(result, expected, Math.abs(expected) * 1e-10)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -56,9 +58,9 @@ Deno.test("sum", async (t) => {
 					fc.float({ noNaN: true }),
 					(value) => {
 						return sum([value]) === value
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -67,42 +69,56 @@ Deno.test("sum", async (t) => {
 		await t.step("should be commutative (order doesn't matter)", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), { minLength: 2, maxLength: 20 }),
+					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
+						minLength: 2,
+						maxLength: 20,
+					}),
 					(numbers) => {
 						const original = sum(numbers)
 						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const reordered = sum(shuffled)
-						
+
 						// Account for floating point accumulation differences
-						return approximately(original, reordered, Math.abs(original) * 1e-10 + 1e-10)
-					}
+						return approximately(
+							original,
+							reordered,
+							Math.abs(original) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		await t.step("should be associative (grouping doesn't matter)", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), { minLength: 3, maxLength: 10 }),
+					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), {
+						minLength: 3,
+						maxLength: 10,
+					}),
 					(numbers) => {
 						if (numbers.length < 3) return true
-						
+
 						// Split array and sum in groups
 						const mid1 = Math.floor(numbers.length / 3)
 						const mid2 = Math.floor(2 * numbers.length / 3)
-						
+
 						const group1 = sum(numbers.slice(0, mid1))
 						const group2 = sum(numbers.slice(mid1, mid2))
 						const group3 = sum(numbers.slice(mid2))
 						const groupedSum = sum([group1, group2, group3])
-						
+
 						const directSum = sum(numbers)
-						
-						return approximately(groupedSum, directSum, Math.abs(directSum) * 1e-10 + 1e-10)
-					}
+
+						return approximately(
+							groupedSum,
+							directSum,
+							Math.abs(directSum) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -113,39 +129,50 @@ Deno.test("sum", async (t) => {
 					(numbers) => {
 						const withZero = [...numbers, 0]
 						const withoutZero = numbers
-						
+
 						const sumWithZero = sum(withZero)
 						const sumWithoutZero = sum(withoutZero)
-						
+
 						if (Number.isNaN(sumWithoutZero)) {
 							return Number.isNaN(sumWithZero)
 						}
-						
-						return approximately(sumWithZero, sumWithoutZero, Math.abs(sumWithoutZero) * 1e-10 + 1e-10)
-					}
+
+						return approximately(
+							sumWithZero,
+							sumWithoutZero,
+							Math.abs(sumWithoutZero) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		await t.step("should be distributive with scalar multiplication", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), { minLength: 1, maxLength: 20 }),
+					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), {
+						minLength: 1,
+						maxLength: 20,
+					}),
 					fc.float({ noNaN: true, min: -10, max: 10 }),
 					(numbers, scalar) => {
 						// scalar * sum(numbers) === sum(numbers.map(n => scalar * n))
 						const leftSide = scalar * sum(numbers)
-						const rightSide = sum(numbers.map(n => scalar * n))
-						
+						const rightSide = sum(numbers.map((n) => scalar * n))
+
 						if (Number.isNaN(leftSide) || Number.isNaN(rightSide)) {
 							return Number.isNaN(leftSide) && Number.isNaN(rightSide)
 						}
-						
-						return approximately(leftSide, rightSide, Math.abs(leftSide) * 1e-10 + 1e-10)
-					}
+
+						return approximately(
+							leftSide,
+							rightSide,
+							Math.abs(leftSide) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -330,13 +357,13 @@ Deno.test("sum", async (t) => {
 
 		await t.step("array method chaining", () => {
 			const data = [1, 2, 3, 4, 5]
-			const doubledSum = sum(data.map(x => x * 2))
+			const doubledSum = sum(data.map((x) => x * 2))
 			assertEquals(doubledSum, 30)
 		})
 
 		await t.step("filtering before sum", () => {
 			const allNumbers = [10, -5, 20, -15, 30]
-			const positiveSum = sum(allNumbers.filter(n => n > 0))
+			const positiveSum = sum(allNumbers.filter((n) => n > 0))
 			assertEquals(positiveSum, 60)
 		})
 
@@ -365,7 +392,7 @@ Deno.test("sum", async (t) => {
 			const matrix = [
 				[1, 2, 3],
 				[4, 5, 6],
-				[7, 8, 9]
+				[7, 8, 9],
 			]
 			const rowSums = matrix.map(sum)
 			assertEquals(rowSums, [6, 15, 24])
@@ -430,7 +457,7 @@ Deno.test("sum", async (t) => {
 			const result1 = sum(data)
 			const result2 = sum(data)
 			const result3 = sum(data)
-			
+
 			assertEquals(result1, 15)
 			assertEquals(result2, 15)
 			assertEquals(result3, 15)

@@ -1,12 +1,13 @@
 import type { Result } from "../../types/fp/result/index.ts"
+
 import tryCatchEither from "../../either/tryCatch/index.ts"
 
 /**
  * Converts a try/catch operation to a Result
- * 
+ *
  * Wrapper around Either's tryCatch with Result-specific naming.
  * Executes a function and captures success as Ok or exceptions as Err.
- * 
+ *
  * @curried
  * @param fn - Function that might throw
  * @param onError - Function to transform caught errors
@@ -18,7 +19,7 @@ import tryCatchEither from "../../either/tryCatch/index.ts"
  *   (e) => `Parse error: ${e}`
  * )
  * // ok({ valid: "json" })
- * 
+ *
  * const failParse = tryCatch(
  *   () => JSON.parse('invalid'),
  *   (e) => `Parse error: ${e}`
@@ -28,7 +29,7 @@ import tryCatchEither from "../../either/tryCatch/index.ts"
  */
 const tryCatch = tryCatchEither as <T, E>(
 	fn: () => T,
-	onError: (error: unknown) => E
+	onError: (error: unknown) => E,
 ) => Result<T, E>
 
 export default tryCatch

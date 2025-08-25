@@ -144,12 +144,12 @@ Deno.test("indexOf - property: element in array returns valid index", () => {
 			(arr, elem) => {
 				const arrWithElem = [...arr, elem]
 				const index = indexOf(elem)(arrWithElem)
-				return index !== undefined && 
-					   index >= 0 && 
-					   index < arrWithElem.length &&
-					   arrWithElem[index] === elem
-			}
-		)
+				return index !== undefined &&
+					index >= 0 &&
+					index < arrWithElem.length &&
+					arrWithElem[index] === elem
+			},
+		),
 	)
 })
 
@@ -161,8 +161,8 @@ Deno.test("indexOf - property: element not in array returns undefined", () => {
 				// Use an element guaranteed not to be in the array
 				const notInArray = -1
 				return indexOf(notInArray)(arr) === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -181,8 +181,8 @@ Deno.test("indexOf - property: returns first occurrence", () => {
 					if (arr[i] === elem) return false
 				}
 				return arr[result] === elem
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -195,21 +195,21 @@ Deno.test("indexOf - property: handles all values correctly", () => {
 				const ourIndex = indexOf(elem)(arr)
 				if (ourIndex === undefined) {
 					// Element not found - verify it's really not there
-					return !arr.some(x => Object.is(x, elem))
+					return !arr.some((x) => Object.is(x, elem))
 				} else {
 					// Element found - verify it's at the right index and is the first
 					return Object.is(arr[ourIndex], elem) &&
-					       !arr.slice(0, ourIndex).some(x => Object.is(x, elem))
+						!arr.slice(0, ourIndex).some((x) => Object.is(x, elem))
 				}
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("indexOf - handles null and undefined parameters", () => {
 	const indexOfNull = indexOf(null as unknown as number)
 	const indexOfUndefined = indexOf(undefined as unknown as number)
-	
+
 	assertEquals(indexOfNull([1, null as unknown as number, 2]), 1)
 	assertEquals(indexOfUndefined([1, undefined as unknown as number, 2]), 1)
 })

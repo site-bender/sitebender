@@ -1,11 +1,11 @@
 /**
  * Count occurrences of each value across all Map values
- * 
+ *
  * Creates a frequency map that counts how many times each unique value
  * appears across all values in the Map. Returns a Map where keys are the
  * unique values found and values are their occurrence counts. This is useful
  * for analyzing value distribution and finding the most common values.
- * 
+ *
  * @param map - The Map to analyze values from
  * @returns Map with values as keys and counts as values
  * @example
@@ -20,7 +20,7 @@
  * ])
  * frequency(scores)
  * // Map { 90 => 3, 85 => 2 }
- * 
+ *
  * // String values
  * const roles = new Map([
  *   ["user1", "admin"],
@@ -31,21 +31,21 @@
  * ])
  * frequency(roles)
  * // Map { "admin" => 3, "editor" => 1, "viewer" => 1 }
- * 
+ *
  * // Empty Map
  * frequency(new Map())
  * // Map {}
- * 
+ *
  * // All unique values
  * const unique = new Map([["a", 1], ["b", 2], ["c", 3]])
  * frequency(unique)
  * // Map { 1 => 1, 2 => 1, 3 => 1 }
- * 
+ *
  * // All same value
  * const same = new Map([["x", 7], ["y", 7], ["z", 7]])
  * frequency(same)
  * // Map { 7 => 3 }
- * 
+ *
  * // Mixed types
  * const mixed = new Map([
  *   ["a", 1],
@@ -56,7 +56,7 @@
  * ])
  * frequency(mixed)
  * // Map { 1 => 2, "1" => 2, true => 1 }
- * 
+ *
  * // Boolean values
  * const flags = new Map([
  *   ["isActive", true],
@@ -67,7 +67,7 @@
  * ])
  * frequency(flags)
  * // Map { true => 3, false => 2 }
- * 
+ *
  * // Null and undefined
  * const nullable = new Map([
  *   ["a", null],
@@ -79,7 +79,7 @@
  * ])
  * frequency(nullable)
  * // Map { null => 3, undefined => 2, 5 => 1 }
- * 
+ *
  * // Finding most common value
  * const votes = new Map([
  *   ["voter1", "Alice"],
@@ -90,11 +90,11 @@
  *   ["voter6", "Bob"]
  * ])
  * const freq = frequency(votes)
- * const mostCommon = [...freq.entries()].reduce((a, b) => 
+ * const mostCommon = [...freq.entries()].reduce((a, b) =>
  *   b[1] > a[1] ? b : a
  * )
  * // ["Alice", 3] - Alice has 3 votes
- * 
+ *
  * // Status distribution
  * const tasks = new Map([
  *   ["task1", "pending"],
@@ -107,7 +107,7 @@
  * ])
  * frequency(tasks)
  * // Map { "pending" => 3, "completed" => 3, "failed" => 1 }
- * 
+ *
  * // Grade analysis
  * const grades = new Map([
  *   ["John", "A"],
@@ -119,7 +119,7 @@
  * ])
  * frequency(grades)
  * // Map { "A" => 3, "B" => 2, "C" => 1 }
- * 
+ *
  * // Numeric distribution
  * const ages = new Map([
  *   ["person1", 25],
@@ -131,7 +131,7 @@
  * ])
  * frequency(ages)
  * // Map { 25 => 3, 30 => 2, 35 => 1 }
- * 
+ *
  * // Array values (by reference)
  * const arr1 = [1, 2]
  * const arr2 = [1, 2] // Different array
@@ -143,7 +143,7 @@
  * ])
  * frequency(lists)
  * // Map { [1,2] => 3, [1,2] => 1 } (arr1 appears 3 times, arr2 once)
- * 
+ *
  * // Object values (by reference)
  * const obj1 = { type: "A" }
  * const obj2 = { type: "A" } // Different object
@@ -154,7 +154,7 @@
  * ])
  * frequency(objects)
  * // Map { {type:"A"} => 2, {type:"A"} => 1 }
- * 
+ *
  * // Finding duplicates
  * const data = new Map([
  *   ["id1", "value1"],
@@ -168,7 +168,7 @@
  *   .filter(([_, count]) => count > 1)
  *   .map(([value, _]) => value)
  * // ["value1", "value2"]
- * 
+ *
  * // Finding unique values
  * const items = new Map([
  *   ["a", 1],
@@ -183,7 +183,7 @@
  *   .filter(([_, count]) => count === 1)
  *   .map(([value, _]) => value)
  * // [3, 4]
- * 
+ *
  * // Permission analysis
  * const userPermissions = new Map([
  *   ["alice", "read"],
@@ -195,7 +195,7 @@
  * ])
  * frequency(userPermissions)
  * // Map { "read" => 3, "write" => 2, "admin" => 1 }
- * 
+ *
  * // Response code distribution
  * const responses = new Map([
  *   ["req1", 200],
@@ -207,7 +207,7 @@
  * ])
  * frequency(responses)
  * // Map { 200 => 3, 404 => 2, 500 => 1 }
- * 
+ *
  * // Category distribution
  * const products = new Map([
  *   ["prod1", "electronics"],
@@ -219,7 +219,7 @@
  * ])
  * const categoryFreq = frequency(products)
  * // Map { "electronics" => 3, "books" => 2, "clothing" => 1 }
- * 
+ *
  * // Creating a histogram
  * const measurements = new Map([
  *   ["sample1", 10],
@@ -231,7 +231,7 @@
  * ])
  * const histogram = frequency(measurements)
  * // Map { 10 => 3, 20 => 2, 30 => 1 }
- * 
+ *
  * // Symbol values
  * const sym1 = Symbol("type")
  * const sym2 = Symbol("type")
@@ -243,7 +243,7 @@
  * ])
  * frequency(symbols)
  * // Map { Symbol(type) => 3, Symbol(type) => 1 }
- * 
+ *
  * // Analyzing survey results
  * const survey = new Map([
  *   ["respondent1", "strongly agree"],
@@ -255,17 +255,17 @@
  * ])
  * frequency(survey)
  * // Map { "strongly agree" => 3, "agree" => 2, "neutral" => 1 }
- * 
+ *
  * // Use with pipe for analysis
  * import { pipe } from "../../combinator/pipe/index.ts"
- * 
+ *
  * const raw = new Map([
  *   ["user1", "active"],
  *   ["user2", "inactive"],
  *   ["user3", "active"],
  *   ["user4", "pending"]
  * ])
- * 
+ *
  * const analysis = pipe(
  *   raw,
  *   frequency,
@@ -276,12 +276,12 @@
  *   })
  * )
  * // { total: 4, distribution: {...}, mostCommon: ["active", 2] }
- * 
+ *
  * // Type preservation
  * const typed = new Map<string, number>([["a", 1], ["b", 2], ["c", 1]])
  * const typedFreq: Map<number, number> = frequency(typed)
  * // Map<number, number> { 1 => 2, 2 => 1 }
- * 
+ *
  * // Performance with large Maps
  * const large = new Map(
  *   Array.from({ length: 10000 }, (_, i) => [`key${i}`, i % 100])

@@ -57,12 +57,16 @@ Deno.test("insertAt - single element array at index 1", () => {
 })
 
 Deno.test("insertAt - with undefined value", () => {
-	const result = insertAt(1)(undefined as number | undefined)([1, 2, 3] as Array<number | undefined>)
+	const result = insertAt(1)(undefined as number | undefined)(
+		[1, 2, 3] as Array<number | undefined>,
+	)
 	assertEquals(result, [1, undefined, 2, 3])
 })
 
 Deno.test("insertAt - with null value", () => {
-	const result = insertAt(0)(null as string | null)(["a", "b"] as Array<string | null>)
+	const result = insertAt(0)(null as string | null)(
+		["a", "b"] as Array<string | null>,
+	)
 	assertEquals(result, [null, "a", "b"])
 })
 
@@ -90,7 +94,7 @@ Deno.test("insertAt - preserves array types", () => {
 	const numbers = [1, 2, 3]
 	const result = insertAt(1)(1.5)(numbers)
 	assertEquals(result, [1, 1.5, 2, 3])
-	
+
 	const strings = ["a", "b", "c"]
 	const result2 = insertAt(2)("x")(strings)
 	assertEquals(result2, ["a", "b", "x", "c"])
@@ -118,9 +122,9 @@ Deno.test("insertAt - property: result length is input length + 1 for valid inde
 				const validIndex = Math.floor(Math.random() * (array.length + 1))
 				const result = insertAt(validIndex)(value)(array)
 				return result.length === array.length + 1
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -131,7 +135,7 @@ Deno.test("insertAt - property: original array unchanged for invalid index", () 
 			fc.integer(),
 			fc.oneof(
 				fc.integer({ max: -1 }),
-				fc.integer({ min: 100 })
+				fc.integer({ min: 100 }),
 			),
 			(array, value, invalidIndex) => {
 				// Ensure index is truly invalid
@@ -140,9 +144,9 @@ Deno.test("insertAt - property: original array unchanged for invalid index", () 
 				}
 				const result = insertAt(invalidIndex)(value)(array)
 				return result === array
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -155,9 +159,9 @@ Deno.test("insertAt - property: element is at correct position", () => {
 				const index = Math.floor(Math.random() * (array.length + 1))
 				const result = insertAt(index)(value)(array)
 				return result[index] === value
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -169,15 +173,15 @@ Deno.test("insertAt - property: elements before insertion point unchanged", () =
 			(array, value) => {
 				const index = Math.floor(Math.random() * (array.length + 1))
 				const result = insertAt(index)(value)(array)
-				
+
 				// Check elements before insertion point
 				for (let i = 0; i < index; i++) {
 					if (result[i] !== array[i]) return false
 				}
 				return true
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -189,15 +193,15 @@ Deno.test("insertAt - property: elements after insertion point shifted", () => {
 			(array, value) => {
 				const index = Math.floor(Math.random() * (array.length + 1))
 				const result = insertAt(index)(value)(array)
-				
+
 				// Check elements after insertion point
 				for (let i = index + 1; i < result.length; i++) {
 					if (result[i] !== array[i - 1]) return false
 				}
 				return true
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -210,12 +214,12 @@ Deno.test("insertAt - property: immutability", () => {
 				const original = [...array]
 				const index = Math.floor(Math.random() * (array.length + 1))
 				insertAt(index)(value)(array)
-				
+
 				// Original should be unchanged
 				return array.length === original.length &&
 					array.every((v, i) => v === original[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

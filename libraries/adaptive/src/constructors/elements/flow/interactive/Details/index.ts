@@ -3,13 +3,13 @@ import type {
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "../../../../../types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-	Value,
 } from "../../../../../types/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 import type { DetailsAttributes } from "../types/attributes/index.ts"

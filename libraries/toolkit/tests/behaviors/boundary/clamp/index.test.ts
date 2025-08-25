@@ -13,10 +13,10 @@ Deno.test("clamp - should constrain value within bounds", () => {
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
 				const result = clamp(min)(max)(value)
-				
+
 				assertEquals(result >= min, true)
 				assertEquals(result <= max, true)
-				
+
 				if (value >= min && value <= max) {
 					assertEquals(result, value)
 				} else if (value < min) {
@@ -24,9 +24,9 @@ Deno.test("clamp - should constrain value within bounds", () => {
 				} else {
 					assertEquals(result, max)
 				}
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -38,12 +38,12 @@ Deno.test("clamp - should handle exact boundary values", () => {
 			(a, b) => {
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
-				
+
 				assertEquals(clamp(min)(max)(min), min)
 				assertEquals(clamp(min)(max)(max), max)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -55,9 +55,9 @@ Deno.test("clamp - should handle same min and max (forces value)", () => {
 			(bound, value) => {
 				const result = clamp(bound)(bound)(value)
 				assertEquals(result, bound)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -71,14 +71,14 @@ Deno.test("clamp - idempotent property", () => {
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
 				const clampFunc = clamp(min)(max)
-				
+
 				const once = clampFunc(value)
 				const twice = clampFunc(once)
-				
+
 				assertEquals(twice, once)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -93,18 +93,18 @@ Deno.test("clamp - should preserve relative ordering within bounds", () => {
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
 				const clampFunc = clamp(min)(max)
-				
+
 				const r1 = clampFunc(v1)
 				const r2 = clampFunc(v2)
-				
+
 				// If both values are within bounds, ordering is preserved
 				if (v1 >= min && v1 <= max && v2 >= min && v2 <= max) {
 					if (v1 < v2) assertEquals(r1 <= r2, true)
 					if (v1 > v2) assertEquals(r1 >= r2, true)
 				}
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -281,12 +281,17 @@ Deno.test("clamp - JSDoc example: game physics", () => {
 })
 
 Deno.test("clamp - JSDoc example: UI constraints", () => {
-	function constrainPosition(x: number, y: number, width: number, height: number) {
+	function constrainPosition(
+		x: number,
+		y: number,
+		width: number,
+		height: number,
+	) {
 		const clampX = clamp(0)(width)
 		const clampY = clamp(0)(height)
 		return {
 			x: clampX(x),
-			y: clampY(y)
+			y: clampY(y),
 		}
 	}
 	assertEquals(constrainPosition(150, -20, 100, 100), { x: 100, y: 0 })
@@ -336,18 +341,21 @@ Deno.test("clamp - JSDoc example: pipeline processing", () => {
 	const pipeline = [
 		(x: number) => x * 2,
 		clamp(-100)(100),
-		(x: number) => x + 10
+		(x: number) => x + 10,
 	]
-	const process = (val: number) => 
-		pipeline.reduce((acc, fn) => fn(acc), val)
+	const process = (val: number) => pipeline.reduce((acc, fn) => fn(acc), val)
 	assertEquals(process(60), 110)
 })
 
 Deno.test("clamp - JSDoc example: safe calculation", () => {
-	function safeClamp(min: unknown, max: unknown, value: unknown): number | null {
-		const minNum = typeof min === 'number' ? min : NaN
-		const maxNum = typeof max === 'number' ? max : NaN
-		const valNum = typeof value === 'number' ? value : NaN
+	function safeClamp(
+		min: unknown,
+		max: unknown,
+		value: unknown,
+	): number | null {
+		const minNum = typeof min === "number" ? min : NaN
+		const maxNum = typeof max === "number" ? max : NaN
+		const valNum = typeof value === "number" ? value : NaN
 		const result = clamp(minNum)(maxNum)(valNum)
 		return Number.isNaN(result) ? null : result
 	}
@@ -360,7 +368,7 @@ Deno.test("clamp - partial application", () => {
 	assertEquals(clamp0To10(5), 5)
 	assertEquals(clamp0To10(15), 10)
 	assertEquals(clamp0To10(-5), 0)
-	
+
 	const clampTo10 = clamp(0)
 	const clamp5To10 = clampTo10(10)
 	assertEquals(clamp5To10(7), 7)

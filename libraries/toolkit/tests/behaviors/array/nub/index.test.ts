@@ -13,7 +13,7 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	await t.step("string deduplication", () => {
 		assertEquals(
 			nub(["apple", "banana", "apple", "cherry", "banana"]),
-			["apple", "banana", "cherry"]
+			["apple", "banana", "cherry"],
 		)
 	})
 
@@ -28,14 +28,14 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	await t.step("objects with reference equality", () => {
 		const obj1 = { id: 1 }
 		const obj2 = { id: 2 }
-		const obj3 = { id: 1 }  // Different object, same content
+		const obj3 = { id: 1 } // Different object, same content
 		assertEquals(nub([obj1, obj2, obj1, obj3]), [obj1, obj2, obj3])
 	})
 
 	await t.step("arrays with reference equality", () => {
 		const arr1 = [1, 2]
 		const arr2 = [3, 4]
-		const arr3 = [1, 2]  // Different reference
+		const arr3 = [1, 2] // Different reference
 		assertEquals(nub([arr1, arr2, arr1, arr3]), [arr1, arr2, arr3])
 	})
 
@@ -48,7 +48,11 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	})
 
 	await t.step("null and undefined", () => {
-		assertEquals(nub([null, undefined, null, undefined, 0]), [null, undefined, 0])
+		assertEquals(nub([null, undefined, null, undefined, 0]), [
+			null,
+			undefined,
+			0,
+		])
 	})
 
 	await t.step("zero and negative zero", () => {
@@ -58,7 +62,7 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	await t.step("symbols", () => {
 		const sym1 = Symbol("a")
 		const sym2 = Symbol("b")
-		const sym3 = Symbol("a")  // Different symbol, same description
+		const sym3 = Symbol("a") // Different symbol, same description
 		assertEquals(nub([sym1, sym2, sym1, sym3]), [sym1, sym2, sym3])
 	})
 
@@ -82,7 +86,7 @@ Deno.test("nub: JSDoc examples", async (t) => {
 		const text = "the quick brown fox jumps over the lazy dog the"
 		assertEquals(
 			nub(text.split(" ")),
-			["the", "quick", "brown", "fox", "jumps", "over", "lazy", "dog"]
+			["the", "quick", "brown", "fox", "jumps", "over", "lazy", "dog"],
 		)
 	})
 
@@ -92,7 +96,13 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	})
 
 	await t.step("clean up tags", () => {
-		const tags = ["javascript", "typescript", "javascript", "react", "typescript"]
+		const tags = [
+			"javascript",
+			"typescript",
+			"javascript",
+			"react",
+			"typescript",
+		]
 		assertEquals(nub(tags), ["javascript", "typescript", "react"])
 	})
 
@@ -108,13 +118,13 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	await t.step("dates compared by reference", () => {
 		const date1 = new Date("2024-01-01")
 		const date2 = new Date("2024-01-02")
-		const date3 = new Date("2024-01-01")  // Same date, different object
+		const date3 = new Date("2024-01-01") // Same date, different object
 		assertEquals(nub([date1, date2, date1, date3]), [date1, date2, date3])
 	})
 
 	await t.step("chain with other operations", () => {
 		const numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
-		assertEquals(nub(numbers).filter(n => n % 2 === 0), [2, 4])
+		assertEquals(nub(numbers).filter((n) => n % 2 === 0), [2, 4])
 	})
 
 	await t.step("handle null input", () => {
@@ -135,13 +145,17 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	})
 
 	await t.step("infinity values", () => {
-		assertEquals(nub([Infinity, -Infinity, Infinity, 0, -Infinity]), [Infinity, -Infinity, 0])
+		assertEquals(nub([Infinity, -Infinity, Infinity, 0, -Infinity]), [
+			Infinity,
+			-Infinity,
+			0,
+		])
 	})
 
 	await t.step("function deduplication by reference", () => {
 		const fn1 = () => 1
 		const fn2 = () => 2
-		const fn3 = () => 1  // Different function
+		const fn3 = () => 1 // Different function
 		assertEquals(nub([fn1, fn2, fn1, fn3]), [fn1, fn2, fn3])
 	})
 
@@ -151,9 +165,13 @@ Deno.test("nub: JSDoc examples", async (t) => {
 			"Timeout error",
 			"Connection failed",
 			"Invalid input",
-			"Timeout error"
+			"Timeout error",
 		]
-		assertEquals(nub(errors), ["Connection failed", "Timeout error", "Invalid input"])
+		assertEquals(nub(errors), [
+			"Connection failed",
+			"Timeout error",
+			"Invalid input",
+		])
 	})
 
 	await t.step("unique values from form inputs", () => {
@@ -170,7 +188,7 @@ Deno.test("nub: idempotent property", () => {
 			const doubleDeduped = nub(deduped)
 			return JSON.stringify(deduped) === JSON.stringify(doubleDeduped)
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -181,7 +199,7 @@ Deno.test("nub: no duplicates in result", () => {
 			const uniqueSet = new Set(deduped)
 			return deduped.length === uniqueSet.size
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -190,9 +208,9 @@ Deno.test("nub: result is subset of original", () => {
 		fc.property(fc.array(fc.integer()), (arr) => {
 			const deduped = nub(arr)
 			const originalSet = new Set(arr)
-			return deduped.every(item => originalSet.has(item))
+			return deduped.every((item) => originalSet.has(item))
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -204,12 +222,12 @@ Deno.test("nub: preserves first occurrence order", () => {
 			return deduped.every((val, i) => {
 				const firstIndex = arr.indexOf(val)
 				// Check that all elements before this in deduped appeared before in original
-				return deduped.slice(0, i).every(prevVal => {
+				return deduped.slice(0, i).every((prevVal) => {
 					return arr.indexOf(prevVal) < firstIndex
 				})
 			})
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -219,7 +237,7 @@ Deno.test("nub: length never increases", () => {
 			const deduped = nub(arr)
 			return deduped.length <= arr.length
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -276,14 +294,18 @@ Deno.test("nub: edge cases", async (t) => {
 
 	await t.step("handles RegExp objects", () => {
 		const regex1 = /test/
-		const regex2 = /test/  // Different object
+		const regex2 = /test/ // Different object
 		const regex3 = /other/
-		assertEquals(nub([regex1, regex2, regex1, regex3]), [regex1, regex2, regex3])
+		assertEquals(nub([regex1, regex2, regex1, regex3]), [
+			regex1,
+			regex2,
+			regex3,
+		])
 	})
 
 	await t.step("handles Error objects", () => {
 		const err1 = new Error("test")
-		const err2 = new Error("test")  // Different object
+		const err2 = new Error("test") // Different object
 		const err3 = new Error("other")
 		assertEquals(nub([err1, err2, err1, err3]), [err1, err2, err3])
 	})
@@ -299,7 +321,7 @@ Deno.test("unique: is an alias for nub", async (t) => {
 			[NaN, NaN, 0, -0],
 			[null, undefined, null, undefined],
 		]
-		
+
 		for (const testCase of testCases) {
 			assertEquals(unique(testCase), nub(testCase))
 		}
@@ -319,10 +341,10 @@ Deno.test("unique: is an alias for nub", async (t) => {
 Deno.test("nub: immutability", () => {
 	const original = [1, 2, 2, 3, 1]
 	const deduped = nub(original)
-	
+
 	assertEquals(deduped, [1, 2, 3])
-	assertEquals(original, [1, 2, 2, 3, 1])  // Original unchanged
-	
+	assertEquals(original, [1, 2, 2, 3, 1]) // Original unchanged
+
 	// Modifying deduped should not affect original
 	deduped[0] = 999
 	assertEquals(original, [1, 2, 2, 3, 1])

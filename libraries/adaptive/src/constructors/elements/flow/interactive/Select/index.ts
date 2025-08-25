@@ -1,14 +1,14 @@
 import type {
-	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-	Value,
-} from "../../../../../types/index.ts"
-import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+} from "../../../../../types/index.ts"
+import type {
+	ElementConfig,
+	GlobalAttributes,
+	SpecialProperties,
+	Value,
 } from "../../../../../types/index.ts"
 import type { SelectAttributes } from "../types/attributes/index.ts"
 

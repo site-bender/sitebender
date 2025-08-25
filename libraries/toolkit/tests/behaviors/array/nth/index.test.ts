@@ -18,7 +18,7 @@ Deno.test("nth - negative indices", () => {
 	assertEquals(nth(-1)([1, 2, 3]), 3)
 	assertEquals(nth(-2)([1, 2, 3]), 2)
 	assertEquals(nth(-3)([1, 2, 3]), 1)
-	
+
 	assertEquals(nth(-1)(["a", "b", "c", "d"]), "d")
 	assertEquals(nth(-2)(["a", "b", "c", "d"]), "c")
 })
@@ -28,7 +28,7 @@ Deno.test("nth - out of bounds", () => {
 	assertEquals(nth(10)([1, 2, 3]), undefined)
 	assertEquals(nth(3)([1, 2, 3]), undefined)
 	assertEquals(nth(100)(["a", "b"]), undefined)
-	
+
 	// Negative out of bounds
 	assertEquals(nth(-10)([1, 2, 3]), undefined)
 	assertEquals(nth(-4)([1, 2, 3]), undefined)
@@ -40,7 +40,7 @@ Deno.test("nth - edge cases", () => {
 	assertEquals(nth(0)([]), undefined)
 	assertEquals(nth(1)([]), undefined)
 	assertEquals(nth(-1)([]), undefined)
-	
+
 	// Single element
 	assertEquals(nth(0)([42]), 42)
 	assertEquals(nth(-1)([42]), 42)
@@ -53,7 +53,7 @@ Deno.test("nth - JSDoc examples", () => {
 	assertEquals(nth(0)(["a", "b", "c"]), "a")
 	assertEquals(nth(-1)([1, 2, 3]), 3) // last element
 	assertEquals(nth(10)([1, 2, 3]), undefined)
-	
+
 	// Access specific positions
 	const getSecond = nth(1)
 	assertEquals(getSecond(["first", "second", "third"]), "second")
@@ -63,12 +63,12 @@ Deno.test("nth - currying", () => {
 	const getFirst = nth(0)
 	const getSecond = nth(1)
 	const getLast = nth(-1)
-	
+
 	const arr = [10, 20, 30, 40]
 	assertEquals(getFirst(arr), 10)
 	assertEquals(getSecond(arr), 20)
 	assertEquals(getLast(arr), 40)
-	
+
 	// Different arrays with same accessor
 	assertEquals(getFirst(["a", "b"]), "a")
 	assertEquals(getFirst([true, false]), true)
@@ -80,19 +80,21 @@ Deno.test("nth - type preservation", () => {
 	const numbers = [1, 2, 3, 4, 5]
 	const numbersNth: number | undefined = nth(2)(numbers)
 	assertEquals(numbersNth, 3)
-	
+
 	// Strings
 	const strings = ["a", "b", "c"]
 	const stringsNth: string | undefined = nth(1)(strings)
 	assertEquals(stringsNth, "b")
-	
+
 	// Objects
 	const objects = [{ id: 1 }, { id: 2 }, { id: 3 }]
 	const objectsNth = nth(0)(objects)
 	assertEquals(objectsNth, { id: 1 })
-	
+
 	// Mixed types
-	const mixed = [1, "two", { three: 3 }, [4]] as Array<number | string | object | Array<number>>
+	const mixed = [1, "two", { three: 3 }, [4]] as Array<
+		number | string | object | Array<number>
+	>
 	const mixedNth = nth(2)(mixed)
 	assertEquals(mixedNth, { three: 3 })
 })
@@ -101,24 +103,24 @@ Deno.test("nth - special values", () => {
 	// With undefined
 	assertEquals(nth(0)([undefined, 1, 2]), undefined)
 	assertEquals(nth(1)([1, undefined, 2]), undefined)
-	
+
 	// With null
 	assertEquals(nth(0)([null, 1, 2]), null)
 	assertEquals(nth(2)([1, 2, null]), null)
-	
+
 	// With NaN
 	const arrWithNaN = [NaN, 1, 2]
 	const resultNaN = nth(0)(arrWithNaN)
 	assertEquals(Number.isNaN(resultNaN), true)
-	
+
 	const midNaN = nth(1)([1, NaN, 2])
 	assertEquals(Number.isNaN(midNaN), true)
-	
+
 	// With Infinity
 	assertEquals(nth(0)([Infinity, -Infinity]), Infinity)
 	assertEquals(nth(1)([Infinity, -Infinity]), -Infinity)
 	assertEquals(nth(-1)([0, Infinity]), Infinity)
-	
+
 	// With -0 and +0
 	assertEquals(Object.is(nth(0)([-0, 1]), -0), true)
 	assertEquals(Object.is(nth(0)([+0, 1]), +0), true)
@@ -132,9 +134,9 @@ Deno.test("nth - sparse arrays", () => {
 	assertEquals(nth(2)(sparse), 3)
 	assertEquals(nth(3)(sparse), 4)
 	assertEquals(nth(-1)(sparse), 4)
-	
+
 	// deno-lint-ignore no-sparse-arrays
-	const allSparse = [, , , ]
+	const allSparse = [, , ,]
 	assertEquals(nth(0)(allSparse), undefined)
 	assertEquals(nth(1)(allSparse), undefined)
 	assertEquals(nth(-1)(allSparse), undefined)
@@ -146,7 +148,7 @@ Deno.test("nth - nested arrays", () => {
 	assertEquals(nth(1)(nested), [3, 4])
 	assertEquals(nth(2)(nested), [5, 6])
 	assertEquals(nth(-1)(nested), [5, 6])
-	
+
 	const deep = [[[1]], [[2]], [[3]]]
 	assertEquals(nth(1)(deep), [[2]])
 })
@@ -156,7 +158,7 @@ Deno.test("nth - with various index types", () => {
 	assertEquals(nth(1.5)([1, 2, 3]), 2)
 	assertEquals(nth(0.9)([1, 2, 3]), 1)
 	assertEquals(nth(-1.5)([1, 2, 3]), 3)
-	
+
 	// Zero
 	assertEquals(nth(0)([1, 2, 3]), 1)
 	assertEquals(nth(-0)([1, 2, 3]), 1) // -0 is treated as 0
@@ -170,8 +172,8 @@ Deno.test("nth property: returns undefined for empty arrays", () => {
 			fc.integer({ min: -100, max: 100 }),
 			(index) => {
 				return nth(index)([]) === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -187,8 +189,8 @@ Deno.test("nth property: valid positive index returns correct element", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -204,8 +206,8 @@ Deno.test("nth property: valid negative index returns correct element", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -217,17 +219,17 @@ Deno.test("nth property: out of bounds returns undefined", () => {
 				// Positive out of bounds
 				const posOutOfBounds = nth(arr.length)(arr)
 				const farPosOutOfBounds = nth(arr.length + 100)(arr)
-				
+
 				// Negative out of bounds
 				const negOutOfBounds = nth(-(arr.length + 1))(arr)
 				const farNegOutOfBounds = nth(-(arr.length + 100))(arr)
-				
+
 				return posOutOfBounds === undefined &&
 					farPosOutOfBounds === undefined &&
 					negOutOfBounds === undefined &&
 					farNegOutOfBounds === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -238,8 +240,8 @@ Deno.test("nth property: consistent with array.at()", () => {
 			fc.integer({ min: -100, max: 100 }),
 			(arr, index) => {
 				return Object.is(nth(index)(arr), arr.at(index))
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -249,8 +251,8 @@ Deno.test("nth property: nth(0) equals first element", () => {
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
 				return nth(0)(arr) === arr[0]
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -260,8 +262,8 @@ Deno.test("nth property: nth(-1) equals last element", () => {
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
 				return nth(-1)(arr) === arr[arr.length - 1]
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -276,7 +278,7 @@ Deno.test("nth property: curried function maintains referential transparency", (
 				const result2 = accessor(arr)
 				// Same input produces same output
 				return result1 === result2
-			}
-		)
+			},
+		),
 	)
 })

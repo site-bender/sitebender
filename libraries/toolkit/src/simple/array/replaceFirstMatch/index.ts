@@ -31,7 +31,9 @@ const replaceFirstMatch =
 	(array: Array<string>): Array<string> => {
 		const index = findIndex((item: string) => pattern.test(item))(array)
 
-		return isUndefined(index) ? array : replaceAt<string>(index)(replacer)(array)
+		return isUndefined(index)
+			? array
+			: replaceAt<string>(index)(replacer)(array)
 	}
 
 export default replaceFirstMatch

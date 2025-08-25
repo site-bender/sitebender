@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import gcd from "../../../../../src/simple/math/gcd/index.ts"
@@ -15,58 +14,64 @@ Deno.test("lcm", async (t) => {
 					(a, b) => {
 						const lcmAB = lcm(a)(b)
 						const lcmBA = lcm(b)(a)
-						
+
 						return lcmAB === lcmBA
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should be associative: lcm(lcm(a, b), c) = lcm(a, lcm(b, c))", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 100 }),
-					fc.integer({ min: 1, max: 100 }),
-					fc.integer({ min: 1, max: 100 }),
-					(a, b, c) => {
-						const left = lcm(lcm(a)(b))(c)
-						const right = lcm(a)(lcm(b)(c))
-						
-						return left === right
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be associative: lcm(lcm(a, b), c) = lcm(a, lcm(b, c))",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 100 }),
+						fc.integer({ min: 1, max: 100 }),
+						fc.integer({ min: 1, max: 100 }),
+						(a, b, c) => {
+							const left = lcm(lcm(a)(b))(c)
+							const right = lcm(a)(lcm(b)(c))
+
+							return left === right
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should satisfy identity property: lcm(a, 1) = |a|", () => {
 			fc.assert(
 				fc.property(
-					fc.integer({ min: -1000, max: 1000 }).filter(n => n !== 0),
+					fc.integer({ min: -1000, max: 1000 }).filter((n) => n !== 0),
 					(a) => {
 						const result = lcm(a)(1)
 						return result === Math.abs(a)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should be divisible by both numbers: lcm(a, b) % a = 0 and lcm(a, b) % b = 0", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 1000 }),
-					fc.integer({ min: 1, max: 1000 }),
-					(a, b) => {
-						const l = lcm(a)(b)
-						
-						return l % a === 0 && l % b === 0
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be divisible by both numbers: lcm(a, b) % a = 0 and lcm(a, b) % b = 0",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 1000 }),
+						fc.integer({ min: 1, max: 1000 }),
+						(a, b) => {
+							const l = lcm(a)(b)
+
+							return l % a === 0 && l % b === 0
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should be the smallest common multiple", () => {
 			fc.assert(
@@ -75,18 +80,18 @@ Deno.test("lcm", async (t) => {
 					fc.integer({ min: 1, max: 50 }),
 					(a, b) => {
 						const l = lcm(a)(b)
-						
+
 						// Check that no smaller positive number is divisible by both
 						for (let i = 1; i < l; i++) {
 							if (i % a === 0 && i % b === 0) {
 								return false // Found a smaller common multiple
 							}
 						}
-						
+
 						return true
-					}
+					},
 				),
-				{ numRuns: 100 } // Fewer runs due to inner loop
+				{ numRuns: 100 }, // Fewer runs due to inner loop
 			)
 		})
 
@@ -98,29 +103,32 @@ Deno.test("lcm", async (t) => {
 					(a, b) => {
 						const g = gcd(a)(b)
 						const l = lcm(a)(b)
-						
+
 						return g * l === Math.abs(a * b)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should satisfy lcm(a, gcd(a, b)) = a for positive integers", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 1000 }),
-					fc.integer({ min: 1, max: 1000 }),
-					(a, b) => {
-						const g = gcd(a)(b)
-						const result = lcm(a)(g)
-						
-						return result === a
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should satisfy lcm(a, gcd(a, b)) = a for positive integers",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 1000 }),
+						fc.integer({ min: 1, max: 1000 }),
+						(a, b) => {
+							const g = gcd(a)(b)
+							const result = lcm(a)(g)
+
+							return result === a
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("special cases", async (t) => {
@@ -170,9 +178,9 @@ Deno.test("lcm", async (t) => {
 
 		await t.step("should handle prime numbers", () => {
 			assertEquals(lcm(17)(19), 323) // Product since coprime
-			assertEquals(lcm(11)(22), 22)   // 22 is multiple of 11
-			assertEquals(lcm(13)(26), 26)   // 26 is multiple of 13
-			assertEquals(lcm(7)(14), 14)    // 14 is multiple of 7
+			assertEquals(lcm(11)(22), 22) // 22 is multiple of 11
+			assertEquals(lcm(13)(26), 26) // 26 is multiple of 13
+			assertEquals(lcm(7)(14), 14) // 14 is multiple of 7
 		})
 
 		await t.step("should handle powers of 2", () => {
@@ -368,8 +376,8 @@ Deno.test("lcm", async (t) => {
 
 		await t.step("animation frame sync", () => {
 			function animationSync(fps1: number, fps2: number): {
-				frames1: number,
-				frames2: number,
+				frames1: number
+				frames2: number
 				duration: number
 			} {
 				const totalFrames = lcm(fps1)(fps2)
@@ -379,10 +387,14 @@ Deno.test("lcm", async (t) => {
 				return {
 					frames1: totalFrames / fps1,
 					frames2: totalFrames / fps2,
-					duration: totalFrames / Math.min(fps1, fps2)
+					duration: totalFrames / Math.min(fps1, fps2),
 				}
 			}
-			assertEquals(animationSync(24, 30), { frames1: 5, frames2: 4, duration: 5 })
+			assertEquals(animationSync(24, 30), {
+				frames1: 5,
+				frames2: 4,
+				duration: 5,
+			})
 		})
 
 		await t.step("network packet alignment", () => {
@@ -402,8 +414,8 @@ Deno.test("lcm", async (t) => {
 
 		await t.step("safe LCM", () => {
 			function safeLCM(a: unknown, b: unknown): number | null {
-				const aNum = typeof a === 'number' ? a : NaN
-				const bNum = typeof b === 'number' ? b : NaN
+				const aNum = typeof a === "number" ? a : NaN
+				const bNum = typeof b === "number" ? b : NaN
 				const result = lcm(aNum)(bNum)
 				return isNaN(result) ? null : result
 			}
@@ -431,7 +443,7 @@ Deno.test("lcm", async (t) => {
 			const result1 = lcm(a)(b)
 			const result2 = lcm(a)(b)
 			const result3 = lcm(a)(b)
-			
+
 			assertEquals(result1, 60)
 			assertEquals(result2, 60)
 			assertEquals(result3, 60)
@@ -440,10 +452,10 @@ Deno.test("lcm", async (t) => {
 		await t.step("should handle edge cases efficiently", () => {
 			// Large coprime numbers
 			assertEquals(lcm(997)(1009), 1005973)
-			
+
 			// One very large, one small
 			assertEquals(lcm(1000000)(10), 1000000)
-			
+
 			// Powers of the same prime
 			assertEquals(lcm(27)(81), 81) // 3^3 and 3^4
 		})

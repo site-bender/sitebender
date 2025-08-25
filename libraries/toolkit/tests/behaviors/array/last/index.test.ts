@@ -14,11 +14,11 @@ Deno.test("last - basic usage", () => {
 Deno.test("last - edge cases", () => {
 	// Empty array
 	assertEquals(last([]), undefined)
-	
+
 	// Single element
 	assertEquals(last([42]), 42)
 	assertEquals(last(["only"]), "only")
-	
+
 	// Two elements
 	assertEquals(last([1, 2]), 2)
 	assertEquals(last(["first", "second"]), "second")
@@ -36,19 +36,21 @@ Deno.test("last - type preservation", () => {
 	const numbers = [1, 2, 3, 4, 5]
 	const numbersLast: number | undefined = last(numbers)
 	assertEquals(numbersLast, 5)
-	
+
 	// Strings
 	const strings = ["a", "b", "c"]
 	const stringsLast: string | undefined = last(strings)
 	assertEquals(stringsLast, "c")
-	
+
 	// Objects
 	const objects = [{ id: 1 }, { id: 2 }, { id: 3 }]
 	const objectsLast = last(objects)
 	assertEquals(objectsLast, { id: 3 })
-	
+
 	// Mixed types
-	const mixed = [1, "two", { three: 3 }, [4]] as Array<number | string | object | Array<number>>
+	const mixed = [1, "two", { three: 3 }, [4]] as Array<
+		number | string | object | Array<number>
+	>
 	const mixedLast = last(mixed)
 	assertEquals(mixedLast, [4])
 })
@@ -56,11 +58,11 @@ Deno.test("last - type preservation", () => {
 Deno.test("last - immutability", () => {
 	const original = [1, 2, 3, 4]
 	const result = last(original)
-	
+
 	// Original unchanged
 	assertEquals(original, [1, 2, 3, 4])
 	assertEquals(result, 4)
-	
+
 	// Modifying original after doesn't affect result
 	original[3] = 999
 	assertEquals(result, 4)
@@ -71,23 +73,23 @@ Deno.test("last - special values", () => {
 	// With undefined
 	assertEquals(last([1, 2, undefined]), undefined)
 	assertEquals(last([undefined]), undefined)
-	
+
 	// With null
 	assertEquals(last([1, 2, null]), null)
 	assertEquals(last([null]), null)
-	
+
 	// With NaN
 	const resultNaN = last([1, 2, NaN])
 	assertEquals(Number.isNaN(resultNaN), true)
-	
+
 	const singleNaN = last([NaN])
 	assertEquals(Number.isNaN(singleNaN), true)
-	
+
 	// With Infinity
 	assertEquals(last([0, Infinity]), Infinity)
 	assertEquals(last([-Infinity]), -Infinity)
 	assertEquals(last([Infinity, -Infinity]), -Infinity)
-	
+
 	// With -0 and +0
 	assertEquals(Object.is(last([0, -0]), -0), true)
 	assertEquals(Object.is(last([+0]), +0), true)
@@ -97,26 +99,26 @@ Deno.test("last - sparse arrays", () => {
 	// deno-lint-ignore no-sparse-arrays
 	const sparse = [1, 2, , 4]
 	assertEquals(last(sparse), 4)
-	
-	const sparseEnd = [1, 2, 3, ]
+
+	const sparseEnd = [1, 2, 3]
 	assertEquals(last(sparseEnd), 3)
-	
+
 	// deno-lint-ignore no-sparse-arrays
 	const sparseMiddle = [1, , 3]
 	assertEquals(last(sparseMiddle), 3)
-	
+
 	// deno-lint-ignore no-sparse-arrays
-	const allSparse = [, , , ]
+	const allSparse = [, , ,]
 	assertEquals(last(allSparse), undefined)
 })
 
 Deno.test("last - nested arrays", () => {
 	const nested = [[1, 2], [3, 4], [5, 6]]
 	assertEquals(last(nested), [5, 6])
-	
+
 	const deep = [[[1]], [[2]], [[3]]]
 	assertEquals(last(deep), [[3]])
-	
+
 	// Array as last element
 	const withArray = [1, 2, [3, 4]]
 	assertEquals(last(withArray), [3, 4])
@@ -144,8 +146,8 @@ Deno.test("last property: returns undefined for empty arrays", () => {
 			fc.constant([]),
 			(arr) => {
 				return last(arr) === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -156,8 +158,8 @@ Deno.test("last property: returns the element at index length-1", () => {
 			(arr) => {
 				const result = last(arr)
 				return result === arr[arr.length - 1]
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -168,8 +170,8 @@ Deno.test("last property: idempotent for single element arrays", () => {
 			(elem) => {
 				const singleElemArray = [elem]
 				return last(singleElemArray) === elem
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -181,8 +183,8 @@ Deno.test("last property: last after push is the pushed element", () => {
 			(arr, elem) => {
 				const newArr = [...arr, elem]
 				return last(newArr) === elem
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -194,8 +196,8 @@ Deno.test("last property: complements first/head", () => {
 				// For single element arrays, first and last are the same
 				const first = arr[0]
 				return last(arr) === first
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -205,7 +207,7 @@ Deno.test("last property: consistent with array.at(-1)", () => {
 			fc.array(fc.anything()),
 			(arr) => {
 				return Object.is(last(arr), arr.at(-1))
-			}
-		)
+			},
+		),
 	)
 })

@@ -10,7 +10,11 @@ Deno.test("findLast - JSDoc example 1: find last number greater than 2", () => {
 })
 
 Deno.test("findLast - JSDoc example 2: find last string starting with 'h'", () => {
-	const result = findLast((s: string) => s.startsWith("h"))(["hello", "hi", "world"])
+	const result = findLast((s: string) => s.startsWith("h"))([
+		"hello",
+		"hi",
+		"world",
+	])
 	assertEquals(result, "hi")
 })
 
@@ -29,7 +33,7 @@ Deno.test("findLast - JSDoc example 4: curried to find most recent error", () =>
 		{ level: "error", message: "Connection failed" },
 		{ level: "info", message: "Retrying" },
 		{ level: "error", message: "Timeout" },
-		{ level: "info", message: "Done" }
+		{ level: "info", message: "Done" },
 	]
 	const findLastError = findLast((log: LogEntry) => log.level === "error")
 	const result = findLastError(logs)
@@ -64,13 +68,18 @@ Deno.test("findLast - predicate with index parameter", () => {
 
 Deno.test("findLast - predicate with array parameter", () => {
 	const result = findLast(
-		(n: number, _i: number, arr: Array<number>) => n < arr.length
+		(n: number, _i: number, arr: Array<number>) => n < arr.length,
 	)([5, 4, 3, 2, 1])
 	assertEquals(result, 1) // Last element less than array length (5)
 })
 
 Deno.test("findLast - works with different types - strings", () => {
-	const result = findLast((s: string) => s.length === 5)(["hi", "hello", "world", "test"])
+	const result = findLast((s: string) => s.length === 5)([
+		"hi",
+		"hello",
+		"world",
+		"test",
+	])
 	assertEquals(result, "world")
 })
 
@@ -83,7 +92,7 @@ Deno.test("findLast - works with different types - objects", () => {
 		{ id: 1, inStock: true },
 		{ id: 2, inStock: false },
 		{ id: 3, inStock: true },
-		{ id: 4, inStock: false }
+		{ id: 4, inStock: false },
 	]
 	const result = findLast((p: Product) => p.inStock)(products)
 	assertEquals(result?.id, 3)
@@ -103,10 +112,10 @@ Deno.test("findLast - searches from end to start", () => {
 Deno.test("findLast - handles falsy values correctly", () => {
 	const result1 = findLast((n: number | null) => n === 0)([1, 0, 2, 0, 3])
 	assertEquals(result1, 0)
-	
+
 	const result2 = findLast((n: number | null) => n === null)([1, null, 2, null])
 	assertEquals(result2, null)
-	
+
 	const result3 = findLast((s: string) => s === "")([" ", "", "test", ""])
 	assertEquals(result3, "")
 })
@@ -119,8 +128,8 @@ Deno.test("findLast - property: returns undefined for empty array", () => {
 			(predicate) => {
 				const result = findLast(predicate)([])
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -132,7 +141,7 @@ Deno.test("findLast - property: always returns last occurrence", () => {
 			(arr, target) => {
 				const arrWithTarget = [target, ...arr, target] // Ensure at least two occurrences
 				const result = findLast((n: number) => n === target)(arrWithTarget)
-				
+
 				if (result !== undefined) {
 					// Find the last index of the result
 					const lastIndex = arrWithTarget.lastIndexOf(result)
@@ -144,8 +153,8 @@ Deno.test("findLast - property: always returns last occurrence", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -156,13 +165,13 @@ Deno.test("findLast - property: result satisfies predicate if not undefined", ()
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const result = findLast(predicate)(arr)
-				
+
 				if (result !== undefined) {
 					return predicate(result) === true
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -174,8 +183,8 @@ Deno.test("findLast - property: if all elements satisfy, returns last element", 
 				const alwaysTrue = (_: number) => true
 				const result = findLast(alwaysTrue)(arr)
 				return result === arr[arr.length - 1]
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -187,8 +196,8 @@ Deno.test("findLast - property: if no elements satisfy, returns undefined", () =
 				const alwaysFalse = (_: number) => false
 				const result = findLast(alwaysFalse)(arr)
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -197,24 +206,24 @@ Deno.test("findLast - maintains referential transparency", () => {
 	const predicate = (n: number) => n > 2
 	const arr = [1, 3, 2, 4]
 	const curried = findLast(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("findLast - predicate can access all callback parameters", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<[number, number, Array<number>]> = []
-	
+
 	const predicate = (item: number, index: number, array: Array<number>) => {
 		capturedParams.push([item, index, array])
 		return item > 100 // Never matches
 	}
-	
+
 	findLast(predicate)(arr)
-	
+
 	// Should capture in reverse order
 	assertEquals(capturedParams[0], [30, 2, arr])
 	assertEquals(capturedParams[1], [20, 1, arr])
@@ -231,7 +240,7 @@ Deno.test("findLast - handles sparse arrays correctly", () => {
 Deno.test("findLast - handles NaN values", () => {
 	const result1 = findLast((n: number) => Number.isNaN(n))([1, NaN, 2, NaN, 3])
 	assertEquals(Number.isNaN(result1), true)
-	
+
 	const result2 = findLast((n: number) => Number.isNaN(n))([1, 2, 3, 4])
 	assertEquals(result2, undefined)
 })
@@ -247,9 +256,9 @@ Deno.test("findLast - handles complex predicates", () => {
 		{ value: 20, active: true, timestamp: 2 },
 		{ value: 30, active: false, timestamp: 3 },
 		{ value: 40, active: true, timestamp: 4 },
-		{ value: 50, active: false, timestamp: 5 }
+		{ value: 50, active: false, timestamp: 5 },
 	]
-	
+
 	const result = findLast((item: Item) => item.active && item.value > 15)(items)
 	assertEquals(result?.value, 40) // Last active item with value > 15
 })
@@ -257,15 +266,15 @@ Deno.test("findLast - handles complex predicates", () => {
 Deno.test("findLast - difference from find", () => {
 	const arr = [1, 2, 3, 2, 1]
 	const predicate = (n: number) => n === 2
-	
+
 	// find returns first occurrence
 	const firstMatch = arr.find(predicate)
 	assertEquals(firstMatch, 2)
-	
+
 	// findLast returns last occurrence
 	const lastMatch = findLast(predicate)(arr)
 	assertEquals(lastMatch, 2)
-	
+
 	// They're at different indices
 	assertEquals(arr.indexOf(2), 1)
 	assertEquals(arr.lastIndexOf(2), 3)

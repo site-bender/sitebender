@@ -27,7 +27,7 @@ Deno.test("findIndex - JSDoc example 4: curried to find admin user index", () =>
 	const users: Array<User> = [
 		{ name: "Alice", role: "user" },
 		{ name: "Bob", role: "admin" },
-		{ name: "Charlie", role: "admin" }
+		{ name: "Charlie", role: "admin" },
 	]
 	const findAdminIndex = findIndex((user: User) => user.role === "admin")
 	const result = findAdminIndex(users)
@@ -62,13 +62,18 @@ Deno.test("findIndex - predicate with index parameter", () => {
 
 Deno.test("findIndex - predicate with array parameter", () => {
 	const result = findIndex(
-		(n: number, _i: number, arr: Array<number>) => n === arr.length
+		(n: number, _i: number, arr: Array<number>) => n === arr.length,
 	)([1, 2, 3])
 	assertEquals(result, 2) // Element 3 at index 2 equals array length
 })
 
 Deno.test("findIndex - works with different types - strings", () => {
-	const result = findIndex((s: string) => s.length === 5)(["hi", "hello", "world", "test"])
+	const result = findIndex((s: string) => s.length === 5)([
+		"hi",
+		"hello",
+		"world",
+		"test",
+	])
 	assertEquals(result, 1)
 })
 
@@ -80,7 +85,7 @@ Deno.test("findIndex - works with different types - objects", () => {
 	const products: Array<Product> = [
 		{ id: 1, inStock: false },
 		{ id: 2, inStock: true },
-		{ id: 3, inStock: true }
+		{ id: 3, inStock: true },
 	]
 	const result = findIndex((p: Product) => p.inStock)(products)
 	assertEquals(result, 1)
@@ -109,8 +114,8 @@ Deno.test("findIndex - property: returns undefined for empty array", () => {
 			(predicate) => {
 				const result = findIndex(predicate)([])
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -121,13 +126,13 @@ Deno.test("findIndex - property: result is valid array index if not undefined", 
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const result = findIndex(predicate)(arr)
-				
+
 				if (result !== undefined) {
 					return result >= 0 && result < arr.length && Number.isInteger(result)
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -138,13 +143,13 @@ Deno.test("findIndex - property: element at result index satisfies predicate", (
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const result = findIndex(predicate)(arr)
-				
+
 				if (result !== undefined) {
 					return predicate(arr[result]) === true
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -155,7 +160,7 @@ Deno.test("findIndex - property: no earlier index satisfies predicate", () => {
 			(arr) => {
 				const predicate = (n: number) => n > 50
 				const result = findIndex(predicate)(arr)
-				
+
 				if (result !== undefined) {
 					// Check all earlier indices don't satisfy predicate
 					for (let i = 0; i < result; i++) {
@@ -165,8 +170,8 @@ Deno.test("findIndex - property: no earlier index satisfies predicate", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -178,8 +183,8 @@ Deno.test("findIndex - property: if all elements satisfy, returns 0", () => {
 				const alwaysTrue = (_: number) => true
 				const result = findIndex(alwaysTrue)(arr)
 				return result === 0
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -191,8 +196,8 @@ Deno.test("findIndex - property: if no elements satisfy, returns undefined", () 
 				const alwaysFalse = (_: number) => false
 				const result = findIndex(alwaysFalse)(arr)
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -201,24 +206,24 @@ Deno.test("findIndex - maintains referential transparency", () => {
 	const predicate = (n: number) => n > 2
 	const arr = [1, 2, 3, 4]
 	const curried = findIndex(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("findIndex - predicate can access all callback parameters", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<[number, number, Array<number>]> = []
-	
+
 	const predicate = (item: number, index: number, array: Array<number>) => {
 		capturedParams.push([item, index, array])
 		return item > 25
 	}
-	
+
 	findIndex(predicate)(arr)
-	
+
 	assertEquals(capturedParams[0], [10, 0, arr])
 	assertEquals(capturedParams[1], [20, 1, arr])
 	assertEquals(capturedParams[2], [30, 2, arr])
@@ -233,7 +238,7 @@ Deno.test("findIndex - handles sparse arrays correctly", () => {
 Deno.test("findIndex - handles NaN values", () => {
 	const result1 = findIndex((n: number) => Number.isNaN(n))([1, 2, NaN, 4])
 	assertEquals(result1, 2)
-	
+
 	const result2 = findIndex((n: number) => Number.isNaN(n))([1, 2, 3, 4])
 	assertEquals(result2, undefined)
 })
@@ -241,7 +246,7 @@ Deno.test("findIndex - handles NaN values", () => {
 Deno.test("findIndex - relationship with find", () => {
 	const arr = [10, 20, 30, 40]
 	const predicate = (n: number) => n > 25
-	
+
 	const index = findIndex(predicate)(arr)
 	if (index !== undefined) {
 		// Element at found index should match what find would return
@@ -258,9 +263,11 @@ Deno.test("findIndex - handles complex predicates", () => {
 		{ value: 10, active: false },
 		{ value: 20, active: true },
 		{ value: 30, active: true },
-		{ value: 40, active: false }
+		{ value: 40, active: false },
 	]
-	
-	const result = findIndex((item: Item) => item.active && item.value > 25)(items)
+
+	const result = findIndex((item: Item) => item.active && item.value > 25)(
+		items,
+	)
 	assertEquals(result, 2)
 })

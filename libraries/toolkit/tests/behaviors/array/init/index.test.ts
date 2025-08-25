@@ -14,11 +14,11 @@ Deno.test("init - basic usage", () => {
 Deno.test("init - edge cases", () => {
 	// Empty array
 	assertEquals(init([]), [])
-	
+
 	// Single element
 	assertEquals(init([42]), [])
 	assertEquals(init(["single"]), [])
-	
+
 	// Two elements
 	assertEquals(init([1, 2]), [1])
 	assertEquals(init(["first", "second"]), ["first"])
@@ -27,16 +27,16 @@ Deno.test("init - edge cases", () => {
 Deno.test("init - JSDoc examples - basic", () => {
 	// Basic usage
 	assertEquals(init([1, 2, 3, 4]), [1, 2, 3])
-	
+
 	// String array
 	assertEquals(init(["a", "b", "c"]), ["a", "b"])
-	
+
 	// Single element returns empty
 	assertEquals(init([42]), [])
-	
+
 	// Empty array returns empty
 	assertEquals(init([]), [])
-	
+
 	// Two elements
 	assertEquals(init([1, 2]), [1])
 })
@@ -111,12 +111,12 @@ Deno.test("init - type preservation", () => {
 	const numbers = [1, 2, 3, 4, 5]
 	const numbersInit: Array<number> = init(numbers)
 	assertEquals(numbersInit, [1, 2, 3, 4])
-	
+
 	// Strings
 	const strings = ["a", "b", "c"]
 	const stringsInit: Array<string> = init(strings)
 	assertEquals(stringsInit, ["a", "b"])
-	
+
 	// Objects
 	const objects = [{ id: 1 }, { id: 2 }, { id: 3 }]
 	const objectsInit = init(objects)
@@ -126,14 +126,14 @@ Deno.test("init - type preservation", () => {
 Deno.test("init - immutability", () => {
 	const original = [1, 2, 3, 4]
 	const result = init(original)
-	
+
 	// Original unchanged
 	assertEquals(original, [1, 2, 3, 4])
 	assertEquals(result, [1, 2, 3])
-	
+
 	// Result is new array
 	assertEquals(original === result, false)
-	
+
 	// Modifying result doesn't affect original
 	result[0] = 999
 	assertEquals(original[0], 1)
@@ -143,22 +143,22 @@ Deno.test("init - special values", () => {
 	// With undefined
 	assertEquals(init([undefined, 1, 2]), [undefined, 1])
 	assertEquals(init([1, 2, undefined]), [1, 2])
-	
+
 	// With null
 	assertEquals(init([null, 1, 2]), [null, 1])
 	assertEquals(init([1, 2, null]), [1, 2])
-	
+
 	// With NaN
 	const resultNaN = init([NaN, 1, 2])
 	assertEquals(resultNaN.length, 2)
 	assertEquals(Number.isNaN(resultNaN[0]), true)
 	assertEquals(resultNaN[1], 1)
-	
+
 	const withNaN = init([1, NaN, 2])
 	assertEquals(withNaN.length, 2)
 	assertEquals(withNaN[0], 1)
 	assertEquals(Number.isNaN(withNaN[1]), true)
-	
+
 	// With Infinity
 	assertEquals(init([Infinity, -Infinity, 0]), [Infinity, -Infinity])
 	assertEquals(init([0, Infinity, -Infinity]), [0, Infinity])
@@ -172,9 +172,9 @@ Deno.test("init - sparse arrays", () => {
 	assertEquals(result[0], 1)
 	assertEquals(result[1], undefined)
 	assertEquals(result[2], 3)
-	
+
 	// deno-lint-ignore no-sparse-arrays
-	const verySpare = [, , , ]
+	const verySpare = [, , ,]
 	const sparseResult = init(verySpare)
 	assertEquals(sparseResult.length, 2)
 	assertEquals(sparseResult[0], undefined)
@@ -184,7 +184,7 @@ Deno.test("init - sparse arrays", () => {
 Deno.test("init - nested arrays", () => {
 	const nested = [[1, 2], [3, 4], [5, 6]]
 	assertEquals(init(nested), [[1, 2], [3, 4]])
-	
+
 	const deep = [[[1]], [[2]], [[3]]]
 	assertEquals(init(deep), [[[1]], [[2]]])
 })
@@ -199,8 +199,8 @@ Deno.test("init property: length is original length - 1 (or 0)", () => {
 				const result = init(arr)
 				const expectedLength = Math.max(0, arr.length - 1)
 				return result.length === expectedLength
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -211,8 +211,8 @@ Deno.test("init property: elements match original up to length-1", () => {
 			(arr) => {
 				const result = init(arr)
 				return result.every((elem, i) => elem === arr[i])
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -226,8 +226,8 @@ Deno.test("init property: init of init removes last two elements", () => {
 				const expected = arr.slice(0, -2)
 				return twiceInit.length === expected.length &&
 					twiceInit.every((elem, i) => elem === expected[i])
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -239,8 +239,8 @@ Deno.test("init property: idempotent for empty and single element arrays", () =>
 				const once = init(arr)
 				const twice = init(once)
 				return once.length === 0 && twice.length === 0
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -257,8 +257,8 @@ Deno.test("init property: preserves element order", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -273,15 +273,15 @@ Deno.test("init property: complements last", () => {
 				const reconstructed = [...initPart, lastPart]
 				return reconstructed.length === arr.length &&
 					reconstructed.every((elem, i) => elem === arr[i])
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("init property: handles null and undefined", () => {
 	assertEquals(init(null), [])
 	assertEquals(init(undefined), [])
-	
+
 	// Type check that it accepts these
 	const nullResult: Array<never> = init(null)
 	const undefinedResult: Array<never> = init(undefined)

@@ -7,16 +7,18 @@
  */
 
 export type Props = {
-  when?: "input" | "blur" | "submit"
-  children?: JSX.Element | Array<JSX.Element>
+	when?: "input" | "blur" | "submit"
+	children?: JSX.Element | Array<JSX.Element>
 }
 
 export type ValidationMarker = {
-  __kind: "control:validation"
-  when: "input" | "blur" | "submit"
-  rule: JSX.Element | Array<JSX.Element> | undefined
+	__kind: "control:validation"
+	when: "input" | "blur" | "submit"
+	rule: JSX.Element | Array<JSX.Element> | undefined
 }
 
-export default function Validation({ when = "input", children }: Props): ValidationMarker {
-  return { __kind: "control:validation", when, rule: children }
+export default function Validation(
+	{ when = "input", children }: Props,
+): ValidationMarker {
+	return { __kind: "control:validation", when, rule: children }
 }

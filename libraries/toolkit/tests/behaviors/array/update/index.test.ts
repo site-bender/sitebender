@@ -15,7 +15,10 @@ Deno.test("update - JSDoc example: increment at index", () => {
 })
 
 Deno.test("update - JSDoc example: string transformation", () => {
-	const result = update<string>(0)((s: string) => s.toUpperCase())(["hello", "world"])
+	const result = update<string>(0)((s: string) => s.toUpperCase())([
+		"hello",
+		"world",
+	])
 	assertEquals(result, ["HELLO", "world"])
 })
 
@@ -38,26 +41,31 @@ Deno.test("update - JSDoc example: object transformation", () => {
 	const users = [
 		{ id: 1, name: "Alice", active: true },
 		{ id: 2, name: "Bob", active: true },
-		{ id: 3, name: "Charlie", active: true }
+		{ id: 3, name: "Charlie", active: true },
 	]
 	type User = { id: number; name: string; active: boolean }
 	const result = update<User>(1)((u: User) => ({ ...u, active: false }))(users)
 	assertEquals(result, [
 		{ id: 1, name: "Alice", active: true },
 		{ id: 2, name: "Bob", active: false },
-		{ id: 3, name: "Charlie", active: true }
+		{ id: 3, name: "Charlie", active: true },
 	])
 })
 
 Deno.test("update - JSDoc example: conditional update", () => {
-	const result = update<number>(2)((x: number) => x > 50 ? x / 2 : x * 2)([10, 20, 60, 80])
+	const result = update<number>(2)((x: number) => x > 50 ? x / 2 : x * 2)([
+		10,
+		20,
+		60,
+		80,
+	])
 	assertEquals(result, [10, 20, 30, 80])
 })
 
 Deno.test("update - JSDoc example: index out of bounds", () => {
 	const result1 = update<number>(10)((x: number) => x * 2)([1, 2, 3])
 	assertEquals(result1, [1, 2, 3])
-	
+
 	const result2 = update<number>(-10)((x: number) => x * 2)([1, 2, 3])
 	assertEquals(result2, [1, 2, 3])
 })
@@ -70,7 +78,7 @@ Deno.test("update - JSDoc example: empty array", () => {
 Deno.test("update - JSDoc example: null handling", () => {
 	const result1 = update<unknown>(0)((x: unknown) => x)(null)
 	assertEquals(result1, [])
-	
+
 	const result2 = update<unknown>(0)((x: unknown) => x)(undefined)
 	assertEquals(result2, [])
 })
@@ -88,24 +96,28 @@ Deno.test("update - single element with negative index", () => {
 
 Deno.test("update - boundary negative indices", () => {
 	const arr = [1, 2, 3, 4, 5]
-	
+
 	// -1 = last element
 	assertEquals(update<number>(-1)((x: number) => x * 10)(arr), [1, 2, 3, 4, 50])
-	
+
 	// -5 = first element
 	assertEquals(update<number>(-5)((x: number) => x * 10)(arr), [10, 2, 3, 4, 5])
-	
+
 	// -6 = out of bounds
 	assertEquals(update<number>(-6)((x: number) => x * 10)(arr), [1, 2, 3, 4, 5])
 })
 
 Deno.test("update - with undefined value", () => {
-	const result = update<number | undefined>(1)(() => undefined)([1, 2, 3] as Array<number | undefined>)
+	const result = update<number | undefined>(1)(() => undefined)(
+		[1, 2, 3] as Array<number | undefined>,
+	)
 	assertEquals(result, [1, undefined, 3])
 })
 
 Deno.test("update - with null value", () => {
-	const result = update<string | null>(0)(() => null)(["a", "b"] as Array<string | null>)
+	const result = update<string | null>(0)(() => null)(
+		["a", "b"] as Array<string | null>,
+	)
 	assertEquals(result, [null, "b"])
 })
 
@@ -119,7 +131,9 @@ Deno.test("update - with NaN", () => {
 Deno.test("update - sparse array", () => {
 	// deno-lint-ignore no-sparse-arrays
 	const sparse = [1, , 3]
-	const result = update<number | undefined | string>(1)((x: number | undefined | string) => x ?? "filled")(sparse as Array<number | undefined | string>)
+	const result = update<number | undefined | string>(1)((
+		x: number | undefined | string,
+	) => x ?? "filled")(sparse as Array<number | undefined | string>)
 	assertEquals(result, [1, "filled", 3])
 })
 
@@ -131,14 +145,16 @@ Deno.test("update - array with mixed types", () => {
 
 Deno.test("update - nested array transformation", () => {
 	const matrix = [[1, 2], [3, 4], [5, 6]]
-	const result = update<number[]>(1)((row: number[]) => row.map(x => x * 10))(matrix)
+	const result = update<number[]>(1)((row: number[]) => row.map((x) => x * 10))(
+		matrix,
+	)
 	assertEquals(result, [[1, 2], [30, 40], [5, 6]])
 })
 
 Deno.test("update - currying stages", () => {
 	const updateAtOne = update<number>(1)
 	const doubleIt = updateAtOne((n: number) => n * 2)
-	
+
 	assertEquals(doubleIt([1, 2, 3]), [1, 4, 3])
 	assertEquals(doubleIt([10, 20, 30]), [10, 40, 30])
 })
@@ -147,14 +163,16 @@ Deno.test("update - partial application for reusable updates", () => {
 	const doubleAt = update<number>(2)((x: number) => x * 2)
 	assertEquals(doubleAt([1, 2, 3, 4]), [1, 2, 6, 4])
 	assertEquals(doubleAt([5, 6, 7, 8]), [5, 6, 14, 8])
-	
+
 	const toggleFirst = update<boolean>(0)((b: boolean) => !b)
 	assertEquals(toggleFirst([true, false, true]), [false, false, true])
 	assertEquals(toggleFirst([false, false, false]), [true, false, false])
 })
 
 Deno.test("update - null and undefined in array", () => {
-	const result = update<number | null | string>(1)((x: number | null | string) => x ?? "default")([1, null, 3] as Array<number | null | string>)
+	const result = update<number | null | string>(1)((
+		x: number | null | string,
+	) => x ?? "default")([1, null, 3] as Array<number | null | string>)
 	assertEquals(result, [1, "default", 3])
 })
 
@@ -173,9 +191,9 @@ Deno.test("update - property: result length equals input length when array exist
 			(array, index) => {
 				const result = update<number>(index)((n: number) => n * 2)(array)
 				return result.length === array.length
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -185,12 +203,14 @@ Deno.test("update - property: returns empty array for null/undefined", () => {
 			fc.integer(),
 			(index) => {
 				const resultNull = update<unknown>(index)((x: unknown) => x)(null)
-				const resultUndefined = update<unknown>(index)((x: unknown) => x)(undefined)
-				
+				const resultUndefined = update<unknown>(index)((x: unknown) => x)(
+					undefined,
+				)
+
 				return resultNull.length === 0 && resultUndefined.length === 0
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -202,7 +222,7 @@ Deno.test("update - property: only element at index changes for valid index", ()
 				const index = Math.floor(Math.random() * array.length)
 				const marker = Symbol("changed")
 				const result = update(index)(() => marker)(array)
-				
+
 				// Check all elements
 				for (let i = 0; i < array.length; i++) {
 					if (i === index) {
@@ -212,9 +232,9 @@ Deno.test("update - property: only element at index changes for valid index", ()
 					}
 				}
 				return true
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -225,15 +245,15 @@ Deno.test("update - property: negative index equivalence", () => {
 			(array) => {
 				const negIndex = -(Math.floor(Math.random() * array.length) + 1)
 				const posIndex = array.length + negIndex
-				
+
 				const resultNeg = update<number>(negIndex)((n: number) => n * 2)(array)
 				const resultPos = update<number>(posIndex)((n: number) => n * 2)(array)
-				
+
 				return resultNeg.length === resultPos.length &&
 					resultNeg.every((v, i) => v === resultPos[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -243,18 +263,18 @@ Deno.test("update - property: out of bounds returns copy of array", () => {
 			fc.array(fc.integer()),
 			fc.oneof(
 				fc.integer({ max: -100 }),
-				fc.integer({ min: 100 })
+				fc.integer({ min: 100 }),
 			),
 			(array, invalidIndex) => {
 				const result = update<number>(invalidIndex)((n: number) => n * 2)(array)
-				
+
 				// Should be a copy, not the same reference
 				return result !== array &&
 					result.length === array.length &&
 					result.every((v, i) => v === array[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -266,16 +286,16 @@ Deno.test("update - property: function receives correct value", () => {
 				const index = Math.floor(Math.random() * array.length)
 				const expectedValue = array[index]
 				let receivedValue: number | undefined
-				
+
 				update<number>(index)((value: number) => {
 					receivedValue = value
 					return value
 				})(array)
-				
+
 				return receivedValue === expectedValue
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -287,13 +307,13 @@ Deno.test("update - property: immutability", () => {
 			(array, index) => {
 				const original = [...array]
 				update<number>(index)((n: number) => n * 2)(array)
-				
+
 				// Original should be unchanged
 				return array.length === original.length &&
 					array.every((v, i) => v === original[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -304,11 +324,11 @@ Deno.test("update - property: identity function returns equal array", () => {
 			fc.integer({ min: -50, max: 50 }),
 			(array, index) => {
 				const result = update<number>(index)((x: number) => x)(array)
-				
+
 				return result.length === array.length &&
 					result.every((v, i) => v === array[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

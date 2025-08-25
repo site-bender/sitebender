@@ -25,36 +25,54 @@ Deno.test("aperture - window equals array length returns single tuple", () => {
 })
 
 Deno.test("aperture - string array", () => {
-	assertEquals(aperture(2)(["a", "b", "c", "d"]), [["a", "b"], ["b", "c"], ["c", "d"]])
+	assertEquals(aperture(2)(["a", "b", "c", "d"]), [["a", "b"], ["b", "c"], [
+		"c",
+		"d",
+	]])
 })
 
 // JSDoc examples - practical use cases
 Deno.test("aperture - moving averages calculation", () => {
 	const numbers = [10, 20, 30, 40, 50, 60]
 	const windows = aperture(3)(numbers)
-	assertEquals(windows, [[10, 20, 30], [20, 30, 40], [30, 40, 50], [40, 50, 60]])
-	const movingAverages = windows.map((w) => (w as number[]).reduce((a, b) => a + b, 0) / w.length)
+	assertEquals(windows, [[10, 20, 30], [20, 30, 40], [30, 40, 50], [
+		40,
+		50,
+		60,
+	]])
+	const movingAverages = windows.map((w) =>
+		(w as number[]).reduce((a, b) => a + b, 0) / w.length
+	)
 	assertEquals(movingAverages, [20, 30, 40, 50])
 })
 
 Deno.test("aperture - text analysis bigrams", () => {
 	const words = ["the", "quick", "brown", "fox", "jumps"]
 	assertEquals(aperture(2)(words), [
-		["the", "quick"], ["quick", "brown"], ["brown", "fox"], ["fox", "jumps"]
+		["the", "quick"],
+		["quick", "brown"],
+		["brown", "fox"],
+		["fox", "jumps"],
 	])
 })
 
 Deno.test("aperture - text analysis trigrams", () => {
 	const words = ["the", "quick", "brown", "fox", "jumps"]
 	assertEquals(aperture(3)(words), [
-		["the", "quick", "brown"], ["quick", "brown", "fox"], ["brown", "fox", "jumps"]
+		["the", "quick", "brown"],
+		["quick", "brown", "fox"],
+		["brown", "fox", "jumps"],
 	])
 })
 
 Deno.test("aperture - pattern detection", () => {
 	const data = [1, 2, 3, 2, 1, 2, 3]
 	assertEquals(aperture(3)(data), [
-		[1, 2, 3], [2, 3, 2], [3, 2, 1], [2, 1, 2], [1, 2, 3]
+		[1, 2, 3],
+		[2, 3, 2],
+		[3, 2, 1],
+		[2, 1, 2],
+		[1, 2, 3],
 	])
 })
 
@@ -71,7 +89,9 @@ Deno.test("aperture - overlapping date ranges", () => {
 	const dates = ["2024-01", "2024-02", "2024-03", "2024-04"]
 	const ranges = aperture(2)(dates).map(([start, end]) => `${start} to ${end}`)
 	assertEquals(ranges, [
-		"2024-01 to 2024-02", "2024-02 to 2024-03", "2024-03 to 2024-04"
+		"2024-01 to 2024-02",
+		"2024-02 to 2024-03",
+		"2024-03 to 2024-04",
 	])
 })
 
@@ -101,7 +121,9 @@ Deno.test("aperture - partial application for pairwise", () => {
 Deno.test("aperture - partial application for triplewise", () => {
 	const triplewise = aperture(3)
 	assertEquals(triplewise(["a", "b", "c", "d", "e"]), [
-		["a", "b", "c"], ["b", "c", "d"], ["c", "d", "e"]
+		["a", "b", "c"],
+		["b", "c", "d"],
+		["c", "d", "e"],
 	])
 })
 
@@ -109,7 +131,9 @@ Deno.test("aperture - partial application for triplewise", () => {
 Deno.test("aperture - detect increasing sequences", () => {
 	const isIncreasing = ([a, b]: [number, number]) => b > a
 	const sequence = [1, 2, 3, 2, 3, 4, 5]
-	const result = aperture(2)(sequence).map((pair) => isIncreasing(pair as [number, number]))
+	const result = aperture(2)(sequence).map((pair) =>
+		isIncreasing(pair as [number, number])
+	)
 	assertEquals(result, [true, true, false, true, true, true])
 })
 
@@ -134,7 +158,9 @@ Deno.test("aperture - handles undefined input", () => {
 // Mixed types from JSDoc
 Deno.test("aperture - handles mixed types", () => {
 	assertEquals(aperture(2)([1, "two", 3, "four"]), [
-		[1, "two"], ["two", 3], [3, "four"]
+		[1, "two"],
+		["two", 3],
+		[3, "four"],
 	])
 })
 
@@ -143,26 +169,30 @@ Deno.test("aperture - handles objects in tuples", () => {
 	const items = [
 		{ id: 1, value: "a" },
 		{ id: 2, value: "b" },
-		{ id: 3, value: "c" }
+		{ id: 3, value: "c" },
 	]
 	assertEquals(aperture(2)(items), [
 		[{ id: 1, value: "a" }, { id: 2, value: "b" }],
-		[{ id: 2, value: "b" }, { id: 3, value: "c" }]
+		[{ id: 2, value: "b" }, { id: 3, value: "c" }],
 	])
 })
 
 // Context-aware transformations from JSDoc
 Deno.test("aperture - build context-aware transformations", () => {
 	const context = aperture(3)(["start", "middle", "end", "extra"])
-	assertEquals(context, [["start", "middle", "end"], ["middle", "end", "extra"]])
+	assertEquals(context, [["start", "middle", "end"], [
+		"middle",
+		"end",
+		"extra",
+	]])
 	const transformed = context.map(([prev, curr, next]) => ({
 		previous: prev,
 		current: curr,
-		next: next
+		next: next,
 	}))
 	assertEquals(transformed, [
 		{ previous: "start", current: "middle", next: "end" },
-		{ previous: "middle", current: "end", next: "extra" }
+		{ previous: "middle", current: "end", next: "extra" },
 	])
 })
 
@@ -190,9 +220,11 @@ Deno.test("aperture property - result length formula", () => {
 			(arr, n) => {
 				const result = aperture(n)(arr)
 				const expectedLength = Math.max(0, arr.length - n + 1)
-				return n > arr.length ? result.length === 0 : result.length === expectedLength
-			}
-		)
+				return n > arr.length
+					? result.length === 0
+					: result.length === expectedLength
+			},
+		),
 	)
 })
 
@@ -204,9 +236,9 @@ Deno.test("aperture property - each window has correct size", () => {
 			(arr, n) => {
 				const result = aperture(n)(arr)
 				if (n > arr.length) return result.length === 0
-				return result.every(window => window.length === n)
-			}
-		)
+				return result.every((window) => window.length === n)
+			},
+		),
 	)
 })
 
@@ -218,7 +250,7 @@ Deno.test("aperture property - consecutive windows overlap correctly", () => {
 			(arr, n) => {
 				const result = aperture(n)(arr)
 				if (result.length < 2) return true
-				
+
 				for (let i = 0; i < result.length - 1; i++) {
 					const current = result[i]
 					const next = result[i + 1]
@@ -228,8 +260,8 @@ Deno.test("aperture property - consecutive windows overlap correctly", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -240,11 +272,11 @@ Deno.test("aperture property - preserves element order", () => {
 			fc.integer({ min: 1, max: 10 }),
 			(arr, n) => {
 				const result = aperture(n)(arr)
-				return result.every((window, i) => 
+				return result.every((window, i) =>
 					window.every((elem, j) => elem === arr[i + j])
 				)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -255,9 +287,11 @@ Deno.test("aperture property - window of size 1 equals map identity", () => {
 			(arr) => {
 				const result = aperture(1)(arr)
 				return result.length === arr.length &&
-					result.every((window, i) => window.length === 1 && window[0] === arr[i])
-			}
-		)
+					result.every((window, i) =>
+						window.length === 1 && window[0] === arr[i]
+					)
+			},
+		),
 	)
 })
 
@@ -288,6 +322,8 @@ Deno.test("aperture - handles arrays with NaN", () => {
 
 Deno.test("aperture - handles arrays with Infinity", () => {
 	assertEquals(aperture(2)([1, Infinity, -Infinity, 2]), [
-		[1, Infinity], [Infinity, -Infinity], [-Infinity, 2]
+		[1, Infinity],
+		[Infinity, -Infinity],
+		[-Infinity, 2],
 	])
 })

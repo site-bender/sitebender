@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import factorial from "../../../../../src/simple/math/factorial/index.ts"
@@ -13,12 +12,12 @@ Deno.test("factorial", async (t) => {
 					(n) => {
 						const nFactorial = factorial(n)
 						const nMinus1Factorial = factorial(n - 1)
-						
+
 						// n! = n × (n-1)!
 						return nFactorial === n * nMinus1Factorial
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -31,9 +30,9 @@ Deno.test("factorial", async (t) => {
 						const ratio = factorial(n) / factorial(n - 1)
 						// Use small epsilon for floating point comparison
 						return Math.abs(ratio - n) < 1e-10
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -48,9 +47,9 @@ Deno.test("factorial", async (t) => {
 							return factorial(n + 1) === factorial(n)
 						}
 						return factorial(n + 1) > factorial(n)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -62,56 +61,63 @@ Deno.test("factorial", async (t) => {
 						const fact = factorial(n)
 						const bound = Math.pow(n, n / 2)
 						return fact >= bound
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
 
 	await t.step("combinatorial properties", async (t) => {
-		await t.step("should calculate permutations correctly P(n,r) = n!/(n-r)!", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 20 }),
-					fc.integer({ min: 0, max: 20 }),
-					(n, r) => {
-						if (r > n) return true // Skip invalid cases
-						
-						const permutations = factorial(n) / factorial(n - r)
-						
-						// Calculate manually
-						let expected = 1
-						for (let i = 0; i < r; i++) {
-							expected *= (n - i)
-						}
-						
-						return Math.abs(permutations - expected) < 1e-10
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should calculate permutations correctly P(n,r) = n!/(n-r)!",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 20 }),
+						fc.integer({ min: 0, max: 20 }),
+						(n, r) => {
+							if (r > n) return true // Skip invalid cases
 
-		await t.step("should calculate combinations correctly C(n,r) = n!/(r!(n-r)!)", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 0, max: 20 }),
-					fc.integer({ min: 0, max: 20 }),
-					(n, r) => {
-						if (r > n) return true // Skip invalid cases
-						
-						const combinations = factorial(n) / (factorial(r) * factorial(n - r))
-						
-						// Pascal's triangle property: C(n,r) = C(n,n-r)
-						const symmetric = factorial(n) / (factorial(n - r) * factorial(r))
-						
-						return Math.abs(combinations - symmetric) < 1e-10
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+							const permutations = factorial(n) / factorial(n - r)
+
+							// Calculate manually
+							let expected = 1
+							for (let i = 0; i < r; i++) {
+								expected *= n - i
+							}
+
+							return Math.abs(permutations - expected) < 1e-10
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should calculate combinations correctly C(n,r) = n!/(r!(n-r)!)",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 0, max: 20 }),
+						fc.integer({ min: 0, max: 20 }),
+						(n, r) => {
+							if (r > n) return true // Skip invalid cases
+
+							const combinations = factorial(n) /
+								(factorial(r) * factorial(n - r))
+
+							// Pascal's triangle property: C(n,r) = C(n,n-r)
+							const symmetric = factorial(n) / (factorial(n - r) * factorial(r))
+
+							return Math.abs(combinations - symmetric) < 1e-10
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("base cases", async (t) => {
@@ -143,9 +149,12 @@ Deno.test("factorial", async (t) => {
 			assertEquals(factorial(20), 2432902008176640000)
 		})
 
-		await t.step("should handle the largest exact factorial in JavaScript", () => {
-			assertEquals(factorial(21), 51090942171709440000)
-		})
+		await t.step(
+			"should handle the largest exact factorial in JavaScript",
+			() => {
+				assertEquals(factorial(21), 51090942171709440000)
+			},
+		)
 
 		await t.step("should use scientific notation for large factorials", () => {
 			const fact22 = factorial(22)
@@ -157,11 +166,11 @@ Deno.test("factorial", async (t) => {
 			const fact50 = factorial(50)
 			assertEquals(fact50 > 3e64, true)
 			assertEquals(fact50 < 4e64, true)
-			
+
 			const fact100 = factorial(100)
 			assertEquals(fact100 > 9e157, true)
 			assertEquals(fact100 < 10e157, true)
-			
+
 			const fact170 = factorial(170)
 			assertEquals(fact170 > 7e306, true)
 			assertEquals(fact170 < 8e306, true)
@@ -248,15 +257,15 @@ Deno.test("factorial", async (t) => {
 			const fact50 = factorial(50)
 			assertEquals(fact50 > 3.04e64, true)
 			assertEquals(fact50 < 3.05e64, true)
-			
+
 			const fact100 = factorial(100)
 			assertEquals(fact100 > 9.33e157, true)
 			assertEquals(fact100 < 9.34e157, true)
-			
+
 			const fact170 = factorial(170)
 			assertEquals(fact170 > 7.25e306, true)
 			assertEquals(fact170 < 7.26e306, true)
-			
+
 			assertEquals(factorial(171), Infinity)
 		})
 
@@ -335,7 +344,10 @@ Deno.test("factorial", async (t) => {
 			assertEquals(expTaylorTerm(1, 0), 1)
 			assertEquals(expTaylorTerm(1, 1), 1)
 			assertEquals(expTaylorTerm(1, 2), 0.5)
-			assertEquals(Math.abs(expTaylorTerm(1, 3) - 0.16666666666666666) < 1e-10, true)
+			assertEquals(
+				Math.abs(expTaylorTerm(1, 3) - 0.16666666666666666) < 1e-10,
+				true,
+			)
 		})
 
 		await t.step("double factorial", () => {
@@ -369,7 +381,19 @@ Deno.test("factorial", async (t) => {
 		await t.step("factorial sequence", () => {
 			const factorials = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 			const sequence = factorials.map(factorial)
-			assertEquals(sequence, [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800])
+			assertEquals(sequence, [
+				1,
+				1,
+				2,
+				6,
+				24,
+				120,
+				720,
+				5040,
+				40320,
+				362880,
+				3628800,
+			])
 		})
 
 		await t.step("memoized factorial", () => {
@@ -382,14 +406,14 @@ Deno.test("factorial", async (t) => {
 					return result
 				}
 			})()
-			
+
 			assertEquals(factorialMemo(5), 120)
 			assertEquals(factorialMemo(5), 120) // Should use cache
 		})
 
 		await t.step("safe factorial", () => {
 			function safeFactorial(value: unknown): number | null {
-				const num = typeof value === 'number' ? factorial(value) : NaN
+				const num = typeof value === "number" ? factorial(value) : NaN
 				return isNaN(num) ? null : num
 			}
 			assertEquals(safeFactorial(5), 120)
@@ -413,7 +437,7 @@ Deno.test("factorial", async (t) => {
 			const result1 = factorial(value)
 			const result2 = factorial(value)
 			const result3 = factorial(value)
-			
+
 			assertEquals(result1, 3628800)
 			assertEquals(result2, 3628800)
 			assertEquals(result3, 3628800)

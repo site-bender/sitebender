@@ -1,8 +1,8 @@
-import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import {
-	assertEquals,
 	assertAlmostEquals,
+	assertEquals,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import logarithmBase10 from "../../../../../src/simple/math/logarithmBase10/index.ts"
@@ -95,18 +95,30 @@ describe("logarithmBase10", () => {
 					(exponent) => {
 						const power = Math.pow(10, exponent)
 						const result = logarithmBase10(power)
-						return approximately(result, exponent, Math.max(1e-10, Math.abs(exponent) * 1e-14))
-					}
+						return approximately(
+							result,
+							exponent,
+							Math.max(1e-10, Math.abs(exponent) * 1e-14),
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		it("should satisfy logarithm product rule: log(ab) = log(a) + log(b)", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(1e-50), max: Math.fround(1e50), noNaN: true }),
-					fc.float({ min: Math.fround(1e-50), max: Math.fround(1e50), noNaN: true }),
+					fc.float({
+						min: Math.fround(1e-50),
+						max: Math.fround(1e50),
+						noNaN: true,
+					}),
+					fc.float({
+						min: Math.fround(1e-50),
+						max: Math.fround(1e50),
+						noNaN: true,
+					}),
 					(a, b) => {
 						const product = a * b
 						// Avoid overflow/underflow
@@ -114,19 +126,31 @@ describe("logarithmBase10", () => {
 
 						const logProduct = logarithmBase10(product)
 						const sumOfLogs = logarithmBase10(a) + logarithmBase10(b)
-						
-						return approximately(logProduct, sumOfLogs, Math.max(1e-10, Math.abs(sumOfLogs) * 1e-13))
-					}
+
+						return approximately(
+							logProduct,
+							sumOfLogs,
+							Math.max(1e-10, Math.abs(sumOfLogs) * 1e-13),
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		it("should satisfy logarithm quotient rule: log(a/b) = log(a) - log(b)", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(1e-50), max: Math.fround(1e50), noNaN: true }),
-					fc.float({ min: Math.fround(1e-50), max: Math.fround(1e50), noNaN: true }),
+					fc.float({
+						min: Math.fround(1e-50),
+						max: Math.fround(1e50),
+						noNaN: true,
+					}),
+					fc.float({
+						min: Math.fround(1e-50),
+						max: Math.fround(1e50),
+						noNaN: true,
+					}),
 					(a, b) => {
 						const quotient = a / b
 						// Avoid overflow/underflow
@@ -134,11 +158,15 @@ describe("logarithmBase10", () => {
 
 						const logQuotient = logarithmBase10(quotient)
 						const diffOfLogs = logarithmBase10(a) - logarithmBase10(b)
-						
-						return approximately(logQuotient, diffOfLogs, Math.max(1e-10, Math.abs(diffOfLogs) * 1e-13))
-					}
+
+						return approximately(
+							logQuotient,
+							diffOfLogs,
+							Math.max(1e-10, Math.abs(diffOfLogs) * 1e-13),
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -150,12 +178,12 @@ describe("logarithmBase10", () => {
 				{ base: 5, exponent: 2 },
 				{ base: 3, exponent: 4 },
 			]
-			
+
 			for (const { base, exponent } of testCases) {
 				const power = Math.pow(base, exponent)
 				const logPower = logarithmBase10(power)
 				const productLog = exponent * logarithmBase10(base)
-				
+
 				assertAlmostEquals(logPower, productLog, 1e-10)
 			}
 		})
@@ -183,13 +211,21 @@ describe("logarithmBase10", () => {
 
 	describe("edge cases", () => {
 		it("should handle extremely small positive numbers", () => {
-			assertAlmostEquals(logarithmBase10(Number.MIN_VALUE), -323.3062153431158, 1e-10)
+			assertAlmostEquals(
+				logarithmBase10(Number.MIN_VALUE),
+				-323.3062153431158,
+				1e-10,
+			)
 			assertAlmostEquals(logarithmBase10(1e-300), -300, 1e-10)
 			assertAlmostEquals(logarithmBase10(1e-200), -200, 1e-10)
 		})
 
 		it("should handle large positive numbers", () => {
-			assertAlmostEquals(logarithmBase10(Number.MAX_VALUE), 308.2547155599167, 1e-10)
+			assertAlmostEquals(
+				logarithmBase10(Number.MAX_VALUE),
+				308.2547155599167,
+				1e-10,
+			)
 			assertAlmostEquals(logarithmBase10(1e300), 300, 1e-10)
 			assertAlmostEquals(logarithmBase10(1e200), 200, 1e-10)
 		})
@@ -215,9 +251,9 @@ describe("logarithmBase10", () => {
 					fc.float({ max: Math.fround(-Number.MIN_VALUE), noNaN: true }),
 					(x) => {
 						return Number.isNaN(logarithmBase10(x))
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -246,7 +282,7 @@ describe("logarithmBase10", () => {
 	describe("precision and accuracy", () => {
 		it("should accurately compute for fractional powers of 10", () => {
 			assertAlmostEquals(logarithmBase10(Math.sqrt(10)), 0.5, 1e-10)
-			assertAlmostEquals(logarithmBase10(Math.cbrt(10)), 1/3, 1e-10)
+			assertAlmostEquals(logarithmBase10(Math.cbrt(10)), 1 / 3, 1e-10)
 			assertAlmostEquals(logarithmBase10(Math.pow(10, 0.25)), 0.25, 1e-10)
 			assertAlmostEquals(logarithmBase10(Math.pow(10, 0.75)), 0.75, 1e-10)
 		})

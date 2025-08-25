@@ -9,8 +9,8 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import Error from "../../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../../types/index.ts"
+import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const IsDisjointSet = (op) => async (arg, localValues) => {
@@ -26,13 +26,13 @@ const IsDisjointSet = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-		try {
-			const left = new Set(operand.right as Iterable<unknown>)
-			const right = new Set(test.right as Iterable<unknown>)
+	try {
+		const left = new Set(operand.right as Iterable<unknown>)
+		const right = new Set(test.right as Iterable<unknown>)
 
-			const disjoint = Array.from(left.values()).every((v) => !right.has(v))
+		const disjoint = Array.from(left.values()).every((v) => !right.has(v))
 
-			return disjoint ? operand : {
+		return disjoint ? operand : {
 			left: [
 				Error(op)("IsDisjointSet")(
 					`${JSON.stringify(operand.right)} is not disjoint from ${

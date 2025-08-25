@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import mode from "../../../../src/simple/math/mode/index.ts"
@@ -9,65 +8,80 @@ Deno.test("mode", async (t) => {
 		await t.step("should return most frequent value(s)", async (t) => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer({ min: 0, max: 10 }), { minLength: 1, maxLength: 100 }),
+					fc.array(fc.integer({ min: 0, max: 10 }), {
+						minLength: 1,
+						maxLength: 100,
+					}),
 					(numbers) => {
 						const result = mode(numbers)
-						
+
 						// Count frequencies
 						const frequency = new Map<number, number>()
 						for (const num of numbers) {
 							frequency.set(num, (frequency.get(num) || 0) + 1)
 						}
-						
+
 						// Find max frequency
 						const maxFreq = Math.max(...frequency.values())
-						
+
 						// Get all values with max frequency
 						const expected = Array.from(frequency.entries())
 							.filter(([_, count]) => count === maxFreq)
 							.map(([value, _]) => value)
 							.sort((a, b) => a - b)
-						
+
 						assertEquals(result, expected)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should return all values for uniform distribution", async (t) => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 20 }),
-					(numbers) => {
-						// Create unique array
-						const unique = [...new Set(numbers)]
-						const result = mode(unique)
-						
-						// Should return all unique values sorted
-						assertEquals(result, unique.sort((a, b) => a - b))
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should return all values for uniform distribution",
+			async (t) => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.float({ noNaN: true }), {
+							minLength: 1,
+							maxLength: 20,
+						}),
+						(numbers) => {
+							// Create unique array
+							const unique = [...new Set(numbers)]
+							const result = mode(unique)
 
-		await t.step("should return single value for arrays with one dominant mode", async (t) => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true }),
-					fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 10 }),
-					(dominant, others) => {
-						// Create array with clear dominant value
-						const arr = [...others, dominant, dominant, dominant]
-						const result = mode(arr)
-						
-						assertEquals(result.includes(dominant), true)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+							// Should return all unique values sorted
+							assertEquals(result, unique.sort((a, b) => a - b))
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should return single value for arrays with one dominant mode",
+			async (t) => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true }),
+						fc.array(fc.float({ noNaN: true }), {
+							minLength: 1,
+							maxLength: 10,
+						}),
+						(dominant, others) => {
+							// Create array with clear dominant value
+							const arr = [...others, dominant, dominant, dominant]
+							const result = mode(arr)
+
+							assertEquals(result.includes(dominant), true)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should return values in ascending order", async (t) => {
 			fc.assert(
@@ -75,35 +89,38 @@ Deno.test("mode", async (t) => {
 					fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
 					(numbers) => {
 						const result = mode(numbers)
-						
+
 						// Check that result is sorted
 						for (let i = 1; i < result.length; i++) {
 							assertEquals(result[i] >= result[i - 1], true)
 						}
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
 
 	await t.step("deterministic behavior", async (t) => {
-		await t.step("should always return same result for same input", async (t) => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
-					(numbers) => {
-						const result1 = mode(numbers)
-						const result2 = mode(numbers)
-						const result3 = mode([...numbers])
-						
-						assertEquals(result1, result2)
-						assertEquals(result1, result3)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should always return same result for same input",
+			async (t) => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
+						(numbers) => {
+							const result1 = mode(numbers)
+							const result2 = mode(numbers)
+							const result3 = mode([...numbers])
+
+							assertEquals(result1, result2)
+							assertEquals(result1, result3)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("single vs multiple modes", async (t) => {
@@ -113,11 +130,14 @@ Deno.test("mode", async (t) => {
 			assertEquals(mode([7, 7, 7, 7, 7]), [7])
 		})
 
-		await t.step("should handle multiple modes (bimodal/multimodal)", async (t) => {
-			assertEquals(mode([1, 1, 2, 2, 3]), [1, 2])
-			assertEquals(mode([4, 4, 4, 6, 6, 6, 2]), [4, 6])
-			assertEquals(mode([1, 2, 3, 1, 2, 3]), [1, 2, 3])
-		})
+		await t.step(
+			"should handle multiple modes (bimodal/multimodal)",
+			async (t) => {
+				assertEquals(mode([1, 1, 2, 2, 3]), [1, 2])
+				assertEquals(mode([4, 4, 4, 6, 6, 6, 2]), [4, 6])
+				assertEquals(mode([1, 2, 3, 1, 2, 3]), [1, 2, 3])
+			},
+		)
 
 		await t.step("should handle no repeating values", async (t) => {
 			assertEquals(mode([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5])
@@ -156,7 +176,10 @@ Deno.test("mode", async (t) => {
 
 		await t.step("should handle large numbers", async (t) => {
 			assertEquals(mode([1000000, 1000000, 2000000]), [1000000])
-			assertEquals(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]), [Number.MAX_SAFE_INTEGER])
+			assertEquals(
+				mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]),
+				[Number.MAX_SAFE_INTEGER],
+			)
 		})
 	})
 
@@ -165,25 +188,34 @@ Deno.test("mode", async (t) => {
 			assertEquals(mode([]), [])
 		})
 
-		await t.step("should return empty array for null or undefined", async (t) => {
-			assertEquals(mode(null as any), [])
-			assertEquals(mode(undefined as any), [])
-		})
+		await t.step(
+			"should return empty array for null or undefined",
+			async (t) => {
+				assertEquals(mode(null as any), [])
+				assertEquals(mode(undefined as any), [])
+			},
+		)
 
-		await t.step("should return empty array for non-array inputs", async (t) => {
-			assertEquals(mode("not an array" as any), [])
-			assertEquals(mode(123 as any), [])
-			assertEquals(mode({} as any), [])
-		})
+		await t.step(
+			"should return empty array for non-array inputs",
+			async (t) => {
+				assertEquals(mode("not an array" as any), [])
+				assertEquals(mode(123 as any), [])
+				assertEquals(mode({} as any), [])
+			},
+		)
 
-		await t.step("should return empty array for arrays with non-numeric values", async (t) => {
-			assertEquals(mode([1, "2", 3] as any), [])
-			assertEquals(mode([1, null, 3] as any), [])
-			assertEquals(mode([1, undefined, 3] as any), [])
-			assertEquals(mode([1, 2, NaN, 3]), [])
-			assertEquals(mode([1, {}, 3] as any), [])
-			assertEquals(mode([1, [], 3] as any), [])
-		})
+		await t.step(
+			"should return empty array for arrays with non-numeric values",
+			async (t) => {
+				assertEquals(mode([1, "2", 3] as any), [])
+				assertEquals(mode([1, null, 3] as any), [])
+				assertEquals(mode([1, undefined, 3] as any), [])
+				assertEquals(mode([1, 2, NaN, 3]), [])
+				assertEquals(mode([1, {}, 3] as any), [])
+				assertEquals(mode([1, [], 3] as any), [])
+			},
+		)
 	})
 
 	await t.step("JSDoc examples", async (t) => {
@@ -237,7 +269,10 @@ Deno.test("mode", async (t) => {
 
 		await t.step("should handle large numbers", async (t) => {
 			assertEquals(mode([1000000, 1000000, 2000000]), [1000000])
-			assertEquals(mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]), [Number.MAX_SAFE_INTEGER])
+			assertEquals(
+				mode([Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0]),
+				[Number.MAX_SAFE_INTEGER],
+			)
 		})
 
 		await t.step("should handle special numeric values", async (t) => {
@@ -343,8 +378,11 @@ Deno.test("mode", async (t) => {
 		})
 
 		await t.step("should work with filtering pipeline", async (t) => {
-			const getMostCommon = (data: Array<number>, threshold: number): Array<number> => {
-				const filtered = data.filter(x => x >= threshold)
+			const getMostCommon = (
+				data: Array<number>,
+				threshold: number,
+			): Array<number> => {
+				const filtered = data.filter((x) => x >= threshold)
 				return mode(filtered)
 			}
 			assertEquals(getMostCommon([1, 2, 2, 3, 3, 3], 2), [3])

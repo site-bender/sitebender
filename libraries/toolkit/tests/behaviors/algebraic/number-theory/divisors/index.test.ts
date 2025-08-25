@@ -1,7 +1,5 @@
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
-import {
-	assertEquals,
-} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import divisors from "../../../../../src/simple/math/divisors/index.ts"
@@ -83,9 +81,9 @@ describe("divisors", () => {
 					(n) => {
 						const divs = divisors(n)
 						return divs.includes(1) && divs.includes(n)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -101,9 +99,9 @@ describe("divisors", () => {
 							}
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -113,10 +111,10 @@ describe("divisors", () => {
 					fc.integer({ min: 1, max: 10000 }),
 					(n) => {
 						const divs = divisors(n)
-						return divs.every(d => n % d === 0)
-					}
+						return divs.every((d) => n % d === 0)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -133,9 +131,9 @@ describe("divisors", () => {
 							}
 						}
 						return true
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -156,9 +154,9 @@ describe("divisors", () => {
 						const square = n * n
 						const divs = divisors(square)
 						return divs.length % 2 === 1
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -177,19 +175,19 @@ describe("divisors", () => {
 							}
 							return x
 						}
-						
+
 						// Only test coprime pairs
 						if (gcd(a, b) !== 1) return true
-						
+
 						const divsA = divisors(a)
 						const divsB = divisors(b)
 						const divsAB = divisors(a * b)
-						
+
 						// Number of divisors should multiply for coprime numbers
 						return divsAB.length === divsA.length * divsB.length
-					}
+					},
 				),
-				{ numRuns: 500 }
+				{ numRuns: 500 },
 			)
 		})
 
@@ -217,7 +215,24 @@ describe("divisors", () => {
 
 		it("should handle large numbers", () => {
 			assertEquals(divisors(100), [1, 2, 4, 5, 10, 20, 25, 50, 100])
-			assertEquals(divisors(1000), [1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 125, 200, 250, 500, 1000])
+			assertEquals(divisors(1000), [
+				1,
+				2,
+				4,
+				5,
+				8,
+				10,
+				20,
+				25,
+				40,
+				50,
+				100,
+				125,
+				200,
+				250,
+				500,
+				1000,
+			])
 		})
 
 		it("should handle perfect numbers", () => {
@@ -253,22 +268,26 @@ describe("divisors", () => {
 					fc.integer({ max: -1 }),
 					(n) => {
 						return divisors(n).length === 0
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
 		it("should return empty array for non-integers", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true })
-						.filter(x => !Number.isInteger(x)),
+					fc.float({
+						min: Math.fround(0.1),
+						max: Math.fround(100),
+						noNaN: true,
+					})
+						.filter((x) => !Number.isInteger(x)),
 					(n) => {
 						return divisors(n).length === 0
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -295,10 +314,10 @@ describe("divisors", () => {
 			const start = performance.now()
 			const result = divisors(1000000)
 			const end = performance.now()
-			
+
 			// Should complete quickly (under 10ms for 1 million)
 			assertEquals(end - start < 10, true)
-			
+
 			// Verify result is correct
 			assertEquals(result.length, 49)
 			assertEquals(result[0], 1)
@@ -312,7 +331,7 @@ describe("divisors", () => {
 				const divs = divisors(sq)
 				const sqrt = Math.sqrt(sq)
 				// Should include sqrt exactly once
-				const sqrtCount = divs.filter(d => d === sqrt).length
+				const sqrtCount = divs.filter((d) => d === sqrt).length
 				assertEquals(sqrtCount, 1)
 			}
 		})
@@ -333,7 +352,7 @@ describe("divisors", () => {
 				{ n: 60, count: 12 },
 				{ n: 120, count: 16 },
 			]
-			
+
 			for (const { n, count } of highlyComposite) {
 				assertEquals(divisors(n).length, count)
 			}
@@ -348,7 +367,7 @@ describe("divisors", () => {
 				const expectedSum = (Math.pow(p, k + 1) - 1) / (p - 1)
 				return Math.abs(actualSum - expectedSum) < 0.001
 			}
-			
+
 			assertEquals(checkPrimePower(2, 3), true) // 8
 			assertEquals(checkPrimePower(3, 2), true) // 9
 			assertEquals(checkPrimePower(5, 2), true) // 25

@@ -27,7 +27,7 @@ Deno.test("find - JSDoc example 4: curried to find admin user", () => {
 	const users: Array<User> = [
 		{ name: "Alice", role: "user" },
 		{ name: "Bob", role: "admin" },
-		{ name: "Charlie", role: "admin" }
+		{ name: "Charlie", role: "admin" },
 	]
 	const findAdmin = find((user: User) => user.role === "admin")
 	const result = findAdmin(users)
@@ -56,7 +56,12 @@ Deno.test("find - finds first match when multiple exist", () => {
 })
 
 Deno.test("find - works with different types - strings", () => {
-	const result = find((s: string) => s.length === 5)(["hi", "hello", "world", "test"])
+	const result = find((s: string) => s.length === 5)([
+		"hi",
+		"hello",
+		"world",
+		"test",
+	])
 	assertEquals(result, "hello")
 })
 
@@ -68,7 +73,7 @@ Deno.test("find - works with different types - objects", () => {
 	const products: Array<Product> = [
 		{ id: 1, inStock: false },
 		{ id: 2, inStock: true },
-		{ id: 3, inStock: true }
+		{ id: 3, inStock: true },
 	]
 	const result = find((p: Product) => p.inStock)(products)
 	assertEquals(result?.id, 2)
@@ -87,10 +92,10 @@ Deno.test("find - short-circuits on first match", () => {
 Deno.test("find - handles falsy values correctly", () => {
 	const result1 = find((n: number | null) => n === 0)([1, 2, 0, 3])
 	assertEquals(result1, 0)
-	
+
 	const result2 = find((n: number | null) => n === null)([1, null, 2])
 	assertEquals(result2, null)
-	
+
 	const result3 = find((s: string) => s === "")([" ", "", "test"])
 	assertEquals(result3, "")
 })
@@ -103,8 +108,8 @@ Deno.test("find - property: returns undefined for empty array", () => {
 			(predicate) => {
 				const result = find(predicate)([])
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -116,7 +121,7 @@ Deno.test("find - property: always returns first occurrence", () => {
 			(arr, target) => {
 				const arrWithTarget = [...arr, target, target] // Ensure at least two occurrences
 				const result = find((n: number) => n === target)(arrWithTarget)
-				
+
 				if (result !== undefined) {
 					// Find the index of the result
 					const index = arrWithTarget.indexOf(result)
@@ -128,8 +133,8 @@ Deno.test("find - property: always returns first occurrence", () => {
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -140,13 +145,13 @@ Deno.test("find - property: result satisfies predicate if not undefined", () => 
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const result = find(predicate)(arr)
-				
+
 				if (result !== undefined) {
 					return predicate(result) === true
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -158,8 +163,8 @@ Deno.test("find - property: if all elements satisfy, find returns first element"
 				const alwaysTrue = (_: number) => true
 				const result = find(alwaysTrue)(arr)
 				return result === arr[0]
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -171,8 +176,8 @@ Deno.test("find - property: if no elements satisfy, find returns undefined", () 
 				const alwaysFalse = (_: number) => false
 				const result = find(alwaysFalse)(arr)
 				return result === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -181,24 +186,24 @@ Deno.test("find - maintains referential transparency", () => {
 	const predicate = (n: number) => n > 2
 	const arr = [1, 2, 3, 4]
 	const curried = find(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("find - predicate receives only item parameter", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<number> = []
-	
+
 	const predicate = (item: number) => {
 		capturedParams.push(item)
 		return item > 25
 	}
-	
+
 	find(predicate)(arr)
-	
+
 	assertEquals(capturedParams, [10, 20, 30])
 })
 
@@ -211,7 +216,7 @@ Deno.test("find - handles sparse arrays correctly", () => {
 Deno.test("find - handles NaN values", () => {
 	const result1 = find((n: number) => Number.isNaN(n))([1, 2, NaN, 4])
 	assertEquals(Number.isNaN(result1), true)
-	
+
 	const result2 = find((n: number) => Number.isNaN(n))([1, 2, 3, 4])
 	assertEquals(result2, undefined)
 })
@@ -225,9 +230,9 @@ Deno.test("find - handles complex predicates", () => {
 		{ value: 10, active: false },
 		{ value: 20, active: true },
 		{ value: 30, active: true },
-		{ value: 40, active: false }
+		{ value: 40, active: false },
 	]
-	
+
 	const result = find((item: Item) => item.active && item.value > 25)(items)
 	assertEquals(result?.value, 30)
 })

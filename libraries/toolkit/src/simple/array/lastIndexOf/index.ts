@@ -1,10 +1,10 @@
 /**
  * Finds the index of the last occurrence of a value in an array
- * 
+ *
  * Searches from end to start using Object.is for comparison, which correctly
  * handles NaN and -0/+0. Returns undefined instead of -1 when not found,
  * making it safer for FP composition.
- * 
+ *
  * @curried (item) => (array) => result
  * @param item - The value to search for
  * @param array - The array to search in
@@ -15,7 +15,7 @@
  * lastIndexOf("hello")(["hello", "world", "hello"]) // 2
  * lastIndexOf(5)([1, 2, 3]) // undefined
  * lastIndexOf(NaN)([NaN, 1, NaN, 3]) // 2 (correctly finds last NaN)
- * 
+ *
  * // Find last position of value
  * const findLastThree = lastIndexOf(3)
  * findLastThree([3, 1, 2, 3, 4]) // 3

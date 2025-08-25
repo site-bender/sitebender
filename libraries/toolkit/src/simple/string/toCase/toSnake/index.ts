@@ -2,11 +2,11 @@ import not from "../../predicates/not/index.ts"
 
 /**
  * Converts a string to snake_case
- * 
+ *
  * Transforms a string to snake_case format where words are lowercase
  * and separated by underscores. Handles various input formats including
  * camelCase, PascalCase, kebab-case, space-separated, and mixed formats.
- * 
+ *
  * @curried Single parameter - already curried
  * @param s - The string to convert to snake_case
  * @returns The string in snake_case format
@@ -18,14 +18,14 @@ import not from "../../predicates/not/index.ts"
  * toSnake("foo-bar-baz")      // "foo_bar_baz"
  * toSnake("Test Case")        // "test_case"
  * toSnake("SCREAMING-KEBAB")  // "screaming_kebab"
- * 
+ *
  * // Mixed formats
  * toSnake("mixedCase-string") // "mixed_case_string"
  * toSnake("XML2JSON")         // "xml2_json"
- * 
+ *
  * // Already snake_case
  * toSnake("already_snake")    // "already_snake"
- * 
+ *
  * // Edge cases
  * toSnake("")                 // ""
  * toSnake("a")                // "a"

@@ -1,12 +1,12 @@
 /**
  * Splits a Map into two Maps based on a predicate
- * 
+ *
  * Divides a Map into two separate Maps: one containing all entries that
  * satisfy the predicate (truthy), and another containing all entries that
  * don't (falsy). The predicate function receives both value and key for
  * each entry. Returns a tuple with the satisfying Map first and the
  * non-satisfying Map second.
- * 
+ *
  * @curried (predicate) => (map) => [satisfies, doesNotSatisfy]
  * @param predicate - Function that returns true for entries in the first Map
  * @param map - The Map to partition
@@ -23,7 +23,7 @@
  * const [passing, failing] = partition((score: number) => score >= 80)(scores)
  * // passing: Map { "Alice" => 95, "Charlie" => 88 }
  * // failing: Map { "Bob" => 72, "David" => 65 }
- * 
+ *
  * // Partition by key pattern
  * const config = new Map([
  *   ["app.name", "MyApp"],
@@ -37,7 +37,7 @@
  * )(config)
  * // public: Map { "app.name" => "MyApp", "app.version" => "1.0", "user.theme" => "dark" }
  * // private: Map { "_debug" => true, "_internal" => "secret" }
- * 
+ *
  * // Partition objects by property
  * const users = new Map([
  *   [1, { name: "Alice", active: true, role: "admin" }],
@@ -50,7 +50,7 @@
  * )(users)
  * // activeUsers: Map { 1 => {...}, 3 => {...} }
  * // inactiveUsers: Map { 2 => {...}, 4 => {...} }
- * 
+ *
  * // Partition by both key and value
  * const inventory = new Map([
  *   ["apple:fruit", 50],
@@ -63,7 +63,7 @@
  * )(inventory)
  * // inStock: Map { "apple:fruit" => 50, "banana:fruit" => 25 }
  * // outOfStock: Map { "carrot:vegetable" => 0, "lettuce:vegetable" => 10 }
- * 
+ *
  * // String value partition
  * const translations = new Map([
  *   ["hello", "bonjour"],
@@ -77,34 +77,34 @@
  * )(translations)
  * // translated: Map { "hello" => "bonjour", "yes" => "oui", "please" => "s'il vous plaît" }
  * // untranslated: Map { "goodbye" => "", "no" => "" }
- * 
+ *
  * // Empty Map
  * const [empty1, empty2] = partition((v: any) => true)(new Map())
  * // empty1: Map {}
  * // empty2: Map {}
- * 
+ *
  * // All satisfy
  * const positive = new Map([["a", 1], ["b", 2], ["c", 3]])
  * const [all, none] = partition((n: number) => n > 0)(positive)
  * // all: Map { "a" => 1, "b" => 2, "c" => 3 }
  * // none: Map {}
- * 
+ *
  * // None satisfy
  * const negative = new Map([["a", -1], ["b", -2], ["c", -3]])
  * const [none2, all2] = partition((n: number) => n > 0)(negative)
  * // none2: Map {}
  * // all2: Map { "a" => -1, "b" => -2, "c" => -3 }
- * 
+ *
  * // Using with pipe and destructuring
  * import { pipe } from "../../combinator/pipe/index.ts"
- * 
+ *
  * const products = new Map([
  *   ["A", { price: 199, inStock: true }],
  *   ["B", { price: 99, inStock: false }],
  *   ["C", { price: 299, inStock: true }],
  *   ["D", { price: 149, inStock: true }]
  * ])
- * 
+ *
  * const processInventory = pipe(
  *   products,
  *   partition((p: any) => p.inStock),
@@ -116,7 +116,7 @@
  *   })
  * )
  * // { available: 3, unavailable: 1, availableValue: 647 }
- * 
+ *
  * // Date-based partition
  * const events = new Map([
  *   [new Date("2024-01-15"), "Meeting"],
@@ -130,7 +130,7 @@
  * )(events)
  * // firstHalf: Map with January and March events
  * // secondHalf: Map with June and August events
- * 
+ *
  * // Numeric key partition
  * const numbered = new Map([
  *   [1, "one"],
@@ -144,7 +144,7 @@
  * )(numbered)
  * // even: Map { 2 => "two", 4 => "four" }
  * // odd: Map { 1 => "one", 3 => "three", 5 => "five" }
- * 
+ *
  * // Complex predicate
  * const servers = new Map([
  *   ["srv1", { cpu: 45, memory: 60, status: "healthy" }],
@@ -157,22 +157,22 @@
  * )(servers)
  * // healthy: Map { "srv1" => {...}, "srv3" => {...} }
  * // unhealthy: Map { "srv2" => {...}, "srv4" => {...} }
- * 
+ *
  * // Partial application for reuse
  * const partitionByThreshold = (threshold: number) =>
  *   partition((value: number) => value >= threshold)
- * 
+ *
  * const temps = new Map([
  *   ["room1", 18],
  *   ["room2", 22],
  *   ["room3", 20],
  *   ["room4", 25]
  * ])
- * 
+ *
  * const [warm, cold] = partitionByThreshold(20)(temps)
  * // warm: Map { "room2" => 22, "room3" => 20, "room4" => 25 }
  * // cold: Map { "room1" => 18 }
- * 
+ *
  * // Permission check
  * const permissions = new Map([
  *   ["read", { granted: true, level: 1 }],
@@ -185,7 +185,7 @@
  * )(permissions)
  * // granted: Map { "read" => {...}, "admin" => {...} }
  * // denied: Map { "write" => {...}, "delete" => {...} }
- * 
+ *
  * // Filter with partition for analysis
  * const transactions = new Map([
  *   ["tx1", { amount: 100, type: "credit" }],
@@ -201,7 +201,7 @@
  * const debitTotal = Array.from(debits.values())
  *   .reduce((sum, tx) => sum + tx.amount, 0)
  * // creditTotal: 300, debitTotal: -125
- * 
+ *
  * // Symbol keys
  * const sym1 = Symbol("public")
  * const sym2 = Symbol("private")
@@ -216,7 +216,7 @@
  * )(symMap)
  * // publicSyms: Map with sym1 and sym3
  * // privateSyms: Map with sym2
- * 
+ *
  * // Validation partition
  * const inputs = new Map([
  *   ["email", "user@example.com"],
@@ -233,24 +233,24 @@
  * )(inputs)
  * // valid: Map { "email" => "user@example.com", "name" => "Alice" }
  * // invalid: Map { "phone" => "123", "age" => "" }
- * 
+ *
  * // Type safety
  * const typed = new Map<string, number>([
  *   ["a", 1],
  *   ["b", 2],
  *   ["c", 3]
  * ])
- * const [high, low]: [Map<string, number>, Map<string, number>] = 
+ * const [high, low]: [Map<string, number>, Map<string, number>] =
  *   partition<string, number>((n) => n > 1)(typed)
  * // high: Map<string, number> { "b" => 2, "c" => 3 }
  * // low: Map<string, number> { "a" => 1 }
- * 
+ *
  * // Use in data processing
  * const processData = (data: Map<string, any>) => {
  *   const [valid, invalid] = partition(
  *     (item: any) => item !== null && item !== undefined
  *   )(data)
- *   
+ *
  *   return {
  *     validCount: valid.size,
  *     invalidCount: invalid.size,
@@ -264,21 +264,21 @@
  * @property Complementary - All entries appear in exactly one result Map
  */
 const partition = <K, V>(
-	predicate: (value: V, key: K) => boolean
+	predicate: (value: V, key: K) => boolean,
 ) =>
-	(map: Map<K, V>): [Map<K, V>, Map<K, V>] => {
-		const satisfies = new Map<K, V>()
-		const doesNotSatisfy = new Map<K, V>()
-		
-		for (const [key, value] of map) {
-			if (predicate(value, key)) {
-				satisfies.set(key, value)
-			} else {
-				doesNotSatisfy.set(key, value)
-			}
+(map: Map<K, V>): [Map<K, V>, Map<K, V>] => {
+	const satisfies = new Map<K, V>()
+	const doesNotSatisfy = new Map<K, V>()
+
+	for (const [key, value] of map) {
+		if (predicate(value, key)) {
+			satisfies.set(key, value)
+		} else {
+			doesNotSatisfy.set(key, value)
 		}
-		
-		return [satisfies, doesNotSatisfy]
 	}
+
+	return [satisfies, doesNotSatisfy]
+}
 
 export default partition

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import xprod from "../../../../src/simple/array/xprod/index.ts"
 import cartesianProduct from "../../../../src/simple/array/cartesianProduct/index.ts"
+import xprod from "../../../../src/simple/array/xprod/index.ts"
 
 // Verify that xprod is an alias for cartesianProduct
 Deno.test("xprod - is an alias for cartesianProduct", () => {
@@ -20,14 +20,22 @@ Deno.test("xprod - handles empty arrays", () => {
 
 Deno.test("xprod - handles mixed types", () => {
 	assertEquals(xprod(["a", "b"])([1, 2]), [
-		["a", 1], ["a", 2], ["b", 1], ["b", 2]
+		["a", 1],
+		["a", 2],
+		["b", 1],
+		["b", 2],
 	])
 })
 
 Deno.test("xprod - partial application works", () => {
 	const withNumbers = xprod([1, 2, 3])
 	assertEquals(withNumbers(["a", "b"]), [
-		[1, "a"], [1, "b"], [2, "a"], [2, "b"], [3, "a"], [3, "b"]
+		[1, "a"],
+		[1, "b"],
+		[2, "a"],
+		[2, "b"],
+		[3, "a"],
+		[3, "b"],
 	])
 })
 

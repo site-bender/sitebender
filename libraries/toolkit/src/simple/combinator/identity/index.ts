@@ -1,6 +1,6 @@
 /**
  * Identity function that returns its argument unchanged
- * 
+ *
  * @param a - The value to return
  * @returns The same value that was passed in
  * @example

@@ -56,10 +56,10 @@ Deno.test("flatten - mixed depth arrays", () => {
 	const input = [1, [2, 3], [[4]], [[[5]]]]
 	const result1 = flatten(1)(input)
 	assertEquals(result1, [1, 2, 3, [4], [[5]]])
-	
+
 	const result2 = flatten(2)(input)
 	assertEquals(result2, [1, 2, 3, 4, [5]])
-	
+
 	const result3 = flatten(3)(input)
 	assertEquals(result3, [1, 2, 3, 4, 5])
 })
@@ -73,7 +73,7 @@ Deno.test("flatten - preserves non-array elements", () => {
 Deno.test("flatten - negative depth", () => {
 	const input = [[1, 2], [3, 4]]
 	const result = flatten(-1)(input)
-	assertEquals(result, [[1, 2], [3, 4]])  // Negative depth acts like 0
+	assertEquals(result, [[1, 2], [3, 4]]) // Negative depth acts like 0
 })
 
 Deno.test("flatten - very deeply nested", () => {
@@ -86,7 +86,7 @@ Deno.test("flatten - partial application", () => {
 	const flattenTwo = flatten(2)
 	const input1 = [[[1, 2]], [[3, 4]]]
 	const input2 = [[[5]], [[6]]]
-	
+
 	assertEquals(flattenTwo(input1), [1, 2, 3, 4])
 	assertEquals(flattenTwo(input2), [5, 6])
 })
@@ -117,13 +117,13 @@ Deno.test("flatten - handles NaN and Infinity", () => {
 Deno.test("flatten - handles array-like objects", () => {
 	const arrayLike = { 0: [1, 2], 1: [3, 4], length: 2 }
 	const result = flatten(1)(arrayLike as any)
-	assertEquals(result, [])  // Should return empty array for non-arrays
+	assertEquals(result, []) // Should return empty array for non-arrays
 })
 
 Deno.test("flatten - default depth parameter", () => {
 	const flattenDefault = flatten()
 	const result = flattenDefault([[1, 2], [3, 4]])
-	assertEquals(result, [1, 2, 3, 4])  // Default depth is 1
+	assertEquals(result, [1, 2, 3, 4]) // Default depth is 1
 })
 
 // Property-based tests
@@ -135,8 +135,8 @@ Deno.test("flatten - idempotence at depth 0", () => {
 				const flattened1 = flatten(0)(array)
 				const flattened2 = flatten(0)(flattened1)
 				assertEquals(flattened1, flattened2)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -148,8 +148,8 @@ Deno.test("flatten - flattening twice with depth 1 equals flattening once with d
 				const flatten1Twice = flatten(1)(flatten(1)(array))
 				const flatten2Once = flatten(2)(array)
 				assertEquals(flatten1Twice, flatten2Once)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -158,11 +158,14 @@ Deno.test("flatten - preserves total element count", () => {
 		fc.property(
 			fc.array(fc.array(fc.integer())),
 			(array) => {
-				const totalElements = array.reduce((sum, subArray) => sum + subArray.length, 0)
+				const totalElements = array.reduce(
+					(sum, subArray) => sum + subArray.length,
+					0,
+				)
 				const flattened = flatten(1)(array)
 				assertEquals(flattened.length, totalElements)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -171,7 +174,7 @@ Deno.test("flatten - infinity depth fully flattens", () => {
 		if (depth === 0) return value
 		return [createNested(value, depth - 1)]
 	}
-	
+
 	fc.assert(
 		fc.property(
 			fc.integer({ min: 1, max: 10 }),
@@ -180,37 +183,39 @@ Deno.test("flatten - infinity depth fully flattens", () => {
 				const nested = createNested(value, depth)
 				const flattened = flatten(Infinity)([nested])
 				assertEquals(flattened, [value])
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("flatten - creates new array (immutability)", () => {
 	const original = [[1, 2], [3, 4]]
 	const result = flatten(1)(original)
-	
+
 	assertEquals(result, [1, 2, 3, 4])
-	assertEquals(original, [[1, 2], [3, 4]])  // Original unchanged
-	assertEquals(original === result, false)  // Different references
+	assertEquals(original, [[1, 2], [3, 4]]) // Original unchanged
+	assertEquals(original === result, false) // Different references
 })
 
 Deno.test("flatten - complex nested structures", () => {
 	interface NestedData {
 		value: number
 	}
-	
-	const complex: Array<NestedData | Array<NestedData> | Array<Array<NestedData>>> = [
+
+	const complex: Array<
+		NestedData | Array<NestedData> | Array<Array<NestedData>>
+	> = [
 		{ value: 1 },
 		[{ value: 2 }, { value: 3 }],
-		[[{ value: 4 }]]
+		[[{ value: 4 }]],
 	]
-	
+
 	const result = flatten(1)(complex)
 	assertEquals(result, [
 		{ value: 1 },
 		{ value: 2 },
 		{ value: 3 },
-		[{ value: 4 }]
+		[{ value: 4 }],
 	])
 })
 
@@ -223,9 +228,9 @@ Deno.test("flatten - respects currying", () => {
 				const curriedFlatten = flatten(depth)
 				const result1 = curriedFlatten(array)
 				const result2 = flatten(depth)(array)
-				
+
 				assertEquals(result1, result2)
-			}
-		)
+			},
+		),
 	)
 })

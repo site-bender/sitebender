@@ -212,7 +212,10 @@ const isEmpty = (value: unknown): boolean => {
 	}
 
 	// Array-like objects check length
-	if (typeof value === "object" && "length" in value && typeof value.length === "number") {
+	if (
+		typeof value === "object" && "length" in value &&
+		typeof value.length === "number"
+	) {
 		return value.length === 0
 	}
 

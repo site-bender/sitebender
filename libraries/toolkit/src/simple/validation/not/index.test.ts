@@ -1,9 +1,10 @@
-import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
+import { describe, it } from "@std/testing/bdd"
 import * as fc from "fast-check"
-import not from "./index.ts"
+
 import isNotNullish from "../isNotNullish/index.ts"
 import isNullish from "../isNullish/index.ts"
+import not from "./index.ts"
 
 describe("Predicates - not and isNotNullish", () => {
 	describe("not function", () => {
@@ -45,7 +46,7 @@ describe("Predicates - not and isNotNullish", () => {
 		describe("double negation", () => {
 			it("should return original truthiness with double application", () => {
 				const values = [true, false, 0, 1, "", "hello", null, undefined, [], {}]
-				
+
 				for (const value of values) {
 					expect(not(not(value))).toBe(!!value)
 				}
@@ -56,7 +57,7 @@ describe("Predicates - not and isNotNullish", () => {
 			it("should work in conditional expressions", () => {
 				const isEven = (n: number) => n % 2 === 0
 				const isOdd = (n: number) => not(isEven(n))
-				
+
 				expect(isOdd(3)).toBe(true)
 				expect(isOdd(4)).toBe(false)
 			})
@@ -65,7 +66,7 @@ describe("Predicates - not and isNotNullish", () => {
 				const numbers = [0, 1, 2, 3, 4, 5]
 				const nonZero = numbers.filter((n) => not(!n))
 				expect(nonZero).toEqual([1, 2, 3, 4, 5])
-				
+
 				const falsy = [0, 1, "", "hello", null, undefined, false, true]
 				const truthy = falsy.filter((v) => not(not(v)))
 				expect(truthy).toEqual([1, "hello", true])
@@ -172,7 +173,7 @@ describe("Predicates - not and isNotNullish", () => {
 
 		it("can be implemented using not", () => {
 			const testValues = [null, undefined, 0, "", false, "hello", 1, true]
-			
+
 			for (const value of testValues) {
 				const usingNot = not(isNullish(value))
 				const direct = isNotNullish(value)
@@ -190,7 +191,7 @@ describe("Predicates - not and isNotNullish", () => {
 						const twice = not(once)
 						expect(twice).toBe(!!value)
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 
@@ -202,7 +203,7 @@ describe("Predicates - not and isNotNullish", () => {
 						// not(a || b) === (!a && !b)
 						expect(not(a || b)).toBe(not(a) && not(b))
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 
@@ -211,7 +212,7 @@ describe("Predicates - not and isNotNullish", () => {
 					fc.property(fc.anything(), (value) => {
 						expect(not(value)).toBe(!value)
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 		})
@@ -223,9 +224,9 @@ describe("Predicates - not and isNotNullish", () => {
 						fc.anything().filter((v) => v !== null && v !== undefined),
 						(value) => {
 							expect(isNotNullish(value)).toBe(true)
-						}
+						},
 					),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 
@@ -236,7 +237,7 @@ describe("Predicates - not and isNotNullish", () => {
 						const result2 = isNotNullish(value)
 						expect(result1).toBe(result2)
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 
@@ -245,7 +246,7 @@ describe("Predicates - not and isNotNullish", () => {
 					fc.property(fc.anything(), (value) => {
 						expect(isNotNullish(value)).toBe(!isNullish(value))
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 		})
@@ -263,7 +264,7 @@ describe("Predicates - not and isNotNullish", () => {
 							expect(not(value)).toBe(true)
 						}
 					}),
-					{ numRuns: 1000 }
+					{ numRuns: 1000 },
 				)
 			})
 		})
@@ -293,7 +294,7 @@ describe("Predicates - not and isNotNullish", () => {
 
 			it("should check empty fields using not", () => {
 				const isFieldEmpty = (value: string) => not(value.trim())
-				
+
 				expect(isFieldEmpty("")).toBe(true)
 				expect(isFieldEmpty("  ")).toBe(true)
 				expect(isFieldEmpty("hello")).toBe(false)
@@ -311,10 +312,10 @@ describe("Predicates - not and isNotNullish", () => {
 				const users = [
 					{ name: "Alice", active: true },
 					{ name: "Bob", active: false },
-					{ name: "Charlie", active: true }
+					{ name: "Charlie", active: true },
 				]
-				
-				const inactiveUsers = users.filter(u => not(u.active))
+
+				const inactiveUsers = users.filter((u) => not(u.active))
 				expect(inactiveUsers).toEqual([{ name: "Bob", active: false }])
 			})
 		})
@@ -323,11 +324,11 @@ describe("Predicates - not and isNotNullish", () => {
 			it("should use not for toggle operations", () => {
 				class Toggle {
 					private state: boolean = false
-					
+
 					toggle() {
 						this.state = not(this.state)
 					}
-					
+
 					get value() {
 						return this.state
 					}
@@ -344,17 +345,17 @@ describe("Predicates - not and isNotNullish", () => {
 			it("should use isNotNullish for optional parameters", () => {
 				const greet = (name?: string | null, title?: string | null): string => {
 					const parts: string[] = []
-					
+
 					if (isNotNullish(title)) {
 						parts.push(title)
 					}
-					
+
 					if (isNotNullish(name)) {
 						parts.push(name)
 					} else {
 						parts.push("Guest")
 					}
-					
+
 					return `Hello, ${parts.join(" ")}!`
 				}
 
@@ -376,19 +377,19 @@ describe("Predicates - not and isNotNullish", () => {
 
 				const formatContact = (response: ApiResponse): string => {
 					const contacts: string[] = []
-					
+
 					if (isNotNullish(response.email)) {
 						contacts.push(`Email: ${response.email}`)
 					}
-					
+
 					if (isNotNullish(response.phone)) {
 						contacts.push(`Phone: ${response.phone}`)
 					}
-					
+
 					if (not(contacts.length)) {
 						contacts.push("No contact information")
 					}
-					
+
 					return contacts.join(", ")
 				}
 
@@ -396,14 +397,14 @@ describe("Predicates - not and isNotNullish", () => {
 					id: 1,
 					name: "Alice",
 					email: "alice@test.com",
-					phone: "123-456-7890"
+					phone: "123-456-7890",
 				})).toBe("Email: alice@test.com, Phone: 123-456-7890")
 
 				expect(formatContact({
 					id: 2,
 					name: "Bob",
 					email: null,
-					phone: undefined
+					phone: undefined,
 				})).toBe("No contact information")
 			})
 		})
@@ -420,24 +421,24 @@ describe("Predicates - not and isNotNullish", () => {
 					return {
 						debug: isNotNullish(config.debug) ? config.debug : false,
 						timeout: isNotNullish(config.timeout) ? config.timeout : 5000,
-						retries: isNotNullish(config.retries) ? config.retries : 3
+						retries: isNotNullish(config.retries) ? config.retries : 3,
 					}
 				}
 
 				expect(applyDefaults({})).toEqual({
 					debug: false,
 					timeout: 5000,
-					retries: 3
+					retries: 3,
 				})
 
 				expect(applyDefaults({
 					debug: true,
 					timeout: null,
-					retries: 0
+					retries: 0,
 				})).toEqual({
 					debug: true,
 					timeout: 5000,
-					retries: 0 // 0 is not nullish
+					retries: 0, // 0 is not nullish
 				})
 			})
 		})
@@ -448,7 +449,7 @@ describe("Predicates - not and isNotNullish", () => {
 			const sparse = [1, , 3]
 			const filtered = sparse.filter(isNotNullish)
 			expect(filtered).toEqual([1, 3])
-			
+
 			const hasMissing = sparse.some((_, i) => not(i in sparse))
 			expect(hasMissing).toBe(false) // some skips holes
 		})
@@ -456,7 +457,7 @@ describe("Predicates - not and isNotNullish", () => {
 		it("should handle object with nullish prototype", () => {
 			const obj = Object.create(null)
 			obj.prop = "value"
-			
+
 			expect(isNotNullish(obj)).toBe(true)
 			expect(isNotNullish(obj.prop)).toBe(true)
 			expect(isNotNullish(obj.missing)).toBe(false)
@@ -466,7 +467,7 @@ describe("Predicates - not and isNotNullish", () => {
 			expect(not(new Boolean(false))).toBe(false) // Objects are truthy
 			expect(not(new Number(0))).toBe(false) // Objects are truthy
 			expect(not(new String(""))).toBe(false) // Objects are truthy
-			
+
 			expect(isNotNullish(new Boolean(false))).toBe(true)
 			expect(isNotNullish(new Number(0))).toBe(true)
 			expect(isNotNullish(new String(""))).toBe(true)

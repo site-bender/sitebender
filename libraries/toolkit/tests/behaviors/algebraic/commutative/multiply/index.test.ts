@@ -1,4 +1,7 @@
-import { assert, assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assert,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import multiply from "../../../../../src/simple/math/multiply/index.ts"
@@ -17,16 +20,16 @@ Deno.test("multiply - commutative property", () => {
 			(a, b) => {
 				const result1 = multiply(a)(b)
 				const result2 = multiply(b)(a)
-				
+
 				// Handle special cases
 				if (Number.isNaN(result1) && Number.isNaN(result2)) {
 					return true
 				}
-				
+
 				// Commutative: a * b = b * a
 				return Object.is(result1, result2) || approximately(result1, result2)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

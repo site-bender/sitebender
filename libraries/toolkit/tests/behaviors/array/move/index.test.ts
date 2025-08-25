@@ -44,7 +44,7 @@ Deno.test("move - single element array", () => {
 Deno.test("move - two element array swap", () => {
 	const result1 = move(0)(1)([1, 2])
 	assertEquals(result1, [2, 1])
-	
+
 	const result2 = move(1)(0)([1, 2])
 	assertEquals(result2, [2, 1])
 })
@@ -110,13 +110,13 @@ Deno.test("move - with sparse array", () => {
 
 Deno.test("move - complex movements", () => {
 	const arr = ["a", "b", "c", "d", "e"]
-	
+
 	// Move middle to start
 	assertEquals(move(2)(0)(arr), ["c", "a", "b", "d", "e"])
-	
+
 	// Move middle to end
 	assertEquals(move(2)(4)(arr), ["a", "b", "d", "e", "c"])
-	
+
 	// Move adjacent elements
 	assertEquals(move(1)(2)(arr), ["a", "c", "b", "d", "e"])
 	assertEquals(move(2)(1)(arr), ["a", "c", "b", "d", "e"])
@@ -126,13 +126,13 @@ Deno.test("move - with objects", () => {
 	const users = [
 		{ id: 1, name: "Alice" },
 		{ id: 2, name: "Bob" },
-		{ id: 3, name: "Charlie" }
+		{ id: 3, name: "Charlie" },
 	]
 	const result = move(2)(0)(users)
 	assertEquals(result, [
 		{ id: 3, name: "Charlie" },
 		{ id: 1, name: "Alice" },
-		{ id: 2, name: "Bob" }
+		{ id: 2, name: "Bob" },
 	])
 })
 
@@ -145,18 +145,18 @@ Deno.test("move - with arrays as elements", () => {
 Deno.test("move - currying stages", () => {
 	const moveFromFirst = move(0)
 	const moveToLast = moveFromFirst(3)
-	
+
 	assertEquals(moveToLast([1, 2, 3, 4]), [2, 3, 4, 1])
 	assertEquals(moveToLast(["a", "b", "c", "d"]), ["b", "c", "d", "a"])
 })
 
 Deno.test("move - boundary conditions", () => {
 	const arr = [1, 2, 3, 4, 5]
-	
+
 	// Valid boundary moves
 	assertEquals(move(0)(4)(arr), [2, 3, 4, 5, 1])
 	assertEquals(move(4)(0)(arr), [5, 1, 2, 3, 4])
-	
+
 	// Just out of bounds
 	assertEquals(move(0)(5)(arr), [1, 2, 3, 4, 5])
 	assertEquals(move(5)(0)(arr), [1, 2, 3, 4, 5])
@@ -172,9 +172,9 @@ Deno.test("move - property: result length equals input length", () => {
 			(array, from, to) => {
 				const result = move(from)(to)(array)
 				return result.length === array.length
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -186,12 +186,12 @@ Deno.test("move - property: same index returns identical array", () => {
 			(array, index) => {
 				const validIndex = index % Math.max(1, array.length)
 				const result = move(validIndex)(validIndex)(array)
-				
+
 				return result.length === array.length &&
 					result.every((v, i) => v === array[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -201,15 +201,15 @@ Deno.test("move - property: invalid indices return original array", () => {
 			fc.array(fc.integer()),
 			fc.oneof(
 				fc.integer({ max: -1 }),
-				fc.integer({ min: 100 })
+				fc.integer({ min: 100 }),
 			),
 			fc.integer(),
 			(array, invalidFrom, to) => {
 				const result = move(invalidFrom)(to)(array)
 				return result === array
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -222,11 +222,11 @@ Deno.test("move - property: element at 'from' ends up at 'to' for valid indices"
 				const to = Math.floor(Math.random() * array.length)
 				const element = array[from]
 				const result = move(from)(to)(array)
-				
+
 				return result[to] === element
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -240,12 +240,12 @@ Deno.test("move - property: all elements preserved", () => {
 				const result = move(from)(to)(array)
 				const sortedOriginal = [...array].sort()
 				const sortedResult = [...result].sort()
-				
+
 				return sortedOriginal.length === sortedResult.length &&
 					sortedOriginal.every((v, i) => v === sortedResult[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -258,29 +258,32 @@ Deno.test("move - property: immutability", () => {
 			(array, from, to) => {
 				const original = [...array]
 				move(from)(to)(array)
-				
+
 				// Original should be unchanged
 				return array.length === original.length &&
 					array.every((v, i) => v === original[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("move - property: moving forward vs backward", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer({ min: 1, max: 100 }), { minLength: 3, maxLength: 20 }),
+			fc.array(fc.integer({ min: 1, max: 100 }), {
+				minLength: 3,
+				maxLength: 20,
+			}),
 			(array) => {
 				// Create unique elements for tracking
 				const uniqueArray = array.map((v, i) => `${v}_${i}`)
-				
+
 				const from = Math.floor(Math.random() * uniqueArray.length)
 				const to = Math.floor(Math.random() * uniqueArray.length)
-				
+
 				const result = move(from)(to)(uniqueArray)
-				
+
 				if (from === to) {
 					// Should be unchanged
 					return result.every((v, i) => v === uniqueArray[i])
@@ -288,8 +291,8 @@ Deno.test("move - property: moving forward vs backward", () => {
 					// Element should be at new position
 					return result[to] === uniqueArray[from]
 				}
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

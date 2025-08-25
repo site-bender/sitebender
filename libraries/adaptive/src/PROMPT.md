@@ -5,6 +5,7 @@ Date: 2025-08-25
 This is the single source of truth for where the adaptive library stands and the exact next steps to get to “stable for commit”. Keep this file current; do not over-promise in commit messages.
 
 ## Ground rules (unchanged)
+
 - See CLAUDE.md (do not assume; progressive enhancement; accessibility; relative imports in libraries; one function/component per folder; zero-deps mindset).
 - Follow PLAN_OF_ATTACK.md (JSX → IR → SSR/SSG + hydration; registries; ComposeContext; versioned schema; tests).
 - Strict FP: avoid `let` and imperative loops. Prefer pure functions, immutability, and declarative transforms. Public surfaces return Either/Result; no thrown exceptions.
@@ -12,6 +13,7 @@ This is the single source of truth for where the adaptive library stands and the
 - Tests: keep specs simple; colocate helpers in subfolders.
 
 ## What’s DONE (as of now)
+
 - Centralized types and constants:
   - Canonical IR types at `libraries/adaptive/types/ir/index.ts` (Version = "0.1.0").
   - Canonical Bus types at `libraries/adaptive/types/bus/index.ts`.
@@ -27,6 +29,7 @@ This is the single source of truth for where the adaptive library stands and the
 - Rendering helpers: minor strictness fixes (e.g., `rendering/buildDomTree/setLevel/index.ts` parameter types) and constants are centralized under `rendering/constants.ts`.
 
 ## What’s BROKEN or INCOMPLETE (must fix before commit)
+
 - Type-check currently fails in adaptive comparators due to incomplete stub implementations (arrow functions without bodies) and possibly inconsistent compare helper usage. Example files:
   - `libraries/adaptive/src/operations/comparators/amount/isLessThan/index.ts`
   - `libraries/adaptive/src/operations/comparators/amount/isMoreThan/index.ts`
@@ -38,31 +41,34 @@ This is the single source of truth for where the adaptive library stands and the
 - Docs/tests have not been audited for import path updates beyond the automated rewrite; some examples may still show legacy `src/types` or `src/constants` paths.
 
 ## Quality gates snapshot (today)
+
 - Build/type-check: FAIL — first hard error in `comparators/*` stubs as listed above.
 - Lint: Pending re-run after type-check goes green. Migration script was updated to satisfy lint (`path.SEPARATOR`, batched removals, sync import rewriter).
 - Tests: Not re-run after the migration. Hydrator behavior tests exist but may require path updates.
 
 ## Exact NEXT STEPS to reach “stable for commit”
-1) Fix comparators stubs (highest priority):
+
+1. Fix comparators stubs (highest priority):
    - For each comparator file under `libraries/adaptive/src/operations/comparators/**/index.ts` that imports `../../compare.ts`, implement by delegating to the shared `compare` higher-order:
      - Example pattern for amount/length comparisons: `const IsLessThan = compare((o, t) => o < t); export default IsLessThan`.
      - For equality: `compare((o, t) => o === t)`; for inequality: `compare((o, t) => o !== t)`; for length-based: operate on `.length` in the comparator or ensure operands are lengths via compose.
    - Remove incomplete async arrow signatures that don’t return a function body.
    - Ensure all affected files import the correct type helpers as needed (but prefer lean signatures if `compare` hides details).
-2) Verify `compare` helper contract:
+2. Verify `compare` helper contract:
    - File: `libraries/adaptive/src/operations/comparators/compare/index.ts` — keep types coherent with `ComparatorConfig`, `OperationFunction`, and Either returns. Ensure `getErrorMessage` uses the provided op.tag (fix its local variable name if needed).
-3) Wire registries for MVP:
+3. Wire registries for MVP:
    - Populate `operations/registries/{injectors,operators,comparators,actions,events}.ts` with the minimal set referenced by current demos/tests (From.Constant/Element/QueryString/LocalStorage; Op.Add/Multiply; Is.* basics; Act.SetValue/Publish/Submit; On.Input/Change/Blur/Submit).
-4) Remove deprecated file:
+4. Remove deprecated file:
    - Delete `libraries/adaptive/src/runtime/store.ts` if no imports (grep showed none) to avoid confusion.
-5) Repo-wide pass:
+5. Repo-wide pass:
    - Run `deno task type-check`; fix remaining errors, especially any stragglers from the import rewrite.
    - Run `deno task lint` and `deno task sort` to normalize imports.
    - Run `deno task test:adaptive` and update paths in tests if needed.
-6) Docs cleanup:
+6. Docs cleanup:
    - Update any code examples that still reference `src/types` or `src/constants` to point at `libraries/adaptive/{types,constants}` or local relative paths, as appropriate.
 
 ## Backlog (post-stabilization, not blocking this commit)
+
 - Replace SHA-256 with `blake3` for ID derivation when available; keep base58 length 12 (extend to 14 on same-page collision).
 - Ensure `bytesToBigInt`/`digestBlakeLike` naming and placement conform to folder+index rule and consistent naming.
 - Store folder audit for naming and API consistency; document persistence semantics.
@@ -70,9 +76,11 @@ This is the single source of truth for where the adaptive library stands and the
 - Temporal datatypes: prefer Temporal `PlainDate`, `PlainDateTime`, `ZonedDateTime` where applicable.
 
 ## References
+
 - CLAUDE.md — rules and conventions.
 - PLAN_OF_ATTACK.md — plan and locked decisions.
 - TESTING.md — testing policy and expectations.
 
 ## Start here next session
+
 Fix the comparator stubs first (they block type-check). Then wire MVP registries, remove `runtime/store.ts`, and run type-check/lint/tests. When green, proceed with Conventional Commits for the migration and fixes.

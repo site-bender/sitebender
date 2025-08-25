@@ -1,12 +1,12 @@
 /**
  * Repeatedly executes an async function while a condition is true
- * 
+ *
  * Continuously executes an async function as long as the predicate returns true,
  * checking the condition before each iteration. Similar to a while loop but for
  * async operations. The function collects and returns all results from each
  * iteration. Useful for polling, pagination, or any operation that needs to
  * repeat until a condition is met.
- * 
+ *
  * @curried (predicate) => (fn) => Promise<Array<T>>
  * @param predicate - Function that returns true to continue, false to stop
  * @param fn - Async function to execute repeatedly
@@ -26,7 +26,7 @@
  * )
  * console.log(results) // [0, 1, 2, 3, 4]
  * console.log(count)   // 5
- * 
+ *
  * // Polling until condition is met
  * let status = "pending"
  * const pollResults = await whilst(
@@ -40,7 +40,7 @@
  *   }
  * )
  * console.log("Job completed:", pollResults[pollResults.length - 1])
- * 
+ *
  * // Pagination example
  * let page = 1
  * let hasMore = true
@@ -57,7 +57,7 @@
  * )
  * const flattenedData = allData.flat()
  * console.log(`Fetched ${flattenedData.length} items across ${page - 1} pages`)
- * 
+ *
  * // Reading chunks from a stream
  * const reader = stream.getReader()
  * let done = false
@@ -71,12 +71,12 @@
  *   }
  * )
  * const completeData = chunks.filter(Boolean) // Remove undefined from done
- * 
+ *
  * // Retry with condition
  * let attempts = 0
  * const maxAttempts = 5
  * let success = false
- * 
+ *
  * const retryResults = await whilst(
  *   () => !success && attempts < maxAttempts
  * )(
@@ -91,13 +91,13 @@
  *     }
  *   }
  * )
- * 
+ *
  * if (success) {
  *   console.log("Succeeded on attempt", attempts)
  * } else {
  *   console.log("Failed after", maxAttempts, "attempts")
  * }
- * 
+ *
  * // Process queue until empty
  * const queue = [1, 2, 3, 4, 5]
  * const processed = await whilst(
@@ -110,7 +110,7 @@
  *   }
  * )
  * console.log("Processed all items:", processed)
- * 
+ *
  * // Generate sequence until condition
  * let fibonacci = [0, 1]
  * const sequence = await whilst(
@@ -127,10 +127,10 @@
  *   }
  * )
  * console.log("Fibonacci sequence:", fibonacci)
- * 
+ *
  * // Exponential backoff polling
  * import delay from "../delay/index.ts"
- * 
+ *
  * let pollCount = 0
  * let found = false
  * const searchResults = await whilst(
@@ -140,19 +140,19 @@
  *     pollCount++
  *     const waitTime = Math.min(1000 * Math.pow(2, pollCount - 1), 30000)
  *     await delay(waitTime)()
- *     
+ *
  *     const response = await fetch("/api/search-status")
  *     const data = await response.json()
  *     found = data.found
- *     
+ *
  *     return { attempt: pollCount, waitTime, data }
  *   }
  * )
- * 
+ *
  * // Database cursor iteration
  * const cursor = db.collection("users").find({})
  * let hasNext = await cursor.hasNext()
- * 
+ *
  * const users = await whilst(
  *   () => hasNext
  * )(
@@ -163,11 +163,11 @@
  *   }
  * )
  * console.log(`Processed ${users.length} users`)
- * 
+ *
  * // Rate-limited API consumption
  * let rateLimitRemaining = 100
  * let items = []
- * 
+ *
  * const apiResults = await whilst(
  *   () => rateLimitRemaining > 0 && items.length < 1000
  * )(
@@ -178,7 +178,7 @@
  *     )
  *     const newItems = await response.json()
  *     items = items.concat(newItems)
- *     
+ *
  *     return {
  *       fetched: newItems.length,
  *       total: items.length,
@@ -186,11 +186,11 @@
  *     }
  *   }
  * )
- * 
+ *
  * // Game loop
  * let gameRunning = true
  * let score = 0
- * 
+ *
  * const gameStates = await whilst(
  *   () => gameRunning
  * )(
@@ -199,23 +199,23 @@
  *     const state = updateGameState(input)
  *     score = state.score
  *     gameRunning = !state.gameOver
- *     
+ *
  *     return state
  *   }
  * )
  * console.log("Final score:", score)
- * 
+ *
  * // Directory traversal
  * const dirsToProcess = ["./src"]
  * const allFiles = []
- * 
+ *
  * await whilst(
  *   () => dirsToProcess.length > 0
  * )(
  *   async () => {
  *     const dir = dirsToProcess.shift()!
  *     const entries = await readdir(dir)
- *     
+ *
  *     for (const entry of entries) {
  *       const path = `${dir}/${entry.name}`
  *       if (entry.isDirectory()) {
@@ -224,16 +224,16 @@
  *         allFiles.push(path)
  *       }
  *     }
- *     
+ *
  *     return { processed: dir, found: entries.length }
  *   }
  * )
  * console.log(`Found ${allFiles.length} files`)
- * 
+ *
  * // Condition with timeout
  * const startTime = Date.now()
  * const timeout = 30000 // 30 seconds
- * 
+ *
  * const timedResults = await whilst(
  *   () => {
  *     const elapsed = Date.now() - startTime
@@ -244,7 +244,7 @@
  *     return performWork()
  *   }
  * )
- * 
+ *
  * // Complex state machine
  * let state = "INIT"
  * const transitions = await whilst(
@@ -252,7 +252,7 @@
  * )(
  *   async () => {
  *     const previousState = state
- *     
+ *
  *     switch (state) {
  *       case "INIT":
  *         await initialize()
@@ -267,12 +267,12 @@
  *         state = result.success ? "DONE" : "ERROR"
  *         break
  *     }
- *     
+ *
  *     return { from: previousState, to: state }
  *   }
  * )
  * console.log("State transitions:", transitions)
- * 
+ *
  * // Never executes if condition is initially false
  * const neverRuns = await whilst(
  *   () => false
@@ -283,11 +283,11 @@
  *   }
  * )
  * console.log(neverRuns) // []
- * 
+ *
  * // Infinite loop protection
  * let iterations = 0
  * const MAX_ITERATIONS = 1000
- * 
+ *
  * const safeResults = await whilst(
  *   () => {
  *     iterations++
@@ -301,13 +301,13 @@
  *     return doWork()
  *   }
  * )
- * 
+ *
  * // Type preservation
  * interface Result {
  *   id: number
  *   value: string
  * }
- * 
+ *
  * let id = 0
  * const typedResults = await whilst(
  *   () => id < 3
@@ -325,12 +325,13 @@
  * @property Result-collecting - Returns array of all iteration results
  */
 const whilst = <T>(
-	predicate: () => boolean
-) => async (
-	fn: () => Promise<T>
+	predicate: () => boolean,
+) =>
+async (
+	fn: () => Promise<T>,
 ): Promise<Array<T>> => {
 	const results: Array<T> = []
-	
+
 	// Continue executing while predicate is true
 	while (predicate()) {
 		try {
@@ -341,7 +342,7 @@ const whilst = <T>(
 			throw error
 		}
 	}
-	
+
 	return results
 }
 

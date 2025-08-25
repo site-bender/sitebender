@@ -157,9 +157,10 @@
  * @property Curried - enables partial application and composition
  */
 const contains = (
-	substring: string | null | undefined
-) => (
-	str: string | null | undefined
+	substring: string | null | undefined,
+) =>
+(
+	str: string | null | undefined,
 ): boolean => {
 	if (str == null || typeof str !== "string") {
 		return false

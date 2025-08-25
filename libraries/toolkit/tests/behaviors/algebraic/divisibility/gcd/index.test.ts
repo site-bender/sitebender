@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import gcd from "../../../../../src/simple/math/gcd/index.ts"
@@ -14,37 +13,40 @@ Deno.test("gcd", async (t) => {
 					(a, b) => {
 						// Skip the undefined case gcd(0, 0)
 						if (a === 0 && b === 0) return true
-						
+
 						const gcdAB = gcd(a)(b)
 						const gcdBA = gcd(b)(a)
-						
+
 						if (Number.isNaN(gcdAB)) {
 							return Number.isNaN(gcdBA)
 						}
-						
+
 						return gcdAB === gcdBA
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should be associative: gcd(gcd(a, b), c) = gcd(a, gcd(b, c))", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 100 }),
-					fc.integer({ min: 1, max: 100 }),
-					fc.integer({ min: 1, max: 100 }),
-					(a, b, c) => {
-						const left = gcd(gcd(a)(b))(c)
-						const right = gcd(a)(gcd(b)(c))
-						
-						return left === right
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be associative: gcd(gcd(a, b), c) = gcd(a, gcd(b, c))",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 100 }),
+						fc.integer({ min: 1, max: 100 }),
+						fc.integer({ min: 1, max: 100 }),
+						(a, b, c) => {
+							const left = gcd(gcd(a)(b))(c)
+							const right = gcd(a)(gcd(b)(c))
+
+							return left === right
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should satisfy identity property: gcd(a, 0) = |a|", () => {
 			fc.assert(
@@ -52,29 +54,32 @@ Deno.test("gcd", async (t) => {
 					fc.integer({ min: -1000, max: 1000 }),
 					(a) => {
 						if (a === 0) return true // Skip gcd(0, 0)
-						
+
 						const result = gcd(a)(0)
 						return result === Math.abs(a)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should divide both numbers: a % gcd(a, b) = 0 and b % gcd(a, b) = 0", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 1000 }),
-					fc.integer({ min: 1, max: 1000 }),
-					(a, b) => {
-						const g = gcd(a)(b)
-						
-						return a % g === 0 && b % g === 0
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should divide both numbers: a % gcd(a, b) = 0 and b % gcd(a, b) = 0",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 1000 }),
+						fc.integer({ min: 1, max: 1000 }),
+						(a, b) => {
+							const g = gcd(a)(b)
+
+							return a % g === 0 && b % g === 0
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should be the largest common divisor", () => {
 			fc.assert(
@@ -83,18 +88,18 @@ Deno.test("gcd", async (t) => {
 					fc.integer({ min: 1, max: 100 }),
 					(a, b) => {
 						const g = gcd(a)(b)
-						
+
 						// Check that no larger number divides both
 						for (let i = g + 1; i <= Math.min(a, b); i++) {
 							if (a % i === 0 && b % i === 0) {
 								return false // Found a larger common divisor
 							}
 						}
-						
+
 						return true
-					}
+					},
 				),
-				{ numRuns: 100 } // Fewer runs due to inner loop
+				{ numRuns: 100 }, // Fewer runs due to inner loop
 			)
 		})
 
@@ -106,11 +111,11 @@ Deno.test("gcd", async (t) => {
 					(a, b) => {
 						const g = gcd(a)(b)
 						const lcm = Math.abs(a * b) / g
-						
+
 						return g * lcm === Math.abs(a * b)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -311,7 +316,10 @@ Deno.test("gcd", async (t) => {
 		})
 
 		await t.step("fraction simplification", () => {
-			function simplifyFraction(numerator: number, denominator: number): [number, number] {
+			function simplifyFraction(
+				numerator: number,
+				denominator: number,
+			): [number, number] {
 				const divisor = gcd(Math.abs(numerator))(Math.abs(denominator))
 				if (isNaN(divisor)) return [numerator, denominator]
 				return [numerator / divisor, denominator / divisor]
@@ -355,12 +363,15 @@ Deno.test("gcd", async (t) => {
 		})
 
 		await t.step("gear ratio", () => {
-			function simplifyFraction(numerator: number, denominator: number): [number, number] {
+			function simplifyFraction(
+				numerator: number,
+				denominator: number,
+			): [number, number] {
 				const divisor = gcd(Math.abs(numerator))(Math.abs(denominator))
 				if (isNaN(divisor)) return [numerator, denominator]
 				return [numerator / divisor, denominator / divisor]
 			}
-			
+
 			function gearRatio(teeth1: number, teeth2: number): string {
 				const [a, b] = simplifyFraction(teeth1, teeth2)
 				return `${a}:${b}`
@@ -370,8 +381,8 @@ Deno.test("gcd", async (t) => {
 
 		await t.step("safe GCD", () => {
 			function safeGCD(a: unknown, b: unknown): number | null {
-				const aNum = typeof a === 'number' ? a : NaN
-				const bNum = typeof b === 'number' ? b : NaN
+				const aNum = typeof a === "number" ? a : NaN
+				const bNum = typeof b === "number" ? b : NaN
 				const result = gcd(aNum)(bNum)
 				return isNaN(result) ? null : result
 			}
@@ -399,7 +410,7 @@ Deno.test("gcd", async (t) => {
 			const result1 = gcd(a)(b)
 			const result2 = gcd(a)(b)
 			const result3 = gcd(a)(b)
-			
+
 			assertEquals(result1, 6)
 			assertEquals(result2, 6)
 			assertEquals(result3, 6)
@@ -408,10 +419,10 @@ Deno.test("gcd", async (t) => {
 		await t.step("should handle edge cases efficiently", () => {
 			// Large coprime numbers
 			assertEquals(gcd(997)(1009), 1)
-			
+
 			// One very large, one small
 			assertEquals(gcd(1000000)(10), 10)
-			
+
 			// Powers of the same prime
 			assertEquals(gcd(81)(27), 27) // 3^4 and 3^3
 		})

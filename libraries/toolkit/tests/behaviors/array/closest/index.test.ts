@@ -151,8 +151,8 @@ Deno.test("closest property - returns element from array or null", () => {
 			(target, arr) => {
 				const result = closest(target)(arr)
 				return result === null || arr.includes(result)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -166,8 +166,8 @@ Deno.test("closest property - exact match is always returned", () => {
 					return closest(target)(arr) === target
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -177,18 +177,19 @@ Deno.test("closest property - result has minimum distance", () => {
 			fc.float({ noNaN: true }),
 			fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
 			(target, arr) => {
-				const validNumbers = arr.filter(n => Number.isFinite(n))
+				const validNumbers = arr.filter((n) => Number.isFinite(n))
 				if (validNumbers.length === 0) return closest(target)(arr) === null
-				
+
 				const result = closest(target)(arr)
 				const resultDistance = Math.abs(result! - target)
-				
-				return validNumbers.every(val => 
+
+				return validNumbers.every((val) =>
 					Math.abs(val - target) >= resultDistance ||
-					(Math.abs(val - target) === resultDistance && arr.indexOf(val) >= arr.indexOf(result!))
+					(Math.abs(val - target) === resultDistance &&
+						arr.indexOf(val) >= arr.indexOf(result!))
 				)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -198,8 +199,8 @@ Deno.test("closest property - empty array returns null", () => {
 			fc.float(),
 			(target) => {
 				return closest(target)([]) === null
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -214,8 +215,8 @@ Deno.test("closest property - single element always returned", () => {
 					return closest(target)([value]) === null
 				}
 				return closest(target)([value]) === value
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -228,20 +229,20 @@ Deno.test("closest property - filters non-finite numbers", () => {
 					fc.float({ noNaN: true }),
 					fc.constant(NaN),
 					fc.constant(Infinity),
-					fc.constant(-Infinity)
-				)
+					fc.constant(-Infinity),
+				),
 			),
 			(target, arr) => {
 				const result = closest(target)(arr)
-				const finiteNumbers = arr.filter(n => Number.isFinite(n))
-				
+				const finiteNumbers = arr.filter((n) => Number.isFinite(n))
+
 				if (finiteNumbers.length === 0) {
 					return result === null
 				} else {
 					return Number.isFinite(result)
 				}
-			}
-		)
+			},
+		),
 	)
 })
 

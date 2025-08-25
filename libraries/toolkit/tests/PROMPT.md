@@ -1,7 +1,9 @@
 # Testing Implementation Session Context for @sitebender/toolkit
 
 ## ⚠️ CRITICAL: SCOPE RESTRICTION ⚠️
+
 **THIS AI INSTANCE WORKS EXCLUSIVELY IN `/libraries/toolkit/`**
+
 - DO NOT touch ANYTHING in `/libraries/adaptive/` - another AI is working there
 - DO NOT touch ANYTHING in `/libraries/components/` - outside scope
 - DO NOT modify ANY files outside `/libraries/toolkit/`
@@ -9,6 +11,7 @@
 - Git commits should ONLY include files from `/libraries/toolkit/`
 
 ## Overview
+
 This document provides context for continuing the comprehensive testing implementation for the @sitebender/toolkit library. The library is a pure functional programming utility library with zero dependencies, consisting of mathematical functions, array/string operations, monadic types (Either, Maybe, Result), and IO operations.
 
 ## Current Testing Status (Updated: 2025-08-25)
@@ -16,6 +19,7 @@ This document provides context for continuing the comprehensive testing implemen
 **Overall Progress: 13.8% tested (118/854 functions with 100% coverage)**
 
 ### Latest Session Achievements (2025-08-25 - Session 11)
+
 - Added comprehensive tests for 7 array functions with 100% coverage:
   - `isEmpty` - Checks if array is empty
   - `compact` - Removes undefined values from array (preserves other falsy values)
@@ -31,6 +35,7 @@ This document provides context for continuing the comprehensive testing implemen
 - Zero linting errors
 
 ### Previous Session Achievements (2025-08-25 - Session 10)
+
 - **CRITICAL FIX**: Fixed all TypeScript type errors in test files
   - Added explicit type parameters to generic curried functions (`replaceAt<T>`, `update<T>`, etc.)
   - Tests now pass WITH type checking - no `--no-check` flag needed
@@ -41,24 +46,31 @@ This document provides context for continuing the comprehensive testing implemen
 - All tests passing with proper type safety and edge case handling
 
 ### Previous Session Achievements (2025-08-25 - Session 9)
+
 - Added comprehensive tests for 5 array transformation functions with 100% coverage: insertAt, removeAt, replaceAt, update, move. Fixed import path for pipe and achieved bonus coverage.
 
 ### Previous Session Achievements (2025-08-25 - Session 8)
+
 - Added comprehensive tests for 4 array search/index functions with 100% coverage: includes, indexOf, lastIndexOf, findLastIndex. Fixed critical issues with indexOf/lastIndexOf to use Object.is() for proper NaN handling.
 
 ### Earlier Session Achievements (2025-08-25 - Session 7)
+
 - Added comprehensive tests for 4 array functions with 100% coverage: tail, last, init, nth. Fixed type issue in init function and regression in sort test with fc.anything().
 
 ### Earlier Session Achievements (2025-08-24 - Session 6)
+
 - Added comprehensive tests for 7 array functions with 100% coverage: reverse, sort, nub/unique, drop, dropLast, head/first. Fixed NaN handling and sparse array edge cases.
 
 ### Earlier Session Achievements (2025-08-24 - Session 5)
+
 - Added comprehensive tests for 6 array transformation functions with 100% coverage: map, reduce, flatten, concat, slice, take. Fixed sparse array handling and verified currying patterns.
 
 ### Earlier Session Achievements (2025-08-24 - Session 4)
+
 - Added comprehensive tests for 6 array predicate and search functions with 100% coverage: all, some, none, find, findIndex, findLast. Fixed sparse array handling edge cases.
 
 ### Functions with 100% Coverage (118 total)
+
 - **Math (47)**: absoluteValue, add, binomialCoefficient, ceiling, clamp, combinations, cubeRoot, decrement, digitSum, divide, divisors, exponential, factorial, fibonacci, floor, gcd, geometricMean, harmonicMean, increment, inRange, isEven, isOdd, isPrime, lcm, logarithm, logarithmBase10, max, min, multiply, negate, permutations, power, primeFactorization, product, quadratic, round, sign, squareRoot, subtract, sum, totient, truncate
 - **Statistical (5)**: average, median, mode, standardDeviation, variance
 - **Trigonometry (6)**: cosine, degreesToRadians, hypotenuse, radiansToDegrees, sine, tangent
@@ -69,6 +81,7 @@ This document provides context for continuing the comprehensive testing implemen
 - **Partial Coverage (1)**: modulo (90.6%)
 
 ### Key Lessons Learned
+
 - JavaScript floating-point arithmetic has inherent limitations that tests must respect
 - Mathematical properties that hold in theory may not hold exactly in JavaScript
 - fast-check requires `Math.fround()` for float constraint boundaries
@@ -92,7 +105,7 @@ This document provides context for continuing the comprehensive testing implemen
        fc.assert(...) // THIS DOESN'T WORK!
      })
    })
-   
+
    // CORRECT - Separate test
    Deno.test("some property", () => {
      fc.assert(
@@ -134,7 +147,9 @@ This document provides context for continuing the comprehensive testing implemen
    - ✅ Verify both show the SAME numbers before committing
 
 ### 1. Quality Standards (ABSOLUTE REQUIREMENTS)
+
 **Work is NOT complete until:**
+
 - ✅ 100% code coverage achieved
 - ✅ ALL tests passing
 - ✅ Type checking passing (no `--no-check` flag needed)
@@ -142,7 +157,9 @@ This document provides context for continuing the comprehensive testing implemen
 - **This is the minimum acceptable standard. Anything less is unfinished work.**
 
 ### 2. Project Standards (MUST READ)
+
 Before ANY work, you MUST read and follow these files IN ORDER:
+
 1. `/CLAUDE.md` - Project-wide coding standards and prime directive
 2. `/libraries/toolkit/tests/TESTING_POLICY.md` - Testing requirements and patterns
 3. `/libraries/toolkit/FUNCTION_LIST.md` - Complete list of functions to test with progress tracking
@@ -150,20 +167,26 @@ Before ANY work, you MUST read and follow these files IN ORDER:
 **PRIME DIRECTIVE from CLAUDE.md**: DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS. Check everything carefully before acting, especially before writing code or committing.
 
 ### 3. File Naming Convention (CRITICAL)
+
 The project uses a specific naming convention that MUST be followed:
+
 - Function/component names go on the **folder**, NOT the file
 - Every folder must have an `index.test.ts` file
 - Example: `tests/behaviors/algebraic/commutative/add/index.test.ts` (NOT `add.test.ts`)
 - When moving/renaming files, ALWAYS update all import paths
 
 ### 4. Import Path Structure
+
 From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
+
 - To source: Use appropriate relative path (typically 4-5 levels up)
 - To helpers: Use appropriate relative path (typically 3-4 levels up)
 - Example: `import clamp from "../../../../src/simple/math/clamp/index.ts"`
 
 ### 5. Common Edge Cases That Are Often Incorrect
+
 **These edge cases are frequently implemented wrong - ALWAYS verify:**
+
 - **Permutations**: P(n,n) = P(n,n-1) = n! (they're equal, not monotonic at the end)
 - **Exponential**: exp(Number.MIN_VALUE) returns exactly 1, not slightly > 1
 - **Logarithm**: log(Infinity)(x) has special behaviors, not always NaN
@@ -172,7 +195,9 @@ From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 - **Floating Point**: Use `Object.is()` for -0/+0 distinction and NaN comparison
 
 ### 6. Linting Compliance (MANDATORY)
+
 **Common linting issues to avoid:**
+
 - ❌ NO `any` types - use specific types or `unknown` when truly unknown
 - ❌ NO sparse arrays without `// deno-lint-ignore no-sparse-arrays`
 - ❌ NO `let` for variables that aren't reassigned - use `const`
@@ -183,6 +208,7 @@ From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 - ✅ Always run `deno lint` before claiming completion
 
 ### 7. Test File Structure
+
 ```typescript
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
@@ -190,7 +216,7 @@ import * as fc from "npm:fast-check@3"
 import functionName from "[relative-path-to-source]"
 
 Deno.test("functionName - test description", () => {
-  // Test implementation
+	// Test implementation
 })
 ```
 
@@ -199,18 +225,22 @@ Deno.test("functionName - test description", () => {
 **Work is NOT complete and CANNOT be committed until ALL of these are met:**
 
 ✅ **100% Code Coverage**
+
 - Run: `deno task test:toolkit:cov`
 - Rare exceptions with `// deno-coverage-ignore` must be justified
 
 ✅ **All Tests Passing**
+
 - Run: `deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'`
 - Zero failures, no skipped tests
 
 ✅ **Type Checking Passes**
+
 - Tests must pass WITHOUT `--no-check` flag
 - No TypeScript errors whatsoever
 
 ✅ **Zero Linter Errors**
+
 - Run: `deno lint libraries/toolkit/tests/**/*.test.ts`
 - Must return "Checked X files" with no errors
 
@@ -219,12 +249,15 @@ Deno.test("functionName - test description", () => {
 ## Session Workflow (COMPLETE THESE STEPS IN ORDER)
 
 ### 1. Select Functions to Test (Maximum 6)
+
 - Check FUNCTION_LIST.md for untested functions
 - Group related functions when possible
 - Prioritize core functionality
 
 ### 2. Write Comprehensive Tests
+
 For each function:
+
 - Property-based tests using fast-check
 - JSDoc example coverage (100% required)
 - Edge cases (null, undefined, NaN, Infinity)
@@ -232,7 +265,9 @@ For each function:
 - Behavioral properties
 
 ### 3. Verify Definition of Done
+
 **MUST complete ALL before proceeding:**
+
 ```bash
 # 1. Run tests (must all pass)
 deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'
@@ -243,9 +278,11 @@ deno lint libraries/toolkit/tests/**/*.test.ts
 # 3. Check coverage (must be 100%)
 deno task test:toolkit:cov
 ```
+
 Fix ANY issues before proceeding. Do NOT continue if any check fails.
 
 ### 4. Update Documentation
+
 - Update FUNCTION_LIST.md:
   - Mark tested functions with ✓ on the same line
   - Update progress percentage at the top
@@ -260,6 +297,7 @@ Fix ANY issues before proceeding. Do NOT continue if any check fails.
 - Import paths need verification
 
 ### Fix Template
+
 ```typescript
 // Replace: expect(value).toBe(expected)
 // With: assertEquals(value, expected)
@@ -305,31 +343,36 @@ Fix ANY issues before proceeding. Do NOT continue if any check fails.
 ## Testing Patterns Reference
 
 ### Property-Based Testing - IMPORTANT NOTES
+
 **WARNING**: Be very careful with `fc.anything()` - it can generate objects that break native JavaScript operations:
+
 - Objects with toString as non-function properties
 - Objects that can't be converted to primitives
 - Always use try-catch or more specific generators when testing functions that rely on JavaScript's type coercion
 
 ### Property-Based Testing
+
 ```typescript
 fc.assert(
-  fc.property(
-    fc.float({ noNaN: true }),
-    (value) => {
-      // Property assertion
-    }
-  ),
-  { numRuns: 1000 }
+	fc.property(
+		fc.float({ noNaN: true }),
+		(value) => {
+			// Property assertion
+		},
+	),
+	{ numRuns: 1000 },
 )
 ```
 
 ### Floating-Point Comparison
+
 ```typescript
 import approximately from "[path]/helpers/assertions/approximately/index.ts"
 assertEquals(approximately(result, expected, epsilon), true)
 ```
 
 ### NaN Handling
+
 ```typescript
 assertEquals(Number.isNaN(result), true)
 // NOT: assertEquals(result, NaN)
@@ -338,12 +381,14 @@ assertEquals(Number.isNaN(result), true)
 ## Important Reminders
 
 ### Coverage Requirements
+
 - Code Coverage: 100% (use `deno task test:toolkit:cov`)
 - JSDoc Examples: 100% (consolidate if >10 examples)
 - Behavioral Coverage: All documented behaviors
 - Edge Cases: null, undefined, NaN, Infinity, empty collections
 
 ### Common Pitfalls
+
 - Don't use `===` for NaN comparison
 - Use relative epsilon for floating-point comparisons
 - Test curried function parameter order carefully
@@ -351,6 +396,7 @@ assertEquals(Number.isNaN(result), true)
 - Remember to test immutability where applicable
 
 ### Git Workflow
+
 1. Check changes: `git status`
 2. Stage files: `git add -A`
 3. Commit with conventional format:
@@ -375,6 +421,7 @@ deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts' --quiet
 ```
 
 ## Contact and Resources
+
 - Testing policy: `/libraries/toolkit/tests/TESTING_POLICY.md`
 - Project standards: `/CLAUDE.md`
 - Function list: `/libraries/toolkit/FUNCTION_LIST.md`

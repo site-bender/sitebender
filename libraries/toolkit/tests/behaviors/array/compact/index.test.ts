@@ -13,7 +13,13 @@ Deno.test("compact - handles strings with null and undefined", () => {
 })
 
 Deno.test("compact - preserves all falsy values except undefined", () => {
-	assertEquals(compact([0, false, "", null, NaN, undefined]), [0, false, "", null, NaN])
+	assertEquals(compact([0, false, "", null, NaN, undefined]), [
+		0,
+		false,
+		"",
+		null,
+		NaN,
+	])
 })
 
 // Edge cases
@@ -93,14 +99,14 @@ Deno.test("compact property - removes all undefined values", () => {
 			fc.array(
 				fc.oneof(
 					fc.anything(),
-					fc.constant(undefined)
-				)
+					fc.constant(undefined),
+				),
 			),
 			(arr) => {
 				const result = compact(arr)
 				return !result.includes(undefined)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -112,15 +118,15 @@ Deno.test("compact property - preserves all non-undefined values", () => {
 					fc.integer(),
 					fc.string(),
 					fc.boolean(),
-					fc.constant(null)
-				)
+					fc.constant(null),
+				),
 			),
 			(arr) => {
 				const result = compact(arr)
-				return result.length === arr.length && 
+				return result.length === arr.length &&
 					arr.every((val, idx) => val === result[idx])
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -130,14 +136,14 @@ Deno.test("compact property - result length <= original length", () => {
 			fc.array(
 				fc.oneof(
 					fc.anything(),
-					fc.constant(undefined)
-				)
+					fc.constant(undefined),
+				),
 			),
 			(arr) => {
 				const result = compact(arr)
 				return result.length <= arr.length
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -147,15 +153,15 @@ Deno.test("compact property - preserves element order", () => {
 			fc.array(
 				fc.oneof(
 					fc.integer(),
-					fc.constant(undefined)
-				)
+					fc.constant(undefined),
+				),
 			),
 			(arr) => {
 				const result = compact(arr)
-				const nonUndefinedOriginal = arr.filter(x => x !== undefined)
+				const nonUndefinedOriginal = arr.filter((x) => x !== undefined)
 				return result.every((val, idx) => val === nonUndefinedOriginal[idx])
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -165,15 +171,15 @@ Deno.test("compact property - idempotent", () => {
 			fc.array(
 				fc.oneof(
 					fc.anything(),
-					fc.constant(undefined)
-				)
+					fc.constant(undefined),
+				),
 			),
 			(arr) => {
 				const once = compact(arr)
 				const twice = compact(once)
 				return JSON.stringify(once) === JSON.stringify(twice)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -185,8 +191,15 @@ Deno.test("compact - maintains type safety", () => {
 })
 
 Deno.test("compact - works with union types", () => {
-	const input: Array<string | number | undefined | null> = 
-		["a", 1, undefined, null, "b", 2, undefined]
+	const input: Array<string | number | undefined | null> = [
+		"a",
+		1,
+		undefined,
+		null,
+		"b",
+		2,
+		undefined,
+	]
 	const result: Array<string | number | null> = compact(input)
 	assertEquals(result, ["a", 1, null, "b", 2])
 })

@@ -1,12 +1,12 @@
 /**
  * Returns elements in either Set but not both, using custom equality
- * 
+ *
  * Performs a symmetric difference operation (XOR for sets) using a custom
  * equality function to determine element equivalence. Returns a new Set
  * containing elements that appear in exactly one of the two Sets according
  * to the custom equality test. Elements that are considered equal by the
  * comparator are excluded from the result.
- * 
+ *
  * @curried (equals) => (set2) => (set1) => result
  * @param equals - Function to test element equality (a, b) => boolean
  * @param set2 - Second Set to compare
@@ -19,13 +19,13 @@
  *   (a: string, b: string) => a.toLowerCase() === b.toLowerCase()
  * )(new Set(["WORLD", "FOO"]))(new Set(["hello", "world"]))
  * // Set { "hello", "FOO" } ("world"/"WORLD" excluded as equal)
- * 
+ *
  * // Numeric tolerance
  * symmetricDifferenceWith(
  *   (a: number, b: number) => Math.abs(a - b) < 0.1
  * )(new Set([1.05, 2.0, 3.0]))(new Set([1.0, 2.5, 4.0]))
  * // Set { 2.5, 3.0, 4.0 } (1.0≈1.05, 2.0 kept from set1)
- * 
+ *
  * // Object property comparison
  * interface User { id: number; name: string }
  * symmetricDifferenceWith(
@@ -37,23 +37,23 @@
  * )
  * // Set { { id: 1, name: "Alice" }, { id: 3, name: "Charlie" } }
  * // (id:2 objects excluded as equal)
- * 
+ *
  * // Array length comparison
  * symmetricDifferenceWith(
  *   (a: Array<number>, b: Array<number>) => a.length === b.length
  * )(new Set([[1], [1, 2, 3]]))(new Set([[1, 2], [1, 2, 3, 4]]))
  * // Set { [1, 2], [1, 2, 3, 4], [1] }
  * // ([1,2,3] excluded as same length in both)
- * 
+ *
  * // Prefix matching
  * symmetricDifferenceWith(
  *   (a: string, b: string) => a.startsWith(b) || b.startsWith(a)
  * )(new Set(["test123", "foo"]))(new Set(["test", "bar"]))
  * // Set { "bar", "foo" } ("test"/"test123" are prefix-related)
- * 
+ *
  * // Date comparison (same day)
  * symmetricDifferenceWith(
- *   (a: Date, b: Date) => 
+ *   (a: Date, b: Date) =>
  *     a.toDateString() === b.toDateString()
  * )(
  *   new Set([new Date("2024-01-02"), new Date("2024-01-03")])
@@ -62,40 +62,40 @@
  * )
  * // Set { Date("2024-01-01T10:00"), Date("2024-01-03") }
  * // (Jan 2 dates excluded as same day)
- * 
+ *
  * // Partial application for reusable comparisons
  * const caseInsensitiveXor = symmetricDifferenceWith(
  *   (a: string, b: string) => a.toLowerCase() === b.toLowerCase()
  * )
- * 
+ *
  * const set1 = new Set(["Apple", "Banana"])
  * const set2 = new Set(["apple", "Cherry"])
  * caseInsensitiveXor(set2)(set1)
  * // Set { "Banana", "Cherry" }
- * 
+ *
  * // Empty Sets
  * symmetricDifferenceWith(
  *   (a: number, b: number) => a === b
  * )(new Set())(new Set([1, 2, 3]))
  * // Set { 1, 2, 3 }
- * 
+ *
  * symmetricDifferenceWith(
  *   (a: number, b: number) => a === b
  * )(new Set([1, 2, 3]))(new Set())
  * // Set { 1, 2, 3 }
- * 
+ *
  * // All elements match (returns empty)
  * symmetricDifferenceWith(
  *   (a: number, b: number) => Math.floor(a) === Math.floor(b)
  * )(new Set([1.5, 2.5]))(new Set([1.1, 2.9]))
  * // Set { } (all match by floor value)
- * 
+ *
  * // No elements match (returns all)
  * symmetricDifferenceWith(
  *   (a: number, b: number) => a === b
  * )(new Set([4, 5, 6]))(new Set([1, 2, 3]))
  * // Set { 1, 2, 3, 4, 5, 6 }
- * 
+ *
  * // URL path comparison
  * symmetricDifferenceWith(
  *   (a: string, b: string) => {
@@ -110,7 +110,7 @@
  * )
  * // Set { "http://site.com/home", "https://test.com/other" }
  * // (/page URLs excluded as equal paths)
- * 
+ *
  * // Version comparison
  * symmetricDifferenceWith(
  *   (a: string, b: string) => {
@@ -121,18 +121,18 @@
  * )(new Set(["2.0.0", "3.0.0"]))(new Set(["1.0.0", "2.5.1"]))
  * // Set { "1.0.0", "3.0.0" }
  * // (2.x.x versions excluded as same major)
- * 
+ *
  * // Handle null/undefined gracefully
  * symmetricDifferenceWith(
  *   (a: number, b: number) => a === b
  * )(new Set([1, 2]))(null)
  * // Set { 1, 2 }
- * 
+ *
  * symmetricDifferenceWith(
  *   (a: number, b: number) => a === b
  * )(null)(new Set([1, 2]))
  * // Set { 1, 2 }
- * 
+ *
  * // Business logic: find changed products
  * interface Product { sku: string; price: number }
  * const oldProducts = new Set([
@@ -154,11 +154,13 @@
  * @property Commutative - result contains same elements regardless of order
  */
 const symmetricDifferenceWith = <T>(
-	equals: (a: T, b: T) => boolean
-) => (
-	set2: Set<T> | null | undefined
-) => (
-	set1: Set<T> | null | undefined
+	equals: (a: T, b: T) => boolean,
+) =>
+(
+	set2: Set<T> | null | undefined,
+) =>
+(
+	set1: Set<T> | null | undefined,
 ): Set<T> => {
 	if (set1 == null || !(set1 instanceof Set)) {
 		if (set2 == null || !(set2 instanceof Set)) {
@@ -166,13 +168,13 @@ const symmetricDifferenceWith = <T>(
 		}
 		return new Set(set2)
 	}
-	
+
 	if (set2 == null || !(set2 instanceof Set)) {
 		return new Set(set1)
 	}
-	
+
 	const result = new Set<T>()
-	
+
 	// Add elements from set1 that have no equal in set2
 	for (const elem1 of set1) {
 		let hasEqual = false
@@ -186,7 +188,7 @@ const symmetricDifferenceWith = <T>(
 			result.add(elem1)
 		}
 	}
-	
+
 	// Add elements from set2 that have no equal in set1
 	for (const elem2 of set2) {
 		let hasEqual = false
@@ -200,7 +202,7 @@ const symmetricDifferenceWith = <T>(
 			result.add(elem2)
 		}
 	}
-	
+
 	return result
 }
 

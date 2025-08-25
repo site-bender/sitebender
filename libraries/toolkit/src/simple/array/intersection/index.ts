@@ -81,9 +81,10 @@
  * @property Order-preserving - maintains order from first array
  */
 const intersection = <T>(
-	array2: ReadonlyArray<T> | null | undefined
-) => (
-	array1: ReadonlyArray<T> | null | undefined
+	array2: ReadonlyArray<T> | null | undefined,
+) =>
+(
+	array1: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	if (array1 == null || !Array.isArray(array1) || array1.length === 0) {
 		return []
@@ -97,12 +98,14 @@ const intersection = <T>(
 	const set2 = new Set(array2)
 
 	// Use native Set.intersection if available (ES2025)
-	if ('intersection' in Set.prototype && typeof set1.intersection === 'function') {
+	if (
+		"intersection" in Set.prototype && typeof set1.intersection === "function"
+	) {
 		return Array.from(set1.intersection(set2))
 	}
 
 	// Fallback: Use filter for O(n) time with O(1) lookups
-	return array1.filter(element => set2.has(element))
+	return array1.filter((element) => set2.has(element))
 }
 
 export default intersection

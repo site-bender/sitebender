@@ -66,7 +66,7 @@
  * @property Constant - always returns empty Set regardless of input
  */
 const clear = <T>(
-	_set: Set<T> | null | undefined
+	_set: Set<T> | null | undefined,
 ): Set<T> => {
 	// Always return a new empty Set
 	// The input is only used for type inference

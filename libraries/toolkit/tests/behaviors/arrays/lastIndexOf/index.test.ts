@@ -54,7 +54,10 @@ Deno.test("lastIndexOf - distinguishes -0 and +0 with Object.is", () => {
 
 Deno.test("lastIndexOf - works with undefined", () => {
 	const findLastUndefined = lastIndexOf(undefined as unknown)
-	assertEquals(findLastUndefined([undefined, 1, undefined, 3] as Array<unknown>), 2)
+	assertEquals(
+		findLastUndefined([undefined, 1, undefined, 3] as Array<unknown>),
+		2,
+	)
 	assertEquals(findLastUndefined([1, 2, 3] as Array<unknown>), undefined)
 	// With Object.is, can find undefined in sparse arrays
 	// deno-lint-ignore no-sparse-arrays
@@ -149,12 +152,12 @@ Deno.test("lastIndexOf - property: element in array returns valid index", () => 
 			(arr, elem) => {
 				const arrWithElem = [...arr, elem]
 				const index = lastIndexOf(elem)(arrWithElem)
-				return index !== undefined && 
-					   index >= 0 && 
-					   index < arrWithElem.length &&
-					   arrWithElem[index] === elem
-			}
-		)
+				return index !== undefined &&
+					index >= 0 &&
+					index < arrWithElem.length &&
+					arrWithElem[index] === elem
+			},
+		),
 	)
 })
 
@@ -166,8 +169,8 @@ Deno.test("lastIndexOf - property: element not in array returns undefined", () =
 				// Use an element guaranteed not to be in the array
 				const notInArray = -1
 				return lastIndexOf(notInArray)(arr) === undefined
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -186,8 +189,8 @@ Deno.test("lastIndexOf - property: returns last occurrence", () => {
 					if (arr[i] === elem) return false
 				}
 				return arr[result] === elem
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -200,14 +203,14 @@ Deno.test("lastIndexOf - property: handles all values correctly", () => {
 				const ourIndex = lastIndexOf(elem)(arr)
 				if (ourIndex === undefined) {
 					// Element not found - verify it's really not there
-					return !arr.some(x => Object.is(x, elem))
+					return !arr.some((x) => Object.is(x, elem))
 				} else {
 					// Element found - verify it's at the right index and is the last
 					return Object.is(arr[ourIndex], elem) &&
-					       !arr.slice(ourIndex + 1).some(x => Object.is(x, elem))
+						!arr.slice(ourIndex + 1).some((x) => Object.is(x, elem))
 				}
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -221,15 +224,31 @@ Deno.test("lastIndexOf - property: lastIndexOf >= indexOf when element exists", 
 				const firstIndex = arrWithElem.indexOf(elem)
 				const lastIndex = lastIndexOf(elem)(arrWithElem)
 				return lastIndex !== undefined && lastIndex >= firstIndex
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("lastIndexOf - handles null and undefined parameters", () => {
 	const lastIndexOfNull = lastIndexOf(null as unknown as number)
 	const lastIndexOfUndefined = lastIndexOf(undefined as unknown as number)
-	
-	assertEquals(lastIndexOfNull([1, null as unknown as number, 2, null as unknown as number]), 3)
-	assertEquals(lastIndexOfUndefined([1, undefined as unknown as number, 2, undefined as unknown as number]), 3)
+
+	assertEquals(
+		lastIndexOfNull([
+			1,
+			null as unknown as number,
+			2,
+			null as unknown as number,
+		]),
+		3,
+	)
+	assertEquals(
+		lastIndexOfUndefined([
+			1,
+			undefined as unknown as number,
+			2,
+			undefined as unknown as number,
+		]),
+		3,
+	)
 })

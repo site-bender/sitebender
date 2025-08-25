@@ -1,4 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import cubeRoot from "../../../../../src/simple/math/cubeRoot/index.ts"
@@ -100,15 +103,23 @@ Deno.test("cubeRoot: JSDoc examples", async (t) => {
 
 	await t.step("signal processing", () => {
 		function cubeRootMeanCube(values: Array<number>): number {
-			const cubes = values.map(v => v ** 3)
+			const cubes = values.map((v) => v ** 3)
 			const meanCube = cubes.reduce((a, b) => a + b, 0) / values.length
 			return cubeRoot(meanCube)
 		}
-		assertAlmostEquals(cubeRootMeanCube([1, 2, 3, 4, 5]), 3.5568933044900626, 0.001)
+		assertAlmostEquals(
+			cubeRootMeanCube([1, 2, 3, 4, 5]),
+			3.5568933044900626,
+			0.001,
+		)
 	})
 
 	await t.step("growth rate calculations", () => {
-		function compoundGrowthRate(initial: number, final: number, periods: number): number {
+		function compoundGrowthRate(
+			initial: number,
+			final: number,
+			periods: number,
+		): number {
 			if (periods === 3) {
 				return cubeRoot(final / initial) - 1
 			}
@@ -119,7 +130,7 @@ Deno.test("cubeRoot: JSDoc examples", async (t) => {
 
 	await t.step("safe calculation with error handling", () => {
 		function safeCubeRoot(value: unknown): number | null {
-			const num = typeof value === 'number' ? cubeRoot(value) : NaN
+			const num = typeof value === "number" ? cubeRoot(value) : NaN
 			return isNaN(num) ? null : num
 		}
 		assertEquals(safeCubeRoot(27), 3)
@@ -135,23 +146,23 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 				(n) => {
 					const root = cubeRoot(n)
 					const cubed = root ** 3
-					
+
 					// Handle special cases
 					if (!Number.isFinite(n)) {
 						return Object.is(root, Math.cbrt(n))
 					}
-					
+
 					// For small numbers, use absolute epsilon
 					if (Math.abs(n) < 1) {
 						return approximately(cubed, n, 1e-10)
 					}
-					
+
 					// For larger numbers, use relative epsilon
 					const relativeEpsilon = Math.max(1e-10, Math.abs(n) * 1e-12)
 					return approximately(cubed, n, relativeEpsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -165,9 +176,9 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 						return Object.is(result, n)
 					}
 					return Math.sign(result) === Math.sign(n)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -176,12 +187,12 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.float({ noNaN: true, noDefaultInfinity: true }),
-					fc.float({ noNaN: true, noDefaultInfinity: true })
+					fc.float({ noNaN: true, noDefaultInfinity: true }),
 				),
 				([a, b]) => {
 					const rootA = cubeRoot(a)
 					const rootB = cubeRoot(b)
-					
+
 					if (a < b) {
 						return rootA <= rootB || approximately(rootA, rootB, 1e-10)
 					} else if (a > b) {
@@ -189,9 +200,9 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 					} else {
 						return Object.is(rootA, rootB) || approximately(rootA, rootB, 1e-10)
 					}
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -203,9 +214,9 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 					const cubed = n ** 3
 					const root = cubeRoot(cubed)
 					return approximately(root, n, 1e-10)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -213,26 +224,36 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 		fc.assert(
 			fc.property(
 				fc.tuple(
-					fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e3, max: 1e3 }),
-					fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e3, max: 1e3 })
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: -1e3,
+						max: 1e3,
+					}),
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: -1e3,
+						max: 1e3,
+					}),
 				),
 				([a, b]) => {
 					// cbrt(a * b) ≈ cbrt(a) * cbrt(b)
 					const product = a * b
 					const left = cubeRoot(product)
 					const right = cubeRoot(a) * cubeRoot(b)
-					
+
 					// Handle special cases
 					if (!Number.isFinite(product) || !Number.isFinite(right)) {
 						return true // Skip infinite results
 					}
-					
+
 					// Use relative epsilon for comparison
 					const epsilon = Math.max(1e-10, Math.abs(left) * 1e-12)
 					return approximately(left, right, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -240,27 +261,37 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 		fc.assert(
 			fc.property(
 				fc.tuple(
-					fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e3, max: 1e3 }),
-					fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e3, max: 1e3 })
-						.filter(x => Math.abs(x) > 1e-10)
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: -1e3,
+						max: 1e3,
+					}),
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: -1e3,
+						max: 1e3,
+					})
+						.filter((x) => Math.abs(x) > 1e-10),
 				),
 				([a, b]) => {
 					// cbrt(a / b) ≈ cbrt(a) / cbrt(b)
 					const quotient = a / b
 					const left = cubeRoot(quotient)
 					const right = cubeRoot(a) / cubeRoot(b)
-					
+
 					// Handle special cases
 					if (!Number.isFinite(quotient) || !Number.isFinite(right)) {
 						return true // Skip infinite results
 					}
-					
+
 					// Use relative epsilon for comparison
 					const epsilon = Math.max(1e-10, Math.abs(left) * 1e-12)
 					return approximately(left, right, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -318,7 +349,7 @@ Deno.test("cubeRoot: numerical accuracy", async (t) => {
 			{ input: 729, expected: 9 },
 			{ input: 1000, expected: 10 },
 		]
-		
+
 		for (const { input, expected } of testCases) {
 			assertEquals(cubeRoot(input), expected)
 			assertEquals(cubeRoot(-input), -expected)

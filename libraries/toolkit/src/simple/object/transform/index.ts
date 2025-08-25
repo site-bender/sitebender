@@ -2,12 +2,12 @@ import type { Value } from "../../../types/index.ts"
 
 /**
  * Transforms an object using a transformation specification
- * 
+ *
  * Applies a set of transformation functions to an object's properties based
  * on a specification object. Each key in the spec corresponds to a key in the
  * result, and each value is a function that computes the result value from
  * the input object. Powerful for reshaping and deriving new data structures.
- * 
+ *
  * @curried (spec) => (obj) => result
  * @param spec - Object mapping result keys to transformation functions
  * @param obj - The object to transform
@@ -25,7 +25,7 @@ import type { Value } from "../../../types/index.ts"
  *   age: 25
  * })
  * // { fullName: "John Doe", age: 25, isAdult: true }
- * 
+ *
  * // Property renaming and computation
  * transform({
  *   id: (obj: any) => obj.user_id,
@@ -39,7 +39,7 @@ import type { Value } from "../../../types/index.ts"
  *   created_at: "2024-01-01"
  * })
  * // { id: 123, name: "Alice", email: "alice@example.com", joined: Date(...) }
- * 
+ *
  * // Nested property access
  * transform({
  *   street: (obj: any) => obj.address.street,
@@ -54,7 +54,7 @@ import type { Value } from "../../../types/index.ts"
  *   }
  * })
  * // { street: "123 Main St", city: "NYC", fullAddress: "123 Main St, NYC" }
- * 
+ *
  * // Conditional transformations
  * transform({
  *   status: (obj: any) => obj.active ? "active" : "inactive",
@@ -66,7 +66,7 @@ import type { Value } from "../../../types/index.ts"
  *   basePrice: 100
  * })
  * // { status: "active", discount: 0.2, price: 80 }
- * 
+ *
  * // Array aggregation
  * transform({
  *   total: (obj: any) => obj.items.reduce((sum: number, item: any) => sum + item.price, 0),
@@ -80,7 +80,7 @@ import type { Value } from "../../../types/index.ts"
  *   ]
  * })
  * // { total: 60, count: 3, average: 20 }
- * 
+ *
  * // Constant values
  * transform({
  *   type: () => "user",
@@ -92,7 +92,7 @@ import type { Value } from "../../../types/index.ts"
  *   age: 30
  * })
  * // { type: "user", version: 2, timestamp: 1234567890, data: { name: "Carol", age: 30 } }
- * 
+ *
  * // Missing properties handled gracefully
  * transform({
  *   name: (obj: any) => obj.name || "Anonymous",
@@ -102,9 +102,9 @@ import type { Value } from "../../../types/index.ts"
  *   name: "Dave"
  * })
  * // { name: "Dave", email: "no-email@example.com", age: 0 }
- * 
+ *
  * // Practical use cases
- * 
+ *
  * // API response transformation
  * const transformApiResponse = transform({
  *   id: (r: any) => r.data.id,
@@ -113,7 +113,7 @@ import type { Value } from "../../../types/index.ts"
  *   nextPage: (r: any) => r.data.page + 1,
  *   totalCount: (r: any) => r.data.total_count
  * })
- * 
+ *
  * transformApiResponse({
  *   data: {
  *     id: "abc123",
@@ -125,7 +125,7 @@ import type { Value } from "../../../types/index.ts"
  *   status: 200
  * })
  * // { id: "abc123", items: [1, 2, 3], hasMore: true, nextPage: 2, totalCount: 50 }
- * 
+ *
  * // User profile formatting
  * const formatUserProfile = transform({
  *   displayName: (u: any) => `${u.firstName} ${u.lastName}`,
@@ -134,7 +134,7 @@ import type { Value } from "../../../types/index.ts"
  *   badges: (u: any) => u.achievements.map((a: any) => a.badge),
  *   isPremium: (u: any) => u.subscription === "premium"
  * })
- * 
+ *
  * formatUserProfile({
  *   firstName: "Jane",
  *   lastName: "Smith",
@@ -153,24 +153,24 @@ import type { Value } from "../../../types/index.ts"
  * //   badges: ["gold", "silver"],
  * //   isPremium: true
  * // }
- * 
+ *
  * // Order summary calculation
  * const calculateOrderSummary = transform({
- *   subtotal: (o: any) => o.items.reduce((sum: number, item: any) => 
+ *   subtotal: (o: any) => o.items.reduce((sum: number, item: any) =>
  *     sum + (item.price * item.quantity), 0),
- *   tax: (o: any) => o.items.reduce((sum: number, item: any) => 
+ *   tax: (o: any) => o.items.reduce((sum: number, item: any) =>
  *     sum + (item.price * item.quantity), 0) * o.taxRate,
- *   shipping: (o: any) => o.items.reduce((sum: number, item: any) => 
+ *   shipping: (o: any) => o.items.reduce((sum: number, item: any) =>
  *     sum + (item.price * item.quantity), 0) > 100 ? 0 : 10,
  *   total: (o: any) => {
- *     const subtotal = o.items.reduce((sum: number, item: any) => 
+ *     const subtotal = o.items.reduce((sum: number, item: any) =>
  *       sum + (item.price * item.quantity), 0)
  *     const tax = subtotal * o.taxRate
  *     const shipping = subtotal > 100 ? 0 : 10
  *     return subtotal + tax + shipping
  *   }
  * })
- * 
+ *
  * calculateOrderSummary({
  *   items: [
  *     { name: "Widget", price: 25, quantity: 2 },
@@ -179,7 +179,7 @@ import type { Value } from "../../../types/index.ts"
  *   taxRate: 0.08
  * })
  * // { subtotal: 85, tax: 6.8, shipping: 10, total: 101.8 }
- * 
+ *
  * // Data normalization
  * const normalizeRecord = transform({
  *   id: (r: any) => String(r.id || r._id || r.ID),
@@ -191,7 +191,7 @@ import type { Value } from "../../../types/index.ts"
  *     version: r.version || 1
  *   })
  * })
- * 
+ *
  * // Metric calculation
  * const calculateMetrics = transform({
  *   clickRate: (d: any) => (d.clicks / d.impressions * 100).toFixed(2) + "%",
@@ -199,7 +199,7 @@ import type { Value } from "../../../types/index.ts"
  *   costPerClick: (d: any) => "$" + (d.cost / d.clicks).toFixed(2),
  *   roi: (d: any) => ((d.revenue - d.cost) / d.cost * 100).toFixed(2) + "%"
  * })
- * 
+ *
  * calculateMetrics({
  *   impressions: 10000,
  *   clicks: 500,
@@ -208,23 +208,23 @@ import type { Value } from "../../../types/index.ts"
  *   revenue: 500
  * })
  * // { clickRate: "5.00%", conversionRate: "5.00%", costPerClick: "$0.20", roi: "400.00%" }
- * 
+ *
  * // Partial application for reusable transformers
  * const pickAndRename = (mapping: Record<string, string>) =>
  *   transform(
  *     Object.fromEntries(
- *       Object.entries(mapping).map(([newKey, oldKey]) => 
+ *       Object.entries(mapping).map(([newKey, oldKey]) =>
  *         [newKey, (obj: any) => obj[oldKey]]
  *       )
  *     )
  *   )
- * 
+ *
  * const renamer = pickAndRename({
  *   id: "user_id",
  *   name: "user_name",
  *   email: "user_email"
  * })
- * 
+ *
  * renamer({
  *   user_id: 1,
  *   user_name: "Alice",
@@ -239,7 +239,8 @@ import type { Value } from "../../../types/index.ts"
  */
 const transform = <S extends Record<string, (obj: any) => Value>>(
 	spec: S,
-) => <T extends Record<string | symbol, Value>>(
+) =>
+<T extends Record<string | symbol, Value>>(
 	obj: T,
 ): { [K in keyof S]: ReturnType<S[K]> } => {
 	// Handle null/undefined
@@ -247,9 +248,9 @@ const transform = <S extends Record<string, (obj: any) => Value>>(
 		// Still run transformations with empty object
 		obj = {} as T
 	}
-	
+
 	const result = {} as { [K in keyof S]: ReturnType<S[K]> }
-	
+
 	// Apply each transformation in the spec
 	for (const key in spec) {
 		if (Object.prototype.hasOwnProperty.call(spec, key)) {
@@ -257,7 +258,7 @@ const transform = <S extends Record<string, (obj: any) => Value>>(
 			result[key] = transformer(obj) as ReturnType<S[typeof key]>
 		}
 	}
-	
+
 	return result
 }
 

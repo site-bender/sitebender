@@ -44,7 +44,7 @@ Deno.test("isEmpty - returns false for empty object", () => {
 // Use cases from JSDoc
 Deno.test("isEmpty - filters out empty arrays", () => {
 	const arrays = [[], [1], [], [2, 3]]
-	const nonEmpty = arrays.filter(arr => !isEmpty(arr))
+	const nonEmpty = arrays.filter((arr) => !isEmpty(arr))
 	assertEquals(nonEmpty, [[1], [2, 3]])
 })
 
@@ -70,7 +70,7 @@ Deno.test("isEmpty - handles arrays with multiple elements", () => {
 // Sparse arrays
 Deno.test("isEmpty - handles sparse arrays", () => {
 	// deno-lint-ignore no-sparse-arrays
-	const sparse = [,,,]
+	const sparse = [, , ,]
 	assertEquals(isEmpty(sparse), false) // Has length 3
 })
 
@@ -81,8 +81,8 @@ Deno.test("isEmpty property - empty array always returns true", () => {
 			fc.constant([]),
 			(arr) => {
 				return isEmpty(arr) === true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -92,8 +92,8 @@ Deno.test("isEmpty property - non-empty arrays always return false", () => {
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
 				return isEmpty(arr) === false
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -103,8 +103,8 @@ Deno.test("isEmpty property - consistent with length check", () => {
 			fc.array(fc.anything()),
 			(arr) => {
 				return isEmpty(arr) === (arr.length === 0)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -117,13 +117,13 @@ Deno.test("isEmpty property - non-arrays always return false", () => {
 				fc.boolean(),
 				fc.object(),
 				fc.constant(null),
-				fc.constant(undefined)
+				fc.constant(undefined),
 			),
 			(value) => {
 				// deno-lint-ignore no-explicit-any
 				return isEmpty(value as any) === false
-			}
-		)
+			},
+		),
 	)
 })
 

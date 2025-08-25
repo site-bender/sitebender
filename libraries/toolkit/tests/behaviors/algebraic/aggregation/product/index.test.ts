@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import product from "../../../../../src/simple/math/product/index.ts"
@@ -10,30 +9,37 @@ Deno.test("product", async (t) => {
 		await t.step("should calculate the product of all elements", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), { minLength: 0, maxLength: 20 }),
+					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), {
+						minLength: 0,
+						maxLength: 20,
+					}),
 					(numbers) => {
 						const result = product(numbers)
-						
+
 						if (numbers.length === 0) {
 							return result === 1
 						}
-						
+
 						// Check for zero (annihilator)
 						if (numbers.includes(0)) {
 							return result === 0
 						}
-						
+
 						// Manual calculation for verification
 						let expected = 1
 						for (const num of numbers) {
 							expected *= num
 						}
-						
+
 						// Check for special cases
 						if (numbers.includes(Infinity)) {
 							if (numbers.includes(0)) return result === 0
-							const hasNegative = numbers.filter(n => n < 0 && n !== -Infinity).length % 2 === 1
-							const hasNegInfinity = numbers.filter(n => n === -Infinity).length % 2 === 1
+							const hasNegative = numbers.filter((n) =>
+										n < 0 && n !== -Infinity
+									).length % 2 === 1
+							const hasNegInfinity = numbers.filter((n) =>
+										n === -Infinity
+									).length % 2 === 1
 							if (hasNegative || hasNegInfinity) {
 								return result === -Infinity || Number.isNaN(result)
 							}
@@ -41,24 +47,33 @@ Deno.test("product", async (t) => {
 						}
 						if (numbers.includes(-Infinity)) {
 							if (numbers.includes(0)) return result === 0
-							const negativeCount = numbers.filter(n => n < 0).length
-							return negativeCount % 2 === 1 ? result === -Infinity : result === Infinity
+							const negativeCount = numbers.filter((n) => n < 0).length
+							return negativeCount % 2 === 1
+								? result === -Infinity
+								: result === Infinity
 						}
-						
+
 						// Use relative epsilon for floating point comparison
 						if (expected === 0) {
 							return result === 0
 						}
-						return approximately(result, expected, Math.abs(expected) * 1e-10 + 1e-10)
-					}
+						return approximately(
+							result,
+							expected,
+							Math.abs(expected) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should return multiplicative identity (1) for empty array", () => {
-			assertEquals(product([]), 1)
-		})
+		await t.step(
+			"should return multiplicative identity (1) for empty array",
+			() => {
+				assertEquals(product([]), 1)
+			},
+		)
 
 		await t.step("should return the value for single element array", () => {
 			fc.assert(
@@ -66,9 +81,9 @@ Deno.test("product", async (t) => {
 					fc.float({ noNaN: true }),
 					(value) => {
 						return product([value]) === value
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -84,9 +99,9 @@ Deno.test("product", async (t) => {
 							return Number.isNaN(result)
 						}
 						return result === 0
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -95,52 +110,68 @@ Deno.test("product", async (t) => {
 		await t.step("should be commutative (order doesn't matter)", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -10, max: 10 }), { minLength: 2, maxLength: 10 }),
+					fc.array(fc.float({ noNaN: true, min: -10, max: 10 }), {
+						minLength: 2,
+						maxLength: 10,
+					}),
 					(numbers) => {
 						const original = product(numbers)
 						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const reordered = product(shuffled)
-						
+
 						// Handle special cases
 						if (Number.isNaN(original)) return Number.isNaN(reordered)
 						if (!isFinite(original)) return original === reordered
 						if (original === 0) return reordered === 0
-						
+
 						// Account for floating point accumulation differences
-						return approximately(original, reordered, Math.abs(original) * 1e-10 + 1e-10)
-					}
+						return approximately(
+							original,
+							reordered,
+							Math.abs(original) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		await t.step("should be associative (grouping doesn't matter)", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -5, max: 5 }), { minLength: 3, maxLength: 8 }),
+					fc.array(fc.float({ noNaN: true, min: -5, max: 5 }), {
+						minLength: 3,
+						maxLength: 8,
+					}),
 					(numbers) => {
 						if (numbers.length < 3) return true
-						
+
 						// Split array and multiply in groups
 						const mid1 = Math.floor(numbers.length / 3)
 						const mid2 = Math.floor(2 * numbers.length / 3)
-						
+
 						const group1 = product(numbers.slice(0, mid1))
 						const group2 = product(numbers.slice(mid1, mid2))
 						const group3 = product(numbers.slice(mid2))
 						const groupedProduct = product([group1, group2, group3])
-						
+
 						const directProduct = product(numbers)
-						
+
 						// Handle special cases
 						if (Number.isNaN(directProduct)) return Number.isNaN(groupedProduct)
-						if (!isFinite(directProduct)) return directProduct === groupedProduct
+						if (!isFinite(directProduct)) {
+							return directProduct === groupedProduct
+						}
 						if (directProduct === 0) return groupedProduct === 0
-						
-						return approximately(groupedProduct, directProduct, Math.abs(directProduct) * 1e-10 + 1e-10)
-					}
+
+						return approximately(
+							groupedProduct,
+							directProduct,
+							Math.abs(directProduct) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -151,39 +182,46 @@ Deno.test("product", async (t) => {
 					(numbers) => {
 						const withOne = [...numbers, 1]
 						const withoutOne = numbers
-						
+
 						const prodWithOne = product(withOne)
 						const prodWithoutOne = product(withoutOne)
-						
+
 						if (Number.isNaN(prodWithoutOne)) {
 							return Number.isNaN(prodWithOne)
 						}
-						
+
 						if (!isFinite(prodWithoutOne)) {
 							return prodWithOne === prodWithoutOne
 						}
-						
-						return approximately(prodWithOne, prodWithoutOne, Math.abs(prodWithoutOne) * 1e-10 + 1e-10)
-					}
+
+						return approximately(
+							prodWithOne,
+							prodWithoutOne,
+							Math.abs(prodWithoutOne) * 1e-10 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
 		await t.step("should distribute with exponentiation", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: 10 }), { minLength: 1, maxLength: 5 }),
+					fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: 10 }), {
+						minLength: 1,
+						maxLength: 5,
+					}),
 					fc.integer({ min: -3, max: 3 }),
 					(numbers, exponent) => {
 						// product(numbers)^exponent === product(numbers.map(n => n^exponent))
 						const leftSide = Math.pow(product(numbers), exponent)
-						const rightSide = product(numbers.map(n => Math.pow(n, exponent)))
-						
+						const rightSide = product(numbers.map((n) => Math.pow(n, exponent)))
+
 						if (Number.isNaN(leftSide) || Number.isNaN(rightSide)) {
 							return Number.isNaN(leftSide) && Number.isNaN(rightSide)
 						}
-						
+
 						if (!isFinite(leftSide) || !isFinite(rightSide)) {
 							// Both should be infinity with the same sign, or both should be 0
 							if (leftSide === 0 || rightSide === 0) {
@@ -191,12 +229,16 @@ Deno.test("product", async (t) => {
 							}
 							return leftSide === rightSide
 						}
-						
+
 						// Use more lenient epsilon for exponentiation due to accumulated error
-						return approximately(leftSide, rightSide, Math.abs(leftSide) * 1e-7 + 1e-10)
-					}
+						return approximately(
+							leftSide,
+							rightSide,
+							Math.abs(leftSide) * 1e-7 + 1e-10,
+						)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -437,7 +479,7 @@ Deno.test("product", async (t) => {
 		})
 
 		await t.step("aspect ratio chain", () => {
-			const aspectRatios = [16/9, 3/4, 4/3]
+			const aspectRatios = [16 / 9, 3 / 4, 4 / 3]
 			const finalAspect = product(aspectRatios)
 			assertEquals(approximately(finalAspect, 1.7777777777777777, 1e-10), true)
 		})
@@ -450,7 +492,7 @@ Deno.test("product", async (t) => {
 
 		await t.step("pipeline with validation", () => {
 			const numbers = [2, 3, 4]
-			const doubled = numbers.map(n => n * 2)
+			const doubled = numbers.map((n) => n * 2)
 			const result = product(doubled)
 			assertEquals(result, 192)
 		})
@@ -489,7 +531,7 @@ Deno.test("product", async (t) => {
 			const result1 = product(data)
 			const result2 = product(data)
 			const result3 = product(data)
-			
+
 			assertEquals(result1, 24)
 			assertEquals(result2, 24)
 			assertEquals(result3, 24)

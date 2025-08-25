@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import head from "../../../../src/simple/array/head/index.ts"
 import first from "../../../../src/simple/array/first/index.ts"
+import head from "../../../../src/simple/array/head/index.ts"
 
 // Test JSDoc examples
 Deno.test("head: JSDoc examples", async (t) => {
@@ -27,7 +27,7 @@ Deno.test("head: idempotent property", () => {
 			const singleElementArray = [firstElement]
 			return head(singleElementArray) === firstElement
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -39,7 +39,7 @@ Deno.test("head: consistency with array indexing", () => {
 			// Both should be undefined for empty arrays, or the same value
 			return headResult === indexResult
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -48,7 +48,7 @@ Deno.test("head: consistency with at(0)", () => {
 		fc.property(fc.array(fc.anything()), (arr) => {
 			return Object.is(head(arr), arr.at(0))
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -58,7 +58,7 @@ Deno.test("head: type preservation", () => {
 			const result = head(arr)
 			return typeof result === "number"
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -107,14 +107,14 @@ Deno.test("head: edge cases", async (t) => {
 		const obj = { a: 1 }
 		const arr = [obj, { b: 2 }]
 		assertEquals(head(arr), obj)
-		assertEquals(head(arr) === obj, true)  // Same reference
+		assertEquals(head(arr) === obj, true) // Same reference
 	})
 
 	await t.step("handles array with arrays", () => {
 		const innerArr = [1, 2]
 		const arr = [innerArr, [3, 4]]
 		assertEquals(head(arr), innerArr)
-		assertEquals(head(arr) === innerArr, true)  // Same reference
+		assertEquals(head(arr) === innerArr, true) // Same reference
 	})
 
 	await t.step("handles sparse arrays", () => {
@@ -143,14 +143,14 @@ Deno.test("head: edge cases", async (t) => {
 		const fn = () => "test"
 		const arr = [fn, () => "other"]
 		assertEquals(head(arr), fn)
-		assertEquals(head(arr) === fn, true)  // Same reference
+		assertEquals(head(arr) === fn, true) // Same reference
 	})
 
 	await t.step("handles array with Date objects", () => {
 		const date = new Date("2024-01-01")
 		const arr = [date, new Date("2024-01-02")]
 		assertEquals(head(arr), date)
-		assertEquals(head(arr) === date, true)  // Same reference
+		assertEquals(head(arr) === date, true) // Same reference
 	})
 
 	await t.step("handles array with RegExp", () => {
@@ -190,9 +190,9 @@ Deno.test("first: is an alias for head", async (t) => {
 			[undefined],
 			[null, 1],
 			[NaN, 2],
-			[{ a: 1 }, { b: 2 }]
+			[{ a: 1 }, { b: 2 }],
 		]
-		
+
 		for (const testCase of testCases) {
 			const headResult = head(testCase)
 			const firstResult = first(testCase)
@@ -213,15 +213,15 @@ Deno.test("first: is an alias for head", async (t) => {
 Deno.test("head: immutability", () => {
 	const original = [1, 2, 3, 4, 5]
 	const firstElement = head(original)
-	
+
 	assertEquals(firstElement, 1)
-	assertEquals(original, [1, 2, 3, 4, 5])  // Original unchanged
-	
+	assertEquals(original, [1, 2, 3, 4, 5]) // Original unchanged
+
 	// Getting head doesn't create a copy
 	const obj = { value: 1 }
 	const arr = [obj, { value: 2 }]
 	const firstObj = head(arr)
-	assertEquals(firstObj === obj, true)  // Same reference returned
+	assertEquals(firstObj === obj, true) // Same reference returned
 })
 
 // Type preservation test
@@ -257,7 +257,7 @@ Deno.test("head: practical use cases", async (t) => {
 	await t.step("accessing first error", () => {
 		const errors = [
 			new Error("First error"),
-			new Error("Second error")
+			new Error("Second error"),
 		]
 		const firstError = head(errors)
 		assertEquals(firstError?.message, "First error")
@@ -282,9 +282,9 @@ Deno.test("head: practical use cases", async (t) => {
 	})
 
 	await t.step("default value pattern", () => {
-		const getFirstOrDefault = <T>(arr: Array<T>, defaultValue: T): T => 
+		const getFirstOrDefault = <T>(arr: Array<T>, defaultValue: T): T =>
 			head(arr) ?? defaultValue
-		
+
 		assertEquals(getFirstOrDefault([1, 2, 3], 0), 1)
 		assertEquals(getFirstOrDefault([], 0), 0)
 		assertEquals(getFirstOrDefault([undefined, 2], 0), 0)

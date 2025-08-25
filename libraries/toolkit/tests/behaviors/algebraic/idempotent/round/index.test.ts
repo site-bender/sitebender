@@ -9,22 +9,32 @@ Deno.test("round: idempotent property", async (t) => {
 			fc.property(fc.float(), (n) => {
 				const once = round(n)
 				const twice = round(once)
-				
+
 				// round is idempotent - applying it twice gives same result as once
 				return Object.is(once, twice) ||
 					(Number.isNaN(once) && Number.isNaN(twice))
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
 	await t.step("idempotent for special values", () => {
-		const specialValues = [0, -0, 0.5, -0.5, 1.5, -1.5, Infinity, -Infinity, NaN]
-		
+		const specialValues = [
+			0,
+			-0,
+			0.5,
+			-0.5,
+			1.5,
+			-1.5,
+			Infinity,
+			-Infinity,
+			NaN,
+		]
+
 		for (const value of specialValues) {
 			const once = round(value)
 			const twice = round(once)
-			
+
 			if (Number.isNaN(value)) {
 				assertEquals(Number.isNaN(once), true)
 				assertEquals(Number.isNaN(twice), true)
@@ -42,15 +52,15 @@ Deno.test("round: nearest integer property", async (t) => {
 				const result = round(n)
 				const floor = Math.floor(n)
 				const ceil = Math.ceil(n)
-				
+
 				// Result should be either floor or ceiling
 				if (!Number.isFinite(n)) {
 					return Object.is(result, n)
 				}
-				
+
 				return result === floor || result === ceil
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -60,16 +70,16 @@ Deno.test("round: nearest integer property", async (t) => {
 				const result = round(n)
 				const floor = Math.floor(n)
 				const ceil = Math.ceil(n)
-				
+
 				const distToResult = Math.abs(n - result)
 				const distToFloor = Math.abs(n - floor)
 				const distToCeil = Math.abs(n - ceil)
-				
+
 				// Result should minimize distance (with tie going away from zero)
-				return distToResult <= distToFloor + 1e-10 && 
-				       distToResult <= distToCeil + 1e-10
+				return distToResult <= distToFloor + 1e-10 &&
+					distToResult <= distToCeil + 1e-10
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -99,14 +109,14 @@ Deno.test("round: relationship with floor and ceiling", async (t) => {
 				const rounded = round(n)
 				const floored = Math.floor(n)
 				const ceiled = Math.ceil(n)
-				
+
 				if (!Number.isFinite(n)) {
 					return Object.is(rounded, n)
 				}
-				
+
 				return rounded >= floored && rounded <= ceiled
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -116,10 +126,10 @@ Deno.test("round: relationship with floor and ceiling", async (t) => {
 				const rounded = round(n)
 				const floored = Math.floor(n)
 				const ceiled = Math.ceil(n)
-				
+
 				return rounded === n && floored === n && ceiled === n
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -202,11 +212,11 @@ Deno.test("round: error handling and null safety", async (t) => {
 
 	await t.step("type safety with unknown inputs", () => {
 		const safeRound = (value: unknown): number | null => {
-			const num = typeof value === 'number' ? value : NaN
+			const num = typeof value === "number" ? value : NaN
 			const result = round(num)
 			return Number.isNaN(result) ? null : result
 		}
-		
+
 		assertEquals(safeRound(3.7), 4)
 		assertEquals(safeRound("3.7"), null)
 		assertEquals(safeRound(null), null)

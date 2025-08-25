@@ -1,13 +1,14 @@
 import type { Result } from "../../types/fp/result/index.ts"
+
 import right from "../../either/right/index.ts"
 
 /**
  * Creates an Ok result representing success
- * 
+ *
  * Wrapper around Either's right function with Result-specific naming.
  * Ok values represent successful computations that will have operations
  * like map and chain applied to them.
- * 
+ *
  * @param value - The success value to wrap
  * @returns A Result in the Ok state
  * @example

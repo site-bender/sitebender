@@ -1,12 +1,12 @@
 /**
  * Comparator for sorting by absolute time
- * 
+ *
  * Creates a comparator function for sorting temporal objects by their absolute
  * time values. Works with Instant, ZonedDateTime, and PlainDateTime objects,
  * converting them to absolute instants for comparison when necessary. Returns
  * a standard comparator result (-1, 0, 1) for use with Array.sort() and other
  * sorting utilities. Handles timezone-aware comparisons correctly.
- * 
+ *
  * @curried (timeZone?) => (a, b) => result
  * @param timeZone - Optional timezone for PlainDateTime conversion (defaults to UTC)
  * @param a - First temporal object to compare
@@ -23,14 +23,14 @@
  * instants.sort(sortByAbsoluteTime())
  * // [
  * //   Instant 2024-03-15T14:30:00Z,
- * //   Instant 2024-03-15T18:30:00Z, 
+ * //   Instant 2024-03-15T18:30:00Z,
  * //   Instant 2024-03-15T20:15:00Z
  * // ]
- * 
+ *
  * // Sort ZonedDateTimes (accounts for timezone differences)
  * const zonedTimes = [
  *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]"),  // 18:30 UTC
- *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[Europe/London]"),     // 14:30 UTC 
+ *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[Europe/London]"),     // 14:30 UTC
  *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[Asia/Tokyo]")         // 05:30 UTC
  * ]
  * zonedTimes.sort(sortByAbsoluteTime())
@@ -39,7 +39,7 @@
  * //   ZonedDateTime 2024-03-15T14:30:00[Europe/London],
  * //   ZonedDateTime 2024-03-15T14:30:00[America/New_York] (latest UTC)
  * // ]
- * 
+ *
  * // Sort PlainDateTimes (assumes UTC)
  * const plainTimes = [
  *   Temporal.PlainDateTime.from("2024-03-15T18:30:00"),
@@ -52,7 +52,7 @@
  * //   PlainDateTime 2024-03-15T18:30:00,
  * //   PlainDateTime 2024-03-15T20:15:00
  * // ]
- * 
+ *
  * // Sort PlainDateTimes with specific timezone
  * const plainTimesInNY = [
  *   Temporal.PlainDateTime.from("2024-03-15T14:30:00"),
@@ -61,7 +61,7 @@
  * ]
  * plainTimesInNY.sort(sortByAbsoluteTime("America/New_York"))
  * // Converts to NY timezone before comparison
- * 
+ *
  * // Mixed temporal types
  * const mixedTimes = [
  *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]"),
@@ -70,7 +70,7 @@
  * ]
  * mixedTimes.sort(sortByAbsoluteTime())
  * // Sorted by absolute UTC time regardless of original type
- * 
+ *
  * // Meeting schedule sorting
  * const meetings = [
  *   {
@@ -78,7 +78,7 @@
  *     time: Temporal.ZonedDateTime.from("2024-03-15T09:00:00[Europe/London]")
  *   },
  *   {
- *     title: "NY team call", 
+ *     title: "NY team call",
  *     time: Temporal.ZonedDateTime.from("2024-03-15T09:00:00[America/New_York]")
  *   },
  *   {
@@ -88,7 +88,7 @@
  * ]
  * meetings.sort((a, b) => sortByAbsoluteTime()(a.time, b.time))
  * // Sorted by actual UTC time, not local 9:00 AM
- * 
+ *
  * // Event timeline sorting
  * const events = [
  *   {
@@ -105,7 +105,7 @@
  *   }
  * ]
  * events.sort((a, b) => sortByAbsoluteTime()(a.timestamp, b.timestamp))
- * 
+ *
  * // Log entry chronological sorting
  * const logEntries = [
  *   { level: "ERROR", time: Temporal.Instant.from("2024-03-15T14:32:15Z") },
@@ -114,21 +114,21 @@
  * ]
  * logEntries.sort((a, b) => sortByAbsoluteTime()(a.time, b.time))
  * // Chronological order: INFO, WARN, ERROR
- * 
+ *
  * // Partial application for reusable sorters
  * const sortInstants = sortByAbsoluteTime()
  * const sortInNYTime = sortByAbsoluteTime("America/New_York")
  * const sortInUTC = sortByAbsoluteTime("UTC")
- * 
+ *
  * // Database result sorting
  * function sortQueryResults<T extends { createdAt: Temporal.ZonedDateTime }>(
  *   results: Array<T>
  * ): Array<T> {
- *   return results.sort((a, b) => 
+ *   return results.sort((a, b) =>
  *     sortByAbsoluteTime()(a.createdAt, b.createdAt)
  *   )
  * }
- * 
+ *
  * // Appointment scheduling
  * const appointments = [
  *   {
@@ -136,7 +136,7 @@
  *     time: Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]")
  *   },
  *   {
- *     patient: "Jane", 
+ *     patient: "Jane",
  *     time: Temporal.ZonedDateTime.from("2024-03-15T19:30:00[Europe/London]")
  *   },
  *   {
@@ -144,11 +144,11 @@
  *     time: Temporal.ZonedDateTime.from("2024-03-15T13:00:00[America/New_York]")
  *   }
  * ]
- * 
- * const sortedAppointments = appointments.sort((a, b) => 
+ *
+ * const sortedAppointments = appointments.sort((a, b) =>
  *   sortByAbsoluteTime()(a.time, b.time)
  * )
- * 
+ *
  * // Flight departure sorting (different timezones)
  * const flights = [
  *   {
@@ -156,7 +156,7 @@
  *     departure: Temporal.ZonedDateTime.from("2024-03-15T08:00:00[America/New_York]")
  *   },
  *   {
- *     flight: "BA456", 
+ *     flight: "BA456",
  *     departure: Temporal.ZonedDateTime.from("2024-03-15T13:00:00[Europe/London]")
  *   },
  *   {
@@ -164,11 +164,11 @@
  *     departure: Temporal.ZonedDateTime.from("2024-03-15T22:00:00[Asia/Tokyo]")
  *   }
  * ]
- * 
- * const chronologicalFlights = flights.sort((a, b) => 
+ *
+ * const chronologicalFlights = flights.sort((a, b) =>
  *   sortByAbsoluteTime()(a.departure, b.departure)
  * )
- * 
+ *
  * // Task queue priority by deadline
  * const tasks = [
  *   {
@@ -176,7 +176,7 @@
  *     deadline: Temporal.ZonedDateTime.from("2024-03-15T17:00:00[UTC]")
  *   },
  *   {
- *     id: "task2", 
+ *     id: "task2",
  *     deadline: Temporal.ZonedDateTime.from("2024-03-15T12:00:00[America/New_York]")
  *   },
  *   {
@@ -184,11 +184,11 @@
  *     deadline: Temporal.ZonedDateTime.from("2024-03-15T18:00:00[Europe/London]")
  *   }
  * ]
- * 
- * const tasksByDeadline = tasks.sort((a, b) => 
+ *
+ * const tasksByDeadline = tasks.sort((a, b) =>
  *   sortByAbsoluteTime()(a.deadline, b.deadline)
  * )
- * 
+ *
  * // Null/undefined handling (puts nulls at end)
  * function sortWithNulls<T extends Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDateTime>(
  *   times: Array<T | null>
@@ -200,7 +200,7 @@
  *     return sortByAbsoluteTime()(a, b)
  *   })
  * }
- * 
+ *
  * // Performance monitoring - sort by execution time
  * const executions = [
  *   {
@@ -208,7 +208,7 @@
  *     startTime: Temporal.Instant.from("2024-03-15T14:30:15.123Z")
  *   },
  *   {
- *     function: "processB", 
+ *     function: "processB",
  *     startTime: Temporal.Instant.from("2024-03-15T14:30:14.987Z")
  *   },
  *   {
@@ -216,20 +216,20 @@
  *     startTime: Temporal.Instant.from("2024-03-15T14:30:15.456Z")
  *   }
  * ]
- * 
- * const executionOrder = executions.sort((a, b) => 
+ *
+ * const executionOrder = executions.sort((a, b) =>
  *   sortByAbsoluteTime()(a.startTime, b.startTime)
  * )
- * 
+ *
  * // Reverse chronological order (newest first)
  * function sortByAbsoluteTimeDesc(timeZone?: string) {
  *   return (a: any, b: any) => -sortByAbsoluteTime(timeZone)(a, b)
  * }
- * 
- * const recentFirst = events.sort((a, b) => 
+ *
+ * const recentFirst = events.sort((a, b) =>
  *   sortByAbsoluteTimeDesc()(a.timestamp, b.timestamp)
  * )
- * 
+ *
  * // Custom sort with fallback
  * function sortByTimeWithFallback<T>(
  *   getTime: (item: T) => Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDateTime | null,
@@ -238,16 +238,16 @@
  *   return (a: T, b: T) => {
  *     const timeA = getTime(a)
  *     const timeB = getTime(b)
- *     
+ *
  *     if (timeA && timeB) {
  *       return sortByAbsoluteTime()(timeA, timeB)
  *     }
- *     
+ *
  *     // Use fallback for null times
  *     if (!timeA && !timeB) return getFallback(a) - getFallback(b)
  *     if (!timeA) return 1
  *     if (!timeB) return -1
- *     
+ *
  *     return 0
  *   }
  * }
@@ -258,20 +258,31 @@
  * @property Timezone-aware - Correctly handles timezone differences
  * @property Standard - Returns standard comparator values (-1, 0, 1)
  */
-const sortByAbsoluteTime = (timeZone: string = "UTC") => (
-	a: Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDateTime | null | undefined,
-	b: Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDateTime | null | undefined
+const sortByAbsoluteTime = (timeZone: string = "UTC") =>
+(
+	a:
+		| Temporal.Instant
+		| Temporal.ZonedDateTime
+		| Temporal.PlainDateTime
+		| null
+		| undefined,
+	b:
+		| Temporal.Instant
+		| Temporal.ZonedDateTime
+		| Temporal.PlainDateTime
+		| null
+		| undefined,
 ): number => {
 	// Handle null/undefined cases
 	if (a == null && b == null) return 0
-	if (a == null) return 1  // nulls sort to end
+	if (a == null) return 1 // nulls sort to end
 	if (b == null) return -1
-	
+
 	try {
 		// Convert both to Instants for absolute time comparison
 		let instantA: Temporal.Instant
 		let instantB: Temporal.Instant
-		
+
 		// Convert a to Instant
 		if (a instanceof Temporal.Instant) {
 			instantA = a
@@ -283,7 +294,7 @@ const sortByAbsoluteTime = (timeZone: string = "UTC") => (
 			// Invalid type for a
 			return 1
 		}
-		
+
 		// Convert b to Instant
 		if (b instanceof Temporal.Instant) {
 			instantB = b
@@ -295,17 +306,25 @@ const sortByAbsoluteTime = (timeZone: string = "UTC") => (
 			// Invalid type for b
 			return -1
 		}
-		
+
 		// Compare instants
 		return Temporal.Instant.compare(instantA, instantB)
 	} catch {
 		// If conversion fails, try to compare based on type precedence
 		// This is a fallback that shouldn't normally be reached
-		if (a instanceof Temporal.Instant && !(b instanceof Temporal.Instant)) return -1
-		if (!(a instanceof Temporal.Instant) && b instanceof Temporal.Instant) return 1
-		if (a instanceof Temporal.ZonedDateTime && b instanceof Temporal.PlainDateTime) return -1
-		if (a instanceof Temporal.PlainDateTime && b instanceof Temporal.ZonedDateTime) return 1
-		
+		if (a instanceof Temporal.Instant && !(b instanceof Temporal.Instant)) {
+			return -1
+		}
+		if (!(a instanceof Temporal.Instant) && b instanceof Temporal.Instant) {
+			return 1
+		}
+		if (
+			a instanceof Temporal.ZonedDateTime && b instanceof Temporal.PlainDateTime
+		) return -1
+		if (
+			a instanceof Temporal.PlainDateTime && b instanceof Temporal.ZonedDateTime
+		) return 1
+
 		return 0
 	}
 }

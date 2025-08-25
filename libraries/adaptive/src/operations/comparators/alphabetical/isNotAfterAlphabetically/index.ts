@@ -8,8 +8,8 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import Error from "../../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../../types/index.ts"
+import Error from "../../../../constructors/Error/index.ts"
 import getOperands from "../../../../utilities/getOperands/index.ts"
 
 const isNotAfterAlphabetically =

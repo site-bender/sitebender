@@ -35,9 +35,9 @@ export type Value =
 	| Temporal.PlainTime
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
-  | Record<string | symbol, unknown>
-  | Array<unknown>
-  | Set<unknown>
+	| Record<string | symbol, unknown>
+	| Array<unknown>
+	| Set<unknown>
 
 // Either type for error handling
 export type Left<E> = { left: E }

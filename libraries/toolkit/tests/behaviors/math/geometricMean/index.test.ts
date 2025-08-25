@@ -1,4 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import geometricMean from "../../../../src/simple/math/geometricMean/index.ts"
@@ -79,7 +82,7 @@ Deno.test("geometricMean - JSDoc examples", async (t) => {
 	})
 
 	await t.step("Aspect ratio averaging", () => {
-		const aspectRatios = [16/9, 4/3, 21/9]
+		const aspectRatios = [16 / 9, 4 / 3, 21 / 9]
 		const result = geometricMean(aspectRatios)
 		assertAlmostEquals(result, 1.768469870176174, 1e-10)
 	})
@@ -148,82 +151,110 @@ Deno.test("geometricMean - edge cases", async (t) => {
 Deno.test("geometricMean - always positive for positive inputs", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(0.001), max: Math.fround(1000) }), { minLength: 1, maxLength: 100 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.001),
+					max: Math.fround(1000),
+				}),
+				{ minLength: 1, maxLength: 100 },
+			),
 			(values) => {
 				const result = geometricMean(values)
 				return result > 0 && !Number.isNaN(result)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("geometricMean - equals value for single element", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(0.001), max: Math.fround(1000) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.001),
+				max: Math.fround(1000),
+			}),
 			(value) => {
 				const result = geometricMean([value])
 				return approximately(result, value, 1e-10)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("geometricMean - equals value for identical elements", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(0.001), max: Math.fround(1000) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.001),
+				max: Math.fround(1000),
+			}),
 			fc.integer({ min: 1, max: 100 }),
 			(value, count) => {
 				const values = Array(count).fill(value)
 				const result = geometricMean(values)
 				return approximately(result, value, 1e-10)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("geometricMean - AM-GM inequality", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(0.001), max: Math.fround(100) }), { minLength: 1, maxLength: 50 }),
+			fc.array(
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.001),
+					max: Math.fround(100),
+				}),
+				{ minLength: 1, maxLength: 50 },
+			),
 			(values) => {
 				const gm = geometricMean(values)
 				const am = values.reduce((a, b) => a + b, 0) / values.length
 				// Geometric mean should be less than or equal to arithmetic mean
 				// with equality only when all values are the same
 				return gm <= am + 1e-10
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
 Deno.test("geometricMean - multiplicative property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }), { minLength: 1, maxLength: 20 }),
+			fc.array(
+				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				{ minLength: 1, maxLength: 20 },
+			),
 			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
 			(values, scale) => {
 				const originalGM = geometricMean(values)
-				const scaledValues = values.map(v => v * scale)
+				const scaledValues = values.map((v) => v * scale)
 				const scaledGM = geometricMean(scaledValues)
 				// Geometric mean scales linearly with the scaling factor
 				const expectedGM = originalGM * scale
 				return approximately(scaledGM, expectedGM, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 
 Deno.test("geometricMean - product property", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }), { minLength: 2, maxLength: 10 }),
+			fc.array(
+				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				{ minLength: 2, maxLength: 10 },
+			),
 			(values) => {
 				const gm = geometricMean(values)
 				const n = values.length
@@ -231,9 +262,9 @@ Deno.test("geometricMean - product property", () => {
 				const gmPower = Math.pow(gm, n)
 				const product = values.reduce((a, b) => a * b, 1)
 				return approximately(gmPower, product, 1e-6)
-			}
+			},
 		),
-		{ numRuns: 500 }
+		{ numRuns: 500 },
 	)
 })
 
@@ -251,7 +282,7 @@ Deno.test("geometricMean - precision for reciprocal pairs", () => {
 		[2, 0.5],
 		[10, 0.1],
 		[100, 0.01],
-		[0.25, 4]
+		[0.25, 4],
 	]
 
 	for (const pair of pairs) {
@@ -269,12 +300,12 @@ Deno.test("geometricMean - growth rate calculation", () => {
 	// Average growth factor
 	const growthFactors = [1.10, 1.20, 0.95]
 	const gm = geometricMean(growthFactors)
-	
+
 	// Verify compound growth
 	const startValue = 100
 	const endValue = startValue * 1.10 * 1.20 * 0.95
-	const avgGrowthRate = Math.pow(endValue / startValue, 1/3)
-	
+	const avgGrowthRate = Math.pow(endValue / startValue, 1 / 3)
+
 	assertAlmostEquals(gm, avgGrowthRate, 1e-10)
 })
 
@@ -283,8 +314,8 @@ Deno.test("geometricMean - relationship with harmonic mean", () => {
 	const values = [4, 16]
 	const gm = geometricMean(values)
 	const am = (values[0] + values[1]) / 2
-	const hm = 2 / (1/values[0] + 1/values[1])
-	
+	const hm = 2 / (1 / values[0] + 1 / values[1])
+
 	assertAlmostEquals(gm * gm, am * hm, 1e-10)
 	assertAlmostEquals(gm, 8, 1e-10)
 })

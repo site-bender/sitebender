@@ -1,10 +1,10 @@
 /**
  * Converts a Map to an object
- * 
+ *
  * Creates a new object from a Map's entries. Only string keys are preserved;
  * non-string keys are converted to strings. This is the inverse operation
  * of object/toMap.
- * 
+ *
  * @param map - The Map to convert to an object
  * @returns A new object with the Map's entries as properties
  * @example
@@ -13,18 +13,18 @@
  * const map = new Map([["a", 1], ["b", 2], ["c", 3]])
  * toObject(map)
  * // { a: 1, b: 2, c: 3 }
- * 
+ *
  * const userMap = new Map([
  *   ["name", "John"],
  *   ["age", 30]
  * ])
  * toObject(userMap)
  * // { name: "John", age: 30 }
- * 
+ *
  * // Empty Map
  * toObject(new Map())
  * // {}
- * 
+ *
  * // With nested values
  * const map = new Map([
  *   ["user", { name: "Alice" }],
@@ -32,7 +32,7 @@
  * ])
  * toObject(map)
  * // { user: { name: "Alice" }, count: 5 }
- * 
+ *
  * // Non-string keys are converted to strings
  * const mixedMap = new Map([
  *   [1, "one"],
@@ -41,7 +41,7 @@
  * ])
  * toObject(mixedMap)
  * // { "1": "one", "2": "two", "true": "bool" }
- * 
+ *
  * // Symbol keys are skipped (can't be object keys)
  * const sym = Symbol("key")
  * const mapWithSymbol = new Map([
@@ -50,14 +50,14 @@
  * ])
  * toObject(mapWithSymbol)
  * // { regular: "regular value" }
- * 
+ *
  * // Round-trip conversion
  * import toMap from "../../object/toMap/index.ts"
  * const original = { x: 10, y: 20, z: 30 }
  * const map = toMap(original)
  * const restored = toObject(map)
  * // { x: 10, y: 20, z: 30 }
- * 
+ *
  * // Use for serialization
  * const cache = new Map([
  *   ["user:1", { id: 1, name: "Alice" }],
@@ -65,7 +65,7 @@
  * ])
  * const serializable = toObject(cache)
  * const json = JSON.stringify(serializable)
- * 
+ *
  * // Filtering before conversion
  * const settings = new Map([
  *   ["debug", true],
@@ -83,7 +83,7 @@
  */
 const toObject = <V>(map: Map<unknown, V>): Record<string, V> => {
 	const obj: Record<string, V> = {}
-	
+
 	for (const [key, value] of map) {
 		// Skip symbol keys as they can't be object property keys
 		if (typeof key === "symbol") {
@@ -92,7 +92,7 @@ const toObject = <V>(map: Map<unknown, V>): Record<string, V> => {
 		// Convert non-string keys to strings
 		obj[String(key)] = value
 	}
-	
+
 	return obj
 }
 

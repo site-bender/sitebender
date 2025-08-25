@@ -118,8 +118,8 @@ Deno.test("includes - property: element in array returns true", () => {
 			(arr, elem) => {
 				const arrWithElem = [...arr, elem]
 				return includes(elem)(arrWithElem) === true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -131,8 +131,8 @@ Deno.test("includes - property: element not in array returns false", () => {
 				// Use an element guaranteed not to be in the array
 				const notInArray = -1
 				return includes(notInArray)(arr) === false
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -146,8 +146,8 @@ Deno.test("includes - property: consistent with indexOf for non-zero values", ()
 				const ourIndexOf = indexOf(elem)(arr)
 				// includes returns true if indexOf finds it
 				return hasElem === (ourIndexOf !== undefined)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -160,15 +160,15 @@ Deno.test("includes - property: currying preserves behavior", () => {
 				const curried = includes(elem)
 				const direct = arr.includes(elem)
 				return curried(arr) === direct
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("includes - handles null and undefined parameters", () => {
 	const includesNull = includes(null as unknown as number)
 	const includesUndefined = includes(undefined as unknown as number)
-	
+
 	assertEquals(includesNull([1, 2, null as unknown as number]), true)
 	assertEquals(includesUndefined([1, 2, undefined as unknown as number]), true)
 })

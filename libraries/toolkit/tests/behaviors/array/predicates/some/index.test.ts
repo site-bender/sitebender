@@ -56,14 +56,20 @@ Deno.test("some - predicate with index parameter", () => {
 })
 
 Deno.test("some - predicate with array parameter", () => {
-	const result = some((n: number, _i: number, arr: Array<number>) => n === arr.length)(
-		[1, 2, 3]
+	const result = some((n: number, _i: number, arr: Array<number>) =>
+		n === arr.length
+	)(
+		[1, 2, 3],
 	)
 	assertEquals(result, true) // Element 3 equals array length 3
 })
 
 Deno.test("some - works with different types - strings", () => {
-	const result = some((s: string) => s.startsWith("h"))(["apple", "hello", "world"])
+	const result = some((s: string) => s.startsWith("h"))([
+		"apple",
+		"hello",
+		"world",
+	])
 	assertEquals(result, true)
 })
 
@@ -74,7 +80,7 @@ Deno.test("some - works with different types - objects", () => {
 	const users: Array<User> = [
 		{ role: "user" },
 		{ role: "admin" },
-		{ role: "user" }
+		{ role: "user" },
 	]
 	const result = some((u: User) => u.role === "admin")(users)
 	assertEquals(result, true)
@@ -98,8 +104,8 @@ Deno.test("some - property: empty array always returns false", () => {
 			(predicate) => {
 				const result = some(predicate)([])
 				return result === false
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -110,11 +116,11 @@ Deno.test("some - property: single element array matches predicate result", () =
 			(value) => {
 				const predicateTrue = (_: number) => true
 				const predicateFalse = (_: number) => false
-				
+
 				assertEquals(some(predicateTrue)([value]), true)
 				assertEquals(some(predicateFalse)([value]), false)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -126,13 +132,13 @@ Deno.test("some - property: some(p) || some(q) === some(x => p(x) || q(x))", () 
 				const p = (n: number) => n % 2 === 0
 				const q = (n: number) => n > 0
 				const combined = (n: number) => p(n) || q(n)
-				
+
 				const result1 = some(p)(arr) || some(q)(arr)
 				const result2 = some(combined)(arr)
-				
+
 				return result1 === result2
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -143,7 +149,7 @@ Deno.test("some - property: relationship with all", () => {
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const negatedPredicate = (n: number) => !predicate(n)
-				
+
 				// some(p) === !all(!p) for non-empty arrays
 				if (arr.length > 0) {
 					const someResult = some(predicate)(arr)
@@ -151,8 +157,8 @@ Deno.test("some - property: relationship with all", () => {
 					return someResult === !allResult
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -166,8 +172,8 @@ Deno.test("some - property: if array contains value, some returns true", () => {
 					return some((n: number) => n === value)(arr) === true
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -176,24 +182,24 @@ Deno.test("some - maintains referential transparency", () => {
 	const predicate = (n: number) => n > 2
 	const arr = [1, 2, 3]
 	const curried = some(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("some - predicate can access all callback parameters", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<[number, number, Array<number>]> = []
-	
+
 	const predicate = (value: number, index: number, array: Array<number>) => {
 		capturedParams.push([value, index, array])
 		return value > 25
 	}
-	
+
 	some(predicate)(arr)
-	
+
 	assertEquals(capturedParams[0], [10, 0, arr])
 	assertEquals(capturedParams[1], [20, 1, arr])
 	assertEquals(capturedParams[2], [30, 2, arr])
@@ -219,7 +225,7 @@ Deno.test("some - handles null and undefined in predicate", () => {
 Deno.test("some - all elements satisfy implies some elements satisfy", () => {
 	const predicate = (n: number) => n > 0
 	const arr = [1, 2, 3, 4, 5]
-	
+
 	// If all elements satisfy, then some must also be true
 	if (arr.every(predicate)) {
 		assertEquals(some(predicate)(arr), true)

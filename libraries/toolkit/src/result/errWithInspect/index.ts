@@ -1,12 +1,13 @@
 import type { Result } from "../../types/fp/result/index.ts"
+
 import leftWithInspect from "../../either/leftWithInspect/index.ts"
 
 /**
  * Creates an Err result with enhanced debugging output
- * 
+ *
  * Wrapper around Either's leftWithInspect with Result-specific naming.
  * Creates an Err value with custom inspect method for better console output.
- * 
+ *
  * @param error - The error value to wrap
  * @returns A Result in the Err state with inspect method
  * @example

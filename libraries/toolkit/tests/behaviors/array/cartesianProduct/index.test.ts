@@ -5,12 +5,20 @@ import cartesianProduct from "../../../../src/simple/array/cartesianProduct/inde
 
 // JSDoc examples - basic functionality
 Deno.test("cartesianProduct - basic Cartesian product", () => {
-	assertEquals(cartesianProduct([1, 2])([3, 4]), [[1, 3], [1, 4], [2, 3], [2, 4]])
+	assertEquals(cartesianProduct([1, 2])([3, 4]), [[1, 3], [1, 4], [2, 3], [
+		2,
+		4,
+	]])
 })
 
 Deno.test("cartesianProduct - string combinations", () => {
 	assertEquals(cartesianProduct(["a", "b"])(["x", "y", "z"]), [
-		["a", "x"], ["a", "y"], ["a", "z"], ["b", "x"], ["b", "y"], ["b", "z"]
+		["a", "x"],
+		["a", "y"],
+		["a", "z"],
+		["b", "x"],
+		["b", "y"],
+		["b", "z"],
 	])
 })
 
@@ -20,9 +28,15 @@ Deno.test("cartesianProduct - single element arrays", () => {
 
 Deno.test("cartesianProduct - generate coordinates", () => {
 	assertEquals(cartesianProduct([0, 1, 2])([0, 1, 2]), [
-		[0, 0], [0, 1], [0, 2],
-		[1, 0], [1, 1], [1, 2],
-		[2, 0], [2, 1], [2, 2]
+		[0, 0],
+		[0, 1],
+		[0, 2],
+		[1, 0],
+		[1, 1],
+		[1, 2],
+		[2, 0],
+		[2, 1],
+		[2, 2],
 	])
 })
 
@@ -30,9 +44,12 @@ Deno.test("cartesianProduct - size and color combinations", () => {
 	const sizes = ["S", "M", "L"]
 	const colors = ["red", "blue"]
 	assertEquals(cartesianProduct(sizes)(colors), [
-		["S", "red"], ["S", "blue"],
-		["M", "red"], ["M", "blue"],
-		["L", "red"], ["L", "blue"]
+		["S", "red"],
+		["S", "blue"],
+		["M", "red"],
+		["M", "blue"],
+		["L", "red"],
+		["L", "blue"],
 	])
 })
 
@@ -41,10 +58,22 @@ Deno.test("cartesianProduct - playing cards", () => {
 	const ranks = ["A", "K", "Q", "J"]
 	const suits = ["♠", "♥", "♦", "♣"]
 	assertEquals(cartesianProduct(ranks)(suits), [
-		["A", "♠"], ["A", "♥"], ["A", "♦"], ["A", "♣"],
-		["K", "♠"], ["K", "♥"], ["K", "♦"], ["K", "♣"],
-		["Q", "♠"], ["Q", "♥"], ["Q", "♦"], ["Q", "♣"],
-		["J", "♠"], ["J", "♥"], ["J", "♦"], ["J", "♣"]
+		["A", "♠"],
+		["A", "♥"],
+		["A", "♦"],
+		["A", "♣"],
+		["K", "♠"],
+		["K", "♥"],
+		["K", "♦"],
+		["K", "♣"],
+		["Q", "♠"],
+		["Q", "♥"],
+		["Q", "♦"],
+		["Q", "♣"],
+		["J", "♠"],
+		["J", "♥"],
+		["J", "♦"],
+		["J", "♣"],
 	])
 })
 
@@ -64,7 +93,10 @@ Deno.test("cartesianProduct - both arrays empty", () => {
 // Mixed types from JSDoc
 Deno.test("cartesianProduct - mixed types", () => {
 	assertEquals(cartesianProduct([1, 2])([true, false]), [
-		[1, true], [1, false], [2, true], [2, false]
+		[1, true],
+		[1, false],
+		[2, true],
+		[2, false],
 	])
 })
 
@@ -72,8 +104,10 @@ Deno.test("cartesianProduct - object combinations", () => {
 	const users = [{ id: 1 }, { id: 2 }]
 	const roles = ["admin", "user"]
 	assertEquals(cartesianProduct(users)(roles), [
-		[{ id: 1 }, "admin"], [{ id: 1 }, "user"], 
-		[{ id: 2 }, "admin"], [{ id: 2 }, "user"]
+		[{ id: 1 }, "admin"],
+		[{ id: 1 }, "user"],
+		[{ id: 2 }, "admin"],
+		[{ id: 2 }, "user"],
 	])
 })
 
@@ -83,9 +117,18 @@ Deno.test("cartesianProduct - grid generation", () => {
 	const cols = [1, 2, 3, 4]
 	const grid = cartesianProduct(rows)(cols).map(([r, c]) => `${r}${c}`)
 	assertEquals(grid, [
-		"A1", "A2", "A3", "A4", 
-		"B1", "B2", "B3", "B4", 
-		"C1", "C2", "C3", "C4"
+		"A1",
+		"A2",
+		"A3",
+		"A4",
+		"B1",
+		"B2",
+		"B3",
+		"B4",
+		"C1",
+		"C2",
+		"C3",
+		"C4",
 	])
 })
 
@@ -120,24 +163,33 @@ Deno.test("cartesianProduct - undefined second array", () => {
 Deno.test("cartesianProduct - boolean truth table", () => {
 	const bools = [true, false]
 	assertEquals(cartesianProduct(bools)(bools), [
-		[true, true], [true, false], [false, true], [false, false]
+		[true, true],
+		[true, false],
+		[false, true],
+		[false, false],
 	])
 })
 
 // Partial application from JSDoc
 Deno.test("cartesianProduct - partial application", () => {
 	const withColors = cartesianProduct(["red", "green", "blue"])
-	
+
 	assertEquals(withColors(["circle", "square"]), [
-		["red", "circle"], ["red", "square"],
-		["green", "circle"], ["green", "square"],
-		["blue", "circle"], ["blue", "square"]
+		["red", "circle"],
+		["red", "square"],
+		["green", "circle"],
+		["green", "square"],
+		["blue", "circle"],
+		["blue", "square"],
 	])
-	
+
 	assertEquals(withColors(["small", "large"]), [
-		["red", "small"], ["red", "large"],
-		["green", "small"], ["green", "large"],
-		["blue", "small"], ["blue", "large"]
+		["red", "small"],
+		["red", "large"],
+		["green", "small"],
+		["green", "large"],
+		["blue", "small"],
+		["blue", "large"],
 	])
 })
 
@@ -178,8 +230,8 @@ Deno.test("cartesianProduct property - result length is product of input lengths
 			(arr1, arr2) => {
 				const result = cartesianProduct(arr1)(arr2)
 				return result.length === arr1.length * arr2.length
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -193,20 +245,22 @@ Deno.test("cartesianProduct property - all position pairs are represented", () =
 				// Each position pair should be represented exactly once
 				const expectedCount = arr1.length * arr2.length
 				if (result.length !== expectedCount) return false
-				
+
 				// Check that each position is represented
 				for (let i = 0; i < arr1.length; i++) {
 					for (let j = 0; j < arr2.length; j++) {
 						const expectedIndex = i * arr2.length + j
-						if (result[expectedIndex][0] !== arr1[i] || 
-						    result[expectedIndex][1] !== arr2[j]) {
+						if (
+							result[expectedIndex][0] !== arr1[i] ||
+							result[expectedIndex][1] !== arr2[j]
+						) {
 							return false
 						}
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -220,9 +274,9 @@ Deno.test("cartesianProduct property - preserves order", () => {
 				// Check that all pairs with first element arr1[0] come first
 				const firstGroupSize = arr2.length
 				const firstGroup = result.slice(0, firstGroupSize)
-				return firstGroup.every(pair => pair[0] === arr1[0])
-			}
-		)
+				return firstGroup.every((pair) => pair[0] === arr1[0])
+			},
+		),
 	)
 })
 
@@ -236,13 +290,13 @@ Deno.test("cartesianProduct property - contains all expected pairs", () => {
 				// Check that every combination exists
 				for (const a of arr1) {
 					for (const b of arr2) {
-						const exists = result.some(pair => pair[0] === a && pair[1] === b)
+						const exists = result.some((pair) => pair[0] === a && pair[1] === b)
 						if (!exists) return false
 					}
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -254,8 +308,8 @@ Deno.test("cartesianProduct property - empty array behavior", () => {
 				const withEmpty1 = cartesianProduct([])(arr)
 				const withEmpty2 = cartesianProduct(arr)([])
 				return withEmpty1.length === 0 && withEmpty2.length === 0
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -291,7 +345,10 @@ Deno.test("cartesianProduct - handles NaN", () => {
 
 Deno.test("cartesianProduct - handles Infinity", () => {
 	assertEquals(cartesianProduct([Infinity, -Infinity])([1, 2]), [
-		[Infinity, 1], [Infinity, 2], [-Infinity, 1], [-Infinity, 2]
+		[Infinity, 1],
+		[Infinity, 2],
+		[-Infinity, 1],
+		[-Infinity, 2],
 	])
 })
 
@@ -305,5 +362,11 @@ Deno.test("cartesianProduct - handles functions", () => {
 	assertEquals(result.length, 4)
 	assertEquals(result[0][0], 2)
 	assertEquals(result[0][1], add)
-	assertEquals((result[0][1] as (a: number, b: number) => number)(result[0][0] as number, 5), 7) // 2 + 5
+	assertEquals(
+		(result[0][1] as (a: number, b: number) => number)(
+			result[0][0] as number,
+			5,
+		),
+		7,
+	) // 2 + 5
 })

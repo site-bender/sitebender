@@ -38,7 +38,7 @@ Deno.test("reverse: involutory property (reverse twice returns original)", () =>
 			// Use JSON.stringify for deep comparison of arrays with objects
 			return JSON.stringify(doubleReversed) === JSON.stringify(arr)
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -48,7 +48,7 @@ Deno.test("reverse: length preservation", () => {
 			const reversed = reverse(arr)
 			return reversed.length === arr.length
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -60,9 +60,9 @@ Deno.test("reverse: first becomes last, last becomes first", () => {
 				const reversed = reverse(arr)
 				return reversed[0] === arr[arr.length - 1] &&
 					reversed[reversed.length - 1] === arr[0]
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -72,7 +72,7 @@ Deno.test("reverse: element correspondence", () => {
 			const reversed = reverse(arr)
 			return arr.every((_, i) => reversed[i] === arr[arr.length - 1 - i])
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -96,7 +96,7 @@ Deno.test("reverse: edge cases", async (t) => {
 	await t.step("handles array with mixed types", () => {
 		assertEquals(
 			reverse([1, "two", true, null, undefined]),
-			[undefined, null, true, "two", 1]
+			[undefined, null, true, "two", 1],
 		)
 	})
 
@@ -141,11 +141,11 @@ Deno.test("reverse: edge cases", async (t) => {
 Deno.test("reverse: immutability", () => {
 	const original = [1, 2, 3, 4, 5]
 	const reversed = reverse(original)
-	
+
 	// Modifying reversed should not affect original
 	reversed[0] = 999
 	assertEquals(original, [1, 2, 3, 4, 5])
-	
+
 	// Modifying original should not affect reversed
 	original[0] = 888
 	assertEquals(reversed[0], 999) // Still has our modification

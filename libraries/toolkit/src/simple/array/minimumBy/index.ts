@@ -1,13 +1,13 @@
 /**
  * Finds the minimum element according to a comparator function
- * 
+ *
  * Returns the element from the array that is smallest according to the
  * provided comparator function. The comparator should return a positive
  * number if the first argument is greater, negative if smaller, and zero
  * if equal (like standard sort comparators). Returns undefined for empty
  * arrays. Useful for finding minimum by custom criteria, complex comparisons,
  * or multi-field sorting.
- * 
+ *
  * @curried (comparator) => (array) => result
  * @param comparator - Function that compares two elements (returns negative if a < b)
  * @param array - Array to find minimum element from
@@ -18,12 +18,12 @@
  * const numCompare = (a: number, b: number) => a - b
  * minimumBy(numCompare)([3, 1, 4, 1, 5, 9, 2])
  * // 1
- * 
+ *
  * // String length comparison
  * const byLength = (a: string, b: string) => a.length - b.length
  * minimumBy(byLength)(["aaa", "b", "cc", "dddd"])
  * // "b"
- * 
+ *
  * // Object property comparison
  * const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
  * const people = [
@@ -33,7 +33,7 @@
  * ]
  * minimumBy(byAge)(people)
  * // { name: "Bob", age: 25 }
- * 
+ *
  * // Multi-field comparison
  * type Score = { points: number; time: number }
  * const byScore = (a: Score, b: Score) => {
@@ -47,7 +47,7 @@
  * ]
  * minimumBy(byScore)(scores)
  * // { points: 95, time: 45 }
- * 
+ *
  * // Date comparison (earliest)
  * const byDate = (a: Date, b: Date) => a.getTime() - b.getTime()
  * const dates = [
@@ -57,12 +57,12 @@
  * ]
  * minimumBy(byDate)(dates)
  * // Date("2024-01-15")
- * 
+ *
  * // Alphabetical comparison
  * const alphabetical = (a: string, b: string) => a.localeCompare(b)
  * minimumBy(alphabetical)(["zebra", "apple", "mango", "banana"])
  * // "apple"
- * 
+ *
  * // Complex nested comparison
  * type Task = { priority: number; effort: number; id: string }
  * const byPriorityAndEffort = (a: Task, b: Task) => {
@@ -77,7 +77,7 @@
  * ]
  * minimumBy(byPriorityAndEffort)(tasks)
  * // { priority: 1, effort: 2, id: "c" }
- * 
+ *
  * // Array comparison (by minimum element)
  * const byMinElement = (a: number[], b: number[]) => {
  *   const minA = Math.min(...a)
@@ -86,7 +86,7 @@
  * }
  * minimumBy(byMinElement)([[5, 2, 8], [3, 4], [1, 9], [6]])
  * // [1, 9]
- * 
+ *
  * // Version comparison (oldest)
  * type Version = { major: number; minor: number; patch: number }
  * const byVersion = (a: Version, b: Version) => {
@@ -101,7 +101,7 @@
  * ]
  * minimumBy(byVersion)(versions)
  * // { major: 1, minor: 0, patch: 0 }
- * 
+ *
  * // Price comparison with availability
  * type Product = { price: number; inStock: boolean; name: string }
  * const byPriceAndStock = (a: Product, b: Product) => {
@@ -117,7 +117,7 @@
  * ]
  * minimumBy(byPriceAndStock)(products)
  * // { price: 55, inStock: true, name: "C" }
- * 
+ *
  * // Distance to origin
  * type Point = { x: number; y: number }
  * const byDistance = (a: Point, b: Point) => {
@@ -132,25 +132,25 @@
  * ]
  * minimumBy(byDistance)(points)
  * // { x: 1, y: 1 }
- * 
+ *
  * // Single element
  * minimumBy((a: number, b: number) => a - b)([42])
  * // 42
- * 
+ *
  * // Empty array
  * minimumBy((a: number, b: number) => a - b)([])
  * // undefined
- * 
+ *
  * // All equal elements (returns first)
  * minimumBy(() => 0)([3, 2, 1])
  * // 3
- * 
+ *
  * // Closest to target
- * const closestTo = (target: number) => 
+ * const closestTo = (target: number) =>
  *   (a: number, b: number) => Math.abs(a - target) - Math.abs(b - target)
  * minimumBy(closestTo(10))([5, 15, 8, 20, 12])
  * // 8 (closest to 10)
- * 
+ *
  * // File size comparison
  * type File = { name: string; size: number; modified: Date }
  * const bySize = (a: File, b: File) => a.size - b.size
@@ -161,7 +161,7 @@
  * ]
  * minimumBy(bySize)(files)
  * // { name: "small.txt", size: 1024, modified: Date("2024-01-02") }
- * 
+ *
  * // CPU usage (find least loaded)
  * type Server = { name: string; cpu: number; memory: number }
  * const byLoad = (a: Server, b: Server) => {
@@ -176,20 +176,20 @@
  * ]
  * minimumBy(byLoad)(servers)
  * // { name: "server2", cpu: 40, memory: 60 }
- * 
+ *
  * // Partial application for reusable comparisons
  * const getYoungest = minimumBy((a: any, b: any) => a.age - b.age)
  * getYoungest([{ age: 25 }, { age: 30 }, { age: 20 }])
  * // { age: 20 }
- * 
+ *
  * const getShortest = minimumBy((a: string, b: string) => a.length - b.length)
  * getShortest(["short", "tiny", "minuscule"])
  * // "tiny"
- * 
+ *
  * // Handle null/undefined gracefully
  * minimumBy((a: number, b: number) => a - b)(null)       // undefined
  * minimumBy((a: number, b: number) => a - b)(undefined)  // undefined
- * 
+ *
  * // Cost optimization
  * type Route = { distance: number; tolls: number; time: number }
  * const byCost = (a: Route, b: Route) => {
@@ -204,7 +204,7 @@
  * ]
  * minimumBy(byCost)(routes)
  * // { distance: 80, tolls: 20, time: 1.5 }
- * 
+ *
  * // Error rate comparison
  * type Service = { name: string; errors: number; requests: number }
  * const byErrorRate = (a: Service, b: Service) => {
@@ -219,7 +219,7 @@
  * ]
  * minimumBy(byErrorRate)(services)
  * // { name: "api3", errors: 10, requests: 5000 }
- * 
+ *
  * // Deadline comparison
  * type Deadline = { task: string; date: Date; priority: number }
  * const byDeadline = (a: Deadline, b: Deadline) => {
@@ -242,22 +242,23 @@
  * @property Stable - returns first minimum if multiple exist
  */
 const minimumBy = <T>(
-	comparator: (a: T, b: T) => number
-) => (
-	array: ReadonlyArray<T> | null | undefined
+	comparator: (a: T, b: T) => number,
+) =>
+(
+	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
 	if (array == null || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
-	
+
 	let minimum = array[0]
-	
+
 	for (let i = 1; i < array.length; i++) {
 		if (comparator(array[i], minimum) < 0) {
 			minimum = array[i]
 		}
 	}
-	
+
 	return minimum
 }
 

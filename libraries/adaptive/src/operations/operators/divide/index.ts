@@ -7,8 +7,8 @@ import type {
 	OperatorConfig,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../types/index.ts"
+import Error from "../../../constructors/Error/index.ts"
 
 interface HydratedDivide {
 	tag: "Divide"

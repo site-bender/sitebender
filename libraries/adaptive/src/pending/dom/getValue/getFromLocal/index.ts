@@ -19,7 +19,7 @@ const getFromLocal = (op: ElementConfig) =>
 		const key = local || id || name
 
 		// Check if localValues has the key, or if localValues.id matches
-		const value = localValues[key] ?? 
+		const value = localValues[key] ??
 			(op.id && localValues.id === op.id ? localValues.value : undefined) ??
 			(op.name && localValues.name === op.name ? localValues.value : undefined)
 

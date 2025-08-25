@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import increment from "../../../../../src/simple/math/increment/index.ts"
@@ -12,20 +11,20 @@ Deno.test("increment", async (t) => {
 					fc.float({ noNaN: true }),
 					(n) => {
 						const result = increment(n)
-						
+
 						// For finite numbers, increment adds exactly 1
 						if (isFinite(n)) {
 							return result === n + 1
 						}
-						
+
 						// For infinite values, they remain unchanged
 						if (n === Infinity) return result === Infinity
 						if (n === -Infinity) return result === -Infinity
-						
+
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -37,9 +36,9 @@ Deno.test("increment", async (t) => {
 						// increment(n) should be the smallest integer greater than n
 						const result = increment(n)
 						return result === n + 1
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -51,7 +50,7 @@ Deno.test("increment", async (t) => {
 					(a, b) => {
 						const incA = increment(a)
 						const incB = increment(b)
-						
+
 						// Handle special cases first
 						if (Number.isNaN(incA) && Number.isNaN(incB)) return true
 						if (!isFinite(a) || !isFinite(b)) {
@@ -63,7 +62,7 @@ Deno.test("increment", async (t) => {
 							if (a === -Infinity) return incA < incB
 							if (b === -Infinity) return incA > incB
 						}
-						
+
 						// For very small differences between a and b (less than 1),
 						// adding 1 to both may result in the same value due to precision
 						const diff = Math.abs(a - b)
@@ -74,89 +73,99 @@ Deno.test("increment", async (t) => {
 							if (a < b) return incA <= incB
 							if (a > b) return incA >= incB
 						}
-						
+
 						// Normal cases
 						if (a < b) return incA < incB
 						if (a > b) return incA > incB
 						// If a === b, then increment(a) === increment(b)
 						// Use Object.is for exact comparison (handles -0 === 0 case)
 						return Object.is(incA, incB)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should be injective (one-to-one) for practical values", () => {
-			fc.assert(
-				fc.property(
-					// Use integers where this property holds perfectly
-					fc.integer({ min: -1000000, max: 1000000 }),
-					fc.integer({ min: -1000000, max: 1000000 }),
-					(a, b) => {
-						const incA = increment(a)
-						const incB = increment(b)
-						
-						// If increment(a) === increment(b), then a === b
-						if (incA === incB) {
-							return a === b
-						}
-						return true
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be injective (one-to-one) for practical values",
+			() => {
+				fc.assert(
+					fc.property(
+						// Use integers where this property holds perfectly
+						fc.integer({ min: -1000000, max: 1000000 }),
+						fc.integer({ min: -1000000, max: 1000000 }),
+						(a, b) => {
+							const incA = increment(a)
+							const incB = increment(b)
+
+							// If increment(a) === increment(b), then a === b
+							if (incA === incB) {
+								return a === b
+							}
+							return true
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("algebraic properties", async (t) => {
-		await t.step("should distribute over addition: increment(a + b) = increment(a) + b", () => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
-					fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
-					(a, b) => {
-						const left = increment(a + b)
-						const right = increment(a) + b
-						
-						// Account for floating point precision
-						return Math.abs(left - right) < 1e-10
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should distribute over addition: increment(a + b) = increment(a) + b",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
+						fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
+						(a, b) => {
+							const left = increment(a + b)
+							const right = increment(a) + b
 
-		await t.step("should be translation: increment(increment(n)) = n + 2", () => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true }),
-					(n) => {
-						const result = increment(increment(n))
-						const expected = n + 2
-						
-						if (isFinite(n)) {
-							// For large numbers near MAX_SAFE_INTEGER, precision is lost
-							if (Math.abs(n) > Number.MAX_SAFE_INTEGER) {
-								// For numbers beyond MAX_SAFE_INTEGER, we can't guarantee exact arithmetic
-								return isFinite(result)
+							// Account for floating point precision
+							return Math.abs(left - right) < 1e-10
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should be translation: increment(increment(n)) = n + 2",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true }),
+						(n) => {
+							const result = increment(increment(n))
+							const expected = n + 2
+
+							if (isFinite(n)) {
+								// For large numbers near MAX_SAFE_INTEGER, precision is lost
+								if (Math.abs(n) > Number.MAX_SAFE_INTEGER) {
+									// For numbers beyond MAX_SAFE_INTEGER, we can't guarantee exact arithmetic
+									return isFinite(result)
+								}
+
+								// For normal numbers, allow for floating point epsilon
+								const epsilon = Math.abs(expected) * Number.EPSILON * 2 +
+									Number.EPSILON
+								return Math.abs(result - expected) <= epsilon
 							}
-							
-							// For normal numbers, allow for floating point epsilon
-							const epsilon = Math.abs(expected) * Number.EPSILON * 2 + Number.EPSILON
-							return Math.abs(result - expected) <= epsilon
-						}
-						
-						// Special cases
-						if (n === Infinity) return result === Infinity
-						if (n === -Infinity) return result === -Infinity
-						
-						return true
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+
+							// Special cases
+							if (n === Infinity) return result === Infinity
+							if (n === -Infinity) return result === -Infinity
+
+							return true
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("special values", async (t) => {
@@ -195,13 +204,25 @@ Deno.test("increment", async (t) => {
 
 		await t.step("should handle boundary values", () => {
 			// Near MAX_SAFE_INTEGER
-			assertEquals(increment(Number.MAX_SAFE_INTEGER - 1), Number.MAX_SAFE_INTEGER)
-			assertEquals(increment(Number.MAX_SAFE_INTEGER), Number.MAX_SAFE_INTEGER + 1)
-			
+			assertEquals(
+				increment(Number.MAX_SAFE_INTEGER - 1),
+				Number.MAX_SAFE_INTEGER,
+			)
+			assertEquals(
+				increment(Number.MAX_SAFE_INTEGER),
+				Number.MAX_SAFE_INTEGER + 1,
+			)
+
 			// Near MIN_SAFE_INTEGER
-			assertEquals(increment(Number.MIN_SAFE_INTEGER), Number.MIN_SAFE_INTEGER + 1)
-			assertEquals(increment(Number.MIN_SAFE_INTEGER + 1), Number.MIN_SAFE_INTEGER + 2)
-			
+			assertEquals(
+				increment(Number.MIN_SAFE_INTEGER),
+				Number.MIN_SAFE_INTEGER + 1,
+			)
+			assertEquals(
+				increment(Number.MIN_SAFE_INTEGER + 1),
+				Number.MIN_SAFE_INTEGER + 2,
+			)
+
 			// Very small positive numbers
 			assertEquals(increment(Number.MIN_VALUE), 1 + Number.MIN_VALUE)
 			assertEquals(increment(-Number.MIN_VALUE), 1 - Number.MIN_VALUE)
@@ -244,8 +265,14 @@ Deno.test("increment", async (t) => {
 
 		await t.step("large numbers", () => {
 			assertEquals(increment(999999), 1000000)
-			assertEquals(increment(Number.MAX_SAFE_INTEGER - 1), Number.MAX_SAFE_INTEGER)
-			assertEquals(increment(Number.MAX_SAFE_INTEGER), Number.MAX_SAFE_INTEGER + 1)
+			assertEquals(
+				increment(Number.MAX_SAFE_INTEGER - 1),
+				Number.MAX_SAFE_INTEGER,
+			)
+			assertEquals(
+				increment(Number.MAX_SAFE_INTEGER),
+				Number.MAX_SAFE_INTEGER + 1,
+			)
 		})
 
 		await t.step("small numbers", () => {
@@ -284,10 +311,10 @@ Deno.test("increment", async (t) => {
 		})
 
 		await t.step("array indexing", () => {
-			const arr = ['a', 'b', 'c', 'd', 'e']
+			const arr = ["a", "b", "c", "d", "e"]
 			let index = 0
 			index = increment(index)
-			assertEquals(arr[index], 'b')
+			assertEquals(arr[index], "b")
 		})
 
 		await t.step("generate sequence", () => {
@@ -343,7 +370,7 @@ Deno.test("increment", async (t) => {
 				next() {
 					this.value = increment(this.value)
 					return this.value
-				}
+				},
 			}
 			assertEquals(counter.next(), 1)
 			assertEquals(counter.next(), 2)
@@ -364,7 +391,7 @@ Deno.test("increment", async (t) => {
 					i = increment(i)
 				}
 			}
-			times(3, i => iterations.push(i))
+			times(3, (i) => iterations.push(i))
 			assertEquals(iterations, [0, 1, 2])
 		})
 
@@ -382,7 +409,7 @@ Deno.test("increment", async (t) => {
 			const version = {
 				major: 1,
 				minor: 2,
-				patch: 3
+				patch: 3,
 			}
 			version.patch = increment(version.patch)
 			assertEquals(version, { major: 1, minor: 2, patch: 4 })
@@ -423,7 +450,7 @@ Deno.test("increment", async (t) => {
 			const pipeline = [
 				increment,
 				(x: number) => x * 2,
-				increment
+				increment,
 			]
 			const result = pipeline.reduce((acc, fn) => fn(acc), 5)
 			assertEquals(result, 13) // ((5 + 1) * 2 + 1)
@@ -442,7 +469,7 @@ Deno.test("increment", async (t) => {
 
 		await t.step("safe increment with validation", () => {
 			function safeIncrement(value: unknown): number | null {
-				const num = typeof value === 'number' ? increment(value) : NaN
+				const num = typeof value === "number" ? increment(value) : NaN
 				return isNaN(num) ? null : num
 			}
 			assertEquals(safeIncrement(5), 6)
@@ -465,7 +492,7 @@ Deno.test("increment", async (t) => {
 			const result1 = increment(value)
 			const result2 = increment(value)
 			const result3 = increment(value)
-			
+
 			assertEquals(result1, 43)
 			assertEquals(result2, 43)
 			assertEquals(result3, 43)

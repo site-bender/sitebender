@@ -17,7 +17,7 @@ Deno.test("cubeRoot: perfect cubes", async (t) => {
 		assertEquals(cubeRoot(512), 8)
 		assertEquals(cubeRoot(729), 9)
 	})
-	
+
 	await t.step("negative perfect cubes", () => {
 		assertEquals(cubeRoot(-8), -2)
 		assertEquals(cubeRoot(-27), -3)
@@ -30,7 +30,7 @@ Deno.test("cubeRoot: perfect cubes", async (t) => {
 		assertEquals(cubeRoot(-729), -9)
 		assertEquals(cubeRoot(-1000), -10)
 	})
-	
+
 	await t.step("zero", () => {
 		assertEquals(cubeRoot(0), 0)
 		assertEquals(Object.is(cubeRoot(-0), -0), true)
@@ -45,14 +45,14 @@ Deno.test("cubeRoot: non-perfect cubes", async (t) => {
 		assertEquals(approximately(cubeRoot(50), 3.6840314986403864), true)
 		assertEquals(approximately(cubeRoot(99), 4.626065009182741), true)
 	})
-	
+
 	await t.step("negative non-perfect cubes", () => {
 		assertEquals(approximately(cubeRoot(-2), -1.2599210498948732), true)
 		assertEquals(approximately(cubeRoot(-10), -2.154434690031884), true)
 		assertEquals(approximately(cubeRoot(-100), -4.641588833612779), true)
 		assertEquals(approximately(cubeRoot(-50), -3.6840314986403864), true)
 	})
-	
+
 	await t.step("decimal numbers", () => {
 		assertEquals(cubeRoot(0.125), 0.5)
 		assertEquals(cubeRoot(0.001), 0.1)
@@ -70,7 +70,7 @@ Deno.test("cubeRoot: very small and large numbers", async (t) => {
 		assertEquals(cubeRoot(1e-15), 1e-5)
 		assertEquals(cubeRoot(8e-9), 0.002)
 	})
-	
+
 	await t.step("very large numbers", () => {
 		assertEquals(cubeRoot(1000000), 100)
 		assertEquals(cubeRoot(1e9), 1000)
@@ -85,7 +85,7 @@ Deno.test("cubeRoot: special values", async (t) => {
 		assertEquals(cubeRoot(Infinity), Infinity)
 		assertEquals(cubeRoot(-Infinity), -Infinity)
 	})
-	
+
 	await t.step("NaN", () => {
 		assertEquals(Number.isNaN(cubeRoot(NaN)), true)
 	})
@@ -96,7 +96,7 @@ Deno.test("cubeRoot: invalid inputs", async (t) => {
 		assertEquals(Number.isNaN(cubeRoot(null)), true)
 		assertEquals(Number.isNaN(cubeRoot(undefined)), true)
 	})
-	
+
 	await t.step("non-numeric types", () => {
 		assertEquals(Number.isNaN(cubeRoot("8" as any)), true)
 		assertEquals(Number.isNaN(cubeRoot("abc" as any)), true)
@@ -119,12 +119,12 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 					// Use relative tolerance for larger values
 					const tolerance = Math.max(1e-10, Math.abs(x) * 1e-10)
 					return Math.abs(root - x) < tolerance
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("cube of root: (cbrt(x))³ = x", () => {
 		fc.assert(
 			fc.property(
@@ -135,12 +135,12 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 					// Use relative tolerance
 					const tolerance = Math.max(1e-10, Math.abs(x) * 1e-10)
 					return Math.abs(cubed - x) < tolerance
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("sign preservation: sign(cbrt(x)) = sign(x)", () => {
 		fc.assert(
 			fc.property(
@@ -149,12 +149,12 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 					if (x === 0) return true // Skip zero
 					const root = cubeRoot(x)
 					return (x > 0 && root > 0) || (x < 0 && root < 0)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("multiplicative property: cbrt(a*b) ≈ cbrt(a) * cbrt(b)", () => {
 		fc.assert(
 			fc.property(
@@ -163,21 +163,21 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 				(a, b) => {
 					const leftSide = cubeRoot(a * b)
 					const rightSide = cubeRoot(a) * cubeRoot(b)
-					
+
 					// Handle special cases
 					if (!isFinite(leftSide) || !isFinite(rightSide)) {
 						return Object.is(leftSide, rightSide)
 					}
-					
+
 					// Use relative tolerance
 					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
 					return Math.abs(leftSide - rightSide) < tolerance
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("division property: cbrt(a/b) ≈ cbrt(a) / cbrt(b)", () => {
 		fc.assert(
 			fc.property(
@@ -185,24 +185,24 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 				fc.float({ min: -1000, max: 1000, noNaN: true }),
 				(a, b) => {
 					fc.pre(b !== 0)
-					
+
 					const leftSide = cubeRoot(a / b)
 					const rightSide = cubeRoot(a) / cubeRoot(b)
-					
+
 					// Handle special cases
 					if (!isFinite(leftSide) || !isFinite(rightSide)) {
 						return Object.is(leftSide, rightSide)
 					}
-					
+
 					// Use relative tolerance
 					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
 					return Math.abs(leftSide - rightSide) < tolerance
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("monotonic increasing", () => {
 		fc.assert(
 			fc.property(
@@ -216,12 +216,12 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 					} else {
 						return cubeRoot(a) === cubeRoot(b)
 					}
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
-	
+
 	await t.step("odd function: cbrt(-x) = -cbrt(x)", () => {
 		fc.assert(
 			fc.property(
@@ -229,16 +229,16 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 				(x) => {
 					const positive = cubeRoot(x)
 					const negative = cubeRoot(-x)
-					
+
 					// Handle special cases
 					if (!isFinite(positive)) {
 						return Object.is(negative, -positive)
 					}
-					
+
 					return approximately(negative, -positive)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -247,54 +247,54 @@ Deno.test("cubeRoot: practical applications", async (t) => {
 	await t.step("volume calculations", () => {
 		// Cube with volume 125 has sides of length 5
 		assertEquals(cubeRoot(125), 5)
-		
+
 		// Cube with volume 1000 has sides of length 10
 		assertEquals(cubeRoot(1000), 10)
-		
+
 		// Cube with volume 27000 has sides of length 30
 		assertEquals(cubeRoot(27000), 30)
 	})
-	
+
 	await t.step("sphere radius from volume", () => {
 		// V = (4/3)πr³, so r = ∛(3V/4π)
 		const sphereRadiusFromVolume = (volume: number): number => {
 			return cubeRoot((3 * volume) / (4 * Math.PI))
 		}
-		
+
 		// Sphere with volume 4188.79... has radius ≈ 10
 		assertEquals(approximately(sphereRadiusFromVolume(4188.79), 10, 0.01), true)
-		
+
 		// Unit sphere (r=1) has volume 4π/3
 		const unitVolume = (4 * Math.PI) / 3
 		assertEquals(approximately(sphereRadiusFromVolume(unitVolume), 1), true)
 	})
-	
+
 	await t.step("scaling calculations", () => {
 		// Double the linear dimensions = 8x the volume
 		assertEquals(cubeRoot(8), 2)
-		
+
 		// Triple the linear dimensions = 27x the volume
 		assertEquals(cubeRoot(27), 3)
-		
+
 		// 1.5x the linear dimensions = 3.375x the volume
 		assertEquals(approximately(cubeRoot(3.375), 1.5), true)
 	})
-	
+
 	await t.step("compound growth rate over 3 periods", () => {
 		const compoundGrowthRate = (initial: number, final: number): number => {
 			return cubeRoot(final / initial) - 1
 		}
-		
+
 		// 10% growth rate: 1000 -> 1331 over 3 periods
 		assertEquals(approximately(compoundGrowthRate(1000, 1331), 0.1), true)
-		
+
 		// 20% growth rate: 1000 -> 1728 over 3 periods
 		assertEquals(approximately(compoundGrowthRate(1000, 1728), 0.2), true)
-		
+
 		// 5% growth rate: 1000 -> 1157.625 over 3 periods
 		assertEquals(approximately(compoundGrowthRate(1000, 1157.625), 0.05), true)
 	})
-	
+
 	await t.step("data normalization", () => {
 		const data = [1, 8, 27, 64, 125, 216]
 		const normalized = data.map(cubeRoot)
@@ -310,27 +310,27 @@ Deno.test("cubeRoot: edge cases with integer cube roots", async (t) => {
 		assertEquals(cubeRoot(16 ** 3), 16)
 		assertEquals(cubeRoot(32 ** 3), 32)
 	})
-	
+
 	await t.step("powers of 10", () => {
 		assertEquals(cubeRoot(10 ** 3), 10)
 		assertEquals(cubeRoot(100 ** 3), 100)
 		assertEquals(cubeRoot(1000 ** 3), 1000)
-		
+
 		// Negative powers of 10
 		assertEquals(cubeRoot((-10) ** 3), -10)
 		assertEquals(cubeRoot((-100) ** 3), -100)
 		assertEquals(cubeRoot((-1000) ** 3), -1000)
 	})
-	
+
 	await t.step("fractional perfect cubes", () => {
-		assertEquals(cubeRoot(1/8), 1/2)
-		assertEquals(cubeRoot(1/27), 1/3)
-		assertEquals(cubeRoot(1/125), 1/5)
-		assertEquals(cubeRoot(1/1000), 1/10)
-		
+		assertEquals(cubeRoot(1 / 8), 1 / 2)
+		assertEquals(cubeRoot(1 / 27), 1 / 3)
+		assertEquals(cubeRoot(1 / 125), 1 / 5)
+		assertEquals(cubeRoot(1 / 1000), 1 / 10)
+
 		// Negative fractional perfect cubes
-		assertEquals(cubeRoot(-1/8), -1/2)
-		assertEquals(cubeRoot(-1/27), -1/3)
-		assertEquals(cubeRoot(-1/125), -1/5)
+		assertEquals(cubeRoot(-1 / 8), -1 / 2)
+		assertEquals(cubeRoot(-1 / 27), -1 / 3)
+		assertEquals(cubeRoot(-1 / 125), -1 / 5)
 	})
 })

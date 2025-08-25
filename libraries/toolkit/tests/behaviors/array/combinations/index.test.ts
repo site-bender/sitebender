@@ -17,16 +17,27 @@ const binomialCoefficient = (n: number, k: number): number => {
 // JSDoc examples - basic functionality
 Deno.test("combinations - choose 2 from 4", () => {
 	assertEquals(combinations(2)([1, 2, 3, 4]), [
-		[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]
+		[1, 2],
+		[1, 3],
+		[1, 4],
+		[2, 3],
+		[2, 4],
+		[3, 4],
 	])
 })
 
 Deno.test("combinations - choose 3 from 5", () => {
 	assertEquals(combinations(3)(["a", "b", "c", "d", "e"]), [
-		["a", "b", "c"], ["a", "b", "d"], ["a", "b", "e"],
-		["a", "c", "d"], ["a", "c", "e"], ["a", "d", "e"],
-		["b", "c", "d"], ["b", "c", "e"], ["b", "d", "e"],
-		["c", "d", "e"]
+		["a", "b", "c"],
+		["a", "b", "d"],
+		["a", "b", "e"],
+		["a", "c", "d"],
+		["a", "c", "e"],
+		["a", "d", "e"],
+		["b", "c", "d"],
+		["b", "c", "e"],
+		["b", "d", "e"],
+		["c", "d", "e"],
 	])
 })
 
@@ -70,8 +81,12 @@ Deno.test("combinations - feature flags", () => {
 	const features = ["A", "B", "C", "D"]
 	const result = combinations(2)(features)
 	assertEquals(result, [
-		["A", "B"], ["A", "C"], ["A", "D"], 
-		["B", "C"], ["B", "D"], ["C", "D"]
+		["A", "B"],
+		["A", "C"],
+		["A", "D"],
+		["B", "C"],
+		["B", "D"],
+		["C", "D"],
 	])
 })
 
@@ -85,7 +100,10 @@ Deno.test("combinations - partial application pickTwo", () => {
 Deno.test("combinations - partial application pickThree", () => {
 	const pickThree = combinations(3)
 	assertEquals(pickThree([1, 2, 3, 4]), [
-		[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]
+		[1, 2, 3],
+		[1, 2, 4],
+		[1, 3, 4],
+		[2, 3, 4],
 	])
 })
 
@@ -147,8 +165,8 @@ Deno.test("combinations property - correct count C(n,k)", () => {
 				const result = combinations(k)(arr)
 				const expected = binomialCoefficient(n, k)
 				return result.length === expected
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -162,9 +180,9 @@ Deno.test("combinations property - each combination has size k", () => {
 				if (k < 0 || !Number.isInteger(k) || k > arr.length) {
 					return result.length === 0 || (k === 0 && result.length === 1)
 				}
-				return result.every(combo => combo.length === k)
-			}
-		)
+				return result.every((combo) => combo.length === k)
+			},
+		),
 	)
 })
 
@@ -175,11 +193,11 @@ Deno.test("combinations property - combinations are unique", () => {
 			fc.integer({ min: 0, max: 10 }),
 			(arr, k) => {
 				const result = combinations(k)(arr)
-				const stringified = result.map(combo => JSON.stringify(combo))
+				const stringified = result.map((combo) => JSON.stringify(combo))
 				const unique = new Set(stringified)
 				return unique.size === result.length
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -191,7 +209,7 @@ Deno.test("combinations property - maintains element order", () => {
 			(arr, k) => {
 				const result = combinations(k)(arr)
 				// Each combination should maintain the relative order from original array
-				return result.every(combo => {
+				return result.every((combo) => {
 					for (let i = 0; i < combo.length - 1; i++) {
 						const idx1 = arr.indexOf(combo[i] as number)
 						const idx2 = arr.indexOf(combo[i + 1] as number)
@@ -199,8 +217,8 @@ Deno.test("combinations property - maintains element order", () => {
 					}
 					return true
 				})
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -214,8 +232,8 @@ Deno.test("combinations property - C(n,k) = C(n,n-k) symmetry", () => {
 				const resultK = combinations(k)(arr)
 				const resultNK = combinations(n - k)(arr)
 				return resultK.length === resultNK.length
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -230,8 +248,8 @@ Deno.test("combinations property - empty array behavior", () => {
 				} else {
 					return result.length === 0
 				}
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -263,7 +281,9 @@ Deno.test("combinations - handles arrays with NaN", () => {
 
 Deno.test("combinations - handles arrays with Infinity", () => {
 	assertEquals(combinations(2)([1, Infinity, -Infinity]), [
-		[1, Infinity], [1, -Infinity], [Infinity, -Infinity]
+		[1, Infinity],
+		[1, -Infinity],
+		[Infinity, -Infinity],
 	])
 })
 
@@ -274,7 +294,7 @@ Deno.test("combinations - handles objects", () => {
 	assertEquals(result, [
 		[{ id: 1 }, { id: 2 }],
 		[{ id: 1 }, { id: 3 }],
-		[{ id: 2 }, { id: 3 }]
+		[{ id: 2 }, { id: 3 }],
 	])
 })
 

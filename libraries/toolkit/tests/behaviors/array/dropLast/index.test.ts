@@ -37,9 +37,9 @@ Deno.test("dropLast: length property", () => {
 				const result = dropLast(n)(arr)
 				const expectedLength = Math.max(0, arr.length - n)
 				return result.length === expectedLength
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -52,9 +52,9 @@ Deno.test("dropLast: element preservation", () => {
 				const result = dropLast(n)(arr)
 				// Each element in result should match the corresponding element in original
 				return result.every((val, i) => val === arr[i])
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -68,9 +68,9 @@ Deno.test("dropLast: composition with takeLast", () => {
 				// Dropped elements should be the head before the last n
 				const expected = arr.slice(0, arr.length - n)
 				return JSON.stringify(dropped) === JSON.stringify(expected)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -80,7 +80,7 @@ Deno.test("dropLast: dropping all elements", () => {
 			const result = dropLast(arr.length)(arr)
 			return result.length === 0
 		}),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -91,12 +91,12 @@ Deno.test("dropLast: complement of drop", () => {
 			fc.integer({ min: 0, max: 50 }),
 			(arr, n) => {
 				if (n > arr.length) return true // Both would be empty
-				const fromStart = arr.slice(0, n)  // Take first n
-				const fromEnd = dropLast(arr.length - n)(arr)  // Drop all but first n
+				const fromStart = arr.slice(0, n) // Take first n
+				const fromEnd = dropLast(arr.length - n)(arr) // Drop all but first n
 				return JSON.stringify(fromStart) === JSON.stringify(fromEnd)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -142,7 +142,11 @@ Deno.test("dropLast: edge cases", async (t) => {
 	})
 
 	await t.step("handles arrays with undefined", () => {
-		assertEquals(dropLast(2)([1, undefined, 3, undefined, 5]), [1, undefined, 3])
+		assertEquals(dropLast(2)([1, undefined, 3, undefined, 5]), [
+			1,
+			undefined,
+			3,
+		])
 	})
 
 	await t.step("handles arrays with null", () => {
@@ -157,7 +161,11 @@ Deno.test("dropLast: edge cases", async (t) => {
 	})
 
 	await t.step("handles arrays with mixed types", () => {
-		assertEquals(dropLast(2)([1, "two", true, null, undefined]), [1, "two", true])
+		assertEquals(dropLast(2)([1, "two", true, null, undefined]), [
+			1,
+			"two",
+			true,
+		])
 	})
 
 	await t.step("handles sparse arrays", () => {
@@ -166,7 +174,7 @@ Deno.test("dropLast: edge cases", async (t) => {
 		const result = dropLast(2)(sparse)
 		assertEquals(result.length, 3)
 		assertEquals(result[0], 1)
-		assertEquals(1 in result, false)  // hole preserved
+		assertEquals(1 in result, false) // hole preserved
 		assertEquals(result[2], 3)
 	})
 
@@ -183,8 +191,8 @@ Deno.test("dropLast: edge cases", async (t) => {
 		const obj3 = { c: 3 }
 		const result = dropLast(1)([obj1, obj2, obj3])
 		assertEquals(result, [obj1, obj2])
-		assertEquals(result[0], obj1)  // Same reference
-		assertEquals(result[1], obj2)  // Same reference
+		assertEquals(result[0], obj1) // Same reference
+		assertEquals(result[1], obj2) // Same reference
 	})
 
 	await t.step("handles two element array", () => {
@@ -221,21 +229,21 @@ Deno.test("dropLast: currying", async (t) => {
 Deno.test("dropLast: immutability", () => {
 	const original = [1, 2, 3, 4, 5]
 	const result = dropLast(2)(original)
-	
+
 	assertEquals(result, [1, 2, 3])
-	assertEquals(original, [1, 2, 3, 4, 5])  // Original unchanged
-	
+	assertEquals(original, [1, 2, 3, 4, 5]) // Original unchanged
+
 	// Modifying result should not affect original
 	result[0] = 999
 	assertEquals(original, [1, 2, 3, 4, 5])
-	
+
 	// For n <= 0, returns same array reference
 	const same = dropLast(0)(original)
 	assertEquals(same, original)
-	assertEquals(same === original, true)  // Same reference when n <= 0
-	
+	assertEquals(same === original, true) // Same reference when n <= 0
+
 	const sameNeg = dropLast(-1)(original)
-	assertEquals(sameNeg === original, true)  // Same reference for negative n
+	assertEquals(sameNeg === original, true) // Same reference for negative n
 })
 
 // Type preservation test
@@ -270,7 +278,7 @@ Deno.test("dropLast: practical use cases", async (t) => {
 			"Data row 2",
 			"Data row 3",
 			"---",
-			"Total: 3 rows"
+			"Total: 3 rows",
 		]
 		const dataOnly = dropLast(2)(report)
 		assertEquals(dataOnly, ["Data row 1", "Data row 2", "Data row 3"])

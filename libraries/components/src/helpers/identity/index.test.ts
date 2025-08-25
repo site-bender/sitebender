@@ -108,7 +108,7 @@ describe("identity", () => {
 		it("should handle nested objects", () => {
 			const nested = {
 				a: { b: { c: "deep" } },
-				d: [1, { e: "nested" }]
+				d: [1, { e: "nested" }],
 			}
 			const result = identity(nested)
 			expect(result).toBe(nested)
@@ -151,8 +151,8 @@ describe("identity", () => {
 					fc.anything(),
 					(value) => {
 						expect(identity(value)).toBe(value)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -162,8 +162,8 @@ describe("identity", () => {
 					fc.anything(),
 					(value) => {
 						expect(identity(identity(value))).toBe(value)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -172,11 +172,12 @@ describe("identity", () => {
 				fc.property(
 					fc.anything(),
 					(value) => {
-						const compose = <A, B, C>(f: (b: B) => C, g: (a: A) => B) => (a: A) => f(g(a))
+						const compose =
+							<A, B, C>(f: (b: B) => C, g: (a: A) => B) => (a: A) => f(g(a))
 						const identityComposed = compose(identity, identity)
 						expect(identityComposed(value)).toBe(value)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -188,15 +189,15 @@ describe("identity", () => {
 					(a, b) => {
 						const aIdentity = identity(a)
 						const bIdentity = identity(b)
-						
+
 						if (a === b) {
 							expect(aIdentity === bIdentity).toBe(true)
 						}
-						
+
 						expect(aIdentity === a).toBe(true)
 						expect(bIdentity === b).toBe(true)
-					}
-				)
+					},
+				),
 			)
 		})
 	})
@@ -225,12 +226,12 @@ describe("identity", () => {
 		it("should work in function composition", () => {
 			const double = (x: number) => x * 2
 			const add1 = (x: number) => x + 1
-			
+
 			// identity should not change the result
 			const composed1 = (x: number) => identity(double(add1(x)))
 			const composed2 = (x: number) => double(identity(add1(x)))
 			const composed3 = (x: number) => double(add1(identity(x)))
-			
+
 			expect(composed1(5)).toBe(12)
 			expect(composed2(5)).toBe(12)
 			expect(composed3(5)).toBe(12)
@@ -249,13 +250,16 @@ describe("identity", () => {
 
 		it("should not clone or copy objects", () => {
 			const largeObj = {
-				data: new Array(10000).fill(0).map((_, i) => ({ id: i, value: `item-${i}` }))
+				data: new Array(10000).fill(0).map((_, i) => ({
+					id: i,
+					value: `item-${i}`,
+				})),
 			}
-			
+
 			const start = Date.now()
 			const result = identity(largeObj)
 			const end = Date.now()
-			
+
 			expect(result).toBe(largeObj) // Same reference
 			expect(end - start).toBeLessThan(10) // Should be instant
 		})
@@ -266,7 +270,7 @@ describe("identity", () => {
 			// For any function f and value x: f(identity(x)) === f(x)
 			const double = (x: number) => x * 2
 			const testValue = 42
-			
+
 			expect(double(identity(testValue))).toBe(double(testValue))
 		})
 
@@ -274,7 +278,7 @@ describe("identity", () => {
 			// For any function f and value x: identity(f(x)) === f(x)
 			const double = (x: number) => x * 2
 			const testValue = 42
-			
+
 			expect(identity(double(testValue))).toBe(double(testValue))
 		})
 
@@ -285,8 +289,8 @@ describe("identity", () => {
 					(value) => {
 						// identity is its own inverse: identity⁻¹ = identity
 						expect(identity(value)).toBe(value)
-					}
-				)
+					},
+				),
 			)
 		})
 	})

@@ -2,17 +2,17 @@
 
 ## Navigation
 
-| Component | Primary Function | Scope | Presentation Variants |
-| :--- | :--- | :--- | :--- |
-| **`<GlobalNav />`** | Navigate top-level site sections | Global | Horizontal Bar, Vertical Sidebar, Mobile Drawer |
-| **`<LocalNav />`** | Navigate within a section | Local | Sub-menu, Tabs, Nested List |
-| **`<BreadcrumbTrail />`** | Show & navigate hierarchy path | Contextual | Text links with separators (e.g., `>`) |
-| **`<Pagination />`** | Navigate page sequences | Contextual | Numbered buttons, Previous/Next |
-| **`<RelatedLinks />`** | Navigate to related content | Contextual | Text links, Card grid |
-| **`<Search />`** | Navigate via query | Utility | Input field with button |
-| **`<SkipLink />`** | Skip to main content | Accessibility (Global) | Hidden until focused |
-| **`<PageTitle />`** | Announce page content | Accessibility (Global) | `<h1>` and `<title>` tag |
-| **`<SupplementalNav />`** | Navigate to ancillary pages | Supplemental | Multi-column link list |
+| Component                 | Primary Function                 | Scope                  | Presentation Variants                           |
+| :------------------------ | :------------------------------- | :--------------------- | :---------------------------------------------- |
+| **`<GlobalNav />`**       | Navigate top-level site sections | Global                 | Horizontal Bar, Vertical Sidebar, Mobile Drawer |
+| **`<LocalNav />`**        | Navigate within a section        | Local                  | Sub-menu, Tabs, Nested List                     |
+| **`<BreadcrumbTrail />`** | Show & navigate hierarchy path   | Contextual             | Text links with separators (e.g., `>`)          |
+| **`<Pagination />`**      | Navigate page sequences          | Contextual             | Numbered buttons, Previous/Next                 |
+| **`<RelatedLinks />`**    | Navigate to related content      | Contextual             | Text links, Card grid                           |
+| **`<Search />`**          | Navigate via query               | Utility                | Input field with button                         |
+| **`<SkipLink />`**        | Skip to main content             | Accessibility (Global) | Hidden until focused                            |
+| **`<PageTitle />`**       | Announce page content            | Accessibility (Global) | `<h1>` and `<title>` tag                        |
+| **`<SupplementalNav />`** | Navigate to ancillary pages      | Supplemental           | Multi-column link list                          |
 
 ## Helpers
 

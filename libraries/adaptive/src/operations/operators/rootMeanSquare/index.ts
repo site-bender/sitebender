@@ -7,8 +7,8 @@ import type {
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../types/index.ts"
+import Error from "../../../constructors/Error/index.ts"
 
 const rootMeanSquare =
 	({ operands, ...op }: HydratedRootMeanSquare): OperationFunction<number> =>

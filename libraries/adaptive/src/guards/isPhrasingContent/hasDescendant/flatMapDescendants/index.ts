@@ -1,8 +1,8 @@
+import type { ElementConfig } from "../../../../../types/html/index.ts"
 import type {
 	ElementConfig,
 	GlobalAttributes,
 } from "../../../../constructors/elements/types/index.ts"
-import type { ElementConfig } from "../../../../../types/html/index.ts"
 
 import reduce from "../../../../utilities/array/reduce/index.ts"
 

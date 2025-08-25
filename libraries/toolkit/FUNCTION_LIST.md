@@ -3,6 +3,7 @@
 **Testing Progress: 13.8% (118/854 functions with 100% coverage)**
 
 **Estimated Time to Completion**: ~147 hours
+
 - **Remaining functions**: 736 (854 total - 118 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
@@ -14,6 +15,7 @@
 ## Current Functions (854 functions total)
 
 ### array/ (123 functions)
+
 - all - Returns true if all elements satisfy the predicate ✓
 - aperture - Returns a new array of consecutive n-tuples (sliding window of size n with step 1) ✓
 - cartesianProduct - Returns the Cartesian product of two arrays (all possible pairs) ✓
@@ -139,6 +141,7 @@
 - zipWith - Combines arrays using custom function
 
 ### async/ (10 functions)
+
 - delay - Creates a Promise that resolves after specified milliseconds with an optional value
 - delayReject - Creates a Promise that rejects after specified milliseconds with an optional error
 - parallel - Executes async functions concurrently and collects all results in order
@@ -151,6 +154,7 @@
 - whilst - Repeatedly executes an async function while a condition is true
 
 ### activation/ (7 functions)
+
 - leakyRectifiedLinearUnit - Leaky ReLU variant with small gradient for negative inputs
 - rectifiedLinearUnit - ReLU activation function
 - relu - Alias for rectifiedLinearUnit
@@ -160,6 +164,7 @@
 - swish - Self-gated activation (x × sigmoid(βx))
 
 ### combinator/ (49 functions)
+
 - apply - Calls a function with an array of arguments
 - arity - Wraps a function to report a specific arity (alias: nAry)
 - binary - Wraps a function to accept exactly 2 arguments
@@ -180,7 +185,7 @@
 - juxt - Applies an array of functions to a value and returns array of results
 - lift - Lifts a function to work with functors/applicatives
 - liftA2 - Lifts a binary function to work with applicative functors
-- liftA3 - Lifts a ternary function to work with applicative functors  
+- liftA3 - Lifts a ternary function to work with applicative functors
 - liftA4 - Lifts a quaternary function to work with applicative functors
 - liftA5 - Lifts a 5-ary function to work with applicative functors
 - liftBinary - Lifts a binary function to work with functors (pairwise)
@@ -211,6 +216,7 @@
 - memoizeKey - Creates consistent cache keys for memoization
 
 ### conversion/ (16 functions)
+
 - castValue - Dispatcher for type conversions:
   - toBoolean - Converts various values to boolean (true/false, yes/no, 1/0)
   - toFloat - Flexibly parses values as floating-point numbers (renamed from toNumber)
@@ -229,9 +235,11 @@
 - toPercent - Converts a number to a percentage string (e.g. 0.123 -> "12.30%")
 
 ### debug/ (1 function)
+
 - withInspect - Attaches custom inspection method for better console output
 
 ### error/ (11 functions)
+
 - createError - Creates a custom error with enhanced properties
 - createNullError - Creates an error for null/undefined values
 - createTypeError - Creates a type validation error
@@ -245,6 +253,7 @@
 - withTypes - Adds type information to error
 
 ### either/ (18 functions)
+
 - bimap - Maps functions over both Left and Right
 - chain - Flat maps over Right value (monadic bind) ✓
 - chainLeft - Flat maps over Left value
@@ -265,6 +274,7 @@
 - tryCatch - Converts try/catch to Either
 
 ### finance/ (6 functions)
+
 - compoundInterest - Calculate compound interest
 - futureValue - FV with compound interest and periodic payments
 - fv - Alias for futureValue
@@ -274,6 +284,7 @@
 - pv - Alias for presentValue
 
 ### geometry/ (10 functions)
+
 - anglesBetweenVectors - Angle between n-dimensional vectors
 - chebyshevDistance - L∞ distance (chessboard metric)
 - crossProduct - 3D vector cross product
@@ -286,6 +297,7 @@
 - vectorProjection - Project one vector onto another
 
 ### interpolation/ (6 functions)
+
 - bilinearInterpolation - 2D interpolation on a rectangle
 - cubicInterpolation - Cubic interpolation through four points
 - inverseLinearInterpolation - Find t value from interpolated result
@@ -294,6 +306,7 @@
 - smoothstep - Smooth S-curve interpolation
 
 ### io/ (19 functions)
+
 - ap - Applies an IO function to an IO value (Applicative)
 - chain - Flat maps a function that returns an IO (Monad bind)
 - chainIOEither - Flat maps a function returning IOEither
@@ -315,13 +328,15 @@
 - runIO - Executes an IO computation and returns the result
 
 ### lens/ (5 functions)
+
 - composeLens - Composes multiple lenses
 - lensEq - Checks equality at lens focus
 - lensGte - Checks if value at lens focus is >= another
-- lensLte - Checks if value at lens focus is <= another  
+- lensLte - Checks if value at lens focus is <= another
 - lensSatisfies - Checks if value at lens focus satisfies predicate
 
 ### logic/ (13 functions)
+
 - and - Logical AND of two values
 - cond - Multi-way conditional (like switch/case)
 - defaultTo - Returns default value if input is null/undefined
@@ -337,6 +352,7 @@
 - xor - Logical XOR of two values
 
 ### map/ (40 functions)
+
 - clear - Creates a new empty Map
 - delete - Removes a key-value pair from a Map (returns new Map)
 - deleteAll - Removes multiple keys from a Map
@@ -379,6 +395,7 @@
 - withDefault - Wraps a Map to provide default values for missing keys
 
 ### math/ (53 functions)
+
 - absoluteValue - Returns absolute value ✓
 - add - Adds two numbers ✓
 - average - Calculates arithmetic mean of an array (alias: mean) ✓
@@ -435,6 +452,7 @@
 - truncate - Removes decimal part ✓
 
 ### matrix/ (8 functions)
+
 - determinant2x2 - 2x2 matrix determinant
 - determinant3x3 - 3x3 matrix determinant
 - identityMatrix - Generate identity matrix of size n
@@ -445,6 +463,7 @@
 - matrixTranspose - Transpose matrix (swap rows and columns)
 
 ### maybe/ (17 functions)
+
 - just - Creates a Just value (Some) ✓
 - justWithInspect - Creates a Just value with enhanced debugging output
 - nothing - Creates a Nothing value (None) ✓
@@ -464,6 +483,7 @@
 - show - Converts Maybe to string representation
 
 ### object/ (56 functions)
+
 - assoc - Returns a shallow clone of an object with a property set to a value
 - assocPath - Sets a nested property using a path, creating missing objects
 - clone - Creates a deep clone of an object, handling circular references
@@ -522,6 +542,7 @@
 - smartMerge - Merges objects with intelligent type-aware conflict resolution
 
 ### physics/ (8 functions)
+
 - acceleration - Calculates acceleration from force and mass (a = F/m)
 - force - Calculates force using Newton's second law (F = ma)
 - frequency - Calculate frequency from period (f = 1/T)
@@ -532,6 +553,7 @@
 - wavelength - Calculate wavelength from frequency and speed (λ = v/f)
 
 ### result/ (18 functions)
+
 - bimap - Maps functions over both Err and Ok values
 - chain - Flat maps over Ok value (monadic bind)
 - chainErr - Flat maps over Err value
@@ -552,6 +574,7 @@
 - tryCatch - Converts try/catch to Result
 
 ### set/ (26 functions)
+
 - add - Adds an element to a Set (returns new Set for immutability)
 - clear - Creates an empty Set
 - delete - Removes an element from a Set (returns new Set)
@@ -580,6 +603,7 @@
 - unionWith - Like union but uses custom equality function
 
 ### special/ (7 functions)
+
 - betaFunction - Beta function B(x,y)
 - complementaryErrorFunction - Complementary error function erfc(x)
 - erf - Alias for errorFunction
@@ -589,6 +613,7 @@
 - stirlingApproximation - Stirling's approximation for factorials
 
 ### statistics/ (12 functions)
+
 - corr - Alias for correlation
 - correlation - Pearson correlation coefficient
 - covariance - Measure of joint variability
@@ -604,6 +629,7 @@
 - zScore - Standard score (z-score)
 
 ### string/ (77 functions)
+
 - changeExtension - Changes the file extension of a filename
 - chars - Splits string into array of characters
 - chomp - Removes trailing newline characters
@@ -683,6 +709,7 @@
 - wrapWith - Wraps string with prefix and suffix
 
 ### temporal/ (79 functions — Temporal API based)
+
 - addDays - Adds days to a Temporal date/datetime
 - addDuration - Adds a Temporal.Duration to a date/time
 - addHours - Adds hours to a Temporal time/datetime
@@ -764,6 +791,7 @@
 - sortByAbsoluteTime - Comparator for sorting by absolute time
 
 ### trigonometry/ (19 functions)
+
 - arcCosine - Inverse cosine function
 - arcSine - Inverse sine function
 - arcTangent - Inverse tangent function
@@ -785,6 +813,7 @@
 - tanh - Alias for hyperbolicTangent
 
 ### tuple/ (13 functions)
+
 - bimap - Maps two different functions over the elements of a pair
 - curry - Converts a function that takes a tuple into a curried function
 - first - Extracts the first element from a tuple or array
@@ -800,6 +829,7 @@
 - uncurry - Converts a curried function into a function that takes a tuple
 
 ### validation/ (106 functions)
+
 - allPass - Returns true if all predicates return true for the input
 - anyPass - Returns true if any predicate returns true for the input
 - both - Returns true if both predicates return true
@@ -908,6 +938,7 @@
 - validateRange - Checks if value is within specified range
 
 ### random/ (8 functions)
+
 - generateShortId - Generates HTML-safe unique ID with underscore prefix
 - randomBoolean - Random boolean with optional probability bias ✓
 - randomChoice - Select random element from Array or Set
@@ -921,12 +952,14 @@
 
 **Alias notes (complete list of all aliases in the library):**
 
-*Array aliases:*
+_Array aliases:_
+
 - `first` → `head` (returns first element)
 - `unique` → `nub` (removes duplicates)
 - `xprod` → `cartesianProduct` (Cartesian product)
 
-*Math/Statistics aliases:*
+_Math/Statistics aliases:_
+
 - `mean` → `average` (arithmetic mean)
 - `std` → `standardDeviation` (standard deviation)
 - `corr` → `correlation` (Pearson correlation)
@@ -934,42 +967,50 @@
 - `iqr` → `interquartileRange` (IQR)
 - `rms` → `rootMeanSquare` (RMS)
 
-*Trigonometry aliases:*
+_Trigonometry aliases:_
+
 - `atan2` → `arcTangent2` (two-argument arctangent)
 - `cosh` → `hyperbolicCosine` (hyperbolic cosine)
 - `sinh` → `hyperbolicSine` (hyperbolic sine)
 - `tanh` → `hyperbolicTangent` (hyperbolic tangent)
 
-*Finance aliases:*
+_Finance aliases:_
+
 - `irr` → `internalRateOfReturn` (IRR)
 - `npv` → `netPresentValue` (NPV)
 - `pv` → `presentValue` (present value)
 - `fv` → `futureValue` (future value)
 
-*Activation function aliases:*
+_Activation function aliases:_
+
 - `relu` → `rectifiedLinearUnit` (ReLU)
 - `gelu` → `gaussianErrorLinearUnit` (GELU)
 
-*Special function aliases:*
+_Special function aliases:_
+
 - `erf` → `errorFunction` (error function)
 - `erfc` → `complementaryErrorFunction` (complementary error function)
 
-*Interpolation aliases:*
+_Interpolation aliases:_
+
 - `lerp` → `linearInterpolation` (linear interpolation)
 
-*Object aliases:*
+_Object aliases:_
+
 - `without` → `omit` (removes specified keys)
 - `zipObject` → `zipObj` (creates object from key/value arrays)
 
-*Combinator aliases:*
+_Combinator aliases:_
+
 - `nAry` → `arity` (limits function arity)
 
-*Random function aliases:*
+_Random function aliases:_
+
 - `randomInt` → `randomInteger` (random integer generation)
 
 **Implementation notes:**
+
 - Date functions use Temporal API with strict validation (`overflow: 'reject'`)
 - All functions return null/NaN for invalid inputs (safe for monadic wrapping)
 - Random functions in `random/` folder are explicitly impure/non-deterministic
 - Lens functions moved to `simple/lens/` for consistency
-

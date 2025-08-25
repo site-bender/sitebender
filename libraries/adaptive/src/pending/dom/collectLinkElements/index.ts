@@ -1,6 +1,6 @@
 /**
  * Filters an array to return only LINK elements
- * 
+ *
  * @param elements - Array of HTML elements to filter
  * @returns Array containing only LINK elements
  * @example

@@ -9,8 +9,8 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import Error from "../../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../../types/index.ts"
+import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const IsSuperset = (op) => async (arg, localValues) => {
@@ -26,13 +26,13 @@ const IsSuperset = (op) => async (arg, localValues) => {
 		return { left: [operand, ...test.left] }
 	}
 
-		try {
-			const left = new Set(operand.right as Iterable<unknown>)
-			const right = new Set(test.right as Iterable<unknown>)
+	try {
+		const left = new Set(operand.right as Iterable<unknown>)
+		const right = new Set(test.right as Iterable<unknown>)
 
-			const superset = Array.from(right.values()).every((v) => left.has(v))
+		const superset = Array.from(right.values()).every((v) => left.has(v))
 
-			return superset ? operand : {
+		return superset ? operand : {
 			left: [
 				Error(op)("IsSuperset")(
 					`${JSON.stringify(operand.right)} is a superset of ${

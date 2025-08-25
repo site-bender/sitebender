@@ -1,4 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import exponential from "../../../../../src/simple/math/exponential/index.ts"
@@ -78,7 +81,11 @@ Deno.test("exponential: property-based testing", async (t) => {
 	await t.step("inverse relationship with logarithm", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-100),
+					max: Math.fround(100),
+				}),
 				(x) => {
 					const exp = exponential(x)
 					if (exp === 0) {
@@ -91,9 +98,9 @@ Deno.test("exponential: property-based testing", async (t) => {
 					}
 					const log = Math.log(exp)
 					return approximately(log, x, Math.max(1e-10, Math.abs(x) * 1e-14))
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -101,23 +108,31 @@ Deno.test("exponential: property-based testing", async (t) => {
 		fc.assert(
 			fc.property(
 				fc.tuple(
-					fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
-					fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) })
+					fc.float({
+						noNaN: true,
+						min: Math.fround(-10),
+						max: Math.fround(10),
+					}),
+					fc.float({
+						noNaN: true,
+						min: Math.fround(-10),
+						max: Math.fround(10),
+					}),
 				),
 				([a, b]) => {
 					// e^(a+b) = e^a * e^b
 					const expSum = exponential(a + b)
 					const expProduct = exponential(a) * exponential(b)
-					
+
 					if (!Number.isFinite(expSum) || !Number.isFinite(expProduct)) {
 						return true // Skip overflow cases
 					}
-					
+
 					const epsilon = Math.max(1e-10, Math.abs(expSum) * 1e-14)
 					return approximately(expSum, expProduct, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -125,23 +140,31 @@ Deno.test("exponential: property-based testing", async (t) => {
 		fc.assert(
 			fc.property(
 				fc.tuple(
-					fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
-					fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) })
+					fc.float({
+						noNaN: true,
+						min: Math.fround(-10),
+						max: Math.fround(10),
+					}),
+					fc.float({
+						noNaN: true,
+						min: Math.fround(-10),
+						max: Math.fround(10),
+					}),
 				),
 				([a, b]) => {
 					// e^(a-b) = e^a / e^b
 					const expDiff = exponential(a - b)
 					const expQuotient = exponential(a) / exponential(b)
-					
+
 					if (!Number.isFinite(expDiff) || !Number.isFinite(expQuotient)) {
 						return true // Skip overflow/underflow cases
 					}
-					
+
 					const epsilon = Math.max(1e-10, Math.abs(expDiff) * 1e-14)
 					return approximately(expDiff, expQuotient, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -164,12 +187,12 @@ Deno.test("exponential: property-based testing", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.float({ noNaN: true, noDefaultInfinity: true }),
-					fc.float({ noNaN: true, noDefaultInfinity: true })
+					fc.float({ noNaN: true, noDefaultInfinity: true }),
 				),
 				([a, b]) => {
 					const expA = exponential(a)
 					const expB = exponential(b)
-					
+
 					if (a < b) {
 						return expA <= expB
 					} else if (a > b) {
@@ -177,9 +200,9 @@ Deno.test("exponential: property-based testing", async (t) => {
 					} else {
 						return approximately(expA, expB, 1e-10)
 					}
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -187,23 +210,27 @@ Deno.test("exponential: property-based testing", async (t) => {
 		fc.assert(
 			fc.property(
 				fc.tuple(
-					fc.float({ noNaN: true, min: Math.fround(-20), max: Math.fround(20) }),
-					fc.integer({ min: -10, max: 10 })
+					fc.float({
+						noNaN: true,
+						min: Math.fround(-20),
+						max: Math.fround(20),
+					}),
+					fc.integer({ min: -10, max: 10 }),
 				),
 				([x, n]) => {
 					// (e^x)^n = e^(x*n)
 					const left = Math.pow(exponential(x), n)
 					const right = exponential(x * n)
-					
+
 					if (!Number.isFinite(left) || !Number.isFinite(right)) {
 						return true // Skip overflow/underflow cases
 					}
-					
+
 					const epsilon = Math.max(1e-10, Math.abs(left) * 1e-12)
 					return approximately(left, right, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -265,7 +292,7 @@ Deno.test("exponential: numerical accuracy", async (t) => {
 			{ input: -1, expected: 1 / Math.E },
 			{ input: -2, expected: 1 / (Math.E ** 2) },
 		]
-		
+
 		for (const { input, expected } of testCases) {
 			assertAlmostEquals(exponential(input), expected, 1e-10)
 		}

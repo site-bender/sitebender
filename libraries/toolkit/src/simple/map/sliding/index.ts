@@ -1,11 +1,11 @@
 /**
  * Creates sliding windows over Map entries
- * 
+ *
  * Returns an array of Maps, each containing a window of consecutive entries
  * from the original Map (in iteration order). Windows are of specified size
  * and move by a specified step. Useful for analyzing patterns in ordered data,
  * computing local aggregates, or examining entry neighborhoods.
- * 
+ *
  * @curried (size) => (step) => (map) => windows
  * @param size - Size of each window (must be positive)
  * @param step - Number of entries to advance between windows (default 1)
@@ -26,7 +26,7 @@
  * //   Map { "Bob" => 92, "Charlie" => 78 },
  * //   Map { "Charlie" => 78, "David" => 88 }
  * // ]
- * 
+ *
  * // Sliding window with step=2
  * const data = new Map([
  *   ["a", 1],
@@ -41,7 +41,7 @@
  * //   Map { "a" => 1, "b" => 2, "c" => 3 },
  * //   Map { "c" => 3, "d" => 4, "e" => 5 }
  * // ]
- * 
+ *
  * // Pairwise comparison (size=2, step=1)
  * const prices = new Map([
  *   ["day1", 100],
@@ -55,7 +55,7 @@
  * //   Map { "day2" => 105, "day3" => 103 },
  * //   Map { "day3" => 103, "day4" => 108 }
  * // ]
- * 
+ *
  * // Non-overlapping windows (step=size)
  * const items = new Map([
  *   ["1", "a"],
@@ -71,12 +71,12 @@
  * //   Map { "3" => "c", "4" => "d" },
  * //   Map { "5" => "e", "6" => "f" }
  * // ]
- * 
+ *
  * // Window larger than Map
  * const small = new Map([["a", 1], ["b", 2]])
  * sliding(5)(1)(small)
  * // [] (no complete windows possible)
- * 
+ *
  * // Single element windows
  * const singles = new Map([["x", 10], ["y", 20], ["z", 30]])
  * sliding(1)(1)(singles)
@@ -85,11 +85,11 @@
  * //   Map { "y" => 20 },
  * //   Map { "z" => 30 }
  * // ]
- * 
+ *
  * // Empty Map
  * sliding(2)(1)(new Map())
  * // []
- * 
+ *
  * // Moving average calculation
  * const temperatures = new Map([
  *   ["08:00", 18],
@@ -110,7 +110,7 @@
  * //   { period: "09:00-11:00", avg: 21 },
  * //   { period: "10:00-12:00", avg: 22 }
  * // ]
- * 
+ *
  * // Pattern detection in user activity
  * const activity = new Map([
  *   ["user1", "login"],
@@ -121,7 +121,7 @@
  * ])
  * const patterns = sliding(2)(1)(activity)
  * // Analyze consecutive activity patterns
- * 
+ *
  * // Time series analysis
  * const sales = new Map([
  *   ["Jan", 1000],
@@ -132,17 +132,17 @@
  * ])
  * const quarters = sliding(3)(1)(sales)
  * // Each window represents a rolling quarter
- * 
+ *
  * // Using with pipe for analysis
  * import { pipe } from "../../combinator/pipe/index.ts"
- * 
+ *
  * const metrics = new Map([
  *   ["t1", { cpu: 45, memory: 60 }],
  *   ["t2", { cpu: 50, memory: 65 }],
  *   ["t3", { cpu: 48, memory: 62 }],
  *   ["t4", { cpu: 52, memory: 68 }]
  * ])
- * 
+ *
  * const analysis = pipe(
  *   metrics,
  *   sliding(2)(1),
@@ -162,7 +162,7 @@
  * //   { period: "t2-t3", cpuChange: -2, memChange: -3 },
  * //   { period: "t3-t4", cpuChange: 4, memChange: 6 }
  * // ]
- * 
+ *
  * // Overlapping batches for processing
  * const tasks = new Map([
  *   ["task1", { priority: 1 }],
@@ -173,17 +173,17 @@
  * ])
  * const batches = sliding(3)(2)(tasks)
  * // Process overlapping batches of tasks
- * 
+ *
  * // Partial application for common window sizes
  * const pairs = sliding(2)(1)
  * const triples = sliding(3)(1)
  * const nonOverlapping = (size: number) => sliding(size)(size)
- * 
+ *
  * const nums = new Map([["a", 1], ["b", 2], ["c", 3], ["d", 4]])
  * pairs(nums)    // Adjacent pairs
  * triples(nums)  // Adjacent triples
  * nonOverlapping(2)(nums) // Non-overlapping pairs
- * 
+ *
  * // Event correlation
  * const events = new Map([
  *   [new Date("2024-01-01T10:00"), "start"],
@@ -193,13 +193,13 @@
  * ])
  * const eventPairs = sliding(2)(1)(events)
  * // Analyze consecutive event relationships
- * 
+ *
  * // Sliding with transformation
  * const transformWindows = <K, V, R>(
  *   transformer: (window: Map<K, V>) => R
  * ) => (windows: Array<Map<K, V>>) =>
  *   windows.map(transformer)
- * 
+ *
  * const values = new Map([["a", 10], ["b", 20], ["c", 30], ["d", 40]])
  * pipe(
  *   values,
@@ -210,7 +210,7 @@
  *   })
  * )
  * // [10, 10, 10] (differences between consecutive values)
- * 
+ *
  * // Detecting trends
  * const readings = new Map([
  *   ["h1", 100],
@@ -226,7 +226,7 @@
  *   return { increasing, decreasing, stable: !increasing && !decreasing }
  * })
  * // Trend analysis for each window
- * 
+ *
  * // Symbol keys
  * const sym1 = Symbol("a")
  * const sym2 = Symbol("b")
@@ -238,7 +238,7 @@
  * ])
  * sliding(2)(1)(symMap)
  * // Windows with Symbol keys
- * 
+ *
  * // Context windows for text
  * const words = new Map([
  *   [0, "the"],
@@ -249,11 +249,11 @@
  * ])
  * const trigrams = sliding(3)(1)(words)
  * // 3-word context windows
- * 
+ *
  * // Validation with windows
  * const validate = <K, V>(validator: (w: Map<K, V>) => boolean) =>
  *   (windows: Array<Map<K, V>>) => windows.every(validator)
- * 
+ *
  * const sequence = new Map([["a", 1], ["b", 2], ["c", 3], ["d", 4]])
  * const windows = sliding(2)(1)(sequence)
  * const isIncreasing = validate<string, number>(w => {
@@ -261,7 +261,7 @@
  *   return vals[1] > vals[0]
  * })
  * isIncreasing(windows) // true (all pairs increasing)
- * 
+ *
  * // Type safety
  * const typed = new Map<string, number>([
  *   ["a", 1],
@@ -270,12 +270,12 @@
  * ])
  * const typedWindows: Array<Map<string, number>> = sliding(2)(1)(typed)
  * // Array<Map<string, number>>
- * 
+ *
  * // Performance consideration for large Maps
  * const large = new Map(Array.from({length: 1000}, (_, i) => [i, i]))
  * const sample = sliding(10)(100)(large) // Sample windows
  * // Takes every 100th position for window starts
- * 
+ *
  * // Use for data smoothing
  * const noisy = new Map([
  *   ["s1", 10],
@@ -296,24 +296,25 @@
  * @property Flexible - Configurable window size and step
  * @property Order-preserving - Maintains Map iteration order
  */
-const sliding = <K, V>(size: number) =>
+const sliding =
+	<K, V>(size: number) =>
 	(step: number = 1) =>
-		(map: Map<K, V>): Array<Map<K, V>> => {
-			if (size <= 0 || step <= 0) return []
-			
-			const entries = Array.from(map.entries())
-			const windows: Array<Map<K, V>> = []
-			
-			for (let i = 0; i <= entries.length - size; i += step) {
-				const window = new Map<K, V>()
-				for (let j = 0; j < size; j++) {
-					const [key, value] = entries[i + j]
-					window.set(key, value)
-				}
-				windows.push(window)
+	(map: Map<K, V>): Array<Map<K, V>> => {
+		if (size <= 0 || step <= 0) return []
+
+		const entries = Array.from(map.entries())
+		const windows: Array<Map<K, V>> = []
+
+		for (let i = 0; i <= entries.length - size; i += step) {
+			const window = new Map<K, V>()
+			for (let j = 0; j < size; j++) {
+				const [key, value] = entries[i + j]
+				window.set(key, value)
 			}
-			
-			return windows
+			windows.push(window)
 		}
+
+		return windows
+	}
 
 export default sliding

@@ -1,12 +1,12 @@
 /**
  * Sorts an array using multiple comparator functions
- * 
+ *
  * Applies comparator functions in order until one returns a non-zero value,
  * providing multi-level sorting. Each comparator should return negative for
  * less than, positive for greater than, and zero for equal. Useful for
  * complex sorting with primary, secondary, tertiary sort keys, or different
  * sort directions per field.
- * 
+ *
  * @curried (comparators) => (array) => result
  * @param comparators - Array of comparator functions to apply in order
  * @param array - Array to sort
@@ -29,7 +29,7 @@
  * //   { name: "Charlie", age: 30 },
  * //   { name: "David", age: 30 }
  * // ]
- * 
+ *
  * // Sort with different directions per field
  * const byPriceDesc = (a: any, b: any) => b.price - a.price  // descending
  * const byNameAsc = (a: any, b: any) => a.name.localeCompare(b.name)  // ascending
@@ -46,7 +46,7 @@
  * //   { name: "Thingamajig", price: 10 },
  * //   { name: "Widget", price: 10 }
  * // ]
- * 
+ *
  * // Three-level sorting
  * const byCategory = (a: any, b: any) => a.category.localeCompare(b.category)
  * const byPriority = (a: any, b: any) => a.priority - b.priority
@@ -60,7 +60,7 @@
  * ]
  * sortWith([byCategory, byPriority, byDate])(tasks)
  * // Sorted by category, then priority within category, then date
- * 
+ *
  * // Custom comparators
  * const compareLength = (a: string, b: string) => a.length - b.length
  * const compareAlpha = (a: string, b: string) => a.localeCompare(b)
@@ -68,7 +68,7 @@
  * sortWith([compareLength, compareAlpha])(words)
  * // ["ox", "ant", "bee", "cat", "dog", "elephant"]
  * // (sorted by length, alphabetically within same length)
- * 
+ *
  * // Boolean comparisons
  * const byActive = (a: any, b: any) => Number(b.active) - Number(a.active)  // true first
  * const byScore = (a: any, b: any) => b.score - a.score  // high score first
@@ -85,7 +85,7 @@
  * //   { name: "David", active: false, score: 95 },
  * //   { name: "Alice", active: false, score: 85 }
  * // ]
- * 
+ *
  * // Null/undefined handling
  * const nullsLast = (a: any, b: any) => {
  *   if (a.value == null && b.value == null) return 0
@@ -108,22 +108,22 @@
  * //   { id: 2, value: null },
  * //   { id: 4, value: undefined }
  * // ]
- * 
+ *
  * // Case-insensitive with case-sensitive tiebreaker
- * const caseInsensitive = (a: string, b: string) => 
+ * const caseInsensitive = (a: string, b: string) =>
  *   a.toLowerCase().localeCompare(b.toLowerCase())
  * const caseSensitive = (a: string, b: string) => a.localeCompare(b)
  * const strings = ["apple", "Apple", "APPLE", "banana", "Banana"]
  * sortWith([caseInsensitive, caseSensitive])(strings)
  * // ["APPLE", "Apple", "apple", "Banana", "banana"]
- * 
+ *
  * // Date and time sorting
  * const byDateOnly = (a: any, b: any) => {
  *   const dateA = new Date(a.datetime).toDateString()
  *   const dateB = new Date(b.datetime).toDateString()
  *   return dateA.localeCompare(dateB)
  * }
- * const byTime = (a: any, b: any) => 
+ * const byTime = (a: any, b: any) =>
  *   a.datetime.getTime() - b.datetime.getTime()
  * const events = [
  *   { name: "Event1", datetime: new Date("2024-01-15T10:00") },
@@ -132,27 +132,27 @@
  * ]
  * sortWith([byDateOnly, byTime])(events)
  * // Sorted by date, then by time within same date
- * 
+ *
  * // Single comparator (works like regular sort)
  * sortWith([(a: number, b: number) => a - b])([3, 1, 4, 1, 5])
  * // [1, 1, 3, 4, 5]
- * 
+ *
  * // Empty comparators array (no sorting)
  * sortWith([])(["b", "a", "c"])
  * // ["b", "a", "c"]
- * 
+ *
  * // Empty array
  * sortWith([compareAlpha])([])
  * // []
- * 
+ *
  * // Single element
  * sortWith([compareAlpha])(["only"])
  * // ["only"]
- * 
+ *
  * // Handle null/undefined
  * sortWith([(a, b) => a - b])(null)       // []
  * sortWith([(a, b) => a - b])(undefined)  // []
- * 
+ *
  * // Complex object sorting
  * type Employee = {
  *   department: string
@@ -160,11 +160,11 @@
  *   salary: number
  *   name: string
  * }
- * const byDepartment = (a: Employee, b: Employee) => 
+ * const byDepartment = (a: Employee, b: Employee) =>
  *   a.department.localeCompare(b.department)
- * const bySalaryDesc = (a: Employee, b: Employee) => 
+ * const bySalaryDesc = (a: Employee, b: Employee) =>
  *   b.salary - a.salary
- * const byPosition = (a: Employee, b: Employee) => 
+ * const byPosition = (a: Employee, b: Employee) =>
  *   a.position.localeCompare(b.position)
  * const employees: Employee[] = [
  *   { department: "IT", position: "Developer", salary: 70000, name: "Alice" },
@@ -174,7 +174,7 @@
  * ]
  * sortWith([byDepartment, byPosition, bySalaryDesc])(employees)
  * // Sorted by dept, position within dept, salary within position
- * 
+ *
  * // Score with tiebreakers
  * const byWins = (a: any, b: any) => b.wins - a.wins
  * const byLosses = (a: any, b: any) => a.losses - b.losses  // fewer losses better
@@ -187,7 +187,7 @@
  * ]
  * sortWith([byWins, byLosses, byPointDiff])(teams)
  * // Rankings with multiple tiebreakers
- * 
+ *
  * // Version number sorting
  * const compareVersion = (a: string, b: string) => {
  *   const partsA = a.split(".").map(Number)
@@ -201,11 +201,11 @@
  * const versions = ["1.0.0", "2.1.0", "1.2.0", "1.0.10", "2.0.0"]
  * sortWith([compareVersion])(versions)
  * // ["1.0.0", "1.0.10", "1.2.0", "2.0.0", "2.1.0"]
- * 
+ *
  * // Partial application for reusable multi-sorters
  * const standardSort = sortWith([byCategory, byPriority, byDate])
  * standardSort(tasks)  // Apply standard sorting to any task list
- * 
+ *
  * // File system sorting (folders first, then alphabetical)
  * const byType = (a: any, b: any) => {
  *   if (a.isFolder === b.isFolder) return 0
@@ -230,18 +230,19 @@
  * @property Flexible - different sort directions per level
  */
 const sortWith = <T>(
-	comparators: ReadonlyArray<(a: T, b: T) => number>
-) => (
-	array: ReadonlyArray<T> | null | undefined
+	comparators: ReadonlyArray<(a: T, b: T) => number>,
+) =>
+(
+	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	if (array == null || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
-	
+
 	if (comparators.length === 0) {
 		return [...array]
 	}
-	
+
 	// Create a copy and sort with combined comparator
 	return [...array].sort((a, b) => {
 		// Apply comparators in order until one returns non-zero

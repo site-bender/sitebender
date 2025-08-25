@@ -1,11 +1,11 @@
 /**
  * Like symmetricDifference but uses a comparator function
- * 
+ *
  * Computes the symmetric difference of two arrays using a custom comparator
  * function to determine equality. Returns elements that exist in exactly one
  * of the arrays according to the comparator. Useful when you need custom
  * equality logic for objects, deep comparison, or property-based matching.
- * 
+ *
  * @curried (comparator) => (array1) => (array2) => result
  * @param comparator - Function to compare elements (a, b) => boolean
  * @param array1 - First array
@@ -19,13 +19,13 @@
  * const arr2 = [{ id: 2 }, { id: 3 }, { id: 4 }]
  * symmetricDifferenceWith(eqById)(arr1)(arr2)
  * // [{ id: 1 }, { id: 4 }]
- * 
+ *
  * // Case-insensitive string comparison
- * const eqIgnoreCase = (a: string, b: string) => 
+ * const eqIgnoreCase = (a: string, b: string) =>
  *   a.toLowerCase() === b.toLowerCase()
  * symmetricDifferenceWith(eqIgnoreCase)(["Hello", "World"])(["WORLD", "foo"])
  * // ["Hello", "foo"]
- * 
+ *
  * // Compare by property
  * const eqByName = (a: any, b: any) => a.name === b.name
  * const team1 = [
@@ -38,9 +38,9 @@
  * ]
  * symmetricDifferenceWith(eqByName)(team1)(team2)
  * // [{ name: "Alice", role: "dev" }, { name: "Charlie", role: "dev" }]
- * 
+ *
  * // Deep object comparison
- * const deepEqual = (a: any, b: any) => 
+ * const deepEqual = (a: any, b: any) =>
  *   JSON.stringify(a) === JSON.stringify(b)
  * const configs1 = [
  *   { settings: { theme: "dark" } },
@@ -52,15 +52,15 @@
  * ]
  * symmetricDifferenceWith(deepEqual)(configs1)(configs2)
  * // [{ settings: { theme: "dark" } }, { settings: { theme: "auto" } }]
- * 
+ *
  * // Numeric tolerance comparison
- * const almostEqual = (a: number, b: number) => 
+ * const almostEqual = (a: number, b: number) =>
  *   Math.abs(a - b) < 0.01
  * symmetricDifferenceWith(almostEqual)([1.0, 2.0, 3.0])([2.001, 3.0, 4.0])
  * // [1.0, 4.0] (2.0 and 2.001 considered equal)
- * 
+ *
  * // Date comparison (same day)
- * const sameDay = (a: Date, b: Date) => 
+ * const sameDay = (a: Date, b: Date) =>
  *   a.toDateString() === b.toDateString()
  * const dates1 = [
  *   new Date("2024-01-01T10:00"),
@@ -72,9 +72,9 @@
  * ]
  * symmetricDifferenceWith(sameDay)(dates1)(dates2)
  * // [Date("2024-01-01"), Date("2024-01-03")]
- * 
+ *
  * // Coordinate comparison with tolerance
- * const nearbyPoints = (p1: any, p2: any) => 
+ * const nearbyPoints = (p1: any, p2: any) =>
  *   Math.abs(p1.x - p2.x) < 5 && Math.abs(p1.y - p2.y) < 5
  * const points1 = [
  *   { x: 10, y: 20 },
@@ -86,7 +86,7 @@
  * ]
  * symmetricDifferenceWith(nearbyPoints)(points1)(points2)
  * // [{ x: 30, y: 40 }, { x: 50, y: 60 }]
- * 
+ *
  * // Version comparison
  * const sameMinorVersion = (v1: string, v2: string) => {
  *   const [maj1, min1] = v1.split(".")
@@ -99,7 +99,7 @@
  *   ["1.0.5", "2.0.1", "2.1.0"]
  * )
  * // ["1.1.0", "2.1.0"]
- * 
+ *
  * // User role changes
  * const sameUser = (a: any, b: any) => a.userId === b.userId
  * const oldRoles = [
@@ -114,7 +114,7 @@
  * ]
  * symmetricDifferenceWith(sameUser)(oldRoles)(newRoles)
  * // [{ userId: 1, role: "user" }, { userId: 4, role: "user" }]
- * 
+ *
  * // Product SKU comparison
  * const sameSKU = (a: any, b: any) => a.sku === b.sku
  * const inventory1 = [
@@ -127,7 +127,7 @@
  * ]
  * symmetricDifferenceWith(sameSKU)(inventory1)(inventory2)
  * // [{ sku: "ABC123", qty: 10 }, { sku: "GHI789", qty: 12 }]
- * 
+ *
  * // File path comparison (ignore extension)
  * const sameFile = (a: string, b: string) => {
  *   const nameA = a.substring(0, a.lastIndexOf("."))
@@ -140,27 +140,27 @@
  *   ["doc2.txt", "doc3.pdf", "doc4.docx"]
  * )
  * // ["doc1.txt", "doc4.docx"]
- * 
+ *
  * // Empty arrays
  * const eq = (a: any, b: any) => a === b
  * symmetricDifferenceWith(eq)([])([1, 2, 3])
  * // [1, 2, 3]
- * 
+ *
  * symmetricDifferenceWith(eq)([1, 2, 3])([])
  * // [1, 2, 3]
- * 
+ *
  * symmetricDifferenceWith(eq)([])([])
  * // []
- * 
+ *
  * // Handle null/undefined
  * symmetricDifferenceWith(eq)(null)([1, 2])       // [1, 2]
  * symmetricDifferenceWith(eq)(undefined)([1, 2])  // [1, 2]
  * symmetricDifferenceWith(eq)([1, 2])(null)       // [1, 2]
  * symmetricDifferenceWith(eq)([1, 2])(undefined)  // [1, 2]
- * 
+ *
  * // URL comparison (ignore protocol)
  * const sameUrl = (a: string, b: string) => {
- *   const stripProtocol = (url: string) => 
+ *   const stripProtocol = (url: string) =>
  *     url.replace(/^https?:\/\//, "")
  *   return stripProtocol(a) === stripProtocol(b)
  * }
@@ -170,7 +170,7 @@
  *   ["https://example.com", "http://yahoo.com"]
  * )
  * // ["https://google.com", "http://yahoo.com"]
- * 
+ *
  * // Task priority changes
  * const sameTask = (a: any, b: any) => a.taskId === b.taskId
  * const oldTasks = [
@@ -185,7 +185,7 @@
  * ]
  * symmetricDifferenceWith(sameTask)(oldTasks)(newTasks)
  * // [{ taskId: "T1", priority: "high" }, { taskId: "T4", priority: "high" }]
- * 
+ *
  * // Array length comparison
  * const sameLength = (a: any[], b: any[]) => a.length === b.length
  * symmetricDifferenceWith(sameLength)(
@@ -194,9 +194,9 @@
  *   [[4, 5], [6], [7, 8, 9]]
  * )
  * // [[1, 2, 3], [7, 8, 9]] (length 3 arrays)
- * 
+ *
  * // Partial match comparison
- * const partialMatch = (a: any, b: any) => 
+ * const partialMatch = (a: any, b: any) =>
  *   Object.keys(a).some(key => a[key] === b[key])
  * const items1 = [
  *   { color: "red", size: "L" },
@@ -208,9 +208,9 @@
  * ]
  * symmetricDifferenceWith(partialMatch)(items1)(items2)
  * // [{ color: "red", size: "L" }, { color: "green", size: "S" }]
- * 
+ *
  * // Range overlap detection
- * const overlaps = (a: any, b: any) => 
+ * const overlaps = (a: any, b: any) =>
  *   !(a.end < b.start || b.end < a.start)
  * const ranges1 = [
  *   { start: 0, end: 10 },
@@ -222,12 +222,12 @@
  * ]
  * symmetricDifferenceWith(overlaps)(ranges1)(ranges2)
  * // [{ start: 20, end: 30 }, { start: 35, end: 45 }]
- * 
+ *
  * // Custom class comparison
  * class Person {
  *   constructor(public name: string, public age: number) {}
  * }
- * const samePerson = (a: Person, b: Person) => 
+ * const samePerson = (a: Person, b: Person) =>
  *   a.name === b.name && a.age === b.age
  * const group1 = [
  *   new Person("Alice", 30),
@@ -239,7 +239,7 @@
  * ]
  * symmetricDifferenceWith(samePerson)(group1)(group2)
  * // [Person("Alice", 30), Person("Charlie", 35)]
- * 
+ *
  * // Partial application for reusable comparisons
  * const diffById = symmetricDifferenceWith(
  *   (a: any, b: any) => a.id === b.id
@@ -248,7 +248,7 @@
  * const data2 = [{ id: 2, val: "c" }, { id: 3, val: "d" }]
  * diffById(data1)(data2)
  * // [{ id: 1, val: "a" }, { id: 3, val: "d" }]
- * 
+ *
  * // Tag comparison (ignore order)
  * const sameTags = (a: any, b: any) => {
  *   const sortedA = [...a.tags].sort().join(",")
@@ -265,9 +265,9 @@
  * ]
  * symmetricDifferenceWith(sameTags)(posts1)(posts2)
  * // [{ id: 2, tags: ["python", "ml"] }, { id: 4, tags: ["rust", "wasm"] }]
- * 
+ *
  * // Threshold-based comparison
- * const withinThreshold = (threshold: number) => 
+ * const withinThreshold = (threshold: number) =>
  *   (a: number, b: number) => Math.abs(a - b) <= threshold
  * symmetricDifferenceWith(withinThreshold(10))(
  *   [100, 200, 300]
@@ -281,11 +281,13 @@
  * @property Symmetric - Result contains unique elements from both arrays
  */
 const symmetricDifferenceWith = <T>(
-	comparator: (a: T, b: T) => boolean
-) => (
-	array1: ReadonlyArray<T> | null | undefined
-) => (
-	array2: ReadonlyArray<T> | null | undefined
+	comparator: (a: T, b: T) => boolean,
+) =>
+(
+	array1: ReadonlyArray<T> | null | undefined,
+) =>
+(
+	array2: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	// Handle null/undefined cases
 	if (array1 == null || !Array.isArray(array1)) {
@@ -295,46 +297,46 @@ const symmetricDifferenceWith = <T>(
 		// Remove duplicates from array2 using comparator
 		const result: Array<T> = []
 		for (const item of array2) {
-			if (!result.some(r => comparator(r, item))) {
+			if (!result.some((r) => comparator(r, item))) {
 				result.push(item)
 			}
 		}
 		return result
 	}
-	
+
 	if (array2 == null || !Array.isArray(array2)) {
 		// Remove duplicates from array1 using comparator
 		const result: Array<T> = []
 		for (const item of array1) {
-			if (!result.some(r => comparator(r, item))) {
+			if (!result.some((r) => comparator(r, item))) {
 				result.push(item)
 			}
 		}
 		return result
 	}
-	
+
 	const result: Array<T> = []
-	
+
 	// Add elements from array1 that are not in array2
 	for (const item1 of array1) {
-		if (!array2.some(item2 => comparator(item1, item2))) {
+		if (!array2.some((item2) => comparator(item1, item2))) {
 			// Only add if not already in result (remove duplicates)
-			if (!result.some(r => comparator(r, item1))) {
+			if (!result.some((r) => comparator(r, item1))) {
 				result.push(item1)
 			}
 		}
 	}
-	
+
 	// Add elements from array2 that are not in array1
 	for (const item2 of array2) {
-		if (!array1.some(item1 => comparator(item1, item2))) {
+		if (!array1.some((item1) => comparator(item1, item2))) {
 			// Only add if not already in result (remove duplicates)
-			if (!result.some(r => comparator(r, item2))) {
+			if (!result.some((r) => comparator(r, item2))) {
 				result.push(item2)
 			}
 		}
 	}
-	
+
 	return result
 }
 

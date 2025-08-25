@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import decrement from "../../../../../src/simple/math/decrement/index.ts"
@@ -13,20 +12,20 @@ Deno.test("decrement", async (t) => {
 					fc.float({ noNaN: true }),
 					(n) => {
 						const result = decrement(n)
-						
+
 						// For finite numbers, decrement subtracts exactly 1
 						if (isFinite(n)) {
 							return result === n - 1
 						}
-						
+
 						// For infinite values, they remain unchanged
 						if (n === Infinity) return result === Infinity
 						if (n === -Infinity) return result === -Infinity
-						
+
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -38,9 +37,9 @@ Deno.test("decrement", async (t) => {
 						// decrement(n) should be the largest integer less than n
 						const result = decrement(n)
 						return result === n - 1
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -52,17 +51,17 @@ Deno.test("decrement", async (t) => {
 					(a, b) => {
 						const decA = decrement(a)
 						const decB = decrement(b)
-						
+
 						// Handle special cases first
 						if (!isFinite(a) || !isFinite(b)) {
 							if (a === b) return decA === decB
 							if (a < b) return decA < decB
 							return decA > decB
 						}
-						
+
 						// For finite numbers, account for floating-point precision
 						const epsilon = 1e-10
-						
+
 						// If a < b, then decrement(a) < decrement(b)
 						if (a < b && Math.abs(a - b) > epsilon) {
 							return decA < decB
@@ -73,34 +72,37 @@ Deno.test("decrement", async (t) => {
 						}
 						// If a ≈ b, then decrement(a) ≈ decrement(b)
 						return Math.abs(decA - decB) < epsilon
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should be injective (one-to-one) for practical values", () => {
-			fc.assert(
-				fc.property(
-					// Test only with integers where the property actually holds
-					fc.integer({ min: -1000000, max: 1000000 }),
-					fc.integer({ min: -1000000, max: 1000000 }),
-					(a, b) => {
-						const decA = decrement(a)
-						const decB = decrement(b)
-						
-						// If decrement(a) === decrement(b), then a === b
-						// This property holds perfectly for integers
-						if (decA === decB) {
-							return a === b
-						}
-						
-						return true
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be injective (one-to-one) for practical values",
+			() => {
+				fc.assert(
+					fc.property(
+						// Test only with integers where the property actually holds
+						fc.integer({ min: -1000000, max: 1000000 }),
+						fc.integer({ min: -1000000, max: 1000000 }),
+						(a, b) => {
+							const decA = decrement(a)
+							const decB = decrement(b)
+
+							// If decrement(a) === decrement(b), then a === b
+							// This property holds perfectly for integers
+							if (decA === decB) {
+								return a === b
+							}
+
+							return true
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("inverse relationship", async (t) => {
@@ -111,86 +113,96 @@ Deno.test("decrement", async (t) => {
 						fc.integer({ min: -1000000, max: 1000000 }),
 						fc.float({ noNaN: true, min: -1000, max: 1000 })
 							// Filter out very small numbers where precision is lost
-							.filter(n => Math.abs(n) > 1e-8 || n === 0)
+							.filter((n) => Math.abs(n) > 1e-8 || n === 0),
 					),
 					(n) => {
 						// decrement(increment(n)) === n
 						const result1 = decrement(increment(n))
 						// increment(decrement(n)) === n
 						const result2 = increment(decrement(n))
-						
+
 						if (isFinite(n)) {
 							// Accept that -0 becomes 0 through arithmetic
 							const isZero = (x: number) => x === 0 || Object.is(x, -0)
 							if (isZero(n)) {
 								return isZero(result1) && isZero(result2)
 							}
-							
+
 							return result1 === n && result2 === n
 						}
-						
+
 						// Special cases
-						if (n === Infinity) return result1 === Infinity && result2 === Infinity
-						if (n === -Infinity) return result1 === -Infinity && result2 === -Infinity
-						
+						if (n === Infinity) {
+							return result1 === Infinity && result2 === Infinity
+						}
+						if (n === -Infinity) {
+							return result1 === -Infinity && result2 === -Infinity
+						}
+
 						return true
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
 
 	await t.step("algebraic properties", async (t) => {
-		await t.step("should distribute over subtraction: decrement(a - b) = decrement(a) - b", () => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
-					fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
-					(a, b) => {
-						const left = decrement(a - b)
-						const right = decrement(a) - b
-						
-						// Account for floating point precision
-						return Math.abs(left - right) < 1e-10
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should distribute over subtraction: decrement(a - b) = decrement(a) - b",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
+						fc.float({ noNaN: true, min: -1e6, max: 1e6 }),
+						(a, b) => {
+							const left = decrement(a - b)
+							const right = decrement(a) - b
 
-		await t.step("should be translation: decrement(decrement(n)) = n - 2", () => {
-			fc.assert(
-				fc.property(
-					fc.oneof(
-						fc.integer({ min: -1000000, max: 1000000 }),
-						fc.float({ noNaN: true, min: -1000, max: 1000 })
+							// Account for floating point precision
+							return Math.abs(left - right) < 1e-10
+						},
 					),
-					(n) => {
-						const result = decrement(decrement(n))
-						const expected = n - 2
-						
-						if (isFinite(n)) {
-							// For floating point numbers, we need to account for precision
-							// The error accumulates with operations
-							// For very small numbers, use absolute epsilon; for larger numbers, use relative
-							const epsilon = Math.max(
-								Math.abs(expected) * Number.EPSILON * 4,  // Relative epsilon
-								Number.EPSILON * 10  // Absolute minimum epsilon
-							)
-							return Math.abs(result - expected) <= epsilon
-						}
-						
-						// Special cases
-						if (n === Infinity) return result === Infinity
-						if (n === -Infinity) return result === -Infinity
-						
-						return true
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should be translation: decrement(decrement(n)) = n - 2",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.oneof(
+							fc.integer({ min: -1000000, max: 1000000 }),
+							fc.float({ noNaN: true, min: -1000, max: 1000 }),
+						),
+						(n) => {
+							const result = decrement(decrement(n))
+							const expected = n - 2
+
+							if (isFinite(n)) {
+								// For floating point numbers, we need to account for precision
+								// The error accumulates with operations
+								// For very small numbers, use absolute epsilon; for larger numbers, use relative
+								const epsilon = Math.max(
+									Math.abs(expected) * Number.EPSILON * 4, // Relative epsilon
+									Number.EPSILON * 10, // Absolute minimum epsilon
+								)
+								return Math.abs(result - expected) <= epsilon
+							}
+
+							// Special cases
+							if (n === Infinity) return result === Infinity
+							if (n === -Infinity) return result === -Infinity
+
+							return true
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("special values", async (t) => {
@@ -230,13 +242,25 @@ Deno.test("decrement", async (t) => {
 
 		await t.step("should handle boundary values", () => {
 			// Near MAX_SAFE_INTEGER
-			assertEquals(decrement(Number.MAX_SAFE_INTEGER), Number.MAX_SAFE_INTEGER - 1)
-			assertEquals(decrement(Number.MAX_SAFE_INTEGER - 1), Number.MAX_SAFE_INTEGER - 2)
-			
+			assertEquals(
+				decrement(Number.MAX_SAFE_INTEGER),
+				Number.MAX_SAFE_INTEGER - 1,
+			)
+			assertEquals(
+				decrement(Number.MAX_SAFE_INTEGER - 1),
+				Number.MAX_SAFE_INTEGER - 2,
+			)
+
 			// Near MIN_SAFE_INTEGER
-			assertEquals(decrement(Number.MIN_SAFE_INTEGER + 1), Number.MIN_SAFE_INTEGER)
-			assertEquals(decrement(Number.MIN_SAFE_INTEGER), Number.MIN_SAFE_INTEGER - 1)
-			
+			assertEquals(
+				decrement(Number.MIN_SAFE_INTEGER + 1),
+				Number.MIN_SAFE_INTEGER,
+			)
+			assertEquals(
+				decrement(Number.MIN_SAFE_INTEGER),
+				Number.MIN_SAFE_INTEGER - 1,
+			)
+
 			// Very small positive numbers
 			assertEquals(decrement(Number.MIN_VALUE), -1 + Number.MIN_VALUE)
 			assertEquals(decrement(-Number.MIN_VALUE), -1 - Number.MIN_VALUE)
@@ -280,7 +304,10 @@ Deno.test("decrement", async (t) => {
 
 		await t.step("large numbers", () => {
 			assertEquals(decrement(1000000), 999999)
-			assertEquals(decrement(Number.MAX_SAFE_INTEGER), Number.MAX_SAFE_INTEGER - 1)
+			assertEquals(
+				decrement(Number.MAX_SAFE_INTEGER),
+				Number.MAX_SAFE_INTEGER - 1,
+			)
 		})
 
 		await t.step("small numbers", () => {
@@ -319,7 +346,7 @@ Deno.test("decrement", async (t) => {
 		})
 
 		await t.step("array indexing", () => {
-			const arr = ['a', 'b', 'c', 'd', 'e']
+			const arr = ["a", "b", "c", "d", "e"]
 			let index = arr.length
 			index = decrement(index)
 			assertEquals(index, 4) // last valid index
@@ -437,7 +464,7 @@ Deno.test("decrement", async (t) => {
 			const pipeline = [
 				(x: number) => x * 2,
 				decrement,
-				(x: number) => x / 3
+				(x: number) => x / 3,
 			]
 			const result = pipeline.reduce((acc, fn) => fn(acc), 6)
 			assertEquals(Math.abs(result - 3.6666666666666665) < 1e-10, true)
@@ -445,7 +472,7 @@ Deno.test("decrement", async (t) => {
 
 		await t.step("safe decrement with validation", () => {
 			function safeDecrement(value: unknown): number | null {
-				const num = typeof value === 'number' ? decrement(value) : NaN
+				const num = typeof value === "number" ? decrement(value) : NaN
 				return isNaN(num) ? null : num
 			}
 			assertEquals(safeDecrement(5), 4)
@@ -468,7 +495,7 @@ Deno.test("decrement", async (t) => {
 			const result1 = decrement(value)
 			const result2 = decrement(value)
 			const result3 = decrement(value)
-			
+
 			assertEquals(result1, 41)
 			assertEquals(result2, 41)
 			assertEquals(result3, 41)

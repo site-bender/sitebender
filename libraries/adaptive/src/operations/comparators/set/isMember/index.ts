@@ -7,8 +7,8 @@ import type {
 	Value,
 } from "../../../../types/index.ts"
 
-import Error from "../../../../constructors/Error/index.ts"
 import { isLeft } from "../../../../../types/index.ts"
+import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const IsMember = (op) => async (arg, localValues) => {

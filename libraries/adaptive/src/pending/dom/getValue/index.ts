@@ -15,7 +15,7 @@ import getFromTextArea from "./getFromTextArea/index.ts"
 
 /**
  * Retrieves a value from a DOM element based on element configuration
- * 
+ *
  * @param op - Element configuration containing selector information
  * @returns Function that takes local values and returns either an error or the element value
  * @example
@@ -39,7 +39,7 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 		return local
 	}
 
-	if (typeof globalThis !== 'undefined' && globalThis.document) {
+	if (typeof globalThis !== "undefined" && globalThis.document) {
 		const element = globalThis.document.querySelector(selector)
 
 		if (isUndefined(element)) {
@@ -51,7 +51,7 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 		switch (element.tagName.toLocaleLowerCase()) {
 			case "input":
 				const inputElement = element as HTMLInputElement
-				const inputType = inputElement.type || element.getAttribute('type')
+				const inputType = inputElement.type || element.getAttribute("type")
 				return inputType === "checkbox"
 					? { right: getFromCheckbox(element) }
 					: { right: getFromInput(element) }
@@ -63,11 +63,11 @@ const getValue = (op: ElementConfig) => (localValues?: GlobalAttributes) => {
 				return { right: getFromTextArea(element) }
 			case "data":
 				// data element uses value attribute, not data-value
-				const dataValue = element.getAttribute('value')
+				const dataValue = element.getAttribute("value")
 				return { right: dataValue || getFromInnerHtml(element) }
 			default:
 				const htmlElement = element as HTMLElement
-				const hasDataValue = element.getAttribute('data-value') || 
+				const hasDataValue = element.getAttribute("data-value") ||
 					(htmlElement.dataset ? htmlElement.dataset.value : undefined)
 				return hasDataValue
 					? { right: getFromDataset(element) }

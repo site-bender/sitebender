@@ -1,9 +1,9 @@
 /**
  * Returns a new array with elements in reverse order
- * 
+ *
  * Creates a new array without modifying the original. Empty arrays
  * return empty arrays. Uses the native toReversed method.
- * 
+ *
  * @property involutory - Applying reverse twice returns original
  * @param array - The array to reverse
  * @returns New array with elements in reverse order
@@ -13,7 +13,7 @@
  * reverse(["a", "b", "c"]) // ["c", "b", "a"]
  * reverse([]) // []
  * reverse([42]) // [42]
- * 
+ *
  * // Reverse processing order
  * const original = [1, 2, 3, 4]
  * const reversed = reverse(original) // [4, 3, 2, 1]

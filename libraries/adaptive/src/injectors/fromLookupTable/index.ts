@@ -1,6 +1,6 @@
+import { isRight } from "../../../types/index.ts"
 import Error from "../../constructors/Error/index.ts"
 import composeOperators from "../../operations/composers/composeOperators/index.ts"
-import { isRight } from "../../../types/index.ts"
 import castValue from "../../utilities/castValue/index.ts"
 import getValue from "../../utilities/getValue/index.ts"
 import isDefined from "../../utilities/isDefined/index.ts"

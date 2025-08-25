@@ -46,8 +46,10 @@ Deno.test("all - predicate with index parameter", () => {
 })
 
 Deno.test("all - predicate with array parameter", () => {
-	const result = all((n: number, _i: number, arr: Array<number>) => n < arr.length)(
-		[0, 1, 2]
+	const result = all((n: number, _i: number, arr: Array<number>) =>
+		n < arr.length
+	)(
+		[0, 1, 2],
 	)
 	assertEquals(result, true)
 })
@@ -61,7 +63,9 @@ Deno.test("all - works with different types - objects", () => {
 	interface User {
 		active: boolean
 	}
-	const users: Array<User> = [{ active: true }, { active: true }, { active: true }]
+	const users: Array<User> = [{ active: true }, { active: true }, {
+		active: true,
+	}]
 	const result = all((u: User) => u.active)(users)
 	assertEquals(result, true)
 })
@@ -84,8 +88,8 @@ Deno.test("all - property: empty array always returns true", () => {
 			(predicate) => {
 				const result = all(predicate)([])
 				return result === true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -96,11 +100,11 @@ Deno.test("all - property: single element array matches predicate result", () =>
 			(value) => {
 				const predicateTrue = (_: number) => true
 				const predicateFalse = (_: number) => false
-				
+
 				assertEquals(all(predicateTrue)([value]), true)
 				assertEquals(all(predicateFalse)([value]), false)
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -112,13 +116,13 @@ Deno.test("all - property: all(p) && all(q) === all(x => p(x) && q(x))", () => {
 				const p = (n: number) => n % 2 === 0
 				const q = (n: number) => n > 0
 				const combined = (n: number) => p(n) && q(n)
-				
+
 				const result1 = all(p)(arr) && all(q)(arr)
 				const result2 = all(combined)(arr)
-				
+
 				return result1 === result2
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -129,7 +133,7 @@ Deno.test("all - property: negation relationship with some", () => {
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const negatedPredicate = (n: number) => !predicate(n)
-				
+
 				// all(p) === !some(!p) for non-empty arrays
 				if (arr.length > 0) {
 					const allResult = all(predicate)(arr)
@@ -137,8 +141,8 @@ Deno.test("all - property: negation relationship with some", () => {
 					return allResult === !someResult
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -150,13 +154,13 @@ Deno.test("all - property: subset relationship", () => {
 				// If all elements > 50, then all elements > 0
 				const strictPredicate = (n: number) => n > 50
 				const loosePredicate = (n: number) => n > 0
-				
+
 				if (all(strictPredicate)(arr)) {
 					return all(loosePredicate)(arr) === true
 				}
 				return true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -165,24 +169,24 @@ Deno.test("all - maintains referential transparency", () => {
 	const predicate = (n: number) => n > 0
 	const arr = [1, 2, 3]
 	const curried = all(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("all - predicate can access all callback parameters", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<[number, number, Array<number>]> = []
-	
+
 	const predicate = (item: number, index: number, array: Array<number>) => {
 		capturedParams.push([item, index, array])
 		return item > 0
 	}
-	
+
 	all(predicate)(arr)
-	
+
 	assertEquals(capturedParams[0], [10, 0, arr])
 	assertEquals(capturedParams[1], [20, 1, arr])
 	assertEquals(capturedParams[2], [30, 2, arr])

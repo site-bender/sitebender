@@ -1,12 +1,12 @@
 /**
  * Type guard that checks if a value is a WeakMap object
- * 
+ *
  * Determines whether a value is an instance of the WeakMap constructor. WeakMaps
  * are collections of key-value pairs where keys must be objects and are held weakly,
  * meaning they don't prevent garbage collection when there are no other references.
  * Unlike regular Maps, WeakMaps are not enumerable and don't have a size property.
  * This function uses instanceof checking and provides TypeScript type narrowing.
- * 
+ *
  * WeakMap characteristics:
  * - Keys must be objects (not primitives)
  * - Keys are held weakly (garbage collectable)
@@ -14,7 +14,7 @@
  * - No size property or clear method
  * - Useful for metadata and private data
  * - Cross-realm: may fail for WeakMaps from different contexts
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a WeakMap, false otherwise
  * @example
@@ -22,7 +22,7 @@
  * // WeakMap instances
  * isWeakMap(new WeakMap())             // true
  * isWeakMap(new WeakMap([[{}, "value"]])) // true
- * 
+ *
  * // WeakMap with various key types
  * const wm = new WeakMap()
  * const obj = {}
@@ -32,7 +32,7 @@
  * wm.set(arr, "array key")
  * wm.set(fn, "function key")
  * isWeakMap(wm)                        // true
- * 
+ *
  * // Not WeakMaps
  * isWeakMap(new Map())                 // false (regular Map)
  * isWeakMap(new Set())                 // false
@@ -41,7 +41,7 @@
  * isWeakMap([])                        // false
  * isWeakMap(null)                     // false
  * isWeakMap(undefined)                 // false
- * 
+ *
  * // WeakMap-like objects are not WeakMaps
  * isWeakMap({
  *   get: () => {},
@@ -49,7 +49,7 @@
  *   has: () => false,
  *   delete: () => false
  * })                                  // false
- * 
+ *
  * // Type narrowing in TypeScript
  * function storeMetadata(
  *   storage: unknown,
@@ -63,11 +63,11 @@
  *   }
  *   return false
  * }
- * 
+ *
  * const wm = new WeakMap()
  * storeMetadata(wm, {}, "metadata")    // true
  * storeMetadata(new Map(), {}, "data") // false
- * 
+ *
  * // Filtering WeakMaps from collections
  * const collections = [
  *   new WeakMap(),
@@ -77,20 +77,20 @@
  *   {},
  *   []
  * ]
- * 
+ *
  * const weakMaps = collections.filter(isWeakMap)
  * // [WeakMap {}]
- * 
+ *
  * // Private data implementation
  * const privateData = new WeakMap<object, unknown>()
- * 
+ *
  * class SecureClass {
  *   constructor(secret: string) {
  *     if (isWeakMap(privateData)) {
  *       privateData.set(this, { secret })
  *     }
  *   }
- *   
+ *
  *   getSecret(): string | undefined {
  *     if (isWeakMap(privateData)) {
  *       const data = privateData.get(this) as any
@@ -99,21 +99,21 @@
  *     return undefined
  *   }
  * }
- * 
+ *
  * // Metadata storage system
  * class MetadataStore {
  *   private store: unknown
- *   
+ *
  *   constructor() {
  *     this.store = new WeakMap()
  *   }
- *   
+ *
  *   attach(obj: object, metadata: unknown): void {
  *     if (isWeakMap(this.store)) {
  *       this.store.set(obj, metadata)
  *     }
  *   }
- *   
+ *
  *   retrieve(obj: object): unknown {
  *     if (isWeakMap(this.store)) {
  *       return this.store.get(obj)
@@ -121,13 +121,13 @@
  *     return undefined
  *   }
  * }
- * 
+ *
  * // Cache with weak references
  * function createWeakCache(): WeakMap<object, unknown> | null {
  *   const cache = new WeakMap()
  *   return isWeakMap(cache) ? cache : null
  * }
- * 
+ *
  * function getCached<T extends object, V>(
  *   cache: unknown,
  *   key: T,
@@ -143,32 +143,32 @@
  *   }
  *   return compute()
  * }
- * 
+ *
  * // DOM element data association
  * const elementData = new WeakMap<Element, unknown>()
- * 
+ *
  * function attachData(element: Element, data: unknown): void {
  *   if (isWeakMap(elementData)) {
  *     elementData.set(element, data)
  *   }
  * }
- * 
+ *
  * function getData(element: Element): unknown {
  *   if (isWeakMap(elementData)) {
  *     return elementData.get(element)
  *   }
  *   return undefined
  * }
- * 
+ *
  * // Memory leak prevention
  * class EventManager {
  *   private listeners: unknown
- *   
+ *
  *   constructor() {
  *     // WeakMap prevents memory leaks for removed DOM elements
  *     this.listeners = new WeakMap()
  *   }
- *   
+ *
  *   addListener(
  *     element: object,
  *     callback: Function
@@ -178,24 +178,24 @@
  *       this.listeners.set(element, [...callbacks, callback])
  *     }
  *   }
- *   
+ *
  *   removeListeners(element: object): void {
  *     if (isWeakMap(this.listeners)) {
  *       this.listeners.delete(element)
  *     }
  *   }
  * }
- * 
+ *
  * // Object extension without modification
  * const extensions = new WeakMap<object, Record<string, unknown>>()
- * 
+ *
  * function extend(obj: object, props: Record<string, unknown>): void {
  *   if (isWeakMap(extensions)) {
  *     const existing = extensions.get(obj) || {}
  *     extensions.set(obj, { ...existing, ...props })
  *   }
  * }
- * 
+ *
  * function getExtension(obj: object, key: string): unknown {
  *   if (isWeakMap(extensions)) {
  *     const props = extensions.get(obj)
@@ -203,7 +203,7 @@
  *   }
  *   return undefined
  * }
- * 
+ *
  * // WeakMap vs Map decision
  * function chooseStorage(
  *   needsEnumeration: boolean,
@@ -215,12 +215,12 @@
  *   }
  *   return new Map()
  * }
- * 
+ *
  * // Validation for WeakMap operations
  * function canUseAsWeakMapKey(value: unknown): boolean {
  *   return typeof value === "object" && value !== null
  * }
- * 
+ *
  * function safeWeakMapSet(
  *   map: unknown,
  *   key: unknown,
@@ -232,29 +232,29 @@
  *   }
  *   return false
  * }
- * 
+ *
  * // React component instance tracking
  * const componentInstances = new WeakMap<object, unknown>()
- * 
+ *
  * function trackComponent(instance: object, data: unknown): void {
  *   if (isWeakMap(componentInstances)) {
  *     componentInstances.set(instance, data)
  *   }
  * }
- * 
+ *
  * function getComponentData(instance: object): unknown {
  *   if (isWeakMap(componentInstances)) {
  *     return componentInstances.get(instance)
  *   }
  *   return undefined
  * }
- * 
+ *
  * // Circular reference tracking
  * function createCircularTracker(): WeakMap<object, boolean> | null {
  *   const tracker = new WeakMap<object, boolean>()
  *   return isWeakMap(tracker) ? tracker : null
  * }
- * 
+ *
  * function hasCircularReference(
  *   obj: unknown,
  *   seen?: WeakMap<object, boolean>
@@ -262,42 +262,42 @@
  *   if (!seen) {
  *     seen = new WeakMap()
  *   }
- *   
+ *
  *   if (!isWeakMap(seen)) return false
- *   
+ *
  *   if (typeof obj !== "object" || obj === null) {
  *     return false
  *   }
- *   
+ *
  *   if (seen.has(obj)) {
  *     return true
  *   }
- *   
+ *
  *   seen.set(obj, true)
- *   
+ *
  *   for (const value of Object.values(obj)) {
  *     if (hasCircularReference(value, seen)) {
  *       return true
  *     }
  *   }
- *   
+ *
  *   return false
  * }
- * 
+ *
  * // Observer pattern with weak references
  * class Subject {
  *   private observers: unknown
- *   
+ *
  *   constructor() {
  *     this.observers = new WeakMap()
  *   }
- *   
+ *
  *   subscribe(observer: object, callback: Function): void {
  *     if (isWeakMap(this.observers)) {
  *       this.observers.set(observer, callback)
  *     }
  *   }
- *   
+ *
  *   notify(observer: object, data: unknown): void {
  *     if (isWeakMap(this.observers)) {
  *       const callback = this.observers.get(observer)
@@ -307,13 +307,13 @@
  *     }
  *   }
  * }
- * 
+ *
  * // Memoization with object keys
  * function memoizeWithObjects<T extends object, R>(
  *   fn: (arg: T) => R
  * ): (arg: T) => R {
  *   const cache = new WeakMap<T, R>()
- *   
+ *
  *   return (arg: T): R => {
  *     if (isWeakMap(cache)) {
  *       if (cache.has(arg)) {
@@ -332,7 +332,7 @@
  * @property Instanceof - Uses instanceof WeakMap internally
  * @property Specific - Only returns true for WeakMap, not Map or other collections
  */
-const isWeakMap = (value: unknown): value is WeakMap<object, unknown> => 
+const isWeakMap = (value: unknown): value is WeakMap<object, unknown> =>
 	value instanceof WeakMap
 
 export default isWeakMap

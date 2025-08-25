@@ -1,3 +1,4 @@
+import type { GlobalAttributes } from "../../../../../../../types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,7 +6,6 @@ import type {
 	OperatorConfig,
 	Value,
 } from "../../../../../../types/index.ts"
-import type { GlobalAttributes } from "../../../../../../../types/index.ts"
 import type { LegendAriaAttributes } from "../../../../types/aria/index.ts"
 import type { ElementConfig } from "../../../../types/index.ts"
 

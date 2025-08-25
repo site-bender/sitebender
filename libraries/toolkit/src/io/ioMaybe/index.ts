@@ -3,12 +3,12 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
 
 /**
  * Creates an IOMaybe from a thunk returning Maybe
- * 
+ *
  * Constructs an IOMaybe computation from a function that returns a Maybe value.
  * This is the primary constructor for IOMaybe when you have effectful computations
  * that may not produce a value. The computation is deferred until runIO is called,
  * maintaining referential transparency while handling potential absence of values.
- * 
+ *
  * @param thunk - Function returning Maybe that will be executed when runIO is called
  * @returns IOMaybe wrapping the deferred Maybe computation
  * @example
@@ -18,20 +18,20 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  * import { nothing } from "../../maybe/nothing/index.ts"
  * import { mapIOMaybe } from "../mapIOMaybe/index.ts"
  * import { chainIOMaybe } from "../chainIOMaybe/index.ts"
- * 
+ *
  * // Basic Maybe computation
  * const maybeNumberIO = ioMaybe(() => just(42))
  * runIO(maybeNumberIO)                     // Just(42)
- * 
+ *
  * const nothingIO = ioMaybe(() => nothing())
  * runIO(nothingIO)                         // Nothing
- * 
+ *
  * // Conditional value creation
- * const conditionalIO = ioMaybe(() => 
+ * const conditionalIO = ioMaybe(() =>
  *   Math.random() > 0.5 ? just("success") : nothing()
  * )
  * runIO(conditionalIO)                     // Just("success") or Nothing
- * 
+ *
  * // Safe parsing operations
  * const parseIntIO = ioMaybe(() => {
  *   const input = "42"
@@ -39,14 +39,14 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return isNaN(parsed) ? nothing() : just(parsed)
  * })
  * runIO(parseIntIO)                        // Just(42)
- * 
+ *
  * const parseInvalidIO = ioMaybe(() => {
  *   const input = "not-a-number"
  *   const parsed = parseInt(input, 10)
  *   return isNaN(parsed) ? nothing() : just(parsed)
  * })
  * runIO(parseInvalidIO)                    // Nothing
- * 
+ *
  * // Safe JSON parsing
  * const parseJsonIO = ioMaybe(() => {
  *   const jsonString = '{"name": "Alice", "age": 30}'
@@ -58,7 +58,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   }
  * })
  * runIO(parseJsonIO)                       // Just({ name: "Alice", age: 30 })
- * 
+ *
  * const parseInvalidJsonIO = ioMaybe(() => {
  *   const jsonString = '{invalid json}'
  *   try {
@@ -69,7 +69,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   }
  * })
  * runIO(parseInvalidJsonIO)                // Nothing
- * 
+ *
  * // Safe array access
  * const safeArrayAccessIO = ioMaybe(() => {
  *   const array = ["first", "second", "third"]
@@ -77,14 +77,14 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return index < array.length ? just(array[index]) : nothing()
  * })
  * runIO(safeArrayAccessIO)                 // Just("second")
- * 
+ *
  * const outOfBoundsIO = ioMaybe(() => {
  *   const array = ["first", "second", "third"]
  *   const index = 10
  *   return index < array.length ? just(array[index]) : nothing()
  * })
  * runIO(outOfBoundsIO)                     // Nothing
- * 
+ *
  * // Safe object property access
  * const safePropertyIO = ioMaybe(() => {
  *   const obj = { name: "Alice", age: 30 }
@@ -92,7 +92,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return prop in obj ? just(obj[prop as keyof typeof obj]) : nothing()
  * })
  * runIO(safePropertyIO)                    // Just("Alice")
- * 
+ *
  * // Environment variable simulation
  * const getEnvVarIO = ioMaybe(() => {
  *   const envVars = { NODE_ENV: "development", PORT: "3000" }
@@ -100,14 +100,14 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return key in envVars ? just(envVars[key as keyof typeof envVars]) : nothing()
  * })
  * runIO(getEnvVarIO)                       // Just("development")
- * 
+ *
  * // Safe localStorage access (browser)
  * const getStorageIO = ioMaybe(() => {
  *   const stored = localStorage.getItem("user-preferences")
  *   return stored ? just(stored) : nothing()
  * })
  * // runIO(getStorageIO) - Just(value) or Nothing
- * 
+ *
  * // Safe URL parsing
  * const parseUrlIO = ioMaybe(() => {
  *   const urlString = "https://example.com/path?param=value"
@@ -119,7 +119,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   }
  * })
  * runIO(parseUrlIO)                        // Just(URL object)
- * 
+ *
  * // Safe regular expression matching
  * const extractEmailIO = ioMaybe(() => {
  *   const text = "Contact us at alice@example.com for support"
@@ -128,7 +128,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return match ? just(match[1]) : nothing()
  * })
  * runIO(extractEmailIO)                    // Just("alice@example.com")
- * 
+ *
  * // Safe division
  * const safeDivideIO = ioMaybe(() => {
  *   const numerator = 100
@@ -136,14 +136,14 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return denominator !== 0 ? just(numerator / denominator) : nothing()
  * })
  * runIO(safeDivideIO)                      // Just(20)
- * 
+ *
  * const divideByZeroIO = ioMaybe(() => {
  *   const numerator = 100
  *   const denominator = 0
  *   return denominator !== 0 ? just(numerator / denominator) : nothing()
  * })
  * runIO(divideByZeroIO)                    // Nothing
- * 
+ *
  * // Safe string operations
  * const safeSubstringIO = ioMaybe(() => {
  *   const text = "Hello, World!"
@@ -154,26 +154,26 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *     : nothing()
  * })
  * runIO(safeSubstringIO)                   // Just("World")
- * 
+ *
  * // Chain with validation
  * const validateEmailIO = ioMaybe(() => {
  *   const email = "alice@example.com"
  *   const isValid = email.includes("@") && email.includes(".")
  *   return isValid ? just(email) : nothing()
  * })
- * 
+ *
  * const processValidEmailIO = chainIOMaybe((email: string) =>
  *   ioMaybe(() => just(email.toLowerCase()))
  * )(validateEmailIO)
  * runIO(processValidEmailIO)               // Just("alice@example.com")
- * 
+ *
  * // Random success/failure
  * const randomSuccessIO = ioMaybe(() => {
  *   const success = Math.random() > 0.3
  *   return success ? just("Operation successful") : nothing()
  * })
  * runIO(randomSuccessIO)                   // Just("Operation successful") or Nothing
- * 
+ *
  * // Safe date parsing
  * const parseDateIO = ioMaybe(() => {
  *   const dateString = "2023-08-20"
@@ -181,7 +181,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return !isNaN(date.getTime()) ? just(date) : nothing()
  * })
  * runIO(parseDateIO)                       // Just(Date object)
- * 
+ *
  * // Safe array find
  * const findUserIO = ioMaybe(() => {
  *   const users = [
@@ -193,7 +193,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return user ? just(user) : nothing()
  * })
  * runIO(findUserIO)                        // Just({ id: 2, name: "Bob" })
- * 
+ *
  * // Safe map access
  * const getFromMapIO = ioMaybe(() => {
  *   const cache = new Map([
@@ -205,7 +205,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  *   return value ? just(value) : nothing()
  * })
  * runIO(getFromMapIO)                      // Just({ name: "Alice" })
- * 
+ *
  * // Transform with map
  * const upperCaseIO = mapIOMaybe((s: string) => s.toUpperCase())(validateEmailIO)
  * runIO(upperCaseIO)                       // Just("ALICE@EXAMPLE.COM")

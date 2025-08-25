@@ -47,4 +47,3 @@ Documentation for the Sitebender project.
 - Peer-to-peer options: WebRTC data channels for collaborative sessions when a rendezvous server is available.
 - Content addressing: optional use of content hashes for lesson materials to enable verifiable caching.
 - Modular sync service: server component remains optional; offline-only mode must remain fully usable.
-

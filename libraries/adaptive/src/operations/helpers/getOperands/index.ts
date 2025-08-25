@@ -1,4 +1,8 @@
-import type { ComparatorConfig, Operand, OperatorConfig } from "../../../../types/index.ts"
+import type {
+	ComparatorConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../types/index.ts"
 
 /**
  * Extracts all operands from an operations list
@@ -12,7 +16,7 @@ const getOperands = (
 	const operands: Array<Operand> = []
 
 	operations.forEach((operation: ComparatorConfig | OperatorConfig) => {
-		if ('operands' in operation && operation.operands) {
+		if ("operands" in operation && operation.operands) {
 			operands.push(...operation.operands)
 		}
 	})

@@ -1,12 +1,13 @@
 import type { Result } from "../../types/fp/result/index.ts"
+
 import rightWithInspect from "../../either/rightWithInspect/index.ts"
 
 /**
  * Creates an Ok result with enhanced debugging output
- * 
+ *
  * Wrapper around Either's rightWithInspect with Result-specific naming.
  * Creates an Ok value with custom inspect method for better console output.
- * 
+ *
  * @param value - The success value to wrap
  * @returns A Result in the Ok state with inspect method
  * @example

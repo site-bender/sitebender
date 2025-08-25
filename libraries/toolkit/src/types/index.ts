@@ -1,6 +1,6 @@
 /**
  * Core type definitions for the toolkit library
- * 
+ *
  * This file contains fundamental types used throughout the library,
  * focusing on value types and data representations.
  */
@@ -38,7 +38,12 @@ export type Value =
 export type NumericDatatype = "Number" | "Float" | "Integer" | "Precision"
 export type StringDatatype = "String"
 export type BooleanDatatype = "Boolean"
-export type TemporalDatatype = "Date" | "Time" | "DateTime" | "Duration" | "Instant"
+export type TemporalDatatype =
+	| "Date"
+	| "Time"
+	| "DateTime"
+	| "Duration"
+	| "Instant"
 export type ComplexDatatype = "Json" | "Array" | "Map" | "Set" | "Object"
 
 export type Datatype =

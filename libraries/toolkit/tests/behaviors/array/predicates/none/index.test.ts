@@ -46,14 +46,20 @@ Deno.test("none - predicate with index parameter", () => {
 })
 
 Deno.test("none - predicate with array parameter", () => {
-	const result = none((n: number, _i: number, arr: Array<number>) => n > arr.length)(
-		[0, 1, 2]
+	const result = none((n: number, _i: number, arr: Array<number>) =>
+		n > arr.length
+	)(
+		[0, 1, 2],
 	)
 	assertEquals(result, true) // No element is greater than array length (3)
 })
 
 Deno.test("none - works with different types - strings", () => {
-	const result = none((s: string) => s.startsWith("x"))(["hello", "world", "test"])
+	const result = none((s: string) => s.startsWith("x"))([
+		"hello",
+		"world",
+		"test",
+	])
 	assertEquals(result, true)
 })
 
@@ -64,7 +70,7 @@ Deno.test("none - works with different types - objects", () => {
 	const users: Array<User> = [
 		{ banned: false },
 		{ banned: false },
-		{ banned: false }
+		{ banned: false },
 	]
 	const result = none((u: User) => u.banned)(users)
 	assertEquals(result, true)
@@ -88,8 +94,8 @@ Deno.test("none - property: empty array always returns true", () => {
 			(predicate) => {
 				const result = none(predicate)([])
 				return result === true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -99,13 +105,13 @@ Deno.test("none - property: none(p) === !some(p)", () => {
 			fc.array(fc.integer()),
 			(arr) => {
 				const predicate = (n: number) => n > 0
-				
+
 				const noneResult = none(predicate)(arr)
 				const someResult = arr.some(predicate)
-				
+
 				return noneResult === !someResult
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -116,13 +122,13 @@ Deno.test("none - property: none(p) === all(!p)", () => {
 			(arr) => {
 				const predicate = (n: number) => n > 0
 				const negatedPredicate = (n: number) => !predicate(n)
-				
+
 				const noneResult = none(predicate)(arr)
 				const allResult = arr.every(negatedPredicate)
-				
+
 				return noneResult === allResult
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -134,13 +140,13 @@ Deno.test("none - property: De Morgan's law - none(p || q) === none(p) && none(q
 				const p = (n: number) => n % 2 === 0
 				const q = (n: number) => n < 0
 				const combined = (n: number) => p(n) || q(n)
-				
+
 				const result1 = none(combined)(arr)
 				const result2 = none(p)(arr) && none(q)(arr)
-				
+
 				return result1 === result2
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -152,8 +158,8 @@ Deno.test("none - property: if array doesn't contain value, none for equality is
 			(arr, value) => {
 				// Value is guaranteed to not be in array due to range difference
 				return none((n: number) => n === value)(arr) === true
-			}
-		)
+			},
+		),
 	)
 })
 
@@ -162,24 +168,24 @@ Deno.test("none - maintains referential transparency", () => {
 	const predicate = (n: number) => n < 0
 	const arr = [1, 2, 3]
 	const curried = none(predicate)
-	
+
 	const result1 = curried(arr)
 	const result2 = curried(arr)
-	
+
 	assertEquals(result1, result2)
 })
 
 Deno.test("none - predicate can access all callback parameters", () => {
 	const arr = [10, 20, 30]
 	let capturedParams: Array<[number, number, Array<number>]> = []
-	
+
 	const predicate = (item: number, index: number, array: Array<number>) => {
 		capturedParams.push([item, index, array])
 		return item < 0
 	}
-	
+
 	none(predicate)(arr)
-	
+
 	assertEquals(capturedParams[0], [10, 0, arr])
 	assertEquals(capturedParams[1], [20, 1, arr])
 	assertEquals(capturedParams[2], [30, 2, arr])
@@ -200,7 +206,7 @@ Deno.test("none - handles NaN values", () => {
 Deno.test("none - handles null and undefined in predicate", () => {
 	const arr = [1, 2, 3, 4] as Array<number | null | undefined>
 	assertEquals(none((n) => n == null)(arr), true)
-	
+
 	const arrWithNull = [1, null, 3, 4] as Array<number | null | undefined>
 	assertEquals(none((n) => n == null)(arrWithNull), false)
 })
@@ -208,10 +214,10 @@ Deno.test("none - handles null and undefined in predicate", () => {
 Deno.test("none - relationship with all and some", () => {
 	const arr = [1, 2, 3, 4, 5]
 	const impossiblePredicate = (n: number) => n < 0 && n > 0 // Always false
-	
+
 	// If none satisfy an impossible predicate, it should be true
 	assertEquals(none(impossiblePredicate)(arr), true)
-	
+
 	// This should equal all returning true for the negation
 	assertEquals(arr.every((n) => !impossiblePredicate(n)), true)
 })

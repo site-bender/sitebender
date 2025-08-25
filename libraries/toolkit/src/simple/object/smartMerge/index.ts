@@ -1,11 +1,11 @@
 /**
  * Merges objects with intelligent type-aware conflict resolution
- * 
+ *
  * Performs a deep merge with smart handling of different data types.
  * Arrays can be concatenated or replaced, objects are recursively merged,
  * and primitive values use customizable conflict resolution. Provides
  * fine-grained control over the merge behavior through strategy options.
- * 
+ *
  * @curried (strategy) => (...sources) => result
  * @param strategy - Merge strategy configuration
  * @param sources - Objects to merge from left to right
@@ -14,31 +14,31 @@
  * ```typescript
  * // Default strategy (arrays concat, last value wins)
  * const defaultMerge = smartMerge({})
- * 
+ *
  * defaultMerge(
  *   { a: 1, b: [1, 2], c: { x: 10 } },
  *   { a: 2, b: [3], c: { y: 20 } }
  * )
  * // { a: 2, b: [1, 2, 3], c: { x: 10, y: 20 } }
- * 
+ *
  * // Replace arrays instead of concatenating
  * const replaceArrays = smartMerge({ arrays: "replace" })
- * 
+ *
  * replaceArrays(
  *   { items: [1, 2, 3], tags: ["old"] },
  *   { items: [4, 5], tags: ["new"] }
  * )
  * // { items: [4, 5], tags: ["new"] }
- * 
+ *
  * // Union arrays (unique values only)
  * const unionArrays = smartMerge({ arrays: "union" })
- * 
+ *
  * unionArrays(
  *   { tags: ["a", "b", "c"] },
  *   { tags: ["b", "c", "d"] }
  * )
  * // { tags: ["a", "b", "c", "d"] }
- * 
+ *
  * // Custom conflict resolver
  * const customResolver = smartMerge({
  *   resolver: (key: string, left: any, right: any) => {
@@ -47,31 +47,31 @@
  *     return right // default: right wins
  *   }
  * })
- * 
+ *
  * customResolver(
  *   { version: 1, priority: 10, name: "old" },
  *   { version: 3, priority: 5, name: "new" }
  * )
  * // { version: 3, priority: 5, name: "new" }
- * 
+ *
  * // Deep merge with nested objects
  * const deepMerge = smartMerge({ depth: 10 })
- * 
+ *
  * deepMerge(
- *   { 
- *     user: { 
- *       profile: { 
- *         settings: { theme: "light", lang: "en" } 
- *       } 
- *     } 
+ *   {
+ *     user: {
+ *       profile: {
+ *         settings: { theme: "light", lang: "en" }
+ *       }
+ *     }
  *   },
- *   { 
- *     user: { 
- *       profile: { 
+ *   {
+ *     user: {
+ *       profile: {
  *         settings: { theme: "dark" },
- *         avatar: "user.jpg" 
- *       } 
- *     } 
+ *         avatar: "user.jpg"
+ *       }
+ *     }
  *   }
  * )
  * // {
@@ -82,7 +82,7 @@
  * //     }
  * //   }
  * // }
- * 
+ *
  * // Configuration merging
  * const mergeConfigs = smartMerge({
  *   arrays: "union",
@@ -92,21 +92,21 @@
  *     return right
  *   }
  * })
- * 
+ *
  * const defaultConfig = {
  *   features: ["basic", "search"],
  *   enabled: true,
  *   debug: true,
  *   settings: { timeout: 5000 }
  * }
- * 
+ *
  * const userConfig = {
  *   features: ["search", "advanced"],
  *   enabled: false,
  *   debug: true,
  *   settings: { timeout: 3000, retries: 3 }
  * }
- * 
+ *
  * mergeConfigs(defaultConfig, userConfig)
  * // {
  * //   features: ["basic", "search", "advanced"],
@@ -114,10 +114,10 @@
  * //   debug: true,      // AND operation
  * //   settings: { timeout: 3000, retries: 3 }
  * // }
- * 
+ *
  * // Multiple source merging
  * const multiMerge = smartMerge({ arrays: "concat" })
- * 
+ *
  * multiMerge(
  *   { data: [1], meta: { v: 1 } },
  *   { data: [2], meta: { v: 2, author: "A" } },
@@ -127,13 +127,13 @@
  * //   data: [1, 2, 3],
  * //   meta: { v: 3, author: "A", reviewer: "R" }
  * // }
- * 
+ *
  * // Schema merging
  * const mergeSchemas = smartMerge({
  *   arrays: "union",
  *   depth: 5
  * })
- * 
+ *
  * const baseSchema = {
  *   required: ["id", "name"],
  *   properties: {
@@ -141,7 +141,7 @@
  *     name: { type: "string" }
  *   }
  * }
- * 
+ *
  * const extendedSchema = {
  *   required: ["name", "email"],
  *   properties: {
@@ -149,7 +149,7 @@
  *     email: { type: "string", format: "email" }
  *   }
  * }
- * 
+ *
  * mergeSchemas(baseSchema, extendedSchema)
  * // {
  * //   required: ["id", "name", "email"],
@@ -159,22 +159,22 @@
  * //     email: { type: "string", format: "email" }
  * //   }
  * // }
- * 
+ *
  * // Shallow merge only (depth = 1)
  * const shallowMerge = smartMerge({ depth: 1 })
- * 
+ *
  * shallowMerge(
  *   { a: { b: { c: 1 } }, x: 10 },
  *   { a: { d: 2 }, x: 20 }
  * )
  * // { a: { d: 2 }, x: 20 } - nested object replaced, not merged
- * 
+ *
  * // Null/undefined handling
  * const skipNulls = smartMerge({
- *   resolver: (_key: string, left: any, right: any) => 
+ *   resolver: (_key: string, left: any, right: any) =>
  *     right ?? left  // Use right unless it's null/undefined
  * })
- * 
+ *
  * skipNulls(
  *   { a: 1, b: 2, c: 3 },
  *   { a: null, b: undefined, c: 4 }
@@ -192,12 +192,13 @@ type MergeStrategy = {
 	resolver?: (key: string, left: any, right: any) => any
 }
 
-const smartMerge = (strategy: MergeStrategy = {}) =>
+const smartMerge =
+	(strategy: MergeStrategy = {}) =>
 	(...sources: Array<Record<string, any>>): Record<string, any> => {
 		const {
 			arrays = "concat",
 			depth = 10,
-			resolver = (_key: string, _left: any, right: any) => right
+			resolver = (_key: string, _left: any, right: any) => right,
 		} = strategy
 
 		const mergeTwo = (left: any, right: any, currentDepth: number = 0): any => {
@@ -231,11 +232,11 @@ const smartMerge = (strategy: MergeStrategy = {}) =>
 				!Array.isArray(right)
 			) {
 				const result: Record<string, any> = {}
-				
+
 				// Get all keys from both objects
 				const allKeys = new Set([
 					...Object.keys(left),
-					...Object.keys(right)
+					...Object.keys(right),
 				])
 
 				for (const key of allKeys) {

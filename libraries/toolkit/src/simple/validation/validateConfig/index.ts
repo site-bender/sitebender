@@ -1,11 +1,11 @@
 /**
  * Validates configuration objects against a schema
- * 
+ *
  * Performs comprehensive validation of configuration objects using a schema
  * that defines required fields, types, validators, and default values.
  * Returns an object with either validated data or detailed error information.
  * Supports nested objects, arrays, custom validators, and type coercion.
- * 
+ *
  * @curried (schema) => (config) => result
  * @param schema - Validation schema defining rules for each field
  * @param config - Configuration object to validate
@@ -33,18 +33,18 @@
  *     default: false
  *   }
  * }
- * 
+ *
  * const validateServerConfig = validateConfig(schema)
- * 
+ *
  * validateServerConfig({ port: 8080, debug: true })
  * // { valid: true, data: { port: 8080, host: "localhost", debug: true } }
- * 
+ *
  * validateServerConfig({ port: 70000 })
  * // { valid: false, errors: { port: "Value must be <= 65535" } }
- * 
+ *
  * validateServerConfig({})
  * // { valid: false, errors: { port: "Field is required" } }
- * 
+ *
  * // Nested object validation
  * const userSchema = {
  *   name: {
@@ -67,16 +67,16 @@
  *     }
  *   }
  * }
- * 
+ *
  * const validateUser = validateConfig(userSchema)
- * 
+ *
  * validateUser({
  *   name: "John Doe",
  *   email: "john@example.com",
  *   profile: { age: 30, bio: "Developer" }
  * })
  * // { valid: true, data: { name: "John Doe", email: "john@example.com", profile: { age: 30, bio: "Developer" } } }
- * 
+ *
  * // Array validation
  * const apiSchema = {
  *   endpoints: {
@@ -96,21 +96,21 @@
  *     }
  *   }
  * }
- * 
+ *
  * const validateApi = validateConfig(apiSchema)
- * 
+ *
  * validateApi({
  *   endpoints: ["/users", "/posts", "/comments"],
  *   methods: ["GET", "POST"]
  * })
  * // { valid: true, data: { endpoints: [...], methods: [...] } }
- * 
+ *
  * validateApi({
  *   endpoints: [],
  *   methods: ["INVALID"]
  * })
  * // { valid: false, errors: { endpoints: "Array must have at least 1 items", methods: { 0: "Value must be one of: GET, POST, PUT, DELETE, PATCH" } } }
- * 
+ *
  * // Custom validators
  * const passwordSchema = {
  *   username: {
@@ -132,20 +132,20 @@
  *   confirmPassword: {
  *     type: "string",
  *     required: true,
- *     validator: (val: string, data: any) => 
+ *     validator: (val: string, data: any) =>
  *       val === data.password ? null : "Passwords must match"
  *   }
  * }
- * 
+ *
  * const validatePassword = validateConfig(passwordSchema)
- * 
+ *
  * validatePassword({
  *   username: "JohnDoe",
  *   password: "SecurePass123",
  *   confirmPassword: "SecurePass123"
  * })
  * // { valid: true, data: { username: "johndoe", password: "SecurePass123", confirmPassword: "SecurePass123" } }
- * 
+ *
  * // Enum validation
  * const settingsSchema = {
  *   theme: {
@@ -164,15 +164,15 @@
  *     default: 14
  *   }
  * }
- * 
+ *
  * const validateSettings = validateConfig(settingsSchema)
- * 
+ *
  * validateSettings({ language: "en" })
  * // { valid: true, data: { theme: "auto", language: "en", fontSize: 14 } }
- * 
+ *
  * validateSettings({ language: "zh", theme: "blue" })
  * // { valid: false, errors: { language: "Value must be one of: en, es, fr, de", theme: "Value must be one of: light, dark, auto" } }
- * 
+ *
  * // Type coercion
  * const coercionSchema = {
  *   count: {
@@ -189,16 +189,16 @@
  *     items: { type: "string" }
  *   }
  * }
- * 
+ *
  * const validateWithCoercion = validateConfig(coercionSchema)
- * 
+ *
  * validateWithCoercion({
  *   count: "42",
  *   enabled: "true",
  *   tags: "tag1,tag2,tag3"
  * })
  * // { valid: true, data: { count: 42, enabled: true, tags: ["tag1", "tag2", "tag3"] } }
- * 
+ *
  * // Database connection config
  * const dbSchema = {
  *   host: { type: "string", required: true },
@@ -225,9 +225,9 @@
  *     }
  *   }
  * }
- * 
+ *
  * const validateDbConfig = validateConfig(dbSchema)
- * 
+ *
  * validateDbConfig({
  *   host: "localhost",
  *   database: "myapp",
@@ -270,20 +270,21 @@ type FieldSchema = {
 
 type ValidationSchema = Record<string, FieldSchema>
 
-type ValidationResult<T> = 
+type ValidationResult<T> =
 	| { valid: true; data: T }
 	| { valid: false; errors: Record<string, any> }
 
 const validateConfig = <T extends Record<string, any>>(
-	schema: ValidationSchema
-) => (
-	config: unknown
+	schema: ValidationSchema,
+) =>
+(
+	config: unknown,
 ): ValidationResult<T> => {
 	// Ensure config is an object
 	if (!config || typeof config !== "object" || Array.isArray(config)) {
 		return {
 			valid: false,
-			errors: { _root: "Configuration must be an object" }
+			errors: { _root: "Configuration must be an object" },
 		}
 	}
 
@@ -297,8 +298,8 @@ const validateConfig = <T extends Record<string, any>>(
 
 		// Apply default if value is undefined
 		if (value === undefined && "default" in fieldSchema) {
-			value = typeof fieldSchema.default === "function" 
-				? fieldSchema.default() 
+			value = typeof fieldSchema.default === "function"
+				? fieldSchema.default()
 				: fieldSchema.default
 		}
 
@@ -330,7 +331,7 @@ const validateConfig = <T extends Record<string, any>>(
 					break
 				case "array":
 					if (typeof value === "string") {
-						value = value.split(",").map(v => v.trim())
+						value = value.split(",").map((v) => v.trim())
 					} else if (!Array.isArray(value)) {
 						value = [value]
 					}
@@ -447,7 +448,8 @@ function validateType(value: any, type: string): boolean {
 		case "boolean":
 			return typeof value === "boolean"
 		case "object":
-			return value !== null && typeof value === "object" && !Array.isArray(value)
+			return value !== null && typeof value === "object" &&
+				!Array.isArray(value)
 		case "array":
 			return Array.isArray(value)
 		default:
@@ -455,7 +457,11 @@ function validateType(value: any, type: string): boolean {
 	}
 }
 
-function validateField(value: any, schema: FieldSchema, parentData: any): string | null {
+function validateField(
+	value: any,
+	schema: FieldSchema,
+	parentData: any,
+): string | null {
 	if (!validateType(value, schema.type)) {
 		return `Expected ${schema.type}`
 	}

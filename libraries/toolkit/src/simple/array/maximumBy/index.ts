@@ -1,13 +1,13 @@
 /**
  * Finds the maximum element according to a comparator function
- * 
+ *
  * Returns the element from the array that is greatest according to the
  * provided comparator function. The comparator should return a positive
  * number if the first argument is greater, negative if smaller, and zero
  * if equal (like standard sort comparators). Returns undefined for empty
  * arrays. Useful for finding maximum by custom criteria, complex comparisons,
  * or multi-field sorting.
- * 
+ *
  * @curried (comparator) => (array) => result
  * @param comparator - Function that compares two elements (returns positive if a > b)
  * @param array - Array to find maximum element from
@@ -18,12 +18,12 @@
  * const numCompare = (a: number, b: number) => a - b
  * maximumBy(numCompare)([3, 1, 4, 1, 5, 9, 2])
  * // 9
- * 
+ *
  * // String length comparison
  * const byLength = (a: string, b: string) => a.length - b.length
  * maximumBy(byLength)(["a", "bbb", "cc", "dddd"])
  * // "dddd"
- * 
+ *
  * // Object property comparison
  * const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
  * const people = [
@@ -33,7 +33,7 @@
  * ]
  * maximumBy(byAge)(people)
  * // { name: "Charlie", age: 35 }
- * 
+ *
  * // Multi-field comparison
  * type Score = { points: number; time: number }
  * const byScore = (a: Score, b: Score) => {
@@ -47,7 +47,7 @@
  * ]
  * maximumBy(byScore)(scores)
  * // { points: 100, time: 45 }
- * 
+ *
  * // Date comparison
  * const byDate = (a: Date, b: Date) => a.getTime() - b.getTime()
  * const dates = [
@@ -57,12 +57,12 @@
  * ]
  * maximumBy(byDate)(dates)
  * // Date("2024-03-10")
- * 
+ *
  * // Alphabetical comparison (reverse for maximum)
  * const alphabetical = (a: string, b: string) => a.localeCompare(b)
  * maximumBy(alphabetical)(["zebra", "apple", "mango", "banana"])
  * // "zebra"
- * 
+ *
  * // Complex nested comparison
  * type Node = { value: number; priority: number; id: string }
  * const byPriorityAndValue = (a: Node, b: Node) => {
@@ -77,7 +77,7 @@
  * ]
  * maximumBy(byPriorityAndValue)(nodes)
  * // { value: 20, priority: 2, id: "b" }
- * 
+ *
  * // Array comparison (by sum)
  * const bySum = (a: number[], b: number[]) => {
  *   const sumA = a.reduce((acc, x) => acc + x, 0)
@@ -86,7 +86,7 @@
  * }
  * maximumBy(bySum)([[1, 2], [3, 4], [2, 2], [5, 1]])
  * // [3, 4] (sum = 7)
- * 
+ *
  * // Version comparison
  * type Version = { major: number; minor: number; patch: number }
  * const byVersion = (a: Version, b: Version) => {
@@ -101,7 +101,7 @@
  * ]
  * maximumBy(byVersion)(versions)
  * // { major: 2, minor: 1, patch: 0 }
- * 
+ *
  * // Custom business logic
  * type Product = { price: number; rating: number; inStock: boolean }
  * const byValue = (a: Product, b: Product) => {
@@ -119,25 +119,25 @@
  * ]
  * maximumBy(byValue)(products)
  * // { price: 90, rating: 4.5, inStock: true }
- * 
+ *
  * // Single element
  * maximumBy((a: number, b: number) => a - b)([42])
  * // 42
- * 
+ *
  * // Empty array
  * maximumBy((a: number, b: number) => a - b)([])
  * // undefined
- * 
+ *
  * // All equal elements (returns first)
  * maximumBy(() => 0)([1, 2, 3])
  * // 1
- * 
+ *
  * // Distance from target
- * const distanceFrom = (target: number) => 
+ * const distanceFrom = (target: number) =>
  *   (a: number, b: number) => Math.abs(b - target) - Math.abs(a - target)
  * maximumBy(distanceFrom(10))([5, 15, 8, 20, 12])
  * // 20 (farthest from 10)
- * 
+ *
  * // Lexicographic comparison
  * const lexCompare = (a: string[], b: string[]) => {
  *   for (let i = 0; i < Math.min(a.length, b.length); i++) {
@@ -153,20 +153,20 @@
  *   ["a", "b", "d"]
  * ])
  * // ["b"]
- * 
+ *
  * // Partial application for reusable comparisons
  * const getOldest = maximumBy((a: any, b: any) => a.age - b.age)
  * getOldest([{ age: 25 }, { age: 30 }, { age: 20 }])
  * // { age: 30 }
- * 
+ *
  * const getLongest = maximumBy((a: string, b: string) => a.length - b.length)
  * getLongest(["short", "medium", "very long string"])
  * // "very long string"
- * 
+ *
  * // Handle null/undefined gracefully
  * maximumBy((a: number, b: number) => a - b)(null)       // undefined
  * maximumBy((a: number, b: number) => a - b)(undefined)  // undefined
- * 
+ *
  * // Performance metrics
  * type Metric = { cpu: number; memory: number; time: number }
  * const byEfficiency = (a: Metric, b: Metric) => {
@@ -181,7 +181,7 @@
  * ]
  * maximumBy(byEfficiency)(metrics)
  * // { cpu: 60, memory: 20, time: 80 }
- * 
+ *
  * // Tree node comparison (by depth and value)
  * type TreeNode = { value: number; depth: number; children: number }
  * const byDepthAndValue = (a: TreeNode, b: TreeNode) => {
@@ -201,22 +201,23 @@
  * @property Stable - returns first maximum if multiple exist
  */
 const maximumBy = <T>(
-	comparator: (a: T, b: T) => number
-) => (
-	array: ReadonlyArray<T> | null | undefined
+	comparator: (a: T, b: T) => number,
+) =>
+(
+	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
 	if (array == null || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
-	
+
 	let maximum = array[0]
-	
+
 	for (let i = 1; i < array.length; i++) {
 		if (comparator(array[i], maximum) > 0) {
 			maximum = array[i]
 		}
 	}
-	
+
 	return maximum
 }
 
