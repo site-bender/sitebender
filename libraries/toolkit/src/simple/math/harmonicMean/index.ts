@@ -10,73 +10,32 @@
  * @returns Harmonic mean of the values, or NaN if invalid
  * @example
  * ```typescript
- * // Basic harmonic mean
  * harmonicMean([1, 2, 3])
- * // 1.636... (3 / (1/1 + 1/2 + 1/3))
+ * // 1.636...
  *
  * harmonicMean([2, 4, 8])
  * // 3.428...
  *
- * // Equal values
  * harmonicMean([5, 5, 5, 5])
  * // 5
  *
- * // Two values
  * harmonicMean([40, 60])
- * // 48 (harmonic mean of speeds)
+ * // 48
  *
- * // Single value
  * harmonicMean([10])
  * // 10
  *
- * // Small numbers
- * harmonicMean([0.1, 0.2, 0.3])
- * // 0.163...
- *
- * // Zero or negative values return NaN
  * harmonicMean([1, 0, 3])
- * // NaN (zero causes division by zero)
+ * // NaN
  *
- * harmonicMean([1, -2, 3])
- * // NaN (negative values not allowed)
- *
- * // Empty array returns NaN
  * harmonicMean([])
  * // NaN
  *
- * // Invalid inputs return NaN
  * harmonicMean(null)
  * // NaN
- *
- * harmonicMean([1, "2", 3])
- * // NaN
- *
- * // Practical examples
- *
- * // Average speed for round trip
- * // Going: 60 mph, Returning: 40 mph
- * const speeds = [60, 40]
- * harmonicMean(speeds)
- * // 48 mph (correct average speed)
- *
- * // Average rate of work
- * // Worker A: 3 hours/task, Worker B: 6 hours/task
- * const rates = [1/3, 1/6]  // tasks per hour
- * const avgRate = harmonicMean(rates)
- * // 0.222... tasks/hour
- *
- * // P/E ratio averaging
- * const peRatios = [15, 20, 25]
- * harmonicMean(peRatios)
- * // 18.75
- *
- * // Resistance in parallel circuits
- * const resistances = [10, 20, 30]  // ohms
- * const totalResistance = 1 / (1/harmonicMean(resistances) * resistances.length)
- * // 5.45... ohms
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns NaN for invalid inputs, empty arrays, or non-positive values
+ * @pure - Always returns same result for same input
+ * @safe - Returns NaN for invalid inputs, empty arrays, or non-positive values
  */
 const harmonicMean = (
 	values: Array<number> | null | undefined,
