@@ -1,4 +1,4 @@
-import type { ComposeContext } from "../../../../context/composeContext.ts"
+import type { ComposeContext } from "../../../../src/context/composeContext.ts"
 import type { OperatorNode } from "../../../ir/index.ts"
 
 export type OperatorExecutor = (

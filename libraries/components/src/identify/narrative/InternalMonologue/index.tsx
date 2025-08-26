@@ -1,4 +1,14 @@
 import { CreativeWork, Person } from "../../../define/index.ts"
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	character?: string
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	mood?: string
+	style?: string
+	children?: string
+}
 
 export default function InternalMonologue({
 	character,
@@ -13,7 +23,7 @@ export default function InternalMonologue({
 	const ariaLabel = [
 		"internal monologue",
 		character && `by ${character}`,
-		style !== "reflective" && style.replace("-", " "),
+		style !== "reflective" && (style as string).replace("-", " "),
 		mood && `${mood} mood`,
 	].filter(Boolean).join(", ")
 

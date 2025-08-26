@@ -1,5 +1,15 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	relation?: string
+	with?: string
+	children?: unknown
+}
+
 export default function CharacterRelationship({
 	children,
 	element: Element = "span",

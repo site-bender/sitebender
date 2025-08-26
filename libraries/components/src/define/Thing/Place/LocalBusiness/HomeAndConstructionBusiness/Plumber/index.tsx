@@ -1,1 +1,1 @@
-export default Plumber
+export { default } from "../../../../Organization/LocalBusiness/HomeAndConstructionBusiness/Plumber/index.tsx"

@@ -1,5 +1,18 @@
 import { CreativeWork, Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	narrator?: string
+	narratorId?: string
+	narratorType?: string
+	perspective?: string
+	style?: string
+	tense?: string
+	children?: unknown
+}
+
 export default function Narration({
 	children,
 	element: Element = "div",

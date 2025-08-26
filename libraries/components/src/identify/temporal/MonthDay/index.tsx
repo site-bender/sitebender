@@ -90,17 +90,13 @@ export default function MonthDay({
 			day: "numeric",
 		})
 	} else {
-		// Use Intl.DateTimeFormat with specific options
+		// Use Intl.DateTimeFormat with specific options (numeric handled above)
+		const monthStyle: "short" | "long" =
+			format === "short" || format === "medium" ? "short" : "long"
 		const options = formatOptions || {
-			month: format === "numeric"
-				? "numeric"
-				: format === "short"
-				? "short"
-				: format === "medium"
-				? "short"
-				: "long",
-			day: "numeric",
-		}
+				month: monthStyle,
+				day: "numeric",
+			}
 
 		display = formatDate(date, locale, options)
 	}

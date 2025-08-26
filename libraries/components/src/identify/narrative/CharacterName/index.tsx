@@ -1,5 +1,17 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	fullName?: string
+	nickname?: string
+	role?: string
+	title?: string
+	children?: unknown
+}
+
 export default function CharacterName({
 	characterId,
 	children,

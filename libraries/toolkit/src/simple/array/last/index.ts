@@ -4,9 +4,12 @@
  * Safe accessor that returns undefined for empty arrays rather than
  * throwing or returning undefined behavior.
  *
- * @property idempotent - Getting last of single element array returns same element
  * @param array - The array to get the last element from
  * @returns The last element or undefined if array is empty
+ * 
+ * @pure
+ * @safe
+ * 
  * @example
  * ```typescript
  * last([1, 2, 3]) // 3

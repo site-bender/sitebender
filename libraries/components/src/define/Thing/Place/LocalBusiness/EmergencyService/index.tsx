@@ -1,1 +1,1 @@
-export default EmergencyService
+export { default } from "../../../Organization/LocalBusiness/EmergencyService/index.tsx"

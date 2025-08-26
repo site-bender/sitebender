@@ -7,6 +7,11 @@
  *
  * @param array - The array to check
  * @returns True if array is empty, false otherwise (including non-arrays)
+ * 
+ * @pure
+ * @predicate
+ * @safe
+ * 
  * @example
  * ```typescript
  * isEmpty([]) // true

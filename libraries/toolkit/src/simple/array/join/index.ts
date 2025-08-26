@@ -4,10 +4,13 @@
  * Converts all elements to strings and concatenates them with the
  * specified separator between each element.
  *
- * @curried (separator) => (array) => string
  * @param separator - String to insert between elements
  * @param array - The array to join
  * @returns Single string of joined elements
+ * 
+ * @pure
+ * @curried
+ * 
  * @example
  * ```typescript
  * join(", ")(["a", "b", "c"]) // "a, b, c"

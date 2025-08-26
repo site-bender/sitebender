@@ -1,1 +1,1 @@
-export default Pharmacy
+export { default } from "../../../../Organization/LocalBusiness/MedicalBusiness/Pharmacy/index.tsx"

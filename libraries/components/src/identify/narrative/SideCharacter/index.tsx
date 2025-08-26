@@ -1,5 +1,16 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	function?: string
+	presence?: string
+	fate?: string
+	children?: string
+}
+
 export default function SideCharacter({
 	characterId,
 	children,
@@ -12,7 +23,7 @@ export default function SideCharacter({
 }: Props): JSX.Element {
 	const ariaLabel = [
 		"side character",
-		characterFunction && characterFunction.replace("-", " "),
+		characterFunction && (characterFunction as string).replace("-", " "),
 		presence !== "recurring" && `${presence} appearance`,
 		fate && `${fate} by story's end`,
 	].filter(Boolean).join(", ")

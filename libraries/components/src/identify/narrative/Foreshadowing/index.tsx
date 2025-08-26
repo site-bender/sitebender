@@ -1,4 +1,13 @@
 import { CreativeWork } from "../../../define/index.ts"
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	hint?: string
+	event?: string
+	strength?: "subtle" | "strong"
+	children?: string
+}
 
 export default function Foreshadowing({
 	children,
@@ -10,7 +19,7 @@ export default function Foreshadowing({
 }: Props): JSX.Element {
 	const ariaLabel = [
 		"foreshadowing",
-		type !== "direct" && type.replace("-", " "),
+		type !== "direct" && (type as string).replace("-", " "),
 		subtlety !== "moderate" && `${subtlety} hint`,
 	].filter(Boolean).join(", ")
 

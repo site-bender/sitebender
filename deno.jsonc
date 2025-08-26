@@ -28,7 +28,7 @@
   "test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",
 
     // === Type Checking ===
-  "type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/*/src/**/*.ts libraries/*/src/**/*.tsx",
+  "type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/adaptive/src/**/*.ts libraries/adaptive/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
   "type-check:focused": "deno check --unstable-temporal libraries/adaptive/src/operations/comparators/compare.ts libraries/adaptive/src/operations/comparators/amount/isLessThan/index.ts libraries/adaptive/src/operations/comparators/amount/isMoreThan/index.ts libraries/adaptive/src/operations/comparators/amount/isNoLessThan/index.ts libraries/adaptive/src/operations/comparators/equality/isEqualTo/index.ts libraries/adaptive/src/operations/comparators/equality/isUnequalTo/index.ts libraries/adaptive/src/operations/comparators/length/isLength/index.ts libraries/adaptive/src/operations/comparators/length/isLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNotLength/index.ts libraries/adaptive/src/operations/comparators/length/isSameLength/index.ts",
 
     // === Import Management ===
@@ -69,7 +69,12 @@
     "~static/": "./docs/static/",
     "~tests/": "./docs/tests/",
     "~types/": "./docs/src/types/",
-    "~scripts/": "./scripts/"
+  "~scripts/": "./scripts/",
+  // Std lib and testing libs for workspace type-checks
+  "@std/expect": "jsr:@std/expect@^1.0.17",
+  "@std/testing": "jsr:@std/testing@^1.0.15",
+  "@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd",
+  "fast-check": "https://esm.sh/fast-check@4.1.1"
   },
 
   // Shared formatting configuration

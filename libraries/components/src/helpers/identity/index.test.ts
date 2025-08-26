@@ -173,7 +173,7 @@ describe("identity", () => {
 					fc.anything(),
 					(value) => {
 						const compose =
-							<A, B, C>(f: (b: B) => C, g: (a: A) => B) => (a: A) => f(g(a))
+							<T>(f: (b: T) => T, g: (a: T) => T) => (a: T) => f(g(a))
 						const identityComposed = compose(identity, identity)
 						expect(identityComposed(value)).toBe(value)
 					},

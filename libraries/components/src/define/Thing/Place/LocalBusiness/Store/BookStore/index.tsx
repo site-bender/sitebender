@@ -1,1 +1,1 @@
-export default BookStore
+export { default } from "../../../../Organization/LocalBusiness/Store/BookStore/index.tsx"

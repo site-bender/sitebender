@@ -6,10 +6,14 @@
  * array is not modified. This is the fundamental operation for
  * data transformation in functional programming.
  *
- * @curried (fn) => (array) => result
  * @param fn - Function to transform each element
  * @param array - Array to transform
  * @returns New array with transformed elements
+ * 
+ * @pure
+ * @curried
+ * @immutable
+ * 
  * @example
  * ```typescript
  * // Basic transformations
@@ -21,49 +25,26 @@
  * // ["HELLO", "WORLD"]
  *
  * // Object property extraction
- * map((user: { name: string; age: number }) => user.name)([
- *   { name: "Alice", age: 30 },
- *   { name: "Bob", age: 25 }
- * ])
+ * const users = [{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }]
+ * map((user: { name: string }) => user.name)(users)
  * // ["Alice", "Bob"]
- *
- * // Complex transformations
- * map((n: number) => ({ value: n, squared: n * n }))([1, 2, 3])
- * // [{ value: 1, squared: 1 }, { value: 2, squared: 4 }, { value: 3, squared: 9 }]
  *
  * // With index
  * map((x: number, i: number) => x + i)([10, 20, 30])
  * // [10, 21, 32]
  *
- * // Chaining transformations
- * const double = map((x: number) => x * 2)
- * const addOne = map((x: number) => x + 1)
- * addOne(double([1, 2, 3])) // [3, 5, 7]
- *
- * // Type transformations
+ * // Type transformation
  * map((n: number) => n.toString())([1, 2, 3])
  * // ["1", "2", "3"]
  *
- * // Parse strings to numbers
- * map((s: string) => parseInt(s, 10))(["1", "2", "3"])
- * // [1, 2, 3]
- *
- * // Handle null/undefined gracefully
- * map((x: number) => x * 2)(null)       // []
- * map((x: number) => x * 2)(undefined)  // []
- * map((x: number) => x * 2)([])         // []
- *
- * // Partial application for reusable transformers
+ * // Partial application
  * const double = map((x: number) => x * 2)
- * double([1, 2, 3])     // [2, 4, 6]
- * double([10, 20, 30])  // [20, 40, 60]
+ * double([1, 2, 3]) // [2, 4, 6]
  *
- * const getName = map((obj: { name: string }) => obj.name)
- * getName([{ name: "Alice" }, { name: "Bob" }])  // ["Alice", "Bob"]
+ * // Edge cases
+ * map((x: number) => x * 2)(null)  // []
+ * map((x: number) => x * 2)([])    // []
  * ```
- * @property Immutable - doesn't modify input array
- * @property Structure-preserving - output array has same length as input
- * @property Functor - follows functor laws (identity and composition)
  */
 const map = <T, U>(
 	fn: (element: T, index: number, array: ReadonlyArray<T>) => U,

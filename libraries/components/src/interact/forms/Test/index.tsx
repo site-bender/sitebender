@@ -23,7 +23,7 @@ export default function Test(props: Props) {
 			<header>
 				<h1 class="sr-only">Authentication</h1>
 			</header>
-			<Form action="/api/test" method="post" name="test-form" {...props}>
+			<Form action="/api/test" method="POST" name="test-form" {...props}>
 				<FieldSet legend="Test fields">
 					<FormattedTextField
 						countryCode="CA"

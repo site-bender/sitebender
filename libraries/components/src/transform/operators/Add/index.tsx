@@ -12,7 +12,7 @@
  * </Add>
  */
 
-import AddConstructor from "../../../../adaptive/constructors/operators/Add/index.ts"
+// Marker only; compiler maps to Adaptive IR
 
 export type AddProps = {
 	type?: "Number" | "String" | "Date" | "Duration"
@@ -20,11 +20,7 @@ export type AddProps = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Add({
-	type = "Number",
-	datatype,
-	children = [],
-}: AddProps): ReturnType<typeof AddConstructor> {
+export default function Add({ type = "Number", datatype, children = [] }: AddProps) {
 	// Use datatype if provided, otherwise use type
 	const actualType = datatype || type
 
@@ -34,5 +30,5 @@ export default function Add({
 	// The constructor expects an array of operands
 	// In the JSX transform, children will be converted to adaptive configs
 	// For now, we pass children directly as the parser will handle transformation
-	return AddConstructor(actualType)(childArray as any)
+	return { type: "operator", tag: "Add", datatype: actualType, addends: childArray }
 }

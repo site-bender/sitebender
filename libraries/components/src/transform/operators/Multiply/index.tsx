@@ -11,7 +11,7 @@
  * </Multiply>
  */
 
-import MultiplyConstructor from "../../../../adaptive/constructors/operators/Multiply/index.ts"
+// Marker only; compiler can add support later
 
 export type MultiplyProps = {
 	type?: "Number"
@@ -19,13 +19,8 @@ export type MultiplyProps = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Multiply({
-	type = "Number",
-	datatype,
-	children = [],
-}: MultiplyProps): ReturnType<typeof MultiplyConstructor> {
+export default function Multiply({ type = "Number", datatype, children = [] }: MultiplyProps) {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
-
-	return MultiplyConstructor(actualType)(childArray as any)
+	return { type: "operator", tag: "Multiply", datatype: actualType, factors: childArray }
 }

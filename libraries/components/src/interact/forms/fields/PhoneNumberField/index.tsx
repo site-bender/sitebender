@@ -48,16 +48,13 @@ export type Props =
 	}
 
 const channelOptions: Array<{ label: string; value: string }> = Object.entries(
-	CHANNEL_LABELS,
-).reduce(
-	(acc, [value, label]) => [
-		...acc,
-		{
-			label,
-			value,
-		},
-	],
-	[] as Array<{ label: string; value: string }>,
+	CHANNEL_LABELS as Record<string, string>,
+).reduce<Array<{ label: string; value: string }>>(
+	(acc, [value, label]) => (
+		acc.push({ label, value }),
+		acc
+	),
+	[],
 )
 
 const useOptions: Array<{ label: string; value: string }> = [
@@ -72,16 +69,13 @@ const useOptions: Array<{ label: string; value: string }> = [
 ]
 
 const typeOptions: Array<{ label: string; value: string }> = Object.entries(
-	TYPE_LABELS,
-).reduce(
-	(acc, [value, label]) => [
-		...acc,
-		{
-			label,
-			value,
-		},
-	],
-	[] as Array<{ label: string; value: string }>,
+	TYPE_LABELS as Record<string, string>,
+).reduce<Array<{ label: string; value: string }>>(
+	(acc, [value, label]) => (
+		acc.push({ label, value }),
+		acc
+	),
+	[],
 )
 
 export default function PhoneNumberField({

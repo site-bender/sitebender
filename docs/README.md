@@ -2,6 +2,32 @@
 
 Documentation for the Sitebender project.
 
+## Authoring behaviors with Program
+
+Use the `Program` control to inline author behaviors next to your HTML. `Program` compiles its children into an Adaptive IR JSON script tag that the shared hydrator reads at runtime.
+
+Pattern:
+- Mark interactive elements with `data-ir-id` or an `id`.
+- Wrap behaviors in `On` controls with an `event` and optional `target`.
+- Compose actions and conditions from transform components.
+
+Example (from Tutorial):
+
+- Update output on input:
+	- `<On event="Input">` with `SetValue` and a `FromElement` injector for `#name`.
+- Submit without navigation and push a query string param:
+	- `<On event="Submit" target="profile">` with `SetQueryString` drawing from `#favorite`.
+
+Example (from Validation):
+
+- Show a required message on blur/input when empty:
+	- `<If condition={<NotEmpty><FromElement id="name" type="String"/></NotEmpty>}>` and two `SetValue` branches writing to `#name-error`.
+- A11y: add `required` and `aria-describedby="name-error"` to the input; announce updates via `aria-live` on the error span.
+
+Hydration:
+- Include the shared client script: `<script type="module" src="/scripts/hydrate/adaptive.js"></script>`.
+- The hydrator binds events and executes actions; in production, it strips `data-ir-id` attributes after hydration.
+
 ## Playground (Monaco) Design Notes
 
 - Run user code in a sandboxed Web Worker (or sandboxed iframe) with strict capability gates.

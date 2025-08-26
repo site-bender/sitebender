@@ -1,1 +1,1 @@
-export default Notary
+export { default } from "../../../../Organization/LocalBusiness/LegalService/Notary/index.tsx"

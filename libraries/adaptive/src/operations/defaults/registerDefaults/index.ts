@@ -84,6 +84,14 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		}
 		return true
 	})
+	registerComparator("Is.Or", async (node: ComparatorNode, evalArg) => {
+		for (const arg of node.args) {
+			// deno-lint-ignore no-await-in-loop
+			const res = await evalArg(arg)
+			if (res) return true
+		}
+		return false
+	})
 	registerComparator(
 		"Is.NoShorterThan",
 		async (node: ComparatorNode, evalArg) => {
@@ -128,6 +136,13 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
 		])
 		return a === b
+	})
+	registerComparator("Is.UnequalTo", async (node: ComparatorNode, evalArg) => {
+		const [a, b] = await Promise.all([
+			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+		])
+		return a !== b
 	})
 	registerComparator("Is.Not", async (node: ComparatorNode, evalArg) => {
 		const v =

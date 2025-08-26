@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Function to render tags
 	function renderTags() {
 		tagsContainer.innerHTML = ""
-		selectedTags.forEach((tag, index: any) => {
+		selectedTags.forEach((tag: string, index: number) => {
 			const tagElement = document.createElement("div")
 			tagElement.className = "tag"
 			tagElement.setAttribute("role", "listitem")
@@ -55,17 +55,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 
 		// Add event listeners to remove buttons
-		document.querySelectorAll(".remove").forEach((button: any) => {
-			;(button as HTMLButtonElement).addEventListener("click", () => {
-				const index = Number(button.getAttribute("data-index"))
+		document.querySelectorAll(".remove").forEach((button) => {
+			const btn = button as HTMLButtonElement
+			btn.addEventListener("click", () => {
+				const index = Number(btn.getAttribute("data-index"))
 				selectedTags.splice(index, 1)
 				renderTags()
 			})
-			;(button as HTMLButtonElement).addEventListener(
+			btn.addEventListener(
 				"keydown",
 				(e: KeyboardEvent) => {
 					if (e.key === "Enter" || e.key === " ") {
-						const index = Number(button.getAttribute("data-index"))
+						const index = Number(btn.getAttribute("data-index"))
 						selectedTags.splice(index, 1)
 						renderTags()
 					}
@@ -78,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function filterTags(filter: string) {
 		const lowerCaseFilter = filter.toLowerCase()
 		return allTags
-			.filter((tag: any) => !selectedTags.includes(tag))
+			.filter((tag: string) => !selectedTags.includes(tag))
 			.sort((a, b) => {
 				const aStartsWith = a.toLowerCase().startsWith(lowerCaseFilter)
 				const bStartsWith = b.toLowerCase().startsWith(lowerCaseFilter)
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (!aStartsWith && bStartsWith) return 1
 				return a.localeCompare(b)
 			})
-			.filter((tag: any) => tag.toLowerCase().includes(lowerCaseFilter))
+			.filter((tag: string) => tag.toLowerCase().includes(lowerCaseFilter))
 	}
 
 	// Function to render autocomplete list
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (filteredTags.length > 0) {
 			autocompleteList.style.display = "block"
 			tagInput.setAttribute("aria-expanded", "true")
-			filteredTags.forEach((tag, index: any) => {
+			filteredTags.forEach((tag: string, index: number) => {
 				const item = document.createElement("div")
 				item.className = "autocomplete-item"
 				item.setAttribute("role", "option")
@@ -120,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Function to handle keyboard navigation in the autocomplete list
-	function handleAutocompleteNavigation(e) {
+	function handleAutocompleteNavigation(e: KeyboardEvent) {
 		const options = autocompleteList.querySelectorAll(".autocomplete-item")
 		if (e.key === "ArrowDown") {
 			e.preventDefault() // Prevent scrolling the page
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		// Update aria-selected and focus
-		options.forEach((option, index: any) => {
+		options.forEach((option, index) => {
 			if (index === focusedOptionIndex) {
 				option.setAttribute("aria-selected", "true")
 				option.classList.add("focused")
@@ -157,12 +158,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Event listener for input
-	tagInput.addEventListener("input", (e: any) => {
+	tagInput.addEventListener("input", (e: Event) => {
 		renderAutocompleteList((e.target as HTMLInputElement).value)
 	})
 
 	// Event listener for keyboard navigation
-	tagInput.addEventListener("keydown", (e: any) => {
+	tagInput.addEventListener("keydown", (e: KeyboardEvent) => {
 		if (e.key === "Enter") {
 			if (focusedOptionIndex >= 0) {
 				// If an item is highlighted, select it
@@ -190,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	})
 
 	// Hide autocomplete list when clicking outside
-	document.addEventListener("click", (e: any) => {
+	document.addEventListener("click", (e: MouseEvent) => {
 		if (!(e.target as HTMLElement)?.closest(".tag-input-container")) {
 			autocompleteList.style.display = "none"
 			tagInput.setAttribute("aria-expanded", "false")

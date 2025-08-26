@@ -4,10 +4,14 @@
  * Tests each string against the pattern, returning the index of the
  * last matching element. Accepts RegExp or string (converted to RegExp).
  *
- * @curried (pattern) => (array) => result
  * @param pattern - Regular expression or string pattern to match
  * @param array - Array of strings to search
  * @returns Index of last matching string or undefined if none match
+ * 
+ * @pure
+ * @curried
+ * @safe
+ * 
  * @example
  * ```typescript
  * lastIndexOfMatch(/^h/)(["hi", "hello", "world", "hey"]) // 3

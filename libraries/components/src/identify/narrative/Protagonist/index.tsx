@@ -1,5 +1,17 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	motivation?: string
+	arcType?: string
+	journeyStage?: string
+	multiProtagonist?: boolean
+	children?: string
+}
+
 export default function Protagonist({
 	arcType = "growth",
 	characterId,
@@ -12,7 +24,7 @@ export default function Protagonist({
 }: Props): JSX.Element {
 	const ariaLabel = [
 		multiProtagonist ? "co-protagonist" : "protagonist",
-		journeyStage && `at ${journeyStage.replace("-", " ")} stage`,
+		journeyStage && `at ${(journeyStage as string).replace("-", " ")} stage`,
 		arcType !== "growth" && `${arcType} arc`,
 	].filter(Boolean).join(", ")
 

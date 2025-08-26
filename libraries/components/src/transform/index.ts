@@ -68,6 +68,11 @@ export { default as FromArgument } from "./injectors/FromArgument/index.tsx"
 export { default as FromLookup } from "./injectors/FromLookup/index.tsx"
 export { default as FromLookupTable } from "./injectors/FromLookupTable/index.tsx"
 
+// Actions
+export { default as SetValue } from "./actions/SetValue/index.tsx"
+export { default as SetQueryString } from "./actions/SetQueryString/index.tsx"
+export { default as Publish } from "./actions/Publish/index.tsx"
+
 // Wrappers for Non-Commutative Operations
 export { default as From } from "./wrappers/From/index.tsx"
 export { default as Amount } from "./wrappers/Amount/index.tsx"
@@ -89,7 +94,11 @@ export { default as Divisor } from "./wrappers/Divisor/index.tsx"
 
 // Export types
 export { default as On } from "./control/On/index.tsx"
+export { default as If } from "./control/If/index.tsx"
+export { default as Program } from "./control/Program/index.tsx"
 export type { Props as OnProps } from "./control/On/index.tsx"
+export type { Props as IfProps } from "./control/If/index.tsx"
+export type { Props as ProgramProps } from "./control/Program/index.tsx"
 export type { AddProps } from "./operators/Add/index.tsx"
 export type { SubtractProps } from "./operators/Subtract/index.tsx"
 export type { MultiplyProps } from "./operators/Multiply/index.tsx"
@@ -119,6 +128,8 @@ export type { DoesNotMatchProps } from "./comparators/DoesNotMatch/index.tsx"
 export type { IsAfterDateProps } from "./comparators/IsAfterDate/index.tsx"
 export type { IsBeforeDateProps } from "./comparators/IsBeforeDate/index.tsx"
 export type { IsBooleanProps } from "./comparators/IsBoolean/index.tsx"
+export { default as NotEmpty } from "./comparators/NotEmpty/index.tsx"
+export type { NotEmptyProps } from "./comparators/NotEmpty/index.tsx"
 
 export type { AndProps } from "./logical/And/index.tsx"
 export type { OrProps } from "./logical/Or/index.tsx"
@@ -133,6 +144,9 @@ export type { FromUrlParameterProps } from "./injectors/FromUrlParameter/index.t
 export type { FromArgumentProps } from "./injectors/FromArgument/index.tsx"
 export type { FromLookupProps } from "./injectors/FromLookup/index.tsx"
 export type { FromLookupTableProps } from "./injectors/FromLookupTable/index.tsx"
+export type { SetValueProps } from "./actions/SetValue/index.tsx"
+export type { SetQueryStringProps } from "./actions/SetQueryString/index.tsx"
+export type { PublishProps } from "./actions/Publish/index.tsx"
 
 export type { FromProps } from "./wrappers/From/index.tsx"
 export type { AmountProps } from "./wrappers/Amount/index.tsx"

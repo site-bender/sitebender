@@ -1,1 +1,1 @@
-export default Physician
+export { default } from "../../../../Organization/LocalBusiness/MedicalBusiness/Physician/index.tsx"

@@ -1,5 +1,16 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?: keyof HTMLElementTagNameMap | ((props: any) => any)
+	define?: "microdata" | "linkedData" | "both"
+	motivation?: string
+	redeemable?: boolean
+	type?: "character" | string
+	children?: any
+}
+
 export default function Antagonist({
 	characterId,
 	children,

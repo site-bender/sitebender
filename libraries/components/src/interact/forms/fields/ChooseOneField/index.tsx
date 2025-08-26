@@ -30,7 +30,7 @@ export default function ChooseOneField({
 	classes = [],
 	help,
 	id = generateShortId(),
-	label,
+	label = "",
 	name = "choose-one",
 	options,
 	required = false,

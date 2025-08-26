@@ -1,59 +1,16 @@
 import createElement from "../../utilities/createElement/index.ts"
-import { On, SetValue, Constant, FromElement, SetQueryString, If, NotEmpty, Add, ir } from "@sitebender/adaptive/jsx/index.tsx"
+import On from "@sitebender/components/transform/control/On/index.tsx"
+import If from "@sitebender/components/transform/control/If/index.tsx"
+import Program from "@sitebender/components/transform/control/Program/index.tsx"
+import NotEmpty from "@sitebender/components/transform/comparators/NotEmpty/index.tsx"
+import SetValue from "@sitebender/components/transform/actions/SetValue/index.tsx"
+import SetQueryString from "@sitebender/components/transform/actions/SetQueryString/index.tsx"
+import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
+import Constant from "@sitebender/components/transform/injectors/Constant/index.tsx"
+import Add from "@sitebender/components/transform/operators/Add/index.tsx"
+// compileToAdaptive no longer needed directly here
 
 export default function Tutorial() {
-  // Build IR via JSX components (server-side)
-  const program = ir(
-    <On id="name" event="On.Input">
-      <SetValue>
-        <Constant value="#out" />
-        <FromElement selector="#name" />
-      </SetValue>
-    </On>,
-
-    <On id="profile" event="On.Submit">
-      <SetQueryString>
-        <Constant value="favorite" />
-        <FromElement selector="#favorite" />
-      </SetQueryString>
-    </On>,
-
-    <On id="name" event="On.Blur">
-      <If>
-        <NotEmpty>
-          <FromElement selector="#name" />
-        </NotEmpty>
-        <SetValue>
-          <Constant value="#msg" />
-          <Constant value="Looks good." />
-        </SetValue>
-        <SetValue>
-          <Constant value="#msg" />
-          <Constant value="Name is required." />
-        </SetValue>
-      </If>
-    </On>,
-
-    <On id="a" event="On.Input">
-      <SetValue>
-        <Constant value="#sum" />
-        <Add>
-          <FromElement selector="#a" />
-          <FromElement selector="#b" />
-        </Add>
-      </SetValue>
-    </On>,
-    <On id="b" event="On.Input">
-      <SetValue>
-        <Constant value="#sum" />
-        <Add>
-          <FromElement selector="#a" />
-          <FromElement selector="#b" />
-        </Add>
-      </SetValue>
-    </On>,
-  )
-
   return (
     <body>
       <h1>Adaptive Tutorial (JSX)</h1>
@@ -74,10 +31,41 @@ export default function Tutorial() {
       <input id="b" data-ir-id="b" inputmode="numeric" placeholder="B" />
       = <span id="sum">0</span>
 
-      {/* Embed the IR for client hydration */}
-      <script id="ir-root" type="application/adaptive+json">
-        {JSON.stringify(program)}
-      </script>
+      {/* Inline authored behaviors; Program compiles to IR script */}
+      <Program>
+        <On event="Input">
+          <SetValue selector="#out" value={<FromElement id="name" type="String" />} />
+        </On>
+
+        <On event="Submit" target="profile">
+          <SetQueryString key="favorite" value={<FromElement id="favorite" type="String" />} />
+        </On>
+
+        <On event="Blur" target="name">
+          <If condition={<NotEmpty><FromElement id="name" type="String" /></NotEmpty>}>
+            <SetValue selector="#msg" value={<Constant value="Looks good." />} />
+            <SetValue selector="#msg" value={<Constant value="Name is required." />} />
+          </If>
+        </On>
+
+        <On event="Input" target="a">
+          <SetValue selector="#sum" value={
+            <Add type="Number">
+              <FromElement id="a" type="String" />
+              <FromElement id="b" type="String" />
+            </Add>
+          } />
+        </On>
+
+        <On event="Input" target="b">
+          <SetValue selector="#sum" value={
+            <Add type="Number">
+              <FromElement id="a" type="String" />
+              <FromElement id="b" type="String" />
+            </Add>
+          } />
+        </On>
+      </Program>
 
   {/* Hydrate using pre-bundled client script */}
   <script type="module" src="/scripts/hydrate/adaptive.js"></script>

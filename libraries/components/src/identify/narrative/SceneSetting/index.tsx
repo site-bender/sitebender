@@ -1,5 +1,15 @@
 import { Place } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	location?: string
+	time?: string
+	atmosphere?: string
+	children?: unknown
+}
+
 export default function SceneSetting({
 	atmosphere,
 	children,

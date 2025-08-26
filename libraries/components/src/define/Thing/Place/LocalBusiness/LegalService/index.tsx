@@ -1,1 +1,1 @@
-export default LegalService
+export { default } from "../../../Organization/LocalBusiness/LegalService/index.tsx"

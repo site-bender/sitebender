@@ -1,5 +1,14 @@
 import { CreativeWork } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	action?: string
+	intensity?: "subtle" | "strong"
+	children?: unknown
+}
+
 export default function StageDirection({
 	category,
 	characterId,

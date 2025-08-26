@@ -46,9 +46,8 @@
 		"@sitebender/toolkit/": "../libraries/toolkit/src/",
 		"@sitebender/adaptive": "../libraries/adaptive/src/",
 		"@sitebender/adaptive/": "../libraries/adaptive/src/",
-		"@sitebender/adaptive/jsx/index.tsx": "../libraries/adaptive/src/jsx/index.tsx",
-		"@sitebender/components": "../libraries/components/src/",
-		"@sitebender/components/": "../libraries/components/src/",
+	"@sitebender/components": "../libraries/components/src/index.ts",
+	"@sitebender/components/": "../libraries/components/src/",
 
 		// === Deno Standard Library ===
 		"@std/expect": "jsr:@std/expect@^1.0.17",
