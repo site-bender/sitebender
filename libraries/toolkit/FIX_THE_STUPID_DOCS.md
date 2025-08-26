@@ -1,11 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 116/763 files complete (Math ✅, Logic ✅, Combinator ✅)
-**Next**: `conversion/` folder (16 files), then `string/` (30 files)
-**Time**: Sessions 1-7 took ~91 minutes total
-**Last Commit**: 2662f43a - "fix(toolkit): complete JSDoc remediation for logic and combinator folders"
-**Branch**: phase-2 (3 commits ahead of origin)
+**Status**: 132/763 files complete (Math ✅, Logic ✅, Combinator ✅, Conversion ✅)
+**Next**: `string/` folder (76 files - not 30!)
+**Time**: Sessions 1-8 took ~136 minutes total
+**Last Commit**: f7115766 - "fix(toolkit): complete JSDoc remediation for conversion folder"
+**Branch**: phase-2 (4 commits ahead of origin)
 **Remember**: Check for duplicate @curried tags before adding new ones!
 
 ## IMPORTANT: Starting a New Session?
@@ -27,10 +27,10 @@
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 116/763 files (15.2%) - Math, Logic, Combinator folders DONE
-**Actual Time**: ~0.78 minutes per file (very fast with Task tool!)
-**Approach**: Batch processing, 10-15 files per session using Task tool
-**Next Session**: Start with `conversion/` folder (16 files)
+**Completed So Far**: 132/763 files (17.3%) - Math, Logic, Combinator, Conversion folders DONE
+**Actual Time**: ~1.03 minutes per file
+**Approach**: Process files individually for quality control
+**Next Session**: Start with `string/` folder (76 files)
 
 ## Problems Identified
 
@@ -178,11 +178,11 @@
 
 ### Running Totals
 
-- **Total Sessions**: 7
-- **Files Completed**: 116/763 (MATH + LOGIC + COMBINATOR FOLDERS COMPLETE!)
-- **Total Time Spent**: ~91 minutes
-- **Average Time per File**: 0.78 minutes
-- **Estimated Completion**: ~10 hours total (at current pace)
+- **Total Sessions**: 8
+- **Files Completed**: 132/763 (MATH + LOGIC + COMBINATOR + CONVERSION FOLDERS COMPLETE!)
+- **Total Time Spent**: ~136 minutes
+- **Average Time per File**: 1.03 minutes  
+- **Estimated Completion**: ~13 hours total (at current pace)
 
 ## Quality Checklist per File
 
@@ -343,14 +343,28 @@
 - Removed duplicate @curried tags
 **Notes**: Massive improvements in lift functions. Some had 130+ lines of examples!
 
+### Session 8 - 2025-08-25 17:45-18:30 (Phase 1)
+**Folder**: conversion/
+**Files Processed**: ALL 16 files (toBoolean, toFloat, toInteger, toString, toPlainDate, toPlainDateTime, toPlainTime, toPrecision, castValue/index, safeParse, safeParseInt, safeParseFloat, fromJson, toJson, toPercent, stringify)
+**Start Time**: 2025-08-25T17:45:07+12:00  
+**End Time**: 2025-08-25T18:30:00+12:00
+**Duration**: ~45 minutes
+**Issues Fixed**:
+- Replaced ~50 @property tags with @pure, @safe, @curried, @immutable
+- Reduced examples from 40-145 lines to 8-10 per function
+- Fixed duplicate @curried tags in safeParse, safeParseInt, toJson, toPrecision
+- Removed all imperative code from examples
+- Ensured valid TypeScript in all examples
+**Notes**: Processed files individually for better quality control. Note that @curried only needed for functions that return functions.
+
 ## Next Up: Phase 1 Continues
 
 **Next folders to process:**
 
 1. ~~`logic/` (13 files) - COMPLETE~~
-2. ~~`combinator/` (49 files) - COMPLETE~~
-3. `conversion/` (16 files) - type conversions
-4. `string/` basic operations (30 files)
+2. ~~`combinator/` (49 files) - COMPLETE~~  
+3. ~~`conversion/` (16 files) - COMPLETE~~
+4. `string/` operations (76 files - not 30!)
 
 ## Start Date: 2025-08-25
 
