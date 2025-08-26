@@ -7,7 +7,6 @@ import repeat from "../repeat/index.ts"
  * specified target length. If the string is already at or beyond the target
  * length, returns it unchanged.
  *
- * @curried (chars) => (targetLength) => (str) => result
  * @param chars - The character(s) to use for padding
  * @param targetLength - The desired final length of the string
  * @param str - The string to pad
@@ -20,23 +19,25 @@ import repeat from "../repeat/index.ts"
  * padEndTo(" ")(15)("Name")  // "Name           "
  *
  * // String already long enough
- * padEndTo(" ")(5)("hello world") // "hello world" (unchanged, already 11 chars)
- * padEndTo("-")(3)("12345")       // "12345" (unchanged, already 5 chars)
+ * padEndTo(" ")(5)("hello world") // "hello world" (unchanged)
+ * padEndTo("-")(3)("12345")       // "12345" (unchanged)
  *
  * // Edge cases
- * padEndTo("-")(0)("hello") // "hello" (target 0 returns unchanged)
- * padEndTo("*")(5)("")      // "*****" (empty string padded to 5)
+ * padEndTo("-")(0)("hello") // "hello" (target 0 unchanged)
+ * padEndTo("*")(5)("")      // "*****" (empty string padded)
  *
  * // Multi-character padding
  * padEndTo("ab")(7)("xyz")  // "xyzabab"
- * padEndTo("123")(10)("!")  // "!123123123"
  *
  * // Partial application
  * const rightAlign = padEndTo(" ")(20)
  * rightAlign("Name:")    // "Name:               "
  * rightAlign("Address:") // "Address:            "
- * rightAlign("Phone:")   // "Phone:              "
  * ```
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  */
 const padEndTo =
 	(chars: string) => (targetLength: number) => (str: string): string =>

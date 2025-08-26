@@ -7,183 +7,37 @@
  * dangerous attributes, and normalizes whitespace. Use this for untrusted user
  * input that needs to be displayed as plain text.
  *
+ * @pure
+ * @immutable
+ * @safe
  * @param input - String to sanitize
  * @returns Sanitized string safe for HTML/URL contexts
  * @example
  * ```typescript
  * // Remove HTML tags completely
- * sanitize("<script>alert('XSS')</script>Hello")
- * // "Hello"
+ * sanitize("<script>alert('XSS')</script>Hello")  // "Hello"
  *
  * // Remove all HTML formatting
- * sanitize("<b>Bold</b> and <i>italic</i> text")
- * // "Bold and italic text"
+ * sanitize("<b>Bold</b> and <i>italic</i> text")  // "Bold and italic text"
  *
  * // Remove dangerous protocols
- * sanitize("javascript:alert('XSS')")
- * // ""
- *
- * sanitize("data:text/html,<script>alert('XSS')</script>")
- * // ""
+ * sanitize("javascript:alert('XSS')")             // ""
  *
  * // Clean up URLs
- * sanitize("https://example.com/page")
- * // "https://example.com/page"
+ * sanitize("https://example.com/page")            // "https://example.com/page"
  *
  * // Remove event handlers
- * sanitize("Click me <span onclick='alert(1)'>here</span>")
- * // "Click me here"
+ * sanitize("Click me <span onclick='alert(1)'>here</span>")  // "Click me here"
  *
  * // Strip comments
- * sanitize("<!-- Hidden comment -->Visible text")
- * // "Visible text"
- *
- * // Remove style tags
- * sanitize("<style>body{display:none}</style>Content")
- * // "Content"
+ * sanitize("<!-- Hidden comment -->Visible text")  // "Visible text"
  *
  * // Normalize whitespace
- * sanitize("Too    many\n\n\nspaces")
- * // "Too many spaces"
- *
- * // Handle nested tags
- * sanitize("<div><script>bad</script><p>Good</p></div>")
- * // "Good"
- *
- * // Remove attributes
- * sanitize('<img src="x" onerror="alert(1)">')
- * // ""
+ * sanitize("Too    many\n\n\nspaces")             // "Too many spaces"
  *
  * // Plain text preserved
- * sanitize("Hello World! This is safe text.")
- * // "Hello World! This is safe text."
- *
- * // Remove meta refresh
- * sanitize('<meta http-equiv="refresh" content="0;url=evil.com">')
- * // ""
- *
- * // Remove iframes
- * sanitize('<iframe src="evil.com"></iframe>')
- * // ""
- *
- * // Remove object/embed
- * sanitize('<object data="evil.swf"></object>')
- * // ""
- *
- * sanitize('<embed src="evil.swf">')
- * // ""
- *
- * // Clean form inputs
- * sanitize('<input type="hidden" value="evil">')
- * // ""
- *
- * // Preserve safe URLs
- * sanitize("Visit https://example.com for more")
- * // "Visit https://example.com for more"
- *
- * // Remove javascript: protocol
- * sanitize('<a href="javascript:void(0)">Click</a>')
- * // "Click"
- *
- * // Remove vbscript: protocol
- * sanitize('<a href="vbscript:alert(1)">Click</a>')
- * // "Click"
- *
- * // Clean encoded characters
- * sanitize("&#60;script&#62;alert('XSS')&#60;/script&#62;")
- * // ""
- *
- * // Handle null bytes
- * sanitize("Hello\x00World")
- * // "HelloWorld"
- *
- * // Remove SVG with scripts
- * sanitize('<svg onload="alert(1)"><circle /></svg>')
- * // ""
- *
- * // Clean CSS expressions
- * sanitize('style="background:url(javascript:alert(1))"')
- * // 'style="background:url"'
- *
- * // Multiple spaces collapsed
- * sanitize("Multiple     spaces     here")
- * // "Multiple spaces here"
- *
- * // Trim result
- * sanitize("  <b>trimmed</b>  ")
- * // "trimmed"
- *
- * // Empty after sanitization
- * sanitize("<script></script>")
- * // ""
- *
- * sanitize("javascript:void(0)")
- * // ""
- *
- * // Mixed content
- * sanitize("Safe text <script>alert(1)</script> more safe text")
- * // "Safe text more safe text"
- *
- * // User comment sanitization
- * const userComment = '<script>steal()</script>Great product!'
- * sanitize(userComment)
- * // "Great product!"
- *
- * // Form data cleaning
- * const formInput = 'John<script>alert("XSS")</script>Doe'
- * sanitize(formInput)
- * // "JohnDoe"
- *
- * // Chat message cleaning
- * const chatMsg = 'Hello <img src=x onerror=alert(1)> everyone!'
- * sanitize(chatMsg)
- * // "Hello everyone!"
- *
- * // File name cleaning
- * sanitize("../../etc/passwd")
- * // "../../etc/passwd" (path traversal not removed, use cleanFilename for that)
- *
- * // SQL injection attempt (not SQL sanitization)
- * sanitize("'; DROP TABLE users; --")
- * // "'; DROP TABLE users; --" (SQL should be handled by parameterization)
- *
- * // Markdown preserved
- * sanitize("**Bold** and _italic_ markdown")
- * // "**Bold** and _italic_ markdown"
- *
- * // Emoji preserved
- * sanitize("Hello 😊 <script>bad</script>")
- * // "Hello 😊"
- *
- * // Handle null/undefined
- * sanitize(null)
- * // ""
- *
- * sanitize(undefined)
- * // ""
- *
- * // Empty string
- * sanitize("")
- * // ""
- *
- * // Whitespace only
- * sanitize("   \n\n\t  ")
- * // ""
- *
- * // Use for display
- * const displayComment = (comment: string) => {
- *   const safe = sanitize(comment)
- *   return `<div class="comment">${safe}</div>`
- * }
- *
- * // Combine with other sanitization
- * const fullSanitize = (input: string) => {
- *   return sanitize(input).slice(0, 500) // Also limit length
- * }
+ * sanitize("Hello World! This is safe text.")     // "Hello World! This is safe text."
  * ```
- * @property XSS-safe - removes all potentially dangerous content
- * @property Tag-stripping - removes all HTML/XML tags
- * @property Protocol-filtering - removes dangerous URL protocols
  */
 const sanitize = (
 	input: string | null | undefined,

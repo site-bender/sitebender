@@ -9,7 +9,10 @@ import type { ReplacerFunction } from "../../../types/string/index.ts"
  * the replacement. Only the first match is replaced unless using a global
  * regex.
  *
- * @curried (searchValue) => (replaceValue) => (str) => result
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @param searchValue - String or RegExp pattern to search for
  * @param replaceValue - String or function to compute the replacement
  * @param str - The string to perform replacement on
@@ -34,8 +37,8 @@ import type { ReplacerFunction } from "../../../types/string/index.ts"
  * replace(/[aeiou]/g)("*")("hello")       // "h*ll*"
  *
  * // Replacement function
- * replace(/(\d+)/)((match) => `[${match}]`)("test123end") // "test[123]end"
- * replace(/(\w+)/)((m) => m.toUpperCase())("hello world") // "HELLO world"
+ * replace(/(\d+)/)((match) => `[${match}]`)("test123end")    // "test[123]end"
+ * replace(/(\w+)/)((match) => match.toUpperCase())("hello world") // "HELLO world"
  *
  * // Special replacement patterns in string
  * replace("name")("$& Jr.")("name")    // "name Jr. Jr." ($& = matched string)

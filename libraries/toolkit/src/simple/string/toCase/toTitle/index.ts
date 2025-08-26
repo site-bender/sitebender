@@ -52,9 +52,11 @@ const TITLE_CASE_EXCEPTIONS = [
  * (except when they are the first or last word). Handles various input
  * formats including camelCase, kebab-case, snake_case, and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to Title Case
  * @returns The string in Title Case format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  * @example
  * ```typescript
  * // Basic title case
@@ -71,17 +73,10 @@ const TITLE_CASE_EXCEPTIONS = [
  * toTitle("snake_case_title")    // "Snake Case Title"
  * toTitle("kebab-case-title")    // "Kebab Case Title"
  * toTitle("camelCaseTitle")      // "Camel Case Title"
- * toTitle("SCREAMING_TITLE")     // "Screaming Title"
- *
- * // Special cases
- * toTitle("HTML and CSS")        // "Html and Css"
- * toTitle("iOS vs android")      // "Ios vs Android"
  *
  * // Edge cases
  * toTitle("")                    // ""
  * toTitle("a")                   // "A" (single word always capitalized)
- * toTitle("the")                 // "The" (single word always capitalized)
- * toTitle("123 main street")     // "123 Main Street"
  * ```
  */
 const toTitle = (s: string): string => {

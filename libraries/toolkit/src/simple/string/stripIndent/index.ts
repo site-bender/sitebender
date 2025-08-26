@@ -6,6 +6,9 @@
  * This is useful for cleaning up template literals, heredocs, or
  * multiline strings while preserving relative indentation.
  *
+ * @pure
+ * @immutable
+ * @safe
  * @param str - String to strip indentation from
  * @returns String with common indentation removed
  * @example
@@ -26,28 +29,6 @@
  * `)
  * // "function test() {\n    console.log('hello');\n}"
  *
- * // Mixed indentation levels
- * stripIndent(`
- *   outer
- *     inner
- *       nested
- *     inner
- *   outer
- * `)
- * // "outer\n  inner\n    nested\n  inner\nouter"
- *
- * // Tabs and spaces (finds minimum)
- * stripIndent("\t\tline1\n\t\tline2")
- * // "line1\nline2"
- *
- * // Empty lines ignored for calculation
- * stripIndent(`
- *     first
- *
- *     second
- * `)
- * // "first\n\nsecond"
- *
  * // Template literal cleanup
  * const sql = stripIndent(`
  *     SELECT *
@@ -56,81 +37,22 @@
  * `)
  * // "SELECT *\nFROM users\nWHERE active = true"
  *
- * // HTML template
- * const html = stripIndent(`
- *     <div>
- *         <h1>Title</h1>
- *         <p>Content</p>
- *     </div>
- * `)
- * // "<div>\n    <h1>Title</h1>\n    <p>Content</p>\n</div>"
- *
- * // No common indentation
- * stripIndent("line1\nline2\nline3")
- * // "line1\nline2\nline3"
- *
  * // Single line
  * stripIndent("    single line")
  * // "single line"
- *
- * // Empty string
- * stripIndent("")
- * // ""
- *
- * // Only whitespace
- * stripIndent("    \n    \n    ")
- * // "\n\n"
- *
- * // Markdown code block
- * const markdown = stripIndent(`
- *     \`\`\`javascript
- *     const x = 1;
- *     const y = 2;
- *     \`\`\`
- * `)
- * // "```javascript\nconst x = 1;\nconst y = 2;\n```"
- *
- * // YAML configuration
- * const yaml = stripIndent(`
- *     server:
- *       host: localhost
- *       port: 3000
- *       options:
- *         debug: true
- * `)
- * // "server:\n  host: localhost\n  port: 3000\n  options:\n    debug: true"
- *
- * // Error message formatting
- * const error = stripIndent(`
- *     Error: Something went wrong
- *       at line 42
- *       in file test.js
- * `)
- * // "Error: Something went wrong\n  at line 42\n  in file test.js"
  *
  * // Handle null/undefined gracefully
  * stripIndent(null)       // ""
  * stripIndent(undefined)  // ""
  *
  * // Create dedent helper
- * const dedent = (strings: TemplateStringsArray, ...values: any[]) => {
+ * const dedent = (strings: TemplateStringsArray, ...values: Array<any>) => {
  *   const result = strings.reduce((acc, str, i) => {
  *     return acc + str + (values[i] || "")
  *   }, "")
  *   return stripIndent(result)
  * }
- *
- * // Use with tagged template
- * const name = "World"
- * dedent`
- *     Hello ${name}!
- *     How are you?
- * `
- * // "Hello World!\nHow are you?"
  * ```
- * @property Relative-preserving - maintains indentation relationships
- * @property Empty-aware - ignores empty lines when calculating
- * @property Whitespace-agnostic - works with tabs or spaces
  */
 const stripIndent = (
 	str: string | null | undefined,

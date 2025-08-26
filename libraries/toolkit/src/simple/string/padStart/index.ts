@@ -7,7 +7,6 @@ import repeat from "../repeat/index.ts"
  * regardless of the string's current length. Always adds exactly the specified
  * count of padding characters.
  *
- * @curried (chars) => (count) => (str) => result
  * @param chars - The character(s) to use for padding
  * @param count - Number of times to repeat the padding characters
  * @param str - The string to pad
@@ -36,6 +35,10 @@ import repeat from "../repeat/index.ts"
  * addZeros("1")   // "000001"
  * addZeros("999") // "00000999"
  * ```
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  */
 const padStart = (chars: string) => (count: number) => (str: string): string =>
 	`${repeat(chars)(Math.max(0, count))}${str}`

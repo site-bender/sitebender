@@ -6,7 +6,7 @@
  * display in fixed-width contexts like terminals, text files, or
  * print layouts.
  *
- * @curried (width) => (str) => string
+ * @curried - Function returns a function for partial application
  * @param width - Maximum line width
  * @param str - String to wrap
  * @returns String with line breaks inserted
@@ -17,92 +17,34 @@
  * // "This is a\nlong\nsentence\nthat needs\nwrapping"
  *
  * // Short string (no wrapping needed)
- * wrap(20)("Short text")
- * // "Short text"
+ * wrap(20)("Short text")  // "Short text"
  *
  * // Single long word (forced break)
- * wrap(5)("verylongword")
- * // "veryl\nongwo\nrd"
+ * wrap(5)("verylongword")  // "veryl\nongwo\nrd"
  *
  * // Empty string
- * wrap(10)("")
- * // ""
+ * wrap(10)("")  // ""
  *
  * // Width of 1
- * wrap(1)("hello")
- * // "h\ne\nl\nl\no"
+ * wrap(1)("hello")  // "h\ne\nl\nl\no"
  *
  * // Preserve existing newlines
  * wrap(20)("First line\nSecond line here")
  * // "First line\nSecond line here"
  *
  * // Multiple spaces collapsed
- * wrap(10)("Too    many    spaces")
- * // "Too many\nspaces"
+ * wrap(10)("Too    many    spaces")  // "Too many\nspaces"
  *
- * // Terminal output formatting
- * const terminal = wrap(80)
- * terminal("Long error message that should fit in terminal window...")
- *
- * // Code comments
- * const commentWrap = wrap(60)
- * commentWrap("This is a very long comment that explains complex logic...")
- *
- * // Email body formatting
- * const emailBody = wrap(72)  // Traditional email width
- * emailBody("Dear recipient, This is a long email message...")
- *
- * // SMS message splitting
- * const smsWrap = wrap(160)
- * smsWrap("Long SMS message that might need to be split...")
- *
- * // Markdown paragraph
- * const markdown = wrap(80)
- * markdown("Lorem ipsum dolor sit amet, consectetur adipiscing elit...")
- *
- * // Log message formatting
- * const logWrap = wrap(100)
- * logWrap("[ERROR] A very detailed error message with lots of information...")
- *
- * // Help text formatting
- * const helpText = wrap(70)
- * helpText("Usage: command [options] - This command does something useful...")
- *
- * // Partial application for consistent formatting
+ * // Partial application
  * const wrap40 = wrap(40)
- * const wrap60 = wrap(60)
- * const wrap80 = wrap(80)
+ * const emailWrap = wrap(72)
  *
  * // Handle null/undefined
- * wrap(10)(null)       // ""
- * wrap(10)(undefined)  // ""
- *
- * // Hyphenation (simple - breaks at width)
- * wrap(10)("extraordinary")
- * // "extraordin\nary"
- *
- * // Paragraph formatting
- * const formatParagraph = (text: string, indent: string = "") => {
- *   return wrap(70)(text).split("\n").map(line => indent + line).join("\n")
- * }
- * formatParagraph("Long paragraph text...", "  ")
- * // Each line indented with 2 spaces
- *
- * // Create text box
- * const textBox = (text: string, width: number) => {
- *   const wrapped = wrap(width - 4)(text)  // Account for borders
- *   const lines = wrapped.split("\n")
- *   const border = "+" + "-".repeat(width - 2) + "+"
- *   return [
- *     border,
- *     ...lines.map(line => "| " + line.padEnd(width - 4) + " |"),
- *     border
- *   ].join("\n")
- * }
+ * wrap(10)(null)  // ""
  * ```
- * @property Word-aware - tries to break at word boundaries
- * @property Width-enforced - ensures no line exceeds width
- * @property Newline-preserving - maintains existing line breaks
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  */
 const wrap = (
 	width: number,

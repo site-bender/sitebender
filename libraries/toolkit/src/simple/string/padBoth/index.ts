@@ -7,7 +7,6 @@ import repeat from "../repeat/index.ts"
  * of the string, regardless of the string's current length. The total number
  * of characters added will be double the specified amount (count on each side).
  *
- * @curried (chars) => (count) => (str) => result
  * @param chars - The character(s) to use for padding
  * @param count - Number of times to repeat the padding on each side
  * @param str - The string to pad
@@ -19,14 +18,18 @@ import repeat from "../repeat/index.ts"
  * padBoth("*")(2)("hi")    // "**hi**"
  * padBoth(".")(0)("test")  // "test"
  *
+ * // Multi-character padding
+ * padBoth("><")(2)("fish") // "><><fish><><"
+ *
  * // Partial application
  * const addBrackets = padBoth("[]")(1)
  * addBrackets("content") // "[]content[]"
  * addBrackets("data")    // "[]data[]"
- *
- * // Multi-character padding
- * padBoth("><")(2)("fish") // "><><fish><><"
  * ```
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  */
 const padBoth = (chars: string) => (count: number) => (str: string): string => {
 	const padding = repeat(chars)(Math.max(0, count))

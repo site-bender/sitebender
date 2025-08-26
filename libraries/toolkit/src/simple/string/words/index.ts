@@ -5,7 +5,6 @@
  * camelCase, PascalCase, snake_case, kebab-case, and regular sentences.
  * Handles acronyms, numbers, and special cases gracefully.
  *
- * @curried Single parameter - already curried
  * @param str - String to split into words
  * @returns Array of words found in the string
  * @example
@@ -13,48 +12,29 @@
  * // camelCase and PascalCase
  * words("camelCase")          // ["camel", "Case"]
  * words("PascalCase")         // ["Pascal", "Case"]
- * words("IOError")            // ["IO", "Error"]
  * words("XMLHttpRequest")     // ["XML", "Http", "Request"]
  *
  * // snake_case and kebab-case
  * words("snake_case_example") // ["snake", "case", "example"]
  * words("kebab-case-example") // ["kebab", "case", "example"]
- * words("SCREAMING_SNAKE")    // ["SCREAMING", "SNAKE"]
  *
  * // Regular sentences
  * words("Hello, world!")      // ["Hello", "world"]
- * words("It's a test")        // ["It", "s", "a", "test"]
  *
  * // Mixed formats
  * words("getData_fromAPI")    // ["get", "Data", "from", "API"]
- * words("user-id_123")        // ["user", "id", "123"]
- * words("API_KEY_v2")         // ["API", "KEY", "v", "2"]
  *
- * // Numbers
- * words("version2.0")         // ["version", "2", "0"]
- * words("3rdPlace")           // ["3", "rd", "Place"]
+ * // Numbers and acronyms
  * words("HTML5Parser")        // ["HTML", "5", "Parser"]
- *
- * // Consecutive capitals (acronyms)
  * words("HTTPSConnection")    // ["HTTPS", "Connection"]
- * words("IOErrorCode")        // ["IO", "Error", "Code"]
- * words("USA")                // ["USA"]
  *
  * // Edge cases
  * words("")                   // []
- * words("   ")                // []
- * words("123")                // ["123"]
  * words("!!!")                // []
- * words("a")                  // ["a"]
- *
- * // Complex real-world examples
- * words("parseHTMLFromURL")   // ["parse", "HTML", "From", "URL"]
- * words("iOS_AppStore-v2.1")  // ["i", "OS", "App", "Store", "v", "2", "1"]
- * words("__private_method")   // ["private", "method"]
  * ```
- * @property Intelligent - recognizes various naming conventions
- * @property Acronym-aware - keeps acronyms together
- * @property Number-aware - handles embedded numbers
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  */
 const words = (str: string | null | undefined): Array<string> => {
 	if (!str || typeof str !== "string") {

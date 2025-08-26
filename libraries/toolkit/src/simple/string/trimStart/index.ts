@@ -5,7 +5,6 @@
  * from the beginning of a string. This is an idempotent operation - applying
  * it multiple times has the same effect as applying it once.
  *
- * @curried Single parameter - already curried
  * @param str - The string to trim from the start
  * @returns The string with leading whitespace removed
  * @example
@@ -18,20 +17,20 @@
  * // Various whitespace types
  * trimStart("\r\ntext")        // "text"
  * trimStart("\t\t\tdata")      // "data"
- * trimStart("   \n   value")   // "value"
  *
  * // Edge cases
  * trimStart("")                // ""
  * trimStart("   ")             // ""
  * trimStart("no-trim")         // "no-trim"
- * trimStart("\n\n\n")          // ""
  *
  * // Idempotent property
  * const once = trimStart("  test")
  * const twice = trimStart(trimStart("  test"))
  * once === twice               // true (both are "test")
  * ```
- * @property Idempotent - f(f(x)) = f(x)
+ * @pure
+ * @immutable
+ * @safe
  */
 const trimStart = (str: string): string => str.trimStart()
 

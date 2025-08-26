@@ -11,123 +11,38 @@
  * @example
  * ```typescript
  * // Double quotes
- * unquote('"hello"')
- * // "hello"
+ * unquote('"hello"')  // "hello"
  *
  * // Single quotes
- * unquote("'hello'")
- * // "hello"
+ * unquote("'world'")  // "world"
  *
  * // Backticks
- * unquote("`hello`")
- * // "hello"
+ * unquote("`test`")   // "test"
  *
- * // No quotes
- * unquote("hello")
- * // "hello"
+ * // No quotes (unchanged)
+ * unquote("hello")    // "hello"
  *
  * // Mismatched quotes (unchanged)
- * unquote('"hello\'')
- * // '"hello\''
+ * unquote('"hello\'') // '"hello\''
  *
  * // Only one quote (unchanged)
- * unquote('"hello')
- * // '"hello'
- *
- * unquote('hello"')
- * // 'hello"'
+ * unquote('"hello')   // '"hello'
  *
  * // Empty string
- * unquote("")
- * // ""
+ * unquote("")         // ""
  *
  * // Just quotes
- * unquote('""')
- * // ""
- *
- * unquote("''")
- * // ""
+ * unquote('""')       // ""
  *
  * // Nested quotes (only removes outer)
- * unquote('"He said \\"Hello\\""')
- * // 'He said "Hello"'
- *
- * // Mixed quotes inside
- * unquote('"It\'s working"')
- * // "It's working"
- *
- * // CSV value processing
- * const csvValue = '"John, Doe"'
- * unquote(csvValue)  // "John, Doe"
- *
- * // JSON property extraction
- * const jsonProp = '"username"'
- * unquote(jsonProp)  // "username"
- *
- * // Config value cleaning
- * const configValue = "'production'"
- * unquote(configValue)  // "production"
- *
- * // URL parameter
- * const param = '"search term"'
- * unquote(param)  // "search term"
- *
- * // Command argument
- * const arg = "'--verbose'"
- * unquote(arg)  // "--verbose"
- *
- * // Multiple processing
- * const values = ['"apple"', "'banana'", "`cherry`", "date"]
- * values.map(unquote)
- * // ["apple", "banana", "cherry", "date"]
- *
- * // Environment variable
- * const envVar = '"DATABASE_URL"'
- * unquote(envVar)  // "DATABASE_URL"
- *
- * // SQL value
- * const sqlValue = "'O\\'Brien'"
- * unquote(sqlValue)  // "O'Brien" (inner quote preserved)
- *
- * // Template literal
- * const template = '`Hello ${name}`'
- * unquote(template)  // "Hello ${name}"
- *
- * // Parse quoted list
- * const parseList = (str: string) => {
- *   return str.split(",").map(s => unquote(s.trim()))
- * }
- * parseList('"a", "b", "c"')  // ["a", "b", "c"]
+ * unquote('"He said \\"Hello\\""')  // 'He said "Hello"'
  *
  * // Handle null/undefined
  * unquote(null)       // ""
- * unquote(undefined)  // ""
- *
- * // Whitespace with quotes
- * unquote('" hello "')  // " hello " (preserves inner spaces)
- * unquote('  "hello"  ')  // '  "hello"  ' (outer spaces not quotes)
- *
- * // Check if was quoted
- * const wasQuoted = (original: string) => {
- *   return original !== unquote(original)
- * }
- * wasQuoted('"test"')  // true
- * wasQuoted("test")    // false
- *
- * // Smart unquote (handles any quote type)
- * const smartUnquote = (str: string) => {
- *   const quotes = ['"', "'", "`"]
- *   for (const q of quotes) {
- *     if (str.startsWith(q) && str.endsWith(q) && str.length >= 2) {
- *       return str.slice(1, -1)
- *     }
- *   }
- *   return str
- * }
  * ```
- * @property Matching-only - only removes if quotes match at both ends
- * @property Single-layer - only removes outermost quotes
- * @property Type-aware - handles different quote types
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  */
 const unquote = (
 	str: string | null | undefined,

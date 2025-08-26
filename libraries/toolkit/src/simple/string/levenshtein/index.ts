@@ -6,7 +6,6 @@
  * Also known as edit distance. Useful for spell checking, fuzzy matching,
  * DNA sequence analysis, and similarity detection.
  *
- * @curried (str1) => (str2) => number
  * @param str1 - First string to compare
  * @param str2 - Second string to compare
  * @returns Minimum edit distance between the strings
@@ -46,93 +45,21 @@
  * levenshtein("Hello")("hello")
  * // 1 (H→h)
  *
- * // Completely different strings
- * levenshtein("abc")("xyz")
- * // 3 (replace all)
- *
- * // Transposition (not a single edit)
- * levenshtein("ab")("ba")
- * // 2 (requires two substitutions)
- *
  * // Partial application for fuzzy search
  * const distanceFromHello = levenshtein("hello")
- * const words = ["hallo", "yellow", "hello", "help", "shell"]
- * words.map(w => ({ word: w, distance: distanceFromHello(w) }))
+ * const words = ["hallo", "hello", "help", "shell"]
+ * const results = words.map(w => ({ word: w, distance: distanceFromHello(w) }))
  *   .sort((a, b) => a.distance - b.distance)
- * // [
- * //   { word: "hello", distance: 0 },
- * //   { word: "hallo", distance: 1 },
- * //   { word: "shell", distance: 2 },
- * //   { word: "help", distance: 2 },
- * //   { word: "yellow", distance: 2 }
- * // ]
- *
- * // Spell checker suggestion
- * const suggest = (word: string, dictionary: Array<string>) => {
- *   const distance = levenshtein(word)
- *   return dictionary
- *     .map(w => ({ word: w, distance: distance(w) }))
- *     .filter(item => item.distance <= 2)  // Max 2 edits
- *     .sort((a, b) => a.distance - b.distance)
- *     .map(item => item.word)
- * }
- * suggest("recieve", ["receive", "receipt", "recipe", "deceive"])
- * // ["receive", "receipt", "deceive"]
- *
- * // Similarity threshold
- * const areSimilar = (threshold: number) => (s1: string) => (s2: string) => {
- *   const distance = levenshtein(s1)(s2)
- *   const maxLen = Math.max(s1.length, s2.length)
- *   return maxLen === 0 ? true : distance / maxLen <= threshold
- * }
- * const similar20Percent = areSimilar(0.2)("hello")
- * similar20Percent("hallo")  // true (20% different)
- * similar20Percent("world")  // false (100% different)
- *
- * // Auto-correct implementation
- * const autoCorrect = (input: string, validWords: Array<string>) => {
- *   const distance = levenshtein(input)
- *   const exact = validWords.find(w => w === input)
- *   if (exact) return exact
- *
- *   const closest = validWords
- *     .map(w => ({ word: w, dist: distance(w) }))
- *     .reduce((min, curr) => curr.dist < min.dist ? curr : min)
- *
- *   return closest.dist <= 2 ? closest.word : input
- * }
- *
- * // DNA sequence comparison
- * levenshtein("ACTG")("AGTC")
- * // 2 (minimum mutations needed)
- *
- * // File path similarity
- * levenshtein("/usr/local/bin")("/usr/local/lib")
- * // 3
- *
- * // Username typo detection
- * const usernameDistance = levenshtein("john_doe")
- * usernameDistance("john_deo")  // 1 (likely typo)
- * usernameDistance("jane_doe")  // 2 (possibly different user)
+ * // [{ word: "hello", distance: 0 }, { word: "hallo", distance: 1 }, ...]
  *
  * // Handle null/undefined
  * levenshtein(null)("test")       // Infinity
  * levenshtein("test")(undefined)  // Infinity
- *
- * // Unicode support
- * levenshtein("café")("cafe")
- * // 1 (é→e)
- *
- * levenshtein("🙂")("🙃")
- * // 1 (emoji substitution)
- *
- * // Multi-byte characters
- * levenshtein("你好")("您好")
- * // 1 (你→您)
  * ```
- * @property Algorithm - uses dynamic programming for O(m*n) complexity
- * @property Case-sensitive - treats uppercase/lowercase as different
- * @property Unicode-aware - works with all Unicode characters
+ * @pure - Function has no side effects
+ * @curried - Function is curried for partial application
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  */
 const levenshtein = (
 	str1: string | null | undefined,

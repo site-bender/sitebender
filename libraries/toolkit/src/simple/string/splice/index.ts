@@ -6,7 +6,10 @@
  * string at that position. Supports negative indices to count from the end.
  * Returns a new string with the modifications applied.
  *
- * @curried (start) => (deleteCount) => (replacement?) => (str) => string
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @param start - Starting index (negative counts from end)
  * @param deleteCount - Number of characters to remove
  * @param replacement - Optional string to insert at position
@@ -30,65 +33,16 @@
  * splice(-5)(5)("earth")("hello world")
  * // "hello earth"
  *
- * // Remove from end
- * splice(-3)(3)("")("hello world")
- * // "hello wo"
- *
- * // Replace single character
- * splice(0)(1)("H")("hello")
- * // "Hello"
- *
- * // Insert at beginning
- * splice(0)(0)("Well, ")("hello")
- * // "Well, hello"
- *
- * // Insert at end
- * splice(5)(0)(" world")("hello")
- * // "hello world"
- *
- * // Delete all after index
- * splice(5)(Infinity)("")("hello world")
- * // "hello"
- *
  * // Partial application for common operations
  * const deleteAt = (index: number, count: number) => splice(index)(count)("")
  * const insertAt = (index: number, text: string) => splice(index)(0)(text)
- * const replaceAt = (index: number, count: number, text: string) =>
- *   splice(index)(count)(text)
- *
  * deleteAt(0, 3)("foo bar")      // " bar"
  * insertAt(3, "-")("foobar")     // "foo-bar"
- * replaceAt(0, 4, "baz")("foo bar") // "baz bar"
- *
- * // Redact sensitive data
- * const redact = (start: number, length: number) =>
- *   splice(start)(length)("*".repeat(length))
- * redact(4, 4)("1234-5678-9012")  // "1234-****-9012"
- *
- * // Fix typos
- * splice(7)(3)("the")("hello teh world")
- * // "hello the world"
  *
  * // Handle null/undefined gracefully
  * splice(0)(1)("H")(null)       // ""
  * splice(0)(1)("H")(undefined)  // ""
- *
- * // Out of bounds handling
- * splice(100)(5)("")("hello")   // "hello"
- * splice(-100)(5)("")("hello")  // "lo"
- *
- * // File extension replacement
- * const changeExt = (newExt: string) => (filename: string) => {
- *   const dotIndex = filename.lastIndexOf(".")
- *   return dotIndex === -1
- *     ? filename + newExt
- *     : splice(dotIndex)(Infinity)(newExt)(filename)
- * }
- * changeExt(".ts")("script.js")  // "script.ts"
  * ```
- * @property Index-based - operates at specific position
- * @property Immutable - returns new string
- * @property Flexible - can remove, replace, or insert
  */
 const splice = (
 	start: number,

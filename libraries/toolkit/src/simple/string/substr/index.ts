@@ -8,7 +8,10 @@
  *
  * Note: Consider using slice() instead as substr() is deprecated.
  *
- * @curried (start) => (length?) => (str) => string
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @param start - Starting position (negative counts from end)
  * @param length - Number of characters to extract (default: to end)
  * @param str - String to extract from
@@ -27,26 +30,9 @@
  * substr(-5)(5)("hello world")
  * // "world"
  *
- * // Limited length
- * substr(6)(3)("hello world")
- * // "wor"
- *
- * // Start beyond string
- * substr(20)(5)("hello")
- * // ""
- *
- * // Zero length
- * substr(0)(0)("hello")
- * // ""
- *
- * // Single character
- * substr(0)(1)("hello")
- * // "h"
- *
  * // Partial application
  * const takeFirst = (n: number) => substr(0)(n)
  * const takeLast = (n: number) => substr(-n)(n)
- *
  * takeFirst(3)("hello")  // "hel"
  * takeLast(3)("hello")   // "llo"
  *
@@ -54,32 +40,10 @@
  * substr(0)(3)("5551234567")
  * // "555"
  *
- * // Get middle portion
- * substr(2)(3)("abcdefg")
- * // "cde"
- *
- * // Year from date
- * substr(0)(4)("2024-01-15")
- * // "2024"
- *
  * // Handle null/undefined
  * substr(0)(5)(null)       // ""
  * substr(0)(5)(undefined)  // ""
- *
- * // Negative with length
- * substr(-10)(3)("hello world")
- * // "llo"
- *
- * // Extract file extension
- * const getExt = (filename: string) => {
- *   const dotIdx = filename.lastIndexOf(".")
- *   return dotIdx === -1 ? "" : substr(dotIdx + 1)(Infinity)(filename)
- * }
- * getExt("file.txt")  // "txt"
  * ```
- * @property Deprecated - prefer slice() for new code
- * @property Length-based - uses character count, not end index
- * @property Negative-aware - supports negative start index
  */
 const substr = (
 	start: number,

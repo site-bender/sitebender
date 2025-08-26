@@ -10,11 +10,10 @@
  * @returns Cleaned filename safe for use across filesystems
  * @example
  * ```typescript
- * // Remove invalid characters
+ * // Basic usage
  * cleanFilename("file<name>.txt")
  * // "file_name_.txt"
  *
- * // Handle Windows invalid characters
  * cleanFilename("file:name|test?.doc")
  * // "file_name_test_.doc"
  *
@@ -22,98 +21,29 @@
  * cleanFilename("file\x00name\x1F.txt")
  * // "filename.txt"
  *
- * // Handle reserved Windows names
+ * // Handle reserved names
  * cleanFilename("CON.txt")
  * // "_CON.txt"
- *
- * cleanFilename("aux.doc")
- * // "_aux.doc"
  *
  * // Trim spaces and dots
  * cleanFilename("  filename.txt  ")
  * // "filename.txt"
  *
- * cleanFilename("...filename...")
- * // "filename"
- *
- * // Handle path separators
+ * // Path separators
  * cleanFilename("folder/file.txt")
  * // "folder_file.txt"
  *
- * cleanFilename("C:\\folder\\file.txt")
- * // "C__folder_file.txt"
- *
- * // Multiple spaces collapsed
- * cleanFilename("file    name.txt")
- * // "file name.txt"
- *
- * // Special characters
- * cleanFilename("file*name?.txt")
- * // "file_name_.txt"
- *
- * cleanFilename('file"name".txt')
- * // "file_name_.txt"
- *
- * // Unicode characters preserved
- * cleanFilename("文件名.txt")
- * // "文件名.txt"
- *
+ * // Unicode preserved
  * cleanFilename("café.txt")
  * // "café.txt"
  *
- * // Empty or whitespace only
+ * // Empty input
  * cleanFilename("")
  * // "unnamed"
- *
- * cleanFilename("   ")
- * // "unnamed"
- *
- * // Very long filenames (truncated to 255 chars)
- * cleanFilename("a".repeat(300) + ".txt")
- * // "aaa...aaa.txt" (255 chars total)
- *
- * // Preserve extensions
- * cleanFilename("file<>name.tar.gz")
- * // "file__name.tar.gz"
- *
- * // Handle only dots
- * cleanFilename("...")
- * // "unnamed"
- *
- * cleanFilename("..hidden")
- * // "hidden"
- *
- * // Reserved names with extensions
- * cleanFilename("PRN.backup.txt")
- * // "_PRN.backup.txt"
- *
- * // Case variations of reserved names
- * cleanFilename("Com1.txt")
- * // "_Com1.txt"
- *
- * cleanFilename("LPT9.doc")
- * // "_LPT9.doc"
- *
- * // Clean up messy user input
- * cleanFilename("***My||File???.txt***")
- * // "___My__File___.txt"
- *
- * // Handle null bytes and other control chars
- * cleanFilename("file\0\n\r\tname.txt")
- * // "file name.txt"
- *
- * // Batch processing example
- * const userFiles = [
- *   "report<2024>.pdf",
- *   "data:analysis.xlsx",
- *   "summary|final.doc"
- * ]
- * userFiles.map(cleanFilename)
- * // ["report_2024_.pdf", "data_analysis.xlsx", "summary_final.doc"]
  * ```
- * @property Immutable - doesn't modify input string
- * @property Cross-platform - safe for Windows, macOS, and Linux
- * @property Unicode-preserving - keeps valid Unicode characters
+ * @pure
+ * @immutable
+ * @safe
  */
 const cleanFilename = (filename: string): string => {
 	if (!filename || !filename.trim()) {

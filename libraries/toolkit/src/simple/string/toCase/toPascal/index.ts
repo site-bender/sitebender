@@ -8,9 +8,12 @@ import not from "../../predicates/not/index.ts"
  * Handles various input formats including kebab-case, snake_case,
  * camelCase, space-separated, and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to PascalCase
  * @returns The string in PascalCase format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats
@@ -22,16 +25,13 @@ import not from "../../predicates/not/index.ts"
  *
  * // Mixed formats
  * toPascal("mixed-case_string") // "MixedCaseString"
- * toPascal("one two-three_four") // "OneTwoThreeFour"
  *
  * // Already PascalCase
  * toPascal("AlreadyPascal")   // "AlreadyPascal"
  *
  * // Edge cases
  * toPascal("")                // ""
- * toPascal("a")               // "A"
  * toPascal("123-456")         // "123456"
- * toPascal("--")              // ""
  * ```
  */
 const toPascal = (s: string): string => {

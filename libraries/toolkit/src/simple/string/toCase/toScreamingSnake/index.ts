@@ -8,9 +8,12 @@ import not from "../../predicates/not/index.ts"
  * environment variables. Handles various input formats including camelCase,
  * PascalCase, kebab-case, space-separated, and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to SCREAMING_SNAKE_CASE
  * @returns The string in SCREAMING_SNAKE_CASE format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats
@@ -22,16 +25,13 @@ import not from "../../predicates/not/index.ts"
  *
  * // Mixed formats
  * toScreamingSnake("mixedCase-string") // "MIXED_CASE_STRING"
- * toScreamingSnake("API2JSON")         // "API2_JSON"
  *
  * // Already SCREAMING_SNAKE_CASE
  * toScreamingSnake("ALREADY_SCREAMING") // "ALREADY_SCREAMING"
  *
  * // Edge cases
  * toScreamingSnake("")              // ""
- * toScreamingSnake("a")             // "A"
  * toScreamingSnake("123")           // "123"
- * toScreamingSnake("___")           // "___"
  * ```
  */
 const toScreamingSnake = (s: string): string => {

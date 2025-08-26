@@ -5,7 +5,6 @@
  * is case-sensitive and position-sensitive. Returns a boolean indicating
  * whether the match is found at the end.
  *
- * @curried (searchString) => (str) => result
  * @param searchString - The substring to search for at the end
  * @param str - The string to test
  * @returns True if str ends with searchString, false otherwise
@@ -22,21 +21,22 @@
  *
  * // Edge cases
  * endsWith("")("hello")      // true (empty string matches)
- * endsWith("hello")("")      // false (empty string doesn't contain "hello")
- * endsWith("")("")           // true
+ * endsWith("hello")("")      // false
  * endsWith("test")("test")   // true (whole string match)
- * endsWith("longer")("short") // false
  *
  * // Partial application
  * const isTypeScript = endsWith(".ts")
  * isTypeScript("app.ts")     // true
  * isTypeScript("app.js")     // false
- * isTypeScript("test.d.ts")  // true
  *
  * const isQuestion = endsWith("?")
  * isQuestion("How are you?") // true
  * isQuestion("I am fine.")   // false
  * ```
+ * @pure
+ * @curried
+ * @immutable
+ * @predicate
  */
 const endsWith = (searchString: string) => (str: string): boolean =>
 	str.endsWith(searchString)

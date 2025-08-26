@@ -7,9 +7,11 @@ import not from "../../predicates/not/index.ts"
  * capitalized and all other letters are lowercase. Trims whitespace
  * from the beginning and end of the string.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to sentence case
  * @returns The string in sentence case format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
  * @example
  * ```typescript
  * // Basic conversion
@@ -19,23 +21,16 @@ import not from "../../predicates/not/index.ts"
  *
  * // Trims whitespace
  * toSentence("  spaced  ")     // "Spaced"
- * toSentence("\n\ttabbed\n")   // "Tabbed"
  * toSentence("   hello   ")    // "Hello"
  *
  * // Already sentence case
  * toSentence("Already good")   // "Already good"
- * toSentence("Sentence case")  // "Sentence case"
  *
  * // Special characters preserved
  * toSentence("123 MAIN ST.")   // "123 main st."
- * toSentence("email@EXAMPLE")  // "Email@example"
- * toSentence("PRICE: $99")     // "Price: $99"
  *
  * // Edge cases
  * toSentence("")               // ""
- * toSentence("   ")            // "   " (only whitespace)
- * toSentence("a")              // "A"
- * toSentence("A")              // "A"
  * toSentence("123")            // "123" (no letters to capitalize)
  * ```
  */

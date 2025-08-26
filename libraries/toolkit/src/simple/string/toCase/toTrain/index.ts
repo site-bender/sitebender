@@ -8,9 +8,12 @@ import not from "../../predicates/not/index.ts"
  * for HTTP headers and similar conventions. Handles various input formats
  * including camelCase, snake_case, kebab-case, and space-separated.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to Train-Case
  * @returns The string in Train-Case format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats
@@ -27,13 +30,10 @@ import not from "../../predicates/not/index.ts"
  *
  * // Mixed formats
  * toTrain("mixed_case-string") // "Mixed-Case-String"
- * toTrain("API_KEY")          // "Api-Key"
  *
  * // Edge cases
  * toTrain("")                 // ""
- * toTrain("a")                // "A"
  * toTrain("123-456")          // "123-456"
- * toTrain("---")              // "---"
  * ```
  */
 const toTrain = (s: string): string => {

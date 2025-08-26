@@ -14,30 +14,15 @@
  * findExtension("document.pdf")
  * // "pdf"
  *
- * findExtension("image.png")
- * // "png"
- *
+ * // Files with multiple dots
  * findExtension("archive.tar.gz")
  * // "gz"
- *
- * // Files with multiple dots
- * findExtension("app.min.js")
- * // "js"
- *
- * findExtension("backup.2024.01.01.sql")
- * // "sql"
  *
  * // File paths
  * findExtension("/home/user/documents/report.docx")
  * // "docx"
  *
- * findExtension("C:\\Users\\Documents\\file.txt")
- * // "txt"
- *
- * // URLs
- * findExtension("https://example.com/assets/style.css")
- * // "css"
- *
+ * // URLs with query parameters
  * findExtension("https://api.example.com/data.json?v=1.2")
  * // "json"
  *
@@ -45,106 +30,25 @@
  * findExtension("README")
  * // ""
  *
- * findExtension("Makefile")
- * // ""
- *
  * // Dotfiles (no extension)
  * findExtension(".gitignore")
  * // ""
  *
- * findExtension(".bashrc")
- * // ""
- *
  * // Dotfiles with extensions
- * findExtension(".gitignore.local")
- * // "local"
- *
  * findExtension(".env.production")
  * // "production"
- *
- * // Hidden files with normal extensions
- * findExtension(".hidden.txt")
- * // "txt"
  *
  * // Edge cases
  * findExtension("")
  * // ""
- *
- * findExtension(".")
- * // ""
- *
- * findExtension("..")
- * // ""
- *
- * findExtension("file.")
- * // ""
- *
- * findExtension("file..")
- * // ""
- *
- * // Very long extensions
- * findExtension("file.verylongextension")
- * // "verylongextension"
- *
- * // Numbers in extensions
- * findExtension("video.mp4")
- * // "mp4"
- *
- * findExtension("data.sqlite3")
- * // "sqlite3"
- *
+ * 
  * // Case preservation
  * findExtension("Document.PDF")
  * // "PDF"
- *
- * findExtension("Image.JPG")
- * // "JPG"
- *
- * // Complex paths
- * findExtension("/path.to/some.dir/file.ext")
- * // "ext"
- *
- * findExtension("./relative/path/script.sh")
- * // "sh"
- *
- * // URL with fragment
- * findExtension("page.html#section")
- * // "html"
- *
- * // URL with query parameters
- * findExtension("api.php?action=get&id=123")
- * // "php"
- *
- * // Checking file types
- * const files = [
- *   "photo.jpg",
- *   "document.pdf",
- *   "video.mp4",
- *   "README",
- *   ".gitignore"
- * ]
- *
- * files.map(findExtension)
- * // ["jpg", "pdf", "mp4", "", ""]
- *
- * // Filter by extension
- * const hasExtension = (file: string) => findExtension(file) !== ""
- * files.filter(hasExtension)
- * // ["photo.jpg", "document.pdf", "video.mp4"]
- *
- * // Group by extension
- * const images = ["pic1.jpg", "pic2.png", "pic3.jpg", "pic4.gif"]
- * const byExt = images.reduce((acc, file) => {
- *   const ext = findExtension(file)
- *   if (!acc[ext]) acc[ext] = []
- *   acc[ext].push(file)
- *   return acc
- * }, {} as Record<string, string[]>)
- * // { jpg: ["pic1.jpg", "pic3.jpg"], png: ["pic2.png"], gif: ["pic4.gif"] }
  * ```
- * @property Immutable - doesn't modify input string
- * @property Path-aware - correctly handles file paths and URLs
- * @property Dotfile-aware - distinguishes between dotfiles and extensions
+ * @pure - Function has no side effects
+ * @immutable - Does not modify input
+ * @safe - Returns safe values for invalid inputs
  */
 const findExtension = (filename: string): string => {
 	if (!filename) {

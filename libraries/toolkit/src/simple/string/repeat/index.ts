@@ -5,7 +5,10 @@
  * the specified number of times. Returns an empty string for counts
  * less than or equal to zero.
  *
- * @curried (str) => (count) => result
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @param str - The string to repeat
  * @param count - Number of times to repeat the string
  * @returns New string containing the input repeated count times

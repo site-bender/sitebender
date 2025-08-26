@@ -8,9 +8,12 @@ import words from "../../string/words/index.ts"
  * Handles various input formats including kebab-case, snake_case, space-separated,
  * and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to camelCase
  * @returns The string in camelCase format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats

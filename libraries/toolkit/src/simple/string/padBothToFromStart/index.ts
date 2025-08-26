@@ -8,7 +8,6 @@ import repeat from "../repeat/index.ts"
  * beyond the target length, returns it unchanged. When an odd number of
  * padding characters is needed, the extra character is added at the start.
  *
- * @curried (chars) => (targetLength) => (str) => result
  * @param chars - The character(s) to use for padding
  * @param targetLength - The desired final length of the string
  * @param str - The string to pad
@@ -16,21 +15,24 @@ import repeat from "../repeat/index.ts"
  * @example
  * ```typescript
  * // Basic usage - even padding
- * padBothToFromStart("-")(10)("hello") // "--hello---" (5 chars → 10 chars, adds 2 + 3)
- * padBothToFromStart("*")(8)("hi")     // "***hi***" (2 chars → 8 chars, adds 3 each side)
+ * padBothToFromStart("-")(10)("hello") // "--hello---" (5 → 10 chars)
+ * padBothToFromStart("*")(8)("hi")     // "***hi***" (2 → 8 chars)
  *
  * // Odd padding - extra character at start
- * padBothToFromStart("-")(11)("hello") // "---hello---" (5 chars → 11 chars, adds 3 each side)
- * padBothToFromStart(".")(9)("test")   // "...test.." (4 chars → 9 chars, adds 3 start, 2 end)
+ * padBothToFromStart(".")(9)("test")   // "...test.." (extra at start)
  *
  * // String already long enough
- * padBothToFromStart("-")(5)("hello world") // "hello world" (unchanged, already 11 chars)
+ * padBothToFromStart("-")(5)("hello world") // "hello world" (unchanged)
  *
  * // Partial application
  * const centerIn10 = padBothToFromStart(" ")(10)
  * centerIn10("OK")   // "    OK    "
  * centerIn10("DONE") // "   DONE   "
  * ```
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  */
 const padBothToFromStart =
 	(chars: string) => (targetLength: number) => (str: string): string => {

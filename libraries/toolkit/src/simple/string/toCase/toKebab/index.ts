@@ -7,9 +7,12 @@ import not from "../../predicates/not/index.ts"
  * and separated by hyphens. Handles various input formats including
  * camelCase, PascalCase, snake_case, space-separated, and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to kebab-case
  * @returns The string in kebab-case format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats
@@ -21,16 +24,13 @@ import not from "../../predicates/not/index.ts"
  *
  * // Mixed formats
  * toKebab("mixedCase_string") // "mixed-case-string"
- * toKebab("XML2JSON")         // "xml2-json"
  *
  * // Already kebab-case
  * toKebab("already-kebab")    // "already-kebab"
  *
  * // Edge cases
  * toKebab("")                 // ""
- * toKebab("a")                // "a"
  * toKebab("123")              // "123"
- * toKebab("---")              // "---"
  * ```
  */
 const toKebab = (s: string): string => {

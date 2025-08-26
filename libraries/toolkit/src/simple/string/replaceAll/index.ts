@@ -8,7 +8,10 @@ import type { ReplacerFunction } from "../../../types/string/index.ts"
  * replaced. When using a RegExp, it must have the global flag or an error
  * will be thrown (this is a JavaScript requirement for replaceAll).
  *
- * @curried (searchValue) => (replaceValue) => (str) => result
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @param searchValue - String or global RegExp pattern to search for
  * @param replaceValue - String or function to compute the replacement
  * @param str - The string to perform replacement on
@@ -25,8 +28,8 @@ import type { ReplacerFunction } from "../../../types/string/index.ts"
  * replaceAll(/[aeiou]/g)("*")("hello world")   // "h*ll* w*rld"
  *
  * // Replacement function
- * replaceAll(/\d+/g)((m) => `[${m}]`)("test 1 and 2") // "test [1] and [2]"
- * replaceAll(/\w+/g)((m) => m.toUpperCase())("hello world") // "HELLO WORLD"
+ * replaceAll(/\d+/g)((match) => `[${match}]`)("test 1 and 2") // "test [1] and [2]"
+ * replaceAll(/\w+/g)((match) => match.toUpperCase())("hello world") // "HELLO WORLD"
  *
  * // Special replacement patterns
  * replaceAll("name")("$& Jr.")("name name")  // "name Jr. Jr. name Jr. Jr."
@@ -53,25 +56,16 @@ const replaceAll =
 		if (typeof searchValue === "string") {
 			// Type guard to properly handle string vs function replacer
 			if (typeof replaceValue === "function") {
-				// For string search with function replacer, we need to handle it manually
-				const parts: Array<string> = []
-				const searchLen = searchValue.length
-				const strLen = str.length
-				const processChunk = (startIndex: number): string => {
-					if (startIndex >= strLen) return ""
-
-					const foundIndex = str.indexOf(searchValue, startIndex)
-					if (foundIndex === -1) {
-						return str.slice(startIndex)
-					}
-
-					const before = str.slice(startIndex, foundIndex)
-					const replacement = replaceValue(searchValue, foundIndex, str)
-					const after = processChunk(foundIndex + searchLen)
-
-					return before + replacement + after
-				}
-				return processChunk(0)
+				// For string search with function replacer, we split and rebuild
+				const parts = str.split(searchValue)
+				if (parts.length === 1) return str // No matches found
+				
+				return parts.reduce((result, part, index) => {
+					if (index === 0) return part
+					const matchIndex = result.length + (searchValue.length * (index - 1))
+					const replacement = replaceValue(searchValue, matchIndex, str)
+					return result + replacement + part
+				})
 			}
 			return str.replaceAll(searchValue, replaceValue)
 		}

@@ -6,35 +6,28 @@
  * This operation is associative, meaning the order of operations
  * doesn't affect the final result when chaining multiple concatenations.
  *
- * @curried (first) => (second) => result
  * @param first - The first string (will appear first in result)
  * @param second - The second string (will appear second in result)
  * @returns New string with first followed by second
  * @example
  * ```typescript
- * // Basic usage - parameters in result order
+ * // Basic usage
  * concat("hello")(" world") // "hello world"
  * concat("foo")("bar")      // "foobar"
  * concat("test")("")        // "test"
  * concat("")("test")        // "test"
  *
- * // Identity property - empty string is identity element
- * concat("")("hello")  // "hello"
- * concat("hello")("")  // "hello"
- *
- * // Associative property
- * concat(concat("a")("b"))("c") // "abc"
- * concat("a")(concat("b")("c")) // "abc"
- *
- * // Partial application for prefixing
+ * // Partial application
  * const greet = concat("Hello, ")
  * greet("World") // "Hello, World"
  * greet("Alice") // "Hello, Alice"
  *
  * const withProtocol = concat("https://")
  * withProtocol("example.com") // "https://example.com"
- * withProtocol("api.service.io") // "https://api.service.io"
  * ```
+ * @pure
+ * @curried
+ * @immutable
  */
 const concat = (first: string) => (second: string): string =>
 	first.concat(second)
