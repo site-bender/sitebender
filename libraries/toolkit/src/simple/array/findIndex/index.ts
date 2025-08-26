@@ -4,7 +4,8 @@
  * Returns the zero-based index of the first element for which the predicate
  * returns truthy, or undefined if no element matches. Short-circuits on first match.
  *
- * @curried (predicate) => (array) => result
+ * @pure
+ * @curried
  * @param predicate - Function to test each element (item, index, array) => boolean
  * @param array - The array to search
  * @returns Index of first matching element or undefined if none found

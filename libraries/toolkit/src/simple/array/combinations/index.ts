@@ -5,105 +5,38 @@
  * where order doesn't matter. This generates "n choose k" combinations.
  * Unlike permutations, [1,2] and [2,1] are considered the same combination.
  *
- * @curried (k) => (array) => result
  * @param k - Number of elements to select
  * @param array - Array to select elements from
  * @returns Array of all k-element combinations
  * @example
  * ```typescript
- * // Choose 2 from 4
+ * // Basic usage
  * combinations(2)([1, 2, 3, 4])
  * // [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
  *
- * // Choose 3 from 5
- * combinations(3)(["a", "b", "c", "d", "e"])
- * // [
- * //   ["a", "b", "c"], ["a", "b", "d"], ["a", "b", "e"],
- * //   ["a", "c", "d"], ["a", "c", "e"], ["a", "d", "e"],
- * //   ["b", "c", "d"], ["b", "c", "e"], ["b", "d", "e"],
- * //   ["c", "d", "e"]
- * // ]
+ * combinations(3)(["a", "b", "c", "d"])
+ * // [["a", "b", "c"], ["a", "b", "d"], ["a", "c", "d"], ["b", "c", "d"]]
  *
- * // Choose 1 (all individual elements)
- * combinations(1)([1, 2, 3])
- * // [[1], [2], [3]]
- *
- * // Choose all (only one way)
- * combinations(3)([1, 2, 3])
- * // [[1, 2, 3]]
- *
- * // Choose 0 (empty selection)
- * combinations(0)([1, 2, 3])
- * // [[]]
- *
- * // Choose more than available
- * combinations(5)([1, 2, 3])
- * // []
+ * // Special cases
+ * combinations(1)([1, 2, 3])  // [[1], [2], [3]]
+ * combinations(3)([1, 2, 3])  // [[1, 2, 3]]
+ * combinations(0)([1, 2, 3])  // [[]]
+ * combinations(5)([1, 2, 3])  // []
  *
  * // Team selection
- * const players = ["Alice", "Bob", "Charlie", "Dave", "Eve"]
- * combinations(3)(players)
- * // All possible 3-person teams
+ * const players = ["Alice", "Bob", "Charlie", "Dave"]
+ * combinations(2)(players)
+ * // [["Alice", "Bob"], ["Alice", "Charlie"], ["Alice", "Dave"], ["Bob", "Charlie"], ["Bob", "Dave"], ["Charlie", "Dave"]]
  *
- * // Menu combinations
- * const dishes = ["salad", "soup", "pasta", "pizza", "dessert"]
- * combinations(2)(dishes)
- * // All possible 2-dish combinations
- *
- * // Lottery numbers
- * const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
- * combinations(6)(numbers)
- * // All possible 6-number selections (210 combinations)
- *
- * // Feature flags
- * const features = ["A", "B", "C", "D"]
- * combinations(2)(features)
- * // All ways to enable exactly 2 features
- * // [["A","B"], ["A","C"], ["A","D"], ["B","C"], ["B","D"], ["C","D"]]
- *
- * // Card hands
- * const cards = ["A♠", "K♠", "Q♠", "J♠", "10♠"]
- * combinations(3)(cards)
- * // All possible 3-card hands
- *
- * // Partial application for reusable selectors
+ * // Partial application
  * const pickTwo = combinations(2)
- * pickTwo([1, 2, 3])        // [[1,2], [1,3], [2,3]]
- * pickTwo(["x", "y", "z"])   // [["x","y"], ["x","z"], ["y","z"]]
- *
- * const pickThree = combinations(3)
- * pickThree([1, 2, 3, 4])   // [[1,2,3], [1,2,4], [1,3,4], [2,3,4]]
- *
- * // Edge cases
- * combinations(2)([1])       // []  (not enough elements)
- * combinations(2)([])        // []  (empty array)
- * combinations(-1)([1, 2])   // []  (invalid k)
- *
- * // Handle null/undefined gracefully
- * combinations(2)(null)       // []
- * combinations(2)(undefined)  // []
- *
- * // Binomial coefficient calculation
- * // C(n,k) = n! / (k! * (n-k)!)
- * // C(5,2) = 10
- * combinations(2)([1, 2, 3, 4, 5]).length  // 10
- *
- * // C(6,3) = 20
- * combinations(3)([1, 2, 3, 4, 5, 6]).length  // 20
- *
- * // Test case generation
- * const testInputs = ["input1", "input2", "input3", "input4"]
- * combinations(2)(testInputs)
- * // All pairs of inputs to test together
- *
- * // Color palette selection
- * const colors = ["red", "blue", "green", "yellow", "purple"]
- * combinations(3)(colors)
- * // All 3-color palettes
+ * pickTwo([1, 2, 3])        // [[1, 2], [1, 3], [2, 3]]
+ * pickTwo(["x", "y", "z"])   // [["x", "y"], ["x", "z"], ["y", "z"]]
  * ```
- * @property Immutable - doesn't modify input array
- * @property Unordered - [1,2] and [2,1] are the same combination
- * @property Mathematical - generates exactly C(n,k) combinations
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const combinations = <T>(
 	k: number,

@@ -4,8 +4,10 @@
  * Recursively concatenates sub-arrays up to the specified depth level.
  * Depth of 1 flattens one level, Infinity flattens all levels.
  *
- * @property idempotent - Flattening an already flat array to same depth gives same result
- * @curried (depth) => (array) => result
+ * @pure
+ * @immutable
+ * @curried
+ * @idempotent
  * @param depth - Number of levels to flatten (1 = one level, Infinity = all levels)
  * @param array - The nested array to flatten
  * @returns New array flattened to the specified depth

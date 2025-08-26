@@ -4,7 +4,8 @@
  * Returns the first element for which the predicate returns truthy,
  * or undefined if no element matches. Short-circuits on first match.
  *
- * @curried (predicate) => (array) => result
+ * @pure
+ * @curried
  * @param predicate - Function that returns truthy for the desired element
  * @param array - The array to search
  * @returns The first matching element or undefined if none found

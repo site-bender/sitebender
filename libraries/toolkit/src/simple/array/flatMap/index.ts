@@ -4,7 +4,9 @@
  * Equivalent to map followed by flatten(1). Useful for expanding elements
  * into multiple values or filtering while mapping (return [] to exclude).
  *
- * @curried (fn) => (array) => result
+ * @pure
+ * @immutable
+ * @curried
  * @param fn - Function that transforms each element to a value or array
  * @param array - The array to transform
  * @returns New flattened array of transformed elements

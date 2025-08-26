@@ -4,8 +4,10 @@
  * Creates a new array containing only elements for which the predicate
  * returns truthy. Preserves original order of kept elements.
  *
- * @property idempotent - With deterministic predicates, filtering already filtered array gives same result
- * @curried (predicate) => (array) => result
+ * @pure
+ * @immutable
+ * @curried
+ * @idempotent
  * @param predicate - Function that returns truthy for items to keep
  * @param array - The array to filter
  * @returns New array with only elements that satisfy the predicate

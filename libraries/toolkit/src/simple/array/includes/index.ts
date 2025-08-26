@@ -4,7 +4,9 @@
  * Uses strict equality (===) for comparison. For objects, checks
  * reference equality, not deep equality.
  *
- * @curried (item) => (array) => boolean
+ * @pure
+ * @curried
+ * @predicate
  * @param item - The value to search for
  * @param array - The array to search in
  * @returns true if array contains the item, false otherwise

@@ -4,7 +4,8 @@
  * Searches from end to start, returning the last element for which the
  * predicate returns truthy, or undefined if no element matches.
  *
- * @curried (predicate) => (array) => result
+ * @pure
+ * @curried
  * @param predicate - Function to test each element (item, index, array) => boolean
  * @param array - The array to search
  * @returns The last matching element or undefined if none found

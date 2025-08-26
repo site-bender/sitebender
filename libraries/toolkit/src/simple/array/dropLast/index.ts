@@ -4,7 +4,6 @@
  * Returns a new array without the last n elements. If n is greater than
  * array length, returns empty array. Negative n values are treated as 0.
  *
- * @curried (n) => (array) => result
  * @param n - Number of elements to drop from the end
  * @param array - The array to drop elements from
  * @returns New array with last n elements removed
@@ -19,6 +18,10 @@
  * const removeFooter = dropLast(1)
  * removeFooter(["data1", "data2", "footer"]) // ["data1", "data2"]
  * ```
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const dropLast = <T>(n: number) => (array: Array<T>): Array<T> =>
 	n <= 0 ? array : array.slice(0, Math.max(0, array.length - n))

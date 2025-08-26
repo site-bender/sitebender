@@ -4,7 +4,8 @@
  * Traditional FP name for accessing the first element. Safe accessor
  * that returns undefined for empty arrays.
  *
- * @property idempotent - Getting head of single element array returns same element
+ * @pure
+ * @idempotent
  * @param array - The array to get the first element from
  * @returns The first element or undefined if array is empty
  * @example

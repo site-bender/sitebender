@@ -4,7 +4,8 @@
  * Uses Object.is for comparison, which correctly handles NaN and -0/+0.
  * Returns undefined instead of -1 when not found, making it safer for FP composition.
  *
- * @curried (item) => (array) => result
+ * @pure
+ * @curried
  * @param item - The value to search for
  * @param array - The array to search in
  * @returns Index of first occurrence or undefined if not found
@@ -22,12 +23,8 @@
  * ```
  */
 const indexOf = <T>(item: T) => (array: Array<T>): number | undefined => {
-	for (let i = 0; i < array.length; i++) {
-		if (Object.is(array[i], item)) {
-			return i
-		}
-	}
-	return undefined
+	const index = array.findIndex(element => Object.is(element, item))
+	return index === -1 ? undefined : index
 }
 
 export default indexOf

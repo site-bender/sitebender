@@ -8,80 +8,41 @@
  * @compatibility Uses native Set.difference when available (ES2025, ~84% browser support).
  * Falls back to filter-based implementation for older browsers (Opera Mobile, IE).
  *
- * @curried (subtrahend) => (minuend) => result
  * @param subtrahend - Array of elements to exclude
  * @param minuend - Array to filter elements from
  * @returns New array with elements from minuend not in subtrahend
  * @example
  * ```typescript
- * // Basic difference
+ * // Basic usage
  * difference([2, 3])([1, 2, 3, 4, 5])
  * // [1, 4, 5]
  *
- * // Remove common elements
- * difference([10, 20, 30])([5, 10, 15, 20, 25])
- * // [5, 15, 25]
- *
- * // String arrays
  * difference(["b", "c"])(["a", "b", "c", "d"])
  * // ["a", "d"]
  *
- * // Empty second array (removes nothing)
- * difference([])([1, 2, 3])
- * // [1, 2, 3]
+ * // Edge cases
+ * difference([])([1, 2, 3])          // [1, 2, 3]
+ * difference([1, 2])([])              // []
+ * difference([1, 2, 3])([1, 2, 3])   // []
  *
- * // Empty first array
- * difference([1, 2])([ ])
- * // []
+ * // Partial application for filtering
+ * const removeStopWords = difference(["the", "a", "an", "and"])
+ * removeStopWords(["the", "quick", "brown", "fox", "and", "lazy"])
+ * // ["quick", "brown", "fox", "lazy"]
  *
- * // All elements removed
- * difference([1, 2, 3])([1, 2, 3])
- * // []
- *
- * // Objects (uses reference equality)
+ * // Objects use reference equality
  * const obj1 = { id: 1 }
  * const obj2 = { id: 2 }
- * const obj3 = { id: 3 }
- * difference([obj2])([obj1, obj2, obj3])
- * // [obj1, obj3]
+ * difference([obj2])([obj1, obj2])  // [obj1]
  *
- * // Note: doesn't work with value equality for objects
- * difference([{ id: 2 }])([{ id: 1 }, { id: 2 }, { id: 3 }])
- * // [{ id: 1 }, { id: 2 }, { id: 3 }] (no match because different references)
- *
- * // Remove duplicates and specified values
- * difference([2, 3])([1, 2, 2, 3, 3, 3, 4, 5])
- * // [1, 4, 5]
- *
- * // Partial application for blacklisting
- * const removeStopWords = difference(["the", "a", "an", "and", "or", "but"])
- * removeStopWords(["the", "quick", "brown", "fox", "and", "the", "lazy", "dog"])
- * // ["quick", "brown", "fox", "lazy", "dog"]
- *
- * // Filter out invalid values
- * const removeInvalid = difference([null, undefined, "", 0, false])
- * removeInvalid([1, null, 2, undefined, 3, "", 4, 0, 5, false])
- * // [1, 2, 3, 4, 5]
- *
- * // Set operations
- * const setA = [1, 2, 3, 4, 5]
- * const setB = [4, 5, 6, 7, 8]
- * difference(setB)(setA) // A - B
- * // [1, 2, 3]
- *
- * // Handle null/undefined gracefully
- * difference([1, 2])(null)       // []
- * difference([1, 2])(undefined)  // []
- * difference(null)([1, 2, 3])    // [1, 2, 3]
- * difference(undefined)([1, 2])  // [1, 2]
- *
- * // Mixed types (works with strict equality)
- * difference([2, "2", false])([1, 2, "2", 3, false, true])
- * // [1, 3, true]
+ * // Handle null/undefined
+ * difference([1, 2])(null)     // []
+ * difference(null)([1, 2, 3])  // [1, 2, 3]
  * ```
- * @property Immutable - doesn't modify input arrays
- * @property Set-operation - treats arrays as sets (but preserves order and duplicates in first array)
- * @property Strict-equality - uses === for comparison
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const difference = <T>(
 	subtrahend: ReadonlyArray<T> | null | undefined,

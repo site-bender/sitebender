@@ -1,13 +1,13 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 209/763 files complete (27.4%) - Phase 1 COMPLETE! ✅
-**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅
-**Next**: Phase 2 - `array/` folder (123 files)
-**Time**: Sessions 1-9 took ~181 minutes total
-**Last Session**: Session 9 processed entire string/ folder (77 files in ~45 min)
+**Status**: 247/763 files complete (32.4%) - Phase 2 IN PROGRESS
+**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array (partial)
+**Next**: Continue `array/` folder - 85 files remaining (38 done, 85 to go)
+**Time**: Sessions 1-12 took ~280 minutes total
+**Last Session**: Session 12 processed 10 array files (flatMap through init)
 **Branch**: phase-2
-**CRITICAL**: Process in batches of 10 files using Task tool!
+**CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
 ## IMPORTANT: Starting a New Session?
 
@@ -32,10 +32,10 @@
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 209/763 files (27.4%) - Phase 1 COMPLETE!
-**Average Time**: ~0.87 minutes per file
-**Optimal Batch Size**: 10 files per batch using Task tool
-**Next Session**: Start Phase 2 with `array/` folder (123 files)
+**Completed So Far**: 247/763 files (32.4%) - Phase 2 IN PROGRESS
+**Average Time**: ~1.1 minutes per file
+**Optimal Approach**: Process ONE FILE AT A TIME carefully (Task tool didn't work well)
+**Next Session**: Continue `array/` folder from file #39 (insertAt)
 
 ## Problems Identified
 
@@ -184,12 +184,12 @@
 
 ### Running Totals
 
-- **Total Sessions**: 9
-- **Files Completed**: 209/763 (Phase 1 COMPLETE!)
-- **Total Time Spent**: ~181 minutes (3 hours)
-- **Average Time per File**: 0.87 minutes
-- **Estimated Completion**: ~11 hours total (at current pace)
-- **Remaining Files**: 554 (Phase 2 & 3)
+- **Total Sessions**: 12
+- **Files Completed**: 247/763 (32.4%)
+- **Total Time Spent**: ~280 minutes (4.7 hours)
+- **Average Time per File**: 1.1 minutes
+- **Estimated Completion**: ~14 hours total (at current pace)
+- **Remaining Files**: 516 (85 in array, 431 in other folders)
 
 ## Quality Checklist per File
 
@@ -378,13 +378,86 @@
 - Added @idempotent for case conversion functions
 **Notes**: PHASE 1 COMPLETE! Used Task tool for efficient batch processing. All 77 string functions now have proper JSDoc.
 
-## Next Up: Phase 2 Begins!
+### Session 10 - 2025-08-26 (Phase 2 Started)
+**Folder**: array/
+**Files Processed**: 18 files (all through dropWhile)
+- aperture ✓ (reduced 141→41 lines, replaced for loop)
+- cartesianProduct ✓ (reduced 206→46 lines)
+- chunk ✓ (reduced 85→40 lines)
+- closest ✓ (reduced 94→41 lines)
+- combinations ✓ (reduced 103→40 lines)
+- compact ✓ (already clean)
+- concat ✓ (already clean)
+- concatTo ✓ (already clean)
+- countBy ✓ (reduced 164→50 lines, replaced for loop)
+- cycle ✓ (reduced 206→52 lines, replaced while/for with recursive generator)
+- difference ✓ (reduced 81→46 lines)
+- differenceWith ✓ (reduced 152→43 lines)
+- drop ✓ (already clean, added tags)
+- dropLast ✓ (already clean, added tags)
+- dropRepeats ✓ (reduced 145→42 lines, replaced for loop)
+- dropRepeatsWith ✓ (reduced 225→55 lines, replaced for loop)
+- dropWhile ✓ (reduced 115→97 lines, added proper tags)
+- endsWith (started, needs fixing - 204 lines with for loop)
+**Duration**: ~45 minutes
+**Issues Fixed**:
+- Replaced @property tags with @pure, @curried, @immutable, @safe, @impure (for cycle)
+- Reduced examples from 40-200+ lines to 8-10 per function
+- Replaced ALL for/while loops with functional patterns (reduce, recursion, Array.from)
+- Removed @curried from description lines (redundant)
+**Notes**: Discovered Task tool doesn't do a thorough job - better to process ONE FILE AT A TIME carefully.
+
+### Session 11 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (endsWith through first)
+- endsWith ✓ (fixed typo, reduced 204→34 lines, replaced for loop with every)
+- filter ✓ (clean, just added tags)
+- find ✓ (clean, just added tags)
+- findDuplicates ✓ (reduced 134→44 lines, replaced for loop with reduce)
+- findIndex ✓ (clean, just added tags)
+- findIndices ✓ (reduced 204→46 lines, replaced for loop with reduce)
+- findLast ✓ (clean, just added tags)
+- findLastIndex ✓ (clean, just added tags)
+- findMostCommon ✓ (reduced 157→55 lines, replaced forEach/for loops with reduce/filter)
+- first ✓ (clean, just added tags)
+**Duration**: ~27 minutes
+**Issues Fixed**:
+- Replaced @property tags with @pure, @curried, @immutable, @predicate, @idempotent
+- Reduced examples from 40-200+ lines to 8-10 per function
+- Replaced ALL imperative patterns (for loops, forEach) with functional approaches
+- Fixed invalid TypeScript example in endsWith
+
+### Session 12 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (flatMap through init)
+- flatMap ✓ (clean, just added tags)
+- flatten ✓ (clean, just added tags)
+- frequency ✓ (reduced 115→28 lines, replaced for loop with reduce)
+- groupBy ✓ (reduced 109→39 lines, already functional)
+- groupWith ✓ (reduced 217→50 lines, replaced for loop with reduce)
+- head ✓ (clean, just added tags)
+- includes ✓ (clean, just added tags)
+- indexBy ✓ (reduced 253→47 lines, replaced for loop with reduce)
+- indexOf ✓ (replaced for loop with findIndex)
+- init ✓ (reduced 113→33 lines, already functional)
+**Duration**: ~27 minutes
+**Issues Fixed**:
+- Replaced @property tags with @pure, @curried, @immutable, @predicate, @idempotent
+- Reduced examples from 80-250+ lines to 8-10 per function
+- Replaced ALL imperative patterns (for loops) with functional approaches
+- All functions now use pure FP style
+
+## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
 
 **Phase 2 folders to process:**
 
-1. `array/` (123 files) - First priority
+1. `array/` (123 files) - IN PROGRESS
+   - Completed: 38 files (aperture through init)
+   - Next up: insertAt
+   - Then: interleave, intersection, intersectionWith, intersperse, isEmpty, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, move, none, nth, nub, nubBy, omit, pairwise, partition, partitionBy, permutations, pluck, range, rangeStep, reduce, reduceRight, reduceWhile, reject, remove, removeAll, removeAt, repeat, repeatItem, replaceAll, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLast, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, slice, sliceFrom, sliding, slidingWithStep, some, sort, sortBy, sortWith, span, splitEvery, startsWith, subsequences, symmetricDifference, symmetricDifferenceWith, tail, take, takeLast, takeLastWhile, takeWhile, times, toSet, transpose, unflatten, unfold, union, unionWith, unique, unzip, update, xprod, zip, zipAll, zipObj, zipWith
+   - Remaining: 85 files
 2. `object/` (56 files)
 3. `map/` (40 files)
 4. `set/` (26 files)

@@ -9,98 +9,24 @@ import dropLast from "../dropLast/index.ts"
  * Empty arrays return empty arrays. Single-element arrays return
  * empty arrays.
  *
+ * @pure
+ * @immutable
  * @param array - The array to get the initial elements from
  * @returns New array with all elements except the last
  * @example
  * ```typescript
  * // Basic usage
- * init([1, 2, 3, 4])
- * // [1, 2, 3]
+ * init([1, 2, 3, 4])         // [1, 2, 3]
+ * init(["a", "b", "c"])      // ["a", "b"]
  *
- * // String array
- * init(["a", "b", "c"])
- * // ["a", "b"]
+ * // Edge cases
+ * init([42])                 // [] (single element)
+ * init([])                   // [] (empty array)
  *
- * // Single element returns empty
- * init([42])
- * // []
- *
- * // Empty array returns empty
- * init([])
- * // []
- *
- * // Two elements
- * init([1, 2])
- * // [1]
- *
- * // Remove trailing sentinel
- * const data = [10, 20, 30, -1]  // -1 is sentinel
- * init(data)
- * // [10, 20, 30]
- *
- * // Process all but last line
- * const lines = ["header", "data1", "data2", "footer"]
- * init(lines)
- * // ["header", "data1", "data2"]
- *
- * // Recursive processing pattern
- * const processAllButLast = <T>(arr: Array<T>): void => {
- *   if (arr.length <= 1) return
- *   const initial = init(arr)
- *   const lastElement = arr[arr.length - 1]
- *   // Process initial elements differently from last
- * }
- *
- * // Path traversal
+ * // Remove trailing element
  * const path = ["root", "users", "john", "documents", "file.txt"]
- * const directory = init(path)  // Get directory path
- * // ["root", "users", "john", "documents"]
- * const filename = path[path.length - 1]
- * // "file.txt"
- *
- * // Remove trailing punctuation token
- * const tokens = ["Hello", "world", "!"]
- * init(tokens)
- * // ["Hello", "world"]
- *
- * // Breadcrumb navigation
- * const breadcrumbs = ["Home", "Products", "Electronics", "Phones"]
- * const parentPath = init(breadcrumbs)
- * // ["Home", "Products", "Electronics"]
- *
- * // Undo last action
- * const actions = ["create", "edit", "save", "delete"]
- * const withoutLastAction = init(actions)
- * // ["create", "edit", "save"]
- *
- * // Mixed types
- * init([1, "two", { three: 3 }, [4]])
- * // [1, "two", { three: 3 }]
- *
- * // Handle null/undefined gracefully
- * init(null)       // []
- * init(undefined)  // []
- *
- * // Classic FP pattern with head/tail/init/last
- * const arr = [1, 2, 3, 4, 5]
- * // head(arr) = 1        (first element)
- * // tail(arr) = [2,3,4,5] (all but first)
- * // init(arr) = [1,2,3,4] (all but last)
- * // last(arr) = 5        (last element)
- *
- * // Build pairs for comparison
- * const values = [10, 20, 30, 40]
- * const withPrevious = init(values).map((v, i) => [v, values[i + 1]])
- * // [[10, 20], [20, 30], [30, 40]]
- *
- * // Remove terminator
- * const protocol = ["START", "DATA", "DATA", "END"]
- * init(protocol)
- * // ["START", "DATA", "DATA"]
+ * const directory = init(path)  // ["root", "users", "john", "documents"]
  * ```
- * @property Immutable - doesn't modify input array
- * @property Haskell-derived - Classic FP list operation
- * @property Safe - Returns empty array for empty/single-element inputs
  */
 const init = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
 	if (array === null || array === undefined) {

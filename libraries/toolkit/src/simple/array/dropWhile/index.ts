@@ -5,7 +5,6 @@
  * the predicate returns true. Once predicate returns false, all remaining
  * elements are included. Does not continue checking after the first false.
  *
- * @curried (predicate) => (array) => result
  * @param predicate - Function that returns true to continue dropping elements
  * @param array - Array to drop elements from
  * @returns New array with initial elements dropped
@@ -91,9 +90,10 @@
  * //   { valid: false, timestamp: 1500 }
  * // ]
  * ```
- * @property Immutable - doesn't modify input array
- * @property Short-circuit - stops checking at first false
- * @property Order preserving - maintains element order after drop point
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const dropWhile = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
