@@ -13,13 +13,13 @@
 
 1. **READ THIS FILE FIRST** for context on what we're doing
 2. **THEN READ `/CLAUDE.md`** for project rules (STRICT FP, no mutations, etc.)
-3. **Continue from "Next Up" section below**
-4. **Use the Task tool** for batch processing - process 10 files at a time
+3. **Continue from "Next Up" section below** - start with `insertAt` in array folder
+4. **DO NOT use Task tool** - process files ONE AT A TIME carefully (Task tool doesn't do thorough work)
 5. **WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
 6. **Track time** with timestamps before/after each session
 
 ### CRITICAL REMINDERS FOR NEXT SESSION
-- **BATCH SIZE**: Process exactly 10 files per batch using Task tool
+- **BATCH SIZE**: Process 10 files per session (but do them ONE AT A TIME, not with Task tool)
 - **CHECK FOR DUPLICATE TAGS**: Many files have @curried in description AND at bottom - remove duplicates!
 - **@curried ONLY for functions that return functions**: Not all functions need @curried
 - **Read files first**: Check existing tags before adding new ones
@@ -97,7 +97,7 @@
 ### KEY REMINDERS FOR NEW SESSIONS
 
 - **WORK ONLY IN** `libraries/toolkit/` folder
-- **Use Task tool** for batch processing (10x faster!)
+- **DO NOT use Task tool** - it doesn't do thorough work, process files ONE AT A TIME
 - **Remove ALL imperative code** - no let, for, while, forEach, mutations
 - **Fix invalid TypeScript** - don't show strings passed to number params
 - **8-12 examples max** - remove trivial, duplicative, niche examples
