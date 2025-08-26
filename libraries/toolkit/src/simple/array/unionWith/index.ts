@@ -6,7 +6,10 @@
  * and across arrays based on the comparator. Useful when you need custom
  * equality logic for objects, deep comparison, or property-based matching.
  *
- * @curried (comparator) => (array1) => (array2) => result
+ * @curried
+ * @pure
+ * @immutable
+ * @safe
  * @param comparator - Function to compare elements (a, b) => boolean
  * @param array1 - First array
  * @param array2 - Second array
@@ -379,22 +382,27 @@ const unionWith = <T>(
 		return result
 	}
 
-	// Start with unique elements from array1
-	const result: Array<T> = []
-	for (const item1 of array1) {
-		if (!result.some((r) => comparator(r, item1))) {
-			result.push(item1)
+	// Recursively build unique array from both inputs
+	const buildUnion = (
+		items: ReadonlyArray<T>,
+		acc: Array<T>,
+	): Array<T> => {
+		if (items.length === 0) {
+			return acc
 		}
+
+		const [head, ...tail] = items
+		const hasMatch = acc.some((existing) => comparator(existing, head))
+
+		return buildUnion(
+			tail,
+			hasMatch ? acc : [...acc, head],
+		)
 	}
 
-	// Add unique elements from array2 that aren't already in result
-	for (const item2 of array2) {
-		if (!result.some((r) => comparator(r, item2))) {
-			result.push(item2)
-		}
-	}
-
-	return result
+	// Start with array1, then add unique items from array2
+	const withFirstArray = buildUnion(array1, [])
+	return buildUnion(array2, withFirstArray)
 }
 
 export default unionWith

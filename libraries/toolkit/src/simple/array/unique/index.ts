@@ -8,6 +8,9 @@ import nub from "../nub/index.ts"
  * duplicate elements from an array, keeping only the first occurrence of each
  * unique element. Uses SameValueZero equality for comparison.
  *
+ * @pure
+ * @immutable
+ * @safe
  * @see nub - The primary implementation with comprehensive documentation
  * @param array - The array to remove duplicates from
  * @returns New array with only unique elements
