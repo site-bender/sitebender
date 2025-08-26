@@ -27,6 +27,10 @@
  * // Flatten
  * reduce((acc, arr) => acc.concat(arr))([])([[1, 2], [3, 4]]) // [1, 2, 3, 4]
  * ```
+ * @curried Returns function for reusable reduction patterns
+ * @pure Function has no side effects (assuming pure reducer)
+ * @immutable Does not modify input array
+ * @safe Works with any array input
  */
 // INVARIANT: This function is correctly curried as (fn) => (initial) => (array)
 // DO NOT CHANGE THE CURRYING PATTERN

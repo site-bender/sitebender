@@ -24,45 +24,20 @@
  * partitionBy(isPositive)([-1, -2, 3, 4, -5, 6])
  * // [[-1, -2], [3, 4], [-5], [6]]
  *
- * // Group consecutive same values
- * const equals5 = (n: number) => n === 5
- * partitionBy(equals5)([1, 2, 5, 5, 5, 3, 4])
- * // [[1, 2], [5, 5, 5], [3, 4]]
- *
  * // String length grouping
  * const isLong = (s: string) => s.length > 3
  * partitionBy(isLong)(["a", "bb", "long", "word", "x", "y", "another"])
  * // [["a", "bb"], ["long", "word"], ["x", "y"], ["another"]]
  *
- * // Empty array
- * partitionBy(isEven)([])
- * // []
- *
- * // Single element
- * partitionBy(isEven)([1])
- * // [[1]]
- *
- * // All same group
- * partitionBy(isEven)([2, 4, 6, 8])
- * // [[2, 4, 6, 8]]
- *
- * // Alternating groups
- * partitionBy(isEven)([1, 2, 3, 4, 5])
- * // [[1], [2], [3], [4], [5]]
- *
  * // Boolean property grouping
- * interface Task {
- *   id: number
- *   completed: boolean
- * }
- * const tasks: Array<Task> = [
+ * const tasks = [
  *   { id: 1, completed: false },
  *   { id: 2, completed: false },
  *   { id: 3, completed: true },
  *   { id: 4, completed: true },
  *   { id: 5, completed: false }
  * ]
- * partitionBy((t: Task) => t.completed)(tasks)
+ * partitionBy((t: { completed: boolean }) => t.completed)(tasks)
  * // [
  * //   [{ id: 1, completed: false }, { id: 2, completed: false }],
  * //   [{ id: 3, completed: true }, { id: 4, completed: true }],
@@ -74,57 +49,21 @@
  * partitionBy(isLetter)([..."a1b2c34def"])
  * // [["a"], ["1"], ["b"], ["2"], ["c"], ["3", "4"], ["d", "e", "f"]]
  *
- * // Grade grouping
- * const isPassing = (grade: number) => grade >= 60
- * partitionBy(isPassing)([45, 50, 75, 80, 85, 55, 40])
- * // [[45, 50], [75, 80, 85], [55, 40]]
- *
- * // Run-length encoding preparation
- * const data = [1, 1, 1, 2, 2, 3, 1, 1]
- * const runs = partitionBy((x: number) => x)(data)
- * // Note: This doesn't work as intended since predicate returns different values
- * // Use custom equality instead:
- * const partitionBySame = <T>(arr: Array<T>): Array<Array<T>> => {
- *   if (arr.length === 0) return []
- *   const result: Array<Array<T>> = []
- *   let current: Array<T> = [arr[0]]
- *   for (let i = 1; i < arr.length; i++) {
- *     if (arr[i] === arr[i - 1]) {
- *       current.push(arr[i])
- *     } else {
- *       result.push(current)
- *       current = [arr[i]]
- *     }
- *   }
- *   result.push(current)
- *   return result
- * }
- *
  * // State changes
  * const readings = [20, 22, 25, 30, 28, 26, 24, 35, 40]
  * const isHigh = (temp: number) => temp > 30
  * partitionBy(isHigh)(readings)
  * // [[20, 22, 25, 30, 28, 26, 24], [35, 40]]
  *
- * // Whitespace grouping
- * const isWhitespace = (c: string) => /\s/.test(c)
- * partitionBy(isWhitespace)([..."hello  world"])
- * // [["h", "e", "l", "l", "o"], [" ", " "], ["w", "o", "r", "l", "d"]]
- *
- * // Trend detection
- * const measurements = [1, 2, 3, 3, 2, 1, 2, 3, 4]
- * let prev = measurements[0]
- * const isIncreasing = (n: number) => {
- *   const increasing = n > prev
- *   prev = n
- *   return increasing
- * }
- * // Note: Stateful predicates can produce unexpected results
- * // Better to use index-based approach for trends
+ * // Empty and edge cases
+ * partitionBy(isEven)([])        // []
+ * partitionBy(isEven)([1])       // [[1]]
+ * partitionBy(isEven)([1, 2, 3]) // [[1], [2], [3]]
  * ```
- * @property Pure - No side effects (assuming pure predicate)
- * @property Immutable - Does not modify input array
- * @property Order-preserving - Maintains element order within groups
+ * @curried Returns function for reusable partitioning
+ * @pure Function has no side effects (assuming pure predicate)
+ * @immutable Does not modify input array
+ * @safe Handles empty arrays gracefully
  */
 const partitionBy = <T>(predicate: (value: T) => unknown) =>
 (
@@ -132,23 +71,23 @@ const partitionBy = <T>(predicate: (value: T) => unknown) =>
 ): Array<Array<T>> => {
 	if (array.length === 0) return []
 
-	const result: Array<Array<T>> = []
-	let currentGroup: Array<T> = [array[0]]
-	let currentKey = predicate(array[0])
+	const groups = array.reduce(
+		(acc, current, index) => {
+			const currentKey = predicate(current)
+			const lastGroup = acc[acc.length - 1]
+			
+			if (index === 0 || lastGroup.key !== currentKey) {
+				acc.push({ key: currentKey, items: [current] })
+			} else {
+				lastGroup.items.push(current)
+			}
+			
+			return acc
+		},
+		[] as Array<{ key: unknown; items: Array<T> }>
+	)
 
-	for (let i = 1; i < array.length; i++) {
-		const key = predicate(array[i])
-		if (key === currentKey) {
-			currentGroup.push(array[i])
-		} else {
-			result.push(currentGroup)
-			currentGroup = [array[i]]
-			currentKey = key
-		}
-	}
-
-	result.push(currentGroup)
-	return result
+	return groups.map(group => group.items)
 }
 
 export default partitionBy

@@ -1,1 +1,1 @@
-export default CreditCard
+export { default } from "../../../../PaymentMethod/PaymentCard/CreditCard/index.tsx"

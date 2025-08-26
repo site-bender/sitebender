@@ -1,1 +1,1 @@
-export default ReviewNewsArticle
+export { default } from "../../../Article/NewsArticle/ReviewNewsArticle/index.tsx"

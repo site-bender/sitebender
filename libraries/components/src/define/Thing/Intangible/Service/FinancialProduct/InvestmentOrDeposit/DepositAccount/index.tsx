@@ -1,1 +1,1 @@
-export default DepositAccount
+export { default } from "../../BankAccount/DepositAccount/index.tsx"

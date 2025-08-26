@@ -25,31 +25,9 @@
  * //   ["c", "a", "b"], ["c", "b", "a"]
  * // ]
  *
- * // Two elements
- * permutations([1, 2])
- * // [[1, 2], [2, 1]]
- *
- * // Single element
- * permutations([1])
- * // [[1]]
- *
- * // Empty array
- * permutations([])
- * // [[]]
- *
- * // Generate all possible rankings
- * const teams = ["A", "B", "C"]
- * permutations(teams)
- * // All possible finishing orders for teams
- *
- * // Password combinations from characters
- * permutations(["1", "2", "3", "4"])
- * // 24 different 4-character sequences (4! = 24)
- *
- * // Task scheduling
+ * // Task scheduling - all possible orderings
  * const tasks = ["wash", "dry", "fold"]
  * permutations(tasks)
- * // All possible task orderings
  * // [
  * //   ["wash", "dry", "fold"],
  * //   ["wash", "fold", "dry"],
@@ -59,52 +37,27 @@
  * //   ["fold", "dry", "wash"]
  * // ]
  *
- * // Seating arrangements
- * const guests = ["Alice", "Bob", "Charlie"]
- * permutations(guests)
- * // All possible seating orders
- *
- * // Route optimization
- * const stops = ["Home", "Store", "Bank", "Post"]
- * const routes = permutations(stops)
- * // Can evaluate all routes to find shortest
- *
- * // Handle null/undefined gracefully
- * permutations(null)       // [[]]
- * permutations(undefined)  // [[]]
- *
- * // Warning: Factorial growth!
- * // permutations([1,2,3]).length       // 6 (3!)
- * // permutations([1,2,3,4]).length     // 24 (4!)
- * // permutations([1,2,3,4,5]).length   // 120 (5!)
- * // permutations(Array(10)).length     // 3,628,800 (10!)
+ * // Edge cases
+ * permutations([])     // [[]]
+ * permutations([1])    // [[1]]
+ * permutations([1, 2]) // [[1, 2], [2, 1]]
  *
  * // Anagram generation
  * permutations(["c", "a", "t"])
- * // [
- * //   ["c", "a", "t"], ["c", "t", "a"],
- * //   ["a", "c", "t"], ["a", "t", "c"],
- * //   ["t", "c", "a"], ["t", "a", "c"]
- * // ]
+ * // [["c", "a", "t"], ["c", "t", "a"], ["a", "c", "t"], ["a", "t", "c"], ["t", "c", "a"], ["t", "a", "c"]]
  * // Can join to get: ["cat", "cta", "act", "atc", "tca", "tac"]
  *
- * // Testing all input orders
- * const inputs = [1, 2, 3]
- * const allOrders = permutations(inputs)
- * // Test function with all possible input orderings
+ * // Handle null/undefined gracefully
+ * permutations(null)      // [[]]
+ * permutations(undefined) // [[]]
  *
- * // Duplicate handling - treats each position as unique
- * permutations([1, 1, 2])
- * // [
- * //   [1, 1, 2], [1, 2, 1],
- * //   [1, 1, 2], [1, 2, 1],  // duplicates because elements treated as distinct by position
- * //   [2, 1, 1], [2, 1, 1]
- * // ]
+ * // Warning: Factorial growth! Be careful with arrays > 10 elements
+ * // permutations([1,2,3,4,5]).length = 120 (5!)
+ * // permutations(Array(10)).length = 3,628,800 (10!)
  * ```
- * @property Immutable - doesn't modify input array
- * @property Exhaustive - generates all n! permutations
- * @property Order-sensitive - different orderings are distinct
- * @warning Factorial complexity - be very careful with arrays larger than 10
+ * @pure Function has no side effects
+ * @immutable Does not modify input array
+ * @safe Handles null/undefined inputs gracefully
  */
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,

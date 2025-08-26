@@ -1,1 +1,1 @@
-export default HowToStep
+export { default } from "../../../../CreativeWork/HowToStep/index.tsx"

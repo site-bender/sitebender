@@ -27,6 +27,9 @@
  * omit([0])(null) // []
  * omit([0])(undefined) // []
  * ```
+ * @pure Function has no side effects
+ * @immutable Does not modify input array
+ * @safe Handles null/undefined inputs gracefully
  */
 const omit = <T>(indices: Array<number>) =>
 (

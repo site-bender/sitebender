@@ -1,1 +1,1 @@
-export default MedicalAudience
+export { default } from "../../MedicalAudience/index.tsx"

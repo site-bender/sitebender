@@ -1,1 +1,1 @@
-export default Patient
+export { default } from "../../../../../Person/Patient/index.tsx"
