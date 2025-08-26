@@ -1,36 +1,41 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 132/763 files complete (Math ✅, Logic ✅, Combinator ✅, Conversion ✅)
-**Next**: `string/` folder (76 files - not 30!)
-**Time**: Sessions 1-8 took ~136 minutes total
-**Last Commit**: f7115766 - "fix(toolkit): complete JSDoc remediation for conversion folder"
-**Branch**: phase-2 (4 commits ahead of origin)
-**Remember**: Check for duplicate @curried tags before adding new ones!
+**Status**: 209/763 files complete (27.4%) - Phase 1 COMPLETE! ✅
+**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅
+**Next**: Phase 2 - `array/` folder (123 files)
+**Time**: Sessions 1-9 took ~181 minutes total
+**Last Session**: Session 9 processed entire string/ folder (77 files in ~45 min)
+**Branch**: phase-2
+**CRITICAL**: Process in batches of 10 files using Task tool!
 
 ## IMPORTANT: Starting a New Session?
 
 1. **READ THIS FILE FIRST** for context on what we're doing
 2. **THEN READ `/CLAUDE.md`** for project rules (STRICT FP, no mutations, etc.)
 3. **Continue from "Next Up" section below**
-4. **Use the Task tool** for batch processing (much faster!)
-5. **Track time** with timestamps before/after each session
+4. **Use the Task tool** for batch processing - process 10 files at a time
+5. **WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
+6. **Track time** with timestamps before/after each session
 
 ### CRITICAL REMINDERS FOR NEXT SESSION
+- **BATCH SIZE**: Process exactly 10 files per batch using Task tool
 - **CHECK FOR DUPLICATE TAGS**: Many files have @curried in description AND at bottom - remove duplicates!
+- **@curried ONLY for functions that return functions**: Not all functions need @curried
 - **Read files first**: Check existing tags before adding new ones
 - **Fix imperative code**: Replace `for`, `while`, `let`, `forEach`, mutations with FP patterns
 - **Reduce examples**: Most have 40-180 lines, reduce to 8-10 meaningful examples
 - **@impure for stateful**: memoize, debounce, throttle, once, tap need @impure tag
-- **User prefers speed WITH accuracy**: Work fast but double-check for duplicates
+- **@predicate for boolean returns**: Functions returning boolean get @predicate tag
+- **Valid TypeScript only**: All examples must compile
 
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 132/763 files (17.3%) - Math, Logic, Combinator, Conversion folders DONE
-**Actual Time**: ~1.03 minutes per file
-**Approach**: Process files individually for quality control
-**Next Session**: Start with `string/` folder (76 files)
+**Completed So Far**: 209/763 files (27.4%) - Phase 1 COMPLETE!
+**Average Time**: ~0.87 minutes per file
+**Optimal Batch Size**: 10 files per batch using Task tool
+**Next Session**: Start Phase 2 with `array/` folder (123 files)
 
 ## Problems Identified
 
@@ -121,26 +126,27 @@
 
 ### Batch Processing Plan
 
-#### Session Structure (Target: 2 hours per session)
+#### Session Structure (Optimal approach)
 
-1. **Batch Size**: 10 files per session
-2. **Time per file**: ~10-12 minutes
-3. **Process**:
-   - Read file
-   - Fix @property tags → custom tags
-   - Reduce examples to 5-7 essential ones
-   - Rewrite examples in pure FP style
-   - Remove invalid TypeScript examples
-   - Save and verify
+1. **Batch Size**: 10 files per batch (multiple batches per session)
+2. **Time per batch**: ~10-15 minutes when using Task tool
+3. **Process with Task tool**:
+   - Give Task tool clear instructions for all 10 files
+   - Task reads each file first
+   - Fixes @property tags → custom tags
+   - Reduces examples to 8-10 essential ones
+   - Rewrites examples in pure FP style
+   - Removes invalid TypeScript examples
+   - Uses MultiEdit for all changes
 
 #### Folder Processing Order (by complexity)
 
-1. **Phase 1 - Simple Functions** (200 files, ~20 sessions)
-   - `math/` (54 files) - mostly pure, simple fixes
-   - `logic/` (13 files) - boolean operations
-   - `combinator/` (49 files) - already FP-focused
-   - `conversion/` (16 files) - type conversions
-   - `string/` basic operations (30 files)
+1. **Phase 1 - Simple Functions** ✅ COMPLETE (209 files)
+   - `math/` (54 files) ✅
+   - `logic/` (13 files) ✅
+   - `combinator/` (49 files) ✅
+   - `conversion/` (16 files) ✅
+   - `string/` (77 files) ✅
 
 2. **Phase 2 - Medium Complexity** (300 files, ~30 sessions)
    - `array/` (123 files) - lots of imperative examples to fix
@@ -178,11 +184,12 @@
 
 ### Running Totals
 
-- **Total Sessions**: 8
-- **Files Completed**: 132/763 (MATH + LOGIC + COMBINATOR + CONVERSION FOLDERS COMPLETE!)
-- **Total Time Spent**: ~136 minutes
-- **Average Time per File**: 1.03 minutes  
-- **Estimated Completion**: ~13 hours total (at current pace)
+- **Total Sessions**: 9
+- **Files Completed**: 209/763 (Phase 1 COMPLETE!)
+- **Total Time Spent**: ~181 minutes (3 hours)
+- **Average Time per File**: 0.87 minutes
+- **Estimated Completion**: ~11 hours total (at current pace)
+- **Remaining Files**: 554 (Phase 2 & 3)
 
 ## Quality Checklist per File
 
@@ -357,14 +364,30 @@
 - Ensured valid TypeScript in all examples
 **Notes**: Processed files individually for better quality control. Note that @curried only needed for functions that return functions.
 
-## Next Up: Phase 1 Continues
+### Session 9 - 2025-08-26 (Phase 1 COMPLETE!)
+**Folder**: string/
+**Files Processed**: ALL 77 files (65 main functions + 12 in toCase subfolder)
+**Duration**: ~45 minutes
+**Batches**: 7 batches using Task tool (10-16 files per batch)
+**Issues Fixed**:
+- Replaced ALL @property tags with @pure, @curried, @immutable, @safe, @predicate, @idempotent
+- Reduced examples from 30-100+ lines to 8-10 per function
+- Removed duplicate @curried tags throughout
+- Fixed ALL imperative code in examples
+- Added @predicate for boolean functions (contains, endsWith, startsWith, test)
+- Added @idempotent for case conversion functions
+**Notes**: PHASE 1 COMPLETE! Used Task tool for efficient batch processing. All 77 string functions now have proper JSDoc.
 
-**Next folders to process:**
+## Next Up: Phase 2 Begins!
 
-1. ~~`logic/` (13 files) - COMPLETE~~
-2. ~~`combinator/` (49 files) - COMPLETE~~  
-3. ~~`conversion/` (16 files) - COMPLETE~~
-4. `string/` operations (76 files - not 30!)
+**Phase 1 ✅ COMPLETE** - All simple functions done!
+
+**Phase 2 folders to process:**
+
+1. `array/` (123 files) - First priority
+2. `object/` (56 files)
+3. `map/` (40 files)
+4. `set/` (26 files)
 
 ## Start Date: 2025-08-25
 
