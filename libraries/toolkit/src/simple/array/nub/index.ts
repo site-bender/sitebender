@@ -10,51 +10,31 @@
  *
  * @param array - Array to remove duplicates from
  * @returns New array with only unique elements
- * @example
- * ```typescript
- * // Basic duplicate removal
- * nub([1, 2, 3, 2, 1, 4])
- * // [1, 2, 3, 4]
- *
- * // String deduplication
- * nub(["apple", "banana", "apple", "cherry", "banana"])
- * // ["apple", "banana", "cherry"]
- *
- * // Mixed types
- * nub([1, "1", 2, "2", 1, "1"])
- * // [1, "1", 2, "2"]
- *
- * // Boolean values
- * nub([true, false, true, false, true])
- * // [true, false]
- *
- * // NaN handling (NaN === NaN in SameValueZero)
- * nub([NaN, 1, NaN, 2, NaN])
- * // [NaN, 1, 2]
- *
- * // Zero and negative zero (considered equal)
- * nub([0, -0, 0, -0])
- * // [0]
- *
- * // Empty array
- * nub([])
- * // []
- *
- * // Single element
- * nub([42])
- * // [42]
- *
- * // All unique elements
- * nub([1, 2, 3, 4, 5])
- * // [1, 2, 3, 4, 5]
- *
- * // All duplicate elements
- * nub([7, 7, 7, 7, 7])
- * // [7]
- * ```
+ * 
  * @pure
  * @immutable
  * @safe
+ * @idempotent
+ * 
+ * @example
+ * ```typescript
+ * // Basic duplicate removal
+ * nub([1, 2, 3, 2, 1, 4]) // [1, 2, 3, 4]
+ *
+ * // String deduplication
+ * nub(["apple", "banana", "apple", "cherry"]) // ["apple", "banana", "cherry"]
+ *
+ * // Mixed types preserved
+ * nub([1, "1", 2, "2", 1]) // [1, "1", 2, "2"]
+ *
+ * // NaN handling (NaN === NaN in SameValueZero)
+ * nub([NaN, 1, NaN, 2]) // [NaN, 1, 2]
+ *
+ * // Edge cases
+ * nub([]) // []
+ * nub(null) // []
+ * nub([7, 7, 7]) // [7]
+ * ```
  */
 const nub = <T>(
 	array: ReadonlyArray<T> | null | undefined,

@@ -8,21 +8,24 @@
  * arrays. Useful for finding maximum by custom criteria, complex comparisons,
  * or multi-field sorting.
  *
- * @curried
  * @param comparator - Function that compares two elements (returns positive if a > b)
  * @param array - Array to find maximum element from
  * @returns Maximum element according to comparator, or undefined if array is empty
+ * 
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
+ * 
  * @example
  * ```typescript
  * // Simple numeric comparison
  * const numCompare = (a: number, b: number) => a - b
- * maximumBy(numCompare)([3, 1, 4, 1, 5, 9, 2])
- * // 9
+ * maximumBy(numCompare)([3, 1, 4, 1, 5, 9, 2]) // 9
  *
  * // String length comparison
  * const byLength = (a: string, b: string) => a.length - b.length
- * maximumBy(byLength)(["a", "bbb", "cc", "dddd"])
- * // "dddd"
+ * maximumBy(byLength)(["a", "bbb", "cc", "dddd"]) // "dddd"
  *
  * // Object property comparison
  * const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
@@ -31,49 +34,17 @@
  *   { name: "Bob", age: 25 },
  *   { name: "Charlie", age: 35 }
  * ]
- * maximumBy(byAge)(people)
- * // { name: "Charlie", age: 35 }
+ * maximumBy(byAge)(people) // { name: "Charlie", age: 35 }
  *
- * // Multi-field comparison
- * type Score = { points: number; time: number }
- * const byScore = (a: Score, b: Score) => {
- *   if (a.points !== b.points) return a.points - b.points
- *   return b.time - a.time  // Lower time is better if points are equal
- * }
- * const scores: Score[] = [
- *   { points: 100, time: 50 },
- *   { points: 100, time: 45 },
- *   { points: 95, time: 40 }
- * ]
- * maximumBy(byScore)(scores)
- * // { points: 100, time: 45 }
+ * // Partial application
+ * const getOldest = maximumBy((a: any, b: any) => a.age - b.age)
+ * getOldest([{ age: 30 }, { age: 40 }]) // { age: 40 }
  *
- * // Date comparison
- * const byDate = (a: Date, b: Date) => a.getTime() - b.getTime()
- * const dates = [
- *   new Date("2024-01-15"),
- *   new Date("2024-03-10"),
- *   new Date("2024-02-20")
- * ]
- * maximumBy(byDate)(dates)
- * // Date("2024-03-10")
- *
- * // Alphabetical comparison (reverse for maximum)
- * const alphabetical = (a: string, b: string) => a.localeCompare(b)
- * maximumBy(alphabetical)(["zebra", "apple", "mango", "banana"])
- * // "zebra"
- *
- * // Single element
- * maximumBy((a: number, b: number) => a - b)([42])
- * // 42
- *
- * // Empty array
- * maximumBy((a: number, b: number) => a - b)([])
- * // undefined
+ * // Edge cases
+ * maximumBy((a: number, b: number) => a - b)([42]) // 42
+ * maximumBy((a: number, b: number) => a - b)([]) // undefined
+ * maximumBy((a: number, b: number) => a - b)(null) // undefined
  * ```
- * @pure
- * @immutable
- * @safe
  */
 const maximumBy = <T>(
 	comparator: (a: T, b: T) => number,

@@ -9,6 +9,11 @@
  *
  * @param array - Array to create pairs from
  * @returns Array of adjacent pairs [element, nextElement]
+ * 
+ * @pure
+ * @immutable
+ * @safe
+ * 
  * @example
  * ```typescript
  * // Basic pairing
@@ -27,33 +32,12 @@
  * )
  * // ["no change", "idle->active", "no change", "active->idle"]
  *
- * // Find increasing pairs
- * const values = [3, 1, 4, 1, 5, 9, 2]
- * pairwise(values).filter(([a, b]) => b > a)
- * // [[1, 4], [1, 5], [5, 9]]
- *
- * // Build ranges
- * const points = [0, 10, 25, 50, 100]
- * pairwise(points).map(([start, end]) => ({ start, end, size: end - start }))
- * // [{ start: 0, end: 10, size: 10 }, { start: 10, end: 25, size: 15 }, ...]
- *
- * // Empty array and edge cases
+ * // Edge cases
  * pairwise([])     // []
  * pairwise([42])   // []
  * pairwise([1, 2]) // [[1, 2]]
- *
- * // Check sorted property
- * const nums = [1, 2, 3, 2, 1]
- * pairwise(nums).every(([a, b]) => a <= b)
- * // false (not sorted)
- *
- * // Handle null/undefined gracefully
- * pairwise(null)      // []
- * pairwise(undefined) // []
+ * pairwise(null)   // []
  * ```
- * @pure Function has no side effects
- * @immutable Does not modify input array
- * @safe Handles null/undefined inputs gracefully
  */
 const pairwise = <T>(
 	array: ReadonlyArray<T> | null | undefined,

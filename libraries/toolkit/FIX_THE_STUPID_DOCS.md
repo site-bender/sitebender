@@ -1,11 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 247/763 files complete (32.4%) - Phase 2 IN PROGRESS
+**Status**: 299/763 files complete (39.2%) - Phase 2 IN PROGRESS  
 **Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array (partial)
-**Next**: Continue `array/` folder - 85 files remaining (38 done, 85 to go)
-**Time**: Sessions 1-12 took ~280 minutes total
-**Last Session**: Session 12 processed 10 array files (flatMap through init)
+**Next**: Continue `array/` folder - 13 files remaining (110 done, 13 to go)
+**Time**: Sessions 1-19 took ~415 minutes total (~6.9 hours)
+**Last Session**: Session 19 processed 11 array files (startsWith through times, plus fixed shuffle)
 **Branch**: phase-2
 **CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
@@ -13,7 +13,7 @@
 
 1. **READ THIS FILE FIRST** for context on what we're doing
 2. **THEN READ `/CLAUDE.md`** for project rules (STRICT FP, no mutations, etc.)
-3. **Continue from "Next Up" section below** - start with `insertAt` in array folder
+3. **Continue from "Next Up" section below** - start with `toSet` in array folder
 4. **DO NOT use Task tool** - process files ONE AT A TIME carefully (Task tool doesn't do thorough work)
 5. **WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
 6. **Track time** with timestamps before/after each session
@@ -32,10 +32,10 @@
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 247/763 files (32.4%) - Phase 2 IN PROGRESS
-**Average Time**: ~1.1 minutes per file
+**Completed So Far**: 288/763 files (37.7%) - Phase 2 IN PROGRESS
+**Average Time**: ~1.37 minutes per file
 **Optimal Approach**: Process ONE FILE AT A TIME carefully (Task tool didn't work well)
-**Next Session**: Continue `array/` folder from file #39 (insertAt)
+**Next Session**: Continue `array/` folder from file #111 (toSet)
 
 ## Problems Identified
 
@@ -184,12 +184,12 @@
 
 ### Running Totals
 
-- **Total Sessions**: 12
-- **Files Completed**: 247/763 (32.4%)
-- **Total Time Spent**: ~280 minutes (4.7 hours)
-- **Average Time per File**: 1.1 minutes
-- **Estimated Completion**: ~14 hours total (at current pace)
-- **Remaining Files**: 516 (85 in array, 431 in other folders)
+- **Total Sessions**: 19
+- **Files Completed**: 299/763 (39.2%)
+- **Total Time Spent**: ~415 minutes (6.9 hours)
+- **Average Time per File**: 1.39 minutes
+- **Estimated Completion**: ~17.7 hours total (at current pace)
+- **Remaining Files**: 464 (13 in array, 451 in other folders)
 
 ## Quality Checklist per File
 
@@ -447,17 +447,183 @@
 - Replaced ALL imperative patterns (for loops) with functional approaches
 - All functions now use pure FP style
 
+### Session 13 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (insertAt through lastIndexOfMatch)
+- insertAt ✓ (already clean with proper tags)
+- interleave ✓ (already clean with proper tags)
+- intersection ✓ (already clean with proper tags)
+- intersectionWith ✓ (already clean with proper tags)
+- intersperse ✓ (already clean with proper tags)
+- isEmpty ✓ (already clean with proper tags)
+- join ✓ (improved null handling, added @safe)
+- last ✓ (improved null handling, added more examples)
+- lastIndexOf ✓ (improved null handling, kept functional approach)
+- lastIndexOfMatch ✓ (improved null handling, reduced examples)
+**Duration**: ~15 minutes
+**Issues Fixed**:
+- Added @safe tags where appropriate
+- Improved null/undefined handling in join, last, lastIndexOf, lastIndexOfMatch
+- Enhanced examples with edge cases
+- All files already had proper custom JSDoc tags
+**Notes**: Most files were already well-formatted with proper tags
+
+### Session 14 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (map through nubBy)
+- map ✓ (already clean with proper tags)
+- mapAccum ✓ (already clean with proper tags)
+- mapAccumRight ✓ (reorganized tags, reduced examples from 67→48 lines)
+- maximumBy ✓ (reorganized tags, reduced examples from 73→47 lines)
+- minimumBy ✓ (reorganized tags, reduced examples from 88→47 lines)
+- move ✓ (reorganized tags, improved null handling, reduced examples)
+- none ✓ (fixed duplicate @predicate, reduced examples)
+- nth ✓ (reorganized tags, reduced examples)
+- nub ✓ (reduced examples, added @idempotent)
+- nubBy ✓ (reorganized tags, reduced examples from 87→51 lines)
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Reorganized tags to use proper @ prefix format and correct order
+- Reduced examples from 40-80+ lines to 8-10 essential examples per function
+- Added @safe and @idempotent tags where appropriate
+- Improved null/undefined handling in move
+**Notes**: Main work was reorganizing tags and reducing excessive examples
+
+### Session 15 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (omit through reduceRight)
+- omit ✓ (reorganized tags, reduced examples)
+- pairwise ✓ (reorganized tags, reduced examples from 53→40 lines)
+- partition ✓ (reorganized tags, reduced examples from 48→43 lines)
+- partitionBy ✓ (reorganized tags, made pure FP, reduced examples)
+- permutations ✓ (reorganized tags, reduced examples from 57→37 lines)
+- pluck ✓ (reorganized tags, reduced examples from 71→45 lines)
+- range ✓ (reorganized tags, reduced examples from 56→38 lines)
+- rangeStep ✓ (reorganized tags, reduced examples from 53→39 lines)
+- reduce ✓ (reorganized tags, added null handling)
+- reduceRight ✓ (reorganized tags, reduced examples from 66→39 lines)
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Reorganized all tags to use proper @ prefix format and correct order
+- Reduced examples from 40-70+ lines to 5-8 essential examples per function
+- Added @safe tags consistently
+- Improved null/undefined handling in partitionBy, reduce, reduceRight
+- Made partitionBy implementation purely functional (removed mutations)
+**Notes**: partitionBy needed pure FP implementation (was mutating arrays)
+
+### Session 16 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 11 files (reduceWhile through replaceFirst)
+- reduceWhile ✓ (reduced 178→47 lines, converted for loop to recursion)
+- reject ✓ (reduced 187→40 lines)
+- remove ✓ (added tags and null handling)
+- removeAll ✓ (added tags and null handling)
+- removeAt ✓ (added tags and null handling)
+- repeat ✓ (replaced .fill with Array.from)
+- repeatItem ✓ (replaced .fill with Array.from)
+- replaceAll ✓ (added tags and null handling)
+- replaceAllMatches ✓ (added tags and null handling)
+- replaceAt ✓ (added tags and null handling)
+- replaceFirst ✓ (added tags and null handling)
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @curried, @immutable, @safe
+- Reduced examples from 40-180 lines to 5-7 per function
+- Fixed imperative code (for loop in reduceWhile, .fill mutations)
+- Added null/undefined handling to all functions
+- All functions now use pure FP style
+**Notes**: Completed 79 files total in array folder. 44 files remaining.
+
+### Session 17 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (replaceFirstMatch through shuffle)
+- replaceFirstMatch ✓ (added tags and null handling, fixed import path)
+- replaceLast ✓ (added tags and null handling)
+- replaceLastMatch ✓ (added tags and null handling, fixed import path)
+- reverse ✓ (added tags, replaced toReversed with fallback)
+- rotateLeft ✓ (reduced 173→36 lines, added tags)
+- rotateRight ✓ (reduced 196→38 lines, added tags)
+- sample ✓ (reduced 192→34 lines, marked as @impure)
+- sampleSize ✓ (reduced 185→31 lines, made functional, marked as @impure)
+- scan ✓ (added tags, already functional)
+- shuffle ✓ (reduced 201→29 lines, made functional, marked as @impure)
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @curried, @immutable, @safe, @impure
+- Reduced examples from 40-200 lines to 5-7 per function
+- Fixed imperative code (for loops in sampleSize and shuffle)
+- Added null/undefined handling to all functions
+- Marked random functions as @impure
+- All functions now use pure FP style (except random ones which are inherently impure)
+**Notes**: Completed 89 files total in array folder. 34 files remaining.
+
+### Session 18 - 2025-08-26
+**Folder**: array/
+**Files Processed**: 10 files (slice through splitEvery)
+- slice ✓ (fixed tags, reduced examples)
+- sliceFrom ✓ (fixed tags, reduced examples)
+- sliding ✓ (fixed tags, reduced 90→7 examples)
+- slidingWithStep ✓ (fixed tags, made FP with recursion, reduced 111→5 examples)
+- some ✓ (fixed tags, added @predicate)
+- sort ✓ (fixed tags, added @idempotent)
+- sortBy ✓ (fixed tags, reduced 234→8 examples)
+- sortWith ✓ (fixed tags, reduced 227→7 examples, fixed broken file)
+- span ✓ (fixed tags, reduced 91→7 examples)
+- splitEvery ✓ (fixed tags, reduced examples)
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @curried, @immutable, @safe, @predicate, @idempotent
+- Reduced examples from 40-230+ lines to 5-8 per function
+- Made slidingWithStep pure FP (replaced for loop with recursion)
+- Fixed severely broken sortWith file that had garbage JSDoc
+- Added appropriate tags (@predicate for some, @idempotent for sort)
+**Notes**: Completed 99 files total in array folder. 24 files remaining.
+
+### Session 19 - 2025-08-26 22:22-22:42
+**Folder**: array/
+**Files Processed**: 11 files (startsWith through times, plus shuffle fix)
+- startsWith ✓ (reduced 212→44 lines, replaced for loop with `.every()`)
+- subsequences ✓ (reduced 86→38 lines, already pure FP)
+- symmetricDifference ✓ (reduced 211→38 lines, replaced for loops with `.filter()`)
+- symmetricDifferenceWith ✓ (reduced 278→40 lines, replaced for loops with `.filter()` and `.reduce()`)
+- tail ✓ (added null handling and proper tags)
+- take ✓ (added null handling and proper tags)
+- takeLast ✓ (added null handling and proper tags)
+- takeLastWhile ✓ (reduced 215→40 lines, replaced while loop with recursion)
+- takeWhile ✓ (reduced 76→40 lines, already pure FP)
+- times ✓ (reduced 237→23 lines, replaced for loop with `Array.from()`)
+- shuffle (fixed) ✓ (replaced array destructuring swap with pure `.map()`)
+**Start Time**: 2025-08-26T22:22:44+12:00
+**End Time**: 2025-08-26T22:42:35+12:00
+**Duration**: ~20 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @curried, @immutable, @safe, @predicate, @idempotent
+- Reduced examples from 40-278 lines to 6-8 per function
+- Replaced ALL imperative patterns (for/while loops) with functional approaches
+- Fixed mutation in shuffle (array destructuring swap replaced with pure map)
+- Added null/undefined handling to all functions
+**Notes**: Completed 110 files total in array folder. 13 files remaining. Fixed critical mutation issue in shuffle.
+
 ## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
 
 **Phase 2 folders to process:**
 
-1. `array/` (123 files) - IN PROGRESS
-   - Completed: 38 files (aperture through init)
-   - Next up: insertAt
-   - Then: interleave, intersection, intersectionWith, intersperse, isEmpty, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, move, none, nth, nub, nubBy, omit, pairwise, partition, partitionBy, permutations, pluck, range, rangeStep, reduce, reduceRight, reduceWhile, reject, remove, removeAll, removeAt, repeat, repeatItem, replaceAll, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLast, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, slice, sliceFrom, sliding, slidingWithStep, some, sort, sortBy, sortWith, span, splitEvery, startsWith, subsequences, symmetricDifference, symmetricDifferenceWith, tail, take, takeLast, takeLastWhile, takeWhile, times, toSet, transpose, unflatten, unfold, union, unionWith, unique, unzip, update, xprod, zip, zipAll, zipObj, zipWith
-   - Remaining: 85 files
+1. `array/` (123 files) - IN PROGRESS  
+   - Completed: 110 files (89.4% done!)
+     - aperture through dropWhile (Session 10)
+     - endsWith through init (Sessions 11-12)
+     - insertAt through lastIndexOfMatch (Session 13)
+     - map through nubBy (Session 14)
+     - omit through reduceRight (Session 15)
+     - reduceWhile through replaceFirst (Session 16)
+     - replaceFirstMatch through shuffle (Session 17)
+     - slice through splitEvery (Session 18)
+     - startsWith through times (Session 19)
+   - Next up: toSet
+   - Then: transpose, unflatten, unfold, union, unionWith, unique, unzip, update, xprod, zip, zipAll, zipObj, zipWith
+   - Remaining: 13 files
 2. `object/` (56 files)
 3. `map/` (40 files)
 4. `set/` (26 files)

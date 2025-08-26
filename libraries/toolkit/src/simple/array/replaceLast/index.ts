@@ -6,11 +6,14 @@ import replaceAt from "../replaceAt/index.ts"
  * Uses strict equality (===) to find the item. Returns original array
  * if item not found. Only replaces the last occurrence.
  *
- * @curried (target) => (replacer) => (array) => result
  * @param target - The value to find and replace
  * @param replacer - Function to transform the found item
  * @param array - The array to search in
  * @returns New array with last occurrence replaced
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * replaceLast(2)(n => n * 10)([1, 2, 3, 2, 4]) // [1, 2, 3, 20, 4]
@@ -23,7 +26,13 @@ import replaceAt from "../replaceAt/index.ts"
  * ```
  */
 const replaceLast =
-	<T>(target: T) => (replacer: (item: T) => T) => (array: Array<T>): Array<T> =>
-		replaceAt<T>(array.lastIndexOf(target))(replacer)(array)
+	<T>(target: T) =>
+	(replacer: (item: T) => T) =>
+	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+		if (array == null || !Array.isArray(array)) {
+			return []
+		}
+		return replaceAt<T>(array.lastIndexOf(target))(replacer)(array)
+	}
 
 export default replaceLast

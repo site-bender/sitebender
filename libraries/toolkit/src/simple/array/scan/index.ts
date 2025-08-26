@@ -5,11 +5,14 @@
  * including the initial value. Useful for running totals, progressive
  * transformations, or tracking state changes over time.
  *
- * @curried (fn) => (initial) => (array) => result
  * @param fn - Accumulator function (acc: U, item: T, index?: number) => U
  * @param initial - Starting value (becomes first element of result)
  * @param array - The array to scan
  * @returns Array of all intermediate accumulator values
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * // Running sum
@@ -65,9 +68,6 @@
  * scan((acc: number, n: number) => acc + n)(0)(undefined) // [0]
  * scan((acc: number, n: number) => acc + n)(0)([]) // [0]
  * ```
- * @property Progressive - shows all intermediate states
- * @property Immutable - doesn't modify input array
- * @property Inclusive - includes initial value in output
  */
 const scan = <T, U>(
 	fn: (acc: U, item: T, index?: number) => U,

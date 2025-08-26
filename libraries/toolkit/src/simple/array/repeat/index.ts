@@ -6,10 +6,13 @@
  * Returns empty array for counts <= 0. Note: for objects, all array
  * positions reference the same object (not cloned).
  *
- * @curried (count) => (item) => result
  * @param count - Number of times to repeat
  * @param item - The value to repeat
  * @returns New array with item repeated count times
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * repeat(3)("x") // ["x", "x", "x"]
@@ -27,6 +30,6 @@
  * ```
  */
 const repeat = (count: number) => <T>(item: T): Array<T> =>
-	count > 0 ? new Array<T>(count).fill(item) : []
+	count > 0 ? Array.from({ length: count }, () => item) : []
 
 export default repeat

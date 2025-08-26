@@ -4,11 +4,14 @@
  * Tests each string element against the pattern. Non-string elements
  * are passed through unchanged. The replacer receives matching strings.
  *
- * @curried (pattern) => (replacer) => (array) => result
  * @param pattern - Regular expression to match strings against
  * @param replacer - Function to transform matching strings
  * @param array - Array containing strings to check
  * @returns New array with matching strings replaced
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * replaceAllMatches(/^h/)(s => s.toUpperCase())(["hello", "hi", "world"])
@@ -25,7 +28,11 @@
 const replaceAllMatches =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>
-	(array: Array<string>): Array<string> =>
-		array.map((item) => (pattern.test(item) ? replacer(item) : item))
+	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
+		if (array == null || !Array.isArray(array)) {
+			return []
+		}
+		return array.map((item) => (pattern.test(item) ? replacer(item) : item))
+	}
 
 export default replaceAllMatches

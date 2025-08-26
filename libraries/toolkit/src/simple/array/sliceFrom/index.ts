@@ -5,21 +5,27 @@
  * Returns fewer elements if length extends beyond array bounds.
  * Negative indices count from the end.
  *
- * @curried (startIndex) => (length) => (array) => result
  * @param startIndex - Starting index for extraction
  * @param length - Number of elements to extract
  * @param array - The array to extract from
  * @returns New array containing the extracted elements
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
+ * // Basic usage
  * sliceFrom(1)(2)([1, 2, 3, 4, 5]) // [2, 3]
  * sliceFrom(0)(3)(["a", "b", "c", "d"]) // ["a", "b", "c"]
- * sliceFrom(2)(10)([1, 2, 3, 4]) // [3, 4] (length exceeds bounds)
+ * 
+ * // Negative indices
  * sliceFrom(-3)(2)([1, 2, 3, 4, 5]) // [3, 4]
- *
- * // Extract fixed-size chunks
- * const getChunk = sliceFrom(2)(3)
- * getChunk([10, 20, 30, 40, 50, 60]) // [30, 40, 50]
+ * 
+ * // Edge cases
+ * sliceFrom(2)(10)([1, 2, 3, 4]) // [3, 4] (length exceeds bounds)
+ * sliceFrom(5)(3)([1, 2, 3]) // []
+ * sliceFrom(0)(0)([1, 2, 3]) // []
  * ```
  */
 const sliceFrom = (startIndex: number) =>

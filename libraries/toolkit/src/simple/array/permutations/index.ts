@@ -4,60 +4,37 @@
  * Returns all possible orderings of the array elements. For an array of
  * length n, this generates n! (n factorial) permutations. Each permutation
  * contains all the original elements in a different order.
+ * Warning: Factorial growth! Be careful with arrays > 10 elements.
  *
  * @param array - Array to generate permutations from
  * @returns Array of all possible permutations
+ * 
+ * @pure
+ * @immutable
+ * @safe
+ * 
  * @example
  * ```typescript
  * // All orderings of 3 elements
  * permutations([1, 2, 3])
- * // [
- * //   [1, 2, 3], [1, 3, 2],
- * //   [2, 1, 3], [2, 3, 1],
- * //   [3, 1, 2], [3, 2, 1]
- * // ]
+ * // [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
  *
  * // String permutations
  * permutations(["a", "b", "c"])
- * // [
- * //   ["a", "b", "c"], ["a", "c", "b"],
- * //   ["b", "a", "c"], ["b", "c", "a"],
- * //   ["c", "a", "b"], ["c", "b", "a"]
- * // ]
+ * // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"], 
+ * //  ["b", "c", "a"], ["c", "a", "b"], ["c", "b", "a"]]
  *
- * // Task scheduling - all possible orderings
- * const tasks = ["wash", "dry", "fold"]
- * permutations(tasks)
- * // [
- * //   ["wash", "dry", "fold"],
- * //   ["wash", "fold", "dry"],
- * //   ["dry", "wash", "fold"],
- * //   ["dry", "fold", "wash"],
- * //   ["fold", "wash", "dry"],
- * //   ["fold", "dry", "wash"]
- * // ]
- *
- * // Edge cases
- * permutations([])     // [[]]
- * permutations([1])    // [[1]]
+ * // Two elements
  * permutations([1, 2]) // [[1, 2], [2, 1]]
  *
- * // Anagram generation
- * permutations(["c", "a", "t"])
- * // [["c", "a", "t"], ["c", "t", "a"], ["a", "c", "t"], ["a", "t", "c"], ["t", "c", "a"], ["t", "a", "c"]]
- * // Can join to get: ["cat", "cta", "act", "atc", "tca", "tac"]
+ * // Edge cases
+ * permutations([])  // [[]]
+ * permutations([1]) // [[1]]
+ * permutations(null) // [[]]
  *
- * // Handle null/undefined gracefully
- * permutations(null)      // [[]]
- * permutations(undefined) // [[]]
- *
- * // Warning: Factorial growth! Be careful with arrays > 10 elements
- * // permutations([1,2,3,4,5]).length = 120 (5!)
- * // permutations(Array(10)).length = 3,628,800 (10!)
+ * // Warning: 5 elements = 120 permutations
+ * permutations([1,2,3,4,5]).length // 120
  * ```
- * @pure Function has no side effects
- * @immutable Does not modify input array
- * @safe Handles null/undefined inputs gracefully
  */
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,

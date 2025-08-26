@@ -9,11 +9,14 @@ import replaceAt from "../replaceAt/index.ts"
  * if no match found. Only replaces the first matching occurrence.
  * Non-string elements are skipped.
  *
- * @curried (pattern) => (replacer) => (array) => result
  * @param pattern - Regular expression to match strings against
  * @param replacer - Function to transform the first matching string
  * @param array - Array containing strings to check
  * @returns New array with first match replaced
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * replaceFirstMatch(/^h/)(s => s.toUpperCase())(["hello", "hi", "world"]) // ["HELLO", "hi", "world"]
@@ -28,11 +31,14 @@ import replaceAt from "../replaceAt/index.ts"
 const replaceFirstMatch =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>
-	(array: Array<string>): Array<string> => {
+	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
+		if (array == null || !Array.isArray(array)) {
+			return []
+		}
 		const index = findIndex((item: string) => pattern.test(item))(array)
 
-		return isUndefined(index)
-			? array
+		return index === -1
+			? [...array]
 			: replaceAt<string>(index)(replacer)(array)
 	}
 

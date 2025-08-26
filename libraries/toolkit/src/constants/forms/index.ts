@@ -1,7 +1,7 @@
 import type {
 	CommunicationChannel,
 	PhoneType,
-} from "../../types/components/forms/index.ts"
+} from "../../../../components/types/components/forms/index.ts"
 
 /**
  * Human-readable labels for communication channels

@@ -4,10 +4,13 @@
  * Supports negative indices (counting from end). Returns original array
  * if index is out of bounds. Creates new array, doesn't mutate.
  *
- * @curried (index) => (array) => result
  * @param index - Position to remove (negative counts from end)
  * @param array - The array to remove from
  * @returns New array with element at index removed
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * removeAt(1)([1, 2, 3, 4]) // [1, 3, 4]
@@ -20,13 +23,18 @@
  * removeSecond(["first", "second", "third"]) // ["first", "third"]
  * ```
  */
-const removeAt = <T>(index: number) => (array: Array<T>): Array<T> => {
+const removeAt = <T>(index: number) => (
+	array: ReadonlyArray<T> | null | undefined,
+): Array<T> => {
+	if (array == null || !Array.isArray(array)) {
+		return []
+	}
 	const len = array.length
 	const normalizedIndex = index < 0 ? len + index : index
 
 	return normalizedIndex >= 0 && normalizedIndex < len
 		? [...array.slice(0, normalizedIndex), ...array.slice(normalizedIndex + 1)]
-		: array
+		: [...array]
 }
 
 export default removeAt

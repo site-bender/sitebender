@@ -1,4 +1,4 @@
-import isUndefined from "../../isUndefined/index.ts"
+import isUndefined from "../../predicates/isUndefined/index.ts"
 import findLastIndex from "../findLastIndex/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
@@ -9,11 +9,14 @@ import replaceAt from "../replaceAt/index.ts"
  * if no match found. Only replaces the last matching occurrence.
  * Accepts RegExp or string (string converted to RegExp).
  *
- * @curried (pattern) => (replacer) => (array) => result
  * @param pattern - Regular expression or string pattern to match against
  * @param replacer - Function to transform the last matching string
  * @param array - Array containing strings to check
  * @returns New array with last match replaced
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * replaceLastMatch(/^h/)(s => s.toUpperCase())(["hello", "hi", "world"]) // ["hello", "HI", "world"]
@@ -28,15 +31,15 @@ import replaceAt from "../replaceAt/index.ts"
 const replaceLastMatch =
 	(pattern: RegExp | string) =>
 	(replacer: (item: string) => string) =>
-	(array: Array<string>): Array<string> => {
-		const index = findLastIndex((item: string) =>
-			new RegExp(pattern).test(item)
-		)(
-			array,
-		)
+	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
+		if (array == null || !Array.isArray(array)) {
+			return []
+		}
+		const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern)
+		const index = findLastIndex((item: string) => regex.test(item))(array)
 
-		return isUndefined(index)
-			? array
+		return index === -1
+			? [...array]
 			: replaceAt<string>(index)(replacer)(array)
 	}
 

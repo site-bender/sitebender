@@ -4,10 +4,13 @@
  * Uses strict equality (===) to find the item. Returns original array
  * if item not found. Only removes first occurrence, not all.
  *
- * @curried (item) => (array) => result
  * @param item - The value to remove
  * @param array - The array to remove from
  * @returns New array with first occurrence removed, or original if not found
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
  * @example
  * ```typescript
  * remove(2)([1, 2, 3, 2, 4]) // [1, 3, 2, 4]
@@ -19,10 +22,15 @@
  * removeNull([1, null, 2, null]) // [1, 2, null]
  * ```
  */
-const remove = <T>(item: T) => (array: Array<T>): Array<T> => {
+const remove = <T>(item: T) => (
+	array: ReadonlyArray<T> | null | undefined,
+): Array<T> => {
+	if (array == null || !Array.isArray(array)) {
+		return []
+	}
 	const index = array.indexOf(item)
 	return index === -1
-		? array
+		? [...array]
 		: [...array.slice(0, index), ...array.slice(index + 1)]
 }
 

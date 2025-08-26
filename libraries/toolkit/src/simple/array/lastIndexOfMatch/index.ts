@@ -3,6 +3,7 @@
  *
  * Tests each string against the pattern, returning the index of the
  * last matching element. Accepts RegExp or string (converted to RegExp).
+ * Returns undefined for null/undefined arrays or if no match found.
  *
  * @param pattern - Regular expression or string pattern to match
  * @param array - Array of strings to search
@@ -14,23 +15,38 @@
  * 
  * @example
  * ```typescript
+ * // Basic usage
  * lastIndexOfMatch(/^h/)(["hi", "hello", "world", "hey"]) // 3
- * lastIndexOfMatch("ell")(["hello", "bell", "well"]) // 2
- * lastIndexOfMatch(/^z/)(["hi", "hello"]) // undefined
+ * lastIndexOfMatch("ell")(["hello", "bell", "well", "test"]) // 2
+ * lastIndexOfMatch(/\d+/)(["one", "2", "three", "4"]) // 3
  *
  * // Find last error message
  * const findLastError = lastIndexOfMatch(/error/i)
- * findLastError(["info", "error 1", "warning", "error 2"]) // 3
+ * findLastError(["info", "ERROR 1", "warning", "Error 2"]) // 3
+ * 
+ * // Partial application
+ * const findLastCapital = lastIndexOfMatch(/^[A-Z]/)
+ * findLastCapital(["hello", "World", "Test"]) // 2
+ *
+ * // Edge cases
+ * lastIndexOfMatch(/test/)([]) // undefined
+ * lastIndexOfMatch(/test/)(null) // undefined
+ * lastIndexOfMatch(/^z/)(["hi", "hello"]) // undefined
  * ```
  */
-const lastIndexOfMatch =
-	(pattern: RegExp | string) => (array: Array<string>): number | undefined => {
-		const regex = new RegExp(pattern)
-		const index = array.reduce(
-			(lastMatch, item, index) => (regex.test(item) ? index : lastMatch),
-			-1,
-		)
-		return index === -1 ? undefined : index
+const lastIndexOfMatch = (pattern: RegExp | string) => (
+	array: ReadonlyArray<string> | null | undefined
+): number | undefined => {
+	if (array == null || !Array.isArray(array) || array.length === 0) {
+		return undefined
 	}
+	
+	const regex = new RegExp(pattern)
+	const index = array.reduce(
+		(lastMatch, item, index) => (regex.test(item) ? index : lastMatch),
+		-1,
+	)
+	return index === -1 ? undefined : index
+}
 
 export default lastIndexOfMatch

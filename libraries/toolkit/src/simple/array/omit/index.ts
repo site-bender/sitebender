@@ -5,31 +5,34 @@
  * Supports negative indices which count from the end (-1 is last element).
  * Invalid indices are ignored. Preserves order of kept elements.
  *
- * @curried (indices) => (array) => result
  * @param indices - Array of indices to exclude (supports negative indices)
  * @param array - The array to filter
  * @returns New array with specified indices omitted
+ * 
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
+ * 
  * @example
  * ```typescript
+ * // Basic usage
  * omit([1, 3])([1, 2, 3, 4, 5]) // [1, 3, 5]
  * omit([0])(["a", "b", "c"]) // ["b", "c"]
  * omit([0, 2, 4])(["a", "b", "c", "d", "e"]) // ["b", "d"]
  *
+ * // Negative indices
+ * omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]
+ * 
  * // Remove headers and footers
  * const removeEnds = omit([0, -1])
  * removeEnds(["header", "data1", "data2", "footer"]) // ["data1", "data2"]
  *
- * // Negative indices
- * omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]
- * omit([-1])(["a", "b", "c"]) // ["a", "b"]
- *
- * // Handle null/undefined gracefully
+ * // Edge cases
  * omit([0])(null) // []
  * omit([0])(undefined) // []
+ * omit([])([1, 2, 3]) // [1, 2, 3]
  * ```
- * @pure Function has no side effects
- * @immutable Does not modify input array
- * @safe Handles null/undefined inputs gracefully
  */
 const omit = <T>(indices: Array<number>) =>
 (

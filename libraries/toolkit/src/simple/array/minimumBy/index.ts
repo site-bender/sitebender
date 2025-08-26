@@ -8,21 +8,24 @@
  * arrays. Useful for finding minimum by custom criteria, complex comparisons,
  * or multi-field sorting.
  *
- * @curried
  * @param comparator - Function that compares two elements (returns negative if a < b)
  * @param array - Array to find minimum element from
  * @returns Minimum element according to comparator, or undefined if array is empty
+ * 
+ * @pure
+ * @curried
+ * @immutable
+ * @safe
+ * 
  * @example
  * ```typescript
  * // Simple numeric comparison
  * const numCompare = (a: number, b: number) => a - b
- * minimumBy(numCompare)([3, 1, 4, 1, 5, 9, 2])
- * // 1
+ * minimumBy(numCompare)([3, 1, 4, 1, 5, 9, 2]) // 1
  *
  * // String length comparison
  * const byLength = (a: string, b: string) => a.length - b.length
- * minimumBy(byLength)(["aaa", "b", "cc", "dddd"])
- * // "b"
+ * minimumBy(byLength)(["aaa", "b", "cc", "dddd"]) // "b"
  *
  * // Object property comparison
  * const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
@@ -31,64 +34,17 @@
  *   { name: "Bob", age: 25 },
  *   { name: "Charlie", age: 35 }
  * ]
- * minimumBy(byAge)(people)
- * // { name: "Bob", age: 25 }
+ * minimumBy(byAge)(people) // { name: "Bob", age: 25 }
  *
- * // Multi-field comparison
- * type Score = { points: number; time: number }
- * const byScore = (a: Score, b: Score) => {
- *   if (a.points !== b.points) return a.points - b.points
- *   return a.time - b.time  // Lower time is better if points are equal
- * }
- * const scores: Score[] = [
- *   { points: 95, time: 50 },
- *   { points: 95, time: 45 },
- *   { points: 100, time: 40 }
- * ]
- * minimumBy(byScore)(scores)
- * // { points: 95, time: 45 }
+ * // Partial application
+ * const getYoungest = minimumBy((a: any, b: any) => a.age - b.age)
+ * getYoungest([{ age: 30 }, { age: 20 }]) // { age: 20 }
  *
- * // Date comparison (earliest)
- * const byDate = (a: Date, b: Date) => a.getTime() - b.getTime()
- * const dates = [
- *   new Date("2024-03-10"),
- *   new Date("2024-01-15"),
- *   new Date("2024-02-20")
- * ]
- * minimumBy(byDate)(dates)
- * // Date("2024-01-15")
- *
- * // Alphabetical comparison
- * const alphabetical = (a: string, b: string) => a.localeCompare(b)
- * minimumBy(alphabetical)(["zebra", "apple", "mango", "banana"])
- * // "apple"
- *
- * // Distance to origin
- * type Point = { x: number; y: number }
- * const byDistance = (a: Point, b: Point) => {
- *   const distA = Math.sqrt(a.x * a.x + a.y * a.y)
- *   const distB = Math.sqrt(b.x * b.x + b.y * b.y)
- *   return distA - distB
- * }
- * const points: Point[] = [
- *   { x: 3, y: 4 },
- *   { x: 1, y: 1 },
- *   { x: 5, y: 0 }
- * ]
- * minimumBy(byDistance)(points)
- * // { x: 1, y: 1 }
- *
- * // Single element
- * minimumBy((a: number, b: number) => a - b)([42])
- * // 42
- *
- * // Empty array
- * minimumBy((a: number, b: number) => a - b)([])
- * // undefined
+ * // Edge cases
+ * minimumBy((a: number, b: number) => a - b)([42]) // 42
+ * minimumBy((a: number, b: number) => a - b)([]) // undefined
+ * minimumBy((a: number, b: number) => a - b)(null) // undefined
  * ```
- * @pure
- * @immutable
- * @safe
  */
 const minimumBy = <T>(
 	comparator: (a: T, b: T) => number,
