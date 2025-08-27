@@ -13,9 +13,12 @@
 
 1. **READ THIS FILE FIRST** for context on what we're doing
 2. **THEN READ `/CLAUDE.md`** for project rules (STRICT FP, no mutations, etc.)
-3. **Continue from "Next Up" section below** - start with `object/` folder
+3. **Continue from "Next Up" section below** - start with remaining `map/` files
 4. **DO NOT use Task tool** - process files ONE AT A TIME carefully (Task tool doesn't do thorough work)
-5. **WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
+5. **CRITICAL: WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
+   - **NEVER modify files in `libraries/adaptive/`** - another AI is working there
+   - **NEVER modify files in `libraries/components/`** - another AI is working there
+   - **ONLY commit changes from `libraries/toolkit/`**
 6. **Track time** with timestamps before/after each session
 7. **SESSION WORKFLOW**:
    - Process EXACTLY 20 files (cross folders if needed)
