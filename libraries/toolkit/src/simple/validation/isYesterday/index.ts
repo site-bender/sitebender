@@ -23,98 +23,30 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * @example
  * ```typescript
  * // Assuming today is 2024-01-15
- *
- * // Using ISO date strings
- * isYesterday("2024-01-14")         // true
+ * isYesterday("2024-01-14")          // true
  * isYesterday("2024-01-14T10:30:00") // true (time ignored)
- * isYesterday("2024-01-15")         // false (today)
- * isYesterday("2024-01-13")         // false (two days ago)
+ * isYesterday("2024-01-15")          // false (today)
+ * isYesterday("2024-01-13")          // false (two days ago)
  *
- * // Using Temporal PlainDate objects
- * const today = Temporal.Now.plainDateISO()
- * const yesterday = today.subtract({ days: 1 })
- * const twoDaysAgo = today.subtract({ days: 2 })
- *
- * isYesterday(yesterday)  // true
- * isYesterday(today)      // false
- * isYesterday(twoDaysAgo) // false
- *
- * // Finding yesterday's records
- * interface LogEntry {
- *   date: string
- *   message: string
- *   level: string
- * }
- *
- * function getYesterdaysLogs(logs: Array<LogEntry>): Array<LogEntry> {
- *   return logs.filter(log => isYesterday(log.date))
- * }
- *
- * // Review reminder system
- * interface Review {
- *   submittedDate: string
- *   author: string
- *   status: string
- * }
- *
- * function getYesterdaysReviews(reviews: Array<Review>): Array<Review> {
- *   return reviews.filter(review => isYesterday(review.submittedDate))
- * }
- *
- * // Daily report comparison
- * function getDailyComparison(date: string): string {
- *   if (isYesterday(date)) {
- *     return "Yesterday's data"
- *   }
- *
- *   const checkDate = toPlainDate(date)
- *   const today = Temporal.Now.plainDateISO()
- *
- *   if (checkDate && Temporal.PlainDate.compare(checkDate, today) === 0) {
- *     return "Today's data"
- *   }
- *
- *   return "Historical data"
- * }
+ * // Using Temporal PlainDate
+ * const yesterday = Temporal.Now.plainDateISO().subtract({ days: 1 })
+ * isYesterday(yesterday)              // true
  *
  * // Invalid inputs return false
- * isYesterday(null)              // false
- * isYesterday(undefined)         // false
- * isYesterday("")                // false (empty string)
- * isYesterday("invalid-date")    // false (invalid format)
- * isYesterday("2024-13-01")      // false (invalid month)
- * isYesterday(123)               // false (not a date type)
+ * isYesterday(null)                   // false
+ * isYesterday("invalid-date")         // false
  *
- * // Backup verification
- * function wasBackupRunYesterday(lastBackupDate: string): boolean {
- *   return isYesterday(lastBackupDate)
- * }
- *
- * // Sales tracking
- * interface Sale {
- *   date: string
- *   amount: number
- *   productId: string
- * }
- *
- * function getYesterdaysSales(sales: Array<Sale>): {
- *   total: number
- *   count: number
- * } {
- *   const yesterdaysSales = sales.filter(sale => isYesterday(sale.date))
- *
- *   return {
- *     total: yesterdaysSales.reduce((sum, sale) => sum + sale.amount, 0),
- *     count: yesterdaysSales.length
- *   }
- * }
+ * // Filtering records
+ * const logs = [
+ *   { date: "2024-01-14", msg: "A" },
+ *   { date: "2024-01-15", msg: "B" }
+ * ]
+ * const yesterdaysLogs = logs.filter(log => isYesterday(log.date))
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Uses ISO calendar for comparison
- * @property Time-agnostic - Ignores time components if present
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @predicate
+ * @safe
  */
 const isYesterday = (date: DateInput | null | undefined): boolean => {
 	const checkDate = toPlainDate(date)

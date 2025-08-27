@@ -319,12 +319,7 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * }
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Comprehensive - Validates actual date validity, not just format
- * @property Leap-aware - Correctly handles leap years
- * @property Flexible - Accepts multiple date formats and types
- * @property Safe - Returns false for invalid inputs instead of throwing
- * @property Calendar-accurate - Validates against actual calendar rules
+ * @pure
  */
 const isValidDate = (value: DateInput | null | undefined): boolean => {
 	// Attempt to convert to PlainDate

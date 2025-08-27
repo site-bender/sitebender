@@ -409,11 +409,8 @@
  * }
  * ```
  *
- * @property Type-guard - Narrows type to Temporal.PlainTime when true
- * @property Pure - No side effects, only checks type
- * @property Strict - Only returns true for actual PlainTime instances
- * @property Safe - Handles any input type without throwing
- * @property Runtime - Provides runtime type checking for Temporal types
+ * @predicate
+ * @pure
  */
 const isTemporalTime = (value: unknown): value is Temporal.PlainTime => {
 	try {

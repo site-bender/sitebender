@@ -14,242 +14,40 @@
  * ```typescript
  * // Basic configuration validation
  * const schema = {
- *   port: {
- *     type: "number",
- *     required: true,
- *     min: 1,
- *     max: 65535,
- *     default: 3000
- *   },
- *   host: {
- *     type: "string",
- *     required: false,
- *     default: "localhost",
- *     pattern: /^[a-z0-9.-]+$/i
- *   },
- *   debug: {
- *     type: "boolean",
- *     required: false,
- *     default: false
- *   }
+ *   port: { type: "number", required: true, min: 1, max: 65535 },
+ *   host: { type: "string", default: "localhost" },
+ *   debug: { type: "boolean", default: false }
  * }
  *
- * const validateServerConfig = validateConfig(schema)
+ * const validate = validateConfig(schema)
+ * validate({ port: 8080 })
+ * // { valid: true, data: { port: 8080, host: "localhost", debug: false } }
  *
- * validateServerConfig({ port: 8080, debug: true })
- * // { valid: true, data: { port: 8080, host: "localhost", debug: true } }
- *
- * validateServerConfig({ port: 70000 })
+ * validate({ port: 70000 })
  * // { valid: false, errors: { port: "Value must be <= 65535" } }
  *
- * validateServerConfig({})
- * // { valid: false, errors: { port: "Field is required" } }
- *
- * // Nested object validation
+ * // Custom validators
  * const userSchema = {
- *   name: {
- *     type: "string",
- *     required: true,
- *     minLength: 2,
- *     maxLength: 50
- *   },
  *   email: {
  *     type: "string",
- *     required: true,
  *     validator: (val: string) => val.includes("@") ? null : "Invalid email"
  *   },
- *   profile: {
+ *   age: { type: "number", min: 0, max: 150 }
+ * }
+ *
+ * // Nested objects
+ * const configSchema = {
+ *   db: {
  *     type: "object",
- *     required: false,
  *     schema: {
- *       age: { type: "number", min: 0, max: 150 },
- *       bio: { type: "string", maxLength: 500 }
+ *       host: { type: "string", required: true },
+ *       port: { type: "number", default: 5432 }
  *     }
  *   }
  * }
- *
- * const validateUser = validateConfig(userSchema)
- *
- * validateUser({
- *   name: "John Doe",
- *   email: "john@example.com",
- *   profile: { age: 30, bio: "Developer" }
- * })
- * // { valid: true, data: { name: "John Doe", email: "john@example.com", profile: { age: 30, bio: "Developer" } } }
- *
- * // Array validation
- * const apiSchema = {
- *   endpoints: {
- *     type: "array",
- *     required: true,
- *     minLength: 1,
- *     items: {
- *       type: "string",
- *       pattern: /^\/[a-z0-9/-]*$/i
- *     }
- *   },
- *   methods: {
- *     type: "array",
- *     items: {
- *       type: "string",
- *       enum: ["GET", "POST", "PUT", "DELETE", "PATCH"]
- *     }
- *   }
- * }
- *
- * const validateApi = validateConfig(apiSchema)
- *
- * validateApi({
- *   endpoints: ["/users", "/posts", "/comments"],
- *   methods: ["GET", "POST"]
- * })
- * // { valid: true, data: { endpoints: [...], methods: [...] } }
- *
- * validateApi({
- *   endpoints: [],
- *   methods: ["INVALID"]
- * })
- * // { valid: false, errors: { endpoints: "Array must have at least 1 items", methods: { 0: "Value must be one of: GET, POST, PUT, DELETE, PATCH" } } }
- *
- * // Custom validators
- * const passwordSchema = {
- *   username: {
- *     type: "string",
- *     required: true,
- *     minLength: 3,
- *     transform: (val: string) => val.toLowerCase()
- *   },
- *   password: {
- *     type: "string",
- *     required: true,
- *     validator: (val: string) => {
- *       if (val.length < 8) return "Password must be at least 8 characters"
- *       if (!/[A-Z]/.test(val)) return "Password must contain uppercase letter"
- *       if (!/[0-9]/.test(val)) return "Password must contain number"
- *       return null
- *     }
- *   },
- *   confirmPassword: {
- *     type: "string",
- *     required: true,
- *     validator: (val: string, data: any) =>
- *       val === data.password ? null : "Passwords must match"
- *   }
- * }
- *
- * const validatePassword = validateConfig(passwordSchema)
- *
- * validatePassword({
- *   username: "JohnDoe",
- *   password: "SecurePass123",
- *   confirmPassword: "SecurePass123"
- * })
- * // { valid: true, data: { username: "johndoe", password: "SecurePass123", confirmPassword: "SecurePass123" } }
- *
- * // Enum validation
- * const settingsSchema = {
- *   theme: {
- *     type: "string",
- *     enum: ["light", "dark", "auto"],
- *     default: "auto"
- *   },
- *   language: {
- *     type: "string",
- *     enum: ["en", "es", "fr", "de"],
- *     required: true
- *   },
- *   fontSize: {
- *     type: "number",
- *     enum: [12, 14, 16, 18, 20],
- *     default: 14
- *   }
- * }
- *
- * const validateSettings = validateConfig(settingsSchema)
- *
- * validateSettings({ language: "en" })
- * // { valid: true, data: { theme: "auto", language: "en", fontSize: 14 } }
- *
- * validateSettings({ language: "zh", theme: "blue" })
- * // { valid: false, errors: { language: "Value must be one of: en, es, fr, de", theme: "Value must be one of: light, dark, auto" } }
- *
- * // Type coercion
- * const coercionSchema = {
- *   count: {
- *     type: "number",
- *     coerce: true
- *   },
- *   enabled: {
- *     type: "boolean",
- *     coerce: true
- *   },
- *   tags: {
- *     type: "array",
- *     coerce: true,
- *     items: { type: "string" }
- *   }
- * }
- *
- * const validateWithCoercion = validateConfig(coercionSchema)
- *
- * validateWithCoercion({
- *   count: "42",
- *   enabled: "true",
- *   tags: "tag1,tag2,tag3"
- * })
- * // { valid: true, data: { count: 42, enabled: true, tags: ["tag1", "tag2", "tag3"] } }
- *
- * // Database connection config
- * const dbSchema = {
- *   host: { type: "string", required: true },
- *   port: { type: "number", default: 5432 },
- *   database: { type: "string", required: true },
- *   user: { type: "string", required: true },
- *   password: { type: "string", required: true },
- *   ssl: {
- *     type: "object",
- *     required: false,
- *     schema: {
- *       enabled: { type: "boolean", default: true },
- *       rejectUnauthorized: { type: "boolean", default: true },
- *       ca: { type: "string", required: false }
- *     }
- *   },
- *   pool: {
- *     type: "object",
- *     default: {},
- *     schema: {
- *       min: { type: "number", default: 2, min: 0 },
- *       max: { type: "number", default: 10, min: 1 },
- *       idleTimeout: { type: "number", default: 10000, min: 0 }
- *     }
- *   }
- * }
- *
- * const validateDbConfig = validateConfig(dbSchema)
- *
- * validateDbConfig({
- *   host: "localhost",
- *   database: "myapp",
- *   user: "admin",
- *   password: "secret"
- * })
- * // {
- * //   valid: true,
- * //   data: {
- * //     host: "localhost",
- * //     port: 5432,
- * //     database: "myapp",
- * //     user: "admin",
- * //     password: "secret",
- * //     pool: { min: 2, max: 10, idleTimeout: 10000 }
- * //   }
- * // }
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Comprehensive - Supports nested objects, arrays, and custom validators
- * @property Type-safe - Validates types and provides detailed error messages
- * @property Curried - Schema can be partially applied for reuse
+ * @pure
+ * @curried
  */
 type FieldSchema = {
 	type: "string" | "number" | "boolean" | "object" | "array"

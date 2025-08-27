@@ -363,14 +363,8 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * }
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Inclusive - Both start and end times are included in the range
- * @property Date-independent - Only compares time of day
- * @property Overnight-aware - Handles ranges that cross midnight
- * @property Precise - Nanosecond precision for time comparisons
- * @property Flexible - Accepts strings, Dates, Temporal types, and time-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @curried
+ * @pure
  */
 const isBetweenTimes = (
 	startTime: TimeInput | null | undefined,

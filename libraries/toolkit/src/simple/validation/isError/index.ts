@@ -215,10 +215,8 @@
  *   }
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property TypeGuard - Narrows TypeScript types to Error
- * @property Instanceof - Uses instanceof Error internally
- * @property Inheritance - Returns true for Error subclasses
+ * @pure
+ * @predicate
  */
 const isError = (value: unknown): value is Error => value instanceof Error
 

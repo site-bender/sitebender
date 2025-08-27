@@ -190,12 +190,8 @@
  * isDisposableEmail("user@gmail.com")     // false
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property RFC-based - Follows RFC 5322 with practical limitations
- * @property Configurable - Options for TLD, display names, and strictness
- * @property Case-insensitive - Email addresses are case-insensitive
- * @property Length-aware - Validates local part and domain length limits
+ * @curried
+ * @pure
  */
 type EmailOptions = {
 	requireTLD?: boolean

@@ -12,192 +12,42 @@
  * @returns Error message or null if valid
  * @example
  * ```typescript
- * // Email field validation
+ * // Email validation
  * const validateEmail = validateField({
  *   required: true,
  *   type: "email",
  *   maxLength: 255
  * })
  *
- * validateEmail("")                        // "This field is required"
- * validateEmail("invalid")                 // "Please enter a valid email address"
- * validateEmail("user@example.com")        // null (valid)
- * validateEmail("a@b." + "c".repeat(250)) // "Maximum length is 255 characters"
+ * validateEmail("")                 // "This field is required"
+ * validateEmail("invalid")          // "Please enter a valid email address"
+ * validateEmail("user@example.com") // null (valid)
  *
  * // Password validation
  * const validatePassword = validateField({
  *   required: true,
  *   minLength: 8,
- *   maxLength: 128,
  *   pattern: {
  *     regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
- *     message: "Password must contain lowercase, uppercase, and number"
+ *     message: "Must contain lowercase, uppercase, and number"
  *   }
  * })
  *
- * validatePassword("")                     // "This field is required"
- * validatePassword("short")                // "Minimum length is 8 characters"
- * validatePassword("alllowercase")         // "Password must contain lowercase, uppercase, and number"
- * validatePassword("ValidPass123")         // null (valid)
+ * validatePassword("short")     // "Minimum length is 8 characters"
+ * validatePassword("Pass123")   // null (valid)
  *
- * // Username validation
- * const validateUsername = validateField({
- *   required: true,
- *   minLength: 3,
- *   maxLength: 20,
- *   pattern: {
- *     regex: /^[a-zA-Z0-9_]+$/,
- *     message: "Username can only contain letters, numbers, and underscores"
- *   },
- *   custom: (value: string) => {
- *     if (value.toLowerCase() === "admin") {
- *       return "This username is reserved"
- *     }
- *     return null
- *   }
- * })
- *
- * validateUsername("ab")                   // "Minimum length is 3 characters"
- * validateUsername("user@123")             // "Username can only contain letters, numbers, and underscores"
- * validateUsername("admin")                // "This username is reserved"
- * validateUsername("john_doe")             // null (valid)
- *
- * // Age validation
+ * // Custom validation
  * const validateAge = validateField({
- *   required: true,
  *   type: "number",
- *   min: { value: 13, message: "Must be at least 13 years old" },
- *   max: { value: 120, message: "Please enter a valid age" }
+ *   min: { value: 13, message: "Must be at least 13" },
+ *   max: { value: 120, message: "Invalid age" }
  * })
  *
- * validateAge("")                          // "This field is required"
- * validateAge("abc")                       // "Please enter a valid number"
- * validateAge("10")                        // "Must be at least 13 years old"
- * validateAge("150")                       // "Please enter a valid age"
- * validateAge("25")                        // null (valid)
- *
- * // URL validation
- * const validateUrl = validateField({
- *   required: false,
- *   type: "url",
- *   allowedProtocols: ["http", "https"]
- * })
- *
- * validateUrl("")                          // null (optional field)
- * validateUrl("not-a-url")                 // "Please enter a valid URL"
- * validateUrl("ftp://example.com")         // "URL must use http or https protocol"
- * validateUrl("https://example.com")       // null (valid)
- *
- * // Phone number validation
- * const validatePhone = validateField({
- *   required: true,
- *   pattern: {
- *     regex: /^\+?[1-9]\d{1,14}$/,
- *     message: "Please enter a valid international phone number"
- *   },
- *   transform: (value: string) => value.replace(/\s/g, "")
- * })
- *
- * validatePhone("")                        // "This field is required"
- * validatePhone("123")                     // "Please enter a valid international phone number"
- * validatePhone("+1 555 123 4567")        // null (valid, spaces removed by transform)
- * validatePhone("+44 20 7123 4567")       // null (valid)
- *
- * // Date validation
- * const validateBirthDate = validateField({
- *   required: true,
- *   type: "date",
- *   min: {
- *     value: "1900-01-01",
- *     message: "Please enter a valid birth date"
- *   },
- *   max: {
- *     value: new Date().toISOString().split("T")[0],
- *     message: "Birth date cannot be in the future"
- *   }
- * })
- *
- * validateBirthDate("")                    // "This field is required"
- * validateBirthDate("invalid-date")        // "Please enter a valid date"
- * validateBirthDate("2050-01-01")         // "Birth date cannot be in the future"
- * validateBirthDate("1990-05-15")         // null (valid)
- *
- * // Credit card validation
- * const validateCreditCard = validateField({
- *   required: true,
- *   pattern: {
- *     regex: /^\d{13,19}$/,
- *     message: "Please enter a valid card number"
- *   },
- *   custom: (value: string) => {
- *     // Luhn algorithm check
- *     const digits = value.split("").map(Number)
- *     let sum = 0
- *     let isEven = false
- *
- *     for (let i = digits.length - 1; i >= 0; i--) {
- *       let digit = digits[i]
- *       if (isEven) {
- *         digit *= 2
- *         if (digit > 9) digit -= 9
- *       }
- *       sum += digit
- *       isEven = !isEven
- *     }
- *
- *     return sum % 10 === 0 ? null : "Invalid card number"
- *   },
- *   transform: (value: string) => value.replace(/\s/g, "")
- * })
- *
- * validateCreditCard("4111 1111 1111 1111") // null (valid Visa test card)
- * validateCreditCard("1234567812345678")    // "Invalid card number"
- *
- * // Conditional validation
- * const validateConfirmEmail = (email: string) => validateField({
- *   required: !!email,
- *   type: "email",
- *   custom: (value: string) =>
- *     value !== email ? "Email addresses must match" : null
- * })
- *
- * const confirmValidator = validateConfirmEmail("user@example.com")
- * confirmValidator("")                     // "This field is required"
- * confirmValidator("different@example.com") // "Email addresses must match"
- * confirmValidator("user@example.com")     // null (valid)
- *
- * // File upload validation
- * const validateFileUpload = validateField({
- *   required: true,
- *   type: "file",
- *   maxSize: 5 * 1024 * 1024, // 5MB
- *   allowedTypes: ["image/jpeg", "image/png", "application/pdf"],
- *   custom: (file: File) => {
- *     if (!file.name.match(/\.(jpg|jpeg|png|pdf)$/i)) {
- *       return "Only JPG, PNG, and PDF files are allowed"
- *     }
- *     return null
- *   }
- * })
- *
- * // Select field validation
- * const validateCountry = validateField({
- *   required: true,
- *   enum: ["US", "CA", "UK", "AU", "NZ"],
- *   messages: {
- *     required: "Please select a country",
- *     enum: "Please select a valid country"
- *   }
- * })
- *
- * validateCountry("")                     // "Please select a country"
- * validateCountry("FR")                   // "Please select a valid country"
- * validateCountry("US")                   // null (valid)
+ * validateAge("10")  // "Must be at least 13"
+ * validateAge("25")  // null (valid)
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Flexible - Supports many validation rule types
- * @property User-friendly - Returns readable error messages
- * @property Curried - Rules can be partially applied for reuse
+ * @pure
+ * @curried
  */
 type ValidationRules = {
 	required?: boolean

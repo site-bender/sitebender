@@ -238,12 +238,7 @@
  * const nextPayment = getNextBillingDate(lastPayment, 30)
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Absolute - Time zone independent comparison
- * @property Precise - Nanosecond precision comparison
- * @property Exclusive - Returns false for current instant
- * @property Type-specific - Only accepts Temporal.Instant or convertible values
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
  */
 const isFutureInstant = (
 	value: unknown,

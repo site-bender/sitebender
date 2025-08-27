@@ -197,10 +197,7 @@
  * or(0, 5)                             // 5
  * or(1, 5)                             // 1
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Exhaustive - Checks all six JavaScript falsy values
- * @property Predictable - Follows JavaScript's boolean coercion rules
- * @property Type-agnostic - Works with any value type
+ * @pure
  */
 const isFalsy = (value: unknown): boolean => !value
 

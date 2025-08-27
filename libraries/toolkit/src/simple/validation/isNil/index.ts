@@ -230,10 +230,8 @@
  * compareChecks(false)                 // "falsy but not nil"
  * compareChecks([])                    // "truthy and not nil"
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Idiomatic - Uses == null check (JavaScript convention)
- * @property Precise - Only true for null and undefined
- * @property Type-guard - Can narrow types in TypeScript
+ * @pure
+ * @predicate
  */
 const isNil = (value: unknown): value is null | undefined => value == null
 

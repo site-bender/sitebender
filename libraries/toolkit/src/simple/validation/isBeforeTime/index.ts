@@ -259,13 +259,8 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * shouldRunBatchJob("23:00:00", "22:00:00", "02:00:00")  // true (overnight window)
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Date-independent - Only compares time of day
- * @property Precise - Nanosecond precision for time comparisons
- * @property Exclusive - Returns false for equal times
- * @property Flexible - Accepts strings, Dates, Temporal types, and time-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @curried
+ * @pure
  */
 const isBeforeTime = (
 	reference: TimeInput | null | undefined,

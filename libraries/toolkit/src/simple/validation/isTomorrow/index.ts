@@ -394,11 +394,7 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * }
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Uses ISO calendar for comparison
- * @property Time-agnostic - Ignores time components if present
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
  */
 const isTomorrow = (date: DateInput | null | undefined): boolean => {
 	const checkDate = toPlainDate(date)

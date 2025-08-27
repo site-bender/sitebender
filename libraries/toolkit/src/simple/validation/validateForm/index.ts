@@ -12,330 +12,38 @@
  * @returns Object with field errors or null if valid
  * @example
  * ```typescript
- * // User registration form validation
- * const registrationSchema = {
- *   username: {
- *     required: true,
- *     minLength: 3,
- *     maxLength: 20,
- *     pattern: /^[a-zA-Z0-9_]+$/,
- *     message: "Username must be 3-20 characters, alphanumeric and underscore only"
- *   },
- *   email: {
- *     required: true,
- *     type: "email",
- *     async: async (value: string) => {
- *       // Simulate API check
- *       const exists = ["taken@example.com"].includes(value)
- *       return exists ? "Email already registered" : null
- *     }
- *   },
- *   password: {
- *     required: true,
- *     minLength: 8,
- *     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
- *     message: "Password must contain uppercase, lowercase, and number"
- *   },
- *   confirmPassword: {
- *     required: true,
- *     match: "password",
- *     message: "Passwords must match"
- *   },
- *   age: {
- *     required: true,
- *     type: "number",
- *     min: 13,
- *     max: 120
- *   },
- *   terms: {
- *     required: true,
- *     equals: true,
- *     message: "You must accept the terms and conditions"
- *   }
+ * // Registration form validation
+ * const schema = {
+ *   username: { required: true, minLength: 3, maxLength: 20 },
+ *   email: { required: true, type: "email" },
+ *   password: { required: true, minLength: 8 },
+ *   confirmPassword: { required: true, match: "password" },
+ *   age: { required: true, type: "number", min: 13 },
+ *   terms: { required: true, equals: true }
  * }
  *
- * const validateRegistration = validateForm(registrationSchema)
+ * const validate = validateForm(schema)
+ * validate({ username: "ab", email: "bad" })
+ * // { username: "Minimum length is 3", email: "Invalid email format" }
  *
- * validateRegistration({
- *   username: "john_doe",
- *   email: "john@example.com",
- *   password: "SecurePass123",
- *   confirmPassword: "SecurePass123",
- *   age: 25,
- *   terms: true
- * })
- * // null (all valid)
- *
- * validateRegistration({
- *   username: "ab",
- *   email: "invalid",
- *   password: "weak",
- *   confirmPassword: "different",
- *   age: 10,
- *   terms: false
- * })
- * // {
- * //   username: "Minimum length is 3",
- * //   email: "Invalid email format",
- * //   password: "Password must contain uppercase, lowercase, and number",
- * //   confirmPassword: "Passwords must match",
- * //   age: "Minimum value is 13",
- * //   terms: "You must accept the terms and conditions"
- * // }
- *
- * // Contact form validation
- * const contactSchema = {
- *   name: {
- *     required: true,
- *     minLength: 2,
- *     maxLength: 50
- *   },
- *   email: {
- *     required: true,
- *     type: "email"
- *   },
- *   phone: {
- *     required: false,
- *     pattern: /^\+?[\d\s()-]+$/,
- *     minLength: 10,
- *     message: "Please enter a valid phone number"
- *   },
- *   subject: {
- *     required: true,
- *     enum: ["support", "sales", "feedback", "other"]
- *   },
- *   message: {
- *     required: true,
- *     minLength: 10,
- *     maxLength: 1000
- *   }
+ * // Cross-field validation
+ * const dateSchema = {
+ *   startDate: { required: true, type: "date" },
+ *   endDate: { required: true, type: "date", after: "startDate" }
  * }
- *
- * const validateContact = validateForm(contactSchema)
- *
- * validateContact({
- *   name: "Jane Doe",
- *   email: "jane@example.com",
- *   subject: "support",
- *   message: "I need help with my account"
- * })
- * // null (phone is optional)
- *
- * // Payment form validation
- * const paymentSchema = {
- *   cardNumber: {
- *     required: true,
- *     pattern: /^\d{13,19}$/,
- *     transform: (v: string) => v.replace(/\s/g, ""),
- *     validate: (value: string) => {
- *       // Luhn algorithm
- *       const digits = value.split("").map(Number)
- *       let sum = 0
- *       let isEven = false
- *       for (let i = digits.length - 1; i >= 0; i--) {
- *         let digit = digits[i]
- *         if (isEven) {
- *           digit *= 2
- *           if (digit > 9) digit -= 9
- *         }
- *         sum += digit
- *         isEven = !isEven
- *       }
- *       return sum % 10 === 0 ? null : "Invalid card number"
- *     }
- *   },
- *   expiryMonth: {
- *     required: true,
- *     type: "number",
- *     min: 1,
- *     max: 12
- *   },
- *   expiryYear: {
- *     required: true,
- *     type: "number",
- *     min: new Date().getFullYear(),
- *     max: new Date().getFullYear() + 10
- *   },
- *   cvv: {
- *     required: true,
- *     pattern: /^\d{3,4}$/,
- *     message: "CVV must be 3 or 4 digits"
- *   },
- *   billingZip: {
- *     required: true,
- *     pattern: /^\d{5}(-\d{4})?$/,
- *     message: "Please enter a valid ZIP code"
- *   }
- * }
- *
- * const validatePayment = validateForm(paymentSchema)
- *
- * validatePayment({
- *   cardNumber: "4111 1111 1111 1111",
- *   expiryMonth: 12,
- *   expiryYear: 2025,
- *   cvv: "123",
- *   billingZip: "12345"
- * })
- * // null (valid test card)
  *
  * // Conditional validation
- * const shippingSchema = {
- *   shippingMethod: {
- *     required: true,
- *     enum: ["standard", "express", "overnight"]
- *   },
- *   address: {
- *     required: true,
- *     minLength: 10
- *   },
- *   expressDelivery: {
- *     when: (data: any) => data.shippingMethod === "express",
- *     required: true,
- *     type: "date",
- *     min: new Date().toISOString().split("T")[0],
- *     message: "Express delivery date must be in the future"
- *   },
+ * const conditionalSchema = {
+ *   isGift: { type: "boolean" },
  *   giftMessage: {
- *     when: (data: any) => data.isGift === true,
+ *     when: (data: any) => data.isGift,
+ *     required: true,
  *     maxLength: 200
  *   }
  * }
- *
- * const validateShipping = validateForm(shippingSchema)
- *
- * validateShipping({
- *   shippingMethod: "express",
- *   address: "123 Main St, City, State 12345",
- *   expressDelivery: "2025-01-01",
- *   isGift: false
- * })
- * // null (conditional field validated)
- *
- * // Cross-field validation
- * const dateRangeSchema = {
- *   startDate: {
- *     required: true,
- *     type: "date"
- *   },
- *   endDate: {
- *     required: true,
- *     type: "date",
- *     after: "startDate",
- *     message: "End date must be after start date"
- *   },
- *   reason: {
- *     required: true,
- *     minLength: 10
- *   }
- * }
- *
- * const validateDateRange = validateForm(dateRangeSchema)
- *
- * validateDateRange({
- *   startDate: "2024-01-01",
- *   endDate: "2023-12-31",
- *   reason: "Vacation"
- * })
- * // {
- * //   endDate: "End date must be after start date",
- * //   reason: "Minimum length is 10"
- * // }
- *
- * // Dynamic field validation
- * const dynamicSchema = {
- *   fieldCount: {
- *     required: true,
- *     type: "number",
- *     min: 1,
- *     max: 5
- *   },
- *   ...Array.from({ length: 5 }, (_, i) => ({
- *     [`field_${i + 1}`]: {
- *       when: (data: any) => data.fieldCount > i,
- *       required: true,
- *       minLength: 3
- *     }
- *   })).reduce((acc, cur) => ({ ...acc, ...cur }), {})
- * }
- *
- * const validateDynamic = validateForm(dynamicSchema)
- *
- * validateDynamic({
- *   fieldCount: 3,
- *   field_1: "abc",
- *   field_2: "def",
- *   field_3: "ghi"
- * })
- * // null (only first 3 fields required)
- *
- * // Nested object validation
- * const profileSchema = {
- *   "user.name": {
- *     required: true,
- *     minLength: 2
- *   },
- *   "user.email": {
- *     required: true,
- *     type: "email"
- *   },
- *   "preferences.newsletter": {
- *     type: "boolean"
- *   },
- *   "preferences.notifications.email": {
- *     type: "boolean"
- *   },
- *   "preferences.notifications.sms": {
- *     when: (data: any) => data["preferences.notifications.email"],
- *     type: "boolean"
- *   }
- * }
- *
- * const validateProfile = validateForm(profileSchema)
- *
- * // Group validation with dependencies
- * const teamSchema = {
- *   teamName: {
- *     required: true,
- *     minLength: 3,
- *     maxLength: 50
- *   },
- *   teamSize: {
- *     required: true,
- *     type: "number",
- *     min: 2,
- *     max: 100
- *   },
- *   leader: {
- *     required: true,
- *     minLength: 2
- *   },
- *   members: {
- *     required: true,
- *     validate: (value: string, data: any) => {
- *       const memberCount = value.split(",").length
- *       if (memberCount !== data.teamSize - 1) {
- *         return `Must have exactly ${data.teamSize - 1} members (excluding leader)`
- *       }
- *       return null
- *     }
- *   }
- * }
- *
- * const validateTeam = validateForm(teamSchema)
- *
- * validateTeam({
- *   teamName: "Alpha Team",
- *   teamSize: 4,
- *   leader: "John",
- *   members: "Jane,Bob,Alice"
- * })
- * // null (3 members + 1 leader = 4 total)
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Comprehensive - Validates all fields and returns all errors
- * @property Flexible - Supports conditional and cross-field validation
- * @property Curried - Schema can be partially applied for reuse
+ * @pure
+ * @curried
  */
 type FormFieldRules = {
 	required?: boolean
@@ -364,8 +72,8 @@ const validateForm =
 	(schema: FormSchema) => (formData: Record<string, any>): FormErrors => {
 		const errors: Record<string, string> = {}
 
-		// First pass: validate all fields
-		for (const [fieldName, rules] of Object.entries(schema)) {
+		// Validate all fields
+		Object.entries(schema).forEach(([fieldName, rules]) => {
 			// Check conditional validation
 			if (rules.when && !rules.when(formData)) {
 				continue
@@ -539,7 +247,7 @@ const validateForm =
 					continue
 				}
 			}
-		}
+		})
 
 		// Return null if no errors
 		return Object.keys(errors).length > 0 ? errors : null

@@ -180,12 +180,8 @@
  * }
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Luhn-validated - Uses industry-standard checksum algorithm
- * @property Type-aware - Optional validation for specific card brands
- * @property Format-flexible - Accepts spaces and hyphens in input
- * @property Strict - Returns false for invalid formats or checksums
+ * @curried
+ * @pure
  */
 type CardType = "visa" | "mastercard" | "amex" | "discover" | "diners" | "jcb"
 

@@ -1,4 +1,4 @@
-import words from "../../string/words/index.ts"
+import words from "../../words/index.ts"
 
 /**
  * Converts a string to camelCase
