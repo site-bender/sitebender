@@ -7,7 +7,6 @@
  * allows for sophisticated merging strategies like accumulation, deep
  * merging of objects, or custom conflict resolution.
  *
- * @curried (mergeFn) => (...maps) => result
  * @param mergeFn - Function to merge values when keys conflict
  * @param maps - Maps to merge together
  * @returns A new Map with merged entries
@@ -48,25 +47,20 @@
  * mergeWith(max)(scores1, scores2)
  * // Map { "Alice" => 90, "Bob" => 92, "Charlie" => 88 }
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const mergeWith = <K, V>(
 	mergeFn: (existingValue: V, incomingValue: V) => V,
 ) =>
-(...maps: Array<Map<K, V>>): Map<K, V> => {
-	const result = new Map<K, V>()
-	for (const map of maps) {
-		for (const [key, value] of map) {
-			if (result.has(key)) {
-				result.set(key, mergeFn(result.get(key)!, value))
-			} else {
-				result.set(key, value)
-			}
-		}
-	}
-	return result
-}
+(...maps: Array<Map<K, V>>): Map<K, V> =>
+	maps.reduce((acc, map) => {
+		const entries = Array.from(map).map(([key, value]): [K, V] => [
+			key,
+			acc.has(key) ? mergeFn(acc.get(key)!, value) : value
+		])
+		return new Map([...acc, ...entries])
+	}, new Map<K, V>())
 
 export default mergeWith

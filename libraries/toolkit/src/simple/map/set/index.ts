@@ -7,7 +7,6 @@
  * the original. Useful for functional updates in state management and
  * data transformations.
  *
- * @curried (key) => (value) => (map) => result
  * @param key - The key to set
  * @param value - The value to associate with the key
  * @param map - The Map to update
@@ -39,14 +38,11 @@
  * setActive(true)(status)
  * // Map { "user" => "Alice", "active" => true }
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
-const set = <K, V>(key: K) => (value: V) => (map: Map<K, V>): Map<K, V> => {
-	const result = new Map(map)
-	result.set(key, value)
-	return result
-}
+const set = <K, V>(key: K) => (value: V) => (map: Map<K, V>): Map<K, V> =>
+	new Map([...map, [key, value]])
 
 export default set

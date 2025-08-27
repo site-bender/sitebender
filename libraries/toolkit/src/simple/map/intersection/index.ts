@@ -6,7 +6,6 @@
  * the set intersection operation for Map keys. The comparison uses the
  * standard Map equality (SameValueZero algorithm).
  *
- * @curried (second) => (first) => result
  * @param second - The Map to intersect with
  * @param first - The Map to take values from
  * @returns A new Map with keys present in both Maps, values from first
@@ -40,21 +39,14 @@
  * intersection(all2)(all1)
  * // Map { "x" => 1, "y" => 2 }
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const intersection =
-	<K, V, V2>(second: Map<K, V2>) => (first: Map<K, V>): Map<K, V> => {
-		const result = new Map<K, V>()
-
-		for (const [key, value] of first) {
-			if (second.has(key)) {
-				result.set(key, value)
-			}
-		}
-
-		return result
-	}
+	<K, V, V2>(second: Map<K, V2>) => (first: Map<K, V>): Map<K, V> =>
+		new Map(
+			Array.from(first).filter(([key]) => second.has(key))
+		)
 
 export default intersection

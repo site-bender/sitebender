@@ -117,3 +117,5 @@ const accumulate = <T extends Record<string, any>>(
 		return { ...acc, ...updates }
 	}, initial as T)
 }
+
+export default accumulate

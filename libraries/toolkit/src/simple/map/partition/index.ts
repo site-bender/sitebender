@@ -7,7 +7,6 @@
  * each entry. Returns a tuple with the satisfying Map first and the
  * non-satisfying Map second.
  *
- * @curried (predicate) => (map) => [satisfies, doesNotSatisfy]
  * @param predicate - Function that returns true for entries in the first Map
  * @param map - The Map to partition
  * @returns A tuple of two Maps: [satisfying, non-satisfying]
@@ -57,26 +56,19 @@
  * const [all, none] = partition((n: number) => n > 0)(positive)
  * // all: Map { "a" => 1, "b" => 2 }, none: Map {}
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const partition = <K, V>(
 	predicate: (value: V, key: K) => boolean,
 ) =>
 (map: Map<K, V>): [Map<K, V>, Map<K, V>] => {
-	const satisfies = new Map<K, V>()
-	const doesNotSatisfy = new Map<K, V>()
-
-	for (const [key, value] of map) {
-		if (predicate(value, key)) {
-			satisfies.set(key, value)
-		} else {
-			doesNotSatisfy.set(key, value)
-		}
-	}
-
-	return [satisfies, doesNotSatisfy]
+	const entries = Array.from(map)
+	return [
+		new Map(entries.filter(([key, value]) => predicate(value, key))),
+		new Map(entries.filter(([key, value]) => !predicate(value, key)))
+	]
 }
 
 export default partition

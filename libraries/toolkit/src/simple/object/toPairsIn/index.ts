@@ -49,11 +49,16 @@ const toPairsIn = <T extends Record<string | symbol, Value>>(
 		return []
 	}
 
-	// Get all enumerable properties including inherited ones
-	const keys: Array<string> = []
-	for (const key in obj) {
-		keys.push(key)
+	// Get all enumerable properties including inherited ones using recursive approach
+	const getAllKeys = (o: any): Array<string> => {
+		if (!o || o === Object.prototype) return []
+		const proto = Object.getPrototypeOf(o)
+		const protoKeys = proto ? getAllKeys(proto) : []
+		const ownKeys = Object.keys(o)
+		return [...new Set([...ownKeys, ...protoKeys])]
 	}
+	
+	const keys = getAllKeys(obj)
 	
 	// Map keys to pairs
 	const pairs = keys.map(key => [key, obj[key]] as [string, Value])

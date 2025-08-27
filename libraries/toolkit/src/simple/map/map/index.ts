@@ -7,7 +7,6 @@
  * that can use key context. This is the fundamental operation for value
  * transformation while preserving the Map's structure.
  *
- * @curried (fn) => (map) => result
  * @param fn - Function to transform each value
  * @param map - The Map to transform
  * @returns A new Map with transformed values
@@ -45,19 +44,16 @@
  * map((v: any) => v * 2)(new Map())
  * // Map {}
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const map = <K, V, R>(
 	fn: (value: V, key: K) => R,
 ) =>
-(map: Map<K, V>): Map<K, R> => {
-	const result = new Map<K, R>()
-	for (const [key, value] of map) {
-		result.set(key, fn(value, key))
-	}
-	return result
-}
+(map: Map<K, V>): Map<K, R> =>
+	new Map(
+		Array.from(map).map(([key, value]) => [key, fn(value, key)])
+	)
 
 export default map

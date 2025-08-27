@@ -7,7 +7,6 @@
  * for extracting keys for further processing or for converting Maps
  * to other data structures.
  *
- * @curried (map) => result
  * @param map - The Map to extract keys from
  * @returns An array containing all keys from the Map
  * @example

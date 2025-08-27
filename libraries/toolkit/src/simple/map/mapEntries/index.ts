@@ -7,7 +7,6 @@
  * both keys and values in a single operation. The function creates a
  * new Map with the transformed entries.
  *
- * @curried (fn) => (map) => result
  * @param fn - Function to transform each [key, value] pair
  * @param map - The Map to transform
  * @returns A new Map with transformed entries
@@ -50,20 +49,16 @@
  * mapEntries(([k, v]: [any, any]) => [k, v])(new Map())
  * // Map {}
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const mapEntries = <K, V, NK, NV>(
 	fn: (entry: [K, V]) => [NK, NV],
 ) =>
-(map: Map<K, V>): Map<NK, NV> => {
-	const result = new Map<NK, NV>()
-	for (const entry of map) {
-		const [newKey, newValue] = fn(entry)
-		result.set(newKey, newValue)
-	}
-	return result
-}
+(map: Map<K, V>): Map<NK, NV> =>
+	new Map(
+		Array.from(map).map(fn)
+	)
 
 export default mapEntries

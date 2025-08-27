@@ -7,7 +7,6 @@
  * that can use value context. If the transformation produces duplicate keys,
  * later entries will overwrite earlier ones.
  *
- * @curried (fn) => (map) => result
  * @param fn - Function to transform each key
  * @param map - The Map to transform
  * @returns A new Map with transformed keys
@@ -39,19 +38,16 @@
  * mapKeys(() => "same")(colliding)
  * // Map { "same" => 3 }
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const mapKeys = <K, V, NK>(
 	fn: (key: K, value: V) => NK,
 ) =>
-(map: Map<K, V>): Map<NK, V> => {
-	const result = new Map<NK, V>()
-	for (const [key, value] of map) {
-		result.set(fn(key, value), value)
-	}
-	return result
-}
+(map: Map<K, V>): Map<NK, V> =>
+	new Map(
+		Array.from(map).map(([key, value]) => [fn(key, value), value])
+	)
 
 export default mapKeys

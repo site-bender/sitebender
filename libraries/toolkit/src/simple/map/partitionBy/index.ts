@@ -8,7 +8,6 @@
  * predicate result. Useful for grouping consecutive similar entries,
  * segmenting data, and analyzing patterns in ordered Maps.
  *
- * @curried (predicate) => (map) => partitions
  * @param predicate - Function that determines grouping
  * @param map - Map to partition
  * @returns Array of Maps with consecutive similar entries
@@ -63,9 +62,9 @@
  * partitionBy((n: number) => n > 0)(positive)
  * // [Map { "a" => 1, "b" => 2 }]
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const partitionBy = <K, V>(
 	predicate: (value: V, key: K) => unknown,
@@ -87,12 +86,15 @@ const partitionBy = <K, V>(
 		const prevPredicateResult = predicate(prevValue, prevKey)
 		
 		if (predicateResult === prevPredicateResult) {
-			acc[acc.length - 1].push(entry)
+			// Add to last group immutably
+			return [
+				...acc.slice(0, -1),
+				[...acc[acc.length - 1], entry]
+			]
 		} else {
-			acc.push([entry])
+			// Start new group
+			return [...acc, [entry]]
 		}
-		
-		return acc
 	}, [])
 
 	return groups.map(group => new Map(group))

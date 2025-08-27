@@ -77,23 +77,16 @@
  * )
  * // { debug: true, timeout: 5000 }
  * ```
- * @property Pure - Creates a new object, doesn't modify the input Map
- * @property String-keys - Non-string keys are converted to strings
- * @property Symbol-skip - Symbol keys are not included in the result
+ * @pure
+ * @immutable
+ * @safe
  */
-const toObject = <V>(map: Map<unknown, V>): Record<string, V> => {
-	const obj: Record<string, V> = {}
-
-	for (const [key, value] of map) {
-		// Skip symbol keys as they can't be object property keys
-		if (typeof key === "symbol") {
-			continue
-		}
-		// Convert non-string keys to strings
-		obj[String(key)] = value
-	}
-
-	return obj
-}
+const toObject = <V>(map: Map<unknown, V>): Record<string, V> =>
+	Array.from(map)
+		.filter(([key]) => typeof key !== "symbol")
+		.reduce(
+			(acc, [key, value]) => ({ ...acc, [String(key)]: value }),
+			{} as Record<string, V>
+		)
 
 export default toObject

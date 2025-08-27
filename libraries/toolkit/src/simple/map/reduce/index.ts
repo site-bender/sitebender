@@ -7,7 +7,6 @@
  * the fundamental operation for aggregating Map data into summary values,
  * calculations, or transformed structures.
  *
- * @curried (reducer) => (initial) => (map) => result
  * @param reducer - Function to execute on each entry
  * @param initial - Initial value for the accumulator
  * @param map - The Map to reduce
@@ -48,9 +47,9 @@
  * reduce((arr: Array<number>, val: number) => [...arr, val])([])(data)
  * // [1, 2, 3]
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const reduce = <K, V, R>(
 	reducer: (accumulator: R, value: V, key: K, map: Map<K, V>) => R,

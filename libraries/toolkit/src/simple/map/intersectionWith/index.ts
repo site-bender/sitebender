@@ -6,7 +6,6 @@
  * equality function. This allows for complex key comparisons beyond the
  * standard Map equality. Values are taken from the first Map.
  *
- * @curried (equalsFn) => (second) => (first) => result
  * @param equalsFn - Function to compare keys for equality
  * @param second - The Map to intersect with
  * @param first - The Map to take values from
@@ -50,27 +49,21 @@
  * intersectionWith((a, b) => a === b)(noMatch2)(noMatch1)
  * // Map {}
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const intersectionWith = <K, V, K2, V2>(
 	equalsFn: (a: K, b: K2) => boolean,
 ) =>
 (second: Map<K2, V2>) =>
-(first: Map<K, V>): Map<K, V> => {
-	const result = new Map<K, V>()
-
-	for (const [firstKey, firstValue] of first) {
-		for (const [secondKey] of second) {
-			if (equalsFn(firstKey, secondKey)) {
-				result.set(firstKey, firstValue)
-				break
-			}
-		}
-	}
-
-	return result
-}
+(first: Map<K, V>): Map<K, V> =>
+	new Map(
+		Array.from(first).filter(([key]) =>
+			Array.from(second.keys()).some(secondKey => 
+				equalsFn(key, secondKey)
+			)
+		)
+	)
 
 export default intersectionWith

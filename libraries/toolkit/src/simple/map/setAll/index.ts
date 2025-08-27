@@ -6,7 +6,6 @@
  * This maintains immutability by returning a new Map instance. Useful for
  * batch updates, merging configurations, and efficient multi-key operations.
  *
- * @curried (entries) => (map) => result
  * @param entries - Iterable of [key, value] pairs to set
  * @param map - The Map to update
  * @returns A new Map with all entries set
@@ -41,17 +40,12 @@
  * setAll([])(new Map([["key", "value"]]))
  * // Map { "key" => "value" }
  * ```
- * @curried
  * @pure
  * @immutable
+ * @curried
  */
 const setAll =
-	<K, V>(entries: Iterable<[K, V]>) => (map: Map<K, V>): Map<K, V> => {
-		const result = new Map(map)
-		for (const [key, value] of entries) {
-			result.set(key, value)
-		}
-		return result
-	}
+	<K, V>(entries: Iterable<[K, V]>) => (map: Map<K, V>): Map<K, V> =>
+		new Map([...map, ...entries])
 
 export default setAll

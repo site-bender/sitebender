@@ -181,10 +181,9 @@
  * )
  * // { a: 1, b: 2, c: 4 }
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Creates new object, doesn't modify sources
- * @property Deep - Recursively merges nested objects
- * @property Configurable - Flexible merge strategies
+ * @pure
+ * @immutable
+ * @curried
  */
 type MergeStrategy = {
 	arrays?: "concat" | "replace" | "union"

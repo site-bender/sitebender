@@ -89,7 +89,7 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Map) {
 			const cloned = new Map()
 			visited.set(source, cloned)
-			Array.from(source.entries()).map(([key, value]) =>
+			Array.from(source.entries()).forEach(([key, value]) =>
 				cloned.set(cloneRecursive(key), cloneRecursive(value))
 			)
 			return cloned
@@ -99,7 +99,7 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Set) {
 			const cloned = new Set()
 			visited.set(source, cloned)
-			Array.from(source.values()).map((value) =>
+			Array.from(source.values()).forEach((value) =>
 				cloned.add(cloneRecursive(value))
 			)
 			return cloned
@@ -109,9 +109,8 @@ const clone = <T extends Value>(obj: T): T => {
 		if (Array.isArray(source)) {
 			const cloned: Array<Value> = []
 			visited.set(source, cloned)
-			source.map((item, index) => {
+			source.forEach((item, index) => {
 				cloned[index] = cloneRecursive(item)
-				return cloned[index]
 			})
 			return cloned
 		}
@@ -126,7 +125,7 @@ const clone = <T extends Value>(obj: T): T => {
 			...Object.getOwnPropertySymbols(source),
 		]
 
-		keys.map((key) => {
+		keys.forEach((key) => {
 			const descriptor = Object.getOwnPropertyDescriptor(source, key)
 			if (descriptor) {
 				if (descriptor.get || descriptor.set) {
@@ -138,7 +137,6 @@ const clone = <T extends Value>(obj: T): T => {
 					)
 				}
 			}
-			return key
 		})
 
 		// Preserve prototype

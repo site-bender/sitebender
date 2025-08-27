@@ -7,7 +7,6 @@
  * merging and similar use cases. The function is curried and accepts either
  * an array of Maps or individual Maps via rest parameters.
  *
- * @curried (...maps) => result
  * @param maps - Maps to merge together
  * @returns A new Map containing all entries, with later values overriding earlier ones
  * @example
@@ -51,14 +50,10 @@
  * @immutable
  * @safe
  */
-const merge = <K, V>(...maps: Array<Map<K, V>>): Map<K, V> => {
-	const result = new Map<K, V>()
-	for (const map of maps) {
-		for (const [key, value] of map) {
-			result.set(key, value)
-		}
-	}
-	return result
-}
+const merge = <K, V>(...maps: Array<Map<K, V>>): Map<K, V> =>
+	maps.reduce((acc, map) => 
+		new Map([...acc, ...map]),
+		new Map<K, V>()
+	)
 
 export default merge

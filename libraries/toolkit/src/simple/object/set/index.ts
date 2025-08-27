@@ -12,7 +12,6 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to update
  * @returns A new object with the value set at the path
  * @example
- * ```typescript
  * // Set a simple property
  * set("name")("Bob")({ name: "Alice", age: 30 })
  * // { name: "Bob", age: 30 }
@@ -32,7 +31,6 @@ import type { Value } from "../../../types/index.ts"
  *   user: { settings: { theme: "light" } }
  * })
  * // { user: { settings: { theme: "dark" } } }
- * ```
  * @pure
  * @immutable
  * @curried
