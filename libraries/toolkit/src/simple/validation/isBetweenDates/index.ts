@@ -302,12 +302,9 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * isInPayPeriod("2024-01-15", "2024-01-01", 14)  // false
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Inclusive - Both start and end dates are included in the range
- * @property Calendar-aware - Respects different calendar systems
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @predicate
+ * @safe
  */
 const isBetweenDates = (
 	startDate: DateInput | null | undefined,

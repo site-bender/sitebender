@@ -234,12 +234,9 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * canScheduleStream(streamTime, 30)  // true if > 30 minutes away
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Precise - Nanosecond precision comparison
- * @property Exclusive - Returns false for current datetime
- * @property Flexible - Accepts strings, Dates, Temporal types, and datetime-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @predicate
+ * @safe
  */
 const isFutureDateTime = (
 	value: DateTimeInput | null | undefined,

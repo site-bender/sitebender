@@ -204,10 +204,9 @@
  * const evenCount = nums.filter(isEven).length
  * // 500000 (half are even)
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Integer-only - Returns false for non-integer numbers
- * @property Zero-even - Considers zero as even (mathematically correct)
- * @property Type-safe - Returns false for non-numeric types
+ * @pure
+ * @predicate
+ * @safe
  */
 const isEven = (value: unknown): boolean => {
 	// Check if it's a number and an integer

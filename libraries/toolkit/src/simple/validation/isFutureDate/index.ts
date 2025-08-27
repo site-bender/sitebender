@@ -198,12 +198,9 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * shouldShowContent("2025-01-01", "2025-12-31")  // false if not yet published
  * ```
  *
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Date-only - Ignores time components
- * @property Exclusive - Returns false for today's date
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @predicate
+ * @safe
  */
 const isFutureDate = (
 	value: DateInput | null | undefined,

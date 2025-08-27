@@ -195,10 +195,9 @@
  * isEmpty(document.querySelectorAll(".none")) // true (no matches)
  * isEmpty(document.querySelectorAll("div"))   // false (if divs exist)
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Type-aware - Uses appropriate emptiness check for each type
- * @property Consistent - Clear rules for what constitutes "empty"
- * @property Practical - Handles common use cases for emptiness checking
+ * @pure
+ * @predicate
+ * @safe
  */
 const isEmpty = (value: unknown): boolean => {
 	// Nullish values are empty

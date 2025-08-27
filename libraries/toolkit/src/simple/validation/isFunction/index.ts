@@ -242,10 +242,9 @@
  * isConstructor(() => {})              // false (arrow functions can't be constructors)
  * isConstructor(Math.sqrt)             // false
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property TypeGuard - Narrows TypeScript types to Function
- * @property Typeof - Uses typeof operator for reliable detection
- * @property Inclusive - Detects all callable function types
+ * @pure
+ * @predicate
+ * @safe
  */
 const isFunction = (value: unknown): value is Function =>
 	typeof value === "function"

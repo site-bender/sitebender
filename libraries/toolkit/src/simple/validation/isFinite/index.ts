@@ -214,10 +214,9 @@
  * multiplyWithOverflowCheck(1e100, 2)  // 2e100
  * multiplyWithOverflowCheck(10, NaN)   // null
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Type-safe - Only returns true for number type, no coercion
- * @property Strict - Uses Number.isFinite internally, not global isFinite
- * @property Mathematical - Ensures values are usable in calculations
+ * @pure
+ * @predicate
+ * @safe
  */
 const isFinite = (value: unknown): value is number => Number.isFinite(value)
 

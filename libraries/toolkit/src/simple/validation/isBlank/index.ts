@@ -197,9 +197,9 @@
  *   return "Valid"
  * }
  * ```
- * @property Whitespace-aware - recognizes all Unicode whitespace
- * @property Null-safe - treats null/undefined as blank
- * @property Validation-friendly - useful for form and input validation
+ * @pure
+ * @predicate
+ * @safe
  */
 const isBlank = (
 	str: string | null | undefined,

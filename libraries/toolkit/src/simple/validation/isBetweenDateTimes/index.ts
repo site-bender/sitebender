@@ -336,13 +336,9 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * )  // "1d 4h 30m remaining"
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Inclusive - Both start and end datetimes are included in the range
- * @property Calendar-aware - Respects different calendar systems
- * @property Precise - Nanosecond precision for time comparisons
- * @property Flexible - Accepts strings, Dates, Temporal types, and datetime-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @predicate
+ * @safe
  */
 const isBetweenDateTimes = (
 	startDateTime: DateTimeInput | null | undefined,

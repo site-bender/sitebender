@@ -84,9 +84,9 @@
  *   console.log(`User: ${response.data.name}`)
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property TypeGuard - Narrows TypeScript types by excluding null and undefined
- * @property Total - Handles all possible input values
+ * @pure
+ * @predicate
+ * @safe
  */
 const isDefined = <T>(value: T | null | undefined): value is T => value != null
 
