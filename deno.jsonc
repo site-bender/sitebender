@@ -54,6 +54,10 @@
     "jsx": "react",
     "jsxFactory": "createElement",
     "jsxFragmentFactory": "Fragment",
+    "types": [
+      "./docs/src/types/globals.d.ts",
+      "./scripts/types/globals.d.ts"
+    ],
     "strict": true,
     "checkJs": false,
     "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"]

@@ -7,8 +7,8 @@ import type {
 } from "@adaptiveTypes/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
-import castValue from "../../utilities/castValue/index.ts"
-import getValue from "../../utilities/getValue/index.ts"
+import castValue from "@adaptiveSrc/utilities/castValue/index.ts"
+import getValue from "@adaptiveSrc/utilities/getValue/index.ts"
 import isDefined from "../../utilities/isDefined.ts"
 
 interface HydratedFromElement {
@@ -19,7 +19,7 @@ interface HydratedFromElement {
 }
 
 const fromElement = (op: HydratedFromElement): OperationFunction =>
-async (
+(
 	_arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, Value>> => {
@@ -28,10 +28,10 @@ async (
 	const result = castValue(datatype)(getValue(op)(localValues))
 
 	if (isDefined(result.left)) {
-		return { left: [Error("FromElement")("FromElement")(String(result.left))] }
+		return Promise.resolve({ left: [Error("FromElement")("FromElement")(String(result.left))] })
 	}
 
-	return result
+	return Promise.resolve(result)
 }
 
 export default fromElement

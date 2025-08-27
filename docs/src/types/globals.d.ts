@@ -1,11 +1,7 @@
 declare global {
 	namespace JSX {
-		type Element = unknown
+		// Only provide the children marker here to avoid conflicts with the components library globals
 		interface ElementChildrenAttribute { children: Record<PropertyKey, never> }
-		// Allow any intrinsic element for demo simplicity
-		interface IntrinsicElements {
-			[elemName: string]: unknown
-		}
 	}
 }
 export {}

@@ -1,15 +1,14 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
-import isNumber from "../../utilities/isNumber/index.ts"
-import isUndefined from "../../utilities/isUndefined/index.ts"
+import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+import isUndefined from "../../utilities/isUndefined.ts"
 
 interface HydratedConstant {
 	tag: "Constant"
@@ -19,35 +18,33 @@ interface HydratedConstant {
 }
 
 const constant = (operation: HydratedConstant): OperationFunction =>
-async (
+(
 	_arg: unknown,
 	_localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, Value>> => {
 	const { datatype, value } = operation
 
-	if (value == null) {
-		return { left: [Error(operation)("Constant")("Value is missing.")] }
+	if (value === null || value === undefined) {
+		return Promise.resolve({ left: [Error("Constant")("Constant")("Value is missing.")] })
 	}
 
 	if (datatype === "Number" || datatype === "Integer") {
 		const num = isNumber(value) ? parseFloat(String(value)) : NaN
 
-		return isUndefined(num) || Number.isNaN(num)
-			? {
-				left: [Error(operation)("Constant")("Value is not a number.")],
-			}
-			: {
-				right: num,
-			}
+		return Promise.resolve(
+			isUndefined(num) || Number.isNaN(num)
+				? { left: [Error("Constant")("Constant")("Value is not a number.")] }
+				: { right: num },
+		)
 	}
 
 	if (datatype === "String" && typeof value !== "string") {
-		return {
-			left: [Error(operation)("Constant")("Value is not a string.")],
-		}
+		return Promise.resolve({
+			left: [Error("Constant")("Constant")("Value is not a string.")],
+		})
 	}
 
-	return { right: value }
+	return Promise.resolve({ right: value })
 }
 
 export default constant
