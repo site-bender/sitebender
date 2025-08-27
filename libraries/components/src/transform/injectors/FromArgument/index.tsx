@@ -11,23 +11,21 @@
  * />
  */
 
-import FromArgumentConstructor from "../../../../adaptive/constructors/injectors/FromArgument/index.ts"
+import FromArgumentConstructor from "../../../../../adaptive/src/constructors/injectors/FromArgument/index.ts"
 
 export type FromArgumentProps = {
 	name: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: any
 }
 
 export default function FromArgument({
 	name,
 	type = "String",
 	datatype,
-	defaultValue,
-}: FromArgumentProps): ReturnType<typeof FromArgumentConstructor> {
+}: FromArgumentProps): ReturnType<ReturnType<typeof FromArgumentConstructor>> {
 	const actualType = datatype || type
 
-	// FromArgument constructor signature: (datatype) => (name) => (defaultValue)
-	return FromArgumentConstructor(actualType)(name)(defaultValue)
+	// FromArgument constructor signature: (datatype) => (name)
+	return FromArgumentConstructor(actualType)(name)
 }

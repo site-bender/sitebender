@@ -58,8 +58,8 @@ export default function Dialogue({
 		if (speakerId && speaker) {
 			return (
 				<Person
-					id={speakerId}
-					name={speaker}
+					identifier={speakerId}
+					name={typeof speaker === "string" ? speaker : undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

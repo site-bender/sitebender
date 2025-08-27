@@ -28,7 +28,7 @@
  *   finale
  * </Loanword>
  */
-import type { BCP47LanguageTag } from "../../../../../types/bcp47/index.ts"
+import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {
 	// Whether the word has been adapted to local spelling/pronunciation

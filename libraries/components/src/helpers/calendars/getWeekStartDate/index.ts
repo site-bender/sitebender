@@ -1,4 +1,4 @@
-import type { WeekNumberingSystem } from "../../../../../types/temporal/index.ts"
+import type { WeekNumberingSystem } from "../../../../types/temporal/index.ts"
 
 /**
  * Get the start date of the week containing the given date

@@ -12,7 +12,7 @@
  * </Average>
  */
 
-import AverageConstructor from "../../../../adaptive/constructors/operators/Average/index.ts"
+import AverageConstructor from "../../../../../adaptive/src/constructors/operators/Average/index.ts"
 
 export type AverageProps = {
 	type?: "Number"

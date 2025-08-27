@@ -1,4 +1,4 @@
-import { WEEK_START_DAY } from "../../semantic/temporal/constants/index.ts"
+import { WEEK_START_DAY } from "../../../identify/temporal/constants/index.ts"
 
 /**
  * Get week start day for locale

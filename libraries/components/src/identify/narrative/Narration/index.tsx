@@ -53,7 +53,7 @@ export default function Narration({
 	if (define) {
 		const workElement = (
 			<CreativeWork
-				text={children}
+				text={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>
@@ -64,8 +64,8 @@ export default function Narration({
 		if (narratorId && narrator) {
 			return (
 				<Person
-					id={narratorId}
-					name={narrator}
+					identifier={narratorId}
+					name={typeof narrator === "string" ? narrator : undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

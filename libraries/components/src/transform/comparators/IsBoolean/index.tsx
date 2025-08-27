@@ -10,7 +10,7 @@
  * </IsBoolean>
  */
 
-import IsBooleanConstructor from "../../../../adaptive/constructors/comparators/scalar/IsBoolean/index.ts"
+import IsBooleanConstructor from "../../../../../adaptive/src/constructors/comparators/scalar/IsBoolean/index.ts"
 
 export type IsBooleanProps = {
 	children?: JSX.Element | JSX.Element[]
@@ -22,5 +22,5 @@ export default function IsBoolean({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// IsBoolean constructor signature: () => (operand)
-	return IsBooleanConstructor()(childArray[0] as any)
+	return IsBooleanConstructor(childArray[0] as unknown as JSX.Element)
 }

@@ -1,4 +1,4 @@
-import type { CalendarSystem } from "../../../../../types/temporal/index.ts"
+import type { CalendarSystem } from "../../../../types/temporal/index.ts"
 
 /**
  * Get calendar extension for datetime attribute

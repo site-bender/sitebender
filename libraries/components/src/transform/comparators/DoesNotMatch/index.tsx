@@ -12,7 +12,7 @@
  * </DoesNotMatch>
  */
 
-import DoesNotMatchConstructor from "../../../../adaptive/constructors/comparators/matching/DoesNotMatch/index.ts"
+import DoesNotMatchConstructor from "../../../../../adaptive/src/constructors/comparators/matching/DoesNotMatch/index.ts"
 
 export type DoesNotMatchProps = {
 	flags?: string
@@ -22,10 +22,8 @@ export type DoesNotMatchProps = {
 export default function DoesNotMatch({
 	flags = "",
 	children = [],
-}: DoesNotMatchProps): ReturnType<typeof DoesNotMatchConstructor> {
-	const childArray = Array.isArray(children) ? children : [children]
-
-	// The parser will extract Value and Pattern from children
-	// DoesNotMatch constructor signature: (operand) => (pattern) => (flags)
-	return DoesNotMatchConstructor(null as any)(null as any)(flags)
+}: DoesNotMatchProps): ReturnType<ReturnType<ReturnType<typeof DoesNotMatchConstructor>>> {
+	const [operand, pattern] = Array.isArray(children) ? children : [children]
+	// DoesNotMatch: (operand) => (pattern) => (flags)
+	return DoesNotMatchConstructor(operand as unknown as JSX.Element)(pattern as unknown as JSX.Element)(flags)
 }

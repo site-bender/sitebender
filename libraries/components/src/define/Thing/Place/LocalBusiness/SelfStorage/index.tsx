@@ -1,1 +1,1 @@
-export default SelfStorage
+export { default } from "../../../Organization/LocalBusiness/SelfStorage/index.tsx"

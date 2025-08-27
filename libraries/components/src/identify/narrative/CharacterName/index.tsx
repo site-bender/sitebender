@@ -50,8 +50,8 @@ export default function CharacterName({
 	if (define && characterId) {
 		return (
 			<Person
-				id={characterId}
-				name={fullName || displayName}
+				identifier={characterId}
+				name={typeof (fullName || displayName) === "string" ? String(fullName || displayName) : undefined}
 				alternateName={nickname}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}

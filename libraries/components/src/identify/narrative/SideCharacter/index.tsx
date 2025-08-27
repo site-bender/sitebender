@@ -47,8 +47,8 @@ export default function SideCharacter({
 	if (define && characterId) {
 		return (
 			<Person
-				id={characterId}
-				name={children}
+				identifier={characterId}
+				name={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>

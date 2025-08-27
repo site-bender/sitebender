@@ -1,1 +1,1 @@
-export default SkiResort
+export { default } from "../../../SportsActivityLocation/SkiResort/index.tsx"

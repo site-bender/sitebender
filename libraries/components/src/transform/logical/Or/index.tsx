@@ -17,7 +17,7 @@
  * </Or>
  */
 
-import OrConstructor from "../../../../adaptive/constructors/comparators/algebraic/Or/index.ts"
+import OrConstructor from "../../../../../adaptive/src/constructors/comparators/algebraic/Or/index.ts"
 
 export type OrProps = {
 	children?: JSX.Element | JSX.Element[]

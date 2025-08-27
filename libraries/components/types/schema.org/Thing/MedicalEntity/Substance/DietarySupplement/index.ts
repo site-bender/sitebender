@@ -1,1 +1,1 @@
-export type { default } from "../../../Product/DietarySupplement/index.ts"
+export type { default, default as DietarySupplementType } from "../../../Product/DietarySupplement/index.ts"

@@ -2,8 +2,8 @@ import type { InputOption } from "../../../../../types/components/forms/index.ts
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import Checkbox from "../../elements/Checkbox/index.tsx"
 import Help from "../../elements/Help/index.tsx"
 import FieldSet from "../../FieldSet/index.tsx"

@@ -30,15 +30,16 @@
  * // → Expires: 12/25
  */
 
-import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
-export type Props = Omit<TemporalBaseProps, "showZone" | "timezone"> & {
+export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "format"> & {
 	// Display format
 	format?: "numeric" | "short" | "medium" | "long" | "full"
+	children?: string | ((formatted: { display: string; datetime: string }) => JSX.Element)
 }
 
 export default function YearMonth({
@@ -94,8 +95,8 @@ export default function YearMonth({
 	} else {
 		// Use Intl.DateTimeFormat with specific options
 		const options = formatOptions || {
-			year: "numeric",
-			month: format === "medium" ? "short" : format as any,
+			year: "numeric" as const,
+			month: (format === "medium" ? "short" : (format === "long" || format === "full" ? "long" : "short")) as "short" | "long",
 			calendar,
 		}
 

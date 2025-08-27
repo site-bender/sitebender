@@ -1,1 +1,1 @@
-export type { default } from "../../../ComicStory/ComicCoverArt/index.ts"
+export type { default, default as ComicCoverArtType } from "../../../ComicStory/ComicCoverArt/index.ts"

@@ -1,6 +1,6 @@
-import type { MenuItem } from "../../../../types/components/navigation/index.ts"
+import type { MenuItem } from "../../../types/components/navigation/index.ts"
 
-import createElement from "../../../utilities/createElement/index.ts"
+import createElement from "../../helpers/createElement/index.ts"
 
 export type Props = JSX.MenuHTMLAttributes<HTMLMenuElement> & {
 	options: Array<MenuItem>
@@ -23,7 +23,7 @@ export default function Menu({ options, route, ...props }: Props) {
 				</label>
 			</header>
 			<menu class="menu" {...props}>
-				{options.map(({ disabled, href, id, label }: any) => {
+				{options.map(({ disabled, href, id, label }: MenuItem) => {
 					const idAttr = id ? { id } : {}
 					return (
 						<li>

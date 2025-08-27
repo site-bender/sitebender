@@ -10,7 +10,7 @@
  * </Round>
  */
 
-import RoundConstructor from "../../../../adaptive/constructors/operators/Round/index.ts"
+import RoundConstructor from "../../../../../adaptive/src/constructors/operators/Round/index.ts"
 
 export type RoundProps = {
 	type?: "Number"
@@ -26,6 +26,6 @@ export default function Round({
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
-	// Round constructor signature: (datatype) => (operand)
-	return RoundConstructor(actualType)(childArray[0] as any)
+	// Round constructor signature: (datatype) => (decimalPlaces?) => (operand)
+	return RoundConstructor(actualType)()(childArray[0] as unknown as JSX.Element)
 }

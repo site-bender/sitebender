@@ -12,25 +12,27 @@
  * />
  */
 
-import FromLookupTableConstructor from "../../../../adaptive/constructors/injectors/FromLookupTable/index.ts"
+import FromLookupTableConstructor from "../../../../../adaptive/src/constructors/injectors/FromLookupTable/index.ts"
 
 export type FromLookupTableProps = {
-	table: string
-	keys: string[]
+	tableName: string
+	column: string
+	local?: string
+	test: any
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: any
 }
 
 export default function FromLookupTable({
-	table,
-	keys,
+	tableName,
+	column,
+	local,
+	test,
 	type = "String",
 	datatype,
-	defaultValue,
-}: FromLookupTableProps): ReturnType<typeof FromLookupTableConstructor> {
+}: FromLookupTableProps): ReturnType<ReturnType<typeof FromLookupTableConstructor>> {
 	const actualType = datatype || type
 
-	// FromLookupTable constructor signature: (datatype) => (table) => (keys) => (defaultValue)
-	return FromLookupTableConstructor(actualType)(table)(keys)(defaultValue)
+	// FromLookupTable constructor signature: (datatype) => (config)
+	return FromLookupTableConstructor(actualType)({ tableName, column, local, test })
 }

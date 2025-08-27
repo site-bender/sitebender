@@ -1,1 +1,1 @@
-export default InsuranceAgency
+export { default } from "../../../../Organization/LocalBusiness/FinancialService/InsuranceAgency/index.tsx"

@@ -277,3 +277,68 @@ This `Site` pattern is not just a good idea; it's essential for a serious librar
 4.  **Flexibility:** Experts can override and extend everything on a per-page basis.
 
 It perfectly completes the vision of a declarative, intent-based DSL for the web.
+
+"OG" is short for **Open Graph**. It's a protocol originally created by Facebook that allows a web page to become a rich "graph object" when shared on social media platforms (like Facebook, LinkedIn, Twitter/X, Discord, etc.).
+
+When you say your library automatically creates "relevant OG tags," it means it takes the page's title and other metadata and generates the necessary `<meta>` tags to control how the page looks when its link is shared.
+
+Here’s a practical example:
+
+**What the User Writes (Your JSX):**
+```jsx
+<Page title="My Awesome Tutorial on Open Graph">
+```
+
+**What Your Library Compiles To (The HTML Output):**
+The compiler would intelligently generate not just the standard `<title>` tag, but also the corresponding Open Graph tags to ensure consistency and rich sharing.
+
+```html
+<title>My Awesome Tutorial on Open Graph</title>
+<meta property="og:title" content="My Awesome Tutorial on Open Graph" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yoursite.com/tutorial" />
+<!-- Potentially more OG tags if other Info is provided -->
+```
+
+### Why This is a Killer Feature for Your Library
+
+This is a perfect example of your library's philosophy: **declarative intent over imperative description.**
+
+1.  **For a Newbie:** They have no idea what "Open Graph" is. They shouldn't need to. They just know they want their page to look good when shared. By simply setting a `title` prop, your library handles the complex, repetitive task of generating all the correct meta tags behind the scenes. This is magic to them and prevents broken social sharing previews.
+
+2.  **For an Expert:** They *know* what OG tags are and how important they are. Manually writing them for every page is a tedious and error-prone chore. Your library automates this best practice, ensuring it's never forgotten. They appreciate the automation and consistency.
+
+### Beyond the Title: The Full Picture
+
+A robust `Page` or `Info` component would handle other key metadata the same way:
+
+```jsx
+<Page
+  title="My Tutorial"
+  description="This is the best tutorial ever written."
+  socialImage="/tutorial-preview.jpg"
+/>
+```
+
+This would generate a complete set of tags for both standard SEO and social networks:
+
+```html
+<!-- Standard Meta Tags -->
+<title>My Tutorial</title>
+<meta name="description" content="This is the best tutorial ever written." />
+
+<!-- Open Graph Tags -->
+<meta property="og:title" content="My Tutorial" />
+<meta property="og:description" content="This is the best tutorial ever written." />
+<meta property="og:image" content="https://yoursite.com/tutorial-preview.jpg" />
+<meta property="og:url" content="https://yoursite.com/tutorial" />
+<meta property="og:type" content="article" />
+
+<!-- Often Twitter Card Tags too, for better previews on X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="My Tutorial" />
+<meta name="twitter:description" content="This is the best tutorial ever written." />
+<meta name="twitter:image" content="https://yoursite.com/tutorial-preview.jpg" />
+```
+
+By abstracting this away behind simple, intent-based props like `title`, `description`, and `socialImage`, your library doesn't just make HTML easier—it makes the *modern web ecosystem* easier to build for correctly. This is a huge value proposition.

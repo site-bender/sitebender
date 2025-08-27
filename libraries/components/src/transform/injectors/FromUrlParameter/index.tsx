@@ -13,7 +13,7 @@
  * For URL /user/123/profile, segment 2 would return "123"
  */
 
-import FromUrlParameterConstructor from "../../../../adaptive/constructors/injectors/FromUrlParameter/index.ts"
+import FromUrlParameterConstructor from "../../../../../adaptive/src/constructors/injectors/FromUrlParameter/index.ts"
 
 export type FromUrlParameterProps = {
 	segment: number
@@ -27,9 +27,9 @@ export default function FromUrlParameter({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromUrlParameterProps): ReturnType<typeof FromUrlParameterConstructor> {
+}: FromUrlParameterProps): ReturnType<ReturnType<typeof FromUrlParameterConstructor>> {
 	const actualType = datatype || type
 
-	// FromUrlParameter constructor signature: (datatype) => (segment) => (defaultValue)
-	return FromUrlParameterConstructor(actualType)(segment)(defaultValue)
+	// FromUrlParameter constructor signature: (datatype) => (options)
+	return FromUrlParameterConstructor(actualType)({ segment, defaultValue })
 }

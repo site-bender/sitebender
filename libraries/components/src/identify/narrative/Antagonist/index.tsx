@@ -49,8 +49,8 @@ export default function Antagonist({
 	if (define && characterId && type === "character") {
 		return (
 			<Person
-				id={characterId}
-				name={children}
+				identifier={characterId}
+				name={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>

@@ -44,7 +44,7 @@ export default function StageDirection({
 	if (define) {
 		return (
 			<CreativeWork
-				text={children}
+				text={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>

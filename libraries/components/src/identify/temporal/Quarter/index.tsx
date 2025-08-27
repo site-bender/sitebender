@@ -31,15 +31,14 @@
  * // → T1 2024 (janv. - mars)
  */
 
-import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import getQuarter from "../../../../utilities/calendars/getQuarter/index.ts"
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import getQuarter from "../../../helpers/calendars/getQuarter/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
-	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar">
-	& {
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format" | "formatOptions"> & {
 		// Display format
 		format?: "short" | "medium" | "long"
 
@@ -54,6 +53,16 @@ export type Props =
 
 		// Fiscal year label
 		fiscalYearLabel?: string
+
+		children?: string | ((formatted: {
+			display: string
+			datetime: string
+			quarter: number
+			year: number
+			startDate: Date
+			endDate: Date
+			isFiscal: boolean
+		}) => JSX.Element)
 	}
 
 // Parse quarter format (YYYY-Qn)
@@ -119,7 +128,7 @@ export default function Quarter({
 		: childrenProp
 	let year: number
 	let quarter: number
-	let isFiscal = fiscalYearStart !== 1
+	const isFiscal = fiscalYearStart !== 1
 
 	// Parse the value
 	if (typeof value === "string") {
@@ -172,8 +181,6 @@ export default function Quarter({
 	} else if (format === "long") {
 		// Long format with ordinal
 		const ordinals = ["1st", "2nd", "3rd", "4th"]
-		const ordinal = new Intl.PluralRules(locale || "en-US", { type: "ordinal" })
-			.select(quarter)
 		// Note: Using hardcoded "Quarter" as Intl.DisplayNames support for "quarter" is inconsistent
 		const quarterWord = "Quarter"
 		display = `${ordinals[quarter - 1]} ${quarterWord}`

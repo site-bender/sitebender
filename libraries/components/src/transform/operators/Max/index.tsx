@@ -12,7 +12,7 @@
  * </Max>
  */
 
-import MaxConstructor from "../../../../adaptive/constructors/operators/Max/index.ts"
+import MaxConstructor from "../../../../../adaptive/src/constructors/operators/Max/index.ts"
 
 export type MaxProps = {
 	type?: "Number" | "Date" | "String"

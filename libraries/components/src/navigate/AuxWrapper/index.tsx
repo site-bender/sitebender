@@ -1,7 +1,7 @@
-import type { MenuItem } from "../../../../../types/components/navigation/index.ts"
+import type { MenuItem } from "../../../types/components/navigation/index.ts"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import Aux from "../../navigation/Aux/index.tsx"
+import createElement from "../../helpers/createElement/index.ts"
+import Aux from "../Aux/index.tsx"
 
 export type Props = JSX.HTMLAttributes<HTMLElement> & {
 	route: string

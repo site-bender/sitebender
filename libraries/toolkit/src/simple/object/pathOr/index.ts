@@ -9,48 +9,33 @@ import path from "../path/index.ts"
  * string or an array of keys. Returns a default value if any part of the path
  * doesn't exist. Supports array indices in the path.
  *
- * @curried (pathInput) => (defaultValue) => (obj) => result
  * @param pathInput - Dot-separated string or array of keys
  * @param defaultValue - The value to return if path doesn't exist
  * @param obj - The object to traverse
  * @returns The value at the path or the default if not found
  * @example
  * ```typescript
- * // Basic usage with default
+ * // Basic usage
  * pathOr("user.name")("Anonymous")({ user: { name: "John" } })  // "John"
  * pathOr("user.email")("N/A")({ user: { name: "John" } })       // "N/A"
- * pathOr("a.b.c")("default")({ a: { b: { c: "value" } } })      // "value"
- *
- * // Array path notation
- * pathOr(["user", "profile", "bio"])("No bio")({ user: {} })    // "No bio"
- * pathOr(["a", "b"])("missing")({ a: { b: "found" } })          // "found"
- *
- * // Accessing array elements
- * pathOr("items.0.name")("No item")({ items: [] })              // "No item"
- * pathOr("users.1.id")(0)({ users: [{ id: 1 }] })               // 0
- *
- * // Returns actual value even if falsy
- * pathOr("count")(10)({ count: 0 })                             // 0
- * pathOr("active")(true)({ active: false })                     // false
- * pathOr("message")("default")({ message: "" })                 // ""
- *
- * // Edge cases
- * pathOr("a.b")(42)(null)                                       // 42
- * pathOr("a.b")(42)(undefined)                                  // 42
- * pathOr("")("default")({ a: 1 })                               // "default"
- *
+ * 
+ * // Array paths and indices
+ * pathOr(["items", 0, "name"])("No item")({ items: [] })       // "No item"
+ * pathOr("users.0.id")(0)({ users: [{ id: 42 }] })              // 42
+ * 
+ * // Preserves falsy values
+ * pathOr("count")(10)({ count: 0 })           // 0 (not default)
+ * pathOr("active")(true)({ active: false })   // false (not default)
+ * 
  * // Partial application
- * const getNameOrDefault = pathOr("user.name")("Guest")
- * getNameOrDefault({ user: { name: "Alice" } })                 // "Alice"
- * getNameOrDefault({ user: {} })                                // "Guest"
- * getNameOrDefault({})                                          // "Guest"
- *
- * const getConfigValue = pathOr(["config", "timeout"])(5000)
- * getConfigValue({ config: { timeout: 3000 } })                 // 3000
- * getConfigValue({ config: {} })                                // 5000
+ * const getName = pathOr("user.name")("Guest")
+ * getName({ user: { name: "Alice" } })  // "Alice"
+ * getName({})                           // "Guest"
  * ```
- * @property Safe navigation - never throws on missing properties
- * @property Returns default only when value is undefined (not for other falsy values)
+ * @pure
+ * @safe
+ * @immutable
+ * @curried
  */
 const pathOr =
 	<T extends Value>(pathInput: string | Array<string | number>) =>

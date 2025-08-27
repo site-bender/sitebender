@@ -1,15 +1,4 @@
 import { assertEquals, assert } from "https://deno.land/std@0.224.0/assert/mod.ts"
-import { compileToAdaptive } from "../../src/compile.ts"
-
-// Import marker/component constructors
-import On from "../../src/transform/control/On/index.tsx"
-import SetValue from "../../src/transform/actions/SetValue/index.tsx"
-import SetQueryString from "../../src/transform/actions/SetQueryString/index.tsx"
-import Publish from "../../src/transform/actions/Publish/index.tsx"
-import NotEmpty from "../../src/transform/comparators/NotEmpty/index.tsx"
-import Constant from "../../src/transform/injectors/Constant/index.tsx"
-import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
-import Add from "../../src/transform/operators/Add/index.tsx"
 
 // IR node types
 import type {
@@ -20,6 +9,17 @@ import type {
   ComparatorNode,
   InjectorNode,
 } from "../../../adaptive/types/ir/index.ts"
+
+import { compileToAdaptive } from "../../src/compile.ts"
+import Publish from "../../src/transform/actions/Publish/index.tsx"
+import SetQueryString from "../../src/transform/actions/SetQueryString/index.tsx"
+import SetValue from "../../src/transform/actions/SetValue/index.tsx"
+import NotEmpty from "../../src/transform/comparators/NotEmpty/index.tsx"
+// Import marker/component constructors
+import On from "../../src/transform/control/On/index.tsx"
+import Constant from "../../src/transform/injectors/Constant/index.tsx"
+import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
+import Add from "../../src/transform/operators/Add/index.tsx"
 
 // Minimal VNode helper the compiler recognizes as an element
 const el = (tag: string, props: Record<string, unknown> = {}, children?: unknown) => ({

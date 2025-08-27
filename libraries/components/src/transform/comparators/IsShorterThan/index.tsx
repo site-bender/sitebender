@@ -12,7 +12,7 @@
  * </IsShorterThan>
  */
 
-import IsShorterThanConstructor from "../../../../adaptive/constructors/comparators/length/IsShorterThan/index.ts"
+import IsShorterThanConstructor from "../../../../../adaptive/src/constructors/comparators/length/IsShorterThan/index.ts"
 
 export type IsShorterThanProps = {
 	type?: "String" | "Array"
@@ -24,11 +24,11 @@ export default function IsShorterThan({
 	type = "String",
 	datatype,
 	children = [],
-}: IsShorterThanProps): ReturnType<typeof IsShorterThanConstructor> {
+}: IsShorterThanProps): ReturnType<ReturnType<typeof IsShorterThanConstructor>> {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// The parser will extract Value and Threshold from children
 	// IsShorterThan constructor signature: (datatype) => (operand) => (test)
-	return IsShorterThanConstructor(actualType)(null as any)(null as any)
+	return IsShorterThanConstructor(actualType)(null as any)
 }

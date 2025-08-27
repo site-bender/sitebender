@@ -12,7 +12,7 @@
  * </Modulo>
  */
 
-import ModuloConstructor from "../../../../adaptive/constructors/operators/Modulo/index.ts"
+import ModuloConstructor from "../../../../../adaptive/src/constructors/operators/Modulo/index.ts"
 
 export type ModuloProps = {
 	type?: "Number"
@@ -27,8 +27,8 @@ export default function Modulo({
 }: ModuloProps): ReturnType<typeof ModuloConstructor> {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
+	const [dividend, divisor] = childArray
 
-	// The parser will extract Value and By from children
 	// Modulo constructor signature: (datatype) => (dividend) => (divisor)
-	return ModuloConstructor(actualType)(null as any)(null as any)
+	return ModuloConstructor(actualType)(dividend as unknown as JSX.Element)(divisor as unknown as JSX.Element)
 }

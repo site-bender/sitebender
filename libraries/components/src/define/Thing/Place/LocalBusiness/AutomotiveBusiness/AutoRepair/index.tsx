@@ -1,1 +1,1 @@
-export default AutoRepair
+export { default } from "../../../../Organization/LocalBusiness/AutomotiveBusiness/AutoRepair/index.tsx"

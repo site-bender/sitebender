@@ -1,5 +1,5 @@
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 
 export type Props = Omit<JSX.LabelHTMLAttributes<HTMLLabelElement>, "id"> & {
 	checked?: boolean

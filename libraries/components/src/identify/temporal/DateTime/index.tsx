@@ -36,13 +36,13 @@
  * // → January 15, 2024, 7:30 PM UTC
  */
 
-import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"
-import getTimezoneAbbreviation from "../../../../utilities/formatters/getTimezoneAbbreviation/index.ts"
-import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import formatRelativeTime from "../../../helpers/formatters/formatRelativeTime/index.ts"
+import getTimezoneAbbreviation from "../../../helpers/formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show seconds in time display
@@ -56,7 +56,7 @@ export default function DateTime({
 	value,
 	timezone,
 	locale,
-	calendar,
+	calendar: _calendar,
 	format = "medium",
 	formatOptions,
 	relativeTo,
@@ -87,7 +87,7 @@ export default function DateTime({
 
 	// Add timezone and calendar to parsed result
 	if (timezone) parsed.timezone = timezone
-	if (calendar) parsed.calendar = calendar
+	if (_calendar) parsed.calendar = _calendar
 
 	// For instant values (with Z or offset), extract timezone
 	if (parsed.offset && !timezone) {
@@ -141,17 +141,16 @@ export default function DateTime({
 				minute: "2-digit",
 				second: showSeconds ? "2-digit" : undefined,
 				fractionalSecondDigits: showMicroseconds
-					? 6
+					? (3 as 1 | 2 | 3)
 					: showMilliseconds
-					? 3
+					? (3 as 1 | 2 | 3)
 					: undefined,
 				hour12: false,
 			}),
 			...(showSeconds && { second: "2-digit" }),
-			...(showMilliseconds && { fractionalSecondDigits: 3 }),
-			...(showMicroseconds && { fractionalSecondDigits: 6 }),
+			...(showMilliseconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
+			...(showMicroseconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
 			timeZone: parsed.timezone || timezone,
-			calendar,
 		}
 
 		display = formatDate(date, locale, options)

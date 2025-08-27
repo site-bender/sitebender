@@ -74,7 +74,11 @@
   "@std/expect": "jsr:@std/expect@^1.0.17",
   "@std/testing": "jsr:@std/testing@^1.0.15",
   "@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd",
-  "fast-check": "https://esm.sh/fast-check@4.1.1"
+  "fast-check": "https://esm.sh/fast-check@4.1.1",
+  // Repo-local import guardrails to avoid deep brittle paths during refactors
+  "@toolkit/": "./libraries/toolkit/src/",
+  "@adaptiveTypes/": "./libraries/adaptive/types/",
+  "@adaptiveSrc/": "./libraries/adaptive/src/"
   },
 
   // Shared formatting configuration
@@ -120,5 +124,16 @@
   "test": {
     "include": ["*/tests/", "libraries/*/tests/", "docs/tests/"],
     "exclude": ["**/node_modules/", "**/dist/", "**/coverage/", "**/fixtures/"]
+  }
+  ,
+  // Guardrails: contributors note
+  "sitebender_guardrails": {
+    "policy": {
+      "noNetNewErrorsPerStep": true,
+      "smallBatches": true,
+      "verifyAfterEvery3Edits": true,
+      "preferAliases": ["@toolkit/", "@adaptiveTypes/", "@adaptiveSrc/"]
+    },
+    "notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often."
   }
 }

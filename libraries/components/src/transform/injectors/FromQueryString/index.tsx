@@ -12,7 +12,7 @@
  * />
  */
 
-import FromQueryStringConstructor from "../../../../adaptive/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "../../../../../adaptive/src/constructors/injectors/FromQueryString/index.ts"
 
 export type FromQueryStringProps = {
 	param: string
@@ -26,9 +26,9 @@ export default function FromQueryString({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromQueryStringProps): ReturnType<typeof FromQueryStringConstructor> {
+}: FromQueryStringProps): ReturnType<ReturnType<typeof FromQueryStringConstructor>> {
 	const actualType = datatype || type
 
-	// FromQueryString constructor signature: (datatype) => (param) => (defaultValue)
-	return FromQueryStringConstructor(actualType)(param)(defaultValue)
+	// FromQueryString constructor signature: (datatype) => (key, defaultValue)
+	return FromQueryStringConstructor(actualType)(param, defaultValue)
 }

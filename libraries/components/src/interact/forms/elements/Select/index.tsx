@@ -1,7 +1,6 @@
 import type { Option } from "../../../../../types/components/forms/index.ts"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import { Fragment } from "../../../../utilities/createElement/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
 
 export type Props = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
 	classes?: Array<string>
@@ -21,14 +20,14 @@ export default function Select({
 
 	return (
 		<select class={clss} {...props}>
-			{naLabel != null && <option value={naValue}>{naLabel}</option>}
-			<>
-				{options.map((option: any) => (
+			{naLabel !== null && naLabel !== undefined && (
+				<option value={naValue}>{naLabel}</option>
+			)}
+				{options.map((option: { value: string; label: string; checked?: boolean }) => (
 					<option value={option.value} selected={option.checked}>
 						{option.label}
 					</option>
 				))}
-			</>
 		</select>
 	)
 }

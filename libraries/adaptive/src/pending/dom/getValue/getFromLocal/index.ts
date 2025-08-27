@@ -1,34 +1,48 @@
 import type {
 	AdaptiveError,
 	Either,
-	ElementConfig,
-	GlobalAttributes,
 	Value,
-} from "../../../types/index.ts"
+} from "../../../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
-import isDefined from "../../isDefined/index.ts"
+import isDefined from "../../../../../../toolkit/src/simple/validation/isDefined/index.ts"
 
-const getFromLocal = (op: ElementConfig) =>
+export type SelectorOp = {
+	id?: string
+	name?: string
+	source?: { local?: string; id?: string; name?: string }
+	options?: { local?: string; id?: string; name?: string }
+}
+
+const getFromLocal = (op: SelectorOp) =>
 (
-	localValues?: GlobalAttributes,
+	localValues?: Record<string, unknown>,
 ): Either<Array<AdaptiveError>, Value> | undefined => {
 	if (isDefined(localValues)) {
 		// Check direct properties first, then nested source/options
-		const { local, id, name } = op.source || op.options || op
+		const src = (op.source || op.options || {}) as {
+			local?: string
+			id?: string
+			name?: string
+		}
+		const { local, id, name } = src
 		const key = local || id || name
 
 		// Check if localValues has the key, or if localValues.id matches
-		const value = localValues[key] ??
-			(op.id && localValues.id === op.id ? localValues.value : undefined) ??
-			(op.name && localValues.name === op.name ? localValues.value : undefined)
+		const dict = localValues as Record<string, unknown> & {
+			id?: string
+			name?: string
+			value?: unknown
+		}
+		const value = (key ? dict[key] : undefined) ??
+			(op.id && (dict.id === op.id) ? dict.value : undefined) ??
+			(op.name && (dict.name === op.name) ? dict.value : undefined)
 
 		if (isDefined(value)) {
 			return { right: value }
 		}
 
 		// Only return error if we expected to find something
-		if (key && localValues[key] === undefined) {
+		if (key && dict[key] === undefined) {
 			return undefined // Let it fall through to DOM
 		}
 	}

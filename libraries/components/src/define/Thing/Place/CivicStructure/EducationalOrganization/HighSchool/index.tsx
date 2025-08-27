@@ -1,1 +1,1 @@
-export default HighSchool
+export { default } from "../../../../Organization/EducationalOrganization/HighSchool/index.tsx"

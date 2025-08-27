@@ -1,1 +1,1 @@
-export default NailSalon
+export { default } from "../../../../Organization/LocalBusiness/HealthAndBeautyBusiness/NailSalon/index.tsx"

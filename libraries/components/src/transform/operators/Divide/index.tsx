@@ -17,7 +17,7 @@
  * </Divide>
  */
 
-import DivideConstructor from "../../../../adaptive/constructors/operators/Divide/index.ts"
+import DivideConstructor from "../../../../../adaptive/src/constructors/operators/Divide/index.ts"
 
 export type DivideProps = {
 	type?: "Number"

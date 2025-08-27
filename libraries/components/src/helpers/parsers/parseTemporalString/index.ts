@@ -1,7 +1,7 @@
 import type {
 	CalendarSystem,
 	ParsedTemporal,
-} from "../../../../../types/temporal/index.ts"
+} from "../../../../types/temporal/index.ts"
 
 /**
  * Parse a Temporal-style string with bracket notation

@@ -12,7 +12,7 @@
  * </IsLength>
  */
 
-import IsLengthConstructor from "../../../../adaptive/constructors/comparators/length/IsLength/index.ts"
+import IsLengthConstructor from "../../../../../adaptive/src/constructors/comparators/length/IsLength/index.ts"
 
 export type IsLengthProps = {
 	type?: "String" | "Array"
@@ -24,11 +24,11 @@ export default function IsLength({
 	type = "String",
 	datatype,
 	children = [],
-}: IsLengthProps): ReturnType<typeof IsLengthConstructor> {
+}: IsLengthProps): ReturnType<ReturnType<typeof IsLengthConstructor>> {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// The parser will extract Value and ExpectedValue from children
 	// IsLength constructor signature: (datatype) => (operand) => (test)
-	return IsLengthConstructor(actualType)(null as any)(null as any)
+	return IsLengthConstructor(actualType)(null as any)
 }

@@ -7,40 +7,27 @@ import type { Value } from "../../../types/index.ts"
  * The original object is not modified. Keys that don't exist in the source
  * object are ignored. Prototype properties are not included.
  *
- * @curried (keys) => (obj) => result
  * @param keys - Array of keys to pick from the object
  * @param obj - The object to pick keys from
  * @returns A new object with only the specified keys
  * @example
  * ```typescript
  * // Basic usage
- * pick(["a", "b"])({ a: 1, b: 2, c: 3 }) // { a: 1, b: 2 }
- * pick(["x"])({ x: 10, y: 20 })          // { x: 10 }
- * pick(["a", "c"])({ a: 1, b: 2, c: 3 }) // { a: 1, c: 3 }
- *
- * // Picking non-existent keys
- * pick(["d"])({ a: 1, b: 2, c: 3 })      // {}
- * pick(["x", "y"])({ a: 1 })             // {}
- * pick(["a", "z"])({ a: 1, b: 2 })       // { a: 1 }
- *
- * // Empty keys array
- * pick([])({ a: 1, b: 2 })               // {}
- *
- * // Nested objects (shallow operation)
- * pick(["user"])({ user: { name: "John" }, id: 1 }) // { user: { name: "John" } }
- * pick(["a"])({ a: { b: 2 }, c: 3 })     // { a: { b: 2 } }
- *
+ * pick(["a", "b"])({ a: 1, b: 2, c: 3 })  // { a: 1, b: 2 }
+ * pick(["x", "y"])({ x: 10, y: 20, z: 30 })  // { x: 10, y: 20 }
+ * 
+ * // Non-existent keys are ignored
+ * pick(["a", "z"])({ a: 1, b: 2 })  // { a: 1 }
+ * pick([])({ a: 1, b: 2 })           // {}
+ * 
  * // Partial application
- * const pickPublic = pick(["id", "name", "email"])
- * pickPublic({ id: 1, name: "John", email: "j@ex.com", password: "secret" })
- * // { id: 1, name: "John", email: "j@ex.com" }
- *
- * const pickCoordinates = pick(["x", "y"])
- * pickCoordinates({ x: 10, y: 20, z: 30 }) // { x: 10, y: 20 }
- * pickCoordinates({ x: 5, y: 15, color: "red" }) // { x: 5, y: 15 }
+ * const pickPublic = pick(["id", "name"])
+ * pickPublic({ id: 1, name: "John", password: "secret" })  // { id: 1, name: "John" }
  * ```
- * @property Result is always a new object (immutable operation)
- * @property Complementary to omit - pick(keys)(obj) keeps only specified keys
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const pick = <T extends Record<string, Value>, K extends keyof T>(
 	keys: Array<K>,

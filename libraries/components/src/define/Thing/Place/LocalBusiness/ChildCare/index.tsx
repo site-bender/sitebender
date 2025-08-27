@@ -1,1 +1,1 @@
-export default ChildCare
+export { default } from "../../../Organization/LocalBusiness/ChildCare/index.tsx"

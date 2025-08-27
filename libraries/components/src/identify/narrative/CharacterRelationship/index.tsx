@@ -48,11 +48,10 @@ export default function CharacterRelationship({
 	if (define && to) {
 		return (
 			<Person
-				id={to}
-				name={children}
+				identifier={to}
+				name={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
-				itemProp="knows"
 			>
 				{baseElement}
 			</Person>

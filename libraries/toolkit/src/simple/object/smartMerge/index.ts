@@ -234,12 +234,11 @@ const smartMerge =
 				const result: Record<string, any> = {}
 
 				// Get all keys from both objects
-				const allKeys = new Set([
-					...Object.keys(left),
-					...Object.keys(right),
-				])
+				const allKeys = [
+					...new Set([...Object.keys(left), ...Object.keys(right)])
+				]
 
-				for (const key of allKeys) {
+				allKeys.forEach(key => {
 					const leftValue = left[key]
 					const rightValue = right[key]
 
@@ -267,7 +266,7 @@ const smartMerge =
 						// Use resolver for primitive conflicts
 						result[key] = resolver(key, leftValue, rightValue)
 					}
-				}
+				})
 
 				return result
 			}

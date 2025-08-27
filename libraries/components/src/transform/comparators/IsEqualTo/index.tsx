@@ -11,7 +11,7 @@
  * </IsEqualTo>
  */
 
-import IsEqualToConstructor from "../../../../adaptive/constructors/comparators/equality/IsEqualTo/index.ts"
+import IsEqualToConstructor from "../../../../../adaptive/src/constructors/comparators/equality/IsEqualTo/index.ts"
 
 export type IsEqualToProps = {
 	type?: "Number" | "String" | "Boolean" | "Date"
@@ -23,10 +23,9 @@ export default function IsEqualTo({
 	type = "String",
 	datatype,
 	children = [],
-}: IsEqualToProps): ReturnType<typeof IsEqualToConstructor> {
+}: IsEqualToProps): ReturnType<ReturnType<ReturnType<typeof IsEqualToConstructor>>> {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
-
-	// The parser will extract Value and ExpectedValue from children
-	return IsEqualToConstructor(actualType)(null as any)(null as any)
+	const [operand, test] = Array.isArray(children) ? children : [children]
+	// IsEqualTo: (datatype) => (operand) => (test)
+	return IsEqualToConstructor(actualType)(operand as unknown as JSX.Element)(test as unknown as JSX.Element)
 }

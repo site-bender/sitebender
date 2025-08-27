@@ -1,4 +1,4 @@
-import type { Props } from "../index.ts"
+import type { Props } from "../index.tsx"
 
 export default function openAsToTarget(
 	openAs: Props["openAs"],

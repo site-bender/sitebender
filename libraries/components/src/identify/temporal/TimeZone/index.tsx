@@ -40,9 +40,9 @@
  * // → CEST (summer time)
  */
 
-import type { TimeZoneInfo } from "../../../../../types/temporal/index.ts"
+import type { TimeZoneInfo } from "../../../../types/temporal/index.ts"
 
-import getTimezoneAbbreviation from "../../../../utilities/formatters/getTimezoneAbbreviation/index.ts"
+import getTimezoneAbbreviation from "../../../helpers/formatters/getTimezoneAbbreviation/index.ts"
 
 export type Props = {
 	// IANA timezone name

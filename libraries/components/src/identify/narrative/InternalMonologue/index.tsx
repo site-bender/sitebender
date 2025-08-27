@@ -1,4 +1,5 @@
 import { CreativeWork, Person } from "../../../define/index.ts"
+
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	character?: string
@@ -45,7 +46,7 @@ export default function InternalMonologue({
 	if (define) {
 		const workElement = (
 			<CreativeWork
-				text={children}
+				text={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>
@@ -56,8 +57,8 @@ export default function InternalMonologue({
 		if (characterId && character) {
 			return (
 				<Person
-					id={characterId}
-					name={character}
+					identifier={characterId}
+					name={typeof character === "string" ? character : undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

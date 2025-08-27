@@ -1,1 +1,1 @@
-export type { default } from "../../../Observation/index.ts"
+export type { default, default as ObservationType } from "../../../Observation/index.ts"

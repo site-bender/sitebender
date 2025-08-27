@@ -17,7 +17,7 @@
  * </And>
  */
 
-import AndConstructor from "../../../../adaptive/constructors/comparators/algebraic/And/index.ts"
+import AndConstructor from "../../../../../adaptive/src/constructors/comparators/algebraic/And/index.ts"
 
 export type AndProps = {
 	children?: JSX.Element | JSX.Element[]

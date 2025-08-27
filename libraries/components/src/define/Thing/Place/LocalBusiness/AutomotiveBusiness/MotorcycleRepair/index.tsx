@@ -1,1 +1,1 @@
-export default MotorcycleRepair
+export { default } from "../../../../Organization/LocalBusiness/AutomotiveBusiness/MotorcycleRepair/index.tsx"

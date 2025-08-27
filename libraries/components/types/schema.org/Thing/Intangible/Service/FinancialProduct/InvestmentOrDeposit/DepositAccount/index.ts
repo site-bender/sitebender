@@ -1,1 +1,1 @@
-export type { default } from "../../BankAccount/DepositAccount/index.ts"
+export type { default, default as DepositAccountType } from "../../BankAccount/DepositAccount/index.ts"

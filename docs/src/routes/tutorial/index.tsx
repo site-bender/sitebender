@@ -1,13 +1,15 @@
-import createElement from "../../utilities/createElement/index.ts"
-import On from "@sitebender/components/transform/control/On/index.tsx"
-import If from "@sitebender/components/transform/control/If/index.tsx"
-import Program from "@sitebender/components/transform/control/Program/index.tsx"
-import NotEmpty from "@sitebender/components/transform/comparators/NotEmpty/index.tsx"
-import SetValue from "@sitebender/components/transform/actions/SetValue/index.tsx"
 import SetQueryString from "@sitebender/components/transform/actions/SetQueryString/index.tsx"
-import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
+import SetValue from "@sitebender/components/transform/actions/SetValue/index.tsx"
+import NotEmpty from "@sitebender/components/transform/comparators/NotEmpty/index.tsx"
+import If from "@sitebender/components/transform/control/If/index.tsx"
+import On from "@sitebender/components/transform/control/On/index.tsx"
+import Program from "@sitebender/components/transform/control/Program/index.tsx"
 import Constant from "@sitebender/components/transform/injectors/Constant/index.tsx"
+import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
 import Add from "@sitebender/components/transform/operators/Add/index.tsx"
+
+import createElement from "../../utilities/createElement/index.ts"
+
 // compileToAdaptive no longer needed directly here
 
 export default function Tutorial() {

@@ -25,6 +25,7 @@
 		// Cross-library dependencies (local references)
 		"@sitebender/adaptive": "../adaptive/src/",
 		"@sitebender/toolkit": "../toolkit/src/",
+		"@sitebender/toolkit/constants/": "../toolkit/src/constants/",
 
 		// JSX support for this library
 		"createElement": "./src/helpers/createElement/index.ts",

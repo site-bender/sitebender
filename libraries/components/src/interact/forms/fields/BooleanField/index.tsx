@@ -2,8 +2,8 @@ import type { BooleanFieldType } from "../../../../../types/components/forms/ind
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import CheckboxGroup from "../../composites/CheckboxGroup/index.tsx"
 import LabelWrapper from "../../composites/LabelWrapper/index.tsx"
 import RadioGroup from "../../composites/RadioGroup/index.tsx"

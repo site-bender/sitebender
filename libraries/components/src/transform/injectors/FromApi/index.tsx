@@ -12,7 +12,7 @@
  * />
  */
 
-import FromApiConstructor from "../../../../adaptive/constructors/injectors/FromApi/index.ts"
+import FromApiConstructor from "../../../../../adaptive/src/constructors/injectors/FromApi/index.ts"
 
 export type FromApiProps = {
 	endpoint: string
@@ -30,9 +30,9 @@ export default function FromApi({
 	method = "GET",
 	headers,
 	body,
-}: FromApiProps): ReturnType<typeof FromApiConstructor> {
+}: FromApiProps): ReturnType<ReturnType<typeof FromApiConstructor>> {
 	const actualType = datatype || type
 
-	// FromApi constructor signature: (datatype) => (endpoint) => (method) => (headers) => (body)
-	return FromApiConstructor(actualType)(endpoint)(method)(headers)(body)
+	// FromApi constructor signature: (datatype) => (options)
+	return FromApiConstructor(actualType)({ endpoint, method, headers, body })
 }

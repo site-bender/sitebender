@@ -1,1 +1,1 @@
-export default Bakery
+export { default } from "../../../../Organization/LocalBusiness/FoodEstablishment/Bakery/index.tsx"

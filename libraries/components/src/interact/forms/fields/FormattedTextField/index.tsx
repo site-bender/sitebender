@@ -1,7 +1,7 @@
 import type { CountryCode } from "../../../../../types/components/formats/index.ts"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import LabelWrapper from "../../composites/LabelWrapper/index.tsx"
 import Input from "../../elements/Input/index.tsx"
 import getInputMode from "./getInputMode/index.ts"

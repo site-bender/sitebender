@@ -7,7 +7,6 @@ import type { Value } from "../../../types/index.ts"
  * Intermediate objects are created as needed. The original object is not modified.
  * Supports both dot notation strings and array paths.
  *
- * @curried (pathInput) => (value) => (obj) => result
  * @param pathInput - Dot-separated string or array of keys where to set the value
  * @param value - The value to set at the path
  * @param obj - The object to update
@@ -33,33 +32,11 @@ import type { Value } from "../../../types/index.ts"
  *   user: { settings: { theme: "light" } }
  * })
  * // { user: { settings: { theme: "dark" } } }
- *
- * // Set array elements
- * set("items.1")("updated")({ items: ["a", "b", "c"] })
- * // { items: ["a", "updated", "c"] }
- *
- * // Numeric keys in path
- * set(["data", 0, "value"])(100)({
- *   data: [{ value: 0 }, { value: 50 }]
- * })
- * // { data: [{ value: 100 }, { value: 50 }] }
- *
- * // Partial application for reusable setters
- * const setUserName = set("user.name")
- * setUserName("Alice")({ user: { name: "Bob", id: 1 } })
- * // { user: { name: "Alice", id: 1 } }
- *
- * const setTheme = set(["settings", "appearance", "theme"])
- * setTheme("dark")({ settings: {} })
- * // { settings: { appearance: { theme: "dark" } } }
- *
- * // Handle null/undefined by creating fresh object
- * set("a.b")(10)(null)        // { a: { b: 10 } }
- * set("x")(5)(undefined)       // { x: 5 }
  * ```
- * @property Immutable - returns new object, doesn't modify original
- * @property Auto-creation - creates intermediate objects/arrays as needed
- * @property Type preservation - maintains types of existing structures
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  */
 const set =
 	(pathInput: string | Array<string | number>) =>

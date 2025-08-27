@@ -104,7 +104,7 @@ export type ParsedTemporal = {
 	offset?: string
 	timezone?: string
 	calendar?: string
-	type: "date" | "time" | "datetime" | "yearmonth" | "monthday" | "instant"
+	type: "date" | "time" | "datetime" | "yearmonth" | "monthday" | "instant" | "duration"
 	original: string
 }
 

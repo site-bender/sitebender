@@ -1,6 +1,6 @@
-import createElement from "../../../utilities/createElement/index.ts"
+import createElement from "../../../helpers/createElement/index.ts"
 // Make createElement globally available for JSX
-import generateShortId from "../../../utilities/generateShortId/index.ts"
+import generateShortId from "../../../helpers/generateShortId/index.ts"
 
 export type Props = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 	classes?: Array<string>

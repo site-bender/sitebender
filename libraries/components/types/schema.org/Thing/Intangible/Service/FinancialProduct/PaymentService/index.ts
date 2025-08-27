@@ -1,1 +1,1 @@
-export type { default } from "../../../PaymentMethod/PaymentService/index.ts"
+export type { default, default as PaymentServiceType } from "../../../PaymentMethod/PaymentService/index.ts"

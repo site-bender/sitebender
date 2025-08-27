@@ -14,7 +14,7 @@
  * The word <WordAsWord partOfSpeech="adjective">quick</WordAsWord>
  * modifies the noun.
  */
-import type { BCP47LanguageTag } from "../../../../../types/bcp47/index.ts"
+import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

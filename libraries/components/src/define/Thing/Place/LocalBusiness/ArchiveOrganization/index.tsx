@@ -1,1 +1,1 @@
-export default ArchiveOrganization
+export { default } from "../../../Organization/LocalBusiness/ArchiveOrganization/index.tsx"

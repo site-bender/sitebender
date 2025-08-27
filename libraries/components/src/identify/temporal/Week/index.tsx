@@ -32,18 +32,17 @@
  */
 
 import type {
-	TemporalBaseProps,
-	WeekNumberingSystem,
-} from "../../../../../types/temporal/index.ts"
+    	TemporalBaseProps,
+    	WeekNumberingSystem,
+    } from "../../../../types/temporal/index.ts"
 
-import getWeekNumber from "../../../../utilities/calendars/getWeekNumber/index.ts"
-import getWeekStartDate from "../../../../utilities/calendars/getWeekStartDate/index.ts"
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import getWeekNumber from "../../../helpers/calendars/getWeekNumber/index.ts"
+import getWeekStartDate from "../../../helpers/calendars/getWeekStartDate/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
-	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar">
-	& {
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format" | "formatOptions"> & {
 		// Week numbering system
 		weekSystem?: WeekNumberingSystem
 
@@ -55,6 +54,15 @@ export type Props =
 
 		// Show year
 		showYear?: boolean
+
+		children?: string | ((formatted: {
+			display: string
+			datetime: string
+			weekNumber: number
+			year: number
+			startDate: Date
+			endDate: Date
+		}) => JSX.Element)
 	}
 
 // Parse ISO week format (YYYY-Www)

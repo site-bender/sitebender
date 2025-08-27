@@ -1,4 +1,4 @@
-import type { FormatOptions } from "../../../../../types/temporal/index.ts"
+import type { FormatOptions } from "../../../../types/temporal/index.ts"
 
 /**
  * Format a time value
@@ -14,16 +14,21 @@ export default function formatTime(
 	const date = new Date(2000, 0, 1, hours, minutes, seconds || 0)
 
 	try {
-		const formatOptions = {
+		// Build Intl options explicitly to satisfy TS and clamp fractionalSecondDigits to 1-3
+		const formatOptions: Intl.DateTimeFormatOptions = {
 			hour: "numeric",
 			minute: "2-digit",
 			...(seconds !== undefined && { second: "2-digit" }),
-			...options,
+			...(options?.hour12 !== undefined && { hour12: options.hour12 }),
+			...(options?.timeZone && { timeZone: options.timeZone }),
+			...(options?.fractionalSecondDigits
+				? { fractionalSecondDigits: Math.min(3, Math.max(1, options.fractionalSecondDigits)) as 1 | 2 | 3 }
+				: {}),
 		}
 
 		const formatter = new Intl.DateTimeFormat(locale || "en-US", formatOptions)
 		return formatter.format(date)
-	} catch (error) {
+	} catch (_error) {
 		// Fallback formatting
 		const h = String(hours).padStart(2, "0")
 		const m = String(minutes).padStart(2, "0")

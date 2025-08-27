@@ -1,1 +1,1 @@
-export { default } from "../../PaymentMethod/PaymentService/index.tsx"
+export { default } from "../../../PaymentMethod/PaymentService/index.tsx"

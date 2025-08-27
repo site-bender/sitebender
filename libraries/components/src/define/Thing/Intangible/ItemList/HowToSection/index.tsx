@@ -1,1 +1,1 @@
-export { default } from "../../../../CreativeWork/HowToSection/index.tsx"
+export { default } from "../../../CreativeWork/HowToSection/index.tsx"

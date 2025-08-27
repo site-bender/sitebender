@@ -1,1 +1,1 @@
-export type { default } from "../../../../CreativeWork/ExercisePlan/index.ts"
+export type { default, default as ExercisePlanType } from "../../../../CreativeWork/ExercisePlan/index.ts"

@@ -12,7 +12,7 @@
  * </Min>
  */
 
-import MinConstructor from "../../../../adaptive/constructors/operators/Min/index.ts"
+import MinConstructor from "../../../../../adaptive/src/constructors/operators/Min/index.ts"
 
 export type MinProps = {
 	type?: "Number" | "Date" | "String"

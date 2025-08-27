@@ -17,7 +17,7 @@
  * </Subtract>
  */
 
-import SubtractConstructor from "../../../../adaptive/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "../../../../../adaptive/src/constructors/operators/Subtract/index.ts"
 
 export type SubtractProps = {
 	type?: "Number" | "Date" | "Duration"

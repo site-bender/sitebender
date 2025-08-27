@@ -32,9 +32,9 @@
 import type {
 	DurationValue,
 	FormatOptions,
-} from "../../../../../types/temporal/index.ts"
+} from "../../../../types/temporal/index.ts"
 
-import formatDuration from "../../../../utilities/formatters/formatDuration/index.ts"
+import formatDuration from "../../../helpers/formatters/formatDuration/index.ts"
 
 export type Props = {
 	// Duration value - ISO 8601 string, object, or milliseconds

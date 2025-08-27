@@ -10,7 +10,7 @@
  * </Floor>
  */
 
-import FloorConstructor from "../../../../adaptive/constructors/operators/Floor/index.ts"
+import FloorConstructor from "../../../../../adaptive/src/constructors/operators/Floor/index.ts"
 
 export type FloorProps = {
 	type?: "Number"
@@ -26,6 +26,6 @@ export default function Floor({
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
-	// Floor constructor signature: (datatype) => (operand)
-	return FloorConstructor(actualType)(childArray[0] as any)
+	// Floor constructor signature: (datatype) => (decimalPlaces?) => (operand)
+	return FloorConstructor(actualType)()(childArray[0] as unknown as JSX.Element)
 }

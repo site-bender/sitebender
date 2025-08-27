@@ -12,25 +12,23 @@
  * />
  */
 
-import FromLookupConstructor from "../../../../adaptive/constructors/injectors/FromLookup/index.ts"
+import FromLookupConstructor from "../../../../../adaptive/src/constructors/injectors/FromLookup/index.ts"
 
 export type FromLookupProps = {
-	table: string
-	key: string
+	id: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
 	defaultValue?: any
 }
 
 export default function FromLookup({
-	table,
-	key,
+	id,
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromLookupProps): ReturnType<typeof FromLookupConstructor> {
+}: FromLookupProps): ReturnType<ReturnType<typeof FromLookupConstructor>> {
 	const actualType = datatype || type
 
-	// FromLookup constructor signature: (datatype) => (table) => (key) => (defaultValue)
-	return FromLookupConstructor(actualType)(table)(key)(defaultValue)
+	// FromLookup constructor signature: (datatype) => (id, defaultValue)
+	return FromLookupConstructor(actualType)(id, defaultValue)
 }

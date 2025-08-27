@@ -1,6 +1,5 @@
-import type { BaseProps } from "../../../../../types/index.ts"
-
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
+import type BaseProps from "../../../../types/index.ts"
+import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "section" | "aside"
@@ -35,7 +34,7 @@ export type Props = BaseProps & {
  */
 export default function Metafiction({
 	element: Element = "span",
-	define,
+	define: _define,
 	metaType,
 	selfAwareness,
 	referenceTarget,
@@ -53,7 +52,7 @@ export default function Metafiction({
 		<Element
 			{...props}
 			{...dataAttributes}
-			class={`metafiction ${props.class || ""}`}
+			className={`metafiction`}
 		>
 			{children}
 		</Element>

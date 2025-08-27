@@ -26,12 +26,12 @@
  * <Time value="14:30:45.123456" showSeconds showMicroseconds />
  */
 
-import type { TemporalBaseProps } from "../../../../../types/temporal/index.ts"
+import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatTime from "../../../../utilities/formatters/formatTime/index.ts"
-import getTimezoneAbbreviation from "../../../../utilities/formatters/getTimezoneAbbreviation/index.ts"
-import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatTime from "../../../helpers/formatters/formatTime/index.ts"
+import getTimezoneAbbreviation from "../../../helpers/formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props = TemporalBaseProps & {
 	// Show seconds in display
@@ -46,7 +46,7 @@ export default function Time({
 	value,
 	timezone,
 	locale,
-	format = "medium",
+	format: _format = "medium",
 	formatOptions,
 	showZone,
 	showSeconds,
@@ -81,7 +81,8 @@ export default function Time({
 		hour: "numeric",
 		minute: "2-digit",
 		...(showSeconds && { second: "2-digit" }),
-		...(showMicroseconds && showSeconds && { fractionalSecondDigits: 6 }),
+		// Intl only guarantees 1-3; clamp microseconds display to 3
+		...(showMicroseconds && showSeconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
 		...(hour12 !== undefined && { hour12 }),
 		...(timezone && { timeZone: timezone }),
 	}
