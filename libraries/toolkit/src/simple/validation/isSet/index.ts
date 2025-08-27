@@ -21,197 +21,43 @@
  * // Set instances
  * isSet(new Set())                     // true
  * isSet(new Set([1, 2, 3]))           // true
- * isSet(new Set("hello"))              // true (from string iterable)
- *
- * // Sets with various value types
- * isSet(new Set([1, "two", true]))     // true
- * isSet(new Set([{}, {}, {}]))         // true (each object is unique)
- *
- * const symbolSet = new Set([Symbol("a"), Symbol("b")])
- * isSet(symbolSet)                     // true
+ * isSet(new Set("hello"))              // true
  *
  * // Not Sets
- * isSet(new WeakSet())                 // false (WeakSet)
- * isSet(new Map())                     // false (Map)
- * isSet([])                           // false (array)
- * isSet([1, 2, 3])                    // false (array)
- * isSet({})                           // false (plain object)
+ * isSet(new WeakSet())                 // false
+ * isSet(new Map())                     // false
+ * isSet([])                           // false
  * isSet(null)                         // false
- * isSet(undefined)                    // false
- * isSet("Set")                        // false
  *
- * // Set-like objects are not Sets
- * isSet({
- *   add: () => {},
- *   delete: () => {},
- *   has: () => false,
- *   size: 0
- * })                                  // false
- *
- * // Type narrowing in TypeScript
- * function getSetSize(value: unknown): number {
- *   if (isSet(value)) {
- *     // TypeScript knows value is Set here
- *     return value.size
- *   }
- *   return 0
- * }
+ * // Type narrowing
+ * const getSetSize = (value: unknown): number =>
+ *   isSet(value) ? value.size : 0
  *
  * getSetSize(new Set([1, 2, 3]))      // 3
- * getSetSize(new Map())               // 0
  * getSetSize([1, 2, 3])               // 0
  *
- * // Filtering Sets from mixed collections
- * const collections = [
- *   new Set(),
- *   new Map(),
- *   new WeakSet(),
- *   [],
- *   {},
- *   new Set(["a", "b", "c"])
- * ]
+ * // Filtering Sets
+ * const collections = [new Set(), new Map(), [], new Set([1, 2])]
+ * const sets = collections.filter(isSet)  // [Set {}, Set {1, 2}]
  *
- * const sets = collections.filter(isSet)
- * // [Set {}, Set { "a", "b", "c" }]
+ * // Safe operations
+ * const safeAdd = <T>(value: unknown, item: T): Set<T> | null =>
+ *   isSet(value) ? (value.add(item), value as Set<T>) : null
  *
- * // Set operations safety
- * function safeSetAdd<T>(
- *   value: unknown,
- *   item: T
- * ): Set<T> | null {
- *   if (isSet(value)) {
- *     value.add(item)
- *     return value as Set<T>
- *   }
- *   return null
- * }
- *
- * const mySet = new Set([1, 2])
- * safeSetAdd(mySet, 3)                // Set { 1, 2, 3 }
- * safeSetAdd([], 3)                   // null
- *
- * // Converting arrays to Sets
- * function toSet<T>(value: unknown): Set<T> {
- *   if (isSet(value)) {
- *     return value as Set<T>
- *   }
- *   if (Array.isArray(value)) {
- *     return new Set(value)
- *   }
- *   if (value && typeof (value as any)[Symbol.iterator] === "function") {
- *     return new Set(value as Iterable<T>)
- *   }
+ * // Array to Set conversion
+ * const toSet = <T>(value: unknown): Set<T> => {
+ *   if (isSet(value)) return value as Set<T>
+ *   if (Array.isArray(value)) return new Set(value)
  *   return new Set()
  * }
  *
- * toSet(new Set([1, 2]))              // Set { 1, 2 }
- * toSet([1, 2, 2, 3])                 // Set { 1, 2, 3 }
- * toSet("hello")                      // Set { "h", "e", "l", "o" }
- * toSet(null)                         // Set {}
- *
- * // Unique values extraction
- * function getUniqueValues(value: unknown): Array<unknown> {
- *   if (isSet(value)) {
- *     return Array.from(value)
- *   }
- *   if (Array.isArray(value)) {
- *     return Array.from(new Set(value))
- *   }
- *   return []
+ * // Set operations
+ * const intersection = (a: unknown, b: unknown): Set<unknown> => {
+ *   if (!isSet(a) || !isSet(b)) return new Set()
+ *   return new Set(Array.from(a).filter(x => b.has(x)))
  * }
  *
- * getUniqueValues(new Set([1, 2, 3])) // [1, 2, 3]
- * getUniqueValues([1, 2, 2, 3, 3])    // [1, 2, 3]
- * getUniqueValues("aabbcc")           // []
- *
- * // Set intersection
- * function intersection(a: unknown, b: unknown): Set<unknown> {
- *   if (!isSet(a) || !isSet(b)) {
- *     return new Set()
- *   }
- *
- *   const result = new Set<unknown>()
- *   for (const item of a) {
- *     if (b.has(item)) {
- *       result.add(item)
- *     }
- *   }
- *   return result
- * }
- *
- * intersection(
- *   new Set([1, 2, 3]),
- *   new Set([2, 3, 4])
- * )                                   // Set { 2, 3 }
- *
- * // Set union
- * function union(...values: Array<unknown>): Set<unknown> {
- *   const result = new Set<unknown>()
- *
- *   for (const value of values) {
- *     if (isSet(value)) {
- *       for (const item of value) {
- *         result.add(item)
- *       }
- *     }
- *   }
- *
- *   return result
- * }
- *
- * union(
- *   new Set([1, 2]),
- *   new Set([2, 3]),
- *   [4, 5],  // ignored, not a Set
- *   new Set([3, 4])
- * )                                   // Set { 1, 2, 3, 4 }
- *
- * // Set difference
- * function difference(a: unknown, b: unknown): Set<unknown> {
- *   if (!isSet(a)) return new Set()
- *   if (!isSet(b)) return new Set(a)
- *
- *   const result = new Set<unknown>()
- *   for (const item of a) {
- *     if (!b.has(item)) {
- *       result.add(item)
- *     }
- *   }
- *   return result
- * }
- *
- * difference(
- *   new Set([1, 2, 3, 4]),
- *   new Set([3, 4, 5])
- * )                                   // Set { 1, 2 }
- *
- * // Membership checking
- * function hasValue(collection: unknown, value: unknown): boolean {
- *   if (isSet(collection)) {
- *     return collection.has(value)
- *   }
- *   if (Array.isArray(collection)) {
- *     return collection.includes(value)
- *   }
- *   return false
- * }
- *
- * const dataSet = new Set(["a", "b", "c"])
- * hasValue(dataSet, "b")              // true
- * hasValue(dataSet, "d")              // false
- * hasValue(["a", "b"], "b")           // true
- * hasValue({}, "b")                   // false
- *
- * // Set to array conversion
- * function setToArray<T>(value: unknown): Array<T> {
- *   if (isSet(value)) {
- *     return Array.from(value) as Array<T>
- *   }
- *   return []
- * }
- *
- * setToArray(new Set([1, 2, 3]))      // [1, 2, 3]
- * setToArray([1, 2, 3])               // []
+ * intersection(new Set([1, 2, 3]), new Set([2, 3, 4]))  // Set {2, 3}
  *
  * // Deduplication helper
  * function deduplicate<T>(items: Array<T>): Array<T> {
@@ -323,10 +169,8 @@
  *   new Set([2, 3, 4])
  * )                                   // Set { 1, 4 }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property TypeGuard - Narrows TypeScript types to Set<unknown>
- * @property Instanceof - Uses instanceof Set internally
- * @property Specific - Only returns true for Set, not WeakSet or other collections
+ * @pure
+ * @predicate
  */
 const isSet = (value: unknown): value is Set<unknown> => value instanceof Set
 

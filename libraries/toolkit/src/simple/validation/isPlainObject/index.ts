@@ -70,24 +70,17 @@
  * isPlainObject(Object.create(null))   // true (null prototype is plain)
  *
  * // Deep merge safety check
- * function canDeepMerge(value: unknown): boolean {
- *   return isPlainObject(value) || Array.isArray(value)
- * }
- *
- * function deepMerge(target: any, source: any): any {
+ * const deepMerge = (target: any, source: any): any => {
  *   if (!isPlainObject(target) || !isPlainObject(source)) {
  *     return source
  *   }
  *
- *   const result = { ...target }
- *   for (const key in source) {
- *     if (isPlainObject(source[key]) && isPlainObject(target[key])) {
- *       result[key] = deepMerge(target[key], source[key])
- *     } else {
- *       result[key] = source[key]
- *     }
- *   }
- *   return result
+ *   return Object.keys(source).reduce((result, key) => ({
+ *     ...result,
+ *     [key]: isPlainObject(source[key]) && isPlainObject(target[key])
+ *       ? deepMerge(target[key], source[key])
+ *       : source[key]
+ *   }), { ...target })
  * }
  *
  * deepMerge(
@@ -264,10 +257,8 @@
  *   return result
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Specific - Only true for plain objects, not other object types
- * @property Prototype-aware - Checks prototype chain correctly
- * @property JSON-friendly - Plain objects are typically JSON-serializable
+ * @pure
+ * @predicate
  */
 const isPlainObject = (value: unknown): boolean => {
 	// Check if it's an object type and not null
