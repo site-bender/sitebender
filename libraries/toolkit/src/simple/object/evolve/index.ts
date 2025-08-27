@@ -13,7 +13,9 @@ import type {
  * Non-function values in transformations are ignored. Unmatched paths in target
  * are preserved unchanged.
  *
- * @curried (transformations) => (obj) => result
+ * @pure
+ * @immutable
+ * @curried
  * @param transformations - Object matching target structure with functions as values
  * @param obj - Object to evolve
  * @returns A new object with transformations applied
@@ -42,39 +44,7 @@ import type {
  *   scores: [10, 20, 30],
  *   other: "unchanged"
  * })
- * // {
- * //   user: { age: 31, name: "Bob", id: 123 },
- * //   scores: [20, 40, 60],
- * //   other: "unchanged"
- * // }
- *
- * // Deep nesting
- * evolve({
- *   level1: {
- *     level2: {
- *       level3: {
- *         value: (x: number) => x * 10
- *       }
- *     }
- *   }
- * })({
- *   level1: {
- *     level2: {
- *       level3: { value: 5, other: "data" },
- *       sibling: true
- *     },
- *     another: 42
- *   }
- * })
- * // {
- * //   level1: {
- * //     level2: {
- * //       level3: { value: 50, other: "data" },
- * //       sibling: true
- * //     },
- * //     another: 42
- * //   }
- * // }
+ * // { user: { age: 31, name: "Bob", id: 123 }, scores: [20, 40, 60], other: "unchanged" }
  *
  * // Array element transformations
  * evolve({
@@ -82,52 +52,16 @@ import type {
  *     0: { price: (p: number) => p * 1.1 },
  *     1: { price: (p: number) => p * 0.9 }
  *   }
- * })({
- *   items: [
- *     { name: "A", price: 100 },
- *     { name: "B", price: 200 },
- *     { name: "C", price: 300 }
- *   ]
+ * })({ items: [{ name: "A", price: 100 }, { name: "B", price: 200 }] })
+ * // { items: [{ name: "A", price: 110 }, { name: "B", price: 180 }] }
+ *
+ * // Partial application for configuration  
+ * const incrementPatch = evolve({
+ *   version: { patch: (x: number) => x + 1 }
  * })
- * // {
- * //   items: [
- * //     { name: "A", price: 110 },
- * //     { name: "B", price: 180 },
- * //     { name: "C", price: 300 }
- * //   ]
- * // }
- *
- * // Partial application for configuration
- * const incrementVersion = evolve({
- *   version: {
- *     major: (x: number) => x,
- *     minor: (x: number) => x,
- *     patch: (x: number) => x + 1
- *   }
- * })
- *
- * incrementVersion({
- *   version: { major: 1, minor: 2, patch: 3 },
- *   name: "myapp"
- * })
- * // { version: { major: 1, minor: 2, patch: 4 }, name: "myapp" }
- *
- * // Non-function values are ignored
- * evolve({
- *   a: (x: number) => x * 2,
- *   b: "not a function", // ignored
- *   c: 42                // ignored
- * })({ a: 5, b: 10, c: 15 })
- * // { a: 10, b: 10, c: 15 }
- *
- * // Handle null/undefined gracefully
- * evolve({ a: (x: number) => x + 1 })(null)       // {}
- * evolve({ a: (x: number) => x + 1 })(undefined)  // {}
+ * incrementPatch({ version: { major: 1, minor: 2, patch: 3 }, name: "app" })
+ * // { version: { major: 1, minor: 2, patch: 4 }, name: "app" }
  * ```
- * @property Immutable - returns new object, doesn't modify original
- * @property Deep - recursively applies transformations
- * @property Selective - only transforms specified paths
- * @property Preserving - unspecified paths remain unchanged
  */
 const evolve = <T extends Record<string, Value>>(
 	transformations: Record<string, TransformationSpec>,

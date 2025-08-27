@@ -5,7 +5,8 @@
  * symbol keys and prototype properties. Order is not guaranteed to be
  * consistent across JavaScript engines.
  *
- * @curried Single parameter - already curried
+ * @pure
+ * @safe
  * @param obj - The object to extract keys from
  * @returns Array of string keys
  * @example
@@ -17,35 +18,16 @@
  *
  * // Arrays (returns index strings)
  * keys(["a", "b", "c"])                      // ["0", "1", "2"]
- * keys([])                                    // []
- *
- * // Functions and objects with methods
- * const obj = {
- *   prop: "value",
- *   method() { return this.prop }
- * }
- * keys(obj)                                   // ["prop", "method"]
  *
  * // Symbol keys are excluded
  * const sym = Symbol("key")
  * keys({ [sym]: "symbol", regular: "string" }) // ["regular"]
  *
- * // Prototype properties are excluded
- * class Parent { parentProp = "parent" }
- * class Child extends Parent { childProp = "child" }
- * const instance = new Child()
- * keys(instance)                              // ["parentProp", "childProp"]
- *
  * // Null/undefined handling
- * keys(null)                                  // []
- * keys(undefined)                             // []
+ * keys(null)      // []
+ * keys(undefined) // []
  *
- * // Non-objects
- * keys(42)                                    // []
- * keys("string")                              // ["0", "1", "2", "3", "4", "5"]
- * keys(true)                                  // []
- *
- * // With Object.defineProperty
+ * // Non-enumerable properties excluded
  * const custom = {}
  * Object.defineProperty(custom, "hidden", {
  *   value: "secret",
@@ -55,11 +37,8 @@
  *   value: "public",
  *   enumerable: true
  * })
- * keys(custom)                                // ["visible"]
+ * keys(custom) // ["visible"]
  * ```
- * @property Safe - handles null/undefined gracefully
- * @property Own properties only - excludes prototype chain
- * @property Enumerable only - excludes non-enumerable properties
  */
 const keys = <T extends object>(
 	obj: T | null | undefined,

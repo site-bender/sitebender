@@ -8,7 +8,9 @@ import type { Value } from "../../../types/index.ts"
  * equal, false otherwise. Handles nested objects, arrays, and special
  * types like Date and RegExp.
  *
- * @curried (prop) => (obj1) => (obj2) => result
+ * @pure
+ * @curried
+ * @predicate
  * @param prop - The property key to compare
  * @param obj1 - The first object
  * @param obj2 - The second object
@@ -18,11 +20,9 @@ import type { Value } from "../../../types/index.ts"
  * // Basic property comparison
  * eqProps("a")({ a: 1, b: 2 })({ a: 1, c: 3 })    // true
  * eqProps("a")({ a: 1 })({ a: 2 })                // false
- * eqProps("name")({ name: "Alice" })({ name: "Alice" }) // true
  *
  * // Missing properties
  * eqProps("x")({ a: 1 })({ b: 2 })                // true (both undefined)
- * eqProps("x")({ x: undefined })({ y: 1 })        // true (both undefined)
  * eqProps("x")({ x: null })({ x: undefined })     // false
  *
  * // Deep equality for objects
@@ -32,66 +32,21 @@ import type { Value } from "../../../types/index.ts"
  *   { data: { x: 1, y: 2 } }
  * ) // true
  *
- * eqProps("user")(
- *   { user: { name: "Bob", age: 30 } }
- * )(
- *   { user: { name: "Bob", age: 31 } }
- * ) // false
- *
  * // Array comparison
  * eqProps("items")({ items: [1, 2, 3] })({ items: [1, 2, 3] }) // true
  * eqProps("items")({ items: [1, 2, 3] })({ items: [1, 3, 2] }) // false
- * eqProps("tags")({ tags: ["a", "b"] })({ tags: ["a", "b"] })  // true
  *
- * // Nested arrays and objects
- * eqProps("complex")(
- *   { complex: [{ a: 1 }, { b: 2 }] }
- * )(
- *   { complex: [{ a: 1 }, { b: 2 }] }
- * ) // true
- *
- * // Date objects
+ * // Date and RegExp objects
  * const date1 = new Date("2024-01-01")
  * const date2 = new Date("2024-01-01")
- * const date3 = new Date("2024-01-02")
  * eqProps("created")({ created: date1 })({ created: date2 }) // true
- * eqProps("created")({ created: date1 })({ created: date3 }) // false
- *
- * // RegExp objects
  * eqProps("pattern")({ pattern: /test/gi })({ pattern: /test/gi }) // true
- * eqProps("pattern")({ pattern: /test/g })({ pattern: /test/gi })  // false
- *
- * // Special values
- * eqProps("value")({ value: NaN })({ value: NaN })           // true
- * eqProps("value")({ value: 0 })({ value: -0 })              // true (0 === -0 in JavaScript)
- * eqProps("value")({ value: Infinity })({ value: Infinity }) // true
- *
- * // Symbol properties
- * const sym = Symbol("key")
- * eqProps(sym)({ [sym]: "value" })({ [sym]: "value" }) // true
- * eqProps(sym)({ [sym]: "value" })({ [sym]: "other" }) // false
  *
  * // Partial application for validation
  * const haveSameId = eqProps("id")
  * haveSameId({ id: 1, name: "A" })({ id: 1, name: "B" }) // true
  * haveSameId({ id: 1 })({ id: 2 })                       // false
- *
- * const haveSameStructure = eqProps("schema")
- * const schema = { fields: ["name", "age"], required: true }
- * haveSameStructure({ schema, data: "A" })({ schema, data: "B" }) // true
- *
- * // Filtering objects with matching properties
- * const users = [
- *   { id: 1, role: "admin" },
- *   { id: 2, role: "user" },
- *   { id: 3, role: "admin" }
- * ]
- * const isAdmin = eqProps("role")({ role: "admin" })
- * users.filter(user => isAdmin(user)) // [{ id: 1, role: "admin" }, { id: 3, role: "admin" }]
  * ```
- * @property Deep equality - recursively compares nested structures
- * @property Type-safe comparison - handles different JavaScript types correctly
- * @property NaN handling - correctly identifies NaN as equal to itself
  */
 const eqProps = <K extends string | symbol>(
 	prop: K,
@@ -145,19 +100,15 @@ const eqProps = <K extends string | symbol>(
 		// Set comparison
 		if (a instanceof Set && b instanceof Set) {
 			if (a.size !== b.size) return false
-			for (const item of a) {
-				if (!b.has(item)) return false
-			}
-			return true
+			return Array.from(a).every((item) => b.has(item))
 		}
 
 		// Map comparison
 		if (a instanceof Map && b instanceof Map) {
 			if (a.size !== b.size) return false
-			for (const [key, value] of a) {
-				if (!b.has(key) || !deepEqual(value, b.get(key))) return false
-			}
-			return true
+			return Array.from(a.entries()).every(([key, value]) =>
+				b.has(key) && deepEqual(value, b.get(key))
+			)
 		}
 
 		// Object comparison

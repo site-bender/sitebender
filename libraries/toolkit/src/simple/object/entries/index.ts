@@ -7,7 +7,8 @@ import type { Value } from "../../../types/index.ts"
  * properties. Excludes symbol properties and prototype properties. Order
  * matches Object.keys() but is not guaranteed across JavaScript engines.
  *
- * @curried Single parameter - already curried
+ * @pure
+ * @safe
  * @param obj - The object to extract entries from
  * @returns Array of [key, value] tuples
  * @example
@@ -16,32 +17,9 @@ import type { Value } from "../../../types/index.ts"
  * entries({ a: 1, b: 2, c: 3 })
  * // [["a", 1], ["b", 2], ["c", 3]]
  *
- * entries({ name: "John", age: 30 })
- * // [["name", "John"], ["age", 30]]
- *
- * entries({})
- * // []
- *
  * // Arrays (returns [index, element] pairs)
  * entries(["a", "b", "c"])
  * // [["0", "a"], ["1", "b"], ["2", "c"]]
- *
- * // Mixed value types
- * entries({
- *   str: "text",
- *   num: 42,
- *   bool: true
- * })
- * // [["str", "text"], ["num", 42], ["bool", true]]
- *
- * // Useful for iteration
- * const obj = { x: 10, y: 20, z: 30 }
- * for (const [key, value] of entries(obj)) {
- *   console.log(`${key}: ${value}`)
- * }
- * // x: 10
- * // y: 20
- * // z: 30
  *
  * // Transform to new object
  * const original = { a: 1, b: 2, c: 3 }
@@ -61,17 +39,9 @@ import type { Value } from "../../../types/index.ts"
  * // [["regular", "string"]]
  *
  * // Null/undefined handling
- * entries(null)                                // []
- * entries(undefined)                           // []
- *
- * // Non-objects
- * entries(42)                                  // []
- * entries("hi")                                // [["0", "h"], ["1", "i"]]
- * entries(true)                                // []
+ * entries(null)      // []
+ * entries(undefined) // []
  * ```
- * @property Safe - handles null/undefined gracefully
- * @property Own properties only - excludes prototype chain
- * @property Enumerable only - excludes non-enumerable properties
  */
 const entries = <T extends Record<string, Value>>(
 	obj: T | null | undefined,

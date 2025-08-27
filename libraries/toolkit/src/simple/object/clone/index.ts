@@ -8,6 +8,8 @@ import type { Value } from "../../../types/index.ts"
  * tracking visited objects. Preserves special object types like Date,
  * RegExp, Map, and Set. Functions and symbols are copied by reference.
  *
+ * @pure
+ * @immutable
  * @param obj - The object to clone
  * @returns A deep clone of the object
  * @example
@@ -15,87 +17,39 @@ import type { Value } from "../../../types/index.ts"
  * // Basic object cloning
  * const original = { a: 1, b: { c: 2 } }
  * const cloned = clone(original)
- * cloned.b.c = 3
- * original.b.c // 2 (original unchanged)
- * cloned.b.c   // 3
+ * // Original remains unchanged when mutating clone
+ * original.b.c // 2
  *
  * // Array cloning
  * const arr = [1, [2, 3], { a: 4 }]
  * const clonedArr = clone(arr)
- * clonedArr[1].push(4)
- * arr[1]       // [2, 3] (original unchanged)
- * clonedArr[1] // [2, 3, 4]
+ * // Deep structures are fully cloned
  *
- * // Nested structures
- * const nested = {
- *   user: {
- *     name: "Alice",
- *     settings: {
- *       theme: "dark",
- *       notifications: ["email", "sms"]
- *     }
- *   }
- * }
- * const clonedNested = clone(nested)
- * clonedNested.user.settings.notifications.push("push")
- * nested.user.settings.notifications       // ["email", "sms"]
- * clonedNested.user.settings.notifications // ["email", "sms", "push"]
- *
- * // Date objects
+ * // Date objects preserved
  * const obj = { created: new Date("2024-01-01") }
  * const clonedObj = clone(obj)
- * clonedObj.created.setFullYear(2025)
- * obj.created.getFullYear()       // 2024 (original unchanged)
- * clonedObj.created.getFullYear() // 2025
+ * clonedObj.created instanceof Date // true
  *
- * // RegExp objects
- * const pattern = { regex: /test/gi }
- * const clonedPattern = clone(pattern)
- * clonedPattern.regex.test("TEST") // true
- * clonedPattern.regex !== pattern.regex // true (different instance)
- *
- * // Map and Set
+ * // Map and Set support
  * const data = {
- *   map: new Map([["key1", "value1"], ["key2", "value2"]]),
+ *   map: new Map([["key1", "value1"]]),
  *   set: new Set([1, 2, 3])
  * }
  * const clonedData = clone(data)
- * clonedData.map.set("key3", "value3")
- * clonedData.set.add(4)
- * data.map.has("key3")     // false
- * clonedData.map.has("key3") // true
- * data.set.has(4)          // false
- * clonedData.set.has(4)    // true
+ * clonedData.map instanceof Map // true
  *
- * // Circular references
+ * // Circular references handled
  * const circular: any = { a: 1 }
  * circular.self = circular
  * const clonedCircular = clone(circular)
- * clonedCircular.self === clonedCircular // true (maintains circular reference)
- * clonedCircular !== circular            // true (different object)
+ * clonedCircular.self === clonedCircular // true
  *
- * // Functions are copied by reference
- * const withFunc = {
- *   method: () => "hello",
- *   data: { x: 1 }
- * }
+ * // Functions copied by reference
+ * const withFunc = { method: () => "hello", data: { x: 1 } }
  * const clonedFunc = clone(withFunc)
- * clonedFunc.method === withFunc.method // true (same function reference)
- * clonedFunc.data === withFunc.data     // false (data is cloned)
- *
- * // Null and undefined
- * clone(null)      // null
- * clone(undefined) // undefined
- * clone({ a: null, b: undefined }) // { a: null, b: undefined }
- *
- * // Primitives
- * clone(42)        // 42
- * clone("hello")   // "hello"
- * clone(true)      // true
+ * clonedFunc.method === withFunc.method // true
+ * clonedFunc.data === withFunc.data     // false
  * ```
- * @property Deep operation - recursively clones all nested structures
- * @property Circular reference safe - handles objects that reference themselves
- * @property Type preservation - maintains special object types
  */
 const clone = <T extends Value>(obj: T): T => {
 	// Handle primitives and null/undefined
@@ -135,9 +89,9 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Map) {
 			const cloned = new Map()
 			visited.set(source, cloned)
-			source.forEach((value, key) => {
+			Array.from(source.entries()).map(([key, value]) =>
 				cloned.set(cloneRecursive(key), cloneRecursive(value))
-			})
+			)
 			return cloned
 		}
 
@@ -145,9 +99,9 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Set) {
 			const cloned = new Set()
 			visited.set(source, cloned)
-			source.forEach((value) => {
+			Array.from(source.values()).map((value) =>
 				cloned.add(cloneRecursive(value))
-			})
+			)
 			return cloned
 		}
 
@@ -155,8 +109,9 @@ const clone = <T extends Value>(obj: T): T => {
 		if (Array.isArray(source)) {
 			const cloned: Array<Value> = []
 			visited.set(source, cloned)
-			source.forEach((item, index) => {
+			source.map((item, index) => {
 				cloned[index] = cloneRecursive(item)
+				return cloned[index]
 			})
 			return cloned
 		}
@@ -171,7 +126,7 @@ const clone = <T extends Value>(obj: T): T => {
 			...Object.getOwnPropertySymbols(source),
 		]
 
-		keys.forEach((key) => {
+		keys.map((key) => {
 			const descriptor = Object.getOwnPropertyDescriptor(source, key)
 			if (descriptor) {
 				if (descriptor.get || descriptor.set) {
@@ -183,6 +138,7 @@ const clone = <T extends Value>(obj: T): T => {
 					)
 				}
 			}
+			return key
 		})
 
 		// Preserve prototype

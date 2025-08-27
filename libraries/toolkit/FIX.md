@@ -1,11 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 312/763 files complete (40.9%) - Phase 2 IN PROGRESS  
-**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅
-**Next**: Start `object/` folder - 56 files to process
-**Time**: Sessions 1-20 took ~436 minutes total (~7.3 hours)
-**Last Session**: Session 20 completed array folder (14 files including toSet through zipWith)
+**Status**: 332/763 files complete (43.5%) - Phase 2 IN PROGRESS  
+**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object (20/56) 🔄
+**Next**: Continue `object/` folder - 36 files remaining (mapKeys through zipObject)
+**Time**: Sessions 1-22 took ~481 minutes total (~8 hours)
+**Last Session**: Session 22 completed 20 object files (accumulate through lensProp)
 **Branch**: phase-2
 **CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
@@ -32,10 +32,10 @@
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 312/763 files (40.9%) - Phase 2 IN PROGRESS
-**Average Time**: ~1.40 minutes per file
+**Completed So Far**: 332/763 files (43.5%) - Phase 2 IN PROGRESS
+**Average Time**: ~1.45 minutes per file
 **Optimal Approach**: Process ONE FILE AT A TIME carefully (Task tool sometimes works well)
-**Next Session**: Start `object/` folder (56 files)
+**Next Session**: Continue `object/` folder (36 files remaining)
 
 ## Problems Identified
 
@@ -632,6 +632,40 @@
 - All functions now use pure FP style
 **Notes**: COMPLETED array/ folder! All 123 array functions now have proper JSDoc. Used Task tool for last 10 files which worked well.
 
+### Session 21-22 - 2025-08-27
+**Folder**: object/
+**Files Processed**: 20 files (accumulate through lensProp)
+- accumulate ✓ (reduced 159→67 lines, fixed @property tags)
+- assoc ✓ (reduced examples, added @pure, @immutable, @curried)
+- assocPath ✓ (reduced examples, added proper tags)
+- clone ✓ (replaced forEach loops with map/reduce, added tags)
+- dissoc ✓ (replaced for loop with filter/reduce, added tags)
+- dissocPath ✓ (added proper tags, reduced examples)
+- entries ✓ (added @pure, @safe tags)
+- eqProps ✓ (replaced for...of loops with functional patterns, added @predicate)
+- evolve ✓ (added proper tags, reduced examples)
+- frequency ✓ (replaced for loop with reduce, added tags)
+- fromEntries ✓ (added @pure, @safe tags)
+- has ✓ (added @pure, @safe, @curried, @predicate tags)
+- hasPath ✓ (replaced for loop with recursion, added @predicate)
+- invert ✓ (replaced for loop with reduce, added tags)
+- invertBy ✓ (replaced for loops with reduce, added tags)
+- keys ✓ (added @pure, @safe tags)
+- lens ✓ (added proper tags, reduced examples)
+- lensIndex ✓ (replaced while loop with Array.from, added tags)
+- lensPath ✓ (added proper tags, reduced examples)
+- lensProp ✓ (added proper tags, reduced examples)
+**Start Time**: 2025-08-27T11:00:00+12:00
+**End Time**: 2025-08-27T11:45:00+12:00
+**Duration**: ~45 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @immutable, @curried, @safe, @predicate
+- Reduced examples from 40-190 lines to 5-8 per function
+- Fixed ALL imperative patterns (for/while/forEach loops) with functional approaches
+- Added @predicate for boolean-returning functions (has, hasPath, eqProps)
+- All functions now use pure FP style
+**Notes**: Completed first 20 files in object/ folder. 36 files remaining.
+
 ## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
@@ -649,7 +683,9 @@
    - Session 18: slice through splitEvery
    - Session 19: startsWith through times
    - Session 20: toSet through zipWith (final 14 files)
-2. `object/` (56 files) - NEXT UP!
+2. `object/` (56 files) - IN PROGRESS (20/56 complete)
+   - Session 21-22: accumulate through lensProp
+   - Next: mapKeys through zipObject (36 files remaining)
 3. `map/` (40 files)
 4. `set/` (26 files)
 

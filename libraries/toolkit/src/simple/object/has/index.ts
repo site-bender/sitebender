@@ -7,7 +7,10 @@ import type { Value } from "../../../types/index.ts"
  * string or an array of keys. Returns true only if the complete path exists,
  * even if the value is undefined. Does not check prototype properties.
  *
- * @curried (pathInput) => (obj) => result
+ * @pure
+ * @safe
+ * @curried
+ * @predicate
  * @param pathInput - Dot-separated string or array of keys
  * @param obj - The object to check
  * @returns True if the path exists, false otherwise
@@ -15,7 +18,6 @@ import type { Value } from "../../../types/index.ts"
  * ```typescript
  * // Checking for existing properties
  * has("name")({ name: "John", age: 30 })           // true
- * has("age")({ name: "John", age: 30 })            // true
  * has("email")({ name: "John", age: 30 })          // false
  *
  * // Works with undefined values
@@ -25,35 +27,16 @@ import type { Value } from "../../../types/index.ts"
  * // Nested property checking with dot notation
  * has("user.name")({ user: { name: "Alice" } })    // true
  * has("user.email")({ user: { name: "Alice" } })   // false
- * has("user.address.city")({ user: {} })           // false
  *
  * // Array path notation
  * has(["user", "name"])({ user: { name: "Bob" } }) // true
  * has(["a", "b", "c"])({ a: { b: { c: null } } })  // true
- * has(["a", "b", "d"])({ a: { b: { c: null } } })  // false
- *
- * // Array indices
- * has("items.0")({ items: ["first", "second"] })   // true
- * has("items.2")({ items: ["first", "second"] })   // false
- * has(["arr", 1])([null, { arr: [1, 2, 3] }])     // false (arr is not on root)
- *
- * // Edge cases
- * has("")({ a: 1 })                                // true (empty path = object exists)
- * has("prop")(null)                                // false
- * has("prop")(undefined)                           // false
- * has("toString")({ custom: "prop" })              // false (prototype properties ignored)
  *
  * // Partial application
- * const hasUser = has("user")
- * hasUser({ user: { id: 1 } })                     // true
- * hasUser({ admin: { id: 1 } })                    // false
- *
  * const hasUserId = has("user.id")
  * hasUserId({ user: { id: 1, name: "John" } })     // true
  * hasUserId({ user: { name: "John" } })            // false
  * ```
- * @property Safe - never throws, handles null/undefined gracefully
- * @property Own properties only - doesn't check prototype chain
  */
 const has =
 	(pathInput: string | Array<string | number>) => (obj: Value): boolean => {
