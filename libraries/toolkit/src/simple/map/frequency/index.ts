@@ -289,9 +289,9 @@
  * frequency(large)
  * // Map with 100 entries (values 0-99, each appearing 100 times)
  * ```
- * @property Pure - Doesn't modify the input Map
- * @property Type-safe - Preserves value types as keys in result
- * @property Reference-based - Objects/arrays compared by reference
+ * @pure Doesn't modify the input Map
+ * @immutable Creates new Map from analysis
+ * @safe Preserves value types as keys in result
  */
 const frequency = <K, V>(map: Map<K, V>): Map<V, number> => {
 	const freq = new Map<V, number>()

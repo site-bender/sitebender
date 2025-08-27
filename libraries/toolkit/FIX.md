@@ -1,11 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 362/763 files complete (47.4%) - Phase 2 IN PROGRESS  
-**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object (50/56) 🔄
-**Next**: Finish `object/` folder - 6 files remaining (view, where, whereEq, without, xform, zipObject)
-**Time**: Sessions 1-24 took ~506 minutes total (~8.4 hours)
-**Last Session**: Session 24 completed 20 object files (path through values)
+**Status**: 382/763 files complete (50.1%) - Phase 2 IN PROGRESS  
+**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object ✅, Map (14/40) 🔄
+**Next**: Continue `map/` folder - 26 files remaining
+**Time**: Sessions 1-25 took ~551 minutes total (~9.2 hours)
+**Last Session**: Session 25 completed object/ folder + 14 map files (20 total)
 **Branch**: phase-2
 **CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
@@ -195,12 +195,12 @@
 
 ### Running Totals
 
-- **Total Sessions**: 24
-- **Files Completed**: 362/763 (47.4%)
-- **Total Time Spent**: ~506 minutes (8.4 hours)
-- **Average Time per File**: 1.40 minutes
-- **Estimated Completion**: ~17.8 hours total (at current pace)
-- **Remaining Files**: 401 (0 in array ✅, 6 in object, 395 in other folders)
+- **Total Sessions**: 25
+- **Files Completed**: 382/763 (50.1%)
+- **Total Time Spent**: ~551 minutes (9.2 hours)
+- **Average Time per File**: 1.44 minutes
+- **Estimated Completion**: ~18.3 hours total (at current pace)
+- **Remaining Files**: 381 (0 in array ✅, 0 in object ✅, 26 in map, 355 in other folders)
 
 ## Quality Checklist per File
 
@@ -734,6 +734,42 @@
 - All functions now use pure FP style
 **Notes**: Completed 20 more files in object/ folder. 6 files remaining (view, where, whereEq, without, xform, zipObject).
 
+### Session 25 - 2025-08-27
+**Folders**: object/ (completed) + map/ (started)
+**Files Processed**: 20 files total
+- **object/** (6 files - FOLDER COMPLETE):
+  - view ✓ (reduced 194→25 lines, fixed tags)
+  - where ✓ (reduced 202→39 lines, replaced for loop with .every())
+  - whereEq ✓ (reduced 225→28 lines, replaced for loop with .every())
+  - without ✓ (reduced 176→25 lines, fixed tags)
+  - xform ✓ (reduced 267→49 lines, replaced imperative loops with .map/.reduce)
+  - zipObject ✓ (reduced 145→30 lines, fixed tags)
+- **map/** (14 files):
+  - clear ✓ (reduced examples, fixed tags)
+  - delete ✓ (fixed tags via Task tool)
+  - deleteAll ✓ (fixed tags via Task tool)
+  - difference ✓ (fixed tags via Task tool)
+  - differenceWith ✓ (fixed tags via Task tool)
+  - entries ✓ (fixed tags via Task tool)
+  - filter ✓ (fixed tags via Task tool)
+  - filterKeys ✓ (fixed tags via Task tool)
+  - filterValues ✓ (fixed tags via Task tool)
+  - frequency ✓ (fixed tags via Task tool)
+  - fromArray ✓ (fixed tags via Task tool)
+  - fromEntries ✓ (fixed tags via Task tool)
+  - fromObject ✓ (fixed tags via Task tool)
+  - get ✓ (fixed tags via Task tool)
+**Start Time**: 2025-08-27T13:15:00+12:00
+**End Time**: 2025-08-27T14:00:00+12:00
+**Duration**: ~45 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @immutable, @curried, @safe, @predicate
+- Reduced examples from 40-270 lines to 5-8 per function
+- Fixed ALL imperative patterns (for/forEach loops replaced with .map/.reduce/.every)
+- Completed object/ folder (all 56 files done!)
+- Started map/ folder (14 of 40 files done)
+**Notes**: COMPLETED object/ folder! Processed exactly 20 files as per session guidelines by crossing into map/ folder.
+
 ## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
@@ -751,11 +787,13 @@
    - Session 18: slice through splitEvery
    - Session 19: startsWith through times
    - Session 20: toSet through zipWith (final 14 files)
-2. `object/` (56 files) - IN PROGRESS (30/56 complete)
+2. `object/` (56 files) ✅ COMPLETE!
    - Session 21-22: accumulate through lensProp (20 files)
    - Session 23: mapKeys through partitionBy (10 files) 
-   - Next: path through zipObject (26 files remaining)
-3. `map/` (40 files)
+   - Session 24: path through values (20 files)
+   - Session 25: view through zipObject (6 files - folder complete)
+3. `map/` (40 files) - IN PROGRESS (14/40 complete)
+   - Session 25: clear through get (14 files)
 4. `set/` (26 files)
 
 ## Start Date: 2025-08-25

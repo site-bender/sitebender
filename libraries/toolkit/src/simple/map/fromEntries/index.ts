@@ -22,9 +22,9 @@
  *
  * // See fromArray for comprehensive examples
  * ```
- * @property Pure - Creates a new Map without side effects
- * @property Alias - Semantic alias for fromArray
- * @property Last-wins - Duplicate keys use the last value
+ * @pure Creates a new Map without side effects
+ * @immutable Returns new Map from entries
+ * @safe Handles duplicate keys gracefully
  * @see {@link fromArray} for detailed documentation and examples
  */
 import fromArray from "../fromArray/index.ts"

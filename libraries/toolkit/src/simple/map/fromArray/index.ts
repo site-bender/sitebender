@@ -231,9 +231,9 @@
  * )
  * // Map { "a" => 1, "b" => 2, "c" => 3, "d" => 4 }
  * ```
- * @property Pure - Creates a new Map without side effects
- * @property Flexible - Accepts any array of key-value pairs
- * @property Last-wins - Duplicate keys use the last value
+ * @pure Creates a new Map without side effects
+ * @immutable Returns new Map from array entries
+ * @safe Handles duplicate keys gracefully
  */
 const fromArray = <K, V>(
 	entries: Array<[K, V]>,

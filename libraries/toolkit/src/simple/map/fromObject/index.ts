@@ -275,9 +275,9 @@
  * fromObject(hugeObject)
  * // Creates Map with 10000 entries
  * ```
- * @property Pure - Creates a new Map without modifying the input
- * @property Own-properties - Only includes own enumerable properties
- * @property String-keys - All keys are strings in the resulting Map
+ * @pure Creates a new Map without modifying the input
+ * @immutable Returns new Map from object properties
+ * @safe Only includes own enumerable properties
  */
 const fromObject = <V>(obj: Record<string, V>): Map<string, V> => {
 	return new Map(Object.entries(obj))

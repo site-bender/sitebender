@@ -6,7 +6,6 @@
  * partial application and composition in functional pipelines. It provides
  * a functional alternative to the Map.get() method.
  *
- * @curried (key) => (map) => value | undefined
  * @param key - The key to look up
  * @param map - The Map to get the value from
  * @returns The value associated with the key, or undefined if not found
@@ -241,9 +240,9 @@
  * get("key5000")(large) // O(1) lookup
  * // 5000
  * ```
- * @property Pure - Doesn't modify the Map
- * @property Curried - Allows partial application
- * @property Safe - Returns undefined for missing keys
+ * @pure Doesn't modify the Map
+ * @curried
+ * @safe Returns undefined for missing keys
  */
 const get = <K, V>(key: K) => (map: Map<K, V>): V | undefined => {
 	return map.get(key)
