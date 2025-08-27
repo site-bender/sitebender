@@ -1,10 +1,11 @@
+import type { Value } from "../../../types/index.ts"
+
 /**
  * Creates an object from arrays of keys and values
  *
  * Combines two arrays into an object where the first array provides the keys
- * and the second array provides the corresponding values. This is an alias
- * for zipObj with identical behavior. If arrays have different lengths, the
- * shorter length is used.
+ * and the second array provides the corresponding values. If arrays have 
+ * different lengths, the shorter length is used.
  *
  * @param keys - Array of property keys
  * @param values - Array of corresponding values
@@ -16,6 +17,11 @@
  *
  * // Different lengths - uses shorter
  * zipObject(["a", "b", "c"])([1, 2])  // { a: 1, b: 2 }
+ * zipObject(["a", "b"])([1, 2, 3, 4])  // { a: 1, b: 2 }
+ *
+ * // Empty arrays
+ * zipObject([])([])  // {}
+ * zipObject(["a", "b"])([])  // {}
  *
  * // CSV header mapping
  * const headers = ["id", "name", "email"]
@@ -23,17 +29,23 @@
  * zipObject(headers)(row)
  * // { id: 1, name: "Alice", email: "alice@ex.com" }
  *
- * // Alias for zipObj (identical behavior)
- * zipObject(["a", "b"])([1, 2])  // { a: 1, b: 2 }
- * zipObj(["a", "b"])([1, 2])      // { a: 1, b: 2 }
- *
  * @pure
  * @immutable
  * @curried
  * @safe
  */
-import zipObj from "../zipObj/index.ts"
-
-const zipObject = zipObj
+const zipObject = <K extends string | symbol, V extends Value>(
+	keys: Array<K>,
+) =>
+(
+	values: Array<V>,
+): Record<K, V> => {
+	const length = Math.min(keys.length, values.length)
+	
+	return keys.slice(0, length).reduce((acc, key, index) => ({
+		...acc,
+		[key]: values[index]
+	}), {} as Record<K, V>)
+}
 
 export default zipObject
