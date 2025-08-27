@@ -77,19 +77,15 @@
  * )
  * // Map { "grape" => 40 }
  * ```
- * @pure Creates new Map, doesn't modify inputs
+ * @pure
  * @curried
- * @immutable Preserves original Maps unchanged
+ * @immutable
  */
 const difference =
 	<K, V, V2>(subtrahend: Map<K, V2>) => (minuend: Map<K, V>): Map<K, V> => {
-		const result = new Map<K, V>()
-		for (const [key, value] of minuend) {
-			if (!subtrahend.has(key)) {
-				result.set(key, value)
-			}
-		}
-		return result
+		return new Map(
+			[...minuend.entries()].filter(([key]) => !subtrahend.has(key))
+		)
 	}
 
 export default difference

@@ -60,9 +60,10 @@
  * ]))
  * // Map { "username" => "alice", "sessionId" => "abc123" }
  * ```
- * @pure Creates new Map, doesn't modify original
+ * @pure
  * @curried
- * @safe Returns copy when key doesn't exist
+ * @immutable
+ * @safe
  */
 const deleteKey = <K, V>(key: K) => (map: Map<K, V>): Map<K, V> => {
 	const newMap = new Map(map)

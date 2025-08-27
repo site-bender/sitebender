@@ -81,21 +81,17 @@
  * filter((_, key) => !key.startsWith("_"))(config)
  * // Map { "app.name" => "MyApp", "user.theme" => "dark" }
  * ```
- * @pure Creates new Map, doesn't modify original
+ * @pure
  * @curried
- * @predicate Receives both value and key
+ * @immutable
  */
 const filter = <K, V>(
 	predicate: (value: V, key: K) => boolean,
 ) =>
 (map: Map<K, V>): Map<K, V> => {
-	const result = new Map<K, V>()
-	for (const [key, value] of map) {
-		if (predicate(value, key)) {
-			result.set(key, value)
-		}
-	}
-	return result
+	return new Map(
+		[...map.entries()].filter(([key, value]) => predicate(value, key))
+	)
 }
 
 export default filter

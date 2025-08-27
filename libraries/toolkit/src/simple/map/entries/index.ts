@@ -57,9 +57,9 @@
  * )
  * // 15
  * ```
- * @pure Doesn't modify the input Map
- * @immutable Returns new array from Map entries
- * @safe Always returns valid array
+ * @pure
+ * @immutable
+ * @safe
  */
 const entries = <K, V>(map: Map<K, V>): Array<[K, V]> => {
 	return Array.from(map.entries())

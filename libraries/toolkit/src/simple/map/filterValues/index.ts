@@ -59,21 +59,17 @@
  * filterValues((flag: boolean) => flag === true)(flags)
  * // Map { "isActive" => true, "isPremium" => true }
  * ```
- * @pure Creates new Map, doesn't modify original
+ * @pure
  * @curried
- * @predicate Examines values only
+ * @immutable
  */
 const filterValues = <K, V>(
 	predicate: (value: V) => boolean,
 ) =>
 (map: Map<K, V>): Map<K, V> => {
-	const result = new Map<K, V>()
-	for (const [key, value] of map) {
-		if (predicate(value)) {
-			result.set(key, value)
-		}
-	}
-	return result
+	return new Map(
+		[...map.entries()].filter(([, value]) => predicate(value))
+	)
 }
 
 export default filterValues

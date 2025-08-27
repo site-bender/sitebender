@@ -55,21 +55,17 @@
  * filterKeys((name: string) => /\.ts$/.test(name))(files)
  * // Map { "index.ts" => 100, "utils.ts" => 150 }
  * ```
- * @pure Creates new Map, doesn't modify original
+ * @pure
  * @curried
- * @predicate Examines keys only
+ * @immutable
  */
 const filterKeys = <K, V>(
 	predicate: (key: K) => boolean,
 ) =>
 (map: Map<K, V>): Map<K, V> => {
-	const result = new Map<K, V>()
-	for (const [key, value] of map) {
-		if (predicate(key)) {
-			result.set(key, value)
-		}
-	}
-	return result
+	return new Map(
+		[...map.entries()].filter(([key]) => predicate(key))
+	)
 }
 
 export default filterKeys

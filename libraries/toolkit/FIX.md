@@ -198,12 +198,12 @@
 
 ### Running Totals
 
-- **Total Sessions**: 25
-- **Files Completed**: 382/763 (50.1%)
-- **Total Time Spent**: ~551 minutes (9.2 hours)
-- **Average Time per File**: 1.44 minutes
-- **Estimated Completion**: ~18.3 hours total (at current pace)
-- **Remaining Files**: 381 (0 in array ✅, 0 in object ✅, 26 in map, 355 in other folders)
+- **Total Sessions**: 26
+- **Files Completed**: 398/763 (52.2%)
+- **Total Time Spent**: ~611 minutes (10.2 hours)
+- **Average Time per File**: 1.54 minutes
+- **Estimated Completion**: ~19.6 hours total (at current pace)
+- **Remaining Files**: 365 (0 in array ✅, 0 in object ✅, 24 in map, 341 in other folders)
 
 ## Quality Checklist per File
 
@@ -773,6 +773,38 @@
 - Started map/ folder (14 of 40 files done)
 **Notes**: COMPLETED object/ folder! Processed exactly 20 files as per session guidelines by crossing into map/ folder.
 
+### Session 26 - 2025-08-27
+**Folder**: map/
+**Files Processed**: 16 files total
+- **FIXED Session 25 Task tool errors** (13 files):
+  - delete ✓ (fixed tag format)
+  - deleteAll ✓ (fixed tags and replaced for loop with reduce)
+  - difference ✓ (fixed tags and replaced for loop with filter)
+  - differenceWith ✓ (fixed tags and replaced nested for loops with filter/some)
+  - entries ✓ (fixed tag format)
+  - filter ✓ (fixed tags and replaced for loop with filter)
+  - filterKeys ✓ (fixed tags and replaced for loop with filter)
+  - filterValues ✓ (fixed tags and replaced for loop with filter)
+  - frequency ✓ (reduced 291→44 lines, replaced for loop with reduce)
+  - fromArray ✓ (reduced 233→43 lines)
+  - fromEntries ✓ (fixed tag format)
+  - fromObject ✓ (reduced 277→42 lines)
+  - get ✓ (reduced 242→45 lines)
+- **New files processed properly**:
+  - getOr ✓ (reduced 267→49 lines)
+  - groupBy ✓ (reduced 350→58 lines, replaced for loop with reduce)
+  - has ✓ (reduced 278→45 lines)
+**Start Time**: 2025-08-27T15:00:00+12:00
+**End Time**: 2025-08-27T16:00:00+12:00
+**Duration**: ~60 minutes
+**Issues Fixed**:
+- CRITICAL: Re-processed all 13 files from Session 25 that were incorrectly handled with Task tool
+- Replaced all @property tags with proper @pure, @curried, @immutable, @safe, @predicate format
+- Fixed ALL imperative patterns (for/while loops replaced with functional approaches)
+- MASSIVELY reduced examples (most had 200-300 lines, reduced to 40-50 lines)
+- All functions now use pure FP style
+**Notes**: User caught critical error of using Task tool against explicit instructions. Had to redo Session 25 work properly.
+
 ## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
@@ -795,8 +827,9 @@
    - Session 23: mapKeys through partitionBy (10 files) 
    - Session 24: path through values (20 files)
    - Session 25: view through zipObject (6 files - folder complete)
-3. `map/` (40 files) - IN PROGRESS (14/40 complete)
-   - Session 25: clear through get (14 files)
+3. `map/` (40 files) - IN PROGRESS (16/40 complete)
+   - Session 25: clear through get (14 files) - WARNING: Used Task tool incorrectly
+   - Session 26: FIXED Session 25 files + processed getOr, groupBy, has (16 total)
 4. `set/` (26 files)
 
 ## Start Date: 2025-08-25

@@ -22,9 +22,9 @@
  *
  * // See fromArray for comprehensive examples
  * ```
- * @pure Creates a new Map without side effects
- * @immutable Returns new Map from entries
- * @safe Handles duplicate keys gracefully
+ * @pure
+ * @immutable
+ * @safe
  * @see {@link fromArray} for detailed documentation and examples
  */
 import fromArray from "../fromArray/index.ts"

@@ -72,31 +72,21 @@
  * differenceWith(sameDayEq)(holidays)(events)
  * // Map { Date("2024-01-16T09:00:00") => "Workshop" }
  * ```
- * @pure Creates new Map, doesn't modify inputs
+ * @pure
  * @curried
- * @immutable Preserves original Maps unchanged
+ * @immutable
  */
 const differenceWith = <K, V, K2, V2>(
 	equalsFn: (a: K, b: K2) => boolean,
 ) =>
 (subtrahend: Map<K2, V2>) =>
 (minuend: Map<K, V>): Map<K, V> => {
-	const result = new Map<K, V>()
-
-	for (const [key, value] of minuend) {
-		let found = false
-		for (const [subtrahendKey] of subtrahend) {
-			if (equalsFn(key, subtrahendKey)) {
-				found = true
-				break
-			}
-		}
-		if (!found) {
-			result.set(key, value)
-		}
-	}
-
-	return result
+	const subtrahendKeys = [...subtrahend.keys()]
+	return new Map(
+		[...minuend.entries()].filter(
+			([key]) => !subtrahendKeys.some(sKey => equalsFn(key, sKey))
+		)
+	)
 }
 
 export default differenceWith

@@ -60,16 +60,17 @@
  * ]), k => k.startsWith("_"))
  * // Map { "real" => 3 }
  * ```
- * @pure Creates new Map, doesn't modify original
+ * @pure
  * @curried
- * @safe Ignores non-existent keys
+ * @immutable
+ * @safe
  */
 const deleteAll = <K, V>(keys: Array<K>) => (map: Map<K, V>): Map<K, V> => {
-	const newMap = new Map(map)
-	for (const key of keys) {
+	return keys.reduce((acc, key) => {
+		const newMap = new Map(acc)
 		newMap.delete(key)
-	}
-	return newMap
+		return newMap
+	}, map)
 }
 
 export default deleteAll
