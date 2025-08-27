@@ -231,44 +231,30 @@ const smartMerge =
 				!Array.isArray(left) &&
 				!Array.isArray(right)
 			) {
-				const result: Record<string, any> = {}
-
 				// Get all keys from both objects
 				const allKeys = [
 					...new Set([...Object.keys(left), ...Object.keys(right)])
 				]
 
-				allKeys.forEach(key => {
+				return allKeys.reduce((result, key) => {
 					const leftValue = left[key]
 					const rightValue = right[key]
 
-					if (!(key in right)) {
-						result[key] = leftValue
-					} else if (!(key in left)) {
-						result[key] = rightValue
-					} else if (
-						typeof leftValue === "object" &&
-						typeof rightValue === "object" &&
-						leftValue !== null &&
-						rightValue !== null &&
-						!Array.isArray(leftValue) &&
-						!Array.isArray(rightValue)
-					) {
-						// Recursively merge nested objects
-						result[key] = mergeTwo(leftValue, rightValue, currentDepth + 1)
-					} else if (
-						Array.isArray(leftValue) &&
-						Array.isArray(rightValue)
-					) {
-						// Handle arrays according to strategy
-						result[key] = mergeTwo(leftValue, rightValue, currentDepth)
-					} else {
-						// Use resolver for primitive conflicts
-						result[key] = resolver(key, leftValue, rightValue)
-					}
-				})
+					const value = !(key in right) ? leftValue
+						: !(key in left) ? rightValue
+						: (typeof leftValue === "object" &&
+						   typeof rightValue === "object" &&
+						   leftValue !== null &&
+						   rightValue !== null &&
+						   !Array.isArray(leftValue) &&
+						   !Array.isArray(rightValue))
+							? mergeTwo(leftValue, rightValue, currentDepth + 1)
+						: (Array.isArray(leftValue) && Array.isArray(rightValue))
+							? mergeTwo(leftValue, rightValue, currentDepth)
+						: resolver(key, leftValue, rightValue)
 
-				return result
+					return { ...result, [key]: value }
+				}, {} as Record<string, any>)
 			}
 
 			// For primitives and type mismatches, right wins
