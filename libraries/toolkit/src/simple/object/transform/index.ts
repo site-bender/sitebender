@@ -12,7 +12,6 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to transform
  * @returns A new object with transformed values according to the spec
  * @example
- * ```typescript
  * // Basic transformation
  * transform({
  *   fullName: (obj: any) => `${obj.firstName} ${obj.lastName}`,
@@ -34,7 +33,7 @@ import type { Value } from "../../../types/index.ts"
  *   count: (obj: any) => obj.items.length
  * })({ items: [{ price: 10 }, { price: 20 }] })
  * // { total: 30, count: 2 }
- * ```
+ *
  * @pure
  * @immutable
  * @curried
@@ -47,20 +46,16 @@ const transform = <S extends Record<string, (obj: any) => Value>>(
 	obj: T,
 ): { [K in keyof S]: ReturnType<S[K]> } => {
 	// Handle null/undefined
-	if (!obj || typeof obj !== "object") {
-		// Still run transformations with empty object
-		obj = {} as T
-	}
-
-	const result = {} as { [K in keyof S]: ReturnType<S[K]> }
+	const safeObj = (!obj || typeof obj !== "object") ? {} as T : obj
 
 	// Apply each transformation in the spec
-	Object.keys(spec).forEach(key => {
+	return Object.keys(spec).reduce((result, key) => {
 		const transformer = spec[key]
-		result[key] = transformer(obj) as ReturnType<S[typeof key]>
-	})
-
-	return result
+		return {
+			...result,
+			[key]: transformer(safeObj)
+		}
+	}, {} as { [K in keyof S]: ReturnType<S[K]> })
 }
 
 export default transform

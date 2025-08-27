@@ -11,7 +11,6 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to convert
  * @returns Array of [key, value] pairs including inherited properties
  * @example
- * ```typescript
  * // Basic conversion (same as toPairs for plain objects)
  * toPairsIn({ a: 1, b: 2, c: 3 })
  * // [["a", 1], ["b", 2], ["c", 3]]
@@ -37,7 +36,7 @@ import type { Value } from "../../../types/index.ts"
  * const derived = Object.create(base)
  * derived.y = 2
  * flatten(derived)  // { y: 2, x: 1 }
- * ```
+ *
  * @pure
  * @immutable
  * @safe
@@ -50,12 +49,14 @@ const toPairsIn = <T extends Record<string | symbol, Value>>(
 		return []
 	}
 
-	const pairs: Array<[string | symbol, Value]> = []
-
 	// Get all enumerable properties including inherited ones
+	const keys: Array<string> = []
 	for (const key in obj) {
-		pairs.push([key, obj[key]])
+		keys.push(key)
 	}
+	
+	// Map keys to pairs
+	const pairs = keys.map(key => [key, obj[key]] as [string, Value])
 
 	// Get own symbol properties (symbols are not inherited)
 	const symbolPairs = Object.getOwnPropertySymbols(obj)

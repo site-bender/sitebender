@@ -12,7 +12,6 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object whose keys to rename
  * @returns A new object with renamed keys
  * @example
- * ```typescript
  * // Basic key renaming
  * renameKeys({ oldName: "newName", oldAge: "newAge" })({
  *   oldName: "Alice", oldAge: 30, city: "NYC"
@@ -31,7 +30,7 @@ import type { Value } from "../../../types/index.ts"
  * })
  * toCamelCase({ first_name: "John", last_name: "Doe" })
  * // { firstName: "John", lastName: "Doe" }
- * ```
+ *
  * @pure
  * @immutable
  * @curried
@@ -48,25 +47,11 @@ const renameKeys = <T extends Record<string | symbol, Value>>(
 		return {}
 	}
 
-	const result: Record<string | symbol, Value> = {}
-
-	// Get all keys including symbols
-	const allKeys = [
-		...Object.keys(obj),
-		...Object.getOwnPropertySymbols(obj),
-	]
-
-	// Process each key
-	allKeys.forEach(oldKey => {
-		// Check if this key should be renamed
-		const newKey = keyMap[oldKey]
-		const finalKey = newKey !== undefined ? newKey : oldKey
-
-		// Set the value with the appropriate key
-		result[finalKey] = obj[oldKey as keyof T]
-	})
-
-	return result
+	// Process each key and rename if needed
+	return Object.entries(obj).reduce((acc, [oldKey, value]) => {
+		const newKey = keyMap[oldKey] !== undefined ? keyMap[oldKey] : oldKey
+		return { ...acc, [newKey]: value }
+	}, {} as Record<string | symbol, Value>)
 }
 
 export default renameKeys

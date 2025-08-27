@@ -1,5 +1,14 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
+## 🔴🔴🔴 CRITICAL WARNING 🔴🔴🔴
+**NEVER USE THE TASK TOOL**
+**NEVER USE THE TASK TOOL**
+**NEVER USE THE TASK TOOL**
+
+The Task tool DESTROYS FILES. It creates broken, non-functional code.
+Process EVERY FILE INDIVIDUALLY, ONE AT A TIME, CAREFULLY.
+NO SHORTCUTS. NO EXCEPTIONS. EVER.
+
 ## 🚀 QUICK START FOR NEXT SESSION
 **Status**: 382/763 files complete (50.1%) - Phase 2 IN PROGRESS  
 **Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object ✅, Map (14/40) 🔄

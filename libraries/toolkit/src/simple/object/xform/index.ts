@@ -5,13 +5,9 @@ import type { Value } from "../../../types/index.ts"
  *
  * Recursively transforms an object and all its nested objects using a
  * transformation function. The transformer receives each object (including
- * nested ones) and can modify its structure. Handles circular references
- * by tracking visited objects. Arrays are traversed but not transformed
- * unless they contain objects.
+ * nested ones) and can modify its structure. Arrays are traversed but not 
+ * transformed unless they contain objects.
  *
- * @pure
- * @immutable
- * @curried
  * @param transformer - Function to transform each object in the structure
  * @param obj - The object to transform recursively
  * @returns A new object with the transformation applied recursively
@@ -40,8 +36,8 @@ import type { Value } from "../../../types/index.ts"
  *     {}
  *   )
  * )
- * removePrivate({ name: "Item", _internal: "hidden" })
- * // { name: "Item" }
+ * removePrivate({ name: "Item", _internal: "hidden", data: { _private: "x", public: "y" } })
+ * // { name: "Item", data: { public: "y" } }
  *
  * // Arrays with objects
  * xform((obj: any) => ({ ...obj, processed: true }))({
@@ -55,17 +51,11 @@ import type { Value } from "../../../types/index.ts"
  *   _meta: { version: 1 }
  * }))
  * addMeta({ product: { name: "Widget" } })
- * // All objects get _meta property
+ * // { product: { name: "Widget", _meta: { version: 1 } }, _meta: { version: 1 } }
  *
- * // Clean nulls recursively
- * const cleanData = xform((obj: any) =>
- *   Object.entries(obj).reduce(
- *     (acc, [k, v]) => v == null || v === "" ? acc : { ...acc, [k]: v },
- *     {}
- *   )
- * )
- * cleanData({ name: "Item", value: null, data: { id: 1, empty: "" } })
- * // { name: "Item", data: { id: 1 } }
+ * @pure
+ * @curried
+ * @immutable
  */
 const xform = <T extends Record<string | symbol, Value>>(
 	transformer: (obj: any) => any,
@@ -73,14 +63,6 @@ const xform = <T extends Record<string | symbol, Value>>(
 (
 	obj: T,
 ): any => {
-	// Handle primitives and null/undefined
-	if (obj === null || obj === undefined || typeof obj !== "object") {
-		return obj
-	}
-
-	// Track visited objects for circular reference handling
-	const visited = new WeakMap()
-
 	const transformRecursive = (current: any): any => {
 		// Handle primitives
 		if (
@@ -89,34 +71,22 @@ const xform = <T extends Record<string | symbol, Value>>(
 			return current
 		}
 
-		// Check for circular reference
-		if (visited.has(current)) {
-			return visited.get(current)
-		}
-
 		// Handle arrays - traverse but don't transform the array itself
 		if (Array.isArray(current)) {
-			const result = current.map((item) => transformRecursive(item))
-			visited.set(current, result)
-			return result
+			return current.map(transformRecursive)
 		}
 
-		// Transform the object
+		// Transform the current object first
 		const transformed = transformer(current)
-		visited.set(current, transformed)
 
-		// Recursively transform nested objects
-		const entries = Object.entries(transformed).map(([key, value]) => [
-			key,
-			transformRecursive(value),
-		])
-
-		// Handle symbol keys
-		const symbolEntries = Object.getOwnPropertySymbols(transformed).map(
-			(sym) => [sym, transformRecursive(transformed[sym])],
+		// Recursively transform nested values
+		return Object.entries(transformed).reduce(
+			(acc, [key, value]) => ({
+				...acc,
+				[key]: transformRecursive(value),
+			}),
+			{},
 		)
-
-		return Object.fromEntries([...entries, ...symbolEntries])
 	}
 
 	return transformRecursive(obj)

@@ -13,11 +13,10 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to test
  * @returns True if predicate(obj[key]) returns true, false otherwise
  * @example
- * ```typescript
  * // Basic predicate checks
- * propSatisfies((x: number) => x > 10)("age")({ age: 25 })        // true
- * propSatisfies((x: number) => x > 10)("age")({ age: 5 })         // false
- * propSatisfies((x: number) => x > 10)("age")({})                 // false (missing)
+ * propSatisfies((x: number) => x > 10)("age")({ age: 25 })  // true
+ * propSatisfies((x: number) => x > 10)("age")({ age: 5 })   // false
+ * propSatisfies((x: number) => x > 10)("age")({})          // false
  *
  * // Filtering valid records
  * const isAdult = propSatisfies((age: number) => age >= 18)("age")
@@ -29,7 +28,6 @@ import type { Value } from "../../../types/index.ts"
  *   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
  * )("email")
  * hasValidEmail({ email: "user@example.com" })  // true
- * ```
  * @pure
  * @immutable
  * @curried

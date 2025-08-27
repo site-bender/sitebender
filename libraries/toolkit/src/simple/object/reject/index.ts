@@ -11,7 +11,6 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to filter
  * @returns A new object with properties that don't satisfy the predicate
  * @example
- * ```typescript
  * // Reject by value
  * reject((value: any) => typeof value === "number")({
  *   a: 1, b: "two", c: 3, d: "four"
@@ -20,7 +19,7 @@ import type { Value } from "../../../types/index.ts"
  *
  * // Reject by key pattern
  * reject((value: any, key: string) => key.startsWith("_"))({
- *   name: "Alice", _id: 123, email: "alice@ex.com", _internal: true
+ *   name: "Alice", _id: 123, email: "alice@ex.com"
  * })
  * // { name: "Alice", email: "alice@ex.com" }
  *
@@ -29,11 +28,6 @@ import type { Value } from "../../../types/index.ts"
  * removeFalsy({ name: "Alice", email: "", age: 0, active: true })
  * // { name: "Alice", active: true }
  *
- * // Remove temporary fields
- * const removeTempFields = reject((value: any, key: string) =>
- *   key.endsWith("_temp") || key.endsWith("_old")
- * )
- * ```
  * @pure
  * @immutable
  * @curried
@@ -50,23 +44,10 @@ const reject = <T extends Record<string | symbol, Value>>(
 		return {}
 	}
 
-	const result: Partial<T> = {}
-
-	// Get all keys including symbols
-	const allKeys = [
-		...Object.keys(obj),
-		...Object.getOwnPropertySymbols(obj),
-	]
-
-	// Keep properties where predicate returns false
-	allKeys.forEach(key => {
-		const value = obj[key as keyof T]
-		if (!predicate(value, key)) {
-			;(result as any)[key] = value
-		}
-	})
-
-	return result
+	// Filter entries where predicate returns false
+	return Object.fromEntries(
+		Object.entries(obj).filter(([key, value]) => !predicate(value, key))
+	) as Partial<T>
 }
 
 export default reject
