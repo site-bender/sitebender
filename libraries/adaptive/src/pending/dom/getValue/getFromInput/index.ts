@@ -5,8 +5,9 @@ const getFromInput = (
 	if (input && "getAttribute" in input) {
 		return (input as Element).getAttribute("value") || ""
 	}
-	// Fallback to .value for real DOM
-	return (input as HTMLInputElement)?.value ?? ""
+	// Fallback to .value for real DOM with safe cast
+	const el = input as unknown as HTMLInputElement | null | undefined
+	return el?.value ?? ""
 }
 
 export default getFromInput

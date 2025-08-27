@@ -1,22 +1,14 @@
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
-import type { SlotAttributes } from "../types/attributes/index.ts"
+import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { SlotAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isFlowContent from "../../../../../guards/isFlowContent/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Slot element
@@ -79,14 +71,16 @@ const isValidSlotChild = (child: ElementConfig): boolean => {
 
 export const Slot =
 	(attributes: Record<string, Value> = {}) =>
-	(children: Record<string, Value> = []) => {
-		const filteredChildren = Array.isArray(children)
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
+		const filteredChildren = isString(children)
+			? [TextNode(children) as unknown as ElementConfig]
+			: Array.isArray(children)
 			? children.filter(isValidSlotChild)
 			: isValidSlotChild(children)
 			? [children]
 			: []
 
-		return Filtered("Slot")(filterAttributes)(attributes)(filteredChildren)
+		return Filtered("slot")(filterAttributes as (a: Record<string, unknown>) => Record<string, unknown>)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Slot

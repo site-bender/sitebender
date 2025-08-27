@@ -1,4 +1,4 @@
-import type { GlobalAttributes, Value } from "../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import isInteger from "../../guards/isInteger/index.ts"
 

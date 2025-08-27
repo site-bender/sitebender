@@ -1,23 +1,13 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { OptionAttributes } from "../../types/attributes/index.ts"
+import type { Value, ComparatorConfig, LogicalConfig, Operand, OperatorConfig } from "@adaptiveTypes/index.ts"
+import type { OptionAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import isDefined from "../../../../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Option element
@@ -38,17 +28,19 @@ export type OptionElementAttributes = OptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: OptionAttributes) => {
+export const filterAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
 	const { disabled, label, selected, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
-	return {
+	const out: Record<string, Value> = {
 		...globals,
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("label")(label),
-		...filterAttribute(isBoolean)("selected")(selected),
-		...filterAttribute(isString)("value")(value),
+		...filterAttribute(isBoolean)("disabled")(disabled as Value),
+		...filterAttribute(isString)("label")(label as Value),
+		...filterAttribute(isBoolean)("selected")(selected as Value),
+		...filterAttribute(isString)("value")(value as Value),
 	}
+
+	return out
 }
 
 /**

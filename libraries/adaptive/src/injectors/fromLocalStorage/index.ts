@@ -1,9 +1,10 @@
 import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"
-import getFromLocal from "../../utilities/getValue/getFromLocal/index.ts"
-import isDefined from "../../utilities/isDefined.ts"
+import getFromLocal from "@adaptiveSrc/pending/dom/getValue/getFromLocal/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
-const fromLocalStorage = (op) => async (_, localValues) => {
+// deno-lint-ignore no-explicit-any
+const fromLocalStorage = (op: any) => (_: unknown, localValues?: Record<string, unknown>) => {
 	const local = getFromLocal(op)(localValues)
 
 	if (isDefined(local)) {
@@ -13,9 +14,9 @@ const fromLocalStorage = (op) => async (_, localValues) => {
 	const { datatype, key } = op
 	const value = globalThis.localStorage?.getItem(key)
 
-	if (value == null) {
+	if (value === null || value === undefined) {
 		return {
-			left: [Error(op)("FromLocalStorage")(`Value at key "${key}" not found.`)],
+			left: [Error("FromLocalStorage")("FromLocalStorage")(`Value at key "${key}" not found.`)],
 		}
 	}
 
@@ -23,7 +24,7 @@ const fromLocalStorage = (op) => async (_, localValues) => {
 
 	return isDefined(casted.right)
 		? casted
-		: Error(op)("FromLocalStorage")(casted.left)
+		: { left: [Error("FromLocalStorage")("FromLocalStorage")(String(casted.left))] }
 }
 
 export default fromLocalStorage

@@ -1,3 +1,4 @@
+/// <reference path="./shims/temporal.d.ts" />
 /**
  * Type definitions for the Adaptive library
  *
@@ -1039,14 +1040,14 @@ export const isRight = <E, T>(result: Either<E, T>): result is Right<T> => {
 }
 
 // Check if something is a valid Value type
-export const isValue = (val: Value): val is Value => {
+export const isValue = (val: unknown): val is Value => {
 	if (val === null || val === undefined) return true
 
 	const type = typeof val
 	if (type === "string" || type === "number" || type === "boolean") return true
 
 	if (Array.isArray(val)) {
-		return val.every(isValue)
+		return (val as Array<unknown>).every(isValue)
 	}
 
 	if (val instanceof Map || val instanceof Set) {
@@ -1055,7 +1056,7 @@ export const isValue = (val: Value): val is Value => {
 
 	if (type === "object") {
 		// Plain object
-		return Object.values(val).every(isValue)
+		return Object.values(val as Record<string, unknown>).every(isValue)
 	}
 
 	return false

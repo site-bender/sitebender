@@ -1,9 +1,10 @@
 import Error from "../../../constructors/Error/index.ts"
 import castValue from "../../../utilities/castValue/index.ts"
-import isDefined from "../../../utilities/isDefined/index.ts"
-import isUndefined from "../../../utilities/isUndefined.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isUndefined from "@toolkit/simple/validation/isUndefined/index.ts"
 
-const getBySegment = (op) => {
+// deno-lint-ignore no-explicit-any
+const getBySegment = (op: any) => {
 	const {
 		datatype,
 		options: { segment },
@@ -16,7 +17,7 @@ const getBySegment = (op) => {
 		}
 	}
 
-	const value = window.location.pathname.split("/").at(index.right)
+	const value = (globalThis.location?.pathname ?? "").split("/").at(index.right)
 
 	if (isUndefined(value)) {
 		return {

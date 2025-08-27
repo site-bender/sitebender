@@ -1,11 +1,10 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"
@@ -29,7 +28,7 @@ async (
 	const result = castValue(datatype)(getValue(op)(localValues))
 
 	if (isDefined(result.left)) {
-		return { left: [Error(op)("FromElement")(result.left)] }
+		return { left: [Error("FromElement")("FromElement")(String(result.left))] }
 	}
 
 	return result

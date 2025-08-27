@@ -1,22 +1,18 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import { AUTOCOMPLETES } from "../../../../../../../constructors/elements/constants/index.ts"
-import filterAttribute from "../../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../../../guards/isMemberOf/index.ts"
-import isNumber from "../../../../../../../guards/isNumber/index.ts"
-import isString from "../../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../../guards/pickGlobalAttributes/index.ts"
+import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for date/time input types
  * Validates common date/time input attributes
  */
-const filterDateTimeAttributes = (attributes: Record<string, Value>) => {
+const filterDateTimeAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
 	const {
 		autocomplete,
 		form,
@@ -30,21 +26,19 @@ const filterDateTimeAttributes = (attributes: Record<string, Value>) => {
 		value,
 		...attrs
 	} = attributes
-	const globals = pickGlobalAttributes(attrs)
-
-	return {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("list")(list),
-		...filterAttribute(isString)("max")(max),
-		...filterAttribute(isString)("min")(min),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isBoolean)("readonly")(readonly),
-		...filterAttribute(isBoolean)("required")(required),
-		...filterAttribute(isNumber)("step")(step),
-		...filterAttribute(isString)("value")(value),
-	}
+	const filteredAttrs: Record<string, unknown> = {}
+	Object.assign(filteredAttrs, pickGlobalAttributes(attrs))
+	Object.assign(filteredAttrs, filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete))
+	Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
+	Object.assign(filteredAttrs, filterAttribute(isString)("list")(list))
+	Object.assign(filteredAttrs, filterAttribute(isString)("max")(max))
+	Object.assign(filteredAttrs, filterAttribute(isString)("min")(min))
+	Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
+	Object.assign(filteredAttrs, filterAttribute(isBoolean)("readonly")(readonly))
+	Object.assign(filteredAttrs, filterAttribute(isBoolean)("required")(required))
+	Object.assign(filteredAttrs, filterAttribute(isNumber)("step")(step))
+	Object.assign(filteredAttrs, filterAttribute(isString)("value")(value))
+	return filteredAttrs as Record<string, Value>
 }
 
 export default filterDateTimeAttributes

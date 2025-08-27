@@ -1,10 +1,11 @@
 import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"
-import getFromLocal from "../../utilities/getValue/getFromLocal/index.ts"
-import isDefined from "../../utilities/isDefined/index.ts"
-import isUndefined from "../../utilities/isUndefined.ts"
+import getFromLocal from "@adaptiveSrc/pending/dom/getValue/getFromLocal/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isUndefined from "@toolkit/simple/validation/isUndefined/index.ts"
 
-const fromQueryString = (op = {}) => async (_, localValues) => {
+// deno-lint-ignore no-explicit-any
+const fromQueryString = (op: any = {}) => (_: unknown, localValues?: Record<string, unknown>) => {
 	const local = getFromLocal(op)(localValues)
 
 	if (isDefined(local)) {
@@ -13,12 +14,12 @@ const fromQueryString = (op = {}) => async (_, localValues) => {
 
 	const { datatype, key } = op
 
-	const value = new URLSearchParams(window.location.search).get(key)
+	const value = new URLSearchParams(globalThis.location?.search ?? "").get(key)
 
 	if (isUndefined(value)) {
 		return {
 			left: [
-				Error(op)("FromQueryString")(
+				Error("FromQueryString")("FromQueryString")(
 					`Unable to find key "${key}" in URL search string.`,
 				),
 			],
@@ -29,7 +30,7 @@ const fromQueryString = (op = {}) => async (_, localValues) => {
 
 	return isDefined(casted.right)
 		? casted
-		: { left: [Error(op)("FromQueryString")(casted.left)] }
+		: { left: [Error("FromQueryString")("FromQueryString")(String(casted.left))] }
 }
 
 export default fromQueryString

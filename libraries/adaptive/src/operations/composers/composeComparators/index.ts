@@ -1,17 +1,16 @@
 import type {
 	AdaptiveError,
 	ComparatorConfig,
-	GlobalAttributes,
 	LogicalConfig,
 	Operand,
 	OperationFunction,
-} from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
-import Error from "../../../constructors/Error/index.ts"
-import getOperandKeys from "../../../operations/helpers/getOperandKeys/index.ts"
-import not from "../../../utilities/predicates/not/index.ts"
-import toCamel from "../../../utilities/string/toCamel/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
+import Error from "@adaptiveSrc/constructors/Error/index.ts"
+import getOperandKeys from "@adaptiveSrc/operations/helpers/getOperandKeys/index.ts"
+import not from "@toolkit/simple/logic/not/index.ts"
+import toCamel from "@toolkit/simple/string/toCase/toCamel/index.ts"
 
 type ComparatorOperand = ComparatorConfig | LogicalConfig | Operand
 
@@ -32,12 +31,12 @@ const composeComparators = async (
 	const operandKeys = getOperandKeys(operation as Operand)
 
 	const resolvedOperandPromises = operandKeys.map(async (key: string) => {
-		const value = (operation as Record<string, unknown>)[key]
+		const value = (operation as any)[key]
 		const resolvedValue = Array.isArray(value)
 			? await Promise.all(
-				value.map((op: ComparatorOperand) => composeComparators(op)),
+				(value as any[]).map((op) => composeComparators(op as ComparatorOperand)),
 			)
-			: await composeComparators(value)
+			: await composeComparators(value as ComparatorOperand)
 		return [key, resolvedValue]
 	})
 
@@ -49,23 +48,18 @@ const composeComparators = async (
 
 	try {
 		// All comparators are organized by comparison type (alphabetical, numerical, etc.)
-		if ((operation as ComparatorConfig).type === "comparator") {
+	if ((operation as any).type === "comparator") {
 			const { default: comparatorExecutor } = await import(
-				`../../comparators/${((operation as
-					| ComparatorConfig
-					| LogicalConfig
-					| Operand).comparison)}/${
-					toCamel((operation as ComparatorConfig).tag)
+		`../../comparators/${(operation as any).comparison}/${
+		    toCamel((operation as any).tag)
 				}/index.js`
 			)
 			return comparatorExecutor(hydratedOperation)
 		}
 
-		if ((operation as ComparatorConfig).type === OPERAND_TYPES.injector) {
+	if ((operation as any).type === OPERAND_TYPES.injector) {
 			const { default: injectorExecutor } = await import(
-				`../../../injectors/${
-					toCamel((operation as ComparatorConfig).tag)
-				}/index.js`
+		`../../../injectors/${toCamel((operation as any).tag)}/index.js`
 			)
 			return injectorExecutor(hydratedOperation)
 		}
@@ -78,14 +72,12 @@ const composeComparators = async (
 					) as AdaptiveError,
 				],
 			})
-	} catch (e: Error) {
+	} catch (e: unknown) {
 		return () =>
 			Promise.resolve({
 				left: [
-					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
-						`Comparison "${(operation as ComparatorConfig).tag}" with type "${
-							(operation as ComparatorConfig).type
-						}" could not be loaded. ${e.message}`,
+					Error((operation as any).tag || "Unknown")("Comparison")(
+						`Comparison "${(operation as any).tag}" with type "${(operation as any).type}" could not be loaded. ${String(e)}`,
 					) as AdaptiveError,
 				],
 			})

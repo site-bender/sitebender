@@ -5,9 +5,11 @@
  * @returns Function that takes a key and returns a function that takes a value and returns filtered attribute object
  */
 const filterAttribute =
-	<T>(guard: (value: Value) => value is T) =>
+	<P, T extends P>(guard: (value: P) => value is T) =>
 	(key: string) =>
-	(value: Value): Record<string, T> | Record<string, never> =>
-		value != null && guard(value) ? { [key]: value } : {}
+		(value: P): Record<string, T> | Record<string, never> =>
+			value !== null && value !== undefined && guard(value)
+				? { [key]: (value as unknown) as T }
+				: {}
 
 export default filterAttribute

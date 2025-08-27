@@ -2,9 +2,9 @@ import type { ElementConfig } from "../../../constructors/elements/types/index.t
 
 import Error from "../../../constructors/Error/index.ts"
 import getSelector from "../getSelector/index.ts"
-import isDefined from "../../../../../toolkit/src/simple/validation/isDefined/index.ts"
-import isUndefined from "../../../../../toolkit/src/simple/validation/isUndefined/index.ts"
-import not from "../../../../../toolkit/src/simple/logic/not/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isUndefined from "@toolkit/simple/validation/isUndefined/index.ts"
+import not from "@toolkit/simple/logic/not/index.ts"
 import getFromCheckbox from "./getFromCheckbox/index.ts"
 import getFromDataset from "./getFromDataset/index.ts"
 import getFromInnerHtml from "./getFromInnerHtml/index.ts"

@@ -1,4 +1,5 @@
-import type { GlobalAttributes, Value } from "../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
+import type { GlobalAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
 import isBoolean from "../../guards/isBoolean/index.ts"
 import isCharacter from "../../guards/isCharacter/index.ts"
@@ -12,8 +13,9 @@ import isTabIndex from "../../guards/isTabIndex/index.ts"
  * Global HTML attributes with comprehensive validation
  */
 const globalAttributes = {
+	// canonical keys per GlobalAttributes
 	accessKey: isCharacter,
-	autoCapitalize: isMemberOf([
+	autocapitalize: isMemberOf([
 		"characters",
 		"none",
 		"off",
@@ -54,13 +56,27 @@ const globalAttributes = {
 	lang: isString,
 	nonce: isString,
 	popover: isMemberOf(["auto", "manual"]),
-	role: isString,
-	spellcheck: isEmptyStringOrBoolean,
+	spellCheck: isEmptyStringOrBoolean,
 	style: isCSSStyleDeclaration,
 	tabIndex: isTabIndex,
-	tabindex: isTabIndex,
 	title: isString,
 	translate: isMemberOf(["no", "yes"]),
+	// Accept common synonyms (input keys) and normalize them below
+	tabindex: isTabIndex,
+	spellcheck: isEmptyStringOrBoolean,
+} as const
+
+type GlobalAttributeKey = keyof typeof globalAttributes
+
+const toCanonicalKey = (key: string): keyof GlobalAttributes | undefined => {
+	switch (key) {
+		case "tabindex":
+			return "tabIndex"
+		case "spellcheck":
+			return "spellCheck"
+		default:
+			return (key in globalAttributes ? key : undefined) as keyof GlobalAttributes | undefined
+	}
 }
 
 /**
@@ -69,21 +85,24 @@ const globalAttributes = {
  * @param attributes - Input attributes object
  * @returns Validated global attributes
  */
-export default function pickGlobalAttributes(attributes: unknown = {}) {
-	const out = Object.fromEntries(
-		Object.entries(attributes)
-			.filter(([key, value]) => {
-				const f = globalAttributes[key as keyof typeof globalAttributes]
-				return f ? f(value) : false
-			})
-			.map(([key, value]) => [key.toLocaleLowerCase(), value]),
-	)
+export default function pickGlobalAttributes(attributes: Record<string, unknown> = {}): GlobalAttributes {
+	const result: Partial<GlobalAttributes> = {}
 
-	if (typeof out["style"] === "object") {
-		out["style"] = Object.entries(out["style"] as Record<string, unknown>)
-			.map(([key, value]) => `${key}: ${value}`)
-			.join("; ")
+	for (const [rawKey, value] of Object.entries(attributes)) {
+		const guard = (globalAttributes as Record<string, (v: Value) => boolean>)[rawKey]
+			?? (globalAttributes as Record<string, (v: Value) => boolean>)[rawKey.toLowerCase()]
+		const canonical = toCanonicalKey(rawKey) ?? (rawKey as keyof GlobalAttributes)
+
+		if (guard && guard(value as Value)) {
+			if (canonical === "style" && typeof value === "object" && value !== null) {
+				;(result as Record<string, unknown>)["style"] = Object.entries(value as Record<string, unknown>)
+					.map(([k, v]) => `${k}: ${String(v)}`)
+					.join("; ")
+			} else {
+				;(result as Record<string, unknown>)[canonical as string] = value as unknown
+			}
+		}
 	}
 
-	return out
+	return result as GlobalAttributes
 }

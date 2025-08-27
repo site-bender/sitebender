@@ -1,5 +1,5 @@
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-export default function isMemberOf<T>(options: readonly T[]) {
+export default function isMemberOf<T extends Value>(options: readonly T[]) {
 	return (value: Value): value is T => options.includes(value as T)
 }

@@ -1,6 +1,6 @@
 import type { Value } from "../../../../../types/index.ts"
 
-import isDefined from "../../../../../../toolkit/src/simple/validation/isDefined/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 const getFromCheckbox = (input: HTMLInputElement | Element): Value => {
 	// For deno-dom, check for checked attribute

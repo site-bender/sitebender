@@ -4,27 +4,27 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
-import type { ImageAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ImageAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import { getImgAllowedRoles } from "../../../../../constructors/elements/constants/aria-roles.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
+import { getImgAllowedRoles } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import {
 	CROSS_ORIGINS,
 	DECODING_HINTS,
 	FETCH_PRIORITIES,
 	LOADINGS,
 	REFERRER_POLICIES,
-} from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Extended Img attributes including reactive properties and ARIA
@@ -47,18 +47,17 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
 	const {
 		id,
 		alt,
-		crossorigin,
-		decoding,
-		fetchpriority,
+		crossOrigin,
+		decode,
+		fetchPriority,
 		height,
-		ismap,
+		isMap,
 		loading,
-		longdesc,
-		referrerpolicy,
+		referrerPolicy,
 		sizes,
 		src,
-		srcset,
-		usemap,
+		srcSet,
+		useMap,
 		width,
 		// ARIA attributes
 		role,
@@ -91,31 +90,31 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
 	if (isDefined(alt)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("alt")(alt))
 	}
-	if (isDefined(crossorigin)) {
+    if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+	    filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
 		)
 	}
-	if (isDefined(decoding)) {
+    if (isDefined(decode)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(DECODING_HINTS))("decoding")(decoding),
+	    filterAttribute(isMemberOf(DECODING_HINTS))("decode")(decode),
 		)
 	}
-	if (isDefined(fetchpriority)) {
+    if (isDefined(fetchPriority)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchpriority")(
-				fetchpriority,
+	    filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchPriority")(
+		fetchPriority,
 			),
 		)
 	}
 	if (isDefined(height)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
 	}
-	if (isDefined(ismap)) {
-		Object.assign(filteredAttrs, filterAttribute(isBoolean)("ismap")(ismap))
+	if (isDefined(isMap)) {
+		Object.assign(filteredAttrs, filterAttribute(isBoolean)("isMap")(isMap))
 	}
 	if (isDefined(loading)) {
 		Object.assign(
@@ -123,17 +122,11 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
 			filterAttribute(isMemberOf(LOADINGS))("loading")(loading),
 		)
 	}
-	if (isDefined(longdesc)) {
+	if (isDefined(referrerPolicy)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("longdesc")(longdesc),
-		)
-	}
-	if (isDefined(referrerpolicy)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
-				referrerpolicy,
+			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerPolicy")(
+				referrerPolicy,
 			),
 		)
 	}
@@ -143,11 +136,11 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
 	if (isDefined(src)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
-	if (isDefined(srcset)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcset")(srcset))
+	if (isDefined(srcSet)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("srcSet")(srcSet))
 	}
-	if (isDefined(usemap)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("usemap")(usemap))
+	if (isDefined(useMap)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("useMap")(useMap))
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -206,8 +199,8 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
  * })
  * ```
  */
-export const Img = (attributes: ImgElementAttributes = {}): ElementConfig => {
-	const { id, ...attribs } = filterAttributes(attributes)
+export const Img = (attributes: Partial<ImgElementAttributes> = {}): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(attributes as ImgElementAttributes)
 	const {
 		calculation,
 		dataset,

@@ -1,22 +1,14 @@
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
-import type { QuotationAttributes } from "../types/attributes/index.ts"
+import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { QuotationAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 
 /**
  * Filters attributes for Q element
@@ -79,14 +71,16 @@ const isValidQChild = (child: ElementConfig): boolean => {
 
 export const Q =
 	(attributes: Record<string, Value> = {}) =>
-	(children: Record<string, Value> = []) => {
-		const filteredChildren = Array.isArray(children)
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
+		const kids = isString(children)
+			? [TextNode(children) as unknown as ElementConfig]
+			: Array.isArray(children)
 			? children.filter(isValidQChild)
 			: isValidQChild(children)
 			? [children]
 			: []
 
-		return Filtered("Q")(filterAttributes)(attributes)(filteredChildren)
+		return Filtered("q")(filterAttributes)(attributes)(kids as Array<ElementConfig>)
 	}
 
 export default Q

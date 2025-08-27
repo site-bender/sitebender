@@ -1,17 +1,14 @@
-import type {
-	ElementAttributes,
-	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-} from "../../../constructors/elements/types/index.ts"
+import type { ElementAttributes, ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
+import { isValue } from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../utilities/isDefined/index.ts"
-import getAriaAttributes from "../../../constructors/helpers/getAriaAttributes/index.ts"
-import getId from "../../../constructors/helpers/getId/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 
 const Filtered =
 	<T extends Record<string, unknown>>(tag = "A") =>
-	(filterAttributes: (attrs: T) => T) =>
+	(filterAttributes: (attrs: T) => Record<string, unknown>) =>
 	(attributes: ElementAttributes<T> = {} as ElementAttributes<T>) =>
 	(children: Array<ElementConfig> = []): ElementConfig<T> => {
 		const {
@@ -28,15 +25,22 @@ const Filtered =
 		const { id, ...attribs } = filterAttributes(attrs as T)
 		const kids = Array.isArray(children) ? children : [children]
 
+		const datasetOut =
+			typeof dataset === "object" && dataset !== null
+				? (Object.fromEntries(
+						Object.entries(dataset as Record<string, unknown>).filter(([, v]) => isValue(v)),
+					) as Record<string, Value>)
+				: undefined
+
 		return {
 			attributes: {
-				...getId(id),
+				...getId(id as Value),
 				...getAriaAttributes(aria),
 				...attribs,
 			} as T,
 			children: kids,
 			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
+			...(isDefined(datasetOut) ? { dataset: datasetOut } : {}),
 			...(isDefined(display) ? { display } : {}),
 			...(isDefined(format) ? { format } : {}),
 			...(isDefined(scripts) ? { scripts } : {}),

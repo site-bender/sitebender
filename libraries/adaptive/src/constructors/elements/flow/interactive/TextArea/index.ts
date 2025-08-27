@@ -1,31 +1,17 @@
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-	Value,
-} from "../../../../../types/index.ts"
-import type { TextAreaAttributes } from "../types/attributes/index.ts"
+import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
+import type { TextAreaAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import { TEXTAREA_ROLES } from "../../../../../constructors/elements/constants/aria-roles.ts"
-import {
-	AUTOCOMPLETES,
-	WRAPS,
-} from "../../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { TEXTAREA_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
+import { AUTOCOMPLETES, WRAPS } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for TextArea element
@@ -46,29 +32,29 @@ export type TextAreaElementAttributes = TextAreaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TextAreaAttributes) => {
+export const filterAttributes = (attributes: TextAreaAttributes): Record<string, Value> => {
 	const {
-		autoComplete,
+	autocomplete,
 		cols,
-		dirName,
+	dirName,
 		disabled,
 		form,
-		maxLength,
-		minLength,
+	maxLength,
+	minLength,
 		name,
 		placeholder,
-		readOnly,
+	readOnly,
 		required,
 		role,
 		rows,
-		wrap,
+	wrap,
 		...attrs
 	} = attributes
 	const globals = pickGlobalAttributes(attrs)
 
 	return {
 		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autoComplete")(autoComplete),
+	...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete as Value),
 		...filterAttribute(isInteger)("cols")(cols),
 		...filterAttribute(isString)("dirName")(dirName),
 		...filterAttribute(isBoolean)("disabled")(disabled),

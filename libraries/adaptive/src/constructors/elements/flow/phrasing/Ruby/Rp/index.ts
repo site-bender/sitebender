@@ -1,9 +1,6 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-} from "../../../../../../types/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
 
 /**
  * Creates an Rp element configuration object
@@ -20,7 +17,7 @@ import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/ind
  * ])
  * ```
  */
-export const Rp = GlobalOnly("Rp")(
+export const Rp = GlobalOnly("rp")(
 	(child: ElementConfig) => child.tag?.toLowerCase() === "textnode",
 )
 

@@ -16,7 +16,7 @@ import isBoolean from "../../../../guards/isBoolean/index.ts"
 import isMemberOf from "../../../../guards/isMemberOf/index.ts"
 import isString from "../../../../guards/isString/index.ts"
 import pickGlobalAttributes from "../../../../guards/pickGlobalAttributes/index.ts"
-import isDefined from "../../../../utilities/isDefined/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Filters attributes for Base element

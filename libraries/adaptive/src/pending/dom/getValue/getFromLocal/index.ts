@@ -4,7 +4,7 @@ import type {
 	Value,
 } from "../../../../../types/index.ts"
 
-import isDefined from "../../../../../../toolkit/src/simple/validation/isDefined/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 export type SelectorOp = {
 	id?: string
@@ -38,7 +38,7 @@ const getFromLocal = (op: SelectorOp) =>
 			(op.name && (dict.name === op.name) ? dict.value : undefined)
 
 		if (isDefined(value)) {
-			return { right: value }
+			return { right: value as Value }
 		}
 
 		// Only return error if we expected to find something

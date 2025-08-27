@@ -1,10 +1,5 @@
-import type { ElementConfig } from "../../../../../types/html/index.ts"
-import type {
-	ElementConfig,
-	GlobalAttributes,
-} from "../../../../constructors/elements/types/index.ts"
-
-import reduce from "../../../../utilities/array/reduce/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import reduce from "@toolkit/simple/array/reduce/index.ts"
 
 /**
  * Flattens child elements to get all descendant tags
@@ -12,20 +7,18 @@ import reduce from "../../../../utilities/array/reduce/index.ts"
  * @param children - Array of child elements
  * @returns Array of descendant tag names
  */
-export default function flatMapDescendants(
-	children: readonly unknown[],
-): readonly string[] {
-	return reduce((out: readonly string[], child: ElementConfig) => {
-		if (typeof child === "object" && child !== null && "tag" in child) {
-			const childElement = child as ElementConfig
-			return [
-				...out,
-				childElement.tag || "",
-				...(childElement.children
-					? flatMapDescendants(childElement.children)
-					: []),
-			]
+export default function flatMapDescendants(children: readonly unknown[]): readonly string[] {
+    const reducer = (out: string[], child: unknown): string[] => {
+		if (typeof child === "object" && child !== null && "tag" in (child as Record<string, unknown>)) {
+			const el = child as ElementConfig
+			const tag = (el.tag ?? "") as string
+			const childTags = Array.isArray(el.children)
+				? flatMapDescendants(el.children as readonly unknown[])
+				: []
+	    return [...out, tag, ...childTags]
 		}
 		return out
-	})([])(children)
+	}
+
+    return reduce(reducer)([])([...children])
 }

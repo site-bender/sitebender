@@ -1,5 +1,5 @@
 import Input from "../index.ts"
-import filterCheckedAttributes from "../utilities/filterCheckedAttributes/index.ts"
+import filterCheckedAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterCheckedAttributes/index.ts"
 
 /**
  * Creates an InputCheckbox element configuration object

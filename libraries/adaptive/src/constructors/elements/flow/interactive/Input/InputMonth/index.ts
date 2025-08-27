@@ -1,5 +1,5 @@
 import Input from "../index.ts"
-import filterDateTimeAttributes from "../utilities/filterDateTimeAttributes/index.ts"
+import filterDateTimeAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterDateTimeAttributes/index.ts"
 
 /**
  * Creates an InputMonth element configuration object

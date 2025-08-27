@@ -4,20 +4,18 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../types/index.ts"
-import type { NoAriaAttributes } from "../../types/aria/index.ts"
-import type { StyleAttributes } from "../../types/attributes/index.ts"
-import type { ElementConfig } from "../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { StyleAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import { BLOCKINGS } from "../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../guards/pickGlobalAttributes/index.ts"
-import isDefined from "../../../../utilities/isDefined/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
 
 /**
  * Filters attributes for Style element
@@ -44,9 +42,7 @@ export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
 export const filterAttributes = (attributes: StyleElementAttributes) => {
 	const {
 		id,
-		blocking,
-		media,
-		scoped,
+	media,
 		title,
 		// ARIA attributes
 		"aria-hidden": ariaHidden,
@@ -72,17 +68,8 @@ export const filterAttributes = (attributes: StyleElementAttributes) => {
 	Object.assign(filteredAttrs, globals)
 
 	// Add style-specific attributes
-	if (isDefined(blocking)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(BLOCKINGS))("blocking")(blocking),
-		)
-	}
 	if (isDefined(media)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("media")(media))
-	}
-	if (isDefined(scoped)) {
-		Object.assign(filteredAttrs, filterAttribute(isBoolean)("scoped")(scoped))
 	}
 	if (isDefined(title)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("title")(title))

@@ -4,13 +4,13 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../types/index.ts"
-import type { NoAriaAttributes } from "../../types/aria/index.ts"
-import type { ElementConfig } from "../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import TextNode from "../../../../constructors/elements/TextNode/index.ts"
-import isString from "../../../../guards/isString/index.ts"
-import isDefined from "../../../utilities/isDefined/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
 
 /**
  * Extended Fragment attributes including reactive properties and ARIA

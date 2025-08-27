@@ -1,7 +1,7 @@
 import type {
 	TextNodeConfig,
 	TextNodeConstructor,
-} from "../../../constructors/elements/types/index.ts"
+} from "@adaptiveSrc/constructors/elements/types/index.ts"
 
 /**
  * Creates a TextNode configuration object for representing text content
