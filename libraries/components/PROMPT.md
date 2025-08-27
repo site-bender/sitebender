@@ -71,4 +71,4 @@ This prompt restarts the “phase-2 CI/type hygiene” work from scratch, with g
 - `@adaptiveSrc/...` for referencing adaptive constructors/injectors when needed
 
 ## Final note
-Work slowly and measure. If a step is ambiguous, pause and document the plan before editing any files.
+Work slowly and measure. If a step is ambiguous, pause and document the plan before editing any files. Most importantly, if anything is unclear, seek clarification before proceeding.
