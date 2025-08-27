@@ -7,72 +7,41 @@ import type { Value } from "../../../types/index.ts"
  * the same keys. Creates a new object with the same keys but transformed values.
  * Useful for bulk transformations of object values.
  *
- * @curried (fn) => (obj) => result
+ * @pure
+ * @immutable
+ * @curried
  * @param fn - Function to apply to each value
  * @param obj - Object whose values will be transformed
  * @returns A new object with same keys but transformed values
  * @example
  * ```typescript
- * // Simple transformation
+ * // Basic usage
  * mapValues((x: number) => x * 2)({ a: 1, b: 2, c: 3 })
  * // { a: 2, b: 4, c: 6 }
  *
  * // String transformation
- * mapValues((s: string) => s.toUpperCase())({
- *   first: "hello",
- *   last: "world"
- * })
+ * mapValues((s: string) => s.toUpperCase())({ first: "hello", last: "world" })
  * // { first: "HELLO", last: "WORLD" }
  *
- * // With mixed types (using Value union)
- * mapValues((v: Value) => typeof v)({
- *   name: "Alice",
- *   age: 30,
- *   active: true
- * })
+ * // Type detection
+ * mapValues((v: Value) => typeof v)({ name: "Alice", age: 30, active: true })
  * // { name: "string", age: "number", active: "boolean" }
  *
- * // Nested object transformation
- * mapValues((user: { name: string; age: number }) => user.name)({
- *   user1: { name: "Alice", age: 30 },
- *   user2: { name: "Bob", age: 25 }
+ * // Extract nested values
+ * mapValues((user: { name: string }) => user.name)({
+ *   u1: { name: "Alice" },
+ *   u2: { name: "Bob" }
  * })
- * // { user1: "Alice", user2: "Bob" }
+ * // { u1: "Alice", u2: "Bob" }
  *
- * // Using index in transformation
- * const withIndex = <T, R>(fn: (val: T, key: string) => R) =>
- *   (obj: Record<string, T>) => {
- *     const result: Record<string, R> = {}
- *     for (const key in obj) {
- *       if (Object.prototype.hasOwnProperty.call(obj, key)) {
- *         result[key] = fn(obj[key], key)
- *       }
- *     }
- *     return result
- *   }
- *
- * withIndex((val: number, key) => `${key}: ${val}`)({
- *   a: 1, b: 2, c: 3
- * })
- * // { a: "a: 1", b: "b: 2", c: "c: 3" }
- *
- * // Partial application for reusable transformers
+ * // Partial application
  * const doubleValues = mapValues((x: number) => x * 2)
- * doubleValues({ x: 10, y: 20 })  // { x: 20, y: 40 }
- * doubleValues({ a: 5, b: 15 })   // { a: 10, b: 30 }
+ * doubleValues({ x: 10, y: 20 }) // { x: 20, y: 40 }
  *
- * // Handle null/undefined gracefully
- * mapValues((x: number) => x + 1)(null)       // {}
- * mapValues((x: number) => x + 1)(undefined)  // {}
- *
- * // Preserve symbols
- * const sym = Symbol("key")
- * mapValues((x: number) => x * 3)({ a: 1, [sym]: 2 })
- * // { a: 3, [sym]: 6 }
+ * // Edge cases
+ * mapValues((x: number) => x + 1)(null) // {}
+ * mapValues((x: number) => x * 2)({}) // {}
  * ```
- * @property Immutable - returns new object, doesn't modify original
- * @property Type-flexible - works with any value types
- * @property Symbol support - preserves symbol keys
  */
 const mapValues = <T extends Value, R extends Value>(
 	fn: (value: T) => R,

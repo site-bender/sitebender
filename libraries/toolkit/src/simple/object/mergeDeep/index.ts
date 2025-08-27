@@ -7,79 +7,41 @@ import type { Value } from "../../../types/index.ts"
  * replaced. Arrays are replaced (not concatenated). Useful for deeply nested
  * configuration objects. Handles circular references safely.
  *
- * @curried (...sources) => (target) => result
+ * @pure
+ * @immutable
+ * @curried
  * @param sources - Default objects to be recursively merged and overridden by target
  * @param target - The object whose properties take precedence at all levels
  * @returns A new deeply merged object
  * @example
  * ```typescript
- * // Deep merging - nested objects are merged, not replaced
+ * // Deep merge nested objects
  * mergeDeep({
  *   user: { name: "default", role: "user" },
- *   settings: { theme: "light", notifications: true }
- * })({
- *   user: { name: "Alice" },
- *   settings: { theme: "dark" }
+ *   settings: { theme: "light" }
+ * })({ user: { name: "Alice" } })
+ * // { user: { name: "Alice", role: "user" }, settings: { theme: "light" } }
+ *
+ * // Configuration with defaults
+ * const withDefaults = mergeDeep({
+ *   server: { port: 3000, host: "localhost" },
+ *   features: { auth: true }
  * })
- * // Result: {
- * //   user: { name: "Alice", role: "user" },
- * //   settings: { theme: "dark", notifications: true }
- * // }
+ * withDefaults({ server: { port: 8080 } })
+ * // { server: { port: 8080, host: "localhost" }, features: { auth: true } }
  *
- * // Arrays are replaced, not merged
- * mergeDeep({ tags: ["default"] })({ tags: ["custom", "user"] })
- * // { tags: ["custom", "user"] }
+ * // Arrays are replaced
+ * mergeDeep({ tags: ["default"] })({ tags: ["custom"] })
+ * // { tags: ["custom"] }
  *
- * // Multiple sources (merged left to right, then target overrides)
- * const withDefaults = mergeDeep(
- *   { level1: { a: 1, b: 2 } },
- *   { level1: { b: 20, c: 3 } },
- *   { level2: { x: 10 } }
- * )
- * withDefaults({ level1: { a: 100 } })
- * // { level1: { a: 100, b: 20, c: 3 }, level2: { x: 10 } }
+ * // Multiple sources
+ * mergeDeep({ a: { x: 1 } }, { a: { y: 2 } })({ a: { z: 3 } })
+ * // { a: { x: 1, y: 2, z: 3 } }
  *
- * // Handles null/undefined gracefully
- * mergeDeep({ a: { b: 1 } })(null)          // { a: { b: 1 } }
- * mergeDeep(null)({ a: { b: 1 } })          // { a: { b: 1 } }
- *
- * // Circular reference handling
- * const circular: Record<string, Value> = { a: 1 }
- * circular.self = circular
- * mergeDeep(circular)({ b: 2 })             // { a: 1, b: 2 } (circular ref handled)
- *
- * // Configuration merging use case
- * const defaultConfig = {
- *   server: {
- *     port: 3000,
- *     host: "localhost",
- *     ssl: { enabled: false, cert: null }
- *   },
- *   features: { auth: true, logging: true }
- * }
- *
- * const userConfig = {
- *   server: {
- *     port: 8080,
- *     ssl: { enabled: true, cert: "/path/to/cert" }
- *   },
- *   features: { logging: false }
- * }
- *
- * mergeDeep(defaultConfig)(userConfig)
- * // {
- * //   server: {
- * //     port: 8080,
- * //     host: "localhost",
- * //     ssl: { enabled: true, cert: "/path/to/cert" }
- * //   },
- * //   features: { auth: true, logging: false }
- * // }
+ * // Edge cases
+ * mergeDeep({ a: 1 })(null) // { a: 1 }
+ * mergeDeep({})({}) // {}
  * ```
- * @property Immutable - creates new object, doesn't modify inputs
- * @property Deep - recursively merges nested objects
- * @property Target precedence - target properties override source defaults at all levels
- * @property Circular safe - handles circular references without infinite recursion
  */
 const mergeDeep = <T extends Record<string | symbol, Value>>(
 	...sources: Array<Record<string | symbol, Value> | null | undefined>

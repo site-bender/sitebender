@@ -1,11 +1,11 @@
 # FIX THE STUPID DOCS - JSDoc Remediation Plan
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 332/763 files complete (43.5%) - Phase 2 IN PROGRESS  
-**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object (20/56) 🔄
-**Next**: Continue `object/` folder - 36 files remaining (mapKeys through zipObject)
-**Time**: Sessions 1-22 took ~481 minutes total (~8 hours)
-**Last Session**: Session 22 completed 20 object files (accumulate through lensProp)
+**Status**: 342/763 files complete (44.8%) - Phase 2 IN PROGRESS  
+**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object (30/56) 🔄
+**Next**: Continue `object/` folder - 26 files remaining (path through zipObject)
+**Time**: Sessions 1-23 took ~506 minutes total (~8.4 hours)
+**Last Session**: Session 23 completed 10 object files (mapKeys through partitionBy)
 **Branch**: phase-2
 **CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
@@ -17,9 +17,16 @@
 4. **DO NOT use Task tool** - process files ONE AT A TIME carefully (Task tool doesn't do thorough work)
 5. **WORK ONLY IN `libraries/toolkit/` folder - DO NOT TOUCH OTHER FOLDERS**
 6. **Track time** with timestamps before/after each session
+7. **SESSION WORKFLOW**:
+   - Process EXACTLY 20 files (cross folders if needed)
+   - Update FIX.md with complete session details
+   - Commit changes using best practices
+   - Report completion and STOP
 
 ### CRITICAL REMINDERS FOR NEXT SESSION
-- **BATCH SIZE**: Process 10 files per session (but do them ONE AT A TIME, not with Task tool)
+- **BATCH SIZE**: Process EXACTLY 20 files per session (ONE AT A TIME, not with Task tool)
+- **PROCESS**: Complete 20 files → Update FIX.md → Commit changes → Report and STOP
+- **CROSS FOLDERS**: If needed to reach 20 files, continue into next folder
 - **CHECK FOR DUPLICATE TAGS**: Many files have @curried in description AND at bottom - remove duplicates!
 - **@curried ONLY for functions that return functions**: Not all functions need @curried
 - **Read files first**: Check existing tags before adding new ones
@@ -32,10 +39,10 @@
 ## Executive Summary
 
 **Total Functions to Fix**: 763 functions across `libraries/toolkit/src`
-**Completed So Far**: 332/763 files (43.5%) - Phase 2 IN PROGRESS
+**Completed So Far**: 342/763 files (44.8%) - Phase 2 IN PROGRESS
 **Average Time**: ~1.45 minutes per file
 **Optimal Approach**: Process ONE FILE AT A TIME carefully (Task tool sometimes works well)
-**Next Session**: Continue `object/` folder (36 files remaining)
+**Next Session**: Continue `object/` folder (26 files remaining)
 
 ## Problems Identified
 
@@ -126,18 +133,22 @@
 
 ### Batch Processing Plan
 
-#### Session Structure (Optimal approach)
+#### Session Structure (Updated approach)
 
-1. **Batch Size**: 10 files per batch (multiple batches per session)
-2. **Time per batch**: ~10-15 minutes when using Task tool
-3. **Process with Task tool**:
-   - Give Task tool clear instructions for all 10 files
-   - Task reads each file first
-   - Fixes @property tags → custom tags
-   - Reduces examples to 8-10 essential ones
-   - Rewrites examples in pure FP style
-   - Removes invalid TypeScript examples
-   - Uses MultiEdit for all changes
+1. **Session Size**: EXACTLY 20 files per session
+2. **Time per session**: ~40-50 minutes
+3. **Process ONE FILE AT A TIME**:
+   - Read each file first
+   - Fix @property tags → custom tags
+   - Reduce examples to 8-10 essential ones
+   - Rewrite examples in pure FP style
+   - Remove invalid TypeScript examples
+   - Use MultiEdit for all changes
+4. **End of Session Protocol**:
+   - Complete exactly 20 files
+   - Update FIX.md with detailed progress
+   - Commit all changes with proper git message
+   - Report to user and STOP
 
 #### Folder Processing Order (by complexity)
 
@@ -666,6 +677,29 @@
 - All functions now use pure FP style
 **Notes**: Completed first 20 files in object/ folder. 36 files remaining.
 
+### Session 23 - 2025-08-27 12:00-12:25
+**Folder**: object/
+**Files Processed**: 10 files (mapKeys through partitionBy)
+- mapKeys ✓ (reduced examples, replaced for loop with reduce)
+- mapValues ✓ (reduced examples, already functional)
+- merge ✓ (reduced examples, already functional)  
+- mergeDeep ✓ (reduced examples, already functional)
+- modify ✓ (reduced examples, added @safe tag)
+- modifyPath ✓ (reduced examples, added @safe tag)
+- objOf ✓ (reduced examples from 134→22 lines)
+- omit ✓ (reduced examples, made implementation more functional)
+- over ✓ (reduced examples from 194→26 lines, lens operations)
+- partitionBy ✓ (reduced examples, replaced for loop with reduce)
+**Start Time**: 2025-08-27T12:00:00+12:00
+**End Time**: 2025-08-27T12:25:00+12:00  
+**Duration**: ~25 minutes
+**Issues Fixed**:
+- Replaced all @property tags with @pure, @immutable, @curried, @safe
+- Reduced examples from 40-190 lines to 5-8 per function
+- Fixed imperative patterns (for loops) with functional approaches (reduce)
+- All functions now use pure FP style
+**Notes**: Completed 10 more files in object/ folder. 26 files remaining.
+
 ## Next Up: Phase 2 Continues
 
 **Phase 1 ✅ COMPLETE** - All simple functions done!
@@ -683,9 +717,10 @@
    - Session 18: slice through splitEvery
    - Session 19: startsWith through times
    - Session 20: toSet through zipWith (final 14 files)
-2. `object/` (56 files) - IN PROGRESS (20/56 complete)
-   - Session 21-22: accumulate through lensProp
-   - Next: mapKeys through zipObject (36 files remaining)
+2. `object/` (56 files) - IN PROGRESS (30/56 complete)
+   - Session 21-22: accumulate through lensProp (20 files)
+   - Session 23: mapKeys through partitionBy (10 files) 
+   - Next: path through zipObject (26 files remaining)
 3. `map/` (40 files)
 4. `set/` (26 files)
 

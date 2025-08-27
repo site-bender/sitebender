@@ -7,7 +7,10 @@ import type { Value } from "../../types/index.ts"
  * The original object is not modified. Prototype properties are not
  * included in the result.
  *
- * @curried (keys) => (obj) => result
+ * @pure
+ * @immutable
+ * @curried
+ * @safe
  * @param keys - Array of keys to omit from the object
  * @param obj - The object to omit keys from
  * @returns A new object without the specified keys
@@ -37,7 +40,6 @@ import type { Value } from "../../types/index.ts"
  * const omitPassword = omit(["password"])
  * omitPassword({ username: "john", password: "secret" }) // { username: "john" }
  * ```
- * @property Result is always a new object (immutable operation)
  */
 const omit = <T extends Record<string, Value>, K extends keyof T>(
 	keys: Array<K>,
@@ -48,18 +50,13 @@ const omit = <T extends Record<string, Value>, K extends keyof T>(
 		return {} as Omit<T, K>
 	}
 
-	// Use reduce to build result object without specified keys
-	return Object.entries(obj).reduce((acc, [key, value]) => {
-		if (
+	return Object.entries(obj).reduce(
+		(acc, [key, value]) =>
 			!keys.includes(key as K) && Object.prototype.hasOwnProperty.call(obj, key)
-		) {
-			return {
-				...acc,
-				[key]: value,
-			}
-		}
-		return acc
-	}, {} as Omit<T, K>)
+				? { ...acc, [key]: value }
+				: acc,
+		{} as Omit<T, K>,
+	)
 }
 
 export default omit
