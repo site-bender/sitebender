@@ -7,73 +7,32 @@ import type { Value } from "../../../types/index.ts"
  * excluding symbol properties and prototype properties. Order matches
  * Object.keys() but is not guaranteed across JavaScript engines.
  *
- * @curried Single parameter - already curried
  * @param obj - The object to extract values from
  * @returns Array of values
  * @example
  * ```typescript
  * // Basic object values
- * values({ a: 1, b: 2, c: 3 })               // [1, 2, 3]
- * values({ name: "John", age: 30 })          // ["John", 30]
- * values({})                                  // []
+ * values({ a: 1, b: 2, c: 3 })     // [1, 2, 3]
+ * values({ name: "John", age: 30 }) // ["John", 30]
+ * values({})                       // []
  *
  * // Arrays (returns elements)
- * values(["a", "b", "c"])                    // ["a", "b", "c"]
- * values([])                                  // []
- *
- * // Mixed value types
- * values({
- *   str: "text",
- *   num: 42,
- *   bool: true,
- *   obj: { nested: "value" },
- *   arr: [1, 2, 3]
- * })
- * // ["text", 42, true, { nested: "value" }, [1, 2, 3]]
- *
- * // Functions as values
- * const obj = {
- *   method: () => "result",
- *   property: "value"
- * }
- * values(obj)                                 // [() => "result", "value"]
+ * values(["a", "b", "c"])          // ["a", "b", "c"]
  *
  * // Symbol properties are excluded
  * const sym = Symbol("key")
  * values({ [sym]: "symbol", regular: "string" }) // ["string"]
  *
- * // Null/undefined handling
- * values(null)                                // []
- * values(undefined)                           // []
+ * // Strings return character array
+ * values("hello")                  // ["h", "e", "l", "l", "o"]
  *
- * // Non-objects
- * values(42)                                  // []
- * values("hello")                             // ["h", "e", "l", "l", "o"]
- * values(true)                                // []
- *
- * // With Object.defineProperty
- * const custom = {}
- * Object.defineProperty(custom, "hidden", {
- *   value: "secret",
- *   enumerable: false
- * })
- * Object.defineProperty(custom, "visible", {
- *   value: "public",
- *   enumerable: true
- * })
- * values(custom)                              // ["public"]
- *
- * // Partial application for data extraction
- * const getValues = values
- * const data = [
- *   { id: 1, name: "Alice" },
- *   { id: 2, name: "Bob" }
- * ]
- * data.map(getValues)                        // [[1, "Alice"], [2, "Bob"]]
+ * // Data extraction
+ * const data = [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]
+ * data.map(values)                 // [[1, "Alice"], [2, "Bob"]]
  * ```
- * @property Safe - handles null/undefined gracefully
- * @property Own properties only - excludes prototype chain
- * @property Enumerable only - excludes non-enumerable properties
+ * @pure
+ * @immutable
+ * @safe
  */
 const values = <T extends Record<string, Value>>(
 	obj: T | null | undefined,
