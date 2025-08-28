@@ -13,71 +13,28 @@
  * @example
  * ```typescript
  * // Simple investment: -$1000 initial, $500 returns for 3 years
- * internalRateOfReturn([-1000, 500, 500, 500])
- * // 0.2337... (23.37% IRR)
+ * internalRateOfReturn([-1000, 500, 500, 500]) // 0.2337... (23.37% IRR)
  *
  * // Project with varying returns
- * internalRateOfReturn([-10000, 3000, 4000, 5000, 6000])
- * // 0.2520... (25.20% IRR)
- *
- * // Quick payback
- * internalRateOfReturn([-5000, 6000, 1000])
- * // 0.2851... (28.51% IRR)
+ * internalRateOfReturn([-10000, 3000, 4000, 5000, 6000]) // 0.2520... (25.20% IRR)
  *
  * // Break-even (0% return)
- * internalRateOfReturn([-1000, 500, 500])
- * // 0 (exactly break even)
+ * internalRateOfReturn([-1000, 500, 500]) // 0 (exactly break even)
  *
  * // Loss-making investment (negative IRR)
- * internalRateOfReturn([-1000, 400, 400])
- * // -0.1312... (-13.12% IRR)
- *
- * // Multiple investments and returns
- * internalRateOfReturn([-1000, 300, -500, 800, 600])
- * // 0.1219... (12.19% IRR)
- *
- * // High return investment
- * internalRateOfReturn([-100, 50, 50, 50, 50])
- * // 0.3496... (34.96% IRR)
- *
- * // No positive cash flows (no solution)
- * internalRateOfReturn([-1000, -500, -200])
- * // NaN
- *
- * // Invalid inputs
- * internalRateOfReturn(null)
- * // NaN
- *
- * internalRateOfReturn([])
- * // NaN
- *
- * internalRateOfReturn([100, 200])
- * // NaN (no initial investment)
- *
- * // Practical examples
+ * internalRateOfReturn([-1000, 400, 400]) // -0.1312... (-13.12% IRR)
  *
  * // Real estate investment
  * const property = [-200000, 24000, 24000, 24000, 24000, 250000]
- * internalRateOfReturn(property)
- * // 0.1547... (15.47% annual return)
+ * internalRateOfReturn(property) // 0.1547... (15.47% annual return)
  *
- * // Startup investment rounds
- * const startup = [-50000, -30000, 10000, 40000, 150000]
- * internalRateOfReturn(startup)
- * // 0.2744... (27.44% IRR)
- *
- * // Bond with coupon payments
- * const bond = [-950, 50, 50, 50, 1050]
- * internalRateOfReturn(bond)
- * // 0.0656... (6.56% yield to maturity)
- *
- * // Equipment purchase decision
- * const equipment = [-15000, 5000, 5000, 5000, 5000, 3000]
- * internalRateOfReturn(equipment)
- * // 0.2084... (20.84% IRR)
+ * // Edge cases
+ * internalRateOfReturn([-1000, -500, -200]) // NaN (no positive flows)
+ * internalRateOfReturn([]) // NaN
+ * internalRateOfReturn(null) // NaN
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Safe - Returns NaN for invalid inputs or no solution
+ * @pure
+ * @safe
  */
 const internalRateOfReturn = (
 	cashFlows: Array<number> | null | undefined,
@@ -91,48 +48,39 @@ const internalRateOfReturn = (
 	}
 
 	// Validate all cash flows are numbers
-	for (const cf of cashFlows) {
-		if (typeof cf !== "number") {
-			return NaN
-		}
+	if (!cashFlows.every(cf => typeof cf === "number")) {
+		return NaN
 	}
 
 	// Check for at least one positive and one negative cash flow
-	let hasPositive = false
-	let hasNegative = false
-	for (const cf of cashFlows) {
-		if (cf > 0) hasPositive = true
-		if (cf < 0) hasNegative = true
-	}
+	const hasPositive = cashFlows.some(cf => cf > 0)
+	const hasNegative = cashFlows.some(cf => cf < 0)
 
 	if (!hasPositive || !hasNegative) {
 		return NaN
 	}
 
 	// NPV function
-	const npv = (rate: number): number => {
-		let result = 0
-		for (let i = 0; i < cashFlows.length; i++) {
-			result += cashFlows[i] / Math.pow(1 + rate, i)
-		}
-		return result
-	}
+	const npv = (rate: number): number =>
+		cashFlows.reduce(
+			(sum, cf, i) => sum + cf / Math.pow(1 + rate, i),
+			0
+		)
 
 	// Derivative of NPV function
-	const npvDerivative = (rate: number): number => {
-		let result = 0
-		for (let i = 1; i < cashFlows.length; i++) {
-			result -= i * cashFlows[i] / Math.pow(1 + rate, i + 1)
-		}
-		return result
-	}
+	const npvDerivative = (rate: number): number =>
+		cashFlows.slice(1).reduce(
+			(sum, cf, i) => sum - (i + 1) * cf / Math.pow(1 + rate, i + 2),
+			0
+		)
 
-	// Newton-Raphson method
-	let rate = 0.1 // Initial guess of 10%
+	// Newton-Raphson method using recursion
 	const tolerance = 0.00001
 	const maxIterations = 100
 
-	for (let i = 0; i < maxIterations; i++) {
+	const newtonRaphson = (rate: number, iteration: number): number => {
+		if (iteration >= maxIterations) return NaN
+
 		const npvValue = npv(rate)
 
 		// Check if we've found the solution
@@ -142,30 +90,25 @@ const internalRateOfReturn = (
 
 		const derivative = npvDerivative(rate)
 
-		// Avoid division by zero
+		// Avoid division by zero - try different starting point
 		if (Math.abs(derivative) < tolerance) {
-			// Try a different starting point
-			rate = rate === 0.1 ? -0.1 : 0.1
-			continue
+			return newtonRaphson(rate === 0.1 ? -0.1 : 0.1, iteration + 1)
 		}
 
 		// Newton-Raphson update
 		const newRate = rate - npvValue / derivative
 
-		// Limit the step size to avoid divergence
-		if (Math.abs(newRate - rate) > 1) {
-			rate = rate + (newRate > rate ? 1 : -1)
-		} else {
-			rate = newRate
-		}
+		// Limit the step size and keep in bounds
+		const boundedRate = Math.abs(newRate - rate) > 1
+			? rate + (newRate > rate ? 1 : -1)
+			: newRate
 
-		// Keep rate in reasonable bounds
-		if (rate < -0.99) rate = -0.99
-		if (rate > 10) rate = 10
+		const clampedRate = Math.max(-0.99, Math.min(10, boundedRate))
+
+		return newtonRaphson(clampedRate, iteration + 1)
 	}
 
-	// Failed to converge
-	return NaN
+	return newtonRaphson(0.1, 0) // Initial guess of 10%
 }
 
 export default internalRateOfReturn
