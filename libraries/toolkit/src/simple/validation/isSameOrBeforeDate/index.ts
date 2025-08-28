@@ -282,12 +282,10 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * isInFiscalYear("2024-07-01", "2024-06-30")  // false
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Inclusive - Returns true for equal dates
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried  
+ * @predicate
+ * @safe 
  */
 const isSameOrBeforeDate = (
 	reference: DateInput | null | undefined,

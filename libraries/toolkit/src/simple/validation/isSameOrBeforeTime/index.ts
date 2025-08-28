@@ -275,12 +275,10 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * isInMaintenanceWindow("04:01:00")  // false
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Precise - Nanosecond precision comparison
- * @property Inclusive - Returns true for equal times
- * @property Flexible - Accepts strings, Dates, Temporal types, and time-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried
+ * @predicate
+ * @safe 
  */
 const isSameOrBeforeTime = (
 	reference: TimeInput | null | undefined,

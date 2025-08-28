@@ -234,12 +234,10 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * canScheduleEvent("13:45:00", "13:30:00", 15)  // true (exactly 15 min)
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Precise - Nanosecond precision comparison
- * @property Inclusive - Returns true for equal times
- * @property Flexible - Accepts strings, Dates, Temporal types, and time-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 const isSameOrAfterTime = (
 	reference: TimeInput | null | undefined,

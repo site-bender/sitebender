@@ -223,11 +223,10 @@
  * isValidYear("20a4")              // false (contains letter)
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Configurable - Options for negative, decimal, and scientific notation
- * @property String-only - Only validates string inputs
- * @property Strict - Empty strings return false
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 type NumericOptions = {
 	allowNegative?: boolean

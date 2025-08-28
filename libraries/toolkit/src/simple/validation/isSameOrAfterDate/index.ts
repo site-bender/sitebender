@@ -250,12 +250,10 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * isDeadlineMet("2024-01-16", "2024-01-15")  // false (after deadline)
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Inclusive - Returns true for equal dates
- * @property Flexible - Accepts strings, Dates, Temporal types, and date-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 const isSameOrAfterDate = (
 	reference: DateInput | null | undefined,

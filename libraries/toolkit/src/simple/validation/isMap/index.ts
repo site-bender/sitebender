@@ -252,10 +252,8 @@
  *   return undefined
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property TypeGuard - Narrows TypeScript types to Map<unknown, unknown>
- * @property Instanceof - Uses instanceof Map internally
- * @property Specific - Only returns true for Map, not WeakMap or other collections
+ * @pure
+ * @predicate
  */
 const isMap = (value: unknown): value is Map<unknown, unknown> =>
 	value instanceof Map

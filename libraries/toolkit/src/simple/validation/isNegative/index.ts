@@ -220,10 +220,9 @@
  *   // ... render slider
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Type-safe - Only accepts number type, no coercion
- * @property Finite - Excludes -Infinity
- * @property Zero-aware - Returns false for both 0 and -0
+ * @pure
+ * @predicate
+ * @safe
  */
 const isNegative = (value: unknown): boolean => {
 	return typeof value === "number" &&

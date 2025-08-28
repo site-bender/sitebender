@@ -227,12 +227,10 @@
  * formatIsbn("0306406152")     // "0-306-40615-2"
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Version-aware - Can validate ISBN-10, ISBN-13, or both
- * @property Checksum-validated - Verifies check digit correctness
- * @property Format-flexible - Accepts hyphens and spaces
- * @property Case-insensitive - X check digit can be upper or lowercase
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 type IsbnOptions = {
 	version?: 10 | 13
@@ -275,17 +273,17 @@ const isValidIsbn10 = (isbn: string): boolean => {
 	}
 
 	// Calculate check digit
-	let sum = 0
-	for (let i = 0; i < 9; i++) {
-		sum += parseInt(isbn[i], 10) * (10 - i)
-	}
+	const sum = isbn.substring(0, 9).split("").reduce(
+		(acc, digit, i) => acc + parseInt(digit, 10) * (10 - i),
+		0
+	)
 
 	// Add check digit (X = 10)
 	const checkChar = isbn[9]
 	const checkValue = checkChar === "X" ? 10 : parseInt(checkChar, 10)
-	sum += checkValue
+	const total = sum + checkValue
 
-	return sum % 11 === 0
+	return total % 11 === 0
 }
 
 const isValidIsbn13 = (isbn: string): boolean => {
@@ -305,11 +303,10 @@ const isValidIsbn13 = (isbn: string): boolean => {
 	}
 
 	// Calculate check digit
-	let sum = 0
-	for (let i = 0; i < 12; i++) {
-		const digit = parseInt(isbn[i], 10)
-		sum += digit * (i % 2 === 0 ? 1 : 3)
-	}
+	const sum = isbn.substring(0, 12).split("").reduce(
+		(acc, digit, i) => acc + parseInt(digit, 10) * (i % 2 === 0 ? 1 : 3),
+		0
+	)
 
 	const checkDigit = (10 - (sum % 10)) % 10
 	return checkDigit === parseInt(isbn[12], 10)

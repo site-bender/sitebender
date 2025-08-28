@@ -288,11 +288,9 @@
  * }
  * ```
  *
- * @property Type-guard - Narrows type to Temporal.PlainDate when true
- * @property Pure - No side effects, only checks type
- * @property Strict - Only returns true for actual PlainDate instances
- * @property Safe - Handles any input type without throwing
- * @property Runtime - Provides runtime type checking for Temporal types
+ * @pure
+ * @predicate
+ * @safe 
  */
 const isTemporalDate = (value: unknown): value is Temporal.PlainDate => {
 	try {

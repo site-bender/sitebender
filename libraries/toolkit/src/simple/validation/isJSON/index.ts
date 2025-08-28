@@ -236,11 +236,10 @@
  * hasJSONStructure('{"id": 1}', ['id', 'name'])                   // false
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Type-aware - Can validate specific JSON types
- * @property Strict - Only accepts valid JSON syntax
- * @property Safe - Uses try-catch internally for validation
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 type JSONType = "object" | "array" | "string" | "number" | "boolean" | "null"
 

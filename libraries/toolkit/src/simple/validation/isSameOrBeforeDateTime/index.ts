@@ -278,13 +278,10 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * isCacheValid("2024-01-15T12:00:00", 3600)  // valid for 1 hour
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Precise - Nanosecond precision for time components
- * @property Inclusive - Returns true for equal datetimes
- * @property Flexible - Accepts strings, Dates, Temporal types, and datetime-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried
+ * @predicate
+ * @safe 
  */
 const isSameOrBeforeDateTime = (
 	reference: DateTimeInput | null | undefined,

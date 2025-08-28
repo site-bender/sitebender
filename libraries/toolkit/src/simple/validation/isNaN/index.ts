@@ -209,10 +209,9 @@
  *   return typeof value === "number" && Number.isNaN(value)
  * }
  * ```
- * @property Pure - Always returns the same result for the same input
- * @property Type-safe - Uses Number.isNaN, no type coercion
- * @property Specific - Only returns true for actual NaN value
- * @property Reliable - The only correct way to test for NaN
+ * @pure
+ * @predicate
+ * @safe
  */
 const isNaN = (value: unknown): value is number => Number.isNaN(value)
 

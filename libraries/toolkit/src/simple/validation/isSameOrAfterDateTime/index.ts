@@ -249,13 +249,10 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * isContentReleased(embargoTime)  // true if current time is at or after embargo
  * ```
  *
- * @property Curried - Returns a predicate function for reuse
- * @property Pure - No side effects, returns consistent results
- * @property Calendar-aware - Respects different calendar systems
- * @property Precise - Nanosecond precision comparison
- * @property Inclusive - Returns true for equal datetimes
- * @property Flexible - Accepts strings, Dates, Temporal types, and datetime-like objects
- * @property Safe - Returns false for invalid inputs instead of throwing
+ * @pure
+ * @curried
+ * @predicate
+ * @safe
  */
 const isSameOrAfterDateTime = (
 	reference: DateTimeInput | null | undefined,
