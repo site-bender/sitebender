@@ -19,10 +19,10 @@ describe("misc comparator shapes", () => {
     assertEquals(cmp.datatype, "Date")
   })
 
-  it("IsShorterThan builds correct shape for string length", () => {
-    const cmp = IsShorterThan("String")(str("abc"))(num(5))
+  it("IsShorterThan builds correct shape for numeric length comparison", () => {
+    const cmp = IsShorterThan("Number")(str("abc"))(num(5))
     assertEquals(cmp.tag, "IsShorterThan")
     assertEquals(cmp.type, "comparator")
-    assertEquals(cmp.datatype, "String")
+    assertEquals(cmp.datatype, "Number")
   })
 })

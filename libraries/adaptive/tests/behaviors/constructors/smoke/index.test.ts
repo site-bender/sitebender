@@ -69,7 +69,7 @@ describe("constructors - smoke", () => {
   })
 
   it("FromLookup constructs config with id and defaultValue", () => {
-    const inj: FromLookupInjector = FromLookup("Json")("table1", Constant("Number")(1))
+    const inj: FromLookupInjector = FromLookup("Json")("table1", 1)
     assertEquals(inj.tag, "FromLookup")
     assertEquals(inj.type, "injector")
     assertEquals(inj.datatype, "Json")
