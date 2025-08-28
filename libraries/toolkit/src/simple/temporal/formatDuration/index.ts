@@ -213,9 +213,9 @@
  *   return `${elapsedStr} / ${totalStr}`
  * }
  *
- * // ETA calculations
- * function formatETA(remainingTime: Temporal.Duration): string {
- *   const formatted = formatDuration(remainingTime)
+ * // ETA display
+ * const formatETA = (remaining: Temporal.Duration): string => {
+ *   const formatted = formatDuration(remaining)
  *   return formatted ? `ETA: ${formatted}` : "Calculating..."
  * }
  *
@@ -276,11 +276,8 @@
  *   return lines.join("\\n")
  * }
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns null for invalid inputs
- * @property Readable - Uses standard time unit abbreviations
- * @property Compact - Only shows non-zero units
- * @property Smart - Automatically rounds subseconds when appropriate
+ * @pure
+ * @safe
  */
 const formatDuration = (
 	duration: Temporal.Duration | null | undefined,
