@@ -12,11 +12,11 @@ NO SHORTCUTS. NO EXCEPTIONS. EVER.
 If you detect any performance constraints or rate limits, immediately inform me rather than attempting workarounds!!!
 
 ## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 634/765 files complete (82.9%) - Phase 3 IN PROGRESS
+**Status**: 646/765 files complete (84.4%) - Phase 3 IN PROGRESS
 **Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array ✅, Object ✅, Map ✅, Set ✅, Validation ✅
-**Next**: Continue `temporal/` folder - processed 30 files, 49 files remaining
-**Time**: Sessions 1-38 took ~873 minutes total (~14.6 hours)
-**Last Session**: Session 38 - Continued temporal/ (12 files processed)
+**Next**: Continue `temporal/` folder - processed 42 files, 37 files remaining
+**Time**: Sessions 1-39 took ~903 minutes total (~15.1 hours)
+**Last Session**: Session 39 - Continued temporal/ (12 files processed)
 **Branch**: phase-2
 **CRITICAL**: Process files ONE AT A TIME carefully - no shortcuts!
 
@@ -180,6 +180,8 @@ Sessions 24-26 revealed massive damage from Task tool usage:
    - Complete exactly 12 files
    - Update FIX.md with detailed progress
    - Commit all changes with proper git message
+    - **When you commit, only add files in the `libraries/toolkit` folder**. There is no point in adding all files, saying "oops", and then backing out the non-toolkit files. Be smart.
+    - When you do commit, include the ALLOW_TOOLKIT=1 flag or you will just have to do it again with the flag. Again, be smart.
    - Report to user and STOP
 
 #### Folder Processing Order (by complexity)
@@ -207,6 +209,33 @@ Sessions 24-26 revealed massive damage from Task tool usage:
 ## Tracking Template
 
 ### Session Log
+
+## Session 39 - 2025-08-28T17:15:00+12:00
+
+**Folder**: temporal/ (continued)
+**Files Processed**: 12 files
+- getDay ✓ (reduced 156→62 lines, fixed @property tags, replaced for loop with reduce)
+- getDayOfWeek ✓ (reduced 189→66 lines, fixed @property tags, replaced while/for loops with recursion)
+- getDayOfYear ✓ (reduced 157→39 lines, fixed @property tags)
+- getDaysInMonth ✓ (reduced 180→53 lines, fixed @property tags, replaced for loop with functional approach)
+- getDaysInYear ✓ (reduced 199→49 lines, fixed @property tags, replaced for loops with filter)
+- getHour ✓ (reduced 208→60 lines, fixed @property tags, replaced for loops with Array.from)
+- getMillisecond ✓ (reduced 204→51 lines, fixed @property tags, replaced for loop with reduce)
+- getMinute ✓ (reduced 217→67 lines, fixed @property tags, replaced for loops with reduce)
+- getMonth ✓ (reduced 235→63 lines, fixed @property tags, replaced for loops with reduce)
+- getNanosecond ✓ (reduced 227→43 lines, fixed @property tags)
+- getNextOccurrence ✓ (reduced 232→61 lines, fixed @property tags, replaced for loop with recursion)
+- getOffsetTransitions ✓ (reduced 246→76 lines, fixed @property tags, replaced while/for loops with recursion)
+
+**Start Time**: 2025-08-28T17:15:00+12:00
+**End Time**: 2025-08-28T17:45:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @safe, @curried, @immutable, etc.)
+- MASSIVELY reduced examples (average 200+ lines to ~60 lines)
+- Fixed imperative patterns: replaced multiple for/while loops with functional approaches (recursion, reduce, filter, Array.from)
+- All functions now use pure FP style
+**Notes**: Processed files ONE AT A TIME carefully. Total 42/79 temporal files now complete (37 remaining).
 
 ## Session 38 - 2025-08-28T16:30:00+12:00
 
@@ -314,12 +343,12 @@ Sessions 24-26 revealed massive damage from Task tool usage:
 
 ### Running Totals
 
-- **Total Sessions**: 38
-- **Files Completed**: 634/765 (82.9%)
-- **Total Time Spent**: ~873 minutes (14.6 hours)
-- **Average Time per File**: 1.38 minutes
-- **Estimated Completion**: ~17.6 hours total (at current pace)
-- **Remaining Files**: 131 (0 in array ✅, 0 in object ✅, 0 in map ✅, 0 in set ✅, 0 in validation ✅, 49 in temporal, 82 in other folders)
+- **Total Sessions**: 39
+- **Files Completed**: 646/765 (84.4%)
+- **Total Time Spent**: ~903 minutes (15.1 hours)
+- **Average Time per File**: 1.40 minutes
+- **Estimated Completion**: ~17.8 hours total (at current pace)
+- **Remaining Files**: 119 (0 in array ✅, 0 in object ✅, 0 in map ✅, 0 in set ✅, 0 in validation ✅, 37 in temporal, 82 in other folders)
 
 ## Quality Checklist per File
 
