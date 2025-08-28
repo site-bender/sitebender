@@ -11,70 +11,27 @@
  * @returns Inverse matrix or null if singular/invalid
  * @example
  * ```typescript
- * // Simple 3x3 matrix
+ * // Identity matrix (inverse is itself)
  * matrixInverse3x3([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
- * // [[1, 0, 0], [0, 1, 0], [0, 0, 1]] (identity)
+ * // [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
  *
  * // Diagonal matrix
  * matrixInverse3x3([[2, 0, 0], [0, 3, 0], [0, 0, 4]])
  * // [[0.5, 0, 0], [0, 0.333..., 0], [0, 0, 0.25]]
  *
- * // Rotation matrix (around z-axis by 90 degrees)
- * matrixInverse3x3([[0, -1, 0], [1, 0, 0], [0, 0, 1]])
- * // [[0, 1, 0], [-1, 0, 0], [0, 0, 1]] (rotation by -90)
- *
- * // General matrix
- * matrixInverse3x3([[1, 2, 3], [0, 1, 4], [5, 6, 0]])
- * // [[-24, 18, 5], [20, -15, -4], [-5, 4, 1]] / determinant
- *
  * // Upper triangular matrix
  * matrixInverse3x3([[1, 2, 3], [0, 1, 2], [0, 0, 1]])
  * // [[1, -2, 1], [0, 1, -2], [0, 0, 1]]
  *
- * // Matrix with determinant 1
- * matrixInverse3x3([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
- * // [[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]]
- *
  * // Singular matrix (determinant = 0)
  * matrixInverse3x3([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
- * // null (rows are linearly dependent)
- *
- * // Another singular matrix
- * matrixInverse3x3([[1, 0, 0], [0, 0, 0], [0, 0, 1]])
- * // null (middle row is zero)
- *
- * // Invalid inputs
- * matrixInverse3x3(null)
  * // null
  *
- * matrixInverse3x3([[1, 2], [3, 4]])
- * // null (not 3x3)
- *
- * matrixInverse3x3([[1, 2, "3"], [4, 5, 6], [7, 8, 9]])
- * // null (non-numeric values)
- *
- * // Practical examples
- *
- * // 3D transformation matrix inverse
- * const scale = [[2, 0, 0], [0, 2, 0], [0, 0, 2]]
- * matrixInverse3x3(scale)
- * // [[0.5, 0, 0], [0, 0.5, 0], [0, 0, 0.5]]
- *
- * // Solve 3x3 linear system
- * // 2x + y - z = 1
- * // x + 3y + 2z = 4
- * // x - y + 4z = 3
- * const A = [[2, 1, -1], [1, 3, 2], [1, -1, 4]]
- * const Ainv = matrixInverse3x3(A)
- * // Use Ainv to solve: x = Ainv * [1, 4, 3]
- *
- * // Orthogonal matrix (preserves lengths)
- * const orth = [[0.6, -0.8, 0], [0.8, 0.6, 0], [0, 0, 1]]
- * matrixInverse3x3(orth)
- * // [[0.6, 0.8, 0], [-0.8, 0.6, 0], [0, 0, 1]] (transpose)
+ * // Invalid input
+ * matrixInverse3x3([[1, 2], [3, 4]])  // null (not 3x3)
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Safe - Returns null for singular or invalid matrices
+ * @pure
+ * @safe
  */
 const matrixInverse3x3 = (
 	matrix: Array<Array<number>> | null | undefined,
@@ -88,16 +45,14 @@ const matrixInverse3x3 = (
 		return null
 	}
 
-	for (let i = 0; i < 3; i++) {
-		if (!Array.isArray(matrix[i]) || matrix[i].length !== 3) {
-			return null
-		}
-		// Validate all elements are numbers
-		for (let j = 0; j < 3; j++) {
-			if (typeof matrix[i][j] !== "number") {
-				return null
-			}
-		}
+	const isValid = matrix.every(row => 
+		Array.isArray(row) && 
+		row.length === 3 && 
+		row.every(elem => typeof elem === "number")
+	)
+	
+	if (!isValid) {
+		return null
 	}
 
 	// Extract matrix elements for readability
