@@ -8,7 +8,7 @@
  * curried function for easy composition. Returns null for invalid inputs to
  * support safe error handling.
  *
- * @curried (reference) => (current) => duration
+ * @curried
  * @param reference - The reference date/time to calculate from
  * @param current - The current date/time to calculate to
  * @returns Duration since reference, or null if invalid
@@ -61,152 +61,37 @@
  * const instantEnd = Temporal.Instant.from("2024-01-02T12:30:45Z")
  * since(instantStart)(instantEnd)         // Duration P1DT12H30M45S
  *
- * // Age calculator
- * function calculateAge(
- *   birthDate: Temporal.PlainDate,
- *   currentDate: Temporal.PlainDate = Temporal.Now.plainDateISO()
- * ): Temporal.Duration | null {
- *   return since(birthDate)(currentDate)
- * }
+ * // Partial application
+ * const sinceNewYear = since(Temporal.PlainDate.from("2024-01-01"))
+ * sinceNewYear(Temporal.PlainDate.from("2024-03-15"))  // Duration P73D
+ * sinceNewYear(Temporal.PlainDate.from("2024-07-04"))  // Duration P185D
+ * sinceNewYear(Temporal.PlainDate.from("2024-12-31"))  // Duration P364D
  *
- * const birthDate = Temporal.PlainDate.from("1990-06-15")
- * const today = Temporal.PlainDate.from("2024-03-15")
- * const age = calculateAge(birthDate, today)
- * // Duration with years, months, and days
- *
- * // Work duration tracker
- * function trackWorkDuration(
- *   startTime: Temporal.PlainDateTime,
- *   endTime: Temporal.PlainDateTime = Temporal.Now.plainDateTimeISO()
- * ): Temporal.Duration | null {
- *   const duration = since(startTime)(endTime)
- *   if (!duration) return null
- *
- *   // Ensure we don't count negative time
- *   return duration.blank ? Temporal.Duration.from({ hours: 0 }) : duration
- * }
- *
- * const workStart = Temporal.PlainDateTime.from("2024-03-15T09:00:00")
- * const workEnd = Temporal.PlainDateTime.from("2024-03-15T17:30:00")
- * trackWorkDuration(workStart, workEnd)   // Duration PT8H30M
- *
- * // Project timeline
- * function getProjectDuration(
- *   projectStart: Temporal.PlainDate,
- *   milestones: Array<Temporal.PlainDate>
- * ): Array<Temporal.Duration | null> {
- *   const sinceStart = since(projectStart)
- *   return milestones.map(sinceStart)
- * }
- *
+ * // Batch processing
  * const projectStart = Temporal.PlainDate.from("2024-01-01")
  * const milestones = [
  *   Temporal.PlainDate.from("2024-02-01"),
  *   Temporal.PlainDate.from("2024-03-15"),
  *   Temporal.PlainDate.from("2024-06-30")
  * ]
- * getProjectDuration(projectStart, milestones)
+ * const sinceStart = since(projectStart)
+ * milestones.map(sinceStart)
  * // [P31D, P73D, P181D]
- *
- * // Uptime calculator
- * function calculateUptime(
- *   startTime: Temporal.Instant
- * ): Temporal.Duration | null {
- *   const now = Temporal.Now.instant()
- *   return since(startTime)(now)
- * }
- *
- * const serverStart = Temporal.Instant.from("2024-01-01T00:00:00Z")
- * calculateUptime(serverStart)
- * // Duration since server started
- *
- * // Meeting duration with breaks
- * function calculateNetMeetingTime(
- *   startTime: Temporal.PlainTime,
- *   endTime: Temporal.PlainTime,
- *   breakMinutes: number = 0
- * ): Temporal.Duration | null {
- *   const totalDuration = since(startTime)(endTime)
- *   if (!totalDuration) return null
- *
- *   return totalDuration.subtract({ minutes: breakMinutes })
- * }
- *
- * const meetingStart = Temporal.PlainTime.from("09:00:00")
- * const meetingEnd = Temporal.PlainTime.from("11:30:00")
- * calculateNetMeetingTime(meetingStart, meetingEnd, 15)
- * // Duration PT2H15M (2.5 hours minus 15 min break)
- *
- * // Subscription duration
- * function getSubscriptionDuration(
- *   subscriptionDate: Temporal.PlainDate
- * ): { duration: Temporal.Duration | null; years: number; months: number; days: number } {
- *   const today = Temporal.Now.plainDateISO()
- *   const duration = since(subscriptionDate)(today)
- *
- *   if (!duration) {
- *     return { duration: null, years: 0, months: 0, days: 0 }
- *   }
- *
- *   // Get largest units for display
- *   const years = Math.floor(duration.total({ unit: 'years' }))
- *   const months = Math.floor(duration.total({ unit: 'months' })) % 12
- *   const days = Math.floor(duration.total({ unit: 'days' })) % 30
- *
- *   return { duration, years, months, days }
- * }
- *
- * const subscribed = Temporal.PlainDate.from("2020-03-15")
- * getSubscriptionDuration(subscribed)
- * // { duration: P4Y, years: 4, months: 0, days: 0 } (approximately)
  *
  * // Null handling
  * since(null)(currentDate)                // null
  * since(startDate)(null)                  // null
  * since(null)(null)                       // null
  * since(startDate)(undefined)             // null
- *
- * // Invalid type handling
- * since("2024-01-01")(currentDate)        // null (string, not Temporal)
- * since(startDate)("2024-03-15")          // null (string, not Temporal)
- *
- * // Response time calculator
- * function calculateResponseTime(
- *   requestTime: Temporal.Instant,
- *   responseTime: Temporal.Instant
- * ): number {
- *   const duration = since(requestTime)(responseTime)
- *   if (!duration) return 0
- *
- *   return duration.total({ unit: 'milliseconds' })
- * }
- *
- * const request = Temporal.Instant.from("2024-03-15T10:00:00.000Z")
- * const response = Temporal.Instant.from("2024-03-15T10:00:00.250Z")
- * calculateResponseTime(request, response) // 250 (milliseconds)
- *
- * // Deadline tracker
- * function timeUsedSinceStart(
- *   projectStart: Temporal.PlainDate,
- *   deadline: Temporal.PlainDate
- * ): { used: Temporal.Duration | null; total: Temporal.Duration | null; percentUsed: number } {
- *   const now = Temporal.Now.plainDateISO()
- *   const used = since(projectStart)(now)
- *   const total = since(projectStart)(deadline)
- *
- *   if (!used || !total) {
- *     return { used: null, total: null, percentUsed: 0 }
- *   }
- *
- *   const percentUsed = (used.total({ unit: 'days' }) / total.total({ unit: 'days' })) * 100
- *
- *   return { used, total, percentUsed }
- * }
+ * 
+ * // Future reference returns empty duration
+ * const futureDate = Temporal.PlainDate.from("2025-01-01")
+ * const pastDate = Temporal.PlainDate.from("2024-01-01")
+ * since(futureDate)(pastDate)             // Duration PT0S (empty)
  * ```
- * @property Curried - Returns a function for easy composition
- * @property Safe - Returns null for invalid inputs
- * @property Positive - Always returns positive duration or empty
- * @property Type-aware - Handles different Temporal types appropriately
+ * @pure
+ * @safe
+ * @curried
  */
 const since = (
 	reference:

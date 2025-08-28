@@ -8,7 +8,7 @@
  * for easy composition. Returns null for invalid inputs to support safe error
  * handling.
  *
- * @curried (month) => (date) => new date
+ * @curried
  * @param month - The month to set (1-12)
  * @param date - The Temporal date to modify
  * @returns New date with updated month, or null if invalid
@@ -56,157 +56,36 @@
  * setMonth(6)(undefined)                  // null
  * setMonth(6)("2024-03-15" as any)       // null (string, not Temporal)
  *
- * // Quarter selector
- * function setToQuarter(
- *   date: Temporal.PlainDate,
- *   quarter: 1 | 2 | 3 | 4
- * ): Temporal.PlainDate | null {
- *   const quarterMonths = {
- *     1: 1,  // January
- *     2: 4,  // April
- *     3: 7,  // July
- *     4: 10  // October
- *   }
- *
- *   return setMonth(quarterMonths[quarter])(date)
- * }
- *
- * const someDate = Temporal.PlainDate.from("2024-06-15")
- * setToQuarter(someDate, 1)               // 2024-01-15 (Q1)
- * setToQuarter(someDate, 2)               // 2024-04-15 (Q2)
- * setToQuarter(someDate, 3)               // 2024-07-15 (Q3)
- * setToQuarter(someDate, 4)               // 2024-10-15 (Q4)
- *
- * // Fiscal year calculator
- * function setToFiscalMonth(
- *   date: Temporal.PlainDate,
- *   fiscalMonth: number,
- *   fiscalYearStart: number = 4  // April by default
- * ): Temporal.PlainDate | null {
- *   if (fiscalMonth < 1 || fiscalMonth > 12) return null
- *
- *   const calendarMonth = ((fiscalMonth - 1 + fiscalYearStart - 1) % 12) + 1
- *   return setMonth(calendarMonth)(date)
- * }
- *
- * const businessDate = Temporal.PlainDate.from("2024-06-15")
- * setToFiscalMonth(businessDate, 1, 4)    // 2024-04-15 (fiscal month 1 = April)
- * setToFiscalMonth(businessDate, 12, 4)   // 2024-03-15 (fiscal month 12 = March)
- *
- * // Birthday month adjuster
- * function adjustToBirthdayMonth(
- *   currentDate: Temporal.PlainDate,
- *   birthMonth: number
- * ): Temporal.PlainDate | null {
- *   const adjusted = setMonth(birthMonth)(currentDate)
- *
- *   // If the birthday hasn't happened yet this year
- *   if (adjusted && adjusted.month === birthMonth &&
- *       currentDate.month > birthMonth) {
- *     return adjusted.add({ years: 1 })
- *   }
- *
- *   return adjusted
- * }
- *
- * const today = Temporal.PlainDate.from("2024-08-15")
- * adjustToBirthdayMonth(today, 3)         // 2025-03-15 (March already passed)
- * adjustToBirthdayMonth(today, 10)        // 2024-10-15 (October still coming)
- *
- * // Monthly report generator
- * function generateMonthlyReports(
- *   year: number,
- *   day: number
- * ): Array<Temporal.PlainDate | null> {
- *   const baseDate = Temporal.PlainDate.from({ year, month: 1, day })
- *   const reports: Array<Temporal.PlainDate | null> = []
- *
- *   for (let month = 1; month <= 12; month++) {
- *     reports.push(setMonth(month)(baseDate))
- *   }
- *
- *   return reports
- * }
- *
- * generateMonthlyReports(2024, 15)
- * // [Jan 15, Feb 15, Mar 15, ..., Dec 15] all in 2024
- *
- * generateMonthlyReports(2024, 31)
- * // [Jan 31, Feb 29, Mar 31, Apr 30, May 31, Jun 30, Jul 31, Aug 31, Sep 30, Oct 31, Nov 30, Dec 31]
- * // Note: constrained for shorter months
- *
- * // Season setter
- * function setToSeason(
- *   date: Temporal.PlainDate,
- *   season: "spring" | "summer" | "autumn" | "winter"
- * ): Temporal.PlainDate | null {
- *   const seasonMonths = {
- *     spring: 3,   // March
- *     summer: 6,   // June
- *     autumn: 9,   // September
- *     winter: 12   // December
- *   }
- *
- *   return setMonth(seasonMonths[season])(date)
- * }
- *
- * const currentDate = Temporal.PlainDate.from("2024-01-15")
- * setToSeason(currentDate, "spring")      // 2024-03-15
- * setToSeason(currentDate, "summer")      // 2024-06-15
- * setToSeason(currentDate, "autumn")      // 2024-09-15
- * setToSeason(currentDate, "winter")      // 2024-12-15
- *
  * // Batch date processing
  * const dates = [
  *   Temporal.PlainDate.from("2024-01-15"),
  *   Temporal.PlainDate.from("2024-02-15"),
  *   Temporal.PlainDate.from("2024-03-15")
  * ]
- *
  * const setToJune = setMonth(6)
  * dates.map(setToJune)
  * // [2024-06-15, 2024-06-15, 2024-06-15]
  *
- * // Contract renewal calculator
- * function calculateRenewalDate(
- *   startDate: Temporal.PlainDate,
- *   contractMonths: number
- * ): Temporal.PlainDate | null {
- *   const renewalDate = startDate.add({ months: contractMonths })
+ * // Partial application examples
+ * const setToJanuary = setMonth(1)
+ * const setToJune = setMonth(6)
+ * const setToDecember = setMonth(12)
+ * 
+ * const someDate = Temporal.PlainDate.from("2024-03-15")
+ * setToJanuary(someDate)                  // 2024-01-15
+ * setToJune(someDate)                     // 2024-06-15
+ * setToDecember(someDate)                 // 2024-12-15
  *
- *   // Ensure same day of month if possible
- *   return setMonth(renewalDate.month)(
- *     startDate.with({ year: renewalDate.year })
- *   )
- * }
- *
- * const contractStart = Temporal.PlainDate.from("2024-01-31")
- * calculateRenewalDate(contractStart, 6)  // 2024-07-31
- * calculateRenewalDate(contractStart, 13) // 2025-02-28 (constrained for February)
- *
- * // Academic semester setter
- * function setToSemester(
- *   date: Temporal.PlainDate,
- *   semester: "fall" | "spring" | "summer"
- * ): Temporal.PlainDate | null {
- *   const semesterMonths = {
- *     fall: 9,    // September
- *     spring: 1,  // January
- *     summer: 5   // May
- *   }
- *
- *   return setMonth(semesterMonths[semester])(date)
- * }
- *
- * const academicDate = Temporal.PlainDate.from("2024-03-15")
- * setToSemester(academicDate, "fall")     // 2024-09-15
- * setToSemester(academicDate, "spring")   // 2024-01-15
- * setToSemester(academicDate, "summer")   // 2024-05-15
+ * // Day overflow examples
+ * const lastDayJan = Temporal.PlainDate.from("2024-01-31")
+ * setMonth(2)(lastDayJan)                 // 2024-02-29 (constrained to Feb max)
+ * setMonth(4)(lastDayJan)                 // 2024-04-30 (constrained to Apr max)
+ * setMonth(11)(lastDayJan)                // 2024-11-30 (constrained to Nov max)
  * ```
- * @property Curried - Returns a function for easy composition
- * @property Safe - Returns null for invalid inputs
- * @property Immutable - Returns new instance, doesn't modify original
- * @property Constrained - Automatically constrains days to valid range for month
+ * @pure
+ * @safe
+ * @immutable
+ * @curried
  */
 const setMonth = (month: number) =>
 (

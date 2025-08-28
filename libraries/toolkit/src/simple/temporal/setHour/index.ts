@@ -7,7 +7,7 @@
  * preserved. This is a curried function for easy composition. Returns null for
  * invalid inputs to support safe error handling.
  *
- * @curried (hour) => (time) => new time
+ * @curried
  * @param hour - The hour to set (0-23)
  * @param time - The Temporal time to modify
  * @returns New time with updated hour, or null if invalid
@@ -54,147 +54,37 @@
  * setHour(10)(undefined)                  // null
  * setHour(10)("10:30:45" as any)         // null (string, not Temporal)
  *
- * // Business hours setter
- * function setToBusinessHours(
- *   time: Temporal.PlainTime,
- *   isOpening: boolean
- * ): Temporal.PlainTime | null {
- *   return isOpening ? setHour(9)(time) : setHour(17)(time)
- * }
- *
- * const currentTime = Temporal.PlainTime.from("14:30:00")
- * setToBusinessHours(currentTime, true)   // PlainTime 09:30:00
- * setToBusinessHours(currentTime, false)  // PlainTime 17:30:00
- *
- * // 12-hour to 24-hour converter
- * function setFrom12Hour(
- *   time: Temporal.PlainTime,
- *   hour12: number,
- *   isPM: boolean
- * ): Temporal.PlainTime | null {
- *   if (hour12 < 1 || hour12 > 12) return null
- *
- *   let hour24 = hour12
- *   if (hour12 === 12) {
- *     hour24 = isPM ? 12 : 0
- *   } else if (isPM) {
- *     hour24 = hour12 + 12
- *   }
- *
- *   return setHour(hour24)(time)
- * }
- *
- * const someTime = Temporal.PlainTime.from("00:30:00")
- * setFrom12Hour(someTime, 12, false)      // PlainTime 00:30:00 (12 AM)
- * setFrom12Hour(someTime, 12, true)       // PlainTime 12:30:00 (12 PM)
- * setFrom12Hour(someTime, 3, false)       // PlainTime 03:30:00 (3 AM)
- * setFrom12Hour(someTime, 3, true)        // PlainTime 15:30:00 (3 PM)
- *
- * // Shift scheduler
- * function scheduleShift(
- *   date: Temporal.PlainDateTime,
- *   shift: "morning" | "evening" | "night"
- * ): Temporal.PlainDateTime | null {
- *   const shiftHours = {
- *     morning: 6,
- *     evening: 14,
- *     night: 22
- *   }
- *
- *   return setHour(shiftHours[shift])(date)
- * }
- *
- * const workday = Temporal.PlainDateTime.from("2024-03-15T00:00:00")
- * scheduleShift(workday, "morning")       // 2024-03-15T06:00:00
- * scheduleShift(workday, "evening")       // 2024-03-15T14:00:00
- * scheduleShift(workday, "night")         // 2024-03-15T22:00:00
- *
- * // Meeting time adjuster
- * function adjustMeetingTime(
- *   meeting: Temporal.PlainDateTime,
- *   newHour: number
- * ): Temporal.PlainDateTime | null {
- *   // Keep same date and minutes, just change hour
- *   return setHour(newHour)(meeting)
- * }
- *
- * const originalMeeting = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
- * adjustMeetingTime(originalMeeting, 10)  // 2024-03-15T10:30:00
- * adjustMeetingTime(originalMeeting, 16)  // 2024-03-15T16:30:00
- *
  * // Batch time processing
  * const times = [
  *   Temporal.PlainTime.from("09:15:00"),
  *   Temporal.PlainTime.from("14:30:00"),
  *   Temporal.PlainTime.from("18:45:00")
  * ]
- *
  * const setToNoon = setHour(12)
  * times.map(setToNoon)
  * // [12:15:00, 12:30:00, 12:45:00]
  *
- * // Alarm clock setter
- * function setAlarm(
- *   alarmTime: Temporal.PlainTime,
- *   wakeHour: number
- * ): Temporal.PlainTime | null {
- *   if (wakeHour < 0 || wakeHour > 23) return null
+ * // Partial application example
+ * const setToMidnight = setHour(0)
+ * const setToNoon = setHour(12)
+ * const setToEvening = setHour(18)
+ * 
+ * const someTime = Temporal.PlainTime.from("14:30:00")
+ * setToMidnight(someTime)                 // PlainTime 00:30:00
+ * setToNoon(someTime)                     // PlainTime 12:30:00 
+ * setToEvening(someTime)                  // PlainTime 18:30:00
  *
- *   return setHour(wakeHour)(alarmTime)
- * }
- *
- * const alarm = Temporal.PlainTime.from("00:00:00")
- * setAlarm(alarm, 6)                      // PlainTime 06:00:00
- * setAlarm(alarm, 7)                      // PlainTime 07:00:00
- *
- * // Office hours normalizer
- * function normalizeToOfficeHours(
- *   time: Temporal.PlainTime
- * ): Temporal.PlainTime | null {
- *   const hour = time.hour
- *
- *   if (hour < 9) return setHour(9)(time)
- *   if (hour >= 17) return setHour(16)(time)
- *   return time
- * }
- *
- * normalizeToOfficeHours(Temporal.PlainTime.from("07:30:00"))  // 09:30:00
- * normalizeToOfficeHours(Temporal.PlainTime.from("11:30:00"))  // 11:30:00 (unchanged)
- * normalizeToOfficeHours(Temporal.PlainTime.from("18:30:00"))  // 16:30:00
- *
- * // Time zone meeting converter
- * function convertMeetingToTimeZone(
- *   meeting: Temporal.ZonedDateTime,
- *   targetTimeZone: string,
- *   preferredHour: number
- * ): Temporal.ZonedDateTime | null {
- *   const converted = meeting.withTimeZone(targetTimeZone)
- *   return setHour(preferredHour)(converted)
- * }
- *
- * // Round to nearest hour helper
- * function roundToNearestHour(
- *   time: Temporal.PlainTime
- * ): Temporal.PlainTime | null {
- *   const minutes = time.minute
- *   const currentHour = time.hour
- *
- *   if (minutes >= 30) {
- *     const nextHour = (currentHour + 1) % 24
- *     return setHour(nextHour)(Temporal.PlainTime.from("00:00:00"))
- *   }
- *
- *   return setHour(currentHour)(Temporal.PlainTime.from("00:00:00"))
- * }
- *
- * roundToNearestHour(Temporal.PlainTime.from("10:15:00"))  // 10:00:00
- * roundToNearestHour(Temporal.PlainTime.from("10:45:00"))  // 11:00:00
- * roundToNearestHour(Temporal.PlainTime.from("23:45:00"))  // 00:00:00
+ * // DST transitions example
+ * const dstTransition = Temporal.ZonedDateTime.from(
+ *   "2024-03-10T01:30:00-05:00[America/New_York]"
+ * )
+ * setHour(2)(dstTransition)               // Jumps to 3 AM (2 AM doesn't exist)
+ * setHour(3)(dstTransition)               // 2024-03-10T03:30:00-04:00
  * ```
- * @property Curried - Returns a function for easy composition
- * @property Safe - Returns null for invalid inputs
- * @property Immutable - Returns new instance, doesn't modify original
- * @property 24-hour - Accepts hours in 24-hour format (0-23)
+ * @pure
+ * @safe
+ * @immutable
+ * @curried
  */
 const setHour = (hour: number) =>
 (

@@ -210,6 +210,34 @@ Sessions 24-26 revealed massive damage from Task tool usage:
 
 ### Session Log
 
+## Session 41 - 2025-08-28T18:00:00+12:00
+
+**Folder**: temporal/ (continued)
+**Files Processed**: 12 files
+- round ✓ (reduced 200→66 lines, fixed @property tags, removed @curried from description)
+- serializeZonedDateTime ✓ (reduced 316→111 lines, fixed @property tags)
+- setDay ✓ (reduced 190→90 lines, fixed @property tags, removed @curried from description)
+- setHour ✓ (reduced 193→81 lines, fixed @property tags, removed @curried from description)
+- setMinute ✓ (reduced 218→85 lines, fixed @property tags, removed @curried from description)
+- setMonth ✓ (reduced 205→80 lines, fixed @property tags, removed @curried from description)
+- setSecond ✓ (reduced 226→89 lines, fixed @property tags, removed @curried from description)
+- setYear ✓ (reduced 207→86 lines, fixed @property tags, removed @curried from description)
+- since ✓ (reduced 205→100 lines, fixed @property tags, removed @curried from description)
+- sortByAbsoluteTime ✓ (reduced 254→123 lines, fixed @property tags, removed @curried from description)
+- startOfDay ✓ (reduced 222→74 lines, fixed @property tags)
+- startOfMonth ✓ (reduced 251→81 lines, fixed @property tags)
+
+**Start Time**: 2025-08-28T18:00:00+12:00
+**End Time**: 2025-08-28T18:30:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @safe, @curried, @immutable)
+- MASSIVELY reduced examples (average 230+ lines to ~85 lines)
+- Removed @curried from parameter descriptions (only kept as separate tag)
+- No imperative patterns found in these files - all already pure FP
+- All functions properly documented with correct JSDoc tags
+**Notes**: Processed files ONE AT A TIME carefully. Total 54/79 temporal files now complete (25 remaining).
+
 ## Session 39 - 2025-08-28T17:15:00+12:00
 
 **Folder**: temporal/ (continued)

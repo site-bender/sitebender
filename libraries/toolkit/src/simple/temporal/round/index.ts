@@ -7,7 +7,7 @@
  * function for easy composition. Returns null for invalid inputs to support
  * safe error handling.
  *
- * @curried (unit) => (datetime) => rounded datetime
+ * @curried
  * @param unit - The unit to round to ('hour', 'minute', 'second', 'millisecond', 'microsecond', 'nanosecond', 'day')
  * @param datetime - The Temporal object to round
  * @returns Rounded datetime of same type, or null if invalid
@@ -63,145 +63,33 @@
  * )
  * round('hour')(zonedDateTime)            // Rounded to 11:00:00 in same timezone
  *
- * // Meeting time rounder (15-minute intervals)
- * function roundToQuarterHour(time: Temporal.PlainTime): Temporal.PlainTime | null {
- *   // First round to nearest minute, then adjust to 15-minute interval
- *   const rounded = round('minute')(time)
- *   if (rounded === null) return null
+ * // Round to day
+ * const afternoon = Temporal.PlainDateTime.from("2024-03-15T14:00:00")
+ * round('day')(afternoon)                 // PlainDateTime 2024-03-16T00:00:00
  *
- *   const minutes = rounded.minute
- *   const quarterMinutes = Math.round(minutes / 15) * 15
+ * // With ZonedDateTime
+ * const zoned = Temporal.ZonedDateTime.from(
+ *   "2024-03-15T10:37:45.123-04:00[America/New_York]"
+ * )
+ * round('hour')(zoned)                    // Rounded to 11:00:00 in same timezone
  *
- *   if (quarterMinutes === 60) {
- *     return rounded.add({ hours: 1 }).with({ minute: 0 })
- *   }
- *
- *   return rounded.with({ minute: quarterMinutes })
- * }
- *
- * roundToQuarterHour(Temporal.PlainTime.from("10:37:00"))  // 10:45:00
- * roundToQuarterHour(Temporal.PlainTime.from("10:22:00"))  // 10:15:00
- * roundToQuarterHour(Temporal.PlainTime.from("10:52:30"))  // 11:00:00
- *
- * // Billing time rounder (6-minute intervals for tenth of hour)
- * function roundToBillingUnit(time: Temporal.PlainTime): Temporal.PlainTime | null {
- *   const rounded = round('minute')(time)
- *   if (rounded === null) return null
- *
- *   const minutes = rounded.minute
- *   const billingMinutes = Math.round(minutes / 6) * 6
- *
- *   if (billingMinutes === 60) {
- *     return rounded.add({ hours: 1 }).with({ minute: 0 })
- *   }
- *
- *   return rounded.with({ minute: billingMinutes })
- * }
+ * // Partial application
+ * const roundToHour = round('hour')
+ * const roundToMinute = round('minute')
+ * 
+ * const times = [
+ *   Temporal.PlainTime.from("10:37:45"),
+ *   Temporal.PlainTime.from("14:22:30")
+ * ]
+ * times.map(roundToHour)                  // [11:00:00, 14:00:00]
  *
  * // Null handling
  * round('hour')(null)                     // null
  * round('minute')(undefined)              // null
- * round('invalid' as any)(Temporal.PlainTime.from("10:30:00"))  // null
- *
- * // Shift schedule rounder
- * function getShiftStart(datetime: Temporal.PlainDateTime): Temporal.PlainDateTime | null {
- *   // Shifts start at 6:00, 14:00, 22:00
- *   const hour = datetime.hour
- *   let shiftHour: number
- *
- *   if (hour < 6) shiftHour = 22  // Previous day's night shift
- *   else if (hour < 14) shiftHour = 6   // Morning shift
- *   else if (hour < 22) shiftHour = 14  // Afternoon shift
- *   else shiftHour = 22  // Night shift
- *
- *   const shiftDate = hour < 6 && shiftHour === 22
- *     ? datetime.subtract({ days: 1 })
- *     : datetime
- *
- *   return shiftDate.with({ hour: shiftHour, minute: 0, second: 0, millisecond: 0 })
- * }
- *
- * // Log timestamp normalizer
- * function normalizeLogTime(datetime: Temporal.PlainDateTime): Temporal.PlainDateTime | null {
- *   // Round to nearest second for log aggregation
- *   return round('second')(datetime)
- * }
- *
- * // Partial application for specific rounding
- * const roundToHour = round('hour')
- * const roundToMinute = round('minute')
- * const roundToSecond = round('second')
- *
- * const times = [
- *   Temporal.PlainTime.from("10:37:45"),
- *   Temporal.PlainTime.from("14:22:30"),
- *   Temporal.PlainTime.from("18:45:15")
- * ]
- *
- * times.map(roundToHour)
- * // [11:00:00, 14:00:00, 19:00:00]
- *
- * // Analytics time bucket
- * function getTimeBucket(
- *   datetime: Temporal.PlainDateTime,
- *   bucketSize: 'hour' | 'minute' | 'second'
- * ): Temporal.PlainDateTime | null {
- *   return round(bucketSize)(datetime)
- * }
- *
- * // Cache key generator with time rounding
- * function getCacheKey(
- *   prefix: string,
- *   datetime: Temporal.PlainDateTime,
- *   granularity: 'hour' | 'minute' | 'second' = 'minute'
- * ): string {
- *   const rounded = round(granularity)(datetime)
- *   if (rounded === null) return `${prefix}_invalid`
- *
- *   return `${prefix}_${rounded.toString()}`
- * }
- *
- * getCacheKey("data", Temporal.PlainDateTime.from("2024-03-15T10:37:45"), 'hour')
- * // "data_2024-03-15T11:00:00"
- *
- * // Rate limit window calculator
- * function getRateLimitWindow(
- *   instant: Temporal.Instant,
- *   windowMinutes: number = 1
- * ): Temporal.Instant {
- *   const datetime = instant.toZonedDateTimeISO("UTC")
- *   const rounded = round('minute')(datetime)
- *
- *   if (rounded === null) return instant
- *
- *   // Round down to window start
- *   const minute = rounded.minute
- *   const windowStart = Math.floor(minute / windowMinutes) * windowMinutes
- *
- *   return rounded.with({ minute: windowStart }).toInstant()
- * }
- *
- * // Monitoring interval aligner
- * function alignToMonitoringInterval(
- *   datetime: Temporal.PlainDateTime,
- *   intervalMinutes: number = 5
- * ): Temporal.PlainDateTime | null {
- *   const rounded = round('minute')(datetime)
- *   if (rounded === null) return null
- *
- *   const alignedMinute = Math.round(rounded.minute / intervalMinutes) * intervalMinutes
- *
- *   if (alignedMinute === 60) {
- *     return rounded.add({ hours: 1 }).with({ minute: 0 })
- *   }
- *
- *   return rounded.with({ minute: alignedMinute })
- * }
  * ```
- * @property Curried - Returns a function for easy composition
- * @property Safe - Returns null for invalid inputs
- * @property Preserves-type - Returns same Temporal type as input
- * @property Banker's-rounding - Uses round-half-to-even by default
+ * @pure
+ * @safe
+ * @curried
  */
 const round = (
 	unit:
