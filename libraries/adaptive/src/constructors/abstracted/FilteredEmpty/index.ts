@@ -1,13 +1,9 @@
-import type {
-	ElementAttributes,
-	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-} from "../../../constructors/elements/types/index.ts"
+import type { ElementAttributes, ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../utilities/isDefined/index.ts"
-import getAriaAttributes from "../../../constructors/helpers/getAriaAttributes/index.ts"
-import getId from "../../../constructors/helpers/getId/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
+import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 
 const FilteredEmpty =
 	<T extends Record<string, unknown>>(tag = "Img") =>
@@ -30,13 +26,13 @@ const FilteredEmpty =
 
 		return {
 			attributes: {
-				...getId(id),
+				...getId(id as Value),
 				...getAriaAttributes(aria),
 				...attribs,
 			} as T,
 			children: [], // Empty for void elements
 			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
+			...(isDefined(dataset) ? { dataset: dataset as Record<string, Value> } : {}),
 			...(isDefined(display) ? { display } : {}),
 			...(isDefined(format) ? { format } : {}),
 			...(isDefined(scripts) ? { scripts } : {}),

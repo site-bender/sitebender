@@ -60,7 +60,7 @@
     ],
     "strict": true,
     "checkJs": false,
-    "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns"]
+    "lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns", "deno.window"]
   },
 
   "imports": {
@@ -73,16 +73,16 @@
     "~static/": "./docs/static/",
     "~tests/": "./docs/tests/",
     "~types/": "./docs/src/types/",
-  "~scripts/": "./scripts/",
-  // Std lib and testing libs for workspace type-checks
-  "@std/expect": "jsr:@std/expect@^1.0.17",
-  "@std/testing": "jsr:@std/testing@^1.0.15",
-  "@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd",
-  "fast-check": "https://esm.sh/fast-check@4.1.1",
-  // Repo-local import guardrails to avoid deep brittle paths during refactors
-  "@toolkit/": "./libraries/toolkit/src/",
-  "@adaptiveTypes/": "./libraries/adaptive/types/",
-  "@adaptiveSrc/": "./libraries/adaptive/src/"
+		"~scripts/": "./scripts/",
+		// Std lib and testing libs for workspace type-checks
+		"@std/expect": "jsr:@std/expect@^1.0.17",
+		"@std/testing": "jsr:@std/testing@^1.0.15",
+		"@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd",
+		"fast-check": "https://esm.sh/fast-check@4.1.1",
+		// Repo-local import guardrails to avoid deep brittle paths during refactors
+		"@toolkit/": "./libraries/toolkit/src/",
+		"@adaptiveTypes/": "./libraries/adaptive/types/",
+		"@adaptiveSrc/": "./libraries/adaptive/src/"
   },
 
   // Shared formatting configuration
@@ -139,5 +139,9 @@
       "preferAliases": ["@toolkit/", "@adaptiveTypes/", "@adaptiveSrc/"]
     },
     "notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often."
-  }
+  },
+
+	"unstable": [
+		"temporal"
+	]
 }

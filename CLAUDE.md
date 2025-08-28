@@ -14,6 +14,8 @@ So don't do it. Work in smaller increments if you must, but check everything car
 
 If you cannot do this, then you are of no use at all. This is the MOST IMPORTANT rule.
 
+If you detect any performance constraints or rate limits, immediately inform me rather than attempting workarounds!!!
+
 ## Progressive Enhancement Philosophy
 
 **CRITICAL**: This set of libraries and associated documentation web app follow a strict progressive enhancement approach:

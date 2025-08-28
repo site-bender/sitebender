@@ -4,26 +4,19 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { NoAriaAttributes } from "../../../types/aria/index.ts"
-import type { LinkAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { LinkAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import {
-	BLOCKINGS,
-	CROSS_ORIGINS,
-	DESTINATIONS,
-	FETCH_PRIORITIES,
-	REFERRER_POLICIES,
-	RELS_FOR_LINK,
-} from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { CROSS_ORIGINS, DESTINATIONS, REFERRER_POLICIES, RELS_FOR_LINK } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Link element
@@ -51,21 +44,14 @@ export const filterAttributes = (attributes: LinkElementAttributes) => {
 	const {
 		id,
 		as,
-		blocking,
-		color,
-		crossorigin,
-		disabled,
-		fetchPriority,
+		crossOrigin: crossorigin,
 		href,
-		hreflang,
-		imageSizes,
-		imageSrcset,
-		integrity,
+		hrefLang: hreflang,
 		media,
 		referrerPolicy,
 		rel,
-		sizes,
 		type,
+		sizes,
 		// ARIA attributes
 		"aria-hidden": ariaHidden,
 		// Reactive properties (to be excluded from HTML attributes)
@@ -96,33 +82,10 @@ export const filterAttributes = (attributes: LinkElementAttributes) => {
 			filterAttribute(isMemberOf(DESTINATIONS))("as")(as),
 		)
 	}
-	if (isDefined(blocking)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(BLOCKINGS))("blocking")(blocking),
-		)
-	}
-	if (isDefined(color)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("color")(color))
-	}
 	if (isDefined(crossorigin)) {
 		Object.assign(
 			filteredAttrs,
 			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
-		)
-	}
-	if (isDefined(disabled)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("disabled")(disabled),
-		)
-	}
-	if (isDefined(fetchPriority)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchPriority")(
-				fetchPriority,
-			),
 		)
 	}
 	if (isDefined(href)) {
@@ -132,24 +95,6 @@ export const filterAttributes = (attributes: LinkElementAttributes) => {
 		Object.assign(
 			filteredAttrs,
 			filterAttribute(isString)("hreflang")(hreflang),
-		)
-	}
-	if (isDefined(imageSizes)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("imageSizes")(imageSizes),
-		)
-	}
-	if (isDefined(imageSrcset)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("imageSrcset")(imageSrcset),
-		)
-	}
-	if (isDefined(integrity)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("integrity")(integrity),
 		)
 	}
 	if (isDefined(media)) {
@@ -220,7 +165,7 @@ export const Link = (attributes: LinkElementAttributes = {}): ElementConfig => {
 		},
 		children: [],
 		...(isDefined(calculation) ? { calculation } : {}),
-		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(dataset) ? { dataset: dataset as Record<string, Value> } : {}),
 		...(isDefined(display) ? { display } : {}),
 		...(isDefined(format) ? { format } : {}),
 		...(isDefined(scripts) ? { scripts } : {}),

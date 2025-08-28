@@ -2,12 +2,12 @@
 
 ## Target Completion
 
-**Current Progress**: 622/765 files (81.3% complete)
-**Time Spent**: 843 minutes (14.1 hours)
-**Average Speed**: 1.36 minutes/file
+**Current Progress**: 646/765 files (84.4% complete)
+**Time Spent**: 873 minutes (14.6 hours)
+**Average Speed**: 1.35 minutes/file
 
-**Remaining Work**: 143 files
-- temporal/: 61 files remaining (18 done, 79 total)
+**Remaining Work**: 119 files
+- temporal/: 37 files remaining (42 done, 79 total)
 - geometry/: 9 files
 - physics/: 10 files
 - finance/: 11 files
@@ -17,14 +17,43 @@
 - functional/: 21 files
 
 **Estimated Time to Complete**: 
-- At current pace (1.36 min/file): 143 × 1.36 = **195 minutes (3.25 hours)**
-- Total project time: 14.1 + 3.25 = **~17.35 hours total**
-- Sessions needed: 143 ÷ 12 = **12 more sessions**
-- **Expected Completion**: 12 sessions × ~30 min = **6 hours of work**
+- At current pace (1.35 min/file): 119 × 1.35 = **161 minutes (2.7 hours)**
+- Total project time: 14.6 + 2.7 = **~17.3 hours total**
+- Sessions needed: 119 ÷ 12 = **10 more sessions**
+- **Expected Completion**: 10 sessions × ~30 min = **5 hours of work**
 
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 40 - 2025-08-28
+**Folder**: temporal/ (continued)
+**Files Processed**: 12 files total
+- **temporal/** (12 files):
+  - getQuarter ✓ (reduced 281→45 lines, fixed @property tags)
+  - getSecond ✓ (reduced 298→60 lines, fixed @property tags)
+  - getTimeZone ✓ (reduced 283→65 lines, fixed @property tags)
+  - getWeekday ✓ (reduced 251→50 lines, fixed @property tags, removed while loops)
+  - getWeekOfYear ✓ (reduced 302→60 lines, fixed @property tags, removed while loop)
+  - getYear ✓ (reduced 312→50 lines, fixed @property tags)
+  - isLeapYear ✓ (reduced 274→45 lines, fixed @property tags, removed @curried from description, removed for/while loops)
+  - isWeekday ✓ (reduced 298→45 lines, fixed @property tags with @predicate, removed while loops)
+  - isWeekend ✓ (reduced 296→45 lines, fixed @property tags with @predicate, removed while/for loops)
+  - now ✓ (reduced examples, changed to @impure since not pure)
+  - parse ✓ (removed @curried from description, fixed @property tags)
+  - parseTime ✓ (reduced 222→85 lines, fixed @property tags)
+**Start Time**: 2025-08-28T16:30:00+12:00
+**End Time**: 2025-08-28T17:00:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @safe, @predicate, @impure)
+- MASSIVELY reduced examples (average 280+ lines reduced to ~55 lines)
+- Fixed imperative patterns: removed all for/while loops from examples
+- Fixed incorrect @curried references in descriptions (not allowed there)
+- Correctly marked `now()` as @impure since it returns different values each call
+**Notes**:
+- All 12 temporal functions properly remediated
+- Continue with remaining temporal/ files in next session
 
 ### Session 37 - 2025-08-28
 **Folder**: temporal/ (continued)

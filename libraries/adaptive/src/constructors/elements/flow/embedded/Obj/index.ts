@@ -4,20 +4,20 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
-import type { ObjectAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ObjectAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Extended Obj attributes including reactive properties and ARIA
@@ -40,10 +40,10 @@ export const filterAttributes = (attributes: ObjElementAttributes) => {
 	const {
 		id,
 		data,
-		form,
 		height,
 		name,
 		type,
+		useMap,
 		width,
 		// ARIA attributes
 		role,
@@ -76,9 +76,6 @@ export const filterAttributes = (attributes: ObjElementAttributes) => {
 	if (isDefined(data)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("data")(data))
 	}
-	if (isDefined(form)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
-	}
 	if (isDefined(height)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
 	}
@@ -87,6 +84,9 @@ export const filterAttributes = (attributes: ObjElementAttributes) => {
 	}
 	if (isDefined(type)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
+	}
+	if (isDefined(useMap)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("usemap")(useMap))
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -161,8 +161,8 @@ export const Obj = (attributes: ObjElementAttributes = {}) =>
 	const kids = isString(children)
 		? [TextNode(children)]
 		: Array.isArray(children)
-		? children.filter(ADVANCED_FILTERS.objectContent)
-		: ADVANCED_FILTERS.objectContent(children)
+		? children.filter(ADVANCED_FILTERS.anchorContent)
+		: ADVANCED_FILTERS.anchorContent(children)
 		? [children]
 		: []
 

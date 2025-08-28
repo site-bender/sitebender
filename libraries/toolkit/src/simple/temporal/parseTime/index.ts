@@ -56,169 +56,33 @@
  * parseTime("2:30a")                   // PlainTime 02:30:00
  * parseTime("14:30:00Z")               // PlainTime 14:30:00 (ignores Z)
  * 
- * // Meeting times
- * const meetingStart = parseTime("9:30 AM")
- * const meetingEnd = parseTime("10:30 AM")
- * if (meetingStart && meetingEnd) {
- *   const duration = meetingEnd.since(meetingStart)
- *   console.log(\`Meeting duration: \${duration}\`)
- * }
+ * // Meeting times - calculate duration
+ * const meetingStart = parseTime("9:30 AM")   // PlainTime 09:30:00
+ * const meetingEnd = parseTime("10:30 AM")    // PlainTime 10:30:00
  * 
- * // Schedule parsing
- * const schedule = [
- *   "9:00 AM",
- *   "10:30 AM", 
- *   "2:15 PM",
- *   "4:45 PM"
- * ]
+ * // Schedule parsing with filtering
+ * const schedule = ["9:00 AM", "10:30 AM", "2:15 PM", "4:45 PM"]
  * const parsedTimes = schedule
  *   .map(parseTime)
  *   .filter((time): time is Temporal.PlainTime => time !== null)
+ * // [PlainTime 09:00, PlainTime 10:30, PlainTime 14:15, PlainTime 16:45]
  * 
- * // Time validation
- * function isValidTimeString(timeStr: string): boolean {
- *   return parseTime(timeStr) !== null
- * }
+ * // Time validation helper
+ * const isValidTimeString = (timeStr: string): boolean => 
+ *   parseTime(timeStr) !== null
  * 
  * isValidTimeString("14:30")           // true
  * isValidTimeString("2:30 PM")         // true
  * isValidTimeString("25:00")           // false (invalid hour)
- * isValidTimeString("14:70")           // false (invalid minute)
- * 
- * // Business hours checking
- * function isBusinessHours(timeStr: string): boolean {
- *   const time = parseTime(timeStr)
- *   if (!time) return false
- *   
- *   const startBusiness = Temporal.PlainTime.from("09:00")
- *   const endBusiness = Temporal.PlainTime.from("17:00")
- *   
- *   return Temporal.PlainTime.compare(time, startBusiness) >= 0 &&
- *          Temporal.PlainTime.compare(time, endBusiness) <= 0
- * }
- * 
- * isBusinessHours("10:30 AM")          // true
- * isBusinessHours("6:00 PM")           // false
- * 
- * // Time formatting consistency
- * function normalizeTimeString(timeStr: string): string | null {
- *   const time = parseTime(timeStr)
- *   return time ? time.toString() : null
- * }
- * 
- * normalizeTimeString("2:30 PM")       // "14:30:00"
- * normalizeTimeString("14:30")         // "14:30:00"
- * normalizeTimeString("invalid")       // null
- * 
- * // Clock input parsing
- * function parseClockInput(input: string): Temporal.PlainTime | null {
- *   // Handle common user input variations
- *   const cleaned = input.trim().replace(/\s+/g, " ")
- *   return parseTime(cleaned)
- * }
- * 
- * parseClockInput("  2:30   PM  ")     // PlainTime 14:30:00
- * parseClockInput("14:30   ")          // PlainTime 14:30:00
- * 
- * // Time range parsing
- * function parseTimeRange(
- *   rangeStr: string
- * ): { start: Temporal.PlainTime; end: Temporal.PlainTime } | null {
- *   const parts = rangeStr.split(/\s*[-–—]\s*/)
- *   if (parts.length !== 2) return null
- *   
- *   const start = parseTime(parts[0])
- *   const end = parseTime(parts[1])
- *   
- *   return (start && end) ? { start, end } : null
- * }
- * 
- * parseTimeRange("9:00 AM - 5:00 PM")
- * // { start: PlainTime 09:00:00, end: PlainTime 17:00:00 }
- * 
- * parseTimeRange("14:30 – 16:15")
- * // { start: PlainTime 14:30:00, end: PlainTime 16:15:00 }
  * 
  * // Invalid input handling
  * parseTime("")                        // null
  * parseTime("invalid")                 // null
  * parseTime("25:00")                   // null (hour > 23)
  * parseTime("14:60")                   // null (minute > 59)
- * parseTime("14:30:60")                // null (second > 59)
  * parseTime("13:30 AM")                // null (13 with AM/PM)
- * parseTime("0:30 PM")                 // null (0 with PM)
- * 
- * // Null/undefined handling
  * parseTime(null)                      // null
  * parseTime(undefined)                 // null
- * 
- * // Batch time parsing
- * function parseTimes(timeStrings: Array<string>): Array<Temporal.PlainTime> {
- *   return timeStrings
- *     .map(parseTime)
- *     .filter((time): time is Temporal.PlainTime => time !== null)
- * }
- * 
- * const times = parseTimes([
- *   "9:00 AM",
- *   "invalid",
- *   "2:30 PM",
- *   "14:45"
- * ])
- * // [PlainTime 09:00:00, PlainTime 14:30:00, PlainTime 14:45:00]
- * 
- * // Form input processing
- * function processTimeInput(
- *   formData: { startTime?: string; endTime?: string }
- * ): { start?: Temporal.PlainTime; end?: Temporal.PlainTime } {
- *   return {
- *     ...(formData.startTime && { start: parseTime(formData.startTime) }),
- *     ...(formData.endTime && { end: parseTime(formData.endTime) })
- *   }
- * }
- * 
- * // Calendar event time parsing
- * function parseEventTime(
- *   timeStr: string,
- *   defaultPeriod?: "AM" | "PM"
- * ): Temporal.PlainTime | null {
- *   let input = timeStr.trim()
- *   
- *   // Add default period if missing and time appears to be 12-hour format
- *   if (defaultPeriod && !/[ap]m?$/i.test(input) && /:/.test(input)) {
- *     const hourMatch = input.match(/^(\d{1,2})/)
- *     if (hourMatch && parseInt(hourMatch[1]) <= 12) {
- *       input = \`\${input} \${defaultPeriod}\`
- *     }
- *   }
- *   
- *   return parseTime(input)
- * }
- * 
- * parseEventTime("2:30", "PM")         // PlainTime 14:30:00
- * parseEventTime("14:30", "PM")        // PlainTime 14:30:00 (24-hr overrides default)
- * parseEventTime("2:30 AM")            // PlainTime 02:30:00 (explicit period)
- * 
- * // Time slot availability
- * function isTimeSlotAvailable(
- *   requestedTime: string,
- *   bookedTimes: Array<string>
- * ): boolean {
- *   const requested = parseTime(requestedTime)
- *   if (!requested) return false
- *   
- *   const booked = bookedTimes
- *     .map(parseTime)
- *     .filter((time): time is Temporal.PlainTime => time !== null)
- *   
- *   return !booked.some(time => 
- *     Temporal.PlainTime.compare(time, requested) === 0
- *   )
- * }
- * 
- * const bookedSlots = ["9:00 AM", "2:30 PM", "4:15 PM"]
- * isTimeSlotAvailable("10:30 AM", bookedSlots)  // true
- * isTimeSlotAvailable("2:30 PM", bookedSlots)   // false
  * ```
  * @property Pure - Always returns same result for same input
  * @property Safe - Returns null for invalid inputs

@@ -89,7 +89,7 @@ export const filterAttributes = (attributes: AudioElementAttributes) => {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
 		)
 	}
 	if (isDefined(loop)) {

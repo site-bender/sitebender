@@ -4,26 +4,26 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { AnchorAriaAttributes } from "../../../types/aria/index.ts"
-import type { AnchorAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { AnchorAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { AnchorAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import { LINK_WITH_HREF_ROLES } from "../../../../../constructors/elements/constants/aria-roles.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { LINK_WITH_HREF_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import {
 	FORM_TARGETS,
 	REFERRER_POLICIES,
 	RELS_FOR_AREA,
-} from "../../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Extended Anchor attributes including reactive properties and ARIA

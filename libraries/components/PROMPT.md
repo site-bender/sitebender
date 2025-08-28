@@ -2,6 +2,8 @@
 
 Use this as the single source of truth to resume the “phase-2 CI/type hygiene” work with a fresh memory. Follow exactly. Work in small, verified batches with a zero net-new-errors policy.
 
+If you detect any performance constraints or rate limits, immediately inform me rather than attempting workarounds!!!
+
 ## hard scope lock (do not violate)
 - OFF LIMITS (read-only): `libraries/toolkit/**` and `libraries/toolkit/FIX.md`.
   - Do not edit, stage, or commit anything under `libraries/toolkit/**`.

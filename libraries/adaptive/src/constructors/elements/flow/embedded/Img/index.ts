@@ -9,7 +9,7 @@ import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/typ
 import type { ImageAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import { getImgAllowedRoles } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import {
 	CROSS_ORIGINS,

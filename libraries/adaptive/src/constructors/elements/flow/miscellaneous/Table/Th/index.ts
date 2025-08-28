@@ -1,26 +1,21 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { TableHeaderCellAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { TableHeaderCellAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "../../../../../../constructors/abstracted/Filtered/index.ts"
-import { SCOPES } from "../../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
-import { TH_ROLES } from "../../../../constants/aria-roles.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import { SCOPES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import { TH_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 
 /**
  * Filters attributes for Th element
@@ -49,7 +44,6 @@ export const filterAttributes = (attributes: TableHeaderCellAttributes) => {
 		headers,
 		rowSpan,
 		scope,
-		sorted,
 		role,
 		...otherAttributes
 	} = attributes
@@ -63,7 +57,6 @@ export const filterAttributes = (attributes: TableHeaderCellAttributes) => {
 		...filterAttribute(isString)("headers")(headers),
 		...filterAttribute(isInteger)("rowSpan")(rowSpan),
 		...filterAttribute(isMemberOf(SCOPES))("scope")(scope),
-		...filterAttribute(isBoolean)("sorted")(sorted),
 		...filterAttribute(isMemberOf(TH_ROLES))("role")(role),
 	}
 }

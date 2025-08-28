@@ -1,6 +1,4 @@
-import type { GlobalAttributes } from "../../../types/index.ts"
-
-import { ELEMENTS } from "../../guards/constants/index.ts"
+import { ELEMENTS } from "@adaptiveSrc/guards/constants/index.ts"
 
 /**
  * Configuration object for element validation
