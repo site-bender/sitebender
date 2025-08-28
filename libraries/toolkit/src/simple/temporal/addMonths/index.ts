@@ -93,13 +93,9 @@
  *   startDate: Temporal.PlainDate,
  *   termMonths: number
  * ): Array<Temporal.PlainDate | null> {
- *   const schedule: Array<Temporal.PlainDate | null> = []
- *
- *   for (let i = 1; i <= termMonths; i++) {
- *     schedule.push(addMonths(i)(startDate))
- *   }
- *
- *   return schedule
+ *   return Array.from({ length: termMonths }, (_, i) =>
+ *     addMonths(i + 1)(startDate)
+ *   )
  * }
  *
  * const loanStart = Temporal.PlainDate.from("2024-03-01")
@@ -178,10 +174,10 @@
  *     endOfSeason.with({ day: endOfSeason.daysInMonth }) : null
  * }
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new date without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Overflow - Handles day overflow by adjusting to valid dates
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addMonths = (months: number) =>
 (

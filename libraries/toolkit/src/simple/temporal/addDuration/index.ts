@@ -83,16 +83,14 @@
  *   sprintLength: Temporal.Duration,
  *   count: number
  * ): Array<{ start: Temporal.PlainDate; end: Temporal.PlainDate | null }> {
- *   const sprints = []
- *   let currentStart = start
- *
- *   for (let i = 0; i < count; i++) {
- *     const end = addDuration(sprintLength)(currentStart)
- *     sprints.push({ start: currentStart, end })
- *     if (end) currentStart = end
- *   }
- *
- *   return sprints
+ *   return Array.from({ length: count }, (_, i) => {
+ *     const sprintStart = Array.from({ length: i }, () => null)
+ *       .reduce((acc) => addDuration(sprintLength)(acc) ?? acc, start)
+ *     return { 
+ *       start: sprintStart, 
+ *       end: addDuration(sprintLength)(sprintStart) 
+ *     }
+ *   })
  * }
  *
  * const sprintDuration = Temporal.Duration.from({ weeks: 2 })
@@ -137,16 +135,16 @@
  * function scheduleWorkout(
  *   start: Temporal.PlainTime
  * ): Array<{ name: string; time: Temporal.PlainTime | null }> {
- *   const schedule = []
- *   let currentTime = start
- *
- *   for (const segment of workoutDurations) {
- *     schedule.push({ name: segment.name, time: currentTime })
- *     const duration = Temporal.Duration.from(segment.duration)
- *     currentTime = addDuration(duration)(currentTime)
- *   }
- *
- *   return schedule
+ *   return workoutDurations.reduce(
+ *     (acc, segment) => {
+ *       const lastTime = acc.length > 0 ? 
+ *         acc[acc.length - 1].time : start
+ *       const duration = Temporal.Duration.from(segment.duration)
+ *       const nextTime = lastTime ? addDuration(duration)(lastTime) : null
+ *       return [...acc, { name: segment.name, time: lastTime }]
+ *     },
+ *     [] as Array<{ name: string; time: Temporal.PlainTime | null }>
+ *   )
  * }
  *
  * const workout = scheduleWorkout(Temporal.PlainTime.from("06:00:00"))
@@ -188,16 +186,11 @@
  *   interval: Temporal.Duration,
  *   occurrences: number
  * ): Array<Temporal.PlainDate | null> {
- *   const dates = [start]
- *
- *   for (let i = 1; i < occurrences; i++) {
- *     const previous = dates[dates.length - 1]
- *     if (previous) {
- *       dates.push(addDuration(interval)(previous))
- *     }
- *   }
- *
- *   return dates
+ *   return Array.from({ length: occurrences }, (_, i) =>
+ *     i === 0 ? start :
+ *     Array.from({ length: i }, () => null)
+ *       .reduce((acc) => addDuration(interval)(acc), start)
+ *   )
  * }
  *
  * const eventStart = Temporal.PlainDate.from("2024-01-01")
@@ -205,10 +198,10 @@
  * getRecurringDates(eventStart, biweekly, 10)
  * // 10 biweekly occurrences
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new temporal object without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Flexible - Works with all Temporal types that support duration
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addDuration = (duration: Temporal.Duration | null | undefined) =>
 (

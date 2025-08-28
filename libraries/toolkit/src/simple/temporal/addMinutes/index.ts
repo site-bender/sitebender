@@ -76,20 +76,15 @@
  *   breakMinutes: number = 5,
  *   cycles: number = 4
  * ): Array<{ type: string; time: Temporal.PlainTime | null }> {
- *   const schedule: Array<{ type: string; time: Temporal.PlainTime | null }> = []
- *   let current = start
- *
- *   for (let i = 0; i < cycles; i++) {
- *     schedule.push({ type: "work", time: current })
- *     current = addMinutes(workMinutes)(current)
- *
- *     if (current && i < cycles - 1) {
- *       schedule.push({ type: "break", time: current })
- *       current = addMinutes(breakMinutes)(current)
+ *   return Array.from({ length: cycles * 2 - 1 }, (_, i) => {
+ *     const isWork = i % 2 === 0
+ *     const totalMinutesBefore = Math.floor(i / 2) * (workMinutes + breakMinutes) +
+ *       (isWork ? 0 : workMinutes)
+ *     return {
+ *       type: isWork ? "work" : "break",
+ *       time: addMinutes(totalMinutesBefore)(start)
  *     }
- *   }
- *
- *   return schedule
+ *   })
  * }
  *
  * const pomodoro = pomodoroSchedule(Temporal.PlainTime.from("09:00:00"))
@@ -106,15 +101,15 @@
  *   start: Temporal.PlainTime,
  *   steps: Array<{ name: string; minutes: number }>
  * ): Array<{ name: string; time: Temporal.PlainTime | null }> {
- *   const timeline: Array<{ name: string; time: Temporal.PlainTime | null }> = []
- *   let currentTime = start
- *
- *   for (const step of steps) {
- *     timeline.push({ name: step.name, time: currentTime })
- *     currentTime = addMinutes(step.minutes)(currentTime)
- *   }
- *
- *   return timeline
+ *   return steps.reduce(
+ *     (acc, step) => {
+ *       const prevTime = acc.length > 0 ? 
+ *         addMinutes(acc[acc.length - 1].minutes || 0)(acc[acc.length - 1].time) :
+ *         start
+ *       return [...acc, { name: step.name, time: prevTime, minutes: step.minutes }]
+ *     },
+ *     [] as Array<{ name: string; time: Temporal.PlainTime | null; minutes?: number }>
+ *   ).map(({ name, time }) => ({ name, time }))
  * }
  *
  * const recipe = getCookingSteps(
@@ -134,15 +129,12 @@
  *   end: Temporal.PlainTime,
  *   intervalMinutes: number
  * ): Array<Temporal.PlainTime> {
- *   const slots: Array<Temporal.PlainTime> = []
- *   let current: Temporal.PlainTime | null = start
- *
- *   while (current && Temporal.PlainTime.compare(current, end) <= 0) {
- *     slots.push(current)
- *     current = addMinutes(intervalMinutes)(current)
- *   }
- *
- *   return slots
+ *   const totalMinutes = end.since(start).total({ unit: "minutes" })
+ *   const slotCount = Math.floor(totalMinutes / intervalMinutes) + 1
+ *   
+ *   return Array.from({ length: slotCount }, (_, i) =>
+ *     addMinutes(i * intervalMinutes)(start)
+ *   ).filter((t): t is Temporal.PlainTime => t !== null)
  * }
  *
  * const appointmentSlots = generateTimeSlots(
@@ -180,10 +172,10 @@
  * const reminders = getCountdownTimes(eventTime, [60, 30, 15, 5])
  * // [19:00, 19:30, 19:45, 19:55] - reminder times
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new time without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Flexible - Works with time and datetime types
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addMinutes = (minutes: number) =>
 (

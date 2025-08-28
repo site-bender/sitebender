@@ -145,10 +145,10 @@
  * const workEnd = Temporal.PlainTime.from("17:30:00")
  * trackWorkHours(workStart, workEnd)      // 8.5 hours
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new time without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Wrapping - PlainTime wraps around 24-hour boundary
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addHours = (hours: number) =>
 (

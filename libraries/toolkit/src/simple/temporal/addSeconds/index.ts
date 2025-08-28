@@ -68,13 +68,10 @@
  *   start: Temporal.PlainTime,
  *   totalSeconds: number
  * ): Array<Temporal.PlainTime | null> {
- *   const times: Array<Temporal.PlainTime | null> = []
- *
- *   for (let i = 0; i <= totalSeconds; i += 10) {
- *     times.push(addSeconds(-i)(start))
- *   }
- *
- *   return times
+ *   return Array.from(
+ *     { length: Math.floor(totalSeconds / 10) + 1 },
+ *     (_, i) => addSeconds(-(i * 10))(start)
+ *   )
  * }
  *
  * const countdownFrom = Temporal.PlainTime.from("00:01:00")
@@ -89,13 +86,11 @@
  * ): Array<Temporal.PlainTime | null> {
  *   const frameInterval = 1 / fps
  *   const totalFrames = Math.floor(duration * fps)
- *   const frames: Array<Temporal.PlainTime | null> = []
- *
- *   for (let i = 0; i <= totalFrames; i++) {
- *     frames.push(addSeconds(i * frameInterval)(start))
- *   }
- *
- *   return frames
+ *   
+ *   return Array.from(
+ *     { length: totalFrames + 1 },
+ *     (_, i) => addSeconds(i * frameInterval)(start)
+ *   )
  * }
  *
  * const animationStart = Temporal.PlainTime.from("00:00:00")
@@ -133,15 +128,12 @@
  *   duration: number
  * ): Array<Temporal.PlainTime | null> {
  *   const intervalSeconds = 60 / bpm
- *   const beats: Array<Temporal.PlainTime | null> = []
- *   let elapsed = 0
- *
- *   while (elapsed < duration) {
- *     beats.push(addSeconds(elapsed)(start))
- *     elapsed += intervalSeconds
- *   }
- *
- *   return beats
+ *   const beatCount = Math.floor(duration / intervalSeconds)
+ *   
+ *   return Array.from(
+ *     { length: beatCount + 1 },
+ *     (_, i) => addSeconds(i * intervalSeconds)(start)
+ *   )
  * }
  *
  * const monitorStart = Temporal.PlainTime.from("00:00:00")
@@ -198,10 +190,10 @@
  * const timeoutAt = getTimeout(requestSent, 10)
  * // Request will timeout 10 seconds from now
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new time without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Precise - Handles second-level precision accurately
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addSeconds = (seconds: number) =>
 (

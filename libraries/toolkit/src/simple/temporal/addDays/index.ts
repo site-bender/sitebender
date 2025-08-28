@@ -99,15 +99,12 @@
  *   count: number,
  *   step: number = 1
  * ): Array<Temporal.PlainDate> {
- *   const dates: Array<Temporal.PlainDate> = [start]
  *   const addStep = addDays(step)
- *
- *   for (let i = 1; i < count; i++) {
- *     const next = addStep(dates[i - 1])
- *     if (next) dates.push(next)
- *   }
- *
- *   return dates
+ *   return Array.from({ length: count }, (_, i) => 
+ *     i === 0 ? start : 
+ *     Array.from({ length: i }, () => null)
+ *       .reduce((acc) => addStep(acc), start)
+ *   ).filter((d): d is Temporal.PlainDate => d !== null)
  * }
  *
  * generateDates(Temporal.PlainDate.from("2024-01-01"), 5, 7)
@@ -128,10 +125,10 @@
  *   return today.until(target).days
  * }
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Immutable - Returns new date without modifying original
- * @property Safe - Returns null for invalid inputs
- * @property Curried - Easily composable with other functions
+ * @pure
+ * @immutable
+ * @safe
+ * @curried
  */
 const addDays = (days: number) =>
 (
