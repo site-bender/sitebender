@@ -12,15 +12,16 @@
  * />
  */
 
-import FromLookupTableConstructor from "../../../../../adaptive/src/constructors/injectors/FromLookupTable/index.ts"
+import FromLookupTableConstructor from "@adaptiveSrc/constructors/injectors/FromLookupTable/index.ts"
+import type { ComplexDatatype, Operand } from "@adaptiveTypes/index.ts"
 
 export type FromLookupTableProps = {
 	tableName: string
 	column: string
 	local?: string
-	test: any
-	type?: "String" | "Number" | "Boolean" | "Json"
-	datatype?: "String" | "Number" | "Boolean" | "Json"
+	test: Operand
+	type?: ComplexDatatype
+	datatype?: ComplexDatatype
 }
 
 export default function FromLookupTable({
@@ -28,7 +29,7 @@ export default function FromLookupTable({
 	column,
 	local,
 	test,
-	type = "String",
+	type = "Json",
 	datatype,
 }: FromLookupTableProps): ReturnType<ReturnType<typeof FromLookupTableConstructor>> {
 	const actualType = datatype || type

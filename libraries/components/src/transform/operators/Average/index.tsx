@@ -12,7 +12,8 @@
  * </Average>
  */
 
-import AverageConstructor from "../../../../../adaptive/src/constructors/operators/Average/index.ts"
+import AverageConstructor from "@adaptiveSrc/constructors/operators/Average/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type AverageProps = {
 	type?: "Number"
@@ -29,5 +30,5 @@ export default function Average({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Average constructor signature: (datatype) => (operands)
-	return AverageConstructor(actualType)(childArray as any)
+	return AverageConstructor(actualType)(childArray as unknown as Operand[])
 }

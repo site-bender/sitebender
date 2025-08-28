@@ -12,7 +12,7 @@
  * </IsAfterDate>
  */
 
-import IsAfterDateConstructor from "../../../../../adaptive/src/constructors/comparators/date/IsAfterDate/index.ts"
+import IsAfterDateConstructor from "@adaptiveSrc/constructors/comparators/date/IsAfterDate/index.ts"
 
 export type IsAfterDateProps = {
 	type?: "Date"

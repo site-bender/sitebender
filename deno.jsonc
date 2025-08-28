@@ -56,7 +56,10 @@
     "jsxFragmentFactory": "Fragment",
     "types": [
       "./docs/src/types/globals.d.ts",
-      "./scripts/types/globals.d.ts"
+  "./scripts/types/globals.d.ts",
+  // Ensure components’ JSX globals are visible during workspace checks
+  "./libraries/components/types/globals.d.ts",
+  "./libraries/components/types/JSX/jsx-runtime.d.ts"
     ],
     "strict": true,
     "checkJs": false,

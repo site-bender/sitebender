@@ -1,10 +1,6 @@
-import type {
-	Datatype,
-	FromSessionStorageInjector,
-	Value,
-} from "../../../types/index.ts"
+import type { Datatype, FromSessionStorageInjector, Value } from "@adaptiveTypes/index.ts"
 
-import { OPERAND_TYPES } from "../../constants/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
 interface FromSessionStorageWithOptions extends FromSessionStorageInjector {
 	options: {

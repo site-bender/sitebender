@@ -17,7 +17,8 @@
  * </Or>
  */
 
-import OrConstructor from "../../../../../adaptive/src/constructors/comparators/algebraic/Or/index.ts"
+import OrConstructor from "@adaptiveSrc/constructors/comparators/algebraic/Or/index.ts"
+import type { ComparatorConfig, LogicalConfig } from "@adaptiveTypes/index.ts"
 
 export type OrProps = {
 	children?: JSX.Element | JSX.Element[]
@@ -28,6 +29,8 @@ export default function Or({
 }: OrProps): ReturnType<typeof OrConstructor> {
 	const childArray = Array.isArray(children) ? children : [children]
 
-	// Or constructor signature: () => (conditions)
-	return OrConstructor()(childArray as any)
+	// Or constructor signature: (datatype) => (operands)
+	return OrConstructor("Boolean")(childArray as unknown as Array<
+		ComparatorConfig | LogicalConfig
+	>)
 }

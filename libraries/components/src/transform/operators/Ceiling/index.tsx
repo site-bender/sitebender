@@ -10,7 +10,8 @@
  * </Ceiling>
  */
 
-import CeilingConstructor from "../../../../../adaptive/src/constructors/operators/Ceiling/index.ts"
+import CeilingConstructor from "@adaptiveSrc/constructors/operators/Ceiling/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type CeilingProps = {
 	type?: "Number"
@@ -27,5 +28,5 @@ export default function Ceiling({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Ceiling constructor signature: (datatype) => (decimalPlaces?) => (operand)
-	return CeilingConstructor(actualType)()(childArray[0] as unknown as JSX.Element)
+	return CeilingConstructor(actualType)()(childArray[0] as unknown as Operand)
 }

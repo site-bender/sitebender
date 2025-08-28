@@ -1,0 +1,27 @@
+import { assertEquals } from "jsr:@std/assert"
+import { describe, it } from "jsr:@std/testing/bdd"
+
+import type { Operand } from "@adaptiveTypes/index.ts"
+import Min from "@adaptiveSrc/constructors/operators/Min/index.ts"
+import Max from "@adaptiveSrc/constructors/operators/Max/index.ts"
+import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
+
+const num = (n: number): Operand => Constant("Number")(n)
+
+describe("min/max operators", () => {
+  it("Min constructs correct operator shape", () => {
+    const op = Min("Number")([num(3), num(1), num(2)])
+    assertEquals(op.tag, "Min")
+    assertEquals(op.type, "operator")
+    assertEquals(op.datatype, "Number")
+    assertEquals(op.operands.length, 3)
+  })
+
+  it("Max constructs correct operator shape", () => {
+    const op = Max("Number")([num(3), num(1), num(2)])
+    assertEquals(op.tag, "Max")
+    assertEquals(op.type, "operator")
+    assertEquals(op.datatype, "Number")
+    assertEquals(op.operands.length, 3)
+  })
+})

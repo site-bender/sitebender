@@ -2,7 +2,7 @@
  * IsLessThan - Less than comparison for adaptive conditionals
  */
 
-import IsLessThanConstructor from "../../../../../adaptive/src/constructors/comparators/amount/IsLessThan/index.ts"
+import IsLessThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsLessThan/index.ts"
 
 export type IsLessThanProps = {
 	children?: JSX.Element | Array<JSX.Element> | string

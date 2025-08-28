@@ -1,6 +1,6 @@
-import { createComposeContext } from "../../../libraries/adaptive/src/context/composeContext/index.ts"
-import { registerDefaultExecutors } from "../../../libraries/adaptive/src/operations/defaults/registerDefaults/index.ts"
-import hydrate from "../../../libraries/adaptive/src/runtime/hydrator/index.ts"
+import { createComposeContext } from "@adaptiveSrc/context/composeContext/index.ts"
+import { registerDefaultExecutors } from "@adaptiveSrc/operations/defaults/registerDefaults/index.ts"
+import hydrate from "@adaptiveSrc/runtime/hydrator/index.ts"
 
 export function hydrateAdaptiveFromScriptTag() {
   const el = document.getElementById('ir-root')

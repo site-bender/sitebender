@@ -10,7 +10,7 @@
  * </IsBoolean>
  */
 
-import IsBooleanConstructor from "../../../../../adaptive/src/constructors/comparators/scalar/IsBoolean/index.ts"
+import IsBooleanConstructor from "@adaptiveSrc/constructors/comparators/scalar/IsBoolean/index.ts"
 
 export type IsBooleanProps = {
 	children?: JSX.Element | JSX.Element[]

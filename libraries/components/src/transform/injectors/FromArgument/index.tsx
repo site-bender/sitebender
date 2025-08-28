@@ -11,7 +11,7 @@
  * />
  */
 
-import FromArgumentConstructor from "../../../../../adaptive/src/constructors/injectors/FromArgument/index.ts"
+import FromArgumentConstructor from "@adaptiveSrc/constructors/injectors/FromArgument/index.ts"
 
 export type FromArgumentProps = {
 	name: string

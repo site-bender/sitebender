@@ -12,13 +12,14 @@
  * />
  */
 
-import FromQueryStringConstructor from "../../../../../adaptive/src/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "@adaptiveSrc/constructors/injectors/FromQueryString/index.ts"
+import type { Datatype, Value } from "@adaptiveTypes/index.ts"
 
 export type FromQueryStringProps = {
 	param: string
-	type?: "String" | "Number" | "Boolean"
-	datatype?: "String" | "Number" | "Boolean"
-	defaultValue?: any
+	type?: Datatype
+	datatype?: Datatype
+	defaultValue?: Value
 }
 
 export default function FromQueryString({

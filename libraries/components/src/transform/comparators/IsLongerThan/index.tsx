@@ -12,7 +12,8 @@
  * </IsLongerThan>
  */
 
-import IsLongerThanConstructor from "../../../../../adaptive/src/constructors/comparators/length/IsLongerThan/index.ts"
+import IsLongerThanConstructor from "@adaptiveSrc/constructors/comparators/length/IsLongerThan/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type IsLongerThanProps = {
 	type?: "String" | "Array"
@@ -24,11 +25,10 @@ export default function IsLongerThan({
 	type = "String",
 	datatype,
 	children = [],
-}: IsLongerThanProps): ReturnType<ReturnType<typeof IsLongerThanConstructor>> {
+}: IsLongerThanProps): ReturnType<ReturnType<ReturnType<typeof IsLongerThanConstructor>>> {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [operand, test] = Array.isArray(children) ? children : [children]
 
-	// The parser will extract Value and Threshold from children
-	// IsLongerThan constructor signature: (datatype) => (operand) => (test)
-	return IsLongerThanConstructor(actualType)(null as any)
+	// IsLongerThan: (datatype) => (operand) => (test)
+	return IsLongerThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand)
 }

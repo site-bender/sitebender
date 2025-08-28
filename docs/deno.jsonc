@@ -46,6 +46,9 @@
 		"@sitebender/toolkit/": "../libraries/toolkit/src/",
 		"@sitebender/adaptive": "../libraries/adaptive/src/",
 		"@sitebender/adaptive/": "../libraries/adaptive/src/",
+		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
+		"@adaptiveSrc/": "../libraries/adaptive/src/",
+		"@adaptiveTypes/": "../libraries/adaptive/types/",
 	"@sitebender/components": "../libraries/components/src/index.ts",
 	"@sitebender/components/": "../libraries/components/src/",
 

@@ -1,16 +1,12 @@
-import type {
-	ComplexDatatype,
-	FromLookupTableInjector,
-	GlobalAttributes,
-} from "../../../types/index.ts"
+import type { ComplexDatatype, FromLookupTableInjector, Operand } from "@adaptiveTypes/index.ts"
 
-import { OPERAND_TYPES } from "../../constants/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
 interface LookupTableConfig {
 	column: string
 	local?: string
 	tableName: string
-	test: Operand // TODO: Should be Operand
+	test: Operand
 }
 
 const FromLookupTable =

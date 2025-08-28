@@ -20,6 +20,8 @@ import On from "../../src/transform/control/On/index.tsx"
 import Constant from "../../src/transform/injectors/Constant/index.tsx"
 import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
 import Add from "../../src/transform/operators/Add/index.tsx"
+import IsEqualTo from "../../src/transform/comparators/IsEqualTo/index.tsx"
+import IsUnequalTo from "../../src/transform/comparators/IsUnequalTo/index.tsx"
 
 // Minimal VNode helper the compiler recognizes as an element
 const el = (tag: string, props: Record<string, unknown> = {}, children?: unknown) => ({
@@ -156,4 +158,70 @@ Deno.test("compileToAdaptive wraps primitives as Constant injectors with correct
   assertEquals(valueNode.injector, "From.Constant")
   assertEquals(valueNode.args.value, true)
   assertEquals(valueNode.datatype, "Boolean")
+})
+
+Deno.test("compileToAdaptive compiles IsEqualTo comparator from component wrapper", () => {
+  const tree = [
+    el("input", { id: "status" }),
+    On({
+      event: "Change",
+      children: Publish({
+        topic: "debug",
+        payload: IsEqualTo({
+          type: "String",
+          children: [
+            FromElement({ id: "status" }) as unknown as JSX.Element,
+            Constant({ value: "active" }) as unknown as JSX.Element,
+          ],
+        }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  const cmp = evt.handler.args[1] as ComparatorNode
+  assertEquals(cmp.kind, "comparator")
+  assertEquals(cmp.cmp, "Is.EqualTo")
+  assertEquals(cmp.args.length, 2)
+  const left = cmp.args[0] as InjectorNode
+  const right = cmp.args[1] as InjectorNode
+  assertEquals(left.kind, "injector")
+  assertEquals(left.injector, "From.Element")
+  assertEquals(right.kind, "injector")
+  assertEquals(right.injector, "From.Constant")
+  assertEquals(right.args.value, "active")
+})
+
+Deno.test("compileToAdaptive compiles IsUnequalTo comparator from component wrapper", () => {
+  const tree = [
+    el("input", { id: "status" }),
+    On({
+      event: "Change",
+      children: Publish({
+        topic: "debug",
+        payload: IsUnequalTo({
+          type: "String",
+          children: [
+            FromElement({ id: "status" }) as unknown as JSX.Element,
+            Constant({ value: "pending" }) as unknown as JSX.Element,
+          ],
+        }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  const cmp = evt.handler.args[1] as ComparatorNode
+  assertEquals(cmp.kind, "comparator")
+  assertEquals(cmp.cmp, "Is.UnequalTo")
+  assertEquals(cmp.args.length, 2)
+  const left = cmp.args[0] as InjectorNode
+  const right = cmp.args[1] as InjectorNode
+  assertEquals(left.kind, "injector")
+  assertEquals(left.injector, "From.Element")
+  assertEquals(right.kind, "injector")
+  assertEquals(right.injector, "From.Constant")
+  assertEquals(right.args.value, "pending")
 })

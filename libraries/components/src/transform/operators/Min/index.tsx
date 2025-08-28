@@ -12,7 +12,8 @@
  * </Min>
  */
 
-import MinConstructor from "../../../../../adaptive/src/constructors/operators/Min/index.ts"
+import MinConstructor from "@adaptiveSrc/constructors/operators/Min/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type MinProps = {
 	type?: "Number" | "Date" | "String"
@@ -29,5 +30,5 @@ export default function Min({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Min constructor signature: (datatype) => (operands)
-	return MinConstructor(actualType)(childArray as any)
+	return MinConstructor(actualType)(childArray as unknown as Operand[])
 }

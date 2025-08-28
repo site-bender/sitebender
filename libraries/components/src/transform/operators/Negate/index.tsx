@@ -10,7 +10,8 @@
  * </Negate>
  */
 
-import NegateConstructor from "../../../../../adaptive/src/constructors/operators/Negate/index.ts"
+import NegateConstructor from "@adaptiveSrc/constructors/operators/Negate/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type NegateProps = {
 	type?: "Number"
@@ -27,5 +28,5 @@ export default function Negate({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Negate constructor signature: (datatype) => (operand)
-	return NegateConstructor(actualType)(childArray[0] as unknown as JSX.Element)
+	return NegateConstructor(actualType)(childArray[0] as unknown as Operand)
 }

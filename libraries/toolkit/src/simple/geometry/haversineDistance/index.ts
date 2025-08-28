@@ -8,11 +8,14 @@ import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
  * and returns distance in kilometers by default. Earth's mean radius
  * (6371 km) is used unless specified. Returns NaN for invalid inputs.
  *
- * @curried (point1) => (point2) => (radius?) => distance
  * @param point1 - First point as [latitude, longitude] in degrees
  * @param point2 - Second point as [latitude, longitude] in degrees
  * @param radius - Sphere radius in km (default: 6371 for Earth)
  * @returns Distance in kilometers, or NaN if invalid
+ * @pure
+ * @curried
+ * @safe
+ * @immutable
  * @example
  * ```typescript
  * // Distance between cities
@@ -94,23 +97,18 @@ import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
  *   return haversineDistance(store)(customer)() <= maxRadius
  * }
  *
- * // Find nearest location
+ * // Find nearest location  
  * function findNearest(
  *   current: [number, number],
  *   locations: Array<[number, number]>
  * ): [number, number] | null {
- *   let nearest = null
- *   let minDistance = Infinity
  *   const fromCurrent = haversineDistance(current)
- *
- *   for (const loc of locations) {
+ *   return locations.reduce((acc, loc) => {
  *     const distance = fromCurrent(loc)()
- *     if (distance < minDistance) {
- *       minDistance = distance
- *       nearest = loc
- *     }
- *   }
- *   return nearest
+ *     return distance < acc.minDistance 
+ *       ? { nearest: loc, minDistance: distance }
+ *       : acc
+ *   }, { nearest: null as [number, number] | null, minDistance: Infinity }).nearest
  * }
  *
  * // Partial application for fixed origin
@@ -119,10 +117,6 @@ import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
  * fromParis([41.9028, 12.4964])()  // Paris to Rome: 1105.7 km
  * fromParis([40.4168, -3.7038])()  // Paris to Madrid: 1053.6 km
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application
- * @property Safe - Returns NaN for invalid inputs
- * @property Geographic - Assumes spherical Earth model
  */
 const haversineDistance = (
 	point1: [number, number] | null | undefined,

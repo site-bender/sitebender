@@ -9,13 +9,13 @@
  * <FromLocalStorage key="settings" type="Json" />
  */
 
-import FromLocalStorageConstructor from "../../../../../adaptive/src/constructors/injectors/FromLocalStorage/index.ts"
+import FromLocalStorageConstructor from "@adaptiveSrc/constructors/injectors/FromLocalStorage/index.ts"
 
 export type FromLocalStorageProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: unknown
+	defaultValue?: import("@adaptiveTypes/index.ts").Value
 }
 
 export default function FromLocalStorage({

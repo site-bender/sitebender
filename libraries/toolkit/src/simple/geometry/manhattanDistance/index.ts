@@ -6,10 +6,13 @@
  * grid where only orthogonal moves are allowed (like Manhattan streets).
  * Points must have the same dimensionality. Returns NaN for invalid inputs.
  *
- * @curried (point1) => (point2) => number
  * @param point1 - First point as array of coordinates
  * @param point2 - Second point as array of coordinates
  * @returns Manhattan distance (non-negative), or NaN if invalid
+ * @pure
+ * @curried
+ * @safe
+ * @immutable
  * @example
  * ```typescript
  * // 2D points
@@ -92,27 +95,11 @@
  * pixelDistance([255, 0, 0], [255, 255, 0])  // 255 (red to yellow)
  * pixelDistance([128, 128, 128], [64, 192, 96])  // 160
  *
- * // Chess king moves (on grid)
- * const kingMoves = (from: number[], to: number[]) => {
- *   const manhattan = manhattanDistance(from)(to)
- *   const chebyshev = Math.max(
- *     Math.abs(to[0] - from[0]),
- *     Math.abs(to[1] - from[1])
- *   )
- *   return { manhattan, kingMoves: chebyshev }
- * }
- * kingMoves([0, 0], [3, 4])  // { manhattan: 7, kingMoves: 4 }
- *
  * // Partial application for fixed origin
  * const distanceFromOrigin = manhattanDistance([0, 0, 0])
  * distanceFromOrigin([1, 2, 3])  // 6
  * distanceFromOrigin([4, 4, 4])  // 12
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application
- * @property Safe - Returns NaN for invalid inputs
- * @property Non-negative - Distance is always >= 0
- * @property Metric - Satisfies triangle inequality
  */
 const manhattanDistance = (
 	point1: number[] | null | undefined,
@@ -136,20 +123,16 @@ const manhattanDistance = (
 		return NaN
 	}
 
-	let distance = 0
-
-	for (let i = 0; i < point1.length; i++) {
-		if (point1[i] == null || typeof point1[i] !== "number") {
+	return point1.reduce((distance, coord1, i) => {
+		const coord2 = point2[i]
+		if (coord1 == null || typeof coord1 !== "number") {
 			return NaN
 		}
-		if (point2[i] == null || typeof point2[i] !== "number") {
+		if (coord2 == null || typeof coord2 !== "number") {
 			return NaN
 		}
-
-		distance += Math.abs(point2[i] - point1[i])
-	}
-
-	return distance
+		return distance + Math.abs(coord2 - coord1)
+	}, 0)
 }
 
 export default manhattanDistance

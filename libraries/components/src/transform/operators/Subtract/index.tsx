@@ -17,7 +17,8 @@
  * </Subtract>
  */
 
-import SubtractConstructor from "../../../../../adaptive/src/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "@adaptiveSrc/constructors/operators/Subtract/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type SubtractProps = {
 	type?: "Number" | "Date" | "Duration"
@@ -31,8 +32,8 @@ export default function Subtract({
 	children = [],
 }: SubtractProps): ReturnType<typeof SubtractConstructor> {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [minuend, subtrahend] = Array.isArray(children) ? children : [children]
 
 	// The parser will extract From/Amount or Minuend/Subtrahend from children
-	return SubtractConstructor(actualType)(childArray as any)
+	return SubtractConstructor(actualType)(minuend as unknown as Operand)(subtrahend as unknown as Operand)
 }

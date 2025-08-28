@@ -12,7 +12,8 @@
  * </IsNoMoreThan>
  */
 
-import IsNoMoreThanConstructor from "../../../../../adaptive/src/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import IsNoMoreThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
 export type IsNoMoreThanProps = {
 	type?: "Number" | "Date" | "String"
@@ -24,11 +25,10 @@ export default function IsNoMoreThan({
 	type = "Number",
 	datatype,
 	children = [],
-}: IsNoMoreThanProps): ReturnType<ReturnType<typeof IsNoMoreThanConstructor>> {
+}: IsNoMoreThanProps): ReturnType<ReturnType<ReturnType<typeof IsNoMoreThanConstructor>>> {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [operand, test] = Array.isArray(children) ? children : [children]
 
-	// The parser will extract Value and Threshold from children
-	// IsNoMoreThan constructor signature: (datatype) => (operand) => (test)
-	return IsNoMoreThanConstructor(actualType)(null as any)
+	// IsNoMoreThan: (datatype) => (operand) => (test)
+	return IsNoMoreThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand)
 }

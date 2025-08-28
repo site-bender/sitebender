@@ -12,7 +12,7 @@
  * />
  */
 
-import FromSessionStorageConstructor from "../../../../../adaptive/src/constructors/injectors/FromSessionStorage/index.ts"
+import FromSessionStorageConstructor from "@adaptiveSrc/constructors/injectors/FromSessionStorage/index.ts"
 
 export type FromSessionStorageProps = {
 	key: string
