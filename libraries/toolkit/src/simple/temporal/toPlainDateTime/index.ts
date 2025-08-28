@@ -12,230 +12,58 @@
  * @returns PlainDateTime representation, or null if invalid
  * @example
  * ```typescript
- * // From ZonedDateTime - extracts local datetime
+ * // Extract local datetime from ZonedDateTime
  * const zonedDateTime = Temporal.ZonedDateTime.from(
  *   "2024-03-15T14:30:00-04:00[America/New_York]"
  * )
  * toPlainDateTime(zonedDateTime)          // PlainDateTime 2024-03-15T14:30:00
  *
- * // Different timezones, same local time
- * const tokyoTime = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00+09:00[Asia/Tokyo]"
- * )
- * toPlainDateTime(tokyoTime)              // PlainDateTime 2024-03-15T14:30:00
- *
- * const londonTime = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00+00:00[Europe/London]"
- * )
- * toPlainDateTime(londonTime)             // PlainDateTime 2024-03-15T14:30:00
- *
- * // From PlainDateTime - returns as-is
- * const datetime = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
- * toPlainDateTime(datetime)               // PlainDateTime 2024-03-15T14:30:00
- *
- * // From PlainDate - adds midnight time
+ * // Convert from various types
  * const date = Temporal.PlainDate.from("2024-03-15")
  * toPlainDateTime(date)                   // PlainDateTime 2024-03-15T00:00:00
  *
- * // From PlainTime - uses reference date
  * const time = Temporal.PlainTime.from("14:30:00")
  * toPlainDateTime(time)                   // PlainDateTime 1970-01-01T14:30:00
  *
- * // From Instant - converts via system timezone
- * const instant = Temporal.Instant.from("2024-03-15T18:30:00Z")
- * toPlainDateTime(instant)                // PlainDateTime in system timezone
- *
- * // From ISO string
  * toPlainDateTime("2024-03-15T14:30:00")  // PlainDateTime 2024-03-15T14:30:00
  * toPlainDateTime("2024-03-15")           // PlainDateTime 2024-03-15T00:00:00
- * toPlainDateTime("2024-03-15T14:30:00Z") // PlainDateTime 2024-03-15T14:30:00
- *
- * // Timezone stripping for local operations
- * function getLocalDateTime(
- *   zonedDateTime: Temporal.ZonedDateTime
- * ): Temporal.PlainDateTime | null {
- *   return toPlainDateTime(zonedDateTime)
- * }
- *
- * const nyTime = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-04:00[America/New_York]"
- * )
- * getLocalDateTime(nyTime)                // PlainDateTime 2024-03-15T14:30:00
  *
  * // Batch conversion
  * const zonedDateTimes = [
  *   Temporal.ZonedDateTime.from("2024-01-15T10:00:00-05:00[America/New_York]"),
- *   Temporal.ZonedDateTime.from("2024-02-15T14:00:00-05:00[America/New_York]"),
- *   Temporal.ZonedDateTime.from("2024-03-15T18:00:00-04:00[America/New_York]")
+ *   Temporal.ZonedDateTime.from("2024-02-15T14:00:00-05:00[America/New_York]")
  * ]
+ * zonedDateTimes.map(toPlainDateTime)  // Local times without timezone
  *
- * const localDateTimes = zonedDateTimes.map(toPlainDateTime)
- * // [2024-01-15T10:00:00, 2024-02-15T14:00:00, 2024-03-15T18:00:00]
- *
- * // Local time comparison
- * function haveSameLocalTime(
- *   zdt1: Temporal.ZonedDateTime,
- *   zdt2: Temporal.ZonedDateTime
- * ): boolean {
- *   const local1 = toPlainDateTime(zdt1)
- *   const local2 = toPlainDateTime(zdt2)
- *
- *   if (!local1 || !local2) return false
- *   return local1.equals(local2)
- * }
- *
- * const ny = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-04:00[America/New_York]"
- * )
- * const la = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-07:00[America/Los_Angeles]"
- * )
- * haveSameLocalTime(ny, la)               // true (same wall clock time)
- *
- * // Meeting scheduler - local time
- * function scheduleLocalMeeting(
- *   date: Temporal.PlainDate,
- *   time: Temporal.PlainTime
- * ): Temporal.PlainDateTime | null {
- *   const dateTime = date.toPlainDateTime(time)
- *   return toPlainDateTime(dateTime)
- * }
- *
- * const meetingDate = Temporal.PlainDate.from("2024-03-15")
- * const meetingTime = Temporal.PlainTime.from("14:30:00")
- * scheduleLocalMeeting(meetingDate, meetingTime)
- * // PlainDateTime 2024-03-15T14:30:00
- *
- * // Invalid input handling
- * toPlainDateTime(null)                   // null
- * toPlainDateTime(undefined)              // null
- * toPlainDateTime(123)                    // null (number)
- * toPlainDateTime("invalid")              // null (invalid string)
- * toPlainDateTime(new Date())             // null (Date object)
- *
- * // Database storage without timezone
- * function storeLocalDateTime(
- *   zonedDateTime: Temporal.ZonedDateTime
- * ): string | null {
- *   const localDateTime = toPlainDateTime(zonedDateTime)
- *   if (!localDateTime) return null
- *
- *   return localDateTime.toString()
- * }
- *
- * const eventTime = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-04:00[America/New_York]"
- * )
- * storeLocalDateTime(eventTime)           // "2024-03-15T14:30:00"
- *
- * // Display formatter
- * function formatForDisplay(
- *   temporal: Temporal.ZonedDateTime | Temporal.PlainDateTime
- * ): string {
- *   const plainDateTime = toPlainDateTime(temporal)
- *   if (!plainDateTime) return "Invalid date"
- *
- *   const date = plainDateTime.toPlainDate()
- *   const time = plainDateTime.toPlainTime()
- *
- *   return `${date.toString()} at ${time.toString()}`
- * }
- *
- * formatForDisplay(zonedDateTime)         // "2024-03-15 at 14:30:00"
- *
- * // Event normalizer
- * function normalizeEventTimes(
- *   events: Array<{
- *     name: string;
- *     time: Temporal.ZonedDateTime | Temporal.PlainDateTime;
- *   }>
- * ): Array<{ name: string; localTime: Temporal.PlainDateTime | null }> {
- *   return events.map(event => ({
- *     name: event.name,
- *     localTime: toPlainDateTime(event.time)
- *   }))
- * }
- *
- * // Calendar entry creator
- * function createCalendarEntry(
- *   title: string,
- *   zonedDateTime: Temporal.ZonedDateTime
- * ): { title: string; localDateTime: Temporal.PlainDateTime | null } {
- *   return {
- *     title,
- *     localDateTime: toPlainDateTime(zonedDateTime)
- *   }
- * }
- *
- * const meeting = Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-04:00[America/New_York]"
- * )
- * createCalendarEntry("Team Meeting", meeting)
- * // { title: "Team Meeting", localDateTime: PlainDateTime 2024-03-15T14:30:00 }
- *
- * // Timestamp converter for logs
- * function convertLogTimestamp(
- *   timestamp: string | Temporal.ZonedDateTime | Temporal.PlainDateTime
- * ): Temporal.PlainDateTime | null {
- *   if (typeof timestamp === "string") {
- *     return toPlainDateTime(timestamp)
- *   }
- *   return toPlainDateTime(timestamp)
- * }
- *
- * convertLogTimestamp("2024-03-15T14:30:00")
- * // PlainDateTime 2024-03-15T14:30:00
- *
- * convertLogTimestamp(Temporal.ZonedDateTime.from(
- *   "2024-03-15T14:30:00-04:00[America/New_York]"
- * ))
- * // PlainDateTime 2024-03-15T14:30:00
- *
- * // Recurring event generator
- * function generateRecurringLocal(
+ * // Recurring events using functional approach
+ * const generateRecurringLocal = (
  *   start: Temporal.PlainDate,
  *   time: Temporal.PlainTime,
  *   count: number
- * ): Array<Temporal.PlainDateTime | null> {
- *   const events: Array<Temporal.PlainDateTime | null> = []
- *
- *   for (let i = 0; i < count; i++) {
+ * ): Array<Temporal.PlainDateTime | null> => {
+ *   return Array.from({ length: count }, (_, i) => {
  *     const date = start.add({ days: i * 7 })  // Weekly
- *     const datetime = date.toPlainDateTime(time)
- *     events.push(toPlainDateTime(datetime))
- *   }
- *
- *   return events
+ *     return toPlainDateTime(date.toPlainDateTime(time))
+ *   })
  * }
  *
- * const startDate = Temporal.PlainDate.from("2024-03-15")
- * const eventTime = Temporal.PlainTime.from("14:30:00")
- * generateRecurringLocal(startDate, eventTime, 4)
- * // [Mar 15, Mar 22, Mar 29, Apr 5 - all at 14:30:00]
- *
- * // Time slot checker
- * function isTimeSlotAvailable(
- *   slot: Temporal.PlainDateTime,
- *   bookings: Array<Temporal.ZonedDateTime>
- * ): boolean {
- *   const localBookings = bookings.map(toPlainDateTime)
- *
- *   return !localBookings.some(booking =>
- *     booking?.equals(slot) ?? false
- *   )
+ * // Check local time equality
+ * const haveSameLocalTime = (
+ *   zdt1: Temporal.ZonedDateTime,
+ *   zdt2: Temporal.ZonedDateTime
+ * ): boolean => {
+ *   const local1 = toPlainDateTime(zdt1)
+ *   const local2 = toPlainDateTime(zdt2)
+ *   return local1?.equals(local2) ?? false
  * }
  *
- * const slot = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
- * const bookings = [
- *   Temporal.ZonedDateTime.from("2024-03-15T13:30:00-04:00[America/New_York]"),
- *   Temporal.ZonedDateTime.from("2024-03-15T14:30:00-04:00[America/New_York]")
- * ]
- * isTimeSlotAvailable(slot, bookings)     // false (slot is booked)
+ * // Invalid inputs return null
+ * toPlainDateTime(null)                   // null
+ * toPlainDateTime("invalid")              // null
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Safe - Returns null for invalid inputs
- * @property Timezone-agnostic - Strips timezone information
- * @property Flexible - Handles multiple input types
+ * @pure
+ * @immutable
+ * @safe
  */
 const toPlainDateTime = (
 	temporal:

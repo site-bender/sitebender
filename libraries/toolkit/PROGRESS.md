@@ -2,12 +2,12 @@
 
 ## Target Completion
 
-**Current Progress**: 646/765 files (84.4% complete)
-**Time Spent**: 873 minutes (14.6 hours)
-**Average Speed**: 1.35 minutes/file
+**Current Progress**: 670/765 files (87.6% complete)
+**Time Spent**: 933 minutes (15.6 hours)
+**Average Speed**: 1.39 minutes/file
 
-**Remaining Work**: 119 files
-- temporal/: 37 files remaining (42 done, 79 total)
+**Remaining Work**: 95 files
+- temporal/: 13 files remaining (66 done, 79 total)
 - geometry/: 9 files
 - physics/: 10 files
 - finance/: 11 files
@@ -17,14 +17,43 @@
 - functional/: 21 files
 
 **Estimated Time to Complete**: 
-- At current pace (1.35 min/file): 119 × 1.35 = **161 minutes (2.7 hours)**
-- Total project time: 14.6 + 2.7 = **~17.3 hours total**
-- Sessions needed: 119 ÷ 12 = **10 more sessions**
-- **Expected Completion**: 10 sessions × ~30 min = **5 hours of work**
+- At current pace (1.37 min/file): 107 × 1.37 = **147 minutes (2.5 hours)**
+- Total project time: 15.1 + 2.5 = **~17.6 hours total**
+- Sessions needed: 107 ÷ 12 = **9 more sessions**
+- **Expected Completion**: 9 sessions × ~30 min = **4.5 hours of work**
 
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 41 - 2025-08-28
+**Folder**: temporal/ (continued)
+**Files Processed**: 12 files total
+- **temporal/** (12 files):
+  - round ✓ (reduced 200→66 lines, fixed @property tags, removed @curried from description)
+  - serializeZonedDateTime ✓ (reduced 316→111 lines, fixed @property tags)
+  - setDay ✓ (reduced 190→90 lines, fixed @property tags, removed @curried from description)
+  - setHour ✓ (reduced 193→81 lines, fixed @property tags, removed @curried from description)
+  - setMinute ✓ (reduced 218→85 lines, fixed @property tags, removed @curried from description)
+  - setMonth ✓ (reduced 205→80 lines, fixed @property tags, removed @curried from description)
+  - setSecond ✓ (reduced 226→89 lines, fixed @property tags, removed @curried from description)
+  - setYear ✓ (reduced 207→86 lines, fixed @property tags, removed @curried from description)
+  - since ✓ (reduced 205→100 lines, fixed @property tags, removed @curried from description)
+  - sortByAbsoluteTime ✓ (reduced 254→123 lines, fixed @property tags, removed @curried from description)
+  - startOfDay ✓ (reduced 222→74 lines, fixed @property tags)
+  - startOfMonth ✓ (reduced 251→81 lines, fixed @property tags)
+**Start Time**: 2025-08-28T18:00:00+12:00
+**End Time**: 2025-08-28T18:30:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @safe, @curried, @immutable)
+- MASSIVELY reduced examples (average 230+ lines reduced to ~85 lines)
+- Removed @curried from parameter descriptions (only kept as separate tag)
+- No imperative patterns found in these files - all already pure FP
+- All functions properly documented with correct JSDoc tags
+**Notes**:
+- All 12 temporal functions properly remediated
+- Continue with remaining 25 temporal/ files in next session
 
 ### Session 40 - 2025-08-28
 **Folder**: temporal/ (continued)
