@@ -11,19 +11,24 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 
 ## Target Completion
 
-**Current Progress**: 670/765 files (87.6% complete)
-**Time Spent**: 933 minutes (15.6 hours)
+**Current Progress**: 694/765 files (90.7% complete)
+**Time Spent**: ~963 minutes (16.1 hours)
 **Average Speed**: 1.39 minutes/file
 
-**Remaining Work**: 95 files
-- temporal/: 13 files remaining (66 done, 79 total)
-- geometry/: 9 files
-- physics/: 10 files
-- finance/: 11 files
+**Remaining Work**: 71 files
+- finance/: 7 files remaining (4 done, 11 total)
 - matrix/: 9 files
 - statistics/: 15 files
 - special/: 7 files
 - functional/: 21 files
+- fv/: 1 file
+- internalRateOfReturn/: 1 file
+- irr/: 1 file
+- netPresentValue/: 1 file
+- npv/: 1 file
+- paymentAmount/: 1 file
+- presentValue/: 1 file
+- pv/: 1 file
 
 **Estimated Time to Complete**: 
 - At current pace (1.37 min/file): 107 × 1.37 = **147 minutes (2.5 hours)**
@@ -34,6 +39,34 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 44 - 2025-08-28
+**Folder**: physics/ (completed) + finance/ (started)
+**Files Processed**: 12 files total
+- **physics/** (8 files - FOLDER COMPLETE):
+  - acceleration ✓ (reduced 112→24 lines, fixed @property tags, removed @curried from description)
+  - force ✓ (reduced 109→24 lines, fixed @property tags)
+  - frequency ✓ (reduced 96→22 lines, fixed @property tags)
+  - kineticEnergy ✓ (reduced 91→21 lines, fixed @property tags, removed @curried from description)
+  - momentum ✓ (reduced 101→25 lines, fixed @property tags, removed @curried from description)
+  - potentialEnergy ✓ (reduced 106→25 lines, fixed @property tags, removed @curried from description)
+  - velocity ✓ (reduced 93→22 lines, fixed @property tags, removed @curried from description)
+  - wavelength ✓ (reduced 108→24 lines, fixed @property tags, removed @curried from description)
+- **finance/** (4 files):
+  - amortizationSchedule ✓ (reduced 93→24 lines, fixed @property tags, replaced for loop with recursion)
+  - annuity ✓ (reduced 75→20 lines, fixed @property tags, removed @curried from description)
+  - compoundInterest ✓ (reduced 103→25 lines, fixed @property tags, removed @curried from description)
+  - futureValue ✓ (reduced 100→26 lines, fixed @property tags, removed @curried from description)
+**Start Time**: 2025-08-28T21:35:00+12:00
+**End Time**: 2025-08-28T22:05:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @curried, @safe)
+- MASSIVELY reduced examples (average 60-80% reduction)
+- Fixed imperative pattern: replaced for loop with recursion in amortizationSchedule
+- Removed @curried from description text where redundant with tags
+- All functions properly documented with correct JSDoc tags
+**Notes**: Processed files ONE AT A TIME carefully. Physics folder now complete. Finance folder partially complete (4/11 files done).
 
 ### Session 43 - 2025-08-28
 **Folder**: temporal/ (completed) + geometry/ (started)
