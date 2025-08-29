@@ -15,79 +15,28 @@ import factorial from "../factorial/index.ts"
  * @example
  * ```typescript
  * // Basic combinations
- * combinations(5)(3)
- * // 10 (ways to choose 3 from 5)
- *
- * combinations(4)(2)
- * // 6 (ways to choose 2 from 4)
- *
- * combinations(10)(5)
- * // 252 (ways to choose 5 from 10)
+ * combinations(5)(3)  // 10 (ways to choose 3 from 5)
+ * combinations(4)(2)  // 6 (ways to choose 2 from 4)
+ * combinations(10)(5)  // 252 (ways to choose 5 from 10)
  *
  * // Edge cases
- * combinations(5)(0)
- * // 1 (one way to choose nothing)
- *
- * combinations(5)(5)
- * // 1 (one way to choose all)
- *
- * combinations(0)(0)
- * // 1 (by definition)
- *
- * // Pascal's triangle values
- * combinations(4)(0) // 1
- * combinations(4)(1) // 4
- * combinations(4)(2) // 6
- * combinations(4)(3) // 4
- * combinations(4)(4) // 1
- * // Row 4: [1, 4, 6, 4, 1]
+ * combinations(5)(0)  // 1 (one way to choose nothing)
+ * combinations(5)(5)  // 1 (one way to choose all)
+ * combinations(0)(0)  // 1 (by definition)
  *
  * // Invalid cases
- * combinations(3)(5)
- * // NaN (can't choose 5 from 3)
- *
- * combinations(-1)(2)
- * // NaN (negative n)
- *
- * combinations(5)(-2)
- * // NaN (negative r)
- *
- * combinations(5.5)(2)
- * // NaN (non-integer)
- *
- * // Lottery calculations
- * combinations(49)(6)
- * // 13983816 (ways to choose 6 from 49)
- *
- * // Poker hands
- * combinations(52)(5)
- * // 2598960 (5-card hands from 52 cards)
- *
- * // Team selection
- * combinations(15)(11)
- * // 1365 (ways to choose starting 11 from 15 players)
- *
- * // Committee formation
- * combinations(20)(4)
- * // 4845 (ways to form 4-person committee from 20)
- *
- * // Binary coefficients
- * combinations(8)(3)
- * // 56 (coefficient in (x+y)^8 expansion)
+ * combinations(3)(5)  // NaN (can't choose 5 from 3)
+ * combinations(-1)(2)  // NaN (negative n)
+ * combinations(5.5)(2)  // NaN (non-integer)
  *
  * // Partial application
  * const choose5 = combinations(10)
- * choose5(0) // 1
- * choose5(1) // 10
- * choose5(2) // 45
- * choose5(3) // 120
- * choose5(4) // 210
- * choose5(5) // 252
+ * choose5(2)  // 45
+ * choose5(3)  // 120
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application
- * @property Safe - Returns NaN for invalid inputs
- * @property Mathematical - Implements binomial coefficient
+ * @pure
+ * @curried
+ * @safe
  */
 const combinations = (
 	n: number | null | undefined,
@@ -129,12 +78,12 @@ const combinations = (
 
 	// Calculate using optimized formula to avoid large factorials
 	// This is more efficient than n! / (r! * (n-r)!)
-	let result = 1
-	for (let i = 0; i < k; i++) {
-		result = result * (n - i) / (i + 1)
+	const calculateCombination = (acc: number, i: number): number => {
+		if (i >= k) return acc
+		return calculateCombination(acc * (n - i) / (i + 1), i + 1)
 	}
 
-	return Math.round(result) // Round to handle floating point errors
+	return Math.round(calculateCombination(1, 0)) // Round to handle floating point errors
 }
 
 export default combinations
