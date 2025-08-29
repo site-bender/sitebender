@@ -188,9 +188,7 @@ import isNothing from "../isNothing/index.ts"
  * // '{"type":"Maybe","representation":"Nothing","isNothing":true,"value":null}'
  * ```
  *
- * @property Pure - No side effects, returns a new string
- * @property Consistent - Same format as withInspect versions
- * @property Explicit - Must be called explicitly when needed
+ * @pure
  */
 const show = <A>(maybe: Maybe<A>): string => {
 	const formatValue = (v: unknown): string => {

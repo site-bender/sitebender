@@ -14,7 +14,7 @@ import isNothing from "../isNothing/index.ts"
  * optional value handling to explicit error handling, useful when you need
  * to provide specific error information for absent values.
  *
- * @curried (getError) => (maybe) => either
+ * @curried
  * @param getError - Thunk that returns the error value if Nothing
  * @param maybe - The Maybe to convert
  * @returns Right if Just, Left with error if Nothing
@@ -219,9 +219,8 @@ import isNothing from "../isNothing/index.ts"
  *   toEither(() => "UNAUTHORIZED" as const)(maybePermission)
  * ```
  *
- * @property Lazy-evaluation - Error is only computed if Nothing
- * @property Type-transition - Moves from Maybe to Either context
- * @property Error-specification - Provides explicit error information
+ * @pure
+ * @curried
  */
 const toEither =
 	<E>(getError: () => E) => <A>(maybe: Maybe<A>): Either<E, A> => {
