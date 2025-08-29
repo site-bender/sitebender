@@ -182,21 +182,24 @@ Deno.test("ceiling: null safety", () => {
 
 Deno.test("ceiling: type safety", () => {
 	// @ts-expect-error - Testing invalid input
-	assertEquals(
-		Number.isNaN(ceiling("5.7")),
-		true,
-		"ceiling(string) should be NaN",
-	)
+	const r1 = ceiling("5.7")
+	assertEquals(Number.isNaN(r1), true, "ceiling(string) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
+	const r2 = ceiling("abc")
 	assertEquals(
-		Number.isNaN(ceiling("abc")),
+		Number.isNaN(r2),
 		true,
 		"ceiling(non-numeric string) should be NaN",
 	)
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling({})), true, "ceiling(object) should be NaN")
+	const r3 = ceiling({})
+	assertEquals(Number.isNaN(r3), true, "ceiling(object) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling([])), true, "ceiling(array) should be NaN")
+	const r4 = ceiling([])
+	assertEquals(Number.isNaN(r4), true, "ceiling(array) should be NaN")
 })
 
 // ===========================

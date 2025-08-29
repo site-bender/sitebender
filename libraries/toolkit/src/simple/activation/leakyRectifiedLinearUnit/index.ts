@@ -6,119 +6,33 @@
  * for x ≤ 0, where α is the leak coefficient (typically 0.01).
  * Returns NaN for invalid inputs.
  *
- * @curried (alpha) => (x) => activated value
+ * @curried
  * @param alpha - Leak coefficient for negative values (typically 0.01)
  * @param x - Input value
  * @returns Activated value, or NaN if invalid
  * @example
  * ```typescript
- * // Standard Leaky ReLU (α = 0.01)
- * leakyRectifiedLinearUnit(0.01)(5)
- * // 5 (positive input unchanged)
+ * // Basic usage
+ * leakyRectifiedLinearUnit(0.01)(5)   // 5 (positive unchanged)
+ * leakyRectifiedLinearUnit(0.01)(-5)  // -0.05 (negative × 0.01)
+ * leakyRectifiedLinearUnit(0.01)(0)   // 0
  *
- * leakyRectifiedLinearUnit(0.01)(-5)
- * // -0.05 (negative input × 0.01)
- *
- * leakyRectifiedLinearUnit(0.01)(0)
- * // 0
- *
- * // Different leak coefficients
- * leakyRectifiedLinearUnit(0.1)(-10)
- * // -1 (10% leak)
- *
- * leakyRectifiedLinearUnit(0.2)(-5)
- * // -1 (20% leak)
- *
- * leakyRectifiedLinearUnit(0.3)(-2)
- * // -0.6 (30% leak)
- *
- * // Parametric ReLU (learnable α)
- * leakyRectifiedLinearUnit(0.25)(3)
- * // 3
- *
- * leakyRectifiedLinearUnit(0.25)(-4)
- * // -1
- *
- * // Edge cases
- * leakyRectifiedLinearUnit(0)(5)
- * // 5 (becomes standard ReLU when α = 0)
- *
- * leakyRectifiedLinearUnit(0)(-5)
- * // 0 (standard ReLU behavior)
- *
- * leakyRectifiedLinearUnit(1)(5)
- * // 5 (becomes identity when α = 1)
- *
- * leakyRectifiedLinearUnit(1)(-5)
- * // -5 (identity function)
- *
- * // Invalid inputs
- * leakyRectifiedLinearUnit(null)(5)
- * // NaN
- *
- * leakyRectifiedLinearUnit(0.01)(null)
- * // NaN
- *
- * leakyRectifiedLinearUnit(0.01)("5")
- * // NaN
- *
- * // Practical examples
- *
- * // Neural network forward pass
+ * // Neural network layer activation
  * const neurons = [-2, -1, 0, 1, 2, 3]
- * const alpha = 0.01
- * const activated = neurons.map(leakyRectifiedLinearUnit(alpha))
+ * const activated = neurons.map(leakyRectifiedLinearUnit(0.01))
  * // [-0.02, -0.01, 0, 1, 2, 3]
  *
- * // Gradient computation for backpropagation
- * function leakyReluGradient(alpha: number, x: number): number {
- *   return x > 0 ? 1 : alpha
- * }
+ * // Partial application
+ * const leakyRelu = leakyRectifiedLinearUnit(0.01)
+ * leakyRelu(-100)  // -1
  *
- * // Layer activation
- * function activateLayer(
- *   inputs: number[],
- *   alpha: number = 0.01
- * ): number[] {
- *   const activate = leakyRectifiedLinearUnit(alpha)
- *   return inputs.map(activate)
- * }
- *
- * // Comparison with standard ReLU
- * const input = -3
- * const relu = Math.max(0, input)  // 0
- * const leakyRelu = leakyRectifiedLinearUnit(0.01)(input)  // -0.03
- * // Leaky ReLU maintains gradient
- *
- * // Different variants
- * const standardLeaky = leakyRectifiedLinearUnit(0.01)
- * const veryLeaky = leakyRectifiedLinearUnit(0.3)
- * const parametric = leakyRectifiedLinearUnit(0.25)
- *
- * // Testing gradient flow
- * const testValues = [-10, -1, -0.1, 0, 0.1, 1, 10]
- * const gradientFlow = testValues.map(x => ({
- *   input: x,
- *   output: leakyRectifiedLinearUnit(0.01)(x),
- *   gradient: x > 0 ? 1 : 0.01
- * }))
- *
- * // Partial application for fixed alpha
- * const leakyRelu01 = leakyRectifiedLinearUnit(0.01)
- * const leakyRelu02 = leakyRectifiedLinearUnit(0.02)
- *
- * leakyRelu01(-100)  // -1
- * leakyRelu02(-100)  // -2
- *
- * // Custom activation with different negative slope
- * function customActivation(negativeSlope: number) {
- *   return leakyRectifiedLinearUnit(negativeSlope)
- * }
+ * // Edge cases
+ * leakyRectifiedLinearUnit(null)(5)    // NaN
+ * leakyRectifiedLinearUnit(0.01)(null) // NaN
  * ```
- * @property Pure - Always returns same result for same inputs
- * @property Curried - Enables partial application
- * @property Safe - Returns NaN for invalid inputs
- * @property Continuous - No discontinuity at x=0
+ * @pure
+ * @curried
+ * @safe
  */
 const leakyRectifiedLinearUnit = (
 	alpha: number | null | undefined,

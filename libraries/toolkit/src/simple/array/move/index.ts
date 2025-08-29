@@ -13,12 +13,12 @@ import removeAt from "../removeAt/index.ts"
  * @param to - Target index (where to move element to)
  * @param array - The array to operate on
  * @returns New array with element moved, or original if indices invalid
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic movement
@@ -45,17 +45,21 @@ import removeAt from "../removeAt/index.ts"
  * ```
  */
 const move = <T>(from: number) => (to: number) => (
-	array: ReadonlyArray<T> | null | undefined
+	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (array === null || array === undefined || !Array.isArray(array)) {
 		return []
 	}
-	
+
+	if (from === to) {
+		return array as Array<T>
+	}
+
 	if (from >= 0 && from < array.length && to >= 0 && to < array.length) {
 		const item = array[from]
 		return pipe([removeAt(from), insertAt(to)(item)])(array)
 	}
-	return [...array]
+	return array as Array<T>
 }
 
 export default move

@@ -27,10 +27,10 @@ const replaceAt =
 	<T>(index: number) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (array == null || !Array.isArray(array)) {
+		if (array === null || array === undefined || !Array.isArray(array)) {
 			return []
 		}
-		return index < 0 || index >= array.length ? [...array] : [
+		return index < 0 || index >= array.length ? array as Array<T> : [
 			...array.slice(0, index),
 			replacer(array[index]),
 			...array.slice(index + 1),

@@ -26,7 +26,7 @@
 const removeAt = <T>(index: number) => (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+		if (array === null || array === undefined || !Array.isArray(array)) {
 		return []
 	}
 	const len = array.length
@@ -34,7 +34,7 @@ const removeAt = <T>(index: number) => (
 
 	return normalizedIndex >= 0 && normalizedIndex < len
 		? [...array.slice(0, normalizedIndex), ...array.slice(normalizedIndex + 1)]
-		: [...array]
+		: array as Array<T>
 }
 
 export default removeAt

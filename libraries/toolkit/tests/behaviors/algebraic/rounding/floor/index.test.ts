@@ -185,17 +185,24 @@ Deno.test("floor: null safety", () => {
 
 Deno.test("floor: type safety", () => {
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor("5.7")), true, "floor(string) should be NaN")
+	const r1 = floor("5.7")
+	assertEquals(Number.isNaN(r1), true, "floor(string) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
+	const r2 = floor("abc")
 	assertEquals(
-		Number.isNaN(floor("abc")),
+		Number.isNaN(r2),
 		true,
 		"floor(non-numeric string) should be NaN",
 	)
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor({})), true, "floor(object) should be NaN")
+	const r3 = floor({})
+	assertEquals(Number.isNaN(r3), true, "floor(object) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor([])), true, "floor(array) should be NaN")
+	const r4 = floor([])
+	assertEquals(Number.isNaN(r4), true, "floor(array) should be NaN")
 })
 
 // ===========================
