@@ -11,270 +11,39 @@
  * @returns Human-readable duration string, or null if invalid
  * @example
  * ```typescript
- * // Basic duration formatting
- * formatDuration(Temporal.Duration.from({ minutes: 30 }))
- * // "30m"
+ * // Basic time units
+ * formatDuration(Temporal.Duration.from({ minutes: 30 }))     // "30m"
+ * formatDuration(Temporal.Duration.from({ hours: 2 }))        // "2h"
+ * formatDuration(Temporal.Duration.from({ days: 1 }))         // "1d"
+ * formatDuration(Temporal.Duration.from({ weeks: 1 }))        // "1w"
  *
- * formatDuration(Temporal.Duration.from({ hours: 2 }))
- * // "2h"
+ * // Combined units
+ * formatDuration(Temporal.Duration.from({ 
+ *   hours: 1, minutes: 30 
+ * }))  // "1h 30m"
  *
- * formatDuration(Temporal.Duration.from({ hours: 1, minutes: 30 }))
- * // "1h 30m"
+ * formatDuration(Temporal.Duration.from({ 
+ *   days: 2, hours: 3, minutes: 45 
+ * }))  // "2d 3h 45m"
  *
- * // Days and larger units
- * formatDuration(Temporal.Duration.from({ days: 1 }))
- * // "1d"
- *
- * formatDuration(Temporal.Duration.from({ days: 2, hours: 3 }))
- * // "2d 3h"
- *
- * formatDuration(Temporal.Duration.from({ weeks: 1 }))
- * // "1w"
- *
- * formatDuration(Temporal.Duration.from({ weeks: 2, days: 3, hours: 4 }))
- * // "2w 3d 4h"
- *
- * // Complex durations
- * formatDuration(Temporal.Duration.from({
- *   days: 1,
- *   hours: 2,
- *   minutes: 30,
- *   seconds: 45
- * }))
- * // "1d 2h 30m 45s"
- *
- * // Seconds and subseconds
- * formatDuration(Temporal.Duration.from({ seconds: 90 }))
- * // "1m 30s"
- *
- * formatDuration(Temporal.Duration.from({ seconds: 45 }))
- * // "45s"
- *
- * formatDuration(Temporal.Duration.from({
- *   minutes: 5,
- *   seconds: 30
- * }))
- * // "5m 30s"
- *
- * // Milliseconds (rounded to nearest second when > 1s)
- * formatDuration(Temporal.Duration.from({ milliseconds: 1500 }))
- * // "2s" (rounded)
- *
- * formatDuration(Temporal.Duration.from({ milliseconds: 500 }))
- * // "500ms"
- *
- * formatDuration(Temporal.Duration.from({
- *   seconds: 2,
- *   milliseconds: 500
- * }))
- * // "3s" (rounded)
- *
- * // Very short durations
- * formatDuration(Temporal.Duration.from({ milliseconds: 250 }))
- * // "250ms"
- *
- * formatDuration(Temporal.Duration.from({ milliseconds: 1 }))
- * // "1ms"
+ * // Sub-second handling
+ * formatDuration(Temporal.Duration.from({ milliseconds: 245 }))  // "245ms"
+ * formatDuration(Temporal.Duration.from({ seconds: 3, milliseconds: 250 }))  // "3s"
  *
  * // Zero duration
- * formatDuration(Temporal.Duration.from({}))
- * // "0s"
+ * formatDuration(Temporal.Duration.from({}))  // "0s"
  *
- * formatDuration(Temporal.Duration.from({ seconds: 0 }))
- * // "0s"
+ * // Invalid inputs
+ * formatDuration(null)          // null
+ * formatDuration(undefined)     // null
  *
- * // Meeting duration display
- * const meetingStart = Temporal.PlainTime.from("09:00")
- * const meetingEnd = Temporal.PlainTime.from("10:30")
- * const duration = meetingEnd.since(meetingStart)
- * formatDuration(duration)
- * // "1h 30m"
+ * // Meeting duration
+ * const meeting = Temporal.Duration.from({ hours: 1, minutes: 30 })
+ * console.log(`Meeting duration: ${formatDuration(meeting)}`)  // "Meeting duration: 1h 30m"
  *
- * // Project time tracking
- * const timeSpent = Temporal.Duration.from({
- *   hours: 8,
- *   minutes: 45
- * })
- * formatDuration(timeSpent)
- * // "8h 45m"
- *
- * // Break duration
- * const breakTime = Temporal.Duration.from({
- *   minutes: 15
- * })
- * formatDuration(breakTime)
- * // "15m"
- *
- * // Commute display
- * const commute = Temporal.Duration.from({
- *   hours: 1,
- *   minutes: 23
- * })
- * formatDuration(commute)
- * // "1h 23m"
- *
- * // Video duration
- * const videoLength = Temporal.Duration.from({
- *   minutes: 42,
- *   seconds: 17
- * })
- * formatDuration(videoLength)
- * // "42m 17s"
- *
- * // Workout session
- * const workout = Temporal.Duration.from({
- *   hours: 1,
- *   minutes: 15
- * })
- * formatDuration(workout)
- * // "1h 15m"
- *
- * // Sleep duration
- * const sleep = Temporal.Duration.from({
- *   hours: 8,
- *   minutes: 30
- * })
- * formatDuration(sleep)
- * // "8h 30m"
- *
- * // Multi-day event
- * const conference = Temporal.Duration.from({
- *   days: 3,
- *   hours: 6
- * })
- * formatDuration(conference)
- * // "3d 6h"
- *
- * // Very long durations
- * const project = Temporal.Duration.from({
- *   weeks: 12,
- *   days: 3,
- *   hours: 4
- * })
- * formatDuration(project)
- * // "12w 3d 4h"
- *
- * // Null/undefined handling
- * formatDuration(null)
- * // null
- *
- * formatDuration(undefined)
- * // null
- *
- * // Invalid input handling
- * formatDuration("not a duration")
- * // null
- *
- * formatDuration(123)
- * // null
- *
- * // API response time formatting
- * const responseTime = Temporal.Duration.from({
- *   milliseconds: 245
- * })
- * formatDuration(responseTime)
- * // "245ms"
- *
- * // Download time estimate
- * const downloadTime = Temporal.Duration.from({
- *   minutes: 5,
- *   seconds: 42
- * })
- * formatDuration(downloadTime)
- * // "5m 42s"
- *
- * // Processing time
- * const processingTime = Temporal.Duration.from({
- *   seconds: 3,
- *   milliseconds: 250
- * })
- * formatDuration(processingTime)
- * // "3s" (milliseconds rounded)
- *
- * // Use in UI components
- * function TimerDisplay({ duration }: { duration: Temporal.Duration }) {
- *   const formatted = formatDuration(duration)
- *   return formatted ? `Time: ${formatted}` : "Invalid time"
- * }
- *
- * // Progress indicators
- * function ProgressTime({
- *   elapsed,
- *   total
- * }: {
- *   elapsed: Temporal.Duration
- *   total: Temporal.Duration
- * }) {
- *   const elapsedStr = formatDuration(elapsed)
- *   const totalStr = formatDuration(total)
- *
- *   if (!elapsedStr || !totalStr) return "Invalid duration"
- *
- *   return `${elapsedStr} / ${totalStr}`
- * }
- *
- * // ETA display
- * const formatETA = (remaining: Temporal.Duration): string => {
- *   const formatted = formatDuration(remaining)
- *   return formatted ? `ETA: ${formatted}` : "Calculating..."
- * }
- *
- * // Notification messages
- * function createReminderMessage(
- *   taskName: string,
- *   timeLeft: Temporal.Duration
- * ): string {
- *   const formatted = formatDuration(timeLeft)
- *   if (!formatted) return `Reminder: ${taskName}`
- *
- *   return `Reminder: ${taskName} starts in ${formatted}`
- * }
- *
- * const reminder = createReminderMessage(
- *   "Team meeting",
- *   Temporal.Duration.from({ minutes: 15 })
- * )
- * // "Reminder: Team meeting starts in 15m"
- *
- * // Time logging
- * function logTimeSpent(
- *   activity: string,
- *   duration: Temporal.Duration
- * ): string {
- *   const formatted = formatDuration(duration)
- *   if (!formatted) return `${activity}: Invalid duration`
- *
- *   return `${activity}: ${formatted}`
- * }
- *
- * // Batch formatting
- * function formatDurations(
- *   durations: Array<Temporal.Duration>
- * ): Array<string> {
- *   return durations
- *     .map(formatDuration)
- *     .filter((str): str is string => str !== null)
- * }
- *
- * const taskDurations = [
- *   Temporal.Duration.from({ hours: 2, minutes: 30 }),
- *   Temporal.Duration.from({ minutes: 45 }),
- *   Temporal.Duration.from({ hours: 1, minutes: 15 })
- * ]
- * formatDurations(taskDurations)
- * // ["2h 30m", "45m", "1h 15m"]
- *
- * // Summary reports
- * function createTimeReport(
- *   activities: Array<{ name: string; duration: Temporal.Duration }>
- * ): string {
- *   const lines = activities.map(({ name, duration }) => {
- *     const formatted = formatDuration(duration)
- *     return formatted ? `${name}: ${formatted}` : `${name}: Invalid`
- *   })
- *
- *   return lines.join("\\n")
- * }
+ * // Time tracking
+ * const workday = Temporal.Duration.from({ hours: 8, minutes: 15 })
+ * const formatted = formatDuration(workday) ?? "Unknown"  // "8h 15m"
  * ```
  * @pure
  * @safe
