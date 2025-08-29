@@ -15,51 +15,23 @@ import generateBase58Uuid from "./generateBase58Uuid/index.ts"
  * @returns Unique ID string starting with underscore (e.g., "_4Kh8gTjX9pQ2mN7yR3Wz")
  * @example
  * ```typescript
- * generateShortId()
- * // "_4Kh8gTjX9pQ2mN7yR3Wz"
- *
- * generateShortId()
- * // "_7Bx3mPq5vN2jK8Ht6Yz"
- *
- * // Use as React/JSX component ID
- * function MyComponent({ id = generateShortId() }) {
- *   return <div id={id}>Content</div>
- * }
- *
- * // Use for form elements
+ * // Basic usage
+ * generateShortId()  // "_4Kh8gTjX9pQ2mN7yR3Wz"
+ * generateShortId()  // "_7Bx3mPq5vN2jK8Ht6Yz" (different each time)
+ * 
+ * // Form element IDs
  * const checkboxId = generateShortId()
- * <input type="checkbox" id={checkboxId} />
- * <label htmlFor={checkboxId}>Option</label>
- *
- * // Use for aria-labelledby
- * const headingId = generateShortId()
- * <h2 id={headingId}>Section Title</h2>
- * <nav aria-labelledby={headingId}>...</nav>
- *
- * // Use for dynamic element creation
+ * // Use with <input id={checkboxId}> and <label htmlFor={checkboxId}>
+ * 
+ * // Dynamic element creation
  * const element = document.createElement('div')
  * element.id = generateShortId()
- * document.body.appendChild(element)
- *
- * // Use in component libraries
- * function Accordion({ id = generateShortId(), ...props }) {
- *   const panelId = `${id}-panel`
- *   const buttonId = `${id}-button`
- *   // ...
- * }
- *
- * // Create unique test IDs
- * const testId = generateShortId()
- * <button data-testid={testId}>Click me</button>
- *
+ * 
  * // Generate multiple unique IDs
- * const ids = Array.from({ length: 5 }, generateShortId)
- * // ["_9Ht6Yz3mPq5vN2j", "_2Kx8mTp4Qn7yR3", ...]
+ * const ids = Array.from({ length: 3 }, generateShortId)
+ * // ["_9Ht6Yz3mPq5vN2j", "_2Kx8mTp4Qn7yR3", "_5Wz7Bx3mPq"]
  * ```
- * @property Impure - Non-deterministic, generates new ID each call
- * @property HTML-Safe - Always starts with underscore for valid HTML IDs
- * @property Unique - Cryptographically secure randomness ensures uniqueness
- * @property Readable - Base58 encoding excludes confusing characters
+ * @impure
  */
 const generateShortId = (): string => {
 	// Prepend underscore to ensure valid HTML ID

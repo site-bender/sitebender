@@ -14,75 +14,31 @@
  * @example
  * ```typescript
  * // Random from array
- * randomChoice(['red', 'green', 'blue'])
- * // 'green'
- *
- * randomChoice([1, 2, 3, 4, 5])
- * // 3
- *
+ * randomChoice(['red', 'green', 'blue'])  // 'green'
+ * randomChoice([1, 2, 3, 4, 5])          // 3
+ * 
  * // Random from Set
  * const colors = new Set(['red', 'green', 'blue'])
- * randomChoice(colors)
- * // 'blue'
- *
- * const numbers = new Set([10, 20, 30, 40])
- * randomChoice(numbers)
- * // 30
- *
- * // Random user selection
+ * randomChoice(colors)  // 'blue'
+ * 
+ * // Random selection
  * const users = ['Alice', 'Bob', 'Charlie', 'Diana']
- * const winner = randomChoice(users)
- * // 'Charlie'
- *
- * // Random action
- * const actions = ['attack', 'defend', 'heal', 'flee']
- * const enemyAction = randomChoice(actions)
- * // 'defend'
- *
- * // Random configuration
- * const themes = ['light', 'dark', 'auto']
- * const defaultTheme = randomChoice(themes)
- * // 'dark'
- *
- * // Random emoji from Set (ensures uniqueness)
- * const reactions = new Set(['👍', '❤️', '😂', '😮', '😢', '😡'])
- * const reaction = randomChoice(reactions)
- * // '😂'
- *
+ * const winner = randomChoice(users)  // 'Charlie'
+ * 
  * // Random test data
  * const testCases = [
  *   { input: 1, expected: 2 },
- *   { input: 5, expected: 10 },
- *   { input: -1, expected: 0 }
+ *   { input: 5, expected: 10 }
  * ]
  * const testCase = randomChoice(testCases)
- * // { input: 5, expected: 10 }
- *
- * // Empty collections return undefined
- * randomChoice([])
- * // undefined
- *
- * randomChoice(new Set())
- * // undefined
- *
- * // Invalid input returns undefined
- * randomChoice(null)
- * // undefined
- *
- * randomChoice('not a collection')
- * // undefined
- *
- * // Works with any element type
- * randomChoice([true, false, null, undefined, 0, ''])
- * // null (or any other element)
- *
- * randomChoice(new Set([true, false, null, undefined, 0, '']))
- * // false (or any other element)
+ * 
+ * // Edge cases
+ * randomChoice([])         // undefined
+ * randomChoice(new Set())  // undefined
+ * randomChoice(null)       // undefined
  * ```
- * @property Impure - Non-deterministic pseudo-random selection
- * @property Uniform - Each element has equal probability
- * @property Type-Preserving - Works with both Arrays and Sets
- * @property Safe - Returns undefined for invalid/empty inputs
+ * @impure
+ * @safe
  */
 const randomChoice = <T>(
 	collection: Array<T> | Set<T> | null | undefined,

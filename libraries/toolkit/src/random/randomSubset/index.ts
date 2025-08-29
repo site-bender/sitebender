@@ -12,95 +12,40 @@ import randomInteger from "../randomInteger/index.ts"
  * ⚠️ IMPURE: This function is non-deterministic and returns different
  * values each time it's called.
  *
- * @curried (collection) => (size?) => same type as input
  * @param collection - Array or Set to select from
  * @param size - Optional subset size (defaults to random between 0 and length)
  * @returns Random subset as same type as input, or null if invalid
  * @example
  * ```typescript
  * // Random subset with specified size
- * randomSubset([1, 2, 3, 4, 5])(2)
- * // [3, 5]
- *
- * randomSubset(['a', 'b', 'c', 'd', 'e'])(3)
- * // ['b', 'd', 'e']
- *
+ * randomSubset([1, 2, 3, 4, 5])(2)          // [3, 5]
+ * randomSubset(['a', 'b', 'c', 'd', 'e'])(3) // ['b', 'd', 'e']
+ * 
  * // Random subset with random size
- * randomSubset([1, 2, 3, 4, 5])()
- * // [2, 4] (size was randomly chosen as 2)
- *
- * randomSubset([1, 2, 3, 4, 5])()
- * // [1, 2, 3, 4, 5] (size was randomly chosen as 5 - full array)
- *
- * randomSubset([1, 2, 3, 4, 5])()
- * // [] (size was randomly chosen as 0 - empty array)
- *
+ * randomSubset([1, 2, 3, 4, 5])()  // [2, 4] (random size)
+ * 
  * // Works with Sets
  * const colors = new Set(['red', 'green', 'blue', 'yellow', 'purple'])
- * randomSubset(colors)(2)
- * // Set(['blue', 'yellow'])
- *
- * randomSubset(colors)()
- * // Set(['red', 'purple', 'green']) (random size 3)
- *
+ * randomSubset(colors)(2)  // Set(['blue', 'yellow'])
+ * 
  * // Team selection
  * const players = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
- * const team = randomSubset(players)(3)
- * // ['Bob', 'Diana', 'Frank']
- *
- * // Random feature flags
- * const features = new Set(['feature-a', 'feature-b', 'feature-c', 'feature-d'])
- * const enabledFeatures = randomSubset(features)(2)
- * // Set(['feature-b', 'feature-d'])
- *
- * // Random sampling without replacement
- * const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
- * const sample = randomSubset(data)(5)
- * // [2, 5, 7, 8, 10]
- *
- * // Lottery draw
- * const tickets = Array.from({ length: 100 }, (_, i) => i + 1)
- * const winners = randomSubset(tickets)(5)
- * // [12, 34, 67, 89, 91]
- *
+ * const team = randomSubset(players)(3)  // ['Bob', 'Diana', 'Frank']
+ * 
  * // Partial application for repeated sampling
  * const deck = Array.from({ length: 52 }, (_, i) => i + 1)
  * const drawHand = randomSubset(deck)
  * const hand1 = drawHand(5)  // [3, 12, 28, 41, 50]
  * const hand2 = drawHand(5)  // [7, 15, 22, 38, 44]
- *
- * // Size larger than collection returns full collection
- * randomSubset([1, 2, 3])(10)
- * // [1, 2, 3]
- *
- * randomSubset(new Set([1, 2, 3]))(10)
- * // Set([1, 2, 3])
- *
- * // Empty collection returns empty
- * randomSubset([])(5)
- * // []
- *
- * randomSubset(new Set())(5)
- * // Set()
- *
- * // Negative size returns empty collection
- * randomSubset([1, 2, 3])(-1)
- * // []
- *
- * randomSubset(new Set([1, 2, 3]))(-5)
- * // Set()
- *
- * // Invalid inputs return null
- * randomSubset(null)(2)
- * // null
- *
- * randomSubset('not a collection')(2)
- * // null
+ * 
+ * // Edge cases
+ * randomSubset([1, 2, 3])(10)  // [1, 2, 3] (size > length)
+ * randomSubset([])(5)           // []
+ * randomSubset(null)(2)         // null
  * ```
- * @property Impure - Non-deterministic pseudo-random selection
- * @property Type-Preserving - Returns same type as input (Array/Set)
- * @property No-Replacement - Elements selected without replacement
- * @property Safe - Returns null for invalid inputs
+ * @curried
+ * @impure
+ * @safe
  */
 const randomSubset = <T>(
 	collection: Array<T> | Set<T> | null | undefined,
@@ -146,17 +91,19 @@ const randomSubset = <T>(
 		subsetSize = Math.min(Math.floor(size), collectionSize)
 	}
 
-	// Fisher-Yates shuffle for first n elements
-	// This is more efficient than shuffling the entire array
-	for (let i = 0; i < subsetSize; i++) {
-		const j = i + Math.floor(Math.random() * (collectionSize - i))
-		const temp = items[i]
-		items[i] = items[j]
-		items[j] = temp
-	}
+	// Fisher-Yates shuffle for first n elements using functional approach
+	const shuffled = items.reduce((acc, _, idx) => {
+		if (idx >= subsetSize) return acc
+		const j = idx + Math.floor(Math.random() * (collectionSize - idx))
+		const result = [...acc]
+		const temp = result[idx]
+		result[idx] = result[j]
+		result[j] = temp
+		return result
+	}, items)
 
 	// Take the first subsetSize elements
-	const subset = items.slice(0, subsetSize)
+	const subset = shuffled.slice(0, subsetSize)
 
 	// Return same type as input
 	if (Array.isArray(collection)) {

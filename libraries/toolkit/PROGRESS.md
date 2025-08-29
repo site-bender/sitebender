@@ -11,11 +11,11 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 
 ## Target Completion
 
-**Current Progress**: 824/829+ files (99.4% complete of simple/ folders + io/ and maybe/ progress)
-**Time Spent**: ~1393 minutes (23.22 hours)
-**Average Speed**: 1.69 minutes/file
+**Current Progress**: 852/869 files (98.0% complete)
+**Time Spent**: ~1423 minutes (23.72 hours)
+**Average Speed**: 1.67 minutes/file
 
-**Remaining Work**: Many files in non-simple folders
+**Remaining Work**: 17 files in non-simple folders
 - special/: COMPLETE ✅ (all 8 files done - includes aliases)
 - activation/: COMPLETE ✅ (all 9 files done)
 - async/: COMPLETE ✅ (all 10 files done)
@@ -28,18 +28,49 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 - error/: COMPLETE ✅ (all 11 files checked - already properly formatted)
 - events/: COMPLETE ✅ (1 file - bus.ts has no JSDoc to fix)
 - io/: COMPLETE ✅ (all 19 files done)
-- maybe/: IN PROGRESS (12 files done, 5 remaining)
-- random/: NOT STARTED (unknown count)
-- result/: NOT STARTED (unknown count)
-- state/: NOT STARTED (unknown count)
+- maybe/: COMPLETE ✅ (all 17 files done)
+- random/: COMPLETE ✅ (all 9 files done)
+- result/: NOT STARTED (18 files total: bimap, chain, chainErr, err, errWithInspect, fold, getOrElse, isErr, isOk, map, mapErr, ok, okWithInspect, orElse, result, show, swap, tryCatch)
+- state/: NOT STARTED (1 file: store.ts)
 
 **Estimated Time to Complete**: 
-- Many more sessions needed for non-simple folders
-- **Expected Completion**: Unknown - need to assess file count in remaining folders
+- 17 files remaining × 1.67 min/file = ~28 minutes
+- Approximately 2 more sessions (12 files + 5 files)
+- **Expected Completion**: ~2 sessions remaining
+- Note: result/ folder appears to be already properly formatted (checked several files)
 
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 58 - 2025-08-29
+**Folders**: maybe/ (completed - 1 file), random/ (completed - 9 files), simple/temporal/ (1 file), simple/math/ (1 file)
+**Files Processed**: 12 files total
+- **maybe/** (1 file - FOLDER COMPLETE):
+  - toNullable ✓ (reduced 236→41 lines, fixed @property tags to @pure)
+- **random/** (9 files - FOLDER COMPLETE):
+  - generateShortId ✓ (reduced 58→19 lines, fixed @property tags to @impure)
+  - generateBase58Uuid ✓ (reduced 43→14 lines, fixed @property tags to @impure)
+  - randomBoolean ✓ (reduced 63→21 lines, fixed @property tags to @impure @safe)
+  - randomChoice ✓ (reduced 81→26 lines, fixed @property tags to @impure @safe)
+  - randomFloat ✓ (reduced 56→24 lines, fixed @property tags to @curried @impure @safe)
+  - randomInt ✓ (just an alias, no changes needed)
+  - randomInteger ✓ (reduced 63→24 lines, fixed @property tags to @curried @impure @safe)
+  - randomString ✓ (reduced 67→24 lines, fixed @property tags to @curried @impure @safe, removed for loop)
+  - randomSubset ✓ (reduced 99→30 lines, fixed @property tags to @curried @impure @safe, removed for loop with mutations)
+- **simple/temporal/**:
+  - parseTime ✓ (reduced 86→25 lines, fixed @property tags to @pure @safe)
+- **simple/math/**:
+  - add ✓ (reduced 178→29 lines, fixed @property tags to @pure @curried @safe @commutative @associative)
+**Start Time**: 2025-08-29T17:30:00+12:00
+**End Time**: 2025-08-29T18:00:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags
+- MASSIVELY reduced examples (average 70-85% reduction)
+- Removed imperative code (for loops, mutations) from randomString and randomSubset
+- All functions properly documented with correct JSDoc tags
+**Notes**: Completed maybe/ and random/ folders entirely. Found and fixed 2 lingering files in simple/ folders that still had @property tags.
 
 ### Session 57 - 2025-08-29
 **Folder**: maybe/ (completed)

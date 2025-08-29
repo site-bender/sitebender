@@ -13,57 +13,28 @@
  * @example
  * ```typescript
  * // Fair coin flip (50/50)
- * randomBoolean()
- * // true
- *
- * randomBoolean()
- * // false
- *
+ * randomBoolean()     // true or false
+ * 
  * // Biased toward true (70% true)
- * randomBoolean(0.7)
- * // true (more likely)
- *
+ * randomBoolean(0.7)  // true (more likely)
+ * 
  * // Biased toward false (20% true)
- * randomBoolean(0.2)
- * // false (more likely)
- *
- * // Always true
- * randomBoolean(1)
- * // true
- *
- * // Always false
- * randomBoolean(0)
- * // false
- *
- * // Simulate events
- * const criticalHit = randomBoolean(0.15) // 15% chance
- * const dodged = randomBoolean(0.3)       // 30% chance
- *
- * // Random feature flags
- * const showNewFeature = randomBoolean(0.1) // 10% rollout
- *
+ * randomBoolean(0.2)  // false (more likely)
+ * 
+ * // Edge cases
+ * randomBoolean(1)    // always true
+ * randomBoolean(0)    // always false
+ * 
  * // A/B testing
- * const isGroupA = randomBoolean() // 50/50 split
- *
+ * const isGroupA = randomBoolean()  // 50/50 split
+ * 
  * // Monte Carlo simulation
  * const successes = Array.from({ length: 1000 },
  *   () => randomBoolean(0.6)
- * ).filter(Boolean).length
- * // ~600 successes
- *
- * // Invalid probability uses default 0.5
- * randomBoolean(null)
- * // true or false (50/50)
- *
- * randomBoolean(-0.5)
- * // true or false (50/50)
- *
- * randomBoolean(1.5)
- * // true or false (50/50)
+ * ).filter(Boolean).length  // ~600
  * ```
- * @property Impure - Non-deterministic pseudo-random generation
- * @property Biasable - Optional probability parameter for weighted results
- * @property Safe - Invalid probabilities default to 0.5
+ * @impure
+ * @safe
  */
 const randomBoolean = (
 	probability: number | null | undefined = 0.5,

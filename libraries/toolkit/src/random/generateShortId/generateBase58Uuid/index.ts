@@ -13,37 +13,20 @@
  * @returns Base58-encoded UUID string
  * @example
  * ```typescript
- * generateBase58Uuid()
- * // "4Kh8gTjX9pQ2mN7yR3Wz"
- *
- * generateBase58Uuid()
- * // "7Bx3mPq5vN2jK8Ht6Yz"
- *
- * // Each call produces a unique identifier
+ * // Basic usage
+ * generateBase58Uuid()  // "4Kh8gTjX9pQ2mN7yR3Wz"
+ * generateBase58Uuid()  // "7Bx3mPq5vN2jK8Ht6Yz" (different each time)
+ * 
+ * // Each call produces unique identifier
  * const id1 = generateBase58Uuid()
  * const id2 = generateBase58Uuid()
  * console.log(id1 === id2) // false
- *
- * // Shorter than standard UUID
- * // Standard: "550e8400-e29b-41d4-a716-446655440000" (36 chars)
- * // Base58:   "4Kh8gTjX9pQ2mN7yR3Wz" (~22 chars)
- *
- * // Use in data structures
- * const users = new Map()
- * users.set(generateBase58Uuid(), { name: "Alice" })
- * users.set(generateBase58Uuid(), { name: "Bob" })
- *
- * // Use for cache keys
- * const cache = {}
- * cache[generateBase58Uuid()] = computeExpensiveValue()
- *
+ * 
  * // Use for unique filenames
  * const filename = `upload_${generateBase58Uuid()}.jpg`
  * // "upload_9Ht6Yz3mPq5vN2j.jpg"
  * ```
- * @property Impure - Non-deterministic, returns different values each call
- * @property Cryptographic - Uses crypto.randomUUID for secure randomness
- * @property Compact - Base58 encoding is ~40% shorter than hex UUID
+ * @impure
  */
 const generateBase58Uuid = (): string => {
 	// Generate a cryptographically secure UUID v4
