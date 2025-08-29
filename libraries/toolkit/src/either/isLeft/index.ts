@@ -12,9 +12,6 @@ import type { Either, Left } from "../../types/fp/either/index.ts"
  * @returns True if the Either is a Left, false if it's a Right
  * @example
  * ```typescript
- * import { left } from "../left/index.ts"
- * import { right } from "../right/index.ts"
- *
  * // Basic type checking
  * isLeft(left("error"))   // true
  * isLeft(right(42))       // false
@@ -35,68 +32,21 @@ import type { Either, Left } from "../../types/fp/either/index.ts"
  *   right(10),
  *   left("error 1"),
  *   right(20),
- *   left("error 2"),
- *   right(30)
+ *   left("error 2")
  * ]
  *
- * const errors = results.filter(isLeft)
- * // [Left("error 1"), Left("error 2")]
- *
- * const successes = results.filter(r => !isLeft(r))
- * // [Right(10), Right(20), Right(30)]
- *
- * // Early return pattern
- * const processValue = (either: Either<string, number>): string => {
- *   if (isLeft(either)) {
- *     return `Failed: ${either.left}`
- *   }
- *
- *   // TypeScript knows either is Right<number> here
- *   return `Success: ${either.right * 2}`
- * }
- *
- * processValue(left("oops"))  // "Failed: oops"
- * processValue(right(5))      // "Success: 10"
- *
- * // Counting errors in a batch operation
- * const batchResults: Array<Either<Error, string>> = [
- *   right("success1"),
- *   left(new Error("failed1")),
- *   right("success2"),
- *   left(new Error("failed2"))
- * ]
- *
- * const errorCount = batchResults.filter(isLeft).length
- * // 2
- *
- * // Validation pipeline with early exit
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
- *
- * const validatePipeline = <T>(value: Either<string, T>): string => {
- *   if (isLeft(value)) {
- *     return `Validation failed at step 1: ${value.left}`
- *   }
- *
- *   // Continue with more validations...
- *   return "All validations passed"
- * }
+ * results.filter(isLeft)  // [Left("error 1"), Left("error 2")]
  *
  * // Combining with other predicates
  * const hasError = (results: Array<Either<string, unknown>>): boolean =>
  *   results.some(isLeft)
  *
- * const allSuccessful = (results: Array<Either<string, unknown>>): boolean =>
- *   !results.some(isLeft)
- *
- * hasError([right(1), right(2)])          // false
- * hasError([right(1), left("err")])       // true
- * allSuccessful([right(1), right(2)])     // true
- * allSuccessful([right(1), left("err")])  // false
+ * hasError([right(1), right(2)])     // false
+ * hasError([right(1), left("err")])  // true
  * ```
  *
- * @property Type-guard - Narrows TypeScript types in conditional branches
- * @property Pure - No side effects, just checks the tag
- * @property Composable - Works well with array methods and other predicates
+ * @pure
+ * @predicate
  */
 const isLeft = <E, A>(either: Either<E, A>): either is Left<E> =>
 	either._tag === "Left"
