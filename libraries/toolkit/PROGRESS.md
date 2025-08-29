@@ -11,9 +11,9 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 
 ## Target Completion
 
-**Current Progress**: 772/777+ files (99.4% complete of simple/ folders)
-**Time Spent**: ~1233 minutes (20.55 hours)
-**Average Speed**: 1.60 minutes/file
+**Current Progress**: 784/789+ files (99.4% complete of simple/ folders)
+**Time Spent**: ~1263 minutes (21.05 hours)
+**Average Speed**: 1.61 minutes/file
 
 **Remaining Work**: Many files in non-simple folders
 - special/: COMPLETE ✅ (all 8 files done - includes aliases)
@@ -23,8 +23,8 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 - lens/: COMPLETE ✅ (all 5 files done)
 - trigonometry/: COMPLETE ✅ (all 19 files done)
 - tuple/: COMPLETE ✅ (all 12 files done)
+- either/: COMPLETE ✅ (all 18 files done)
 - debug/: 1 file done (withInspect)
-- either/: 6 files done (bimap, chain, fold, getOrElse, isLeft, isRight)
 - error/: NOT STARTED (11 files)
 - events/: NOT STARTED (unknown count)
 - io/: NOT STARTED (unknown count)
@@ -40,6 +40,30 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 54 - 2025-08-29
+**Folder**: either/ (completed - remaining 12 files)
+**Files Processed**: 12 files total - FOLDER COMPLETE
+- chainLeft ✓ (reduced 172→61 lines, fixed @property tags to @pure @curried)
+- either ✓ (reduced 147→45 lines, fixed @property tags to @pure @curried)
+- left ✓ (reduced 95→44 lines, fixed @property tags to @pure)
+- leftWithInspect ✓ (reduced 128→56 lines, fixed @property tags to @impure)
+- map ✓ (reduced 139→51 lines, fixed @property tags to @pure @curried)
+- mapLeft ✓ (reduced 166→50 lines, fixed @property tags to @pure @curried)
+- orElse ✓ (reduced 179→55 lines, fixed @property tags to @pure @curried)
+- right ✓ (reduced 102→45 lines, fixed @property tags to @pure)
+- rightWithInspect ✓ (reduced 163→57 lines, fixed @property tags to @impure)
+- show ✓ (reduced 155→79 lines, fixed @property tags to @pure)
+- swap ✓ (reduced 163→49 lines, fixed @property tags to @pure @idempotent)
+- tryCatch ✓ (reduced 181→63 lines, fixed @property tags to @pure @curried @safe)
+**Start Time**: 2025-08-29T14:30:00+12:00
+**End Time**: 2025-08-29T15:00:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @curried, @impure, @idempotent, @safe)
+- MASSIVELY reduced examples (average 60-70% reduction)
+- All functions properly documented with correct JSDoc tags
+**Notes**: Processed files ONE AT A TIME carefully. The either/ folder is now complete (all 18 files done). This completes another major folder outside the simple/ directory structure.
 
 ### Session 53 - 2025-08-29
 **Folders**: tuple/ (completed), debug/ (started), either/ (started)

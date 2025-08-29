@@ -53,17 +53,6 @@ import isLeft from "../isLeft/index.ts"
  * debug(right(42))
  * // "Processing Right(42) at 2024-01-01T12:00:00.000Z"
  *
- * // Comparison with inspect approach
- * import { leftWithInspect } from "../leftWithInspect/index.ts"
- * import { rightWithInspect } from "../rightWithInspect/index.ts"
- *
- * // Pure approach (explicit)
- * const e1 = left("error")
- * console.log(show(e1))  // 'Left("error")'
- *
- * // Inspect approach (automatic)
- * const e2 = leftWithInspect("error")
- * console.log(e2)  // Left("error")
  *
  * // Using in error reports
  * const report = (results: Array<Either<Error, string>>) => {
@@ -92,29 +81,11 @@ import isLeft from "../isLeft/index.ts"
  *
  * // Functions and symbols
  * const fn = () => 42
- * show(right(fn))           // "Right([Function: fn])" or "Right([Function])"
- *
+ * show(right(fn))  // "Right([Function: fn])"
  * const sym = Symbol("test")
- * show(right(sym))          // "Right(Symbol(test))"
- *
- * // Dates
- * show(right(new Date("2024-01-01")))
- * // 'Right("2024-01-01T00:00:00.000Z")'
- *
- * // Numbers and special values
- * show(right(0))            // "Right(0)"
- * show(right(NaN))          // "Right(null)" (JSON.stringify converts NaN to null)
- * show(right(Infinity))     // "Right(null)" (JSON.stringify converts Infinity to null)
- *
- * // Circular references
- * const circular: any = { value: 1 }
- * circular.self = circular
- * show(right(circular))     // "Right([object Object])" (falls back to String())
+ * show(right(sym)) // "Right(Symbol(test))"
  * ```
  *
- * @property Pure - No side effects, returns a new string
- * @property Consistent - Same format as withInspect versions
- * @property Explicit - Must be called explicitly when needed
  */
 const show = <E, A>(either: Either<E, A>): string => {
 	const formatValue = (v: unknown): string => {
