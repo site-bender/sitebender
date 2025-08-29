@@ -31,6 +31,6 @@
 	"compilerOptions": {
     "lib": ["deno.window", "esnext"],
     "types": []
-  },
-  "unstable": ["temporal"]
+	}
+
 }
