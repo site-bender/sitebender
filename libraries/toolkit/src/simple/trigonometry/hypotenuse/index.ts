@@ -11,114 +11,30 @@
  * @example
  * ```typescript
  * // Classic Pythagorean theorem (3-4-5 triangle)
- * hypotenuse([3, 4])
- * // 5
+ * hypotenuse([3, 4]) // 5
+ * hypotenuse([5, 12]) // 13
  *
- * // Another right triangle
- * hypotenuse([5, 12])
- * // 13
+ * // 3D and 4D space
+ * hypotenuse([2, 3, 6]) // 7
+ * hypotenuse([1, 2, 2, 2]) // 3.605...
  *
- * // 3D space
- * hypotenuse([2, 3, 6])
- * // 7 (√(4 + 9 + 36))
- *
- * // 4D space
- * hypotenuse([1, 2, 2, 2])
- * // 3.605... (√(1 + 4 + 4 + 4))
- *
- * // Single dimension
- * hypotenuse([5])
- * // 5 (absolute value)
- *
- * hypotenuse([-5])
- * // 5
- *
- * // Zero vector
- * hypotenuse([0, 0, 0])
- * // 0
- *
- * // Mixed positive and negative
- * hypotenuse([-3, 4])
- * // 5 (signs don't matter)
- *
- * // Large values (avoids overflow)
- * hypotenuse([1e200, 1e200])
- * // 1.414...e200 (√2 × 1e200)
- *
- * // Small values (maintains precision)
- * hypotenuse([1e-200, 1e-200])
- * // 1.414...e-200
- *
- * // Empty array
- * hypotenuse([])
- * // 0 (by convention)
+ * // Edge cases
+ * hypotenuse([]) // 0
+ * hypotenuse([-3, 4]) // 5 (signs don't matter)
+ * hypotenuse([1e200, 1e200]) // 1.414...e200 (avoids overflow)
  *
  * // Invalid inputs
- * hypotenuse(null)
- * // NaN
+ * hypotenuse(null) // NaN
  *
- * hypotenuse([1, "2", 3])
- * // NaN
- *
- * hypotenuse([1, null, 3])
- * // NaN
- *
- * // Practical examples
- *
- * // Distance from origin in 2D
- * const point2D = [3, 4]
- * const distance2D = hypotenuse(point2D)
- * // 5
- *
- * // Distance from origin in 3D
- * const point3D = [1, 2, 2]
- * const distance3D = hypotenuse(point3D)
- * // 3
- *
- * // Vector magnitude
- * const vector = [6, 8]
- * const magnitude = hypotenuse(vector)
- * // 10
- *
- * // Screen diagonal
- * const screenWidth = 1920
- * const screenHeight = 1080
- * const diagonal = hypotenuse([screenWidth, screenHeight])
- * // 2202.9... pixels
- *
- * // 3D game physics - velocity magnitude
- * const velocity = [10, 5, -3]
- * const speed = hypotenuse(velocity)
- * // 11.575...
- *
- * // Signal processing - complex number magnitude
- * const real = 3
- * const imaginary = 4
- * const complexMagnitude = hypotenuse([real, imaginary])
- * // 5
- *
- * // N-dimensional distance
- * function distanceFromOrigin(coords: number[]): number {
- *   return hypotenuse(coords)
- * }
- *
- * // Right triangle solver
- * function findHypotenuse(a: number, b: number): number {
- *   return hypotenuse([a, b])
- * }
- *
- * // Normalize vector using hypotenuse
- * function normalizeVector(v: number[]): number[] {
+ * // Practical use: normalize vector
+ * const normalizeVector = (v: number[]): number[] => {
  *   const length = hypotenuse(v)
  *   return length === 0 ? v : v.map(x => x / length)
  * }
- * normalizeVector([3, 4])
- * // [0.6, 0.8]
+ * normalizeVector([3, 4]) // [0.6, 0.8]
  * ```
- * @property Pure - Always returns same result for same input
- * @property Safe - Returns NaN for invalid inputs
- * @property Stable - Uses numerically stable algorithm
- * @property NDimensional - Works for any number of dimensions
+ * @pure
+ * @safe
  */
 const hypotenuse = (
 	values: number[] | null | undefined,
