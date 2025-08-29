@@ -1,6 +1,119 @@
 # PLAN OF ATTACK: Declarative JSX DSL → Adaptive IR → SSR/SSG/CSR Hydration
 
 Date: 2025-08-24
+## Current state (2025-08-29)
+
+- Components compiler (toAdaptiveIr) is producing EventBinding/action/comparator/injector IR for control nodes (<On>, <If>, <Validation>) and transform wrappers.
+- Default executors are registered in adaptive for equality/logical, InSet, Matches/DoesNotMatch, and full temporal families (Date/Time/DateTime, including Same/Not* variants).
+- New JSX wrappers exist and are wired end-to-end (e.g., IsSameDate/Time/DateTime, IsNotAfterDateTime, IsNotBeforeDateTime).
+- Compiler diagnostics cover arity/shape for logical, equality, matching, set membership, and temporal families; warnings are surfaced in node meta.
+- Goldens added for JSX → IR covering: Conditional/If (slots and sugar), nested If branches, Matches in conditions, On anchor inference/target override, multiple On bindings, and multi-action handler selection; plus a minimal Validation golden using the scaffold.
+- Test status (strict): Components 54/54, Adaptive 22/22 (green at time of writing).
+Note: Beyond the MVP, additional comparators are already implemented and tested (equality, set membership, matching with safe regex, and temporal Date/Time/DateTime families).
+
+## Status snapshot (2025-08-29)
+  - Control components implemented and in-use:
+    - Validation, Conditional/If (+ slots: Condition/IfTrue/IfFalse), and On markers
+  - Compiler:
+    - `libraries/components/src/transform/compile/toAdaptiveIr.ts` produces IR with EventBinding and Action nodes; thin wrappers call adaptive constructors directly
+    - Minimal compiler scaffold remains for Validation-only flows (`compile/minimal.ts`)
+  - Adaptive runtime:
+    - Default executor registration includes Matches/DoesNotMatch, InSet, and full temporal Date/Time/DateTime families (Same and Not* variants)
+  - Diagnostics:
+    - Arity/shape guards for logical/equality/matching/set/temporal families
+  - Tests:
+    - Goldens for JSX → IR (Conditional/If, On, Validation); runtime tests for matching, set membership, and temporal comparators
+  - IR v1 JSON Schema (including ScriptNode and behavior nodes)
+  - Renderer and hydrator scaffolds for MVP kinds; root IR embedding and hydrate walk
+  - Demo: SSR/SSG page that hydrates On/Validation/Conditional; add one hydration smoke test
+  - Docs/examples: update examples to reflect current wrappers (<If> slots and sugar, On anchor inference, Matches in conditions, temporal Same)
+
+## Next steps
+1) IR schema v1
+  - Author JSON Schema (with version + schemaId) and validate in dev
+  - Include ElementNode, Injector/Operator/Comparator, Conditional, Validator, EventBinding, ScriptNode
+2) MVP renderer + hydrator
+  - Render ElementNode → HTML with microdata; emit JSON-LD scripts
+  - Hydrate validators, events, and conditional display; lazy by default
+3) Demo
+  - Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
+## Example and notes
+Original idea (simplified and with a fixed closing tag):
+
+```tsx
+<Form class="form">
+  <EmailField name="email" label="Email" help="We’ll never share your email." required>
+    <Validation>
+      <When.And>
+        <When.IsNotEmpty />
+        <When.IsEmailAddress />
+        <When.IsNoShorterThan>
+          <From.Constant datatype="Integer">6</From.Constant>
+        </When.IsNoShorterThan>
+        <When.IsNoLongerThan>
+          <From.Element datatype="Integer" source="input#max-length" />
+        </When.IsNoLongerThan>
+      </When.And>
+    </Validation>
+  </EmailField>
+
+  <Conditional>
+    <Condition>
+      <When.IsBeforeAlphabetically>
+        <Operand>
+          <From.Constant datatype="String">Bob</From.Constant>
+        </Operand>
+        <Test>
+          <From.QueryString datatype="String" key="name" />
+        </Test>
+      </When.IsBeforeAlphabetically>
+    </Condition>
+    <IfTrue>
+      <Para>You get to go first!</Para>
+    </IfTrue>
+    <IfFalse>
+      <Para>Sorry, but Bob goes first.</Para>
+    </IfFalse>
+  </Conditional>
+</Form>
+```
+
+Updated minimal example using current wrappers and control patterns:
+
+```tsx
+<div>
+  <input id="email" />
+  {Validation({ when: "input", children: NotEmpty({ children: FromElement({ id: "email" }) as unknown as JSX.Element }) as unknown as JSX.Element })}
+
+  {On({
+    event: "Change",
+    children: If({
+      children: [
+        Condition({ children: Matches({ children: [
+          FromElement({ id: "email" }) as unknown as JSX.Element,
+          Constant({ value: "@" }) as unknown as JSX.Element,
+        ] }) as unknown as JSX.Element }) as unknown as JSX.Element,
+        IfTrue({ children: Publish({ topic: "looks-like-email" }) as unknown as JSX.Element }) as unknown as JSX.Element,
+        IfFalse({ children: Publish({ topic: "not-email" }) as unknown as JSX.Element }) as unknown as JSX.Element,
+      ],
+    }) as unknown as JSX.Element,
+  })}
+
+  {On({
+    event: "Change",
+    target: "email", // explicit target overrides inference
+    children: SetValue({ selector: "#status", value: Constant({ value: "changed" }) as unknown as JSX.Element }) as unknown as JSX.Element,
+  })}
+
+  {On({
+    event: "Change",
+    children: Publish({ topic: "chained-binding" }) as unknown as JSX.Element,
+  })}
+</div>
+```
+## Detailed plan (reference)
+
+Date: 2025-08-24
 
 ## Decisions locked (2025-08-24)
 
@@ -40,6 +153,36 @@ Repository conventions (for tree shaking and clarity)
 - Keep a single async evaluator/renderer that runs identically in server and client, behind an environment interface for IO (DOM, storage, URL, time, fetch, etc.).
 - Events and validation are declared as nodes in the IR; handlers/actions resolve to composed graphs at hydrate time.
 - Store only data and kinds in JSON (never functions); compose functions during hydration.
+
+## Charter alignment: Vault → IR → SHACL/OWL → Fuseki
+- Scope: integrate CHARTER’s data model (Vault/Collection/Item/Field) without refactoring current MVP.
+- IR additions (no breaking changes):
+  - Add Vault family nodes to IR: `VaultNode`, `CollectionNode`, `FieldNode` with datatypes, constraints, and optional default/enum/source.
+  - Represent constraints using existing comparator graphs where possible; attach them to `FieldNode` (mirrors Validation) to keep one source of truth.
+  - Emit artifacts via a generator pass (build-time):
+    - SHACL Shapes from Vault/Collection/Field → Turtle (file output) and/or JSON-LD (as `ScriptNode`).
+    - Minimal OWL class/property declarations derived from Collections/Fields.
+- Store adapter (local-first):
+  - Add a thin SPARQL adapter (HTTP) targeting a local Apache Jena Fuseki (Homebrew install) with env config (endpoint URLs, dataset name).
+  - New injector: `From.SPARQL` (query, bindings) → returns rows; SSR-safe if adapter is enabled server-side.
+  - Optional action: `Act.SPARQL.Update` for controlled writes (post-MVP guarded behind capabilities).
+- Schema-driven forms:
+  - `<Form for="CollectionName">` compiles by reading the Vault IR and generating fields (type → widget mapping); field-level Validation reuses the same comparator graphs.
+  - Option sources: enum values or SPARQL query via `From.SPARQL` to populate choices (e.g., `<Form.ChooseOne optionsFrom={From.SPARQL(...)} />`).
+- Namespaces & component names (harmonization without churn):
+  - Keep current `On.*` for events; add `When.Clicked`/`When.Submit` as aliases that lower to `On.*` to satisfy CHARTER language while avoiding refactors.
+  - Keep comparators under `When.*` for MVP; add light `Is.*` alias wrappers that lower to the same comparator tags (e.g., `Is.Equal` → `When.IsEqual`).
+  - Reserve `Vault.*`, `Form.*`, `Entity.*` for data-driven UI; wrappers remain thin and return IR markers only.
+- Testing/dev ergonomics:
+  - Golden tests for Vault JSX → IR (Collections/Fields, constraints).
+  - Snapshot SHACL/OWL generators with small fixtures; smoke test SPARQL adapter against a local Fuseki (skippable in CI).
+
+Milestones (thin slices)
+1) IR schema v1.1: add Vault/Collection/Field kinds (no runtime usage yet); doc JSON Schema updates.
+2) Generator pass: Vault → SHACL (Turtle) + minimal OWL; write to `docs/dist/data/` and expose as optional `ScriptNode` JSON-LD.
+3) SPARQL adapter + `From.SPARQL` injector (read-only) with env-driven endpoints.
+4) Schema-driven `<Form for="…">` that renders fields from Vault IR; enum/options can come from constants or `From.SPARQL`.
+5) E2E demo: define a tiny Vault (Customer/Product), generate SHACL, run Fuseki locally, populate options via SPARQL, and render the form; add one hydration smoke test.
 
 ## Requirements checklist
 - Declarative JSX composing primarily via components-as-children instead of props
@@ -176,7 +319,7 @@ define/* behavior and metadata
 - Golden tests: JSX → IR → evaluate → HTML snapshot.
 - Smoke tests: registry resolution by tag, SSR render returns string, hydrate wiring runs without errors.
 
-## Example and notes
+## Example and notes (legacy DSL; see updated example above)
 Original idea (simplified and with a fixed closing tag):
 
 ```tsx

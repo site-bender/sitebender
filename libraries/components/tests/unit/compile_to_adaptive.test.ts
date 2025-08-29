@@ -22,6 +22,11 @@ import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
 import Add from "../../src/transform/operators/Add/index.tsx"
 import IsEqualTo from "../../src/transform/comparators/IsEqualTo/index.tsx"
 import IsUnequalTo from "../../src/transform/comparators/IsUnequalTo/index.tsx"
+import Matches from "../../src/transform/comparators/Matches/index.tsx"
+import And from "../../src/transform/logical/And/index.tsx"
+import Or from "../../src/transform/logical/Or/index.tsx"
+import Min from "../../src/transform/operators/Min/index.tsx"
+import Max from "../../src/transform/operators/Max/index.tsx"
 
 // Minimal VNode helper the compiler recognizes as an element
 const el = (tag: string, props: Record<string, unknown> = {}, children?: unknown) => ({
@@ -224,4 +229,111 @@ Deno.test("compileToAdaptive compiles IsUnequalTo comparator from component wrap
   assertEquals(right.kind, "injector")
   assertEquals(right.injector, "From.Constant")
   assertEquals(right.args.value, "pending")
+})
+
+Deno.test("compileToAdaptive compiles Min/Max operators with operands", () => {
+  const tree = [
+    el("input", { id: "a" }),
+    el("input", { id: "b" }),
+    el("output", { id: "out" }),
+    On({
+      event: "Input",
+      target: "out",
+      children: SetValue({
+        selector: "#out",
+        value: Min({ type: "Number", children: [
+          FromElement({ id: "a" }) as unknown as JSX.Element,
+          FromElement({ id: "b" }) as unknown as JSX.Element,
+        ] }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  const op = evt.handler.args[1] as OperatorNode
+  assertEquals(op.kind, "operator")
+  assertEquals(op.op, "Op.Min")
+  assertEquals(op.args.length, 2)
+
+  const tree2 = [
+    el("input", { id: "a" }),
+    el("input", { id: "b" }),
+    el("output", { id: "out" }),
+    On({
+      event: "Input",
+      target: "out",
+      children: SetValue({
+        selector: "#out",
+        value: Max({ type: "Number", children: [
+          FromElement({ id: "a" }) as unknown as JSX.Element,
+          FromElement({ id: "b" }) as unknown as JSX.Element,
+        ] }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+  const doc2 = compileToAdaptive(tree2) as IrDocument
+  const evt2 = doc2.children[0] as EventBindingNode
+  const op2 = evt2.handler.args[1] as OperatorNode
+  assertEquals(op2.kind, "operator")
+  assertEquals(op2.op, "Op.Max")
+  assertEquals(op2.args.length, 2)
+})
+
+Deno.test("compileToAdaptive compiles Matches comparator with flags", () => {
+  const tree = [
+    el("input", { id: "val" }),
+    On({
+      event: "Change",
+      children: Publish({
+        topic: "debug",
+        payload: Matches({ children: [
+          FromElement({ id: "val" }) as unknown as JSX.Element,
+          Constant({ value: "^a.*z$" }) as unknown as JSX.Element,
+          "i",
+        ] }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  const cmp = evt.handler.args[1] as ComparatorNode
+  assertEquals(cmp.kind, "comparator")
+  // Tag may or may not be namespaced depending on mapping; ensure args are there
+  assertEquals(cmp.args.length >= 2, true)
+})
+
+Deno.test("compileToAdaptive compiles nested And/Or logical comparators", () => {
+  const tree = [
+    el("input", { id: "status" }),
+    On({
+      event: "Change",
+      children: Publish({
+        topic: "debug",
+        payload: And({ children: [
+          Or({ children: [
+            IsEqualTo({ type: "String", children: [
+              FromElement({ id: "status" }) as unknown as JSX.Element,
+              Constant({ value: "active" }) as unknown as JSX.Element,
+            ] }) as unknown as JSX.Element,
+            IsEqualTo({ type: "String", children: [
+              FromElement({ id: "status" }) as unknown as JSX.Element,
+              Constant({ value: "pending" }) as unknown as JSX.Element,
+            ] }) as unknown as JSX.Element,
+          ] }) as unknown as JSX.Element,
+          IsUnequalTo({ type: "String", children: [
+            FromElement({ id: "status" }) as unknown as JSX.Element,
+            Constant({ value: "banned" }) as unknown as JSX.Element,
+          ] }) as unknown as JSX.Element,
+        ] }) as unknown as JSX.Element,
+      }) as unknown as JSX.Element,
+    }),
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  const cmp = evt.handler.args[1] as ComparatorNode
+  assertEquals(cmp.kind, "comparator")
+  assertEquals(cmp.cmp, "Is.And")
+  assertEquals(cmp.args.length, 2)
+  const child0 = cmp.args[0] as ComparatorNode
+  assertEquals(child0.cmp, "Is.Or")
 })

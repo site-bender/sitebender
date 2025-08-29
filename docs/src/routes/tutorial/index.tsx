@@ -1,5 +1,5 @@
 import SetQueryString from "@sitebender/components/transform/actions/SetQueryString/index.tsx"
-import SetValue from "@sitebender/components/transform/actions/SetValue/index.tsx"
+import SetValue from "@sitebender/components/transform/do/SetValue/index.tsx"
 import NotEmpty from "@sitebender/components/transform/comparators/NotEmpty/index.tsx"
 import If from "@sitebender/components/transform/control/If/index.tsx"
 import On from "@sitebender/components/transform/control/On/index.tsx"

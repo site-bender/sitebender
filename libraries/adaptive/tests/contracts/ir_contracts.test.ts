@@ -11,10 +11,13 @@ import type {
 import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
 import Add from "@adaptiveSrc/constructors/operators/Add/index.ts"
 import Multiply from "@adaptiveSrc/constructors/operators/Multiply/index.ts"
+import Subtract from "@adaptiveSrc/constructors/operators/Subtract/index.ts"
+import Divide from "@adaptiveSrc/constructors/operators/Divide/index.ts"
 import Min from "@adaptiveSrc/constructors/operators/Min/index.ts"
 import Max from "@adaptiveSrc/constructors/operators/Max/index.ts"
 import Ternary from "@adaptiveSrc/constructors/operators/Ternary/index.ts"
 import IsEqualTo from "@adaptiveSrc/constructors/comparators/equality/IsEqualTo/index.ts"
+import Matches from "@adaptiveSrc/constructors/comparators/matching/Matches/index.ts"
 import And from "@adaptiveSrc/constructors/comparators/algebraic/And/index.ts"
 
 // Helpers to build simple operands
@@ -47,6 +50,14 @@ const _cmpContract: true = ((): true => {
   return true
 })()
 
+// Comparator contract: Matches over String with operand/pattern/flags
+const mtc = Matches(str("hello"))(str("^h.*o$"))("i")
+const _mtcContract: true = ((): true => {
+  const _x = mtc satisfies ComparatorConfig
+  void _x
+  return true
+})()
+
 // Logical contract: And(Boolean) over comparator/logical nodes
 const logic = And("Boolean")([cmp])
 const _logicContract: true = ((): true => {
@@ -74,6 +85,21 @@ const _maxContract: true = ((): true => {
 const tern = Ternary("Number")(bool(true), num(1), num(2))
 const _ternaryContract: true = ((): true => {
   const _x = tern satisfies OperatorConfig
+  void _x
+  return true
+})()
+
+// Subtract/Divide contracts: operands present and datatype propagated
+const subOp = Subtract("Number")(num(10))(num(3))
+const _subContract: true = ((): true => {
+  const _x = subOp satisfies OperatorConfig
+  void _x
+  return true
+})()
+
+const divOp = Divide("Number")(num(10))(num(2))
+const _divContract: true = ((): true => {
+  const _x = divOp satisfies OperatorConfig
   void _x
   return true
 })()

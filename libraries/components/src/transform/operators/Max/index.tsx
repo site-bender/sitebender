@@ -12,8 +12,7 @@
  * </Max>
  */
 
-import MaxConstructor from "@adaptiveSrc/constructors/operators/Max/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+// Marker-only; compiler maps to Adaptive IR
 
 export type MaxProps = {
 	type?: "Number" | "Date" | "String"
@@ -21,14 +20,8 @@ export type MaxProps = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Max({
-	type = "Number",
-	datatype,
-	children = [],
-}: MaxProps): ReturnType<typeof MaxConstructor> {
+export default function Max({ type = "Number", datatype, children = [] }: MaxProps) {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
-
-	// Max constructor signature: (datatype) => (operands)
-	return MaxConstructor(actualType)(childArray as unknown as Operand[])
+	return { type: "operator", tag: "Max", datatype: actualType, operands: childArray }
 }

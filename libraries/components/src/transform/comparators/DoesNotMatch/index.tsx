@@ -21,7 +21,7 @@ export type DoesNotMatchProps = {
 }
 
 export default function DoesNotMatch({
-	flags = "",
+	flags = undefined,
 	children = [],
 }: DoesNotMatchProps): ReturnType<ReturnType<ReturnType<typeof DoesNotMatchConstructor>>> {
 	const [operand, pattern] = Array.isArray(children) ? children : [children]

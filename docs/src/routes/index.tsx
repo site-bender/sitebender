@@ -13,6 +13,9 @@ export default function () {
 			<p>
 				<a href="/tutorial/">Read the Adaptive Tutorial</a>
 			</p>
+			<p>
+				<a href="/vision/">Vision & MVP Charter</a>
+			</p>
 		</body>
 	)
 }

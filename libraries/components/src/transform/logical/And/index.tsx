@@ -26,7 +26,7 @@ export type AndProps = {
 
 export default function And({
 	children = [],
-}: AndProps): ReturnType<typeof AndConstructor> {
+}: AndProps): ReturnType<ReturnType<typeof AndConstructor>> {
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// And constructor signature: (datatype) => (operands)

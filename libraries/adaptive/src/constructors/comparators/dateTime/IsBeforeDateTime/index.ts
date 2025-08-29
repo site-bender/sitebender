@@ -1,7 +1,8 @@
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
+import type { Operand, TemporalDatatype } from "../../../../types/index.ts"
 
 const IsBeforeDateTime =
-	(datatype = "PlainDateTime") => (operand) => (test) => ({
+	(datatype: TemporalDatatype = "DateTime") => (operand: Operand) => (test: Operand) => ({
 		tag: "IsBeforeDateTime",
 		type: OPERAND_TYPES.comparator,
 		datatype,

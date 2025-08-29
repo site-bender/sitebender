@@ -26,7 +26,7 @@ export type OrProps = {
 
 export default function Or({
 	children = [],
-}: OrProps): ReturnType<typeof OrConstructor> {
+}: OrProps): ReturnType<ReturnType<typeof OrConstructor>> {
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Or constructor signature: (datatype) => (operands)

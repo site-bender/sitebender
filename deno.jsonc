@@ -29,10 +29,13 @@
   "test:adaptive:cov": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage coverage",
   "test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage coverage",
   "test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",
+  "test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
+  "test:jexer:strict": "deno test --unstable-temporal --allow-env --allow-read --config jexer/deno.json 'jexer/**/*.test.ts'",
 
     // === Type Checking ===
   "type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/adaptive/src/**/*.ts libraries/adaptive/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
   "type-check:focused": "deno check --unstable-temporal libraries/adaptive/src/operations/comparators/compare.ts libraries/adaptive/src/operations/comparators/amount/isLessThan/index.ts libraries/adaptive/src/operations/comparators/amount/isMoreThan/index.ts libraries/adaptive/src/operations/comparators/amount/isNoLessThan/index.ts libraries/adaptive/src/operations/comparators/equality/isEqualTo/index.ts libraries/adaptive/src/operations/comparators/equality/isUnequalTo/index.ts libraries/adaptive/src/operations/comparators/length/isLength/index.ts libraries/adaptive/src/operations/comparators/length/isLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNotLength/index.ts libraries/adaptive/src/operations/comparators/length/isSameLength/index.ts",
+  "type-check:jexer": "deno check --unstable-temporal --config jexer/deno.json 'jexer/src/**/*.ts'",
 
     // === Import Management ===
     "sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
