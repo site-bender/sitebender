@@ -1,3 +1,6 @@
+import isEmail from "../isEmail/index.ts"
+import isUrl from "../isUrl/index.ts"
+
 /**
  * Validates entire form data, returns array of errors
  *
@@ -53,15 +56,15 @@ type FormFieldRules = {
 	min?: number | string
 	max?: number | string
 	pattern?: RegExp
-	enum?: Array<any>
-	equals?: any
+	enum?: Array<unknown>
+	equals?: unknown
 	match?: string
 	after?: string
 	before?: string
-	when?: (formData: any) => boolean
-	validate?: (value: any, formData: any) => string | null
-	async?: (value: any, formData: any) => Promise<string | null>
-	transform?: (value: any) => any
+	when?: (formData: Record<string, unknown>) => boolean
+	validate?: (value: unknown, formData: Record<string, unknown>) => string | null
+	async?: (value: unknown, formData: Record<string, unknown>) => Promise<string | null>
+	transform?: (value: unknown) => unknown
 	message?: string
 }
 
@@ -69,17 +72,17 @@ type FormSchema = Record<string, FormFieldRules>
 type FormErrors = Record<string, string> | null
 
 const validateForm =
-	(schema: FormSchema) => (formData: Record<string, any>): FormErrors => {
+	(schema: FormSchema) => (formData: Record<string, unknown>): FormErrors => {
 		const errors: Record<string, string> = {}
 
 		// Validate all fields
-		Object.entries(schema).forEach(([fieldName, rules]) => {
+		for (const [fieldName, rules] of Object.entries(schema)) {
 			// Check conditional validation
 			if (rules.when && !rules.when(formData)) {
 				continue
 			}
 
-			let value = formData[fieldName]
+			let value = (formData as Record<string, unknown>)[fieldName]
 
 			// Apply transform if provided
 			if (rules.transform) {
@@ -100,10 +103,7 @@ const validateForm =
 			}
 
 			// Skip validation if not required and empty
-			if (
-				!rules.required &&
-				(value === undefined || value === null || value === "")
-			) {
+			if (!rules.required && (value === undefined || value === null || value === "")) {
 				continue
 			}
 
@@ -118,7 +118,7 @@ const validateForm =
 						}
 						break
 
-					case "number":
+					case "number": {
 						const numValue = Number(value)
 						if (isNaN(numValue)) {
 							typeError = "Must be a valid number"
@@ -126,6 +126,7 @@ const validateForm =
 							value = numValue
 						}
 						break
+					}
 
 					case "boolean":
 						if (typeof value !== "boolean") {
@@ -134,23 +135,21 @@ const validateForm =
 						break
 
 					case "email":
-						const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-						if (!emailRegex.test(String(value))) {
+						if (!isEmail({ requireTLD: true })(value)) {
 							typeError = "Invalid email format"
 						}
 						break
 
-					case "date":
+					case "date": {
 						const date = new Date(String(value))
 						if (isNaN(date.getTime())) {
 							typeError = "Invalid date format"
 						}
 						break
+					}
 
 					case "url":
-						try {
-							new URL(String(value))
-						} catch {
+						if (!isUrl()(value)) {
 							typeError = "Invalid URL format"
 						}
 						break
@@ -219,10 +218,12 @@ const validateForm =
 
 			// Date comparison validations
 			if (rules.type === "date" || value instanceof Date) {
-				const dateValue = new Date(value)
+				const dateValue = new Date(value as string | number | Date)
 
 				if (rules.after) {
-					const afterDate = new Date(formData[rules.after])
+					const afterDate = new Date(
+						(formData as Record<string, unknown>)[rules.after] as string | number | Date,
+					)
 					if (dateValue <= afterDate) {
 						errors[fieldName] = rules.message || `Must be after ${rules.after}`
 						continue
@@ -230,7 +231,9 @@ const validateForm =
 				}
 
 				if (rules.before) {
-					const beforeDate = new Date(formData[rules.before])
+					const beforeDate = new Date(
+						(formData as Record<string, unknown>)[rules.before] as string | number | Date,
+					)
 					if (dateValue >= beforeDate) {
 						errors[fieldName] = rules.message ||
 							`Must be before ${rules.before}`
@@ -247,7 +250,7 @@ const validateForm =
 					continue
 				}
 			}
-		})
+		}
 
 		// Return null if no errors
 		return Object.keys(errors).length > 0 ? errors : null

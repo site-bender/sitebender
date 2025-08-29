@@ -25,121 +25,29 @@ import type {
  * ```typescript
  * // ISO datetime strings
  * toPlainDateTime("2024-03-15T14:30:00")     // PlainDateTime 2024-03-15 14:30:00
- * toPlainDateTime("2024-03-15T14:30:00.123") // PlainDateTime 2024-03-15 14:30:00.123
- * toPlainDateTime("2024-03-15T09:05:30")     // PlainDateTime 2024-03-15 09:05:30
- * toPlainDateTime("2024-12-31T23:59:59")     // PlainDateTime 2024-12-31 23:59:59
- *
- * // Date-only strings (time defaults to midnight)
  * toPlainDateTime("2024-03-15")              // PlainDateTime 2024-03-15 00:00:00
- * toPlainDateTime("2024-12-31")              // PlainDateTime 2024-12-31 00:00:00
- *
- * // Invalid datetime strings
- * toPlainDateTime("2024-13-01T12:00:00")     // null (month 13 invalid)
- * toPlainDateTime("2024-03-15T25:00:00")     // null (hour 25 invalid)
- * toPlainDateTime("03/15/2024 2:30 PM")      // null (wrong format)
- * toPlainDateTime("")                        // null
- *
- * // Date objects
- * const jsDate = new Date("2024-03-15T14:30:45.123Z")
- * toPlainDateTime(jsDate)                    // PlainDateTime in local timezone
  *
  * // Temporal objects
- * const plainDateTime = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
- * toPlainDateTime(plainDateTime)             // PlainDateTime 2024-03-15 14:30:00 (passes through)
- *
  * const plainDate = Temporal.PlainDate.from("2024-03-15")
  * toPlainDateTime(plainDate)                 // PlainDateTime 2024-03-15 00:00:00
  *
  * const plainTime = Temporal.PlainTime.from("14:30:00")
  * toPlainDateTime(plainTime)                 // PlainDateTime 1970-01-01 14:30:00
  *
- * const zonedDateTime = Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]")
- * toPlainDateTime(zonedDateTime)             // PlainDateTime 2024-03-15 14:30:00
- *
- * // Nullish values
- * toPlainDateTime(null)                      // null
- * toPlainDateTime(undefined)                 // null
- *
  * // PlainDateTimeLike objects
  * toPlainDateTime({
  *   year: 2024, month: 3, day: 15,
  *   hour: 14, minute: 30
  * })                                          // PlainDateTime 2024-03-15 14:30:00
- * toPlainDateTime({
- *   year: 2024, month: 3, day: 15
- * })                                          // PlainDateTime 2024-03-15 00:00:00
  *
- * // Other types
- * toPlainDateTime(true)                      // null
- * toPlainDateTime(123)                       // null (numbers not supported)
- * toPlainDateTime([2024, 3, 15])             // null (arrays not supported)
+ * // Invalid inputs
+ * toPlainDateTime("2024-13-01T12:00:00")     // null (month 13 invalid)
+ * toPlainDateTime(null)                      // null
+ * toPlainDateTime(123)                       // null
  *
- * // Form input parsing
- * const dateInput = document.querySelector('input[type="date"]')?.value
- * const timeInput = document.querySelector('input[type="time"]')?.value
- * const combined = dateInput && timeInput ? `${dateInput}T${timeInput}` : null
- * const dateTime = toPlainDateTime(combined)
- *
- * // DateTime validation
- * function isInFuture(input: unknown): boolean {
- *   const dateTime = toPlainDateTime(input)
- *   if (!dateTime) return false
- *
- *   const now = Temporal.Now.plainDateTimeISO()
- *   return Temporal.PlainDateTime.compare(dateTime, now) > 0
- * }
- *
- * isInFuture("2025-01-01T00:00:00")         // depends on current date
- * isInFuture("2020-01-01T00:00:00")         // false
- *
- * // DateTime calculations
- * function hoursBetween(dt1: unknown, dt2: unknown): number | null {
- *   const dateTime1 = toPlainDateTime(dt1)
- *   const dateTime2 = toPlainDateTime(dt2)
- *
- *   if (!dateTime1 || !dateTime2) return null
- *
- *   const duration = dateTime2.since(dateTime1, { largestUnit: "hours" })
- *   return duration.hours + (duration.minutes / 60)
- * }
- *
- * hoursBetween(
- *   "2024-03-15T10:00:00",
- *   "2024-03-15T14:30:00"
- * )                                          // 4.5
- *
- * // Event scheduling
- * function scheduleEvent(dateInput: DateTimeInput, timeInput: DateTimeInput): Temporal.PlainDateTime | null {
- *   const date = toPlainDateTime(dateInput)
- *   if (!date) return null
- *
- *   const time = toPlainDateTime(timeInput)
- *   if (!time) return date
- *
- *   // Combine date from first input with time from second
- *   return date.with({
- *     hour: time.hour,
- *     minute: time.minute,
- *     second: time.second
- *   })
- * }
- *
- * scheduleEvent("2024-03-15", "14:30:00")
- * // PlainDateTime 2024-03-15 14:30:00
- *
- * // Working with datetime components
- * const dateTime = toPlainDateTime("2024-03-15T14:30:45.123")
- * if (dateTime) {
- *   console.log(dateTime.year)              // 2024
- *   console.log(dateTime.month)             // 3
- *   console.log(dateTime.day)               // 15
- *   console.log(dateTime.hour)              // 14
- *   console.log(dateTime.minute)            // 30
- *   console.log(dateTime.second)            // 45
- *   console.log(dateTime.millisecond)       // 123
- *   console.log(dateTime.dayOfWeek)         // 5 (Friday)
- *   console.log(dateTime.dayOfYear)         // 75
- * }
+ * // Date objects
+ * const jsDate = new Date("2024-03-15T14:30:45.123Z")
+ * toPlainDateTime(jsDate)                    // PlainDateTime in local timezone
  * ```
  * @pure
  * @safe

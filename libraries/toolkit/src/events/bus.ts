@@ -24,18 +24,21 @@ export type Bus = {
 	) => Unsubscribe
 }
 
-// Local document-scoped bus using CustomEvent; safe under strong CSP (no eval)
+// DOM-agnostic structural types
+type DomDispatcher = {
+	dispatchEvent: (e: Event) => boolean
+	addEventListener: (type: string, listener: (e: Event) => void) => void
+	removeEventListener: (type: string, listener: (e: Event) => void) => void
+}
+
+// Local document-scoped bus using CustomEvent when available; falls back to simple Event
 export function createLocalBus(
-	scope: Document | {
-		dispatchEvent: (e: Event) => void
-		addEventListener: Document["addEventListener"]
-		removeEventListener: Document["removeEventListener"]
-	},
+	scope: DomDispatcher,
 	source = "local",
 ): Bus {
 	const id = () =>
 		`${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
-	const dispatcher = scope as unknown as Document
+	const dispatcher = scope
 
 	return {
 		publish(topic, payload, meta) {
@@ -48,7 +51,13 @@ export function createLocalBus(
 				payload,
 				meta,
 			}
-			const event = new CustomEvent(`bus:${topic}`, { detail: envelope })
+			// Create a CustomEvent if supported; otherwise a plain Event
+			const CE = (globalThis as unknown as {
+				CustomEvent?: new (type: string, init?: { detail?: unknown }) => Event
+			}).CustomEvent
+			const event = CE
+				? new CE(`bus:${topic}`, { detail: envelope })
+				: new Event(`bus:${topic}`)
 			dispatcher.dispatchEvent(event)
 		},
 		subscribe<T>(
@@ -58,15 +67,14 @@ export function createLocalBus(
 		) {
 			const eventName = `bus:${topic}`
 			const listener = (e: Event) => {
-				const ce = e as CustomEvent<BusEnvelope<T>>
-				handler(ce.detail)
+				const detail = (e as unknown as { detail?: BusEnvelope<T> }).detail
+				if (detail) handler(detail)
 				if (options?.once) {
-					dispatcher.removeEventListener(eventName, listener as EventListener)
+					dispatcher.removeEventListener(eventName, listener)
 				}
 			}
-			dispatcher.addEventListener(eventName, listener as EventListener)
-			return () =>
-				dispatcher.removeEventListener(eventName, listener as EventListener)
+			dispatcher.addEventListener(eventName, listener)
+			return () => dispatcher.removeEventListener(eventName, listener)
 		},
 	}
 }
@@ -76,22 +84,29 @@ export function createBroadcastBus(
 	channelName = "sitebender",
 	source = "broadcast",
 ): Bus {
-	const local = typeof document !== "undefined"
-		? createLocalBus(document, source)
-		: {
-			publish: () => {},
-			subscribe: () => () => {},
-		} as Bus
+	const doc = (globalThis as unknown as { document?: DomDispatcher }).document
+	const local: Bus = doc
+		? createLocalBus(doc, source)
+		: { publish: () => {}, subscribe: () => () => {} }
 
-	if (
-		typeof globalThis === "undefined" ||
-		typeof (globalThis as { BroadcastChannel?: unknown }).BroadcastChannel ===
-			"undefined"
-	) {
-		return local
-	}
+	const BC = (globalThis as unknown as {
+		BroadcastChannel?: new (name: string) => {
+			postMessage: (x: unknown) => void
+			addEventListener: (
+				type: "message",
+				handler: (e: { data: BusEnvelope }) => void,
+			) => void
+			removeEventListener: (
+				type: "message",
+				handler: (e: { data: BusEnvelope }) => void,
+			) => void
+			close?: () => void
+		}
+	}).BroadcastChannel
 
-	const bc = new BroadcastChannel(channelName)
+	if (!BC) return local
+
+	const bc = new BC(channelName)
 
 	return {
 		publish(topic, payload, meta) {
@@ -108,9 +123,14 @@ export function createBroadcastBus(
 			}
 			bc.postMessage(envelope)
 			// Also emit locally so in-tab listeners receive immediately
-			if (typeof document !== "undefined") {
-				const event = new CustomEvent(`bus:${topic}`, { detail: envelope })
-				document.dispatchEvent(event)
+			if (doc) {
+				const CE = (globalThis as unknown as {
+					CustomEvent?: new (type: string, init?: { detail?: unknown }) => Event
+				}).CustomEvent
+				const event = CE
+					? new CE(`bus:${topic}`, { detail: envelope })
+					: new Event(`bus:${topic}`)
+				doc.dispatchEvent(event)
 			}
 		},
 		subscribe<T>(
@@ -118,11 +138,10 @@ export function createBroadcastBus(
 			handler: Handler<T>,
 			options?: { once?: boolean },
 		) {
-			const unsubLocal = typeof document !== "undefined"
-				? createLocalBus(document, source).subscribe(topic, handler, options)
-				: () => {}
-			const onMessage = (e: MessageEvent<BusEnvelope<T>>) => {
-				if (e.data.topic === topic) handler(e.data)
+			const unsubLocal = doc ? local.subscribe(topic, handler, options) : () => {}
+					const onMessage = (e: { data: BusEnvelope<unknown> }) => {
+						const data = e.data as BusEnvelope<T>
+						if (data.topic === topic) handler(data)
 			}
 			bc.addEventListener("message", onMessage)
 			return () => {

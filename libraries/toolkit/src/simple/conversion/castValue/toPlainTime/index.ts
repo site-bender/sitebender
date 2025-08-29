@@ -25,110 +25,23 @@ import type {
  * toPlainTime("14:30:00")          // PlainTime 14:30:00
  * toPlainTime("14:30")             // PlainTime 14:30:00
  * toPlainTime("14:30:00.123")      // PlainTime 14:30:00.123
- * toPlainTime("09:05:30")          // PlainTime 09:05:30
- * toPlainTime("00:00:00")          // PlainTime 00:00:00 (midnight)
- * toPlainTime("23:59:59")          // PlainTime 23:59:59
- *
- * // Invalid time strings
- * toPlainTime("25:00:00")          // null (hour 25 invalid)
- * toPlainTime("14:60:00")          // null (minute 60 invalid)
- * toPlainTime("14:30:60")          // null (second 60 invalid)
- * toPlainTime("2:30 PM")           // null (wrong format)
- * toPlainTime("14h30")             // null (wrong format)
- * toPlainTime("")                  // null
- *
- * // Date objects (extracts time)
- * const jsDate = new Date("2024-03-15T14:30:45.123Z")
- * toPlainTime(jsDate)              // PlainTime from local time
  *
  * // Temporal objects
- * const plainTime = Temporal.PlainTime.from("14:30:00")
- * toPlainTime(plainTime)           // PlainTime 14:30:00 (passes through)
- *
  * const dateTime = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
  * toPlainTime(dateTime)            // PlainTime 14:30:00
  *
  * // PlainTimeLike objects
  * toPlainTime({ hour: 14, minute: 30 })          // PlainTime 14:30:00
  * toPlainTime({ hour: 9, minute: 5, second: 30 }) // PlainTime 09:05:30
- * toPlainTime({ hour: 14 })                      // PlainTime 14:00:00
- * toPlainTime({ hour: 25 })                      // null (invalid hour)
- * toPlainTime({ minute: 30 })                    // PlainTime 00:30:00
  *
- * // Nullish values
+ * // Invalid inputs
+ * toPlainTime("25:00:00")          // null (hour 25 invalid)
  * toPlainTime(null)                // null
- * toPlainTime(undefined)           // null
+ * toPlainTime(123)                 // null
  *
- * // Other types
- * toPlainTime(true)                // null
- * toPlainTime(123)                 // null (numbers not supported)
- * toPlainTime([14, 30, 0])         // null (arrays not supported)
- *
- * // Form input parsing
- * const timeInput = document.querySelector('input[type="time"]')
- * const time = toPlainTime(timeInput?.value)
- * if (time) {
- *   console.log(`Selected: ${time.hour}:${time.minute}`)
- * }
- *
- * // Time validation
- * function isBusinessHours(input: unknown): boolean {
- *   const time = toPlainTime(input)
- *   if (!time) return false
- *
- *   const start = Temporal.PlainTime.from("09:00")
- *   const end = Temporal.PlainTime.from("17:00")
- *
- *   return Temporal.PlainTime.compare(time, start) >= 0 &&
- *          Temporal.PlainTime.compare(time, end) <= 0
- * }
- *
- * isBusinessHours("10:30")         // true
- * isBusinessHours("08:30")         // false (before 9am)
- * isBusinessHours("18:00")         // false (after 5pm)
- *
- * // Time calculations
- * function minutesBetween(time1: unknown, time2: unknown): number | null {
- *   const t1 = toPlainTime(time1)
- *   const t2 = toPlainTime(time2)
- *
- *   if (!t1 || !t2) return null
- *
- *   // Convert to total minutes for comparison
- *   const minutes1 = t1.hour * 60 + t1.minute
- *   const minutes2 = t2.hour * 60 + t2.minute
- *
- *   return minutes2 - minutes1
- * }
- *
- * minutesBetween("09:00", "10:30")  // 90
- * minutesBetween("14:15", "14:45")  // 30
- *
- * // Working with time components
- * const time = toPlainTime("14:30:45.123")
- * if (time) {
- *   console.log(time.hour)          // 14
- *   console.log(time.minute)        // 30
- *   console.log(time.second)        // 45
- *   console.log(time.millisecond)   // 123
- *   console.log(time.microsecond)   // 0
- *   console.log(time.nanosecond)    // 0
- * }
- *
- * // Formatting for display
- * function formatTime(input: TimeInput): string {
- *   const time = toPlainTime(input)
- *   if (!time) return "Invalid time"
- *
- *   const h = String(time.hour).padStart(2, "0")
- *   const m = String(time.minute).padStart(2, "0")
- *   const s = String(time.second).padStart(2, "0")
- *
- *   return `${h}:${m}:${s}`
- * }
- *
- * formatTime("9:5:3")               // "09:05:03"
- * formatTime({ hour: 14 })          // "14:00:00"
+ * // Date objects (extracts time)
+ * const jsDate = new Date("2024-03-15T14:30:45.123Z")
+ * toPlainTime(jsDate)              // PlainTime from local time
  * ```
  * @pure
  * @safe

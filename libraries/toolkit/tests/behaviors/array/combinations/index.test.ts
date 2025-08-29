@@ -186,10 +186,10 @@ Deno.test("combinations property - each combination has size k", () => {
 	)
 })
 
-Deno.test("combinations property - combinations are unique", () => {
+Deno.test("combinations property - combinations are unique (on distinct inputs)", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer(), { minLength: 0, maxLength: 10 }),
+			fc.uniqueArray(fc.integer(), { minLength: 0, maxLength: 10 }),
 			fc.integer({ min: 0, max: 10 }),
 			(arr, k) => {
 				const result = combinations(k)(arr)
@@ -201,10 +201,10 @@ Deno.test("combinations property - combinations are unique", () => {
 	)
 })
 
-Deno.test("combinations property - maintains element order", () => {
+Deno.test("combinations property - maintains element order (on distinct inputs)", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer(), { minLength: 0, maxLength: 10 }),
+			fc.uniqueArray(fc.integer(), { minLength: 0, maxLength: 10 }),
 			fc.integer({ min: 1, max: 10 }),
 			(arr, k) => {
 				const result = combinations(k)(arr)

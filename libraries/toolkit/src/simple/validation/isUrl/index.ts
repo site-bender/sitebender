@@ -102,13 +102,13 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 
 			// Check localhost restriction
 			if (options.disallowLocalhost) {
-				const localhostPatterns = [
+				const localhostPatterns = new Set([
 					"localhost",
 					"127.0.0.1",
-					"[::1]",
+					"::1",
 					"0.0.0.0",
-				]
-				if (localhostPatterns.includes(url.hostname)) {
+				])
+				if (localhostPatterns.has(url.hostname)) {
 					return false
 				}
 			}

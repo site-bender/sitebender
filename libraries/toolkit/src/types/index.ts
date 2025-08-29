@@ -28,9 +28,6 @@ export type Value =
 	| Temporal.PlainTime
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
-	| Temporal.Instant
-	| Temporal.Duration
-	| Record<string | symbol, unknown>
 
 /**
  * Datatype identifiers for type conversions and validations
@@ -66,7 +63,17 @@ export const isValue = (val: unknown): val is Value => {
 		return val.every(isValue)
 	}
 
-	if (val instanceof Map || val instanceof Set) {
+	if (val instanceof Map) {
+		for (const [k, v] of val.entries()) {
+			if (typeof k !== "string" || !isValue(v)) return false
+		}
+		return true
+	}
+
+	if (val instanceof Set) {
+		for (const v of val.values()) {
+			if (!isValue(v)) return false
+		}
 		return true
 	}
 
@@ -75,16 +82,17 @@ export const isValue = (val: unknown): val is Value => {
 		val instanceof Temporal.PlainDate ||
 		val instanceof Temporal.PlainTime ||
 		val instanceof Temporal.PlainDateTime ||
-		val instanceof Temporal.ZonedDateTime ||
-		val instanceof Temporal.Instant ||
-		val instanceof Temporal.Duration
+		val instanceof Temporal.ZonedDateTime
 	) {
 		return true
 	}
 
 	if (type === "object" && val !== null) {
-		// Plain object
-		return Object.values(val).every(isValue)
+		// Plain object with string keys only
+		for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
+			if (typeof k !== "string" || !isValue(v)) return false
+		}
+		return true
 	}
 
 	return false

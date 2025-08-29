@@ -7,7 +7,11 @@
  * Works with PlainDate, PlainTime, PlainDateTime, ZonedDateTime, and Instant.
  *
  * @param locale - BCP 47 language tag (e.g., "en-US", "fr-FR")
- * @param options - Intl.DateTimeFormatOptions for formatting
+ * @param options - Intl.DateTimeFormatOptions for formatting. Additionally supports
+ *   an optional `timeZoneMode` extension for handling PlainDate/PlainTime/PlainDateTime
+ *   conversion to JS Date:
+ *   - "local" (default): interpret values in the local time zone
+ *   - "utc": interpret values in UTC (e.g., PlainDate at 00:00:00 UTC)
  * @param temporal - The Temporal object to format
  * @returns Formatted string, or ISO string if formatting fails
  * @example
@@ -53,62 +57,101 @@
  * @safe
  * @curried
  */
+type FormatOptions = Intl.DateTimeFormatOptions & { timeZoneMode?: "local" | "utc" }
+
 const format =
 	(locale: string = "en-US") =>
-	(options: Intl.DateTimeFormatOptions = {}) =>
+	(options: FormatOptions = {}) =>
 	(
 		temporal:
-			| Temporal.PlainDate
-			| Temporal.PlainTime
-			| Temporal.PlainDateTime
-			| Temporal.ZonedDateTime
-			| Temporal.Instant
+			| unknown
 			| null
 			| undefined,
 	): string => {
-		if (temporal == null) {
+		if (temporal === null || temporal === undefined) {
 			return ""
 		}
 
 		try {
 			// Convert Temporal objects to a format Intl can use
 			let dateToFormat: Date
+			const tzMode = options.timeZoneMode ?? "local"
 
 			if (temporal instanceof Temporal.PlainDate) {
-				// Convert PlainDate to Date at midnight UTC
-				dateToFormat = new Date(temporal.year, temporal.month - 1, temporal.day)
+				const t = temporal as unknown as { year: number; month: number; day: number }
+				// Convert PlainDate to Date at midnight in selected time zone
+				dateToFormat = tzMode === "utc"
+					? new Date(Date.UTC(t.year, t.month - 1, t.day))
+					: new Date(t.year, t.month - 1, t.day)
 			} else if (temporal instanceof Temporal.PlainTime) {
-				// Use today's date with the time
+				// Use today's date with the time, in selected time zone
+				const t = temporal as unknown as {
+					hour?: number
+					minute?: number
+					second?: number
+					millisecond?: number
+				}
 				const today = new Date()
-				dateToFormat = new Date(
-					today.getFullYear(),
-					today.getMonth(),
-					today.getDate(),
-					temporal.hour,
-					temporal.minute,
-					temporal.second,
-					temporal.millisecond,
-				)
+				dateToFormat = tzMode === "utc"
+					? new Date(
+						Date.UTC(
+							today.getFullYear(),
+							today.getMonth(),
+							today.getDate(),
+							t.hour ?? 0,
+							t.minute ?? 0,
+							t.second ?? 0,
+							t.millisecond ?? 0,
+						),
+					)
+					: new Date(
+						today.getFullYear(),
+						today.getMonth(),
+						today.getDate(),
+						t.hour ?? 0,
+						t.minute ?? 0,
+						t.second ?? 0,
+						t.millisecond ?? 0,
+					)
 			} else if (temporal instanceof Temporal.PlainDateTime) {
-				// Convert PlainDateTime to Date
-				dateToFormat = new Date(
-					temporal.year,
-					temporal.month - 1,
-					temporal.day,
-					temporal.hour,
-					temporal.minute,
-					temporal.second,
-					temporal.millisecond,
-				)
-			} else if (temporal instanceof Temporal.ZonedDateTime) {
-				// ZonedDateTime can be converted to Instant then Date
-				dateToFormat = new Date(temporal.epochMilliseconds)
-			} else if (temporal instanceof Temporal.Instant) {
-				// Instant has epochMilliseconds
+				// Convert PlainDateTime to Date in selected time zone
+				const t = temporal as unknown as {
+					year: number
+					month: number
+					day: number
+					hour?: number
+					minute?: number
+					second?: number
+					millisecond?: number
+				}
+				dateToFormat = tzMode === "utc"
+					? new Date(
+						Date.UTC(
+							t.year,
+							t.month - 1,
+							t.day,
+							t.hour ?? 0,
+							t.minute ?? 0,
+							t.second ?? 0,
+							t.millisecond ?? 0,
+						),
+					)
+					: new Date(
+						t.year,
+						t.month - 1,
+						t.day,
+						t.hour ?? 0,
+						t.minute ?? 0,
+						t.second ?? 0,
+						t.millisecond ?? 0,
+					)
+			} else if (hasEpochMilliseconds(temporal)) {
+				// Handle Temporal.Instant or Temporal.ZonedDateTime via duck typing
 				dateToFormat = new Date(temporal.epochMilliseconds)
 			} else {
 				// Unsupported type, return ISO string
-				return temporal.toString()
+				const t = temporal as { toString?: () => string }
+				return typeof t.toString === "function" ? t.toString() : ""
 			}
 
 			// Create formatter and format the date
@@ -123,5 +166,11 @@ const format =
 			}
 		}
 	}
+
+function hasEpochMilliseconds(x: unknown): x is { epochMilliseconds: number } {
+	if (typeof x !== "object" || x === null) return false
+	const r = x as Record<string, unknown>
+	return typeof r.epochMilliseconds === "number"
+}
 
 export default format
