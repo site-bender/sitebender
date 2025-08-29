@@ -11,9 +11,9 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 
 ## Target Completion
 
-**Current Progress**: 784/789+ files (99.4% complete of simple/ folders)
-**Time Spent**: ~1263 minutes (21.05 hours)
-**Average Speed**: 1.61 minutes/file
+**Current Progress**: 796/801+ files (99.4% complete of simple/ folders + io/ progress)
+**Time Spent**: ~1293 minutes (21.55 hours)
+**Average Speed**: 1.62 minutes/file
 
 **Remaining Work**: Many files in non-simple folders
 - special/: COMPLETE ✅ (all 8 files done - includes aliases)
@@ -24,10 +24,10 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 - trigonometry/: COMPLETE ✅ (all 19 files done)
 - tuple/: COMPLETE ✅ (all 12 files done)
 - either/: COMPLETE ✅ (all 18 files done)
-- debug/: 1 file done (withInspect)
-- error/: NOT STARTED (11 files)
-- events/: NOT STARTED (unknown count)
-- io/: NOT STARTED (unknown count)
+- debug/: COMPLETE ✅ (1 file - withInspect)
+- error/: COMPLETE ✅ (all 11 files checked - already properly formatted)
+- events/: COMPLETE ✅ (1 file - bus.ts has no JSDoc to fix)
+- io/: IN PROGRESS (12 files done, ~7 remaining)
 - maybe/: NOT STARTED (unknown count)
 - random/: NOT STARTED (unknown count)
 - result/: NOT STARTED (unknown count)
@@ -40,6 +40,33 @@ DO NOT put session logs in FIX.md - that file is for the plan and instructions o
 ## Session Logs
 
 **CRITICAL NOTE**: Place new session logs at the top of this list. The list is chronological in descending order.
+
+### Session 55 - 2025-08-29
+**Folders**: error/ (checked), events/ (checked), io/ (12 files processed)
+**Files Processed**: 12 files total
+- **error/** (11 files checked - all already properly formatted, no changes needed)
+- **events/bus.ts** (checked - no JSDoc to fix, just type definitions)
+- **io/** (12 files processed):
+  - ap ✓ (reduced 143→24 lines, fixed @property tags to @pure @curried)
+  - chain ✓ (reduced 136→25 lines, fixed @property tags to @pure @curried)
+  - chainIOEither ✓ (reduced 247→39 lines, fixed @property tags to @pure @curried)
+  - chainIOMaybe ✓ (reduced 238→29 lines, fixed @property tags to @pure @curried)
+  - fromEither ✓ (reduced 244→24 lines, fixed @property tags to @pure)
+  - fromIO ✓ (reduced 175→26 lines, fixed @property tags to @pure)
+  - fromMaybe ✓ (reduced 206→26 lines, fixed @property tags to @pure)
+  - io ✓ (reduced 104→31 lines, fixed @property tags to @impure)
+  - ioEither ✓ (reduced 204→33 lines, fixed @property tags to @impure)
+  - ioMaybe ✓ (reduced 212→35 lines, fixed @property tags to @impure)
+  - ioToIOEither ✓ (reduced 335→27 lines, fixed @property tags to @pure)
+  - ioToIOMaybe ✓ (reduced 242→26 lines, fixed @property tags to @pure)
+**Start Time**: 2025-08-29T15:00:00+12:00
+**End Time**: 2025-08-29T15:30:00+12:00
+**Duration**: ~30 minutes
+**Issues Fixed**:
+- Replaced ALL @property tags with proper custom tags (@pure, @curried, @impure)
+- MASSIVELY reduced examples (average 80-90% reduction in many files)
+- All io/ functions properly documented with correct JSDoc tags
+**Notes**: Processed files ONE AT A TIME carefully. Found that error/ files were already properly formatted. The io/ folder has significant progress with 12 files done. Note that some io functions are marked @impure since they handle side effects.
 
 ### Session 54 - 2025-08-29
 **Folder**: either/ (completed - remaining 12 files)
