@@ -6,28 +6,28 @@
  * retry conditions. Useful for handling transient failures in network requests,
  * database operations, or any operation that might temporarily fail.
  *
- * @curried (options) => (fn) => Promise<T>
  * @param options - Configuration for retry behavior
  * @param fn - The async function to retry
  * @returns Promise resolving to the function's successful result
+ * @curried
+ * @impure
  * @example
  * ```typescript
  * // Basic retry with default options (3 attempts, no delay)
  * const result = await retry()(async () => {
- *   const response = await fetch("/api/flaky-endpoint")
- *   if (!response.ok) throw new Error("Request failed")
+ *   const response = await fetch("/api/flaky")
+ *   if (!response.ok) throw new Error("Failed")
  *   return response.json()
  * })
  *
  * // Retry with custom attempts and delay
  * const fetchWithRetry = retry({
  *   attempts: 5,
- *   delay: 1000 // 1 second between retries
+ *   delay: 1000
  * })
- *
- * const data = await fetchWithRetry(async () => {
- *   return fetch("/api/data").then(r => r.json())
- * })
+ * const data = await fetchWithRetry(async () => 
+ *   fetch("/api/data").then(r => r.json())
+ * )
  *
  * // Exponential backoff
  * const exponentialRetry = retry({
@@ -36,181 +36,29 @@
  *   exponential: true // 1s, 2s, 4s, 8s
  * })
  *
- * const result = await exponentialRetry(async () => {
- *   return unstableOperation()
- * })
- *
- * // Linear backoff with multiplier
- * const linearRetry = retry({
- *   attempts: 5,
- *   delay: 500,
- *   multiplier: 1.5 // 500ms, 750ms, 1125ms, ...
- * })
- *
  * // Custom retry condition
- * const retryOnSpecificErrors = retry({
+ * const retryOnNetwork = retry({
  *   attempts: 3,
  *   delay: 1000,
- *   shouldRetry: (error, attempt) => {
- *     // Only retry on network errors or 5xx status codes
- *     if (error.code === "NETWORK_ERROR") return true
- *     if (error.status >= 500 && error.status < 600) return true
- *     return false
- *   }
- * })
- *
- * // With maximum delay cap
- * const cappedBackoff = retry({
- *   attempts: 10,
- *   delay: 100,
- *   exponential: true,
- *   maxDelay: 5000 // Never wait more than 5 seconds
- * })
- *
- * // Retry with jitter to prevent thundering herd
- * const jitteredRetry = retry({
- *   attempts: 5,
- *   delay: 1000,
- *   jitter: true // Adds random variation to delays
- * })
- *
- * // Custom error handling
- * const retryWithLogging = retry({
- *   attempts: 3,
- *   delay: 1000,
- *   onError: (error, attempt) => {
- *     console.log(`Attempt ${attempt} failed:`, error.message)
- *   }
+ *   shouldRetry: (error) => error.code === "NETWORK_ERROR"
  * })
  *
  * // Database operations with retry
- * const saveToDatabase = retry({
+ * const saveToDb = retry({
  *   attempts: 3,
  *   delay: 500,
- *   shouldRetry: (error) => {
- *     // Retry on connection errors, not on validation errors
- *     return error.code === "ECONNREFUSED" ||
- *            error.code === "ETIMEDOUT"
- *   }
+ *   shouldRetry: (e) => e.code === "ECONNREFUSED"
  * })
- *
- * await saveToDatabase(async () => {
- *   return db.collection("users").insertOne(userData)
- * })
- *
- * // API rate limit handling
- * const respectRateLimit = retry({
- *   attempts: 5,
- *   delay: 0,
- *   shouldRetry: (error) => error.status === 429,
- *   onError: (error, attempt) => {
- *     if (error.status === 429) {
- *       const retryAfter = error.headers?.["retry-after"]
- *       if (retryAfter) {
- *         return { delay: parseInt(retryAfter) * 1000 }
- *       }
- *     }
- *   }
- * })
- *
- * // Immediate retry for specific conditions
- * const immediateRetry = retry({
- *   attempts: 3,
- *   delay: 0, // No delay between retries
- *   shouldRetry: (error) => error.temporary === true
- * })
- *
- * // Circuit breaker pattern
- * let consecutiveFailures = 0
- * const circuitBreaker = retry({
- *   attempts: 3,
- *   delay: 1000,
- *   shouldRetry: (error, attempt) => {
- *     if (consecutiveFailures >= 10) {
- *       console.error("Circuit breaker open")
- *       return false
- *     }
- *     return true
- *   },
- *   onError: () => consecutiveFailures++,
- *   onSuccess: () => consecutiveFailures = 0
- * })
- *
- * // Retry with timeout per attempt
- * import race from "../race/index.ts"
- * import delayReject from "../delayReject/index.ts"
- *
- * const retryWithTimeout = retry({
- *   attempts: 3,
- *   delay: 1000
- * })
- *
- * const result = await retryWithTimeout(async () => {
- *   return race([
- *     async () => slowOperation(),
- *     async () => delayReject(5000)(new Error("Timeout"))
- *   ])
- * })
+ * await saveToDb(async () => db.save(data))
  *
  * // Partial application for different scenarios
  * const quickRetry = retry({ attempts: 2, delay: 100 })
  * const robustRetry = retry({ attempts: 5, delay: 1000, exponential: true })
- * const infiniteRetry = retry({ attempts: Infinity, delay: 5000 })
  *
- * // Use based on criticality
- * const fetchData = critical
- *   ? robustRetry(fetchOperation)
- *   : quickRetry(fetchOperation)
- *
- * // Testing with controlled failures
- * let callCount = 0
- * const result = await retry({ attempts: 3 })(async () => {
- *   callCount++
- *   if (callCount < 3) {
- *     throw new Error(`Attempt ${callCount} failed`)
- *   }
- *   return "Success on third try"
- * })
- * console.log(result) // "Success on third try"
- * console.log(callCount) // 3
- *
- * // No retry (attempts = 1)
- * const noRetry = retry({ attempts: 1 })
- * try {
- *   await noRetry(async () => { throw new Error("Fail") })
- * } catch (err) {
- *   console.log("Failed immediately, no retry")
- * }
- *
- * // Complex retry strategy
- * const advancedRetry = retry({
- *   attempts: 10,
- *   delay: 100,
- *   multiplier: 2,
- *   maxDelay: 10000,
- *   jitter: true,
- *   shouldRetry: (error, attempt) => {
- *     // Stop retrying after 5 attempts for permanent errors
- *     if (error.permanent && attempt > 5) return false
- *     // Always retry temporary errors
- *     if (error.temporary) return true
- *     // Retry others up to max attempts
- *     return true
- *   },
- *   onError: (error, attempt, nextDelay) => {
- *     console.log(`Attempt ${attempt} failed, retrying in ${nextDelay}ms`)
- *   }
- * })
- *
- * // Type preservation
- * const typedRetry = retry({ attempts: 3 })
- * const stringResult = await typedRetry(async () => "hello")
- * const numberResult = await typedRetry(async () => 42)
- * // TypeScript preserves return types
+ * // Edge cases
+ * retry({ attempts: 1 }) // No retry, single attempt
+ * retry({ attempts: 0 }) // Throws error
  * ```
- * @property Configurable - Flexible retry strategies via options
- * @property Exponential backoff - Optional exponential delay increase
- * @property Conditional - Custom logic for when to retry
  */
 
 type RetryOptions = {
@@ -265,10 +113,11 @@ async <T>(
 		)
 	}
 
-	let lastError: any
-	let currentDelay = delay
-
-	for (let attempt = 1; attempt <= attempts; attempt++) {
+	// Recursive retry implementation
+	const attemptFn = async (
+		attempt: number,
+		currentDelay: number,
+	): Promise<T> => {
 		try {
 			const result = await fn()
 
@@ -279,24 +128,25 @@ async <T>(
 
 			return result
 		} catch (error) {
-			lastError = error
-
 			// Check if we should retry
 			if (attempt === attempts || !shouldRetry(error, attempt)) {
 				throw error
 			}
 
 			// Calculate next delay
-			let nextDelay = currentDelay
+			const baseNextDelay = exponential
+				? currentDelay * multiplier
+				: multiplier !== 1
+				? currentDelay + (delay * (multiplier - 1))
+				: currentDelay
 
 			// Add jitter if enabled (±25% variation)
-			if (jitter && nextDelay > 0) {
-				const jitterAmount = nextDelay * 0.25
-				nextDelay = nextDelay + (Math.random() * 2 - 1) * jitterAmount
-			}
+			const jitteredDelay = jitter && baseNextDelay > 0
+				? baseNextDelay + (Math.random() * 2 - 1) * baseNextDelay * 0.25
+				: baseNextDelay
 
 			// Cap the delay
-			nextDelay = Math.min(nextDelay, maxDelay)
+			const nextDelay = Math.min(jitteredDelay, maxDelay)
 
 			// Call error callback if provided
 			if (onError) {
@@ -304,21 +154,16 @@ async <T>(
 			}
 
 			// Wait before next attempt (if delay > 0)
-			if (nextDelay > 0) {
-				await new Promise((resolve) => setTimeout(resolve, nextDelay))
+			if (currentDelay > 0) {
+				await new Promise((resolve) => setTimeout(resolve, currentDelay))
 			}
 
-			// Update delay for next iteration
-			if (exponential) {
-				currentDelay = currentDelay * multiplier
-			} else if (multiplier !== 1) {
-				currentDelay = currentDelay + (delay * (multiplier - 1))
-			}
+			// Recursive call for next attempt
+			return attemptFn(attempt + 1, baseNextDelay)
 		}
 	}
 
-	// This should never be reached due to the throw in the loop
-	throw lastError
+	return attemptFn(1, delay)
 }
 
 export default retry
