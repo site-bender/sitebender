@@ -1,30 +1,103 @@
-# FIX THE STUPID DOCS - JSDoc Remediation Plan
+# Toolkit Null/Undefined Validation Functions Migration - Session Continuation
 
-## 🚀 QUICK START FOR NEXT SESSION
-**Status**: 275/763 files complete (36.1%) - Phase 2 IN PROGRESS
-**Completed**: Math ✅, Logic ✅, Combinator ✅, Conversion ✅, String ✅, Array (partial)
-**Next**: Continue `array/` folder from `reduceWhile` - 57 files remaining
-**Last Session**: Session 15 processed 10 array files (omit through reduceRight)
-**Branch**: phase-2
+## Current Status
 
-## Session 15 Summary - 2025-08-26
-**Folder**: array/
-**Files Processed**: omit, pairwise, partition, partitionBy, permutations, pluck, range, rangeStep, reduce, reduceRight
-**Duration**: ~15 minutes
-**Issues Fixed**:
-- Replaced @property tags with @pure, @curried, @immutable, @safe
-- Reduced examples to 8-10 per function
-- Fixed imperative code in pairwise, partitionBy, range, rangeStep, reduceRight
-- Replaced for loops with Array.from(), reduce(), and native array methods
+### Completed Work (Session 1)
+1. **Created new validation functions** in `libraries/toolkit/src/simple/validation/`:
+   - `isNull/index.ts` - Strict null check (=== null)
+   - `isNotNull/index.ts` - Strict not null check (!== null)
+   - `isNotUndefined/index.ts` - Strict not undefined check (!== undefined)
+   - `isNotNil/index.ts` - Alias for isNotNullish
 
-## Session 13-14 Summary - 2025-08-26
-**Files Processed**: 
-- Session 13: insertAt, interleave, intersection, intersectionWith, intersperse, isEmpty, join, last, lastIndexOf, lastIndexOfMatch
-- Session 14: map, mapAccum, mapAccumRight, maximumBy, minimumBy, move, none, nth, nub, nubBy
+2. **Updated existing validation function**:
+   - `isNil/index.ts` - Now delegates to `isNullish` instead of duplicating logic
 
-## Next Session Instructions
-Continue from `reduceWhile` in the array folder. Use Task tool for batches of 8-10 files with clear instructions. Remember:
-- Fix @property tags → custom tags
-- Reduce examples to 8-10 essential ones
-- Replace imperative code with FP patterns
-- Ensure all examples are valid TypeScript
+3. **Partially migrated null/undefined checks** in 31 files (out of 427 that need updating)
+
+### Remaining Work
+
+## CRITICAL: Full Scope of Required Changes
+
+According to the search results, there are **679 instances of direct null/undefined comparisons across 427 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 12 at a session, then update the list of completed files, commit the changes, and stop.**
+
+### Replacement Patterns Required
+
+| Current Pattern | Replace With | Import From |
+|----------------|--------------|-------------|
+| `value == null` | `isNullish(value)` | Relative path to `simple/validation/isNullish/index.ts` |
+| `value != null` | `isNotNullish(value)` | Relative path to `simple/validation/isNotNullish/index.ts` |
+| `value === null` | `isNull(value)` | Relative path to `simple/validation/isNull/index.ts` |
+| `value !== null` | `isNotNull(value)` | Relative path to `simple/validation/isNotNull/index.ts` |
+| `value === undefined` | `isUndefined(value)` | Relative path to `simple/validation/isUndefined/index.ts` |
+| `value !== undefined` | `isNotUndefined(value)` | Relative path to `simple/validation/isNotUndefined/index.ts` |
+| `value === null \|\| value === undefined` | `isNullish(value)` | Relative path to `simple/validation/isNullish/index.ts` |
+| `value !== null && value !== undefined` | `isNotNullish(value)` | Relative path to `simple/validation/isNotNullish/index.ts` |
+
+### Files to Skip
+Do NOT modify the validation functions themselves:
+- `isNull/index.ts`
+- `isNotNull/index.ts`
+- `isNullish/index.ts`
+- `isNotNullish/index.ts`
+- `isNil/index.ts`
+- `isNotNil/index.ts`
+- `isUndefined/index.ts`
+- `isNotUndefined/index.ts`
+- `isDefined/index.ts`
+
+### Already Completed Files (31 files)
+These files have already been updated and should be skipped:
+- `either/`: leftWithInspect, rightWithInspect, show
+- `maybe/`: fromNullable, justWithInspect, show
+- `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
+- `simple/array/`: init
+- `simple/async/`: parallel, parallelLimit, race, waterfall
+- `simple/math/`: clamp, sum
+- `simple/object/`: where, whereEq
+- `simple/statistics/`: variance
+- `simple/temporal/`: addMonths, adjustTime
+- `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
+- `state/`: store.ts
+- `types/`: index.ts
+
+## Empty Check Replacements (Lower Priority)
+
+After completing null/undefined replacements, also replace:
+- `array.length === 0` → `isEmpty(array)` from `simple/array/isEmpty`
+- `str.length === 0` → `isEmpty(str)` from `simple/validation/isEmpty`
+- `Object.keys(obj).length === 0` → `isEmpty(obj)` from `simple/validation/isEmpty`
+
+## Next Steps
+
+1. **Systematically process the remaining ~396 files** that contain direct null/undefined comparisons
+2. **Use the Task tool or MultiEdit** for batch processing to handle multiple files efficiently
+3. **Group files by directory** for organized processing (e.g., all temporal files, all math files, etc.)
+4. **Run tests after each batch** to ensure no regressions
+5. **Commit changes in logical groups** (e.g., "fix(toolkit): replace null checks in temporal functions")
+
+## Important Notes
+
+- **Import paths must be relative** - Calculate correct relative path from each file to the validation functions
+- **Preserve exact formatting** - Maintain indentation and code style
+- **Test frequently** - Run `deno test libraries/toolkit/tests --allow-all` after each batch
+- **Handle all variations** - Check for reversed comparisons like `null == value` or `undefined === value`
+- **Check for compound conditions** - Look for patterns like `if (x === null || x === undefined)` that should become `if (isNullish(x))`
+
+## Verification
+
+To verify remaining work:
+```bash
+# Count remaining instances
+grep -r "== null\|!= null\|=== null\|!== null\|=== undefined\|!== undefined" libraries/toolkit/src --include="*.ts" --include="*.tsx" | wc -l
+
+# List files still needing updates
+grep -r "== null\|!= null\|=== null\|!== null\|=== undefined\|!== undefined" libraries/toolkit/src --include="*.ts" --include="*.tsx" -l | wc -l
+```
+
+## Success Criteria
+
+- All 427 files containing direct null/undefined comparisons are updated
+- All tests pass (`deno test libraries/toolkit/tests --allow-all`)
+- No direct null/undefined comparisons remain (except in the validation functions themselves)
+- Code maintains exact formatting and style
+- All imports use correct relative paths
