@@ -28,7 +28,7 @@ async (arg: unknown, localValues?: LocalValues): Promise<Either<AdaptiveError[],
 
 		const subset = Array.from(left.values()).every((v) => right.has(v))
 
-	return subset ? operand : {
+	return subset ? { right: true } : {
 			left: [
 				Error(op.tag)("IsSubset")(
 					`${JSON.stringify(operand.right)} is not a subset of ${

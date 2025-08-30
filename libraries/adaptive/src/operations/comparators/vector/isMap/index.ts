@@ -25,7 +25,7 @@ async (
 	try {
 		new Map(operand.right as unknown as Iterable<readonly [unknown, unknown]>)
 
-		return operand
+		return { right: true }
 	} catch (e) {
 		return {
 			left: [

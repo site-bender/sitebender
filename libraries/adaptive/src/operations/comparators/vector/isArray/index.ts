@@ -22,7 +22,7 @@ async (
 		return operand
 	}
 
-	return Array.isArray(operand.right) ? operand : {
+	return Array.isArray(operand.right) ? { right: true } : {
 		left: [
 			Error(op.tag)("IsArray")(
 				`${JSON.stringify(operand.right)} is not an array.`,

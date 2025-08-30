@@ -28,10 +28,10 @@ async (arg: unknown, localValues?: LocalValues): Promise<Either<AdaptiveError[],
 
 		const superset = Array.from(right.values()).every((v) => left.has(v))
 
-	return superset ? operand : {
+	return superset ? { right: true } : {
 			left: [
-		Error(op.tag)("IsSuperset")(
-					`${JSON.stringify(operand.right)} is a superset of ${
+				Error(op.tag)("IsSuperset")(
+					`${JSON.stringify(operand.right)} is not a superset of ${
 						JSON.stringify(test.right)
 					}`,
 				),

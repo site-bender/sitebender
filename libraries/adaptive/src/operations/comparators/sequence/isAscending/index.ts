@@ -24,7 +24,7 @@ const isAscending =
 		const list = JSON.parse(String(operand.right)) as Array<unknown>
 		const sorted = [...list].sort()
 
-		return JSON.stringify(list) === JSON.stringify(sorted) ? operand : {
+		return JSON.stringify(list) === JSON.stringify(sorted) ? { right: true } : {
 			left: [
 				Error(op.tag)("IsAscending")(`JSON.stringify(list) is not ascending.`),
 			],

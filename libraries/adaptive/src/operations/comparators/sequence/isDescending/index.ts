@@ -26,7 +26,7 @@ const isDescending =
 	const list = JSON.parse(String(operand.right)) as Array<unknown>
 		const sorted = [...list].sort().reverse()
 
-		return JSON.stringify(list) === JSON.stringify(sorted) ? operand : {
+		return JSON.stringify(list) === JSON.stringify(sorted) ? { right: true } : {
 			left: [
 				Error(op.tag)("IsDescending")(`JSON.stringify(list) is not descending.`),
 			],

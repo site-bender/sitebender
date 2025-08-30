@@ -9,6 +9,7 @@ import type {
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isStr from "../../../../guards/isString/index.ts"
+import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isString = (op: ComparatorConfig): OperationFunction<boolean> =>
@@ -23,9 +24,9 @@ async (
 		return operand
 	}
 
-	return isStr(operand.right) ? operand : {
-		left: [Error(op.tag)("IsString")(`${operand.right} is not a string.`)],
-	}
+	return isStr(operand.right as Value)
+		? { right: true }
+		: { left: [Error(op.tag)("IsString")(`${operand.right} is not a string.`)] }
 }
 
 export default isString
