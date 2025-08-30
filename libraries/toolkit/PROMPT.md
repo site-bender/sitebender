@@ -20,6 +20,8 @@
 
 According to the search results, there are **679 instances of direct null/undefined comparisons across 427 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 12 at a session, then update the list of completed files, commit the changes, and stop.**
 
+When doing commits, use `ALLOW_TOOLKIT=1 git commit ...`
+
 ### Replacement Patterns Required
 
 | Current Pattern | Replace With | Import From |
@@ -45,7 +47,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (31 files)
+### Already Completed Files (43 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
@@ -55,7 +57,7 @@ These files have already been updated and should be skipped:
 - `simple/math/`: clamp, sum
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
-- `simple/temporal/`: addMonths, adjustTime
+- `simple/temporal/`: addMonths, adjustTime, dateRange, diffHours, diffMinutes, formatDuration, getQuarter, isWeekday, parseTime, startOfWeek, toPlainDate, toPlainDateTime, totalDuration, withTimeZone
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts
 - `types/`: index.ts

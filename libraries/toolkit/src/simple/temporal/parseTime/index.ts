@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Parses time strings into Temporal.PlainTime objects
  * 
@@ -43,7 +45,7 @@
 const parseTime = (
 	timeString: string | null | undefined
 ): Temporal.PlainTime | null => {
-	if (timeString == null || typeof timeString !== "string") {
+	if (isNullish(timeString) || typeof timeString !== "string") {
 		return null
 	}
 	

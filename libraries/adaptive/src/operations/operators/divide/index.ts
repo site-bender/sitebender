@@ -1,14 +1,11 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
-import Error from "../../../constructors/Error/index.ts"
 
 interface HydratedDivide {
 	tag: "Divide"
@@ -19,7 +16,7 @@ interface HydratedDivide {
 }
 
 const divide =
-	({ dividend, divisor, ...op }: HydratedDivide): OperationFunction<number> =>
+	({ dividend, divisor, ..._op }: HydratedDivide): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -32,7 +29,7 @@ const divide =
 
 		if (resolvedDivisor.right === 0) {
 			return {
-				left: [Error(op)("Divide")("Cannot divide by zero.")],
+				left: [{ tag: "Error", operation: "Divide", message: "Cannot divide by zero." }],
 			}
 		}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the difference in hours between two times or datetimes
  *
@@ -66,7 +68,7 @@ const diffHours = (
 		| null
 		| undefined,
 ): number | null => {
-	if (from == null || to == null) {
+	if (isNullish(from) || isNullish(to)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the quarter (1-4) from a Temporal date or datetime
  *
@@ -54,7 +56,7 @@ const getQuarter = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

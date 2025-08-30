@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Converts various Temporal types to Temporal.PlainDate
  *
@@ -67,7 +69,7 @@ const toPlainDate = (timeZone?: string) =>
 		| null
 		| undefined,
 ): Temporal.PlainDate | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

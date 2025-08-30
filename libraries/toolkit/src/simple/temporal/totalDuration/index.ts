@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the total duration in a specific unit
  *
@@ -62,7 +64,7 @@ const totalDuration = (unit: Temporal.DateTimeUnit | string) =>
 (
 	duration: Temporal.Duration | null | undefined,
 ): number | null => {
-	if (duration == null) {
+	if (isNullish(duration)) {
 		return null
 	}
 

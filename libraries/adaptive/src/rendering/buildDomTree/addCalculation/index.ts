@@ -2,18 +2,21 @@ import { isLeft } from "../../../../types/index.ts"
 import composeOperators from "../../../operations/composers/composeOperators/index.ts"
 import collectDependencies from "../../../rendering/helpers/collectDependencies/index.ts"
 import isDefined from "../../../utilities/isDefined/index.ts"
+import not from "../../../utilities/predicates/not/index.ts"
 
 const FROM_VALUE = ["DATA", "INPUT", "SELECT", "TEXTAREA"]
 
-const addCalculation = (element) => async (calculation) => {
-	const selectors = collectDependencies(calculation)
-	const calculate = await composeOperators(calculation)
+import type { Operand, LocalValues } from "../../../../types/index.ts"
 
-	element.__sbCalculate = async function (arg, localValues) {
+const addCalculation = (element: HTMLElement) => async (calculation: unknown) => {
+	const selectors = collectDependencies(calculation)
+	const calculate = await composeOperators(calculation as Operand)
+
+	element.__sbCalculate = async function (arg?: unknown, localValues?: LocalValues) {
 		const a = isDefined(arg)
 			? arg
 			: FROM_VALUE.includes(this.tagName)
-			? this.value
+			? (this as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value
 			: this.innerHTML
 		const value = await calculate(a, localValues)
 
@@ -26,7 +29,8 @@ const addCalculation = (element) => async (calculation) => {
 			const out = `${result}`
 
 			if (FROM_VALUE.includes(this.tagName)) {
-				this.value = out
+				const inputEl = this as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+				inputEl.value = out
 			} else {
 				this.innerHTML = out
 			}

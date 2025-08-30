@@ -1,13 +1,13 @@
-import collectScriptElements from "../../utilities/collectScriptElements/index.ts"
+import collectScriptElements from "../helpers/collectScriptElements/index.ts"
 import buildDomTree from "../buildDomTree/index.ts"
 
-const addScripts = (component) => {
+const addScripts = (component: Record<string, unknown>) => {
 	const head = document && document.head
 
 	if (head) {
 		const scripts = collectScriptElements(component)
 
-		scripts.forEach((script) => buildDomTree(head)(script)())
+		scripts.forEach((script: unknown) => buildDomTree(head)(script)())
 	}
 }
 

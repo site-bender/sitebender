@@ -3,24 +3,26 @@ import collectConditionals from "../../rendering/helpers/collectConditionals/ind
 import collectDependencies from "../../rendering/helpers/collectDependencies/index.ts"
 import makeDisplayToggle from "./makeDisplayToggle/index.ts"
 
-const addConditionals = (element) => (component) => {
+type ComponentLike = { attributes?: { id?: string }; [key: string]: unknown }
+
+const addConditionals = (element: Element) => (component: ComponentLike) => {
 	const conditionals = collectConditionals(component)
 
-	Object.entries(conditionals).forEach(([id, conditional]) => {
+	Object.entries(conditionals as Record<string, unknown>).forEach(([id, conditional]) => {
 		const testCondition = composeConditional(conditional)
 		const displayToggle = makeDisplayToggle(id)(testCondition)
 		const selectors = collectDependencies(conditional)
 
-		document.__sbDisplayCallbacks ??= {}
+	const callbacks = (document.__sbDisplayCallbacks ??= {})
 
 		selectors.forEach((selector) => {
-			const { id } = element.querySelector(selector) ||
+			const { id } = (element as ParentNode).querySelector(selector) ||
 				document.querySelector(selector) ||
-				{}
+				({} as { id?: string })
 
 			if (id) {
-				document.__sbDisplayCallbacks[id] ??= []
-				document.__sbDisplayCallbacks[id].push(displayToggle)
+				callbacks[id] ??= []
+				callbacks[id].push(displayToggle)
 			}
 		})
 	})

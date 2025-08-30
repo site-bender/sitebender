@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Converts ZonedDateTime to PlainDateTime
  *
@@ -76,7 +78,7 @@ const toPlainDateTime = (
 		| null
 		| undefined,
 ): Temporal.PlainDateTime | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Formats duration in human-readable format
  *
@@ -51,7 +53,7 @@
 const formatDuration = (
 	duration: Temporal.Duration | null | undefined,
 ): string | null => {
-	if (duration == null) {
+	if (isNullish(duration)) {
 		return null
 	}
 

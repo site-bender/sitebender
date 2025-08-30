@@ -7,8 +7,13 @@ import runAllCalculations from "../runAllCalculations/index.ts"
 import runAllDisplayCallbacks from "../runAllDisplayCallbacks/index.ts"
 import runAllFormatters from "../runAllFormatters/index.ts"
 
-const renderTo = (target) => (config) => (options) => {
-	const opts = { level: 0, ...options }
+type RenderOptions = { level?: number }
+type AdaptiveConfig = { [key: string]: unknown }
+
+const renderTo = (target: Element) =>
+	(config: AdaptiveConfig) =>
+	(options: RenderOptions = {}) => {
+		const opts = { level: 0, ...options }
 
 	addStylesheets(config)
 

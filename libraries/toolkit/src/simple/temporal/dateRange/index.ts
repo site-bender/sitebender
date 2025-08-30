@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Generates an array of dates between start and end dates
  *
@@ -64,7 +66,7 @@ const dateRange =
 			days: 1,
 		}),
 	): Array<Temporal.PlainDate> | null => {
-		if (start == null || end == null) {
+		if (isNullish(start) || isNullish(end)) {
 			return null
 		}
 
@@ -75,7 +77,7 @@ const dateRange =
 			return null
 		}
 
-		// Default to 1 day if step is null/undefined
+		// Default to 1 day if step is nullish
 		const duration = step ?? Temporal.Duration.from({ days: 1 })
 
 		if (!(duration instanceof Temporal.Duration)) {

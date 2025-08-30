@@ -67,7 +67,8 @@
 			"./scripts/types/globals.d.ts",
 			// Ensure components' JSX globals are visible during workspace checks
 			"./libraries/components/types/globals.d.ts",
-			"./libraries/components/types/JSX/jsx-runtime.d.ts"
+			"./libraries/components/types/JSX/jsx-runtime.d.ts",
+			"./libraries/adaptive/src/rendering/types/globals.d.ts"
 		],
 		"strict": true,
 		"checkJs": false,

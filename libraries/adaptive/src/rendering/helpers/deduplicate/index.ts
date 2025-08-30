@@ -1,3 +1,5 @@
+import type { Value } from "../../../../types/index.ts"
+
 const deduplicate = (arr: Array<Value> = []): Array<Value> => {
 	const seen = new Set()
 	const result: Array<Value> = []

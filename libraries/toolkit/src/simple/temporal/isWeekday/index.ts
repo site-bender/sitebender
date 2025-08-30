@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a date falls on a weekday (Monday-Friday)
  *
@@ -61,7 +63,7 @@ const isWeekday = (
 		| null
 		| undefined,
 ): boolean => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return false
 	}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the start of week for a date (configurable week start)
  *
@@ -69,7 +71,7 @@ const startOfWeek = (weekStartDay: number = 1) =>
 		| null
 		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

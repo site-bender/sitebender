@@ -1,11 +1,4 @@
-import type {
-	ComparatorConfig,
-	ElementConfig,
-	GlobalAttributes,
-	Operand,
-	OperatorConfig,
-	Value,
-} from "../../types/index.ts"
+// Note: avoid importing precise HTML/ARIA types here; use minimal local shapes.
 
 /**
  * Server-Side Rendering for Adaptive Components
@@ -105,7 +98,7 @@ const renderInjector = (
 }
 
 const renderComparator = (
-	config: AdaptiveConfig,
+	_config: AdaptiveConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For comparators, render as a data element that will control visibility
@@ -121,7 +114,7 @@ const renderComparator = (
 }
 
 const renderLogical = (
-	config: AdaptiveConfig,
+	_config: AdaptiveConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For logical operators, render as a data element

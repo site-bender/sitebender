@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Converts datetime to a specific timezone
  *
@@ -56,7 +58,7 @@ const withTimeZone = (timeZone: string) =>
 		| null
 		| undefined,
 ): Temporal.ZonedDateTime | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

@@ -1,25 +1,33 @@
-import concat from "../../utilities/array/concat/index.ts"
-import unique from "../../utilities/array/unique/index.ts"
+import concat from "@toolkit/simple/array/concat/index.ts"
+import unique from "@toolkit/simple/array/unique/index.ts"
 
 const runFormatters = () => {
-	const formats = Object.entries(document.__sbFormatted || {})
+	const formats = Object.entries(document.__sbFormatted || {}) as Array<[
+		string,
+		Set<string>,
+	]>
 
-	let elementIds = []
+	let elementIds: string[] = []
 
 	document.__sbFormatted = Object.fromEntries(
 		formats.map(([selector, ids]) => {
-			const elem = document.querySelector(selector)
+			const elem = document.querySelector(selector) as HTMLElement | null
 
 			elementIds = concat(elementIds)([...ids])
 
-			return [elem?.id, ids]
+			return [elem?.id ?? selector, ids]
 		}),
 	)
 
-	unique(elementIds).forEach(async (id) => {
-		const elem = document.getElementById(id)
+	unique(elementIds).forEach(async (id: string) => {
+		const elem = document.getElementById(id) as (HTMLElement & {
+			__sbFormat?: (arg?: unknown) => Promise<unknown> | unknown
+			value?: string
+		}) | null
 
-		elem.__sbFormat && (await elem.__sbFormat(elem.value))
+		if (elem?.__sbFormat) {
+			await elem.__sbFormat((elem as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value)
+		}
 	})
 }
 
