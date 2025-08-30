@@ -14,163 +14,34 @@
  * ```typescript
  * // Basic usage with PlainTime
  * const time = Temporal.PlainTime.from("10:30:00")
- * addMinutes(15)(time)                    // PlainTime 10:45:00
- * addMinutes(30)(time)                    // PlainTime 11:00:00
- * addMinutes(-15)(time)                   // PlainTime 10:15:00
- * addMinutes(90)(time)                    // PlainTime 12:00:00
+ * addMinutes(15)(time)          // PlainTime 10:45:00
+ * addMinutes(30)(time)          // PlainTime 11:00:00
+ * addMinutes(-15)(time)         // PlainTime 10:15:00
  *
  * // Hour boundary crossing
  * const nearHour = Temporal.PlainTime.from("10:55:00")
- * addMinutes(10)(nearHour)                // PlainTime 11:05:00
- * addMinutes(65)(nearHour)                // PlainTime 12:00:00
+ * addMinutes(10)(nearHour)      // PlainTime 11:05:00
  *
  * // Day boundary with PlainTime (wraps)
  * const nearMidnight = Temporal.PlainTime.from("23:45:00")
- * addMinutes(30)(nearMidnight)            // PlainTime 00:15:00
- * addMinutes(-30)(Temporal.PlainTime.from("00:15:00")) // PlainTime 23:45:00
+ * addMinutes(30)(nearMidnight)  // PlainTime 00:15:00
  *
  * // With PlainDateTime
  * const datetime = Temporal.PlainDateTime.from("2024-03-15T23:45:00")
- * addMinutes(15)(datetime)                // PlainDateTime 2024-03-16T00:00:00
- * addMinutes(30)(datetime)                // PlainDateTime 2024-03-16T00:15:00
- * addMinutes(-60)(datetime)               // PlainDateTime 2024-03-15T22:45:00
+ * addMinutes(15)(datetime)      // PlainDateTime 2024-03-16T00:00:00
  *
- * // Partial application for common intervals
- * const addQuarterHour = addMinutes(15)
+ * // Partial application
  * const addHalfHour = addMinutes(30)
- * const add45Minutes = addMinutes(45)
- * const subtractFiveMinutes = addMinutes(-5)
- *
  * const meeting = Temporal.PlainTime.from("14:00:00")
- * addQuarterHour(meeting)                 // PlainTime 14:15:00
- * addHalfHour(meeting)                    // PlainTime 14:30:00
- * add45Minutes(meeting)                   // PlainTime 14:45:00
+ * addHalfHour(meeting)          // PlainTime 14:30:00
  *
  * // Meeting scheduling
- * function scheduleMeeting(
- *   start: Temporal.PlainDateTime,
- *   durationMinutes: number
- * ): Temporal.PlainDateTime | null {
- *   return addMinutes(durationMinutes)(start)
- * }
- *
- * const meetingStart = Temporal.PlainDateTime.from("2024-03-15T09:00:00")
- * scheduleMeeting(meetingStart, 30)       // PlainDateTime 2024-03-15T09:30:00
- * scheduleMeeting(meetingStart, 90)       // PlainDateTime 2024-03-15T10:30:00
- *
- * // Break time calculations
- * const workPeriods = [
- *   { start: "09:00:00", duration: 90 },
- *   { start: "10:45:00", duration: 90 },
- *   { start: "13:00:00", duration: 90 },
- *   { start: "14:45:00", duration: 90 }
- * ].map(period => ({
- *   start: Temporal.PlainTime.from(period.start),
- *   end: addMinutes(period.duration)(Temporal.PlainTime.from(period.start))
- * }))
- *
- * // Pomodoro timer
- * function pomodoroSchedule(
- *   start: Temporal.PlainTime,
- *   workMinutes: number = 25,
- *   breakMinutes: number = 5,
- *   cycles: number = 4
- * ): Array<{ type: string; time: Temporal.PlainTime | null }> {
- *   return Array.from({ length: cycles * 2 - 1 }, (_, i) => {
- *     const isWork = i % 2 === 0
- *     const totalMinutesBefore = Math.floor(i / 2) * (workMinutes + breakMinutes) +
- *       (isWork ? 0 : workMinutes)
- *     return {
- *       type: isWork ? "work" : "break",
- *       time: addMinutes(totalMinutesBefore)(start)
- *     }
- *   })
- * }
- *
- * const pomodoro = pomodoroSchedule(Temporal.PlainTime.from("09:00:00"))
- * // [
- * //   { type: "work", time: 09:00 },
- * //   { type: "break", time: 09:25 },
- * //   { type: "work", time: 09:30 },
- * //   { type: "break", time: 09:55 },
- * //   ...
- * // ]
- *
- * // Cooking timer
- * function getCookingSteps(
- *   start: Temporal.PlainTime,
- *   steps: Array<{ name: string; minutes: number }>
- * ): Array<{ name: string; time: Temporal.PlainTime | null }> {
- *   return steps.reduce(
- *     (acc, step) => {
- *       const prevTime = acc.length > 0 ? 
- *         addMinutes(acc[acc.length - 1].minutes || 0)(acc[acc.length - 1].time) :
- *         start
- *       return [...acc, { name: step.name, time: prevTime, minutes: step.minutes }]
- *     },
- *     [] as Array<{ name: string; time: Temporal.PlainTime | null; minutes?: number }>
- *   ).map(({ name, time }) => ({ name, time }))
- * }
- *
- * const recipe = getCookingSteps(
- *   Temporal.PlainTime.from("18:00:00"),
- *   [
- *     { name: "Prep ingredients", minutes: 15 },
- *     { name: "Cook pasta", minutes: 12 },
- *     { name: "Make sauce", minutes: 20 },
- *     { name: "Combine and serve", minutes: 5 }
- *   ]
- * )
- * // Each step with its start time
- *
- * // Appointment slots
- * function generateTimeSlots(
- *   start: Temporal.PlainTime,
- *   end: Temporal.PlainTime,
- *   intervalMinutes: number
- * ): Array<Temporal.PlainTime> {
- *   const totalMinutes = end.since(start).total({ unit: "minutes" })
- *   const slotCount = Math.floor(totalMinutes / intervalMinutes) + 1
- *   
- *   return Array.from({ length: slotCount }, (_, i) =>
- *     addMinutes(i * intervalMinutes)(start)
- *   ).filter((t): t is Temporal.PlainTime => t !== null)
- * }
- *
- * const appointmentSlots = generateTimeSlots(
- *   Temporal.PlainTime.from("09:00:00"),
- *   Temporal.PlainTime.from("17:00:00"),
- *   30
- * )
- * // [09:00, 09:30, 10:00, 10:30, ..., 16:30, 17:00]
+ * const scheduleMeeting = (start: Temporal.PlainDateTime, duration: number) =>
+ *   addMinutes(duration)(start)
  *
  * // Null handling
- * addMinutes(15)(null)                    // null
- * addMinutes(15)(undefined)               // null
- * addMinutes(15)("invalid")               // null
- *
- * // Parking meter calculation
- * function getParkingExpiry(
- *   start: Temporal.PlainTime,
- *   paidMinutes: number
- * ): Temporal.PlainTime | null {
- *   return addMinutes(paidMinutes)(start)
- * }
- *
- * const parkedAt = Temporal.PlainTime.from("14:30:00")
- * getParkingExpiry(parkedAt, 120)         // PlainTime 16:30:00
- *
- * // Countdown timer
- * function getCountdownTimes(
- *   target: Temporal.PlainTime,
- *   intervals: Array<number>
- * ): Array<Temporal.PlainTime | null> {
- *   return intervals.map(mins => addMinutes(-mins)(target))
- * }
- *
- * const eventTime = Temporal.PlainTime.from("20:00:00")
- * const reminders = getCountdownTimes(eventTime, [60, 30, 15, 5])
- * // [19:00, 19:30, 19:45, 19:55] - reminder times
+ * addMinutes(15)(null)          // null
+ * addMinutes(15)(undefined)     // null
  * ```
  * @pure
  * @immutable
