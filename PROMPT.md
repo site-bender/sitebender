@@ -1,6 +1,6 @@
 # Phase-2 — Next-Session Bootstrap Prompt (Single Source)
 
-Date: 2025-08-29
+Date: 2025-08-31
 
 Use this prompt at the start of the next session to regain full context with no prior memory. Follow it exactly. Work in tiny, verified batches (≤5 files), maintain zero net-new-errors, and prefer repo aliases.
 
@@ -12,19 +12,24 @@ Use this prompt at the start of the next session to regain full context with no 
   - Tasks: `type-check`, `test:adaptive:strict`, `test:components:strict`, alias guard
 - Scan `scripts/hooks/install.ts` to note pre-commit checks: FP checks, alias guard, and no-react-junk; SKIP envs: `SKIP_FP_CHECKS=1`, `SKIP_ALIAS_GUARD=1`.
 
-## Current state snapshot (end of 2025-08-29)
-- Type-check: Green for Adaptive/Components code used in tests; spot checks clean.
+## Current state snapshot (end of 2025-08-31)
+- Type-check: Green on edited areas; spot checks clean.
 - Tests:
-  - Adaptive strict tests: PASS (operators, comparators, registries, runtime, hydrator; compile-time IR contracts for Add/Multiply/Min/Max/Ternary, And/IsEqualTo).
-  - Components strict tests: PASS (compile-to-IR wrappers and primitives).
-  - Docs E2E live under `docs/tests` and run via Playwright; we didn’t change runtime behavior.
-- Alias policy: Guard added and green.
-- Key type hygiene wins:
-  - Introduced `libraries/adaptive/src/types/index.ts` shim to canonical types.
-  - Tightened logical comparators to `BooleanDatatype`.
-  - Vector comparators typed precisely (e.g., IsArray/IsMap/IsSet).
-  - Ternary operator constructor now typed and carries `datatype`.
-  - Added compile-time IR contracts for Add, Multiply, Min, Max, Ternary, And, IsEqualTo.
+  - Adaptive: PASS (operators, comparators, registries, runtime, hydrator; IR contracts for Add/Multiply/Min/Max/Ternary; And/EqualTo; actions/events path).
+  - Components: PASS (compile-to-IR wrappers, On/When mapping, conditionals; plus new Viz container tests and adapter tests).
+  - Docs E2E live under `docs/tests`; no behavioral regressions introduced.
+- Naming canon: Authoring uses component names; keep `When.*` for events. Avoid `Do.*` and `Act.*` in docs/examples; runtime internals may still use `Act.*` identifiers.
+- Auth scaffolding:
+  - Wrappers: `When.Authenticated` and `When.Authorized` emit an authorized control marker.
+  - Compiler: authorized markers compile to an `If` action with a policy-based condition.
+  - Runtime: policy registry added; `IsAuthenticated` policy implemented and registered by default during `registerDefaultExecutors`.
+  - Docs: `AUTH.md` with JSX examples.
+- Visualization scaffolding:
+  - Components: `Viz.Line`, `Viz.Bar` return SSR-safe containers with `data-viz=*` attributes.
+  - Adapter: noop adapter with `hydrateVizContainers()`; adapter interface and simple registry (`setVizAdapter`/`getVizAdapter`).
+  - Docs: `VIZ.md` explains authoring and adapters; `TODO.md` tracks next steps.
+- Hygiene to date:
+  - Targeted lint fixes across constructors/comparators and new files; keep precise HTML/ARIA typings intact.
 
 - Naming canon decisions (authoring)
   - Data model: Vault / Collection / Field / Item (replaces Entry).
@@ -36,7 +41,7 @@ Use this prompt at the start of the next session to regain full context with no 
     - `When.ChangeComplete` ≡ `On.Change`
     - `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
     - `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
-  - Actions: bare verbs only (no namespace). Drop `Do.*` aliases from docs and future examples; maintain compatibility only if required by legacy code.
+  - Actions: bare verbs only (no namespace). Drop `Do.*` aliases from docs and future examples; do not introduce `Act.*` in examples.
   - Injectors: keep `From.Store`, plan `From.SPARQL`. Remove `From.Entry`/`From.Item` for now.
 
 ## Guardrails
@@ -47,32 +52,28 @@ Use this prompt at the start of the next session to regain full context with no 
 
 ## Immediate actions (next session)
 1) Re-baseline
-  - Run: `deno task type-check`
-  - Run: `deno task test:adaptive:strict` and `deno task test:components:strict`
-  - Run: `deno task lint:aliases`
+  - Run: type-check + components/adaptive tests; quick lint on changed paths.
 
-2) Implement naming canon wrappers (authoring-only; no behavioral changes)
-  - Add `When.ValueUpdated` (lowers to `On.Input`).
-  - Add `When.ChangeComplete` (lowers to `On.Change`).
-  - Add `When.GainedFocus`/`When.LostFocus` (lower to `On.Focus`/`On.Blur`).
-  - Add `When.Clicked`/`When.Submitted` (lower to `On.Click`/`On.Submit`).
-  - Add `From.Store` JSX marker (no-op lowering initially). Skip `From.Item` for now.
+2) Finish linter sweep (priority)
+  - Continue removing unused imports/params and tightening types across components/adaptive, staying SSR-safe and preserving HTML/ARIA precision.
+  - Work in ≤5-file batches; re-run lint + tests after each batch.
 
-3) Update docs/examples
-  - Prefer `When.*` events (`When.Clicked`, `When.Submitted`, `When.ValueUpdated`, `When.ChangeComplete`, focus/blur variants) in examples; add a mapping callout (`On.*` aliases acceptable).
-  - Keep actions authored as bare verbs; do not use `Do.*` aliases in examples.
+3) Viz next slice (small)
+  - Wire `hydrateVizContainers()` in docs bootstrap (DOMContentLoaded) to mark viz containers; keep adapter noop.
+  - Sketch renderer adapter contract (no dependency yet) and add one unit test.
 
-4) Optional hygiene (if time)
-  - Expand Adaptive IR compile-time contracts (e.g., Subtract, Divide, Matches) without runtime changes.
-  - Add 2–3 compile-to-IR unit tests in Components (cover common wrappers and a nested conditional).
-  - Consider adding a gentle lint hint that suggests the new `When.*` names when `On.Input/On.Change` appear in docs-facing code.
+4) Auth follow-ups (small)
+  - Add `HasRole` policy and allow args in `When.Authorized`.
+  - Add `From.RequestAuth` adapter (SSR-safe) and a simple 401/403 guard helper.
+
+5) Docs refresh
+  - Cross-link `AUTH.md`, `VIZ.md`, and `TODO.md`; ensure examples use `When.*` and component-first naming.
 
 ## Success criteria
-- Strict Adaptive/Components tests stay green; alias guard stays clean.
-- Expanded IR contract suite compiles.
-- Toolkit can type-check in strict mode locally (optional), with no public API changes.
-- Docs/Jexer have basic type/smoke coverage without behavioral regressions.
- - New authoring wrappers exist and map cleanly to current runtime event handling.
+- Tests stay green across Adaptive/Components; no new lint errors.
+- Linter sweep reduces warnings on touched paths without regressing types.
+- Viz containers remain SSR-safe; noop hydration runs in docs.
+- Auth policies registered by default; authorized compile path intact.
 
 ## Useful paths and aliases
 - Aliases (root `deno.jsonc`):
@@ -99,7 +100,7 @@ Use this prompt at the start of the next session to regain full context with no 
 deno task type-check
 deno task test:adaptive:strict
 deno task test:components:strict
-deno task lint:aliases
+deno lint
 ```
 
 ## Commit discipline
@@ -112,4 +113,4 @@ deno task lint:aliases
 - Prefer surgical typing improvements + tests over broader refactors.
 
 ---
-Start here next session: run the Immediate actions checklist and continue in tiny, verified steps.
+Start here next session: 1) run tests + type-check; 2) resume the linter sweep; then 3) wire viz noop hydration in docs.
