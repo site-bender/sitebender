@@ -3,6 +3,8 @@ import type {
 	PlainDateLike,
 } from "../../../../types/temporal/index.ts"
 
+import isNullish from "../../../validation/isNullish/index.ts"
+
 /**
  * Parses values into Temporal PlainDate objects
  *
@@ -49,7 +51,7 @@ const toPlainDate = (
 	value: DateInput | null | undefined,
 ): Temporal.PlainDate | null => {
 	// Handle nullish values
-	if (value == null) {
+	if (isNullish(value)) {
 		return null
 	}
 

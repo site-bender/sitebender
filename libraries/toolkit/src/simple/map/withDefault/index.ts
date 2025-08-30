@@ -1,3 +1,5 @@
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Wraps a Map to provide default values for missing keys
  *
@@ -59,7 +61,7 @@ const withDefault = <K, V>(defaultValue: V) => (map: Map<K, V>): Map<K, V> => {
 	// Override the get method to return default for missing keys
 	wrappedMap.get = function (key: K): V {
 		const value = originalGet(key)
-		return value !== undefined ? value : defaultValue
+		return isNotUndefined(value) ? value : defaultValue
 	}
 
 	return wrappedMap

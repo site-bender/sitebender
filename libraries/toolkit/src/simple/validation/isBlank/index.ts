@@ -1,3 +1,5 @@
+import isNullish from "../isNullish/index.ts"
+
 /**
  * Checks if a string is empty or contains only whitespace
  *
@@ -47,7 +49,7 @@
 const isBlank = (
 	str: string | null | undefined,
 ): boolean => {
-	if (str == null) {
+	if (isNullish(str)) {
 		return true
 	}
 

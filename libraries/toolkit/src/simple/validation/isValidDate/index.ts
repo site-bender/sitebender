@@ -1,6 +1,7 @@
 import type { DateInput } from "../../../types/temporal/index.ts"
 
 import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
+import isNotNull from "../isNotNull/index.ts"
 
 /**
  * Validates if a date/time value represents a valid date
@@ -70,7 +71,7 @@ const isValidDate = (value: DateInput | null | undefined): boolean => {
 	const date = toPlainDate(value)
 
 	// If conversion succeeded, it's a valid date
-	return date !== null
+	return isNotNull(date)
 }
 
 export default isValidDate

@@ -3,6 +3,8 @@ import type {
 	TimeInput,
 } from "../../../../types/temporal/index.ts"
 
+import isNullish from "../../../validation/isNullish/index.ts"
+
 /**
  * Parses values into Temporal PlainTime objects
  *
@@ -50,7 +52,7 @@ const toPlainTime = (
 	value: TimeInput | null | undefined,
 ): Temporal.PlainTime | null => {
 	// Handle nullish values
-	if (value == null) {
+	if (isNullish(value)) {
 		return null
 	}
 

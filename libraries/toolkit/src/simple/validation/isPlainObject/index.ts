@@ -1,3 +1,5 @@
+import isNull from "../isNull/index.ts"
+
 /**
  * Checks if a value is a plain object
  *
@@ -70,7 +72,7 @@
  */
 const isPlainObject = (value: unknown): boolean => {
 	// Check if it's an object type and not null
-	if (typeof value !== "object" || value === null) {
+	if (typeof value !== "object" || isNull(value)) {
 		return false
 	}
 
@@ -78,7 +80,7 @@ const isPlainObject = (value: unknown): boolean => {
 	const proto = Object.getPrototypeOf(value)
 
 	// Plain objects have either Object.prototype or null as prototype
-	return proto === null || proto === Object.prototype
+	return isNull(proto) || proto === Object.prototype
 }
 
 export default isPlainObject

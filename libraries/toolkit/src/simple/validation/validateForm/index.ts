@@ -1,4 +1,6 @@
 import isEmail from "../isEmail/index.ts"
+import isNotUndefined from "../isNotUndefined/index.ts"
+import isNullish from "../isNullish/index.ts"
 import isUrl from "../isUrl/index.ts"
 
 /**
@@ -92,8 +94,7 @@ const validateForm =
 			// Check required
 			if (rules.required) {
 				if (
-					value === undefined ||
-					value === null ||
+					isNullish(value) ||
 					value === "" ||
 					(typeof value === "string" && value.trim() === "")
 				) {
@@ -103,7 +104,7 @@ const validateForm =
 			}
 
 			// Skip validation if not required and empty
-			if (!rules.required && (value === undefined || value === null || value === "")) {
+			if (!rules.required && (isNullish(value) || value === "")) {
 				continue
 			}
 
@@ -163,13 +164,13 @@ const validateForm =
 
 			// String length validation
 			if (typeof value === "string") {
-				if (rules.minLength !== undefined && value.length < rules.minLength) {
+				if (isNotUndefined(rules.minLength) && value.length < rules.minLength) {
 					errors[fieldName] = rules.message ||
 						`Minimum length is ${rules.minLength}`
 					continue
 				}
 
-				if (rules.maxLength !== undefined && value.length > rules.maxLength) {
+				if (isNotUndefined(rules.maxLength) && value.length > rules.maxLength) {
 					errors[fieldName] = rules.message ||
 						`Maximum length is ${rules.maxLength}`
 					continue
@@ -180,12 +181,12 @@ const validateForm =
 			if (typeof value === "number" || rules.type === "number") {
 				const numValue = Number(value)
 
-				if (rules.min !== undefined && numValue < Number(rules.min)) {
+				if (isNotUndefined(rules.min) && numValue < Number(rules.min)) {
 					errors[fieldName] = rules.message || `Minimum value is ${rules.min}`
 					continue
 				}
 
-				if (rules.max !== undefined && numValue > Number(rules.max)) {
+				if (isNotUndefined(rules.max) && numValue > Number(rules.max)) {
 					errors[fieldName] = rules.message || `Maximum value is ${rules.max}`
 					continue
 				}
@@ -205,7 +206,7 @@ const validateForm =
 			}
 
 			// Equals validation
-			if (rules.equals !== undefined && value !== rules.equals) {
+			if (isNotUndefined(rules.equals) && value !== rules.equals) {
 				errors[fieldName] = rules.message || `Must equal ${rules.equals}`
 				continue
 			}

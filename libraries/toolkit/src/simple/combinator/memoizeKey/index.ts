@@ -1,3 +1,6 @@
+import isNull from "../../validation/isNull/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Creates consistent cache keys for memoization
  *
@@ -79,10 +82,10 @@ const memoizeKey =
 			}
 
 			// Handle primitives
-			if (value === null) {
+			if (isNull(value)) {
 				return includeType ? "null:null" : "null"
 			}
-			if (value === undefined) {
+			if (isUndefined(value)) {
 				return includeType ? "undefined:undefined" : "undefined"
 			}
 			if (typeof value === "boolean") {

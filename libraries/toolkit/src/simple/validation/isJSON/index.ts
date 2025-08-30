@@ -1,3 +1,6 @@
+import isNotNull from "../isNotNull/index.ts"
+import isNull from "../isNull/index.ts"
+
 /**
  * Validates JSON strings
  *
@@ -90,7 +93,7 @@ const isJSON = (
 			// Validate specific type
 			switch (options.type) {
 				case "object":
-					return parsed !== null && typeof parsed === "object" &&
+					return isNotNull(parsed) && typeof parsed === "object" &&
 						!Array.isArray(parsed)
 				case "array":
 					return Array.isArray(parsed)
@@ -101,7 +104,7 @@ const isJSON = (
 				case "boolean":
 					return typeof parsed === "boolean"
 				case "null":
-					return parsed === null
+					return isNull(parsed)
 				default:
 					return false
 			}

@@ -18,7 +18,7 @@
 
 ## CRITICAL: Full Scope of Required Changes
 
-According to the search results, there are **679 instances of direct null/undefined comparisons across 427 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 12 at a session, then update the list of completed files, commit the changes, and stop.**
+According to the search results, there are **679 instances of direct null/undefined comparisons across 427 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 24 at a session, then update the list of completed files, commit the changes, and stop.**
 
 When doing commits, use `ALLOW_TOOLKIT=1 git commit ...`
 
@@ -47,20 +47,24 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (115 files)
+### Already Completed Files (139 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init, indexBy, move, nth
+- `simple/array/`: init, indexBy, move, nth, unionWith
 - `simple/async/`: parallel, parallelLimit, race, waterfall
-- `simple/math/`: clamp, sum
-- `simple/object/`: where, whereEq
+- `simple/combinator/`: memoizeKey
+- `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime
+- `simple/map/`: withDefault
+- `simple/math/`: add, clamp, combinations, sum
+- `simple/object/`: path, smartMerge, where, whereEq
+- `simple/special/`: stirlingApproximation
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, endOfDay, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfYear, getHour, getMillisecond, getMinute, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
-- `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
+- `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, hypotenuse, polarToCartesian, radiansToDegrees, sine, tangent
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
-- `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
+- `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `state/`: store.ts
 - `types/`: index.ts
 

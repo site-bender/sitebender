@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Like union but uses a comparator function
  *
@@ -66,8 +68,8 @@ const unionWith = <T>(
 	array2: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	// Handle null/undefined cases
-	if (array1 == null || !Array.isArray(array1)) {
-		if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array1) || !Array.isArray(array1)) {
+		if (isNullish(array2) || !Array.isArray(array2)) {
 			return []
 		}
 		// Remove duplicates from array2 using comparator
@@ -77,7 +79,7 @@ const unionWith = <T>(
 		)
 	}
 
-	if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array2) || !Array.isArray(array2)) {
 		// Remove duplicates from array1 using comparator
 		return array1.reduce<Array<T>>((acc, item) =>
 			acc.some((r) => comparator(r, item)) ? acc : [...acc, item],

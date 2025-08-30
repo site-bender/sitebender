@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Adds two numbers together
  *
@@ -48,11 +50,11 @@ const add = (
 (
 	addend: number | null | undefined,
 ): number => {
-	if (augend == null || typeof augend !== "number") {
+	if (isNullish(augend) || typeof augend !== "number") {
 		return NaN
 	}
 
-	if (addend == null || typeof addend !== "number") {
+	if (isNullish(addend) || typeof addend !== "number") {
 		return NaN
 	}
 

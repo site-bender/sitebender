@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Retrieves a nested value from an object using a path
  *
@@ -36,7 +38,7 @@ import type { Value } from "../../../types/index.ts"
 const path =
 	(pathInput: string | Array<string | number>) => (obj: Value): Value => {
 		// Handle null/undefined object
-		if (obj === null || obj === undefined) return undefined
+		if (isNullish(obj)) return undefined
 
 		// Convert string path to array
 		const keys = typeof pathInput === "string"
@@ -48,7 +50,7 @@ const path =
 
 		// Traverse the path using reduce (pure FP)
 		return keys.reduce((acc: Value, key) => {
-			if (acc === null || acc === undefined) return undefined
+			if (isNullish(acc)) return undefined
 
 			if (Array.isArray(acc)) {
 				const index = typeof key === "number"

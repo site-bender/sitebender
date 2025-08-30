@@ -1,5 +1,6 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
 import pair from "../../tuple/pair/index.ts"
 
 /**
@@ -48,11 +49,11 @@ const polarToCartesian = (
 (
 	theta: number | null | undefined,
 ): Pair<number, number> => {
-	if (r == null || typeof r !== "number") {
+	if (isNullish(r) || typeof r !== "number") {
 		return pair(NaN)(NaN)
 	}
 
-	if (theta == null || typeof theta !== "number") {
+	if (isNullish(theta) || typeof theta !== "number") {
 		return pair(NaN)(NaN)
 	}
 

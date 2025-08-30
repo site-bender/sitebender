@@ -1,3 +1,6 @@
+import isNotNull from "../../validation/isNotNull/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Merges objects with intelligent type-aware conflict resolution
  *
@@ -82,8 +85,8 @@ const smartMerge =
 
 		const mergeTwo = (left: any, right: any, currentDepth: number = 0): any => {
 			// Handle null/undefined
-			if (left == null) return right
-			if (right == null) return left
+			if (isNullish(left)) return right
+			if (isNullish(right)) return left
 
 			// Check depth limit
 			if (currentDepth >= depth) {
@@ -123,8 +126,8 @@ const smartMerge =
 						: !(key in left) ? rightValue
 						: (typeof leftValue === "object" &&
 						   typeof rightValue === "object" &&
-						   leftValue !== null &&
-						   rightValue !== null &&
+						   isNotNull(leftValue) &&
+						   isNotNull(rightValue) &&
 						   !Array.isArray(leftValue) &&
 						   !Array.isArray(rightValue))
 							? mergeTwo(leftValue, rightValue, currentDepth + 1)

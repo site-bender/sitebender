@@ -1,4 +1,5 @@
 import factorial from "../factorial/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the number of combinations (nCr)
@@ -44,11 +45,11 @@ const combinations = (
 (
 	r: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
-	if (r == null || typeof r !== "number") {
+	if (isNullish(r) || typeof r !== "number") {
 		return NaN
 	}
 

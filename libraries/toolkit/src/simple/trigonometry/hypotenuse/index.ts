@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the hypotenuse for multiple dimensions
  *
@@ -39,7 +41,7 @@
 const hypotenuse = (
 	values: number[] | null | undefined,
 ): number => {
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
 
@@ -50,7 +52,7 @@ const hypotenuse = (
 
 	// Check for non-numeric values
 	for (const value of values) {
-		if (value == null || typeof value !== "number") {
+		if (isNullish(value) || typeof value !== "number") {
 			return NaN
 		}
 	}
