@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if two Temporal objects are equal
  *
@@ -60,7 +62,7 @@ const equals = <T extends { equals(other: T): boolean }>(
 (
 	second: T | null | undefined,
 ): boolean => {
-	if (first == null || second == null) {
+	if (isNullish(first) || isNullish(second)) {
 		return false
 	}
 

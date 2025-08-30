@@ -47,7 +47,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (91 files)
+### Already Completed Files (103 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
@@ -57,7 +57,7 @@ These files have already been updated and should be skipped:
 - `simple/math/`: clamp, sum
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
-- `simple/temporal/`: addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, dateRange, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, format, formatDuration, getCalendar, getDay, getDayOfYear, getMillisecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, isLeapYear, isWeekday, isWeekend, parse, parseTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
+- `simple/temporal/`: addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, endOfDay, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfYear, getHour, getMillisecond, getMinute, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts

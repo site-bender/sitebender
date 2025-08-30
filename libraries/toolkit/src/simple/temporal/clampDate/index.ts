@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Constrains a date between minimum and maximum bounds
  *
@@ -54,7 +56,7 @@ const clampDate = <
 >(min: T | null | undefined) =>
 (max: T | null | undefined) =>
 (date: T | null | undefined): T | null => {
-	if (min == null || max == null || date == null) {
+	if (isNullish(min) || isNullish(max) || isNullish(date)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the last day of the year for a given date
  *
@@ -63,7 +65,7 @@ const endOfYear = (
 		| null
 		| undefined,
 ): Temporal.PlainDate | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

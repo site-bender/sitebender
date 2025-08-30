@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Parses an ISO 8601 string to the appropriate Temporal object
  *
@@ -63,7 +65,7 @@ const fromISO = (
 	| Temporal.Duration
 	| Temporal.Instant
 	| null => {
-	if (isoString == null || typeof isoString !== "string") {
+	if (isNullish(isoString) || typeof isoString !== "string") {
 		return null
 	}
 

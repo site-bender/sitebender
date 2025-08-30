@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the hour component from a Temporal time or datetime
  *
@@ -85,7 +87,7 @@ const getHour = (
 		| null
 		| undefined,
 ): number | null => {
-	if (time == null) {
+	if (isNullish(time)) {
 		return null
 	}
 

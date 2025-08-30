@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the difference in days between two dates
  *
@@ -52,7 +54,7 @@ const diffDays =
 	(
 		to: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
 	): number | null => {
-		if (from == null || to == null) {
+		if (isNullish(from) || isNullish(to)) {
 			return null
 		}
 

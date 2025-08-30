@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the year from a Temporal date or datetime
  *
@@ -61,7 +63,7 @@ const getYear = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

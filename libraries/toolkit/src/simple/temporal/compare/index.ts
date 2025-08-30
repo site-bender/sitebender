@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Compares two Temporal objects and returns their relative ordering
  *
@@ -60,7 +62,7 @@ const compare = <
 	},
 >(first: T | null | undefined) =>
 (second: T | null | undefined): number | null => {
-	if (first == null || second == null) {
+	if (isNullish(first) || isNullish(second)) {
 		return null
 	}
 

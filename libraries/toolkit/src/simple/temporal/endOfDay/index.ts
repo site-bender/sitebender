@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the end of day for a given date (23:59:59.999999999)
  *
@@ -61,7 +63,7 @@
 const endOfDay = (
 	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
 ): Temporal.PlainDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

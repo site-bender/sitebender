@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Serializes ZonedDateTime for storage/transmission
  *
@@ -118,7 +120,7 @@ const serializeZonedDateTime = (
 	plainDateTime: string
 	epochNanoseconds: string
 } | null => {
-	if (zonedDateTime == null) {
+	if (isNullish(zonedDateTime)) {
 		return null
 	}
 
