@@ -1,5 +1,6 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
 import pair from "../../tuple/pair/index.ts"
 
 /**
@@ -47,11 +48,11 @@ const cartesianToPolar = (
 (
 	y: number | null | undefined,
 ): Pair<number, number> => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return pair(NaN)(NaN)
 	}
 
-	if (y == null || typeof y !== "number") {
+	if (isNullish(y) || typeof y !== "number") {
 		return pair(NaN)(NaN)
 	}
 

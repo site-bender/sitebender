@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the inverse tangent (arctangent) of a value
  *
@@ -34,7 +36,7 @@
 const arcTangent = (
 	x: number | null | undefined,
 ): number => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the tangent of an angle in radians
  *
@@ -40,7 +42,7 @@
 const tangent = (
 	radians: number | null | undefined,
 ): number => {
-	if (radians == null || typeof radians !== "number") {
+	if (isNullish(radians) || typeof radians !== "number") {
 		return NaN
 	}
 

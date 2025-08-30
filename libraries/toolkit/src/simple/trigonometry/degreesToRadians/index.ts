@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Converts degrees to radians
  *
@@ -34,7 +36,7 @@
 const degreesToRadians = (
 	degrees: number | null | undefined,
 ): number => {
-	if (degrees == null || typeof degrees !== "number") {
+	if (isNullish(degrees) || typeof degrees !== "number") {
 		return NaN
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the angle from positive x-axis to point (x, y)
  *
@@ -43,11 +45,11 @@ const arcTangent2 = (
 (
 	x: number | null | undefined,
 ): number => {
-	if (y == null || typeof y !== "number") {
+	if (isNullish(y) || typeof y !== "number") {
 		return NaN
 	}
 
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 
