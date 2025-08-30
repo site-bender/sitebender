@@ -66,6 +66,8 @@
  * @safe Returns null for invalid inputs
  * @precision Returns milliseconds (0-999), truncating higher precision
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const getMillisecond = (
 	time:
 		| Temporal.PlainTime
@@ -74,7 +76,7 @@ const getMillisecond = (
 		| null
 		| undefined,
 ): number | null => {
-	if (time == null) {
+	if (isNullish(time)) {
 		return null
 	}
 

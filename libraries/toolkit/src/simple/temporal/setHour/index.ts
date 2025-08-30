@@ -86,6 +86,8 @@
  * @immutable
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const setHour = (hour: number) =>
 (
 	time:
@@ -99,7 +101,7 @@ const setHour = (hour: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
 	| null => {
-	if (time == null) {
+	if (isNullish(time)) {
 		return null
 	}
 

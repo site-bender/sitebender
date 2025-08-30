@@ -85,6 +85,8 @@
  * @precise Uses Temporal API for accurate calendar calculations
  * @flexible Supports various recurrence patterns and intervals
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const getNextOccurrence = (pattern: {
 	unit: string
 	interval: number
@@ -92,7 +94,7 @@ const getNextOccurrence = (pattern: {
 (
 	referenceDate: Temporal.PlainDate | null | undefined,
 ): Temporal.PlainDate | null => {
-	if (referenceDate == null) {
+	if (isNullish(referenceDate)) {
 		return null
 	}
 

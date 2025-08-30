@@ -51,6 +51,8 @@
  * @safe
  * @predicate
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const isLeapYear = (
 	yearOrDate:
 		| number
@@ -61,7 +63,7 @@ const isLeapYear = (
 		| null
 		| undefined,
 ): boolean => {
-	if (yearOrDate == null) {
+	if (isNullish(yearOrDate)) {
 		return false
 	}
 

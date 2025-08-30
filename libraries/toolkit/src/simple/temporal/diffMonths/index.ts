@@ -54,6 +54,8 @@
  * @safe - Returns null for invalid inputs
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const diffMonths = (
 	from:
 		| Temporal.PlainDate
@@ -70,7 +72,7 @@ const diffMonths = (
 		| null
 		| undefined,
 ): number | null => {
-	if (from == null || to == null) {
+	if (isNullish(from) || isNullish(to)) {
 		return null
 	}
 

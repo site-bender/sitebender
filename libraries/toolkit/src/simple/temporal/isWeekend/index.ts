@@ -53,6 +53,8 @@
  * @safe
  * @predicate
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const isWeekend = (
 	date:
 		| Temporal.PlainDate
@@ -61,7 +63,7 @@ const isWeekend = (
 		| null
 		| undefined,
 ): boolean => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return false
 	}
 

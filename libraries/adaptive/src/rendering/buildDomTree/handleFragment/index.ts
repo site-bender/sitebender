@@ -1,7 +1,10 @@
-import buildDomTree from "../../index.ts"
+import buildDomTree from "../index.ts"
 
-const handleFragment = (parent) => (children = []) => (options) => {
-	children.forEach((child) => buildDomTree(parent)(child)(options))
+type ElementChild = { tag: string }
+type Options = { level?: number }
+
+const handleFragment = (parent: HTMLElement) => (children: ElementChild[] = []) => (options: Options) => {
+	children.forEach((child) => buildDomTree(parent)(child as any)(options))
 }
 
 export default handleFragment

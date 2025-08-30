@@ -2,11 +2,8 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
@@ -18,18 +15,19 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operand = await composeComparators(op.operand)(arg, localValues)
+	const operandFn = await composeComparators(op.operand as unknown as never)
+	const operand = await operandFn(arg, localValues)
 
 	if (isLeft(operand)) {
 		return operand
 	}
 
 	try {
-		const set = new Set(operand.right)
+	const set = new Set(operand.right as unknown as Iterable<unknown>)
 
-		return set.size === [...operand.right].length ? operand : {
+	return set.size === [...(operand.right as unknown as Iterable<unknown>)].length ? operand : {
 			left: [
-				Error(op)("IsSet")(
+				Error(op.tag)("IsSet")(
 					`${JSON.stringify(operand.right)} has duplicate members (not a set).`,
 				),
 			],
@@ -37,7 +35,7 @@ async (
 	} catch (e) {
 		return {
 			left: [
-				Error(op)("IsSet")(
+				Error(op.tag)("IsSet")(
 					`Error creating set from ${JSON.stringify(operand.right)}: ${e}.`,
 				),
 			],

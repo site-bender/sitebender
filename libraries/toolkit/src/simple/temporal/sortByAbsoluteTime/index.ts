@@ -112,6 +112,9 @@
  * @safe
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+import { isNull } from "../../../validation/isNull"
+
 const sortByAbsoluteTime = (timeZone: string = "UTC") =>
 (
 	a:
@@ -128,9 +131,9 @@ const sortByAbsoluteTime = (timeZone: string = "UTC") =>
 		| undefined,
 ): number => {
 	// Handle null/undefined cases
-	if (a == null && b == null) return 0
-	if (a == null) return 1 // nulls sort to end
-	if (b == null) return -1
+	if (isNullish(a) && isNullish(b)) return 0
+	if (isNullish(a)) return 1 // nulls sort to end
+	if (isNullish(b)) return -1
 
 	try {
 		// Convert both to Instants for absolute time comparison

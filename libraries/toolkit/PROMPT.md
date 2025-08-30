@@ -47,7 +47,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (67 files)
+### Already Completed Files (79 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
@@ -57,7 +57,7 @@ These files have already been updated and should be skipped:
 - `simple/math/`: clamp, sum
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
-- `simple/temporal/`: addMonths, adjustTime, dateRange, diffHours, diffMinutes, diffSeconds, durationToMinutes, durationToSeconds, formatDuration, getCalendar, getDay, getDayOfYear, getOffsetTransitions, getQuarter, getTimeZone, isWeekday, parse, parseTime, since, startOfWeek, toPlainDate, toPlainDateTime, totalDuration, until, withCalendar, withTimeZone
+- `simple/temporal/`: addDuration, addMonths, addYears, adjustTime, dateRange, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, formatDuration, getCalendar, getDay, getDayOfYear, getMillisecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, isLeapYear, isWeekday, isWeekend, parse, parseTime, setDay, setHour, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, toPlainDate, toPlainDateTime, totalDuration, until, withCalendar, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts

@@ -43,6 +43,8 @@
  * @safe - Returns null for invalid inputs
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const addYears = (years: number) =>
 (
 	date:
@@ -56,7 +58,7 @@ const addYears = (years: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.PlainYearMonth
 	| null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

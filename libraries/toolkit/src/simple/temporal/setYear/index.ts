@@ -95,6 +95,8 @@
  * @immutable
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const setYear = (year: number) =>
 (
 	date:
@@ -108,7 +110,7 @@ const setYear = (year: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
 	| null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

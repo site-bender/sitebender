@@ -8,7 +8,20 @@ import appendTextNode from "./appendTextNode/index.ts"
 import handleFragment from "./handleFragment/index.ts"
 import setLevel from "./setLevel/index.ts"
 
-const buildDomTree = (parent) => (config) => (options = {}) => {
+type TextNodeConfig = { tag: "TextNode"; content: string }
+type FragmentConfig = { tag: "Fragment"; children?: ElementConfig[] }
+export type ElementConfig = {
+	tag: string
+	attributes?: Record<string, unknown>
+	dataset?: Record<string, unknown>
+	children?: Array<ElementConfig | TextNodeConfig>
+	calculation?: unknown
+	format?: unknown
+	validation?: unknown
+}
+type Options = { level?: number }
+
+const buildDomTree = (parent: HTMLElement) => (config: ElementConfig) => (options: Options = {}) => {
 	const { level: lvl = 0 } = options
 	const {
 		attributes = {},
@@ -21,13 +34,13 @@ const buildDomTree = (parent) => (config) => (options = {}) => {
 	} = config
 
 	if (tag === "Fragment") {
-		handleFragment(parent)(children)(options)
+		handleFragment(parent)(children as ElementConfig[])(options)
 
 		return
 	}
 
 	if (tag === "TextNode") {
-		appendTextNode(parent)(config)
+		appendTextNode(parent)(config as TextNodeConfig)
 
 		return
 	}
@@ -41,7 +54,7 @@ const buildDomTree = (parent) => (config) => (options = {}) => {
 	format && addFormatter(elem)(format)
 	addDataAttributes(elem)(dataset)
 	addValidation(elem)(validation)
-	appendChildren(elem)(children)({ ...options, level })
+	appendChildren(elem)(children as Array<ElementConfig | TextNodeConfig>)({ ...options, level })
 
 	parent.appendChild(elem)
 

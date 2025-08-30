@@ -1,9 +1,12 @@
-import { isRight } from "../../../../types/index.ts"
+import { isRight, type LocalValues } from "../../../../types/index.ts"
 import composeComparators from "../composeComparators/index.ts"
 
-const composeConditional = (op) => async (arg, localValues) => {
-	const conditional = await composeComparators(op)(arg, localValues)
-
+const composeConditional = (op: unknown) => async (
+	arg: unknown,
+	localValues?: LocalValues,
+) => {
+	const conditionalFn = await composeComparators(op as unknown as never)
+	const conditional = await conditionalFn(arg, localValues)
 	return isRight(conditional) && conditional.right !== false
 }
 

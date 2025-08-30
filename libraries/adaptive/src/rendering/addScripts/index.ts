@@ -1,5 +1,5 @@
 import collectScriptElements from "../helpers/collectScriptElements/index.ts"
-import buildDomTree from "../buildDomTree/index.ts"
+import buildDomTree, { type ElementConfig } from "../buildDomTree/index.ts"
 
 const addScripts = (component: Record<string, unknown>) => {
 	const head = document && document.head
@@ -7,7 +7,12 @@ const addScripts = (component: Record<string, unknown>) => {
 	if (head) {
 		const scripts = collectScriptElements(component)
 
-		scripts.forEach((script: unknown) => buildDomTree(head)(script)())
+		const toScriptElement = (src: string): ElementConfig => ({
+			tag: "SCRIPT",
+			attributes: { src },
+		})
+
+		scripts.forEach((src) => buildDomTree(head)(toScriptElement(src))())
 	}
 }
 

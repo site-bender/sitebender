@@ -2,11 +2,9 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
+	MatchesComparator,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
@@ -19,25 +17,30 @@ const doesNotMatch =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const operand = await composeComparators(op.operand)(arg, localValues)
+	const operandFn = await composeComparators(op.operand as unknown as never)
+	const { pattern, flags } = op as MatchesComparator
+	const patternFn = await composeComparators(pattern as unknown as never)
+	const operand = await operandFn(arg, localValues)
 
 		if (isLeft(operand)) {
 			return operand
 		}
 
 		try {
-			const pattern = new RegExp(op.pattern, op.flags)
+			const patternValue = await patternFn(arg, localValues)
+			if (isLeft(patternValue)) return patternValue
+			const pattern = new RegExp(String(patternValue.right), flags)
 
-			return pattern.test(operand.right)
+			return pattern.test(String(operand.right))
 				? {
 					left: [
-						Error(op)("DoesNotMatch")(`${operand.right} matches ${pattern}.`),
+						Error(op.tag)("DoesNotMatch")(`${operand.right} matches ${pattern}.`),
 					],
 				}
 				: { right: true }
 		} catch (e) {
 			return {
-				left: Error(op)("DoesNotMatch")(`Bad regular expression: ${e}.`),
+				left: [Error(op.tag)("DoesNotMatch")(`Bad regular expression: ${e}.`)],
 			}
 		}
 	}

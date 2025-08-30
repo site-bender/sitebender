@@ -75,6 +75,8 @@
  * @pure
  * @safe
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const startOfMonth = (
 	date:
 		| Temporal.PlainDate
@@ -83,7 +85,7 @@ const startOfMonth = (
 		| null
 		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

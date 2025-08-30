@@ -1,4 +1,4 @@
-const moveElementToDisplayCache = (id) => {
+const moveElementToDisplayCache = (id: string) => {
 	const element = document.getElementById(id)
 
 	if (element && document) {
@@ -9,8 +9,8 @@ const moveElementToDisplayCache = (id) => {
 		element.after(slot)
 		element.remove()
 
-		document.__sbDisplayCache ??= {}
-		document.__sbDisplayCache[element.id] = element
+	document.__sbDisplayCache ??= {}
+	document.__sbDisplayCache[element.id] = element
 	}
 }
 

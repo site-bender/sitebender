@@ -1,4 +1,4 @@
-const addDataAttributes = (elem) => (dataset = {}) => {
+const addDataAttributes = (elem: HTMLElement) => (dataset: Record<string, unknown> = {}) => {
 	Object.entries(dataset).forEach(([attr, value]) =>
 		typeof value === "boolean"
 			? value && elem.setAttribute(`data-${attr}`, "")

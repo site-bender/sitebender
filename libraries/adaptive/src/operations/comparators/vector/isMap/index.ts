@@ -2,11 +2,8 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
@@ -18,20 +15,21 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operand = await composeComparators(op.operand)(arg, localValues)
+	const operandFn = await composeComparators(op.operand as unknown as never)
+	const operand = await operandFn(arg, localValues)
 
 	if (isLeft(operand)) {
 		return operand
 	}
 
 	try {
-		new Map(operand.right)
+		new Map(operand.right as unknown as Iterable<readonly [unknown, unknown]>)
 
 		return operand
 	} catch (e) {
 		return {
 			left: [
-				Error(op)("IsMap")(
+				Error(op.tag)("IsMap")(
 					`Error creating map from ${JSON.stringify(operand.right)}: ${e}.`,
 				),
 			],

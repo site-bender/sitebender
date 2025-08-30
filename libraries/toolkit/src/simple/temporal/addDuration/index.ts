@@ -57,6 +57,8 @@
  * @safe
  * @curried
  */
+import { isNullish } from "../../../validation/isNullish"
+
 const addDuration = (duration: Temporal.Duration | null | undefined) =>
 (
 	temporal:
@@ -76,7 +78,7 @@ const addDuration = (duration: Temporal.Duration | null | undefined) =>
 	| Temporal.ZonedDateTime
 	| Temporal.Instant
 	| null => {
-	if (temporal == null || duration == null) {
+	if (isNullish(temporal) || isNullish(duration)) {
 		return null
 	}
 

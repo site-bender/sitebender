@@ -1,4 +1,5 @@
 import composeConditional from "../../operations/composers/composeConditional/index.ts"
+import type { LocalValues } from "../../types/index.ts"
 import collectConditionals from "../../rendering/helpers/collectConditionals/index.ts"
 import collectDependencies from "../../rendering/helpers/collectDependencies/index.ts"
 import makeDisplayToggle from "./makeDisplayToggle/index.ts"
@@ -9,7 +10,7 @@ const addConditionals = (element: Element) => (component: ComponentLike) => {
 	const conditionals = collectConditionals(component)
 
 	Object.entries(conditionals as Record<string, unknown>).forEach(([id, conditional]) => {
-		const testCondition = composeConditional(conditional)
+		const testCondition = composeConditional(conditional) as (arg: unknown, localValues?: LocalValues) => Promise<boolean>
 		const displayToggle = makeDisplayToggle(id)(testCondition)
 		const selectors = collectDependencies(conditional)
 
@@ -22,7 +23,7 @@ const addConditionals = (element: Element) => (component: ComponentLike) => {
 
 			if (id) {
 				callbacks[id] ??= []
-				callbacks[id].push(displayToggle)
+				callbacks[id].push(displayToggle as unknown as (arg?: unknown, localValues?: unknown) => void | Promise<void>)
 			}
 		})
 	})

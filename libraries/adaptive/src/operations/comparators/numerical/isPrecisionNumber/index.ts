@@ -2,11 +2,8 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
@@ -20,10 +17,11 @@ const isPrecisionNumber =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const operand = await composeComparators(op.operand)(arg, localValues)
-		const { decimalPlaces } = op
+		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operand = await operandFn(arg, localValues)
+		const precision = (op as any).precision ?? (op as any).decimalPlaces
 		const pattern = new RegExp(
-			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${decimalPlaces}})?$`,
+			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${precision}})?$`,
 		)
 
 		if (isLeft(operand)) {
@@ -34,8 +32,8 @@ const isPrecisionNumber =
 			? operand
 			: {
 				left: [
-					Error(op)("IsPrecisionNumber")(
-						`${operand.right} is not a precision number of up to ${decimalPlaces} decimal places.`,
+					Error(op.tag)("IsPrecisionNumber")(
+						`${operand.right} is not a precision number of up to ${precision} decimal places.`,
 					),
 				],
 			}
