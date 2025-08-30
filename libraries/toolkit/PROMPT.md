@@ -47,7 +47,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (43 files)
+### Already Completed Files (55 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
@@ -58,6 +58,7 @@ These files have already been updated and should be skipped:
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
 - `simple/temporal/`: addMonths, adjustTime, dateRange, diffHours, diffMinutes, formatDuration, getQuarter, isWeekday, parseTime, startOfWeek, toPlainDate, toPlainDateTime, totalDuration, withTimeZone
+- `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts
 - `types/`: index.ts
