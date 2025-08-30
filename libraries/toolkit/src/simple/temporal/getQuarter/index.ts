@@ -1,4 +1,4 @@
-import { isNullish } from "../../validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Gets the quarter (1-4) from a Temporal date or datetime

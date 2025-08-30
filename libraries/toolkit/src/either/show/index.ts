@@ -15,8 +15,8 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * @returns String representation of the Either
  * @example
  * ```typescript
- * import { left } from "../left/index.ts"
- * import { right } from "../right/index.ts"
+ * import left from "../left/index.ts"
+ * import right from "../right/index.ts"
  *
  * // Basic string conversion
  * show(right(42))         // "Right(42)"

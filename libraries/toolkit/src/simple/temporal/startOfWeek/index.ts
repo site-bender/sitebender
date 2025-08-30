@@ -1,4 +1,4 @@
-import { isNullish } from "../../validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns the start of week for a date (configurable week start)

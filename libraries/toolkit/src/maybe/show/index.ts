@@ -30,9 +30,9 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * show(just(new Date("2024-01-01")))  // 'Just("2024-01-01T00:00:00.000Z")'
  *
  * // Using in pipelines
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
- * import { map } from "../map/index.ts"
- * import { filter } from "../filter/index.ts"
+ * import pipe from "../../simple/combinator/pipe/index.ts"
+ * import map from "../map/index.ts"
+ * import filter from "../filter/index.ts"
  *
  * const trace = <A>(label: string) => (maybe: Maybe<A>): Maybe<A> => {
  *   console.log(`${label}: ${show(maybe)}`)

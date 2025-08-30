@@ -46,7 +46,7 @@ import isNothing from "../isNothing/index.ts"
  * // Left({ code: "REQUIRED", message: "Value is required" })
  *
  * // Chaining with Either operations
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
+ * import pipe from "../../simple/combinator/pipe/index.ts"
  * import { chain as chainEither } from "../../either/chain/index.ts"
  *
  * const parseNumber = (input: Maybe<string>): Either<string, number> =>

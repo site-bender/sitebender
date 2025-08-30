@@ -1,4 +1,4 @@
-import { isNullish } from "../../validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Generates an array of dates between start and end dates

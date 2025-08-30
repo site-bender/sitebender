@@ -19,10 +19,10 @@ import nothing from "../../maybe/nothing/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { ioMaybe } from "../ioMaybe/index.ts"
- * import { runIO } from "../runIO/index.ts"
- * import { just } from "../../maybe/just/index.ts"
- * import { nothing } from "../../maybe/nothing/index.ts"
+ * import ioMaybe from "../ioMaybe/index.ts"
+ * import runIO from "../runIO/index.ts"
+ * import just from "../../maybe/just/index.ts"
+ * import nothing from "../../maybe/nothing/index.ts"
  *
  * // Basic transformation
  * const numberMaybeIO = ioMaybe(() => just(42))

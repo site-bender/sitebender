@@ -32,7 +32,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * third(undefined)  // undefined
  *
  * // With map for extracting thirds
- * import { map } from "../../array/map"
+ * import map from "../../array/map"
  * const triples = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
  * map(third)(triples)  // [3, 6, 9]
  *

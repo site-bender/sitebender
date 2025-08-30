@@ -85,7 +85,7 @@
  * @precise Uses Temporal API for accurate calendar calculations
  * @flexible Supports various recurrence patterns and intervals
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const getNextOccurrence = (pattern: {
 	unit: string

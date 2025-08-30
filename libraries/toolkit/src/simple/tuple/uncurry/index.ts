@@ -30,7 +30,7 @@ import type { Pair, Triple } from "../../../types/tuple/index.ts"
  * tupleFormat(["Score", 95])  // "Score: 95"
  *
  * // Composition with tuples
- * import { compose } from "../../combinator/compose"
+ * import compose from "../../combinator/compose"
  * const curriedDivide = (x: number) => (y: number): number => x / y
  * const tupleDivide = uncurry(curriedDivide)
  * const process = compose(

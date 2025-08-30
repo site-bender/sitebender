@@ -15,9 +15,9 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { runIO } from "../runIO/index.ts"
- * import { just } from "../../maybe/just/index.ts"
- * import { nothing } from "../../maybe/nothing/index.ts"
+ * import runIO from "../runIO/index.ts"
+ * import just from "../../maybe/just/index.ts"
+ * import nothing from "../../maybe/nothing/index.ts"
  *
  * // Basic usage
  * const findUser = (id: string): Maybe<string> =>

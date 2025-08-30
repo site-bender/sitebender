@@ -95,7 +95,7 @@
  * @immutable
  * @curried
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const setYear = (year: number) =>
 (

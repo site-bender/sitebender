@@ -66,7 +66,7 @@
  * @safe Returns null for invalid inputs
  * @precision Returns milliseconds (0-999), truncating higher precision
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const getMillisecond = (
 	time:

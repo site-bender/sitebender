@@ -35,7 +35,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * const x = first(point2D) // 3
  *
  * // Mapping over arrays of tuples
- * import { map } from "../../array/map"
+ * import map from "../../array/map"
  * const pairs = [[1, 2], [3, 4], [5, 6]]
  * map(first)(pairs) // [1, 3, 5]
  * ```

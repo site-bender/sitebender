@@ -16,9 +16,9 @@ import type { IOEither } from "../../types/fp/io/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { runIO } from "../runIO/index.ts"
- * import { right } from "../../either/right/index.ts"
- * import { left } from "../../either/left/index.ts"
+ * import runIO from "../runIO/index.ts"
+ * import right from "../../either/right/index.ts"
+ * import left from "../../either/left/index.ts"
  *
  * // Basic validation
  * const validateAge = (age: number): Either<string, number> =>

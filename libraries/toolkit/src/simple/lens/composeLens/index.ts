@@ -13,7 +13,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  * @returns A new lens that composes the two lenses
  * @example
  * ```typescript
- * import { lensProp } from "../../simple/object/lensProp/index.ts"
+ * import lensProp from "../../simple/object/lensProp/index.ts"
  *
  * // Basic lens composition
  * const addressLens = lensProp("address")

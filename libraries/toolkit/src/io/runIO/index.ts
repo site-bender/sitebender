@@ -14,7 +14,7 @@ import type { IO } from "../../types/fp/io/index.ts"
  * @impure
  * @example
  * ```typescript
- * import { io } from "../io/index.ts"
+ * import io from "../io/index.ts"
  *
  * // Create deferred computations
  * const randomIO = io(() => Math.random())

@@ -15,7 +15,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  * @returns True if focused value is <= the given value
  * @example
  * ```typescript
- * import { lensProp } from "../../simple/object/lensProp/index.ts"
+ * import lensProp from "../../simple/object/lensProp/index.ts"
  *
  * // Number comparison
  * const ageLens = lensProp("age")

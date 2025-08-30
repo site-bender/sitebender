@@ -75,7 +75,7 @@
  * @pure
  * @safe
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const startOfMonth = (
 	date:

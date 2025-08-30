@@ -19,8 +19,8 @@ import isNothing from "../isNothing/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { just } from "../just/index.ts"
- * import { nothing } from "../nothing/index.ts"
+ * import just from "../just/index.ts"
+ * import nothing from "../nothing/index.ts"
  *
  * // Basic folding to a value
  * const toNumber = fold(

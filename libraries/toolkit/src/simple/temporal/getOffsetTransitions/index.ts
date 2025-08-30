@@ -1,5 +1,5 @@
-import { isNull } from "../../../simple/validation/isNull/index.ts"
-import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+import isNull from "../../../simple/validation/isNull/index.ts"
+import isNullish from "../../../simple/validation/isNullish/index.ts"
 
 /**
  * Gets timezone offset transition points

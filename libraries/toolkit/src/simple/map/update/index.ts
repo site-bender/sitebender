@@ -29,7 +29,7 @@
  * // Map { 1 => {name:"Alice", age:31} }
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  * const state = new Map([["counter", 0]])
  * pipe(
  *   state,

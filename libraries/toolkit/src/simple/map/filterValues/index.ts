@@ -31,7 +31,7 @@
  * // Map { "user1" => {...} }
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * pipe(
  *   new Map([

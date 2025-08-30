@@ -43,7 +43,7 @@
  * @safe - Returns null for invalid inputs
  * @curried
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const addYears = (years: number) =>
 (

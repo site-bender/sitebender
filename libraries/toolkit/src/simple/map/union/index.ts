@@ -43,7 +43,7 @@
  *     union(defaults, ...overrides)
  *
  * // This is an alias for merge
- * import { merge } from "../merge/index.ts"
+ * import merge from "../merge/index.ts"
  * const test = new Map([["x", 1]])
  * union(test) === merge(test)  // true
  * ```

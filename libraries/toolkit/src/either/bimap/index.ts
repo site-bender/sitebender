@@ -50,7 +50,7 @@ import right from "../right/index.ts"
  * toEuros(left("Invalid amount"))   // Left("Currency error: Invalid amount")
  *
  * // Chaining bimap operations
- * import { pipe } from "../../simple/combinator/pipe"
+ * import pipe from "../../simple/combinator/pipe"
  * pipe(
  *   someEither,
  *   bimap(e => e.toLowerCase())(v => v * 2),

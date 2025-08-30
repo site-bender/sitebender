@@ -31,7 +31,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * second(undefined) // undefined
  *
  * // With map for extracting seconds
- * import { map } from "../../array/map"
+ * import map from "../../array/map"
  * const pairs = [[1, 2], [3, 4], [5, 6]]
  * map(second)(pairs)  // [2, 4, 6]
  *

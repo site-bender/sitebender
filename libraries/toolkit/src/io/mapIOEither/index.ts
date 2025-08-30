@@ -18,10 +18,10 @@ import right from "../../either/right/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { runIO } from "../runIO/index.ts"
- * import { ioEither } from "../ioEither/index.ts"
- * import { right } from "../../either/right/index.ts"
- * import { left } from "../../either/left/index.ts"
+ * import runIO from "../runIO/index.ts"
+ * import ioEither from "../ioEither/index.ts"
+ * import right from "../../either/right/index.ts"
+ * import left from "../../either/left/index.ts"
  *
  * // Basic transformation
  * const numberIO = ioEither(() => right(42))

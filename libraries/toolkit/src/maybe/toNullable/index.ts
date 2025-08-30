@@ -15,8 +15,8 @@ import isNothing from "../isNothing/index.ts"
  * @returns The Just value or null if Nothing
  * @example
  * ```typescript
- * import { just } from "../just/index.ts"
- * import { nothing } from "../nothing/index.ts"
+ * import just from "../just/index.ts"
+ * import nothing from "../nothing/index.ts"
  *
  * // Basic conversion
  * toNullable(just(42))     // 42
@@ -24,7 +24,7 @@ import isNothing from "../isNothing/index.ts"
  * toNullable(just("hello")) // "hello"
  * 
  * // Round-trip with fromNullable
- * import { fromNullable } from "../fromNullable/index.ts"
+ * import fromNullable from "../fromNullable/index.ts"
  * toNullable(fromNullable(42))    // 42
  * toNullable(fromNullable(null))  // null
  * 
@@ -38,8 +38,8 @@ import isNothing from "../isNothing/index.ts"
  * })
  * 
  * // Chaining with other operations
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
- * import { map } from "../map/index.ts"
+ * import pipe from "../../simple/combinator/pipe/index.ts"
+ * import map from "../map/index.ts"
  * 
  * const processAndConvert = (input: Maybe<number>): number | null =>
  *   pipe(

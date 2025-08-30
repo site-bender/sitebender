@@ -14,7 +14,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  * @returns True if focused value equals the given value
  * @example
  * ```typescript
- * import { lensProp } from "../../simple/object/lensProp/index.ts"
+ * import lensProp from "../../simple/object/lensProp/index.ts"
  *
  * // Basic equality check
  * const nameLens = lensProp("name")

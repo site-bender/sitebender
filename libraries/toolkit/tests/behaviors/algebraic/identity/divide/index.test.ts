@@ -3,7 +3,7 @@ import * as fc from "npm:fast-check@3"
 
 import divide from "../../../../../src/simple/math/divide/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
-import { finiteNumber } from "../../../../helpers/generators/numeric/index.ts"
+import finiteNumber from "../../../../helpers/generators/numeric/index.ts"
 
 Deno.test("divide - right identity is 1: a / 1 = a", () => {
 	fc.assert(

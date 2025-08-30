@@ -14,9 +14,9 @@ import type { IO } from "../../types/fp/io/index.ts"
  * @pure
  * @example
  * ```typescript
- * import { runIO } from "../runIO/index.ts"
- * import { map } from "../map/index.ts"
- * import { chain } from "../chain/index.ts"
+ * import runIO from "../runIO/index.ts"
+ * import map from "../map/index.ts"
+ * import chain from "../chain/index.ts"
  *
  * // Basic value lifting
  * const numberIO = of(42)

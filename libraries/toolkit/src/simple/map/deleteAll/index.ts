@@ -22,7 +22,7 @@
  * // Map { "a" => 1 } (only "b" was removed)
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * pipe(
  *   new Map([

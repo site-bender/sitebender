@@ -38,7 +38,7 @@ import isRight from "../isRight/index.ts"
  *   timeout: 5000
  * }
  *
- * import { pipe } from "../../simple/combinator/pipe"
+ * import pipe from "../../simple/combinator/pipe"
  * pipe(
  *   loadConfig(),
  *   getOrElse(defaultConfig)

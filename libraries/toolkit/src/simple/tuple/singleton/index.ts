@@ -32,7 +32,7 @@ import type { Singleton } from "../../../types/tuple/index.ts"
  * singleton([1, 2, 3])   // [[1, 2, 3]] - singleton containing an array
  *
  * // Use with map to wrap each element
- * import { map } from "../../array/map"
+ * import map from "../../array/map"
  * const wrapEach = map(singleton)
  * wrapEach([1, 2, 3])   // [[1], [2], [3]]
  *

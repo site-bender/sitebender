@@ -23,7 +23,7 @@ import isLeft from "../isLeft/index.ts"
  * const sqrt = (n: number): Either<string, number> =>
  *   n < 0 ? left("Cannot sqrt negative") : right(Math.sqrt(n))
  *
- * import { pipe } from "../../simple/combinator/pipe"
+ * import pipe from "../../simple/combinator/pipe"
  * pipe(
  *   right(16),
  *   chain(sqrt),       // Right(4)

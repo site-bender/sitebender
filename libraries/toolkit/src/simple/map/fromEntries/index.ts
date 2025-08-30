@@ -15,7 +15,7 @@
  * // Map { "a" => 1, "b" => 2, "c" => 3 }
  *
  * // This is an alias for fromArray
- * import { fromArray } from "../fromArray/index.ts"
+ * import fromArray from "../fromArray/index.ts"
  * const entries = [["x", 10], ["y", 20]] as Array<[string, number]>
  * fromEntries(entries)  // Same as fromArray(entries)
  * // Map { "x" => 10, "y" => 20 }

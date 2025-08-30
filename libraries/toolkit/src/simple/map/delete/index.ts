@@ -22,7 +22,7 @@
  * // Map { "a" => 1, "b" => 2 } (copy of original)
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * pipe(
  *   new Map([["a", 1], ["b", 2], ["c", 3], ["d", 4]]),

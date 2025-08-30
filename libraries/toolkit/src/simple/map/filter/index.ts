@@ -36,7 +36,7 @@
  * // Map { 1 => {name:"Alice", active:true}, 3 => {name:"Charlie", active:true} }
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * const inventory = new Map([
  *   ["apple", { count: 50, price: 1.99 }],

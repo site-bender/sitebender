@@ -21,7 +21,7 @@
  * // [["string", "hello"], [1, "number"], [true, "boolean"]]
  *
  * // Transformation pipeline
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  * import { map as arrayMap } from "../../array/map/index.ts"
  *
  * pipe(

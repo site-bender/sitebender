@@ -15,8 +15,8 @@ import type { IO } from "../../types/fp/io/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { io } from "../io/index.ts"
- * import { runIO } from "../runIO/index.ts"
+ * import io from "../io/index.ts"
+ * import runIO from "../runIO/index.ts"
  *
  * // Basic transformation
  * const randomIO = io(() => Math.random())

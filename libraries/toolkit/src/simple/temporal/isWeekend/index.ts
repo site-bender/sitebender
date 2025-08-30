@@ -53,7 +53,7 @@
  * @safe
  * @predicate
  */
-import { isNullish } from "../../../validation/isNullish"
+import isNullish from "../../../validation/isNullish"
 
 const isWeekend = (
 	date:

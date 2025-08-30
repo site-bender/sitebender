@@ -3,7 +3,7 @@ import * as fc from "npm:fast-check@3"
 
 import add from "../../../../../src/simple/math/add/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
-import { finiteNumber } from "../../../../helpers/generators/numeric/index.ts"
+import finiteNumber from "../../../../helpers/generators/numeric/index.ts"
 
 Deno.test("add - associative property: (a + b) + c = a + (b + c)", () => {
 	fc.assert(

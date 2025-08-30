@@ -1,4 +1,4 @@
-import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../../simple/validation/isNullish/index.ts"
 
 /**
  * Calculates the duration since a reference date/time

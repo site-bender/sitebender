@@ -112,8 +112,7 @@
  * @safe
  * @curried
  */
-import { isNullish } from "../../../validation/isNullish"
-import { isNull } from "../../../validation/isNull"
+import isNullish from "../../validation/isNullish/index.ts"
 
 const sortByAbsoluteTime = (timeZone: string = "UTC") =>
 (

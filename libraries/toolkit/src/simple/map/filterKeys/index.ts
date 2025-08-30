@@ -32,7 +32,7 @@
  * // Map { 1 => "one", 3 => "three" }
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * pipe(
  *   new Map([

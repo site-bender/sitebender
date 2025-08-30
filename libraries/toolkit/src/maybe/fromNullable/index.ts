@@ -59,9 +59,9 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * safeFindUser(users, 3)  // Nothing
  *
  * // Chaining with other Maybe operations
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
- * import { map } from "../map/index.ts"
- * import { getOrElse } from "../getOrElse/index.ts"
+ * import pipe from "../../simple/combinator/pipe/index.ts"
+ * import map from "../map/index.ts"
+ * import getOrElse from "../getOrElse/index.ts"
  *
  * const processNullable = (value: string | null | undefined): string =>
  *   pipe(

@@ -19,9 +19,9 @@ import nothing from "../nothing/index.ts"
  * @curried
  * @example
  * ```typescript
- * import { just } from "../just/index.ts"
- * import { nothing } from "../nothing/index.ts"
- * import { pipe } from "../../simple/combinator/pipe/index.ts"
+ * import just from "../just/index.ts"
+ * import nothing from "../nothing/index.ts"
+ * import pipe from "../../simple/combinator/pipe/index.ts"
  *
  * // Basic filtering
  * const isPositive = (n: number) => n > 0

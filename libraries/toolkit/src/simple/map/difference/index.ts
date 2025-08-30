@@ -25,7 +25,7 @@
  * // Map { "bob" => "Marketing" }
  *
  * // Using with pipe
- * import { pipe } from "../../combinator/pipe/index.ts"
+ * import pipe from "../../combinator/pipe/index.ts"
  *
  * const allUsers = new Map([[1, "Alice"], [2, "Bob"], [3, "Charlie"], [4, "Diana"]])
  * const admins = new Map([[1, true], [3, true]])
