@@ -27,7 +27,8 @@ async (
 	const ifTrue = await trueFn(arg, localValues)
 	if (isLeft(ifTrue)) return ifTrue
 
-	return condition.right ? ifTrue : ifFalse
+	// Coerce branch results to boolean by truthiness; comparator contract expects boolean
+	return { right: Boolean((condition.right ? ifTrue : ifFalse).right) }
 }
 
 export default ternary

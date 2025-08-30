@@ -9,6 +9,7 @@ import type {
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isBool from "../../../../guards/isBoolean/index.ts"
+import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isBoolean = (op: ComparatorConfig): OperationFunction<boolean> =>
@@ -23,13 +24,13 @@ async (
 		return operand
 	}
 
-	return isBool(operand.right) ? operand : {
-		left: [
+	return isBool(operand.right as Value)
+		? { right: true }
+		: { left: [
 			Error(op.tag)("IsBoolean")(
 				`${operand.right} is not a boolean value (true/false).`,
 			),
-		],
-	}
+		] }
 }
 
 export default isBoolean

@@ -16,7 +16,8 @@ async (
 	const rights = results.filter(isRight)
 
 	if (rights.length) {
-		return rights[0]
+		// Any comparator succeeded → overall OR is true
+		return { right: true }
 	}
 
 	// All were lefts; concatenate error arrays safely

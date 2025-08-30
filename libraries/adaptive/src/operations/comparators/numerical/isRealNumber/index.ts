@@ -9,6 +9,7 @@ import type {
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isNumber from "../../../../guards/isNumber/index.ts"
+import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isRealNumber =
@@ -24,11 +25,11 @@ const isRealNumber =
 			return operand
 		}
 
-		return isNumber(operand.right) ? operand : {
-			left: [
+		return isNumber(operand.right as Value)
+			? { right: true }
+			: { left: [
 				Error(op.tag)("IsRealNumber")(`${operand.right} is not a real number.`),
-			],
-		}
+			] }
 	}
 
 export default isRealNumber
