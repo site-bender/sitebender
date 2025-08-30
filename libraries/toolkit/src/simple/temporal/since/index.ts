@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Calculates the duration since a reference date/time
  *
@@ -113,7 +115,7 @@ const since = (
 		| null
 		| undefined,
 ): Temporal.Duration | null => {
-	if (reference == null || current == null) {
+	if (isNullish(reference) || isNullish(current)) {
 		return null
 	}
 

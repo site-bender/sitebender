@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Gets the calendar system from a Temporal date or datetime
  *
@@ -71,7 +73,7 @@ const getCalendar = (
 		| null
 		| undefined,
 ): string | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

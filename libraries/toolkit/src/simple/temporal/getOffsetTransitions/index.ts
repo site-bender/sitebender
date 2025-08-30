@@ -1,3 +1,6 @@
+import { isNull } from "../../../simple/validation/isNull/index.ts"
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Gets timezone offset transition points
  *
@@ -113,7 +116,7 @@ const getOffsetTransitions = (timeZone: string) =>
 	offsetAfter: string
 	type: "forward" | "backward"
 }> => {
-	if (startDate == null || endDate == null) {
+	if (isNullish(startDate) || isNullish(endDate)) {
 		return []
 	}
 
@@ -168,7 +171,7 @@ const getOffsetTransitions = (timeZone: string) =>
 				const currentOffset = zonedDateTime.offset
 
 				const newTransitions = 
-					prevOffset !== null && prevOffset !== currentOffset
+					!isNull(prevOffset) && prevOffset !== currentOffset
 						? [...acc, {
 							date: current,
 							offsetBefore: prevOffset,

@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Gets the day of month from a Temporal date or datetime
  *
@@ -67,7 +69,7 @@ const getDay = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

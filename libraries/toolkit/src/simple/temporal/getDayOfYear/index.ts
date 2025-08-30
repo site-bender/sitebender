@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Gets the day of year from a Temporal date or datetime
  *
@@ -59,7 +61,7 @@ const getDayOfYear = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

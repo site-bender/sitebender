@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Changes the calendar system of a date
  *
@@ -70,7 +72,7 @@ const withCalendar = (calendar: string) =>
 	| Temporal.PlainYearMonth
 	| Temporal.PlainMonthDay
 	| null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

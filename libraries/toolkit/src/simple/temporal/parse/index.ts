@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Parses date/time from string with flexible format support
  *
@@ -60,7 +62,7 @@ const parse = (
 	| Temporal.PlainYearMonth
 	| Temporal.PlainMonthDay
 	| null => {
-	if (dateString == null || dateString === "") {
+	if (isNullish(dateString) || dateString === "") {
 		return null
 	}
 

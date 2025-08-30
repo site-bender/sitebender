@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Gets the time zone identifier from a Temporal ZonedDateTime
  *
@@ -50,7 +52,7 @@
 const getTimeZone = (
 	zonedDateTime: Temporal.ZonedDateTime | null | undefined,
 ): string | null => {
-	if (zonedDateTime == null) {
+	if (isNullish(zonedDateTime)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Calculates the difference in seconds between two times or datetimes
  *
@@ -74,7 +76,7 @@ const diffSeconds = (
 		| null
 		| undefined,
 ): number | null => {
-	if (from == null || to == null) {
+	if (isNullish(from) || isNullish(to)) {
 		return null
 	}
 

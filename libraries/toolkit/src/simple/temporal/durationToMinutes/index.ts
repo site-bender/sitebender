@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Converts a Temporal.Duration to total minutes
  *
@@ -43,7 +45,7 @@
 const durationToMinutes = (
 	duration: Temporal.Duration | null | undefined,
 ): number | null => {
-	if (duration == null) {
+	if (isNullish(duration)) {
 		return null
 	}
 

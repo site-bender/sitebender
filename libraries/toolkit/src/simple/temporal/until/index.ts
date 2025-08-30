@@ -1,3 +1,5 @@
+import { isNullish } from "../../../simple/validation/isNullish/index.ts"
+
 /**
  * Calculates the duration until a target date/time
  *
@@ -77,7 +79,7 @@ const until = (
 		| null
 		| undefined,
 ): Temporal.Duration | null => {
-	if (target == null || current == null) {
+	if (isNullish(target) || isNullish(current)) {
 		return null
 	}
 
