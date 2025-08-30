@@ -2,6 +2,7 @@ import type { Maybe } from "../../types/fp/maybe/index.ts"
 
 import withInspect from "../../debug/withInspect/index.ts"
 import just from "../just/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Creates a Just value with enhanced debugging output
@@ -72,7 +73,7 @@ const justWithInspect = <A>(value: A): Maybe<A> => {
 		if (typeof v === "symbol") {
 			return v.toString()
 		}
-		if (v === null || v === undefined) {
+		if (isNullish(v)) {
 			return String(v)
 		}
 		try {

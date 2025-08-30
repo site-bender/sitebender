@@ -1,3 +1,5 @@
+import isNullish from "../../simple/validation/isNullish/index.ts"
+
 /**
  * Generates a random boolean value with optional bias
  *
@@ -41,7 +43,7 @@ const randomBoolean = (
 ): boolean => {
 	// Validate and clamp probability to [0, 1]
 	let p = probability
-	if (p == null || typeof p !== "number" || !isFinite(p)) {
+	if (isNullish(p) || typeof p !== "number" || !isFinite(p)) {
 		p = 0.5
 	} else {
 		p = Math.max(0, Math.min(1, p))

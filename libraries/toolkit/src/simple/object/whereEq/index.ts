@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isEmpty from "../../validation/isEmpty/index.ts"
+
 /**
  * Checks if an object satisfies a specification using strict equality
  *
@@ -53,7 +55,7 @@ const whereEq = <S extends Record<string, Value>>(
 	// Handle null/undefined
 	if (!obj || typeof obj !== "object") {
 		// Check if spec is empty
-		return Object.keys(spec).length === 0
+		return isEmpty(spec)
 	}
 
 	// Check each property in the spec

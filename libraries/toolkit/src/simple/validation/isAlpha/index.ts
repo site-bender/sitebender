@@ -1,3 +1,5 @@
+import isEmpty from "../isEmpty/index.ts"
+
 /**
  * Validates if a string contains only alphabetic characters
  *
@@ -57,7 +59,7 @@ type AlphaOptions = {
 
 const isAlpha = (options: AlphaOptions = {}): (value: unknown) => boolean => {
 	return (value: unknown): boolean => {
-		if (typeof value !== "string" || value.length === 0) {
+		if (typeof value !== "string" || isEmpty(value)) {
 			return false
 		}
 

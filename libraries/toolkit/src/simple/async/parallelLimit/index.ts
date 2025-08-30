@@ -1,3 +1,5 @@
+import isEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Executes async functions in parallel with a concurrency limit
  *
@@ -71,7 +73,7 @@ async <T>(
 	}
 
 	// Handle empty array
-	if (tasks.length === 0) {
+	if (isEmpty(tasks)) {
 		return []
 	}
 

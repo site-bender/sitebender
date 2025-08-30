@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Constrains a number between minimum and maximum bounds
  *
@@ -64,15 +66,15 @@ const clamp = (
 (
 	value: number | null | undefined,
 ): number => {
-	if (min == null || typeof min !== "number") {
+	if (isNullish(min) || typeof min !== "number") {
 		return NaN
 	}
 
-	if (max == null || typeof max !== "number") {
+	if (isNullish(max) || typeof max !== "number") {
 		return NaN
 	}
 
-	if (value == null || typeof value !== "number") {
+	if (isNullish(value) || typeof value !== "number") {
 		return NaN
 	}
 

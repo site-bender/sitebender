@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isEmpty from "../../validation/isEmpty/index.ts"
+
 /**
  * Checks if an object satisfies a specification of predicates
  *
@@ -66,7 +68,7 @@ const where = <S extends Record<string, (value: any) => boolean>>(
 	// Handle null/undefined
 	if (!obj || typeof obj !== "object") {
 		// Check if any predicates exist
-		return Object.keys(spec).length === 0
+		return isEmpty(spec)
 	}
 
 	// Check each predicate in the spec

@@ -1,3 +1,5 @@
+import isEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Returns the result of the first async function to complete (resolve or reject)
  *
@@ -61,7 +63,7 @@ const race = async <T>(
 	tasks: ReadonlyArray<() => Promise<T>>,
 ): Promise<T> => {
 	// Handle empty array - this would never resolve
-	if (tasks.length === 0) {
+	if (isEmpty(tasks)) {
 		throw new Error(
 			"Cannot race an empty array of tasks - the Promise would never settle",
 		)

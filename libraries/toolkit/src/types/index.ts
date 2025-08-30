@@ -1,3 +1,6 @@
+import isNullish from "./simple/validation/isNullish/index.ts"
+import isNotNull from "./simple/validation/isNotNull/index.ts"
+
 /**
  * Core type definitions for the toolkit library
  *
@@ -54,7 +57,7 @@ export type Datatype =
  * Checks if something is a valid Value type
  */
 export const isValue = (val: unknown): val is Value => {
-	if (val === null || val === undefined) return true
+	if (isNullish(val)) return true
 
 	const type = typeof val
 	if (type === "string" || type === "number" || type === "boolean") return true
@@ -87,7 +90,7 @@ export const isValue = (val: unknown): val is Value => {
 		return true
 	}
 
-	if (type === "object" && val !== null) {
+	if (type === "object" && isNotNull(val)) {
 		// Plain object with string keys only
 		for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
 			if (typeof k !== "string" || !isValue(v)) return false

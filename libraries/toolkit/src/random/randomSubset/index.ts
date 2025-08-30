@@ -1,4 +1,5 @@
 import randomInteger from "../randomInteger/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Selects a random subset from an Array or Set
@@ -53,7 +54,7 @@ const randomSubset = <T>(
 (
 	size: number | null | undefined = undefined,
 ): Array<T> | Set<T> | null => {
-	if (collection == null) {
+	if (isNullish(collection)) {
 		return null
 	}
 
@@ -78,7 +79,7 @@ const randomSubset = <T>(
 
 	// Determine subset size
 	let subsetSize: number
-	if (size == null || size === undefined) {
+	if (isNullish(size)) {
 		// Random size between 0 and collection size
 		subsetSize = randomInteger(0)(collectionSize)
 	} else if (typeof size !== "number" || !isFinite(size)) {

@@ -1,3 +1,5 @@
+import isNotNull from "../simple/validation/isNotNull/index.ts"
+
 // Minimal reactive store with SSR-safe fallback
 // - Works without client JS: render state on server; hydrate if JS available
 // - No external libs; tiny FRP-ish API
@@ -51,7 +53,7 @@ export function persistToLocalStorage<S>(
 	// Load
 	try {
 		const raw = localStorage.getItem(key)
-		if (raw !== null) store.set(() => JSON.parse(raw))
+		if (isNotNull(raw)) store.set(() => JSON.parse(raw))
 	} catch {
 		// ignore JSON/Storage errors (quota/denied)
 	}

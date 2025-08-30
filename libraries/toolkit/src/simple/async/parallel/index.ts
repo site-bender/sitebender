@@ -1,3 +1,5 @@
+import isEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Executes an array of async functions in parallel and collects their results
  *
@@ -75,7 +77,7 @@ const parallel = async <T>(
 	tasks: ReadonlyArray<() => Promise<T>>,
 ): Promise<Array<T>> => {
 	// Handle empty array
-	if (tasks.length === 0) {
+	if (isEmpty(tasks)) {
 		return []
 	}
 

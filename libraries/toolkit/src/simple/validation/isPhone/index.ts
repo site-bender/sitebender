@@ -1,3 +1,5 @@
+import isEmpty from "../isEmpty/index.ts"
+
 /**
  * Validates phone numbers for various countries and formats
  *
@@ -74,7 +76,7 @@ const isPhone = (
 	options: PhoneOptions = {},
 ): (value: unknown) => boolean => {
 	return (value: unknown): boolean => {
-		if (typeof value !== "string" || value.length === 0) {
+		if (typeof value !== "string" || isEmpty(value)) {
 			return false
 		}
 

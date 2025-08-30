@@ -1,3 +1,6 @@
+import isEmpty from "../isEmpty/index.ts"
+import arrayIsEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Validates if a string is a valid URL
  *
@@ -61,7 +64,7 @@ type UrlOptions = {
 
 const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 	return (value: unknown): boolean => {
-		if (typeof value !== "string" || value.trim().length === 0) {
+		if (typeof value !== "string" || isEmpty(value.trim())) {
 			return false
 		}
 
@@ -69,7 +72,7 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 			const url = new URL(value)
 
 			// Check protocol restrictions
-			if (options.protocols && options.protocols.length > 0) {
+			if (options.protocols && !arrayIsEmpty(options.protocols)) {
 				const protocol = url.protocol.slice(0, -1) // Remove trailing ':'
 				if (!options.protocols.includes(protocol)) {
 					return false
@@ -84,7 +87,7 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 			}
 
 			// Check allowed domains
-			if (options.allowedDomains && options.allowedDomains.length > 0) {
+			if (options.allowedDomains && !arrayIsEmpty(options.allowedDomains)) {
 				const isAllowed = options.allowedDomains.some((domain) =>
 					url.hostname === domain || url.hostname.endsWith(`.${domain}`)
 				)

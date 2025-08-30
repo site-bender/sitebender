@@ -1,3 +1,5 @@
+import isNullish from "../../simple/validation/isNullish/index.ts"
+
 /**
  * Generates a random floating-point number between min and max
  *
@@ -44,11 +46,11 @@ const randomFloat = (
 (
 	max: number | null | undefined,
 ): number => {
-	if (min == null || typeof min !== "number" || !isFinite(min)) {
+	if (isNullish(min) || typeof min !== "number" || !isFinite(min)) {
 		return NaN
 	}
 
-	if (max == null || typeof max !== "number" || !isFinite(max)) {
+	if (isNullish(max) || typeof max !== "number" || !isFinite(max)) {
 		return NaN
 	}
 

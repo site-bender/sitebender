@@ -2,6 +2,7 @@ import type { Either } from "../../types/fp/either/index.ts"
 
 import withInspect from "../../debug/withInspect/index.ts"
 import left from "../left/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Creates a Left value with enhanced debugging output
@@ -57,7 +58,7 @@ const leftWithInspect = <E, A = never>(value: E): Either<E, A> => {
 		if (typeof v === "string") {
 			return JSON.stringify(v)
 		}
-		if (v === null || v === undefined) {
+		if (isNullish(v)) {
 			return String(v)
 		}
 		try {

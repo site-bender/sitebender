@@ -1,6 +1,7 @@
 import type { Either } from "../../types/fp/either/index.ts"
 
 import isLeft from "../isLeft/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Converts an Either value to its string representation
@@ -104,7 +105,7 @@ const show = <E, A>(either: Either<E, A>): string => {
 		if (typeof v === "symbol") {
 			return v.toString()
 		}
-		if (v === null || v === undefined) {
+		if (isNullish(v)) {
 			return String(v)
 		}
 		try {

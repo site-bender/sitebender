@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Adds months to a Temporal PlainDate, PlainDateTime, or PlainYearMonth
  *
@@ -61,7 +63,7 @@ const addMonths = (months: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.PlainYearMonth
 	| null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

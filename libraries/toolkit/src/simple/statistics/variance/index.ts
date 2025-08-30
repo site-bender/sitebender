@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the variance of an array of numbers
  *
@@ -37,7 +39,7 @@ const variance = (
 (
 	values: Array<number> | null | undefined,
 ): number => {
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
 

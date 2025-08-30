@@ -1,6 +1,7 @@
 import type { Maybe } from "../../types/fp/maybe/index.ts"
 
 import isNothing from "../isNothing/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Converts a Maybe value to its string representation
@@ -67,7 +68,7 @@ const show = <A>(maybe: Maybe<A>): string => {
 		if (typeof v === "symbol") {
 			return v.toString()
 		}
-		if (v === null || v === undefined) {
+		if (isNullish(v)) {
 			return String(v)
 		}
 		try {

@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Adjusts time components of a PlainDateTime while preserving the date
  *
@@ -55,7 +58,7 @@ const adjustTime = (
 (
 	datetime: Temporal.PlainDateTime | null | undefined,
 ): Temporal.PlainDateTime | null => {
-	if (datetime == null || timeAdjustment == null) {
+	if (isNullish(datetime) || isNullish(timeAdjustment)) {
 		return null
 	}
 
@@ -67,22 +70,22 @@ const adjustTime = (
 		// Build the with() argument, only including defined properties
 		const withArgs: Record<string, number> = {}
 
-		if (timeAdjustment.hour !== undefined) {
+		if (isNotUndefined(timeAdjustment.hour)) {
 			withArgs.hour = timeAdjustment.hour
 		}
-		if (timeAdjustment.minute !== undefined) {
+		if (isNotUndefined(timeAdjustment.minute)) {
 			withArgs.minute = timeAdjustment.minute
 		}
-		if (timeAdjustment.second !== undefined) {
+		if (isNotUndefined(timeAdjustment.second)) {
 			withArgs.second = timeAdjustment.second
 		}
-		if (timeAdjustment.millisecond !== undefined) {
+		if (isNotUndefined(timeAdjustment.millisecond)) {
 			withArgs.millisecond = timeAdjustment.millisecond
 		}
-		if (timeAdjustment.microsecond !== undefined) {
+		if (isNotUndefined(timeAdjustment.microsecond)) {
 			withArgs.microsecond = timeAdjustment.microsecond
 		}
-		if (timeAdjustment.nanosecond !== undefined) {
+		if (isNotUndefined(timeAdjustment.nanosecond)) {
 			withArgs.nanosecond = timeAdjustment.nanosecond
 		}
 

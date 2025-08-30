@@ -1,3 +1,5 @@
+import isEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Sums all numbers in an array
  *
@@ -49,7 +51,7 @@ const sum = (
 		return NaN
 	}
 
-	if (numbers.length === 0) {
+	if (isEmpty(numbers)) {
 		return 0 // additive identity
 	}
 

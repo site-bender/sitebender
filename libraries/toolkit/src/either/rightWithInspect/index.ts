@@ -2,6 +2,7 @@ import type { Either } from "../../types/fp/either/index.ts"
 
 import withInspect from "../../debug/withInspect/index.ts"
 import right from "../right/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Creates a Right value with enhanced debugging output
@@ -66,7 +67,7 @@ const rightWithInspect = <A, E = never>(value: A): Either<E, A> => {
 		if (typeof v === "symbol") {
 			return v.toString()
 		}
-		if (v === null || v === undefined) {
+		if (isNullish(v)) {
 			return String(v)
 		}
 		try {

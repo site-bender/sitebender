@@ -1,3 +1,6 @@
+import isNullish from "../../simple/validation/isNullish/index.ts"
+import isEmpty from "../../simple/array/isEmpty/index.ts"
+
 /**
  * Selects a random element from an Array or Set
  *
@@ -43,13 +46,13 @@
 const randomChoice = <T>(
 	collection: Array<T> | Set<T> | null | undefined,
 ): T | undefined => {
-	if (collection == null) {
+	if (isNullish(collection)) {
 		return undefined
 	}
 
 	// Handle Arrays
 	if (Array.isArray(collection)) {
-		if (collection.length === 0) {
+		if (isEmpty(collection)) {
 			return undefined
 		}
 		const index = Math.floor(Math.random() * collection.length)

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 import dropLast from "../dropLast/index.ts"
 
 /**
@@ -29,7 +31,7 @@ import dropLast from "../dropLast/index.ts"
  * ```
  */
 const init = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-	if (array === null || array === undefined) {
+	if (isNullish(array)) {
 		return []
 	}
 	return dropLast<T>(1)(array as Array<T>)

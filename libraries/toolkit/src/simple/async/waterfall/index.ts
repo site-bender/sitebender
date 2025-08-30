@@ -1,3 +1,5 @@
+import isEmpty from "../../array/isEmpty/index.ts"
+
 /**
  * Executes async functions in series, passing each result to the next function
  *
@@ -71,7 +73,7 @@ const waterfall =
 			: O
 	> => {
 		// Handle empty array - return initial value
-		if (tasks.length === 0) {
+		if (isEmpty(tasks)) {
 			return initial as any
 		}
 

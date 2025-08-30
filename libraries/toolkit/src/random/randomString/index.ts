@@ -1,3 +1,6 @@
+import isNullish from "../../simple/validation/isNullish/index.ts"
+import isEmpty from "../../simple/validation/isEmpty/index.ts"
+
 /**
  * Generates a random string of specified length from a character set
  *
@@ -47,13 +50,13 @@ const randomString = (
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
 ): string => {
 	if (
-		length == null || typeof length !== "number" || length <= 0 ||
+		isNullish(length) || typeof length !== "number" || length <= 0 ||
 		!isFinite(length)
 	) {
 		return ""
 	}
 
-	if (charset == null || typeof charset !== "string" || charset.length === 0) {
+	if (isNullish(charset) || typeof charset !== "string" || isEmpty(charset)) {
 		return ""
 	}
 
