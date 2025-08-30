@@ -1,6 +1,7 @@
 import { createComposeContext } from "@adaptiveSrc/context/composeContext/index.ts"
 import { registerDefaultExecutors } from "@adaptiveSrc/operations/defaults/registerDefaults/index.ts"
 import hydrate from "@adaptiveSrc/runtime/hydrator/index.ts"
+import { vizNoopAdapter } from "@sitebender/components/index.ts"
 
 export function hydrateAdaptiveFromScriptTag() {
   const el = document.getElementById('ir-root')
@@ -25,7 +26,15 @@ export function hydrateAdaptiveFromScriptTag() {
 }
 
 if (typeof window !== 'undefined') {
-  queueMicrotask(() => {
+  // Run after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      try { hydrateAdaptiveFromScriptTag() } catch (e) { console.error(e) }
+      // Viz containers: call noop adapter hydration
+      try { vizNoopAdapter.hydrateVizContainers(document) } catch { /* ignore */ }
+    })
+  } else {
     try { hydrateAdaptiveFromScriptTag() } catch (e) { console.error(e) }
-  })
+    try { vizNoopAdapter.hydrateVizContainers(document) } catch { /* ignore */ }
+  }
 }

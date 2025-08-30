@@ -17,12 +17,15 @@ export default async function bundleHydrate(logger: Logger = defaultLogger) {
 
   const libAdaptiveRoot = join(cwd, "..", "libraries", "adaptive", "src")
   const libAdaptiveTypesRoot = join(cwd, "..", "libraries", "adaptive", "types")
+  const libComponentsRoot = join(cwd, "..", "libraries", "components", "src")
   const importMap = {
     imports: {
       "@sitebender/adaptive": toFileUrl(libAdaptiveRoot).href,
       "@sitebender/adaptive/": toFileUrl(libAdaptiveRoot + "/").href,
       "@adaptiveSrc/": toFileUrl(libAdaptiveRoot + "/").href,
       "@adaptiveTypes/": toFileUrl(libAdaptiveTypesRoot + "/").href,
+      "@sitebender/components": toFileUrl(join(libComponentsRoot, "index.ts")).href,
+      "@sitebender/components/": toFileUrl(libComponentsRoot + "/").href,
     },
   }
 
