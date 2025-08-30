@@ -56,6 +56,8 @@
  * @immutable
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const toISO = (
 	temporal:
 		| Temporal.PlainDate
@@ -69,7 +71,7 @@ const toISO = (
 		| null
 		| undefined,
 ): string | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

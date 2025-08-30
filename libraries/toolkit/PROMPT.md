@@ -47,7 +47,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (79 files)
+### Already Completed Files (91 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
@@ -57,7 +57,7 @@ These files have already been updated and should be skipped:
 - `simple/math/`: clamp, sum
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
-- `simple/temporal/`: addDuration, addMonths, addYears, adjustTime, dateRange, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, formatDuration, getCalendar, getDay, getDayOfYear, getMillisecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, isLeapYear, isWeekday, isWeekend, parse, parseTime, setDay, setHour, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, toPlainDate, toPlainDateTime, totalDuration, until, withCalendar, withTimeZone
+- `simple/temporal/`: addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, dateRange, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, format, formatDuration, getCalendar, getDay, getDayOfYear, getMillisecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, isLeapYear, isWeekday, isWeekend, parse, parseTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts
@@ -77,6 +77,7 @@ After completing null/undefined replacements, also replace:
 3. **Group files by directory** for organized processing (e.g., all temporal files, all math files, etc.)
 4. **Run tests after each batch** to ensure no regressions
 5. **Commit changes in logical groups** (e.g., "fix(toolkit): replace null checks in temporal functions")
+6. **Document changes** - Update this prompt with any new validation functions or patterns discovered during the process and the total number of functions modified and remaining to be modified.
 
 ## Important Notes
 

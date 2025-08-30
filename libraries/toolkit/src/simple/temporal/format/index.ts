@@ -57,6 +57,9 @@
  * @safe
  * @curried
  */
+import isNull from "../../validation/isNull/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+
 type FormatOptions = Intl.DateTimeFormatOptions & { timeZoneMode?: "local" | "utc" }
 
 const format =
@@ -68,7 +71,7 @@ const format =
 			| null
 			| undefined,
 	): string => {
-		if (temporal === null || temporal === undefined) {
+		if (isNullish(temporal)) {
 			return ""
 		}
 
@@ -168,7 +171,7 @@ const format =
 	}
 
 function hasEpochMilliseconds(x: unknown): x is { epochMilliseconds: number } {
-	if (typeof x !== "object" || x === null) return false
+	if (typeof x !== "object" || isNull(x)) return false
 	const r = x as Record<string, unknown>
 	return typeof r.epochMilliseconds === "number"
 }

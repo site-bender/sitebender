@@ -60,6 +60,8 @@
  * @curried
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const subtractDuration = (duration: Temporal.Duration | null | undefined) =>
 (
 	temporal:
@@ -77,7 +79,7 @@ const subtractDuration = (duration: Temporal.Duration | null | undefined) =>
 	| Temporal.ZonedDateTime
 	| Temporal.Instant
 	| null => {
-	if (duration == null || temporal == null) {
+	if (isNullish(duration) || isNullish(temporal)) {
 		return null
 	}
 

@@ -15,15 +15,15 @@ import type { Value } from "../../../types/index.ts"
  * // Basic usage
  * path("a.b.c")({ a: { b: { c: "value" } } })    // "value"
  * path(["a", "b", "c"])({ a: { b: { c: 42 } } })  // 42
- * 
+ *
  * // Array indices
  * path("users.0.name")({ users: [{ name: "Alice" }] })    // "Alice"
  * path(["items", 1])({ items: ["a", "b", "c"] })         // "b"
- * 
+ *
  * // Safe navigation
  * path("a.b.c")({ a: null })       // undefined
  * path("missing.key")(null)        // undefined
- * 
+ *
  * // Partial application
  * const getName = path("user.name")
  * getName({ user: { name: "John" } })  // "John"
@@ -36,7 +36,7 @@ import type { Value } from "../../../types/index.ts"
 const path =
 	(pathInput: string | Array<string | number>) => (obj: Value): Value => {
 		// Handle null/undefined object
-		if (obj == null) return undefined
+		if (obj === null || obj === undefined) return undefined
 
 		// Convert string path to array
 		const keys = typeof pathInput === "string"
@@ -48,25 +48,25 @@ const path =
 
 		// Traverse the path using reduce (pure FP)
 		return keys.reduce((acc: Value, key) => {
-			if (acc == null) return undefined
-			
+			if (acc === null || acc === undefined) return undefined
+
 			if (Array.isArray(acc)) {
-				const index = typeof key === "number" 
-					? key 
+				const index = typeof key === "number"
+					? key
 					: parseInt(String(key), 10)
 				return !isNaN(index) ? acc[index] : undefined
 			}
-			
-			if (acc instanceof Map) return acc.get(key)
+
+			if (acc instanceof Map) return acc.get(key as unknown as never)
 			if (acc instanceof Set) return undefined
-			
+
 			if (typeof acc === "object") {
 				const strKey = String(key)
 				return Object.prototype.hasOwnProperty.call(acc, strKey)
 					? (acc as Record<string, Value>)[strKey]
 					: undefined
 			}
-			
+
 			return undefined
 		}, obj as Value)
 	}

@@ -1,40 +1,40 @@
 // Use native Set; no external polyfill imports in Deno environment
 
 import type {
-	AdaptiveError,
 	ComparatorConfig,
-	Either,
 	LocalValues,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
-const IsDisjointSet = (op) => async (arg, localValues) => {
-	const operand = await composeComparators(op.operand)(arg, localValues)
-	const test = await composeComparators(op.test)(arg, localValues)
+const IsDisjointSet = (op: ComparatorConfig): OperationFunction<boolean> =>
+async (arg: unknown, localValues?: LocalValues) => {
+	const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
+	const testFn = await composeComparators((op as unknown as { test: unknown }).test as never)
+	const operand = await operandFn(arg, localValues)
+	const test = await testFn(arg, localValues)
 
-	if (isLeft(operand)) {
-		operand.left.push(test)
-		return operand
-	}
-
-	if (isLeft(test)) {
-		return { left: [operand, ...test.left] }
-	}
+	if (isLeft(operand)) return operand
+	if (isLeft(test)) return test
 
 	try {
-		const left = new Set(operand.right as Iterable<unknown>)
-		const right = new Set(test.right as Iterable<unknown>)
+		const leftArr = Array.isArray(operand.right)
+			? operand.right as unknown[]
+			: (typeof operand.right === "string" ? Array.from(operand.right) : [])
+		const rightArr = Array.isArray(test.right)
+			? test.right as unknown[]
+			: (typeof test.right === "string" ? Array.from(test.right) : [])
+		const left = new Set(leftArr)
+		const right = new Set(rightArr)
 
 		const disjoint = Array.from(left.values()).every((v) => !right.has(v))
 
-		return disjoint ? operand : {
+		return disjoint ? { right: true } : {
 			left: [
-				Error(op)("IsDisjointSet")(
+				Error(op.tag)("IsDisjointSet")(
 					`${JSON.stringify(operand.right)} is not disjoint from ${
 						JSON.stringify(test.right)
 					}`,
@@ -43,7 +43,7 @@ const IsDisjointSet = (op) => async (arg, localValues) => {
 		}
 	} catch (e) {
 		return {
-			left: [Error(op)("IsDisjointSet")(`Error creating sets: ${e}`)],
+			left: [Error(op.tag)("IsDisjointSet")(`Error creating sets: ${e}`)],
 		}
 	}
 }

@@ -65,6 +65,8 @@
  * @immutable
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const toPlainTime = (
 	temporal:
 		| Temporal.PlainTime
@@ -75,7 +77,7 @@ const toPlainTime = (
 		| null
 		| undefined,
 ): Temporal.PlainTime | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

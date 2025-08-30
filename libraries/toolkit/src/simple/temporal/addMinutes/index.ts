@@ -48,6 +48,8 @@
  * @safe
  * @curried
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const addMinutes = (minutes: number) =>
 (
 	time:
@@ -61,7 +63,7 @@ const addMinutes = (minutes: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
 	| null => {
-	if (time == null) {
+	if (isNullish(time)) {
 		return null
 	}
 

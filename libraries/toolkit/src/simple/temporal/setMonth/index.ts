@@ -87,6 +87,8 @@
  * @immutable
  * @curried
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const setMonth = (month: number) =>
 (
 	date:
@@ -100,7 +102,7 @@ const setMonth = (month: number) =>
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
 	| null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

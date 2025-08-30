@@ -1,4 +1,4 @@
-import type { HydratedMean } from "../../../../types/hydrated/index.ts"
+import type { HydratedAverage } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
@@ -8,8 +8,8 @@ import type {
 
 import average from "../average/index.ts"
 
-const mean = (op: HydratedMean): OperationFunction<number> =>
-async (
+const mean = (op: HydratedAverage): OperationFunction<number> =>
+(
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, number>> =>

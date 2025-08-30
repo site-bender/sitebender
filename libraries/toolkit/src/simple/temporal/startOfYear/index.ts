@@ -60,6 +60,8 @@
  * @immutable
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const startOfYear = (
 	date:
 		| Temporal.PlainDate
@@ -68,7 +70,7 @@ const startOfYear = (
 		| null
 		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

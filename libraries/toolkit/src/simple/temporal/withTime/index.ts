@@ -38,11 +38,13 @@
  * withTime("invalid")(date)  // null
  * ```
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const withTime = (time: Temporal.PlainTime | string | null | undefined) =>
 (
 	date: Temporal.PlainDate | null | undefined,
 ): Temporal.PlainDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 
@@ -53,7 +55,7 @@ const withTime = (time: Temporal.PlainTime | string | null | undefined) =>
 
 	try {
 		// Handle null/undefined time - default to midnight
-		if (time == null) {
+		if (isNullish(time)) {
 			return date.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
 		}
 

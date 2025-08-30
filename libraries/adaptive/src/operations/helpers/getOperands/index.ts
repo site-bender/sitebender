@@ -6,15 +6,15 @@ import type { Operand } from "../../../../types/index.ts"
  * @param operations - List of operations containing operands
  * @returns Array of all operands
  */
-type HasOperands = { operands?: Array<Operand> | null }
+export type HasOperands = { operands?: Array<Operand> | null }
 
 const getOperands = (
-	operations: Array<HasOperands>,
+	operations: Array<HasOperands | Record<string, unknown>>,
 ): Array<Operand> => {
 	const operands: Array<Operand> = []
 
 	operations.forEach((operation) => {
-		const ops = operation?.operands ?? []
+		const ops = (operation as HasOperands)?.operands ?? []
 		if (Array.isArray(ops)) operands.push(...ops)
 	})
 

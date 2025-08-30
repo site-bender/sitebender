@@ -2,15 +2,13 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
-import getOperands from "../../../../utilities/getOperands/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isAfterAlphabetically =
 	(op: ComparatorConfig): OperationFunction<boolean> =>
@@ -18,20 +16,23 @@ const isAfterAlphabetically =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const ops = await getOperands(op)(arg, localValues)
+		const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
+		const testFn = await composeComparators((op as unknown as { test: unknown }).test as never)
 
-		if (isLeft(ops)) {
-			return ops
-		}
+		const operand = await operandFn(arg, localValues)
+		if (isLeft(operand)) return operand
 
-		const [operand, test] = ops
+		const test = await testFn(arg, localValues)
+		if (isLeft(test)) return test
 
-		return operand !== test && [operand, test].sort()[1] === operand
-			? { right: operand }
+		const left = String(operand.right)
+		const right = String(test.right)
+    	return left.localeCompare(right) > 0
+			? { right: true }
 			: {
 				left: [
-					Error(op)("IsAfterAlphabetically")(
-						`${operand} is not after ${test} alphabetically.`,
+					Error(op.tag)("IsAfterAlphabetically")(
+						`${left} is not after ${right} alphabetically.`,
 					),
 				],
 			}

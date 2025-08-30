@@ -4,37 +4,37 @@ import type {
 	Either,
 	LocalValues,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
+import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isSameAlphabetically =
-	({ left, right, ...op }) => async (arg, localValues) => {
-		// Resolve the operands (they come as functions from composeComparators)
-		const leftResult = await left(arg, localValues)
-		const rightResult = await right(arg, localValues)
+	(op: ComparatorConfig): OperationFunction<boolean> =>
+	async (
+		arg: unknown,
+		localValues?: LocalValues,
+	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+		const leftFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
+		const rightFn = await composeComparators((op as unknown as { test: unknown }).test as never)
 
-		// Check for errors in operand resolution
-		if (isLeft(leftResult)) {
-			return leftResult
-		}
-		if (isLeft(rightResult)) {
-			return rightResult
-		}
+		const left = await leftFn(arg, localValues)
+		if (isLeft(left)) return left
+		const right = await rightFn(arg, localValues)
+		if (isLeft(right)) return right
 
-		// Compare the resolved values
-		const leftValue = leftResult.right
-		const rightValue = rightResult.right
-
-		return leftValue === rightValue ? { right: leftValue } : {
-			left: [
-				Error(op)("IsSameAlphabetically")(
-					`"${leftValue}" is not the same as "${rightValue}" alphabetically.`,
-				),
-			],
-		}
+		const l = String(left.right)
+		const r = String(right.right)
+		return l.localeCompare(r) === 0
+			? { right: true }
+			: {
+				left: [
+					Error(op.tag)("IsSameAlphabetically")(
+						`"${l}" is not the same as "${r}" alphabetically.`,
+					),
+				],
+			}
 	}
 
 export default isSameAlphabetically

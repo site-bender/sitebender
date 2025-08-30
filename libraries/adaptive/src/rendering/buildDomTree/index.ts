@@ -14,7 +14,7 @@ export type ElementConfig = {
 	tag: string
 	attributes?: Record<string, unknown>
 	dataset?: Record<string, unknown>
-	children?: Array<ElementConfig | TextNodeConfig>
+	children?: Array<ElementConfig | TextNodeConfig | Record<string, unknown>>
 	calculation?: unknown
 	format?: unknown
 	validation?: unknown
