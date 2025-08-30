@@ -19,6 +19,7 @@ type ActionMarker = { __kind: "action"; action: string; args: Array<unknown> }
 type ComparatorMarker = { __kind: "comparator"; cmp: string; args: Array<unknown> }
 type OnMarker = { __kind: "control:on"; event: string; target?: string; handler?: unknown }
 type ConditionalMarker = { __kind: "control:conditional"; condition?: unknown; ifTrue: Array<unknown>; ifFalse: Array<unknown> }
+type AuthorizedMarker = { __kind: "control:authorized"; policy: { type: "policy"; tag: string }; ifTrue: Array<unknown>; ifFalse: Array<unknown> }
 
 const isActionMarker = (x: unknown): x is ActionMarker => {
   if (!isObject(x)) return false
@@ -44,6 +45,11 @@ const isConditionalMarker = (x: unknown): x is ConditionalMarker => {
   if (!isObject(x)) return false
   const k = x.__kind
   return k === "control:conditional"
+}
+const isAuthorizedMarker = (x: unknown): x is AuthorizedMarker => {
+  if (!isObject(x)) return false
+  const k = x.__kind
+  return k === "control:authorized"
 }
 
 // Adaptive constructor shapes we support
@@ -184,6 +190,26 @@ function compileOperand(x: unknown): Node {
       __kind: "action",
       action: "Act.If",
       args: [cond ?? undefined, thenFirst ?? undefined, elseFirst ?? undefined].filter((v) => typeof v !== "undefined"),
+    }
+    return compileAction(marker)
+  }
+
+  // Authorized control -> Act.If with policy as condition
+  if (isAuthorizedMarker(x)) {
+    const policyNode: ComparatorNode = {
+      v: "0.1.0",
+      kind: "comparator",
+      id: nextC(),
+      // Policies compile as comparator-like nodes; runtime will resolve by tag
+      cmp: x.policy.tag.startsWith("Is.") ? x.policy.tag : x.policy.tag,
+      args: [],
+    }
+    const thenFirst = Array.isArray(x.ifTrue) ? x.ifTrue.find((n) => isActionMarker(n) || isConditionalMarker(n) || isAuthorizedMarker(n)) : undefined
+    const elseFirst = Array.isArray(x.ifFalse) ? x.ifFalse.find((n) => isActionMarker(n) || isConditionalMarker(n) || isAuthorizedMarker(n)) : undefined
+    const marker: ActionMarker = {
+      __kind: "action",
+      action: "Act.If",
+      args: [policyNode, thenFirst ?? undefined, elseFirst ?? undefined].filter((v) => typeof v !== "undefined"),
     }
     return compileAction(marker)
   }
