@@ -9,7 +9,7 @@ import type { ButtonAriaAttributes } from "../../../types/aria/index.ts"
 import type { ButtonAttributes } from "../../../types/attributes/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import {
 	BUTTON_ROLES,
 	BUTTON_TYPES,

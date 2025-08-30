@@ -1,10 +1,8 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
@@ -18,7 +16,7 @@ interface HydratedSubtract {
 }
 
 const subtract = (
-	{ minuend, subtrahend, ...op }: HydratedSubtract,
+	{ minuend, subtrahend, ..._op }: HydratedSubtract,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,

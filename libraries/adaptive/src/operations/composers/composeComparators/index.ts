@@ -16,7 +16,7 @@ type ComparatorOperand = ComparatorConfig | LogicalConfig | Operand
 
 const composeComparators = async (
 	operation: ComparatorOperand | undefined,
-): Promise<OperationFunction<boolean>> => {
+): Promise<OperationFunction<unknown>> => {
 	if (not(operation) || not((operation as ComparatorConfig).tag)) {
 		return () =>
 			Promise.resolve({
@@ -31,10 +31,10 @@ const composeComparators = async (
 	const operandKeys = getOperandKeys(operation as Operand)
 
 	const resolvedOperandPromises = operandKeys.map(async (key: string) => {
-		const value = (operation as any)[key]
+		const value = (operation as unknown as Record<string, unknown>)[key]
 		const resolvedValue = Array.isArray(value)
 			? await Promise.all(
-				(value as any[]).map((op) => composeComparators(op as ComparatorOperand)),
+				(value as ComparatorOperand[]).map((op) => composeComparators(op)),
 			)
 			: await composeComparators(value as ComparatorOperand)
 		return [key, resolvedValue]
@@ -48,18 +48,18 @@ const composeComparators = async (
 
 	try {
 		// All comparators are organized by comparison type (alphabetical, numerical, etc.)
-	if ((operation as any).type === "comparator") {
+	if ((operation as unknown as { type?: string }).type === "comparator") {
 			const { default: comparatorExecutor } = await import(
-		`../../comparators/${(operation as any).comparison}/${
-		    toCamel((operation as any).tag)
+		`../../comparators/${(operation as unknown as { comparison: string }).comparison}/$${
+			toCamel((operation as unknown as { tag: string }).tag)
 				}/index.js`
 			)
 			return comparatorExecutor(hydratedOperation)
 		}
 
-	if ((operation as any).type === OPERAND_TYPES.injector) {
+	if ((operation as unknown as { type?: string }).type === OPERAND_TYPES.injector) {
 			const { default: injectorExecutor } = await import(
-		`../../../injectors/${toCamel((operation as any).tag)}/index.js`
+		`../../../injectors/${toCamel((operation as unknown as { tag: string }).tag)}/index.js`
 			)
 			return injectorExecutor(hydratedOperation)
 		}
@@ -76,8 +76,8 @@ const composeComparators = async (
 		return () =>
 			Promise.resolve({
 				left: [
-					Error((operation as any).tag || "Unknown")("Comparison")(
-						`Comparison "${(operation as any).tag}" with type "${(operation as any).type}" could not be loaded. ${String(e)}`,
+					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")( 
+						`Comparison "${(operation as ComparatorConfig).tag}" with type "${(operation as ComparatorConfig).type}" could not be loaded. ${String(e)}`,
 					) as AdaptiveError,
 				],
 			})

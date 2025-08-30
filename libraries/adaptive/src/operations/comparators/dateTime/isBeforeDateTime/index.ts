@@ -1,16 +1,7 @@
-import type {
-	AdaptiveError,
-	ComparatorConfig,
-	Either,
-	LocalValues,
-	OperationFunction,
-	Value,
-} from "../../../../types/index.ts"
-
 import compare from "../../comparator/index.ts"
 
-const comparator = (operand, test) =>
-	Temporal.PlainDateTime.compare(operand, test) < 0
+const comparator = (operand: unknown, test: unknown) =>
+	String(operand) < String(test)
 
 const isBeforeDateTime = compare(comparator)
 

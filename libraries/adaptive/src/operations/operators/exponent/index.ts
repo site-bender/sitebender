@@ -2,7 +2,6 @@ import type { HydratedExponent } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const exponent =
-	({ operand, ...op }: HydratedExponent): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedExponent): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

@@ -1,4 +1,5 @@
-import type { Operand } from "../../../../types/index.ts"
+// Intentionally keep this helper generic: it collects any 'operands' arrays
+// without constraining to specific Operand shapes.
 
 /**
  * Extracts all operands from an operations list
@@ -6,12 +7,12 @@ import type { Operand } from "../../../../types/index.ts"
  * @param operations - List of operations containing operands
  * @returns Array of all operands
  */
-export type HasOperands = { operands?: Array<Operand> | null }
+export type HasOperands = { operands?: Array<unknown> | null }
 
 const getOperands = (
 	operations: Array<HasOperands | Record<string, unknown>>,
-): Array<Operand> => {
-	const operands: Array<Operand> = []
+): Array<unknown> => {
+	const operands: Array<unknown> = []
 
 	operations.forEach((operation) => {
 		const ops = (operation as HasOperands)?.operands ?? []

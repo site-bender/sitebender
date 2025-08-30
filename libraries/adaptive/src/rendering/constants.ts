@@ -255,7 +255,7 @@ export const SCRIPT_SUPPORTING_ELEMENTS = ["Script", "Template"]
 
 export const SECTIONING_ELEMENTS = ["Article", "Aside", "Nav", "Section"]
 
-// TODO: how to evaluate transparent content model
+// TODO(#transparent-content): how to evaluate transparent content model
 // MDN: If an element has a transparent content model, then its contents
 // must be structured such that they would be valid HTML 5, even if the
 // transparent element were removed and replaced by the child elements.

@@ -1,28 +1,17 @@
-import type {
-	AdaptiveError,
-	ComparatorConfig,
-	Either,
-	GlobalAttributes,
-	LocalValues,
-	Operand,
-	OperationFunction,
-	Value,
-} from "../../../../types/index.ts"
+import type { AdaptiveError, ComparatorConfig, Either, LocalValues, LogicalConfig, OperationFunction } from "../../../../types/index.ts"
 
-import { isRight } from "../../../../../types/index.ts"
-import concat from "../../../../utilities/array/concat/index.ts"
+import { isLeft, isRight } from "@adaptiveTypes/index.ts"
+import concat from "@toolkit/simple/array/concat/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
-const or = (op: ComparatorConfig): OperationFunction<boolean> =>
+const or = (op: ComparatorConfig | LogicalConfig): OperationFunction<boolean> =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const results = await Promise.all(
-		op.operands.map(
-			async (operand) => await composeComparators(operand)(arg, localValues),
-		),
-	)
+	const operands = (op as { operands?: Array<ComparatorConfig | LogicalConfig> }).operands ?? []
+	const fns = await Promise.all(operands.map((operand) => composeComparators(operand)))
+	const results = await Promise.all(fns.map((fn) => fn(arg, localValues)))
 
 	const rights = results.filter(isRight)
 
@@ -30,10 +19,14 @@ async (
 		return rights[0]
 	}
 
-	return results.reduce(
-		(out, left) => ({ left: concat(out.left)(left.left) }),
-		{ left: [] },
-	)
+	// All were lefts; concatenate error arrays safely
+	const lefts = results.filter(isLeft)
+	return {
+		left: lefts.reduce(
+			(out, l) => concat(out)(l.left as Array<AdaptiveError>),
+			[] as Array<AdaptiveError>,
+		),
+	}
 }
 
 export default or

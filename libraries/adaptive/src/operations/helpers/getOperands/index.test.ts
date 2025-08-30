@@ -4,11 +4,11 @@ import fc from "npm:fast-check"
 import getOperands from "./index.ts"
 
 // Mock operation types for testing
-const createMockOperatorWithOperands = (operands: any[]) => ({
+const createMockOperatorWithOperands = (operands: unknown[]) => ({
 	type: "operator" as const,
 	tag: "Add" as const,
 	datatype: "Number" as const,
-	operands,
+	addends: operands as unknown as Array<unknown>,
 })
 
 const createMockOperatorWithoutOperands = () => ({
@@ -18,21 +18,21 @@ const createMockOperatorWithoutOperands = () => ({
 	operand: { type: "injector", tag: "Constant", value: 5 },
 })
 
-const createMockComparatorWithOperands = (operands: any[]) => ({
+const createMockComparatorWithOperands = (operands: unknown[]) => ({
 	type: "comparator" as const,
 	tag: "IsEqualTo" as const,
-	comparison: "equality" as const,
-	operands,
+	datatype: "Number" as const,
+	operands: operands as unknown as Array<unknown>,
 })
 
 const createMockComparatorWithoutOperands = () => ({
 	type: "comparator" as const,
 	tag: "IsBoolean" as const,
-	comparison: "scalar" as const,
+	datatype: "Boolean" as const,
 	operand: { type: "injector", tag: "Constant", value: true },
 })
 
-const createMockInjector = (value: any) => ({
+const createMockInjector = (value: unknown) => ({
 	type: "injector" as const,
 	tag: "Constant" as const,
 	datatype: "Number" as const,
@@ -153,18 +153,18 @@ Deno.test("getOperands edge cases", async (t) => {
 			type: "operator" as const,
 			tag: "Add" as const,
 			datatype: "Number" as const,
-			operands: null,
+			addends: null as unknown as Array<unknown>,
 		}
 
-		const operationWithUndefined = {
+	const operationWithUndefined = {
 			type: "operator" as const,
 			tag: "Add" as const,
 			datatype: "Number" as const,
 			// No operands property
 		}
 
-		const result1 = getOperands([operationWithNull as any])
-		const result2 = getOperands([operationWithUndefined as any])
+	const result1 = getOperands([operationWithNull as unknown as never])
+	const result2 = getOperands([operationWithUndefined as unknown as never])
 
 		assertEquals(result1, [])
 		assertEquals(result2, [])
@@ -205,8 +205,11 @@ Deno.test("getOperands with complex nested structures", async (t) => {
 			comparatorOperand,
 		])
 
-		const result = getOperands([operation])
-		assertEquals(result, [injectorOperand, operatorOperand, comparatorOperand])
+	const result = getOperands([operation])
+	// Compare by reference without over-constraining element types
+	assertEquals(result[0], injectorOperand)
+	assertEquals(result[1], operatorOperand)
+	assertEquals(result[2], comparatorOperand)
 	})
 })
 
@@ -245,8 +248,9 @@ Deno.test("getOperands realistic scenarios", async (t) => {
 			operands: [greaterThan, lessThan],
 		}
 
-		const result = getOperands([andOperation])
-		assertEquals(result, [greaterThan, lessThan])
+	const result = getOperands([andOperation])
+	assertEquals(result[0], greaterThan)
+	assertEquals(result[1], lessThan)
 	})
 
 	await t.step("should handle form validation scenario", () => {

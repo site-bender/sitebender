@@ -14,6 +14,7 @@ declare global {
 	interface HTMLElement {
  		__sbCalculate?: (arg?: unknown) => Promise<unknown> | unknown
  		__sbFormat?: (arg?: unknown) => Promise<unknown> | unknown
+ 		__sbValidate?: (arg: unknown, localValues?: unknown) => Promise<unknown> | unknown
  	}
 }
 

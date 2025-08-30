@@ -1,5 +1,4 @@
 import type {
-	Datatype,
 	Operand,
 	TemporalDatatype,
 } from "../../../../types/index.ts"

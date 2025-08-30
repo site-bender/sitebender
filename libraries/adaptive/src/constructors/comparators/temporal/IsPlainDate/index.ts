@@ -1,6 +1,7 @@
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
-const IsPlainDate = (operand) => ({
+const IsPlainDate = (operand: Operand) => ({
 	tag: "IsPlainDate",
 	type: OPERAND_TYPES.comparator,
 	datatype: "PlainDate",

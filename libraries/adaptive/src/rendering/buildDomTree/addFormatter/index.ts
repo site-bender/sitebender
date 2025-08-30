@@ -7,7 +7,7 @@ const FROM_VALUE = ["DATA", "INPUT", "SELECT", "TEXTAREA"]
 
 const addFormatter = (element: HTMLElement) => (fmt: unknown) => {
 	const selectors = collectDependencies(fmt)
-	const format = formatter(fmt) as FormatFn
+	const format = formatter(fmt as unknown as { tag: string }) as FormatFn
 
 	element.__sbFormat = async function (_arg?: unknown, localValues?: Record<string, unknown>) {
 		const self = this as HTMLElement & { value?: unknown; innerHTML: string; tagName: string }

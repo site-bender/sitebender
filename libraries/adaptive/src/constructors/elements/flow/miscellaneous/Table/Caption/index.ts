@@ -1,18 +1,15 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { TableCaptionAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { TableCaptionAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isFlowContent from "../../../../../../guards/isFlowContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
 
 /**
  * Child filter that validates flow content

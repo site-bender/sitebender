@@ -1,10 +1,8 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
@@ -19,7 +17,7 @@ interface HydratedMultiply {
 }
 
 const multiply =
-	({ multipliers, ...op }: HydratedMultiply): OperationFunction<number> =>
+	({ multipliers, ..._op }: HydratedMultiply): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -32,7 +30,7 @@ const multiply =
 		if (errors.length) {
 			return {
 				left: [
-					Error(op)("Multiply")("Could not resolve all multipliers."),
+					Error("Multiply")("Multiply")("Could not resolve all multipliers."),
 					...errors.flatMap((e) => e.left),
 				],
 			}

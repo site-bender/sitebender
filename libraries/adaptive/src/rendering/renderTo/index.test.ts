@@ -3,7 +3,7 @@ import { assertEquals } from "jsr:@std/assert"
 import renderTo from "./index.ts"
 
 // This test requires DOM environment - skipping for now
-// TODO: Implement with proper DOM mocking or move to integration tests
+// TODO(#dom-mock): Implement with proper DOM mocking or move to integration tests
 Deno.test({
 	name:
 		"[renderTo] returns the element and children and collects the scripts and stylesheets",

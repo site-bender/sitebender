@@ -1,18 +1,18 @@
 import buildDomTree from "../index.ts"
 import appendTextNode from "../appendTextNode/index.ts"
 
-type ElementChild = { tag: string }
+type ElementChild = { tag: string } | { tag: "TextNode"; content: string }
 type Options = { level?: number }
 
 const appendChildren = (elem: HTMLElement) => (children: ElementChild[] = []) => (options: Options) => {
-	children.forEach((child: any) => {
+	children.forEach((child: ElementChild) => {
 		if (child.tag === "TextNode") {
-			appendTextNode(elem)(child)
+			appendTextNode(elem)(child as { tag: "TextNode"; content: string })
 
 			return
 		}
 
-	buildDomTree(elem)(child as any)(options)
+	buildDomTree(elem)(child as unknown as { tag: string })(options)
 
 		return
 	})

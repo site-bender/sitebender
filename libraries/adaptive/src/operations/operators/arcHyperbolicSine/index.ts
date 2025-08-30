@@ -2,7 +2,6 @@ import type { HydratedArcHyperbolicSine } from "../../../../types/hydrated/index
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const arcHyperbolicSine =
-	({ operand, ...op }: HydratedArcHyperbolicSine): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedArcHyperbolicSine): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

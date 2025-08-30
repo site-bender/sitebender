@@ -1,9 +1,10 @@
-import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
-const IsZonedDateTime = (operand) => ({
+const IsZonedDateTime = (operand: Operand) => ({
 	tag: "IsZonedDateTime",
 	type: OPERAND_TYPES.comparator,
-	datatype: "ZonedDateTime",
+	datatype: "Date",
 	operand,
 })
 

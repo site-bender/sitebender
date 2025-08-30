@@ -2,7 +2,6 @@ import type { HydratedHyperbolicTangent } from "../../../../types/hydrated/index
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const hyperbolicTangent =
-	({ operand, ...op }: HydratedHyperbolicTangent): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedHyperbolicTangent): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

@@ -1,15 +1,5 @@
-import type {
-	AdaptiveError,
-	ComparatorConfig,
-	Either,
-	GlobalAttributes,
-	LocalValues,
-	Operand,
-	OperationFunction,
-	Value,
-} from "../../../../types/index.ts"
-
-import { isLeft } from "../../../../../types/index.ts"
+import type { AdaptiveError, ComparatorConfig, Either, LocalValues, OperationFunction } from "@adaptiveTypes/index.ts"
+import { isLeft } from "@adaptiveTypes/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import { MATCHERS } from "../../../../guards/constants/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
@@ -45,22 +35,17 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operand = await composeComparators(op.operand)(arg, localValues)
+	const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
+	const operand = await operandFn(arg, localValues)
 
-	if (isLeft(operand)) {
-		return operand
-	}
+	if (isLeft(operand)) return operand
 
-	const [, year, week] = String(operand.right).match(MATCHERS.weekYear) || []
+	const s = String(operand.right)
+	const [, year, week] = s.match(MATCHERS.weekYear) || []
 	const numWeeks = longYears.includes(year) ? 53 : 52
 
-	return MATCHERS.weekYear.test(operand.right) && parseInt(week, 10) <= numWeeks
-		? operand
-		: {
-			left: [
-				Error(op)("IsYearWeek")(`${operand.right} is not a valid week-year.`),
-			],
-		}
+	const ok = MATCHERS.weekYear.test(s) && parseInt(week, 10) <= numWeeks
+	return ok ? { right: true } : { left: [Error(op.tag)("IsYearWeek")(`${s} is not a valid week-year.`)] }
 }
 
 export default isYearWeek

@@ -1,22 +1,22 @@
-import type { GlobalAttributes } from "../../../../../../../types/index.ts"
+import type { GlobalAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../../types/index.ts"
-import type { LegendAriaAttributes } from "../../../../types/aria/index.ts"
-import type { ElementConfig } from "../../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { LegendAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "../../../../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Extended Legend attributes including reactive properties and ARIA

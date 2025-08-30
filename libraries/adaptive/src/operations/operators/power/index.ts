@@ -1,10 +1,8 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
@@ -18,7 +16,7 @@ interface HydratedPower {
 }
 
 const power =
-	({ base, exponent, ...op }: HydratedPower): OperationFunction<number> =>
+	({ base, exponent, ..._op }: HydratedPower): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

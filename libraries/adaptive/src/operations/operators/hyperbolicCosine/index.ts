@@ -2,7 +2,6 @@ import type { HydratedHyperbolicCosine } from "../../../../types/hydrated/index.
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const hyperbolicCosine =
-	({ operand, ...op }: HydratedHyperbolicCosine): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedHyperbolicCosine): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

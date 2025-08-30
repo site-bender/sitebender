@@ -2,7 +2,6 @@ import type { HydratedFloor } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const floor = (
-	{ decimalPlaces, operand, ...op }: HydratedFloor,
+	{ decimalPlaces, operand, ..._op }: HydratedFloor,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,

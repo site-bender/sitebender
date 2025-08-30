@@ -10,38 +10,41 @@ type ComparatorPredicate = (o: unknown, t: unknown) => boolean
 export const compare = (comparator: ComparatorPredicate) =>
 	(op: unknown) =>
 		async (arg: unknown, localValues?: unknown): Promise<unknown> => {
-			const operandFn: unknown = await composeComparators((op as any).operand)
-			const testFn: unknown = await composeComparators((op as any).test)
+			const operandFn = await composeComparators((op as { operand?: unknown } | undefined)?.operand as never)
+			const testFn = await composeComparators((op as { test?: unknown } | undefined)?.test as never)
 
 			const operand = await (operandFn as (a: unknown, l?: unknown) => Promise<unknown>)(arg, localValues)
 			const test = await (testFn as (a: unknown, l?: unknown) => Promise<unknown>)(arg, localValues)
 
-			if (isLeft(operand as any)) {
-				return isLeft(test as any)
-					? { left: [...(operand as any).left, ...(test as any).left] }
-					: { left: [...(operand as any).left, test] }
+			if (isLeft(operand as { left: unknown } | { right: unknown })) {
+				return isLeft(test as { left: unknown } | { right: unknown })
+					? { left: [...(operand as { left: unknown[] }).left, ...(test as { left: unknown[] }).left] }
+					: { left: [...(operand as { left: unknown[] }).left, test] }
 			}
 
-			if (isLeft(test as any)) {
-				return { left: [operand, ...(test as any).left] }
+			if (isLeft(test as { left: unknown } | { right: unknown })) {
+				return { left: [operand, ...(test as { left: unknown[] }).left] }
 			}
 
-			const o = castValue((op as any).operand?.datatype)(operand)
-			const t = castValue((op as any).test?.datatype)(test)
+			const o = castValue((op as { operand?: { datatype?: unknown } })?.operand?.datatype)((operand as { right: unknown }).right)
+			const t = castValue((op as { test?: { datatype?: unknown } })?.test?.datatype)((test as { right: unknown }).right)
 
-			if (isLeft(t as any)) {
-				return isLeft(o as any)
-					? { left: [...(t as any).left, ...(o as any).left] }
-					: { left: [...(t as any).left, o] }
+			if (isLeft(t as { left: unknown } | { right: unknown })) {
+				return isLeft(o as { left: unknown } | { right: unknown })
+					? { left: [...(t as { left: unknown[] }).left, ...(o as { left: unknown[] }).left] }
+					: { left: [...(t as { left: unknown[] }).left, o] }
 			}
 
-			if (isLeft(o as any)) {
-				return { left: [t, ...(o as any).left] }
+			if (isLeft(o as { left: unknown } | { right: unknown })) {
+				return { left: [t, ...(o as { left: unknown[] }).left] }
 			}
 
-	    return comparator((o as any).right, (t as any).right) ? operand : {
+			const or = (o as { right: unknown }).right
+			const tr = (t as { right: unknown }).right
+
+	    return comparator(or, tr) ? operand : {
 				left: [
-		    Error("Comparison")((op as any).tag)(`${(o as any).right} ${getErrorMessage(op as any)} ${(t as any).right}.`),
+		    Error("Comparison")(((op as { tag?: string }).tag ?? "Unknown"))(`${String(or)} ${getErrorMessage(op as unknown as { tag: string } as never)} ${String(tr)}.`),
 				],
 			}
 		}

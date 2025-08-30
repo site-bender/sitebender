@@ -1,6 +1,10 @@
-const IsYearWeek = (operand) => ({
+import type { Operand } from "@adaptiveTypes/index.ts"
+import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
+
+const IsYearWeek = (operand: Operand) => ({
 	tag: "IsYearWeek",
-	datatype: "YearWeek",
+	type: OPERAND_TYPES.comparator,
+	datatype: "Date",
 	operand,
 })
 

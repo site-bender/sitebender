@@ -2,7 +2,6 @@ import type { HydratedHyperbolicSine } from "../../../../types/hydrated/index.ts
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const hyperbolicSine =
-	({ operand, ...op }: HydratedHyperbolicSine): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedHyperbolicSine): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

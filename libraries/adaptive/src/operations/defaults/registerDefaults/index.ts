@@ -11,6 +11,7 @@ import { registerComparator } from "../../registries/comparators.ts"
 import { registerEvent } from "../../registries/events.ts"
 import { registerInjector } from "../../registries/injectors.ts"
 import { registerOperator } from "../../registries/operators.ts"
+import registerPolicies from "../registerPolicies.ts"
 
 // Helpers
 const toNumber = (v: unknown): number =>
@@ -23,6 +24,8 @@ const toString = (v: unknown): string =>
 	typeof v === "string" ? v : (v === null || v === undefined) ? "" : String(v)
 
 export function registerDefaultExecutors(_ctx?: ComposeContext) {
+	// Policies
+	try { registerPolicies() } catch { /* optional: policies are additive */ }
 	// Injectors
 	registerInjector(
 		"From.Constant",

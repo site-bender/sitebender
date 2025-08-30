@@ -1,7 +1,4 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-} from "../../../../../../types/index.ts"
+import type { ElementConfig } from "../../../../../../types/index.ts"
 
 import GlobalOnly from "../../../../../../constructors/abstracted/GlobalOnly/index.ts"
 

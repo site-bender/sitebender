@@ -1,10 +1,8 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
@@ -17,7 +15,7 @@ interface HydratedNegate {
 }
 
 const negate =
-	({ operand, ...op }: HydratedNegate): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedNegate): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

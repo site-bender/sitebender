@@ -610,7 +610,8 @@ export const SPAN_ROLES = ALL_ARIA_ROLES // Can have any role
  * Check if an element should not have any role attribute
  */
 export function isNoRoleElement(tagName: string): boolean {
-	return NO_ROLE_ELEMENTS.includes(tagName.toLowerCase() as any)
+	const t = tagName.toLowerCase() as (typeof NO_ROLE_ELEMENTS)[number]
+	return (NO_ROLE_ELEMENTS as readonly string[]).includes(t)
 }
 
 /**

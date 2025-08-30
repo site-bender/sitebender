@@ -1,4 +1,3 @@
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { Value } from "@adaptiveTypes/index.ts"
 
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
@@ -12,13 +11,13 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
  * Filters attributes for Hn element
  * Allows global attributes and validates role attribute against HEADING_ROLES
  */
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const { id, role, ...otherAttributes } = attributes
+export const filterAttributes = (attributes: Record<string, unknown>) => {
+	const { id, role, ...otherAttributes } = attributes as Record<string, Value>
 	const globals = pickGlobalAttributes(otherAttributes)
-	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(role)
+	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(role as Value)
 
 	return {
-		...getId(id),
+		...getId(id as Value),
 		...globals,
 		...roleFilter,
 	}

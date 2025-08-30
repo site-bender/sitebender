@@ -1,5 +1,4 @@
 import type {
-	Datatype,
 	NumericDatatype,
 	Operand,
 } from "../../../../types/index.ts"

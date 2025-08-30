@@ -1,9 +1,10 @@
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
-const IsPrecisionNumber = (operand) => (decimalPlaces = 0) => ({
+const IsPrecisionNumber = (operand: Operand) => (decimalPlaces: number = 0) => ({
 	tag: "IsPrecisionNumber",
 	type: OPERAND_TYPES.comparator,
-	datatype: "PrecisionNumber",
+	datatype: "Precision",
 	decimalPlaces,
 	operand,
 })

@@ -1,10 +1,8 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
@@ -17,7 +15,7 @@ interface HydratedAbsoluteValue {
 }
 
 const absoluteValue =
-	({ operand, ...op }: HydratedAbsoluteValue): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedAbsoluteValue): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
