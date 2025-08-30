@@ -14,90 +14,37 @@
  * ```typescript
  * // Basic key generation
  * const makeKey = memoizeKey()
- *
- * makeKey(1, 2, 3)                        // "1|2|3"
- * makeKey("hello", "world")               // "hello|world"
- * makeKey(true, false, null)             // "true|false|null"
- * makeKey()                               // ""
- *
- * // Object key generation (sorted keys)
- * const objectKey = memoizeKey()
- *
- * objectKey({ b: 2, a: 1 })               // '{"a":1,"b":2}'
- * objectKey({ a: 1, b: 2 })               // '{"a":1,"b":2}' (same)
- * objectKey([1, 2, 3])                    // "[1,2,3]"
- *
+ * makeKey(1, 2, 3)                    // "1|2|3"
+ * makeKey("hello", "world")           // "hello|world"
+ * 
+ * // Object keys are sorted for consistency
+ * makeKey({ b: 2, a: 1 })             // '{"a":1,"b":2}'
+ * makeKey({ a: 1, b: 2 })             // '{"a":1,"b":2}' (same)
+ * 
  * // Custom separator
  * const customKey = memoizeKey({ separator: ":" })
- *
- * customKey("user", 123, "profile")      // "user:123:profile"
- * customKey("api", "v2", "users")         // "api:v2:users"
- *
- * // Maximum depth for nested objects
- * const shallowKey = memoizeKey({ maxDepth: 1 })
- *
- * shallowKey({
- *   a: { b: { c: 1 } },
- *   x: 10
- * })
- * // '{"a":"[object]","x":10}'
- *
- * // Include types in key
- * const typedKey = memoizeKey({ includeType: true })
- *
- * typedKey(123, "123", true)
- * // "number:123|string:123|boolean:true"
- *
- * // Hash long keys
- * const hashedKey = memoizeKey({
- *   maxLength: 50,
- *   hash: true
- * })
- *
- * const longString = "a".repeat(100)
- * hashedKey(longString)
- * // Returns hashed version if over 50 chars
- *
+ * customKey("user", 123, "profile")  // "user:123:profile"
+ * 
  * // Function argument caching
- * const fnKey = memoizeKey()
- *
  * function createMemoized<T extends Array<any>, R>(
  *   fn: (...args: T) => R
  * ): (...args: T) => R {
  *   const cache = new Map<string, R>()
- *
+ *   const fnKey = memoizeKey()
+ *   
  *   return (...args: T): R => {
  *     const key = fnKey(...args)
- *
- *     if (cache.has(key)) {
- *       return cache.get(key)!
- *     }
- *
+ *     if (cache.has(key)) return cache.get(key)!
  *     const result = fn(...args)
  *     cache.set(key, result)
  *     return result
  *   }
  * }
- *
- * const memoizedMath = createMemoized(Math.pow)
- * memoizedMath(2, 10)                    // Computes: 1024
- * memoizedMath(2, 10)                    // From cache: 1024
- *
- * // Circular reference handling
- * const circularKey = memoizeKey()
- *
+ * 
+ * // Circular references handled safely
  * const obj: any = { a: 1 }
  * obj.self = obj
- *
- * circularKey(obj)                       // Returns key with [Circular] marker
- *
- * // Date handling
- * const dateKey = memoizeKey()
- *
- * const date1 = new Date("2024-01-01")
- * const date2 = new Date("2024-01-01")
- *
- * dateKey(date1) === dateKey(date2)      // true (same time value)
+ * memoizeKey()(obj)                   // Returns key with [Circular] marker
  * ```
  * @pure
  * @curried
