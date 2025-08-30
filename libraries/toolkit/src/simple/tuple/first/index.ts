@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Extracts the first element from a tuple or array
  *
@@ -43,7 +45,7 @@
 const first = <T>(
 	tuple: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (tuple == null || !Array.isArray(tuple) || tuple.length === 0) {
+	if (isNullish(tuple) || !Array.isArray(tuple) || tuple.length === 0) {
 		return undefined
 	}
 

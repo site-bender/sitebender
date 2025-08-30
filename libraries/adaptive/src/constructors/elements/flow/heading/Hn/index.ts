@@ -1,7 +1,5 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-} from "../../../../../types/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"

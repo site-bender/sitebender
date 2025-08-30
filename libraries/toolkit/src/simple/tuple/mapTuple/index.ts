@@ -1,5 +1,7 @@
 import type { Pair, Singleton, Triple } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Maps a function over all elements of a tuple, preserving its structure
  *
@@ -54,7 +56,7 @@ function mapTuple<T, U>(
 	fn: (value: T) => U,
 ) {
 	return (tuple: ReadonlyArray<T> | null | undefined): Array<U> => {
-		if (tuple == null || !Array.isArray(tuple)) {
+		if (isNullish(tuple) || !Array.isArray(tuple)) {
 			return []
 		}
 

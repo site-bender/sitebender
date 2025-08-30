@@ -7,3 +7,12 @@ export * from "../../types/index.ts"
 // aliases here keeps type-checks green without coupling to element attribute defs.
 export type GlobalAttributes = Record<string, unknown>
 export type AriaAttributes = Record<string, unknown>
+
+// Re-export commonly used element constructor types so src files can import from here
+export type {
+	ElementAttributes,
+	ElementConfig,
+	TextNodeConfig,
+	TextNodeConstructor,
+	ChildFilter,
+} from "../constructors/elements/types/index.ts"

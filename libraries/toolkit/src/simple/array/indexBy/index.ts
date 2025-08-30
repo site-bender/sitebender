@@ -1,3 +1,6 @@
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates an object indexing array elements by the given key
  *
@@ -39,13 +42,13 @@ const indexBy = <T, K extends string | number | symbol>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<K, T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return {} as Record<K, T>
 	}
 
 	return array.reduce((result, element, index) => {
 		const key = keyFn(element, index, array)
-		if (key != null) {
+		if (isNotNullish(key)) {
 			result[key] = element
 		}
 		return result

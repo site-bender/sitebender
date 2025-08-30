@@ -1,5 +1,7 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Maps two different functions over the elements of a pair
  *
@@ -59,7 +61,7 @@ const bimap = <U, V>(
 (
 	pair: Pair<S, U> | null | undefined,
 ): Pair<T, V> => {
-	if (pair == null || !Array.isArray(pair)) {
+	if (isNullish(pair) || !Array.isArray(pair)) {
 		return [undefined, undefined] as unknown as Pair<T, V>
 	}
 

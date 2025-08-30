@@ -1,5 +1,7 @@
 import type { Pair, Singleton, Triple } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Converts an array to a tuple with runtime validation
  *
@@ -60,7 +62,7 @@ function fromArray(
 
 function fromArray(size: 1 | 2 | 3) {
 	return <T>(array: ReadonlyArray<T> | null | undefined) => {
-		if (array == null || !Array.isArray(array) || array.length !== size) {
+		if (isNullish(array) || !Array.isArray(array) || array.length !== size) {
 			return null
 		}
 

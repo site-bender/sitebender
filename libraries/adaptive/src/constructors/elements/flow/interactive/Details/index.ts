@@ -4,14 +4,8 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
+	ElementConfig,
 } from "../../../../../types/index.ts"
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
 import type { DetailsAttributes } from "../types/attributes/index.ts"
 
 import isDefined from "../../../../../../utilities/isDefined/index.ts"

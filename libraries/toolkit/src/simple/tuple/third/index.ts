@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Extracts the third element from a tuple or array
  *
@@ -45,7 +47,7 @@
 const third = <T>(
 	tuple: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (tuple == null || !Array.isArray(tuple) || tuple.length < 3) {
+	if (isNullish(tuple) || !Array.isArray(tuple) || tuple.length < 3) {
 		return undefined
 	}
 

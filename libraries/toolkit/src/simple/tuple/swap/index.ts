@@ -1,5 +1,7 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Swaps the elements of a pair
  *
@@ -46,7 +48,7 @@ import type { Pair } from "../../../types/tuple/index.ts"
 const swap = <T, U>(
 	pair: Pair<T, U> | null | undefined,
 ): Pair<U, T> => {
-	if (pair == null || !Array.isArray(pair)) {
+	if (isNullish(pair) || !Array.isArray(pair)) {
 		return [undefined, undefined] as unknown as Pair<U, T>
 	}
 

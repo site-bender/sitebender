@@ -47,18 +47,19 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (103 files)
+### Already Completed Files (115 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init
+- `simple/array/`: init, indexBy, move, nth
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/math/`: clamp, sum
 - `simple/object/`: where, whereEq
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, durationToMinutes, durationToSeconds, endOfDay, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfYear, getHour, getMillisecond, getMinute, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getTimeZone, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, radiansToDegrees, sine, tangent
+- `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isPhone, isUrl
 - `state/`: store.ts
 - `types/`: index.ts

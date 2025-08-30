@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Converts a tuple to a regular array
  *
@@ -42,7 +44,7 @@
 const toArray = <T>(
 	tuple: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (tuple == null || !Array.isArray(tuple)) {
+	if (isNullish(tuple) || !Array.isArray(tuple)) {
 		return []
 	}
 
