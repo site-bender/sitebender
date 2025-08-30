@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the nth percentile of a dataset
  *
@@ -42,7 +44,7 @@ const percentile = (
 (
 	data: number[] | null | undefined,
 ): number => {
-	if (p == null || typeof p !== "number") {
+	if (isNullish(p) || typeof p !== "number") {
 		return NaN
 	}
 
@@ -50,7 +52,7 @@ const percentile = (
 		return NaN
 	}
 
-	if (data == null || !Array.isArray(data)) {
+	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
 
@@ -60,7 +62,7 @@ const percentile = (
 
 	// Check for non-numeric values
 	const hasInvalidValues = data.some(value => 
-		value == null || typeof value !== "number"
+		isNullish(value) || typeof value !== "number"
 	)
 	
 	if (hasInvalidValues) {

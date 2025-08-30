@@ -10,13 +10,13 @@
  * Or positional children: <InSet>{value}{set}</InSet>
  */
 import InSetConstructor from "@adaptiveSrc/constructors/comparators/set/InSet/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { InSetComparator, Operand } from "@adaptiveTypes/index.ts"
 
-export type InSetProps = {
+export type Props = {
   children?: JSX.Element | Array<JSX.Element>
 }
 
-export default function InSet({ children = [] }: InSetProps): ReturnType<ReturnType<typeof InSetConstructor>> {
+export default function InSet({ children = [] }: Props): InSetComparator {
   const arr = Array.isArray(children) ? children : [children]
 
   let value: unknown = null
@@ -35,5 +35,5 @@ export default function InSet({ children = [] }: InSetProps): ReturnType<ReturnT
     set = arr[1]
   }
 
-  return InSetConstructor(value as Operand)(set as Operand)
+  return InSetConstructor(value as Operand)(set as Operand) as unknown as InSetComparator
 }

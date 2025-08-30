@@ -3,15 +3,15 @@
  */
 
 import MatchesConstructor from "@adaptiveSrc/constructors/comparators/matching/Matches/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand, MatchesComparator } from "@adaptiveTypes/index.ts"
 
-export type MatchesProps = {
+export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string
 }
 
 export default function Matches({
 	children = [],
-}: MatchesProps): ReturnType<ReturnType<ReturnType<typeof MatchesConstructor>>> {
+}: Props): MatchesComparator {
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Extract Value and Pattern from semantic wrapper children

@@ -2,7 +2,7 @@
  * Add JSX Component
  *
  * Wrapper for the Add operator constructor.
- * Children are treated as operands to be added together.
+ * Children are treated as addends to be summed.
  *
  * @example
  * <Add type="Number">
@@ -12,23 +12,17 @@
  * </Add>
  */
 
-// Marker only; compiler maps to Adaptive IR
+import AddConstructor from "@adaptiveSrc/constructors/operators/Add/index.ts"
+import type { Operand, AddOperator, NumericDatatype, StringDatatype, TemporalDatatype } from "@adaptiveTypes/index.ts"
 
-export type AddProps = {
-	type?: "Number" | "String" | "Date" | "Duration"
-	datatype?: "Number" | "String" | "Date" | "Duration"
+export type Props = {
+	type?: NumericDatatype | StringDatatype | TemporalDatatype
+	datatype?: NumericDatatype | StringDatatype | TemporalDatatype
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Add({ type = "Number", datatype, children = [] }: AddProps) {
-	// Use datatype if provided, otherwise use type
+export default function Add({ type = "Number", datatype, children = [] }: Props): AddOperator {
 	const actualType = datatype || type
-
-	// Convert children to array if needed
 	const childArray = Array.isArray(children) ? children : [children]
-
-	// The constructor expects an array of operands
-	// In the JSX transform, children will be converted to adaptive configs
-	// For now, we pass children directly as the parser will handle transformation
-	return { type: "operator", tag: "Add", datatype: actualType, addends: childArray }
+	return AddConstructor(actualType)(childArray as unknown as Operand[])
 }

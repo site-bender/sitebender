@@ -1,5 +1,10 @@
 # Brainstorming Ideas for the Sitebender project
 
+## New
+
+1. How can we provide for great error logging, visualization, etc.?
+2. How are we going to handle authentication and authorization in our JSX-declarative way with components?
+
 The idea is to provide a completely declarative, immutable, pure high level DSL for creating entire web apps using only JSX components (AI assisted).
 
 1. An AI-assisted, natural language, **intent-based** interface for building and managing entire web applications without knowing any code.

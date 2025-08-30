@@ -1,3 +1,4 @@
+import isNullish from "../../validation/isNullish/index.ts"
 import percentile from "../percentile/index.ts"
 
 /**
@@ -40,7 +41,7 @@ import percentile from "../percentile/index.ts"
 const interquartileRange = (
 	data: number[] | null | undefined,
 ): number => {
-	if (data == null || !Array.isArray(data)) {
+	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
 

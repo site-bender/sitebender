@@ -1,9 +1,4 @@
-import type {
-	Datatype,
-	NumericDatatype,
-	Operand,
-	TemporalDatatype,
-} from "../../../../types/index.ts"
+import type { NumericDatatype, Operand, TemporalDatatype } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constants/index.ts"
 
@@ -28,7 +23,7 @@ const makeAmountConstructor =
 	(datatype: AmountDatatype = "Number") =>
 	(operand: Operand) =>
 	(test: Operand): AmountComparator => ({
-		tag,
+		tag: tag as AmountComparatorTag,
 		type: OPERAND_TYPES.comparator,
 		datatype,
 		operand,

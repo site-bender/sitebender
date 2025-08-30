@@ -13,9 +13,9 @@
  */
 
 import ModuloConstructor from "@adaptiveSrc/constructors/operators/Modulo/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand, ModuloOperator } from "@adaptiveTypes/index.ts"
 
-export type ModuloProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -25,7 +25,7 @@ export default function Modulo({
 	type = "Number",
 	datatype,
 	children = [],
-}: ModuloProps): ReturnType<typeof ModuloConstructor> {
+}: Props): ModuloOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 	const [dividend, divisor] = childArray

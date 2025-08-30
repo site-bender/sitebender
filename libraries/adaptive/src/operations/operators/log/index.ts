@@ -2,7 +2,6 @@ import type { HydratedLog } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -10,7 +9,7 @@ import type {
 import { isLeft } from "../../../../types/index.ts"
 
 const log =
-	({ operand, ...op }: HydratedLog): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedLog): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

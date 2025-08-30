@@ -11,16 +11,16 @@
  */
 
 import IsBooleanConstructor from "@adaptiveSrc/constructors/comparators/scalar/IsBoolean/index.ts"
+import type { Operand } from "@adaptiveTypes/index.ts"
 
-export type IsBooleanProps = {
+export type Props = {
 	children?: JSX.Element | JSX.Element[]
 }
 
 export default function IsBoolean({
 	children = [],
-}: IsBooleanProps): ReturnType<typeof IsBooleanConstructor> {
+}: Props): ReturnType<typeof IsBooleanConstructor> {
 	const childArray = Array.isArray(children) ? children : [children]
-
-	// IsBoolean constructor signature: () => (operand)
-	return IsBooleanConstructor(childArray[0] as unknown as JSX.Element)
+	const operand = childArray[0] as unknown as Operand
+	return IsBooleanConstructor(operand)
 }

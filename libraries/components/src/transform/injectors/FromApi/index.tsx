@@ -13,7 +13,7 @@
  */
 
 import FromApiConstructor from "@adaptiveSrc/constructors/injectors/FromApi/index.ts"
-import type { ComplexDatatype, Value } from "@adaptiveTypes/index.ts"
+import type { ComplexDatatype, FromApiInjector, Value } from "@adaptiveTypes/index.ts"
 
 export type FromApiProps = {
 	endpoint: string
@@ -31,7 +31,7 @@ export default function FromApi({
 	method = "GET",
 	headers,
 	body,
-}: FromApiProps): ReturnType<ReturnType<typeof FromApiConstructor>> {
+}: FromApiProps): FromApiInjector {
 	const actualType = datatype || type
 
 	// FromApi constructor signature: (datatype) => (options)

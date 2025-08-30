@@ -3,14 +3,15 @@
  */
 
 import IsLessThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsLessThan/index.ts"
+import type { Operand, IsLessThanComparator } from "@adaptiveTypes/index.ts"
 
-export type IsLessThanProps = {
+export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string
 }
 
 export default function IsLessThan({
 	children = [],
-}: IsLessThanProps): ReturnType<ReturnType<ReturnType<typeof IsLessThanConstructor>>> {
+}: Props): IsLessThanComparator {
 	const [value, threshold] = Array.isArray(children) ? children : [children]
-	return IsLessThanConstructor("Number")(value as unknown as JSX.Element)(threshold as unknown as JSX.Element)
+	return IsLessThanConstructor("Number")(value as unknown as Operand)(threshold as unknown as Operand) as unknown as IsLessThanComparator
 }

@@ -256,6 +256,14 @@ deno task test:cov
 - Keyboard navigation tested
 - Screen reader compatibility verified
 
+## Clean-as-you-go (Prime Command)
+
+- Fix small correctness and quality issues immediately during test and code changes.
+- Keep PRs and batches small; run fmt/lint/type-check and relevant strict tests after each meaningful edit.
+- If an issue is too big for an immediate fix, create a visible note and make it the next task—don’t leave it for “later”.
+- Prefer minimal diffs that improve clarity (naming, types, contracts) without drive-by refactors.
+- Hold the line: no net-new errors per step, and maintain green tests before moving on.
+
 ## Anti-Patterns to Avoid
 
 ❌ **Don't test implementation details**

@@ -2,26 +2,26 @@ import type { HydratedProportionedRate } from "../../../../types/hydrated/index.
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
-import Error from "../../../constructors/Error/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
+import not from "../not/index.ts"
 
 const proportionedRate = (
-	{ table, amount, ...op }: HydratedProportionedRate,
+	{ table, amount, ..._op }: HydratedProportionedRate,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, number>> => {
 	const resolvedTable = await table(arg, localValues)
-	if (isLeft(resolvedTable)) return resolvedTable
+	if (isLeft(resolvedTable)) return resolvedTable as Either<AdaptiveError[], number>
 
 	const resolvedAmount = await amount(arg, localValues)
-	if (isLeft(resolvedAmount)) return resolvedAmount
+	if (isLeft(resolvedAmount)) return resolvedAmount as Either<AdaptiveError[], number>
 
 	try {
 		const arr = typeof resolvedTable.right === "string"
@@ -30,25 +30,23 @@ async (
 
 		if (not(Array.isArray(arr))) {
 			return {
-				left: [Error(op)("ProportionedRate")("Table is not an array.")],
+				left: [{ tag: "Error", operation: "ProportionedRate", message: "Table is not an array." }],
 			}
 		}
 
-		const [ratio] = arr.reduce(
-			([out, remaining], [amount, rate]) => {
+		const [ratio] = (arr as Array<[number, number]>).reduce(
+			([out, remaining]: [number, number], [amount, rate]: [number, number]) => {
 				const amt = Math.min(remaining, amount ?? Number.MAX_VALUE)
 
 				return [out + rate * (amt < 0 ? 0 : amt), remaining - amount]
 			},
-			[0, resolvedAmount.right],
+			[0, resolvedAmount.right as number],
 		)
 
 		return { right: ratio / resolvedAmount.right }
 	} catch (e) {
 		return {
-			left: [
-				Error(op)("ProportionedRate")(`Failed to parse JSON table: ${e}`),
-			],
+			left: [{ tag: "Error", operation: "ProportionedRate", message: `Failed to parse JSON table: ${e}` }],
 		}
 	}
 }

@@ -1,4 +1,5 @@
 import mean from "../../math/mean/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import standardDeviation from "../standardDeviation/index.ts"
 
 /**
@@ -43,7 +44,7 @@ import standardDeviation from "../standardDeviation/index.ts"
 const kurtosis = (
 	data: number[] | null | undefined,
 ): number => {
-	if (data == null || !Array.isArray(data)) {
+	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
 
@@ -56,7 +57,7 @@ const kurtosis = (
 
 	// Check for non-numeric values
 	const hasInvalidValues = data.some(value => 
-		value == null || typeof value !== "number"
+		isNullish(value) || typeof value !== "number"
 	)
 	
 	if (hasInvalidValues) {

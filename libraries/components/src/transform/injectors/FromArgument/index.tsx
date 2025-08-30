@@ -12,6 +12,7 @@
  */
 
 import FromArgumentConstructor from "@adaptiveSrc/constructors/injectors/FromArgument/index.ts"
+import type { FromArgumentInjector } from "@adaptiveTypes/index.ts"
 
 export type FromArgumentProps = {
 	name: string
@@ -23,7 +24,7 @@ export default function FromArgument({
 	name,
 	type = "String",
 	datatype,
-}: FromArgumentProps): ReturnType<ReturnType<typeof FromArgumentConstructor>> {
+}: FromArgumentProps): FromArgumentInjector {
 	const actualType = datatype || type
 
 	// FromArgument constructor signature: (datatype) => (name)

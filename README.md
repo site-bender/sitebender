@@ -54,3 +54,21 @@ Hydration bundle summary:
 	- Tests (strict): `deno task test:adaptive:strict`, `deno task test:components:strict`, `deno task test:toolkit:strict`
 
 CI runs strict tasks and will block on lint, type-check, alias guard, and strict tests. Use fast tasks for quick local iteration, then verify with strict before PRs.
+
+## Prime Command: Clean-as-you-go
+
+- Fix small issues immediately while you’re in the file.
+- Keep changes small; re-run fmt/lint/type-check and relevant strict tests after each meaningful edit.
+- If a fix is too big for now, leave a visible note and make it the next task—don’t let it drift.
+- Hold the line: no net-new errors, keep tests green.
+
+## Authoring canon: Events and Actions
+
+- Events: prefer `When.*` (aliases map to `On.*`).
+	- `When.Clicked` ≡ `On.Click`
+	- `When.Submitted` ≡ `On.Submit`
+	- `When.ValueUpdated` ≡ `On.Input`
+	- `When.ChangeComplete` ≡ `On.Change`
+	- `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
+	- `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
+- Actions: author as bare verbs (no `Do.*` in docs/examples).

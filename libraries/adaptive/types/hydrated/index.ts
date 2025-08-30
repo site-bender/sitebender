@@ -5,7 +5,7 @@
  * where operand references have been resolved to OperationFunction instances.
  */
 
-import type { OperationFunction, Value } from "./index.ts"
+import type { OperationFunction, Value } from "../index.ts"
 
 // ============================================================================
 // Base Hydrated Types
@@ -125,6 +125,8 @@ export interface HydratedRound extends HydratedBase {
 export interface HydratedTruncate extends HydratedBase {
 	tag: "Truncate"
 	type: "operator"
+	// Allow optional precision for truncate implementation
+	decimalPlaces?: number
 	operand: OperationFunction<number>
 }
 
@@ -142,6 +144,114 @@ export interface HydratedCosine extends HydratedBase {
 
 export interface HydratedTangent extends HydratedBase {
 	tag: "Tangent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcSine extends HydratedBase {
+	tag: "ArcSine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcTangent extends HydratedBase {
+	tag: "ArcTangent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedHyperbolicSine extends HydratedBase {
+	tag: "HyperbolicSine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedHyperbolicCosine extends HydratedBase {
+	tag: "HyperbolicCosine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedHyperbolicTangent extends HydratedBase {
+	tag: "HyperbolicTangent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcHyperbolicSine extends HydratedBase {
+	tag: "ArcHyperbolicSine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcHyperbolicCosine extends HydratedBase {
+	tag: "ArcHyperbolicCosine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcHyperbolicTangent extends HydratedBase {
+	tag: "ArcHyperbolicTangent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedCosecant extends HydratedBase {
+	tag: "Cosecant"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedCotangent extends HydratedBase {
+	tag: "Cotangent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedExponent extends HydratedBase {
+	tag: "Exponent"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+export interface HydratedLog extends HydratedBase {
+	tag: "Log"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedLogBaseTwo extends HydratedBase {
+	tag: "LogBaseTwo"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedNaturalLog extends HydratedBase {
+	tag: "NaturalLog"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedReciprocal extends HydratedBase {
+	tag: "Reciprocal"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+// Additional unary operators
+export interface HydratedSign extends HydratedBase {
+	tag: "Sign"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedArcCosine extends HydratedBase {
+	tag: "ArcCosine"
+	type: "operator"
+	operand: OperationFunction<number>
+}
+
+export interface HydratedSecant extends HydratedBase {
+	tag: "Secant"
 	type: "operator"
 	operand: OperationFunction<number>
 }
@@ -217,6 +327,56 @@ export interface HydratedMin extends HydratedBase {
 	tag: "Min"
 	type: "operator"
 	operands: Array<OperationFunction<number | string>>
+}
+
+export interface HydratedMean extends HydratedBase {
+	tag: "Mean"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedRootMeanSquare extends HydratedBase {
+	tag: "RootMeanSquare"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedRoot extends HydratedBase {
+	tag: "Root"
+	type: "operator"
+	radicand: OperationFunction<number>
+	index: OperationFunction<number>
+}
+
+export interface HydratedStandardDeviation extends HydratedBase {
+	tag: "StandardDeviation"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedHypotenuse extends HydratedBase {
+	tag: "Hypotenuse"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedMedian extends HydratedBase {
+	tag: "Median"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedMode extends HydratedBase {
+	tag: "Mode"
+	type: "operator"
+	operands: Array<OperationFunction<number>>
+}
+
+export interface HydratedProportionedRate extends HydratedBase {
+	tag: "ProportionedRate"
+	type: "operator"
+	table: OperationFunction<unknown>
+	amount: OperationFunction<number>
 }
 
 // ============================================================================
@@ -313,6 +473,24 @@ export type HydratedOperator =
 	| HydratedSine
 	| HydratedCosine
 	| HydratedTangent
+	| HydratedArcSine
+	| HydratedArcTangent
+	| HydratedHyperbolicSine
+	| HydratedHyperbolicCosine
+	| HydratedHyperbolicTangent
+	| HydratedArcHyperbolicSine
+	| HydratedArcHyperbolicCosine
+	| HydratedArcHyperbolicTangent
+	| HydratedCosecant
+	| HydratedCotangent
+	| HydratedExponent
+	| HydratedLog
+	| HydratedLogBaseTwo
+	| HydratedNaturalLog
+	| HydratedReciprocal
+	| HydratedSign
+	| HydratedSecant
+	| HydratedArcCosine
 	| HydratedPower
 	| HydratedSubtract
 	| HydratedDivide
@@ -321,8 +499,16 @@ export type HydratedOperator =
 	| HydratedAdd
 	| HydratedMultiply
 	| HydratedAverage
+	| HydratedHypotenuse
 	| HydratedMax
 	| HydratedMin
+	| HydratedMean
+	| HydratedRoot
+	| HydratedMedian
+	| HydratedMode
+	| HydratedProportionedRate
+	| HydratedRootMeanSquare
+	| HydratedStandardDeviation
 
 export type HydratedComparator =
 	| HydratedIsEqualTo

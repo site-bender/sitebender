@@ -8,15 +8,21 @@ Use the `Program` control to inline author behaviors next to your HTML. `Program
 
 Pattern:
 - Mark interactive elements with `data-ir-id` or an `id`.
-- Wrap behaviors in `On` controls with an `event` and optional `target`.
+- Wrap behaviors with event markers — prefer `When.*` (authoring), which lower to IR events `On.*`. You can still use `On` directly, but docs/examples prefer `When.*`.
 - Compose actions and conditions from transform components.
+
+Event authoring examples:
+
+- Submit without navigation and push a query string param:
+	- `<When.Submitted target="profile">` with `SetQueryString` drawing from `#favorite`.
+- Update output on input:
+	- `<When.ValueUpdated>` with `SetValue` and a `FromElement` injector for `#name`.
+
+Equivalent IR (emitted by Program) would use `On.Submit` / `On.Input`.
 
 Example (from Tutorial):
 
-- Update output on input:
-	- `<On event="Input">` with `SetValue` and a `FromElement` injector for `#name`.
-- Submit without navigation and push a query string param:
-	- `<On event="Submit" target="profile">` with `SetQueryString` drawing from `#favorite`.
+See event authoring examples above.
 
 Example (from Validation):
 

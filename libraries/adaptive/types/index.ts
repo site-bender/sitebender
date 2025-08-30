@@ -129,7 +129,7 @@ export interface FromLookupTableInjector extends InjectorBase {
 		local: string
 		name: string
 	}
-	test: Operand // TODO: This should be an Operand once we have circular deps figured out
+	test: Operand
 }
 
 // Union of all injector types
@@ -646,6 +646,24 @@ export interface IsBeforeDateTimeComparator extends ComparatorBase {
 	test: Operand
 }
 
+export interface IsSameDateTimeComparator extends ComparatorBase {
+	tag: "IsSameDateTime"
+	operand: Operand
+	test: Operand
+}
+
+export interface IsNotAfterDateTimeComparator extends ComparatorBase {
+	tag: "IsNotAfterDateTime"
+	operand: Operand
+	test: Operand
+}
+
+export interface IsNotBeforeDateTimeComparator extends ComparatorBase {
+	tag: "IsNotBeforeDateTime"
+	operand: Operand
+	test: Operand
+}
+
 // Time comparators
 export interface IsAfterTimeComparator extends ComparatorBase {
 	tag: "IsAfterTime"
@@ -728,6 +746,13 @@ export interface IsSameLengthComparator extends ComparatorBase {
 
 export interface IsShorterThanComparator extends ComparatorBase {
 	tag: "IsShorterThan"
+	operand: Operand
+	test: Operand
+}
+
+// Set membership comparator
+export interface InSetComparator extends ComparatorBase {
+	tag: "InSet"
 	operand: Operand
 	test: Operand
 }
@@ -906,6 +931,7 @@ export type ComparatorConfig =
 	| IsDescendingComparator
 	| IsDisjointSetComparator
 	| IsDurationComparator
+	| InSetComparator
 	| IsEqualToComparator
 	| IsInstantComparator
 	| IsIntegerComparator
@@ -921,9 +947,11 @@ export type ComparatorConfig =
 	| IsNoShorterThanComparator
 	| IsNotAfterAlphabeticallyComparator
 	| IsNotAfterDateComparator
+	| IsNotAfterDateTimeComparator
 	| IsNotAfterTimeComparator
 	| IsNotBeforeAlphabeticallyComparator
 	| IsNotBeforeDateComparator
+	| IsNotBeforeDateTimeComparator
 	| IsNotBeforeTimeComparator
 	| IsNotLengthComparator
 	| IsNotSameAlphabeticallyComparator
@@ -941,6 +969,7 @@ export type ComparatorConfig =
 	| IsRealNumberComparator
 	| IsSameAlphabeticallyComparator
 	| IsSameDateComparator
+	| IsSameDateTimeComparator
 	| IsSameLengthComparator
 	| IsSameTimeComparator
 	| IsSetComparator

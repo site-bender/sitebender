@@ -25,7 +25,7 @@ const el = (tag: string, props: Record<string, unknown> = {}, children?: unknown
   props: children === undefined ? props : { ...props, children },
 })
 
-Deno.test("compiler emits warning for Add with fewer than 2 operands", () => {
+Deno.test("compiler emits warning for Add with fewer than 2 addends", () => {
   const tree = [
     el("input", { id: "a" }),
     el("output", { id: "out" }),

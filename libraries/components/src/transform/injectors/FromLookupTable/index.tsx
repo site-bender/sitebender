@@ -13,7 +13,7 @@
  */
 
 import FromLookupTableConstructor from "@adaptiveSrc/constructors/injectors/FromLookupTable/index.ts"
-import type { ComplexDatatype, Operand } from "@adaptiveTypes/index.ts"
+import type { ComplexDatatype, FromLookupTableInjector, Operand } from "@adaptiveTypes/index.ts"
 
 export type FromLookupTableProps = {
 	tableName: string
@@ -31,7 +31,7 @@ export default function FromLookupTable({
 	test,
 	type = "Json",
 	datatype,
-}: FromLookupTableProps): ReturnType<ReturnType<typeof FromLookupTableConstructor>> {
+}: FromLookupTableProps): FromLookupTableInjector {
 	const actualType = datatype || type
 
 	// FromLookupTable constructor signature: (datatype) => (config)

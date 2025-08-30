@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the standard deviation of an array of numbers
  *
@@ -36,7 +38,7 @@ const standardDeviation = (
 (
 	values: Array<number> | null | undefined,
 ): number => {
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
 

@@ -83,7 +83,7 @@ const metaWithWarnings = (warnings: string[] | undefined) =>
 type ConstantCtor = { type: "injector"; tag: "Constant"; datatype?: DataType; value: unknown }
 type FromElementCtor = { type: "injector"; tag: "FromElement"; datatype?: DataType; source: string }
 type AddCtor = { type: "operator"; tag: "Add"; datatype?: DataType; addends?: Array<unknown> }
-type MultiplyCtor = { type: "operator"; tag: "Multiply"; datatype?: DataType; factors?: Array<unknown> }
+type MultiplyCtor = { type: "operator"; tag: "Multiply"; datatype?: DataType; multipliers?: Array<unknown>; factors?: Array<unknown> }
 type MinCtor = { type: "operator"; tag: "Min"; datatype?: DataType; operands?: Array<unknown> }
 type MaxCtor = { type: "operator"; tag: "Max"; datatype?: DataType; operands?: Array<unknown> }
 type LogicalCtor = { type: "logical"; tag: "And" | "Or"; datatype?: DataType; operands?: Array<unknown> }
@@ -116,7 +116,7 @@ function inferAnchorFromActionArgs(action?: ActionMarker): string | undefined {
       }
     }
     if (isMultiplyCtor(arg)) {
-      const arr = Array.isArray(arg.factors) ? arg.factors : []
+      const arr = Array.isArray(arg.multipliers) ? arg.multipliers : (Array.isArray(arg.factors) ? arg.factors : [])
       for (const a of arr) {
         if (isFromElementCtor(a)) {
           const src = a.source || ""
@@ -215,7 +215,7 @@ function compileOperand(x: unknown): Node {
     const datatype = normalizeDatatype(x.datatype) ?? "Float"
     const addends = Array.isArray(x.addends) ? x.addends : []
     const warnings: string[] = []
-    if (addends.length < 2) warnings.push("Op.Add expects at least 2 operands")
+    if (addends.length < 2) warnings.push("Op.Add expects at least 2 addends")
     return {
       v: "0.1.0",
       kind: "operator",
@@ -228,16 +228,16 @@ function compileOperand(x: unknown): Node {
   }
   if (isMultiplyCtor(x)) {
     const datatype = normalizeDatatype(x.datatype) ?? "Float"
-    const factors = Array.isArray(x.factors) ? x.factors : []
+    const multipliers = Array.isArray(x.multipliers) ? x.multipliers : (Array.isArray(x.factors) ? x.factors : [])
     const warnings: string[] = []
-    if (factors.length < 2) warnings.push("Op.Multiply expects at least 2 operands")
+    if (multipliers.length < 2) warnings.push("Op.Multiply expects at least 2 multipliers")
     return {
       v: "0.1.0",
       kind: "operator",
       id: nextO(),
       op: "Op.Multiply",
       datatype,
-      args: factors.map(compileOperand) as OperatorNode["args"],
+      args: multipliers.map(compileOperand) as OperatorNode["args"],
       ...metaWithWarnings(warnings),
     } satisfies OperatorNode
   }
@@ -247,7 +247,7 @@ function compileOperand(x: unknown): Node {
     const children = (x as { minuend?: unknown; subtrahend?: unknown; children?: unknown[] }).children as unknown[] | undefined
     const ops = Array.isArray(children) ? children : []
     const warnings: string[] = []
-    if (ops.length !== 2) warnings.push("Op.Subtract expects exactly 2 operands")
+    if (ops.length !== 2) warnings.push("Op.Subtract expects exactly 2 operands (minuend and subtrahend)")
     return {
       v: "0.1.0",
       kind: "operator",
@@ -263,7 +263,7 @@ function compileOperand(x: unknown): Node {
     const children = (x as { children?: unknown[] }).children as unknown[] | undefined
     const ops = Array.isArray(children) ? children : []
     const warnings: string[] = []
-    if (ops.length !== 2) warnings.push("Op.Divide expects exactly 2 operands")
+    if (ops.length !== 2) warnings.push("Op.Divide expects exactly 2 operands (dividend and divisor)")
     return {
       v: "0.1.0",
       kind: "operator",

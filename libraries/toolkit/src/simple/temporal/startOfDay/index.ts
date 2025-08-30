@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the start of day for a date (00:00:00)
  *
@@ -82,7 +84,7 @@ const startOfDay = (
 		| null
 		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

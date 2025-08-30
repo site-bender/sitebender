@@ -2,16 +2,15 @@ import type { HydratedRootMeanSquare } from "../../../../types/hydrated/index.ts
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
-import Error from "../../../constructors/Error/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const rootMeanSquare =
-	({ operands, ...op }: HydratedRootMeanSquare): OperationFunction<number> =>
+	({ operands, ..._op }: HydratedRootMeanSquare): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -20,12 +19,13 @@ const rootMeanSquare =
 			operands.map((operand) => operand(arg, localValues)),
 		)
 		const errors = resolvedOperands.filter(isLeft)
-
 		if (errors.length) {
+			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
+			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					Error(op)("RootMeanSquare")("Could not resolve all operands."),
-					...errors,
+					{ tag: "Error", operation: "RootMeanSquare", message: "Could not resolve all operands." },
+					...flattened,
 				],
 			}
 		}
@@ -34,10 +34,8 @@ const rootMeanSquare =
 			return { right: 0 }
 		}
 
-		const total = resolvedOperands.reduce(
-			(acc, { right: value }) => acc + value * value,
-			0,
-		)
+		const rights = resolvedOperands as Array<{ right: number }>
+		const total = rights.reduce((acc, { right: value }) => acc + value * value, 0)
 
 		return { right: Math.sqrt(total / resolvedOperands.length) }
 	}

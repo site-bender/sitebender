@@ -13,22 +13,22 @@
  */
 
 import IsShorterThanConstructor from "@adaptiveSrc/constructors/comparators/length/IsShorterThan/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { IsShorterThanComparator, Operand } from "@adaptiveTypes/index.ts"
 
-export type IsShorterThanProps = {
+export type Props = {
 	type?: "String" | "Array"
 	datatype?: "String" | "Array"
 	children?: JSX.Element | JSX.Element[]
 }
 
 export default function IsShorterThan({
-	type = "String",
-	datatype,
+	type: _type = "String",
+	datatype: _datatype,
 	children = [],
-}: IsShorterThanProps): ReturnType<ReturnType<ReturnType<typeof IsShorterThanConstructor>>> {
-	const actualType = datatype || type
+}: Props): IsShorterThanComparator {
+	const actualType = "Number" as const
 	const [operand, test] = Array.isArray(children) ? children : [children]
 
 	// IsShorterThan: (datatype) => (operand) => (test)
-	return IsShorterThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand)
+		return IsShorterThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand) as unknown as IsShorterThanComparator
 }

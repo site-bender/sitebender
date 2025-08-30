@@ -30,11 +30,13 @@ Use this prompt at the start of the next session to regain full context with no 
   - Data model: Vault / Collection / Field / Item (replaces Entry).
   - Forms: `<Form collection="…">` is canonical (replaces `for=`).
   - Events: canonical `When.*`; keep `On.*` as dev-friendly aliases.
+    - `When.Clicked` ≡ `On.Click`
+    - `When.Submitted` ≡ `On.Submit`
     - `When.ValueUpdated` ≡ `On.Input`
     - `When.ChangeComplete` ≡ `On.Change`
     - `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
     - `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
-  - Actions: bare verbs (no namespace). Keep existing Do.* aliases for now, but don’t feature them in docs.
+  - Actions: bare verbs only (no namespace). Drop `Do.*` aliases from docs and future examples; maintain compatibility only if required by legacy code.
   - Injectors: keep `From.Store`, plan `From.SPARQL`. Remove `From.Entry`/`From.Item` for now.
 
 ## Guardrails
@@ -53,11 +55,12 @@ Use this prompt at the start of the next session to regain full context with no 
   - Add `When.ValueUpdated` (lowers to `On.Input`).
   - Add `When.ChangeComplete` (lowers to `On.Change`).
   - Add `When.GainedFocus`/`When.LostFocus` (lower to `On.Focus`/`On.Blur`).
+  - Add `When.Clicked`/`When.Submitted` (lower to `On.Click`/`On.Submit`).
   - Add `From.Store` JSX marker (no-op lowering initially). Skip `From.Item` for now.
 
 3) Update docs/examples
-  - Prefer `When.ValueUpdated`/`When.ChangeComplete` in examples; add a mapping callout (`On.*` aliases acceptable).
-  - Keep actions authored as bare verbs (remove `Do.*` from showcased docs), but retain existing Do.* aliases for compatibility.
+  - Prefer `When.*` events (`When.Clicked`, `When.Submitted`, `When.ValueUpdated`, `When.ChangeComplete`, focus/blur variants) in examples; add a mapping callout (`On.*` aliases acceptable).
+  - Keep actions authored as bare verbs; do not use `Do.*` aliases in examples.
 
 4) Optional hygiene (if time)
   - Expand Adaptive IR compile-time contracts (e.g., Subtract, Divide, Matches) without runtime changes.
@@ -84,6 +87,8 @@ Use this prompt at the start of the next session to regain full context with no 
   - `libraries/components/tests/unit/compile_to_adaptive.test.ts`
 
 ## Event mapping cheat-sheet
+- `When.Clicked` ≡ `On.Click`
+- `When.Submitted` ≡ `On.Submit`
 - `When.ValueUpdated` ≡ `On.Input`
 - `When.ChangeComplete` ≡ `On.Change`
 - `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)

@@ -44,7 +44,7 @@ const el = (tag: string, props: Record<string, unknown> = {}, children?: unknown
   props: children === undefined ? props : { ...props, children },
 })
 
-Deno.test("compiler emits warning for Multiply with fewer than 2 factors", () => {
+Deno.test("compiler emits warning for Multiply with fewer than 2 multipliers", () => {
   const tree = [
     el("input", { id: "a" }),
     On({

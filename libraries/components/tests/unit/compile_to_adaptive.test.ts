@@ -17,6 +17,12 @@ import SetValue from "../../src/transform/actions/SetValue/index.tsx"
 import NotEmpty from "../../src/transform/comparators/NotEmpty/index.tsx"
 // Import marker/component constructors
 import On from "../../src/transform/control/On/index.tsx"
+import WhenClicked from "../../src/transform/control/When/Clicked/index.tsx"
+import WhenSubmitted from "../../src/transform/control/When/Submitted/index.tsx"
+import WhenValueUpdated from "../../src/transform/control/When/ValueUpdated/index.tsx"
+import WhenChangeComplete from "../../src/transform/control/When/ChangeComplete/index.tsx"
+import WhenGainedFocus from "../../src/transform/control/When/GainedFocus/index.tsx"
+import WhenLostFocus from "../../src/transform/control/When/LostFocus/index.tsx"
 import Constant from "../../src/transform/injectors/Constant/index.tsx"
 import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
 import Add from "../../src/transform/operators/Add/index.tsx"
@@ -69,6 +75,88 @@ Deno.test("compileToAdaptive binds On to nearest prior element id", () => {
   assertEquals(arg1.kind, "injector")
   assertEquals(arg1.injector, "From.Element")
   assertEquals(arg1.args.selector, "#name")
+})
+
+Deno.test("When.Clicked lowers to On.Click and binds to nearest element", () => {
+  const tree = [
+    el("button", { id: "btn" }),
+    WhenClicked({
+      children: Publish({ topic: "clicked" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.kind, "on")
+  assertEquals(evt.event, "On.Click")
+  assertEquals(evt.id, "btn")
+})
+
+Deno.test("When.Submitted lowers to On.Submit and respects explicit target", () => {
+  const tree = [
+    el("form", { id: "login" }),
+    el("form", { id: "signup" }),
+    WhenSubmitted({
+      target: "signup",
+      children: Publish({ topic: "submitted" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.kind, "on")
+  assertEquals(evt.event, "On.Submit")
+  assertEquals(evt.id, "signup")
+})
+
+Deno.test("When.ValueUpdated lowers to On.Input", () => {
+  const tree = [
+    el("input", { id: "i" }),
+    WhenValueUpdated({
+      children: Publish({ topic: "vu" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.event, "On.Input")
+  assertEquals(evt.id, "i")
+})
+
+Deno.test("When.ChangeComplete lowers to On.Change", () => {
+  const tree = [
+    el("input", { id: "j" }),
+    WhenChangeComplete({
+      children: Publish({ topic: "cc" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.event, "On.Change")
+  assertEquals(evt.id, "j")
+})
+
+Deno.test("When.GainedFocus lowers to On.Focus", () => {
+  const tree = [
+    el("input", { id: "f" }),
+    WhenGainedFocus({
+      children: Publish({ topic: "focus" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.event, "On.Focus")
+  assertEquals(evt.id, "f")
+})
+
+Deno.test("When.LostFocus lowers to On.Blur", () => {
+  const tree = [
+    el("input", { id: "b" }),
+    WhenLostFocus({
+      children: Publish({ topic: "blur" }) as unknown as JSX.Element,
+    }) as unknown as JSX.Element,
+  ]
+  const doc = compileToAdaptive(tree) as IrDocument
+  const evt = doc.children[0] as EventBindingNode
+  assertEquals(evt.event, "On.Blur")
+  assertEquals(evt.id, "b")
 })
 
 Deno.test("compileToAdaptive respects explicit On.target over last anchor", () => {

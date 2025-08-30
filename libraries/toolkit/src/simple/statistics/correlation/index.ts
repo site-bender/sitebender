@@ -1,4 +1,5 @@
 import mean from "../../math/mean/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the Pearson correlation coefficient between two datasets
@@ -47,11 +48,11 @@ const correlation = (
 (
 	y: number[] | null | undefined,
 ): number => {
-	if (x == null || !Array.isArray(x)) {
+	if (isNullish(x) || !Array.isArray(x)) {
 		return NaN
 	}
 
-	if (y == null || !Array.isArray(y)) {
+	if (isNullish(y) || !Array.isArray(y)) {
 		return NaN
 	}
 
@@ -70,8 +71,8 @@ const correlation = (
 
 	// Check for non-numeric values
 	const hasInvalidValues = x.some((val, i) => 
-		val == null || typeof val !== "number" ||
-		y[i] == null || typeof y[i] !== "number"
+		isNullish(val) || typeof val !== "number" ||
+		isNullish(y[i]) || typeof y[i] !== "number"
 	)
 	
 	if (hasInvalidValues) {

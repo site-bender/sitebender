@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the end of week for a given date
  *
@@ -60,7 +62,7 @@ const endOfWeek = (weekStartDay: number = 1) =>
 (
 	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
 ): Temporal.PlainDate | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

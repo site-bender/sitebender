@@ -1,4 +1,5 @@
 import mean from "../../math/mean/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import standardDeviation from "../standardDeviation/index.ts"
 
 /**
@@ -52,11 +53,11 @@ const zScore = (
 (
 	sample: boolean = false,
 ): number => {
-	if (value == null || typeof value !== "number") {
+	if (isNullish(value) || typeof value !== "number") {
 		return NaN
 	}
 
-	if (data == null || !Array.isArray(data)) {
+	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
 
@@ -65,7 +66,7 @@ const zScore = (
 	}
 
 	// Check for non-numeric values in data
-	if (data.some(d => d == null || typeof d !== "number")) {
+	if (data.some(d => isNullish(d) || typeof d !== "number")) {
 		return NaN
 	}
 

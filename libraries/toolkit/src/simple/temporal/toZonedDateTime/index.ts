@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Converts PlainDateTime to ZonedDateTime with specified timezone
  *
@@ -77,7 +79,7 @@ const toZonedDateTime = (
 		| null
 		| undefined,
 ): Temporal.ZonedDateTime | null => {
-	if (temporal == null) {
+	if (isNullish(temporal)) {
 		return null
 	}
 

@@ -18,9 +18,9 @@
  */
 
 import DivideConstructor from "@adaptiveSrc/constructors/operators/Divide/index.ts"
-import type { NumericDatatype, Operand } from "@adaptiveTypes/index.ts"
+import type { NumericDatatype, Operand, DivideOperator } from "@adaptiveTypes/index.ts"
 
-export type DivideProps = {
+export type Props = {
 	type?: NumericDatatype
 	datatype?: NumericDatatype
 	children?: JSX.Element | JSX.Element[]
@@ -30,7 +30,7 @@ export default function Divide({
 	type = "Number",
 	datatype,
 	children = [],
-}: DivideProps): ReturnType<ReturnType<ReturnType<typeof DivideConstructor>>> {
+}: Props): DivideOperator {
 	const actualType = datatype || type
 	const [dividend, divisor] = Array.isArray(children) ? children : [children]
 

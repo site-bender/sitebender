@@ -1,15 +1,12 @@
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	OperatorConfig,
 } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
 import { ADDITION_IDENTITY } from "../../../constructors/constants/index.ts"
-import Error from "../../../constructors/Error/index.ts"
 
 interface HydratedAdd {
 	tag: "Add"
@@ -19,7 +16,7 @@ interface HydratedAdd {
 }
 
 const add =
-	({ addends, ...op }: HydratedAdd): OperationFunction<number | string> =>
+	({ addends }: HydratedAdd): OperationFunction<number | string> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -27,19 +24,22 @@ const add =
 		const resolvedAddends = await Promise.all(
 			addends.map((addend) => addend(arg, localValues)),
 		)
-		const errors = resolvedAddends.filter(isLeft)
 
+		const errors = resolvedAddends.filter(isLeft)
 		if (errors.length) {
+			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
+			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					Error(op)("Add")("Could not resolve all addends."),
-					...errors.flatMap((e) => e.left),
+					{ tag: "Error", operation: "Add", message: "Could not resolve all addends." },
+					...flattened,
 				],
 			}
 		}
 
-		const total = resolvedAddends.reduce(
-			(acc, result) => acc + (result as { right: number | string }).right,
+		const rights = resolvedAddends as Array<{ right: number | string }>
+		const total = rights.reduce(
+			(acc, { right }) => acc + Number(right),
 			ADDITION_IDENTITY,
 		)
 

@@ -22,3 +22,5 @@
 Then fix the tests in `libraries/toolkit/tests` that break because of these changes.
 
 Also: our `divide` currently returns a float, am I right? Shouldn't it return a tuple with the quotient and the remainder to be truly accurate? How can we have both? What would we call the two functions (I am loath to add a configuration object unless there's no other way).
+
+Just for discussion: how could we add functions to do integration and differentiation? Is that doable?

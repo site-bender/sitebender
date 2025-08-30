@@ -1,5 +1,7 @@
 import type { Maybe, Nothing } from "../../types/fp/maybe/index.ts"
 
+import isNotUndefined from "../../simple/validation/isNotUndefined/index.ts"
+
 /**
  * Creates a Nothing value representing the absence of a value in a Maybe
  *
@@ -70,7 +72,7 @@ import type { Maybe, Nothing } from "../../types/fp/maybe/index.ts"
  * // Map lookup operations
  * const lookup = <K, V>(key: K) => (map: Map<K, V>): Maybe<V> => {
  *   const value = map.get(key)
- *   return value !== undefined ? just(value) : nothing()
+ *   return isNotUndefined(value) ? just(value) : nothing()
  * }
  * ```
  *

@@ -44,6 +44,14 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
 - Inspectability: Every transform can emit an explanation for tooling/AI
 - Boundary-first: Clear storage/runtime interfaces to enable future backends
 
+## Clean-as-you-go (Prime Command)
+
+- Always do the right thing the first time and every time.
+- If a problem can be fixed correctly and quickly, fix it immediately.
+- If the fix is larger or risky, add a visible note and pause to address it before proceeding—don’t defer.
+- Keep changes small and verified: no net-new errors per step, re-run type-check and tests, and prefer aliases.
+- Practice makes permanent: consistent quality habits in small steps prevent tech debt and keep velocity high.
+
 ## Milestones and Deliverables
 
 1) Contracts & IR hardening (Week 1)

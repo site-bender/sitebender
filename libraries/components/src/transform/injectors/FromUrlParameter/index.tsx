@@ -14,7 +14,7 @@
  */
 
 import FromUrlParameterConstructor from "@adaptiveSrc/constructors/injectors/FromUrlParameter/index.ts"
-import type { Datatype, Value } from "@adaptiveTypes/index.ts"
+import type { Datatype, FromUrlParameterInjector, Value } from "@adaptiveTypes/index.ts"
 
 export type FromUrlParameterProps = {
 	segment: number
@@ -28,7 +28,7 @@ export default function FromUrlParameter({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromUrlParameterProps): ReturnType<ReturnType<typeof FromUrlParameterConstructor>> {
+}: FromUrlParameterProps): FromUrlParameterInjector {
 	const actualType = datatype || type
 
 	// FromUrlParameter constructor signature: (datatype) => (options)

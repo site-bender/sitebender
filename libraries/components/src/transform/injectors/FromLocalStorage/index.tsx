@@ -10,6 +10,7 @@
  */
 
 import FromLocalStorageConstructor from "@adaptiveSrc/constructors/injectors/FromLocalStorage/index.ts"
+import type { FromLocalStorageInjector } from "@adaptiveTypes/index.ts"
 
 export type FromLocalStorageProps = {
 	key: string
@@ -23,7 +24,7 @@ export default function FromLocalStorage({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromLocalStorageProps): ReturnType<ReturnType<typeof FromLocalStorageConstructor>> {
+}: FromLocalStorageProps): FromLocalStorageInjector {
 	const actualType = datatype || type
 
 	return FromLocalStorageConstructor(actualType)(key, defaultValue)

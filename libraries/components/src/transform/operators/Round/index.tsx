@@ -11,9 +11,9 @@
  */
 
 import RoundConstructor from "@adaptiveSrc/constructors/operators/Round/index.ts"
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand, RoundOperator } from "@adaptiveTypes/index.ts"
 
-export type RoundProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -23,7 +23,7 @@ export default function Round({
 	type = "Number",
 	datatype,
 	children = [],
-}: RoundProps): ReturnType<typeof RoundConstructor> {
+}: Props): RoundOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
