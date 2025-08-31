@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Subtracts the second number from the first
  *
@@ -49,11 +51,11 @@ const subtract = (
 (
 	subtrahend: number | null | undefined,
 ): number => {
-	if (minuend == null || typeof minuend !== "number") {
+	if (isNullish(minuend) || typeof minuend !== "number") {
 		return NaN
 	}
 
-	if (subtrahend == null || typeof subtrahend !== "number") {
+	if (isNullish(subtrahend) || typeof subtrahend !== "number") {
 		return NaN
 	}
 

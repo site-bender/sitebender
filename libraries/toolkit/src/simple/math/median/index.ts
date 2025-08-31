@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the median value of an array of numbers
  *
@@ -55,7 +57,7 @@
 const median = (
 	numbers: Array<number> | null | undefined,
 ): number => {
-	if (numbers == null || !Array.isArray(numbers)) {
+	if (isNullish(numbers) || !Array.isArray(numbers)) {
 		return NaN
 	}
 
@@ -65,7 +67,7 @@ const median = (
 
 	// Check for non-numeric values
 	const hasInvalidValue = numbers.some(
-		(num) => num == null || typeof num !== "number" || isNaN(num),
+		(num) => isNullish(num) || typeof num !== "number" || isNaN(num),
 	)
 
 	if (hasInvalidValue) {

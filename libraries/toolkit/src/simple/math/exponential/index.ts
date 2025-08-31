@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates e raised to the power of x (e^x)
  *
@@ -40,7 +42,7 @@
 const exponential = (
 	exponent: number | null | undefined,
 ): number => {
-	if (exponent == null || typeof exponent !== "number") {
+	if (isNullish(exponent) || typeof exponent !== "number") {
 		return NaN
 	}
 

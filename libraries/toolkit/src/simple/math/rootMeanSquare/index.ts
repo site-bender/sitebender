@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the root mean square (RMS) of an array of numbers
  *
@@ -44,7 +46,7 @@
 const rootMeanSquare = (
 	values: Array<number> | null | undefined,
 ): number => {
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
 
@@ -54,7 +56,7 @@ const rootMeanSquare = (
 
 	// Check for non-numeric values
 	const hasInvalidValue = values.some(
-		(value) => value == null || typeof value !== "number" || isNaN(value),
+		(value) => isNullish(value) || typeof value !== "number" || isNaN(value),
 	)
 
 	if (hasInvalidValue) {

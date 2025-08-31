@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the greatest common divisor of two integers
  *
@@ -47,11 +49,11 @@ const gcd = (
 (
 	b: number | null | undefined,
 ): number => {
-	if (a == null || typeof a !== "number") {
+	if (isNullish(a) || typeof a !== "number") {
 		return NaN
 	}
 
-	if (b == null || typeof b !== "number") {
+	if (isNullish(b) || typeof b !== "number") {
 		return NaN
 	}
 

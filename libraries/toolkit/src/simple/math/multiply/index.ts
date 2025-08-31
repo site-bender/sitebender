@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Multiplies two numbers together
  *
@@ -54,11 +56,11 @@ const multiply = (
 (
 	multiplier: number | null | undefined,
 ): number => {
-	if (multiplicand == null || typeof multiplicand !== "number") {
+	if (isNullish(multiplicand) || typeof multiplicand !== "number") {
 		return NaN
 	}
 
-	if (multiplier == null || typeof multiplier !== "number") {
+	if (isNullish(multiplier) || typeof multiplier !== "number") {
 		return NaN
 	}
 

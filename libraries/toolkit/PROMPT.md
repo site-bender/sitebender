@@ -45,14 +45,20 @@
   - Finance functions (3): amortizationSchedule, annuity, compoundInterest, futureValue
 - **Total files completed**: 257 files (233 from previous + 24 from this session)
 
-#### Session 7 (Current)
+#### Session 7
 
 - **Migrated 12 additional files**:
   - Logic functions (2): nor, and (only JSDoc examples needed updates, no code changes)
   - Math functions (10): minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode
 - **Total files completed**: 269 files (257 from previous + 12 from this session)
-- **Remaining files**: ~204 files with direct null/undefined comparisons
-- **Remaining instances**: ~408 direct comparisons
+
+#### Session 8 (Current)
+
+- **Migrated 12 additional math files**:
+  - Math functions (12): subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max
+- **Total files completed**: 281 files (269 from previous + 12 from this session)
+- **Remaining files**: ~192 files with direct null/undefined comparisons
+- **Remaining instances**: ~389 direct comparisons (19 replaced in this session)
 
 ### Remaining Work
 
@@ -140,7 +146,7 @@ These files have already been updated and should be skipped:
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
-- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode
+- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max
 - `state/`: store.ts
 - `types/`: index.ts
 

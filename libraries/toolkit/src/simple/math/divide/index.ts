@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Divides the first number by the second
  *
@@ -57,11 +59,11 @@ const divide = (
 (
 	divisor: number | null | undefined,
 ): number => {
-	if (dividend == null || typeof dividend !== "number") {
+	if (isNullish(dividend) || typeof dividend !== "number") {
 		return NaN
 	}
 
-	if (divisor == null || typeof divisor !== "number") {
+	if (isNullish(divisor) || typeof divisor !== "number") {
 		return NaN
 	}
 

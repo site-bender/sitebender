@@ -1,4 +1,5 @@
 import gcd from "../gcd/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates Euler's totient function φ(n)
@@ -49,7 +50,7 @@ import gcd from "../gcd/index.ts"
 const totient = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

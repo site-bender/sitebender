@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the prime factorization of a positive integer
  *
@@ -47,7 +49,7 @@ const primeFactorization = (
 ): Map<number, number> => {
 	const result = new Map<number, number>()
 
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return result
 	}
 
