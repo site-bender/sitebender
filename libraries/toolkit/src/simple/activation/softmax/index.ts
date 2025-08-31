@@ -1,5 +1,5 @@
-import { isNotNullish } from "../../validation/isNotNullish/index.ts"
-import { isNullish } from "../../validation/isNullish/index.ts"
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the softmax activation function for a vector
