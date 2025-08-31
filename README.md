@@ -84,7 +84,7 @@ Example (authoring):
 import Authorized from "./libraries/components/src/transform/control/When/Authorized/index.tsx";
 import On from "./libraries/components/src/transform/control/On/index.tsx";
 import SetValue from "./libraries/components/src/transform/actions/SetValue/index.tsx";
-import FromAuthentication from "./libraries/components/src/constructors/injectors/From/Authentication/index.tsx";
+import FromAuthenticator from "./libraries/components/src/constructors/injectors/From/Authenticator/index.tsx";
 
 // Render admin-only message on click
 [
@@ -96,7 +96,7 @@ import FromAuthentication from "./libraries/components/src/constructors/injector
 			policyArgs: { role: "admin" },
 			children: SetValue({
 				selector: "#msg",
-				value: FromAuthentication({ path: "user.email" }) as unknown as JSX.Element,
+				value: FromAuthenticator({ path: "user.email" }) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 			fallback: SetValue({ selector: "#msg", value: { value: "Forbidden" } } as any) as any,
 		}) as unknown as JSX.Element,

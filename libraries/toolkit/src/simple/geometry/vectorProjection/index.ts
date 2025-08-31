@@ -1,3 +1,4 @@
+import isNullish from "../../validation/isNullish/index.ts"
 import dotProduct from "../dotProduct/index.ts"
 
 /**
@@ -42,13 +43,13 @@ const vectorProjection = (
 (
 	vectorB: Array<number> | null | undefined,
 ): Array<number> => {
-	if (vectorA == null || !Array.isArray(vectorA)) {
-		return vectorB == null || !Array.isArray(vectorB)
+	if (isNullish(vectorA) || !Array.isArray(vectorA)) {
+		return isNullish(vectorB) || !Array.isArray(vectorB)
 			? []
 			: new Array(vectorB.length).fill(NaN)
 	}
 
-	if (vectorB == null || !Array.isArray(vectorB)) {
+	if (isNullish(vectorB) || !Array.isArray(vectorB)) {
 		return new Array(vectorA.length).fill(NaN)
 	}
 

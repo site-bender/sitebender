@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the magnitude (length) of a vector
  *
@@ -36,7 +38,7 @@
 const magnitude = (
 	vector: number[] | null | undefined,
 ): number => {
-	if (vector == null || !Array.isArray(vector)) {
+	if (isNullish(vector) || !Array.isArray(vector)) {
 		return NaN
 	}
 
@@ -45,7 +47,7 @@ const magnitude = (
 	}
 
 	const sumOfSquares = vector.reduce((sum, component) => {
-		if (component == null || typeof component !== "number") {
+		if (isNullish(component) || typeof component !== "number") {
 			return NaN
 		}
 		return sum + component * component

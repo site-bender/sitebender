@@ -119,7 +119,6 @@ The system is fully operational and waiting. Here is the state of our stack:
 ### Prometheus
 
 ```yaml
-global:
 # config/prometheus.yml
 global:
   scrape_interval: 15s
@@ -136,6 +135,12 @@ scrape_configs:
   - job_name: "node-exporter"
     static_configs:
       - targets: ["node-exporter:9100"]
+  # NEW: Add a job to scrape Apache Jena Fuseki metrics
+  - job_name: "fuseki"
+    metrics_path: /metrics # Fuseki often exposes metrics on this standard path
+    static_configs:
+      - targets: ["fuseki:3030"] # Uses Docker's internal DNS to find the container
+    scrape_interval: 15s
 ```
 
 ### Thanos
@@ -154,6 +159,7 @@ config:
 ### Docker
 
 ```yaml
+# docker-compose.yml
 networks:
   monitoring:
     driver: bridge
@@ -163,19 +169,45 @@ volumes:
   grafana_data: {}
   minio_data: {}
   thanos_sidecar_data: {}
+  fuseki_data: {}
+  fuseki_config: {}
 
 services:
+  # Apache Jena Fuseki - RDF Database and SPARQL Endpoint
+  fuseki:
+    image: stain/jena-fuseki:latest
+    container_name: fuseki
+    restart: unless-stopped
+    environment:
+      - FUSEKI_DATASET_1=my_dataset # Creates a persistent dataset with this name
+      # Optional: Set admin password for the web UI
+      - ADMIN_PASSWORD=admin123
+    volumes:
+      - fuseki_data:/fuseki-base/databases # Persistent volume for database files
+      - fuseki_config:/fuseki-base/configuration # Persistent volume for config
+    ports:
+      - "3030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
+    networks:
+      - monitoring # Attach it to the same network so Prometheus can scrape it
+    # Optional: Healthcheck to ensure the service is fully started
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:3030/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   # The monitoring backbone: time-series database
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.enable-lifecycle' # Allows config reload via API call
-      - '--storage.tsdb.min-block-duration=2h'
-      - '--storage.tsdb.max-block-duration=2h'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle" # Allows config reload via API call
+      - "--storage.tsdb.min-block-duration=2h"
+      - "--storage.tsdb.max-block-duration=2h"
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -198,7 +230,7 @@ services:
     privileged: true
     pid: "host"
     command:
-      - '--path.rootfs=/host'
+      - "--path.rootfs=/host"
     volumes:
       - /:/host:ro
 
@@ -215,7 +247,7 @@ services:
       - --objstore.config-file=/etc/thanos/minio-bucket.yaml
     volumes:
       - prometheus_data:/prometheus
-      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro 
+      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
     depends_on:
       - prometheus
       - minio
@@ -272,7 +304,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     ports:
-      - "3001:3000"  # Map host port 3001 to container port 3000
+      - "3001:3000" # Map host port 3001 to container port 3000
     networks:
       - monitoring
 
@@ -292,4 +324,5 @@ services:
       - "9001:9001" # Web UI Port
     networks:
       - monitoring
+
 ```

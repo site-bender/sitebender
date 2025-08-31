@@ -132,7 +132,7 @@
   - Physics functions (1): acceleration
 - **Total files completed**: 401 files (389 from previous + 12 from this session)
 
-#### Session 19 (Current)
+#### Session 19
 
 - **Migrated 12 additional files**:
   - Math functions (4): isEven, permutations, average, cubeRoot
@@ -140,8 +140,18 @@
   - Finance functions (2): paymentAmount, presentValue
   - String functions (3): deburr, unescape, lines
 - **Total files completed**: 413 files (401 from previous + 12 from this session)
-- **Remaining files**: ~87 files with direct null/undefined comparisons
-- **Remaining instances**: ~157 direct comparisons (21 replaced in this session)
+
+#### Session 20 (Current)
+
+- **Migrated 12 additional files**:
+  - Object functions (1): pathOr
+  - Conversion functions (1): stringify
+  - String functions (1): indexOf
+  - Geometry functions (7): dotProduct, vectorProjection, euclideanDistance, normalize, anglesBetweenVectors, magnitude, manhattanDistance
+  - Physics functions (3): frequency, momentum, wavelength, potentialEnergy
+- **Total files completed**: 425 files (413 from previous + 12 from this session)
+- **Remaining files**: ~75 files with direct null/undefined comparisons
+- **Remaining instances**: ~136 direct comparisons (21 replaced in this session)
 
 ### Remaining Work
 
@@ -160,6 +170,7 @@ According to the latest audit, there are **~526 instances of direct null/undefin
 
 2. **VERIFICATION BEFORE ACTION**
    - Select your 12 target files
+   - **Ignore (for now) examples in the JSDoc comments
    - Read the FIRST file completely
    - Show the proposed changes for that FIRST file ONLY
    - Get confirmation before proceeding to the remaining 11
@@ -218,13 +229,13 @@ These files have already been updated and should be skipped:
 - `simple/activation/`: gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey, throttle, debounce, unless
-- `simple/conversion/`: toJson, safeParse, safeParseInt, safeParseFloat
+- `simple/conversion/`: toJson, safeParse, safeParseInt, safeParseFloat, stringify
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime, toInteger, toBoolean, toString, toFloat
 - `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue, paymentAmount, presentValue
 - `simple/map/`: withDefault
 - `simple/math/`: add, clamp, combinations, sum, isEven, permutations, average, cubeRoot
 - `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries
-- `simple/physics/`: acceleration
+- `simple/physics/`: acceleration, frequency, momentum, wavelength, potentialEnergy
 - `simple/special/`: stirlingApproximation, errorFunction, complementaryErrorFunction, gammaFunction
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
@@ -233,11 +244,11 @@ These files have already been updated and should be skipped:
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
 - `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation, harmonicMean, sign, min, geometricMean, round
-- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches, deburr, unescape, lines
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches, deburr, unescape, lines, indexOf
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation
-- `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance
+- `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance, dotProduct, vectorProjection, euclideanDistance, normalize, anglesBetweenVectors, magnitude, manhattanDistance
 - `simple/finance/`: internalRateOfReturn, netPresentValue
 - `simple/object/`: renameKeys, evolve, xform, values
 - `simple/map/`: interleave

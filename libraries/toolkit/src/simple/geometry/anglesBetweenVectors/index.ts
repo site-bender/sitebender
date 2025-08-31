@@ -1,3 +1,4 @@
+import isNullish from "../../validation/isNullish/index.ts"
 import radiansToDegrees from "../../trigonometry/radiansToDegrees/index.ts"
 import dotProduct from "../dotProduct/index.ts"
 import magnitude from "../magnitude/index.ts"
@@ -50,11 +51,11 @@ const anglesBetweenVectors = (
 (
 	inDegrees: boolean = true,
 ): number => {
-	if (vector1 == null || !Array.isArray(vector1)) {
+	if (isNullish(vector1) || !Array.isArray(vector1)) {
 		return NaN
 	}
 
-	if (vector2 == null || !Array.isArray(vector2)) {
+	if (isNullish(vector2) || !Array.isArray(vector2)) {
 		return NaN
 	}
 

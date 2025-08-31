@@ -3,7 +3,7 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 import type { InjectorNode, IrDocument } from "../../../adaptive/types/ir/index.ts"
 
 import { compileToAdaptive } from "../../src/compile.ts"
-import FromAuthentication from "../../src/constructors/injectors/From/Authentication/index.tsx"
+import FromAuthentication from "../../src/constructors/injectors/From/Authenticator/index.tsx"
 import On from "../../src/transform/control/On/index.tsx"
 
 const el = (

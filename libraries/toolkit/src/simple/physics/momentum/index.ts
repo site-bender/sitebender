@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the momentum of a moving object
  *
@@ -45,7 +47,7 @@ const momentum = (
 (
 	velocity: number | null | undefined,
 ): number => {
-	if (mass == null || typeof mass !== "number") {
+	if (isNullish(mass) || typeof mass !== "number") {
 		return NaN
 	}
 
@@ -53,7 +55,7 @@ const momentum = (
 		return NaN
 	}
 
-	if (velocity == null || typeof velocity !== "number") {
+	if (isNullish(velocity) || typeof velocity !== "number") {
 		return NaN
 	}
 

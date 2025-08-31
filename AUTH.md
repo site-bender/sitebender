@@ -141,6 +141,19 @@ if (!allow) return redirect("/login")
 return render(App, { user })
 ```
 
+### Guard helper (implemented)
+
+The runtime provides a tiny helper to evaluate an auth policy and return an SSR-friendly decision:
+
+```ts
+import { createComposeContext } from "@adaptiveSrc/context/composeContext/index.ts"
+import { guardRoute } from "@adaptiveSrc/runtime/guard/index.ts"
+
+const ctx = createComposeContext({ env: "server", localValues: { user: { id: 1 } } })
+const decision = await guardRoute(ctx, "IsAuthenticated", undefined, { redirect: "/login" })
+// -> { allow: true } or { redirect: "/login" } or { status: 401|403 }
+```
+
 ## Pluggable Adapters
 
 - JWT Cookie Adapter (default)

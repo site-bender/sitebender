@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates wavelength from frequency and wave speed
  *
@@ -44,11 +46,11 @@ const wavelength = (
 (
 	frequency: number | null | undefined,
 ): number => {
-	if (speed == null || typeof speed !== "number") {
+	if (isNullish(speed) || typeof speed !== "number") {
 		return NaN
 	}
 
-	if (frequency == null || typeof frequency !== "number") {
+	if (isNullish(frequency) || typeof frequency !== "number") {
 		return NaN
 	}
 

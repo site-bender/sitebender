@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates frequency from period
  *
@@ -37,7 +39,7 @@
 const frequency = (
 	period: number | null | undefined,
 ): number => {
-	if (period == null || typeof period !== "number") {
+	if (isNullish(period) || typeof period !== "number") {
 		return NaN
 	}
 

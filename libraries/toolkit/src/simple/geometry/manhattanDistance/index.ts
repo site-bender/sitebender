@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the Manhattan distance between two points
  *
@@ -107,11 +109,11 @@ const manhattanDistance = (
 (
 	point2: number[] | null | undefined,
 ): number => {
-	if (point1 == null || !Array.isArray(point1)) {
+	if (isNullish(point1) || !Array.isArray(point1)) {
 		return NaN
 	}
 
-	if (point2 == null || !Array.isArray(point2)) {
+	if (isNullish(point2) || !Array.isArray(point2)) {
 		return NaN
 	}
 
@@ -125,10 +127,10 @@ const manhattanDistance = (
 
 	return point1.reduce((distance, coord1, i) => {
 		const coord2 = point2[i]
-		if (coord1 == null || typeof coord1 !== "number") {
+		if (isNullish(coord1) || typeof coord1 !== "number") {
 			return NaN
 		}
-		if (coord2 == null || typeof coord2 !== "number") {
+		if (isNullish(coord2) || typeof coord2 !== "number") {
 			return NaN
 		}
 		return distance + Math.abs(coord2 - coord1)

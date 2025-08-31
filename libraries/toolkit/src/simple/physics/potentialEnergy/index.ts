@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the gravitational potential energy of an object
  *
@@ -48,7 +50,7 @@ const potentialEnergy = (
 (
 	gravity: number = 9.81,
 ): number => {
-	if (mass == null || typeof mass !== "number") {
+	if (isNullish(mass) || typeof mass !== "number") {
 		return NaN
 	}
 
@@ -56,11 +58,11 @@ const potentialEnergy = (
 		return NaN
 	}
 
-	if (height == null || typeof height !== "number") {
+	if (isNullish(height) || typeof height !== "number") {
 		return NaN
 	}
 
-	if (gravity == null || typeof gravity !== "number") {
+	if (isNullish(gravity) || typeof gravity !== "number") {
 		return NaN
 	}
 

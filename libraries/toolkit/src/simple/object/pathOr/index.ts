@@ -1,5 +1,6 @@
 import type { Value } from "../../types/index.ts"
 
+import isUndefined from "../../validation/isUndefined/index.ts"
 import path from "../path/index.ts"
 
 /**
@@ -42,7 +43,7 @@ const pathOr =
 	(defaultValue: T) =>
 	(obj: Value): T | Value => {
 		const result = path(pathInput)(obj)
-		return result === undefined ? defaultValue : result
+		return isUndefined(result) ? defaultValue : result
 	}
 
 export default pathOr

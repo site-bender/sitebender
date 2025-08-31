@@ -1,3 +1,5 @@
+import isNullish from "../validation/isNullish/index.ts"
+
 /**
  * Creates a deterministic string representation of objects/arrays
  *
@@ -124,7 +126,7 @@
  */
 const stringify = (value: unknown): string => {
 	// Handle null and undefined
-	if (value == null) {
+	if (isNullish(value)) {
 		return ""
 	}
 

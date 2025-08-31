@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the Euclidean distance between two points in n-dimensional space
  *
@@ -44,11 +46,11 @@ const euclideanDistance = (
 (
 	point2: Array<number> | null | undefined,
 ): number => {
-	if (point1 == null || !Array.isArray(point1)) {
+	if (isNullish(point1) || !Array.isArray(point1)) {
 		return NaN
 	}
 
-	if (point2 == null || !Array.isArray(point2)) {
+	if (isNullish(point2) || !Array.isArray(point2)) {
 		return NaN
 	}
 

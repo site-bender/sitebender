@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the dot product (scalar product) of two vectors
  *
@@ -78,11 +80,11 @@ const dotProduct = (
 (
 	vector2: Array<number> | null | undefined,
 ): number => {
-	if (vector1 == null || !Array.isArray(vector1)) {
+	if (isNullish(vector1) || !Array.isArray(vector1)) {
 		return NaN
 	}
 
-	if (vector2 == null || !Array.isArray(vector2)) {
+	if (isNullish(vector2) || !Array.isArray(vector2)) {
 		return NaN
 	}
 

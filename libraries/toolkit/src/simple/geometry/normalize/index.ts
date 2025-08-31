@@ -1,3 +1,4 @@
+import isNullish from "../../validation/isNullish/index.ts"
 import magnitude from "../magnitude/index.ts"
 
 /**
@@ -38,7 +39,7 @@ import magnitude from "../magnitude/index.ts"
 const normalize = (
 	vector: number[] | null | undefined,
 ): number[] => {
-	if (vector == null || !Array.isArray(vector)) {
+	if (isNullish(vector) || !Array.isArray(vector)) {
 		return []
 	}
 
