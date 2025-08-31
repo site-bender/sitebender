@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Splits an array at the first element that fails a predicate
  *
@@ -44,7 +46,7 @@ const span = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [Array<T>, Array<T>] => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [[], []]
 	}
 

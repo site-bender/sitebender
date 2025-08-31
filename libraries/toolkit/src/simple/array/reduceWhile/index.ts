@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Reduces an array while a predicate returns true
  *
@@ -68,7 +70,7 @@ const reduceWhile = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): U => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return initial
 	}
 

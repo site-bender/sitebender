@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns an array of adjacent pairs from the input array
  *
@@ -9,11 +11,11 @@
  *
  * @param array - Array to create pairs from
  * @returns Array of adjacent pairs [element, nextElement]
- * 
+ *
  * @pure
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic pairing
@@ -42,14 +44,15 @@
 const pairwise = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<[T, T]> => {
-	if (array == null || !Array.isArray(array) || array.length < 2) {
+	if (isNullish(array) || !Array.isArray(array) || array.length < 2) {
 		return []
 	}
 
-	return Array.from({ length: array.length - 1 }, (_, i) => [
-		array[i],
-		array[i + 1],
-	] as [T, T])
+	return Array.from({ length: array.length - 1 }, (_, i) =>
+		[
+			array[i],
+			array[i + 1],
+		] as [T, T])
 }
 
 export default pairwise

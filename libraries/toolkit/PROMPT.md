@@ -5,6 +5,7 @@
 ### Completed Work
 
 #### Session 1
+
 1. **Created new validation functions** in `libraries/toolkit/src/simple/validation/`:
    - `isNull/index.ts` - Strict null check (=== null)
    - `isNotNull/index.ts` - Strict not null check (!== null)
@@ -17,18 +18,26 @@
 3. **Partially migrated null/undefined checks** in 31 files
 
 #### Session 2
+
 - **Migrated 24 additional array utility files** with validation function replacements
 - **Total files completed**: 163 files (139 from previous + 24 from this session)
 
 #### Session 3
+
 - **Migrated 24 additional files** (mainly temporal functions and maybe/chain)
 - **Total files completed**: 187 files (163 from previous + 24 from this session)
 
-#### Session 4 (Current)
+#### Session 4
+
 - **Migrated 24 additional array utility files**
 - **Total files completed**: 211 files (187 from previous + 24 from this session)
-- **Remaining files**: ~262 files with direct null/undefined comparisons
-- **Remaining instances**: ~478 direct comparisons (down from 502)
+
+#### Session 5 (Current)
+
+- **Migrated 22 additional array utility files** (rotateLeft, reduceWhile, scan, nub, tail, reverse, minimumBy, omit, rotateRight, pairwise, zip, map, nubBy, span, reduceRight, take, replaceAt, sample, union, lastIndexOf, partitionBy - reject was already done)
+- **Total files completed**: 233 files (211 from previous + 22 from this session)
+- **Remaining files**: ~240 files with direct null/undefined comparisons
+- **Remaining instances**: ~456 direct comparisons (down from 478)
 
 ### Remaining Work
 
@@ -40,19 +49,21 @@ When doing commits, use `ALLOW_TOOLKIT=1 git commit ...`
 
 ### Replacement Patterns Required
 
-| Current Pattern | Replace With | Import From |
-|----------------|--------------|-------------|
-| `value == null` | `isNullish(value)` | Relative path to `simple/validation/isNullish/index.ts` |
-| `value != null` | `isNotNullish(value)` | Relative path to `simple/validation/isNotNullish/index.ts` |
-| `value === null` | `isNull(value)` | Relative path to `simple/validation/isNull/index.ts` |
-| `value !== null` | `isNotNull(value)` | Relative path to `simple/validation/isNotNull/index.ts` |
-| `value === undefined` | `isUndefined(value)` | Relative path to `simple/validation/isUndefined/index.ts` |
-| `value !== undefined` | `isNotUndefined(value)` | Relative path to `simple/validation/isNotUndefined/index.ts` |
-| `value === null \|\| value === undefined` | `isNullish(value)` | Relative path to `simple/validation/isNullish/index.ts` |
-| `value !== null && value !== undefined` | `isNotNullish(value)` | Relative path to `simple/validation/isNotNullish/index.ts` |
+| Current Pattern                           | Replace With            | Import From                                                  |
+| ----------------------------------------- | ----------------------- | ------------------------------------------------------------ |
+| `value == null`                           | `isNullish(value)`      | Relative path to `simple/validation/isNullish/index.ts`      |
+| `value != null`                           | `isNotNullish(value)`   | Relative path to `simple/validation/isNotNullish/index.ts`   |
+| `value === null`                          | `isNull(value)`         | Relative path to `simple/validation/isNull/index.ts`         |
+| `value !== null`                          | `isNotNull(value)`      | Relative path to `simple/validation/isNotNull/index.ts`      |
+| `value === undefined`                     | `isUndefined(value)`    | Relative path to `simple/validation/isUndefined/index.ts`    |
+| `value !== undefined`                     | `isNotUndefined(value)` | Relative path to `simple/validation/isNotUndefined/index.ts` |
+| `value === null \|\| value === undefined` | `isNullish(value)`      | Relative path to `simple/validation/isNullish/index.ts`      |
+| `value !== null && value !== undefined`   | `isNotNullish(value)`   | Relative path to `simple/validation/isNotNullish/index.ts`   |
 
 ### Files to Skip
+
 Do NOT modify the validation functions themselves:
+
 - `isNull/index.ts`
 - `isNotNull/index.ts`
 - `isNullish/index.ts`
@@ -63,12 +74,14 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (211 files)
+### Already Completed Files (233 files)
+
 These files have already been updated and should be skipped:
+
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: chain, fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOfMatch, mapAccum, mapAccumRight, maximumBy, nub, pluck, reduce, reduceWhile, reject, remove, replaceAllMatches, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, sampleSize, scan, shuffle, sliding, symmetricDifferenceWith, tail, takeLastWhile, times, transpose, unfold, unzip, update, zipWith
+- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, nub, nubBy, omit, pairwise, partitionBy, pluck, reduce, reduceRight, reduceWhile, reject, remove, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, sliding, span, symmetricDifferenceWith, tail, take, takeLastWhile, times, transpose, unfold, union, unzip, update, zip, zipWith
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime
@@ -87,6 +100,7 @@ These files have already been updated and should be skipped:
 ## Empty Check Replacements (Lower Priority)
 
 After completing null/undefined replacements, also replace:
+
 - `array.length === 0` → `isEmpty(array)` from `simple/array/isEmpty`
 - `str.length === 0` → `isEmpty(str)` from `simple/validation/isEmpty`
 - `Object.keys(obj).length === 0` → `isEmpty(obj)` from `simple/validation/isEmpty`
@@ -111,6 +125,7 @@ After completing null/undefined replacements, also replace:
 ## Verification
 
 To verify remaining work:
+
 ```bash
 # Count remaining instances
 grep -r "== null\|!= null\|=== null\|!== null\|=== undefined\|!== undefined" libraries/toolkit/src --include="*.ts" --include="*.tsx" | wc -l

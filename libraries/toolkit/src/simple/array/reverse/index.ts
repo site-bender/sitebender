@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns a new array with elements in reverse order
  *
@@ -24,7 +26,7 @@
  * ```
  */
 const reverse = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 	return [...array].reverse()

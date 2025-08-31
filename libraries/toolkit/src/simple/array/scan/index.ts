@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Accumulates values progressively, returning all intermediate results
  *
@@ -78,7 +80,7 @@ const scan = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<U> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return [initial]
 	}
 

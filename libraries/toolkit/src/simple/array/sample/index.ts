@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns a random element from the array
  *
@@ -36,7 +38,7 @@
 const sample = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
 

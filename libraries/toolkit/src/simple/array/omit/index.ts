@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes elements at specified indices from an array
  *
@@ -8,12 +10,12 @@
  * @param indices - Array of indices to exclude (supports negative indices)
  * @param array - The array to filter
  * @returns New array with specified indices omitted
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
@@ -23,7 +25,7 @@
  *
  * // Negative indices
  * omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]
- * 
+ *
  * // Remove headers and footers
  * const removeEnds = omit([0, -1])
  * removeEnds(["header", "data1", "data2", "footer"]) // ["data1", "data2"]
@@ -38,7 +40,7 @@ const omit = <T>(indices: Array<number>) =>
 (
 	array: Array<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 

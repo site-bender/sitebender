@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Transforms each element of an array using a function
  *
@@ -9,11 +11,11 @@
  * @param fn - Function to transform each element
  * @param array - Array to transform
  * @returns New array with transformed elements
- * 
+ *
  * @pure
  * @curried
  * @immutable
- * 
+ *
  * @example
  * ```typescript
  * // Basic transformations
@@ -52,7 +54,7 @@ const map = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<U> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 

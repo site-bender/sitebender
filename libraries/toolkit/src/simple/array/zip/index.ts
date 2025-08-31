@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Combines two arrays into an array of pairs
  *
@@ -44,11 +46,11 @@ const zip = <T, U>(
 (
 	array1: ReadonlyArray<T> | null | undefined,
 ): Array<[T, U]> => {
-	if (array1 == null || !Array.isArray(array1) || array1.length === 0) {
+	if (isNullish(array1) || !Array.isArray(array1) || array1.length === 0) {
 		return []
 	}
 
-	if (array2 == null || !Array.isArray(array2) || array2.length === 0) {
+	if (isNullish(array2) || !Array.isArray(array2) || array2.length === 0) {
 		return []
 	}
 

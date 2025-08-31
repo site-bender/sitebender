@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns all elements of an array except the first
  *
@@ -29,7 +31,7 @@
  * @idempotent
  */
 const tail = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 	return array.slice(1)

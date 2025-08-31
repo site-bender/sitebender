@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Takes the first n elements from an array
  *
@@ -13,7 +15,7 @@
  * // Basic usage
  * take(3)([1, 2, 3, 4, 5])  // [1, 2, 3]
  * take(2)(["a", "b", "c"])  // ["a", "b"]
- * 
+ *
  * // Edge cases
  * take(0)([1, 2, 3])   // []
  * take(10)([1, 2, 3])  // [1, 2, 3]
@@ -37,7 +39,7 @@ const take = (count: number) =>
 <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array) || count <= 0) {
+	if (isNullish(array) || !Array.isArray(array) || count <= 0) {
 		return []
 	}
 	return array.slice(0, count)

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Reduces an array from right to left to a single value
  *
@@ -11,12 +13,12 @@
  * @param initial - Initial accumulator value
  * @param array - Array to reduce
  * @returns Final accumulated value
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // String concatenation (order matters)
@@ -47,7 +49,7 @@ const reduceRight = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): U => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return initial
 	}
 

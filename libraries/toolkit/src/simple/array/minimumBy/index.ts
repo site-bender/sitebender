@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the minimum element according to a comparator function
  *
@@ -11,12 +13,12 @@
  * @param comparator - Function that compares two elements (returns negative if a < b)
  * @param array - Array to find minimum element from
  * @returns Minimum element according to comparator, or undefined if array is empty
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Simple numeric comparison
@@ -52,11 +54,15 @@ const minimumBy = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
 
-	const findMinimum = (arr: ReadonlyArray<T>, currentMin: T, index: number): T => {
+	const findMinimum = (
+		arr: ReadonlyArray<T>,
+		currentMin: T,
+		index: number,
+	): T => {
 		if (index >= arr.length) {
 			return currentMin
 		}

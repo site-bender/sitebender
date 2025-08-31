@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Partition array by consecutive elements satisfying predicate
  *
@@ -11,12 +13,12 @@
  * @param predicate - Function that determines grouping
  * @param array - Array to partition
  * @returns Array of subarrays with consecutive similar elements
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Group consecutive even/odd numbers
@@ -38,7 +40,7 @@
  * ]
  * partitionBy((t: { completed: boolean }) => t.completed)(tasks)
  * // [[{ id: 1, completed: false }, { id: 2, completed: false }],
- * //  [{ id: 3, completed: true }], 
+ * //  [{ id: 3, completed: true }],
  * //  [{ id: 4, completed: false }]]
  *
  * // Edge cases
@@ -51,7 +53,7 @@ const partitionBy = <T>(predicate: (value: T) => unknown) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 
@@ -59,20 +61,20 @@ const partitionBy = <T>(predicate: (value: T) => unknown) =>
 		(acc, current, index) => {
 			const currentKey = predicate(current)
 			const lastGroup = acc[acc.length - 1]
-			
+
 			if (index === 0 || lastGroup.key !== currentKey) {
 				return [...acc, { key: currentKey, items: [current] }]
 			} else {
 				return [
 					...acc.slice(0, -1),
-					{ key: lastGroup.key, items: [...lastGroup.items, current] }
+					{ key: lastGroup.key, items: [...lastGroup.items, current] },
 				]
 			}
 		},
-		[] as Array<{ key: unknown; items: Array<T> }>
+		[] as Array<{ key: unknown; items: Array<T> }>,
 	)
 
-	return groups.map(group => group.items)
+	return groups.map((group) => group.items)
 }
 
 export default partitionBy

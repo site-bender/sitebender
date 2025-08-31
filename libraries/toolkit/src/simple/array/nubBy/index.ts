@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes duplicate elements from an array using a custom equality function
  *
@@ -10,12 +12,12 @@
  * @param equalityFn - Function to determine if two elements are equal
  * @param array - Array to remove duplicates from
  * @returns New array with only unique elements per equality function
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Case-insensitive deduplication
@@ -40,7 +42,7 @@
  * // [1.0, 1.5, 2.0]
  *
  * // Partial application
- * const dedupeCaseInsensitive = nubBy((a: string, b: string) => 
+ * const dedupeCaseInsensitive = nubBy((a: string, b: string) =>
  *   a.toLowerCase() === b.toLowerCase())
  * dedupeCaseInsensitive(["foo", "FOO", "bar"]) // ["foo", "bar"]
  *
@@ -57,13 +59,13 @@ const nubBy = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 
 	const findDuplicates = (
-		remaining: ReadonlyArray<T>, 
-		result: Array<T>
+		remaining: ReadonlyArray<T>,
+		result: Array<T>,
 	): Array<T> => {
 		if (remaining.length === 0) {
 			return result
@@ -71,10 +73,10 @@ const nubBy = <T>(
 
 		const [head, ...tail] = remaining
 		const isDuplicate = result.some((existing) => equalityFn(existing, head))
-		
+
 		return findDuplicates(
-			tail, 
-			isDuplicate ? result : [...result, head]
+			tail,
+			isDuplicate ? result : [...result, head],
 		)
 	}
 

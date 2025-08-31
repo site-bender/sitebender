@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes duplicate elements from an array (alias for unique)
  *
@@ -10,12 +12,12 @@
  *
  * @param array - Array to remove duplicates from
  * @returns New array with only unique elements
- * 
+ *
  * @pure
  * @immutable
  * @safe
  * @idempotent
- * 
+ *
  * @example
  * ```typescript
  * // Basic duplicate removal
@@ -39,7 +41,7 @@
 const nub = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 
