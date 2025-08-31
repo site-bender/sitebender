@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the interpolation parameter t from a linearly interpolated value
  *
@@ -43,15 +45,15 @@ const inverseLinearInterpolation = (
 (
 	value: number | null | undefined,
 ): number => {
-	if (start == null || typeof start !== "number") {
+	if (isNullish(start) || typeof start !== "number") {
 		return NaN
 	}
 
-	if (end == null || typeof end !== "number") {
+	if (isNullish(end) || typeof end !== "number") {
 		return NaN
 	}
 
-	if (value == null || typeof value !== "number") {
+	if (isNullish(value) || typeof value !== "number") {
 		return NaN
 	}
 

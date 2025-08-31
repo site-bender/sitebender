@@ -1,6 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
 
 /**
  * Creates a template function for string interpolation
@@ -133,7 +134,7 @@ const template = (
 		// Return value, default, or original placeholder
 		if (!isNullish(value)) {
 			return String(value)
-		} else if (defaultValue !== undefined) {
+		} else if (!isUndefined(defaultValue)) {
 			return defaultValue
 		} else {
 			return match // Keep placeholder if no value and no default

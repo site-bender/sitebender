@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs cubic interpolation between four points
  *
@@ -48,23 +50,23 @@ const cubicInterpolation = (
 (
 	t: number | null | undefined,
 ): number => {
-	if (y0 == null || typeof y0 !== "number") {
+	if (isNullish(y0) || typeof y0 !== "number") {
 		return NaN
 	}
 
-	if (y1 == null || typeof y1 !== "number") {
+	if (isNullish(y1) || typeof y1 !== "number") {
 		return NaN
 	}
 
-	if (y2 == null || typeof y2 !== "number") {
+	if (isNullish(y2) || typeof y2 !== "number") {
 		return NaN
 	}
 
-	if (y3 == null || typeof y3 !== "number") {
+	if (isNullish(y3) || typeof y3 !== "number") {
 		return NaN
 	}
 
-	if (t == null || typeof t !== "number") {
+	if (isNullish(t) || typeof t !== "number") {
 		return NaN
 	}
 

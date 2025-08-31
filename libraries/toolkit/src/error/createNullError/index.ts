@@ -2,6 +2,7 @@ import type { AdaptiveError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 import createError from "../createError/index.ts"
+import isNull from "../../simple/validation/isNull/index.ts"
 
 /**
  * Creates a null/undefined input error with full context
@@ -40,7 +41,7 @@ const createNullError =
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(argIndex: number) =>
 	(argName: string): AdaptiveError<TOp, TArgs> => {
-		const actualType = args[argIndex] === null ? "null" : "undefined"
+		const actualType = isNull(args[argIndex]) ? "null" : "undefined"
 
 		// Build the error directly to avoid type issues with pipeError
 		const baseError = createError(operation)(args)(

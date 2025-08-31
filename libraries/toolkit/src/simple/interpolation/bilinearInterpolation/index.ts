@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs bilinear interpolation on a 2D grid
  *
@@ -63,28 +65,28 @@ const bilinearInterpolation = (
 	y: number | null | undefined,
 ): number => {
 	// Validate corner values
-	if (q00 == null || typeof q00 !== "number") {
+	if (isNullish(q00) || typeof q00 !== "number") {
 		return NaN
 	}
 
-	if (q10 == null || typeof q10 !== "number") {
+	if (isNullish(q10) || typeof q10 !== "number") {
 		return NaN
 	}
 
-	if (q01 == null || typeof q01 !== "number") {
+	if (isNullish(q01) || typeof q01 !== "number") {
 		return NaN
 	}
 
-	if (q11 == null || typeof q11 !== "number") {
+	if (isNullish(q11) || typeof q11 !== "number") {
 		return NaN
 	}
 
 	// Validate coordinates
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 
-	if (y == null || typeof y !== "number") {
+	if (isNullish(y) || typeof y !== "number") {
 		return NaN
 	}
 

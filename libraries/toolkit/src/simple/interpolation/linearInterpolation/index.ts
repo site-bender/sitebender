@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs linear interpolation between two values
  *
@@ -42,15 +44,15 @@ const linearInterpolation = (
 (
 	t: number | null | undefined,
 ): number => {
-	if (start == null || typeof start !== "number") {
+	if (isNullish(start) || typeof start !== "number") {
 		return NaN
 	}
 
-	if (end == null || typeof end !== "number") {
+	if (isNullish(end) || typeof end !== "number") {
 		return NaN
 	}
 
-	if (t == null || typeof t !== "number") {
+	if (isNullish(t) || typeof t !== "number") {
 		return NaN
 	}
 

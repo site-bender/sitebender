@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs smooth Hermite interpolation between two values
  *
@@ -45,15 +47,15 @@ const smoothstep = (
 (
 	x: number | null | undefined,
 ): number => {
-	if (edge0 == null || typeof edge0 !== "number") {
+	if (isNullish(edge0) || typeof edge0 !== "number") {
 		return NaN
 	}
 
-	if (edge1 == null || typeof edge1 !== "number") {
+	if (isNullish(edge1) || typeof edge1 !== "number") {
 		return NaN
 	}
 
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

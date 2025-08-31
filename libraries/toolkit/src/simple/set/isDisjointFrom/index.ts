@@ -33,6 +33,8 @@
  * @predicate
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const isDisjointFrom = <T>(
 	set2: Set<T> | null | undefined,
 ) =>
@@ -40,11 +42,11 @@ const isDisjointFrom = <T>(
 	set1: Set<T> | null | undefined,
 ): boolean => {
 	// Empty sets are disjoint from everything
-	if (set1 == null || !(set1 instanceof Set) || set1.size === 0) {
+	if (isNullish(set1) || !(set1 instanceof Set) || set1.size === 0) {
 		return true
 	}
 
-	if (set2 == null || !(set2 instanceof Set) || set2.size === 0) {
+	if (isNullish(set2) || !(set2 instanceof Set) || set2.size === 0) {
 		return true
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the determinant of a 2x2 matrix
  *
@@ -39,7 +41,7 @@
 const determinant2x2 = (
 	matrix: number[][] | null | undefined,
 ): number => {
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return NaN
 	}
 
@@ -63,16 +65,16 @@ const determinant2x2 = (
 	const d = matrix[1][1]
 
 	// Check for non-numeric values
-	if (a == null || typeof a !== "number") {
+	if (isNullish(a) || typeof a !== "number") {
 		return NaN
 	}
-	if (b == null || typeof b !== "number") {
+	if (isNullish(b) || typeof b !== "number") {
 		return NaN
 	}
-	if (c == null || typeof c !== "number") {
+	if (isNullish(c) || typeof c !== "number") {
 		return NaN
 	}
-	if (d == null || typeof d !== "number") {
+	if (isNullish(d) || typeof d !== "number") {
 		return NaN
 	}
 
