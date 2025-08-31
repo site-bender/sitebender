@@ -20,7 +20,9 @@ const setupDocument = (html: string): HTMLDocument => {
 }
 
 // Helper to create component data from DOM attributes
-const createComponentFromElement = (element: Element): Record<string, unknown> => {
+const createComponentFromElement = (
+	element: Element,
+): Record<string, unknown> => {
 	const component: Record<string, unknown> = {}
 
 	// Extract dependencies from data-dependencies attribute
@@ -219,12 +221,17 @@ Deno.test("collectLinkElements edge cases", async (t) => {
 	})
 
 	await t.step("should handle deeply nested structures", () => {
-		let nested: { dependencies?: unknown[]; children?: unknown[] } = { dependencies: ["deep"] as unknown[] }
+		let nested: { dependencies?: unknown[]; children?: unknown[] } = {
+			dependencies: ["deep"] as unknown[],
+		}
 
 		// Create a 10-level nested structure
 		for (let i = 0; i < 10; i++) {
 			// Cast to loosen shape for test helper object construction
-			nested = { children: [nested] } as unknown as { dependencies?: unknown[]; children?: unknown[] }
+			nested = { children: [nested] } as unknown as {
+				dependencies?: unknown[]
+				children?: unknown[]
+			}
 		}
 
 		const component = {

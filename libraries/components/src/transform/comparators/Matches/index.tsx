@@ -1,9 +1,10 @@
+import type { MatchesComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Matches - String pattern matching component for adaptive validation
  */
 
 import MatchesConstructor from "@adaptiveSrc/constructors/comparators/matching/Matches/index.ts"
-import type { Operand, MatchesComparator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

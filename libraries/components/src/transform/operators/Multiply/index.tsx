@@ -1,3 +1,5 @@
+import type { MultiplyOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Multiply JSX Component
  *
@@ -12,7 +14,6 @@
  */
 
 import MultiplyConstructor from "@adaptiveSrc/constructors/operators/Multiply/index.ts"
-import type { Operand, MultiplyOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"
@@ -20,7 +21,9 @@ export type Props = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Multiply({ type = "Number", datatype, children = [] }: Props): MultiplyOperator {
+export default function Multiply(
+	{ type = "Number", datatype, children = [] }: Props,
+): MultiplyOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 	return MultiplyConstructor(actualType)(childArray as unknown as Operand[])

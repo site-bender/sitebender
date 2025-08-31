@@ -1,4 +1,8 @@
-import type { ComplexDatatype, FromLookupTableInjector, Operand } from "@adaptiveTypes/index.ts"
+import type {
+	ComplexDatatype,
+	FromLookupTableInjector,
+	Operand,
+} from "@adaptiveTypes/index.ts"
 
 import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 

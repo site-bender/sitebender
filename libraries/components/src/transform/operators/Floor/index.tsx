@@ -1,3 +1,5 @@
+import type { FloorOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Floor JSX Component
  *
@@ -11,7 +13,6 @@
  */
 
 import FloorConstructor from "@adaptiveSrc/constructors/operators/Floor/index.ts"
-import type { Operand, FloorOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"

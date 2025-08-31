@@ -22,7 +22,12 @@ export default function formatTime(
 			...(options?.hour12 !== undefined && { hour12: options.hour12 }),
 			...(options?.timeZone && { timeZone: options.timeZone }),
 			...(options?.fractionalSecondDigits
-				? { fractionalSecondDigits: Math.min(3, Math.max(1, options.fractionalSecondDigits)) as 1 | 2 | 3 }
+				? {
+					fractionalSecondDigits: Math.min(
+						3,
+						Math.max(1, options.fractionalSecondDigits),
+					) as 1 | 2 | 3,
+				}
 				: {}),
 		}
 

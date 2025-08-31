@@ -1,5 +1,10 @@
+import type {
+	Datatype,
+	IsMapComparator,
+	Operand,
+} from "../../../../types/index.ts"
+
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
-import type { Datatype, IsMapComparator, Operand } from "../../../../types/index.ts"
 
 const IsMap = (operand: Operand): IsMapComparator => ({
 	tag: "IsMap",

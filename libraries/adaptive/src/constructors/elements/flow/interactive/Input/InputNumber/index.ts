@@ -5,11 +5,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { InputNumberAriaAttributes } from "../../../../types/aria/index.ts"
-import type { InputNumberAttributes } from "../../../../types/attributes/index.ts"
-// ElementConfig not needed here
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
@@ -18,6 +14,13 @@ import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+// ElementConfig not needed here
+
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+
+import type { InputNumberAriaAttributes } from "../../../../types/aria/index.ts"
+import type { InputNumberAttributes } from "../../../../types/attributes/index.ts"
+
 import Input from "../index.ts"
 
 /**
@@ -39,7 +42,9 @@ export type InputNumberElementAttributes =
 /**
  * Filters attributes for InputNumber element
  */
-export const filterAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+export const filterAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const {
 		id,
 		autocomplete,
@@ -49,7 +54,7 @@ export const filterAttributes = (attributes: Record<string, Value>): Record<stri
 		min,
 		name,
 		placeholder,
-	readOnly,
+		readOnly,
 		required,
 		step = "any",
 		value,

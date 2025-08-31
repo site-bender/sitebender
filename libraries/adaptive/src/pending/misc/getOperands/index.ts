@@ -10,7 +10,9 @@ import type { Operand } from "@adaptiveTypes/index.ts"
  * const operands = getOperands(addOperation)
  * ```
  */
-export default function getOperands(operation: Partial<{ operands: Array<Operand> }>): Array<Operand> {
+export default function getOperands(
+	operation: Partial<{ operands: Array<Operand> }>,
+): Array<Operand> {
 	return Array.isArray((operation as { operands?: unknown }).operands)
 		? ((operation as { operands: Array<Operand> }).operands)
 		: []

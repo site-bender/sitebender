@@ -25,18 +25,28 @@ const median =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Median", message: "Could not resolve all operands." },
+					{
+						tag: "Error",
+						operation: "Median",
+						message: "Could not resolve all operands.",
+					},
 					...flattened,
 				],
 			}
 		}
 
-		const values = (resolvedOperands as Array<{ right: number }>).map((o) => o.right)
+		const values = (resolvedOperands as Array<{ right: number }>).map((o) =>
+			o.right
+		)
 		const len = values.length
 
 		if (len === 0) {
 			return {
-				left: [{ tag: "Error", operation: "Median", message: "Cannot take median of an empty array." }],
+				left: [{
+					tag: "Error",
+					operation: "Median",
+					message: "Cannot take median of an empty array.",
+				}],
 			}
 		}
 

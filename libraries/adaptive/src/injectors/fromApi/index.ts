@@ -1,10 +1,19 @@
-import Error from "../../constructors/Error/index.ts"
 import getFromLocal from "@adaptiveSrc/pending/dom/getValue/getFromLocal/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
+import Error from "../../constructors/Error/index.ts"
+
 // deno-lint-ignore no-explicit-any
-const fromApi = (op: any = {}) => async (_: unknown, localValues?: Record<string, unknown>) => {
-	const { method = "GET", url, options = {} } = op as { method?: string; url: string; options?: RequestInit }
+const fromApi = (op: any = {}) =>
+async (
+	_: unknown,
+	localValues?: Record<string, unknown>,
+) => {
+	const { method = "GET", url, options = {} } = op as {
+		method?: string
+		url: string
+		options?: RequestInit
+	}
 
 	const local = getFromLocal(op)(localValues)
 

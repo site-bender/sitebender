@@ -1,13 +1,19 @@
-import type { Value, ComparatorConfig, LogicalConfig, Operand, OperatorConfig } from "@adaptiveTypes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { OptionGroupAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Filters attributes for OptGroup element
@@ -28,7 +34,9 @@ export type OptGroupElementAttributes = OptionGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+export const filterAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const { disabled, label, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
@@ -66,7 +74,9 @@ const OptGroup =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const { dataset, display, id, ...attrs } = attributes
-		const { ...attribs } = filterAttributes(attrs as unknown as Record<string, Value>)
+		const { ...attribs } = filterAttributes(
+			attrs as unknown as Record<string, Value>,
+		)
 
 		return {
 			attributes: {

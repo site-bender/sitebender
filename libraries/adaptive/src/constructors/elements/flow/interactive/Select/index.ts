@@ -1,8 +1,13 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { SelectAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import { getSelectAllowedRoles } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
@@ -12,6 +17,7 @@ import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Filters attributes for Select element
@@ -32,7 +38,9 @@ export type SelectElementAttributes = SelectAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+export const filterAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const {
 		autocomplete,
 		disabled,
@@ -51,7 +59,9 @@ export const filterAttributes = (attributes: Record<string, Value>): Record<stri
 
 	const out: Record<string, Value> = {
 		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete as Value),
+		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+			autocomplete as Value,
+		),
 		...filterAttribute(isBoolean)("disabled")(disabled as Value),
 		...filterAttribute(isString)("form")(form as Value),
 		...filterAttribute(isBoolean)("multiple")(multiple as Value),

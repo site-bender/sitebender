@@ -1,11 +1,13 @@
-import Error from "../../constructors/Error/index.ts"
 import getFromLocal from "@adaptiveSrc/pending/dom/getValue/getFromLocal/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+
+import Error from "../../constructors/Error/index.ts"
 import getByPattern from "./getByPattern/index.ts"
 import getBySegment from "./getBySegment/index.ts"
 
 // deno-lint-ignore no-explicit-any
-const fromUrlParameter = (op: any = {}) => (
+const fromUrlParameter = (op: any = {}) =>
+(
 	_arg: unknown,
 	localValues?: Record<string, unknown>,
 ) => {
@@ -15,7 +17,10 @@ const fromUrlParameter = (op: any = {}) => (
 		return Promise.resolve(local)
 	}
 
-	const opts = (op && typeof op === "object" ? (op as { options?: { pattern?: string; segment?: number } }).options : undefined) ?? {}
+	const opts =
+		(op && typeof op === "object"
+			? (op as { options?: { pattern?: string; segment?: number } }).options
+			: undefined) ?? {}
 	const { pattern, segment } = opts as { pattern?: string; segment?: number }
 
 	if (isDefined(segment)) {
@@ -27,7 +32,9 @@ const fromUrlParameter = (op: any = {}) => (
 	}
 
 	return Promise.resolve({
-		left: [Error("FromUrlParameter")("FromUrlParameter")("Invalid parameters.")],
+		left: [
+			Error("FromUrlParameter")("FromUrlParameter")("Invalid parameters."),
+		],
 	})
 }
 

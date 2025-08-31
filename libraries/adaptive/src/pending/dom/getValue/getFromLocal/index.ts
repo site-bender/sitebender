@@ -1,10 +1,10 @@
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+
 import type {
 	AdaptiveError,
 	Either,
 	Value,
 } from "../../../../../types/index.ts"
-
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 export type SelectorOp = {
 	id?: string

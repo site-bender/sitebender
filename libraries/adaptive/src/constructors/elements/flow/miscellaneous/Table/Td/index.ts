@@ -1,20 +1,20 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { TableDataCellAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 } from "@adaptiveTypes/index.ts"
-import type { TableDataCellAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import { TD_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import { TD_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 
 /**
  * Filters attributes for Td element

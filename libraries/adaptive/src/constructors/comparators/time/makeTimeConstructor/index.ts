@@ -1,7 +1,4 @@
-import type {
-	Operand,
-	TemporalDatatype,
-} from "../../../../types/index.ts"
+import type { Operand, TemporalDatatype } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constants/index.ts"
 

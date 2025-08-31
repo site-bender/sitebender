@@ -1,3 +1,6 @@
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { BaseAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,9 +8,6 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { BaseAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
 import { TARGETS } from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"

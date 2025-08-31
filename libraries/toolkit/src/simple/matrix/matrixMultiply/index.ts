@@ -37,17 +37,19 @@
  * @safe
  * @associative
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixMultiply = (
 	a: number[][] | null | undefined,
 ) =>
 (
 	b: number[][] | null | undefined,
 ): number[][] => {
-	if (a == null || !Array.isArray(a) || a.length === 0) {
+	if (isNullish(a) || !Array.isArray(a) || a.length === 0) {
 		return []
 	}
 
-	if (b == null || !Array.isArray(b) || b.length === 0) {
+	if (isNullish(b) || !Array.isArray(b) || b.length === 0) {
 		return []
 	}
 
@@ -73,11 +75,11 @@ const matrixMultiply = (
 	// Check all rows have consistent length and numeric values
 	const aValid = a.every((row) =>
 		row.length === n &&
-		row.every((val) => val != null && typeof val === "number")
+		row.every((val) => !isNullish(val) && typeof val === "number")
 	)
 	const bValid = b.every((row) =>
 		row.length === p &&
-		row.every((val) => val != null && typeof val === "number")
+		row.every((val) => !isNullish(val) && typeof val === "number")
 	)
 
 	if (!aValid || !bValid) {

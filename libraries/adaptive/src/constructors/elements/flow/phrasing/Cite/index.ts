@@ -1,3 +1,5 @@
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -9,7 +11,6 @@ import type { AriaAttributes } from "../../../types/aria/index.ts"
 import type { CitationAttributes } from "../../../types/attributes/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"

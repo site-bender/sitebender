@@ -3,6 +3,7 @@
 ## New
 
 1. How can we provide for great error logging, visualization, etc.?
+  - Will we need a time-series database. If so, is there a good FOSS one? How about Prometheus? Should we use Grafana for visualization? Is that free? What about Thonos and Cortex? Can Thonos/Cortex work with distributed db such as Storacha or similar?
 2. How are we going to handle authentication and authorization in our JSX-declarative way with components?
 
 The idea is to provide a completely declarative, immutable, pure high level DSL for creating entire web apps using only JSX components (AI assisted).

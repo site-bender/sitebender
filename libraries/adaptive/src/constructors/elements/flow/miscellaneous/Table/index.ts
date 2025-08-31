@@ -1,3 +1,6 @@
+import type { TableAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { TableAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +8,8 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { TableAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { TableAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { TABLE_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
@@ -18,7 +18,7 @@ import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import { TABLE_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Table attributes including reactive properties and ARIA

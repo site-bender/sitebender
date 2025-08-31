@@ -1,3 +1,6 @@
+import type { HeadingAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { HeadingAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +8,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { HeadingAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { HeadingAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import { HEADING_ROLES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
@@ -20,6 +19,7 @@ import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended H1 attributes including reactive properties and ARIA

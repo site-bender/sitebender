@@ -23,15 +23,20 @@ async (
 	}
 
 	try {
-	const set = new Set(operand.right as unknown as Iterable<unknown>)
+		const set = new Set(operand.right as unknown as Iterable<unknown>)
 
-	return set.size === [...(operand.right as unknown as Iterable<unknown>)].length ? { right: true } : {
-			left: [
-				Error(op.tag)("IsSet")(
-					`${JSON.stringify(operand.right)} has duplicate members (not a set).`,
-				),
-			],
-		}
+		return set.size ===
+				[...(operand.right as unknown as Iterable<unknown>)].length
+			? { right: true }
+			: {
+				left: [
+					Error(op.tag)("IsSet")(
+						`${
+							JSON.stringify(operand.right)
+						} has duplicate members (not a set).`,
+					),
+				],
+			}
 	} catch (e) {
 		return {
 			left: [

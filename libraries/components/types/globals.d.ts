@@ -9,10 +9,14 @@ declare global {
 		// Make JSX.Element permissive so components that sometimes return non-VDOM data still type-check
 		type Element = unknown
 
-		interface IntrinsicElements { [elemName: string]: any }
+		interface IntrinsicElements {
+			[elemName: string]: any
+		}
 
 		// Minimal attribute interfaces used across components
-		interface HTMLAttributes<T> { [key: string]: any }
+		interface HTMLAttributes<T> {
+			[key: string]: any
+		}
 		interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {}
 		interface FieldSetHTMLAttributes<T> extends HTMLAttributes<T> {}
 		interface FormHTMLAttributes<T> extends HTMLAttributes<T> {}
@@ -24,7 +28,9 @@ declare global {
 	}
 
 	// Optional V8 exposed fields used in tests/benchmarks
-	interface Performance { memory?: { usedJSHeapSize?: number } }
+	interface Performance {
+		memory?: { usedJSHeapSize?: number }
+	}
 	// Optional GC hook in some environments
 	var gc: (() => void) | undefined
 

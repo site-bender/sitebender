@@ -1,3 +1,5 @@
+import type { IsLongerThanComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsLongerThan JSX Component
  *
@@ -13,7 +15,6 @@
  */
 
 import IsLongerThanConstructor from "@adaptiveSrc/constructors/comparators/length/IsLongerThan/index.ts"
-import type { IsLongerThanComparator, Operand } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "String" | "Array"
@@ -30,5 +31,7 @@ export default function IsLongerThan({
 	const [operand, test] = Array.isArray(children) ? children : [children]
 
 	// IsLongerThan: (datatype) => (operand) => (test)
-		return IsLongerThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand) as unknown as IsLongerThanComparator
+	return IsLongerThanConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	) as unknown as IsLongerThanComparator
 }

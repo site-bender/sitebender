@@ -1,11 +1,14 @@
-import type { ElementAttributes, ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ElementAttributes,
+	ElementConfig,
+} from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { Value } from "@adaptiveTypes/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 const FilteredAllowText =
 	<T extends Record<string, unknown>>(tag = "Img") =>
@@ -38,7 +41,9 @@ const FilteredAllowText =
 			} as T,
 			children: kids,
 			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset: dataset as Record<string, Value> } : {}),
+			...(isDefined(dataset)
+				? { dataset: dataset as Record<string, Value> }
+				: {}),
 			...(isDefined(display) ? { display } : {}),
 			...(isDefined(format) ? { format } : {}),
 			...(isDefined(scripts) ? { scripts } : {}),

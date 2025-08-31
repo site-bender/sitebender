@@ -24,7 +24,11 @@ async (
 
 	if (resolvedDivisor.right === 0) {
 		return {
-			left: [{ tag: "Error", operation: "Remainder", message: "Cannot divide by zero." }],
+			left: [{
+				tag: "Error",
+				operation: "Remainder",
+				message: "Cannot divide by zero.",
+			}],
 		}
 	}
 

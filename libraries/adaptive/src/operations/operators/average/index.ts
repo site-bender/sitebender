@@ -25,7 +25,11 @@ const average =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Average", message: "Could not resolve all operands." },
+					{
+						tag: "Error",
+						operation: "Average",
+						message: "Could not resolve all operands.",
+					},
 					...flattened,
 				],
 			}
@@ -36,7 +40,10 @@ const average =
 		}
 
 		const rights = resolvedOperands as Array<{ right: number }>
-		const total = rights.reduce((acc, { right: value }) => acc + value, ADDITION_IDENTITY)
+		const total = rights.reduce(
+			(acc, { right: value }) => acc + value,
+			ADDITION_IDENTITY,
+		)
 
 		return { right: total / resolvedOperands.length }
 	}

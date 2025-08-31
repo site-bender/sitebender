@@ -1,9 +1,9 @@
 import type {
 	MaxOperator,
 	NumericDatatype,
+	Operand,
 	StringDatatype,
 	TemporalDatatype,
-	Operand,
 } from "../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"

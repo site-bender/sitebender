@@ -1,4 +1,8 @@
-import { ELEMENTS, FLOW_IF_ITEMPROP_ATTRIBUTE, FLOW_IF_MAP_DESCENDANT } from "../../guards/constants/index.ts"
+import {
+	ELEMENTS,
+	FLOW_IF_ITEMPROP_ATTRIBUTE,
+	FLOW_IF_MAP_DESCENDANT,
+} from "../../guards/constants/index.ts"
 
 /**
  * Configuration object for element validation
@@ -29,12 +33,16 @@ export default function isFlowContent(options: FlowContentOptions = {}) {
 		// Check both the tag and its capitalized version for flow content
 		if (
 			(typeof tag === "string" && ELEMENTS.flow.includes(tag)) ||
-			(typeof tag === "string" && ELEMENTS.flow.includes(tag.charAt(0).toUpperCase() + tag.slice(1)))
+			(typeof tag === "string" &&
+				ELEMENTS.flow.includes(tag.charAt(0).toUpperCase() + tag.slice(1)))
 		) {
 			return true
 		}
 
-		if (typeof tag === "string" && FLOW_IF_MAP_DESCENDANT.includes(tag) && ancestors.at(-1) === "Map") {
+		if (
+			typeof tag === "string" && FLOW_IF_MAP_DESCENDANT.includes(tag) &&
+			ancestors.at(-1) === "Map"
+		) {
 			return true
 		}
 

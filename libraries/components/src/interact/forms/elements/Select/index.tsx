@@ -23,11 +23,13 @@ export default function Select({
 			{naLabel !== null && naLabel !== undefined && (
 				<option value={naValue}>{naLabel}</option>
 			)}
-				{options.map((option: { value: string; label: string; checked?: boolean }) => (
-					<option value={option.value} selected={option.checked}>
-						{option.label}
-					</option>
-				))}
+			{options.map((
+				option: { value: string; label: string; checked?: boolean },
+			) => (
+				<option value={option.value} selected={option.checked}>
+					{option.label}
+				</option>
+			))}
 		</select>
 	)
 }

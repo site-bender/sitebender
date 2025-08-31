@@ -1,3 +1,11 @@
+import type {
+	AddOperator,
+	NumericDatatype,
+	Operand,
+	StringDatatype,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * Add JSX Component
  *
@@ -13,7 +21,6 @@
  */
 
 import AddConstructor from "@adaptiveSrc/constructors/operators/Add/index.ts"
-import type { Operand, AddOperator, NumericDatatype, StringDatatype, TemporalDatatype } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype
@@ -21,7 +28,9 @@ export type Props = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Add({ type = "Number", datatype, children = [] }: Props): AddOperator {
+export default function Add(
+	{ type = "Number", datatype, children = [] }: Props,
+): AddOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 	return AddConstructor(actualType)(childArray as unknown as Operand[])

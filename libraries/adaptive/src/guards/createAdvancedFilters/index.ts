@@ -229,7 +229,11 @@ export const ADVANCED_FILTERS = {
 		if (!child || typeof child !== "object" || !("tag" in child)) {
 			return true
 		}
-		const element = child as { tag?: string; attributes?: Record<string, unknown>; children?: readonly unknown[] }
+		const element = child as {
+			tag?: string
+			attributes?: Record<string, unknown>
+			children?: readonly unknown[]
+		}
 		return isPhrasingContent()(element)
 	},
 
@@ -238,7 +242,11 @@ export const ADVANCED_FILTERS = {
 		if (!child || typeof child !== "object" || !("tag" in child)) {
 			return true
 		}
-		const element = child as { tag?: string; attributes?: Record<string, unknown>; children?: readonly unknown[] }
+		const element = child as {
+			tag?: string
+			attributes?: Record<string, unknown>
+			children?: readonly unknown[]
+		}
 		const tag = element.tag
 		return tag === "Source" || tag === "Track" || isPhrasingContent()(element)
 	},

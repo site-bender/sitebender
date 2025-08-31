@@ -48,18 +48,23 @@ const composeComparators = async (
 
 	try {
 		// All comparators are organized by comparison type (alphabetical, numerical, etc.)
-	if ((operation as unknown as { type?: string }).type === "comparator") {
+		if ((operation as unknown as { type?: string }).type === "comparator") {
 			const { default: comparatorExecutor } = await import(
-		`../../comparators/${(operation as unknown as { comparison: string }).comparison}/$${
-			toCamel((operation as unknown as { tag: string }).tag)
-				}/index.js`
+				`../../comparators/${
+					(operation as unknown as { comparison: string }).comparison
+				}/$${toCamel((operation as unknown as { tag: string }).tag)}/index.js`
 			)
 			return comparatorExecutor(hydratedOperation)
 		}
 
-	if ((operation as unknown as { type?: string }).type === OPERAND_TYPES.injector) {
+		if (
+			(operation as unknown as { type?: string }).type ===
+				OPERAND_TYPES.injector
+		) {
 			const { default: injectorExecutor } = await import(
-		`../../../injectors/${toCamel((operation as unknown as { tag: string }).tag)}/index.js`
+				`../../../injectors/${
+					toCamel((operation as unknown as { tag: string }).tag)
+				}/index.js`
 			)
 			return injectorExecutor(hydratedOperation)
 		}
@@ -76,8 +81,10 @@ const composeComparators = async (
 		return () =>
 			Promise.resolve({
 				left: [
-					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")( 
-						`Comparison "${(operation as ComparatorConfig).tag}" with type "${(operation as ComparatorConfig).type}" could not be loaded. ${String(e)}`,
+					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
+						`Comparison "${(operation as ComparatorConfig).tag}" with type "${
+							(operation as ComparatorConfig).type
+						}" could not be loaded. ${String(e)}`,
 					) as AdaptiveError,
 				],
 			})

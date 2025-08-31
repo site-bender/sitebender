@@ -156,15 +156,15 @@ Deno.test("getOperands edge cases", async (t) => {
 			addends: null as unknown as Array<unknown>,
 		}
 
-	const operationWithUndefined = {
+		const operationWithUndefined = {
 			type: "operator" as const,
 			tag: "Add" as const,
 			datatype: "Number" as const,
 			// No operands property
 		}
 
-	const result1 = getOperands([operationWithNull as unknown as never])
-	const result2 = getOperands([operationWithUndefined as unknown as never])
+		const result1 = getOperands([operationWithNull as unknown as never])
+		const result2 = getOperands([operationWithUndefined as unknown as never])
 
 		assertEquals(result1, [])
 		assertEquals(result2, [])
@@ -205,11 +205,11 @@ Deno.test("getOperands with complex nested structures", async (t) => {
 			comparatorOperand,
 		])
 
-	const result = getOperands([operation])
-	// Compare by reference without over-constraining element types
-	assertEquals(result[0], injectorOperand)
-	assertEquals(result[1], operatorOperand)
-	assertEquals(result[2], comparatorOperand)
+		const result = getOperands([operation])
+		// Compare by reference without over-constraining element types
+		assertEquals(result[0], injectorOperand)
+		assertEquals(result[1], operatorOperand)
+		assertEquals(result[2], comparatorOperand)
 	})
 })
 
@@ -248,9 +248,9 @@ Deno.test("getOperands realistic scenarios", async (t) => {
 			operands: [greaterThan, lessThan],
 		}
 
-	const result = getOperands([andOperation])
-	assertEquals(result[0], greaterThan)
-	assertEquals(result[1], lessThan)
+		const result = getOperands([andOperation])
+		assertEquals(result[0], greaterThan)
+		assertEquals(result[1], lessThan)
 	})
 
 	await t.step("should handle form validation scenario", () => {

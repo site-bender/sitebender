@@ -1,1 +1,4 @@
-export type { default, default as MedicalSpecialtyType } from "../../MedicalEnumeration/MedicalSpecialty/index.ts"
+export type {
+	default,
+	default as MedicalSpecialtyType,
+} from "../../MedicalEnumeration/MedicalSpecialty/index.ts"

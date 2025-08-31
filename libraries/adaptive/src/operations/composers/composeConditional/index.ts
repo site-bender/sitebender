@@ -1,7 +1,8 @@
 import { isRight, type LocalValues } from "../../../../types/index.ts"
 import composeComparators from "../composeComparators/index.ts"
 
-const composeConditional = (op: unknown) => async (
+const composeConditional = (op: unknown) =>
+async (
 	arg: unknown,
 	localValues?: LocalValues,
 ) => {

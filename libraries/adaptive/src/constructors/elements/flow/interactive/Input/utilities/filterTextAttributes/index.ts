@@ -12,7 +12,9 @@ import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index
  * Filters attributes for text-based input types
  * Validates common text input attributes
  */
-export const filterTextAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+export const filterTextAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const {
 		autocomplete,
 		dirname,
@@ -31,15 +33,27 @@ export const filterTextAttributes = (attributes: Record<string, Value>): Record<
 	} = attributes
 	const filteredAttrs: Record<string, unknown> = {}
 	Object.assign(filteredAttrs, pickGlobalAttributes(attrs))
-	Object.assign(filteredAttrs, filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete))
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+	)
 	Object.assign(filteredAttrs, filterAttribute(isString)("dirname")(dirname))
 	Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
 	Object.assign(filteredAttrs, filterAttribute(isString)("list")(list))
-	Object.assign(filteredAttrs, filterAttribute(isInteger)("maxlength")(maxlength))
-	Object.assign(filteredAttrs, filterAttribute(isInteger)("minlength")(minlength))
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isInteger)("maxlength")(maxlength),
+	)
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isInteger)("minlength")(minlength),
+	)
 	Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
 	Object.assign(filteredAttrs, filterAttribute(isString)("pattern")(pattern))
-	Object.assign(filteredAttrs, filterAttribute(isString)("placeholder")(placeholder))
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isString)("placeholder")(placeholder),
+	)
 	Object.assign(filteredAttrs, filterAttribute(isBoolean)("readonly")(readonly))
 	Object.assign(filteredAttrs, filterAttribute(isBoolean)("required")(required))
 	Object.assign(filteredAttrs, filterAttribute(isInteger)("size")(size))

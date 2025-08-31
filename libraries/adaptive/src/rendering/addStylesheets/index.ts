@@ -1,5 +1,5 @@
-import collectLinkElements from "../helpers/collectLinkElements/index.ts"
 import buildDomTree, { type ElementConfig } from "../buildDomTree/index.ts"
+import collectLinkElements from "../helpers/collectLinkElements/index.ts"
 
 const addStylesheets = (component: Record<string, unknown>) => {
 	const head = document && document.head
@@ -12,7 +12,9 @@ const addStylesheets = (component: Record<string, unknown>) => {
 			attributes: { rel: "stylesheet", href },
 		})
 
-		stylesheets.forEach((href) => buildDomTree(head)(toLinkElement(String(href)))())
+		stylesheets.forEach((href) =>
+			buildDomTree(head)(toLinkElement(String(href)))()
+		)
 	}
 }
 

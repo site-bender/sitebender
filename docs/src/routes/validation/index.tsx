@@ -15,7 +15,14 @@ export default function ValidationDemo() {
 			<p>Type in the field; leaving it empty will show a required message.</p>
 			<form id="val-form" data-ir-id="val-form">
 				<label for="name">Name</label>
-				<input id="name" name="name" type="text" data-ir-id="name_input" required aria-describedby="name-error" />
+				<input
+					id="name"
+					name="name"
+					type="text"
+					data-ir-id="name_input"
+					required
+					aria-describedby="name-error"
+				/>
 				<span id="name-error" role="alert" aria-live="polite"></span>
 				<div style="margin-top: 1rem">
 					<button type="submit">Submit</button>
@@ -25,25 +32,52 @@ export default function ValidationDemo() {
 			<Program>
 				{/* On input: clear or set error based on value */}
 				<On event="Input" target="name_input">
-					<If condition={<NotEmpty><FromElement id="name" type="String" /></NotEmpty>}>
+					<If
+						condition={
+							<NotEmpty>
+								<FromElement id="name" type="String" />
+							</NotEmpty>
+						}
+					>
 						<SetValue selector="#name-error" value={<Constant value="" />} />
-						<SetValue selector="#name-error" value={<Constant value="Required" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="Required" />}
+						/>
 					</If>
 				</On>
 
 				{/* On blur: same behavior */}
 				<On event="Blur" target="name_input">
-					<If condition={<NotEmpty><FromElement id="name" type="String" /></NotEmpty>}>
+					<If
+						condition={
+							<NotEmpty>
+								<FromElement id="name" type="String" />
+							</NotEmpty>
+						}
+					>
 						<SetValue selector="#name-error" value={<Constant value="" />} />
-						<SetValue selector="#name-error" value={<Constant value="Required" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="Required" />}
+						/>
 					</If>
 				</On>
 
 				{/* On submit: prevent navigation and validate once */}
 				<On event="Submit" target="val-form">
-					<If condition={<NotEmpty><FromElement id="name" type="String" /></NotEmpty>}>
+					<If
+						condition={
+							<NotEmpty>
+								<FromElement id="name" type="String" />
+							</NotEmpty>
+						}
+					>
 						<SetValue selector="#name-error" value={<Constant value="" />} />
-						<SetValue selector="#name-error" value={<Constant value="Required" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="Required" />}
+						/>
 					</If>
 				</On>
 			</Program>

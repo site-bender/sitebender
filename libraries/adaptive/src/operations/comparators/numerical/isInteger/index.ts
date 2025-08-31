@@ -5,11 +5,11 @@ import type {
 	LocalValues,
 	OperationFunction,
 } from "../../../../types/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isInt from "../../../../guards/isInteger/index.ts"
-import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isInteger = (op: ComparatorConfig): OperationFunction<boolean> =>
@@ -24,9 +24,9 @@ async (
 		return operand
 	}
 
-	return isInt(operand.right as Value)
-		? { right: true }
-		: { left: [Error(op.tag)("IsInteger")(`${operand.right} is not an integer.`)] }
+	return isInt(operand.right as Value) ? { right: true } : {
+		left: [Error(op.tag)("IsInteger")(`${operand.right} is not an integer.`)],
+	}
 }
 
 export default isInteger

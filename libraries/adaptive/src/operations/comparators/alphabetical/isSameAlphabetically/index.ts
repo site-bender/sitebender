@@ -16,8 +16,12 @@ const isSameAlphabetically =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const leftFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
-		const rightFn = await composeComparators((op as unknown as { test: unknown }).test as never)
+		const leftFn = await composeComparators(
+			(op as unknown as { operand: unknown }).operand as never,
+		)
+		const rightFn = await composeComparators(
+			(op as unknown as { test: unknown }).test as never,
+		)
 
 		const left = await leftFn(arg, localValues)
 		if (isLeft(left)) return left
@@ -26,15 +30,13 @@ const isSameAlphabetically =
 
 		const l = String(left.right)
 		const r = String(right.right)
-		return l.localeCompare(r) === 0
-			? { right: true }
-			: {
-				left: [
-					Error(op.tag)("IsSameAlphabetically")(
-						`"${l}" is not the same as "${r}" alphabetically.`,
-					),
-				],
-			}
+		return l.localeCompare(r) === 0 ? { right: true } : {
+			left: [
+				Error(op.tag)("IsSameAlphabetically")(
+					`"${l}" is not the same as "${r}" alphabetically.`,
+				),
+			],
+		}
 	}
 
 export default isSameAlphabetically

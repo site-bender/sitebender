@@ -1,6 +1,12 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { ImageMapAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
@@ -59,7 +65,10 @@ export const Map =
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = Array.isArray(children) ? children : [children]
 
-		return Filtered("map")(((attrs: Record<string, unknown>) => filterAttributes(attrs as ImageMapAttributes)))(attributes)(filteredChildren as Array<ElementConfig>)
+		return Filtered("map")(
+			(attrs: Record<string, unknown>) =>
+				filterAttributes(attrs as ImageMapAttributes),
+		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Map

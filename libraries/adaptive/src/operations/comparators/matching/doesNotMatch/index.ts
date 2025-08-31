@@ -17,10 +17,10 @@ const doesNotMatch =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operandFn = await composeComparators(op.operand as unknown as never)
-	const { pattern, flags } = op as MatchesComparator
-	const patternFn = await composeComparators(pattern as unknown as never)
-	const operand = await operandFn(arg, localValues)
+		const operandFn = await composeComparators(op.operand as unknown as never)
+		const { pattern, flags } = op as MatchesComparator
+		const patternFn = await composeComparators(pattern as unknown as never)
+		const operand = await operandFn(arg, localValues)
 
 		if (isLeft(operand)) {
 			return operand
@@ -34,7 +34,9 @@ const doesNotMatch =
 			return pattern.test(String(operand.right))
 				? {
 					left: [
-						Error(op.tag)("DoesNotMatch")(`${operand.right} matches ${pattern}.`),
+						Error(op.tag)("DoesNotMatch")(
+							`${operand.right} matches ${pattern}.`,
+						),
 					],
 				}
 				: { right: true }

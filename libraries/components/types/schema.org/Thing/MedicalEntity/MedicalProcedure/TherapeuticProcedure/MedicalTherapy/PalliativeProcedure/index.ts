@@ -1,1 +1,4 @@
-export type { default, default as PalliativeProcedureType } from "../../../PalliativeProcedure/index.ts"
+export type {
+	default,
+	default as PalliativeProcedureType,
+} from "../../../PalliativeProcedure/index.ts"

@@ -6,15 +6,15 @@ void createElement
 void Fragment
 
 export type HeadProps = {
-  title?: string
-  children?: unknown
+	title?: string
+	children?: unknown
 }
 
 export default function Head({ title, children }: HeadProps) {
-  return (
-    <>
-      {title && <title>{title}</title>}
-      {children}
-    </>
-  )
+	return (
+		<>
+			{title && <title>{title}</title>}
+			{children}
+		</>
+	)
 }

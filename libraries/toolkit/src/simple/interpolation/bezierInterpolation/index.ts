@@ -1,5 +1,7 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs Bezier curve interpolation at a given parameter t
  *
@@ -46,11 +48,11 @@ const bezierInterpolation = (
 (
 	t: number | null | undefined,
 ): Pair<number, number> => {
-	if (controlPoints == null || !Array.isArray(controlPoints)) {
+	if (isNullish(controlPoints) || !Array.isArray(controlPoints)) {
 		return [NaN, NaN]
 	}
 
-	if (t == null || typeof t !== "number") {
+	if (isNullish(t) || typeof t !== "number") {
 		return [NaN, NaN]
 	}
 

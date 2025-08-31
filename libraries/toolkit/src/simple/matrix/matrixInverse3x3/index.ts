@@ -33,10 +33,12 @@
  * @pure
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixInverse3x3 = (
 	matrix: Array<Array<number>> | null | undefined,
 ): Array<Array<number>> | null => {
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return null
 	}
 

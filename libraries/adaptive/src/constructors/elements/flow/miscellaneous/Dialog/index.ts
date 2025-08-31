@@ -1,3 +1,5 @@
+import type { DialogAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,7 +7,6 @@ import type {
 	OperatorConfig,
 } from "../../../../../types/index.ts"
 import type { Value } from "../../../../../types/index.ts"
-import type { DialogAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
 import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"

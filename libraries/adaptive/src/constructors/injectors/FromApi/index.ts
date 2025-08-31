@@ -1,4 +1,8 @@
-import type { ComplexDatatype, FromApiInjector, Value } from "@adaptiveTypes/index.ts"
+import type {
+	ComplexDatatype,
+	FromApiInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 

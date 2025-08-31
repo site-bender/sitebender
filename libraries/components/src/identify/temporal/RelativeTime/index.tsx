@@ -55,12 +55,14 @@ export type Props =
 		// Custom now function (for testing)
 		now?: () => Date
 
-		children?: string | ((formatted: {
-			display: string
-			datetime: string
-			value: number
-			unit: Intl.RelativeTimeFormatUnit
-		}) => JSX.Element)
+		children?:
+			| string
+			| ((formatted: {
+				display: string
+				datetime: string
+				value: number
+				unit: Intl.RelativeTimeFormatUnit
+			}) => JSX.Element)
 	}
 
 // Calculate the best unit and value for relative time

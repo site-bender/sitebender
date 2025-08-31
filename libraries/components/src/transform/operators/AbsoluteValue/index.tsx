@@ -1,3 +1,5 @@
+import type { AbsoluteValueOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * AbsoluteValue JSX Component
  *
@@ -11,7 +13,6 @@
  */
 
 import AbsoluteValueConstructor from "@adaptiveSrc/constructors/operators/AbsoluteValue/index.ts"
-import type { Operand, AbsoluteValueOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"
@@ -28,5 +29,7 @@ export default function AbsoluteValue({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// AbsoluteValue constructor signature: (datatype) => (operand)
-	return AbsoluteValueConstructor(actualType)(childArray[0] as unknown as Operand)
+	return AbsoluteValueConstructor(actualType)(
+		childArray[0] as unknown as Operand,
+	)
 }

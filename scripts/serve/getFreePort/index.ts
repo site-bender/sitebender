@@ -8,7 +8,9 @@ export default function getFreePort(start = 5555): number {
 			return p
 		} catch {
 			// Port busy; continue
-			try { listener?.close() } catch { /* ignore */ }
+			try {
+				listener?.close()
+			} catch { /* ignore */ }
 		}
 	}
 	return start

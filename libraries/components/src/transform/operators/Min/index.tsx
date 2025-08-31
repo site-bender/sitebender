@@ -1,3 +1,11 @@
+import type {
+	MinOperator,
+	NumericDatatype,
+	Operand,
+	StringDatatype,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * Min JSX Component
  *
@@ -13,7 +21,6 @@
  */
 
 import MinConstructor from "@adaptiveSrc/constructors/operators/Min/index.ts"
-import type { Operand, MinOperator, NumericDatatype, StringDatatype, TemporalDatatype } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype
@@ -21,7 +28,9 @@ export type Props = {
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Min({ type = "Number", datatype, children = [] }: Props): MinOperator {
+export default function Min(
+	{ type = "Number", datatype, children = [] }: Props,
+): MinOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 	return MinConstructor(actualType)(childArray as unknown as Operand[])

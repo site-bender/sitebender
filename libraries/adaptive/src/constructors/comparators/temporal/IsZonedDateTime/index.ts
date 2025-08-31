@@ -1,4 +1,5 @@
 import type { Operand } from "@adaptiveTypes/index.ts"
+
 import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
 const IsZonedDateTime = (operand: Operand) => ({

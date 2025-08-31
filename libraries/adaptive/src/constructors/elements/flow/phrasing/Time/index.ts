@@ -1,14 +1,20 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { TimeAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 
 /**
  * Filters attributes for Time element
@@ -79,7 +85,11 @@ export const Time =
 			? [children]
 			: []
 
-		return Filtered("time")(filterAttributes as (a: Record<string, unknown>) => Record<string, unknown>)(attributes)(filteredChildren as Array<ElementConfig>)
+		return Filtered("time")(
+			filterAttributes as (
+				a: Record<string, unknown>,
+			) => Record<string, unknown>,
+		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Time

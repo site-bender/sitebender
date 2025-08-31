@@ -1,3 +1,5 @@
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,8 +7,6 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"

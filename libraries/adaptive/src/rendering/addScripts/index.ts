@@ -1,5 +1,5 @@
-import collectScriptElements from "../helpers/collectScriptElements/index.ts"
 import buildDomTree, { type ElementConfig } from "../buildDomTree/index.ts"
+import collectScriptElements from "../helpers/collectScriptElements/index.ts"
 
 const addScripts = (component: Record<string, unknown>) => {
 	const head = document && document.head

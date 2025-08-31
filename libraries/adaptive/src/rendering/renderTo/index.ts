@@ -10,27 +10,28 @@ import runAllFormatters from "../runAllFormatters/index.ts"
 type RenderOptions = { level?: number }
 type AdaptiveConfig = Record<string, unknown>
 
-const renderTo = (target: Element) =>
+const renderTo =
+	(target: Element) =>
 	(config: AdaptiveConfig) =>
 	(options: RenderOptions = {}) => {
 		const opts = { level: 0, ...options }
 
-	addStylesheets(config)
+		addStylesheets(config)
 
-	const temp = document.createElement("Template")
+		const temp = document.createElement("Template")
 
-	buildDomTree(temp)(config as unknown as ElementConfig)(opts)
-	addConditionals(temp)(config)
+		buildDomTree(temp)(config as unknown as ElementConfig)(opts)
+		addConditionals(temp)(config)
 
-	Array.from(temp.children).forEach((child) => target.appendChild(child))
+		Array.from(temp.children).forEach((child) => target.appendChild(child))
 
-	addScripts(config)
+		addScripts(config)
 
-	temp.remove()
-	convertSelectorsToIds()
-	runAllCalculations()
-	runAllFormatters()
-	runAllDisplayCallbacks()
-}
+		temp.remove()
+		convertSelectorsToIds()
+		runAllCalculations()
+		runAllFormatters()
+		runAllDisplayCallbacks()
+	}
 
 export default renderTo

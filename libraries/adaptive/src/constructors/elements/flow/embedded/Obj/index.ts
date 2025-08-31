@@ -1,3 +1,6 @@
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ObjectAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +8,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { ObjectAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
@@ -18,6 +17,7 @@ import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Obj attributes including reactive properties and ARIA

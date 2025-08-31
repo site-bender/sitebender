@@ -1,4 +1,7 @@
-import { CHANNEL_LABELS, TYPE_LABELS } from "@sitebender/toolkit/constants/forms/index.ts"
+import {
+	CHANNEL_LABELS,
+	TYPE_LABELS,
+} from "@sitebender/toolkit/constants/forms/index.ts"
 
 import type {
 	CommunicationChannel,
@@ -49,8 +52,7 @@ const channelOptions: Array<{ label: string; value: string }> = Object.entries(
 	CHANNEL_LABELS as Record<string, string>,
 ).reduce<Array<{ label: string; value: string }>>(
 	(acc, [value, label]) => (
-		acc.push({ label, value }),
-		acc
+		acc.push({ label, value }), acc
 	),
 	[],
 )
@@ -70,8 +72,7 @@ const typeOptions: Array<{ label: string; value: string }> = Object.entries(
 	TYPE_LABELS as Record<string, string>,
 ).reduce<Array<{ label: string; value: string }>>(
 	(acc, [value, label]) => (
-		acc.push({ label, value }),
-		acc
+		acc.push({ label, value }), acc
 	),
 	[],
 )

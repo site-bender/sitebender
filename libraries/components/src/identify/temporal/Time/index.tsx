@@ -82,7 +82,8 @@ export default function Time({
 		minute: "2-digit",
 		...(showSeconds && { second: "2-digit" }),
 		// Intl only guarantees 1-3; clamp microseconds display to 3
-		...(showMicroseconds && showSeconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
+		...(showMicroseconds && showSeconds &&
+			{ fractionalSecondDigits: 3 as 1 | 2 | 3 }),
 		...(hour12 !== undefined && { hour12 }),
 		...(timezone && { timeZone: timezone }),
 	}

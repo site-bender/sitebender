@@ -9,7 +9,9 @@ import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index
  * Filters attributes for checked input types (checkbox, radio)
  * Validates common checked input attributes
  */
-const filterCheckedAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+const filterCheckedAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const { checked, form, name, required, value, ...attrs } = attributes
 	const out: Record<string, unknown> = {}
 	Object.assign(out, pickGlobalAttributes(attrs))

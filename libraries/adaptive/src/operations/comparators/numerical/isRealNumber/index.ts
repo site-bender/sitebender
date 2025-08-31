@@ -5,11 +5,11 @@ import type {
 	LocalValues,
 	OperationFunction,
 } from "../../../../types/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isNumber from "../../../../guards/isNumber/index.ts"
-import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isRealNumber =
@@ -25,11 +25,11 @@ const isRealNumber =
 			return operand
 		}
 
-		return isNumber(operand.right as Value)
-			? { right: true }
-			: { left: [
+		return isNumber(operand.right as Value) ? { right: true } : {
+			left: [
 				Error(op.tag)("IsRealNumber")(`${operand.right} is not a real number.`),
-			] }
+			],
+		}
 	}
 
 export default isRealNumber

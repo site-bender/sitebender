@@ -29,7 +29,11 @@ const divide =
 
 		if (resolvedDivisor.right === 0) {
 			return {
-				left: [{ tag: "Error", operation: "Divide", message: "Cannot divide by zero." }],
+				left: [{
+					tag: "Error",
+					operation: "Divide",
+					message: "Cannot divide by zero.",
+				}],
 			}
 		}
 

@@ -1,3 +1,5 @@
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -9,7 +11,6 @@ import type { HeadingAriaAttributes } from "../../../types/aria/index.ts"
 import type { HeadingAttributes } from "../../../types/attributes/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"
 import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"

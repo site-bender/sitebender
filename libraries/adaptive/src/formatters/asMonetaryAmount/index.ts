@@ -1,11 +1,24 @@
-import type { LocalValues, OperationFunction, Either, AdaptiveError } from "../../../types/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
+
 import { isLeft } from "../../../types/index.ts"
 import composeOperators from "../../operations/composers/composeOperators/index.ts"
 
-type MonetaryOp = { locales?: string | string[]; operand: unknown; options?: Intl.NumberFormatOptions }
+type MonetaryOp = {
+	locales?: string | string[]
+	operand: unknown
+	options?: Intl.NumberFormatOptions
+}
 
 const asMonetaryAmount = (op: MonetaryOp): OperationFunction<string> =>
-async (arg: unknown, localValues?: LocalValues): Promise<Either<Array<AdaptiveError>, string>> => {
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, string>> => {
 	const { locales, operand, options } = op
 
 	const operandFn = await composeOperators(operand as never)

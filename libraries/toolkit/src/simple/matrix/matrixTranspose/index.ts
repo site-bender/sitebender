@@ -36,10 +36,12 @@
  * @pure
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixTranspose = (
 	matrix: number[][] | null | undefined,
 ): number[][] | number => {
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return NaN
 	}
 
@@ -68,7 +70,7 @@ const matrixTranspose = (
 	const isValid = matrix.every((row) =>
 		Array.isArray(row) &&
 		row.length === cols &&
-		row.every((val) => val != null && typeof val === "number")
+		row.every((val) => !isNullish(val) && typeof val === "number")
 	)
 
 	if (!isValid) {

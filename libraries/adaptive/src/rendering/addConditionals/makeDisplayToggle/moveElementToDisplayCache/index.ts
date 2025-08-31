@@ -9,8 +9,8 @@ const moveElementToDisplayCache = (id: string) => {
 		element.after(slot)
 		element.remove()
 
-	document.__sbDisplayCache ??= {}
-	document.__sbDisplayCache[element.id] = element
+		document.__sbDisplayCache ??= {}
+		document.__sbDisplayCache[element.id] = element
 	}
 }
 

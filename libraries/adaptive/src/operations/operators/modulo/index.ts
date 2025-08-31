@@ -23,7 +23,11 @@ const modulo =
 
 		if (resolvedDivisor.right === 0) {
 			return {
-				left: [{ tag: "Error", operation: "Modulo", message: "Cannot modulo by zero." }],
+				left: [{
+					tag: "Error",
+					operation: "Modulo",
+					message: "Cannot modulo by zero.",
+				}],
 			}
 		}
 

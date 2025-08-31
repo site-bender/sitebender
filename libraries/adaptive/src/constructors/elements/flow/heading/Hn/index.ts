@@ -14,7 +14,9 @@ import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/ind
 export const filterAttributes = (attributes: Record<string, unknown>) => {
 	const { id, role, ...otherAttributes } = attributes as Record<string, Value>
 	const globals = pickGlobalAttributes(otherAttributes)
-	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(role as Value)
+	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(
+		role as Value,
+	)
 
 	return {
 		...getId(id as Value),

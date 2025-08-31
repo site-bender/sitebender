@@ -1,13 +1,19 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
 import type { InputColorAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
 
 /**
  * Filters attributes for InputColor

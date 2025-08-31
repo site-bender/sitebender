@@ -4,7 +4,9 @@ type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	character?: string
 	characterId?: string
-	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
 	define?: "microdata" | "linkedData" | "both"
 	mood?: string
 	style?: string

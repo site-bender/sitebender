@@ -2,7 +2,9 @@ import { CreativeWork, Event } from "../../../define/index.ts"
 
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
-	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => unknown)
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
 	define?: "microdata" | "linkedData" | "both"
 	timeShift?: string
 	transitionStyle?: string

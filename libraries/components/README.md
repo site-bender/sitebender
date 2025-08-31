@@ -492,12 +492,12 @@ The components compiler lowers wrappers to Adaptive IR and attaches non-fatal di
 
 - Where: `node.meta.debug.warnings` (array of strings)
 - Common cases:
-	- `Op.Add`/`Op.Multiply` with fewer than 2 operands
-	- `Op.Min`/`Op.Max` with fewer than 1 operand
-	- `Op.Subtract`/`Op.Divide` not given exactly 2 operands
-	- `Is.EqualTo`/`Is.UnequalTo` not given exactly 2 args
-	- `Matches` not given 2–3 args (operand, pattern[, flags])
-	- Logical `And`/`Or` with zero operands
+  - `Op.Add`/`Op.Multiply` with fewer than 2 operands
+  - `Op.Min`/`Op.Max` with fewer than 1 operand
+  - `Op.Subtract`/`Op.Divide` not given exactly 2 operands
+  - `Is.EqualTo`/`Is.UnequalTo` not given exactly 2 args
+  - `Matches` not given 2–3 args (operand, pattern[, flags])
+  - Logical `And`/`Or` with zero operands
 - Behavior: advisory only — IR shape stays the same; runtime behavior is unchanged.
 
 These warnings are covered by unit tests in `libraries/components/tests/unit` and will expand as compiler diagnostics mature.

@@ -36,10 +36,13 @@ import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttrib
 import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
-	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format"> & {
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format">
+	& {
 		// Display format
 		format?: "numeric" | "short" | "medium" | "long" | "full"
-		children?: string | ((formatted: { display: string; datetime: string }) => JSX.Element)
+		children?:
+			| string
+			| ((formatted: { display: string; datetime: string }) => JSX.Element)
 	}
 
 export default function MonthDay({
@@ -94,9 +97,9 @@ export default function MonthDay({
 		const monthStyle: "short" | "long" =
 			format === "short" || format === "medium" ? "short" : "long"
 		const options = formatOptions || {
-				month: monthStyle,
-				day: "numeric",
-			}
+			month: monthStyle,
+			day: "numeric",
+		}
 
 		display = formatDate(date, locale, options)
 	}

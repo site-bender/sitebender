@@ -1,3 +1,4 @@
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +6,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { AriaAttributes } from "../../../types/aria/index.ts"
-import type { DeletedTextAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
@@ -17,6 +14,10 @@ import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
+import type { AriaAttributes } from "../../../types/aria/index.ts"
+import type { DeletedTextAttributes } from "../../../types/attributes/index.ts"
 
 /**
  * Extended Del attributes including reactive properties and ARIA
@@ -75,7 +76,7 @@ export const filterAttributes = (attributes: DelElementAttributes) => {
 	if (isDefined(cite)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("cite")(cite))
 	}
-    if (isDefined(dateTime)) {
+	if (isDefined(dateTime)) {
 		Object.assign(
 			filteredAttrs,
 			filterAttribute(isString)("dateTime")(dateTime),

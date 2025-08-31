@@ -18,7 +18,9 @@ export type FromElementProps = {
 	datatype?: "Number" | "String" | "Boolean" | "Date" | "Json"
 }
 
-export default function FromElement({ id, selector, type = "String", datatype }: FromElementProps) {
+export default function FromElement(
+	{ id, selector, type = "String", datatype }: FromElementProps,
+) {
 	const actualType = datatype || type
 	const source = id ? `#${id}` : selector || ""
 	return { type: "injector", tag: "FromElement", datatype: actualType, source }

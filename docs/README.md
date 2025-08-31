@@ -7,6 +7,7 @@ Documentation for the Sitebender project.
 Use the `Program` control to inline author behaviors next to your HTML. `Program` compiles its children into an Adaptive IR JSON script tag that the shared hydrator reads at runtime.
 
 Pattern:
+
 - Mark interactive elements with `data-ir-id` or an `id`.
 - Wrap behaviors with event markers — prefer `When.*` (authoring), which lower to IR events `On.*`. You can still use `On` directly, but docs/examples prefer `When.*`.
 - Compose actions and conditions from transform components.
@@ -14,9 +15,9 @@ Pattern:
 Event authoring examples:
 
 - Submit without navigation and push a query string param:
-	- `<When.Submitted target="profile">` with `SetQueryString` drawing from `#favorite`.
+  - `<When.Submitted target="profile">` with `SetQueryString` drawing from `#favorite`.
 - Update output on input:
-	- `<When.ValueUpdated>` with `SetValue` and a `FromElement` injector for `#name`.
+  - `<When.ValueUpdated>` with `SetValue` and a `FromElement` injector for `#name`.
 
 Equivalent IR (emitted by Program) would use `On.Submit` / `On.Input`.
 
@@ -27,10 +28,11 @@ See event authoring examples above.
 Example (from Validation):
 
 - Show a required message on blur/input when empty:
-	- `<If condition={<NotEmpty><FromElement id="name" type="String"/></NotEmpty>}>` and two `SetValue` branches writing to `#name-error`.
+  - `<If condition={<NotEmpty><FromElement id="name" type="String"/></NotEmpty>}>` and two `SetValue` branches writing to `#name-error`.
 - A11y: add `required` and `aria-describedby="name-error"` to the input; announce updates via `aria-live` on the error span.
 
 Hydration:
+
 - Include the shared client script: `<script type="module" src="/scripts/hydrate/adaptive.js"></script>`.
 - The hydrator binds events and executes actions; in production, it strips `data-ir-id` attributes after hydration.
 

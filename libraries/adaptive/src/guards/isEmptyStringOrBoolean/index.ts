@@ -1,4 +1,5 @@
 import type { Value } from "@adaptiveTypes/index.ts"
+
 import isBoolean from "../../guards/isBoolean/index.ts"
 
 export default function isEmptyStringOrBoolean(

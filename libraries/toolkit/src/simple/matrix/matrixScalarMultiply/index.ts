@@ -34,17 +34,19 @@
  * @curried
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixScalarMultiply = (
 	scalar: number | null | undefined,
 ) =>
 (
 	matrix: number[][] | null | undefined,
 ): number[][] | number => {
-	if (scalar == null || typeof scalar !== "number") {
+	if (isNullish(scalar) || typeof scalar !== "number") {
 		return NaN
 	}
 
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return NaN
 	}
 
@@ -59,7 +61,7 @@ const matrixScalarMultiply = (
 			return NaN
 		}
 		return row.map((val) => {
-			if (val == null || typeof val !== "number") {
+			if (isNullish(val) || typeof val !== "number") {
 				return NaN
 			}
 			return scalar * val

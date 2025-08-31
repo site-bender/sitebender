@@ -1,3 +1,6 @@
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ImageAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +8,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { ImageAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import { getImgAllowedRoles } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import {
 	CROSS_ORIGINS,
@@ -25,6 +24,7 @@ import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Img attributes including reactive properties and ARIA
@@ -90,23 +90,23 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
 	if (isDefined(alt)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("alt")(alt))
 	}
-    if (isDefined(crossOrigin)) {
+	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-	    filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
 		)
 	}
-    if (isDefined(decode)) {
+	if (isDefined(decode)) {
 		Object.assign(
 			filteredAttrs,
-	    filterAttribute(isMemberOf(DECODING_HINTS))("decode")(decode),
+			filterAttribute(isMemberOf(DECODING_HINTS))("decode")(decode),
 		)
 	}
-    if (isDefined(fetchPriority)) {
+	if (isDefined(fetchPriority)) {
 		Object.assign(
 			filteredAttrs,
-	    filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchPriority")(
-		fetchPriority,
+			filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchPriority")(
+				fetchPriority,
 			),
 		)
 	}
@@ -199,8 +199,12 @@ export const filterAttributes = (attributes: ImgElementAttributes) => {
  * })
  * ```
  */
-export const Img = (attributes: Partial<ImgElementAttributes> = {}): ElementConfig => {
-	const { id, ...attribs } = filterAttributes(attributes as ImgElementAttributes)
+export const Img = (
+	attributes: Partial<ImgElementAttributes> = {},
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(
+		attributes as ImgElementAttributes,
+	)
 	const {
 		calculation,
 		dataset,

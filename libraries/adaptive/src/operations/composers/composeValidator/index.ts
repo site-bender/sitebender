@@ -1,4 +1,9 @@
-import type { ComparatorConfig, LogicalConfig, Operand } from "@adaptiveTypes/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+} from "@adaptiveTypes/index.ts"
+
 import composeComparators from "../composeComparators/index.ts"
 
 const composeValidator = (

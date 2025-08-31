@@ -1,3 +1,5 @@
+import type { IsLengthComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsLength JSX Component
  *
@@ -13,7 +15,6 @@
  */
 
 import IsLengthConstructor from "@adaptiveSrc/constructors/comparators/length/IsLength/index.ts"
-import type { IsLengthComparator, Operand } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	// authoring accepts String|Array, but length comparator uses a numeric length under the hood

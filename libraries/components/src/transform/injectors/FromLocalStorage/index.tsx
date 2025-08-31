@@ -1,3 +1,5 @@
+import type { FromLocalStorageInjector } from "@adaptiveTypes/index.ts"
+
 /**
  * FromLocalStorage JSX Component
  *
@@ -10,7 +12,6 @@
  */
 
 import FromLocalStorageConstructor from "@adaptiveSrc/constructors/injectors/FromLocalStorage/index.ts"
-import type { FromLocalStorageInjector } from "@adaptiveTypes/index.ts"
 
 export type FromLocalStorageProps = {
 	key: string

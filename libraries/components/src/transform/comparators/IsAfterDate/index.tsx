@@ -1,3 +1,5 @@
+import type { IsAfterDateComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsAfterDate JSX Component
  *
@@ -13,7 +15,6 @@
  */
 
 import IsAfterDateConstructor from "@adaptiveSrc/constructors/comparators/date/IsAfterDate/index.ts"
-import type { IsAfterDateComparator, Operand } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Date"

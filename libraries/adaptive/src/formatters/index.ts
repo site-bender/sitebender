@@ -1,14 +1,23 @@
 import type { Value } from "@adaptiveTypes/index.ts"
+
 import Error from "../constructors/Error/index.ts"
 import asMonetaryAmount from "./asMonetaryAmount/index.ts"
 
-type FormatterOperation = { tag: string; operand?: unknown; [k: string]: unknown }
-type FormatterFn = (operation: FormatterOperation) => (value: Value, localValues?: unknown) => unknown
+type FormatterOperation = {
+	tag: string
+	operand?: unknown
+	[k: string]: unknown
+}
+type FormatterFn = (
+	operation: FormatterOperation,
+) => (value: Value, localValues?: unknown) => unknown
 
 const format: FormatterFn = (operation) => {
 	switch (operation.tag) {
 		case "AsMonetaryAmount":
-			return asMonetaryAmount(operation as { operand: unknown }) as unknown as (value: Value) => unknown
+			return asMonetaryAmount(operation as { operand: unknown }) as unknown as (
+				value: Value,
+			) => unknown
 		default:
 			return () => ({
 				left: [

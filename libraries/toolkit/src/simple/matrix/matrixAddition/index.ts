@@ -44,17 +44,19 @@
  * @safe
  * @commutative
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixAddition = (
 	matrix1: number[][] | null | undefined,
 ) =>
 (
 	matrix2: number[][] | null | undefined,
 ): number[][] | number => {
-	if (matrix1 == null || !Array.isArray(matrix1)) {
+	if (isNullish(matrix1) || !Array.isArray(matrix1)) {
 		return NaN
 	}
 
-	if (matrix2 == null || !Array.isArray(matrix2)) {
+	if (isNullish(matrix2) || !Array.isArray(matrix2)) {
 		return NaN
 	}
 
@@ -93,7 +95,7 @@ const matrixAddition = (
 	// Validate all elements are numbers
 	const hasNonNumber = (matrix: number[][]) =>
 		matrix.some((row) =>
-			row.some((val) => val == null || typeof val !== "number")
+			row.some((val) => isNullish(val) || typeof val !== "number")
 		)
 
 	if (hasNonNumber(matrix1) || hasNonNumber(matrix2)) {

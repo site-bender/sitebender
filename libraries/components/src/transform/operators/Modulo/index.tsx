@@ -1,3 +1,5 @@
+import type { ModuloOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Modulo JSX Component
  *
@@ -13,7 +15,6 @@
  */
 
 import ModuloConstructor from "@adaptiveSrc/constructors/operators/Modulo/index.ts"
-import type { Operand, ModuloOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"
@@ -31,5 +32,7 @@ export default function Modulo({
 	const [dividend, divisor] = childArray
 
 	// Modulo constructor signature: (datatype) => (dividend) => (divisor)
-	return ModuloConstructor(actualType)(dividend as unknown as Operand)(divisor as unknown as Operand)
+	return ModuloConstructor(actualType)(dividend as unknown as Operand)(
+		divisor as unknown as Operand,
+	)
 }

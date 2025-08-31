@@ -1,5 +1,6 @@
-import Input from "../index.ts"
 import filterTextAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterTextAttributes/index.ts"
+
+import Input from "../index.ts"
 
 /**
  * Creates an InputTel element configuration object

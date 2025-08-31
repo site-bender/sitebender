@@ -1,4 +1,6 @@
-type ComponentLike = { attributes?: { id?: string }; children?: unknown[] } & Record<string, unknown>
+type ComponentLike =
+	& { attributes?: { id?: string }; children?: unknown[] }
+	& Record<string, unknown>
 
 const collectConditionals = (component: unknown): Record<string, unknown> => {
 	if (!component || typeof component !== "object") return {}

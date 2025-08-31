@@ -1,9 +1,14 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
 import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
 import type { AreaAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import {
 	REFERRER_POLICIES,
 	RELS_FOR_AREA,
@@ -16,6 +21,7 @@ import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Area attributes including reactive properties and ARIA
@@ -41,9 +47,9 @@ export const filterAttributes = (attributes: AreaElementAttributes) => {
 		coords,
 		download,
 		href,
-	hrefLang,
+		hrefLang,
 		ping,
-	referrerPolicy,
+		referrerPolicy,
 		rel,
 		shape,
 		target,
@@ -86,20 +92,20 @@ export const filterAttributes = (attributes: AreaElementAttributes) => {
 	if (isDefined(href)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("href")(href))
 	}
-    if (isDefined(hrefLang)) {
+	if (isDefined(hrefLang)) {
 		Object.assign(
 			filteredAttrs,
-	    filterAttribute(isString)("hrefLang")(hrefLang),
+			filterAttribute(isString)("hrefLang")(hrefLang),
 		)
 	}
 	if (isDefined(ping)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("ping")(ping))
 	}
-    if (isDefined(referrerPolicy)) {
+	if (isDefined(referrerPolicy)) {
 		Object.assign(
 			filteredAttrs,
-	    filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerPolicy")(
-		referrerPolicy,
+			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerPolicy")(
+				referrerPolicy,
 			),
 		)
 	}
@@ -150,8 +156,12 @@ export const filterAttributes = (attributes: AreaElementAttributes) => {
  * })
  * ```
  */
-export const Area = (attributes: Partial<AreaElementAttributes> = {}): ElementConfig => {
-	const { id, ...attribs } = filterAttributes(attributes as AreaElementAttributes)
+export const Area = (
+	attributes: Partial<AreaElementAttributes> = {},
+): ElementConfig => {
+	const { id, ...attribs } = filterAttributes(
+		attributes as AreaElementAttributes,
+	)
 	const {
 		calculation,
 		dataset,

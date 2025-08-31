@@ -12,7 +12,7 @@ Deno.test("[composeOperators] correctly handles a complex nested operation", asy
 		Add("Integer")([Constant("Integer")(10), Constant("Integer")(20)]),
 	])
 
-	const composedFunction = (await composeOperators(complexConfig))
+	const composedFunction = await composeOperators(complexConfig)
 	const result = await composedFunction(undefined, undefined)
 
 	assertEquals(result, { right: 150 })
@@ -25,7 +25,7 @@ Deno.test("[composeOperators] correctly handles multiple levels of nesting", asy
 		Add("Integer")([Constant("Integer")(2), Constant("Integer")(3)]),
 	])
 
-	const composedFunction = (await composeOperators(complexConfig))
+	const composedFunction = await composeOperators(complexConfig)
 	const result = await composedFunction(undefined, undefined)
 
 	assertEquals(result, { right: 75 })

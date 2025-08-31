@@ -1,12 +1,12 @@
+import type { TableColumnGroupAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
-import type { Value } from "@adaptiveTypes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 } from "@adaptiveTypes/index.ts"
-import type { TableColumnGroupAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"

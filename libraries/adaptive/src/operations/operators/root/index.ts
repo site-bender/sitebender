@@ -23,7 +23,11 @@ const root =
 		if (resolvedIndex.right === 0) {
 			return {
 				left: [
-					{ tag: "Error", operation: "Root", message: "The index of a root cannot be zero." },
+					{
+						tag: "Error",
+						operation: "Root",
+						message: "The index of a root cannot be zero.",
+					},
 				],
 			}
 		}

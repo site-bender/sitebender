@@ -1,11 +1,17 @@
-import type { ComparatorConfig, LogicalConfig, Operand, OperatorConfig, Value } from "@adaptiveTypes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type { TemplateAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
@@ -83,7 +89,9 @@ export const Template =
 			? [children]
 			: []
 
-		return Filtered("template")(((a: Record<string, unknown>) => filterAttributes(a as TemplateAttributes)))(attributes)(filteredChildren as Array<ElementConfig>)
+		return Filtered("template")(
+			(a: Record<string, unknown>) => filterAttributes(a as TemplateAttributes),
+		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Template

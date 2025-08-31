@@ -1,3 +1,5 @@
+import type { InputTextAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { InputTextAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,10 +7,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { InputTextAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { InputTextAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
@@ -17,6 +16,8 @@ import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import Input from "../index.ts"
 
 /**

@@ -29,10 +29,11 @@ const adaptToElementConfig = (op: InputOp): any => {
 	return elementLike
 }
 
-const getValue = (op: InputOp) => (localValues?: Record<string, unknown>): AnyEither => {
-	const ec = adaptToElementConfig(op)
-	// Delegate to the pending DOM implementation
-	return pendingGetValue(ec as never)(localValues)
-}
+const getValue =
+	(op: InputOp) => (localValues?: Record<string, unknown>): AnyEither => {
+		const ec = adaptToElementConfig(op)
+		// Delegate to the pending DOM implementation
+		return pendingGetValue(ec as never)(localValues)
+	}
 
 export default getValue

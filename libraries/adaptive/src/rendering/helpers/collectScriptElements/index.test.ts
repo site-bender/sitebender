@@ -20,7 +20,9 @@ const setupDocument = (html: string): HTMLDocument => {
 }
 
 // Helper to create component data from DOM attributes
-const createComponentFromElement = (element: Element): Record<string, unknown> => {
+const createComponentFromElement = (
+	element: Element,
+): Record<string, unknown> => {
 	const component: Record<string, unknown> = {}
 
 	// Extract scripts from data-scripts attribute
@@ -246,7 +248,9 @@ Deno.test("collectScriptElements edge cases", async (t) => {
 	})
 
 	await t.step("should handle deeply nested structures", () => {
-		let nested: { scripts?: unknown[]; children?: unknown[] } = { scripts: ["deep.js"] as unknown[] }
+		let nested: { scripts?: unknown[]; children?: unknown[] } = {
+			scripts: ["deep.js"] as unknown[],
+		}
 
 		// Create a 10-level nested structure
 		for (let i = 0; i < 10; i++) {
@@ -462,7 +466,9 @@ Deno.test("collectScriptElements property-based tests", () => {
 					component = { children: [component] } as unknown
 				}
 
-				const result = collectScriptElements(component as Record<string, unknown>)
+				const result = collectScriptElements(
+					component as Record<string, unknown>,
+				)
 				assertEquals(result, scripts)
 			},
 		),

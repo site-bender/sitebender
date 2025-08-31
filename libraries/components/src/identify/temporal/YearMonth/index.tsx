@@ -36,11 +36,15 @@ import formatDate from "../../../helpers/formatters/formatDate/index.ts"
 import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
 import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
-export type Props = Omit<TemporalBaseProps, "showZone" | "timezone" | "format"> & {
-	// Display format
-	format?: "numeric" | "short" | "medium" | "long" | "full"
-	children?: string | ((formatted: { display: string; datetime: string }) => JSX.Element)
-}
+export type Props =
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "format">
+	& {
+		// Display format
+		format?: "numeric" | "short" | "medium" | "long" | "full"
+		children?:
+			| string
+			| ((formatted: { display: string; datetime: string }) => JSX.Element)
+	}
 
 export default function YearMonth({
 	value,
@@ -96,7 +100,11 @@ export default function YearMonth({
 		// Use Intl.DateTimeFormat with specific options
 		const options = formatOptions || {
 			year: "numeric" as const,
-			month: (format === "medium" ? "short" : (format === "long" || format === "full" ? "long" : "short")) as "short" | "long",
+			month: (format === "medium"
+				? "short"
+				: (format === "long" || format === "full" ? "long" : "short")) as
+					| "short"
+					| "long",
 			calendar,
 		}
 

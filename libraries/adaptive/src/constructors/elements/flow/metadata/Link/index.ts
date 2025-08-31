@@ -1,3 +1,6 @@
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { LinkAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,18 +8,20 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { LinkAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
-import { CROSS_ORIGINS, DESTINATIONS, REFERRER_POLICIES, RELS_FOR_LINK } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	DESTINATIONS,
+	REFERRER_POLICIES,
+	RELS_FOR_LINK,
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Filters attributes for Link element
@@ -165,7 +170,9 @@ export const Link = (attributes: LinkElementAttributes = {}): ElementConfig => {
 		},
 		children: [],
 		...(isDefined(calculation) ? { calculation } : {}),
-		...(isDefined(dataset) ? { dataset: dataset as Record<string, Value> } : {}),
+		...(isDefined(dataset)
+			? { dataset: dataset as Record<string, Value> }
+			: {}),
 		...(isDefined(display) ? { display } : {}),
 		...(isDefined(format) ? { format } : {}),
 		...(isDefined(scripts) ? { scripts } : {}),

@@ -1,3 +1,5 @@
+import type { IsShorterThanComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsShorterThan JSX Component
  *
@@ -13,7 +15,6 @@
  */
 
 import IsShorterThanConstructor from "@adaptiveSrc/constructors/comparators/length/IsShorterThan/index.ts"
-import type { IsShorterThanComparator, Operand } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "String" | "Array"
@@ -30,5 +31,7 @@ export default function IsShorterThan({
 	const [operand, test] = Array.isArray(children) ? children : [children]
 
 	// IsShorterThan: (datatype) => (operand) => (test)
-		return IsShorterThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand) as unknown as IsShorterThanComparator
+	return IsShorterThanConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	) as unknown as IsShorterThanComparator
 }

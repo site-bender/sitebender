@@ -15,8 +15,12 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ) => {
-	const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
-	const testFn = await composeComparators((op as unknown as { test: unknown }).test as never)
+	const operandFn = await composeComparators(
+		(op as unknown as { operand: unknown }).operand as never,
+	)
+	const testFn = await composeComparators(
+		(op as unknown as { test: unknown }).test as never,
+	)
 	const operand = await operandFn(arg, localValues)
 	const test = await testFn(arg, localValues)
 
@@ -29,7 +33,7 @@ async (
 			Array.isArray(test.right)
 				? test.right
 				: isSet
-				? Array.from((test.right as unknown as Set<unknown>))
+				? Array.from(test.right as unknown as Set<unknown>)
 				: typeof test.right === "string"
 				? Array.from(test.right)
 				: [],
@@ -38,7 +42,9 @@ async (
 		return right.has(operand.right) ? { right: true } : {
 			left: [
 				Error(op.tag)("IsMember")(
-					`${JSON.stringify(operand.right)} is not a member of ${JSON.stringify(test.right)}`,
+					`${JSON.stringify(operand.right)} is not a member of ${
+						JSON.stringify(test.right)
+					}`,
 				),
 			],
 		}

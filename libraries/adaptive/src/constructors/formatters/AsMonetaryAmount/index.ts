@@ -1,9 +1,9 @@
 type MonetaryOptions = { currency: string; style: "currency" }
 type MonetaryFormatterConfig = {
-    tag: "AsMonetaryAmount"
-    locales: string
-    options: MonetaryOptions
-    operand?: unknown
+	tag: "AsMonetaryAmount"
+	locales: string
+	options: MonetaryOptions
+	operand?: unknown
 }
 
 const AsMonetaryAmount =

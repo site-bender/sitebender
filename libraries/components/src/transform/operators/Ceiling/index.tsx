@@ -1,3 +1,5 @@
+import type { CeilingOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Ceiling JSX Component
  *
@@ -11,7 +13,6 @@
  */
 
 import CeilingConstructor from "@adaptiveSrc/constructors/operators/Ceiling/index.ts"
-import type { Operand, CeilingOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"

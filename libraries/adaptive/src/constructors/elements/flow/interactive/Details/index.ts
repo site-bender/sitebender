@@ -1,14 +1,5 @@
-import type {
-	ComparatorConfig,
-	LogicalConfig,
-	Operand,
-	OperatorConfig,
-	Value,
-	ElementConfig,
-} from "../../../../../types/index.ts"
 import type { DetailsAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 import { DETAILS_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
@@ -17,6 +8,16 @@ import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
+import type {
+	ComparatorConfig,
+	ElementConfig,
+	LogicalConfig,
+	Operand,
+	OperatorConfig,
+	Value,
+} from "../../../../../types/index.ts"
 
 /**
  * Filters attributes for Details element

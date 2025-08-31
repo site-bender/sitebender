@@ -25,7 +25,9 @@ const toString = (v: unknown): string =>
 
 export function registerDefaultExecutors(_ctx?: ComposeContext) {
 	// Policies
-	try { registerPolicies() } catch { /* optional: policies are additive */ }
+	try {
+		registerPolicies()
+	} catch { /* optional: policies are additive */ }
 	// Injectors
 	registerInjector(
 		"From.Constant",
@@ -198,92 +200,75 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		},
 	)
 
-	// Temporal comparators: Date, Time, DateTime
-	const T = Temporal as unknown as {
-		PlainDate: {
-			compare(a: Temporal.PlainDate, b: Temporal.PlainDate): number
-		}
-		PlainTime: {
-			compare(a: Temporal.PlainTime, b: Temporal.PlainTime): number
-		}
-		PlainDateTime: {
-			compare(
-				a: Temporal.PlainDateTime,
-				b: Temporal.PlainDateTime,
-			): number
-		}
-	}
-	const parseDate = (v: unknown): Temporal.PlainDate | undefined => {
-		try {
-			if (v && typeof v === "object" && "calendarId" in (v as object)) {
-				return v as Temporal.PlainDate
+	// Temporal comparators: Date, Time, DateTime (guarded for environments without Temporal)
+	// Runtime feature detection to avoid ReferenceError in browsers lacking Temporal
+	// deno-lint-ignore no-explicit-any
+	const TemporalGlobal = (typeof globalThis !== "undefined" && (globalThis as any).Temporal)
+	// Only register temporal comparators if Temporal is available at runtime
+	if (TemporalGlobal) {
+		const T = TemporalGlobal as unknown as {
+			PlainDate: {
+				compare(a: Temporal.PlainDate, b: Temporal.PlainDate): number
 			}
-			const s = toString(v).trim()
-			if (!s) return undefined
-			return Temporal.PlainDate.from(s)
-		} catch {
-			return undefined
-		}
-	}
-	const parseTime = (v: unknown): Temporal.PlainTime | undefined => {
-		try {
-			if (v && typeof v === "object" && "hour" in (v as object) && "minute" in (v as object)) {
-				return v as Temporal.PlainTime
+			PlainTime: {
+				compare(a: Temporal.PlainTime, b: Temporal.PlainTime): number
 			}
-			const s = toString(v).trim()
-			if (!s) return undefined
-			return Temporal.PlainTime.from(s)
-		} catch {
-			return undefined
-		}
-	}
-	const parseDateTime = (v: unknown): Temporal.PlainDateTime | undefined => {
-		try {
-			if (v && typeof v === "object" && "day" in (v as object) && "hour" in (v as object)) {
-				return v as Temporal.PlainDateTime
+			PlainDateTime: {
+				compare(
+					a: Temporal.PlainDateTime,
+					b: Temporal.PlainDateTime,
+				): number
 			}
-			const s = toString(v).trim()
-			if (!s) return undefined
-			return Temporal.PlainDateTime.from(s)
-		} catch {
-			return undefined
 		}
-	}
+		const parseDate = (v: unknown): Temporal.PlainDate | undefined => {
+			try {
+				if (v && typeof v === "object" && "calendarId" in (v as object)) {
+					return v as Temporal.PlainDate
+				}
+				const s = toString(v).trim()
+				if (!s) return undefined
+				// Use runtime TemporalGlobal for parsing to avoid type coupling
+				// deno-lint-ignore no-explicit-any
+				return (TemporalGlobal as any).PlainDate.from(s)
+			} catch {
+				return undefined
+			}
+		}
+		const parseTime = (v: unknown): Temporal.PlainTime | undefined => {
+			try {
+				if (
+					v && typeof v === "object" && "hour" in (v as object) &&
+					"minute" in (v as object)
+				) {
+					return v as Temporal.PlainTime
+				}
+				const s = toString(v).trim()
+				if (!s) return undefined
+				// deno-lint-ignore no-explicit-any
+				return (TemporalGlobal as any).PlainTime.from(s)
+			} catch {
+				return undefined
+			}
+		}
+		const parseDateTime = (v: unknown): Temporal.PlainDateTime | undefined => {
+			try {
+				if (
+					v && typeof v === "object" && "day" in (v as object) &&
+					"hour" in (v as object)
+				) {
+					return v as Temporal.PlainDateTime
+				}
+				const s = toString(v).trim()
+				if (!s) return undefined
+				// deno-lint-ignore no-explicit-any
+				return (TemporalGlobal as any).PlainDateTime.from(s)
+			} catch {
+				return undefined
+			}
+		}
 
-	// Date
-	registerComparator("IsAfterDate", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const da = parseDate(a)
-		const db = parseDate(b)
-		if (!da || !db) return false
-		return T.PlainDate.compare(da, db) > 0
-	})
-	registerComparator("IsBeforeDate", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const da = parseDate(a)
-		const db = parseDate(b)
-		if (!da || !db) return false
-		return T.PlainDate.compare(da, db) < 0
-	})
-	registerComparator("IsSameDate", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const da = parseDate(a)
-		const db = parseDate(b)
-		if (!da || !db) return false
-		return T.PlainDate.compare(da, db) === 0
-	})
-	registerComparator(
-		"IsNotAfterDate",
-		async (node: ComparatorNode, evalArg) => {
+		// Date
+		registerComparator("IsAfterDate", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -291,12 +276,9 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const da = parseDate(a)
 			const db = parseDate(b)
 			if (!da || !db) return false
-			return T.PlainDate.compare(da, db) <= 0
-		},
-	)
-	registerComparator(
-		"IsNotBeforeDate",
-		async (node: ComparatorNode, evalArg) => {
+			return T.PlainDate.compare(da, db) > 0
+		})
+		registerComparator("IsBeforeDate", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -304,12 +286,9 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const da = parseDate(a)
 			const db = parseDate(b)
 			if (!da || !db) return false
-			return T.PlainDate.compare(da, db) >= 0
-		},
-	)
-	registerComparator(
-		"IsNotSameDate",
-		async (node: ComparatorNode, evalArg) => {
+			return T.PlainDate.compare(da, db) < 0
+		})
+		registerComparator("IsSameDate", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -317,44 +296,50 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const da = parseDate(a)
 			const db = parseDate(b)
 			if (!da || !db) return false
-			return T.PlainDate.compare(da, db) !== 0
-		},
-	)
+			return T.PlainDate.compare(da, db) === 0
+		})
+		registerComparator(
+			"IsNotAfterDate",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDate(a)
+				const db = parseDate(b)
+				if (!da || !db) return false
+				return T.PlainDate.compare(da, db) <= 0
+			},
+		)
+		registerComparator(
+			"IsNotBeforeDate",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDate(a)
+				const db = parseDate(b)
+				if (!da || !db) return false
+				return T.PlainDate.compare(da, db) >= 0
+			},
+		)
+		registerComparator(
+			"IsNotSameDate",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDate(a)
+				const db = parseDate(b)
+				if (!da || !db) return false
+				return T.PlainDate.compare(da, db) !== 0
+			},
+		)
 
-	// Time
-	registerComparator("IsAfterTime", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const ta = parseTime(a)
-		const tb = parseTime(b)
-		if (!ta || !tb) return false
-		return T.PlainTime.compare(ta, tb) > 0
-	})
-	registerComparator("IsBeforeTime", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const ta = parseTime(a)
-		const tb = parseTime(b)
-		if (!ta || !tb) return false
-		return T.PlainTime.compare(ta, tb) < 0
-	})
-	registerComparator("IsSameTime", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		const ta = parseTime(a)
-		const tb = parseTime(b)
-		if (!ta || !tb) return false
-		return T.PlainTime.compare(ta, tb) === 0
-	})
-	registerComparator(
-		"IsNotAfterTime",
-		async (node: ComparatorNode, evalArg) => {
+		// Time
+		registerComparator("IsAfterTime", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -362,12 +347,9 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const ta = parseTime(a)
 			const tb = parseTime(b)
 			if (!ta || !tb) return false
-			return T.PlainTime.compare(ta, tb) <= 0
-		},
-	)
-	registerComparator(
-		"IsNotBeforeTime",
-		async (node: ComparatorNode, evalArg) => {
+			return T.PlainTime.compare(ta, tb) > 0
+		})
+		registerComparator("IsBeforeTime", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -375,12 +357,9 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const ta = parseTime(a)
 			const tb = parseTime(b)
 			if (!ta || !tb) return false
-			return T.PlainTime.compare(ta, tb) >= 0
-		},
-	)
-	registerComparator(
-		"IsNotSameTime",
-		async (node: ComparatorNode, evalArg) => {
+			return T.PlainTime.compare(ta, tb) < 0
+		})
+		registerComparator("IsSameTime", async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
@@ -388,76 +367,115 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const ta = parseTime(a)
 			const tb = parseTime(b)
 			if (!ta || !tb) return false
-			return T.PlainTime.compare(ta, tb) !== 0
-		},
-	)
+			return T.PlainTime.compare(ta, tb) === 0
+		})
+		registerComparator(
+			"IsNotAfterTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const ta = parseTime(a)
+				const tb = parseTime(b)
+				if (!ta || !tb) return false
+				return T.PlainTime.compare(ta, tb) <= 0
+			},
+		)
+		registerComparator(
+			"IsNotBeforeTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const ta = parseTime(a)
+				const tb = parseTime(b)
+				if (!ta || !tb) return false
+				return T.PlainTime.compare(ta, tb) >= 0
+			},
+		)
+		registerComparator(
+			"IsNotSameTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const ta = parseTime(a)
+				const tb = parseTime(b)
+				if (!ta || !tb) return false
+				return T.PlainTime.compare(ta, tb) !== 0
+			},
+		)
 
-	// DateTime
-	registerComparator(
-		"IsAfterDateTime",
-		async (node: ComparatorNode, evalArg) => {
-			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-			])
-			const da = parseDateTime(a)
-			const db = parseDateTime(b)
-			if (!da || !db) return false
-			return T.PlainDateTime.compare(da, db) > 0
-		},
-	)
-	registerComparator(
-		"IsBeforeDateTime",
-		async (node: ComparatorNode, evalArg) => {
-			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-			])
-			const da = parseDateTime(a)
-			const db = parseDateTime(b)
-			if (!da || !db) return false
-			return T.PlainDateTime.compare(da, db) < 0
-		},
-	)
-	registerComparator(
-		"IsSameDateTime",
-		async (node: ComparatorNode, evalArg) => {
-			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-			])
-			const da = parseDateTime(a)
-			const db = parseDateTime(b)
-			if (!da || !db) return false
-			return T.PlainDateTime.compare(da, db) === 0
-		},
-	)
-	registerComparator(
-		"IsNotAfterDateTime",
-		async (node: ComparatorNode, evalArg) => {
-			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-			])
-			const da = parseDateTime(a)
-			const db = parseDateTime(b)
-			if (!da || !db) return false
-			return T.PlainDateTime.compare(da, db) <= 0
-		},
-	)
-	registerComparator(
-		"IsNotBeforeDateTime",
-		async (node: ComparatorNode, evalArg) => {
-			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-			])
-			const da = parseDateTime(a)
-			const db = parseDateTime(b)
-			if (!da || !db) return false
-			return T.PlainDateTime.compare(da, db) >= 0
-		},
-	)
+		// DateTime
+		registerComparator(
+			"IsAfterDateTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDateTime(a)
+				const db = parseDateTime(b)
+				if (!da || !db) return false
+				return T.PlainDateTime.compare(da, db) > 0
+			},
+		)
+		registerComparator(
+			"IsBeforeDateTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDateTime(a)
+				const db = parseDateTime(b)
+				if (!da || !db) return false
+				return T.PlainDateTime.compare(da, db) < 0
+			},
+		)
+		registerComparator(
+			"IsSameDateTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDateTime(a)
+				const db = parseDateTime(b)
+				if (!da || !db) return false
+				return T.PlainDateTime.compare(da, db) === 0
+			},
+		)
+		registerComparator(
+			"IsNotAfterDateTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDateTime(a)
+				const db = parseDateTime(b)
+				if (!da || !db) return false
+				return T.PlainDateTime.compare(da, db) <= 0
+			},
+		)
+		registerComparator(
+			"IsNotBeforeDateTime",
+			async (node: ComparatorNode, evalArg) => {
+				const [a, b] = await Promise.all([
+					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
+					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				])
+				const da = parseDateTime(a)
+				const db = parseDateTime(b)
+				if (!da || !db) return false
+				return T.PlainDateTime.compare(da, db) >= 0
+			},
+		)
+	}
 
 	// Set membership comparator: InSet(value, set)
 	registerComparator("InSet", async (node: ComparatorNode, evalArg) => {

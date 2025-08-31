@@ -19,8 +19,11 @@ const isPrecisionNumber =
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
 		const operandFn = await composeComparators(op.operand as unknown as never)
 		const operand = await operandFn(arg, localValues)
-		const precision = (op as unknown as { precision?: number; decimalPlaces?: number }).precision ??
-			(op as unknown as { precision?: number; decimalPlaces?: number }).decimalPlaces
+		const precision =
+			(op as unknown as { precision?: number; decimalPlaces?: number })
+				.precision ??
+				(op as unknown as { precision?: number; decimalPlaces?: number })
+					.decimalPlaces
 		const pattern = new RegExp(
 			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${precision}})?$`,
 		)
@@ -36,7 +39,9 @@ const isPrecisionNumber =
 			: {
 				left: [
 					Error(op.tag)("IsPrecisionNumber")(
-						`${String(oright)} is not a precision number of up to ${precision} decimal places.`,
+						`${
+							String(oright)
+						} is not a precision number of up to ${precision} decimal places.`,
 					),
 				],
 			}

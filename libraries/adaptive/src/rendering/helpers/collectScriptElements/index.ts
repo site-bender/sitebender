@@ -10,10 +10,16 @@ const collectScriptElements = (
 			}
 
 			if (key === "children") {
-				const childScripts = (value as Array<ElementConfig> | undefined)?.reduce(
-					(out: Array<string>, item: ElementConfig) => out.concat(collectScriptElements(item as unknown as Record<string, unknown>)),
-					[],
-				)
+				const childScripts = (value as Array<ElementConfig> | undefined)
+					?.reduce(
+						(out: Array<string>, item: ElementConfig) =>
+							out.concat(
+								collectScriptElements(
+									item as unknown as Record<string, unknown>,
+								),
+							),
+						[],
+					)
 
 				if (childScripts) {
 					scripts.push(...childScripts)

@@ -5,11 +5,11 @@ import type {
 	LocalValues,
 	OperationFunction,
 } from "../../../../types/index.ts"
+import type { Value } from "../../../../types/index.ts"
 
 import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isStr from "../../../../guards/isString/index.ts"
-import type { Value } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isString = (op: ComparatorConfig): OperationFunction<boolean> =>

@@ -22,16 +22,35 @@ type SerializedExpr =
 
 // Minimal JSX AST shapes we rely on (subset of Babel AST)
 type JSXTextNode = { type: "JSXText"; value: string }
-type JSXExpressionContainerNode = { type: "JSXExpressionContainer"; expression: unknown }
+type JSXExpressionContainerNode = {
+	type: "JSXExpressionContainer"
+	expression: unknown
+}
 type JSXFragmentNode = { type: "JSXFragment"; children: UnknownJSXNode[] }
 type JSXIdentifierNode = { type: "JSXIdentifier"; name: string }
 type JSXAttributeValue =
 	| { type: "StringLiteral"; value: string }
 	| { type: "JSXExpressionContainer"; expression: unknown }
-type JSXAttributeNode = { type: "JSXAttribute"; name: { name: string }; value?: JSXAttributeValue }
-type JSXOpeningElementNode = { name: JSXIdentifierNode | { name?: { name?: string } }; attributes: JSXAttributeNode[] }
-type JSXElementNode = { type: "JSXElement"; openingElement: JSXOpeningElementNode; children: UnknownJSXNode[] }
-type UnknownJSXNode = JSXTextNode | JSXExpressionContainerNode | JSXFragmentNode | JSXElementNode | { type: string; [k: string]: unknown }
+type JSXAttributeNode = {
+	type: "JSXAttribute"
+	name: { name: string }
+	value?: JSXAttributeValue
+}
+type JSXOpeningElementNode = {
+	name: JSXIdentifierNode | { name?: { name?: string } }
+	attributes: JSXAttributeNode[]
+}
+type JSXElementNode = {
+	type: "JSXElement"
+	openingElement: JSXOpeningElementNode
+	children: UnknownJSXNode[]
+}
+type UnknownJSXNode =
+	| JSXTextNode
+	| JSXExpressionContainerNode
+	| JSXFragmentNode
+	| JSXElementNode
+	| { type: string; [k: string]: unknown }
 
 // --- Sample TSX source (with component) ---
 const source = `
@@ -54,7 +73,12 @@ function createIRFromJSX(node: UnknownJSXNode): IRNode {
 		return { type: "text", value: (node as JSXTextNode).value }
 	}
 	if (node.type === "JSXExpressionContainer") {
-		return { type: "expression", expr: serializeExpression((node as JSXExpressionContainerNode).expression) }
+		return {
+			type: "expression",
+			expr: serializeExpression(
+				(node as JSXExpressionContainerNode).expression,
+			),
+		}
 	}
 	if (node.type === "JSXFragment") {
 		return {
@@ -66,7 +90,9 @@ function createIRFromJSX(node: UnknownJSXNode): IRNode {
 		const opening = (node as JSXElementNode).openingElement
 		const tag = opening.name
 		const tagIsIdentifier = (tag as { type?: string }).type === "JSXIdentifier"
-		const tagName = tagIsIdentifier ? (tag as JSXIdentifierNode).name : ((tag as { name?: { name?: string } }).name?.name ?? "Unknown")
+		const tagName = tagIsIdentifier
+			? (tag as JSXIdentifierNode).name
+			: ((tag as { name?: { name?: string } }).name?.name ?? "Unknown")
 		const isIntrinsic = tagIsIdentifier && /^[a-z]/.test(tagName)
 		const type = isIntrinsic ? "element" : "component"
 		const name = tagName
@@ -111,10 +137,13 @@ function serializeExpression(expr: unknown): SerializedExpr {
 }
 
 // --- Evaluate expression AST safely (demo only) ---
-function evalExpressionAst(ast: SerializedExpr, context: Record<string, unknown>) {
+function evalExpressionAst(
+	ast: SerializedExpr,
+	context: Record<string, unknown>,
+) {
 	switch (ast.type) {
 		case "Identifier":
-	return (context as Record<string, unknown>)[ast.name]
+			return (context as Record<string, unknown>)[ast.name]
 		case "StringLiteral":
 			return ast.value
 		case "NumericLiteral":
@@ -128,7 +157,10 @@ function evalExpressionAst(ast: SerializedExpr, context: Record<string, unknown>
 async function renderIRToHTML(
 	node: IRNode,
 	context: Record<string, unknown>,
-	componentModule: Record<string, (props: Record<string, unknown>) => IRNode | Promise<IRNode>>,
+	componentModule: Record<
+		string,
+		(props: Record<string, unknown>) => IRNode | Promise<IRNode>
+	>,
 ): Promise<string> {
 	switch (node.type) {
 		case "text":
@@ -138,8 +170,16 @@ async function renderIRToHTML(
 		case "element": {
 			const propsStr = Object.entries(node.props || {})
 				.map(([k, v]) =>
-					typeof v === "object" && v !== null && (v as { type?: string }).type === "expression"
-						? `${k}="${String(evalExpressionAst((v as { type: string; expr: SerializedExpr }).expr, context))}"`
+					typeof v === "object" && v !== null &&
+						(v as { type?: string }).type === "expression"
+						? `${k}="${
+							String(
+								evalExpressionAst(
+									(v as { type: string; expr: SerializedExpr }).expr,
+									context,
+								),
+							)
+						}"`
 						: `${k}="${String(v)}"`
 				)
 				.join(" ")
@@ -167,7 +207,7 @@ async function renderIRToHTML(
 			const evaluatedProps: Record<string, unknown> = {}
 			for (const [k, v] of Object.entries(node.props)) {
 				const ve = v as unknown
-				const maybeExpr = (ve as { type?: string; expr?: SerializedExpr })
+				const maybeExpr = ve as { type?: string; expr?: SerializedExpr }
 				evaluatedProps[k] = maybeExpr?.type === "expression"
 					? evalExpressionAst(maybeExpr.expr as SerializedExpr, context)
 					: ve
@@ -195,14 +235,20 @@ traverse(ast, {
 })
 
 // --- Fake dynamic import (in real usage, load from file) ---
-const componentModule: Record<string, (props: Record<string, unknown>) => IRNode> = {
+const componentModule: Record<
+	string,
+	(props: Record<string, unknown>) => IRNode
+> = {
 	Hello: (props) => ({
 		type: "element",
 		name: "div",
 		props: { className: "greeting" },
 		children: [
 			{ type: "text", value: "Hello, " },
-			{ type: "text", value: String((props as Record<string, unknown>).name ?? "") },
+			{
+				type: "text",
+				value: String((props as Record<string, unknown>).name ?? ""),
+			},
 			{ type: "text", value: "!" },
 		],
 	}),

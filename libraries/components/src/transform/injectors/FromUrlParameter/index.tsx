@@ -1,3 +1,9 @@
+import type {
+	Datatype,
+	FromUrlParameterInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * FromUrlParameter JSX Component
  *
@@ -14,7 +20,6 @@
  */
 
 import FromUrlParameterConstructor from "@adaptiveSrc/constructors/injectors/FromUrlParameter/index.ts"
-import type { Datatype, FromUrlParameterInjector, Value } from "@adaptiveTypes/index.ts"
 
 export type FromUrlParameterProps = {
 	segment: number

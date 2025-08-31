@@ -6,8 +6,9 @@ import type {
 	Value,
 } from "@adaptiveTypes/index.ts"
 
-import Error from "../../constructors/Error/index.ts"
 import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+
+import Error from "../../constructors/Error/index.ts"
 import isUndefined from "../../utilities/isUndefined.ts"
 
 interface HydratedConstant {
@@ -25,7 +26,9 @@ const constant = (operation: HydratedConstant): OperationFunction =>
 	const { datatype, value } = operation
 
 	if (value === null || value === undefined) {
-		return Promise.resolve({ left: [Error("Constant")("Constant")("Value is missing.")] })
+		return Promise.resolve({
+			left: [Error("Constant")("Constant")("Value is missing.")],
+		})
 	}
 
 	if (datatype === "Number" || datatype === "Integer") {

@@ -1,7 +1,9 @@
 import type { ElementConfig } from "../../../../types/html/index.ts"
 import type { Value } from "../../../../types/index.ts"
 
-const collectLinkElements = (component: Record<string, unknown>): Array<Value> => {
+const collectLinkElements = (
+	component: Record<string, unknown>,
+): Array<Value> => {
 	const linkElements = Object.entries(component).reduce(
 		(links: Array<Value>, [key, value]: [string, unknown]) => {
 			if (key === "dependencies") {
@@ -10,7 +12,10 @@ const collectLinkElements = (component: Record<string, unknown>): Array<Value> =
 
 			if (key === "children") {
 				const childLinks = (value as Array<ElementConfig> | undefined)?.reduce(
-					(out: Array<Value>, item: ElementConfig) => out.concat(collectLinkElements(item as unknown as Record<string, unknown>)),
+					(out: Array<Value>, item: ElementConfig) =>
+						out.concat(
+							collectLinkElements(item as unknown as Record<string, unknown>),
+						),
 					[],
 				)
 

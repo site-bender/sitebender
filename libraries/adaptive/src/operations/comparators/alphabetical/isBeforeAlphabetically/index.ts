@@ -16,8 +16,12 @@ const isBeforeAlphabetically =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
-	const testFn = await composeComparators((op as unknown as { test: unknown }).test as never)
+		const operandFn = await composeComparators(
+			(op as unknown as { operand: unknown }).operand as never,
+		)
+		const testFn = await composeComparators(
+			(op as unknown as { test: unknown }).test as never,
+		)
 
 		const operand = await operandFn(arg, localValues)
 		if (isLeft(operand)) return operand

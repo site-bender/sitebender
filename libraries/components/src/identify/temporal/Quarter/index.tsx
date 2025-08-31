@@ -38,7 +38,11 @@ import formatDate from "../../../helpers/formatters/formatDate/index.ts"
 import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
-	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format" | "formatOptions"> & {
+	& Omit<
+		TemporalBaseProps,
+		"showZone" | "timezone" | "calendar" | "format" | "formatOptions"
+	>
+	& {
 		// Display format
 		format?: "short" | "medium" | "long"
 
@@ -54,15 +58,17 @@ export type Props =
 		// Fiscal year label
 		fiscalYearLabel?: string
 
-		children?: string | ((formatted: {
-			display: string
-			datetime: string
-			quarter: number
-			year: number
-			startDate: Date
-			endDate: Date
-			isFiscal: boolean
-		}) => JSX.Element)
+		children?:
+			| string
+			| ((formatted: {
+				display: string
+				datetime: string
+				quarter: number
+				year: number
+				startDate: Date
+				endDate: Date
+				isFiscal: boolean
+			}) => JSX.Element)
 	}
 
 // Parse quarter format (YYYY-Qn)

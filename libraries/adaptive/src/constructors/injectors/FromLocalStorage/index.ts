@@ -1,4 +1,8 @@
-import type { Datatype, FromLocalStorageInjector, Value } from "@adaptiveTypes/index.ts"
+import type {
+	Datatype,
+	FromLocalStorageInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
 
 import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 

@@ -3,10 +3,10 @@
 ## Quick start: E2E (Playwright)
 
 1. Install browsers (once):
-	- npx playwright install --with-deps
+   - npx playwright install --with-deps
 2. Run e2e tests:
-	- deno task test:e2e
-	- This starts a static server on http://localhost:5556 and runs tests in tests/e2e/
+   - deno task test:e2e
+   - This starts a static server on http://localhost:5556 and runs tests in tests/e2e/
 
 ## Testing Philosophy
 

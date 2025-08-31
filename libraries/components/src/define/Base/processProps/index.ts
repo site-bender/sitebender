@@ -21,7 +21,9 @@ export default function processProps(
 			.filter(([key, value]) => !shouldSkipProperty(key, value))
 			.reduce<Record<string, unknown>>((acc, [key, value]) => ({
 				...acc,
-				[key === "_type" ? "@type" : key]: processProps(value as Record<string, unknown> | Record<string, unknown>[]),
+				[key === "_type" ? "@type" : key]: processProps(
+					value as Record<string, unknown> | Record<string, unknown>[],
+				),
 			}), {})
 
 		// Flatten subtypeProperties if present

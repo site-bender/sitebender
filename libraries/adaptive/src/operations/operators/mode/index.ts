@@ -24,17 +24,29 @@ const mode =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Mode", message: "Could not resolve all operands." },
+					{
+						tag: "Error",
+						operation: "Mode",
+						message: "Could not resolve all operands.",
+					},
 					...flattened,
 				],
 			}
 		}
 
-		const values = (resolvedOperands as Array<{ right: number }>).map((o) => o.right)
+		const values = (resolvedOperands as Array<{ right: number }>).map((o) =>
+			o.right
+		)
 		const len = values.length
 
 		if (len === 0) {
-			return { left: [{ tag: "Error", operation: "Mode", message: "Cannot take mode of empty array." }] }
+			return {
+				left: [{
+					tag: "Error",
+					operation: "Mode",
+					message: "Cannot take mode of empty array.",
+				}],
+			}
 		}
 
 		const sorted = Object.entries(

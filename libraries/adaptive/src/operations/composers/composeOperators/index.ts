@@ -1,4 +1,8 @@
-import type { AdaptiveError, Operand, OperationFunction } from "@adaptiveTypes/index.ts"
+import type {
+	AdaptiveError,
+	Operand,
+	OperationFunction,
+} from "@adaptiveTypes/index.ts"
 
 import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 import Error from "@adaptiveSrc/constructors/Error/index.ts"
@@ -41,16 +45,16 @@ const composeOperators = async (
 	const hydratedOperation = { ...operation, ...resolvedOperands }
 
 	try {
-	if (operation.type === OPERAND_TYPES.operator) {
+		if (operation.type === OPERAND_TYPES.operator) {
 			const { default: operatorExecutor } = await import(
-		`../../operators/${toCamel(operation.tag)}/index.js`
+				`../../operators/${toCamel(operation.tag)}/index.js`
 			)
 			return operatorExecutor(hydratedOperation)
 		}
 
-	if (operation.type === OPERAND_TYPES.injector) {
+		if (operation.type === OPERAND_TYPES.injector) {
 			const { default: injectorExecutor } = await import(
-		`../../../injectors/${toCamel(operation.tag)}/index.js`
+				`../../../injectors/${toCamel(operation.tag)}/index.js`
 			)
 			return injectorExecutor(hydratedOperation)
 		}
@@ -60,8 +64,12 @@ const composeOperators = async (
 		return () =>
 			Promise.resolve({
 				left: [
-					Error((unreachable as unknown as { tag?: string }).tag || "Unknown")("Operation")(
-						`Unknown type: ${(unreachable as unknown as { type?: string }).type}`,
+					Error((unreachable as unknown as { tag?: string }).tag || "Unknown")(
+						"Operation",
+					)(
+						`Unknown type: ${
+							(unreachable as unknown as { type?: string }).type
+						}`,
 					) as AdaptiveError,
 				],
 			})
@@ -70,7 +78,9 @@ const composeOperators = async (
 			Promise.resolve({
 				left: [
 					Error(operation.tag || "Unknown")("Operation")(
-						`Operation "${operation.tag}" with type "${operation.type}" could not be loaded. ${String(e)}`,
+						`Operation "${operation.tag}" with type "${operation.type}" could not be loaded. ${
+							String(e)
+						}`,
 					) as AdaptiveError,
 				],
 			})

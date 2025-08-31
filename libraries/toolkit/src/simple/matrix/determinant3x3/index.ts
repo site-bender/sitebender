@@ -44,10 +44,12 @@
  * @pure
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const determinant3x3 = (
 	matrix: number[][] | null | undefined,
 ): number => {
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return NaN
 	}
 
@@ -67,15 +69,15 @@ const determinant3x3 = (
 
 	// Check for non-numeric values
 	if (
-		a == null || typeof a !== "number" ||
-		b == null || typeof b !== "number" ||
-		c == null || typeof c !== "number" ||
-		d == null || typeof d !== "number" ||
-		e == null || typeof e !== "number" ||
-		f == null || typeof f !== "number" ||
-		g == null || typeof g !== "number" ||
-		h == null || typeof h !== "number" ||
-		i == null || typeof i !== "number"
+		isNullish(a) || typeof a !== "number" ||
+		isNullish(b) || typeof b !== "number" ||
+		isNullish(c) || typeof c !== "number" ||
+		isNullish(d) || typeof d !== "number" ||
+		isNullish(e) || typeof e !== "number" ||
+		isNullish(f) || typeof f !== "number" ||
+		isNullish(g) || typeof g !== "number" ||
+		isNullish(h) || typeof h !== "number" ||
+		isNullish(i) || typeof i !== "number"
 	) {
 		return NaN
 	}

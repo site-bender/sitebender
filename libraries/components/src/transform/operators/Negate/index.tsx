@@ -1,3 +1,5 @@
+import type { NegateOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Negate JSX Component
  *
@@ -11,7 +13,6 @@
  */
 
 import NegateConstructor from "@adaptiveSrc/constructors/operators/Negate/index.ts"
-import type { Operand, NegateOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"

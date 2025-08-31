@@ -5,7 +5,9 @@ import type {
 	LocalValues,
 	OperationFunction,
 } from "@adaptiveTypes/index.ts"
+
 import { isLeft } from "@adaptiveTypes/index.ts"
+
 import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
@@ -14,7 +16,9 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const operandFn = await composeComparators((op as unknown as { operand: unknown }).operand as never)
+	const operandFn = await composeComparators(
+		(op as unknown as { operand: unknown }).operand as never,
+	)
 	const operand = await operandFn(arg, localValues)
 
 	if (isLeft(operand)) return operand
@@ -25,7 +29,9 @@ async (
 
 	return {
 		left: [
-			Error(op.tag)("IsCalendar")(`${JSON.stringify(operand.right)} is not a valid calendar id.`),
+			Error(op.tag)("IsCalendar")(
+				`${JSON.stringify(operand.right)} is not a valid calendar id.`,
+			),
 		],
 	}
 }

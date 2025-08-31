@@ -1,3 +1,6 @@
+import type { AriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { InlineFrameAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,12 +8,11 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { AriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { InlineFrameAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
-import { REFERRER_POLICIES, SANDBOXES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import {
+	REFERRER_POLICIES,
+	SANDBOXES,
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
 import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
 import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
@@ -20,13 +22,21 @@ import isString from "@adaptiveSrc/guards/isString/index.ts"
 import isSubsetOf from "@adaptiveSrc/guards/isSubsetOf/index.ts"
 import isValidIframeAllow from "@adaptiveSrc/guards/isValidIframeAllow/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended IFrame attributes including reactive properties and ARIA
  */
 export type IFrameElementAttributes =
 	& InlineFrameAttributes
-	& Pick<AriaAttributes, "role" | "aria-label" | "aria-labelledby" | "aria-describedby" | "aria-hidden">
+	& Pick<
+		AriaAttributes,
+		| "role"
+		| "aria-label"
+		| "aria-labelledby"
+		| "aria-describedby"
+		| "aria-hidden"
+	>
 	& {
 		calculation?: Operand
 		dataset?: Record<string, Value>
@@ -193,7 +203,9 @@ export const IFrame = (
 		},
 		children: [], // Void element
 		...(isDefined(calculation) ? { calculation } : {}),
-		...(isDefined(dataset) ? { dataset: dataset as Record<string, Value> } : {}),
+		...(isDefined(dataset)
+			? { dataset: dataset as Record<string, Value> }
+			: {}),
 		...(isDefined(display) ? { display } : {}),
 		...(isDefined(format) ? { format } : {}),
 		...(isDefined(scripts) ? { scripts } : {}),

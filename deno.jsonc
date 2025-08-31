@@ -25,7 +25,7 @@
 		"test:components": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts'",
 		"test:components:strict": "deno test --unstable-temporal 'libraries/components/tests/**/*.test.ts'",
 		"test:toolkit": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts'",
-		"test:docs:strict": "deno test --unstable-temporal 'docs/tests/**/*.test.ts'",
+		"test:docs:strict": "deno task --cwd docs test:build",
 		"test:adaptive:cov": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage coverage",
 		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage coverage",
 		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",

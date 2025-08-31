@@ -1,3 +1,5 @@
+import type { FromArgumentInjector } from "@adaptiveTypes/index.ts"
+
 /**
  * FromArgument JSX Component
  *
@@ -12,7 +14,6 @@
  */
 
 import FromArgumentConstructor from "@adaptiveSrc/constructors/injectors/FromArgument/index.ts"
-import type { FromArgumentInjector } from "@adaptiveTypes/index.ts"
 
 export type FromArgumentProps = {
 	name: string

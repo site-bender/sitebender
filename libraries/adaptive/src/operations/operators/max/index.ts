@@ -17,7 +17,11 @@ const max =
 	): Promise<Either<Array<AdaptiveError>, number | string>> => {
 		if (operands.length === 0) {
 			return {
-				left: [{ tag: "Error", operation: "Max", message: "Cannot get maximum of an empty list." }],
+				left: [{
+					tag: "Error",
+					operation: "Max",
+					message: "Cannot get maximum of an empty list.",
+				}],
 			}
 		}
 
@@ -30,13 +34,23 @@ const max =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Max", message: "Could not resolve all operands." },
+					{
+						tag: "Error",
+						operation: "Max",
+						message: "Could not resolve all operands.",
+					},
 					...flattened,
 				],
 			}
 		}
 
-		return { right: Math.max(...(resolvedOperands as Array<{ right: number | string }>).map((o) => Number(o.right))) }
+		return {
+			right: Math.max(
+				...(resolvedOperands as Array<{ right: number | string }>).map((o) =>
+					Number(o.right)
+				),
+			),
+		}
 	}
 
 export default max

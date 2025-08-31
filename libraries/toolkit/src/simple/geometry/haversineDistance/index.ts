@@ -1,4 +1,5 @@
 import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the great-circle distance between two geographic points
@@ -127,11 +128,11 @@ const haversineDistance = (
 (
 	radius: number = 6371, // Earth's mean radius in km
 ): number => {
-	if (point1 == null || !Array.isArray(point1) || point1.length !== 2) {
+	if (isNullish(point1) || !Array.isArray(point1) || point1.length !== 2) {
 		return NaN
 	}
 
-	if (point2 == null || !Array.isArray(point2) || point2.length !== 2) {
+	if (isNullish(point2) || !Array.isArray(point2) || point2.length !== 2) {
 		return NaN
 	}
 
@@ -140,10 +141,10 @@ const haversineDistance = (
 
 	// Validate coordinates
 	if (
-		lat1 == null || typeof lat1 !== "number" ||
-		lon1 == null || typeof lon1 !== "number" ||
-		lat2 == null || typeof lat2 !== "number" ||
-		lon2 == null || typeof lon2 !== "number"
+		isNullish(lat1) || typeof lat1 !== "number" ||
+		isNullish(lon1) || typeof lon1 !== "number" ||
+		isNullish(lat2) || typeof lat2 !== "number" ||
+		isNullish(lon2) || typeof lon2 !== "number"
 	) {
 		return NaN
 	}
@@ -159,7 +160,7 @@ const haversineDistance = (
 	}
 
 	// Validate radius
-	if (radius == null || typeof radius !== "number" || radius <= 0) {
+	if (isNullish(radius) || typeof radius !== "number" || radius <= 0) {
 		return NaN
 	}
 

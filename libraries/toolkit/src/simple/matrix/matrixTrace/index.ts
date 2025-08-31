@@ -33,10 +33,12 @@
  * @pure
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const matrixTrace = (
 	matrix: Array<Array<number>> | null | undefined,
 ): number => {
-	if (matrix == null || !Array.isArray(matrix)) {
+	if (isNullish(matrix) || !Array.isArray(matrix)) {
 		return NaN
 	}
 

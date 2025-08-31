@@ -1,3 +1,5 @@
+import type { ComparatorConfig, LogicalConfig } from "@adaptiveTypes/index.ts"
+
 /**
  * And JSX Component
  *
@@ -18,7 +20,6 @@
  */
 
 import AndConstructor from "@adaptiveSrc/constructors/comparators/algebraic/And/index.ts"
-import type { ComparatorConfig, LogicalConfig } from "@adaptiveTypes/index.ts"
 
 export type AndProps = {
 	children?: JSX.Element | JSX.Element[]
@@ -30,7 +31,9 @@ export default function And({
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// And constructor signature: (datatype) => (operands)
-	return AndConstructor("Boolean")(childArray as unknown as Array<
-		ComparatorConfig | LogicalConfig
-	>)
+	return AndConstructor("Boolean")(
+		childArray as unknown as Array<
+			ComparatorConfig | LogicalConfig
+		>,
+	)
 }

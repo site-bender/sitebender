@@ -18,10 +18,14 @@ async (
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, number>> => {
 	const resolvedTable = await table(arg, localValues)
-	if (isLeft(resolvedTable)) return resolvedTable as Either<AdaptiveError[], number>
+	if (isLeft(resolvedTable)) {
+		return resolvedTable as Either<AdaptiveError[], number>
+	}
 
 	const resolvedAmount = await amount(arg, localValues)
-	if (isLeft(resolvedAmount)) return resolvedAmount as Either<AdaptiveError[], number>
+	if (isLeft(resolvedAmount)) {
+		return resolvedAmount as Either<AdaptiveError[], number>
+	}
 
 	try {
 		const arr = typeof resolvedTable.right === "string"
@@ -30,12 +34,19 @@ async (
 
 		if (not(Array.isArray(arr))) {
 			return {
-				left: [{ tag: "Error", operation: "ProportionedRate", message: "Table is not an array." }],
+				left: [{
+					tag: "Error",
+					operation: "ProportionedRate",
+					message: "Table is not an array.",
+				}],
 			}
 		}
 
 		const [ratio] = (arr as Array<[number, number]>).reduce(
-			([out, remaining]: [number, number], [amount, rate]: [number, number]) => {
+			(
+				[out, remaining]: [number, number],
+				[amount, rate]: [number, number],
+			) => {
 				const amt = Math.min(remaining, amount ?? Number.MAX_VALUE)
 
 				return [out + rate * (amt < 0 ? 0 : amt), remaining - amount]
@@ -46,7 +57,11 @@ async (
 		return { right: ratio / resolvedAmount.right }
 	} catch (e) {
 		return {
-			left: [{ tag: "Error", operation: "ProportionedRate", message: `Failed to parse JSON table: ${e}` }],
+			left: [{
+				tag: "Error",
+				operation: "ProportionedRate",
+				message: `Failed to parse JSON table: ${e}`,
+			}],
 		}
 	}
 }

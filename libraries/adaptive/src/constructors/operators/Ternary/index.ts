@@ -1,4 +1,9 @@
-import type { Datatype, Operand, TernaryOperator } from "../../../types/index.ts"
+import type {
+	Datatype,
+	Operand,
+	TernaryOperator,
+} from "../../../types/index.ts"
+
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
 
 const Ternary =

@@ -39,10 +39,12 @@
  * @pure
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const identityMatrix = (
 	size: number | null | undefined,
 ): number[][] | number => {
-	if (size == null || typeof size !== "number") {
+	if (isNullish(size) || typeof size !== "number") {
 		return NaN
 	}
 

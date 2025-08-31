@@ -21,7 +21,11 @@ export type ElementConfig = {
 }
 type Options = { level?: number }
 
-const buildDomTree = (parent: HTMLElement) => (config: ElementConfig) => (options: Options = {}) => {
+const buildDomTree = (parent: HTMLElement) =>
+(config: ElementConfig) =>
+(
+	options: Options = {},
+) => {
 	const { level: lvl = 0 } = options
 	const {
 		attributes = {},
@@ -54,7 +58,10 @@ const buildDomTree = (parent: HTMLElement) => (config: ElementConfig) => (option
 	format && addFormatter(elem)(format)
 	addDataAttributes(elem)(dataset)
 	addValidation(elem)(validation)
-	appendChildren(elem)(children as Array<ElementConfig | TextNodeConfig>)({ ...options, level })
+	appendChildren(elem)(children as Array<ElementConfig | TextNodeConfig>)({
+		...options,
+		level,
+	})
 
 	parent.appendChild(elem)
 

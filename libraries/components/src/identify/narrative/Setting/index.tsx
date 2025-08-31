@@ -1,4 +1,5 @@
 import type BaseProps from "../../../../types/index.ts"
+
 import { Event, Place } from "../../../define/index.ts"
 import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
 

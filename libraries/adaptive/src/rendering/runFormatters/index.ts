@@ -20,13 +20,18 @@ const runFormatters = () => {
 	)
 
 	unique(elementIds).forEach(async (id: string) => {
-		const elem = document.getElementById(id) as (HTMLElement & {
-			__sbFormat?: (arg?: unknown) => Promise<unknown> | unknown
-			value?: string
-		}) | null
+		const elem = document.getElementById(id) as
+			| (HTMLElement & {
+				__sbFormat?: (arg?: unknown) => Promise<unknown> | unknown
+				value?: string
+			})
+			| null
 
 		if (elem?.__sbFormat) {
-			await elem.__sbFormat((elem as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value)
+			await elem.__sbFormat(
+				(elem as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)
+					.value,
+			)
 		}
 	})
 }

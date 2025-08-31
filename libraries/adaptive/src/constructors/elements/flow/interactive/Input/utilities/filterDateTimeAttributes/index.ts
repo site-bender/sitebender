@@ -12,7 +12,9 @@ import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index
  * Filters attributes for date/time input types
  * Validates common date/time input attributes
  */
-const filterDateTimeAttributes = (attributes: Record<string, Value>): Record<string, Value> => {
+const filterDateTimeAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const {
 		autocomplete,
 		form,
@@ -28,7 +30,10 @@ const filterDateTimeAttributes = (attributes: Record<string, Value>): Record<str
 	} = attributes
 	const filteredAttrs: Record<string, unknown> = {}
 	Object.assign(filteredAttrs, pickGlobalAttributes(attrs))
-	Object.assign(filteredAttrs, filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete))
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+	)
 	Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
 	Object.assign(filteredAttrs, filterAttribute(isString)("list")(list))
 	Object.assign(filteredAttrs, filterAttribute(isString)("max")(max))

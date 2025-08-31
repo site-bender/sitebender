@@ -17,7 +17,11 @@ const min =
 	): Promise<Either<Array<AdaptiveError>, number | string>> => {
 		if (operands.length === 0) {
 			return {
-				left: [{ tag: "Error", operation: "Min", message: "Cannot get minimum of an empty list." }],
+				left: [{
+					tag: "Error",
+					operation: "Min",
+					message: "Cannot get minimum of an empty list.",
+				}],
 			}
 		}
 
@@ -30,13 +34,23 @@ const min =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Min", message: "Could not resolve all operands." },
+					{
+						tag: "Error",
+						operation: "Min",
+						message: "Could not resolve all operands.",
+					},
 					...flattened,
 				],
 			}
 		}
 
-		return { right: Math.min(...(resolvedOperands as Array<{ right: number | string }>).map((o) => Number(o.right))) }
+		return {
+			right: Math.min(
+				...(resolvedOperands as Array<{ right: number | string }>).map((o) =>
+					Number(o.right)
+				),
+			),
+		}
 	}
 
 export default min

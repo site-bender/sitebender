@@ -31,7 +31,11 @@ const add =
 			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					{ tag: "Error", operation: "Add", message: "Could not resolve all addends." },
+					{
+						tag: "Error",
+						operation: "Add",
+						message: "Could not resolve all addends.",
+					},
 					...flattened,
 				],
 			}

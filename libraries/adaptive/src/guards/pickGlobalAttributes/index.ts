@@ -1,5 +1,5 @@
-import type { Value } from "@adaptiveTypes/index.ts"
 import type { GlobalAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import isBoolean from "../../guards/isBoolean/index.ts"
 import isCharacter from "../../guards/isCharacter/index.ts"
@@ -75,7 +75,9 @@ const toCanonicalKey = (key: string): keyof GlobalAttributes | undefined => {
 		case "spellcheck":
 			return "spellCheck"
 		default:
-			return (key in globalAttributes ? key : undefined) as keyof GlobalAttributes | undefined
+			return (key in globalAttributes ? key : undefined) as
+				| keyof GlobalAttributes
+				| undefined
 	}
 }
 
@@ -85,21 +87,32 @@ const toCanonicalKey = (key: string): keyof GlobalAttributes | undefined => {
  * @param attributes - Input attributes object
  * @returns Validated global attributes
  */
-export default function pickGlobalAttributes(attributes: Record<string, unknown> = {}): GlobalAttributes {
+export default function pickGlobalAttributes(
+	attributes: Record<string, unknown> = {},
+): GlobalAttributes {
 	const result: Partial<GlobalAttributes> = {}
 
 	for (const [rawKey, value] of Object.entries(attributes)) {
-		const guard = (globalAttributes as Record<string, (v: Value) => boolean>)[rawKey]
-			?? (globalAttributes as Record<string, (v: Value) => boolean>)[rawKey.toLowerCase()]
-		const canonical = toCanonicalKey(rawKey) ?? (rawKey as keyof GlobalAttributes)
+		const guard =
+			(globalAttributes as Record<string, (v: Value) => boolean>)[rawKey] ??
+				(globalAttributes as Record<string, (v: Value) => boolean>)[
+					rawKey.toLowerCase()
+				]
+		const canonical = toCanonicalKey(rawKey) ??
+			(rawKey as keyof GlobalAttributes)
 
 		if (guard && guard(value as Value)) {
-			if (canonical === "style" && typeof value === "object" && value !== null) {
-				;(result as Record<string, unknown>)["style"] = Object.entries(value as Record<string, unknown>)
+			if (
+				canonical === "style" && typeof value === "object" && value !== null
+			) {
+				;(result as Record<string, unknown>)["style"] = Object.entries(
+					value as Record<string, unknown>,
+				)
 					.map(([k, v]) => `${k}: ${String(v)}`)
 					.join("; ")
 			} else {
-				;(result as Record<string, unknown>)[canonical as string] = value as unknown
+				;(result as Record<string, unknown>)[canonical as string] =
+					value as unknown
 			}
 		}
 	}

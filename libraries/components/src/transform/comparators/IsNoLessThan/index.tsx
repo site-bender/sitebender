@@ -1,3 +1,10 @@
+import type {
+	IsNoLessThanComparator,
+	NumericDatatype,
+	Operand,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * IsNoLessThan JSX Component
  *
@@ -13,7 +20,6 @@
  */
 
 import IsNoLessThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsNoLessThan/index.ts"
-import type { IsNoLessThanComparator, Operand, NumericDatatype, TemporalDatatype } from "@adaptiveTypes/index.ts"
 
 type AmountDatatype = NumericDatatype | TemporalDatatype
 
@@ -32,5 +38,7 @@ export default function IsNoLessThan({
 	const [operand, test] = Array.isArray(children) ? children : [children]
 
 	// IsNoLessThan: (datatype) => (operand) => (test)
-		return IsNoLessThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand) as unknown as IsNoLessThanComparator
+	return IsNoLessThanConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	) as unknown as IsNoLessThanComparator
 }

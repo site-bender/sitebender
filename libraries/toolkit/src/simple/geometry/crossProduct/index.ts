@@ -36,17 +36,19 @@
  * surfaceNormal([0, 1, 0])  // [0, 0, 1] (pointing up)
  * ```
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const crossProduct = (
 	a: number[] | null | undefined,
 ) =>
 (
 	b: number[] | null | undefined,
 ): number[] => {
-	if (a == null || !Array.isArray(a)) {
+	if (isNullish(a) || !Array.isArray(a)) {
 		return [NaN, NaN, NaN]
 	}
 
-	if (b == null || !Array.isArray(b)) {
+	if (isNullish(b) || !Array.isArray(b)) {
 		return [NaN, NaN, NaN]
 	}
 
@@ -57,7 +59,7 @@ const crossProduct = (
 
 	// Check for non-numeric values
 	const isValidVector = (v: number[]) =>
-		v.every((comp) => comp != null && typeof comp === "number")
+		v.every((comp) => !isNullish(comp) && typeof comp === "number")
 
 	if (!isValidVector(a) || !isValidVector(b)) {
 		return [NaN, NaN, NaN]

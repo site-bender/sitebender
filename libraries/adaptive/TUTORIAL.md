@@ -27,6 +27,7 @@ All examples use only the current MVP features that ship with the defaults.
 ## Minimal page template
 
 Below is a single HTML page that includes:
+
 - Your HTML elements with `data-ir-id` anchors
 - One IR script (`id="ir-root"`)
 - A tiny module that imports the hydrator and registers the default executors
@@ -187,6 +188,7 @@ Note: In this monorepo, imports are shown as relative to the library. In your ap
 ```
 
 ### Why no page navigation on submit?
+
 `On.Submit` automatically calls `preventDefault()` so your actions decide what happens (e.g., update the URL via `Act.SetQueryString`). You keep full control.
 
 ## Authoring tips

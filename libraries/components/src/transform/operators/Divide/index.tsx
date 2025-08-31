@@ -1,3 +1,9 @@
+import type {
+	DivideOperator,
+	NumericDatatype,
+	Operand,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * Divide JSX Component
  *
@@ -18,7 +24,6 @@
  */
 
 import DivideConstructor from "@adaptiveSrc/constructors/operators/Divide/index.ts"
-import type { NumericDatatype, Operand, DivideOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: NumericDatatype
@@ -35,5 +40,7 @@ export default function Divide({
 	const [dividend, divisor] = Array.isArray(children) ? children : [children]
 
 	// The parser will extract Value/By or Dividend/Divisor from children
-	return DivideConstructor(actualType)(dividend as unknown as Operand)(divisor as unknown as Operand)
+	return DivideConstructor(actualType)(dividend as unknown as Operand)(
+		divisor as unknown as Operand,
+	)
 }

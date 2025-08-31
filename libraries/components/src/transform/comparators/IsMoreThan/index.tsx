@@ -1,3 +1,10 @@
+import type {
+	IsMoreThanComparator,
+	NumericDatatype,
+	Operand,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * IsMoreThan JSX Component
  *
@@ -12,7 +19,6 @@
  */
 
 import IsMoreThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsMoreThan/index.ts"
-import type { IsMoreThanComparator, Operand, NumericDatatype, TemporalDatatype } from "@adaptiveTypes/index.ts"
 
 type AmountDatatype = NumericDatatype | TemporalDatatype
 
@@ -30,5 +36,7 @@ export default function IsMoreThan({
 	const actualType: AmountDatatype = (datatype || type) as AmountDatatype
 	const [operand, test] = Array.isArray(children) ? children : [children]
 	// IsMoreThan: (datatype) => (operand) => (test)
-		return IsMoreThanConstructor(actualType)(operand as unknown as Operand)(test as unknown as Operand) as unknown as IsMoreThanComparator
+	return IsMoreThanConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	) as unknown as IsMoreThanComparator
 }

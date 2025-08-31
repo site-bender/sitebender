@@ -1,5 +1,6 @@
-import Input from "../index.ts"
 import filterCheckedAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterCheckedAttributes/index.ts"
+
+import Input from "../index.ts"
 
 /**
  * Creates an InputRadio element configuration object

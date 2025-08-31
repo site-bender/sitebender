@@ -1,3 +1,6 @@
+import type { AnchorAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { AnchorAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -5,11 +8,7 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@adaptiveTypes/index.ts"
-import type { AnchorAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { AnchorAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import { LINK_WITH_HREF_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
 import {
 	FORM_TARGETS,
@@ -24,6 +23,7 @@ import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
 import isString from "@adaptiveSrc/guards/isString/index.ts"
 import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Anchor attributes including reactive properties and ARIA

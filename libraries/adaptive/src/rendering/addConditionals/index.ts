@@ -1,5 +1,6 @@
-import composeConditional from "../../operations/composers/composeConditional/index.ts"
 import type { LocalValues } from "../../types/index.ts"
+
+import composeConditional from "../../operations/composers/composeConditional/index.ts"
 import collectConditionals from "../../rendering/helpers/collectConditionals/index.ts"
 import collectDependencies from "../../rendering/helpers/collectDependencies/index.ts"
 import makeDisplayToggle from "./makeDisplayToggle/index.ts"
@@ -9,24 +10,34 @@ type ComponentLike = { attributes?: { id?: string }; [key: string]: unknown }
 const addConditionals = (element: Element) => (component: ComponentLike) => {
 	const conditionals = collectConditionals(component)
 
-	Object.entries(conditionals as Record<string, unknown>).forEach(([id, conditional]) => {
-		const testCondition = composeConditional(conditional) as (arg: unknown, localValues?: LocalValues) => Promise<boolean>
-		const displayToggle = makeDisplayToggle(id)(testCondition)
-		const selectors = collectDependencies(conditional)
+	Object.entries(conditionals as Record<string, unknown>).forEach(
+		([id, conditional]) => {
+			const testCondition = composeConditional(conditional) as (
+				arg: unknown,
+				localValues?: LocalValues,
+			) => Promise<boolean>
+			const displayToggle = makeDisplayToggle(id)(testCondition)
+			const selectors = collectDependencies(conditional)
 
-	const callbacks = (document.__sbDisplayCallbacks ??= {})
+			const callbacks = (document.__sbDisplayCallbacks ??= {})
 
-		selectors.forEach((selector) => {
-			const { id } = (element as ParentNode).querySelector(selector) ||
-				document.querySelector(selector) ||
-				({} as { id?: string })
+			selectors.forEach((selector) => {
+				const { id } = (element as ParentNode).querySelector(selector) ||
+					document.querySelector(selector) ||
+					({} as { id?: string })
 
-			if (id) {
-				callbacks[id] ??= []
-				callbacks[id].push(displayToggle as unknown as (arg?: unknown, localValues?: unknown) => void | Promise<void>)
-			}
-		})
-	})
+				if (id) {
+					callbacks[id] ??= []
+					callbacks[id].push(
+						displayToggle as unknown as (
+							arg?: unknown,
+							localValues?: unknown,
+						) => void | Promise<void>,
+					)
+				}
+			})
+		},
+	)
 }
 
 export default addConditionals

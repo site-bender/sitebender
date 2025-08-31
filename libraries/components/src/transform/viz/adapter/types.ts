@@ -1,3 +1,3 @@
 export type VizAdapter = {
-  hydrate(root?: Document | HTMLElement): void
+	hydrate(root?: Document | HTMLElement): void
 }

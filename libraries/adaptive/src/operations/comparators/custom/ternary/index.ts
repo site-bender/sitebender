@@ -14,9 +14,15 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const condFn = await composeComparators((op as unknown as { condition: unknown }).condition as never)
-	const falseFn = await composeComparators((op as unknown as { ifFalse: unknown }).ifFalse as never)
-	const trueFn = await composeComparators((op as unknown as { ifTrue: unknown }).ifTrue as never)
+	const condFn = await composeComparators(
+		(op as unknown as { condition: unknown }).condition as never,
+	)
+	const falseFn = await composeComparators(
+		(op as unknown as { ifFalse: unknown }).ifFalse as never,
+	)
+	const trueFn = await composeComparators(
+		(op as unknown as { ifTrue: unknown }).ifTrue as never,
+	)
 
 	const condition = await condFn(arg, localValues)
 	if (isLeft(condition)) return condition

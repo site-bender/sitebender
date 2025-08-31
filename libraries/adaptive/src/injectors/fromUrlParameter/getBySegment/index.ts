@@ -1,7 +1,8 @@
-import Error from "../../../constructors/Error/index.ts"
-import castValue from "../../../utilities/castValue/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import isUndefined from "@toolkit/simple/validation/isUndefined/index.ts"
+
+import Error from "../../../constructors/Error/index.ts"
+import castValue from "../../../utilities/castValue/index.ts"
 
 // deno-lint-ignore no-explicit-any
 const getBySegment = (op: any) => {

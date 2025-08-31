@@ -1,3 +1,5 @@
+import type { Operand, PowerOperator } from "@adaptiveTypes/index.ts"
+
 /**
  * Power JSX Component
  *
@@ -12,7 +14,6 @@
  */
 
 import PowerConstructor from "@adaptiveSrc/constructors/operators/Power/index.ts"
-import type { Operand, PowerOperator } from "@adaptiveTypes/index.ts"
 
 export type Props = {
 	type?: "Number"

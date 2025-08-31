@@ -10,9 +10,9 @@ export type AriaAttributes = Record<string, unknown>
 
 // Re-export commonly used element constructor types so src files can import from here
 export type {
+	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
 	TextNodeConfig,
 	TextNodeConstructor,
-	ChildFilter,
 } from "../constructors/elements/types/index.ts"
