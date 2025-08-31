@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+
 /**
  * Merges objects together with target properties taking precedence
  *
@@ -40,7 +42,7 @@ const merge = <T extends Record<string | symbol, Value>>(
 (target: T | null | undefined): T & Record<string | symbol, Value> => {
 	// Combine all sources and target into one array
 	const allObjects = [...sources, target].filter((obj) =>
-		obj != null && typeof obj === "object"
+		isNotNullish(obj) && typeof obj === "object"
 	)
 
 	// Use reduce to merge all objects

@@ -1,5 +1,8 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if an object has a property at a given path
  *
@@ -55,7 +58,7 @@ const hasPath = (
 ): boolean => {
 	// Empty path - check if obj itself exists and is an object
 	if (path.length === 0) {
-		return obj != null && typeof obj === "object"
+		return isNotNullish(obj) && typeof obj === "object"
 	}
 
 	// Use recursive function to traverse path
@@ -66,7 +69,7 @@ const hasPath = (
 		if (remaining.length === 0) return true
 
 		// Check if current is an object that can have properties
-		if (current == null || typeof current !== "object") {
+		if (isNullish(current) || typeof current !== "object") {
 			return false
 		}
 

@@ -104,14 +104,20 @@
   - Special functions (2): besselJ, betaFunction
 - **Total files completed**: 353 files (341 from previous + 12 from this session)
 
-#### Session 15 (Current)
+#### Session 15
 
 - **Migrated 12 additional files**:
   - Temporal functions (1): endOfMonth
   - Math functions (11): sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation
 - **Total files completed**: 365 files (353 from previous + 12 from this session)
-- **Remaining files**: ~134 files with direct null/undefined comparisons
-- **Remaining instances**: ~225 direct comparisons (28 replaced in this session)
+
+#### Session 16 (Current)
+
+- **Migrated 12 additional object files**:
+  - Object functions (12): propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys
+- **Total files completed**: 377 files (365 from previous + 12 from this session)
+- **Remaining files**: ~122 files with direct null/undefined comparisons
+- **Remaining instances**: ~212 direct comparisons (13 replaced in this session)
 
 ### Remaining Work
 
@@ -176,7 +182,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (365 files)
+### Already Completed Files (377 files)
 
 These files have already been updated and should be skipped:
 
@@ -192,7 +198,7 @@ These files have already been updated and should be skipped:
 - `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue
 - `simple/map/`: withDefault
 - `simple/math/`: add, clamp, combinations, sum
-- `simple/object/`: path, smartMerge, where, whereEq
+- `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys
 - `simple/special/`: stirlingApproximation
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone

@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a property satisfies a predicate function
  *
@@ -44,7 +46,7 @@ const propSatisfies = <V extends Value>(
 	obj: T,
 ): boolean => {
 	// Handle null/undefined objects
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return false
 	}
 

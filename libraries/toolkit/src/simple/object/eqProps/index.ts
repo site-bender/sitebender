@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if two objects have equal values for a specified property
  *
@@ -76,7 +78,7 @@ const eqProps = <K extends string | symbol>(
 		if (typeof a !== typeof b) return false
 
 		// Null or undefined (already handled by === above if both are same)
-		if (a == null || b == null) return false
+		if (isNullish(a) || isNullish(b)) return false
 
 		// Primitives (already handled by === above if equal)
 		if (typeof a !== "object" || typeof b !== "object") return false

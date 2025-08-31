@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns an array of an object's own enumerable property names
  *
@@ -43,7 +45,7 @@
 const keys = <T extends object>(
 	obj: T | null | undefined,
 ): Array<keyof T & string> => {
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return []
 	}
 

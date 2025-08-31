@@ -36,7 +36,7 @@ type ConditionalMarker = {
 }
 type AuthorizedMarker = {
 	__kind: "control:authorized"
-	policy: { type: "policy"; tag: string }
+	policy: { type: "policy"; tag: string; args?: Record<string, unknown> }
 	ifTrue: Array<unknown>
 	ifFalse: Array<unknown>
 }
@@ -306,7 +306,16 @@ function compileOperand(x: unknown): Node {
 			id: nextC(),
 			// Policies compile as comparator-like nodes; runtime will resolve by tag
 			cmp: x.policy.tag.startsWith("Is.") ? x.policy.tag : x.policy.tag,
-			args: [],
+			args: [
+				{
+					v: "0.1.0",
+					kind: "injector",
+					id: nextI(),
+					injector: "From.Constant",
+					datatype: "String",
+					args: { value: x.policy.args ?? {} },
+				} as unknown as Node,
+			],
 		}
 		const thenFirst = Array.isArray(x.ifTrue)
 			? x.ifTrue.find((n) =>

@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the value of a property or a default value if not found
  *
@@ -42,7 +44,7 @@ const propOr = <D extends Value>(
 	obj: T,
 ): V | D => {
 	// Handle null/undefined objects
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return defaultValue
 	}
 

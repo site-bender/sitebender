@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns an array of values for the specified properties
  *
@@ -42,7 +44,7 @@ const props = <K extends Array<string | symbol>>(
 	obj: T,
 ): Array<Value | undefined> => {
 	// Handle null/undefined objects
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return keys.map(() => undefined)
 	}
 

@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the value of a property from an object
  *
@@ -50,7 +52,7 @@ const prop = <T extends Record<string | symbol, Value>, K extends keyof T>(
 	obj: T,
 ): T[K] | undefined => {
 	// Handle null/undefined objects
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return undefined
 	}
 

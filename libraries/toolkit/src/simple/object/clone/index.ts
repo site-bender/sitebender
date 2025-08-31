@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates a deep clone of an object
  *
@@ -53,7 +55,7 @@ import type { Value } from "../../../types/index.ts"
  */
 const clone = <T extends Value>(obj: T): T => {
 	// Handle primitives and null/undefined
-	if (obj === null || obj === undefined || typeof obj !== "object") {
+	if (isNullish(obj) || typeof obj !== "object") {
 		return obj
 	}
 
@@ -62,7 +64,7 @@ const clone = <T extends Value>(obj: T): T => {
 
 	const cloneRecursive = (source: Value): Value => {
 		// Handle primitives
-		if (source === null || source === undefined || typeof source !== "object") {
+		if (isNullish(source) || typeof source !== "object") {
 			return source
 		}
 

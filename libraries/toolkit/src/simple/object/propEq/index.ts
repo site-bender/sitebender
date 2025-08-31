@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a property equals a specific value
  *
@@ -55,7 +57,7 @@ const propEq = <K extends string | symbol, V extends Value>(
 	obj: T,
 ): boolean => {
 	// Handle null/undefined objects
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return undefined === value
 	}
 

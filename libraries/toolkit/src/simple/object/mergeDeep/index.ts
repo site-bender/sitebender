@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+
 /**
  * Deeply merges objects recursively with target properties taking precedence
  *
@@ -85,7 +87,7 @@ const mergeDeep = <T extends Record<string | symbol, Value>>(
 
 	// Merge all sources and target using reduce
 	const allToMerge = [...sources, target].filter((x) =>
-		x != null && typeof x === "object"
+		isNotNullish(x) && typeof x === "object"
 	)
 
 	return allToMerge.reduce(
