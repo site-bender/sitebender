@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns an infinite repetition of the given array (generator function)
  *
@@ -53,13 +55,14 @@
 function* cycle<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Generator<T, void, unknown> {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return
 	}
 
 	// Use recursive generator for functional approach
+	const validArray = array as ReadonlyArray<T>
 	function* cycleRecursive(): Generator<T, void, unknown> {
-		yield* array
+		yield* validArray
 		yield* cycleRecursive()
 	}
 

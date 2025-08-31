@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Joins array elements into a string with a separator
  *
@@ -37,6 +39,6 @@
 const join = <T>(separator: string) => (
 	array: ReadonlyArray<T> | null | undefined
 ): string =>
-	array == null || !Array.isArray(array) ? "" : array.join(separator)
+	isNullish(array) || !Array.isArray(array) ? "" : array.join(separator)
 
 export default join

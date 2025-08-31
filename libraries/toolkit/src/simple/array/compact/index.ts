@@ -1,3 +1,5 @@
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Removes undefined values from an array
  *
@@ -14,6 +16,6 @@
  * ```
  */
 const compact = <T>(array: Array<T | null | undefined>): Array<T> =>
-	array.filter((item): item is T => item !== undefined)
+	array.filter((item): item is T => isNotUndefined(item))
 
 export default compact

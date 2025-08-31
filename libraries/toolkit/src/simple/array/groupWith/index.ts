@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Groups consecutive elements that satisfy a binary predicate
  *
@@ -41,7 +43,7 @@ const groupWith = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 

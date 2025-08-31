@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if an array ends with the provided suffix array
  *
@@ -38,11 +40,11 @@ const endsWith = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): boolean => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return false
 	}
 
-	if (suffix == null || !Array.isArray(suffix)) {
+	if (isNullish(suffix) || !Array.isArray(suffix)) {
 		return false
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the most frequently occurring element(s)
  *
@@ -31,7 +33,7 @@
 const findMostCommon = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 
@@ -54,7 +56,7 @@ const findMostCommon = <T>(
 	const maxFrequency = Math.max(...frequencyMap.values())
 
 	// Collect all elements with maximum frequency and sort by first occurrence
-	return Array.from(frequencyMap.entries())
+	return (Array.from(frequencyMap.entries()) as Array<[T, number]>)
 		.filter(([_, count]) => count === maxFrequency)
 		.map(([item]) => item)
 		.sort((a, b) => {

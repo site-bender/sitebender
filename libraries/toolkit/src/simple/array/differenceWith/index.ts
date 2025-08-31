@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns elements in the first array that are not in the second array using a comparator
  *
@@ -50,12 +52,12 @@ const differenceWith = <T, U>(
 (
 	minuend: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (minuend == null || !Array.isArray(minuend)) {
+	if (isNullish(minuend) || !Array.isArray(minuend)) {
 		return []
 	}
 
 	if (
-		subtrahend == null || !Array.isArray(subtrahend) || subtrahend.length === 0
+		isNullish(subtrahend) || !Array.isArray(subtrahend) || subtrahend.length === 0
 	) {
 		return [...minuend]
 	}

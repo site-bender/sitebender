@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Flattens nested arrays by the specified depth
  *
@@ -32,7 +34,7 @@ const flatten = <T, D extends number = 1>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T extends ReadonlyArray<infer U> ? U : T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 

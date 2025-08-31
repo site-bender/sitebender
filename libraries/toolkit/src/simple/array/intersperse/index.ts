@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Inserts a separator element between all elements of an array
  *
@@ -50,7 +52,7 @@ const intersperse = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T | U> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 

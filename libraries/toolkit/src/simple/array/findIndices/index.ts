@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns all indices of elements that satisfy the predicate
  *
@@ -41,7 +43,7 @@ const findIndices = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<number> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 

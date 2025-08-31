@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Groups array elements by the result of a key function
  *
@@ -38,7 +40,7 @@ const groupBy = <T, K extends string | number>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<string, Array<T>> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return {}
 	}
 

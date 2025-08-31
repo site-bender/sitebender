@@ -2,7 +2,9 @@
 
 ## Current Status
 
-### Completed Work (Session 1)
+### Completed Work
+
+#### Session 1
 1. **Created new validation functions** in `libraries/toolkit/src/simple/validation/`:
    - `isNull/index.ts` - Strict null check (=== null)
    - `isNotNull/index.ts` - Strict not null check (!== null)
@@ -12,13 +14,19 @@
 2. **Updated existing validation function**:
    - `isNil/index.ts` - Now delegates to `isNullish` instead of duplicating logic
 
-3. **Partially migrated null/undefined checks** in 31 files (out of 427 that need updating)
+3. **Partially migrated null/undefined checks** in 31 files
+
+#### Session 2 (Current)
+- **Migrated 24 additional array utility files** with validation function replacements
+- **Total files completed**: 163 files (139 from previous + 24 from this session)
+- **Remaining files**: 310 files with direct null/undefined comparisons
+- **Remaining instances**: ~526 direct comparisons (down from 550)
 
 ### Remaining Work
 
 ## CRITICAL: Full Scope of Required Changes
 
-According to the search results, there are **679 instances of direct null/undefined comparisons across 427 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 24 at a session, then update the list of completed files, commit the changes, and stop.**
+According to the latest audit, there are **~526 instances of direct null/undefined comparisons across 310 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 24 at a session, then update the list of completed files, commit the changes, and stop.**
 
 When doing commits, use `ALLOW_TOOLKIT=1 git commit ...`
 
@@ -47,12 +55,12 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (139 files)
+### Already Completed Files (163 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init, indexBy, move, nth, unionWith
+- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime

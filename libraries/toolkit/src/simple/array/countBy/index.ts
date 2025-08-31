@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+
 /**
  * Counts elements of an array according to the values returned by a function
  *
@@ -54,13 +57,13 @@ const countBy = <T, K extends string | number | symbol>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<K, number> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return {} as Record<K, number>
 	}
 
 	return array.reduce((acc, element) => {
 		const key = fn(element)
-		if (key != null) {
+		if (isNotNullish(key)) {
 			return { ...acc, [key]: (acc[key] || 0) + 1 }
 		}
 		return acc

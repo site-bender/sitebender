@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the value closest to a target number
  *
@@ -45,7 +47,7 @@ const closest = (
 (
 	array: ReadonlyArray<number> | null | undefined,
 ): number | null => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return null
 	}
 

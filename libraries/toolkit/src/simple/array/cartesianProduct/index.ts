@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the Cartesian product of two arrays (all possible pairs)
  *
@@ -51,10 +53,10 @@ const cartesianProduct = <T, U>(
 	array2: ReadonlyArray<U> | null | undefined,
 ): Array<[T, U]> => {
 	if (
-		array1 == null ||
+		isNullish(array1) ||
 		!Array.isArray(array1) ||
 		array1.length === 0 ||
-		array2 == null ||
+		isNullish(array2) ||
 		!Array.isArray(array2) ||
 		array2.length === 0
 	) {
