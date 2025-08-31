@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a string contains a substring
  *
@@ -55,11 +57,11 @@ const contains = (
 (
 	str: string | null | undefined,
 ): boolean => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return false
 	}
 
-	if (substring == null || typeof substring !== "string") {
+	if (isNullish(substring) || typeof substring !== "string") {
 		return false
 	}
 

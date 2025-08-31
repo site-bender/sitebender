@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the Levenshtein edit distance between two strings
  *
@@ -69,7 +71,7 @@ const levenshtein = (
 ): number => {
 	// Handle null/undefined cases
 	if (
-		str1 == null || str2 == null || typeof str1 !== "string" ||
+		isNullish(str1) || isNullish(str2) || typeof str1 !== "string" ||
 		typeof str2 !== "string"
 	) {
 		return Infinity

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the index of the last occurrence of a substring
  *
@@ -60,11 +62,11 @@ const lastIndexOf = (
 (
 	str: string | null | undefined,
 ): number => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return -1
 	}
 
-	if (substring == null || typeof substring !== "string") {
+	if (isNullish(substring) || typeof substring !== "string") {
 		return -1
 	}
 

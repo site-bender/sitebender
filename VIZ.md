@@ -112,6 +112,8 @@ The system is fully operational and waiting. Here is the state of our stack:
     ✅ Grafana is connected to the Querier and displaying dashboards.
     ✅ MinIO is running and ready to receive data.
 
+**IMPORTANT NOTE:** MinIO is used for local testing. We will not use MinIO or AWS in production. Instead we will use the Storacha distributed data service (https://storacha.network/). Keep this in mind when planning.
+
 ## Config files
 
 ### Prometheus

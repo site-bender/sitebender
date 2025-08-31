@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Wraps a string at specified width with line breaks
  *
@@ -52,7 +54,7 @@ const wrap = (
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string" || str.length === 0) {
+	if (isNullish(str) || typeof str !== "string" || str.length === 0) {
 		return ""
 	}
 
