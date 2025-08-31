@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the minimum value using a mapping function
  *
@@ -67,11 +69,11 @@ const minBy = <T>(
 	const bValue = fn(b)
 
 	// Check if mapped values are valid numbers
-	if (aValue == null || typeof aValue !== "number" || isNaN(aValue)) {
+	if (isNullish(aValue) || typeof aValue !== "number" || isNaN(aValue)) {
 		return NaN as any
 	}
 
-	if (bValue == null || typeof bValue !== "number" || isNaN(bValue)) {
+	if (isNullish(bValue) || typeof bValue !== "number" || isNaN(bValue)) {
 		return NaN as any
 	}
 

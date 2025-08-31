@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Raises a number to a power (exponentiation)
  *
@@ -54,11 +56,11 @@ const power = (
 (
 	base: number | null | undefined,
 ): number => {
-	if (exponent == null || typeof exponent !== "number") {
+	if (isNullish(exponent) || typeof exponent !== "number") {
 		return NaN
 	}
 
-	if (base == null || typeof base !== "number") {
+	if (isNullish(base) || typeof base !== "number") {
 		return NaN
 	}
 

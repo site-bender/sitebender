@@ -1,5 +1,6 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
 import pair from "../../tuple/pair/index.ts"
 
 /**
@@ -56,15 +57,15 @@ const quadratic = (
 (
 	c: number | null | undefined,
 ): Pair<number, number> => {
-	if (a == null || typeof a !== "number") {
+	if (isNullish(a) || typeof a !== "number") {
 		return pair(NaN)(NaN)
 	}
 
-	if (b == null || typeof b !== "number") {
+	if (isNullish(b) || typeof b !== "number") {
 		return pair(NaN)(NaN)
 	}
 
-	if (c == null || typeof c !== "number") {
+	if (isNullish(c) || typeof c !== "number") {
 		return pair(NaN)(NaN)
 	}
 

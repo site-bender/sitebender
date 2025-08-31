@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds all divisors of a positive integer
  *
@@ -40,7 +42,7 @@
 const divisors = (
 	n: number | null | undefined,
 ): Array<number> => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return []
 	}
 

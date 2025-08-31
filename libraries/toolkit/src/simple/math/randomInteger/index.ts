@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Generates a random integer within a specified range
  *
@@ -49,11 +51,11 @@ const randomInteger = (
 (
 	max: number | null | undefined,
 ): number => {
-	if (min == null || typeof min !== "number") {
+	if (isNullish(min) || typeof min !== "number") {
 		return NaN
 	}
 
-	if (max == null || typeof max !== "number") {
+	if (isNullish(max) || typeof max !== "number") {
 		return NaN
 	}
 

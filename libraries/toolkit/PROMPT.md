@@ -37,15 +37,22 @@
 - **Migrated 22 additional array utility files** (rotateLeft, reduceWhile, scan, nub, tail, reverse, minimumBy, omit, rotateRight, pairwise, zip, map, nubBy, span, reduceRight, take, replaceAt, sample, union, lastIndexOf, partitionBy - reject was already done)
 - **Total files completed**: 233 files (211 from previous + 22 from this session)
 
-#### Session 6 (Current)
+#### Session 6
 
 - **Migrated 24 additional files**:
   - Array utilities (14): none, partition, permutations, removeAt, replaceAll, replaceLast, sortBy, sortWith, startsWith, subsequences, symmetricDifference, takeLast, takeWhile, zipObj
   - Activation functions (7): gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
   - Finance functions (3): amortizationSchedule, annuity, compoundInterest, futureValue
 - **Total files completed**: 257 files (233 from previous + 24 from this session)
-- **Remaining files**: ~216 files with direct null/undefined comparisons
-- **Remaining instances**: ~432 direct comparisons (down from 456)
+
+#### Session 7 (Current)
+
+- **Migrated 12 additional files**:
+  - Logic functions (2): nor, and (only JSDoc examples needed updates, no code changes)
+  - Math functions (10): minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode
+- **Total files completed**: 269 files (257 from previous + 12 from this session)
+- **Remaining files**: ~204 files with direct null/undefined comparisons
+- **Remaining instances**: ~408 direct comparisons
 
 ### Remaining Work
 
@@ -132,6 +139,8 @@ These files have already been updated and should be skipped:
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, hypotenuse, polarToCartesian, radiansToDegrees, sine, tangent
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
+- `simple/logic/`: nor, and
+- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode
 - `state/`: store.ts
 - `types/`: index.ts
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a number is prime
  *
@@ -50,7 +52,7 @@
 const isPrime = (
 	n: number | null | undefined,
 ): boolean => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return false
 	}
 

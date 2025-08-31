@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the most frequent value(s) in an array of numbers
  *
@@ -39,7 +41,7 @@
 const mode = (
 	numbers: Array<number> | null | undefined,
 ): Array<number> => {
-	if (numbers == null || !Array.isArray(numbers)) {
+	if (isNullish(numbers) || !Array.isArray(numbers)) {
 		return []
 	}
 
@@ -49,7 +51,7 @@ const mode = (
 
 	// Check for non-numeric values
 	const hasInvalidValue = numbers.some(
-		(num) => num == null || typeof num !== "number" || isNaN(num),
+		(num) => isNullish(num) || typeof num !== "number" || isNaN(num),
 	)
 
 	if (hasInvalidValue) {
