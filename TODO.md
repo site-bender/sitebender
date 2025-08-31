@@ -21,7 +21,7 @@ Short, high‑leverage items to tackle incrementally while keeping the repo gree
 ## Auth follow‑ups
 - [ ] Wire default policy registration into bootstrap so IsAuthenticated is available by default.
 - [ ] Add HasRole policy and When.Authorized args (e.g., roles: string[]).
-- [ ] Add From.RequestAuth adapter (SSR‑safe) and a guard helper for 401/403 flows.
+- [ ] Add From.Authentication injector (SSR‑safe) and a guard helper for 401/403 flows. [Name pending approval in NAMING.md; alternatives: From.Authenticator, From.Authorizer, From.Identity]
 
 ## Docs
 - [ ] Expand VIZ.md with renderer adapter interface sketch and a minimal end‑to‑end diagram.

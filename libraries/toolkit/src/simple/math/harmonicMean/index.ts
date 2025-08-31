@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the harmonic mean of an array of positive numbers
  *
@@ -40,7 +42,7 @@
 const harmonicMean = (
 	values: Array<number> | null | undefined,
 ): number => {
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
 

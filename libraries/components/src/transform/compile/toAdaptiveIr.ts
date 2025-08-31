@@ -230,6 +230,14 @@ function inferAnchorFromActionArgs(action?: ActionMarker): string | undefined {
 }
 
 function compileOperand(x: unknown): Node {
+	// Pass-through for already-constructed IR nodes (from nested compile steps)
+	if (
+		isObject(x) &&
+		typeof (x as { v?: unknown }).v === "string" &&
+		typeof (x as { kind?: unknown }).kind === "string"
+	) {
+		return x as unknown as Node
+	}
 	// Primitive → Constant injector
 	if (
 		typeof x === "string" || typeof x === "number" || typeof x === "boolean"
@@ -654,11 +662,16 @@ export default function compileToAdaptive(
 				const firstConditional = kids.find(isConditionalMarker) as
 					| ConditionalMarker
 					| undefined
+				const firstAuthorized = kids.find(isAuthorizedMarker) as
+					| AuthorizedMarker
+					| undefined
 				const handler = firstAction
 					? compileAction(firstAction)
 					: (firstConditional
 						? compileOperand(firstConditional) as unknown as ActionNode
-						: undefined)
+						: (firstAuthorized
+							? compileOperand(firstAuthorized) as unknown as ActionNode
+							: undefined))
 				const inferred = inferAnchorFromActionArgs(firstAction)
 				const anchor = n.target || lastAnchor || inferred
 				if (anchor && handler) {

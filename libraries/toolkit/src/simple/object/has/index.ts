@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if an object has a property at the specified path
  *
@@ -41,7 +43,7 @@ import type { Value } from "../../../types/index.ts"
 const has =
 	(pathInput: string | Array<string | number>) => (obj: Value): boolean => {
 		// Handle null/undefined object
-		if (obj == null) return false
+		if (isNullish(obj)) return false
 
 		// Convert string path to array
 		const keys = typeof pathInput === "string"
@@ -59,7 +61,7 @@ const has =
 			if (remainingKeys.length === 0) return true
 
 			// Check if we can continue traversing
-			if (current == null || typeof current !== "object") {
+			if (isNullish(current) || typeof current !== "object") {
 				return false
 			}
 

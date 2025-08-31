@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates an object from an array of [key, value] pairs
  *
@@ -41,7 +43,7 @@ import type { Value } from "../../../types/index.ts"
 const fromEntries = <K extends string | number | symbol, V extends Value>(
 	entries: Iterable<readonly [K, V]> | null | undefined,
 ): Record<K, V> => {
-	if (entries == null) {
+	if (isNullish(entries)) {
 		return {} as Record<K, V>
 	}
 
@@ -51,7 +53,7 @@ const fromEntries = <K extends string | number | symbol, V extends Value>(
 
 		return entriesArray.reduce((acc, entry) => {
 			// Skip invalid entries
-			if (entry == null || !Array.isArray(entry) || entry.length < 2) {
+			if (isNullish(entry) || !Array.isArray(entry) || entry.length < 2) {
 				return acc
 			}
 

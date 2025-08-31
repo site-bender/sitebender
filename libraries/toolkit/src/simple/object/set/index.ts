@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Immutably sets a value at a nested path in an object
  *
@@ -69,7 +71,7 @@ const set =
 			const isLastKey = rest.length === 0
 
 			// Initialize current if null/undefined
-			const initializedCurrent = current == null
+			const initializedCurrent = isNullish(current)
 				? (shouldBeArray(key) ? [] : {})
 				: current
 

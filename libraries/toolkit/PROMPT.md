@@ -111,13 +111,20 @@
   - Math functions (11): sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation
 - **Total files completed**: 365 files (353 from previous + 12 from this session)
 
-#### Session 16 (Current)
+#### Session 16
 
 - **Migrated 12 additional object files**:
   - Object functions (12): propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys
 - **Total files completed**: 377 files (365 from previous + 12 from this session)
-- **Remaining files**: ~122 files with direct null/undefined comparisons
-- **Remaining instances**: ~212 direct comparisons (13 replaced in this session)
+
+#### Session 17 (Current)
+
+- **Migrated 12 additional files**:
+  - Object functions (7): mapValues, has, pickBy, pathOr, set, fromEntries, where
+  - Math functions (5): harmonicMean, sign, min, geometricMean, round
+- **Total files completed**: 389 files (377 from previous + 12 from this session)
+- **Remaining files**: ~111 files with direct null/undefined comparisons
+- **Remaining instances**: ~199 direct comparisons (13 replaced in this session)
 
 ### Remaining Work
 
@@ -182,7 +189,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (377 files)
+### Already Completed Files (389 files)
 
 These files have already been updated and should be skipped:
 
@@ -198,7 +205,7 @@ These files have already been updated and should be skipped:
 - `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue
 - `simple/map/`: withDefault
 - `simple/math/`: add, clamp, combinations, sum
-- `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys
+- `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries
 - `simple/special/`: stirlingApproximation
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
@@ -206,7 +213,7 @@ These files have already been updated and should be skipped:
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
-- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation
+- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation, harmonicMean, sign, min, geometricMean, round
 - `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3

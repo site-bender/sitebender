@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Maps a function over all values in an object, preserving keys
  *
@@ -49,7 +51,7 @@ const mapValues = <T extends Value, R extends Value>(
 <K extends string | symbol>(
 	obj: Record<K, T> | null | undefined,
 ): Record<K, R> => {
-	if (obj == null || typeof obj !== "object") {
+	if (isNullish(obj) || typeof obj !== "object") {
 		return {} as Record<K, R>
 	}
 
