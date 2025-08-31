@@ -1,3 +1,5 @@
+import isNullish from "../../../validation/isNullish/index.ts"
+
 /**
  * Converts various values to boolean
  *
@@ -51,7 +53,7 @@
  */
 const toBoolean = (value: unknown): boolean => {
 	// Handle nullish values
-	if (value == null) {
+	if (isNullish(value)) {
 		return false
 	}
 

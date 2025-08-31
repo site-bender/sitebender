@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates acceleration from force and mass (a = F/m)
  *
@@ -44,11 +46,11 @@ const acceleration = (
 (
 	mass: number | null | undefined,
 ): number => {
-	if (force == null || typeof force !== "number") {
+	if (isNullish(force) || typeof force !== "number") {
 		return NaN
 	}
 
-	if (mass == null || typeof mass !== "number") {
+	if (isNullish(mass) || typeof mass !== "number") {
 		return NaN
 	}
 

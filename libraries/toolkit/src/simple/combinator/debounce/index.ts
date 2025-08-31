@@ -1,3 +1,5 @@
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Returns a debounced version of a function that delays invoking
  * until after wait milliseconds have elapsed since the last call
@@ -32,7 +34,7 @@ const debounce = <T extends ReadonlyArray<unknown>, R>(
 	let timeoutId: number | undefined
 
 	const debounced = (...args: T): void => {
-		if (timeoutId !== undefined) {
+		if (isNotUndefined(timeoutId)) {
 			clearTimeout(timeoutId)
 		}
 		timeoutId = setTimeout(() => {
@@ -42,7 +44,7 @@ const debounce = <T extends ReadonlyArray<unknown>, R>(
 	}
 
 	debounced.cancel = (): void => {
-		if (timeoutId !== undefined) {
+		if (isNotUndefined(timeoutId)) {
 			clearTimeout(timeoutId)
 			timeoutId = undefined
 		}

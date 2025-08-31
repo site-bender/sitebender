@@ -33,6 +33,25 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		"From.Constant",
 		(node: InjectorNode) => (node.args as { value?: unknown }).value,
 	)
+	registerInjector(
+		"From.Authentication",
+		(node: InjectorNode, ctx?: ComposeContext) => {
+			// Safely read from ctx.localValues with optional dot-path
+			const path = String((node.args as { path?: unknown }).path ?? "user")
+			const root = ctx?.localValues as Record<string, unknown> | undefined
+			if (!root) return undefined
+			const parts = path.split(".").filter(Boolean)
+			let cur: unknown = root
+			for (const p of parts) {
+				if (cur && typeof cur === "object" && p in (cur as Record<string, unknown>)) {
+					cur = (cur as Record<string, unknown>)[p]
+				} else {
+					return undefined
+				}
+			}
+			return cur
+		},
+	)
 	registerInjector("From.Element", (_node: InjectorNode) => {
 		const selector = String(
 			(_node.args as { selector?: unknown }).selector ?? "",

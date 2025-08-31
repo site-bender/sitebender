@@ -1,3 +1,6 @@
+import isNull from "../../validation/isNull/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Safely parses a value as a floating-point number, returns null on failure
  *
@@ -36,7 +39,7 @@
  */
 const safeParseFloat = (value: unknown): number | null => {
 	// Handle null and undefined
-	if (value === null || value === undefined) {
+	if (isNull(value) || isUndefined(value)) {
 		return null
 	}
 

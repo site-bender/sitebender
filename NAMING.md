@@ -29,11 +29,11 @@ Status keys
   - [x] From.Constant
   - [x] From.Element
   - [x] From.QueryString
-  - [ ] From.Authentication (auth context: user, roles, permissions)
+  - [x] From.Authentication (auth context: user, roles, permissions)
   - [ ] From.Identity (alias option for Authentication)
-  - [ ] From.Authorizer (service handle for policy checks; consider scope)
-  - [ ] From.Store (ephemeral program/UI state)
-  - [ ] From.SPARQL (Fuseki adapter)
+  - [x] From.Authorizer (service handle for policy checks; consider scope)
+  - [x] From.Store (ephemeral program/UI state)
+  - [ ] From.SparqlQuery (Fuseki adapter)
 
 - Comparators (conditions)
   - Canonical namespace: `Is.*`

@@ -1,3 +1,7 @@
+import isNull from "../../../validation/isNull/index.ts"
+import isUndefined from "../../../validation/isUndefined/index.ts"
+import isNotNull from "../../../validation/isNotNull/index.ts"
+
 /**
  * Safely converts any value to its string representation
  *
@@ -49,10 +53,10 @@
  */
 const toString = (value: unknown): string => {
 	// Handle nullish values
-	if (value === null) {
+	if (isNull(value)) {
 		return "null"
 	}
-	if (value === undefined) {
+	if (isUndefined(value)) {
 		return "undefined"
 	}
 
@@ -132,7 +136,7 @@ const toString = (value: unknown): string => {
 		try {
 			const seen = new WeakSet()
 			return JSON.stringify(value, (key, val) => {
-				if (typeof val === "object" && val !== null) {
+				if (typeof val === "object" && isNotNull(val)) {
 					if (seen.has(val)) {
 						return "[Circular]"
 					}

@@ -1,3 +1,5 @@
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Converts values to JSON strings
  *
@@ -120,7 +122,7 @@
 const toJson = (indent: number = 0) => (value: unknown): string | null => {
 	// Handle values that are not serializable
 	if (
-		value === undefined || typeof value === "symbol" ||
+		isUndefined(value) || typeof value === "symbol" ||
 		typeof value === "function"
 	) {
 		return null

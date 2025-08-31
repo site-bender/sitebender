@@ -1,3 +1,6 @@
+import isNull from "../../../validation/isNull/index.ts"
+import isUndefined from "../../../validation/isUndefined/index.ts"
+
 /**
  * Strictly parses values as integers
  *
@@ -48,10 +51,10 @@
  */
 const toInteger = (value: unknown): number => {
 	// Handle nullish values
-	if (value === null) {
+	if (isNull(value)) {
 		return 0
 	}
-	if (value === undefined) {
+	if (isUndefined(value)) {
 		return NaN
 	}
 

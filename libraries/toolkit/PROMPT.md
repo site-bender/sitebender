@@ -117,14 +117,22 @@
   - Object functions (12): propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys
 - **Total files completed**: 377 files (365 from previous + 12 from this session)
 
-#### Session 17 (Current)
+#### Session 17
 
 - **Migrated 12 additional files**:
   - Object functions (7): mapValues, has, pickBy, pathOr, set, fromEntries, where
   - Math functions (5): harmonicMean, sign, min, geometricMean, round
 - **Total files completed**: 389 files (377 from previous + 12 from this session)
-- **Remaining files**: ~111 files with direct null/undefined comparisons
-- **Remaining instances**: ~199 direct comparisons (13 replaced in this session)
+
+#### Session 18 (Current)
+
+- **Migrated 12 additional files**:
+  - Conversion functions (8): toJson, safeParse, safeParseInt, castValue/toInteger, castValue/toBoolean, castValue/toString, castValue/toFloat, safeParseFloat
+  - Combinator functions (3): throttle, debounce, unless (no changes needed)
+  - Physics functions (1): acceleration
+- **Total files completed**: 401 files (389 from previous + 12 from this session)
+- **Remaining files**: ~99 files with direct null/undefined comparisons
+- **Remaining instances**: ~178 direct comparisons (21 replaced in this session)
 
 ### Remaining Work
 
@@ -189,7 +197,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (389 files)
+### Already Completed Files (401 files)
 
 These files have already been updated and should be skipped:
 
@@ -200,12 +208,14 @@ These files have already been updated and should be skipped:
 - `simple/set/`: add, delete, difference, filter, fromArray, has, intersection, isEmpty, toArray, union
 - `simple/activation/`: gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
 - `simple/async/`: parallel, parallelLimit, race, waterfall
-- `simple/combinator/`: memoizeKey
-- `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime
+- `simple/combinator/`: memoizeKey, throttle, debounce, unless
+- `simple/conversion/`: toJson, safeParse, safeParseInt, safeParseFloat
+- `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime, toInteger, toBoolean, toString, toFloat
 - `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue
 - `simple/map/`: withDefault
 - `simple/math/`: add, clamp, combinations, sum
 - `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries
+- `simple/physics/`: acceleration
 - `simple/special/`: stirlingApproximation
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone

@@ -1,3 +1,5 @@
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Safely parses a value with a parser function, returning null on failure
  *
@@ -50,7 +52,7 @@ const safeParse =
 		try {
 			const result = parser(value)
 			// Return null if parser returns undefined
-			return result === undefined ? null : result
+			return isUndefined(result) ? null : result
 		} catch {
 			// Return null for any parsing errors
 			return null

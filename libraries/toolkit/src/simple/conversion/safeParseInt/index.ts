@@ -1,3 +1,6 @@
+import isNull from "../../validation/isNull/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Safely parses a value as an integer, returns null on failure
  *
@@ -46,7 +49,7 @@ const safeParseInt =
 		}
 
 		// Handle null and undefined
-		if (value === null || value === undefined) {
+		if (isNull(value) || isUndefined(value)) {
 			return null
 		}
 
