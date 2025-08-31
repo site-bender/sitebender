@@ -54,11 +54,9 @@
 
 		// === Hooks ===
 		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install.ts",
-		"lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts"
-	},
+		"lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts",
 
-	// Convenience tasks for local infra (docker compose stack)
-	"tasksLocal": {
+		// === Local Infra (Docker Compose) ===
 		"infra:up": "docker compose up -d",
 		"infra:down": "docker compose down -v",
 		"infra:restart": "deno task infra:down && deno task infra:up",
@@ -66,8 +64,9 @@
 		"infra:ps": "docker compose ps",
 		"infra:config": "docker compose config",
 		"infra:grafana:reset": "rm -rf ./ops/grafana/provisioning/dashboards/* && deno task infra:restart",
-		"infra:reload:prom": "curl -X POST http://localhost:9090/-/reload || true"
+		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true"
 	},
+
 
 	// Shared compiler options for all workspace members
 	"compilerOptions": {

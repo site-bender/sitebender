@@ -1,16 +1,11 @@
 apiVersion: 1
 
-disableDeletion: false
-folders:
-  - uid: sys
-    title: System
-    overwrite: true
-    folders:
-      - uid: infra
-        title: Infrastructure
-        overwrite: true
-        # You can drop JSON dashboards into the same folder
-        # and they will be loaded automatically
-        folder: /etc/grafana/provisioning/dashboards
-        type: file
-        allowUiUpdates: true
+providers:
+  - name: 'default'
+    orgId: 1
+    folder: 'General'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /dashboards

@@ -11,8 +11,8 @@ volumes:
   fuseki_config: {}
 
 services:
+  # Apache Jena Fuseki - RDF Database and SPARQL Endpoint
   fuseki:
-    # Apache Jena Fuseki - RDF Database and SPARQL Endpoint
     image: stain/jena-fuseki:latest
     container_name: fuseki
     restart: unless-stopped
@@ -24,7 +24,7 @@ services:
       - fuseki_data:/fuseki-base/databases # Persistent volume for database files
       - fuseki_config:/fuseki-base/configuration # Persistent volume for config
     ports:
-      - "3030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
+      - "43030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
     networks:
       - monitoring # Attach it to the same network so Prometheus can scrape it
     # Optional: Healthcheck to ensure the service is fully started
@@ -35,33 +35,33 @@ services:
       retries: 3
       start_period: 40s
 
-  prometheus:
   # The monitoring backbone: time-series database
+  prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--config.file=/config/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
       - "--web.enable-lifecycle" # Allows config reload via API call
       - "--storage.tsdb.min-block-duration=2h"
       - "--storage.tsdb.max-block-duration=2h"
     volumes:
-      - ./ops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./ops/prometheus:/config/prometheus:ro
       - prometheus_data:/prometheus
     ports:
-      - "9090:9090"
+      - "44090:9090"
     networks:
       - monitoring
 
-  node-exporter:
   # Exposes hardware & OS metrics from the host
+  node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
     restart: unless-stopped
     # REMOVED the complex volumes and command
     ports:
-      - "9100:9100"
+      - "49100:9100"
     networks:
       - monitoring
     # ADD these lines to run with necessary Linux capabilities
@@ -72,8 +72,8 @@ services:
     volumes:
       - /:/host:ro
 
-  thanos-sidecar:
   # THANOS SIDECAR - Attaches to Prometheus and uploads data to MinIO
+  thanos-sidecar:
     image: quay.io/thanos/thanos:v0.39.2
     container_name: thanos-sidecar
     user: "65534"
@@ -82,18 +82,18 @@ services:
       - sidecar
       - --prometheus.url=http://prometheus:9090
       - --tsdb.path=/prometheus
-      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
       - prometheus_data:/prometheus
-      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+      - ./ops/thanos:/config/thanos:ro
     depends_on:
       - prometheus
       - minio
     networks:
       - monitoring
 
+  # THANOS QUERIER - The single endpoint for Grafana to query all data (Prometheus + MinIO)
   thanos-querier:
-  # THANOS QUERIER - Single endpoint for Grafana to query Prometheus + MinIO
     image: quay.io/thanos/thanos:v0.39.2
     container_name: thanos-querier
     restart: unless-stopped
@@ -104,14 +104,14 @@ services:
       - --endpoint=thanos-sidecar:10901
       - --endpoint=thanos-storegateway:10901
     ports:
-      - "10902:10902" # Expose the HTTP Query UI and API
+      - "45002:10902" # Expose the HTTP Query UI and API
     depends_on:
       - thanos-sidecar
     networks:
       - monitoring
 
-  thanos-storegateway:
   # THANOS STOREGATEWAY - Serves metrics from the blocks in MinIO (long-term storage)
+  thanos-storegateway:
     image: quay.io/thanos/thanos:v0.39.2
     container_name: thanos-storegateway
     restart: unless-stopped
@@ -119,16 +119,16 @@ services:
       - store
       - --http-address=0.0.0.0:10909
       - --grpc-address=0.0.0.0:10908
-      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
-      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+      - ./ops/thanos:/config/thanos:ro
     depends_on:
       - minio
     networks:
       - monitoring
 
-  grafana:
   # The visualization dashboard
+  grafana:
     image: grafana/grafana-enterprise:latest
     container_name: grafana
     restart: unless-stopped
@@ -138,17 +138,18 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_PROTOCOL=http1
       - GF_INSTALL_PLUGINS=grafana-polystat-panel # Optional: useful for advanced panels
+      - GF_PATHS_PROVISIONING=/provisioning
     volumes:
       - grafana_data:/var/lib/grafana
-  - ./ops/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
-  - ./ops/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./ops/grafana/provisioning:/provisioning:ro
+      - ./ops/grafana/dashboards:/dashboards:ro
     ports:
-      - "3001:3000" # Map host port 3001 to container port 3000
+      - "43001:3000" # Map host port 43001 to container port 3000
     networks:
       - monitoring
 
-  minio:
   # Local S3-compatible storage for the next phase (Thanos)
+  minio:
     image: minio/minio:latest
     container_name: minio
     restart: unless-stopped
@@ -159,7 +160,26 @@ services:
     volumes:
       - minio_data:/data
     ports:
-      - "9000:9000" # S3 API Port
-      - "9001:9001" # Web UI Port
+      - "49000:9000" # S3 API Port
+      - "49001:9001" # Web UI Port
+    networks:
+      - monitoring
+
+  # Local reverse proxy for pretty hostnames
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - grafana
+      - prometheus
+      - thanos-querier
+      - fuseki
+      - minio
     networks:
       - monitoring

@@ -119,7 +119,7 @@ The system is fully operational and waiting. Here is the state of our stack:
 ### Prometheus
 
 ```yaml
-# config/prometheus.yml
+# ops/prometheus/prometheus.yml
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -146,6 +146,7 @@ scrape_configs:
 ### Thanos
 
 ```yaml
+# ops/thanos/thanos-config.yaml
 type: S3
 config:
   bucket: "thanos" # The bucket name we created (or will be created automatically)
@@ -209,7 +210,7 @@ services:
       - "--storage.tsdb.min-block-duration=2h"
       - "--storage.tsdb.max-block-duration=2h"
     volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./ops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     ports:
       - "9090:9090"
@@ -247,7 +248,7 @@ services:
       - --objstore.config-file=/etc/thanos/minio-bucket.yaml
     volumes:
       - prometheus_data:/prometheus
-      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
     depends_on:
       - prometheus
       - minio
@@ -283,7 +284,7 @@ services:
       - --grpc-address=0.0.0.0:10908
       - --objstore.config-file=/etc/thanos/minio-bucket.yaml
     volumes:
-      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
     depends_on:
       - minio
     networks:
