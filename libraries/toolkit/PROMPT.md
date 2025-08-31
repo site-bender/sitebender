@@ -51,9 +51,37 @@
 
 ## CRITICAL: Full Scope of Required Changes
 
-According to the latest audit, there are **~526 instances of direct null/undefined comparisons across 310 files** in the toolkit that need to be replaced with the appropriate validation functions. **Do files 24 at a session, then update the list of completed files, commit the changes, and stop.**
+According to the latest audit, there are **~526 instances of direct null/undefined comparisons across 310 files** in the toolkit that need to be replaced with the appropriate validation functions.
 
-When doing commits, use `ALLOW_TOOLKIT=1 git commit ...`
+### MANDATORY PROCESS - NO EXCEPTIONS
+
+**Process EXACTLY 12 files per session following these steps:**
+
+1. **PRE-FLIGHT CHECK (MANDATORY)**
+   - Read ONE already-migrated file to observe the EXACT import pattern
+   - Note how imports are done (DEFAULT exports, not named)
+   - Write out the pattern you will follow
+
+2. **VERIFICATION BEFORE ACTION**
+   - Select your 12 target files
+   - Read the FIRST file completely
+   - Show the proposed changes for that FIRST file ONLY
+   - Get confirmation before proceeding to the remaining 11
+
+3. **BATCH PROCESSING**
+   - Only after the first file is verified correct, apply the same pattern to the remaining 11 files
+   - LOOK at existing code patterns, DO NOT assume based on common practices
+   - ALL validation functions use DEFAULT exports: `import isNullish from "..."`
+   - NEVER use named imports: `import { isNullish } from "..."` ❌
+
+4. **COMMIT AND STOP**
+   - Update the completed files list in this document
+   - Commit with `ALLOW_TOOLKIT=1 git commit ...`
+   - Stop after 12 files
+
+### WHY THIS PROCESS EXISTS
+
+The codebase deliberately uses DEFAULT exports for all functions to maintain consistency and avoid common antipatterns. Every time you see a validation function, your instinct will be to use named imports because that's the common pattern. RESIST THIS INSTINCT. LOOK at the actual code first.
 
 ### Replacement Patterns Required
 
@@ -151,3 +179,16 @@ grep -r "== null\|!= null\|=== null\|!== null\|=== undefined\|!== undefined" lib
 - No direct null/undefined comparisons remain (except in the validation functions themselves)
 - Code maintains exact formatting and style
 - All imports use correct relative paths
+
+## Known Issues to Fix Later
+
+### JSDoc Examples Use Wrong Import Pattern
+**CRITICAL**: Hundreds of JSDoc examples show named imports which will FAIL when users try them:
+```typescript
+// WRONG - what's currently in JSDoc examples
+import { someFunction } from "./path"  ❌
+
+// CORRECT - what they should show
+import someFunction from "./path"  ✓
+```
+This needs a separate focused session to fix systematically across all documentation.
