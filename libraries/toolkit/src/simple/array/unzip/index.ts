@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * The opposite of zip - separates an array of pairs into two arrays
  *
@@ -49,7 +51,7 @@
 const unzip = <T, U>(
 	pairs: ReadonlyArray<readonly [T, U]> | null | undefined,
 ): [Array<T>, Array<U>] => {
-	if (pairs == null || !Array.isArray(pairs) || pairs.length === 0) {
+	if (isNullish(pairs) || !Array.isArray(pairs) || pairs.length === 0) {
 		return [[], []]
 	}
 

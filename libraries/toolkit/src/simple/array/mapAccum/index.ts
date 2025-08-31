@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Combines map and reduce, returning both accumulated value and mapped array
  *
@@ -67,7 +69,7 @@ const mapAccum = <T, U, V>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [U, Array<V>] => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [initial, []]
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the last element of an array
  *
@@ -31,6 +33,6 @@
 const last = <T>(
 	array: ReadonlyArray<T> | null | undefined
 ): T | undefined => 
-	array == null || !Array.isArray(array) ? undefined : array.at(-1)
+	isNullish(array) || !Array.isArray(array) ? undefined : array.at(-1)
 
 export default last

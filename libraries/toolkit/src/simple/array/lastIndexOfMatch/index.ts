@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the index of the last string that matches a pattern
  *
@@ -37,7 +39,7 @@
 const lastIndexOfMatch = (pattern: RegExp | string) => (
 	array: ReadonlyArray<string> | null | undefined
 ): number | undefined => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
 	

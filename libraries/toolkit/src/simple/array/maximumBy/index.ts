@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Finds the maximum element according to a comparator function
  *
@@ -52,7 +54,7 @@ const maximumBy = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
 

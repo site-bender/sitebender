@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+
 /**
  * Extracts a list of property values from an array of objects
  *
@@ -50,12 +53,12 @@ const pluck = <T, K extends keyof T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T[K] | undefined> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 
 	return array.map((item) =>
-		item != null && typeof item === "object" ? item[key] : undefined
+		isNotNullish(item) && typeof item === "object" ? item[key] : undefined
 	)
 }
 

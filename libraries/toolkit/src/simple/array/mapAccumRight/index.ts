@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Like mapAccum but processes the array from right to left
  *
@@ -56,7 +58,7 @@ const mapAccumRight = <T, U, V>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [U, Array<V>] => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [initial, []]
 	}
 

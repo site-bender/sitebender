@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Transforms an array into any type through successive applications of a function
  *
@@ -48,7 +50,7 @@ const reduce = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): U => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return initial
 	}
 	return array.reduce(fn, initial)

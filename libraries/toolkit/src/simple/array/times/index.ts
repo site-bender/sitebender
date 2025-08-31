@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calls a function n times and collects the results in an array
  *
@@ -48,7 +50,7 @@ const times = <T>(
 	fn: (index: number) => T,
 ): Array<T> => {
 	// Handle invalid n values
-	if (n == null || n <= 0 || !Number.isFinite(n)) {
+	if (isNullish(n) || n <= 0 || !Number.isFinite(n)) {
 		return []
 	}
 

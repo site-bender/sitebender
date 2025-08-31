@@ -20,11 +20,15 @@
 - **Migrated 24 additional array utility files** with validation function replacements
 - **Total files completed**: 163 files (139 from previous + 24 from this session)
 
-#### Session 3 (Current)
+#### Session 3
 - **Migrated 24 additional files** (mainly temporal functions and maybe/chain)
 - **Total files completed**: 187 files (163 from previous + 24 from this session)
-- **Remaining files**: 286 files with direct null/undefined comparisons
-- **Remaining instances**: ~502 direct comparisons (down from 526)
+
+#### Session 4 (Current)
+- **Migrated 24 additional array utility files**
+- **Total files completed**: 211 files (187 from previous + 24 from this session)
+- **Remaining files**: ~262 files with direct null/undefined comparisons
+- **Remaining instances**: ~478 direct comparisons (down from 502)
 
 ### Remaining Work
 
@@ -59,12 +63,12 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (187 files)
+### Already Completed Files (211 files)
 These files have already been updated and should be skipped:
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: chain, fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join
+- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOfMatch, mapAccum, mapAccumRight, maximumBy, nub, pluck, reduce, reduceWhile, reject, remove, replaceAllMatches, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, sampleSize, scan, shuffle, sliding, symmetricDifferenceWith, tail, takeLastWhile, times, transpose, unfold, unzip, update, zipWith
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime

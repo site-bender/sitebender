@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes the first occurrence of a value from an array
  *
@@ -25,7 +27,7 @@
 const remove = <T>(item: T) => (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 	const index = array.indexOf(item)

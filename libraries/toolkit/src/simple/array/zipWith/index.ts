@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Combines two arrays element-wise using a function
  *
@@ -48,8 +50,8 @@ const zipWith = <T, U, V>(
 	array2: ReadonlyArray<U> | null | undefined,
 ): Array<V> => {
 	if (
-		array1 == null || !Array.isArray(array1) || array1.length === 0 ||
-		array2 == null || !Array.isArray(array2) || array2.length === 0
+		isNullish(array1) || !Array.isArray(array1) || array1.length === 0 ||
+		isNullish(array2) || !Array.isArray(array2) || array2.length === 0
 	) {
 		return []
 	}

@@ -1,4 +1,4 @@
-import isUndefined from "../../predicates/isUndefined/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import findLastIndex from "../findLastIndex/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
@@ -32,7 +32,7 @@ const replaceLastMatch =
 	(pattern: RegExp | string) =>
 	(replacer: (item: string) => string) =>
 	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
-		if (array == null || !Array.isArray(array)) {
+		if (isNullish(array) || !Array.isArray(array)) {
 			return []
 		}
 		const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern)

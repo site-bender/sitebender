@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Like symmetricDifference but uses a comparator function
  *
@@ -65,14 +67,14 @@ const symmetricDifferenceWith = <T>(
 		)
 
 	// Handle null/undefined cases
-	if (array1 == null || !Array.isArray(array1)) {
-		if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array1) || !Array.isArray(array1)) {
+		if (isNullish(array2) || !Array.isArray(array2)) {
 			return []
 		}
 		return uniqueBy(array2)
 	}
 
-	if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array2) || !Array.isArray(array2)) {
 		return uniqueBy(array1)
 	}
 

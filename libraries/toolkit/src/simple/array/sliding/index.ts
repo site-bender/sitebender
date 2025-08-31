@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates a sliding window over an array
  *
@@ -43,7 +45,7 @@ const sliding = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (array == null || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 

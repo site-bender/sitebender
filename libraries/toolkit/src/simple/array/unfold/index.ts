@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import isNull from "../../validation/isNull/index.ts"
+
 /**
  * Generates an array by repeatedly applying a function to a seed value
  *
@@ -44,7 +47,7 @@ const unfold = <T, U>(
 (
 	seed: T | null | undefined,
 ): Array<U> => {
-	if (seed == null) {
+	if (isNullish(seed)) {
 		return []
 	}
 
@@ -52,7 +55,7 @@ const unfold = <T, U>(
 	const unfoldRecursive = (currentSeed: T): Array<U> => {
 		const result = fn(currentSeed)
 
-		if (result === null) {
+		if (isNull(result)) {
 			return []
 		}
 
