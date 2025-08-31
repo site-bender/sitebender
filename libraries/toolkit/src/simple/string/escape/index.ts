@@ -48,10 +48,12 @@
  * @immutable - Does not modify input
  * @safe - Returns safe values for invalid inputs
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const escape = (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 

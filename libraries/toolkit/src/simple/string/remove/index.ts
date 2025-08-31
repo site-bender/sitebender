@@ -38,17 +38,19 @@
  * removeSpaces("a b c")          // "abc"
  * ```
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const remove = (
 	substring: string | null | undefined,
 ) =>
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 
-	if (substring == null || typeof substring !== "string" || substring === "") {
+	if (isNullish(substring) || typeof substring !== "string" || substring === "") {
 		return str
 	}
 

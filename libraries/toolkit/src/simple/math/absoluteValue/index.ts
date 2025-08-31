@@ -39,10 +39,12 @@
  * @pure
  * @idempotent
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const absoluteValue = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

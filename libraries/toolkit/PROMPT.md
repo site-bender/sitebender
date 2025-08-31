@@ -52,13 +52,20 @@
   - Math functions (10): minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode
 - **Total files completed**: 269 files (257 from previous + 12 from this session)
 
-#### Session 8 (Current)
+#### Session 8
 
 - **Migrated 12 additional math files**:
   - Math functions (12): subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max
 - **Total files completed**: 281 files (269 from previous + 12 from this session)
-- **Remaining files**: ~192 files with direct null/undefined comparisons
-- **Remaining instances**: ~389 direct comparisons (19 replaced in this session)
+
+#### Session 9 (Current)
+
+- **Migrated 12 additional files**:
+  - Math functions (7): ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
+  - String functions (5): indent, escape, removePrefix, remove, swapCase
+- **Total files completed**: 293 files (281 from previous + 12 from this session)
+- **Remaining files**: ~180 files with direct null/undefined comparisons
+- **Remaining instances**: ~370 direct comparisons (19 replaced in this session)
 
 ### Remaining Work
 
@@ -146,7 +153,8 @@ These files have already been updated and should be skipped:
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
-- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max
+- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase
 - `state/`: store.ts
 - `types/`: index.ts
 

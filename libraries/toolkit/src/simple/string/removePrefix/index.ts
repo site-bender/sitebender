@@ -38,17 +38,19 @@
  * removeHttps("https://example.com")   // "example.com"
  * ```
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const removePrefix = (
 	prefix: string | null | undefined,
 ) =>
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 
-	if (prefix == null || typeof prefix !== "string" || prefix === "") {
+	if (isNullish(prefix) || typeof prefix !== "string" || prefix === "") {
 		return str
 	}
 

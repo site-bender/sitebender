@@ -40,6 +40,8 @@
  * @pure - Always returns same result for same inputs
  * @safe - Returns false for invalid inputs
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const inRange = (
 	start: number | null | undefined,
 ) =>
@@ -49,15 +51,15 @@ const inRange = (
 (
 	value: number | null | undefined,
 ): boolean => {
-	if (start == null || typeof start !== "number") {
+	if (isNullish(start) || typeof start !== "number") {
 		return false
 	}
 
-	if (end == null || typeof end !== "number") {
+	if (isNullish(end) || typeof end !== "number") {
 		return false
 	}
 
-	if (value == null || typeof value !== "number") {
+	if (isNullish(value) || typeof value !== "number") {
 		return false
 	}
 

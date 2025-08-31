@@ -34,10 +34,12 @@
  * @pure - Always returns same result for same input
  * @safe - Returns NaN for invalid inputs
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const increment = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

@@ -46,10 +46,12 @@
  * @predicate Returns boolean indicating oddness
  * @safe Returns false for invalid inputs
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const isOdd = (
 	n: number | null | undefined,
 ): boolean => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return false
 	}
 

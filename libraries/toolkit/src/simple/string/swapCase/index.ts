@@ -45,10 +45,12 @@
  * @immutable
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const swapCase = (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 

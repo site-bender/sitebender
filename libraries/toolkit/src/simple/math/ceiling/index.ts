@@ -51,10 +51,12 @@
  * @safe Returns NaN for invalid inputs
  * @idempotent ceiling(ceiling(x)) === ceiling(x)
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const ceiling = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 import gcd from "../gcd/index.ts"
 
 /**
@@ -57,11 +59,11 @@ const lcm = (
 (
 	b: number | null | undefined,
 ): number => {
-	if (a == null || typeof a !== "number") {
+	if (isNullish(a) || typeof a !== "number") {
 		return NaN
 	}
 
-	if (b == null || typeof b !== "number") {
+	if (isNullish(b) || typeof b !== "number") {
 		return NaN
 	}
 

@@ -47,10 +47,12 @@
  * @absolute Uses absolute value (ignores sign)
  * @integer Only considers integer part of decimals
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const digitSum = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
