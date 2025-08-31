@@ -1,4 +1,4 @@
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Parses date/time from string with flexible format support

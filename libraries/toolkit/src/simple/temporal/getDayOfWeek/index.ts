@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the day of week from a Temporal date or datetime
  *
@@ -92,7 +94,7 @@ const getDayOfWeek = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

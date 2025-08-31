@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates a Temporal.Duration from a units specification object
  *
@@ -73,7 +75,7 @@ const duration = (
 		| null
 		| undefined,
 ): Temporal.Duration | null => {
-	if (units == null) {
+	if (isNullish(units)) {
 		return null
 	}
 

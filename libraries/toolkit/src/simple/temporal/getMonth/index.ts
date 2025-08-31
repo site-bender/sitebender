@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the month component from a Temporal date or datetime
  *
@@ -93,7 +95,7 @@ const getMonth = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

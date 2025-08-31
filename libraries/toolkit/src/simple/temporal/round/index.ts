@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Rounds a datetime to the nearest unit (hour, minute, second, etc.)
  *
@@ -113,7 +115,7 @@ const round = (
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
 	| null => {
-	if (datetime == null) {
+	if (isNullish(datetime)) {
 		return null
 	}
 

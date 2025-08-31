@@ -1,4 +1,4 @@
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Converts a Temporal.Duration to total minutes

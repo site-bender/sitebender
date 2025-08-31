@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the difference in years between two dates
  *
@@ -69,7 +71,7 @@ const diffYears = (
 		| null
 		| undefined,
 ): number | null => {
-	if (from == null || to == null) {
+	if (isNullish(from) || isNullish(to)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the number of days in a specific month
  *
@@ -75,7 +77,7 @@ const getDaysInMonth = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the ISO week number of the year from a Temporal date or datetime
  *
@@ -63,7 +65,7 @@ const getWeekOfYear = (
 		| null
 		| undefined,
 ): number | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

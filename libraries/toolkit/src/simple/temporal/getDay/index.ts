@@ -1,4 +1,4 @@
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Gets the day of month from a Temporal date or datetime

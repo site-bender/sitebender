@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Gets the second component from a Temporal time or datetime
  *
@@ -51,7 +53,7 @@ const getSecond = (
 		| null
 		| undefined,
 ): number | null => {
-	if (time == null) {
+	if (isNullish(time)) {
 		return null
 	}
 

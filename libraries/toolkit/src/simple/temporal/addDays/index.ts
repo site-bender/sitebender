@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Adds days to a Temporal PlainDate or PlainDateTime
  *
@@ -134,7 +136,7 @@ const addDays = (days: number) =>
 (
 	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
 ): Temporal.PlainDate | Temporal.PlainDateTime | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

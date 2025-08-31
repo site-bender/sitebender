@@ -1,4 +1,4 @@
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the difference in seconds between two times or datetimes
