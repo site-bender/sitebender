@@ -25,7 +25,7 @@
  *   attempts: 5,
  *   delay: 1000
  * })
- * const data = await fetchWithRetry(async () => 
+ * const data = await fetchWithRetry(async () =>
  *   fetch("/api/data").then(r => r.json())
  * )
  *

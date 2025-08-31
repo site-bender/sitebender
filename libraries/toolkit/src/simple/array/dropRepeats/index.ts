@@ -19,7 +19,6 @@ import isNullish from "../../validation/isNullish/index.ts"
  * dropRepeats(["a", "a", "b", "b", "c", "c", "c", "a"])
  * // ["a", "b", "c", "a"]
  *
- *
  * // Object references
  * const obj = { id: 1 }
  * dropRepeats([obj, obj, { id: 1 }, obj])

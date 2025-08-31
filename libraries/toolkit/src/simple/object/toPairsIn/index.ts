@@ -19,7 +19,7 @@ import type { Value } from "../../../types/index.ts"
  * const parent = { inherited: "from parent" }
  * const child = Object.create(parent)
  * child.own = "child property"
- * 
+ *
  * toPairs(child)    // [["own", "child property"]]
  * toPairsIn(child)  // [["own", "child property"], ["inherited", "from parent"]]
  *
@@ -27,7 +27,7 @@ import type { Value } from "../../../types/index.ts"
  * const defaultConfig = { host: "localhost", port: 3000 }
  * const userConfig = Object.create(defaultConfig)
  * userConfig.port = 8080
- * 
+ *
  * toPairsIn(userConfig)  // [["port", 8080], ["host", "localhost"]]
  *
  * // Flattening inheritance
@@ -57,11 +57,11 @@ const toPairsIn = <T extends Record<string | symbol, Value>>(
 		const ownKeys = Object.keys(o)
 		return [...new Set([...ownKeys, ...protoKeys])]
 	}
-	
+
 	const keys = getAllKeys(obj)
-	
+
 	// Map keys to pairs
-	const pairs = keys.map(key => [key, obj[key]] as [string, Value])
+	const pairs = keys.map((key) => [key, obj[key]] as [string, Value])
 
 	// Get own symbol properties (symbols are not inherited)
 	const symbolPairs = Object.getOwnPropertySymbols(obj)

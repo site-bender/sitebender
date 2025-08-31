@@ -53,7 +53,7 @@ const transform = <S extends Record<string, (obj: any) => Value>>(
 		const transformer = spec[key]
 		return {
 			...result,
-			[key]: transformer(safeObj)
+			[key]: transformer(safeObj),
 		}
 	}, {} as { [K in keyof S]: ReturnType<S[K]> })
 }

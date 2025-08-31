@@ -22,10 +22,10 @@
  * // Basic checks
  * isWeakMap(new WeakMap())      // true
  * isWeakMap(new Map())          // false
- * isWeakMap(new WeakSet())      // false  
+ * isWeakMap(new WeakSet())      // false
  * isWeakMap({})                 // false
  *
- * // Type narrowing  
+ * // Type narrowing
  * const storeMetadata = (storage: unknown, obj: object, data: unknown): boolean =>
  *   isWeakMap(storage) ? (storage.set(obj, data), true) : false
  *
@@ -43,7 +43,7 @@
  *
  * // DOM element metadata
  * const elementData = new WeakMap<Element, unknown>()
- * const attachData = (el: Element, data: unknown) => 
+ * const attachData = (el: Element, data: unknown) =>
  *   isWeakMap(elementData) && elementData.set(el, data)
  * ```
  * @pure

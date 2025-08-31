@@ -36,7 +36,7 @@
  * minPasswordLength("12345")     // false
  * minPasswordLength("12345678")  // true
  *
- * // Required field validation  
+ * // Required field validation
  * const isRequired = minLength(1)
  * isRequired("")                // false (empty)
  * isRequired("a")               // true

@@ -41,7 +41,7 @@
  * // Edge cases
  * findExtension("")
  * // ""
- * 
+ *
  * // Case preservation
  * findExtension("Document.PDF")
  * // "PDF"

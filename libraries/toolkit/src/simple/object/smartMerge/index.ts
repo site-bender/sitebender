@@ -115,24 +115,26 @@ const smartMerge =
 			) {
 				// Get all keys from both objects
 				const allKeys = [
-					...new Set([...Object.keys(left), ...Object.keys(right)])
+					...new Set([...Object.keys(left), ...Object.keys(right)]),
 				]
 
 				return allKeys.reduce((result, key) => {
 					const leftValue = left[key]
 					const rightValue = right[key]
 
-					const value = !(key in right) ? leftValue
-						: !(key in left) ? rightValue
+					const value = !(key in right)
+						? leftValue
+						: !(key in left)
+						? rightValue
 						: (typeof leftValue === "object" &&
-						   typeof rightValue === "object" &&
-						   isNotNull(leftValue) &&
-						   isNotNull(rightValue) &&
-						   !Array.isArray(leftValue) &&
-						   !Array.isArray(rightValue))
-							? mergeTwo(leftValue, rightValue, currentDepth + 1)
+								typeof rightValue === "object" &&
+								isNotNull(leftValue) &&
+								isNotNull(rightValue) &&
+								!Array.isArray(leftValue) &&
+								!Array.isArray(rightValue))
+						? mergeTwo(leftValue, rightValue, currentDepth + 1)
 						: (Array.isArray(leftValue) && Array.isArray(rightValue))
-							? mergeTwo(leftValue, rightValue, currentDepth)
+						? mergeTwo(leftValue, rightValue, currentDepth)
 						: resolver(key, leftValue, rightValue)
 
 					return { ...result, [key]: value }

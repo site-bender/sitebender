@@ -18,15 +18,15 @@ import generateBase58Uuid from "./generateBase58Uuid/index.ts"
  * // Basic usage
  * generateShortId()  // "_4Kh8gTjX9pQ2mN7yR3Wz"
  * generateShortId()  // "_7Bx3mPq5vN2jK8Ht6Yz" (different each time)
- * 
+ *
  * // Form element IDs
  * const checkboxId = generateShortId()
  * // Use with <input id={checkboxId}> and <label htmlFor={checkboxId}>
- * 
+ *
  * // Dynamic element creation
  * const element = document.createElement('div')
  * element.id = generateShortId()
- * 
+ *
  * // Generate multiple unique IDs
  * const ids = Array.from({ length: 3 }, generateShortId)
  * // ["_9Ht6Yz3mPq5vN2j", "_2Kx8mTp4Qn7yR3", "_5Wz7Bx3mPq"]

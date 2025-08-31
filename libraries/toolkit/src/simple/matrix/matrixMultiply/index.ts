@@ -52,7 +52,10 @@ const matrixMultiply = (
 	}
 
 	// Check if all rows are arrays
-	if (!a.every(row => Array.isArray(row)) || !b.every(row => Array.isArray(row))) {
+	if (
+		!a.every((row) => Array.isArray(row)) ||
+		!b.every((row) => Array.isArray(row))
+	) {
 		return []
 	}
 
@@ -68,23 +71,29 @@ const matrixMultiply = (
 	}
 
 	// Check all rows have consistent length and numeric values
-	const aValid = a.every(row => 
-		row.length === n && row.every(val => val != null && typeof val === "number")
+	const aValid = a.every((row) =>
+		row.length === n &&
+		row.every((val) => val != null && typeof val === "number")
 	)
-	const bValid = b.every(row => 
-		row.length === p && row.every(val => val != null && typeof val === "number")
+	const bValid = b.every((row) =>
+		row.length === p &&
+		row.every((val) => val != null && typeof val === "number")
 	)
-	
+
 	if (!aValid || !bValid) {
 		return []
 	}
 
 	// Perform multiplication using functional approach
-	const result = Array.from({ length: m }, (_, i) =>
-		Array.from({ length: p }, (_, j) =>
-			Array.from({ length: n }, (_, k) => a[i][k] * b[k][j])
-				.reduce((sum, val) => sum + val, 0)
-		)
+	const result = Array.from(
+		{ length: m },
+		(_, i) =>
+			Array.from(
+				{ length: p },
+				(_, j) =>
+					Array.from({ length: n }, (_, k) => a[i][k] * b[k][j])
+						.reduce((sum, val) => sum + val, 0),
+			),
 	)
 
 	return result

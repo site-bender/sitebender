@@ -20,7 +20,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
  * // [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
  *
- * // Rectangular matrix  
+ * // Rectangular matrix
  * transpose([[1, 2, 3, 4], [5, 6, 7, 8]])
  * // [[1, 5], [2, 6], [3, 7], [4, 8]]
  *
@@ -58,10 +58,12 @@ const transpose = <T>(
 	}
 
 	// Create the transposed matrix using Array.from for functional approach
-	const result = Array.from({ length: maxLength }, (_, col) =>
-		matrix.map((row) =>
-			Array.isArray(row) && col < row.length ? row[col] : undefined,
-		),
+	const result = Array.from(
+		{ length: maxLength },
+		(_, col) =>
+			matrix.map((row) =>
+				Array.isArray(row) && col < row.length ? row[col] : undefined
+			),
 	)
 
 	return result

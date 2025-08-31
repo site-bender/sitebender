@@ -63,7 +63,7 @@ const aperture = <T>(
 	// Create sliding window of size n using functional approach
 	return Array.from(
 		{ length: array.length - n + 1 },
-		(_, i) => array.slice(i, i + n)
+		(_, i) => array.slice(i, i + n),
 	)
 }
 

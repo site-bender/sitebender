@@ -111,7 +111,7 @@ const equals = <T>(a: T) => <U>(b: U): boolean => {
 		}
 
 		// Check if all keys exist and values are equal
-		return keysX.every(key => 
+		return keysX.every((key) =>
 			keysY.includes(key) && deepEquals(x[key], y[key], seen)
 		)
 	}

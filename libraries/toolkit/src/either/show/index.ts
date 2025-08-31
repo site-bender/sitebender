@@ -1,7 +1,7 @@
 import type { Either } from "../../types/fp/either/index.ts"
 
-import isLeft from "../isLeft/index.ts"
 import isNullish from "../../simple/validation/isNullish/index.ts"
+import isLeft from "../isLeft/index.ts"
 
 /**
  * Converts an Either value to its string representation
@@ -54,7 +54,6 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * debug(right(42))
  * // "Processing Right(42) at 2024-01-01T12:00:00.000Z"
  *
- *
  * // Using in error reports
  * const report = (results: Array<Either<Error, string>>) => {
  *   const formatted = results
@@ -86,7 +85,6 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * const sym = Symbol("test")
  * show(right(sym)) // "Right(Symbol(test))"
  * ```
- *
  */
 const show = <E, A>(either: Either<E, A>): string => {
 	const formatValue = (v: unknown): string => {

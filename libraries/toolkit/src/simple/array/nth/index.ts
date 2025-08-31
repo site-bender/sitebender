@@ -9,12 +9,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param index - Zero-based index (negative counts from end)
  * @param array - The array to access
  * @returns Element at index or undefined if out of bounds
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic access
@@ -39,11 +39,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * nth(0)(undefined) // undefined
  * ```
  */
-const nth = (index: number) => <T>(array: Array<T> | null | undefined): T | undefined => {
-	if (isNullish(array) || !Array.isArray(array)) {
-		return undefined
+const nth =
+	(index: number) => <T>(array: Array<T> | null | undefined): T | undefined => {
+		if (isNullish(array) || !Array.isArray(array)) {
+			return undefined
+		}
+		return array.at(index)
 	}
-	return array.at(index)
-}
 
 export default nth

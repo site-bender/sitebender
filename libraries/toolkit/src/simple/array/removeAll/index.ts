@@ -24,7 +24,8 @@ import filter from "../filter/index.ts"
  * removeNulls([1, null, 2, null, 3]) // [1, 2, 3]
  * ```
  */
-const removeAll = <T>(item: T) => (
+const removeAll = <T>(item: T) =>
+(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => filter((element: T) => element !== item)(array)
 

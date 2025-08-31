@@ -59,7 +59,6 @@ import fold from "../fold/index.ts"
  * toNullable(right(42))     // 42
  * toNullable(left("error")) // null
  * ```
- *
  */
 const either = <E, A, B>(
 	leftHandler: (e: E) => B,

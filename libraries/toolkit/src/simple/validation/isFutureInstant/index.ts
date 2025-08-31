@@ -22,7 +22,7 @@
  * const now = Temporal.Now.instant()
  * const future = now.add({ hours: 1 })
  * const past = now.subtract({ hours: 1 })
- * 
+ *
  * isFutureInstant(future)         // true
  * isFutureInstant(past)           // false
  * isFutureInstant(now)            // false (current instant)
@@ -38,11 +38,11 @@
  * // Token expiry validation
  * const isTokenValid = (expiry: Temporal.Instant): boolean =>
  *   isFutureInstant(expiry)
- * 
+ *
  * const tokenExpiry = Temporal.Now.instant().add({ hours: 24 })
  * isTokenValid(tokenExpiry)  // true
  *
- * // Request timestamp validation  
+ * // Request timestamp validation
  * const validateTimestamp = (ts: string): string | null => {
  *   try {
  *     const instant = Temporal.Instant.from(ts)

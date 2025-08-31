@@ -57,7 +57,8 @@ const difference = <T>(
 	}
 
 	if (
-		isNullish(subtrahend) || !Array.isArray(subtrahend) || subtrahend.length === 0
+		isNullish(subtrahend) || !Array.isArray(subtrahend) ||
+		subtrahend.length === 0
 	) {
 		return [...minuend]
 	}

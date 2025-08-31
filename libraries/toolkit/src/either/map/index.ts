@@ -62,7 +62,6 @@ import right from "../right/index.ts"
  * calculate(right(5))    // Right(7.5)
  * calculate(left("NaN")) // Left("NaN")
  * ```
- *
  */
 const map = <A, B>(fn: (a: A) => B) =>
 <E>(

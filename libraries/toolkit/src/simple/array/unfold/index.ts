@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import isNull from "../../validation/isNull/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Generates an array by repeatedly applying a function to a seed value
@@ -31,7 +31,7 @@ import isNull from "../../validation/isNull/index.ts"
  * unfold((n: number) => n <= 256 ? [n, n * 2] : null)(1)
  * // [1, 2, 4, 8, 16, 32, 64, 128, 256]
  *
- * // Parse string character by character  
+ * // Parse string character by character
  * unfold((s: string) =>
  *   s.length > 0 ? [s[0], s.slice(1)] : null
  * )("hello")

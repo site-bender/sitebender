@@ -45,12 +45,12 @@ const matrixInverse3x3 = (
 		return null
 	}
 
-	const isValid = matrix.every(row => 
-		Array.isArray(row) && 
-		row.length === 3 && 
-		row.every(elem => typeof elem === "number")
+	const isValid = matrix.every((row) =>
+		Array.isArray(row) &&
+		row.length === 3 &&
+		row.every((elem) => typeof elem === "number")
 	)
-	
+
 	if (!isValid) {
 		return null
 	}

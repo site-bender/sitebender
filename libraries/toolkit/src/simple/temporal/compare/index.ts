@@ -16,7 +16,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Basic usage
  * const date1 = Temporal.PlainDate.from("2024-03-15")
  * const date2 = Temporal.PlainDate.from("2024-03-20")
- * 
+ *
  * compare(date1)(date2)                   // -1 (date1 is earlier)
  * compare(date2)(date1)                   // 1 (date2 is later)
  * compare(date1)(date1)                   // 0 (equal)

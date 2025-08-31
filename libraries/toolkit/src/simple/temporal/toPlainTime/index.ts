@@ -47,12 +47,12 @@
  *   const startTime = toPlainTime(start)
  *   const endTime = toPlainTime(end)
  *   if (!startTime || !endTime) return []
- *   
+ *
  *   const slots = []
  *   const totalMinutes = startTime.until(endTime).total({ unit: 'minutes' })
  *   const steps = Math.floor(totalMinutes / intervalMinutes) + 1
- *   
- *   return Array.from({ length: steps }, (_, i) => 
+ *
+ *   return Array.from({ length: steps }, (_, i) =>
  *     startTime.add({ minutes: i * intervalMinutes })
  *   )
  * }

@@ -10,11 +10,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param pattern - Regular expression or string pattern to match
  * @param array - Array of strings to search
  * @returns Index of last matching string or undefined if none match
- * 
+ *
  * @pure
  * @curried
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
@@ -25,7 +25,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Find last error message
  * const findLastError = lastIndexOfMatch(/error/i)
  * findLastError(["info", "ERROR 1", "warning", "Error 2"]) // 3
- * 
+ *
  * // Partial application
  * const findLastCapital = lastIndexOfMatch(/^[A-Z]/)
  * findLastCapital(["hello", "World", "Test"]) // 2
@@ -36,13 +36,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * lastIndexOfMatch(/^z/)(["hi", "hello"]) // undefined
  * ```
  */
-const lastIndexOfMatch = (pattern: RegExp | string) => (
-	array: ReadonlyArray<string> | null | undefined
+const lastIndexOfMatch = (pattern: RegExp | string) =>
+(
+	array: ReadonlyArray<string> | null | undefined,
 ): number | undefined => {
 	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return undefined
 	}
-	
+
 	const regex = new RegExp(pattern)
 	const index = array.reduce(
 		(lastMatch, item, index) => (regex.test(item) ? index : lastMatch),

@@ -29,7 +29,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   const today = Temporal.Now.plainDateISO()
  *   const start = today.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
  *   const end = endOfDay(today)
- *   return end ? 
+ *   return end ?
  *     Temporal.PlainDateTime.compare(timestamp, start) >= 0 &&
  *     Temporal.PlainDateTime.compare(timestamp, end) <= 0
  *     : false
@@ -41,7 +41,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   deadlineDate: Temporal.PlainDate
  * ): boolean => {
  *   const deadline = endOfDay(deadlineDate)
- *   return deadline ? 
+ *   return deadline ?
  *     Temporal.PlainDateTime.compare(submission, deadline) <= 0
  *     : false
  * }

@@ -64,8 +64,14 @@ type FormFieldRules = {
 	after?: string
 	before?: string
 	when?: (formData: Record<string, unknown>) => boolean
-	validate?: (value: unknown, formData: Record<string, unknown>) => string | null
-	async?: (value: unknown, formData: Record<string, unknown>) => Promise<string | null>
+	validate?: (
+		value: unknown,
+		formData: Record<string, unknown>,
+	) => string | null
+	async?: (
+		value: unknown,
+		formData: Record<string, unknown>,
+	) => Promise<string | null>
 	transform?: (value: unknown) => unknown
 	message?: string
 }
@@ -223,7 +229,10 @@ const validateForm =
 
 				if (rules.after) {
 					const afterDate = new Date(
-						(formData as Record<string, unknown>)[rules.after] as string | number | Date,
+						(formData as Record<string, unknown>)[rules.after] as
+							| string
+							| number
+							| Date,
 					)
 					if (dateValue <= afterDate) {
 						errors[fieldName] = rules.message || `Must be after ${rules.after}`
@@ -233,7 +242,10 @@ const validateForm =
 
 				if (rules.before) {
 					const beforeDate = new Date(
-						(formData as Record<string, unknown>)[rules.before] as string | number | Date,
+						(formData as Record<string, unknown>)[rules.before] as
+							| string
+							| number
+							| Date,
 					)
 					if (dateValue >= beforeDate) {
 						errors[fieldName] = rules.message ||

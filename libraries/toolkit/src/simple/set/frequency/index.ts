@@ -30,7 +30,7 @@
  * @immutable
  */
 const frequency = <T>(set: Set<T>): Map<T, number> => {
-	return new Map(Array.from(set).map(item => [item, 1]))
+	return new Map(Array.from(set).map((item) => [item, 1]))
 }
 
 export default frequency

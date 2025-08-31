@@ -16,7 +16,7 @@
  * @returns True if the value is strictly undefined, false otherwise
  * @example
  * ```typescript
- * // Basic checks  
+ * // Basic checks
  * isUndefined(undefined)   // true
  * isUndefined(void 0)      // true
  * isUndefined(null)        // false

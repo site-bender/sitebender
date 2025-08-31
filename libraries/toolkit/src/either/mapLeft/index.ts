@@ -56,7 +56,6 @@ import left from "../left/index.ts"
  * }))
  * toHttpError(left("NOT_FOUND"))  // Left({ status: 404, message: "NOT_FOUND" })
  * ```
- *
  */
 const mapLeft = <E, F>(fn: (e: E) => F) =>
 <A>(

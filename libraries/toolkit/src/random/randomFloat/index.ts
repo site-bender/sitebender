@@ -18,21 +18,21 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * ```typescript
  * // Random between 0 and 1
  * randomFloat(0)(1)     // 0.7263849502...
- * 
+ *
  * // Random between 0 and 100
  * randomFloat(0)(100)   // 42.8391047...
- * 
+ *
  * // Random between -1 and 1
  * randomFloat(-1)(1)    // -0.2847395...
- * 
+ *
  * // Handles swapped bounds
  * randomFloat(10)(5)    // 7.239... (between 5 and 10)
- * 
+ *
  * // Partial application for ranges
  * const randomPercent = randomFloat(0)
  * randomPercent(100)    // 0-100
  * randomPercent(1)      // 0-1
- * 
+ *
  * // Invalid inputs return NaN
  * randomFloat(null)(10) // NaN
  * ```

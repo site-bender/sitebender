@@ -14,12 +14,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param initial - Initial accumulator value
  * @param array - Array to process
  * @returns Tuple of [finalAccumulator, mappedArray]
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Suffix sums
@@ -62,7 +62,11 @@ const mapAccumRight = <T, U, V>(
 		return [initial, []]
 	}
 
-	const processArray = (arr: ReadonlyArray<T>, acc: U, result: Array<V>): [U, Array<V>] => {
+	const processArray = (
+		arr: ReadonlyArray<T>,
+		acc: U,
+		result: Array<V>,
+	): [U, Array<V>] => {
 		if (arr.length === 0) {
 			return [acc, result]
 		}
@@ -70,7 +74,7 @@ const mapAccumRight = <T, U, V>(
 		return processArray(
 			arr.slice(0, -1),
 			newAcc,
-			[mappedValue, ...result]
+			[mappedValue, ...result],
 		)
 	}
 

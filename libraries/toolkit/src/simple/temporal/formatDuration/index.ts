@@ -20,12 +20,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * formatDuration(Temporal.Duration.from({ weeks: 1 }))        // "1w"
  *
  * // Combined units
- * formatDuration(Temporal.Duration.from({ 
- *   hours: 1, minutes: 30 
+ * formatDuration(Temporal.Duration.from({
+ *   hours: 1, minutes: 30
  * }))  // "1h 30m"
  *
- * formatDuration(Temporal.Duration.from({ 
- *   days: 2, hours: 3, minutes: 45 
+ * formatDuration(Temporal.Duration.from({
+ *   days: 2, hours: 3, minutes: 45
  * }))  // "2d 3h 45m"
  *
  * // Sub-second handling

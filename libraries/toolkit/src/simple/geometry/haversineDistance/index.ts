@@ -97,7 +97,7 @@ import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
  *   return haversineDistance(store)(customer)() <= maxRadius
  * }
  *
- * // Find nearest location  
+ * // Find nearest location
  * function findNearest(
  *   current: [number, number],
  *   locations: Array<[number, number]>
@@ -105,7 +105,7 @@ import degreesToRadians from "../../trigonometry/degreesToRadians/index.ts"
  *   const fromCurrent = haversineDistance(current)
  *   return locations.reduce((acc, loc) => {
  *     const distance = fromCurrent(loc)()
- *     return distance < acc.minDistance 
+ *     return distance < acc.minDistance
  *       ? { nearest: loc, minDistance: distance }
  *       : acc
  *   }, { nearest: null as [number, number] | null, minDistance: Infinity }).nearest

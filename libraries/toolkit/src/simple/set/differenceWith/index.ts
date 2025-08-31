@@ -54,8 +54,11 @@ const differenceWith = <T>(
 	// Build result with elements not matching any in subtrahend
 	return new Set(
 		Array.from(minuend).filter(
-			element => !Array.from(subtrahend).some(excludeElement => comparator(element, excludeElement))
-		)
+			(element) =>
+				!Array.from(subtrahend).some((excludeElement) =>
+					comparator(element, excludeElement)
+				),
+		),
 	)
 }
 

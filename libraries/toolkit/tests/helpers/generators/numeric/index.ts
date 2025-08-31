@@ -7,7 +7,7 @@ import * as fc from "npm:fast-check@3"
 /**
  * Generates valid numbers excluding NaN and Infinity
  */
-export const finiteNumber = () =>
+export const finiteNumber: () => fc.Arbitrary<number> = () =>
 	fc.float({
 		noNaN: true,
 		min: Math.fround(-1e10),
@@ -67,3 +67,5 @@ export const negativeNumber = () =>
 		max: Math.fround(-0.00001),
 		noNaN: true,
 	})
+
+export default finiteNumber

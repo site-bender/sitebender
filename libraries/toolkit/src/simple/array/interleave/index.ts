@@ -9,11 +9,11 @@
  *
  * @param arrays - Arrays to interleave
  * @returns New array with interleaved elements
- * 
+ *
  * @pure
  * @immutable
  * @variadic
- * 
+ *
  * @example
  * ```typescript
  * // Basic interleaving
@@ -27,13 +27,13 @@
  * // Three arrays
  * interleave([1, 2], ["a", "b"], [true, false])
  * // [1, "a", true, 2, "b", false]
- * 
+ *
  * // Creating alternating pattern
  * const odds = [1, 3, 5, 7]
  * const evens = [2, 4, 6, 8]
  * interleave(odds, evens)
  * // [1, 2, 3, 4, 5, 6, 7, 8]
- * 
+ *
  * // Edge cases
  * interleave([1, 2, 3])   // [1, 2, 3] (single array)
  * interleave()            // [] (no arrays)
@@ -44,12 +44,11 @@ const interleave = <T>(...arrays: Array<Array<T>>): Array<T> => {
 	if (arrays.length === 0) return []
 
 	const maxLength = Math.max(...arrays.map((arr) => arr.length))
-	
+
 	return Array.from({ length: maxLength }, (_, i) =>
 		arrays
-			.filter(arr => i < arr.length)
-			.map(arr => arr[i])
-	).flat()
+			.filter((arr) => i < arr.length)
+			.map((arr) => arr[i])).flat()
 }
 
 export default interleave

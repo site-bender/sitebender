@@ -8,7 +8,7 @@
  * @param obj - The object to convert to a Map
  * @returns A new Map containing the object's properties as entries
  * @example
- * 
+ *
  * // Basic conversion
  * toMap({ a: 1, b: 2, c: 3 })
  * // Map(3) { "a" => 1, "b" => 2, "c" => 3 }
@@ -25,7 +25,7 @@
  * for (const [key, value] of toMap({ a: 1, b: 2 })) {
  *   console.log(key, value)
  * }
- * 
+ *
  * @pure
  * @immutable
  * @safe

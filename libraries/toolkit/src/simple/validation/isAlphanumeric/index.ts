@@ -23,7 +23,7 @@ import isEmpty from "../isEmpty/index.ts"
  * // Basic usage
  * const validator = isAlphanumeric()
  * validator("Hello123")  // true
- * validator("abc456")    // true  
+ * validator("abc456")    // true
  * validator("Hello World")  // false (space)
  * validator("")  // false (empty)
  *

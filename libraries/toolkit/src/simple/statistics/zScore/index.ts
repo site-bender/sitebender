@@ -20,21 +20,21 @@ import standardDeviation from "../standardDeviation/index.ts"
  * // Basic z-score calculations
  * zScore(5)([1, 2, 3, 4, 5, 6, 7, 8, 9])() // 0 (at mean)
  * zScore(9)([1, 2, 3, 4, 5, 6, 7, 8, 9])() // 1.549... (above mean)
- * 
+ *
  * // Outlier detection
  * zScore(100)([10, 12, 11, 13, 12, 11, 10, 12, 13])() // 31.97... (extreme outlier)
- * 
+ *
  * // Test score standardization
  * const testScores = [65, 70, 75, 80, 85, 90, 95]
  * const standardize = zScore(85)
  * standardize(testScores)() // 0.5 (half std dev above mean)
- * 
+ *
  * // Anomaly detection
  * const detectAnomaly = (value: number, data: number[]) => {
  *   const z = zScore(value)(data)()
  *   return Math.abs(z) > 3
  * }
- * 
+ *
  * // Edge cases
  * zScore(5)([5, 5, 5, 5, 5])() // 0 (value equals constant)
  * zScore(3)([5, 5, 5, 5, 5])() // NaN (std dev is 0)
@@ -66,7 +66,7 @@ const zScore = (
 	}
 
 	// Check for non-numeric values in data
-	if (data.some(d => isNullish(d) || typeof d !== "number")) {
+	if (data.some((d) => isNullish(d) || typeof d !== "number")) {
 		return NaN
 	}
 

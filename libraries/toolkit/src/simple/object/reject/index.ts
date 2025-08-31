@@ -46,7 +46,7 @@ const reject = <T extends Record<string | symbol, Value>>(
 
 	// Filter entries where predicate returns false
 	return Object.fromEntries(
-		Object.entries(obj).filter(([key, value]) => !predicate(value, key))
+		Object.entries(obj).filter(([key, value]) => !predicate(value, key)),
 	) as Partial<T>
 }
 

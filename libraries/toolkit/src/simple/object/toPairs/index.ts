@@ -11,7 +11,7 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to convert
  * @returns Array of [key, value] pairs
  * @example
- * 
+ *
  * // Basic conversion
  * toPairs({ a: 1, b: 2, c: 3 })
  * // [["a", 1], ["b", 2], ["c", 3]]
@@ -32,7 +32,7 @@ import type { Value } from "../../../types/index.ts"
  * const obj = { a: 1, b: 2 }
  * const map = new Map(toPairs(obj))
  * // Map { "a" => 1, "b" => 2 }
- * 
+ *
  * @pure
  * @immutable
  * @safe

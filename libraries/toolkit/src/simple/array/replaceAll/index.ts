@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Replaces all occurrences of a value with the result of a function
  *
@@ -26,7 +28,7 @@ const replaceAll =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (array == null || !Array.isArray(array)) {
+		if (isNullish(array) || !Array.isArray(array)) {
 			return []
 		}
 		return array.map((item) => (item === target ? replacer(item) : item))

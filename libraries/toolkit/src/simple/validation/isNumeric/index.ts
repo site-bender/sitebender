@@ -44,7 +44,7 @@
  * // ZIP code validation
  * const isValidZip = (zip: string): boolean =>
  *   isNumeric()(zip) && (zip.length === 5 || zip.length === 9)
- * 
+ *
  * isValidZip("12345")     // true
  * isValidZip("1234a")     // false
  *

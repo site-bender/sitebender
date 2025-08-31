@@ -51,7 +51,7 @@ const groupWith = <T>(
 		(acc, curr, i) => {
 			const lastGroup = acc[acc.length - 1]
 			const prevElement = array[i] // i is already offset by 1 due to slice
-			
+
 			if (predicate(prevElement, curr)) {
 				lastGroup.push(curr)
 			} else {
@@ -59,7 +59,7 @@ const groupWith = <T>(
 			}
 			return acc
 		},
-		[[array[0]]]
+		[[array[0]]],
 	)
 }
 

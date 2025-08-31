@@ -13,12 +13,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param array2 - Second array to intersect with
  * @param array1 - First array (determines order of results)
  * @returns New array with elements present in both arrays
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @commutative
- * 
+ *
  * @example
  * ```typescript
  * // Basic intersection
@@ -36,11 +36,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Duplicates in first array are preserved
  * intersection([2, 3])([1, 2, 2, 3, 3, 3])
  * // [2, 2, 3, 3, 3]
- * 
+ *
  * // Partial application
  * const onlyValidIds = intersection([1, 2, 3, 4, 5])
  * onlyValidIds([3, 4, 5, 6, 7]) // [3, 4, 5]
- * 
+ *
  * // Edge cases
  * intersection([])([1, 2, 3])     // []
  * intersection([1, 2])(null)      // []

@@ -47,7 +47,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   Temporal.PlainTime.from("10:00:00.833"),
  *   Temporal.PlainTime.from("10:00:01.667")
  * ]
- * const intervals = beats.slice(1).map((beat, i) => 
+ * const intervals = beats.slice(1).map((beat, i) =>
  *   diffSeconds(beats[i])(beat)
  * ).filter(interval => interval !== null)
  * // [0.833, 0.834]

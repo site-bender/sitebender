@@ -131,7 +131,7 @@ const isEmail = (
 		const domainParts = domain.split(".")
 
 		// Each domain part validation using every() instead of for loop
-		const allPartsValid = domainParts.every(part => {
+		const allPartsValid = domainParts.every((part) => {
 			// Empty part (consecutive dots)
 			if (part.length === 0) {
 				return false

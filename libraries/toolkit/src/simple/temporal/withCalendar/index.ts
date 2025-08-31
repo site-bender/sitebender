@@ -16,7 +16,7 @@ import isNullish from "../../../simple/validation/isNullish/index.ts"
  * // Convert to different calendar systems
  * const isoDate = Temporal.PlainDate.from("2024-03-15")
  * withCalendar("hebrew")(isoDate)         // PlainDate in Hebrew calendar
- * withCalendar("islamic")(isoDate)        // PlainDate in Islamic calendar  
+ * withCalendar("islamic")(isoDate)        // PlainDate in Islamic calendar
  * withCalendar("buddhist")(isoDate)       // PlainDate in Buddhist calendar
  * withCalendar("japanese")(isoDate)       // PlainDate with Japanese era
  *

@@ -73,7 +73,6 @@ import right from "../right/index.ts"
  * safeMatch("\\d+", "abc123def")  // Right(["123"])
  * safeMatch("[", "text")          // Left("Invalid regex: ...")
  * ```
- *
  */
 const tryCatch = <A>(
 	fn: () => A,

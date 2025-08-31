@@ -48,10 +48,8 @@ const matrixTrace = (
 	const n = matrix.length
 
 	// Check if matrix is square
-	const isSquare = matrix.every(row => 
-		Array.isArray(row) && row.length === n
-	)
-	
+	const isSquare = matrix.every((row) => Array.isArray(row) && row.length === n)
+
 	if (!isSquare) {
 		return NaN
 	}
@@ -59,15 +57,15 @@ const matrixTrace = (
 	// Calculate trace (sum of diagonal elements)
 	const trace = matrix.reduce((sum, row, i) => {
 		const diagonalElement = row[i]
-		
+
 		// Check if diagonal element is a valid number
 		if (typeof diagonalElement !== "number" || !isFinite(diagonalElement)) {
 			return NaN
 		}
-		
+
 		return sum + diagonalElement
 	}, 0)
-	
+
 	if (isNaN(trace)) {
 		return NaN
 	}

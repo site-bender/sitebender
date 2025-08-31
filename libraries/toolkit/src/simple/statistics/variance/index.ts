@@ -16,14 +16,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ```typescript
  * // Population variance
  * variance(false)([2, 4, 4, 4, 5, 5, 7, 9]) // 4
- * 
+ *
  * // Sample variance
  * variance(true)([2, 4, 4, 4, 5, 5, 7, 9]) // 4.571...
- * 
+ *
  * // Investment risk assessment
  * const returns = [0.05, -0.02, 0.08, 0.03, -0.01, 0.06]
  * const risk = variance(true)(returns) // 0.0015
- * 
+ *
  * // Edge cases
  * variance(false)([5, 5, 5, 5]) // 0 (uniform values)
  * variance(false)([]) // NaN
@@ -55,7 +55,7 @@ const variance = (
 	}
 
 	// Calculate mean
-	if (values.some(v => typeof v !== "number")) {
+	if (values.some((v) => typeof v !== "number")) {
 		return NaN
 	}
 	const mean = values.reduce((sum, value) => sum + value, 0) / n

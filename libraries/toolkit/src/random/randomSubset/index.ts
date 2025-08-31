@@ -1,5 +1,5 @@
-import randomInteger from "../randomInteger/index.ts"
 import isNullish from "../../simple/validation/isNullish/index.ts"
+import randomInteger from "../randomInteger/index.ts"
 
 /**
  * Selects a random subset from an Array or Set
@@ -21,24 +21,24 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * // Random subset with specified size
  * randomSubset([1, 2, 3, 4, 5])(2)          // [3, 5]
  * randomSubset(['a', 'b', 'c', 'd', 'e'])(3) // ['b', 'd', 'e']
- * 
+ *
  * // Random subset with random size
  * randomSubset([1, 2, 3, 4, 5])()  // [2, 4] (random size)
- * 
+ *
  * // Works with Sets
  * const colors = new Set(['red', 'green', 'blue', 'yellow', 'purple'])
  * randomSubset(colors)(2)  // Set(['blue', 'yellow'])
- * 
+ *
  * // Team selection
  * const players = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
  * const team = randomSubset(players)(3)  // ['Bob', 'Diana', 'Frank']
- * 
+ *
  * // Partial application for repeated sampling
  * const deck = Array.from({ length: 52 }, (_, i) => i + 1)
  * const drawHand = randomSubset(deck)
  * const hand1 = drawHand(5)  // [3, 12, 28, 41, 50]
  * const hand2 = drawHand(5)  // [7, 15, 22, 38, 44]
- * 
+ *
  * // Edge cases
  * randomSubset([1, 2, 3])(10)  // [1, 2, 3] (size > length)
  * randomSubset([])(5)           // []

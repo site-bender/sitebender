@@ -48,7 +48,7 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * // Check business hours
  * const isBeforeOpening = (time: TimeInput): boolean =>
  *   isBeforeTime("09:00:00")(time)
- * 
+ *
  * isBeforeOpening("08:30:00")   // true
  * isBeforeOpening("10:00:00")   // false
  *

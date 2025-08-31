@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Counts elements of an array according to the values returned by a function

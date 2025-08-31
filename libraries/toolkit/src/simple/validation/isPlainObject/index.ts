@@ -62,7 +62,7 @@ import isNull from "../isNull/index.ts"
  * // Configuration validation
  * const validateConfig = (value: unknown): boolean =>
  *   isPlainObject(value)
- * 
+ *
  * validateConfig({ port: 3000 })       // true
  * validateConfig(new URL("http://"))   // false
  * ```

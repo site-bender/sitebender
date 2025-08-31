@@ -79,12 +79,12 @@
  * const setTo2025 = setYear(2025)
  * const setTo2000 = setYear(2000)
  * const setTo1776 = setYear(1776)
- * 
+ *
  * const someDate = Temporal.PlainDate.from("2024-07-04")
  * setTo2025(someDate)                     // PlainDate 2025-07-04
  * setTo2000(someDate)                     // PlainDate 2000-07-04
  * setTo1776(someDate)                     // PlainDate 1776-07-04
- * 
+ *
  * // Leap day handling
  * const leapDay = Temporal.PlainDate.from("2024-02-29")
  * setYear(2023)(leapDay)                  // PlainDate 2023-02-28 (constrained)

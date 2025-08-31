@@ -82,11 +82,11 @@ async (
 		if (!predicate()) {
 			return acc
 		}
-		
+
 		const result = await fn()
 		return iterate([...acc, result])
 	}
-	
+
 	return iterate([])
 
 	return results

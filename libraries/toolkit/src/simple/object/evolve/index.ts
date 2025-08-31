@@ -55,7 +55,7 @@ import type {
  * })({ items: [{ name: "A", price: 100 }, { name: "B", price: 200 }] })
  * // { items: [{ name: "A", price: 110 }, { name: "B", price: 180 }] }
  *
- * // Partial application for configuration  
+ * // Partial application for configuration
  * const incrementPatch = evolve({
  *   version: { patch: (x: number) => x + 1 }
  * })

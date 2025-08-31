@@ -61,7 +61,9 @@ const difference = <T>(
 	}
 
 	// Fallback: Create new Set with elements not in subtrahend
-	return new Set(Array.from(minuend).filter(element => !subtrahend.has(element)))
+	return new Set(
+		Array.from(minuend).filter((element) => !subtrahend.has(element)),
+	)
 }
 
 export default difference

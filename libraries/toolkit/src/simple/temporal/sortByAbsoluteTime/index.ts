@@ -84,7 +84,7 @@
  * const sortInstants = sortByAbsoluteTime()
  * const sortInNYTime = sortByAbsoluteTime("America/New_York")
  * const sortInUTC = sortByAbsoluteTime("UTC")
- * 
+ *
  * // Flight departure sorting (different timezones)
  * const flights = [
  *   {
@@ -102,8 +102,8 @@
  * ]
  * flights.sort((a, b) => sortByAbsoluteTime()(a.departure, b.departure))
  * // Sorted by actual UTC time
- * 
- * // Reverse chronological order (newest first) 
+ *
+ * // Reverse chronological order (newest first)
  * const reverseSort = (a: any, b: any) => -sortByAbsoluteTime()(a, b)
  * instants.sort(reverseSort)
  * // Newest times first

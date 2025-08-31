@@ -18,10 +18,10 @@
  * // Basic usage
  * sliceFrom(1)(2)([1, 2, 3, 4, 5]) // [2, 3]
  * sliceFrom(0)(3)(["a", "b", "c", "d"]) // ["a", "b", "c"]
- * 
+ *
  * // Negative indices
  * sliceFrom(-3)(2)([1, 2, 3, 4, 5]) // [3, 4]
- * 
+ *
  * // Edge cases
  * sliceFrom(2)(10)([1, 2, 3, 4]) // [3, 4] (length exceeds bounds)
  * sliceFrom(5)(3)([1, 2, 3]) // []

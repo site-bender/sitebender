@@ -42,8 +42,8 @@
  *
  * // Serialization check
  * const canSerialize = (value: unknown): boolean =>
- *   isPrimitive(value) && 
- *   typeof value !== "symbol" && 
+ *   isPrimitive(value) &&
+ *   typeof value !== "symbol" &&
  *   typeof value !== "bigint" &&
  *   typeof value !== "undefined"
  *

@@ -10,11 +10,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param separator - Element to insert between array elements
  * @param array - Array to intersperse with separator
  * @returns New array with separator between original elements
- * 
+ *
  * @pure
  * @curried
  * @immutable
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage

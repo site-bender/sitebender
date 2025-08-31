@@ -16,12 +16,12 @@
  * // Basic usage
  * generateBase58Uuid()  // "4Kh8gTjX9pQ2mN7yR3Wz"
  * generateBase58Uuid()  // "7Bx3mPq5vN2jK8Ht6Yz" (different each time)
- * 
+ *
  * // Each call produces unique identifier
  * const id1 = generateBase58Uuid()
  * const id2 = generateBase58Uuid()
  * console.log(id1 === id2) // false
- * 
+ *
  * // Use for unique filenames
  * const filename = `upload_${generateBase58Uuid()}.jpg`
  * // "upload_9Ht6Yz3mPq5vN2j.jpg"

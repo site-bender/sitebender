@@ -64,7 +64,7 @@
  *   ["A", { category: "electronics", price: 199, inStock: true }],
  *   ["B", { category: "electronics", price: 99, inStock: true }]
  * ])
- * 
+ *
  * filter((product: any) =>
  *   product.category === "electronics" &&
  *   product.price < 150 &&
@@ -90,7 +90,7 @@ const filter = <K, V>(
 ) =>
 (map: Map<K, V>): Map<K, V> => {
 	return new Map(
-		[...map.entries()].filter(([key, value]) => predicate(value, key))
+		[...map.entries()].filter(([key, value]) => predicate(value, key)),
 	)
 }
 

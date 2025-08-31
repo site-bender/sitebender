@@ -16,7 +16,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @example
  * ```typescript
  * // Case-insensitive comparison
- * const caseInsensitive = (a: string, b: string) => 
+ * const caseInsensitive = (a: string, b: string) =>
  *   a.toLowerCase() === b.toLowerCase()
  * differenceWith(caseInsensitive)(["B", "C"])(["a", "B", "c", "D"])
  * // ["a", "D"]
@@ -33,7 +33,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * differenceWith(approxEqual)([1.001, 2.002])([1.0, 1.5, 2.0, 3.0])
  * // [1.5, 3.0]
  *
- * // Edge cases  
+ * // Edge cases
  * differenceWith((a, b) => a === b)([])([1, 2, 3])     // [1, 2, 3]
  * differenceWith((a, b) => a === b)([1, 2])([])        // []
  * differenceWith(() => true)([1])([2, 3])              // [] (always match)
@@ -57,7 +57,8 @@ const differenceWith = <T, U>(
 	}
 
 	if (
-		isNullish(subtrahend) || !Array.isArray(subtrahend) || subtrahend.length === 0
+		isNullish(subtrahend) || !Array.isArray(subtrahend) ||
+		subtrahend.length === 0
 	) {
 		return [...minuend]
 	}

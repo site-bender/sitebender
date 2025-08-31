@@ -24,7 +24,7 @@
  * const isPositive = (n: number) => n > 0
  * const isEven = (n: number) => n % 2 === 0
  * const neitherPositiveNorEven = neither(isPositive, isEven)
- * 
+ *
  * neitherPositiveNorEven(-3)    // true (negative and odd)
  * neitherPositiveNorEven(-2)    // false (negative but even)
  * neitherPositiveNorEven(3)     // false (positive)
@@ -37,7 +37,7 @@
  * hasValue(null)                // false
  * hasValue(0)                   // true
  *
- * // Range exclusion  
+ * // Range exclusion
  * const tooSmall = (n: number) => n < 10
  * const tooBig = (n: number) => n > 100
  * const inRange = neither(tooSmall, tooBig)

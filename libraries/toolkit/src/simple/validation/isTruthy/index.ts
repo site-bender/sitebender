@@ -22,7 +22,7 @@
  * ```typescript
  * // Truthy values
  * isTruthy(true)          // true
- * isTruthy(1)             // true  
+ * isTruthy(1)             // true
  * isTruthy("hello")       // true
  * isTruthy([])            // true (empty array!)
  * isTruthy({})            // true (empty object!)

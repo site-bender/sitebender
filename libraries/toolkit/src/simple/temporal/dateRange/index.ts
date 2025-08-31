@@ -32,7 +32,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * // Business days filter
  * const allDays = dateRange(start)(end)()
- * const businessDays = allDays?.filter(date => 
+ * const businessDays = allDays?.filter(date =>
  *   date.dayOfWeek >= 1 && date.dayOfWeek <= 5
  * )
  *
@@ -93,7 +93,9 @@ const dateRange =
 			}
 
 			// Generate dates from start to end using recursion
-			const generate = (current: Temporal.PlainDate): Array<Temporal.PlainDate> => {
+			const generate = (
+				current: Temporal.PlainDate,
+			): Array<Temporal.PlainDate> => {
 				if (Temporal.PlainDate.compare(current, end) > 0) {
 					return []
 				}

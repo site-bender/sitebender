@@ -21,7 +21,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  * const ageLens = lensProp("age")
  * const isChild = lensLte(ageLens)(12)
  * isChild({ name: "Alice", age: 10 }) // true
- * isChild({ name: "Bob", age: 15 }) // false  
+ * isChild({ name: "Bob", age: 15 }) // false
  * isChild({ name: "Charlie", age: 12 }) // true
  *
  * // Filter with lens
@@ -42,7 +42,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  * isBeforeN({ name: "Nancy" }) // false
  * ```
  * @pure
- * @curried  
+ * @curried
  * @predicate
  */
 const lensLte =

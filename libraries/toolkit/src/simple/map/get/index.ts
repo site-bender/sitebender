@@ -14,26 +14,26 @@
  * const map = new Map([["a", 1], ["b", 2], ["c", 3]])
  * get("a")(map)  // 1
  * get("z")(map)  // undefined
- * 
+ *
  * // Different key types
  * const mixed = new Map([[1, "one"], [true, "bool"], [null, "null"]])
  * get(1)(mixed)  // "one"
  * get(false)(mixed)  // undefined
- * 
+ *
  * // Object keys (reference equality)
  * const key = { id: 1 }
  * const objMap = new Map([[key, "value"]])
  * get(key)(objMap)  // "value"
  * get({ id: 1 })(objMap)  // undefined (different object)
- * 
+ *
  * // Partial application
  * const getUserId = get("userId")
  * getUserId(new Map([["userId", 123]]))  // 123
  * getUserId(new Map([["name", "Alice"]]))  // undefined
- * 
+ *
  * // Empty Map
  * get("any")(new Map())  // undefined
- * 
+ *
  * @pure
  * @curried
  * @safe

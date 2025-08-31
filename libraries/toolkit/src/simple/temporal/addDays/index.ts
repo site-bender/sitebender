@@ -102,8 +102,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   step: number = 1
  * ): Array<Temporal.PlainDate> {
  *   const addStep = addDays(step)
- *   return Array.from({ length: count }, (_, i) => 
- *     i === 0 ? start : 
+ *   return Array.from({ length: count }, (_, i) =>
+ *     i === 0 ? start :
  *     Array.from({ length: i }, () => null)
  *       .reduce((acc) => addStep(acc), start)
  *   ).filter((d): d is Temporal.PlainDate => d !== null)

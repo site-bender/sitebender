@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Generates all permutations of an array
  *
@@ -8,11 +10,11 @@
  *
  * @param array - Array to generate permutations from
  * @returns Array of all possible permutations
- * 
+ *
  * @pure
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // All orderings of 3 elements
@@ -21,7 +23,7 @@
  *
  * // String permutations
  * permutations(["a", "b", "c"])
- * // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"], 
+ * // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"],
  * //  ["b", "c", "a"], ["c", "a", "b"], ["c", "b", "a"]]
  *
  * // Two elements
@@ -39,7 +41,7 @@
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [[]]
 	}
 

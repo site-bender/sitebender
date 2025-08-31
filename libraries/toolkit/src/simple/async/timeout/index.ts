@@ -45,7 +45,7 @@
  * const result = await queryWithTimeout(db.query(sql))
  *
  * // API client with timeout
- * const apiGet = (url: string) => 
+ * const apiGet = (url: string) =>
  *   timeout(3000)()(fetch(url).then(r => r.json()))
  *
  * // Edge cases

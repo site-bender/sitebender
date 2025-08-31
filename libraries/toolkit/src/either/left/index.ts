@@ -51,7 +51,6 @@ import type { Either, Left } from "../../types/fp/either/index.ts"
  * validationFail("email")("Invalid format")
  * // Left({ field: "email", message: "Invalid format" })
  * ```
- *
  */
 const left = <E, A = never>(value: E): Either<E, A> => ({
 	_tag: "Left" as const,

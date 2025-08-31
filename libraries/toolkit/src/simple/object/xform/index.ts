@@ -5,7 +5,7 @@ import type { Value } from "../../../types/index.ts"
  *
  * Recursively transforms an object and all its nested objects using a
  * transformation function. The transformer receives each object (including
- * nested ones) and can modify its structure. Arrays are traversed but not 
+ * nested ones) and can modify its structure. Arrays are traversed but not
  * transformed unless they contain objects.
  *
  * @param transformer - Function to transform each object in the structure

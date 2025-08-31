@@ -53,10 +53,12 @@ const interleave = <K, V>(maps: Array<Map<K, V>>): Map<K, V> => {
 	const maxLength = Math.max(...iterators.map((it) => it.length))
 
 	// Generate interleaved entries functionally
-	const interleavedEntries = Array.from({ length: maxLength }, (_, i) =>
-		iterators
-			.map((iterator) => (i < iterator.length ? iterator[i] : null))
-			.filter((entry): entry is [K, V] => entry !== null)
+	const interleavedEntries = Array.from(
+		{ length: maxLength },
+		(_, i) =>
+			iterators
+				.map((iterator) => (i < iterator.length ? iterator[i] : null))
+				.filter((entry): entry is [K, V] => entry !== null),
 	).flat()
 
 	return new Map(interleavedEntries)

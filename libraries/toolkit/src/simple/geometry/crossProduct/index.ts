@@ -56,9 +56,9 @@ const crossProduct = (
 	}
 
 	// Check for non-numeric values
-	const isValidVector = (v: number[]) => 
-		v.every(comp => comp != null && typeof comp === "number")
-	
+	const isValidVector = (v: number[]) =>
+		v.every((comp) => comp != null && typeof comp === "number")
+
 	if (!isValidVector(a) || !isValidVector(b)) {
 		return [NaN, NaN, NaN]
 	}

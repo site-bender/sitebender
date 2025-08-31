@@ -110,7 +110,7 @@ const isCreditCard = (
 		}
 
 		// Luhn algorithm validation
-		const digits = cleaned.split("").map(d => parseInt(d, 10))
+		const digits = cleaned.split("").map((d) => parseInt(d, 10))
 		const sum = digits.reverse().reduce((acc, digit, index) => {
 			if (index % 2 === 1) {
 				const doubled = digit * 2

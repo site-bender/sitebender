@@ -138,10 +138,12 @@ export function createBroadcastBus(
 			handler: Handler<T>,
 			options?: { once?: boolean },
 		) {
-			const unsubLocal = doc ? local.subscribe(topic, handler, options) : () => {}
-					const onMessage = (e: { data: BusEnvelope<unknown> }) => {
-						const data = e.data as BusEnvelope<T>
-						if (data.topic === topic) handler(data)
+			const unsubLocal = doc
+				? local.subscribe(topic, handler, options)
+				: () => {}
+			const onMessage = (e: { data: BusEnvelope<unknown> }) => {
+				const data = e.data as BusEnvelope<T>
+				if (data.topic === topic) handler(data)
 			}
 			bc.addEventListener("message", onMessage)
 			return () => {

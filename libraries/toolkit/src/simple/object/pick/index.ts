@@ -15,11 +15,11 @@ import type { Value } from "../../../types/index.ts"
  * // Basic usage
  * pick(["a", "b"])({ a: 1, b: 2, c: 3 })  // { a: 1, b: 2 }
  * pick(["x", "y"])({ x: 10, y: 20, z: 30 })  // { x: 10, y: 20 }
- * 
+ *
  * // Non-existent keys are ignored
  * pick(["a", "z"])({ a: 1, b: 2 })  // { a: 1 }
  * pick([])({ a: 1, b: 2 })           // {}
- * 
+ *
  * // Partial application
  * const pickPublic = pick(["id", "name"])
  * pickPublic({ id: 1, name: "John", password: "secret" })  // { id: 1, name: "John" }

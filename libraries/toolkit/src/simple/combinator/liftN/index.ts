@@ -39,7 +39,7 @@
  *
  * Note: This is useful when you need to control exactly how many
  * arrays are processed, especially with variadic functions.
- * 
+ *
  * @pure
  * @curried
  */
@@ -68,7 +68,7 @@ const liftN = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
 		// Compute Cartesian product of n arrays functionally
 		const cartesian = relevantArrays.reduce(
 			(acc, arr) => acc.flatMap((combo) => arr.map((item) => [...combo, item])),
-			[[]] as Array<Array<any>>
+			[[]] as Array<Array<any>>,
 		)
 
 		// Apply function to each combination

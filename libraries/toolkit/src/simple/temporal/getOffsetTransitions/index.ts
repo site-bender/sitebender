@@ -153,7 +153,7 @@ const getOffsetTransitions = (timeZone: string) =>
 				offsetBefore: string
 				offsetAfter: string
 				type: "forward" | "backward"
-			}>
+			}>,
 		): Array<{
 			date: Temporal.PlainDate
 			offsetBefore: string
@@ -170,27 +170,29 @@ const getOffsetTransitions = (timeZone: string) =>
 				const zonedDateTime = dateTime.toZonedDateTime(timeZone)
 				const currentOffset = zonedDateTime.offset
 
-				const newTransitions = 
+				const newTransitions =
 					!isNull(prevOffset) && prevOffset !== currentOffset
 						? [...acc, {
 							date: current,
 							offsetBefore: prevOffset,
 							offsetAfter: currentOffset,
-							type: (prevOffset < currentOffset ? "forward" : "backward") as "forward" | "backward",
+							type: (prevOffset < currentOffset ? "forward" : "backward") as
+								| "forward"
+								| "backward",
 						}]
 						: acc
 
 				return checkTransitions(
 					current.add({ days: 1 }),
 					currentOffset,
-					newTransitions
+					newTransitions,
 				)
 			} catch {
 				// Invalid timezone or date, skip this date
 				return checkTransitions(
 					current.add({ days: 1 }),
 					prevOffset,
-					acc
+					acc,
 				)
 			}
 		}

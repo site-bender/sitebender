@@ -36,7 +36,7 @@ import isNull from "../isNull/index.ts"
  * isJSONObject('[1, 2, 3]')                // false (array)
  *
  * const isJSONArray = isJSON({ type: 'array' })
- * isJSONArray('[1, 2, 3]')                 // true  
+ * isJSONArray('[1, 2, 3]')                 // true
  * isJSONArray('{"name": "John"}')          // false (object)
  *
  * // Invalid JSON formats

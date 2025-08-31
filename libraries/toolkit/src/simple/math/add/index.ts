@@ -17,22 +17,22 @@ import isNullish from "../../validation/isNullish/index.ts"
  * add(2)(3)      // 5
  * add(-5)(3)     // -2
  * add(1.5)(2.3)  // 3.8
- * 
+ *
  * // Partial application
  * const increment = add(1)
  * increment(5)   // 6
- * 
+ *
  * const add10 = add(10)
  * add10(32)      // 42
- * 
+ *
  * // Array operations
  * const numbers = [1, 2, 3, 4, 5]
  * numbers.map(add(10))  // [11, 12, 13, 14, 15]
- * 
+ *
  * // Running total
  * const expenses = [10.50, 25.00, 8.75]
  * expenses.reduce((sum, expense) => add(sum)(expense), 0)  // 44.25
- * 
+ *
  * // Edge cases
  * add(Infinity)(1)         // Infinity
  * add(-Infinity)(Infinity) // NaN

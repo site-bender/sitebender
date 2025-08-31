@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Removes an element at a specific index from an array
  *
@@ -23,10 +25,11 @@
  * removeSecond(["first", "second", "third"]) // ["first", "third"]
  * ```
  */
-const removeAt = <T>(index: number) => (
+const removeAt = <T>(index: number) =>
+(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-		if (array === null || array === undefined || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return []
 	}
 	const len = array.length

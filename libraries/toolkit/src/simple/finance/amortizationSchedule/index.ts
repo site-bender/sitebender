@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Generates a loan amortization schedule
  *
@@ -58,15 +60,15 @@ const amortizationSchedule = (
 (
 	periods: number | null | undefined,
 ): Array<AmortizationEntry> => {
-	if (principal == null || typeof principal !== "number") {
+	if (isNullish(principal) || typeof principal !== "number") {
 		return []
 	}
 
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return []
 	}
 
-	if (periods == null || typeof periods !== "number") {
+	if (isNullish(periods) || typeof periods !== "number") {
 		return []
 	}
 
@@ -128,8 +130,6 @@ const amortizationSchedule = (
 	}
 
 	return generateSchedule(1, balance, [])
-
-	return schedule
 }
 
 export default amortizationSchedule

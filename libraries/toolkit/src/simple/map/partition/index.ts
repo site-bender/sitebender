@@ -67,7 +67,7 @@ const partition = <K, V>(
 	const entries = Array.from(map)
 	return [
 		new Map(entries.filter(([key, value]) => predicate(value, key))),
-		new Map(entries.filter(([key, value]) => !predicate(value, key)))
+		new Map(entries.filter(([key, value]) => !predicate(value, key))),
 	]
 }
 

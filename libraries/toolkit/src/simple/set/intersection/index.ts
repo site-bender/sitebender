@@ -62,7 +62,7 @@ const intersection = <T>(
 
 	// Fallback: Iterate over smaller set for efficiency
 	const [smaller, larger] = set1.size <= set2.size ? [set1, set2] : [set2, set1]
-	return new Set(Array.from(smaller).filter(element => larger.has(element)))
+	return new Set(Array.from(smaller).filter((element) => larger.has(element)))
 }
 
 export default intersection

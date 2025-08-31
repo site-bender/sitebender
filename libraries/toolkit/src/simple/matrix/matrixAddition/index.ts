@@ -15,7 +15,7 @@
  * matrixAddition([[1, 2], [3, 4]])([[5, 6], [7, 8]])
  * // [[6, 8], [10, 12]]
  *
- * // 3×3 matrices  
+ * // 3×3 matrices
  * matrixAddition([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
  *   ([[2, 3, 4], [5, 6, 7], [8, 9, 10]])
  * // [[3, 3, 4], [5, 7, 7], [8, 9, 11]]
@@ -83,24 +83,25 @@ const matrixAddition = (
 	}
 
 	// Validate all rows have consistent dimensions
-	if (!matrix1.every(row => Array.isArray(row) && row.length === cols1) ||
-		!matrix2.every(row => Array.isArray(row) && row.length === cols2)) {
+	if (
+		!matrix1.every((row) => Array.isArray(row) && row.length === cols1) ||
+		!matrix2.every((row) => Array.isArray(row) && row.length === cols2)
+	) {
 		return NaN
 	}
 
 	// Validate all elements are numbers
 	const hasNonNumber = (matrix: number[][]) =>
-		matrix.some(row => 
-			row.some(val => val == null || typeof val !== "number"))
+		matrix.some((row) =>
+			row.some((val) => val == null || typeof val !== "number")
+		)
 
 	if (hasNonNumber(matrix1) || hasNonNumber(matrix2)) {
 		return NaN
 	}
 
 	// Perform addition using map
-	return matrix1.map((row1, i) =>
-		row1.map((val1, j) => val1 + matrix2[i][j])
-	)
+	return matrix1.map((row1, i) => row1.map((val1, j) => val1 + matrix2[i][j]))
 }
 
 export default matrixAddition

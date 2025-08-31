@@ -14,26 +14,26 @@
  * const map = new Map([["a", 1], ["b", 2], ["c", 3]])
  * has("a")(map)  // true
  * has("z")(map)  // false
- * 
+ *
  * // Different key types
  * const mixed = new Map([[123, "number"], [true, "bool"], [null, "null"]])
  * has(123)(mixed)  // true
  * has(false)(mixed)  // false
- * 
+ *
  * // Object keys (reference equality)
  * const key = { id: 1 }
  * const objMap = new Map([[key, "value"]])
  * has(key)(objMap)  // true
  * has({ id: 1 })(objMap)  // false (different object)
- * 
+ *
  * // Required field validation
  * const requiredFields = ["name", "email"]
  * const form = new Map([["name", "Alice"], ["email", "alice@example.com"]])
  * requiredFields.every(field => has(field)(form))  // true
- * 
+ *
  * // Empty Map
  * has("any")(new Map())  // false
- * 
+ *
  * @pure
  * @curried
  * @predicate

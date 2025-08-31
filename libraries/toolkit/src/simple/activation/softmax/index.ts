@@ -1,3 +1,6 @@
+import { isNotNullish } from "../../validation/isNotNullish/index.ts"
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the softmax activation function for a vector
  *
@@ -38,7 +41,7 @@
 const softmax = (
 	x: number[] | null | undefined,
 ): number[] => {
-	if (x == null || !Array.isArray(x)) {
+	if (isNullish(x) || !Array.isArray(x)) {
 		return []
 	}
 
@@ -47,7 +50,7 @@ const softmax = (
 	}
 
 	// Check for non-numeric values
-	if (!x.every(val => val != null && typeof val === "number")) {
+	if (!x.every((val) => isNotNullish(val) && typeof val === "number")) {
 		return []
 	}
 

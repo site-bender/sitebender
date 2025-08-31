@@ -19,22 +19,22 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * const makeKey = memoizeKey()
  * makeKey(1, 2, 3)                    // "1|2|3"
  * makeKey("hello", "world")           // "hello|world"
- * 
+ *
  * // Object keys are sorted for consistency
  * makeKey({ b: 2, a: 1 })             // '{"a":1,"b":2}'
  * makeKey({ a: 1, b: 2 })             // '{"a":1,"b":2}' (same)
- * 
+ *
  * // Custom separator
  * const customKey = memoizeKey({ separator: ":" })
  * customKey("user", 123, "profile")  // "user:123:profile"
- * 
+ *
  * // Function argument caching
  * function createMemoized<T extends Array<any>, R>(
  *   fn: (...args: T) => R
  * ): (...args: T) => R {
  *   const cache = new Map<string, R>()
  *   const fnKey = memoizeKey()
- *   
+ *
  *   return (...args: T): R => {
  *     const key = fnKey(...args)
  *     if (cache.has(key)) return cache.get(key)!
@@ -43,7 +43,7 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  *     return result
  *   }
  * }
- * 
+ *
  * // Circular references handled safely
  * const obj: any = { a: 1 }
  * obj.self = obj

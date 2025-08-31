@@ -49,7 +49,7 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * // Validate cutoff times
  * const validateOrderTime = (orderTime: string, cutoff: string): boolean =>
  *   isSameOrBeforeTime(cutoff)(orderTime)
- * 
+ *
  * validateOrderTime("14:30:00", "15:00:00")  // true
  * validateOrderTime("15:01:00", "15:00:00")  // false
  *
@@ -64,7 +64,7 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  * @pure
  * @curried
  * @predicate
- * @safe 
+ * @safe
  */
 const isSameOrBeforeTime = (
 	reference: TimeInput | null | undefined,

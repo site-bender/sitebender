@@ -13,12 +13,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param comparator - Function that compares two elements (returns positive if a > b)
  * @param array - Array to find maximum element from
  * @returns Maximum element according to comparator, or undefined if array is empty
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Simple numeric comparison
@@ -58,7 +58,11 @@ const maximumBy = <T>(
 		return undefined
 	}
 
-	const findMaximum = (arr: ReadonlyArray<T>, currentMax: T, index: number): T => {
+	const findMaximum = (
+		arr: ReadonlyArray<T>,
+		currentMax: T,
+		index: number,
+	): T => {
 		if (index >= arr.length) {
 			return currentMax
 		}

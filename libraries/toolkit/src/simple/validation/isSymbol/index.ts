@@ -20,7 +20,7 @@
  * ```typescript
  * // Basic checks
  * isSymbol(Symbol())            // true
- * isSymbol(Symbol("id"))        // true  
+ * isSymbol(Symbol("id"))        // true
  * isSymbol(Symbol.for("global")) // true
  * isSymbol(Symbol.iterator)     // true
  * isSymbol("symbol")            // false

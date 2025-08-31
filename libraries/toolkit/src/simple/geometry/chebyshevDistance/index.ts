@@ -62,7 +62,7 @@ const chebyshevDistance = (
 
 	return point1.reduce((maxDist, coord1, i) => {
 		const coord2 = point2[i]
-		
+
 		// Check for non-numeric values
 		if (coord1 == null || typeof coord1 !== "number") {
 			return NaN
@@ -70,7 +70,7 @@ const chebyshevDistance = (
 		if (coord2 == null || typeof coord2 !== "number") {
 			return NaN
 		}
-		
+
 		const distance = Math.abs(coord1 - coord2)
 		return Math.max(maxDist, distance)
 	}, 0)

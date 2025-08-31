@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Generates all possible subsequences of an array
  *
@@ -16,7 +18,7 @@
  *
  * // Single element
  * subsequences([1])  // [[], [1]]
- * 
+ *
  * // Empty array
  * subsequences([])   // [[]]
  *
@@ -44,7 +46,7 @@
 const subsequences = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [[]]
 	}
 

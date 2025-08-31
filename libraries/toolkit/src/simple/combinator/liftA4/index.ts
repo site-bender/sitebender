@@ -131,11 +131,7 @@ const liftA4 = <A, B, C, D, R>(
 	fd: ReadonlyArray<D>,
 ): Array<R> =>
 	fa.flatMap((a) =>
-		fb.flatMap((b) =>
-			fc.flatMap((c) =>
-				fd.map((d) => fn(a, b, c, d))
-			)
-		)
+		fb.flatMap((b) => fc.flatMap((c) => fd.map((d) => fn(a, b, c, d))))
 	)
 
 export default liftA4

@@ -38,8 +38,8 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  *
  * // Log validation
  * const validateLog = (timestamp: unknown): string | null => {
- *   return !isPastDateTime(timestamp) 
- *     ? "Log timestamp cannot be in the future" 
+ *   return !isPastDateTime(timestamp)
+ *     ? "Log timestamp cannot be in the future"
  *     : null
  * }
  *

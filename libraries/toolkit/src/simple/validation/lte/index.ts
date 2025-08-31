@@ -15,7 +15,7 @@
  * - null/undefined: coerced to numbers (null = 0, undefined = NaN)
  *
  * @pure
- * @curried  
+ * @curried
  * @predicate
  * @param threshold - The value to compare against
  * @returns A predicate function that returns true if input <= threshold

@@ -18,26 +18,26 @@
  * ])
  * groupBy((user: any) => user.dept)(users)
  * // Map { "Engineering" => Map {...}, "Sales" => Map {...} }
- * 
+ *
  * // Group by computed property
  * const scores = new Map([["alice", 95], ["bob", 72], ["charlie", 88]])
  * const byGrade = groupBy((score: number) =>
  *   score >= 90 ? "A" : score >= 80 ? "B" : "C"
  * )
  * byGrade(scores)  // Map { "A" => Map {...}, "C" => Map {...}, "B" => Map {...} }
- * 
+ *
  * // Using both key and value
  * const items = new Map([["item1", 10], ["test2", 20]])
  * groupBy((v: number, k: string) => k.startsWith("item") ? "items" : "other")(items)
- * 
+ *
  * // Empty Map
  * groupBy((v: any) => "group")(new Map())  // Map {}
- * 
+ *
  * // Group by boolean condition
  * const nums = new Map([["a", 1], ["b", 2], ["c", 3]])
  * groupBy((n: number) => n % 2 === 0 ? "even" : "odd")(nums)
  * // Map { "odd" => Map {...}, "even" => Map {...} }
- * 
+ *
  * @pure
  * @curried
  * @immutable

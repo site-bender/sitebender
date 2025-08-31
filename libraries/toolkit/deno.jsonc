@@ -29,8 +29,7 @@
 		"exclude": ["src/"]
 	},
 	"compilerOptions": {
-    "lib": ["deno.window", "esnext"],
-    "types": []
+		"lib": ["deno.window", "esnext"],
+		"types": []
 	}
-
 }

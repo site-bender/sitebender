@@ -11,12 +11,12 @@
  * @param start - Starting number (inclusive)
  * @param end - Ending boundary (exclusive)
  * @returns Array of numbers from start towards end by step
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Step by 2
@@ -58,7 +58,7 @@ const rangeStep = (
 	}
 
 	const length = Math.floor(
-		step > 0 ? (end - start) / step : (start - end) / Math.abs(step)
+		step > 0 ? (end - start) / step : (start - end) / Math.abs(step),
 	)
 
 	return Array.from({ length }, (_, i) => start + i * step)

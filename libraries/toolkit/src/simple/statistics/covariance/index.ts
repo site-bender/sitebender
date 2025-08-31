@@ -67,11 +67,11 @@ const covariance = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValues = x.some((val, i) => 
+	const hasInvalidValues = x.some((val, i) =>
 		isNullish(val) || typeof val !== "number" ||
 		isNullish(y[i]) || typeof y[i] !== "number"
 	)
-	
+
 	if (hasInvalidValues) {
 		return NaN
 	}
@@ -81,9 +81,7 @@ const covariance = (
 	const meanY = mean(y)
 
 	// Calculate covariance
-	const sum = x.reduce((acc, xi, i) => 
-		acc + (xi - meanX) * (y[i] - meanY), 0
-	)
+	const sum = x.reduce((acc, xi, i) => acc + (xi - meanX) * (y[i] - meanY), 0)
 
 	// Divide by n for population, n-1 for sample
 	const divisor = sample ? x.length - 1 : x.length

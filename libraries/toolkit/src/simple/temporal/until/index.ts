@@ -41,7 +41,7 @@ import isNullish from "../../../simple/validation/isNullish/index.ts"
  *   return until(eventDate)(today)
  * }
  *
- * // Batch duration calculation  
+ * // Batch duration calculation
  * const startDate = Temporal.PlainDate.from("2024-01-01")
  * const milestones = [
  *   Temporal.PlainDate.from("2024-03-31"),

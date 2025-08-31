@@ -56,12 +56,12 @@
  * times.map(setToHalfPast)
  * // [09:30:00, 14:30:00, 18:30:00]
  *
- * // Partial application examples  
+ * // Partial application examples
  * const setToTopOfHour = setMinute(0)
  * const setToQuarterPast = setMinute(15)
  * const setToHalfPast = setMinute(30)
  * const setToQuarterTo = setMinute(45)
- * 
+ *
  * const someTime = Temporal.PlainTime.from("10:22:00")
  * setToTopOfHour(someTime)                // PlainTime 10:00:00
  * setToQuarterPast(someTime)              // PlainTime 10:15:00

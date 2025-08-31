@@ -50,7 +50,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * getDayOfYear(undefined)                 // null
  * ```
  * @pure
- * @safe Returns null for invalid inputs  
+ * @safe Returns null for invalid inputs
  * @calendarAware Respects the calendar system of the input date
  */
 const getDayOfYear = (

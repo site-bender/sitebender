@@ -60,7 +60,6 @@ import right from "../right/index.ts"
  *   pipe(either, swap, map(fn), swap)
  * processInverted((err: string) => err.length)(left("hello"))  // Left(5)
  * ```
- *
  */
 const swap = <E, A>(either: Either<E, A>): Either<A, E> => {
 	if (isLeft(either)) {

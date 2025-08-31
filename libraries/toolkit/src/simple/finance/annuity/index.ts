@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the present value of an annuity
  *
@@ -44,15 +46,15 @@ const annuity = (
 (
 	periods: number | null | undefined,
 ): number => {
-	if (payment == null || typeof payment !== "number") {
+	if (isNullish(payment) || typeof payment !== "number") {
 		return NaN
 	}
 
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
-	if (periods == null || typeof periods !== "number") {
+	if (isNullish(periods) || typeof periods !== "number") {
 		return NaN
 	}
 

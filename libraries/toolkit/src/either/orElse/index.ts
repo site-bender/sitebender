@@ -66,7 +66,6 @@ import isRight from "../isRight/index.ts"
  *     orElse(right(0))
  *   )
  * ```
- *
  */
 const orElse = <E, F, A>(
 	alternative: Either<F, A> | (() => Either<F, A>),

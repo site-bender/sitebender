@@ -65,19 +65,20 @@ const matrixTranspose = (
 	}
 
 	// Validate all rows have same length and contain numbers
-	const isValid = matrix.every(row =>
+	const isValid = matrix.every((row) =>
 		Array.isArray(row) &&
 		row.length === cols &&
-		row.every(val => val != null && typeof val === "number")
+		row.every((val) => val != null && typeof val === "number")
 	)
-	
+
 	if (!isValid) {
 		return NaN
 	}
 
 	// Create transposed matrix using functional approach
-	const transposed = Array.from({ length: cols }, (_, j) =>
-		Array.from({ length: rows }, (_, i) => matrix[i][j])
+	const transposed = Array.from(
+		{ length: cols },
+		(_, j) => Array.from({ length: rows }, (_, i) => matrix[i][j]),
 	)
 
 	return transposed

@@ -15,20 +15,20 @@
  * // J0(x) - zeroth order
  * besselJ(0)(0) // 1 (J0(0) = 1)
  * besselJ(0)(2.4048) // ≈ 0 (first zero of J0)
- * 
+ *
  * // J1(x) - first order
  * besselJ(1)(0) // 0 (J1(0) = 0)
  * besselJ(1)(1) // 0.4400... (J1(1))
- * 
+ *
  * // Vibrating circular membrane
  * const drumRadius = 1
  * const firstMode = 2.4048  // First zero of J0
  * const amplitude = (r: number) => besselJ(0)(firstMode * r / drumRadius)
- * 
+ *
  * // FM synthesis sidebands
  * const modulationIndex = 2.5
  * const sideband = (n: number) => besselJ(n)(modulationIndex)
- * 
+ *
  * // Edge cases
  * besselJ(-1)(2) // NaN (negative order)
  * besselJ(1.5)(2) // NaN (non-integer order)

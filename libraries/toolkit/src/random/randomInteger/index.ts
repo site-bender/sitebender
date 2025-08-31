@@ -18,23 +18,23 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * ```typescript
  * // Random die roll (1-6)
  * randomInteger(1)(6)  // 4
- * 
+ *
  * // Random array index
  * const arr = ['a', 'b', 'c', 'd']
  * const index = randomInteger(0)(arr.length - 1)  // 2
- * 
+ *
  * // Random from -10 to 10
  * randomInteger(-10)(10)  // -3
- * 
+ *
  * // Handles swapped bounds
  * randomInteger(100)(1)   // 42 (between 1 and 100)
- * 
+ *
  * // Partial application for dice
  * const d6 = randomInteger(1)
  * d6(6)   // 1-6
  * const d20 = randomInteger(1)
  * d20(20) // 1-20
- * 
+ *
  * // Invalid inputs return NaN
  * randomInteger(null)(10)     // NaN
  * randomInteger(0)(Infinity)  // NaN

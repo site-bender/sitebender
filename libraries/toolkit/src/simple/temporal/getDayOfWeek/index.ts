@@ -67,7 +67,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *     const day = getDayOfWeek(date)
  *     return day !== null && day >= 1 && day <= 5
  *   }
- *   
+ *
  *   const addDayRecursive = (
  *     current: Temporal.PlainDate,
  *     remaining: number,
@@ -78,7 +78,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *     const decrement = isBusinessDay(next) ? 1 : 0
  *     return addDayRecursive(next, remaining - decrement, direction)
  *   }
- *   
+ *
  *   return addDayRecursive(start, Math.abs(days), days > 0 ? 1 : -1)
  * }
  * ```

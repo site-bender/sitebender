@@ -39,7 +39,7 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * // Validate appointment times
  * const validateAppointment = (appt: string, earliest: string): boolean =>
  *   isSameOrAfterDateTime(earliest)(appt)
- * 
+ *
  * validateAppointment("2024-01-15T14:00:00", "2024-01-15T09:00:00")  // true
  * validateAppointment("2024-01-15T08:00:00", "2024-01-15T09:00:00")  // false
  *

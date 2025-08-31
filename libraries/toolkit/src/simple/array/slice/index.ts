@@ -18,7 +18,7 @@
  * // Basic usage
  * slice(1)(3)([1, 2, 3, 4, 5]) // [2, 3]
  * slice(2)(undefined)([1, 2, 3, 4, 5]) // [3, 4, 5]
- * 
+ *
  * // Negative indices
  * slice(-2)(undefined)([1, 2, 3, 4, 5]) // [4, 5]
  * slice(1)(-1)([1, 2, 3, 4, 5]) // [2, 3, 4]

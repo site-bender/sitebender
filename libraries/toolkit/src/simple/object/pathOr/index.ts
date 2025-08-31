@@ -18,15 +18,15 @@ import path from "../path/index.ts"
  * // Basic usage
  * pathOr("user.name")("Anonymous")({ user: { name: "John" } })  // "John"
  * pathOr("user.email")("N/A")({ user: { name: "John" } })       // "N/A"
- * 
+ *
  * // Array paths and indices
  * pathOr(["items", 0, "name"])("No item")({ items: [] })       // "No item"
  * pathOr("users.0.id")(0)({ users: [{ id: 42 }] })              // 42
- * 
+ *
  * // Preserves falsy values
  * pathOr("count")(10)({ count: 0 })           // 0 (not default)
  * pathOr("active")(true)({ active: false })   // false (not default)
- * 
+ *
  * // Partial application
  * const getName = pathOr("user.name")("Guest")
  * getName({ user: { name: "Alice" } })  // "Alice"

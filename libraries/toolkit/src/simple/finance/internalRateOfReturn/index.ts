@@ -48,13 +48,13 @@ const internalRateOfReturn = (
 	}
 
 	// Validate all cash flows are numbers
-	if (!cashFlows.every(cf => typeof cf === "number")) {
+	if (!cashFlows.every((cf) => typeof cf === "number")) {
 		return NaN
 	}
 
 	// Check for at least one positive and one negative cash flow
-	const hasPositive = cashFlows.some(cf => cf > 0)
-	const hasNegative = cashFlows.some(cf => cf < 0)
+	const hasPositive = cashFlows.some((cf) => cf > 0)
+	const hasNegative = cashFlows.some((cf) => cf < 0)
 
 	if (!hasPositive || !hasNegative) {
 		return NaN
@@ -64,14 +64,14 @@ const internalRateOfReturn = (
 	const npv = (rate: number): number =>
 		cashFlows.reduce(
 			(sum, cf, i) => sum + cf / Math.pow(1 + rate, i),
-			0
+			0,
 		)
 
 	// Derivative of NPV function
 	const npvDerivative = (rate: number): number =>
 		cashFlows.slice(1).reduce(
 			(sum, cf, i) => sum - (i + 1) * cf / Math.pow(1 + rate, i + 2),
-			0
+			0,
 		)
 
 	// Newton-Raphson method using recursion

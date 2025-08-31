@@ -45,7 +45,9 @@ import removeAt from "../removeAt/index.ts"
  * move(0)(0)(["only"]) // ["only"]
  * ```
  */
-const move = <T>(from: number) => (to: number) => (
+const move = <T>(from: number) =>
+(to: number) =>
+(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	if (isNullish(array) || !Array.isArray(array)) {

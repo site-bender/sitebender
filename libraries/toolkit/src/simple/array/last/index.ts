@@ -9,10 +9,10 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * @param array - The array to get the last element from
  * @returns The last element or undefined if array is empty/null
- * 
+ *
  * @pure
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
@@ -31,8 +31,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ```
  */
 const last = <T>(
-	array: ReadonlyArray<T> | null | undefined
-): T | undefined => 
+	array: ReadonlyArray<T> | null | undefined,
+): T | undefined =>
 	isNullish(array) || !Array.isArray(array) ? undefined : array.at(-1)
 
 export default last

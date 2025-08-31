@@ -34,8 +34,8 @@
  * // API request validation
  * const validateRequestTime = (timestamp: string): string | null => {
  *   const instant = Temporal.Instant.from(timestamp)
- *   return !isPastInstant(instant) 
- *     ? "Request time cannot be in the future" 
+ *   return !isPastInstant(instant)
+ *     ? "Request time cannot be in the future"
  *     : null
  * }
  *

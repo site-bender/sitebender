@@ -59,7 +59,7 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * // Business quarter check
  * const isQ1 = isBetweenDates("2024-01-01", "2024-03-31")
  * const isQ2 = isBetweenDates("2024-04-01", "2024-06-30")
- * 
+ *
  * const getQuarter = (date: DateInput): number =>
  *   isQ1(date) ? 1
  *   : isQ2(date) ? 2

@@ -10,11 +10,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param separator - String to insert between elements
  * @param array - The array to join
  * @returns Single string of joined elements
- * 
+ *
  * @pure
  * @curried
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
@@ -24,7 +24,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * // Numbers are converted to strings
  * join(", ")([1, 2, 3]) // "1, 2, 3"
- * 
+ *
  * // Create CSV lines
  * const toCSV = join(",")
  * toCSV(["name", "age", "city"]) // "name,age,city"
@@ -36,8 +36,9 @@ import isNullish from "../../validation/isNullish/index.ts"
  * join(", ")(["single"]) // "single"
  * ```
  */
-const join = <T>(separator: string) => (
-	array: ReadonlyArray<T> | null | undefined
+const join = <T>(separator: string) =>
+(
+	array: ReadonlyArray<T> | null | undefined,
 ): string =>
 	isNullish(array) || !Array.isArray(array) ? "" : array.join(separator)
 

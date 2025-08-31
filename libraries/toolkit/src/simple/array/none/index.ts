@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Tests whether no elements in an array satisfy a predicate function
  *
@@ -7,13 +9,13 @@
  * @param predicate - Function to test each element (item, index, array) => boolean
  * @param array - The array to test
  * @returns true if no elements satisfy predicate (or array is empty)
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
  * @predicate
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
@@ -35,12 +37,13 @@
  * none((x: number) => x > 0)(undefined) // true
  * ```
  */
-const none = <T>(predicate: (item: T, index: number, array: Array<T>) => boolean) =>
-(array: Array<T> | null | undefined): boolean => {
-	if (array == null || !Array.isArray(array)) {
-		return true
+const none =
+	<T>(predicate: (item: T, index: number, array: Array<T>) => boolean) =>
+	(array: Array<T> | null | undefined): boolean => {
+		if (isNullish(array) || !Array.isArray(array)) {
+			return true
+		}
+		return !array.some(predicate)
 	}
-	return !array.some(predicate)
-}
 
 export default none

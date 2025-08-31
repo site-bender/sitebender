@@ -58,9 +58,7 @@ const endsWith = <T>(
 
 	const startIndex = array.length - suffix.length
 
-	return suffix.every((value, i) =>
-		Object.is(array[startIndex + i], value)
-	)
+	return suffix.every((value, i) => Object.is(array[startIndex + i], value))
 }
 
 export default endsWith

@@ -23,24 +23,24 @@
  * // Nullish values are empty
  * isEmpty(null)                      // true
  * isEmpty(undefined)                 // true
- * 
+ *
  * // Strings and arrays check length
  * isEmpty("")                        // true
  * isEmpty("   ")                     // false (whitespace is not empty)
  * isEmpty([])                        // true
  * isEmpty([1, 2, 3])                 // false
- * 
+ *
  * // Objects check for own enumerable properties
  * isEmpty({})                        // true
  * isEmpty({ a: 1 })                  // false
  * isEmpty(Object.create({ a: 1 }))   // true (inherited props don't count)
- * 
+ *
  * // Maps/Sets check size, numbers/booleans never empty
  * isEmpty(new Map())                 // true
  * isEmpty(new Set([1, 2]))           // false
  * isEmpty(0)                         // false
  * isEmpty(false)                     // false
- * 
+ *
  * // Form validation example
  * function validateForm(data: { name: string; email: string }) {
  *   const errors: string[] = []
@@ -48,7 +48,7 @@
  *   if (isEmpty(data.email)) errors.push("Email is required")
  *   return errors
  * }
- * 
+ *
  * // Filter out empty values
  * const data = ["hello", "", null, [], "world", {}]
  * const nonEmpty = data.filter(item => !isEmpty(item))

@@ -59,7 +59,7 @@ const replaceAll =
 				// For string search with function replacer, we split and rebuild
 				const parts = str.split(searchValue)
 				if (parts.length === 1) return str // No matches found
-				
+
 				return parts.reduce((result, part, index) => {
 					if (index === 0) return part
 					const matchIndex = result.length + (searchValue.length * (index - 1))

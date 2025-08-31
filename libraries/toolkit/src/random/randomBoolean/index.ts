@@ -16,20 +16,20 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * ```typescript
  * // Fair coin flip (50/50)
  * randomBoolean()     // true or false
- * 
+ *
  * // Biased toward true (70% true)
  * randomBoolean(0.7)  // true (more likely)
- * 
+ *
  * // Biased toward false (20% true)
  * randomBoolean(0.2)  // false (more likely)
- * 
+ *
  * // Edge cases
  * randomBoolean(1)    // always true
  * randomBoolean(0)    // always false
- * 
+ *
  * // A/B testing
  * const isGroupA = randomBoolean()  // 50/50 split
- * 
+ *
  * // Monte Carlo simulation
  * const successes = Array.from({ length: 1000 },
  *   () => randomBoolean(0.6)

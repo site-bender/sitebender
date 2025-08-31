@@ -32,12 +32,20 @@
 - **Migrated 24 additional array utility files**
 - **Total files completed**: 211 files (187 from previous + 24 from this session)
 
-#### Session 5 (Current)
+#### Session 5
 
 - **Migrated 22 additional array utility files** (rotateLeft, reduceWhile, scan, nub, tail, reverse, minimumBy, omit, rotateRight, pairwise, zip, map, nubBy, span, reduceRight, take, replaceAt, sample, union, lastIndexOf, partitionBy - reject was already done)
 - **Total files completed**: 233 files (211 from previous + 22 from this session)
-- **Remaining files**: ~240 files with direct null/undefined comparisons
-- **Remaining instances**: ~456 direct comparisons (down from 478)
+
+#### Session 6 (Current)
+
+- **Migrated 24 additional files**:
+  - Array utilities (14): none, partition, permutations, removeAt, replaceAll, replaceLast, sortBy, sortWith, startsWith, subsequences, symmetricDifference, takeLast, takeWhile, zipObj
+  - Activation functions (7): gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
+  - Finance functions (3): amortizationSchedule, annuity, compoundInterest, futureValue
+- **Total files completed**: 257 files (233 from previous + 24 from this session)
+- **Remaining files**: ~216 files with direct null/undefined comparisons
+- **Remaining instances**: ~432 direct comparisons (down from 456)
 
 ### Remaining Work
 
@@ -74,17 +82,19 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (233 files)
+### Already Completed Files (257 files)
 
 These files have already been updated and should be skipped:
 
 - `either/`: leftWithInspect, rightWithInspect, show
 - `maybe/`: chain, fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
-- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, nub, nubBy, omit, pairwise, partitionBy, pluck, reduce, reduceRight, reduceWhile, reject, remove, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, sliding, span, symmetricDifferenceWith, tail, take, takeLastWhile, times, transpose, unfold, union, unzip, update, zip, zipWith
+- `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, nub, nubBy, omit, pairwise, partitionBy, pluck, reduce, reduceRight, reduceWhile, reject, remove, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, sliding, span, symmetricDifferenceWith, tail, take, takeLastWhile, times, transpose, unfold, union, unzip, update, zip, zipWith, none, partition, permutations, removeAt, replaceAll, replaceLast, sortBy, sortWith, startsWith, subsequences, symmetricDifference, takeLast, takeWhile, zipObj
+- `simple/activation/`: gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime
+- `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue
 - `simple/map/`: withDefault
 - `simple/math/`: add, clamp, combinations, sum
 - `simple/object/`: path, smartMerge, where, whereEq

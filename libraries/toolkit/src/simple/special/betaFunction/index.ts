@@ -17,18 +17,18 @@ import gammaFunction from "../gammaFunction/index.ts"
  * betaFunction(1)(1) // 1 (B(1,1) = 1)
  * betaFunction(2)(2) // 0.1666... (1/6)
  * betaFunction(3)(5) // 0.00952... (1/105)
- * 
+ *
  * // Half-integer values
  * betaFunction(0.5)(0.5) // 3.1415... (π)
  * betaFunction(1.5)(1.5) // 0.5235... (π/6)
- * 
+ *
  * // Beta distribution normalization
  * const betaPDF = (x: number, alpha: number, beta: number): number => {
  *   if (x < 0 || x > 1) return 0
  *   const B = betaFunction(alpha)(beta)
  *   return Math.pow(x, alpha - 1) * Math.pow(1 - x, beta - 1) / B
  * }
- * 
+ *
  * // Edge cases
  * betaFunction(0)(1) // NaN (x must be positive)
  * betaFunction(1)(-1) // NaN (y must be positive)

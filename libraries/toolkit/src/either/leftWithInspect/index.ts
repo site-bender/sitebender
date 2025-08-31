@@ -1,8 +1,8 @@
 import type { Either } from "../../types/fp/either/index.ts"
 
 import withInspect from "../../debug/withInspect/index.ts"
-import left from "../left/index.ts"
 import isNullish from "../../simple/validation/isNullish/index.ts"
+import left from "../left/index.ts"
 
 /**
  * Creates a Left value with enhanced debugging output
@@ -48,7 +48,6 @@ import isNullish from "../../simple/validation/isNullish/index.ts"
  * Object.keys(e)  // ["_tag", "left"]
  * JSON.stringify(e)  // '{"_tag":"Left","left":"test"}'
  * ```
- *
  */
 const leftWithInspect = <E, A = never>(value: E): Either<E, A> => {
 	const formatValue = (v: unknown): string => {

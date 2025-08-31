@@ -77,19 +77,19 @@ const partitionBy = <K, V>(
 	const groups = entries.reduce<Array<Array<[K, V]>>>((acc, entry, index) => {
 		const [key, value] = entry
 		const predicateResult = predicate(value, key)
-		
+
 		if (index === 0) {
 			return [[entry]]
 		}
-		
+
 		const [prevKey, prevValue] = entries[index - 1]
 		const prevPredicateResult = predicate(prevValue, prevKey)
-		
+
 		if (predicateResult === prevPredicateResult) {
 			// Add to last group immutably
 			return [
 				...acc.slice(0, -1),
-				[...acc[acc.length - 1], entry]
+				[...acc[acc.length - 1], entry],
 			]
 		} else {
 			// Start new group
@@ -97,7 +97,7 @@ const partitionBy = <K, V>(
 		}
 	}, [])
 
-	return groups.map(group => new Map(group))
+	return groups.map((group) => new Map(group))
 }
 
 export default partitionBy

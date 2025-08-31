@@ -61,12 +61,12 @@
  * const resetToZero = setSecond(0)
  * const setToHalfMinute = setSecond(30)
  * const setToLastSecond = setSecond(59)
- * 
+ *
  * const someTime = Temporal.PlainTime.from("10:30:45")
  * resetToZero(someTime)                   // PlainTime 10:30:00
  * setToHalfMinute(someTime)               // PlainTime 10:30:30
  * setToLastSecond(someTime)               // PlainTime 10:30:59
- * 
+ *
  * // With sub-second precision preserved
  * const preciseTime = Temporal.PlainTime.from("14:30:45.123456789")
  * setSecond(15)(preciseTime)              // PlainTime 14:30:15.123456789

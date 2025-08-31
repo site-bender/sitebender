@@ -24,7 +24,7 @@ import type { Maybe, Nothing } from "../../types/fp/maybe/index.ts"
  *   return maybe.value
  * }
  *
- * // Pattern matching style  
+ * // Pattern matching style
  * const describeMaybe = <T>(maybe: Maybe<T>): string =>
  *   isNothing(maybe) ? "Empty" : `Contains: ${maybe.value}`
  *

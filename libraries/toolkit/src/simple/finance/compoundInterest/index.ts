@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates compound interest on a principal amount
  *
@@ -52,7 +54,7 @@ const compoundInterest = (
 (
 	time: number | null | undefined,
 ): number => {
-	if (principal == null || typeof principal !== "number") {
+	if (isNullish(principal) || typeof principal !== "number") {
 		return NaN
 	}
 
@@ -60,7 +62,7 @@ const compoundInterest = (
 		return NaN
 	}
 
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
@@ -69,7 +71,7 @@ const compoundInterest = (
 		return NaN
 	}
 
-	if (compounds == null || typeof compounds !== "number") {
+	if (isNullish(compounds) || typeof compounds !== "number") {
 		return NaN
 	}
 
@@ -77,7 +79,7 @@ const compoundInterest = (
 		return NaN
 	}
 
-	if (time == null || typeof time !== "number") {
+	if (isNullish(time) || typeof time !== "number") {
 		return NaN
 	}
 

@@ -11,27 +11,27 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param initial - Starting value (becomes acc on first call)
  * @param array - The array to transform
  * @returns The final accumulated result of any type
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Sum numbers
  * reduce((acc: number, n: number) => acc + n)(0)([1, 2, 3]) // 6
  *
  * // Build object from pairs
- * reduce((acc: any, [k, v]: [string, number]) => ({...acc, [k]: v}))({})([["a", 1], ["b", 2]]) 
+ * reduce((acc: any, [k, v]: [string, number]) => ({...acc, [k]: v}))({})([["a", 1], ["b", 2]])
  * // {a: 1, b: 2}
  *
  * // Filter (build new array)
- * reduce((acc: number[], n: number) => n > 2 ? [...acc, n] : acc)([])([1, 2, 3, 4]) 
+ * reduce((acc: number[], n: number) => n > 2 ? [...acc, n] : acc)([])([1, 2, 3, 4])
  * // [3, 4]
  *
  * // Flatten
- * reduce((acc: number[], arr: number[]) => acc.concat(arr))([])([[1, 2], [3, 4]]) 
+ * reduce((acc: number[], arr: number[]) => acc.concat(arr))([])([[1, 2], [3, 4]])
  * // [1, 2, 3, 4]
  *
  * // Edge cases

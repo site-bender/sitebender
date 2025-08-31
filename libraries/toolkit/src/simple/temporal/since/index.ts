@@ -85,7 +85,7 @@ import isNullish from "../../../simple/validation/isNullish/index.ts"
  * since(startDate)(null)                  // null
  * since(null)(null)                       // null
  * since(startDate)(undefined)             // null
- * 
+ *
  * // Future reference returns empty duration
  * const futureDate = Temporal.PlainDate.from("2025-01-01")
  * const pastDate = Temporal.PlainDate.from("2024-01-01")

@@ -1,8 +1,8 @@
 import type { Maybe } from "../../types/fp/maybe/index.ts"
 
 import withInspect from "../../debug/withInspect/index.ts"
-import just from "../just/index.ts"
 import isNullish from "../../simple/validation/isNullish/index.ts"
+import just from "../just/index.ts"
 
 /**
  * Creates a Just value with enhanced debugging output

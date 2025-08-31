@@ -42,7 +42,7 @@
  *
  * // Hash table bucket distribution
  * const bucketIndex = Math.abs(hashCode("key")) % 10
- * 
+ *
  * // String comparison optimization
  * const quickCompare = (s1: string, s2: string) => {
  *   if (hashCode(s1) !== hashCode(s2)) return false

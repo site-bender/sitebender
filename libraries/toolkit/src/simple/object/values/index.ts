@@ -10,7 +10,7 @@ import type { Value } from "../../../types/index.ts"
  * @param obj - The object to extract values from
  * @returns Array of values
  * @example
- * 
+ *
  * // Basic object values
  * values({ a: 1, b: 2, c: 3 })     // [1, 2, 3]
  * values({ name: "John", age: 30 }) // ["John", 30]
@@ -29,7 +29,7 @@ import type { Value } from "../../../types/index.ts"
  * // Data extraction
  * const data = [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]
  * data.map(values)                 // [[1, "Alice"], [2, "Bob"]]
- * 
+ *
  * @pure
  * @immutable
  * @safe

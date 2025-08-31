@@ -1,5 +1,5 @@
-import isNullish from "../../simple/validation/isNullish/index.ts"
 import isEmpty from "../../simple/array/isEmpty/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Selects a random element from an Array or Set
@@ -19,22 +19,22 @@ import isEmpty from "../../simple/array/isEmpty/index.ts"
  * // Random from array
  * randomChoice(['red', 'green', 'blue'])  // 'green'
  * randomChoice([1, 2, 3, 4, 5])          // 3
- * 
+ *
  * // Random from Set
  * const colors = new Set(['red', 'green', 'blue'])
  * randomChoice(colors)  // 'blue'
- * 
+ *
  * // Random selection
  * const users = ['Alice', 'Bob', 'Charlie', 'Diana']
  * const winner = randomChoice(users)  // 'Charlie'
- * 
+ *
  * // Random test data
  * const testCases = [
  *   { input: 1, expected: 2 },
  *   { input: 5, expected: 10 }
  * ]
  * const testCase = randomChoice(testCases)
- * 
+ *
  * // Edge cases
  * randomChoice([])         // undefined
  * randomChoice(new Set())  // undefined

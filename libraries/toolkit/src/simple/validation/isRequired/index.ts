@@ -49,8 +49,8 @@
  *
  * // Password validation
  * const validatePassword = (pass: string): string | null =>
- *   !isRequired({ minLength: 8 })(pass) 
- *     ? "Password must be at least 8 characters" 
+ *   !isRequired({ minLength: 8 })(pass)
+ *     ? "Password must be at least 8 characters"
  *     : null
  * ```
  *

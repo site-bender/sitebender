@@ -37,9 +37,7 @@ const replaceFirstMatch =
 		}
 		const index = findIndex((item: string) => pattern.test(item))(array)
 
-		return index === -1
-			? [...array]
-			: replaceAt<string>(index)(replacer)(array)
+		return index === -1 ? [...array] : replaceAt<string>(index)(replacer)(array)
 	}
 
 export default replaceFirstMatch

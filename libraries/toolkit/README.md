@@ -30,12 +30,12 @@ Minimal examples (paths may vary depending on your build/export setup):
 
 ```ts
 // Array
-import chunk from "./src/simple/array/chunk/index.ts";
-const groups = chunk(3)([1,2,3,4,5,6,7]); // => [[1,2,3],[4,5,6],[7]]
+import chunk from "./src/simple/array/chunk/index.ts"
+const groups = chunk(3)([1, 2, 3, 4, 5, 6, 7]) // => [[1,2,3],[4,5,6],[7]]
 
 // Async
-import retry from "./src/simple/async/retry/index.ts";
-await retry({ attempts: 3, delayMs: 100 })(() => fetch("/api"));
+import retry from "./src/simple/async/retry/index.ts"
+await retry({ attempts: 3, delayMs: 100 })(() => fetch("/api"))
 ```
 
 ## Chainable roadmap (Result-first)

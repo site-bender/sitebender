@@ -15,14 +15,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ```typescript
  * // Population standard deviation
  * standardDeviation(false)([2, 4, 4, 4, 5, 5, 7, 9]) // 2
- * 
+ *
  * // Sample standard deviation
  * standardDeviation(true)([2, 4, 4, 4, 5, 5, 7, 9]) // 2.138...
- * 
+ *
  * // Test scores variation
  * const scores = [85, 90, 78, 92, 88, 76, 95, 89]
  * const sampleStd = standardDeviation(true)(scores) // 6.782...
- * 
+ *
  * // Edge cases
  * standardDeviation(false)([5, 5, 5, 5]) // 0 (uniform values)
  * standardDeviation(false)([]) // NaN
@@ -54,7 +54,7 @@ const standardDeviation = (
 	}
 
 	// Calculate mean
-	if (values.some(v => typeof v !== "number")) {
+	if (values.some((v) => typeof v !== "number")) {
 		return NaN
 	}
 	const mean = values.reduce((sum, value) => sum + value, 0) / n

@@ -23,7 +23,7 @@
  * ```
  */
 const indexOf = <T>(item: T) => (array: Array<T>): number | undefined => {
-	const index = array.findIndex(element => Object.is(element, item))
+	const index = array.findIndex((element) => Object.is(element, item))
 	return index === -1 ? undefined : index
 }
 

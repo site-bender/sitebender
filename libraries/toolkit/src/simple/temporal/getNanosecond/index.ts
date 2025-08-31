@@ -27,7 +27,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * const datetime = Temporal.PlainDateTime.from("2024-03-15T10:30:45.987654321")
  * getNanosecond(datetime)                 // 987654321
  *
- * // With ZonedDateTime  
+ * // With ZonedDateTime
  * const zonedDateTime = Temporal.ZonedDateTime.from(
  *   "2024-03-15T16:30:45.500250125-05:00[America/New_York]"
  * )

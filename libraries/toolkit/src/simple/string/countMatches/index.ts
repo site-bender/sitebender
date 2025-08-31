@@ -46,7 +46,7 @@
  * countVowels("hello")     // 2
  * countVowels("world")     // 1
  *
- * // Character frequency analysis  
+ * // Character frequency analysis
  * const text = "hello world"
  * const chars = ["h", "e", "l", "o", "w", "r", "d"]
  * const frequencies = chars.map(c => ({

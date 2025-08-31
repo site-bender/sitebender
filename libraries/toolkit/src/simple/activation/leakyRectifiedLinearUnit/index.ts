@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Leaky Rectified Linear Unit (Leaky ReLU) activation function
  *
@@ -40,11 +42,11 @@ const leakyRectifiedLinearUnit = (
 (
 	x: number | null | undefined,
 ): number => {
-	if (alpha == null || typeof alpha !== "number") {
+	if (isNullish(alpha) || typeof alpha !== "number") {
 		return NaN
 	}
 
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

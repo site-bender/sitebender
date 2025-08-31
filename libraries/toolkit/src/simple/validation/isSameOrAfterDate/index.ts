@@ -38,7 +38,7 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
  * // Validate date ranges
  * const validateEndDate = (start: string, end: string): boolean =>
  *   isSameOrAfterDate(start)(end)
- * 
+ *
  * validateEndDate("2024-01-01", "2024-12-31")  // true
  * validateEndDate("2024-12-31", "2024-01-01")  // false
  *

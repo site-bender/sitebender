@@ -30,7 +30,7 @@ import type { Lens } from "../../simple/object/lens/index.ts"
  *
  * // Deep composition
  * const companyLens = lensProp("company")
- * const locationLens = lensProp("location") 
+ * const locationLens = lensProp("location")
  * const countryLens = lensProp("country")
  * const deepLens = composeLens(
  *   composeLens(companyLens, locationLens),

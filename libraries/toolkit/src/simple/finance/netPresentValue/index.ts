@@ -61,14 +61,14 @@ const netPresentValue = (
 	}
 
 	// Validate all cash flows are numbers
-	if (!cashFlows.every(flow => flow != null && typeof flow === "number")) {
+	if (!cashFlows.every((flow) => flow != null && typeof flow === "number")) {
 		return NaN
 	}
 
 	// Calculate NPV using reduce
 	return cashFlows.reduce(
 		(npv, cashFlow, t) => npv + cashFlow / Math.pow(1 + rate, t),
-		0
+		0,
 	)
 }
 

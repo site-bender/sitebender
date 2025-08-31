@@ -68,10 +68,10 @@
  * const setToMidnight = setHour(0)
  * const setToNoon = setHour(12)
  * const setToEvening = setHour(18)
- * 
+ *
  * const someTime = Temporal.PlainTime.from("14:30:00")
  * setToMidnight(someTime)                 // PlainTime 00:30:00
- * setToNoon(someTime)                     // PlainTime 12:30:00 
+ * setToNoon(someTime)                     // PlainTime 12:30:00
  * setToEvening(someTime)                  // PlainTime 18:30:00
  *
  * // DST transitions example

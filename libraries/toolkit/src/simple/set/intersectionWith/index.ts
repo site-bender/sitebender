@@ -50,9 +50,9 @@ const intersectionWith = <T>(
 	}
 
 	return new Set(
-		Array.from(set1).filter(element1 =>
-			Array.from(set2).some(element2 => comparator(element1, element2))
-		)
+		Array.from(set1).filter((element1) =>
+			Array.from(set2).some((element2) => comparator(element1, element2))
+		),
 	)
 }
 

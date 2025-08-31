@@ -86,7 +86,7 @@ const toObject = <V>(map: Map<unknown, V>): Record<string, V> =>
 		.filter(([key]) => typeof key !== "symbol")
 		.reduce(
 			(acc, [key, value]) => ({ ...acc, [String(key)]: value }),
-			{} as Record<string, V>
+			{} as Record<string, V>,
 		)
 
 export default toObject

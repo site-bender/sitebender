@@ -155,11 +155,7 @@ const liftA5 = <A, B, C, D, E, R>(
 ): Array<R> =>
 	fa.flatMap((a) =>
 		fb.flatMap((b) =>
-			fc.flatMap((c) =>
-				fd.flatMap((d) =>
-					fe.map((e) => fn(a, b, c, d, e))
-				)
-			)
+			fc.flatMap((c) => fd.flatMap((d) => fe.map((e) => fn(a, b, c, d, e))))
 		)
 	)
 

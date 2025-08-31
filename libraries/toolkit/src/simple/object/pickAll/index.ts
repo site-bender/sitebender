@@ -16,14 +16,14 @@ import type { Value } from "../../../types/index.ts"
  * // Basic usage - includes missing keys as undefined
  * pickAll(["a", "b", "c"])({ a: 1, b: 2 })  // { a: 1, b: 2, c: undefined }
  * pickAll(["x", "y"])({ x: 10 })            // { x: 10, y: undefined }
- * 
+ *
  * // All requested keys always present
  * pickAll(["a", "b"])({})           // { a: undefined, b: undefined }
  * pickAll([])({ a: 1 })              // {}
- * 
+ *
  * // Preserves null vs undefined
  * pickAll(["a", "b"])({ a: null })  // { a: null, b: undefined }
- * 
+ *
  * // Partial application for API normalization
  * const normalizeUser = pickAll(["id", "name", "email"])
  * normalizeUser({ id: 1, name: "Alice" })  // { id: 1, name: "Alice", email: undefined }

@@ -73,17 +73,19 @@ const unionWith = <T>(
 			return []
 		}
 		// Remove duplicates from array2 using comparator
-		return array2.reduce<Array<T>>((acc, item) => 
-			acc.some((r) => comparator(r, item)) ? acc : [...acc, item],
-			[]
+		return array2.reduce<Array<T>>(
+			(acc, item) =>
+				acc.some((r) => comparator(r, item)) ? acc : [...acc, item],
+			[],
 		)
 	}
 
 	if (isNullish(array2) || !Array.isArray(array2)) {
 		// Remove duplicates from array1 using comparator
-		return array1.reduce<Array<T>>((acc, item) =>
-			acc.some((r) => comparator(r, item)) ? acc : [...acc, item],
-			[]
+		return array1.reduce<Array<T>>(
+			(acc, item) =>
+				acc.some((r) => comparator(r, item)) ? acc : [...acc, item],
+			[],
 		)
 	}
 

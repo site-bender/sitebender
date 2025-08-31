@@ -1,5 +1,5 @@
-import isEmpty from "../isEmpty/index.ts"
 import arrayIsEmpty from "../../array/isEmpty/index.ts"
+import isEmpty from "../isEmpty/index.ts"
 
 /**
  * Validates if a string is a valid URL

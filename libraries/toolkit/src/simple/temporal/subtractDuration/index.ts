@@ -40,7 +40,7 @@
  * // Historical dates using functional approach
  * const getHistoricalDates = (periods: number, duration: Temporal.Duration) => {
  *   const today = Temporal.Now.plainDateISO()
- *   return Array.from({ length: periods + 1 }, (_, i) => 
+ *   return Array.from({ length: periods + 1 }, (_, i) =>
  *     i === 0 ? today : subtractDuration(
  *       Temporal.Duration.from({
  *         days: (duration.days ?? 0) * i,

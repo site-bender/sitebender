@@ -78,7 +78,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Partial application
  * const roundToHour = round('hour')
  * const roundToMinute = round('minute')
- * 
+ *
  * const times = [
  *   Temporal.PlainTime.from("10:37:45"),
  *   Temporal.PlainTime.from("14:22:30")

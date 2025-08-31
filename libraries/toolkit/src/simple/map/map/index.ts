@@ -53,7 +53,7 @@ const map = <K, V, R>(
 ) =>
 (map: Map<K, V>): Map<K, R> =>
 	new Map(
-		Array.from(map).map(([key, value]) => [key, fn(value, key)])
+		Array.from(map).map(([key, value]) => [key, fn(value, key)]),
 	)
 
 export default map

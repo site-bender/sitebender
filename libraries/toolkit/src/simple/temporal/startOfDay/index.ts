@@ -70,7 +70,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * // Date comparison example
  * const morning = Temporal.PlainDateTime.from("2024-03-15T09:00:00")
- * const evening = Temporal.PlainDateTime.from("2024-03-15T21:00:00") 
+ * const evening = Temporal.PlainDateTime.from("2024-03-15T21:00:00")
  * startOfDay(morning).equals(startOfDay(evening))  // true (same day)
  * ```
  * @pure

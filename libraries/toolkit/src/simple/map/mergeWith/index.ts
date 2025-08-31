@@ -58,7 +58,7 @@ const mergeWith = <K, V>(
 	maps.reduce((acc, map) => {
 		const entries = Array.from(map).map(([key, value]): [K, V] => [
 			key,
-			acc.has(key) ? mergeFn(acc.get(key)!, value) : value
+			acc.has(key) ? mergeFn(acc.get(key)!, value) : value,
 		])
 		return new Map([...acc, ...entries])
 	}, new Map<K, V>())

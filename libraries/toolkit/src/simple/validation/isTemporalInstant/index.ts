@@ -19,7 +19,7 @@
  * ```typescript
  * // Basic usage
  * const inst = Temporal.Instant.from("2024-01-15T12:30:00Z")
- * isTemporalInstant(inst)                         // true  
+ * isTemporalInstant(inst)                         // true
  * isTemporalInstant("2024-01-15T12:30:00Z")       // false
  * isTemporalInstant(Date.now())                   // false
  * isTemporalInstant(null)                         // false

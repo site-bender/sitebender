@@ -24,7 +24,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  * removeNull([1, null, 2, null]) // [1, 2, null]
  * ```
  */
-const remove = <T>(item: T) => (
+const remove = <T>(item: T) =>
+(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	if (isNullish(array) || !Array.isArray(array)) {

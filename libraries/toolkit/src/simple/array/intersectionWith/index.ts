@@ -12,11 +12,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param array2 - Second array to intersect with
  * @param array1 - First array to intersect from
  * @returns New array with elements from array1 that have equivalents in array2
- * 
+ *
  * @pure
  * @curried
  * @immutable
- * 
+ *
  * @example
  * ```typescript
  * // Case-insensitive intersection
@@ -36,7 +36,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * const approxEqual = (a: number, b: number) => Math.abs(a - b) < 0.1
  * intersectionWith(approxEqual)([1.0, 2.0])([1.05, 2.95])
  * // [1.05]
- * 
+ *
  * // Partial application
  * const intersectById = intersectionWith((a: any, b: any) => a.id === b.id)
  * const list1 = [{ id: 1 }, { id: 2 }]

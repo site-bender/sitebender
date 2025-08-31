@@ -56,10 +56,10 @@ const skewness = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValues = data.some(value => 
+	const hasInvalidValues = data.some((value) =>
 		isNullish(value) || typeof value !== "number"
 	)
-	
+
 	if (hasInvalidValues) {
 		return NaN
 	}

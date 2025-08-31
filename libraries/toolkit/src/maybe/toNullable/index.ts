@@ -22,12 +22,12 @@ import isNothing from "../isNothing/index.ts"
  * toNullable(just(42))     // 42
  * toNullable(nothing())    // null
  * toNullable(just("hello")) // "hello"
- * 
+ *
  * // Round-trip with fromNullable
  * import fromNullable from "../fromNullable/index.ts"
  * toNullable(fromNullable(42))    // 42
  * toNullable(fromNullable(null))  // null
- * 
+ *
  * // API response preparation
  * const prepareResponse = (
  *   email: Maybe<string>,
@@ -36,18 +36,18 @@ import isNothing from "../isNothing/index.ts"
  *   email: toNullable(email),
  *   phone: toNullable(phone)
  * })
- * 
+ *
  * // Chaining with other operations
  * import pipe from "../../simple/combinator/pipe/index.ts"
  * import map from "../map/index.ts"
- * 
+ *
  * const processAndConvert = (input: Maybe<number>): number | null =>
  *   pipe(
  *     input,
  *     map(x => x * 2),
  *     toNullable
  *   )
- * 
+ *
  * processAndConvert(just(30))   // 60
  * processAndConvert(nothing())  // null
  * ```

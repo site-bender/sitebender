@@ -27,15 +27,15 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * const now = Temporal.Now.plainDateTimeISO()
  * const tomorrow = now.add({ days: 1 })
  * const lastHour = now.subtract({ hours: 1 })
- * 
+ *
  * isFutureDateTime(tomorrow)      // true
  * isFutureDateTime(lastHour)      // false
  * isFutureDateTime(now)           // false (current moment)
- * 
+ *
  * // ISO datetime strings (assuming now is 2024-01-15T14:30:00)
  * isFutureDateTime("2024-01-16T00:00:00")  // true (tomorrow)
  * isFutureDateTime("2024-01-14T23:59:59")  // false (yesterday)
- * 
+ *
  * // Meeting scheduling validation
  * const validateMeetingTime = (
  *   meetingDateTime: unknown
@@ -45,11 +45,11 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  *   }
  *   return null
  * }
- * 
- * // Filter upcoming events  
+ *
+ * // Filter upcoming events
  * const getUpcomingFlights = (flights: Array<{ departure: string }>) =>
  *   flights.filter(flight => isFutureDateTime(flight.departure))
- * 
+ *
  * // Invalid inputs return false
  * isFutureDateTime(null)              // false
  * isFutureDateTime("invalid")         // false

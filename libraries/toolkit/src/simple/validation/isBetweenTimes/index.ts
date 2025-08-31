@@ -53,7 +53,7 @@ import toPlainTime from "../../conversion/castValue/toPlainTime/index.ts"
  *   const isBreakfast = isBetweenTimes("06:00", "10:59")
  *   const isLunch = isBetweenTimes("11:00", "16:59")
  *   const isDinner = isBetweenTimes("17:00", "21:59")
- *   
+ *
  *   return isBreakfast(time) ? "breakfast"
  *     : isLunch(time) ? "lunch"
  *     : isDinner(time) ? "dinner"

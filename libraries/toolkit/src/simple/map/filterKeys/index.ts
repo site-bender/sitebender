@@ -64,7 +64,7 @@ const filterKeys = <K, V>(
 ) =>
 (map: Map<K, V>): Map<K, V> => {
 	return new Map(
-		[...map.entries()].filter(([key]) => predicate(key))
+		[...map.entries()].filter(([key]) => predicate(key)),
 	)
 }
 

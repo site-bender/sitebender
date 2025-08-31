@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Takes the last n elements from an array
  *
@@ -37,7 +39,7 @@ const takeLast = (count: number) =>
 <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (array == null || !Array.isArray(array) || count <= 0) {
+	if (isNullish(array) || !Array.isArray(array) || count <= 0) {
 		return []
 	}
 	return array.slice(-count)

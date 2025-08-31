@@ -40,16 +40,16 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   const weeks = []
  *   const firstDay = month.toPlainDate({ day: 1 })
  *   const lastDay = month.toPlainDate({ day: month.daysInMonth })
- *   
+ *
  *   const daysFromWeekStart = (firstDay.dayOfWeek - 1 + 7) % 7
  *   const current = firstDay.subtract({ days: daysFromWeekStart })
- *   
+ *
  *   const buildWeeks = (date: Temporal.PlainDate): Array<any> =>
  *     Temporal.PlainDate.compare(date, lastDay) > 0 ? [] :
  *     [{ start: date, end: endOfWeek()(date) }].concat(
  *       buildWeeks(date.add({ days: 7 }))
  *     )
- *   
+ *
  *   return buildWeeks(current)
  * }
  * ```

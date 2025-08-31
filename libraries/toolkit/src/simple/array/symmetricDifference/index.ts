@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Returns elements that are in either array but not both
  *
@@ -19,7 +21,7 @@
  * // Complete overlap returns empty
  * symmetricDifference([1, 2, 3])([1, 2, 3])  // []
  *
- * // Find changed items  
+ * // Find changed items
  * const oldItems = ["item1", "item2", "item3"]
  * const newItems = ["item2", "item3", "item4"]
  * symmetricDifference(oldItems)(newItems)  // ["item1", "item4"]
@@ -48,14 +50,14 @@ const symmetricDifference = <T>(
 	array2: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	// Handle null/undefined cases
-	if (array1 == null || !Array.isArray(array1)) {
-		if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array1) || !Array.isArray(array1)) {
+		if (isNullish(array2) || !Array.isArray(array2)) {
 			return []
 		}
 		return [...new Set(array2)]
 	}
 
-	if (array2 == null || !Array.isArray(array2)) {
+	if (isNullish(array2) || !Array.isArray(array2)) {
 		return [...new Set(array1)]
 	}
 
@@ -66,11 +68,11 @@ const symmetricDifference = <T>(
 	const result: Array<T> = []
 
 	// Add elements from array1 that are not in array2
-	const diff1 = Array.from(set1).filter(item => !set2.has(item))
-	
+	const diff1 = Array.from(set1).filter((item) => !set2.has(item))
+
 	// Add elements from array2 that are not in array1
-	const diff2 = Array.from(set2).filter(item => !set1.has(item))
-	
+	const diff2 = Array.from(set2).filter((item) => !set1.has(item))
+
 	return [...diff1, ...diff2]
 }
 

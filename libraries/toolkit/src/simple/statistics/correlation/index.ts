@@ -70,11 +70,11 @@ const correlation = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValues = x.some((val, i) => 
+	const hasInvalidValues = x.some((val, i) =>
 		isNullish(val) || typeof val !== "number" ||
 		isNullish(y[i]) || typeof y[i] !== "number"
 	)
-	
+
 	if (hasInvalidValues) {
 		return NaN
 	}
@@ -90,10 +90,10 @@ const correlation = (
 		return {
 			covariance: acc.covariance + dx * dy,
 			varianceX: acc.varianceX + dx * dx,
-			varianceY: acc.varianceY + dy * dy
+			varianceY: acc.varianceY + dy * dy,
 		}
 	}, { covariance: 0, varianceX: 0, varianceY: 0 })
-	
+
 	const { covariance, varianceX, varianceY } = stats
 
 	// Check for zero variance (constant values)

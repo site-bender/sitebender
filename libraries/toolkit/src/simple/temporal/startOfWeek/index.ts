@@ -34,7 +34,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * const getWorkWeekDays = (date: Temporal.PlainDate): Array<Temporal.PlainDate> => {
  *   const weekStart = startOfWeek(1)(date)
  *   if (!weekStart) return []
- *   return Array.from({ length: 5 }, (_, i) => 
+ *   return Array.from({ length: 5 }, (_, i) =>
  *     weekStart.add({ days: i }).toPlainDate()
  *   )
  * }

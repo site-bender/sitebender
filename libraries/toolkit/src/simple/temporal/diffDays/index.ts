@@ -19,7 +19,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * diffDays(date1)(date2)                  // 14
  * diffDays(date2)(date1)                  // -14
  *
- * // Leap year handling  
+ * // Leap year handling
  * const feb28_2024 = Temporal.PlainDate.from("2024-02-28")
  * const mar1_2024 = Temporal.PlainDate.from("2024-03-01")
  * diffDays(feb28_2024)(mar1_2024)         // 2 (leap year)

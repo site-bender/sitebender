@@ -21,7 +21,7 @@
  * ```typescript
  * // Basic IBAN validation
  * isIban("GB82 WEST 1234 5698 7654 32")     // true
- * isIban("DE89 3704 0044 0532 0130 00")     // true  
+ * isIban("DE89 3704 0044 0532 0130 00")     // true
  * isIban("GB82WEST12345698765432")          // true (no spaces)
  * isIban("INVALID")                          // false
  *
@@ -153,16 +153,14 @@ const isIban = (value: unknown): boolean => {
 	const rearranged = iban.substring(4) + iban.substring(0, 4)
 
 	// Convert letters to numbers (A=10, B=11, ..., Z=35)
-	const numericIban = rearranged.split("").map(char => 
-		/[A-Z]/.test(char) 
-			? (char.charCodeAt(0) - 55).toString()
-			: char
+	const numericIban = rearranged.split("").map((char) =>
+		/[A-Z]/.test(char) ? (char.charCodeAt(0) - 55).toString() : char
 	).join("")
 
 	// Calculate mod 97 using string arithmetic to handle large numbers
 	const remainder = numericIban.split("").reduce(
 		(acc, digit) => (acc * 10 + parseInt(digit, 10)) % 97,
-		0
+		0,
 	)
 
 	return remainder === 1

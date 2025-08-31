@@ -64,7 +64,7 @@ const takeLastWhile = <T>(
 		}
 		return findBreakpoint(idx - 1)
 	}
-	
+
 	const breakpoint = findBreakpoint(array.length - 1)
 	return array.slice(breakpoint + 1)
 }

@@ -10,12 +10,12 @@
  * @param start - Starting number (inclusive)
  * @param end - Ending number (exclusive)
  * @returns Array of numbers from start to end-1
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Basic range

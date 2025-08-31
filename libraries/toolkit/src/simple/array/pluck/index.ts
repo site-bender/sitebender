@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Extracts a list of property values from an array of objects
@@ -12,12 +12,12 @@ import isNotNullish from "../../validation/isNotNullish/index.ts"
  * @param key - The property key to extract from each object
  * @param array - Array of objects to extract property from
  * @returns Array of extracted property values
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Extract names from users

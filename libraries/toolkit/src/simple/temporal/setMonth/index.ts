@@ -70,7 +70,7 @@
  * const setToJanuary = setMonth(1)
  * const setToJune = setMonth(6)
  * const setToDecember = setMonth(12)
- * 
+ *
  * const someDate = Temporal.PlainDate.from("2024-03-15")
  * setToJanuary(someDate)                  // 2024-01-15
  * setToJune(someDate)                     // 2024-06-15

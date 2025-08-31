@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Splits an array into two arrays based on a predicate function
  *
@@ -8,12 +10,12 @@
  * @param predicate - Function that returns true for elements in first partition
  * @param array - Array to partition
  * @returns Tuple of [passing elements, failing elements]
- * 
+ *
  * @pure
  * @curried
  * @immutable
  * @safe
- * 
+ *
  * @example
  * ```typescript
  * // Partition numbers by even/odd
@@ -48,7 +50,7 @@ const partition = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [Array<T>, Array<T>] => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return [[], []]
 	}
 

@@ -47,7 +47,7 @@ const mapKeys = <K, V, NK>(
 ) =>
 (map: Map<K, V>): Map<NK, V> =>
 	new Map(
-		Array.from(map).map(([key, value]) => [fn(key, value), value])
+		Array.from(map).map(([key, value]) => [fn(key, value), value]),
 	)
 
 export default mapKeys

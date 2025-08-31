@@ -30,7 +30,7 @@
  * Note: Uses JSON.stringify for cache keys, which may not work well
  * with circular references or non-serializable values. Use memoizeWith
  * for custom cache key generation.
- * 
+ *
  * @impure
  */
 // deno-lint-ignore no-explicit-any

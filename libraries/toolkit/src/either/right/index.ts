@@ -55,7 +55,6 @@ import type { Either, Right } from "../../types/fp/either/index.ts"
  *   chain(divide(100))  // Right(25)
  * )
  * ```
- *
  */
 const right = <A, E = never>(value: A): Either<E, A> => ({
 	_tag: "Right" as const,

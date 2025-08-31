@@ -63,7 +63,7 @@ const isSubsetOf = <T>(
 	}
 
 	// Fallback: Check if every element in subset exists in superset
-	return Array.from(subset).every(element => superset.has(element))
+	return Array.from(subset).every((element) => superset.has(element))
 }
 
 export default isSubsetOf

@@ -84,8 +84,8 @@ const differenceWith = <K, V, K2, V2>(
 	const subtrahendKeys = [...subtrahend.keys()]
 	return new Map(
 		[...minuend.entries()].filter(
-			([key]) => !subtrahendKeys.some(sKey => equalsFn(key, sKey))
-		)
+			([key]) => !subtrahendKeys.some((sKey) => equalsFn(key, sKey)),
+		),
 	)
 }
 

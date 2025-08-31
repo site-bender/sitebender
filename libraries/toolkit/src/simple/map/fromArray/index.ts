@@ -12,24 +12,24 @@
  * // Basic usage
  * fromArray([["a", 1], ["b", 2], ["c", 3]])
  * // Map { "a" => 1, "b" => 2, "c" => 3 }
- * 
+ *
  * // Empty array
  * fromArray([])  // Map {}
- * 
+ *
  * // Duplicate keys (last wins)
  * fromArray([["a", 1], ["b", 2], ["a", 3]])
  * // Map { "a" => 3, "b" => 2 }
- * 
+ *
  * // From Object.entries()
  * const obj = { name: "Alice", age: 30 }
  * fromArray(Object.entries(obj))
  * // Map { "name" => "Alice", "age" => 30 }
- * 
+ *
  * // Building from array transformations
  * const users = ["Alice", "Bob", "Charlie"]
  * const indexed = users.map((name, i) => [i + 1, name])
  * fromArray(indexed)  // Map { 1 => "Alice", 2 => "Bob", 3 => "Charlie" }
- * 
+ *
  * @pure
  * @immutable
  * @safe

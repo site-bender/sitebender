@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if an array starts with the provided prefix array
  *
@@ -53,7 +55,7 @@ const startsWith = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): boolean => {
-	if (prefix == null || array == null) {
+	if (isNullish(prefix) || isNullish(array)) {
 		return false
 	}
 

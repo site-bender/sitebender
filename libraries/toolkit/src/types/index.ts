@@ -1,5 +1,5 @@
-import isNullish from "../simple/validation/isNullish/index.ts"
 import isNotNull from "../simple/validation/isNotNull/index.ts"
+import isNullish from "../simple/validation/isNullish/index.ts"
 
 /**
  * Core type definitions for the toolkit library

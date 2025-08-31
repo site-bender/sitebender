@@ -21,13 +21,13 @@
  *
  * // Create diagonal matrix from identity (functional approach)
  * const diagonalMatrix = (values: number[]): number[][] =>
- *   values.map((val, i) => 
+ *   values.map((val, i) =>
  *     values.map((_, j) => i === j ? val : 0))
  * diagonalMatrix([2, 3, 5]) // [[2, 0, 0], [0, 3, 0], [0, 0, 5]]
  *
  * // Check if matrix is identity (functional approach)
  * const isIdentity = (matrix: number[][]): boolean =>
- *   matrix.every((row, i) => 
+ *   matrix.every((row, i) =>
  *     row.length === matrix.length &&
  *     row.every((val, j) => val === (i === j ? 1 : 0)))
  *
@@ -57,8 +57,9 @@ const identityMatrix = (
 	}
 
 	// Create identity matrix using functional approach
-	return Array.from({ length: size }, (_, i) =>
-		Array.from({ length: size }, (_, j) => i === j ? 1 : 0)
+	return Array.from(
+		{ length: size },
+		(_, i) => Array.from({ length: size }, (_, j) => i === j ? 1 : 0),
 	)
 }
 

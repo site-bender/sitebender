@@ -26,7 +26,7 @@
  * isFunction(function* () {})          // true
  * isFunction(class MyClass {})         // true
  *
- * // Built-in functions  
+ * // Built-in functions
  * isFunction(Array.isArray)            // true
  * isFunction(Object.keys)              // true
  * isFunction([].push)                  // true

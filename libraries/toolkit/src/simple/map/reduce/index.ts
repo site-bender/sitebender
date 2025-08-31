@@ -58,7 +58,7 @@ const reduce = <K, V, R>(
 (map: Map<K, V>): R => {
 	return Array.from(map.entries()).reduce(
 		(accumulator, [key, value]) => reducer(accumulator, value, key, map),
-		initial
+		initial,
 	)
 }
 

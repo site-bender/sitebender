@@ -101,7 +101,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   Temporal.ZonedDateTime.from("2024-03-15T14:00:00[Europe/London]")
  * ]
  * const serialized = zdts.map(serializeZonedDateTime)
- * 
+ *
  * // Round-trip example
  * const original = Temporal.ZonedDateTime.from("2024-03-15T14:30:00[America/New_York]")
  * const serialized2 = serializeZonedDateTime(original)

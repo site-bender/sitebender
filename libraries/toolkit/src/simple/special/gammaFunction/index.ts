@@ -14,21 +14,21 @@
  * gammaFunction(1) // 1 (0! = 1)
  * gammaFunction(5) // 24 (4! = 24)
  * gammaFunction(10) // 362880 (9!)
- * 
+ *
  * // Half-integer values
  * gammaFunction(0.5) // 1.7724... (√π)
  * gammaFunction(1.5) // 0.8862... (√π/2)
- * 
+ *
  * // Factorial calculation
  * const factorial = (n: number) => {
  *   if (n < 0 || n !== Math.floor(n)) return NaN
  *   return gammaFunction(n + 1)
  * }
- * 
+ *
  * // Beta function B(x,y) = Γ(x)Γ(y)/Γ(x+y)
  * const beta = (x: number, y: number) =>
  *   gammaFunction(x) * gammaFunction(y) / gammaFunction(x + y)
- * 
+ *
  * // Edge cases
  * gammaFunction(0) // NaN (pole at 0)
  * gammaFunction(-1) // NaN (negative not supported)

@@ -1,5 +1,4 @@
 import isNullish from "../../validation/isNullish/index.ts"
-
 import dropLast from "../dropLast/index.ts"
 
 /**

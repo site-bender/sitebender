@@ -14,11 +14,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @param initial - Initial accumulator value
  * @param array - Array to process
  * @returns Tuple of [finalAccumulator, mappedArray]
- * 
+ *
  * @pure
  * @curried
  * @immutable
- * 
+ *
  * @example
  * ```typescript
  * // Running sum with differences
@@ -27,7 +27,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * mapAccum(sumWithDiff)(0)([1, 2, 3, 4])
  * // [10, [1, 1, 1, 1]]
  *
- * // Running average  
+ * // Running average
  * const runningAvg = (acc: { sum: number; count: number }, x: number) => {
  *   const newSum = acc.sum + x
  *   const newCount = acc.count + 1
@@ -41,13 +41,13 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   [lineNo + 1, `${lineNo}: ${text}`]
  * mapAccum(addLineNumber)(1)(["First", "Second", "Third"])
  * // [4, ["1: First", "2: Second", "3: Third"]]
- * 
+ *
  * // Fibonacci sequence
  * const fibonacci = (acc: [number, number], _: any): [[number, number], number] =>
  *   [[acc[1], acc[0] + acc[1]], acc[0]]
  * mapAccum(fibonacci)([0, 1])([1, 2, 3, 4, 5])
  * // [[5, 8], [0, 1, 1, 2, 3]]
- * 
+ *
  * // Partial application
  * const withRunningTotal = mapAccum(
  *   (sum: number, x: number) => [sum + x, { value: x, total: sum + x }]
@@ -78,7 +78,7 @@ const mapAccum = <T, U, V>(
 			const [newAcc, mappedValue] = fn(acc, element)
 			return [newAcc, [...mappedArray, mappedValue]]
 		},
-		[initial, []]
+		[initial, []],
 	)
 }
 

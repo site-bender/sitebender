@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 import sigmoid from "../sigmoid/index.ts"
 
 /**
@@ -48,11 +50,11 @@ const swish = (
 (
 	x: number | null | undefined,
 ): number => {
-	if (beta == null || typeof beta !== "number") {
+	if (isNullish(beta) || typeof beta !== "number") {
 		return NaN
 	}
 
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

@@ -52,11 +52,11 @@
  * dates.map(startOfMonth)
  * // [2024-01-01T00:00:00, 2024-02-01T00:00:00, 2024-03-01T00:00:00]
  *
- * // Same month comparison  
+ * // Same month comparison
  * const early = Temporal.PlainDate.from("2024-03-05")
  * const late = Temporal.PlainDate.from("2024-03-25")
  * const next = Temporal.PlainDate.from("2024-04-05")
- * 
+ *
  * startOfMonth(early).equals(startOfMonth(late))  // true (same month)
  * startOfMonth(early).equals(startOfMonth(next))  // false (different months)
  *
@@ -64,7 +64,7 @@
  * startOfMonth(null)                      // null
  * startOfMonth(undefined)                 // null
  * startOfMonth("2024-03-15")             // null (string, not Temporal)
- * 
+ *
  * // DST handling with ZonedDateTime
  * const dstDate = Temporal.ZonedDateTime.from(
  *   "2024-03-15T14:30:00-04:00[America/New_York]"

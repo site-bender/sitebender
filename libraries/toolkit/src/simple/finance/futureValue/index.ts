@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the future value of an investment
  *
@@ -59,23 +61,23 @@ const futureValue = (
 (
 	type: number = 0,
 ): number => {
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
-	if (periods == null || typeof periods !== "number") {
+	if (isNullish(periods) || typeof periods !== "number") {
 		return NaN
 	}
 
-	if (payment == null || typeof payment !== "number") {
+	if (isNullish(payment) || typeof payment !== "number") {
 		return NaN
 	}
 
-	if (presentValue == null || typeof presentValue !== "number") {
+	if (isNullish(presentValue) || typeof presentValue !== "number") {
 		return NaN
 	}
 
-	if (type == null || typeof type !== "number") {
+	if (isNullish(type) || typeof type !== "number") {
 		return NaN
 	}
 

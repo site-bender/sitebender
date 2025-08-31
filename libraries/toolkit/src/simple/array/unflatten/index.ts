@@ -28,7 +28,7 @@
  * const items = ["File", "New", "Open", "Edit", "Cut"]
  * unflatten([0, 1, 1, 0, 1])(items)
  * // ["File", ["New", "Open"], "Edit", ["Cut"]]
- * 
+ *
  * // Edge cases
  * unflatten([])([])          // []
  * unflatten([0])([42])       // [42]

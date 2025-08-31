@@ -1,8 +1,8 @@
 import type { Maybe } from "../../types/fp/maybe/index.ts"
 
+import isNullish from "../../simple/validation/isNullish/index.ts"
 import just from "../just/index.ts"
 import nothing from "../nothing/index.ts"
-import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Converts a nullable value to a Maybe

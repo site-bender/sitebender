@@ -32,7 +32,7 @@
  *
  * // Cramer's rule component (functional approach)
  * const solve3x3Component = (a: number[][], b: number[], col: number) => {
- *   const modified = a.map((row, i) => 
+ *   const modified = a.map((row, i) =>
  *     row.map((val, j) => j === col ? b[i] : val))
  *   return determinant3x3(modified) / determinant3x3(a)
  * }
@@ -56,7 +56,7 @@ const determinant3x3 = (
 		return NaN
 	}
 
-	if (!matrix.every(row => Array.isArray(row) && row.length === 3)) {
+	if (!matrix.every((row) => Array.isArray(row) && row.length === 3)) {
 		return NaN
 	}
 

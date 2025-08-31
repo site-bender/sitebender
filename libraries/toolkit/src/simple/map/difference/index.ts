@@ -84,7 +84,7 @@
 const difference =
 	<K, V, V2>(subtrahend: Map<K, V2>) => (minuend: Map<K, V>): Map<K, V> => {
 		return new Map(
-			[...minuend.entries()].filter(([key]) => !subtrahend.has(key))
+			[...minuend.entries()].filter(([key]) => !subtrahend.has(key)),
 		)
 	}
 

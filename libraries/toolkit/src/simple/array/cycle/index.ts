@@ -28,7 +28,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * }))
  * // Assigns tasks to workers in round-robin fashion
  *
- * // Alternating styles  
+ * // Alternating styles
  * const styles = cycle(["odd", "even"])
  * const rows = ["Row1", "Row2", "Row3", "Row4"]
  * const styledRows = rows.map(row => ({

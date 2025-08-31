@@ -51,7 +51,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ): number => {
  *   const startMinute = start.hour * 60 + (getMinute(start) ?? 0)
  *   const endMinute = end.hour * 60 + (getMinute(end) ?? 0)
- *   
+ *
  *   return bookedSlots.reduce((available, slot) => {
  *     const slotStart = slot.start.hour * 60 + (getMinute(slot.start) ?? 0)
  *     if (slotStart >= startMinute && slotStart < endMinute) {

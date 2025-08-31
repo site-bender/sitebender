@@ -31,7 +31,7 @@
  * requireHash("#FF0000")  // true
  * requireHash("FF0000")   // false
  *
- * // Specific format validation  
+ * // Specific format validation
  * const sixDigitOnly = isHexColor({ format: "6-digit" })
  * sixDigitOnly("#FF0000") // true
  * sixDigitOnly("#FFF")    // false

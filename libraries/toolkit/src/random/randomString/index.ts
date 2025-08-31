@@ -1,5 +1,5 @@
-import isNullish from "../../simple/validation/isNullish/index.ts"
 import isEmpty from "../../simple/validation/isEmpty/index.ts"
+import isNullish from "../../simple/validation/isNullish/index.ts"
 
 /**
  * Generates a random string of specified length from a character set
@@ -19,20 +19,20 @@ import isEmpty from "../../simple/validation/isEmpty/index.ts"
  * // Random alphanumeric string
  * randomString(8)()      // "K9mN3pQx"
  * randomString(16)()     // "a7Bc9XyZ2mNp4QrT"
- * 
+ *
  * // Custom character set
  * randomString(6)('ABC123')              // "1A3B2C"
  * randomString(32)('0123456789abcdef')   // hex string
  * randomString(8)('01')                  // "10110101" (binary)
- * 
+ *
  * // Random DNA sequence
  * randomString(20)('ACGT')  // "ATCGGATCGATCGTAGCTAG"
- * 
+ *
  * // Partial application for tokens
  * const generateToken = randomString(32)
  * const token1 = generateToken()
  * const token2 = generateToken('0123456789ABCDEF')
- * 
+ *
  * // Invalid inputs return empty string
  * randomString(null)()  // ""
  * randomString(-5)()    // ""
@@ -61,11 +61,11 @@ const randomString = (
 	}
 
 	const len = Math.floor(length)
-	
+
 	return Array.from({ length: len }, () => {
 		const index = Math.floor(Math.random() * charset.length)
 		return charset[index]
-	}).join('')
+	}).join("")
 }
 
 export default randomString

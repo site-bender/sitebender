@@ -100,7 +100,7 @@ const isValidIsbn10 = (isbn: string): boolean => {
 	// Calculate check digit
 	const sum = isbn.substring(0, 9).split("").reduce(
 		(acc, digit, i) => acc + parseInt(digit, 10) * (10 - i),
-		0
+		0,
 	)
 
 	// Add check digit (X = 10)
@@ -130,7 +130,7 @@ const isValidIsbn13 = (isbn: string): boolean => {
 	// Calculate check digit
 	const sum = isbn.substring(0, 12).split("").reduce(
 		(acc, digit, i) => acc + parseInt(digit, 10) * (i % 2 === 0 ? 1 : 3),
-		0
+		0,
 	)
 
 	const checkDigit = (10 - (sum % 10)) % 10

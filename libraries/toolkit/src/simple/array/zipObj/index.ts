@@ -1,3 +1,5 @@
+import { isNullish } from "../../validation/isNullish/index.ts"
+
 /**
  * Creates an object from arrays of keys and values
  *
@@ -46,11 +48,11 @@ const zipObj = <T>(
 (
 	keys: ReadonlyArray<string | number> | null | undefined,
 ): Record<string | number, T | undefined> => {
-	if (keys == null || !Array.isArray(keys)) {
+	if (isNullish(keys) || !Array.isArray(keys)) {
 		return {}
 	}
 
-	if (values == null || !Array.isArray(values)) {
+	if (isNullish(values) || !Array.isArray(values)) {
 		const result: Record<string | number, T | undefined> = {}
 		for (const key of keys) {
 			result[key] = undefined
