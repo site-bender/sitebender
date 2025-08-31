@@ -1,5 +1,8 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNull from "../../validation/isNull/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
+
 /**
  * Transforms an object structure recursively
  *
@@ -66,7 +69,7 @@ const xform = <T extends Record<string | symbol, Value>>(
 	const transformRecursive = (current: any): any => {
 		// Handle primitives
 		if (
-			current === null || current === undefined || typeof current !== "object"
+			isNull(current) || isUndefined(current) || typeof current !== "object"
 		) {
 			return current
 		}

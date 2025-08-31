@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns an array of an object's own enumerable property values
  *
@@ -37,7 +39,7 @@ import type { Value } from "../../../types/index.ts"
 const values = <T extends Record<string, Value>>(
 	obj: T | null | undefined,
 ): Array<T[keyof T]> => {
-	if (obj == null) {
+	if (isNullish(obj)) {
 		return []
 	}
 

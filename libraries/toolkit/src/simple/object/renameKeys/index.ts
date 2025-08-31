@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Returns an object with keys renamed according to a mapping
  *
@@ -49,7 +51,7 @@ const renameKeys = <T extends Record<string | symbol, Value>>(
 
 	// Process each key and rename if needed
 	return Object.entries(obj).reduce((acc, [oldKey, value]) => {
-		const newKey = keyMap[oldKey] !== undefined ? keyMap[oldKey] : oldKey
+		const newKey = isNotUndefined(keyMap[oldKey]) ? keyMap[oldKey] : oldKey
 		return { ...acc, [newKey]: value }
 	}, {} as Record<string | symbol, Value>)
 }

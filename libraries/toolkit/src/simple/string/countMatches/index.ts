@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Counts the number of occurrences of a pattern in a string
  *
@@ -66,11 +68,11 @@ const countMatches = (
 (
 	str: string | null | undefined,
 ): number => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return 0
 	}
 
-	if (pattern == null) {
+	if (isNullish(pattern)) {
 		return 0
 	}
 

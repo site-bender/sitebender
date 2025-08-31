@@ -1,4 +1,5 @@
 import gammaFunction from "../gammaFunction/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the beta function B(x, y)
@@ -45,11 +46,11 @@ const betaFunction = (
 (
 	y: number | null | undefined,
 ): number => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 
-	if (y == null || typeof y !== "number") {
+	if (isNullish(y) || typeof y !== "number") {
 		return NaN
 	}
 

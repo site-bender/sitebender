@@ -1,3 +1,5 @@
+import isNotNull from "../../validation/isNotNull/index.ts"
+
 /**
  * Alternate entries from multiple Maps
  *
@@ -58,7 +60,7 @@ const interleave = <K, V>(maps: Array<Map<K, V>>): Map<K, V> => {
 		(_, i) =>
 			iterators
 				.map((iterator) => (i < iterator.length ? iterator[i] : null))
-				.filter((entry): entry is [K, V] => entry !== null),
+				.filter((entry): entry is [K, V] => isNotNull(entry)),
 	).flat()
 
 	return new Map(interleavedEntries)

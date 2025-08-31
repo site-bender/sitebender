@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+
 /**
  * Calculates the net present value of cash flows
  *
@@ -47,11 +50,11 @@ const netPresentValue = (
 (
 	cashFlows: number[] | null | undefined,
 ): number => {
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
-	if (cashFlows == null || !Array.isArray(cashFlows)) {
+	if (isNullish(cashFlows) || !Array.isArray(cashFlows)) {
 		return NaN
 	}
 
@@ -61,7 +64,7 @@ const netPresentValue = (
 	}
 
 	// Validate all cash flows are numbers
-	if (!cashFlows.every((flow) => flow != null && typeof flow === "number")) {
+	if (!cashFlows.every((flow) => isNotNullish(flow) && typeof flow === "number")) {
 		return NaN
 	}
 

@@ -88,13 +88,23 @@
   - String functions (12): removeSuffix, substr, hashCode, quote, sanitize, slice, toUpperFirst, toLowerFirst, unquote, chars, template, similarity
 - **Total files completed**: 329 files (317 from previous + 12 from this session)
 
-#### Session 13 (Current)
+#### Session 13
 
 - **Migrated 12 additional string files**:
   - String functions (12): slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice
 - **Total files completed**: 341 files (329 from previous + 12 from this session)
-- **Remaining files**: ~155 files with direct null/undefined comparisons
-- **Remaining instances**: ~269 direct comparisons (14 replaced in this session)
+
+#### Session 14 (Current)
+
+- **Migrated 12 additional files**:
+  - String functions (1): countMatches
+  - Finance functions (2): internalRateOfReturn, netPresentValue
+  - Object functions (5): renameKeys, evolve, xform, values (pathOr and pickBy had no changes)
+  - Map functions (1): interleave
+  - Special functions (2): besselJ, betaFunction
+- **Total files completed**: 353 files (341 from previous + 12 from this session)
+- **Remaining files**: ~143 files with direct null/undefined comparisons
+- **Remaining instances**: ~250 direct comparisons (19 replaced in this session)
 
 ### Remaining Work
 
@@ -159,7 +169,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (341 files)
+### Already Completed Files (353 files)
 
 These files have already been updated and should be skipped:
 
@@ -184,11 +194,15 @@ These files have already been updated and should be skipped:
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
 - `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
-- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation
 - `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance
+- `simple/finance/`: internalRateOfReturn, netPresentValue
+- `simple/object/`: renameKeys, evolve, xform, values
+- `simple/map/`: interleave
+- `simple/special/`: besselJ, betaFunction
 - `state/`: store.ts
 - `types/`: index.ts
 

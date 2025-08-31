@@ -4,6 +4,10 @@ import type {
 	TransformationSpec,
 } from "../../../types/object/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Recursively evolves an object by applying transformation functions to specific paths
  *
@@ -67,7 +71,7 @@ const evolve = <T extends Record<string, Value>>(
 	transformations: Record<string, TransformationSpec>,
 ) =>
 (obj: T | null | undefined): T => {
-	if (obj == null || typeof obj !== "object") {
+	if (isNullish(obj) || typeof obj !== "object") {
 		return {} as T
 	}
 
@@ -76,12 +80,12 @@ const evolve = <T extends Record<string, Value>>(
 		target: Value | Record<string, Value> | Array<Value>,
 	): Value | Record<string, Value> | Array<Value> => {
 		// If target is not an object, return it unchanged
-		if (target == null || typeof target !== "object") {
+		if (isNullish(target) || typeof target !== "object") {
 			return target
 		}
 
 		// If transformations is not an object, return target unchanged
-		if (trans == null || typeof trans !== "object") {
+		if (isNullish(trans) || typeof trans !== "object") {
 			return target
 		}
 
@@ -118,20 +122,20 @@ const evolve = <T extends Record<string, Value>>(
 
 			// Determine the value for this key
 			const newValue = (() => {
-				if (typeof transformation === "function" && targetValue !== undefined) {
+				if (typeof transformation === "function" && isNotUndefined(targetValue)) {
 					return (transformation as Transformation)(targetValue)
 				} else if (
-					transformation != null && typeof transformation === "object"
+					isNotNullish(transformation) && typeof transformation === "object"
 				) {
 					return evolveRecursive(transformation, targetValue || {})
-				} else if (targetValue !== undefined) {
+				} else if (isNotUndefined(targetValue)) {
 					return targetValue
 				}
 				return undefined
 			})()
 
 			// Only add to result if value is defined
-			if (newValue !== undefined) {
+			if (isNotUndefined(newValue)) {
 				return {
 					...acc,
 					[key]: newValue,

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the internal rate of return (IRR) for a series of cash flows
  *
@@ -39,7 +41,7 @@
 const internalRateOfReturn = (
 	cashFlows: Array<number> | null | undefined,
 ): number => {
-	if (cashFlows == null || !Array.isArray(cashFlows)) {
+	if (isNullish(cashFlows) || !Array.isArray(cashFlows)) {
 		return NaN
 	}
 
