@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Splits a string into an array of individual characters
  *
@@ -45,7 +47,7 @@
 const chars = (
 	str: string | null | undefined,
 ): Array<string> => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return []
 	}
 

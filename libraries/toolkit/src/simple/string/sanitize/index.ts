@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Sanitizes strings for safe use in HTML/URLs
  *
@@ -42,7 +44,7 @@
 const sanitize = (
 	input: string | null | undefined,
 ): string => {
-	if (input == null || typeof input !== "string") {
+	if (isNullish(input) || typeof input !== "string") {
 		return ""
 	}
 

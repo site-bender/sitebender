@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Extracts a substring starting at position for specified length
  *
@@ -54,7 +56,7 @@ const substr = (
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 

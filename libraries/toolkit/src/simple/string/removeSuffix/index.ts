@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes a suffix from a string if present
  *
@@ -44,11 +46,11 @@ const removeSuffix = (
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 
-	if (suffix == null || typeof suffix !== "string" || suffix === "") {
+	if (isNullish(suffix) || typeof suffix !== "string" || suffix === "") {
 		return str
 	}
 

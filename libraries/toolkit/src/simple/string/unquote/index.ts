@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes surrounding quotes from a string if present
  *
@@ -47,7 +49,7 @@
 const unquote = (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string" || str.length < 2) {
+	if (isNullish(str) || typeof str !== "string" || str.length < 2) {
 		return str ?? ""
 	}
 

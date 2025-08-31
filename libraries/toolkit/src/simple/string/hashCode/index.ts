@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Generates a consistent hash code for a string
  *
@@ -56,7 +58,7 @@
 const hashCode = (
 	str: string | null | undefined,
 ): number => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return 0
 	}
 

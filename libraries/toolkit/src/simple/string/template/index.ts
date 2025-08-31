@@ -1,5 +1,7 @@
 import type { Value } from "../../../types/index.ts"
 
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates a template function for string interpolation
  *
@@ -92,7 +94,7 @@ const template = (
 			current: Value | Record<string, Value> | undefined,
 			remainingKeys: Array<string>,
 		): Value | undefined => {
-			if (remainingKeys.length === 0 || current == null) {
+			if (remainingKeys.length === 0 || isNullish(current)) {
 				return current
 			}
 
@@ -129,7 +131,7 @@ const template = (
 		const value = getNestedValue(data, key)
 
 		// Return value, default, or original placeholder
-		if (value !== undefined && value !== null) {
+		if (!isNullish(value)) {
 			return String(value)
 		} else if (defaultValue !== undefined) {
 			return defaultValue

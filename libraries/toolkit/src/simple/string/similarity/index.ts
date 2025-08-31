@@ -1,4 +1,5 @@
 import levenshtein from "../levenshtein/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates similarity percentage between two strings
@@ -61,7 +62,7 @@ const similarity = (
 ): number => {
 	// Handle null/undefined cases
 	if (
-		str1 == null || str2 == null || typeof str1 !== "string" ||
+		isNullish(str1) || isNullish(str2) || typeof str1 !== "string" ||
 		typeof str2 !== "string"
 	) {
 		return 0

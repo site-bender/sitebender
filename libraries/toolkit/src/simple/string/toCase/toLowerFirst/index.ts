@@ -1,3 +1,5 @@
+import isNullish from "../../../validation/isNullish/index.ts"
+
 /**
  * Lowercases only the first character of a string
  *
@@ -43,7 +45,7 @@
 const toLowerFirst = (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string" || str.length === 0) {
+	if (isNullish(str) || typeof str !== "string" || str.length === 0) {
 		return ""
 	}
 

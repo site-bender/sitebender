@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Wraps a string in quotes
  * 
@@ -44,12 +46,12 @@ const quote = (
 ) => (
 	str: string | null | undefined
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		str = ""
 	}
 	
 	// Default to double quotes if quoteChar is invalid
-	const quotes = quoteChar == null || typeof quoteChar !== "string" || quoteChar === ""
+	const quotes = isNullish(quoteChar) || typeof quoteChar !== "string" || quoteChar === ""
 		? '"'
 		: quoteChar
 	

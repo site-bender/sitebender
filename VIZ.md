@@ -101,3 +101,193 @@ This note outlines a small, composable approach for charts/visuals, logging/tele
 ---
 
 This document is design/authoring guidance. Implementation should follow the small, incremental “slice” approach: one component + adapter at a time, keeping the repo green.
+
+# OUR LOCAL SETUP
+
+The system is fully operational and waiting. Here is the state of our stack:
+
+    ✅ Prometheus is running, scraping metrics, and writing data to its internal storage.
+    ✅ Thanos Sidecar is now healthy, connected to Prometheus, and monitoring its data directory.
+    ✅ Thanos Querier is running and providing a unified API endpoint to Grafana.
+    ✅ Grafana is connected to the Querier and displaying dashboards.
+    ✅ MinIO is running and ready to receive data.
+
+## Config files
+
+### Prometheus
+
+```yaml
+global:
+# config/prometheus.yml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  # CORRECT PLACEMENT FOR external_labels: inside the 'global' section
+  external_labels:
+    cluster: local-docker
+    replica: A
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+```
+
+### Thanos
+
+```yaml
+type: S3
+config:
+  bucket: "thanos" # The bucket name we created (or will be created automatically)
+  endpoint: "minio:9000"
+  access_key: "minioadmin"
+  secret_key: "minioadmin"
+  insecure: true # Uses HTTP instead of HTTPS, which is fine for local development
+  signature_version2: false
+```
+
+### Docker
+
+```yaml
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  minio_data: {}
+  thanos_sidecar_data: {}
+
+services:
+  # The monitoring backbone: time-series database
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle' # Allows config reload via API call
+      - '--storage.tsdb.min-block-duration=2h'
+      - '--storage.tsdb.max-block-duration=2h'
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+  # Exposes hardware & OS metrics from the host
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    # REMOVED the complex volumes and command
+    ports:
+      - "9100:9100"
+    networks:
+      - monitoring
+    # ADD these lines to run with necessary Linux capabilities
+    privileged: true
+    pid: "host"
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - /:/host:ro
+
+  # THANOS SIDECAR - Attaches to Prometheus and uploads data to MinIO
+  thanos-sidecar:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-sidecar
+    user: "65534"
+    restart: unless-stopped
+    command:
+      - sidecar
+      - --prometheus.url=http://prometheus:9090
+      - --tsdb.path=/prometheus
+      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+    volumes:
+      - prometheus_data:/prometheus
+      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro 
+    depends_on:
+      - prometheus
+      - minio
+    networks:
+      - monitoring
+
+  # THANOS QUERIER - The single endpoint for Grafana to query all data (Prometheus + MinIO)
+  thanos-querier:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-querier
+    restart: unless-stopped
+    command:
+      - query
+      - --http-address=0.0.0.0:10902
+      - --grpc-address=0.0.0.0:10901
+      - --endpoint=thanos-sidecar:10901
+      - --endpoint=thanos-storegateway:10901
+    ports:
+      - "10902:10902" # Expose the HTTP Query UI and API
+    depends_on:
+      - thanos-sidecar
+    networks:
+      - monitoring
+
+  # THANOS STOREGATEWAY - Serves metrics from the blocks in MinIO (long-term storage)
+  thanos-storegateway:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-storegateway
+    restart: unless-stopped
+    command:
+      - store
+      - --http-address=0.0.0.0:10909
+      - --grpc-address=0.0.0.0:10908
+      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+    volumes:
+      - ./config/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+    depends_on:
+      - minio
+    networks:
+      - monitoring
+
+  # The visualization dashboard
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    container_name: grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_PROTOCOL=http1
+      - GF_INSTALL_PLUGINS=grafana-polystat-panel # Optional: useful for advanced panels
+      - GF_DATASOURCES_DEFAULT_URL=http://thanos-querier:10902 # <-- TELL GRAFANA TO USE THANOS
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3001:3000"  # Map host port 3001 to container port 3000
+    networks:
+      - monitoring
+
+  # Local S3-compatible storage for the next phase (Thanos)
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin # Change these for real deployment!
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000" # S3 API Port
+      - "9001:9001" # Web UI Port
+    networks:
+      - monitoring
+```

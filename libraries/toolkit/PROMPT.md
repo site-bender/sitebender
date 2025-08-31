@@ -1,5 +1,7 @@
 # Toolkit Null/Undefined Validation Functions Migration - Session Continuation
 
+**important**: Use `ALLOW_TOOLKIT=1 git commit ...` to commit from the toolkit folder.
+
 ## Current Status
 
 ### Completed Work
@@ -73,14 +75,20 @@
   - Geometry functions (3): crossProduct, haversineDistance, chebyshevDistance
 - **Total files completed**: 305 files (293 from previous + 12 from this session)
 
-#### Session 11 (Current)
+#### Session 11
 
 - **Migrated 12 additional files**:
   - Set functions (10): add, delete, difference, filter, fromArray, has, intersection, isEmpty, toArray, union
   - String functions (2): escapeRegExp, truncate
 - **Total files completed**: 317 files (305 from previous + 12 from this session)
-- **Remaining files**: ~156 files with direct null/undefined comparisons
-- **Remaining instances**: ~330 direct comparisons (20 replaced in this session)
+
+#### Session 12 (Current)
+
+- **Migrated 12 additional string files**:
+  - String functions (12): removeSuffix, substr, hashCode, quote, sanitize, slice, toUpperFirst, toLowerFirst, unquote, chars, template, similarity
+- **Total files completed**: 329 files (317 from previous + 12 from this session)
+- **Remaining files**: ~167 files with direct null/undefined comparisons
+- **Remaining instances**: ~283 direct comparisons (20 replaced in this session)
 
 ### Remaining Work
 
@@ -145,7 +153,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (257 files)
+### Already Completed Files (329 files)
 
 These files have already been updated and should be skipped:
 
@@ -170,7 +178,8 @@ These files have already been updated and should be skipped:
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
 - `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
-- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote
+- `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation
 - `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance

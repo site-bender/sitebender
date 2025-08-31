@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Extracts a section of a string between two indices
  *
@@ -59,7 +61,7 @@ const slice = (
 (
 	str: string | null | undefined,
 ): string => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return ""
 	}
 
