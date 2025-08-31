@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Subtracts 1 from a number
  *
@@ -52,7 +54,7 @@
 const decrement = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

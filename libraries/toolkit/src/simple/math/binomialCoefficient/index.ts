@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the binomial coefficient (n choose k)
  *
@@ -41,11 +43,11 @@ const binomialCoefficient = (
 (
 	k: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
-	if (k == null || typeof k !== "number") {
+	if (isNullish(k) || typeof k !== "number") {
 		return NaN
 	}
 

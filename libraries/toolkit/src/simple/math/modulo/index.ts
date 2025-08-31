@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the remainder of division (modulo operation)
  *
@@ -51,11 +53,11 @@ const modulo = (
 (
 	dividend: number | null | undefined,
 ): number => {
-	if (divisor == null || typeof divisor !== "number") {
+	if (isNullish(divisor) || typeof divisor !== "number") {
 		return NaN
 	}
 
-	if (dividend == null || typeof dividend !== "number") {
+	if (isNullish(dividend) || typeof dividend !== "number") {
 		return NaN
 	}
 

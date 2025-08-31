@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the base-10 (common) logarithm of a number
  *
@@ -48,7 +50,7 @@
 const logarithmBase10 = (
 	x: number | null | undefined,
 ): number => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

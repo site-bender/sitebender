@@ -94,7 +94,7 @@
   - String functions (12): slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice
 - **Total files completed**: 341 files (329 from previous + 12 from this session)
 
-#### Session 14 (Current)
+#### Session 14
 
 - **Migrated 12 additional files**:
   - String functions (1): countMatches
@@ -103,8 +103,15 @@
   - Map functions (1): interleave
   - Special functions (2): besselJ, betaFunction
 - **Total files completed**: 353 files (341 from previous + 12 from this session)
-- **Remaining files**: ~143 files with direct null/undefined comparisons
-- **Remaining instances**: ~250 direct comparisons (19 replaced in this session)
+
+#### Session 15 (Current)
+
+- **Migrated 12 additional files**:
+  - Temporal functions (1): endOfMonth
+  - Math functions (11): sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation
+- **Total files completed**: 365 files (353 from previous + 12 from this session)
+- **Remaining files**: ~134 files with direct null/undefined comparisons
+- **Remaining instances**: ~225 direct comparisons (28 replaced in this session)
 
 ### Remaining Work
 
@@ -169,7 +176,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (353 files)
+### Already Completed Files (365 files)
 
 These files have already been updated and should be skipped:
 
@@ -193,7 +200,7 @@ These files have already been updated and should be skipped:
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
-- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
+- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation
 - `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3

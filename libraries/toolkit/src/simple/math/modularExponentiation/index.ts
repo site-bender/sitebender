@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Performs efficient modular exponentiation
  *
@@ -53,15 +55,15 @@ const modularExponentiation = (
 (
 	modulus: number | null | undefined,
 ): number => {
-	if (base == null || typeof base !== "number") {
+	if (isNullish(base) || typeof base !== "number") {
 		return NaN
 	}
 
-	if (exponent == null || typeof exponent !== "number") {
+	if (isNullish(exponent) || typeof exponent !== "number") {
 		return NaN
 	}
 
-	if (modulus == null || typeof modulus !== "number") {
+	if (isNullish(modulus) || typeof modulus !== "number") {
 		return NaN
 	}
 

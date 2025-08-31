@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns the nth Fibonacci number
  *
@@ -41,7 +43,7 @@
 const fibonacci = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

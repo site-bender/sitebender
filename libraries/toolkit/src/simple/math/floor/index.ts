@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Rounds a number down to the nearest integer
  *
@@ -39,7 +41,7 @@
 const floor = (
 	n: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 

@@ -50,6 +50,8 @@
  * @immutable
  * @safe
  */
+import isNullish from "../../validation/isNullish/index.ts"
+
 const endOfMonth = (
 	date:
 		| Temporal.PlainDate
@@ -58,7 +60,7 @@ const endOfMonth = (
 		| null
 		| undefined,
 ): Temporal.PlainDate | null => {
-	if (date == null) {
+	if (isNullish(date)) {
 		return null
 	}
 

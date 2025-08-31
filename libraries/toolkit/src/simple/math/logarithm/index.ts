@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the logarithm of a number with a specified base
  *
@@ -54,11 +56,11 @@ const logarithm = (
 (
 	value: number | null | undefined,
 ): number => {
-	if (base == null || typeof base !== "number") {
+	if (isNullish(base) || typeof base !== "number") {
 		return NaN
 	}
 
-	if (value == null || typeof value !== "number") {
+	if (isNullish(value) || typeof value !== "number") {
 		return NaN
 	}
 
