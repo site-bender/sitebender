@@ -30,7 +30,6 @@ Status keys
   - [x] From.Element
   - [x] From.QueryString
   - [x] From.Authenticator (auth context: user, roles, permissions)
-  - [ ] From.Identity (alias option for Authentication)
   - [x] From.Authorizer (service handle for policy checks; consider scope)
   - [x] From.Store (ephemeral program/UI state)
   - [ ] From.SparqlQuery (Fuseki adapter)
@@ -101,9 +100,10 @@ Status keys
     - [~] Approve
 
 ## Aliasing & Migration Policy
-- Comparators: move to `Is.*` as canonical. Provide temporary `When.*` comparator aliases with deprecation diagnostics in strict mode.
-- Events: `When.*` is canonical; keep `On.*` as optional aliases (no deprecation planned, but not featured in docs).
-- Actions: use bare verbs. Operators: use plain verbs. Avoid mass surface expansion until approved.
+- Allowed aliases: `On.*` for events (ergonomic alternative to `When.*`), and other aliases that provide genuinely different authoring ergonomics.
+- Not allowed: back-compat-only aliases for names we’ve decided to change; we’ll make breaking changes during development with no deprecation scaffolding.
+- Comparators: `Is.*` is canonical. If an alias exists (e.g., legacy `When.*` wrappers), it’s for authoring ergonomics only, not to preserve old names. We may remove such aliases at any time before v1.
+- Actions: use bare verbs. Operators: prefer plain verbs. Avoid mass surface expansion until approved.
 
 ## Decision checklist
 

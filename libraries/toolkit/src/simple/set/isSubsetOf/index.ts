@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if the first Set is a subset of the second Set
  *
@@ -41,12 +43,12 @@ const isSubsetOf = <T>(
 	subset: Set<T> | null | undefined,
 ): boolean => {
 	// Empty set is subset of any set
-	if (subset == null || !(subset instanceof Set) || subset.size === 0) {
+	if (isNullish(subset) || !(subset instanceof Set) || subset.size === 0) {
 		return true
 	}
 
 	// Non-empty set cannot be subset of empty/null set
-	if (superset == null || !(superset instanceof Set)) {
+	if (isNullish(superset) || !(superset instanceof Set)) {
 		return false
 	}
 

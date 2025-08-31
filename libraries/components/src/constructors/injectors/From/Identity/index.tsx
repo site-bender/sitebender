@@ -1,1 +1,1 @@
-export { default } from "../Authenticator/index.tsx"
+// Removed during development: prefer From/Authenticator exclusively.

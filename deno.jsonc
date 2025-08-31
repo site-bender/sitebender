@@ -57,6 +57,18 @@
 		"lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts"
 	},
 
+	// Convenience tasks for local infra (docker compose stack)
+	"tasksLocal": {
+		"infra:up": "docker compose up -d",
+		"infra:down": "docker compose down -v",
+		"infra:restart": "deno task infra:down && deno task infra:up",
+		"infra:logs": "docker compose logs -f",
+		"infra:ps": "docker compose ps",
+		"infra:config": "docker compose config",
+		"infra:grafana:reset": "rm -rf ./ops/grafana/provisioning/dashboards/* && deno task infra:restart",
+		"infra:reload:prom": "curl -X POST http://localhost:9090/-/reload || true"
+	},
+
 	// Shared compiler options for all workspace members
 	"compilerOptions": {
 		"jsx": "react",

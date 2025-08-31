@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates velocity from distance and time
  *
@@ -41,11 +43,11 @@ const velocity = (
 (
 	time: number | null | undefined,
 ): number => {
-	if (distance == null || typeof distance !== "number") {
+	if (isNullish(distance) || typeof distance !== "number") {
 		return NaN
 	}
 
-	if (time == null || typeof time !== "number") {
+	if (isNullish(time) || typeof time !== "number") {
 		return NaN
 	}
 

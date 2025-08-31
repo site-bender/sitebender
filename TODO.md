@@ -22,7 +22,6 @@ Short, high‑leverage items to tackle incrementally while keeping the repo gree
 - [x] Wire default policy registration into bootstrap so IsAuthenticated is available by default.
 - [x] Add HasRole policy and When.Authorized args (e.g., roles: string[]).
 - [x] Add From.Authenticator injector (SSR‑safe) and a guard helper for 401/403 flows.
-	- [ ] Optional alias: From.Identity (docs-only)
 
 ## Docs
 - [ ] Expand VIZ.md with renderer adapter interface sketch and a minimal end‑to‑end diagram.
@@ -35,4 +34,4 @@ Short, high‑leverage items to tackle incrementally while keeping the repo gree
 
 ---
 
-Working rules: small slices, explicit interfaces (no ReturnType pyramids), maintain precise HTML/ARIA typings, SSR‑safe by default.
+Working rules: small slices, explicit interfaces (no ReturnType pyramids), maintain precise HTML/ARIA typings, SSR‑safe by default. No deprecations or aliases during development; we freely make breaking changes until we lock the API.

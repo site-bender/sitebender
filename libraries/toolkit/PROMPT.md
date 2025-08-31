@@ -141,7 +141,7 @@
   - String functions (3): deburr, unescape, lines
 - **Total files completed**: 413 files (401 from previous + 12 from this session)
 
-#### Session 20 (Current)
+#### Session 20
 
 - **Migrated 12 additional files**:
   - Object functions (1): pathOr
@@ -150,8 +150,15 @@
   - Geometry functions (7): dotProduct, vectorProjection, euclideanDistance, normalize, anglesBetweenVectors, magnitude, manhattanDistance
   - Physics functions (3): frequency, momentum, wavelength, potentialEnergy
 - **Total files completed**: 425 files (413 from previous + 12 from this session)
-- **Remaining files**: ~75 files with direct null/undefined comparisons
-- **Remaining instances**: ~136 direct comparisons (21 replaced in this session)
+
+#### Session 21 (Current)
+
+- **Migrated 12 additional files**:
+  - Physics functions (3): velocity, force, kineticEnergy
+  - Set functions (9): reduce, symmetricDifferenceWith, differenceWith, map, unionWith, intersectionWith, partitionBy, isSubsetOf, isSupersetOf
+- **Total files completed**: 437 files (425 from previous + 12 from this session)
+- **Remaining files**: ~63 files with direct null/undefined comparisons
+- **Remaining instances**: ~114 direct comparisons (22 replaced in this session)
 
 ### Remaining Work
 
@@ -217,7 +224,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (413 files)
+### Already Completed Files (437 files)
 
 These files have already been updated and should be skipped:
 
@@ -225,34 +232,29 @@ These files have already been updated and should be skipped:
 - `maybe/`: chain, fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
 - `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, nub, nubBy, omit, pairwise, partitionBy, pluck, reduce, reduceRight, reduceWhile, reject, remove, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, sliding, span, symmetricDifferenceWith, tail, take, takeLastWhile, times, transpose, unfold, union, unzip, update, zip, zipWith, none, partition, permutations, removeAt, replaceAll, replaceLast, sortBy, sortWith, startsWith, subsequences, symmetricDifference, takeLast, takeWhile, zipObj
-- `simple/set/`: add, delete, difference, filter, fromArray, has, intersection, isEmpty, toArray, union
+- `simple/set/`: add, delete, difference, differenceWith, filter, fromArray, has, intersection, intersectionWith, isEmpty, isSubsetOf, isSupersetOf, map, partitionBy, reduce, symmetricDifferenceWith, toArray, union, unionWith
 - `simple/activation/`: gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey, throttle, debounce, unless
 - `simple/conversion/`: toJson, safeParse, safeParseInt, safeParseFloat, stringify
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime, toInteger, toBoolean, toString, toFloat
-- `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue, paymentAmount, presentValue
-- `simple/map/`: withDefault
-- `simple/math/`: add, clamp, combinations, sum, isEven, permutations, average, cubeRoot
-- `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries
-- `simple/physics/`: acceleration, frequency, momentum, wavelength, potentialEnergy
-- `simple/special/`: stirlingApproximation, errorFunction, complementaryErrorFunction, gammaFunction
+- `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue, paymentAmount, presentValue, internalRateOfReturn, netPresentValue
+- `simple/map/`: withDefault, interleave
+- `simple/math/`: add, clamp, combinations, sum, isEven, permutations, average, cubeRoot, minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation, harmonicMean, sign, min, geometricMean, round
+- `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries, renameKeys, evolve, xform, values
+- `simple/physics/`: acceleration, frequency, momentum, wavelength, potentialEnergy, velocity, force, kineticEnergy
+- `simple/special/`: stirlingApproximation, errorFunction, complementaryErrorFunction, gammaFunction, besselJ, betaFunction
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, hypotenuse, polarToCartesian, radiansToDegrees, sine, tangent
 - `simple/tuple/`: bimap, first, fromArray, mapTuple, second, swap, third, toArray
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
-- `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation, harmonicMean, sign, min, geometricMean, round
 - `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches, deburr, unescape, lines, indexOf
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation
 - `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance, dotProduct, vectorProjection, euclideanDistance, normalize, anglesBetweenVectors, magnitude, manhattanDistance
-- `simple/finance/`: internalRateOfReturn, netPresentValue
-- `simple/object/`: renameKeys, evolve, xform, values
-- `simple/map/`: interleave
-- `simple/special/`: besselJ, betaFunction
 - `state/`: store.ts
 - `types/`: index.ts
 

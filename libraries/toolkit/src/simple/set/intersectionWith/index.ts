@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns elements present in both Sets using a custom equality function
  *
@@ -41,11 +43,11 @@ const intersectionWith = <T>(
 (
 	set1: Set<T> | null | undefined,
 ): Set<T> => {
-	if (set1 == null || !(set1 instanceof Set) || set1.size === 0) {
+	if (isNullish(set1) || !(set1 instanceof Set) || set1.size === 0) {
 		return new Set()
 	}
 
-	if (set2 == null || !(set2 instanceof Set) || set2.size === 0) {
+	if (isNullish(set2) || !(set2 instanceof Set) || set2.size === 0) {
 		return new Set()
 	}
 

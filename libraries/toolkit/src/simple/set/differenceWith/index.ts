@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Returns elements in the first Set but not in the second, using a custom equality function
  *
@@ -41,12 +43,12 @@ const differenceWith = <T>(
 (
 	minuend: Set<T> | null | undefined,
 ): Set<T> => {
-	if (minuend == null || !(minuend instanceof Set)) {
+	if (isNullish(minuend) || !(minuend instanceof Set)) {
 		return new Set()
 	}
 
 	if (
-		subtrahend == null || !(subtrahend instanceof Set) || subtrahend.size === 0
+		isNullish(subtrahend) || !(subtrahend instanceof Set) || subtrahend.size === 0
 	) {
 		return new Set(minuend)
 	}

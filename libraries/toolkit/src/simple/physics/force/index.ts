@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates force using Newton's second law (F = ma)
  *
@@ -44,11 +46,11 @@ const force = (
 (
 	acceleration: number | null | undefined,
 ): number => {
-	if (mass == null || typeof mass !== "number") {
+	if (isNullish(mass) || typeof mass !== "number") {
 		return NaN
 	}
 
-	if (acceleration == null || typeof acceleration !== "number") {
+	if (isNullish(acceleration) || typeof acceleration !== "number") {
 		return NaN
 	}
 
