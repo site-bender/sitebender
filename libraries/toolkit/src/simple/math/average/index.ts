@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the arithmetic mean of an array of numbers
  *
@@ -43,7 +45,7 @@
 const average = (
 	numbers: Array<number> | null | undefined,
 ): number => {
-	if (numbers == null || !Array.isArray(numbers)) {
+	if (isNullish(numbers) || !Array.isArray(numbers)) {
 		return NaN
 	}
 

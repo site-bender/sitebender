@@ -124,15 +124,24 @@
   - Math functions (5): harmonicMean, sign, min, geometricMean, round
 - **Total files completed**: 389 files (377 from previous + 12 from this session)
 
-#### Session 18 (Current)
+#### Session 18
 
 - **Migrated 12 additional files**:
   - Conversion functions (8): toJson, safeParse, safeParseInt, castValue/toInteger, castValue/toBoolean, castValue/toString, castValue/toFloat, safeParseFloat
   - Combinator functions (3): throttle, debounce, unless (no changes needed)
   - Physics functions (1): acceleration
 - **Total files completed**: 401 files (389 from previous + 12 from this session)
-- **Remaining files**: ~99 files with direct null/undefined comparisons
-- **Remaining instances**: ~178 direct comparisons (21 replaced in this session)
+
+#### Session 19 (Current)
+
+- **Migrated 12 additional files**:
+  - Math functions (4): isEven, permutations, average, cubeRoot
+  - Special functions (3): errorFunction, complementaryErrorFunction, gammaFunction
+  - Finance functions (2): paymentAmount, presentValue
+  - String functions (3): deburr, unescape, lines
+- **Total files completed**: 413 files (401 from previous + 12 from this session)
+- **Remaining files**: ~87 files with direct null/undefined comparisons
+- **Remaining instances**: ~157 direct comparisons (21 replaced in this session)
 
 ### Remaining Work
 
@@ -197,7 +206,7 @@ Do NOT modify the validation functions themselves:
 - `isNotUndefined/index.ts`
 - `isDefined/index.ts`
 
-### Already Completed Files (401 files)
+### Already Completed Files (413 files)
 
 These files have already been updated and should be skipped:
 
@@ -211,12 +220,12 @@ These files have already been updated and should be skipped:
 - `simple/combinator/`: memoizeKey, throttle, debounce, unless
 - `simple/conversion/`: toJson, safeParse, safeParseInt, safeParseFloat
 - `simple/conversion/castValue/`: toPlainDate, toPlainDateTime, toPlainTime, toInteger, toBoolean, toString, toFloat
-- `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue
+- `simple/finance/`: amortizationSchedule, annuity, compoundInterest, futureValue, paymentAmount, presentValue
 - `simple/map/`: withDefault
-- `simple/math/`: add, clamp, combinations, sum
+- `simple/math/`: add, clamp, combinations, sum, isEven, permutations, average, cubeRoot
 - `simple/object/`: path, smartMerge, where, whereEq, propSatisfies, prop, entries, propOr, hasPath, merge, props, clone, eqProps, mergeDeep, propEq, keys, mapValues, has, pickBy, pathOr, set, fromEntries
 - `simple/physics/`: acceleration
-- `simple/special/`: stirlingApproximation
+- `simple/special/`: stirlingApproximation, errorFunction, complementaryErrorFunction, gammaFunction
 - `simple/statistics/`: variance
 - `simple/temporal/`: addDays, addDuration, addHours, addMinutes, addMonths, addSeconds, addYears, adjustTime, clampDate, compare, dateRange, diffDays, diffHours, diffMinutes, diffMonths, diffSeconds, diffYears, duration, durationToMinutes, durationToSeconds, endOfDay, endOfMonth, endOfYear, equals, format, formatDuration, fromISO, getCalendar, getDay, getDayOfWeek, getDayOfYear, getDaysInMonth, getDaysInYear, getHour, getMillisecond, getMinute, getMonth, getNanosecond, getNextOccurrence, getOffsetTransitions, getQuarter, getSecond, getTimeZone, getWeekOfYear, getYear, isLeapYear, isWeekday, isWeekend, parse, parseTime, round, serializeZonedDateTime, setDay, setHour, setMinute, setMonth, setSecond, setYear, since, sortByAbsoluteTime, startOfMonth, startOfWeek, startOfYear, subtractDuration, toISO, toPlainDate, toPlainDateTime, toPlainTime, totalDuration, until, withCalendar, withTime, withTimeZone
 - `simple/trigonometry/`: arcCosine, arcSine, arcTangent, arcTangent2, cartesianToPolar, cosine, degreesToRadians, hyperbolicCosine, hyperbolicSine, hyperbolicTangent, hypotenuse, polarToCartesian, radiansToDegrees, sine, tangent
@@ -224,7 +233,7 @@ These files have already been updated and should be skipped:
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
 - `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange, sum, maxBy, decrement, binomialCoefficient, fibonacci, floor, random, logarithmBase10, logarithm, modulo, modularExponentiation, harmonicMean, sign, min, geometricMean, round
-- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate, removeSuffix, substr, hashCode, quote, sanitize, slice, chars, template, similarity, unquote, slugify, reverse, contains, truncateMiddle, substring, normalize, wrap, chomp, levenshtein, stripIndent, lastIndexOf, splice, countMatches, deburr, unescape, lines
 - `simple/string/toCase/`: toUpperFirst, toLowerFirst
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation

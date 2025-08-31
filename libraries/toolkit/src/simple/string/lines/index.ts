@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Splits a string into an array of lines
  *
@@ -55,7 +57,7 @@
 const lines = (
 	str: string | null | undefined,
 ): Array<string> => {
-	if (str == null || typeof str !== "string") {
+	if (isNullish(str) || typeof str !== "string") {
 		return []
 	}
 

@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the error function (erf)
  *
@@ -33,7 +35,7 @@
 const errorFunction = (
 	x: number | null | undefined,
 ): number => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

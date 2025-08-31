@@ -45,7 +45,7 @@ export default async function evaluate(
 			) => Promise<unknown> | unknown
 			// For comparator semantics, we call the operation with undefined arg and localValues from ctx if available
 			// ComposeContext currently doesn't expose localValues; allow undefined
-			const res = await fn(undefined, undefined as unknown as Record<string, unknown>)
+			const res = await fn(undefined, ctx?.localValues as unknown as Record<string, unknown>)
 			if (typeof res === "object" && res && ("right" in (res as Record<string, unknown>) || "left" in (res as Record<string, unknown>))) {
 				const either = res as { right?: unknown; left?: unknown }
 				return Boolean("right" in either && either.right === true)

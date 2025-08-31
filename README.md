@@ -72,3 +72,43 @@ CI runs strict tasks and will block on lint, type-check, alias guard, and strict
 	- `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
 	- `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
 - Actions: author as bare verbs (no `Do.*` in docs/examples).
+
+## Auth: policies and From.Authenticator
+
+- Policies are registered under simple tags (e.g., `IsAuthenticated`, `HasRole`) and can be used via `When.Authorized`.
+- Use `From.Authenticator` to inject values from the current auth context (e.g., `user`, `roles`, `claims`).
+
+Example (authoring):
+
+```tsx
+import Authorized from "./libraries/components/src/transform/control/When/Authorized/index.tsx";
+import On from "./libraries/components/src/transform/control/On/index.tsx";
+import SetValue from "./libraries/components/src/transform/actions/SetValue/index.tsx";
+import FromAuthentication from "./libraries/components/src/constructors/injectors/From/Authentication/index.tsx";
+
+// Render admin-only message on click
+[
+	<div id="msg" />,
+	On({
+		event: "Click",
+		children: Authorized({
+			policyTag: "HasRole",
+			policyArgs: { role: "admin" },
+			children: SetValue({
+				selector: "#msg",
+				value: FromAuthentication({ path: "user.email" }) as unknown as JSX.Element,
+			}) as unknown as JSX.Element,
+			fallback: SetValue({ selector: "#msg", value: { value: "Forbidden" } } as any) as any,
+		}) as unknown as JSX.Element,
+	}) as unknown as JSX.Element,
+]
+```
+
+- The compiler lowers `FromAuthentication({ path: "user.email" })` to an IR injector with `injector: "From.Authenticator"` and `args: { path: "user.email" }`.
+- At runtime, `From.Authenticator` reads from `ComposeContext.localValues` by the provided dot-path. For example, with:
+
+```ts
+createComposeContext({ env: "server", localValues: { user: { email: "a@b.com", roles: ["admin"] } } })
+```
+
+the example above sets `#msg` to the user’s email when the policy passes, or to "Forbidden" otherwise.

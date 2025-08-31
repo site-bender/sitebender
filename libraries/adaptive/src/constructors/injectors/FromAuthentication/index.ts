@@ -2,26 +2,26 @@ import type { Datatype } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../constants/index.ts"
 
-type FromAuthenticationInjector = {
-  tag: "FromAuthentication"
+type FromAuthenticatorInjector = {
+  tag: "FromAuthenticator"
   type: typeof OPERAND_TYPES.injector
   datatype: Datatype
   path?: string
 }
 
 /**
- * FromAuthentication
+ * FromAuthenticator
  *
  * Authoring-time constructor that represents reading from auth context
  * (ComposeContext.localValues.user by default). Optional dot-path lets you
  * reach into claims, e.g., "user.email" or "claims.sub".
  */
-const FromAuthentication =
-  (datatype: Datatype = "String") => (path?: string): FromAuthenticationInjector => ({
-    tag: "FromAuthentication",
+const FromAuthenticator =
+  (datatype: Datatype = "String") => (path?: string): FromAuthenticatorInjector => ({
+    tag: "FromAuthenticator",
     type: OPERAND_TYPES.injector,
     datatype,
     path,
   })
 
-export default FromAuthentication
+export default FromAuthenticator

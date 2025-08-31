@@ -127,6 +127,12 @@ type FromElementCtor = {
 	datatype?: DataType
 	source: string
 }
+type FromAuthenticationCtor = {
+	type: "injector"
+	tag: "FromAuthenticator"
+	datatype?: DataType
+	path?: string
+}
 type AddCtor = {
 	type: "operator"
 	tag: "Add"
@@ -174,6 +180,9 @@ const isConstantCtor = (x: unknown): x is ConstantCtor =>
 	(x as { type: string }).type === "injector"
 const isFromElementCtor = (x: unknown): x is FromElementCtor =>
 	isCtor(x) && (x as { tag: string }).tag === "FromElement" &&
+	(x as { type: string }).type === "injector"
+const isFromAuthenticationCtor = (x: unknown): x is FromAuthenticationCtor =>
+	isCtor(x) && (x as { tag: string }).tag === "FromAuthenticator" &&
 	(x as { type: string }).type === "injector"
 const isAddCtor = (x: unknown): x is AddCtor =>
 	isCtor(x) && (x as { tag: string }).tag === "Add" &&
@@ -368,6 +377,17 @@ function compileOperand(x: unknown): Node {
 			args: { selector: x.source },
 		} satisfies InjectorNode
 	}
+		if (isFromAuthenticationCtor(x)) {
+			const datatype = normalizeDatatype(x.datatype) ?? "String"
+			return {
+				v: "0.1.0",
+				kind: "injector",
+				id: nextI(),
+			injector: "From.Authenticator",
+				datatype,
+				args: { path: x.path },
+			} satisfies InjectorNode
+		}
 	if (isAddCtor(x)) {
 		const datatype = normalizeDatatype(x.datatype) ?? "Float"
 		const addends = Array.isArray(x.addends) ? x.addends : []

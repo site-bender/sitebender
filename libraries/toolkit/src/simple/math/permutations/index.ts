@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 import factorial from "../factorial/index.ts"
 
 /**
@@ -49,11 +51,11 @@ const permutations = (
 (
 	r: number | null | undefined,
 ): number => {
-	if (n == null || typeof n !== "number") {
+	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
-	if (r == null || typeof r !== "number") {
+	if (isNullish(r) || typeof r !== "number") {
 		return NaN
 	}
 

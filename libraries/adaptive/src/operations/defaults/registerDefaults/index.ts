@@ -34,7 +34,7 @@ export function registerDefaultExecutors(_ctx?: ComposeContext) {
 		(node: InjectorNode) => (node.args as { value?: unknown }).value,
 	)
 	registerInjector(
-		"From.Authentication",
+		"From.Authenticator",
 		(node: InjectorNode, ctx?: ComposeContext) => {
 			// Safely read from ctx.localValues with optional dot-path
 			const path = String((node.args as { path?: unknown }).path ?? "user")

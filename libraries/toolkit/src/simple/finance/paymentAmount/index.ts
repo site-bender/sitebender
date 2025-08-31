@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the payment amount for a loan (PMT function)
  *
@@ -50,15 +52,15 @@ const paymentAmount = (
 (
 	periods: number | null | undefined,
 ): number => {
-	if (principal == null || typeof principal !== "number") {
+	if (isNullish(principal) || typeof principal !== "number") {
 		return NaN
 	}
 
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
-	if (periods == null || typeof periods !== "number") {
+	if (isNullish(periods) || typeof periods !== "number") {
 		return NaN
 	}
 

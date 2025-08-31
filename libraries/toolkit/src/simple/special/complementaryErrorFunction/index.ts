@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 import errorFunction from "../errorFunction/index.ts"
 
 /**
@@ -32,7 +34,7 @@ import errorFunction from "../errorFunction/index.ts"
 const complementaryErrorFunction = (
 	x: number | null | undefined,
 ): number => {
-	if (x == null || typeof x !== "number") {
+	if (isNullish(x) || typeof x !== "number") {
 		return NaN
 	}
 

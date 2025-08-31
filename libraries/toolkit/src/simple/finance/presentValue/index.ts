@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Calculates the present value of future cash flows
  *
@@ -51,11 +53,11 @@ const presentValue = (
 (
 	periods: number | null | undefined,
 ): number => {
-	if (futureValue == null || typeof futureValue !== "number") {
+	if (isNullish(futureValue) || typeof futureValue !== "number") {
 		return NaN
 	}
 
-	if (rate == null || typeof rate !== "number") {
+	if (isNullish(rate) || typeof rate !== "number") {
 		return NaN
 	}
 
@@ -64,7 +66,7 @@ const presentValue = (
 		return NaN
 	}
 
-	if (periods == null || typeof periods !== "number") {
+	if (isNullish(periods) || typeof periods !== "number") {
 		return NaN
 	}
 
