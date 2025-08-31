@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates a Set from an array
  *
@@ -34,7 +36,7 @@
 const fromArray = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Set<T> => {
-	if (array == null || !Array.isArray(array)) {
+	if (isNullish(array) || !Array.isArray(array)) {
 		return new Set()
 	}
 

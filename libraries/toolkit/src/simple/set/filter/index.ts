@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Filters a Set based on a predicate function
  *
@@ -39,7 +41,7 @@ const filter = <T>(
 (
 	set: Set<T> | null | undefined,
 ): Set<T> => {
-	if (set == null || !(set instanceof Set)) {
+	if (isNullish(set) || !(set instanceof Set)) {
 		return new Set()
 	}
 

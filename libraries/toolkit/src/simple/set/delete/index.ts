@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Removes an element from a Set, returning a new Set
  *
@@ -40,7 +42,7 @@ const deleteElement = <T>(
 (
 	set: Set<T> | null | undefined,
 ): Set<T> => {
-	if (set == null || !(set instanceof Set)) {
+	if (isNullish(set) || !(set instanceof Set)) {
 		return new Set()
 	}
 

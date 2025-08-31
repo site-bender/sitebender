@@ -65,15 +65,22 @@
   - String functions (5): indent, escape, removePrefix, remove, swapCase
 - **Total files completed**: 293 files (281 from previous + 12 from this session)
 
-#### Session 10 (Current)
+#### Session 10
 
 - **Migrated 12 additional files**:
   - Matrix functions (8): identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
   - Interpolation functions (1): bezierInterpolation
   - Geometry functions (3): crossProduct, haversineDistance, chebyshevDistance
 - **Total files completed**: 305 files (293 from previous + 12 from this session)
-- **Remaining files**: ~168 files with direct null/undefined comparisons
-- **Remaining instances**: ~350 direct comparisons (20 replaced in this session)
+
+#### Session 11 (Current)
+
+- **Migrated 12 additional files**:
+  - Set functions (10): add, delete, difference, filter, fromArray, has, intersection, isEmpty, toArray, union
+  - String functions (2): escapeRegExp, truncate
+- **Total files completed**: 317 files (305 from previous + 12 from this session)
+- **Remaining files**: ~156 files with direct null/undefined comparisons
+- **Remaining instances**: ~330 direct comparisons (20 replaced in this session)
 
 ### Remaining Work
 
@@ -146,6 +153,7 @@ These files have already been updated and should be skipped:
 - `maybe/`: chain, fromNullable, justWithInspect, show
 - `random/`: randomBoolean, randomChoice, randomFloat, randomInteger, randomString, randomSubset
 - `simple/array/`: init, indexBy, move, nth, unionWith, aperture, cartesianProduct, chunk, closest, combinations, compact, countBy, cycle, difference, differenceWith, dropRepeats, dropRepeatsWith, dropWhile, endsWith, findDuplicates, findIndices, findMostCommon, flatten, groupBy, groupWith, intersection, intersectionWith, intersperse, join, last, lastIndexOf, lastIndexOfMatch, map, mapAccum, mapAccumRight, maximumBy, minimumBy, nub, nubBy, omit, pairwise, partitionBy, pluck, reduce, reduceRight, reduceWhile, reject, remove, replaceAllMatches, replaceAt, replaceFirst, replaceFirstMatch, replaceLastMatch, reverse, rotateLeft, rotateRight, sample, sampleSize, scan, shuffle, sliding, span, symmetricDifferenceWith, tail, take, takeLastWhile, times, transpose, unfold, union, unzip, update, zip, zipWith, none, partition, permutations, removeAt, replaceAll, replaceLast, sortBy, sortWith, startsWith, subsequences, symmetricDifference, takeLast, takeWhile, zipObj
+- `simple/set/`: add, delete, difference, filter, fromArray, has, intersection, isEmpty, toArray, union
 - `simple/activation/`: gaussianErrorLinearUnit, leakyRectifiedLinearUnit, rectifiedLinearUnit, sigmoid, softmax, softplus, swish
 - `simple/async/`: parallel, parallelLimit, race, waterfall
 - `simple/combinator/`: memoizeKey
@@ -162,7 +170,7 @@ These files have already been updated and should be skipped:
 - `simple/validation/`: isAlpha, isAlphanumeric, isBlank, isJSON, isPhone, isPlainObject, isUrl, isValidDate, validateForm
 - `simple/logic/`: nor, and
 - `simple/math/`: minBy, squareRoot, power, divisors, isPrime, negate, randomInteger, quadratic, truncate, mode, subtract, rootMeanSquare, multiply, exponential, median, totient, primeFactorization, divide, factorial, gcd, product, max, ceiling, absoluteValue, lcm, increment, isOdd, digitSum, inRange
-- `simple/string/`: indent, escape, removePrefix, remove, swapCase
+- `simple/string/`: indent, escape, removePrefix, remove, swapCase, escapeRegExp, truncate
 - `simple/matrix/`: identityMatrix, matrixInverse3x3, matrixMultiply, matrixTranspose, matrixAddition, matrixTrace, matrixScalarMultiply, determinant3x3
 - `simple/interpolation/`: bezierInterpolation
 - `simple/geometry/`: crossProduct, haversineDistance, chebyshevDistance

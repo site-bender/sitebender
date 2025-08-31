@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a Set contains an element
  *
@@ -40,7 +42,7 @@ const has = <T>(
 (
 	set: Set<T> | null | undefined,
 ): boolean => {
-	if (set == null || !(set instanceof Set)) {
+	if (isNullish(set) || !(set instanceof Set)) {
 		return false
 	}
 

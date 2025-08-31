@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Checks if a Set is empty
  *
@@ -33,7 +35,7 @@
 const isEmpty = <T>(
 	set: Set<T> | null | undefined,
 ): boolean => {
-	if (set == null || !(set instanceof Set)) {
+	if (isNullish(set) || !(set instanceof Set)) {
 		return true
 	}
 
