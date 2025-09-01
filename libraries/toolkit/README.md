@@ -4,6 +4,8 @@ Functional, dependency-free utilities for Sitebender apps. One function per fold
 
 This README is user-facing: it explains how to use the toolkit today and what’s planned next. A short checklist of known fixes appears below so you can track what’s being tightened up.
 
+Note: there is a sole developer on this project working with multiple AI assistants, but the assistants are sandboxed. We do not need to raise issues in GitHub, do PRs, or anything else. This library is not in production and will not be until complete. Until that time we will fix all bugs and stabilize all features. We will not deprecate or alias anything as there is no legacy use. We will just make changes until it is exactly as the sole dev wants it. **THIS IS IMPORTANT. PAY ATTENTION.**
+
 ## Design principles
 
 - Zero dependencies in library code
@@ -17,6 +19,11 @@ This README is user-facing: it explains how to use the toolkit today and what’
 - `src/simple/**` – plain value functions (arrays, strings, async, validation, temporal, etc.)
 - `src/chainable/**` – monadic/result-first companions that mirror `simple` (exists, currently empty)
 - `src/types/**` – core FP types (Maybe, Either, Result, IO) and shared type utilities
+- `src/constants/**` – shared constants and configuration values
+- `src/debug/**` – debugging and development utilities
+- `src/events/**` – event handling and messaging utilities
+- `src/random/**` – random number and data generation utilities
+- `src/state/**` – state management utilities
 - `tests/**` – behavior-first and property-based tests organized by capability
 
 Note on chainable: `src/chainable` is present but empty. The intent is to provide result-first, chainable variants with the same names as `simple`, delegating where possible.
@@ -38,10 +45,20 @@ import retry from "./src/simple/async/retry/index.ts"
 await retry({ attempts: 3, delayMs: 100 })(() => fetch("/api"))
 ```
 
-## Chainable roadmap (Result-first)
+## Chainable roadmap (Result-first) - Phase 2
 
-Goal: mirror every `simple` function in `chainable` with the same name and a Result/Either-powered signature for safe composition. Highlights:
+**IMPORTANT**: Chainable functions will be implemented ONLY after achieving 100% test coverage, passing linter, and passing type checks for all existing functions.
 
+Goal: mirror every `simple` function in `chainable` with the same name and a Result/Either-powered signature for safe composition. 
+
+Implementation approach (BDD/TDD):
+- Write tests first for each chainable function
+- See tests fail (red phase)
+- Implement the chainable function to make tests pass (green phase)
+- Refactor if needed while keeping tests green
+- The `chainable/` folder structure will exactly mirror `simple/` - nothing outside `simple/` gets added
+
+Highlights:
 - Use Result as the default error carrier for ergonomic chaining
 - Reuse `simple` implementations internally; add only the error/context glue
 - Short-circuit on failure; preserve error context and types
@@ -57,14 +74,12 @@ Initial targets: core array ops (map/filter/reduce/flatMap), common string/parse
 
 ## Known issues and planned fixes (functions)
 
-These items are queued for small, focused PRs:
-
-- Temporal format: docs vs. behavior mismatch for PlainDate (UTC vs. local). Align code and docs or provide an explicit option.
-- URL validator: IPv6 localhost should allow "::1" (disallow list currently expects "[::1]").
-- Form validation: `validateForm` should delegate to existing `isEmail`/`isUrl` validators instead of inlining checks.
-- Type guard: `types.isValue` is broader than the declared `Value` union; align the guard or narrow the union.
-- Events bus: reuse the local bus instance within `createBroadcastBus` instead of constructing a new one per subscribe.
-- Stray files: remove editor-temp file at `simple/array/zipAll/.!80150!index.ts`.
+✅ All previously listed issues have been resolved:
+- Temporal format now has explicit `timeZoneMode` option for UTC vs local handling
+- URL validator correctly handles IPv6 localhost "[::1]" and "::1"
+- Form validation already delegates to `isEmail`/`isUrl` validators
+- Type guard `types.isValue` correctly aligns with the `Value` union
+- Events bus now reuses the local bus instance in `createBroadcastBus`
 
 ## Test suite status and planned fixes (tests)
 
@@ -75,7 +90,6 @@ The suite is behavior-first with property tests in key areas. Planned work:
 - Strings: sanitize/slugify invariants; round-trip and safety properties
 - Events: local vs broadcast bus behavior and cross-tab propagation
 - Result/IO: practical usage and error-propagation paths
-- Hygiene: relocate the stray test file `src/simple/validation/not/index.test.ts` into the tests tree
 
 ## Contributing notes
 
@@ -86,4 +100,10 @@ The suite is behavior-first with property tests in key areas. Planned work:
 
 ## Status
 
-This library is in active evolution on the `phase-2` branch. The `chainable` layer is prepared and will be filled incrementally. If you hit gaps, please open an issue with a minimal example and runtime details.
+This library is in active evolution on the `phase-2` branch. 
+
+Current priority (Phase 1): Achieve 100% test coverage for all existing functions with passing linter and type checks.
+
+Next phase (Phase 2): The `chainable` layer will be implemented using BDD/TDD after Phase 1 is complete.
+
+If you hit gaps, please report them in the chat with a minimal example and runtime details.

@@ -1,0 +1,24 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {"type":"stat","title":"Up Targets","targets":[{"expr":"sum(up)"}],"gridPos":{"x":0,"y":0,"w":6,"h":4}},
+    {"type":"stat","title":"Down Targets","targets":[{"expr":"sum(up == 0)"}],"gridPos":{"x":6,"y":0,"w":6,"h":4}},
+    {"type":"graph","title":"Scrape Duration","targets":[{"expr":"rate(scrape_duration_seconds_sum[5m]) / rate(scrape_duration_seconds_count[5m])"}],"gridPos":{"x":0,"y":4,"w":12,"h":8}}
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["observability"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h", "to": "now"},
+  "timepicker": {},
+  "timezone": "",
+  "title": "Prometheus Overview",
+  "uid": "prom-overview",
+  "version": 1
+}

@@ -9,18 +9,27 @@
 # Grafana
 grafana.localhost {
   tls /certs/grafana.localhost.pem /certs/grafana.localhost-key.pem
+  basic_auth {
+  admin $2a$14$YCHFK08MAbIQdWjcR5OpdetLM8RUYXdoeOVByfguOxEaEjy9dSPJe
+  }
   reverse_proxy grafana:3000
 }
 
 # Prometheus
 prometheus.localhost {
   tls /certs/prometheus.localhost.pem /certs/prometheus.localhost-key.pem
+  basic_auth {
+  admin $2a$14$YCHFK08MAbIQdWjcR5OpdetLM8RUYXdoeOVByfguOxEaEjy9dSPJe
+  }
   reverse_proxy prometheus:9090
 }
 
 # Thanos Querier
 thanos.localhost {
   tls /certs/thanos.localhost.pem /certs/thanos.localhost-key.pem
+  basic_auth {
+  admin $2a$14$YCHFK08MAbIQdWjcR5OpdetLM8RUYXdoeOVByfguOxEaEjy9dSPJe
+  }
   reverse_proxy thanos-querier:10902
 }
 

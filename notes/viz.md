@@ -104,15 +104,17 @@ This document is design/authoring guidance. Implementation should follow the sma
 
 # OUR LOCAL SETUP
 
-The system is fully operational and waiting. Here is the state of our stack:
+The system is fully operational with HTTPS via a local reverse proxy. Current state:
 
-    ✅ Prometheus is running, scraping metrics, and writing data to its internal storage.
-    ✅ Thanos Sidecar is now healthy, connected to Prometheus, and monitoring its data directory.
-    ✅ Thanos Querier is running and providing a unified API endpoint to Grafana.
-    ✅ Grafana is connected to the Querier and displaying dashboards.
-    ✅ MinIO is running and ready to receive data.
+  - ✅ Prometheus scrapes metrics and compacts every 1m (dev speed) for fast Thanos shipping.
+  - ✅ Thanos Sidecar is healthy and watching Prometheus TSDB.
+  - ✅ Thanos Store Gateway is healthy and serves blocks from MinIO.
+  - ✅ Thanos Querier provides a single API/UI that Grafana uses.
+  - ✅ Grafana is provisioned to the Querier and loads dashboards from /dashboards.
+  - ✅ MinIO is running; bucket "thanos" exists for Thanos blocks.
+  - ✅ Caddy terminates TLS for *.localhost and enforces basic auth for core UIs.
 
-**IMPORTANT NOTE:** MinIO is used for local testing. We will not use MinIO or AWS in production. Instead we will use the Storacha distributed data service (https://storacha.network/). Keep this in mind when planning.
+IMPORTANT: MinIO is for local development only. Production will use Storacha (https://storacha.network/) or another distributed store.
 
 ## Config files
 
@@ -135,7 +137,7 @@ scrape_configs:
   - job_name: "node-exporter"
     static_configs:
       - targets: ["node-exporter:9100"]
-  # NEW: Add a job to scrape Apache Jena Fuseki metrics
+  # Scrape Apache Jena Fuseki metrics
   - job_name: "fuseki"
     metrics_path: /metrics # Fuseki often exposes metrics on this standard path
     static_configs:
@@ -155,12 +157,16 @@ config:
   secret_key: "minioadmin"
   insecure: true # Uses HTTP instead of HTTPS, which is fine for local development
   signature_version2: false
+
+Notes:
+- Both Sidecar and Store Gateway read this file from `/config/thanos/thanos-config.yaml`.
+- Querier does not need object storage config.
 ```
 
-### Docker
+### Docker (excerpt – current)
 
 ```yaml
-# docker-compose.yml
+# docker-compose.yml (key parts)
 networks:
   monitoring:
     driver: bridge
@@ -170,6 +176,7 @@ volumes:
   grafana_data: {}
   minio_data: {}
   thanos_sidecar_data: {}
+  thanos_store_data: {}
   fuseki_data: {}
   fuseki_config: {}
 
@@ -180,17 +187,15 @@ services:
     container_name: fuseki
     restart: unless-stopped
     environment:
-      - FUSEKI_DATASET_1=my_dataset # Creates a persistent dataset with this name
-      # Optional: Set admin password for the web UI
-      - ADMIN_PASSWORD=admin123
+    - FUSEKI_DATASET_1=my_dataset
+    - ADMIN_PASSWORD=admin123
     volumes:
-      - fuseki_data:/fuseki-base/databases # Persistent volume for database files
-      - fuseki_config:/fuseki-base/configuration # Persistent volume for config
+    - fuseki_data:/fuseki-base/databases
+    - fuseki_config:/fuseki-base/configuration
     ports:
-      - "3030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
+    - "43030:3030"
     networks:
-      - monitoring # Attach it to the same network so Prometheus can scrape it
-    # Optional: Healthcheck to ensure the service is fully started
+    - monitoring
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://localhost:3030/"]
       interval: 30s
@@ -198,22 +203,21 @@ services:
       retries: 3
       start_period: 40s
 
-  # The monitoring backbone: time-series database
+  # Prometheus
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--web.enable-lifecycle" # Allows config reload via API call
-      - "--storage.tsdb.min-block-duration=2h"
-      - "--storage.tsdb.max-block-duration=2h"
+    - --config.file=/config/prometheus/prometheus.yml
+    - --storage.tsdb.path=/prometheus
+    - --web.enable-lifecycle
+    - --storage.tsdb.min-block-duration=1m
+    - --storage.tsdb.max-block-duration=1m
     volumes:
-      - ./ops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus
+    - ./ops/prometheus:/config/prometheus:ro
     ports:
-      - "9090:9090"
+    - "44090:9090"
     networks:
       - monitoring
 
@@ -222,16 +226,14 @@ services:
     image: prom/node-exporter:latest
     container_name: node-exporter
     restart: unless-stopped
-    # REMOVED the complex volumes and command
     ports:
-      - "9100:9100"
+    - "49100:9100"
     networks:
       - monitoring
-    # ADD these lines to run with necessary Linux capabilities
     privileged: true
     pid: "host"
     command:
-      - "--path.rootfs=/host"
+    - --path.rootfs=/host
     volumes:
       - /:/host:ro
 
@@ -245,10 +247,10 @@ services:
       - sidecar
       - --prometheus.url=http://prometheus:9090
       - --tsdb.path=/prometheus
-      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+    - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
-      - prometheus_data:/prometheus
-      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+    - prometheus_data:/prometheus
+    - ./ops/thanos:/config/thanos:ro
     depends_on:
       - prometheus
       - minio
@@ -267,7 +269,7 @@ services:
       - --endpoint=thanos-sidecar:10901
       - --endpoint=thanos-storegateway:10901
     ports:
-      - "10902:10902" # Expose the HTTP Query UI and API
+  - "45002:10902"
     depends_on:
       - thanos-sidecar
     networks:
@@ -278,13 +280,16 @@ services:
     image: quay.io/thanos/thanos:v0.39.2
     container_name: thanos-storegateway
     restart: unless-stopped
+    user: "0"
     command:
       - store
-      - --http-address=0.0.0.0:10909
-      - --grpc-address=0.0.0.0:10908
-      - --objstore.config-file=/etc/thanos/minio-bucket.yaml
+      - --http-address=0.0.0.0:10902
+      - --grpc-address=0.0.0.0:10901
+      - --data-dir=/var/thanos
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
-      - ./ops/thanos/thanos-config.yaml:/etc/thanos/minio-bucket.yaml:ro
+      - ./ops/thanos:/config/thanos:ro
+      - thanos_store_data:/var/thanos
     depends_on:
       - minio
     networks:
@@ -300,12 +305,14 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_PROTOCOL=http1
-      - GF_INSTALL_PLUGINS=grafana-polystat-panel # Optional: useful for advanced panels
-      - GF_DATASOURCES_DEFAULT_URL=http://thanos-querier:10902 # <-- TELL GRAFANA TO USE THANOS
+      - GF_INSTALL_PLUGINS=grafana-polystat-panel
+      - GF_PATHS_PROVISIONING=/provisioning
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./ops/grafana/provisioning:/provisioning:ro
+      - ./ops/grafana/dashboards:/dashboards:ro
     ports:
-      - "3001:3000" # Map host port 3001 to container port 3000
+      - "43001:3000"
     networks:
       - monitoring
 
@@ -317,13 +324,159 @@ services:
     command: server /data --console-address ":9001"
     environment:
       - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin # Change these for real deployment!
+      - MINIO_ROOT_PASSWORD=minioadmin
     volumes:
       - minio_data:/data
     ports:
-      - "9000:9000" # S3 API Port
-      - "9001:9001" # Web UI Port
+      - "49000:9000"
+      - "49001:9001"
+    networks:
+      - monitoring
+
+  # Caddy reverse proxy with TLS (mkcert)
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./ops/certs:/certs:ro
+    depends_on:
+      - grafana
+      - prometheus
+      - thanos-querier
+      - fuseki
+      - minio
     networks:
       - monitoring
 
 ```
+
+Ports and aliases (dev):
+- Prometheus: http://localhost:44090 → https://prometheus.localhost
+- Thanos Querier: http://localhost:45002 → https://thanos.localhost
+- Grafana: http://localhost:43001 → https://grafana.localhost
+- Fuseki: http://localhost:43030 → https://fuseki.localhost
+- MinIO console: http://localhost:49001 → https://minio.localhost
+- Node Exporter: http://localhost:49100 (no proxy)
+
+Config convention:
+- All configs mount under `/config/*` from `./ops/*` on the host to avoid image-specific `/etc` paths.
+
+Prometheus dev compaction:
+- For fast local testing, block durations are set to 1m via compose. Revert to 2h for normal operation.
+
+### Grafana provisioning (enabled)
+
+Datasource (Thanos default): `ops/grafana/provisioning/datasources/datasource.yml`
+
+```yaml
+apiVersion: 1
+datasources:
+  - name: Thanos
+    type: prometheus
+    url: http://thanos-querier:10902
+    access: proxy
+    isDefault: true
+```
+
+Dashboards provider: `ops/grafana/provisioning/dashboards/dashboards.yml`
+
+```yaml
+apiVersion: 1
+providers:
+  - name: local-json
+    type: file
+    options:
+      path: /dashboards
+      foldersFromFilesStructure: true
+```
+
+Place dashboards JSON in `ops/grafana/dashboards/`.
+
+### HTTPS, proxy, and auth
+
+- TLS certs are generated with mkcert and stored in `./ops/certs`.
+- Caddy terminates TLS and proxies pretty local domains.
+- Basic auth protects UIs with `admin:admin` (changeable).
+
+`Caddyfile` (excerpt):
+
+```caddyfile
+grafana.localhost {
+  tls /certs/grafana.localhost.pem /certs/grafana.localhost-key.pem
+  basicauth {
+    admin <bcrypt-hash>
+  }
+  reverse_proxy grafana:3000
+}
+
+prometheus.localhost {
+  tls /certs/prometheus.localhost.pem /certs/prometheus.localhost-key.pem
+  basicauth {
+    admin <bcrypt-hash>
+  }
+  reverse_proxy prometheus:9090
+}
+
+thanos.localhost {
+  tls /certs/thanos.localhost.pem /certs/thanos.localhost-key.pem
+  basicauth {
+    admin <bcrypt-hash>
+  }
+  reverse_proxy thanos-querier:10902
+}
+
+fuseki.localhost {
+  tls /certs/fuseki.localhost.pem /certs/fuseki.localhost-key.pem
+  reverse_proxy fuseki:3030
+}
+
+minio.localhost  {
+  tls /certs/minio.localhost.pem /certs/minio.localhost-key.pem
+  reverse_proxy minio:9001
+}
+```
+
+Login at the proxy prompt:
+- Username: `admin`
+- Password: `admin`
+
+Rotate the password by generating a new bcrypt hash and updating the Caddyfile basicauth entries.
+
+### Thanos notes
+
+- MinIO bucket `thanos` is required for Store Gateway; it’s created in dev.
+- Querier peers: sidecar (live Prometheus) + storegateway (object storage blocks).
+- Store Gateway data dir: `/var/thanos` (backed by named volume `thanos_store_data`).
+
+---
+
+## TODO / recommendations
+
+- Security
+  - Change all default passwords; store secrets via Docker secrets or env files excluded from VCS.
+  - Optionally add basicauth to Fuseki as well.
+  - Consider SSO/OIDC in front of Grafana/Prometheus via Caddy plugins or an identity proxy.
+
+- Observability hardening
+  - Add Thanos Compactor for downsampling/retention management.
+  - Restore Prometheus block durations to 2h for normal use (lower churn, better performance).
+  - Consider remote-write or Thanos Receive if multi-tenant ingestion is needed.
+  - Add healthchecks for Thanos components in compose.
+
+- UX/dev ergonomics
+  - Add starter dashboards JSON into `ops/grafana/dashboards`.
+  - Provision Grafana folders and alerts; wire alerting contact points.
+  - Add scripts for mkcert generation and service restarts.
+
+- Reliability & data
+  - Configure MinIO lifecycle/retention for the `thanos` bucket (dev) and plan Storacha mapping for prod.
+  - Backups/snapshots strategy for Grafana data volume.
+
+- Infra polish
+  - Use non-root users where possible; we currently run storegateway as root to simplify local volume perms.
+  - Split compose into profiles (dev/prod) to toggle compaction speeds and auth policies.

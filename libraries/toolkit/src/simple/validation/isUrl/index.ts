@@ -108,7 +108,8 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 				const localhostPatterns = new Set([
 					"localhost",
 					"127.0.0.1",
-					"::1",
+					"[::1]", // IPv6 localhost needs brackets in URL hostname
+					"::1", // Also check without brackets for compatibility
 					"0.0.0.0",
 				])
 				if (localhostPatterns.has(url.hostname)) {

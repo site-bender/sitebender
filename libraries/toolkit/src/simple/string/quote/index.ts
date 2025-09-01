@@ -69,7 +69,7 @@ const quote = (
 			"<>": "<>",
 			"«»": "«»",
 			"「」": "「」",
-			"""": """",
+			"\u201C\u201D": "\u201C\u201D", // "" using unicode escapes
 		}
 		
 		if (pairs[quotes]) {

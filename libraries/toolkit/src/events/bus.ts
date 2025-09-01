@@ -123,15 +123,8 @@ export function createBroadcastBus(
 			}
 			bc.postMessage(envelope)
 			// Also emit locally so in-tab listeners receive immediately
-			if (doc) {
-				const CE = (globalThis as unknown as {
-					CustomEvent?: new (type: string, init?: { detail?: unknown }) => Event
-				}).CustomEvent
-				const event = CE
-					? new CE(`bus:${topic}`, { detail: envelope })
-					: new Event(`bus:${topic}`)
-				doc.dispatchEvent(event)
-			}
+			// Reuse the local bus instance instead of duplicating logic
+			local.publish(topic, payload, meta)
 		},
 		subscribe<T>(
 			topic: string,
