@@ -26,10 +26,10 @@ const SCAN_DIRS = [
 // File globs: consider TS/TSX and JS files
 const exts = [".ts", ".tsx", ".js", ".jsx"]
 
-// Regexes to detect markers and reason text
-const SINGLE_RE = /(deno-coverage-ignore)([^\n]*)/
-const START_RE = /(deno-coverage-ignore-start)([^\n]*)/
-const STOP_RE = /deno-coverage-ignore-stop/
+// Regexes/tokens to detect markers and reason text (limit to '//' comment usage)
+const SINGLE_RE = /(\/\/.*?deno-coverage-ignore)([^\n]*)/
+const START_RE = /(\/\/.*?deno-coverage-ignore-start)([^\n]*)/
+const STOP_RE = /\/\/.*?deno-coverage-ignore-stop/
 
 // Try to infer a package/app label from path
 function groupLabel(absPath: string): string {
@@ -81,16 +81,8 @@ async function scanFile(path: string) {
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
-    // Single-line ignore
-    let m = line.match(SINGLE_RE)
-    if (m) {
-      const reason = m[2]?.trim().replace(/^[:\-\s]+/, "") || "<no reason provided>"
-      addRecord(groupLabel(path), { file: path, line: i + 1, type: "single", reason })
-      i++
-      continue
-    }
-    // Block ignore start
-    m = line.match(START_RE)
+    // Handle block ignore first to avoid misclassifying -start/-stop as single
+    let m = line.match(START_RE)
     if (m) {
       const startLine = i
       const firstReason = m[2]?.trim().replace(/^[:\-\s]+/, "") || "<no reason provided>"
@@ -100,9 +92,18 @@ async function scanFile(path: string) {
         if (STOP_RE.test(lines[j])) { foundStop = true; break }
         j++
       }
-      const reason = firstReason
-      addRecord(groupLabel(path), { file: path, line: startLine + 1, type: "block", reason })
+      addRecord(groupLabel(path), { file: path, line: startLine + 1, type: "block", reason: firstReason })
       i = foundStop ? j + 1 : i + 1
+      continue
+    }
+    // Skip explicit -stop lines (block already consumed them)
+    if (STOP_RE.test(line)) { i++; continue }
+    // Single-line ignore (now safe to match)
+    m = line.match(SINGLE_RE)
+    if (m) {
+      const reason = m[2]?.trim().replace(/^[:\-\s]+/, "") || "<no reason provided>"
+      addRecord(groupLabel(path), { file: path, line: i + 1, type: "single", reason })
+      i++
       continue
     }
     i++
