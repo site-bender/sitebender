@@ -110,13 +110,20 @@ For each function:
 - Updated documentation to reflect Phase 1 and Phase 2 approach
 - Clarified BDD/TDD methodology for future chainable functions
 - Created notes folder and reorganized documentation
-- No functions tested yet - ready to begin testing phase
+- Resolved ALL known issues from README:
+  - URL validator now handles IPv6 localhost correctly
+  - createBroadcastBus reuses local bus instance
+  - Fixed quote function unicode parsing error
+  - Fixed head test NaN comparison using Object.is
+  - Verified temporal format, validateForm, and types.isValue were already correct
+- Updated README to mark all issues as resolved
+- Ready to begin systematic testing of functions
 
 ### Known Issues to Watch
-- Some functions may have legacy patterns (loops, let, mutations)
+- Some functions may have legacy patterns (loops, let, mutations) - discuss when found
 - Some validators inline logic instead of reusing toolkit functions
-- Temporal functions may have UTC vs local inconsistencies
-- Random functions are explicitly impure (this is OK)
+- Random functions are explicitly impure (this is OK and expected)
+- Test failures with NaN comparisons should use Object.is()
 
 ### Testing Priorities
 Start with simpler, foundational functions that other functions depend on:
@@ -135,8 +142,8 @@ Start with simpler, foundational functions that other functions depend on:
 ## Important Commands
 
 ```bash
-# Type checking
-deno task check
+# Type checking (Note: use type-check not check)
+deno task type-check
 
 # Linting  
 deno task lint
@@ -145,13 +152,17 @@ deno task lint
 deno task test
 
 # Run tests with coverage
-deno task test:coverage
+deno task test:cov
 
 # Run specific test file
 deno test [path/to/test/file]
 
 # Commit (toolkit requires special flag)
+ALLOW_TOOLKIT=1 git add -A
 ALLOW_TOOLKIT=1 git commit -m "..."
+
+# Check git log for YOUR commits only
+git log --oneline | grep -i toolkit
 ```
 
 ## Next Functions to Test
