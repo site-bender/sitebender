@@ -38,6 +38,7 @@
 		"coverage:components": "deno task --cwd libraries/components test:cov",
 		"coverage:toolkit": "deno task --cwd libraries/toolkit test:cov",
 		"coverage": "deno task coverage:docs && deno task coverage:adaptive && deno task coverage:components && deno task coverage:toolkit",
+		"coverage:report:ignored": "deno run -A scripts/coverage-tools/reportIgnored.ts",
 
 		// === Type Checking ===
 		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/adaptive/src/**/*.ts libraries/adaptive/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
