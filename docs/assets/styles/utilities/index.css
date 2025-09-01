@@ -1,3 +1,4 @@
+/* Minimal utilities */
 /* Screen Reader Only */
 .sr-only {
 	/* Fallback for browsers that don't support clip-path */
@@ -16,23 +17,15 @@
 	}
 }
 
-input[data-dashlane-filled],
-input.lastpass-filled,
-input[data-com-onepassword-filled],
-input:is(:-webkit-autofill, :autofill) {
-	-webkit-box-shadow: 0 0 0 1000px #ccf inset !important;
-	-webkit-text-fill-color: #004 !important;
-	border: 3px solid blue !important;
+/* simple margins if needed */
+.mt-1 {
+	margin-top: 0.25rem;
 }
 
-@media (prefers-color-scheme: dark) {
+.mt-2 {
+	margin-top: 0.5rem;
+}
 
-	input[data-dashlane-filled],
-	input.lastpass-filled,
-	input[data-com-onepassword-filled],
-	input:is(:-webkit-autofill, :autofill) {
-		-webkit-box-shadow: 0 0 0 1000px #004 inset !important;
-		-webkit-text-fill-color: #ccf !important;
-		border: 3px solid blue !important;
-	}
+.mt-3 {
+	margin-top: 0.75rem;
 }

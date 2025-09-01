@@ -34,6 +34,7 @@ out/
 # Coverage reports
 coverage/
 *.lcov
+libraries/toolkit/cov_profile/
 
 # Logs
 *.log

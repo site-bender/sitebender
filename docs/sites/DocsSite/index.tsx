@@ -23,15 +23,9 @@ export default function App({ Component, Head, assets = [] }: Props) {
 
 				{/* Shared styles - used by both legacy and modern approaches */}
 				<link rel="stylesheet" href="/styles/reset/index.css" />
-				<link rel="stylesheet" href="/styles/fonts/index.css" />
-				<link rel="stylesheet" href="/styles/root/colors/index.css" />
-				<link rel="stylesheet" href="/styles/root/fonts/index.css" />
-				<link rel="stylesheet" href="/styles/root/sizing/index.css" />
-				<link rel="stylesheet" href="/styles/root/spacing/index.css" />
-				<link rel="stylesheet" href="/styles/base/index.css" />
+				<link rel="stylesheet" href="/styles/site.css" />
 				{assetElements}
 				{Head && <Head />}
-				<link rel="stylesheet" href="/styles/utilities/index.css" />
 			</head>
 			<body>
 				<Component />

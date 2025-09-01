@@ -52,23 +52,7 @@ export default function Demo() {
 				})}
 			</script>
 			{/* Client-side bootstrap to hydrate using real adaptive runtime */}
-			<script>
-				{`
-        (async () => {
-          const [{ createComposeContext }, { registerDefaultExecutors }, hydrate] = await Promise.all([
-            import('/@sitebender/adaptive/context/composeContext.ts'),
-            import('/@sitebender/adaptive/operations/defaults/registerDefaults.ts'),
-            import('/@sitebender/adaptive/runtime/hydrator/index.ts'),
-          ]).then(([c, d, h]) => [c, d, h.default]);
-          const docEl = document.getElementById('ir-root');
-          if (!docEl) return;
-          const ctx = createComposeContext({ env: 'client' });
-          registerDefaultExecutors(ctx);
-          const ir = JSON.parse(docEl.textContent || '{}');
-          hydrate(ir, ctx);
-        })().catch(console.error);
-      `}
-			</script>
+			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
 		</body>
 	)
 }
