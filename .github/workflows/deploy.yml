@@ -1,0 +1,75 @@
+name: Deploy (Docs & Jexer)
+
+on:
+  push:
+    branches: [ phase-2 ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy-docs:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.x
+
+      - name: Cache Deno deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: deno-${{ runner.os }}-${{ hashFiles('**/deno.json*', '**/import_map.json', 'pnpm-lock.yaml') }}
+
+      - name: Build docs
+        working-directory: docs
+        run: deno task build
+
+      - name: Deploy to Deno Deploy (docs)
+        uses: denoland/deployctl@v1
+        with:
+          project: sitebender-docs
+          # Serve built static assets from docs/dist using Deno std file server
+          entrypoint: https://deno.land/std/http/file_server.ts
+          root: docs/dist
+
+  deploy-jexer:
+    name: Deploy jexer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.x
+
+      - name: Cache Deno deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: deno-${{ runner.os }}-${{ hashFiles('**/deno.json*', '**/import_map.json', 'pnpm-lock.yaml') }}
+
+      - name: Build jexer
+        working-directory: jexer
+        run: deno task build
+
+      - name: Deploy to Deno Deploy (jexer)
+        uses: denoland/deployctl@v1
+        with:
+          project: sitebender-jexer
+          # Serve built static assets from jexer/dist using Deno std file server
+          entrypoint: https://deno.land/std/http/file_server.ts
+          root: jexer/dist
