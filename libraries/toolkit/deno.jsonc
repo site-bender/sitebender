@@ -13,7 +13,7 @@
 		// Run tests
 		"test": "deno test --unstable-temporal tests/",
 		"test:watch": "deno test --unstable-temporal tests/ --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$'",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
 		"test:unit": "deno test --unstable-temporal tests/ --filter='/^(?!.*integration).*/'",
 		"test:integration": "deno test --unstable-temporal tests/integration/",
 
