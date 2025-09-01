@@ -1,0 +1,26 @@
+{
+  "scriptId": "492",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/builders/CharacterArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 362, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildCharacterArbitrary",
+      "ranges": [{ "startOffset": 153, "endOffset": 361, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 261, "endOffset": 305, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 307, "endOffset": 357, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

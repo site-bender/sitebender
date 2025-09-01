@@ -1,0 +1,38 @@
+{
+  "scriptId": "528",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/SlicesForStringBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2423, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "computeCandidateStringLegacy",
+      "ranges": [{ "startOffset": 700, "endOffset": 1081, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createSlicesForStringLegacy",
+      "ranges": [{ "startOffset": 1089, "endOffset": 1471, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createSlicesForStringNoConstraints",
+      "ranges": [
+        { "startOffset": 1514, "endOffset": 1881, "count": 1 },
+        { "startOffset": 1653, "endOffset": 1851, "count": 22 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createSlicesForString",
+      "ranges": [
+        { "startOffset": 1889, "endOffset": 2422, "count": 9 },
+        { "startOffset": 2041, "endOffset": 2176, "count": 1 },
+        { "startOffset": 2246, "endOffset": 2387, "count": 198 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

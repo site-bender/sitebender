@@ -1,0 +1,26 @@
+{
+  "scriptId": "387",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/hexa.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 412, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hexaMapper",
+      "ranges": [{ "startOffset": 94, "endOffset": 178, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "hexaUnmapper",
+      "ranges": [{ "startOffset": 179, "endOffset": 315, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "hexa",
+      "ranges": [{ "startOffset": 323, "endOffset": 411, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

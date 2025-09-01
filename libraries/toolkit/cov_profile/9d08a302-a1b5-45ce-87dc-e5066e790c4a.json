@@ -1,0 +1,22 @@
+{
+  "scriptId": "405",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/nat.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 511, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nat",
+      "ranges": [
+        { "startOffset": 115, "endOffset": 494, "count": 1 },
+        { "startOffset": 175, "endOffset": 180, "count": 0 },
+        { "startOffset": 222, "endOffset": 234, "count": 0 },
+        { "startOffset": 253, "endOffset": 338, "count": 0 },
+        { "startOffset": 374, "endOffset": 451, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

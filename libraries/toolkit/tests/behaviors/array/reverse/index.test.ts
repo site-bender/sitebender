@@ -137,6 +137,37 @@ Deno.test("reverse: edge cases", async (t) => {
 	})
 })
 
+// Null safety tests
+Deno.test("reverse: null safety", async (t) => {
+	await t.step("handles null input", () => {
+		assertEquals(reverse(null), [])
+	})
+
+	await t.step("handles undefined input", () => {
+		assertEquals(reverse(undefined), [])
+	})
+
+	await t.step("handles non-array input (number)", () => {
+		// @ts-ignore - Testing runtime behavior
+		assertEquals(reverse(42), [])
+	})
+
+	await t.step("handles non-array input (string)", () => {
+		// @ts-ignore - Testing runtime behavior
+		assertEquals(reverse("hello"), [])
+	})
+
+	await t.step("handles non-array input (object)", () => {
+		// @ts-ignore - Testing runtime behavior
+		assertEquals(reverse({ foo: "bar" }), [])
+	})
+
+	await t.step("handles non-array input (boolean)", () => {
+		// @ts-ignore - Testing runtime behavior
+		assertEquals(reverse(true), [])
+	})
+})
+
 // Immutability test
 Deno.test("reverse: immutability", () => {
 	const original = [1, 2, 3, 4, 5]

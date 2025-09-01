@@ -1,0 +1,41 @@
+{
+  "scriptId": "499",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/AdapterArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1434, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toAdapterValue",
+      "ranges": [{ "startOffset": 237, "endOffset": 439, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "AdapterArbitrary",
+      "ranges": [{ "startOffset": 487, "endOffset": 686, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 691, "endOffset": 835, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 840, "endOffset": 972, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 977, "endOffset": 1330, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "adapter",
+      "ranges": [{ "startOffset": 1340, "endOffset": 1433, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "scriptId": "568",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/ShrinkInteger.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1319, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "halvePosInteger",
+      "ranges": [{ "startOffset": 188, "endOffset": 252, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "halveNegInteger",
+      "ranges": [{ "startOffset": 253, "endOffset": 316, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrinkInteger",
+      "ranges": [{ "startOffset": 324, "endOffset": 1318, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

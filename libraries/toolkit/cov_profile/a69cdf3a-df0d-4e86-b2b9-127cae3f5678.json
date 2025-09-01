@@ -1,0 +1,60 @@
+{
+  "scriptId": "447",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/random/generator/Random.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1392, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Random",
+      "ranges": [{ "startOffset": 153, "endOffset": 229, "count": 500 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "clone",
+      "ranges": [{ "startOffset": 234, "endOffset": 294, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "next",
+      "ranges": [{ "startOffset": 299, "endOffset": 400, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextBoolean",
+      "ranges": [{ "startOffset": 405, "endOffset": 500, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextInt",
+      "ranges": [
+        { "startOffset": 505, "endOffset": 665, "count": 61237 },
+        { "startOffset": 581, "endOffset": 597, "count": 0 },
+        { "startOffset": 617, "endOffset": 633, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nextBigInt",
+      "ranges": [{ "startOffset": 670, "endOffset": 774, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextArrayInt",
+      "ranges": [{ "startOffset": 779, "endOffset": 887, "count": 1488 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nextDouble",
+      "ranges": [{ "startOffset": 892, "endOffset": 1043, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getState",
+      "ranges": [{ "startOffset": 1048, "endOffset": 1247, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

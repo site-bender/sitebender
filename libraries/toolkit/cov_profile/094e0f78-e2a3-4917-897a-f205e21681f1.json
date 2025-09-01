@@ -1,0 +1,30 @@
+{
+  "scriptId": "409",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/letrec.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 818, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "letrec",
+      "ranges": [
+        { "startOffset": 168, "endOffset": 817, "count": 3 },
+        { "startOffset": 495, "endOffset": 792, "count": 18 },
+        { "startOffset": 547, "endOffset": 580, "count": 0 },
+        { "startOffset": 670, "endOffset": 681, "count": 12 },
+        { "startOffset": 682, "endOffset": 706, "count": 6 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tie",
+      "ranges": [
+        { "startOffset": 256, "endOffset": 422, "count": 30 },
+        { "startOffset": 315, "endOffset": 386, "count": 12 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

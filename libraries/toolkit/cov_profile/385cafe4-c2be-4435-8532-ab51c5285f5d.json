@@ -1,0 +1,19 @@
+{
+  "scriptId": "335",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/libraries/toolkit/src/simple/array/tail/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 994, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tail",
+      "ranges": [
+        { "startOffset": 864, "endOffset": 971, "count": 733 },
+        { "startOffset": 924, "endOffset": 944, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

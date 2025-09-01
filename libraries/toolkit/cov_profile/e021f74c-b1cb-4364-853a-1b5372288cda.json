@@ -1,0 +1,27 @@
+{
+  "scriptId": "451",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/check/symbols.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 426, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hasCloneMethod",
+      "ranges": [
+        { "startOffset": 72, "endOffset": 307, "count": 113902 },
+        { "startOffset": 138, "endOffset": 213, "count": 111627 },
+        { "startOffset": 179, "endOffset": 212, "count": 94897 },
+        { "startOffset": 214, "endOffset": 248, "count": 16730 },
+        { "startOffset": 249, "endOffset": 303, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "cloneIfNeeded",
+      "ranges": [{ "startOffset": 315, "endOffset": 425, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

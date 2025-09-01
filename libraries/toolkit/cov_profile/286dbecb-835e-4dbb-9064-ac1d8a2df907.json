@@ -1,0 +1,26 @@
+{
+  "scriptId": "386",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/fullUnicode.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 671, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unicodeMapper",
+      "ranges": [{ "startOffset": 255, "endOffset": 375, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unicodeUnmapper",
+      "ranges": [{ "startOffset": 376, "endOffset": 540, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fullUnicode",
+      "ranges": [{ "startOffset": 548, "endOffset": 670, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

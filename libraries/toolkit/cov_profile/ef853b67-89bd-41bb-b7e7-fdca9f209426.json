@@ -1,0 +1,75 @@
+{
+  "scriptId": "480",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/check/property/Property.generic.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3066, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Property",
+      "ranges": [
+        { "startOffset": 477, "endOffset": 1101, "count": 5 },
+        { "startOffset": 707, "endOffset": 712, "count": 0 },
+        { "startOffset": 757, "endOffset": 864, "count": 0 },
+        { "startOffset": 907, "endOffset": 1013, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isAsync",
+      "ranges": [{ "startOffset": 1106, "endOffset": 1145, "count": 15 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "generate",
+      "ranges": [
+        { "startOffset": 1150, "endOffset": 1323, "count": 500 },
+        { "startOffset": 1260, "endOffset": 1271, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 1328, "endOffset": 1674, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "runBeforeEach",
+      "ranges": [{ "startOffset": 1679, "endOffset": 1733, "count": 500 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "runAfterEach",
+      "ranges": [{ "startOffset": 1738, "endOffset": 1790, "count": 500 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "run",
+      "ranges": [
+        { "startOffset": 1795, "endOffset": 2652, "count": 500 },
+        { "startOffset": 1843, "endOffset": 1889, "count": 0 },
+        { "startOffset": 2042, "endOffset": 2218, "count": 0 },
+        { "startOffset": 2238, "endOffset": 2543, "count": 0 },
+        { "startOffset": 2583, "endOffset": 2636, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "beforeEach",
+      "ranges": [{ "startOffset": 2657, "endOffset": 2844, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "afterEach",
+      "ranges": [{ "startOffset": 2849, "endOffset": 3031, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Property.dummyHook",
+      "ranges": [{ "startOffset": 3055, "endOffset": 3064, "count": 1000 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

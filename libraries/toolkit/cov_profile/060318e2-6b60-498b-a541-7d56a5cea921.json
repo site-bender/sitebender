@@ -1,0 +1,21 @@
+{
+  "scriptId": "507",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/TextEscaper.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 245, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "escapeForTemplateString",
+      "ranges": [{ "startOffset": 7, "endOffset": 133, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "escapeForMultilineComments",
+      "ranges": [{ "startOffset": 141, "endOffset": 244, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

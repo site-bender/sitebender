@@ -1,0 +1,81 @@
+{
+  "scriptId": "512",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/mappers/EntitiesToIPv6.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2651, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "readBh",
+      "ranges": [{ "startOffset": 121, "endOffset": 241, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "extractEhAndL",
+      "ranges": [{ "startOffset": 242, "endOffset": 699, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fullySpecifiedMapper",
+      "ranges": [{ "startOffset": 707, "endOffset": 797, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fullySpecifiedUnmapper",
+      "ranges": [{ "startOffset": 805, "endOffset": 956, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "onlyTrailingMapper",
+      "ranges": [{ "startOffset": 964, "endOffset": 1054, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "onlyTrailingUnmapper",
+      "ranges": [{ "startOffset": 1062, "endOffset": 1309, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "multiTrailingMapper",
+      "ranges": [{ "startOffset": 1317, "endOffset": 1433, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "multiTrailingUnmapper",
+      "ranges": [{ "startOffset": 1441, "endOffset": 1713, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "multiTrailingMapperOne",
+      "ranges": [{ "startOffset": 1721, "endOffset": 1825, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "multiTrailingUnmapperOne",
+      "ranges": [{ "startOffset": 1833, "endOffset": 1975, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "singleTrailingMapper",
+      "ranges": [{ "startOffset": 1983, "endOffset": 2074, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "singleTrailingUnmapper",
+      "ranges": [{ "startOffset": 2082, "endOffset": 2301, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "noTrailingMapper",
+      "ranges": [{ "startOffset": 2309, "endOffset": 2386, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "noTrailingUnmapper",
+      "ranges": [{ "startOffset": 2394, "endOffset": 2650, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

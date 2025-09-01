@@ -1,0 +1,36 @@
+{
+  "scriptId": "373",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/check/runner/Sampler.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2728, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toProperty",
+      "ranges": [{ "startOffset": 426, "endOffset": 687, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "streamSample",
+      "ranges": [{ "startOffset": 688, "endOffset": 1452, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "sample",
+      "ranges": [{ "startOffset": 1453, "endOffset": 1540, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "round2",
+      "ranges": [{ "startOffset": 1541, "endOffset": 1614, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "statistics",
+      "ranges": [{ "startOffset": 1615, "endOffset": 2696, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

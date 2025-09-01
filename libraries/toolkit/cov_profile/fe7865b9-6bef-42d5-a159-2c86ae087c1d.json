@@ -1,0 +1,57 @@
+{
+  "scriptId": "534",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/TupleArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2989, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tupleMakeItCloneable",
+      "ranges": [{ "startOffset": 492, "endOffset": 871, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "tupleWrapper",
+      "ranges": [
+        { "startOffset": 872, "endOffset": 1280, "count": 5136 },
+        { "startOffset": 1023, "endOffset": 1177, "count": 9772 },
+        { "startOffset": 1197, "endOffset": 1246, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tupleShrink",
+      "ranges": [{ "startOffset": 1288, "endOffset": 1895, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "TupleArbitrary",
+      "ranges": [
+        { "startOffset": 1948, "endOffset": 2276, "count": 17 },
+        { "startOffset": 2065, "endOffset": 2270, "count": 29 },
+        { "startOffset": 2171, "endOffset": 2260, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "generate",
+      "ranges": [
+        { "startOffset": 2281, "endOffset": 2523, "count": 5136 },
+        { "startOffset": 2396, "endOffset": 2480, "count": 9772 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 2528, "endOffset": 2896, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 2901, "endOffset": 2986, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

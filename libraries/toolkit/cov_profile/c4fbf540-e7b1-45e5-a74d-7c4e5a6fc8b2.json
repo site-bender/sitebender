@@ -1,0 +1,36 @@
+{
+  "scriptId": "547",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/SchedulerArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 927, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildNextTaskIndex",
+      "ranges": [{ "startOffset": 263, "endOffset": 529, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "SchedulerArbitrary",
+      "ranges": [{ "startOffset": 586, "endOffset": 651, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 656, "endOffset": 793, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 798, "endOffset": 858, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 863, "endOffset": 924, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

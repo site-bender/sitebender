@@ -35,3 +35,5 @@ Short, high‑leverage items to tackle incrementally while keeping the repo gree
 ---
 
 Working rules: small slices, explicit interfaces (no ReturnType pyramids), maintain precise HTML/ARIA typings, SSR‑safe by default. No deprecations or aliases during development; we freely make breaking changes until we lock the API.
+
+Added by the dev: we will also eventually need to set up import_maps for dev and prod so that the apps when deployed on Deno Deploy will use the online versions of the libraries, while in dev the will link directly to the local folders so that changes are instantly available.

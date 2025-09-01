@@ -1,0 +1,78 @@
+{
+  "scriptId": "559",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/check/runner/reporter/RunExecution.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4483, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "RunExecution",
+      "ranges": [{ "startOffset": 212, "endOffset": 851, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "RunExecution.isSuccess",
+      "ranges": [{ "startOffset": 378, "endOffset": 410, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "RunExecution.firstFailure",
+      "ranges": [{ "startOffset": 440, "endOffset": 512, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "RunExecution.numShrinks",
+      "ranges": [{ "startOffset": 540, "endOffset": 618, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "appendExecutionTree",
+      "ranges": [{ "startOffset": 856, "endOffset": 1046, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fail",
+      "ranges": [{ "startOffset": 1051, "endOffset": 1506, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "skip",
+      "ranges": [{ "startOffset": 1511, "endOffset": 1751, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "success",
+      "ranges": [
+        { "startOffset": 1756, "endOffset": 2003, "count": 500 },
+        { "startOffset": 1831, "endOffset": 1912, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "interrupt",
+      "ranges": [{ "startOffset": 2008, "endOffset": 2060, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "extractFailures",
+      "ranges": [{ "startOffset": 2065, "endOffset": 2513, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toRunDetails",
+      "ranges": [
+        { "startOffset": 2518, "endOffset": 4091, "count": 5 },
+        { "startOffset": 2599, "endOffset": 3343, "count": 0 },
+        { "startOffset": 3512, "endOffset": 3543, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "RunExecution.mergePaths",
+      "ranges": [{ "startOffset": 4120, "endOffset": 4481, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

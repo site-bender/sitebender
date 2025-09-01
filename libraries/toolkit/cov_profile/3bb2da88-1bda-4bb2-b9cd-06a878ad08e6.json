@@ -1,0 +1,16 @@
+{
+  "scriptId": "431",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/stringOf.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 709, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "stringOf",
+      "ranges": [{ "startOffset": 289, "endOffset": 708, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

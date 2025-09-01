@@ -1,0 +1,16 @@
+{
+  "scriptId": "578",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/IsSubarrayOf.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1058, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isSubarrayOf",
+      "ranges": [{ "startOffset": 112, "endOffset": 1057, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

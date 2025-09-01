@@ -1,0 +1,46 @@
+{
+  "scriptId": "401",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/domain.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2832, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toSubdomainLabelMapper",
+      "ranges": [{ "startOffset": 636, "endOffset": 729, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toSubdomainLabelUnmapper",
+      "ranges": [{ "startOffset": 730, "endOffset": 1041, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "subdomainLabel",
+      "ranges": [{ "startOffset": 1042, "endOffset": 1461, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsMapper",
+      "ranges": [{ "startOffset": 1462, "endOffset": 1556, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsUnmapper",
+      "ranges": [{ "startOffset": 1557, "endOffset": 1836, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsAdapter",
+      "ranges": [{ "startOffset": 1837, "endOffset": 2285, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "domain",
+      "ranges": [{ "startOffset": 2293, "endOffset": 2831, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

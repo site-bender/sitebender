@@ -1,0 +1,26 @@
+{
+  "scriptId": "505",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/FloatOnlyHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1085, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "refineConstraintsForFloatOnly",
+      "ranges": [{ "startOffset": 375, "endOffset": 550, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "floatOnlyMapper",
+      "ranges": [{ "startOffset": 558, "endOffset": 776, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "floatOnlyUnmapper",
+      "ranges": [{ "startOffset": 784, "endOffset": 1084, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

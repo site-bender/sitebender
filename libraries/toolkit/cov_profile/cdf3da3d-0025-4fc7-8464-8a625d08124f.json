@@ -1,0 +1,88 @@
+{
+  "scriptId": "456",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/check/runner/utils/RunDetailsFormatter.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 6942, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "formatHints",
+      "ranges": [{ "startOffset": 347, "endOffset": 522, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "formatFailures",
+      "ranges": [{ "startOffset": 523, "endOffset": 661, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "formatExecutionSummary",
+      "ranges": [{ "startOffset": 662, "endOffset": 1769, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "preFormatTooManySkipped",
+      "ranges": [{ "startOffset": 1770, "endOffset": 2572, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "preFormatFailure",
+      "ranges": [{ "startOffset": 2573, "endOffset": 3534, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "preFormatEarlyInterrupted",
+      "ranges": [{ "startOffset": 3535, "endOffset": 4062, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "defaultReportMessageInternal",
+      "ranges": [{ "startOffset": 4063, "endOffset": 4624, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "defaultReportMessage",
+      "ranges": [{ "startOffset": 4625, "endOffset": 4720, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "asyncDefaultReportMessage",
+      "ranges": [{ "startOffset": 4721, "endOffset": 5665, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildError",
+      "ranges": [{ "startOffset": 5666, "endOffset": 6035, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "throwIfFailed",
+      "ranges": [
+        { "startOffset": 6036, "endOffset": 6158, "count": 5 },
+        { "startOffset": 6102, "endOffset": 6157, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "asyncThrowIfFailed",
+      "ranges": [{ "startOffset": 6159, "endOffset": 6303, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "reportRunDetails",
+      "ranges": [
+        { "startOffset": 6311, "endOffset": 6584, "count": 5 },
+        { "startOffset": 6396, "endOffset": 6443, "count": 0 },
+        { "startOffset": 6496, "endOffset": 6538, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "asyncReportRunDetails",
+      "ranges": [{ "startOffset": 6592, "endOffset": 6881, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

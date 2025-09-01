@@ -1,0 +1,56 @@
+{
+  "scriptId": "498",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/builders/CharacterRangeArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2576, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 384, "endOffset": 423, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 469, "endOffset": 508, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 552, "endOffset": 591, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "percentCharArbMapper",
+      "ranges": [{ "startOffset": 595, "endOffset": 763, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "percentCharArbUnmapper",
+      "ranges": [{ "startOffset": 764, "endOffset": 956, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateLowerAlphaArbitrary",
+      "ranges": [{ "startOffset": 1089, "endOffset": 1279, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateLowerAlphaNumericArbitrary",
+      "ranges": [{ "startOffset": 1333, "endOffset": 1833, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildAlphaNumericArbitrary",
+      "ranges": [{ "startOffset": 1834, "endOffset": 2026, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateAlphaNumericPercentArbitrary",
+      "ranges": [{ "startOffset": 2082, "endOffset": 2575, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

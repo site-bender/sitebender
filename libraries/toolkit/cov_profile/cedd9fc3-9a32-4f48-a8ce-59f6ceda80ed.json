@@ -1,0 +1,16 @@
+{
+  "scriptId": "398",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/compareBooleanFunc.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 351, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "compareBooleanFunc",
+      "ranges": [{ "startOffset": 153, "endOffset": 350, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

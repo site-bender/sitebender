@@ -1,0 +1,16 @@
+{
+  "scriptId": "567",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/FloatingOnlyHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1658, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "refineConstraintsForFloatingOnly",
+      "ranges": [{ "startOffset": 195, "endOffset": 1657, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "scriptId": "495",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/mappers/TimeToDate.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 785, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "timeToDateMapper",
+      "ranges": [{ "startOffset": 143, "endOffset": 205, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "timeToDateUnmapper",
+      "ranges": [{ "startOffset": 213, "endOffset": 418, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "timeToDateMapperWithNaN",
+      "ranges": [{ "startOffset": 426, "endOffset": 587, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "timeToDateUnmapperWithNaN",
+      "ranges": [{ "startOffset": 595, "endOffset": 784, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

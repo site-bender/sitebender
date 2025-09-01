@@ -1,0 +1,24 @@
+{
+  "scriptId": "394",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/dictionary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 872, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dictionaryKeyExtractor",
+      "ranges": [{ "startOffset": 290, "endOffset": 353, "count": 3882 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dictionary",
+      "ranges": [
+        { "startOffset": 361, "endOffset": 871, "count": 3 },
+        { "startOffset": 792, "endOffset": 803, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

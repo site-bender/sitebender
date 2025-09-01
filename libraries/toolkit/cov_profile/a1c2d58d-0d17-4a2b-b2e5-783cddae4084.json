@@ -1,0 +1,34 @@
+{
+  "scriptId": "564",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/BiasNumericRange.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1031, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "integerLogLike",
+      "ranges": [{ "startOffset": 131, "endOffset": 220, "count": 513 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "bigIntLogLike",
+      "ranges": [{ "startOffset": 228, "endOffset": 345, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "biasNumericRange",
+      "ranges": [
+        { "startOffset": 346, "endOffset": 1001, "count": 318 },
+        { "startOffset": 414, "endOffset": 462, "count": 0 },
+        { "startOffset": 479, "endOffset": 489, "count": 195 },
+        { "startOffset": 491, "endOffset": 736, "count": 195 },
+        { "startOffset": 736, "endOffset": 925, "count": 123 },
+        { "startOffset": 925, "endOffset": 957, "count": 0 },
+        { "startOffset": 966, "endOffset": 998, "count": 123 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

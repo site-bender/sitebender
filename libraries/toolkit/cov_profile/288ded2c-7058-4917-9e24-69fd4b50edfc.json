@@ -1,0 +1,16 @@
+{
+  "scriptId": "519",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/JsonConstraintsBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 490, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "jsonConstraintsBuilder",
+      "ranges": [{ "startOffset": 139, "endOffset": 489, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

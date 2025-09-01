@@ -135,6 +135,35 @@ Deno.test("replaceAt - currying stages", () => {
 	assertEquals(squareIt([5, 6, 7, 8]), [5, 6, 49, 8])
 })
 
+// Null safety tests
+Deno.test("replaceAt - null input", () => {
+	const result = replaceAt(0)((x: any) => x)(null)
+	assertEquals(result, [])
+})
+
+Deno.test("replaceAt - undefined input", () => {
+	const result = replaceAt(0)((x: any) => x)(undefined)
+	assertEquals(result, [])
+})
+
+Deno.test("replaceAt - non-array input (number)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = replaceAt(0)((x: any) => x)(42)
+	assertEquals(result, [])
+})
+
+Deno.test("replaceAt - non-array input (string)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = replaceAt(0)((x: any) => x)("hello")
+	assertEquals(result, [])
+})
+
+Deno.test("replaceAt - non-array input (object)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = replaceAt(0)((x: any) => x)({ foo: "bar" })
+	assertEquals(result, [])
+})
+
 Deno.test("replaceAt - boundary conditions", () => {
 	const arr = [10, 20, 30, 40, 50]
 

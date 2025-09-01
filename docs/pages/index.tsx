@@ -5,10 +5,10 @@ export default function () {
 		<body>
 			<h1>Sitebender Docs</h1>
 			<p>
-				<a href="/demo.tsx/">Open adaptive demo</a>
+				<a href="/demo/">Open adaptive demo</a>
 			</p>
 			<p>
-				<a href="/validation.tsx/">Open validation demo</a>
+				<a href="/validation/">Open validation demo</a>
 			</p>
 			<p>
 				<a href="/tutorial/">Read the Adaptive Tutorial</a>

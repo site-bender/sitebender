@@ -1,0 +1,26 @@
+{
+  "scriptId": "436",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/ulid.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1171, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "ulidMapper",
+      "ranges": [{ "startOffset": 313, "endOffset": 450, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ulidUnmapper",
+      "ranges": [{ "startOffset": 451, "endOffset": 780, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ulid",
+      "ranges": [{ "startOffset": 788, "endOffset": 1170, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

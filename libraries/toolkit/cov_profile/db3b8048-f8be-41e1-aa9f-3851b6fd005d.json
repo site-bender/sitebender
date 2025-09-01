@@ -1,0 +1,32 @@
+{
+  "scriptId": "402",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/integer.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 976, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildCompleteIntegerConstraints",
+      "ranges": [
+        { "startOffset": 115, "endOffset": 354, "count": 198 },
+        { "startOffset": 217, "endOffset": 234, "count": 196 },
+        { "startOffset": 235, "endOffset": 248, "count": 2 },
+        { "startOffset": 296, "endOffset": 313, "count": 196 },
+        { "startOffset": 314, "endOffset": 326, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "integer",
+      "ranges": [
+        { "startOffset": 362, "endOffset": 975, "count": 198 },
+        { "startOffset": 524, "endOffset": 632, "count": 0 },
+        { "startOffset": 684, "endOffset": 765, "count": 0 },
+        { "startOffset": 817, "endOffset": 898, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

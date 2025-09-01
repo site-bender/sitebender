@@ -1,0 +1,46 @@
+{
+  "scriptId": "518",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/QualifiedObjectConstraints.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2182, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "defaultValues",
+      "ranges": [{ "startOffset": 414, "endOffset": 673, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "boxArbitraries",
+      "ranges": [{ "startOffset": 674, "endOffset": 765, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "boxArbitrariesIfNeeded",
+      "ranges": [
+        { "startOffset": 766, "endOffset": 885, "count": 3 },
+        { "startOffset": 840, "endOffset": 875, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toQualifiedObjectConstraints",
+      "ranges": [
+        { "startOffset": 893, "endOffset": 2181, "count": 3 },
+        { "startOffset": 1136, "endOffset": 1144, "count": 0 },
+        { "startOffset": 1174, "endOffset": 1193, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "orDefault",
+      "ranges": [
+        { "startOffset": 952, "endOffset": 1082, "count": 33 },
+        { "startOffset": 1045, "endOffset": 1060, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

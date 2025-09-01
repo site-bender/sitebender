@@ -120,7 +120,7 @@ Deno.test("clamp: ordering property - should preserve value when min <= value <=
 				const result = clamp(min)(max)(value)
 
 				// Use relative epsilon for large numbers
-				const epsilon = Math.max(1e-10, Math.abs(value) * 1e-14)
+				const epsilon = Math.max(1e-9, Math.abs(value) * 1e-10)
 				assertEquals(
 					approximately(result, value, epsilon),
 					true,

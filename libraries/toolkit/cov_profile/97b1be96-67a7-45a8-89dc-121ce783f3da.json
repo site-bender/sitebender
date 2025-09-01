@@ -1,0 +1,21 @@
+{
+  "scriptId": "541",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/mappers/PartsToUrl.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1017, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "partsToUrlMapper",
+      "ranges": [{ "startOffset": 7, "endOffset": 270, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "partsToUrlUnmapper",
+      "ranges": [{ "startOffset": 429, "endOffset": 1016, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

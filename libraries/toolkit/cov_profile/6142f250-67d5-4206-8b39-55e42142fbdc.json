@@ -1,0 +1,16 @@
+{
+  "scriptId": "539",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/builders/UriQueryOrFragmentArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 295, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildUriQueryOrFragmentArbitrary",
+      "ranges": [{ "startOffset": 144, "endOffset": 294, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

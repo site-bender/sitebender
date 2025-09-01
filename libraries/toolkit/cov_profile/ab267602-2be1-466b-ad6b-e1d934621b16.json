@@ -1,0 +1,26 @@
+{
+  "scriptId": "406",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/ipV4.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 617, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dotJoinerMapper",
+      "ranges": [{ "startOffset": 222, "endOffset": 288, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dotJoinerUnmapper",
+      "ranges": [{ "startOffset": 289, "endOffset": 491, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ipV4",
+      "ranges": [{ "startOffset": 499, "endOffset": 616, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

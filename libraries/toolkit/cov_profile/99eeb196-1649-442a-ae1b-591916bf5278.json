@@ -1,0 +1,36 @@
+{
+  "scriptId": "526",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/StreamArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1922, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "prettyPrint",
+      "ranges": [{ "startOffset": 473, "endOffset": 575, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "StreamArbitrary",
+      "ranges": [{ "startOffset": 629, "endOffset": 694, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 699, "endOffset": 1788, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 1793, "endOffset": 1853, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 1858, "endOffset": 1919, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

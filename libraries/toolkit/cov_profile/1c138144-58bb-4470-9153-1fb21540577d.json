@@ -1,0 +1,26 @@
+{
+  "scriptId": "470",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/DepthContext.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 666, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getDepthContextFor",
+      "ranges": [
+        { "startOffset": 112, "endOffset": 561, "count": 41 },
+        { "startOffset": 190, "endOffset": 226, "count": 23 },
+        { "startOffset": 226, "endOffset": 303, "count": 18 },
+        { "startOffset": 303, "endOffset": 560, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createDepthIdentifier",
+      "ranges": [{ "startOffset": 569, "endOffset": 665, "count": 3 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

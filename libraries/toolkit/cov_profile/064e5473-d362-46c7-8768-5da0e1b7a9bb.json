@@ -1,0 +1,26 @@
+{
+  "scriptId": "410",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/lorem.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3642, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "h",
+      "ranges": [{ "startOffset": 348, "endOffset": 411, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "loremWord",
+      "ranges": [{ "startOffset": 413, "endOffset": 2862, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "lorem",
+      "ranges": [{ "startOffset": 2870, "endOffset": 3641, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "474",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/noShrink.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 61, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "noShrink",
+      "ranges": [{ "startOffset": 7, "endOffset": 60, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

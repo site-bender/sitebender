@@ -1,0 +1,22 @@
+{
+  "scriptId": "563",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/BuildSlicedGenerator.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 469, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildSlicedGenerator",
+      "ranges": [
+        { "startOffset": 171, "endOffset": 468, "count": 7828 },
+        { "startOffset": 267, "endOffset": 289, "count": 418 },
+        { "startOffset": 290, "endOffset": 326, "count": 134 },
+        { "startOffset": 328, "endOffset": 398, "count": 7774 },
+        { "startOffset": 398, "endOffset": 467, "count": 54 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

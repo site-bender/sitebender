@@ -1,0 +1,59 @@
+{
+  "scriptId": "454",
+  "url": "file:///Users/guy/Workspace/@sitebender/sitebender/node_modules/.deno/fast-check@3.23.2/node_modules/fast-check/lib/esm/utils/stringify.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 11280, "count": 1 },
+        { "startOffset": 276, "endOffset": 287, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hasToStringMethod",
+      "ranges": [{ "startOffset": 795, "endOffset": 1039, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "hasAsyncToStringMethod",
+      "ranges": [{ "startOffset": 1128, "endOffset": 1387, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getSymbolDescription",
+      "ranges": [{ "startOffset": 1436, "endOffset": 1633, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringifyNumber",
+      "ranges": [{ "startOffset": 1634, "endOffset": 2046, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isSparseArray",
+      "ranges": [{ "startOffset": 2047, "endOffset": 2378, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringifyInternal",
+      "ranges": [{ "startOffset": 2386, "endOffset": 9124, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringify",
+      "ranges": [{ "startOffset": 9132, "endOffset": 9250, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "possiblyAsyncStringify",
+      "ranges": [{ "startOffset": 9258, "endOffset": 11172, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "asyncStringify",
+      "ranges": [{ "startOffset": 11180, "endOffset": 11279, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

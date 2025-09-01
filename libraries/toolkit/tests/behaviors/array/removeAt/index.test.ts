@@ -111,6 +111,35 @@ Deno.test("removeAt - with arrays as elements", () => {
 	assertEquals(result, [[1, 2], [5, 6]])
 })
 
+// Null safety tests
+Deno.test("removeAt - null input", () => {
+	const result = removeAt(0)(null)
+	assertEquals(result, [])
+})
+
+Deno.test("removeAt - undefined input", () => {
+	const result = removeAt(0)(undefined)
+	assertEquals(result, [])
+})
+
+Deno.test("removeAt - non-array input (number)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = removeAt(0)(42)
+	assertEquals(result, [])
+})
+
+Deno.test("removeAt - non-array input (string)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = removeAt(0)("hello")
+	assertEquals(result, [])
+})
+
+Deno.test("removeAt - non-array input (object)", () => {
+	// @ts-ignore - Testing runtime behavior
+	const result = removeAt(0)({ foo: "bar" })
+	assertEquals(result, [])
+})
+
 Deno.test("removeAt - boundary conditions", () => {
 	const arr = [1, 2, 3, 4, 5]
 
