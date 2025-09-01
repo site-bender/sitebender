@@ -26,11 +26,18 @@
 		"test:components:strict": "deno test --unstable-temporal 'libraries/components/tests/**/*.test.ts'",
 		"test:toolkit": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts'",
 		"test:docs:strict": "deno task --cwd docs test:build",
-		"test:adaptive:cov": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage coverage",
-		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage coverage",
-		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage coverage --lcov > coverage.lcov",
+		"test:adaptive:cov": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage libraries/adaptive/coverage --lcov > libraries/adaptive/coverage.lcov",
+		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage libraries/components/coverage --lcov > libraries/components/coverage.lcov",
+		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage libraries/toolkit/coverage --lcov > libraries/toolkit/coverage.lcov",
 		"test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
 		"test:jexer:strict": "deno test --unstable-temporal --allow-env --allow-read --config jexer/deno.json 'jexer/**/*.test.ts'",
+
+		// === Unified Coverage (delegates to per-package tasks) ===
+		"coverage:docs": "deno task --cwd docs test:cov",
+		"coverage:adaptive": "deno task --cwd libraries/adaptive test:cov",
+		"coverage:components": "deno task --cwd libraries/components test:cov",
+		"coverage:toolkit": "deno task --cwd libraries/toolkit test:cov",
+		"coverage": "deno task coverage:docs && deno task coverage:adaptive && deno task coverage:components && deno task coverage:toolkit",
 
 		// === Type Checking ===
 		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/adaptive/src/**/*.ts libraries/adaptive/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
