@@ -126,6 +126,35 @@ Deno.test("tail - nested arrays", () => {
 	assertEquals(tail(deep), [[[2]], [[3]]])
 })
 
+// ===== Null Safety Tests =====
+
+Deno.test("tail - null safety", () => {
+	// Null input
+	assertEquals(tail(null), [])
+	
+	// Undefined input
+	assertEquals(tail(undefined), [])
+	
+	// Non-array inputs
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail(42), [])
+	
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail("hello"), [])
+	
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail({ foo: "bar" }), [])
+	
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail(true), [])
+	
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail(false), [])
+	
+	// @ts-ignore - Testing runtime behavior
+	assertEquals(tail(Symbol("test")), [])
+})
+
 // ===== Property-Based Tests =====
 
 Deno.test("tail property: length is original length - 1 (or 0)", () => {

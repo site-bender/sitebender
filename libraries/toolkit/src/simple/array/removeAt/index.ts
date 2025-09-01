@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Removes an element at a specific index from an array
@@ -29,7 +30,7 @@ const removeAt = <T>(index: number) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array) || not(Array.isArray(array))) {
 		return []
 	}
 	const len = array.length

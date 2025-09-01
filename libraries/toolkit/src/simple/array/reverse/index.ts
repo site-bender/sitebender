@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns a new array with elements in reverse order
@@ -26,7 +27,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ```
  */
 const reverse = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array) || not(Array.isArray(array))) {
 		return []
 	}
 	return [...array].reverse()

@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Replaces an element at a specific index using a transformation function
@@ -29,7 +30,7 @@ const replaceAt =
 	<T>(index: number) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+		if (isNullish(array) || not(Array.isArray(array))) {
 			return []
 		}
 		return index < 0 || index >= array.length ? array as Array<T> : [
