@@ -37,7 +37,8 @@ Deno.test("head: consistency with array indexing", () => {
 			const headResult = head(arr)
 			const indexResult = arr[0]
 			// Both should be undefined for empty arrays, or the same value
-			return headResult === indexResult
+			// Use Object.is to handle NaN correctly (NaN === NaN is false)
+			return Object.is(headResult, indexResult)
 		}),
 		{ numRuns: 1000 },
 	)
