@@ -32,7 +32,7 @@
  *
  * const isComment = startsWith("//")
  * isComment("// TODO: fix this") // true
- * isComment("/* comment */")     // false
+ * isComment("/\* comment *\/")     // false
  * ```
  */
 const startsWith = (searchString: string) => (str: string): boolean =>

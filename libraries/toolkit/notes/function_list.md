@@ -24,9 +24,9 @@
 - combinations - Generates all combinations of array elements ✓
 - compact - Removes falsy values from array ✓
 - concat - Concatenates arrays together ✓
-- concatTo - Flipped version of concat
-- countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function
-- cycle - Returns an infinite repetition of the given array (generator function)
+- concatTo - Flipped version of concat ✓
+- countBy - Counts elements of an array according to how many match each value of a key returned by the supplied function ✓
+- cycle - Returns an infinite repetition of the given array (generator function) ✓
 - difference - Returns elements in the first array that are not in the second array
 - differenceWith - Like difference but uses a comparator function to determine equality
 - drop - Removes n elements from the beginning of array ✓

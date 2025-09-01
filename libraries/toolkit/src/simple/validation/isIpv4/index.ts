@@ -42,8 +42,8 @@
  *   if (!isIpv4(ip)) return false
  *   const [first] = ip.split(".").map(Number)
  *   return first === 10 || first === 127 ||
- *     (first === 172 && /* range check */) ||
- *     (first === 192 && /* 168 check */)
+ *     (first === 172 && /\* range check *\/) ||
+ *     (first === 192 && /\* 168 check *\/)
  * }
  * ```
  *
