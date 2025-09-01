@@ -2,7 +2,7 @@ import { copy, ensureDir } from "jsr:@std/fs"
 import { join } from "jsr:@std/path"
 
 export default async function copyStaticAssets() {
-	const staticDir = join(Deno.cwd(), "static")
+	const staticDir = join(Deno.cwd(), "assets")
 	const distDir = join(Deno.cwd(), "dist")
 
 	try {

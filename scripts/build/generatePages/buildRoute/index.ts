@@ -10,10 +10,10 @@ export default async function buildRoute(
 	outputDir: string,
 	logger: Logger,
 ): Promise<void> {
-	// Calculate route path (e.g., "src/routes/about/index.tsx" -> "/about")
+	// Calculate route path (e.g., "pages/about/index.tsx" -> "/about")
 	// Remove the routesDir prefix and /index.tsx suffix
 	let relativePath = routeFile
-		.replace("src/routes/", "") // Remove "src/routes/"
+	.replace("pages/", "") // Remove "pages/"
 		.replace(/index\.tsx$/, "") // Remove "index.tsx"
 
 	// Remove trailing slash if present

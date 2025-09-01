@@ -29,7 +29,30 @@ Deno.test("none - JSDoc example 5: curried for validation - has negative", () =>
 	assertEquals(noNegatives([1, -2, 3]), false)
 })
 
+Deno.test("none - JSDoc example 6: check no empty strings", () => {
+	const noEmptyStrings = none((s: string) => s === "")
+	assertEquals(noEmptyStrings(["hello", "world"]), true)
+})
+
+Deno.test("none - JSDoc example 7: null input", () => {
+	assertEquals(none((x: number) => x > 0)(null), true)
+})
+
+Deno.test("none - JSDoc example 8: undefined input", () => {
+	assertEquals(none((x: number) => x > 0)(undefined), true)
+})
+
 // Edge cases
+Deno.test("none - non-array inputs", () => {
+	assertEquals(none(() => true)("string" as any), true)
+	assertEquals(none(() => true)(123 as any), true)
+	assertEquals(none(() => true)({} as any), true)
+	assertEquals(none(() => true)(true as any), true)
+	assertEquals(none(() => true)((() => {}) as any), true)
+	assertEquals(none(() => true)(new Map() as any), true)
+	assertEquals(none(() => true)(new Set() as any), true)
+})
+
 Deno.test("none - single element does not satisfy predicate", () => {
 	const result = none((n: number) => n === 5)([3])
 	assertEquals(result, true)

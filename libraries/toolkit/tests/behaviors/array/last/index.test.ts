@@ -22,13 +22,36 @@ Deno.test("last - edge cases", () => {
 	// Two elements
 	assertEquals(last([1, 2]), 2)
 	assertEquals(last(["first", "second"]), "second")
+	
+	// Null and undefined inputs
+	assertEquals(last(null), undefined)
+	assertEquals(last(undefined), undefined)
+	
+	// Non-array inputs (testing the !Array.isArray branch)
+	assertEquals(last("not an array" as any), undefined)
+	assertEquals(last(123 as any), undefined)
+	assertEquals(last({} as any), undefined)
+	assertEquals(last(true as any), undefined)
+	assertEquals(last(Symbol() as any), undefined)
+	assertEquals(last(new Map() as any), undefined)
+	assertEquals(last(new Set() as any), undefined)
+	assertEquals(last((() => {}) as any), undefined)
 })
 
 Deno.test("last - JSDoc examples", () => {
+	// Basic usage
 	assertEquals(last([1, 2, 3]), 3)
-	assertEquals(last(["a", "b"]), "b")
+	assertEquals(last(["a", "b", "c"]), "c")
 	assertEquals(last([42]), 42)
+	
+	// Objects
+	assertEquals(last([{ id: 1 }, { id: 2 }]), { id: 2 })
+	
+	// Edge cases
 	assertEquals(last([]), undefined)
+	assertEquals(last(null), undefined)
+	assertEquals(last(undefined), undefined)
+	assertEquals(last([undefined, null, 5]), 5)
 })
 
 Deno.test("last - type preservation", () => {
@@ -157,7 +180,7 @@ Deno.test("last property: returns the element at index length-1", () => {
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
 				const result = last(arr)
-				return result === arr[arr.length - 1]
+				return Object.is(result, arr[arr.length - 1])
 			},
 		),
 	)
@@ -169,7 +192,7 @@ Deno.test("last property: idempotent for single element arrays", () => {
 			fc.anything(),
 			(elem) => {
 				const singleElemArray = [elem]
-				return last(singleElemArray) === elem
+				return Object.is(last(singleElemArray), elem)
 			},
 		),
 	)
@@ -178,11 +201,11 @@ Deno.test("last property: idempotent for single element arrays", () => {
 Deno.test("last property: last after push is the pushed element", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer()),
-			fc.integer(),
+			fc.array(fc.anything()),
+			fc.anything(),
 			(arr, elem) => {
 				const newArr = [...arr, elem]
-				return last(newArr) === elem
+				return Object.is(last(newArr), elem)
 			},
 		),
 	)
@@ -191,11 +214,11 @@ Deno.test("last property: last after push is the pushed element", () => {
 Deno.test("last property: complements first/head", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer(), { minLength: 1, maxLength: 1 }),
+			fc.array(fc.anything(), { minLength: 1, maxLength: 1 }),
 			(arr) => {
 				// For single element arrays, first and last are the same
 				const first = arr[0]
-				return last(arr) === first
+				return Object.is(last(arr), first)
 			},
 		),
 	)

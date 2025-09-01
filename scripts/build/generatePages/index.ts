@@ -13,7 +13,7 @@ export default async function generatePages(
 	logger: Logger = defaultLogger,
 	distDir?: string,
 ): Promise<void> {
-	const routesDir = "./src/routes"
+	const routesDir = "./pages"
 	const outputDir = distDir || "./dist"
 
 	logger.log(`🔨 Building pages from ${routesDir}...`)

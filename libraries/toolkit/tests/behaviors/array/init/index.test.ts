@@ -210,7 +210,7 @@ Deno.test("init property: elements match original up to length-1", () => {
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
 				const result = init(arr)
-				return result.every((elem, i) => elem === arr[i])
+				return result.every((elem, i) => Object.is(elem, arr[i]))
 			},
 		),
 	)

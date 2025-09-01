@@ -81,6 +81,26 @@ Deno.test("reduce - empty array returns initial value", () => {
 	assertEquals(result, 42)
 })
 
+Deno.test("reduce - null input returns initial value", () => {
+	const result = reduce((acc: number, n: number) => acc + n)(10)(null)
+	assertEquals(result, 10)
+})
+
+Deno.test("reduce - undefined input returns initial value", () => {
+	const result = reduce((acc: number, n: number) => acc + n)(20)(undefined)
+	assertEquals(result, 20)
+})
+
+Deno.test("reduce - non-array inputs return initial value", () => {
+	assertEquals(reduce(() => 0)(42)("string" as any), 42)
+	assertEquals(reduce(() => 0)(42)(123 as any), 42)
+	assertEquals(reduce(() => 0)(42)({} as any), 42)
+	assertEquals(reduce(() => 0)(42)(true as any), 42)
+	assertEquals(reduce(() => 0)(42)((() => {}) as any), 42)
+	assertEquals(reduce(() => 0)(42)(new Map() as any), 42)
+	assertEquals(reduce(() => 0)(42)(new Set() as any), 42)
+})
+
 Deno.test("reduce - single element array", () => {
 	const result = reduce((acc: number, n: number) => acc + n)(10)([5])
 	assertEquals(result, 15)

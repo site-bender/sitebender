@@ -30,10 +30,49 @@ Deno.test("move - JSDoc example 5: reorder list items", () => {
 	assertEquals(result, ["d", "a", "b", "c"])
 })
 
+Deno.test("move - JSDoc example 6: partial application", () => {
+	const moveFirstToEnd = move(0)
+	const result = moveFirstToEnd(3)(["first", "second", "third", "fourth"])
+	assertEquals(result, ["second", "third", "fourth", "first"])
+})
+
+Deno.test("move - JSDoc example 7: edge case - empty array", () => {
+	const result = move(0)(1)([])
+	assertEquals(result, [])
+})
+
+Deno.test("move - JSDoc example 8: edge case - null", () => {
+	const result = move(0)(1)(null)
+	assertEquals(result, [])
+})
+
+Deno.test("move - JSDoc example 9: edge case - single element", () => {
+	const result = move(0)(0)(["only"])
+	assertEquals(result, ["only"])
+})
+
 // Edge cases
 Deno.test("move - empty array", () => {
-	const result = move(0)(0)([])
+	const result = move(0)(1)([])
 	assertEquals(result, [])
+})
+
+Deno.test("move - null input", () => {
+	const result = move(0)(1)(null)
+	assertEquals(result, [])
+})
+
+Deno.test("move - undefined input", () => {
+	const result = move(0)(1)(undefined)
+	assertEquals(result, [])
+})
+
+Deno.test("move - non-array inputs", () => {
+	assertEquals(move(0)(1)("string" as any), [])
+	assertEquals(move(0)(1)(123 as any), [])
+	assertEquals(move(0)(1)({} as any), [])
+	assertEquals(move(0)(1)(true as any), [])
+	assertEquals(move(0)(1)((() => {}) as any), [])
 })
 
 Deno.test("move - single element array", () => {

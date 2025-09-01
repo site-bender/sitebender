@@ -48,15 +48,47 @@ Deno.test("nth - edge cases", () => {
 	assertEquals(nth(-2)([42]), undefined)
 })
 
+Deno.test("nth - null and undefined inputs", () => {
+	assertEquals(nth(0)(null), undefined)
+	assertEquals(nth(1)(null), undefined)
+	assertEquals(nth(-1)(null), undefined)
+	
+	assertEquals(nth(0)(undefined), undefined)
+	assertEquals(nth(1)(undefined), undefined)
+	assertEquals(nth(-1)(undefined), undefined)
+})
+
+Deno.test("nth - non-array inputs", () => {
+	assertEquals(nth(0)("string" as any), undefined)
+	assertEquals(nth(0)(123 as any), undefined)
+	assertEquals(nth(0)({} as any), undefined)
+	assertEquals(nth(0)(true as any), undefined)
+	assertEquals(nth(0)((() => {}) as any), undefined)
+	assertEquals(nth(0)(new Map() as any), undefined)
+	assertEquals(nth(0)(new Set() as any), undefined)
+})
+
 Deno.test("nth - JSDoc examples", () => {
+	// Basic access
 	assertEquals(nth(1)([1, 2, 3]), 2)
 	assertEquals(nth(0)(["a", "b", "c"]), "a")
+	
+	// Negative indices (from end)
 	assertEquals(nth(-1)([1, 2, 3]), 3) // last element
-	assertEquals(nth(10)([1, 2, 3]), undefined)
-
+	assertEquals(nth(-2)([1, 2, 3, 4]), 3) // second to last
+	
 	// Access specific positions
 	const getSecond = nth(1)
 	assertEquals(getSecond(["first", "second", "third"]), "second")
+	
+	const getLast = nth(-1)
+	assertEquals(getLast([10, 20, 30]), 30)
+	
+	// Edge cases
+	assertEquals(nth(10)([1, 2, 3]), undefined) // out of bounds
+	assertEquals(nth(0)([]), undefined)
+	assertEquals(nth(0)(null), undefined)
+	assertEquals(nth(0)(undefined), undefined)
 })
 
 Deno.test("nth - currying", () => {
@@ -184,7 +216,7 @@ Deno.test("nth property: valid positive index returns correct element", () => {
 			(arr) => {
 				// Test all valid indices
 				for (let i = 0; i < arr.length; i++) {
-					if (nth(i)(arr) !== arr[i]) {
+					if (!Object.is(nth(i)(arr), arr[i])) {
 						return false
 					}
 				}
@@ -201,7 +233,7 @@ Deno.test("nth property: valid negative index returns correct element", () => {
 			(arr) => {
 				// Test all valid negative indices
 				for (let i = 1; i <= arr.length; i++) {
-					if (nth(-i)(arr) !== arr[arr.length - i]) {
+					if (!Object.is(nth(-i)(arr), arr[arr.length - i])) {
 						return false
 					}
 				}
@@ -250,7 +282,7 @@ Deno.test("nth property: nth(0) equals first element", () => {
 		fc.property(
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
-				return nth(0)(arr) === arr[0]
+				return Object.is(nth(0)(arr), arr[0])
 			},
 		),
 	)
@@ -261,7 +293,7 @@ Deno.test("nth property: nth(-1) equals last element", () => {
 		fc.property(
 			fc.array(fc.anything(), { minLength: 1 }),
 			(arr) => {
-				return nth(-1)(arr) === arr[arr.length - 1]
+				return Object.is(nth(-1)(arr), arr[arr.length - 1])
 			},
 		),
 	)
@@ -271,13 +303,13 @@ Deno.test("nth property: curried function maintains referential transparency", (
 	fc.assert(
 		fc.property(
 			fc.integer({ min: -10, max: 10 }),
-			fc.array(fc.integer()),
+			fc.array(fc.anything()),
 			(index, arr) => {
 				const accessor = nth(index)
 				const result1 = accessor(arr)
 				const result2 = accessor(arr)
 				// Same input produces same output
-				return result1 === result2
+				return Object.is(result1, result2)
 			},
 		),
 	)

@@ -1,4 +1,4 @@
-import createElement from "../../utilities/createElement/index.ts"
+import createElement from "~utilities/createElement/index.ts"
 
 // Simple demo: a form that updates the URL query string on submit via adaptive
 export default function Demo() {

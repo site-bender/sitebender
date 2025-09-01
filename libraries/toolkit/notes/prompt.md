@@ -106,6 +106,23 @@ For each function:
 
 ## Session Notes
 
+### Current Session (2025-09-01)
+- Fixed init test NaN comparison issue using Object.is
+- Identified 11 files needing coverage improvements:
+  
+**Files Without 100% Coverage:**
+1. **src/simple/array/last/index.ts** - 0% branch, 40% line coverage
+2. **src/simple/array/move/index.ts** - 87.5% branch, 85.7% line coverage
+3. **src/simple/array/none/index.ts** - 0% branch, 70% line coverage
+4. **src/simple/array/nth/index.ts** - 0% branch, 66.7% line coverage
+5. **src/simple/array/reduce/index.ts** - 0% branch, 76.9% line coverage
+6. **src/simple/array/removeAt/index.ts** - 83.3% branch, 78.6% line coverage
+7. **src/simple/array/replaceAt/index.ts** - 75% branch, 80% line coverage
+8. **src/simple/array/reverse/index.ts** - 0% branch, 62.5% line coverage
+9. **src/simple/array/tail/index.ts** - 0% branch, 62.5% line coverage
+10. **tests/helpers/assertions/approximately/index.ts** - 66.7% branch, 62.5% line coverage
+11. **tests/helpers/generators/numeric/index.ts** - 100% branch, 57.5% line coverage
+
 ### Last Session (2025-09-01)
 - Updated documentation to reflect Phase 1 and Phase 2 approach
 - Clarified BDD/TDD methodology for future chainable functions
