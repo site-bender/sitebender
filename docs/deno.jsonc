@@ -21,7 +21,7 @@
 		"test": "deno test --unstable-temporal tests/unit/ tests/integration/ -A --no-check",
 		"test:all": "deno task build && deno task test:e2e && deno task test",
 		"test:watch": "deno test --unstable-temporal tests/unit/ tests/integration/ -A --no-check --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ -A --no-check && deno coverage coverage",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ -A --no-check && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
 		"test:unit": "deno test --unstable-temporal tests/unit/ -A --no-check",
 		"test:integration": "deno test --unstable-temporal tests/integration/ -A --no-check",
 		"test:build": "deno test --unstable-temporal tests/build/ -A --no-check",

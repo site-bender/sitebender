@@ -13,7 +13,7 @@
 		// Run tests - all behavioral tests together
 		"test": "deno test --unstable-temporal tests/ --allow-read",
 		"test:watch": "deno test --unstable-temporal tests/ --allow-read --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
 
 		// Code quality (inherits config from root workspace)
 		"lint": "deno lint src/",

@@ -13,7 +13,7 @@
 		// Run tests
 		"test": "deno test --unstable-temporal tests/ --allow-read --allow-env",
 		"test:watch": "deno test --unstable-temporal tests/ --allow-read --allow-env --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read --allow-env && deno coverage coverage",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read --allow-env && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
 
 		// Code quality (inherits config from root workspace)
 		"lint": "deno lint src/",
