@@ -112,3 +112,23 @@ createComposeContext({ env: "server", localValues: { user: { email: "a@b.com", r
 ```
 
 the example above sets `#msg` to the user’s email when the policy passes, or to "Forbidden" otherwise.
+
+```
+
+## Thinking index
+
+- [auth.md](thinking/auth.md)
+- [brainstorming.md](thinking/brainstorming.md)
+- [charter.md](thinking/charter.md)
+- [claude.md](thinking/claude.md)
+- [dependency_injection.md](thinking/dependency_injection.md)
+- [documenation.md](thinking/documenation.md)
+- [local.md](thinking/local.md)
+- [maths.md](thinking/maths.md)
+- [naming.md](thinking/naming.md)
+- [next_session_prompt.md](thinking/next_session_prompt.md)
+- [plan_of_attack.md](thinking/plan_of_attack.md)
+- [prompt.md](thinking/prompt.md)
+- [testing.md](thinking/testing.md)
+- [todo.md](thinking/todo.md)
+- [viz.md](thinking/viz.md)
