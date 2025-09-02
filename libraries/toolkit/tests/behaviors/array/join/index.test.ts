@@ -37,22 +37,28 @@ Deno.test("join: handles null and undefined input", () => {
 })
 
 Deno.test("join: handles mixed type arrays", () => {
-	assertEquals(join(", ")([1, "two", true, null, undefined]), "1, two, true, , ")
+	assertEquals(
+		join(", ")([1, "two", true, null, undefined]),
+		"1, two, true, , ",
+	)
 	assertEquals(join("-")([true, false, true]), "true-false-true")
 	assertEquals(join(" | ")([null, undefined, 0, ""]), " |  | 0 | ")
 })
 
 Deno.test("join: handles special numeric values", () => {
-	assertEquals(join(", ")([NaN, Infinity, -Infinity]), "NaN, Infinity, -Infinity")
+	assertEquals(
+		join(", ")([NaN, Infinity, -Infinity]),
+		"NaN, Infinity, -Infinity",
+	)
 	assertEquals(join("-")([0, -0, NaN]), "0-0-NaN")
 })
 
 Deno.test("join: handles arrays with objects", () => {
 	assertEquals(
 		join(", ")([{ id: 1 }, { id: 2 }, { id: 3 }]),
-		"[object Object], [object Object], [object Object]"
+		"[object Object], [object Object], [object Object]",
 	)
-	
+
 	// Objects with toString
 	const obj1 = { toString: () => "obj1" }
 	const obj2 = { toString: () => "obj2" }
@@ -67,11 +73,14 @@ Deno.test("join: handles arrays with nested arrays", () => {
 Deno.test("join: handles different separator types", () => {
 	// Empty separator
 	assertEquals(join("")(["a", "b", "c"]), "abc")
-	
+
 	// Multi-character separator
-	assertEquals(join(" -> ")(["step1", "step2", "step3"]), "step1 -> step2 -> step3")
+	assertEquals(
+		join(" -> ")(["step1", "step2", "step3"]),
+		"step1 -> step2 -> step3",
+	)
 	assertEquals(join(" | ")(["option1", "option2"]), "option1 | option2")
-	
+
 	// Special characters
 	assertEquals(join("\n")(["line1", "line2", "line3"]), "line1\nline2\nline3")
 	assertEquals(join("\t")(["col1", "col2", "col3"]), "col1\tcol2\tcol3")
@@ -81,7 +90,7 @@ Deno.test("join: is properly curried", () => {
 	const commaSeparate = join(", ")
 	assertEquals(commaSeparate(["a", "b", "c"]), "a, b, c")
 	assertEquals(commaSeparate([1, 2, 3]), "1, 2, 3")
-	
+
 	const dashSeparate = join("-")
 	assertEquals(dashSeparate(["x", "y", "z"]), "x-y-z")
 	assertEquals(dashSeparate([]), "")
@@ -91,16 +100,22 @@ Deno.test("join: creates CSV lines", () => {
 	const toCSV = join(",")
 	assertEquals(toCSV(["name", "age", "city"]), "name,age,city")
 	assertEquals(toCSV(["Alice", "30", "NYC"]), "Alice,30,NYC")
-	assertEquals(toCSV(['"quoted"', "normal", 'with,comma']), '"quoted",normal,with,comma')
+	assertEquals(
+		toCSV(['"quoted"', "normal", "with,comma"]),
+		'"quoted",normal,with,comma',
+	)
 })
 
 Deno.test("join: creates file paths", () => {
 	const toPath = join("/")
 	assertEquals(toPath(["usr", "local", "bin"]), "usr/local/bin")
 	assertEquals(toPath(["home", "user", "documents"]), "home/user/documents")
-	
+
 	const toWindowsPath = join("\\")
-	assertEquals(toWindowsPath(["C:", "Users", "Documents"]), "C:\\Users\\Documents")
+	assertEquals(
+		toWindowsPath(["C:", "Users", "Documents"]),
+		"C:\\Users\\Documents",
+	)
 })
 
 Deno.test("join: creates URL query strings", () => {
@@ -113,7 +128,7 @@ Deno.test("join: handles symbols", () => {
 	// This is expected to throw
 	const sym1 = Symbol("test1")
 	const sym2 = Symbol("test2")
-	
+
 	try {
 		join(", ")([sym1, sym2])
 		throw new Error("Should have thrown")
@@ -140,14 +155,14 @@ Deno.test("join: property-based testing", () => {
 				const joined = join("")(arr)
 				const concatenated = arr.reduce((acc, curr) => acc + curr, "")
 				return joined === concatenated
-			}
-		)
+			},
+		),
 	)
-	
+
 	// Splitting joined string recreates array (for non-empty separator)
 	fc.assert(
 		fc.property(
-			fc.array(fc.string().filter(s => !s.includes("|"))),
+			fc.array(fc.string().filter((s) => !s.includes("|"))),
 			(arr) => {
 				const separator = "|"
 				const joined = join(separator)(arr)
@@ -157,10 +172,10 @@ Deno.test("join: property-based testing", () => {
 				const split = joined.split(separator)
 				return split.length === arr.length &&
 					split.every((s, i) => s === arr[i])
-			}
-		)
+			},
+		),
 	)
-	
+
 	// Join preserves string representation of elements
 	fc.assert(
 		fc.property(
@@ -170,27 +185,30 @@ Deno.test("join: property-based testing", () => {
 				const joined = join(separator)(arr)
 				const expected = arr.map(String).join(separator)
 				return joined === expected
-			}
-		)
+			},
+		),
 	)
-	
+
 	// Empty array always returns empty string
 	fc.assert(
 		fc.property(
 			fc.string(),
 			(separator) => {
 				return join(separator)([]) === ""
-			}
-		)
+			},
+		),
 	)
-	
+
 	// Single element array returns element's string representation
 	fc.assert(
 		fc.property(
-			fc.anything().filter(x => {
+			fc.anything().filter((x) => {
 				// Filter out symbols and objects with non-function toString
 				if (typeof x === "symbol") return false
-				if (x && typeof x === "object" && x.toString !== undefined && typeof x.toString !== "function") {
+				if (
+					x && typeof x === "object" && x.toString !== undefined &&
+					typeof x.toString !== "function"
+				) {
 					return false
 				}
 				return true
@@ -201,24 +219,26 @@ Deno.test("join: property-based testing", () => {
 					const result = join(separator)([elem])
 					// Array.join converts undefined/null differently than String()
 					// undefined and null become empty string in join
-					const expected = elem === undefined || elem === null ? "" : String(elem)
+					const expected = elem === undefined || elem === null
+						? ""
+						: String(elem)
 					return result === expected
 				} catch (e) {
 					// Some objects can't be converted to primitives
 					return e instanceof TypeError
 				}
-			}
-		)
+			},
+		),
 	)
 })
 
 Deno.test("join: large arrays performance", () => {
 	const largeArray = Array.from({ length: 10000 }, (_, i) => i)
 	const result = join(",")(largeArray)
-	
+
 	// Check it creates a long string
 	assertEquals(result.length > 30000, true) // At least 10000 numbers + 9999 commas
-	
+
 	// Check beginning and end
 	assertEquals(result.startsWith("0,1,2,3,4"), true)
 	assertEquals(result.endsWith("9997,9998,9999"), true)

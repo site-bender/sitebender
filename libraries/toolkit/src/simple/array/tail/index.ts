@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns all elements of an array except the first

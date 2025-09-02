@@ -377,17 +377,17 @@ function compileOperand(x: unknown): Node {
 			args: { selector: x.source },
 		} satisfies InjectorNode
 	}
-		if (isFromAuthenticationCtor(x)) {
-			const datatype = normalizeDatatype(x.datatype) ?? "String"
-			return {
-				v: "0.1.0",
-				kind: "injector",
-				id: nextI(),
+	if (isFromAuthenticationCtor(x)) {
+		const datatype = normalizeDatatype(x.datatype) ?? "String"
+		return {
+			v: "0.1.0",
+			kind: "injector",
+			id: nextI(),
 			injector: "From.Authenticator",
-				datatype,
-				args: { path: x.path },
-			} satisfies InjectorNode
-		}
+			datatype,
+			args: { path: x.path },
+		} satisfies InjectorNode
+	}
 	if (isAddCtor(x)) {
 		const datatype = normalizeDatatype(x.datatype) ?? "Float"
 		const addends = Array.isArray(x.addends) ? x.addends : []

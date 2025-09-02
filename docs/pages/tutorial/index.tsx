@@ -8,8 +8,6 @@ import Constant from "@sitebender/components/transform/injectors/Constant/index.
 import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
 import Add from "@sitebender/components/transform/operators/Add/index.tsx"
 
-
-
 // compileToEngine no longer needed directly here
 
 export default function Tutorial() {

@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import dropRepeats from "../../../../src/simple/array/dropRepeats/index.ts"
 
@@ -85,7 +85,13 @@ Deno.test("dropRepeats", async (t) => {
 		})
 
 		await t.step("handles Infinity", () => {
-			const result = dropRepeats([Infinity, Infinity, -Infinity, -Infinity, Infinity])
+			const result = dropRepeats([
+				Infinity,
+				Infinity,
+				-Infinity,
+				-Infinity,
+				Infinity,
+			])
 			assertEquals(result, [Infinity, -Infinity, Infinity])
 		})
 	})
@@ -98,10 +104,13 @@ Deno.test("dropRepeats", async (t) => {
 			assertEquals(result, [obj1, obj2, obj1])
 		})
 
-		await t.step("different objects with same values are not duplicates", () => {
-			const result = dropRepeats([{ a: 1 }, { a: 1 }, { a: 1 }])
-			assertEquals(result.length, 3)
-		})
+		await t.step(
+			"different objects with same values are not duplicates",
+			() => {
+				const result = dropRepeats([{ a: 1 }, { a: 1 }, { a: 1 }])
+				assertEquals(result.length, 3)
+			},
+		)
 
 		await t.step("same array references", () => {
 			const arr1 = [1, 2]
@@ -141,7 +150,7 @@ Deno.test("dropRepeats", async (t) => {
 						assertEquals(Object.is(result[i], result[i - 1]), false)
 					}
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -151,11 +160,11 @@ Deno.test("dropRepeats", async (t) => {
 					const result = dropRepeats(arr)
 					// Every element in result exists in arr
 					assertEquals(
-						result.every(elem => arr.includes(elem)),
-						true
+						result.every((elem) => arr.includes(elem)),
+						true,
 					)
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -166,9 +175,9 @@ Deno.test("dropRepeats", async (t) => {
 					(arr) => {
 						const result = dropRepeats(arr)
 						assertEquals(result[0], arr[0])
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -178,7 +187,7 @@ Deno.test("dropRepeats", async (t) => {
 					const result = dropRepeats(arr)
 					assertEquals(result.length <= arr.length, true)
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -189,7 +198,7 @@ Deno.test("dropRepeats", async (t) => {
 					const twice = dropRepeats(once)
 					assertEquals(twice, once)
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -200,9 +209,9 @@ Deno.test("dropRepeats", async (t) => {
 					(arr) => {
 						const result = dropRepeats(arr)
 						assertEquals(result, arr)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -215,9 +224,9 @@ Deno.test("dropRepeats", async (t) => {
 						const arr = Array(count).fill(value)
 						const result = dropRepeats(arr)
 						assertEquals(result, [value])
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

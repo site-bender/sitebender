@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import findIndices from "../../../../src/simple/array/findIndices/index.ts"
 
@@ -47,13 +47,15 @@ Deno.test("findIndices", async (t) => {
 	await t.step("passes index and array to predicate", () => {
 		const indices: number[] = []
 		const arrays: ReadonlyArray<string>[] = []
-		
-		findIndices((value: string, index: number, array: ReadonlyArray<string>) => {
-			indices.push(index)
-			arrays.push(array)
-			return value === "b"
-		})(["a", "b", "c"])
-		
+
+		findIndices(
+			(value: string, index: number, array: ReadonlyArray<string>) => {
+				indices.push(index)
+				arrays.push(array)
+				return value === "b"
+			},
+		)(["a", "b", "c"])
+
 		assertEquals(indices, [0, 1, 2])
 		assertEquals(arrays, [["a", "b", "c"], ["a", "b", "c"], ["a", "b", "c"]])
 	})
@@ -61,8 +63,20 @@ Deno.test("findIndices", async (t) => {
 	await t.step("finds all truthy value indices", () => {
 		const isTruthy = (x: unknown) => !!x
 		assertEquals(
-			findIndices(isTruthy)([0, 1, "", "hello", false, true, null, undefined, NaN, [], {}]),
-			[1, 3, 5, 9, 10]
+			findIndices(isTruthy)([
+				0,
+				1,
+				"",
+				"hello",
+				false,
+				true,
+				null,
+				undefined,
+				NaN,
+				[],
+				{},
+			]),
+			[1, 3, 5, 9, 10],
 		)
 	})
 
@@ -75,9 +89,12 @@ Deno.test("findIndices", async (t) => {
 	await t.step("handles special numeric values", () => {
 		const isNaN = (x: number) => Number.isNaN(x)
 		assertEquals(findIndices(isNaN)([1, NaN, 2, NaN, 3]), [1, 3])
-		
+
 		const isInfinity = (x: number) => x === Infinity
-		assertEquals(findIndices(isInfinity)([1, Infinity, -Infinity, Infinity]), [1, 3])
+		assertEquals(findIndices(isInfinity)([1, Infinity, -Infinity, Infinity]), [
+			1,
+			3,
+		])
 	})
 
 	await t.step("finds indices based on position", () => {
@@ -86,10 +103,13 @@ Deno.test("findIndices", async (t) => {
 	})
 
 	await t.step("finds indices relative to array length", () => {
-		const isInFirstHalf = (_: unknown, index: number, array: ReadonlyArray<unknown>) => 
-			index < array.length / 2
+		const isInFirstHalf = (
+			_: unknown,
+			index: number,
+			array: ReadonlyArray<unknown>,
+		) => index < array.length / 2
 		assertEquals(findIndices(isInFirstHalf)([1, 2, 3, 4]), [0, 1])
-		assertEquals(findIndices(isInFirstHalf)([1, 2, 3, 4, 5]), [0, 1, 2])  // 5/2=2.5, so indices 0,1,2 are < 2.5
+		assertEquals(findIndices(isInFirstHalf)([1, 2, 3, 4, 5]), [0, 1, 2]) // 5/2=2.5, so indices 0,1,2 are < 2.5
 	})
 
 	await t.step("is curried", () => {
@@ -126,7 +146,7 @@ Deno.test("findIndices", async (t) => {
 		const isNullish = (x: unknown) => x === null || x === undefined
 		assertEquals(
 			findIndices(isNullish)([1, null, undefined, 2, null, 3]),
-			[1, 2, 4]
+			[1, 2, 4],
 		)
 	})
 
@@ -139,20 +159,20 @@ Deno.test("findIndices", async (t) => {
 					fc.func(fc.boolean()),
 					(arr, predicate) => {
 						const indices = findIndices(predicate)(arr)
-						
+
 						// All indices are valid
-						const allValid = indices.every(i => i >= 0 && i < arr.length)
-						
+						const allValid = indices.every((i) => i >= 0 && i < arr.length)
+
 						// Indices are in ascending order
-						const isAscending = indices.every((val, i, arr) => 
+						const isAscending = indices.every((val, i, arr) =>
 							i === 0 || val > arr[i - 1]
 						)
-						
+
 						return allValid && isAscending
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 
 	await t.step(
@@ -165,17 +185,17 @@ Deno.test("findIndices", async (t) => {
 						const threshold = 5
 						const predicate = (x: number) => x > threshold
 						const indices = findIndices(predicate)(arr)
-						
+
 						// Check that all indices where predicate is true are included
 						const expectedIndices = arr
 							.map((val, idx) => predicate(val) ? idx : -1)
-							.filter(idx => idx !== -1)
-						
+							.filter((idx) => idx !== -1)
+
 						return JSON.stringify(indices) === JSON.stringify(expectedIndices)
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 
 	await t.step(
@@ -188,10 +208,10 @@ Deno.test("findIndices", async (t) => {
 					(arr, predicate) => {
 						const indices = findIndices(predicate)(arr)
 						return indices.length <= arr.length
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 
 	await t.step(
@@ -203,10 +223,10 @@ Deno.test("findIndices", async (t) => {
 					(predicate) => {
 						const indices = findIndices(predicate)([])
 						return indices.length === 0
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 
 	await t.step(
@@ -219,10 +239,10 @@ Deno.test("findIndices", async (t) => {
 						const indices = findIndices(() => true)(arr)
 						const expected = arr.map((_, i) => i)
 						return JSON.stringify(indices) === JSON.stringify(expected)
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 
 	await t.step(
@@ -234,9 +254,9 @@ Deno.test("findIndices", async (t) => {
 					(arr) => {
 						const indices = findIndices(() => false)(arr)
 						return indices.length === 0
-					}
-				)
+					},
+				),
 			)
-		}
+		},
 	)
 })

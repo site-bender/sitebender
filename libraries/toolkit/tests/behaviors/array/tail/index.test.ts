@@ -131,26 +131,26 @@ Deno.test("tail - nested arrays", () => {
 Deno.test("tail - null safety", () => {
 	// Null input
 	assertEquals(tail(null), [])
-	
+
 	// Undefined input
 	assertEquals(tail(undefined), [])
-	
+
 	// Non-array inputs
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail(42), [])
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail("hello"), [])
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail({ foo: "bar" }), [])
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail(true), [])
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail(false), [])
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(tail(Symbol("test")), [])
 })

@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import differenceWith from "../../../../src/simple/array/differenceWith/index.ts"
 
@@ -14,7 +14,12 @@ Deno.test("differenceWith", async (t) => {
 		await t.step("case-insensitive string comparison", () => {
 			const caseInsensitive = (a: string, b: string) =>
 				a.toLowerCase() === b.toLowerCase()
-			const result = differenceWith(caseInsensitive)(["B", "C"])(["a", "B", "c", "D"])
+			const result = differenceWith(caseInsensitive)(["B", "C"])([
+				"a",
+				"B",
+				"c",
+				"D",
+			])
 			assertEquals(result, ["a", "D"])
 		})
 
@@ -24,19 +29,24 @@ Deno.test("differenceWith", async (t) => {
 			const users: User[] = [
 				{ id: 1, name: "Alice" },
 				{ id: 2, name: "Bob" },
-				{ id: 3, name: "Charlie" }
+				{ id: 3, name: "Charlie" },
 			]
 			const exclude: User[] = [{ id: 2 }]
 			const result = differenceWith(byId)(exclude)(users)
 			assertEquals(result, [
 				{ id: 1, name: "Alice" },
-				{ id: 3, name: "Charlie" }
+				{ id: 3, name: "Charlie" },
 			])
 		})
 
 		await t.step("number comparison with tolerance", () => {
 			const approxEqual = (a: number, b: number) => Math.abs(a - b) < 0.01
-			const result = differenceWith(approxEqual)([1.001, 2.002])([1.0, 1.5, 2.0, 3.0])
+			const result = differenceWith(approxEqual)([1.001, 2.002])([
+				1.0,
+				1.5,
+				2.0,
+				3.0,
+			])
 			assertEquals(result, [1.5, 3.0])
 		})
 
@@ -48,7 +58,18 @@ Deno.test("differenceWith", async (t) => {
 
 		await t.step("removes based on complex logic", () => {
 			const divisibleBy = (a: number, b: number) => a % b === 0
-			const result = differenceWith(divisibleBy)([2, 3])([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+			const result = differenceWith(divisibleBy)([2, 3])([
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+			])
 			// Remove multiples of 2 and 3
 			assertEquals(result, [1, 5, 7])
 		})
@@ -153,18 +174,25 @@ Deno.test("differenceWith", async (t) => {
 	await t.step("type safety", async (t) => {
 		await t.step("different types for minuend and subtrahend", () => {
 			const compareLengths = (str: string, num: number) => str.length === num
-			const result = differenceWith(compareLengths)([2, 3])(["a", "bb", "ccc", "dddd"])
+			const result = differenceWith(compareLengths)([2, 3])([
+				"a",
+				"bb",
+				"ccc",
+				"dddd",
+			])
 			assertEquals(result, ["a", "dddd"])
 		})
 
 		await t.step("complex object comparisons", () => {
 			type Person = { name: string; age: number }
 			type Filter = { minAge?: number; maxAge?: number; namePattern?: RegExp }
-			
+
 			const matchesFilter = (person: Person, filter: Filter) => {
 				if (filter.minAge && person.age < filter.minAge) return false
 				if (filter.maxAge && person.age > filter.maxAge) return false
-				if (filter.namePattern && !filter.namePattern.test(person.name)) return false
+				if (filter.namePattern && !filter.namePattern.test(person.name)) {
+					return false
+				}
 				return true
 			}
 
@@ -172,17 +200,17 @@ Deno.test("differenceWith", async (t) => {
 				{ name: "Alice", age: 25 },
 				{ name: "Bob", age: 30 },
 				{ name: "Charlie", age: 35 },
-				{ name: "David", age: 40 }
+				{ name: "David", age: 40 },
 			]
-			
+
 			const filters: Filter[] = [
-				{ minAge: 30, maxAge: 35 }
+				{ minAge: 30, maxAge: 35 },
 			]
-			
+
 			const result = differenceWith(matchesFilter)(filters)(people)
 			assertEquals(result, [
 				{ name: "Alice", age: 25 },
-				{ name: "David", age: 40 }
+				{ name: "David", age: 40 },
 			])
 		})
 	})
@@ -191,28 +219,48 @@ Deno.test("differenceWith", async (t) => {
 		await t.step("supports partial application", () => {
 			const caseInsensitive = (a: string, b: string) =>
 				a.toLowerCase() === b.toLowerCase()
-			const removeStopWords = differenceWith(caseInsensitive)(["the", "a", "an", "and"])
-			
-			const result1 = removeStopWords(["The", "quick", "brown", "fox", "AND", "lazy"])
+			const removeStopWords = differenceWith(caseInsensitive)([
+				"the",
+				"a",
+				"an",
+				"and",
+			])
+
+			const result1 = removeStopWords([
+				"The",
+				"quick",
+				"brown",
+				"fox",
+				"AND",
+				"lazy",
+			])
 			assertEquals(result1, ["quick", "brown", "fox", "lazy"])
-			
+
 			const result2 = removeStopWords(["A", "simple", "test"])
 			assertEquals(result2, ["simple", "test"])
 		})
 
 		await t.step("can be reused with same comparator and subtrahend", () => {
-			const byValue = (a: { val: number }, b: { val: number }) => a.val === b.val
+			const byValue = (a: { val: number }, b: { val: number }) =>
+				a.val === b.val
 			const removeEvens = differenceWith(byValue)([
-				{ val: 2 }, { val: 4 }, { val: 6 }
+				{ val: 2 },
+				{ val: 4 },
+				{ val: 6 },
 			])
-			
+
 			const result1 = removeEvens([
-				{ val: 1 }, { val: 2 }, { val: 3 }, { val: 4 }
+				{ val: 1 },
+				{ val: 2 },
+				{ val: 3 },
+				{ val: 4 },
 			])
 			assertEquals(result1, [{ val: 1 }, { val: 3 }])
-			
+
 			const result2 = removeEvens([
-				{ val: 5 }, { val: 6 }, { val: 7 }
+				{ val: 5 },
+				{ val: 6 },
+				{ val: 7 },
 			])
 			assertEquals(result2, [{ val: 5 }, { val: 7 }])
 		})
@@ -227,11 +275,11 @@ Deno.test("differenceWith", async (t) => {
 					(arr1, arr2) => {
 						const standardEqual = (a: number, b: number) => a === b
 						const result = differenceWith(standardEqual)(arr2)(arr1)
-						const expected = arr1.filter(x => !arr2.includes(x))
+						const expected = arr1.filter((x) => !arr2.includes(x))
 						assertEquals(result, expected)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -243,7 +291,7 @@ Deno.test("differenceWith", async (t) => {
 					assertEquals(result, arr)
 					assertEquals(result === arr, false) // Should be a copy
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -257,12 +305,12 @@ Deno.test("differenceWith", async (t) => {
 						const result = differenceWith(comparator)(arr2)(arr1)
 						// Every element in result must be in arr1
 						assertEquals(
-							result.every(elem => arr1.includes(elem)),
-							true
+							result.every((elem) => arr1.includes(elem)),
+							true,
 						)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -277,9 +325,9 @@ Deno.test("differenceWith", async (t) => {
 						const alwaysTrue = () => true
 						const result = differenceWith(alwaysTrue)(arr2)(arr1)
 						assertEquals(result, [])
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -292,9 +340,9 @@ Deno.test("differenceWith", async (t) => {
 						const alwaysFalse = () => false
 						const result = differenceWith(alwaysFalse)(arr2)(arr1)
 						assertEquals(result, arr1)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -307,11 +355,11 @@ Deno.test("differenceWith", async (t) => {
 						const comparator = (a: number, b: number) => a === b
 						const result = differenceWith(comparator)(arr2)(arr1)
 						// The result should preserve the order from arr1
-						const expected = arr1.filter(x => !arr2.includes(x))
+						const expected = arr1.filter((x) => !arr2.includes(x))
 						assertEquals(result, expected)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

@@ -37,12 +37,17 @@ describe("concatTo", () => {
 		})
 
 		it("should handle mixed type arrays", () => {
-			const result = concatTo<string | number | boolean | null>([3, "d", null])(["a", 2, true])
+			const result = concatTo<string | number | boolean | null>([3, "d", null])(
+				["a", 2, true],
+			)
 			assertEquals(result, ["a", 2, true, 3, "d", null])
 		})
 
 		it("should handle arrays with undefined", () => {
-			const result = concatTo<string | number | undefined>([undefined, 2])(["a", undefined])
+			const result = concatTo<string | number | undefined>([undefined, 2])([
+				"a",
+				undefined,
+			])
 			assertEquals(result, ["a", undefined, undefined, 2])
 		})
 
@@ -103,7 +108,7 @@ describe("concatTo", () => {
 			const addNumbers = concatTo([4, 5, 6])
 			const addStrings = concatTo(["d", "e", "f"])
 			const addBooleans = concatTo([true, false])
-			
+
 			assertEquals(addNumbers([1, 2, 3]), [1, 2, 3, 4, 5, 6])
 			assertEquals(addStrings(["a", "b", "c"]), ["a", "b", "c", "d", "e", "f"])
 			assertEquals(addBooleans([false, true]), [false, true, true, false])
@@ -115,7 +120,7 @@ describe("concatTo", () => {
 			const toAppend = [3, 4]
 			const baseArray = [1, 2]
 			const result = concatTo(toAppend)(baseArray)
-			
+
 			assertEquals(baseArray, [1, 2])
 			assertEquals(toAppend, [3, 4])
 			assertEquals(result, [1, 2, 3, 4])
@@ -125,7 +130,7 @@ describe("concatTo", () => {
 			const toAppend = [2]
 			const baseArray = [1]
 			const result = concatTo(toAppend)(baseArray)
-			
+
 			assertEquals(result !== baseArray, true)
 			assertEquals(result !== toAppend, true)
 		})
@@ -140,8 +145,8 @@ describe("concatTo", () => {
 					(toAppend, baseArray) => {
 						const result = concatTo(toAppend)(baseArray)
 						assertEquals(result.length, baseArray.length + toAppend.length)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -152,18 +157,18 @@ describe("concatTo", () => {
 					fc.array(fc.integer()),
 					(toAppend, baseArray) => {
 						const result = concatTo(toAppend)(baseArray)
-						
+
 						// Check baseArray elements come first
 						for (let i = 0; i < baseArray.length; i++) {
 							assertEquals(result[i], baseArray[i])
 						}
-						
+
 						// Check toAppend elements come after
 						for (let i = 0; i < toAppend.length; i++) {
 							assertEquals(result[baseArray.length + i], toAppend[i])
 						}
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -178,8 +183,8 @@ describe("concatTo", () => {
 						const concatResult = a.concat(b)
 						const concatToResult = concatTo(b)(a)
 						assertEquals(concatToResult, concatResult)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -190,8 +195,8 @@ describe("concatTo", () => {
 					(arr) => {
 						const result = concatTo<unknown>([])(arr)
 						assertEquals(result, arr)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -200,7 +205,7 @@ describe("concatTo", () => {
 			sparse1[1] = "a"
 			const sparse2 = new Array(2)
 			sparse2[0] = "b"
-			
+
 			const result = concatTo(sparse2)(sparse1)
 			assertEquals(result.length, 5)
 			assertEquals(result[0], undefined)
@@ -222,19 +227,32 @@ describe("concatTo", () => {
 		it("should add footer items to lists", () => {
 			const addFooter = concatTo(["---", "Total", "Summary"])
 			const dataRows = ["Row1", "Row2", "Row3"]
-			assertEquals(addFooter(dataRows), ["Row1", "Row2", "Row3", "---", "Total", "Summary"])
+			assertEquals(addFooter(dataRows), [
+				"Row1",
+				"Row2",
+				"Row3",
+				"---",
+				"Total",
+				"Summary",
+			])
 		})
 
 		it("should append default options", () => {
 			const addDefaults = concatTo(["Other", "None", "All"])
 			const userOptions = ["Option1", "Option2"]
-			assertEquals(addDefaults(userOptions), ["Option1", "Option2", "Other", "None", "All"])
+			assertEquals(addDefaults(userOptions), [
+				"Option1",
+				"Option2",
+				"Other",
+				"None",
+				"All",
+			])
 		})
 
 		it("should work in function composition", () => {
 			const appendSuffix = concatTo([4, 5])
-			const processArray = (arr: Array<number>) => arr.map(x => x * 2)
-			
+			const processArray = (arr: Array<number>) => arr.map((x) => x * 2)
+
 			const pipeline = (arr: Array<number>) => processArray(appendSuffix(arr))
 			assertEquals(pipeline([1, 2, 3]), [2, 4, 6, 8, 10])
 		})
@@ -245,7 +263,7 @@ describe("concatTo", () => {
 			const appendNumbers = concatTo([3, 4])
 			const numberResult: Array<number> = appendNumbers([1, 2])
 			assertEquals(numberResult, [1, 2, 3, 4])
-			
+
 			const appendStrings = concatTo(["c", "d"])
 			const stringResult: Array<string> = appendStrings(["a", "b"])
 			assertEquals(stringResult, ["a", "b", "c", "d"])

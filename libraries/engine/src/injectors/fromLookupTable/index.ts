@@ -1,8 +1,4 @@
-import type {
-	EngineError,
-	Either,
-	LocalValues,
-} from "../../../types/index.ts"
+import type { Either, EngineError, LocalValues } from "../../../types/index.ts"
 
 import { isLeft } from "../../../types/index.ts"
 import Error from "../../constructors/Error/index.ts"

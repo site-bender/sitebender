@@ -9,7 +9,9 @@
 
 /* Fallback fonts for browsers that might not load custom fonts properly */
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+		sans-serif;
 	padding: 1rem;
 }
 

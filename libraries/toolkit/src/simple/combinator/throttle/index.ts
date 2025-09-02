@@ -1,5 +1,5 @@
-import isUndefined from "../../validation/isUndefined/index.ts"
 import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+import isUndefined from "../../validation/isUndefined/index.ts"
 
 /**
  * Returns a throttled version of a function that only invokes

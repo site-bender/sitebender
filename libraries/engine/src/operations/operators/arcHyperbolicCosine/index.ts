@@ -1,7 +1,7 @@
 import type { HydratedArcHyperbolicCosine } from "../../../../types/hydrated/index.ts"
 import type {
-	EngineError,
 	Either,
+	EngineError,
 	GlobalAttributes,
 	LocalValues,
 	OperationFunction,

@@ -1,7 +1,7 @@
 import type {
-	EngineError,
 	ComparatorConfig,
 	Either,
+	EngineError,
 	LocalValues,
 	LogicalConfig,
 	Operand,

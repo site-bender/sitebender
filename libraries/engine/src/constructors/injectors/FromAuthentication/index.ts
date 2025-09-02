@@ -3,10 +3,10 @@ import type { Datatype } from "../../../../types/index.ts"
 import { OPERAND_TYPES } from "../../constants/index.ts"
 
 type FromAuthenticatorInjector = {
-  tag: "FromAuthenticator"
-  type: typeof OPERAND_TYPES.injector
-  datatype: Datatype
-  path?: string
+	tag: "FromAuthenticator"
+	type: typeof OPERAND_TYPES.injector
+	datatype: Datatype
+	path?: string
 }
 
 /**
@@ -17,11 +17,12 @@ type FromAuthenticatorInjector = {
  * reach into claims, e.g., "user.email" or "claims.sub".
  */
 const FromAuthenticator =
-  (datatype: Datatype = "String") => (path?: string): FromAuthenticatorInjector => ({
-    tag: "FromAuthenticator",
-    type: OPERAND_TYPES.injector,
-    datatype,
-    path,
-  })
+	(datatype: Datatype = "String") =>
+	(path?: string): FromAuthenticatorInjector => ({
+		tag: "FromAuthenticator",
+		type: OPERAND_TYPES.injector,
+		datatype,
+		path,
+	})
 
 export default FromAuthenticator

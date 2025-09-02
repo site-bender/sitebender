@@ -9,6 +9,7 @@
 ## Phase 2: Chainable Functions (BDD/TDD Approach)
 
 After Phase 1 completion, implement chainable functions using proper BDD:
+
 1. Write tests first for each chainable function
 2. See tests fail (red phase)
 3. Implement chainable function to make tests pass (green phase)
@@ -32,6 +33,7 @@ Just for discussion: how could we add functions to do integration and differenti
 ## Critical Testing Gaps
 
 ### High Priority - Validator Functions
+
 - `isEmail` - Needs comprehensive tests for valid/invalid formats, international domains
 - `isUrl` - Needs tests for various protocols, IPv6, edge cases
 - `isPhone` - Needs tests for international formats, country codes
@@ -41,6 +43,7 @@ Just for discussion: how could we add functions to do integration and differenti
 - `isJson` - Needs tests for valid/invalid JSON strings
 
 ### Temporal Functions (79+ functions)
+
 - Extensive testing needed for formatting/parsing
 - Date arithmetic and comparison operations
 - Timezone handling and conversions
@@ -48,23 +51,27 @@ Just for discussion: how could we add functions to do integration and differenti
 - Edge cases around DST, leap years
 
 ### Specialized Domain Functions
+
 - Finance functions (IRR, NPV, compound interest, etc.)
 - Physics functions (kinematics, forces, energy)
 - Geometry functions (area, volume, distance calculations)
 - Statistics functions (distributions, tests, correlations)
 
 ### String Processing
+
 - `sanitize` - Security and edge case testing
 - `slugify` - Unicode handling, special characters
 - String transformation round-trip properties
 
 ### Event System
+
 - Local vs broadcast bus behavior
 - Cross-tab message propagation
 - Event subscription/unsubscription patterns
 - Memory leak prevention
 
 ### FP Types (Result/Either/Maybe/IO)
+
 - Practical usage patterns
 - Error propagation paths
 - Composition and chaining behaviors

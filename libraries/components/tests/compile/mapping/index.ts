@@ -1,8 +1,3 @@
-import {
-	assert,
-	assertEquals,
-} from "https://deno.land/std@0.224.0/assert/mod.ts"
-
 // IR node types
 import type {
 	ActionNode,
@@ -12,6 +7,11 @@ import type {
 	IrDocument,
 	OperatorNode,
 } from "@engineTypes/ir/index.ts"
+
+import {
+	assert,
+	assertEquals,
+} from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import { compileToEngine } from "../../../src/compile.ts"
 import Publish from "../../../src/transform/actions/Publish/index.tsx"

@@ -1,5 +1,5 @@
-import gammaFunction from "../gammaFunction/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import gammaFunction from "../gammaFunction/index.ts"
 
 /**
  * Calculates the beta function B(x, y)

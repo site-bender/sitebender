@@ -77,7 +77,10 @@ for (const root of roots) {
 					}
 
 					// If this file is NOT inside engine/, disallow deep engine paths
-					if (!isInside(file, "libraries/engine") && !isInside(file, "libraries/engine")) {
+					if (
+						!isInside(file, "libraries/engine") &&
+						!isInside(file, "libraries/engine")
+					) {
 						if (spec.includes(ENGINE_SRC)) {
 							violations.push({
 								file,
@@ -91,8 +94,7 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @engineTypes/… instead of libraries/engine/types/…",
+								hint: "Use @engineTypes/… instead of libraries/engine/types/…",
 							})
 						}
 

@@ -1,5 +1,6 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
+
 import endsWith from "../../../../src/simple/array/endsWith/index.ts"
 
 Deno.test("endsWith", async (t) => {
@@ -57,10 +58,10 @@ Deno.test("endsWith", async (t) => {
 		const obj1 = { id: 1 }
 		const obj2 = { id: 2 }
 		const obj3 = { id: 3 }
-		
+
 		assertEquals(endsWith([obj2, obj3])([obj1, obj2, obj3]), true)
 		assertEquals(endsWith([obj1, obj2])([obj1, obj2, obj3]), false)
-		
+
 		// Different object instances with same shape
 		assertEquals(
 			endsWith([{ id: 2 }, { id: 3 }])([{ id: 1 }, { id: 2 }, { id: 3 }]),
@@ -84,7 +85,11 @@ Deno.test("endsWith", async (t) => {
 
 	await t.step("should handle undefined and null values", () => {
 		assertEquals(
-			endsWith<number | undefined | null>([undefined, null])([1, undefined, null]),
+			endsWith<number | undefined | null>([undefined, null])([
+				1,
+				undefined,
+				null,
+			]),
 			true,
 		)
 		assertEquals(
@@ -124,7 +129,7 @@ Deno.test("endsWith", async (t) => {
 		assertEquals(endsWithExtension(["file", ".ts"]), true)
 		assertEquals(endsWithExtension(["file", ".js"]), false)
 		assertEquals(endsWithExtension([".ts"]), true)
-		
+
 		const endsWithPattern = endsWith([0, 1])
 		assertEquals(endsWithPattern([1, 0, 1]), true)
 		assertEquals(endsWithPattern([0, 1, 0]), false)
@@ -138,20 +143,23 @@ Deno.test("endsWith", async (t) => {
 		)
 	})
 
-	await t.step("property: suffix longer than array always returns false", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer(), { maxLength: 10 }),
-				fc.array(fc.integer(), { minLength: 11 }),
-				(arr, suffix) => {
-					if (suffix.length > arr.length) {
-						return endsWith(suffix)(arr) === false
-					}
-					return true
-				},
-			),
-		)
-	})
+	await t.step(
+		"property: suffix longer than array always returns false",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer(), { maxLength: 10 }),
+					fc.array(fc.integer(), { minLength: 11 }),
+					(arr, suffix) => {
+						if (suffix.length > arr.length) {
+							return endsWith(suffix)(arr) === false
+						}
+						return true
+					},
+				),
+			)
+		},
+	)
 
 	await t.step("property: array always ends with itself", () => {
 		fc.assert(
@@ -161,40 +169,46 @@ Deno.test("endsWith", async (t) => {
 		)
 	})
 
-	await t.step("property: if endsWith returns true, suffix matches end of array", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer()),
-				fc.nat({ max: 10 }),
-				(arr, suffixLength) => {
-					const suffix = arr.slice(-suffixLength)
-					const result = endsWith(suffix)(arr)
-					
-					if (result) {
-						// Verify the suffix actually matches
-						const startIndex = arr.length - suffix.length
-						return suffix.every((val, i) =>
-							Object.is(arr[startIndex + i], val)
-						)
-					}
-					return true
-				},
-			),
-		)
-	})
+	await t.step(
+		"property: if endsWith returns true, suffix matches end of array",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.nat({ max: 10 }),
+					(arr, suffixLength) => {
+						const suffix = arr.slice(-suffixLength)
+						const result = endsWith(suffix)(arr)
 
-	await t.step("property: concatenating suffix to array prefix makes endsWith true", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer()),
-				fc.array(fc.integer()),
-				(prefix, suffix) => {
-					const combined = [...prefix, ...suffix]
-					return endsWith(suffix)(combined) === true
-				},
-			),
-		)
-	})
+						if (result) {
+							// Verify the suffix actually matches
+							const startIndex = arr.length - suffix.length
+							return suffix.every((val, i) =>
+								Object.is(arr[startIndex + i], val)
+							)
+						}
+						return true
+					},
+				),
+			)
+		},
+	)
+
+	await t.step(
+		"property: concatenating suffix to array prefix makes endsWith true",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.array(fc.integer()),
+					(prefix, suffix) => {
+						const combined = [...prefix, ...suffix]
+						return endsWith(suffix)(combined) === true
+					},
+				),
+			)
+		},
+	)
 
 	await t.step("property: null/undefined array always returns false", () => {
 		fc.assert(

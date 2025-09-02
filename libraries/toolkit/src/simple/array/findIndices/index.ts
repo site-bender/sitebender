@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns all indices of elements that satisfy the predicate
@@ -49,9 +49,7 @@ const findIndices = <T>(
 	}
 
 	return array.reduce<Array<number>>((indices, value, index) => {
-		return predicate(value, index, array)
-			? [...indices, index]
-			: indices
+		return predicate(value, index, array) ? [...indices, index] : indices
 	}, [])
 }
 

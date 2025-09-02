@@ -1,6 +1,6 @@
+import isNotNull from "../../../validation/isNotNull/index.ts"
 import isNull from "../../../validation/isNull/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
-import isNotNull from "../../../validation/isNotNull/index.ts"
 
 /**
  * Safely converts any value to its string representation

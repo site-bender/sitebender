@@ -1,6 +1,6 @@
 import type {
-	EngineError,
 	Either,
+	EngineError,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"

@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import findDuplicates from "../../../../src/simple/array/findDuplicates/index.ts"
 

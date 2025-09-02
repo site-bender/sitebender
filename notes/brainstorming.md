@@ -566,7 +566,7 @@ This approach makes the page feel much more natural and content-rich. The `<Text
 - Inputs: One Page with a Form, 3–5 field types, When/Then/Else, basic arithmetic (Add/Multiply), and a couple of comparators (Is.Equal, Is.Matches).
 - Compiler: JSX markers → validated IR; IR → runtime graph + evaluators; IR → basic SHACL stub (file output) for future backend.
 - Runtime: In-memory state, reactive recomputation for Calculations, form validation, and submit action that logs/persists JSON locally.
-- Tooling: A small JSXer playground that shows JSX, IR, and live view side-by-side; include an AI suggestion pane that prints rationale + diff (stubbed if needed).
+- Tooling: A small Inspector playground that shows JSX, IR, and live view side-by-side; include an AI suggestion pane that prints rationale + diff (stubbed if needed).
 - Success criteria: Deterministic compilation, passing strict tests for operators/comparators, live recomputation in the playground, and a docs page built with the same components.
 
 ### Next guardrails

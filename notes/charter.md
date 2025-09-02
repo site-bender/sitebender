@@ -20,7 +20,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
   - Client-side validation derived from IR (required, min/max for IntegerField)
   - Submit captures current state to JSON (local log/persist), surfacing validation errors
 - Tooling
-  - JSXer-based playground with three panes: JSX (editable), IR (readonly), Live View
+  - Inspector-based playground with three panes: JSX (editable), IR (readonly), Live View
   - “Explain” panel showing compiler transform steps and rationale (stub ok)
 
 ## Non-Goals (for MVP)
@@ -83,7 +83,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
 - T-Shirt example demonstrating Calculations + Form
 
 7) Integration & hygiene (ongoing)
-- Strict tests wired per package (engine, components, jsxer, toolkit)
+- Strict tests wired per package (engine, components, inspector, toolkit)
 - Type-check and alias guard green; CI task aggregation
 
 ## Integration & hygiene backlog (status)

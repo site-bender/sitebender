@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Alternate elements from multiple arrays
@@ -44,12 +44,16 @@ import not from "../../logic/not/index.ts"
  * interleave([1, 2], null, [3]) // [1, 3, 2] (null treated as empty)
  * ```
  */
-const interleave = <T>(...arrays: Array<Array<T> | null | undefined>): Array<T> => {
+const interleave = <T>(
+	...arrays: Array<Array<T> | null | undefined>
+): Array<T> => {
 	if (arrays.length === 0) return []
-	
+
 	// Filter out null/undefined arrays and use only valid arrays
-	const validArrays = arrays.filter((arr) => not(isNullish(arr))) as Array<Array<T>>
-	
+	const validArrays = arrays.filter((arr) => not(isNullish(arr))) as Array<
+		Array<T>
+	>
+
 	if (validArrays.length === 0) return []
 
 	const maxLength = Math.max(...validArrays.map((arr) => arr.length))

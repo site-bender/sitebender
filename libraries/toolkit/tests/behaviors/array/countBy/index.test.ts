@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import countBy from "../../../../src/simple/array/countBy/index.ts"
 
@@ -96,7 +96,7 @@ Deno.test("countBy", async (t) => {
 		const result1 = evenOdd([1, 2, 3])
 		assertEquals(result1.odd, 2)
 		assertEquals(result1.even, 1)
-		
+
 		const result2 = evenOdd([2, 4, 6])
 		assertEquals(result2.even, 3)
 		assertEquals(result2.odd, undefined)

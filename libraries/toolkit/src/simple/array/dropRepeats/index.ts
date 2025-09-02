@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns a new array without consecutive duplicate elements

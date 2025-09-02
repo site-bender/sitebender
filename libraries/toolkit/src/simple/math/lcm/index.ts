@@ -1,5 +1,4 @@
 import isNullish from "../../validation/isNullish/index.ts"
-
 import gcd from "../gcd/index.ts"
 
 /**

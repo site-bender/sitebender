@@ -4,9 +4,9 @@ import type {
 	TransformationSpec,
 } from "../../../types/object/index.ts"
 
-import isNullish from "../../validation/isNullish/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Recursively evolves an object by applying transformation functions to specific paths
@@ -122,7 +122,9 @@ const evolve = <T extends Record<string, Value>>(
 
 			// Determine the value for this key
 			const newValue = (() => {
-				if (typeof transformation === "function" && isNotUndefined(targetValue)) {
+				if (
+					typeof transformation === "function" && isNotUndefined(targetValue)
+				) {
 					return (transformation as Transformation)(targetValue)
 				} else if (
 					isNotNullish(transformation) && typeof transformation === "object"

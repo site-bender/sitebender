@@ -39,7 +39,6 @@ import isNullish from "../../validation/isNullish/index.ts"
 const join = <T>(separator: string) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
-): string =>
-	isNullish(array) ? "" : array.join(separator)
+): string => isNullish(array) ? "" : array.join(separator)
 
 export default join

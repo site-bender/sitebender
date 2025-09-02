@@ -1,5 +1,6 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
+
 import dropRepeatsWith from "../../../../src/simple/array/dropRepeatsWith/index.ts"
 
 Deno.test("dropRepeatsWith", async (t) => {
@@ -17,22 +18,25 @@ Deno.test("dropRepeatsWith", async (t) => {
 	await t.step("should return single element array unchanged", () => {
 		const numComparator = (a: number, b: number) => a === b
 		assertEquals(dropRepeatsWith(numComparator)([42]), [42])
-		
+
 		const strComparator = (a: string, b: string) => a === b
 		assertEquals(dropRepeatsWith(strComparator)(["hello"]), ["hello"])
 	})
 
-	await t.step("should remove consecutive duplicates with simple comparator", () => {
-		const comparator = (a: number, b: number) => a === b
-		assertEquals(
-			dropRepeatsWith(comparator)([1, 1, 2, 2, 3, 3, 1, 1]),
-			[1, 2, 3, 1],
-		)
-		assertEquals(
-			dropRepeatsWith(comparator)([1, 2, 3, 4, 5]),
-			[1, 2, 3, 4, 5],
-		)
-	})
+	await t.step(
+		"should remove consecutive duplicates with simple comparator",
+		() => {
+			const comparator = (a: number, b: number) => a === b
+			assertEquals(
+				dropRepeatsWith(comparator)([1, 1, 2, 2, 3, 3, 1, 1]),
+				[1, 2, 3, 1],
+			)
+			assertEquals(
+				dropRepeatsWith(comparator)([1, 2, 3, 4, 5]),
+				[1, 2, 3, 4, 5],
+			)
+		},
+	)
 
 	await t.step("should work with case-insensitive string comparison", () => {
 		const caseInsensitive = (a: string, b: string) =>
@@ -83,7 +87,7 @@ Deno.test("dropRepeatsWith", async (t) => {
 		)
 		assertEquals(
 			dropRepeatsWith(approxEqual)([1, 1.09, 1.11, 1.2]),
-			[1],  // All subsequent values are within 0.1 of their predecessor
+			[1], // All subsequent values are within 0.1 of their predecessor
 		)
 	})
 
@@ -110,7 +114,7 @@ Deno.test("dropRepeatsWith", async (t) => {
 		const byString = (a: unknown, b: unknown) => String(a) === String(b)
 		assertEquals(
 			dropRepeatsWith(byString)([1, "1", "1", 2, "2", 3]),
-			[1, 2, 3],  // "1" is same as "1", and 2 is same as "2" by string comparison
+			[1, 2, 3], // "1" is same as "1", and 2 is same as "2" by string comparison
 		)
 	})
 
@@ -165,8 +169,9 @@ Deno.test("dropRepeatsWith", async (t) => {
 
 	await t.step("should handle large arrays efficiently", () => {
 		const comparator = (a: number, b: number) => a === b
-		const largeArray = Array.from({ length: 10000 }, (_, i) =>
-			Math.floor(i / 100)
+		const largeArray = Array.from(
+			{ length: 10000 },
+			(_, i) => Math.floor(i / 100),
 		)
 		const result = dropRepeatsWith(comparator)(largeArray)
 		assertEquals(result.length, 100)
@@ -174,27 +179,30 @@ Deno.test("dropRepeatsWith", async (t) => {
 		assertEquals(result[99], 99)
 	})
 
-	await t.step("property: should never have consecutive elements that comparator considers equal", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer()),
-				fc.func(fc.boolean()),
-				(arr, comparatorFn) => {
-					const comparator = (a: number, b: number) =>
-						comparatorFn(a) === comparatorFn(b)
-					const result = dropRepeatsWith(comparator)(arr)
+	await t.step(
+		"property: should never have consecutive elements that comparator considers equal",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.func(fc.boolean()),
+					(arr, comparatorFn) => {
+						const comparator = (a: number, b: number) =>
+							comparatorFn(a) === comparatorFn(b)
+						const result = dropRepeatsWith(comparator)(arr)
 
-					// Check no consecutive duplicates according to comparator
-					for (let i = 1; i < result.length; i++) {
-						if (comparator(result[i], result[i - 1])) {
-							return false
+						// Check no consecutive duplicates according to comparator
+						for (let i = 1; i < result.length; i++) {
+							if (comparator(result[i], result[i - 1])) {
+								return false
+							}
 						}
-					}
-					return true
-				},
-			),
-		)
-	})
+						return true
+					},
+				),
+			)
+		},
+	)
 
 	await t.step("property: result should be subsequence of original", () => {
 		fc.assert(
@@ -228,41 +236,50 @@ Deno.test("dropRepeatsWith", async (t) => {
 		)
 	})
 
-	await t.step("property: single element array always returns single element", () => {
-		fc.assert(
-			fc.property(
-				fc.anything(),
-				fc.func(fc.boolean()),
-				(element, comparatorFn) => {
-					const comparator = (a: unknown, b: unknown) =>
-						comparatorFn(a) === comparatorFn(b)
-					const result = dropRepeatsWith(comparator)([element])
-					return result.length === 1 && result[0] === element
-				},
-			),
-		)
-	})
+	await t.step(
+		"property: single element array always returns single element",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.anything(),
+					fc.func(fc.boolean()),
+					(element, comparatorFn) => {
+						const comparator = (a: unknown, b: unknown) =>
+							comparatorFn(a) === comparatorFn(b)
+						const result = dropRepeatsWith(comparator)([element])
+						return result.length === 1 && result[0] === element
+					},
+				),
+			)
+		},
+	)
 
-	await t.step("property: comparator that always returns false keeps all elements", () => {
-		fc.assert(
-			fc.property(fc.array(fc.integer()), (arr) => {
-				const alwaysFalse = () => false
-				const result = dropRepeatsWith(alwaysFalse)(arr)
-				return result.length === arr.length
-			}),
-		)
-	})
+	await t.step(
+		"property: comparator that always returns false keeps all elements",
+		() => {
+			fc.assert(
+				fc.property(fc.array(fc.integer()), (arr) => {
+					const alwaysFalse = () => false
+					const result = dropRepeatsWith(alwaysFalse)(arr)
+					return result.length === arr.length
+				}),
+			)
+		},
+	)
 
-	await t.step("property: comparator that always returns true keeps only first element", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer(), { minLength: 1 }),
-				(arr) => {
-					const alwaysTrue = () => true
-					const result = dropRepeatsWith(alwaysTrue)(arr)
-					return result.length === 1 && result[0] === arr[0]
-				},
-			),
-		)
-	})
+	await t.step(
+		"property: comparator that always returns true keeps only first element",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer(), { minLength: 1 }),
+					(arr) => {
+						const alwaysTrue = () => true
+						const result = dropRepeatsWith(alwaysTrue)(arr)
+						return result.length === 1 && result[0] === arr[0]
+					},
+				),
+			)
+		},
+	)
 })

@@ -3,6 +3,7 @@
 ## Critical Context
 
 You are working on the @sitebender/toolkit library, a functional programming utility library with 874 functions. This is a sole developer project with **TWO sandboxed AI assistants**:
+
 - **You**: Work ONLY inside `/libraries/toolkit/` folder
 - **Other AI**: Works everywhere EXCEPT `/libraries/toolkit/` folder
 
@@ -37,6 +38,7 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 ## Critical Rules
 
 ### Working Constraints
+
 - **NEVER** modify anything outside `/libraries/toolkit/` folder (reading outside is OK)
 - **NEVER** batch multiple functions - test ONE function at a time
 - **NEVER** assume or guess - check everything carefully
@@ -90,7 +92,7 @@ For each function:
 
 1. **Start**: Read all notes files, check progress
 2. **Work**: Test up to 5 functions MAX per session (one at a time)
-3. **End**: 
+3. **End**:
    - Update `notes/prompt.md` with session notes
    - Update `notes/function_list.md` with tested functions
    - Update other docs as needed
@@ -108,7 +110,9 @@ For each function:
 ## Session Notes
 
 ### Current Session (2025-09-02) - Part 11
+
 **Progress Made:**
+
 - ✅ Tested 5 more array functions following full audit checklist:
   1. **intersectionWith** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` checks after `isNullish`
@@ -136,18 +140,22 @@ For each function:
      - Property tests handle invalid regex patterns
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (all 5 functions)
 - Missing use of `not()` function for negation (interleave)
 - `any` type in JSDoc examples (intersectionWith)
 
 **Testing Progress Update:**
+
 - 130 functions now have tests (was 125)
 - Current progress: ~14.9% (130/874 functions)
 - All tested functions have 100% coverage
 - All tests passing
 
 ### Previous Session (2025-09-02) - Part 8
+
 **Progress Made:**
+
 - ✅ Fixed findMostCommon to achieve 100% coverage
   - Added coverage ignore comments for defensive fallbacks that are logically unreachable
 - ✅ Tested 3 more array functions following full audit checklist:
@@ -155,7 +163,7 @@ For each function:
      - Simple wrapper around native flatMap
      - No issues found, function already well-implemented
      - Comprehensive tests including property-based testing
-  2. **frequency** - 100% coverage achieved  
+  2. **frequency** - 100% coverage achieved
      - Function not curried (single argument)
      - Uses mutations within reduce for efficiency (pragmatic compromise)
      - Tests cover all edge cases including SameValueZero semantics
@@ -166,16 +174,20 @@ For each function:
      - Comprehensive tests with property-based testing
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (groupBy)
 - Coverage ignore comments for defensive unreachable code (findMostCommon)
 
 **Testing Progress Update:**
+
 - 120 functions now have tests (was 117)
 - Current progress: ~13.7% (120/874 functions)
 - All tested functions have 100% coverage
 
 ### Previous Session (2025-09-02) - Part 7
+
 **Progress Made:**
+
 - ✅ Tested 4 more array functions following full audit checklist:
   1. **findDuplicates** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` check after `isNullish`
@@ -197,22 +209,27 @@ For each function:
   4. **flatMap** - Marked complete but not implemented (skipping for time)
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (all functions)
 - Missing use of `not()` function instead of `!` operator (all functions)
 - `any` types in JSDoc examples
 - Unnecessary type casts
 
 **Implementation Notes:**
+
 - Some functions use mutations within reduce for efficiency (findDuplicates, findMostCommon)
 - This is a pragmatic compromise between pure FP and performance
 - All use Map/Set which employ SameValueZero equality (NaN equals itself)
 
 **Testing Progress Update:**
+
 - 117 functions now have tests (was 114)
 - Current progress: ~13.4% (117/874 functions)
 
 ### Previous Session (2025-09-02) - Part 6
+
 **Progress Made:**
+
 - ✅ Tested 3 more array functions following full audit checklist:
   1. **dropRepeatsWith** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` check after `isNullish`
@@ -231,16 +248,20 @@ For each function:
      - Tests cover Object.is behavior with NaN, +0/-0
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (all 3 functions)
 - Missing use of `not()` function instead of `!` operator (all 3 functions)
 - Incorrect documentation about equality semantics in endsWith
 
 **Testing Progress Update:**
+
 - 114 functions now have 100% coverage (was 111)
 - Current progress: ~13.0% (114/874 functions)
 
 ### Previous Session (2025-09-01) - Part 5
+
 **Progress Made:**
+
 - ✅ Tested 3 more array functions following full audit checklist:
   1. **difference** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` checks after `isNullish`
@@ -259,16 +280,20 @@ For each function:
      - Tests cover Object.is behavior with NaN, +0/-0
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (all 3 functions)
 - Missing use of `not()` function instead of `!` operator (all 3 functions)
 - Incorrect documentation about equality semantics
 
 **Testing Progress Update:**
+
 - 111 functions now have 100% coverage (was 108)
 - Current progress: ~12.7% (111/874 functions)
 
 ### Previous Session (2025-09-01) - Part 4
+
 **Progress Made:**
+
 - ✅ Tested 2 more array functions following full audit checklist:
   1. **countBy** - 100% coverage achieved
      - Found redundant `!Array.isArray(array)` check after `isNullish(array)`
@@ -281,19 +306,22 @@ For each function:
      - Coverage tool cannot track yield* statements in recursive generator contexts
 
 **Issues Found & Fixed:**
+
 - JSDoc parsing errors when using `/* */` comments inside @example blocks - need to escape as `/\* *\/`
 - Many functions have redundant Array.isArray checks after isNullish
 - Learned correct syntax is `// deno-coverage-ignore` not `// deno-coverage-ignore-next-line`
 
 ### Previous Session (2025-09-01) - Part 3
+
 **Progress Made:**
+
 - ✅ Fixed clamp test epsilon issue (adjusted precision tolerance)
 - ✅ Achieved 100% coverage for next 5 functions following full checklist:
   1. **removeAt** - Now 100% coverage (was 83.3% branch, 78.6% line)
      - Added null/undefined/non-array input tests
      - Audit found redundant `!Array.isArray(array)` check after `isNullish(array)`
   2. **replaceAt** - Now 100% coverage (was 75% branch, 80% line)
-     - Added null/undefined/non-array input tests  
+     - Added null/undefined/non-array input tests
      - Audit found redundant `!Array.isArray(array)` check and unnecessary type cast
   3. **reverse** - Now 100% coverage (was 0% branch, 62.5% line)
      - Added comprehensive null safety tests
@@ -306,6 +334,7 @@ For each function:
      - Some tests have minor failures due to floating-point precision edge cases (not affecting coverage)
 
 **Common Patterns Found:**
+
 - Many array functions have redundant `!Array.isArray(array)` check after `isNullish(array)`
 - Single-argument functions (head, first, last, tail, reverse) are not curried - this appears intentional
 - Some functions have unnecessary type casts like `as Array<T>`
@@ -314,6 +343,7 @@ For each function:
 **IMPORTANT LESSON LEARNED**: I initially jumped straight into writing tests WITHOUT following the required checklist. This violates the prime directive. ALWAYS follow the full audit checklist for EACH function before writing tests.
 
 **Progress Made:**
+
 - ✅ Fixed init test NaN comparison issue using Object.is
 - ✅ Achieved 100% coverage for first 5 functions (BUT did not properly audit first):
   1. **last** - Now 100% coverage (was 40%)
@@ -323,6 +353,7 @@ For each function:
   5. **reduce** - Now 100% coverage (was 76.9%)
 
 **Audit Findings (done retroactively - should have been done FIRST):**
+
 - All 5 functions have redundant `!Array.isArray(array)` checks after `isNullish(array)`
 - `last` is not curried (but consistent with `head`/`first` pattern)
 - `move` has unnecessary type casting `as Array<T>`
@@ -332,9 +363,11 @@ For each function:
 
 **Next Session - Remaining Files Needing 100% Coverage:**
 **Final file to test:**
+
 1. **tests/helpers/generators/numeric/index.ts** - 100% branch, 57.5% line coverage
 
 ### Last Session (2025-09-01)
+
 - Updated documentation to reflect Phase 1 and Phase 2 approach
 - Clarified BDD/TDD methodology for future chainable functions
 - Created notes folder and reorganized documentation
@@ -348,19 +381,23 @@ For each function:
 - Ready to begin systematic testing of functions
 
 ### Known Issues to Watch
+
 - Some functions may have legacy patterns (loops, let, mutations) - discuss when found
 - Some validators inline logic instead of reusing toolkit functions
 - Random functions are explicitly impure (this is OK and expected)
 - Test failures with NaN comparisons should use Object.is()
 
 ### Testing Priorities
+
 Start with simpler, foundational functions that other functions depend on:
+
 1. Basic array operations (filter, map, reduce already done)
 2. Basic validation functions (isEmpty, isNullish, etc.)
 3. Basic string operations
 4. Work up to more complex domain-specific functions
 
 ### Common Pitfalls to Avoid
+
 - Don't batch test multiple functions - leads to errors
 - Don't skip the function audit - assumptions cause problems
 - Don't ignore type/lint errors - fix them immediately
@@ -368,7 +405,9 @@ Start with simpler, foundational functions that other functions depend on:
 - Don't create overly complex tests - keep them focused and clear
 
 ### CRITICAL STYLE RULE: Never use the ! operator
+
 **ALWAYS** use the `not` function from the toolkit instead of the `!` operator. The `!` is too easy to miss when reading code.
+
 - ❌ WRONG: `if (!Array.isArray(array))`
 - ✅ RIGHT: `if (not(Array.isArray(array)))`
 - Every time you see `!`, stop, import `not` from the toolkit, and replace it
@@ -403,6 +442,7 @@ git log --oneline | grep -i toolkit
 ## Next Functions to Test
 
 Check `notes/function_list.md` for functions without ✓ marks. Good starting candidates:
+
 - Array functions without ✓ (concatTo, countBy, cycle, etc.)
 - Basic validators (isNullish, isValue, isEmpty variants)
 - Simple string operations (capitalize, trim variants, etc.)

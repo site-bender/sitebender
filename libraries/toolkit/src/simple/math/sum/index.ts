@@ -1,6 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
-
 import isEmpty from "../../array/isEmpty/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Sums all numbers in an array

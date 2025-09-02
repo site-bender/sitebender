@@ -1,7 +1,7 @@
 import type { HydratedAverage } from "../../../../types/hydrated/index.ts"
 import type {
-	EngineError,
 	Either,
+	EngineError,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
@@ -12,7 +12,6 @@ const mean = (op: HydratedAverage): OperationFunction<number> =>
 (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<EngineError>, number>> =>
-	average(op)(arg, localValues)
+): Promise<Either<Array<EngineError>, number>> => average(op)(arg, localValues)
 
 export default mean

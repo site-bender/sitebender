@@ -1,10 +1,6 @@
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
-import type {
-	EngineError,
-	Either,
-	Value,
-} from "../../../../../types/index.ts"
+import type { Either, EngineError, Value } from "../../../../../types/index.ts"
 
 export type SelectorOp = {
 	id?: string

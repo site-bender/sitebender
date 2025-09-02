@@ -1,6 +1,6 @@
+import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
-import * as fc from "fast-check"
 
 import groupBy from "../../../../src/simple/array/groupBy/index.ts"
 
@@ -9,13 +9,13 @@ describe("groupBy", () => {
 		const people = [
 			{ name: "Alice", age: 30 },
 			{ name: "Bob", age: 25 },
-			{ name: "Charlie", age: 30 }
+			{ name: "Charlie", age: 30 },
 		]
 		const result = groupBy((p: { name: string; age: number }) => p.age)(people)
 		assertEquals(result["25"], [{ name: "Bob", age: 25 }])
 		assertEquals(result["30"], [
 			{ name: "Alice", age: 30 },
-			{ name: "Charlie", age: 30 }
+			{ name: "Charlie", age: 30 },
 		])
 	})
 
@@ -63,25 +63,36 @@ describe("groupBy", () => {
 	})
 
 	it("groups strings by length", () => {
-		const result = groupBy((s: string) => s.length)(["a", "bb", "ccc", "dd", "e"])
+		const result = groupBy((s: string) => s.length)([
+			"a",
+			"bb",
+			"ccc",
+			"dd",
+			"e",
+		])
 		assertEquals(result, {
 			"1": ["a", "e"],
 			"2": ["bb", "dd"],
-			"3": ["ccc"]
+			"3": ["ccc"],
 		})
 	})
 
 	it("groups strings by first character", () => {
-		const result = groupBy((s: string) => s[0])(["apple", "banana", "apricot", "berry"])
+		const result = groupBy((s: string) => s[0])([
+			"apple",
+			"banana",
+			"apricot",
+			"berry",
+		])
 		assertEquals(result, {
 			"a": ["apple", "apricot"],
-			"b": ["banana", "berry"]
+			"b": ["banana", "berry"],
 		})
 	})
 
 	it("handles special values as keys", () => {
 		const result = groupBy((x: any) => x)(
-			[null, undefined, NaN, true, false]
+			[null, undefined, NaN, true, false],
 		)
 		assertEquals(result["null"], [null])
 		assertEquals(result["undefined"], [undefined])
@@ -96,17 +107,17 @@ describe("groupBy", () => {
 			{ id: 2, type: "b" },
 			{ id: 3, type: "a" },
 			{ id: 4, type: "b" },
-			{ id: 5, type: "a" }
+			{ id: 5, type: "a" },
 		]
 		const result = groupBy((x: { id: number; type: string }) => x.type)(data)
 		assertEquals(result.a, [
 			{ id: 1, type: "a" },
 			{ id: 3, type: "a" },
-			{ id: 5, type: "a" }
+			{ id: 5, type: "a" },
 		])
 		assertEquals(result.b, [
 			{ id: 2, type: "b" },
-			{ id: 4, type: "b" }
+			{ id: 4, type: "b" },
 		])
 	})
 
@@ -115,7 +126,7 @@ describe("groupBy", () => {
 			new Date("2023-01-15"),
 			new Date("2024-06-20"),
 			new Date("2023-12-25"),
-			new Date("2024-03-10")
+			new Date("2024-03-10"),
 		]
 		const result = groupBy((d: Date) => d.getFullYear())(dates)
 		assertEquals(result["2023"].length, 2)
@@ -136,10 +147,10 @@ describe("groupBy", () => {
 	it("is curried", () => {
 		const groupByType = groupBy((x: { type: string; value: number }) => x.type)
 		assert(typeof groupByType === "function")
-		
+
 		const data1 = [{ type: "A", value: 1 }]
 		const data2 = [{ type: "B", value: 2 }]
-		
+
 		assertEquals(groupByType(data1), { "A": [{ type: "A", value: 1 }] })
 		assertEquals(groupByType(data2), { "B": [{ type: "B", value: 2 }] })
 	})
@@ -154,12 +165,12 @@ describe("groupBy", () => {
 	it("handles large arrays efficiently", () => {
 		const largeArray = Array.from({ length: 10000 }, (_, i) => ({
 			id: i,
-			group: i % 100
+			group: i % 100,
 		}))
 		const result = groupBy((x: { group: number }) => x.group)(largeArray)
 		assertEquals(Object.keys(result).length, 100)
 		// Each group should have 100 items
-		Object.values(result).forEach(group => {
+		Object.values(result).forEach((group) => {
 			assertEquals(group.length, 100)
 		})
 	})
@@ -171,7 +182,13 @@ describe("groupBy", () => {
 	})
 
 	it("groups by boolean values", () => {
-		const result = groupBy((n: number) => n > 0 ? "positive" : "non-positive")([1, -1, 2, -2, 0])
+		const result = groupBy((n: number) => n > 0 ? "positive" : "non-positive")([
+			1,
+			-1,
+			2,
+			-2,
+			0,
+		])
 		assertEquals(result["positive"], [1, 2])
 		assertEquals(result["non-positive"], [-1, -2, 0])
 	})
@@ -180,13 +197,13 @@ describe("groupBy", () => {
 		// These are property names that exist on Object.prototype
 		const result1 = groupBy(() => "toString")([1, 2, 3])
 		assertEquals(result1["toString"], [1, 2, 3])
-		
+
 		const result2 = groupBy(() => "valueOf")([1, 2])
 		assertEquals(result2["valueOf"], [1, 2])
-		
+
 		const result3 = groupBy(() => "constructor")([1])
 		assertEquals(result3["constructor"], [1])
-		
+
 		const result4 = groupBy(() => "hasOwnProperty")([1, 2])
 		assertEquals(result4["hasOwnProperty"], [1, 2])
 	})
@@ -202,9 +219,9 @@ describe("groupBy", () => {
 						const grouped = groupBy(keyFn)(arr)
 						const allElements = Object.values(grouped).flat()
 						assertEquals(allElements.length, arr.length)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -215,17 +232,17 @@ describe("groupBy", () => {
 					(arr) => {
 						const grouped = groupBy((x: number) => x % 3)(arr)
 						const groups = Object.values(grouped)
-						
+
 						// Check each element appears exactly once across all groups
-						arr.forEach(element => {
-							const appearances = groups.filter(group => 
+						arr.forEach((element) => {
+							const appearances = groups.filter((group) =>
 								group.includes(element)
 							).length
 							assertEquals(appearances, appearances > 0 ? 1 : 0)
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -236,9 +253,9 @@ describe("groupBy", () => {
 					(keyFn) => {
 						const result = groupBy(keyFn)([])
 						assertEquals(result, {})
-					}
+					},
 				),
-				{ numRuns: 50 }
+				{ numRuns: 50 },
 			)
 		})
 
@@ -251,9 +268,9 @@ describe("groupBy", () => {
 						const result = groupBy(() => constantKey)(arr)
 						assertEquals(Object.keys(result).length, 1)
 						assertEquals(result[String(constantKey)], arr)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -265,14 +282,14 @@ describe("groupBy", () => {
 						// Use unique array to ensure identity creates singletons
 						const unique = Array.from(new Set(arr))
 						const result = groupBy((x: number) => x)(unique)
-						
-						Object.values(result).forEach(group => {
+
+						Object.values(result).forEach((group) => {
 							assertEquals(group.length, 1)
 						})
 						assertEquals(Object.keys(result).length, unique.length)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -282,17 +299,17 @@ describe("groupBy", () => {
 					fc.array(fc.tuple(fc.integer(), fc.integer({ min: 0, max: 5 }))),
 					(pairs) => {
 						const result = groupBy((p: [number, number]) => p[1])(pairs)
-						
-						Object.values(result).forEach(group => {
+
+						Object.values(result).forEach((group) => {
 							// Check that indices in original array are increasing
-							const indices = group.map(item => pairs.indexOf(item))
+							const indices = group.map((item) => pairs.indexOf(item))
 							for (let i = 1; i < indices.length; i++) {
 								assert(indices[i] > indices[i - 1])
 							}
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

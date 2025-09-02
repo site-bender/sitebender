@@ -6,8 +6,8 @@
  * @returns {string} The formatted credit card number.
  */
 export default function creditCard(value: string): string {
-  const digitsOnly = value.replace(/\D/g, "").slice(0, 16);
-  const groups = digitsOnly.match(/(\d{1,4})/g) || [];
+	const digitsOnly = value.replace(/\D/g, "").slice(0, 16)
+	const groups = digitsOnly.match(/(\d{1,4})/g) || []
 
-  return groups.join(" ");
+	return groups.join(" ")
 }

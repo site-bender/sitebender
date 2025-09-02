@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import difference from "../../../../src/simple/array/difference/index.ts"
 
@@ -27,7 +27,7 @@ Deno.test("difference", async (t) => {
 
 		await t.step("handles duplicate values in first array", () => {
 			const result = difference([2])([1, 1, 2, 3, 3])
-			assertEquals(result, [1, 1, 3, 3])  // Preserves duplicates
+			assertEquals(result, [1, 1, 3, 3]) // Preserves duplicates
 		})
 
 		await t.step("handles duplicate values in second array", () => {
@@ -135,7 +135,11 @@ Deno.test("difference", async (t) => {
 		})
 
 		await t.step("handles undefined in arrays", () => {
-			const result = difference<number | undefined>([undefined])([1, undefined, 2])
+			const result = difference<number | undefined>([undefined])([
+				1,
+				undefined,
+				2,
+			])
 			assertEquals(result, [1, 2])
 		})
 	})
@@ -143,7 +147,14 @@ Deno.test("difference", async (t) => {
 	await t.step("currying", async (t) => {
 		await t.step("supports partial application", () => {
 			const removeStopWords = difference(["the", "a", "an", "and"])
-			const result = removeStopWords(["the", "quick", "brown", "fox", "and", "lazy"])
+			const result = removeStopWords([
+				"the",
+				"quick",
+				"brown",
+				"fox",
+				"and",
+				"lazy",
+			])
 			assertEquals(result, ["quick", "brown", "fox", "lazy"])
 		})
 
@@ -155,7 +166,6 @@ Deno.test("difference", async (t) => {
 		})
 	})
 
-
 	await t.step("property-based tests", async (t) => {
 		await t.step("difference with empty array returns original", () => {
 			fc.assert(
@@ -163,7 +173,7 @@ Deno.test("difference", async (t) => {
 					const result = difference<unknown>([])(arr)
 					assertEquals(result, arr)
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -173,7 +183,7 @@ Deno.test("difference", async (t) => {
 					const result = difference(arr)(arr)
 					assertEquals(result, [])
 				}),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -186,12 +196,12 @@ Deno.test("difference", async (t) => {
 						const result = difference(arr2)(arr1)
 						// Every element in result must be in arr1
 						assertEquals(
-							result.every(elem => arr1.includes(elem)),
-							true
+							result.every((elem) => arr1.includes(elem)),
+							true,
 						)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -204,12 +214,12 @@ Deno.test("difference", async (t) => {
 						const result = difference(arr2)(arr1)
 						// No element in result should be in arr2
 						assertEquals(
-							result.every(elem => !arr2.includes(elem)),
-							true
+							result.every((elem) => !arr2.includes(elem)),
+							true,
 						)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -222,24 +232,27 @@ Deno.test("difference", async (t) => {
 						const result = difference(arr2)(arr1)
 						// The result should be exactly what we get from filtering arr1
 						// This checks both that elements are preserved and order is maintained
-						const expected = arr1.filter(x => !arr2.includes(x))
+						const expected = arr1.filter((x) => !arr2.includes(x))
 						assertEquals(result, expected)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
-		await t.step("difference is commutative with respect to empty result", () => {
-			fc.assert(
-				fc.property(fc.array(fc.integer()), (arr) => {
-					// If A - B is empty, then A is subset of B
-					const result1 = difference(arr)(arr)
-					assertEquals(result1, [])
-				}),
-				{ numRuns: 100 }
-			)
-		})
+		await t.step(
+			"difference is commutative with respect to empty result",
+			() => {
+				fc.assert(
+					fc.property(fc.array(fc.integer()), (arr) => {
+						// If A - B is empty, then A is subset of B
+						const result1 = difference(arr)(arr)
+						assertEquals(result1, [])
+					}),
+					{ numRuns: 100 },
+				)
+			},
+		)
 
 		await t.step("handles null and undefined consistently", () => {
 			fc.assert(
@@ -249,7 +262,7 @@ Deno.test("difference", async (t) => {
 					assertEquals(resultNull, arr)
 					assertEquals(resultUndefined, arr)
 				}),
-				{ numRuns: 50 }
+				{ numRuns: 50 },
 			)
 		})
 	})

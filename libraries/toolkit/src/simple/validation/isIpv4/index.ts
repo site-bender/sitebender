@@ -70,7 +70,7 @@ const isIpv4 = (value: unknown): boolean => {
 	}
 
 	// Validate each octet
-	return octets.every(octet => {
+	return octets.every((octet) => {
 		// Check for empty octet
 		if (octet.length === 0) {
 			return false

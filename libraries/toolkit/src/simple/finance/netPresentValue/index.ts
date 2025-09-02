@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the net present value of cash flows
@@ -64,7 +64,9 @@ const netPresentValue = (
 	}
 
 	// Validate all cash flows are numbers
-	if (!cashFlows.every((flow) => isNotNullish(flow) && typeof flow === "number")) {
+	if (
+		!cashFlows.every((flow) => isNotNullish(flow) && typeof flow === "number")
+	) {
 		return NaN
 	}
 

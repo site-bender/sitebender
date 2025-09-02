@@ -1,13 +1,13 @@
-import {
-	assert,
-	assertEquals,
-} from "https://deno.land/std@0.224.0/assert/mod.ts"
-
 import type {
 	ActionNode,
 	InjectorNode,
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
+
+import {
+	assert,
+	assertEquals,
+} from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import { compileToEngine } from "../../src/compile.ts"
 import SetValue from "../../src/transform/actions/SetValue/index.tsx"

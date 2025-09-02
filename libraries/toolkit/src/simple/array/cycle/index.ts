@@ -66,7 +66,7 @@ function* cycle<T>(
 		yield* validArray
 		// deno-coverage-ignore - Coverage tool cannot track yield* in recursive generator context
 		yield* cycleRecursive()
-	// deno-coverage-ignore - Generator function closing brace not detected by coverage tool
+		// deno-coverage-ignore - Generator function closing brace not detected by coverage tool
 	}
 
 	// deno-coverage-ignore - Coverage tool cannot track yield* delegation to recursive generator
