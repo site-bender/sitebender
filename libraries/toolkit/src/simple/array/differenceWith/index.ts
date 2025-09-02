@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns elements in the first array that are not in the second array using a comparator
@@ -52,19 +53,19 @@ const differenceWith = <T, U>(
 (
 	minuend: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(minuend) || !Array.isArray(minuend)) {
+	if (isNullish(minuend)) {
 		return []
 	}
 
 	if (
-		isNullish(subtrahend) || !Array.isArray(subtrahend) ||
+		isNullish(subtrahend) ||
 		subtrahend.length === 0
 	) {
 		return [...minuend]
 	}
 
 	return minuend.filter((element) =>
-		!subtrahend.some((excludeElement) => comparator(element, excludeElement))
+		not(subtrahend.some((excludeElement) => comparator(element, excludeElement)))
 	)
 }
 

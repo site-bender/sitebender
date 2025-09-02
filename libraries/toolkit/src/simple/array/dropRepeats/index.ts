@@ -1,10 +1,11 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns a new array without consecutive duplicate elements
  *
  * Removes consecutive duplicate elements from an array, keeping only the
- * first occurrence of each run of duplicates. Uses SameValueZero equality
+ * first occurrence of each run of duplicates. Uses Object.is (SameValue) equality
  * for comparison. This is useful for cleaning up data with repeated values,
  * compressing sequences, or removing stuttering in time series data.
  *
@@ -29,7 +30,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * dropRepeats([1])         // [1]
  * dropRepeats([5, 5, 5])   // [5]
  *
- * // NaN handling (SameValueZero equality)
+ * // NaN handling (Object.is treats NaN as equal to itself)
  * dropRepeats([NaN, NaN, 1, 1, NaN])
  * // [NaN, 1, NaN]
  *
@@ -45,7 +46,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const dropRepeats = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
@@ -54,7 +55,7 @@ const dropRepeats = <T>(
 	}
 
 	return array.reduce((acc: Array<T>, curr, index) => {
-		if (index === 0 || !Object.is(curr, array[index - 1])) {
+		if (index === 0 || not(Object.is(curr, array[index - 1]))) {
 			return [...acc, curr]
 		}
 		return acc

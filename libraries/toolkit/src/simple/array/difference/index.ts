@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns elements in the first array that are not in the second array
@@ -7,8 +8,6 @@ import isNullish from "../../validation/isNullish/index.ts"
  * only the elements from the first array that don't appear in the second.
  * Uses strict equality (===) for comparison by default.
  *
- * @compatibility Uses native Set.difference when available (ES2025, ~84% browser support).
- * Falls back to filter-based implementation for older browsers (Opera Mobile, IE).
  *
  * @param subtrahend - Array of elements to exclude
  * @param minuend - Array to filter elements from
@@ -52,27 +51,22 @@ const difference = <T>(
 (
 	minuend: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(minuend) || !Array.isArray(minuend)) {
+	if (isNullish(minuend)) {
 		return []
 	}
 
 	if (
-		isNullish(subtrahend) || !Array.isArray(subtrahend) ||
+		isNullish(subtrahend) ||
 		subtrahend.length === 0
 	) {
 		return [...minuend]
 	}
 
-	const set1 = new Set(minuend)
 	const set2 = new Set(subtrahend)
 
-	// Use native Set.difference if available (ES2025)
-	if ("difference" in Set.prototype && typeof set1.difference === "function") {
-		return Array.from(set1.difference(set2))
-	}
-
-	// Fallback: Use filter for O(n) time with O(1) lookups
-	return minuend.filter((element) => !set2.has(element))
+	// Use filter for O(n) time with O(1) lookups
+	// This preserves duplicates in the minuend
+	return minuend.filter((element) => not(set2.has(element)))
 }
 
 export default difference

@@ -107,9 +107,36 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-01) - Part 4
+### Current Session (2025-09-01) - Part 5
 **Progress Made:**
-- ✅ Fixed JSDoc comment parsing issues in startsWith and isIpv4 (escaped /* */ in examples)
+- ✅ Tested 3 more array functions following full audit checklist:
+  1. **difference** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` checks after `isNullish`
+     - Replaced `!` operator with `not()` function
+     - Removed Set.difference usage for consistent behavior (preserves duplicates)
+     - Comprehensive tests with property-based testing
+  2. **differenceWith** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` checks
+     - Replaced `!` operator with `not()` function
+     - Added tests for various comparator behaviors
+     - Tested with different types for minuend and subtrahend
+  3. **dropRepeats** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check
+     - Replaced `!` operator with `not()` function
+     - Corrected JSDoc to mention Object.is (SameValue) not SameValueZero
+     - Tests cover Object.is behavior with NaN, +0/-0
+
+**Common Issues Fixed:**
+- Redundant `!Array.isArray` checks after `isNullish` (all 3 functions)
+- Missing use of `not()` function instead of `!` operator (all 3 functions)
+- Incorrect documentation about equality semantics
+
+**Testing Progress Update:**
+- 111 functions now have 100% coverage (was 108)
+- Current progress: ~12.7% (111/874 functions)
+
+### Previous Session (2025-09-01) - Part 4
+**Progress Made:**
 - ✅ Tested 2 more array functions following full audit checklist:
   1. **countBy** - 100% coverage achieved
      - Found redundant `!Array.isArray(array)` check after `isNullish(array)`
@@ -125,11 +152,6 @@ For each function:
 - JSDoc parsing errors when using `/* */` comments inside @example blocks - need to escape as `/\* *\/`
 - Many functions have redundant Array.isArray checks after isNullish
 - Learned correct syntax is `// deno-coverage-ignore` not `// deno-coverage-ignore-next-line`
-- Must achieve 100% coverage or get explicit permission for coverage ignore comments
-
-**Testing Progress Update:**
-- 108 functions now have 100% coverage (was 106)
-- Current progress: ~12.3% (108/874 functions)
 
 ### Previous Session (2025-09-01) - Part 3
 **Progress Made:**

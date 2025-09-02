@@ -574,3 +574,7 @@ This approach makes the page feel much more natural and content-rich. The `<Text
 - Keep the public DSL vocabulary ruthlessly small until we lock the IR. Prefer adding compiler passes over adding DSL elements.
 - Enforce “no JS in DSL” at the type level; expressions are only trees of constructors/markers.
 - Emit explanations: every compiler transform should be inspectable to build trust and aid AI. [Editor: absolutely!]
+
+Regarding our back end services (fuseki, visualization, etc. and the site API), should we be considering microservices? How would we best implment them without making the classic microservice mistakes?
+
+Also, how is our devops and devsecops looking? What could be improved?
