@@ -9,7 +9,7 @@ import type {
 	EventBindingNode,
 	IrDocument,
 	OperatorNode,
-} from "../../../adaptive/types/ir/index.ts"
+} from "@engineTypes/ir/index.ts"
 
 import { compileToAdaptive } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"

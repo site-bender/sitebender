@@ -62,7 +62,7 @@ This project (@sitebender) includes a documentation app that uses the associated
 
 There are three libraries that are part of the @sitebender project:
 
-1. The `@sitebender/adaptive` library provides adaptive components for responsive design.
+1. The `@sitebender/engine` library provides adaptive components for responsive design.
 2. The `@sitebender/components` library offers a set of accessible UI components.
 3. The `@sitebender/toolkit` library includes utility functions and components.
 
@@ -77,10 +77,10 @@ This is a dual-purpose codebase with strict separation:
   - MUST use relative imports only (no aliases)
   - Self-contained with no external dependencies
   - Version maintained in `lib/deno.json`
-  - Three libraries
-    - `@sitebender/adaptive` - Adaptive components for responsive design
-    - `@sitebender/components` - Accessible UI components
-    - `@sitebender/toolkit` - Utility functions and components
+   - Three libraries
+      - `@sitebender/engine` - Declarative behavior engine
+      - `@sitebender/components` - Accessible UI components
+      - `@sitebender/toolkit` - Utility functions and components
 
 - **`/docs/`** - Documentation site
   - Should use path mapping aliases (~components, ~constants, etc.)

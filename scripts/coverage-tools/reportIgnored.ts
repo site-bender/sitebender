@@ -17,7 +17,7 @@ const ROOT = new URL("../../", import.meta.url)
 const SCAN_DIRS = [
   "docs",
   "jexer",
-  "libraries/adaptive",
+  "libraries/engine",
   "libraries/components",
   "libraries/toolkit",
   "scripts",

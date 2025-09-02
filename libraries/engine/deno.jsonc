@@ -11,8 +11,8 @@
 
 	"tasks": {
 		// Run tests - all behavioral tests together
-		"test": "deno test --unstable-temporal tests/ --allow-read",
-		"test:watch": "deno test --unstable-temporal tests/ --allow-read --watch",
+		"name": "@sitebender/engine",
+		"description": "Declarative behavior engine for adaptive UIs with progressive enhancement.",
 		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
 
 		// Code quality (inherits config from root workspace)

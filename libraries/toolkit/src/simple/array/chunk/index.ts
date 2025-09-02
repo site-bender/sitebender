@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Splits an array into chunks of specified size
@@ -46,11 +47,11 @@ const chunk = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
-	if (size <= 0 || !Number.isInteger(size)) {
+	if (size <= 0 || not(Number.isInteger(size))) {
 		return []
 	}
 

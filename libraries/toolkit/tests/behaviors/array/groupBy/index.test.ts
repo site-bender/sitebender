@@ -11,7 +11,7 @@ describe("groupBy", () => {
 			{ name: "Bob", age: 25 },
 			{ name: "Charlie", age: 30 }
 		]
-		const result = groupBy((p: { age: number }) => p.age)(people)
+		const result = groupBy((p: { name: string; age: number }) => p.age)(people)
 		assertEquals(result["25"], [{ name: "Bob", age: 25 }])
 		assertEquals(result["30"], [
 			{ name: "Alice", age: 30 },
@@ -98,7 +98,7 @@ describe("groupBy", () => {
 			{ id: 4, type: "b" },
 			{ id: 5, type: "a" }
 		]
-		const result = groupBy((x: { type: string }) => x.type)(data)
+		const result = groupBy((x: { id: number; type: string }) => x.type)(data)
 		assertEquals(result.a, [
 			{ id: 1, type: "a" },
 			{ id: 3, type: "a" },
@@ -134,7 +134,7 @@ describe("groupBy", () => {
 	})
 
 	it("is curried", () => {
-		const groupByType = groupBy((x: { type: string }) => x.type)
+		const groupByType = groupBy((x: { type: string; value: number }) => x.type)
 		assert(typeof groupByType === "function")
 		
 		const data1 = [{ type: "A", value: 1 }]

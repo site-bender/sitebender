@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import type { InjectorNode, IrDocument } from "../../../adaptive/types/ir/index.ts"
+import type { InjectorNode, IrDocument } from "@engineTypes/ir/index.ts"
 
 import { compileToAdaptive } from "../../src/compile.ts"
 import FromAuthentication from "../../src/constructors/injectors/From/Authenticator/index.tsx"
@@ -21,8 +21,8 @@ Deno.test("From.Authenticator lowers to IR injector with path", () => {
       FromAuthentication({ path: "claims.sub" }) as unknown as JSX.Element,
     ] } as unknown as JSX.Element }) as unknown as JSX.Element,
   ]) as IrDocument
-  const evt = ir.children[0] as unknown as import("../../../adaptive/types/ir/index.ts").EventBindingNode
-  const handler = evt.handler as import("../../../adaptive/types/ir/index.ts").ActionNode
+  const evt = ir.children[0] as unknown as import("@engineTypes/ir/index.ts").EventBindingNode
+  const handler = evt.handler as import("@engineTypes/ir/index.ts").ActionNode
   const inj = handler.args[1] as InjectorNode
   assertEquals(inj.kind, "injector")
   assertEquals(inj.injector, "From.Authenticator")

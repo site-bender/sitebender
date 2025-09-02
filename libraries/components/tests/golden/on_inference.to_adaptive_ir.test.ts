@@ -7,7 +7,7 @@ import type {
 	ActionNode,
 	InjectorNode,
 	IrDocument,
-} from "../../../adaptive/types/ir/index.ts"
+} from "@engineTypes/ir/index.ts"
 
 import { compileToAdaptive } from "../../src/compile.ts"
 import SetValue from "../../src/transform/actions/SetValue/index.tsx"

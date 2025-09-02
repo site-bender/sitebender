@@ -77,13 +77,13 @@ Use this prompt at the start of the next session to regain full context with no 
 
 ## Useful paths and aliases
 - Aliases (root `deno.jsonc`):
-  - `@adaptiveSrc/` → `./libraries/adaptive/src/`
-  - `@adaptiveTypes/` → `./libraries/adaptive/types/`
+  - `@adaptiveSrc/` → `./libraries/engine/src/` (legacy alias)
+  - `@adaptiveTypes/` → `./libraries/engine/types/` (legacy alias)
   - `@toolkit/` → `./libraries/toolkit/src/` (read-only)
 - Adaptive tests/examples:
-  - IR contracts: `libraries/adaptive/tests/contracts/ir_contracts.test.ts`
-  - Registries defaults: `libraries/adaptive/src/operations/defaults/registerDefaults/index.ts`
-  - Hydrator: `libraries/adaptive/src/runtime/hydrator/index.ts`
+  - IR contracts: `libraries/engine/tests/contracts/ir_contracts.test.ts`
+  - Registries defaults: `libraries/engine/src/operations/defaults/registerDefaults/index.ts`
+  - Hydrator: `libraries/engine/src/runtime/hydrator/index.ts`
 - Components tests:
   - `libraries/components/tests/unit/compile_to_adaptive.test.ts`
 

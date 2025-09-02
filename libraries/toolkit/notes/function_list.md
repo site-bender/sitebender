@@ -1,16 +1,16 @@
 # Function List for the toolkit library
 
-**Testing Progress: 13.7% (120/874 functions with 100% coverage)**
+**Testing Progress: 14.3% (125/874 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~151 hours
+**Estimated Time to Completion**: ~150 hours
 
-- **Remaining functions**: 754 (874 total - 120 completed)
+- **Remaining functions**: 749 (874 total - 125 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
 - **Hours remaining**: ~151 hours
 - **At 8 hours/day**: ~18.9 working days
 - **Last updated**: 2025-09-02  
-- **Session progress**: Fixed findMostCommon coverage (100%), tested flatMap, frequency, and groupBy functions. All achieved 100% coverage.
+- **Session progress**: Fixed type error in all test, tested groupWith, indexBy, and intersection functions. All achieved 100% coverage.
 
 ## Current Functions (874 functions total)
 
@@ -48,14 +48,14 @@
 - flatten - Flattens nested arrays by one level ✓
 - frequency - Count occurrences of each unique element (returns Map<T, number>) ✓
 - groupBy - Groups array elements by key function result ✓
-- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
+- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it ✓
 - head - Returns first element of array (alias: first) ✓
 - includes - Checks if array contains element ✓
-- indexBy - Creates an object indexing the array elements by the given key
+- indexBy - Creates an object indexing the array elements by the given key ✓
 - indexOf - Returns index of first occurrence of element ✓
 - init - Returns all elements except the last one ✓
 - insertAt - Inserts element at specified index ✓
-- intersection - Returns elements that exist in both arrays
+- intersection - Returns elements that exist in both arrays ✓
 - intersectionWith - Like intersection but uses a comparator function
 - interleave - Alternate elements from multiple arrays
 - intersperse - Inserts separator between array elements

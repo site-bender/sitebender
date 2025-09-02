@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
@@ -42,7 +43,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * countBy((x: number) => x)(null)      // {}
  *
  * // Partial application
- * const countByType = countBy((x: any) => typeof x)
+ * const countByType = countBy((x: unknown) => typeof x)
  * countByType([1, "hello", true, 42])
  * // { number: 2, string: 1, boolean: 1 }
  * ```
@@ -57,8 +58,8 @@ const countBy = <T, K extends string | number | symbol>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<K, number> => {
-	if (isNullish(array) || !Array.isArray(array)) {
-		return {} as Record<K, number>
+	if (isNullish(array)) {
+		return Object.create(null) as Record<K, number>
 	}
 
 	return array.reduce((acc, element) => {
@@ -67,7 +68,7 @@ const countBy = <T, K extends string | number | symbol>(
 			return { ...acc, [key]: (acc[key] || 0) + 1 }
 		}
 		return acc
-	}, {} as Record<K, number>)
+	}, Object.create(null) as Record<K, number>)
 }
 
 export default countBy

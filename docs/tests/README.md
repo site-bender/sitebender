@@ -325,8 +325,8 @@ test.describe("Code playground behaviors", () => {
 			{
 				lib: "adaptive",
 				code: `
-          import Add from "@sitebender/adaptive/constructors/operators/Add"
-          import Constant from "@sitebender/adaptive/constructors/injectors/Constant"
+		  import Add from "@sitebender/engine/constructors/operators/Add"
+		  import Constant from "@sitebender/engine/constructors/injectors/Constant"
           
           const config = Add()([Constant()(5), Constant()(3)])
           console.log(config)

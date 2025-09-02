@@ -107,7 +107,46 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-02) - Part 8
+### Current Session (2025-09-02) - Part 10
+**Progress Made:**
+- ✅ Fixed type error in all test file (type narrowing issue)
+- ✅ Tested 3 more array functions following full audit checklist:
+  1. **groupWith** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Groups consecutive elements by binary predicate
+     - Uses mutations within reduce for efficiency (pragmatic)
+     - Comprehensive tests with property-based testing
+  2. **indexBy** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed `any` type in JSDoc example (changed to `unknown`)
+     - Creates object indexed by derived keys
+     - Filters out null/undefined keys
+     - Comprehensive tests including symbol keys
+  3. **intersection** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` checks after `isNullish`
+     - Removed incorrect native Set.intersection usage (would lose duplicates)
+     - Simplified to use filter with Set for O(n) performance
+     - Preserves duplicates from first array as documented
+     - Updated JSDoc to remove ES2025 compatibility note
+
+- ✅ Fixed failing countBy test
+  - Issue: prototype pollution when key is "toString" or other Object methods
+  - Fixed by using `Object.create(null)` instead of `{}` for result object
+  - Also fixed redundant `!Array.isArray` check and `any` type in JSDoc
+
+**Common Issues Fixed:**
+- Redundant `!Array.isArray` checks after `isNullish` (all 4 functions)
+- `any` type in JSDoc examples (indexBy, countBy)
+- Incorrect implementation that would lose duplicates (intersection)
+- Prototype pollution vulnerability (countBy)
+
+**Testing Progress Update:**
+- 125 functions now have tests (was 122)
+- Current progress: ~14.3% (125/874 functions)
+- All tested functions have 100% coverage
+- All tests passing (1480 tests, 2139 steps)
+
+### Previous Session (2025-09-02) - Part 8
 **Progress Made:**
 - ✅ Fixed findMostCommon to achieve 100% coverage
   - Added coverage ignore comments for defensive fallbacks that are logically unreachable

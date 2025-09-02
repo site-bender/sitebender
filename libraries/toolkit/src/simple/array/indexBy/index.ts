@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
@@ -31,7 +32,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // { 1: "e", 2: "dd", 3: "ccc" }
  *
  * // Partial application
- * const indexById = indexBy((x: any) => x.id)
+ * const indexById = indexBy((x: { id: string }) => x.id)
  * indexById([{ id: "a", val: 1 }, { id: "b", val: 2 }])
  * // { "a": { id: "a", val: 1 }, "b": { id: "b", val: 2 } }
  * ```
@@ -42,7 +43,7 @@ const indexBy = <T, K extends string | number | symbol>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<K, T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return {} as Record<K, T>
 	}
 

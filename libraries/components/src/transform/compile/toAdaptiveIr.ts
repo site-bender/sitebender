@@ -6,8 +6,8 @@ import type {
 	IrDocument,
 	Node,
 	OperatorNode,
-} from "../../../../adaptive/types/ir/index.ts"
-import type { DataType } from "../../../../adaptive/types/ir/index.ts"
+} from "@engineTypes/ir/index.ts"
+import type { DataType } from "@engineTypes/ir/index.ts"
 
 type MaybeVNode = unknown
 type VNode = { type?: unknown; props?: Record<string, unknown> }

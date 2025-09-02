@@ -484,8 +484,8 @@ The architecture is sound. Prioritize a small, stable IR and one async evaluator
 
 Runtime placement note
 - To avoid cross-team conflicts, the minimal bus and store live under adaptive runtime:
-  - Bus: `libraries/adaptive/src/runtime/bus.ts`
-  - Store: `libraries/adaptive/src/runtime/store.ts`
-  - ComposeContext: `libraries/adaptive/src/context/composeContext.ts`
+  - Bus: `libraries/engine/src/runtime/bus.ts`
+  - Store: `libraries/engine/src/runtime/store.ts`
+  - ComposeContext: `libraries/engine/src/context/composeContext.ts`
 - Toolkit remains unchanged in this phase; future consolidation can move shared utilities once other work stabilizes.
 - Security: topic allowlist, origin checks, optional encryption at transport layer; redaction hooks before egress.
