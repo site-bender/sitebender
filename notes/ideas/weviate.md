@@ -78,3 +78,7 @@ Because it understands content, it can group similar items together or find near
 ## In a Nutshell:
 
 We'll use Weaviate to move beyond simple keyword matching to build intelligent applications that understand the **content and context** of our data. It's the engine for modern, AI-powered search, recommendation, and discovery features.
+
+# Moved
+
+This note has moved to `ideas/weviate.md`.

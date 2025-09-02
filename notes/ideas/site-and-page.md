@@ -74,4 +74,6 @@ export default function () { // Can be anonymous as path is used to access
 }
 ```
 
-Please add any concerns, thoughts, pros/cons here:
+# Moved
+
+This note has moved to `ideas/site-and-page.md`.

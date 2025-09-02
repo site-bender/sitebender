@@ -265,3 +265,7 @@ echo "print('Hello from AI session!')" > ai_agent.py
 ```
 
 The scripts will create separate directories for each session and run them in parallel. Each session operates independently but shares the same git history and can be managed together!
+
+# Moved
+
+This note has moved to `ideas/worktrees.md`.

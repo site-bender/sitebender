@@ -20,3 +20,7 @@
 | Integral                | `∫`                      | Integrand                    | (With respect to Variable)      | Integral (Antiderivative)           |
 | Vector Dot Product      | `•`                      | Vector a                     | Vector b                        | Scalar                              |
 | Vector Cross Product    | `×`                      | Vector a                     | Vector b                        | Vector                              |
+
+# Moved
+
+This note has moved to `ideas/maths.md`.

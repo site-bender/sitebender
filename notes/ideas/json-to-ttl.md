@@ -4,7 +4,7 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 
 ### 🔧 1. **JSON to Turtle Conversion**
 
-- **Using JSON-LD Context**: The most standardized approach is to first define a `@context` in your JSON data to map JSON properties to RDF vocabularies (e.g., [schema.org](https://schema.org/), custom ontologies). This converts JSON into JSON-LD, which can then be serialized to Turtle. Tools like [`jsonld2rdf`](https://json-ld.org/spec/latest/json-ld-rdf/) or **[Apache Jena's RIOT CLI](https://jena.apache.org/documentation/io/)** (this should be our preferred method) can handle this.
+- **Using JSON-LD Context**: The most standardized approach is to first define a `@context` in your JSON data to map JSON properties to RDF vocabularies (e.g., [schema.org](https://schema.org/), custom ontologies). This converts JSON into JSON-LD, which can then be serialized to Turtle using JavaScript libraries (e.g., `jsonld.js` for expansion/framing and `n3` for Turtle serialization).
   - Example JSON-LD context:
     ```json
     {
@@ -16,11 +16,7 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
       "age": 11
     }
     ```
-- **Direct Conversion Tools**: For JSON without pre-defined context, tools like **[AtomGraph's JSON2RDF](https://github.com/AtomGraph/JSON2RDF)** or **[SPARQL Anything](https://github.com/SPARQL-Anything/sparql.anything)** can mechanically convert JSON keys to RDF predicates (using a base URI you provide). This generates Turtle with blank nodes for nested structures.
-  - Command example for JSON2RDF:
-    ```bash
-    java -jar json2rdf.jar http://example.com/ < input.json > output.ttl
-    ```
+- **Direct Conversion Tools**: For JSON without pre-defined context, utilities can mechanically convert JSON keys to RDF predicates (using a base URI you provide). This generates Turtle with blank nodes for nested structures and is best treated as an import utility rather than the primary path.
 - **Programmatic Methods**:
   - JavaScript: Use [`jsonld.js` (Digital Bazaar)](https://github.com/digitalbazaar/jsonld.js) or [`rdflib.js`](https://github.com/linkeddata/rdflib.js) to serialize JSON-LD to Turtle .
   - Java: [Apache Jena's `Model` API](https://jena.apache.org/documentation/javadoc/jena/org.apache.jena.core/org/apache/jena/rdf/model/Model.html) can read JSON-LD and write Turtle.
@@ -28,13 +24,7 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 
 ### 🔄 2. **Turtle to JSON Conversion**
 
-- **Via JSON-LD**: Most tools convert Turtle to JSON-LD first, which is a JSON-based RDF serialization. Tools like:
-  - **EasyRDF Converter** (online tool) .
-  - **Apache Jena RIOT** :
-    ```bash
-    riot --output=json-ld input.ttl > output.json
-    ```
-  - JavaScript: `rdflib.js` or `jsonld.js` can parse Turtle and serialize to JSON-LD .
+- **Via JSON-LD**: Most tools convert Turtle to JSON-LD first, which is a JSON-based RDF serialization. Prefer JavaScript libraries (`n3`, `jsonld.js`) in CI to parse Turtle and serialize to JSON-LD.
 - **Custom Transformation**: If you need non-JSON-LD JSON (e.g., simpler structure), you may need post-processing with tools like `jq` or custom scripts to reshape the data.
 
 ### ⚠️ 3. **Key Considerations**
@@ -43,14 +33,12 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 - **Data Loss**: Converting arbitrary JSON to Turtle may flatten structures into triples (using blank nodes), and converting back might not perfectly reconstruct the original JSON. **QUESTION: How can we avoid this problem?**
 - **Tool Compatibility**: Some tools (e.g., `jsonld2rdf`) expect JSON-LD input, while others (e.g., JSON2RDF) work with any JSON but require a base URI.
 
-### 🛠️ 4. **Recommended Tools** (recommended by DeepSeek)
+### 🛠️ 4. **Recommended Tools**
 
 - **Online Converters**:
   - EasyRDF Converter (supports JSON-LD ↔ Turtle) .
 - **Command-Line Tools**:
-  - `jsonld2rdf` (Node.js) for JSON-LD to Turtle .
-  - Apache Jena RIOT for multi-format RDF processing .
-  - AtomGraph JSON2RDF for raw JSON to RDF .
+  - Node-based scripts using `jsonld.js` + `n3` for conversions.
 - **Libraries**:
   - JavaScript: `jsonld.js`, `rdflib.js` .
   - Java: Apache Jena, RDF4J.
@@ -60,15 +48,9 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 
 - **JSON to Turtle**:
   1.  Add a `@context` to JSON to create JSON-LD.
-  2.  Use `jsonld2rdf` to convert to Turtle:
-      ```bash
-      jsonld2rdf input.json --context my_context.json --prefixes true > output.ttl
-      ```
+  2.  Use a Node-based script to expand/compact with `jsonld.js` and serialize to Turtle with `n3`.
 - **Turtle to JSON**:
-  1.  Use `riot` to convert Turtle to JSON-LD:
-      ```bash
-      riot --output=json-ld input.ttl > output.json
-      ```
+  1.  Parse Turtle with `n3`, serialize to JSON-LD, and frame/compact with `jsonld.js`.
   2.  Optionally remove or simplify the `@context` if plain JSON is needed.
 
 ### 💡 6. **When to Use Which**
@@ -77,4 +59,8 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 - **Use direct tools like JSON2RDF** for quick conversion without modifying JSON structure.
 - **For round-tripping**, ensure your JSON data is compatible with RDF (e.g., avoid non-atomic values) to avoid data loss.
 
-For most users, **JSON-LD with a well-designed context** is the recommended approach for seamless conversion between JSON and Turtle. But probably not for us. Discuss.
+For our purposes, **JSON-LD with a well-designed context** is the recommended approach for seamless conversion between JSON and Turtle while avoiding Java-only tooling.
+
+# Moved
+
+This note has moved to `ideas/json-to-ttl.md`.
