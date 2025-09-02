@@ -8,7 +8,7 @@ import Constant from "@sitebender/components/transform/injectors/Constant/index.
 import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
 import Add from "@sitebender/components/transform/operators/Add/index.tsx"
 
-import createElement from "~utilities/createElement/index.ts"
+
 
 // compileToEngine no longer needed directly here
 

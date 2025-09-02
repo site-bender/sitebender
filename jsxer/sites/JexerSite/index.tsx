@@ -1,7 +1,7 @@
-import createAssetElements from "~scripts/build/createAssetElements/index.tsx"
 
-import createElement from "~utilities/createElement/index.ts"
-import Fragment from "~utilities/Fragment/index.ts"
+import createAssetElements from "../../.sitebender/scripts/build/createAssetElements/index.tsx"
+import createElement from "../../.sitebender/createElement/index.ts"
+import Fragment from "../../.sitebender/Fragment/index.ts"
 
 // Set up JSX runtime
 Object.assign(globalThis, { createElement, Fragment })

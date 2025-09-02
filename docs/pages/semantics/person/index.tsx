@@ -1,5 +1,5 @@
-import createElement from "~utilities/createElement/index.ts"
-import Person from "~components/semantics/Person/index.tsx"
+
+import Person from "@sitebender/components/define/Thing/Person/index.tsx"
 
 export default function PersonPage() {
 	return (
