@@ -306,7 +306,7 @@ services:
       MINIO_IDENTITY_OPENID_CLAIM_NAME: email
       MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authentik
       # Console OIDC must also be configured explicitly
-      CONSOLE_IDENTITY_OPENID_CONFIG_URL: http://authentik-server:9000/application/o/minio/.well-known/openid-configuration
+      CONSOLE_IDENTITY_OPENID_CONFIG_URL: https://authentik.localhost/application/o/minio/.well-known/openid-configuration
       CONSOLE_IDENTITY_OPENID_REDIRECT_URI: https://minio.localhost/oauth_callback
       CONSOLE_IDENTITY_OPENID_SCOPES: openid,profile,email
       CONSOLE_IDENTITY_OPENID_CLAIM_NAME: email
