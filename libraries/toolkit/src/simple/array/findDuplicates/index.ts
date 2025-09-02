@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns array of elements that appear more than once
@@ -20,7 +21,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Edge cases
  * findDuplicates([1, 2, 3, 4, 5])            // [] (no duplicates)
  * findDuplicates([])                         // [] (empty array)
- * findDuplicates([NaN, NaN])                 // [] (NaN !== NaN)
+ * findDuplicates([NaN, NaN])                 // [NaN] (uses SameValueZero)
  *
  * // Objects by reference
  * const obj = { id: 1 }
@@ -30,24 +31,46 @@ import isNullish from "../../validation/isNullish/index.ts"
 const findDuplicates = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
-	return array.reduce<{ seen: Set<T>; duplicates: Set<T>; result: Array<T> }>(
-		(acc, item) => {
-			if (acc.seen.has(item)) {
-				if (!acc.duplicates.has(item)) {
-					acc.duplicates.add(item)
-					acc.result.push(item)
+	// Track duplicates and their first occurrence index
+	interface AccType {
+		seen: Map<T, number>
+		duplicates: Array<{ item: T; firstIndex: number }>
+		processedDuplicates: Set<T>
+	}
+	
+	const result = array.reduce<AccType>(
+		(acc, item, index) => {
+			const seenIndex = acc.seen.get(item)
+			
+			if (seenIndex !== undefined) {
+				// Item has been seen before
+				if (not(acc.processedDuplicates.has(item))) {
+					// First time we're seeing this as a duplicate
+					acc.duplicates.push({ item, firstIndex: seenIndex })
+					acc.processedDuplicates.add(item)
 				}
 			} else {
-				acc.seen.add(item)
+				// First occurrence of this item
+				acc.seen.set(item, index)
 			}
+			
 			return acc
 		},
-		{ seen: new Set<T>(), duplicates: new Set<T>(), result: [] },
-	).result
+		{
+			seen: new Map(),
+			duplicates: [],
+			processedDuplicates: new Set(),
+		},
+	)
+	
+	// Sort by first occurrence index and extract items
+	return result.duplicates
+		.sort((a, b) => a.firstIndex - b.firstIndex)
+		.map((entry) => entry.item)
 }
 
 export default findDuplicates
