@@ -1,1 +1,1 @@
-export default Course
+export { default } from "../../Course/index.tsx"

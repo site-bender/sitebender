@@ -1,6 +1,6 @@
-import type { FormMethod } from "../../../types/components/forms/index.ts"
+import type { FormMethod } from "../../../../types/components/forms/index.ts"
 
-import createElement from "../../../utilities/createElement/index.ts"
+import createElement from "../../../helpers/createElement/index.ts"
 
 export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & {
 	classes?: Array<string>

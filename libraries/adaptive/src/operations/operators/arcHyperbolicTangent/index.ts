@@ -1,16 +1,15 @@
-import type { HydratedArcHyperbolicTangent } from "../../../types/hydrated/index.ts"
+import type { HydratedArcHyperbolicTangent } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const arcHyperbolicTangent = (
-	{ operand, ...op }: HydratedArcHyperbolicTangent,
+	{ operand, ..._op }: HydratedArcHyperbolicTangent,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,

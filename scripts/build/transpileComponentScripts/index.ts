@@ -34,46 +34,64 @@ export default async function transpileComponentScripts(
 ): Promise<string> {
 	const srcComponentsDir = join(Deno.cwd(), "src", "components")
 	const distComponentsDir = join(Deno.cwd(), "dist", "scripts", "components")
+	// Also support transpiling any scripts under src/hydrate to dist/scripts/hydrate
+	const srcHydrateDir = join(Deno.cwd(), "src", "hydrate")
+	const distHydrateDir = join(Deno.cwd(), "dist", "scripts", "hydrate")
 
-	// Check if src/components exists and handle errors
+	// Transpile src/components if present
+	let componentsTranspiled = 0
 	try {
 		const srcStat = await Deno.stat(srcComponentsDir)
 		if (!srcStat.isDirectory) {
 			logger.warn(MSG_SCRIPTS_SRC_NOT_DIRECTORY)
-			return MSG_SCRIPTS_SRC_NOT_DIRECTORY
+		} else {
+			const filesFound = await transpileScriptsRecursive(
+				srcComponentsDir,
+				distComponentsDir,
+				logger,
+				"",
+			)
+			componentsTranspiled = filesFound
+			if (filesFound === 0) {
+				logger.log(MSG_SCRIPTS_NO_FILES_TO_COPY)
+			} else {
+				logger.log(`${MSG_SCRIPTS_COPY_SUCCESS_PREFIX}${filesFound}${MSG_SCRIPTS_COPY_SUCCESS_SUFFIX}`)
+			}
 		}
 	} catch (error: unknown) {
 		if (error instanceof Deno.errors.NotFound) {
 			logger.log(MSG_SCRIPTS_NO_SRC_COMPONENTS_DIR)
-			return MSG_SCRIPTS_NO_SRC_COMPONENTS_DIR
+		} else {
+			const errorMsg = `${MSG_SCRIPTS_UNEXPECTED_SRC_CHECK_ERROR}: ${(error as Error).message}`
+			logger.error(errorMsg)
 		}
-		const errorMsg = `${MSG_SCRIPTS_UNEXPECTED_SRC_CHECK_ERROR}: ${
-			(error as Error).message
-		}`
-		logger.error(errorMsg)
-		return errorMsg
 	}
 
+	// Transpile src/hydrate if present
+	let hydrateTranspiled = 0
 	try {
-		const filesFound = await transpileScriptsRecursive(
-			srcComponentsDir,
-			distComponentsDir,
-			logger,
-			"",
-		)
-
-		if (filesFound === 0) {
-			logger.log(MSG_SCRIPTS_NO_FILES_TO_COPY)
-			return MSG_SCRIPTS_NO_FILES_TO_COPY
+		const hydrateStat = await Deno.stat(srcHydrateDir)
+		if (hydrateStat.isDirectory) {
+			const filesFound = await transpileScriptsRecursive(
+				srcHydrateDir,
+				distHydrateDir,
+				logger,
+				"",
+			)
+			hydrateTranspiled = filesFound
+			if (filesFound === 0) {
+				logger.log("No TypeScript files found to transpile in src/hydrate")
+			} else {
+				logger.log(`${MSG_SCRIPTS_COPY_SUCCESS_PREFIX}${filesFound}${MSG_SCRIPTS_COPY_SUCCESS_SUFFIX}`)
+			}
 		}
-
-		const successMessage =
-			`${MSG_SCRIPTS_COPY_SUCCESS_PREFIX}${filesFound}${MSG_SCRIPTS_COPY_SUCCESS_SUFFIX}`
-		logger.log(successMessage)
-		return successMessage
-	} catch (error: unknown) {
-		const errorMessage = (error as Error).message ||
-			`Error during script transpile operation: ${error}`
-		return errorMessage
+	} catch (_error: unknown) {
+		// ignore if hydrate folder missing
 	}
+
+	const total = componentsTranspiled + hydrateTranspiled
+	if (total === 0) {
+		return MSG_SCRIPTS_NO_FILES_TO_COPY
+	}
+	return `${MSG_SCRIPTS_COPY_SUCCESS_PREFIX}${total}${MSG_SCRIPTS_COPY_SUCCESS_SUFFIX}`
 }

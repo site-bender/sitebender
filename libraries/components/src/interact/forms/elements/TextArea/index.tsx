@@ -1,4 +1,4 @@
-import createElement from "../../../../utilities/createElement/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
 
 export type Props = JSX.TextareaHTMLAttributes<HTMLTextAreaElement> & {
 	classes?: Array<string>

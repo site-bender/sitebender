@@ -2,6 +2,7 @@
  * Partially applies a function with fixed arguments
  * Returns a new function that takes the remaining arguments
  *
+ * @pure
  * @param fn - Function to partially apply
  * @param fixedArgs - Arguments to fix at the beginning
  * @returns Partially applied function

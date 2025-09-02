@@ -1,1 +1,1 @@
-export default HardwareStore
+export { default } from "../../../../Organization/LocalBusiness/Store/HardwareStore/index.tsx"

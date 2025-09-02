@@ -1,27 +1,26 @@
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { ScriptAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { NoAriaAttributes } from "../../../types/aria/index.ts"
-import type { ScriptAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
-	BLOCKINGS,
 	CROSS_ORIGINS,
-	FETCH_PRIORITIES,
 	REFERRER_POLICIES,
-} from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Filters attributes for Script element
@@ -49,13 +48,9 @@ export const filterAttributes = (attributes: ScriptElementAttributes) => {
 	const {
 		id,
 		async,
-		blocking,
-		crossorigin,
+		crossOrigin,
 		defer,
-		fetchpriority,
-		integrity,
-		nomodule,
-		referrerpolicy,
+		referrerPolicy,
 		src,
 		type,
 		// ARIA attributes
@@ -85,46 +80,20 @@ export const filterAttributes = (attributes: ScriptElementAttributes) => {
 	if (isDefined(async)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("async")(async))
 	}
-	if (isDefined(blocking)) {
+	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(BLOCKINGS))("blocking")(blocking),
-		)
-	}
-	if (isDefined(crossorigin)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
 		)
 	}
 	if (isDefined(defer)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("defer")(defer))
 	}
-	if (isDefined(fetchpriority)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FETCH_PRIORITIES))("fetchpriority")(
-				fetchpriority,
-			),
-		)
-	}
-	if (isDefined(integrity)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("integrity")(integrity),
-		)
-	}
-	if (isDefined(nomodule)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("nomodule")(nomodule),
-		)
-	}
-	if (isDefined(referrerpolicy)) {
+	if (isDefined(referrerPolicy)) {
 		Object.assign(
 			filteredAttrs,
 			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
-				referrerpolicy,
+				referrerPolicy,
 			),
 		)
 	}
@@ -175,13 +144,21 @@ export const Script = (attributes: ScriptElementAttributes = {}) =>
 		validation,
 	} = attributes
 
+	const kids = typeof children === "string"
+		? [TextNode(children)]
+		: Array.isArray(children)
+		? children
+		: children
+		? [children]
+		: []
+
 	return {
 		attributes: {
 			id,
 			type,
 			...attribs,
 		},
-		children,
+		children: kids,
 		...(isDefined(calculation) ? { calculation } : {}),
 		...(isDefined(dataset) ? { dataset } : {}),
 		...(isDefined(display) ? { display } : {}),

@@ -1,4 +1,7 @@
-import { assertEquals, assertStrictEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertStrictEquals,
+} from "https://deno.land/std@0.208.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import power from "../../../../../src/simple/math/power/index.ts"
@@ -8,26 +11,30 @@ Deno.test("power - algebraic properties", async (t) => {
 	await t.step("property: x^1 = x (identity)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(-1e6), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-1e6),
+					max: Math.fround(1e6),
+				}),
 				(base) => {
 					const result = power(1)(base)
 					return Object.is(result, base) || approximately(result, base, 1e-10)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
 	await t.step("property: x^0 = 1 for all x ≠ 0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter(x => x !== 0),
+				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter((x) => x !== 0),
 				(base) => {
 					const result = power(0)(base)
 					return result === 1
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -40,18 +47,19 @@ Deno.test("power - algebraic properties", async (t) => {
 				(base, expA, expB) => {
 					const left = power(expA + expB)(base)
 					const right = power(expA)(base) * power(expB)(base)
-					
+
 					// Handle special cases
 					if (!isFinite(left) && !isFinite(right)) {
 						return Object.is(left, right)
 					}
-					
+
 					// Use relative error for comparison
-					const relativeError = Math.abs(left - right) / Math.max(Math.abs(left), Math.abs(right), 1)
+					const relativeError = Math.abs(left - right) /
+						Math.max(Math.abs(left), Math.abs(right), 1)
 					return relativeError < 1e-10
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -64,33 +72,38 @@ Deno.test("power - algebraic properties", async (t) => {
 				(base, expA, expB) => {
 					const left = power(expB)(power(expA)(base))
 					const right = power(expA * expB)(base)
-					
+
 					if (!isFinite(left) && !isFinite(right)) {
 						return Object.is(left, right)
 					}
-					
-					const relativeError = Math.abs(left - right) / Math.max(Math.abs(left), Math.abs(right), 1)
+
+					const relativeError = Math.abs(left - right) /
+						Math.max(Math.abs(left), Math.abs(right), 1)
 					return relativeError < 1e-10
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
 	await t.step("property: x^(-a) = 1/(x^a) for x ≠ 0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(1000) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(1000),
+				}),
 				fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
 				(base, exp) => {
 					const positive = power(exp)(base)
 					const negative = power(-exp)(base)
 					const product = positive * negative
-					
+
 					return approximately(product, 1, 1e-10)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -122,8 +135,12 @@ Deno.test("power - JSDoc examples", async (t) => {
 	await t.step("fractional exponents (roots)", () => {
 		assertStrictEquals(power(0.5)(4), 2)
 		assertStrictEquals(power(0.5)(9), 3)
-		assertEquals(power(1/3)(8), 2, "Cube root of 8")
-		assertEquals(approximately(power(1/3)(27), 3, 1e-10), true, "Cube root of 27")
+		assertEquals(power(1 / 3)(8), 2, "Cube root of 8")
+		assertEquals(
+			approximately(power(1 / 3)(27), 3, 1e-10),
+			true,
+			"Cube root of 27",
+		)
 	})
 
 	await t.step("negative bases", () => {
@@ -181,13 +198,13 @@ Deno.test("power - JSDoc examples", async (t) => {
 
 	await t.step("array operations", () => {
 		const numbers = [1, 2, 3, 4, 5]
-		
+
 		const squared = numbers.map(power(2))
 		assertEquals(squared, [1, 4, 9, 16, 25])
-		
+
 		const cubed = numbers.map(power(3))
 		assertEquals(cubed, [1, 8, 27, 64, 125])
-		
+
 		const sqrtResults = numbers.map(power(0.5))
 		assertStrictEquals(sqrtResults[0], 1)
 		assertStrictEquals(sqrtResults[3], 2)
@@ -200,9 +217,12 @@ Deno.test("power - JSDoc examples", async (t) => {
 		assertEquals(powersOfTwo, [1, 2, 4, 8, 16, 32, 64, 128, 256, 512])
 
 		// Geometric growth
-		const growth = (rate: number) => (periods: number) => 
+		const growth = (rate: number) => (periods: number) =>
 			power(periods)(1 + rate)
-		assertEquals(approximately(growth(0.05)(10), 1.628894626777443, 1e-10), true)
+		assertEquals(
+			approximately(growth(0.05)(10), 1.628894626777443, 1e-10),
+			true,
+		)
 
 		// Compound interest
 		const compound = (principal: number, rate: number, time: number) =>
@@ -215,7 +235,7 @@ Deno.test("power - JSDoc examples", async (t) => {
 		assertEquals(approximately(circleArea(5), 78.53981633974483, 1e-10), true)
 
 		// Pythagorean theorem
-		const hypotenuse = (a: number, b: number) => 
+		const hypotenuse = (a: number, b: number) =>
 			power(0.5)(power(2)(a) + power(2)(b))
 		assertStrictEquals(hypotenuse(3, 4), 5)
 		assertStrictEquals(hypotenuse(5, 12), 13)
@@ -249,7 +269,7 @@ Deno.test("power - edge cases", async (t) => {
 	await t.step("fractional negative bases", () => {
 		// Negative base with fractional exponent can result in NaN
 		assertEquals(Number.isNaN(power(0.5)(-4)), true)
-		assertEquals(Number.isNaN(power(1/3)(-8)), true)
+		assertEquals(Number.isNaN(power(1 / 3)(-8)), true)
 	})
 })
 
@@ -260,15 +280,17 @@ Deno.test("power - mathematical functions", () => {
 	assertEquals(approximately(exp(2), Math.E * Math.E, 1e-10), true)
 
 	// Nth root function
-	const nthRoot = (n: number) => power(1/n)
+	const nthRoot = (n: number) => power(1 / n)
 	const fourthRoot = nthRoot(4)
 	assertStrictEquals(fourthRoot(16), 2)
 	assertStrictEquals(fourthRoot(81), 3)
 
 	// Binary to decimal conversion
 	const binaryToDecimal = (binary: string) =>
-		binary.split('').reverse().reduce((acc, bit, i) => 
-			acc + parseInt(bit) * power(i)(2), 0)
+		binary.split("").reverse().reduce(
+			(acc, bit, i) => acc + parseInt(bit) * power(i)(2),
+			0,
+		)
 	assertStrictEquals(binaryToDecimal("1010"), 10)
 	assertStrictEquals(binaryToDecimal("11111111"), 255)
 

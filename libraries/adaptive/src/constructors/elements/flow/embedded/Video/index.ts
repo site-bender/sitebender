@@ -1,28 +1,28 @@
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { VideoAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
-import type { VideoAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
 	CROSS_ORIGINS,
 	PRELOADS,
-} from "../../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Video attributes including reactive properties and ARIA
@@ -46,11 +46,11 @@ export const filterAttributes = (attributes: VideoElementAttributes) => {
 		id,
 		autoplay,
 		controls,
-		crossorigin,
+		crossOrigin,
 		height,
 		loop,
 		muted,
-		playsinline,
+		playsInline,
 		poster,
 		preload,
 		src,
@@ -95,10 +95,10 @@ export const filterAttributes = (attributes: VideoElementAttributes) => {
 			filterAttribute(isBoolean)("controls")(controls),
 		)
 	}
-	if (isDefined(crossorigin)) {
+	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
 		)
 	}
 	if (isDefined(height)) {
@@ -110,10 +110,10 @@ export const filterAttributes = (attributes: VideoElementAttributes) => {
 	if (isDefined(muted)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("muted")(muted))
 	}
-	if (isDefined(playsinline)) {
+	if (isDefined(playsInline)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isBoolean)("playsinline")(playsinline),
+			filterAttribute(isBoolean)("playsinline")(playsInline),
 		)
 	}
 	if (isDefined(poster)) {
@@ -201,8 +201,8 @@ export const Video = (attributes: VideoElementAttributes = {}) =>
 	const kids = isString(children)
 		? [TextNode(children)]
 		: Array.isArray(children)
-		? children.filter(ADVANCED_FILTERS.videoContent)
-		: ADVANCED_FILTERS.videoContent(children)
+		? children.filter(ADVANCED_FILTERS.audioContent)
+		: ADVANCED_FILTERS.audioContent(children)
 		? [children]
 		: []
 

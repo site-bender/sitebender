@@ -4,6 +4,7 @@
  *
  * @param Constructor - Constructor function to wrap
  * @returns Function that creates instances without 'new'
+ * @pure
  * @example
  * ```typescript
  * // Work with built-in constructors
@@ -35,13 +36,6 @@
  *   "Invalid input",
  *   "Timeout"
  * ].map(createError)
- *
- * // Partial application works naturally
- * const partial = (fn: Function, ...args1: ReadonlyArray<unknown>) =>
- *   (...args2: ReadonlyArray<unknown>) => fn(...args1, ...args2)
- *
- * const createAdult = partial(createPerson, "Unknown")
- * const adult = createAdult(18) // Person { name: "Unknown", age: 18 }
  * ```
  *
  * Note: The constructed instances are identical to using 'new'.

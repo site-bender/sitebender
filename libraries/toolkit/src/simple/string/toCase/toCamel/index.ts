@@ -1,4 +1,4 @@
-import words from "../../string/words/index.ts"
+import words from "../../words/index.ts"
 
 /**
  * Converts a string to camelCase
@@ -8,9 +8,12 @@ import words from "../../string/words/index.ts"
  * Handles various input formats including kebab-case, snake_case, space-separated,
  * and mixed formats.
  *
- * @curried Single parameter - already curried
  * @param s - The string to convert to camelCase
  * @returns The string in camelCase format
+ * @pure - Function has no side effects
+ * @immutable - Does not modify inputs
+ * @safe - Returns safe values for invalid inputs
+ * @idempotent - f(f(x)) = f(x)
  * @example
  * ```typescript
  * // From different formats
@@ -46,9 +49,9 @@ const toCamel = (str: string | null | undefined): string => {
 
 	return [
 		first.toLowerCase(),
-		...rest.map(word =>
+		...rest.map((word) =>
 			word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-		)
+		),
 	].join("")
 }
 

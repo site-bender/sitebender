@@ -1,10 +1,7 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-} from "../../../../../types/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Ruby element configuration object
@@ -40,6 +37,6 @@ const rubyContentFilter = (child: ElementConfig): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Ruby = GlobalOnly("Ruby")(rubyContentFilter)
+export const Ruby = GlobalOnly("ruby")(rubyContentFilter)
 
 export default Ruby

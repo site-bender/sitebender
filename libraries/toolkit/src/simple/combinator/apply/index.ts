@@ -5,13 +5,11 @@
  * @param fn - Function to call
  * @param args - Array of arguments to pass
  * @returns Result of calling fn with spread arguments
+ * @pure
  * @example
  * ```typescript
  * const add3 = (a: number, b: number, c: number) => a + b + c
  * apply(add3, [1, 2, 3]) // 6
- *
- * // Equivalent to:
- * add3(...[1, 2, 3]) // 6
  *
  * // Useful with Math functions
  * apply(Math.max, [1, 5, 3, 9, 2]) // 9
@@ -29,8 +27,7 @@
  * // Dynamic function calls
  * const operations = {
  *   add: (a: number, b: number) => a + b,
- *   multiply: (a: number, b: number) => a * b,
- *   subtract: (a: number, b: number) => a - b
+ *   multiply: (a: number, b: number) => a * b
  * }
  *
  * const calculate = (op: keyof typeof operations, args: [number, number]) =>

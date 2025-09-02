@@ -1,3 +1,9 @@
+import type {
+	ComplexDatatype,
+	FromApiInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * FromApi JSX Component
  *
@@ -12,15 +18,15 @@
  * />
  */
 
-import FromApiConstructor from "../../../../adaptive/constructors/injectors/FromApi/index.ts"
+import FromApiConstructor from "@adaptiveSrc/constructors/injectors/FromApi/index.ts"
 
 export type FromApiProps = {
 	endpoint: string
-	type?: "Json" | "String" | "Number" | "Boolean"
-	datatype?: "Json" | "String" | "Number" | "Boolean"
+	type?: ComplexDatatype
+	datatype?: ComplexDatatype
 	method?: "GET" | "POST" | "PUT" | "DELETE"
 	headers?: Record<string, string>
-	body?: any
+	body?: Value
 }
 
 export default function FromApi({
@@ -30,9 +36,9 @@ export default function FromApi({
 	method = "GET",
 	headers,
 	body,
-}: FromApiProps): ReturnType<typeof FromApiConstructor> {
+}: FromApiProps): FromApiInjector {
 	const actualType = datatype || type
 
-	// FromApi constructor signature: (datatype) => (endpoint) => (method) => (headers) => (body)
-	return FromApiConstructor(actualType)(endpoint)(method)(headers)(body)
+	// FromApi constructor signature: (datatype) => (options)
+	return FromApiConstructor(actualType)({ endpoint, method, headers, body })
 }

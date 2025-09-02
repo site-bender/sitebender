@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../types/index.ts"
-import type { HyperTocEntry as HyperTocEntryProps } from "../../../../types/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type { HyperTocEntry as HyperTocEntryProps } from "../../../../../types/index.ts"
 
 import Base from "../../../Base/index.tsx"
 

@@ -1,10 +1,12 @@
-import type { GlobalAttributes } from "../../../types/index.ts"
+import filter from "@toolkit/simple/array/filter/index.ts"
+import path from "@toolkit/simple/object/path/index.ts"
+import isNotNullish from "@toolkit/simple/validation/isNotNullish/index.ts"
 
-import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
-import filter from "../../../utilities/array/filter/index.ts"
-import map from "../../../utilities/array/map/index.ts"
-import path from "../../../utilities/object/path/index.ts"
-import isNotNullish from "../../../utilities/predicates/isNotNullish/index.ts"
+import type {
+	ComparatorConfig,
+	Operand,
+	OperatorConfig,
+} from "../../../../types/index.ts"
 
 /**
  * Collects operand values from a data object based on an operations list
@@ -15,31 +17,33 @@ import isNotNullish from "../../../utilities/predicates/isNotNullish/index.ts"
  */
 const collectOperandValues = (
 	data: Operand,
-	operations: Array<unknown>,
+	operations: Array<ComparatorConfig | OperatorConfig>,
 ): readonly unknown[] => {
 	const values = operations.reduce(
 		(acc: Array<unknown>, operation: ComparatorConfig | OperatorConfig) => {
-			if (operation.operands) {
-				const operandValues = operation.operands.map((operand: Operand) => {
-					if (operand.selector) {
-						return path(operand.selector)(data)
+			const ops =
+				(operation as unknown as { operands?: Array<Operand> }).operands
+			if (Array.isArray(ops)) {
+				const operandValues = ops.map((operand: unknown) => {
+					const op = operand as Partial<{ selector: string; value: unknown }>
+					if (typeof op.selector === "string") {
+						// path from toolkit expects a Value base; cast narrowly here
+						return path(op.selector)(data as unknown as never)
 					}
-
-					if (operand.value !== undefined) {
-						return operand.value
+					if (
+						Object.prototype.hasOwnProperty.call(op, "value") &&
+						op.value !== undefined
+					) {
+						return op.value
 					}
-
 					return null
 				})
-
 				acc.push(...operandValues)
 			}
-
 			return acc
 		},
 		[],
 	)
-
 	return [...filter(isNotNullish)(values)]
 }
 

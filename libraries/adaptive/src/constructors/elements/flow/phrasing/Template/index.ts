@@ -1,24 +1,18 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { TemplateAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { TemplateAttributes } from "../types/attributes/index.ts"
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import { SHADOW_ROOT_MODES } from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isFlowContent from "../../../../../guards/isFlowContent/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Template element
@@ -40,29 +34,12 @@ export type TemplateElementAttributes = TemplateAttributes & {
 }
 
 export const filterAttributes = (attributes: TemplateAttributes) => {
-	const {
-		id,
-		shadowrootmode,
-		shadowrootdelegatesfocus,
-		shadowrootclonable,
-		shadowrootserializable,
-		...otherAttributes
-	} = attributes
+	const { id, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
 	return {
 		...getId(id),
 		...globals,
-		...filterAttribute(isMemberOf(SHADOW_ROOT_MODES))("shadowrootmode")(
-			shadowrootmode,
-		),
-		...filterAttribute(isBoolean)("shadowrootdelegatesfocus")(
-			shadowrootdelegatesfocus,
-		),
-		...filterAttribute(isBoolean)("shadowrootclonable")(shadowrootclonable),
-		...filterAttribute(isBoolean)("shadowrootserializable")(
-			shadowrootserializable,
-		),
 	}
 }
 
@@ -103,14 +80,18 @@ const isValidTemplateChild = (child: ElementConfig): boolean => {
 
 export const Template =
 	(attributes: Record<string, Value> = {}) =>
-	(children: Record<string, Value> = []) => {
-		const filteredChildren = Array.isArray(children)
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
+		const filteredChildren = typeof children === "string"
+			? [TextNode(children) as unknown as ElementConfig]
+			: Array.isArray(children)
 			? children.filter(isValidTemplateChild)
 			: isValidTemplateChild(children)
 			? [children]
 			: []
 
-		return Filtered("Template")(filterAttributes)(attributes)(filteredChildren)
+		return Filtered("template")(
+			(a: Record<string, unknown>) => filterAttributes(a as TemplateAttributes),
+		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Template

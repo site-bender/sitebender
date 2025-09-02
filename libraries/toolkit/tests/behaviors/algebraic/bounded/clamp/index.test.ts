@@ -1,4 +1,7 @@
-import { assertEquals, assertExists } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import clamp from "../../../../../src/simple/math/clamp/index.ts"
@@ -18,12 +21,20 @@ Deno.test("clamp: bounded constraint property - should always return value withi
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
 				const result = clamp(min)(max)(value)
-				
-				assertEquals(result >= min, true, `Result ${result} should be >= ${min}`)
-				assertEquals(result <= max, true, `Result ${result} should be <= ${max}`)
-			}
+
+				assertEquals(
+					result >= min,
+					true,
+					`Result ${result} should be >= ${min}`,
+				)
+				assertEquals(
+					result <= max,
+					true,
+					`Result ${result} should be <= ${max}`,
+				)
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -38,15 +49,15 @@ Deno.test("clamp: idempotent property - clamp(a)(b)(clamp(a)(b)(x)) === clamp(a)
 				const max = Math.max(a, b)
 				const once = clamp(min)(max)(value)
 				const twice = clamp(min)(max)(once)
-				
+
 				assertEquals(
 					approximately(twice, once, 1e-10),
 					true,
-					`clamp should be idempotent: ${twice} !== ${once}`
+					`clamp should be idempotent: ${twice} !== ${once}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -61,15 +72,15 @@ Deno.test("clamp: ordering property - should preserve min when value < min", () 
 				const max = Math.max(a, b)
 				const value = min - Math.abs(offset) - 1 // Ensure value < min
 				const result = clamp(min)(max)(value)
-				
+
 				assertEquals(
 					approximately(result, min, 1e-10),
 					true,
-					`When value < min, should return min: ${result} !== ${min}`
+					`When value < min, should return min: ${result} !== ${min}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -84,15 +95,15 @@ Deno.test("clamp: ordering property - should preserve max when value > max", () 
 				const max = Math.max(a, b)
 				const value = max + Math.abs(offset) + 1 // Ensure value > max
 				const result = clamp(min)(max)(value)
-				
+
 				assertEquals(
 					approximately(result, max, 1e-10),
 					true,
-					`When value > max, should return max: ${result} !== ${max}`
+					`When value > max, should return max: ${result} !== ${max}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -107,15 +118,17 @@ Deno.test("clamp: ordering property - should preserve value when min <= value <=
 				const max = Math.max(a, b)
 				const value = min + (max - min) * ratio // Ensure min <= value <= max
 				const result = clamp(min)(max)(value)
-				
+
+				// Use relative epsilon for large numbers
+				const epsilon = Math.max(1e-9, Math.abs(value) * 1e-10)
 				assertEquals(
-					approximately(result, value, 1e-10),
+					approximately(result, value, epsilon),
 					true,
-					`When value in range, should preserve value: ${result} !== ${value}`
+					`When value in range, should preserve value: ${result} !== ${value}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -130,18 +143,18 @@ Deno.test("clamp: monotonicity property - if x <= y then clamp(a)(b)(x) <= clamp
 				const min = Math.min(a, b)
 				const max = Math.max(a, b)
 				const [smaller, larger] = x <= y ? [x, y] : [y, x]
-				
+
 				const resultSmaller = clamp(min)(max)(smaller)
 				const resultLarger = clamp(min)(max)(larger)
-				
+
 				assertEquals(
 					resultSmaller <= resultLarger,
 					true,
-					`Monotonicity violated: clamp(${smaller}) = ${resultSmaller} > clamp(${larger}) = ${resultLarger}`
+					`Monotonicity violated: clamp(${smaller}) = ${resultSmaller} > clamp(${larger}) = ${resultLarger}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -152,10 +165,10 @@ Deno.test("clamp: monotonicity property - if x <= y then clamp(a)(b)(x) <= clamp
 Deno.test("clamp: edge cases - equal min and max (forcing value)", () => {
 	const result1 = clamp(5)(5)(10)
 	assertEquals(result1, 5, "Should force value to 5 when min = max = 5")
-	
+
 	const result2 = clamp(5)(5)(3)
 	assertEquals(result2, 5, "Should force value to 5 when min = max = 5")
-	
+
 	const result3 = clamp(5)(5)(5)
 	assertEquals(result3, 5, "Should return 5 when value = min = max = 5")
 })
@@ -163,16 +176,16 @@ Deno.test("clamp: edge cases - equal min and max (forcing value)", () => {
 Deno.test("clamp: edge cases - Infinity bounds", () => {
 	const result1 = clamp(0)(10)(Infinity)
 	assertEquals(result1, 10, "Should clamp Infinity to max")
-	
+
 	const result2 = clamp(0)(10)(-Infinity)
 	assertEquals(result2, 0, "Should clamp -Infinity to min")
-	
+
 	const result3 = clamp(-Infinity)(Infinity)(42)
 	assertEquals(result3, 42, "Should preserve value with infinite bounds")
-	
+
 	const result4 = clamp(-Infinity)(10)(42)
 	assertEquals(result4, 10, "Should clamp to max with -Infinity min")
-	
+
 	const result5 = clamp(0)(Infinity)(-42)
 	assertEquals(result5, 0, "Should clamp to min with Infinity max")
 })
@@ -185,7 +198,7 @@ Deno.test("clamp: edge cases - invalid range (min > max)", () => {
 Deno.test("clamp: edge cases - boundary values exactly", () => {
 	const result1 = clamp(0)(10)(0)
 	assertEquals(result1, 0, "Should return min when value equals min")
-	
+
 	const result2 = clamp(0)(10)(10)
 	assertEquals(result2, 10, "Should return max when value equals max")
 })
@@ -197,50 +210,66 @@ Deno.test("clamp: edge cases - boundary values exactly", () => {
 Deno.test("clamp: null safety - null/undefined min", () => {
 	const result1 = clamp(null)(10)(5)
 	assertEquals(Number.isNaN(result1), true, "Should return NaN for null min")
-	
+
 	const result2 = clamp(undefined)(10)(5)
-	assertEquals(Number.isNaN(result2), true, "Should return NaN for undefined min")
+	assertEquals(
+		Number.isNaN(result2),
+		true,
+		"Should return NaN for undefined min",
+	)
 })
 
 Deno.test("clamp: null safety - null/undefined max", () => {
 	const result1 = clamp(0)(null)(5)
 	assertEquals(Number.isNaN(result1), true, "Should return NaN for null max")
-	
+
 	const result2 = clamp(0)(undefined)(5)
-	assertEquals(Number.isNaN(result2), true, "Should return NaN for undefined max")
+	assertEquals(
+		Number.isNaN(result2),
+		true,
+		"Should return NaN for undefined max",
+	)
 })
 
 Deno.test("clamp: null safety - null/undefined value", () => {
 	const result1 = clamp(0)(10)(null)
 	assertEquals(Number.isNaN(result1), true, "Should return NaN for null value")
-	
+
 	const result2 = clamp(0)(10)(undefined)
-	assertEquals(Number.isNaN(result2), true, "Should return NaN for undefined value")
+	assertEquals(
+		Number.isNaN(result2),
+		true,
+		"Should return NaN for undefined value",
+	)
 })
 
 Deno.test("clamp: null safety - non-numeric inputs", () => {
 	// @ts-expect-error - Testing invalid input
 	const result1 = clamp("0")(10)(5)
 	assertEquals(Number.isNaN(result1), true, "Should return NaN for string min")
-	
+
 	// @ts-expect-error - Testing invalid input
 	const result2 = clamp(0)("10")(5)
 	assertEquals(Number.isNaN(result2), true, "Should return NaN for string max")
-	
+
 	// @ts-expect-error - Testing invalid input
 	const result3 = clamp(0)(10)("5")
-	assertEquals(Number.isNaN(result3), true, "Should return NaN for string value")
+	assertEquals(
+		Number.isNaN(result3),
+		true,
+		"Should return NaN for string value",
+	)
 })
 
 Deno.test("clamp: null safety - NaN input", () => {
 	const result1 = clamp(0)(10)(NaN)
 	assertEquals(Number.isNaN(result1), true, "Should return NaN for NaN value")
-	
+
 	// NaN passes the typeof check, so the function continues
 	// When NaN is used as min, comparisons fail and value is returned
 	const result2 = clamp(NaN)(10)(5)
 	assertEquals(result2, 5, "NaN min causes comparisons to fail, returns value")
-	
+
 	// When NaN is used as max, similar behavior
 	const result3 = clamp(0)(NaN)(5)
 	assertEquals(result3, 5, "NaN max causes comparisons to fail, returns value")
@@ -293,13 +322,21 @@ Deno.test("clamp: JSDoc examples - invalid range", () => {
 Deno.test("clamp: JSDoc examples - special values", () => {
 	assertEquals(clamp(0)(10)(Infinity), 10, "Infinity clamped to max")
 	assertEquals(clamp(0)(10)(-Infinity), 0, "-Infinity clamped to min")
-	assertEquals(clamp(-Infinity)(Infinity)(42), 42, "Value preserved with infinite bounds")
+	assertEquals(
+		clamp(-Infinity)(Infinity)(42),
+		42,
+		"Value preserved with infinite bounds",
+	)
 	assertEquals(Number.isNaN(clamp(0)(10)(NaN)), true, "NaN value returns NaN")
 })
 
 Deno.test("clamp: JSDoc examples - invalid inputs", () => {
 	assertEquals(Number.isNaN(clamp(null)(10)(5)), true, "null min returns NaN")
-	assertEquals(Number.isNaN(clamp(0)(undefined)(5)), true, "undefined max returns NaN")
+	assertEquals(
+		Number.isNaN(clamp(0)(undefined)(5)),
+		true,
+		"undefined max returns NaN",
+	)
 	assertEquals(Number.isNaN(clamp(0)(10)(null)), true, "null value returns NaN")
 	// @ts-expect-error - Testing invalid input
 	assertEquals(Number.isNaN(clamp("0")(10)(5)), true, "string min returns NaN")
@@ -354,12 +391,17 @@ Deno.test("clamp: JSDoc examples - game physics speed limits", () => {
 })
 
 Deno.test("clamp: JSDoc examples - UI constraints", () => {
-	function constrainPosition(x: number, y: number, width: number, height: number) {
+	function constrainPosition(
+		x: number,
+		y: number,
+		width: number,
+		height: number,
+	) {
 		const clampX = clamp(0)(width)
 		const clampY = clamp(0)(height)
 		return {
 			x: clampX(x),
-			y: clampY(y)
+			y: clampY(y),
 		}
 	}
 	const result = constrainPosition(150, -20, 100, 100)
@@ -398,7 +440,11 @@ Deno.test("clamp: JSDoc examples - score systems", () => {
 	const clampScore = clamp(0)(999999)
 	const bonusMultiplier = 5
 	const baseScore = 200000
-	assertEquals(clampScore(baseScore * bonusMultiplier), 999999, "Score clamped to max")
+	assertEquals(
+		clampScore(baseScore * bonusMultiplier),
+		999999,
+		"Score clamped to max",
+	)
 })
 
 Deno.test("clamp: JSDoc examples - difficulty settings", () => {
@@ -411,25 +457,36 @@ Deno.test("clamp: JSDoc examples - pipeline processing", () => {
 	const pipeline = [
 		(x: number) => x * 2,
 		clamp(-100)(100),
-		(x: number) => x + 10
+		(x: number) => x + 10,
 	]
-	const process = (val: number) => 
-		pipeline.reduce((acc, fn) => fn(acc), val)
-	assertEquals(process(60), 110, "Pipeline processing: 60 * 2 = 120, clamped to 100, + 10 = 110")
+	const process = (val: number) => pipeline.reduce((acc, fn) => fn(acc), val)
+	assertEquals(
+		process(60),
+		110,
+		"Pipeline processing: 60 * 2 = 120, clamped to 100, + 10 = 110",
+	)
 })
 
 Deno.test("clamp: JSDoc examples - safe calculation wrapper", () => {
-	function safeClamp(min: unknown, max: unknown, value: unknown): number | null {
-		const minNum = typeof min === 'number' ? min : NaN
-		const maxNum = typeof max === 'number' ? max : NaN
-		const valNum = typeof value === 'number' ? value : NaN
+	function safeClamp(
+		min: unknown,
+		max: unknown,
+		value: unknown,
+	): number | null {
+		const minNum = typeof min === "number" ? min : NaN
+		const maxNum = typeof max === "number" ? max : NaN
+		const valNum = typeof value === "number" ? value : NaN
 		const result = clamp(minNum)(maxNum)(valNum)
 		return isNaN(result) ? null : result
 	}
 	assertEquals(safeClamp(0, 10, 5), 5, "Safe clamp with valid inputs")
 	// When min is string "0", it becomes NaN, and NaN min causes value to be returned
 	// So result is 5, not null
-	assertEquals(safeClamp("0", 10, 5), 5, "String min becomes NaN, comparisons fail, returns value")
+	assertEquals(
+		safeClamp("0", 10, 5),
+		5,
+		"String min becomes NaN, comparisons fail, returns value",
+	)
 })
 
 // ===========================

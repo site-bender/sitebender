@@ -1,1 +1,1 @@
-export default MiddleSchool
+export { default } from "../../../../Organization/EducationalOrganization/MiddleSchool/index.tsx"

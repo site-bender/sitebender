@@ -1,5 +1,6 @@
+import filterTextAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterTextAttributes/index.ts"
+
 import Input from "../index.ts"
-import filterTextAttributes from "../utilities/filterTextAttributes/index.ts"
 
 /**
  * Creates an InputPassword element configuration object

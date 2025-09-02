@@ -1,1 +1,1 @@
-export default TouristInformationCenter
+export { default } from "../../../Organization/LocalBusiness/TouristInformationCenter/index.tsx"

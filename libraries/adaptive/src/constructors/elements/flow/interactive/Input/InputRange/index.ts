@@ -1,24 +1,20 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { InputRangeAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { InputRangeAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import { AUTOCOMPLETES } from "../../../../../../constructors/elements/constants/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../../guards/isMemberOf/index.ts"
-import isNumber from "../../../../../../guards/isNumber/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
-import Input from "../index.ts"
+import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for InputRange
@@ -38,7 +34,7 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: InputRangeAttributes) => {
+export const filterAttributes = (attributes: Record<string, Value>) => {
 	const {
 		autocomplete,
 		autofocus,
@@ -48,12 +44,10 @@ export const filterAttributes = (attributes: InputRangeAttributes) => {
 		max,
 		min,
 		name,
-		readonly,
-		required,
 		step,
 		value,
 		...attrs
-	} = attributes
+	} = attributes as unknown as InputRangeAttributes
 	const globals = pickGlobalAttributes(attrs)
 
 	return {
@@ -66,11 +60,8 @@ export const filterAttributes = (attributes: InputRangeAttributes) => {
 		...filterAttribute(isNumber)("max")(max),
 		...filterAttribute(isNumber)("min")(min),
 		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isBoolean)("readonly")(readonly),
-		...filterAttribute(isBoolean)("required")(required),
 		...filterAttribute(isNumber)("step")(step),
 		...filterAttribute(isString)("value")(value),
-		...filterAttribute(isNumber)("value")(value),
 	}
 }
 

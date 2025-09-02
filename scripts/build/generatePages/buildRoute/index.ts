@@ -1,7 +1,5 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
-import type { Logger } from "~types/scripts/index.ts"
-
 import analyzeFileAssets from "./analyzeFileAssets/index.ts"
 import prettyPrintHtml from "./prettyPrintHtml/index.ts"
 import renderPageWithApp from "./renderPageWithApp/index.ts"
@@ -12,10 +10,10 @@ export default async function buildRoute(
 	outputDir: string,
 	logger: Logger,
 ): Promise<void> {
-	// Calculate route path (e.g., "src/routes/about/index.tsx" -> "/about")
+	// Calculate route path (e.g., "pages/about/index.tsx" -> "/about")
 	// Remove the routesDir prefix and /index.tsx suffix
 	let relativePath = routeFile
-		.replace("src/routes/", "") // Remove "src/routes/"
+	.replace("pages/", "") // Remove "pages/"
 		.replace(/index\.tsx$/, "") // Remove "index.tsx"
 
 	// Remove trailing slash if present

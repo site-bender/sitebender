@@ -4,6 +4,7 @@
  *
  * @param fns - Array of async functions to compose
  * @returns Async function that applies all functions in reverse sequence
+ * @pure
  * @example
  * ```typescript
  * const fetchUser = async (id: number) => ({ id, name: `User${id}` })
@@ -16,6 +17,12 @@
  * // Empty array returns identity function
  * const identity = composeAsync([])
  * await identity("hello") // "hello"
+ *
+ * // String processing pipeline
+ * const trim = async (s: string) => s.trim()
+ * const upper = async (s: string) => s.toUpperCase()
+ * const transform = composeAsync([upper, trim])
+ * await transform("  hello  ") // "HELLO"
  * ```
  *
  * Note: TypeScript cannot properly type variadic async compose without extensive overloads.
@@ -24,12 +31,10 @@
 // deno-lint-ignore no-explicit-any
 const composeAsync =
 	<T>(fns: ReadonlyArray<(value: any) => Promise<any>> = []) =>
-	async (input: T): Promise<any> => {
-		let result: any = input
-		for (let i = fns.length - 1; i >= 0; i--) {
-			result = await fns[i](result)
-		}
-		return result
-	}
+	async (input: T): Promise<any> =>
+		fns.reduceRight(
+			async (resultPromise, fn) => fn(await resultPromise),
+			Promise.resolve(input as any),
+		)
 
 export default composeAsync

@@ -1,5 +1,5 @@
-import type BaseProps from "../../../../types/index.ts"
-import type { Guide as GuideProps } from "../../../../types/index.ts"
+import type BaseProps from "../../../../../types/index.ts"
+import type { Guide as GuideProps } from "../../../../../types/index.ts"
 
 import Base from "../../../Base/index.tsx"
 

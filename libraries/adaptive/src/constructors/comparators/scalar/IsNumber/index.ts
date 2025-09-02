@@ -1,6 +1,8 @@
+import type { Operand } from "@adaptiveTypes/index.ts"
+
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
 
-const IsNumber = (operand) => ({
+const IsNumber = (operand: Operand) => ({
 	tag: "IsNumber",
 	type: OPERAND_TYPES.comparator,
 	datatype: "Number",

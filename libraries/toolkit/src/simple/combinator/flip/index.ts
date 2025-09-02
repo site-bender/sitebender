@@ -4,6 +4,7 @@
  *
  * @param fn - Function whose arguments to flip
  * @returns Function with first two arguments flipped
+ * @pure
  * @example
  * ```typescript
  * const subtract = (a: number, b: number) => a - b
@@ -24,9 +25,6 @@
  * const flippedGreet = flip(greet)
  * flippedGreet("Alice", "Hello", "!") // "Hello, Alice!"
  * ```
- *
- * Note: Only the first two arguments are flipped; remaining arguments
- * are passed through in their original positions.
  */
 const flip = <A, B, Rest extends ReadonlyArray<unknown>, R>(
 	fn: (a: A, b: B, ...rest: Rest) => R,

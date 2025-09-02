@@ -8,7 +8,7 @@ type SelectorSource = {
 
 /**
  * Generates a CSS selector from various source properties
- * 
+ *
  * @param source - Object containing selector information
  * @returns CSS selector string
  * @example
@@ -40,7 +40,7 @@ const getSelector = (source: SelectorSource): string | null => {
 	if (tag) {
 		return `${formId}${tag.toLocaleLowerCase()}`
 	}
-	
+
 	return null
 }
 

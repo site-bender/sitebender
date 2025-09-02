@@ -32,8 +32,14 @@ build/
 out/
 
 # Coverage reports
+# Ignore any coverage directories anywhere in the repo
 coverage/
+**/coverage/
+# LCOV files
 *.lcov
+**/lcov.info
+# Legacy/accidental coverage output dir
+**/cov_profile/
 
 # Logs
 *.log

@@ -1,24 +1,23 @@
+import type { SummaryAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
-import type { SummaryAttributes } from "../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import { SUMMARY_ROLES } from "../../../../../constructors/elements/constants/aria-roles.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isHeadingContent from "../../../../../guards/isHeadingContent/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import { SUMMARY_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isHeadingContent from "@adaptiveSrc/guards/isHeadingContent/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
 
 /**
  * Extended Summary attributes including reactive properties
@@ -67,7 +66,7 @@ export const Summary = (attributes: SummaryElementAttributes = {}) =>
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
 	const {
-		aria,
+		aria: _aria,
 		calculation,
 		dataset,
 		display,

@@ -1,17 +1,16 @@
-import type { HydratedModulo } from "../../../types/hydrated/index.ts"
+import type { HydratedModulo } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const modulo =
-	({ dividend, divisor, ...op }: HydratedModulo): OperationFunction<number> =>
+	({ dividend, divisor, ..._op }: HydratedModulo): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -24,7 +23,11 @@ const modulo =
 
 		if (resolvedDivisor.right === 0) {
 			return {
-				left: [Error(op)("Modulo")("Cannot modulo by zero.")],
+				left: [{
+					tag: "Error",
+					operation: "Modulo",
+					message: "Cannot modulo by zero.",
+				}],
 			}
 		}
 

@@ -1,8 +1,10 @@
+import type { MultiplyOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Multiply JSX Component
  *
  * Wrapper for the Multiply operator constructor.
- * Children are treated as operands to be multiplied together.
+ * Children are treated as multipliers to be multiplied together.
  *
  * @example
  * <Multiply type="Number">
@@ -11,21 +13,18 @@
  * </Multiply>
  */
 
-import MultiplyConstructor from "../../../../adaptive/constructors/operators/Multiply/index.ts"
+import MultiplyConstructor from "@adaptiveSrc/constructors/operators/Multiply/index.ts"
 
-export type MultiplyProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Multiply({
-	type = "Number",
-	datatype,
-	children = [],
-}: MultiplyProps): ReturnType<typeof MultiplyConstructor> {
+export default function Multiply(
+	{ type = "Number", datatype, children = [] }: Props,
+): MultiplyOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
-
-	return MultiplyConstructor(actualType)(childArray as any)
+	return MultiplyConstructor(actualType)(childArray as unknown as Operand[])
 }

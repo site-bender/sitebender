@@ -1,17 +1,16 @@
-import type { HydratedRemainder } from "../../../types/hydrated/index.ts"
+import type { HydratedRemainder } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const remainder = (
-	{ dividend, divisor, ...op }: HydratedRemainder,
+	{ dividend, divisor, ..._op }: HydratedRemainder,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,
@@ -25,7 +24,11 @@ async (
 
 	if (resolvedDivisor.right === 0) {
 		return {
-			left: [Error(op)("Remainder")("Cannot divide by zero.")],
+			left: [{
+				tag: "Error",
+				operation: "Remainder",
+				message: "Cannot divide by zero.",
+			}],
 		}
 	}
 

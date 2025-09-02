@@ -1,9 +1,11 @@
+import type { Operand } from "@adaptiveTypes/index.ts"
+
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
 
-const IsCalendar = (operand) => ({
+const IsCalendar = (operand: Operand) => ({
 	tag: "IsCalendar",
 	type: OPERAND_TYPES.comparator,
-	datatype: "Calendar",
+	datatype: "Date",
 	operand,
 })
 

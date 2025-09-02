@@ -1,16 +1,35 @@
-import { isLeft } from "../../../types/index.ts"
+import type {
+	AdaptiveError,
+	Either,
+	LocalValues,
+	OperationFunction,
+} from "../../../types/index.ts"
 
-const ternary =
-	({ condition, ifTrue, ifFalse }) => async (arg, localValues) => {
-		const resolvedCondition = await condition(arg, localValues)
+import { isLeft } from "../../../../types/index.ts"
 
-		if (isLeft(resolvedCondition)) {
-			return resolvedCondition
-		}
+type HydratedTernary = {
+	tag: "Ternary"
+	type: "operator"
+	datatype: string
+	condition: OperationFunction<boolean>
+	ifTrue: OperationFunction
+	ifFalse: OperationFunction
+}
 
-		return resolvedCondition.right
-			? await ifTrue(arg, localValues)
-			: await ifFalse(arg, localValues)
+const ternary = ({ condition, ifTrue, ifFalse }: HydratedTernary) =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<AdaptiveError>, unknown>> => {
+	const resolvedCondition = await condition(arg, localValues)
+
+	if (isLeft(resolvedCondition)) {
+		return resolvedCondition
 	}
+
+	return resolvedCondition.right
+		? await ifTrue(arg, localValues)
+		: await ifFalse(arg, localValues)
+}
 
 export default ternary

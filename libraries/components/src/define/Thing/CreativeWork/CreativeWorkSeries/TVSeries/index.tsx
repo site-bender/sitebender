@@ -1,1 +1,1 @@
-export default TVSeries
+export { default } from "../../TVSeries/index.tsx"

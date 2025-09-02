@@ -1,4 +1,4 @@
-const moveElementToDisplayCache = (id) => {
+const moveElementToDisplayCache = (id: string) => {
 	const element = document.getElementById(id)
 
 	if (element && document) {

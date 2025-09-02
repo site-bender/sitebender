@@ -1,18 +1,17 @@
-import type { HydratedAverage } from "../../../types/hydrated/index.ts"
+import type { HydratedAverage } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
+import { isLeft } from "../../../../types/index.ts"
 import { ADDITION_IDENTITY } from "../../../constructors/constants/index.ts"
-import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const average =
-	({ operands, ...op }: HydratedAverage): OperationFunction<number> =>
+	({ operands, ..._op }: HydratedAverage): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -21,12 +20,17 @@ const average =
 			operands.map((operand) => operand(arg, localValues)),
 		)
 		const errors = resolvedOperands.filter(isLeft)
-
 		if (errors.length) {
+			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
+			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
-					Error(op)("Average")("Could not resolve all operands."),
-					...errors,
+					{
+						tag: "Error",
+						operation: "Average",
+						message: "Could not resolve all operands.",
+					},
+					...flattened,
 				],
 			}
 		}
@@ -35,7 +39,8 @@ const average =
 			return { right: 0 }
 		}
 
-		const total = resolvedOperands.reduce(
+		const rights = resolvedOperands as Array<{ right: number }>
+		const total = rights.reduce(
 			(acc, { right: value }) => acc + value,
 			ADDITION_IDENTITY,
 		)

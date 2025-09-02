@@ -1,3 +1,9 @@
+import type {
+	Datatype,
+	FromQueryStringInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * FromQueryString JSX Component
  *
@@ -12,13 +18,13 @@
  * />
  */
 
-import FromQueryStringConstructor from "../../../../adaptive/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "@adaptiveSrc/constructors/injectors/FromQueryString/index.ts"
 
 export type FromQueryStringProps = {
 	param: string
-	type?: "String" | "Number" | "Boolean"
-	datatype?: "String" | "Number" | "Boolean"
-	defaultValue?: any
+	type?: Datatype
+	datatype?: Datatype
+	defaultValue?: Value
 }
 
 export default function FromQueryString({
@@ -26,9 +32,9 @@ export default function FromQueryString({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromQueryStringProps): ReturnType<typeof FromQueryStringConstructor> {
+}: FromQueryStringProps): FromQueryStringInjector {
 	const actualType = datatype || type
 
-	// FromQueryString constructor signature: (datatype) => (param) => (defaultValue)
-	return FromQueryStringConstructor(actualType)(param)(defaultValue)
+	// FromQueryString constructor signature: (datatype) => (key, defaultValue)
+	return FromQueryStringConstructor(actualType)(param, defaultValue)
 }

@@ -8,14 +8,14 @@ Deno.test("sign: ternary property", async (t) => {
 		fc.assert(
 			fc.property(fc.float(), (n) => {
 				const result = sign(n)
-				
+
 				if (Number.isNaN(n)) {
 					return Number.isNaN(result)
 				}
-				
+
 				return result === -1 || result === 0 || result === 1
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -23,20 +23,20 @@ Deno.test("sign: ternary property", async (t) => {
 		fc.assert(
 			fc.property(fc.float({ noNaN: true }), (n) => {
 				if (!Number.isFinite(n)) return true
-				
+
 				const s = sign(n)
 				const result = s * Math.abs(n)
-				
+
 				// Handle -0 case
 				if (Object.is(n, -0)) {
 					return Object.is(result, -0) || result === 0
 				}
-				
+
 				// Use Object.is for exact comparison including -0
-				return Object.is(result, n) || 
+				return Object.is(result, n) ||
 					(Math.abs(result - n) < Number.EPSILON)
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -49,10 +49,10 @@ Deno.test("sign: sign preservation", async (t) => {
 					// Both 0 and -0 should return 0
 					return sign(n) === 0 && sign(-n) === 0
 				}
-				
+
 				return sign(n) === -sign(-n)
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -65,43 +65,46 @@ Deno.test("sign: sign preservation", async (t) => {
 					const product = a * b
 					const signProduct = sign(product)
 					const signMultiply = sign(a) * sign(b)
-					
+
 					// Handle overflow/underflow cases
 					if (!Number.isFinite(product)) {
 						return true
 					}
-					
+
 					return signProduct === signMultiply
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
 
 Deno.test("sign: ordering property", async (t) => {
-	await t.step("if a < b and b < c, then sign(a-b) = -1 and sign(b-c) = -1", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ noNaN: true }),
-				fc.float({ noNaN: true }),
-				fc.float({ noNaN: true }),
-				(a, b, c) => {
-					// Order the values
-					const [x, y, z] = [a, b, c].sort((p, q) => p - q)
-					
-					if (x === y || y === z) {
-						// Skip equal values
-						return true
-					}
-					
-					// x < y < z
-					return sign(x - y) === -1 && sign(y - z) === -1
-				}
-			),
-			{ numRuns: 1000 }
-		)
-	})
+	await t.step(
+		"if a < b and b < c, then sign(a-b) = -1 and sign(b-c) = -1",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({ noNaN: true }),
+					fc.float({ noNaN: true }),
+					fc.float({ noNaN: true }),
+					(a, b, c) => {
+						// Order the values
+						const [x, y, z] = [a, b, c].sort((p, q) => p - q)
+
+						if (x === y || y === z) {
+							// Skip equal values
+							return true
+						}
+
+						// x < y < z
+						return sign(x - y) === -1 && sign(y - z) === -1
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 })
 
 Deno.test("sign: JSDoc examples (consolidated to 10)", async (t) => {
@@ -147,22 +150,22 @@ Deno.test("sign: JSDoc examples (consolidated to 10)", async (t) => {
 	await t.step("array operations", () => {
 		const numbers = [-3, -1, 0, 1, 3]
 		assertEquals(numbers.map(sign), [-1, -1, 0, 1, 1])
-		
+
 		const mixed = [5, -2.5, 0, 8, -10]
 		assertEquals(mixed.map(sign), [1, -1, 0, 1, -1])
 	})
 
 	await t.step("comparison helper", () => {
 		const compare = (a: number, b: number) => sign(a - b)
-		assertEquals(compare(5, 3), 1)  // a > b
+		assertEquals(compare(5, 3), 1) // a > b
 		assertEquals(compare(3, 5), -1) // a < b
-		assertEquals(compare(5, 5), 0)  // a === b
+		assertEquals(compare(5, 5), 0) // a === b
 	})
 
 	await t.step("trend analysis", () => {
-		assertEquals(sign(2.5), 1)   // increasing
+		assertEquals(sign(2.5), 1) // increasing
 		assertEquals(sign(-1.8), -1) // decreasing
-		assertEquals(sign(0), 0)      // no change
+		assertEquals(sign(0), 0) // no change
 	})
 
 	await t.step("normalization helper", () => {
@@ -170,21 +173,21 @@ Deno.test("sign: JSDoc examples (consolidated to 10)", async (t) => {
 		// It should be Math.abs(n) to get absolute value
 		// But we're testing what actually happens
 		const normalize = (n: number) => n * sign(n)
-		assertEquals(normalize(-5), 5)  // -5 * -1 = 5
-		assertEquals(normalize(5), 5)   // 5 * 1 = 5
-		assertEquals(normalize(0), 0)   // 0 * 0 = 0
+		assertEquals(normalize(-5), 5) // -5 * -1 = 5
+		assertEquals(normalize(5), 5) // 5 * 1 = 5
+		assertEquals(normalize(0), 0) // 0 * 0 = 0
 	})
 
 	await t.step("three-way comparison", () => {
 		const threeWayCompare = (a: number, b: number) => {
 			const s = sign(a - b)
-			if (s === -1) return 'less'
-			if (s === 1) return 'greater'
-			return 'equal'
+			if (s === -1) return "less"
+			if (s === 1) return "greater"
+			return "equal"
 		}
-		assertEquals(threeWayCompare(3, 5), 'less')
-		assertEquals(threeWayCompare(5, 3), 'greater')
-		assertEquals(threeWayCompare(5, 5), 'equal')
+		assertEquals(threeWayCompare(3, 5), "less")
+		assertEquals(threeWayCompare(5, 3), "greater")
+		assertEquals(threeWayCompare(5, 5), "equal")
 	})
 })
 
@@ -201,7 +204,7 @@ Deno.test("sign: error handling and null safety", async (t) => {
 
 	await t.step("safe sign with validation", () => {
 		const safeSign = (value: unknown): number | null => {
-			const num = typeof value === 'number' ? value : NaN
+			const num = typeof value === "number" ? value : NaN
 			const result = sign(num)
 			return Number.isNaN(result) ? null : result
 		}
@@ -225,11 +228,11 @@ Deno.test("sign: mathematical relationships", async (t) => {
 		// The JSDoc example is incorrect - n * sign(n) gives abs value
 		const abs = (n: number) => n * sign(n)
 		assertEquals(abs(-10), 10) // -10 * -1 = 10
-		assertEquals(abs(10), 10)  // 10 * 1 = 10
+		assertEquals(abs(10), 10) // 10 * 1 = 10
 	})
 
 	await t.step("sign preservation in operations", () => {
-		const preserveSign = (value: number, magnitude: number) => 
+		const preserveSign = (value: number, magnitude: number) =>
 			sign(value) * Math.abs(magnitude)
 		assertEquals(preserveSign(-5, 10), -10)
 		assertEquals(preserveSign(5, 10), 10)

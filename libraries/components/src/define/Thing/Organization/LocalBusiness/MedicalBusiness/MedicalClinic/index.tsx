@@ -1,1 +1,1 @@
-export default MedicalClinic
+export { default } from "../../../MedicalOrganization/MedicalClinic/index.tsx"

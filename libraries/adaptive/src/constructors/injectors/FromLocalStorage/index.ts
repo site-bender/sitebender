@@ -2,9 +2,9 @@ import type {
 	Datatype,
 	FromLocalStorageInjector,
 	Value,
-} from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import { OPERAND_TYPES } from "../../constants/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
 interface FromLocalStorageWithOptions extends FromLocalStorageInjector {
 	options: {

@@ -1,7 +1,7 @@
-import type { BaseProps } from "../../../../types/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
 import { Person } from "../../../define/index.ts"
+import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "div" | "aside" | "p" | "span"
@@ -40,7 +40,7 @@ export type Props = BaseProps & {
  */
 export default function VoiceOver({
 	element: Element = "aside",
-	define,
+	define: _define,
 	narrator,
 	voiceType,
 	timing,
@@ -60,7 +60,7 @@ export default function VoiceOver({
 		<Element
 			{...props}
 			{...dataAttributes}
-			class={`voice-over ${props.class || ""}`}
+			className={`voice-over`}
 			aria-label={narrator
 				? `Voice-over by ${narrator}`
 				: "Voice-over narration"}
@@ -70,12 +70,12 @@ export default function VoiceOver({
 	)
 
 	// Optionally define with Person schema for the narrator
-	if (define && narrator) {
+	if (_define && narrator) {
 		return (
 			<Person
 				name={narrator}
-				disableJsonLd={define === "microdata"}
-				disableMicrodata={define === "linkedData"}
+				disableJsonLd={_define === "microdata"}
+				disableMicrodata={_define === "linkedData"}
 			>
 				{baseElement}
 			</Person>

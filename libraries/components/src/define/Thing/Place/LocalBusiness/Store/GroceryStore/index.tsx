@@ -1,1 +1,1 @@
-export default GroceryStore
+export { default } from "../../../../Organization/LocalBusiness/Store/GroceryStore/index.tsx"

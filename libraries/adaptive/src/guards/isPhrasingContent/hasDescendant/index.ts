@@ -1,7 +1,8 @@
-import type { ElementConfig } from "../../../constructors/elements/types/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import find from "../../../utilities/array/find/index.ts"
-import includes from "../../../utilities/array/includes/index.ts"
+import find from "@toolkit/simple/array/find/index.ts"
+import includes from "@toolkit/simple/array/includes/index.ts"
+
 import flatMapDescendants from "./flatMapDescendants/index.ts"
 
 /**
@@ -16,7 +17,9 @@ const hasDescendant =
 		const descendants = flatMapDescendants(children)
 
 		return Boolean(
-			find((descendant: string) => includes(descendant)(tags))(descendants),
+			find((descendant: string) => includes(descendant)([...tags]))([
+				...descendants,
+			]),
 		)
 	}
 

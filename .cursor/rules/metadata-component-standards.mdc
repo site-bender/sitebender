@@ -1,8 +1,0 @@
----
-alwaysApply: true
----
-- **Semantic HTML focus**: All metadata components must generate valid semantic HTML with proper structured data
-- **Multiple format support**: Components should support Schema.org, Dublin Core, JSON-LD, and microdata where applicable
-- **Template system**: Use the custom template formatting system with variable substitution for dynamic content
-- **Language compliance**: Follow BCP-47 language tag standards for internationalization features
-- **Immutable props**: All component props must be immutable types only

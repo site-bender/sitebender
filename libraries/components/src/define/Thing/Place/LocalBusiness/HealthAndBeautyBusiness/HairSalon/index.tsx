@@ -1,1 +1,1 @@
-export default HairSalon
+export { default } from "../../../../Organization/LocalBusiness/HealthAndBeautyBusiness/HairSalon/index.tsx"

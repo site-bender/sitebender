@@ -20,7 +20,7 @@ export default function convertBigIntToBase58(bigInt: bigint): string {
 		return n > 0
 			? convert(
 				n / len,
-				BASE58[parseInt((n % len).toString(), 10)] + out
+				BASE58[parseInt((n % len).toString(), 10)] + out,
 			)
 			: out
 	}

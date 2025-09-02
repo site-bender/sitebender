@@ -1,5 +1,4 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
 import * as fc from "npm:fast-check@3"
 
 import average from "../../../../src/simple/math/average/index.ts"
@@ -10,16 +9,21 @@ Deno.test("average", async (t) => {
 		await t.step("should calculate arithmetic mean correctly", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1e6, max: 1e6 }), { minLength: 1, maxLength: 100 }),
+					fc.array(fc.float({ noNaN: true, min: -1e6, max: 1e6 }), {
+						minLength: 1,
+						maxLength: 100,
+					}),
 					(numbers) => {
 						const result = average(numbers)
 						const expectedSum = numbers.reduce((a, b) => a + b, 0)
 						const expectedAvg = expectedSum / numbers.length
-						
-						return approximately(result, expectedAvg, Math.abs(expectedAvg) * 1e-10)
-					}
+
+						// Use a minimum epsilon to handle zero average case
+						const epsilon = Math.max(Math.abs(expectedAvg) * 1e-10, 1e-10)
+						return approximately(result, expectedAvg, epsilon)
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -31,11 +35,11 @@ Deno.test("average", async (t) => {
 						const result = average(numbers)
 						const min = Math.min(...numbers)
 						const max = Math.max(...numbers)
-						
+
 						return result >= min && result <= max
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -45,68 +49,92 @@ Deno.test("average", async (t) => {
 					fc.float({ noNaN: true }),
 					(value) => {
 						return average([value]) === value
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should return same value for arrays of identical elements", () => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true }),
-					fc.integer({ min: 1, max: 100 }),
-					(value, count) => {
-						const arr = Array(count).fill(value)
-						return average(arr) === value
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should return same value for arrays of identical elements",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true }),
+						fc.integer({ min: 1, max: 100 }),
+						(value, count) => {
+							const arr = Array(count).fill(value)
+							return average(arr) === value
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("linearity property", async (t) => {
-		await t.step("should be linear (average(ax + b) = a*average(x) + b)", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), { minLength: 1, maxLength: 50 }),
-					fc.float({ noNaN: true, min: -10, max: 10 }),
-					fc.float({ noNaN: true, min: -10, max: 10 }),
-					(numbers, a, b) => {
-						const avgOriginal = average(numbers)
-						const transformed = numbers.map(x => a * x + b)
-						const avgTransformed = average(transformed)
-						const expected = a * avgOriginal + b
-						
-						return approximately(avgTransformed, expected, Math.abs(expected) * 1e-10 + 1e-10)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should be linear (average(ax + b) = a*average(x) + b)",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
+							minLength: 1,
+							maxLength: 50,
+						}),
+						fc.float({ noNaN: true, min: -10, max: 10 }),
+						fc.float({ noNaN: true, min: -10, max: 10 }),
+						(numbers, a, b) => {
+							const avgOriginal = average(numbers)
+							const transformed = numbers.map((x) => a * x + b)
+							const avgTransformed = average(transformed)
+							const expected = a * avgOriginal + b
 
-		await t.step("should be additive (average(x + y) = average(x) + average(y))", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), { minLength: 1, maxLength: 50 }),
-					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 })),
-					(arr1, arr2) => {
-						// Make arrays same length
-						const len = arr1.length
-						const arr2Same = arr2.length >= len ? arr2.slice(0, len) : 
-							[...arr2, ...Array(len - arr2.length).fill(0)]
-						
-						const sumArr = arr1.map((v, i) => v + arr2Same[i])
-						const avgSum = average(sumArr)
-						const expected = average(arr1) + average(arr2Same)
-						
-						return approximately(avgSum, expected, Math.abs(expected) * 1e-10 + 1e-10)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+							return approximately(
+								avgTransformed,
+								expected,
+								Math.abs(expected) * 1e-10 + 1e-10,
+							)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should be additive (average(x + y) = average(x) + average(y))",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
+							minLength: 1,
+							maxLength: 50,
+						}),
+						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 })),
+						(arr1, arr2) => {
+							// Make arrays same length
+							const len = arr1.length
+							const arr2Same = arr2.length >= len
+								? arr2.slice(0, len)
+								: [...arr2, ...Array(len - arr2.length).fill(0)]
+
+							const sumArr = arr1.map((v, i) => v + arr2Same[i])
+							const avgSum = average(sumArr)
+							const expected = average(arr1) + average(arr2Same)
+
+							return approximately(
+								avgSum,
+								expected,
+								Math.abs(expected) * 1e-10 + 1e-10,
+							)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("special values", async (t) => {
@@ -270,31 +298,36 @@ Deno.test("average", async (t) => {
 				const avg = average(data)
 				return !Number.isNaN(avg)
 			}
-			
+
 			assertEquals(isValidDataset([1, 2, 3]), true)
 			assertEquals(isValidDataset([1, "2", 3]), false)
 		})
 
 		await t.step("moving average", () => {
-			const movingAverage = (data: Array<number>, window: number): Array<number> => {
+			const movingAverage = (
+				data: Array<number>,
+				window: number,
+			): Array<number> => {
 				const result: Array<number> = []
 				for (let i = 0; i <= data.length - window; i++) {
 					result.push(average(data.slice(i, i + window)))
 				}
 				return result
 			}
-			
+
 			assertEquals(movingAverage([1, 2, 3, 4, 5, 6], 3), [2, 3, 4, 5])
 		})
 
 		await t.step("outlier detection", () => {
 			const detectOutliers = (data: Array<number>): Array<number> => {
 				const avg = average(data)
-				const deviation = Math.sqrt(data.reduce((sum, x) => sum + Math.pow(x - avg, 2), 0) / data.length)
+				const deviation = Math.sqrt(
+					data.reduce((sum, x) => sum + Math.pow(x - avg, 2), 0) / data.length,
+				)
 				const threshold = 2 * deviation // 2 standard deviations
-				return data.filter(x => Math.abs(x - avg) > threshold)
+				return data.filter((x) => Math.abs(x - avg) > threshold)
 			}
-			
+
 			assertEquals(detectOutliers([10, 12, 11, 50, 9, 11]), [50])
 		})
 
@@ -305,13 +338,26 @@ Deno.test("average", async (t) => {
 		})
 
 		await t.step("weighted average comparison", () => {
-			const weightedAverage = (values: Array<number>, weights: Array<number>): number => {
-				const weightedSum = values.reduce((sum, val, i) => sum + val * weights[i], 0)
+			const weightedAverage = (
+				values: Array<number>,
+				weights: Array<number>,
+			): number => {
+				const weightedSum = values.reduce(
+					(sum, val, i) => sum + val * weights[i],
+					0,
+				)
 				const totalWeight = weights.reduce((sum, w) => sum + w, 0)
 				return weightedSum / totalWeight
 			}
-			
-			assertEquals(approximately(weightedAverage([80, 90, 70], [0.3, 0.5, 0.2]), 83, 1e-10), true)
+
+			assertEquals(
+				approximately(
+					weightedAverage([80, 90, 70], [0.3, 0.5, 0.2]),
+					83,
+					1e-10,
+				),
+				true,
+			)
 		})
 
 		await t.step("precision handling", () => {
@@ -332,8 +378,8 @@ Deno.test("average", async (t) => {
 
 		await t.step("pipeline processing", () => {
 			const pipeline = [1, 2, 3, 4, 5]
-				.map(x => x * 2)
-				.filter(x => x > 4)
+				.map((x) => x * 2)
+				.filter((x) => x > 4)
 			const result = average(pipeline)
 			assertEquals(result, 8)
 		})
@@ -366,7 +412,7 @@ Deno.test("average", async (t) => {
 			const result1 = average(data)
 			const result2 = average(data)
 			const result3 = average(data)
-			
+
 			assertEquals(result1, result2)
 			assertEquals(result2, result3)
 		})

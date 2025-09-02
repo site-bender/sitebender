@@ -1,4 +1,7 @@
-import { assertEquals, assertStrictEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertStrictEquals,
+} from "https://deno.land/std@0.208.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import squareRoot from "../../../../../src/simple/math/squareRoot/index.ts"
@@ -13,9 +16,9 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 					const squared = x * x
 					const root = squareRoot(squared)
 					return approximately(root, Math.abs(x), 1e-10)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -28,46 +31,53 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 					if (Number.isNaN(root)) return true // Skip NaN
 					const squared = root * root
 					return approximately(squared, x, 1e-10 * Math.max(1, x))
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
-	await t.step("property: sqrt(a*b) = sqrt(a) * sqrt(b) for non-negative a,b", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ noNaN: true, min: 0, max: 1e3 }),
-				fc.float({ noNaN: true, min: 0, max: 1e3 }),
-				(a, b) => {
-					const left = squareRoot(a * b)
-					const right = squareRoot(a) * squareRoot(b)
-					
-					if (!isFinite(left) && !isFinite(right)) {
-						return Object.is(left, right)
-					}
-					
-					return approximately(left, right, 1e-10 * Math.max(1, left))
-				}
-			),
-			{ numRuns: 1000 }
-		)
-	})
+	await t.step(
+		"property: sqrt(a*b) = sqrt(a) * sqrt(b) for non-negative a,b",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({ noNaN: true, min: 0, max: 1e3 }),
+					fc.float({ noNaN: true, min: 0, max: 1e3 }),
+					(a, b) => {
+						const left = squareRoot(a * b)
+						const right = squareRoot(a) * squareRoot(b)
+
+						if (!isFinite(left) && !isFinite(right)) {
+							return Object.is(left, right)
+						}
+
+						return approximately(left, right, 1e-10 * Math.max(1, left))
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 
 	await t.step("property: sqrt(a/b) = sqrt(a) / sqrt(b) for a≥0, b>0", () => {
 		fc.assert(
 			fc.property(
 				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
-				fc.float({ noNaN: true, min: Math.fround(0.001), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.001),
+					max: Math.fround(1e6),
+				}),
 				(a, b) => {
 					const left = squareRoot(a / b)
 					const right = squareRoot(a) / squareRoot(b)
 					// Use relative epsilon for comparison
 					const epsilon = Math.max(1e-10, Math.abs(left) * 1e-10)
 					return approximately(left, right, epsilon)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -78,9 +88,9 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 				(x) => {
 					const result = squareRoot(x)
 					return result >= 0 || Number.isNaN(result)
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -95,9 +105,9 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 					} else {
 						return squareRoot(a) >= squareRoot(b)
 					}
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -138,7 +148,14 @@ Deno.test("squareRoot - JSDoc examples", async (t) => {
 	await t.step("large numbers", () => {
 		assertStrictEquals(squareRoot(1000000), 1000)
 		assertStrictEquals(squareRoot(1000000000), 31622.776601683792)
-		assertEquals(approximately(squareRoot(Number.MAX_SAFE_INTEGER), 94906265.62425154, 1e-6), true)
+		assertEquals(
+			approximately(
+				squareRoot(Number.MAX_SAFE_INTEGER),
+				94906265.62425154,
+				1e-6,
+			),
+			true,
+		)
 	})
 
 	await t.step("very small numbers", () => {
@@ -180,8 +197,7 @@ Deno.test("squareRoot - JSDoc examples", async (t) => {
 
 	await t.step("practical examples", () => {
 		// Pythagorean theorem
-		const hypotenuse = (a: number, b: number) => 
-			squareRoot(a * a + b * b)
+		const hypotenuse = (a: number, b: number) => squareRoot(a * a + b * b)
 		assertStrictEquals(hypotenuse(3, 4), 5)
 		assertStrictEquals(hypotenuse(5, 12), 13)
 		assertStrictEquals(hypotenuse(8, 15), 17)
@@ -218,7 +234,7 @@ Deno.test("squareRoot - special properties", async (t) => {
 			const root = squareRoot(n)
 			return Number.isInteger(root)
 		}
-		
+
 		assertStrictEquals(isPerfectSquare(16), true)
 		assertStrictEquals(isPerfectSquare(17), false)
 		assertStrictEquals(isPerfectSquare(25), true)
@@ -239,10 +255,11 @@ Deno.test("squareRoot - special properties", async (t) => {
 				(x) => {
 					const viaSqrt = squareRoot(x)
 					const viaPower = Math.pow(x, 0.5)
-					return Object.is(viaSqrt, viaPower) || approximately(viaSqrt, viaPower, 1e-10)
-				}
+					return Object.is(viaSqrt, viaPower) ||
+						approximately(viaSqrt, viaPower, 1e-10)
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -251,8 +268,16 @@ Deno.test("squareRoot - edge cases", async (t) => {
 	await t.step("subnormal numbers", () => {
 		const subnormal = Number.MIN_VALUE
 		const result = squareRoot(subnormal)
-		assertEquals(result > 0, true, "Square root of subnormal should be positive")
-		assertEquals(result * result <= subnormal * 1.01, true, "Should be approximately correct")
+		assertEquals(
+			result > 0,
+			true,
+			"Square root of subnormal should be positive",
+		)
+		assertEquals(
+			result * result <= subnormal * 1.01,
+			true,
+			"Should be approximately correct",
+		)
 	})
 
 	await t.step("near-zero values", () => {
@@ -262,10 +287,22 @@ Deno.test("squareRoot - edge cases", async (t) => {
 
 	await t.step("boundary values", () => {
 		// Just below and above common boundaries
-		assertEquals(approximately(squareRoot(0.999999), 0.999999499999875, 1e-10), true)
-		assertEquals(approximately(squareRoot(1.000001), 1.000000499999875, 1e-10), true)
-		assertEquals(approximately(squareRoot(3.999999), 1.9999997499999844, 1e-10), true)
-		assertEquals(approximately(squareRoot(4.000001), 2.0000002499999843, 1e-10), true)
+		assertEquals(
+			approximately(squareRoot(0.999999), 0.999999499999875, 1e-10),
+			true,
+		)
+		assertEquals(
+			approximately(squareRoot(1.000001), 1.000000499999875, 1e-10),
+			true,
+		)
+		assertEquals(
+			approximately(squareRoot(3.999999), 1.9999997499999844, 1e-10),
+			true,
+		)
+		assertEquals(
+			approximately(squareRoot(4.000001), 2.0000002499999843, 1e-10),
+			true,
+		)
 	})
 })
 
@@ -279,7 +316,7 @@ Deno.test("squareRoot - mathematical applications", () => {
 	assertEquals(approximately(rms([1, 1, 1]), 1, 1e-10), true)
 
 	// Magnitude of vector
-	const magnitude = (vector: number[]) => 
+	const magnitude = (vector: number[]) =>
 		squareRoot(vector.reduce((sum, v) => sum + v * v, 0))
 	assertStrictEquals(magnitude([3, 4]), 5)
 	assertEquals(approximately(magnitude([1, 1, 1]), Math.sqrt(3), 1e-10), true)

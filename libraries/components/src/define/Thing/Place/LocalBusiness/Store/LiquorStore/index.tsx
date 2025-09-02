@@ -1,1 +1,1 @@
-export default LiquorStore
+export { default } from "../../../../Organization/LocalBusiness/Store/LiquorStore/index.tsx"

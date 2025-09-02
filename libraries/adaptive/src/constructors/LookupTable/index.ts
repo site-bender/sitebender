@@ -1,5 +1,5 @@
-import type { JsonValue } from "../../types/json/index.ts"
-import type { LookupTableConfig } from "../../types/lookups/index.ts"
+import type { JsonValue } from "../../../types/json/index.ts"
+import type { LookupTableConfig } from "../../../types/lookups/index.ts"
 
 export const LookupTable = (datatype = "Json") =>
 (id: string) =>

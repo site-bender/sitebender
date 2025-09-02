@@ -1,36 +1,42 @@
+import type { AriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { InlineFrameAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
-import type { InlineFrameAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
-	LOADINGS,
 	REFERRER_POLICIES,
 	SANDBOXES,
-} from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import isSubsetOf from "../../../../../guards/isSubsetOf/index.ts"
-import isValidIframeAllow from "../../../../../guards/isValidIframeAllow/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import isSubsetOf from "@adaptiveSrc/guards/isSubsetOf/index.ts"
+import isValidIframeAllow from "@adaptiveSrc/guards/isValidIframeAllow/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended IFrame attributes including reactive properties and ARIA
  */
 export type IFrameElementAttributes =
 	& InlineFrameAttributes
-	& ImageAriaAttributes
+	& Pick<
+		AriaAttributes,
+		| "role"
+		| "aria-label"
+		| "aria-labelledby"
+		| "aria-describedby"
+		| "aria-hidden"
+	>
 	& {
 		calculation?: Operand
 		dataset?: Record<string, Value>
@@ -49,14 +55,13 @@ export const filterAttributes = (attributes: IFrameElementAttributes) => {
 	const {
 		id,
 		allow,
-		allowfullscreen,
+		allowFullScreen,
 		height,
-		loading,
 		name,
-		referrerpolicy,
+		referrerPolicy,
 		sandbox,
 		src,
-		srcdoc,
+		srcDoc,
 		width,
 		// ARIA attributes
 		role,
@@ -87,48 +92,42 @@ export const filterAttributes = (attributes: IFrameElementAttributes) => {
 
 	// Add iframe-specific attributes
 	if (isDefined(allow)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isValidIframeAllow)("allow")(allow),
-		)
+		// Adapt boolean guard to a type predicate
+		const isValidAllow = (v: string): v is string => isValidIframeAllow(v)
+		Object.assign(filteredAttrs, filterAttribute(isValidAllow)("allow")(allow))
 	}
-	if (isDefined(allowfullscreen)) {
+	if (isDefined(allowFullScreen)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isBoolean)("allowfullscreen")(allowfullscreen),
+			filterAttribute(isBoolean)("allowfullscreen")(allowFullScreen),
 		)
 	}
 	if (isDefined(height)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
 	}
-	if (isDefined(loading)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(LOADINGS))("loading")(loading),
-		)
-	}
+	// Note: loading attribute not currently modeled in InlineFrameAttributes
 	if (isDefined(name)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
 	}
-	if (isDefined(referrerpolicy)) {
+	if (isDefined(referrerPolicy)) {
 		Object.assign(
 			filteredAttrs,
 			filterAttribute(isMemberOf(REFERRER_POLICIES))("referrerpolicy")(
-				referrerpolicy,
+				referrerPolicy,
 			),
 		)
 	}
 	if (isDefined(sandbox)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isSubsetOf(SANDBOXES))("sandbox")(sandbox),
-		)
+		// Wrap boolean guard into a type predicate string guard
+		const isSandbox = (v: Value): v is string =>
+			typeof v === "string" && isSubsetOf(SANDBOXES)(v)
+		Object.assign(filteredAttrs, filterAttribute(isSandbox)("sandbox")(sandbox))
 	}
 	if (isDefined(src)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
-	if (isDefined(srcdoc)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcdoc")(srcdoc))
+	if (isDefined(srcDoc)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("srcdoc")(srcDoc))
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -204,7 +203,9 @@ export const IFrame = (
 		},
 		children: [], // Void element
 		...(isDefined(calculation) ? { calculation } : {}),
-		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(dataset)
+			? { dataset: dataset as Record<string, Value> }
+			: {}),
 		...(isDefined(display) ? { display } : {}),
 		...(isDefined(format) ? { format } : {}),
 		...(isDefined(scripts) ? { scripts } : {}),

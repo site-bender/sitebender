@@ -1,1 +1,1 @@
-export default Casino
+export { default } from "../../../../Organization/LocalBusiness/EntertainmentBusiness/Casino/index.tsx"

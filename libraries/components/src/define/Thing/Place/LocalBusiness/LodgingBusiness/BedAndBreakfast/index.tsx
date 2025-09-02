@@ -1,1 +1,1 @@
-export default BedAndBreakfast
+export { default } from "../../../../Organization/LocalBusiness/LodgingBusiness/BedAndBreakfast/index.tsx"

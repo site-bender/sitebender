@@ -1,10 +1,5 @@
-import type { AdaptiveError, ComparatorConfig, Either, GlobalAttributes, LocalValues, OperationFunction, Value } from "../../../../types/index.ts"
+import compare from "../../comparator/index.ts"
 
-import compare from "../../compare.ts"
-
-const isUnequalTo = (op: ComparatorConfig): OperationFunction<boolean> => async (
-	arg: unknown,
-	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, boolean>> => {
+const isUnequalTo = compare((o: unknown, t: unknown) => o !== t)
 
 export default isUnequalTo

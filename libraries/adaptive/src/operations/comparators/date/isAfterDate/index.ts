@@ -1,16 +1,9 @@
-import type {
-	AdaptiveError,
-	ComparatorConfig,
-	Either,
-	LocalValues,
-	OperationFunction,
-	Value,
-} from "../../../../types/index.ts"
+import compare from "../../comparator/index.ts"
 
-import compare from "../../compare.ts"
-
-const isAfterDate = compare(
-	(operand, test) => Temporal.PlainDate.compare(operand, test) > 0,
-)
+const isAfterDate = compare((operand, test) => {
+	const a = String(operand)
+	const b = String(test)
+	return a > b
+})
 
 export default isAfterDate

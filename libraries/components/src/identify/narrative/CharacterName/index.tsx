@@ -1,5 +1,19 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	fullName?: string
+	nickname?: string
+	role?: string
+	title?: string
+	children?: unknown
+}
+
 export default function CharacterName({
 	characterId,
 	children,
@@ -38,8 +52,10 @@ export default function CharacterName({
 	if (define && characterId) {
 		return (
 			<Person
-				id={characterId}
-				name={fullName || displayName}
+				identifier={characterId}
+				name={typeof (fullName || displayName) === "string"
+					? String(fullName || displayName)
+					: undefined}
 				alternateName={nickname}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}

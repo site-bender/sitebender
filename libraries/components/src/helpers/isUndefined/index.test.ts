@@ -30,8 +30,10 @@ describe("isUndefined", () => {
 
 	describe("type guard behavior", () => {
 		it("should act as a type guard for TypeScript", () => {
-			const value: string | undefined = Math.random() > 0.5 ? "hello" : undefined
-			
+			const value: string | undefined = Math.random() > 0.5
+				? "hello"
+				: undefined
+
 			if (isUndefined(value)) {
 				// TypeScript should know value is undefined here
 				expect(value).toBe(undefined)
@@ -44,7 +46,7 @@ describe("isUndefined", () => {
 
 		it("should narrow unknown types to undefined", () => {
 			const value: unknown = Math.random() > 0.5 ? 42 : undefined
-			
+
 			if (isUndefined(value)) {
 				// TypeScript should know value is undefined here
 				expect(value).toBe(undefined)
@@ -62,11 +64,11 @@ describe("isUndefined", () => {
 
 		it("should only return true for undefined, not other falsy values", () => {
 			const falsyValues = [0, "", false, NaN, null]
-			
-			falsyValues.forEach(value => {
+
+			falsyValues.forEach((value) => {
 				expect(isUndefined(value)).toBe(false)
 			})
-			
+
 			expect(isUndefined(undefined)).toBe(true)
 		})
 	})
@@ -86,18 +88,20 @@ describe("isUndefined", () => {
 		it("should handle functions that return undefined", () => {
 			const returnsUndefined = () => undefined
 			expect(isUndefined(returnsUndefined())).toBe(true)
-			
-			const returnsExplicitUndefined = () => { return undefined }
+
+			const returnsExplicitUndefined = () => {
+				return undefined
+			}
 			expect(isUndefined(returnsExplicitUndefined())).toBe(true)
-			
-			const returnsNothing = () => { /* no return */ }
+
+			const returnsNothing = () => {/* no return */}
 			expect(isUndefined(returnsNothing())).toBe(true)
 		})
 
 		it("should handle object properties that don't exist", () => {
 			const obj = {} as { prop?: string }
 			expect(isUndefined(obj.prop)).toBe(true)
-			
+
 			const arr: Array<string | undefined> = ["a", "b"]
 			expect(isUndefined(arr[5])).toBe(true)
 		})
@@ -105,7 +109,7 @@ describe("isUndefined", () => {
 		it("should handle destructuring with defaults", () => {
 			const obj = { a: "value" } as { a?: string; b?: string }
 			const { a, b } = obj
-			
+
 			expect(isUndefined(a)).toBe(false)
 			expect(isUndefined(b)).toBe(true)
 		})
@@ -132,9 +136,9 @@ describe("isUndefined", () => {
 			const arr = [null, undefined, "value", , "end"] // note the hole
 			expect(isUndefined(arr)).toBe(false)
 			expect(isUndefined(arr[0])).toBe(false) // null
-			expect(isUndefined(arr[1])).toBe(true)  // undefined
+			expect(isUndefined(arr[1])).toBe(true) // undefined
 			expect(isUndefined(arr[2])).toBe(false) // "value"
-			expect(isUndefined(arr[3])).toBe(true)  // hole (undefined)
+			expect(isUndefined(arr[3])).toBe(true) // hole (undefined)
 			expect(isUndefined(arr[4])).toBe(false) // "end"
 		})
 	})
@@ -157,7 +161,7 @@ describe("isUndefined", () => {
 
 		it("should return false for function objects", () => {
 			expect(isUndefined(() => {})).toBe(false)
-			expect(isUndefined(function() {})).toBe(false)
+			expect(isUndefined(function () {})).toBe(false)
 			expect(isUndefined(Math.max)).toBe(false)
 		})
 
@@ -179,8 +183,8 @@ describe("isUndefined", () => {
 						} else {
 							expect(result).toBe(false)
 						}
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -190,15 +194,15 @@ describe("isUndefined", () => {
 					fc.anything(),
 					(value) => {
 						expect(isUndefined(value)).toBe(value === undefined)
-					}
-				)
+					},
+				),
 			)
 		})
 
 		it("should be mutually exclusive with isDefined for undefined values", () => {
 			// Note: This assumes isDefined exists and checks for both null and undefined
 			const isDefined = (val: unknown) => val !== undefined && val !== null
-			
+
 			fc.assert(
 				fc.property(
 					fc.anything(),
@@ -212,8 +216,8 @@ describe("isUndefined", () => {
 							expect(isUndefined(value)).toBe(false)
 							expect(isDefined(value)).toBe(false)
 						}
-					}
-				)
+					},
+				),
 			)
 		})
 	})
@@ -226,8 +230,15 @@ describe("isUndefined", () => {
 		})
 
 		it("should work to remove undefined values (inverse filter)", () => {
-			const maybeNumbers: Array<number | undefined> = [1, 2, undefined, 3, undefined, 4]
-			const definedNumbers = maybeNumbers.filter(x => !isUndefined(x))
+			const maybeNumbers: Array<number | undefined> = [
+				1,
+				2,
+				undefined,
+				3,
+				undefined,
+				4,
+			]
+			const definedNumbers = maybeNumbers.filter((x) => !isUndefined(x))
 			expect(definedNumbers).toEqual([1, 2, 3, 4])
 		})
 
@@ -236,7 +247,7 @@ describe("isUndefined", () => {
 			sparse[1] = "defined"
 			sparse[3] = 42
 			// indices 0, 2, 4 are holes (undefined)
-			
+
 			const undefinedIndices: number[] = []
 			// forEach skips holes in sparse arrays, so we need to use for loop
 			for (let i = 0; i < sparse.length; i++) {
@@ -244,15 +255,17 @@ describe("isUndefined", () => {
 					undefinedIndices.push(i)
 				}
 			}
-			
+
 			expect(undefinedIndices).toEqual([0, 2, 4])
 		})
 	})
 
 	describe("practical usage patterns", () => {
 		it("should work in conditional checks", () => {
-			const maybeValue: string | undefined = Math.random() > 0.5 ? "value" : undefined
-			
+			const maybeValue: string | undefined = Math.random() > 0.5
+				? "value"
+				: undefined
+
 			if (isUndefined(maybeValue)) {
 				expect(maybeValue).toBe(undefined)
 			} else {
@@ -261,9 +274,13 @@ describe("isUndefined", () => {
 		})
 
 		it("should work in ternary expressions", () => {
-			const maybeValue: number | undefined = Math.random() > 0.5 ? 42 : undefined
-			const result = isUndefined(maybeValue) ? "no value" : maybeValue.toString()
-			
+			const maybeValue: number | undefined = Math.random() > 0.5
+				? 42
+				: undefined
+			const result = isUndefined(maybeValue)
+				? "no value"
+				: maybeValue.toString()
+
 			if (maybeValue !== undefined) {
 				expect(result).toBe("42")
 			} else {
@@ -272,8 +289,9 @@ describe("isUndefined", () => {
 		})
 
 		it("should work for default value assignment", () => {
-			const getValue = (input?: string) => isUndefined(input) ? "default" : input
-			
+			const getValue = (input?: string) =>
+				isUndefined(input) ? "default" : input
+
 			expect(getValue()).toBe("default")
 			expect(getValue(undefined)).toBe("default")
 			expect(getValue("custom")).toBe("custom")
@@ -281,8 +299,9 @@ describe("isUndefined", () => {
 		})
 
 		it("should work in logical OR expressions for defaults", () => {
-			const getValue = (input?: string) => !isUndefined(input) ? input : "default"
-			
+			const getValue = (input?: string) =>
+				!isUndefined(input) ? input : "default"
+
 			expect(getValue()).toBe("default")
 			expect(getValue(undefined)).toBe("default")
 			expect(getValue("custom")).toBe("custom")
@@ -293,7 +312,7 @@ describe("isUndefined", () => {
 		it("should identify uninitialized variables", () => {
 			let uninitializedVar: string | undefined
 			expect(isUndefined(uninitializedVar)).toBe(true)
-			
+
 			uninitializedVar = "now defined"
 			expect(isUndefined(uninitializedVar)).toBe(false)
 		})
@@ -303,7 +322,7 @@ describe("isUndefined", () => {
 				expect(isUndefined(required)).toBe(false)
 				return isUndefined(optional)
 			}
-			
+
 			expect(testOptional("test")).toBe(true)
 			expect(testOptional("test", 42)).toBe(false)
 			expect(testOptional("test", undefined)).toBe(true)
@@ -314,7 +333,7 @@ describe("isUndefined", () => {
 				// param will never be undefined due to default
 				return isUndefined(param)
 			}
-			
+
 			expect(withDefaults()).toBe(false) // gets default value
 			expect(withDefaults("custom")).toBe(false)
 			// Note: passing undefined explicitly would still use default
@@ -324,25 +343,25 @@ describe("isUndefined", () => {
 	describe("performance characteristics", () => {
 		it("should be fast for primitive checks", () => {
 			const values = [null, undefined, 0, "", false, true, 42, "hello"]
-			
+
 			const start = Date.now()
 			for (let i = 0; i < 10000; i++) {
 				values.forEach(isUndefined)
 			}
 			const end = Date.now()
-			
+
 			expect(end - start).toBeLessThan(100) // Should be very fast
 		})
 
 		it("should handle large arrays efficiently", () => {
-			const largeArray = new Array(10000).fill(null).map((_, i) => 
+			const largeArray = new Array(10000).fill(null).map((_, i) =>
 				i % 2 === 0 ? undefined : i
 			)
-			
+
 			const start = Date.now()
 			const undefinedValues = largeArray.filter(isUndefined)
 			const end = Date.now()
-			
+
 			expect(undefinedValues.length).toBe(5000)
 			expect(end - start).toBeLessThan(100) // Should be reasonably fast
 		})

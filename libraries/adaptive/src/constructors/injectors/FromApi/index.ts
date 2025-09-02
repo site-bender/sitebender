@@ -2,9 +2,9 @@ import type {
 	ComplexDatatype,
 	FromApiInjector,
 	Value,
-} from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import { OPERAND_TYPES } from "../../constants/index.ts"
+import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
 
 interface ApiOptions {
 	endpoint: string

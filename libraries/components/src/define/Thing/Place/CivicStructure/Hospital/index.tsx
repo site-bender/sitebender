@@ -1,1 +1,1 @@
-export default Hospital
+export { default } from "../../../Organization/MedicalOrganization/Hospital/index.tsx"

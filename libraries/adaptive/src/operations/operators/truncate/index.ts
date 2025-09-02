@@ -1,16 +1,15 @@
-import type { HydratedTruncate } from "../../../types/hydrated/index.ts"
+import type { HydratedTruncate } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const truncate = (
-	{ decimalPlaces, operand, ...op }: HydratedTruncate,
+	{ decimalPlaces, operand, ..._op }: HydratedTruncate,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,

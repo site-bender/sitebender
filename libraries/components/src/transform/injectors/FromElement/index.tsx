@@ -9,7 +9,7 @@
  * <FromElement selector=".total-field" type="String" />
  */
 
-import FromElementConstructor from "../../../../adaptive/constructors/injectors/FromElement/index.ts"
+// Marker only; compiler maps to Adaptive IR
 
 export type FromElementProps = {
 	id?: string
@@ -18,14 +18,10 @@ export type FromElementProps = {
 	datatype?: "Number" | "String" | "Boolean" | "Date" | "Json"
 }
 
-export default function FromElement({
-	id,
-	selector,
-	type = "String",
-	datatype,
-}: FromElementProps): ReturnType<typeof FromElementConstructor> {
+export default function FromElement(
+	{ id, selector, type = "String", datatype }: FromElementProps,
+) {
 	const actualType = datatype || type
 	const source = id ? `#${id}` : selector || ""
-
-	return FromElementConstructor(actualType)(source)
+	return { type: "injector", tag: "FromElement", datatype: actualType, source }
 }

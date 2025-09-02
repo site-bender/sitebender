@@ -1,18 +1,15 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { SuperscriptAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { SuperscriptAttributes } from "../types/attributes/index.ts"
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Sup element configuration object
@@ -55,6 +52,6 @@ export type SupElementAttributes = SuperscriptAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Sup = GlobalOnly("Sup")(phrasingContentFilter)
+export const Sup = GlobalOnly("sup")(phrasingContentFilter)
 
 export default Sup

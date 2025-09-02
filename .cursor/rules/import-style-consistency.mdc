@@ -1,7 +1,0 @@
----
-alwaysApply: true
----
-
-- **Separate type/value imports**: Always separate `import type { }` from `import { }` statements
-- **Alphabetical ordering**: Within import groups, maintain alphabetical order by module path
-- **No mixed imports**: Don't mix type and value imports in the same statement

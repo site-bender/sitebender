@@ -2,12 +2,16 @@ import type {
 	MinOperator,
 	NumericDatatype,
 	Operand,
+	StringDatatype,
+	TemporalDatatype,
 } from "../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
 
+type MinDatatype = NumericDatatype | StringDatatype | TemporalDatatype
+
 const Min =
-	(datatype: NumericDatatype = "Number") =>
+	(datatype: MinDatatype = "Number") =>
 	(operands: Array<Operand> = []): MinOperator => ({
 		tag: "Min",
 		type: OPERAND_TYPES.operator,

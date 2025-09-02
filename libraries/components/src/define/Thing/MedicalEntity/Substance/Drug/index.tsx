@@ -1,1 +1,1 @@
-export default Drug
+export { default } from "../../../Product/Drug/index.tsx"

@@ -2,13 +2,11 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
-import { isLeft } from "../../../../types/index.ts"
+import { isLeft } from "../../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const ternary = (op: ComparatorConfig): OperationFunction<boolean> =>
@@ -16,32 +14,27 @@ async (
 	arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<AdaptiveError>, boolean>> => {
-	const condition = await composeComparators(op.condition)(arg, localValues)
-	const ifFalse = await composeComparators(op.ifFalse)(arg, localValues)
-	const ifTrue = await composeComparators(op.ifTrue)(arg, localValues)
+	const condFn = await composeComparators(
+		(op as unknown as { condition: unknown }).condition as never,
+	)
+	const falseFn = await composeComparators(
+		(op as unknown as { ifFalse: unknown }).ifFalse as never,
+	)
+	const trueFn = await composeComparators(
+		(op as unknown as { ifTrue: unknown }).ifTrue as never,
+	)
 
-	if (isLeft(condition)) {
-		condition.left.push(ifFalse)
-		condition.left.push(ifTrue)
+	const condition = await condFn(arg, localValues)
+	if (isLeft(condition)) return condition
 
-		return condition
-	}
+	const ifFalse = await falseFn(arg, localValues)
+	if (isLeft(ifFalse)) return ifFalse
 
-	if (isLeft(ifFalse)) {
-		ifFalse.left.push(condition)
-		ifFalse.left.push(ifTrue)
+	const ifTrue = await trueFn(arg, localValues)
+	if (isLeft(ifTrue)) return ifTrue
 
-		return ifFalse
-	}
-
-	if (isLeft(ifTrue)) {
-		ifTrue.left.push(ifFalse)
-		ifTrue.left.push(condition)
-
-		return ifTrue
-	}
-
-	return condition.right ? ifTrue : ifFalse
+	// Coerce branch results to boolean by truthiness; comparator contract expects boolean
+	return { right: Boolean((condition.right ? ifTrue : ifFalse).right) }
 }
 
 export default ternary

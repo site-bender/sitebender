@@ -1,21 +1,17 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { TableColumnAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { TableColumnAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import FilteredEmpty from "../../../../../../constructors/abstracted/FilteredEmpty/index.ts"
-import getId from "../../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isInteger from "../../../../../../guards/isInteger/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
+import FilteredEmpty from "@adaptiveSrc/constructors/abstracted/FilteredEmpty/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Col element

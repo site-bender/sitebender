@@ -5,6 +5,7 @@
  * @param converger - Function to combine results
  * @param branches - Array of functions to apply to arguments
  * @returns Function that converges results
+ * @pure
  * @example
  * ```typescript
  * // Calculate average using converge
@@ -27,19 +28,6 @@
  *
  * stats([5, 2, 8, 1, 9]) // { min: 1, max: 9, avg: 5 }
  *
- * // String formatting from multiple sources
- * const formatName = converge(
- *   (first: string, last: string, full: string) =>
- *     `${full} (${first[0]}. ${last[0]}.)`,
- *   [
- *     (p: { first: string; last: string }) => p.first,
- *     (p: { first: string; last: string }) => p.last,
- *     (p: { first: string; last: string }) => `${p.first} ${p.last}`
- *   ]
- * )
- *
- * formatName({ first: "John", last: "Doe" }) // "John Doe (J. D.)"
- *
  * // Mathematical operations
  * const pythagoras = converge(
  *   Math.sqrt,
@@ -61,9 +49,6 @@
  * isValid(50) // true
  * isValid(101) // false
  * ```
- *
- * Note: All branch functions receive the same arguments.
- * The converger receives the results in the same order as the branches.
  */
 // deno-lint-ignore no-explicit-any
 const converge = <T extends ReadonlyArray<any>, R>(

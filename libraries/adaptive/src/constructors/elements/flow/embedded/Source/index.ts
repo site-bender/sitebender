@@ -1,21 +1,21 @@
+import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { SourceAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { NoAriaAttributes } from "../../../types/aria/index.ts"
-import type { SourceAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Extended Source attributes including reactive properties and ARIA
@@ -42,7 +42,7 @@ export const filterAttributes = (attributes: SourceElementAttributes) => {
 		media,
 		sizes,
 		src,
-		srcset,
+		srcSet,
 		type,
 		width,
 		// ARIA attributes (limited for Source elements)
@@ -81,8 +81,8 @@ export const filterAttributes = (attributes: SourceElementAttributes) => {
 	if (isDefined(src)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
-	if (isDefined(srcset)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcset")(srcset))
+	if (isDefined(srcSet)) {
+		Object.assign(filteredAttrs, filterAttribute(isString)("srcset")(srcSet))
 	}
 	if (isDefined(type)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))

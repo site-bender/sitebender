@@ -1,3 +1,5 @@
+import type { Value } from "@adaptiveTypes/index.ts"
+
 const isSubsetOf = <T>(options: readonly T[]) => (value: Value): boolean => {
 	if (typeof value !== "string") {
 		return options.includes(value as T)

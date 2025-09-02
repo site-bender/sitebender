@@ -1,21 +1,18 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { ImageMapAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { ImageMapAttributes } from "../types/attributes/index.ts"
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Map element
@@ -65,10 +62,13 @@ export const filterAttributes = (attributes: ImageMapAttributes) => {
  */
 export const Map =
 	(attributes: Record<string, Value> = {}) =>
-	(children: Record<string, Value> = []) => {
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = Array.isArray(children) ? children : [children]
 
-		return Filtered("Map")(filterAttributes)(attributes)(filteredChildren)
+		return Filtered("map")(
+			(attrs: Record<string, unknown>) =>
+				filterAttributes(attrs as ImageMapAttributes),
+		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 
 export default Map

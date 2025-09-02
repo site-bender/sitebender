@@ -1,1 +1,1 @@
-export default CovidTestingFacility
+export { default } from "../../../../MedicalOrganization/MedicalClinic/CovidTestingFacility/index.tsx"

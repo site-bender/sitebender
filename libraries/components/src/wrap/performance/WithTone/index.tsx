@@ -13,7 +13,7 @@
  *   If you do that again, I'll punch your lights out!
  * </WithTone>
  */
-import type { Emoji, Tone } from "../constants/index.ts"
+import type { Emoji, Tone } from "../../constants/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

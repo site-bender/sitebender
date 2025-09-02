@@ -1,23 +1,23 @@
+import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { CanvasAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { ImageAriaAttributes } from "../../../types/aria/index.ts"
-import type { CanvasAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Canvas attributes including reactive properties and ARIA
@@ -144,10 +144,22 @@ export const Canvas = (attributes: CanvasElementAttributes = {}) =>
 	const kids = isString(children)
 		? [TextNode(children)]
 		: Array.isArray(children)
-		? children.filter(ADVANCED_FILTERS.canvasContent)
-		: ADVANCED_FILTERS.canvasContent(children)
-		? [children]
-		: []
+		? children.filter((c) => {
+			const cand = c as unknown
+			if (
+				!cand || typeof cand !== "object" ||
+				!("tag" in (cand as Record<string, unknown>))
+			) return true
+			return isPhrasingContent()(cand as never)
+		})
+		: (() => {
+			const c = children as unknown
+			if (
+				!c || typeof c !== "object" ||
+				!("tag" in (c as Record<string, unknown>))
+			) return [children]
+			return isPhrasingContent()(c as never) ? [children] : []
+		})()
 
 	return {
 		attributes: {

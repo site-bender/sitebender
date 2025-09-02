@@ -2,15 +2,12 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
+import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
-import { isLeft } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isAscending =
@@ -19,20 +16,20 @@ const isAscending =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const operand = await composeComparators(op.operand)(arg, localValues)
+		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operand = await operandFn(arg, localValues)
 
 		if (isLeft(operand)) {
 			return operand
 		}
 
-		const list = operand.right
+		const list = JSON.parse(String(operand.right)) as Array<unknown>
 		const sorted = [...list].sort()
 
-		return JSON.stringify(list) === JSON.stringify(sorted) ? operand : {
+		return JSON.stringify(list) === JSON.stringify(sorted) ? { right: true } : {
 			left: [
-				Error(op)("IsAscending")(`JSON.stringify(list) is not ascending.`),
+				Error(op.tag)("IsAscending")(`JSON.stringify(list) is not ascending.`),
 			],
 		}
 	}
-
 export default isAscending

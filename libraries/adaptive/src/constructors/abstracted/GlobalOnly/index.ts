@@ -2,15 +2,15 @@ import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-} from "../../../constructors/elements/types/index.ts"
+} from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../utilities/isDefined/index.ts"
-import getAriaAttributes from "../../../constructors/helpers/getAriaAttributes/index.ts"
-import getId from "../../../constructors/helpers/getId/index.ts"
-import pickGlobalAttributes from "../../../guards/pickGlobalAttributes/index.ts"
-import filter from "../../../utilities/array/filter/index.ts"
+import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import { isValue } from "@adaptiveTypes/index.ts"
+import filter from "@toolkit/simple/array/filter/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Creates an element constructor that only accepts global attributes
@@ -38,16 +38,26 @@ export const GlobalOnly =
 		const { id, ...attribs } = pickGlobalAttributes(attrs)
 		const kids = Array.isArray(children) ? children : [children]
 
+		const datasetOut = typeof dataset === "object" && dataset !== null
+			? (Object.fromEntries(
+				Object.entries(dataset as Record<string, unknown>).filter(([, v]) =>
+					isValue(v)
+				),
+			) as Record<string, Value>)
+			: undefined
+
+		const idAttrs = isValue(id) ? getId(id) : {}
+
 		return {
 			tag,
 			attributes: {
-				...getId(id),
+				...idAttrs,
 				...attribs,
 				...getAriaAttributes(aria),
 			} as T,
 			children: filter(filterChildren)(kids),
 			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
+			...(isDefined(datasetOut) ? { dataset: datasetOut } : {}),
 			...(isDefined(display) ? { display } : {}),
 			...(isDefined(format) ? { format } : {}),
 			...(isDefined(scripts) ? { scripts } : {}),

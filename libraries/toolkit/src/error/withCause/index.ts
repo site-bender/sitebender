@@ -3,10 +3,10 @@ import type { Value } from "../../types/index.ts"
 
 /**
  * Adds the original cause of an error
- * 
+ *
  * Enriches an error object with the original error that caused it,
  * preserving the stack trace for debugging. Returns a new immutable error object.
- * 
+ *
  * @curried (cause) => (error) => error
  * @param cause - The original error that caused this error
  * @param error - The error to enrich
@@ -22,7 +22,7 @@ import type { Value } from "../../types/index.ts"
  *     withCause(err as Error)
  *   )
  * }
- * 
+ *
  * // Chain errors
  * const originalError = new Error("Network timeout")
  * const contextualError = pipe(
@@ -31,13 +31,16 @@ import type { Value } from "../../types/index.ts"
  * )
  * ```
  */
-const withCause = (cause: Error | AdaptiveError) =>
-  <TOp extends string, TArgs extends ReadonlyArray<Value>>(
-    error: AdaptiveError<TOp, TArgs>
-  ): AdaptiveError<TOp, TArgs> => ({
-    ...error,
-    cause,
-    stack: cause instanceof Error ? cause.stack : (cause as AdaptiveError).stack
-  })
+const withCause =
+	(cause: Error | AdaptiveError) =>
+	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
+		error: AdaptiveError<TOp, TArgs>,
+	): AdaptiveError<TOp, TArgs> => ({
+		...error,
+		cause,
+		stack: cause instanceof Error
+			? cause.stack
+			: (cause as AdaptiveError).stack,
+	})
 
 export default withCause

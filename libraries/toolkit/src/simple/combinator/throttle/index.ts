@@ -1,7 +1,11 @@
+import isUndefined from "../../validation/isUndefined/index.ts"
+import isNotUndefined from "../../validation/isNotUndefined/index.ts"
+
 /**
  * Returns a throttled version of a function that only invokes
  * at most once per wait milliseconds
  *
+ * @impure Uses timers and maintains internal state
  * @param wait - Minimum milliseconds between invocations
  * @param fn - Function to throttle
  * @returns Throttled function with cancel method
@@ -19,9 +23,6 @@
  * throttled(event3) // Ignored (too soon)
  * // After 1000ms passes
  * throttled(event4) // Executes
- *
- * // Can cancel to reset throttle
- * throttled.cancel() // Resets throttle state
  * ```
  *
  * Note: Unlike debounce, throttle executes immediately on first call,
@@ -38,10 +39,10 @@ const throttle = <T extends ReadonlyArray<unknown>, R>(
 	const throttled = (...args: T): R | void => {
 		const now = Date.now()
 
-		if (lastCallTime === undefined || now - lastCallTime >= wait) {
+		if (isUndefined(lastCallTime) || now - lastCallTime >= wait) {
 			// Execute immediately if enough time has passed
 			lastCallTime = now
-			if (timeoutId !== undefined) {
+			if (isNotUndefined(timeoutId)) {
 				clearTimeout(timeoutId)
 				timeoutId = undefined
 			}
@@ -49,12 +50,12 @@ const throttle = <T extends ReadonlyArray<unknown>, R>(
 		} else {
 			// Store args for delayed execution
 			lastArgs = args
-			if (timeoutId === undefined) {
+			if (isUndefined(timeoutId)) {
 				const remaining = wait - (now - lastCallTime)
 				timeoutId = setTimeout(() => {
 					lastCallTime = Date.now()
 					timeoutId = undefined
-					if (lastArgs !== undefined) {
+					if (isNotUndefined(lastArgs)) {
 						fn(...lastArgs)
 						lastArgs = undefined
 					}
@@ -64,7 +65,7 @@ const throttle = <T extends ReadonlyArray<unknown>, R>(
 	}
 
 	throttled.cancel = (): void => {
-		if (timeoutId !== undefined) {
+		if (isNotUndefined(timeoutId)) {
 			clearTimeout(timeoutId)
 			timeoutId = undefined
 		}

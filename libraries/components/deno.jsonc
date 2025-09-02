@@ -1,43 +1,48 @@
 {
-  // Semantic component library - Accessible HTML components with progressive enhancement
-  "name": "@sitebender/components",
-  "version": "0.1.0",
-  "description": "Semantic, accessible, and metadata-rich web components with progressive enhancement.",
-  
-  // Main export point for the library
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  
-  "tasks": {
-    // Run tests
-    "test": "deno test --unstable-temporal tests/ --allow-read --allow-env",
-    "test:watch": "deno test --unstable-temporal tests/ --allow-read --allow-env --watch",
-    "test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read --allow-env && deno coverage coverage",
-    "test:unit": "deno test --unstable-temporal tests/unit/ --allow-read",
-    "test:integration": "deno test --unstable-temporal tests/integration/ --allow-read --allow-env",
-    "test:a11y": "deno test --unstable-temporal tests/a11y/ --allow-all",
-    "test:e2e": "deno test --unstable-temporal tests/e2e/ --allow-all",
-    
-    // Code quality (inherits config from root workspace)
-    "lint": "deno lint src/",
-    "fmt": "deno fmt src/",
-    "type-check": "deno check --unstable-temporal src/**/*.ts src/**/*.tsx"
-  },
-  
-  "imports": {
-    // Cross-library dependencies (local references)
-    "@sitebender/adaptive": "../adaptive/src/",
-    "@sitebender/toolkit": "../toolkit/src/",
-    
-    // JSX support for this library
-    "createElement": "./src/utilities/createElement/index.ts",
-    "Fragment": "./src/utilities/Fragment/index.ts"
-  },
-  
-  // Test configuration
-  "test": {
-    "include": ["tests/"],
-    "exclude": ["src/", "tests/fixtures/"]
-  }
+	// Semantic component library - Accessible HTML components with progressive enhancement
+	"name": "@sitebender/components",
+	"version": "0.1.0",
+	"description": "Semantic, accessible, and metadata-rich web components with progressive enhancement.",
+
+	// Main export point for the library
+	"exports": {
+		".": "./src/index.ts"
+	},
+
+	"tasks": {
+		// Run tests
+		"test": "deno test --unstable-temporal tests/ --allow-read --allow-env",
+		"test:watch": "deno test --unstable-temporal tests/ --allow-read --allow-env --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read --allow-env && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
+
+		// Code quality (inherits config from root workspace)
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/",
+		"type-check": "deno check --unstable-temporal src/**/*.ts src/**/*.tsx"
+	},
+
+	"imports": {
+		// Cross-library dependencies (local references)
+		"@sitebender/adaptive": "../adaptive/src/",
+		"@sitebender/toolkit": "../toolkit/src/",
+		"@sitebender/toolkit/constants/": "../toolkit/src/constants/",
+
+		// JSX support for this library
+		"createElement": "./src/helpers/createElement/index.ts",
+		"Fragment": "./src/helpers/Fragment/index.ts"
+	},
+
+	// Ensure global JSX types are visible to TS during build/test
+	"compilerOptions": {
+		"types": [
+			"./types/globals.d.ts",
+			"./types/JSX/jsx-runtime.d.ts"
+		]
+	},
+
+	// Test configuration
+	"test": {
+		"include": ["tests/"],
+		"exclude": ["src/", "tests/fixtures/"]
+	}
 }

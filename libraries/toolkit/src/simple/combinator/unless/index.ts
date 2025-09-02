@@ -2,6 +2,8 @@
  * The opposite of when - applies function when predicate is false
  * If predicate returns false, applies the function; otherwise returns the value unchanged
  *
+ * @pure Creates a new function without side effects
+ * @curried Function is curried with predicate and transformer
  * @param predicate - Condition to check
  * @param fn - Function to apply when predicate is false
  * @returns Function that conditionally transforms its input
@@ -24,29 +26,6 @@
  *
  * ensureNotNull("value") // "value"
  * ensureNotNull(null) // "default"
- *
- * // Validation with fallback
- * interface Config {
- *   timeout?: number
- *   retries?: number
- * }
- *
- * const ensureTimeout = unless(
- *   (cfg: Config) => cfg.timeout !== undefined,
- *   (cfg: Config) => ({ ...cfg, timeout: 5000 })
- * )
- *
- * ensureTimeout({ retries: 3 }) // { retries: 3, timeout: 5000 }
- * ensureTimeout({ timeout: 1000, retries: 3 }) // { timeout: 1000, retries: 3 }
- *
- * // Chain with when for complete conditionals
- * const normalizeStatus = pipe([
- *   when((s: string) => s === "active", () => "ACTIVE"),
- *   unless((s: string) => s === "ACTIVE", () => "INACTIVE")
- * ])
- *
- * normalizeStatus("active") // "ACTIVE"
- * normalizeStatus("pending") // "INACTIVE"
  * ```
  *
  * Note: This is exactly equivalent to when with a negated predicate,

@@ -31,15 +31,18 @@
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
-	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar">
+	& Omit<TemporalBaseProps, "showZone" | "timezone" | "calendar" | "format">
 	& {
 		// Display format
 		format?: "numeric" | "short" | "medium" | "long" | "full"
+		children?:
+			| string
+			| ((formatted: { display: string; datetime: string }) => JSX.Element)
 	}
 
 export default function MonthDay({
@@ -90,15 +93,11 @@ export default function MonthDay({
 			day: "numeric",
 		})
 	} else {
-		// Use Intl.DateTimeFormat with specific options
+		// Use Intl.DateTimeFormat with specific options (numeric handled above)
+		const monthStyle: "short" | "long" =
+			format === "short" || format === "medium" ? "short" : "long"
 		const options = formatOptions || {
-			month: format === "numeric"
-				? "numeric"
-				: format === "short"
-				? "short"
-				: format === "medium"
-				? "short"
-				: "long",
+			month: monthStyle,
 			day: "numeric",
 		}
 

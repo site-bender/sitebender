@@ -1,3 +1,5 @@
+import type { Operand, PowerOperator } from "@adaptiveTypes/index.ts"
+
 /**
  * Power JSX Component
  *
@@ -11,9 +13,9 @@
  * </Power>
  */
 
-import PowerConstructor from "../../../../adaptive/constructors/operators/Power/index.ts"
+import PowerConstructor from "@adaptiveSrc/constructors/operators/Power/index.ts"
 
-export type PowerProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -23,11 +25,12 @@ export default function Power({
 	type = "Number",
 	datatype,
 	children = [],
-}: PowerProps): ReturnType<typeof PowerConstructor> {
+}: Props): PowerOperator {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [base, exponent] = Array.isArray(children) ? children : [children]
 
-	// The parser will extract Base and Exponent from children
-	// Power constructor signature: (datatype) => (base) => (exponent)
-	return PowerConstructor(actualType)(null as any)(null as any)
+	// Power: (datatype) => (base) => (exponent)
+	return PowerConstructor(actualType)(base as unknown as Operand)(
+		exponent as unknown as Operand,
+	)
 }

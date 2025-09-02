@@ -1,8 +1,12 @@
+import type { Value } from "@adaptiveTypes/index.ts"
+
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { isValue } from "@adaptiveTypes/index.ts"
+import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+
 import type { ElementAttributes } from "../../../types/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
 import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
 import { getInputAllowedRoles } from "../../../constants/aria-roles.ts"
@@ -35,13 +39,15 @@ const getInputMode =
  * Validates and filters the role attribute for the given input type
  */
 const validateInputRole =
-	(type: string) => (role: unknown): Record<string, unknown> => {
+	(type: string) => (role: Value | undefined): Record<string, unknown> => {
 		if (!isDefined(role)) {
 			return {}
 		}
 
 		const allowedRoles = getInputAllowedRoles(type)
-		return filterAttribute(isMemberOf(allowedRoles))("role")(role)
+		return filterAttribute<Value, string>(isMemberOf(allowedRoles))("role")(
+			role,
+		)
 	}
 
 /**
@@ -53,12 +59,14 @@ const validateInputRole =
  */
 const Input = (type: string = "Text") =>
 (
-	filterAttributes: (attributes: ElementAttributes) => Record<string, unknown> =
-		(
-			a,
-		) => a,
+	filterAttributes: (
+		attributes: Record<string, Value>,
+	) => Record<string, Value> = (a) => a,
 ) =>
-(attributes: ElementAttributes = {}): ElementConfig => {
+(
+	attributes: ElementAttributes<Record<string, Value>> =
+		{} as ElementAttributes<Record<string, Value>>,
+): ElementConfig => {
 	const {
 		calculation,
 		dataset,
@@ -74,6 +82,14 @@ const Input = (type: string = "Text") =>
 	const { role, ...attrsWithoutRole } = attrs
 	const { id, ...attribs } = filterAttributes(attrsWithoutRole)
 
+	const datasetOut = typeof dataset === "object" && dataset !== null
+		? (Object.fromEntries(
+			Object.entries(dataset as Record<string, unknown>).filter(([, v]) =>
+				isValue(v)
+			),
+		) as Record<string, Value>)
+		: undefined
+
 	return {
 		attributes: {
 			...getId(id),
@@ -84,7 +100,7 @@ const Input = (type: string = "Text") =>
 		},
 		children: [],
 		...(isDefined(calculation) ? { calculation } : {}),
-		...(isDefined(dataset) ? { dataset } : {}),
+		...(isDefined(datasetOut) ? { dataset: datasetOut } : {}),
 		...(isDefined(display) ? { display } : {}),
 		...(isDefined(format) ? { format } : {}),
 		...(isDefined(scripts) ? { scripts } : {}),

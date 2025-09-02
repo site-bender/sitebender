@@ -1,3 +1,5 @@
+import type { FromSessionStorageInjector, Value } from "@adaptiveTypes/index.ts"
+
 /**
  * FromSessionStorage JSX Component
  *
@@ -12,13 +14,13 @@
  * />
  */
 
-import FromSessionStorageConstructor from "../../../../adaptive/constructors/injectors/FromSessionStorage/index.ts"
+import FromSessionStorageConstructor from "@adaptiveSrc/constructors/injectors/FromSessionStorage/index.ts"
 
 export type FromSessionStorageProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: any
+	defaultValue?: Value
 }
 
 export default function FromSessionStorage({
@@ -26,9 +28,9 @@ export default function FromSessionStorage({
 	type = "String",
 	datatype,
 	defaultValue,
-}: FromSessionStorageProps): ReturnType<typeof FromSessionStorageConstructor> {
+}: FromSessionStorageProps): FromSessionStorageInjector {
 	const actualType = datatype || type
 
-	// FromSessionStorage constructor signature: (datatype) => (key) => (defaultValue)
-	return FromSessionStorageConstructor(actualType)(key)(defaultValue)
+	// FromSessionStorage constructor signature: (datatype) => (key, defaultValue)
+	return FromSessionStorageConstructor(actualType)(key, defaultValue)
 }

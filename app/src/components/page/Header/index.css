@@ -1,9 +1,0 @@
-header.page-header {
-	align-items: center;
-	background-color: var(--body-background-color);
-	color: var(--body-foreground-color);
-	display: flex;
-	padding-block: 1rem;
-	padding-inline: 1.5rem;
-	justify-content: space-between;
-}

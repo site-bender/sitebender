@@ -1,18 +1,15 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { StrongImportanceAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { StrongImportanceAttributes } from "../types/attributes/index.ts"
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Child filter that validates phrasing content
@@ -52,6 +49,6 @@ export type StrongElementAttributes = StrongImportanceAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Strong = GlobalOnly("Strong")(phrasingContentFilter)
+export const Strong = GlobalOnly("strong")(phrasingContentFilter)
 
 export default Strong

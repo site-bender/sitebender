@@ -1,22 +1,19 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { BlockQuotationAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { BlockQuotationAttributes } from "../types/attributes/index.ts"
+	Value,
+} from "@adaptiveTypes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isFlowContent from "../../../../../guards/isFlowContent/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for BlockQuote element
@@ -65,8 +62,18 @@ export const filterAttributes = (attributes: BlockQuotationAttributes) => {
  * ])
  * ```
  */
-export const BlockQuote = Filtered("BlockQuote")(filterAttributes)(
-	isFlowContent(),
-)
+export const BlockQuote =
+	(attributes: Record<string, Value> = {}) =>
+	(children: Array<ElementConfig> | ElementConfig | string = []) => {
+		const kids = Array.isArray(children)
+			? children.filter((c) => !c?.tag || isFlowContent()(c as ElementConfig))
+			: (!children || typeof children !== "object" || !("tag" in children) ||
+					isFlowContent()(children as ElementConfig))
+			? [children as ElementConfig]
+			: []
+		return Filtered("BlockQuote")(filterAttributes)(attributes)(
+			kids as Array<ElementConfig>,
+		)
+	}
 
 export default BlockQuote

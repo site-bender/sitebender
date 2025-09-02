@@ -1,31 +1,49 @@
+import type {
+	LocalValues,
+	OperationFunction,
+	Value,
+} from "@adaptiveTypes/index.ts"
+
+import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+
 import Error from "../../constructors/Error/index.ts"
-import isNumber from "../../utilities/isNumber/index.ts"
 import isUndefined from "../../utilities/isUndefined.ts"
 
-const fromArgument = (operation = {}) => async (arg, localValues) => {
-	const { datatype } = operation
+interface FromArgumentOp {
+	tag: "FromArgument"
+	type: "injector"
+	// We only need datatype hinting for basic casting in this injector
+	datatype?: "Number" | "Integer" | string
+	name?: string
+}
 
-	if (arg == null) {
-		return {
-			left: [Error(operation)("FromArgument")("Argument is missing.")],
-		}
+const fromArgument = (
+	op: FromArgumentOp = { tag: "FromArgument", type: "injector" },
+): OperationFunction<Value> =>
+(arg: unknown, _localValues?: LocalValues) => {
+	const { datatype } = op
+
+	if (arg === null || arg === undefined) {
+		return Promise.resolve({
+			left: [Error("FromArgument")("FromArgument")("Argument is missing.")],
+		})
 	}
 
 	if (datatype === "Number" || datatype === "Integer") {
-		const num = isNumber(arg, localValues)
-			? parseFloat(String(arg, localValues))
-			: NaN
+		const numeric = isNumber(arg as Value) ? parseFloat(String(arg)) : NaN
 
-		return isUndefined(num) || Number.isNaN(num)
-			? {
-				left: [Error(operation)("FromArgument")("Value is not a number.")],
-			}
-			: {
-				right: num,
-			}
+		return Promise.resolve(
+			isUndefined(numeric) || Number.isNaN(numeric)
+				? {
+					left: [
+						Error("FromArgument")("FromArgument")("Value is not a number."),
+					],
+				}
+				: { right: numeric },
+		)
 	}
 
-	return { right: arg }
+	return Promise.resolve({ right: arg as Value })
 }
 
 export default fromArgument

@@ -2,8 +2,22 @@
  * Functional programming pipe utility
  * Composes functions left-to-right (data flows through the pipeline)
  *
+ * @pure
  * @param fns - Array of functions to compose
  * @returns Function that takes input and applies all functions in sequence
+ * @example
+ * ```typescript
+ * const double = (x: number) => x * 2
+ * const addTen = (x: number) => x + 10
+ * const toString = (x: number) => x.toString()
+ *
+ * const transform = pipe([double, addTen, toString])
+ * transform(5) // "20"
+ *
+ * // Empty pipe returns identity
+ * const identity = pipe([])
+ * identity("hello") // "hello"
+ * ```
  *
  * Note: TypeScript cannot properly type variadic pipe without extensive overloads.
  * The 'any' type here is justified because:

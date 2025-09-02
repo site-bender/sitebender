@@ -1,16 +1,15 @@
-import type { HydratedArcCosine } from "../../../types/hydrated/index.ts"
+import type { HydratedArcCosine } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const arcCosine =
-	({ operand, ...op }: HydratedArcCosine): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedArcCosine): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

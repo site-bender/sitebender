@@ -1,1 +1,1 @@
-export default NightClub
+export { default } from "../../../../Organization/LocalBusiness/EntertainmentBusiness/NightClub/index.tsx"

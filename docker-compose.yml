@@ -1,0 +1,447 @@
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  minio_data: {}
+  thanos_sidecar_data: {}
+  thanos_store_data: {}
+  fuseki_data: {}
+  fuseki_config: {}
+  loki_data: {}
+  promtail_positions: {}
+  postgres_auth_data: {}
+  authentik_media: {}
+  authentik_templates: {}
+
+services:
+  # Apache Jena Fuseki - RDF Database and SPARQL Endpoint
+  fuseki:
+    image: stain/jena-fuseki:latest
+    container_name: fuseki
+    restart: unless-stopped
+    environment:
+      - FUSEKI_DATASET_1=my_dataset # Creates a persistent dataset with this name
+      # Optional: Set admin password for the web UI
+      - ADMIN_PASSWORD=admin123
+    volumes:
+      - fuseki_data:/fuseki-base/databases # Persistent volume for database files
+      - fuseki_config:/fuseki-base/configuration # Persistent volume for config
+    ports:
+      - "43030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
+    networks:
+      - monitoring # Attach it to the same network so Prometheus can scrape it
+    # Optional: Healthcheck to ensure the service is fully started
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:3030/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # The monitoring backbone: time-series database
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    command:
+      - --config.file=/config/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle # Allows config reload via API call
+      - --storage.tsdb.min-block-duration=1m
+      - --storage.tsdb.max-block-duration=1m
+    volumes:
+      - ./ops/prometheus:/config/prometheus:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "44090:9090"
+    networks:
+      - monitoring
+
+  # Exposes hardware & OS metrics from the host
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    # REMOVED the complex volumes and command
+    ports:
+      - "49100:9100"
+    networks:
+      - monitoring
+
+
+  # THANOS STOREGATEWAY - Serves metrics from the blocks in MinIO (long-term storage)
+  thanos-storegateway:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-storegateway
+    user: "0"
+    restart: unless-stopped
+    command:
+      - store
+      - --http-address=0.0.0.0:10902
+      - --grpc-address=0.0.0.0:10901
+      - --data-dir=/var/thanos
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
+    volumes:
+      - ./ops/thanos:/config/thanos:ro
+      - thanos_store_data:/var/thanos
+    depends_on:
+      - minio
+    networks:
+      - monitoring
+
+  # THANOS COMPACTOR - Compacts and downsamples blocks in object storage (dev: minimal)
+  thanos-compactor:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-compactor
+    user: "0"
+    restart: unless-stopped
+    command:
+      - compact
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
+      - --wait
+      - --http-address=0.0.0.0:10903
+      - --data-dir=/var/thanos/compactor
+    volumes:
+      - ./ops/thanos:/config/thanos:ro
+      - thanos_store_data:/var/thanos
+    depends_on:
+      - minio
+    networks:
+      - monitoring
+
+  # THANOS SIDECAR - Attaches to Prometheus and uploads data to MinIO
+  thanos-sidecar:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-sidecar
+    user: "65534"
+    restart: unless-stopped
+    command:
+      - sidecar
+      - --prometheus.url=http://prometheus:9090
+      - --tsdb.path=/prometheus
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
+    volumes:
+      - prometheus_data:/prometheus
+      - ./ops/thanos:/config/thanos:ro
+    depends_on:
+      - prometheus
+      - minio
+    networks:
+      - monitoring
+
+  # THANOS QUERIER - The single endpoint for Grafana to query all data (Prometheus + MinIO)
+  thanos-querier:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-querier
+    restart: unless-stopped
+    command:
+      - query
+      - --http-address=0.0.0.0:10902
+      - --grpc-address=0.0.0.0:10901
+      - --endpoint=thanos-sidecar:10901
+      - --endpoint=thanos-storegateway:10901
+    ports:
+      - "45002:10902" # Expose the HTTP Query UI and API
+    depends_on:
+      - thanos-sidecar
+    networks:
+      - monitoring
+
+  # The visualization dashboard
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    container_name: grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_PROTOCOL=http1
+      - GF_INSTALL_PLUGINS=grafana-polystat-panel
+      - GF_PATHS_PROVISIONING=/provisioning
+      - GF_AUTH_PROXY_ENABLED=true
+      - GF_AUTH_PROXY_HEADER_NAME=X-Forwarded-Email
+      - GF_AUTH_PROXY_HEADERS=Email:X-Forwarded-Email,Name:X-Forwarded-User,Login:X-Forwarded-Email
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_PROXY_AUTO_SIGN_UP=true
+      - GF_AUTH_PROXY_WHITELIST=172.16.0.0/12
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./ops/grafana/provisioning:/provisioning:ro
+      - ./ops/grafana/dashboards:/dashboards:ro
+    ports:
+      - "43001:3000" # Map host port 43001 to container port 3000
+    networks:
+      - monitoring
+
+  # oauth2-proxy for Grafana (SSO via Authentik) - dev path on http://localhost:43180
+  oauth2-proxy-grafana:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+    container_name: oauth2-proxy-grafana
+    restart: unless-stopped
+    env_file:
+      - ./.env.oauth2-grafana
+    environment:
+      OAUTH2_PROXY_UPSTREAMS: http://grafana:3000/
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
+      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
+      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
+    extra_hosts:
+      - "authentik.localhost:host-gateway"
+    ports:
+      - "43180:4180"
+    volumes:
+      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
+    networks:
+      - monitoring
+    depends_on:
+      - authentik-server
+
+  oauth2-proxy-prometheus:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+    container_name: oauth2-proxy-prometheus
+    restart: unless-stopped
+    env_file:
+      - ./.env.oauth2-prometheus
+    environment:
+      OAUTH2_PROXY_UPSTREAMS: http://prometheus:9090/
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
+      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
+      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
+    extra_hosts:
+      - "authentik.localhost:host-gateway"
+    networks:
+      - monitoring
+    depends_on:
+      - authentik-server
+    volumes:
+      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
+
+  oauth2-proxy-thanos:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+    container_name: oauth2-proxy-thanos
+    restart: unless-stopped
+    env_file:
+      - ./.env.oauth2-thanos
+    environment:
+      OAUTH2_PROXY_UPSTREAMS: http://thanos-querier:10902/
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "true"
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
+      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
+      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
+    extra_hosts:
+      - "authentik.localhost:host-gateway"
+    volumes:
+      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
+    networks:
+      - monitoring
+    depends_on:
+      - authentik-server
+
+  oauth2-proxy-fuseki:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+    container_name: oauth2-proxy-fuseki
+    restart: unless-stopped
+    env_file:
+      - ./.env.oauth2-fuseki
+    environment:
+      OAUTH2_PROXY_UPSTREAMS: http://admin:admin123@fuseki:3030/
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "false"
+      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "false"
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
+      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
+      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
+  # No alpha-config; upstream URL carries credentials to avoid browser challenges
+    extra_hosts:
+      - "authentik.localhost:host-gateway"
+    volumes:
+      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
+
+    networks:
+      - monitoring
+    depends_on:
+      - authentik-server
+
+  # Local S3-compatible storage for the next phase (Thanos)
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      # External URLs (behind Caddy) for console and API
+      MINIO_BROWSER_REDIRECT_URL: https://minio.localhost
+      MINIO_SERVER_URL: https://minio.localhost
+      # OIDC (SSO) via Authentik - internal discovery URL avoids TLS trust issues
+      MINIO_IDENTITY_OPENID_CONFIG_URL: http://authentik-server:9000/application/o/minio/.well-known/openid-configuration
+      MINIO_IDENTITY_OPENID_REDIRECT_URI: https://minio.localhost/oauth_callback
+      MINIO_IDENTITY_OPENID_SCOPES: openid,profile,email
+      MINIO_IDENTITY_OPENID_CLAIM_NAME: email
+      MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authentik
+      # Console OIDC must also be configured explicitly
+      CONSOLE_IDENTITY_OPENID_CONFIG_URL: https://authentik.localhost/application/o/minio/.well-known/openid-configuration
+      CONSOLE_IDENTITY_OPENID_REDIRECT_URI: https://minio.localhost/oauth_callback
+      CONSOLE_IDENTITY_OPENID_SCOPES: openid,profile,email
+      CONSOLE_IDENTITY_OPENID_CLAIM_NAME: email
+      CONSOLE_IDENTITY_OPENID_DISPLAY_NAME: Authentik
+    volumes:
+      - minio_data:/data
+    ports:
+      - "49000:9000" # S3 API Port
+      - "49001:9001" # Web UI Port
+    env_file:
+      - ./.env.oauth2-minio
+    networks:
+      - monitoring
+
+  # Local reverse proxy for pretty hostnames
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./ops/certs:/certs:ro
+    depends_on:
+      - grafana
+      - prometheus
+      - thanos-querier
+      - fuseki
+      - minio
+    networks:
+      - monitoring
+
+  # Authentik dependencies
+  postgres-auth:
+    image: postgres:15
+    container_name: postgres-auth
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: authentik
+      POSTGRES_USER: authentik
+      POSTGRES_PASSWORD: authentik
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+    networks:
+      - monitoring
+
+  redis-auth:
+    image: redis:7-alpine
+    container_name: redis-auth
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Authentik server (IdP)
+  authentik-server:
+    image: ghcr.io/goauthentik/server:2024.8.3
+    container_name: authentik-server
+    restart: unless-stopped
+    depends_on:
+      - postgres-auth
+      - redis-auth
+    command: server
+    env_file:
+      - ./.env.authentik
+    environment:
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:-please-change-me}
+      AUTHENTIK_REDIS__HOST: redis-auth
+      AUTHENTIK_POSTGRESQL__HOST: postgres-auth
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: authentik
+      AUTHENTIK_POSTGRESQL__NAME: authentik
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+      AUTHENTIK_BOOTSTRAP_EMAIL: ${AUTHENTIK_BOOTSTRAP_EMAIL:-admin@example.com}
+      AUTHENTIK_BOOTSTRAP_PASSWORD: ${AUTHENTIK_BOOTSTRAP_PASSWORD:-admin}
+      AUTHENTIK_BOOTSTRAP_TOKEN: ${AUTHENTIK_BOOTSTRAP_TOKEN:-changeme}
+    volumes:
+      - authentik_media:/media
+      - authentik_templates:/templates
+    ports:
+      - "43200:9000" # Access Authentik UI at http://localhost:43200
+    networks:
+      - monitoring
+
+  authentik-worker:
+    image: ghcr.io/goauthentik/server:2024.8.3
+    container_name: authentik-worker
+    restart: unless-stopped
+    depends_on:
+      - authentik-server
+    command: worker
+    env_file:
+      - ./.env.authentik
+    environment:
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:-please-change-me}
+      AUTHENTIK_REDIS__HOST: redis-auth
+      AUTHENTIK_POSTGRESQL__HOST: postgres-auth
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: authentik
+      AUTHENTIK_POSTGRESQL__NAME: authentik
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+    volumes:
+      - authentik_media:/media
+      - authentik_templates:/templates
+    networks:
+      - monitoring
+
+  # Loki - log aggregation store
+  loki:
+    image: grafana/loki:2.9.6
+    container_name: loki
+    restart: unless-stopped
+    command: ["-config.file=/etc/loki/config.yml"]
+    volumes:
+      - ./ops/loki/config.yml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    ports:
+      - "43100:3100" # optional: expose for local debugging
+    networks:
+      - monitoring
+
+  # Promtail - ships container logs to Loki with docker metadata
+  promtail:
+    image: grafana/promtail:2.9.6
+    container_name: promtail
+    restart: unless-stopped
+    command: ["-config.file=/etc/promtail/config.yml"]
+    volumes:
+      - ./ops/promtail/config.yml:/etc/promtail/config.yml:ro
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - promtail_positions:/positions
+    networks:
+      - monitoring
+    depends_on:
+      - loki

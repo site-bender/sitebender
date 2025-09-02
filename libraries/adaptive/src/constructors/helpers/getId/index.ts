@@ -1,7 +1,6 @@
-import type { GlobalAttributes, Value } from "../../../types/index.ts"
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import generateShortId from "@adaptiveSrc/pending/misc/generateShortId/index.ts"
 
 /**
  * Processes ID attribute value and returns appropriate object

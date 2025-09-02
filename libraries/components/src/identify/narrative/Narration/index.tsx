@@ -1,5 +1,20 @@
 import { CreativeWork, Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	narrator?: string
+	narratorId?: string
+	narratorType?: string
+	perspective?: string
+	style?: string
+	tense?: string
+	children?: unknown
+}
+
 export default function Narration({
 	children,
 	element: Element = "div",
@@ -40,7 +55,7 @@ export default function Narration({
 	if (define) {
 		const workElement = (
 			<CreativeWork
-				text={children}
+				text={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>
@@ -51,8 +66,8 @@ export default function Narration({
 		if (narratorId && narrator) {
 			return (
 				<Person
-					id={narratorId}
-					name={narrator}
+					identifier={narratorId}
+					name={typeof narrator === "string" ? narrator : undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

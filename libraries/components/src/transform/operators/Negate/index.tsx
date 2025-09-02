@@ -1,3 +1,5 @@
+import type { NegateOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Negate JSX Component
  *
@@ -10,9 +12,9 @@
  * </Negate>
  */
 
-import NegateConstructor from "../../../../adaptive/constructors/operators/Negate/index.ts"
+import NegateConstructor from "@adaptiveSrc/constructors/operators/Negate/index.ts"
 
-export type NegateProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -22,10 +24,10 @@ export default function Negate({
 	type = "Number",
 	datatype,
 	children = [],
-}: NegateProps): ReturnType<typeof NegateConstructor> {
+}: Props): NegateOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
 	// Negate constructor signature: (datatype) => (operand)
-	return NegateConstructor(actualType)(childArray[0] as any)
+	return NegateConstructor(actualType)(childArray[0] as unknown as Operand)
 }

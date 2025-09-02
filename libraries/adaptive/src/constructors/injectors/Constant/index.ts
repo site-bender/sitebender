@@ -1,4 +1,8 @@
-import type { ConstantInjector, Datatype, Value } from "../../../types/index.ts"
+import type {
+	ConstantInjector,
+	Datatype,
+	Value,
+} from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../constants/index.ts"
 

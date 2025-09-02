@@ -1,1 +1,1 @@
-export default AutoPartsStore
+export { default } from "../../../../Organization/LocalBusiness/AutomotiveBusiness/AutoPartsStore/index.tsx"

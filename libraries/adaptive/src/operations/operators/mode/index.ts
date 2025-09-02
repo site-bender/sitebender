@@ -1,17 +1,16 @@
-import type { HydratedMode } from "../../../types/hydrated/index.ts"
+import type { HydratedMode } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const mode =
-	({ operands, ...op }: HydratedMode): OperationFunction<number> =>
+	({ operands, ..._op }: HydratedMode): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
@@ -20,28 +19,45 @@ const mode =
 			operands.map((operand) => operand(arg, localValues)),
 		)
 		const errors = resolvedOperands.filter(isLeft)
-
 		if (errors.length) {
+			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
+			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
-				left: [Error(op)("Mode")("Could not resolve all operands."), ...errors],
+				left: [
+					{
+						tag: "Error",
+						operation: "Mode",
+						message: "Could not resolve all operands.",
+					},
+					...flattened,
+				],
 			}
 		}
 
-		const values = resolvedOperands.map((o) => o.right)
+		const values = (resolvedOperands as Array<{ right: number }>).map((o) =>
+			o.right
+		)
 		const len = values.length
 
 		if (len === 0) {
-			return { left: Error(op)("Mode")("Cannot take mode of empty array.") }
+			return {
+				left: [{
+					tag: "Error",
+					operation: "Mode",
+					message: "Cannot take mode of empty array.",
+				}],
+			}
 		}
 
 		const sorted = Object.entries(
-			values.reduce((counts, val) => {
-				counts[val] = (counts[val] || 0) + 1
+			values.reduce((counts: Record<string, number>, val: number) => {
+				const key = String(val)
+				counts[key] = (counts[key] || 0) + 1
 				return counts
-			}, {}),
-		).sort((a, b) => b[1] - a[1])
+			}, {} as Record<string, number>),
+		).sort((a: [string, number], b: [string, number]) => b[1] - a[1])
 
-		return castValue(datatype)({ right: sorted[0][0] })
+		return { right: Number(sorted[0][0]) }
 	}
 
 export default mode

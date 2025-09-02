@@ -1,4 +1,7 @@
-import { assertEquals, assertExists } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import floor from "../../../../../src/simple/math/floor/index.ts"
@@ -16,15 +19,15 @@ Deno.test("floor: monotonic property - if a <= b then floor(a) <= floor(b)", () 
 				const [smaller, larger] = a <= b ? [a, b] : [b, a]
 				const floorSmaller = floor(smaller)
 				const floorLarger = floor(larger)
-				
+
 				assertEquals(
 					floorSmaller <= floorLarger,
 					true,
-					`Monotonicity violated: floor(${smaller}) = ${floorSmaller} > floor(${larger}) = ${floorLarger}`
+					`Monotonicity violated: floor(${smaller}) = ${floorSmaller} > floor(${larger}) = ${floorLarger}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -35,15 +38,15 @@ Deno.test("floor: idempotent property - floor(floor(x)) === floor(x)", () => {
 			(n) => {
 				const once = floor(n)
 				const twice = floor(once)
-				
+
 				assertEquals(
 					twice,
 					once,
-					`floor should be idempotent: floor(floor(${n})) = ${twice} !== floor(${n}) = ${once}`
+					`floor should be idempotent: floor(floor(${n})) = ${twice} !== floor(${n}) = ${once}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -53,15 +56,15 @@ Deno.test("floor: rounding down property - floor(x) <= x", () => {
 			fc.float({ noNaN: true, min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = floor(n)
-				
+
 				assertEquals(
 					result <= n,
 					true,
-					`floor(${n}) = ${result} should be <= ${n}`
+					`floor(${n}) = ${result} should be <= ${n}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -71,15 +74,15 @@ Deno.test("floor: integer property - floor always returns an integer", () => {
 			fc.float({ noNaN: true, min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = floor(n)
-				
+
 				assertEquals(
 					Number.isInteger(result) || !Number.isFinite(result),
 					true,
-					`floor(${n}) = ${result} should be an integer or infinity`
+					`floor(${n}) = ${result} should be an integer or infinity`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -90,18 +93,18 @@ Deno.test("floor: minimal distance property - 0 <= x - floor(x) <= 1", () => {
 			(n) => {
 				const result = floor(n)
 				const distance = n - result
-				
+
 				// For most numbers, distance is in [0, 1)
 				// But due to floating point precision, very small negative numbers
 				// might result in distance exactly 1
 				assertEquals(
 					distance >= 0 && distance <= 1,
 					true,
-					`floor(${n}) = ${result}, distance ${distance} should be in [0, 1]`
+					`floor(${n}) = ${result}, distance ${distance} should be in [0, 1]`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -111,15 +114,15 @@ Deno.test("floor: integer invariant - floor(n) === n for integers", () => {
 			fc.integer({ min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = floor(n)
-				
+
 				assertEquals(
 					result,
 					n,
-					`floor of integer ${n} should be ${n}, got ${result}`
+					`floor of integer ${n} should be ${n}, got ${result}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -130,15 +133,15 @@ Deno.test("floor: relationship with ceiling - floor(x) + 1 >= ceiling(x) for any
 			(n) => {
 				const floorResult = floor(n)
 				const ceilResult = Math.ceil(n)
-				
+
 				assertEquals(
 					floorResult === ceilResult || floorResult + 1 === ceilResult,
 					true,
-					`floor(${n}) = ${floorResult} and ceil(${n}) = ${ceilResult} should differ by at most 1`
+					`floor(${n}) = ${floorResult} and ceil(${n}) = ${ceilResult} should differ by at most 1`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -148,7 +151,11 @@ Deno.test("floor: relationship with ceiling - floor(x) + 1 >= ceiling(x) for any
 
 Deno.test("floor: special values", () => {
 	assertEquals(floor(Infinity), Infinity, "floor(Infinity) should be Infinity")
-	assertEquals(floor(-Infinity), -Infinity, "floor(-Infinity) should be -Infinity")
+	assertEquals(
+		floor(-Infinity),
+		-Infinity,
+		"floor(-Infinity) should be -Infinity",
+	)
 	assertEquals(Number.isNaN(floor(NaN)), true, "floor(NaN) should be NaN")
 })
 
@@ -169,18 +176,33 @@ Deno.test("floor: boundary values", () => {
 
 Deno.test("floor: null safety", () => {
 	assertEquals(Number.isNaN(floor(null)), true, "floor(null) should be NaN")
-	assertEquals(Number.isNaN(floor(undefined)), true, "floor(undefined) should be NaN")
+	assertEquals(
+		Number.isNaN(floor(undefined)),
+		true,
+		"floor(undefined) should be NaN",
+	)
 })
 
 Deno.test("floor: type safety", () => {
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor("5.7")), true, "floor(string) should be NaN")
+	const r1 = floor("5.7")
+	assertEquals(Number.isNaN(r1), true, "floor(string) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor("abc")), true, "floor(non-numeric string) should be NaN")
+	const r2 = floor("abc")
+	assertEquals(
+		Number.isNaN(r2),
+		true,
+		"floor(non-numeric string) should be NaN",
+	)
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor({})), true, "floor(object) should be NaN")
+	const r3 = floor({})
+	assertEquals(Number.isNaN(r3), true, "floor(object) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(floor([])), true, "floor(array) should be NaN")
+	const r4 = floor([])
+	assertEquals(Number.isNaN(r4), true, "floor(array) should be NaN")
 })
 
 // ===========================
@@ -215,7 +237,11 @@ Deno.test("floor: JSDoc examples - special values and edge cases", () => {
 	assertEquals(floor(Infinity), Infinity, "floor(Infinity)")
 	assertEquals(floor(-Infinity), -Infinity, "floor(-Infinity)")
 	assertEquals(Number.isNaN(floor(NaN)), true, "floor(NaN)")
-	assertEquals(floor(Number.MAX_VALUE), Number.MAX_VALUE, "floor(Number.MAX_VALUE)")
+	assertEquals(
+		floor(Number.MAX_VALUE),
+		Number.MAX_VALUE,
+		"floor(Number.MAX_VALUE)",
+	)
 	assertEquals(floor(Number.MIN_VALUE), 0, "floor(Number.MIN_VALUE)")
 	assertEquals(floor(-Number.MIN_VALUE), -1, "floor(-Number.MIN_VALUE)")
 })
@@ -244,7 +270,11 @@ Deno.test("floor: JSDoc examples - truncating to decimal places", () => {
 		return floor(num * multiplier) / multiplier
 	}
 	assertEquals(truncateDecimals(3.14159, 2), 3.14, "Truncate π to 2 decimals")
-	assertEquals(truncateDecimals(9.9999, 3), 9.999, "Truncate 9.9999 to 3 decimals")
+	assertEquals(
+		truncateDecimals(9.9999, 3),
+		9.999,
+		"Truncate 9.9999 to 3 decimals",
+	)
 	assertEquals(truncateDecimals(1.005, 2), 1.00, "Truncate 1.005 to 2 decimals")
 })
 
@@ -269,7 +299,7 @@ Deno.test("floor: JSDoc examples - floor modulo operation", () => {
 
 Deno.test("floor: JSDoc examples - safe floor with validation", () => {
 	function safeFloor(value: unknown): number | null {
-		const num = typeof value === 'number' ? floor(value) : NaN
+		const num = typeof value === "number" ? floor(value) : NaN
 		return isNaN(num) ? null : num
 	}
 	assertEquals(safeFloor(4.7), 4, "Safe floor of 4.7")

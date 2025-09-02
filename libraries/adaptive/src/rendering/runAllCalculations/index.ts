@@ -1,6 +1,8 @@
 const runAllCalculations = () =>
 	document?.__sbCalculators?.forEach(
-		async (id) => await document.querySelector(`#${id}`)?.__sbCalculate?.(),
+		async (id: string) =>
+			await (document.querySelector(`#${id}`) as HTMLElement | null)
+				?.__sbCalculate?.(),
 	)
 
 export default runAllCalculations

@@ -1,1 +1,1 @@
-export default GeneralContractor
+export { default } from "../../../../Organization/LocalBusiness/HomeAndConstructionBusiness/GeneralContractor/index.tsx"

@@ -1,4 +1,5 @@
-import type { ComparatorConfig, Operand, OperatorConfig } from "../../../types/index.ts"
+// Intentionally keep this helper generic: it collects any 'operands' arrays
+// without constraining to specific Operand shapes.
 
 /**
  * Extracts all operands from an operations list
@@ -6,15 +7,16 @@ import type { ComparatorConfig, Operand, OperatorConfig } from "../../../types/i
  * @param operations - List of operations containing operands
  * @returns Array of all operands
  */
-const getOperands = (
-	operations: Array<OperatorConfig | ComparatorConfig>,
-): Array<Operand> => {
-	const operands: Array<Operand> = []
+export type HasOperands = { operands?: Array<unknown> | null }
 
-	operations.forEach((operation: ComparatorConfig | OperatorConfig) => {
-		if ('operands' in operation && operation.operands) {
-			operands.push(...operation.operands)
-		}
+const getOperands = (
+	operations: Array<HasOperands | Record<string, unknown>>,
+): Array<unknown> => {
+	const operands: Array<unknown> = []
+
+	operations.forEach((operation) => {
+		const ops = (operation as HasOperands)?.operands ?? []
+		if (Array.isArray(ops)) operands.push(...ops)
 	})
 
 	return operands

@@ -1,21 +1,16 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-	Value,
-} from "../../../../../types/index.ts"
+import type { LabelAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 } from "../../../../../types/index.ts"
-import type { LabelAttributes } from "../types/attributes/index.ts"
+import type { ElementConfig, Value } from "../../../../../types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getAriaAttributes from "../../../../../constructors/helpers/getAriaAttributes/index.ts"
 import getId from "../../../../../constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
 import filterAttribute from "../../../../../guards/filterAttribute/index.ts"

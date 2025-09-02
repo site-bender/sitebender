@@ -42,13 +42,13 @@
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatDate from "../../../../utilities/formatters/formatDate/index.ts"
-import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"
-import getTimezoneAbbreviation from "../../../../utilities/formatters/getTimezoneAbbreviation/index.ts"
-import buildDateTimeAttribute from "../../../../utilities/parsers/buildDateTimeAttribute/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatDate from "../../../helpers/formatters/formatDate/index.ts"
+import formatRelativeTime from "../../../helpers/formatters/formatRelativeTime/index.ts"
+import getTimezoneAbbreviation from "../../../helpers/formatters/getTimezoneAbbreviation/index.ts"
+import buildDateTimeAttribute from "../../../helpers/parsers/buildDateTimeAttribute/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
-export type Props = TemporalBaseProps & {
+export type Props = Omit<TemporalBaseProps, "format"> & {
 	// Show milliseconds in display
 	showMilliseconds?: boolean
 	// Show microseconds in display
@@ -69,7 +69,7 @@ export default function Timestamp({
 	value,
 	timezone,
 	locale,
-	calendar,
+	calendar: _calendar,
 	format = "medium",
 	formatOptions,
 	relativeTo,
@@ -158,17 +158,16 @@ export default function Timestamp({
 				minute: "2-digit",
 				second: "2-digit",
 				fractionalSecondDigits: showMicroseconds
-					? 6
+					? (3 as 1 | 2 | 3)
 					: showMilliseconds
-					? 3
+					? (3 as 1 | 2 | 3)
 					: undefined,
 				hour12: false,
 				timeZoneName: "short",
 			}),
-			...(showMilliseconds && { fractionalSecondDigits: 3 }),
-			...(showMicroseconds && { fractionalSecondDigits: 6 }),
+			...(showMilliseconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
+			...(showMicroseconds && { fractionalSecondDigits: 3 as 1 | 2 | 3 }),
 			timeZone: displayTimezone,
-			calendar,
 		}
 
 		display = formatDate(date, locale, options)

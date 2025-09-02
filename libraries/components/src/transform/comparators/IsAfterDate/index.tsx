@@ -1,3 +1,5 @@
+import type { IsAfterDateComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsAfterDate JSX Component
  *
@@ -12,9 +14,9 @@
  * </IsAfterDate>
  */
 
-import IsAfterDateConstructor from "../../../../adaptive/constructors/comparators/date/IsAfterDate/index.ts"
+import IsAfterDateConstructor from "@adaptiveSrc/constructors/comparators/date/IsAfterDate/index.ts"
 
-export type IsAfterDateProps = {
+export type Props = {
 	type?: "Date"
 	datatype?: "Date"
 	children?: JSX.Element | JSX.Element[]
@@ -24,11 +26,11 @@ export default function IsAfterDate({
 	type = "Date",
 	datatype,
 	children = [],
-}: IsAfterDateProps): ReturnType<typeof IsAfterDateConstructor> {
+}: Props): IsAfterDateComparator {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
-
-	// The parser will extract Value and Date from children
-	// IsAfterDate constructor signature: (datatype) => (operand) => (test)
-	return IsAfterDateConstructor(actualType)(null as any)(null as any)
+	const [operand, test] = Array.isArray(children) ? children : [children]
+	// IsAfterDate: (datatype) => (operand) => (test)
+	return IsAfterDateConstructor(actualType)(
+		operand as unknown as Operand,
+	)(test as unknown as Operand) as unknown as IsAfterDateComparator
 }

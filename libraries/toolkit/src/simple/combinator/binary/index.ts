@@ -4,6 +4,7 @@
  *
  * @param fn - Function to wrap
  * @returns Binary function (accepts exactly 2 arguments)
+ * @pure
  * @example
  * ```typescript
  * // Variadic functions can cause issues
@@ -18,7 +19,6 @@
  * // Useful with array methods
  * const parseIntBinary = binary(parseInt)
  * ["1", "2", "3"].map(parseIntBinary) // [1, 2, 3]
- * // Without binary: ["1", "2", "3"].map(parseInt) // [1, NaN, NaN]
  *
  * // Create binary operations from variadic ones
  * const multiply = (...nums: Array<number>) =>
@@ -33,7 +33,7 @@
  *   [titles.join(" "), first, last].filter(Boolean).join(" ")
  *
  * const greetBinary = binary(greet)
- * greetBinary("John", "Doe", "Dr.", "PhD") // "John Doe" (ignores titles)
+ * greetBinary("John", "Doe", "Dr.", "PhD") // "John Doe"
  * ```
  *
  * Note: This is a convenience function for the common case of

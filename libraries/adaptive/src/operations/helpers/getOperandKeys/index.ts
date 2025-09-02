@@ -1,4 +1,4 @@
-import type { Operand } from "../../../types/index.ts"
+import type { Operand } from "../../../../types/index.ts"
 
 /**
  * Extracts operand keys from an operation configuration

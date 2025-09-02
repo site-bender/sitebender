@@ -1,5 +1,5 @@
-import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a U element configuration object
@@ -17,6 +17,6 @@ import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const U = GlobalOnly("U")(isPhrasingContent())
+export const U = GlobalOnly("u")(isPhrasingContent())
 
 export default U

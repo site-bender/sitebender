@@ -1,1 +1,1 @@
-export default ArtGallery
+export { default } from "../../../../Organization/LocalBusiness/EntertainmentBusiness/ArtGallery/index.tsx"

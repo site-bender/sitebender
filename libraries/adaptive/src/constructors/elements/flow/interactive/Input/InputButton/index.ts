@@ -1,21 +1,17 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { InputButtonAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { InputButtonAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
-import Input from "../index.ts"
+import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for InputButton

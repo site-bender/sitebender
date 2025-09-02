@@ -1,1 +1,1 @@
-export default Dentist
+export { default } from "../../../Organization/LocalBusiness/MedicalBusiness/Dentist/index.tsx"

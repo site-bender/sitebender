@@ -1,22 +1,23 @@
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import type { AriaAttributes } from "../../../types/aria/index.ts"
 import type { DeletedTextAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
-
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
 
 /**
  * Extended Del attributes including reactive properties and ARIA
@@ -39,7 +40,7 @@ export const filterAttributes = (attributes: DelElementAttributes) => {
 	const {
 		id,
 		cite,
-		datetime,
+		dateTime,
 		// ARIA attributes
 		"aria-label": ariaLabel,
 		"aria-labelledby": ariaLabelledby,
@@ -75,10 +76,10 @@ export const filterAttributes = (attributes: DelElementAttributes) => {
 	if (isDefined(cite)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("cite")(cite))
 	}
-	if (isDefined(datetime)) {
+	if (isDefined(dateTime)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("datetime")(datetime),
+			filterAttribute(isString)("dateTime")(dateTime),
 		)
 	}
 

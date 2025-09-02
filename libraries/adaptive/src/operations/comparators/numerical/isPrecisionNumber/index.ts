@@ -2,16 +2,13 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
+import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
 import isNumber from "../../../../guards/isNumber/index.ts"
-import { isLeft } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isPrecisionNumber =
@@ -20,22 +17,31 @@ const isPrecisionNumber =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const operand = await composeComparators(op.operand)(arg, localValues)
-		const { decimalPlaces } = op
+		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operand = await operandFn(arg, localValues)
+		const precision =
+			(op as unknown as { precision?: number; decimalPlaces?: number })
+				.precision ??
+				(op as unknown as { precision?: number; decimalPlaces?: number })
+					.decimalPlaces
 		const pattern = new RegExp(
-			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${decimalPlaces}})?$`,
+			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${precision}})?$`,
 		)
 
 		if (isLeft(operand)) {
 			return operand
 		}
 
-		return isNumber(operand.right) && pattern.test(String(operand.right))
-			? operand
+		const oright = (operand as { right: unknown }).right
+		const ok = isNumber(oright as never) && pattern.test(String(oright))
+		return ok
+			? ({ right: true } as unknown as Either<Array<AdaptiveError>, boolean>)
 			: {
 				left: [
-					Error(op)("IsPrecisionNumber")(
-						`${operand.right} is not a precision number of up to ${decimalPlaces} decimal places.`,
+					Error(op.tag)("IsPrecisionNumber")(
+						`${
+							String(oright)
+						} is not a precision number of up to ${precision} decimal places.`,
 					),
 				],
 			}

@@ -1,5 +1,4 @@
 import type {
-	Datatype,
 	NumericDatatype,
 	Operand,
 	TemporalDatatype,
@@ -28,7 +27,7 @@ const makeAmountConstructor =
 	(datatype: AmountDatatype = "Number") =>
 	(operand: Operand) =>
 	(test: Operand): AmountComparator => ({
-		tag,
+		tag: tag as AmountComparatorTag,
 		type: OPERAND_TYPES.comparator,
 		datatype,
 		operand,

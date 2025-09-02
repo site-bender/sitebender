@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test'
 
 export default defineConfig({
-  testDir: 'tests/e2e',
+  testDir: 'docs/tests/e2e',
   timeout: 30000,
   retries: 0,
   use: {
@@ -10,4 +10,10 @@ export default defineConfig({
     trace: 'off', // less verbose
   },
   reporter: [['dot'], ['html', { outputFolder: 'playwright-report' }]], // less verbose
+  webServer: {
+    command: 'deno run --allow-net --allow-read jsr:@std/http/file-server --port 5556 docs/dist/',
+    port: 5556,
+    reuseExistingServer: true,
+    timeout: 60000,
+  },
 })

@@ -1,8 +1,4 @@
-import type {
-	Datatype,
-	NumericDatatype,
-	Operand,
-} from "../../../../types/index.ts"
+import type { NumericDatatype, Operand } from "../../../../types/index.ts"
 
 import { OPERAND_TYPES } from "../../../constants/index.ts"
 

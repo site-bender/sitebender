@@ -1,5 +1,3 @@
-import type { GlobalAttributes } from "../../types/index.ts"
-
 import { ELEMENTS } from "../../guards/constants/index.ts"
 
 /**
@@ -49,10 +47,11 @@ const isInteractiveContent = (config: unknown = {}): boolean => {
 			// Audio/Video elements are interactive if they have controls attribute
 			return "controls" in attributes
 
-		case "Input":
+		case "Input": {
 			// Input elements are interactive except for type="hidden"
 			const inputType = attributes["type"] as string
 			return inputType !== "hidden"
+		}
 
 		case "Img":
 			// Img element is interactive if it has usemap attribute

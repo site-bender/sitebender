@@ -36,6 +36,8 @@
  *
  * Note: The key generator receives the same arguments as the memoized function
  * and should return a string to use as the cache key.
+ *
+ * @impure
  */
 // deno-lint-ignore no-explicit-any
 const memoizeWith = <T extends ReadonlyArray<any>, R>(

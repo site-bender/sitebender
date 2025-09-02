@@ -1,3 +1,5 @@
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -9,7 +11,6 @@ import type { FormAriaAttributes } from "../../../types/aria/index.ts"
 import type { FormAttributes } from "../../../types/attributes/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
 import {
 	FORM_ENCTYPES,
 	FORM_METHODS,

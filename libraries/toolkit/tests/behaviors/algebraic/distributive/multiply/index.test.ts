@@ -20,24 +20,24 @@ Deno.test("multiply - distributive over addition", () => {
 				// Left side: a * (b + c)
 				const sum = add(b)(c)
 				const left = multiply(a)(sum)
-				
+
 				// Right side: (a * b) + (a * c)
 				const product1 = multiply(a)(b)
 				const product2 = multiply(a)(c)
 				const right = add(product1)(product2)
-				
+
 				// Handle special cases
 				if (Number.isNaN(left) && Number.isNaN(right)) {
 					return true
 				}
-				
+
 				// Distributive: a * (b + c) = (a * b) + (a * c)
 				// Use relative tolerance for floating point comparison
 				const tolerance = Math.abs(left) * 1e-10 + 1e-10
 				return approximately(left, right, tolerance)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -51,22 +51,22 @@ Deno.test("multiply - right distributive over addition", () => {
 				// Left side: (a + b) * c
 				const sum = add(a)(b)
 				const left = multiply(sum)(c)
-				
+
 				// Right side: (a * c) + (b * c)
 				const product1 = multiply(a)(c)
 				const product2 = multiply(b)(c)
 				const right = add(product1)(product2)
-				
+
 				// Handle special cases
 				if (Number.isNaN(left) && Number.isNaN(right)) {
 					return true
 				}
-				
+
 				// Right distributive: (a + b) * c = (a * c) + (b * c)
 				const tolerance = Math.abs(left) * 1e-10 + 1e-10
 				return approximately(left, right, tolerance)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })

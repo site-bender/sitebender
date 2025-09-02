@@ -1,3 +1,5 @@
+import type { CeilingOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Ceiling JSX Component
  *
@@ -10,9 +12,9 @@
  * </Ceiling>
  */
 
-import CeilingConstructor from "../../../../adaptive/constructors/operators/Ceiling/index.ts"
+import CeilingConstructor from "@adaptiveSrc/constructors/operators/Ceiling/index.ts"
 
-export type CeilingProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -22,10 +24,10 @@ export default function Ceiling({
 	type = "Number",
 	datatype,
 	children = [],
-}: CeilingProps): ReturnType<typeof CeilingConstructor> {
+}: Props): CeilingOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
-	// Ceiling constructor signature: (datatype) => (operand)
-	return CeilingConstructor(actualType)(childArray[0] as any)
+	// Ceiling constructor signature: (datatype) => (decimalPlaces?) => (operand)
+	return CeilingConstructor(actualType)()(childArray[0] as unknown as Operand)
 }

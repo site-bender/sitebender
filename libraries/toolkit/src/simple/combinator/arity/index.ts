@@ -5,6 +5,8 @@
  * @param n - The desired arity
  * @param fn - Function to wrap
  * @returns Function with specified arity
+ * @pure
+ * @curried
  * @example
  * ```typescript
  * // Variadic functions report arity 0
@@ -16,12 +18,8 @@
  * sum3.length // 3
  * sum3(1, 2, 3, 4, 5) // 6 (only sums first 3)
  *
- * // Useful with higher-order functions that check arity
+ * // Fix parseInt issues with array methods
  * const nums = ["1", "2", "3"]
- * // parseInt has arity 2 (value, radix), which causes issues with map
- * nums.map(parseInt) // [1, NaN, NaN]
- *
- * // Fix by limiting to arity 1
  * nums.map(arity(1, parseInt)) // [1, 2, 3]
  *
  * // Works with any function

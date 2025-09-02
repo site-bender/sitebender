@@ -1,3 +1,10 @@
+import type {
+	IsNoMoreThanComparator,
+	NumericDatatype,
+	Operand,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * IsNoMoreThan JSX Component
  *
@@ -12,11 +19,13 @@
  * </IsNoMoreThan>
  */
 
-import IsNoMoreThanConstructor from "../../../../adaptive/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import IsNoMoreThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsNoMoreThan/index.ts"
 
-export type IsNoMoreThanProps = {
-	type?: "Number" | "Date" | "String"
-	datatype?: "Number" | "Date" | "String"
+type AmountDatatype = NumericDatatype | TemporalDatatype
+
+export type Props = {
+	type?: AmountDatatype
+	datatype?: AmountDatatype
 	children?: JSX.Element | JSX.Element[]
 }
 
@@ -24,11 +33,12 @@ export default function IsNoMoreThan({
 	type = "Number",
 	datatype,
 	children = [],
-}: IsNoMoreThanProps): ReturnType<typeof IsNoMoreThanConstructor> {
-	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+}: Props): IsNoMoreThanComparator {
+	const actualType: AmountDatatype = (datatype || type) as AmountDatatype
+	const [operand, test] = Array.isArray(children) ? children : [children]
 
-	// The parser will extract Value and Threshold from children
-	// IsNoMoreThan constructor signature: (datatype) => (operand) => (test)
-	return IsNoMoreThanConstructor(actualType)(null as any)(null as any)
+	// IsNoMoreThan: (datatype) => (operand) => (test)
+	return IsNoMoreThanConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	) as unknown as IsNoMoreThanComparator
 }

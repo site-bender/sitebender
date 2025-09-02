@@ -1,1 +1,1 @@
-export default RealEstateAgent
+export { default } from "../../../Organization/LocalBusiness/RealEstateAgent/index.tsx"

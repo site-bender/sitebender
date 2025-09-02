@@ -1,1 +1,1 @@
-export default ExerciseGym
+export { default } from "../../../../Organization/LocalBusiness/SportsActivityLocation/ExerciseGym/index.tsx"

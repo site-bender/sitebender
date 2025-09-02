@@ -1,1 +1,1 @@
-export default GovernmentOffice
+export { default } from "../../../Organization/LocalBusiness/GovernmentOffice/index.tsx"

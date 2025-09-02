@@ -1,27 +1,23 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../../types/index.ts"
+import type { InputSubmitAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { InputSubmitAttributes } from "../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
 import {
 	FORM_METHODS,
 	FORM_TARGETS,
 	POPOVER_TARGET_ACTIONS,
-} from "../../../../../../constructors/elements/constants/index.ts"
-import filterAttribute from "../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
-import Input from "../index.ts"
+} from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for InputSubmit
@@ -41,22 +37,22 @@ export type InputSubmitElementAttributes = InputSubmitAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: InputSubmitAttributes) => {
+export const filterAttributes = (attributes: Record<string, Value>) => {
 	const {
 		autofocus,
 		disabled,
 		form,
-		formaction,
-		formenctype,
-		formmethod,
-		formnovalidate,
-		formtarget,
+		formAction,
+		formEncType,
+		formMethod,
+		formNoValidate,
+		formTarget,
 		name,
-		popovertarget,
-		popovertargetaction,
+		popoverTarget,
+		popoverTargetAction,
 		value,
 		...attrs
-	} = attributes
+	} = attributes as unknown as InputSubmitAttributes
 	const globals = pickGlobalAttributes(attrs)
 
 	return {
@@ -64,16 +60,16 @@ export const filterAttributes = (attributes: InputSubmitAttributes) => {
 		...filterAttribute(isBoolean)("autofocus")(autofocus),
 		...filterAttribute(isBoolean)("disabled")(disabled),
 		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("formaction")(formaction),
-		...filterAttribute(isString)("formenctype")(formenctype),
-		...filterAttribute(isMemberOf(FORM_METHODS))("formmethod")(formmethod),
-		...filterAttribute(isBoolean)("formnovalidate")(formnovalidate),
-		...filterAttribute(isMemberOf(FORM_TARGETS))("formtarget")(formtarget),
+		...filterAttribute(isString)("formaction")(formAction),
+		...filterAttribute(isString)("formenctype")(formEncType),
+		...filterAttribute(isMemberOf(FORM_METHODS))("formmethod")(formMethod),
+		...filterAttribute(isBoolean)("formnovalidate")(formNoValidate),
+		...filterAttribute(isMemberOf(FORM_TARGETS))("formtarget")(formTarget),
 		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("popovertarget")(popovertarget),
+		...filterAttribute(isString)("popovertarget")(popoverTarget),
 		...filterAttribute(isMemberOf(POPOVER_TARGET_ACTIONS))(
 			"popovertargetaction",
-		)(popovertargetaction),
+		)(popoverTargetAction),
 		...filterAttribute(isString)("value")(value),
 	}
 }

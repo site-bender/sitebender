@@ -1,11 +1,43 @@
+import type {
+	AdaptiveError,
+	ComparatorConfig,
+	Either,
+	LocalValues,
+	LogicalConfig,
+	Operand,
+	OperationFunction,
+} from "../../../../types/index.ts"
+
 import composeValidator from "../../../operations/composers/composeValidator/index.ts"
 
-const addValidation = (elem) => (validation) => {
-	if (validation) {
-		const validate = composeValidator(validation)
+// Accept a plain HTMLElement and augment it internally; avoids strict call-site type mismatch
+const addValidation = (elem: HTMLElement) => (validation: unknown) => {
+	if (!validation) return
 
-		elem.__sbValidate = validate
-	}
+	// Store a callable that lazily awaits the composed validator on first call
+	let validatorPromise: Promise<OperationFunction<unknown>> | undefined // Augment the element with a validate function at runtime
+	;(elem as HTMLElement & {
+		__sbValidate?: (
+			arg: unknown,
+			localValues?: unknown,
+		) => Promise<Either<Array<AdaptiveError>, boolean>>
+	})
+		.__sbValidate = async (arg: unknown, localValues?: unknown) => {
+			if (!validatorPromise) {
+				validatorPromise = composeValidator(
+					validation as ComparatorConfig | LogicalConfig | Operand,
+				)
+			}
+			const validator = await validatorPromise
+			const result = await validator(
+				arg,
+				localValues as LocalValues | undefined,
+			)
+			// Normalize to boolean Right or propagate Left
+			return ("right" in (result as unknown as Record<string, unknown>))
+				? { right: Boolean((result as { right: unknown }).right) }
+				: (result as Either<Array<AdaptiveError>, boolean>)
+		}
 }
 
 export default addValidation

@@ -37,8 +37,8 @@
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 
-import formatRelativeTime from "../../../../utilities/formatters/formatRelativeTime/index.ts"
-import parseTemporalString from "../../../../utilities/parsers/parseTemporalString/index.ts"
+import formatRelativeTime from "../../../helpers/formatters/formatRelativeTime/index.ts"
+import parseTemporalString from "../../../helpers/parsers/parseTemporalString/index.ts"
 
 export type Props =
 	& Omit<
@@ -54,6 +54,15 @@ export type Props =
 
 		// Custom now function (for testing)
 		now?: () => Date
+
+		children?:
+			| string
+			| ((formatted: {
+				display: string
+				datetime: string
+				value: number
+				unit: Intl.RelativeTimeFormatUnit
+			}) => JSX.Element)
 	}
 
 // Calculate the best unit and value for relative time

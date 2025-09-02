@@ -1,1 +1,1 @@
-export default DryCleaningOrLaundry
+export { default } from "../../../Organization/LocalBusiness/DryCleaningOrLaundry/index.tsx"

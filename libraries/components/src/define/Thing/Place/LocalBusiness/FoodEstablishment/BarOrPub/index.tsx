@@ -1,1 +1,1 @@
-export default BarOrPub
+export { default } from "../../../../Organization/LocalBusiness/FoodEstablishment/BarOrPub/index.tsx"

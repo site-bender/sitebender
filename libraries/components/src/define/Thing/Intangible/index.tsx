@@ -1,9 +1,8 @@
-import type BaseProps from "../../../types/index.ts"
-import type { Intangible as IntangibleProps } from "../../../types/index.ts"
+import type BaseProps from "../../../../types/index.ts"
 
 import Base from "../../Base/index.tsx"
 
-export type Props = IntangibleProps & BaseProps
+export type Props = BaseProps
 
 export default function Intangible({
 	_type = "Intangible",

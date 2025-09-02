@@ -1,8 +1,16 @@
+import type {
+	MaxOperator,
+	NumericDatatype,
+	Operand,
+	StringDatatype,
+	TemporalDatatype,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * Max JSX Component
  *
  * Wrapper for the Max operator constructor.
- * Returns the maximum value from all operands.
+ * Returns the maximum value from the provided operands.
  *
  * @example
  * <Max type="Number">
@@ -12,22 +20,18 @@
  * </Max>
  */
 
-import MaxConstructor from "../../../../adaptive/constructors/operators/Max/index.ts"
+import MaxConstructor from "@adaptiveSrc/constructors/operators/Max/index.ts"
 
-export type MaxProps = {
-	type?: "Number" | "Date" | "String"
-	datatype?: "Number" | "Date" | "String"
+export type Props = {
+	type?: NumericDatatype | StringDatatype | TemporalDatatype
+	datatype?: NumericDatatype | StringDatatype | TemporalDatatype
 	children?: JSX.Element | JSX.Element[]
 }
 
-export default function Max({
-	type = "Number",
-	datatype,
-	children = [],
-}: MaxProps): ReturnType<typeof MaxConstructor> {
+export default function Max(
+	{ type = "Number", datatype, children = [] }: Props,
+): MaxOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
-
-	// Max constructor signature: (datatype) => (operands)
-	return MaxConstructor(actualType)(childArray as any)
+	return MaxConstructor(actualType)(childArray as unknown as Operand[])
 }

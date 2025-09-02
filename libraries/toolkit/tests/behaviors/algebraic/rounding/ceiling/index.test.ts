@@ -1,4 +1,7 @@
-import { assertEquals, assertExists } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import ceiling from "../../../../../src/simple/math/ceiling/index.ts"
@@ -16,15 +19,15 @@ Deno.test("ceiling: monotonic property - if a <= b then ceiling(a) <= ceiling(b)
 				const [smaller, larger] = a <= b ? [a, b] : [b, a]
 				const ceilSmaller = ceiling(smaller)
 				const ceilLarger = ceiling(larger)
-				
+
 				assertEquals(
 					ceilSmaller <= ceilLarger,
 					true,
-					`Monotonicity violated: ceiling(${smaller}) = ${ceilSmaller} > ceiling(${larger}) = ${ceilLarger}`
+					`Monotonicity violated: ceiling(${smaller}) = ${ceilSmaller} > ceiling(${larger}) = ${ceilLarger}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -35,15 +38,15 @@ Deno.test("ceiling: idempotent property - ceiling(ceiling(x)) === ceiling(x)", (
 			(n) => {
 				const once = ceiling(n)
 				const twice = ceiling(once)
-				
+
 				assertEquals(
 					twice,
 					once,
-					`ceiling should be idempotent: ceiling(ceiling(${n})) = ${twice} !== ceiling(${n}) = ${once}`
+					`ceiling should be idempotent: ceiling(ceiling(${n})) = ${twice} !== ceiling(${n}) = ${once}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -53,15 +56,15 @@ Deno.test("ceiling: rounding up property - ceiling(x) >= x", () => {
 			fc.float({ noNaN: true, min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = ceiling(n)
-				
+
 				assertEquals(
 					result >= n,
 					true,
-					`ceiling(${n}) = ${result} should be >= ${n}`
+					`ceiling(${n}) = ${result} should be >= ${n}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -71,15 +74,15 @@ Deno.test("ceiling: integer property - ceiling always returns an integer", () =>
 			fc.float({ noNaN: true, min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = ceiling(n)
-				
+
 				assertEquals(
 					Number.isInteger(result) || !Number.isFinite(result),
 					true,
-					`ceiling(${n}) = ${result} should be an integer or infinity`
+					`ceiling(${n}) = ${result} should be an integer or infinity`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -90,22 +93,22 @@ Deno.test("ceiling: minimal distance property - ceiling(x) - x <= 1", () => {
 			(n) => {
 				const result = ceiling(n)
 				const distance = result - n
-				
+
 				assertEquals(
 					distance <= 1,
 					true,
-					`ceiling(${n}) = ${result}, distance ${distance} should be <= 1`
+					`ceiling(${n}) = ${result}, distance ${distance} should be <= 1`,
 				)
-				
+
 				// Additionally check it's in the range [0, 1)
 				assertEquals(
 					distance >= 0,
 					true,
-					`ceiling(${n}) = ${result}, distance ${distance} should be >= 0`
+					`ceiling(${n}) = ${result}, distance ${distance} should be >= 0`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -115,15 +118,15 @@ Deno.test("ceiling: integer invariant - ceiling(n) === n for integers", () => {
 			fc.integer({ min: -1e10, max: 1e10 }),
 			(n) => {
 				const result = ceiling(n)
-				
+
 				assertEquals(
 					result,
 					n,
-					`ceiling of integer ${n} should be ${n}, got ${result}`
+					`ceiling of integer ${n} should be ${n}, got ${result}`,
 				)
-			}
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -132,8 +135,16 @@ Deno.test("ceiling: integer invariant - ceiling(n) === n for integers", () => {
 // ===========================
 
 Deno.test("ceiling: special values", () => {
-	assertEquals(ceiling(Infinity), Infinity, "ceiling(Infinity) should be Infinity")
-	assertEquals(ceiling(-Infinity), -Infinity, "ceiling(-Infinity) should be -Infinity")
+	assertEquals(
+		ceiling(Infinity),
+		Infinity,
+		"ceiling(Infinity) should be Infinity",
+	)
+	assertEquals(
+		ceiling(-Infinity),
+		-Infinity,
+		"ceiling(-Infinity) should be -Infinity",
+	)
 	assertEquals(Number.isNaN(ceiling(NaN)), true, "ceiling(NaN) should be NaN")
 })
 
@@ -143,9 +154,17 @@ Deno.test("ceiling: zero handling", () => {
 })
 
 Deno.test("ceiling: boundary values", () => {
-	assertEquals(ceiling(Number.MAX_VALUE), Number.MAX_VALUE, "ceiling(MAX_VALUE)")
+	assertEquals(
+		ceiling(Number.MAX_VALUE),
+		Number.MAX_VALUE,
+		"ceiling(MAX_VALUE)",
+	)
 	assertEquals(ceiling(Number.MIN_VALUE), 1, "ceiling(MIN_VALUE) should be 1")
-	assertEquals(Object.is(ceiling(-Number.MIN_VALUE), -0), true, "ceiling(-MIN_VALUE) should be -0")
+	assertEquals(
+		Object.is(ceiling(-Number.MIN_VALUE), -0),
+		true,
+		"ceiling(-MIN_VALUE) should be -0",
+	)
 })
 
 // ===========================
@@ -154,18 +173,33 @@ Deno.test("ceiling: boundary values", () => {
 
 Deno.test("ceiling: null safety", () => {
 	assertEquals(Number.isNaN(ceiling(null)), true, "ceiling(null) should be NaN")
-	assertEquals(Number.isNaN(ceiling(undefined)), true, "ceiling(undefined) should be NaN")
+	assertEquals(
+		Number.isNaN(ceiling(undefined)),
+		true,
+		"ceiling(undefined) should be NaN",
+	)
 })
 
 Deno.test("ceiling: type safety", () => {
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling("5.7")), true, "ceiling(string) should be NaN")
+	const r1 = ceiling("5.7")
+	assertEquals(Number.isNaN(r1), true, "ceiling(string) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling("abc")), true, "ceiling(non-numeric string) should be NaN")
+	const r2 = ceiling("abc")
+	assertEquals(
+		Number.isNaN(r2),
+		true,
+		"ceiling(non-numeric string) should be NaN",
+	)
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling({})), true, "ceiling(object) should be NaN")
+	const r3 = ceiling({})
+	assertEquals(Number.isNaN(r3), true, "ceiling(object) should be NaN")
+
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(ceiling([])), true, "ceiling(array) should be NaN")
+	const r4 = ceiling([])
+	assertEquals(Number.isNaN(r4), true, "ceiling(array) should be NaN")
 })
 
 // ===========================
@@ -185,7 +219,11 @@ Deno.test("ceiling: JSDoc examples - negative decimals round toward zero", () =>
 	assertEquals(ceiling(-4.5), -4, "ceiling(-4.5)")
 	assertEquals(ceiling(-4.9), -4, "ceiling(-4.9)")
 	assertEquals(Object.is(ceiling(-0.1), -0), true, "ceiling(-0.1) should be -0")
-	assertEquals(Object.is(ceiling(-0.9999), -0), true, "ceiling(-0.9999) should be -0")
+	assertEquals(
+		Object.is(ceiling(-0.9999), -0),
+		true,
+		"ceiling(-0.9999) should be -0",
+	)
 })
 
 Deno.test("ceiling: JSDoc examples - integers remain unchanged", () => {
@@ -202,7 +240,11 @@ Deno.test("ceiling: JSDoc examples - large numbers", () => {
 
 Deno.test("ceiling: JSDoc examples - small numbers", () => {
 	assertEquals(ceiling(1e-10), 1, "ceiling(1e-10)")
-	assertEquals(Object.is(ceiling(-1e-10), -0), true, "ceiling(-1e-10) should be -0")
+	assertEquals(
+		Object.is(ceiling(-1e-10), -0),
+		true,
+		"ceiling(-1e-10) should be -0",
+	)
 })
 
 Deno.test("ceiling: JSDoc examples - special values", () => {
@@ -212,9 +254,17 @@ Deno.test("ceiling: JSDoc examples - special values", () => {
 })
 
 Deno.test("ceiling: JSDoc examples - edge cases", () => {
-	assertEquals(ceiling(Number.MAX_VALUE), Number.MAX_VALUE, "ceiling(Number.MAX_VALUE)")
+	assertEquals(
+		ceiling(Number.MAX_VALUE),
+		Number.MAX_VALUE,
+		"ceiling(Number.MAX_VALUE)",
+	)
 	assertEquals(ceiling(Number.MIN_VALUE), 1, "ceiling(Number.MIN_VALUE)")
-	assertEquals(Object.is(ceiling(-Number.MIN_VALUE), -0), true, "ceiling(-Number.MIN_VALUE)")
+	assertEquals(
+		Object.is(ceiling(-Number.MIN_VALUE), -0),
+		true,
+		"ceiling(-Number.MIN_VALUE)",
+	)
 })
 
 Deno.test("ceiling: JSDoc examples - invalid inputs", () => {
@@ -323,7 +373,7 @@ Deno.test("ceiling: JSDoc examples - memory alignment", () => {
 
 Deno.test("ceiling: JSDoc examples - safe calculation", () => {
 	function safeCeil(value: unknown): number | null {
-		const num = typeof value === 'number' ? ceiling(value) : NaN
+		const num = typeof value === "number" ? ceiling(value) : NaN
 		return isNaN(num) ? null : num
 	}
 	assertEquals(safeCeil(4.7), 5, "Safe ceiling of 4.7")

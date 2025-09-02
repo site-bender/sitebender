@@ -1,9 +1,9 @@
-import type { InputOption } from "../../../../types/components/forms/index.ts"
+import type { InputOption } from "../../../../../types/components/forms/index.ts"
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import Radio from "../../elements/Radio/index.tsx"
 import FieldSet from "../../FieldSet/index.tsx"
 import Legend from "../Legend/index.tsx"

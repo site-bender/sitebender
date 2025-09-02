@@ -1,6 +1,6 @@
-import type { BaseProps } from "../../../../types/index.ts"
+import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
 
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
+type BaseProps = Record<string, unknown>
 
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "aside"
@@ -39,7 +39,7 @@ export type Props = BaseProps & {
  */
 export default function NonlinearNarrative({
 	element: Element = "section",
-	define,
+	define: _define,
 	structure,
 	sequence,
 	timeline,

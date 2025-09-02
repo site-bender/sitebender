@@ -114,14 +114,10 @@ export type HtmlAttributes = GlobalAttributes & {
 }
 
 // HEAD
-export type HeadAttributes = GlobalAttributes & {
-	// No element-specific attributes beyond global
-}
+export type HeadAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // BODY
-export type BodyAttributes = GlobalAttributes & {
-	// No element-specific attributes beyond global
-}
+export type BodyAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 /* +++++ Embedded Content +++++ */
 
@@ -286,9 +282,7 @@ export type FieldSetAttributes = GlobalAttributes & {
 }
 
 // LEGEND
-export type LegendAttributes = GlobalAttributes & {
-	// No element-specific attributes beyond global
-}
+export type LegendAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // METER
 export type MeterAttributes = GlobalAttributes & {
@@ -502,9 +496,7 @@ export type MetaAttributes = GlobalAttributes & {
 }
 
 // NOSCRIPT
-export type NoScriptAttributes = GlobalAttributes & {
-	// no element-specific attributes
-}
+export type NoScriptAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // SCRIPT
 export type ScriptAttributes = GlobalAttributes & {
@@ -518,9 +510,7 @@ export type ScriptAttributes = GlobalAttributes & {
 }
 
 // TITLE
-export type TitleAttributes = GlobalAttributes & {
-	// no element-specific attributes
-}
+export type TitleAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // BASE
 export type BaseAttributes = GlobalAttributes & {
@@ -875,10 +865,7 @@ export type SuperscriptAttributes = GlobalAttributes & {
 }
 
 // TEMPLATE
-export type TemplateAttributes = GlobalAttributes & {
-	// No element-specific attributes beyond global
-	// Note: Template elements are not rendered and don't participate in accessibility tree
-}
+export type TemplateAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // TIME
 export type TimeAttributes = GlobalAttributes & {
@@ -1392,6 +1379,8 @@ export type InputImageAttributes = GlobalAttributes & {
 	formMethod?: FormMethod
 	formNoValidate?: boolean
 	formTarget?: string
+	popoverTarget?: string
+	popoverTargetAction?: "hide" | "show" | "toggle"
 	height?: number
 	name?: string
 	src: string
@@ -1563,6 +1552,8 @@ export type InputSubmitAttributes = GlobalAttributes & {
 	formMethod?: FormMethod
 	formNoValidate?: boolean
 	formTarget?: string
+	popoverTarget?: string
+	popoverTargetAction?: "hide" | "show" | "toggle"
 	name?: string
 	value?: string
 

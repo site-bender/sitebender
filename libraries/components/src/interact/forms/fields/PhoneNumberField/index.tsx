@@ -1,3 +1,8 @@
+import {
+	CHANNEL_LABELS,
+	TYPE_LABELS,
+} from "@sitebender/toolkit/constants/forms/index.ts"
+
 import type {
 	CommunicationChannel,
 	PhoneType,
@@ -7,12 +12,8 @@ import type { Props as InputProps } from "../../elements/Input/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 import type { Props as SelectProps } from "../../elements/Select/index.tsx"
 
-import {
-	CHANNEL_LABELS,
-	TYPE_LABELS,
-} from "../../../../constants/forms/index.ts"
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import CheckboxGroup from "../../composites/CheckboxGroup/index.tsx"
 import Legend from "../../composites/Legend/index.tsx"
 import RadioGroup from "../../composites/RadioGroup/index.tsx"
@@ -48,16 +49,12 @@ export type Props =
 	}
 
 const channelOptions: Array<{ label: string; value: string }> = Object.entries(
-	CHANNEL_LABELS,
-).reduce(
-	(acc, [value, label]) => [
-		...acc,
-		{
-			label,
-			value,
-		},
-	],
-	[] as Array<{ label: string; value: string }>,
+	CHANNEL_LABELS as Record<string, string>,
+).reduce<Array<{ label: string; value: string }>>(
+	(acc, [value, label]) => (
+		acc.push({ label, value }), acc
+	),
+	[],
 )
 
 const useOptions: Array<{ label: string; value: string }> = [
@@ -72,16 +69,12 @@ const useOptions: Array<{ label: string; value: string }> = [
 ]
 
 const typeOptions: Array<{ label: string; value: string }> = Object.entries(
-	TYPE_LABELS,
-).reduce(
-	(acc, [value, label]) => [
-		...acc,
-		{
-			label,
-			value,
-		},
-	],
-	[] as Array<{ label: string; value: string }>,
+	TYPE_LABELS as Record<string, string>,
+).reduce<Array<{ label: string; value: string }>>(
+	(acc, [value, label]) => (
+		acc.push({ label, value }), acc
+	),
+	[],
 )
 
 export default function PhoneNumberField({

@@ -1,3 +1,5 @@
+import type { IsUnequalToComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsUnequalTo JSX Component
  *
@@ -12,9 +14,9 @@
  * </IsUnequalTo>
  */
 
-import IsUnequalToConstructor from "../../../../adaptive/constructors/comparators/equality/IsUnequalTo/index.ts"
+import IsUnequalToConstructor from "@adaptiveSrc/constructors/comparators/equality/IsUnequalTo/index.ts"
 
-export type IsUnequalToProps = {
+export type Props = {
 	type?: "Number" | "String" | "Boolean" | "Date"
 	datatype?: "Number" | "String" | "Boolean" | "Date"
 	children?: JSX.Element | JSX.Element[]
@@ -24,11 +26,12 @@ export default function IsUnequalTo({
 	type = "String",
 	datatype,
 	children = [],
-}: IsUnequalToProps): ReturnType<typeof IsUnequalToConstructor> {
+}: Props): IsUnequalToComparator {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [operand, test] = Array.isArray(children) ? children : [children]
 
-	// The parser will extract Value and ExpectedValue from children
 	// IsUnequalTo constructor signature: (datatype) => (operand) => (test)
-	return IsUnequalToConstructor(actualType)(null as any)(null as any)
+	return IsUnequalToConstructor(actualType)(operand as unknown as Operand)(
+		test as unknown as Operand,
+	)
 }

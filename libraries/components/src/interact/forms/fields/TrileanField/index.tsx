@@ -1,12 +1,12 @@
 import type {
 	TrileanFieldType,
 	TrileanType,
-} from "../../../../types/components/forms/index.ts"
+} from "../../../../../types/components/forms/index.ts"
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../utilities/createElement/index.ts"
-import generateShortId from "../../../../utilities/generateShortId/index.ts"
+import createElement from "../../../../helpers/createElement/index.ts"
+import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import LabelWrapper from "../../composites/LabelWrapper/index.tsx"
 import RadioGroup from "../../composites/RadioGroup/index.tsx"
 import Select from "../../elements/Select/index.tsx"

@@ -1,3 +1,5 @@
+import type { FloorOperator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * Floor JSX Component
  *
@@ -10,9 +12,9 @@
  * </Floor>
  */
 
-import FloorConstructor from "../../../../adaptive/constructors/operators/Floor/index.ts"
+import FloorConstructor from "@adaptiveSrc/constructors/operators/Floor/index.ts"
 
-export type FloorProps = {
+export type Props = {
 	type?: "Number"
 	datatype?: "Number"
 	children?: JSX.Element | JSX.Element[]
@@ -22,10 +24,10 @@ export default function Floor({
 	type = "Number",
 	datatype,
 	children = [],
-}: FloorProps): ReturnType<typeof FloorConstructor> {
+}: Props): FloorOperator {
 	const actualType = datatype || type
 	const childArray = Array.isArray(children) ? children : [children]
 
-	// Floor constructor signature: (datatype) => (operand)
-	return FloorConstructor(actualType)(childArray[0] as any)
+	// Floor constructor signature: (datatype) => (decimalPlaces?) => (operand)
+	return FloorConstructor(actualType)()(childArray[0] as unknown as Operand)
 }

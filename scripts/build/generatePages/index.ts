@@ -1,7 +1,5 @@
 import { walk } from "https://deno.land/std@0.220.1/fs/walk.ts"
 
-import type { Logger } from "~types/scripts/index.ts"
-
 import buildRoute from "./buildRoute/index.ts"
 
 const defaultLogger: Logger = {
@@ -15,7 +13,7 @@ export default async function generatePages(
 	logger: Logger = defaultLogger,
 	distDir?: string,
 ): Promise<void> {
-	const routesDir = "./src/routes"
+	const routesDir = "./pages"
 	const outputDir = distDir || "./dist"
 
 	logger.log(`🔨 Building pages from ${routesDir}...`)

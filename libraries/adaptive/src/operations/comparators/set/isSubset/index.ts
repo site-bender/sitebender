@@ -1,38 +1,39 @@
-import Set from "core-js-pure/actual/set"
+// Use native Set; avoid external polyfills
 
 import type {
 	AdaptiveError,
-	ComparatorConfig,
 	Either,
+	IsSubsetComparator,
 	LocalValues,
 	OperationFunction,
-	Value,
 } from "../../../../types/index.ts"
 
+import { isLeft } from "../../../../../types/index.ts"
 import Error from "../../../../constructors/Error/index.ts"
-import { isLeft } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
-const IsSubset = (op) => async (arg, localValues) => {
-	const operand = await composeComparators(op.operand)(arg, localValues)
-	const test = await composeComparators(op.test)(arg, localValues)
+const IsSubset = (op: IsSubsetComparator): OperationFunction<boolean> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<AdaptiveError[], boolean>> => {
+	const operandFn = await composeComparators(op.operand as unknown as never)
+	const testFn = await composeComparators(op.test as unknown as never)
+	const operand = await operandFn(arg, localValues)
+	const test = await testFn(arg, localValues)
 
-	if (isLeft(operand)) {
-		operand.left.push(test)
-		return operand
-	}
-
-	if (isLeft(test)) {
-		return { left: [operand, ...test.left] }
-	}
+	if (isLeft(operand)) return operand
+	if (isLeft(test)) return test
 
 	try {
-		const left = new Set(operand.right)
-		const right = new Set(test.right)
+		const left = new Set(operand.right as unknown as Iterable<unknown>)
+		const right = new Set(test.right as unknown as Iterable<unknown>)
 
-		return left.isSubsetOf(right) ? operand : {
+		const subset = Array.from(left.values()).every((v) => right.has(v))
+
+		return subset ? { right: true } : {
 			left: [
-				Error(op)("IsSubset")(
+				Error(op.tag)("IsSubset")(
 					`${JSON.stringify(operand.right)} is not a subset of ${
 						JSON.stringify(test.right)
 					}`,
@@ -41,7 +42,7 @@ const IsSubset = (op) => async (arg, localValues) => {
 		}
 	} catch (e) {
 		return {
-			left: [Error(op)("IsSubset")(`Error creating sets: ${e}`)],
+			left: [Error(op.tag)("IsSubset")(`Error creating sets: ${e}`)],
 		}
 	}
 }

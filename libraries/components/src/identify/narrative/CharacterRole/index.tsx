@@ -1,5 +1,16 @@
 import { Person } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	role?: string
+	children?: unknown
+}
+
 export default function CharacterRole({
 	archetype,
 	characterId,
@@ -35,8 +46,8 @@ export default function CharacterRole({
 	if (define && characterId) {
 		return (
 			<Person
-				id={characterId}
-				name={children}
+				identifier={characterId}
+				name={typeof children === "string" ? children : undefined}
 				disableJsonLd={define === "microdata"}
 				disableMicrodata={define === "linkedData"}
 			>

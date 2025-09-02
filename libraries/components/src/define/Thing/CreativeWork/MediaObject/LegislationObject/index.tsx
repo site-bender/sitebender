@@ -1,1 +1,1 @@
-export default LegislationObject
+export { default } from "../../Legislation/LegislationObject/index.tsx"

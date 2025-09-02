@@ -1,16 +1,15 @@
-import type { HydratedSign } from "../../../types/hydrated/index.ts"
+import type { HydratedSign } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
 
 const sign =
-	({ operand, ...op }: HydratedSign): OperationFunction<number> =>
+	({ operand, ..._op }: HydratedSign): OperationFunction<number> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,

@@ -1,6 +1,9 @@
+import isNotNull from "../simple/validation/isNotNull/index.ts"
+import isNullish from "../simple/validation/isNullish/index.ts"
+
 /**
  * Core type definitions for the toolkit library
- * 
+ *
  * This file contains fundamental types used throughout the library,
  * focusing on value types and data representations.
  */
@@ -28,9 +31,6 @@ export type Value =
 	| Temporal.PlainTime
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
-	| Temporal.Instant
-	| Temporal.Duration
-	| Record<string | symbol, unknown>
 
 /**
  * Datatype identifiers for type conversions and validations
@@ -38,7 +38,12 @@ export type Value =
 export type NumericDatatype = "Number" | "Float" | "Integer" | "Precision"
 export type StringDatatype = "String"
 export type BooleanDatatype = "Boolean"
-export type TemporalDatatype = "Date" | "Time" | "DateTime" | "Duration" | "Instant"
+export type TemporalDatatype =
+	| "Date"
+	| "Time"
+	| "DateTime"
+	| "Duration"
+	| "Instant"
 export type ComplexDatatype = "Json" | "Array" | "Map" | "Set" | "Object"
 
 export type Datatype =
@@ -52,7 +57,7 @@ export type Datatype =
  * Checks if something is a valid Value type
  */
 export const isValue = (val: unknown): val is Value => {
-	if (val === null || val === undefined) return true
+	if (isNullish(val)) return true
 
 	const type = typeof val
 	if (type === "string" || type === "number" || type === "boolean") return true
@@ -61,7 +66,17 @@ export const isValue = (val: unknown): val is Value => {
 		return val.every(isValue)
 	}
 
-	if (val instanceof Map || val instanceof Set) {
+	if (val instanceof Map) {
+		for (const [k, v] of val.entries()) {
+			if (typeof k !== "string" || !isValue(v)) return false
+		}
+		return true
+	}
+
+	if (val instanceof Set) {
+		for (const v of val.values()) {
+			if (!isValue(v)) return false
+		}
 		return true
 	}
 
@@ -70,16 +85,17 @@ export const isValue = (val: unknown): val is Value => {
 		val instanceof Temporal.PlainDate ||
 		val instanceof Temporal.PlainTime ||
 		val instanceof Temporal.PlainDateTime ||
-		val instanceof Temporal.ZonedDateTime ||
-		val instanceof Temporal.Instant ||
-		val instanceof Temporal.Duration
+		val instanceof Temporal.ZonedDateTime
 	) {
 		return true
 	}
 
-	if (type === "object" && val !== null) {
-		// Plain object
-		return Object.values(val).every(isValue)
+	if (type === "object" && isNotNull(val)) {
+		// Plain object with string keys only
+		for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
+			if (typeof k !== "string" || !isValue(v)) return false
+		}
+		return true
 	}
 
 	return false

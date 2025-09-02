@@ -19,7 +19,7 @@ const defaultLogger: Logger = {
 export default async function transpileStaticScripts(
 	logger: Logger = defaultLogger,
 ): Promise<string> {
-	const staticScriptsDir = join(Deno.cwd(), "static", "scripts")
+	const staticScriptsDir = join(Deno.cwd(), "assets", "scripts")
 	const distScriptsDir = join(Deno.cwd(), "dist", "scripts")
 
 	try {

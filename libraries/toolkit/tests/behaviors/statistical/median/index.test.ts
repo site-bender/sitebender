@@ -1,5 +1,7 @@
-import { assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-
+import {
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
 import median from "../../../../src/simple/math/median/index.ts"
@@ -7,54 +9,70 @@ import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("median", async (t) => {
 	await t.step("statistical properties", async (t) => {
-		await t.step("should return middle value for odd-length sorted arrays", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer({ min: -1000, max: 1000 }), { minLength: 1, maxLength: 99 })
-						.filter(arr => arr.length % 2 === 1),
-					(numbers) => {
-						const sorted = [...numbers].sort((a, b) => a - b)
-						const middleIndex = Math.floor(sorted.length / 2)
-						const expected = sorted[middleIndex]
-						
-						assertEquals(median(numbers), expected)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+		await t.step(
+			"should return middle value for odd-length sorted arrays",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer({ min: -1000, max: 1000 }), {
+							minLength: 1,
+							maxLength: 99,
+						})
+							.filter((arr) => arr.length % 2 === 1),
+						(numbers) => {
+							const sorted = [...numbers].sort((a, b) => a - b)
+							const middleIndex = Math.floor(sorted.length / 2)
+							const expected = sorted[middleIndex]
 
-		await t.step("should return average of middle two for even-length sorted arrays", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.integer({ min: -1000, max: 1000 }), { minLength: 2, maxLength: 100 })
-						.filter(arr => arr.length % 2 === 0),
-					(numbers) => {
-						const sorted = [...numbers].sort((a, b) => a - b)
-						const middleIndex = sorted.length / 2
-						const expected = (sorted[middleIndex - 1] + sorted[middleIndex]) / 2
-						
-						assertEquals(median(numbers), expected)
-					}
-				),
-				{ numRuns: 1000 }
-			)
-		})
+							assertEquals(median(numbers), expected)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
+
+		await t.step(
+			"should return average of middle two for even-length sorted arrays",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.integer({ min: -1000, max: 1000 }), {
+							minLength: 2,
+							maxLength: 100,
+						})
+							.filter((arr) => arr.length % 2 === 0),
+						(numbers) => {
+							const sorted = [...numbers].sort((a, b) => a - b)
+							const middleIndex = sorted.length / 2
+							const expected = (sorted[middleIndex - 1] + sorted[middleIndex]) /
+								2
+
+							assertEquals(median(numbers), expected)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should be order-independent", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), { minLength: 1, maxLength: 50 }),
+					fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
+						minLength: 1,
+						maxLength: 50,
+					}),
 					(numbers) => {
 						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const result1 = median(numbers)
 						const result2 = median(shuffled)
-						
+
 						// Use approximate equality for floating-point comparison
 						return approximately(result1, result2)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -66,11 +84,11 @@ Deno.test("median", async (t) => {
 						const result = median(numbers)
 						const min = Math.min(...numbers)
 						const max = Math.max(...numbers)
-						
+
 						return result >= min && result <= max
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -80,9 +98,9 @@ Deno.test("median", async (t) => {
 					fc.float({ noNaN: true }),
 					(value) => {
 						assertEquals(median([value]), value)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 
@@ -94,9 +112,9 @@ Deno.test("median", async (t) => {
 					(value, count) => {
 						const array = Array(count).fill(value)
 						assertEquals(median(array), value)
-					}
+					},
 				),
-				{ numRuns: 1000 }
+				{ numRuns: 1000 },
 			)
 		})
 	})
@@ -105,13 +123,14 @@ Deno.test("median", async (t) => {
 		await t.step("should be less affected by outliers than mean", () => {
 			const withoutOutlier = [1, 2, 3, 4, 5]
 			const withOutlier = [1, 2, 3, 4, 100]
-			
+
 			// Median should be the same or similar
 			assertEquals(median(withoutOutlier), 3)
 			assertEquals(median(withOutlier), 3)
-			
+
 			// But mean would be very different
-			const mean = (arr: Array<number>) => arr.reduce((a, b) => a + b, 0) / arr.length
+			const mean = (arr: Array<number>) =>
+				arr.reduce((a, b) => a + b, 0) / arr.length
 			assertEquals(mean(withoutOutlier), 3)
 			assertEquals(mean(withOutlier), 22)
 		})
@@ -119,7 +138,7 @@ Deno.test("median", async (t) => {
 		await t.step("should handle extreme outliers", () => {
 			const dataset = [1, 2, 3, 4, 5, Number.MAX_SAFE_INTEGER]
 			assertEquals(median(dataset), 3.5)
-			
+
 			const dataset2 = [Number.MIN_SAFE_INTEGER, 1, 2, 3, 4, 5]
 			assertEquals(median(dataset2), 2.5)
 		})
@@ -269,10 +288,10 @@ Deno.test("median", async (t) => {
 		await t.step("statistical examples", () => {
 			const testScores = [85, 92, 78, 95, 88, 73, 98]
 			assertEquals(median(testScores), 88)
-			
+
 			const salaries = [45000, 50000, 55000, 60000, 65000, 70000, 120000]
 			assertEquals(median(salaries), 60000)
-			
+
 			const ages = [22, 25, 27, 29, 31, 33, 35, 38, 42]
 			assertEquals(median(ages), 31)
 		})
@@ -384,7 +403,7 @@ Deno.test("median", async (t) => {
 			const result1 = median(data)
 			const result2 = median(data)
 			const result3 = median(data)
-			
+
 			assertEquals(result1, result2)
 			assertEquals(result2, result3)
 		})

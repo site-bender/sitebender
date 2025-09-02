@@ -1,166 +1,109 @@
-# @sitebender/toolkit
+## @sitebender/toolkit
 
-A collection of utilities and components for building Sitebender applications.
+Functional, dependency-free utilities for Sitebender apps. One function per folder, fully typed, curried, and designed for composition across browser, Deno, and Node runtimes.
 
-# Thoughts on the @sitebender/toolkit Library
+This README is user-facing: it explains how to use the toolkit today and what’s planned next. A short checklist of known fixes appears below so you can track what’s being tightened up.
 
-## a) Design Assessment
+Note: there is a sole developer on this project working with multiple AI assistants, but the assistants are sandboxed. We do not need to raise issues in GitHub, do PRs, or anything else. This library is not in production and will not be until complete. Until that time we will fix all bugs and stabilize all features. We will not deprecate or alias anything as there is no legacy use. We will just make changes until it is exactly as the sole dev wants it. **THIS IS IMPORTANT. PAY ATTENTION.**
 
-**Strengths:**
-- **Excellent folder structure** - One function per folder with `index.ts` follows a clear, maintainable pattern
-- **Pure FP adherence** - Currying, immutability, and pure functions throughout
-- **Documentation quality** - The JSDoc comments with extensive examples are exceptional
-- **Naming consistency** - Clear, predictable function names that follow established FP conventions
-- **Type safety** - Good TypeScript usage, though could be stronger in places
+## Design principles
 
-**Design Observations:**
-- The `simple/chainable` dual-layer architecture is well-conceived:
-  - `simple/` contains pure FP functions that work with plain values
-  - `chainable/` (currently empty) will contain monadic versions working with Either/Maybe
-  - Both will have identical function names for consistency
-  - Chainable versions will delegate to simple versions where possible
-- The currying approach is consistent and enables excellent composition
-- The Temporal API adoption for dates is forward-thinking (though requires `--unstable-temporal` flag)
+- Zero dependencies in library code
+- One exported function per folder (`index.ts`), with focused JSDoc examples
+- Pure functions by default: no mutation, referential transparency, curried APIs
+- Relative imports only inside the repository
+- Progressive enhancement for runtimes (use standards like Temporal when available)
 
-**Potential Improvements:**
-- Consider adding type predicates more extensively (e.g., `value is T`)
-- Some functions could benefit from generic constraints for better type inference
-- Could add `Symbol.for('nodejs.util.inspect.custom')` for better Deno debugging
+## Folder structure
 
-## c) Potentially Missing Functions
+- `src/simple/**` – plain value functions (arrays, strings, async, validation, temporal, etc.)
+- `src/chainable/**` – monadic/result-first companions that mirror `simple` (exists, currently empty)
+- `src/types/**` – core FP types (Maybe, Either, Result, IO) and shared type utilities
+- `src/constants/**` – shared constants and configuration values
+- `src/debug/**` – debugging and development utilities
+- `src/events/**` – event handling and messaging utilities
+- `src/random/**` – random number and data generation utilities
+- `src/state/**` – state management utilities
+- `tests/**` – behavior-first and property-based tests organized by capability
 
-**Missing collection utilities:**
-- `frequency` - Count occurrences of each unique element
-- `sliding` with step parameter (current `sliding` might not have step)
-- `interleave` - Alternate elements from multiple arrays
-- `partitionBy` - Partition by consecutive elements satisfying predicate
+Note on chainable: `src/chainable` is present but empty. The intent is to provide result-first, chainable variants with the same names as `simple`, delegating where possible.
 
-**Missing string utilities:**
-- `levenshtein` - Edit distance between strings
-- `similarity` - String similarity percentage
-- `truncateMiddle` - Truncate from middle with ellipsis
-- `hashCode` - Consistent string hashing
+## Usage
 
-**Missing functional utilities:**
-- `constant` - Like `always` but clearer name
-- `Y` - Y combinator for recursion
-- `lens` composition operators
-- `transduce` - Transducer support
+- The library favors curried, data-last functions. Compose with your own `pipe/compose` or the ones provided in the toolkit.
+- Temporal utilities rely on the TC39 Temporal proposal. Availability depends on your runtime; when not present, functions try to degrade gracefully or document constraints.
 
-## d) Implementation Strategy for Safe/Monadic Layer
+Minimal examples (paths may vary depending on your build/export setup):
 
-**Architecture Approach:**
-1. **Mirror Structure** - The `chainable/` folder should mirror `simple/` exactly:
-   ```
-   chainable/
-   ├── array/
-   │   ├── map/        # Works with Either<E, Array<T>>
-   │   ├── filter/     # Returns Either<E, Array<T>>
-   │   └── ...
-   ├── string/
-   │   ├── split/      # Returns Either<E, Array<string>>
-   │   └── ...
-   └── ...
-   ```
+```ts
+// Array
+import chunk from "./src/simple/array/chunk/index.ts"
+const groups = chunk(3)([1, 2, 3, 4, 5, 6, 7]) // => [[1,2,3],[4,5,6],[7]]
 
-2. **Function Signatures** - Chainable versions wrap inputs/outputs in Either or Maybe:
-   ```typescript
-   // simple/array/map
-   const map = <T, R>(fn: (t: T) => R) => (arr: Array<T>): Array<R>
-   
-   // chainable/array/map  
-   const map = <E, T, R>(fn: (t: T) => Either<E, R>) => 
-     (arr: Either<E, Array<T>>): Either<E, Array<R>>
-   ```
+// Async
+import retry from "./src/simple/async/retry/index.ts"
+await retry({ attempts: 3, delayMs: 100 })(() => fetch("/api"))
+```
 
-3. **Delegation Pattern** - Chainable functions should delegate to simple where possible:
-   ```typescript
-   // chainable/array/filter
-   import filterSimple from "../../simple/array/filter/index.ts"
-   import { map, right } from "../../../types/either/index.ts"
-   
-   const filter = <E, T>(predicate: (t: T) => boolean) =>
-     map<E, Array<T>, Array<T>>(filterSimple(predicate))
-   ```
+## Chainable roadmap (Result-first) - Phase 2
 
-4. **Error Propagation** - Functions should short-circuit on Left values, but let's discuss this before implementing it.
-   ```typescript
-   // chainable/array/concat
-   const concat = <E, T>(arr2: Either<E, Array<T>>) => 
-     (arr1: Either<E, Array<T>>): Either<E, Array<T>> =>
-       isLeft(arr1) ? arr1 :
-       isLeft(arr2) ? arr2 :
-       right(concatSimple(arr2.right)(arr1.right))
-   ```
+**IMPORTANT**: Chainable functions will be implemented ONLY after achieving 100% test coverage, passing linter, and passing type checks for all existing functions.
 
-5. **Lifting Strategy** - Create lift utilities for common patterns:
-   ```typescript
-   // chainable/lift/liftUnary
-   const liftUnary = <A, B>(fn: (a: A) => B) =>
-     <E>(either: Either<E, A>): Either<E, B> =>
-       map(fn)(either)
-   
-   // chainable/lift/liftBinary
-   const liftBinary = <A, B, C>(fn: (a: A) => (b: B) => C) =>
-     <E>(a: Either<E, A>) => (b: Either<E, B>): Either<E, C> =>
-       isLeft(a) ? a :
-       isLeft(b) ? b :
-       right(fn(a.right)(b.right))
-   ```
+Goal: mirror every `simple` function in `chainable` with the same name and a Result/Either-powered signature for safe composition. 
 
-**Priority Functions for Chainable Implementation:**
-1. Core array operations: map, filter, reduce, flatMap
-2. Object operations: path, prop, assoc (handle missing keys)
-3. String parsing: split, match, parse functions
-4. Type conversions: all conversion functions (already return null on error)
-5. Async operations: naturally fit Either for error handling
+Implementation approach (BDD/TDD):
+- Write tests first for each chainable function
+- See tests fail (red phase)
+- Implement the chainable function to make tests pass (green phase)
+- Refactor if needed while keeping tests green
+- The `chainable/` folder structure will exactly mirror `simple/` - nothing outside `simple/` gets added
 
-**Benefits of This Approach:**
-- **Consistency** - Same function names in both layers
-- **Discoverability** - Easy to find safe version of any function
-- **Composability** - Monadic chaining for error handling
-- **Gradual Adoption** - Users can mix simple/safe as needed
-- **Type Safety** - Errors are encoded in the type system
+Highlights:
+- Use Result as the default error carrier for ergonomic chaining
+- Reuse `simple` implementations internally; add only the error/context glue
+- Short-circuit on failure; preserve error context and types
 
-## e) Other Relevant Observations
+Example shape (illustrative only):
 
-**Deno-Specific Considerations:**
-1. **Import maps** - Could benefit from import map for cleaner imports
-2. **Permissions** - No functions require special Deno permissions (good!)
-3. **Web Standards** - Aligns well with Deno's web-standard philosophy
-4. **Testing** - Would benefit from property-based testing with fast-check
-5. **Benchmarking** - Could use Deno's built-in benchmark tool
+```ts
+// simple/array/map: (fn) => (xs) => ys
+// chainable/array/map: (fn) => (xs: Result<E,T[]>) => Result<E,R[]>
+```
 
-**Architecture Suggestions:**
+Initial targets: core array ops (map/filter/reduce/flatMap), common string/parse helpers, and async helpers.
 
-1. **Type exports** - Centralize types:
-   ```typescript
-   // lib/toolkit/simple/types.ts
-   export type Predicate<T> = (value: T) => boolean
-   export type Comparator<T> = (a: T, b: T) => number
-   ```
+## Known issues and planned fixes (functions)
 
-2. **Performance variants** - Consider lazy versions:
-   ```typescript
-   // Lazy evaluation for large datasets
-   export function* mapLazy<T, R>(fn: (t: T) => R) {
-     return function* (iter: Iterable<T>) {
-       for (const item of iter) yield fn(item)
-     }
-   }
-   ```
+✅ All previously listed issues have been resolved:
+- Temporal format now has explicit `timeZoneMode` option for UTC vs local handling
+- URL validator correctly handles IPv6 localhost "[::1]" and "::1"
+- Form validation already delegates to `isEmail`/`isUrl` validators
+- Type guard `types.isValue` correctly aligns with the `Value` union
+- Events bus now reuses the local bus instance in `createBroadcastBus`
 
-**Documentation Ideas:**
-- Add complexity annotations (O(n), O(n²), etc.)
-- Include common composition patterns
-- Add migration guide from lodash/ramda
-- Create interactive playground examples
+## Test suite status and planned fixes (tests)
 
-**Quality Metrics:**
-- 100% pure functions ✅
-- 100% curried where applicable ✅
-- 0% mutations ✅
-- Excellent documentation coverage ✅
-- Strong type safety (could be stronger)
+The suite is behavior-first with property tests in key areas. Planned work:
 
-The library is shaping up to be a high-quality, well-designed FP utility collection that rivals established libraries like Ramda while being specifically optimized for Deno's modern JavaScript runtime.
+- Add/expand tests for validators (email/url/phone/ip/uuid/postal/json), including edge cases and international inputs
+- Temporal coverage: formatting/parse/compare/add-round-diff against local vs UTC behaviors
+- Strings: sanitize/slugify invariants; round-trip and safety properties
+- Events: local vs broadcast bus behavior and cross-tab propagation
+- Result/IO: practical usage and error-propagation paths
+
+## Contributing notes
+
+- Keep functions tiny and single-purpose; prefer composition over options bloat
+- Reuse existing validators/utilities instead of re-implementing logic
+- Favor explicit types and sound type guards; prefer Result for recoverable errors
+- Add JSDoc with executable examples and at least one property-based test when practical
+
+## Status
+
+This library is in active evolution on the `phase-2` branch. 
+
+Current priority (Phase 1): Achieve 100% test coverage for all existing functions with passing linter and type checks.
+
+Next phase (Phase 2): The `chainable` layer will be implemented using BDD/TDD after Phase 1 is complete.
+
+If you hit gaps, please report them in the chat with a minimal example and runtime details.

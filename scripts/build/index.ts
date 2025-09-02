@@ -1,6 +1,7 @@
-import createElement from "../../app/src/utilities/createElement/index.ts"
-import Fragment from "../../app/src/utilities/Fragment/index.ts"
+import createElement from "~utilities/createElement/index.ts"
+import Fragment from "~utilities/Fragment/index.ts"
 
+import bundleHydrate from "./bundleHydrate/index.ts"
 import copyComponentStyles from "./copyComponentStyles/index.ts"
 import copyStaticAssets from "./copyStaticAssets/index.ts"
 import generatePages from "./generatePages/index.ts"
@@ -17,6 +18,7 @@ export default async function buildComplete(): Promise<void> {
 	await transpileStaticScripts()
 	await copyComponentStyles()
 	await transpileComponentScripts()
+	await bundleHydrate()
 	await generatePages()
 }
 

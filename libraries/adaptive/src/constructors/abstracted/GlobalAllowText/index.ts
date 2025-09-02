@@ -2,16 +2,15 @@ import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
-	GlobalAttributes,
-	SpecialProperties,
-} from "../../../constructors/elements/types/index.ts"
+} from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../utilities/isDefined/index.ts"
-import TextNode from "../../../constructors/elements/TextNode/index.ts"
-import getAriaAttributes from "../../../constructors/helpers/getAriaAttributes/index.ts"
-import getId from "../../../constructors/helpers/getId/index.ts"
-import isString from "../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
+import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
 
 const GlobalAllowText =
 	<T extends Record<string, unknown>>(tag = "Span") =>
@@ -30,7 +29,7 @@ const GlobalAllowText =
 			...attrs
 		} = attributes
 		const { id, ...attribs } = pickGlobalAttributes(attrs)
-		const kids = isString(children)
+		const kids = isString(children as Value)
 			? [TextNode(children)]
 			: Array.isArray(children)
 			? children
@@ -38,13 +37,15 @@ const GlobalAllowText =
 
 		return {
 			attributes: {
-				...getId(id),
+				...getId(id as Value),
 				...getAriaAttributes(aria),
 				...attribs,
 			} as T,
 			children: kids.filter(filterChildren),
 			...(isDefined(calculation) ? { calculation } : {}),
-			...(isDefined(dataset) ? { dataset } : {}),
+			...(isDefined(dataset)
+				? { dataset: dataset as Record<string, Value> }
+				: {}),
 			...(isDefined(display) ? { display } : {}),
 			...(isDefined(format) ? { format } : {}),
 			...(isDefined(scripts) ? { scripts } : {}),

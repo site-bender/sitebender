@@ -1,1 +1,1 @@
-export default TravelAgency
+export { default } from "../../../Organization/LocalBusiness/TravelAgency/index.tsx"

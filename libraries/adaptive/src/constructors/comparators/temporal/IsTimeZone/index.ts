@@ -1,6 +1,8 @@
+import type { Operand } from "@adaptiveTypes/index.ts"
+
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
 
-const IsTimeZone = (operand) => ({
+const IsTimeZone = (operand: Operand) => ({
 	tag: "IsTimeZone",
 	type: OPERAND_TYPES.comparator,
 	datatype: "TimeZone",

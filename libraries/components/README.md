@@ -398,172 +398,241 @@ For a song and lyrics:
 
 ```tsx
 <Song>
-  <Title>I'm Afraid of Americans</Title>
-  <Artist>David Bowie</Artist>
-  <Artist>Nine Inch Nails</Artist>
-  <Album>Earthling</Album>
-  <Year>1997</Year>
+	<Title>I'm Afraid of Americans</Title>
+	<Artist>David Bowie</Artist>
+	<Artist>Nine Inch Nails</Artist>
+	<Album>Earthling</Album>
+	<Year>1997</Year>
 
-  <Lyrics>
-    <Verse>
-      <Line>Jonny's in America</Line>
-      <Line>Lo-Teks at the wheel</Line>
-      <Line>No one needs anyone</Line>
-      <Line>They don't even just pretend</Line>
-      <Refrain>
-        <Line>Jonny's in America</Line>
-      </Refrain>
-    </Verse>
+	<Lyrics>
+		<Verse>
+			<Line>Jonny's in America</Line>
+			<Line>Lo-Teks at the wheel</Line>
+			<Line>No one needs anyone</Line>
+			<Line>They don't even just pretend</Line>
+			<Refrain>
+				<Line>Jonny's in America</Line>
+			</Refrain>
+		</Verse>
 
-    <Chorus>
-      <Line>I'm afraid of Americans</Line>
-      <Line>I'm afraid of the world</Line>
-      <Line>I'm afraid I can't help it</Line>
-      <Line>I'm afraid I can't</Line>
-      {/* The repetition is in the data, not the structure */}
-      <Line>I'm afraid of Americans</Line>
-      <Line>I'm afraid of the world</Line>
-      <Line>I'm afraid I can't help it</Line>
-      <Line>I'm afraid I can't</Line>
-      <Line>I'm afraid of Americans</Line>
-      <Line>Jonny's in America</Line>
-    </Chorus>
+		<Chorus>
+			<Line>I'm afraid of Americans</Line>
+			<Line>I'm afraid of the world</Line>
+			<Line>I'm afraid I can't help it</Line>
+			<Line>I'm afraid I can't</Line>
+			{/* The repetition is in the data, not the structure */}
+			<Line>I'm afraid of Americans</Line>
+			<Line>I'm afraid of the world</Line>
+			<Line>I'm afraid I can't help it</Line>
+			<Line>I'm afraid I can't</Line>
+			<Line>I'm afraid of Americans</Line>
+			<Line>Jonny's in America</Line>
+		</Chorus>
 
-    <Verse>
-      <Line>Jonny looks up at the stars</Line>
-      <Line>He don't look down, don't look down</Line>
-      <Line>He just loves the everglades</Line>
-      <Line>He don't love the changing times</Line>
-      <Refrain>
-        <Line>Jonny's in America</Line>
-      </Refrain>
-    </Verse>
+		<Verse>
+			<Line>Jonny looks up at the stars</Line>
+			<Line>He don't look down, don't look down</Line>
+			<Line>He just loves the everglades</Line>
+			<Line>He don't love the changing times</Line>
+			<Refrain>
+				<Line>Jonny's in America</Line>
+			</Refrain>
+		</Verse>
 
-    <Chorus>
-      {/* Lyrics repeated for chorus */}
-    </Chorus>
+		<Chorus>
+			{/* Lyrics repeated for chorus */}
+		</Chorus>
 
-    <Verse>
-      <Line>Jonny wants a plane</Line>
-      <Line>Jonny wants to suck on a Coke</Line>
-      <Line>Jonny wants a woman</Line>
-      <Line>Jonny wants to think of a joke</Line>
-      <Refrain>
-        <Line>Jonny's in America</Line>
-      </Refrain>
-    </Verse>
+		<Verse>
+			<Line>Jonny wants a plane</Line>
+			<Line>Jonny wants to suck on a Coke</Line>
+			<Line>Jonny wants a woman</Line>
+			<Line>Jonny wants to think of a joke</Line>
+			<Refrain>
+				<Line>Jonny's in America</Line>
+			</Refrain>
+		</Verse>
 
-    <Chorus>
-      {/* Lyrics repeated for chorus */}
-    </Chorus>
+		<Chorus>
+			{/* Lyrics repeated for chorus */}
+		</Chorus>
 
-    <Interlude>
-      <Line>God is an American</Line>
-      <AdLib>(Trent Reznor:)</AdLib>
-      <Line>God is an American</Line>
-      <AdLib>(Is it?)</AdLib>
-    </Interlude>
+		<Interlude>
+			<Line>God is an American</Line>
+			<AdLib>(Trent Reznor:)</AdLib>
+			<Line>God is an American</Line>
+			<AdLib>(Is it?)</AdLib>
+		</Interlude>
 
-    <Solo>
-      {/* Represents the intense NIN-driven breakdown. Could be empty. */}
-    </Solo>
+		<Solo>
+			{/* Represents the intense NIN-driven breakdown. Could be empty. */}
+		</Solo>
 
-    <Chorus>
-      {/* Lyrics repeated for final, more intense chorus */}
-      <AdLib>Yeah!</AdLib>
-    </Chorus>
+		<Chorus>
+			{/* Lyrics repeated for final, more intense chorus */}
+			<AdLib>Yeah!</AdLib>
+		</Chorus>
 
-    <Outro>
-      <Line>Jonny's an American</Line>
-      <Line>Jonny's an American</Line>
-      <Line>Jonny's an American</Line>
-      <Harmony>Jonny's an American</Harmony>
-      <Line>Jonny's an American</Line>
-      <Line>Jonny's an American</Line>
-      <AdLib>Oh yeah...</AdLib>
-    </Outro>
-  </Lyrics>
+		<Outro>
+			<Line>Jonny's an American</Line>
+			<Line>Jonny's an American</Line>
+			<Line>Jonny's an American</Line>
+			<Harmony>Jonny's an American</Harmony>
+			<Line>Jonny's an American</Line>
+			<Line>Jonny's an American</Line>
+			<AdLib>Oh yeah...</AdLib>
+		</Outro>
+	</Lyrics>
 </Song>
 ```
+
+## Compiler diagnostics (meta.debug.warnings)
+
+The components compiler lowers wrappers to Adaptive IR and attaches non-fatal diagnostics to nodes when it detects likely authoring mistakes.
+
+- Where: `node.meta.debug.warnings` (array of strings)
+- Common cases:
+  - `Op.Add`/`Op.Multiply` with fewer than 2 operands
+  - `Op.Min`/`Op.Max` with fewer than 1 operand
+  - `Op.Subtract`/`Op.Divide` not given exactly 2 operands
+  - `Is.EqualTo`/`Is.UnequalTo` not given exactly 2 args
+  - `Matches` not given 2–3 args (operand, pattern[, flags])
+  - Logical `And`/`Or` with zero operands
+- Behavior: advisory only — IR shape stays the same; runtime behavior is unchanged.
+
+These warnings are covered by unit tests in `libraries/components/tests/unit` and will expand as compiler diagnostics mature.
 
 Yields:
 
 ```html
 <article class="song" itemscope itemtype="https://schema.org/MusicComposition">
-  <h1 class="title" itemprop="name">I'm Afraid of Americans</h1>
+	<h1 class="title" itemprop="name">I'm Afraid of Americans</h1>
 
-  <div class="credits">
-    By
-    <span class="artist" itemprop="composer" itemscope itemtype="https://schema.org/Person">
-      <span itemprop="name">David Bowie</span>
-    </span>
-    and
-    <span class="artist" itemprop="composer" itemscope itemtype="https://schema.org/Person">
-      <span itemprop="name">Nine Inch Nails</span>
-    </span>
-  </div>
+	<div class="credits">
+		By
+		<span
+			class="artist"
+			itemprop="composer"
+			itemscope
+			itemtype="https://schema.org/Person"
+		>
+			<span itemprop="name">David Bowie</span>
+		</span>
+		and
+		<span
+			class="artist"
+			itemprop="composer"
+			itemscope
+			itemtype="https://schema.org/Person"
+		>
+			<span itemprop="name">Nine Inch Nails</span>
+		</span>
+	</div>
 
-  <div class="album" itemprop="inAlbum" itemscope itemtype="https://schema.org/MusicAlbum">
-    On <span itemprop="name">Earthling</span> (<time itemprop="datePublished" datetime="1997">1997</time>)
-  </div>
+	<div
+		class="album"
+		itemprop="inAlbum"
+		itemscope
+		itemtype="https://schema.org/MusicAlbum"
+	>
+		On <span itemprop="name">Earthling</span> (<time
+			itemprop="datePublished"
+			datetime="1997"
+		>1997</time>)
+	</div>
 
-  <div class="lyrics" itemprop="lyrics" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <div class="verse" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <div class="line" itemprop="text">Jonny's in America</div>
-      <div class="line" itemprop="text">Lo-Teks at the wheel</div>
-      <div class="line" itemprop="text">No one needs anyone</div>
-      <div class="line" itemprop="text">They don't even just pretend</div>
-      <div class="refrain">
-        <div class="line" itemprop="text">Jonny's in America</div>
-      </div>
-    </div>
+	<div
+		class="lyrics"
+		itemprop="lyrics"
+		itemscope
+		itemtype="https://schema.org/CreativeWork"
+	>
+		<div
+			class="verse"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<div class="line" itemprop="text">Jonny's in America</div>
+			<div class="line" itemprop="text">Lo-Teks at the wheel</div>
+			<div class="line" itemprop="text">No one needs anyone</div>
+			<div class="line" itemprop="text">They don't even just pretend</div>
+			<div class="refrain">
+				<div class="line" itemprop="text">Jonny's in America</div>
+			</div>
+		</div>
 
-    <div class="chorus" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <div class="line" itemprop="text">I'm afraid of Americans</div>
-      <div class="line" itemprop="text">I'm afraid of the world</div>
-      <div class="line" itemprop="text">I'm afraid I can't help it</div>
-      <div class="line" itemprop="text">I'm afraid I can't</div>
-      <div class="line" itemprop="text">I'm afraid of Americans</div>
-      <div class="line" itemprop="text">I'm afraid of the world</div>
-      <div class="line" itemprop="text">I'm afraid I can't help it</div>
-      <div class="line" itemprop="text">I'm afraid I can't</div>
-      <div class="line" itemprop="text">I'm afraid of Americans</div>
-      <div class="line" itemprop="text">Jonny's in America</div>
-    </div>
+		<div
+			class="chorus"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<div class="line" itemprop="text">I'm afraid of Americans</div>
+			<div class="line" itemprop="text">I'm afraid of the world</div>
+			<div class="line" itemprop="text">I'm afraid I can't help it</div>
+			<div class="line" itemprop="text">I'm afraid I can't</div>
+			<div class="line" itemprop="text">I'm afraid of Americans</div>
+			<div class="line" itemprop="text">I'm afraid of the world</div>
+			<div class="line" itemprop="text">I'm afraid I can't help it</div>
+			<div class="line" itemprop="text">I'm afraid I can't</div>
+			<div class="line" itemprop="text">I'm afraid of Americans</div>
+			<div class="line" itemprop="text">Jonny's in America</div>
+		</div>
 
-    <div class="verse" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <div class="line" itemprop="text">Jonny looks up at the stars</div>
-      <div class="line" itemprop="text">He don't look down, don't look down</div>
-      <div class="line" itemprop="text">He just loves the everglades</div>
-      <div class="line" itemprop="text">He don't love the changing times</div>
-      <div class="refrain">
-        <div class="line" itemprop="text">Jonny's in America</div>
-      </div>
-    </div>
+		<div
+			class="verse"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<div class="line" itemprop="text">Jonny looks up at the stars</div>
+			<div class="line" itemprop="text">
+				He don't look down, don't look down
+			</div>
+			<div class="line" itemprop="text">He just loves the everglades</div>
+			<div class="line" itemprop="text">He don't love the changing times</div>
+			<div class="refrain">
+				<div class="line" itemprop="text">Jonny's in America</div>
+			</div>
+		</div>
 
-    <div class="interlude" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <div class="line" itemprop="text">God is an American</div>
-      <div class="adlib" itemprop="text">(Trent Reznor:)</div>
-      <div class="line" itemprop="text">God is an American</div>
-      <div class="adlib" itemprop="text">(Is it?)</div>
-    </div>
+		<div
+			class="interlude"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<div class="line" itemprop="text">God is an American</div>
+			<div class="adlib" itemprop="text">(Trent Reznor:)</div>
+			<div class="line" itemprop="text">God is an American</div>
+			<div class="adlib" itemprop="text">(Is it?)</div>
+		</div>
 
-    <div class="solo" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <meta itemprop="name" content="Guitar and Synthesizer Solo"/>
-      <meta itemprop="text" content="[Intense instrumental break]"/>
-    </div>
+		<div
+			class="solo"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<meta itemprop="name" content="Guitar and Synthesizer Solo" />
+			<meta itemprop="text" content="[Intense instrumental break]" />
+		</div>
 
-    <div class="outro" itemprop="hasPart" itemscope itemtype="https://schema.org/CreativeWork">
-      <div class="line" itemprop="text">Jonny's an American</div>
-      <div class="line" itemprop="text">Jonny's an American</div>
-      <div class="line" itemprop="text">Jonny's an American</div>
-      <div class="harmony" itemprop="text">Jonny's an American</div>
-      <div class="line" itemprop="text">Jonny's an American</div>
-      <div class="line" itemprop="text">Jonny's an American</div>
-      <div class="adlib" itemprop="text">Oh yeah...</div>
-    </div>
-
-  </div>
+		<div
+			class="outro"
+			itemprop="hasPart"
+			itemscope
+			itemtype="https://schema.org/CreativeWork"
+		>
+			<div class="line" itemprop="text">Jonny's an American</div>
+			<div class="line" itemprop="text">Jonny's an American</div>
+			<div class="line" itemprop="text">Jonny's an American</div>
+			<div class="harmony" itemprop="text">Jonny's an American</div>
+			<div class="line" itemprop="text">Jonny's an American</div>
+			<div class="line" itemprop="text">Jonny's an American</div>
+			<div class="adlib" itemprop="text">Oh yeah...</div>
+		</div>
+	</div>
 </article>
 ```

@@ -1,1 +1,1 @@
-export default Preschool
+export { default } from "../../../../Organization/EducationalOrganization/Preschool/index.tsx"

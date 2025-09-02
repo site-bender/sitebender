@@ -1,29 +1,26 @@
-import type {
-	GlobalAttributes,
-	Value,
-} from "../../../../../../../types/index.ts"
+import type { Value } from "@adaptiveTypes/index.ts"
 
-import filterAttribute from "../../../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../../../guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for checked input types (checkbox, radio)
  * Validates common checked input attributes
  */
-const filterCheckedAttributes = (attributes: Record<string, Value>) => {
+const filterCheckedAttributes = (
+	attributes: Record<string, Value>,
+): Record<string, Value> => {
 	const { checked, form, name, required, value, ...attrs } = attributes
-	const globals = pickGlobalAttributes(attrs)
-
-	return {
-		...globals,
-		...filterAttribute(isBoolean)("checked")(checked),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isBoolean)("required")(required),
-		...filterAttribute(isString)("value")(value),
-	}
+	const out: Record<string, unknown> = {}
+	Object.assign(out, pickGlobalAttributes(attrs))
+	Object.assign(out, filterAttribute(isBoolean)("checked")(checked))
+	Object.assign(out, filterAttribute(isString)("form")(form))
+	Object.assign(out, filterAttribute(isString)("name")(name))
+	Object.assign(out, filterAttribute(isBoolean)("required")(required))
+	Object.assign(out, filterAttribute(isString)("value")(value))
+	return out as Record<string, Value>
 }
 
 export default filterCheckedAttributes

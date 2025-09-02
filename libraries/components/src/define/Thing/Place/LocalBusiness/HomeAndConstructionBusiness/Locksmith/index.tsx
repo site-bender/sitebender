@@ -1,1 +1,1 @@
-export default Locksmith
+export { default } from "../../../../Organization/LocalBusiness/HomeAndConstructionBusiness/Locksmith/index.tsx"

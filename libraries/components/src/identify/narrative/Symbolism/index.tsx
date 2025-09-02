@@ -1,6 +1,6 @@
-import type { BaseProps } from "../../../../types/index.ts"
+import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
 
-import { getDataAttributes } from "../../../../utilities/getDataAttributes/index.ts"
+type BaseProps = Record<string, unknown>
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "em" | "strong"
@@ -39,7 +39,7 @@ export type Props = BaseProps & {
  */
 export default function Symbolism({
 	element: Element = "span",
-	define,
+	define: _define,
 	represents,
 	symbolType,
 	explicitness,

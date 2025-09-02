@@ -13,26 +13,26 @@ Deno.test("multiply - null safety", () => {
 			fc.oneof(
 				fc.constant(null),
 				fc.constant(undefined),
-				fc.float()
+				fc.float(),
 			),
 			fc.oneof(
 				fc.constant(null),
 				fc.constant(undefined),
-				fc.float()
+				fc.float(),
 			),
 			(a, b) => {
 				const result = multiply(a as any)(b as any)
-				
+
 				// Should return NaN for any null/undefined input
 				if (a == null || b == null) {
 					return Number.isNaN(result)
 				}
-				
+
 				// Otherwise should return a number
-				return typeof result === 'number'
-			}
+				return typeof result === "number"
+			},
 		),
-		{ numRuns: 1000 }
+		{ numRuns: 1000 },
 	)
 })
 
@@ -50,17 +50,26 @@ Deno.test("multiply - type safety", () => {
 		() => 5,
 		Symbol("test"),
 		new Date(),
-		/regex/
+		/regex/,
 	]
-	
+
 	for (const invalid of invalidInputs) {
 		const result1 = multiply(invalid as any)(5)
 		const result2 = multiply(5)(invalid as any)
 		const result3 = multiply(invalid as any)(invalid as any)
-		
-		assert(Number.isNaN(result1), `Should return NaN for ${typeof invalid} as first arg`)
-		assert(Number.isNaN(result2), `Should return NaN for ${typeof invalid} as second arg`)
-		assert(Number.isNaN(result3), `Should return NaN for ${typeof invalid} as both args`)
+
+		assert(
+			Number.isNaN(result1),
+			`Should return NaN for ${typeof invalid} as first arg`,
+		)
+		assert(
+			Number.isNaN(result2),
+			`Should return NaN for ${typeof invalid} as second arg`,
+		)
+		assert(
+			Number.isNaN(result3),
+			`Should return NaN for ${typeof invalid} as both args`,
+		)
 	}
 })
 
@@ -73,13 +82,13 @@ Deno.test("multiply - NaN propagation", () => {
 				const result1 = multiply(NaN)(a)
 				const result2 = multiply(a)(NaN)
 				const result3 = multiply(NaN)(NaN)
-				
-				return Number.isNaN(result1) && 
-				       Number.isNaN(result2) && 
-				       Number.isNaN(result3)
-			}
+
+				return Number.isNaN(result1) &&
+					Number.isNaN(result2) &&
+					Number.isNaN(result3)
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -89,18 +98,18 @@ Deno.test("multiply - special number interactions", () => {
 	assert(multiply(Infinity)(-5) === -Infinity)
 	assert(multiply(-Infinity)(5) === -Infinity)
 	assert(multiply(-Infinity)(-5) === Infinity)
-	
+
 	// Infinity * Infinity
 	assert(multiply(Infinity)(Infinity) === Infinity)
 	assert(multiply(Infinity)(-Infinity) === -Infinity)
 	assert(multiply(-Infinity)(-Infinity) === Infinity)
-	
+
 	// Infinity * 0 = NaN (indeterminate form)
 	assert(Number.isNaN(multiply(Infinity)(0)))
 	assert(Number.isNaN(multiply(-Infinity)(0)))
 	assert(Number.isNaN(multiply(0)(Infinity)))
 	assert(Number.isNaN(multiply(0)(-Infinity)))
-	
+
 	// Very small * very large
 	assert(multiply(Number.MIN_VALUE)(Number.MAX_VALUE) > 0)
 	assert(multiply(Number.EPSILON)(Number.MAX_SAFE_INTEGER) > 0)
@@ -109,28 +118,36 @@ Deno.test("multiply - special number interactions", () => {
 Deno.test("multiply - sign rules", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(0.001) }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(0.001) }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: Math.fround(0.001),
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: Math.fround(0.001),
+			}),
 			(a, b) => {
 				// Positive * Positive = Positive
 				const pp = multiply(a)(b)
 				assert(pp > 0, "Positive * Positive should be positive")
-				
+
 				// Positive * Negative = Negative
 				const pn = multiply(a)(-b)
 				assert(pn < 0, "Positive * Negative should be negative")
-				
+
 				// Negative * Positive = Negative
 				const np = multiply(-a)(b)
 				assert(np < 0, "Negative * Positive should be negative")
-				
+
 				// Negative * Negative = Positive
 				const nn = multiply(-a)(-b)
 				assert(nn > 0, "Negative * Negative should be positive")
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })

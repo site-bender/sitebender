@@ -1,1 +1,1 @@
-export default GardenStore
+export { default } from "../../../../Organization/LocalBusiness/Store/GardenStore/index.tsx"

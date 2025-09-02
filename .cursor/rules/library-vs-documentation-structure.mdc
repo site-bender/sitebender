@@ -1,6 +1,0 @@
----
-alwaysApply: true
----
-- **Dual-purpose codebase**: `lib/` contains the standalone library (JSR-ready), `src/` contains the documentation site
-- **Library imports**: All code in `lib/` MUST use relative imports only - no aliases or path mapping (external consumers can't access internal aliases)
-- **Documentation imports**: Code in `src/` MAY use path mapping aliases (~components, ~constants, etc.)

@@ -1,7 +1,0 @@
----
-alwaysApply: true
----
-
-- **Dual compilation**: Build system must support both library compilation (for JSR) and documentation site generation
-- **Asset discovery**: Automatically discover and include component styles and scripts in documentation builds
-- **Self-contained library**: Library build must be completely self-contained with no external dependencies

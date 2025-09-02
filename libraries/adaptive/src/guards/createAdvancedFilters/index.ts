@@ -1,9 +1,9 @@
-import type { GlobalAttributes } from "../../types/index.ts"
+import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
 
-import isFlowContent from "../../guards/isFlowContent/index.ts"
-import isHeadingContent from "../../guards/isHeadingContent/index.ts"
-import isInteractiveContent from "../../guards/isInteractiveContent/index.ts"
-import isPhrasingContent from "../../guards/isPhrasingContent/index.ts"
+import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
+import isHeadingContent from "@adaptiveSrc/guards/isHeadingContent/index.ts"
+import isInteractiveContent from "@adaptiveSrc/guards/isInteractiveContent/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Configuration object for element validation (partial for flexibility)
@@ -223,4 +223,31 @@ export const ADVANCED_FILTERS = {
 
 	// For Form elements - flow content but no nested forms
 	formContent: createSelfExcludingFilter("Form"),
+
+	// Simple phrasing-only filter (allows interactive per spec of phrasing)
+	phrasingContent: (child: ElementConfig): boolean => {
+		if (!child || typeof child !== "object" || !("tag" in child)) {
+			return true
+		}
+		const element = child as {
+			tag?: string
+			attributes?: Record<string, unknown>
+			children?: readonly unknown[]
+		}
+		return isPhrasingContent()(element)
+	},
+
+	// Audio content: allow <Source>, <Track>, and phrasing fallback content
+	audioContent: (child: ElementConfig): boolean => {
+		if (!child || typeof child !== "object" || !("tag" in child)) {
+			return true
+		}
+		const element = child as {
+			tag?: string
+			attributes?: Record<string, unknown>
+			children?: readonly unknown[]
+		}
+		const tag = element.tag
+		return tag === "Source" || tag === "Track" || isPhrasingContent()(element)
+	},
 } as const

@@ -1,1 +1,1 @@
-export default TireShop
+export { default } from "../../../../Organization/LocalBusiness/Store/TireShop/index.tsx"

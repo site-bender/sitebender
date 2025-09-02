@@ -1,3 +1,9 @@
+import type {
+	NumericDatatype,
+	Operand,
+	SubtractOperator,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * Subtract JSX Component
  *
@@ -17,11 +23,11 @@
  * </Subtract>
  */
 
-import SubtractConstructor from "../../../../adaptive/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "@adaptiveSrc/constructors/operators/Subtract/index.ts"
 
-export type SubtractProps = {
-	type?: "Number" | "Date" | "Duration"
-	datatype?: "Number" | "Date" | "Duration"
+export type Props = {
+	type?: NumericDatatype
+	datatype?: NumericDatatype
 	children?: JSX.Element | JSX.Element[]
 }
 
@@ -29,10 +35,12 @@ export default function Subtract({
 	type = "Number",
 	datatype,
 	children = [],
-}: SubtractProps): ReturnType<typeof SubtractConstructor> {
+}: Props): SubtractOperator {
 	const actualType = datatype || type
-	const childArray = Array.isArray(children) ? children : [children]
+	const [minuend, subtrahend] = Array.isArray(children) ? children : [children]
 
 	// The parser will extract From/Amount or Minuend/Subtrahend from children
-	return SubtractConstructor(actualType)(childArray as any)
+	return SubtractConstructor(actualType)(minuend as unknown as Operand)(
+		subtrahend as unknown as Operand,
+	)
 }

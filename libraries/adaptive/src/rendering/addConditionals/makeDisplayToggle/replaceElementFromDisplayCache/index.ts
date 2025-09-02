@@ -1,4 +1,4 @@
-const replaceElementFromDisplayCache = (id) => {
+const replaceElementFromDisplayCache = (id: string) => {
 	if (document) {
 		const slot = document.querySelector(`slot[name=${id}]`)
 		const element = document.__sbDisplayCache && document.__sbDisplayCache[id]
@@ -7,7 +7,7 @@ const replaceElementFromDisplayCache = (id) => {
 			slot.after(element)
 			slot.remove()
 
-			delete document.__sbDisplayCache[id]
+			if (document.__sbDisplayCache) delete document.__sbDisplayCache[id]
 		}
 	}
 }

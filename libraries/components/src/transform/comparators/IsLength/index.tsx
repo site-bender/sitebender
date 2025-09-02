@@ -1,3 +1,5 @@
+import type { IsLengthComparator, Operand } from "@adaptiveTypes/index.ts"
+
 /**
  * IsLength JSX Component
  *
@@ -12,23 +14,27 @@
  * </IsLength>
  */
 
-import IsLengthConstructor from "../../../../adaptive/constructors/comparators/length/IsLength/index.ts"
+import IsLengthConstructor from "@adaptiveSrc/constructors/comparators/length/IsLength/index.ts"
 
-export type IsLengthProps = {
+export type Props = {
+	// authoring accepts String|Array, but length comparator uses a numeric length under the hood
 	type?: "String" | "Array"
 	datatype?: "String" | "Array"
 	children?: JSX.Element | JSX.Element[]
 }
 
 export default function IsLength({
-	type = "String",
-	datatype,
+	type: _type = "String",
+	datatype: _datatype,
 	children = [],
-}: IsLengthProps): ReturnType<typeof IsLengthConstructor> {
-	const actualType = datatype || type
+}: Props): IsLengthComparator {
+	// Map authoring types to numeric length comparator type
+	const actualNumericType = "Number" as const
 	const childArray = Array.isArray(children) ? children : [children]
+	const [operand, test] = childArray
 
-	// The parser will extract Value and ExpectedValue from children
 	// IsLength constructor signature: (datatype) => (operand) => (test)
-	return IsLengthConstructor(actualType)(null as any)(null as any)
+	return IsLengthConstructor(actualNumericType)(
+		operand as unknown as Operand,
+	)(test as unknown as Operand) as unknown as IsLengthComparator
 }

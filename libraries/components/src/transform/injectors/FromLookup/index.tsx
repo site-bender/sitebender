@@ -1,3 +1,9 @@
+import type {
+	ComplexDatatype,
+	FromLookupInjector,
+	Value,
+} from "@adaptiveTypes/index.ts"
+
 /**
  * FromLookup JSX Component
  *
@@ -12,25 +18,23 @@
  * />
  */
 
-import FromLookupConstructor from "../../../../adaptive/constructors/injectors/FromLookup/index.ts"
+import FromLookupConstructor from "@adaptiveSrc/constructors/injectors/FromLookup/index.ts"
 
 export type FromLookupProps = {
-	table: string
-	key: string
-	type?: "String" | "Number" | "Boolean" | "Json"
-	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: any
+	id: string
+	type?: ComplexDatatype
+	datatype?: ComplexDatatype
+	defaultValue?: Value
 }
 
 export default function FromLookup({
-	table,
-	key,
-	type = "String",
+	id,
+	type = "Json",
 	datatype,
 	defaultValue,
-}: FromLookupProps): ReturnType<typeof FromLookupConstructor> {
+}: FromLookupProps): FromLookupInjector {
 	const actualType = datatype || type
 
-	// FromLookup constructor signature: (datatype) => (table) => (key) => (defaultValue)
-	return FromLookupConstructor(actualType)(table)(key)(defaultValue)
+	// FromLookup constructor signature: (datatype) => (id, defaultValue)
+	return FromLookupConstructor(actualType)(id, defaultValue)
 }

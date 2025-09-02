@@ -1,5 +1,5 @@
-import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Samp element configuration object
@@ -17,6 +17,6 @@ import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const Samp = GlobalOnly("Samp")(isPhrasingContent())
+export const Samp = GlobalOnly("samp")(isPhrasingContent())
 
 export default Samp

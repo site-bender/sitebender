@@ -1,6 +1,10 @@
+import {
+	DOMParser,
+	Element,
+	HTMLDocument,
+} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { assertEquals } from "jsr:@std/assert"
 import fc from "npm:fast-check"
-import { DOMParser, Element, HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 import collectLinkElements from "./index.ts"
 
@@ -16,23 +20,25 @@ const setupDocument = (html: string): HTMLDocument => {
 }
 
 // Helper to create component data from DOM attributes
-const createComponentFromElement = (element: Element): Record<string, any> => {
-	const component: Record<string, any> = {}
-	
+const createComponentFromElement = (
+	element: Element,
+): Record<string, unknown> => {
+	const component: Record<string, unknown> = {}
+
 	// Extract dependencies from data-dependencies attribute
 	const depsAttr = element.getAttribute("data-dependencies")
 	if (depsAttr) {
-		component.dependencies = depsAttr.split(",").map(dep => dep.trim())
+		component.dependencies = depsAttr.split(",").map((dep) => dep.trim())
 	}
-	
+
 	// Extract children from child elements
-	const children = Array.from(element.children).map(child => 
+	const children = Array.from(element.children).map((child) =>
 		createComponentFromElement(child as Element)
 	)
 	if (children.length > 0) {
 		component.children = children
 	}
-	
+
 	return component
 }
 
@@ -41,42 +47,49 @@ Deno.test("collectLinkElements basic functionality", async (t) => {
 		const doc = setupDocument(`<div id="empty"></div>`)
 		const element = doc.getElementById("empty")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, [])
 	})
 
 	await t.step("should collect dependencies from root level", () => {
-		const doc = setupDocument(`<div id="root" data-dependencies="dep1,dep2,dep3"></div>`)
+		const doc = setupDocument(
+			`<div id="root" data-dependencies="dep1,dep2,dep3"></div>`,
+		)
 		const element = doc.getElementById("root")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["dep1", "dep2", "dep3"])
 	})
 
 	await t.step("should ignore non-dependency attributes", () => {
-		const doc = setupDocument(`<div id="test" class="container" data-dependencies="dep1"></div>`)
+		const doc = setupDocument(
+			`<div id="test" class="container" data-dependencies="dep1"></div>`,
+		)
 		const element = doc.getElementById("test")!
 		const component = createComponentFromElement(element)
 		component.tag = "div"
 		component.attributes = { class: "container" }
 		component.content = "hello"
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["dep1"])
 	})
 
-	await t.step("should handle component with no dependencies or children", () => {
-		const doc = setupDocument(`<div id="container" class="container"></div>`)
-		const element = doc.getElementById("container")!
-		const component = createComponentFromElement(element)
-		component.tag = "div"
-		component.attributes = { class: "container" }
-		
-		const result = collectLinkElements(component)
-		assertEquals(result, [])
-	})
+	await t.step(
+		"should handle component with no dependencies or children",
+		() => {
+			const doc = setupDocument(`<div id="container" class="container"></div>`)
+			const element = doc.getElementById("container")!
+			const component = createComponentFromElement(element)
+			component.tag = "div"
+			component.attributes = { class: "container" }
+
+			const result = collectLinkElements(component)
+			assertEquals(result, [])
+		},
+	)
 })
 
 Deno.test("collectLinkElements children traversal", async (t) => {
@@ -89,7 +102,7 @@ Deno.test("collectLinkElements children traversal", async (t) => {
 		`)
 		const element = doc.getElementById("parent")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["child-dep1", "child-dep2", "child-dep3"])
 	})
@@ -106,13 +119,15 @@ Deno.test("collectLinkElements children traversal", async (t) => {
 		`)
 		const element = doc.getElementById("parent")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["level1-dep", "level2-dep", "level3-dep"])
 	})
 
-	await t.step("should handle mixed children with and without dependencies", () => {
-		const doc = setupDocument(`
+	await t.step(
+		"should handle mixed children with and without dependencies",
+		() => {
+			const doc = setupDocument(`
 			<div id="parent">
 				<div></div>
 				<div data-dependencies="dep1"></div>
@@ -120,18 +135,19 @@ Deno.test("collectLinkElements children traversal", async (t) => {
 				<div data-dependencies="dep2,dep3"></div>
 			</div>
 		`)
-		const element = doc.getElementById("parent")!
-		const component = createComponentFromElement(element)
-		
-		const result = collectLinkElements(component)
-		assertEquals(result, ["dep1", "dep2", "dep3"])
-	})
+			const element = doc.getElementById("parent")!
+			const component = createComponentFromElement(element)
+
+			const result = collectLinkElements(component)
+			assertEquals(result, ["dep1", "dep2", "dep3"])
+		},
+	)
 
 	await t.step("should handle empty children array", () => {
 		const doc = setupDocument(`<div id="empty"></div>`)
 		const element = doc.getElementById("empty")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, [])
 	})
@@ -139,15 +155,17 @@ Deno.test("collectLinkElements children traversal", async (t) => {
 	await t.step("should handle null/undefined children", () => {
 		const component1 = { children: null }
 		const component2 = { children: undefined }
-		
+
 		assertEquals(collectLinkElements(component1), [])
 		assertEquals(collectLinkElements(component2), [])
 	})
 })
 
 Deno.test("collectLinkElements combined scenarios", async (t) => {
-	await t.step("should collect dependencies from both root and children", () => {
-		const doc = setupDocument(`
+	await t.step(
+		"should collect dependencies from both root and children",
+		() => {
+			const doc = setupDocument(`
 			<div id="root" data-dependencies="root-dep1,root-dep2">
 				<div data-dependencies="child-dep1"></div>
 				<div data-dependencies="child-dep2">
@@ -155,12 +173,19 @@ Deno.test("collectLinkElements combined scenarios", async (t) => {
 				</div>
 			</div>
 		`)
-		const element = doc.getElementById("root")!
-		const component = createComponentFromElement(element)
-		
-		const result = collectLinkElements(component)
-		assertEquals(result, ["root-dep1", "root-dep2", "child-dep1", "child-dep2", "nested-dep"])
-	})
+			const element = doc.getElementById("root")!
+			const component = createComponentFromElement(element)
+
+			const result = collectLinkElements(component)
+			assertEquals(result, [
+				"root-dep1",
+				"root-dep2",
+				"child-dep1",
+				"child-dep2",
+				"nested-dep",
+			])
+		},
+	)
 
 	await t.step("should preserve order of collection", () => {
 		const doc = setupDocument(`
@@ -174,7 +199,7 @@ Deno.test("collectLinkElements combined scenarios", async (t) => {
 		`)
 		const element = doc.getElementById("root")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["first", "second", "third", "fourth"])
 	})
@@ -183,25 +208,37 @@ Deno.test("collectLinkElements combined scenarios", async (t) => {
 Deno.test("collectLinkElements edge cases", async (t) => {
 	await t.step("should handle different dependency value types", () => {
 		const component = {
-			dependencies: ["string-dep", 123, { url: "object-dep" }, null, undefined]
+			dependencies: ["string-dep", 123, { url: "object-dep" }, null, undefined],
 		}
 		const result = collectLinkElements(component)
-		assertEquals(result, ["string-dep", 123, { url: "object-dep" }, null, undefined])
+		assertEquals(result, [
+			"string-dep",
+			123,
+			{ url: "object-dep" },
+			null,
+			undefined,
+		])
 	})
 
 	await t.step("should handle deeply nested structures", () => {
-		let nested = { dependencies: ["deep"] }
-		
+		let nested: { dependencies?: unknown[]; children?: unknown[] } = {
+			dependencies: ["deep"] as unknown[],
+		}
+
 		// Create a 10-level nested structure
 		for (let i = 0; i < 10; i++) {
-			nested = { children: [nested] }
+			// Cast to loosen shape for test helper object construction
+			nested = { children: [nested] } as unknown as {
+				dependencies?: unknown[]
+				children?: unknown[]
+			}
 		}
-		
+
 		const component = {
 			dependencies: ["root"],
-			children: [nested]
-		}
-		
+			children: [nested],
+		} as unknown as { dependencies?: unknown[]; children?: unknown[] }
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["root", "deep"])
 	})
@@ -209,13 +246,13 @@ Deno.test("collectLinkElements edge cases", async (t) => {
 	await t.step("should handle circular-like structures safely", () => {
 		const child1 = { dependencies: ["dep1"] }
 		const child2 = { dependencies: ["dep2"] }
-		
+
 		// Create cross-references (though not truly circular due to structure)
 		const component = {
 			dependencies: ["root"],
-			children: [child1, child2, child1] // Same child referenced multiple times
+			children: [child1, child2, child1], // Same child referenced multiple times
 		}
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["root", "dep1", "dep2", "dep1"])
 	})
@@ -231,7 +268,7 @@ Deno.test("collectLinkElements edge cases", async (t) => {
 		`)
 		const element = doc.getElementById("parent")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, ["valid1", "valid2"])
 	})
@@ -258,13 +295,17 @@ Deno.test("collectLinkElements realistic scenarios", async (t) => {
 		`)
 		const element = doc.getElementById("root")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, [
-			"normalize.css", "main.css",
-			"header.css", "nav.css", "responsive.css",
-			"layout.css", "article.css",
-			"footer.css"
+			"normalize.css",
+			"main.css",
+			"header.css",
+			"nav.css",
+			"responsive.css",
+			"layout.css",
+			"article.css",
+			"footer.css",
 		])
 	})
 
@@ -280,46 +321,60 @@ Deno.test("collectLinkElements realistic scenarios", async (t) => {
 		`)
 		const element = doc.getElementById("root")!
 		const component = createComponentFromElement(element)
-		
+
 		const result = collectLinkElements(component)
 		assertEquals(result, [
 			"form-base.css",
-			"fieldset.css", "input.css", "validation.css", "select.css", "dropdown.css",
-			"button.css", "button-primary.css"
+			"fieldset.css",
+			"input.css",
+			"validation.css",
+			"select.css",
+			"dropdown.css",
+			"button.css",
+			"button-primary.css",
 		])
 	})
 })
 
 Deno.test("collectLinkElements property-based tests", () => {
-	fc.assert(fc.property(
-		fc.array(fc.string({ minLength: 1, maxLength: 20 })),
-		(deps) => {
-			const component = { dependencies: deps }
-			const result = collectLinkElements(component)
-			assertEquals(result, deps)
-		}
-	), { numRuns: 100 })
+	fc.assert(
+		fc.property(
+			fc.array(fc.string({ minLength: 1, maxLength: 20 })),
+			(deps) => {
+				const component = { dependencies: deps }
+				const result = collectLinkElements(component)
+				assertEquals(result, deps)
+			},
+		),
+		{ numRuns: 100 },
+	)
 
-	fc.assert(fc.property(
-		fc.array(fc.array(fc.string({ minLength: 1, maxLength: 20 }))),
-		(childDeps) => {
-			const children = childDeps.map(deps => ({ dependencies: deps }))
-			const component = { children }
-			const result = collectLinkElements(component)
-			const expected = childDeps.flat()
-			assertEquals(result, expected)
-		}
-	), { numRuns: 50 })
+	fc.assert(
+		fc.property(
+			fc.array(fc.array(fc.string({ minLength: 1, maxLength: 20 }))),
+			(childDeps) => {
+				const children = childDeps.map((deps) => ({ dependencies: deps }))
+				const component = { children }
+				const result = collectLinkElements(component)
+				const expected = childDeps.flat()
+				assertEquals(result, expected)
+			},
+		),
+		{ numRuns: 50 },
+	)
 
-	fc.assert(fc.property(
-		fc.array(fc.string({ minLength: 1, maxLength: 10 })),
-		fc.array(fc.array(fc.string({ minLength: 1, maxLength: 10 }))),
-		(rootDeps, childDeps) => {
-			const children = childDeps.map(deps => ({ dependencies: deps }))
-			const component = { dependencies: rootDeps, children }
-			const result = collectLinkElements(component)
-			const expected = [...rootDeps, ...childDeps.flat()]
-			assertEquals(result, expected)
-		}
-	), { numRuns: 30 })
+	fc.assert(
+		fc.property(
+			fc.array(fc.string({ minLength: 1, maxLength: 10 })),
+			fc.array(fc.array(fc.string({ minLength: 1, maxLength: 10 }))),
+			(rootDeps, childDeps) => {
+				const children = childDeps.map((deps) => ({ dependencies: deps }))
+				const component = { dependencies: rootDeps, children }
+				const result = collectLinkElements(component)
+				const expected = [...rootDeps, ...childDeps.flat()]
+				assertEquals(result, expected)
+			},
+		),
+		{ numRuns: 30 },
+	)
 })

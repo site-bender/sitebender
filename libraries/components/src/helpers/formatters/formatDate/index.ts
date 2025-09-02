@@ -6,7 +6,7 @@ import type { FormatOptions } from "../../../../types/temporal/index.ts"
 export default function formatDate(
 	value: Date | string,
 	locale?: string,
-	options?: FormatOptions,
+	options?: FormatOptions | Intl.DateTimeFormatOptions,
 ): string {
 	const date = typeof value === "string" ? new Date(value) : value
 

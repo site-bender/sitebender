@@ -4,6 +4,7 @@
  *
  * @param fns - Array of functions to compose
  * @returns Function that takes input and applies all functions in reverse sequence
+ * @pure
  * @example
  * ```typescript
  * const add5 = (x: number) => x + 5
@@ -11,9 +12,15 @@
  * const composed = compose([multiply2, add5])
  * composed(3) // 16 (first adds 5 to get 8, then multiplies by 2)
  *
- * // Compare with pipe (opposite order)
- * const piped = pipe([add5, multiply2])
- * piped(3) // 16 (first adds 5 to get 8, then multiplies by 2)
+ * // String transformations
+ * const toUpper = (s: string) => s.toUpperCase()
+ * const trim = (s: string) => s.trim()
+ * const transform = compose([toUpper, trim])
+ * transform("  hello  ") // "HELLO"
+ *
+ * // Empty array returns identity
+ * const identity = compose([])
+ * identity(42) // 42
  * ```
  *
  * Note: TypeScript cannot properly type variadic compose without extensive overloads.

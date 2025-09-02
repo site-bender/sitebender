@@ -2,6 +2,7 @@
  * Runs a side effect function on a value and returns the value
  * Useful for debugging, logging, or performing side effects in a pipeline
  *
+ * @impure
  * @param fn - Side effect function to run
  * @param value - Value to pass through
  * @returns The original value unchanged

@@ -1,6 +1,6 @@
-import { SECTIONING_ELEMENTS } from "../../../constants/index.ts"
+import { SECTIONING_ELEMENTS } from "../../constants.ts"
 
-const setLevel = (tag) => (level) =>
+const setLevel = (tag: string) => (level: number) =>
 	SECTIONING_ELEMENTS.includes(tag) || tag === "Fragment" ? level + 1 : level
 
 export default setLevel

@@ -1,5 +1,14 @@
 import { Person, Quotation } from "../../../define/index.ts"
 
+type BaseProps = Record<string, unknown>
+export type Props = BaseProps & {
+	characterId?: string
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => unknown)
+	define?: "microdata" | "linkedData" | "both"
+	children?: unknown
+}
 export default function Dialogue({
 	children,
 	element: Element = "span",
@@ -51,8 +60,8 @@ export default function Dialogue({
 		if (speakerId && speaker) {
 			return (
 				<Person
-					id={speakerId}
-					name={speaker}
+					identifier={speakerId}
+					name={typeof speaker === "string" ? speaker : undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

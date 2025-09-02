@@ -1,15 +1,12 @@
-import type {
-	ElementConfig,
-	GlobalAttributes,
-	Value,
-} from "../../../../../types/index.ts"
+import type { StrikethroughAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 } from "../../../../../types/index.ts"
-import type { StrikethroughAttributes } from "../types/attributes/index.ts"
+import type { ElementConfig, Value } from "../../../../../types/index.ts"
 
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"

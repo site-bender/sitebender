@@ -1,0 +1,50 @@
+{
+  servers {
+    protocols h1 h2 h3
+  }
+  # Disable automatic HSTS for local development
+  default_sni localhost
+}
+
+# Grafana
+grafana.localhost {
+  tls /certs/grafana.localhost.pem /certs/grafana.localhost-key.pem
+  reverse_proxy oauth2-proxy-grafana:4180
+}
+
+# Prometheus
+prometheus.localhost {
+  tls /certs/prometheus.localhost.pem /certs/prometheus.localhost-key.pem
+  reverse_proxy oauth2-proxy-prometheus:4180
+}
+
+# Thanos Querier
+thanos.localhost {
+  tls /certs/thanos.localhost.pem /certs/thanos.localhost-key.pem
+  reverse_proxy oauth2-proxy-thanos:4180
+}
+
+# Fuseki
+fuseki.localhost {
+  tls /certs/fuseki.localhost.pem /certs/fuseki.localhost-key.pem
+  reverse_proxy oauth2-proxy-fuseki:4180
+}
+
+# MinIO Console
+minio.localhost {
+  tls /certs/minio.localhost.pem /certs/minio.localhost-key.pem
+  @oidc path /oauth_callback
+  handle @oidc {
+    reverse_proxy minio:9000
+  }
+
+  handle {
+    reverse_proxy minio:9001
+  }
+}
+
+# Authentik (IdP)
+authentik.localhost {
+  tls /certs/authentik.localhost.pem /certs/authentik.localhost-key.pem
+  reverse_proxy authentik-server:9000
+}

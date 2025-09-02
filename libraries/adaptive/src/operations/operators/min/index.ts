@@ -1,24 +1,27 @@
-import type { HydratedMin } from "../../../types/hydrated/index.ts"
+import type { HydratedMin } from "../../../../types/hydrated/index.ts"
 import type {
 	AdaptiveError,
 	Either,
-	GlobalAttributes,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"
 
-import Error from "../../../constructors/Error/index.ts"
-import { isLeft } from "../../../types/index.ts"
+import { isLeft } from "../../../../types/index.ts"
+import _Error from "../../../constructors/Error/index.ts"
 
 const min =
-	({ operands, ...op }: HydratedMin): OperationFunction<number | string> =>
+	({ operands, ..._op }: HydratedMin): OperationFunction<number | string> =>
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, number | string>> => {
 		if (operands.length === 0) {
 			return {
-				left: [Error(op)("Min")("Cannot get minimum of an empty list.")],
+				left: [{
+					tag: "Error",
+					operation: "Min",
+					message: "Cannot get minimum of an empty list.",
+				}],
 			}
 		}
 
@@ -26,14 +29,28 @@ const min =
 			operands.map((operand) => operand(arg, localValues)),
 		)
 		const errors = resolvedOperands.filter(isLeft)
-
 		if (errors.length) {
+			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
+			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
 			return {
-				left: [Error(op)("Min")("Could not resolve all operands."), ...errors],
+				left: [
+					{
+						tag: "Error",
+						operation: "Min",
+						message: "Could not resolve all operands.",
+					},
+					...flattened,
+				],
 			}
 		}
 
-		return { right: Math.min(...resolvedOperands.map((o) => o.right)) }
+		return {
+			right: Math.min(
+				...(resolvedOperands as Array<{ right: number | string }>).map((o) =>
+					Number(o.right)
+				),
+			),
+		}
 	}
 
 export default min

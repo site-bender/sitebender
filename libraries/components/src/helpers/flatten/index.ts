@@ -10,9 +10,10 @@ export default function flatten<T>(depth: number = Infinity) {
 
 		return array.reduce<T[]>((acc, item) => {
 			if (Array.isArray(item) && depth > 0) {
-				return acc.concat(flatten(depth - 1)(item))
+				// Cast is safe: when item is an array, recursive flatten returns T[]
+				return acc.concat(flatten<T>(depth - 1)(item as unknown as T[]))
 			}
-			return acc.concat(item)
+			return acc.concat(item as T)
 		}, [])
 	}
 }

@@ -1,1 +1,1 @@
-export default HealthClub
+export { default } from "../../../../Organization/LocalBusiness/SportsActivityLocation/HealthClub/index.tsx"

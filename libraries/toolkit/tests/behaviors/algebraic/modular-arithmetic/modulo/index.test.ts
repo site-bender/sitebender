@@ -1,44 +1,73 @@
-import { assertEquals, assertStrictEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertStrictEquals,
+} from "https://deno.land/std@0.208.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
 import modulo from "../../../../../src/simple/math/modulo/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("modulo - mathematical properties", async (t) => {
-	await t.step("property: 0 <= result <= |divisor| for positive divisor", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(0.1), max: Math.fround(1e6) }),
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(-1e6), max: Math.fround(1e6) }),
-				(divisor, dividend) => {
-					const result = modulo(divisor)(dividend)
-					// Note: Due to floating point precision with very small negative dividends,
-					// result can equal divisor (when remainder is -0 or very small negative)
-					return result >= 0 && result <= Math.abs(divisor)
-				}
-			),
-			{ numRuns: 1000 }
-		)
-	})
+	await t.step(
+		"property: 0 <= result <= |divisor| for positive divisor",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: Math.fround(0.1),
+						max: Math.fround(1e6),
+					}),
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: Math.fround(-1e6),
+						max: Math.fround(1e6),
+					}),
+					(divisor, dividend) => {
+						const result = modulo(divisor)(dividend)
+						// Note: Due to floating point precision with very small negative dividends,
+						// result can equal divisor (when remainder is -0 or very small negative)
+						return result >= 0 && result <= Math.abs(divisor)
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 
-	await t.step("property: (dividend + k*divisor) mod divisor = dividend mod divisor", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(0.1), max: Math.fround(1000) }),
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(-1000), max: Math.fround(1000) })
-					.filter(x => Math.abs(x) > 1e-10), // Exclude very small numbers that cause precision issues
-				fc.integer({ min: -10, max: 10 }),
-				(divisor, dividend, k) => {
-					const result1 = modulo(divisor)(dividend)
-					const result2 = modulo(divisor)(dividend + k * divisor)
-					// Use a relative epsilon based on the magnitude of the divisor
-					const epsilon = Math.max(1e-8, Math.abs(divisor) * 1e-8)
-					return approximately(result1, result2, epsilon)
-				}
-			),
-			{ numRuns: 1000 }
-		)
-	})
+	await t.step(
+		"property: (dividend + k*divisor) mod divisor = dividend mod divisor",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: Math.fround(0.1),
+						max: Math.fround(1000),
+					}),
+					fc.float({
+						noNaN: true,
+						noDefaultInfinity: true,
+						min: Math.fround(-1000),
+						max: Math.fround(1000),
+					})
+						.filter((x) => Math.abs(x) > 1e-10), // Exclude very small numbers that cause precision issues
+					fc.integer({ min: -10, max: 10 }),
+					(divisor, dividend, k) => {
+						const result1 = modulo(divisor)(dividend)
+						const result2 = modulo(divisor)(dividend + k * divisor)
+						// Use a relative epsilon based on the magnitude of the divisor
+						const epsilon = Math.max(1e-8, Math.abs(divisor) * 1e-8)
+						return approximately(result1, result2, epsilon)
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 
 	await t.step("property: a mod n + b mod n = (a + b) mod n (modulo n)", () => {
 		fc.assert(
@@ -47,12 +76,14 @@ Deno.test("modulo - mathematical properties", async (t) => {
 				fc.integer({ min: -1000, max: 1000 }),
 				fc.integer({ min: -1000, max: 1000 }),
 				(divisor, a, b) => {
-					const sumMod = modulo(divisor)(modulo(divisor)(a) + modulo(divisor)(b))
+					const sumMod = modulo(divisor)(
+						modulo(divisor)(a) + modulo(divisor)(b),
+					)
 					const modSum = modulo(divisor)(a + b)
 					return sumMod === modSum
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -85,10 +116,18 @@ Deno.test("modulo - JSDoc examples", async (t) => {
 		assertStrictEquals(modulo(2.5)(10), 0)
 		assertStrictEquals(modulo(3.5)(10.5), 0)
 		// Floating point precision affects these
-		assertEquals(approximately(modulo(0.5)(2.3), 0.3, 1e-10), true, "Should handle decimal modulo")
+		assertEquals(
+			approximately(modulo(0.5)(2.3), 0.3, 1e-10),
+			true,
+			"Should handle decimal modulo",
+		)
 		// modulo(0.1)(1) gives ~0.1 due to floating point representation
 		const result = modulo(0.1)(1)
-		assertEquals(approximately(result, 0.1, 1e-10), true, "Should be approximately 0.1")
+		assertEquals(
+			approximately(result, 0.1, 1e-10),
+			true,
+			"Should be approximately 0.1",
+		)
 	})
 
 	await t.step("zero dividend", () => {
@@ -220,12 +259,12 @@ Deno.test("modulo - difference from JavaScript % operator", () => {
 	// JavaScript % returns remainder, not true modulo
 	// For negative dividends, % gives negative results
 	// True modulo always gives non-negative results for positive divisor
-	
+
 	// JavaScript: -10 % 3 = -1
 	// True modulo: -10 mod 3 = 2
 	assertStrictEquals(modulo(3)(-10), 2)
 	assertStrictEquals(-10 % 3, -1)
-	
+
 	// JavaScript: -17 % 5 = -2
 	// True modulo: -17 mod 5 = 3
 	assertStrictEquals(modulo(5)(-17), 3)
@@ -239,6 +278,21 @@ Deno.test("modulo - edge cases", async (t) => {
 		assertEquals(approximately(modulo(0.001)(1), 0.001, 1e-6), true)
 		assertStrictEquals(modulo(0.001)(0.003), 0)
 		assertStrictEquals(modulo(0.001)(0.0025), 0.0005)
+	})
+
+	await t.step("infinite divisor", () => {
+		// When divisor is infinite, returns dividend for finite numbers
+		assertStrictEquals(modulo(Infinity)(10), 10)
+		assertStrictEquals(modulo(Infinity)(-10), -10)
+		assertStrictEquals(modulo(Infinity)(0), 0)
+		assertStrictEquals(modulo(-Infinity)(10), 10)
+		assertStrictEquals(modulo(-Infinity)(-10), -10)
+		assertStrictEquals(modulo(-Infinity)(0), 0)
+		// Infinite dividend with infinite divisor returns NaN
+		assertStrictEquals(isNaN(modulo(Infinity)(Infinity)), true)
+		assertStrictEquals(isNaN(modulo(-Infinity)(Infinity)), true)
+		assertStrictEquals(isNaN(modulo(Infinity)(-Infinity)), true)
+		assertStrictEquals(isNaN(modulo(-Infinity)(-Infinity)), true)
 	})
 
 	await t.step("negative zero handling", () => {
@@ -260,11 +314,21 @@ Deno.test("modulo - edge cases", async (t) => {
 
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(-1000), max: Math.fround(1000) }),
-				fc.float({ noNaN: true, noDefaultInfinity: true, min: Math.fround(0.1), max: Math.fround(1000) }),
-				testConsistency
+				fc.float({
+					noNaN: true,
+					noDefaultInfinity: true,
+					min: Math.fround(-1000),
+					max: Math.fround(1000),
+				}),
+				fc.float({
+					noNaN: true,
+					noDefaultInfinity: true,
+					min: Math.fround(0.1),
+					max: Math.fround(1000),
+				}),
+				testConsistency,
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -282,7 +346,7 @@ Deno.test("modulo - currying and composition", () => {
 	assertEquals(mod10Results, [0, 5, 0, 5, 0])
 
 	// Test in reduce operations
-	const sumMod7 = (nums: number[]) => 
+	const sumMod7 = (nums: number[]) =>
 		nums.reduce((acc, n) => modulo(7)(acc + n), 0)
 	assertStrictEquals(sumMod7([10, 20, 30]), 4) // 60 mod 7 = 4
 })

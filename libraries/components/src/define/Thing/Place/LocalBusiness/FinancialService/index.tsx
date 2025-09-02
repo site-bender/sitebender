@@ -1,1 +1,1 @@
-export default FinancialService
+export { default } from "../../../Organization/LocalBusiness/FinancialService/index.tsx"

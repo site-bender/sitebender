@@ -9,12 +9,12 @@ Deno.test("min: ordering properties", async (t) => {
 			fc.property(fc.float(), fc.float(), (a, b) => {
 				const result1 = min(a)(b)
 				const result2 = min(b)(a)
-				
+
 				// Both NaN or both same value
 				return Object.is(result1, result2) ||
 					(Number.isNaN(result1) && Number.isNaN(result2))
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -27,12 +27,12 @@ Deno.test("min: ordering properties", async (t) => {
 				(a, b, c) => {
 					const left = min(min(a)(b))(c)
 					const right = min(a)(min(b)(c))
-					
+
 					return Object.is(left, right) ||
 						(Number.isNaN(left) && Number.isNaN(right))
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -40,11 +40,11 @@ Deno.test("min: ordering properties", async (t) => {
 		fc.assert(
 			fc.property(fc.float(), (a) => {
 				const result = min(a)(a)
-				
+
 				return Object.is(result, a) ||
 					(Number.isNaN(result) && Number.isNaN(a))
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -54,7 +54,7 @@ Deno.test("min: ordering properties", async (t) => {
 				const result = min(a)(Infinity)
 				return result === a
 			}),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -68,9 +68,9 @@ Deno.test("min: total ordering", async (t) => {
 				(a, b) => {
 					const result = min(a)(b)
 					return result === a || result === b
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 
@@ -82,9 +82,9 @@ Deno.test("min: total ordering", async (t) => {
 				(a, b) => {
 					const result = min(a)(b)
 					return result <= a && result <= b
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -98,13 +98,13 @@ Deno.test("min: duality with max", async (t) => {
 				(a, b) => {
 					const minResult = min(a)(b)
 					const maxNegated = -Math.max(-a, -b)
-					
+
 					// Handle -0 and 0 cases
 					return Object.is(minResult, maxNegated) ||
 						Math.abs(minResult - maxNegated) < Number.EPSILON
-				}
+				},
 			),
-			{ numRuns: 1000 }
+			{ numRuns: 1000 },
 		)
 	})
 })
@@ -166,7 +166,7 @@ Deno.test("min: JSDoc examples (consolidated to 10)", async (t) => {
 		assertEquals(atMost10(5), 5)
 		assertEquals(atMost10(15), 10)
 		assertEquals(atMost10(10), 10)
-		
+
 		const atMost0 = min(0)
 		assertEquals(atMost0(5), 0)
 		assertEquals(atMost0(-5), -5)
@@ -176,7 +176,7 @@ Deno.test("min: JSDoc examples (consolidated to 10)", async (t) => {
 		const numbers = [5, 2, 8, 1, 9]
 		const minValue = numbers.reduce((acc, n) => min(acc)(n))
 		assertEquals(minValue, 1)
-		
+
 		const temperatures = [72, 68, 75, 71, 70]
 		const coolest = temperatures.reduce((acc, temp) => min(acc)(temp))
 		assertEquals(coolest, 68)
@@ -194,8 +194,8 @@ Deno.test("min: error handling and null safety", async (t) => {
 
 	await t.step("safe min with validation", () => {
 		const safeMin = (a: unknown, b: unknown): number | null => {
-			const aNum = typeof a === 'number' ? a : NaN
-			const bNum = typeof b === 'number' ? b : NaN
+			const aNum = typeof a === "number" ? a : NaN
+			const bNum = typeof b === "number" ? b : NaN
 			const result = min(aNum)(bNum)
 			return Number.isNaN(result) ? null : result
 		}

@@ -79,7 +79,8 @@ const config = {
 }
 
 Deno.test("[render] renders the config to text HTML", () => {
-	assertEquals(render(config),
+	assertEquals(
+		render(config),
 		`<html id="html-id" lang="en"><head id="head-id">` +
 			`<title>SSR test</title></head><body id="body-id">` +
 			`<header id="header-id"><h1 id="h1-id">SSR Test</h1>` +

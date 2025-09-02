@@ -1,24 +1,23 @@
+import type { InputTextAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
+import type { InputTextAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { InputTextAriaAttributes } from "../../../types/aria/index.ts"
-import type { InputTextAttributes } from "../../../types/attributes/index.ts"
+} from "@adaptiveTypes/index.ts"
 
-import isDefined from "../../../../../../utilities/isDefined/index.ts"
-import {
-	AUTOCOMPLETES,
-} from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isInteger from "../../../../../guards/isInteger/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
+import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
+import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
+import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
+import isString from "@adaptiveSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+
 import Input from "../index.ts"
 
 /**
@@ -41,7 +40,9 @@ export type InputTextElementAttributes =
  * Filters attributes for InputText element
  * Allows global attributes and validates text input-specific attributes
  */
-export const filterAttributes = (attributes: InputTextElementAttributes) => {
+export const filterAttributes = (
+	attributes: InputTextElementAttributes,
+): Record<string, Value> => {
 	const {
 		id,
 		autocomplete,
@@ -231,7 +232,7 @@ export const filterAttributes = (attributes: InputTextElementAttributes) => {
 		)
 	}
 
-	return filteredAttrs
+	return filteredAttrs as Record<string, Value>
 }
 
 /**

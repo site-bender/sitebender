@@ -1,1 +1,1 @@
-export default DietarySupplement
+export { default } from "../../../Product/DietarySupplement/index.tsx"

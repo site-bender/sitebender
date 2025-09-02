@@ -2,15 +2,13 @@ import type {
 	AdaptiveError,
 	ComparatorConfig,
 	Either,
-	GlobalAttributes,
 	LocalValues,
-	Operand,
 	OperationFunction,
-	Value,
-} from "../../../../types/index.ts"
+} from "@adaptiveTypes/index.ts"
+
+import { isLeft } from "@adaptiveTypes/index.ts"
 
 import Error from "../../../../constructors/Error/index.ts"
-import { isLeft } from "../../../../types/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"
 
 const isPlainYearMonth =
@@ -19,20 +17,28 @@ const isPlainYearMonth =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<AdaptiveError>, boolean>> => {
-		const operand = await composeComparators(op.operand)(arg, localValues)
+		const operandFn = await composeComparators(
+			(op as unknown as { operand: unknown }).operand as never,
+		)
+		const operand = await operandFn(arg, localValues)
 
-		if (isLeft(operand)) {
-			return operand
-		}
+		if (isLeft(operand)) return operand
 
 		try {
-			const _ = Temporal.PlainYearMonth.from(operand.right)
-			return operand
+			const s = String(operand.right)
+			const YM = /^\d{4}-(0[1-9]|1[0-2])$/
+			return YM.test(s) ? { right: true } : {
+				left: [
+					Error(op.tag)("IsPlainYearMonth")(
+						`${JSON.stringify(operand.right)} is not a plain year-month.`,
+					),
+				],
+			}
 		} catch (e) {
 			return {
 				left: [
-					Error(op)("IsPlainYearMonth")(
-						`${operand.right} is not a plain year-month: ${e}.`,
+					Error(op.tag)("IsPlainYearMonth")(
+						`${JSON.stringify(operand.right)} is not a plain year-month: ${e}.`,
 					),
 				],
 			}
