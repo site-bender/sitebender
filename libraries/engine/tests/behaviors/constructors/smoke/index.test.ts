@@ -8,17 +8,17 @@ import type {
 	LogicalConfig,
 	Operand,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import And from "@adaptiveSrc/constructors/comparators/algebraic/And/index.ts"
-import Or from "@adaptiveSrc/constructors/comparators/algebraic/Or/index.ts"
-import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
-import FromApi from "@adaptiveSrc/constructors/injectors/FromApi/index.ts"
-import FromLookup from "@adaptiveSrc/constructors/injectors/FromLookup/index.ts"
-import FromLookupTable from "@adaptiveSrc/constructors/injectors/FromLookupTable/index.ts"
-import FromQueryString from "@adaptiveSrc/constructors/injectors/FromQueryString/index.ts"
-import FromUrlParameter from "@adaptiveSrc/constructors/injectors/FromUrlParameter/index.ts"
-import Average from "@adaptiveSrc/constructors/operators/Average/index.ts"
+import And from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
+import Or from "@engineSrc/constructors/comparators/algebraic/Or/index.ts"
+import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
+import FromApi from "@engineSrc/constructors/injectors/FromApi/index.ts"
+import FromLookup from "@engineSrc/constructors/injectors/FromLookup/index.ts"
+import FromLookupTable from "@engineSrc/constructors/injectors/FromLookupTable/index.ts"
+import FromQueryString from "@engineSrc/constructors/injectors/FromQueryString/index.ts"
+import FromUrlParameter from "@engineSrc/constructors/injectors/FromUrlParameter/index.ts"
+import Average from "@engineSrc/constructors/operators/Average/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

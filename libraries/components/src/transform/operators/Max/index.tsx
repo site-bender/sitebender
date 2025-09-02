@@ -4,7 +4,7 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * Max JSX Component
@@ -20,7 +20,7 @@ import type {
  * </Max>
  */
 
-import MaxConstructor from "@adaptiveSrc/constructors/operators/Max/index.ts"
+import MaxConstructor from "@engineSrc/constructors/operators/Max/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

@@ -1,4 +1,4 @@
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
 	ComparatorConfig,

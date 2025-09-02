@@ -1,6 +1,6 @@
 import type { HydratedRemainder } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -15,7 +15,7 @@ const remainder = (
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, number>> => {
+): Promise<Either<Array<EngineError>, number>> => {
 	const resolvedDividend = await dividend(arg, localValues)
 	if (isLeft(resolvedDividend)) return resolvedDividend
 

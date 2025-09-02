@@ -1,5 +1,5 @@
-import type { JsonValue } from "@adaptiveTypes/json/index.ts"
-import type { LookupConfig } from "@adaptiveTypes/lookups/index.ts"
+import type { JsonValue } from "@engineTypes/json/index.ts"
+import type { LookupConfig } from "@engineTypes/lookups/index.ts"
 
 export const Lookup =
 	(datatype = "Json") => (id: string) => (value: JsonValue): LookupConfig => ({

@@ -1,7 +1,7 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import { isValue } from "@adaptiveTypes/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import { isValue } from "@engineTypes/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 import type { ElementAttributes } from "../../../types/index.ts"

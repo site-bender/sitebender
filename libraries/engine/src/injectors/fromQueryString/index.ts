@@ -1,4 +1,4 @@
-import getFromLocal from "@adaptiveSrc/pending/dom/getValue/getFromLocal/index.ts"
+import getFromLocal from "@engineSrc/pending/dom/getValue/getFromLocal/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 import isUndefined from "@toolkit/simple/validation/isUndefined/index.ts"
 

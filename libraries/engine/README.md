@@ -1,14 +1,14 @@
 # @sitebender/engine
 
-A library for adaptive user interfaces.
+A library for engine user interfaces.
 
 > Getting started? See `libraries/engine/TUTORIAL.md` for a hands-on MVP walkthrough.
 
 ## Executive Summary
 
-The adaptive library is a sophisticated, functional programming-based reactive DOM construction system that bridges declarative configuration and runtime DOM manipulation. It enables building progressively enhanced web applications that work without JavaScript while supporting powerful reactive calculations, validations, and conditional display logic when JavaScript is available.
+The engine library is a sophisticated, functional programming-based reactive DOM construction system that bridges declarative configuration and runtime DOM manipulation. It enables building progressively enhanced web applications that work without JavaScript while supporting powerful reactive calculations, validations, and conditional display logic when JavaScript is available.
 
-**Current Status**: The core library is complete with constructors for operators, comparators, injectors, and formatters. JSX components are being created to provide a declarative interface. The JSX-to-adaptive transformer exists but needs completion.
+**Current Status**: The core library is complete with constructors for operators, comparators, injectors, and formatters. JSX components are being created to provide a declarative interface. The JSX-to-engine transformer exists but needs completion.
 
 ## A. Intent and Core Philosophy
 
@@ -101,7 +101,7 @@ const IsLessThan = (datatype = "Number") => (operand) => (test) => ({
 - **Status**: Complete but using wrong type
 - **JSX Components Created**: 2 of 2 (And, Or)
 
-### 2. JSX Component Layer (`lib/components/adaptive/`)
+### 2. JSX Component Layer (`lib/components/engine/`)
 
 JSX components wrap the constructor functions, providing a declarative interface:
 
@@ -126,7 +126,7 @@ JSX components wrap the constructor functions, providing a declarative interface
 
 ### 3. Rendering Pipeline
 
-Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX elements with data attributes for client-side hydration.
+Current SSR rendering (`ssrRenderEngine`) converts configurations to JSX elements with data attributes for client-side hydration.
 
 ## C. Critical Issues to Fix
 
@@ -138,7 +138,7 @@ Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX eleme
 
 ### 2. JSX Transform Incomplete
 
-**Problem**: The jsx-to-adaptive transformer is not fully integrated
+**Problem**: The jsx-to-engine transformer is not fully integrated
 **Impact**: JSX components don't properly transform children to configurations
 **Fix Required**: Complete transformer integration, ensure proper child handling
 
@@ -236,7 +236,7 @@ Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX eleme
 
 ### Phase 3: Complete JSX Transform (Week 2)
 
-1. **Integrate jsx-to-adaptive.ts**
+1. **Integrate jsx-to-engine.ts**
    - Hook into build pipeline
    - Ensure proper child transformation
    - Handle wrapper components correctly
@@ -318,7 +318,7 @@ Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX eleme
 
 1. **Immediate** (Today):
    - Fix OPERAND_TYPES bug in all constructors ✓
-   - Update ssrRenderAdaptive to handle all types correctly ✓
+   - Update ssrRenderEngine to handle all types correctly ✓
    - Fix existing JSX components to return proper configs
 
 2. **High Priority** (This Week):
@@ -351,18 +351,18 @@ Current SSR rendering (`ssrRenderAdaptive`) converts configurations to JSX eleme
    A: Yes - comparators should use `OPERAND_TYPES.comparator`, logical should use `OPERAND_TYPES.logical`
 
 2. **Q: How should JSX components handle children?**
-   A: Through the jsx-to-adaptive transformer, which converts JSX children to configuration objects
+   A: Through the jsx-to-engine transformer, which converts JSX children to configuration objects
 
 3. **Q: What about server vs client rendering?**
    A: SSR generates HTML with data attributes, client hydrates from these attributes
 
 ## Conclusion
 
-The adaptive library is well-architected but needs completion of the JSX component layer to be developer-friendly. With ~100 components to create and some critical bugs to fix, we have a clear path forward. The vision of declarative, progressively-enhanced reactivity without framework lock-in is compelling and achievable.
+The engine library is well-architected but needs completion of the JSX component layer to be developer-friendly. With ~100 components to create and some critical bugs to fix, we have a clear path forward. The vision of declarative, progressively-enhanced reactivity without framework lock-in is compelling and achievable.
 
 The immediate focus should be on fixing the type constants bug and creating the most commonly-used JSX components, allowing developers to start using the system while we complete the remaining components.
 
-# lib/adaptive Production Readiness TODO List
+# lib/engine Production Readiness TODO List
 
 ## 🔴 CRITICAL PRIORITY - Blocking Production Release
 
@@ -552,7 +552,7 @@ Current test coverage is critically low (~1% for operations):
 
 #### Update README
 
-- [ ] Create comprehensive README for adaptive module
+- [ ] Create comprehensive README for engine module
 - [ ] Add architecture documentation
 - [ ] Include usage examples
 
@@ -670,7 +670,7 @@ These items come from a deep audit of `libraries/engine/src` to align with the D
   - [ ] Update any documentation that referenced `comparison`
 - [ ] SSR/CSR unification
   - [ ] Implement `rendering/index.ts` to support SSR string output and CSR hydration entry points
-  - [ ] Choose MVP embed: single `<script type="application/adaptive+json" id="ir-root">…</script>` at root; document alternative per-node attributes
+  - [ ] Choose MVP embed: single `<script type="application/engine+json" id="ir-root">…</script>` at root; document alternative per-node attributes
   - [ ] Implement `hydrate(root, ir)` that performs a single walk, attaches validators/events/formatters/calculations, then runs `runAll*`
 - [ ] Environment boundary and server env guards
   - [ ] Define `ComposeContext { env, signal, now, cache, logger }` and thread as an optional param to operations

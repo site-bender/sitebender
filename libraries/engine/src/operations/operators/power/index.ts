@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -20,7 +20,7 @@ const power =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number>> => {
+	): Promise<Either<Array<EngineError>, number>> => {
 		const resolvedBase = await base(arg, localValues)
 		if (isLeft(resolvedBase)) return resolvedBase
 

@@ -13,7 +13,7 @@ import type {
 	OperatorNode,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../../src/compile.ts"
+import { compileToEngine } from "../../../src/compile.ts"
 import Publish from "../../../src/transform/actions/Publish/index.tsx"
 import SetQueryString from "../../../src/transform/actions/SetQueryString/index.tsx"
 import SetValue from "../../../src/transform/actions/SetValue/index.tsx"
@@ -34,7 +34,7 @@ const el = (
 	props: children === undefined ? props : { ...props, children },
 })
 
-Deno.test("compileToAdaptive binds On to nearest prior element id", () => {
+Deno.test("compileToEngine binds On to nearest prior element id", () => {
 	const tree = [
 		el("input", { id: "name" }),
 		On({
@@ -47,7 +47,7 @@ Deno.test("compileToAdaptive binds On to nearest prior element id", () => {
 		}),
 	]
 
-	const ir = compileToAdaptive(tree)
+	const ir = compileToEngine(tree)
 	const doc = ir as IrDocument
 	assertEquals(doc.kind, "element")
 	assert(Array.isArray(doc.children))
@@ -74,7 +74,7 @@ Deno.test("compileToAdaptive binds On to nearest prior element id", () => {
 	assertEquals(arg1.args.selector, "#name")
 })
 
-Deno.test("compileToAdaptive respects explicit On.target over last anchor", () => {
+Deno.test("compileToEngine respects explicit On.target over last anchor", () => {
 	const tree = [
 		el("div", { id: "a" }),
 		el("div", { id: "price" }),
@@ -87,13 +87,13 @@ Deno.test("compileToAdaptive respects explicit On.target over last anchor", () =
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	assertEquals(evt.id, "price")
 	assertEquals(evt.event, "On.Change")
 })
 
-Deno.test("compileToAdaptive maps Add operator and Constant/FromElement injectors", () => {
+Deno.test("compileToEngine maps Add operator and Constant/FromElement injectors", () => {
 	const tree = [
 		el("input", { id: "a" }),
 		el("input", { id: "b" }),
@@ -113,7 +113,7 @@ Deno.test("compileToAdaptive maps Add operator and Constant/FromElement injector
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = evt.handler.args[1] as OperatorNode
 	assertEquals(op.kind, "operator")
@@ -128,7 +128,7 @@ Deno.test("compileToAdaptive maps Add operator and Constant/FromElement injector
 	assertEquals(op2.args.value, 5)
 })
 
-Deno.test("compileToAdaptive compiles comparator markers inside action args", () => {
+Deno.test("compileToEngine compiles comparator markers inside action args", () => {
 	const tree = [
 		el("input", { id: "val" }),
 		On({
@@ -141,7 +141,7 @@ Deno.test("compileToAdaptive compiles comparator markers inside action args", ()
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = evt.handler.args[1] as ComparatorNode
 	assertEquals(cmp.kind, "comparator")
@@ -151,7 +151,7 @@ Deno.test("compileToAdaptive compiles comparator markers inside action args", ()
 	assertEquals(i0.injector, "From.Element")
 })
 
-Deno.test("compileToAdaptive wraps primitives as Constant injectors with correct datatype", () => {
+Deno.test("compileToEngine wraps primitives as Constant injectors with correct datatype", () => {
 	const tree = [
 		el("form", { id: "f" }),
 		On({
@@ -162,7 +162,7 @@ Deno.test("compileToAdaptive wraps primitives as Constant injectors with correct
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const [keyNode, valueNode] = evt.handler.args as [InjectorNode, InjectorNode]
 	assertEquals(keyNode.kind, "injector")

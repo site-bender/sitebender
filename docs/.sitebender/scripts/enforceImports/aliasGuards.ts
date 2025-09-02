@@ -4,10 +4,8 @@
  * Policy:
  * - Outside of a package, do NOT import its internal paths directly.
  *   Use the workspace aliases instead:
- *   - libraries/engine/src/**         -> @engineSrc/** (preferred)
- *   - libraries/engine/types/**       -> @engineTypes/** (preferred)
- *   - libraries/adaptive/src/**       -> @adaptiveSrc/** (legacy)
- *   - libraries/adaptive/types/**     -> @adaptiveTypes/** (legacy)
+ *   - libraries/engine/src/**         -> @engineSrc/**
+ *   - libraries/engine/types/**       -> @engineTypes/**
  *   - libraries/toolkit/src/**        -> @toolkit/**
  * - Within a package folder, relative imports are allowed.
  *
@@ -42,8 +40,6 @@ type Violation = {
 
 const isInside = (file: string, pkgDir: string) => file.includes(`/${pkgDir}/`)
 
-const ADAPTIVE_SRC = "libraries/adaptive/src/"
-const ADAPTIVE_TYPES = "libraries/adaptive/types/"
 const ENGINE_SRC = "libraries/engine/src/"
 const ENGINE_TYPES = "libraries/engine/types/"
 const TOOLKIT_SRC = "libraries/toolkit/src/"
@@ -71,8 +67,8 @@ for (const root of roots) {
 					const spec = m[2]
 					// Skip alias imports (desired)
 					if (
-						spec.startsWith("@adaptiveSrc/") ||
-						spec.startsWith("@adaptiveTypes/") ||
+						spec.startsWith("@engineSrc/") ||
+						spec.startsWith("@engineTypes/") ||
 						spec.startsWith("@engineSrc/") ||
 						spec.startsWith("@engineTypes/") ||
 						spec.startsWith("@toolkit/")
@@ -80,23 +76,23 @@ for (const root of roots) {
 						continue
 					}
 
-					// If this file is NOT inside adaptive/, disallow deep adaptive paths
-					if (!isInside(file, "libraries/adaptive") && !isInside(file, "libraries/engine")) {
-						if (spec.includes(ADAPTIVE_SRC)) {
+					// If this file is NOT inside engine/, disallow deep engine paths
+					if (!isInside(file, "libraries/engine") && !isInside(file, "libraries/engine")) {
+						if (spec.includes(ENGINE_SRC)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @adaptiveSrc/… instead of libraries/adaptive/src/…",
+								hint: "Use @engineSrc/… instead of libraries/engine/src/…",
 							})
 						}
-						if (spec.includes(ADAPTIVE_TYPES)) {
+						if (spec.includes(ENGINE_TYPES)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
 								hint:
-									"Use @adaptiveTypes/… instead of libraries/adaptive/types/…",
+									"Use @engineTypes/… instead of libraries/engine/types/…",
 							})
 						}
 

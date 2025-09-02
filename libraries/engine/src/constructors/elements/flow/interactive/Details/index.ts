@@ -1,14 +1,14 @@
-import type { DetailsAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { DetailsAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 
-import { DETAILS_ROLES } from "@adaptiveSrc/constructors/elements/constants/aria-roles.ts"
-import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+import { DETAILS_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
+import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
 	ComparatorConfig,

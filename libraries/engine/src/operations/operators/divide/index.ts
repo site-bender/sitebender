@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -20,7 +20,7 @@ const divide =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number>> => {
+	): Promise<Either<Array<EngineError>, number>> => {
 		const resolvedDividend = await dividend(arg, localValues)
 		if (isLeft(resolvedDividend)) return resolvedDividend
 

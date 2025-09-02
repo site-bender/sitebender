@@ -1,4 +1,4 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
 /**
  * Extracts the operands array from an operation

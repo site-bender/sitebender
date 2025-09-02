@@ -1,9 +1,9 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for checked input types (checkbox, radio)

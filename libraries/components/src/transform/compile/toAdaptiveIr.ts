@@ -72,7 +72,7 @@ const isAuthorizedMarker = (x: unknown): x is AuthorizedMarker => {
 	return k === "control:authorized"
 }
 
-// Adaptive constructor shapes we support
+// Engine constructor shapes we support
 type ConstructorBase = { tag?: string; type?: string; datatype?: unknown }
 
 const asString = (v: unknown) => (typeof v === "string" ? v : String(v))
@@ -82,7 +82,7 @@ const constDatatype = (
 	? "Boolean"
 	: (typeof v === "number" ? "Float" : "String"))
 
-// Normalize component-facing datatype aliases to Adaptive DataType
+// Normalize component-facing datatype aliases to Engine DataType
 const normalizeDatatype = (dt?: unknown): DataType | undefined => {
 	if (dt === undefined) return undefined
 	const s = String(dt)
@@ -354,7 +354,7 @@ function compileOperand(x: unknown): Node {
 		return compileAction(marker)
 	}
 
-	// Adaptive constructors (injectors/operators)
+	// Engine constructors (injectors/operators)
 	if (isConstantCtor(x)) {
 		const datatype = normalizeDatatype(x.datatype) ?? constDatatype(x.value)
 		return {
@@ -506,7 +506,7 @@ function compileOperand(x: unknown): Node {
 		} satisfies OperatorNode
 	}
 
-	// Logical constructors (And/Or) from adaptive wrappers -> comparator nodes
+	// Logical constructors (And/Or) from engine wrappers -> comparator nodes
 	if (isLogicalCtor(x)) {
 		const tag = x.tag === "And" ? "Is.And" : x.tag === "Or" ? "Is.Or" : x.tag
 		const ops = Array.isArray(x.operands) ? x.operands : []
@@ -655,7 +655,7 @@ function compileAction(m: ActionMarker): ActionNode {
 	}
 }
 
-export default function compileToAdaptive(
+export default function compileToEngine(
 	children?: MaybeVNode | MaybeVNode[],
 ): IrDocument {
 	const arr: MaybeVNode[] = Array.isArray(children)

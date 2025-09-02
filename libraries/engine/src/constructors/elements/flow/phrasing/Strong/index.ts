@@ -1,15 +1,15 @@
-import type { StrongImportanceAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { StrongImportanceAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Child filter that validates phrasing content

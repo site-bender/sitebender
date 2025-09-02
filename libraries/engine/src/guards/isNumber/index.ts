@@ -1,4 +1,4 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
 import { MATCHERS } from "../../guards/constants/index.ts"
 

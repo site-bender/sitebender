@@ -6,19 +6,19 @@ import type {
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import And from "@adaptiveSrc/constructors/comparators/algebraic/And/index.ts"
-import IsEqualTo from "@adaptiveSrc/constructors/comparators/equality/IsEqualTo/index.ts"
-import Matches from "@adaptiveSrc/constructors/comparators/matching/Matches/index.ts"
-import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
-import Add from "@adaptiveSrc/constructors/operators/Add/index.ts"
-import Divide from "@adaptiveSrc/constructors/operators/Divide/index.ts"
-import Max from "@adaptiveSrc/constructors/operators/Max/index.ts"
-import Min from "@adaptiveSrc/constructors/operators/Min/index.ts"
-import Multiply from "@adaptiveSrc/constructors/operators/Multiply/index.ts"
-import Subtract from "@adaptiveSrc/constructors/operators/Subtract/index.ts"
-import Ternary from "@adaptiveSrc/constructors/operators/Ternary/index.ts"
+import And from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
+import IsEqualTo from "@engineSrc/constructors/comparators/equality/IsEqualTo/index.ts"
+import Matches from "@engineSrc/constructors/comparators/matching/Matches/index.ts"
+import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
+import Add from "@engineSrc/constructors/operators/Add/index.ts"
+import Divide from "@engineSrc/constructors/operators/Divide/index.ts"
+import Max from "@engineSrc/constructors/operators/Max/index.ts"
+import Min from "@engineSrc/constructors/operators/Min/index.ts"
+import Multiply from "@engineSrc/constructors/operators/Multiply/index.ts"
+import Subtract from "@engineSrc/constructors/operators/Subtract/index.ts"
+import Ternary from "@engineSrc/constructors/operators/Ternary/index.ts"
 
 // Helpers to build simple operands
 const str = (s: string): Operand => Constant("String")(s)

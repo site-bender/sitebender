@@ -3,7 +3,7 @@ import type {
 	NumericDatatype,
 	Operand,
 	TemporalDatatype,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * IsNoMoreThan JSX Component
@@ -19,7 +19,7 @@ import type {
  * </IsNoMoreThan>
  */
 
-import IsNoMoreThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import IsNoMoreThanConstructor from "@engineSrc/constructors/comparators/amount/IsNoMoreThan/index.ts"
 
 type AmountDatatype = NumericDatatype | TemporalDatatype
 

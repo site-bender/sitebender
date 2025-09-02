@@ -1,4 +1,4 @@
-// Adaptive IR node types (v 0.1.0)
+// Engine IR node types (v 0.1.0)
 
 export type Version = "0.1.0"
 

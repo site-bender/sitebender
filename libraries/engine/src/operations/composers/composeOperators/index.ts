@@ -1,12 +1,12 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Operand,
 	OperationFunction,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
-import Error from "@adaptiveSrc/constructors/Error/index.ts"
-import getOperandKeys from "@adaptiveSrc/operations/helpers/getOperandKeys/index.ts"
+import { OPERAND_TYPES } from "@engineSrc/constructors/constants/index.ts"
+import Error from "@engineSrc/constructors/Error/index.ts"
+import getOperandKeys from "@engineSrc/operations/helpers/getOperandKeys/index.ts"
 import _not from "@toolkit/simple/logic/not/index.ts"
 import toCamel from "@toolkit/simple/string/toCase/toCamel/index.ts"
 
@@ -23,7 +23,7 @@ const composeOperators = async (
 				left: [
 					Error("Unknown")("Operation")(
 						`Operation undefined or malformed: ${JSON.stringify(operation)}.`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	}
@@ -70,7 +70,7 @@ const composeOperators = async (
 						`Unknown type: ${
 							(unreachable as unknown as { type?: string }).type
 						}`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	} catch (e: unknown) {
@@ -81,7 +81,7 @@ const composeOperators = async (
 						`Operation "${operation.tag}" with type "${operation.type}" could not be loaded. ${
 							String(e)
 						}`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	}

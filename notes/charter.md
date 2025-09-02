@@ -12,7 +12,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
   - Vault/Collection/Item/Field, Calculation, From.Value, From.Constant
   - Control flow: When, Then, Else; Logic: Is.Equal; Operators: Add, Multiply
 - Compiler
-  - JSX markers → validated Adaptive IR (deterministic)
+  - JSX markers → validated Engine IR (deterministic)
   - IR → runtime graph (evaluation of Calculations, bindings for Form fields)
   - IR → stub SHACL/ontology artifacts (files on disk) for future backend work
 - Runtime
@@ -83,7 +83,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
 - T-Shirt example demonstrating Calculations + Form
 
 7) Integration & hygiene (ongoing)
-- Strict tests wired per package (adaptive, components, jexer, toolkit)
+- Strict tests wired per package (engine, components, jsxer, toolkit)
 - Type-check and alias guard green; CI task aggregation
 
 ## Integration & hygiene backlog (status)
@@ -92,7 +92,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
   - Status: Partial — workspace type-check passes; strict test tasks exist and pass. Non-strict tasks remain for dev speed.
   - Next: Ensure strict tasks run in CI; keep fast tasks local-only.
 
-- Adaptive types unification (@adaptiveTypes)
+- Engine types unification (@engineTypes)
   - Status: Todo — not yet enforced as single source or generated; no guard test.
   - Next: Pick source-of-truth (static or generated), remove duplication, add divergence guard test.
 
@@ -100,13 +100,13 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
   - Status: Partial — alias guard task exists (lint:aliases) and passes locally; not yet CI-blocking.
   - Next: Wire into CI and fail on violations; integrate with sortImports for autofix.
 
-- Clean up implicit anys in Adaptive constructors
+- Clean up implicit anys in Engine constructors
   - Status: Partial — some fixes (e.g., Matches typing, IR contracts) landed; families like Map/Set need Operand + datatype typing.
   - Next: Migrate remaining constructors; add 2–3 smoke tests per family.
 
 - Property-based tests for laws/invariants
-  - Status: Partial — widely used in toolkit; present in adaptive in a few spots.
-  - Next: Add comparator/operator invariants under test:adaptive (e.g., symmetry, reflexivity, bounds).
+  - Status: Partial — widely used in toolkit; present in engine in a few spots.
+  - Next: Add comparator/operator invariants under test:engine (e.g., symmetry, reflexivity, bounds).
 
 - IR contract hardening
   - Status: Partial — added contracts for Subtract/Divide/Matches; components compiler handles Matches pattern/flags.
@@ -114,7 +114,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
 
 - CI regression guard
   - Status: Todo — no workflow yet.
-  - Next: Add CI workflow running fmt, lint, type-check, and strict tests (adaptive/components/toolkit); make alias guard blocking.
+  - Next: Add CI workflow running fmt, lint, type-check, and strict tests (engine/components/toolkit); make alias guard blocking.
 
 ## Risks & Mitigations
 

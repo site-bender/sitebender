@@ -1,11 +1,11 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import Error from "@adaptiveSrc/constructors/Error/index.ts"
+import Error from "@engineSrc/constructors/Error/index.ts"
 
 /**
  * On.IsAuthenticated
@@ -17,7 +17,7 @@ const isAuthenticated = (_op?: unknown): OperationFunction<boolean> =>
 (
 	_arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, boolean>> => {
+): Promise<Either<Array<EngineError>, boolean>> => {
 	const user = localValues && (localValues as Record<string, unknown>)["user"]
 	if (user) return Promise.resolve({ right: true })
 	return Promise.resolve({

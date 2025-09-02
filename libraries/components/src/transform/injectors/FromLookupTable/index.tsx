@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromLookupTableInjector,
 	Operand,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * FromLookupTable JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromLookupTableConstructor from "@adaptiveSrc/constructors/injectors/FromLookupTable/index.ts"
+import FromLookupTableConstructor from "@engineSrc/constructors/injectors/FromLookupTable/index.ts"
 
 export type FromLookupTableProps = {
 	tableName: string

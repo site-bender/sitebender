@@ -4,7 +4,7 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * Generic element constructor attributes type

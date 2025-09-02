@@ -264,23 +264,23 @@ test.describe("Form component behavior", () => {
 })
 ```
 
-### Testing Adaptive Integration
+### Testing Engine Integration
 
 ```typescript
-// tests/adaptive/calculations/index.ts
+// tests/engine/calculations/index.ts
 import { assertEquals, assertExists } from "@std/testing/asserts"
 import { describe, it } from "@std/testing/bdd"
 import { renderToString } from "preact-render-to-string"
 
-// Component imports - these are JSX wrappers for adaptive constructors
-import Add from "../../../src/adaptive/operators/Add/index.tsx"
-import Multiply from "../../../src/adaptive/operators/Multiply/index.tsx"
-import Constant from "../../../src/adaptive/injectors/Constant/index.tsx"
-import FromElement from "../../../src/adaptive/injectors/FromElement/index.tsx"
+// Component imports - these are JSX wrappers for engine constructors
+import Add from "../../../src/engine/operators/Add/index.tsx"
+import Multiply from "../../../src/engine/operators/Multiply/index.tsx"
+import Constant from "../../../src/engine/injectors/Constant/index.tsx"
+import FromElement from "../../../src/engine/injectors/FromElement/index.tsx"
 
-describe("Adaptive calculation integration", () => {
+describe("Engine calculation integration", () => {
 	it("creates calculation configurations from JSX", () => {
-		// The JSX components wrap adaptive constructors
+		// The JSX components wrap engine constructors
 		const calculation = (
 			<Add>
 				<Multiply>
@@ -291,7 +291,7 @@ describe("Adaptive calculation integration", () => {
 			</Add>
 		)
 
-		// These components return adaptive configurations
+		// These components return engine configurations
 		assertExists(calculation)
 		// The actual structure depends on how the JSX transform handles children
 	})

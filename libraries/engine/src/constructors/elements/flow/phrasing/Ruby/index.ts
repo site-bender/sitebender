@@ -1,7 +1,7 @@
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
-import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Ruby element configuration object

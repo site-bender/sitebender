@@ -1,10 +1,10 @@
-import type { IsLessThanComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsLessThanComparator, Operand } from "@engineTypes/index.ts"
 
 /**
- * IsLessThan - Less than comparison for adaptive conditionals
+ * IsLessThan - Less than comparison for engine conditionals
  */
 
-import IsLessThanConstructor from "@adaptiveSrc/constructors/comparators/amount/IsLessThan/index.ts"
+import IsLessThanConstructor from "@engineSrc/constructors/comparators/amount/IsLessThan/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

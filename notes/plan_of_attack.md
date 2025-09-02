@@ -1,23 +1,23 @@
-# PLAN OF ATTACK: Declarative JSX DSL → Adaptive IR → SSR/SSG/CSR Hydration
+# PLAN OF ATTACK: Declarative JSX DSL → Engine IR → SSR/SSG/CSR Hydration
 
 Date: 2025-08-24
 ## Current state (2025-08-29)
 
-- Components compiler (toAdaptiveIr) is producing EventBinding/action/comparator/injector IR for control nodes (<On>, <If>, <Validation>) and transform wrappers.
-- Default executors are registered in adaptive for equality/logical, InSet, Matches/DoesNotMatch, and full temporal families (Date/Time/DateTime, including Same/Not* variants).
+- Components compiler (toEngineIr) is producing EventBinding/action/comparator/injector IR for control nodes (<On>, <If>, <Validation>) and transform wrappers.
+- Default executors are registered in engine for equality/logical, InSet, Matches/DoesNotMatch, and full temporal families (Date/Time/DateTime, including Same/Not* variants).
 - New JSX wrappers exist and are wired end-to-end (e.g., IsSameDate/Time/DateTime, IsNotAfterDateTime, IsNotBeforeDateTime).
 - Compiler diagnostics cover arity/shape for logical, equality, matching, set membership, and temporal families; warnings are surfaced in node meta.
 - Goldens added for JSX → IR covering: Conditional/If (slots and sugar), nested If branches, Matches in conditions, On anchor inference/target override, multiple On bindings, and multi-action handler selection; plus a minimal Validation golden using the scaffold.
-- Test status (strict): Components 54/54, Adaptive 22/22 (green at time of writing).
+- Test status (strict): Components 54/54, Engine 22/22 (green at time of writing).
 Note: Beyond the MVP, additional comparators are already implemented and tested (equality, set membership, matching with safe regex, and temporal Date/Time/DateTime families).
 
 ## Status snapshot (2025-08-29)
   - Control components implemented and in-use:
     - Validation, Conditional/If (+ slots: Condition/IfTrue/IfFalse), and On markers
   - Compiler:
-    - `libraries/components/src/transform/compile/toAdaptiveIr.ts` produces IR with EventBinding and Action nodes; thin wrappers call adaptive constructors directly
+    - `libraries/components/src/transform/compile/toEngineIr.ts` produces IR with EventBinding and Action nodes; thin wrappers call engine constructors directly
     - Minimal compiler scaffold remains for Validation-only flows (`compile/minimal.ts`)
-  - Adaptive runtime:
+  - Engine runtime:
     - Default executor registration includes Matches/DoesNotMatch, InSet, and full temporal Date/Time/DateTime families (Same and Not* variants)
   - Diagnostics:
     - Arity/shape guards for logical/equality/matching/set/temporal families
@@ -117,7 +117,7 @@ Date: 2025-08-24
 
 ## Decisions locked (2025-08-24)
 
-- IR embedding: single root `<script type="application/adaptive+json" id="ir-root">…</script>` plus per-element `data-ir-id` markers for deterministic hydration.
+- IR embedding: single root `<script type="application/engine+json" id="ir-root">…</script>` plus per-element `data-ir-id` markers for deterministic hydration.
 - Versioning: `v` is semver; starting at `"0.1.0"`.
 - Namespaces for JSX wrappers (short, readable): `From.*`, `Op.*`, `When.*`, `Act.*`, `On.*`.
 - Deterministic IDs: `id = "n_" + base58(blake3(pageSeed | nodePath | anchor | kind | tag | stableAttrs)).slice(0, 12)`; collision guard extends length to 14 if a per-page collision is detected during build. `pageSeed` = route path (or build-provided seed). IDs are emitted into HTML via `data-ir-id` (and `id` attribute when appropriate) and are not recomputed from the live DOM during hydration.
@@ -138,7 +138,7 @@ Date: 2025-08-24
 Build a JSX-first, purely declarative authoring experience that compiles to a stable, versioned IR/AST (no functions in JSON), which can be serialized, rendered (SSR/SSG), and hydrated on the client to compose operators/comparators/injectors for validation, conditional display, calculations, and events—without authors needing to write JavaScript.
 
 Libraries in play:
-- adaptive: typed IR, composition (operators/comparators/injectors), evaluator/renderer, hydrator
+- engine: typed IR, composition (operators/comparators/injectors), evaluator/renderer, hydrator
 - components: JSX DSL that emits the IR (no VDOM)
 - toolkit: environment adapters, utilities, schema/validation, dev tooling
 
@@ -197,12 +197,12 @@ All items above are addressed in the sections below and in the MVP.
 
 ## Addendum (2025-08-24): Registries, ComposeContext, IDs/Versioning, Testing
 
-- Use explicit registries (no dynamic import paths) in adaptive:
+- Use explicit registries (no dynamic import paths) in engine:
   - `operations/registries/{operators,injectors,comparators}.ts` map tags → executors
   - Composers resolve by tag via registries; no reliance on `comparison` on config
 - ComposeContext threads evaluation with `{ env, signal, now, bus, logger }` to unify SSR/CSR, enable cancellation/memoization, and avoid globals. `bus` defaults to local-scope pub/sub; cross-tab/device are opt-in.
 - Add `v` (semver), `id` (stable, user-supplied or generated via toolkit `generateShortId()`), and optional `meta` to all config nodes
-- Use toolkit ResultAsync throughout adaptive (public surfaces); avoid expanding Either in adaptive
+- Use toolkit ResultAsync throughout engine (public surfaces); avoid expanding Either in engine
 - Injectors support `evaluation: "eager" | "lazy"` and caching by (`node.id`, key) with invalidation; SSR-safe injectors use server env, DOM-only injectors defer
 - Behavior anchoring: attach to nearest element with stable `id`/`name`; auto-assign deterministic ID if missing; allow explicit override (`for` or `anchor`)
 - Tests: add goldens (JSX → IR → HTML snapshot) and smoke tests (registry resolution, SSR render returns string, hydrate attaches handlers)
@@ -241,7 +241,7 @@ Notes
 ## JSX → IR strategy
 - Compilation pass: JSX → component tree → IR. We deprecate the old `helpers/createElement` runtime factory in favor of a proper compile/walk that:
   - Lowers semantic components to ElementNode (attrs, ARIA, data-*, microdata attrs when applicable).
-  - Lowers transform/* nodes to adaptive config graphs by calling adaptive constructors directly (thin wrappers only; no re-implementation).
+  - Lowers transform/* nodes to engine config graphs by calling engine constructors directly (thin wrappers only; no re-implementation).
   - Lowers control nodes (Validation, Conditional, On) to behavior IR attached to the nearest anchor element/field.
 - Namespaces to keep authoring clear and avoid prop-heavy APIs:
   - HTML-ish: &lt;Form>, &lt;Para>, etc. → ElementNode
@@ -252,7 +252,7 @@ Notes
 - Prefer children-first composition; rely on props only for ergonomic sugar.
 
 Transform folder scope (important)
-- Transform files are thin JSX wrappers that call into adaptive constructors and return adaptive config objects. They must not re-implement adaptive logic or composition.
+- Transform files are thin JSX wrappers that call into engine constructors and return engine config objects. They must not re-implement engine logic or composition.
 - One wrapper per constructor, default export, no barrels, side-effect-free for maximal tree shaking.
 
 ## Typing, async, and error model
@@ -266,7 +266,7 @@ Transform folder scope (important)
 - ComposeContext for evaluation: { env, signal, now, cache, logger }.
 
 ## Rendering and hydration
-- SSR/SSG: render ElementNode to HTML, embed IR near the root via one script tag: `&lt;script type="application/adaptive+json" id="ir-root">{...}&lt;/script>` and mark elements with `data-ir-id`.
+- SSR/SSG: render ElementNode to HTML, embed IR near the root via one script tag: `&lt;script type="application/engine+json" id="ir-root">{...}&lt;/script>` and mark elements with `data-ir-id`.
 - Hydration on client:
   - Parse IR, walk tree once
   - Find ValidatorNode and EventBindingNode; compose functions from referenced subgraphs
@@ -289,8 +289,8 @@ define/* behavior and metadata
   - ComposeContext carries env to keep evaluators pure and portable across server/client.
 
 ## Toolkit integration decisions
-- Use toolkit Result as the single error monad across adaptive/components; convert to/from Either/Maybe internally as needed.
-- Chainable layer (consumed by adaptive/components) uses Result (Ok may hold a Maybe when appropriate).
+- Use toolkit Result as the single error monad across engine/components; convert to/from Either/Maybe internally as needed.
+- Chainable layer (consumed by engine/components) uses Result (Ok may hold a Maybe when appropriate).
 - Async: adopt AsyncResult (Promise<Result<...>>), expose composition helpers and cancellation in compose context.
 - Validation: support both short-circuit and accumulation; accumulation uses ErrorBag combine.
 - Eager and lazy: provide lazy iterator variants (e.g., mapLazy, filterLazy, slidingWithStep) where sensible to avoid large intermediates.
@@ -365,7 +365,7 @@ Scope: one email form with Validation and one Conditional block.
 Deliverables
 - IR schema v1 + JSON Schema
 - Compile pass that emits IR (components package)
-- Renderer: ElementNode → HTML string (adaptive)
+- Renderer: ElementNode → HTML string (engine)
 - Evaluator minimal set:
   - Injectors: Constant, FromQueryString, FromElement
   - Comparators: And, IsNotEmpty, IsEmailAddress, IsNoShorterThan, IsNoLongerThan
@@ -374,7 +374,7 @@ Deliverables
 - SSR demo + client hydration script
 - Registries wired (operators/injectors/comparators) and used by composers
 - Anchoring implemented (nearest id/name; deterministic auto-ID; explicit `for|anchor` override)
-- ResultAsync returned from evaluators/composers in adaptive
+- ResultAsync returned from evaluators/composers in engine
 - Injectors support `evaluation: "eager" | "lazy"` + caching policy
 - Tests: 5–8 goldens + smoke tests + async error accumulation tests
 
@@ -437,7 +437,7 @@ Security
   - IR v1 JSON Schema (including ScriptNode and behavior nodes)
   - Renderer and hydrator scaffolds for MVP kinds; root IR embedding and hydrate walk
   - Golden tests for JSX → IR (Validation + Conditional) and async error accumulation; smoke tests for registries/hydrate
-  - Align transform wrappers to import adaptive constructors directly (tree-shakeable) where gaps exist
+  - Align transform wrappers to import engine constructors directly (tree-shakeable) where gaps exist
 
 ## Next steps
 1) Compiler (near-term)
@@ -457,7 +457,7 @@ Security
 5) Tests
   - Add 5–8 golden tests for JSX → IR, plus 1–2 async error accumulation cases
 6) Hygiene
-  - Ensure transform wrappers import adaptive constructors directly; remove any remaining barrels; fix import paths if needed
+  - Ensure transform wrappers import engine constructors directly; remove any remaining barrels; fix import paths if needed
 7) Demo
   - Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
 
@@ -483,7 +483,7 @@ The architecture is sound. Prioritize a small, stable IR and one async evaluator
 - Integration: expose `env.bus` via ComposeContext so operators/actions can publish/subscribe without globals.
 
 Runtime placement note
-- To avoid cross-team conflicts, the minimal bus and store live under adaptive runtime:
+- To avoid cross-team conflicts, the minimal bus and store live under engine runtime:
   - Bus: `libraries/engine/src/runtime/bus.ts`
   - Store: `libraries/engine/src/runtime/store.ts`
   - ComposeContext: `libraries/engine/src/context/composeContext.ts`

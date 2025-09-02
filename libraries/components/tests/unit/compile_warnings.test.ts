@@ -11,7 +11,7 @@ import type {
 	OperatorNode,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import SetValue from "../../src/transform/actions/SetValue/index.tsx"
 import IsEqualTo from "../../src/transform/comparators/IsEqualTo/index.tsx"
@@ -47,7 +47,7 @@ Deno.test("compiler emits warning for Add with fewer than 2 addends", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =
@@ -73,7 +73,7 @@ Deno.test("compiler emits warning for Is.EqualTo with missing argument", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -96,7 +96,7 @@ Deno.test("compiler emits warning for Matches invalid arity", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -118,7 +118,7 @@ Deno.test("compiler emits warning for Subtract arity not equal to 2", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =
@@ -140,7 +140,7 @@ Deno.test("compiler emits warning for Divide arity not equal to 2", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =

@@ -1,4 +1,4 @@
-import type { DoesNotMatchComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { DoesNotMatchComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * DoesNotMatch JSX Component
@@ -14,7 +14,7 @@ import type { DoesNotMatchComparator, Operand } from "@adaptiveTypes/index.ts"
  * </DoesNotMatch>
  */
 
-import DoesNotMatchConstructor from "@adaptiveSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
+import DoesNotMatchConstructor from "@engineSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
 
 export type Props = {
 	flags?: string

@@ -10,7 +10,7 @@ import type {
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import Matches from "../../src/transform/comparators/Matches/index.tsx"
 import If from "../../src/transform/control/If/index.tsx"
@@ -47,7 +47,7 @@ Deno.test("golden: If with Matches condition compiles comparator with pattern an
 		}),
 	]
 
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { handler: ActionNode }
 	const ifAction = evt.handler
 	assertEquals(ifAction.action, "Act.If")

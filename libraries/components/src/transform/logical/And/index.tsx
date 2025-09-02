@@ -1,4 +1,4 @@
-import type { ComparatorConfig, LogicalConfig } from "@adaptiveTypes/index.ts"
+import type { ComparatorConfig, LogicalConfig } from "@engineTypes/index.ts"
 
 /**
  * And JSX Component
@@ -19,7 +19,7 @@ import type { ComparatorConfig, LogicalConfig } from "@adaptiveTypes/index.ts"
  * </And>
  */
 
-import AndConstructor from "@adaptiveSrc/constructors/comparators/algebraic/And/index.ts"
+import AndConstructor from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
 
 export type AndProps = {
 	children?: JSX.Element | JSX.Element[]

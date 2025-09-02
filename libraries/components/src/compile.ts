@@ -1,1 +1,1 @@
-export { default as compileToAdaptive } from "./transform/compile/toAdaptiveIr.ts"
+export { default as compileToEngine } from "./transform/compile/toEngineIr.ts"

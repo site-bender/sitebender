@@ -1,8 +1,8 @@
-# Build your first Adaptive page (MVP)
+# Build your first Engine page (MVP)
 
-This guide is for developers who know basic HTML and want to add interactive behavior without a framework. You’ll use the Adaptive IR (a tiny JSON DSL) plus a small hydrator to wire DOM events to actions.
+This guide is for developers who know basic HTML and want to add interactive behavior without a framework. You’ll use the Engine IR (a tiny JSON DSL) plus a small hydrator to wire DOM events to actions.
 
-You don’t need to learn a new component model. You keep writing HTML. Adaptive attaches behaviors via a minimal JSON “IR” block embedded in the page.
+You don’t need to learn a new component model. You keep writing HTML. Engine attaches behaviors via a minimal JSON “IR” block embedded in the page.
 
 ## What you’ll build
 
@@ -15,8 +15,8 @@ All examples use only the current MVP features that ship with the defaults.
 
 ## Concepts in 60 seconds
 
-- IR: A JSON script that describes behaviors (events + actions). You embed it as a `<script type="application/adaptive+json">` block.
-- Anchors: Each behavior node has an `id`. Adaptive binds it to a real element by matching `data-ir-id="<id>"` (or falling back to `id="<id>"`).
+- IR: A JSON script that describes behaviors (events + actions). You embed it as a `<script type="application/engine+json">` block.
+- Anchors: Each behavior node has an `id`. Engine binds it to a real element by matching `data-ir-id="<id>"` (or falling back to `id="<id>"`).
 - Hydration: A small runtime scans the IR and attaches event listeners.
 - Events: `On.Input`, `On.Change`, `On.Blur`, `On.Submit`.
 - Actions: `Act.SetValue`, `Act.Submit`, `Act.SetQueryString`, `Act.Publish`, `Act.If`.
@@ -40,10 +40,10 @@ Note: In this monorepo, imports are shown as relative to the library. In your ap
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Adaptive MVP Tutorial</title>
+    <title>Engine MVP Tutorial</title>
   </head>
   <body>
-    <h1>Adaptive MVP</h1>
+    <h1>Engine MVP</h1>
 
     <!-- Example 1: Live mirror -->
   <label for="name">Your name</label>
@@ -52,7 +52,7 @@ Note: In this monorepo, imports are shown as relative to the library. In your ap
   <!-- The input carries the anchor for input/validation behaviors -->
 
     <!-- Example 2: Submit updates query string -->
-  <form id="profile" data-ir-id="profile" action="/ignored-by-adaptive">
+  <form id="profile" data-ir-id="profile" action="/ignored-by-engine">
       <input name="favorite" id="favorite" placeholder="Favorite thing" />
       <button type="submit">Save</button>
     </form>
@@ -65,8 +65,8 @@ Note: In this monorepo, imports are shown as relative to the library. In your ap
   <input id="b" data-ir-id="b" inputmode="numeric" placeholder="B" />
     = <span id="sum">0</span>
 
-    <!-- 1) Adaptive IR: place all behaviors in one script -->
-    <script id="ir-root" type="application/adaptive+json">
+    <!-- 1) Engine IR: place all behaviors in one script -->
+    <script id="ir-root" type="application/engine+json">
     {
       "v": "0.1.0",
       "kind": "element",
@@ -214,7 +214,7 @@ The helper `registerDefaultExecutors` wires up:
 - Nothing happens: Ensure your IR script exists, is valid JSON, and has `id="ir-root"` (or update your load code accordingly).
 - Event not binding: Check `data-ir-id` on the target element matches the `id` of the IR `kind: "on"` node.
 - Selector not found: `From.Element` selectors must resolve to an element with either `textContent` or `value`.
-- Submit still navigating: Ensure you used `On.Submit` (Adaptive’s binder prevents navigation for you).
+- Submit still navigating: Ensure you used `On.Submit` (Engine’s binder prevents navigation for you).
 
 ## Optional: compose multiple behaviors
 

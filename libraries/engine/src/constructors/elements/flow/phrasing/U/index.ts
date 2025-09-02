@@ -1,5 +1,5 @@
-import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a U element configuration object

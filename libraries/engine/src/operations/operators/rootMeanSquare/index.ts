@@ -1,6 +1,6 @@
 import type { HydratedRootMeanSquare } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -14,14 +14,14 @@ const rootMeanSquare =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number>> => {
+	): Promise<Either<Array<EngineError>, number>> => {
 		const resolvedOperands = await Promise.all(
 			operands.map((operand) => operand(arg, localValues)),
 		)
 		const errors = resolvedOperands.filter(isLeft)
 		if (errors.length) {
-			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
-			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
+			const lefts = errors as Array<{ left: Array<EngineError> }>
+			const flattened: Array<EngineError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
 					{

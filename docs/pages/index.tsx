@@ -5,13 +5,13 @@ export default function () {
 		<body>
 			<h1>Sitebender Docs</h1>
 			<p>
-				<a href="/demo/">Open adaptive demo</a>
+				<a href="/demo/">Open engine demo</a>
 			</p>
 			<p>
 				<a href="/validation/">Open validation demo</a>
 			</p>
 			<p>
-				<a href="/tutorial/">Read the Adaptive Tutorial</a>
+				<a href="/tutorial/">Read the Engine Tutorial</a>
 			</p>
 			<p>
 				<a href="/vision/">Vision & MVP Charter</a>

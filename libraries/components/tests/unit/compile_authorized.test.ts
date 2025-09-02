@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import type { ActionNode, ComparatorNode, InjectorNode, IrDocument } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Authorized from "../../src/transform/control/When/Authorized/index.tsx"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import On from "../../src/transform/control/On/index.tsx"
@@ -31,7 +31,7 @@ Deno.test("When.Authorized compiles to Act.If with policy comparator and Constan
     }) as unknown as JSX.Element,
   ]
 
-  const doc = compileToAdaptive(tree) as IrDocument
+  const doc = compileToEngine(tree) as IrDocument
   assertEquals(doc.kind, "element")
   const evt = doc.children[0] as unknown as { kind: string; handler: unknown }
   assertEquals(evt.kind, "on")

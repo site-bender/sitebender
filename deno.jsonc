@@ -2,7 +2,7 @@
 	// Workspace configuration for the Sitebender monorepo
 	"workspace": [
 		"./docs",
-		"./jexer",
+		"./jsxer",
 		"./libraries/*"
 	],
 
@@ -30,7 +30,7 @@
 		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage libraries/components/coverage --lcov > libraries/components/coverage.lcov",
 		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage libraries/toolkit/coverage --lcov > libraries/toolkit/coverage.lcov",
 		"test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
-		"test:jexer:strict": "deno test --unstable-temporal --allow-env --allow-read --config jexer/deno.json 'jexer/**/*.test.ts'",
+		"test:jsxer:strict": "deno test --unstable-temporal --allow-env --allow-read --config jsxer/deno.json 'jsxer/**/*.test.ts'",
 
 		// === Unified Coverage (delegates to per-package tasks) ===
 		"coverage:docs": "deno task --cwd docs test:cov",
@@ -43,7 +43,7 @@
 		// === Type Checking ===
 		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/engine/src/**/*.ts libraries/engine/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
 		"type-check:focused": "deno check --unstable-temporal libraries/engine/src/operations/comparators/compare/index.ts libraries/engine/src/operations/comparators/amount/isLessThan/index.ts libraries/engine/src/operations/comparators/amount/isMoreThan/index.ts libraries/engine/src/operations/comparators/amount/isNoLessThan/index.ts libraries/engine/src/operations/comparators/equality/isEqualTo/index.ts libraries/engine/src/operations/comparators/equality/isUnequalTo/index.ts libraries/engine/src/operations/comparators/length/isLength/index.ts libraries/engine/src/operations/comparators/length/isLongerThan/index.ts libraries/engine/src/operations/comparators/length/isShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNoLongerThan/index.ts libraries/engine/src/operations/comparators/length/isNoShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNotLength/index.ts libraries/engine/src/operations/comparators/length/isSameLength/index.ts",
-		"type-check:jexer": "deno check --unstable-temporal --config jexer/deno.json 'jexer/src/**/*.ts'",
+		"type-check:jsxer": "deno check --unstable-temporal --config jsxer/deno.json 'jsxer/src/**/*.ts'",
 
 		// === Import Management ===
 		"sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
@@ -61,11 +61,11 @@
 		"build:full": "deno task --cwd docs build:full",
 
 		// === Jexer shortcuts (workspace-level) ===
-		"jexer:dev": "deno task --cwd jexer dev",
-		"jexer:build": "deno task --cwd jexer build",
-		"jexer:build:dev": "deno task --cwd jexer build:dev",
-		"jexer:serve": "deno task --cwd jexer serve",
-		"jexer:type-check": "deno task --cwd jexer type-check",
+		"jsxer:dev": "deno task --cwd jsxer dev",
+		"jsxer:build": "deno task --cwd jsxer build",
+		"jsxer:build:dev": "deno task --cwd jsxer build:dev",
+		"jsxer:serve": "deno task --cwd jsxer serve",
+		"jsxer:type-check": "deno task --cwd jsxer type-check",
 
 		// === Hooks ===
 		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install.ts",
@@ -124,11 +124,6 @@
 		"@engineSrc/": "./libraries/engine/src/",
 		"@sitebender/engine": "./libraries/engine/src/",
 		"@sitebender/engine/": "./libraries/engine/src/",
-		// Legacy adaptive aliases (repointed)
-		"@adaptiveTypes/": "./libraries/engine/types/",
-		"@adaptiveSrc/": "./libraries/engine/src/",
-		"@sitebender/adaptive": "./libraries/engine/src/",
-		"@sitebender/adaptive/": "./libraries/engine/src/"
 	},
 
 	// Shared formatting configuration
@@ -140,13 +135,13 @@
 		"semiColons": false,
 		"singleQuote": false,
 		"proseWrap": "preserve",
-		"include": ["docs/", "jexer/", "libraries/", "scripts/"],
+		"include": ["docs/", "jsxer/", "libraries/", "scripts/"],
 		"exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"]
 	},
 
 	// Shared linting configuration
 	"lint": {
-		"include": ["docs/src/", "jexer/src/", "libraries/*/src/", "scripts/"],
+		"include": ["docs/src/", "jsxer/src/", "libraries/*/src/", "scripts/"],
 		"exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"],
 		"rules": {
 			"tags": ["recommended"],
@@ -182,7 +177,7 @@
 			"noNetNewErrorsPerStep": true,
 			"smallBatches": true,
 			"verifyAfterEvery3Edits": true,
-			"preferAliases": ["@toolkit/", "@adaptiveTypes/", "@adaptiveSrc/"]
+			"preferAliases": ["@toolkit/", "@engineTypes/", "@engineSrc/"]
 		},
 		"notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often."
 	},

@@ -41,7 +41,7 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 	setVizAdapter(customAdapter as any)
 
 	// Dynamically import hydrate entry so it sees our fake document and adapter
-	const modUrl = new URL("../../../src/hydrate/adaptive.ts", import.meta.url)
+	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
 	await import(modUrl.href)
 
 	// The custom registry adapter should have run, not the noop fallback

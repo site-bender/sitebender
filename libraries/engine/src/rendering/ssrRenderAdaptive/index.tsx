@@ -1,24 +1,24 @@
 // Note: avoid importing precise HTML/ARIA types here; use minimal local shapes.
 
 /**
- * Server-Side Rendering for Adaptive Components
+ * Server-Side Rendering for Engine Components
  *
- * Converts adaptive configuration objects into JSX elements
+ * Converts engine configuration objects into JSX elements
  * with data attributes for client-side hydration.
  */
 
 import { OPERAND_TYPES } from "../../constructors/constants/index.ts"
 
-type AdaptiveConfig = {
+type EngineConfig = {
 	tag: string
 	type: string
 	[key: string]: unknown
 }
 
 /**
- * Renders an adaptive configuration to JSX for SSR
+ * Renders an engine configuration to JSX for SSR
  */
-const ssrRenderAdaptive = (config: AdaptiveConfig): JSX.Element | string => {
+const ssrRenderEngine = (config: EngineConfig): JSX.Element | string => {
 	if (!config || typeof config !== "object") {
 		return String(config)
 	}
@@ -39,15 +39,15 @@ const ssrRenderAdaptive = (config: AdaptiveConfig): JSX.Element | string => {
 		default:
 			// Unknown type, just render as a span with the config
 			return (
-				<span data-adaptive={configJson}>
-					[Adaptive: {config.tag}]
+				<span data-engine={configJson}>
+					[Engine: {config.tag}]
 				</span>
 			)
 	}
 }
 
 const renderOperator = (
-	config: AdaptiveConfig,
+	config: EngineConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For operators, render a span that will be hydrated on the client
@@ -64,9 +64,9 @@ const renderOperator = (
 
 	return (
 		<span
-			class="adaptive-operator"
-			data-adaptive-type="operator"
-			data-adaptive-config={configJson}
+			class="engine-operator"
+			data-engine-type="operator"
+			data-engine-config={configJson}
 		>
 			{placeholder}
 		</span>
@@ -74,7 +74,7 @@ const renderOperator = (
 }
 
 const renderInjector = (
-	config: AdaptiveConfig,
+	config: EngineConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For injectors, show the source during SSR
@@ -88,9 +88,9 @@ const renderInjector = (
 
 	return (
 		<span
-			class="adaptive-injector"
-			data-adaptive-type="injector"
-			data-adaptive-config={configJson}
+			class="engine-injector"
+			data-engine-type="injector"
+			data-engine-config={configJson}
 		>
 			{placeholder}
 		</span>
@@ -98,15 +98,15 @@ const renderInjector = (
 }
 
 const renderComparator = (
-	_config: AdaptiveConfig,
+	_config: EngineConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For comparators, render as a data element that will control visibility
 	return (
 		<span
-			class="adaptive-comparator"
-			data-adaptive-type="comparator"
-			data-adaptive-config={configJson}
+			class="engine-comparator"
+			data-engine-type="comparator"
+			data-engine-config={configJson}
 		>
 			[validation]
 		</span>
@@ -114,19 +114,19 @@ const renderComparator = (
 }
 
 const renderLogical = (
-	_config: AdaptiveConfig,
+	_config: EngineConfig,
 	configJson: string,
 ): JSX.Element => {
 	// For logical operators, render as a data element
 	return (
 		<span
-			class="adaptive-logical"
-			data-adaptive-type="logical"
-			data-adaptive-config={configJson}
+			class="engine-logical"
+			data-engine-type="logical"
+			data-engine-config={configJson}
 		>
 			[condition]
 		</span>
 	)
 }
 
-export default ssrRenderAdaptive
+export default ssrRenderEngine

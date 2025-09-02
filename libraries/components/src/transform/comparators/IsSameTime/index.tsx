@@ -1,9 +1,9 @@
-import type { IsSameTimeComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsSameTimeComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsSameTime JSX Component
  */
-import IsSameTimeConstructor from "@adaptiveSrc/constructors/comparators/time/IsSameTime/index.ts"
+import IsSameTimeConstructor from "@engineSrc/constructors/comparators/time/IsSameTime/index.ts"
 
 export type Props = {
 	type?: "Time"

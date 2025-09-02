@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -19,7 +19,7 @@ const absoluteValue =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<AdaptiveError[], number>> => {
+	): Promise<Either<EngineError[], number>> => {
 		const resolvedOperand = await operand(arg, localValues)
 
 		if (isLeft(resolvedOperand)) {

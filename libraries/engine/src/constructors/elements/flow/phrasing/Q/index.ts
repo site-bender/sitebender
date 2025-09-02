@@ -1,20 +1,20 @@
-import type { QuotationAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { QuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Q element

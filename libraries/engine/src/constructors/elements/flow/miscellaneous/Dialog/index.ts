@@ -1,4 +1,4 @@
-import type { DialogAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { DialogAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 
 import type {
 	ComparatorConfig,

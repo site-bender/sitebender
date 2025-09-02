@@ -2,7 +2,7 @@ import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 import composeComparators from "../composeComparators/index.ts"
 

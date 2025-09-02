@@ -1,4 +1,4 @@
-import type { InSetComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { InSetComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * InSet - Set membership comparator component
@@ -11,7 +11,7 @@ import type { InSetComparator, Operand } from "@adaptiveTypes/index.ts"
  *
  * Or positional children: <InSet>{value}{set}</InSet>
  */
-import InSetConstructor from "@adaptiveSrc/constructors/comparators/set/InSet/index.ts"
+import InSetConstructor from "@engineSrc/constructors/comparators/set/InSet/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element>

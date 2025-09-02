@@ -128,11 +128,11 @@ test.describe("Documentation behavior", () => {
     await page.goto("/")
     
     // Real user behavior
-    await page.click('text="Adaptive"')
+    await page.click('text="Engine"')
   await expect(page).toHaveURL("/libraries/engine")
     
     // Verify content loaded
-    await expect(page.locator("h1")).toContainText("Adaptive")
+    await expect(page.locator("h1")).toContainText("Engine")
     
     // Test accessibility inline
     await injectAxe(page)
@@ -197,7 +197,7 @@ libraries/engine/tests/
 │   └── helpers/
 │       └── createTestOperands/     # Shared by all operations tests
 └── helpers/
-    └── createTestDom/              # Shared by all adaptive tests
+    └── createTestDom/              # Shared by all engine tests
 ```
 
 ## MSW for External Services

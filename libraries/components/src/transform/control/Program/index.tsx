@@ -1,4 +1,4 @@
-import compileToAdaptive from "../../compile/toAdaptiveIr.ts"
+import compileToEngine from "../../compile/toEngineIr.ts"
 
 export type Props = {
 	id?: string // script element id
@@ -7,9 +7,9 @@ export type Props = {
 }
 
 export default function Program(
-	{ id = "ir-root", type = "application/adaptive+json", children }: Props,
+	{ id = "ir-root", type = "application/engine+json", children }: Props,
 ) {
-	const ir = compileToAdaptive(children as unknown)
+	const ir = compileToEngine(children as unknown)
 	return {
 		type: "script",
 		props: {

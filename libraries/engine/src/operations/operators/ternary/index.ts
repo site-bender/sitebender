@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -20,7 +20,7 @@ const ternary = ({ condition, ifTrue, ifFalse }: HydratedTernary) =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, unknown>> => {
+): Promise<Either<Array<EngineError>, unknown>> => {
 	const resolvedCondition = await condition(arg, localValues)
 
 	if (isLeft(resolvedCondition)) {

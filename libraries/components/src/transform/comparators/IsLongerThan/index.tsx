@@ -1,4 +1,4 @@
-import type { IsLongerThanComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsLongerThanComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsLongerThan JSX Component
@@ -14,7 +14,7 @@ import type { IsLongerThanComparator, Operand } from "@adaptiveTypes/index.ts"
  * </IsLongerThan>
  */
 
-import IsLongerThanConstructor from "@adaptiveSrc/constructors/comparators/length/IsLongerThan/index.ts"
+import IsLongerThanConstructor from "@engineSrc/constructors/comparators/length/IsLongerThan/index.ts"
 
 export type Props = {
 	type?: "String" | "Array"

@@ -1,7 +1,7 @@
 /**
  * DateTime component
  *
- * Adaptive component that renders date and time together. Works as
+ * Engine component that renders date and time together. Works as
  * PlainDateTime without timezone (local wall-clock time), or as
  * ZonedDateTime when timezone is provided.
  *

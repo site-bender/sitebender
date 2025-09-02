@@ -1,16 +1,16 @@
-import type { NoAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined.ts"
 
 /**
  * Extended Fragment attributes including reactive properties and ARIA

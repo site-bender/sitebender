@@ -1,4 +1,4 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
 import { OPERAND_TYPES } from "../../../../constructors/constants/index.ts"
 

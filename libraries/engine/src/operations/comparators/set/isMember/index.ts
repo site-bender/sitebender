@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -24,8 +24,8 @@ async (
 	const operand = await operandFn(arg, localValues)
 	const test = await testFn(arg, localValues)
 
-	if (isLeft(operand)) return operand as Either<AdaptiveError[], boolean>
-	if (isLeft(test)) return test as Either<AdaptiveError[], boolean>
+	if (isLeft(operand)) return operand as Either<EngineError[], boolean>
+	if (isLeft(test)) return test as Either<EngineError[], boolean>
 
 	try {
 		const isSet = Object.prototype.toString.call(test.right) === "[object Set]"

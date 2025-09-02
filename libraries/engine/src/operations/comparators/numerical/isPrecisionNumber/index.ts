@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -16,7 +16,7 @@ const isPrecisionNumber =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operandFn = await composeComparators(op.operand as unknown as never)
 		const operand = await operandFn(arg, localValues)
 		const precision =
@@ -35,7 +35,7 @@ const isPrecisionNumber =
 		const oright = (operand as { right: unknown }).right
 		const ok = isNumber(oright as never) && pattern.test(String(oright))
 		return ok
-			? ({ right: true } as unknown as Either<Array<AdaptiveError>, boolean>)
+			? ({ right: true } as unknown as Either<Array<EngineError>, boolean>)
 			: {
 				left: [
 					Error(op.tag)("IsPrecisionNumber")(

@@ -1,6 +1,6 @@
 import type { HydratedTruncate } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -14,7 +14,7 @@ const truncate = (
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, number>> => {
+): Promise<Either<Array<EngineError>, number>> => {
 	const resolvedOperand = await operand(arg, localValues)
 
 	if (isLeft(resolvedOperand)) {

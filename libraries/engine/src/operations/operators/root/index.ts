@@ -1,6 +1,6 @@
 import type { HydratedRoot } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -13,7 +13,7 @@ const root =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number>> => {
+	): Promise<Either<Array<EngineError>, number>> => {
 		const resolvedRadicand = await radicand(arg, localValues)
 		if (isLeft(resolvedRadicand)) return resolvedRadicand
 

@@ -4,16 +4,16 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
-import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 // ElementConfig not needed here
 
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"

@@ -1,27 +1,27 @@
-import type { ImageAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { VideoAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ImageAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { VideoAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 import {
 	CROSS_ORIGINS,
 	PRELOADS,
-} from "@adaptiveSrc/constructors/elements/constants/index.ts"
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
-import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+} from "@engineSrc/constructors/elements/constants/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isInteger from "@engineSrc/guards/isInteger/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 /**

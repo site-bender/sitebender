@@ -1,7 +1,7 @@
 /**
  * Date component
  *
- * Adaptive component that renders calendar dates. Works as PlainDate
+ * Engine component that renders calendar dates. Works as PlainDate
  * without timezone, or as zoned date when timezone is provided.
  * Supports internationalization and multiple calendar systems.
  *

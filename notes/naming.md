@@ -102,7 +102,7 @@ Status keys
 ## Aliasing & Migration Policy
 - Allowed aliases: `On.*` for events (ergonomic alternative to `When.*`), and other aliases that provide genuinely different authoring ergonomics.
 - Not allowed: back-compat-only aliases for names we’ve decided to change; we’ll make breaking changes during development with no deprecation scaffolding.
-- Comparators: `Is.*` is canonical. If an alias exists (e.g., legacy `When.*` wrappers), it’s for authoring ergonomics only, not to preserve old names. We may remove such aliases at any time before v1.
+- Comparators: `Is.*` is canonical. If an alias exists (e.g., `When.*` wrappers), it’s for authoring ergonomics only, not to preserve old names. We may remove such aliases at any time before v1.
 - Actions: use bare verbs. Operators: prefer plain verbs. Avoid mass surface expansion until approved.
 
 ## Decision checklist

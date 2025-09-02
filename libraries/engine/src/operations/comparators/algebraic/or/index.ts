@@ -1,8 +1,8 @@
-import { isLeft, isRight } from "@adaptiveTypes/index.ts"
+import { isLeft, isRight } from "@engineTypes/index.ts"
 import concat from "@toolkit/simple/array/concat/index.ts"
 
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -17,7 +17,7 @@ const or =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operands =
 			(op as { operands?: Array<ComparatorConfig | LogicalConfig> }).operands ??
 				[]
@@ -37,8 +37,8 @@ const or =
 		const lefts = results.filter(isLeft)
 		return {
 			left: lefts.reduce(
-				(out, l) => concat(out)(l.left as Array<AdaptiveError>),
-				[] as Array<AdaptiveError>,
+				(out, l) => concat(out)(l.left as Array<EngineError>),
+				[] as Array<EngineError>,
 			),
 		}
 	}

@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -15,7 +15,7 @@ const isAscending =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operandFn = await composeComparators(op.operand as unknown as never)
 		const operand = await operandFn(arg, localValues)
 

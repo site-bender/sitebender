@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -18,7 +18,7 @@ const asMonetaryAmount = (op: MonetaryOp): OperationFunction<string> =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, string>> => {
+): Promise<Either<Array<EngineError>, string>> => {
 	const { locales, operand, options } = op
 
 	const operandFn = await composeOperators(operand as never)

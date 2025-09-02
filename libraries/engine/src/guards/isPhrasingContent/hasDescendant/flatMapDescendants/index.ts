@@ -1,4 +1,4 @@
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
 import reduce from "@toolkit/simple/array/reduce/index.ts"
 

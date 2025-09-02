@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Build test command
-TEST_CMD="deno test lib/adaptive/utilities/"
+TEST_CMD="deno test lib/engine/utilities/"
 TEST_CMD="$TEST_CMD --allow-read --allow-net --allow-env --allow-write"
 TEST_CMD="$TEST_CMD --no-check" # Skip type checking for now due to Temporal issues
 

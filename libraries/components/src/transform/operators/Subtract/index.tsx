@@ -2,7 +2,7 @@ import type {
 	NumericDatatype,
 	Operand,
 	SubtractOperator,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * Subtract JSX Component
@@ -23,7 +23,7 @@ import type {
  * </Subtract>
  */
 
-import SubtractConstructor from "@adaptiveSrc/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "@engineSrc/constructors/operators/Subtract/index.ts"
 
 export type Props = {
 	type?: NumericDatatype

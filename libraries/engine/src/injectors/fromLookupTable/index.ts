@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 } from "../../../types/index.ts"
@@ -22,7 +22,7 @@ const fromLookupTable = (op: LookupOp) =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, unknown>> => {
+): Promise<Either<Array<EngineError>, unknown>> => {
 	const { datatype = "Json" } = op
 
 	const columnFn = await composeOperators(op.column as never)

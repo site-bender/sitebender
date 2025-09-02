@@ -1,8 +1,8 @@
 /// <reference path="./shims/temporal.d.ts" />
 /**
- * Type definitions for the Adaptive library
+ * Type definitions for the Engine library
  *
- * This file contains all the type definitions for the adaptive system,
+ * This file contains all the type definitions for the engine system,
  * including operators, injectors, comparators, and their configurations.
  */
 
@@ -46,7 +46,7 @@ export type Right<T> = { right: T }
 export type Either<E, T> = Left<E> | Right<T>
 
 // Error type
-export type AdaptiveError = {
+export type EngineError = {
 	tag: string
 	operation: string
 	message: string
@@ -1017,7 +1017,7 @@ export type LocalValues = Record<string, Value>
 export type OperationFunction<T = unknown> = (
 	arg: unknown,
 	localValues?: LocalValues,
-) => Promise<Either<Array<AdaptiveError>, T>>
+) => Promise<Either<Array<EngineError>, T>>
 
 // Constructor function types
 export type UnaryOperatorConstructor<Config extends OperatorConfig> = (

@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -20,7 +20,7 @@ const addValidation = (elem: HTMLElement) => (validation: unknown) => {
 		__sbValidate?: (
 			arg: unknown,
 			localValues?: unknown,
-		) => Promise<Either<Array<AdaptiveError>, boolean>>
+		) => Promise<Either<Array<EngineError>, boolean>>
 	})
 		.__sbValidate = async (arg: unknown, localValues?: unknown) => {
 			if (!validatorPromise) {
@@ -36,7 +36,7 @@ const addValidation = (elem: HTMLElement) => (validation: unknown) => {
 			// Normalize to boolean Right or propagate Left
 			return ("right" in (result as unknown as Record<string, unknown>))
 				? { right: Boolean((result as { right: unknown }).right) }
-				: (result as Either<Array<AdaptiveError>, boolean>)
+				: (result as Either<Array<EngineError>, boolean>)
 		}
 }
 

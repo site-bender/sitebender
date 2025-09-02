@@ -83,7 +83,7 @@ export default function ValidationDemo() {
 			</Program>
 
 			{/* Shared hydrator */}
-			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
+			<script type="module" src="/scripts/hydrate/engine.js"></script>
 		</body>
 	)
 }

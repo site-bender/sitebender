@@ -1,4 +1,4 @@
-import type { ModuloOperator, Operand } from "@adaptiveTypes/index.ts"
+import type { ModuloOperator, Operand } from "@engineTypes/index.ts"
 
 /**
  * Modulo JSX Component
@@ -14,7 +14,7 @@ import type { ModuloOperator, Operand } from "@adaptiveTypes/index.ts"
  * </Modulo>
  */
 
-import ModuloConstructor from "@adaptiveSrc/constructors/operators/Modulo/index.ts"
+import ModuloConstructor from "@engineSrc/constructors/operators/Modulo/index.ts"
 
 export type Props = {
 	type?: "Number"

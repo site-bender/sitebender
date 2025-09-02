@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -21,7 +21,7 @@ const multiply =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number>> => {
+	): Promise<Either<Array<EngineError>, number>> => {
 		const resolvedMultipliers = await Promise.all(
 			multipliers.map((multiplier) => multiplier(arg, localValues)),
 		)

@@ -1,4 +1,4 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
 const isSubsetOf = <T>(options: readonly T[]) => (value: Value): boolean => {
 	if (typeof value !== "string") {
