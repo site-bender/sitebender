@@ -16,6 +16,9 @@ export default function () {
 			<p>
 				<a href="/vision/">Vision & MVP Charter</a>
 			</p>
+			<p>
+				<a href="/semantics/person/">Person semantics demo</a>
+			</p>
 		</body>
 	)
 }
