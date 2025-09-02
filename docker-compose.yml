@@ -70,51 +70,7 @@ services:
       - "49100:9100"
     networks:
       - monitoring
-    # ADD these lines to run with necessary Linux capabilities
-    privileged: true
-    pid: "host"
-    command:
-      - "--path.rootfs=/host"
-    volumes:
-      - /:/host:ro
 
-  # THANOS SIDECAR - Attaches to Prometheus and uploads data to MinIO
-  thanos-sidecar:
-    image: quay.io/thanos/thanos:v0.39.2
-    container_name: thanos-sidecar
-    user: "65534"
-    restart: unless-stopped
-    command:
-      - sidecar
-      - --prometheus.url=http://prometheus:9090
-      - --tsdb.path=/prometheus
-      - --objstore.config-file=/config/thanos/thanos-config.yaml
-    volumes:
-      - prometheus_data:/prometheus
-      - ./ops/thanos:/config/thanos:ro
-    depends_on:
-      - prometheus
-      - minio
-    networks:
-      - monitoring
-
-  # THANOS QUERIER - The single endpoint for Grafana to query all data (Prometheus + MinIO)
-  thanos-querier:
-    image: quay.io/thanos/thanos:v0.39.2
-    container_name: thanos-querier
-    restart: unless-stopped
-    command:
-      - query
-      - --http-address=0.0.0.0:10902
-      - --grpc-address=0.0.0.0:10901
-      - --endpoint=thanos-sidecar:10901
-      - --endpoint=thanos-storegateway:10901
-    ports:
-      - "45002:10902" # Expose the HTTP Query UI and API
-    depends_on:
-      - thanos-sidecar
-    networks:
-      - monitoring
 
   # THANOS STOREGATEWAY - Serves metrics from the blocks in MinIO (long-term storage)
   thanos-storegateway:
@@ -153,6 +109,44 @@ services:
       - thanos_store_data:/var/thanos
     depends_on:
       - minio
+    networks:
+      - monitoring
+
+  # THANOS SIDECAR - Attaches to Prometheus and uploads data to MinIO
+  thanos-sidecar:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-sidecar
+    user: "65534"
+    restart: unless-stopped
+    command:
+      - sidecar
+      - --prometheus.url=http://prometheus:9090
+      - --tsdb.path=/prometheus
+      - --objstore.config-file=/config/thanos/thanos-config.yaml
+    volumes:
+      - prometheus_data:/prometheus
+      - ./ops/thanos:/config/thanos:ro
+    depends_on:
+      - prometheus
+      - minio
+    networks:
+      - monitoring
+
+  # THANOS QUERIER - The single endpoint for Grafana to query all data (Prometheus + MinIO)
+  thanos-querier:
+    image: quay.io/thanos/thanos:v0.39.2
+    container_name: thanos-querier
+    restart: unless-stopped
+    command:
+      - query
+      - --http-address=0.0.0.0:10902
+      - --grpc-address=0.0.0.0:10901
+      - --endpoint=thanos-sidecar:10901
+      - --endpoint=thanos-storegateway:10901
+    ports:
+      - "45002:10902" # Expose the HTTP Query UI and API
+    depends_on:
+      - thanos-sidecar
     networks:
       - monitoring
 
@@ -293,32 +287,6 @@ services:
     depends_on:
       - authentik-server
 
-  oauth2-proxy-minio:
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
-    container_name: oauth2-proxy-minio
-    restart: unless-stopped
-    env_file:
-      - ./.env.oauth2-minio
-    environment:
-      OAUTH2_PROXY_UPSTREAMS: http://minioadmin:minioadmin@minio:9001/
-      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
-      OAUTH2_PROXY_REVERSE_PROXY: "true"
-      OAUTH2_PROXY_COOKIE_SECURE: "true"
-      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "false"
-      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "false"
-      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
-      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
-      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
-      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
-    extra_hosts:
-      - "authentik.localhost:host-gateway"
-    volumes:
-      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
-    networks:
-      - monitoring
-    depends_on:
-      - authentik-server
-
   # Local S3-compatible storage for the next phase (Thanos)
   minio:
     image: minio/minio:latest
@@ -326,29 +294,30 @@ services:
     restart: unless-stopped
     command: server /data --console-address ":9001"
     environment:
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin # Change these for real deployment!
-      # OIDC (SSO) via Authentik - ensure the Authentik application allows the redirect URI below
-      # Client values provided via env_file .env.oauth2-minio as MINIO_IDENTITY_OPENID_* variables
-      - MINIO_IDENTITY_OPENID_CONFIG_URL=https://authentik.localhost/application/o/minio/.well-known/openid-configuration
-      - MINIO_IDENTITY_OPENID_REDIRECT_URI=https://minio.localhost/oauth_callback
-      - MINIO_IDENTITY_OPENID_SCOPES=openid,profile,email
-      - MINIO_IDENTITY_OPENID_CLAIM_NAME=email
-      - MINIO_SERVER_URL=https://minio.localhost
-  - MINIO_IDENTITY_OPENID_DISPLAY_NAME=Authentik
-  - MINIO_IDENTITY_OPENID_AUTO_REDIRECT=on
-      # Trust local mkcert CA for TLS to Authentik (alternatively, configure system trust)
-      - SSL_CERT_FILE=/etc/ssl/certs/mkcert-rootCA.pem
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      # External URLs (behind Caddy) for console and API
+      MINIO_BROWSER_REDIRECT_URL: https://minio.localhost
+      MINIO_SERVER_URL: https://minio.localhost
+      # OIDC (SSO) via Authentik - internal discovery URL avoids TLS trust issues
+      MINIO_IDENTITY_OPENID_CONFIG_URL: http://authentik-server:9000/application/o/minio/.well-known/openid-configuration
+      MINIO_IDENTITY_OPENID_REDIRECT_URI: https://minio.localhost/oauth_callback
+      MINIO_IDENTITY_OPENID_SCOPES: openid,profile,email
+      MINIO_IDENTITY_OPENID_CLAIM_NAME: email
+      MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authentik
+      # Console OIDC must also be configured explicitly
+      CONSOLE_IDENTITY_OPENID_CONFIG_URL: http://authentik-server:9000/application/o/minio/.well-known/openid-configuration
+      CONSOLE_IDENTITY_OPENID_REDIRECT_URI: https://minio.localhost/oauth_callback
+      CONSOLE_IDENTITY_OPENID_SCOPES: openid,profile,email
+      CONSOLE_IDENTITY_OPENID_CLAIM_NAME: email
+      CONSOLE_IDENTITY_OPENID_DISPLAY_NAME: Authentik
     volumes:
       - minio_data:/data
-      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
     ports:
       - "49000:9000" # S3 API Port
       - "49001:9001" # Web UI Port
     env_file:
       - ./.env.oauth2-minio
-    extra_hosts:
-      - "authentik.localhost:host-gateway"
     networks:
       - monitoring
 

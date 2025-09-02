@@ -33,7 +33,14 @@ fuseki.localhost {
 # MinIO Console
 minio.localhost {
   tls /certs/minio.localhost.pem /certs/minio.localhost-key.pem
-  reverse_proxy minio:9001
+  @oidc path /oauth_callback
+  handle @oidc {
+    reverse_proxy minio:9000
+  }
+
+  handle {
+    reverse_proxy minio:9001
+  }
 }
 
 # Authentik (IdP)

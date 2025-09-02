@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -46,7 +47,7 @@ const dropRepeatsWith = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
@@ -55,7 +56,7 @@ const dropRepeatsWith = <T>(
 	}
 
 	return array.reduce((acc: Array<T>, curr, index) => {
-		if (index === 0 || !comparator(curr, array[index - 1])) {
+		if (index === 0 || not(comparator(curr, array[index - 1]))) {
 			return [...acc, curr]
 		}
 		return acc

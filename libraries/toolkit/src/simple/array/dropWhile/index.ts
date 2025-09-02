@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -103,12 +104,12 @@ const dropWhile = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
 	const dropIndex = array.findIndex((element, index) =>
-		!predicate(element, index, array)
+		not(predicate(element, index, array))
 	)
 
 	return dropIndex === -1 ? [] : array.slice(dropIndex)

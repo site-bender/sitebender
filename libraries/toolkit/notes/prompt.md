@@ -107,7 +107,35 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-01) - Part 5
+### Current Session (2025-09-02) - Part 6
+**Progress Made:**
+- ✅ Tested 3 more array functions following full audit checklist:
+  1. **dropRepeatsWith** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Replaced `!` operator with `not()` function
+     - Comprehensive tests with property-based testing
+     - Tests cover various comparator behaviors
+  2. **dropWhile** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Replaced `!` operator with `not()` function
+     - Tests include predicate with index and array parameters
+     - Property-based tests verify behavior
+  3. **endsWith** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` checks after `isNullish`
+     - Replaced `!` operator with `not()` function
+     - Corrected JSDoc to mention Object.is (SameValue) not SameValueZero
+     - Tests cover Object.is behavior with NaN, +0/-0
+
+**Common Issues Fixed:**
+- Redundant `!Array.isArray` checks after `isNullish` (all 3 functions)
+- Missing use of `not()` function instead of `!` operator (all 3 functions)
+- Incorrect documentation about equality semantics in endsWith
+
+**Testing Progress Update:**
+- 114 functions now have 100% coverage (was 111)
+- Current progress: ~13.0% (114/874 functions)
+
+### Previous Session (2025-09-01) - Part 5
 **Progress Made:**
 - ✅ Tested 3 more array functions following full audit checklist:
   1. **difference** - 100% coverage achieved
