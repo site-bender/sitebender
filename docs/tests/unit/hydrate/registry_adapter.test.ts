@@ -1,9 +1,9 @@
-import { assertEquals } from "jsr:@std/assert"
 import {
-	setVizAdapter,
 	getVizAdapter,
+	setVizAdapter,
 	vizNoopAdapter,
 } from "@sitebender/components/index.ts"
+import { assertEquals } from "jsr:@std/assert"
 
 Deno.test("registry viz adapter is preferred over noop in docs hydrate", async () => {
 	// Save previous globals and adapter
@@ -24,7 +24,6 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 		querySelectorAll: (_: string) => els,
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
-
 	;(g as any).document = fakeDocument
 	;(g as any).window = {}
 
@@ -47,9 +46,8 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 	// The custom registry adapter should have run, not the noop fallback
 	for (const el of els) {
 		assertEquals(el.dataset.vizHydrated, "custom")
-	}
+	} // Restore globals and adapter (fallback to noop if none was set)
 
-	// Restore globals and adapter (fallback to noop if none was set)
 	;(g as any).document = prevDoc
 	;(g as any).window = prevWin
 	if (prevAdapter) setVizAdapter(prevAdapter)

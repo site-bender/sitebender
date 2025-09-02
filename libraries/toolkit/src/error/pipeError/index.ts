@@ -1,4 +1,4 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 import createError from "../createError/index.ts"
@@ -45,7 +45,7 @@ const pipeError =
 	<TOp extends string>(operation: TOp) =>
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(message: string) =>
-	<T extends AdaptiveError<TOp, TArgs>>(
+	<T extends EngineError<TOp, TArgs>>(
 		...transforms: Array<(error: T) => T>
 	): T => {
 		const initialError = createError(operation)(args)(message)() as T

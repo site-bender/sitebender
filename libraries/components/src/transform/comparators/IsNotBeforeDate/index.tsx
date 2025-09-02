@@ -1,7 +1,4 @@
-import type {
-	IsNotBeforeDateComparator,
-	Operand,
-} from "@engineTypes/index.ts"
+import type { IsNotBeforeDateComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsNotBeforeDate JSX Component

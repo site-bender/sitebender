@@ -1,5 +1,3 @@
-
-
 // Simple demo: a form that updates the URL query string on submit via engine
 export default function Demo() {
 	return (

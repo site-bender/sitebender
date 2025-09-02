@@ -1,5 +1,5 @@
-import levenshtein from "../levenshtein/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import levenshtein from "../levenshtein/index.ts"
 
 /**
  * Calculates similarity percentage between two strings

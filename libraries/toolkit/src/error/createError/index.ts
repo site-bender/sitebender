@@ -1,4 +1,4 @@
-import type { AdaptiveError, ErrorCode } from "../../types/error/index.ts"
+import type { EngineError, ErrorCode } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 /**
@@ -13,7 +13,7 @@ import type { Value } from "../../types/index.ts"
  * @param args - All arguments passed to the operation (in order)
  * @param message - Human-readable error message
  * @param code - Machine-readable error code (defaults to "OPERATION_FAILED")
- * @returns Immutable AdaptiveError object
+ * @returns Immutable EngineError object
  * @example
  * ```typescript
  * // Basic usage
@@ -31,7 +31,7 @@ const createError =
 	<TOp extends string>(operation: TOp) =>
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(message: string) =>
-	(code: ErrorCode = "OPERATION_FAILED"): AdaptiveError<TOp, TArgs> => ({
+	(code: ErrorCode = "OPERATION_FAILED"): EngineError<TOp, TArgs> => ({
 		name: `${operation}Error` as `${TOp}Error`,
 		operation,
 		args,

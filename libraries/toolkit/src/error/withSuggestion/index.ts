@@ -1,4 +1,4 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 /**
@@ -33,8 +33,8 @@ import type { Value } from "../../types/index.ts"
 const withSuggestion =
 	(suggestion: string) =>
 	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
-		error: AdaptiveError<TOp, TArgs>,
-	): AdaptiveError<TOp, TArgs> => ({
+		error: EngineError<TOp, TArgs>,
+	): EngineError<TOp, TArgs> => ({
 		...error,
 		suggestion,
 	})

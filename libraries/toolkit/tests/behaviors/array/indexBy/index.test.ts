@@ -169,12 +169,17 @@ Deno.test("indexBy", async (t) => {
 			{ key: -Infinity, value: "negative infinity" },
 			{ key: NaN, value: "not a number" },
 		]
-		const result = indexBy((item: { key: number; value: string }) => item.key)(items)
+		const result = indexBy((item: { key: number; value: string }) => item.key)(
+			items,
+		)
 
 		// 0 and -0 are the same key
 		assertEquals(result[0], { key: -0, value: "negative zero" })
 		assertEquals(result[Infinity], { key: Infinity, value: "infinity" })
-		assertEquals(result[-Infinity], { key: -Infinity, value: "negative infinity" })
+		assertEquals(result[-Infinity], {
+			key: -Infinity,
+			value: "negative infinity",
+		})
 		// NaN becomes "NaN" when used as object key
 		assertEquals(result.NaN, { key: NaN, value: "not a number" })
 	})
@@ -295,16 +300,19 @@ Deno.test("indexBy", async (t) => {
 		assertEquals(calls, [1, 2, 3, 4, 5])
 	})
 
-	await t.step("handles arrays with mixed types when key function works", () => {
-		const mixed = [1, "two", { three: 3 }, [4], null, undefined]
-		const result = indexBy((_: unknown, i: number) => i)(mixed)
-		assertEquals(result, {
-			0: 1,
-			1: "two",
-			2: { three: 3 },
-			3: [4],
-			4: null,
-			5: undefined,
-		})
-	})
+	await t.step(
+		"handles arrays with mixed types when key function works",
+		() => {
+			const mixed = [1, "two", { three: 3 }, [4], null, undefined]
+			const result = indexBy((_: unknown, i: number) => i)(mixed)
+			assertEquals(result, {
+				0: 1,
+				1: "two",
+				2: { three: 3 },
+				3: [4],
+				4: null,
+				5: undefined,
+			})
+		},
+	)
 })

@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
 
 import findMostCommon from "../../../../src/simple/array/findMostCommon/index.ts"
 
@@ -49,7 +49,10 @@ Deno.test("findMostCommon", async (t) => {
 	})
 
 	await t.step("handles null and undefined as values", () => {
-		assertEquals(findMostCommon([null, undefined, null, undefined, 1]), [null, undefined])
+		assertEquals(findMostCommon([null, undefined, null, undefined, 1]), [
+			null,
+			undefined,
+		])
 		assertEquals(findMostCommon([null, null, null, undefined]), [null])
 	})
 
@@ -111,7 +114,7 @@ Deno.test("findMostCommon", async (t) => {
 	await t.step("handles string arrays", () => {
 		const words = "the quick brown fox the".split(" ")
 		assertEquals(findMostCommon(words), ["the"])
-		
+
 		const letters = "aabbccdddeee".split("")
 		assertEquals(findMostCommon(letters), ["d", "e"])
 	})
@@ -119,7 +122,7 @@ Deno.test("findMostCommon", async (t) => {
 	await t.step("handles complex tie scenarios", () => {
 		// Multiple groups with same frequency
 		assertEquals(findMostCommon([1, 1, 2, 2, 3, 3, 4, 5]), [1, 2, 3])
-		
+
 		// All elements appear exactly twice
 		assertEquals(findMostCommon([5, 3, 1, 3, 5, 1]), [5, 3, 1])
 	})
@@ -131,7 +134,7 @@ Deno.test("findMostCommon", async (t) => {
 				fc.property(fc.array(fc.anything()), (arr) => {
 					const result = findMostCommon(arr)
 					if (arr.length === 0) return result.length === 0
-					
+
 					// Every element in result exists in original array
 					return result.every((item) => {
 						// Use Set's has method which uses SameValueZero
@@ -151,15 +154,15 @@ Deno.test("findMostCommon", async (t) => {
 					fc.array(fc.integer({ min: 0, max: 20 }), { minLength: 1 }),
 					(arr) => {
 						const result = findMostCommon(arr)
-						
+
 						// Calculate frequencies
 						const freq = new Map<number, number>()
 						arr.forEach((item) => {
 							freq.set(item, (freq.get(item) || 0) + 1)
 						})
-						
+
 						const maxFreq = Math.max(...freq.values())
-						
+
 						// All result elements should have max frequency
 						return result.every((item) => freq.get(item) === maxFreq)
 					},
@@ -176,15 +179,15 @@ Deno.test("findMostCommon", async (t) => {
 					fc.array(fc.integer({ min: 0, max: 20 }), { minLength: 1 }),
 					(arr) => {
 						const result = findMostCommon(arr)
-						
+
 						// Calculate frequencies
 						const freq = new Map<number, number>()
 						arr.forEach((item) => {
 							freq.set(item, (freq.get(item) || 0) + 1)
 						})
-						
+
 						const maxFreq = Math.max(...freq.values())
-						
+
 						// Find all elements with max frequency
 						const expectedSet = new Set<number>()
 						freq.forEach((count, item) => {
@@ -192,7 +195,7 @@ Deno.test("findMostCommon", async (t) => {
 								expectedSet.add(item)
 							}
 						})
-						
+
 						const resultSet = new Set(result)
 						return expectedSet.size === resultSet.size
 					},
@@ -210,7 +213,7 @@ Deno.test("findMostCommon", async (t) => {
 					(arr) => {
 						const result = findMostCommon(arr)
 						if (result.length <= 1) return true
-						
+
 						// Check that result preserves first occurrence order
 						const firstIndices = new Map<number, number>()
 						arr.forEach((item, index) => {
@@ -218,7 +221,7 @@ Deno.test("findMostCommon", async (t) => {
 								firstIndices.set(item, index)
 							}
 						})
-						
+
 						for (let i = 0; i < result.length - 1; i++) {
 							const index1 = firstIndices.get(result[i]) ?? Infinity
 							const index2 = firstIndices.get(result[i + 1]) ?? Infinity
@@ -244,7 +247,7 @@ Deno.test("findMostCommon", async (t) => {
 			fc.assert(
 				fc.property(fc.anything(), (item) => {
 					const result = findMostCommon([item])
-					return result.length === 1 && 
+					return result.length === 1 &&
 						Object.is(result[0], item) // Use Object.is for NaN comparison
 				}),
 			)

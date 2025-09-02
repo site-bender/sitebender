@@ -1,6 +1,6 @@
+import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
-import * as fc from "fast-check"
 
 import flatMap from "../../../../src/simple/array/flatMap/index.ts"
 
@@ -60,7 +60,11 @@ describe("flatMap", () => {
 	})
 
 	it("provides array to mapper function", () => {
-		const withArray = (x: number, _: number, arr: Array<number>) => [x, arr.length]
+		const withArray = (
+			x: number,
+			_: number,
+			arr: Array<number>,
+		) => [x, arr.length]
 		const result = flatMap(withArray)([1, 2, 3])
 		assertEquals(result, [1, 3, 2, 3, 3, 3])
 	})
@@ -72,7 +76,7 @@ describe("flatMap", () => {
 	})
 
 	it("handles null and undefined in arrays", () => {
-		const handleNull = (x: number | null | undefined): Array<number | string> => 
+		const handleNull = (x: number | null | undefined): Array<number | string> =>
 			x === null ? ["null"] : x === undefined ? ["undefined"] : [x]
 		const result = flatMap(handleNull)([1, null, undefined, 2])
 		assertEquals(result, [1, "null", "undefined", 2])
@@ -84,7 +88,7 @@ describe("flatMap", () => {
 		const people: Array<Person> = [
 			{ name: "Alice", pets: ["cat", "dog"] },
 			{ name: "Bob", pets: [] },
-			{ name: "Charlie", pets: ["fish"] }
+			{ name: "Charlie", pets: ["fish"] },
 		]
 		const result = flatMap(getPets)(people)
 		assertEquals(result, ["cat", "dog", "fish"])
@@ -141,9 +145,9 @@ describe("flatMap", () => {
 						const identity = <T>(x: T) => [x]
 						const result = flatMap(identity)(arr)
 						assertEquals(result, arr)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -154,9 +158,9 @@ describe("flatMap", () => {
 					(f) => {
 						const result = flatMap(f)([])
 						assertEquals(result, [])
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -169,9 +173,9 @@ describe("flatMap", () => {
 						const result = flatMap(repeat)(arr)
 						const expectedLength = arr.reduce((sum, n) => sum + n, 0)
 						assertEquals(result.length, expectedLength)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -182,16 +186,16 @@ describe("flatMap", () => {
 					(arr) => {
 						const tagAndDouble = (n: number, i: number) => [`${i}-a`, `${i}-b`]
 						const result = flatMap(tagAndDouble)(arr)
-						
+
 						// Check that items from earlier indices come before items from later indices
 						for (let i = 0; i < result.length - 2; i += 2) {
 							const currentIndex = parseInt(result[i].split("-")[0])
 							const nextIndex = parseInt(result[i + 2].split("-")[0])
 							assert(currentIndex <= nextIndex)
 						}
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -205,10 +209,10 @@ describe("flatMap", () => {
 						const constantFunc = () => [constant]
 						const result = flatMap(constantFunc)(arr)
 						assertEquals(result.length, arr.length)
-						result.forEach(item => assertEquals(item, constant))
-					}
+						result.forEach((item) => assertEquals(item, constant))
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns array of elements that appear more than once
@@ -41,11 +41,11 @@ const findDuplicates = <T>(
 		duplicates: Array<{ item: T; firstIndex: number }>
 		processedDuplicates: Set<T>
 	}
-	
+
 	const result = array.reduce<AccType>(
 		(acc, item, index) => {
 			const seenIndex = acc.seen.get(item)
-			
+
 			if (seenIndex !== undefined) {
 				// Item has been seen before
 				if (not(acc.processedDuplicates.has(item))) {
@@ -57,7 +57,7 @@ const findDuplicates = <T>(
 				// First occurrence of this item
 				acc.seen.set(item, index)
 			}
-			
+
 			return acc
 		},
 		{
@@ -66,7 +66,7 @@ const findDuplicates = <T>(
 			processedDuplicates: new Set(),
 		},
 	)
-	
+
 	// Sort by first occurrence index and extract items
 	return result.duplicates
 		.sort((a, b) => a.firstIndex - b.firstIndex)

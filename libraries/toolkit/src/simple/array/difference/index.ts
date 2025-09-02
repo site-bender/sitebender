@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Returns elements in the first array that are not in the second array
@@ -7,7 +7,6 @@ import not from "../../logic/not/index.ts"
  * Performs a set difference operation, returning a new array containing
  * only the elements from the first array that don't appear in the second.
  * Uses strict equality (===) for comparison by default.
- *
  *
  * @param subtrahend - Array of elements to exclude
  * @param minuend - Array to filter elements from

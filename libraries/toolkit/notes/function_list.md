@@ -1,16 +1,16 @@
 # Function List for the toolkit library
 
-**Testing Progress: 14.3% (125/874 functions with 100% coverage)**
+**Testing Progress: 14.9% (130/874 functions with 100% coverage)**
 
 **Estimated Time to Completion**: ~150 hours
 
-- **Remaining functions**: 749 (874 total - 125 completed)
+- **Remaining functions**: 744 (874 total - 130 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~151 hours
-- **At 8 hours/day**: ~18.9 working days
-- **Last updated**: 2025-09-02  
-- **Session progress**: Fixed type error in all test, tested groupWith, indexBy, and intersection functions. All achieved 100% coverage.
+- **Hours remaining**: ~149 hours
+- **At 8 hours/day**: ~18.6 working days
+- **Last updated**: 2025-09-02
+- **Session progress**: Tested intersectionWith, interleave, intersperse, join, and lastIndexOfMatch functions. All achieved 100% coverage.
 
 ## Current Functions (874 functions total)
 
@@ -56,14 +56,14 @@
 - init - Returns all elements except the last one ✓
 - insertAt - Inserts element at specified index ✓
 - intersection - Returns elements that exist in both arrays ✓
-- intersectionWith - Like intersection but uses a comparator function
-- interleave - Alternate elements from multiple arrays
-- intersperse - Inserts separator between array elements
+- intersectionWith - Like intersection but uses a comparator function ✓
+- interleave - Alternate elements from multiple arrays ✓
+- intersperse - Inserts separator between array elements ✓
 - isEmpty - Checks if array is empty ✓
-- join - Joins array elements into string
+- join - Joins array elements into string ✓
 - last - Returns last element of array ✓
 - lastIndexOf - Returns index of last occurrence of element ✓
-- lastIndexOfMatch - Returns index of last element matching predicate
+- lastIndexOfMatch - Returns index of last element matching predicate ✓
 - map - Maps function over array elements ✓
 - mapAccum - Combines map and reduce, returning both accumulated value and mapped array
 - mapAccumRight - Like mapAccum but processes the array from right to left

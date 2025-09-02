@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import radiansToDegrees from "../../trigonometry/radiansToDegrees/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import dotProduct from "../dotProduct/index.ts"
 import magnitude from "../magnitude/index.ts"
 

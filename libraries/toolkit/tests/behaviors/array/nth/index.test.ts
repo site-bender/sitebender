@@ -52,7 +52,7 @@ Deno.test("nth - null and undefined inputs", () => {
 	assertEquals(nth(0)(null), undefined)
 	assertEquals(nth(1)(null), undefined)
 	assertEquals(nth(-1)(null), undefined)
-	
+
 	assertEquals(nth(0)(undefined), undefined)
 	assertEquals(nth(1)(undefined), undefined)
 	assertEquals(nth(-1)(undefined), undefined)
@@ -72,18 +72,18 @@ Deno.test("nth - JSDoc examples", () => {
 	// Basic access
 	assertEquals(nth(1)([1, 2, 3]), 2)
 	assertEquals(nth(0)(["a", "b", "c"]), "a")
-	
+
 	// Negative indices (from end)
 	assertEquals(nth(-1)([1, 2, 3]), 3) // last element
 	assertEquals(nth(-2)([1, 2, 3, 4]), 3) // second to last
-	
+
 	// Access specific positions
 	const getSecond = nth(1)
 	assertEquals(getSecond(["first", "second", "third"]), "second")
-	
+
 	const getLast = nth(-1)
 	assertEquals(getLast([10, 20, 30]), 30)
-	
+
 	// Edge cases
 	assertEquals(nth(10)([1, 2, 3]), undefined) // out of bounds
 	assertEquals(nth(0)([]), undefined)

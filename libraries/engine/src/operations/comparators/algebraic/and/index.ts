@@ -1,9 +1,9 @@
 import { isLeft, isRight } from "@engineTypes/index.ts"
 
 import type {
-	EngineError,
 	ComparatorConfig,
 	Either,
+	EngineError,
 	LocalValues,
 	LogicalConfig,
 	OperationFunction,

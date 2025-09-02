@@ -22,11 +22,11 @@ Deno.test("last - edge cases", () => {
 	// Two elements
 	assertEquals(last([1, 2]), 2)
 	assertEquals(last(["first", "second"]), "second")
-	
+
 	// Null and undefined inputs
 	assertEquals(last(null), undefined)
 	assertEquals(last(undefined), undefined)
-	
+
 	// Non-array inputs (testing the !Array.isArray branch)
 	assertEquals(last("not an array" as any), undefined)
 	assertEquals(last(123 as any), undefined)
@@ -43,10 +43,10 @@ Deno.test("last - JSDoc examples", () => {
 	assertEquals(last([1, 2, 3]), 3)
 	assertEquals(last(["a", "b", "c"]), "c")
 	assertEquals(last([42]), 42)
-	
+
 	// Objects
 	assertEquals(last([{ id: 1 }, { id: 2 }]), { id: 2 })
-	
+
 	// Edge cases
 	assertEquals(last([]), undefined)
 	assertEquals(last(null), undefined)

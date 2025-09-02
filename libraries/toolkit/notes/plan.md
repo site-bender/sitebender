@@ -13,6 +13,7 @@
 ### Why One Function at a Time?
 
 Previous batching attempts have failed because:
+
 1. **Cascading errors** - One bad assumption affects multiple functions
 2. **Hard to debug** - When tests fail, it's unclear which change caused it
 3. **Quality suffers** - Rushing through multiple functions leads to shallow tests
@@ -29,17 +30,20 @@ Previous batching attempts have failed because:
 ## Testing Order Strategy
 
 ### Phase 1A: Foundation Functions (Critical Path)
+
 These are used by many other functions and must be rock-solid:
 
 #### Validation Predicates (Week 1)
+
 - `isNullish` - Used everywhere for null/undefined checks
 - `isEmpty` (string) - Critical for string validation
-- `isEmpty` (array) - Critical for array validation  
+- `isEmpty` (array) - Critical for array validation
 - `isEmpty` (object) - Critical for object validation
 - `isValue` - Type guard for non-nullish values
 - `not` - Negation combinator used widely
 
 #### Basic Combinators (Week 1)
+
 - `identity` - Used in many FP patterns
 - `constant` - Factory for constant functions
 - `compose` - Function composition
@@ -50,14 +54,17 @@ These are used by many other functions and must be rock-solid:
 ### Phase 1B: Core Operations (Weeks 2-3)
 
 #### Array Fundamentals
+
 Start with read-only operations before mutations:
+
 - `concat`, `concatTo` - Combining arrays
 - `slice`, `take`, `drop` - Extracting portions
 - `includes`, `indexOf` - Searching
 - `every`, `some` - Predicates
 - `unique`, `nub` - Deduplication
 
-#### String Fundamentals  
+#### String Fundamentals
+
 - `trim`, `trimStart`, `trimEnd` - Whitespace
 - `toLowerCase`, `toUpperCase` - Case conversion
 - `split`, `join` - Parsing/formatting
@@ -67,18 +74,21 @@ Start with read-only operations before mutations:
 ### Phase 1C: Domain Functions (Weeks 3-6)
 
 #### Math Operations
+
 - Basic arithmetic that others depend on
 - Statistical functions (mean, median, etc.)
 - Geometric calculations
 - Financial computations
 
 #### Temporal Functions (Complex - Week 4-5)
+
 - Start with formatters and parsers
 - Move to arithmetic operations
 - Handle timezone edge cases carefully
 - May need extensive testing time
 
 #### Validators (Week 5-6)
+
 - Email, URL, phone validation
 - IP addresses (v4 and v6)
 - Credit cards, postal codes
@@ -87,16 +97,19 @@ Start with read-only operations before mutations:
 ### Phase 1D: Advanced Patterns (Weeks 6-8)
 
 #### FP Types (Either/Maybe/Result/IO)
+
 - Test monadic laws
 - Composition patterns
 - Error propagation
 
 #### Async Operations
+
 - Promises and error handling
 - Retry logic and timeouts
 - Parallel operations
 
 #### Event System
+
 - Bus creation and destruction
 - Subscription management
 - Cross-tab messaging
@@ -134,6 +147,7 @@ Start with read-only operations before mutations:
 ## Quality Checklist for Each Function
 
 ### Code Quality
+
 - [ ] Imports at top (above JSDoc)
 - [ ] Default export only
 - [ ] Curried where appropriate
@@ -142,6 +156,7 @@ Start with read-only operations before mutations:
 - [ ] Types in types/ folder
 
 ### Test Quality
+
 - [ ] Tests all parameters
 - [ ] Tests edge cases (empty, null, undefined)
 - [ ] Tests error conditions
@@ -150,6 +165,7 @@ Start with read-only operations before mutations:
 - [ ] Follows existing patterns
 
 ### Coverage Quality
+
 - [ ] 100% line coverage
 - [ ] 100% branch coverage
 - [ ] 100% function coverage
@@ -188,6 +204,7 @@ Start with read-only operations before mutations:
 ## Progress Tracking
 
 ### Metrics to Track
+
 - Functions tested per session
 - Average time per function
 - Coverage percentage achieved
@@ -195,6 +212,7 @@ Start with read-only operations before mutations:
 - Issues found and fixed
 
 ### Weekly Goals
+
 - Week 1: Foundation functions (15-20 functions)
 - Week 2-3: Core operations (40-50 functions)
 - Week 4-6: Domain functions (60-80 functions)
@@ -203,6 +221,7 @@ Start with read-only operations before mutations:
 Total: ~200 functions in 8 weeks of focused work
 
 ### Adjustments
+
 - If a function takes >1 hour, stop and discuss
 - If patterns emerge, document for efficiency
 - If blockers found, prioritize unblocking
@@ -211,6 +230,7 @@ Total: ~200 functions in 8 weeks of focused work
 ## Success Criteria
 
 A function is "done" when:
+
 1. ✅ Function code is correct and FP-compliant
 2. ✅ 100% test coverage achieved
 3. ✅ All tests pass
@@ -222,15 +242,19 @@ A function is "done" when:
 ## Notes for Future Sessions
 
 ### Patterns Discovered
+
 (To be filled in as we progress)
 
 ### Functions with Special Considerations
+
 (To be filled in as we discover edge cases)
 
 ### Time-Saving Techniques
+
 (To be documented as we develop them)
 
 ### Common Test Patterns
+
 (To be extracted and reused)
 
 ---

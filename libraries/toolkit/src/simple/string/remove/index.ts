@@ -50,7 +50,9 @@ const remove = (
 		return ""
 	}
 
-	if (isNullish(substring) || typeof substring !== "string" || substring === "") {
+	if (
+		isNullish(substring) || typeof substring !== "string" || substring === ""
+	) {
 		return str
 	}
 

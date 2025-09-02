@@ -1,5 +1,6 @@
-import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "fast-check"
+import { assertEquals } from "jsr:@std/assert@1.0.8"
+
 import dropWhile from "../../../../src/simple/array/dropWhile/index.ts"
 
 Deno.test("dropWhile", async (t) => {
@@ -20,11 +21,14 @@ Deno.test("dropWhile", async (t) => {
 		assertEquals(dropWhile(lessThan5)([2, 3, 4, 5, 6]), [5, 6])
 	})
 
-	await t.step("should keep all elements if predicate is initially false", () => {
-		const lessThan5 = (x: number) => x < 5
-		assertEquals(dropWhile(lessThan5)([10, 20, 30]), [10, 20, 30])
-		assertEquals(dropWhile(lessThan5)([5, 1, 2, 3]), [5, 1, 2, 3])
-	})
+	await t.step(
+		"should keep all elements if predicate is initially false",
+		() => {
+			const lessThan5 = (x: number) => x < 5
+			assertEquals(dropWhile(lessThan5)([10, 20, 30]), [10, 20, 30])
+			assertEquals(dropWhile(lessThan5)([5, 1, 2, 3]), [5, 1, 2, 3])
+		},
+	)
 
 	await t.step("should drop all elements if predicate is always true", () => {
 		const alwaysTrue = () => true
@@ -45,8 +49,11 @@ Deno.test("dropWhile", async (t) => {
 	})
 
 	await t.step("should work with predicate using array", () => {
-		const lessThanHalfLength = (_x: number, i: number, arr: ReadonlyArray<number>) =>
-			i < arr.length / 2
+		const lessThanHalfLength = (
+			_x: number,
+			i: number,
+			arr: ReadonlyArray<number>,
+		) => i < arr.length / 2
 		assertEquals(dropWhile(lessThanHalfLength)([1, 2, 3, 4]), [3, 4])
 		assertEquals(dropWhile(lessThanHalfLength)([1, 2, 3, 4, 5, 6]), [4, 5, 6])
 	})
@@ -58,7 +65,7 @@ Deno.test("dropWhile", async (t) => {
 			dropWhile(isSpace)(chars),
 			["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"],
 		)
-		
+
 		const startsWithHash = (s: string) => s.startsWith("#")
 		assertEquals(
 			dropWhile(startsWithHash)([
@@ -98,8 +105,7 @@ Deno.test("dropWhile", async (t) => {
 			valid: boolean
 			timestamp: number
 		}
-		const isInvalid = (entry: Entry) =>
-			!entry.valid || entry.timestamp < 1000
+		const isInvalid = (entry: Entry) => !entry.valid || entry.timestamp < 1000
 		const entries: Entry[] = [
 			{ valid: false, timestamp: 500 },
 			{ valid: true, timestamp: 800 },
@@ -171,7 +177,7 @@ Deno.test("dropWhile", async (t) => {
 		assertEquals(dropZeros([0, 0, 0, 1, 2, 0, 3]), [1, 2, 0, 3])
 		assertEquals(dropZeros([1, 2, 3]), [1, 2, 3])
 		assertEquals(dropZeros([0, 0, 0]), [])
-		
+
 		const dropUntilLarge = dropWhile((x: number) => x < 100)
 		assertEquals(dropUntilLarge([10, 50, 150, 30, 200]), [150, 30, 200])
 		assertEquals(dropUntilLarge([200, 50, 10]), [200, 50, 10])
@@ -185,7 +191,7 @@ Deno.test("dropWhile", async (t) => {
 				(arr, predicateFn) => {
 					const predicate = (x: number) => predicateFn(x)
 					const result = dropWhile(predicate)(arr)
-					
+
 					// Result should be a suffix of original
 					if (result.length === 0) return true
 					const startIndex = arr.length - result.length
@@ -195,20 +201,23 @@ Deno.test("dropWhile", async (t) => {
 		)
 	})
 
-	await t.step("property: if first element fails predicate, entire array is returned", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer(), { minLength: 1 }),
-				(arr) => {
-					// Predicate that always fails for first element
-					const predicate = (x: number) => x !== arr[0]
-					const result = dropWhile(predicate)(arr)
-					return result.length === arr.length &&
-						result.every((v, i) => v === arr[i])
-				},
-			),
-		)
-	})
+	await t.step(
+		"property: if first element fails predicate, entire array is returned",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer(), { minLength: 1 }),
+					(arr) => {
+						// Predicate that always fails for first element
+						const predicate = (x: number) => x !== arr[0]
+						const result = dropWhile(predicate)(arr)
+						return result.length === arr.length &&
+							result.every((v, i) => v === arr[i])
+					},
+				),
+			)
+		},
+	)
 
 	await t.step("property: predicate always true drops all elements", () => {
 		fc.assert(
@@ -241,48 +250,54 @@ Deno.test("dropWhile", async (t) => {
 		)
 	})
 
-	await t.step("property: result never starts with element satisfying predicate", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.integer()),
-				fc.func(fc.boolean()),
-				(arr, predicateFn) => {
-					const predicate = (x: number) => predicateFn(x)
-					const result = dropWhile(predicate)(arr)
-					
-					// If result is non-empty, first element should not satisfy predicate
-					if (result.length > 0) {
-						return !predicate(result[0])
+	await t.step(
+		"property: result never starts with element satisfying predicate",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.func(fc.boolean()),
+					(arr, predicateFn) => {
+						const predicate = (x: number) => predicateFn(x)
+						const result = dropWhile(predicate)(arr)
+
+						// If result is non-empty, first element should not satisfy predicate
+						if (result.length > 0) {
+							return !predicate(result[0])
+						}
+						return true
+					},
+				),
+			)
+		},
+	)
+
+	await t.step(
+		"property: predicate is never called after returning false",
+		() => {
+			fc.assert(
+				fc.property(fc.array(fc.integer()), (arr) => {
+					let callCount = 0
+					let firstFalseIndex = -1
+
+					const predicate = (x: number, index: number) => {
+						callCount++
+						const result = x < 50
+						if (!result && firstFalseIndex === -1) {
+							firstFalseIndex = index
+						}
+						return result
+					}
+
+					dropWhile(predicate)(arr)
+
+					// Predicate should be called at most until first false + 1
+					if (firstFalseIndex !== -1) {
+						return callCount <= firstFalseIndex + 1
 					}
 					return true
-				},
-			),
-		)
-	})
-
-	await t.step("property: predicate is never called after returning false", () => {
-		fc.assert(
-			fc.property(fc.array(fc.integer()), (arr) => {
-				let callCount = 0
-				let firstFalseIndex = -1
-				
-				const predicate = (x: number, index: number) => {
-					callCount++
-					const result = x < 50
-					if (!result && firstFalseIndex === -1) {
-						firstFalseIndex = index
-					}
-					return result
-				}
-				
-				dropWhile(predicate)(arr)
-				
-				// Predicate should be called at most until first false + 1
-				if (firstFalseIndex !== -1) {
-					return callCount <= firstFalseIndex + 1
-				}
-				return true
-			}),
-		)
-	})
+				}),
+			)
+		},
+	)
 })

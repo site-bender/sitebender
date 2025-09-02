@@ -1,4 +1,4 @@
-# Plan: MCP integration for docs/jsxer
+# Plan: MCP integration for docs/inspector
 
 ## Goals
 - Safe, minimal read-only assistance via MCP.

@@ -1,6 +1,6 @@
 import type {
-	EngineError,
 	ComparatorConfig,
+	EngineError,
 	LogicalConfig,
 	Operand,
 	OperationFunction,

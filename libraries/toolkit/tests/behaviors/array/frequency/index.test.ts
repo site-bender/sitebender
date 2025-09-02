@@ -1,6 +1,6 @@
+import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
-import * as fc from "fast-check"
 
 import frequency from "../../../../src/simple/array/frequency/index.ts"
 
@@ -180,9 +180,9 @@ describe("frequency", () => {
 						const freq = frequency(arr)
 						const sum = Array.from(freq.values()).reduce((a, b) => a + b, 0)
 						assertEquals(sum, arr.length)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -192,13 +192,13 @@ describe("frequency", () => {
 					fc.array(fc.anything(), { minLength: 1 }),
 					(arr) => {
 						const freq = frequency(arr)
-						Array.from(freq.values()).forEach(count => {
+						Array.from(freq.values()).forEach((count) => {
 							assert(Number.isInteger(count))
 							assert(count > 0)
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -210,9 +210,9 @@ describe("frequency", () => {
 						const freq = frequency(arr)
 						const uniqueElements = new Set(arr)
 						assertEquals(freq.size, uniqueElements.size)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -230,9 +230,9 @@ describe("frequency", () => {
 						const result = frequency([element])
 						assertEquals(result.size, 1)
 						assertEquals(result.get(element), 1)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -244,11 +244,12 @@ describe("frequency", () => {
 						if (arr.length === 0) return
 						const freq = frequency(arr)
 						const testElement = arr[0]
-						const expectedCount = arr.filter(x => Object.is(x, testElement)).length
+						const expectedCount =
+							arr.filter((x) => Object.is(x, testElement)).length
 						assertEquals(freq.get(testElement), expectedCount)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

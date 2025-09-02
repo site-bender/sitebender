@@ -1,9 +1,6 @@
-import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
+import type { EventBindingNode, IrDocument } from "@engineTypes/ir/index.ts"
 
-import type {
-	EventBindingNode,
-	IrDocument,
-} from "@engineTypes/ir/index.ts"
+import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"

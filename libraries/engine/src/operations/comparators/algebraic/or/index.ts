@@ -2,9 +2,9 @@ import { isLeft, isRight } from "@engineTypes/index.ts"
 import concat from "@toolkit/simple/array/concat/index.ts"
 
 import type {
-	EngineError,
 	ComparatorConfig,
 	Either,
+	EngineError,
 	LocalValues,
 	LogicalConfig,
 	OperationFunction,

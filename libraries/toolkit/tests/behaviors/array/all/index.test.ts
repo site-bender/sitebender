@@ -1,6 +1,6 @@
+import * as fc from "fast-check"
 import { assert, assertEquals, assertFalse } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
-import * as fc from "fast-check"
 
 import all from "../../../../src/simple/array/all/index.ts"
 
@@ -149,9 +149,9 @@ describe("all", () => {
 					(arr) => {
 						const result = all(() => true)(arr)
 						assertEquals(result, true)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -162,9 +162,9 @@ describe("all", () => {
 					(arr) => {
 						const result = all(() => false)(arr)
 						assertEquals(result, false)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -182,9 +182,9 @@ describe("all", () => {
 						const ourResult = all(predicate)(arr)
 						const nativeResult = arr.every(predicate)
 						assertEquals(ourResult, nativeResult)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -197,12 +197,12 @@ describe("all", () => {
 						const result = all(predicate)(arr)
 						if (!result) {
 							// At least one element should be >= 50
-							const hasFailing = arr.some(n => n >= 50)
+							const hasFailing = arr.some((n) => n >= 50)
 							assert(hasFailing)
 						}
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -215,11 +215,11 @@ describe("all", () => {
 						const result = all(predicate)(arr)
 						if (result) {
 							// Every element should be >= 0
-							arr.forEach(n => assert(n >= 0))
+							arr.forEach((n) => assert(n >= 0))
 						}
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -231,19 +231,19 @@ describe("all", () => {
 						let count = 0
 						const predicate = (n: number) => {
 							count++
-							return n < 1000  // Will pass for all elements in range
+							return n < 1000 // Will pass for all elements in range
 						}
-						
+
 						// Inject a failing element at index 2
 						const modifiedArr = [...arr]
-						modifiedArr[2] = 1001  // Will fail predicate
-						
+						modifiedArr[2] = 1001 // Will fail predicate
+
 						all(predicate)(modifiedArr)
 						// Should stop at index 2 (third element)
 						assertEquals(count, 3)
-					}
+					},
 				),
-				{ numRuns: 50 }
+				{ numRuns: 50 },
 			)
 		})
 	})

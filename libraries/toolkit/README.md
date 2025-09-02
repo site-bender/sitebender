@@ -49,9 +49,10 @@ await retry({ attempts: 3, delayMs: 100 })(() => fetch("/api"))
 
 **IMPORTANT**: Chainable functions will be implemented ONLY after achieving 100% test coverage, passing linter, and passing type checks for all existing functions.
 
-Goal: mirror every `simple` function in `chainable` with the same name and a Result/Either-powered signature for safe composition. 
+Goal: mirror every `simple` function in `chainable` with the same name and a Result/Either-powered signature for safe composition.
 
 Implementation approach (BDD/TDD):
+
 - Write tests first for each chainable function
 - See tests fail (red phase)
 - Implement the chainable function to make tests pass (green phase)
@@ -59,6 +60,7 @@ Implementation approach (BDD/TDD):
 - The `chainable/` folder structure will exactly mirror `simple/` - nothing outside `simple/` gets added
 
 Highlights:
+
 - Use Result as the default error carrier for ergonomic chaining
 - Reuse `simple` implementations internally; add only the error/context glue
 - Short-circuit on failure; preserve error context and types
@@ -75,6 +77,7 @@ Initial targets: core array ops (map/filter/reduce/flatMap), common string/parse
 ## Known issues and planned fixes (functions)
 
 ✅ All previously listed issues have been resolved:
+
 - Temporal format now has explicit `timeZoneMode` option for UTC vs local handling
 - URL validator correctly handles IPv6 localhost "[::1]" and "::1"
 - Form validation already delegates to `isEmail`/`isUrl` validators
@@ -100,7 +103,7 @@ The suite is behavior-first with property tests in key areas. Planned work:
 
 ## Status
 
-This library is in active evolution on the `phase-2` branch. 
+This library is in active evolution on the `phase-2` branch.
 
 Current priority (Phase 1): Achieve 100% test coverage for all existing functions with passing linter and type checks.
 

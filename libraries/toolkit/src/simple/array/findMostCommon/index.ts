@@ -1,5 +1,5 @@
-import isNullish from "../../validation/isNullish/index.ts"
 import not from "../../logic/not/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Finds the most frequently occurring element(s)
@@ -63,7 +63,7 @@ const findMostCommon = <T>(
 		.sort((a, b) => {
 			// deno-coverage-ignore - defensive fallback, logically unreachable
 			const indexA = firstOccurrence.get(a) ?? 0
-			// deno-coverage-ignore - defensive fallback, logically unreachable  
+			// deno-coverage-ignore - defensive fallback, logically unreachable
 			const indexB = firstOccurrence.get(b) ?? 0
 			return indexA - indexB
 		})

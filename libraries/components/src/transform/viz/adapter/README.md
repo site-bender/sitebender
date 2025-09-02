@@ -14,12 +14,12 @@ A Viz adapter is a tiny object used by the docs/app hydration to render charts.
 import { setVizAdapter } from "@sitebender/components"
 
 setVizAdapter({
-  hydrate(root) {
-    const scope = (root ?? document)
-    for (const el of scope.querySelectorAll('[data-viz]')) {
-      // render your chart into `el` here
-    }
-  }
+	hydrate(root) {
+		const scope = root ?? document
+		for (const el of scope.querySelectorAll("[data-viz]")) {
+			// render your chart into `el` here
+		}
+	},
 })
 ```
 

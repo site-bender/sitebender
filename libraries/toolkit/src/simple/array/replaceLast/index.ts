@@ -1,5 +1,4 @@
 import isNullish from "../../validation/isNullish/index.ts"
-
 import replaceAt from "../replaceAt/index.ts"
 
 /**

@@ -64,14 +64,14 @@ Deno.test("approximately: Infinity values", () => {
 Deno.test("approximately: null and undefined", () => {
 	// Both null
 	assertEquals(approximately(null, null), true)
-	
+
 	// Both undefined
 	assertEquals(approximately(undefined, undefined), true)
-	
+
 	// Mixed null/undefined
 	assertEquals(approximately(null, undefined), false)
 	assertEquals(approximately(undefined, null), false)
-	
+
 	// null/undefined with numbers
 	assertEquals(approximately(null, 0), false)
 	assertEquals(approximately(0, null), false)
@@ -96,7 +96,7 @@ Deno.test("approximately: very large numbers", () => {
 	assertEquals(approximately(large, large + 1e-11), true) // Within default epsilon
 	assertEquals(approximately(large, large + 1e-9), false) // Outside default epsilon
 	assertEquals(approximately(large, large * 2), false)
-	
+
 	// For truly huge numbers, use custom epsilon
 	const huge = 1e15
 	const bigEpsilon = 1000
@@ -153,7 +153,7 @@ Deno.test("approximately property: epsilon boundary", () => {
 	assertEquals(approximately(1, 1 - 1e-10, 1e-10), false)
 	assertEquals(approximately(0, 1e-10, 1e-10), false)
 	assertEquals(approximately(0, -1e-10, 1e-10), false)
-	
+
 	// Values just under epsilon apart SHOULD be equal
 	assertEquals(approximately(1, 1 + 9e-11, 1e-10), true)
 	assertEquals(approximately(1, 1 - 9e-11, 1e-10), true)
@@ -170,12 +170,12 @@ Deno.test("approximately property: within epsilon is approximately equal", () =>
 		{ a: 100, b: 100.00005, epsilon: 0.001 },
 		{ a: -100, b: -100.00005, epsilon: 0.001 },
 	]
-	
+
 	for (const { a, b, epsilon } of testCases) {
 		assertEquals(
 			approximately(a, b, epsilon),
 			true,
-			`Failed for a=${a}, b=${b}, epsilon=${epsilon}`
+			`Failed for a=${a}, b=${b}, epsilon=${epsilon}`,
 		)
 	}
 })
@@ -185,16 +185,16 @@ Deno.test("approximately property: within epsilon is approximately equal", () =>
 Deno.test("approximately: type coercion", () => {
 	// @ts-ignore - Testing runtime behavior with non-number types
 	assertEquals(approximately("1", "1"), true) // Both strings coerce to NaN, and NaN === NaN in this function
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(approximately(true, 1), false) // true !== 1 after coercion
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(approximately(false, 0), false) // false !== 0 after coercion
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(approximately({}, {}), false) // Objects don't pass null check and return false
-	
+
 	// @ts-ignore - Testing runtime behavior
 	assertEquals(approximately([], []), false) // Arrays don't pass null check and return false
 })
@@ -205,11 +205,11 @@ Deno.test("approximately: documentation examples", () => {
 	// Basic usage
 	assertEquals(approximately(1.0, 1.0 + 1e-11), true) // Within default epsilon
 	assertEquals(approximately(1.0, 1.1), false)
-	
+
 	// Custom epsilon
 	assertEquals(approximately(100, 100.5, 1), true) // 0.5 < 1
 	assertEquals(approximately(100, 100.5, 0.1), false)
-	
+
 	// Special cases
 	assertEquals(approximately(NaN, NaN), true)
 	assertEquals(approximately(Infinity, Infinity), true)

@@ -1,20 +1,20 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 import pipeError from "../pipeError/index.ts"
 import withCause from "../withCause/index.ts"
 
 /**
- * Converts a caught exception into an AdaptiveError
+ * Converts a caught exception into an EngineError
  *
- * Safely converts any thrown value into a properly typed AdaptiveError,
+ * Safely converts any thrown value into a properly typed EngineError,
  * preserving the original error as the cause and extracting its message.
  *
  * @curried (operation) => (args) => (exception) => error
  * @param operation - The operation that threw
  * @param args - Arguments passed to the operation
  * @param exception - The caught exception (any thrown value)
- * @returns AdaptiveError with exception details
+ * @returns EngineError with exception details
  * @example
  * ```typescript
  * // In a catch block
@@ -46,7 +46,7 @@ import withCause from "../withCause/index.ts"
 const fromException =
 	<TOp extends string>(operation: TOp) =>
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
-	(exception: unknown): AdaptiveError<TOp, TArgs> => {
+	(exception: unknown): EngineError<TOp, TArgs> => {
 		const err = exception instanceof Error
 			? exception
 			: new Error(String(exception))

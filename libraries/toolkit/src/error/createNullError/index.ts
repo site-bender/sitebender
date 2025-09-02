@@ -1,8 +1,8 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
-import createError from "../createError/index.ts"
 import isNull from "../../simple/validation/isNull/index.ts"
+import createError from "../createError/index.ts"
 
 /**
  * Creates a null/undefined input error with full context
@@ -40,13 +40,13 @@ const createNullError =
 	<TOp extends string>(operation: TOp) =>
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(argIndex: number) =>
-	(argName: string): AdaptiveError<TOp, TArgs> => {
+	(argName: string): EngineError<TOp, TArgs> => {
 		const actualType = isNull(args[argIndex]) ? "null" : "undefined"
 
 		// Build the error directly to avoid type issues with pipeError
 		const baseError = createError(operation)(args)(
 			`${operation}: Unexpected null/undefined for ${argName}`,
-		)("NULL_INPUT") as AdaptiveError<TOp, TArgs>
+		)("NULL_INPUT") as EngineError<TOp, TArgs>
 
 		return {
 			...baseError,

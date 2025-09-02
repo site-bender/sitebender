@@ -1,7 +1,9 @@
-import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
-import createElement from "~utilities/createElement/index.ts"
+import { describe, it } from "@std/testing/bdd"
+
 import Person from "~components/semantics/Person/index.tsx"
+
+import createElement from "~utilities/createElement/index.ts"
 
 function render(node: unknown): string {
 	// Extremely small renderer for our createElement shape used in docs
@@ -9,20 +11,34 @@ function render(node: unknown): string {
 	if (typeof node === "string") return node
 	if (typeof node === "number") return String(node)
 	if (node && typeof node === "object" && "type" in node && "props" in node) {
-		const { type, props } = node as { type: string; props: Record<string, unknown> }
+		const { type, props } = node as {
+			type: string
+			props: Record<string, unknown>
+		}
 		const { children, ...attrs } = props
 		const attrStr = Object.entries(attrs)
-			.map(([k, v]) => (v === true ? k : v === false || v == null ? "" : `${k}="${String(v)}"`))
+			.map((
+				[k, v],
+			) => (v === true
+				? k
+				: v === false || v == null
+				? ""
+				: `${k}="${String(v)}"`)
+			)
 			.filter(Boolean)
 			.join(" ")
-		return `<${type}${attrStr ? " " + attrStr : ""}>${render(children as unknown)}</${type}>`
+		return `<${type}${attrStr ? " " + attrStr : ""}>${
+			render(children as unknown)
+		}</${type}>`
 	}
 	return ""
 }
 
 describe("Person SSR helper", () => {
 	it("emits microdata and JSON-LD", () => {
-		const out = render(<Person name="Ada Lovelace" url="https://example.com/ada" />)
+		const out = render(
+			<Person name="Ada Lovelace" url="https://example.com/ada" />,
+		)
 
 		expect(out).toContain("itemscope")
 		expect(out).toContain('itemtype="https://schema.org/Person"')

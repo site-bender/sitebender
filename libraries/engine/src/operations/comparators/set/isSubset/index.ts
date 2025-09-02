@@ -1,8 +1,8 @@
 // Use native Set; avoid external polyfills
 
 import type {
-	EngineError,
 	Either,
+	EngineError,
 	IsSubsetComparator,
 	LocalValues,
 	OperationFunction,

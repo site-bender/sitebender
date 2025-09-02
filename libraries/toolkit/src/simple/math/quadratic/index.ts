@@ -1,7 +1,7 @@
 import type { Pair } from "../../../types/tuple/index.ts"
 
-import isNullish from "../../validation/isNullish/index.ts"
 import pair from "../../tuple/pair/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Solves a quadratic equation using the quadratic formula

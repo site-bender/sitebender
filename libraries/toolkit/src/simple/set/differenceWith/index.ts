@@ -48,7 +48,8 @@ const differenceWith = <T>(
 	}
 
 	if (
-		isNullish(subtrahend) || !(subtrahend instanceof Set) || subtrahend.size === 0
+		isNullish(subtrahend) || !(subtrahend instanceof Set) ||
+		subtrahend.size === 0
 	) {
 		return new Set(minuend)
 	}

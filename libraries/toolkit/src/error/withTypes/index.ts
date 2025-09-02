@@ -1,4 +1,4 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Datatype, Value } from "../../types/index.ts"
 
 /**
@@ -33,8 +33,8 @@ const withTypes =
 	<TDataType extends Datatype>(expected: TDataType) =>
 	(actual: TDataType | "null" | "undefined" | "unknown") =>
 	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
-		error: AdaptiveError<TOp, TArgs, TDataType>,
-	): AdaptiveError<TOp, TArgs, TDataType> => ({
+		error: EngineError<TOp, TArgs, TDataType>,
+	): EngineError<TOp, TArgs, TDataType> => ({
 		...error,
 		expectedType: expected,
 		actualType: actual,

@@ -34,7 +34,7 @@ export type ErrorSeverity = "warning" | "error" | "critical"
  * @template TOp - The operation name as a string literal
  * @template TArgs - The arguments tuple type
  */
-export interface AdaptiveError<
+export interface EngineError<
 	TOp extends string = string,
 	TArgs extends ReadonlyArray<Value> = ReadonlyArray<Value>,
 > {
@@ -94,7 +94,7 @@ export interface AdaptiveError<
 	/**
 	 * Optional original error that caused this error
 	 */
-	readonly cause?: Error | AdaptiveError | unknown
+	readonly cause?: Error | EngineError | unknown
 
 	/**
 	 * Optional stack trace

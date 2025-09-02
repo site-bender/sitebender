@@ -1,13 +1,16 @@
+import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
-import * as fc from "fast-check"
 
 import chunk from "../../../../src/simple/array/chunk/index.ts"
 
 describe("chunk", () => {
 	it("splits array into chunks of specified size", () => {
 		assertEquals(chunk(2)([1, 2, 3, 4, 5]), [[1, 2], [3, 4], [5]])
-		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]), [[1, 2, 3], [4, 5, 6], [7, 8]])
+		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]), [[1, 2, 3], [4, 5, 6], [
+			7,
+			8,
+		]])
 	})
 
 	it("returns single chunk when size is larger than array", () => {
@@ -56,12 +59,16 @@ describe("chunk", () => {
 	})
 
 	it("works with string arrays", () => {
-		assertEquals(chunk(2)(["a", "b", "c", "d", "e"]), [["a", "b"], ["c", "d"], ["e"]])
+		assertEquals(chunk(2)(["a", "b", "c", "d", "e"]), [["a", "b"], ["c", "d"], [
+			"e",
+		]])
 	})
 
 	it("works with object arrays", () => {
 		const objects = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-		assertEquals(chunk(2)(objects), [[{ id: 1 }, { id: 2 }], [{ id: 3 }, { id: 4 }]])
+		assertEquals(chunk(2)(objects), [[{ id: 1 }, { id: 2 }], [{ id: 3 }, {
+			id: 4,
+		}]])
 	})
 
 	it("works with mixed type arrays", () => {
@@ -139,9 +146,9 @@ describe("chunk", () => {
 						const chunks = chunk(size)(arr)
 						const flattened = chunks.flat()
 						assertEquals(flattened, arr)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -161,9 +168,9 @@ describe("chunk", () => {
 								assertEquals(ch.length > 0, true)
 							}
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -176,9 +183,9 @@ describe("chunk", () => {
 						const chunks = chunk(size)(arr)
 						const expectedChunks = Math.ceil(arr.length / size)
 						assertEquals(chunks.length, expectedChunks)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -191,9 +198,9 @@ describe("chunk", () => {
 						const result1 = chunk(size)(arr)
 						const result2 = chunk(size)(arr)
 						assertEquals(result1, result2)
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -204,9 +211,9 @@ describe("chunk", () => {
 					(size) => {
 						const result = chunk(size)([])
 						assertEquals(result, [])
-					}
+					},
 				),
-				{ numRuns: 50 }
+				{ numRuns: 50 },
 			)
 		})
 
@@ -221,9 +228,9 @@ describe("chunk", () => {
 							assertEquals(ch.length, 1)
 							assertEquals(ch[0], arr[i])
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 
@@ -234,14 +241,14 @@ describe("chunk", () => {
 					fc.integer({ min: 1, max: 20 }),
 					(arr, size) => {
 						const chunks = chunk(size)(arr)
-						chunks.forEach(ch => {
-							ch.forEach(item => {
+						chunks.forEach((ch) => {
+							ch.forEach((item) => {
 								assertEquals(typeof item, "number")
 							})
 						})
-					}
+					},
 				),
-				{ numRuns: 100 }
+				{ numRuns: 100 },
 			)
 		})
 	})

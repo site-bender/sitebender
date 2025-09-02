@@ -31,11 +31,11 @@ describe("numeric generators", () => {
 			const hasPositive = samples.some((n) => n > 0)
 			const hasNegative = samples.some((n) => n < 0)
 			const hasDecimals = samples.some((n) => n !== Math.floor(n))
-			
+
 			// Should have variety
 			assert(hasPositive || hasNegative)
 			assert(samples.length === 100)
-			
+
 			// All should be finite
 			samples.forEach((n) => {
 				assert(isFinite(n))
@@ -49,8 +49,8 @@ describe("numeric generators", () => {
 				fc.property(nullableNumber(), (value) => {
 					assert(
 						value === null ||
-						value === undefined ||
-						(typeof value === "number" && isFinite(value))
+							value === undefined ||
+							(typeof value === "number" && isFinite(value)),
 					)
 				}),
 			)
@@ -61,7 +61,7 @@ describe("numeric generators", () => {
 			const hasNull = samples.includes(null)
 			const hasUndefined = samples.includes(undefined)
 			const hasNumbers = samples.some((v) => typeof v === "number")
-			
+
 			assert(hasNull)
 			assert(hasUndefined)
 			assert(hasNumbers)
@@ -74,7 +74,7 @@ describe("numeric generators", () => {
 				fc.property(edgeCaseNumber(), (num) => {
 					assertExists(num)
 					assertEquals(typeof num, "number")
-					
+
 					const validEdgeCases = [
 						0,
 						-0,
@@ -85,12 +85,12 @@ describe("numeric generators", () => {
 						Number.MAX_VALUE,
 						Number.EPSILON,
 					]
-					
+
 					const isValidEdgeCase = validEdgeCases.some((edge) => {
 						if (Number.isNaN(edge) && Number.isNaN(num)) return true
 						return Object.is(num, edge)
 					})
-					
+
 					assert(isValidEdgeCase)
 				}),
 			)
@@ -98,7 +98,7 @@ describe("numeric generators", () => {
 
 		it("should generate all edge cases over many samples", () => {
 			const samples = fc.sample(edgeCaseNumber(), 1000)
-			
+
 			const hasZero = samples.some((n) => n === 0)
 			const hasNegZero = samples.some((n) => Object.is(n, -0))
 			const hasNaN = samples.some((n) => Number.isNaN(n))
@@ -107,7 +107,7 @@ describe("numeric generators", () => {
 			const hasMinValue = samples.some((n) => n === Number.MIN_VALUE)
 			const hasMaxValue = samples.some((n) => n === Number.MAX_VALUE)
 			const hasEpsilon = samples.some((n) => n === Number.EPSILON)
-			
+
 			// Should generate all edge cases
 			assert(hasZero)
 			assert(hasNegZero)
@@ -138,10 +138,10 @@ describe("numeric generators", () => {
 			const hasPositive = samples.some((n) => n > 0)
 			const hasNegative = samples.some((n) => n < 0)
 			const hasZero = samples.includes(0)
-			
+
 			// Should have variety (at least some positive or negative)
 			assert(hasPositive || hasNegative)
-			
+
 			// All should be safe integers
 			samples.forEach((n) => {
 				assert(Number.isSafeInteger(n))
@@ -169,12 +169,12 @@ describe("numeric generators", () => {
 			const hasSmall = samples.some((n) => n < 1)
 			const hasLarge = samples.some((n) => n > 1000)
 			const hasDecimals = samples.some((n) => n !== Math.floor(n))
-			
+
 			// All should be positive
 			samples.forEach((n) => {
 				assert(n > 0)
 			})
-			
+
 			// Should have some variety
 			assert(samples.length === 100)
 		})
@@ -200,12 +200,12 @@ describe("numeric generators", () => {
 			const hasSmall = samples.some((n) => n > -1)
 			const hasLarge = samples.some((n) => n < -1000)
 			const hasDecimals = samples.some((n) => n !== Math.floor(n))
-			
+
 			// All should be negative
 			samples.forEach((n) => {
 				assert(n < 0)
 			})
-			
+
 			// Should have variety
 			assert(samples.length === 100)
 		})
@@ -215,7 +215,7 @@ describe("numeric generators", () => {
 		it("should export finiteNumber as default", () => {
 			assertExists(finiteNumber)
 			assertEquals(typeof finiteNumber, "function")
-			
+
 			// Test that it generates finite numbers
 			const sample = fc.sample(finiteNumber(), 10)
 			sample.forEach((n) => {

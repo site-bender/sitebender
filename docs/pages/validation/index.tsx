@@ -6,8 +6,6 @@ import Program from "@sitebender/components/transform/control/Program/index.tsx"
 import Constant from "@sitebender/components/transform/injectors/Constant/index.tsx"
 import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
 
-
-
 export default function ValidationDemo() {
 	return (
 		<body>

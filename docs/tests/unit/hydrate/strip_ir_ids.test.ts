@@ -7,9 +7,21 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 	const prevLoc = (g as any).location
 
 	// Fake nodes
-	const irNodes: Array<{ removed: string[]; removeAttribute: (n: string) => void }> = [
-		{ removed: [], removeAttribute(name: string) { this.removed.push(name) } },
-		{ removed: [], removeAttribute(name: string) { this.removed.push(name) } },
+	const irNodes: Array<
+		{ removed: string[]; removeAttribute: (n: string) => void }
+	> = [
+		{
+			removed: [],
+			removeAttribute(name: string) {
+				this.removed.push(name)
+			},
+		},
+		{
+			removed: [],
+			removeAttribute(name: string) {
+				this.removed.push(name)
+			},
+		},
 	]
 	const vizNodes: Array<{ dataset: Record<string, string> }> = [
 		{ dataset: {} },
@@ -22,7 +34,6 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 			sel === "[data-ir-id]" ? irNodes : sel === "[data-viz]" ? vizNodes : [],
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
-
 	;(g as any).document = fakeDocument
 	;(g as any).window = {}
 	;(g as any).location = { hostname: "example.com" }
@@ -36,9 +47,8 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 
 	for (const n of irNodes) {
 		assertEquals(n.removed.includes("data-ir-id"), true)
-	}
+	} // Restore globals
 
-	// Restore globals
 	;(g as any).document = prevDoc
 	;(g as any).window = prevWin
 	;(g as any).location = prevLoc

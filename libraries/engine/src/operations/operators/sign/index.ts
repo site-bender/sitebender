@@ -1,7 +1,7 @@
 import type { HydratedSign } from "../../../../types/hydrated/index.ts"
 import type {
-	EngineError,
 	Either,
+	EngineError,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"

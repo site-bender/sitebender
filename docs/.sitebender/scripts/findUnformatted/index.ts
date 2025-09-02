@@ -2,7 +2,7 @@
 // Lists files that fail `deno fmt --check`, honoring the repo's include/exclude.
 // Usage: deno run --allow-read --allow-run scripts/findUnformatted/index.ts
 
-const ROOTS = ["docs", "jsxer", "libraries", "scripts"]
+const ROOTS = ["docs", "inspector", "libraries", "scripts"]
 const EXCLUDES = [
 	"/dist/",
 	"/temp/",

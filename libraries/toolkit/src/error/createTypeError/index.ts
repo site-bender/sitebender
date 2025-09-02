@@ -1,4 +1,4 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Datatype, Value } from "../../types/index.ts"
 
 import createError from "../createError/index.ts"
@@ -41,11 +41,11 @@ const createTypeError =
 	<TDataType extends Datatype>(expected: TDataType) =>
 	(
 		actual: TDataType | "null" | "undefined" | "unknown",
-	): AdaptiveError<TOp, TArgs, TDataType> => {
+	): EngineError<TOp, TArgs, TDataType> => {
 		// Build the error step by step to maintain type compatibility
 		const baseError = createError(operation)(args)(
 			`${operation}: Expected ${expected} at argument ${argIndex}, got ${actual}`,
-		)("TYPE_MISMATCH") as AdaptiveError<TOp, TArgs, TDataType>
+		)("TYPE_MISMATCH") as EngineError<TOp, TArgs, TDataType>
 
 		// Apply transformations directly
 		return {
