@@ -44,11 +44,17 @@
 		// === Local Sitebender Libraries ===
 		"@sitebender/toolkit": "../libraries/toolkit/src/",
 		"@sitebender/toolkit/": "../libraries/toolkit/src/",
-		"@sitebender/adaptive": "../libraries/adaptive/src/",
-		"@sitebender/adaptive/": "../libraries/adaptive/src/",
+		// Preferred engine aliases
+		"@sitebender/engine": "../libraries/engine/src/",
+		"@sitebender/engine/": "../libraries/engine/src/",
 		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
-		"@adaptiveSrc/": "../libraries/adaptive/src/",
-		"@adaptiveTypes/": "../libraries/adaptive/types/",
+		"@engineSrc/": "../libraries/engine/src/",
+		"@engineTypes/": "../libraries/engine/types/",
+		// Legacy adaptive aliases (repointed)
+		"@adaptiveSrc/": "../libraries/engine/src/",
+		"@adaptiveTypes/": "../libraries/engine/types/",
+		"@sitebender/adaptive": "../libraries/engine/src/",
+		"@sitebender/adaptive/": "../libraries/engine/src/",
 		"@sitebender/components": "../libraries/components/src/index.ts",
 		"@sitebender/components/": "../libraries/components/src/",
 

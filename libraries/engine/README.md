@@ -1,8 +1,8 @@
-# @sitebender/adaptive
+# @sitebender/engine
 
 A library for adaptive user interfaces.
 
-> Getting started? See `libraries/adaptive/TUTORIAL.md` for a hands-on MVP walkthrough.
+> Getting started? See `libraries/engine/TUTORIAL.md` for a hands-on MVP walkthrough.
 
 ## Executive Summary
 
@@ -646,7 +646,7 @@ _Generated from comprehensive codebase audit_
 
 ## New Findings (2025-08-24) — Action Items
 
-These items come from a deep audit of `libraries/adaptive/src` to align with the Declarative JSX → IR plan. Do not edit `libraries/toolkit` as part of these tasks.
+These items come from a deep audit of `libraries/engine/src` to align with the Declarative JSX → IR plan. Do not edit `libraries/toolkit` as part of these tasks.
 
 ### 🔴 Critical
 
@@ -696,7 +696,7 @@ These items come from a deep audit of `libraries/adaptive/src` to align with the
 
 - [ ] Add “golden” tests (snapshot-style) for JSX → IR → HTML across the MVP slice
 - [ ] Add smoke tests for registries (tag resolves to executor), SSR render, and hydrate wiring
-- [ ] Author JSON Schema v1 (place under `libraries/adaptive/schema/v1.json`) and validate IR in dev paths
+- [ ] Author JSON Schema v1 (place under `libraries/engine/schema/v1.json`) and validate IR in dev paths
 - [ ] Document registries, env adapters, anchoring, and ID/version fields in this README
 
 Notes

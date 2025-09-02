@@ -4,7 +4,7 @@
 
 **THIS AI INSTANCE WORKS EXCLUSIVELY IN `/libraries/toolkit/`**
 
-- DO NOT touch ANYTHING in `/libraries/adaptive/` - another AI is working there
+- DO NOT touch ANYTHING in `/libraries/engine/` (formerly `/libraries/adaptive/`) - another AI is working there
 - DO NOT touch ANYTHING in `/libraries/components/` - outside scope
 - DO NOT modify ANY files outside `/libraries/toolkit/`
 - ALL work, including tests and source fixes, must be within `/libraries/toolkit/`

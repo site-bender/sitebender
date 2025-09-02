@@ -23,7 +23,10 @@
 
 	"imports": {
 		// Cross-library dependencies (local references)
-		"@sitebender/adaptive": "../adaptive/src/",
+		"@sitebender/engine": "../engine/src/",
+		"@sitebender/engine/": "../engine/src/",
+		// Legacy alias
+		"@sitebender/adaptive": "../engine/src/",
 		"@sitebender/toolkit": "../toolkit/src/",
 		"@sitebender/toolkit/constants/": "../toolkit/src/constants/",
 

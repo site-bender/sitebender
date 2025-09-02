@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -5,10 +6,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * Performs a set intersection operation, returning a new array containing
  * only the elements that appear in both input arrays. Uses strict equality
- * (===) for comparison. Preserves the order from the first array.
- *
- * @compatibility Uses native Set.intersection when available (ES2025, ~84% browser support).
- * Falls back to filter-based implementation for older browsers (Opera Mobile, IE).
+ * (===) for comparison. Preserves the order from the first array and keeps
+ * duplicates from the first array.
  *
  * @param array2 - Second array to intersect with
  * @param array1 - First array (determines order of results)
@@ -53,25 +52,18 @@ const intersection = <T>(
 (
 	array1: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array1) || !Array.isArray(array1) || array1.length === 0) {
+	if (isNullish(array1) || array1.length === 0) {
 		return []
 	}
 
-	if (isNullish(array2) || !Array.isArray(array2) || array2.length === 0) {
+	if (isNullish(array2) || array2.length === 0) {
 		return []
 	}
 
-	const set1 = new Set(array1)
 	const set2 = new Set(array2)
 
-	// Use native Set.intersection if available (ES2025)
-	if (
-		"intersection" in Set.prototype && typeof set1.intersection === "function"
-	) {
-		return Array.from(set1.intersection(set2))
-	}
-
-	// Fallback: Use filter for O(n) time with O(1) lookups
+	// Use filter for O(n) time with O(1) lookups
+	// This preserves duplicates from array1
 	return array1.filter((element) => set2.has(element))
 }
 

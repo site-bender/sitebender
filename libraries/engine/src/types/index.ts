@@ -1,5 +1,5 @@
 // Shim re-export so internal src files can import types via relative paths
-// This forwards to the canonical types located at libraries/adaptive/types/
+// This forwards to the canonical types located at libraries/engine/types/
 export * from "../../types/index.ts"
 
 // Local shims for legacy imports in src that referenced GlobalAttributes/AriaAttributes

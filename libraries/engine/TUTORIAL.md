@@ -178,7 +178,7 @@ Note: In this monorepo, imports are shown as relative to the library. In your ap
 
     <!-- 2) Hydrate: attach behaviors on the client -->
     <script type="module">
-      import hydrate from "/libraries/adaptive/src/runtime/hydrator/index.ts";
+      import hydrate from "/libraries/engine/src/runtime/hydrator/index.ts";
       const script = document.getElementById("ir-root");
       const ir = script?.textContent ? JSON.parse(script.textContent) : null;
       if (ir) hydrate(ir);

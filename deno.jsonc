@@ -14,19 +14,19 @@
 		"lint": "deno lint libraries/ docs/ scripts/",
 		"lint:all": "deno lint libraries/ docs/ scripts/",
 		"fp:check": "deno run --allow-read --allow-run scripts/enforceFP/index.ts",
-		"fp:adaptive": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/adaptive/src/**/*.ts' 'libraries/adaptive/src/**/*.tsx'",
+		"fp:engine": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/engine/src/**/*.ts' 'libraries/engine/src/**/*.tsx'",
 		"fp:components": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/components/src/**/*.ts' 'libraries/components/src/**/*.tsx'",
 		"fp:toolkit": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/toolkit/src/**/*.ts' 'libraries/toolkit/src/**/*.tsx'",
 		"fp:pedantic": "deno run --allow-read --allow-run scripts/enforceFP/index.ts --pedantic 'libraries/*/src/**/*.ts' 'libraries/*/src/**/*.tsx'",
 
 		// === Testing ===
-		"test:adaptive": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts'",
-		"test:adaptive:strict": "deno test --unstable-temporal 'libraries/adaptive/tests/**/*.test.ts'",
+		"test:engine": "deno test --unstable-temporal --no-check 'libraries/engine/tests/**/*.test.ts'",
+		"test:engine:strict": "deno test --unstable-temporal 'libraries/engine/tests/**/*.test.ts'",
 		"test:components": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts'",
 		"test:components:strict": "deno test --unstable-temporal 'libraries/components/tests/**/*.test.ts'",
 		"test:toolkit": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts'",
 		"test:docs:strict": "deno task --cwd docs test:build",
-		"test:adaptive:cov": "deno test --unstable-temporal --no-check 'libraries/adaptive/tests/**/*.test.ts' --coverage=libraries/adaptive/coverage && deno coverage libraries/adaptive/coverage --lcov > libraries/adaptive/coverage.lcov",
+		"test:engine:cov": "deno test --unstable-temporal --no-check 'libraries/engine/tests/**/*.test.ts' --coverage=libraries/engine/coverage && deno coverage libraries/engine/coverage --lcov > libraries/engine/coverage.lcov",
 		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage libraries/components/coverage --lcov > libraries/components/coverage.lcov",
 		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage libraries/toolkit/coverage --lcov > libraries/toolkit/coverage.lcov",
 		"test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
@@ -34,20 +34,20 @@
 
 		// === Unified Coverage (delegates to per-package tasks) ===
 		"coverage:docs": "deno task --cwd docs test:cov",
-		"coverage:adaptive": "deno task --cwd libraries/adaptive test:cov",
+		"coverage:engine": "deno task --cwd libraries/engine test:cov",
 		"coverage:components": "deno task --cwd libraries/components test:cov",
 		"coverage:toolkit": "deno task --cwd libraries/toolkit test:cov",
-		"coverage": "deno task coverage:docs && deno task coverage:adaptive && deno task coverage:components && deno task coverage:toolkit",
+		"coverage": "deno task coverage:docs && deno task coverage:engine && deno task coverage:components && deno task coverage:toolkit",
 		"coverage:report:ignored": "deno run -A scripts/coverage-tools/reportIgnored.ts",
 
 		// === Type Checking ===
-		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/adaptive/src/**/*.ts libraries/adaptive/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
-		"type-check:focused": "deno check --unstable-temporal libraries/adaptive/src/operations/comparators/compare/index.ts libraries/adaptive/src/operations/comparators/amount/isLessThan/index.ts libraries/adaptive/src/operations/comparators/amount/isMoreThan/index.ts libraries/adaptive/src/operations/comparators/amount/isNoLessThan/index.ts libraries/adaptive/src/operations/comparators/equality/isEqualTo/index.ts libraries/adaptive/src/operations/comparators/equality/isUnequalTo/index.ts libraries/adaptive/src/operations/comparators/length/isLength/index.ts libraries/adaptive/src/operations/comparators/length/isLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoLongerThan/index.ts libraries/adaptive/src/operations/comparators/length/isNoShorterThan/index.ts libraries/adaptive/src/operations/comparators/length/isNotLength/index.ts libraries/adaptive/src/operations/comparators/length/isSameLength/index.ts",
+		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/engine/src/**/*.ts libraries/engine/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
+		"type-check:focused": "deno check --unstable-temporal libraries/engine/src/operations/comparators/compare/index.ts libraries/engine/src/operations/comparators/amount/isLessThan/index.ts libraries/engine/src/operations/comparators/amount/isMoreThan/index.ts libraries/engine/src/operations/comparators/amount/isNoLessThan/index.ts libraries/engine/src/operations/comparators/equality/isEqualTo/index.ts libraries/engine/src/operations/comparators/equality/isUnequalTo/index.ts libraries/engine/src/operations/comparators/length/isLength/index.ts libraries/engine/src/operations/comparators/length/isLongerThan/index.ts libraries/engine/src/operations/comparators/length/isShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNoLongerThan/index.ts libraries/engine/src/operations/comparators/length/isNoShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNotLength/index.ts libraries/engine/src/operations/comparators/length/isSameLength/index.ts",
 		"type-check:jexer": "deno check --unstable-temporal --config jexer/deno.json 'jexer/src/**/*.ts'",
 
 		// === Import Management ===
 		"sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
-		"sort:all": "deno task sort --dir=docs && deno task sort --dir=libraries/adaptive && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
+		"sort:all": "deno task sort --dir=docs && deno task sort --dir=libraries/engine && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
 		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards.ts",
 
 		// === Setup and Maintenance ===
@@ -94,7 +94,7 @@
 			// Ensure components' JSX globals are visible during workspace checks
 			"./libraries/components/types/globals.d.ts",
 			"./libraries/components/types/JSX/jsx-runtime.d.ts",
-			"./libraries/adaptive/src/rendering/types/globals.d.ts"
+			"./libraries/engine/src/rendering/types/globals.d.ts"
 		],
 		"strict": true,
 		"checkJs": false,
@@ -119,8 +119,16 @@
 		"fast-check": "https://esm.sh/fast-check@4.1.1",
 		// Repo-local import guardrails to avoid deep brittle paths during refactors
 		"@toolkit/": "./libraries/toolkit/src/",
-		"@adaptiveTypes/": "./libraries/adaptive/types/",
-		"@adaptiveSrc/": "./libraries/adaptive/src/"
+		// Preferred engine aliases
+		"@engineTypes/": "./libraries/engine/types/",
+		"@engineSrc/": "./libraries/engine/src/",
+		"@sitebender/engine": "./libraries/engine/src/",
+		"@sitebender/engine/": "./libraries/engine/src/",
+		// Legacy adaptive aliases (repointed)
+		"@adaptiveTypes/": "./libraries/engine/types/",
+		"@adaptiveSrc/": "./libraries/engine/src/",
+		"@sitebender/adaptive": "./libraries/engine/src/",
+		"@sitebender/adaptive/": "./libraries/engine/src/"
 	},
 
 	// Shared formatting configuration

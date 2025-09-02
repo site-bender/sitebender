@@ -1,16 +1,16 @@
 # Function List for the toolkit library
 
-**Testing Progress: 13.0% (114/874 functions with 100% coverage)**
+**Testing Progress: 14.3% (125/874 functions with 100% coverage)**
 
-**Estimated Time to Completion**: ~154 hours
+**Estimated Time to Completion**: ~150 hours
 
-- **Remaining functions**: 760 (874 total - 114 completed)
+- **Remaining functions**: 749 (874 total - 125 completed)
 - **Average time per function**: ~12 minutes (includes writing tests, debugging, running)
 - **Functions per hour**: ~5
-- **Hours remaining**: ~152 hours
-- **At 8 hours/day**: ~19.3 working days
-- **Last updated**: 2025-09-02
-- **Session progress**: Tested dropRepeatsWith, dropWhile, and endsWith functions with 100% coverage. Fixed common issues with ! operator and redundant Array.isArray checks.
+- **Hours remaining**: ~151 hours
+- **At 8 hours/day**: ~18.9 working days
+- **Last updated**: 2025-09-02  
+- **Session progress**: Fixed type error in all test, tested groupWith, indexBy, and intersection functions. All achieved 100% coverage.
 
 ## Current Functions (874 functions total)
 
@@ -37,25 +37,25 @@
 - endsWith - Checks if an array ends with the provided suffix array ✓
 - filter - Filters array elements based on predicate ✓
 - find - Finds first element that satisfies predicate ✓
-- findDuplicates - Returns array of elements that appear more than once
+- findDuplicates - Returns array of elements that appear more than once ✓
 - findIndex - Finds index of first element that satisfies predicate ✓
-- findIndices - Returns all indices of elements that satisfy the predicate
+- findIndices - Returns all indices of elements that satisfy the predicate ✓
 - findLast - Finds last element that satisfies predicate ✓
 - findLastIndex - Finds index of last element that satisfies predicate ✓
-- findMostCommon - Finds the most frequently occurring element(s)
+- findMostCommon - Finds the most frequently occurring element(s) ✓
 - first - Returns first element of array (alias: head) ✓
-- flatMap - Maps function over array and flattens result
+- flatMap - Maps function over array and flattens result ✓
 - flatten - Flattens nested arrays by one level ✓
-- frequency - Count occurrences of each unique element (returns Map<T, number>)
-- groupBy - Groups array elements by key function result
-- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it
+- frequency - Count occurrences of each unique element (returns Map<T, number>) ✓
+- groupBy - Groups array elements by key function result ✓
+- groupWith - Takes a binary predicate and groups consecutive elements that satisfy it ✓
 - head - Returns first element of array (alias: first) ✓
 - includes - Checks if array contains element ✓
-- indexBy - Creates an object indexing the array elements by the given key
+- indexBy - Creates an object indexing the array elements by the given key ✓
 - indexOf - Returns index of first occurrence of element ✓
 - init - Returns all elements except the last one ✓
 - insertAt - Inserts element at specified index ✓
-- intersection - Returns elements that exist in both arrays
+- intersection - Returns elements that exist in both arrays ✓
 - intersectionWith - Like intersection but uses a comparator function
 - interleave - Alternate elements from multiple arrays
 - intersperse - Inserts separator between array elements

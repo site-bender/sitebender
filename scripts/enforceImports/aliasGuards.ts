@@ -4,8 +4,10 @@
  * Policy:
  * - Outside of a package, do NOT import its internal paths directly.
  *   Use the workspace aliases instead:
- *   - libraries/adaptive/src/**       -> @adaptiveSrc/**
- *   - libraries/adaptive/types/**     -> @adaptiveTypes/**
+ *   - libraries/engine/src/**         -> @engineSrc/** (preferred)
+ *   - libraries/engine/types/**       -> @engineTypes/** (preferred)
+ *   - libraries/adaptive/src/**       -> @adaptiveSrc/** (legacy)
+ *   - libraries/adaptive/types/**     -> @adaptiveTypes/** (legacy)
  *   - libraries/toolkit/src/**        -> @toolkit/**
  * - Within a package folder, relative imports are allowed.
  *
@@ -17,10 +19,9 @@
  * Exit non-zero when violations are found; prints file:line with a fix hint.
  */
 
-// deno-lint-ignore no-explicit-any
 const globWalk = async function* (
 	root: string,
-): AsyncGenerator<string, any, any> {
+): AsyncGenerator<string, void, unknown> {
 	for await (const entry of Deno.readDir(root)) {
 		const full = `${root}/${entry.name}`
 		if (entry.isDirectory) {
@@ -42,6 +43,8 @@ const isInside = (file: string, pkgDir: string) => file.includes(`/${pkgDir}/`)
 
 const ADAPTIVE_SRC = "libraries/adaptive/src/"
 const ADAPTIVE_TYPES = "libraries/adaptive/types/"
+const ENGINE_SRC = "libraries/engine/src/"
+const ENGINE_TYPES = "libraries/engine/types/"
 const TOOLKIT_SRC = "libraries/toolkit/src/"
 
 const DEFAULT_SCOPES = [
@@ -68,13 +71,16 @@ for (const root of roots) {
 					// Skip alias imports (desired)
 					if (
 						spec.startsWith("@adaptiveSrc/") ||
-						spec.startsWith("@adaptiveTypes/") || spec.startsWith("@toolkit/")
+						spec.startsWith("@adaptiveTypes/") ||
+						spec.startsWith("@engineSrc/") ||
+						spec.startsWith("@engineTypes/") ||
+						spec.startsWith("@toolkit/")
 					) {
 						continue
 					}
 
 					// If this file is NOT inside adaptive/, disallow deep adaptive paths
-					if (!isInside(file, "libraries/adaptive")) {
+					if (!isInside(file, "libraries/adaptive") && !isInside(file, "libraries/engine")) {
 						if (spec.includes(ADAPTIVE_SRC)) {
 							violations.push({
 								file,
@@ -90,6 +96,23 @@ for (const root of roots) {
 								spec,
 								hint:
 									"Use @adaptiveTypes/… instead of libraries/adaptive/types/…",
+							})
+						}
+
+						if (spec.includes(ENGINE_SRC)) {
+							violations.push({
+								file,
+								line: idx + 1,
+								spec,
+								hint: "Use @engineSrc/… instead of libraries/engine/src/…",
+							})
+						}
+						if (spec.includes(ENGINE_TYPES)) {
+							violations.push({
+								file,
+								line: idx + 1,
+								spec,
+								hint: "Use @engineTypes/… instead of libraries/engine/types/…",
 							})
 						}
 					}

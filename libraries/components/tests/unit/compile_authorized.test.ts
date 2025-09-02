@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import type { ActionNode, ComparatorNode, InjectorNode, IrDocument } from "../../../adaptive/types/ir/index.ts"
+import type { ActionNode, ComparatorNode, InjectorNode, IrDocument } from "@engineTypes/ir/index.ts"
 
 import { compileToAdaptive } from "../../src/compile.ts"
 import Authorized from "../../src/transform/control/When/Authorized/index.tsx"

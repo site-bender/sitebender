@@ -27,7 +27,7 @@ Every component must pass accessibility tests using axe-core. We target WCAG 2.3
 Tests mirror source structure but are organized by **behaviors**, not test types:
 
 ```
-libraries/adaptive/tests/
+libraries/engine/tests/
 ├── operations/
 │   ├── arithmetic/         # All arithmetic behavior tests (unit, property, integration)
 │   ├── comparison/         # All comparison behavior tests
@@ -129,7 +129,7 @@ test.describe("Documentation behavior", () => {
     
     // Real user behavior
     await page.click('text="Adaptive"')
-    await expect(page).toHaveURL("/libraries/adaptive")
+  await expect(page).toHaveURL("/libraries/engine")
     
     // Verify content loaded
     await expect(page.locator("h1")).toContainText("Adaptive")
@@ -188,7 +188,7 @@ describe("Article component behavior", () => {
 ### Example Helper Structure
 
 ```
-libraries/adaptive/tests/
+libraries/engine/tests/
 ├── operations/
 │   ├── arithmetic/
 │   │   ├── index.ts
@@ -225,7 +225,7 @@ afterAll(() => server.close())
 
 ```bash
 # Run all tests for a package
-cd libraries/adaptive
+cd libraries/engine
 deno task test
 
 # Run specific behavior tests

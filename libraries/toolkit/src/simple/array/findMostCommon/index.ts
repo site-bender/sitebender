@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Finds the most frequently occurring element(s)
@@ -24,7 +25,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Edge cases
  * findMostCommon([1, 2, 3, 4, 5])               // [1, 2, 3, 4, 5] (all unique)
  * findMostCommon([])                            // []
- * findMostCommon([NaN, NaN, 1, 1])              // [1] (NaN !== NaN)
+ * findMostCommon([NaN, NaN, 1, 1])              // [NaN, 1] (uses SameValueZero)
  *
  * // Preserves order on ties
  * findMostCommon([3, 1, 2, 1, 3, 2])            // [3, 1, 2] (first occurrence order)
@@ -33,14 +34,14 @@ import isNullish from "../../validation/isNullish/index.ts"
 const findMostCommon = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
 	// Build frequency and first occurrence maps
 	const { frequencyMap, firstOccurrence } = array.reduce(
 		(acc, item, index) => {
-			if (!acc.frequencyMap.has(item)) {
+			if (not(acc.frequencyMap.has(item))) {
 				acc.firstOccurrence.set(item, index)
 			}
 			acc.frequencyMap.set(item, (acc.frequencyMap.get(item) || 0) + 1)
@@ -56,11 +57,13 @@ const findMostCommon = <T>(
 	const maxFrequency = Math.max(...frequencyMap.values())
 
 	// Collect all elements with maximum frequency and sort by first occurrence
-	return (Array.from(frequencyMap.entries()) as Array<[T, number]>)
+	return Array.from(frequencyMap.entries())
 		.filter(([_, count]) => count === maxFrequency)
 		.map(([item]) => item)
 		.sort((a, b) => {
+			// deno-coverage-ignore - defensive fallback, logically unreachable
 			const indexA = firstOccurrence.get(a) ?? 0
+			// deno-coverage-ignore - defensive fallback, logically unreachable  
 			const indexB = firstOccurrence.get(b) ?? 0
 			return indexA - indexB
 		})
