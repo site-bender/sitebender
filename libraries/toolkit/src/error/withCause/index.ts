@@ -1,4 +1,4 @@
-import type { AdaptiveError } from "../../types/error/index.ts"
+import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 /**
@@ -32,15 +32,15 @@ import type { Value } from "../../types/index.ts"
  * ```
  */
 const withCause =
-	(cause: Error | AdaptiveError) =>
+	(cause: Error | EngineError) =>
 	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
-		error: AdaptiveError<TOp, TArgs>,
-	): AdaptiveError<TOp, TArgs> => ({
+		error: EngineError<TOp, TArgs>,
+	): EngineError<TOp, TArgs> => ({
 		...error,
 		cause,
 		stack: cause instanceof Error
 			? cause.stack
-			: (cause as AdaptiveError).stack,
+			: (cause as EngineError).stack,
 	})
 
 export default withCause

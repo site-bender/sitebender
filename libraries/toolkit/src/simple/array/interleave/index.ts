@@ -1,3 +1,6 @@
+import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
+
 /**
  * Alternate elements from multiple arrays
  *
@@ -7,7 +10,7 @@
  * to be interleaved. Useful for merging data streams, creating alternating
  * patterns, and combining parallel sequences.
  *
- * @param arrays - Arrays to interleave
+ * @param arrays - Arrays to interleave (null/undefined arrays are treated as empty)
  * @returns New array with interleaved elements
  *
  * @pure
@@ -35,18 +38,24 @@
  * // [1, 2, 3, 4, 5, 6, 7, 8]
  *
  * // Edge cases
- * interleave([1, 2, 3])   // [1, 2, 3] (single array)
- * interleave()            // [] (no arrays)
- * interleave([], [1], []) // [1] (empty arrays)
+ * interleave([1, 2, 3])         // [1, 2, 3] (single array)
+ * interleave()                  // [] (no arrays)
+ * interleave([], [1], [])       // [1] (empty arrays)
+ * interleave([1, 2], null, [3]) // [1, 3, 2] (null treated as empty)
  * ```
  */
-const interleave = <T>(...arrays: Array<Array<T>>): Array<T> => {
+const interleave = <T>(...arrays: Array<Array<T> | null | undefined>): Array<T> => {
 	if (arrays.length === 0) return []
+	
+	// Filter out null/undefined arrays and use only valid arrays
+	const validArrays = arrays.filter((arr) => not(isNullish(arr))) as Array<Array<T>>
+	
+	if (validArrays.length === 0) return []
 
-	const maxLength = Math.max(...arrays.map((arr) => arr.length))
+	const maxLength = Math.max(...validArrays.map((arr) => arr.length))
 
 	return Array.from({ length: maxLength }, (_, i) =>
-		arrays
+		validArrays
 			.filter((arr) => i < arr.length)
 			.map((arr) => arr[i])).flat()
 }

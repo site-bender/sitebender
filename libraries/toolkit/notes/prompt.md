@@ -107,44 +107,44 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-02) - Part 10
+### Current Session (2025-09-02) - Part 11
 **Progress Made:**
-- ✅ Fixed type error in all test file (type narrowing issue)
-- ✅ Tested 3 more array functions following full audit checklist:
-  1. **groupWith** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Groups consecutive elements by binary predicate
-     - Uses mutations within reduce for efficiency (pragmatic)
-     - Comprehensive tests with property-based testing
-  2. **indexBy** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Fixed `any` type in JSDoc example (changed to `unknown`)
-     - Creates object indexed by derived keys
-     - Filters out null/undefined keys
-     - Comprehensive tests including symbol keys
-  3. **intersection** - 100% coverage achieved
+- ✅ Tested 5 more array functions following full audit checklist:
+  1. **intersectionWith** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` checks after `isNullish`
-     - Removed incorrect native Set.intersection usage (would lose duplicates)
-     - Simplified to use filter with Set for O(n) performance
-     - Preserves duplicates from first array as documented
-     - Updated JSDoc to remove ES2025 compatibility note
-
-- ✅ Fixed failing countBy test
-  - Issue: prototype pollution when key is "toString" or other Object methods
-  - Fixed by using `Object.create(null)` instead of `{}` for result object
-  - Also fixed redundant `!Array.isArray` check and `any` type in JSDoc
+     - Fixed `any` type in JSDoc example
+     - Uses comparator function for custom equality
+     - Comprehensive tests with property-based testing
+  2. **interleave** - 100% coverage achieved
+     - Added null/undefined handling with isNullish
+     - Added use of `not()` function instead of `!` operator
+     - Alternates elements from multiple arrays
+     - Variadic function (not curried)
+  3. **intersperse** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Inserts separator between array elements
+     - Uses flatMap for functional approach
+  4. **join** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Wraps native join method
+     - Tests revealed symbols can't be converted (throws TypeError)
+     - Tests handle undefined/null conversion behavior differences
+  5. **lastIndexOfMatch** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - String patterns become regex (special chars not escaped)
+     - Returns last matching index or undefined
+     - Property tests handle invalid regex patterns
 
 **Common Issues Fixed:**
-- Redundant `!Array.isArray` checks after `isNullish` (all 4 functions)
-- `any` type in JSDoc examples (indexBy, countBy)
-- Incorrect implementation that would lose duplicates (intersection)
-- Prototype pollution vulnerability (countBy)
+- Redundant `!Array.isArray` checks after `isNullish` (all 5 functions)
+- Missing use of `not()` function for negation (interleave)
+- `any` type in JSDoc examples (intersectionWith)
 
 **Testing Progress Update:**
-- 125 functions now have tests (was 122)
-- Current progress: ~14.3% (125/874 functions)
+- 130 functions now have tests (was 125)
+- Current progress: ~14.9% (130/874 functions)
 - All tested functions have 100% coverage
-- All tests passing (1480 tests, 2139 steps)
+- All tests passing
 
 ### Previous Session (2025-09-02) - Part 8
 **Progress Made:**

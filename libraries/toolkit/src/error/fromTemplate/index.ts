@@ -1,4 +1,4 @@
-import type { AdaptiveError, ErrorCode } from "../../types/error/index.ts"
+import type { EngineError, ErrorCode } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
 import createError from "../createError/index.ts"
@@ -15,7 +15,7 @@ import * as templates from "../templates/index.ts"
  * @param operation - The operation that failed
  * @param args - Arguments passed to the operation
  * @param templateArgs - Arguments for the template function
- * @returns AdaptiveError with templated message
+ * @returns EngineError with templated message
  * @example
  * ```typescript
  * // Type mismatch error
@@ -47,7 +47,7 @@ const fromTemplate =
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(
 		...templateArgs: ReadonlyArray<string | number>
-	): AdaptiveError<TOp, TArgs> => {
+	): EngineError<TOp, TArgs> => {
 		// Get the template function - we know it exists
 		const templateFn = templates[template]
 

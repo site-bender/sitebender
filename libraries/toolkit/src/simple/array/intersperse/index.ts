@@ -52,7 +52,7 @@ const intersperse = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T | U> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 

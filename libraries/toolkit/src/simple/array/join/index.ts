@@ -40,6 +40,6 @@ const join = <T>(separator: string) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): string =>
-	isNullish(array) || !Array.isArray(array) ? "" : array.join(separator)
+	isNullish(array) ? "" : array.join(separator)
 
 export default join

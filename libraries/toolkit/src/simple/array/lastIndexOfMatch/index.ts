@@ -40,7 +40,7 @@ const lastIndexOfMatch = (pattern: RegExp | string) =>
 (
 	array: ReadonlyArray<string> | null | undefined,
 ): number | undefined => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return undefined
 	}
 

@@ -20,7 +20,7 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
   - Client-side validation derived from IR (required, min/max for IntegerField)
   - Submit captures current state to JSON (local log/persist), surfacing validation errors
 - Tooling
-  - Jexer-based playground with three panes: JSX (editable), IR (readonly), Live View
+  - JSXer-based playground with three panes: JSX (editable), IR (readonly), Live View
   - “Explain” panel showing compiler transform steps and rationale (stub ok)
 
 ## Non-Goals (for MVP)

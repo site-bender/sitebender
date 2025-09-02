@@ -1,5 +1,5 @@
 
-// Jexer landing page rendered via Sitebender pipeline
+// JSXer landing page rendered via Sitebender pipeline
 
 export function Head() {
   return (

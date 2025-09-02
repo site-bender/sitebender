@@ -60,7 +60,7 @@
 		"build": "deno task --cwd docs build",
 		"build:full": "deno task --cwd docs build:full",
 
-		// === Jexer shortcuts (workspace-level) ===
+		// === JSXer shortcuts (workspace-level) ===
 		"jsxer:dev": "deno task --cwd jsxer dev",
 		"jsxer:build": "deno task --cwd jsxer build",
 		"jsxer:build:dev": "deno task --cwd jsxer build:dev",

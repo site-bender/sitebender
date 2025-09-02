@@ -1,4 +1,4 @@
-# Jexer (JSX to AST Visualizer)
+# JSXer (JSX to AST Visualizer)
 
 This app has been converted to the canonical Sitebender structure:
 
@@ -11,7 +11,7 @@ jsxer/
   pages/
     index.tsx             # SSR page that boots the client
   sites/
-    JexerSite/index.tsx   # HTML wrapper for all pages
+    JSXerSite/index.tsx   # HTML wrapper for all pages
   .sitebender/            # per-app build/serve scripts
   src/
     compiler.ts           # app source used by browser client
@@ -72,7 +72,7 @@ Preview tip: `deno task serve` serves the built `dist/` directory.
 ├── assets/style.css       # Application styles
 ├── assets/scripts/app/main.ts  # Browser boot code
 ├── pages/index.tsx        # SSR entry page
-├── sites/JexerSite/index.tsx   # Site wrapper
+├── sites/JSXerSite/index.tsx   # Site wrapper
 ├── src/compiler.ts        # JSX compilation logic (browser)
 ```
 

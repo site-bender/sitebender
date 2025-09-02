@@ -38,7 +38,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // [1.05]
  *
  * // Partial application
- * const intersectById = intersectionWith((a: any, b: any) => a.id === b.id)
+ * type Item = { id: number }
+ * const intersectById = intersectionWith((a: Item, b: Item) => a.id === b.id)
  * const list1 = [{ id: 1 }, { id: 2 }]
  * const list2 = [{ id: 2 }, { id: 3 }]
  * intersectById(list2)(list1) // [{ id: 2 }]
@@ -59,11 +60,11 @@ const intersectionWith = <T, U>(
 (
 	array1: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array1) || !Array.isArray(array1) || array1.length === 0) {
+	if (isNullish(array1) || array1.length === 0) {
 		return []
 	}
 
-	if (isNullish(array2) || !Array.isArray(array2) || array2.length === 0) {
+	if (isNullish(array2) || array2.length === 0) {
 		return []
 	}
 
