@@ -1,6 +1,0 @@
----
-alwaysApply: true
----
-- **Result types everywhere**: Use Either/Result types consistently throughout the library - never throw exceptions
-- **Template validation**: All template strings must be validated before processing
-- **Graceful degradation**: Components should render basic HTML even when advanced features fail
