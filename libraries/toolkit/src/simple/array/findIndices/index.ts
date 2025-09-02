@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Returns all indices of elements that satisfy the predicate
@@ -30,7 +31,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *
  * // Edge cases
  * findIndices((x: number) => x > 100)([1, 2, 3])  // [] (no matches)
- * findIndices((x: any) => true)([])               // [] (empty array)
+ * findIndices(() => true)([])                     // [] (empty array)
  *
  * // Partial application
  * const findEvens = findIndices((n: number) => n % 2 === 0)
@@ -43,15 +44,14 @@ const findIndices = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<number> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
 	return array.reduce<Array<number>>((indices, value, index) => {
-		if (predicate(value, index, array)) {
-			indices.push(index)
-		}
-		return indices
+		return predicate(value, index, array)
+			? [...indices, index]
+			: indices
 	}, [])
 }
 

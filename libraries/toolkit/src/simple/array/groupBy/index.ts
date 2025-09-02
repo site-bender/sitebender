@@ -40,18 +40,19 @@ const groupBy = <T, K extends string | number>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Record<string, Array<T>> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return {}
 	}
 
 	return array.reduce((acc: Record<string, Array<T>>, element: T) => {
 		const key = String(keyFn(element))
+		const existing = Object.hasOwn(acc, key) ? acc[key] : []
 
 		return {
 			...acc,
-			[key]: [...(acc[key] || []), element],
+			[key]: [...existing, element],
 		}
-	}, {})
+	}, Object.create(null))
 }
 
 export default groupBy
