@@ -1,6 +1,6 @@
 import type { HydratedProportionedRate } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -16,15 +16,15 @@ const proportionedRate = (
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, number>> => {
+): Promise<Either<Array<EngineError>, number>> => {
 	const resolvedTable = await table(arg, localValues)
 	if (isLeft(resolvedTable)) {
-		return resolvedTable as Either<AdaptiveError[], number>
+		return resolvedTable as Either<EngineError[], number>
 	}
 
 	const resolvedAmount = await amount(arg, localValues)
 	if (isLeft(resolvedAmount)) {
-		return resolvedAmount as Either<AdaptiveError[], number>
+		return resolvedAmount as Either<EngineError[], number>
 	}
 
 	try {

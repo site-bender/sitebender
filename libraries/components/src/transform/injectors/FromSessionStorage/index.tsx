@@ -1,4 +1,4 @@
-import type { FromSessionStorageInjector, Value } from "@adaptiveTypes/index.ts"
+import type { FromSessionStorageInjector, Value } from "@engineTypes/index.ts"
 
 /**
  * FromSessionStorage JSX Component
@@ -14,7 +14,7 @@ import type { FromSessionStorageInjector, Value } from "@adaptiveTypes/index.ts"
  * />
  */
 
-import FromSessionStorageConstructor from "@adaptiveSrc/constructors/injectors/FromSessionStorage/index.ts"
+import FromSessionStorageConstructor from "@engineSrc/constructors/injectors/FromSessionStorage/index.ts"
 
 export type FromSessionStorageProps = {
 	key: string

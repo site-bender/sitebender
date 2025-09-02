@@ -12,7 +12,7 @@ import hydrate from "../../../../../src/runtime/hydrator/index.ts"
 import createTestDomWithBody from "../../../../helpers/createTestDom/createTestDomWithBody/index.ts"
 
 function embedIr(doc: IrDocument) {
-	return `<script id="ir-root" type="application/adaptive+json">${
+	return `<script id="ir-root" type="application/engine+json">${
 		JSON.stringify(doc)
 	}</script>`
 }

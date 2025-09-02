@@ -1,4 +1,4 @@
-import filterDateTimeAttributes from "@adaptiveSrc/constructors/elements/flow/interactive/Input/utilities/filterDateTimeAttributes/index.ts"
+import filterDateTimeAttributes from "@engineSrc/constructors/elements/flow/interactive/Input/utilities/filterDateTimeAttributes/index.ts"
 
 import Input from "../index.ts"
 

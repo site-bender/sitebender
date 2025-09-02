@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -13,7 +13,7 @@ const ternary = (op: ComparatorConfig): OperationFunction<boolean> =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, boolean>> => {
+): Promise<Either<Array<EngineError>, boolean>> => {
 	const condFn = await composeComparators(
 		(op as unknown as { condition: unknown }).condition as never,
 	)

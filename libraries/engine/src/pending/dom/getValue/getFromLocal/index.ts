@@ -1,7 +1,7 @@
 import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
 
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	Value,
 } from "../../../../../types/index.ts"
@@ -16,7 +16,7 @@ export type SelectorOp = {
 const getFromLocal = (op: SelectorOp) =>
 (
 	localValues?: Record<string, unknown>,
-): Either<Array<AdaptiveError>, Value> | undefined => {
+): Either<Array<EngineError>, Value> | undefined => {
 	if (isDefined(localValues)) {
 		// Check direct properties first, then nested source/options
 		const src = (op.source || op.options || {}) as {

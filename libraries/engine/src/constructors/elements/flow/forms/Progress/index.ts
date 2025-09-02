@@ -1,23 +1,23 @@
-import type { ProgressAriaAttributes } from "@adaptiveSrc/constructors/elements/types/aria/index.ts"
-import type { ProgressAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ProgressAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { ProgressAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import TextNode from "@adaptiveSrc/constructors/elements/TextNode/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@adaptiveSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Filters attributes for Progress element

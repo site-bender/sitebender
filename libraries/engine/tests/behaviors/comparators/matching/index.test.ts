@@ -1,8 +1,8 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
-import DoesNotMatch from "@adaptiveSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
-import Matches from "@adaptiveSrc/constructors/comparators/matching/Matches/index.ts"
-import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
+import DoesNotMatch from "@engineSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
+import Matches from "@engineSrc/constructors/comparators/matching/Matches/index.ts"
+import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

@@ -1,7 +1,7 @@
 /**
- * Adaptive Components
+ * Engine Components
  *
- * JSX components that wrap the adaptive library constructors,
+ * JSX components that wrap the engine library constructors,
  * providing a declarative interface for reactive calculations,
  * validations, and conditional display logic.
  */

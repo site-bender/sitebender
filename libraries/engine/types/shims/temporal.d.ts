@@ -1,4 +1,4 @@
-// Minimal ambient declarations for Temporal types used in Adaptive Value union
+// Minimal ambient declarations for Temporal types used in Engine Value union
 // Note: Deno type-checks may not include Temporal lib types in all contexts.
 // These interfaces are intentionally empty; they provide nominal typing only.
 // This file is ambient and has no runtime effect.

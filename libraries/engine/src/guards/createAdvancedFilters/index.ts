@@ -1,9 +1,9 @@
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
-import isFlowContent from "@adaptiveSrc/guards/isFlowContent/index.ts"
-import isHeadingContent from "@adaptiveSrc/guards/isHeadingContent/index.ts"
-import isInteractiveContent from "@adaptiveSrc/guards/isInteractiveContent/index.ts"
-import isPhrasingContent from "@adaptiveSrc/guards/isPhrasingContent/index.ts"
+import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
+import isHeadingContent from "@engineSrc/guards/isHeadingContent/index.ts"
+import isInteractiveContent from "@engineSrc/guards/isInteractiveContent/index.ts"
+import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 
 /**
  * Configuration object for element validation (partial for flexibility)

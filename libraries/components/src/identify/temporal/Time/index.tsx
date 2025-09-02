@@ -1,7 +1,7 @@
 /**
  * Time component
  *
- * Adaptive component that renders times of day. Works as PlainTime
+ * Engine component that renders times of day. Works as PlainTime
  * without timezone, or shows local time in specified timezone when
  * timezone is provided.
  *

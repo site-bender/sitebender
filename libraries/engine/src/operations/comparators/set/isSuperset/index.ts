@@ -1,7 +1,7 @@
 // Use native Set; avoid external polyfills
 
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	IsSupersetComparator,
 	LocalValues,
@@ -17,7 +17,7 @@ const IsSuperset =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<AdaptiveError[], boolean>> => {
+	): Promise<Either<EngineError[], boolean>> => {
 		const operandFn = await composeComparators(op.operand as unknown as never)
 		const testFn = await composeComparators(op.test as unknown as never)
 		const operand = await operandFn(arg, localValues)

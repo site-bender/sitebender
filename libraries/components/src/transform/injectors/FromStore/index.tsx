@@ -6,13 +6,13 @@
  * to pattern match later.
  */
 
-import type { DataType } from "@adaptiveTypes/ir/index.ts"
+import type { DataType } from "@engineTypes/ir/index.ts"
 
 export type FromStoreProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: DataType | "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: import("@adaptiveTypes/index.ts").Value
+	defaultValue?: import("@engineTypes/index.ts").Value
 }
 
 type InjectorShape = {

@@ -38,20 +38,20 @@ End-to-end (Playwright):
 
 Hydration bundle summary:
 
-- Client entry: `docs/src/hydrate/adaptive.ts`
+- Client entry: `docs/src/hydrate/engine.ts`
 - Bundle step: `scripts/build/bundleHydrate/index.ts` (Deno emit)
-- Output: `docs/dist/scripts/hydrate/adaptive.js`
+- Output: `docs/dist/scripts/hydrate/engine.js`
 - Referenced by: `docs/src/routes/tutorial/index.tsx`
 
 ## Contributing
 
 - Local fast loop:
 	- Lint: `deno task lint`
-	- Tests (non-strict): `deno task test:adaptive`, `deno task test:components`, `deno task test:toolkit`
+	- Tests (non-strict): `deno task test:engine`, `deno task test:components`, `deno task test:toolkit`
 - Pre-push / CI parity (strict):
 	- Type-check: `deno task type-check`
 	- Alias guard: `deno task lint:aliases`
-	- Tests (strict): `deno task test:adaptive:strict`, `deno task test:components:strict`, `deno task test:toolkit:strict`
+	- Tests (strict): `deno task test:engine:strict`, `deno task test:components:strict`, `deno task test:toolkit:strict`
 
 CI runs strict tasks and will block on lint, type-check, alias guard, and strict tests. Use fast tasks for quick local iteration, then verify with strict before PRs.
 

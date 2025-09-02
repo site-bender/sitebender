@@ -4,7 +4,7 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * Min JSX Component
@@ -20,7 +20,7 @@ import type {
  * </Min>
  */
 
-import MinConstructor from "@adaptiveSrc/constructors/operators/Min/index.ts"
+import MinConstructor from "@engineSrc/constructors/operators/Min/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

@@ -1,5 +1,5 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -15,7 +15,7 @@ const isBeforeAlphabetically =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operandFn = await composeComparators(
 			(op as unknown as { operand: unknown }).operand as never,
 		)

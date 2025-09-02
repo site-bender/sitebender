@@ -1,4 +1,4 @@
-import GlobalOnly from "@adaptiveSrc/constructors/abstracted/GlobalOnly/index.ts"
+import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
 
 /**
  * Creates a Picture element configuration object

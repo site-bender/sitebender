@@ -5,7 +5,7 @@ import type {
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import On from "../../src/transform/control/On/index.tsx"
 
@@ -27,7 +27,7 @@ Deno.test("golden: multiple On markers create multiple event bindings (chains)",
 		}),
 	]
 
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const events = doc.children as EventBindingNode[]
 	assertEquals(events.length, 3)
 	assertEquals(events[0].id, "a")

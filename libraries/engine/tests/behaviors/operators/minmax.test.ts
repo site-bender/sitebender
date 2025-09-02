@@ -1,8 +1,8 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
-import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
-import Max from "@adaptiveSrc/constructors/operators/Max/index.ts"
-import Min from "@adaptiveSrc/constructors/operators/Min/index.ts"
+import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
+import Max from "@engineSrc/constructors/operators/Max/index.ts"
+import Min from "@engineSrc/constructors/operators/Min/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

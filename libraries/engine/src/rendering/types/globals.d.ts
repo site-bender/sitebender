@@ -1,4 +1,4 @@
-// Ambient globals for Adaptive rendering runtime (browser-only)
+// Ambient globals for Engine rendering runtime (browser-only)
 // Keep scoped and minimal; do not alter precise HTML/ARIA attribute types.
 
 declare global {

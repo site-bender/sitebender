@@ -1,16 +1,16 @@
-import createElement from "~utilities/createElement/index.ts"
 
-// Simple demo: a form that updates the URL query string on submit via adaptive
+
+// Simple demo: a form that updates the URL query string on submit via engine
 export default function Demo() {
 	return (
 		<body>
-			<h1>Adaptive Demo</h1>
+			<h1>Engine Demo</h1>
 			<p>Submitting this form will update the query string to ?k=v</p>
 			<form id="demo-form" data-ir-id="evt_form_submit">
 				<button type="submit">Submit</button>
 			</form>
 			{/* Minimal IR script matching the hydrate test */}
-			<script id="ir-root" type="application/adaptive+json">
+			<script id="ir-root" type="application/engine+json">
 				{JSON.stringify({
 					v: "0.1.0",
 					kind: "element",
@@ -51,8 +51,8 @@ export default function Demo() {
 					],
 				})}
 			</script>
-			{/* Client-side bootstrap to hydrate using real adaptive runtime */}
-			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
+			{/* Client-side bootstrap to hydrate using real engine runtime */}
+			<script type="module" src="/scripts/hydrate/engine.js"></script>
 		</body>
 	)
 }

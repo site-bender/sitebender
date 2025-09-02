@@ -1,20 +1,20 @@
-import type { InputRangeAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { InputRangeAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@adaptiveTypes/index.ts"
-import type { Value } from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import { AUTOCOMPLETES } from "@adaptiveSrc/constructors/elements/constants/index.ts"
-import Input from "@adaptiveSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@adaptiveSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@adaptiveSrc/guards/isMemberOf/index.ts"
-import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
-import isString from "@adaptiveSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
+import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for InputRange

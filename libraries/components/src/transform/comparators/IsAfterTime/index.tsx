@@ -1,9 +1,9 @@
-import type { IsAfterTimeComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsAfterTimeComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsAfterTime JSX Component
  */
-import IsAfterTimeConstructor from "@adaptiveSrc/constructors/comparators/time/IsAfterTime/index.ts"
+import IsAfterTimeConstructor from "@engineSrc/constructors/comparators/time/IsAfterTime/index.ts"
 
 export type Props = {
 	type?: "Time"

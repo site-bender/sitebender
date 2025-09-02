@@ -2,9 +2,9 @@ import type {
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import isUndefined from "../../utilities/isUndefined.ts"

@@ -2,7 +2,7 @@ import type {
 	Datatype,
 	FromQueryStringInjector,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * FromQueryString JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromQueryStringConstructor from "@adaptiveSrc/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "@engineSrc/constructors/injectors/FromQueryString/index.ts"
 
 export type FromQueryStringProps = {
 	param: string

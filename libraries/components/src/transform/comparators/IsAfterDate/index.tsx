@@ -1,4 +1,4 @@
-import type { IsAfterDateComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsAfterDateComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsAfterDate JSX Component
@@ -14,7 +14,7 @@ import type { IsAfterDateComparator, Operand } from "@adaptiveTypes/index.ts"
  * </IsAfterDate>
  */
 
-import IsAfterDateConstructor from "@adaptiveSrc/constructors/comparators/date/IsAfterDate/index.ts"
+import IsAfterDateConstructor from "@engineSrc/constructors/comparators/date/IsAfterDate/index.ts"
 
 export type Props = {
 	type?: "Date"

@@ -1,4 +1,4 @@
-# Adaptive Library Tests
+# Engine Library Tests
 
 ## Testing Philosophy
 
@@ -389,7 +389,7 @@ import { describe, it } from "@std/testing/bdd"
 import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts"
 
 // Import SSR rendering
-import ssrRenderAdaptive from "../../../src/rendering/ssrRenderAdaptive/index.tsx"
+import ssrRenderEngine from "../../../src/rendering/ssrRenderEngine/index.tsx"
 import renderToString from "../../../src/rendering/helpers/stringify/index.ts"
 
 // Import client rendering
@@ -409,14 +409,14 @@ describe("SSR and hydration behaviors", () => {
 				Constant()(20),
 			])
 
-			const html = renderToString(ssrRenderAdaptive(config))
+			const html = renderToString(ssrRenderEngine(config))
 
 			// Should have placeholder text
 			assertStringIncludes(html, "[sum]")
 
 			// Should have hydration data
-			assertStringIncludes(html, 'data-adaptive-type="operator"')
-			assertStringIncludes(html, "data-adaptive-config=")
+			assertStringIncludes(html, 'data-engine-type="operator"')
+			assertStringIncludes(html, "data-engine-config=")
 
 			// Config should be in JSON
 			assertStringIncludes(html, '"tag":"Add"')
@@ -471,16 +471,16 @@ describe("SSR and hydration behaviors", () => {
 			const container = document.createElement("div")
 			container.innerHTML = `
         <span 
-          class="adaptive-operator"
-          data-adaptive-type="operator"
-          data-adaptive-config='{"tag":"Add","type":"operator","addends":[{"tag":"Constant","type":"injector","value":10},{"tag":"Constant","type":"injector","value":20}]}'
+          class="engine-operator"
+          data-engine-type="operator"
+          data-engine-config='{"tag":"Add","type":"operator","addends":[{"tag":"Constant","type":"injector","value":10},{"tag":"Constant","type":"injector","value":20}]}'
         >[sum]</span>
       `
 			document.body.appendChild(container)
 
 			// Hydrate
-			const span = container.querySelector("[data-adaptive-config]")
-			const config = JSON.parse(span.dataset.adaptiveConfig)
+			const span = container.querySelector("[data-engine-config]")
+			const config = JSON.parse(span.dataset.engineConfig)
 
 			// Run calculation
 			runCalculations({ dom: document })(config).then((result) => {
@@ -572,7 +572,7 @@ describe("Progressive enhancement behaviors", () => {
 				tag: "Div",
 				children: [
 					"Total: ",
-					ssrRenderAdaptive(
+					ssrRenderEngine(
 						Add()([
 							FromElement("price"),
 							FromElement("tax"),
@@ -586,7 +586,7 @@ describe("Progressive enhancement behaviors", () => {
 			// Should show placeholder, not error
 			assertStringIncludes(html, "[sum]")
 			// Should include data for hydration
-			assertStringIncludes(html, "data-adaptive-config")
+			assertStringIncludes(html, "data-engine-config")
 		})
 	})
 

@@ -38,7 +38,7 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
   ;(g as any).sitebenderVizAdapter = globalAdapter
 
   // Import hydrate entry so it executes with our fake globals
-  const modUrl = new URL("../../../src/hydrate/adaptive.ts", import.meta.url)
+  const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
   await import(modUrl.href)
 
   // The global adapter should have been auto-registered and executed

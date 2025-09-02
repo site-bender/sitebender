@@ -62,7 +62,7 @@ This project (@sitebender) includes a documentation app that uses the associated
 
 There are three libraries that are part of the @sitebender project:
 
-1. The `@sitebender/engine` library provides adaptive components for responsive design.
+1. The `@sitebender/engine` library provides engine components for responsive design.
 2. The `@sitebender/components` library offers a set of accessible UI components.
 3. The `@sitebender/toolkit` library includes utility functions and components.
 

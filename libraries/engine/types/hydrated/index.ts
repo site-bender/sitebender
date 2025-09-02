@@ -1,5 +1,5 @@
 /**
- * Hydrated type definitions for the Adaptive library
+ * Hydrated type definitions for the Engine library
  *
  * These types represent the configuration objects after composition,
  * where operand references have been resolved to OperationFunction instances.

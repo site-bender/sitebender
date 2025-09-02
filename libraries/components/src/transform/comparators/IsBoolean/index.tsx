@@ -1,4 +1,4 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
 /**
  * IsBoolean JSX Component
@@ -12,7 +12,7 @@ import type { Operand } from "@adaptiveTypes/index.ts"
  * </IsBoolean>
  */
 
-import IsBooleanConstructor from "@adaptiveSrc/constructors/comparators/scalar/IsBoolean/index.ts"
+import IsBooleanConstructor from "@engineSrc/constructors/comparators/scalar/IsBoolean/index.ts"
 
 export type Props = {
 	children?: JSX.Element | JSX.Element[]

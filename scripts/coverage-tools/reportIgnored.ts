@@ -16,7 +16,7 @@ import { join, relative } from "jsr:@std/path@^1.0.8"
 const ROOT = new URL("../../", import.meta.url)
 const SCAN_DIRS = [
   "docs",
-  "jexer",
+  "jsxer",
   "libraries/engine",
   "libraries/components",
   "libraries/toolkit",
@@ -39,7 +39,7 @@ function groupLabel(absPath: string): string {
     return seg.length >= 2 ? `libraries/${seg[1]}` : "libraries"
   }
   if (rel.startsWith("docs/")) return "docs"
-  if (rel.startsWith("jexer/")) return "jexer"
+  if (rel.startsWith("jsxer/")) return "jsxer"
   if (rel.startsWith("scripts/")) return "scripts"
   return "root"
 }

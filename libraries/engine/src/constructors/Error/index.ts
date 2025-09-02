@@ -1,4 +1,4 @@
-import type { ErrorConfig } from "@adaptiveTypes/error/index.ts"
+import type { ErrorConfig } from "@engineTypes/error/index.ts"
 
 export const Error =
 	(operation: string) => (type: string) => (message: string): ErrorConfig => ({

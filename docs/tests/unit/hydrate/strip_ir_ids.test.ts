@@ -28,7 +28,7 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 	;(g as any).location = { hostname: "example.com" }
 
 	// Import hydrate entry; it schedules a microtask to strip attributes
-	const modUrl = new URL("../../../src/hydrate/adaptive.ts", import.meta.url)
+	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
 	await import(modUrl.href)
 
 	// Wait a microtask tick for the queued removal to run

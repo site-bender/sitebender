@@ -1,4 +1,4 @@
-import type { Operand, RoundOperator } from "@adaptiveTypes/index.ts"
+import type { Operand, RoundOperator } from "@engineTypes/index.ts"
 
 /**
  * Round JSX Component
@@ -12,7 +12,7 @@ import type { Operand, RoundOperator } from "@adaptiveTypes/index.ts"
  * </Round>
  */
 
-import RoundConstructor from "@adaptiveSrc/constructors/operators/Round/index.ts"
+import RoundConstructor from "@engineSrc/constructors/operators/Round/index.ts"
 
 export type Props = {
 	type?: "Number"

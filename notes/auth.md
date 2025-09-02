@@ -1,6 +1,6 @@
 # Authentication and Authorization (AuthN/AuthZ)
 
-This document proposes a minimal, composable design for authentication and authorization that fits the Adaptive IR, SSR safety, and the When.* (authoring) / On.* (runtime) canons.
+This document proposes a minimal, composable design for authentication and authorization that fits the Engine IR, SSR safety, and the When.* (authoring) / On.* (runtime) canons.
 
 - Authoring: declarative wrappers (When.*) that describe auth requirements.
 - Runtime: operations (On.*) that validate credentials, inject identity, and evaluate policies.
@@ -30,7 +30,7 @@ This document proposes a minimal, composable design for authentication and autho
 
 - On.FromRequestAuth(adapter)
   - Input: Request context (cookies, headers)
-  - Output: Either<AdaptiveError[], { user: IdentityClaims; token?: TokenMeta }>
+  - Output: Either<EngineError[], { user: IdentityClaims; token?: TokenMeta }>
   - Effect: populates `LocalValues.user` for downstream operations and renderers.
 
 - Policy primitives (runtime)
@@ -61,7 +61,7 @@ This document proposes a minimal, composable design for authentication and autho
 
 ## Authoring (JSX) — Proposed API
 
-Note: These wrappers are proposed authoring components that compile to the Adaptive IR. Names follow the When.* canon.
+Note: These wrappers are proposed authoring components that compile to the Engine IR. Names follow the When.* canon.
 
 ### Authenticated guard for a section
 
@@ -146,8 +146,8 @@ return render(App, { user })
 The runtime provides a tiny helper to evaluate an auth policy and return an SSR-friendly decision:
 
 ```ts
-import { createComposeContext } from "@adaptiveSrc/context/composeContext/index.ts"
-import { guardRoute } from "@adaptiveSrc/runtime/guard/index.ts"
+import { createComposeContext } from "@engineSrc/context/composeContext/index.ts"
+import { guardRoute } from "@engineSrc/runtime/guard/index.ts"
 
 const ctx = createComposeContext({ env: "server", localValues: { user: { id: 1 } } })
 const decision = await guardRoute(ctx, "IsAuthenticated", undefined, { redirect: "/login" })
@@ -166,7 +166,7 @@ const decision = await guardRoute(ctx, "IsAuthenticated", undefined, { redirect:
 
 ## Incremental Implementation Plan
 
-1) Types (@adaptiveTypes)
+1) Types (@engineTypes)
    - IdentityClaims, TokenMeta, Policy (tag: "Authorize").
 2) Injector
    - On.FromRequestAuth(adapter) → `LocalValues.user`.

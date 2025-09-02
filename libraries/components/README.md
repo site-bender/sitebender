@@ -2,7 +2,7 @@
 
 This library extends HTML with semantic, accessible, and metadata-rich components organized by function. In essence, it forms a "superset" of HTML, allowing the developer/designer to create content that is both human-readable and machine-understandable without relying on HTML or JavaScript.
 
-It works in conjunction with the adaptive module, which enhances these components with additional functionality for conditional display, progressive enhancement, validation, formatting, calculations (math), data injection and binding (IO), and more all in a strict FP, composable, and declarative manner.
+It works in conjunction with the engine module, which enhances these components with additional functionality for conditional display, progressive enhancement, validation, formatting, calculations (math), data injection and binding (IO), and more all in a strict FP, composable, and declarative manner.
 
 ## Core Principles
 
@@ -128,7 +128,7 @@ This reflects the distinction between components that modify content (states) an
 
 ### Progressive Enhancement
 
-- Components use `data-*` attributes to signal enhancement opportunities and to work with the adaptive module
+- Components use `data-*` attributes to signal enhancement opportunities and to work with the engine module
 - All enhancements are optional - base HTML always works
 - State managed through the Web/Browser APIs (localStorage, sessionStorage, cookies, etc.)
 
@@ -488,7 +488,7 @@ For a song and lyrics:
 
 ## Compiler diagnostics (meta.debug.warnings)
 
-The components compiler lowers wrappers to Adaptive IR and attaches non-fatal diagnostics to nodes when it detects likely authoring mistakes.
+The components compiler lowers wrappers to Engine IR and attaches non-fatal diagnostics to nodes when it detects likely authoring mistakes.
 
 - Where: `node.meta.debug.warnings` (array of strings)
 - Common cases:

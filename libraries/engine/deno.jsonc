@@ -1,8 +1,8 @@
 {
-	// Adaptive UI library - Reactive calculations and progressive enhancement
-	"name": "@sitebender/adaptive",
+	// Engine UI library - Reactive calculations and progressive enhancement
+	"name": "@sitebender/engine",
 	"version": "0.1.0",
-	"description": "A library for adaptive user interfaces with reactive calculations and progressive enhancement.",
+	"description": "A library for engine user interfaces with reactive calculations and progressive enhancement.",
 
 	// Main export point for the library
 	"exports": {
@@ -12,7 +12,7 @@
 	"tasks": {
 		// Run tests - all behavioral tests together
 		"name": "@sitebender/engine",
-		"description": "Declarative behavior engine for adaptive UIs with progressive enhancement.",
+		"description": "Declarative behavior engine for engine UIs with progressive enhancement.",
 		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
 
 		// Code quality (inherits config from root workspace)

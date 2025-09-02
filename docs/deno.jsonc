@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"description": "Documentation and demonstration site for Sitebender libraries.",
 	"exports": {
-		"./*": "./src/*"
+		"./*": "./pages/*"
 	},
 
 	"tasks": {
@@ -30,7 +30,7 @@
 
 		// === Maintenance ===
 		"clean": "rm -rf dist/ coverage/",
-		"type-check": "deno check --unstable-temporal src/**/*.ts src/**/*.tsx"
+		"type-check": "deno check --unstable-temporal sites/**/*.tsx pages/**/*.tsx"
 	},
 
 	"imports": {
@@ -50,11 +50,6 @@
 		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
 		"@engineSrc/": "../libraries/engine/src/",
 		"@engineTypes/": "../libraries/engine/types/",
-		// Legacy adaptive aliases (repointed)
-		"@adaptiveSrc/": "../libraries/engine/src/",
-		"@adaptiveTypes/": "../libraries/engine/types/",
-		"@sitebender/adaptive": "../libraries/engine/src/",
-		"@sitebender/adaptive/": "../libraries/engine/src/",
 		"@sitebender/components": "../libraries/components/src/index.ts",
 		"@sitebender/components/": "../libraries/components/src/",
 
@@ -68,25 +63,14 @@
 		// === Other Dependencies ===
 		"@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.1",
 
-		// === Path Aliases for App Code ===
-		"~scripts/": "./.sitebender/scripts/",
-		"~components/": "./src/components/",
-		"~constants/": "./src/constants/",
-		"~routes/": "./pages/",
-		"~src/": "./src/",
-		"~static/": "./assets/",
-		"~tests/": "./tests/",
-		"~types/": "./src/types/",
-		"~utilities/": "./src/utilities/",
-
 		// === JSX Support ===
-		"createElement": "./src/utilities/createElement/index.ts",
-		"Fragment": "./src/utilities/Fragment/index.ts"
+		"createElement": "./.sitebender/createElement/index.ts",
+		"Fragment": "./.sitebender/Fragment/index.ts"
 	},
 
 	// Test configuration
 	"test": {
 		"include": ["tests/"],
-		"exclude": ["src/", "assets/", "dist/", "tests/fixtures/"]
+		"exclude": ["assets/", "dist/", "pages/", "sites", "tests/fixtures/"]
 	}
 }

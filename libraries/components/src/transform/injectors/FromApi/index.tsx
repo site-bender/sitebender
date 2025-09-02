@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromApiInjector,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * FromApi JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromApiConstructor from "@adaptiveSrc/constructors/injectors/FromApi/index.ts"
+import FromApiConstructor from "@engineSrc/constructors/injectors/FromApi/index.ts"
 
 export type FromApiProps = {
 	endpoint: string

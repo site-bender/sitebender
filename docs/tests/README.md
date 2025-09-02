@@ -200,20 +200,20 @@ test.describe("Form submission behaviors", () => {
 })
 ```
 
-### Testing Adaptive Library Hydration
+### Testing Engine Library Hydration
 
 ```typescript
-// tests/behaviors/experimenting/adaptive/index.ts
+// tests/behaviors/experimenting/engine/index.ts
 import { expect, test } from "playwright-mcp"
 
-test.describe("Adaptive configuration hydration", () => {
+test.describe("Engine configuration hydration", () => {
 	test("SSR renders placeholders, client hydrates with real values", async ({ page }) => {
 		// First load with JS disabled to check SSR
 		await page.setJavaScriptEnabled(false)
 		await page.goto("/examples/calculator")
 
 		// SSR should show placeholders
-		const sumElement = page.locator('[data-adaptive-type="operator"]').first()
+		const sumElement = page.locator('[data-engine-type="operator"]').first()
 		await expect(sumElement).toContainText("[sum]")
 
 		// Now enable JS and reload
@@ -221,7 +221,7 @@ test.describe("Adaptive configuration hydration", () => {
 		await page.reload()
 
 		// Wait for hydration
-		await page.waitForSelector('[data-adaptive-hydrated="true"]')
+		await page.waitForSelector('[data-engine-hydrated="true"]')
 
 		// Should now show calculated value
 		await expect(sumElement).not.toContainText("[sum]")
@@ -323,7 +323,7 @@ test.describe("Code playground behaviors", () => {
 				expected: "[2, 4, 6]",
 			},
 			{
-				lib: "adaptive",
+				lib: "engine",
 				code: `
 		  import Add from "@sitebender/engine/constructors/operators/Add"
 		  import Constant from "@sitebender/engine/constructors/injectors/Constant"
@@ -371,7 +371,7 @@ test.describe("WCAG 2.3 AAA Compliance", () => {
     "/",
     "/components",
     "/toolkit",
-    "/adaptive",
+    "/engine",
     "/examples",
     "/playground",
     "/tutorials"
@@ -417,7 +417,7 @@ test.describe("WCAG 2.3 AAA Compliance", () => {
 ### Smoke tests
 - Registry resolution by tag succeeds (operators, injectors, comparators) in the built app bundle.
 - SSR render returns a string without throwing for representative pages.
-- Hydrate walk runs once, attaches validators/events/calculations, and marks `[data-adaptive-hydrated="true"]`.
+- Hydrate walk runs once, attaches validators/events/calculations, and marks `[data-engine-hydrated="true"]`.
 - Playground: Worker starts, executes sandboxed code, console output captured, and network is blocked by default.
 
 ## Performance & Security Budgets

@@ -3,9 +3,9 @@
 Date: 2025-09-02
 
 ## Executive summary
-Sitebender is a progressive-enhancement web platform built around a tiny, declarative JSX DSL that compiles to a stable Adaptive IR. From this IR we derive: semantic HTML (SSR/SSG), client hydration (events, validation, conditional UI), calculations, andover timesemantic artifacts (JSON-LD, OWL/SHACL) and data-driven UI. Baseline pages work without JavaScript; JS adds reactive behavior. The long-term goal is an AI-assisted, intent-based authoring experience where non-coders compose full apps via a small, natural-language vocabulary.
+Sitebender is a progressive-enhancement web platform built around a tiny, declarative JSX DSL that compiles to a stable Engine IR. From this IR we derive: semantic HTML (SSR/SSG), client hydration (events, validation, conditional UI), calculations, andover timesemantic artifacts (JSON-LD, OWL/SHACL) and data-driven UI. Baseline pages work without JavaScript; JS adds reactive behavior. The long-term goal is an AI-assisted, intent-based authoring experience where non-coders compose full apps via a small, natural-language vocabulary.
 
-The notes clarify and extend the Adaptive synopsis in four big ways:
+The notes clarify and extend the Engine synopsis in four big ways:
 - Canonical naming and authoring vocabulary (When/Is/From, bare-verb Actions, Program control).
 - A data model layer (Vault/Collection/Field/Item) that compiles to SHACL/OWL and powers schema-driven forms.
 - A broader platform surface: Auth, Visualization/Telemetry/Debug, and clear testing/DI practices.
@@ -21,8 +21,8 @@ The notes clarify and extend the Adaptive synopsis in four big ways:
   - Operators: prefer plain verbs (Add, Multiply, )
   - Control: If/Conditional (+ slots: Condition/IfTrue/IfFalse); Validation; Program (authoring wrapper used in docs)
 - Anchoring & IDs: behaviors bind to nearest stable data-ir-id (or id/name). Deterministic IDs; explicit for/anchor override supported.
-- IR: versioned, discriminated-node shapes for element/injector/operator/comparator/conditional/validator/action/on; single root script tag (application/adaptive+json) for hydration.
-- Runtime: one evaluator with an environment boundary (server/client). Hydrator registers default executors, resolves anchors, and binds events/validators/conditionals. Minimal FRP store and a local pub/sub bus live in adaptive runtime.
+- IR: versioned, discriminated-node shapes for element/injector/operator/comparator/conditional/validator/action/on; single root script tag (application/engine+json) for hydration.
+- Runtime: one evaluator with an environment boundary (server/client). Hydrator registers default executors, resolves anchors, and binds events/validators/conditionals. Minimal FRP store and a local pub/sub bus live in engine runtime.
 
 ## Data-driven UI (Vault/Collection/Field/Item)
 - Vision (charter/plan): Treat Vault as the apps private boundary; Collections define schema; Fields carry constraints expressed with existing comparator graphs. 
@@ -54,8 +54,8 @@ The notes clarify and extend the Adaptive synopsis in four big ways:
 
 ## Status and plan (phase-2 notes)
 - Docs app: Program-based inline authoring live on Tutorial/Validation; shared hydrate script; passing E2E examples.
-- Components compiler: toAdaptiveIr supports Constant/FromElement/Add/NotEmpty/SetValue/SetQueryString/On; If lowers to Act.If; anchor inference in place.
-- Adaptive: default executors for common comparators/logical/temporal; hydrator binds on input/change/blur/submit and runs comparators.
+- Components compiler: toEngineIr supports Constant/FromElement/Add/NotEmpty/SetValue/SetQueryString/On; If lowers to Act.If; anchor inference in place.
+- Engine: default executors for common comparators/logical/temporal; hydrator binds on input/change/blur/submit and runs comparators.
 - Registries: refactor away from dynamic imports to explicit, tree-shakeable registries is planned.
 - IR contracts: IDs/versioning/meta fields, strict node shapes, JSON Schema v1 in scope.
 - Naming canon: finalized for authoring; Actions bare verbs; Events When.*, keep On.* aliases.

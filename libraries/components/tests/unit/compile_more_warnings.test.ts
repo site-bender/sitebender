@@ -11,7 +11,7 @@ import type {
 	OperatorNode,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import DoesNotMatch from "../../src/transform/comparators/DoesNotMatch/index.tsx"
 import InSet from "../../src/transform/comparators/InSet/index.tsx"
@@ -64,7 +64,7 @@ Deno.test("compiler emits warning for Multiply with fewer than 2 multipliers", (
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =
@@ -86,7 +86,7 @@ Deno.test("compiler emits warning for IsAfterDateTime with missing argument", ()
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -108,7 +108,7 @@ Deno.test("compiler emits warning for IsBeforeDateTime with missing argument", (
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -130,7 +130,7 @@ Deno.test("compiler emits warning for IsSameDateTime with missing argument", () 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -152,7 +152,7 @@ Deno.test("compiler emits warning for IsNotAfterDateTime with missing argument",
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -174,7 +174,7 @@ Deno.test("compiler emits warning for IsNotBeforeDateTime with missing argument"
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -196,7 +196,7 @@ Deno.test("compiler emits warning for IsAfterTime with missing argument", () => 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -218,7 +218,7 @@ Deno.test("compiler emits warning for IsBeforeTime with missing argument", () =>
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -240,7 +240,7 @@ Deno.test("compiler emits warning for IsSameTime with missing argument", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -262,7 +262,7 @@ Deno.test("compiler emits warning for IsNotAfterTime with missing argument", () 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -284,7 +284,7 @@ Deno.test("compiler emits warning for IsNotBeforeTime with missing argument", ()
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -306,7 +306,7 @@ Deno.test("compiler emits warning for IsAfterDate with missing argument", () => 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -328,7 +328,7 @@ Deno.test("compiler emits warning for IsBeforeDate with missing argument", () =>
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -350,7 +350,7 @@ Deno.test("compiler emits warning for IsSameDate with missing argument", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -372,7 +372,7 @@ Deno.test("compiler emits warning for IsNotAfterDate with missing argument", () 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -394,7 +394,7 @@ Deno.test("compiler emits warning for IsNotBeforeDate with missing argument", ()
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -416,7 +416,7 @@ Deno.test("compiler emits warning for IsNotSameDate with missing argument", () =
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -440,7 +440,7 @@ Deno.test("compiler emits warning for Is.MoreThan with missing argument", () => 
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -461,7 +461,7 @@ Deno.test("compiler emits warning for NotEmpty with wrong arity (0)", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -484,7 +484,7 @@ Deno.test("compiler emits warning for DoesNotMatch invalid arity", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -503,7 +503,7 @@ Deno.test("compiler emits warning for Min with fewer than 1 operand", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =
@@ -523,7 +523,7 @@ Deno.test("compiler emits warning for Max with fewer than 1 operand", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
 	const warnings =
@@ -543,7 +543,7 @@ Deno.test("compiler emits warning for And with zero operands", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -563,7 +563,7 @@ Deno.test("compiler emits warning for Or with zero operands", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =
@@ -586,7 +586,7 @@ Deno.test("compiler emits warning for InSet with missing argument", () => {
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
 	const warnings =

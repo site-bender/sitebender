@@ -5,7 +5,7 @@ import type {
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import IsEqualTo from "../../src/transform/comparators/IsEqualTo/index.tsx"
 import If from "../../src/transform/control/If/index.tsx"
@@ -61,7 +61,7 @@ Deno.test("golden: nested If can appear as a branch executable in Act.If", () =>
 		}),
 	]
 
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	assertEquals(doc.kind, "element")
 	const evt = doc.children[0] as { handler: ActionNode }
 	const handler = evt.handler

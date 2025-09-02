@@ -1,4 +1,4 @@
-import type { AbsoluteValueOperator, Operand } from "@adaptiveTypes/index.ts"
+import type { AbsoluteValueOperator, Operand } from "@engineTypes/index.ts"
 
 /**
  * AbsoluteValue JSX Component
@@ -12,7 +12,7 @@ import type { AbsoluteValueOperator, Operand } from "@adaptiveTypes/index.ts"
  * </AbsoluteValue>
  */
 
-import AbsoluteValueConstructor from "@adaptiveSrc/constructors/operators/AbsoluteValue/index.ts"
+import AbsoluteValueConstructor from "@engineSrc/constructors/operators/AbsoluteValue/index.ts"
 
 export type Props = {
 	type?: "Number"

@@ -19,7 +19,7 @@ Given a checkbox that toggles a help panel:
 </div>
 ```
 
-Adaptive config for display behavior with an explicit for override:
+Engine config for display behavior with an explicit for override:
 
 ```ts
 const behavior = {

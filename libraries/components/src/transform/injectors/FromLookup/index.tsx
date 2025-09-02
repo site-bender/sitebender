@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromLookupInjector,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * FromLookup JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromLookupConstructor from "@adaptiveSrc/constructors/injectors/FromLookup/index.ts"
+import FromLookupConstructor from "@engineSrc/constructors/injectors/FromLookup/index.ts"
 
 export type FromLookupProps = {
 	id: string

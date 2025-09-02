@@ -9,7 +9,7 @@ import type {
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import SetValue from "../../src/transform/actions/SetValue/index.tsx"
 import On from "../../src/transform/control/On/index.tsx"
 import FromElement from "../../src/transform/injectors/FromElement/index.tsx"
@@ -26,7 +26,7 @@ Deno.test("golden: On uses anchor inference from action args when no prior eleme
 		}),
 	]
 
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	assertEquals(doc.kind, "element")
 	assert(Array.isArray(doc.children))
 	const evt = doc.children[0] as {
@@ -53,7 +53,7 @@ Deno.test("golden: On.target overrides anchor inference from action args", () =>
 		}),
 	]
 
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { id: string; handler: ActionNode }
 	// Even though value references #source, explicit target wins
 	assertEquals(evt.id, "override")

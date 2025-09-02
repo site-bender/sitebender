@@ -1,6 +1,6 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import generateShortId from "@adaptiveSrc/pending/misc/generateShortId/index.ts"
+import generateShortId from "@engineSrc/pending/misc/generateShortId/index.ts"
 
 /**
  * Processes ID attribute value and returns appropriate object

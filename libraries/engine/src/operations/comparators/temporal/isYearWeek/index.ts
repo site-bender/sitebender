@@ -1,12 +1,12 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
 	OperationFunction,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import { isLeft } from "@adaptiveTypes/index.ts"
+import { isLeft } from "@engineTypes/index.ts"
 
 import Error from "../../../../constructors/Error/index.ts"
 import { MATCHERS } from "../../../../guards/constants/index.ts"
@@ -42,7 +42,7 @@ const isYearWeek = (op: ComparatorConfig): OperationFunction<boolean> =>
 async (
 	arg: unknown,
 	localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, boolean>> => {
+): Promise<Either<Array<EngineError>, boolean>> => {
 	const operandFn = await composeComparators(
 		(op as unknown as { operand: unknown }).operand as never,
 	)

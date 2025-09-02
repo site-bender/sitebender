@@ -1,0 +1,49 @@
+{
+	"name": "@sitebender/jsxer",
+	"version": "0.1.0",
+	"description": "JSX to AST visualizer as a Sitebender app",
+		"exports": {
+			"./*": "./src/*"
+		},
+	"tasks": {
+		"build": "deno run --allow-all .sitebender/scripts/build/index.ts",
+		"build:dev": "deno run --allow-all .sitebender/scripts/build/buildDev/index.ts",
+		"dev": "deno run --allow-all .sitebender/scripts/serve/index.ts",
+		"serve": "deno run --allow-net --allow-read jsr:@std/http/file-server --port=5555 dist/",
+		"type-check": "deno check src/**/*.ts src/**/*.tsx"
+	},
+	"imports": {
+		"monaco-editor": "https://esm.sh/monaco-editor@0.52.2",
+		"typescript": "https://esm.sh/typescript@5.9.2",
+
+		"~scripts/": "./.sitebender/scripts/",
+		"~components/": "./src/components/",
+		"~constants/": "./src/constants/",
+		"~routes/": "./pages/",
+		"~src/": "./src/",
+		"~static/": "./assets/",
+		"~tests/": "./tests/",
+		"~types/": "./src/types/",
+		"~utilities/": "./src/utilities/",
+
+		"createElement": "./src/utilities/createElement/index.ts",
+		"Fragment": "./src/utilities/Fragment/index.ts"
+	},
+		"compilerOptions": {
+			"jsx": "react",
+			"jsxFactory": "createElement",
+			"jsxFragmentFactory": "Fragment"
+		},
+	"lint": {
+		"rules": {
+			"tags": ["recommended"]
+		}
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 100,
+		"indentWidth": 2,
+		"semiColons": true,
+		"singleQuote": true
+	}
+}

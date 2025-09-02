@@ -1,4 +1,4 @@
-import type { FromLocalStorageInjector } from "@adaptiveTypes/index.ts"
+import type { FromLocalStorageInjector } from "@engineTypes/index.ts"
 
 /**
  * FromLocalStorage JSX Component
@@ -11,13 +11,13 @@ import type { FromLocalStorageInjector } from "@adaptiveTypes/index.ts"
  * <FromLocalStorage key="settings" type="Json" />
  */
 
-import FromLocalStorageConstructor from "@adaptiveSrc/constructors/injectors/FromLocalStorage/index.ts"
+import FromLocalStorageConstructor from "@engineSrc/constructors/injectors/FromLocalStorage/index.ts"
 
 export type FromLocalStorageProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: import("@adaptiveTypes/index.ts").Value
+	defaultValue?: import("@engineTypes/index.ts").Value
 }
 
 export default function FromLocalStorage({

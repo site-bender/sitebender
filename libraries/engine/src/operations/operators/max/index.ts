@@ -1,6 +1,6 @@
 import type { HydratedMax } from "../../../../types/hydrated/index.ts"
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
@@ -14,7 +14,7 @@ const max =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, number | string>> => {
+	): Promise<Either<Array<EngineError>, number | string>> => {
 		if (operands.length === 0) {
 			return {
 				left: [{
@@ -30,8 +30,8 @@ const max =
 		)
 		const errors = resolvedOperands.filter(isLeft)
 		if (errors.length) {
-			const lefts = errors as Array<{ left: Array<AdaptiveError> }>
-			const flattened: Array<AdaptiveError> = lefts.flatMap((e) => e.left)
+			const lefts = errors as Array<{ left: Array<EngineError> }>
+			const flattened: Array<EngineError> = lefts.flatMap((e) => e.left)
 			return {
 				left: [
 					{

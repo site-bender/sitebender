@@ -9,7 +9,7 @@
  * <FromElement selector=".total-field" type="String" />
  */
 
-// Marker only; compiler maps to Adaptive IR
+// Marker only; compiler maps to Engine IR
 
 export type FromElementProps = {
 	id?: string

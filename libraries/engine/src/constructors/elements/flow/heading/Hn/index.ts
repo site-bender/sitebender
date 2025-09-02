@@ -1,4 +1,4 @@
-import type { Value } from "@adaptiveTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
 import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"

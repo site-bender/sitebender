@@ -1,14 +1,14 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperationFunction,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import { OPERAND_TYPES } from "@adaptiveSrc/constructors/constants/index.ts"
-import Error from "@adaptiveSrc/constructors/Error/index.ts"
-import getOperandKeys from "@adaptiveSrc/operations/helpers/getOperandKeys/index.ts"
+import { OPERAND_TYPES } from "@engineSrc/constructors/constants/index.ts"
+import Error from "@engineSrc/constructors/Error/index.ts"
+import getOperandKeys from "@engineSrc/operations/helpers/getOperandKeys/index.ts"
 import not from "@toolkit/simple/logic/not/index.ts"
 import toCamel from "@toolkit/simple/string/toCase/toCamel/index.ts"
 
@@ -23,7 +23,7 @@ const composeComparators = async (
 				left: [
 					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
 						`Comparison undefined or malformed: ${JSON.stringify(operation)}.`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	}
@@ -74,7 +74,7 @@ const composeComparators = async (
 				left: [
 					Error((operation as ComparatorConfig).tag || "Unknown")("Comparison")(
 						`Unknown type: ${(operation as ComparatorConfig).type}`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	} catch (e: unknown) {
@@ -85,7 +85,7 @@ const composeComparators = async (
 						`Comparison "${(operation as ComparatorConfig).tag}" with type "${
 							(operation as ComparatorConfig).type
 						}" could not be loaded. ${String(e)}`,
-					) as AdaptiveError,
+					) as EngineError,
 				],
 			})
 	}

@@ -8,14 +8,14 @@ import Constant from "@sitebender/components/transform/injectors/Constant/index.
 import FromElement from "@sitebender/components/transform/injectors/FromElement/index.tsx"
 import Add from "@sitebender/components/transform/operators/Add/index.tsx"
 
-import createElement from "~utilities/createElement/index.ts"
 
-// compileToAdaptive no longer needed directly here
+
+// compileToEngine no longer needed directly here
 
 export default function Tutorial() {
 	return (
 		<body>
-			<h1>Adaptive Tutorial (JSX)</h1>
+			<h1>Engine Tutorial (JSX)</h1>
 			<p>
 				These behaviors are authored with JSX components and hydrated on the
 				client.
@@ -27,7 +27,7 @@ export default function Tutorial() {
 				Hello, <span id="out">(none)</span>
 			</p>
 
-			<form id="profile" data-ir-id="profile" action="/ignored-by-adaptive">
+			<form id="profile" data-ir-id="profile" action="/ignored-by-engine">
 				<input name="favorite" id="favorite" placeholder="Favorite thing" />
 				<button type="submit">Save</button>
 			</form>
@@ -99,7 +99,7 @@ export default function Tutorial() {
 			</Program>
 
 			{/* Hydrate using pre-bundled client script */}
-			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
+			<script type="module" src="/scripts/hydrate/engine.js"></script>
 		</body>
 	)
 }

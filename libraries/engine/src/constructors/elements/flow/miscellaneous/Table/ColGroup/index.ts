@@ -1,18 +1,18 @@
-import type { TableColumnGroupAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@adaptiveTypes/index.ts"
-import type { Value } from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import Filtered from "@adaptiveSrc/constructors/abstracted/Filtered/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@adaptiveSrc/guards/filterAttribute/index.ts"
-import isInteger from "@adaptiveSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isInteger from "@engineSrc/guards/isInteger/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for ColGroup element

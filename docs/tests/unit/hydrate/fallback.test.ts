@@ -22,7 +22,7 @@ Deno.test("viz hydration falls back to noop when no adapter is set", async () =>
 	;(g as any).window = {}
 
 	// Dynamically import hydrate entry so it sees our fake document
-	const modUrl = new URL("../../../src/hydrate/adaptive.ts", import.meta.url)
+	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
 	await import(modUrl.href)
 
 	// No registry adapter was set, so the noop adapter should have marked elements

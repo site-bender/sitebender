@@ -1,4 +1,4 @@
-import type { AverageOperator, Operand } from "@adaptiveTypes/index.ts"
+import type { AverageOperator, Operand } from "@engineTypes/index.ts"
 
 /**
  * Average JSX Component
@@ -14,7 +14,7 @@ import type { AverageOperator, Operand } from "@adaptiveTypes/index.ts"
  * </Average>
  */
 
-import AverageConstructor from "@adaptiveSrc/constructors/operators/Average/index.ts"
+import AverageConstructor from "@engineSrc/constructors/operators/Average/index.ts"
 
 export type Props = {
 	type?: "Number"

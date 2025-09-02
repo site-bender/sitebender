@@ -7,15 +7,15 @@ Use this prompt at the start of the next session to regain full context with no 
 ## Read first (context + constraints)
 - Read `CLAUDE.md`, `PLAN_OF_ATTACK.md`, `NAMING.md`, `TESTING.md`, and `README.md` to refresh guardrails, naming canon, and goals.
 - Open root `deno.jsonc` to confirm:
-  - Aliases: `@adaptiveSrc/`, `@adaptiveTypes/`, `@toolkit/`
+  - Aliases: `@engineSrc/`, `@engineTypes/`, `@toolkit/`
   - Compiler `types`: docs + scripts + components JSX globals
-  - Tasks: `type-check`, `test:adaptive:strict`, `test:components:strict`, alias guard
+  - Tasks: `type-check`, `test:engine:strict`, `test:components:strict`, alias guard
 - Scan `scripts/hooks/install.ts` to note pre-commit checks: FP checks, alias guard, and no-react-junk; SKIP envs: `SKIP_FP_CHECKS=1`, `SKIP_ALIAS_GUARD=1`.
 
 ## Current state snapshot (end of 2025-08-31)
 - Type-check: Green on edited areas; spot checks clean.
 - Tests:
-  - Adaptive: PASS (operators, comparators, registries, runtime, hydrator; IR contracts for Add/Multiply/Min/Max/Ternary; And/EqualTo; actions/events path).
+  - Engine: PASS (operators, comparators, registries, runtime, hydrator; IR contracts for Add/Multiply/Min/Max/Ternary; And/EqualTo; actions/events path).
   - Components: PASS (compile-to-IR wrappers, On/When mapping, conditionals; plus new Viz container tests and adapter tests).
   - Docs E2E live under `docs/tests`; no behavioral regressions introduced.
 - Naming canon: Authoring uses component names; keep `When.*` for events. Avoid `Do.*` and `Act.*` in docs/examples; runtime internals may still use `Act.*` identifiers.
@@ -52,10 +52,10 @@ Use this prompt at the start of the next session to regain full context with no 
 
 ## Immediate actions (next session)
 1) Re-baseline
-  - Run: type-check + components/adaptive tests; quick lint on changed paths.
+  - Run: type-check + components/engine tests; quick lint on changed paths.
 
 2) Finish linter sweep (priority)
-  - Continue removing unused imports/params and tightening types across components/adaptive, staying SSR-safe and preserving HTML/ARIA precision.
+  - Continue removing unused imports/params and tightening types across components/engine, staying SSR-safe and preserving HTML/ARIA precision.
   - Work in ≤5-file batches; re-run lint + tests after each batch.
 
 3) Viz next slice (small)
@@ -70,22 +70,22 @@ Use this prompt at the start of the next session to regain full context with no 
   - Cross-link `AUTH.md`, `VIZ.md`, and `TODO.md`; ensure examples use `When.*` and component-first naming.
 
 ## Success criteria
-- Tests stay green across Adaptive/Components; no new lint errors.
+- Tests stay green across Engine/Components; no new lint errors.
 - Linter sweep reduces warnings on touched paths without regressing types.
 - Viz containers remain SSR-safe; noop hydration runs in docs.
 - Auth policies registered by default; authorized compile path intact.
 
 ## Useful paths and aliases
 - Aliases (root `deno.jsonc`):
-  - `@adaptiveSrc/` → `./libraries/engine/src/` (legacy alias)
-  - `@adaptiveTypes/` → `./libraries/engine/types/` (legacy alias)
+  - `@engineSrc/` → `./libraries/engine/src/`
+  - `@engineTypes/` → `./libraries/engine/types/`
   - `@toolkit/` → `./libraries/toolkit/src/` (read-only)
-- Adaptive tests/examples:
+- Engine tests/examples:
   - IR contracts: `libraries/engine/tests/contracts/ir_contracts.test.ts`
   - Registries defaults: `libraries/engine/src/operations/defaults/registerDefaults/index.ts`
   - Hydrator: `libraries/engine/src/runtime/hydrator/index.ts`
 - Components tests:
-  - `libraries/components/tests/unit/compile_to_adaptive.test.ts`
+  - `libraries/components/tests/unit/compile_to_engine.test.ts`
 
 ## Event mapping cheat-sheet
 - `When.Clicked` ≡ `On.Click`
@@ -98,7 +98,7 @@ Use this prompt at the start of the next session to regain full context with no 
 ## Commands to run (copy/paste)
 ```sh
 deno task type-check
-deno task test:adaptive:strict
+deno task test:engine:strict
 deno task test:components:strict
 deno lint
 ```

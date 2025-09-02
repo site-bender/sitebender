@@ -44,8 +44,8 @@ jobs:
           entrypoint: https://deno.land/std/http/file_server.ts
           root: docs/dist
 
-  deploy-jexer:
-    name: Deploy jexer
+  deploy-jsxer:
+    name: Deploy jsxer
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -62,14 +62,14 @@ jobs:
           path: ~/.cache/deno
           key: deno-${{ runner.os }}-${{ hashFiles('**/deno.json*', '**/import_map.json', 'pnpm-lock.yaml') }}
 
-      - name: Build jexer
-        working-directory: jexer
+      - name: Build jsxer
+        working-directory: jsxer
         run: deno task build
 
-      - name: Deploy to Deno Deploy (jexer)
+      - name: Deploy to Deno Deploy (jsxer)
         uses: denoland/deployctl@v1
         with:
-          project: sitebender-jexer
-          # Serve built static assets from jexer/dist using Deno std file server
+          project: sitebender-jsxer
+          # Serve built static assets from jsxer/dist using Deno std file server
           entrypoint: https://deno.land/std/http/file_server.ts
-          root: jexer/dist
+          root: jsxer/dist

@@ -8,11 +8,11 @@ import runAllDisplayCallbacks from "../runAllDisplayCallbacks/index.ts"
 import runAllFormatters from "../runAllFormatters/index.ts"
 
 type RenderOptions = { level?: number }
-type AdaptiveConfig = Record<string, unknown>
+type EngineConfig = Record<string, unknown>
 
 const renderTo =
 	(target: Element) =>
-	(config: AdaptiveConfig) =>
+	(config: EngineConfig) =>
 	(options: RenderOptions = {}) => {
 		const opts = { level: 0, ...options }
 

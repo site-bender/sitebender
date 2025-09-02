@@ -1,8 +1,8 @@
-import type { Operand } from "@adaptiveTypes/index.ts"
+import type { Operand } from "@engineTypes/index.ts"
 
-import IsBeforeDate from "@adaptiveSrc/constructors/comparators/date/IsBeforeDate/index.ts"
-import IsShorterThan from "@adaptiveSrc/constructors/comparators/length/IsShorterThan/index.ts"
-import Constant from "@adaptiveSrc/constructors/injectors/Constant/index.ts"
+import IsBeforeDate from "@engineSrc/constructors/comparators/date/IsBeforeDate/index.ts"
+import IsShorterThan from "@engineSrc/constructors/comparators/length/IsShorterThan/index.ts"
+import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

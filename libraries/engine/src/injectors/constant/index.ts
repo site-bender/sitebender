@@ -1,12 +1,12 @@
 import type {
-	AdaptiveError,
+	EngineError,
 	Either,
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
-import isNumber from "@adaptiveSrc/guards/isNumber/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import isUndefined from "../../utilities/isUndefined.ts"
@@ -22,7 +22,7 @@ const constant = (operation: HydratedConstant): OperationFunction =>
 (
 	_arg: unknown,
 	_localValues?: LocalValues,
-): Promise<Either<Array<AdaptiveError>, Value>> => {
+): Promise<Either<Array<EngineError>, Value>> => {
 	const { datatype, value } = operation
 
 	if (value === null || value === undefined) {

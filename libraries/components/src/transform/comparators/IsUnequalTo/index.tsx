@@ -1,4 +1,4 @@
-import type { IsUnequalToComparator, Operand } from "@adaptiveTypes/index.ts"
+import type { IsUnequalToComparator, Operand } from "@engineTypes/index.ts"
 
 /**
  * IsUnequalTo JSX Component
@@ -14,7 +14,7 @@ import type { IsUnequalToComparator, Operand } from "@adaptiveTypes/index.ts"
  * </IsUnequalTo>
  */
 
-import IsUnequalToConstructor from "@adaptiveSrc/constructors/comparators/equality/IsUnequalTo/index.ts"
+import IsUnequalToConstructor from "@engineSrc/constructors/comparators/equality/IsUnequalTo/index.ts"
 
 export type Props = {
 	type?: "Number" | "String" | "Boolean" | "Date"

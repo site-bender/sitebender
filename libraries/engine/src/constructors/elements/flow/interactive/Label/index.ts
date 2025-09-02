@@ -1,6 +1,6 @@
-import type { LabelAttributes } from "@adaptiveSrc/constructors/elements/types/attributes/index.ts"
+import type { LabelAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 
-import isDefined from "@adaptiveSrc/utilities/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
 	ComparatorConfig,

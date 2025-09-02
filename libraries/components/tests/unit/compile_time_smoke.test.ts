@@ -8,7 +8,7 @@ import type {
 	IrDocument,
 } from "@engineTypes/ir/index.ts"
 
-import { compileToAdaptive } from "../../src/compile.ts"
+import { compileToEngine } from "../../src/compile.ts"
 import Publish from "../../src/transform/actions/Publish/index.tsx"
 import IsAfterTime from "../../src/transform/comparators/IsAfterTime/index.tsx"
 import IsNotAfterDate from "../../src/transform/comparators/IsNotAfterDate/index.tsx"
@@ -27,7 +27,7 @@ const el = (
 	props: children === undefined ? props : { ...props, children },
 })
 
-Deno.test("compileToAdaptive compiles IsAfterTime comparator without warnings (happy path)", () => {
+Deno.test("compileToEngine compiles IsAfterTime comparator without warnings (happy path)", () => {
 	const tree = [
 		el("input", { id: "t" }),
 		On({
@@ -43,7 +43,7 @@ Deno.test("compileToAdaptive compiles IsAfterTime comparator without warnings (h
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { handler: unknown }
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
@@ -54,7 +54,7 @@ Deno.test("compileToAdaptive compiles IsAfterTime comparator without warnings (h
 	assertEquals(warnings.length, 0)
 })
 
-Deno.test("compileToAdaptive compiles IsNotAfterDate comparator without warnings (happy path)", () => {
+Deno.test("compileToEngine compiles IsNotAfterDate comparator without warnings (happy path)", () => {
 	const tree = [
 		el("input", { id: "d" }),
 		On({
@@ -70,7 +70,7 @@ Deno.test("compileToAdaptive compiles IsNotAfterDate comparator without warnings
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { handler: unknown }
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
@@ -81,7 +81,7 @@ Deno.test("compileToAdaptive compiles IsNotAfterDate comparator without warnings
 	assertEquals(warnings.length, 0)
 })
 
-Deno.test("compileToAdaptive compiles IsSameTime comparator without warnings (happy path)", () => {
+Deno.test("compileToEngine compiles IsSameTime comparator without warnings (happy path)", () => {
 	const tree = [
 		el("input", { id: "t" }),
 		On({
@@ -97,7 +97,7 @@ Deno.test("compileToAdaptive compiles IsSameTime comparator without warnings (ha
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { handler: unknown }
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
@@ -108,7 +108,7 @@ Deno.test("compileToAdaptive compiles IsSameTime comparator without warnings (ha
 	assertEquals(warnings.length, 0)
 })
 
-Deno.test("compileToAdaptive compiles IsSameDateTime comparator without warnings (happy path)", () => {
+Deno.test("compileToEngine compiles IsSameDateTime comparator without warnings (happy path)", () => {
 	const tree = [
 		el("input", { id: "dt" }),
 		On({
@@ -124,7 +124,7 @@ Deno.test("compileToAdaptive compiles IsSameDateTime comparator without warnings
 			}) as unknown as JSX.Element,
 		}),
 	]
-	const doc = compileToAdaptive(tree) as IrDocument
+	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as { handler: unknown }
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode

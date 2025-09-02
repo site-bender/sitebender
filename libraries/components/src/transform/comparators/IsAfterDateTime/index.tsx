@@ -1,12 +1,12 @@
 import type {
 	IsAfterDateTimeComparator,
 	Operand,
-} from "@adaptiveTypes/index.ts"
+} from "@engineTypes/index.ts"
 
 /**
  * IsAfterDateTime JSX Component
  */
-import IsAfterDateTimeConstructor from "@adaptiveSrc/constructors/comparators/dateTime/IsAfterDateTime/index.ts"
+import IsAfterDateTimeConstructor from "@engineSrc/constructors/comparators/dateTime/IsAfterDateTime/index.ts"
 
 export type Props = {
 	type?: "DateTime"

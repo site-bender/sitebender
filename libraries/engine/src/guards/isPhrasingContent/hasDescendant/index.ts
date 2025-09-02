@@ -1,4 +1,4 @@
-import type { ElementConfig } from "@adaptiveSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
 import find from "@toolkit/simple/array/find/index.ts"
 import includes from "@toolkit/simple/array/includes/index.ts"

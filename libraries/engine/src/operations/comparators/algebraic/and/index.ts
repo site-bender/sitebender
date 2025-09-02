@@ -1,7 +1,7 @@
-import { isLeft, isRight } from "@adaptiveTypes/index.ts"
+import { isLeft, isRight } from "@engineTypes/index.ts"
 
 import type {
-	AdaptiveError,
+	EngineError,
 	ComparatorConfig,
 	Either,
 	LocalValues,
@@ -16,7 +16,7 @@ const and =
 	async (
 		arg: unknown,
 		localValues?: LocalValues,
-	): Promise<Either<Array<AdaptiveError>, boolean>> => {
+	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operands =
 			(op as { operands?: Array<ComparatorConfig | LogicalConfig> }).operands ??
 				[]

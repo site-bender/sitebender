@@ -245,7 +245,7 @@ function getConnectionInfo(): ConnectionInfo {
 	}
 }
 
-function createAdaptivePrefetchEnhancer(
+function createEnginePrefetchEnhancer(
 	element: HTMLAnchorElement,
 	cache: Set<string>,
 ): () => void {
@@ -339,7 +339,7 @@ function createPrefetchEnhancer(
 			prefetchResource(element.href, cache)
 			return () => {}
 		case "sitebender":
-			return createAdaptivePrefetchEnhancer(element, cache)
+			return createEnginePrefetchEnhancer(element, cache)
 		case "predictive":
 			return createPredictivePrefetchEnhancer(element, cache)
 		default:

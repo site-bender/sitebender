@@ -3,7 +3,7 @@
 This note outlines a small, composable approach for charts/visuals, logging/telemetry, and debug tooling using component names (no Act/Do namespaces). Authoring stays declarative in JSX; runtime remains pluggable and SSR‑safe.
 
 ## Goals
-- Purely declarative authoring components that compile to Adaptive IR.
+- Purely declarative authoring components that compile to Engine IR.
 - SSR‑first with minimal client hydration; no hard coupling to a specific chart or logging SDK.
 - Data is produced by existing injectors/operators/comparators; visuals just consume the right(value).
 

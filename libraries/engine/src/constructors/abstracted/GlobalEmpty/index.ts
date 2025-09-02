@@ -1,13 +1,13 @@
 import type {
 	ElementAttributes,
 	ElementConfig,
-} from "@adaptiveSrc/constructors/elements/types/index.ts"
-import type { Value } from "@adaptiveTypes/index.ts"
+} from "@engineSrc/constructors/elements/types/index.ts"
+import type { Value } from "@engineTypes/index.ts"
 
-import getAriaAttributes from "@adaptiveSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@adaptiveSrc/constructors/helpers/getId/index.ts"
-import pickGlobalAttributes from "@adaptiveSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@adaptiveSrc/utilities/isDefined.ts"
+import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined.ts"
 
 const GlobalEmpty = <T extends Record<string, unknown>>(tag = "Hr") =>
 (

@@ -1,6 +1,6 @@
 import pendingGetValue from "../../pending/dom/getValue/index.ts"
 
-// Minimal adapter so legacy callers can pass selector-like ops
+// Minimal adapter so legacy callers can pass selector-like ops FIXME!
 // deno-lint-ignore no-explicit-any
 type AnyEither = { left: any } | { right: any }
 
