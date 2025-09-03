@@ -1,7 +1,7 @@
 import { walk } from "https://deno.land/std@0.220.1/fs/walk.ts"
 
-import sortFileImports from "./sortFileImports/index.ts"
 import parseRoots from "./parseRoots/index.ts"
+import sortFileImports from "./sortFileImports/index.ts"
 
 export default async function sortImports(): Promise<void> {
 	const files: string[] = []

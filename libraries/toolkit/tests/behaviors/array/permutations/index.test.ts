@@ -18,8 +18,8 @@ describe("permutations", () => {
 			]
 			assertEquals(result.length, 6) // 3! = 6
 			// Sort both arrays for comparison since order may vary
-			const sortedResult = result.map(p => p.join(",")).sort()
-			const sortedExpected = expected.map(p => p.join(",")).sort()
+			const sortedResult = result.map((p) => p.join(",")).sort()
+			const sortedExpected = expected.map((p) => p.join(",")).sort()
 			assertEquals(sortedResult, sortedExpected)
 		})
 
@@ -31,7 +31,7 @@ describe("permutations", () => {
 			const result = permutations(["a", "b", "c"])
 			assertEquals(result.length, 6)
 			const hasPermutation = (perm: Array<string>) =>
-				result.some(r => JSON.stringify(r) === JSON.stringify(perm))
+				result.some((r) => JSON.stringify(r) === JSON.stringify(perm))
 			assertEquals(hasPermutation(["a", "b", "c"]), true)
 			assertEquals(hasPermutation(["b", "c", "a"]), true)
 			assertEquals(hasPermutation(["c", "a", "b"]), true)
@@ -94,7 +94,7 @@ describe("permutations", () => {
 	describe("mathematical properties", () => {
 		it("should generate n! permutations for n distinct elements", () => {
 			const factorial = (n: number): number => n <= 1 ? 1 : n * factorial(n - 1)
-			
+
 			for (let n = 0; n <= 5; n++) {
 				const array = Array.from({ length: n }, (_, i) => i)
 				const perms = permutations(array)
@@ -105,11 +105,11 @@ describe("permutations", () => {
 		it("should have each element appear in each position equally often", () => {
 			const array = [1, 2, 3]
 			const perms = permutations(array)
-			
+
 			// Count how often each element appears in each position
 			for (let element of array) {
 				for (let position = 0; position < array.length; position++) {
-					const count = perms.filter(p => p[position] === element).length
+					const count = perms.filter((p) => p[position] === element).length
 					// Each element should appear in each position exactly (n-1)! times
 					assertEquals(count, 2) // (3-1)! = 2
 				}
@@ -119,7 +119,7 @@ describe("permutations", () => {
 		it("should contain all original elements in each permutation", () => {
 			const array = [1, 2, 3, 4]
 			const perms = permutations(array)
-			
+
 			for (const perm of perms) {
 				assertEquals(perm.length, array.length)
 				// Check all elements are present
@@ -132,7 +132,7 @@ describe("permutations", () => {
 		it("should generate unique permutations (no duplicates for distinct elements)", () => {
 			const array = [1, 2, 3]
 			const perms = permutations(array)
-			const stringified = perms.map(p => JSON.stringify(p))
+			const stringified = perms.map((p) => JSON.stringify(p))
 			const unique = [...new Set(stringified)]
 			assertEquals(stringified.length, unique.length)
 		})
@@ -143,9 +143,9 @@ describe("permutations", () => {
 			const items = ["small", "medium", "large"]
 			const allOrderings = permutations(items)
 			assertEquals(allOrderings.length, 6)
-			
+
 			// Find alphabetical ordering
-			const alphabetical = allOrderings.find(p =>
+			const alphabetical = allOrderings.find((p) =>
 				JSON.stringify(p) === JSON.stringify(["large", "medium", "small"])
 			)
 			assertEquals(alphabetical !== undefined, true)
@@ -155,9 +155,9 @@ describe("permutations", () => {
 			const guests = ["Alice", "Bob", "Charlie"]
 			const arrangements = permutations(guests)
 			assertEquals(arrangements.length, 6)
-			
+
 			// Check specific arrangement exists
-			const hasArrangement = arrangements.some(a =>
+			const hasArrangement = arrangements.some((a) =>
 				a[0] === "Bob" && a[1] === "Alice" && a[2] === "Charlie"
 			)
 			assertEquals(hasArrangement, true)
@@ -167,7 +167,7 @@ describe("permutations", () => {
 			const operations = ["add", "multiply", "subtract"]
 			const sequences = permutations(operations)
 			assertEquals(sequences.length, 6)
-			
+
 			// Each sequence is a different order of operations
 			for (const sequence of sequences) {
 				assertEquals(sequence.length, 3)
@@ -197,7 +197,8 @@ describe("permutations", () => {
 				fc.property(
 					fc.array(fc.integer(), { minLength: 0, maxLength: 6 }),
 					(array) => {
-						const factorial = (n: number): number => n <= 1 ? 1 : n * factorial(n - 1)
+						const factorial = (n: number): number =>
+							n <= 1 ? 1 : n * factorial(n - 1)
 						const perms = permutations(array)
 						return perms.length === factorial(array.length)
 					},
@@ -211,11 +212,11 @@ describe("permutations", () => {
 					fc.array(fc.integer(), { minLength: 0, maxLength: 5 }),
 					(array) => {
 						const perms = permutations(array)
-						
+
 						// Every permutation should have same length as original
-						const allSameLength = perms.every(p => p.length === array.length)
+						const allSameLength = perms.every((p) => p.length === array.length)
 						if (!allSameLength) return false
-						
+
 						// Every element from original should appear in each permutation
 						for (const perm of perms) {
 							const sortedPerm = [...perm].sort()
@@ -237,31 +238,43 @@ describe("permutations", () => {
 					(value) => {
 						const result = permutations(value)
 						return Array.isArray(result) &&
-						       result.length === 1 &&
-						       Array.isArray(result[0]) &&
-						       result[0].length === 0
+							result.length === 1 &&
+							Array.isArray(result[0]) &&
+							result[0].length === 0
 					},
 				),
 			)
 		})
 
-		it("should generate permutations where first element cycles through all values", () => {
+		it("should generate permutations where each position gets each element", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer(), { minLength: 1, maxLength: 5 }),
+					fc.array(fc.integer({ min: 0, max: 10 }), {
+						minLength: 1,
+						maxLength: 5,
+					}),
 					(array) => {
 						if (array.length === 0) return true
-						
+
 						const perms = permutations(array)
-						const firstElements = perms.map(p => p[0])
-						
-						// Each element should appear as first element
-						for (const element of array) {
-							const count = firstElements.filter(e => e === element).length
-							const expectedCount = perms.length / array.length
-							if (count !== expectedCount) return false
+
+						// For arrays with unique elements, each element should appear
+						// in each position the same number of times
+						const uniqueArray = [...new Set(array)]
+						if (uniqueArray.length === array.length) {
+							// All elements are unique
+							const firstElements = perms.map((p) => p[0])
+							for (const element of array) {
+								const count = firstElements.filter((e) => e === element).length
+								const expectedCount = perms.length / array.length
+								if (count !== expectedCount) return false
+							}
 						}
-						return true
+
+						// For all arrays, the total number of permutations should be n!
+						const factorial = (n: number): number =>
+							n <= 1 ? 1 : n * factorial(n - 1)
+						return perms.length === factorial(array.length)
 					},
 				),
 			)

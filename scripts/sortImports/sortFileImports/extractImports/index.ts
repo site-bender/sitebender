@@ -1,6 +1,6 @@
 import ts from "npm:typescript"
 
-import type { ImportInfo } from "../../../../types/index.ts"
+import type { ImportInfo } from "../../../types/index.ts"
 
 import categorizeImport from "./categorizeImport/index.ts"
 import removeDuplicateImports from "./removeDuplicateImports/index.ts"

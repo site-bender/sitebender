@@ -13,3 +13,10 @@ export type ImportInfo = {
 		| "external"
 		| "local"
 }
+
+export type AliasViolation = {
+	file: string
+	line: number
+	spec: string
+	hint: string
+}

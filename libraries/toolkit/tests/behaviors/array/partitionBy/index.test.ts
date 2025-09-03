@@ -127,18 +127,25 @@ describe("partitionBy", () => {
 			assertEquals(partitionByEven([2, 4, 1, 3, 6]), [[2, 4], [1, 3], [6]])
 
 			const partitionBySign = partitionBy((n: number) => Math.sign(n))
-			assertEquals(partitionBySign([-1, -2, 0, 1, 2, -3]), [[-1, -2], [0], [1, 2], [-3]])
+			assertEquals(partitionBySign([-1, -2, 0, 1, 2, -3]), [[-1, -2], [0], [
+				1,
+				2,
+			], [-3]])
 		})
 	})
 
 	describe("type preservation", () => {
 		it("should preserve element types", () => {
 			const numbers = [1, 1, 2, 2, 3, 3]
-			const groups: Array<Array<number>> = partitionBy((n: number) => n)(numbers)
+			const groups: Array<Array<number>> = partitionBy((n: number) => n)(
+				numbers,
+			)
 			assertEquals(groups, [[1, 1], [2, 2], [3, 3]])
 
 			const strings = ["a", "a", "b", "c", "c"]
-			const stringGroups: Array<Array<string>> = partitionBy((s: string) => s)(strings)
+			const stringGroups: Array<Array<string>> = partitionBy((s: string) => s)(
+				strings,
+			)
 			assertEquals(stringGroups, [["a", "a"], ["b"], ["c", "c"]])
 		})
 
@@ -169,7 +176,7 @@ describe("partitionBy", () => {
 		it("should perform run-length encoding", () => {
 			const chars = ["a", "a", "a", "b", "b", "c", "a", "a"]
 			const runs = partitionBy((c: string) => c)(chars)
-			const encoded = runs.map(group => `${group[0]}${group.length}`)
+			const encoded = runs.map((group) => `${group[0]}${group.length}`)
 			assertEquals(encoded, ["a3", "b2", "c1", "a2"])
 		})
 
@@ -191,7 +198,7 @@ describe("partitionBy", () => {
 		it("should detect consecutive duplicates", () => {
 			const values = [1, 1, 1, 2, 3, 3, 1, 1]
 			const groups = partitionBy((x: number) => x)(values)
-			const duplicates = groups.filter(g => g.length > 1)
+			const duplicates = groups.filter((g) => g.length > 1)
 			assertEquals(duplicates, [[1, 1, 1], [3, 3], [1, 1]])
 		})
 
@@ -229,12 +236,12 @@ describe("partitionBy", () => {
 					(array) => {
 						const isEven = (n: number) => n % 2 === 0
 						const groups = partitionBy(isEven)(array)
-						
+
 						// Check each group has consistent predicate result
 						for (const group of groups) {
 							if (group.length > 0) {
 								const firstResult = isEven(group[0])
-								const allSame = group.every(el => isEven(el) === firstResult)
+								const allSame = group.every((el) => isEven(el) === firstResult)
 								if (!allSame) return false
 							}
 						}
@@ -251,7 +258,7 @@ describe("partitionBy", () => {
 					fc.func(fc.string()),
 					(array, predicate) => {
 						const groups = partitionBy(predicate)(array)
-						return groups.every(group => group.length > 0)
+						return groups.every((group) => group.length > 0)
 					},
 				),
 			)
@@ -290,12 +297,12 @@ describe("partitionBy", () => {
 					(array) => {
 						const identity = (x: number) => x
 						const groups = partitionBy(identity)(array)
-						
+
 						// Each group should contain only identical values
 						for (const group of groups) {
 							if (group.length > 1) {
 								const first = group[0]
-								const allSame = group.every(el => el === first)
+								const allSame = group.every((el) => el === first)
 								if (!allSame) return false
 							}
 						}
