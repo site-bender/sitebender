@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Splits an array at the first element that fails a predicate
@@ -46,7 +47,7 @@ const span = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [Array<T>, Array<T>] => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return [[], []]
 	}
 
@@ -56,7 +57,7 @@ const span = <T>(
 
 	// Find the split point
 	const splitIndex = array.findIndex((element, index) =>
-		!predicate(element, index, array)
+		not(predicate(element, index, array))
 	)
 
 	if (splitIndex === -1) {
