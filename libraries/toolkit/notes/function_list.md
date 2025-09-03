@@ -1,6 +1,6 @@
 # Function List for the toolkit library
 
-**Testing Progress: 14.9% (130/874 functions with 100% coverage)**
+**Testing Progress: 15.5% (135/874 functions with 100% coverage)**
 
 **Estimated Time to Completion**: ~150 hours
 
@@ -10,7 +10,7 @@
 - **Hours remaining**: ~149 hours
 - **At 8 hours/day**: ~18.6 working days
 - **Last updated**: 2025-09-02
-- **Session progress**: Tested intersectionWith, interleave, intersperse, join, and lastIndexOfMatch functions. All achieved 100% coverage.
+- **Session progress**: Tested mapAccum, mapAccumRight, maximumBy, minimumBy, and nubBy functions. All achieved 100% coverage.
 
 ## Current Functions (874 functions total)
 
@@ -65,14 +65,14 @@
 - lastIndexOf - Returns index of last occurrence of element ✓
 - lastIndexOfMatch - Returns index of last element matching predicate ✓
 - map - Maps function over array elements ✓
-- mapAccum - Combines map and reduce, returning both accumulated value and mapped array
-- mapAccumRight - Like mapAccum but processes the array from right to left
-- maximumBy - Finds the maximum element according to a comparator function
-- minimumBy - Finds the minimum element according to a comparator function
+- mapAccum - Combines map and reduce, returning both accumulated value and mapped array ✓
+- mapAccumRight - Like mapAccum but processes the array from right to left ✓
+- maximumBy - Finds the maximum element according to a comparator function ✓
+- minimumBy - Finds the minimum element according to a comparator function ✓
 - move - Moves element from one index to another ✓
 - none - Returns true if no elements satisfy the predicate ✓
 - nub - Removes duplicate elements from an array (alias: unique) ✓
-- nubBy - Like nub but uses a custom equality function
+- nubBy - Like nub but uses a custom equality function ✓
 - nth - Returns element at specified index ✓
 - omit - Removes elements at specified indices
 - pairwise - Returns an array of adjacent pairs from the input array

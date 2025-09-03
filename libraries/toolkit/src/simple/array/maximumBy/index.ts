@@ -39,7 +39,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * maximumBy(byAge)(people) // { name: "Charlie", age: 35 }
  *
  * // Partial application
- * const getOldest = maximumBy((a: any, b: any) => a.age - b.age)
+ * const getOldest = maximumBy((a: { age: number }, b: { age: number }) => a.age - b.age)
  * getOldest([{ age: 30 }, { age: 40 }]) // { age: 40 }
  *
  * // Edge cases
@@ -54,7 +54,7 @@ const maximumBy = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return undefined
 	}
 

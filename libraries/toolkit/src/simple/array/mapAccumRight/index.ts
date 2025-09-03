@@ -37,7 +37,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // ["usr/local/bin", ["usr/local/bin", "local/bin", "bin"]]
  *
  * // Count elements after each position
- * const countAfter = (count: number, _: any): [number, number] =>
+ * const countAfter = (count: number, _: unknown): [number, number] =>
  *   [count + 1, count]
  * mapAccumRight(countAfter)(0)(["a", "b", "c", "d"])
  * // [4, [3, 2, 1, 0]]
@@ -58,7 +58,7 @@ const mapAccumRight = <T, U, V>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [U, Array<V>] => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return [initial, []]
 	}
 

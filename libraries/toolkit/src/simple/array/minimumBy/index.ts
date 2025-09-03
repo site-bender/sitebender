@@ -39,7 +39,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * minimumBy(byAge)(people) // { name: "Bob", age: 25 }
  *
  * // Partial application
- * const getYoungest = minimumBy((a: any, b: any) => a.age - b.age)
+ * const getYoungest = minimumBy((a: { age: number }, b: { age: number }) => a.age - b.age)
  * getYoungest([{ age: 30 }, { age: 20 }]) // { age: 20 }
  *
  * // Edge cases
@@ -54,7 +54,7 @@ const minimumBy = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return undefined
 	}
 

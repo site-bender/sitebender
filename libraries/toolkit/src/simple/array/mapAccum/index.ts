@@ -43,7 +43,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // [4, ["1: First", "2: Second", "3: Third"]]
  *
  * // Fibonacci sequence
- * const fibonacci = (acc: [number, number], _: any): [[number, number], number] =>
+ * const fibonacci = (acc: [number, number], _: unknown): [[number, number], number] =>
  *   [[acc[1], acc[0] + acc[1]], acc[0]]
  * mapAccum(fibonacci)([0, 1])([1, 2, 3, 4, 5])
  * // [[5, 8], [0, 1, 1, 2, 3]]
@@ -69,7 +69,7 @@ const mapAccum = <T, U, V>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [U, Array<V>] => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return [initial, []]
 	}
 
