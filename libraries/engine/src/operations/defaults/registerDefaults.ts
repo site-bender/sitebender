@@ -1,1 +1,1 @@
-export { registerDefaultExecutors } from "./registerDefaults/index.ts"
+export { default } from "./registerDefaults/index.ts"

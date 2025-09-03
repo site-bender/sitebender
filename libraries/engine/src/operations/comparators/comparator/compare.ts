@@ -8,7 +8,7 @@ type CompareImpl = (p: ComparatorFn) => (op: unknown) => (
 	localValues?: unknown,
 ) => Promise<unknown>
 
-export const compare = (predicate: ComparatorFn) =>
+const compare = (predicate: ComparatorFn) =>
 (op: unknown) =>
 async (
 	arg: unknown,

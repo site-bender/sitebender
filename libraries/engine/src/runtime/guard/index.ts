@@ -1,7 +1,7 @@
 import type { ComparatorNode, InjectorNode } from "../../../types/ir/index.ts"
 import type { ComposeContext } from "../../context/composeContext/index.ts"
 
-import { registerDefaultExecutors } from "../../operations/defaults/registerDefaults/index.ts"
+import registerDefaultExecutors from "../../operations/defaults/registerDefaults/index.ts"
 import evaluate from "../evaluate/index.ts"
 
 export type GuardDecision =
@@ -19,7 +19,7 @@ export type GuardOnFail = { redirect?: string; status?: 401 | 403 }
  * Evaluates an auth policy using the runtime comparator→policy fallback.
  * Returns an allow/redirect/status decision for SSR routing.
  */
-export async function guardAuthorized(
+async function guardAuthorized(
 	ctx: ComposeContext,
 	policy: GuardPolicy,
 	onFail?: GuardOnFail,
@@ -55,7 +55,7 @@ export async function guardAuthorized(
 /**
  * Convenience wrapper with a flat signature.
  */
-export function guardRoute(
+function _guardRoute(
 	ctx: ComposeContext,
 	policyTag: string,
 	policyArgs?: Record<string, unknown>,
@@ -65,3 +65,5 @@ export function guardRoute(
 }
 
 export default guardAuthorized
+
+// No named exports: keep default-only per engine policy

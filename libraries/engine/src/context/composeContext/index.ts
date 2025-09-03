@@ -24,7 +24,7 @@ type Init = Partial<Omit<ComposeContext, "v" | "env" | "now" | "bus">> & {
 	busMode?: "local" | "broadcast" // default local; broadcast is opt-in
 }
 
-export function createComposeContext(init?: Init): ComposeContext {
+export default function createComposeContext(init?: Init): ComposeContext {
 	const env: ComposeContext["env"] = typeof window === "undefined"
 		? "server"
 		: (init?.env ?? "client")
