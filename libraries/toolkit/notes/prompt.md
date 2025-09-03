@@ -10,7 +10,7 @@ You are working on the @sitebender/toolkit library, a functional programming uti
 Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 
 **Current Phase**: Phase 1 - Achieving 100% test coverage for all existing functions
-**Current Progress**: 12.1% (106/874 functions tested)
+**Current Progress**: 15.5% (135/874 functions tested)
 **Working Directory**: `/libraries/toolkit/` (NEVER leave this folder for edits)
 
 ## Session Start Checklist
@@ -109,7 +109,42 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-02) - Part 11
+### Current Session (2025-09-02) - Part 12
+
+**Progress Made:**
+
+- ✅ Tested 5 more array functions following full audit checklist:
+  1. **mapAccum** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed `any` type in JSDoc example
+     - Combines map and reduce operations
+     - Comprehensive tests with property-based testing
+  2. **mapAccumRight** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed `any` type in JSDoc example
+     - Processes array from right to left
+     - Uses recursive implementation
+  3. **maximumBy** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed `any` type in JSDoc example
+     - Finds maximum element by custom comparator
+     - Uses recursive implementation
+  4. **minimumBy** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed `any` type in JSDoc example
+     - Finds minimum element by custom comparator
+     - Uses recursive implementation
+  5. **nubBy** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Removes duplicates using custom equality function
+     - Uses recursive implementation
+
+**Common Issues Fixed:**
+
+- Redundant `!Array.isArray` checks after `isNullish` (all 5 functions)
+- `any` types in JSDoc examples (4 functions)
+
+### Previous Session (2025-09-02) - Part 11
 
 **Progress Made:**
 
@@ -147,8 +182,8 @@ For each function:
 
 **Testing Progress Update:**
 
-- 130 functions now have tests (was 125)
-- Current progress: ~14.9% (130/874 functions)
+- 135 functions now have tests (was 130)
+- Current progress: ~15.5% (135/874 functions)
 - All tested functions have 100% coverage
 - All tests passing
 

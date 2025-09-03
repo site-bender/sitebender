@@ -1,6 +1,7 @@
 {
 	// Workspace configuration for the Sitebender monorepo
 	"workspace": [
+		"./agent",
 		"./docs",
 		"./inspector",
 		"./libraries/*"
@@ -8,12 +9,15 @@
 
 	"tasks": {
 		// === Formatting and Code Quality ===
-		"fmt": "deno task sort && deno fmt",
-		"fmt:all": "deno task sort:all && deno fmt libraries/ docs/ scripts/",
-		"fmt:check": "deno fmt --check libraries/ docs/ scripts/",
-		"lint": "deno lint libraries/ docs/ scripts/",
-		"lint:all": "deno lint libraries/ docs/ scripts/",
+		"fmt": "deno task sort && deno fmt agent/ docs/ inspector/ libraries/ scripts/",
+		"fmt:all": "deno task sort:all && deno fmt agent/ docs/ inspector/ libraries/ scripts/",
+		"fmt:check": "deno fmt --check agent/ docs/ inspector/ libraries/ scripts/",
+		"lint": "deno lint agent/ docs/ inspector/ libraries/ scripts/",
+		"lint:all": "deno lint agent/ docs/ inspector/ libraries/ scripts/",
 		"fp:check": "deno run --allow-read --allow-run scripts/enforceFP/index.ts",
+		"fp:agent": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'agent/src/**/*.ts' 'agent/src/**/*.tsx'",
+		"fp:docs": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'docs/src/**/*.ts' 'docs/src/**/*.tsx'",
+		"fp:inspector": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'inspector/src/**/*.ts' 'inspector/src/**/*.tsx'",
 		"fp:engine": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/engine/src/**/*.ts' 'libraries/engine/src/**/*.tsx'",
 		"fp:components": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/components/src/**/*.ts' 'libraries/components/src/**/*.tsx'",
 		"fp:toolkit": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/toolkit/src/**/*.ts' 'libraries/toolkit/src/**/*.tsx'",
@@ -46,8 +50,8 @@
 		"type-check:inspector": "deno check --unstable-temporal --config inspector/deno.json 'inspector/src/**/*.ts'",
 
 		// === Import Management ===
-		"sort": "deno run --unstable-temporal --allow-all scripts/sortImports/index.ts",
-		"sort:all": "deno task sort --dir=docs && deno task sort --dir=libraries/engine && deno task sort --dir=libraries/components && deno task sort --dir=libraries/toolkit",
+		"sort": "deno run --allow-read --allow-write scripts/sortImports/index.ts --dir=agent --dir=docs --dir=inspector --dir=libraries --dir=scripts",
+		"sort:all": "deno run --allow-read --allow-write scripts/sortImports/index.ts",
 		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards.ts",
 
 		// === Setup and Maintenance ===
@@ -135,7 +139,7 @@
 		"semiColons": false,
 		"singleQuote": false,
 		"proseWrap": "preserve",
-		"include": ["docs/", "inspector/", "libraries/", "scripts/"],
+		"include": ["agent/", "docs/", "inspector/", "libraries/", "scripts/"],
 		"exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"]
 	},
 

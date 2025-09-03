@@ -16,10 +16,25 @@ export type ImportInfo = {
 		| "local"
 }
 
+function parseRoots(args: Array<string>): Array<string> {
+	const defaults = ["agent", "docs", "inspector", "libraries", "scripts"]
+	const selected: Array<string> = []
+
+	for (const arg of args) {
+		if (arg.startsWith("--dir=")) {
+			selected.push(arg.slice("--dir=".length))
+		} else if (!arg.startsWith("-")) {
+			selected.push(arg)
+		}
+	}
+
+	return selected.length > 0 ? selected : defaults
+}
+
 async function main() {
 	const files: string[] = []
 
-	const roots = ["docs", "inspector", "libraries", "scripts"]
+	const roots = parseRoots(Deno.args)
 
 	for (const root of roots) {
 		for await (
@@ -36,6 +51,8 @@ async function main() {
 	await Promise.all(sortPromises)
 
 	console.log(`🎉 Processed ${files.length} files`)
+
+	return
 }
 
 if (import.meta.main) {
