@@ -280,7 +280,7 @@ describe("pluck", () => {
 						const mapped = array.map((item) => item.prop)
 						return (
 							plucked.length === mapped.length &&
-							plucked.every((v, i) => v === mapped[i])
+							plucked.every((v, i) => Object.is(v, mapped[i]))
 						)
 					},
 				),
