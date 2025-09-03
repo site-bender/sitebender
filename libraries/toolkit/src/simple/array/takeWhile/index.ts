@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Takes elements from the beginning of an array while predicate returns true
@@ -51,12 +52,12 @@ const takeWhile = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
 	const takeIndex = array.findIndex((element, index) =>
-		!predicate(element, index, array)
+		not(predicate(element, index, array))
 	)
 
 	return takeIndex === -1 ? [...array] : array.slice(0, takeIndex)
