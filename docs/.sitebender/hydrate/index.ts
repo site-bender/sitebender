@@ -1,5 +1,5 @@
-import { createComposeContext } from "@engineSrc/context/composeContext/index.ts"
-import { registerDefaultExecutors } from "@engineSrc/operations/defaults/registerDefaults/index.ts"
+import createComposeContext from "@engineSrc/context/composeContext/index.ts"
+import registerDefaultExecutors from "@engineSrc/operations/defaults/registerDefaults/index.ts"
 import hydrate from "@engineSrc/runtime/hydrator/index.ts"
 import {
 	getVizAdapter,
@@ -11,7 +11,7 @@ type GlobalWithViz = Record<string, unknown> & {
 	sitebenderVizAdapter?: { hydrate: (root?: Document | HTMLElement) => void }
 }
 
-export function hydrateEngineFromScriptTag() {
+export default function hydrateEngineFromScriptTag() {
 	const el = document.getElementById("ir-root")
 	if (!el) return
 	const ir = JSON.parse(el.textContent || "{}")
