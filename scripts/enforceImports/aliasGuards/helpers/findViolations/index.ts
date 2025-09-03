@@ -3,7 +3,7 @@ import {
 	ENGINE_TYPES,
 	TOOLKIT_SRC,
 } from "../../../../constants/index.ts"
-import type { Violation } from "../../types.ts"
+import type { Violation } from "../../types/index.ts"
 
 const importPattern = /(import|export)\s+[^;]*?from\s+["']([^"']+)["']/g
 

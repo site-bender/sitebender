@@ -6,7 +6,7 @@
 
 import { DEFAULT_ALIAS_SCOPES } from "../../constants/index.ts"
 import findViolations from "./helpers/findViolations/index.ts"
-import type { Violation } from "./types.ts"
+import type { Violation } from "./types/index.ts"
 
 export default async function runAliasGuards(
 	rootsArg?: string[],
