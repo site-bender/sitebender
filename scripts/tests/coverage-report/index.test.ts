@@ -82,3 +82,39 @@ Deno.test({
     await Deno.remove(baseDir, { recursive: true })
   }
 })
+
+Deno.test("coverage reporter with custom root and dirs (temp only)", async () => {
+  const root = "scripts/.covroot"
+  const sub = `${root}/only`
+  await Deno.mkdir(sub, { recursive: true })
+  try {
+    const file = `${sub}/x.ts`
+    await Deno.writeTextFile(file, "// deno-coverage-ignore\nexport {}")
+    const lines: string[] = []
+    const original = console.log
+    console.log = (m?: unknown) => lines.push(String(m ?? ""))
+    try {
+      await reportCoverageIgnores({ root, scanDirs: ["only"] })
+    } finally {
+      console.log = original
+    }
+    const out = lines.join("\n")
+    // Group will be 'root' because path does not begin with known prefixes
+    expect(/=== root \(1\)/.test(out)).toBe(true)
+  } finally {
+    await Deno.remove(root, { recursive: true })
+  }
+})
+
+Deno.test("coverage reporter prints no markers when directory missing", async () => {
+  const lines: string[] = []
+  const original = console.log
+  console.log = (m?: unknown) => lines.push(String(m ?? ""))
+  try {
+    await reportCoverageIgnores({ root: "scripts/.missing", scanDirs: ["nope"] })
+  } finally {
+    console.log = original
+  }
+  const out = lines.join("\n")
+  expect(out.includes("No deno-coverage-ignore markers found.")).toBe(true)
+})

@@ -112,3 +112,19 @@ Deno.test("missing root directory is handled without throwing", async () => {
   const v = await runAliasGuards(["scripts/.does_not_exist_anywhere"])
   expect(Array.isArray(v)).toBe(true)
 })
+
+Deno.test("export-from syntax is also scanned for deep paths", async () => {
+  const dir = "scripts/.aliastest6/src"
+  await Deno.mkdir(dir, { recursive: true })
+  try {
+    const file = `${dir}/bad_export.ts`
+    await Deno.writeTextFile(
+      file,
+      'export { something } from "libraries/toolkit/src/foo/bar.ts"',
+    )
+    const v = await runAliasGuards(["scripts/.aliastest6"])
+    expect(v.some((x) => x.hint.includes("@toolkit/"))).toBe(true)
+  } finally {
+    await Deno.remove("scripts/.aliastest6", { recursive: true })
+  }
+})

@@ -47,8 +47,6 @@ type IgnoreRecord = {
 	reason: string
 }
 
-const groups = new Map<string, IgnoreRecord[]>()
-
 async function* walkDir(dir: string): AsyncGenerator<string> {
 	for await (const entry of Deno.readDir(dir)) {
 		const p = join(dir, entry.name)
@@ -64,12 +62,12 @@ async function* walkDir(dir: string): AsyncGenerator<string> {
 	}
 }
 
-function addRecord(label: string, rec: IgnoreRecord) {
+function addRecord(groups: Map<string, IgnoreRecord[]>, label: string, rec: IgnoreRecord) {
 	if (!groups.has(label)) groups.set(label, [])
 	groups.get(label)!.push(rec)
 }
 
-async function scanFile(root: string, path: string) {
+async function scanFile(groups: Map<string, IgnoreRecord[]>, root: string, path: string) {
 	const text = await Deno.readTextFile(path)
 	const lines = text.split("\n")
 	let i = 0
@@ -90,7 +88,7 @@ async function scanFile(root: string, path: string) {
 				}
 				j++
 			}
-			addRecord(groupLabel(root, path), {
+			addRecord(groups, groupLabel(root, path), {
 				file: path,
 				line: startLine + 1,
 				type: "block",
@@ -109,7 +107,7 @@ async function scanFile(root: string, path: string) {
 		if (m) {
 			const reason = m[2]?.trim().replace(/^[:\-\s]+/, "") ||
 				"<no reason provided>"
-			addRecord(groupLabel(root, path), {
+			addRecord(groups, groupLabel(root, path), {
 				file: path,
 				line: i + 1,
 				type: "single",
@@ -125,10 +123,11 @@ async function scanFile(root: string, path: string) {
 export default async function reportCoverageIgnores(opts?: { root?: string; scanDirs?: string[] }) {
 	const rootFsPath = opts?.root ?? DEFAULT_REPO_ROOT
 	const dirs = opts?.scanDirs ?? DEFAULT_SCAN_DIRS
+	const groups = new Map<string, IgnoreRecord[]>()
 	for (const dir of dirs) {
 		const abs = join(rootFsPath, dir)
 		try {
-			for await (const f of walkDir(abs)) await scanFile(rootFsPath, f)
+			for await (const f of walkDir(abs)) await scanFile(groups, rootFsPath, f)
 		} catch (_) {
 			// Ignore missing dirs in some checkouts
 		}

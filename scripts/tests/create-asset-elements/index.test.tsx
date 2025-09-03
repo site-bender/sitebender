@@ -34,3 +34,13 @@ Deno.test("createAssetElements handles protocol-relative and ignores non-css/js"
   // PNG should be ignored
   expect(htmlish.includes("logo.png")).toBe(false)
 })
+
+Deno.test("createAssetElements ignores paths without extension", () => {
+  const assets = [
+    "/static/asset", // no extension
+    "/static/also/",  // trailing slash
+  ]
+  const els = createAssetElements(assets)
+  expect(Array.isArray(els)).toBe(true)
+  expect(els.length).toBe(0)
+})
