@@ -37,6 +37,13 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 
 ## Critical Rules
 
+### 🚨 CRITICAL SCOPE RESTRICTION 🚨
+
+**YOU ARE ONLY ALLOWED TO WORK IN `/libraries/toolkit/` FOLDER**
+- **NEVER** touch, edit, or commit files outside of `/libraries/toolkit/`
+- **NEVER** include files from outside toolkit in your commits
+- Another AI works on the rest of the codebase - DO NOT INTERFERE
+
 ### MANDATORY VERIFICATION BEFORE COMMITS OR CLAIMING SUCCESS
 
 **🚨 STOP! DO NOT COMMIT OR CLAIM SUCCESS WITHOUT THESE STEPS! 🚨**
@@ -44,33 +51,24 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 **YOU HAVE NO EXCUSE FOR NOT RUNNING TESTS. NONE.**
 
 Before EVERY function is considered complete:
-1. Run the test WITH coverage:
+1. Run the test WITH coverage using toolkit-specific command:
    ```bash
-   deno test --no-check tests/behaviors/array/[function]/index.test.ts --coverage=coverage
+   deno task test:toolkit:coverage
    ```
-2. Verify output shows "0 failed"
-3. Check coverage immediately:
-   ```bash
-   deno coverage coverage --detailed | grep "[function]/index.ts"
-   ```
-4. **MUST see 100.0 for BOTH columns**:
-   ```
-   | [function]/index.ts | 100.0 | 100.0 |
-   ```
+2. Verify output shows "0 failed" and 100% coverage for toolkit
+3. **DO NOT** run tests from outside toolkit - it gives erroneous readings
+4. **MUST see 100.0% for BOTH branches and lines in toolkit coverage**
 5. If not 100%, identify missing branches/lines and add tests
 6. **DO NOT move to next function until current shows 100/100**
 
 **BEFORE CLAIMING SESSION COMPLETE:**
-1. Run ALL your new tests together:
+1. Run toolkit-specific test command:
    ```bash
-   deno test --no-check tests/behaviors/array/[func1]/ tests/behaviors/array/[func2]/ ...
+   deno task test:toolkit:coverage
    ```
-2. Must show "0 failed" for all tests
-3. Run FULL test suite to ensure no regressions:
-   ```bash
-   deno task test --no-check
-   ```
-4. Must show all tests passing (no failures)
+2. Must show "0 failed" for all toolkit tests
+3. Must show 100% coverage for toolkit
+4. Do NOT include tests from outside toolkit folder
 
 **DO NOT:**
 - ❌ Commit without running tests
@@ -87,11 +85,13 @@ Before EVERY function is considered complete:
 ### Working Constraints
 
 - **NEVER** modify anything outside `/libraries/toolkit/` folder (reading outside is OK)
+- **NEVER** commit anything outside `/libraries/toolkit/` folder
 - **NEVER** batch multiple functions - test ONE function at a time
 - **NEVER** assume or guess - check everything carefully
 - **NEVER** create new function files - only test existing ones
 - **ALWAYS** achieve 100% coverage before moving to next function (discuss exceptions)
 - **ALWAYS** verify tests pass BEFORE claiming success or committing
+- **ALWAYS** use `deno task test:toolkit:coverage` for testing - NOT other test commands
 
 ### Testing Approach (ONE FUNCTION AT A TIME)
 
@@ -124,9 +124,9 @@ For each function:
 
 4. **Verify coverage**:
    ```bash
-   deno task test:coverage
+   deno task test:toolkit:coverage
    ```
-   - Must achieve 100% coverage for the function
+   - Must achieve 100% coverage for the toolkit
    - If 100% is impossible/impractical, discuss before proceeding
 
 5. **Final checks**:
@@ -169,7 +169,50 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-03) - Part 19
+### Current Session (2025-09-03) - Part 20
+
+**Progress Made:**
+
+- ✅ Tested 5 array functions, all achieving 100% coverage:
+  1. **sampleSize** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Has mutations in implementation (uses `push` in recursive function)
+     - Handles edge cases poorly (NaN and fractional counts return all elements)
+     - Correctly marked as @impure (uses Math.random)
+  2. **scan** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Properly implements progressive accumulation like reduce
+     - Returns all intermediate values including initial value
+     - Uses functional recursion without mutations
+  3. **shuffle** - 100% coverage achieved  
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Uses Fisher-Yates algorithm with functional recursion
+     - Correctly marked as @impure (uses Math.random)
+     - Produces uniform distribution of permutations
+  4. **slice** - 100% coverage achieved (existing test rewritten)
+     - Simple wrapper around native slice method
+     - Lacks null/undefined safety (will throw)
+     - Properly curried with three parameters
+  5. **sliceFrom** - 100% coverage achieved
+     - Alternative to slice using start index and length
+     - Lacks null/undefined safety (will throw)
+     - Handles negative indices correctly
+     - Edge cases with NaN/Infinity handled by native slice
+
+**Common Issues Found:**
+
+- Redundant `!Array.isArray` checks after `isNullish` (sampleSize, scan, shuffle)
+- Missing null/undefined handling (slice, sliceFrom)
+- Some functions have implementation issues (sampleSize mutations and edge cases)
+
+**Testing Progress Update:**
+
+- 170 functions now have tests (165 from previous + 5 new)
+- Current progress: ~19.5% (170/874 functions)
+- All tested functions have 100% coverage and PASSING tests
+- Successfully rewrote old-style slice test to use modern imports
+
+### Previous Session (2025-09-03) - Part 19
 
 **Progress Made:**
 
@@ -630,17 +673,15 @@ deno task type-check
 # Linting  
 deno task lint
 
-# Run all tests
-deno task test
+# Run TOOLKIT tests with coverage (ALWAYS USE THIS)
+deno task test:toolkit:coverage
 
-# Run tests with coverage
-deno task test:cov
-
-# Run specific test file
+# Run specific test file (for debugging only)
 deno test [path/to/test/file]
 
-# Commit (toolkit requires special flag)
-ALLOW_TOOLKIT=1 git add -A
+# Commit (toolkit requires special flag AND only commit toolkit files)
+cd /libraries/toolkit
+ALLOW_TOOLKIT=1 git add .
 ALLOW_TOOLKIT=1 git commit -m "..."
 
 # Check git log for YOUR commits only

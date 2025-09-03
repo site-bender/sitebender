@@ -1,265 +1,263 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assert, assertEquals, assertThrows } from "jsr:@std/assert@1"
+import { describe, it } from "jsr:@std/testing@1/bdd"
 import * as fc from "npm:fast-check@3"
 
 import slice from "../../../../src/simple/array/slice/index.ts"
 
-// Test all JSDoc examples
-Deno.test("slice - basic extraction", () => {
-	const result = slice(1)(3)([1, 2, 3, 4, 5])
-	assertEquals(result, [2, 3])
-})
+describe("slice", () => {
+	describe("behavioral tests", () => {
+		it("should extract elements from start to end", () => {
+			assertEquals(slice(1)(3)([1, 2, 3, 4, 5]), [2, 3])
+		})
 
-Deno.test("slice - from index to end", () => {
-	const result = slice(2)()([1, 2, 3, 4, 5])
-	assertEquals(result, [3, 4, 5])
-})
+		it("should extract from start to array end when end is undefined", () => {
+			assertEquals(slice(2)(undefined)([1, 2, 3, 4, 5]), [3, 4, 5])
+		})
 
-Deno.test("slice - negative start index", () => {
-	const result = slice(-2)()([1, 2, 3, 4, 5])
-	assertEquals(result, [4, 5])
-})
+		it("should handle negative start index", () => {
+			assertEquals(slice(-2)(undefined)([1, 2, 3, 4, 5]), [4, 5])
+		})
 
-Deno.test("slice - negative indices", () => {
-	const result = slice(1)(-1)([1, 2, 3, 4, 5])
-	assertEquals(result, [2, 3, 4])
-})
+		it("should handle negative end index", () => {
+			assertEquals(slice(1)(-1)([1, 2, 3, 4, 5]), [2, 3, 4])
+		})
 
-Deno.test("slice - extract middle section", () => {
-	const getMiddle = slice(1)(4)
-	const result = getMiddle([10, 20, 30, 40, 50])
-	assertEquals(result, [20, 30, 40])
-})
+		it("should handle both negative indices", () => {
+			assertEquals(slice(-3)(-1)([1, 2, 3, 4, 5]), [3, 4])
+		})
 
-// Additional tests
-Deno.test("slice - start at beginning", () => {
-	const result = slice(0)(3)([1, 2, 3, 4, 5])
-	assertEquals(result, [1, 2, 3])
-})
+		it("should return empty array when start >= end", () => {
+			assertEquals(slice(3)(2)([1, 2, 3, 4, 5]), [])
+			assertEquals(slice(3)(3)([1, 2, 3, 4, 5]), [])
+		})
 
-Deno.test("slice - empty result when start equals end", () => {
-	const result = slice(2)(2)([1, 2, 3, 4, 5])
-	assertEquals(result, [])
-})
+		it("should return empty array for empty input", () => {
+			assertEquals(slice(0)(2)([]), [])
+			assertEquals(slice(-2)(-1)([]), [])
+		})
 
-Deno.test("slice - empty result when start > end", () => {
-	const result = slice(3)(2)([1, 2, 3, 4, 5])
-	assertEquals(result, [])
-})
+		it("should return empty array when start is beyond array length", () => {
+			assertEquals(slice(10)(20)([1, 2, 3]), [])
+		})
 
-Deno.test("slice - start beyond array length", () => {
-	const result = slice(10)()([1, 2, 3])
-	assertEquals(result, [])
-})
+		it("should handle start = 0", () => {
+			assertEquals(slice(0)(3)([1, 2, 3, 4, 5]), [1, 2, 3])
+		})
 
-Deno.test("slice - end beyond array length", () => {
-	const result = slice(1)(10)([1, 2, 3])
-	assertEquals(result, [2, 3])
-})
+		it("should handle end beyond array length", () => {
+			assertEquals(slice(2)(100)([1, 2, 3, 4, 5]), [3, 4, 5])
+		})
 
-Deno.test("slice - negative start from end", () => {
-	const result = slice(-3)()([1, 2, 3, 4, 5])
-	assertEquals(result, [3, 4, 5])
-})
+		it("should return full array with slice(0)(undefined)", () => {
+			const input = [1, 2, 3, 4, 5]
+			assertEquals(slice(0)(undefined)(input), input)
+		})
 
-Deno.test("slice - negative end from end", () => {
-	const result = slice(0)(-2)([1, 2, 3, 4, 5])
-	assertEquals(result, [1, 2, 3])
-})
+		it("should work with string arrays", () => {
+			assertEquals(slice(1)(3)(["a", "b", "c", "d", "e"]), ["b", "c"])
+		})
 
-Deno.test("slice - both negative indices", () => {
-	const result = slice(-4)(-1)([1, 2, 3, 4, 5])
-	assertEquals(result, [2, 3, 4])
-})
+		it("should work with object arrays", () => {
+			const objects = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+			const result = slice(1)(3)(objects)
+			assertEquals(result.length, 2)
+			assertEquals(result[0], objects[1])
+			assertEquals(result[1], objects[2])
+		})
 
-Deno.test("slice - very negative start", () => {
-	const result = slice(-100)()([1, 2, 3])
-	assertEquals(result, [1, 2, 3]) // Clamps to beginning
-})
+		it("should work with mixed type arrays", () => {
+			const mixed: any[] = [1, "a", true, null, undefined, { x: 1 }]
+			assertEquals(slice(2)(5)(mixed), [true, null, undefined])
+		})
 
-Deno.test("slice - empty array", () => {
-	const result = slice(0)(2)([])
-	assertEquals(result, [])
-})
+		it("should handle arrays with NaN", () => {
+			const input = [1, NaN, 2, NaN, 3]
+			const result = slice(1)(4)(input)
+			assertEquals(result.length, 3)
+			assert(Number.isNaN(result[0]))
+			assertEquals(result[1], 2)
+			assert(Number.isNaN(result[2]))
+		})
 
-Deno.test("slice - single element array", () => {
-	assertEquals(slice(0)(1)([42]), [42])
-	assertEquals(slice(1)()([42]), [])
-	assertEquals(slice(-1)()([42]), [42])
-})
+		it("should handle fractional indices (floors them)", () => {
+			assertEquals(slice(1.7)(3.9)([1, 2, 3, 4, 5]), [2, 3])
+		})
 
-Deno.test("slice - undefined end parameter", () => {
-	const result = slice(1)(undefined)([1, 2, 3, 4, 5])
-	assertEquals(result, [2, 3, 4, 5])
-})
+		it("should handle Infinity indices", () => {
+			assertEquals(slice(2)(Infinity)([1, 2, 3, 4, 5]), [3, 4, 5])
+			assertEquals(slice(-Infinity)(2)([1, 2, 3, 4, 5]), [1, 2])
+		})
 
-Deno.test("slice - with strings", () => {
-	const result = slice(1)(3)(["a", "b", "c", "d", "e"])
-	assertEquals(result, ["b", "c"])
-})
+		it("should handle NaN indices (treated as 0)", () => {
+			assertEquals(slice(NaN)(3)([1, 2, 3, 4, 5]), [1, 2, 3])
+			assertEquals(slice(1)(NaN)([1, 2, 3, 4, 5]), [])
+		})
 
-Deno.test("slice - with objects", () => {
-	const users = [
-		{ id: 1, name: "Alice" },
-		{ id: 2, name: "Bob" },
-		{ id: 3, name: "Charlie" },
-		{ id: 4, name: "David" },
-	]
+		it("should be curried properly", () => {
+			const fromSecond = slice(1)
+			const fromSecondToFourth = fromSecond(4)
+			assertEquals(fromSecondToFourth([1, 2, 3, 4, 5]), [2, 3, 4])
+		})
 
-	const result = slice(1)(3)(users)
-	assertEquals(result, [
-		{ id: 2, name: "Bob" },
-		{ id: 3, name: "Charlie" },
-	])
-})
+		it("should not modify original array", () => {
+			const input = [1, 2, 3, 4, 5]
+			const inputCopy = [...input]
+			slice(1)(3)(input)
+			assertEquals(input, inputCopy)
+		})
 
-Deno.test("slice - preserves sparse arrays", () => {
-	const sparse: Array<number | undefined> = [1, , 3, , 5] // eslint-disable-line no-sparse-arrays
-	const result = slice(1)(4)(sparse)
+		it("should create shallow copy (not deep)", () => {
+			const obj1 = { value: 1 }
+			const obj2 = { value: 2 }
+			const input = [obj1, obj2]
+			const result = slice(0)(undefined)(input)
+			
+			// New array but same object references
+			assert(result !== input)
+			assertEquals(result[0], obj1)
+			assertEquals(result[1], obj2)
+			
+			// Modifying object affects both arrays
+			obj1.value = 99
+			assertEquals(input[0].value, 99)
+			assertEquals(result[0].value, 99)
+		})
 
-	assertEquals(result[0], undefined)
-	assertEquals(result[1], 3)
-	assertEquals(result[2], undefined)
-	assertEquals(result.length, 3)
-})
+		it("should handle very large negative indices", () => {
+			assertEquals(slice(-1000)(undefined)([1, 2, 3]), [1, 2, 3])
+			assertEquals(slice(0)(-1000)([1, 2, 3]), [])
+		})
 
-Deno.test("slice - partial application", () => {
-	const getFirstThree = slice(0)(3)
-	const getLastTwo = slice(-2)()
-	const getMiddle = slice(1)(-1)
+		it("should throw for null/undefined arrays", () => {
+			assertThrows(() => slice(0)(2)(null as any))
+			assertThrows(() => slice(0)(2)(undefined as any))
+		})
 
-	const array = [1, 2, 3, 4, 5]
+		it("should handle single element array", () => {
+			assertEquals(slice(0)(1)([42]), [42])
+			assertEquals(slice(0)(undefined)([42]), [42])
+			assertEquals(slice(1)(undefined)([42]), [])
+			assertEquals(slice(-1)(undefined)([42]), [42])
+		})
 
-	assertEquals(getFirstThree(array), [1, 2, 3])
-	assertEquals(getLastTwo(array), [4, 5])
-	assertEquals(getMiddle(array), [2, 3, 4])
-})
+		it("should handle symbols in arrays", () => {
+			const sym1 = Symbol("a")
+			const sym2 = Symbol("b")
+			const input = [sym1, sym2, "test"]
+			const result = slice(1)(3)(input)
+			assertEquals(result.length, 2)
+			assertEquals(result[0], sym2)
+			assertEquals(result[1], "test")
+		})
+	})
 
-Deno.test("slice - chaining slices", () => {
-	const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	const result = slice(0)(3)(slice(2)(8)(array))
-	assertEquals(result, [3, 4, 5])
-})
+	describe("property-based tests", () => {
+		it("should return array with length <= original length", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.anything()),
+					fc.integer(),
+					fc.integer(),
+					(arr, start, end) => {
+						const result = slice(start)(end)(arr)
+						return result.length <= arr.length
+					}
+				)
+			)
+		})
 
-Deno.test("slice - with undefined and null values", () => {
-	const result = slice(1)(4)([undefined, null, 0, false, "", NaN])
-	assertEquals(result[0], null)
-	assertEquals(result[1], 0)
-	assertEquals(result[2], false)
-})
+		it("should return elements that exist in original array", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.integer({ min: 0, max: 20 }),
+					fc.integer({ min: 0, max: 20 }),
+					(arr, start, end) => {
+						if (start >= arr.length) return true // Will be empty
+						const result = slice(start)(end)(arr)
+						return result.every(item => arr.includes(item))
+					}
+				)
+			)
+		})
 
-// Property-based tests
-Deno.test("slice - creates subarray", () => {
-	fc.assert(
-		fc.property(
-			fc.array(fc.integer()),
-			fc.integer({ min: -10, max: 10 }),
-			fc.integer({ min: -10, max: 10 }),
-			(array, start, end) => {
-				const result = slice(start)(end)(array)
-				const expected = array.slice(start, end)
-				assertEquals(result, expected)
-			},
-		),
-	)
-})
+		it("should maintain relative order of elements", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer(), { minLength: 1 }),
+					fc.integer({ min: 0, max: 10 }),
+					fc.integer({ min: 0, max: 10 }),
+					(arr, start, end) => {
+						const result = slice(start)(end)(arr)
+						if (result.length <= 1) return true
+						
+						// Check that elements maintain their relative order
+						for (let i = 0; i < result.length - 1; i++) {
+							const idx1 = arr.indexOf(result[i])
+							const idx2 = arr.indexOf(result[i + 1], idx1 + 1)
+							if (idx2 < idx1) return false
+						}
+						return true
+					}
+				)
+			)
+		})
 
-Deno.test("slice - length constraint", () => {
-	fc.assert(
-		fc.property(
-			fc.array(fc.anything()),
-			fc.nat(),
-			fc.nat(),
-			(array, start, end) => {
-				const result = slice(start)(end)(array)
-				assertEquals(result.length <= array.length, true)
-			},
-		),
-	)
-})
+		it("should be equivalent to native array.slice", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.anything()),
+					fc.integer({ min: -100, max: 100 }),
+					fc.oneof(fc.integer({ min: -100, max: 100 }), fc.constant(undefined)),
+					(arr, start, end) => {
+						const result1 = slice(start)(end)(arr)
+						const result2 = arr.slice(start, end)
+						return JSON.stringify(result1) === JSON.stringify(result2)
+					}
+				)
+			)
+		})
 
-Deno.test("slice - empty when start >= array.length", () => {
-	fc.assert(
-		fc.property(
-			fc.array(fc.anything()),
-			(array) => {
-				if (array.length > 0) {
-					const result = slice(array.length)()
-					assertEquals(result(array), [])
-				} else {
-					assertEquals(true, true) // Skip test for empty arrays
-				}
-			},
-		),
-	)
-})
+		it("should handle empty slices consistently", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.anything()),
+					fc.integer(),
+					(arr, idx) => {
+						const result = slice(idx)(idx)(arr)
+						return Array.isArray(result) && result.length === 0
+					}
+				)
+			)
+		})
 
-Deno.test("slice - full array with (0)()", () => {
-	fc.assert(
-		fc.property(
-			fc.array(fc.anything()),
-			(array) => {
-				const result = slice(0)()(array)
-				assertEquals(result, array)
-			},
-		),
-	)
-})
+		it("should be curried correctly", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.integer()),
+					fc.integer({ min: -10, max: 10 }),
+					fc.integer({ min: -10, max: 10 }),
+					(arr, start, end) => {
+						const partial1 = slice(start)
+						const partial2 = partial1(end)
+						const result1 = partial2(arr)
+						const result2 = slice(start)(end)(arr)
+						return JSON.stringify(result1) === JSON.stringify(result2)
+					}
+				)
+			)
+		})
 
-Deno.test("slice - creates new array (immutability)", () => {
-	const original = [1, 2, 3, 4, 5]
-	const result = slice(1)(4)(original)
-
-	assertEquals(result, [2, 3, 4])
-	assertEquals(original, [1, 2, 3, 4, 5]) // Original unchanged
-	assertEquals(original === result, false) // Different reference
-
-	// Even when selecting all elements
-	const fullSlice = slice(0)()(original)
-	assertEquals(fullSlice, original)
-	assertEquals(fullSlice === original, false) // Still different reference
-})
-
-Deno.test("slice - respects currying", () => {
-	fc.assert(
-		fc.property(
-			fc.array(fc.integer()),
-			fc.integer({ min: -5, max: 5 }),
-			fc.integer({ min: -5, max: 5 }),
-			(array, start, end) => {
-				const step1 = slice(start)
-				const step2 = step1(end)
-				const result1 = step2(array)
-				const result2 = slice(start)(end)(array)
-
-				assertEquals(result1, result2)
-			},
-		),
-	)
-})
-
-Deno.test("slice - preserves element identity", () => {
-	const obj1 = { id: 1 }
-	const obj2 = { id: 2 }
-	const obj3 = { id: 3 }
-	const array = [obj1, obj2, obj3]
-
-	const result = slice(1)(3)(array)
-	assertEquals(result[0] === obj2, true) // Same reference
-	assertEquals(result[1] === obj3, true) // Same reference
-})
-
-Deno.test("slice - handles NaN and Infinity", () => {
-	const array = [1, 2, 3, 4, 5]
-
-	// NaN is converted to 0
-	const resultNaN = slice(NaN as any)(3)(array)
-	assertEquals(resultNaN, [1, 2, 3])
-
-	// Infinity as end
-	const resultInf = slice(1)(Infinity as any)(array)
-	assertEquals(resultInf, [2, 3, 4, 5])
-
-	// -Infinity as start
-	const resultNegInf = slice(-Infinity as any)(3)(array)
-	assertEquals(resultNegInf, [1, 2, 3])
+		it("should return new array instance", () => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.anything(), { minLength: 1 }),
+					(arr) => {
+						const result = slice(0)(undefined)(arr)
+						return result !== arr // Different array instance
+					}
+				)
+			)
+		})
+	})
 })
