@@ -1,8 +1,11 @@
 import type { OptionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type {
-import type { Record } from "../index.ts"
+import type { Value } from "@engineTypes/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
 
-export default function filterAttributes(attributes: Record<string, Value>,) {
+export default function filterAttributes(attributes: OptionAttributes) {
 
 	const { disabled, label, selected, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)

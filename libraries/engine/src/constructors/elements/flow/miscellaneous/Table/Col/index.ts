@@ -1,18 +1,15 @@
 import type { TableColumnAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import FilteredEmpty from "@engineSrc/constructors/abstracted/FilteredEmpty/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+// no local guards needed here; handled in filterAttributes
 
 /**
  * Filters attributes for Col element
@@ -49,8 +46,6 @@ export type ColElementAttributes = TableColumnAttributes & {
  * })
  * ```
  */
-export const Col = FilteredEmpty("Col")(filterAttributes)
+const Col = FilteredEmpty("Col")(filterAttributes)
 
 export default Col
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -1,26 +1,15 @@
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isNumber from "@engineSrc/guards/isNumber/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-// ElementConfig not needed here
-
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
-
-import type { InputNumberAriaAttributes } from "../../../../types/aria/index.ts"
-import type { InputNumberAttributes } from "../../../../types/attributes/index.ts"
+// Filtering is delegated to filterAttributes; no local guards needed
+import type { InputNumberAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { InputNumberAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 
 import Input from "../index.ts"
 
@@ -61,8 +50,10 @@ export type InputNumberElementAttributes =
  * })
  * ```
  */
-const InputNumber = Input("number")(filterAttributes)
+const InputNumber = Input("number")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputNumber
 
-export { default as filterAttributes } from "./filterAttributes/index.ts"
+

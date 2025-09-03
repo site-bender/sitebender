@@ -17,6 +17,6 @@ import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
  * ])
  * ```
  */
-export const Picture = GlobalOnly("Picture")()
+const Picture = GlobalOnly("Picture")()
 
 export default Picture

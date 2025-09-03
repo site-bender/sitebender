@@ -1,7 +1,8 @@
-import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
-import type { TableColumnGroupAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isInteger from "@engineSrc/guards/isInteger/index.ts"
+import type { ColGroupElementAttributes as TableColumnGroupAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TableColumnGroupAttributes) {
 

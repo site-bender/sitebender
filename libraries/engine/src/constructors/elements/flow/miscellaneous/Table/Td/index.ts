@@ -1,21 +1,13 @@
 import type { TableDataCellAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
-
+import filterAttributes from "./filterAttributes/index.ts"
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import { TD_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Td element
@@ -55,8 +47,6 @@ export type TdElementAttributes = TableDataCellAttributes & {
  * ])
  * ```
  */
-export const Td = Filtered("Td")(filterAttributes)
+const Td = Filtered("Td")(filterAttributes)
 
 export default Td
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

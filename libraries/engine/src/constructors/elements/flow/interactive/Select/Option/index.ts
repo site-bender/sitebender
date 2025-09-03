@@ -1,20 +1,16 @@
 import type { OptionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
+import filterAttributes from "./filterAttributes/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
 import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Filters attributes for Option element
@@ -76,4 +72,4 @@ const Option = (attributes: Record<string, Value> = {}) => (label?: string) => {
 
 export default Option
 
-export { default as filterAttributes } from "./filterAttributes/index.ts"
+// default-only exports

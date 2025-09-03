@@ -1,24 +1,19 @@
 import type { SummaryAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { SUMMARY_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
 import isHeadingContent from "@engineSrc/guards/isHeadingContent/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
 import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Summary attributes including reactive properties
@@ -53,7 +48,7 @@ export type SummaryElementAttributes = SummaryAttributes & {
  * ])
  * ```
  */
-export const Summary = (attributes: SummaryElementAttributes = {}) =>
+const Summary = (attributes: SummaryElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -99,5 +94,3 @@ export const Summary = (attributes: SummaryElementAttributes = {}) =>
 }
 
 export default Summary
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

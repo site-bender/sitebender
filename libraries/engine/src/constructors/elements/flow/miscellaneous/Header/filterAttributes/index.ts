@@ -1,8 +1,12 @@
-import type { AriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { HeaderAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import type { HeaderElementAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import { HEADER_NOT_IN_SECTIONING_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 
 export default function filterAttributes(attributes: HeaderElementAttributes) {
 

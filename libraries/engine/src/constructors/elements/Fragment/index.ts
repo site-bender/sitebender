@@ -44,7 +44,7 @@ export type FragmentElementAttributes = NoAriaAttributes & {
  * ])
  * ```
  */
-export const Fragment = (attributes: FragmentElementAttributes = {}) =>
+const Fragment = (attributes: FragmentElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

@@ -52,6 +52,6 @@ export type CaptionElementAttributes = TableCaptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Caption = GlobalOnly("Caption")(flowContentFilter)
+const Caption = GlobalOnly("Caption")(flowContentFilter)
 
 export default Caption

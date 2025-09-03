@@ -1,27 +1,19 @@
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
+import type { HeadingAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { HeadingAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { HeadingAriaAttributes } from "../../../types/aria/index.ts"
-import type { HeadingAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isNumber from "../../../../../guards/isNumber/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended H6 attributes including reactive properties and ARIA
@@ -52,7 +44,7 @@ export type H6ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * ])
  * ```
  */
-export const H6 = (attributes: H6ElementAttributes = {}) =>
+const H6 = (attributes: H6ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -94,5 +86,3 @@ export const H6 = (attributes: H6ElementAttributes = {}) =>
 }
 
 export default H6
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

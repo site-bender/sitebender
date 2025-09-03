@@ -17,6 +17,6 @@ import isFlowContent from "../../../../../guards/isFlowContent/index.ts"
  * ])
  * ```
  */
-export const Search = GlobalOnly("Search")(isFlowContent())
+const Search = GlobalOnly("Search")(isFlowContent())
 
 export default Search

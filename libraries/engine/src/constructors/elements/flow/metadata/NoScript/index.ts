@@ -15,6 +15,6 @@ import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.
  * })
  * ```
  */
-export const NoScript = GlobalOnly("noscript")
+const NoScript = GlobalOnly("noscript")
 
 export default NoScript

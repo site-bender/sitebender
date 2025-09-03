@@ -1,17 +1,15 @@
 import type { InputHiddenAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+// No local guards here; filtering delegated to filterAttributes
 
 /**
  * Filters attributes for InputHidden
@@ -46,8 +44,8 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
  * })
  * ```
  */
-const InputHidden = Input("hidden")(filterAttributes)
+const InputHidden = Input("hidden")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputHidden
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

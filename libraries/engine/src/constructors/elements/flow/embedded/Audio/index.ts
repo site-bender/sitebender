@@ -15,7 +15,7 @@ import {
 } from "@engineSrc/constructors/elements/constants/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
 import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
 import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
 import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
 import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"

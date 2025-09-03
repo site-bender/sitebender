@@ -2,23 +2,17 @@ import type { ListAriaAttributes } from "@engineSrc/constructors/elements/types/
 import type { UnorderedListAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { UL_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Ul attributes including reactive properties and ARIA
@@ -60,7 +54,7 @@ export type UlElementAttributes =
  * ])
  * ```
  */
-export const Ul = (attributes: UlElementAttributes = {}) =>
+const Ul = (attributes: UlElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -108,5 +102,3 @@ export const Ul = (attributes: UlElementAttributes = {}) =>
 }
 
 export default Ul
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

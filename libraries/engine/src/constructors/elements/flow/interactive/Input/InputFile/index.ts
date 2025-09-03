@@ -1,18 +1,15 @@
 import type { InputFileAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+// No local guards used; filtering delegated to filterAttributes
 
 /**
  * Filters attributes for InputFile
@@ -50,8 +47,8 @@ export type InputFileElementAttributes = InputFileAttributes & {
  * })
  * ```
  */
-const InputFile = Input("file")(filterAttributes)
+const InputFile = Input("file")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputFile
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

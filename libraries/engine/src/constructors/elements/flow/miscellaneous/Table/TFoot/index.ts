@@ -29,6 +29,6 @@ const tableRowFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const TFoot = GlobalOnly("TFoot")(tableRowFilter)
+const TFoot = GlobalOnly("TFoot")(tableRowFilter)
 
 export default TFoot

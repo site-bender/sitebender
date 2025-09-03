@@ -9,7 +9,7 @@ import type {
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type { Value } from "@engineTypes/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
 import filterAttributes from "./filterAttributes/index.ts"
 

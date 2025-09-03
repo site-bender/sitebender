@@ -1,19 +1,13 @@
 import type { DialogAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { Value } from "../../../../../types/index.ts"
-
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+	Value,
+} from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
+import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
 
 /**
  * Filters attributes for Dialog element
@@ -57,8 +51,6 @@ export type DialogElementAttributes = DialogAttributes & {
  * ])
  * ```
  */
-export const Dialog = Filtered("Dialog")(filterAttributes)
+const Dialog = Filtered("Dialog")(filterAttributes)
 
 export default Dialog
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

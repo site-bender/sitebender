@@ -1,7 +1,4 @@
-import type {
-	TextNodeConfig,
-	TextNodeConstructor,
-} from "@engineSrc/constructors/elements/types/index.ts"
+import type { TextNodeConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
 /**
  * Creates a TextNode configuration object for representing text content
@@ -15,9 +12,9 @@ import type {
  * // Returns: { tag: "TextNode", content: "Hello, World!" }
  * ```
  */
-export const TextNode: TextNodeConstructor = (content): TextNodeConfig => ({
-	content: typeof content === "string" ? content : "",
-	tag: "TextNode",
-})
-
-export default TextNode
+export default function TextNode(content: unknown): TextNodeConfig {
+	return {
+		content: typeof content === "string" ? content : "",
+		tag: "TextNode",
+	}
+}

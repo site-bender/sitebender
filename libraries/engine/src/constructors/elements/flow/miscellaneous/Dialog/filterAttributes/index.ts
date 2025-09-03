@@ -1,7 +1,8 @@
-import type { DialogAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-
-import type {
-import type { DialogAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import type { DialogElementAttributes as DialogAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: DialogAttributes) {
 

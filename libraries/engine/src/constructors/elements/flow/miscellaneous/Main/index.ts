@@ -2,23 +2,17 @@ import type { MainAriaAttributes } from "@engineSrc/constructors/elements/types/
 import type { MainAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { MAIN_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Main attributes including reactive properties and ARIA
@@ -54,7 +48,7 @@ export type MainElementAttributes = MainAttributes & MainAriaAttributes & {
  * })([TextNode("Main content here")])
  * ```
  */
-export const Main = (attributes: MainElementAttributes = {}) =>
+const Main = (attributes: MainElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -94,5 +88,3 @@ export const Main = (attributes: MainElementAttributes = {}) =>
 }
 
 export default Main
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -52,6 +52,6 @@ export type PreElementAttributes = PreformattedTextAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Pre = GlobalOnly("Pre")(phrasingContentFilter)
+const Pre = GlobalOnly("Pre")(phrasingContentFilter)
 
 export default Pre

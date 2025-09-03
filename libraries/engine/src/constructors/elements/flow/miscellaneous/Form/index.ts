@@ -1,33 +1,19 @@
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
+import type { FormAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { FormAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { FormAriaAttributes } from "../../../types/aria/index.ts"
-import type { FormAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import {
-	FORM_ENCTYPES,
-	FORM_METHODS,
-	FORM_TARGETS,
-} from "../../../../../constructors/elements/constants/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
-
-// Form autocomplete constants
-const FORM_AUTOCOMPLETE = ["on", "off"]
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Form attributes including reactive properties and ARIA
@@ -68,7 +54,7 @@ export type FormElementAttributes = FormAttributes & FormAriaAttributes & {
  * ])
  * ```
  */
-export const Form = (attributes: FormElementAttributes = {}) =>
+const Form = (attributes: FormElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -110,5 +96,3 @@ export const Form = (attributes: FormElementAttributes = {}) =>
 }
 
 export default Form
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

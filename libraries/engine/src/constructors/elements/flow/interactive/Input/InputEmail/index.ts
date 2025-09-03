@@ -1,23 +1,13 @@
 import type { InputEmailAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
 import type { InputEmailAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Input from "../index.ts"
 
@@ -65,5 +55,3 @@ const InputEmail = Input("email")(
 )
 
 export default InputEmail
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

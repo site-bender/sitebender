@@ -1,19 +1,15 @@
 import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
+	Value,
 } from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for ColGroup element
@@ -64,7 +60,10 @@ const colGroupFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const ColGroup = (attributes = {}) => (children = []) => {
+const ColGroup = (attributes: ColGroupElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig = [],
+): ElementConfig => {
 	const filteredChildren = Array.isArray(children)
 		? children.filter(colGroupFilter)
 		: colGroupFilter(children)
@@ -75,5 +74,3 @@ export const ColGroup = (attributes = {}) => (children = []) => {
 }
 
 export default ColGroup
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -27,6 +27,6 @@ const isValidMenuChild = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const Menu = GlobalOnly("Menu")(isValidMenuChild)
+const Menu = GlobalOnly("Menu")(isValidMenuChild)
 
 export default Menu

@@ -2,24 +2,18 @@ import type { DivAriaAttributes } from "@engineSrc/constructors/elements/types/a
 import type { DivisionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import { ALL_ARIA_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
 import { ADVANCED_FILTERS as _ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Div attributes including reactive properties and ARIA
@@ -55,7 +49,7 @@ export type DivElementAttributes = DivisionAttributes & DivAriaAttributes & {
  * })([TextNode("Content")])
  * ```
  */
-export const Div = (attributes: DivElementAttributes = {}) =>
+const Div = (attributes: DivElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -95,5 +89,3 @@ export const Div = (attributes: DivElementAttributes = {}) =>
 }
 
 export default Div
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

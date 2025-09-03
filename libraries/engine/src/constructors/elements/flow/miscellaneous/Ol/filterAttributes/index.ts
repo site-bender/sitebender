@@ -1,7 +1,13 @@
-import type { ListAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { OrderedListAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isInteger from "@engineSrc/guards/isInteger/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import { OL_TYPES } from "@engineSrc/constructors/elements/constants/index.ts"
+import { OL_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 import type { OlElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: OlElementAttributes) {

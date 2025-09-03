@@ -1,25 +1,14 @@
 import type { InputTextAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
 import type { InputTextAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
-import Input from "../index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
+import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
 
 /**
  * Extended InputText attributes including reactive properties and ARIA
@@ -57,8 +46,9 @@ export type InputTextElementAttributes =
  * })
  * ```
  */
-const InputText = Input("text")(filterAttributes)
+const InputText = Input("text")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputText
 
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -1,20 +1,16 @@
 import type { BlockQuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
 import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for BlockQuote element
@@ -54,7 +50,7 @@ export type BlockQuoteElementAttributes = BlockQuotationAttributes & {
  * ])
  * ```
  */
-export const BlockQuote =
+const BlockQuote =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const kids = Array.isArray(children)
@@ -69,5 +65,3 @@ export const BlockQuote =
 	}
 
 export default BlockQuote
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

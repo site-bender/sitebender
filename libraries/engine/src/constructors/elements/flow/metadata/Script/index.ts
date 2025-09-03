@@ -2,26 +2,15 @@ import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/ar
 import type { ScriptAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import {
-	CROSS_ORIGINS,
-	REFERRER_POLICIES,
-} from "@engineSrc/constructors/elements/constants/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Filters attributes for Script element
@@ -61,7 +50,7 @@ export type ScriptElementAttributes = ScriptAttributes & NoAriaAttributes & {
  * })([])
  * ```
  */
-export const Script = (attributes: ScriptElementAttributes = {}) =>
+const Script = (attributes: ScriptElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -103,5 +92,4 @@ export const Script = (attributes: ScriptElementAttributes = {}) =>
 }
 
 export default Script
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"
+// default-only exports

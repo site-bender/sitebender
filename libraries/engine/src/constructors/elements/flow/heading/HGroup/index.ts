@@ -17,6 +17,6 @@ import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.
  * })
  * ```
  */
-export const HGroup = GlobalOnly("hgroup")
+const HGroup = GlobalOnly("hgroup")
 
 export default HGroup

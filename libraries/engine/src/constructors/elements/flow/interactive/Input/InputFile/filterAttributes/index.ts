@@ -1,8 +1,10 @@
 import type { InputFileAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type {
-import type { Record } from "../index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
 
-export default function filterAttributes(attributes: Record<string, Value>) {
+export default function filterAttributes(attributes: InputFileAttributes) {
 
 	const {
 		accept,
@@ -13,7 +15,7 @@ export default function filterAttributes(attributes: Record<string, Value>) {
 		name,
 		required,
 		...attrs
-	} = attributes as unknown as InputFileAttributes
+	} = attributes
 	const globals = pickGlobalAttributes(attrs)
 
 	return {

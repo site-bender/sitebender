@@ -1,5 +1,5 @@
 import Input from "../index.ts"
-import { filterAttributes } from "../InputButton/index.ts"
+import filterAttributes from "../InputButton/filterAttributes/index.ts"
 
 /**
  * Creates an InputReset element configuration object

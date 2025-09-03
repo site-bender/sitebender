@@ -11,7 +11,7 @@ import type {
 import filterAttributes from "./filterAttributes/index.ts"
 
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 

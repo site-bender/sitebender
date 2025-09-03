@@ -1,11 +1,4 @@
-import type { Value } from "@engineTypes/index.ts"
-
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
-import { HEADING_ROLES } from "../../../../../constructors/elements/constants/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 /**
@@ -24,8 +17,6 @@ import filterAttributes from "./filterAttributes/index.ts"
  * ])
  * ```
  */
-export const Hn = FilteredAllowText("Hn")(filterAttributes)
+const Hn = FilteredAllowText("Hn")(filterAttributes)
 
 export default Hn
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"
