@@ -24,7 +24,7 @@ import not from "../../logic/not/index.ts"
  * // Basic usage - sum until limit
  * const underLimit = (acc: number) => acc < 100
  * const add = (acc: number, x: number) => acc + x
- * reduceWhile(underLimit)(add)(0)([10, 20, 30, 40, 50, 60])  // 60
+ * reduceWhile(underLimit)(add)(0)([10, 20, 30, 40, 50, 60])  // 100
  *
  * // Collect until specific element
  * const notStop = (_: string[], x: string) => x !== "STOP"
