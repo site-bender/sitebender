@@ -9,5 +9,3 @@ import convertUuidToBase58 from "./convertUuidToBase58/index.ts"
 export default function generateShortId(uuid = crypto.randomUUID()): string {
 	return `_${convertUuidToBase58(uuid)}`
 }
-
-export { generateShortId }
