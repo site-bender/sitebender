@@ -270,10 +270,10 @@ describe("subsequences", () => {
 			)
 		})
 
-		it("no duplicate subsequences", () => {
+		it("no duplicate subsequences for arrays with unique values", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer(), { maxLength: 8 }),
+					fc.uniqueArray(fc.integer(), { maxLength: 8 }),
 					(array) => {
 						const result = subsequences(array)
 						
@@ -281,6 +281,7 @@ describe("subsequences", () => {
 						const stringified = result.map(sub => JSON.stringify(sub))
 						const unique = new Set(stringified)
 						
+						// For unique input values, subsequences should also be unique
 						return unique.size === result.length
 					},
 				),
