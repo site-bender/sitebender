@@ -1,7 +1,6 @@
 import { join } from "jsr:@std/path"
 
-import toKebabCase from "~utilities/toKebabCase/index.ts"
-
+import toKebabCase from "../../../../../utilities/toKebabCase/index.ts"
 import analyzeFileRecursively from "./analyzeFileRecursively/index.ts"
 
 /**

@@ -1,14 +1,9 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
-import toKebabCase from "~utilities/toKebabCase/index.ts"
+import type { Logger } from "../../types/index.ts"
 
+import toKebabCase from "../../utilities/toKebabCase/index.ts"
 import transpileTypeScript from "../transpileComponentScripts/transpileScriptsRecursive/transpileTypeScript/index.ts"
-
-export type Logger = {
-	log: (...args: unknown[]) => void
-	warn: (...args: unknown[]) => void
-	error: (...args: unknown[]) => void
-}
 
 const defaultLogger: Logger = {
 	log: console.log,

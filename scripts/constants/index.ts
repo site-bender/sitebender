@@ -40,3 +40,35 @@ export const FP_FORBIDDEN = [
 export const FP_ALLOWLIST = new Set<string>([
 	"libraries/toolkit/src/state/store.ts",
 ])
+
+// No-React-Junk defaults
+export const DEFAULT_NO_REACT_GLOBS = [
+	"docs/src/**/*.ts",
+	"docs/src/**/*.tsx",
+	"libraries/*/src/**/*.ts",
+	"libraries/*/src/**/*.tsx",
+]
+
+export const NO_REACT_ALLOWLIST = new Set<string>([
+	// Our custom renderer is allowed to reference these names for compatibility
+	"scripts/build/generatePages/buildRoute/renderPageWithApp/renderToString/index.ts",
+])
+
+// Formatting scan defaults
+export const FORMAT_ROOTS = ["docs", "inspector", "libraries", "scripts"]
+export const FORMAT_EXCLUDES = [
+	"/dist/",
+	"/temp/",
+	"/assets/",
+	"/node_modules/",
+	"/coverage/",
+]
+export const FORMAT_EXTENSIONS = [
+	"ts",
+	"tsx",
+	"js",
+	"jsx",
+	"json",
+	"jsonc",
+	"md",
+]

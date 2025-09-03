@@ -109,37 +109,38 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-03) - Part 13
+### Current Session (2025-09-03) - Part 14
 
 **Progress Made:**
 
-- ✅ Tested 5 more array functions following full audit checklist:
-  1. **omit** - 100% coverage achieved
+- ✅ Fixed TypeScript errors in partition and partitionBy test files
+  - Fixed type annotations for predicates to match object shapes
+- ✅ Tested 3 more array functions following full audit checklist:
+  1. **pluck** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Replaced `!` operator with `not()` function
-     - Removes elements at specified indices
+     - Extracts property values from array of objects
      - Comprehensive tests with property-based testing
-  2. **pairwise** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Returns array of adjacent pairs
-     - Not curried (single argument function)
-  3. **partition** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Splits array into two based on predicate
-     - Properly curried
-  4. **partitionBy** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Partitions by consecutive elements satisfying predicate
-     - Properly curried
-  5. **permutations** - 100% coverage achieved
-     - Fixed redundant `!Array.isArray` check after `isNullish`
-     - Generates all permutations of array
-     - Not curried (single argument function)
+  2. **range** - 100% coverage achieved  
+     - Added infinity handling to prevent RangeError
+     - Generates array of numbers from start to end (exclusive)
+     - Tests cover edge cases including Infinity, NaN
+  3. **rangeStep** - 100% coverage achieved
+     - Added infinity handling
+     - Fixed Math.floor to Math.ceil for correct length calculation
+     - Generates array with custom step value
+     - Comprehensive tests including property-based testing
 
 **Common Issues Fixed:**
 
-- Redundant `!Array.isArray` checks after `isNullish` (all 5 functions)
-- Missing use of `not()` function instead of `!` operator (omit)
+- Redundant `!Array.isArray` checks after `isNullish` (pluck)
+- Added !isFinite checks to prevent RangeError with Infinity (range, rangeStep)
+- Fixed Math.floor to Math.ceil in rangeStep for correct exclusive end behavior
+
+**Testing Progress Update:**
+
+- 143 functions now have tests (was 140)
+- Current progress: ~16.4% (143/874 functions)
+- All tested functions have 100% coverage
 
 ### Previous Session (2025-09-02) - Part 12
 

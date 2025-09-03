@@ -57,9 +57,14 @@ const rangeStep = (
 		return []
 	}
 
-	const length = Math.floor(
+	const length = Math.ceil(
 		step > 0 ? (end - start) / step : (start - end) / Math.abs(step),
 	)
+
+	// Handle non-finite length
+	if (!isFinite(length)) {
+		return []
+	}
 
 	return Array.from({ length }, (_, i) => start + i * step)
 }

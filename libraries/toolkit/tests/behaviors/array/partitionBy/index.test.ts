@@ -46,7 +46,9 @@ describe("partitionBy", () => {
 				{ id: 4, completed: false },
 			]
 			assertEquals(
-				partitionBy((t: { completed: boolean }) => t.completed)(tasks),
+				partitionBy((t: { id: number; completed: boolean }) => t.completed)(
+					tasks,
+				),
 				[
 					[{ id: 1, completed: false }, { id: 2, completed: false }],
 					[{ id: 3, completed: true }],

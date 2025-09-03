@@ -44,7 +44,7 @@
 		"coverage:components": "deno task --cwd libraries/components test:cov",
 		"coverage:toolkit": "deno task --cwd libraries/toolkit test:cov",
 		"coverage": "deno task coverage:docs && deno task coverage:engine && deno task coverage:components && deno task coverage:toolkit",
-		"coverage:report:ignored": "deno run -A scripts/coverage-tools/reportIgnored.ts",
+		"coverage:report:ignored": "deno run -A scripts/coverage-tools/reportIgnored/index.ts",
 
 		// === Type Checking ===
 		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/engine/src/**/*.ts libraries/engine/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
@@ -55,7 +55,7 @@
 		// === Import Management ===
 		"sort": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts --dir=agent --dir=docs --dir=inspector --dir=libraries --dir=scripts",
 		"sort:all": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts",
-		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards.ts",
+		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards/index.ts",
 
 		// === Setup and Maintenance ===
 		"setup": "deno run --unstable-temporal -A scripts/setup/index.ts",
@@ -75,7 +75,7 @@
 		"inspector:type-check": "deno task --cwd inspector type-check",
 
 		// === Hooks ===
-		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install.ts",
+		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install/index.ts",
 		"lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts",
 
 		// === Local Infra (Docker Compose) ===

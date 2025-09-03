@@ -42,7 +42,7 @@ describe("partition", () => {
 				{ name: "Bob", active: false },
 				{ name: "Charlie", active: true },
 			]
-			const isActive = (user: { active: boolean }) => user.active
+			const isActive = (user: { name: string; active: boolean }) => user.active
 			assertEquals(partition(isActive)(users), [
 				[{ name: "Alice", active: true }, { name: "Charlie", active: true }],
 				[{ name: "Bob", active: false }],

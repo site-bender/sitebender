@@ -1,20 +1,14 @@
 #!/usr/bin/env -S deno run -A --unstable-temporal
 /**
  * Report all deno-coverage-ignore markers across the repo, grouped by package/app.
- *
- * Markers supported:
- *  - deno-coverage-ignore
- *  - deno-coverage-ignore-start ... deno-coverage-ignore-stop
- *
- * Rules: Every ignore must include an explanation comment on the same line (single-line),
- * or on the first line after -start, beginning with a human-readable reason.
+ * Default export is provided; script also runnable via CLI.
  */
 
 import { join, relative } from "jsr:@std/path@^1.0.8"
 
-// Root directories to scan
-const ROOT = new URL("../../", import.meta.url)
-const SCAN_DIRS = [
+// Determine repo root (assume task is run from repo root)
+const DEFAULT_REPO_ROOT = Deno.cwd()
+const DEFAULT_SCAN_DIRS = [
 	"docs",
 	"inspector",
 	"libraries/engine",
@@ -32,8 +26,8 @@ const START_RE = /(\/\/.*?deno-coverage-ignore-start)([^\n]*)/
 const STOP_RE = /\/\/.*?deno-coverage-ignore-stop/
 
 // Try to infer a package/app label from path
-function groupLabel(absPath: string): string {
-	const rel = relative(fromFileUrl(ROOT), absPath)
+function groupLabel(root: string, absPath: string): string {
+	const rel = relative(root, absPath)
 	if (rel.startsWith("libraries/")) {
 		const seg = rel.split("/")
 		return seg.length >= 2 ? `libraries/${seg[1]}` : "libraries"
@@ -44,11 +38,7 @@ function groupLabel(absPath: string): string {
 	return "root"
 }
 
-function fromFileUrl(u: URL): string {
-	return Deno.build.os === "windows"
-		? u.href.replace("file:///", "")
-		: u.pathname
-}
+// no-op helper removed (was only used for URL → path)
 
 type IgnoreRecord = {
 	file: string
@@ -79,7 +69,7 @@ function addRecord(label: string, rec: IgnoreRecord) {
 	groups.get(label)!.push(rec)
 }
 
-async function scanFile(path: string) {
+async function scanFile(root: string, path: string) {
 	const text = await Deno.readTextFile(path)
 	const lines = text.split("\n")
 	let i = 0
@@ -100,7 +90,7 @@ async function scanFile(path: string) {
 				}
 				j++
 			}
-			addRecord(groupLabel(path), {
+			addRecord(groupLabel(root, path), {
 				file: path,
 				line: startLine + 1,
 				type: "block",
@@ -119,7 +109,7 @@ async function scanFile(path: string) {
 		if (m) {
 			const reason = m[2]?.trim().replace(/^[:\-\s]+/, "") ||
 				"<no reason provided>"
-			addRecord(groupLabel(path), {
+			addRecord(groupLabel(root, path), {
 				file: path,
 				line: i + 1,
 				type: "single",
@@ -132,12 +122,13 @@ async function scanFile(path: string) {
 	}
 }
 
-async function main() {
-	const rootFsPath = fromFileUrl(ROOT)
-	for (const dir of SCAN_DIRS) {
+export default async function reportCoverageIgnores(opts?: { root?: string; scanDirs?: string[] }) {
+	const rootFsPath = opts?.root ?? DEFAULT_REPO_ROOT
+	const dirs = opts?.scanDirs ?? DEFAULT_SCAN_DIRS
+	for (const dir of dirs) {
 		const abs = join(rootFsPath, dir)
 		try {
-			for await (const f of walkDir(abs)) await scanFile(f)
+			for await (const f of walkDir(abs)) await scanFile(rootFsPath, f)
 		} catch (_) {
 			// Ignore missing dirs in some checkouts
 		}
@@ -167,5 +158,5 @@ async function main() {
 }
 
 if (import.meta.main) {
-	await main()
+	await reportCoverageIgnores()
 }

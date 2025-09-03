@@ -20,3 +20,10 @@ export type AliasViolation = {
 	spec: string
 	hint: string
 }
+
+export type Logger = {
+	log: (...args: unknown[]) => void
+	info?: (...args: unknown[]) => void
+	warn: (...args: unknown[]) => void
+	error: (...args: unknown[]) => void
+}

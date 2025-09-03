@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
@@ -53,7 +54,7 @@ const pluck = <T, K extends keyof T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T[K] | undefined> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 

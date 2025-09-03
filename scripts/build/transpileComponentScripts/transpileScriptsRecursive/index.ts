@@ -1,17 +1,12 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
-import toKebabCase from "~utilities/toKebabCase/index.ts"
+import type { Logger } from "../../../types/index.ts"
 
+import toKebabCase from "../../../utilities/toKebabCase/index.ts"
 import transpileTypeScript from "./transpileTypeScript/index.ts"
 
 export const MSG_SCRIPTS_COPY_OPERATION_ERROR =
 	"Error during script transpile operation"
-
-export type Logger = {
-	log: (...args: unknown[]) => void
-	warn: (...args: unknown[]) => void
-	error: (...args: unknown[]) => void
-}
 
 /**
  * Pure function to get directory entries
