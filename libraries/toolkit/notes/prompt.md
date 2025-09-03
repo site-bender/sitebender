@@ -169,7 +169,47 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-03) - Part 20
+### Current Session (2025-09-03) - Part 21
+
+**Progress Made:**
+
+- ✅ Reviewed 5 array functions that already had tests with 100% coverage:
+  1. **omit** - Already had 100% coverage
+     - Removes elements at specified indices
+     - Handles negative indices correctly
+     - Tests were comprehensive
+  2. **pairwise** - Already had 100% coverage  
+     - Creates adjacent pairs from array
+     - Not curried (single argument function)
+     - Tests were comprehensive
+  3. **partition** - Already had 100% coverage
+     - Splits array based on predicate
+     - Returns [matching, non-matching] arrays
+     - Tests were comprehensive
+  4. **partitionBy** - Already had 100% coverage
+     - Groups consecutive elements by predicate result
+     - Creates runs of elements
+     - Tests were comprehensive
+  5. **permutations** - Already had 100% coverage
+     - Generates all permutations of array
+     - Handles duplicates correctly
+     - Tests were comprehensive
+     
+- ✅ Created new test for 1 array function:
+  1. **sliding** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Creates sliding windows over array
+     - Curried with size, step, and array parameters
+     - Handles edge cases with invalid parameters
+     - Comprehensive behavioral and property-based tests
+
+**Testing Progress Update:**
+
+- 171 functions now have tests (170 from previous + 1 new)
+- Current progress: ~19.6% (171/874 functions)
+- All tested functions have 100% coverage and PASSING tests
+
+### Previous Session (2025-09-03) - Part 20
 
 **Progress Made:**
 
