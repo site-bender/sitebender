@@ -1,6 +1,10 @@
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import type { DelElementAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 export default function filterAttributes(attributes: DelElementAttributes) {
 

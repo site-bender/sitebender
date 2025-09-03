@@ -86,7 +86,7 @@ type PhrasingContentOptions = {
  * @param options - Validation options (ancestors, etc.)
  * @returns Function that validates if an element config represents phrasing content
  */
-export const isPhrasingContent =
+const isPhrasingContent =
 	(options: PhrasingContentOptions = {}) =>
 	(config: ElementConfig = {}): boolean => {
 		const { attributes = {}, tag } = config

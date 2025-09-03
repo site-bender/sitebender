@@ -2,21 +2,17 @@ import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/ar
 import type { StyleAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Filters attributes for Style element
@@ -56,7 +52,7 @@ export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
  * })([TextNode("body { margin: 0; }")])
  * ```
  */
-export const Style = (attributes: StyleElementAttributes = {}) =>
+const Style = (attributes: StyleElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -96,5 +92,3 @@ export const Style = (attributes: StyleElementAttributes = {}) =>
 }
 
 export default Style
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

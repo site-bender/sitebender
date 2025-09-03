@@ -54,6 +54,6 @@ export type SElementAttributes = StrikethroughAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const S = GlobalOnly("S")(phrasingContentFilter)
+const S = GlobalOnly("S")(phrasingContentFilter)
 
 export default S

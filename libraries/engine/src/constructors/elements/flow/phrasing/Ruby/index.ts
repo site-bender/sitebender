@@ -37,6 +37,6 @@ const rubyContentFilter = (child: ElementConfig): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Ruby = GlobalOnly("ruby")(rubyContentFilter)
+const Ruby = GlobalOnly("ruby")(rubyContentFilter)
 
 export default Ruby

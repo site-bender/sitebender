@@ -52,6 +52,6 @@ export type SubElementAttributes = SubscriptAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Sub = GlobalOnly("sub")(phrasingContentFilter)
+const Sub = GlobalOnly("sub")(phrasingContentFilter)
 
 export default Sub

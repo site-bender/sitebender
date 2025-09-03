@@ -1,23 +1,19 @@
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { AriaAttributes } from "../../../types/aria/index.ts"
-import type { DefinitionAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@engineTypes/index.ts"
+import type { AriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { DefinitionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
 
 /**
  * Extended Dfn attributes including reactive properties and ARIA
@@ -54,7 +50,7 @@ export type DfnElementAttributes = DefinitionAttributes & AriaAttributes & {
  * ])
  * ```
  */
-export const Dfn = (attributes: DfnElementAttributes = {}) =>
+const Dfn = (attributes: DfnElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -96,5 +92,3 @@ export const Dfn = (attributes: DfnElementAttributes = {}) =>
 }
 
 export default Dfn
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

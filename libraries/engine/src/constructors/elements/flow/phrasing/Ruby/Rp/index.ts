@@ -17,7 +17,7 @@ import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
  * ])
  * ```
  */
-export const Rp = GlobalOnly("rp")(
+const Rp = GlobalOnly("rp")(
 	(child: ElementConfig) => child.tag?.toLowerCase() === "textnode",
 )
 

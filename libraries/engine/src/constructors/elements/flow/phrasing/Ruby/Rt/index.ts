@@ -53,6 +53,6 @@ export type RtElementAttributes = RubyTextAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Rt = GlobalOnly("rt")(phrasingContentFilter)
+const Rt = GlobalOnly("rt")(phrasingContentFilter)
 
 export default Rt

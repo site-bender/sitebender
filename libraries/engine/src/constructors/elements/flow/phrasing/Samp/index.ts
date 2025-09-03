@@ -17,6 +17,6 @@ import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const Samp = GlobalOnly("samp")(isPhrasingContent())
+const Samp = GlobalOnly("samp")(isPhrasingContent())
 
 export default Samp

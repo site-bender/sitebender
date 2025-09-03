@@ -1,7 +1,7 @@
 import type { TemplateAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -11,9 +11,7 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
 import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Template element
@@ -71,7 +69,7 @@ const isValidTemplateChild = (child: ElementConfig): boolean => {
 	return isFlowContent()(child)
 }
 
-export const Template =
+const Template =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = typeof children === "string"
@@ -88,5 +86,3 @@ export const Template =
 	}
 
 export default Template
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

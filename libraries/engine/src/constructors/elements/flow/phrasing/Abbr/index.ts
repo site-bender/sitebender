@@ -2,21 +2,18 @@ import type { AriaAttributes } from "@engineSrc/constructors/elements/types/aria
 import type { AbbreviationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Abbr attributes including reactive properties and ARIA
@@ -53,7 +50,7 @@ export type AbbrElementAttributes = AbbreviationAttributes & AriaAttributes & {
  * ])
  * ```
  */
-export const Abbr = (attributes: AbbrElementAttributes = {}) =>
+const Abbr = (attributes: AbbrElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -95,5 +92,3 @@ export const Abbr = (attributes: AbbrElementAttributes = {}) =>
 }
 
 export default Abbr
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -1,7 +1,7 @@
 import type { TimeAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -11,11 +11,8 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
 import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Time element
@@ -66,7 +63,7 @@ const isValidTimeChild = (child: ElementConfig): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Time =
+const Time =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = isString(children)
@@ -85,5 +82,3 @@ export const Time =
 	}
 
 export default Time
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

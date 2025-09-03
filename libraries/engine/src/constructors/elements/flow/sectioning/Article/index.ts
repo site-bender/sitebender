@@ -1,26 +1,18 @@
 import type { ArticleAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
 import type { ArticleAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import { ARTICLE_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
 import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isNumber from "@engineSrc/guards/isNumber/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Article attributes including reactive properties and ARIA
@@ -63,7 +55,7 @@ export type ArticleElementAttributes =
  * ])
  * ```
  */
-export const Article = (attributes: ArticleElementAttributes = {}) =>
+const Article = (attributes: ArticleElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -106,10 +98,8 @@ export const Article = (attributes: ArticleElementAttributes = {}) =>
 		...(isDefined(scripts) ? { scripts } : {}),
 		...(isDefined(stylesheets) ? { stylesheets } : {}),
 		...(isDefined(validation) ? { validation } : {}),
-		tag: "Article",
+		tag: "article",
 	}
 }
 
 export default Article
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -17,6 +17,6 @@ import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const U = GlobalOnly("u")(isPhrasingContent())
+const U = GlobalOnly("u")(isPhrasingContent())
 
 export default U

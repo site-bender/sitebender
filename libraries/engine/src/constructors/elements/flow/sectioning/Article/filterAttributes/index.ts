@@ -1,8 +1,13 @@
-import type { ArticleAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { ArticleAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import type { ArticleElementAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import { ARTICLE_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
+import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
+import isNumber from "@engineSrc/guards/isNumber/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 export default function filterAttributes(attributes: ArticleElementAttributes) {
 

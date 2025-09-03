@@ -49,6 +49,6 @@ export type StrongElementAttributes = StrongImportanceAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Strong = GlobalOnly("strong")(phrasingContentFilter)
+const Strong = GlobalOnly("strong")(phrasingContentFilter)
 
 export default Strong

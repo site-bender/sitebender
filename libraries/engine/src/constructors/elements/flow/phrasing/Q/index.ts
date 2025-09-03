@@ -1,21 +1,18 @@
 import type { QuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
 import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Q element
@@ -67,7 +64,7 @@ const isValidQChild = (child: ElementConfig): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Q =
+const Q =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const kids = isString(children)
@@ -84,5 +81,3 @@ export const Q =
 	}
 
 export default Q
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -52,6 +52,6 @@ export type SmallElementAttributes = SideCommentAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Small = GlobalOnly("small")(phrasingContentFilter)
+const Small = GlobalOnly("small")(phrasingContentFilter)
 
 export default Small

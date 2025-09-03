@@ -21,7 +21,7 @@ type PartialElementConfig = {
  * @param additionalExclusions - Additional element tags to exclude (e.g., ["Label"] for Label elements)
  * @returns Child filter function
  */
-export const createPhrasingNonInteractiveFilter = (
+const createPhrasingNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
 (child: ElementConfig): boolean => {
@@ -54,7 +54,7 @@ export const createPhrasingNonInteractiveFilter = (
  * @param additionalExclusions - Additional element tags to exclude
  * @returns Child filter function
  */
-export const createFlowNonInteractiveFilter = (
+const createFlowNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
 (child: ElementConfig): boolean => {
@@ -87,7 +87,7 @@ export const createFlowNonInteractiveFilter = (
  * @param exclusions - Element tags to exclude (e.g., ["Legend"])
  * @returns Child filter function
  */
-export const createLegendContentFilter = (
+const createLegendContentFilter = (
 	exclusions: string[] = [],
 ) =>
 (child: ElementConfig): boolean => {
@@ -116,7 +116,7 @@ export const createLegendContentFilter = (
  *
  * @returns Function that reorganizes and validates Details children
  */
-export const createDetailsContentFilter =
+const createDetailsContentFilter =
 	() => (children: unknown[]): unknown[] => {
 		if (!Array.isArray(children)) {
 			return []
@@ -180,7 +180,7 @@ export const createDetailsContentFilter =
  * @param selfTag - The tag that cannot be nested within itself
  * @returns Child filter function
  */
-export const createSelfExcludingFilter =
+const createSelfExcludingFilter =
 	(selfTag: string) => (child: ElementConfig): boolean => {
 		// Accept text nodes and other primitive content
 		if (!child || typeof child !== "object" || !("tag" in child)) {
@@ -202,7 +202,7 @@ export const createSelfExcludingFilter =
 /**
  * Predefined filter instances for common use cases
  */
-export const ADVANCED_FILTERS = {
+const ADVANCED_FILTERS = {
 	// For Button elements - phrasing content but no interactive elements
 	buttonContent: createPhrasingNonInteractiveFilter(),
 
@@ -251,3 +251,5 @@ export const ADVANCED_FILTERS = {
 		return tag === "Source" || tag === "Track" || isPhrasingContent()(element)
 	},
 } as const
+
+export default ADVANCED_FILTERS

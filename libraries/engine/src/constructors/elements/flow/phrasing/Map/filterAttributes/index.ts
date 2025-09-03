@@ -1,9 +1,10 @@
-import type { ImageMapAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
-import type { ImageMapAttributes } from "../index.ts"
+import type { MapElementAttributes } from "../index.ts"
+import getId from "@engineSrc/constructors/helpers/getId/index.ts"
+import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
-export default function filterAttributes(attributes: ImageMapAttributes) {
+export default function filterAttributes(attributes: MapElementAttributes) {
 
 	const { id, name, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)

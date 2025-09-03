@@ -2,27 +2,16 @@ import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/ar
 import type { AreaAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import {
-	REFERRER_POLICIES,
-	RELS_FOR_AREA,
-	SHAPES,
-	TARGETS,
-} from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+// constants are used in filterAttributes
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Area attributes including reactive properties and ARIA
@@ -60,7 +49,7 @@ export type AreaElementAttributes = AreaAttributes & NoAriaAttributes & {
  * })
  * ```
  */
-export const Area = (
+const Area = (
 	attributes: Partial<AreaElementAttributes> = {},
 ): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(
@@ -94,5 +83,3 @@ export const Area = (
 }
 
 export default Area
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

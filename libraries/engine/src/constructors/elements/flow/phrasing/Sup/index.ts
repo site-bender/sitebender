@@ -52,6 +52,6 @@ export type SupElementAttributes = SuperscriptAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Sup = GlobalOnly("sup")(phrasingContentFilter)
+const Sup = GlobalOnly("sup")(phrasingContentFilter)
 
 export default Sup

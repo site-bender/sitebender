@@ -2,22 +2,14 @@ import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/ar
 import type { BaseAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import { TARGETS } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Filters attributes for Base element
@@ -58,7 +50,7 @@ export type BaseElementAttributes = BaseAttributes & NoAriaAttributes & {
  * })
  * ```
  */
-export const Base = (attributes: BaseElementAttributes = {}): ElementConfig => {
+const Base = (attributes: BaseElementAttributes = {}): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {
 		calculation,
@@ -88,5 +80,3 @@ export const Base = (attributes: BaseElementAttributes = {}): ElementConfig => {
 }
 
 export default Base
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

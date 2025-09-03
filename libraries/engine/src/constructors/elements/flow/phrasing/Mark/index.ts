@@ -1,24 +1,19 @@
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { AriaAttributes } from "../../../types/aria/index.ts"
-import type { MarkTextAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@engineTypes/index.ts"
+import type { AriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
+import type { MarkTextAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
 
 /**
  * Extended Mark attributes including reactive properties and ARIA
@@ -55,7 +50,7 @@ export type MarkElementAttributes = MarkTextAttributes & AriaAttributes & {
  * ])
  * ```
  */
-export const Mark = (attributes: MarkElementAttributes = {}) =>
+const Mark = (attributes: MarkElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {
@@ -92,10 +87,8 @@ export const Mark = (attributes: MarkElementAttributes = {}) =>
 		...(isDefined(scripts) ? { scripts } : {}),
 		...(isDefined(stylesheets) ? { stylesheets } : {}),
 		...(isDefined(validation) ? { validation } : {}),
-		tag: "Mark",
+		tag: "mark",
 	}
 }
 
 export default Mark
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

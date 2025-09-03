@@ -1,7 +1,7 @@
 import type { ImageMapAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import type {
 import filterAttributes from "./filterAttributes/index.ts"
+import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -10,10 +10,6 @@ import filterAttributes from "./filterAttributes/index.ts"
 } from "@engineTypes/index.ts"
 
 import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
 
 /**
  * Filters attributes for Map element
@@ -52,7 +48,7 @@ export type MapElementAttributes = ImageMapAttributes & {
  * ])
  * ```
  */
-export const Map =
+const Map =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = Array.isArray(children) ? children : [children]
@@ -64,5 +60,3 @@ export const Map =
 	}
 
 export default Map
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

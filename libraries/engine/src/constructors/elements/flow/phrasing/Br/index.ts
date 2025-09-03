@@ -2,19 +2,15 @@ import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/ar
 import type { GlobalAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
-import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 /**
  * Extended Br attributes including reactive properties and ARIA
@@ -46,7 +42,7 @@ export type BrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * const br = Br({ id: "line-break" })
  * ```
  */
-export const Br = (attributes: BrElementAttributes = {}): ElementConfig => {
+export default function Br(attributes: BrElementAttributes = {}): ElementConfig {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {
 		calculation,
@@ -74,7 +70,3 @@ export const Br = (attributes: BrElementAttributes = {}): ElementConfig => {
 		tag: "Br",
 	}
 }
-
-export default Br
-
-export { default as filterAttributes } from "./filterAttributes/index.ts"

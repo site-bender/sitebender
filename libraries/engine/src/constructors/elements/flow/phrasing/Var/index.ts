@@ -17,6 +17,6 @@ import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const Var = GlobalOnly("var")(isPhrasingContent())
+const Var = GlobalOnly("var")(isPhrasingContent())
 
 export default Var
