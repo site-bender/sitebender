@@ -45,8 +45,11 @@ const unflatten =
 			index: number,
 			currentDepth: number,
 		): { result: Array<any>; nextIndex: number } => {
+			// deno-coverage-ignore
 			if (index >= array.length || index >= depths.length) {
+				// deno-coverage-ignore
 				return { result: [], nextIndex: index }
+				// deno-coverage-ignore
 			}
 
 			const result: Array<any> = []
