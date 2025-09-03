@@ -50,7 +50,7 @@ const partition = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): [Array<T>, Array<T>] => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return [[], []]
 	}
 

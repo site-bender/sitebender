@@ -9,8 +9,10 @@
 
 	"tasks": {
 		// === Formatting and Code Quality ===
-		"fmt": "deno task sort && deno fmt agent/ docs/ inspector/ libraries/ scripts/",
-		"fmt:all": "deno task sort:all && deno fmt agent/ docs/ inspector/ libraries/ scripts/",
+		"fmt": "deno task fmt:repo",
+		"fmt:all": "deno task fmt:all:repo",
+		"fmt:repo": "deno task sort && deno fmt",
+		"fmt:all:repo": "deno task sort:all && deno fmt",
 		"fmt:check": "deno fmt --check agent/ docs/ inspector/ libraries/ scripts/",
 		"lint": "deno lint agent/ docs/ inspector/ libraries/ scripts/",
 		"lint:all": "deno lint agent/ docs/ inspector/ libraries/ scripts/",
@@ -46,12 +48,13 @@
 
 		// === Type Checking ===
 		"type-check": "deno check --unstable-temporal docs/src/**/*.ts docs/src/**/*.tsx scripts/**/*.ts libraries/engine/src/**/*.ts libraries/engine/src/**/*.tsx libraries/components/src/**/*.ts libraries/components/src/**/*.tsx",
+		"type-check:agent": "deno check --config agent/deno.jsonc 'agent/scripts/**/*.ts'",
 		"type-check:focused": "deno check --unstable-temporal libraries/engine/src/operations/comparators/compare/index.ts libraries/engine/src/operations/comparators/amount/isLessThan/index.ts libraries/engine/src/operations/comparators/amount/isMoreThan/index.ts libraries/engine/src/operations/comparators/amount/isNoLessThan/index.ts libraries/engine/src/operations/comparators/equality/isEqualTo/index.ts libraries/engine/src/operations/comparators/equality/isUnequalTo/index.ts libraries/engine/src/operations/comparators/length/isLength/index.ts libraries/engine/src/operations/comparators/length/isLongerThan/index.ts libraries/engine/src/operations/comparators/length/isShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNoLongerThan/index.ts libraries/engine/src/operations/comparators/length/isNoShorterThan/index.ts libraries/engine/src/operations/comparators/length/isNotLength/index.ts libraries/engine/src/operations/comparators/length/isSameLength/index.ts",
 		"type-check:inspector": "deno check --unstable-temporal --config inspector/deno.json 'inspector/src/**/*.ts'",
 
 		// === Import Management ===
-		"sort": "deno run --allow-read --allow-write scripts/sortImports/index.ts --dir=agent --dir=docs --dir=inspector --dir=libraries --dir=scripts",
-		"sort:all": "deno run --allow-read --allow-write scripts/sortImports/index.ts",
+		"sort": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts --dir=agent --dir=docs --dir=inspector --dir=libraries --dir=scripts",
+		"sort:all": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts",
 		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards.ts",
 
 		// === Setup and Maintenance ===
@@ -93,7 +96,7 @@
 		"jsxFactory": "createElement",
 		"jsxFragmentFactory": "Fragment",
 		"types": [
-			"./docs/src/types/globals.d.ts",
+			"./docs/.sitebender/scripts/types/globals.d.ts",
 			"./scripts/types/globals.d.ts",
 			// Ensure components' JSX globals are visible during workspace checks
 			"./libraries/components/types/globals.d.ts",
@@ -127,7 +130,7 @@
 		"@engineTypes/": "./libraries/engine/types/",
 		"@engineSrc/": "./libraries/engine/src/",
 		"@sitebender/engine": "./libraries/engine/src/",
-		"@sitebender/engine/": "./libraries/engine/src/",
+		"@sitebender/engine/": "./libraries/engine/src/"
 	},
 
 	// Shared formatting configuration

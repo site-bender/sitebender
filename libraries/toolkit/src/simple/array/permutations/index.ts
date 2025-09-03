@@ -41,7 +41,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return [[]]
 	}
 

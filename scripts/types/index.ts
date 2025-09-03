@@ -1,0 +1,15 @@
+// Shared types for repository scripts
+
+export type ImportInfo = {
+	type: "type" | "value"
+	source: string
+	text: string
+	line: number
+	category:
+		| "types"
+		| "components"
+		| "utilities"
+		| "constants"
+		| "external"
+		| "local"
+}
