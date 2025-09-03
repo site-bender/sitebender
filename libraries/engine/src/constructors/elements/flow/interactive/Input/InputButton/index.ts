@@ -1,5 +1,6 @@
 import type { InputButtonAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -31,19 +32,7 @@ export type InputButtonElementAttributes = InputButtonAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: InputButtonAttributes) => {
-	const { autofocus, disabled, form, name, value, ...attrs } = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputButton element configuration object
@@ -62,3 +51,5 @@ export const filterAttributes = (attributes: InputButtonAttributes) => {
 const InputButton = Input("button")(filterAttributes)
 
 export default InputButton
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

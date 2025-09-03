@@ -1,6 +1,7 @@
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -39,77 +40,7 @@ export type H2ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * Filters attributes for H2 element
  * Allows global attributes and validates heading-specific attributes
  */
-export const filterAttributes = (attributes: H2ElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		role,
-		"aria-level": ariaLevel,
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes
-	if (isDefined(role)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(HEADING_ROLES))("role")(role),
-		)
-	}
-	if (isDefined(ariaLevel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isNumber)("aria-level")(ariaLevel),
-		)
-	}
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates an H2 element configuration object
@@ -163,3 +94,5 @@ export const H2 = (attributes: H2ElementAttributes = {}) =>
 }
 
 export default H2
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

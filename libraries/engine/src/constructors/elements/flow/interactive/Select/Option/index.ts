@@ -1,5 +1,6 @@
 import type { OptionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -34,22 +35,7 @@ export type OptionElementAttributes = OptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (
-	attributes: Record<string, Value>,
-): Record<string, Value> => {
-	const { disabled, label, selected, value, ...attrs } = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	const out: Record<string, Value> = {
-		...globals,
-		...filterAttribute(isBoolean)("disabled")(disabled as Value),
-		...filterAttribute(isString)("label")(label as Value),
-		...filterAttribute(isBoolean)("selected")(selected as Value),
-		...filterAttribute(isString)("value")(value as Value),
-	}
-
-	return out
-}
 
 /**
  * Creates an Option element configuration object
@@ -89,3 +75,5 @@ const Option = (attributes: Record<string, Value> = {}) => (label?: string) => {
 }
 
 export default Option
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

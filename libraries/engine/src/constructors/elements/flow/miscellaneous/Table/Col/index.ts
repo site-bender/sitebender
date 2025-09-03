@@ -1,5 +1,6 @@
 import type { TableColumnAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -32,16 +33,7 @@ export type ColElementAttributes = TableColumnAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableColumnAttributes) => {
-	const { id, span, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("span")(span),
-	}
-}
 
 /**
  * Creates a Col element configuration object
@@ -60,3 +52,5 @@ export const filterAttributes = (attributes: TableColumnAttributes) => {
 export const Col = FilteredEmpty("Col")(filterAttributes)
 
 export default Col
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

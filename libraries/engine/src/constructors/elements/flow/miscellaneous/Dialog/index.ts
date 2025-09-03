@@ -1,6 +1,7 @@
 import type { DialogAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,16 +34,7 @@ export type DialogElementAttributes = DialogAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: DialogAttributes) => {
-	const { id, open, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("open")(open),
-	}
-}
 
 /**
  * Creates a Dialog element configuration object
@@ -68,3 +60,5 @@ export const filterAttributes = (attributes: DialogAttributes) => {
 export const Dialog = Filtered("Dialog")(filterAttributes)
 
 export default Dialog
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

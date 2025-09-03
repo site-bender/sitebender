@@ -1,6 +1,7 @@
 import type { SummaryAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,16 +34,7 @@ export type SummaryElementAttributes = SummaryAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: SummaryAttributes) => {
-	const { id, role, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isMemberOf(SUMMARY_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Summary element configuration object
@@ -107,3 +99,5 @@ export const Summary = (attributes: SummaryElementAttributes = {}) =>
 }
 
 export default Summary
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

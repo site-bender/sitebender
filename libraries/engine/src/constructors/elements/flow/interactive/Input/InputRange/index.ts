@@ -1,5 +1,6 @@
 import type { InputRangeAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -34,36 +35,7 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const {
-		autocomplete,
-		autofocus,
-		disabled,
-		form,
-		list,
-		max,
-		min,
-		name,
-		step,
-		value,
-		...attrs
-	} = attributes as unknown as InputRangeAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("list")(list),
-		...filterAttribute(isNumber)("max")(max),
-		...filterAttribute(isNumber)("min")(min),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isNumber)("step")(step),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputRange element configuration object
@@ -84,3 +56,5 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
 const InputRange = Input("range")(filterAttributes)
 
 export default InputRange
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

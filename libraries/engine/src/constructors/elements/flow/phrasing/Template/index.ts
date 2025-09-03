@@ -1,6 +1,7 @@
 import type { TemplateAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,15 +34,7 @@ export type TemplateElementAttributes = TemplateAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TemplateAttributes) => {
-	const { id, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-	}
-}
 
 /**
  * Creates a Template element configuration object
@@ -95,3 +88,5 @@ export const Template =
 	}
 
 export default Template
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

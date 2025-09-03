@@ -2,6 +2,7 @@ import type { AriaAttributes } from "@engineSrc/constructors/elements/types/aria
 import type { KeyboardInputAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -35,98 +36,7 @@ export type KbdElementAttributes = KeyboardInputAttributes & AriaAttributes & {
  * Filters attributes for Kbd element
  * Allows global attributes and validates kbd-specific attributes
  */
-export const filterAttributes = (attributes: KbdElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		"aria-keyshortcuts": ariaKeyshortcuts,
-		"aria-live": ariaLive,
-		"aria-atomic": ariaAtomic,
-		"aria-busy": ariaBusy,
-		"aria-relevant": ariaRelevant,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(ariaKeyshortcuts)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-keyshortcuts")(ariaKeyshortcuts),
-		)
-	}
-	if (isDefined(ariaLive)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-live")(ariaLive),
-		)
-	}
-	if (isDefined(ariaAtomic)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-atomic")(ariaAtomic),
-		)
-	}
-	if (isDefined(ariaBusy)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-busy")(ariaBusy),
-		)
-	}
-	if (isDefined(ariaRelevant)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-relevant")(ariaRelevant),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Kbd element configuration object
@@ -186,3 +96,5 @@ export const Kbd = (attributes: KbdElementAttributes = {}) =>
 }
 
 export default Kbd
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

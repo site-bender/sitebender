@@ -8,6 +8,9 @@
 	],
 
 	"tasks": {
+		"analyze": "deno task analyze:files",
+		"analyze:files": "deno run --allow-read scripts/analyzeFiles/index.ts",
+
 		// === Formatting and Code Quality ===
 		"fmt": "deno task fmt:repo",
 		"fmt:all": "deno task fmt:all:repo",
@@ -37,6 +40,9 @@
 		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage libraries/toolkit/coverage --lcov > libraries/toolkit/coverage.lcov",
 		"test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
 		"test:inspector:strict": "deno test --unstable-temporal --allow-env --allow-read --config inspector/deno.json 'inspector/**/*.test.ts'",
+		"test:scripts": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
+		"test:scripts:strict": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
+		"test:scripts:cov": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts' --coverage=scripts/coverage && deno coverage scripts/coverage --lcov > scripts/coverage.lcov",
 
 		// === Unified Coverage (delegates to per-package tasks) ===
 		"coverage:docs": "deno task --cwd docs test:cov",
@@ -56,6 +62,7 @@
 		"sort": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts --dir=agent --dir=docs --dir=inspector --dir=libraries --dir=scripts",
 		"sort:all": "deno run --allow-read --allow-write --allow-env scripts/sortImports/index.ts",
 		"lint:aliases": "deno run --allow-read scripts/enforceImports/aliasGuards/index.ts",
+		"smoke:cli": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/cli/**/*.test.ts'",
 
 		// === Setup and Maintenance ===
 		"setup": "deno run --unstable-temporal -A scripts/setup/index.ts",

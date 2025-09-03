@@ -6,21 +6,11 @@ import type {
 	OperatorConfig,
 	Value,
 } from "@engineTypes/index.ts"
-
-import { TEXTAREA_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import {
-	AUTOCOMPLETES,
-	WRAPS,
-} from "@engineSrc/constructors/elements/constants/index.ts"
 import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
 import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
 import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for TextArea element
@@ -41,48 +31,7 @@ export type TextAreaElementAttributes = TextAreaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (
-	attributes: TextAreaAttributes,
-): Record<string, Value> => {
-	const {
-		autocomplete,
-		cols,
-		dirName,
-		disabled,
-		form,
-		maxLength,
-		minLength,
-		name,
-		placeholder,
-		readOnly,
-		required,
-		role,
-		rows,
-		wrap,
-		...attrs
-	} = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
-			autocomplete as Value,
-		),
-		...filterAttribute(isInteger)("cols")(cols),
-		...filterAttribute(isString)("dirName")(dirName),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isInteger)("maxLength")(maxLength),
-		...filterAttribute(isInteger)("minLength")(minLength),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("placeholder")(placeholder),
-		...filterAttribute(isBoolean)("readOnly")(readOnly),
-		...filterAttribute(isBoolean)("required")(required),
-		...filterAttribute(isMemberOf(TEXTAREA_ROLES))("role")(role),
-		...filterAttribute(isInteger)("rows")(rows),
-		...filterAttribute(isMemberOf(WRAPS))("wrap")(wrap),
-	}
-}
 
 /**
  * Creates a TextArea element configuration object

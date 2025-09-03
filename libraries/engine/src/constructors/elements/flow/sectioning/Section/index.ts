@@ -2,6 +2,7 @@ import type { SectionAriaAttributes } from "@engineSrc/constructors/elements/typ
 import type { SectionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -40,70 +41,7 @@ export type SectionElementAttributes =
  * Filters attributes for Section element
  * Allows global attributes and validates section-specific attributes
  */
-export const filterAttributes = (attributes: SectionElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		role,
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes
-	if (isDefined(role)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(SECTION_WITHOUT_NAME_ROLES))("role")(role),
-		)
-	}
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Section element configuration object
@@ -172,3 +110,5 @@ export const Section = (attributes: SectionElementAttributes = {}) =>
 }
 
 export default Section
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

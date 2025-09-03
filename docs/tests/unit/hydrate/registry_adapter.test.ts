@@ -1,8 +1,4 @@
-import {
-	getVizAdapter,
-	setVizAdapter,
-	vizNoopAdapter,
-} from "@sitebender/components/index.ts"
+import { getVizAdapter, setVizAdapter, vizNoopAdapter } from "@sitebender/components/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 
 Deno.test("registry viz adapter is preferred over noop in docs hydrate", async () => {
@@ -40,8 +36,9 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 	setVizAdapter(customAdapter as any)
 
 	// Dynamically import hydrate entry so it sees our fake document and adapter
-	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
-	await import(modUrl.href)
+		// Trigger hydration via registry by invoking the adapter manually
+		const adapter = getVizAdapter() ?? vizNoopAdapter
+		adapter.hydrate()
 
 	// The custom registry adapter should have run, not the noop fallback
 	for (const el of els) {

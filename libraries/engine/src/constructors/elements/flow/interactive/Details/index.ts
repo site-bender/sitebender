@@ -11,6 +11,7 @@ import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.t
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	ElementConfig,
 	LogicalConfig,
@@ -38,17 +39,7 @@ export type DetailsElementAttributes = DetailsAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: DetailsAttributes) => {
-	const { id, open, role, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("open")(open),
-		...filterAttribute(isMemberOf(DETAILS_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Details element configuration object
@@ -108,3 +99,5 @@ export const Details = (attributes: DetailsElementAttributes = {}) =>
 }
 
 export default Details
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

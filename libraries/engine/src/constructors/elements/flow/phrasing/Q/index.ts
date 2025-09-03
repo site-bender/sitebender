@@ -1,6 +1,7 @@
 import type { QuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -35,16 +36,7 @@ export type QElementAttributes = QuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: QuotationAttributes) => {
-	const { id, cite, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("cite")(cite),
-	}
-}
 
 /**
  * Creates a Q element configuration object
@@ -92,3 +84,5 @@ export const Q =
 	}
 
 export default Q
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -1,21 +1,17 @@
 import type { LabelAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { ElementConfig, Value } from "../../../../../types/index.ts"
-
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+} from "@engineTypes/index.ts"
+import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
+import type { Value } from "@engineTypes/index.ts"
+import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
+import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
+import isString from "@engineSrc/guards/isString/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Label element
@@ -36,17 +32,7 @@ export type LabelElementAttributes = LabelAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: LabelAttributes) => {
-	const { id, for: forAttr, form, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("for")(forAttr),
-		...filterAttribute(isString)("form")(form),
-	}
-}
 
 /**
  * Creates a Label element configuration object
@@ -64,7 +50,7 @@ export const filterAttributes = (attributes: LabelAttributes) => {
  * ])
  * ```
  */
-export const Label = (attributes: LabelElementAttributes = {}) =>
+const Label = (attributes: LabelElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

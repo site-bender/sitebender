@@ -1,6 +1,6 @@
 import toKebabCase from "../toKebabCase/index.ts"
 
-export function getDataAttributes(
+export default function getDataAttributes(
 	attrs: Record<string, unknown>,
 ): Record<string, string> {
 	const out: Record<string, string> = {}
@@ -12,4 +12,3 @@ export function getDataAttributes(
 	return out
 }
 
-export default getDataAttributes

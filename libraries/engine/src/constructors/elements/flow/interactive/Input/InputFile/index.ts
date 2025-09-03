@@ -1,5 +1,6 @@
 import type { InputFileAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -31,30 +32,7 @@ export type InputFileElementAttributes = InputFileAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const {
-		accept,
-		autofocus,
-		disabled,
-		form,
-		multiple,
-		name,
-		required,
-		...attrs
-	} = attributes as unknown as InputFileAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isString)("accept")(accept),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isBoolean)("multiple")(multiple),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isBoolean)("required")(required),
-	}
-}
 
 /**
  * Creates an InputFile element configuration object
@@ -75,3 +53,5 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
 const InputFile = Input("file")(filterAttributes)
 
 export default InputFile
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

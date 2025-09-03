@@ -1,5 +1,67 @@
 # Scripts
 
+This folder contains maintenance and analysis scripts used across the repo. CLIs follow a consistent interface with:
+
+- --help to show usage
+- --version to print the tool version
+- --dry-run for no-op runs when applicable
+
+## analyze-files
+
+Analyze TS/TSX source files for size and function length outliers with a focus on default-exported units (one function or component per file).
+
+Usage:
+
+	analyze-files [--root <path>] [--folders a,b] [--exclude x,y] [--max-fn-lines N] [--concurrency N] [--no-barrels] [--json]
+
+Flags:
+- --root: root folder to scan (defaults to current working folder)
+- --folders: comma-separated folders under root to scan (defaults to: libraries, scripts, docs, inspector)
+	- Alias: --dirs (kept for compatibility)
+- --exclude: comma-separated folder names to exclude anywhere in the tree (defaults include node_modules, dist, build, coverage, fixtures, tests, constants, types)
+- --max-fn-lines: threshold for flagging long functions (default 60)
+- --concurrency: number of files analyzed in parallel (default 8, max 64)
+- --json: emit machine-readable output
+Behavior:
+- Only .ts and .tsx files are scanned by default (we exclude .js/.jsx to avoid noise).
+- Only default-exported functions/components are counted; named-only utilities in a file are ignored.
+- Barrel files are excluded by default (index.ts/tsx and files with many export aggregations). Pass --no-barrels to include them.
+
+JSON schema (shape):
+
+{
+	"root": string,
+	"scannedFiles": number,
+	"threshold": number,
+	"fileStats": {
+		"longestFile": { "path": string, "lines": number },
+		"mean": number,
+		"median": number,
+		"stdDev": number
+	},
+	"functionStats": {
+		"total": number,
+		"mean": number,
+		"median": number,
+		"stdDev": number
+	},
+	"longFunctions": [
+		{
+			"name": string,
+			"startLine": number,
+			"endLine": number,
+			"loc": number,
+			"file": string
+		}
+	]
+}
+
+Notes:
+- The default exclusions include constants and types to match our folder conventions.
+- Only .ts and .tsx files are scanned by default (changeable in code if needed).
+
+# Scripts
+
 Deno-first, workspace-wide automation for build, quality, and developer workflows. Every script is a small, focused function that can run as a library (import and call) or a CLI (via import.meta.main).
 
 ## Conventions (applied here)

@@ -1,6 +1,7 @@
 import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -45,125 +46,7 @@ export type FormElementAttributes = FormAttributes & FormAriaAttributes & {
  * Filters attributes for Form element
  * Allows global attributes and validates form-specific attributes
  */
-export const filterAttributes = (attributes: FormElementAttributes) => {
-	const {
-		id,
-		action,
-		method,
-		encType,
-		name,
-		target,
-		autocomplete,
-		noValidate,
-		acceptCharset,
-		rel,
-		// ARIA attributes
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		role,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add form-specific attributes
-	if (isDefined(action)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("action")(action))
-	}
-	if (isDefined(method)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_METHODS))("method")(method),
-		)
-	}
-	if (isDefined(encType)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_ENCTYPES))("encType")(encType),
-		)
-	}
-	if (isDefined(name)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
-	}
-	if (isDefined(target)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_TARGETS))("target")(target),
-		)
-	}
-	if (isDefined(autocomplete)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_AUTOCOMPLETE))("autocomplete")(
-				autocomplete,
-			),
-		)
-	}
-	if (isDefined(noValidate)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("noValidate")(noValidate),
-		)
-	}
-	if (isDefined(acceptCharset)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("acceptCharset")(acceptCharset),
-		)
-	}
-	if (isDefined(rel)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("rel")(rel))
-	}
-
-	// Add ARIA attributes
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(role)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("role")(role))
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Form element configuration object
@@ -227,3 +110,5 @@ export const Form = (attributes: FormElementAttributes = {}) =>
 }
 
 export default Form
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

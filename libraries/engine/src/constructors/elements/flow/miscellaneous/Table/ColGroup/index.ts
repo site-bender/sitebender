@@ -1,6 +1,7 @@
 import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,16 +34,7 @@ export type ColGroupElementAttributes = TableColumnGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableColumnGroupAttributes) => {
-	const { id, span, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("span")(span),
-	}
-}
 
 /**
  * Child filter that validates column content (col, script, template)
@@ -83,3 +75,5 @@ export const ColGroup = (attributes = {}) => (children = []) => {
 }
 
 export default ColGroup
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

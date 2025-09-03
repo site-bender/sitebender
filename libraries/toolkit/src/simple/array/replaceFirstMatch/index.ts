@@ -31,13 +31,21 @@ import replaceAt from "../replaceAt/index.ts"
 const replaceFirstMatch =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>
-	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+	<T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+		if (isNullish(array)) {
 			return []
 		}
-		const index = findIndex((item: string) => pattern.test(item))(array)
+		const index = findIndex((item: T) =>
+			typeof item === "string" && pattern.test(item)
+		)(array)
 
-		return index === -1 ? [...array] : replaceAt<string>(index)(replacer)(array)
+		if (index === undefined) {
+			return [...array]
+		}
+		
+		// At this point we know the item at index is a string because
+		// findIndex only returns an index when the item passes our test
+		return replaceAt(index)(() => replacer(array[index] as unknown as string) as T)(array)
 	}
 
 export default replaceFirstMatch

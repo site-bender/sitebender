@@ -30,10 +30,10 @@ const replaceFirst =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+		if (isNullish(array)) {
 			return []
 		}
-		return replaceAt<T>(array.indexOf(target))(replacer)(array)
+		return replaceAt(array.indexOf(target))(replacer)(array)
 	}
 
 export default replaceFirst

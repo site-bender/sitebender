@@ -1,5 +1,6 @@
 import type { InputColorAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,30 +34,7 @@ export type InputColorElementAttributes = InputColorAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: InputColorAttributes) => {
-	const {
-		autocomplete,
-		autofocus,
-		disabled,
-		form,
-		list,
-		name,
-		value,
-		...attrs
-	} = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("list")(list),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputColor element configuration object
@@ -75,3 +53,5 @@ export const filterAttributes = (attributes: InputColorAttributes) => {
 const InputColor = Input("color")(filterAttributes)
 
 export default InputColor
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

@@ -2,6 +2,7 @@ import type { NavAriaAttributes } from "@engineSrc/constructors/elements/types/a
 import type { NavigationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -37,77 +38,7 @@ export type NavElementAttributes = NavigationAttributes & NavAriaAttributes & {
  * Filters attributes for Nav element
  * Allows global attributes and validates nav-specific attributes
  */
-export const filterAttributes = (attributes: NavElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		role,
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		"aria-orientation": ariaOrientation,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes
-	if (isDefined(role)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(NAV_ROLES))("role")(role),
-		)
-	}
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(ariaOrientation)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-orientation")(ariaOrientation),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Nav element configuration object
@@ -179,3 +110,5 @@ export const Nav = (attributes: NavElementAttributes = {}) =>
 }
 
 export default Nav
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

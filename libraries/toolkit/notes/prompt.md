@@ -49,16 +49,28 @@ Before EVERY function is considered complete:
    deno test --no-check tests/behaviors/array/[function]/index.test.ts --coverage=coverage
    ```
 2. Verify output shows "0 failed"
-3. Run coverage report:
+3. Check coverage immediately:
    ```bash
-   deno coverage coverage --detailed
+   deno coverage coverage --detailed | grep "[function]/index.ts"
    ```
-4. Verify the function has 100% branch AND line coverage
-5. If using porcelain flag for cleaner output:
+4. **MUST see 100.0 for BOTH columns**:
+   ```
+   | [function]/index.ts | 100.0 | 100.0 |
+   ```
+5. If not 100%, identify missing branches/lines and add tests
+6. **DO NOT move to next function until current shows 100/100**
+
+**BEFORE CLAIMING SESSION COMPLETE:**
+1. Run ALL your new tests together:
    ```bash
-   deno test --no-check tests/behaviors/array/[function]/index.test.ts --coverage=coverage && \
-   deno coverage coverage --detailed | grep -A 3 "[function]/index.ts"
+   deno test --no-check tests/behaviors/array/[func1]/ tests/behaviors/array/[func2]/ ...
    ```
+2. Must show "0 failed" for all tests
+3. Run FULL test suite to ensure no regressions:
+   ```bash
+   deno task test --no-check
+   ```
+4. Must show all tests passing (no failures)
 
 **DO NOT:**
 - ❌ Commit without running tests

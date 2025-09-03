@@ -1,5 +1,6 @@
 import type { TableDataCellAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -35,19 +36,7 @@ export type TdElementAttributes = TableDataCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableDataCellAttributes) => {
-	const { id, colSpan, headers, rowSpan, role, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("colSpan")(colSpan),
-		...filterAttribute(isString)("headers")(headers),
-		...filterAttribute(isInteger)("rowSpan")(rowSpan),
-		...filterAttribute(isMemberOf(TD_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Td element configuration object
@@ -69,3 +58,5 @@ export const filterAttributes = (attributes: TableDataCellAttributes) => {
 export const Td = Filtered("Td")(filterAttributes)
 
 export default Td
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

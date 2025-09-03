@@ -5,6 +5,7 @@
  */
 
 import { join, relative } from "jsr:@std/path@^1.0.8"
+import runCli from "../../utilities/cli/runCli/index.ts"
 
 // Determine repo root (assume task is run from repo root)
 const DEFAULT_REPO_ROOT = Deno.cwd()
@@ -47,7 +48,7 @@ type IgnoreRecord = {
 	reason: string
 }
 
-async function* walkDir(dir: string): AsyncGenerator<string> {
+async function* walkFolder(dir: string): AsyncGenerator<string> {
 	for await (const entry of Deno.readDir(dir)) {
 		const p = join(dir, entry.name)
 		if (entry.isDirectory) {
@@ -55,7 +56,7 @@ async function* walkDir(dir: string): AsyncGenerator<string> {
 			if (
 				/^(dist|coverage|node_modules|temp|tests|fixtures)\/?$/.test(entry.name)
 			) continue
-			yield* walkDir(p)
+			yield* walkFolder(p)
 		} else if (entry.isFile) {
 			if (exts.some((e) => p.endsWith(e))) yield p
 		}
@@ -120,20 +121,34 @@ async function scanFile(groups: Map<string, IgnoreRecord[]>, root: string, path:
 	}
 }
 
-export default async function reportCoverageIgnores(opts?: { root?: string; scanDirs?: string[] }) {
+export default async function reportCoverageIgnores(opts?: { root?: string; scanDirs?: string[]; json?: boolean }) {
 	const rootFsPath = opts?.root ?? DEFAULT_REPO_ROOT
 	const dirs = opts?.scanDirs ?? DEFAULT_SCAN_DIRS
 	const groups = new Map<string, IgnoreRecord[]>()
 	for (const dir of dirs) {
 		const abs = join(rootFsPath, dir)
 		try {
-			for await (const f of walkDir(abs)) await scanFile(groups, rootFsPath, f)
+			for await (const f of walkFolder(abs)) await scanFile(groups, rootFsPath, f)
 		} catch (_) {
 			// Ignore missing dirs in some checkouts
 		}
 	}
 
 	// Output report
+	if (opts?.json) {
+		const json = Object.fromEntries(
+			Array.from(groups.entries()).map(([label, recs]) => [
+				label,
+				recs
+					.slice()
+					.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line)
+					.map((r) => ({ ...r, file: relative(rootFsPath, r.file) })),
+			]),
+		)
+		console.log(JSON.stringify(json, null, 2))
+		return
+	}
+
 	if (groups.size === 0) {
 		console.log("No deno-coverage-ignore markers found.")
 		return
@@ -157,5 +172,22 @@ export default async function reportCoverageIgnores(opts?: { root?: string; scan
 }
 
 if (import.meta.main) {
-	await reportCoverageIgnores()
+	await runCli({
+		name: "coverage-report-ignored",
+		version: "1.0.0",
+			usage: "coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/engine,docs",
+			booleans: ["json"],
+			aliases: { j: "json", d: "dirs", f: "folders", r: "root" },
+		onRun: async ({ flags, options }) => {
+				const dirsOpt = options["folders"] ?? options["dirs"]
+			const scanDirs = typeof dirsOpt === "string"
+				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(Boolean)
+				: Array.isArray(dirsOpt)
+				? (dirsOpt as string[])
+				: undefined
+			const root = typeof options["root"] === "string" ? String(options["root"]) : undefined
+			await reportCoverageIgnores({ root, scanDirs, json: flags.json })
+			return 0
+		},
+	})
 }

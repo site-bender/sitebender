@@ -1,5 +1,6 @@
 import type { InputHiddenAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -30,18 +31,7 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const { form, name, value, ...attrs } =
-		attributes as unknown as InputHiddenAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputHidden element configuration object
@@ -59,3 +49,5 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
 const InputHidden = Input("hidden")(filterAttributes)
 
 export default InputHidden
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

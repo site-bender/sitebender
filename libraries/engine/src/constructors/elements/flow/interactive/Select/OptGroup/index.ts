@@ -1,6 +1,7 @@
 import type { OptionGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -34,20 +35,7 @@ export type OptGroupElementAttributes = OptionGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (
-	attributes: Record<string, Value>,
-): Record<string, Value> => {
-	const { disabled, label, ...attrs } = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	const out: Record<string, Value> = {
-		...globals,
-		...filterAttribute(isBoolean)("disabled")(disabled as Value),
-		...filterAttribute(isString)("label")(label as Value),
-	}
-
-	return out
-}
 
 /**
  * Creates an OptGroup element configuration object
@@ -91,3 +79,5 @@ const OptGroup =
 	}
 
 export default OptGroup
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

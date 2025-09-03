@@ -5,6 +5,7 @@
  */
 
 import { DEFAULT_ALIAS_SCOPES } from "../../constants/index.ts"
+import runCli from "../../utilities/cli/runCli/index.ts"
 import findViolations from "./helpers/findViolations/index.ts"
 import type { Violation } from "./types/index.ts"
 
@@ -16,15 +17,31 @@ export default async function runAliasGuards(
 }
 
 if (import.meta.main) {
-	const roots = Deno.args.length ? Deno.args : DEFAULT_ALIAS_SCOPES
-	const violations = await runAliasGuards(roots)
-	if (violations.length) {
-		console.error("Alias policy violations:\n")
-		for (const v of violations) {
-			console.error(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`)
-		}
-		console.error(`\nTotal: ${violations.length} violation(s).`)
-		Deno.exit(1)
-	}
-	console.log("Alias policy: OK (no violations found).")
+	await runCli({
+		name: "alias-guards",
+		version: "1.0.0",
+		usage: "alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/engine libraries/components --json",
+		booleans: ["json", "quiet"],
+		aliases: { q: "quiet", j: "json" },
+		onRun: async ({ flags, positional, stderr, stdout }) => {
+			const roots = positional.length ? positional : DEFAULT_ALIAS_SCOPES
+			const violations = await runAliasGuards(roots)
+			if (flags.json) {
+				stdout(JSON.stringify({ violations }, null, 2))
+				return violations.length ? 1 : 0
+			}
+			if (violations.length) {
+				if (!flags.quiet) {
+					stderr("Alias policy violations:\n")
+					for (const v of violations) {
+						stderr(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`)
+					}
+					stderr(`\nTotal: ${violations.length} violation(s).`)
+				}
+				return 1
+			}
+			if (!flags.quiet) stdout("Alias policy: OK (no violations found).")
+			return 0
+		},
+	})
 }

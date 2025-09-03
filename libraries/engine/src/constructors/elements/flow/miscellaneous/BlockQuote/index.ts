@@ -1,6 +1,7 @@
 import type { BlockQuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -34,16 +35,7 @@ export type BlockQuoteElementAttributes = BlockQuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: BlockQuotationAttributes) => {
-	const { id, cite, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("cite")(cite),
-	}
-}
 
 /**
  * Creates a BlockQuote element configuration object
@@ -77,3 +69,5 @@ export const BlockQuote =
 	}
 
 export default BlockQuote
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

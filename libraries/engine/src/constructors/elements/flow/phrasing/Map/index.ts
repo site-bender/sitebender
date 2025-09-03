@@ -1,6 +1,7 @@
 import type { ImageMapAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
+import filterAttributes from "./filterAttributes/index.ts"
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
@@ -33,16 +34,7 @@ export type MapElementAttributes = ImageMapAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: ImageMapAttributes) => {
-	const { id, name, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("name")(name),
-	}
-}
 
 /**
  * Creates a Map element configuration object
@@ -72,3 +64,5 @@ export const Map =
 	}
 
 export default Map
+
+export { default as filterAttributes } from "./filterAttributes/index.ts"

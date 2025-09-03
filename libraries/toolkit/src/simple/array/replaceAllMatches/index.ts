@@ -30,11 +30,15 @@ import isNullish from "../../validation/isNullish/index.ts"
 const replaceAllMatches =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>
-	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+	<T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+		if (isNullish(array)) {
 			return []
 		}
-		return array.map((item) => (pattern.test(item) ? replacer(item) : item))
+		return array.map((item) =>
+			typeof item === "string" && pattern.test(item)
+				? (replacer(item) as T)
+				: item
+		)
 	}
 
 export default replaceAllMatches
