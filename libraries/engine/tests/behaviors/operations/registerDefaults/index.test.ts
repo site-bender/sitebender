@@ -1,16 +1,13 @@
 import { assert } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import { createComposeContext } from "../../../../src/context/composeContext.ts"
-import { registerDefaultExecutors } from "../../../../src/operations/defaults/registerDefaults.ts"
-import { listActions } from "../../../../src/operations/registries/actions.ts"
-import { listComparators } from "../../../../src/operations/registries/comparators.ts"
-import {
-	listEvents,
-	registerEvent,
-} from "../../../../src/operations/registries/events.ts"
-import { listInjectors } from "../../../../src/operations/registries/injectors.ts"
-import { listOperators } from "../../../../src/operations/registries/operators.ts"
+import createComposeContext from "../../../../src/context/composeContext.ts"
+import registerDefaultExecutors from "../../../../src/operations/defaults/registerDefaults.ts"
+import actions from "../../../../src/operations/registries/actions.ts"
+import comparators from "../../../../src/operations/registries/comparators.ts"
+import events from "../../../../src/operations/registries/events.ts"
+import injectors from "../../../../src/operations/registries/injectors.ts"
+import operators from "../../../../src/operations/registries/operators.ts"
 
 // Ensure defaults register expected namespaces
 
@@ -19,10 +16,10 @@ describe("registerDefaultExecutors", () => {
 		const ctx = createComposeContext({ env: "server" })
 		registerDefaultExecutors(ctx)
 
-		const ops = listOperators()
-		const cmps = listComparators()
-		const inj = listInjectors()
-		const acts = listActions()
+		const ops = operators.list()
+		const cmps = comparators.list()
+		const inj = injectors.list()
+		const acts = actions.list()
 
 		// At least these basics
 		assert(ops.includes("Op.Add"))
@@ -35,8 +32,8 @@ describe("registerDefaultExecutors", () => {
 
 		// Events are registered lazily; registerDefaults binds common events via registerEvent directly
 		// Ensure we can add an event and list it
-		registerEvent("On.Test", () => {})
-		const evs = listEvents()
+		events.register("On.Test", () => {})
+		const evs = events.list()
 		assert(evs.includes("On.Test"))
 	})
 })

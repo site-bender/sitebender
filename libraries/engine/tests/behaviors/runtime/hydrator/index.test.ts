@@ -8,8 +8,9 @@ import type {
 	IrDocument,
 } from "../../../../types/ir/index.ts"
 
-import { createComposeContext } from "../../../../src/context/composeContext/index.ts"
-import { registerDefaultExecutors } from "../../../../src/operations/defaults/registerDefaults/index.ts"
+import createComposeContext from "../../../../src/context/composeContext/index.ts"
+import registerDefaultExecutors from "../../../../src/operations/defaults/registerDefaults/index.ts"
+import events from "../../../../src/operations/registries/events.ts"
 import hydrate from "../../../../src/runtime/hydrator/index.ts"
 import createTestDomWithBody from "../../../helpers/createTestDom/createTestDomWithBody/index.ts"
 
@@ -77,12 +78,8 @@ describe("hydrate - binds event and dispatches action", () => {
 		// Register defaults and add On.Click binder (not part of defaults)
 		const ctx = createComposeContext({ env: "client" })
 		registerDefaultExecutors(ctx)
-		// Simple On.Click binder
-		// deno-lint-ignore no-explicit-any
-		const { registerEvent } = await import(
-			"../../../../src/operations/registries/events.ts"
-		) as any
-		registerEvent(
+	// Simple On.Click binder (events registry uses default-only export)
+	events.register(
 			"On.Click",
 			(el: HTMLElement, _node: EventBindingNode, dispatch: () => void) => {
 				el.addEventListener("click", dispatch as EventListener)

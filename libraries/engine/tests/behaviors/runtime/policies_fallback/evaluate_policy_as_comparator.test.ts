@@ -5,8 +5,8 @@ import type {
 	InjectorNode,
 } from "../../../../types/ir/index.ts"
 
-import { createComposeContext } from "../../../../src/context/composeContext.ts"
-import { registerDefaultExecutors } from "../../../../src/operations/defaults/registerDefaults.ts"
+import createComposeContext from "../../../../src/context/composeContext.ts"
+import registerDefaultExecutors from "../../../../src/operations/defaults/registerDefaults.ts"
 import evaluateNode from "../../../../src/runtime/evaluate/index.ts"
 
 Deno.test("evaluate falls back to policy when comparator not registered", async () => {
