@@ -2,14 +2,17 @@ import type { EventBinder } from "../../../types/operations/registries/events/in
 
 const events = new Map<string, EventBinder>()
 
-export function registerEvent(tag: string, binder: EventBinder) {
+function register(tag: string, binder: EventBinder) {
 	events.set(tag, binder)
 }
 
-export function getEvent(tag: string): EventBinder | undefined {
+function get(tag: string): EventBinder | undefined {
 	return events.get(tag)
 }
 
-export function listEvents(): string[] {
+function list(): string[] {
 	return Array.from(events.keys())
 }
+
+const registry = { register, get, list } as const
+export default registry
