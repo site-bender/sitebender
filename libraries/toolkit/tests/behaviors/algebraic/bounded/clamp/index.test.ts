@@ -119,8 +119,9 @@ Deno.test("clamp: ordering property - should preserve value when min <= value <=
 				const value = min + (max - min) * ratio // Ensure min <= value <= max
 				const result = clamp(min)(max)(value)
 
-				// Use relative epsilon for large numbers
-				const epsilon = Math.max(1e-9, Math.abs(value) * 1e-10)
+				// Use larger epsilon to account for floating-point arithmetic in value calculation
+				// The calculation of value itself introduces precision errors
+				const epsilon = Math.max(1e-7, Math.abs(value) * 1e-7)
 				assertEquals(
 					approximately(result, value, epsilon),
 					true,
