@@ -41,7 +41,6 @@ const preCommitContent = [
 	"deno task fp:components",
 	"",
 	"# Enforce alias import policy across packages",
-	"deno task lint:aliases",
 	'if [[ "${SKIP_ALIAS_GUARD:-}" == "1" ]]; then',
 	'  echo "[hooks] SKIP_ALIAS_GUARD=1 — skipping alias guard"',
 	"else",

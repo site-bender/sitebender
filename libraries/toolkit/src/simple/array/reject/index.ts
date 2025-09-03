@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * The complement of filter - keeps elements that don't satisfy the predicate
@@ -21,7 +22,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * reject((x: number) => x % 2 === 0)([1, 2, 3, 4, 5, 6])  // [1, 3, 5]
  *
  * // Reject null and undefined
- * reject((x: any) => x == null)([1, null, 2, undefined, 3])  // [1, 2, 3]
+ * reject((x: unknown) => x == null)([1, null, 2, undefined, 3])  // [1, 2, 3]
  *
  * // Reject by property
  * const users = [
@@ -29,7 +30,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  *   { name: "Bob", active: false },
  *   { name: "Charlie", active: true }
  * ]
- * reject((u: { active: boolean }) => !u.active)(users)
+ * reject((u: { active: boolean }) => not(u.active))(users)
  * // [{ name: "Alice", active: true }, { name: "Charlie", active: true }]
  *
  * // Reject with index
@@ -48,11 +49,11 @@ const reject = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
-	return array.filter((value, index, arr) => !predicate(value, index, arr))
+	return array.filter((value, index, arr) => not(predicate(value, index, arr)))
 }
 
 export default reject

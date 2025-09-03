@@ -109,7 +109,38 @@ For each function:
 
 ## Session Notes
 
-### Current Session (2025-09-03) - Part 14
+### Current Session (2025-09-03) - Part 15
+
+**Progress Made:**
+
+- ✅ Tested 2 more array functions following full audit checklist:
+  1. **reduceRight** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Processes array from right to left
+     - Comprehensive tests with property-based testing
+     - Fixed test for correct order of operations
+  2. **reject** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Replaced `!` operator with `not()` function
+     - Fixed `any` type in JSDoc example
+     - Complement of filter - keeps elements that don't match predicate
+     - Comprehensive tests with property-based testing
+
+**Common Issues Fixed:**
+
+- Redundant `!Array.isArray` checks after `isNullish` (both functions)
+- Missing use of `not()` function instead of `!` operator (reject)
+- `any` type in JSDoc examples (reject)
+
+**Testing Progress Update:**
+
+- 145 functions now have tests (was 143)
+- Current progress: ~16.6% (145/874 functions)
+- All tested functions have 100% coverage
+
+**Note**: Started work on reduceWhile but needs more time to fix complex predicate signatures in tests
+
+### Previous Session (2025-09-03) - Part 14
 
 **Progress Made:**
 

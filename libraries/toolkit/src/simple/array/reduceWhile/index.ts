@@ -1,4 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import not from "../../logic/not/index.ts"
 
 /**
  * Reduces an array while a predicate returns true
@@ -28,7 +29,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Collect until specific element
  * const notStop = (_: string[], x: string) => x !== "STOP"
  * const collect = (acc: string[], x: string) => [...acc, x]
- * reduceWhile(notStop)(collect)([]))(["a", "b", "STOP", "c"])  // ["a", "b"]
+ * reduceWhile(notStop)(collect)([])(["a", "b", "STOP", "c"])  // ["a", "b"]
  *
  * // Product until zero
  * const noZero = (_: number, x: number) => x !== 0
@@ -70,7 +71,7 @@ const reduceWhile = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): U => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return initial
 	}
 
@@ -78,7 +79,7 @@ const reduceWhile = <T, U>(
 		if (idx >= array.length) {
 			return acc
 		}
-		if (!predicate(acc, array[idx], idx, array)) {
+		if (not(predicate(acc, array[idx], idx, array))) {
 			return acc
 		}
 		return recurse(reducer(acc, array[idx], idx, array), idx + 1)
