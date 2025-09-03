@@ -10,7 +10,7 @@ You are working on the @sitebender/toolkit library, a functional programming uti
 Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 
 **Current Phase**: Phase 1 - Achieving 100% test coverage for all existing functions
-**Current Progress**: 16.1% (140/874 functions tested)
+**Current Progress**: 18.9% (165/874 functions tested)
 **Working Directory**: `/libraries/toolkit/` (NEVER leave this folder for edits)
 
 ## Session Start Checklist
@@ -37,6 +37,41 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 
 ## Critical Rules
 
+### MANDATORY VERIFICATION BEFORE COMMITS OR CLAIMING SUCCESS
+
+**🚨 STOP! DO NOT COMMIT OR CLAIM SUCCESS WITHOUT THESE STEPS! 🚨**
+
+**YOU HAVE NO EXCUSE FOR NOT RUNNING TESTS. NONE.**
+
+Before EVERY function is considered complete:
+1. Run the test WITH coverage:
+   ```bash
+   deno test --no-check tests/behaviors/array/[function]/index.test.ts --coverage=coverage
+   ```
+2. Verify output shows "0 failed"
+3. Run coverage report:
+   ```bash
+   deno coverage coverage --detailed
+   ```
+4. Verify the function has 100% branch AND line coverage
+5. If using porcelain flag for cleaner output:
+   ```bash
+   deno test --no-check tests/behaviors/array/[function]/index.test.ts --coverage=coverage && \
+   deno coverage coverage --detailed | grep -A 3 "[function]/index.ts"
+   ```
+
+**DO NOT:**
+- ❌ Commit without running tests
+- ❌ Claim success without seeing "0 failed"
+- ❌ Report 100% coverage if tests are failing
+- ❌ Move to next function if current one has failures
+- ❌ Make excuses - if you can write tests, you can run them
+
+**THERE IS NO EXCUSE FOR COMMITTING BROKEN CODE.**
+**If the user can discover failures by running tests, SO CAN YOU.**
+
+**Recent failure:** Committed replaceFirstMatch with 6 failing tests because I didn't run them first. This was inexcusable.
+
 ### Working Constraints
 
 - **NEVER** modify anything outside `/libraries/toolkit/` folder (reading outside is OK)
@@ -44,6 +79,7 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 - **NEVER** assume or guess - check everything carefully
 - **NEVER** create new function files - only test existing ones
 - **ALWAYS** achieve 100% coverage before moving to next function (discuss exceptions)
+- **ALWAYS** verify tests pass BEFORE claiming success or committing
 
 ### Testing Approach (ONE FUNCTION AT A TIME)
 
@@ -91,25 +127,99 @@ For each function:
 ### Session Workflow
 
 1. **Start**: Read all notes files, check progress
-2. **Work**: Test up to 5 functions MAX per session (one at a time)
-3. **End**:
+2. **Work**: Test functions one at a time (MAX 5 per session)
+   - Write test for function
+   - **RUN TEST IMMEDIATELY**: `deno test --no-check tests/behaviors/array/[function]/index.test.ts`
+   - Fix any failures BEFORE moving on
+   - Verify coverage: `deno coverage coverage --detailed | grep -A 3 "[function]/index.ts"`
+   - Only proceed to next function after current one shows "0 failed" AND "100% coverage"
+3. **Before ANY commit**:
+   - Run ALL new tests together: `deno test --no-check [all test files]`
+   - Verify ALL show "0 failed"
+   - If ANY test fails, FIX IT before committing
+4. **End**:
    - Update `notes/prompt.md` with session notes
    - Update `notes/function_list.md` with tested functions
-   - Update other docs as needed
-   - Commit with conventional commits:
+   - Only commit AFTER verification:
      ```bash
+     # FIRST: Run tests one more time to be absolutely sure
+     deno test --no-check [your test files] # MUST show 0 failed
+     
+     # ONLY THEN commit:
      ALLOW_TOOLKIT=1 git add -A
      ALLOW_TOOLKIT=1 git commit -m "test(toolkit): add comprehensive tests for [function names]
 
      - Added behavioral tests for [list functions]
      - Added property-based tests where appropriate
      - Achieved 100% code coverage
-     - All tests, linting, and type checks passing"
+     - ALL TESTS VERIFIED PASSING before commit"
      ```
 
 ## Session Notes
 
-### Current Session (2025-09-03) - Part 17
+### Current Session (2025-09-03) - Part 19
+
+**Progress Made:**
+
+- ✅ Tested 5 array functions, all achieving 100% coverage:
+  1. **replaceLast** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Uses lastIndexOf to find target and delegates to replaceAt
+     - Tests handle NaN, +0/-0, and object references correctly
+  2. **replaceLastMatch** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Fixed critical bug: checking for `undefined` not `-1` from findLastIndex
+     - Updated to handle mixed-type arrays (not just strings)
+     - Tests regex patterns including anchors, quantifiers, and flags
+  3. **rotateLeft** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Handles negative rotations (rotates right) and wraparound
+     - Tests handle NaN/Infinity edge cases
+  4. **rotateRight** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Opposite of rotateLeft using negative indices with slice
+     - Comprehensive property-based tests verify inverse operations
+  5. **sample** - 100% coverage achieved
+     - Fixed redundant `!Array.isArray` check after `isNullish`
+     - Correctly marked as @impure (uses Math.random)
+     - Tests include distribution uniformity and mocked Math.random
+
+**Common Issues Fixed:**
+
+- Redundant `!Array.isArray` checks after `isNullish` (all 5 functions)
+- Critical bug in replaceLastMatch: checking for `-1` instead of `undefined` from findLastIndex
+- Type signature updated in replaceLastMatch to handle mixed-type arrays
+
+**Testing Progress Update:**
+
+- 165 functions now have tests (160 from previous + 5 new)
+- Current progress: ~18.9% (165/874 functions)
+- All tested functions have 100% coverage and PASSING tests
+- All 120 tests from these 5 functions pass together
+
+**Important Process Change:**
+- Added mandatory verification steps to prompt.md
+- Must run tests and verify "0 failed" BEFORE any commits
+- No more rushing to meet arbitrary targets at expense of quality
+
+### Previous Session (2025-09-03) - Part 18 (CORRECTED)
+
+**Initial Issues:**
+- ❌ Committed with failing tests - replaceFirstMatch had 6 failing tests
+- Root cause: `findIndex` returns `undefined` (not -1) when no match found
+- Lesson: **MUST verify all tests pass before committing**
+
+**Progress Made After Fixes:**
+
+- ✅ Tested 4 array functions, all achieving 100% coverage:
+  1. **replaceAll** - 100% coverage achieved
+  2. **replaceAllMatches** - 100% coverage achieved
+  3. **replaceFirst** - 100% coverage achieved
+  4. **replaceFirstMatch** - 100% coverage achieved (after fix)
+
+- 161 functions tested total after fixes
+
+### Previous Session (2025-09-03) - Part 17
 
 **Progress Made:**
 

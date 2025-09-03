@@ -38,7 +38,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const sample = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return undefined
 	}
 
