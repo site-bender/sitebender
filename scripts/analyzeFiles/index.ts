@@ -7,6 +7,16 @@
  */
 
 import runCli from "../utilities/cli/runCli/index.ts"
+import {
+  bold,
+  cyan,
+  green,
+  magenta,
+  red,
+  yellow,
+  gray,
+  white,
+} from "jsr:@std/fmt@1.0.3/colors"
 import type { AnalysisOptions, AnalysisResult, PerFileAnalysis, FileFunction, BarrelInfo } from "./types/index.ts"
 import { DEFAULT_EXCLUDED_DIR_NAMES, DEFAULT_SCAN_DIRS, EXTENSIONS, MAX_FN_LINES_DEFAULT } from "./constants/index.ts"
 import walkFolder from "./walkFolder/index.ts"
@@ -191,55 +201,58 @@ if (import.meta.main) {
       }
       // Human summary
       const r = result
-  stdout(`Analyzed ${r.scannedFiles} files under ${r.root}`)
-      stdout(`\nFiles:`)
-      stdout(`  longest: ${r.fileStats.longestFile.lines} lines (${r.fileStats.longestFile.path})`)
-      stdout(`  mean: ${r.fileStats.mean.toFixed(2)}  median: ${r.fileStats.median.toFixed(2)}  stdev: ${r.fileStats.stdDev.toFixed(2)}`)
-      stdout(`\nFunctions:`)
-      stdout(`  total: ${r.functionStats.total}  mean: ${r.functionStats.mean.toFixed(2)}  median: ${r.functionStats.median.toFixed(2)}  stdev: ${r.functionStats.stdDev.toFixed(2)}`)
+  stdout(bold(green(`Analyzed ${r.scannedFiles} files`)) + ` under ` + bold(cyan(r.root)))
+  stdout(bold(`\nFiles:`))
+  stdout(`  longest: ${yellow(String(r.fileStats.longestFile.lines))} lines (${white(r.fileStats.longestFile.path)})`)
+  stdout(`  mean: ${cyan(r.fileStats.mean.toFixed(2))}  median: ${cyan(r.fileStats.median.toFixed(2))}  stdev: ${cyan(r.fileStats.stdDev.toFixed(2))}`)
+  stdout(bold(`\nFunctions:`))
+  stdout(`  total: ${magenta(String(r.functionStats.total))}  mean: ${magenta(r.functionStats.mean.toFixed(2))}  median: ${magenta(r.functionStats.median.toFixed(2))}  stdev: ${magenta(r.functionStats.stdDev.toFixed(2))}`)
   if (r.longFunctions.length) {
-        stdout(`\nLong functions (>${r.threshold} lines): ${r.longFunctions.length}`)
+        stdout(bold(`\nLong functions (${yellow(`>${r.threshold}`)} lines): ${red(String(r.longFunctions.length))}`))
         for (const fn of r.longFunctions.slice(0, 20)) {
-          stdout(`  - ${fn.name} ${fn.loc}L @ ${fn.file}:${fn.startLine}-${fn.endLine}`)
+          stdout(`  - ${bold(fn.name)} ${yellow(String(fn.loc))}L @ ${white(fn.file)}:${gray(String(fn.startLine))}-${gray(String(fn.endLine))}`)
         }
-        if (r.longFunctions.length > 20) stdout(`  ...and ${r.longFunctions.length - 20} more`)
+        if (r.longFunctions.length > 20) stdout(gray(`  ...and ${r.longFunctions.length - 20} more`))
       } else {
-        stdout(`\nNo functions exceeded ${r.threshold} lines.`)
+        stdout(green(`\nNo functions exceeded ${r.threshold} lines.`))
       }
       if (r.barrels && r.barrels.length) {
-        stdout(`\nExcluded barrels: ${r.barrels.length}`)
+        stdout(bold(`\nExcluded barrels: ${yellow(String(r.barrels.length))}`))
         for (const b of r.barrels.slice(0, 20)) {
-          stdout(`  - ${b.file} (exports: ${b.exports})`)
+          stdout(`  - ${white(b.file)} (exports: ${cyan(String(b.exports))})`)
         }
-        if (r.barrels.length > 20) stdout(`  ...and ${r.barrels.length - 20} more`)
+        if (r.barrels.length > 20) stdout(gray(`  ...and ${r.barrels.length - 20} more`))
       }
       if (r.nonDefault && r.nonDefault.length) {
-        stdout(`\nNon-default exported functions/components: ${r.nonDefault.length}`)
+        stdout(bold(`\nNon-default exported functions/components: ${yellow(String(r.nonDefault.length))}`))
         for (const f of r.nonDefault.slice(0, 20)) {
-          stdout(`  - ${f.file}: ${f.names.join(", ")}`)
+          const names = red(f.names.join(", "))
+          stdout(`  - ${white(f.file)}: ${names}`)
         }
-        if (r.nonDefault.length > 20) stdout(`  ...and ${r.nonDefault.length - 20} more files with named exports`)
+        if (r.nonDefault.length > 20) stdout(gray(`  ...and ${r.nonDefault.length - 20} more files with named exports`))
       }
       if (r.duplicates && r.duplicates.length) {
-        stdout(`\nDuplicate exports (same name as named and default): ${r.duplicates.length}`)
+        stdout(bold(`\nDuplicate exports (same name as named and default): ${yellow(String(r.duplicates.length))}`))
         for (const f of r.duplicates.slice(0, 20)) {
-          stdout(`  - ${f.file}: ${f.names.join(", ")}`)
+            const dupNames = red(f.names.join(", "))
+            stdout(`  - ${white(f.file)}: ${dupNames}`)
         }
-        if (r.duplicates.length > 20) stdout(`  ...and ${r.duplicates.length - 20} more files with duplicates`)
+        if (r.duplicates.length > 20) stdout(gray(`  ...and ${r.duplicates.length - 20} more files with duplicates`))
       }
       if (r.folderAggregates && r.folderAggregates.length) {
         const top = r.folderAggregates.slice(0, 10)
-        stdout(`\nTop folders by long functions:`)
+        stdout(bold(`\nTop folders by long functions:`))
         for (const a of top) {
-          stdout(`  - ${a.folder}: files=${a.files} functions=${a.functions} long=${a.longFunctions} non-default=${a.nonDefaultCount}`)
+          stdout(`  - ${white(a.folder)}: files=${cyan(String(a.files))} functions=${cyan(String(a.functions))} long=${red(String(a.longFunctions))} non-default=${yellow(String(a.nonDefaultCount))}`)
         }
       }
       if (r.compare) {
-        stdout(`\nCompare to ${r.compare.baseline}:`)
-        stdout(`  files: ${r.compare.scannedFilesDelta >= 0 ? "+" : ""}${r.compare.scannedFilesDelta}`)
-        stdout(`  fns: ${r.compare.functionsDelta >= 0 ? "+" : ""}${r.compare.functionsDelta}`)
-        stdout(`  long: ${r.compare.longFunctionsDelta >= 0 ? "+" : ""}${r.compare.longFunctionsDelta}`)
-        stdout(`  non-default files: ${r.compare.nonDefaultFilesDelta >= 0 ? "+" : ""}${r.compare.nonDefaultFilesDelta}`)
+        stdout(bold(`\nCompare to ${white(r.compare.baseline)}:`))
+        const sign = (n: number) => (n >= 0 ? green("+" + n) : red(String(n)))
+        stdout(`  files: ${sign(r.compare.scannedFilesDelta)}`)
+        stdout(`  fns: ${sign(r.compare.functionsDelta)}`)
+        stdout(`  long: ${sign(r.compare.longFunctionsDelta)}`)
+        stdout(`  non-default files: ${sign(r.compare.nonDefaultFilesDelta)}`)
       }
       return 0
     },
