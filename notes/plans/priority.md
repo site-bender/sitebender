@@ -25,7 +25,7 @@ This document summarizes the execution order for the plans and the rationale beh
 - Dependency: None (integrates with existing Calculate), can run parallel to (3).
 
 5) MCP integration (minimal, read-only)
-- Why: Dev productivity for docs/inspector; gated and sandboxed.
+- Why: Dev productivity for docs/playground; gated and sandboxed.
 - Key steps: Define tool contracts → implement search/read/run-task (allowlist) → authZ/logging/rate limits → small authoring workflow demo.
 - Dependency: None; schedule after core UX pieces (1–4).
 

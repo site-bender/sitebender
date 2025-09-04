@@ -1,4 +1,4 @@
-# Plan: MCP integration for docs/inspector
+# Plan: MCP integration for docs/playground
 
 ## Goals
 - Safe, minimal read-only assistance via MCP.

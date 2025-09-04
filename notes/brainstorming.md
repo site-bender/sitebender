@@ -557,7 +557,7 @@ This approach makes the page feel much more natural and content-rich. The `<Text
 
 ### Risks / open questions
 
-- State explosion and debugging: How do users see why a value is what it is? We’ll need an inspector that shows dataflow over the IR. [Editor: agree.]
+- State explosion and debugging: How do users see why a value is what it is? We’ll need an playground that shows dataflow over the IR. [Editor: agree.]
 - Expressivity pressure: Power users will ask for escape hatches. We should design an extension surface that doesn’t leak arbitrary JS into the IR. [Editor: agree. And fuck "power users". They can wait and keep using react.]
 - Error messaging: With a high-level DSL, compile-time diagnostics need to be precise and friendly, mapping back to JSX locations and to plain-English guidance. [Editor: absolutely. We need to use monads well and build error tracking and accumulation into everything (error boundaries, too, and a very good UI for debugging — time travel?)]
 
@@ -566,7 +566,7 @@ This approach makes the page feel much more natural and content-rich. The `<Text
 - Inputs: One Page with a Form, 3–5 field types, When/Then/Else, basic arithmetic (Add/Multiply), and a couple of comparators (Is.Equal, Is.Matches).
 - Compiler: JSX markers → validated IR; IR → runtime graph + evaluators; IR → basic SHACL stub (file output) for future backend.
 - Runtime: In-memory state, reactive recomputation for Calculations, form validation, and submit action that logs/persists JSON locally.
-- Tooling: A small Inspector playground that shows JSX, IR, and live view side-by-side; include an AI suggestion pane that prints rationale + diff (stubbed if needed).
+- Tooling: A small web-based playground that shows JSX, IR, and live view side-by-side; include an AI suggestion pane that prints rationale + diff (stubbed if needed).
 - Success criteria: Deterministic compilation, passing strict tests for operators/comparators, live recomputation in the playground, and a docs page built with the same components.
 
 ### Next guardrails

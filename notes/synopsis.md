@@ -70,7 +70,7 @@ The notes clarify and extend the Engine synopsis in four big ways:
 ## Open questions and risks
 - Microservices: keep a boundary-first design (adapters/registries) and avoid premature service splitting; edge functions on Deno Deploy remain the public API. Evaluate service decomposition only when clear ownership, scaling, and failure domains demand it.
 - Expressivity pressure: gate DSL growth behind IR contracts and tests; prefer compiler passes over new surface area.
-- Debuggability: prioritize an inspector that visualizes dataflow over the IR and policy evaluations.
+- Debuggability: prioritize an playground that visualizes dataflow over the IR and policy evaluations.
 - Performance: adopt explicit registries, partial evaluation for pure subtrees, memoize injectors/ops, and lazy hydration.
 
 ## North star
