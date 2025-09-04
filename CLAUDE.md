@@ -89,19 +89,19 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
 ### The Three Layers of Truth
 
 ```
-┌─────────────────────────────────────────────────┐
-│         LAYER 3: Full Enhancement              │
-│    JavaScript enriches the experience          │
-│    (But is never required)                     │
-├─────────────────────────────────────────────────┤
-│         LAYER 2: Styled with CSS               │
-│    Beautiful, responsive, themed               │
-│    (But works without it)                      │
-├─────────────────────────────────────────────────┤
-│         LAYER 1: Semantic HTML                 │
-│    Works in Lynx, Mosaic, everything          │
-│    (This is the foundation)                    │
-└─────────────────────────────────────────────────┘
+┌────────────────────────────────────────────┐
+│    LAYER 3: Full Enhancement               │
+│    JavaScript enriches the experience      │
+│    (But is never required)                 │
+├────────────────────────────────────────────┤
+│    LAYER 2: Styled with CSS                │
+│    Beautiful, responsive, themed           │
+│    (But works without it)                  │
+├────────────────────────────────────────────┤
+│    LAYER 1: Semantic HTML                  │
+│    Works in Lynx, Mosaic, everything       │
+│    (This is the foundation)                │
+└────────────────────────────────────────────┘
 ```
 
 ### The Unbreakable Rules
@@ -229,7 +229,7 @@ Exception: Test files use `index.test.ts` because Deno demands it.
 Functions nest based on usage patterns:
 
 ```
-f1/                 # Used by multiple consumers
+f1/                # Used by multiple consumers
 ├── f2/            # Used only by f1
 │   └── f3/        # Used only by f2
 │       └── index.ts
@@ -380,6 +380,12 @@ See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 3. **Property-based** — Mathematical truth
 4. **Unit** — Last resort for the desperate
 
+### The Coverage Commandment
+
+**100% reported coverage. NO EXCEPTIONS.**
+
+Less than 100%? You have untested code that WILL break. Can't test it? Add `deno-coverage-ignore` with a REASON. No reason? Then test it. See [TESTING.md](./TESTING.md#the-coverage-doctrine-100-or-death) for the full doctrine.
+
 ### What Gets Tested
 
 - **Behaviors** — What users experience
@@ -391,8 +397,8 @@ See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 
 - Implementation details
 - Private methods (they don't exist)
-- Coverage percentages (meaningless metric)
 - Things TypeScript already guarantees
+- Lines we've explicitly ignored (with documented reasons)
 
 ## The Seven Deadly Coding Sins
 

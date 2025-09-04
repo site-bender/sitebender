@@ -494,13 +494,11 @@ Sometimes, rarely, there are lines that genuinely don't need testing:
 For these RARE cases, we have a sacred ritual:
 
 ```typescript
-// deno-coverage-ignore
-// REASON: process.exit() is a system function that ends the process
+// deno-coverage-ignore REASON: process.exit() is a system function that ends the process
 process.exit(1)
 
 // For multiple lines:
-// deno-coverage-ignore-start
-// REASON: Platform-specific code tested manually on each platform
+// deno-coverage-ignore-start REASON: Platform-specific code tested manually on each platform
 if (Deno.build.os === "windows") {
   path = path.replace(/\//g, "\\")
 } else {
