@@ -440,13 +440,186 @@ Every test suite has helpers. Document them or face the consequences.
 4. **Delete obsolete tests** — They're not museum pieces
 5. **Update tests with code** — They move together or not at all
 
+## The Coverage Doctrine: 100% or Death
+
+### The Only Number That Matters: 100%
+
+Listen carefully, because I'm only going to explain this once:
+
+**REPORTED CODE COVERAGE MUST BE 100%**
+
+Not 99.9%. Not 99%. Not "good enough." **ONE HUNDRED PERCENT.**
+
+### Why 100% Is The Only Acceptable Number
+
+#### The Red/Green Truth
+
+Coverage is binary. It's either:
+- ✅ **GREEN**: 100% — We've covered ALL the bases
+- ❌ **RED**: <100% — We're dead
+
+There is no yellow. There is no "mostly green." There is victory or there is failure.
+
+#### The Fatal Flaw of "Good Enough" Coverage
+
+You say 90% coverage is fine? Let me ask you something:
+
+**HOW DO YOU KNOW THE 10% YOU SKIPPED DOESN'T CONTAIN THE BUG THAT WILL DESTROY EVERYTHING?**
+
+You can't. You literally cannot know from a coverage report which lines are "safe" to skip. That innocent-looking error handler you didn't test? That's where the memory leak lives. That edge case you ignored? That's where the security vulnerability hides.
+
+#### The Cognitive Load Argument
+
+With 100% coverage:
+- **Simple**: Green = Good, Red = Bad
+- **No debates**: No arguing about what percentage is "enough"
+- **No guesswork**: No wondering if untested code is important
+- **Psychological safety**: Green means genuinely safe
+- **Emotional boost**: 100% feels amazing (because it is)
+
+With anything less:
+- Endless debates about acceptable percentages
+- Constant anxiety about untested code
+- Decision paralysis about what to test
+- False sense of security
+- That nagging feeling you missed something important
+
+### The Sacred Escape Hatch: Coverage Ignore
+
+Sometimes, rarely, there are lines that genuinely don't need testing:
+- System functions we can't control
+- Unreachable code (that TypeScript requires)
+- Platform-specific fallbacks
+
+For these RARE cases, we have a sacred ritual:
+
+```typescript
+// deno-coverage-ignore
+// REASON: process.exit() is a system function that ends the process
+process.exit(1)
+
+// For multiple lines:
+// deno-coverage-ignore-start
+// REASON: Platform-specific code tested manually on each platform
+if (Deno.build.os === "windows") {
+  path = path.replace(/\//g, "\\")
+} else {
+  path = path.replace(/\\/g, "/")
+}
+// deno-coverage-ignore-stop
+```
+
+### The Rules of Coverage Ignore
+
+1. **EVERY ignore MUST have a REASON**
+   - No reason = No ignore
+   - "Hard to test" is NOT a reason
+   - "Not important" is NOT a reason
+
+2. **Reasons must be SPECIFIC**
+   ```typescript
+   // ❌ BAD: "Not needed"
+   // ❌ BAD: "Tested elsewhere"
+   // ❌ BAD: "Obviously works"
+   
+   // ✅ GOOD: "System function - process termination"
+   // ✅ GOOD: "Unreachable - TypeScript exhaustive check"
+   // ✅ GOOD: "Platform API - tested manually on Windows/Mac/Linux"
+   ```
+
+3. **Ignores are AUDITED**
+   - We have a script: `scripts/reportIgnored/index.ts`
+   - It finds EVERY ignore
+   - It reports file, line, type (SINGLE/BLOCK), and REASON
+   - We review these regularly
+   - Bad reasons = Code review rejection
+
+### The Audit Report
+
+Run the coverage audit:
+```bash
+deno run --allow-read scripts/reportIgnored/index.ts
+```
+
+Output:
+```
+Coverage Ignore Audit Report
+============================
+Total Ignores: 3
+
+File: libraries/toolkit/src/random/seed/index.ts
+Line: 42
+Type: SINGLE
+Reason: "Crypto.getRandomValues is a browser API we cannot seed"
+
+File: libraries/engine/src/platform/detect/index.ts
+Lines: 78-82
+Type: BLOCK
+Reason: "Platform detection requires actual platform - tested in CI matrix"
+
+File: libraries/components/src/enhance/polyfill/index.ts
+Line: 156
+Type: SINGLE
+Reason: "Fallback for ancient browsers - tested manually in BrowserStack"
+```
+
+### The Coverage Workflow
+
+1. **Write code**
+2. **Write tests**
+3. **Run coverage**: `deno task test:cov`
+4. **See less than 100%?**
+   - Write more tests, OR
+   - Add `deno-coverage-ignore` WITH REASON
+5. **Run audit**: `deno run scripts/reportIgnored/index.ts`
+6. **Review ignored lines**
+7. **Achieve 100%**
+8. **Celebrate** (you've earned it)
+
+### Common Coverage Excuses (All Invalid)
+
+**"This code is trivial"**
+- Trivial code has trivial bugs
+- Test it
+
+**"It's just a getter/setter"**
+- Getters can have typos
+- Setters can have side effects
+- Test them
+
+**"It's generated code"**
+- Generated code can be generated wrong
+- Test it
+
+**"It's too hard to test"**
+- Refactor it to be testable
+- Use dependency injection
+- Make it pure
+
+**"We don't have time"**
+- You don't have time NOT to test
+- Bugs take more time than tests
+- Pay now or pay later with interest
+
+### The Bottom Line on Coverage
+
+**100% or nothing.**
+
+This is not negotiable. This is not flexible. This is not "a nice goal to have."
+
+If your coverage report shows anything other than 100%, you have two options:
+1. Write the missing tests
+2. Add explicit ignores with valid reasons
+
+There is no third option.
+
 ## Performance Requirements
 
 - **Test suite**: < 30 seconds total
 - **Individual tests**: < 100ms (except E2E)
 - **E2E tests**: < 5s per test
 - **Property tests**: 100+ runs minimum
-- **Coverage**: Meaningless metric, ignore it
+- **Coverage**: EXACTLY 100% (see above)
 
 ## The Testing Covenant
 
@@ -462,6 +635,8 @@ By reading this document, you hereby swear:
 8. To document test helpers
 9. To maintain test quality
 10. To delete bad tests without remorse
+11. **To achieve 100% coverage or die trying**
+12. **To justify every coverage ignore with specific reasons**
 
 ## Appendix: Why These Rules Exist
 
