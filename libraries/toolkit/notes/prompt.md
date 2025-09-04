@@ -158,9 +158,9 @@ For each function:
      # FIRST: Run tests one more time to be absolutely sure
      deno test --no-check [your test files] # MUST show 0 failed
      
-     # ONLY THEN commit:
-     ALLOW_TOOLKIT=1 git add -A
-     ALLOW_TOOLKIT=1 git commit -m "test(toolkit): add comprehensive tests for [function names]
+   # ONLY THEN commit:
+   git add -A libraries/toolkit
+   git commit -m "test(toolkit): add comprehensive tests for [function names]
 
      - Added behavioral tests for [list functions]
      - Added property-based tests where appropriate
@@ -921,10 +921,10 @@ deno task test:toolkit:coverage
 # Run specific test file (for debugging only)
 deno test [path/to/test/file]
 
-# Commit (toolkit requires special flag AND only commit toolkit files)
+# Commit (only commit toolkit files; flag no longer required)
 cd /libraries/toolkit
-ALLOW_TOOLKIT=1 git add .
-ALLOW_TOOLKIT=1 git commit -m "..."
+git add .
+git commit -m "..."
 
 # Check git log for YOUR commits only
 git log --oneline | grep -i toolkit
