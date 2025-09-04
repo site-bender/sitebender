@@ -5,7 +5,7 @@ const encoder = new TextEncoder()
 
 const repoRoot = Deno.cwd()
 const gitDir = `${repoRoot}/.git`
-const hooksDir = `${gitDir}/hooks`
+const hooksDir = `${repoRoot}/.githooks`
 const preCommit = `${hooksDir}/pre-commit`
 
 // Use plain string literals (not template literals) to avoid ${...} interpolation
