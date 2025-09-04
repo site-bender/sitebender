@@ -20,33 +20,63 @@ Our system of using JSX for declarative calculations is wonderful and extremely 
       </Dividend>
       <Divisor>
         <From.Constant type="Integer">2</From.Constant>
-      Here is an approach using a small, pure TypeScript parser (Pratt or recursive-descent) with zero Java/ANTLR dependencies. Keep the operator set aligned with Calculate primitives, start numeric-only, and grow features incrementally. Add thorough unit tests and property-based tests for safety.
-npm install antlr4ts
+      </Divisor>
+    </Divide>
+  </Add>
+</Calculate>
 ```
 
-2. Compile and run the TypeScript code:
+I want to be able to rewrite this (optionally) using a more concise syntax, such as:
 
-```bash
-# If using tsc
-tsc && node main.js
-
-# If using ts-node
-ts-node main.ts
+```tsx
+<Calculate formula="(a / b) + (c / d)">
+  <Variable name="a" type="Integer">
+    <From.Constant>99</From.Constant>
+  </Variable>
+  <Variable name="b" type="Integer">
+    <From.Element id="divisor" type="Integer" />
+  </Variable>
+  <Variable name="c" type="Integer">
+    <From.Constant>44</From.Constant>
+  </Variable>
+  <Variable name="d" type="Integer">
+    <From.Constant>2</From.Constant>
+  </Variable>
+</Calculate>
 ```
 
-### Key Features
+## How it works
 
-1. **Variables**: Lowercase identifiers (e.g., `x`, `radius`)
-2. **Constants**: Uppercase identifiers (e.g., `PI`, `E`)
-3. **Operations**: Basic arithmetic (`+`, `-`, `*`, `/`), exponentiation (`^`), comparisons (`==`, `!=`, `<`, `<=`, `>`, `>=`), and logical operations (`&&`, `||`)
-4. **Functions**: Common mathematical functions (`sin`, `cos`, `tan`, `sqrt`, `log`, `abs`, `max`, `min`)
-5. **Parentheses**: Full support for grouping expressions
-6. **Error Handling**: Proper error reporting for undefined variables and functions
+The parser transforms formula strings into engine configuration objects:
 
-This solution provides a complete ANTLR4 grammar for mathematical expressions and a TypeScript-based evaluator that can parse expressions and evaluate them with provided variable values.
+1. **Formula string** is tokenized and parsed into an AST
+2. **Variables are replaced** with their injector configurations
+3. **Engine constructors** are called to build the final config
+4. **Result** is identical to verbose JSX version
 
-Question: **Can this be done in a strictly FP manner?**
+### Example transformation
 
-# Moved
+Input:
+```tsx
+parseFormula(
+  "(a / b) + (c / d)",
+  {
+    a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
+    b: { tag: "FromElement", type: "injector", datatype: "Integer", source: "#divisor" },
+    c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
+    d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 }
+  }
+)
+```
 
-This note has moved to `ideas/parsing-math.md`.
+Output: Engine configuration identical to the verbose JSX approach.
+
+## Implementation
+
+Pure functional TypeScript using:
+- Pratt parser with precedence climbing
+- Result/Either for error handling
+- Existing engine constructors (no reinvention)
+- Behavior-driven testing approach
+
+See `notes/plans/parsing-math.md` for implementation details.
