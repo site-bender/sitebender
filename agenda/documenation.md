@@ -101,11 +101,11 @@ deno install --allow-read --allow-write -n jsdoc https://cdn.jsdelivr.net/npm/js
   "source": {
     "include": ["src"],
     "includePattern": "\\.(jsx|js|ts|tsx)$",
-    "excludePattern": "(node_modules/|docs/)"
+    "excludePattern": "(node_modules/|apps/docs/)"
   },
   "opts": {
     "template": "node_modules/minami",
-    "destination": "./docs/",
+    "destination": "./apps/docs/docs/",
     "recurse": true
   }
 }
@@ -144,8 +144,8 @@ Add documentation generation to your deno.json:
 {
   "tasks": {
     "docs": "typedoc --out docs src/mod.ts",
-    "docs:json": "deno doc --json src/mod.ts > docs/api.json",
-    "docs:serve": "deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts docs/"
+    "docs:json": "deno doc --json src/mod.ts > apps/docs/api.json",
+    "docs:serve": "deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts apps/docs/"
   }
 }
 ```

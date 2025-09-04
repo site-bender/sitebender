@@ -4,18 +4,18 @@ Use this file as your prompt to resume exactly where we left off.
 
 ## What’s done
 - Inline authoring via Program is live on docs pages.
-  - Tutorial: `docs/src/routes/tutorial/index.tsx` uses `<Program>`, `<On>`, `<If>`, `<SetValue>`, `<SetQueryString>`, `<FromElement>`, `<Add>`, `<Constant>`.
-  - Validation: `docs/src/routes/validation/index.tsx` converted to `<Program>` with NotEmpty-driven input/blur/submit behaviors updating `#name-error`.
+  - Tutorial: `apps/docs/src/routes/tutorial/index.tsx` uses `<Program>`, `<On>`, `<If>`, `<SetValue>`, `<SetQueryString>`, `<FromElement>`, `<Add>`, `<Constant>`.
+  - Validation: `apps/docs/src/routes/validation/index.tsx` converted to `<Program>` with NotEmpty-driven input/blur/submit behaviors updating `#name-error`.
 - Compiler: `libraries/components/src/transform/compile/toEngineIr.ts`
   - Supports: Constant, FromElement, Add, NotEmpty, SetValue, SetQueryString, On.
   - New: If control compiled to `Act.If`; On handlers may be action or conditional.
   - Anchor inference: infers from FromElement args; also respects `target` and last element `data-ir-id`.
-- Hydration: Shared hydrator `docs/src/hydrate/engine.ts` reads `script#ir-root` and binds events.
+- Hydration: Shared hydrator `apps/docs/src/hydrate/engine.ts` reads `script#ir-root` and binds events.
 - E2E tests:
   - Tutorial: passing.
-  - Validation: added at `docs/tests/e2e/validation/index.test.ts` (blur shows Required, input clears, submit validates + prevents nav). Passing.
-- Builds: `deno task --cwd docs build` succeeds; hydrate bundle OK.
-- Temporary: Root type-check narrowed to docs/engine/components to avoid unrelated toolkit errors.
+  - Validation: added at `apps/docs/tests/e2e/validation/index.test.ts` (blur shows Required, input clears, submit validates + prevents nav). Passing.
+- Builds: `deno task --cwd apps/docs build` succeeds; hydrate bundle OK.
+- Temporary: Root type-check narrowed to apps/docs/engine/components to avoid unrelated toolkit errors.
   - See `deno.jsonc` task `type-check` (scoped); we’ll restore later after fixing toolkit and component typings.
 
 ## What to do next
@@ -29,10 +29,10 @@ Use this file as your prompt to resume exactly where we left off.
 ## How to verify
 ```sh
 # Build docs
-deno task --cwd docs build
+deno task --cwd apps/docs build
 
 # Run E2E (tutorial + validation)
-deno task --cwd docs test:e2e
+deno task --cwd apps/docs test:e2e
 
 # Scoped type-check (temporary)
 deno task type-check
@@ -40,9 +40,9 @@ deno task type-check
 
 ## Files of interest
 - Authoring (docs):
-  - `docs/src/routes/tutorial/index.tsx`
-  - `docs/src/routes/validation/index.tsx`
-- Hydration (client): `docs/src/hydrate/engine.ts`
+  - `apps/docs/src/routes/tutorial/index.tsx`
+  - `apps/docs/src/routes/validation/index.tsx`
+- Hydration (client): `apps/docs/src/hydrate/engine.ts`
 - Components (wrappers/controls):
   - `libraries/components/src/transform/control/Program/index.tsx`
   - `libraries/components/src/transform/control/On/index.tsx`
@@ -53,8 +53,8 @@ deno task type-check
   - `libraries/components/src/transform/injectors/{FromElement,Constant}/index.tsx`
   - `libraries/components/src/transform/operators/Add/index.tsx`
 - Compiler: `libraries/components/src/transform/compile/toEngineIr.ts`
-- Tests: `docs/tests/e2e/{tutorial,validation}/index.test.ts`
-- Workspace config: `deno.jsonc`, `docs/deno.jsonc`
+- Tests: `apps/docs/tests/e2e/{tutorial,validation}/index.test.ts`
+- Workspace config: `deno.jsonc`, `apps/docs/deno.jsonc`
 
 ---
 
@@ -63,7 +63,7 @@ Continue phase-2 exactly where we stopped. Context recap:
 - Program-based inline authoring works on Tutorial and Validation.
 - Compiler supports If → Act.If, constant/element/add injectors, and anchor inference.
 - Hydration via shared client script; both tutorial and validation E2E pass.
-- Root type-check is temporarily narrowed to docs/engine/components.
+- Root type-check is temporarily narrowed to apps/docs/engine/components.
 
 Do the following:
 1) Write a docs section about authoring with Program (brief, with example from Tutorial + Validation).

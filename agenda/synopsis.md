@@ -1,11 +1,11 @@
-# Sitebender phase-2 \u2014 Updated Synopsis (from notes/)
+# Sitebender phase-2 \u2014 Updated Synopsis (from agenda/)
 
 Date: 2025-09-02
 
 ## Executive summary
 Sitebender is a progressive-enhancement web platform built around a tiny, declarative JSX DSL that compiles to a stable Engine IR. From this IR we derive: semantic HTML (SSR/SSG), client hydration (events, validation, conditional UI), calculations, andover timesemantic artifacts (JSON-LD, OWL/SHACL) and data-driven UI. Baseline pages work without JavaScript; JS adds reactive behavior. The long-term goal is an AI-assisted, intent-based authoring experience where non-coders compose full apps via a small, natural-language vocabulary.
 
-The notes clarify and extend the Engine synopsis in four big ways:
+The agenda clarify and extend the Engine synopsis in four big ways:
 - Canonical naming and authoring vocabulary (When/Is/From, bare-verb Actions, Program control).
 - A data model layer (Vault/Collection/Field/Item) that compiles to SHACL/OWL and powers schema-driven forms.
 - A broader platform surface: Auth, Visualization/Telemetry/Debug, and clear testing/DI practices.
@@ -13,7 +13,7 @@ The notes clarify and extend the Engine synopsis in four big ways:
 
 ## Authoring model (DSL  IR  SSR/CSR)
 - Components-first authoring; no imperative JS in the DSL. Expressions are trees of constructors/markers.
-- Namespaces and canon (per notes/naming.md):
+- Namespaces and canon (per agenda/naming.md):
   - Events: When.* (aliases: On.*)  When.Clicked, When.Submitted, When.ValueUpdated, When.ChangeComplete, When.GainedFocus, When.LostFocus
   - Comparators: Is.*  Is.Equal, Is.NotEmpty, temporal/date/time families, length and numeric bounds, matching, set membership
   - Injectors: From.*  From.Element, From.Constant, From.QueryString, From.LocalStorage, From.Store; planned From.SPARQL
@@ -49,10 +49,10 @@ The notes clarify and extend the Engine synopsis in four big ways:
 - Docker stack with Caddy TLS on *.localhost; services reverse-proxied with basic auth for dashboards.
   - Fuseki (RDF/SPARQL)  dev only
   - Prometheus + node-exporter  Thanos Sidecar  MinIO (S3) + Thanos Store + Thanos Querier  Grafana
-- Ports + aliases documented; provisioning for Grafana datasources/dashboards in ops/.
+- Ports + aliases documented; provisioning for Grafana datasources/dashboards in infra/local/configs/.
 - Recommendations: rotate credentials; consider SSO/OIDC; add Thanos Compactor; refine Prometheus block durations per env.
 
-## Status and plan (phase-2 notes)
+## Status and plan (phase-2 agenda)
 - Docs app: Program-based inline authoring live on Tutorial/Validation; shared hydrate script; passing E2E examples.
 - Components compiler: toEngineIr supports Constant/FromElement/Add/NotEmpty/SetValue/SetQueryString/On; If lowers to Act.If; anchor inference in place.
 - Engine: default executors for common comparators/logical/temporal; hydrator binds on input/change/blur/submit and runs comparators.

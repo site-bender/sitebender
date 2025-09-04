@@ -149,5 +149,5 @@ Status keys
   - Add `From.Store` marker (no-op wrapper initially).
   - Add `From.SPARQL` injector and (guarded) `SPARQLUpdate` action.
   - Wire `<Form collection="…">` to Vault IR; define optional manual `Form.*` sugars.
-2) Update docs/examples to prefer `Is.*` and `When.*`.
+2) Update apps/docs examples to prefer `Is.*` and `When.*`.
 3) Add lint rules to ban unapproved names and to surface deprecations.

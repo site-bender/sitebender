@@ -15,8 +15,8 @@ Notes
 
 TLS certs for authentik.localhost
 - Generate local certs (mkcert) if not already present:
-	- cert: `ops/certs/authentik.localhost.pem`
-	- key:  `ops/certs/authentik.localhost-key.pem`
+	- cert: `infra/local/configs/certs/authentik.localhost.pem`
+	- key:  `infra/local/configs/certs/authentik.localhost-key.pem`
 	See repo scripts/docs for mkcert usage.
 
 Troubleshooting

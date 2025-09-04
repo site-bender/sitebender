@@ -179,7 +179,7 @@ Repository conventions (for tree shaking and clarity)
 
 Milestones (thin slices)
 1) IR schema v1.1: add Vault/Collection/Field kinds (no runtime usage yet); doc JSON Schema updates.
-2) Generator pass: Vault → SHACL (Turtle) + minimal OWL; write to `docs/dist/data/` and expose as optional `ScriptNode` JSON-LD.
+2) Generator pass: Vault → SHACL (Turtle) + minimal OWL; write to `apps/docs/dist/data/` and expose as optional `ScriptNode` JSON-LD.
 3) SPARQL adapter + `From.SPARQL` injector (read-only) with env-driven endpoints.
 4) Schema-driven `<Form for="…">` that renders fields from Vault IR; enum/options can come from constants or `From.SPARQL`.
 5) E2E demo: define a tiny Vault (Customer/Product), generate SHACL, run Fuseki locally, populate options via SPARQL, and render the form; add one hydration smoke test.
@@ -294,7 +294,7 @@ define/* behavior and metadata
 - Async: adopt AsyncResult (Promise<Result<...>>), expose composition helpers and cancellation in compose context.
 - Validation: support both short-circuit and accumulation; accumulation uses ErrorBag combine.
 - Eager and lazy: provide lazy iterator variants (e.g., mapLazy, filterLazy, slidingWithStep) where sensible to avoid large intermediates.
-- Import aliases: allowed in docs/ for ergonomics (e.g., @sitebender/toolkit/array/map); libraries keep relative imports per CLAUDE.md.
+- Import aliases: allowed in apps/docs/ for ergonomics (e.g., @sitebender/toolkit/array/map); libraries keep relative imports per CLAUDE.md.
 
 ## Performance considerations
 - Partial evaluation at build for pure subtrees and constants.

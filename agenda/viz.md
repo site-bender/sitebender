@@ -121,7 +121,7 @@ IMPORTANT: MinIO is for local development only. Production will use Storacha (ht
 ### Prometheus
 
 ```yaml
-# ops/prometheus/prometheus.yml
+# infra/local/configs/prometheus/prometheus.yml
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -148,7 +148,7 @@ scrape_configs:
 ### Thanos
 
 ```yaml
-# ops/thanos/thanos-config.yaml
+# infra/local/configs/thanos/thanos-config.yaml
 type: S3
 config:
   bucket: "thanos" # The bucket name we created (or will be created automatically)
@@ -215,7 +215,7 @@ services:
     - --storage.tsdb.min-block-duration=1m
     - --storage.tsdb.max-block-duration=1m
     volumes:
-    - ./ops/prometheus:/config/prometheus:ro
+    - ./infra/local/configs/prometheus:/config/prometheus:ro
     ports:
     - "44090:9090"
     networks:
@@ -250,7 +250,7 @@ services:
     - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
     - prometheus_data:/prometheus
-    - ./ops/thanos:/config/thanos:ro
+    - ./infra/local/configs/thanos:/config/thanos:ro
     depends_on:
       - prometheus
       - minio
@@ -288,7 +288,7 @@ services:
       - --data-dir=/var/thanos
       - --objstore.config-file=/config/thanos/thanos-config.yaml
     volumes:
-      - ./ops/thanos:/config/thanos:ro
+      - ./infra/local/configs/thanos:/config/thanos:ro
       - thanos_store_data:/var/thanos
     depends_on:
       - minio
@@ -309,8 +309,8 @@ services:
       - GF_PATHS_PROVISIONING=/provisioning
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./ops/grafana/provisioning:/provisioning:ro
-      - ./ops/grafana/dashboards:/dashboards:ro
+      - ./infra/local/configs/grafana/provisioning:/provisioning:ro
+      - ./infra/local/configs/grafana/dashboards:/dashboards:ro
     ports:
       - "43001:3000"
     networks:
@@ -343,7 +343,7 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./ops/certs:/certs:ro
+      - ./infra/local/configs/certs:/certs:ro
     depends_on:
       - grafana
       - prometheus
@@ -364,14 +364,14 @@ Ports and aliases (dev):
 - Node Exporter: http://localhost:49100 (no proxy)
 
 Config convention:
-- All configs mount under `/config/*` from `./ops/*` on the host to avoid image-specific `/etc` paths.
+- All configs mount under `/config/*` from `./infra/local/configs/*` on the host to avoid image-specific `/etc` paths.
 
 Prometheus dev compaction:
 - For fast local testing, block durations are set to 1m via compose. Revert to 2h for normal operation.
 
 ### Grafana provisioning (enabled)
 
-Datasource (Thanos default): `ops/grafana/provisioning/datasources/datasource.yml`
+Datasource (Thanos default): `infra/local/configs/grafana/provisioning/datasources/datasource.yml`
 
 ```yaml
 apiVersion: 1
@@ -383,7 +383,7 @@ datasources:
     isDefault: true
 ```
 
-Dashboards provider: `ops/grafana/provisioning/dashboards/dashboards.yml`
+Dashboards provider: `infra/local/configs/grafana/provisioning/dashboards/dashboards.yml`
 
 ```yaml
 apiVersion: 1
@@ -395,11 +395,11 @@ providers:
       foldersFromFilesStructure: true
 ```
 
-Place dashboards JSON in `ops/grafana/dashboards/`.
+Place dashboards JSON in `infra/local/configs/grafana/dashboards/`.
 
 ### HTTPS, proxy, and auth
 
-- TLS certs are generated with mkcert and stored in `./ops/certs`.
+- TLS certs are generated with mkcert and stored in `./infra/local/configs/certs`.
 - Caddy terminates TLS and proxies pretty local domains.
 - Basic auth protects UIs with `admin:admin` (changeable).
 
@@ -469,7 +469,7 @@ Rotate the password by generating a new bcrypt hash and updating the Caddyfile b
   - Add healthchecks for Thanos components in compose.
 
 - UX/dev ergonomics
-  - Add starter dashboards JSON into `ops/grafana/dashboards`.
+  - Add starter dashboards JSON into `infra/local/configs/grafana/dashboards`.
   - Provision Grafana folders and alerts; wire alerting contact points.
   - Add scripts for mkcert generation and service restarts.
 

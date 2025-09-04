@@ -17,7 +17,7 @@ Use this prompt at the start of the next session to regain full context with no 
 - Tests:
   - Engine: PASS (operators, comparators, registries, runtime, hydrator; IR contracts for Add/Multiply/Min/Max/Ternary; And/EqualTo; actions/events path).
   - Components: PASS (compile-to-IR wrappers, On/When mapping, conditionals; plus new Viz container tests and adapter tests).
-  - Docs E2E live under `docs/tests`; no behavioral regressions introduced.
+  - Docs E2E live under `apps/docs/tests`; no behavioral regressions introduced.
 - Naming canon: Authoring uses component names; keep `When.*` for events. Avoid `Do.*` and `Act.*` in docs/examples; runtime internals may still use `Act.*` identifiers.
 - Auth scaffolding:
   - Wrappers: `When.Authenticated` and `When.Authorized` emit an authorized control marker.

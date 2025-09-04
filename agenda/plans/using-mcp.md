@@ -1,4 +1,4 @@
-# Plan: MCP integration for docs/playground
+# Plan: MCP integration for apps/docs and apps/playground
 
 ## Goals
 - Safe, minimal read-only assistance via MCP.
@@ -11,4 +11,4 @@
 ## Steps
 1. Define tool contracts (inputs/outputs, error modes) and acceptance tests.
 2. Implement server with sandboxing and logging.
-3. Wire to docs app with opt-in toggle; evaluate ROI and safety.
+3. Wire to apps/docs with opt-in toggle; evaluate ROI and safety.

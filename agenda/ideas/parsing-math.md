@@ -79,4 +79,4 @@ Pure functional TypeScript using:
 - Existing engine constructors (no reinvention)
 - Behavior-driven testing approach
 
-See `notes/plans/parsing-math.md` for implementation details.
+See `agenda/plans/parsing-math.md` for implementation details.
