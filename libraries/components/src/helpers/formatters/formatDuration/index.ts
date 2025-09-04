@@ -110,7 +110,7 @@ export default function formatDuration(
 			type: "conjunction",
 		})
 		return formatter.format(parts)
-	} catch (error) {
+	} catch (_error) {
 		// Fallback to simple join
 		return parts.join(", ")
 	}

@@ -1,24 +1,44 @@
 // Forbid React-style prop names in our framework-free codebase.
-// Rules:
-//  - dangerouslySetInnerHTML -> forbidden
-//  - className -> use 'class'
-//  - htmlFor   -> use 'for'
-// Scopes: docs/src and libraries/*/src.
-// Allowlist: internal renderer may reference these names for compatibility.
+// Exposed as a default-exported function and also runnable via CLI.
 
-const DEFAULT_GLOBS = [
-	"docs/src/**/*.ts",
-	"docs/src/**/*.tsx",
-	"libraries/*/src/**/*.ts",
-	"libraries/*/src/**/*.tsx",
+import {
+	DEFAULT_NO_REACT_GLOBS,
+	NO_REACT_ALLOWLIST,
+} from "../constants/index.ts"
+
+type Violation = {
+	file: string
+	line: number
+	col: number
+	snippet: string
+	rule: string
+	suggestion?: string
+}
+
+const RULES: Array<
+	{ name: string; re: RegExp; message: string; suggestion?: string }
+> = [
+	{
+		name: "dangerouslySetInnerHTML",
+		// Match when used as an attribute or object key, not when part of a property access (e.g., obj.dangerouslySetInnerHTML)
+		re: /(^|[\s,{])dangerouslySetInnerHTML\s*[:=]/,
+		message: "Use of dangerouslySetInnerHTML is forbidden.",
+	},
+	{
+		name: "className",
+		re: /(^|[\s,{])className\s*[:=]/,
+		message: "Use of className is forbidden.",
+		suggestion: "Use 'class' instead.",
+	},
+	{
+		name: "htmlFor",
+		re: /(^|[\s,{])htmlFor\s*[:=]/,
+		message: "Use of htmlFor is forbidden.",
+		suggestion: "Use 'for' instead.",
+	},
 ]
 
-const ALLOWLIST = new Set<string>([
-	// Our custom renderer is allowed to reference these names for compatibility
-	"scripts/build/generatePages/buildRoute/renderPageWithApp/renderToString/index.ts",
-])
-
-async function* iterFiles(patterns: string[]) {
+async function* expandGlobs(patterns: string[]): AsyncGenerator<string> {
 	const files = new Set<string>()
 	const procs = patterns.map((raw) => {
 		const p = raw.replace(/^['"]|['"]$/g, "")
@@ -48,56 +68,25 @@ function stripComments(source: string): string {
 	return s
 }
 
-async function main() {
-	const args = Deno.args.length ? Deno.args : DEFAULT_GLOBS
-	const violations: Array<
-		{
-			file: string
-			line: number
-			col: number
-			snippet: string
-			rule: string
-			suggestion?: string
-		}
-	> = []
-	const rules: Array<
-		{ name: string; re: RegExp; message: string; suggestion?: string }
-	> = [
-		{
-			name: "dangerouslySetInnerHTML",
-			// Match when used as an attribute or object key, not when part of a property access (e.g., obj.dangerouslySetInnerHTML)
-			re: /(^|[\s,{])dangerouslySetInnerHTML\s*[:=]/,
-			message: "Use of dangerouslySetInnerHTML is forbidden.",
-		},
-		{
-			name: "className",
-			re: /(^|[\s,{])className\s*[:=]/,
-			message: "Use of className is forbidden.",
-			suggestion: "Use 'class' instead.",
-		},
-		{
-			name: "htmlFor",
-			re: /(^|[\s,{])htmlFor\s*[:=]/,
-			message: "Use of htmlFor is forbidden.",
-			suggestion: "Use 'for' instead.",
-		},
-	]
+export default async function enforceNoReactJunk(args: string[] = Deno.args) {
+	const globs = args.length ? args : DEFAULT_NO_REACT_GLOBS
+	const violations: Violation[] = []
 
-	for await (const file of iterFiles(args)) {
+	for await (const file of expandGlobs(globs)) {
 		if (file.endsWith(".d.ts")) continue
-		if (ALLOWLIST.has(file)) continue
+		if (NO_REACT_ALLOWLIST.has(file)) continue
 		try {
 			const raw = await Deno.readTextFile(file)
 			const src = stripComments(raw)
 			const lines = src.split(/\r?\n/)
-			lines.forEach((ln, idx) => {
-				for (const rule of rules) {
+			lines.forEach((ln: string, idx: number) => {
+				for (const rule of RULES) {
 					const m = rule.re.exec(ln)
 					if (m) {
 						violations.push({
 							file,
 							line: idx + 1,
-							col: (m.index + 1),
+							col: m.index + 1,
 							snippet: ln.trim(),
 							rule: rule.name,
 							suggestion: rule.suggestion,
@@ -111,19 +100,18 @@ async function main() {
 	}
 
 	if (violations.length) {
-		const grouped = new Map<string, Array<typeof violations[number]>>()
+		const grouped = new Map<string, Violation[]>()
 		for (const v of violations) {
-			const key = v.rule
-			const arr = grouped.get(key) ?? []
+			const arr = grouped.get(v.rule) ?? []
 			arr.push(v)
-			grouped.set(key, arr)
+			grouped.set(v.rule, arr)
 		}
 
 		for (const [rule, list] of grouped) {
-			const header = rules.find((r) => r.name === rule)?.message ||
+			const header = RULES.find((r) => r.name === rule)?.message ||
 				`Forbidden usage: ${rule}`
-			const suggestion = rules.find((r) => r.name === rule)?.suggestion
-			console.error(`${header}`)
+			const suggestion = RULES.find((r) => r.name === rule)?.suggestion
+			console.error(header)
 			if (suggestion) console.error(`  ${suggestion}`)
 			console.error("")
 			for (const v of list) {
@@ -133,11 +121,11 @@ async function main() {
 		}
 		console.error(`Total: ${violations.length}`)
 		Deno.exit(1)
-	} else {
-		console.log("No forbidden React-style props detected")
 	}
+
+	console.log("No forbidden React-style props detected")
 }
 
 if (import.meta.main) {
-	await main()
+	await enforceNoReactJunk()
 }

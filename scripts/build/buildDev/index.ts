@@ -1,26 +1,21 @@
-import createElement from "~utilities/createElement/index.ts"
-import Fragment from "~utilities/Fragment/index.ts"
-
-import bundleHydrate from "../bundleHydrate/index.ts"
-import copyComponentStyles from "../copyComponentStyles/index.ts"
-import generatePages from "../generatePages/index.ts"
-import transpileComponentScripts from "../transpileComponentScripts/index.ts"
-import transpileStaticScripts from "../transpileStaticScripts/index.ts"
+import { dirname, join, toFileUrl, fromFileUrl } from "jsr:@std/path"
 
 export default async function buildDev(): Promise<void> {
-	// deno-lint-ignore no-explicit-any
-	;(globalThis as any).createElement = createElement // deno-lint-ignore no-explicit-any
-	;(globalThis as any).Fragment = Fragment
-
-	console.log("🔨 Copying component styles...")
-	await copyComponentStyles()
-	await transpileStaticScripts()
-	await transpileComponentScripts()
-	await bundleHydrate()
-	await generatePages()
-
-	// deno-lint-ignore no-console
-	console.log("✅ Page build complete!")
+	// Delegate to the docs app build so paths resolve correctly during tests
+	// Resolve docsDir relative to this file's location, not the current CWD
+	const originalCwd = Deno.cwd()
+	const thisFile = fromFileUrl(import.meta.url)
+	// Move up from scripts/build/buildDev/index.ts to repo root (../../../../)
+	const repoRoot = dirname(dirname(dirname(dirname(thisFile))))
+	const docsDir = join(repoRoot, "applications", "docs")
+	try {
+		Deno.chdir(docsDir)
+		const moduleUrl = toFileUrl(join(docsDir, ".sitebender", "scripts", "build", "buildDev", "index.ts")).href
+		const { default: docsBuildDev } = await import(moduleUrl)
+		await docsBuildDev()
+	} finally {
+		Deno.chdir(originalCwd)
+	}
 }
 
 if (import.meta.main) {

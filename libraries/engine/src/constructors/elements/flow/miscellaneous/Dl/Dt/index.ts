@@ -30,6 +30,6 @@ const flowContentFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const Dt = GlobalOnly("Dt")(flowContentFilter)
+const Dt = GlobalOnly("Dt")(flowContentFilter)
 
 export default Dt

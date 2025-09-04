@@ -1,4 +1,4 @@
-import type { Lens } from "../../simple/object/lens/index.ts"
+import type { Lens } from "../../object/lens/index.ts"
 
 /**
  * Checks equality at lens focus

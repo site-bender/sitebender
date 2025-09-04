@@ -53,13 +53,16 @@ const pluck = <T, K extends keyof T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T[K] | undefined> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
-	return array.map((item) =>
-		isNotNullish(item) && typeof item === "object" ? item[key] : undefined
-	)
+	return array.map((item) => {
+		if (isNotNullish(item) && typeof item === "object") {
+			return (item as Record<string | number | symbol, unknown>)[key as unknown as string] as T[K] | undefined
+		}
+		return undefined
+	})
 }
 
 export default pluck

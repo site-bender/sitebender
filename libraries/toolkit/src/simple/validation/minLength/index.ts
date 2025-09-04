@@ -57,10 +57,9 @@ const minLength = (
 	}
 
 	// Check if value has a numeric length property
-	const obj = value as any
-	if (typeof obj.length === "number") {
-		return obj.length >= min
-	}
+		if (typeof (value as ArrayLike<unknown>).length === "number") {
+			return (value as ArrayLike<unknown>).length >= min
+		}
 
 	return false
 }

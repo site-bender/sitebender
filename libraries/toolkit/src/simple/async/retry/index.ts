@@ -75,15 +75,15 @@ type RetryOptions = {
 	/** Add random jitter to delays (default: false) */
 	jitter?: boolean
 	/** Custom condition for retrying (return false to stop) */
-	shouldRetry?: (error: any, attempt: number) => boolean
+	shouldRetry?: (error: unknown, attempt: number) => boolean
 	/** Callback on each error */
-	onError?: (error: any, attempt: number, nextDelay: number) => void
+	onError?: (error: unknown, attempt: number, nextDelay: number) => void
 	/** Callback on success */
-	onSuccess?: (result: any, attempts: number) => void
+	onSuccess?: (result: unknown, attempts: number) => void
 }
 
 const retry = (options: RetryOptions = {}) =>
-async <T>(
+<T>(
 	fn: () => Promise<T>,
 ): Promise<T> => {
 	const {

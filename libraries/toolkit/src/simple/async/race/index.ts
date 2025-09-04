@@ -59,7 +59,7 @@ import isEmpty from "../../array/isEmpty/index.ts"
  * race([async () => "single"]) // Returns "single"
  * ```
  */
-const race = async <T>(
+const race = <T>(
 	tasks: ReadonlyArray<() => Promise<T>>,
 ): Promise<T> => {
 	// Handle empty array - this would never resolve

@@ -65,8 +65,6 @@ const symmetricDifference = <T>(
 	const set1 = new Set(array1)
 	const set2 = new Set(array2)
 
-	const result: Array<T> = []
-
 	// Add elements from array1 that are not in array2
 	const diff1 = Array.from(set1).filter((item) => !set2.has(item))
 

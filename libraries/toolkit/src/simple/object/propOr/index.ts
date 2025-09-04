@@ -37,10 +37,10 @@ import isNullish from "../../validation/isNullish/index.ts"
 const propOr = <D extends Value>(
 	defaultValue: D,
 ) =>
-<K extends string | symbol, V extends Value>(
+<K extends string | symbol, V>(
 	key: K,
 ) =>
-<T extends Record<string | symbol, Value>>(
+<T extends Record<K, unknown>>(
 	obj: T,
 ): V | D => {
 	// Handle null/undefined objects
@@ -49,8 +49,8 @@ const propOr = <D extends Value>(
 	}
 
 	// Check if property exists (including undefined values)
-	if (Object.prototype.hasOwnProperty.call(obj, key as string | symbol)) {
-		return obj[key] as V
+	if (Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)) {
+		return (obj as Record<string | symbol, unknown>)[key] as V
 	}
 
 	// Return default for missing properties

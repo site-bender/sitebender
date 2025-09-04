@@ -9,7 +9,7 @@ import type {
 import type { SourceElement } from "../source/index.ts"
 import type { TrackElement } from "../track/index.ts"
 
-// TODO
+// TODO(@chasm)
 export interface VideoElement {
 	attributes?: Override<
 		Partial<HTMLVideoElement>,

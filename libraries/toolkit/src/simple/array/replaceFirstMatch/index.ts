@@ -1,6 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import findIndex from "../findIndex/index.ts"
-import replaceAt from "../replaceAt/index.ts"
 
 /**
  * Replaces the first string that matches a pattern with a transformed value
@@ -31,13 +30,20 @@ import replaceAt from "../replaceAt/index.ts"
 const replaceFirstMatch =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>
-	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+	<T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+		if (isNullish(array)) {
 			return []
 		}
-		const index = findIndex((item: string) => pattern.test(item))(array)
+		const index = findIndex((item: T) =>
+			typeof item === "string" && pattern.test(item)
+		)(array as Array<T>)
 
-		return index === -1 ? [...array] : replaceAt<string>(index)(replacer)(array)
+		if (index === undefined) {
+			return [...array]
+		}
+		const out = [...array]
+		out[index] = replacer(out[index] as unknown as string) as T
+		return out
 	}
 
 export default replaceFirstMatch

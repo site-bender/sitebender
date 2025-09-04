@@ -1,6 +1,6 @@
 import { join, relative, SEPARATOR } from "jsr:@std/path"
 
-import toKebabCase from "~utilities/toKebabCase/index.ts"
+import toKebabCase from "../../../../../../../utilities/toKebabCase/index.ts"
 
 /**
  * Pure function to check if a file exists

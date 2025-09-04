@@ -1,110 +1,175 @@
-# Scripts Directory
+# Scripts
 
-This directory contains build and development scripts for the Sitebender monorepo.
+This folder contains maintenance and analysis scripts used across the repo. CLIs follow a consistent interface with:
 
-## Organization Principle
+- --help to show usage
+- --version to print the tool version
+- --dry-run for no-op runs when applicable
 
-Scripts remain at the **root level** rather than inside individual packages because:
+## analyze-files
 
-1. **Centralized Tooling**: All workspace members can share common tooling
-2. **Cross-Cutting Concerns**: Scripts like `sortImports` work across all packages
-3. **Simplified Maintenance**: One location for all build/dev infrastructure
-4. **Monorepo Best Practice**: Root-level tooling is standard for Deno workspaces
+Analyze TS/TSX source files for size and function length outliers with a focus on default-exported units (one function or component per file).
 
-## Script Categories
+Usage:
 
-### 📦 Build Scripts (`/build/`)
+	analyze-files [--root <path>] [--folders a,b] [--exclude x,y] [--max-fn-lines N] [--concurrency N] [--no-barrels] [--json]
 
-**Purpose**: Build the documentation site\
-**Used by**: `app` package\
-**Key files**:
+Flags:
+- --root: root folder to scan (defaults to current working folder)
+- --folders: comma-separated folders under root to scan (defaults to: libraries, scripts, docs, playground)
+	- Alias: --dirs (kept for compatibility)
+- --exclude: comma-separated folder names to exclude anywhere in the tree (defaults include node_modules, dist, build, coverage, fixtures, tests, constants, types)
+- --max-fn-lines: threshold for flagging long functions (default 60)
+- --concurrency: number of files analyzed in parallel (default 8, max 64)
+- --json: emit machine-readable output
+Behavior:
+- Only .ts and .tsx files are scanned by default (we exclude .js/.jsx to avoid noise).
+- Only default-exported functions/components are counted; named-only utilities in a file are ignored.
+- Barrel files are excluded by default (index.ts/tsx and files with many export aggregations). Pass --no-barrels to include them.
 
-- `index.ts` - Main build orchestrator
-- `buildDev/` - Development build (faster, skips optimization)
-- `copyStaticAssets/` - Copies static files to dist
-- `generatePages/` - Generates HTML pages from routes
-- `transpileComponentScripts/` - Processes component scripts
-- `transpileStaticScripts/` - Processes static JS files
+JSON schema (shape):
 
-### 🚀 Development Server (`/serve/`)
+{
+	"root": string,
+	"scannedFiles": number,
+	"threshold": number,
+	"fileStats": {
+		"longestFile": { "path": string, "lines": number },
+		"mean": number,
+		"median": number,
+		"stdDev": number
+	},
+	"functionStats": {
+		"total": number,
+		"mean": number,
+		"median": number,
+		"stdDev": number
+	},
+	"longFunctions": [
+		{
+			"name": string,
+			"startLine": number,
+			"endLine": number,
+			"loc": number,
+			"file": string
+		}
+	]
+}
 
-**Purpose**: Local development server with hot reload\
-**Used by**: `app` package during development\
-**Key files**:
+Notes:
+- The default exclusions include constants and types to match our folder conventions.
+- Only .ts and .tsx files are scanned by default (changeable in code if needed).
 
-- `index.ts` - Main server entry point
-- `createServer/` - HTTP server implementation
-- `watchForChanges/` - File watcher for hot reload
+# Scripts
 
-### 🧹 Maintenance Scripts
+Deno-first, workspace-wide automation for build, quality, and developer workflows. Every script is a small, focused function that can run as a library (import and call) or a CLI (via import.meta.main).
 
-#### `clean/`
+## Conventions (applied here)
 
-- Removes build artifacts (`dist/` directory)
-- Used before fresh builds
+- One function per folder; function file is `index.ts` and is the default export.
+- Helpers live under the function folder; promote only when shared by multiple functions.
+- Named exports for shared types and constants live under `scripts/types` and `scripts/constants`.
+- Keep functions pure and parameterized; use DI for filesystem/process when needed for testability.
+- Gate CLI behavior with `if (import.meta.main) { … }` and exit with a non-zero code on failures.
 
-#### `setup/`
+## What lives here and why
 
-- Initial project setup
-- Configures git hooks
-- One-time setup tasks
+These scripts are centralized at the repo root because they address cross-cutting concerns and operate across multiple packages. Keeping them here avoids duplicating tooling per package and makes tasks consistent.
 
-#### `sortImports/`
+## Key functions by area
 
-- Sorts and organizes imports across all files
-- Maintains consistent import ordering
-- Used by pre-commit hooks and format tasks
+Build and serve
 
-### 🧪 Test Utilities
+- build/ — Orchestrates site builds for docs/apps. Fast dev variants and asset-copy helpers live under this folder.
+- serve/ — Local dev server and file watching utilities.
 
-- `e2e.sh` - End-to-end test runner
-- `test-utilities.sh` - Test helper scripts
+Quality gates and maintenance
 
-### 🔧 Other Utilities
+- sortImports/ — Stable, repo-wide import ordering used by format tasks and pre-commit.
+- enforceFP/ — Functional style checks specific to this repo’s canon.
+- enforceImports/aliasGuards/ — Prevents deep/forbidden imports; suggests alias-based replacements. CLI prints violations and exits non-zero. Types under `enforceImports/aliasGuards/types` and walker in `helpers/findViolations`.
+- enforceNoReactJunk/ — Lints for stray React-isms not used by Sitebender.
+- findUnformatted/ — Detects files needing formatting.
 
-- `jsx.ts` - JSX transformation utilities
+Coverage and reporting
 
-## Usage
+- coverage/ — Helpers to run and aggregate coverage for targeted areas.
+- coverage-tools/reportIgnored/ — Reports ignore markers and coverage gaps; supports dependency injection for scanning roots.
 
-Scripts are invoked through deno tasks defined in:
+Developer workflow
 
-- Root `deno.jsonc` - Workspace-wide tasks
-- `docs/deno.jsonc` - App-specific build/serve tasks
+- hooks/install/ — Installs a pre-commit hook that runs format/lint/type-check and (optionally) alias guard. Set `SKIP_ALIAS_GUARD=1` to bypass alias checks in the hook when working offline.
+- setup/ — One-time workspace setup tasks.
+- clean/ — Removes build artifacts.
 
-### Common Commands
+Examples and demos
 
-From root directory:
+- jsx/ — A tiny TSX-to-IR demo pipeline used for experimentation and documentation.
+
+## How to run
+
+Most entry points are exposed as Deno tasks in the root `deno.jsonc` (and app-specific tasks in `docs/deno.jsonc`). From the repository root:
 
 ```bash
-# Development
-deno task dev          # Start dev server (delegates to app)
-deno task build        # Build documentation site
+# Quality
+deno task type-check
+deno task lint:aliases
 
-# Code Quality
-deno task fmt:all      # Format all code (uses sortImports)
-deno task lint:all     # Lint all packages
+# Coverage reporters
+deno task coverage:report:ignored
 
-# Setup
-deno task setup        # Configure git hooks
-deno task clean:all    # Clean all build artifacts
+# Git hook installation
+deno task hooks:install
 ```
 
-## Import Paths
+You can also run any function directly:
 
-Scripts use **relative imports** to reference code from other packages:
+```bash
+deno run -A scripts/enforceImports/aliasGuards/index.ts
+deno run -A scripts/coverage-tools/reportIgnored/index.ts
+```
 
-- App utilities: `../../docs/src/utilities/...`
-- App types: `../../docs/src/types/...`
-- Libraries: `../../libraries/[name]/src/...`
+## Tests
 
-This ensures scripts work regardless of the current working directory.
+- Location: `scripts/tests/**`
+- Style: behavioral/integration/property-based only. We test outcomes, not internals.
+- FS and process interactions: pass in dependencies (DI) or use synthetic files/folders. No ad-hoc global stubbing.
 
-## Future Considerations
+Run tests locally:
 
-If scripts become package-specific in the future:
+```bash
+deno test --unstable-temporal --allow-read --allow-write 'scripts/tests/**/*.test.ts'
+```
 
-- Move app-specific scripts (`build/`, `serve/`) to `docs/scripts/`
-- Keep workspace tools (`sortImports/`, `setup/`) at root
-- Update task references accordingly
+Coverage status (at last update):
 
-For now, the centralized approach provides the best balance of simplicity and functionality.
+- Overall scripts: ~87% branches / ~91% lines
+- Biggest gap: CLI branches guarded by `import.meta.main` (not exercised by library-mode tests)
+
+## Import paths
+
+Scripts use relative imports to remain location-agnostic and to avoid build tooling:
+
+- Docs/app code: `../../docs/src/...`
+- Libraries: `../../libraries/<name>/src/...`
+
+## Current status and recent cleanup
+
+- All legacy, single-file wrappers were removed in favor of the one-function-per-folder structure (for example: `aliasGuards.ts`, `hooks/install.ts`, `jsx.ts`). Tasks point directly at foldered modules.
+- Types for alias-guard violations live under `scripts/enforceImports/aliasGuards/types`.
+- Tests pass; type-check and lint pass in CI.
+
+## Next steps
+
+- Add CLI smoke tests that execute `import.meta.main` paths to close branch coverage gaps for:
+	- `enforceImports/aliasGuards/index.ts`
+	- `coverage-tools/reportIgnored/index.ts`
+- Push coverage toward 100% by exercising edge cases in reporters and walkers.
+- Continue auditing `scripts/` to ensure every public function follows the one-function-per-folder convention.
+- Keep deno task definitions in sync with moved/renamed scripts.
+
+## Troubleshooting
+
+- Using zsh: be sure to quote globs (e.g., `'scripts/tests/**/*.test.ts'`).
+- If alias guard is too noisy during local exploration, set `SKIP_ALIAS_GUARD=1` when installing hooks or running the hook manually.
+- If a script unexpectedly fails to find files, verify your cwd and provided root paths; prefer absolute paths in CI.

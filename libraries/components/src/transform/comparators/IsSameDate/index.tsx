@@ -1,9 +1,9 @@
-import type { IsSameDateComparator, Operand } from "@engineTypes/index.ts"
+import type { IsSameDateComparator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * IsSameDate JSX Component
  */
-import IsSameDateConstructor from "@engineSrc/constructors/comparators/date/IsSameDate/index.ts"
+import IsSameDateConstructor from "@sitebender/engine/constructors/comparators/date/IsSameDate/index.ts"
 
 export type Props = {
 	type?: "Date"

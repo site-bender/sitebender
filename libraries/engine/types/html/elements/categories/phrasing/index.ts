@@ -55,12 +55,12 @@ import type { VariableElement } from "../../text-level-semantics/var/index.ts"
 import type { WordBreakOpportunityElement } from "../../text-level-semantics/wbr/index.ts"
 import type { TextNode } from "../../text-node/index.ts"
 
-// TODO: add Math, Svg
+// TODO(@chasm): add Math, Svg
 
 export type PhrasingContent =
 	| AbbreviationElement
 	| AnchorElement
-	| AreaElement // TODO: narrow type
+	| AreaElement // TODO(@chasm): narrow type
 	| AudioElement
 	| BidirectionalIsolateElement
 	| BidirectionalTextOverrideElement
@@ -73,18 +73,18 @@ export type PhrasingContent =
 	| DataElement
 	| DataListElement
 	| DefinitionElement
-	| DeletionElement // TODO: narrow type
+	| DeletionElement // TODO(@chasm): narrow type
 	| EmbedElement
 	| EmphasisElement
 	| IdiomaticTextElement
 	| IFrameElement
 	| ImageElement
 	| InputElement
-	| InsertionElement // TODO: narrow type
+	| InsertionElement // TODO(@chasm): narrow type
 	| KeyboardElement
 	| LabelElement
 	| Override<LinkElement, { itemprop: string }>
-	| MapElement // TODO: narrow type
+	| MapElement // TODO(@chasm): narrow type
 	| MarkElement
 	| Override<MetaElement, { itemprop: string }>
 	| MeterElement

@@ -1,18 +1,16 @@
-import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { TableColumnGroupAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for ColGroup element
@@ -33,16 +31,7 @@ export type ColGroupElementAttributes = TableColumnGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableColumnGroupAttributes) => {
-	const { id, span, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("span")(span),
-	}
-}
 
 /**
  * Child filter that validates column content (col, script, template)
@@ -72,7 +61,10 @@ const colGroupFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const ColGroup = (attributes = {}) => (children = []) => {
+const ColGroup = (attributes: ColGroupElementAttributes = {}) =>
+(
+	children: Array<ElementConfig> | ElementConfig = [],
+): ElementConfig => {
 	const filteredChildren = Array.isArray(children)
 		? children.filter(colGroupFilter)
 		: colGroupFilter(children)

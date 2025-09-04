@@ -31,7 +31,7 @@ export default function formatRelativeTime(
 		} else {
 			return rtf.format(Math.round(diffDays / 365), "year")
 		}
-	} catch (error) {
+	} catch (_error) {
 		// Fallback for environments without Intl.RelativeTimeFormat
 		const abs = Math.abs(diffDays)
 		const unit = abs >= 365

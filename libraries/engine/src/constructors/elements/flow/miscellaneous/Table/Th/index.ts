@@ -1,21 +1,15 @@
-import type { TableHeaderCellAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { TableHeaderCellAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import { TH_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import { SCOPES } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Th element
@@ -36,30 +30,7 @@ export type ThElementAttributes = TableHeaderCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableHeaderCellAttributes) => {
-	const {
-		id,
-		abbr,
-		colSpan,
-		headers,
-		rowSpan,
-		scope,
-		role,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("abbr")(abbr),
-		...filterAttribute(isInteger)("colSpan")(colSpan),
-		...filterAttribute(isString)("headers")(headers),
-		...filterAttribute(isInteger)("rowSpan")(rowSpan),
-		...filterAttribute(isMemberOf(SCOPES))("scope")(scope),
-		...filterAttribute(isMemberOf(TH_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Th element configuration object
@@ -79,6 +50,6 @@ export const filterAttributes = (attributes: TableHeaderCellAttributes) => {
  * ])
  * ```
  */
-export const Th = Filtered("Th")(filterAttributes)
+const Th = Filtered("Th")(filterAttributes)
 
 export default Th

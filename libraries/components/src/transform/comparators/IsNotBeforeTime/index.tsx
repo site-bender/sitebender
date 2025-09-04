@@ -1,9 +1,9 @@
-import type { IsNotBeforeTimeComparator, Operand } from "@engineTypes/index.ts"
+import type { IsNotBeforeTimeComparator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * IsNotBeforeTime JSX Component
  */
-import IsNotBeforeTimeConstructor from "@engineSrc/constructors/comparators/time/IsNotBeforeTime/index.ts"
+import IsNotBeforeTimeConstructor from "@sitebender/engine/constructors/comparators/time/IsNotBeforeTime/index.ts"
 
 export type Props = {
 	type?: "Time"

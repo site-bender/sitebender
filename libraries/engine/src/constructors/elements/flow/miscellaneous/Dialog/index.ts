@@ -1,18 +1,15 @@
-import type { DialogAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "../../../../../types/index.ts"
-import type { Value } from "../../../../../types/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { DialogAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "../../../../../constructors/abstracted/Filtered/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Dialog element
@@ -33,16 +30,7 @@ export type DialogElementAttributes = DialogAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: DialogAttributes) => {
-	const { id, open, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isBoolean)("open")(open),
-	}
-}
 
 /**
  * Creates a Dialog element configuration object
@@ -65,6 +53,6 @@ export const filterAttributes = (attributes: DialogAttributes) => {
  * ])
  * ```
  */
-export const Dialog = Filtered("Dialog")(filterAttributes)
+const Dialog = Filtered("Dialog")(filterAttributes)
 
 export default Dialog

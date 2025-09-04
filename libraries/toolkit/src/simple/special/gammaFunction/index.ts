@@ -66,14 +66,14 @@ const gammaFunction = (
 
 	// For x < 0.5, use reflection formula (not needed here as we only handle positive)
 
-	let z = x - 1
-	let sum = coef[0]
-
-	const addCoefficients = (i: number): number => {
-		if (i >= 9) return 0
-		return coef[i] / (z + i) + addCoefficients(i + 1)
-	}
-	sum += addCoefficients(1)
+	const z = x - 1
+	const sum = (() => {
+		const addCoefficients = (i: number): number => {
+			if (i >= 9) return 0
+			return coef[i] / (z + i) + addCoefficients(i + 1)
+		}
+		return coef[0] + addCoefficients(1)
+	})()
 
 	const t = z + g + 0.5
 	const sqrt2pi = Math.sqrt(2 * Math.PI)

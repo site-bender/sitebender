@@ -6,7 +6,7 @@ import type {
 	InjectorNode,
 	IrDocument,
 	OperatorNode,
-} from "@engineTypes/ir/index.ts"
+} from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,

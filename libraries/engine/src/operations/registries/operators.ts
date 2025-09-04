@@ -2,14 +2,17 @@ import type { OperatorExecutor } from "../../../types/operations/registries/oper
 
 const operators = new Map<string, OperatorExecutor>()
 
-export function registerOperator(tag: string, exec: OperatorExecutor) {
+function register(tag: string, exec: OperatorExecutor) {
 	operators.set(tag, exec)
 }
 
-export function getOperator(tag: string): OperatorExecutor | undefined {
+function get(tag: string): OperatorExecutor | undefined {
 	return operators.get(tag)
 }
 
-export function listOperators(): string[] {
+function list(): string[] {
 	return Array.from(operators.keys())
 }
+
+const registry = { register, get, list } as const
+export default registry

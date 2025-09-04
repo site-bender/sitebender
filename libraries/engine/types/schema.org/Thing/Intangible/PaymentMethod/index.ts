@@ -1,5 +1,5 @@
 import type Thing from "../../index.ts"
-import type PaymentMethodType from "../Enumeration/PaymentMethodType/index.ts"
+import type PaymentMethodTypeEnum from "../Enumeration/PaymentMethodType/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type { PaymentCardType } from "./PaymentCard/index.ts"
 import type { PaymentServiceType } from "./PaymentService/index.ts"
@@ -14,7 +14,7 @@ export type PaymentMethodType =
 export interface PaymentMethodProps {
 	"@type"?: PaymentMethodType
 	paymentMethodType?:
-		| PaymentMethodType
+		| PaymentMethodTypeEnum
 		| ReturnType<typeof PaymentMethodTypeComponent>
 }
 

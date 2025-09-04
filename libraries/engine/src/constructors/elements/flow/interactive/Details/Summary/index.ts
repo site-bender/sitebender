@@ -1,23 +1,20 @@
-import type { SummaryAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SummaryAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import { SUMMARY_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isHeadingContent from "@engineSrc/guards/isHeadingContent/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isHeadingContent from "@sitebender/engine/guards/isHeadingContent/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Summary attributes including reactive properties
@@ -33,16 +30,7 @@ export type SummaryElementAttributes = SummaryAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: SummaryAttributes) => {
-	const { id, role, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isMemberOf(SUMMARY_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Summary element configuration object
@@ -61,7 +49,7 @@ export const filterAttributes = (attributes: SummaryAttributes) => {
  * ])
  * ```
  */
-export const Summary = (attributes: SummaryElementAttributes = {}) =>
+const Summary = (attributes: SummaryElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

@@ -46,7 +46,11 @@
  */
 const equals = <T>(a: T) => <U>(b: U): boolean => {
 	// Helper function that tracks visited objects to handle circular references
-	const deepEquals = (x: any, y: any, seen: WeakMap<any, any>): boolean => {
+	const deepEquals = (
+		x: unknown,
+		y: unknown,
+		seen: WeakMap<object, unknown>,
+	): boolean => {
 		// Handle primitive equality and same reference
 		if (x === y) {
 			// Check for +0 vs -0 case
@@ -64,7 +68,7 @@ const equals = <T>(a: T) => <U>(b: U): boolean => {
 		}
 
 		// Handle null/undefined
-		if (x == null || y == null) {
+		if (x === null || x === undefined || y === null || y === undefined) {
 			return false
 		}
 
@@ -74,10 +78,12 @@ const equals = <T>(a: T) => <U>(b: U): boolean => {
 		}
 
 		// Check for circular reference
-		if (seen.has(x)) {
+		if (typeof x === "object" && seen.has(x)) {
 			return seen.get(x) === y
 		}
-		seen.set(x, y)
+		if (typeof x === "object") {
+			seen.set(x, y as unknown)
+		}
 
 		// Handle Dates
 		if (x instanceof Date && y instanceof Date) {
@@ -103,8 +109,10 @@ const equals = <T>(a: T) => <U>(b: U): boolean => {
 		}
 
 		// Handle regular objects
-		const keysX = Object.keys(x)
-		const keysY = Object.keys(y)
+		const xObj = x as Record<string, unknown>
+		const yObj = y as Record<string, unknown>
+		const keysX = Object.keys(xObj)
+		const keysY = Object.keys(yObj)
 
 		if (keysX.length !== keysY.length) {
 			return false
@@ -112,12 +120,12 @@ const equals = <T>(a: T) => <U>(b: U): boolean => {
 
 		// Check if all keys exist and values are equal
 		return keysX.every((key) =>
-			keysY.includes(key) && deepEquals(x[key], y[key], seen)
+			keysY.includes(key) && deepEquals(xObj[key], yObj[key], seen)
 		)
 	}
 
 	// Start comparison with empty seen map
-	return deepEquals(a, b, new WeakMap())
+	return deepEquals(a, b, new WeakMap<object, unknown>())
 }
 
 export default equals

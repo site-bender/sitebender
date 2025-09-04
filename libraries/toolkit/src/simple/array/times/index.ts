@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -50,7 +51,7 @@ const times = <T>(
 	fn: (index: number) => T,
 ): Array<T> => {
 	// Handle invalid n values
-	if (isNullish(n) || n <= 0 || !Number.isFinite(n)) {
+	if (isNullish(n) || n <= 0 || not(Number.isFinite(n))) {
 		return []
 	}
 

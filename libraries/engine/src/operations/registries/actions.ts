@@ -2,14 +2,17 @@ import type { ActionExecutor } from "../../../types/operations/registries/action
 
 const actions = new Map<string, ActionExecutor>()
 
-export function registerAction(tag: string, exec: ActionExecutor) {
+function register(tag: string, exec: ActionExecutor) {
 	actions.set(tag, exec)
 }
 
-export function getAction(tag: string): ActionExecutor | undefined {
+function get(tag: string): ActionExecutor | undefined {
 	return actions.get(tag)
 }
 
-export function listActions(): string[] {
+function list(): string[] {
 	return Array.from(actions.keys())
 }
+
+const registry = { register, get, list } as const
+export default registry

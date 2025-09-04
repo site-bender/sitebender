@@ -26,5 +26,3 @@ export default function convertBigIntToBase58(bigInt: bigint): string {
 	}
 	return convert(bigInt, "")
 }
-
-export { convertBigIntToBase58 }

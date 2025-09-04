@@ -7,7 +7,7 @@ import type {
 
 export interface SlotElement {
 	attributes?: Override<Partial<HTMLSlotElement>, GlobalAttributeOverrides>
-	children?: Array<FlowContent> // TODO: transparent content
+	children?: Array<FlowContent> // TODO(@chasm): transparent content
 	dataset?: Dataset
 	readonly tagName: "SLOT"
 }

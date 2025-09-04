@@ -2,6 +2,22 @@ import type { DateInput } from "../../../types/temporal/index.ts"
 
 import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
 
+function todayIsoLocal(): string {
+	const d = new Date()
+	const y = d.getFullYear()
+	const m = String(d.getMonth() + 1).padStart(2, "0")
+	const day = String(d.getDate()).padStart(2, "0")
+	return `${y}-${m}-${day}`
+}
+
+function toIsoDateString(pd: unknown): string | null {
+	if (pd && typeof (pd as { toString: () => string }).toString === "function") {
+		const iso = (pd as { toString: () => string }).toString()
+		return /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso : null
+	}
+	return null
+}
+
 /**
  * Checks if a date is in the future relative to today
  *
@@ -67,12 +83,9 @@ const isFutureDate = (
 		return false
 	}
 
-	try {
-		const today = Temporal.Now.plainDateISO()
-		return Temporal.PlainDate.compare(date, today) > 0
-	} catch {
-		return false
-	}
+		const iso = toIsoDateString(date)
+		if (!iso) return false
+		return iso > todayIsoLocal()
 }
 
 export default isFutureDate

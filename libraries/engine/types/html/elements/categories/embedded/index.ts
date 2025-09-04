@@ -7,7 +7,7 @@ import type { PictureElement } from "../../embedded/picture/index.ts"
 import type { VideoElement } from "../../embedded/video/index.ts"
 import type { CanvasElement } from "../../scripting/canvas/index.ts"
 
-// TODO: Add math, svg
+// TODO(@chasm): Add math, svg
 
 export type EmbeddedContent =
 	| AudioElement

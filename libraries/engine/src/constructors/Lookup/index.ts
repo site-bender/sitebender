@@ -1,7 +1,7 @@
-import type { JsonValue } from "@engineTypes/json/index.ts"
-import type { LookupConfig } from "@engineTypes/lookups/index.ts"
+import type { JsonValue } from "@sitebender/engine-types/json/index.ts"
+import type { LookupConfig } from "@sitebender/engine-types/lookups/index.ts"
 
-export const Lookup =
+const Lookup =
 	(datatype = "Json") => (id: string) => (value: JsonValue): LookupConfig => ({
 		tag: "Data",
 		attributes: {

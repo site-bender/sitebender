@@ -52,14 +52,14 @@ const union = <T>(
 	array2: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	// Handle null/undefined cases
-	if (isNullish(array1) || !Array.isArray(array1)) {
-		if (isNullish(array2) || !Array.isArray(array2)) {
+	if (isNullish(array1)) {
+		if (isNullish(array2)) {
 			return []
 		}
 		return [...new Set(array2)]
 	}
 
-	if (isNullish(array2) || !Array.isArray(array2)) {
+	if (isNullish(array2)) {
 		return [...new Set(array1)]
 	}
 

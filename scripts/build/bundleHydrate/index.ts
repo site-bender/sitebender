@@ -4,26 +4,27 @@ import { join, toFileUrl } from "jsr:@std/path"
 
 export default async function bundleHydrate(logger: Logger = defaultLogger) {
   const cwd = Deno.cwd()
-  const entryPath = join(cwd, "src", "hydrate", "adaptive.ts")
+  // Use the docs app's standardized hydrate entry
+  const entryPath = join(cwd, ".sitebender", "hydrate", "index.ts")
   const outdir = join(cwd, "dist", "scripts", "hydrate")
   try {
     await Deno.stat(entryPath)
   } catch (_e) {
-    logger.log("No src/hydrate/adaptive.ts found; skipping hydrate bundle")
+    logger.log("No .sitebender/hydrate/index.ts found; skipping hydrate bundle")
     return "No hydrate entry"
   }
 
   await ensureDir(outdir)
 
-  const libAdaptiveRoot = join(cwd, "..", "libraries", "adaptive", "src")
-  const libAdaptiveTypesRoot = join(cwd, "..", "libraries", "adaptive", "types")
-  const libComponentsRoot = join(cwd, "..", "libraries", "components", "src")
-  const importMap = {
+  // When invoked from applications/docs as CWD, libraries live two levels up
+  const libEngineRoot = join(cwd, "..", "..", "libraries", "engine", "src")
+  const libEngineTypesRoot = join(cwd, "..", "..", "libraries", "engine", "types")
+  const libComponentsRoot = join(cwd, "..", "..", "libraries", "components", "src")
+  const importMap: { imports: Record<string, string> } = {
     imports: {
-      "@sitebender/adaptive": toFileUrl(libAdaptiveRoot).href,
-      "@sitebender/adaptive/": toFileUrl(libAdaptiveRoot + "/").href,
-      "@adaptiveSrc/": toFileUrl(libAdaptiveRoot + "/").href,
-      "@adaptiveTypes/": toFileUrl(libAdaptiveTypesRoot + "/").href,
+      "@sitebender/engine": toFileUrl(libEngineRoot).href,
+      "@sitebender/engine/": toFileUrl(libEngineRoot + "/").href,
+      "@sitebender/engine-types/": toFileUrl(libEngineTypesRoot + "/").href,
       "@sitebender/components": toFileUrl(join(libComponentsRoot, "index.ts")).href,
       "@sitebender/components/": toFileUrl(libComponentsRoot + "/").href,
     },

@@ -1,4 +1,4 @@
-import toKebabCase from "~utilities/toKebabCase/index.ts"
+import toKebabCase from "../../../../utilities/toKebabCase/index.ts"
 
 export default function transpileTypeScript(
 	tsContent: string,

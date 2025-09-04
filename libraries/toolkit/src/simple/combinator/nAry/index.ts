@@ -45,28 +45,26 @@
  * Note: This is the same as arity but follows the naming convention
  * used in some functional libraries (n-ary for n arguments).
  */
-// deno-lint-ignore no-explicit-any
-const nAry = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
+const nAry = <R>(n: number, fn: (...args: ReadonlyArray<unknown>) => R) => {
 	// Create wrappers for common arities for better performance
-	// deno-lint-ignore no-explicit-any
-	const wrappers: { [key: number]: (...args: ReadonlyArray<any>) => R } = {
+	const wrappers: { [key: number]: (...args: ReadonlyArray<unknown>) => R } = {
 		0: () => fn(),
-		// deno-lint-ignore no-explicit-any
-		1: (a: any) => fn(a),
-		// deno-lint-ignore no-explicit-any
-		2: (a: any, b: any) => fn(a, b),
-		// deno-lint-ignore no-explicit-any
-		3: (a: any, b: any, c: any) => fn(a, b, c),
-		// deno-lint-ignore no-explicit-any
-		4: (a: any, b: any, c: any, d: any) => fn(a, b, c, d),
-		// deno-lint-ignore no-explicit-any
-		5: (a: any, b: any, c: any, d: any, e: any) => fn(a, b, c, d, e),
+		1: (a: unknown) => fn(a),
+		2: (a: unknown, b: unknown) => fn(a, b),
+		3: (a: unknown, b: unknown, c: unknown) => fn(a, b, c),
+		4: (a: unknown, b: unknown, c: unknown, d: unknown) => fn(a, b, c, d),
+		5: (
+			a: unknown,
+			b: unknown,
+			c: unknown,
+			d: unknown,
+			e: unknown,
+		) => fn(a, b, c, d, e),
 	}
 
 	// For arities > 5, use a generic wrapper
-	// deno-lint-ignore no-explicit-any
 	return wrappers[n] ||
-		((...args: ReadonlyArray<any>) => fn(...args.slice(0, n)))
+		((...args: ReadonlyArray<unknown>) => fn(...args.slice(0, n)))
 }
 
 export default nAry

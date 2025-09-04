@@ -11,17 +11,16 @@ export default function createElement(
 
 		// If this is a metadata component (has _type), process JSX props
 		if (result && typeof result === "object" && "_type" in result) {
-			let processedProps = props ? { ...props } : {}
-
-			// Convert JSX elements in props to their data objects
-			if (props) {
-				for (const [key, value] of Object.entries(props)) {
-					if (key !== "children" && isJSXElement(value)) {
-						// Convert JSX element to data object
-						processedProps[key] = convertJSXToData(value)
-					}
-				}
-			}
+			const processedProps: Record<string, unknown> = props
+				? Object.fromEntries(
+					Object.entries(props).map(([key, value]) => (
+						key !== "children" && isJSXElement(value)
+							? [key, convertJSXToData(value)]
+							: [key, value]
+						)
+					),
+				)
+				: {}
 
 			// Re-call with processed props
 			return tag({ ...processedProps, children: flatChildren })
@@ -59,22 +58,27 @@ function convertJSXToData(
 ): unknown {
 	const { type, props } = jsxElement
 
-	if (typeof type === "function" && props && typeof props === "object") {
-		const {
-			children,
-			format,
-			element,
-			property,
-			subtypeProperties,
-			...dataProps
-		} = props as any
-
-		// Spread subtypeProperties into the main props
+	if (typeof type === "function" && isRecord(props)) {
+		// Omit specific keys without creating unused bindings
+		const omitted = new Set([
+			"children",
+			"format",
+			"element",
+			"property",
+			"subtypeProperties",
+		])
+		const entries = Object.entries(props).filter(([k]) => !omitted.has(k))
+		const dataProps = Object.fromEntries(entries)
+		const subtype = props["subtypeProperties"]
 		return {
 			...dataProps,
-			...(subtypeProperties || {}),
+			...(isRecord(subtype) ? subtype : {}),
 		}
 	}
 
 	return props
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return value !== null && typeof value === "object"
 }

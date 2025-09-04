@@ -3,15 +3,16 @@ import findLastIndex from "../findLastIndex/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
 /**
- * Replaces the last string that matches a pattern with a transformed value
+ * Replaces the last element that matches a pattern with a transformed value
  *
- * Tests each string element against the pattern. Returns original array
+ * Tests each element against the pattern. Returns original array
  * if no match found. Only replaces the last matching occurrence.
  * Accepts RegExp or string (string converted to RegExp).
+ * Non-string elements are converted to strings for testing.
  *
  * @param pattern - Regular expression or string pattern to match against
- * @param replacer - Function to transform the last matching string
- * @param array - Array containing strings to check
+ * @param replacer - Function to transform the last matching element
+ * @param array - Array containing elements to check
  * @returns New array with last match replaced
  * @pure
  * @curried
@@ -29,16 +30,16 @@ import replaceAt from "../replaceAt/index.ts"
  * ```
  */
 const replaceLastMatch =
-	(pattern: RegExp | string) =>
-	(replacer: (item: string) => string) =>
-	(array: ReadonlyArray<string> | null | undefined): Array<string> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+	<T>(pattern: RegExp | string) =>
+	(replacer: (item: T) => T) =>
+	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+		if (isNullish(array)) {
 			return []
 		}
 		const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern)
-		const index = findLastIndex((item: string) => regex.test(item))(array)
+		const index = findLastIndex((item: T) => regex.test(String(item)))(array)
 
-		return index === -1 ? [...array] : replaceAt<string>(index)(replacer)(array)
+		return index === undefined ? [...array] : replaceAt<T>(index)(replacer)(array)
 	}
 
 export default replaceLastMatch

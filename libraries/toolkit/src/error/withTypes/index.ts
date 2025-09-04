@@ -33,11 +33,10 @@ const withTypes =
 	<TDataType extends Datatype>(expected: TDataType) =>
 	(actual: TDataType | "null" | "undefined" | "unknown") =>
 	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
-		error: EngineError<TOp, TArgs, TDataType>,
-	): EngineError<TOp, TArgs, TDataType> => ({
+		error: EngineError<TOp, TArgs>,
+	): EngineError<TOp, TArgs> => ({
 		...error,
-		expectedType: expected,
-		actualType: actual,
+		types: { expected, actual: (actual as unknown as Datatype) },
 	})
 
 export default withTypes

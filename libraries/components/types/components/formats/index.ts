@@ -1,4 +1,4 @@
-import postalCodes from "../../../../../docs/assets/json/postalCodes/index.json" with {
+import postalCodes from "../../../../../applications/docs/assets/json/postalCodes/index.json" with {
 	type: "json",
 }
 

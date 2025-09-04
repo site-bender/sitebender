@@ -1,0 +1,74 @@
+{
+	// Documentation site configuration
+	"name": "@sitebender/docs",
+	"version": "0.1.0",
+	"description": "Documentation and demonstration site for Sitebender libraries.",
+	"exports": {
+		"./*": "./pages/*"
+	},
+
+	"tasks": {
+		// === Build Tasks ===
+		"build": "deno run --unstable-temporal --allow-read --allow-write --allow-env .sitebender/scripts/build/buildDev/index.ts",
+		"build:full": "deno run --unstable-temporal --allow-all .sitebender/scripts/build/index.ts",
+
+		// === Development Server ===
+		"dev": "deno run --unstable-temporal --allow-all .sitebender/scripts/serve/index.ts",
+		"serve": "deno run --unstable-temporal --allow-net --allow-read jsr:@std/http/file-server --port=3000 dist/",
+		"start": "deno task build && deno task serve",
+
+		// === Testing ===
+		"test": "deno test --unstable-temporal tests/unit/ tests/integration/ -A --no-check",
+		"test:all": "deno task build && deno task test:e2e && deno task test",
+		"test:watch": "deno test --unstable-temporal tests/unit/ tests/integration/ -A --no-check --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ -A --no-check && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
+		"test:unit": "deno test --unstable-temporal tests/unit/ -A --no-check",
+		"test:integration": "deno test --unstable-temporal tests/integration/ -A --no-check",
+		"test:build": "deno test --unstable-temporal tests/build/ -A --no-check",
+		"test:a11y": "deno test --unstable-temporal tests/a11y/ -A --no-check",
+		"test:e2e": "deno task build && npx playwright test -c ../../playwright.config.ts",
+
+		// === Maintenance ===
+		"clean": "rm -rf dist/ coverage/",
+		"type-check": "deno check --unstable-temporal sites/**/*.tsx pages/**/*.tsx"
+	},
+
+	"imports": {
+		// === Testing Libraries ===
+		"@axe-core/playwright": "npm:@axe-core/playwright@^4.10.2",
+		"@playwright/mcp": "npm:@playwright/mcp@^0.0.29",
+		"playwright": "npm:playwright@^1.49.0",
+		"playwright-mcp": "npm:@playwright/mcp@^0.0.29",
+		"fast-check": "https://esm.sh/fast-check@3.15.1",
+
+		// === Local Sitebender Libraries ===
+		"@sitebender/toolkit": "../../libraries/toolkit/src/",
+		"@sitebender/toolkit/": "../../libraries/toolkit/src/",
+		// Preferred engine aliases
+		"@sitebender/engine": "../../libraries/engine/src/",
+		"@sitebender/engine/": "../../libraries/engine/src/",
+		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
+		"@sitebender/components": "../../libraries/components/src/index.ts",
+		"@sitebender/components/": "../../libraries/components/src/",
+
+		// === Deno Standard Library ===
+		"@std/expect": "jsr:@std/expect@^1.0.17",
+		"@std/http": "jsr:@std/http@^1.0.0",
+		"@std/testing": "jsr:@std/testing@^1.0.15",
+		"@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd",
+		"@std/encoding": "jsr:@std/encoding@^1.0.5",
+
+		// === Other Dependencies ===
+		"@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.1",
+
+		// === JSX Support ===
+		"createElement": "./.sitebender/createElement/index.ts",
+		"Fragment": "./.sitebender/Fragment/index.ts"
+	},
+
+	// Test configuration
+	"test": {
+		"include": ["tests/"],
+		"exclude": ["assets/", "dist/", "pages/", "sites", "tests/fixtures/"]
+	}
+}

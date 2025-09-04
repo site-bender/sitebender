@@ -19,7 +19,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @example
  * ```typescript
  * // Basic usage with custom equality
- * const eqById = (a: any, b: any) => a.id === b.id
+ * const eqById = (a: {id: number}, b: {id: number}) => a.id === b.id
  * const arr1 = [{ id: 1 }, { id: 2 }]
  * const arr2 = [{ id: 2 }, { id: 3 }]
  * unionWith(eqById)(arr1)(arr2)
@@ -32,7 +32,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // ["Hello", "World", "foo"]
  *
  * // Deep object comparison
- * const deepEqual = (a: any, b: any) =>
+ * const deepEqual = <T>(a: T, b: T) =>
  *   JSON.stringify(a) === JSON.stringify(b)
  * const configs1 = [{ settings: { theme: "dark" } }]
  * const configs2 = [{ settings: { theme: "dark" } }, { settings: { theme: "light" } }]
@@ -46,12 +46,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // [1.0, 2.0, 3.0, 4.0] (2.0 and 2.001 considered equal)
  *
  * // Empty arrays and null handling
- * const eq = (a: any, b: any) => a === b
+ * const eq = <T>(a: T, b: T) => a === b
  * unionWith(eq)([])([1, 2, 3])  // [1, 2, 3]
  * unionWith(eq)(null)([1, 2])  // [1, 2]
  *
  * // Partial application for reusable unions
- * const unionById = unionWith((a: any, b: any) => a.id === b.id)
+ * const unionById = unionWith((a: {id: number}, b: {id: number}) => a.id === b.id)
  * const data1 = [{ id: 1, val: "a" }, { id: 2, val: "b" }]
  * const data2 = [{ id: 2, val: "c" }, { id: 3, val: "d" }]
  * unionById(data1)(data2)
@@ -68,8 +68,8 @@ const unionWith = <T>(
 	array2: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	// Handle null/undefined cases
-	if (isNullish(array1) || !Array.isArray(array1)) {
-		if (isNullish(array2) || !Array.isArray(array2)) {
+	if (isNullish(array1)) {
+		if (isNullish(array2)) {
 			return []
 		}
 		// Remove duplicates from array2 using comparator
@@ -80,7 +80,7 @@ const unionWith = <T>(
 		)
 	}
 
-	if (isNullish(array2) || !Array.isArray(array2)) {
+	if (isNullish(array2)) {
 		// Remove duplicates from array1 using comparator
 		return array1.reduce<Array<T>>(
 			(acc, item) =>

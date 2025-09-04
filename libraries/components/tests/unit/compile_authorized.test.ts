@@ -3,7 +3,7 @@ import type {
 	ComparatorNode,
 	InjectorNode,
 	IrDocument,
-} from "@engineTypes/ir/index.ts"
+} from "@sitebender/engine-types/ir/index.ts"
 
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 

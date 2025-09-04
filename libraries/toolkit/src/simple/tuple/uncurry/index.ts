@@ -62,28 +62,33 @@ function uncurry<A, B, C, R>(
 	fn: (a: A) => (b: B) => (c: C) => R,
 ): (tuple: Triple<A, B, C>) => R
 
-function uncurry(fn: Function) {
+function uncurry(fn: (a: unknown) => unknown) {
 	// Try to detect arity by calling with test values
 	try {
 		const test = fn(undefined)
 		if (typeof test === "function") {
-			const test2 = test(undefined)
+			const test2 = (test as (b: unknown) => unknown)(undefined)
 			if (typeof test2 === "function") {
 				// Ternary function
 				return (tuple: Triple<unknown, unknown, unknown>) =>
-					fn(tuple[0])(tuple[1])(tuple[2])
+					((fn(tuple[0]) as (b: unknown) => (c: unknown) => unknown)(
+						tuple[1],
+					) as (c: unknown) => unknown)(tuple[2])
 			} else {
 				// Binary function
-				return (tuple: Pair<unknown, unknown>) => fn(tuple[0])(tuple[1])
+				return (tuple: Pair<unknown, unknown>) =>
+					(fn(tuple[0]) as (b: unknown) => unknown)(tuple[1])
 			}
 		}
 	} catch {
 		// Default to binary if detection fails
-		return (tuple: Pair<unknown, unknown>) => fn(tuple[0])(tuple[1])
+		return (tuple: Pair<unknown, unknown>) =>
+			(fn(tuple[0]) as (b: unknown) => unknown)(tuple[1])
 	}
 
 	// Default to binary
-	return (tuple: Pair<unknown, unknown>) => fn(tuple[0])(tuple[1])
+	return (tuple: Pair<unknown, unknown>) =>
+		(fn(tuple[0]) as (b: unknown) => unknown)(tuple[1])
 }
 
 export default uncurry

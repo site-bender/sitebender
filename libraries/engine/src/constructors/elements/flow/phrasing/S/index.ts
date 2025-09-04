@@ -1,4 +1,4 @@
-import type { StrikethroughAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { StrikethroughAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
 import type {
 	ComparatorConfig,
@@ -54,6 +54,6 @@ export type SElementAttributes = StrikethroughAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const S = GlobalOnly("S")(phrasingContentFilter)
+const S = GlobalOnly("S")(phrasingContentFilter)
 
 export default S

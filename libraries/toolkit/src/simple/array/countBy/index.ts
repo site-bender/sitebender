@@ -1,4 +1,3 @@
-import not from "../../logic/not/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
@@ -65,7 +64,11 @@ const countBy = <T, K extends string | number | symbol>(
 	return array.reduce((acc, element) => {
 		const key = fn(element)
 		if (isNotNullish(key)) {
-			return { ...acc, [key]: (acc[key] || 0) + 1 }
+			return Object.assign(
+				Object.create(null),
+				acc,
+				{ [key]: (acc[key] || 0) + 1 }
+			) as Record<K, number>
 		}
 		return acc
 	}, Object.create(null) as Record<K, number>)

@@ -10,12 +10,12 @@ declare global {
 		type Element = unknown
 
 		interface IntrinsicElements {
-			[elemName: string]: any
+			[elemName: string]: Record<string, unknown>
 		}
 
 		// Minimal attribute interfaces used across components
 		interface HTMLAttributes<T> {
-			[key: string]: any
+			[key: string]: unknown
 		}
 		interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {}
 		interface FieldSetHTMLAttributes<T> extends HTMLAttributes<T> {}
@@ -33,21 +33,6 @@ declare global {
 	}
 	// Optional GC hook in some environments
 	var gc: (() => void) | undefined
-
-	namespace Temporal {
-		class PlainDate {
-			static from(item: unknown): PlainDate
-		}
-		class PlainTime {
-			static from(item: unknown): PlainTime
-		}
-		class PlainDateTime {
-			static from(item: unknown): PlainDateTime
-		}
-		class ZonedDateTime {
-			static from(item: unknown): ZonedDateTime
-		}
-	}
 }
 
 export {}

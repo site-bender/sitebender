@@ -2,14 +2,17 @@ export type PolicyExecutor = (op: unknown) => unknown
 
 const policies = new Map<string, PolicyExecutor>()
 
-export function registerPolicy(tag: string, exec: PolicyExecutor) {
+function register(tag: string, exec: PolicyExecutor) {
 	policies.set(tag, exec)
 }
 
-export function getPolicy(tag: string): PolicyExecutor | undefined {
+function get(tag: string): PolicyExecutor | undefined {
 	return policies.get(tag)
 }
 
-export function listPolicies(): string[] {
+function list(): string[] {
 	return Array.from(policies.keys())
 }
+
+const registry = { register, get, list } as const
+export default registry

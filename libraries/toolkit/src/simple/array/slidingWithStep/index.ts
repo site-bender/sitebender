@@ -1,3 +1,5 @@
+import isNullish from "../../validation/isNullish/index.ts"
+
 /**
  * Creates sliding windows over array with custom step size
  *
@@ -37,11 +39,20 @@
  * // Edge cases
  * slidingWithStep(5, 1)([1, 2, 3]) // []
  * slidingWithStep(3, 1)([]) // []
+ *
+ * // Null/undefined handling  
+ * slidingWithStep(3, 1)(null) // []
+ * slidingWithStep(3, 1)(undefined) // []
  * ```
  */
 const slidingWithStep =
-	<T>(size: number, step: number) => (array: Array<T>): Array<Array<T>> => {
-		if (size <= 0 || step <= 0) return []
+	<T>(size: number, step: number) => (array: Array<T> | null | undefined): Array<Array<T>> => {
+		if (isNullish(array)) return []
+		if (size <= 0 || step <= 0 || !Number.isFinite(size)) return []
+		if (!Number.isFinite(step)) {
+			// For infinite step, only return the first window if possible
+			return array.length >= size ? [array.slice(0, size)] : []
+		}
 		if (array.length < size) return []
 
 		// Use recursion instead of for loop

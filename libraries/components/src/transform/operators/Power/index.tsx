@@ -1,4 +1,4 @@
-import type { Operand, PowerOperator } from "@engineTypes/index.ts"
+import type { Operand, PowerOperator } from "@sitebender/engine-types/index.ts"
 
 /**
  * Power JSX Component
@@ -13,7 +13,7 @@ import type { Operand, PowerOperator } from "@engineTypes/index.ts"
  * </Power>
  */
 
-import PowerConstructor from "@engineSrc/constructors/operators/Power/index.ts"
+import PowerConstructor from "@sitebender/engine/constructors/operators/Power/index.ts"
 
 export type Props = {
 	type?: "Number"

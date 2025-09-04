@@ -147,8 +147,8 @@ export default function Timestamp({
 
 		const options = formatOptions || {
 			...(format !== "iso" && {
-				dateStyle: format as any,
-				timeStyle: format as any,
+				dateStyle: (format as Exclude<typeof format, "iso" | "relative" | "epoch" | "epochMicro">),
+				timeStyle: (format as Exclude<typeof format, "iso" | "relative" | "epoch" | "epochMicro">),
 			}),
 			...(format === "iso" && {
 				year: "numeric",

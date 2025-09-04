@@ -6,10 +6,10 @@ import type {
 } from "../../../types/ir/index.ts"
 import type { ComposeContext } from "../../context/composeContext/index.ts"
 
-import { getComparator } from "../../operations/registries/comparators.ts"
-import { getInjector } from "../../operations/registries/injectors.ts"
-import { getOperator } from "../../operations/registries/operators.ts"
-import { getPolicy } from "../../operations/registries/policies.ts"
+import comparators from "../../operations/registries/comparators.ts"
+import injectors from "../../operations/registries/injectors.ts"
+import operators from "../../operations/registries/operators.ts"
+import policies from "../../operations/registries/policies.ts"
 
 export default async function evaluate(
 	node: Node,
@@ -17,24 +17,24 @@ export default async function evaluate(
 ): Promise<unknown> {
 	switch (node.kind) {
 		case "injector": {
-			const exec = getInjector(node.injector)
+			const exec = injectors.get(node.injector)
 			if (!exec) throw new Error(`Injector not registered: ${node.injector}`)
 			return await exec(node as InjectorNode, ctx)
 		}
 		case "operator": {
-			const exec = getOperator(node.op)
+			const exec = operators.get(node.op)
 			if (!exec) throw new Error(`Operator not registered: ${node.op}`)
 			const opNode = node as OperatorNode
 			const evalArg = (n: OperatorNode["args"][number]) => evaluate(n, ctx)
 			return await exec(opNode, evalArg, ctx)
 		}
 		case "comparator": {
-			const exec = getComparator(node.cmp)
+			const exec = comparators.get(node.cmp)
 			const cmpNode = node as ComparatorNode
 			const evalArg = (n: ComparatorNode["args"][number]) => evaluate(n, ctx)
 			if (exec) return await exec(cmpNode, evalArg, ctx)
 			// Fallback: treat comparator tag as a policy; pass first arg (if any) as policy config
-			const policy = getPolicy(node.cmp)
+			const policy = policies.get(node.cmp)
 			if (!policy) throw new Error(`Comparator not registered: ${node.cmp}`)
 			const cfg = cmpNode.args[0] ? await evalArg(cmpNode.args[0]) : undefined
 			const op = policy(cfg)

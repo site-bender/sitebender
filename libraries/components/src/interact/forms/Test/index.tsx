@@ -15,7 +15,7 @@ import UrlField from "../fields/UrlField/index.tsx"
 import FieldSet from "../FieldSet/index.tsx"
 import Form from "../Form/index.tsx"
 
-export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & {}
+export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & Record<PropertyKey, never>
 
 export default function Test(props: Props) {
 	return (

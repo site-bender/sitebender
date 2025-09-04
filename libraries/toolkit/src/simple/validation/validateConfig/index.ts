@@ -52,15 +52,15 @@
 type FieldSchema = {
 	type: "string" | "number" | "boolean" | "object" | "array"
 	required?: boolean
-	default?: any
-	enum?: Array<any>
+	default?: unknown | (() => unknown)
+	enum?: Array<unknown>
 	pattern?: RegExp
 	min?: number
 	max?: number
 	minLength?: number
 	maxLength?: number
-	validator?: (value: any, data?: any) => string | null
-	transform?: (value: any) => any
+	validator?: (value: unknown, data?: Record<string, unknown>) => string | null
+	transform?: (value: unknown) => unknown
 	coerce?: boolean
 	schema?: Record<string, FieldSchema>
 	items?: FieldSchema
@@ -70,9 +70,9 @@ type ValidationSchema = Record<string, FieldSchema>
 
 type ValidationResult<T> =
 	| { valid: true; data: T }
-	| { valid: false; errors: Record<string, any> }
+	| { valid: false; errors: Record<string, unknown> }
 
-const validateConfig = <T extends Record<string, any>>(
+const validateConfig = <T extends Record<string, unknown>>(
 	schema: ValidationSchema,
 ) =>
 (
@@ -86,9 +86,9 @@ const validateConfig = <T extends Record<string, any>>(
 		}
 	}
 
-	const errors: Record<string, any> = {}
-	const result: Record<string, any> = {}
-	const configObj = config as Record<string, any>
+	const errors: Record<string, unknown> = {}
+	const result: Record<string, unknown> = {}
+	const configObj = config as Record<string, unknown>
 
 	// Validate each field in schema
 	for (const [key, fieldSchema] of Object.entries(schema)) {
@@ -119,13 +119,13 @@ const validateConfig = <T extends Record<string, any>>(
 		if (fieldSchema.coerce) {
 			switch (fieldSchema.type) {
 				case "number":
-					value = Number(value)
+					value = Number(value as number | string | boolean)
 					break
 				case "boolean":
-					value = value === "true" || value === true || value === 1
+					value = (value as unknown) === "true" || value === true || value === 1
 					break
 				case "string":
-					value = String(value)
+					value = String(value as string | number | boolean)
 					break
 				case "array":
 					if (typeof value === "string") {
@@ -152,15 +152,16 @@ const validateConfig = <T extends Record<string, any>>(
 
 		// String validations
 		if (fieldSchema.type === "string") {
-			if (fieldSchema.minLength && value.length < fieldSchema.minLength) {
+			const str = value as string
+			if (fieldSchema.minLength && str.length < fieldSchema.minLength) {
 				errors[key] = `Minimum length is ${fieldSchema.minLength}`
 				continue
 			}
-			if (fieldSchema.maxLength && value.length > fieldSchema.maxLength) {
+			if (fieldSchema.maxLength && str.length > fieldSchema.maxLength) {
 				errors[key] = `Maximum length is ${fieldSchema.maxLength}`
 				continue
 			}
-			if (fieldSchema.pattern && !fieldSchema.pattern.test(value)) {
+			if (fieldSchema.pattern && !fieldSchema.pattern.test(str)) {
 				errors[key] = "Value does not match required pattern"
 				continue
 			}
@@ -168,11 +169,12 @@ const validateConfig = <T extends Record<string, any>>(
 
 		// Number validations
 		if (fieldSchema.type === "number") {
-			if (fieldSchema.min !== undefined && value < fieldSchema.min) {
+			const num = value as number
+			if (fieldSchema.min !== undefined && num < fieldSchema.min) {
 				errors[key] = `Value must be >= ${fieldSchema.min}`
 				continue
 			}
-			if (fieldSchema.max !== undefined && value > fieldSchema.max) {
+			if (fieldSchema.max !== undefined && num > fieldSchema.max) {
 				errors[key] = `Value must be <= ${fieldSchema.max}`
 				continue
 			}
@@ -180,18 +182,19 @@ const validateConfig = <T extends Record<string, any>>(
 
 		// Array validations
 		if (fieldSchema.type === "array") {
-			if (fieldSchema.minLength && value.length < fieldSchema.minLength) {
+			const arr = value as unknown[]
+			if (fieldSchema.minLength && arr.length < fieldSchema.minLength) {
 				errors[key] = `Array must have at least ${fieldSchema.minLength} items`
 				continue
 			}
-			if (fieldSchema.maxLength && value.length > fieldSchema.maxLength) {
+			if (fieldSchema.maxLength && arr.length > fieldSchema.maxLength) {
 				errors[key] = `Array must have at most ${fieldSchema.maxLength} items`
 				continue
 			}
 			if (fieldSchema.items) {
 				const itemErrors: Record<number, string> = {}
-				for (let i = 0; i < value.length; i++) {
-					const itemResult = validateField(value[i], fieldSchema.items, result)
+				for (let i = 0; i < arr.length; i++) {
+					const itemResult = validateField(arr[i], fieldSchema.items, result as Record<string, unknown>)
 					if (itemResult !== null) {
 						itemErrors[i] = itemResult
 					}
@@ -215,7 +218,7 @@ const validateConfig = <T extends Record<string, any>>(
 
 		// Custom validator
 		if (fieldSchema.validator) {
-			const validationError = fieldSchema.validator(value, result)
+			const validationError = fieldSchema.validator(value, result as Record<string, unknown>)
 			if (validationError) {
 				errors[key] = validationError
 				continue
@@ -237,28 +240,28 @@ const validateConfig = <T extends Record<string, any>>(
 	return { valid: true, data: result as T }
 }
 
-function validateType(value: any, type: string): boolean {
+	function validateType(value: unknown, type: string): boolean {
 	switch (type) {
 		case "string":
-			return typeof value === "string"
+				return typeof value === "string"
 		case "number":
-			return typeof value === "number" && !isNaN(value)
+				return typeof value === "number" && !isNaN(value)
 		case "boolean":
-			return typeof value === "boolean"
+				return typeof value === "boolean"
 		case "object":
-			return value !== null && typeof value === "object" &&
+				return value !== null && typeof value === "object" &&
 				!Array.isArray(value)
 		case "array":
-			return Array.isArray(value)
+				return Array.isArray(value)
 		default:
 			return false
 	}
 }
 
 function validateField(
-	value: any,
+		value: unknown,
 	schema: FieldSchema,
-	parentData: any,
+		parentData: Record<string, unknown>,
 ): string | null {
 	if (!validateType(value, schema.type)) {
 		return `Expected ${schema.type}`
@@ -269,22 +272,24 @@ function validateField(
 	}
 
 	if (schema.type === "string") {
-		if (schema.pattern && !schema.pattern.test(value)) {
+		const str = value as string
+		if (schema.pattern && !schema.pattern.test(str)) {
 			return "Invalid format"
 		}
-		if (schema.minLength && value.length < schema.minLength) {
+		if (schema.minLength && str.length < schema.minLength) {
 			return `Minimum length is ${schema.minLength}`
 		}
-		if (schema.maxLength && value.length > schema.maxLength) {
+		if (schema.maxLength && str.length > schema.maxLength) {
 			return `Maximum length is ${schema.maxLength}`
 		}
 	}
 
 	if (schema.type === "number") {
-		if (schema.min !== undefined && value < schema.min) {
+		const num = value as number
+		if (schema.min !== undefined && num < schema.min) {
 			return `Must be >= ${schema.min}`
 		}
-		if (schema.max !== undefined && value > schema.max) {
+		if (schema.max !== undefined && num > schema.max) {
 			return `Must be <= ${schema.max}`
 		}
 	}

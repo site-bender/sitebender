@@ -1,5 +1,3 @@
-import type { Value } from "../../../types/index.ts"
-
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -47,13 +45,13 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @predicate
  */
-const propEq = <K extends string | symbol, V extends Value>(
+const propEq = <K extends string | symbol, V>(
 	key: K,
 ) =>
 (
 	value: V,
 ) =>
-<T extends Record<string | symbol, Value>>(
+<T extends Record<K, unknown>>(
 	obj: T,
 ): boolean => {
 	// Handle null/undefined objects
@@ -62,7 +60,7 @@ const propEq = <K extends string | symbol, V extends Value>(
 	}
 
 	// Strict equality check
-	return obj[key] === value
+	return (obj as Record<string | symbol, unknown>)[key] === value
 }
 
 export default propEq

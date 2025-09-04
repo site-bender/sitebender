@@ -2,7 +2,7 @@ import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 import composeComparators from "../composeComparators/index.ts"
 

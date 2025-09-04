@@ -4,10 +4,10 @@ import type {
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import castValue from "@engineSrc/utilities/castValue/index.ts"
-import getValue from "@engineSrc/utilities/getValue/index.ts"
+import castValue from "@sitebender/engine/utilities/castValue/index.ts"
+import getValue from "@sitebender/engine/utilities/getValue/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import isDefined from "../../utilities/isDefined.ts"

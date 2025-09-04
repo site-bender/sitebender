@@ -30,7 +30,7 @@ export default function TypeaheadTextField({
 	const helpId = `${id}-help`
 	const labelId = `${id}-label`
 	const selectSize = chooseMany ? Math.min(options.length, 5) : undefined
-	const opts = options.map((value: any) => ({
+	const opts = options.map((value: string) => ({
 		label: value,
 		value,
 	}))

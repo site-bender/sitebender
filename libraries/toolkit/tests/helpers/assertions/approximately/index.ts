@@ -9,13 +9,15 @@
  * @param epsilon - Maximum allowed difference (default 1e-10)
  * @returns true if numbers are approximately equal
  */
+import isNullish from "@sitebender/toolkit/simple/validation/isNullish/index.ts"
+
 const approximately = (
 	a: number | null | undefined,
 	b: number | null | undefined,
 	epsilon = 1e-10,
 ): boolean => {
 	// Handle null/undefined cases
-	if (a == null || b == null) {
+	if (isNullish(a) || isNullish(b)) {
 		return a === b
 	}
 

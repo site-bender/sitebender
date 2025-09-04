@@ -42,10 +42,10 @@
  * liftedDouble([1, 2, 3, 4]) // [2, 4, 6, 8]
  * ```
  */
-// deno-lint-ignore no-explicit-any
-const lift = <R>(fn: (...args: ReadonlyArray<any>) => R) => {
-	// deno-lint-ignore no-explicit-any
-	return (...arrays: ReadonlyArray<ReadonlyArray<any>>): Array<R> => {
+const lift = <R>(fn: (...args: ReadonlyArray<unknown>) => R) => {
+		return (
+			...arrays: ReadonlyArray<ReadonlyArray<unknown>>
+		): Array<R> => {
 		if (arrays.length === 0) return []
 		if (arrays.length === 1) {
 			// Unary function - just map
@@ -53,11 +53,11 @@ const lift = <R>(fn: (...args: ReadonlyArray<any>) => R) => {
 		}
 
 		// For n-ary functions, compute Cartesian product functionally
-		const cartesianProduct = arrays.reduce(
-			(acc, currentArray) =>
-				acc.flatMap((combo) => currentArray.map((item) => [...combo, item])),
-			[[]] as Array<Array<any>>,
-		)
+			const cartesianProduct = arrays.reduce<Array<Array<unknown>>>(
+				(acc, currentArray) =>
+					acc.flatMap((combo) => Array.from(currentArray).map((item) => [...combo, item])),
+				[[]],
+			)
 
 		// Apply function to each combination
 		return cartesianProduct.map((args) => fn(...args))

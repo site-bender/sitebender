@@ -1,5 +1,4 @@
 import isNullish from "../../validation/isNullish/index.ts"
-import replaceAt from "../replaceAt/index.ts"
 
 /**
  * Replaces the first occurrence of a value using a transformation function
@@ -30,10 +29,14 @@ const replaceFirst =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+		if (isNullish(array)) {
 			return []
 		}
-		return replaceAt<T>(array.indexOf(target))(replacer)(array)
+		const idx = (array as Array<T>).indexOf(target)
+		if (idx === -1) return [...array]
+		const out = [...array]
+		out[idx] = replacer(out[idx] as T)
+		return out
 	}
 
 export default replaceFirst

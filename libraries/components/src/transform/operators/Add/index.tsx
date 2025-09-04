@@ -4,7 +4,7 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Add JSX Component
@@ -20,7 +20,7 @@ import type {
  * </Add>
  */
 
-import AddConstructor from "@engineSrc/constructors/operators/Add/index.ts"
+import AddConstructor from "@sitebender/engine/constructors/operators/Add/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

@@ -1,4 +1,4 @@
-import type { NumericOperation } from "@sitebender/operations/lib/types"
+import type { NumericOperation } from "../../operations/operators/index.ts"
 
 import type { Either } from "../../fp/either/index.ts"
 import type { Option } from "../../fp/option/index.ts"
@@ -267,7 +267,7 @@ export type ReferrerPolicy =
 	| "strict-origin"
 	| "unsafe-url"
 
-// TODO: For space-separated string (DOMTokenList)
+// TODO(@chasm): For space-separated string (DOMTokenList)
 export type Sandbox =
 	| "allow-downloads"
 	| "allow-downloads-without-user-activation" // experimental

@@ -2,14 +2,17 @@ import type { ComparatorExecutor } from "../../../types/operations/registries/co
 
 const comparators = new Map<string, ComparatorExecutor>()
 
-export function registerComparator(tag: string, exec: ComparatorExecutor) {
+function register(tag: string, exec: ComparatorExecutor) {
 	comparators.set(tag, exec)
 }
 
-export function getComparator(tag: string): ComparatorExecutor | undefined {
+function get(tag: string): ComparatorExecutor | undefined {
 	return comparators.get(tag)
 }
 
-export function listComparators(): string[] {
+function list(): string[] {
 	return Array.from(comparators.keys())
 }
+
+const registry = { register, get, list } as const
+export default registry

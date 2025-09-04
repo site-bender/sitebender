@@ -69,7 +69,6 @@ export type PersonType = "Person" | PatientType
 
 export interface PersonProps {
 	"@type"?: PersonType
-	"@type"?: "Person"
 	additionalName?: Text
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	affiliation?: Organization | ReturnType<typeof OrganizationComponent>

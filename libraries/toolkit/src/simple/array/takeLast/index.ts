@@ -39,7 +39,7 @@ const takeLast = (count: number) =>
 <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || count <= 0) {
+	if (isNullish(array) || count <= 0 || Number.isNaN(count)) {
 		return []
 	}
 	return array.slice(-count)

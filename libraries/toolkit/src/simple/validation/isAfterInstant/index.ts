@@ -52,24 +52,22 @@ const isAfterInstant = (
 	instant: InstantInput | null | undefined,
 ): boolean => {
 	// Convert inputs to Temporal.Instant
-	const toInstant = (
+	const toMillis = (
 		value: InstantInput | null | undefined,
-	): Temporal.Instant | null => {
-		if (value == null) {
+	): number | null => {
+		if (value === null || value === undefined) {
 			return null
 		}
 
 		try {
-			if (value instanceof Temporal.Instant) {
-				return value
-			}
-
 			if (typeof value === "string") {
-				return Temporal.Instant.from(value)
+				const d = new Date(value)
+				const ms = d.getTime()
+				return Number.isNaN(ms) ? null : ms
 			}
 
 			if (typeof value === "number") {
-				return Temporal.Instant.fromEpochMilliseconds(value)
+				return Number.isFinite(value) ? value : null
 			}
 
 			return null
@@ -78,18 +76,14 @@ const isAfterInstant = (
 		}
 	}
 
-	const refInstant = toInstant(reference)
-	const compareInstant = toInstant(instant)
+	const refMs = toMillis(reference)
+	const cmpMs = toMillis(instant)
 
-	if (!refInstant || !compareInstant) {
+	if (refMs === null || cmpMs === null) {
 		return false
 	}
 
-	try {
-		return Temporal.Instant.compare(compareInstant, refInstant) > 0
-	} catch {
-		return false
-	}
+	return cmpMs > refMs
 }
 
 export default isAfterInstant

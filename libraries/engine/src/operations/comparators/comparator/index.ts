@@ -1,1 +1,2 @@
-export { compare, compare as default } from "./compare.ts"
+export { default as compare } from "./compare.ts"
+export { default } from "./compare.ts"

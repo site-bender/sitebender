@@ -1,8 +1,8 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
-import toKebabCase from "~utilities/toKebabCase/index.ts"
+import type { Logger } from "../../../types/index.ts"
 
-import type { Logger } from "../index.ts"
+import toKebabCase from "../../../utilities/toKebabCase/index.ts"
 
 /**
  * Pure function to copy a single CSS file

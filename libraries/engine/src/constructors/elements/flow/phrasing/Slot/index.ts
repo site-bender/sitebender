@@ -1,20 +1,19 @@
-import type { SlotAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SlotAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Slot element
@@ -35,16 +34,7 @@ export type SlotElementAttributes = SlotAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: SlotAttributes) => {
-	const { id, name, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isString)("name")(name),
-	}
-}
 
 /**
  * Creates a Slot element configuration object
@@ -75,7 +65,7 @@ const isValidSlotChild = (child: ElementConfig): boolean => {
 	return isFlowContent()(child)
 }
 
-export const Slot =
+const Slot =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const filteredChildren = isString(children)

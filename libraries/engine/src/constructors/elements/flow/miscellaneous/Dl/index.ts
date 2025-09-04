@@ -28,6 +28,6 @@ const isValidDlChild = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const Dl = GlobalOnly("Dl")(isValidDlChild)
+const Dl = GlobalOnly("Dl")(isValidDlChild)
 
 export default Dl

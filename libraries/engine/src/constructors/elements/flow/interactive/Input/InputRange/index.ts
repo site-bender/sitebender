@@ -1,20 +1,15 @@
-import type { InputRangeAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { InputRangeAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isNumber from "@engineSrc/guards/isNumber/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for InputRange
@@ -34,36 +29,7 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const {
-		autocomplete,
-		autofocus,
-		disabled,
-		form,
-		list,
-		max,
-		min,
-		name,
-		step,
-		value,
-		...attrs
-	} = attributes as unknown as InputRangeAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("list")(list),
-		...filterAttribute(isNumber)("max")(max),
-		...filterAttribute(isNumber)("min")(min),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isNumber)("step")(step),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputRange element configuration object
@@ -81,6 +47,10 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
  * })
  * ```
  */
-const InputRange = Input("range")(filterAttributes)
+const InputRange = Input("range")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputRange
+
+

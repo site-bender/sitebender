@@ -1,4 +1,4 @@
-import type { Value } from "@engineTypes/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
 
 export default function isString(value: Value): value is string {
 	return typeof value === "string"

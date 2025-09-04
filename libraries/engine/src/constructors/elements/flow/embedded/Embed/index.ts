@@ -1,21 +1,17 @@
-import type { ImageAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { EmbedAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { ImageAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { EmbedAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Embed attributes including reactive properties and ARIA
@@ -34,85 +30,7 @@ export type EmbedElementAttributes = EmbedAttributes & ImageAriaAttributes & {
  * Filters attributes for Embed element
  * Allows global attributes and validates embed-specific attributes
  */
-export const filterAttributes = (attributes: EmbedElementAttributes) => {
-	const {
-		id,
-		height,
-		src,
-		type,
-		width,
-		// ARIA attributes
-		role,
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add embed-specific attributes
-	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
-	}
-	if (isDefined(src)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
-	}
-	if (isDefined(type)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
-	}
-	if (isDefined(width)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
-	}
-
-	// Add ARIA attributes
-	if (isDefined(role)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("role")(role))
-	}
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates an Embed element configuration object
@@ -130,7 +48,7 @@ export const filterAttributes = (attributes: EmbedElementAttributes) => {
  * })
  * ```
  */
-export const Embed = (
+const Embed = (
 	attributes: EmbedElementAttributes = {},
 ): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(attributes)

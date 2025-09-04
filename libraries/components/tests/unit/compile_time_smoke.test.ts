@@ -1,4 +1,4 @@
-import type { ComparatorNode, IrDocument } from "@engineTypes/ir/index.ts"
+import type { ComparatorNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,

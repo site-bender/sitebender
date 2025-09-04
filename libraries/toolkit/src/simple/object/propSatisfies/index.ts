@@ -1,5 +1,3 @@
-import type { Value } from "../../../types/index.ts"
-
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -36,13 +34,13 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @predicate
  */
-const propSatisfies = <V extends Value>(
+const propSatisfies = <V>(
 	predicate: (value: V) => boolean,
 ) =>
 <K extends string | symbol>(
 	key: K,
 ) =>
-<T extends Record<string | symbol, Value>>(
+<T extends Record<K, unknown>>(
 	obj: T,
 ): boolean => {
 	// Handle null/undefined objects
@@ -51,13 +49,13 @@ const propSatisfies = <V extends Value>(
 	}
 
 	// Check if property exists
-	if (!Object.prototype.hasOwnProperty.call(obj, key as string | symbol)) {
+	if (!Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)) {
 		return false
 	}
 
 	// Test the property value with the predicate
 	try {
-		return predicate(obj[key] as V)
+	return predicate((obj as Record<string | symbol, unknown>)[key] as V)
 	} catch {
 		// If predicate throws, return false
 		return false

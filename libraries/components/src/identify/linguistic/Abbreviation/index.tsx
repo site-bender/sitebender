@@ -50,7 +50,7 @@ export type Props = {
 export default function Abbreviation({
 	children,
 	context,
-	description,
+	description: _description,
 	expansion,
 	href,
 	ipa,

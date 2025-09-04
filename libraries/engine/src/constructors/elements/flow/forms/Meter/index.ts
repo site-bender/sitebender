@@ -1,23 +1,20 @@
-import type { MeterAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { MeterAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { MeterAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { MeterAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isNumber from "@engineSrc/guards/isNumber/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@sitebender/engine/guards/createAdvancedFilters/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Meter element
@@ -41,123 +38,7 @@ export type MeterElementAttributes = MeterAttributes & MeterAriaAttributes & {
  * Filters attributes for Meter element
  * Allows global attributes and validates meter-specific attributes
  */
-export const filterAttributes = (
-	attributes: Partial<MeterElementAttributes>,
-) => {
-	const {
-		id,
-		form,
-		high,
-		low,
-		max,
-		min,
-		optimum,
-		value,
-		// ARIA attributes
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		"aria-valuemin": ariaValuemin,
-		"aria-valuemax": ariaValuemax,
-		"aria-valuenow": ariaValuenow,
-		"aria-valuetext": ariaValuetext,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add meter-specific attributes
-	if (isDefined(form)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
-	}
-	if (isDefined(high)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("high")(high))
-	}
-	if (isDefined(low)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("low")(low))
-	}
-	if (isDefined(max)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("max")(max))
-	}
-	if (isDefined(min)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("min")(min))
-	}
-	if (isDefined(optimum)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("optimum")(optimum))
-	}
-	if (isDefined(value)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("value")(value))
-	}
-
-	// Add ARIA attributes
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(ariaValuemin)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isNumber)("aria-valuemin")(ariaValuemin),
-		)
-	}
-	if (isDefined(ariaValuemax)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isNumber)("aria-valuemax")(ariaValuemax),
-		)
-	}
-	if (isDefined(ariaValuenow)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isNumber)("aria-valuenow")(ariaValuenow),
-		)
-	}
-	if (isDefined(ariaValuetext)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-valuetext")(ariaValuetext),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Meter element configuration object
@@ -177,7 +58,7 @@ export const filterAttributes = (
  * ])
  * ```
  */
-export const Meter = (attributes: Partial<MeterElementAttributes> = {}) =>
+const Meter = (attributes: Partial<MeterElementAttributes> = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

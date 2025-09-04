@@ -56,11 +56,11 @@ import path from "../path/index.ts"
  * ```
  */
 const lensPath = (
-	pathArray: Array<string | number | symbol>,
+	pathArray: Array<string | number>,
 ): Lens<Value, Value> => {
 	return lens<Value, Value>(
 		// Getter: traverse path to get value
-		(obj) => path(pathArray)(obj),
+	(obj) => path(pathArray as Array<string | number>)(obj),
 	)(
 		// Setter: immutably set value at path
 		(value) => (obj) => {
@@ -70,9 +70,9 @@ const lensPath = (
 			}
 
 			// Use assocPath for immutable nested updates
-			return assocPath(pathArray)(value)(
+	    return assocPath(pathArray as Array<string | number>)(value)(
 				obj && typeof obj === "object"
-					? obj as Record<string | symbol, Value>
+		    ? obj as Record<string, Value>
 					: {},
 			)
 		},

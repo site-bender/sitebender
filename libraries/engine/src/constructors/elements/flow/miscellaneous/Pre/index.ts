@@ -1,15 +1,15 @@
-import type { PreformattedTextAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
+import type { PreformattedTextAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Child filter that validates phrasing content
@@ -52,6 +52,6 @@ export type PreElementAttributes = PreformattedTextAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const Pre = GlobalOnly("Pre")(phrasingContentFilter)
+const Pre = GlobalOnly("Pre")(phrasingContentFilter)
 
 export default Pre

@@ -1,5 +1,5 @@
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
+import ADVANCED_FILTERS from "../../../../../guards/createAdvancedFilters/index.ts"
 
 /**
  * Creates an Address element configuration object
@@ -15,6 +15,6 @@ import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/in
  * ])
  * ```
  */
-export const Address = GlobalOnly("Address")(ADVANCED_FILTERS.addressContent)
+const Address = GlobalOnly("Address")(ADVANCED_FILTERS.addressContent)
 
 export default Address

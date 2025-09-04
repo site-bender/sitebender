@@ -4,9 +4,9 @@ import type {
 	EngineError,
 	LocalValues,
 	OperationFunction,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import { isLeft } from "@engineTypes/index.ts"
+import { isLeft } from "@sitebender/engine-types/index.ts"
 
 import Error from "../../../../constructors/Error/index.ts"
 import composeComparators from "../../../composers/composeComparators/index.ts"

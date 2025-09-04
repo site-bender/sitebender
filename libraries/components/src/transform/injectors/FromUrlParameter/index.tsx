@@ -2,7 +2,7 @@ import type {
 	Datatype,
 	FromUrlParameterInjector,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * FromUrlParameter JSX Component
@@ -19,7 +19,7 @@ import type {
  * For URL /user/123/profile, segment 2 would return "123"
  */
 
-import FromUrlParameterConstructor from "@engineSrc/constructors/injectors/FromUrlParameter/index.ts"
+import FromUrlParameterConstructor from "@sitebender/engine/constructors/injectors/FromUrlParameter/index.ts"
 
 export type FromUrlParameterProps = {
 	segment: number

@@ -56,22 +56,27 @@ const matrixScalarMultiply = (
 	}
 
 	// Validate and scale matrix using functional approach
-	const result = matrix.map((row) => {
+	const result: Array<Array<number>> = []
+	for (let i = 0; i < matrix.length; i++) {
+		const row = matrix[i]
 		if (!Array.isArray(row)) {
 			return NaN
 		}
-		return row.map((val) => {
+		const newRow: Array<number> = []
+		for (let j = 0; j < row.length; j++) {
+			const val = row[j]
 			if (isNullish(val) || typeof val !== "number") {
 				return NaN
 			}
-			return scalar * val
-		})
-	})
+			newRow.push(scalar * val)
+		}
+		result.push(newRow)
+	}
 
 	// Check if any NaN was returned
 	if (
 		result.some((row) =>
-			row === NaN || (Array.isArray(row) && row.some((val) => isNaN(val)))
+			(Array.isArray(row) && row.some((val) => Number.isNaN(val)))
 		)
 	) {
 		return NaN

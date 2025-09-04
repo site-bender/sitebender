@@ -1,4 +1,4 @@
-import isNullish from "../validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Creates a deterministic string representation of objects/arrays

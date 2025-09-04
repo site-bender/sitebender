@@ -42,7 +42,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const transpose = <T>(
 	matrix: ReadonlyArray<ReadonlyArray<T>> | null | undefined,
 ): Array<Array<T | undefined>> => {
-	if (isNullish(matrix) || !Array.isArray(matrix) || matrix.length === 0) {
+	if (isNullish(matrix) || matrix.length === 0) {
 		return []
 	}
 

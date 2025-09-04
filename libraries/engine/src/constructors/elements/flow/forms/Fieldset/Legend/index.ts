@@ -1,22 +1,20 @@
-import type { LegendAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { GlobalAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { LegendAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { GlobalAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@sitebender/engine/guards/createAdvancedFilters/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Legend attributes including reactive properties and ARIA
@@ -38,42 +36,7 @@ export type LegendElementAttributes =
  * Filters attributes for Legend element
  * Allows global attributes and validates legend-specific attributes
  */
-export const filterAttributes = (attributes: LegendElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes (only aria-hidden supported for Legend)
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes (only aria-hidden is valid for Legend)
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Legend element configuration object
@@ -90,7 +53,7 @@ export const filterAttributes = (attributes: LegendElementAttributes) => {
  * ])
  * ```
  */
-export const Legend = (attributes: LegendElementAttributes = {}) =>
+const Legend = (attributes: LegendElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

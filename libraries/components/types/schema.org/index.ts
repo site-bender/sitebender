@@ -15,7 +15,7 @@ export type Formatter = (
 	props?: Record<string, unknown>,
 ) => JSX.Element
 export type Formatters = Record<string, Formatter>
-export type TemplateData = Record<string, any>
+export type TemplateData = Record<string, unknown>
 
 export type { default as AMRadioChannel } from "./Thing/Intangible/BroadcastChannel/RadioChannel/AMRadioChannel/index.ts"
 export type { default as APIReference } from "./Thing/CreativeWork/Article/TechArticle/APIReference/index.ts"

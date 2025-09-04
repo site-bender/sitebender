@@ -30,7 +30,7 @@ import type { PhrasingContent } from "../phrasing/index.ts"
 export type FlowContent =
 	| PhrasingContent
 	| AddressElement
-	| AreaElement // TODO: narrow type (descendant of map)
+	| AreaElement // TODO(@chasm): narrow type (descendant of map)
 	| ArticleElement
 	| AsideElement
 	| BlockquoteElement

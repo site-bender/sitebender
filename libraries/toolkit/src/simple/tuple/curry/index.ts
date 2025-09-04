@@ -50,13 +50,14 @@ function curry<A, B, C, R>(
 	fn: (tuple: Triple<A, B, C>) => R,
 ): (a: A) => (b: B) => (c: C) => R
 
-function curry(fn: Function) {
-	const arity = fn.length === 1 ? 2 : 3 // Assume pair or triple based on function
+function curry(fn: unknown) {
+	const f = fn as (tuple: ReadonlyArray<unknown>) => unknown
+	const arity = (f as unknown as { length: number }).length === 1 ? 2 : 3
 
 	if (arity === 2) {
-		return (a: unknown) => (b: unknown) => fn([a, b])
+		return (a: unknown) => (b: unknown) => f([a, b])
 	} else {
-		return (a: unknown) => (b: unknown) => (c: unknown) => fn([a, b, c])
+		return (a: unknown) => (b: unknown) => (c: unknown) => f([a, b, c])
 	}
 }
 

@@ -1,24 +1,19 @@
-import type { DivAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { DivisionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { DivAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { DivisionAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import { ALL_ARIA_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS as _ADVANCED_FILTERS } from "@engineSrc/guards/createAdvancedFilters/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Div attributes including reactive properties and ARIA
@@ -37,154 +32,7 @@ export type DivElementAttributes = DivisionAttributes & DivAriaAttributes & {
  * Filters attributes for Div element
  * Allows global attributes and validates div-specific attributes
  */
-export const filterAttributes = (attributes: DivElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		"aria-expanded": ariaExpanded,
-		"aria-controls": ariaControls,
-		"aria-live": ariaLive,
-		"aria-atomic": ariaAtomic,
-		"aria-busy": ariaBusy,
-		"aria-relevant": ariaRelevant,
-		"aria-current": ariaCurrent,
-		"aria-activedescendant": ariaActivedescendant,
-		"aria-owns": ariaOwns,
-		"aria-flowto": ariaFlowto,
-		"aria-keyshortcuts": ariaKeyshortcuts,
-		"aria-roledescription": ariaRoledescription,
-		role,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(ariaExpanded)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-expanded")(ariaExpanded),
-		)
-	}
-	if (isDefined(ariaControls)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-controls")(ariaControls),
-		)
-	}
-	if (isDefined(ariaLive)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-live")(ariaLive),
-		)
-	}
-	if (isDefined(ariaAtomic)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-atomic")(ariaAtomic),
-		)
-	}
-	if (isDefined(ariaBusy)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-busy")(ariaBusy),
-		)
-	}
-	if (isDefined(ariaRelevant)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-relevant")(ariaRelevant),
-		)
-	}
-	if (isDefined(ariaCurrent)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-current")(ariaCurrent),
-		)
-	}
-	if (isDefined(ariaActivedescendant)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-activedescendant")(ariaActivedescendant),
-		)
-	}
-	if (isDefined(ariaOwns)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-owns")(ariaOwns),
-		)
-	}
-	if (isDefined(ariaFlowto)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-flowto")(ariaFlowto),
-		)
-	}
-	if (isDefined(ariaKeyshortcuts)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-keyshortcuts")(ariaKeyshortcuts),
-		)
-	}
-	if (isDefined(ariaRoledescription)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-roledescription")(ariaRoledescription),
-		)
-	}
-	if (isDefined(role)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isMemberOf(ALL_ARIA_ROLES))("role")(role),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Div element configuration object
@@ -201,7 +49,7 @@ export const filterAttributes = (attributes: DivElementAttributes) => {
  * })([TextNode("Content")])
  * ```
  */
-export const Div = (attributes: DivElementAttributes = {}) =>
+const Div = (attributes: DivElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

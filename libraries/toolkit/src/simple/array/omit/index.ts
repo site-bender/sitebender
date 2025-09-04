@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -40,14 +41,14 @@ const omit = <T>(indices: Array<number>) =>
 (
 	array: Array<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return []
 	}
 
 	// Normalize negative indices to positive ones
 	const normalizedIndices = indices.map((i) => i < 0 ? array.length + i : i)
 
-	return array.filter((_, index) => !normalizedIndices.includes(index))
+	return array.filter((_, index) => not(normalizedIndices.includes(index)))
 }
 
 export default omit

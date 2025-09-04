@@ -5,14 +5,12 @@ import type {
 	IrDocument,
 	Node,
 } from "../../../types/ir/index.ts"
+import type { ComposeContext } from "../../context/composeContext/index.ts"
 
-import {
-	type ComposeContext,
-	createComposeContext,
-} from "../../context/composeContext/index.ts"
-import { registerDefaultExecutors } from "../../operations/defaults/registerDefaults/index.ts"
-import { getAction } from "../../operations/registries/actions.ts"
-import { getEvent } from "../../operations/registries/events.ts"
+import createComposeContext from "../../context/composeContext/index.ts"
+import registerDefaultExecutors from "../../operations/defaults/registerDefaults/index.ts"
+import actions from "../../operations/registries/actions.ts"
+import events from "../../operations/registries/events.ts"
 import evaluate from "../evaluate/index.ts"
 import resolveAnchor from "./resolveAnchor/index.ts"
 import walk from "./walk/index.ts"
@@ -24,11 +22,11 @@ export default function hydrate(ir: IrDocument, ctx?: ComposeContext) {
 	const bindEvent = (node: EventBindingNode) => {
 		const el = resolveAnchor(node)
 		if (!el) return
-		const binder = getEvent(node.event)
+		const binder = events.get(node.event)
 		const handlerAction = node.handler
 		if (!binder || !handlerAction) return
 		const dispatch = async () => {
-			const exec = getAction(handlerAction.action)
+			const exec = actions.get(handlerAction.action)
 			if (!exec) return
 			await exec(
 				handlerAction as ActionNode,

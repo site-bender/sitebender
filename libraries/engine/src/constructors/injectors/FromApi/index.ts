@@ -2,9 +2,9 @@ import type {
 	ComplexDatatype,
 	FromApiInjector,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import { OPERAND_TYPES } from "@engineSrc/constructors/constants/index.ts"
+import { OPERAND_TYPES } from "@sitebender/engine/constructors/constants/index.ts"
 
 interface ApiOptions {
 	endpoint: string

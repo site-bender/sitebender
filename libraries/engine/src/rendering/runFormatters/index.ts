@@ -1,5 +1,5 @@
-import concat from "@toolkit/simple/array/concat/index.ts"
-import unique from "@toolkit/simple/array/unique/index.ts"
+import concat from "@sitebender/toolkit/simple/array/concat/index.ts"
+import unique from "@sitebender/toolkit/simple/array/unique/index.ts"
 
 const runFormatters = () => {
 	const formats = Object.entries(document.__sbFormatted || {}) as Array<[

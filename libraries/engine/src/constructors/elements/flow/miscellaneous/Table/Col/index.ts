@@ -1,17 +1,17 @@
-import type { TableColumnAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { TableColumnAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import FilteredEmpty from "@engineSrc/constructors/abstracted/FilteredEmpty/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import FilteredEmpty from "@sitebender/engine/constructors/abstracted/FilteredEmpty/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
+
+// no local guards needed here; handled in filterAttributes
 
 /**
  * Filters attributes for Col element
@@ -32,16 +32,7 @@ export type ColElementAttributes = TableColumnAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableColumnAttributes) => {
-	const { id, span, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("span")(span),
-	}
-}
 
 /**
  * Creates a Col element configuration object
@@ -57,6 +48,6 @@ export const filterAttributes = (attributes: TableColumnAttributes) => {
  * })
  * ```
  */
-export const Col = FilteredEmpty("Col")(filterAttributes)
+const Col = FilteredEmpty("Col")(filterAttributes)
 
 export default Col

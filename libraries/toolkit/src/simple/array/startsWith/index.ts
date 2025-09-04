@@ -59,10 +59,6 @@ const startsWith = <T>(
 		return false
 	}
 
-	if (!Array.isArray(prefix) || !Array.isArray(array)) {
-		return false
-	}
-
 	if (prefix.length === 0) {
 		return true
 	}

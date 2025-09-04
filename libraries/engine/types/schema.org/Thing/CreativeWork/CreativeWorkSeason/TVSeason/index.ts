@@ -1,1 +1,1 @@
-export type { default } from "../../TVSeason/index.ts"
+export type { default, TVSeasonType } from "../../TVSeason/index.ts"

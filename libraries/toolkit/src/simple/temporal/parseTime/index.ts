@@ -56,7 +56,7 @@ const parseTime = (
 
 	try {
 		// Remove timezone indicators (Z, UTC, etc.) if present
-		let cleanInput = input.replace(/[zZ]$/, "").trim()
+		const cleanInput = input.replace(/[zZ]$/, "").trim()
 
 		// Check for AM/PM format
 		const ampmMatch = cleanInput.match(/^(.+?)\s*([ap])m?$/i)

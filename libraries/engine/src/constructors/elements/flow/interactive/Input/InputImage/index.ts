@@ -1,24 +1,15 @@
-import type { InputImageAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { InputImageAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import {
-	FORM_METHODS,
-	FORM_TARGETS,
-	POPOVER_TARGET_ACTIONS,
-} from "@engineSrc/constructors/elements/constants/index.ts"
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for InputImage
@@ -38,48 +29,7 @@ export type InputImageElementAttributes = InputImageAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const {
-		alt,
-		autofocus,
-		disabled,
-		form,
-		formAction,
-		formEncType,
-		formMethod,
-		formNoValidate,
-		formTarget,
-		height,
-		name,
-		popoverTarget,
-		popoverTargetAction,
-		src,
-		width,
-		...attrs
-	} = attributes as unknown as InputImageAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isString)("alt")(alt),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("formaction")(formAction),
-		...filterAttribute(isString)("formenctype")(formEncType),
-		...filterAttribute(isMemberOf(FORM_METHODS))("formmethod")(formMethod),
-		...filterAttribute(isBoolean)("formnovalidate")(formNoValidate),
-		...filterAttribute(isMemberOf(FORM_TARGETS))("formtarget")(formTarget),
-		...filterAttribute(isInteger)("height")(height),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("popovertarget")(popoverTarget),
-		...filterAttribute(isMemberOf(POPOVER_TARGET_ACTIONS))(
-			"popovertargetaction",
-		)(popoverTargetAction),
-		...filterAttribute(isString)("src")(src),
-		...filterAttribute(isInteger)("width")(width),
-	}
-}
 
 /**
  * Creates an InputImage element configuration object
@@ -98,6 +48,10 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
  * })
  * ```
  */
-const InputImage = Input("image")(filterAttributes)
+const InputImage = Input("image")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputImage
+
+

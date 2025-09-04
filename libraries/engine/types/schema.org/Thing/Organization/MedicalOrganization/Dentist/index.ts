@@ -1,1 +1,1 @@
-export type { default } from "../../LocalBusiness/Dentist/index.ts"
+export type { default, DentistType } from "../../LocalBusiness/Dentist/index.ts"

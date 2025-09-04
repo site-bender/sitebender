@@ -57,7 +57,7 @@
  * @safe
  * @curried
  */
-import isNullish from "../../../validation/isNullish"
+import isNullish from "../../validation/isNullish/index.ts"
 
 const addDuration = (duration: Temporal.Duration | null | undefined) =>
 (

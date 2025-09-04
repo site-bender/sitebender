@@ -1,6 +1,6 @@
 import compare from "../../comparator/index.ts"
 
-const isAfterDate = compare((operand, test) => {
+const isAfterDate = compare((operand: unknown, test: unknown) => {
 	const a = String(operand)
 	const b = String(test)
 	return a > b

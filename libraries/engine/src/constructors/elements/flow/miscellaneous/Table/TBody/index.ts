@@ -29,6 +29,6 @@ const tableRowFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const TBody = GlobalOnly("TBody")(tableRowFilter)
+const TBody = GlobalOnly("TBody")(tableRowFilter)
 
 export default TBody

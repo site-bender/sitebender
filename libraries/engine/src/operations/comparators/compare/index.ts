@@ -7,7 +7,7 @@ import getErrorMessage from "./getErrorMessage/index.ts"
 type ComparatorPredicate = (o: unknown, t: unknown) => boolean
 
 // Keep types broad to avoid deep coupling; runtime behavior stays identical.
-export const compare =
+const compare =
 	(comparator: ComparatorPredicate) =>
 	(op: unknown) =>
 	async (arg: unknown, localValues?: unknown): Promise<unknown> => {

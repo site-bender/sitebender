@@ -30,7 +30,7 @@ const replaceLast =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>
 	(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (isNullish(array) || !Array.isArray(array)) {
+		if (isNullish(array)) {
 			return []
 		}
 		return replaceAt<T>(array.lastIndexOf(target))(replacer)(array)

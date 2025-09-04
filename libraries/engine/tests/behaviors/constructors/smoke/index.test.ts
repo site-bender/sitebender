@@ -8,17 +8,17 @@ import type {
 	LogicalConfig,
 	Operand,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import And from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
-import Or from "@engineSrc/constructors/comparators/algebraic/Or/index.ts"
-import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
-import FromApi from "@engineSrc/constructors/injectors/FromApi/index.ts"
-import FromLookup from "@engineSrc/constructors/injectors/FromLookup/index.ts"
-import FromLookupTable from "@engineSrc/constructors/injectors/FromLookupTable/index.ts"
-import FromQueryString from "@engineSrc/constructors/injectors/FromQueryString/index.ts"
-import FromUrlParameter from "@engineSrc/constructors/injectors/FromUrlParameter/index.ts"
-import Average from "@engineSrc/constructors/operators/Average/index.ts"
+import And from "@sitebender/engine/constructors/comparators/algebraic/And/index.ts"
+import Or from "@sitebender/engine/constructors/comparators/algebraic/Or/index.ts"
+import Constant from "@sitebender/engine/constructors/injectors/Constant/index.ts"
+import FromApi from "@sitebender/engine/constructors/injectors/FromApi/index.ts"
+import FromLookup from "@sitebender/engine/constructors/injectors/FromLookup/index.ts"
+import FromLookupTable from "@sitebender/engine/constructors/injectors/FromLookupTable/index.ts"
+import FromQueryString from "@sitebender/engine/constructors/injectors/FromQueryString/index.ts"
+import FromUrlParameter from "@sitebender/engine/constructors/injectors/FromUrlParameter/index.ts"
+import Average from "@sitebender/engine/constructors/operators/Average/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

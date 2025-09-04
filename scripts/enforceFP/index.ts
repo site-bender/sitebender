@@ -1,106 +1,42 @@
 // Strict FP guardrail: scans files for impermissible patterns (mutable or OOP)
-// Usage: deno run --allow-read scripts/enforceFP/index.ts [globs...]
+// Usage: deno run --allow-read --allow-run scripts/enforceFP/index.ts [globs...]
 // Defaults to scanning libraries/**/src/**/*.{ts,tsx}
 
-const DEFAULT_GLOBS = [
-	"libraries/*/src/**/*.ts",
-	"libraries/*/src/**/*.tsx",
-]
+import {
+	DEFAULT_FP_GLOBS,
+	FP_ALLOWLIST,
+	FP_FORBIDDEN,
+} from "../constants/index.ts"
+import assignMatcher from "./assignMatcher/index.ts"
+import iterFiles from "./iterFiles/index.ts"
+import stripCommentsAndStrings from "./stripCommentsAndStrings/index.ts"
 
-const FORBIDDEN = [
-	{ name: "let", regex: /\blet\b/ },
-	{ name: "var", regex: /\bvar\b/ },
-	{ name: "for-loop", regex: /\bfor\s*\(/ }, // covers for, for..of, for..in
-	{ name: "class", regex: /\bclass\s+[A-Za-z0-9_]/ },
-	{ name: "inc", regex: /\+\+|--/ },
-	{ name: "throw", regex: /\bthrow\b/ },
-	// Common array/object mutators
-	{ name: "push", regex: /\.push\(/ },
-	{ name: "pop", regex: /\.pop\(/ },
-	{ name: "shift", regex: /\.shift\(/ },
-	{ name: "unshift", regex: /\.unshift\(/ },
-	{ name: "splice", regex: /\.splice\(/ },
-	{ name: "sort", regex: /\.sort\(/ },
-	{ name: "reverse", regex: /\.reverse\(/ },
-	{ name: "copyWithin", regex: /\.copyWithin\(/ },
-	{ name: "fill", regex: /\.fill\(/ },
-]
-
-// Special-case: flag Object.assign unless first arg is a literal {}
-const assignMatcher = (source: string) => {
-	const re = /Object\.assign\(([^)]*)\)/g
-	const findings: Array<{ index: number; text: string }> = []
-	let match: RegExpExecArray | null
-	while ((match = re.exec(source))) {
-		const args = match[1].trim()
-		if (!args.startsWith("{}")) {
-			findings.push({ index: match.index, text: match[0] })
-		}
-	}
-	return findings
+type Violation = {
+	file: string
+	line: number
+	col: number
+	rule: string
+	snippet: string
 }
 
-async function* iterFiles(patterns: string[]) {
-	const files = new Set<string>()
-	const procs = patterns.map((raw) => {
-		const p = raw.replace(/^['"]|['"]$/g, "") // strip surrounding quotes if provided
-		return new Deno.Command("bash", {
-			args: ["-lc", `ls -1 ${p}`],
-			stdout: "piped",
-			stderr: "null",
-		}).output()
-	})
-	const outputs = await Promise.allSettled(procs)
-	for (const o of outputs) {
-		if (o.status !== "fulfilled" || !o.value.success) continue
-		const text = new TextDecoder().decode(o.value.stdout)
-		for (const line of text.split("\n")) {
-			const fp = line.trim()
-			if (fp && !files.has(fp)) files.add(fp)
-		}
-	}
-	for (const f of files) yield f
-}
+export default async function enforceFP(globsArg: string[] = Deno.args) {
+	const pedantic = globsArg.includes("--pedantic")
+	const globs = pedantic ? globsArg.filter((a) => a !== "--pedantic") : globsArg
+	const patterns = globs.length ? globs : DEFAULT_FP_GLOBS
 
-// Remove comments and string literals for safer scanning
-function stripCommentsAndStrings(input: string): string {
-	// Remove block comments
-	let s = input.replace(/\/\*[\s\S]*?\*\//g, "")
-	// Remove line comments
-	s = s.replace(/(^|[^:])\/\/.*$/gm, "$1")
-	// Remove template strings (greedy but fine for scanning)
-	s = s.replace(/`[\s\S]*?`/g, "``")
-	// Remove single and double quoted strings
-	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(/"(?:\\.|[^"\\])*"/g, '""')
-	return s
-}
+	const violations: Violation[] = []
 
-async function main() {
-	const args = Deno.args
-	const pedantic = args.includes("--pedantic")
-	const globs =
-		(pedantic ? args.filter((a) => a !== "--pedantic") : args).length
-			? (pedantic ? args.filter((a) => a !== "--pedantic") : args)
-			: DEFAULT_GLOBS
-	const ALLOWLIST = new Set<string>([
-		// Add files here that are explicitly approved exceptions (stateful adapters, etc.)
-		"libraries/toolkit/src/state/store.ts",
-	])
-	const violations: Array<
-		{ file: string; line: number; col: number; rule: string; snippet: string }
-	> = []
-
-	for await (const file of iterFiles(globs)) {
+	for await (const file of iterFiles(patterns)) {
 		if (file.endsWith(".d.ts")) continue
-		if (ALLOWLIST.has(file)) continue
+		if (FP_ALLOWLIST.has(file)) continue
 		try {
 			const raw = await Deno.readTextFile(file)
 			const source = pedantic ? raw : stripCommentsAndStrings(raw)
 			const lines = source.split(/\r?\n/)
 
 			// Simple forbidden pattern scan
-			FORBIDDEN.forEach((rule) => {
-				lines.forEach((ln, idx) => {
+			FP_FORBIDDEN.forEach((rule) => {
+				lines.forEach((ln: string, idx: number) => {
 					if (rule.regex.test(ln)) {
 						violations.push({
 							file,
@@ -145,11 +81,11 @@ async function main() {
 		}
 		console.error(`\nTotal: ${violations.length}`)
 		Deno.exit(1)
-	} else {
-		console.log("Strict FP check passed (no violations)")
 	}
+
+	console.log("Strict FP check passed (no violations)")
 }
 
 if (import.meta.main) {
-	await main()
+	await enforceFP()
 }

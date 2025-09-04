@@ -1,20 +1,15 @@
-import type { TableDataCellAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { TableDataCellAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import { TD_ROLES } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Td element
@@ -35,19 +30,7 @@ export type TdElementAttributes = TableDataCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: TableDataCellAttributes) => {
-	const { id, colSpan, headers, rowSpan, role, ...otherAttributes } = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	return {
-		...getId(id),
-		...globals,
-		...filterAttribute(isInteger)("colSpan")(colSpan),
-		...filterAttribute(isString)("headers")(headers),
-		...filterAttribute(isInteger)("rowSpan")(rowSpan),
-		...filterAttribute(isMemberOf(TD_ROLES))("role")(role),
-	}
-}
 
 /**
  * Creates a Td element configuration object
@@ -66,6 +49,6 @@ export const filterAttributes = (attributes: TableDataCellAttributes) => {
  * ])
  * ```
  */
-export const Td = Filtered("Td")(filterAttributes)
+const Td = Filtered("Td")(filterAttributes)
 
 export default Td

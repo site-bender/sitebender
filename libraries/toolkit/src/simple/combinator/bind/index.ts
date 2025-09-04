@@ -44,6 +44,9 @@ const bind = <T, Args extends ReadonlyArray<unknown>, R>(
 	fn: (this: T, ...args: Args) => R,
 	context: T,
 ) =>
-(...args: Args): R => fn.apply(context, args)
+(...args: Args): R => (fn as unknown as (...args: unknown[]) => R).apply(
+	context as unknown,
+	[...args] as unknown[]
+)
 
 export default bind

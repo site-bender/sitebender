@@ -1,6 +1,6 @@
-import filter from "@toolkit/simple/array/filter/index.ts"
-import path from "@toolkit/simple/object/path/index.ts"
-import isNotNullish from "@toolkit/simple/validation/isNotNullish/index.ts"
+import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
+import path from "@sitebender/toolkit/simple/object/path/index.ts"
+import isNotNullish from "@sitebender/toolkit/simple/validation/isNotNullish/index.ts"
 
 import type {
 	ComparatorConfig,

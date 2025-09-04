@@ -1,5 +1,7 @@
 import { join } from "https://deno.land/std@0.220.1/path/mod.ts"
 
+import type { Logger } from "../../types/index.ts"
+
 import copyStylesRecursive from "./copyStylesRecursive/index.ts"
 
 export const MSG_CSS_NO_SRC_COMPONENTS_DIR = "No src/components directory found"
@@ -13,12 +15,6 @@ export const MSG_CSS_COPY_SUCCESS_SUFFIX = " CSS file(s)"
 export const MSG_CSS_SRC_NOT_DIRECTORY =
 	"src/components exists but is not a directory"
 export const MSG_CSS_COPY_OPERATION_ERROR = "Error during CSS copy operation"
-
-export type Logger = {
-	log: (...args: unknown[]) => void
-	warn: (...args: unknown[]) => void
-	error: (...args: unknown[]) => void
-}
 
 const defaultLogger: Logger = {
 	log: console.log,

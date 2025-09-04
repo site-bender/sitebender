@@ -4,7 +4,7 @@ import type {
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Generic element constructor attributes type

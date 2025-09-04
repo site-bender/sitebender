@@ -46,19 +46,19 @@ import isNotNullish from "../../validation/isNotNullish/index.ts"
  * ```
  */
 const mergeDeep = <T extends Record<string | symbol, Value>>(
-	...sources: Array<Record<string | symbol, Value> | null | undefined>
+	...sources: Array<unknown | null | undefined>
 ) =>
 (target: T | null | undefined): T & Record<string | symbol, Value> => {
 	const deepMergeTwo = (
 		dst: Record<string | symbol, Value>,
-		src: Record<string | symbol, Value> | null | undefined,
+		src: unknown | null | undefined,
 	): Record<string | symbol, Value> => {
 		if (!src || typeof src !== "object") return dst
 
 		// Get all keys (both string and symbol)
 		const allKeys = [
-			...Object.keys(src),
-			...Object.getOwnPropertySymbols(src),
+			...Object.keys(src as Record<string, unknown>),
+			...Object.getOwnPropertySymbols(src as object),
 		]
 
 		// Use reduce to build merged object

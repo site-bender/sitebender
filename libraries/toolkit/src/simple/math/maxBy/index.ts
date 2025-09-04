@@ -69,7 +69,7 @@ const maxBy = <T>(
 	b: T,
 ): T => {
 	if (typeof fn !== "function") {
-		return NaN as any
+	return (NaN as unknown) as T
 	}
 
 	const aValue = fn(a)
@@ -77,11 +77,11 @@ const maxBy = <T>(
 
 	// Check if mapped values are valid numbers
 	if (isNullish(aValue) || typeof aValue !== "number" || isNaN(aValue)) {
-		return NaN as any
+		return (NaN as unknown) as T
 	}
 
 	if (isNullish(bValue) || typeof bValue !== "number" || isNaN(bValue)) {
-		return NaN as any
+		return (NaN as unknown) as T
 	}
 
 	// Return the value with larger mapped result

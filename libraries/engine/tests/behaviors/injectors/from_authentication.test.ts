@@ -2,8 +2,8 @@ import { assertEquals } from "jsr:@std/assert"
 
 import type { InjectorNode } from "../../../types/ir/index.ts"
 
-import { createComposeContext } from "../../../src/context/composeContext/index.ts"
-import { registerDefaultExecutors } from "../../../src/operations/defaults/registerDefaults/index.ts"
+import createComposeContext from "../../../src/context/composeContext/index.ts"
+import registerDefaultExecutors from "../../../src/operations/defaults/registerDefaults/index.ts"
 import evaluate from "../../../src/runtime/evaluate/index.ts"
 
 Deno.test("From.Authenticator reads from ctx.localValues by path", async () => {

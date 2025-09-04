@@ -1,4 +1,4 @@
-import type { ComparatorConfig, LogicalConfig } from "@engineTypes/index.ts"
+import type { ComparatorConfig, LogicalConfig } from "@sitebender/engine-types/index.ts"
 
 /**
  * And JSX Component
@@ -19,7 +19,7 @@ import type { ComparatorConfig, LogicalConfig } from "@engineTypes/index.ts"
  * </And>
  */
 
-import AndConstructor from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
+import AndConstructor from "@sitebender/engine/constructors/comparators/algebraic/And/index.ts"
 
 export type AndProps = {
 	children?: JSX.Element | JSX.Element[]

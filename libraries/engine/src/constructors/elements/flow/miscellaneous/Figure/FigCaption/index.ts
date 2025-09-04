@@ -16,6 +16,6 @@ import isFlowContent from "../../../../../../guards/isFlowContent/index.ts"
  * ])
  * ```
  */
-export const FigCaption = GlobalOnly("FigCaption")(isFlowContent())
+const FigCaption = GlobalOnly("FigCaption")(isFlowContent())
 
 export default FigCaption

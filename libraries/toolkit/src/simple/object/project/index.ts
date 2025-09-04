@@ -69,8 +69,8 @@ const project = <T extends Record<string | symbol, Value>, K extends keyof T>(
 	}
 
 	// Apply pick to each element
-	const pickKeys = pick(keys)
-	return array.map(pickKeys)
+	const pickKeys = pick(keys.map(String))
+	return array.map((item) => pickKeys(item) as Pick<T, K>)
 }
 
 export default project

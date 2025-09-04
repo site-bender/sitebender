@@ -63,7 +63,7 @@ export type Props = {
 export default function WithRegister({
 	ageGroup,
 	children,
-	description,
+	description: _description,
 	dialect,
 	education,
 	element: Element = "span",

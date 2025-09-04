@@ -1,3 +1,4 @@
+import not from "../../../simple/logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -53,13 +54,13 @@ const takeLastWhile = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 
 	// Find the index where predicate becomes false (scanning from end)
 	const findBreakpoint = (idx: number): number => {
-		if (idx < 0 || !predicate(array[idx], idx, array)) {
+		if (idx < 0 || not(predicate(array[idx], idx, array))) {
 			return idx
 		}
 		return findBreakpoint(idx - 1)

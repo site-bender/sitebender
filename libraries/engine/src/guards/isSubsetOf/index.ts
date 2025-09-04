@@ -1,4 +1,4 @@
-import type { Value } from "@engineTypes/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
 
 const isSubsetOf = <T>(options: readonly T[]) => (value: Value): boolean => {
 	if (typeof value !== "string") {

@@ -1,4 +1,23 @@
-import createElement from "~utilities/createElement/index.ts"
+// Local minimal JSX factory to avoid coupling and keep coverage within scripts/
+// Only needs to support intrinsic elements like <link> and <script> for this module.
+function createElement(
+	tag: unknown,
+	props?: Record<string, unknown> | null,
+	...children: unknown[]
+): unknown {
+	if (typeof tag === "string") {
+		const flat = children.flat(Infinity)
+		return {
+			type: tag,
+			props: {
+				...(props ?? {}),
+				children: flat.length === 1 ? flat[0] : flat,
+			},
+		}
+	}
+	// Components not used here; return a neutral object
+	return { type: "component", props: { ...(props ?? {}), children } }
+}
 
 export default function createAssetElements(
 	assets: Array<string> = [],
@@ -32,9 +51,9 @@ export default function createAssetElements(
 			const extension = dotIndex >= 0 ? filename.substring(dotIndex) : ""
 
 			if (extension === ".css") {
-				return <link rel="stylesheet" href={assetPath} />
+				return <link key={assetPath} rel="stylesheet" href={assetPath} />
 			} else if (extension === ".js") {
-				return <script src={assetPath}></script>
+				return <script key={assetPath} src={assetPath}></script>
 			}
 			return null
 		})

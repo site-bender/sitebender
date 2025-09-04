@@ -76,8 +76,13 @@ const cleanFilename = (filename: string): string => {
 		"LPT9",
 	]
 
-	// Remove control characters (0x00-0x1F and 0x7F)
-	let cleaned = filename.replace(/[\x00-\x1F\x7F]/g, "")
+			// Remove control characters (0x00-0x1F and 0x7F) without regex
+			let cleaned = Array.from(filename)
+				.filter((ch) => {
+					const code = ch.codePointAt(0)
+					return typeof code === "number" && code >= 32 && code !== 127
+				})
+				.join("")
 
 	// Replace invalid characters with underscore
 	// Invalid: < > : " / \ | ? * and ASCII 0-31

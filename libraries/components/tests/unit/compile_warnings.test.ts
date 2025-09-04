@@ -4,7 +4,7 @@ import type {
 	EventBindingNode,
 	IrDocument,
 	OperatorNode,
-} from "@engineTypes/ir/index.ts"
+} from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,

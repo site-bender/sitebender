@@ -1,21 +1,19 @@
-import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { StyleAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { NoAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { StyleAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Style element
@@ -39,52 +37,7 @@ export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
  * Filters attributes for Style element
  * Allows global attributes and validates style-specific attributes
  */
-export const filterAttributes = (attributes: StyleElementAttributes) => {
-	const {
-		id,
-		media,
-		title,
-		// ARIA attributes
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add style-specific attributes
-	if (isDefined(media)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("media")(media))
-	}
-	if (isDefined(title)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("title")(title))
-	}
-
-	// Add ARIA attributes
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Style element configuration object
@@ -100,7 +53,7 @@ export const filterAttributes = (attributes: StyleElementAttributes) => {
  * })([TextNode("body { margin: 0; }")])
  * ```
  */
-export const Style = (attributes: StyleElementAttributes = {}) =>
+const Style = (attributes: StyleElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

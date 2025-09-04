@@ -1,29 +1,28 @@
-#!/usr/bin/env -S deno run --allow-read --allow-run
 // Lists files that fail `deno fmt --check`, honoring the repo's include/exclude.
-// Usage: deno run --allow-read --allow-run scripts/findUnformatted/index.ts
+// Exposed as a default export and runnable via CLI.
 
-const ROOTS = ["docs", "inspector", "libraries", "scripts"]
-const EXCLUDES = [
-	"/dist/",
-	"/temp/",
-	"/assets/",
-	"/node_modules/",
-	"/coverage/",
-]
-const EXT_RE = /\.(ts|tsx|js|jsx|json|jsonc|md)$/
+import {
+	FORMAT_EXCLUDES,
+	FORMAT_EXTENSIONS,
+	FORMAT_ROOTS,
+} from "../constants/index.ts"
 
 function isExcluded(path: string): boolean {
-	return EXCLUDES.some((p) => path.includes(p))
+	return FORMAT_EXCLUDES.some((p) => path.includes(p))
 }
 
-async function* iterFiles(root: string): AsyncGenerator<string, void, unknown> {
+function hasAllowedExtension(path: string): boolean {
+	return FORMAT_EXTENSIONS.some((ext) => path.endsWith(`.${ext}`))
+}
+
+async function* walkFiles(root: string): AsyncGenerator<string> {
 	try {
 		for await (const entry of Deno.readDir(root)) {
 			const full = `${root}/${entry.name}`
 			if (isExcluded(full)) continue
 			if (entry.isDirectory) {
-				yield* iterFiles(full)
-			} else if (entry.isFile && EXT_RE.test(full)) {
+				yield* walkFiles(full)
+			} else if (entry.isFile && hasAllowedExtension(full)) {
 				yield full
 			}
 		}
@@ -42,10 +41,10 @@ async function checkFile(fp: string): Promise<boolean> {
 	return success
 }
 
-async function main() {
+export default async function findUnformatted(): Promise<void> {
 	const failures: string[] = []
-	for (const r of ROOTS) {
-		for await (const fp of iterFiles(r)) {
+	for (const r of FORMAT_ROOTS) {
+		for await (const fp of walkFiles(r)) {
 			const ok = await checkFile(fp)
 			if (!ok) failures.push(fp)
 		}
@@ -54,11 +53,10 @@ async function main() {
 		console.log("Unformatted files (failing deno fmt --check):\n")
 		failures.sort().forEach((f) => console.log(f))
 		Deno.exit(1)
-	} else {
-		console.log("All files are formatted.")
 	}
+	console.log("All files are formatted.")
 }
 
 if (import.meta.main) {
-	await main()
+	await findUnformatted()
 }

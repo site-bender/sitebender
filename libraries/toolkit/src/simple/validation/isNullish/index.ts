@@ -50,6 +50,6 @@
  * @predicate
  */
 const isNullish = <T>(value: T | null | undefined): value is null | undefined =>
-	value == null
+	value === null || value === undefined
 
 export default isNullish

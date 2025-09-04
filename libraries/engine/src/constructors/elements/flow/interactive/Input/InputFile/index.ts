@@ -1,17 +1,17 @@
-import type { InputFileAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { InputFileAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
+
+// No local guards used; filtering delegated to filterAttributes
 
 /**
  * Filters attributes for InputFile
@@ -31,30 +31,7 @@ export type InputFileElementAttributes = InputFileAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const {
-		accept,
-		autofocus,
-		disabled,
-		form,
-		multiple,
-		name,
-		required,
-		...attrs
-	} = attributes as unknown as InputFileAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isString)("accept")(accept),
-		...filterAttribute(isBoolean)("autofocus")(autofocus),
-		...filterAttribute(isBoolean)("disabled")(disabled),
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isBoolean)("multiple")(multiple),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isBoolean)("required")(required),
-	}
-}
 
 /**
  * Creates an InputFile element configuration object
@@ -72,6 +49,8 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
  * })
  * ```
  */
-const InputFile = Input("file")(filterAttributes)
+const InputFile = Input("file")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputFile

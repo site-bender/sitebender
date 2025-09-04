@@ -53,7 +53,7 @@ const modify = <K extends string | symbol, V extends Value, R extends Value>(
 ): T & Record<K, R> => {
 	// Handle null/undefined gracefully
 	if (!obj || typeof obj !== "object") {
-		return { [prop]: fn(undefined as any) } as T & Record<K, R>
+		return { [prop]: fn(undefined as unknown as V) } as T & Record<K, R>
 	}
 
 	// Get current value (may be undefined)

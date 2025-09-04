@@ -58,11 +58,11 @@ type KeyOptions = {
 	includeType?: boolean
 	maxLength?: number
 	hash?: boolean
-	transform?: (arg: any) => any
+	transform?: (arg: unknown) => unknown
 }
 
 const memoizeKey =
-	(options: KeyOptions = {}) => (...args: Array<any>): string => {
+	(options: KeyOptions = {}) => (...args: Array<unknown>): string => {
 		const {
 			separator = "|",
 			maxDepth = 10,
@@ -75,7 +75,7 @@ const memoizeKey =
 		// Track visited objects to handle circular references
 		const visited = new WeakSet()
 
-		const processValue = (value: any, depth: number = 0): string => {
+		const processValue = (value: unknown, depth: number = 0): string => {
 			// Apply transform if provided
 			if (transform) {
 				value = transform(value)
@@ -164,13 +164,14 @@ const memoizeKey =
 			}
 
 			// Handle Objects
-			if (typeof value === "object") {
+					if (typeof value === "object") {
 				visited.add(value)
 
 				// Sort keys for consistency
-				const keys = Object.keys(value).sort()
+						const obj = value as Record<string, unknown>
+						const keys = Object.keys(obj).sort()
 				const pairs = keys.map((key) => {
-					const val = processValue(value[key], depth + 1)
+							const val = processValue(obj[key], depth + 1)
 					return `"${key}":${val}`
 				})
 

@@ -1,4 +1,4 @@
-import type { Value } from "../../../types/index.ts"
+// intentionally no imports
 
 /**
  * Type definition for a lens

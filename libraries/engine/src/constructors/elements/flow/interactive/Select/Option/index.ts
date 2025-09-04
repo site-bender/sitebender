@@ -1,19 +1,18 @@
-import type { OptionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { OptionAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Option element
@@ -34,22 +33,7 @@ export type OptionElementAttributes = OptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (
-	attributes: Record<string, Value>,
-): Record<string, Value> => {
-	const { disabled, label, selected, value, ...attrs } = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	const out: Record<string, Value> = {
-		...globals,
-		...filterAttribute(isBoolean)("disabled")(disabled as Value),
-		...filterAttribute(isString)("label")(label as Value),
-		...filterAttribute(isBoolean)("selected")(selected as Value),
-		...filterAttribute(isString)("value")(value as Value),
-	}
-
-	return out
-}
 
 /**
  * Creates an Option element configuration object
@@ -89,3 +73,5 @@ const Option = (attributes: Record<string, Value> = {}) => (label?: string) => {
 }
 
 export default Option
+
+// default-only exports

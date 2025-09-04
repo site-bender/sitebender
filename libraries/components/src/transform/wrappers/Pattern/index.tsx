@@ -9,5 +9,5 @@ export type PatternProps = {
 export default function Pattern({ children }: PatternProps) {
 	// This is a semantic wrapper - it just passes through its children
 	// The parent component will extract the pattern value
-	return children as any
+	return <>{children}</>
 }

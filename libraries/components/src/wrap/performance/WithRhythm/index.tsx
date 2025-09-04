@@ -69,7 +69,7 @@ export default function WithRhythm({
 	breaks,
 	cadence,
 	children,
-	description,
+	description: _description,
 	element: Element = "span",
 	emphasis,
 	feet,

@@ -1,6 +1,5 @@
-import createElement from "~utilities/createElement/index.ts"
-import Fragment from "~utilities/Fragment/index.ts"
-
+import createElement from "../../applications/docs/.sitebender/createElement/index.ts"
+import Fragment from "../../applications/docs/.sitebender/Fragment/index.ts"
 import bundleHydrate from "./bundleHydrate/index.ts"
 import copyComponentStyles from "./copyComponentStyles/index.ts"
 import copyStaticAssets from "./copyStaticAssets/index.ts"

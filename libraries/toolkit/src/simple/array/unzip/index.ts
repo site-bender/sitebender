@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -51,7 +52,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const unzip = <T, U>(
 	pairs: ReadonlyArray<readonly [T, U]> | null | undefined,
 ): [Array<T>, Array<U>] => {
-	if (isNullish(pairs) || !Array.isArray(pairs) || pairs.length === 0) {
+	if (isNullish(pairs) || pairs.length === 0) {
 		return [[], []]
 	}
 
@@ -67,7 +68,7 @@ const unzip = <T, U>(
 
 		const [head, ...tail] = remainingPairs
 
-		if (!Array.isArray(head) || head.length < 2) {
+		if (not(Array.isArray(head)) || head.length < 2) {
 			return extractElements(tail, firstAcc, secondAcc)
 		}
 

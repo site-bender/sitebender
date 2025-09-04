@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import { hydrateVizContainers } from "../../src/transform/viz/adapter/noop.ts"
+import hydrateVizContainers from "../../src/transform/viz/adapter/hydrateVizContainers/index.ts"
 
 Deno.test("noop viz adapter marks data-viz containers as hydrated", () => {
 	// Create a tiny DOM-like shim

@@ -1,4 +1,4 @@
-import type { ImportInfo } from "../../../index.ts"
+import type { ImportInfo } from "../../../../types/index.ts"
 
 export default function categorizeImport(
 	source: string,

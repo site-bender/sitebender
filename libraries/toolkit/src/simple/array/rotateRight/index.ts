@@ -45,7 +45,7 @@ const rotateRight = <T>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+	if (isNullish(array) || array.length === 0) {
 		return []
 	}
 

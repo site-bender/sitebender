@@ -31,7 +31,7 @@ import type { Value } from "../../../types/index.ts"
  * toPairsIn(userConfig)  // [["port", 8080], ["host", "localhost"]]
  *
  * // Flattening inheritance
- * const flatten = (obj: any) => Object.fromEntries(toPairsIn(obj))
+ * const flatten = (obj: Record<string, unknown>) => Object.fromEntries(toPairsIn(obj))
  * const base = { x: 1 }
  * const derived = Object.create(base)
  * derived.y = 2
@@ -50,11 +50,12 @@ const toPairsIn = <T extends Record<string | symbol, Value>>(
 	}
 
 	// Get all enumerable properties including inherited ones using recursive approach
-	const getAllKeys = (o: any): Array<string> => {
+	const getAllKeys = (o: unknown): Array<string> => {
 		if (!o || o === Object.prototype) return []
-		const proto = Object.getPrototypeOf(o)
+		const obj = o as Record<string, unknown>
+		const proto = Object.getPrototypeOf(obj)
 		const protoKeys = proto ? getAllKeys(proto) : []
-		const ownKeys = Object.keys(o)
+		const ownKeys = Object.keys(obj)
 		return [...new Set([...ownKeys, ...protoKeys])]
 	}
 

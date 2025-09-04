@@ -33,10 +33,14 @@
  * Note: Each function receives the resolved value from the previous promise.
  * Sync functions are automatically converted to async.
  */
-// deno-lint-ignore no-explicit-any
 const pipeAsync =
-	<T>(fns: ReadonlyArray<(value: any) => any | Promise<any>> = []) =>
-	async (input: T): Promise<any> =>
-		fns.reduce(async (acc, fn) => fn(await acc), Promise.resolve(input))
+	<T, R = unknown>(
+		fns: ReadonlyArray<(value: unknown) => unknown | Promise<unknown>> = [],
+	) =>
+	(input: T): Promise<R> =>
+		fns.reduce<Promise<unknown>>(
+			(acc, fn) => acc.then((val) => fn(val)),
+			Promise.resolve(input as unknown),
+		) as Promise<R>
 
 export default pipeAsync

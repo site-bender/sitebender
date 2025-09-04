@@ -1,5 +1,5 @@
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Var element configuration object
@@ -17,6 +17,6 @@ import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
  * ])
  * ```
  */
-export const Var = GlobalOnly("var")(isPhrasingContent())
+const Var = GlobalOnly("var")(isPhrasingContent())
 
 export default Var

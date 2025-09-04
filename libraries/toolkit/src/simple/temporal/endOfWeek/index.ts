@@ -83,7 +83,7 @@ const endOfWeek = (weekStartDay: number = 1) =>
 
 		// Calculate days until end of week
 		// dayOfWeek: 1=Monday, 7=Sunday
-		const currentDay = plainDate.dayOfWeek
+		const currentDay = plainDate.dayOfWeek ?? 1
 
 		// Calculate end day (day before start day)
 		const endDay = startDay === 1 ? 7 : startDay - 1

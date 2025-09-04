@@ -1,23 +1,17 @@
-import type { SelectAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SelectAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import { getSelectAllowedRoles } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Select element
@@ -38,41 +32,7 @@ export type SelectElementAttributes = SelectAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (
-	attributes: Record<string, Value>,
-): Record<string, Value> => {
-	const {
-		autocomplete,
-		disabled,
-		form,
-		multiple,
-		name,
-		required,
-		role,
-		size,
-		...attrs
-	} = attributes
-	const globals = pickGlobalAttributes(attrs)
 
-	// Get allowed roles based on multiple attribute
-	const allowedRoles = getSelectAllowedRoles(Boolean(multiple))
-
-	const out: Record<string, Value> = {
-		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
-			autocomplete as Value,
-		),
-		...filterAttribute(isBoolean)("disabled")(disabled as Value),
-		...filterAttribute(isString)("form")(form as Value),
-		...filterAttribute(isBoolean)("multiple")(multiple as Value),
-		...filterAttribute(isString)("name")(name as Value),
-		...filterAttribute(isBoolean)("required")(required as Value),
-		...filterAttribute(isMemberOf(allowedRoles))("role")(role as Value),
-		...filterAttribute(isInteger)("size")(size as Value),
-	} as Record<string, Value>
-
-	return out
-}
 
 /**
  * Creates a Select element configuration object

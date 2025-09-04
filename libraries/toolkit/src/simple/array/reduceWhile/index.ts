@@ -1,3 +1,4 @@
+import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
 /**
@@ -23,12 +24,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // Basic usage - sum until limit
  * const underLimit = (acc: number) => acc < 100
  * const add = (acc: number, x: number) => acc + x
- * reduceWhile(underLimit)(add)(0)([10, 20, 30, 40, 50, 60])  // 60
+ * reduceWhile(underLimit)(add)(0)([10, 20, 30, 40, 50, 60])  // 100
  *
  * // Collect until specific element
  * const notStop = (_: string[], x: string) => x !== "STOP"
  * const collect = (acc: string[], x: string) => [...acc, x]
- * reduceWhile(notStop)(collect)([]))(["a", "b", "STOP", "c"])  // ["a", "b"]
+ * reduceWhile(notStop)(collect)([])(["a", "b", "STOP", "c"])  // ["a", "b"]
  *
  * // Product until zero
  * const noZero = (_: number, x: number) => x !== 0
@@ -70,7 +71,7 @@ const reduceWhile = <T, U>(
 (
 	array: ReadonlyArray<T> | null | undefined,
 ): U => {
-	if (isNullish(array) || !Array.isArray(array)) {
+	if (isNullish(array)) {
 		return initial
 	}
 
@@ -78,7 +79,7 @@ const reduceWhile = <T, U>(
 		if (idx >= array.length) {
 			return acc
 		}
-		if (!predicate(acc, array[idx], idx, array)) {
+		if (not(predicate(acc, array[idx], idx, array))) {
 			return acc
 		}
 		return recurse(reducer(acc, array[idx], idx, array), idx + 1)

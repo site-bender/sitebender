@@ -44,7 +44,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const pairwise = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<[T, T]> => {
-	if (isNullish(array) || !Array.isArray(array) || array.length < 2) {
+	if (isNullish(array) || array.length < 2) {
 		return []
 	}
 

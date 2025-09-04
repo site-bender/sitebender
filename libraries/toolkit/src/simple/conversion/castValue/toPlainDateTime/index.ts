@@ -5,6 +5,13 @@ import type {
 
 import isNullish from "../../../validation/isNullish/index.ts"
 
+function hasMethod<T extends string>(obj: unknown, name: T): obj is Record<string, unknown> & {
+	[K in T]: (...args: Array<unknown>) => unknown
+} {
+	return typeof obj === "object" && obj !== null && name in obj &&
+		typeof (obj as Record<string, unknown>)[name] === "function"
+}
+
 /**
  * Parses values into Temporal PlainDateTime objects
  *
@@ -75,9 +82,9 @@ const toPlainDateTime = (
 		}
 
 		try {
-			// Temporal.PlainDateTime.from with strict validation
-			// It also accepts date-only strings and defaults time to 00:00:00
-			return Temporal.PlainDateTime.from(trimmed, { overflow: "reject" })
+			// Accept canonical ISO; allow date-only strings
+			if (!/^\d{4}-\d{2}-\d{2}(?:[T\s].+)?$/.test(trimmed)) return null
+			return Temporal.PlainDateTime.from(trimmed)
 		} catch {
 			return null
 		}
@@ -106,18 +113,52 @@ const toPlainDateTime = (
 	}
 
 	// Handle PlainDate (becomes midnight of that date)
-	if (value instanceof Temporal.PlainDate) {
-		return value.toPlainDateTime()
+	if (hasMethod(value, "toPlainDateTime")) {
+		const result = (value as { toPlainDateTime: (...args: Array<unknown>) => unknown }).toPlainDateTime()
+		if (result && typeof (result as { toString: () => string }).toString === "function") {
+			try {
+				const iso = (result as { toString: () => string }).toString()
+				return Temporal.PlainDateTime.from(iso)
+			} catch (_err) {
+				return null
+			}
+		}
+		return null
 	}
 
 	// Handle PlainTime (becomes that time on 1970-01-01)
-	if (value instanceof Temporal.PlainTime) {
-		return Temporal.PlainDate.from("1970-01-01").toPlainDateTime(value)
+	if (value && typeof value === "object" && "hour" in value && "minute" in value) {
+		// Treat as PlainTime-like
+		try {
+			// Build PlainDateTime from epoch date + provided time fields we know
+			const t = value as { hour?: number; minute?: number; second?: number; millisecond?: number; microsecond?: number; nanosecond?: number }
+			return Temporal.PlainDateTime.from({
+				year: 1970,
+				month: 1,
+				day: 1,
+				hour: t.hour ?? 0,
+				minute: t.minute ?? 0,
+				second: t.second ?? 0,
+				millisecond: t.millisecond ?? 0,
+				microsecond: t.microsecond ?? 0,
+				nanosecond: t.nanosecond ?? 0,
+			})
+		} catch {
+			return null
+		}
 	}
 
 	// Handle ZonedDateTime
-	if (value instanceof Temporal.ZonedDateTime) {
-		return value.toPlainDateTime()
+	if (hasMethod(value, "toPlainDateTime")) {
+		const result = (value as { toPlainDateTime: () => unknown }).toPlainDateTime()
+		if (result && typeof (result as { toString: () => string }).toString === "function") {
+			try {
+				return Temporal.PlainDateTime.from((result as { toString: () => string }).toString())
+			} catch (_err) {
+				return null
+			}
+		}
+		return null
 	}
 
 	// Handle PlainDateTimeLike objects
@@ -128,9 +169,17 @@ const toPlainDateTime = (
 		"day" in value
 	) {
 		try {
-			// Use 'reject' to ensure invalid datetimes return null
-			return Temporal.PlainDateTime.from(value as PlainDateTimeLike, {
-				overflow: "reject",
+			const v = value as PlainDateTimeLike
+			return Temporal.PlainDateTime.from({
+				year: v.year,
+				month: v.month,
+				day: v.day,
+				hour: v.hour ?? 0,
+				minute: v.minute ?? 0,
+				second: v.second ?? 0,
+				millisecond: v.millisecond ?? 0,
+				microsecond: v.microsecond ?? 0,
+				nanosecond: v.nanosecond ?? 0,
 			})
 		} catch {
 			return null

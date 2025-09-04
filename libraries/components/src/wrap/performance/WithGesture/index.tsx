@@ -58,7 +58,7 @@ export default function WithGesture({
 	action,
 	body,
 	children,
-	description,
+	description: _description,
 	direction,
 	element: Element = "span",
 	expression,

@@ -1,6 +1,6 @@
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import reduce from "@toolkit/simple/array/reduce/index.ts"
+import reduce from "@sitebender/toolkit/simple/array/reduce/index.ts"
 
 /**
  * Flattens child elements to get all descendant tags

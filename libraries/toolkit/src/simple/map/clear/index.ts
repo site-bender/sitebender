@@ -36,7 +36,7 @@
  * @immutable
  * @safe
  */
-const clear = <K = any, V = any>(): Map<K, V> => {
+const clear = <K = unknown, V = unknown>(): Map<K, V> => {
 	return new Map<K, V>()
 }
 

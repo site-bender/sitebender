@@ -36,7 +36,7 @@ import isEmpty from "../../validation/isEmpty/index.ts"
  *
  * // Missing properties fail predicates
  * const hasRequired = where({
- *   id: (x: any) => x !== undefined
+ *   id: (x: unknown) => x !== undefined
  * })
  * hasRequired({ id: 1 })                          // true
  * hasRequired({ name: "test" })                   // false
@@ -59,7 +59,7 @@ import isEmpty from "../../validation/isEmpty/index.ts"
  * })
  * items.filter(isAffordable)                      // [{ price: 50, inStock: true }]
  */
-const where = <S extends Record<string, (value: any) => boolean>>(
+const where = <S extends Record<string, (value: unknown) => boolean>>(
 	spec: S,
 ) =>
 <T extends Record<string | symbol, Value>>(

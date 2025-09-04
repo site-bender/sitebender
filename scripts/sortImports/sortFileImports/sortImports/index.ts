@@ -1,4 +1,4 @@
-import type { ImportInfo } from "../../index.ts"
+import type { ImportInfo } from "../../../types/index.ts"
 
 export default function sortImports(imports: ImportInfo[]): string {
 	if (imports.length === 0) return ""
@@ -51,7 +51,7 @@ export default function sortImports(imports: ImportInfo[]): string {
 		imports: ImportInfo[]
 	} | null = null
 
-	sortedImports.forEach((imp: any) => {
+	sortedImports.forEach((imp: ImportInfo) => {
 		if (
 			!currentGroup ||
 			currentGroup.category !== imp.category ||
@@ -65,11 +65,11 @@ export default function sortImports(imports: ImportInfo[]): string {
 
 	// Build output with proper spacing between groups
 	const output: string[] = []
-	groups.forEach((group, index: any) => {
+	groups.forEach((group, index: number) => {
 		if (index > 0) {
 			output.push("") // blank line between groups
 		}
-		group.imports.forEach((imp: any) => output.push(imp.text))
+		group.imports.forEach((imp: ImportInfo) => output.push(imp.text))
 	})
 
 	return output.join("\n")

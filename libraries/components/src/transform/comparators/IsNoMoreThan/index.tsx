@@ -3,7 +3,7 @@ import type {
 	NumericDatatype,
 	Operand,
 	TemporalDatatype,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsNoMoreThan JSX Component
@@ -19,7 +19,7 @@ import type {
  * </IsNoMoreThan>
  */
 
-import IsNoMoreThanConstructor from "@engineSrc/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import IsNoMoreThanConstructor from "@sitebender/engine/constructors/comparators/amount/IsNoMoreThan/index.ts"
 
 type AmountDatatype = NumericDatatype | TemporalDatatype
 

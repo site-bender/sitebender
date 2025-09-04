@@ -52,7 +52,7 @@ export type Props = {
 
 export default function ForeignTerm({
 	children,
-	description,
+	description: _description,
 	dir,
 	element: Element = "i",
 	href,

@@ -44,6 +44,6 @@
  * gt(1000)(Infinity)   // true
  * ```
  */
-const gt = <T>(threshold: T) => <U>(value: U): boolean => value > threshold
+const gt = <T>(threshold: T) => <U extends T>(value: U): boolean => value > threshold
 
 export default gt

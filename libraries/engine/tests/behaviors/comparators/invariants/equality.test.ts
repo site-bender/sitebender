@@ -1,8 +1,8 @@
-import type { ComparatorNode, InjectorNode } from "@engineTypes/ir/index.ts"
+import type { ComparatorNode, InjectorNode } from "@sitebender/engine-types/ir/index.ts"
 
-import { createComposeContext } from "@engineSrc/context/composeContext.ts"
-import { registerDefaultExecutors } from "@engineSrc/operations/defaults/registerDefaults.ts"
-import evaluateNode from "@engineSrc/runtime/evaluate/index.ts"
+import createComposeContext from "@sitebender/engine/context/composeContext.ts"
+import registerDefaultExecutors from "@sitebender/engine/operations/defaults/registerDefaults.ts"
+import evaluateNode from "@sitebender/engine/runtime/evaluate/index.ts"
 import { assert } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import * as fc from "npm:fast-check@3"

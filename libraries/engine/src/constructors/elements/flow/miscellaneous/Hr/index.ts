@@ -12,6 +12,6 @@ import GlobalEmpty from "../../../../../constructors/abstracted/GlobalEmpty/inde
  * const hr = Hr({ id: "section-break", class: "divider" })
  * ```
  */
-export const Hr = GlobalEmpty("Hr")
+const Hr = GlobalEmpty("Hr")
 
 export default Hr

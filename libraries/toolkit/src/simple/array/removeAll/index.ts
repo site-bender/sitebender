@@ -1,3 +1,4 @@
+import isNullish from "../../validation/isNullish/index.ts"
 import filter from "../filter/index.ts"
 
 /**
@@ -27,6 +28,12 @@ import filter from "../filter/index.ts"
 const removeAll = <T>(item: T) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => filter((element: T) => element !== item)(array)
+): Array<T> => {
+	if (isNullish(array)) {
+		return []
+	}
+	// filter returns a new array; spread to ensure a mutable Array<T>
+	return filter((element: T) => element !== item)([...array])
+}
 
 export default removeAll

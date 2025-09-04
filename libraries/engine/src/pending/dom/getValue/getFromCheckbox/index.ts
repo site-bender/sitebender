@@ -1,4 +1,4 @@
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
 
 import type { Value } from "../../../../../types/index.ts"
 

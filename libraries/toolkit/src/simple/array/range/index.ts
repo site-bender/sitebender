@@ -43,7 +43,7 @@ const range = (
 (
 	end: number,
 ): Array<number> => {
-	if (start >= end) {
+	if (start >= end || !isFinite(end - start)) {
 		return []
 	}
 

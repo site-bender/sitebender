@@ -1,23 +1,20 @@
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "../../../../../types/index.ts"
-import type { OutputAriaAttributes } from "../../../types/aria/index.ts"
-import type { OutputAttributes } from "../../../types/attributes/index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { OutputAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { OutputAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import getId from "../../../../../constructors/helpers/getId/index.ts"
-import { ADVANCED_FILTERS } from "../../../../../guards/createAdvancedFilters/index.ts"
-import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
-import isBoolean from "../../../../../guards/isBoolean/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import pickGlobalAttributes from "../../../../../guards/pickGlobalAttributes/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "@sitebender/engine/guards/createAdvancedFilters/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Output element
@@ -44,102 +41,7 @@ export type OutputElementAttributes =
  * Filters attributes for Output element
  * Allows global attributes and validates output-specific attributes
  */
-export const filterAttributes = (attributes: OutputElementAttributes) => {
-	const {
-		id,
-		for: forAttr,
-		form,
-		name,
-		// ARIA attributes
-		"aria-label": ariaLabel,
-		"aria-labelledby": ariaLabelledby,
-		"aria-describedby": ariaDescribedby,
-		"aria-hidden": ariaHidden,
-		"aria-live": ariaLive,
-		"aria-atomic": ariaAtomic,
-		"aria-relevant": ariaRelevant,
-		role,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add output-specific attributes
-	if (isDefined(forAttr)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("for")(forAttr))
-	}
-	if (isDefined(form)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
-	}
-	if (isDefined(name)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
-	}
-
-	// Add ARIA attributes
-	if (isDefined(ariaLabel)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-label")(ariaLabel),
-		)
-	}
-	if (isDefined(ariaLabelledby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-labelledby")(ariaLabelledby),
-		)
-	}
-	if (isDefined(ariaDescribedby)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-describedby")(ariaDescribedby),
-		)
-	}
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-	if (isDefined(ariaLive)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-live")(ariaLive),
-		)
-	}
-	if (isDefined(ariaAtomic)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-atomic")(ariaAtomic),
-		)
-	}
-	if (isDefined(ariaRelevant)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isString)("aria-relevant")(ariaRelevant),
-		)
-	}
-	if (isDefined(role)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("role")(role))
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates an Output element configuration object
@@ -157,7 +59,7 @@ export const filterAttributes = (attributes: OutputElementAttributes) => {
  * ])
  * ```
  */
-export const Output = (attributes: OutputElementAttributes = {}) =>
+const Output = (attributes: OutputElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],
 ): ElementConfig => {

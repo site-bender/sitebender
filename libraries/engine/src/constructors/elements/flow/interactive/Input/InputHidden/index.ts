@@ -1,16 +1,17 @@
-import type { InputHiddenAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+	Value,
+} from "@sitebender/engine-types/index.ts"
+import type { InputHiddenAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
+
+// No local guards here; filtering delegated to filterAttributes
 
 /**
  * Filters attributes for InputHidden
@@ -30,18 +31,7 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-export const filterAttributes = (attributes: Record<string, Value>) => {
-	const { form, name, value, ...attrs } =
-		attributes as unknown as InputHiddenAttributes
-	const globals = pickGlobalAttributes(attrs)
 
-	return {
-		...globals,
-		...filterAttribute(isString)("form")(form),
-		...filterAttribute(isString)("name")(name),
-		...filterAttribute(isString)("value")(value),
-	}
-}
 
 /**
  * Creates an InputHidden element configuration object
@@ -56,6 +46,8 @@ export const filterAttributes = (attributes: Record<string, Value>) => {
  * })
  * ```
  */
-const InputHidden = Input("hidden")(filterAttributes)
+const InputHidden = Input("hidden")(filterAttributes as unknown as (
+	a: Record<string, Value>,
+) => Record<string, Value>)
 
 export default InputHidden

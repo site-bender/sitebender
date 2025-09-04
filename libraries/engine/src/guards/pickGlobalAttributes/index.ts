@@ -1,5 +1,5 @@
-import type { GlobalAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
+import type { GlobalAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
 import isBoolean from "../../guards/isBoolean/index.ts"
 import isCharacter from "../../guards/isCharacter/index.ts"

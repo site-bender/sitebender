@@ -13,7 +13,7 @@ export async function renderPageWithApp(
 ): Promise<string> {
 	try {
 		// Dynamic import to avoid circular dependency issues
-		const appModule = await import("../../../../../docs/sites/DocsSite/index.tsx")
+		const appModule = await import("../../../../../applications/docs/sites/DocsSite/index.tsx")
 		const App = appModule.default as unknown as (
 			props: {
 				Component: PageComponent

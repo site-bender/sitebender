@@ -1,19 +1,17 @@
-import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { GlobalAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { NoAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { GlobalAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Wbr attributes including reactive properties and ARIA
@@ -32,42 +30,7 @@ export type WbrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * Filters attributes for Wbr element
  * Allows global attributes only
  */
-export const filterAttributes = (attributes: WbrElementAttributes) => {
-	const {
-		id,
-		// ARIA attributes
-		"aria-hidden": ariaHidden,
-		// Reactive properties (to be excluded from HTML attributes)
-		calculation: _calculation,
-		dataset: _dataset,
-		display: _display,
-		format: _format,
-		scripts: _scripts,
-		stylesheets: _stylesheets,
-		validation: _validation,
-		...otherAttributes
-	} = attributes
-	const globals = pickGlobalAttributes(otherAttributes)
 
-	// Build the filtered attributes object step by step to avoid union type complexity
-	const filteredAttrs: Record<string, unknown> = {}
-
-	// Add ID if present
-	Object.assign(filteredAttrs, getId(id))
-
-	// Add global attributes
-	Object.assign(filteredAttrs, globals)
-
-	// Add ARIA attributes (only aria-hidden for void elements)
-	if (isDefined(ariaHidden)) {
-		Object.assign(
-			filteredAttrs,
-			filterAttribute(isBoolean)("aria-hidden")(ariaHidden),
-		)
-	}
-
-	return filteredAttrs
-}
 
 /**
  * Creates a Wbr element configuration object
@@ -80,7 +43,7 @@ export const filterAttributes = (attributes: WbrElementAttributes) => {
  * const wbr = Wbr({ id: "word-break" })
  * ```
  */
-export const Wbr = (attributes: WbrElementAttributes = {}): ElementConfig => {
+export default function Wbr(attributes: WbrElementAttributes = {}): ElementConfig {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {
 		calculation,
@@ -108,5 +71,3 @@ export const Wbr = (attributes: WbrElementAttributes = {}): ElementConfig => {
 		tag: "Wbr",
 	}
 }
-
-export default Wbr

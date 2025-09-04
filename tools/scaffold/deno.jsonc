@@ -1,0 +1,8 @@
+{
+  "name": "@sitebender/scaffold",
+  "exports": {},
+  "compilerOptions": {
+    "strict": true
+  },
+  "tasks": {}
+}

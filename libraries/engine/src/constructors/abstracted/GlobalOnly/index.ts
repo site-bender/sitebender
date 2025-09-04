@@ -1,16 +1,16 @@
+import type { Value } from "@sitebender/engine-types/index.ts"
 import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
-} from "@engineSrc/constructors/elements/types/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import { isValue } from "@engineTypes/index.ts"
-import filter from "@toolkit/simple/array/filter/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { isValue } from "@sitebender/engine-types/index.ts"
+import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
+import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
+import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
 
 /**
  * Creates an element constructor that only accepts global attributes

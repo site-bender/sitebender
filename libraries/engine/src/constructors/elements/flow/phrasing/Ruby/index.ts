@@ -1,7 +1,7 @@
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Ruby element configuration object
@@ -37,6 +37,6 @@ const rubyContentFilter = (child: ElementConfig): boolean => {
 	return isPhrasingContent()(child)
 }
 
-export const Ruby = GlobalOnly("ruby")(rubyContentFilter)
+const Ruby = GlobalOnly("ruby")(rubyContentFilter)
 
 export default Ruby

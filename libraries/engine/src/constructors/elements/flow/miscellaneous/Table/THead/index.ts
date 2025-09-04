@@ -29,6 +29,6 @@ const tableRowFilter = (child: ElementConfig): boolean => {
  * ])
  * ```
  */
-export const THead = GlobalOnly("THead")(tableRowFilter)
+const THead = GlobalOnly("THead")(tableRowFilter)
 
 export default THead

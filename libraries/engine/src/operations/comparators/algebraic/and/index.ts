@@ -1,4 +1,4 @@
-import { isLeft, isRight } from "@engineTypes/index.ts"
+import { isLeft, isRight } from "@sitebender/engine-types/index.ts"
 
 import type {
 	ComparatorConfig,

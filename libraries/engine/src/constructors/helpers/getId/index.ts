@@ -1,6 +1,6 @@
-import type { Value } from "@engineTypes/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
 
-import generateShortId from "@engineSrc/pending/misc/generateShortId/index.ts"
+import generateShortId from "@sitebender/engine/pending/misc/generateShortId/index.ts"
 
 /**
  * Processes ID attribute value and returns appropriate object

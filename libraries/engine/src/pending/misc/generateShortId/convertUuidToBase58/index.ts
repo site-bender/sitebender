@@ -15,5 +15,3 @@ export default function convertUuidToBase58(uuid: string): string {
 
 	return convertBigIntToBase58(bigInt)
 }
-
-export { convertUuidToBase58 }

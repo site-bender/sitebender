@@ -81,8 +81,11 @@ const set =
 				if (isNaN(index)) {
 					// Key is not numeric for array, convert to object
 					const obj: Record<string, Value> = initializedCurrent.reduce(
-						(acc, val, i) => ({ ...acc, [i]: val }),
-						{},
+						(acc, val, i) => {
+							(acc as Record<string, Value>)[String(i)] = val as Value
+							return acc
+						},
+						{} as Record<string, Value>,
 					)
 					return {
 						...obj,
@@ -111,7 +114,10 @@ const set =
 					...initializedCurrent,
 					[strKey]: isLastKey
 						? value
-						: setRecursive(initializedCurrent[strKey], rest),
+						: setRecursive(
+							(initializedCurrent as Record<string, Value>)[strKey],
+							rest,
+						),
 				}
 			}
 
