@@ -45,12 +45,11 @@ const unflatten =
 			index: number,
 			currentDepth: number,
 		): { result: Array<T | Array<unknown>>; nextIndex: number } => {
-			// deno-coverage-ignore
+			// deno-coverage-ignore-start Defensive guard: unreachable because callers validate index < array.length && index < depths.length before recursion
 			if (index >= array.length || index >= depths.length) {
-				// deno-coverage-ignore
 				return { result: [], nextIndex: index }
-				// deno-coverage-ignore
 			}
+			// deno-coverage-ignore-stop
 
 			const result: Array<T | Array<unknown>> = []
 			let i = index
