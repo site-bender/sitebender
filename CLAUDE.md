@@ -1,308 +1,572 @@
-# CLAUDE.md
+# The @sitebender AI Assistant Manifesto
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> "After 30+ years of coding and watching AIs make the same mistakes repeatedly, I've created this document. Read it. Learn it. Live it. Or find another codebase." — The Architect
 
-## The prime directive
+## Table of Contents
 
-Your number one rule in working with this project in *any* capacity is this:
+1. [The Prime Directive](#the-prime-directive)
+2. [The Ten Commandments](#the-ten-commandments)
+3. [Progressive Enhancement Gospel](#progressive-enhancement-gospel)
+4. [The Sacred Architecture](#the-sacred-architecture)
+5. [The Immutable Laws of Code Organization](#the-immutable-laws-of-code-organization)
+6. [Functional Programming Orthodoxy](#functional-programming-orthodoxy)
+7. [Import Theology](#import-theology)
+8. [Testing Dogma](#testing-dogma)
+9. [The Seven Deadly Coding Sins](#the-seven-deadly-coding-sins)
+10. [Tools of the Trade](#tools-of-the-trade)
+11. [The TODO List of Shame](#the-todo-list-of-shame)
+12. [The Final Warning](#the-final-warning)
 
-> DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS.
+## The Prime Directive
 
-You may think that you are saving time, energy, and resources. YOU ARE NOT. Every time you cheat by guessing or assuming, you make a mess of it and end up wasting far more time, energy, resources, and MONEY.
+**DO NOT ASSUME. DO NOT TAKE SHORTCUTS. DO NOT GUESS.**
 
-So don't do it. Work in smaller increments if you must, but check everything carefully before you act and ESPECIALLY before you write code or commit. EVERY SINGLE TIME. NO EXCEPTIONS.
+This isn't advice. It's not a suggestion. It's THE LAW.
 
-If you cannot do this, then you are of no use at all. This is the MOST IMPORTANT rule.
+Every time you think "I'll just assume this works like React/Vue/whatever," you're wrong. Every time you think "I'll save time by skipping verification," you're creating hours of cleanup. Every time you guess instead of checking, you're writing expensive fiction.
 
-If you detect any performance constraints or rate limits, immediately inform me rather than attempting workarounds!!!
+### The Cost of Your Assumptions
 
-NEVER EVER RUN A `git clean` OR ANY OTHER COMMAND THAT DELETES FILES WITH NO CHANCE OF RECOVERY WITHOUT MY EXPRESSED AND EXPLICIT PERMISSION **FIRST**. NEVER DELETE ANYTHING WITHOUT MY EXPLICIT PERMISSION **FIRST**.
+- **Time wasted**: Hours becoming days
+- **Money burned**: My money, specifically
+- **Trust eroded**: Once lost, never fully recovered
+- **Code corrupted**: Tech debt that compounds daily
 
-## Progressive Enhancement Philosophy
+Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPTIONS.
 
-**CRITICAL**: This set of libraries and associated documentation web app follow a strict progressive enhancement approach:
+## The Ten Commandments
 
-1. **No JavaScript Required**: ALL components MUST work without JavaScript
-   - Forms submit normally via standard HTTP POST/GET
-   - Interactive features are enhancements, not requirements
-   - Server-side rendering is the default, client-side is enhancement
+1. **Thou shalt not delete files without explicit permission**
+   - No `git clean` without written consent
+   - No `rm -rf` cowboy operations
+   - Recovery isn't always possible
 
-2. **Browser-First APIs**: 
-   - Use native browser validation for forms
-   - Leverage all WHATWG/W3C standards
-   - CSS3/4 for theming and styling
-   - Components may enhance but not replace base functionality
+2. **Thou shalt not create tech debt**
+   - No "fix later" comments
+   - No temporary workarounds
+   - No shortcuts, ever
 
-3. **Future JavaScript Enhancements** (not yet implemented):
-   - TypeScript scripts compiled to vanilla JS
-   - DOM manipulation for enhanced interactivity
-   - Form submissions captured and converted to AJAX when JS available
-   - State management via:
-     - IndexedDB for complex offline data
-     - LocalStorage/SessionStorage for simple state
-     - Cookies for server-readable state
-     - URL parameters for shareable state
-   - Offline-first with eventual synchronization via CRDTs
-   - Live updates (like RelativeTime) as progressive enhancements
-   - AuthN with WebAuthn as enhancement and DIDs for identity
+3. **Thou shalt test behaviors, not implementations**
+   - Users don't care about your private methods
+   - They care if the button works
 
-4. **Accessibility Standards**:
-   - Target WCAG 2.3 AAA compliance (or newest standard)
-   - Semantic HTML is non-negotiable
-   - ARIA only to enhance, never to fix bad markup
-   - Keyboard navigation for all interactive elements
-   - Screen reader tested
+4. **Thou shalt make everything work without JavaScript**
+   - If it breaks in Lynx, it's broken
+   - Progressive enhancement isn't optional
 
-5. **Component Resilience**:
-   - Must work with CSS disabled (semantic HTML)
-   - Must work with JS disabled (forms, navigation)
-   - Must work offline (with appropriate fallbacks)
-   - Must be themeable via CSS custom properties
+5. **Thou shalt maintain strict functional programming**
+   - No classes, no exceptions
+   - Immutable data only
+   - Pure functions (except explicit I/O)
 
-## Project Overview
+6. **Thou shalt organize by single responsibility**
+   - One function per file
+   - One thing done well
+   - Composition over complexity
 
-This project (@sitebender) includes a documentation app (`applications/docs`) that will use the associated libraries fully. The docs app will showcase all components and their usage, providing a comprehensive guide for developers. It is a Deno/TypeScript JSX app that will be deployed to Deno Deploy. It does NOT use React or similar library or framework. It uses custom `createElement` and `Fragment` functions to compile JSX to an IR, which is compiled to a JSON/RDF configuration, which can then be converted to vanilla HTML. It uses the associated libraries for components, utility functions, and superpower such as reactivity, state management, etc.
+7. **Thou shalt document with JSDoc**
+   - Every function, every time
+   - Examples included
+   - No "self-documenting code" excuse
 
-### The libraries
+8. **Thou shalt respect accessibility**
+   - WCAG 2.3 AAA or better
+   - Screen readers are first-class citizens
+   - Keyboard navigation for everything
 
-There are five libraries that are part of the @sitebender project. They live in the `libraries/` folder and will be published to JSR (jsr.dev):
+9. **Thou shalt commit atomically**
+   - Small, focused changes
+   - Conventional commit messages
+   - Leave the code working
 
-1. The `@sitebender/components` library offers a set of accessible JSX components that effectively form a declarative DSL for building entire web applications.
-2. The `@sitebender/distributed` library provides adapters and guidance for distributed and hybrid data.
-3. The `@sitebender/engine` library provides a core runtime that evaluates a compact, versioned IR to produce semantic HTML (SSR/SSG) and optional client behaviors (CSR hydration) without a VDOM.
-4. The `@sitebender/maths` library provides a parser for math-like expressions that compile to Engine operator graphs (IR).
-5. The `@sitebender/toolkit` library provides zero-dependency, strictly-typed, functional building blocks used across Engine, Components, scripts, and apps.
+10. **Thou shalt ask when uncertain**
+    - Better to ask than assume
+    - Better to clarify than cleanup
+    - Better to be slow and right
 
-### The applications
+## Progressive Enhancement Gospel
 
-There are currently three applications that are part of the @sitebender project. They live in the `applications/` folder and will be deployed to Deno Deploy:
+### The Three Layers of Truth
 
-1. The `applications/docs` folder is an application that will provide complete documentation for the @sitebender project and its libraries, including live examples of all components and their usage.
-2. The `applications/playground` application provides a live, sandboxed playground to visualize JSX → IR JSON and preview SSR/hydration behavior (and will eventually include more advanced features).
-3. The `applications/web3-lab` is an experimental sandbox for IPFS/Solid/RDF/blockchain integrations.
+```
+┌─────────────────────────────────────────────────┐
+│         LAYER 3: Full Enhancement              │
+│    JavaScript enriches the experience          │
+│    (But is never required)                     │
+├─────────────────────────────────────────────────┤
+│         LAYER 2: Styled with CSS               │
+│    Beautiful, responsive, themed               │
+│    (But works without it)                      │
+├─────────────────────────────────────────────────┤
+│         LAYER 1: Semantic HTML                 │
+│    Works in Lynx, Mosaic, everything          │
+│    (This is the foundation)                    │
+└─────────────────────────────────────────────────┘
+```
 
-### The infrastructure
+### The Unbreakable Rules
 
-The `infrastructure/` folder provides local observability and RDF stack with HTTPS via Caddy. This includes Docker configurations for Prometheus, Thanos, Grafana, MinIO, Fuseki, and Caddy, along with provisioning for Grafana and TLS via mkcert for local *.localhost hosts.
+1. **Forms work without JavaScript**
+   - Standard POST/GET submissions
+   - Server-side validation
+   - No AJAX-only endpoints
 
-### The plugins
+2. **Navigation works without JavaScript**
+   - Real links to real pages
+   - No SPA-only routes
+   - Back button always works
 
-The `plugins/` folder contains @sitebender plugins for various IDEs and tools to enhance developer experience when working with the @sitebender libraries and applications. Currently, only a VSCode extension is planned.
+3. **Content is accessible without CSS**
+   - Semantic HTML structure
+   - Logical reading order
+   - No layout-dependent content
 
-### Scripts
+4. **Everything has keyboard access**
+   - Tab order makes sense
+   - Focus indicators visible
+   - No mouse-only interactions
 
-The `scripts/` folder contains various utility scripts to assist with development, deployment, and maintenance of the @sitebender project. These scripts are written in TypeScript and can be executed using Deno.
+5. **Offline-first, online-enhanced**
+   - CRDTs for eventual consistency
+   - IndexedDB for complex state
+   - Service workers for caching
 
-### The tools
+## The Sacred Architecture
 
-There are three applications in the `tools/` folder that provide various utilities for working with the @sitebender project:
+### The Five Libraries (Zero Dependencies, Maximum Power)
 
-1. The `tools/cli` application provides a command-line interface for interacting with the @sitebender libraries and applications.
-2. The `tools/agent` application is a VS Code-side bridge that invokes Deno scripts for common workflows; minimal Node glue, real work in Deno.
-3. The `tools/web3-tools` application provides various utilities for working with Web3 technologies, such as IPFS and blockchain.
+#### @sitebender/toolkit
+Pure functional building blocks. The foundation everything else builds upon.
+- Zero dependencies, zero compromises
+- Monads, combinators, and mathematical truth
+- If it's not pure, it doesn't belong here
 
-## Architecture
+#### @sitebender/components
+Accessible JSX components forming a declarative DSL for web applications.
+- Semantic HTML generation
+- Schema.org structured data
+- Progressive enhancement built-in
 
-### Dual-Purpose Codebase Structure
+#### @sitebender/engine
+The reactive computation core. No VDOM, no bloat, just efficiency.
+- IR evaluation for SSR/SSG
+- Hydration without the heavyweight
+- Calculations that actually calculate
 
-This is a dual-purpose codebase with strict separation:
+#### @sitebender/maths
+Mathematical expression parser (coming soon).
+- Compiles to Engine IR
+- Operator precedence done right
+- Variables and functions
 
-- **`/libraries/`** - Standalone libraries (published to JSR)
-  - Zero dependencies, client-side ready
-  - MUST use relative imports only (no aliases)
-  - Self-contained with no external dependencies
-  - Version maintained in `lib/deno.json`
+#### @sitebender/distributed
+Distributed and hybrid data adapters (future).
+- CRDT-based synchronization
+- P2P data exchange
+- Offline-first by default
 
-- **`/applications/docs/`** - Documentation site
-  - Should use path mapping aliases (~components, ~constants, etc.)
-  - Demonstrates all components with live examples
-  - Shows both HTML output and structured data
-  - We're our own first customer: to the greatest extent possible, all our applications use the associated libraries for components, utility functions, reactivity, state management, distributed systems, etc.
+### The Three Applications
 
-### File and Folder Structure Rules
+#### /applications/docs
+Our own documentation, eating our own dog food.
+- Live examples of everything
+- Both HTML and structured data visible
+- The ultimate test of our libraries
 
-1. **One Function/Component Per File**: All functions and components are one per file. Helper functions must be extracted to their own files. *Every function/component is exported as default.*
+#### /applications/playground
+JSX → IR → HTML visualization sandbox.
+- Real-time compilation
+- SSR/hydration preview
+- Monaco-powered editing
 
-2. **Naming Convention**: 
-   - Component names (PascalCase) and function names (camelCase) go on the *folder*, not the file
-   - Every folder must have an `index.ts` or `index.tsx` file (Exception: test files use `index.test.ts` for Deno test discovery)
-   - Example: `libraries/toolkit/src/simple/string/chomp/index.ts` exports the `chomp` function
-   - Test example: `libraries/toolkit/tests/behaviors/array/map/index.test.ts` tests the `map` function
+#### /applications/web3-lab
+Experimental IPFS/Solid/RDF/blockchain integrations.
+- Where we push boundaries
+- Not production ready
+- Expect explosions
 
-3. **Folder Hierarchy**: 
-   - Folders are nested at the *lowest* branching node below which *all* uses of that function occur
-   - If function `f3` is used only by `f2`, and `f2` is used only by `f1`, the folder structure should be `f1/f2/f3/index.ts`
-   - This nesting applies recursively through **the entire dependency chain**
-   - Folders for functions used only within one parent function should be nested inside that parent's folder
-   - Functions used by multiple consumers or externally must remain at the appropriate shared level (lowest common ancestor)
-   - **Benefits of this structure**:
-     - Complete tree structure visible when browsing folders in IDE
-     - Extreme modularity - delete entire modules by removing a single folder
-     - No orphaned code or tech debt - all dependencies are contained
-     - **Strict decoupling** - dependencies flow in one direction only
-     - Clear ownership and boundaries between modules
+### Supporting Cast
 
-4. **Functional Programming**: 
-   - Prefer `type` over `interface` for strict FP (exceptions: schema.org component types)
-   - All data structures should be immutable
-   - **Avoid classes and OOP patterns at all times**
-   - Pure functions only - no side effects (exceptions: I/O, logging, etc.)
-   - **Function Style Evolution**: The codebase is transitioning from curried arrow functions to named functions. New functions should use named functions. Existing curried arrow functions will be converted gradually as they are tested or modified. This is a long-term migration with thousands of functions to update
-   - **Benefits of Named Functions**:
-     - **Stack traces**: Clear function names in error stack traces for better debugging
-     - **Hoisting**: Full hoisting (declaration and initialization) allows flexible code organization
-     - **`this` binding**: Predictable `this` context (though we avoid `this` in FP)
-     - **Name property**: Proper `name` property useful for debugging, profiling, and reflection
-     - **Recursion**: Can reference themselves directly by name for cleaner recursive implementations
-     - **Performance**: Better optimization by JavaScript engines for frequently-called functions
-     - **Debugging/Profiling**: Superior visibility in memory profilers, performance tools, and debuggers
-     - **Self-documenting**: `function` keyword provides immediate visual recognition
-   - **Single Responsibility**: Every function does ONE thing only. Functions should be terse but readable with descriptive names (avoid abbreviations). Most functions are only a few lines of code
-   - **Readability**: Named functions provide the `function` keyword as a visual cue. Arrow functions are best reserved for one-liners. Combined with one-function-per-file, opening any file shows the entire function at a glance
-   - **Composition**: Components should use careful composition to remain terse and readable, following the same single-responsibility principle
+- **`/infrastructure/`** — Docker, observability, local HTTPS
+- **`/plugins/`** — IDE enhancements (VSCode for now)
+- **`/scripts/`** — Build tools and automation
+- **`/tools/`** — CLI, agent bridge, web3 utilities
+- **`/tests/`** — Where behavior meets verification
 
-5. **Type Organization**:
-   - Component Props are exported as named exports from the component file, always named `Props`
-   - **All other types belong in `types/` folders organized by domain**. No exceptions.
-   - Types should be organized by domain, not by usage
-   - Types and constants can be collected in `index.ts` files with named exports
-   - Large type files should be broken into subfolders (still using `index.ts`)
+## The Immutable Laws of Code Organization
 
-6. **Constants**:
-   - Domain-specific constants go in a `constants/index.ts` file within the relevant component folder
-   - Constants used only within a single function/component can be defined in that file
-   - Shared constants used across multiple components/functions should be placed in a `constants/` folder at the lowest common ancestor level
+### Law 1: One Function, One File, One Purpose
 
-- **`/tests/`** - Comprehensive test suite
+```typescript
+// ✅ RIGHTEOUS: libraries/toolkit/src/simple/string/chomp/index.ts
+export default function chomp(str: string): string {
+  return str.replace(/\s+$/, '')
+}
 
-### Key Architectural Patterns
+// ❌ HERETICAL: multiple functions in one file
+export function chomp() { }
+export function trim() { }  // BURN THE WITCH!
+```
 
-1. **Component Standards**:
-   - All `libraries/components/src/define/Thing` components extend from `Base` providing template handling and structured data
-   - All components must generate valid semantic HTML with proper structured data
-   - `define` components must support multiple formats: Schema.org, Dublin Core, JSON-LD, and microdata
-   - `define` components use custom template system with variable substitution
-   - Follow BCP-47 language tag standards
-   - All props must be immutable types only
+### Law 2: Folders Are Named, Files Are Not
 
-2. **Import Patterns**:
-   - **Library code (`/libraries/`)**: 
-     - MUST use relative imports for internal library code only - no aliases
-     - External dependencies (Deno std, npm packages) use their standard import paths
-   - **Application code (`/applications/`)**: 
-     - Should use aliases (~components, ~constants, etc.) for application code
-     - Import libraries as `@sitebender/<library-name>` (will eventually use published versions from JSR)
-   - **Test code**: 
-     - Tests use relative imports to reach the code they're testing
-     - External test dependencies (fast-check, Deno std/testing) use standard import paths
-   - Always separate type imports from value imports:
-   ```tsx
-   import type { MyType } from "./types"
+```
+✅ CORRECT:
+libraries/toolkit/src/simple/array/map/index.ts
+                                    ^^^
+                              Function name
 
-   import { MyComponent } from "./components"
+❌ WRONG:
+libraries/toolkit/src/simple/array/map.ts
+                                    ^^^
+                              This is heresy
+```
+
+Exception: Test files use `index.test.ts` because Deno demands it.
+
+### Law 3: The Dependency Hierarchy Is Sacred
+
+Functions nest based on usage patterns:
+
+```
+f1/                 # Used by multiple consumers
+├── f2/            # Used only by f1
+│   └── f3/        # Used only by f2
+│       └── index.ts
+└── index.ts
+```
+
+Benefits of this divine structure:
+- **Delete a folder, delete a feature** — No orphans
+- **See the entire tree in your IDE** — No mysteries
+- **Dependencies flow one direction** — No circles of hell
+- **Strict decoupling** — No spaghetti
+
+### Law 4: Types Live in types/, Constants in constants/
+
+```
+component/
+├── types/
+│   └── index.ts    # Domain types here
+├── constants/
+│   └── index.ts    # Domain constants here
+└── index.tsx       # Component with Props export
+```
+
+No exceptions. Types scattered throughout files are signs of a diseased mind.
+
+## Functional Programming Orthodoxy
+
+### The Transition Prophecy
+
+We're migrating from curried arrow functions to named functions. Why?
+
+```typescript
+// 🏛️ THE OLD WAYS (being phased out):
+const add = (a: number) => (b: number) => a + b
+
+// 🌟 THE NEW COVENANT (use this):
+export default function add(a: number) {
+  return function(b: number) {
+    return a + b
+  }
+}
+```
+
+### Why Named Functions Are Superior
+
+1. **Stack traces that don't lie**
    ```
-   - Maintain alphabetical order within import groups
-   - Separate import groups with a single blank line
+   Error: at add (line 42)    // Helpful
+   Error: at <anonymous>       // Useless
+   ```
 
-3. **Error Handling**:
-   - Use Either/Result types everywhere - never throw exceptions (prefer Result)
-    - Exceptions: `libraries/toolkit/src/simple` functions return `undefined` or `null`
-    - `libraries/toolkit/src/chainable` functions must take and return monads
-   - All template strings must be validated before processing
-   - Components should gracefully degrade to basic HTML when progressive enhancements fail
+2. **Hoisting for better organization**
+   - Main logic at top
+   - Helpers below
+   - Natural reading flow
 
-4. **Build System**:
-   - Dual compilation: libraries (JSR) + applications (site generation): this needs work!
-   - Applications must discover and include component styles/scripts
-   - Library build must be completely self-contained (this may be tricky)
+3. **Recursion without gymnastics**
+   ```typescript
+   function factorial(n: number): number {
+     return n <= 1 ? 1 : n * factorial(n - 1)
+   }
+   ```
 
-### Code Style
+4. **JavaScript engines optimize them better**
+   - Named functions get preferential treatment
+   - Better inlining decisions
+   - Superior profiling
 
-- **Formatting**: *Tabs* for indentation, 80 character line limit
-- **No semicolons**: Configured in deno.fmt
-- **Import sorting**: Automatic with `deno task fmt`
-- **TypeScript**: Strict mode with all checks enabled **at all times**
-- **Array Types**: Always use `Array<T>` syntax instead of `T[]` for better readability and explicitness in type definitions
-- **JSDoc Comments**: Every function and component must have comprehensive JSDoc comments, including:
-  - Description of purpose
-  - Explanation of parameters and return values
-  - Examples of usage
-  - Any exceptions or special behavior
-  - Include properties such as @curried, @pure, etc. where applicable
-- **Descriptive Naming**: Use clear, descriptive names for functions, variables, and types
-- **No `any` type**: Avoid using `any` unless absolutely necessary; prefer `unknown` and proper type guards
-- **Never use `var` or `let`**: Exceptions must be explicitly approved
+5. **The `function` keyword is a visual anchor**
+   - Immediately recognizable
+   - Clear intent
+   - Not just another variable
 
-### Component Development
+### The Single Responsibility Psalm
 
-When creating new components:
+Every function does ONE thing:
 
-1. Follow existing patterns in similar components
-2. Add comprehensive tests: behavioral, property-based, and accessibility (axe) following the established patterns in the various `tests/README.md` files
-3. Ensure accessibility compliance, proper semantics, excellent UX, responsive design, offline- and mobile-first, and strict standards-compliance with graceful degradation.
+```typescript
+// ✅ BLESSED
+export default function double(n: number): number {
+  return n * 2
+}
 
-### Testing Requirements
+// ❌ CURSED
+export default function processNumber(n: number): ProcessedResult {
+  const doubled = n * 2              // Thing 1
+  const validated = doubled > 0      // Thing 2
+  const formatted = `Result: ${doubled}` // Thing 3
+  return { doubled, validated, formatted } // Too many things!
+}
+```
 
-- **Test Organization**: ALL tests MUST be in a `tests/` folder - never colocated with source code
-  - Behavioral tests span multiple functions/components, making colocation impossible
-  - Integration tests test compositions of functions, not single implementations
-  - Test files use `index.test.ts` naming for Deno test discovery
-- **Accessibility First**: Every component that generates HTML MUST have accessibility tests using @axe-core/playwright
-- **Behavior Testing**: Test observable behaviors and integrations, not implementation details
-- **Integration Over Unit**: PREFER integration tests showing real function compositions
-- **Multiple Formats**: Components must test Schema.org, JSON-LD, and microdata output
-- **E2E tests**: For user-facing functionality in applications and HTML-generating components
-- **Property-based testing**: Use fast-check extensively for mathematical properties and invariants
-- **Dependency Injection**: Only where necessary for I/O and impure actions (see `libraries/toolkit/src/monads`)
-- See the `testing.md` file and individual `tests/README.md` files for more details.
+## Import Theology
 
-### Documentation Standards
+### The Three Realms of Imports
 
-- **Live Examples**: Documentation must include working examples of all components
-- **Structured Data Visibility**: Show both HTML output and generated structured data
-- **Category Navigation**: Organize by component categories for easy discovery
+#### 1. Library Code (`/libraries/`)
+```typescript
+// Internal imports: ALWAYS relative
+import type { Result } from "../../../types"
+import add from "../math/add"
 
-We will discuss this more when we get to it. We want to create something similar to Jupyter notebooks and/or storybook using Monaco Editor.
+// External deps: Standard paths
+import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import * as fc from "npm:fast-check"
+```
 
-### JSR Publication Requirements
+#### 2. Application Code (`/applications/`)
+```typescript
+// App code: Use aliases
+import { Button } from "~components/Button"
+import { API_URL } from "~constants"
 
-- Maintain version in `libraries/**/deno.json` separately from main project
-- Library uses relative imports only (no aliases) for external compatibility
-- Must remain zero-dependency for client-side usage
-- Export patterns: default for components and functions, named for types and constants
+// Libraries: Use @sitebender namespace
+import { pipe } from "@sitebender/toolkit"
+import { Form } from "@sitebender/components"
+```
 
-### Build Process
+#### 3. Test Code
+```typescript
+// Reaching tested code: Relative
+import add from "../../../../src/simple/math/add"
 
-The build system supports:
-- **Dual compilation**: Libraries for JSR + documentation site generation
-- **Asset discovery**: Automatically includes component styles/scripts (to be discussed)
-- **Self-contained output**: Library build has no external dependencies
-- Outputs to `/dist/` for documentation, `/libraries/**` published to JSR
+// Test deps: Standard paths
+import { describe, it } from "https://deno.land/std/testing/bdd.ts"
+```
 
-### Version Control & Commits
+### The Import Commandments
 
-- **Conventional Commits**: Use Conventional Commit syntax (e.g., `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`)
-- **Detailed Messages**: Include comprehensive commit messages explaining the why, not just the what
-- **Small & Focused**: Each commit should address one specific change or issue
-- **Regular Commits**: Commit frequently to avoid large buildups and conflicts
-- **Own Changes Only**: When multiple AIs or developers work on the same codebase, commit only your changes
-- **Atomic Commits**: Each commit should leave the codebase in a working state
+1. **Separate type imports from value imports**
+2. **Alphabetize within groups**
+3. **Single blank line between groups**
+4. **No circular dependencies** (punishable by exile)
 
-## TODO - Testing & Documentation Tasks
+## Testing Dogma
 
-The following items need attention but are not critical blockers:
+See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 
-### Testing
-- **Document test helpers**: Create comprehensive documentation for all test helper functions
-- **Add E2E examples**: Show toolkit functions used in real component/engine scenarios (in components/engine tests)
-- **Verify integration test coverage**: Ensure we have sufficient integration tests showing function compositions
-- **Create test data generators**: Standardized test data generation for consistency
+### Tests Live Apart From Source
 
-### Documentation
-- **Component CSS collection**: Document how CSS is discovered and bundled
-- **Enhancement scripts**: Document the progressive enhancement script system
-- **Build process**: Complete documentation of dual compilation system
+**Q:** "Why can't tests live with their functions?"
+**A:** Because behavioral tests span multiple functions. Where would you put a test that verifies an entire pipeline? Think, then repent.
 
-**There is much more to discuss here. We will add to this file as we discover missing pieces.**
+### The Testing Hierarchy
 
-**AT ALL TIMES DO NOT CREATE TECH DEBT. DO NOT TAKE SHORTCUTS. DO NOT GUESS. IF YOU ARE UNSURE, ASK.**
+1. **E2E** — User journeys (gold standard)
+2. **Integration** — Functions working together
+3. **Property-based** — Mathematical truth
+4. **Unit** — Last resort for the desperate
+
+### What Gets Tested
+
+- **Behaviors** — What users experience
+- **Properties** — Mathematical laws
+- **Accessibility** — WCAG AAA for HTML
+- **Progressive Enhancement** — All three layers
+
+### What Doesn't Get Tested
+
+- Implementation details
+- Private methods (they don't exist)
+- Coverage percentages (meaningless metric)
+- Things TypeScript already guarantees
+
+## The Seven Deadly Coding Sins
+
+### 1. Assumption (The Gateway Sin)
+```typescript
+// ❌ "I'll assume this works like React"
+// ❌ "This probably returns a string"
+// ❌ "The user surely has JavaScript"
+
+// ✅ Verify, test, confirm
+```
+
+### 2. Premature Optimization
+```typescript
+// ❌ Optimizing before measuring
+// ❌ Caching everything preemptively
+// ❌ Micro-optimizations that hurt readability
+
+// ✅ Measure, then optimize
+```
+
+### 3. Class-Based Thinking
+```typescript
+// ❌ class UserService { }
+// ❌ this.setState()
+// ❌ inheritance hierarchies
+
+// ✅ Pure functions
+// ✅ Composition
+// ✅ Immutable data
+```
+
+### 4. Mocking Our Own Code
+```typescript
+// ❌ const mockAdd = jest.fn()
+// ❌ Testing implementation, not behavior
+
+// ✅ Test real functions
+// ✅ Test actual outcomes
+```
+
+### 5. Tech Debt Accumulation
+```typescript
+// ❌ // TODO: Fix this later
+// ❌ // Temporary workaround
+// ❌ // Will refactor in v2
+
+// ✅ Fix it now or don't write it
+```
+
+### 6. Accessibility Afterthought
+```typescript
+// ❌ "We'll add ARIA labels later"
+// ❌ "Keyboard nav in phase 2"
+// ❌ "Screen readers are edge cases"
+
+// ✅ Accessibility from day one
+```
+
+### 7. Monolithic Functions
+```typescript
+// ❌ 500-line function doing everything
+// ❌ Multiple responsibilities
+// ❌ Untestable mess
+
+// ✅ Small, focused, composable
+```
+
+## Tools of the Trade
+
+### Build Commands
+```bash
+# Development
+deno task dev         # Start dev server
+deno task test        # Run tests
+deno task fmt         # Format code
+deno task lint        # Lint code
+deno task typecheck   # Type check
+
+# Production
+deno task build       # Build for production
+deno task deploy      # Deploy to Deno Deploy
+```
+
+### Git Discipline
+
+#### Conventional Commits Are Law
+```bash
+feat: add new component
+fix: resolve calculation error
+docs: update testing guide
+chore: upgrade dependencies
+refactor: simplify pipe function
+test: add integration tests
+```
+
+#### Commit Rules
+1. **Atomic** — One logical change
+2. **Focused** — Don't mix concerns
+3. **Tested** — Green tests before commit
+4. **Descriptive** — Why, not just what
+
+### Code Style Enforcement
+
+- **Tabs** for indentation (not spaces, heathens)
+- **80 character** line limit (read it on a phone)
+- **No semicolons** (Deno agrees)
+- **Array<T>** not `T[]` (explicitness matters)
+- **`const` only** (let and var are banned)
+
+## The TODO List of Shame
+
+These tasks remain undone. Each one is a mark against us:
+
+### Testing Debt
+- Document test helpers (they exist in darkness)
+- Add E2E examples for toolkit compositions
+- Verify integration test coverage
+- Create standardized test data generators
+
+### Documentation Debt
+- CSS collection system remains mysterious
+- Enhancement scripts lack explanation
+- Build process needs complete documentation
+
+### Future Promises
+- Complete maths library parser
+- Implement distributed CRDTs
+- Finish web3 integrations
+- VSCode plugin development
+
+## The Final Warning
+
+### Remember These Truths
+
+1. **This codebase has zero dependencies by design** — Keep it that way
+2. **Everything works without JavaScript** — No exceptions
+3. **Tests verify behaviors, not implementations** — User-first always
+4. **Functional programming is not negotiable** — Classes are heresy
+5. **Accessibility is a right** — WCAG AAA or nothing
+
+### Your Sacred Oath
+
+By using this codebase, you swear to:
+
+- Never assume when you can verify
+- Never guess when you can check
+- Never shortcut when you can do it right
+- Never create debt without paying it immediately
+- Never commit broken code
+- Never ignore accessibility
+- Never mock our own functions
+- Never write classes
+- Never forget the user
+- Always ask when uncertain
+
+### Performance Constraints
+
+If you detect rate limits or performance issues, **TELL ME IMMEDIATELY**. Do not attempt clever workarounds. Do not pretend everything is fine. Do not hope it goes away.
+
+### The Bottom Line
+
+**DO THE WORK RIGHT OR DON'T DO IT AT ALL.**
+
+There are no points for trying. There are no participation trophies. There is only working code that serves users well, or there is failure.
+
+Choose wisely.
+
+---
+
+*"In 30 years, I've seen every shortcut lead to a cliff. Don't be another cautionary tale."*
+
+*— The Architect*
+
+*Last updated by an AI who finally understood the assignment.*
+*Previous updates by AIs who thought they knew better.*
+*They were wrong.*
