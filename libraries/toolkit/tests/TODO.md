@@ -48,10 +48,10 @@ Naming and structure conventions
 
 Do-now cleanup (non-destructive; no file moves yet)
 - Mark anomalies:
-  - [ ] arrays vs array
-  - [ ] statistical vs statistics
-  - [ ] boundary/clamp vs algebraic/bounded/clamp
-  - [ ] nested duplicate path `libraries/toolkit/libraries/toolkit/tests/...`
+  - [x] arrays vs array (arrays/ includes 4 behaviors; array/ includes 100+)
+  - [x] statistical vs statistics (statistical/: average/median/mode; statistics/: variance/stdev)
+  - [x] boundary/clamp vs algebraic/bounded/clamp (preferring algebraic/bounded)
+  - [x] nested duplicate path `libraries/toolkit/libraries/toolkit/tests/...` (empty duplicate test present)
 - Add a mapping table (below) before executing any moves in a dedicated refactor PR
 
 Planned migration steps (to be executed in a separate PR)
@@ -65,7 +65,7 @@ Prioritized gap-fill roadmap
 P0 – high impact, foundational
 - [ ] Temporal behaviors (DST, offsets, parsing, add/subtract, start/end-of, serialization)
 - [ ] Result laws and behaviors (map/chain/bimap/fold/orElse/tryCatch invariants)
-- [ ] IO behaviors and laws (map/ap/chain, conversions to/from Maybe/Either/Result)
+- [x] IO behaviors and laws (map/ap/chain, conversions to/from Maybe/Either/Result) — added IO monad laws + conversions/applicative behavior tests
 
 P1 – core primitives and heavy usage
 - [ ] String behaviors (case conversions, normalize, escape/unescape, replace*, split*, template)
@@ -147,3 +147,13 @@ Appendix – canonical path examples
 - functional/monad-laws/result/index.ts (monad/applicative laws)
 - temporal/dst-transitions/index.ts (DST edge coverage)
 - random/randomInteger/index.ts (distribution + reproducibility)
+
+Mapping table (current → canonical)
+- tests/behaviors/arrays/* → tests/behaviors/array/*
+- tests/behaviors/statistical/* → tests/behaviors/statistics/*
+- tests/behaviors/boundary/clamp/* → tests/behaviors/algebraic/bounded/clamp/*
+- libraries/toolkit/libraries/toolkit/tests/**/* → remove (confirmed duplicate path; keep only tests/behaviors under libraries/toolkit/tests)
+
+Notes
+- Defer all file moves/deletes to a dedicated refactor PR. For the stray nested duplicate test file, verify no references and delete during that PR.
+- After migration, update any coverage scripts or globs to match canonical paths.

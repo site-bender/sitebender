@@ -3,10 +3,10 @@ import * as fc from "npm:fast-check@3"
 
 import type { Maybe } from "../../../../../src/types/fp/maybe/index.ts"
 
-import chain from "../../../../../src/maybe/chain/index.ts"
-import just from "../../../../../src/maybe/just/index.ts"
-import map from "../../../../../src/maybe/map/index.ts"
-import nothing from "../../../../../src/maybe/nothing/index.ts"
+import chain from "../../../../../src/monads/maybe/chain/index.ts"
+import just from "../../../../../src/monads/maybe/just/index.ts"
+import map from "../../../../../src/monads/maybe/map/index.ts"
+import nothing from "../../../../../src/monads/maybe/nothing/index.ts"
 
 /**
  * Tests for Maybe monad laws:

@@ -3,10 +3,10 @@ import * as fc from "npm:fast-check@3"
 
 import type { Either } from "../../../../../src/types/fp/either/index.ts"
 
-import chain from "../../../../../src/either/chain/index.ts"
-import left from "../../../../../src/either/left/index.ts"
-import map from "../../../../../src/either/map/index.ts"
-import right from "../../../../../src/either/right/index.ts"
+import chain from "../../../../../src/monads/either/chain/index.ts"
+import left from "../../../../../src/monads/either/left/index.ts"
+import map from "../../../../../src/monads/either/map/index.ts"
+import right from "../../../../../src/monads/either/right/index.ts"
 
 /**
  * Tests for Either monad laws:

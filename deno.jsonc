@@ -33,6 +33,9 @@
 		"test:engine:strict": "deno test --unstable-temporal 'libraries/engine/tests/**/*.test.ts'",
 		"test:components": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts'",
 		"test:components:strict": "deno test --unstable-temporal 'libraries/components/tests/**/*.test.ts'",
+		"test:maths": "deno test --unstable-temporal --no-check 'libraries/maths/tests/**/*.test.ts'",
+		"test:maths:strict": "deno test --unstable-temporal 'libraries/maths/tests/**/*.test.ts'",
+		"test:maths:cov": "deno test --unstable-temporal --no-check 'libraries/maths/tests/**/*.test.ts' --coverage=libraries/maths/coverage && deno coverage libraries/maths/coverage --lcov > libraries/maths/coverage.lcov",
 		"test:toolkit": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts'",
 		"test:docs:strict": "deno task --cwd docs test:build",
 		"test:engine:cov": "deno test --unstable-temporal --no-check 'libraries/engine/tests/**/*.test.ts' --coverage=libraries/engine/coverage && deno coverage libraries/engine/coverage --lcov > libraries/engine/coverage.lcov",
@@ -112,7 +115,15 @@
 		],
 		"strict": true,
 		"checkJs": false,
-		"lib": ["dom", "dom.asynciterable", "dom.iterable", "esnext", "deno.ns", "deno.window"]
+		"lib": [
+			"dom",
+			"dom.asynciterable",
+			"dom.iterable",
+			"esnext",
+			"deno.ns",
+			"deno.window",
+			"deno.unstable"
+		]
 	},
 
 	"imports": {
