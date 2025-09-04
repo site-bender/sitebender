@@ -1,9 +1,9 @@
-# Inspector (JSX to AST Visualizer)
+# Playground (JSX to AST Visualizer)
 
 This app has been converted to the canonical Sitebender structure:
 
 ```
-inspector/
+playground/
   assets/                 # static assets copied to dist (scripts transpiled)
     style.css
     scripts/
@@ -11,7 +11,7 @@ inspector/
   pages/
     index.tsx             # SSR page that boots the client
   sites/
-    InspectorSite/index.tsx   # HTML wrapper for all pages
+    PlaygroundSite/index.tsx   # HTML wrapper for all pages
   .sitebender/            # per-app build/serve scripts
   src/
     compiler.ts           # app source used by browser client
@@ -72,7 +72,7 @@ Preview tip: `deno task serve` serves the built `dist/` directory.
 ├── assets/style.css       # Application styles
 ├── assets/scripts/app/main.ts  # Browser boot code
 ├── pages/index.tsx        # SSR entry page
-├── sites/InspectorSite/index.tsx   # Site wrapper
+├── sites/PlaygroundSite/index.tsx   # Site wrapper
 ├── src/compiler.ts        # JSX compilation logic (browser)
 ```
 

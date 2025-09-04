@@ -11,7 +11,7 @@ export type Props = {
 	assets?: Array<string>;
 };
 
-export default function Inspector({ Component, Head, assets = [] }: Props) {
+export default function Playground({ Component, Head, assets = [] }: Props) {
 	const assetElements = createAssetElements(assets);
 
 	return (

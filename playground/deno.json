@@ -1,5 +1,5 @@
 {
-	"name": "@sitebender/inspector",
+	"name": "@sitebender/playground",
 	"version": "0.1.0",
 	"description": "JSX to AST visualizer as a Sitebender app",
 	"exports": {

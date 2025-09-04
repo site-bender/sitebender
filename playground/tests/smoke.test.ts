@@ -3,7 +3,7 @@ import { assertEquals, assertStringIncludes } from 'https://deno.land/std@0.224.
 
 import { compileJSX, formatAST } from '../src/compiler.ts';
 
-Deno.test('inspector: compileJSX returns success and a non-null AST for simple JSX', () => {
+Deno.test('playground: compileJSX returns success and a non-null AST for simple JSX', () => {
 	const src = `
     const element = <div id="x">Hello</div>;
   `;
