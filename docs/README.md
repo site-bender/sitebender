@@ -73,7 +73,7 @@ Hydration:
 
 - Integrate with Model Context Protocol to provide task-focused, just-in-time support.
 - Guardrails: read-only by default; explicit user consent for code changes; comply with privacy settings.
-- Pluggable tools: code generation, IR inspectors, test runners, and linters exposed via MCP.
+- Pluggable tools: code generation, IR playgrounds, test runners, and linters exposed via MCP.
 
 ## Future Plans (High-level)
 
