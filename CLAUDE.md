@@ -125,8 +125,9 @@ This is a dual-purpose codebase with strict separation:
 
 2. **Naming Convention**: 
    - Component names (PascalCase) and function names (camelCase) go on the *folder*, not the file
-   - Every folder must have an `index.ts` or `index.tsx` file
-   - Example: `libraries/toolkit/src/simple/string/chomp/index.ts` exports the `chomp` function.
+   - Every folder must have an `index.ts` or `index.tsx` file (Exception: test files use `index.test.ts` for Deno test discovery)
+   - Example: `libraries/toolkit/src/simple/string/chomp/index.ts` exports the `chomp` function
+   - Test example: `libraries/toolkit/tests/behaviors/array/map/index.test.ts` tests the `map` function
 
 3. **Folder Hierarchy**: 
    - Folders are nested at the *lowest* branching node below which *all* uses of that function occur
@@ -185,8 +186,15 @@ This is a dual-purpose codebase with strict separation:
    - All props must be immutable types only
 
 2. **Import Patterns**:
-   - **Library code (`/libraries/`)**: MUST use relative imports only - no aliases
-   - **Documentation (`/applications/docs/`)**: Should use aliases (~components, ~lib, etc.)
+   - **Library code (`/libraries/`)**: 
+     - MUST use relative imports for internal library code only - no aliases
+     - External dependencies (Deno std, npm packages) use their standard import paths
+   - **Application code (`/applications/`)**: 
+     - Should use aliases (~components, ~constants, etc.) for application code
+     - Import libraries as `@sitebender/<library-name>` (will eventually use published versions from JSR)
+   - **Test code**: 
+     - Tests use relative imports to reach the code they're testing
+     - External test dependencies (fast-check, Deno std/testing) use standard import paths
    - Always separate type imports from value imports:
    ```tsx
    import type { MyType } from "./types"
@@ -194,8 +202,7 @@ This is a dual-purpose codebase with strict separation:
    import { MyComponent } from "./components"
    ```
    - Maintain alphabetical order within import groups
-   - Separate import groups with a single blank lines
-   - Do not use aliases as a temporary crutch in libraries - they must be relative paths only. This only creates tech debt and confusion.
+   - Separate import groups with a single blank line
 
 3. **Error Handling**:
    - Use Either/Result types everywhere - never throw exceptions (prefer Result)
@@ -236,11 +243,17 @@ When creating new components:
 
 ### Testing Requirements
 
-- **Accessibility First**: Every component MUST have accessibility tests using @axe-core/playwright
-- **Behavior Testing**: Test generated HTML output and structured data, not implementation details
-- **Multiple Formats**: Test that components generate correct Schema.org, JSON-LD, and microdata output
-- Use E2E tests for user-facing functionality
-- Use property-based testing with fast-check where appropriate
+- **Test Organization**: ALL tests MUST be in a `tests/` folder - never colocated with source code
+  - Behavioral tests span multiple functions/components, making colocation impossible
+  - Integration tests test compositions of functions, not single implementations
+  - Test files use `index.test.ts` naming for Deno test discovery
+- **Accessibility First**: Every component that generates HTML MUST have accessibility tests using @axe-core/playwright
+- **Behavior Testing**: Test observable behaviors and integrations, not implementation details
+- **Integration Over Unit**: PREFER integration tests showing real function compositions
+- **Multiple Formats**: Components must test Schema.org, JSON-LD, and microdata output
+- **E2E tests**: For user-facing functionality in applications and HTML-generating components
+- **Property-based testing**: Use fast-check extensively for mathematical properties and invariants
+- **Dependency Injection**: Only where necessary for I/O and impure actions (see `libraries/toolkit/src/monads`)
 - See the `testing.md` file and individual `tests/README.md` files for more details.
 
 ### Documentation Standards
@@ -274,6 +287,21 @@ The build system supports:
 - **Regular Commits**: Commit frequently to avoid large buildups and conflicts
 - **Own Changes Only**: When multiple AIs or developers work on the same codebase, commit only your changes
 - **Atomic Commits**: Each commit should leave the codebase in a working state
+
+## TODO - Testing & Documentation Tasks
+
+The following items need attention but are not critical blockers:
+
+### Testing
+- **Document test helpers**: Create comprehensive documentation for all test helper functions
+- **Add E2E examples**: Show toolkit functions used in real component/engine scenarios (in components/engine tests)
+- **Verify integration test coverage**: Ensure we have sufficient integration tests showing function compositions
+- **Create test data generators**: Standardized test data generation for consistency
+
+### Documentation
+- **Component CSS collection**: Document how CSS is discovered and bundled
+- **Enhancement scripts**: Document the progressive enhancement script system
+- **Build process**: Complete documentation of dual compilation system
 
 **There is much more to discuss here. We will add to this file as we discover missing pieces.**
 
