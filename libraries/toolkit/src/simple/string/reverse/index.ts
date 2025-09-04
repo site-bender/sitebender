@@ -57,14 +57,14 @@ const reverse = (
 	}
 
 	// Use Intl.Segmenter if available for proper grapheme cluster handling
-	if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
+		if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
 		try {
-			const segmenter = new (Intl as any).Segmenter(undefined, {
+				const segmenter = new (Intl as unknown as { Segmenter: typeof Intl.Segmenter }).Segmenter(undefined, {
 				granularity: "grapheme",
 			})
 			const graphemes = Array.from(
-				segmenter.segment(str),
-				(segment: any) => segment.segment,
+					segmenter.segment(str) as Iterable<{ segment: string }>,
+					(segment) => segment.segment,
 			)
 			return graphemes.reverse().join("")
 		} catch {

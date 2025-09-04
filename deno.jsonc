@@ -3,12 +3,15 @@
 	"workspace": [
 		"./applications/docs",
 		"./applications/playground",
+		"./applications/web3-lab",
 		"./libraries/components",
+		"./libraries/distributed",
 		"./libraries/engine",
 		"./libraries/maths",
 		"./libraries/toolkit",
 		"./tools/scaffold",
 		"./tools/cli",
+		"./tools/web3-tools",
 		"./plugins/vscode"
 	],
 

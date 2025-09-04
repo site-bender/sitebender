@@ -17,8 +17,8 @@ const getCountryDialingOptions = (): Array<CountryDialingOption> => {
 		toCountryDialingOption,
 	)
 
-	// Fix: Pass the functions as individual arguments, not as an array
-	return pipe<Array<Country>, Array<CountryDialingOption>>([
+	// Compose steps with pipe (array-based API)
+	return pipe([
 		sortCountries,
 		mapToOptions,
 	])(COUNTRY_AND_DIALING_CODES)

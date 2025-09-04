@@ -71,19 +71,23 @@ import isNullish from "../../validation/isNullish/index.ts"
 type MergeStrategy = {
 	arrays?: "concat" | "replace" | "union"
 	depth?: number
-	resolver?: (key: string, left: any, right: any) => any
+	resolver?: (key: string, left: unknown, right: unknown) => unknown
 }
 
 const smartMerge =
 	(strategy: MergeStrategy = {}) =>
-	(...sources: Array<Record<string, any>>): Record<string, any> => {
+	(...sources: Array<Record<string, unknown>>): Record<string, unknown> => {
 		const {
 			arrays = "concat",
 			depth = 10,
-			resolver = (_key: string, _left: any, right: any) => right,
+			resolver = (_key: string, _left: unknown, right: unknown) => right,
 		} = strategy
 
-		const mergeTwo = (left: any, right: any, currentDepth: number = 0): any => {
+		const mergeTwo = (
+			left: unknown,
+			right: unknown,
+			currentDepth: number = 0,
+		): unknown => {
 			// Handle null/undefined
 			if (isNullish(left)) return right
 			if (isNullish(right)) return left
@@ -99,7 +103,7 @@ const smartMerge =
 					case "replace":
 						return [...right]
 					case "union":
-						return [...new Set([...left, ...right])]
+						return [...new Set<unknown>([...left, ...right])]
 					case "concat":
 					default:
 						return [...left, ...right]
@@ -114,13 +118,15 @@ const smartMerge =
 				!Array.isArray(right)
 			) {
 				// Get all keys from both objects
+				const lObj = left as Record<string, unknown>
+				const rObj = right as Record<string, unknown>
 				const allKeys = [
-					...new Set([...Object.keys(left), ...Object.keys(right)]),
+					...new Set([...Object.keys(lObj), ...Object.keys(rObj)]),
 				]
 
-				return allKeys.reduce((result, key) => {
-					const leftValue = left[key]
-					const rightValue = right[key]
+				return allKeys.reduce<Record<string, unknown>>((result, key) => {
+					const leftValue = lObj[key]
+					const rightValue = rObj[key]
 
 					const value = !(key in right)
 						? leftValue
@@ -138,7 +144,7 @@ const smartMerge =
 						: resolver(key, leftValue, rightValue)
 
 					return { ...result, [key]: value }
-				}, {} as Record<string, any>)
+				}, {} as Record<string, unknown>)
 			}
 
 			// For primitives and type mismatches, right wins
@@ -146,7 +152,10 @@ const smartMerge =
 		}
 
 		// Merge all sources from left to right
-		return sources.reduce((acc, source) => mergeTwo(acc, source, 0), {})
+		return sources.reduce<Record<string, unknown>>(
+			(acc, source) => mergeTwo(acc, source, 0) as Record<string, unknown>,
+			{},
+		)
 	}
 
 export default smartMerge

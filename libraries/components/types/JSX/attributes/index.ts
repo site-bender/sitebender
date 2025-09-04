@@ -962,10 +962,8 @@ export type SuperscriptAttributes = GlobalAttributes & {
 }
 
 // TEMPLATE
-export type TemplateAttributes = GlobalAttributes & {
-	// No element-specific attributes beyond global
-	// Note: Template elements are not rendered and don't participate in accessibility tree
-}
+// Template has no additional attributes beyond global; use a closed map type to satisfy ban-types
+export type TemplateAttributes = GlobalAttributes & Record<PropertyKey, never>
 
 // TIME
 export type TimeAttributes = GlobalAttributes & {

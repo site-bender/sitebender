@@ -1,16 +1,10 @@
 import type { HydratedArcHyperbolicCosine } from "../../../../types/hydrated/index.ts"
-import type {
-	Either,
-	EngineError,
-	GlobalAttributes,
-	LocalValues,
-	OperationFunction,
-} from "../../../types/index.ts"
+import type { Either, EngineError, LocalValues, OperationFunction } from "../../../types/index.ts"
 
 import { isLeft } from "../../../../types/index.ts"
 
 const arcHyperbolicCosine = (
-	{ operand, ...op }: HydratedArcHyperbolicCosine,
+	{ operand }: HydratedArcHyperbolicCosine,
 ): OperationFunction<number> =>
 async (
 	arg: unknown,

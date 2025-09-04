@@ -17,7 +17,7 @@ export type LookupTableConfig = {
 	readonly attributes: {
 		readonly class: "lookup-table"
 		readonly id: string
-		readonly value: JsonValue // TODO: add type for table
+		readonly value: JsonValue // TODO(@chasm): add type for table
 	}
 	readonly dataset: {
 		readonly type: string

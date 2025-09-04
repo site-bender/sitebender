@@ -77,8 +77,8 @@ export type Triple<T, U, V> = [T, U, V]
  * type T3 = First<[]> // never
  * ```
  */
-export type First<T extends ReadonlyArray<any>> = T extends
-	readonly [infer F, ...any[]] ? F : never
+export type First<T extends ReadonlyArray<unknown>> = T extends
+	readonly [infer F, ...unknown[]] ? F : never
 
 /**
  * Extracts the second element type from a tuple
@@ -90,8 +90,8 @@ export type First<T extends ReadonlyArray<any>> = T extends
  * type T3 = Second<[string]> // never
  * ```
  */
-export type Second<T extends ReadonlyArray<any>> = T extends
-	readonly [any, infer S, ...any[]] ? S : never
+export type Second<T extends ReadonlyArray<unknown>> = T extends
+	readonly [unknown, infer S, ...unknown[]] ? S : never
 
 /**
  * Extracts the third element type from a tuple
@@ -103,8 +103,8 @@ export type Second<T extends ReadonlyArray<any>> = T extends
  * type T3 = Third<[string, number]> // never
  * ```
  */
-export type Third<T extends ReadonlyArray<any>> = T extends
-	readonly [any, any, infer T, ...any[]] ? T : never
+export type Third<T extends ReadonlyArray<unknown>> = T extends
+	readonly [unknown, unknown, infer T, ...unknown[]] ? T : never
 
 // ============================================================================
 // Type-level Transformation Utilities
@@ -119,7 +119,7 @@ export type Third<T extends ReadonlyArray<any>> = T extends
  * type T2 = MapTuple<[true, false], number> // [number, number]
  * ```
  */
-export type MapTuple<T extends ReadonlyArray<any>, U> = {
+export type MapTuple<T extends ReadonlyArray<unknown>, U> = {
 	[K in keyof T]: U
 }
 
@@ -133,7 +133,7 @@ export type MapTuple<T extends ReadonlyArray<any>, U> = {
  * type L3 = Length<[string]> // 1
  * ```
  */
-export type Length<T extends ReadonlyArray<any>> = T["length"]
+export type Length<T extends ReadonlyArray<unknown>> = T["length"]
 
 /**
  * Appends a type to the end of a tuple
@@ -144,7 +144,7 @@ export type Length<T extends ReadonlyArray<any>> = T["length"]
  * type T2 = Append<[], string> // [string]
  * ```
  */
-export type Append<T extends ReadonlyArray<any>, U> = [...T, U]
+export type Append<T extends ReadonlyArray<unknown>, U> = [...T, U]
 
 /**
  * Prepends a type to the beginning of a tuple
@@ -155,7 +155,7 @@ export type Append<T extends ReadonlyArray<any>, U> = [...T, U]
  * type T2 = Prepend<[], string> // [string]
  * ```
  */
-export type Prepend<T extends ReadonlyArray<any>, U> = [U, ...T]
+export type Prepend<T extends ReadonlyArray<unknown>, U> = [U, ...T]
 
 /**
  * Gets all elements except the first (tail) of a tuple
@@ -167,8 +167,8 @@ export type Prepend<T extends ReadonlyArray<any>, U> = [U, ...T]
  * type T3 = Tail<[]> // []
  * ```
  */
-export type Tail<T extends ReadonlyArray<any>> = T extends
-	readonly [any, ...infer Rest] ? Rest : []
+export type Tail<T extends ReadonlyArray<unknown>> = T extends
+	readonly [unknown, ...infer Rest] ? Rest : []
 
 /**
  * Reverses the order of elements in a tuple
@@ -179,7 +179,7 @@ export type Tail<T extends ReadonlyArray<any>> = T extends
  * type T2 = Reverse<[string, number]> // [number, string]
  * ```
  */
-export type Reverse<T extends ReadonlyArray<any>> = T extends
+export type Reverse<T extends ReadonlyArray<unknown>> = T extends
 	readonly [...infer Rest, infer Last] ? [Last, ...Reverse<Rest>]
 	: []
 
@@ -190,14 +190,14 @@ export type Reverse<T extends ReadonlyArray<any>> = T extends
 /**
  * Checks if a value is a Singleton tuple at the type level
  */
-export type IsSingleton<T> = T extends Singleton<any> ? true : false
+export type IsSingleton<T> = T extends Singleton<unknown> ? true : false
 
 /**
  * Checks if a value is a Pair tuple at the type level
  */
-export type IsPair<T> = T extends Pair<any, any> ? true : false
+export type IsPair<T> = T extends Pair<unknown, unknown> ? true : false
 
 /**
  * Checks if a value is a Triple tuple at the type level
  */
-export type IsTriple<T> = T extends Triple<any, any, any> ? true : false
+export type IsTriple<T> = T extends Triple<unknown, unknown, unknown> ? true : false

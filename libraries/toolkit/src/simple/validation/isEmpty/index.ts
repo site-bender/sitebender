@@ -60,7 +60,7 @@
  */
 const isEmpty = (value: unknown): boolean => {
 	// Nullish values are empty
-	if (value == null) {
+	if (value === null || value === undefined) {
 		return true
 	}
 

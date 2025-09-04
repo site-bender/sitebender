@@ -1,1 +1,1 @@
-export type { default } from "../../Game/VideoGame/index.ts"
+export type { default, VideoGameType } from "../../Game/VideoGame/index.ts"

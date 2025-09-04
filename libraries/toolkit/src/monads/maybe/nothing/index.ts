@@ -1,6 +1,6 @@
 import type { Maybe, Nothing } from "../../types/fp/maybe/index.ts"
 
-import isNotUndefined from "../../../simple/validation/isNotUndefined/index.ts"
+// no imports
 
 /**
  * Creates a Nothing value representing the absence of a value in a Maybe

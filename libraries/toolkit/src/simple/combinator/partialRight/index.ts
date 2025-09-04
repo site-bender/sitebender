@@ -32,9 +32,8 @@
  * Note: The fixed arguments are applied from the right side,
  * filling the last parameter positions first.
  */
-// deno-lint-ignore no-explicit-any
 const partialRight =
-	<T extends ReadonlyArray<any>, U extends ReadonlyArray<any>, R>(
+	<T extends ReadonlyArray<unknown>, U extends ReadonlyArray<unknown>, R>(
 		fn: (...args: [...T, ...U]) => R,
 		...fixedArgs: U
 	) =>

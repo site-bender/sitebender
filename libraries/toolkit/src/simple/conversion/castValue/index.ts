@@ -149,25 +149,23 @@ import toString from "./toString/index.ts"
  * @safe
  * @curried
  */
-const castValue = <T extends CastType>(
-	type: T,
-) =>
-(
-	value: unknown,
-): CastResult<T> => {
-	switch (type) {
-		case "boolean":
-			return toBoolean(value) as CastResult<T>
-		case "float":
-			return toFloat(value) as CastResult<T>
-		case "integer":
-			return toInteger(value) as CastResult<T>
-		case "string":
-			return toString(value) as CastResult<T>
-		default:
-			// TypeScript exhaustiveness check
-			const _exhaustive: never = type
-			throw new Error(`Unknown cast type: ${_exhaustive}`)
+function castValue<T extends CastType>(type: T) {
+	return (value: unknown): CastResult<T> => {
+		switch (type) {
+			case "boolean":
+				return toBoolean(value) as CastResult<T>
+			case "float":
+				return toFloat(value) as CastResult<T>
+			case "integer":
+				return toInteger(value) as CastResult<T>
+			case "string":
+				return toString(value) as CastResult<T>
+			default: {
+				// TypeScript exhaustiveness check
+				const _exhaustive: never = type
+				throw new Error(`Unknown cast type: ${_exhaustive}`)
+			}
+		}
 	}
 }
 

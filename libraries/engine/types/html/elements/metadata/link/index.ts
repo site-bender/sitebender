@@ -8,7 +8,7 @@ import type {
 	ReferrerPolicy,
 } from "../../shared"
 
-// TODO: Make flow and phrasing if itemprop present
+// TODO(@chasm): Make flow and phrasing if itemprop present
 export interface LinkElement {
 	attributes?: Override<
 		Omit<Partial<HTMLLinkElement>, "charset" | "rev" | "target">,

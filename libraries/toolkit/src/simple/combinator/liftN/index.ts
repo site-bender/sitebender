@@ -43,10 +43,10 @@
  * @pure
  * @curried
  */
-// deno-lint-ignore no-explicit-any
-const liftN = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
-	// deno-lint-ignore no-explicit-any
-	return (...arrays: ReadonlyArray<ReadonlyArray<any>>): Array<R> => {
+const liftN = <R>(n: number, fn: (...args: ReadonlyArray<unknown>) => R) => {
+	return (
+		...arrays: ReadonlyArray<ReadonlyArray<unknown>>
+	): Array<R> => {
 		if (n === 0) {
 			// Zero arity - return single value in array
 			return [fn()]
@@ -66,13 +66,18 @@ const liftN = <R>(n: number, fn: (...args: ReadonlyArray<any>) => R) => {
 		}
 
 		// Compute Cartesian product of n arrays functionally
-		const cartesian = relevantArrays.reduce(
-			(acc, arr) => acc.flatMap((combo) => arr.map((item) => [...combo, item])),
-			[[]] as Array<Array<any>>,
+		const cartesian = relevantArrays.reduce<unknown[][]>(
+			(acc, arr) => {
+				const current = Array.from(arr) as unknown[]
+				return acc.flatMap((combo) =>
+					current.map((item) => [...combo, item] as unknown[]),
+				)
+			},
+			[[]] as unknown[][],
 		)
 
 		// Apply function to each combination
-		return cartesian.map((args) => fn(...args))
+		return cartesian.map((args) => fn(...(args as ReadonlyArray<unknown>)))
 	}
 }
 

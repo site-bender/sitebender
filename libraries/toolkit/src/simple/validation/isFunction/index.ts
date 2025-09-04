@@ -56,7 +56,8 @@
  * @predicate
  * @safe
  */
-const isFunction = (value: unknown): value is Function =>
+type AnyFunction = (...args: ReadonlyArray<unknown>) => unknown
+const isFunction = (value: unknown): value is AnyFunction =>
 	typeof value === "function"
 
 export default isFunction

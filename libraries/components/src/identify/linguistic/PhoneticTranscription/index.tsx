@@ -42,7 +42,7 @@ export type Props = {
 
 export default function PhoneticTranscription({
 	children,
-	description,
+	description: _description,
 	element: Element = "span",
 	href,
 	notation = "ipa",

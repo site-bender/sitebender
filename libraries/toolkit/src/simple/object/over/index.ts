@@ -1,4 +1,3 @@
-import type { Value } from "../../../types/index.ts"
 import type { Lens } from "../lens/index.ts"
 
 /**

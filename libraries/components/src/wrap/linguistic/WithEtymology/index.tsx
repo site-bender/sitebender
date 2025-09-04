@@ -62,7 +62,7 @@ export type Props = {
 export default function WithEtymology({
 	children,
 	cognates,
-	description,
+	description: _description,
 	element: Element = "i",
 	ipa,
 	meaning,

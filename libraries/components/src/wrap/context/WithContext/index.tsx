@@ -42,7 +42,7 @@ export type Props = {
 export default function WithContext({
 	children,
 	cultural,
-	description,
+	description: _description,
 	element: Element = "span",
 	formality,
 	period,

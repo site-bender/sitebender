@@ -43,16 +43,16 @@ export default function Link(props: Props): JSX.Element {
 
 	// Spread remaining props
 	const {
-		to,
-		toHelp,
-		toGlossary,
-		toNextPage,
-		toPreviousPage,
+		to: _to,
+		toHelp: _toHelp,
+		toGlossary: _toGlossary,
+		toNextPage: _toNextPage,
+		toPreviousPage: _toPreviousPage,
 		asDownload,
-		allowTabJacking,
-		allowSearchEngineIndexing,
-		hideReferringPage,
-		openAs,
+		allowTabJacking: _allowTabJacking,
+		allowSearchEngineIndexing: _allowSearchEngineIndexing,
+		hideReferringPage: _hideReferringPage,
+		openAs: _openAs,
 		...anchorProps
 	} = props
 

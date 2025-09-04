@@ -1,4 +1,4 @@
-import type { HtmlElement } from "../JSX/index.ts"
+import type { HtmlElement } from "../html/elements/document/html/index.ts"
 
 type BaseProps = {
 	_template?: string
@@ -15,7 +15,7 @@ export type Formatter = (
 	props?: Record<string, unknown>,
 ) => JSX.Element
 export type Formatters = Record<string, Formatter>
-export type TemplateData = Record<string, any>
+export type TemplateData = Record<string, unknown>
 
 export type { default as AMRadioChannel } from "./Thing/Intangible/BroadcastChannel/RadioChannel/AMRadioChannel/index.ts"
 export type { default as APIReference } from "./Thing/CreativeWork/Article/TechArticle/APIReference/index.ts"

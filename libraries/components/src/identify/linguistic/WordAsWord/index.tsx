@@ -42,7 +42,7 @@ export type Props = {
 
 export default function WordAsWord({
 	children,
-	description,
+	description: _description,
 	element: Element = "i",
 	href,
 	lang,

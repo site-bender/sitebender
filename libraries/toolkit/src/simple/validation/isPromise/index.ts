@@ -56,7 +56,7 @@
  */
 const isPromise = (value: unknown): value is Promise<unknown> => {
 	// Check for null/undefined first
-	if (value == null) {
+		if (value === null || value === undefined) {
 		return false
 	}
 
@@ -67,7 +67,7 @@ const isPromise = (value: unknown): value is Promise<unknown> => {
 
 	// Duck-type check for thenable objects
 	return typeof value === "object" &&
-		typeof (value as any).then === "function"
+		typeof (value as { then?: unknown }).then === "function"
 }
 
 export default isPromise

@@ -47,7 +47,7 @@ export type Props = {
 
 export default function CrossReference({
 	children,
-	description,
+	description: _description,
 	element: Element = "span",
 	page,
 	target,

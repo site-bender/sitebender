@@ -1,1 +1,1 @@
-export type { default } from "../../../../Place/CivicStructure/FireStation/index.ts"
+export type { default, FireStationType } from "../../../../Place/CivicStructure/FireStation/index.ts"

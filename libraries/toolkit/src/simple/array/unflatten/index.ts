@@ -36,7 +36,7 @@
  * ```
  */
 const unflatten =
-	(depths: Array<number>) => <T>(array: Array<T>): Array<T | Array<any>> => {
+	(depths: Array<number>) => <T>(array: Array<T>): Array<T | Array<unknown>> => {
 		if (array.length === 0) return []
 		if (depths.length === 0) return []
 
@@ -44,7 +44,7 @@ const unflatten =
 		const buildNested = (
 			index: number,
 			currentDepth: number,
-		): { result: Array<any>; nextIndex: number } => {
+		): { result: Array<T | Array<unknown>>; nextIndex: number } => {
 			// deno-coverage-ignore
 			if (index >= array.length || index >= depths.length) {
 				// deno-coverage-ignore
@@ -52,7 +52,7 @@ const unflatten =
 				// deno-coverage-ignore
 			}
 
-			const result: Array<any> = []
+			const result: Array<T | Array<unknown>> = []
 			let i = index
 
 			while (i < array.length && i < depths.length) {

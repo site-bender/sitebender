@@ -1,1 +1,1 @@
-export type { default } from "../../../CreativeWork/Diet/index.ts"
+export type { default, DietType } from "../../../CreativeWork/Diet/index.ts"

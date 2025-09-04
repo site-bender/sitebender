@@ -16,6 +16,8 @@ If you cannot do this, then you are of no use at all. This is the MOST IMPORTANT
 
 If you detect any performance constraints or rate limits, immediately inform me rather than attempting workarounds!!!
 
+NEVER EVER RUN A `git clean` OR ANY OTHER COMMAND THAT DELETES FILES WITH NO CHANCE OF RECOVERY WITHOUT MY EXPRESSED AND EXPLICIT PERMISSION **FIRST**. NEVER DELTE ANYTHING WITHOUT MY EXPLICIT PERMISSION **FIRST**.
+
 ## Progressive Enhancement Philosophy
 
 **CRITICAL**: This set of libraries and associated documentation web app follow a strict progressive enhancement approach:

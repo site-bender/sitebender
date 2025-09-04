@@ -73,12 +73,12 @@ import isEmpty from "../../array/isEmpty/index.ts"
  * console.log(empty) // []
  * ```
  */
-const parallel = async <T>(
+const parallel = <T>(
 	tasks: ReadonlyArray<() => Promise<T>>,
 ): Promise<Array<T>> => {
 	// Handle empty array
 	if (isEmpty(tasks)) {
-		return []
+		return Promise.resolve([] as Array<T>)
 	}
 
 	// Execute all tasks concurrently

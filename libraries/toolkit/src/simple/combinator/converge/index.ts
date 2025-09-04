@@ -50,10 +50,9 @@
  * isValid(101) // false
  * ```
  */
-// deno-lint-ignore no-explicit-any
-const converge = <T extends ReadonlyArray<any>, R>(
-	converger: (...results: ReadonlyArray<any>) => R,
-	branches: ReadonlyArray<(...args: T) => any>,
+const converge = <T extends ReadonlyArray<unknown>, R>(
+	converger: (...results: ReadonlyArray<unknown>) => R,
+	branches: ReadonlyArray<(...args: T) => unknown>,
 ) =>
 (...args: T): R => {
 	const results = branches.map((branch) => branch(...args))

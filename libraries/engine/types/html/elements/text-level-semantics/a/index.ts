@@ -27,7 +27,7 @@ export interface AnchorElement {
 			type?: MediaType
 		}
 	>
-	// TODO: transparent with no interactive and no tabindex
+	// TODO(@chasm): transparent with no interactive and no tabindex
 	children?: Array<Element>
 	dataset?: Dataset
 	readonly tagName: "A"

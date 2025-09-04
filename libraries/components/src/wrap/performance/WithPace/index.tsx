@@ -66,7 +66,7 @@ export default function WithPace({
 	breathless,
 	children,
 	decelerate,
-	description,
+	description: _description,
 	element: Element = "span",
 	pauseAfter,
 	pauseBefore,

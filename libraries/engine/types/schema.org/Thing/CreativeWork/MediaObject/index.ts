@@ -1,1 +1,1 @@
-export type { default } from "../../MediaObject/index.ts"
+export type { default, MediaObjectType } from "../../MediaObject/index.ts"

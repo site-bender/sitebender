@@ -87,29 +87,26 @@ async <T>(
 
 	// Track which tasks are complete
 	let nextTaskIndex = 0
-	const inProgress = new Set<Promise<void>>()
+	const _inProgress = new Set<Promise<void>>()
 
-	// Worker function that processes tasks from the queue
-	const worker = async (): Promise<void> => {
-		while (nextTaskIndex < tasks.length) {
-			const currentIndex = nextTaskIndex++
-			const task = tasks[currentIndex]
-
-			try {
-				results[currentIndex] = await task()
-			} catch (error) {
-				// Store error and re-throw to maintain fail-fast behavior
-				throw error
-			}
-		}
+	// Runner function that processes tasks via promise chaining (no await in loop)
+	const runNext = (): Promise<void> => {
+		const currentIndex = nextTaskIndex++
+		if (currentIndex >= tasks.length) return Promise.resolve()
+		const task = tasks[currentIndex]
+		return task()
+			.then((value) => {
+				results[currentIndex] = value
+			})
+			.then(runNext)
 	}
 
-	// Start initial workers up to the limit
-	const workerCount = Math.min(limit, tasks.length)
-	const workers = Array.from({ length: workerCount }, () => worker())
+	// Start initial runners up to the limit
+	const runnerCount = Math.min(limit, tasks.length)
+	const runners = Array.from({ length: runnerCount }, () => runNext())
 
-	// Wait for all workers to complete
-	await Promise.all(workers)
+	// Wait for all runners to complete
+	await Promise.all(runners)
 
 	return results
 }

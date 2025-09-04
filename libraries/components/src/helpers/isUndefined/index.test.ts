@@ -133,7 +133,7 @@ describe("isUndefined", () => {
 		})
 
 		it("should handle arrays with undefined elements", () => {
-			const arr = [null, undefined, "value", , "end"] // note the hole
+			const arr = [null, undefined, "value", undefined, "end"]
 			expect(isUndefined(arr)).toBe(false)
 			expect(isUndefined(arr[0])).toBe(false) // null
 			expect(isUndefined(arr[1])).toBe(true) // undefined
@@ -310,11 +310,11 @@ describe("isUndefined", () => {
 
 	describe("parameter and variable scenarios", () => {
 		it("should identify uninitialized variables", () => {
-			let uninitializedVar: string | undefined
+			const uninitializedVar: string | undefined = undefined
 			expect(isUndefined(uninitializedVar)).toBe(true)
 
-			uninitializedVar = "now defined"
-			expect(isUndefined(uninitializedVar)).toBe(false)
+			const nowDefined: string | undefined = "now defined"
+			expect(isUndefined(nowDefined)).toBe(false)
 		})
 
 		it("should identify optional parameters", () => {

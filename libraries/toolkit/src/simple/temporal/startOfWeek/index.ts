@@ -93,7 +93,7 @@ const startOfWeek = (weekStartDay: number = 1) =>
 		const currentDayOfWeek = date.dayOfWeek
 
 		// Calculate days to subtract to get to week start
-		let daysToSubtract = (currentDayOfWeek - weekStartDay + 7) % 7
+		const daysToSubtract = (currentDayOfWeek - weekStartDay + 7) % 7
 
 		// Create the start of week date
 		let startDate: Temporal.PlainDate

@@ -128,10 +128,10 @@ export default function DateTime({
 		// Determine format options
 		const options = formatOptions || {
 			...(format !== "iso" && {
-				dateStyle: format as any,
+				dateStyle: (format as Exclude<typeof format, "iso" | "relative">),
 				timeStyle: format === "full" || format === "long"
 					? "medium"
-					: format as any,
+					: (format as Exclude<typeof format, "iso" | "relative">),
 			}),
 			...(format === "iso" && {
 				year: "numeric",

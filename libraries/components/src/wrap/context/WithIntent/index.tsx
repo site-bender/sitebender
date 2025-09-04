@@ -68,7 +68,7 @@ export type Props = {
 export default function WithIntent({
 	action,
 	children,
-	description,
+	description: _description,
 	element: Element = "span",
 	expectation = "none",
 	implication,

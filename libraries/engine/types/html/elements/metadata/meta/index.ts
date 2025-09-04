@@ -5,7 +5,7 @@ import type {
 	Override,
 } from "../../shared"
 
-// TODO: Make flow and phrasing if itemprop present
+// TODO(@chasm): Make flow and phrasing if itemprop present
 export interface MetaElement {
 	attributes?: Override<
 		Omit<Partial<HTMLMetaElement>, "scheme">,

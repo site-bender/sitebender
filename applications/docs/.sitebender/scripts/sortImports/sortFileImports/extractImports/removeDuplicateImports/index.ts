@@ -5,7 +5,7 @@ export default function removeDuplicateImports(
 ): ImportInfo[] {
 	const seen = new Set<string>()
 
-	return imports.filter((importInfo: any) => {
+	return imports.filter((importInfo: ImportInfo) => {
 		// Create a unique key based on type, source, and text content
 		const key = `${importInfo.type}:${importInfo.source}:${importInfo.text}`
 

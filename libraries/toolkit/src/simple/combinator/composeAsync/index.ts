@@ -28,13 +28,14 @@
  * Note: TypeScript cannot properly type variadic async compose without extensive overloads.
  * The 'any' type here is justified for the same reasons as the sync compose function.
  */
-// deno-lint-ignore no-explicit-any
 const composeAsync =
-	<T>(fns: ReadonlyArray<(value: any) => Promise<any>> = []) =>
-	async (input: T): Promise<any> =>
-		fns.reduceRight(
-			async (resultPromise, fn) => fn(await resultPromise),
-			Promise.resolve(input as any),
-		)
+	<T, R = unknown>(
+		fns: ReadonlyArray<(value: unknown) => unknown | Promise<unknown>> = [],
+	) =>
+	(input: T): Promise<R> =>
+		fns.reduceRight<Promise<unknown>>(
+			(resultPromise, fn) => resultPromise.then((val) => fn(val)),
+			Promise.resolve(input as unknown),
+		) as Promise<R>
 
 export default composeAsync

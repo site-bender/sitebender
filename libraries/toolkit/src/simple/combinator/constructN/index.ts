@@ -36,28 +36,21 @@
  * // [Point(1, 2, 0), Point(3, 4, 0)]
  * ```
  */
-// deno-lint-ignore no-explicit-any
-const constructN = <R>(n: number, Constructor: new (...args: any[]) => R) => {
-	// deno-lint-ignore no-explicit-any
-	const wrappers: { [key: number]: (...args: any[]) => R } = {
+
+const constructN = <R>(n: number, Constructor: new (...args: unknown[]) => R) => {
+	const wrappers: { [key: number]: (...args: unknown[]) => R } = {
 		0: () => new Constructor(),
-		// deno-lint-ignore no-explicit-any
-		1: (a: any) => new Constructor(a),
-		// deno-lint-ignore no-explicit-any
-		2: (a: any, b: any) => new Constructor(a, b),
-		// deno-lint-ignore no-explicit-any
-		3: (a: any, b: any, c: any) => new Constructor(a, b, c),
-		// deno-lint-ignore no-explicit-any
-		4: (a: any, b: any, c: any, d: any) => new Constructor(a, b, c, d),
-		// deno-lint-ignore no-explicit-any
-		5: (a: any, b: any, c: any, d: any, e: any) =>
+		1: (a: unknown) => new Constructor(a),
+		2: (a: unknown, b: unknown) => new Constructor(a, b),
+		3: (a: unknown, b: unknown, c: unknown) => new Constructor(a, b, c),
+		4: (a: unknown, b: unknown, c: unknown, d: unknown) => new Constructor(a, b, c, d),
+		5: (a: unknown, b: unknown, c: unknown, d: unknown, e: unknown) =>
 			new Constructor(a, b, c, d, e),
 	}
 
 	// For arities > 5, use a generic wrapper
-	// deno-lint-ignore no-explicit-any
 	return wrappers[n] ||
-		((...args: any[]) => new Constructor(...args.slice(0, n)))
+		((...args: unknown[]) => new Constructor(...args.slice(0, n)))
 }
 
 export default constructN

@@ -1,5 +1,4 @@
 import isNullish from "../../validation/isNullish/index.ts"
-import factorial from "../factorial/index.ts"
 
 /**
  * Calculates the number of permutations (nPr)

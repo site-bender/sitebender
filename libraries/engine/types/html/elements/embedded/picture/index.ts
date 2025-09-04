@@ -6,7 +6,7 @@ import type {
 import type { ImageElement } from "../img/index.ts"
 import type { SourceElement } from "../source/index.ts"
 
-// TODO
+// TODO(@chasm)
 export interface PictureElement {
 	attributes?: Override<Partial<HTMLPictureElement>, GlobalAttributeOverrides>
 	children?: PictureContent

@@ -27,7 +27,9 @@ export default function Base({
 
 	return (
 		<Element class={cls} data-type={_type}>
-			{createTemplate(_template)(processedProps)}
+			{createTemplate(_template)(
+				Array.isArray(processedProps) ? processedProps[0] || {} : processedProps,
+			)}
 			{children}
 			{disableMicrodata
 				? null

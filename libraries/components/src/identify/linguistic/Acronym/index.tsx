@@ -54,7 +54,7 @@ export type Props = {
 export default function Acronym({
 	children,
 	commonWord = false,
-	description,
+	description: _description,
 	expansion,
 	field,
 	href,

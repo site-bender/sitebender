@@ -135,7 +135,7 @@ const toString = (value: unknown): string => {
 		// For arrays and plain objects, use JSON.stringify with circular reference handling
 		try {
 			const seen = new WeakSet()
-			return JSON.stringify(value, (key, val) => {
+			return JSON.stringify(value, (_key, val) => {
 				if (typeof val === "object" && isNotNull(val)) {
 					if (seen.has(val)) {
 						return "[Circular]"

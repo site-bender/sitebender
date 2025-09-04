@@ -12,7 +12,7 @@ export interface SelectElementMultiple {
 	attributes?: Override<
 		Partial<HTMLSelectElement>,
 		GlobalAttributeOverrides & {
-			autocomplete?: string // TODO: narrow this
+			autocomplete?: string // TODO(@chasm): narrow this
 			autofocus?: boolean
 			form?: string
 			multiple: true
@@ -29,7 +29,7 @@ export interface SelectElementSingle {
 	attributes?: Override<
 		Partial<HTMLSelectElement>,
 		GlobalAttributeOverrides & {
-			autocomplete?: string // TODO: narrow this
+			autocomplete?: string // TODO(@chasm): narrow this
 			autofocus?: boolean
 			form?: string
 			multiple?: never

@@ -17,10 +17,9 @@
  * Exit non-zero when violations are found; prints file:line with a fix hint.
  */
 
-// deno-lint-ignore no-explicit-any
 const globWalk = async function* (
 	root: string,
-): AsyncGenerator<string, any, any> {
+): AsyncGenerator<string, void, unknown> {
 	for await (const entry of Deno.readDir(root)) {
 		const full = `${root}/${entry.name}`
 		if (entry.isDirectory) {

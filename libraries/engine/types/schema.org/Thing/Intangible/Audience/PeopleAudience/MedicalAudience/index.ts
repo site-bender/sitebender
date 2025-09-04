@@ -1,1 +1,1 @@
-export type { default } from "../../MedicalAudience/index.ts"
+export type { default, MedicalAudienceType } from "../../MedicalAudience/index.ts"

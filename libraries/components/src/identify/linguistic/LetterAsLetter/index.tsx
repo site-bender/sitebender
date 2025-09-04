@@ -25,7 +25,7 @@ export type Props = {
 
 export default function LetterAsLetter({
 	children,
-	description,
+	description: _description,
 	element: Element = "i",
 	case: letterCase,
 	phoneticName,

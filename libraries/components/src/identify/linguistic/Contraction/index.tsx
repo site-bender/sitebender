@@ -31,7 +31,7 @@ export type Props = {
 
 export default function Contraction({
 	children,
-	description,
+	description: _description,
 	element: Element = "abbr",
 	expanded,
 	formal,

@@ -1,1 +1,1 @@
-export type { default } from "../../Course/index.ts"
+export type { default, CourseType } from "../../Course/index.ts"

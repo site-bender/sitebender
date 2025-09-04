@@ -40,12 +40,12 @@ export type PalpableContent =
 	| FooterElement
 	| ParagraphElement
 	| BlockquoteElement
-	| DescriptionListElement // TODO: narrow type
+	| DescriptionListElement // TODO(@chasm): narrow type
 	| FigureElement
 	| MainElement
-	| MenuElement // TODO: narrow type
-	| OrderedListElement // TODO: narrow type
-	| UnorderedListElement // TODO: narrow type
+	| MenuElement // TODO(@chasm): narrow type
+	| OrderedListElement // TODO(@chasm): narrow type
+	| UnorderedListElement // TODO(@chasm): narrow type
 	| PreformattedTextElement
 	| SearchElement
 	| DetailsElement

@@ -1,5 +1,3 @@
-import type { Value } from "../../../types/index.ts"
-
 import isNull from "../../validation/isNull/index.ts"
 import isUndefined from "../../validation/isUndefined/index.ts"
 
@@ -60,13 +58,13 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * @curried
  * @immutable
  */
-const xform = <T extends Record<string | symbol, Value>>(
-	transformer: (obj: any) => any,
+const xform = <T extends Record<string | symbol, unknown>>(
+	transformer: (obj: Record<string | symbol, unknown>) => Record<string | symbol, unknown>,
 ) =>
 (
 	obj: T,
-): any => {
-	const transformRecursive = (current: any): any => {
+): unknown => {
+	const transformRecursive = (current: unknown): unknown => {
 		// Handle primitives
 		if (
 			isNull(current) || isUndefined(current) || typeof current !== "object"
@@ -80,7 +78,7 @@ const xform = <T extends Record<string | symbol, Value>>(
 		}
 
 		// Transform the current object first
-		const transformed = transformer(current)
+	const transformed = transformer(current as Record<string | symbol, unknown>)
 
 		// Recursively transform nested values
 		return Object.entries(transformed).reduce(

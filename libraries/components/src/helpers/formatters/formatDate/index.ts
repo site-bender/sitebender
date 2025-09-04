@@ -18,7 +18,7 @@ export default function formatDate(
 	try {
 		const formatter = new Intl.DateTimeFormat(locale || "en-US", options || {})
 		return formatter.format(date)
-	} catch (error) {
+	} catch (_error) {
 		// Fallback to ISO string if Intl fails
 		return date.toISOString().split("T")[0]
 	}

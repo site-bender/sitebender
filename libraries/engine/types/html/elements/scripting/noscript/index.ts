@@ -7,7 +7,7 @@ import type {
 
 export interface NoScriptElement {
 	attributes?: Override<Partial<HTMLElement>, GlobalAttributeOverrides>
-	// TODO: narrow children
+	// TODO(@chasm): narrow children
 	children?: Array<FlowContent>
 	dataset?: Dataset
 	readonly tagName: "NOSCRIPT"

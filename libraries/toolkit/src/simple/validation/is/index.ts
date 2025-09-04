@@ -49,7 +49,7 @@
  * ```
  */
 const is =
-	<T>(constructor: new (...args: Array<any>) => T) =>
+		<T>(constructor: new (...args: Array<unknown>) => T) =>
 	(value: unknown): value is T => value instanceof constructor
 
 export default is

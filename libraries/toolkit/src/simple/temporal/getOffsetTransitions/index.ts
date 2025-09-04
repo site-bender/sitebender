@@ -137,7 +137,7 @@ const getOffsetTransitions = (timeZone: string) =>
 	}
 
 	try {
-		const transitions: Array<{
+	const _transitions: Array<{
 			date: Temporal.PlainDate
 			offsetBefore: string
 			offsetAfter: string
@@ -198,8 +198,6 @@ const getOffsetTransitions = (timeZone: string) =>
 		}
 
 		return checkTransitions(startDate, null, [])
-
-		return transitions
 	} catch {
 		return []
 	}

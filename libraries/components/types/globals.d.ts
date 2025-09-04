@@ -10,12 +10,12 @@ declare global {
 		type Element = unknown
 
 		interface IntrinsicElements {
-			[elemName: string]: any
+			[elemName: string]: Record<string, unknown>
 		}
 
 		// Minimal attribute interfaces used across components
 		interface HTMLAttributes<T> {
-			[key: string]: any
+			[key: string]: unknown
 		}
 		interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {}
 		interface FieldSetHTMLAttributes<T> extends HTMLAttributes<T> {}

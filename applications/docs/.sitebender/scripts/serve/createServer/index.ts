@@ -20,7 +20,8 @@ export default function createServer(
 	const handler = async (req: Request): Promise<Response> => {
 		const url = new URL(req.url)
 
-		let filePath = url.pathname
+		const initialPath = url.pathname
+		let filePath = initialPath
 
 		if (filePath === "/") {
 			filePath = "/index.html"

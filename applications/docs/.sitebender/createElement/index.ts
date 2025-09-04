@@ -11,7 +11,7 @@ export default function createElement(
 
 		// If this is a metadata component (has _type), process JSX props
 		if (result && typeof result === "object" && "_type" in result) {
-			let processedProps = props ? { ...props } : {}
+			const processedProps = props ? { ...props } : {}
 
 			// Convert JSX elements in props to their data objects
 			if (props) {
@@ -61,13 +61,13 @@ function convertJSXToData(
 
 	if (typeof type === "function" && props && typeof props === "object") {
 		const {
-			children,
-			format,
-			element,
-			property,
+			children: _children,
+			format: _format,
+			element: _element,
+			property: _property,
 			subtypeProperties,
 			...dataProps
-		} = props as any
+		} = props as Record<string, unknown>
 
 		// Spread subtypeProperties into the main props
 		return {

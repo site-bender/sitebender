@@ -43,7 +43,7 @@ export type Props = {
 export default function SpokenAs({
 	audio,
 	children,
-	description,
+	description: _description,
 	element: Element = "span",
 	ipa,
 	lang,

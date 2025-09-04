@@ -1,6 +1,7 @@
 import createServer from "./createServer/index.ts"
 import getFreePort from "./getFreePort/index.ts"
 import watchForChanges from "./watchForChanges/index.ts"
+import { dirname, fromFileUrl, join } from "jsr:@std/path"
 
 export default async function startDevServer(): Promise<void> {
 	const logger: Logger = {
@@ -10,10 +11,16 @@ export default async function startDevServer(): Promise<void> {
 		error: console.error,
 	}
 
-	console.log("🏗️ Running initial build...")
+	// Ensure we operate within the docs application so outputs go to applications/docs/dist
+	const originalCwd = Deno.cwd()
+	const repoRoot = dirname(dirname(fromFileUrl(import.meta.url)))
+	const docsDir = join(repoRoot, "applications", "docs")
+	Deno.chdir(docsDir)
+
+	console.log("🏗️ Running initial build (docs app)...")
 	try {
 		const process = new Deno.Command("deno", {
-			args: ["run", "-A", "--no-check", "scripts/build/index.ts"],
+			args: ["task", "build"],
 		})
 		await process.output()
 		console.log("✅ Initial build completed")
@@ -26,7 +33,10 @@ export default async function startDevServer(): Promise<void> {
 	console.log(`🚀 Dev server running at http://localhost:${port}`)
 	console.log("Press Ctrl+C to stop")
 
-	await watchForChanges("scripts/build/index.ts")
+	await watchForChanges(".sitebender/scripts/build/index.ts")
+
+	// Restore original CWD on exit
+	Deno.chdir(originalCwd)
 }
 
 if (import.meta.main) {

@@ -50,7 +50,7 @@ export default function Demo() {
 				})}
 			</script>
 			{/* Client-side bootstrap to hydrate using real engine runtime */}
-			<script type="module" src="/scripts/hydrate/engine.js"></script>
+			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
 		</body>
 	)
 }

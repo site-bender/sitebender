@@ -16,7 +16,7 @@ import filterAttributes from "./filterAttributes/index.ts"
 /**
  * Valid track kinds
  */
-const TRACK_KINDS = [
+const _TRACK_KINDS = [
 	"subtitles",
 	"captions",
 	"descriptions",

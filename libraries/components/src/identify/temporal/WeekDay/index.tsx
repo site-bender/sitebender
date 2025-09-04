@@ -99,9 +99,9 @@ function getNumericDayOfWeek(
 export default function WeekDay({
 	value,
 	locale,
-	calendar,
+	calendar: _calendar,
 	format = "long",
-	formatOptions,
+	formatOptions: _formatOptions,
 	showWeek,
 	weekSystem = "ISO",
 	showQuarter,

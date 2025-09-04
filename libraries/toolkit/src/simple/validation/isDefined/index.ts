@@ -88,6 +88,7 @@
  * @predicate
  * @safe
  */
-const isDefined = <T>(value: T | null | undefined): value is T => value != null
+const isDefined = <T>(value: T | null | undefined): value is T =>
+	value !== null && value !== undefined
 
 export default isDefined

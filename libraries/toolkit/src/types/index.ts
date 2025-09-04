@@ -69,17 +69,13 @@ export const isValue = (val: unknown): val is Value => {
 	}
 
 	if (val instanceof Map) {
-		for (const [k, v] of val.entries()) {
-			if (typeof k !== "string" || !isValue(v)) return false
-		}
-		return true
+		return Array.from(val.entries()).every((([k, v]) =>
+			typeof k === "string" && isValue(v)
+		))
 	}
 
 	if (val instanceof Set) {
-		for (const v of val.values()) {
-			if (!isValue(v)) return false
-		}
-		return true
+		return Array.from(val.values()).every(isValue)
 	}
 
 	// Check for Temporal types
@@ -94,10 +90,9 @@ export const isValue = (val: unknown): val is Value => {
 
 	if (type === "object" && isNotNull(val)) {
 		// Plain object with string keys only
-		for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
-			if (typeof k !== "string" || !isValue(v)) return false
-		}
-		return true
+		return Object.entries(val as Record<string, unknown>).every((([k, v]) =>
+			typeof k === "string" && isValue(v)
+		))
 	}
 
 	return false

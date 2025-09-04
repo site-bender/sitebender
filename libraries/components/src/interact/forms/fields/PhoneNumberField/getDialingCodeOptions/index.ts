@@ -21,8 +21,8 @@ export default function getDialingCodeOptions(): Array<DialingCodeOption> {
 		new Set(mapToDialingCodes(COUNTRY_AND_DIALING_CODES)),
 	)
 
-	// Fix: Pass the functions as individual arguments, not as an array
-	return pipe<Array<string>, Array<DialingCodeOption>>([
+	// Compose steps with pipe (array-based API)
+	return pipe([
 		sortDialingCodes,
 		mapToOptions,
 	])(dialingCodes)

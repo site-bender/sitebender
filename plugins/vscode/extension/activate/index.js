@@ -1,4 +1,4 @@
-const vscode = require('vscode')
+const _vscode = require('vscode')
 const registerPrereqsCheck = require('../../commands/registerPrereqsCheck/index.js')
 const registerInitProject = require('../../commands/registerInitProject/index.js')
 const registerComposeUp = require('../../commands/registerComposeUp/index.js')

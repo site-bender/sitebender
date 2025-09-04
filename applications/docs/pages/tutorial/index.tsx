@@ -97,7 +97,7 @@ export default function Tutorial() {
 			</Program>
 
 			{/* Hydrate using pre-bundled client script */}
-			<script type="module" src="/scripts/hydrate/engine.js"></script>
+			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
 		</body>
 	)
 }

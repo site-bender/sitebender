@@ -32,13 +32,11 @@
  * expected by the function. Extra transformers are ignored, missing ones
  * pass arguments through unchanged.
  */
-// deno-lint-ignore no-explicit-any
 const useWith = <R>(
-	fn: (...args: ReadonlyArray<any>) => R,
-	transformers: ReadonlyArray<(arg: any) => any>,
+	fn: (...args: ReadonlyArray<unknown>) => R,
+	transformers: ReadonlyArray<(arg: unknown) => unknown>,
 ) =>
-// deno-lint-ignore no-explicit-any
-(...args: ReadonlyArray<any>): R => {
+(...args: ReadonlyArray<unknown>): R => {
 	const transformedArgs = args.map((arg, index) =>
 		transformers[index] ? transformers[index](arg) : arg
 	)

@@ -47,7 +47,7 @@ export type Props = {
 
 export default function Initialism({
 	children,
-	description,
+	description: _description,
 	expansion,
 	field,
 	href,

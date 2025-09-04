@@ -83,7 +83,7 @@ const accumulate = <T extends Record<string, unknown>>(
 	// Process each source starting from index 1 if we used first as initial
 	const startIndex = sources.length > 0 ? 1 : 0
 
-	return sources.slice(startIndex).reduce((acc, source, index) => {
+		return sources.slice(startIndex).reduce<T>((acc, source, index) => {
 		// For each key in accumulators
 	const updates = keys.reduce((keyAcc, key) => {
 			// Get the accumulator function for this key
@@ -100,20 +100,18 @@ const accumulate = <T extends Record<string, unknown>>(
 				return keyAcc
 			}
 
-			// Apply accumulator function
-			const accumulated = accumulator(
-				currentValue,
-				newValue,
-				index + startIndex,
-			)
-
-			(keyAcc as Record<string, unknown>)[key as string] = accumulated
+					// Apply accumulator function
+					;(keyAcc as Record<string, unknown>)[key as string] = accumulator(
+						currentValue,
+						newValue,
+						index + startIndex,
+					)
 			return keyAcc
 		}, {} as Record<string, unknown>)
 
 		// Merge updates into accumulator
-		return { ...acc, ...(updates as Partial<T>) } as T
-	}, initial)
+			return { ...acc, ...(updates as Partial<T>) } as T
+		}, initial as T)
 }
 
 export default accumulate

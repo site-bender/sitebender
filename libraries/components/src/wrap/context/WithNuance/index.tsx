@@ -64,7 +64,7 @@ export type Props = {
 export default function WithNuance({
 	children,
 	contradiction,
-	description,
+	description: _description,
 	doubleMeaning,
 	element: Element = "span",
 	hints,

@@ -66,15 +66,17 @@ import isEmpty from "../../array/isEmpty/index.ts"
  */
 const waterfall =
 	<I, O = I>(initial: I) =>
-	async <T extends ReadonlyArray<(arg: any) => Promise<any>>>(
+	async <T extends ReadonlyArray<(arg: unknown) => Promise<unknown>>>(
 		tasks: T,
 	): Promise<
-		T extends ReadonlyArray<(...args: any[]) => Promise<infer R>> ? R
+		T extends ReadonlyArray<(...args: unknown[]) => Promise<infer R>> ? R
 			: O
 	> => {
 		// Handle empty array - return initial value
 		if (isEmpty(tasks)) {
-			return initial as any
+			return initial as unknown as T extends ReadonlyArray<
+				(...args: unknown[]) => Promise<infer R>
+			> ? R : O
 		}
 
 		// Execute tasks in sequence using reduce

@@ -67,7 +67,7 @@ export default function WithAudience({
 	background,
 	children,
 	culture,
-	description,
+	description: _description,
 	education,
 	element: Element = "span",
 	expertise,

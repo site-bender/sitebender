@@ -26,11 +26,10 @@
  * Note: The composer function receives each function and the current value,
  * allowing you to intercept, modify, or wrap the execution.
  */
-// deno-lint-ignore no-explicit-any
 const pipeWith = <T, R>(
-	composer: (fn: (value: any) => any, value: any) => any,
-	fns: ReadonlyArray<(value: any) => any> = [],
+	composer: (fn: (value: unknown) => unknown, value: unknown) => unknown,
+	fns: ReadonlyArray<(value: unknown) => unknown> = [],
 ) =>
-(input: T): R => fns.reduce((acc, fn) => composer(fn, acc), input as any)
+(input: T): R => fns.reduce((acc, fn) => composer(fn, acc), input as unknown) as R
 
 export default pipeWith

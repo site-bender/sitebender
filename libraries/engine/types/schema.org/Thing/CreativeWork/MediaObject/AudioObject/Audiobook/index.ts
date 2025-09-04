@@ -1,1 +1,1 @@
-export type { default } from "../../../Book/Audiobook/index.ts"
+export type { default, AudiobookType } from "../../../Book/Audiobook/index.ts"

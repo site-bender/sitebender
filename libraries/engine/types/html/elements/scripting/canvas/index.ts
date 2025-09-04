@@ -13,7 +13,7 @@ export interface CanvasElement {
 			role?: AriaRole
 		}
 	>
-	// TODO: narrow children
+	// TODO(@chasm): narrow children
 	children?: Array<FlowContent>
 	dataset?: Dataset
 	readonly tagName: "CANVAS"

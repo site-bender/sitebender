@@ -57,9 +57,9 @@ type ValidationRules = {
 	min?: { value: number | string; message?: string } | number
 	max?: { value: number | string; message?: string } | number
 	pattern?: { regex: RegExp; message?: string } | RegExp
-	enum?: Array<any>
-	custom?: (value: any) => string | null
-	transform?: (value: any) => any
+		enum?: Array<unknown>
+		custom?: (value: unknown) => string | null
+		transform?: (value: unknown) => unknown
 	maxSize?: number
 	allowedTypes?: Array<string>
 	allowedProtocols?: Array<string>
@@ -78,7 +78,7 @@ type ValidationRules = {
 }
 
 const validateField =
-	(rules: ValidationRules) => (value: any): string | null => {
+	(rules: ValidationRules) => (value: unknown): string | null => {
 		// Apply transform if provided
 		let transformedValue = value
 		if (rules.transform) {
@@ -117,12 +117,13 @@ const validateField =
 					transformedValue = Number(transformedValue)
 					break
 
-				case "email":
-					const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-					if (!emailRegex.test(String(transformedValue))) {
-						return rules.messages?.type || "Please enter a valid email address"
-					}
-					break
+						case "email": {
+							const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+							if (!emailRegex.test(String(transformedValue))) {
+								return rules.messages?.type || "Please enter a valid email address"
+							}
+							break
+						}
 
 				case "url":
 					try {
@@ -140,13 +141,14 @@ const validateField =
 					}
 					break
 
-				case "date":
-					const date = new Date(String(transformedValue))
-					if (isNaN(date.getTime())) {
-						return rules.messages?.type || "Please enter a valid date"
-					}
-					transformedValue = date.toISOString().split("T")[0]
-					break
+						case "date": {
+							const date = new Date(String(transformedValue))
+							if (isNaN(date.getTime())) {
+								return rules.messages?.type || "Please enter a valid date"
+							}
+							transformedValue = date.toISOString().split("T")[0]
+							break
+						}
 
 				case "file":
 					if (!(transformedValue instanceof File)) {
@@ -212,7 +214,7 @@ const validateField =
 
 		// Date range validations
 		if (rules.type === "date") {
-			const dateValue = new Date(transformedValue)
+			const dateValue = new Date(String(transformedValue))
 
 			if (rules.min !== undefined) {
 				const minConfig = typeof rules.min === "object"

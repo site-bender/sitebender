@@ -15,7 +15,7 @@ export interface ImageElement {
 			Partial<HTMLImageElement>,
 			"border" | "hspace" | "longDesc" | "lowsrc" | "name" | "vspace"
 		>,
-		// TODO: narrow types
+		// TODO(@chasm): narrow types
 		& GlobalAttributeOverrides
 		& {
 			crossOrigin?: CrossOrigin
