@@ -26,7 +26,7 @@
 		"test:integration": "deno test --unstable-temporal tests/integration/ -A --no-check",
 		"test:build": "deno test --unstable-temporal tests/build/ -A --no-check",
 		"test:a11y": "deno test --unstable-temporal tests/a11y/ -A --no-check",
-		"test:e2e": "deno task build && npx playwright test -c ../playwright.config.ts",
+		"test:e2e": "deno task build && npx playwright test -c ../../playwright.config.ts",
 
 		// === Maintenance ===
 		"clean": "rm -rf dist/ coverage/",
@@ -42,14 +42,14 @@
 		"fast-check": "https://esm.sh/fast-check@3.15.1",
 
 		// === Local Sitebender Libraries ===
-		"@sitebender/toolkit": "../libraries/toolkit/src/",
-		"@sitebender/toolkit/": "../libraries/toolkit/src/",
+		"@sitebender/toolkit": "../../libraries/toolkit/src/",
+		"@sitebender/toolkit/": "../../libraries/toolkit/src/",
 		// Preferred engine aliases
-		"@sitebender/engine": "../libraries/engine/src/",
-		"@sitebender/engine/": "../libraries/engine/src/",
+		"@sitebender/engine": "../../libraries/engine/src/",
+		"@sitebender/engine/": "../../libraries/engine/src/",
 		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
-		"@sitebender/components": "../libraries/components/src/index.ts",
-		"@sitebender/components/": "../libraries/components/src/",
+		"@sitebender/components": "../../libraries/components/src/index.ts",
+		"@sitebender/components/": "../../libraries/components/src/",
 
 		// === Deno Standard Library ===
 		"@std/expect": "jsr:@std/expect@^1.0.17",
