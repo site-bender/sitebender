@@ -1,15 +1,15 @@
-import type { InputEmailAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { InputEmailAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { InputEmailAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { InputEmailAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
 import Input from "../index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended InputEmail attributes including reactive properties and ARIA

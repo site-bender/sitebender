@@ -1,16 +1,17 @@
-import type { SelectAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SelectAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Select element

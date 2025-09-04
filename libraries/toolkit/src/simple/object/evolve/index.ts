@@ -67,8 +67,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // { version: { major: 1, minor: 2, patch: 4 }, name: "app" }
  * ```
  */
-const evolve = <T extends Record<string, Value>>(
-	transformations: Record<string, TransformationSpec>,
+const evolve = <T extends Record<string | symbol, Value>>(
+	transformations: Record<string | symbol, TransformationSpec>,
 ) =>
 (obj: T | null | undefined): T => {
 	if (isNullish(obj) || typeof obj !== "object") {
@@ -77,8 +77,8 @@ const evolve = <T extends Record<string, Value>>(
 
 	const evolveRecursive = (
 		trans: TransformationSpec,
-		target: Value | Record<string, Value> | Array<Value>,
-	): Value | Record<string, Value> | Array<Value> => {
+		target: Value | Record<string | symbol, Value> | Array<Value>,
+	): Value | Record<string | symbol, Value> | Array<Value> => {
 		// If target is not an object, return it unchanged
 		if (isNullish(target) || typeof target !== "object") {
 			return target
@@ -91,8 +91,8 @@ const evolve = <T extends Record<string, Value>>(
 
 		// Handle arrays
 		if (Array.isArray(target)) {
-			return target.map((item, index) => {
-				const transformation = trans[index]
+			return (target as Array<Value>).map((item, index) => {
+				const transformation = (trans as Record<number, TransformationSpec>)[index]
 				if (typeof transformation === "function") {
 					return transformation(item)
 				} else if (typeof transformation === "object") {
@@ -104,10 +104,10 @@ const evolve = <T extends Record<string, Value>>(
 
 		// Handle objects - combine all keys
 		const allKeys = [
-			...Object.keys(target),
-			...Object.keys(trans),
-			...Object.getOwnPropertySymbols(target),
-			...Object.getOwnPropertySymbols(trans),
+			...Object.keys(target as Record<string, unknown>),
+			...Object.keys(trans as Record<string, unknown>),
+			...Object.getOwnPropertySymbols(target as object),
+			...Object.getOwnPropertySymbols(trans as object),
 		]
 
 		// Use reduce to build the result object
@@ -115,10 +115,10 @@ const evolve = <T extends Record<string, Value>>(
 			const isSymbol = typeof key === "symbol"
 			const targetValue = isSymbol
 				? (target as Record<string | symbol, Value>)[key]
-				: target[key as string]
+				: (target as Record<string, Value>)[key as string]
 			const transformation = isSymbol
 				? (trans as Record<string | symbol, TransformationSpec>)[key]
-				: trans[key as string]
+				: (trans as Record<string, TransformationSpec>)[key as string]
 
 			// Determine the value for this key
 			const newValue = (() => {
@@ -140,14 +140,14 @@ const evolve = <T extends Record<string, Value>>(
 			if (isNotUndefined(newValue)) {
 				return {
 					...acc,
-					[key]: newValue,
+					[key]: newValue as Value,
 				}
 			}
 			return acc
-		}, {} as Record<string | symbol, Value>)
+	}, {} as Record<string | symbol, Value>)
 	}
 
-	return evolveRecursive(transformations, obj)
+	return evolveRecursive(transformations, obj) as T
 }
 
 export default evolve

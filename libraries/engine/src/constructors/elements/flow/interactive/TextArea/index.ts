@@ -1,15 +1,17 @@
-import type { TextAreaAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { TextAreaAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
 import filterAttributes from "./filterAttributes/index.ts"
 
 /**

@@ -5,8 +5,8 @@ import type {
 	IrDocument,
 	Node,
 } from "../../../types/ir/index.ts"
-
 import type { ComposeContext } from "../../context/composeContext/index.ts"
+
 import createComposeContext from "../../context/composeContext/index.ts"
 import registerDefaultExecutors from "../../operations/defaults/registerDefaults/index.ts"
 import actions from "../../operations/registries/actions.ts"

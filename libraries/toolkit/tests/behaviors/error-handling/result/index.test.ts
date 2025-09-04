@@ -1,13 +1,13 @@
 import * as fc from "npm:fast-check@3"
 
-import ok from "../../../../src/monads/result/ok/index.ts"
-import err from "../../../../src/monads/result/err/index.ts"
 import bimap from "../../../../src/monads/result/bimap/index.ts"
+import err from "../../../../src/monads/result/err/index.ts"
 import fold from "../../../../src/monads/result/fold/index.ts"
-import orElse from "../../../../src/monads/result/orElse/index.ts"
-import tryCatch from "../../../../src/monads/result/tryCatch/index.ts"
 import map from "../../../../src/monads/result/map/index.ts"
 import mapErr from "../../../../src/monads/result/mapErr/index.ts"
+import ok from "../../../../src/monads/result/ok/index.ts"
+import orElse from "../../../../src/monads/result/orElse/index.ts"
+import tryCatch from "../../../../src/monads/result/tryCatch/index.ts"
 
 Deno.test("Result bimap applies left/right functions", () => {
   const double = (n: number) => n * 2

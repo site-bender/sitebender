@@ -1,6 +1,8 @@
 import { relative } from "jsr:@std/path"
-import stripCommentsAndStrings from "../../enforceFP/stripCommentsAndStrings/index.ts"
+
 import type { PerFileAnalysis, FileFunction } from "../types/index.ts"
+
+import stripCommentsAndStrings from "../../enforceFP/stripCommentsAndStrings/index.ts"
 
 export default async function analyzeFile(opts: { absPath: string; root: string; onlyDefault?: boolean }): Promise<PerFileAnalysis> {
   const text = await Deno.readTextFile(opts.absPath)

@@ -1,15 +1,15 @@
-import type { SuperscriptAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SuperscriptAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Sup element configuration object

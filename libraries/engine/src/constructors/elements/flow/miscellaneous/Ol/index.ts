@@ -1,18 +1,19 @@
-import type { ListAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { OrderedListAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { ListAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { OrderedListAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Valid type values for ordered lists

@@ -1,6 +1,6 @@
 import FilteredAllowText from "../../../../../constructors/abstracted/FilteredAllowText/index.ts"
-
 import filterAttributes from "./filterAttributes/index.ts"
+
 /**
  * Filters attributes for Hn element
  * Allows global attributes and validates role attribute against HEADING_ROLES

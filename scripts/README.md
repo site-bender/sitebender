@@ -16,7 +16,7 @@ Usage:
 
 Flags:
 - --root: root folder to scan (defaults to current working folder)
-- --folders: comma-separated folders under root to scan (defaults to: libraries, scripts, docs, inspector)
+- --folders: comma-separated folders under root to scan (defaults to: libraries, scripts, docs, playground)
 	- Alias: --dirs (kept for compatibility)
 - --exclude: comma-separated folder names to exclude anywhere in the tree (defaults include node_modules, dist, build, coverage, fixtures, tests, constants, types)
 - --max-fn-lines: threshold for flagging long functions (default 60)

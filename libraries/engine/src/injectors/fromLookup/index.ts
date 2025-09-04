@@ -1,5 +1,5 @@
-import getValue from "@engineSrc/pending/dom/getValue/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import getValue from "@sitebender/engine/pending/dom/getValue/index.ts"
+import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"

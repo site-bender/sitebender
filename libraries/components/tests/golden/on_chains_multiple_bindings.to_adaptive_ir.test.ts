@@ -1,4 +1,4 @@
-import type { EventBindingNode, IrDocument } from "@engineTypes/ir/index.ts"
+import type { EventBindingNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
 
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 

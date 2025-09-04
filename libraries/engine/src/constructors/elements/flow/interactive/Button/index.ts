@@ -1,8 +1,5 @@
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
-import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
-import ADVANCED_FILTERS from "../../../../../guards/createAdvancedFilters/index.ts"
-import isString from "../../../../../guards/isString/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -13,6 +10,11 @@ import type {
 import type { ButtonAriaAttributes } from "../../../types/aria/index.ts"
 import type { ButtonAttributes } from "../../../types/attributes/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
+
+import TextNode from "../../../../../constructors/elements/TextNode/index.ts"
+import ADVANCED_FILTERS from "../../../../../guards/createAdvancedFilters/index.ts"
+import isString from "../../../../../guards/isString/index.ts"
+import filterAttributes from "./filterAttributes/index.ts"
 
 // Button-specific attribute filtering is handled in ./filterAttributes
 

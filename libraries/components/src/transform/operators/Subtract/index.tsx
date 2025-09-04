@@ -2,7 +2,7 @@ import type {
 	NumericDatatype,
 	Operand,
 	SubtractOperator,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Subtract JSX Component
@@ -23,7 +23,7 @@ import type {
  * </Subtract>
  */
 
-import SubtractConstructor from "@engineSrc/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "@sitebender/engine/constructors/operators/Subtract/index.ts"
 
 export type Props = {
 	type?: NumericDatatype

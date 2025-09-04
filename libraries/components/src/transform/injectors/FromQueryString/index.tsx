@@ -2,7 +2,7 @@ import type {
 	Datatype,
 	FromQueryStringInjector,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * FromQueryString JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromQueryStringConstructor from "@engineSrc/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "@sitebender/engine/constructors/injectors/FromQueryString/index.ts"
 
 export type FromQueryStringProps = {
 	param: string

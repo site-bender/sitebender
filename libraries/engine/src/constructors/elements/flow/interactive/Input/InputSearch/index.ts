@@ -1,4 +1,4 @@
-import filterTextAttributes from "@engineSrc/constructors/elements/flow/interactive/Input/utilities/filterTextAttributes/index.ts"
+import filterTextAttributes from "@sitebender/engine/constructors/elements/flow/interactive/Input/utilities/filterTextAttributes/index.ts"
 
 import Input from "../index.ts"
 

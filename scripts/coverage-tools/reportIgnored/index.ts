@@ -5,13 +5,14 @@
  */
 
 import { join, relative } from "jsr:@std/path@^1.0.8"
-import runCli from "../../utilities/cli/runCli/index.ts"
+
+import runCli, { type CliRunArgs } from "../../utilities/cli/runCli/index.ts"
 
 // Determine repo root (assume task is run from repo root)
 const DEFAULT_REPO_ROOT = Deno.cwd()
 const DEFAULT_SCAN_DIRS = [
 	"docs",
-	"inspector",
+	"playground",
 	"libraries/engine",
 	"libraries/components",
 	"libraries/toolkit",
@@ -34,7 +35,7 @@ function groupLabel(root: string, absPath: string): string {
 		return seg.length >= 2 ? `libraries/${seg[1]}` : "libraries"
 	}
 	if (rel.startsWith("docs/")) return "docs"
-	if (rel.startsWith("inspector/")) return "inspector"
+	if (rel.startsWith("playground/")) return "playground"
 	if (rel.startsWith("scripts/")) return "scripts"
 	return "root"
 }
@@ -178,7 +179,7 @@ if (import.meta.main) {
 			usage: "coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/engine,docs",
 			booleans: ["json"],
 			aliases: { j: "json", d: "dirs", f: "folders", r: "root" },
-		onRun: async ({ flags, options }) => {
+	onRun: async ({ flags, options }: CliRunArgs) => {
 				const dirsOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof dirsOpt === "string"
 				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(Boolean)

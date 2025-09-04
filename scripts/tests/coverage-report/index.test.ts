@@ -1,4 +1,5 @@
 import { expect } from "@std/expect"
+
 import reportCoverageIgnores from "../../coverage-tools/reportIgnored/index.ts"
 
 Deno.test("coverage reporter finds markers and skips tests/", async () => {

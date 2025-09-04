@@ -1,4 +1,4 @@
-import type { Operand } from "@engineTypes/index.ts"
+import type { Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * Extracts the operands array from an operation

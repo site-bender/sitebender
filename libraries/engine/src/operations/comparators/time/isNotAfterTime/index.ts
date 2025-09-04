@@ -1,7 +1,7 @@
 import compare from "../../comparator/index.ts"
 
 const isNotAfterTime = compare(
-	(operand, test) => String(operand) <= String(test),
+	(operand: unknown, test: unknown) => String(operand) <= String(test),
 )
 
 export default isNotAfterTime

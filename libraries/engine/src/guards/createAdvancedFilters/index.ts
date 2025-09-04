@@ -1,9 +1,9 @@
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import isHeadingContent from "@engineSrc/guards/isHeadingContent/index.ts"
-import isInteractiveContent from "@engineSrc/guards/isInteractiveContent/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
+import isHeadingContent from "@sitebender/engine/guards/isHeadingContent/index.ts"
+import isInteractiveContent from "@sitebender/engine/guards/isInteractiveContent/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Configuration object for element validation (partial for flexibility)

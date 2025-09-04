@@ -1,4 +1,4 @@
-import type { Value } from "@engineTypes/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
 
 import { HEADING_ROLES } from "../../../../../../constructors/elements/constants/index.ts"
 import getId from "../../../../../../constructors/helpers/getId/index.ts"

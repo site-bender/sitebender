@@ -1,24 +1,24 @@
-export type CliContext = {
+import parseArgs from "../parseArgs/index.ts"
+
+// Minimal config and handler types for our small CLI runner
+export type CliRunArgs = {
   flags: Record<string, boolean>
   options: Record<string, string | string[]>
   positional: string[]
   dryRun: boolean
-  stdout: typeof console.log
-  stderr: typeof console.error
+  stdout: (msg?: string) => void
+  stderr: (msg?: string) => void
 }
 
 export type CliConfig = {
   name: string
   version?: string
   usage?: string
-  // Additional parser config for script-specific flags/options
   booleans?: string[]
   strings?: string[]
   aliases?: Record<string, string>
-  onRun: (ctx: CliContext) => Promise<number | void> | number | void
+  onRun: (args: CliRunArgs) => Promise<number | void> | number | void
 }
-
-import parseArgs from "../parseArgs/index.ts"
 
 /**
  * Minimal, zero-dep CLI runner with conventional flags:

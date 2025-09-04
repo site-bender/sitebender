@@ -1,9 +1,9 @@
 import * as fc from "npm:fast-check@3"
 
-import of from "../../../../../src/monads/task/of/index.ts"
-import map from "../../../../../src/monads/task/map/index.ts"
 import chain from "../../../../../src/monads/task/chain/index.ts"
 import delay from "../../../../../src/monads/task/delay/index.ts"
+import map from "../../../../../src/monads/task/map/index.ts"
+import of from "../../../../../src/monads/task/of/index.ts"
 import run from "../../../../../src/monads/task/run/index.ts"
 
 Deno.test("Task monad - laws (async)", async () => {

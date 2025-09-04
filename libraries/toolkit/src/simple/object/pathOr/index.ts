@@ -1,4 +1,4 @@
-import type { Value } from "../../types/index.ts"
+import type { Value } from "../../../types/index.ts"
 
 import isUndefined from "../../validation/isUndefined/index.ts"
 import path from "../path/index.ts"

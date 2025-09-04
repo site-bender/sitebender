@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromApiInjector,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * FromApi JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromApiConstructor from "@engineSrc/constructors/injectors/FromApi/index.ts"
+import FromApiConstructor from "@sitebender/engine/constructors/injectors/FromApi/index.ts"
 
 export type FromApiProps = {
 	endpoint: string

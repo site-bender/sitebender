@@ -1,13 +1,13 @@
-#!/usr/bin/env -S deno run --allow-read
+import type { Violation } from "./types/index.ts"
+
 /**
  * Enforce repo alias policy for cross-package imports. One function per folder.
  * Helpers live in ./helpers and shared constants in scripts/constants.
  */
 
 import { DEFAULT_ALIAS_SCOPES } from "../../constants/index.ts"
-import runCli from "../../utilities/cli/runCli/index.ts"
+import runCli, { type CliRunArgs } from "../../utilities/cli/runCli/index.ts"
 import findViolations from "./helpers/findViolations/index.ts"
-import type { Violation } from "./types/index.ts"
 
 export default async function runAliasGuards(
 	rootsArg?: string[],
@@ -23,7 +23,7 @@ if (import.meta.main) {
 		usage: "alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/engine libraries/components --json",
 		booleans: ["json", "quiet"],
 		aliases: { q: "quiet", j: "json" },
-		onRun: async ({ flags, positional, stderr, stdout }) => {
+	onRun: async ({ flags, positional, stderr, stdout }: CliRunArgs) => {
 			const roots = positional.length ? positional : DEFAULT_ALIAS_SCOPES
 			const violations = await runAliasGuards(roots)
 			if (flags.json) {

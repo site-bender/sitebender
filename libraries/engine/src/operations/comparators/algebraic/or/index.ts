@@ -1,5 +1,5 @@
-import { isLeft, isRight } from "@engineTypes/index.ts"
-import concat from "@toolkit/simple/array/concat/index.ts"
+import { isLeft, isRight } from "@sitebender/engine-types/index.ts"
+import concat from "@sitebender/toolkit/simple/array/concat/index.ts"
 
 import type {
 	ComparatorConfig,

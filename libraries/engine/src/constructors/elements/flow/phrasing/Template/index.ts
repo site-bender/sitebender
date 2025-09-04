@@ -1,17 +1,18 @@
-import type { TemplateAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { TemplateAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for Template element

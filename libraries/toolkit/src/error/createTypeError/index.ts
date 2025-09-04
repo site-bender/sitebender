@@ -41,19 +41,18 @@ const createTypeError =
 	<TDataType extends Datatype>(expected: TDataType) =>
 	(
 		actual: TDataType | "null" | "undefined" | "unknown",
-	): EngineError<TOp, TArgs, TDataType> => {
+	): EngineError<TOp, TArgs> => {
 		// Build the error step by step to maintain type compatibility
 		const baseError = createError(operation)(args)(
 			`${operation}: Expected ${expected} at argument ${argIndex}, got ${actual}`,
-		)("TYPE_MISMATCH") as EngineError<TOp, TArgs, TDataType>
+		)("TYPE_MISMATCH") as EngineError<TOp, TArgs>
 
 		// Apply transformations directly
 		return {
 			...baseError,
-			failedArgIndex: argIndex as keyof TArgs & number,
-			expectedType: expected,
-			actualType: actual,
+			failedIndex: argIndex,
 			suggestion: `Ensure argument ${argIndex} is of type ${expected}`,
+			types: { expected, actual: (actual as unknown as Datatype) },
 		}
 	}
 

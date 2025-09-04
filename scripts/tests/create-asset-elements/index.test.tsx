@@ -1,4 +1,5 @@
 import { expect } from "@std/expect"
+
 import createAssetElements from "../../build/createAssetElements/index.tsx"
 
 Deno.test("createAssetElements maps css/js and dedupes", () => {

@@ -1,6 +1,6 @@
-import { describe, it } from "jsr:@std/testing/bdd"
-import { expect } from "jsr:@std/expect"
 import * as fc from "fast-check"
+import { expect } from "jsr:@std/expect"
+import { describe, it } from "jsr:@std/testing/bdd"
 
 import span from "../../../../src/simple/array/span/index.ts"
 

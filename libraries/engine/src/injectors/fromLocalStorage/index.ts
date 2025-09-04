@@ -1,5 +1,5 @@
-import getFromLocal from "@engineSrc/pending/dom/getValue/getFromLocal/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import getFromLocal from "@sitebender/engine/pending/dom/getValue/getFromLocal/index.ts"
+import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"

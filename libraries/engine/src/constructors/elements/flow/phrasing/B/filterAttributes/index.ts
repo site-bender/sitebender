@@ -1,9 +1,10 @@
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
 import type { BElementAttributes } from "../index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
 
 export default function filterAttributes(attributes: BElementAttributes) {
 

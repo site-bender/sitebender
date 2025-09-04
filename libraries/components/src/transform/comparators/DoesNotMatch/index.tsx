@@ -1,4 +1,4 @@
-import type { DoesNotMatchComparator, Operand } from "@engineTypes/index.ts"
+import type { DoesNotMatchComparator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * DoesNotMatch JSX Component
@@ -14,7 +14,7 @@ import type { DoesNotMatchComparator, Operand } from "@engineTypes/index.ts"
  * </DoesNotMatch>
  */
 
-import DoesNotMatchConstructor from "@engineSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
+import DoesNotMatchConstructor from "@sitebender/engine/constructors/comparators/matching/DoesNotMatch/index.ts"
 
 export type Props = {
 	flags?: string

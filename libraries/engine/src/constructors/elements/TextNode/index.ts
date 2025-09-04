@@ -1,4 +1,4 @@
-import type { TextNodeConfig } from "@engineSrc/constructors/elements/types/index.ts"
+import type { TextNodeConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
 /**
  * Creates a TextNode configuration object for representing text content

@@ -2,12 +2,12 @@ import * as fc from "npm:fast-check@3"
 
 import type { State } from "../../../../../src/monads/state/state/index.ts"
 
-import of from "../../../../../src/monads/state/of/index.ts"
-import get from "../../../../../src/monads/state/get/index.ts"
-import modify from "../../../../../src/monads/state/modify/index.ts"
 import chain from "../../../../../src/monads/state/chain/index.ts"
 import evalState from "../../../../../src/monads/state/evalState/index.ts"
 import execState from "../../../../../src/monads/state/execState/index.ts"
+import get from "../../../../../src/monads/state/get/index.ts"
+import modify from "../../../../../src/monads/state/modify/index.ts"
+import of from "../../../../../src/monads/state/of/index.ts"
 
 Deno.test("State monad - left/right identity and associativity", () => {
   const f = (n: number) => (s: number): [number, number] => [n + s, s]

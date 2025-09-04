@@ -73,6 +73,12 @@ const replaceAll =
 		const regex = searchValue.global
 			? searchValue
 			: new RegExp(searchValue.source, searchValue.flags + "g")
+		if (typeof replaceValue === "function") {
+			return str.replaceAll(regex, (
+				substring: string,
+				...args: string[]
+			) => (replaceValue as ReplacerFunction)(substring, ...args))
+		}
 		return str.replaceAll(regex, replaceValue)
 	}
 

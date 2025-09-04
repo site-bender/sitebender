@@ -1,15 +1,16 @@
-import type { TableColumnGroupAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { TableColumnGroupAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for ColGroup element

@@ -1,12 +1,12 @@
+import type { Value } from "@sitebender/engine-types/index.ts"
 import type {
 	ElementAttributes,
 	ElementConfig,
-} from "@engineSrc/constructors/elements/types/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined.ts"
 
 const FilteredEmpty =
 	<T extends Record<string, unknown>>(tag = "Img") =>

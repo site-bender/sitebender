@@ -1,6 +1,6 @@
 import type BaseProps from "../../../../types/index.ts"
 
-import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
+import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {
 	element?: "span" | "div" | "section" | "aside"

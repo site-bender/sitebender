@@ -1,15 +1,15 @@
-import type { TableCaptionAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
+import type { TableCaptionAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
 
 /**
  * Child filter that validates flow content

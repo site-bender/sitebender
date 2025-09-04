@@ -6,19 +6,19 @@ import type {
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import And from "@engineSrc/constructors/comparators/algebraic/And/index.ts"
-import IsEqualTo from "@engineSrc/constructors/comparators/equality/IsEqualTo/index.ts"
-import Matches from "@engineSrc/constructors/comparators/matching/Matches/index.ts"
-import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
-import Add from "@engineSrc/constructors/operators/Add/index.ts"
-import Divide from "@engineSrc/constructors/operators/Divide/index.ts"
-import Max from "@engineSrc/constructors/operators/Max/index.ts"
-import Min from "@engineSrc/constructors/operators/Min/index.ts"
-import Multiply from "@engineSrc/constructors/operators/Multiply/index.ts"
-import Subtract from "@engineSrc/constructors/operators/Subtract/index.ts"
-import Ternary from "@engineSrc/constructors/operators/Ternary/index.ts"
+import And from "@sitebender/engine/constructors/comparators/algebraic/And/index.ts"
+import IsEqualTo from "@sitebender/engine/constructors/comparators/equality/IsEqualTo/index.ts"
+import Matches from "@sitebender/engine/constructors/comparators/matching/Matches/index.ts"
+import Constant from "@sitebender/engine/constructors/injectors/Constant/index.ts"
+import Add from "@sitebender/engine/constructors/operators/Add/index.ts"
+import Divide from "@sitebender/engine/constructors/operators/Divide/index.ts"
+import Max from "@sitebender/engine/constructors/operators/Max/index.ts"
+import Min from "@sitebender/engine/constructors/operators/Min/index.ts"
+import Multiply from "@sitebender/engine/constructors/operators/Multiply/index.ts"
+import Subtract from "@sitebender/engine/constructors/operators/Subtract/index.ts"
+import Ternary from "@sitebender/engine/constructors/operators/Ternary/index.ts"
 
 // Helpers to build simple operands
 const str = (s: string): Operand => Constant("String")(s)

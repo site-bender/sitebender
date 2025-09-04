@@ -1,16 +1,16 @@
+import type { Value } from "@sitebender/engine-types/index.ts"
 import type {
 	ChildFilter,
 	ElementAttributes,
 	ElementConfig,
-} from "@engineSrc/constructors/elements/types/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined.ts"
 
 const GlobalAllowText =
 	<T extends Record<string, unknown>>(tag = "Span") =>

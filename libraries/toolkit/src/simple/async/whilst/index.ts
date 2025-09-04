@@ -74,7 +74,7 @@
 const whilst = <T>(
 	predicate: () => boolean,
 ) =>
-async (
+(
 	fn: () => Promise<T>,
 ): Promise<Array<T>> => {
 	// Recursive implementation to avoid while loop
@@ -88,8 +88,6 @@ async (
 	}
 
 	return iterate([])
-
-	return results
 }
 
 export default whilst

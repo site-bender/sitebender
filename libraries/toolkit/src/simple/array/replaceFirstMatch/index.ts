@@ -1,6 +1,5 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import findIndex from "../findIndex/index.ts"
-import replaceAt from "../replaceAt/index.ts"
 
 /**
  * Replaces the first string that matches a pattern with a transformed value
@@ -37,15 +36,14 @@ const replaceFirstMatch =
 		}
 		const index = findIndex((item: T) =>
 			typeof item === "string" && pattern.test(item)
-		)(array)
+		)(array as Array<T>)
 
 		if (index === undefined) {
 			return [...array]
 		}
-		
-		// At this point we know the item at index is a string because
-		// findIndex only returns an index when the item passes our test
-		return replaceAt(index)(() => replacer(array[index] as unknown as string) as T)(array)
+		const out = [...array]
+		out[index] = replacer(out[index] as unknown as string) as T
+		return out
 	}
 
 export default replaceFirstMatch

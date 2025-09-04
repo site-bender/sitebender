@@ -5,8 +5,8 @@ import type {
 	Token,
 } from "../../types/index.ts"
 
-import createParserContext from "./createParserContext/index.ts"
 import parseExpression from "../parseExpression/index.ts"
+import createParserContext from "./createParserContext/index.ts"
 
 /**
  * Parses an array of tokens into an Abstract Syntax Tree (AST).

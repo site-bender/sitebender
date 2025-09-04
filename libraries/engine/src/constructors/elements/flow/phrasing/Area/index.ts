@@ -1,17 +1,18 @@
-import type { NoAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { AreaAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { NoAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { AreaAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
 // constants are used in filterAttributes
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Area attributes including reactive properties and ARIA

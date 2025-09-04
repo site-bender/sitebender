@@ -26,7 +26,7 @@ Deno.test("aliasGuards CLI: OK (no violations) when scanning only alias import",
 		const file = `${srcDir}/ok.ts`
 		await Deno.writeTextFile(
 			file,
-			'import x from "@engineSrc/rendering/index.ts"\nexport const ok = x\n',
+			'import x from "@sitebender/engine/rendering/index.ts"\nexport const ok = x\n',
 		)
 		const res = await runDeno([
 			"run",
@@ -67,9 +67,9 @@ Deno.test("aliasGuards CLI: exits non-zero and prints hints on violations", asyn
 		expect(res.stderr.includes("Alias policy violations")).toBe(true)
 		// should include a suggestion hint
 		expect(
-			res.stderr.includes("@engineSrc/") ||
-			res.stderr.includes("@engineTypes/") ||
-			res.stderr.includes("@toolkit/"),
+			res.stderr.includes("@sitebender/engine/") ||
+			res.stderr.includes("@sitebender/engine-types/") ||
+			res.stderr.includes("@sitebender/toolkit/"),
 		).toBe(true)
 	} finally {
 		await Deno.remove(root, { recursive: true })
@@ -107,7 +107,7 @@ Deno.test("aliasGuards CLI: --quiet suppresses human output on success", async (
 		await Deno.mkdir(srcDir, { recursive: true })
 		await Deno.writeTextFile(
 			`${srcDir}/ok.ts`,
-			'import x from "@engineSrc/rendering/index.ts"\nexport const ok = x\n',
+			'import x from "@sitebender/engine/rendering/index.ts"\nexport const ok = x\n',
 		)
 		const res = await runDeno([
 			"run",

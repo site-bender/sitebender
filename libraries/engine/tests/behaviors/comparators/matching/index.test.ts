@@ -1,8 +1,8 @@
-import type { Operand } from "@engineTypes/index.ts"
+import type { Operand } from "@sitebender/engine-types/index.ts"
 
-import DoesNotMatch from "@engineSrc/constructors/comparators/matching/DoesNotMatch/index.ts"
-import Matches from "@engineSrc/constructors/comparators/matching/Matches/index.ts"
-import Constant from "@engineSrc/constructors/injectors/Constant/index.ts"
+import DoesNotMatch from "@sitebender/engine/constructors/comparators/matching/DoesNotMatch/index.ts"
+import Matches from "@sitebender/engine/constructors/comparators/matching/Matches/index.ts"
+import Constant from "@sitebender/engine/constructors/injectors/Constant/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 

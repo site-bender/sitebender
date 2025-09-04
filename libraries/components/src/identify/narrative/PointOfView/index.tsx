@@ -1,4 +1,4 @@
-import { getDataAttributes } from "../../../helpers/getDataAttributes/index.ts"
+import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 
 type BaseProps = Record<string, unknown>
 

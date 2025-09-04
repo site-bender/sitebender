@@ -1,5 +1,5 @@
-import filter from "../filter/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import filter from "../filter/index.ts"
 
 /**
  * Removes all occurrences of a value from an array
@@ -32,7 +32,8 @@ const removeAll = <T>(item: T) =>
 	if (isNullish(array)) {
 		return []
 	}
-	return filter((element: T) => element !== item)(array)
+	// filter returns a new array; spread to ensure a mutable Array<T>
+	return filter((element: T) => element !== item)([...array])
 }
 
 export default removeAll

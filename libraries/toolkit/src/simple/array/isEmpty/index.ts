@@ -35,7 +35,7 @@
  * arrays.filter(arr => !isEmpty(arr)) // [[1], [2, 3]]
  * ```
  */
-const isEmpty = <T>(array: Array<T>): boolean =>
+const isEmpty = <T>(array: ReadonlyArray<T>): boolean =>
 	Array.isArray(array) && array.length === 0
 
 export default isEmpty

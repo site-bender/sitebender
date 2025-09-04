@@ -1,4 +1,4 @@
-import type { NegateOperator, Operand } from "@engineTypes/index.ts"
+import type { NegateOperator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * Negate JSX Component
@@ -12,7 +12,7 @@ import type { NegateOperator, Operand } from "@engineTypes/index.ts"
  * </Negate>
  */
 
-import NegateConstructor from "@engineSrc/constructors/operators/Negate/index.ts"
+import NegateConstructor from "@sitebender/engine/constructors/operators/Negate/index.ts"
 
 export type Props = {
 	type?: "Number"

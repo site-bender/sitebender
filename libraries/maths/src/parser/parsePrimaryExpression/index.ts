@@ -5,8 +5,8 @@ import type {
 } from "../../types/index.ts"
 import type { ParserContext } from "../parseExpression/index.ts"
 
-import expect from "../parsePrimaryExpression/expect/index.ts"
 import parseExpression from "../parseExpression/index.ts"
+import expect from "../parsePrimaryExpression/expect/index.ts"
 
 /**
  * Parses primary expressions: numbers, variables, and parenthesized expressions.

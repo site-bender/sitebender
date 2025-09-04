@@ -1,13 +1,13 @@
+import type { Value } from "@sitebender/engine-types/index.ts"
 import type {
 	ElementAttributes,
 	ElementConfig,
-} from "@engineSrc/constructors/elements/types/index.ts"
-import type { Value } from "@engineTypes/index.ts"
+} from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import getAriaAttributes from "@engineSrc/constructors/helpers/getAriaAttributes/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import { isValue } from "@engineTypes/index.ts"
-import isDefined from "@toolkit/simple/validation/isDefined/index.ts"
+import { isValue } from "@sitebender/engine-types/index.ts"
+import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
 
 const Filtered =
 	<T extends Record<string, unknown>>(tag = "A") =>

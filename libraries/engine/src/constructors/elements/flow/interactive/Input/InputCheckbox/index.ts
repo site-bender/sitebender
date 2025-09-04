@@ -1,4 +1,4 @@
-import filterCheckedAttributes from "@engineSrc/constructors/elements/flow/interactive/Input/utilities/filterCheckedAttributes/index.ts"
+import filterCheckedAttributes from "@sitebender/engine/constructors/elements/flow/interactive/Input/utilities/filterCheckedAttributes/index.ts"
 
 import Input from "../index.ts"
 

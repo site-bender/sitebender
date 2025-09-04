@@ -1,4 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
+
 import left from "../../either/left/index.ts"
 import right from "../../either/right/index.ts"
 

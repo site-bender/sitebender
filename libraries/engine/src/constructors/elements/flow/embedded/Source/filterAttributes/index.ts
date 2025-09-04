@@ -1,10 +1,11 @@
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
+import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
+import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
 import type { SourceElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: SourceElementAttributes) {

@@ -1,4 +1,4 @@
-import type { Lens } from "../../simple/object/lens/index.ts"
+import type { Lens } from "../../object/lens/index.ts"
 
 /**
  * Composes multiple lenses into a single lens

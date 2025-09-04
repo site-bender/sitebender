@@ -59,17 +59,17 @@ const modifyPath = <V extends Value, R extends Value>(
 ): Value => {
 	// Empty path modifies the entire object
 	if (pathArray.length === 0) {
-		return fn(obj as any)
+		return fn(obj as unknown as V)
 	}
 
 	// Get current value at path (may be undefined)
-	const currentValue = path(pathArray)(obj) as V
+	const currentValue = path(pathArray as Array<string | number>)(obj) as V
 
 	// Apply transformation
 	const newValue = fn(currentValue)
 
 	// Set the new value at path
-	return assocPath(pathArray)(newValue)(
+	return assocPath(pathArray as Array<string | number>)(newValue)(
 		obj || {},
 	)
 }

@@ -1,14 +1,16 @@
-import type { TableColumnAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { TableColumnAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import FilteredEmpty from "@sitebender/engine/constructors/abstracted/FilteredEmpty/index.ts"
+
 import filterAttributes from "./filterAttributes/index.ts"
 
-import FilteredEmpty from "@engineSrc/constructors/abstracted/FilteredEmpty/index.ts"
 // no local guards needed here; handled in filterAttributes
 
 /**

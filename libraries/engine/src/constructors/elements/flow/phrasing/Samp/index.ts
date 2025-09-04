@@ -1,5 +1,5 @@
-import GlobalOnly from "@engineSrc/constructors/abstracted/GlobalOnly/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
+import GlobalOnly from "@sitebender/engine/constructors/abstracted/GlobalOnly/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
 
 /**
  * Creates a Samp element configuration object

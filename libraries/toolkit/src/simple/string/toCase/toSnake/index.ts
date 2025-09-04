@@ -1,4 +1,4 @@
-import not from "../../predicates/not/index.ts"
+import not from "../../../validation/not/index.ts"
 
 /**
  * Converts a string to snake_case

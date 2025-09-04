@@ -1,10 +1,10 @@
-import type { MatchesComparator, Operand } from "@engineTypes/index.ts"
+import type { MatchesComparator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * Matches - String pattern matching component for engine validation
  */
 
-import MatchesConstructor from "@engineSrc/constructors/comparators/matching/Matches/index.ts"
+import MatchesConstructor from "@sitebender/engine/constructors/comparators/matching/Matches/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

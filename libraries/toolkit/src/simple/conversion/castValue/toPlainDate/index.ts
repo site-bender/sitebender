@@ -5,6 +5,13 @@ import type {
 
 import isNullish from "../../../validation/isNullish/index.ts"
 
+function hasMethod<T extends string>(obj: unknown, name: T): obj is Record<string, unknown> & {
+	[K in T]: (...args: Array<unknown>) => unknown
+} {
+	return typeof obj === "object" && obj !== null && name in obj &&
+		typeof (obj as Record<string, unknown>)[name] === "function"
+}
+
 /**
  * Parses values into Temporal PlainDate objects
  *
@@ -68,8 +75,9 @@ const toPlainDate = (
 		}
 
 		try {
-			// Temporal.PlainDate.from with strict validation
-			return Temporal.PlainDate.from(trimmed, { overflow: "reject" })
+			// Accept only canonical ISO YYYY-MM-DD to avoid ambiguous parses
+			if (!/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return null
+			return Temporal.PlainDate.from(trimmed)
 		} catch {
 			return null
 		}
@@ -99,22 +107,28 @@ const toPlainDate = (
 		"day" in value
 	) {
 		try {
-			// Use 'reject' to ensure invalid dates return null
-			return Temporal.PlainDate.from(value as PlainDateLike, {
-				overflow: "reject",
-			})
+			// Construct from y/m/d only
+			const v = value as PlainDateLike
+			return Temporal.PlainDate.from({ year: v.year, month: v.month, day: v.day })
 		} catch {
 			return null
 		}
 	}
 
-	// Handle PlainDateTime and ZonedDateTime
-	if (value instanceof Temporal.PlainDateTime) {
-		return value.toPlainDate()
-	}
-
-	if (value instanceof Temporal.ZonedDateTime) {
-		return value.toPlainDate()
+	// Handle objects that provide a toPlainDate() method (PlainDateTime/ZonedDateTime)
+	if (hasMethod(value, "toPlainDate")) {
+		const result = (value as { toPlainDate: () => unknown }).toPlainDate()
+		// Best-effort: if result looks like a Temporal.PlainDate, return it
+		if (result && typeof (result as { toString: () => string }).toString === "function") {
+			try {
+				// Reconstruct via ISO to ensure a proper PlainDate instance
+				const iso = (result as { toString: () => string }).toString()
+				if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return Temporal.PlainDate.from(iso)
+			} catch (_err) {
+				// Swallow and fall through to null below
+			}
+		}
+		return null
 	}
 
 	// Exhaustive type check - should never reach here with proper types

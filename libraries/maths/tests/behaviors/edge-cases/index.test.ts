@@ -3,9 +3,9 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import type { ASTNode, ParseError, Result, Token } from "../../../src/types/index.ts"
 
 import compile from "../../../src/compiler/index.ts"
+import parseFormula from "../../../src/parseFormula/index.ts"
 import createParserContext from "../../../src/parser/parse/createParserContext/index.ts"
 import getOperatorFromToken from "../../../src/parser/parseBinaryExpression/getOperatorFromToken/index.ts"
-import parseFormula from "../../../src/parseFormula/index.ts"
 
 Deno.test("createParserContext - handles empty token array", () => {
 	// This tests the fallback in line 74: tokens[position] || tokens[tokens.length - 1]

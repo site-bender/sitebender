@@ -1,19 +1,20 @@
-import type { SummaryAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { SummaryAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import isHeadingContent from "@engineSrc/guards/isHeadingContent/index.ts"
-import isPhrasingContent from "@engineSrc/guards/isPhrasingContent/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isHeadingContent from "@sitebender/engine/guards/isHeadingContent/index.ts"
+import isPhrasingContent from "@sitebender/engine/guards/isPhrasingContent/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Summary attributes including reactive properties

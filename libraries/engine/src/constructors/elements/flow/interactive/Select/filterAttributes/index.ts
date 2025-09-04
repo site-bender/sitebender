@@ -1,13 +1,14 @@
-import type { SelectAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { Value } from "@engineTypes/index.ts"
-import { getSelectAllowedRoles } from "@engineSrc/constructors/elements/constants/aria-roles.ts"
-import { AUTOCOMPLETES } from "@engineSrc/constructors/elements/constants/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isBoolean from "@engineSrc/guards/isBoolean/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import isMemberOf from "@engineSrc/guards/isMemberOf/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
+import type { Value } from "@sitebender/engine-types/index.ts"
+import type { SelectAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import { getSelectAllowedRoles } from "@sitebender/engine/constructors/elements/constants/aria-roles.ts"
+import { AUTOCOMPLETES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
+import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
+import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
+import isMemberOf from "@sitebender/engine/guards/isMemberOf/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: SelectAttributes) {
 

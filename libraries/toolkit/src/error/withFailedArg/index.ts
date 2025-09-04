@@ -36,8 +36,8 @@ const withFailedArg =
 		error: EngineError<TOp, TArgs>,
 	): EngineError<TOp, TArgs> => ({
 		...error,
-		failedArgIndex: index as keyof TArgs & number,
-		failedArgName: name,
+		failedIndex: index,
+		context: name ? { ...(error.context ?? {}), argName: name } : error.context,
 	})
 
 export default withFailedArg

@@ -1,12 +1,3 @@
-#!/usr/bin/env -S deno run --allow-read
-/**
- * Analyze repository source files for size and function complexity.
- * - One function per folder style: helpers live under ./utilities and ./statistics
- * - Types in ./types, constants in ./constants
- * - Default export is the analyzeFiles function; CLI available via import.meta.main
- */
-
-import runCli from "../utilities/cli/runCli/index.ts"
 import {
   bold,
   cyan,
@@ -17,12 +8,22 @@ import {
   gray,
   white,
 } from "jsr:@std/fmt@1.0.3/colors"
+
 import type { AnalysisOptions, AnalysisResult, PerFileAnalysis, FileFunction, BarrelInfo } from "./types/index.ts"
-import { DEFAULT_EXCLUDED_DIR_NAMES, DEFAULT_SCAN_DIRS, EXTENSIONS, MAX_FN_LINES_DEFAULT } from "./constants/index.ts"
-import walkFolder from "./walkFolder/index.ts"
+
+/**
+ * Analyze repository source files for size and function complexity.
+ * - One function per folder style: helpers live under ./utilities and ./statistics
+ * - Types in ./types, constants in ./constants
+ * - Default export is the analyzeFiles function; CLI available via import.meta.main
+ */
+
+import runCli, { type CliRunArgs } from "../utilities/cli/runCli/index.ts"
 import analyzeFile from "./analyzeFile/index.ts"
+import { DEFAULT_EXCLUDED_DIR_NAMES, DEFAULT_SCAN_DIRS, EXTENSIONS, MAX_FN_LINES_DEFAULT } from "./constants/index.ts"
 import computeFileStats from "./statistics/computeFileStats/index.ts"
 import computeFunctionStats from "./statistics/computeFunctionStats/index.ts"
+import walkFolder from "./walkFolder/index.ts"
 
 export default async function analyzeFiles(opts?: AnalysisOptions): Promise<AnalysisResult> {
   const root = opts?.root ?? Deno.cwd()
@@ -185,7 +186,7 @@ if (import.meta.main) {
   usage: "analyze-files [--root <path>] [--folders a,b] [--exclude x,y] [--max-fn-lines N] [--concurrency N] [--no-barrels] [--compare file.json] [--json]\n\nExamples:\n  analyze-files --root . --folders libraries/engine/src,libraries/toolkit/src --json\n  analyze-files --max-fn-lines 80 --concurrency 16\n  analyze-files --no-barrels\n  analyze-files --compare prev.json --json",
   booleans: ["json", "no-barrels"],
   aliases: { j: "json", d: "dirs", f: "folders", r: "root", e: "exclude", m: "max-fn-lines", c: "concurrency" },
-  onRun: async ({ flags, options, stdout }) => {
+  onRun: async ({ flags, options, stdout }: CliRunArgs) => {
       const root = typeof options["root"] === "string" ? String(options["root"]) : undefined
       const foldersOpt = options["folders"] ?? options["dirs"]
       const scanDirs = typeof foldersOpt === "string" ? String(foldersOpt).split(",").map((s) => s.trim()).filter(Boolean) : undefined

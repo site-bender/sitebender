@@ -1,11 +1,14 @@
+import type { Violation } from "../../types/index.ts"
+
 import {
 	ENGINE_SRC,
 	ENGINE_TYPES,
 	TOOLKIT_SRC,
 } from "../../../../constants/index.ts"
-import type { Violation } from "../../types/index.ts"
 
-const importPattern = /(import|export)\s+[^;]*?from\s+["']([^"']+)["']/g
+// Match only real import/export-from statements at the start of a line (ignoring leading whitespace).
+// This avoids false positives for strings that merely CONTAIN such text inside tests or other code.
+const importPattern = /^(?:\s*)(?:import|export)\s+[^;]*?\bfrom\s+["']([^"']+)["']/
 
 function isInside(file: string, pkgDir: string): boolean {
 	return file.includes(`/${pkgDir}/`)
@@ -32,17 +35,16 @@ export default async function findViolations(
 				const text = await Deno.readTextFile(file)
 				const lines = text.split(/\r?\n/)
 				lines.forEach((line, idx) => {
-					let m: RegExpExecArray | null
-					importPattern.lastIndex = 0
-					while ((m = importPattern.exec(line))) {
-						const spec = m[2]
+					const m = importPattern.exec(line)
+					if (m) {
+						const spec = m[1]
 						// Skip desired alias imports
 						if (
-							spec.startsWith("@engineSrc/") ||
-							spec.startsWith("@engineTypes/") ||
-							spec.startsWith("@toolkit/")
+							spec.startsWith("@sitebender/engine/") ||
+							spec.startsWith("@sitebender/engine-types/") ||
+							spec.startsWith("@sitebender/toolkit/")
 						) {
-							continue
+							return
 						}
 
 						// If this file is NOT inside engine/, disallow deep engine paths
@@ -52,7 +54,7 @@ export default async function findViolations(
 									file,
 									line: idx + 1,
 									spec,
-									hint: "Use @engineSrc/… instead of libraries/engine/src/…",
+									hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
 								})
 							}
 							if (spec.includes(ENGINE_TYPES)) {
@@ -61,7 +63,7 @@ export default async function findViolations(
 									line: idx + 1,
 									spec,
 									hint:
-										"Use @engineTypes/… instead of libraries/engine/types/…",
+										"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 								})
 							}
 						}
@@ -73,7 +75,7 @@ export default async function findViolations(
 									file,
 									line: idx + 1,
 									spec,
-									hint: "Use @toolkit/… instead of libraries/toolkit/src/…",
+									hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 								})
 							}
 						}

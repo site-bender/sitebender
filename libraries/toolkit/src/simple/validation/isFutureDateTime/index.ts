@@ -2,6 +2,27 @@ import type { DateTimeInput } from "../../../types/temporal/index.ts"
 
 import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts"
 
+function nowIsoLocal(): string {
+	const d = new Date()
+	const y = d.getFullYear()
+	const m = String(d.getMonth() + 1).padStart(2, "0")
+	const day = String(d.getDate()).padStart(2, "0")
+	const hh = String(d.getHours()).padStart(2, "0")
+	const mm = String(d.getMinutes()).padStart(2, "0")
+	const ss = String(d.getSeconds()).padStart(2, "0")
+	const ms = String(d.getMilliseconds()).padStart(3, "0")
+	return `${y}-${m}-${day}T${hh}:${mm}:${ss}.${ms}`
+}
+
+function toIsoDateTimeString(pdt: unknown): string | null {
+	if (pdt && typeof (pdt as { toString: () => string }).toString === "function") {
+		const iso = (pdt as { toString: () => string }).toString()
+		// Accept both with and without fractional seconds
+		return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?$/.test(iso) ? iso : null
+	}
+	return null
+}
+
 /**
  * Checks if a datetime is in the future relative to the current moment
  *
@@ -69,12 +90,9 @@ const isFutureDateTime = (
 		return false
 	}
 
-	try {
-		const now = Temporal.Now.plainDateTimeISO()
-		return Temporal.PlainDateTime.compare(dateTime, now) > 0
-	} catch {
-		return false
-	}
+		const iso = toIsoDateTimeString(dateTime)
+		if (!iso) return false
+		return iso > nowIsoLocal()
 }
 
 export default isFutureDateTime

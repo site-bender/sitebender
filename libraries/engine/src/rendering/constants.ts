@@ -1,4 +1,4 @@
-import unique from "@toolkit/simple/array/unique/index.ts"
+import unique from "@sitebender/toolkit/simple/array/unique/index.ts"
 
 export const BASE_ELEMENTS = ["Body", "Head", "Html"]
 

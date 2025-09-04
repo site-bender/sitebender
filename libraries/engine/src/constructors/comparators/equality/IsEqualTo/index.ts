@@ -1,6 +1,6 @@
-import type { Datatype, Operand } from "@engineTypes/index.ts"
+import type { Datatype, Operand } from "@sitebender/engine-types/index.ts"
 
-import { OPERAND_TYPES } from "@engineSrc/constructors/constants/index.ts"
+import { OPERAND_TYPES } from "@sitebender/engine/constructors/constants/index.ts"
 
 const IsEqualTo =
 	(datatype: Datatype = "String") => (operand: Operand) => (test: Operand) => ({

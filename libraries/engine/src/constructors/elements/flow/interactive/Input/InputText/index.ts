@@ -1,14 +1,16 @@
-import type { InputTextAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { InputTextAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { InputTextAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { InputTextAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
 import filterAttributes from "./filterAttributes/index.ts"
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
 
 /**
  * Extended InputText attributes including reactive properties and ARIA

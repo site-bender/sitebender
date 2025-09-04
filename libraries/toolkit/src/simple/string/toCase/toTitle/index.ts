@@ -1,4 +1,4 @@
-import not from "../../predicates/not/index.ts"
+import not from "../../../validation/not/index.ts"
 
 // Words that should not be capitalized in title case (except when first or last)
 const TITLE_CASE_EXCEPTIONS = [

@@ -2,12 +2,12 @@ import * as fc from "npm:fast-check@3"
 
 import type { Reader } from "../../../../../src/monads/reader/reader/index.ts"
 
-import of from "../../../../../src/monads/reader/of/index.ts"
 import ask from "../../../../../src/monads/reader/ask/index.ts"
 import asks from "../../../../../src/monads/reader/asks/index.ts"
-import map from "../../../../../src/monads/reader/map/index.ts"
 import chain from "../../../../../src/monads/reader/chain/index.ts"
 import local from "../../../../../src/monads/reader/local/index.ts"
+import map from "../../../../../src/monads/reader/map/index.ts"
+import of from "../../../../../src/monads/reader/of/index.ts"
 
 Deno.test("Reader monad - left identity law", () => {
   const f = (n: number) => (r: number) => n + r

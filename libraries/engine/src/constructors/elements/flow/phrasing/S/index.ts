@@ -1,4 +1,4 @@
-import type { StrikethroughAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
+import type { StrikethroughAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
 import type {
 	ComparatorConfig,

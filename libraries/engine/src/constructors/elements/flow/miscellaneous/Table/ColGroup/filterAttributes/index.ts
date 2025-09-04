@@ -1,7 +1,8 @@
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
+import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
+
 import type { ColGroupElementAttributes as TableColumnGroupAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TableColumnGroupAttributes) {

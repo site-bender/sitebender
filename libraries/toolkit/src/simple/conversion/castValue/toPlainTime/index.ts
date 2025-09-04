@@ -70,7 +70,7 @@ const toPlainTime = (
 
 		try {
 			// Temporal.PlainTime.from with strict validation
-			return Temporal.PlainTime.from(trimmed, { overflow: "reject" })
+			return Temporal.PlainTime.from(trimmed)
 		} catch {
 			return null
 		}
@@ -102,10 +102,8 @@ const toPlainTime = (
 			"millisecond" in value || "microsecond" in value || "nanosecond" in value)
 	) {
 		try {
-			// Use 'reject' to ensure invalid times return null
-			return Temporal.PlainTime.from(value as PlainTimeLike, {
-				overflow: "reject",
-			})
+			// Use strict construction; invalid times throw and return null
+			return Temporal.PlainTime.from(value as PlainTimeLike)
 		} catch {
 			return null
 		}

@@ -1,4 +1,4 @@
-import type { ComparatorConfig, LogicalConfig } from "@engineTypes/index.ts"
+import type { ComparatorConfig, LogicalConfig } from "@sitebender/engine-types/index.ts"
 
 /**
  * Or JSX Component
@@ -19,7 +19,7 @@ import type { ComparatorConfig, LogicalConfig } from "@engineTypes/index.ts"
  * </Or>
  */
 
-import OrConstructor from "@engineSrc/constructors/comparators/algebraic/Or/index.ts"
+import OrConstructor from "@sitebender/engine/constructors/comparators/algebraic/Or/index.ts"
 
 export type OrProps = {
 	children?: JSX.Element | JSX.Element[]

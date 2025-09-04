@@ -1,4 +1,4 @@
-import type { IsAfterDateComparator, Operand } from "@engineTypes/index.ts"
+import type { IsAfterDateComparator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * IsAfterDate JSX Component
@@ -14,7 +14,7 @@ import type { IsAfterDateComparator, Operand } from "@engineTypes/index.ts"
  * </IsAfterDate>
  */
 
-import IsAfterDateConstructor from "@engineSrc/constructors/comparators/date/IsAfterDate/index.ts"
+import IsAfterDateConstructor from "@sitebender/engine/constructors/comparators/date/IsAfterDate/index.ts"
 
 export type Props = {
 	type?: "Date"

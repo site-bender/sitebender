@@ -1,5 +1,5 @@
 export default function parseRoots(args: Array<string>): Array<string> {
-	const defaults = ["agent", "docs", "inspector", "libraries", "scripts"]
+	const defaults = ["agent", "docs", "playground", "libraries", "scripts"]
 	const selected: Array<string> = []
 
 	for (const arg of args) {

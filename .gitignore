@@ -30,6 +30,8 @@ Thumbs.db
 dist/
 build/
 out/
+# But allow docs dist for now (may change later)
+!/docs/dist/
 
 # Coverage reports
 # Ignore any coverage directories anywhere in the repo
@@ -53,10 +55,20 @@ pids
 
 # Environment files
 .env
+.env.*
+!.env.*.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Infrastructure environment files (new structure)
+/infra/**/.env
+/infra/**/.env.*
+!/infra/**/.env.*.example
+/infrastructure/**/.env
+/infrastructure/**/.env.*
+!/infrastructure/**/.env.*.example
 
 # Cache directories
 .cache/
@@ -74,3 +86,43 @@ playwright-report/
 test-results/
 
 temp/
+
+# Infrastructure specific
+# Certificates (except examples)
+/infra/**/certs/*.pem
+/infra/**/certs/*.key
+!/infra/**/certs/*.example.pem
+!/infra/**/certs/*.example.key
+/infrastructure/**/certs/*.pem
+/infrastructure/**/certs/*.key
+!/infrastructure/**/certs/*.example.pem
+!/infrastructure/**/certs/*.example.key
+
+# Docker volumes (if mounted locally)
+/infra/**/data/
+/infrastructure/**/data/
+
+# OAuth2 proxy secrets
+/infra/**/.env.oauth2-*
+!/infra/**/.env.oauth2-*.example
+/infrastructure/**/.env.oauth2-*
+!/infrastructure/**/.env.oauth2-*.example
+
+# Authentik secrets
+/infra/**/.env.authentik
+!/infra/**/.env.authentik.example
+/infrastructure/**/.env.authentik
+!/infrastructure/**/.env.authentik.example
+
+# MinIO data
+minio_data/
+
+# Monitoring data
+prometheus_data/
+grafana_data/
+loki_data/
+thanos_*_data/
+
+# Database data
+postgres_*_data/
+fuseki_data/

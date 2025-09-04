@@ -1,4 +1,5 @@
 import type { VizAdapter } from "../types.ts"
+
 import hydrateVizContainers from "../hydrateVizContainers/index.ts"
 
 const vizAdapterNoop: VizAdapter & {

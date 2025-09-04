@@ -33,21 +33,6 @@ declare global {
 	}
 	// Optional GC hook in some environments
 	var gc: (() => void) | undefined
-
-	namespace Temporal {
-		class PlainDate {
-			static from(item: unknown): PlainDate
-		}
-		class PlainTime {
-			static from(item: unknown): PlainTime
-		}
-		class PlainDateTime {
-			static from(item: unknown): PlainDateTime
-		}
-		class ZonedDateTime {
-			static from(item: unknown): ZonedDateTime
-		}
-	}
 }
 
 export {}

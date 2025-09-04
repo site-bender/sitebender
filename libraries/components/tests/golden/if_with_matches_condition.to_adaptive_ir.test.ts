@@ -3,7 +3,7 @@ import type {
 	ComparatorNode,
 	InjectorNode,
 	IrDocument,
-} from "@engineTypes/ir/index.ts"
+} from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,

@@ -30,9 +30,9 @@ function checkFileForAliasViolations(
 
 			// Skip allowed aliases
 			if (
-				spec.startsWith("@engineSrc/") ||
-				spec.startsWith("@engineTypes/") ||
-				spec.startsWith("@toolkit/")
+				spec.startsWith("@sitebender/engine/") ||
+				spec.startsWith("@sitebender/engine-types/") ||
+				spec.startsWith("@sitebender/toolkit/")
 			) {
 				continue
 			}
@@ -44,7 +44,7 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @engineSrc/… instead of libraries/engine/src/…",
+						hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
 					})
 				}
 				if (spec.includes(ENGINE_TYPES)) {
@@ -52,7 +52,7 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @engineTypes/… instead of libraries/engine/types/…",
+						hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 					})
 				}
 			}
@@ -64,7 +64,7 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @toolkit/… instead of libraries/toolkit/src/…",
+						hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 					})
 				}
 			}

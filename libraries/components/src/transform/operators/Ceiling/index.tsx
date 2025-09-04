@@ -1,4 +1,4 @@
-import type { CeilingOperator, Operand } from "@engineTypes/index.ts"
+import type { CeilingOperator, Operand } from "@sitebender/engine-types/index.ts"
 
 /**
  * Ceiling JSX Component
@@ -12,7 +12,7 @@ import type { CeilingOperator, Operand } from "@engineTypes/index.ts"
  * </Ceiling>
  */
 
-import CeilingConstructor from "@engineSrc/constructors/operators/Ceiling/index.ts"
+import CeilingConstructor from "@sitebender/engine/constructors/operators/Ceiling/index.ts"
 
 export type Props = {
 	type?: "Number"

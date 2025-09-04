@@ -4,7 +4,7 @@ export const DEFAULT_SCAN_DIRS = [
   "libraries",
   "scripts",
   "docs",
-  "inspector",
+  "playground",
 ] as const
 
 // Exclude ‘constants’ and ‘types’ by default (named exports only)

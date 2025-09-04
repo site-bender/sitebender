@@ -1,1 +1,1 @@
-export { default } from "@toolkit/simple/validation/isUndefined/index.ts"
+export { default } from "@sitebender/toolkit/simple/validation/isUndefined/index.ts"

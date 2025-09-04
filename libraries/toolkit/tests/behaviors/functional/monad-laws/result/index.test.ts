@@ -2,10 +2,10 @@ import * as fc from "npm:fast-check@3"
 
 import type { Result } from "../../../../../src/types/fp/result/index.ts"
 
-import ok from "../../../../../src/monads/result/ok/index.ts"
+import chain from "../../../../../src/monads/result/chain/index.ts"
 import err from "../../../../../src/monads/result/err/index.ts"
 import map from "../../../../../src/monads/result/map/index.ts"
-import chain from "../../../../../src/monads/result/chain/index.ts"
+import ok from "../../../../../src/monads/result/ok/index.ts"
 
 // Monad laws for Result (alias of Either with Ok/Err naming)
 

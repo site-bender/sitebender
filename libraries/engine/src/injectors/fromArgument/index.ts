@@ -2,9 +2,9 @@ import type {
 	LocalValues,
 	OperationFunction,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import isNumber from "@engineSrc/guards/isNumber/index.ts"
+import isNumber from "@sitebender/engine/guards/isNumber/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
 import isUndefined from "../../utilities/isUndefined.ts"

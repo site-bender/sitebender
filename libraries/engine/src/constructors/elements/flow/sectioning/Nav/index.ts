@@ -1,19 +1,20 @@
-import type { NavAriaAttributes } from "@engineSrc/constructors/elements/types/aria/index.ts"
-import type { NavigationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { NavAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
+import type { NavigationAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import TextNode from "@engineSrc/constructors/elements/TextNode/index.ts"
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
-import isString from "@engineSrc/guards/isString/index.ts"
-import isDefined from "@engineSrc/utilities/isDefined/index.ts"
+import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
+import isString from "@sitebender/engine/guards/isString/index.ts"
+import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Extended Nav attributes including reactive properties and ARIA

@@ -1,4 +1,4 @@
-import { ELEMENTS } from "@engineSrc/guards/constants/index.ts"
+import { ELEMENTS } from "@sitebender/engine/guards/constants/index.ts"
 
 /**
  * Configuration object for element validation

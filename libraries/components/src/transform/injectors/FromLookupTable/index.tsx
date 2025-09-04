@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromLookupTableInjector,
 	Operand,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * FromLookupTable JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromLookupTableConstructor from "@engineSrc/constructors/injectors/FromLookupTable/index.ts"
+import FromLookupTableConstructor from "@sitebender/engine/constructors/injectors/FromLookupTable/index.ts"
 
 export type FromLookupTableProps = {
 	tableName: string

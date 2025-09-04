@@ -43,6 +43,6 @@
  * isNull(undefined)            // false
  * ```
  */
-const identical = <T>(a: T) => <U>(b: U): boolean => a === b
+const identical = <T>(a: T) => (b: T): boolean => a === b
 
 export default identical

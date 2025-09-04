@@ -1,8 +1,9 @@
-import type { TableColumnAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import getId from "@engineSrc/constructors/helpers/getId/index.ts"
-import filterAttribute from "@engineSrc/guards/filterAttribute/index.ts"
-import isInteger from "@engineSrc/guards/isInteger/index.ts"
-import pickGlobalAttributes from "@engineSrc/guards/pickGlobalAttributes/index.ts"
+import type { TableColumnAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
+import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
+import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
+import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: TableColumnAttributes) {
 

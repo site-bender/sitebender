@@ -1,16 +1,17 @@
-import type { BlockQuotationAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
-import type { ElementConfig } from "@engineSrc/constructors/elements/types/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
-import filterAttributes from "./filterAttributes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { BlockQuotationAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import Filtered from "@engineSrc/constructors/abstracted/Filtered/index.ts"
-import isFlowContent from "@engineSrc/guards/isFlowContent/index.ts"
+import Filtered from "@sitebender/engine/constructors/abstracted/Filtered/index.ts"
+import isFlowContent from "@sitebender/engine/guards/isFlowContent/index.ts"
+
+import filterAttributes from "./filterAttributes/index.ts"
 
 /**
  * Filters attributes for BlockQuote element

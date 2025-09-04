@@ -1,7 +1,6 @@
 import type { EngineError } from "../../types/error/index.ts"
 import type { Value } from "../../types/index.ts"
 
-import isNull from "../../simple/validation/isNull/index.ts"
 import createError from "../createError/index.ts"
 
 /**
@@ -41,20 +40,15 @@ const createNullError =
 	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
 	(argIndex: number) =>
 	(argName: string): EngineError<TOp, TArgs> => {
-		const actualType = isNull(args[argIndex]) ? "null" : "undefined"
-
 		// Build the error directly to avoid type issues with pipeError
 		const baseError = createError(operation)(args)(
 			`${operation}: Unexpected null/undefined for ${argName}`,
-		)("NULL_INPUT") as EngineError<TOp, TArgs>
+		)("NULL_VALUE") as EngineError<TOp, TArgs>
 
 		return {
 			...baseError,
-			failedArgIndex: argIndex as keyof TArgs & number,
-			failedArgName: argName,
-			actualType: actualType,
-			suggestion:
-				`Check that ${argName} is defined before calling ${operation}`,
+			failedIndex: argIndex,
+			suggestion: `Check that ${argName} is defined before calling ${operation}`,
 		}
 	}
 

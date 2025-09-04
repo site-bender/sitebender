@@ -88,6 +88,5 @@ export type DateTimeInput =
  * Instants represent absolute points in time (UTC)
  */
 export type InstantInput =
-	| Temporal.Instant // Native Temporal instant
 	| string // ISO instant string with Z suffix
 	| number // Epoch milliseconds

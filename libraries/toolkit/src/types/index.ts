@@ -25,6 +25,8 @@ export type Value =
 	| PrimitiveValue
 	| Array<Value>
 	| { [key: string]: Value }
+	| Date
+	| RegExp
 	| Map<string, Value>
 	| Set<Value>
 	| Temporal.PlainDate

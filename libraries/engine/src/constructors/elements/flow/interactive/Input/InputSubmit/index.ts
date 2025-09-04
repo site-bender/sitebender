@@ -1,13 +1,15 @@
-import type { InputSubmitAttributes } from "@engineSrc/constructors/elements/types/attributes/index.ts"
 import type {
 	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperatorConfig,
 	Value,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
+import type { InputSubmitAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
+
+import Input from "@sitebender/engine/constructors/elements/flow/interactive/Input/index.ts"
+
 import filterAttributes from "./filterAttributes/index.ts"
-import Input from "@engineSrc/constructors/elements/flow/interactive/Input/index.ts"
 
 /**
  * Filters attributes for InputSubmit

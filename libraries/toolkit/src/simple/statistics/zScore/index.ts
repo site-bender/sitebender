@@ -71,7 +71,7 @@ const zScore = (
 	}
 
 	const dataMean = mean(data)
-	const dataStdDev = standardDeviation(data)(sample)
+	const dataStdDev = standardDeviation(sample)(data)
 
 	// Can't calculate z-score if standard deviation is 0
 	if (dataStdDev === 0) {

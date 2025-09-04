@@ -1,4 +1,3 @@
-import not from "../../logic/not/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
@@ -58,9 +57,12 @@ const pluck = <T, K extends keyof T>(
 		return []
 	}
 
-	return array.map((item) =>
-		isNotNullish(item) && typeof item === "object" ? item[key] : undefined
-	)
+	return array.map((item) => {
+		if (isNotNullish(item) && typeof item === "object") {
+			return (item as Record<string | number | symbol, unknown>)[key as unknown as string] as T[K] | undefined
+		}
+		return undefined
+	})
 }
 
 export default pluck

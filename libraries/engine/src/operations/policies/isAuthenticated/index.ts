@@ -3,9 +3,9 @@ import type {
 	EngineError,
 	LocalValues,
 	OperationFunction,
-} from "@engineTypes/index.ts"
+} from "@sitebender/engine-types/index.ts"
 
-import Error from "@engineSrc/constructors/Error/index.ts"
+import Error from "@sitebender/engine/constructors/Error/index.ts"
 
 /**
  * On.IsAuthenticated

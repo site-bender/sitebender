@@ -55,7 +55,7 @@ export const NO_REACT_ALLOWLIST = new Set<string>([
 ])
 
 // Formatting scan defaults
-export const FORMAT_ROOTS = ["docs", "inspector", "libraries", "scripts"]
+export const FORMAT_ROOTS = ["docs", "playground", "libraries", "scripts"]
 export const FORMAT_EXCLUDES = [
 	"/dist/",
 	"/temp/",
