@@ -3,7 +3,8 @@
 ## CRITICAL: Read These Files First
 1. **`/CLAUDE.md`** - READ THIS COMPLETELY. Contains the prime directive and architectural rules.
 2. **`/libraries/maths/README.md`** - Overview of the math parser functionality
-3. **`/notes/parsing-math.md`** - Detailed requirements and examples
+3. **`/notes/ideas/parsing-math.md`** - Detailed requirements and examples
+4. **`/notes/plans/parsing-math.md`** - More information
 
 ## Architecture Rules - ABSOLUTELY CRITICAL
 

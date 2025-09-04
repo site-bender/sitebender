@@ -310,3 +310,220 @@ Deno.test("parseFormula - reports mismatched parentheses", () => {
 		)
 	}
 })
+
+Deno.test("parseFormula - parses unary negation", () => {
+	const variables: VariableMap = {
+		x: { tag: "Constant", type: "injector", datatype: "Number", value: 10 },
+	}
+
+	const result = parseFormula("-x", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Negate")
+		assertEquals(config.type, "operator")
+		if (config.tag === "Negate") {
+			assertEquals(config.datatype, "Number")
+			assertEquals(config.operand, variables.x)
+		}
+	}
+})
+
+Deno.test("parseFormula - parses negation of numeric literal", () => {
+	const variables: VariableMap = {}
+
+	const result = parseFormula("-42", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Negate")
+		if (config.tag === "Negate") {
+			assertEquals(config.datatype, "Number")
+			assertEquals(config.operand.tag, "Constant")
+			if (config.operand.tag === "Constant") {
+				assertEquals(config.operand.value, 42)
+			}
+		}
+	}
+})
+
+Deno.test("parseFormula - parses unary plus (identity)", () => {
+	const variables: VariableMap = {
+		x: { tag: "Constant", type: "injector", datatype: "Integer", value: 5 },
+	}
+
+	const result = parseFormula("+x", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		// Unary plus is identity, should return the operand directly
+		assertEquals(result.value, variables.x)
+	}
+})
+
+Deno.test("parseFormula - parses power operation", () => {
+	const variables: VariableMap = {
+		base: { tag: "Constant", type: "injector", datatype: "Number", value: 2 },
+		exp: { tag: "Constant", type: "injector", datatype: "Number", value: 3 },
+	}
+
+	const result = parseFormula("base ^ exp", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Power")
+		assertEquals(config.type, "operator")
+		if (config.tag === "Power") {
+			assertEquals(config.base, variables.base)
+			assertEquals(config.exponent, variables.exp)
+		}
+	}
+})
+
+Deno.test("parseFormula - respects power precedence over multiplication", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Number", value: 2 },
+		b: { tag: "Constant", type: "injector", datatype: "Number", value: 3 },
+		c: { tag: "Constant", type: "injector", datatype: "Number", value: 4 },
+	}
+
+	const result = parseFormula("a * b ^ c", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Multiply")
+		if (config.tag === "Multiply") {
+			assertEquals(config.multipliers[0], variables.a)
+			const power = config.multipliers[1]
+			assertEquals(power.tag, "Power")
+			if (power.tag === "Power") {
+				assertEquals(power.base, variables.b)
+				assertEquals(power.exponent, variables.c)
+			}
+		}
+	}
+})
+
+Deno.test("parseFormula - parses complex negation in expression", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Integer", value: 5 },
+		b: { tag: "Constant", type: "injector", datatype: "Integer", value: 3 },
+	}
+
+	const result = parseFormula("-a + b", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Add")
+		if (config.tag === "Add") {
+			const negate = config.addends[0]
+			assertEquals(negate.tag, "Negate")
+			if (negate.tag === "Negate") {
+				assertEquals(negate.operand, variables.a)
+				assertEquals(negate.datatype, "Integer")
+			}
+			assertEquals(config.addends[1], variables.b)
+		}
+	}
+})
+
+Deno.test("parseFormula - parses parenthesized negation", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Number", value: 5 },
+		b: { tag: "Constant", type: "injector", datatype: "Number", value: 3 },
+	}
+
+	const result = parseFormula("-(a + b)", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Negate")
+		if (config.tag === "Negate") {
+			const add = config.operand
+			assertEquals(add.tag, "Add")
+			if (add.tag === "Add") {
+				assertEquals(add.addends[0], variables.a)
+				assertEquals(add.addends[1], variables.b)
+			}
+		}
+	}
+})
+
+Deno.test("parseFormula - handles trailing tokens error", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Number", value: 5 },
+	}
+
+	const result = parseFormula("a a", variables)
+
+	assertEquals(result.ok, false)
+	if (!result.ok) {
+		assertEquals(result.error.message.includes("Unexpected token"), true)
+	}
+})
+
+Deno.test("parseFormula - handles numeric literals without variables", () => {
+	const variables: VariableMap = {}
+
+	const result = parseFormula("3.14 + 2.86", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok) {
+		const config = result.value
+		assertEquals(config.tag, "Add")
+		if (config.tag === "Add") {
+			assertEquals(config.addends.length, 2)
+			const first = config.addends[0]
+			const second = config.addends[1]
+			if (first.tag === "Constant" && second.tag === "Constant") {
+				assertEquals(first.value, 3.14)
+				assertEquals(second.value, 2.86)
+			}
+		}
+	}
+})
+
+Deno.test("parseFormula - negation preserves numeric type", () => {
+	const variables: VariableMap = {
+		x: { tag: "Constant", type: "injector", datatype: "Float", value: 3.14 },
+	}
+
+	const result = parseFormula("-x", variables)
+
+	assertEquals(result.ok, true)
+	if (result.ok && result.value.tag === "Negate") {
+		assertEquals(result.value.datatype, "Float")
+	}
+})
+
+Deno.test("parseFormula - handles missing closing parenthesis", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Number", value: 5 },
+	}
+
+	const result = parseFormula("(a", variables)
+
+	assertEquals(result.ok, false)
+	if (!result.ok) {
+		assertEquals(result.error.message.includes("Missing closing parenthesis"), true)
+	}
+})
+
+Deno.test("parseFormula - handles extra closing parenthesis", () => {
+	const variables: VariableMap = {
+		a: { tag: "Constant", type: "injector", datatype: "Number", value: 5 },
+	}
+
+	const result = parseFormula("a)", variables)
+
+	assertEquals(result.ok, false)
+	if (!result.ok) {
+		assertEquals(result.error.message.includes("Unexpected token"), true)
+	}
+})

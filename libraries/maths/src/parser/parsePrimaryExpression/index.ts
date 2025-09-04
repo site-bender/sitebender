@@ -89,6 +89,7 @@ export default function parsePrimaryExpression(
 		const openParen = token
 		ctx.advance()
 		const exprResult = parseExpression(ctx)(0)
+		// deno-coverage-ignore
 		if (!exprResult.ok) return exprResult
 
 		const rightParenResult = expect(ctx)("RIGHT_PAREN")

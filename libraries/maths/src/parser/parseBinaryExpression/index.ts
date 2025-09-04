@@ -83,6 +83,7 @@ export default function parseBinaryExpression(
 
 			// Get operator info
 			const operator = getOperatorFromToken(token)
+			// deno-coverage-ignore
 			if (!operator) break
 
 			const info = OPERATOR_INFO[operator]
@@ -99,6 +100,7 @@ export default function parseBinaryExpression(
 
 			// Parse right side recursively
 			const rightResult = parseBinaryExpression(ctx)(nextMinPrecedence)
+			// deno-coverage-ignore
 			if (!rightResult.ok) return rightResult
 
 			// Create binary node

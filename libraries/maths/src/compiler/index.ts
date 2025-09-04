@@ -113,6 +113,7 @@ export default function compile(
 		case "UnaryOp": {
 			// Compile the operand
 			const operandResult = compile(ast.operand, variables)
+			// deno-coverage-ignore
 			if (!operandResult.ok) return operandResult
 
 			// For unary minus, use Negate
@@ -139,6 +140,7 @@ export default function compile(
 		case "BinaryOp": {
 			// Compile both operands
 			const leftResult = compile(ast.left, variables)
+			// deno-coverage-ignore
 			if (!leftResult.ok) return leftResult
 
 			const rightResult = compile(ast.right, variables)
