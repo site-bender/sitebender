@@ -29,13 +29,13 @@ git checkout -b ai/documentation     # AI 5: Documentation generation
 
 ### 2. Task Division Rules
 
-#### By Directory (Best for Toolkit)
+#### By Library (RECOMMENDED APPROACH)
 ```
-AI 1: libraries/toolkit/src/simple/array/
-AI 2: libraries/toolkit/src/simple/math/
-AI 3: libraries/toolkit/src/simple/string/
-AI 4: libraries/toolkit/src/monads/
-AI 5: libraries/toolkit/src/simple/temporal/
+AI 1: libraries/toolkit/ (test generator + core testing)
+AI 2: libraries/engine/ (reactive engine testing)
+AI 3: libraries/components/ (JSX component testing)
+AI 4: libraries/toolkit/ (additional toolkit testing)
+AI 5: Documentation & integration
 ```
 
 #### By Feature (Best for New Development)
@@ -107,64 +107,69 @@ git checkout ai/test-generator
 git rebase main
 ```
 
-### 6. Task Assignment for Toolkit Test Generator
+### 6. Task Assignment for Library-Based Parallelization
 
-Given 5 AIs working in parallel:
+Given 5 AIs working in parallel on different libraries:
 
-#### AI 1: Test Generator Core (CRITICAL PATH)
+#### AI 1: Toolkit Test Generator (Claude - CRITICAL PATH)
 ```
-Branch: ai/test-generator
+Branch: ai/toolkit
+Location: Main repo or worktree at ../toolkit-ai
 Tasks:
-1. Build TypeScript signature parser
-2. Create test file writer
-3. Implement main generator orchestrator
-4. Create pattern recognition system
-Files: scripts/test-generator/src/
+1. Build test generator in scripts/test-generator/
+2. Run generator on toolkit functions
+3. Achieve 100% coverage on toolkit
+4. Document the generator architecture
+Primary Focus: libraries/toolkit/ and scripts/test-generator/
 ```
 
-#### AI 2: Property Test Generation
+#### AI 2: Engine Testing (Claude or GPT-4)
 ```
-Branch: ai/property-tests
+Branch: ai/engine  
+Location: Worktree at ../engine-ai
 Tasks:
-1. Implement fast-check generators for all types
-2. Create property assertion builders
-3. Build invariant detectors
-4. Generate edge case tests
-Files: scripts/test-generator/src/generators/
+1. Understand IR evaluation model
+2. Test reactive computation functions
+3. Test hydration and SSR paths
+4. Achieve 100% coverage on engine
+Primary Focus: libraries/engine/
 ```
 
-#### AI 3: Algebraic Law System
+#### AI 3: Components Testing (GPT-4)
 ```
-Branch: ai/algebraic-laws
+Branch: ai/components
+Location: Worktree at ../components-ai
 Tasks:
-1. Create law templates (functor, monoid, etc.)
-2. Build pattern-to-law mapper
-3. Implement law test generators
-4. Create reusable law test suites
-Files: scripts/test-generator/src/laws/
+1. Test all JSX components
+2. Verify accessibility compliance
+3. Test Schema.org generation
+4. Achieve 100% coverage on components
+Primary Focus: libraries/components/
 ```
 
-#### AI 4: Coverage Analysis
+#### AI 4: Additional Toolkit Testing (GPT-4)
 ```
-Branch: ai/coverage-analysis
+Branch: ai/toolkit-extra
+Location: Worktree at ../toolkit-extra-ai
 Tasks:
-1. Build AST parser for branch detection
-2. Create branch path analyzer
-3. Implement coverage validator
-4. Build auto-ignore injector
-Files: scripts/test-generator/src/coverage/
+1. Help with toolkit test coverage
+2. Focus on simple categories (array, string, math)
+3. Write integration tests
+4. Document patterns found
+Primary Focus: libraries/toolkit/src/simple/
 ```
 
-#### AI 5: Quick Fixes & Integration
+#### AI 5: Documentation & Coordination (GPT-3.5 or Human)
 ```
-Branch: ai/quick-fixes
+Branch: ai/documentation
+Location: Main repo
 Tasks:
-1. Add Future type alias for Task
-2. Consolidate type locations
-3. Fix missing JSDoc examples
-4. Test the generator on sample functions
-5. Coordinate integration of all components
-Files: Various quick fixes across toolkit
+1. Update documentation based on progress
+2. Coordinate merges between branches
+3. Run integration tests
+4. Update CHANGELOG.md
+5. Monitor coverage reports
+Primary Focus: Root documentation and integration
 ```
 
 ### 7. Quality Control Checklist
