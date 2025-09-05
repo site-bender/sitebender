@@ -3,6 +3,7 @@ import { PropertyTestGenerator } from "./generators/property.ts"
 import { BranchAnalyzer } from "./coverage/branch-analyzer.ts"
 import { CoverageValidator } from "./coverage/validator.ts"
 import { TestFileWriter } from "./writer/index.ts"
+import { CurriedFunctionHandler } from "./helpers/curried-handler.ts"
 import type { TestCase, TestSuite, GeneratorConfig } from "./types/index.ts"
 
 export class TestGenerator {
@@ -51,7 +52,13 @@ export class TestGenerator {
 		const allTests: Array<TestCase> = []
 		
 		if (this.config.includeEdgeCases) {
-			const edgeCases = this.generateEdgeCases(signature)
+			let edgeCases = this.generateEdgeCases(signature)
+			// Transform edge cases for curried functions
+			if (CurriedFunctionHandler.needsCurriedHandling(signature)) {
+				edgeCases = edgeCases.map(test => 
+					CurriedFunctionHandler.transformTestCase(test, signature)
+				)
+			}
 			allTests.push(...edgeCases)
 			console.log(`🔧 Generated ${edgeCases.length} edge case tests`)
 		}
@@ -62,7 +69,13 @@ export class TestGenerator {
 			console.log(`🔬 Generated ${propertyTests.length} property-based tests`)
 		}
 		
-		const branchTests = this.generateBranchTests(branches, signature)
+		let branchTests = this.generateBranchTests(branches, signature)
+		// Transform branch tests for curried functions
+		if (CurriedFunctionHandler.needsCurriedHandling(signature)) {
+			branchTests = branchTests.map(test => 
+				CurriedFunctionHandler.transformTestCase(test, signature)
+			)
+		}
 		allTests.push(...branchTests)
 		console.log(`🎯 Generated ${branchTests.length} branch coverage tests`)
 		
@@ -70,7 +83,7 @@ export class TestGenerator {
 			functionPath,
 			signature.name,
 			allTests,
-			signature.isCurried
+			signature
 		)
 		console.log(`✍️  Wrote test file: ${testFilePath}`)
 		

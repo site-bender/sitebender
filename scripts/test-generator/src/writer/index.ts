@@ -1,15 +1,16 @@
-import type { TestCase, TestSuite, TestFileMetadata, PropertyTest } from "../types/index.ts"
+import type { TestCase, TestSuite, TestFileMetadata, PropertyTest, FunctionSignature } from "../types/index.ts"
+import { CurriedFunctionHandler } from "../helpers/curried-handler.ts"
 
 export class TestFileWriter {
 	async write(
 		functionPath: string,
 		functionName: string,
 		tests: Array<TestCase>,
-		isCurried?: boolean
+		signature?: FunctionSignature
 	): Promise<string> {
 		const testFilePath = this.getTestFilePath(functionPath)
 		const imports = this.generateImports(functionPath, functionName, tests)
-		const testContent = this.generateTestContent(functionName, tests, isCurried)
+		const testContent = this.generateTestContent(functionName, tests, signature)
 		const metadata = this.generateMetadata(functionPath, testFilePath)
 		
 		const fileContent = [
@@ -93,14 +94,14 @@ export class TestFileWriter {
 		return `${upDirs}/${sourcePath}`
 	}
 	
-	private generateTestContent(functionName: string, tests: Array<TestCase>, isCurried?: boolean): string {
+	private generateTestContent(functionName: string, tests: Array<TestCase>, signature?: FunctionSignature): string {
 		const testGroups = this.groupTests(tests)
 		const sections: Array<string> = []
 		
 		sections.push(`describe("${functionName}", () => {`)
 		
 		if (testGroups.unit.length > 0) {
-			sections.push(this.generateUnitTests(testGroups.unit, functionName, isCurried))
+			sections.push(this.generateUnitTests(testGroups.unit, functionName, signature))
 		}
 		
 		if (testGroups.property.length > 0) {
@@ -108,11 +109,11 @@ export class TestFileWriter {
 		}
 		
 		if (testGroups.edge.length > 0) {
-			sections.push(this.generateEdgeCaseTests(testGroups.edge, functionName, isCurried))
+			sections.push(this.generateEdgeCaseTests(testGroups.edge, functionName, signature))
 		}
 		
 		if (testGroups.error.length > 0) {
-			sections.push(this.generateErrorTests(testGroups.error, functionName, isCurried))
+			sections.push(this.generateErrorTests(testGroups.error, functionName, signature))
 		}
 		
 		sections.push("})")
@@ -245,7 +246,7 @@ export class TestFileWriter {
 		return lines.join("\n")
 	}
 	
-	private generateEdgeCaseTests(tests: Array<TestCase>, functionName: string): string {
+	private generateEdgeCaseTests(tests: Array<TestCase>, functionName: string, signature?: FunctionSignature): string {
 		const lines: Array<string> = []
 		
 		lines.push("\tdescribe(\"edge cases\", () => {")
@@ -267,7 +268,7 @@ export class TestFileWriter {
 		return lines.join("\n")
 	}
 	
-	private generateErrorTests(tests: Array<TestCase>, functionName: string): string {
+	private generateErrorTests(tests: Array<TestCase>, functionName: string, signature?: FunctionSignature): string {
 		const lines: Array<string> = []
 		
 		lines.push("\tdescribe(\"error cases\", () => {")

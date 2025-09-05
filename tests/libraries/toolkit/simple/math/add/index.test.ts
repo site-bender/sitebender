@@ -1,7 +1,7 @@
 /**
  * Auto-generated test file
  * Source: libraries/toolkit/src/simple/math/add/index.ts
- * Generated: 2025-09-05T02:15:17.720Z
+ * Generated: 2025-09-05T02:19:54.959Z
  * Generator: @sitebender/test-generator v1.0.0
  *
  * DO NOT EDIT MANUALLY
@@ -93,35 +93,35 @@ describe("add", () => {
 
 	describe("edge cases", () => {
 		it("handles undefined for augend", () => {
-			const result = add(undefined)
+			const result = add(undefined, 1)
 			assertEquals(result, NaN)
 		})
 		it("handles null for augend", () => {
-			const result = add(null)
+			const result = add(null, 1)
 			assertEquals(result, NaN)
 		})
 		it('covers branch: isNullish(augend) || typeof augend !== "number"', () => {
-			const result = add("number")
+			const result = add("number", 1)
 			assertEquals(result, NaN)
 		})
 		it("covers branch: isNullish(augend) is truthy", () => {
-			const result = add(true)
+			const result = add(true, 1)
 			assertEquals(result, NaN)
 		})
 		it("covers branch: isNullish(augend) is falsy", () => {
-			const result = add(false)
+			const result = add(false, 1)
 			assertEquals(result, NaN)
 		})
 		it('covers branch: isNullish(addend) || typeof addend !== "number"', () => {
-			const result = add("number")
+			const result = add("number", 1)
 			assertEquals(result, NaN)
 		})
 		it("covers branch: isNullish(addend) is truthy", () => {
-			const result = add(true)
+			const result = add(true, 1)
 			assertEquals(result, NaN)
 		})
 		it("covers branch: isNullish(addend) is falsy", () => {
-			const result = add(false)
+			const result = add(false, 1)
 			assertEquals(result, NaN)
 		})
 	})
