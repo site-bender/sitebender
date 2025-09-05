@@ -3,7 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
-import computeTestHash from "./compute-test-hash/index.ts"
+import computeTestHash from "./computeTestHash/index.ts"
 
 /**
  * Remove exact duplicate test cases based on input/output combinations

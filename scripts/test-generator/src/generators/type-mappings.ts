@@ -243,7 +243,7 @@ export function getSpecializedArbitrary(type: string, context?: string): string 
  */
 function splitTypeList(typeList: string): Array<string> {
 	const result: Array<string> = []
-	let current = ""
+	let current = "
 	let depth = 0
 
 	for (const char of typeList) {
@@ -253,7 +253,7 @@ function splitTypeList(typeList: string): Array<string> {
 			depth--
 		} else if (char === "," && depth === 0) {
 			result.push(current.trim())
-			current = ""
+			current = "
 			continue
 		}
 		current += char

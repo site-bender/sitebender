@@ -3,7 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
-import findMinimalBranchSet from "./find-minimal-branch-set/index.ts"
+import findMinimalBranchSet from "./findMinimalBranchSet/index.ts"
 
 /**
  * Optimize branch coverage tests to find minimal set covering all branches

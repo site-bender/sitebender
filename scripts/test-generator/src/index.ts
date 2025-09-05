@@ -4,6 +4,8 @@ import { BranchAnalyzer } from "./coverage/branch-analyzer.ts"
 import { CoverageValidator } from "./coverage/validator.ts"
 import { TestFileWriter } from "./writer/index.ts"
 import { CurriedFunctionHandler } from "./helpers/curried-handler.ts"
+import deduplicateTests from "./optimizer/deduplicateTests/index.ts"
+import generateToolkitPatternTests from "./patterns/toolkitPatterns/index.ts"
 import type { TestCase, TestSuite, GeneratorConfig } from "./types/index.ts"
 
 export class TestGenerator {
@@ -79,10 +81,24 @@ export class TestGenerator {
 		allTests.push(...branchTests)
 		console.log(`🎯 Generated ${branchTests.length} branch coverage tests`)
 		
+		// Generate toolkit-specific pattern tests
+		const patternTests = generateToolkitPatternTests(signature)
+		allTests.push(...patternTests)
+		console.log(`🎨 Generated ${patternTests.length} pattern-based tests`)
+		
+		// Deduplicate and optimize tests
+		const beforeCount = allTests.length
+		const optimizedTests = deduplicateTests(allTests)
+		const afterCount = optimizedTests.length
+		
+		if (beforeCount > afterCount) {
+			console.log(`♻️  Deduplicated: ${beforeCount} → ${afterCount} tests (removed ${beforeCount - afterCount} duplicates)`)
+		}
+		
 		const testFilePath = await this.testWriter.write(
 			functionPath,
 			signature.name,
-			allTests,
+			optimizedTests,
 			signature
 		)
 		console.log(`✍️  Wrote test file: ${testFilePath}`)
@@ -90,7 +106,7 @@ export class TestGenerator {
 		const coverage = await this.validateAndImproveCoverage(
 			functionPath,
 			testFilePath,
-			allTests
+			optimizedTests
 		)
 		
 		console.log(`📊 Coverage: ${coverage.percentage.toFixed(1)}%`)
@@ -120,8 +136,8 @@ export class TestGenerator {
 		const testSuite: TestSuite = {
 			functionPath,
 			functionName: signature.name,
-			testCases: allTests,
-			imports: this.generateImports(signature, allTests),
+			testCases: optimizedTests,
+			imports: this.generateImports(signature, optimizedTests),
 			coverage,
 		}
 		
@@ -292,7 +308,7 @@ export class TestGenerator {
 		}
 		
 		if (returnType === "string") {
-			return ""
+			return "
 		}
 		
 		if (returnType === "boolean") {

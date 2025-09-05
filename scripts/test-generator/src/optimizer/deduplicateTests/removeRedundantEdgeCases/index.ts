@@ -3,7 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
-import isEdgeCaseCoveredByProperty from "./is-edge-case-covered-by-property/index.ts"
+import isEdgeCaseCoveredByProperty from "./isEdgeCaseCoveredByProperty/index.ts"
 
 /**
  * Remove edge case tests that are already covered by property tests

@@ -210,7 +210,7 @@ export class ToolkitAnalyzer {
 	 */
 	private splitParameters(paramString: string): Array<string> {
 		const params: Array<string> = []
-		let current = ""
+		let current = "
 		let depth = 0
 
 		for (const char of paramString) {
@@ -218,7 +218,7 @@ export class ToolkitAnalyzer {
 			else if (char === ">" || char === ")" || char === "}") depth--
 			else if (char === "," && depth === 0) {
 				params.push(current.trim())
-				current = ""
+				current = "
 				continue
 			}
 			current += char
@@ -431,7 +431,7 @@ export class ToolkitAnalyzer {
 
 	private async readFile(path: string): Promise<string> {
 		// Would use Deno.readTextFile in real implementation
-		return ""
+		return "
 	}
 
 	private async isFunction(entry: string): Promise<boolean> {

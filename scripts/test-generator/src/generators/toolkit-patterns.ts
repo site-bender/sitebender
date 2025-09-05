@@ -39,7 +39,7 @@ ${practicalExamples}`
 	private generateImports(signature: FunctionSignature): string {
 		const depth = signature.filePath?.split("/").length ?? 5
 		const importPath = "../".repeat(depth - 2) + "src/simple/" + 
-			signature.filePath?.split("src/simple/")[1] ?? ""
+			signature.filePath?.split("src/simple/")[1] ?? "
 
 		return `import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
@@ -337,7 +337,7 @@ Deno.test("${name} - property: associativity with compatible operations", () => 
 	 * Generate currying behavior tests
 	 */
 	private generateCurryingTests(signature: FunctionSignature): string {
-		if (!signature.isCurried) return ""
+		if (!signature.isCurried) return "
 
 		const name = signature.name
 		return `
@@ -451,7 +451,7 @@ Deno.test("${name} - practical examples", () => {
 
 	private getDefaultArgs(signature: FunctionSignature): string {
 		const params = signature.parameters.filter(p => !p.type.includes("Array"))
-		if (params.length === 0) return ""
+		if (params.length === 0) return "
 		
 		if (params[0].type.includes("=>")) return "(x: any) => x"
 		if (params[0].type === "number") return "0"

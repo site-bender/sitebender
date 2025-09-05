@@ -3,14 +3,14 @@
  */
 
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
-import generatePipePatternTests from "./generate-pipe-pattern-tests/index.ts"
-import generateComposePatternTests from "./generate-compose-pattern-tests/index.ts"
-import generateCurriedPatternTests from "./generate-curried-pattern-tests/index.ts"
-import generatePredicatePatternTests from "./generate-predicate-pattern-tests/index.ts"
-import generateTransformerPatternTests from "./generate-transformer-pattern-tests/index.ts"
-import generateCombinatorPatternTests from "./generate-combinator-pattern-tests/index.ts"
-import generateMonadPatternTests from "./generate-monad-pattern-tests/index.ts"
-import detectPatternType from "./detect-pattern-type/index.ts"
+import generatePipePatternTests from "./generatePipePatternTests/index.ts"
+import generateComposePatternTests from "./generateComposePatternTests/index.ts"
+import generateCurriedPatternTests from "./generateCurriedPatternTests/index.ts"
+import generatePredicatePatternTests from "./generatePredicatePatternTests/index.ts"
+import generateTransformerPatternTests from "./generateTransformerPatternTests/index.ts"
+import generateCombinatorPatternTests from "./generateCombinatorPatternTests/index.ts"
+import generateMonadPatternTests from "./generateMonadPatternTests/index.ts"
+import detectPatternType from "./detectPatternType/index.ts"
 
 /**
  * Generate test cases based on toolkit-specific patterns

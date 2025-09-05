@@ -3,11 +3,11 @@
  */
 
 import type { TestCase } from "../../types/index.ts"
-import removeDuplicates from "./remove-duplicates/index.ts"
-import mergeSimilarTests from "./merge-similar-tests/index.ts"
-import consolidatePropertyTests from "./consolidate-property-tests/index.ts"
-import removeRedundantEdgeCases from "./remove-redundant-edge-cases/index.ts"
-import optimizeBranchTests from "./optimize-branch-tests/index.ts"
+import removeDuplicates from "./removeDuplicates/index.ts"
+import mergeSimilarTests from "./mergeSimilarTests/index.ts"
+import consolidatePropertyTests from "./consolidatePropertyTests/index.ts"
+import removeRedundantEdgeCases from "./removeRedundantEdgeCases/index.ts"
+import optimizeBranchTests from "./optimizeBranchTests/index.ts"
 
 /**
  * Deduplicate and optimize test cases

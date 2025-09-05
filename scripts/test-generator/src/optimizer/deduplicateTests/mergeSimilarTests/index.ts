@@ -3,8 +3,8 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
-import areSimilar from "./are-similar/index.ts"
-import mergeTestCases from "./merge-test-cases/index.ts"
+import areSimilar from "./areSimilar/index.ts"
+import mergeTestCases from "./mergeTestCases/index.ts"
 
 /**
  * Merge similar test cases that test the same behavior
