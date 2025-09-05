@@ -23,7 +23,7 @@ Deno.test("coverage reporter CLI: produces report or 'No markers' and no stderr"
 		"run",
 		"-A",
 		"--unstable-temporal",
-		"scripts/coverage-tools/reportIgnored/index.ts",
+		"scripts/reportIgnored/index.ts",
 	])
 	expect(
 		res.stdout.includes("No deno-coverage-ignore markers found.") ||
@@ -45,7 +45,7 @@ Deno.test("coverage reporter CLI: --json and custom --root --dirs", async () => 
 			"run",
 			"-A",
 			"--unstable-temporal",
-			"scripts/coverage-tools/reportIgnored/index.ts",
+			"scripts/reportIgnored/index.ts",
 			"--json",
 			"--root",
 			root,
@@ -69,7 +69,7 @@ Deno.test("coverage reporter CLI: --help and --version", async () => {
 		"run",
 		"-A",
 		"--unstable-temporal",
-		"scripts/coverage-tools/reportIgnored/index.ts",
+		"scripts/reportIgnored/index.ts",
 		"--help",
 	])
 	expect(help.success).toBe(true)
@@ -80,7 +80,7 @@ Deno.test("coverage reporter CLI: --help and --version", async () => {
 		"run",
 		"-A",
 		"--unstable-temporal",
-		"scripts/coverage-tools/reportIgnored/index.ts",
+		"scripts/reportIgnored/index.ts",
 		"--version",
 	])
 	expect(version.success).toBe(true)

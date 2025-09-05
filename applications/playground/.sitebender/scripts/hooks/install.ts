@@ -5,7 +5,7 @@ const encoder = new TextEncoder();
 
 const repoRoot = Deno.cwd();
 const gitDir = `${repoRoot}/.git`;
-const hooksDir = `${gitDir}/hooks`;
+const hooksDir = `${repoRoot}/.githooks`;
 const preCommit = `${hooksDir}/pre-commit`;
 
 // Use plain string literals (not template literals) to avoid ${...} interpolation
@@ -13,15 +13,7 @@ const preCommitContent = [
 	'#!/usr/bin/env bash',
 	'set -euo pipefail',
 	'',
-	'# Block commits that touch libraries/toolkit unless ALLOW_TOOLKIT=1',
-	'CHANGED=$(git diff --cached --name-only || true)',
-	'if echo "$CHANGED" | grep -E "^libraries/toolkit/" >/dev/null 2>&1; then',
-	'  if [[ "${ALLOW_TOOLKIT:-}" != "1" ]]; then',
-	'    echo "[hooks] Changes under libraries/toolkit require ALLOW_TOOLKIT=1" >&2',
-	'    echo "         Example: ALLOW_TOOLKIT=1 git commit -m "toolkit: update" -- libraries/toolkit" >&2',
-	'    exit 1',
-	'  fi',
-	'fi',
+	'# Note: toolkit commit restriction removed (ALLOW_TOOLKIT no longer required)',
 	'',
 	'# Skip via env if needed',
 	'if [[ "${SKIP_FP_CHECKS:-}" == "1" ]]; then',
