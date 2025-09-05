@@ -86,9 +86,9 @@ Create a shared directory for common utilities:
 ```
 shared/
 ├── test-helpers/     # Shared test utilities
-├── types/           # Shared TypeScript types
-├── constants/       # Shared constants
-└── docs/           # Shared documentation
+├── types/            # Shared TypeScript types
+├── constants/        # Shared constants
+└── docs/             # Shared documentation
 ```
 
 ### 5. Integration Schedule
