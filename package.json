@@ -1,4 +1,7 @@
 {
+  "imports": {
+    "#components-jsx/jsx-runtime": "./libraries/components/src/jsx-runtime.ts"
+  },
   "devDependencies": {
     "@playwright/test": "^1.53.1",
     "@playwright/mcp": "^0.0.29",
