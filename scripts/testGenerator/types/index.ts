@@ -1,4 +1,4 @@
-export interface FunctionSignature {
+export type FunctionSignature = {
 	name: string
 	path: string
 	parameters: Array<Parameter>
@@ -9,14 +9,14 @@ export interface FunctionSignature {
 	isGenerator: boolean
 }
 
-export interface Parameter {
+export type Parameter = {
 	name: string
 	type: TypeInfo
 	optional: boolean
 	defaultValue?: string
 }
 
-export interface TypeInfo {
+export type TypeInfo = {
 	raw: string
 	kind: TypeKind
 	elementType?: TypeInfo
@@ -37,12 +37,12 @@ export enum TypeKind {
 	Unknown = "unknown",
 }
 
-export interface Generic {
+export type Generic = {
 	name: string
 	constraint?: string
 }
 
-export interface BranchPath {
+export type BranchPath = {
 	id: string
 	condition: string
 	line: number
@@ -63,12 +63,12 @@ export enum BranchType {
 	LogicalOr = "logicalor",
 }
 
-export interface TestInput {
+export type TestInput = {
 	description: string
 	value: unknown
 }
 
-export interface TestCase {
+export type TestCase = {
 	name: string
 	description: string
 	input: Array<unknown>
@@ -78,14 +78,14 @@ export interface TestCase {
 	branchCoverage?: Array<string>
 }
 
-export interface PropertyTest {
+export type PropertyTest = {
 	name: string
 	property: string
 	generator: string
 	runs?: number
 }
 
-export interface TestSuite {
+export type TestSuite = {
 	functionPath: string
 	functionName: string
 	testCases: Array<TestCase>
@@ -93,7 +93,7 @@ export interface TestSuite {
 	coverage: CoverageResult
 }
 
-export interface CoverageResult {
+export type CoverageResult = {
 	percentage: number
 	lines: {
 		covered: number
@@ -109,18 +109,18 @@ export interface CoverageResult {
 	ignoredLines?: Array<IgnoredLine>
 }
 
-export interface CoverageMetric {
+export type CoverageMetric = {
 	total: number
 	covered: number
 	percentage: number
 }
 
-export interface IgnoredLine {
+export type IgnoredLine = {
 	line: number
 	reason: string
 }
 
-export interface GeneratorConfig {
+export type GeneratorConfig = {
 	maxPropertyRuns: number
 	includeEdgeCases: boolean
 	includePropertyTests: boolean
@@ -128,7 +128,7 @@ export interface GeneratorConfig {
 	targetCoverage: number
 }
 
-export interface TestFileMetadata {
+export type TestFileMetadata = {
 	sourceFile: string
 	testFile: string
 	generatedAt: string

@@ -9,8 +9,10 @@ import _validateAndImproveCoverage from "./validateAndImproveCoverage/index.ts"
 import generateImports from "./generateImports/index.ts"
 import deduplicateTests from "../optimizer/deduplicateTests/index.ts"
 import generateToolkitPatternTests from "../patterns/toolkitPatterns/index.ts"
+import analyzeBranches from "../analyzeBranches/index.ts"
+import generateBenchmarks from "../generateBenchmarks/index.ts"
 
-export default function generateTests(
+export default async function generateTests(
 	functionPath: string,
 	config?: Partial<GeneratorConfig>
 ): Promise<TestSuite> {
@@ -35,8 +37,27 @@ export default function generateTests(
 	console.log(`   Return type: ${signature.returnType.raw}`)
 	console.log(`   Is curried: ${signature.isCurried}`)
 	
-	const branches: Array<BranchPath> = []
+	// Read source code for branch analysis
+	let sourceCode = ""
+	try {
+		sourceCode = await Deno.readTextFile(functionPath)
+	} catch (error) {
+		console.warn(`⚠️  Could not read source file: ${error}`)
+	}
+	
+	// Analyze branches in the source code
+	const branches: Array<BranchPath> = sourceCode 
+		? analyzeBranches(signature, sourceCode)
+		: []
 	console.log(`🌳 Found ${branches.length} branches`)
+	
+	// Generate benchmarks if requested
+	if (finalConfig.includeBenchmarks && sourceCode) {
+		const benchmarkSuite = generateBenchmarks(signature, sourceCode)
+		console.log(`⚡ Generated ${benchmarkSuite.benchmarks.length} benchmark tests`)
+		// Note: Benchmarks are generated but not included in test cases
+		// They would be written to a separate benchmark file
+	}
 	
 	const allTests: Array<TestCase> = []
 	
