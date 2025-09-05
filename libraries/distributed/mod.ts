@@ -1,6 +1,6 @@
 /**
  * @module @sitebender/distributed
- * 
+ *
  * Utilities for distributed Web3 technologies
  */
 

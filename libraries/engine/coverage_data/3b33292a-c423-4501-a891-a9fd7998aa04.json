@@ -1,0 +1,29 @@
+{
+  "scriptId": "375",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/property/Property.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 782, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "property",
+      "ranges": [
+        { "startOffset": 349, "endOffset": 760, "count": 2 },
+        { "startOffset": 403, "endOffset": 479, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 650, "endOffset": 693, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 742, "endOffset": 756, "count": 200 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -34,7 +34,6 @@ export type KbdElementAttributes = KeyboardInputAttributes & AriaAttributes & {
  * Allows global attributes and validates kbd-specific attributes
  */
 
-
 /**
  * Creates a Kbd element configuration object
  *

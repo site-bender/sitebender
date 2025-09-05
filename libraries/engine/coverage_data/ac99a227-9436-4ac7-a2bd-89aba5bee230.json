@@ -1,0 +1,26 @@
+{
+  "scriptId": "555",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/TokenizeString.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1344, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tokenizeString",
+      "ranges": [
+        { "startOffset": 85, "endOffset": 1343, "count": 22 },
+        { "startOffset": 181, "endOffset": 276, "count": 0 },
+        { "startOffset": 301, "endOffset": 334, "count": 0 },
+        { "startOffset": 438, "endOffset": 1319, "count": 213 },
+        { "startOffset": 798, "endOffset": 964, "count": 22 },
+        { "startOffset": 854, "endOffset": 908, "count": 0 },
+        { "startOffset": 964, "endOffset": 1303, "count": 191 },
+        { "startOffset": 1313, "endOffset": 1319, "count": 191 },
+        { "startOffset": 1319, "endOffset": 1342, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

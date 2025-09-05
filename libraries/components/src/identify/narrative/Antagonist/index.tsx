@@ -3,7 +3,9 @@ import { Person } from "../../../define/index.ts"
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	characterId?: string
-	element?: keyof HTMLElementTagNameMap | ((props: Record<string, unknown>) => JSX.Element)
+	element?:
+		| keyof HTMLElementTagNameMap
+		| ((props: Record<string, unknown>) => JSX.Element)
 	define?: "microdata" | "linkedData" | "both"
 	motivation?: string
 	redeemable?: boolean

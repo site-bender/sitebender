@@ -34,7 +34,6 @@ export type IElementAttributes = IdiomaticTextAttributes & AriaAttributes & {
  * Allows global attributes and validates i-specific attributes
  */
 
-
 /**
  * Creates an I element configuration object
  *

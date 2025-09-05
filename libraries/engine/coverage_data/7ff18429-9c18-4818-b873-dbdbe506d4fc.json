@@ -1,0 +1,61 @@
+{
+  "scriptId": "461",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/property/AsyncProperty.generic.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2831, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "AsyncProperty",
+      "ranges": [{ "startOffset": 474, "endOffset": 1292, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isAsync",
+      "ranges": [{ "startOffset": 1297, "endOffset": 1335, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 1340, "endOffset": 1513, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 1518, "endOffset": 1864, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "runBeforeEach",
+      "ranges": [{ "startOffset": 1869, "endOffset": 1935, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "runAfterEach",
+      "ranges": [{ "startOffset": 1940, "endOffset": 2004, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 2009, "endOffset": 2412, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "beforeEach",
+      "ranges": [{ "startOffset": 2417, "endOffset": 2604, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "afterEach",
+      "ranges": [{ "startOffset": 2609, "endOffset": 2791, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "AsyncProperty.dummyHook",
+      "ranges": [{ "startOffset": 2820, "endOffset": 2829, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

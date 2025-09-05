@@ -1,0 +1,96 @@
+{
+  "scriptId": "436",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/stream/Stream.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2030, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nil",
+      "ranges": [{ "startOffset": 208, "endOffset": 261, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "of",
+      "ranges": [{ "startOffset": 273, "endOffset": 355, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Stream",
+      "ranges": [{ "startOffset": 360, "endOffset": 402, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "next",
+      "ranges": [{ "startOffset": 407, "endOffset": 451, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 456, "endOffset": 506, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "map",
+      "ranges": [{ "startOffset": 511, "endOffset": 574, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "flatMap",
+      "ranges": [{ "startOffset": 579, "endOffset": 650, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dropWhile",
+      "ranges": [{ "startOffset": 655, "endOffset": 906, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "drop",
+      "ranges": [{ "startOffset": 911, "endOffset": 1111, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "takeWhile",
+      "ranges": [{ "startOffset": 1116, "endOffset": 1191, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "take",
+      "ranges": [{ "startOffset": 1196, "endOffset": 1262, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "filter",
+      "ranges": [{ "startOffset": 1267, "endOffset": 1336, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "every",
+      "ranges": [{ "startOffset": 1341, "endOffset": 1491, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "has",
+      "ranges": [{ "startOffset": 1496, "endOffset": 1656, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "join",
+      "ranges": [{ "startOffset": 1661, "endOffset": 1739, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getNthOrLast",
+      "ranges": [{ "startOffset": 1744, "endOffset": 1971, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stream",
+      "ranges": [{ "startOffset": 1981, "endOffset": 2029, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

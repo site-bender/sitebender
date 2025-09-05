@@ -1,0 +1,16 @@
+{
+  "scriptId": "462",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/libraries/toolkit/src/simple/validation/isNullish/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1816, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isNullish",
+      "ranges": [{ "startOffset": 1742, "endOffset": 1788, "count": 540 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

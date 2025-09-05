@@ -1,0 +1,31 @@
+{
+  "scriptId": "531",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/SanitizeRegexAst.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3751, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "raiseUnsupportedASTNode",
+      "ranges": [{ "startOffset": 57, "endOffset": 181, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "addMissingDotStarTraversalAddMissing",
+      "ranges": [{ "startOffset": 182, "endOffset": 1514, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "addMissingDotStarTraversal",
+      "ranges": [{ "startOffset": 1515, "endOffset": 3633, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "addMissingDotStar",
+      "ranges": [{ "startOffset": 3641, "endOffset": 3750, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

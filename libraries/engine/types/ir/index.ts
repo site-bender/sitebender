@@ -78,6 +78,11 @@ export interface EventBindingNode extends BaseNode {
 	handler: ActionNode
 }
 
+export interface TextNode extends BaseNode {
+	kind: "text"
+	content: string
+}
+
 export type Node =
 	| ElementNode
 	| InjectorNode
@@ -87,6 +92,7 @@ export type Node =
 	| ValidatorNode
 	| ActionNode
 	| EventBindingNode
+	| TextNode
 
 export interface IrDocument extends ElementNode {
 	// Element root

@@ -1,0 +1,61 @@
+{
+  "scriptId": "480",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/builders/CharacterRangeArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2615, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 374, "endOffset": 413, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 459, "endOffset": 498, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 542, "endOffset": 581, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "percentCharArbMapper",
+      "ranges": [{ "startOffset": 585, "endOffset": 753, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "percentCharArbUnmapper",
+      "ranges": [{ "startOffset": 754, "endOffset": 946, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "percentCharArb",
+      "ranges": [{ "startOffset": 970, "endOffset": 1080, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateLowerAlphaArbitrary",
+      "ranges": [{ "startOffset": 1126, "endOffset": 1316, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateLowerAlphaNumericArbitrary",
+      "ranges": [{ "startOffset": 1370, "endOffset": 1870, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildAlphaNumericArbitrary",
+      "ranges": [{ "startOffset": 1871, "endOffset": 2063, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getOrCreateAlphaNumericPercentArbitrary",
+      "ranges": [{ "startOffset": 2119, "endOffset": 2614, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

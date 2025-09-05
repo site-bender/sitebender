@@ -1,0 +1,61 @@
+{
+  "scriptId": "573",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/pure-rand@7.0.1/node_modules/pure-rand/lib/esm/generator/XoroShiro.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2481, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 24, "endOffset": 2064, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "XoroShiro128Plus",
+      "ranges": [{ "startOffset": 42, "endOffset": 191, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.clone",
+      "ranges": [{ "startOffset": 231, "endOffset": 327, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.next",
+      "ranges": [{ "startOffset": 367, "endOffset": 541, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.unsafeNext",
+      "ranges": [{ "startOffset": 587, "endOffset": 1035, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.jump",
+      "ranges": [{ "startOffset": 1075, "endOffset": 1232, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.unsafeJump",
+      "ranges": [{ "startOffset": 1278, "endOffset": 1912, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "XoroShiro128Plus.getState",
+      "ranges": [{ "startOffset": 1956, "endOffset": 2032, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fromState",
+      "ranges": [{ "startOffset": 2069, "endOffset": 2331, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Object.assign.fromState",
+      "ranges": [{ "startOffset": 2376, "endOffset": 2452, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

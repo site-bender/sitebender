@@ -1,0 +1,26 @@
+{
+  "scriptId": "449",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/float32Array.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 505, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toTypedMapper",
+      "ranges": [{ "startOffset": 124, "endOffset": 192, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fromTypedUnmapper",
+      "ranges": [{ "startOffset": 193, "endOffset": 339, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "float32Array",
+      "ranges": [{ "startOffset": 372, "endOffset": 504, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

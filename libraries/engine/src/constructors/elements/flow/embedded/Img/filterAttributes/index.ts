@@ -1,5 +1,11 @@
 import { getImgAllowedRoles } from "@sitebender/engine/constructors/elements/constants/aria-roles.ts"
-import { CROSS_ORIGINS, DECODING_HINTS, FETCH_PRIORITIES, LOADINGS, REFERRER_POLICIES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	DECODING_HINTS,
+	FETCH_PRIORITIES,
+	LOADINGS,
+	REFERRER_POLICIES,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -12,7 +18,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ImgElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ImgElementAttributes) {
-
 	const {
 		id,
 		alt,
@@ -149,5 +154,4 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

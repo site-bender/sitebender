@@ -1,0 +1,31 @@
+{
+  "scriptId": "401",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/ipV6.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3130, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "h16sTol32Mapper",
+      "ranges": [{ "startOffset": 605, "endOffset": 665, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "h16sTol32Unmapper",
+      "ranges": [{ "startOffset": 666, "endOffset": 883, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "hexa",
+      "ranges": [{ "startOffset": 946, "endOffset": 1577, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ipV6",
+      "ranges": [{ "startOffset": 1610, "endOffset": 3129, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

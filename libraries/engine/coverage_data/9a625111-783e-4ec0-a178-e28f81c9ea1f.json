@@ -1,0 +1,24 @@
+{
+  "scriptId": "579",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/pure-rand@7.0.1/node_modules/pure-rand/lib/esm/distribution/UnsafeUniformIntDistribution.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1489, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "uniformLargeIntInternal",
+      "ranges": [{ "startOffset": 519, "endOffset": 1191, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unsafeUniformIntDistribution",
+      "ranges": [
+        { "startOffset": 1199, "endOffset": 1488, "count": 1042 },
+        { "startOffset": 1424, "endOffset": 1487, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

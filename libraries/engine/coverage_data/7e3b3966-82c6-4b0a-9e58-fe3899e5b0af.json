@@ -1,0 +1,16 @@
+{
+  "scriptId": "551",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/EnumerableKeysExtractor.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 636, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "extractEnumerableKeys",
+      "ranges": [{ "startOffset": 189, "endOffset": 635, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "scriptId": "424",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/webAuthority.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2153, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hostUserInfo",
+      "ranges": [{ "startOffset": 493, "endOffset": 620, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "userHostPortMapper",
+      "ranges": [{ "startOffset": 621, "endOffset": 737, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "userHostPortUnmapper",
+      "ranges": [{ "startOffset": 738, "endOffset": 1261, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "bracketedMapper",
+      "ranges": [{ "startOffset": 1262, "endOffset": 1314, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "bracketedUnmapper",
+      "ranges": [{ "startOffset": 1315, "endOffset": 1539, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "webAuthority",
+      "ranges": [{ "startOffset": 1572, "endOffset": 2152, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

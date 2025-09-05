@@ -1,0 +1,21 @@
+{
+  "scriptId": "525",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/BuildSchedulerFor.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 837, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildNextTaskIndex",
+      "ranges": [{ "startOffset": 73, "endOffset": 716, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildSchedulerFor",
+      "ranges": [{ "startOffset": 724, "endOffset": 836, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

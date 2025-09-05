@@ -1,0 +1,11 @@
+{
+  "scriptId": "562",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/pure-rand@7.0.1/node_modules/pure-rand/lib/esm/pure-rand-default.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1492, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

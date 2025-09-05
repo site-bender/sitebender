@@ -1,0 +1,26 @@
+{
+  "scriptId": "483",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/DoubleOnlyHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1060, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "refineConstraintsForDoubleOnly",
+      "ranges": [{ "startOffset": 347, "endOffset": 523, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "doubleOnlyMapper",
+      "ranges": [{ "startOffset": 531, "endOffset": 750, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "doubleOnlyUnmapper",
+      "ranges": [{ "startOffset": 758, "endOffset": 1059, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

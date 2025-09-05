@@ -1,0 +1,31 @@
+{
+  "scriptId": "543",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/stream/LazyIterableIterator.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 463, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "LazyIterableIterator",
+      "ranges": [{ "startOffset": 33, "endOffset": 96, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 101, "endOffset": 238, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "next",
+      "ranges": [{ "startOffset": 243, "endOffset": 374, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "makeLazy",
+      "ranges": [{ "startOffset": 384, "endOffset": 462, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -39,7 +39,6 @@ export type ButtonElementAttributes =
  * Allows global attributes and validates button-specific attributes
  */
 
-
 /**
  * Creates a Button element configuration object
  *

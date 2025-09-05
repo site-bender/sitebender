@@ -4,7 +4,7 @@ import isAuthenticated from "@sitebender/engine/operations/policies/isAuthentica
 import policies from "@sitebender/engine/operations/registries/policies.ts"
 
 export default function registerPolicies() {
-    policies.register(
+	policies.register(
 		"IsAuthenticated",
 		isAuthenticated as unknown as (op: unknown) => unknown,
 	)

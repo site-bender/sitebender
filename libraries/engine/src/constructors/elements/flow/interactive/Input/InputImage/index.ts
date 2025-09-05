@@ -29,8 +29,6 @@ export type InputImageElementAttributes = InputImageAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputImage element configuration object
  *
@@ -48,10 +46,10 @@ export type InputImageElementAttributes = InputImageAttributes & {
  * })
  * ```
  */
-const InputImage = Input("image")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputImage = Input("image")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputImage
-
-

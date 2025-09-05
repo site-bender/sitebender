@@ -1,0 +1,16 @@
+{
+  "scriptId": "373",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/property/AsyncProperty.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 812, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "asyncProperty",
+      "ranges": [{ "startOffset": 359, "endOffset": 785, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

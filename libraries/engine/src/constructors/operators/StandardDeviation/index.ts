@@ -1,4 +1,3 @@
-
 import { OPERAND_TYPES } from "../../../constructors/constants/index.ts"
 
 const StandardDeviation =

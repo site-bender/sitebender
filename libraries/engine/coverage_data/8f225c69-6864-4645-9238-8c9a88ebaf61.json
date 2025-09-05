@@ -1,0 +1,36 @@
+{
+  "scriptId": "495",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/IndexToMappedConstant.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2482, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildDichotomyEntries",
+      "ranges": [{ "startOffset": 120, "endOffset": 453, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "findDichotomyEntry",
+      "ranges": [{ "startOffset": 454, "endOffset": 818, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexToMappedConstantMapperFor",
+      "ranges": [{ "startOffset": 826, "endOffset": 1169, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildReverseMapping",
+      "ranges": [{ "startOffset": 1170, "endOffset": 1880, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexToMappedConstantUnmapperFor",
+      "ranges": [{ "startOffset": 1888, "endOffset": 2481, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

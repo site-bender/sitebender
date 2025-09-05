@@ -1,0 +1,31 @@
+{
+  "scriptId": "332",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/libraries/engine/tests/golden/rendering/renderIrToHtml/index.test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5303, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 215, "endOffset": 5300, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 283, "endOffset": 2219, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2292, "endOffset": 3687, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3748, "endOffset": 5296, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

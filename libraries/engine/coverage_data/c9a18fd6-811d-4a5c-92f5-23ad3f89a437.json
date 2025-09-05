@@ -1,0 +1,21 @@
+{
+  "scriptId": "472",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/runner/utils/PathWalker.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 769, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "produce",
+      "ranges": [{ "startOffset": 0, "endOffset": 53, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "pathWalk",
+      "ranges": [{ "startOffset": 61, "endOffset": 768, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

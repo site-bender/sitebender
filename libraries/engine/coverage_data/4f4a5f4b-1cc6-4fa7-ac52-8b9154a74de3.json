@@ -1,0 +1,25 @@
+{
+  "scriptId": "468",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/runner/DecorateProperty.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1324, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "decorateProperty",
+      "ranges": [
+        { "startOffset": 401, "endOffset": 1323, "count": 2 },
+        { "startOffset": 509, "endOffset": 541, "count": 0 },
+        { "startOffset": 543, "endOffset": 643, "count": 0 },
+        { "startOffset": 670, "endOffset": 720, "count": 0 },
+        { "startOffset": 774, "endOffset": 910, "count": 0 },
+        { "startOffset": 966, "endOffset": 1103, "count": 0 },
+        { "startOffset": 1137, "endOffset": 1202, "count": 0 },
+        { "startOffset": 1238, "endOffset": 1304, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

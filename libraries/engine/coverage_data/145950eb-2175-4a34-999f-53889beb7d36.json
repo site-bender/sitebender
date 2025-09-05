@@ -1,0 +1,16 @@
+{
+  "scriptId": "517",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/builders/PaddedNumberArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 303, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildPaddedNumberArbitrary",
+      "ranges": [{ "startOffset": 159, "endOffset": 302, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

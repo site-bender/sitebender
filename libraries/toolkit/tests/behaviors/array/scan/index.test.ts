@@ -11,7 +11,9 @@ describe("scan", () => {
 		})
 
 		it("should return [initial] for undefined input", () => {
-			assertEquals(scan((acc: number, n: number) => acc + n)(10)(undefined), [10])
+			assertEquals(scan((acc: number, n: number) => acc + n)(10)(undefined), [
+				10,
+			])
 		})
 
 		it("should return [initial] for empty array", () => {
@@ -29,17 +31,25 @@ describe("scan", () => {
 		})
 
 		it("should build strings progressively", () => {
-			const result = scan((acc: string, char: string) => acc + char)("")(["h", "e", "l", "l", "o"])
+			const result = scan((acc: string, char: string) => acc + char)("")([
+				"h",
+				"e",
+				"l",
+				"l",
+				"o",
+			])
 			assertEquals(result, ["", "h", "he", "hel", "hell", "hello"])
 		})
 
 		it("should track maximum so far", () => {
-			const result = scan((max: number, n: number) => Math.max(max, n))(-Infinity)([3, 1, 4, 1, 5])
+			const result = scan((max: number, n: number) => Math.max(max, n))(
+				-Infinity,
+			)([3, 1, 4, 1, 5])
 			assertEquals(result, [-Infinity, 3, 3, 4, 4, 5])
 		})
 
 		it("should build array progressively", () => {
-			const result = scan((acc: Array<number>, n: number) => 
+			const result = scan((acc: Array<number>, n: number) =>
 				n % 2 === 0 ? [...acc, n] : acc
 			)([])([1, 2, 3, 4, 5])
 			assertEquals(result, [[], [], [2], [2], [2, 4], [2, 4]])
@@ -47,11 +57,18 @@ describe("scan", () => {
 
 		it("should compute Fibonacci sequence", () => {
 			const result = scan(([a, b]: [number, number]) => [b, a + b])([0, 1])(
-				Array(8).fill(0)
+				Array(8).fill(0),
 			)
 			assertEquals(result, [
-				[0, 1], [1, 1], [1, 2], [2, 3], 
-				[3, 5], [5, 8], [8, 13], [13, 21], [21, 34]
+				[0, 1],
+				[1, 1],
+				[1, 2],
+				[2, 3],
+				[3, 5],
+				[5, 8],
+				[8, 13],
+				[13, 21],
+				[21, 34],
 			])
 		})
 
@@ -61,10 +78,14 @@ describe("scan", () => {
 
 			const transition = (state: State, action: Action): State => {
 				switch (state) {
-					case "idle": return action === "fetch" ? "loading" : state
+					case "idle":
+						return action === "fetch" ? "loading" : state
 					case "loading":
-						return action === "succeed" ? "success" :
-						       action === "fail" ? "error" : state
+						return action === "succeed"
+							? "success"
+							: action === "fail"
+							? "error"
+							: state
 					case "success":
 					case "error":
 						return action === "reset" ? "idle" : state
@@ -73,8 +94,21 @@ describe("scan", () => {
 				}
 			}
 
-			const result = scan(transition)("idle")(["fetch", "succeed", "reset", "fetch", "fail"])
-			assertEquals(result, ["idle", "loading", "success", "idle", "loading", "error"])
+			const result = scan(transition)("idle")([
+				"fetch",
+				"succeed",
+				"reset",
+				"fetch",
+				"fail",
+			])
+			assertEquals(result, [
+				"idle",
+				"loading",
+				"success",
+				"idle",
+				"loading",
+				"error",
+			])
 		})
 
 		it("should pass index to accumulator function", () => {
@@ -93,18 +127,24 @@ describe("scan", () => {
 
 		it("should work with different initial types", () => {
 			// String initial
-			const strResult = scan((acc: string, n: number) => acc + n)("sum: ")([1, 2, 3])
+			const strResult = scan((acc: string, n: number) => acc + n)("sum: ")([
+				1,
+				2,
+				3,
+			])
 			assertEquals(strResult, ["sum: ", "sum: 1", "sum: 12", "sum: 123"])
 
 			// Boolean initial
-			const boolResult = scan((acc: boolean, n: number) => acc || n > 3)(false)([1, 2, 4, 2])
+			const boolResult = scan((acc: boolean, n: number) => acc || n > 3)(false)(
+				[1, 2, 4, 2],
+			)
 			assertEquals(boolResult, [false, false, false, true, true])
 
 			// Object initial
-			const objResult = scan((acc: {sum: number}, n: number) => 
-				({sum: acc.sum + n})
-			)({sum: 0})([1, 2, 3])
-			assertEquals(objResult, [{sum: 0}, {sum: 1}, {sum: 3}, {sum: 6}])
+			const objResult = scan((acc: { sum: number }, n: number) => ({
+				sum: acc.sum + n,
+			}))({ sum: 0 })([1, 2, 3])
+			assertEquals(objResult, [{ sum: 0 }, { sum: 1 }, { sum: 3 }, { sum: 6 }])
 		})
 
 		it("should handle NaN in calculations", () => {
@@ -116,12 +156,21 @@ describe("scan", () => {
 		})
 
 		it("should handle infinity", () => {
-			const result = scan((acc: number, n: number) => acc + n)(0)([1, Infinity, 2])
+			const result = scan((acc: number, n: number) => acc + n)(0)([
+				1,
+				Infinity,
+				2,
+			])
 			assertEquals(result, [0, 1, Infinity, Infinity])
 		})
 
 		it("should handle arrays with mixed types", () => {
-			const result = scan((acc: string, item: any) => acc + String(item))("")([1, "a", true, null])
+			const result = scan((acc: string, item: any) => acc + String(item))("")([
+				1,
+				"a",
+				true,
+				null,
+			])
 			assertEquals(result, ["", "1", "1a", "1atrue", "1atruenull"])
 		})
 
@@ -158,20 +207,20 @@ describe("scan", () => {
 			type Nested = { value: number; children: Nested[] }
 			const result = scan((acc: Nested[], item: number): Nested[] => [
 				...acc,
-				{ value: item, children: [] }
+				{ value: item, children: [] },
 			])([])([1, 2, 3])
-			
+
 			assertEquals(result.length, 4)
 			assertEquals(result[0], [])
 			assertEquals(result[1], [{ value: 1, children: [] }])
 			assertEquals(result[2], [
 				{ value: 1, children: [] },
-				{ value: 2, children: [] }
+				{ value: 2, children: [] },
 			])
 			assertEquals(result[3], [
 				{ value: 1, children: [] },
 				{ value: 2, children: [] },
-				{ value: 3, children: [] }
+				{ value: 3, children: [] },
 			])
 		})
 	})
@@ -185,8 +234,8 @@ describe("scan", () => {
 					(arr, initial) => {
 						const result = scan((acc: any, item: any) => item)(initial)(arr)
 						return result[0] === initial
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -196,10 +245,12 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					fc.integer(),
 					(arr, initial) => {
-						const result = scan((acc: number, n: number) => acc + n)(initial)(arr)
+						const result = scan((acc: number, n: number) => acc + n)(initial)(
+							arr,
+						)
 						return result.length === arr.length + 1
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -209,11 +260,13 @@ describe("scan", () => {
 					fc.array(fc.integer(), { minLength: 1 }),
 					fc.integer(),
 					(arr, initial) => {
-						const scanResult = scan((acc: number, n: number) => acc + n)(initial)(arr)
+						const scanResult = scan((acc: number, n: number) => acc + n)(
+							initial,
+						)(arr)
 						const reduceResult = arr.reduce((acc, n) => acc + n, initial)
 						return scanResult[scanResult.length - 1] === reduceResult
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -229,8 +282,8 @@ describe("scan", () => {
 						const result1 = partial2(arr)
 						const result2 = scan(fn)(initial)(arr)
 						return JSON.stringify(result1) === JSON.stringify(result2)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -240,10 +293,12 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					(arr) => {
 						// String accumulator should stay string
-						const result = scan((acc: string, n: number) => acc + n)("start")(arr)
-						return result.every(item => typeof item === "string")
-					}
-				)
+						const result = scan((acc: string, n: number) => acc + n)("start")(
+							arr,
+						)
+						return result.every((item) => typeof item === "string")
+					},
+				),
 			)
 		})
 
@@ -254,8 +309,8 @@ describe("scan", () => {
 					(initial) => {
 						const result = scan((acc: any, item: any) => item)(initial)([])
 						return result.length === 1 && result[0] === initial
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -269,7 +324,7 @@ describe("scan", () => {
 							if (index !== undefined) processedIndices.push(index)
 							return acc
 						})(0)(arr)
-						
+
 						// Indices should be in ascending order
 						for (let i = 1; i < processedIndices.length; i++) {
 							if (processedIndices[i] <= processedIndices[i - 1]) {
@@ -277,8 +332,8 @@ describe("scan", () => {
 							}
 						}
 						return true
-					}
-				)
+					},
+				),
 			)
 		})
 	})

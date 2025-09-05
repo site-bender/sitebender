@@ -39,15 +39,19 @@ describe("span", () => {
 		it("provides index and array to predicate", () => {
 			const indices: number[] = []
 			const arrays: ReadonlyArray<number>[] = []
-			const predicate = (_: number, index: number, array: ReadonlyArray<number>) => {
+			const predicate = (
+				_: number,
+				index: number,
+				array: ReadonlyArray<number>,
+			) => {
 				indices.push(index)
 				arrays.push(array)
 				return index < 2
 			}
-			
+
 			const input = [10, 20, 30, 40]
 			const result = span(predicate)(input)
-			
+
 			expect(result).toEqual([[10, 20], [30, 40]])
 			expect(indices).toEqual([0, 1, 2])
 			expect(arrays).toEqual([input, input, input])
@@ -64,17 +68,17 @@ describe("span", () => {
 				name: string
 				active: boolean
 			}
-			
+
 			const users: User[] = [
 				{ name: "Alice", active: true },
 				{ name: "Bob", active: true },
 				{ name: "Charlie", active: false },
 				{ name: "David", active: true },
 			]
-			
+
 			const isActive = (u: User) => u.active
 			const result = span(isActive)(users)
-			
+
 			expect(result).toEqual([
 				[
 					{ name: "Alice", active: true },
@@ -102,7 +106,7 @@ describe("span", () => {
 
 		it("handles single element arrays", () => {
 			const isPositive = (x: number) => x > 0
-			
+
 			expect(span(isPositive)([5])).toEqual([[5], []])
 			expect(span(isPositive)([-5])).toEqual([[], [-5]])
 		})
@@ -141,9 +145,9 @@ describe("span", () => {
 			const original = [1, 2, 3, 4, 5]
 			const copy = [...original]
 			const isSmall = (x: number) => x < 4
-			
+
 			span(isSmall)(original)
-			
+
 			expect(original).toEqual(copy)
 		})
 
@@ -157,7 +161,7 @@ describe("span", () => {
 				}
 				return true
 			}
-			
+
 			const result = span(isPrime)([2, 3, 5, 4, 7, 11])
 			expect(result).toEqual([[2, 3, 5], [4, 7, 11]])
 		})
@@ -215,11 +219,11 @@ describe("span", () => {
 					(array) => {
 						const predicate = (x: number) => x < 50
 						const [first, second] = span(predicate)(array)
-						
+
 						if (second.length === 0) {
 							return true // Skip when second array is empty
 						}
-						
+
 						const firstIndexInOriginal = first.length
 						return !predicate(second[0], firstIndexInOriginal, array)
 					},
@@ -236,7 +240,7 @@ describe("span", () => {
 						const curriedSpan = span(predicate)
 						const result1 = curriedSpan(array)
 						const result2 = span(predicate)(array)
-						
+
 						return result1[0].length === result2[0].length &&
 							result1[1].length === result2[1].length &&
 							result1[0].every((val, idx) => val === result2[0][idx]) &&

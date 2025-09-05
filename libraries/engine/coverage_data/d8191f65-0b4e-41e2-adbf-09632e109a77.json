@@ -1,0 +1,16 @@
+{
+  "scriptId": "413",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/option.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 893, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "option",
+      "ranges": [{ "startOffset": 205, "endOffset": 892, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

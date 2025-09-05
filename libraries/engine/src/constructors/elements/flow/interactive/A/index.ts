@@ -37,7 +37,6 @@ export type AnchorElementAttributes =
  * Allows global attributes and validates anchor-specific attributes
  */
 
-
 /**
  * Creates an A element configuration object
  *

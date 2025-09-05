@@ -1,0 +1,26 @@
+{
+  "scriptId": "435",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/symbols.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 426, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hasCloneMethod",
+      "ranges": [
+        { "startOffset": 72, "endOffset": 307, "count": 1500 },
+        { "startOffset": 179, "endOffset": 212, "count": 1000 },
+        { "startOffset": 214, "endOffset": 248, "count": 500 },
+        { "startOffset": 249, "endOffset": 303, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "cloneIfNeeded",
+      "ranges": [{ "startOffset": 315, "endOffset": 425, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "552",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/builders/BoxedArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 206, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "boxedArbitraryBuilder",
+      "ranges": [{ "startOffset": 100, "endOffset": 205, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

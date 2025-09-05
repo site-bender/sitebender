@@ -1,0 +1,21 @@
+{
+  "scriptId": "423",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/uuid.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1886, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "assertValidVersions",
+      "ranges": [{ "startOffset": 391, "endOffset": 1073, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uuid",
+      "ranges": [{ "startOffset": 1106, "endOffset": 1885, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "scriptId": "570",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/pure-rand@7.0.1/node_modules/pure-rand/lib/esm/generator/LinearCongruential.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1642, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "computeNextSeed",
+      "ranges": [{ "startOffset": 130, "endOffset": 200, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "computeValueFromNextSeed",
+      "ranges": [{ "startOffset": 233, "endOffset": 294, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 324, "endOffset": 1269, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "LinearCongruential32",
+      "ranges": [{ "startOffset": 342, "endOffset": 411, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "LinearCongruential32.clone",
+      "ranges": [{ "startOffset": 455, "endOffset": 526, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "LinearCongruential32.next",
+      "ranges": [{ "startOffset": 570, "endOffset": 719, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "LinearCongruential32.unsafeNext",
+      "ranges": [{ "startOffset": 769, "endOffset": 1138, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "LinearCongruential32.getState",
+      "ranges": [{ "startOffset": 1186, "endOffset": 1233, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fromState",
+      "ranges": [{ "startOffset": 1274, "endOffset": 1508, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Object.assign.fromState",
+      "ranges": [{ "startOffset": 1551, "endOffset": 1613, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

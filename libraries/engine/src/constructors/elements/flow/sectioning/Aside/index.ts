@@ -34,7 +34,6 @@ export type AsideElementAttributes = AsideAttributes & AriaAttributes & {
  * Allows global attributes and validates aside-specific attributes
  */
 
-
 /**
  * Creates an Aside element configuration object
  *

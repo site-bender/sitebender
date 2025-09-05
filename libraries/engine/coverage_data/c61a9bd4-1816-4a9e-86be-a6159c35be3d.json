@@ -1,0 +1,26 @@
+{
+  "scriptId": "432",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/runner/configuration/GlobalParameters.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 251, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "configureGlobal",
+      "ranges": [{ "startOffset": 34, "endOffset": 109, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "readConfigureGlobal",
+      "ranges": [{ "startOffset": 117, "endOffset": 180, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "resetConfigureGlobal",
+      "ranges": [{ "startOffset": 188, "endOffset": 250, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

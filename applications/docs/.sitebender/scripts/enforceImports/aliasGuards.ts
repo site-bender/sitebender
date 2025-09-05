@@ -85,7 +85,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+								hint:
+									"Use @sitebender/engine/… instead of libraries/engine/src/…",
 							})
 						}
 						if (spec.includes(ENGINE_TYPES)) {
@@ -93,7 +94,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
+								hint:
+									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 							})
 						}
 
@@ -102,7 +104,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+								hint:
+									"Use @sitebender/engine/… instead of libraries/engine/src/…",
 							})
 						}
 						if (spec.includes(ENGINE_TYPES)) {
@@ -110,7 +113,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
+								hint:
+									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 							})
 						}
 					}
@@ -122,7 +126,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
+								hint:
+									"Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 							})
 						}
 					}

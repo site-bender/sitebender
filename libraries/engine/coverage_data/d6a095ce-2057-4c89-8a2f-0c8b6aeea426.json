@@ -1,0 +1,158 @@
+{
+  "scriptId": "453",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/arbitrary/definition/Arbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5834, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "filter",
+      "ranges": [{ "startOffset": 181, "endOffset": 261, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "map",
+      "ranges": [{ "startOffset": 266, "endOffset": 352, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "chain",
+      "ranges": [{ "startOffset": 357, "endOffset": 429, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ChainArbitrary",
+      "ranges": [{ "startOffset": 477, "endOffset": 583, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 588, "endOffset": 789, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 794, "endOffset": 854, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 859, "endOffset": 1619, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "valueChainer",
+      "ranges": [{ "startOffset": 1624, "endOffset": 2148, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isSafeContext",
+      "ranges": [{ "startOffset": 2153, "endOffset": 2561, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MapArbitrary",
+      "ranges": [{ "startOffset": 2607, "endOffset": 2813, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "MapArbitrary.bindValueMapper",
+      "ranges": [{ "startOffset": 2780, "endOffset": 2806, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 2818, "endOffset": 2943, "count": 9491 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [
+        { "startOffset": 2948, "endOffset": 3279, "count": 213 },
+        { "startOffset": 3190, "endOffset": 3241, "count": 0 },
+        { "startOffset": 3251, "endOffset": 3278, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 3284, "endOffset": 3693, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mapperWithCloneIfNeeded",
+      "ranges": [
+        { "startOffset": 3698, "endOffset": 4229, "count": 9491 },
+        { "startOffset": 3846, "endOffset": 3957, "count": 0 },
+        { "startOffset": 3958, "endOffset": 4005, "count": 0 },
+        { "startOffset": 4006, "endOffset": 4049, "count": 0 },
+        { "startOffset": 4051, "endOffset": 4180, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "get",
+      "ranges": [{ "startOffset": 4120, "endOffset": 4166, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "valueMapper",
+      "ranges": [{ "startOffset": 4234, "endOffset": 4464, "count": 9491 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isSafeContext",
+      "ranges": [{ "startOffset": 4469, "endOffset": 4662, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "FilterArbitrary",
+      "ranges": [{ "startOffset": 4711, "endOffset": 4897, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "FilterArbitrary.bindRefinementOnValue",
+      "ranges": [{ "startOffset": 4858, "endOffset": 4890, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [
+        { "startOffset": 4902, "endOffset": 5113, "count": 100 },
+        { "startOffset": 4952, "endOffset": 5107, "count": 565 },
+        { "startOffset": 5056, "endOffset": 5097, "count": 100 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 5118, "endOffset": 5238, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 5243, "endOffset": 5356, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "refinementOnValue",
+      "ranges": [{ "startOffset": 5361, "endOffset": 5430, "count": 565 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isArbitrary",
+      "ranges": [{ "startOffset": 5440, "endOffset": 5661, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "assertIsArbitrary",
+      "ranges": [
+        { "startOffset": 5669, "endOffset": 5833, "count": 3 },
+        { "startOffset": 5740, "endOffset": 5831, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

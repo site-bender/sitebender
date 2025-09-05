@@ -1,0 +1,41 @@
+{
+  "scriptId": "389",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/emailAddress.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1644, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dotAdapter",
+      "ranges": [{ "startOffset": 391, "endOffset": 715, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dotMapper",
+      "ranges": [{ "startOffset": 716, "endOffset": 770, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dotUnmapper",
+      "ranges": [{ "startOffset": 771, "endOffset": 919, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "atMapper",
+      "ranges": [{ "startOffset": 920, "endOffset": 983, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "atUnmapper",
+      "ranges": [{ "startOffset": 984, "endOffset": 1134, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "emailAddress",
+      "ranges": [{ "startOffset": 1167, "endOffset": 1643, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

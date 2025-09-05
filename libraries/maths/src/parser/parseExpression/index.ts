@@ -1,9 +1,4 @@
-import type {
-	ASTNode,
-	ParseError,
-	Result,
-	Token,
-} from "../../types/index.ts"
+import type { ASTNode, ParseError, Result, Token } from "../../types/index.ts"
 
 import parseBinaryExpression from "../parseBinaryExpression/index.ts"
 
@@ -17,10 +12,10 @@ export type ParserContext = {
 /**
  * Parses an expression starting from the current position.
  * Entry point for expression parsing with lowest precedence.
- * 
+ *
  * @param ctx - Parser context with tokens and position
  * @returns Curried function that takes minimum precedence and returns parsed AST
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Parse simple expression
@@ -28,7 +23,7 @@ export type ParserContext = {
  * const result = parseExpression(ctx)(0)
  * // Returns: { ok: true, value: { type: "BinaryOp", operator: "+", ... } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Parse with minimum precedence
@@ -36,7 +31,7 @@ export type ParserContext = {
  * const result = parseExpression(ctx)(10) // Only parse >= precedence 10
  * // Returns partial AST based on precedence
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: Parse parenthesized expression
@@ -44,7 +39,7 @@ export type ParserContext = {
  * const result = parseExpression(ctx)(0)
  * // Returns AST for inner expression
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: Parse with unary operator
@@ -52,7 +47,7 @@ export type ParserContext = {
  * const result = parseExpression(ctx)(0)
  * // Returns: { ok: true, value: { type: "UnaryOp", operator: "-", ... } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Chain multiple operations

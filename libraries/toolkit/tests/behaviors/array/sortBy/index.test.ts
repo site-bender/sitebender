@@ -186,9 +186,9 @@ describe("sortBy", () => {
 				{ category: "A", priority: 2 },
 			]
 			// Sort by category, then by priority
-			const byCategoryAndPriority = sortBy((x: { category: string; priority: number }) =>
-				`${x.category}${x.priority}`
-			)
+			const byCategoryAndPriority = sortBy((
+				x: { category: string; priority: number },
+			) => `${x.category}${x.priority}`)
 			assertEquals(byCategoryAndPriority(data), [
 				{ category: "A", priority: 1 },
 				{ category: "A", priority: 2 },

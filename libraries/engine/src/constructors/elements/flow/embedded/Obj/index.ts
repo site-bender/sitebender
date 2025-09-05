@@ -34,7 +34,6 @@ export type ObjElementAttributes = ObjectAttributes & ImageAriaAttributes & {
  * Allows global attributes and validates object-specific attributes
  */
 
-
 /**
  * Creates an Object element configuration object
  *

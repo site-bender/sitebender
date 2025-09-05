@@ -1,0 +1,16 @@
+{
+  "scriptId": "416",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/infiniteStream.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 371, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "infiniteStream",
+      "ranges": [{ "startOffset": 92, "endOffset": 343, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

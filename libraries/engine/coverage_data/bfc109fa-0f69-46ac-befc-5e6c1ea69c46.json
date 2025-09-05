@@ -1,0 +1,26 @@
+{
+  "scriptId": "401",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/ipV4Extended.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1041, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dotJoinerMapper",
+      "ranges": [{ "startOffset": 235, "endOffset": 301, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dotJoinerUnmapper",
+      "ranges": [{ "startOffset": 302, "endOffset": 457, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ipV4Extended",
+      "ranges": [{ "startOffset": 490, "endOffset": 1040, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

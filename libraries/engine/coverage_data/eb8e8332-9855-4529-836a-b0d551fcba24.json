@@ -1,0 +1,36 @@
+{
+  "scriptId": "560",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/model/commands/CommandWrapper.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1145, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "CommandWrapper",
+      "ranges": [{ "startOffset": 225, "endOffset": 776, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "check",
+      "ranges": [{ "startOffset": 781, "endOffset": 831, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 836, "endOffset": 916, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "clone",
+      "ranges": [{ "startOffset": 921, "endOffset": 1083, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toString",
+      "ranges": [{ "startOffset": 1088, "endOffset": 1142, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

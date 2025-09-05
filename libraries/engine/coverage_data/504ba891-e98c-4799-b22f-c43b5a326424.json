@@ -1,0 +1,31 @@
+{
+  "scriptId": "481",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/KeyValuePairsToObject.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2210, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "keyValuePairsToObjectMapper",
+      "ranges": [
+        { "startOffset": 475, "endOffset": 841, "count": 100 },
+        { "startOffset": 556, "endOffset": 580, "count": 61 },
+        { "startOffset": 581, "endOffset": 585, "count": 39 },
+        { "startOffset": 629, "endOffset": 823, "count": 429 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildIsValidPropertyNameFilter",
+      "ranges": [{ "startOffset": 842, "endOffset": 1271, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "keyValuePairsToObjectUnmapper",
+      "ranges": [{ "startOffset": 1279, "endOffset": 2209, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

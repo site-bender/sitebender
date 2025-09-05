@@ -6,7 +6,9 @@ import EmailAddressField from "../fields/EmailAddressField/index.tsx"
 import FieldSet from "../FieldSet/index.tsx"
 import Form from "../Form/index.tsx"
 
-export type Props = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method"> & Record<PropertyKey, never>
+export type Props =
+	& Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "method">
+	& Record<PropertyKey, never>
 
 export default function InOrUp(props: Props) {
 	return (

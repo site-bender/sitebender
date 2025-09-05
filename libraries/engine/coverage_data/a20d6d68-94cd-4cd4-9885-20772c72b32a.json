@@ -1,0 +1,21 @@
+{
+  "scriptId": "414",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/uniqueArray.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2449, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildUniqueArraySetBuilder",
+      "ranges": [{ "startOffset": 488, "endOffset": 1674, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uniqueArray",
+      "ranges": [{ "startOffset": 1707, "endOffset": 2448, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

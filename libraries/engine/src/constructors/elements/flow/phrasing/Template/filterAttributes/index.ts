@@ -4,7 +4,6 @@ import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: TemplateAttributes) {
-
 	const { id, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -12,5 +11,4 @@ export default function filterAttributes(attributes: TemplateAttributes) {
 		...getId(id),
 		...globals,
 	}
-
 }

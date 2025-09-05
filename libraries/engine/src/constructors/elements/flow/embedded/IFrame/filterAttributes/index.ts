@@ -1,4 +1,7 @@
-import { REFERRER_POLICIES, SANDBOXES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	REFERRER_POLICIES,
+	SANDBOXES,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -13,7 +16,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { IFrameElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: IFrameElementAttributes) {
-
 	const {
 		id,
 		allow,
@@ -126,5 +128,4 @@ export default function filterAttributes(attributes: IFrameElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

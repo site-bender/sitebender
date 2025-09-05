@@ -1,0 +1,36 @@
+{
+  "scriptId": "484",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/FloatHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2170, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "bitCastFloatToUInt32",
+      "ranges": [{ "startOffset": 445, "endOffset": 516, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "decomposeFloat",
+      "ranges": [{ "startOffset": 524, "endOffset": 967, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexInFloatFromDecomp",
+      "ranges": [{ "startOffset": 968, "endOffset": 1171, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "floatToIndex",
+      "ranges": [{ "startOffset": 1179, "endOffset": 1712, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexToFloat",
+      "ranges": [{ "startOffset": 1720, "endOffset": 2169, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "405",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/memo.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 544, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "memo",
+      "ranges": [{ "startOffset": 122, "endOffset": 543, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

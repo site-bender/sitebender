@@ -1,0 +1,21 @@
+{
+  "scriptId": "407",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/object.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 627, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "objectInternal",
+      "ranges": [{ "startOffset": 229, "endOffset": 479, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "object",
+      "ranges": [{ "startOffset": 505, "endOffset": 607, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

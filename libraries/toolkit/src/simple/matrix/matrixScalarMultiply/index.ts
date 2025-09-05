@@ -75,9 +75,9 @@ const matrixScalarMultiply = (
 
 	// Check if any NaN was returned
 	if (
-		result.some((row) =>
-			(Array.isArray(row) && row.some((val) => Number.isNaN(val)))
-		)
+		result.some((
+			row,
+		) => (Array.isArray(row) && row.some((val) => Number.isNaN(val))))
 	) {
 		return NaN
 	}

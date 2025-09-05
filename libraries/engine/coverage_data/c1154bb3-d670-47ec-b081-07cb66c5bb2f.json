@@ -1,0 +1,26 @@
+{
+  "scriptId": "536",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/utils/apply.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 590, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "safeExtractApply",
+      "ranges": [{ "startOffset": 86, "endOffset": 202, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "safeApplyHacky",
+      "ranges": [{ "startOffset": 203, "endOffset": 398, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "safeApply",
+      "ranges": [{ "startOffset": 406, "endOffset": 589, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

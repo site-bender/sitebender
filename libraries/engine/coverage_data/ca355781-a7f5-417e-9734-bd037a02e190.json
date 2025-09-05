@@ -1,0 +1,42 @@
+{
+  "scriptId": "460",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/noBias.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 925, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "NoBiasArbitrary",
+      "ranges": [{ "startOffset": 176, "endOffset": 241, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 246, "endOffset": 332, "count": 100 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 337, "endOffset": 431, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 436, "endOffset": 514, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "noBias",
+      "ranges": [
+        { "startOffset": 549, "endOffset": 924, "count": 1 },
+        { "startOffset": 642, "endOffset": 704, "count": 0 },
+        { "startOffset": 705, "endOffset": 797, "count": 0 },
+        { "startOffset": 798, "endOffset": 856, "count": 0 },
+        { "startOffset": 858, "endOffset": 885, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

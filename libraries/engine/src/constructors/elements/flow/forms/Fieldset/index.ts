@@ -42,7 +42,6 @@ export type FieldsetElementAttributes =
  * Allows global attributes and validates fieldset-specific attributes
  */
 
-
 /**
  * Creates a Fieldset element configuration object
  *

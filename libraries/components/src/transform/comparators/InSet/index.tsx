@@ -1,4 +1,7 @@
-import type { InSetComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	InSetComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * InSet - Set membership comparator component

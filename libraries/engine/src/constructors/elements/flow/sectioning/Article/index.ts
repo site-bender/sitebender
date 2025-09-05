@@ -37,7 +37,6 @@ export type ArticleElementAttributes =
  * Allows global attributes and validates article-specific attributes
  */
 
-
 /**
  * Creates an Article element configuration object
  *

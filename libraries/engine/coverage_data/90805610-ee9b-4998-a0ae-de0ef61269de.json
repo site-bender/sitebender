@@ -1,0 +1,55 @@
+{
+  "scriptId": "432",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/random/generator/Random.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1243, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Random",
+      "ranges": [{ "startOffset": 117, "endOffset": 193, "count": 200 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "clone",
+      "ranges": [{ "startOffset": 198, "endOffset": 258, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "next",
+      "ranges": [{ "startOffset": 263, "endOffset": 364, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextBoolean",
+      "ranges": [{ "startOffset": 369, "endOffset": 464, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextInt",
+      "ranges": [
+        { "startOffset": 469, "endOffset": 629, "count": 13431 },
+        { "startOffset": 545, "endOffset": 561, "count": 0 },
+        { "startOffset": 581, "endOffset": 597, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nextBigInt",
+      "ranges": [{ "startOffset": 634, "endOffset": 738, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nextDouble",
+      "ranges": [{ "startOffset": 743, "endOffset": 894, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getState",
+      "ranges": [{ "startOffset": 899, "endOffset": 1098, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

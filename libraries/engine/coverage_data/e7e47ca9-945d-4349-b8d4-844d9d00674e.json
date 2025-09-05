@@ -1,0 +1,46 @@
+{
+  "scriptId": "564",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/WithShrinkFromOtherArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1615, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isSafeContext",
+      "ranges": [{ "startOffset": 142, "endOffset": 211, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toGeneratorValue",
+      "ranges": [{ "startOffset": 212, "endOffset": 454, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toShrinkerValue",
+      "ranges": [{ "startOffset": 455, "endOffset": 694, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "WithShrinkFromOtherArbitrary",
+      "ranges": [{ "startOffset": 761, "endOffset": 942, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 947, "endOffset": 1066, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 1071, "endOffset": 1179, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 1184, "endOffset": 1612, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

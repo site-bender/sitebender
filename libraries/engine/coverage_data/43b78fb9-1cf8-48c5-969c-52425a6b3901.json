@@ -1,0 +1,16 @@
+{
+  "scriptId": "424",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/webFragments.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 251, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "webFragments",
+      "ranges": [{ "startOffset": 144, "endOffset": 250, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

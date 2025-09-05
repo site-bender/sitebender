@@ -1,0 +1,26 @@
+{
+  "scriptId": "519",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/builders/UriPathArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1175, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "sqrtSize",
+      "ranges": [{ "startOffset": 223, "endOffset": 590, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildUriPathArbitraryInternal",
+      "ranges": [{ "startOffset": 591, "endOffset": 791, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "buildUriPathArbitrary",
+      "ranges": [{ "startOffset": 799, "endOffset": 1174, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "scriptId": "532",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/helpers/TokenizeRegex.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 13250, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "safePop",
+      "ranges": [{ "startOffset": 174, "endOffset": 386, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isDigit",
+      "ranges": [{ "startOffset": 387, "endOffset": 452, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "simpleChar",
+      "ranges": [{ "startOffset": 453, "endOffset": 663, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "metaEscapedChar",
+      "ranges": [{ "startOffset": 664, "endOffset": 857, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toSingleToken",
+      "ranges": [{ "startOffset": 858, "endOffset": 1156, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "blockToCharToken",
+      "ranges": [{ "startOffset": 1157, "endOffset": 3603, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "pushTokens",
+      "ranges": [{ "startOffset": 3604, "endOffset": 12960, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "tokenizeRegex",
+      "ranges": [{ "startOffset": 12968, "endOffset": 13249, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

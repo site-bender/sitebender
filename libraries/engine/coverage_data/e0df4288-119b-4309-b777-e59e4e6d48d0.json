@@ -1,0 +1,16 @@
+{
+  "scriptId": "408",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/json.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 233, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "json",
+      "ranges": [{ "startOffset": 118, "endOffset": 232, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

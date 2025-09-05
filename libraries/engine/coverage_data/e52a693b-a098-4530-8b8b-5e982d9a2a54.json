@@ -1,0 +1,16 @@
+{
+  "scriptId": "397",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/maxSafeNat.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 235, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "maxSafeNat",
+      "ranges": [{ "startOffset": 153, "endOffset": 234, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

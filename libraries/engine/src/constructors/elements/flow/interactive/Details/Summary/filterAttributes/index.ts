@@ -7,7 +7,6 @@ import isMemberOf from "@sitebender/engine/guards/isMemberOf/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: SummaryAttributes) {
-
 	const { id, role, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -16,5 +15,4 @@ export default function filterAttributes(attributes: SummaryAttributes) {
 		...globals,
 		...filterAttribute(isMemberOf(SUMMARY_ROLES))("role")(role),
 	}
-
 }

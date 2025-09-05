@@ -1,7 +1,6 @@
-import type { NumericOperation } from "../../operations/operators/index.ts"
-
 import type { Either } from "../../fp/either/index.ts"
 import type { Option } from "../../fp/option/index.ts"
+import type { NumericOperation } from "../../operations/operators/index.ts"
 import type { Element } from "../elements/index.ts"
 import type { LinkElement } from "../elements/metadata/link/index.ts"
 import type { ScriptElement } from "../elements/scripting/script/index.ts"

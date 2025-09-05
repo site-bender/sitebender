@@ -1,0 +1,21 @@
+{
+  "scriptId": "404",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/mapToConstant.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1019, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "computeNumChoices",
+      "ranges": [{ "startOffset": 208, "endOffset": 767, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mapToConstant",
+      "ranges": [{ "startOffset": 800, "endOffset": 1018, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

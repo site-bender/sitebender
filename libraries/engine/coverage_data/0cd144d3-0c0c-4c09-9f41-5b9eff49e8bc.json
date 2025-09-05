@@ -1,0 +1,31 @@
+{
+  "scriptId": "457",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/stringMatching.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 7602, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "defaultChar",
+      "ranges": [{ "startOffset": 950, "endOffset": 1018, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "raiseUnsupportedASTNode",
+      "ranges": [{ "startOffset": 1020, "endOffset": 1144, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toMatchingArbitrary",
+      "ranges": [{ "startOffset": 1145, "endOffset": 6990, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringMatching",
+      "ranges": [{ "startOffset": 7023, "endOffset": 7601, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

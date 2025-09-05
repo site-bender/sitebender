@@ -83,35 +83,36 @@ const accumulate = <T extends Record<string, unknown>>(
 	// Process each source starting from index 1 if we used first as initial
 	const startIndex = sources.length > 0 ? 1 : 0
 
-		return sources.slice(startIndex).reduce<T>((acc, source, index) => {
+	return sources.slice(startIndex).reduce<T>((acc, source, index) => {
 		// For each key in accumulators
-	const updates = keys.reduce((keyAcc, key) => {
+		const updates = keys.reduce((keyAcc, key) => {
 			// Get the accumulator function for this key
 			const accumulator = accumulators[key]
 
 			// Get current accumulated value
-			const currentValue = (acc as Record<string, unknown>)[key as string] as T[typeof key]
+			const currentValue =
+				(acc as Record<string, unknown>)[key as string] as T[typeof key]
 
 			// Get new value from source
-			const newValue = (source as Record<string, unknown>)[key as string] as T[typeof key]
+			const newValue =
+				(source as Record<string, unknown>)[key as string] as T[typeof key]
 
 			// Skip if source doesn't have this key
 			if (!(key in source)) {
 				return keyAcc
-			}
+			} // Apply accumulator function
 
-					// Apply accumulator function
-					;(keyAcc as Record<string, unknown>)[key as string] = accumulator(
-						currentValue,
-						newValue,
-						index + startIndex,
-					)
+			;(keyAcc as Record<string, unknown>)[key as string] = accumulator(
+				currentValue,
+				newValue,
+				index + startIndex,
+			)
 			return keyAcc
 		}, {} as Record<string, unknown>)
 
 		// Merge updates into accumulator
-			return { ...acc, ...(updates as Partial<T>) } as T
-		}, initial as T)
+		return { ...acc, ...(updates as Partial<T>) } as T
+	}, initial as T)
 }
 
 export default accumulate

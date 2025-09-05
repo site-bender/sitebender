@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { HtmlElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: HtmlElementAttributes) {
-
 	const {
 		id,
 		manifest,
@@ -56,5 +55,4 @@ export default function filterAttributes(attributes: HtmlElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

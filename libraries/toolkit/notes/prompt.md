@@ -40,6 +40,7 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 ### 🚨 CRITICAL SCOPE RESTRICTION 🚨
 
 **YOU ARE ONLY ALLOWED TO WORK IN `/libraries/toolkit/` FOLDER**
+
 - **NEVER** touch, edit, or commit files outside of `/libraries/toolkit/`
 - **NEVER** include files from outside toolkit in your commits
 - Another AI works on the rest of the codebase - DO NOT INTERFERE
@@ -52,6 +53,7 @@ Both AIs make commits, so check git log carefully for YOUR toolkit commits.
 **YOU HAVE NO EXCUSE FOR NOT RUNNING TESTS. NONE.**
 
 Before EVERY function is considered complete:
+
 1. Run the test WITH coverage using toolkit-specific command:
    ```bash
    deno task test:toolkit:coverage
@@ -63,6 +65,7 @@ Before EVERY function is considered complete:
 6. **DO NOT move to next function until current shows 100/100**
 
 **BEFORE CLAIMING SESSION COMPLETE:**
+
 1. Run toolkit-specific test command:
    ```bash
    deno task test:toolkit:coverage
@@ -72,6 +75,7 @@ Before EVERY function is considered complete:
 4. Do NOT include tests from outside toolkit folder
 
 **DO NOT:**
+
 - ❌ Commit without running tests
 - ❌ Claim success without seeing "0 failed"
 - ❌ Report 100% coverage if tests are failing
@@ -157,16 +161,18 @@ For each function:
      ```bash
      # FIRST: Run tests one more time to be absolutely sure
      deno test --no-check [your test files] # MUST show 0 failed
-     
+     ```
+
    # ONLY THEN commit:
    git add -A libraries/toolkit
    git commit -m "test(toolkit): add comprehensive tests for [function names]
 
-     - Added behavioral tests for [list functions]
-     - Added property-based tests where appropriate
-     - Achieved 100% code coverage
-     - ALL TESTS VERIFIED PASSING before commit"
-     ```
+   - Added behavioral tests for [list functions]
+   - Added property-based tests where appropriate
+   - Achieved 100% code coverage
+   - ALL TESTS VERIFIED PASSING before commit"
+   ```
+   ```
 
 ## Session Notes
 
@@ -202,11 +208,13 @@ For each function:
      - Extra values are ignored
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (sortBy, sortWith, zip, zipObj)
 - All functions use proper FP patterns (recursion, immutability)
 - JSDoc examples in zipAll incorrectly documented null behavior (fixed in tests)
 
 **Testing Progress Update:**
+
 - 194 functions now have tests (189 from previous + 5 new)
 - Current progress: ~22.2% (194/874 functions)
 - All 5 functions at 100% coverage
@@ -244,12 +252,14 @@ For each function:
      - Recursive implementation with size/step validation
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (takeLastWhile, unzip)
 - Missing use of `not()` function for negation (takeLastWhile, unzip)
 - Missing null/undefined handling (toSet, slidingWithStep)
 - Stack overflow with large arrays in recursive implementations (limited test sizes)
 
 **Testing Progress Update:**
+
 - 189 functions now have tests (184 from previous + 5 new)
 - Current progress: ~21.6% (189/874 functions)
 - All 5 functions at 100% line coverage
@@ -282,12 +292,14 @@ For each function:
      - Tests cover edge cases with fractional and special numbers
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (all 4 functions)
 - Missing use of `not()` function for negation (takeWhile)
 - `any` types in JSDoc examples (unionWith)
 - Missing NaN handling (takeLast)
 
 **Testing Progress Update:**
+
 - 184 functions now have tests (180 from previous + 4 new)
 - Current progress: ~21.1% (184/874 functions)
 - All 4 functions at 100% coverage
@@ -320,10 +332,12 @@ For each function:
      - Comprehensive tests including commutative property verification
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (startsWith)
 - All functions pass comprehensive behavioral and property-based tests
 
 **Testing Progress Update:**
+
 - 180 functions now have tests (176 from previous + 4 new, reduceRight already had tests)
 - Current progress: ~20.6% (180/874 functions)
 - All 5 functions at 100% coverage
@@ -361,11 +375,13 @@ For each function:
      - Still provides good test coverage despite issues
 
 **Common Issues Fixed:**
+
 - Redundant `!Array.isArray` checks after `isNullish` (span, subsequences, transpose)
 - Missing use of `not()` function for negation (span, times)
 - All functions pass comprehensive behavioral and property-based tests
 
 **Testing Progress Update:**
+
 - 176 functions now have tests (171 from previous + 5 new)
 - Current progress: ~20.1% (176/874 functions)
 - 4 functions at 100% coverage, 1 at 90.6% coverage
@@ -380,7 +396,7 @@ For each function:
      - Removes elements at specified indices
      - Handles negative indices correctly
      - Tests were comprehensive
-  2. **pairwise** - Already had 100% coverage  
+  2. **pairwise** - Already had 100% coverage
      - Creates adjacent pairs from array
      - Not curried (single argument function)
      - Tests were comprehensive
@@ -396,7 +412,7 @@ For each function:
      - Generates all permutations of array
      - Handles duplicates correctly
      - Tests were comprehensive
-     
+
 - ✅ Created new test for 1 array function:
   1. **sliding** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` check after `isNullish`
@@ -426,7 +442,7 @@ For each function:
      - Properly implements progressive accumulation like reduce
      - Returns all intermediate values including initial value
      - Uses functional recursion without mutations
-  3. **shuffle** - 100% coverage achieved  
+  3. **shuffle** - 100% coverage achieved
      - Fixed redundant `!Array.isArray` check after `isNullish`
      - Uses Fisher-Yates algorithm with functional recursion
      - Correctly marked as @impure (uses Math.random)
@@ -495,6 +511,7 @@ For each function:
 - All 120 tests from these 5 functions pass together
 
 **Important Process Change:**
+
 - Added mandatory verification steps to prompt.md
 - Must run tests and verify "0 failed" BEFORE any commits
 - No more rushing to meet arbitrary targets at expense of quality
@@ -502,6 +519,7 @@ For each function:
 ### Previous Session (2025-09-03) - Part 18 (CORRECTED)
 
 **Initial Issues:**
+
 - ❌ Committed with failing tests - replaceFirstMatch had 6 failing tests
 - Root cause: `findIndex` returns `undefined` (not -1) when no match found
 - Lesson: **MUST verify all tests pass before committing**
@@ -572,7 +590,7 @@ For each function:
      - Fixed redundant `!Array.isArray` check after `isNullish`
      - Extracts property values from array of objects
      - Comprehensive tests with property-based testing
-  2. **range** - 100% coverage achieved  
+  2. **range** - 100% coverage achieved
      - Added infinity handling to prevent RangeError
      - Generates array of numbers from start to end (exclusive)
      - Tests cover edge cases including Infinity, NaN

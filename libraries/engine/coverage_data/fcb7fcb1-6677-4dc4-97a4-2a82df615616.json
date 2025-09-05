@@ -1,0 +1,16 @@
+{
+  "scriptId": "393",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/func.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2054, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "func",
+      "ranges": [{ "startOffset": 633, "endOffset": 2053, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

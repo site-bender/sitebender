@@ -19,7 +19,6 @@ import filterAttributes from "./filterAttributes/index.ts"
  * Allows global attributes and validates title-specific attributes
  */
 
-
 /**
  * Creates a Title element configuration object
  *

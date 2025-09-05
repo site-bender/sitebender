@@ -1,0 +1,16 @@
+{
+  "scriptId": "420",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/tuple.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 162, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tuple",
+      "ranges": [{ "startOffset": 97, "endOffset": 161, "count": 3 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -56,7 +56,7 @@
  */
 const isPromise = (value: unknown): value is Promise<unknown> => {
 	// Check for null/undefined first
-		if (value === null || value === undefined) {
+	if (value === null || value === undefined) {
 		return false
 	}
 

@@ -7,8 +7,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { DataListElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: DataListElementAttributes) {
-
+export default function filterAttributes(
+	attributes: DataListElementAttributes,
+) {
 	const {
 		id,
 		// ARIA attributes
@@ -127,5 +128,4 @@ export default function filterAttributes(attributes: DataListElementAttributes) 
 	}
 
 	return filteredAttrs
-
 }

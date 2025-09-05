@@ -1,0 +1,46 @@
+{
+  "scriptId": "430",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/check/model/ModelRunner.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1901, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "genericModelRun",
+      "ranges": [{ "startOffset": 91, "endOffset": 406, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "internalModelRun",
+      "ranges": [{ "startOffset": 433, "endOffset": 803, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isAsyncSetup",
+      "ranges": [{ "startOffset": 826, "endOffset": 877, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "internalAsyncModelRun",
+      "ranges": [{ "startOffset": 909, "endOffset": 1431, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "modelRun",
+      "ranges": [{ "startOffset": 1440, "endOffset": 1501, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "asyncModelRun",
+      "ranges": [{ "startOffset": 1509, "endOffset": 1592, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "scheduledModelRun",
+      "ranges": [{ "startOffset": 1600, "endOffset": 1900, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

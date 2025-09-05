@@ -1,0 +1,26 @@
+{
+  "scriptId": "422",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/ulid.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1196, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "ulidMapper",
+      "ranges": [{ "startOffset": 313, "endOffset": 450, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ulidUnmapper",
+      "ranges": [{ "startOffset": 451, "endOffset": 780, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ulid",
+      "ranges": [{ "startOffset": 813, "endOffset": 1195, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

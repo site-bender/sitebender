@@ -1,0 +1,49 @@
+{
+  "scriptId": "513",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/PatternsToString.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1194, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "patternsToStringMapper",
+      "ranges": [{ "startOffset": 207, "endOffset": 277, "count": 1541 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "minLengthFrom",
+      "ranges": [
+        { "startOffset": 278, "endOffset": 393, "count": 88 },
+        { "startOffset": 363, "endOffset": 386, "count": 22 },
+        { "startOffset": 387, "endOffset": 390, "count": 66 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "maxLengthFrom",
+      "ranges": [
+        { "startOffset": 394, "endOffset": 527, "count": 88 },
+        { "startOffset": 479, "endOffset": 502, "count": 22 },
+        { "startOffset": 503, "endOffset": 524, "count": 66 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "patternsToStringUnmapperIsValidLength",
+      "ranges": [{ "startOffset": 535, "endOffset": 709, "count": 88 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "patternsToStringUnmapperFor",
+      "ranges": [{ "startOffset": 717, "endOffset": 1193, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "patternsToStringUnmapper",
+      "ranges": [{ "startOffset": 793, "endOffset": 1190, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

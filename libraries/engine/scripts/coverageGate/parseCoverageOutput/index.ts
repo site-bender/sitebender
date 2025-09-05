@@ -42,6 +42,7 @@ export default function parseCoverageOutput(output: string): CoverageResult[] {
     if (line.includes('|') && !line.includes('File') && !line.includes('---')) {
       const parts = line.split('|').map(part =>
         part.trim()
+          // deno-lint-ignore no-control-regex
           .replace(/\u001b\[[0-9;]*m/g, '') // Remove ANSI escape codes
           .trim()
       ).filter(part => part !== '')

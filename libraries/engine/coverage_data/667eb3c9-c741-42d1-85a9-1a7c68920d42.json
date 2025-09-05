@@ -1,0 +1,21 @@
+{
+  "scriptId": "569",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/UnboxedToBoxed.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 689, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unboxedToBoxedMapper",
+      "ranges": [{ "startOffset": 76, "endOffset": 378, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unboxedToBoxedUnmapper",
+      "ranges": [{ "startOffset": 386, "endOffset": 688, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

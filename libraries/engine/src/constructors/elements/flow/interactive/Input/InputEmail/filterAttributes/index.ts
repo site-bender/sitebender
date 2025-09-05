@@ -10,8 +10,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { InputEmailElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: InputEmailElementAttributes) {
-
+export default function filterAttributes(
+	attributes: InputEmailElementAttributes,
+) {
 	const {
 		id,
 		autocomplete,
@@ -209,5 +210,4 @@ export default function filterAttributes(attributes: InputEmailElementAttributes
 	}
 
 	return filteredAttrs
-
 }

@@ -1,0 +1,26 @@
+{
+  "scriptId": "490",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/NatToStringifiedNat.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1152, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "natToStringifiedNatMapper",
+      "ranges": [{ "startOffset": 130, "endOffset": 444, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "tryParseStringifiedNat",
+      "ranges": [{ "startOffset": 452, "endOffset": 703, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "natToStringifiedNatUnmapper",
+      "ranges": [{ "startOffset": 711, "endOffset": 1151, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

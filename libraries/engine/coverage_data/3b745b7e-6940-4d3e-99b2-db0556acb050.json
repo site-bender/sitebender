@@ -1,0 +1,36 @@
+{
+  "scriptId": "389",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/double.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2799, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "safeDoubleToIndex",
+      "ranges": [{ "startOffset": 562, "endOffset": 776, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unmapperDoubleToIndex",
+      "ranges": [{ "startOffset": 777, "endOffset": 931, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "numberIsNotInteger",
+      "ranges": [{ "startOffset": 932, "endOffset": 1010, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "anyDouble",
+      "ranges": [{ "startOffset": 1011, "endOffset": 2495, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "double",
+      "ranges": [{ "startOffset": 2528, "endOffset": 2798, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

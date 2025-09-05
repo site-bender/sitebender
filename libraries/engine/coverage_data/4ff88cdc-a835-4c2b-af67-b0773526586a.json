@@ -1,0 +1,41 @@
+{
+  "scriptId": "570",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/implementations/SlicedBasedGenerator.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2257, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "SlicedBasedGenerator",
+      "ranges": [{ "startOffset": 224, "endOffset": 498, "count": 136 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "attemptExact",
+      "ranges": [
+        { "startOffset": 503, "endOffset": 1212, "count": 136 },
+        { "startOffset": 563, "endOffset": 609, "count": 129 },
+        { "startOffset": 611, "endOffset": 1206, "count": 48 },
+        { "startOffset": 724, "endOffset": 914, "count": 1056 },
+        { "startOffset": 827, "endOffset": 900, "count": 41 },
+        { "startOffset": 961, "endOffset": 1206, "count": 24 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "next",
+      "ranges": [
+        { "startOffset": 1217, "endOffset": 2254, "count": 602 },
+        { "startOffset": 1286, "endOffset": 1399, "count": 330 },
+        { "startOffset": 1399, "endOffset": 1457, "count": 272 },
+        { "startOffset": 1457, "endOffset": 1534, "count": 180 },
+        { "startOffset": 1534, "endOffset": 1728, "count": 92 },
+        { "startOffset": 1728, "endOffset": 1883, "count": 61 },
+        { "startOffset": 1883, "endOffset": 2253, "count": 31 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

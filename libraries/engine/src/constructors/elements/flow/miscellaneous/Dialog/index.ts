@@ -30,8 +30,6 @@ export type DialogElementAttributes = DialogAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Dialog element configuration object
  *

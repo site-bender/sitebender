@@ -9,15 +9,17 @@ import Help from "../../elements/Help/index.tsx"
 import FieldSet from "../../FieldSet/index.tsx"
 import Legend from "../Legend/index.tsx"
 
-export type Props = Omit<JSX.FieldSetHTMLAttributes<HTMLFieldSetElement>, "id"> & {
-	classes?: Array<string>
-	id?: string
-	help?: string | HelpProps
-	label: string | LabelProps
-	name: string
-	options: Array<InputOption>
-	required?: boolean
-}
+export type Props =
+	& Omit<JSX.FieldSetHTMLAttributes<HTMLFieldSetElement>, "id">
+	& {
+		classes?: Array<string>
+		id?: string
+		help?: string | HelpProps
+		label: string | LabelProps
+		name: string
+		options: Array<InputOption>
+		required?: boolean
+	}
 
 export default function CheckboxGroup({
 	classes = [],
@@ -29,7 +31,9 @@ export default function CheckboxGroup({
 	required,
 	...props
 }: Props) {
-	const id: string = typeof suppliedId === "string" ? suppliedId : generateShortId()
+	const id: string = typeof suppliedId === "string"
+		? suppliedId
+		: generateShortId()
 	const helpId = `${id}-help`
 	const legendId = `${id}-legend`
 

@@ -1,0 +1,21 @@
+{
+  "scriptId": "508",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/mappers/StringToBase64.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 812, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "stringToBase64Mapper",
+      "ranges": [{ "startOffset": 66, "endOffset": 320, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringToBase64Unmapper",
+      "ranges": [{ "startOffset": 328, "endOffset": 811, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

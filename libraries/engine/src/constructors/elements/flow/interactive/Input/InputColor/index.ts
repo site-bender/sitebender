@@ -29,8 +29,6 @@ export type InputColorElementAttributes = InputColorAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputColor element configuration object
  *

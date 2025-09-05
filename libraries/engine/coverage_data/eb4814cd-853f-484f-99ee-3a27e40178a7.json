@@ -1,0 +1,56 @@
+{
+  "scriptId": "524",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/stream/StreamHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1123, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 16, "endOffset": 64, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "next",
+      "ranges": [{ "startOffset": 69, "endOffset": 126, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "nilHelper",
+      "ranges": [{ "startOffset": 157, "endOffset": 201, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mapHelper",
+      "ranges": [{ "startOffset": 209, "endOffset": 289, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "flatMapHelper",
+      "ranges": [{ "startOffset": 297, "endOffset": 382, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "filterHelper",
+      "ranges": [{ "startOffset": 390, "endOffset": 504, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "takeNHelper",
+      "ranges": [{ "startOffset": 512, "endOffset": 691, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "takeWhileHelper",
+      "ranges": [{ "startOffset": 699, "endOffset": 853, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "joinHelper",
+      "ranges": [{ "startOffset": 861, "endOffset": 1122, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

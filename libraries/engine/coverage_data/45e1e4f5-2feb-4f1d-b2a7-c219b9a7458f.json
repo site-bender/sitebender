@@ -1,0 +1,85 @@
+{
+  "scriptId": "571",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/pure-rand@7.0.1/node_modules/pure-rand/lib/esm/generator/MersenneTwister.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 0, "endOffset": 4474, "count": 1 },
+        { "startOffset": 19, "endOffset": 33, "count": 0 },
+        { "startOffset": 516, "endOffset": 537, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "__read",
+      "ranges": [{ "startOffset": 38, "endOffset": 488, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "__spreadArray",
+      "ranges": [{ "startOffset": 542, "endOffset": 869, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 894, "endOffset": 4271, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "MersenneTwister",
+      "ranges": [{ "startOffset": 912, "endOffset": 1017, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.twist",
+      "ranges": [{ "startOffset": 1046, "endOffset": 1978, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.seeded",
+      "ranges": [{ "startOffset": 2009, "endOffset": 2325, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.from",
+      "ranges": [{ "startOffset": 2354, "endOffset": 2469, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.clone",
+      "ranges": [{ "startOffset": 2509, "endOffset": 2589, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.next",
+      "ranges": [{ "startOffset": 2628, "endOffset": 2786, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.unsafeNext",
+      "ranges": [{ "startOffset": 2831, "endOffset": 3274, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.getState",
+      "ranges": [{ "startOffset": 3317, "endOffset": 3408, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "MersenneTwister.fromState",
+      "ranges": [{ "startOffset": 3442, "endOffset": 3765, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fromState",
+      "ranges": [{ "startOffset": 4276, "endOffset": 4350, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "Object.assign.fromState",
+      "ranges": [{ "startOffset": 4387, "endOffset": 4445, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

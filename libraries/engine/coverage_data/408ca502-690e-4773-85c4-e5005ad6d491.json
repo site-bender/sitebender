@@ -1,0 +1,16 @@
+{
+  "scriptId": "386",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/date.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1199, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "date",
+      "ranges": [{ "startOffset": 305, "endOffset": 1198, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "scriptId": "512",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/StringUnitArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1904, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getAlphabetRanges",
+      "ranges": [
+        { "startOffset": 450, "endOffset": 642, "count": 1 },
+        { "startOffset": 521, "endOffset": 572, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getOrCreateStringUnitInstance",
+      "ranges": [
+        { "startOffset": 643, "endOffset": 1798, "count": 4 },
+        { "startOffset": 835, "endOffset": 869, "count": 3 },
+        { "startOffset": 869, "endOffset": 963, "count": 1 },
+        { "startOffset": 963, "endOffset": 979, "count": 0 },
+        { "startOffset": 980, "endOffset": 1047, "count": 1 },
+        { "startOffset": 1105, "endOffset": 1643, "count": 1 },
+        { "startOffset": 1378, "endOffset": 1637, "count": 0 },
+        { "startOffset": 1643, "endOffset": 1797, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "build",
+      "ranges": [{ "startOffset": 1548, "endOffset": 1610, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringUnit",
+      "ranges": [{ "startOffset": 1806, "endOffset": 1903, "count": 4 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

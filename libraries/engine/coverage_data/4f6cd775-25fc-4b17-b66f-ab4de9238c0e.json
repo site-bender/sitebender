@@ -1,0 +1,31 @@
+{
+  "scriptId": "495",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/node_modules/.deno/fast-check@4.3.0/node_modules/fast-check/lib/arbitrary/_internals/LazyArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 955, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "LazyArbitrary",
+      "ranges": [{ "startOffset": 126, "endOffset": 226, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 231, "endOffset": 468, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 473, "endOffset": 718, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 723, "endOffset": 952, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

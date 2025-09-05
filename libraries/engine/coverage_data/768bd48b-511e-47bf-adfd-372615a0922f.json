@@ -1,0 +1,40 @@
+{
+  "scriptId": "336",
+  "url": "file:///Users/guy/Workspace/@sitebender/engine-ai/libraries/engine/src/rendering/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 554, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "render",
+      "ranges": [{ "startOffset": 91, "endOffset": 529, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "attr",
+      "ranges": [{ "startOffset": 118, "endOffset": 192, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 150, "endOffset": 182, "count": 14 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "renderChildren",
+      "ranges": [{ "startOffset": 219, "endOffset": 396, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 249, "endOffset": 386, "count": 4 },
+        { "startOffset": 270, "endOffset": 280, "count": 0 },
+        { "startOffset": 313, "endOffset": 385, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

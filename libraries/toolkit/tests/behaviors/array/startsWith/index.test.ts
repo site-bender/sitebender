@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import startsWith from "../../../../src/simple/array/startsWith/index.ts"
@@ -10,11 +13,14 @@ Deno.test("startsWith: basic functionality", async (t) => {
 		assertEquals(startsWith(["a", "b"])(["a", "b", "c", "d"]), true)
 	})
 
-	await t.step("should return false when array doesn't start with prefix", () => {
-		assertEquals(startsWith([1, 3])([1, 2, 3, 4]), false)
-		assertEquals(startsWith([2, 3])([1, 2, 3, 4]), false)
-		assertEquals(startsWith(["b", "a"])(["a", "b", "c"]), false)
-	})
+	await t.step(
+		"should return false when array doesn't start with prefix",
+		() => {
+			assertEquals(startsWith([1, 3])([1, 2, 3, 4]), false)
+			assertEquals(startsWith([2, 3])([1, 2, 3, 4]), false)
+			assertEquals(startsWith(["b", "a"])(["a", "b", "c"]), false)
+		},
+	)
 
 	await t.step("should handle exact matches", () => {
 		assertEquals(startsWith([1, 2, 3])([1, 2, 3]), true)
@@ -166,7 +172,7 @@ Deno.test("startsWith: type safety", async (t) => {
 			{ id: 2, name: "Bob" },
 		]
 		const prefix: User[] = [{ id: 1, name: "Alice" }]
-		
+
 		const result = startsWith(prefix)(users)
 		assertType<IsExact<typeof result, boolean>>(true)
 		// Will be false due to reference inequality
@@ -177,7 +183,7 @@ Deno.test("startsWith: type safety", async (t) => {
 Deno.test("startsWith: currying", async (t) => {
 	await t.step("should be properly curried", () => {
 		const startsWithApi = startsWith(["api"])
-		
+
 		assertEquals(startsWithApi(["api", "users"]), true)
 		assertEquals(startsWithApi(["api", "posts"]), true)
 		assertEquals(startsWithApi(["web", "users"]), false)
@@ -187,9 +193,9 @@ Deno.test("startsWith: currying", async (t) => {
 		const isGitCommand = startsWith(["git"])
 		const isGitCommit = startsWith(["git", "commit"])
 		const isGitPush = startsWith(["git", "push"])
-		
+
 		const command = ["git", "commit", "-m", "message"]
-		
+
 		assertEquals(isGitCommand(command), true)
 		assertEquals(isGitCommit(command), true)
 		assertEquals(isGitPush(command), false)
@@ -202,9 +208,9 @@ Deno.test("startsWith: immutability", async (t) => {
 		const array = [1, 2, 3, 4]
 		const prefixCopy = [...prefix]
 		const arrayCopy = [...array]
-		
+
 		startsWith(prefix)(array)
-		
+
 		assertEquals(prefix, prefixCopy)
 		assertEquals(array, arrayCopy)
 	})
@@ -213,7 +219,7 @@ Deno.test("startsWith: immutability", async (t) => {
 Deno.test("startsWith: practical examples", async (t) => {
 	await t.step("should check API versioning", () => {
 		const isApiV2 = startsWith(["api", "v2"])
-		
+
 		assertEquals(isApiV2(["api", "v2", "users"]), true)
 		assertEquals(isApiV2(["api", "v2", "posts", "123"]), true)
 		assertEquals(isApiV2(["api", "v1", "users"]), false)
@@ -223,7 +229,7 @@ Deno.test("startsWith: practical examples", async (t) => {
 	await t.step("should validate command patterns", () => {
 		const isDockerCommand = startsWith(["docker"])
 		const isDockerRun = startsWith(["docker", "run"])
-		
+
 		assertEquals(isDockerCommand(["docker", "run", "nginx"]), true)
 		assertEquals(isDockerCommand(["docker", "ps", "-a"]), true)
 		assertEquals(isDockerRun(["docker", "run", "nginx"]), true)
@@ -234,11 +240,11 @@ Deno.test("startsWith: practical examples", async (t) => {
 	await t.step("should check file paths", () => {
 		const isInSrcFolder = startsWith(["src"])
 		const isInTestFolder = startsWith(["tests"])
-		
+
 		const path1 = ["src", "components", "Button.tsx"]
 		const path2 = ["tests", "unit", "Button.test.tsx"]
 		const path3 = ["dist", "bundle.js"]
-		
+
 		assertEquals(isInSrcFolder(path1), true)
 		assertEquals(isInSrcFolder(path2), false)
 		assertEquals(isInTestFolder(path2), true)
@@ -248,7 +254,7 @@ Deno.test("startsWith: practical examples", async (t) => {
 	await t.step("should validate protocol sequences", () => {
 		const httpGet = startsWith(["GET", "HTTP/1.1"])
 		const httpPost = startsWith(["POST", "HTTP/1.1"])
-		
+
 		assertEquals(httpGet(["GET", "HTTP/1.1", "Host:", "example.com"]), true)
 		assertEquals(httpPost(["POST", "HTTP/1.1", "Content-Type:", "json"]), true)
 		assertEquals(httpGet(["POST", "HTTP/1.1", "Host:", "example.com"]), false)
@@ -262,8 +268,8 @@ Deno.test("startsWith: property-based tests", async (t) => {
 				fc.array(fc.integer()),
 				(arr) => {
 					return startsWith([])(arr) === true
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -273,8 +279,8 @@ Deno.test("startsWith: property-based tests", async (t) => {
 				fc.array(fc.integer()),
 				(arr) => {
 					return startsWith(arr)(arr) === true
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -288,8 +294,8 @@ Deno.test("startsWith: property-based tests", async (t) => {
 						return startsWith(longPrefix)(shortArr) === false
 					}
 					return true
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -302,13 +308,13 @@ Deno.test("startsWith: property-based tests", async (t) => {
 					const undefinedArray = startsWith(arr)(undefined)
 					const nullPrefix = startsWith(null)(arr)
 					const undefinedPrefix = startsWith(undefined)(arr)
-					
+
 					return nullArray === false &&
-						   undefinedArray === false &&
-						   nullPrefix === false &&
-						   undefinedPrefix === false
-				}
-			)
+						undefinedArray === false &&
+						nullPrefix === false &&
+						undefinedPrefix === false
+				},
+			),
 		)
 	})
 
@@ -321,8 +327,8 @@ Deno.test("startsWith: property-based tests", async (t) => {
 					const length = Math.min(prefixLength, arr.length)
 					const prefix = arr.slice(0, length)
 					return startsWith(prefix)(arr) === true
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -334,8 +340,8 @@ Deno.test("startsWith: property-based tests", async (t) => {
 				(prefix, suffix) => {
 					const combined = [...prefix, ...suffix]
 					return startsWith(prefix)(combined) === true
-				}
-			)
+				},
+			),
 		)
 	})
 })
