@@ -1,16 +1,17 @@
 /**
  * Auto-generated test file
  * Source: libraries/toolkit/src/simple/math/add/index.ts
- * Generated: 2025-09-05T02:19:54.959Z
+ * Generated: 2025-09-05T02:38:49.457Z
  * Generator: @sitebender/test-generator v1.0.0
  *
  * DO NOT EDIT MANUALLY
  * Regenerate using: deno run --allow-all scripts/test-generator/src/index.ts
  */
-import add from "../../../../../../libraries/toolkit/src/simple/math/add/index"
+import add from "../../../../../../libraries/toolkit/src/simple/math/add/index.ts"
 import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"
 import {
 	assertEquals,
+	assertExists,
 	assertThrows,
 } from "https://deno.land/std@0.212.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.15.0"
@@ -65,7 +66,7 @@ describe("add", () => {
 						fc.constant(undefined),
 					),
 					(input) => {
-						const result = add(augend)
+						const result = add(input)(1)
 						assertExists(result)
 					},
 				),
@@ -81,8 +82,8 @@ describe("add", () => {
 						fc.constant(undefined),
 					),
 					(input) => {
-						const result1 = add(augend)
-						const result2 = add(augend)
+						const result1 = add(input)(1)
+						const result2 = add(input)(1)
 						assertEquals(result1, result2)
 					},
 				),

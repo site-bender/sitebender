@@ -60,7 +60,7 @@ export class TestFileWriter {
 		imports.push(`import ${functionName} from "${relativePath}"`)
 		
 		imports.push(`import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"`)
-		imports.push(`import { assertEquals, assertThrows } from "https://deno.land/std@0.212.0/assert/mod.ts"`)
+		imports.push(`import { assertEquals, assertThrows, assertExists } from "https://deno.land/std@0.212.0/assert/mod.ts"`)
 		
 		const hasPropertyTests = tests.some((test) => test.properties && test.properties.length > 0)
 		if (hasPropertyTests) {
@@ -88,8 +88,8 @@ export class TestFileWriter {
 		const upFromTest = functionDepth + 3 // +3 for tests/libraries/{library}
 		const upDirs = Array(upFromTest).fill("..").join("/")
 		
-		// Build path to source from root
-		const sourcePath = pathParts.slice(libraryIndex).join("/").replace(".ts", "")
+		// Build path to source from root (keep .ts extension for Deno)
+		const sourcePath = pathParts.slice(libraryIndex).join("/")
 		
 		return `${upDirs}/${sourcePath}`
 	}
