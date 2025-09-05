@@ -421,8 +421,9 @@ assert(result.every(item => array.includes(item)))`,
 			input: [],
 			properties: [{
 				name: "return type check",
-				property: `const result = ${signature.name}(${this.generateParameterNames(signature)})
-${checkType}`,
+				property: signature.isCurried 
+					? `const result = ${signature.name}(input)(1)\n${checkType}`
+					: `const result = ${signature.name}(input)\n${checkType}`,
 				generator: this.generateInputGenerators(signature),
 				runs: this.config.maxPropertyRuns,
 			}]
@@ -436,8 +437,12 @@ ${checkType}`,
 			input: [],
 			properties: [{
 				name: "deterministic behavior",
-				property: `const result1 = ${signature.name}(${this.generateParameterNames(signature)})
-const result2 = ${signature.name}(${this.generateParameterNames(signature)})
+				property: signature.isCurried 
+					? `const result1 = ${signature.name}(input)(1)
+const result2 = ${signature.name}(input)(1)
+assertEquals(result1, result2)`
+					: `const result1 = ${signature.name}(input)
+const result2 = ${signature.name}(input)
 assertEquals(result1, result2)`,
 				generator: this.generateInputGenerators(signature),
 				runs: this.config.maxPropertyRuns,

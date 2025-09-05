@@ -83,20 +83,20 @@ export class CurriedFunctionHandler {
 		inputs: unknown[],
 		signature: FunctionSignature
 	): string {
-		if (!this.needsCurriedHandling(signature)) {
-			// Non-curried or single parameter
-			if (inputs.length === 1) {
-				return `${functionName}(${this.formatValue(inputs[0])})`
+		// For curried functions, always chain the calls
+		if (signature.isCurried) {
+			let call = functionName
+			for (const input of inputs) {
+				call = `${call}(${this.formatValue(input)})`
 			}
-			return `${functionName}(${inputs.map(i => this.formatValue(i)).join(", ")})`
+			return call
 		}
 		
-		// Curried function - chain the calls
-		let call = functionName
-		for (const input of inputs) {
-			call = `${call}(${this.formatValue(input)})`
+		// Non-curried functions
+		if (inputs.length === 1) {
+			return `${functionName}(${this.formatValue(inputs[0])})`
 		}
-		return call
+		return `${functionName}(${inputs.map(i => this.formatValue(i)).join(", ")})`
 	}
 	
 	/**
