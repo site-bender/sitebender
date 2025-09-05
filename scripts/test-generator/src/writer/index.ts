@@ -205,17 +205,37 @@ export class TestFileWriter {
 			if (!test.properties) continue
 			
 			for (const property of test.properties) {
-				lines.push(`\t\tit("${property.name}", () => {`)
-				lines.push("\t\t\tfc.assert(")
-				lines.push(`\t\t\t\tfc.property(${property.generator}, (input) => {`)
-				lines.push(`\t\t\t\t\t${property.property}`)
-				lines.push("\t\t\t\t})")
+				const testName = this.escapeTestName(property.name)
+				lines.push(`\t\tit("${testName}", () => {`)
 				
-				if (property.runs) {
-					lines.push(`\t\t\t\t{ numRuns: ${property.runs} }`)
+				// Check if property already contains fc.assert
+				if (property.property.includes("fc.assert")) {
+					// Property is already wrapped, just indent it
+					const indentedProperty = property.property
+						.split("\n")
+						.map(line => "\t\t\t" + line)
+						.join("\n")
+					lines.push(indentedProperty)
+				} else {
+					// Wrap in fc.assert
+					lines.push("\t\t\tfc.assert(")
+					lines.push(`\t\t\t\tfc.property(${property.generator}, (input) => {`)
+					
+					// Properly indent the property code
+					const propertyLines = property.property.split("\n")
+					for (const line of propertyLines) {
+						lines.push(`\t\t\t\t\t${line}`)
+					}
+					
+					lines.push("\t\t\t\t})")
+					
+					if (property.runs) {
+						lines.push(`\t\t\t\t, { numRuns: ${property.runs} }`)
+					}
+					
+					lines.push("\t\t\t)")
 				}
 				
-				lines.push("\t\t\t)")
 				lines.push("\t\t})")
 			}
 		}
