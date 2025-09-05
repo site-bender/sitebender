@@ -8,6 +8,7 @@
 		"./libraries/distributed",
 		"./libraries/engine",
 		"./libraries/maths",
+		"./libraries/prover",
 		"./libraries/toolkit",
 		"./tools/scaffold",
 		"./tools/cli",
@@ -50,10 +51,18 @@
 		"test:components:cov": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts' --coverage=libraries/components/coverage && deno coverage libraries/components/coverage --lcov > libraries/components/coverage.lcov",
 		"test:toolkit:cov": "deno test --unstable-temporal --no-check 'libraries/toolkit/tests/**/*.test.ts' --coverage=libraries/toolkit/coverage && deno coverage libraries/toolkit/coverage --lcov > libraries/toolkit/coverage.lcov",
 		"test:toolkit:strict": "deno test --unstable-temporal 'libraries/toolkit/tests/**/*.test.ts'",
+		"test:prover": "deno test --unstable-temporal --allow-all 'libraries/prover/tests/**/*.test.ts'",
+		"test:prover:strict": "deno test --unstable-temporal --allow-all 'libraries/prover/tests/**/*.test.ts'",
+		"test:prover:cov": "deno test --unstable-temporal --allow-all 'libraries/prover/tests/**/*.test.ts' --coverage=libraries/prover/coverage && deno coverage libraries/prover/coverage --lcov > libraries/prover/coverage.lcov",
 		"test:playground:strict": "deno test --unstable-temporal --allow-env --allow-read --config applications/playground/deno.json 'applications/playground/**/*.test.ts'",
 		"test:scripts": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
 		"test:scripts:strict": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
 		"test:scripts:cov": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts' --coverage=scripts/coverage && deno coverage scripts/coverage --lcov > scripts/coverage.lcov",
+		
+		// === Prover (Test Generator) ===
+		"prover:generate": "deno run --allow-all libraries/prover/src/cli.ts",
+		"prover:toolkit": "deno run --allow-all libraries/prover/src/orchestrateTestGeneration/index.ts",
+		"prover:self": "deno run --allow-all libraries/prover/src/self-prove.ts",
 
 		// === Unified Coverage (delegates to per-package tasks) ===
 		"coverage:docs": "deno task --cwd applications/docs test:cov",
@@ -162,6 +171,8 @@
 		"@sitebender/toolkit/": "./libraries/toolkit/src/",
 		"@sitebender/maths": "./libraries/maths/src/",
 		"@sitebender/maths/": "./libraries/maths/src/",
+		"@sitebender/prover": "./libraries/prover/src/",
+		"@sitebender/prover/": "./libraries/prover/src/",
 		"@sitebender/engine-types": "./libraries/engine/types/",
 		"@sitebender/engine-types/": "./libraries/engine/types/"
 		// Deprecated legacy aliases have been removed after migration
