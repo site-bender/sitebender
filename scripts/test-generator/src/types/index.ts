@@ -91,6 +91,7 @@ export interface TestSuite {
 	testCases: Array<TestCase>
 	imports: Array<string>
 	coverage: CoverageResult
+	benchmarks?: import("../generateBenchmarks/types/index.ts").BenchmarkSuite
 }
 
 export interface CoverageResult {

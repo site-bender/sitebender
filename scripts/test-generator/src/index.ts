@@ -6,7 +6,9 @@ import { TestFileWriter } from "./writer/index.ts"
 import { CurriedFunctionHandler } from "./helpers/curried-handler.ts"
 import deduplicateTests from "./optimizer/deduplicateTests/index.ts"
 import generateToolkitPatternTests from "./patterns/toolkitPatterns/index.ts"
+import generateBenchmarks from "./generateBenchmarks/index.ts"
 import type { TestCase, TestSuite, GeneratorConfig } from "./types/index.ts"
+import type { BenchmarkSuite } from "./generateBenchmarks/types/index.ts"
 
 export class TestGenerator {
 	private parser: TypeSignatureParser
@@ -103,6 +105,12 @@ export class TestGenerator {
 		)
 		console.log(`✍️  Wrote test file: ${testFilePath}`)
 		
+		// Generate performance benchmarks
+		const benchmarks = generateBenchmarks(signature, sourceCode)
+		console.log(`⚡ Generated ${benchmarks.tests.length} performance benchmarks`)
+		console.log(`   Patterns: ${benchmarks.patterns.join(', ')}`)
+		console.log(`   Expected complexity: ${benchmarks.expectedComplexity}`)
+		
 		const coverage = await this.validateAndImproveCoverage(
 			functionPath,
 			testFilePath,
@@ -139,6 +147,7 @@ export class TestGenerator {
 			testCases: optimizedTests,
 			imports: this.generateImports(signature, optimizedTests),
 			coverage,
+			benchmarks,
 		}
 		
 		return testSuite
@@ -308,7 +317,7 @@ export class TestGenerator {
 		}
 		
 		if (returnType === "string") {
-			return "
+			return ""
 		}
 		
 		if (returnType === "boolean") {
