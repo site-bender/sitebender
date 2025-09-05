@@ -1,0 +1,280 @@
+# Parallel AI Development Strategy
+
+## The Problem
+
+Multiple AIs working on the same codebase create conflicts:
+- File collisions when editing the same files
+- Duplicate work on the same problems
+- Inconsistent approaches and standards
+- Git merge conflicts
+- Wasted effort and confusion
+
+## The Solution: Divide and Conquer
+
+### 1. Git Workspace Strategy
+
+Create separate branches for each AI assistant:
+
+```bash
+# Main branch for integration
+git checkout main
+
+# Create AI-specific branches
+git checkout -b ai/test-generator    # AI 1: Building the test generator
+git checkout -b ai/toolkit-math      # AI 2: Testing math functions
+git checkout -b ai/toolkit-array     # AI 3: Testing array functions
+git checkout -b ai/toolkit-monads    # AI 4: Testing monadic types
+git checkout -b ai/documentation     # AI 5: Documentation generation
+```
+
+### 2. Task Division Rules
+
+#### By Directory (Best for Toolkit)
+```
+AI 1: libraries/toolkit/src/simple/array/
+AI 2: libraries/toolkit/src/simple/math/
+AI 3: libraries/toolkit/src/simple/string/
+AI 4: libraries/toolkit/src/monads/
+AI 5: libraries/toolkit/src/simple/temporal/
+```
+
+#### By Feature (Best for New Development)
+```
+AI 1: Test generator core infrastructure
+AI 2: Property-based test generation
+AI 3: Branch coverage analyzer
+AI 4: Algebraic law detector
+AI 5: Coverage validator and reporting
+```
+
+#### By Layer (Best for Full-Stack)
+```
+AI 1: Frontend components
+AI 2: Backend APIs
+AI 3: Database and models
+AI 4: Testing infrastructure
+AI 5: Documentation and examples
+```
+
+### 3. Communication Protocol
+
+Each AI should create a status file in their workspace:
+
+```markdown
+# AI Status: ai/toolkit-math
+## Current Task
+Testing all functions in libraries/toolkit/src/simple/math/
+
+## Progress
+- ✅ add/index.test.ts
+- ✅ subtract/index.test.ts
+- 🔄 multiply/index.test.ts (in progress)
+- ⏳ divide/index.test.ts (next)
+
+## Blockers
+None
+
+## Notes for Other AIs
+- Found issue with multiply function handling Infinity
+- Created shared test helper in tests/helpers/math.ts
+```
+
+### 4. Shared Resources
+
+Create a shared directory for common utilities:
+
+```
+shared/
+├── test-helpers/     # Shared test utilities
+├── types/           # Shared TypeScript types
+├── constants/       # Shared constants
+└── docs/           # Shared documentation
+```
+
+### 5. Integration Schedule
+
+```bash
+# Every 2 hours (or after significant milestone)
+git checkout main
+git merge ai/test-generator --no-ff
+git merge ai/toolkit-math --no-ff
+git merge ai/toolkit-array --no-ff
+# Resolve any conflicts
+git push origin main
+
+# Each AI then rebases
+git checkout ai/test-generator
+git rebase main
+```
+
+### 6. Task Assignment for Toolkit Test Generator
+
+Given 5 AIs working in parallel:
+
+#### AI 1: Test Generator Core (CRITICAL PATH)
+```
+Branch: ai/test-generator
+Tasks:
+1. Build TypeScript signature parser
+2. Create test file writer
+3. Implement main generator orchestrator
+4. Create pattern recognition system
+Files: scripts/test-generator/src/
+```
+
+#### AI 2: Property Test Generation
+```
+Branch: ai/property-tests
+Tasks:
+1. Implement fast-check generators for all types
+2. Create property assertion builders
+3. Build invariant detectors
+4. Generate edge case tests
+Files: scripts/test-generator/src/generators/
+```
+
+#### AI 3: Algebraic Law System
+```
+Branch: ai/algebraic-laws
+Tasks:
+1. Create law templates (functor, monoid, etc.)
+2. Build pattern-to-law mapper
+3. Implement law test generators
+4. Create reusable law test suites
+Files: scripts/test-generator/src/laws/
+```
+
+#### AI 4: Coverage Analysis
+```
+Branch: ai/coverage-analysis
+Tasks:
+1. Build AST parser for branch detection
+2. Create branch path analyzer
+3. Implement coverage validator
+4. Build auto-ignore injector
+Files: scripts/test-generator/src/coverage/
+```
+
+#### AI 5: Quick Fixes & Integration
+```
+Branch: ai/quick-fixes
+Tasks:
+1. Add Future type alias for Task
+2. Consolidate type locations
+3. Fix missing JSDoc examples
+4. Test the generator on sample functions
+5. Coordinate integration of all components
+Files: Various quick fixes across toolkit
+```
+
+### 7. Quality Control Checklist
+
+Each AI must ensure:
+
+- [ ] All code follows CLAUDE.md manifesto
+- [ ] Tests achieve 100% coverage (or explicit ignores)
+- [ ] No lint errors (`deno task lint`)
+- [ ] No type errors (`deno task typecheck`)
+- [ ] Atomic commits with conventional messages
+- [ ] Status file updated
+- [ ] No changes outside assigned scope
+
+### 8. Conflict Resolution
+
+If conflicts arise:
+
+1. **File conflicts**: The AI who started first has priority
+2. **Approach conflicts**: Follow CLAUDE.md and TESTING.md
+3. **Design conflicts**: Create a DECISIONS.md file to document choices
+4. **Merge conflicts**: The integrating AI resolves based on tests passing
+
+### 9. Performance Rules
+
+To maintain speed with 5 AIs:
+
+1. **Small, focused commits** - Easier to merge
+2. **Frequent pushes** - Every 30 minutes minimum
+3. **Clear commit messages** - Others need to understand quickly
+4. **No large refactors** - Without coordination
+5. **Test before pushing** - Don't break others' work
+
+### 10. The Nuclear Option
+
+If everything goes wrong:
+
+```bash
+# Create a clean integration branch
+git checkout main
+git checkout -b integration/attempt-1
+
+# Cherry-pick the good commits
+git cherry-pick <commit-hash>
+
+# Or manually apply the good changes
+git checkout ai/test-generator -- scripts/test-generator/
+
+# Test everything
+deno task test
+
+# If good, make it the new main
+git checkout main
+git reset --hard integration/attempt-1
+```
+
+## Success Metrics
+
+With 5 AIs working in parallel:
+
+- **Day 1**: Test generator architecture complete
+- **Day 2-3**: Core components implemented
+- **Day 4-5**: Integration and debugging
+- **Day 6-7**: Run on first 100 functions
+- **Week 2**: Full toolkit coverage achieved
+
+## The Golden Rules
+
+1. **Stay in your lane** - Don't edit files outside your assignment
+2. **Communicate changes** - Update your status file
+3. **Test everything** - Before pushing
+4. **Follow the manifesto** - CLAUDE.md is law
+5. **Ask when uncertain** - Better to clarify than cleanup
+
+## Example Parallel Execution
+
+```bash
+# Terminal 1 (AI 1)
+git checkout ai/test-generator
+# Work on test generator core
+
+# Terminal 2 (AI 2)
+git checkout ai/toolkit-math
+# Test math functions
+
+# Terminal 3 (AI 3)
+git checkout ai/toolkit-array
+# Test array functions
+
+# Terminal 4 (AI 4)
+git checkout ai/toolkit-monads
+# Test monadic types
+
+# Terminal 5 (AI 5)
+git checkout ai/documentation
+# Generate documentation
+
+# Every 2 hours - Integration
+git checkout main
+./scripts/integrate-ai-branches.sh
+```
+
+## The Bottom Line
+
+5 AIs working in parallel can accomplish in 2 weeks what would take 1 AI 10 weeks, BUT ONLY IF:
+
+1. Tasks are clearly divided
+2. Communication is constant
+3. Standards are followed religiously
+4. Integration happens frequently
+5. Conflicts are resolved immediately
+
+The test generator is the perfect parallel task because it has clearly separable components. Let's build it together, but apart.

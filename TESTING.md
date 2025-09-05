@@ -440,6 +440,64 @@ Every test suite has helpers. Document them or face the consequences.
 4. **Delete obsolete tests** — They're not museum pieces
 5. **Update tests with code** — They move together or not at all
 
+## The Test Generator Revolution
+
+### We're Not Writing Tests Anymore — We're Building Test Generators
+
+The old way: Spend 480 hours manually writing tests for 874 toolkit functions.
+The new way: Spend 2 weeks building a generator that writes all tests automatically.
+
+### How the Test Generator Works
+
+1. **Parse function signature** → Extract types, parameters, return values
+2. **Detect algebraic patterns** → Identify laws (functor, monoid, commutative)
+3. **Generate property tests** → Create tests from mathematical properties
+4. **Analyze code branches** → Find all if/else paths via AST parsing
+5. **Ensure 100% coverage** → Generate tests for every branch or add explicit ignores
+
+### Example: What Gets Generated
+
+```typescript
+// Input function
+export default function map<A, B>(f: (a: A) => B) {
+  return (arr: Array<A>): Array<B> => {
+    if (isNullish(arr)) return []
+    return arr.map(f)
+  }
+}
+
+// Generator automatically creates:
+- Property: map preserves length
+- Property: map(identity) = identity  
+- Property: map(f ∘ g) = map(f) ∘ map(g)
+- Edge case: empty array
+- Edge case: single element
+- Branch: null input returns []
+- Branch: undefined input returns []
+- Branch: normal array processes correctly
+```
+
+### The Generator Architecture
+
+```typescript
+interface TestGenerator {
+  // Parse TypeScript to understand function
+  parser: TypeSignatureParser
+  
+  // Generate tests from properties
+  propertyGenerator: PropertyTestGenerator
+  
+  // Detect and apply algebraic laws
+  lawDetector: AlgebraicLawDetector
+  
+  // Find all code paths
+  branchAnalyzer: BranchAnalyzer
+  
+  // Ensure 100% coverage
+  coverageValidator: CoverageValidator
+}
+```
+
 ## The Coverage Doctrine: 100% or Death
 
 ### The Only Number That Matters: 100%

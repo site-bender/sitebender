@@ -94,7 +94,7 @@ Quality gates and maintenance
 Coverage and reporting
 
 - coverage/ — Helpers to run and aggregate coverage for targeted areas.
-- coverage-tools/reportIgnored/ — Reports ignore markers and coverage gaps; supports dependency injection for scanning roots.
+- reportIgnored/ — Reports ignore markers and coverage gaps; supports dependency injection for scanning roots.
 
 Developer workflow
 
@@ -126,7 +126,7 @@ You can also run any function directly:
 
 ```bash
 deno run -A scripts/enforceImports/aliasGuards/index.ts
-deno run -A scripts/coverage-tools/reportIgnored/index.ts
+deno run -A scripts/reportIgnored/index.ts
 ```
 
 ## Tests
@@ -163,7 +163,7 @@ Scripts use relative imports to remain location-agnostic and to avoid build tool
 
 - Add CLI smoke tests that execute `import.meta.main` paths to close branch coverage gaps for:
 	- `enforceImports/aliasGuards/index.ts`
-	- `coverage-tools/reportIgnored/index.ts`
+	- `reportIgnored/index.ts`
 - Push coverage toward 100% by exercising edge cases in reporters and walkers.
 - Continue auditing `scripts/` to ensure every public function follows the one-function-per-folder convention.
 - Keep deno task definitions in sync with moved/renamed scripts.
