@@ -6,6 +6,12 @@ This repository uses a tracked hooks directory and sets:
 core.hooksPath = .githooks
 ```
 
+If hooks aren’t running, enable them locally:
+
+```
+deno task setup    # or: git config core.hooksPath .githooks
+```
+
 The `pre-commit` hook enforces repository standards:
 - Strict FP checks for Engine and Components (no classes, no mutation, etc.)
 - Alias import guard (enforces import policy)

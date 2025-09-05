@@ -1,0 +1,33 @@
+name: Pre-commit parity
+
+on:
+  pull_request:
+  push:
+    branches: [ ai ]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: FP checks (engine)
+        run: deno task fp:engine
+
+      - name: FP checks (components)
+        run: deno task fp:components
+
+      - name: Alias guard
+        run: deno task lint:aliases
+
+      - name: No React junk
+        run: deno task lint:no-react-junk
+
+      - name: Coverage ignore audit
+        run: deno run --allow-read scripts/reportIgnored/index.ts | tee /dev/stderr | (! grep -F "<no reason provided>" )
