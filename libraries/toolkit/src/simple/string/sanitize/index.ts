@@ -48,8 +48,8 @@ const sanitize = (
 		return ""
 	}
 
-			// Remove null bytes without regex (avoid control-regex lint)
-			let cleaned = input.split("\u0000").join("")
+	// Remove null bytes without regex (avoid control-regex lint)
+	let cleaned = input.split("\u0000").join("")
 
 	// Handle CSS expressions and javascript: in styles BEFORE general protocol removal
 	cleaned = cleaned.replace(
@@ -106,13 +106,13 @@ const sanitize = (
 
 	// Now decode HTML entities and check for dangerous content AFTER decoding
 	// First decode to catch encoded dangerous tags
-		let decoded = cleaned.replace(/&#x?([0-9a-f]+);/gi, (_match, num) => {
+	let decoded = cleaned.replace(/&#x?([0-9a-f]+);/gi, (_match, num) => {
 		const code = num.startsWith("x") || num.match(/[a-f]/i)
 			? parseInt(num, 16)
 			: parseInt(num, 10)
 		return String.fromCharCode(code)
 	})
-		decoded = decoded.replace(/&([a-z]+);/gi, (_match, entity) => {
+	decoded = decoded.replace(/&([a-z]+);/gi, (_match, entity) => {
 		const entities: Record<string, string> = {
 			"lt": "<",
 			"gt": ">",

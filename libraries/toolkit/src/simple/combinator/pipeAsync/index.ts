@@ -33,14 +33,13 @@
  * Note: Each function receives the resolved value from the previous promise.
  * Sync functions are automatically converted to async.
  */
-const pipeAsync =
-	<T, R = unknown>(
-		fns: ReadonlyArray<(value: unknown) => unknown | Promise<unknown>> = [],
-	) =>
-	(input: T): Promise<R> =>
-		fns.reduce<Promise<unknown>>(
-			(acc, fn) => acc.then((val) => fn(val)),
-			Promise.resolve(input as unknown),
-		) as Promise<R>
+const pipeAsync = <T, R = unknown>(
+	fns: ReadonlyArray<(value: unknown) => unknown | Promise<unknown>> = [],
+) =>
+(input: T): Promise<R> =>
+	fns.reduce<Promise<unknown>>(
+		(acc, fn) => acc.then((val) => fn(val)),
+		Promise.resolve(input as unknown),
+	) as Promise<R>
 
 export default pipeAsync

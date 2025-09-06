@@ -40,13 +40,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * slidingWithStep(5, 1)([1, 2, 3]) // []
  * slidingWithStep(3, 1)([]) // []
  *
- * // Null/undefined handling  
+ * // Null/undefined handling
  * slidingWithStep(3, 1)(null) // []
  * slidingWithStep(3, 1)(undefined) // []
  * ```
  */
 const slidingWithStep =
-	<T>(size: number, step: number) => (array: Array<T> | null | undefined): Array<Array<T>> => {
+	<T>(size: number, step: number) =>
+	(array: Array<T> | null | undefined): Array<Array<T>> => {
 		if (isNullish(array)) return []
 		if (size <= 0 || step <= 0 || !Number.isFinite(size)) return []
 		if (!Number.isFinite(step)) {

@@ -34,7 +34,6 @@ export type H5ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * Allows global attributes and validates heading-specific attributes
  */
 
-
 /**
  * Creates an H5 element configuration object
  *

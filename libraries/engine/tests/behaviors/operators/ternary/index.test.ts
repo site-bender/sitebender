@@ -11,12 +11,14 @@ import type {
 import createComposeContext from "../../../../src/context/composeContext.ts"
 import registerDefaultExecutors from "../../../../src/operations/defaults/registerDefaults.ts"
 import evaluateNode from "../../../../src/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "../../../../src/utilities/nodeId/index.ts"
 
 // Minimal setup: register defaults before tests
 const ctx = createComposeContext({ env: "server" })
 registerDefaultExecutors(ctx)
 
-const nodeId = () => crypto.randomUUID()
+const generateId = createDeterministicIdGenerator("ternary-operator-test")
+const nodeId = () => generateId()
 const injector = (value: unknown): InjectorNode => ({
 	v: "0.1.0",
 	kind: "injector",

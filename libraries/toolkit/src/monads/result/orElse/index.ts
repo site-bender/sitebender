@@ -29,7 +29,8 @@ import isLeft from "../../either/isLeft/index.ts"
  */
 const orElse = <E, A, F>(
 	recover: (error: E) => Result<A, F>,
-) => (
+) =>
+(
 	result: Result<A, E>,
 ): Result<A, F> => {
 	const e = result as unknown as { _tag: string; left?: E; right?: A }

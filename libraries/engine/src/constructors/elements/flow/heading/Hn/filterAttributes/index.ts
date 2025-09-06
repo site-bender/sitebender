@@ -7,7 +7,6 @@ import isMemberOf from "../../../../../../guards/isMemberOf/index.ts"
 import pickGlobalAttributes from "../../../../../../guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: Record<string, unknown>) {
-
 	const { id, role, ...otherAttributes } = attributes as Record<string, Value>
 	const globals = pickGlobalAttributes(otherAttributes)
 	const roleFilter = filterAttribute(isMemberOf(HEADING_ROLES))("role")(
@@ -19,5 +18,4 @@ export default function filterAttributes(attributes: Record<string, unknown>) {
 		...globals,
 		...roleFilter,
 	}
-
 }

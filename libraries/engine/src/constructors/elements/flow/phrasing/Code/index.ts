@@ -34,7 +34,6 @@ export type CodeElementAttributes = CodeAttributes & AriaAttributes & {
  * Allows global attributes and validates code-specific attributes
  */
 
-
 /**
  * Creates a Code element configuration object
  *

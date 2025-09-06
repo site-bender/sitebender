@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { DelElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: DelElementAttributes) {
-
 	const {
 		id,
 		cite,
@@ -112,5 +111,4 @@ export default function filterAttributes(attributes: DelElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

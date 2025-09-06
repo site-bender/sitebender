@@ -11,7 +11,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { H4ElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: H4ElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -81,5 +80,4 @@ export default function filterAttributes(attributes: H4ElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

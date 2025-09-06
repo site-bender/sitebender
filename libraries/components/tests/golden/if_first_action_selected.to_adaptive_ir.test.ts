@@ -1,4 +1,7 @@
-import type { ActionNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
+import type {
+	ActionNode,
+	IrDocument,
+} from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,

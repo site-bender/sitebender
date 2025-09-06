@@ -3,7 +3,7 @@
  */
 
 console.log("🧪 Web3 Lab Starting...")
-console.log("=" .repeat(50))
+console.log("=".repeat(50))
 
 // Check available experiments
 const experiments = [
@@ -25,25 +25,25 @@ console.log("  deno task rdf")
 console.log("  deno task blockchain")
 
 console.log("\n🔬 Starting development server...")
-console.log("=" .repeat(50))
+console.log("=".repeat(50))
 
 // Simple HTTP server for testing
 const port = 8080
 const handler = (req: Request): Response => {
 	const url = new URL(req.url)
-	
+
 	if (url.pathname === "/") {
 		return new Response(getHomePage(), {
 			headers: { "content-type": "text/html" },
 		})
 	}
-	
+
 	if (url.pathname === "/health") {
 		return new Response(JSON.stringify({ status: "ok" }), {
 			headers: { "content-type": "application/json" },
 		})
 	}
-	
+
 	return new Response("Not Found", { status: 404 })
 }
 

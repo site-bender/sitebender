@@ -11,7 +11,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { TableElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TableElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -88,5 +87,4 @@ export default function filterAttributes(attributes: TableElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

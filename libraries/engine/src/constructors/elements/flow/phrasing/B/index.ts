@@ -34,7 +34,6 @@ export type BElementAttributes = BringAttentionToAttributes & AriaAttributes & {
  * Allows global attributes and validates b-specific attributes
  */
 
-
 /**
  * Creates a B element configuration object
  *

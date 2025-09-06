@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import repeatItem from "../../../../src/simple/array/repeatItem/index.ts"
@@ -155,7 +158,7 @@ Deno.test("repeatItem: currying", async (t) => {
 		const repeatNull = repeatItem(null)
 		const repeatZero = repeatItem(0)
 		const repeatA = repeatItem("a")
-		
+
 		assertEquals(repeatNull(3), [null, null, null])
 		assertEquals(repeatZero(2), [0, 0])
 		assertEquals(repeatA(4), ["a", "a", "a", "a"])
@@ -163,11 +166,11 @@ Deno.test("repeatItem: currying", async (t) => {
 
 	await t.step("should create reusable repeaters", () => {
 		const repeatStar = repeatItem("*")
-		
+
 		const result1 = repeatStar(1)
 		const result2 = repeatStar(3)
 		const result3 = repeatStar(5)
-		
+
 		assertEquals(result1, ["*"])
 		assertEquals(result2, ["*", "*", "*"])
 		assertEquals(result3, ["*", "*", "*", "*", "*"])
@@ -176,10 +179,10 @@ Deno.test("repeatItem: currying", async (t) => {
 	await t.step("should allow building patterns", () => {
 		const repeatDash = repeatItem("-")
 		const repeatEquals = repeatItem("=")
-		
+
 		const separator = repeatDash(10).join("")
 		const divider = repeatEquals(20).join("")
-		
+
 		assertEquals(separator, "----------")
 		assertEquals(divider, "====================")
 	})
@@ -265,7 +268,7 @@ Deno.test("repeatItem: property-based tests", async (t) => {
 					for (let i = 0; i < count; i++) {
 						manual.push(item)
 					}
-					
+
 					return result.length === manual.length &&
 						result.every((v, i) => v === manual[i])
 				},

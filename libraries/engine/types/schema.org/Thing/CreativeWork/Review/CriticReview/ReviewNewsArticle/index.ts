@@ -1,1 +1,4 @@
-export type { default, ReviewNewsArticleType } from "../../../Article/NewsArticle/ReviewNewsArticle/index.ts"
+export type {
+	default,
+	ReviewNewsArticleType,
+} from "../../../Article/NewsArticle/ReviewNewsArticle/index.ts"

@@ -30,8 +30,6 @@ export type ThElementAttributes = TableHeaderCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Th element configuration object
  *

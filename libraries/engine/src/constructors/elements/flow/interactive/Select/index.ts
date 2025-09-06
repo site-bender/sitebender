@@ -32,8 +32,6 @@ export type SelectElementAttributes = SelectAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Select element configuration object
  *

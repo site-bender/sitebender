@@ -1,4 +1,7 @@
-import type { DoesNotMatchComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	DoesNotMatchComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * DoesNotMatch JSX Component

@@ -8,7 +8,6 @@ import isMemberOf from "@sitebender/engine/guards/isMemberOf/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: DetailsAttributes) {
-
 	const { id, open, role, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -18,5 +17,4 @@ export default function filterAttributes(attributes: DetailsAttributes) {
 		...filterAttribute(isBoolean)("open")(open),
 		...filterAttribute(isMemberOf(DETAILS_ROLES))("role")(role),
 	}
-
 }

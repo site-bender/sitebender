@@ -15,10 +15,14 @@ function nowIsoLocal(): string {
 }
 
 function toIsoDateTimeString(pdt: unknown): string | null {
-	if (pdt && typeof (pdt as { toString: () => string }).toString === "function") {
+	if (
+		pdt && typeof (pdt as { toString: () => string }).toString === "function"
+	) {
 		const iso = (pdt as { toString: () => string }).toString()
 		// Accept both with and without fractional seconds
-		return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?$/.test(iso) ? iso : null
+		return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?$/.test(iso)
+			? iso
+			: null
 	}
 	return null
 }
@@ -90,9 +94,9 @@ const isFutureDateTime = (
 		return false
 	}
 
-		const iso = toIsoDateTimeString(dateTime)
-		if (!iso) return false
-		return iso > nowIsoLocal()
+	const iso = toIsoDateTimeString(dateTime)
+	if (!iso) return false
+	return iso > nowIsoLocal()
 }
 
 export default isFutureDateTime

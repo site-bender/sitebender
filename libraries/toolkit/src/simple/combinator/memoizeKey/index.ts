@@ -164,14 +164,14 @@ const memoizeKey =
 			}
 
 			// Handle Objects
-					if (typeof value === "object") {
+			if (typeof value === "object") {
 				visited.add(value)
 
 				// Sort keys for consistency
-						const obj = value as Record<string, unknown>
-						const keys = Object.keys(obj).sort()
+				const obj = value as Record<string, unknown>
+				const keys = Object.keys(obj).sort()
 				const pairs = keys.map((key) => {
-							const val = processValue(obj[key], depth + 1)
+					const val = processValue(obj[key], depth + 1)
 					return `"${key}":${val}`
 				})
 

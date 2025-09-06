@@ -33,8 +33,6 @@ export type TextAreaElementAttributes = TextAreaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a TextArea element configuration object
  *

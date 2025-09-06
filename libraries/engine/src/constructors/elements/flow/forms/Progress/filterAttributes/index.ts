@@ -8,8 +8,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { ProgressElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: ProgressElementAttributes) {
-
+export default function filterAttributes(
+	attributes: ProgressElementAttributes,
+) {
 	const {
 		id,
 		max,
@@ -107,5 +108,4 @@ export default function filterAttributes(attributes: ProgressElementAttributes) 
 	}
 
 	return filteredAttrs
-
 }

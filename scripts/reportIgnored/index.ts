@@ -64,12 +64,20 @@ async function* walkFolder(dir: string): AsyncGenerator<string> {
 	}
 }
 
-function addRecord(groups: Map<string, IgnoreRecord[]>, label: string, rec: IgnoreRecord) {
+function addRecord(
+	groups: Map<string, IgnoreRecord[]>,
+	label: string,
+	rec: IgnoreRecord,
+) {
 	if (!groups.has(label)) groups.set(label, [])
 	groups.get(label)!.push(rec)
 }
 
-async function scanFile(groups: Map<string, IgnoreRecord[]>, root: string, path: string) {
+async function scanFile(
+	groups: Map<string, IgnoreRecord[]>,
+	root: string,
+	path: string,
+) {
 	const text = await Deno.readTextFile(path)
 	const lines = text.split("\n")
 	let i = 0
@@ -122,14 +130,18 @@ async function scanFile(groups: Map<string, IgnoreRecord[]>, root: string, path:
 	}
 }
 
-export default async function reportCoverageIgnores(opts?: { root?: string; scanDirs?: string[]; json?: boolean }) {
+export default async function reportCoverageIgnores(
+	opts?: { root?: string; scanDirs?: string[]; json?: boolean },
+) {
 	const rootFsPath = opts?.root ?? DEFAULT_REPO_ROOT
 	const dirs = opts?.scanDirs ?? DEFAULT_SCAN_DIRS
 	const groups = new Map<string, IgnoreRecord[]>()
 	for (const dir of dirs) {
 		const abs = join(rootFsPath, dir)
 		try {
-			for await (const f of walkFolder(abs)) await scanFile(groups, rootFsPath, f)
+			for await (const f of walkFolder(abs)) {
+				await scanFile(groups, rootFsPath, f)
+			}
 		} catch (_) {
 			// Ignore missing dirs in some checkouts
 		}
@@ -182,17 +194,20 @@ if (import.meta.main) {
 	await runCli({
 		name: "coverage-report-ignored",
 		version: "1.0.0",
-			usage: "coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/engine,docs",
-			booleans: ["json"],
-			aliases: { j: "json", d: "dirs", f: "folders", r: "root" },
-	onRun: async ({ flags, options }: CliRunArgs) => {
-				const dirsOpt = options["folders"] ?? options["dirs"]
+		usage:
+			"coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/engine,docs",
+		booleans: ["json"],
+		aliases: { j: "json", d: "dirs", f: "folders", r: "root" },
+		onRun: async ({ flags, options }: CliRunArgs) => {
+			const dirsOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof dirsOpt === "string"
 				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(Boolean)
 				: Array.isArray(dirsOpt)
 				? (dirsOpt as string[])
 				: undefined
-			const root = typeof options["root"] === "string" ? String(options["root"]) : undefined
+			const root = typeof options["root"] === "string"
+				? String(options["root"])
+				: undefined
 			await reportCoverageIgnores({ root, scanDirs, json: flags.json })
 			return 0
 		},

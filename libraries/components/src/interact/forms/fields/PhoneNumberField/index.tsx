@@ -12,7 +12,6 @@ import type { Props as InputProps } from "../../elements/Input/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 import type { Props as SelectProps } from "../../elements/Select/index.tsx"
 
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import CheckboxGroup from "../../composites/CheckboxGroup/index.tsx"
 import Legend from "../../composites/Legend/index.tsx"

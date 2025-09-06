@@ -34,7 +34,6 @@ export type NavElementAttributes = NavigationAttributes & NavAriaAttributes & {
  * Allows global attributes and validates nav-specific attributes
  */
 
-
 /**
  * Creates a Nav element configuration object
  *

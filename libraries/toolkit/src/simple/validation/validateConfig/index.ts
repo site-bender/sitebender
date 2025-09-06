@@ -194,7 +194,11 @@ const validateConfig = <T extends Record<string, unknown>>(
 			if (fieldSchema.items) {
 				const itemErrors: Record<number, string> = {}
 				for (let i = 0; i < arr.length; i++) {
-					const itemResult = validateField(arr[i], fieldSchema.items, result as Record<string, unknown>)
+					const itemResult = validateField(
+						arr[i],
+						fieldSchema.items,
+						result as Record<string, unknown>,
+					)
 					if (itemResult !== null) {
 						itemErrors[i] = itemResult
 					}
@@ -218,7 +222,10 @@ const validateConfig = <T extends Record<string, unknown>>(
 
 		// Custom validator
 		if (fieldSchema.validator) {
-			const validationError = fieldSchema.validator(value, result as Record<string, unknown>)
+			const validationError = fieldSchema.validator(
+				value,
+				result as Record<string, unknown>,
+			)
 			if (validationError) {
 				errors[key] = validationError
 				continue
@@ -240,28 +247,28 @@ const validateConfig = <T extends Record<string, unknown>>(
 	return { valid: true, data: result as T }
 }
 
-	function validateType(value: unknown, type: string): boolean {
+function validateType(value: unknown, type: string): boolean {
 	switch (type) {
 		case "string":
-				return typeof value === "string"
+			return typeof value === "string"
 		case "number":
-				return typeof value === "number" && !isNaN(value)
+			return typeof value === "number" && !isNaN(value)
 		case "boolean":
-				return typeof value === "boolean"
+			return typeof value === "boolean"
 		case "object":
-				return value !== null && typeof value === "object" &&
+			return value !== null && typeof value === "object" &&
 				!Array.isArray(value)
 		case "array":
-				return Array.isArray(value)
+			return Array.isArray(value)
 		default:
 			return false
 	}
 }
 
 function validateField(
-		value: unknown,
+	value: unknown,
 	schema: FieldSchema,
-		parentData: Record<string, unknown>,
+	parentData: Record<string, unknown>,
 ): string | null {
 	if (!validateType(value, schema.type)) {
 		return `Expected ${schema.type}`

@@ -84,9 +84,9 @@ export default function DateComponent({
 
 		// Determine format options
 		const options = formatOptions || {
-				dateStyle: format === "iso"
-					? undefined
-					: (format as Exclude<typeof format, "iso" | "relative">),
+			dateStyle: format === "iso"
+				? undefined
+				: (format as Exclude<typeof format, "iso" | "relative">),
 			...(format === "iso" && {
 				year: "numeric",
 				month: "2-digit",

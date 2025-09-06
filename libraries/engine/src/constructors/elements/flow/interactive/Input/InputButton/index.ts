@@ -29,8 +29,6 @@ export type InputButtonElementAttributes = InputButtonAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputButton element configuration object
  *

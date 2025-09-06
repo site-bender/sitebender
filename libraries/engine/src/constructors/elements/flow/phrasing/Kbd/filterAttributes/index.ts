@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { KbdElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: KbdElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -99,5 +98,4 @@ export default function filterAttributes(attributes: KbdElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }
