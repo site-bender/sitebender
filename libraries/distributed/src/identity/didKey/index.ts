@@ -13,8 +13,7 @@ const BASE58_ALPHABET =
 	"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 function encodeBase58(bytes: Uint8Array): string {
-	let encoded = ""
-	let num = BigInt(
+	const num = BigInt(
 		"0x" +
 			Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join(
 				"",
@@ -22,22 +21,21 @@ function encodeBase58(bytes: Uint8Array): string {
 	)
 	const base = BigInt(58)
 
-	while (num > 0n) {
-		const remainder = num % base
-		encoded = BASE58_ALPHABET[Number(remainder)] + encoded
-		num = num / base
+	// Recursive function to build the encoded string
+	function encodeNum(n: bigint): string {
+		if (n === 0n) return ""
+		const remainder = n % base
+		return encodeNum(n / base) + BASE58_ALPHABET[Number(remainder)]
 	}
 
 	// Handle leading zeros
-	for (const byte of bytes) {
-		if (byte === 0) {
-			encoded = "1" + encoded
-		} else {
-			break
-		}
-	}
+	const leadingZeros = bytes.findIndex(byte => byte !== 0)
+	const zeroPrefix = leadingZeros === -1 
+		? "1".repeat(bytes.length)
+		: "1".repeat(leadingZeros)
 
-	return encoded
+	const encoded = encodeNum(num) || "1"
+	return zeroPrefix + encoded.slice(zeroPrefix.length)
 }
 
 function generateKeyPair(): KeyPair {
@@ -59,10 +57,11 @@ function generateKeyPair(): KeyPair {
 		globalThis.crypto.getRandomValues(publicKey)
 	} else {
 		// Fallback for Node.js/Deno environments
-		for (let i = 0; i < 32; i++) {
+		Array.from({ length: 32 }, (_, i) => {
 			privateKey[i] = Math.floor(Math.random() * 256)
 			publicKey[i] = Math.floor(Math.random() * 256)
-		}
+			return i
+		})
 	}
 
 	return { publicKey, privateKey }
@@ -71,14 +70,13 @@ function generateKeyPair(): KeyPair {
 function sign(privateKey: Uint8Array, data: Uint8Array): Uint8Array {
 	// Placeholder signature implementation
 	// In production, use proper Ed25519 signing
-	const signature = new Uint8Array(64)
-
+	
 	// Simple hash-based mock signature
-	for (let i = 0; i < 64; i++) {
-		signature[i] = (data[i % data.length] ^ privateKey[i % 32]) % 256
-	}
-
-	return signature
+	return new Uint8Array(
+		Array.from({ length: 64 }, (_, i) => 
+			(data[i % data.length] ^ privateKey[i % 32]) % 256
+		)
+	)
 }
 
 function verify(

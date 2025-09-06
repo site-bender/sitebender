@@ -1,18 +1,6 @@
 import type { IPFSGateway } from "../../../types/index.ts"
-
-const DEFAULT_GATEWAYS = [
-	"https://ipfs.io/ipfs/",
-	"https://cloudflare-ipfs.com/ipfs/",
-	"https://gateway.pinata.cloud/ipfs/",
-	"https://dweb.link/ipfs/",
-	"https://gateway.ipfs.io/ipfs/",
-]
-
-interface GatewayResult {
-	data: Uint8Array
-	gateway: string
-	latency: number
-}
+import type { GatewayResult, CacheEntry } from "./types/index.ts"
+import { DEFAULT_GATEWAYS, CACHE_TTL } from "./constants/index.ts"
 
 async function fetchWithTimeout(
 	url: string,
@@ -71,13 +59,7 @@ async function raceGateways(
 }
 
 // Simple in-memory cache with TTL
-interface CacheEntry {
-	data: Uint8Array
-	timestamp: number
-}
-
 const cache = new Map<string, CacheEntry>()
-const CACHE_TTL = 15 * 60 * 1000 // 15 minutes
 
 function getCached(cid: string): Uint8Array | null {
 	const entry = cache.get(cid)
@@ -135,11 +117,10 @@ export default function createIPFSGateway(
 
 			// Create a simple hash of the content as a mock CID
 			// In production, use proper IPFS hashing
-			let hash = 0
-			for (let i = 0; i < content.length; i++) {
-				hash = ((hash << 5) - hash) + content[i]
-				hash = hash & hash // Convert to 32-bit integer
-			}
+			const hash = Array.from(content).reduce(
+				(h, byte) => (((h << 5) - h) + byte) & 0xFFFFFFFF,
+				0
+			)
 
 			const cid = `Qm${Math.abs(hash).toString(36).padStart(46, "0")}`
 

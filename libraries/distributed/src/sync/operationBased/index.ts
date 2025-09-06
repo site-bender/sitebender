@@ -1,19 +1,5 @@
 import type { CRDT, Transport } from "../../types/index.ts"
-
-interface Operation {
-	type: string
-	payload: unknown
-	timestamp: number
-	nodeId: string
-}
-
-interface OpSyncProtocol<T extends CRDT<unknown>> {
-	recordOp(op: Operation): void
-	flush(): Promise<void>
-	receive(): Promise<T>
-	startSync(): void
-	stopSync(): void
-}
+import type { Operation, OpSyncProtocol } from "./types/index.ts"
 
 export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 	crdt: T,

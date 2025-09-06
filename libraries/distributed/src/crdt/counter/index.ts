@@ -42,11 +42,10 @@ export default function createCounter(
 		},
 
 		getValue(): number {
-			let sum = 0
-			for (const count of counts.values()) {
-				sum += count
-			}
-			return sum
+			return Array.from(counts.values()).reduce(
+				(sum, count) => sum + count,
+				0
+			)
 		},
 
 		serialize(): string {

@@ -1,18 +1,5 @@
 import type { CRDT, Transport } from "../../types/index.ts"
-
-interface Delta {
-	fromVersion: number
-	toVersion: number
-	changes: unknown
-	nodeId: string
-}
-
-interface DeltaSyncProtocol<T extends CRDT<unknown>> {
-	sync(): Promise<T>
-	requestDelta(fromVersion: number): Promise<void>
-	receiveDelta(): Promise<T>
-	getLastSyncVersion(): number
-}
+import type { Delta, DeltaSyncProtocol } from "./types/index.ts"
 
 export default function createDeltaSyncProtocol<T extends CRDT<unknown>>(
 	crdt: T,
