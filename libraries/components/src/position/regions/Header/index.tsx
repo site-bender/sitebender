@@ -1,7 +1,5 @@
 import { SKIP_LINKS } from "@sitebender/toolkit/constants/skip-links/index.ts"
 
-import createElement from "../../../helpers/createElement/index.ts"
-import Fragment from "../../../helpers/Fragment/index.ts"
 import SkipLinksBar from "../../../navigate/SkipLinksBar/index.tsx"
 import Logo from "../../Logo/index.tsx"
 

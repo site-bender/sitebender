@@ -1,7 +1,5 @@
 import type { MenuItem } from "../../../types/components/navigation/index.ts"
 
-import createElement from "../../helpers/createElement/index.ts"
-
 export type Props = JSX.MenuHTMLAttributes<HTMLMenuElement> & {
 	options: Array<MenuItem>
 	route?: string
