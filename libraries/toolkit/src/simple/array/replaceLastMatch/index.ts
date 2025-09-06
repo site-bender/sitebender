@@ -37,9 +37,13 @@ const replaceLastMatch =
 			return []
 		}
 		const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern)
-		const index = findLastIndex((item: T) => regex.test(String(item)))(array)
+		const index = findLastIndex((item: T) => regex.test(String(item)))(
+			array,
+		)
 
-		return index === undefined ? [...array] : replaceAt<T>(index)(replacer)(array)
+		return index === undefined
+			? [...array]
+			: replaceAt<T>(index)(replacer)(array)
 	}
 
 export default replaceLastMatch

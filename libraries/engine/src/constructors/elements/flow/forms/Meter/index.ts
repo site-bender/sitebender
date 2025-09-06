@@ -39,7 +39,6 @@ export type MeterElementAttributes = MeterAttributes & MeterAriaAttributes & {
  * Allows global attributes and validates meter-specific attributes
  */
 
-
 /**
  * Creates a Meter element configuration object
  *

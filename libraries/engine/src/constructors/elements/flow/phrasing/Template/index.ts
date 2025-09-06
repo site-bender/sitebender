@@ -33,8 +33,6 @@ export type TemplateElementAttributes = TemplateAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Template element configuration object
  *
@@ -82,7 +80,8 @@ const Template =
 			: []
 
 		return Filtered("template")(
-			(a: Record<string, unknown>) => filterAttributes(a as TemplateAttributes),
+			(a: Record<string, unknown>) =>
+				filterAttributes(a as TemplateAttributes),
 		)(attributes)(filteredChildren as Array<ElementConfig>)
 	}
 

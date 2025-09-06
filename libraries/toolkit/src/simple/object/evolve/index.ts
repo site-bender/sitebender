@@ -92,7 +92,8 @@ const evolve = <T extends Record<string | symbol, Value>>(
 		// Handle arrays
 		if (Array.isArray(target)) {
 			return (target as Array<Value>).map((item, index) => {
-				const transformation = (trans as Record<number, TransformationSpec>)[index]
+				const transformation =
+					(trans as Record<number, TransformationSpec>)[index]
 				if (typeof transformation === "function") {
 					return transformation(item)
 				} else if (typeof transformation === "object") {
@@ -123,11 +124,13 @@ const evolve = <T extends Record<string | symbol, Value>>(
 			// Determine the value for this key
 			const newValue = (() => {
 				if (
-					typeof transformation === "function" && isNotUndefined(targetValue)
+					typeof transformation === "function" &&
+					isNotUndefined(targetValue)
 				) {
 					return (transformation as Transformation)(targetValue)
 				} else if (
-					isNotNullish(transformation) && typeof transformation === "object"
+					isNotNullish(transformation) &&
+					typeof transformation === "object"
 				) {
 					return evolveRecursive(transformation, targetValue || {})
 				} else if (isNotUndefined(targetValue)) {
@@ -144,7 +147,7 @@ const evolve = <T extends Record<string | symbol, Value>>(
 				}
 			}
 			return acc
-	}, {} as Record<string | symbol, Value>)
+		}, {} as Record<string | symbol, Value>)
 	}
 
 	return evolveRecursive(transformations, obj) as T

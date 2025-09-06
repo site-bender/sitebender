@@ -1,8 +1,9 @@
-import type { 
-	Documentation, 
-	GenerateOptions, 
-	ParseError, 
-	Result 
+import type {
+	Documentation,
+	GenerateOptions,
+	ParseError,
+	Result,
+	ASTNode
 } from "../types/index.ts"
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import { parseFile, parseFunction } from "../parser/index.ts"
@@ -20,19 +21,19 @@ export default async function generateDocs(
 	try {
 		// Merge options with defaults
 		const opts = { ...DEFAULT_OPTIONS, ...options }
-		
+
 		// Read file content
 		const content = await readFile(filePath)
 		if (!content.ok) {
 			return content
 		}
-		
+
 		// Parse file to AST
 		const ast = parseFile(content.value, filePath)
 		if (!ast.ok) {
 			return ast
 		}
-		
+
 		// Find first function in the file
 		const functionNode = findFirstFunction(ast.value)
 		if (!functionNode) {
@@ -44,29 +45,29 @@ export default async function generateDocs(
 				},
 			}
 		}
-		
+
 		// Parse function signature
 		const signature = parseFunction(functionNode, content.value)
 		if (!signature.ok) {
 			return signature
 		}
-		
+
 		// Extract description
 		const description = extractDescription(content.value, functionNode.pos)
-		
+
 		// Detect properties
 		const properties = detectProperties(content.value)
-		
+
 		// Create metadata
 		const metadata = {
 			signature: signature.value,
 			description,
 			properties,
-			examples: [], // TODO: Extract from tests in Phase 2
-			laws: [], // TODO: Detect in Phase 2
-			relatedFunctions: [], // TODO: Find in Phase 2
+			examples: [], // TODO(@scribe): Extract from tests in Phase 2
+			laws: [], // TODO(@scribe): Detect in Phase 2
+			relatedFunctions: [], // TODO(@scribe): Find in Phase 2
 		}
-		
+
 		// Generate documentation based on format
 		let output: string
 		switch (opts.format) {
@@ -74,7 +75,7 @@ export default async function generateDocs(
 				output = generateMarkdown(metadata)
 				break
 			case "html":
-				// TODO: Implement HTML generation in Phase 2
+				// TODO(@scribe): Implement HTML generation in Phase 2
 				output = generateMarkdown(metadata) // Fallback to markdown for now
 				break
 			case "json":
@@ -83,7 +84,7 @@ export default async function generateDocs(
 			default:
 				output = generateMarkdown(metadata)
 		}
-		
+
 		return {
 			ok: true,
 			value: {
@@ -97,7 +98,9 @@ export default async function generateDocs(
 		return {
 			ok: false,
 			error: {
-				message: error instanceof Error ? error.message : "Failed to generate documentation",
+				message: error instanceof Error
+					? error.message
+					: "Failed to generate documentation",
 				file: filePath,
 			},
 		}
@@ -115,7 +118,9 @@ async function readFile(filePath: string): Promise<Result<string, ParseError>> {
 		return {
 			ok: false,
 			error: {
-				message: `Failed to read file: ${error instanceof Error ? error.message : "Unknown error"}`,
+				message: `Failed to read file: ${
+					error instanceof Error ? error.message : "Unknown error"
+				}`,
 				file: filePath,
 			},
 		}
@@ -125,21 +130,23 @@ async function readFile(filePath: string): Promise<Result<string, ParseError>> {
 /**
  * Finds the first function in an AST
  */
-function findFirstFunction(ast: any): any {
+function findFirstFunction(ast: ASTNode): ASTNode | null {
 	// Look for function statements
 	if (ast.statements && Array.isArray(ast.statements)) {
 		for (const statement of ast.statements) {
-			if (statement.kind === "FunctionDeclaration" || 
-			    statement.kind === "ArrowFunction") {
+			if (
+				statement.kind === "FunctionDeclaration" ||
+				statement.kind === "ArrowFunction"
+			) {
 				return statement
 			}
 		}
 	}
-	
+
 	// If no statements, check if the AST itself is a function
 	if (ast.kind === "FunctionDeclaration" || ast.kind === "ArrowFunction") {
 		return ast
 	}
-	
+
 	return null
 }

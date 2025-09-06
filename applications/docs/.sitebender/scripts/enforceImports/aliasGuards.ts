@@ -60,7 +60,8 @@ for (const root of roots) {
 			const lines = text.split(/\r?\n/)
 			lines.forEach((line, idx) => {
 				// crude import matcher (import ... from "..."), also handles export ... from
-				const importRe = /(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g
+				const importRe =
+					/(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g
 				let m: RegExpExecArray | null
 				while ((m = importRe.exec(line))) {
 					const spec = m[2]
@@ -85,7 +86,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+								hint:
+									"Use @sitebender/engine/… instead of libraries/engine/src/…",
 							})
 						}
 						if (spec.includes(ENGINE_TYPES)) {
@@ -93,7 +95,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
+								hint:
+									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 							})
 						}
 
@@ -102,7 +105,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+								hint:
+									"Use @sitebender/engine/… instead of libraries/engine/src/…",
 							})
 						}
 						if (spec.includes(ENGINE_TYPES)) {
@@ -110,7 +114,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
+								hint:
+									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 							})
 						}
 					}
@@ -122,7 +127,8 @@ for (const root of roots) {
 								file,
 								line: idx + 1,
 								spec,
-								hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
+								hint:
+									"Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 							})
 						}
 					}

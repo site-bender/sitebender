@@ -5,8 +5,9 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 
 import type { ColGroupElementAttributes as TableColumnGroupAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: TableColumnGroupAttributes) {
-
+export default function filterAttributes(
+	attributes: TableColumnGroupAttributes,
+) {
 	const { id, span, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -15,5 +16,4 @@ export default function filterAttributes(attributes: TableColumnGroupAttributes)
 		...globals,
 		...filterAttribute(isInteger)("span")(span),
 	}
-
 }

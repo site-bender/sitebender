@@ -5,21 +5,24 @@ import factorial from "../../../../../src/simple/math/factorial/index.ts"
 
 Deno.test("factorial", async (t) => {
 	await t.step("mathematical properties", async (t) => {
-		await t.step("should satisfy factorial definition n! = n × (n-1)!", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 100 }),
-					(n) => {
-						const nFactorial = factorial(n)
-						const nMinus1Factorial = factorial(n - 1)
+		await t.step(
+			"should satisfy factorial definition n! = n × (n-1)!",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 100 }),
+						(n) => {
+							const nFactorial = factorial(n)
+							const nMinus1Factorial = factorial(n - 1)
 
-						// n! = n × (n-1)!
-						return nFactorial === n * nMinus1Factorial
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+							// n! = n × (n-1)!
+							return nFactorial === n * nMinus1Factorial
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should satisfy factorial recurrence relation", () => {
 			fc.assert(
@@ -53,19 +56,22 @@ Deno.test("factorial", async (t) => {
 			)
 		})
 
-		await t.step("should satisfy factorial inequality n! >= n^(n/2)", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: 1, max: 20 }),
-					(n) => {
-						const fact = factorial(n)
-						const bound = Math.pow(n, n / 2)
-						return fact >= bound
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+		await t.step(
+			"should satisfy factorial inequality n! >= n^(n/2)",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: 1, max: 20 }),
+						(n) => {
+							const fact = factorial(n)
+							const bound = Math.pow(n, n / 2)
+							return fact >= bound
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("combinatorial properties", async (t) => {
@@ -109,7 +115,8 @@ Deno.test("factorial", async (t) => {
 								(factorial(r) * factorial(n - r))
 
 							// Pascal's triangle property: C(n,r) = C(n,n-r)
-							const symmetric = factorial(n) / (factorial(n - r) * factorial(r))
+							const symmetric = factorial(n) /
+								(factorial(n - r) * factorial(r))
 
 							return Math.abs(combinations - symmetric) < 1e-10
 						},
@@ -156,25 +163,31 @@ Deno.test("factorial", async (t) => {
 			},
 		)
 
-		await t.step("should use scientific notation for large factorials", () => {
-			const fact22 = factorial(22)
-			assertEquals(fact22 > 1e21, true)
-			assertEquals(fact22 < 2e21, true)
-		})
+		await t.step(
+			"should use scientific notation for large factorials",
+			() => {
+				const fact22 = factorial(22)
+				assertEquals(fact22 > 1e21, true)
+				assertEquals(fact22 < 2e21, true)
+			},
+		)
 
-		await t.step("should handle very large factorials before overflow", () => {
-			const fact50 = factorial(50)
-			assertEquals(fact50 > 3e64, true)
-			assertEquals(fact50 < 4e64, true)
+		await t.step(
+			"should handle very large factorials before overflow",
+			() => {
+				const fact50 = factorial(50)
+				assertEquals(fact50 > 3e64, true)
+				assertEquals(fact50 < 4e64, true)
 
-			const fact100 = factorial(100)
-			assertEquals(fact100 > 9e157, true)
-			assertEquals(fact100 < 10e157, true)
+				const fact100 = factorial(100)
+				assertEquals(fact100 > 9e157, true)
+				assertEquals(fact100 < 10e157, true)
 
-			const fact170 = factorial(170)
-			assertEquals(fact170 > 7e306, true)
-			assertEquals(fact170 < 8e306, true)
-		})
+				const fact170 = factorial(170)
+				assertEquals(fact170 > 7e306, true)
+				assertEquals(fact170 < 8e306, true)
+			},
+		)
 
 		await t.step("should return Infinity for factorial > 170", () => {
 			assertEquals(factorial(171), Infinity)

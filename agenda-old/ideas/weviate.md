@@ -10,9 +10,9 @@ At its core, **Weaviate (pronounced _wee-vee-ate_)** is an **open-source, AI-nat
 
 That's a term packed with meaning, so let's unpack it:
 
-1.  **Database:** It's a system for storing, managing, and retrieving data, just like a traditional database (e.g., PostgreSQL, MySQL).
-2.  **Vector Database:** Unlike traditional databases that store data in rows and columns and query for exact matches, a vector database stores data as **vector embeddings**. These are mathematical representations (long lists of numbers) of data—like text, images, or audio—that capture their semantic _meaning_.
-3.  **AI-Native:** It's built from the ground up to work seamlessly with machine learning models. We can use Weaviate to automatically convert our data into vectors (using its built-in modules or our own models) and then perform searches based on conceptual similarity, not just keywords.
+1. **Database:** It's a system for storing, managing, and retrieving data, just like a traditional database (e.g., PostgreSQL, MySQL).
+2. **Vector Database:** Unlike traditional databases that store data in rows and columns and query for exact matches, a vector database stores data as **vector embeddings**. These are mathematical representations (long lists of numbers) of data—like text, images, or audio—that capture their semantic _meaning_.
+3. **AI-Native:** It's built from the ground up to work seamlessly with machine learning models. We can use Weaviate to automatically convert our data into vectors (using its built-in modules or our own models) and then perform searches based on conceptual similarity, not just keywords.
 
 **The Key Idea:** Weaviate allows us to search our data by **meaning and context**.
 

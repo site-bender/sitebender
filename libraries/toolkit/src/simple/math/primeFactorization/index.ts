@@ -66,7 +66,9 @@ const primeFactorization = (
 	// Helper function to count and remove factors
 	const extractFactor = (num: number, factor: number): [number, number] => {
 		const countFactor = (current: number, acc: number): number =>
-			current % factor === 0 ? countFactor(current / factor, acc + 1) : acc
+			current % factor === 0
+				? countFactor(current / factor, acc + 1)
+				: acc
 		const count = countFactor(num, 0)
 		return [
 			count === 0

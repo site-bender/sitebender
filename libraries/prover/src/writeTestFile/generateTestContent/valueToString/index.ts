@@ -12,7 +12,7 @@ export default function valueToString(value: unknown): string {
 	if (typeof value === "function") {
 		// Handle common function patterns
 		if (value.toString().includes("=> x")) {
-			return "(x: unknown) => x"  // Identity function
+			return "(x: unknown) => x" // Identity function
 		}
 		return value.toString()
 	}
@@ -21,7 +21,7 @@ export default function valueToString(value: unknown): string {
 	}
 	if (typeof value === "object") {
 		const entries = Object.entries(value).map(
-			([k, v]) => `${k}: ${valueToString(v)}`
+			([k, v]) => `${k}: ${valueToString(v)}`,
 		)
 		return `{ ${entries.join(", ")} }`
 	}

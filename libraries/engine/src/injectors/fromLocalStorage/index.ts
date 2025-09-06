@@ -6,7 +6,9 @@ import castValue from "../../utilities/castValue/index.ts"
 
 const fromLocalStorage =
 	(op: unknown) => (_: unknown, localValues?: Record<string, unknown>) => {
-		const local = getFromLocal(op as import("@sitebender/engine/pending/dom/getValue/getFromLocal/index.ts").SelectorOp)(localValues)
+		const local = getFromLocal(
+			op as import("@sitebender/engine/pending/dom/getValue/getFromLocal/index.ts").SelectorOp,
+		)(localValues)
 
 		if (isDefined(local)) {
 			return local
@@ -29,7 +31,9 @@ const fromLocalStorage =
 
 		return isDefined(casted.right) ? casted : {
 			left: [
-				Error("FromLocalStorage")("FromLocalStorage")(String(casted.left)),
+				Error("FromLocalStorage")("FromLocalStorage")(
+					String(casted.left),
+				),
 			],
 		}
 	}

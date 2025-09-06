@@ -116,62 +116,61 @@ const createLegendContentFilter = (
  *
  * @returns Function that reorganizes and validates Details children
  */
-const createDetailsContentFilter =
-	() => (children: unknown[]): unknown[] => {
-		if (!Array.isArray(children)) {
-			return []
+const createDetailsContentFilter = () => (children: unknown[]): unknown[] => {
+	if (!Array.isArray(children)) {
+		return []
+	}
+
+	// Separate Summary elements from other elements
+	const summaryElements: unknown[] = []
+	const otherElements: unknown[] = []
+	const textAndPrimitives: unknown[] = []
+
+	children.forEach((child) => {
+		// Accept text nodes and other primitive content
+		if (!child || typeof child !== "object" || !("tag" in child)) {
+			textAndPrimitives.push(child)
+			return
 		}
 
-		// Separate Summary elements from other elements
-		const summaryElements: unknown[] = []
-		const otherElements: unknown[] = []
-		const textAndPrimitives: unknown[] = []
+		const element = child as PartialElementConfig
+		const { tag } = element
 
-		children.forEach((child) => {
-			// Accept text nodes and other primitive content
+		if (tag === "Summary") {
+			summaryElements.push(child)
+		} else {
+			otherElements.push(child)
+		}
+	})
+
+	// Take the first Summary element (if any) to be the disclosure widget
+	const firstSummary = summaryElements.length > 0 ? [summaryElements[0]] : []
+
+	// Additional Summary elements are treated as regular content
+	const additionalSummaries = summaryElements.slice(1)
+
+	// Filter other elements: allow flow content but exclude interactive elements
+	const validOtherElements = [...otherElements, ...additionalSummaries]
+		.filter((child) => {
 			if (!child || typeof child !== "object" || !("tag" in child)) {
-				textAndPrimitives.push(child)
-				return
+				return true
 			}
 
 			const element = child as PartialElementConfig
 			const { tag } = element
 
-			if (tag === "Summary") {
-				summaryElements.push(child)
-			} else {
-				otherElements.push(child)
+			// Exclude interactive elements (except Summary which we handle separately)
+			if (tag && tag !== "Summary" && isInteractiveContent(element)) {
+				return false
 			}
+
+			// Allow flow content
+			return isFlowContent()(element)
 		})
 
-		// Take the first Summary element (if any) to be the disclosure widget
-		const firstSummary = summaryElements.length > 0 ? [summaryElements[0]] : []
-
-		// Additional Summary elements are treated as regular content
-		const additionalSummaries = summaryElements.slice(1)
-
-		// Filter other elements: allow flow content but exclude interactive elements
-		const validOtherElements = [...otherElements, ...additionalSummaries]
-			.filter((child) => {
-				if (!child || typeof child !== "object" || !("tag" in child)) {
-					return true
-				}
-
-				const element = child as PartialElementConfig
-				const { tag } = element
-
-				// Exclude interactive elements (except Summary which we handle separately)
-				if (tag && tag !== "Summary" && isInteractiveContent(element)) {
-					return false
-				}
-
-				// Allow flow content
-				return isFlowContent()(element)
-			})
-
-		// Return reordered array: Summary first, then text/primitives, then other valid elements
-		return [...firstSummary, ...textAndPrimitives, ...validOtherElements]
-	}
+	// Return reordered array: Summary first, then text/primitives, then other valid elements
+	return [...firstSummary, ...textAndPrimitives, ...validOtherElements]
+}
 
 /**
  * Creates a child filter that excludes elements that cannot be nested within themselves
@@ -248,7 +247,8 @@ const ADVANCED_FILTERS = {
 			children?: readonly unknown[]
 		}
 		const tag = element.tag
-		return tag === "Source" || tag === "Track" || isPhrasingContent()(element)
+		return tag === "Source" || tag === "Track" ||
+			isPhrasingContent()(element)
 	},
 } as const
 

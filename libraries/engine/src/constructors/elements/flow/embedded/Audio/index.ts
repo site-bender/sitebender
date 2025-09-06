@@ -39,7 +39,6 @@ export type AudioElementAttributes = AudioAttributes & ImageAriaAttributes & {
  * Allows global attributes and validates audio-specific attributes
  */
 
-
 /**
  * Creates an Audio element configuration object
  *

@@ -32,7 +32,6 @@ export type InputEmailElementAttributes =
  * Allows global attributes and validates email input-specific attributes
  */
 
-
 /**
  * Creates an InputEmail element configuration object
  *

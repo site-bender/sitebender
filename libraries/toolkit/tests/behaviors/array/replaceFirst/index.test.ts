@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import replaceFirst from "../../../../src/simple/array/replaceFirst/index.ts"
@@ -7,7 +10,14 @@ import replaceFirst from "../../../../src/simple/array/replaceFirst/index.ts"
 Deno.test("replaceFirst: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {
 		const replacer = replaceFirst(2)((n: number) => n * 10)
-		assertType<IsExact<typeof replacer, (array: ReadonlyArray<number> | null | undefined) => Array<number>>>(true)
+		assertType<
+			IsExact<
+				typeof replacer,
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
+			>
+		>(true)
 
 		const result = replacer([1, 2, 3])
 		assertType<IsExact<typeof result, Array<number>>>(true)
@@ -16,13 +26,27 @@ Deno.test("replaceFirst: type checking", async (t) => {
 	await t.step("should work with different types", () => {
 		// String replacement
 		const stringReplacer = replaceFirst("old")(() => "new")
-		assertType<IsExact<typeof stringReplacer, (array: ReadonlyArray<string> | null | undefined) => Array<string>>>(true)
+		assertType<
+			IsExact<
+				typeof stringReplacer,
+				(
+					array: ReadonlyArray<string> | null | undefined,
+				) => Array<string>
+			>
+		>(true)
 
 		// Object replacement
 		const obj1 = { id: 1 }
 		const obj2 = { id: 2 }
 		const objReplacer = replaceFirst(obj1)(() => obj2)
-		assertType<IsExact<typeof objReplacer, (array: ReadonlyArray<{ id: number }> | null | undefined) => Array<{ id: number }>>>(true)
+		assertType<
+			IsExact<
+				typeof objReplacer,
+				(
+					array: ReadonlyArray<{ id: number }> | null | undefined,
+				) => Array<{ id: number }>
+			>
+		>(true)
 	})
 })
 
@@ -36,7 +60,7 @@ Deno.test("replaceFirst: basic functionality", async (t) => {
 		const replacer = replaceFirst("old")(() => "new")
 		assertEquals(
 			replacer(["old", "test", "old", "data"]),
-			["new", "test", "old", "data"]
+			["new", "test", "old", "data"],
 		)
 	})
 
@@ -60,7 +84,7 @@ Deno.test("replaceFirst: basic functionality", async (t) => {
 		const replacer = replaceFirst(undefined)(() => "default")
 		assertEquals(
 			replacer([undefined, "a", undefined, "b"]),
-			["default", "a", undefined, "b"]
+			["default", "a", undefined, "b"],
 		)
 	})
 
@@ -115,7 +139,7 @@ Deno.test("replaceFirst: edge cases", async (t) => {
 	await t.step("should not distinguish between +0 and -0", () => {
 		const replacer = replaceFirst(0)(() => 99)
 		assertEquals(replacer([0, -0, 0]), [99, -0, 0])
-		
+
 		const replacer2 = replaceFirst(-0)(() => 99)
 		assertEquals(replacer2([0, -0, 0]), [99, -0, 0]) // Finds +0 first
 	})
@@ -137,11 +161,11 @@ Deno.test("replaceFirst: object references", async (t) => {
 		const obj2 = { id: 2 }
 		const obj3 = { id: 1 } // Different instance with same content
 		const replacement = { id: 99 }
-		
+
 		const replacer = replaceFirst(obj1)(() => replacement)
 		assertEquals(
 			replacer([obj1, obj2, obj3, obj1]),
-			[replacement, obj2, obj3, obj1]
+			[replacement, obj2, obj3, obj1],
 		)
 	})
 
@@ -150,34 +174,51 @@ Deno.test("replaceFirst: object references", async (t) => {
 		const arr2 = [3, 4]
 		const arr3 = [1, 2] // Different instance
 		const replacement = [99, 99]
-		
+
 		const replacer = replaceFirst(arr1)(() => replacement)
 		assertEquals(
 			replacer([arr1, arr2, arr3, arr1]),
-			[replacement, arr2, arr3, arr1]
+			[replacement, arr2, arr3, arr1],
 		)
 	})
 
-	await t.step("should not match different instances with same content", () => {
-		const obj1 = { id: 1 }
-		const obj2 = { id: 1 } // Same content, different instance
-		const replacement = { id: 99 }
-		
-		const replacer = replaceFirst(obj2)(() => replacement)
-		assertEquals(
-			replacer([obj1, obj2, obj1]),
-			[obj1, replacement, obj1]
-		)
-	})
+	await t.step(
+		"should not match different instances with same content",
+		() => {
+			const obj1 = { id: 1 }
+			const obj2 = { id: 1 } // Same content, different instance
+			const replacement = { id: 99 }
+
+			const replacer = replaceFirst(obj2)(() => replacement)
+			assertEquals(
+				replacer([obj1, obj2, obj1]),
+				[obj1, replacement, obj1],
+			)
+		},
+	)
 })
 
 Deno.test("replaceFirst: currying", async (t) => {
 	await t.step("should be curried", () => {
 		const withTarget = replaceFirst(5)
-		assertType<IsExact<typeof withTarget, <T>(replacer: (item: T) => T) => (array: ReadonlyArray<T> | null | undefined) => Array<T>>>(true)
+		assertType<
+			IsExact<
+				typeof withTarget,
+				<T>(
+					replacer: (item: T) => T,
+				) => (array: ReadonlyArray<T> | null | undefined) => Array<T>
+			>
+		>(true)
 
 		const withReplacer = withTarget((n) => n * 2)
-		assertType<IsExact<typeof withReplacer, (array: ReadonlyArray<number> | null | undefined) => Array<number>>>(true)
+		assertType<
+			IsExact<
+				typeof withReplacer,
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
+			>
+		>(true)
 
 		const result = withReplacer([5, 10, 5])
 		assertEquals(result, [10, 10, 5])
@@ -190,7 +231,12 @@ Deno.test("replaceFirst: currying", async (t) => {
 		const replaceWithDefault = replaceFirstNull(() => "N/A")
 
 		assertEquals(replaceWithZero([1, null, 2, null]), [1, 0, 2, null])
-		assertEquals(replaceWithDefault(["a", null, "b", null]), ["a", "N/A", "b", null])
+		assertEquals(replaceWithDefault(["a", null, "b", null]), [
+			"a",
+			"N/A",
+			"b",
+			null,
+		])
 	})
 })
 
@@ -199,7 +245,7 @@ Deno.test("replaceFirst: immutability", async (t) => {
 		const original = [1, 2, 3, 2, 4]
 		const replacer = replaceFirst(2)(() => 99)
 		const result = replacer(original)
-		
+
 		assertEquals(original, [1, 2, 3, 2, 4])
 		assertEquals(result, [1, 99, 3, 2, 4])
 	})
@@ -208,7 +254,7 @@ Deno.test("replaceFirst: immutability", async (t) => {
 		const original = [1, 2, 3]
 		const replacer = replaceFirst(99)(() => 0)
 		const result = replacer(original)
-		
+
 		assertEquals(result, [1, 2, 3])
 		// Note: Current implementation returns same reference when target not found
 		// This is because replaceAt returns same array for out-of-bounds index
@@ -218,7 +264,7 @@ Deno.test("replaceFirst: immutability", async (t) => {
 		const original = [1]
 		const replacer = replaceFirst(1)(() => 2)
 		const result = replacer(original)
-		
+
 		assertEquals(result, [2])
 		assertEquals(result === original, false)
 	})
@@ -234,36 +280,44 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 				(arr, target, replacement) => {
 					const replacer = replaceFirst(target)(() => replacement)
 					const result = replacer(arr)
-					
+
 					// Count occurrences of target in original
-					const originalCount = arr.filter(x => x === target).length
-					
+					const originalCount = arr.filter((x) => x === target).length
+
 					// Count occurrences of target in result
-					const resultCount = result.filter(x => x === target).length
-					
+					const resultCount = result.filter((x) =>
+						x === target
+					).length
+
 					// If target was in original, result should have one less
 					if (originalCount > 0) {
 						assertEquals(resultCount, originalCount - 1)
-						
+
 						// Count replacements
-						const replacementCount = result.filter(x => x === replacement).length
-						const originalReplacementCount = arr.filter(x => x === replacement).length
-						
+						const replacementCount =
+							result.filter((x) => x === replacement).length
+						const originalReplacementCount = arr.filter((x) =>
+							x === replacement
+						).length
+
 						if (replacement !== target) {
-							assertEquals(replacementCount, originalReplacementCount + 1)
+							assertEquals(
+								replacementCount,
+								originalReplacementCount + 1,
+							)
 						}
 					} else {
 						// Content unchanged if target not found
 						assertEquals(result, arr)
 					}
-					
+
 					// Length always preserved
 					assertEquals(result.length, arr.length)
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -276,17 +330,17 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 				(arr, target, replacement) => {
 					const replacer = replaceFirst(target)(() => replacement)
 					const result = replacer(arr)
-					
+
 					const firstIndex = arr.indexOf(target)
 					if (firstIndex !== -1) {
 						// Elements before first occurrence unchanged
 						for (let i = 0; i < firstIndex; i++) {
 							assertEquals(result[i], arr[i])
 						}
-						
+
 						// First occurrence replaced
 						assertEquals(result[firstIndex], replacement)
-						
+
 						// Elements after first occurrence unchanged
 						for (let i = firstIndex + 1; i < arr.length; i++) {
 							assertEquals(result[i], arr[i])
@@ -294,11 +348,11 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 					} else {
 						assertEquals(result, arr)
 					}
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -311,13 +365,13 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 					const replacer = replaceFirst(value)(() => value)
 					const result1 = replacer(arr)
 					const result2 = replacer(result1)
-					
+
 					assertEquals(result1, result2)
 					assertEquals(result1, arr) // Content unchanged
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -332,9 +386,9 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 					const result = replacer(input)
 					assertEquals(result, [])
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 })
@@ -346,10 +400,10 @@ Deno.test("replaceFirst: replacer function behavior", async (t) => {
 			callCount++
 			return 99
 		})
-		
+
 		replacer([1, 2, 3, 2, 4])
 		assertEquals(callCount, 1)
-		
+
 		callCount = 0
 		replacer([1, 3, 4]) // No match
 		assertEquals(callCount, 0)
@@ -361,14 +415,14 @@ Deno.test("replaceFirst: replacer function behavior", async (t) => {
 			{ name: "Bob", status: "inactive" },
 			{ name: "Charlie", status: "inactive" },
 		]
-		
+
 		const target = users[1] // Bob
 		const replacer = replaceFirst(target)((user) => ({
 			...user,
 			status: "active",
-			updatedAt: "2024-01-01"
+			updatedAt: "2024-01-01",
 		}))
-		
+
 		const result = replacer([...users, target]) // Bob appears twice
 		assertEquals(result[0].status, "active")
 		assertEquals(result[1].status, "active") // First Bob updated
@@ -381,7 +435,7 @@ Deno.test("replaceFirst: replacer function behavior", async (t) => {
 		const replacer = replaceFirst(2)(() => {
 			throw new Error("test error")
 		})
-		
+
 		try {
 			replacer([1, 2, 3])
 			throw new Error("Should have thrown")
@@ -394,11 +448,15 @@ Deno.test("replaceFirst: replacer function behavior", async (t) => {
 		// Double the value
 		const doubler = replaceFirst(5)((n) => n * 2)
 		assertEquals(doubler([5, 5, 5]), [10, 5, 5])
-		
+
 		// Uppercase string
 		const uppercaser = replaceFirst("hello")((s) => s.toUpperCase())
-		assertEquals(uppercaser(["hello", "world", "hello"]), ["HELLO", "world", "hello"])
-		
+		assertEquals(uppercaser(["hello", "world", "hello"]), [
+			"HELLO",
+			"world",
+			"hello",
+		])
+
 		// Toggle boolean
 		const toggler = replaceFirst(true)(() => false)
 		assertEquals(toggler([true, false, true]), [false, false, true])

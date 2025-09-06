@@ -1,0 +1,16 @@
+{
+  "scriptId": "457",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/utils/hash.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4939, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hash",
+      "ranges": [{ "startOffset": 3266, "endOffset": 4938, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -226,7 +226,9 @@ describe("all", () => {
 		it("preserves short-circuit behavior", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer({ min: -100, max: 100 }), { minLength: 5 }),
+					fc.array(fc.integer({ min: -100, max: 100 }), {
+						minLength: 5,
+					}),
 					(arr) => {
 						let count = 0
 						const predicate = (n: number) => {

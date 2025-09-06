@@ -5,9 +5,14 @@ import type {
 
 import isNullish from "../../../validation/isNullish/index.ts"
 
-function hasMethod<T extends string>(obj: unknown, name: T): obj is Record<string, unknown> & {
-	[K in T]: (...args: Array<unknown>) => unknown
-} {
+function hasMethod<T extends string>(
+	obj: unknown,
+	name: T,
+): obj is
+	& Record<string, unknown>
+	& {
+		[K in T]: (...args: Array<unknown>) => unknown
+	} {
 	return typeof obj === "object" && obj !== null && name in obj &&
 		typeof (obj as Record<string, unknown>)[name] === "function"
 }
@@ -109,7 +114,11 @@ const toPlainDate = (
 		try {
 			// Construct from y/m/d only
 			const v = value as PlainDateLike
-			return Temporal.PlainDate.from({ year: v.year, month: v.month, day: v.day })
+			return Temporal.PlainDate.from({
+				year: v.year,
+				month: v.month,
+				day: v.day,
+			})
 		} catch {
 			return null
 		}
@@ -119,11 +128,17 @@ const toPlainDate = (
 	if (hasMethod(value, "toPlainDate")) {
 		const result = (value as { toPlainDate: () => unknown }).toPlainDate()
 		// Best-effort: if result looks like a Temporal.PlainDate, return it
-		if (result && typeof (result as { toString: () => string }).toString === "function") {
+		if (
+			result &&
+			typeof (result as { toString: () => string }).toString ===
+				"function"
+		) {
 			try {
 				// Reconstruct via ISO to ensure a proper PlainDate instance
 				const iso = (result as { toString: () => string }).toString()
-				if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return Temporal.PlainDate.from(iso)
+				if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+					return Temporal.PlainDate.from(iso)
+				}
 			} catch (_err) {
 				// Swallow and fall through to null below
 			}

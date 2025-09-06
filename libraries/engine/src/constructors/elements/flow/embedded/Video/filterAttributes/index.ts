@@ -1,4 +1,7 @@
-import { CROSS_ORIGINS, PRELOADS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	PRELOADS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -11,7 +14,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { VideoElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: VideoElementAttributes) {
-
 	const {
 		id,
 		autoplay,
@@ -68,11 +70,16 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(loop)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("loop")(loop))
@@ -87,7 +94,10 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 		)
 	}
 	if (isDefined(poster)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("poster")(poster))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("poster")(poster),
+		)
 	}
 	if (isDefined(preload)) {
 		Object.assign(
@@ -132,5 +142,4 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

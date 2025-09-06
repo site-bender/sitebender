@@ -52,11 +52,17 @@ Deno.test("increment", async (t) => {
 						const incB = increment(b)
 
 						// Handle special cases first
-						if (Number.isNaN(incA) && Number.isNaN(incB)) return true
+						if (Number.isNaN(incA) && Number.isNaN(incB)) {
+							return true
+						}
 						if (!isFinite(a) || !isFinite(b)) {
 							// For infinities, ordering should be preserved
-							if (a === Infinity && b === Infinity) return incA === incB
-							if (a === -Infinity && b === -Infinity) return incA === incB
+							if (a === Infinity && b === Infinity) {
+								return incA === incB
+							}
+							if (a === -Infinity && b === -Infinity) {
+								return incA === incB
+							}
 							if (a === Infinity) return incA > incB
 							if (b === Infinity) return incA < incB
 							if (a === -Infinity) return incA < incB
@@ -150,7 +156,8 @@ Deno.test("increment", async (t) => {
 								}
 
 								// For normal numbers, allow for floating point epsilon
-								const epsilon = Math.abs(expected) * Number.EPSILON * 2 +
+								const epsilon =
+									Math.abs(expected) * Number.EPSILON * 2 +
 									Number.EPSILON
 								return Math.abs(result - expected) <= epsilon
 							}
@@ -457,7 +464,10 @@ Deno.test("increment", async (t) => {
 		})
 
 		await t.step("finding next available", () => {
-			function findNextAvailable(used: Set<number>, start: number = 0): number {
+			function findNextAvailable(
+				used: Set<number>,
+				start: number = 0,
+			): number {
 				let current = start
 				while (used.has(current)) {
 					current = increment(current)

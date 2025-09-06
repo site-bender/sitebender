@@ -12,7 +12,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { OlElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: OlElementAttributes) {
-
 	const {
 		id,
 		start,
@@ -95,5 +94,4 @@ export default function filterAttributes(attributes: OlElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

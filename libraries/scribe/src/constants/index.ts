@@ -106,7 +106,8 @@ export const TEMPLATES = {
 		header: "<h2>{name}</h2>\n<p>{description}</p>\n",
 		properties: '<div class="properties">{badges}</div>\n',
 		signature: '<pre class="signature"><code>{signature}</code></pre>\n',
-		examples: '<div class="examples"><pre><code>{examples}</code></pre></div>\n',
+		examples:
+			'<div class="examples"><pre><code>{examples}</code></pre></div>\n',
 		laws: '<div class="laws">{laws}</div>\n',
 		complexity: '<div class="complexity">Complexity: {complexity}</div>\n',
 		related: '<div class="related">See also: {related}</div>\n',

@@ -57,9 +57,9 @@ type ValidationRules = {
 	min?: { value: number | string; message?: string } | number
 	max?: { value: number | string; message?: string } | number
 	pattern?: { regex: RegExp; message?: string } | RegExp
-		enum?: Array<unknown>
-		custom?: (value: unknown) => string | null
-		transform?: (value: unknown) => unknown
+	enum?: Array<unknown>
+	custom?: (value: unknown) => string | null
+	transform?: (value: unknown) => unknown
 	maxSize?: number
 	allowedTypes?: Array<string>
 	allowedProtocols?: Array<string>
@@ -91,7 +91,8 @@ const validateField =
 				transformedValue === undefined ||
 				transformedValue === null ||
 				transformedValue === "" ||
-				(typeof transformedValue === "string" && transformedValue.trim() === "")
+				(typeof transformedValue === "string" &&
+					transformedValue.trim() === "")
 			) {
 				return rules.messages?.required || "This field is required"
 			}
@@ -112,18 +113,20 @@ const validateField =
 			switch (rules.type) {
 				case "number":
 					if (isNaN(Number(transformedValue))) {
-						return rules.messages?.type || "Please enter a valid number"
+						return rules.messages?.type ||
+							"Please enter a valid number"
 					}
 					transformedValue = Number(transformedValue)
 					break
 
-						case "email": {
-							const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-							if (!emailRegex.test(String(transformedValue))) {
-								return rules.messages?.type || "Please enter a valid email address"
-							}
-							break
-						}
+				case "email": {
+					const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+					if (!emailRegex.test(String(transformedValue))) {
+						return rules.messages?.type ||
+							"Please enter a valid email address"
+					}
+					break
+				}
 
 				case "url":
 					try {
@@ -137,22 +140,25 @@ const validateField =
 							}
 						}
 					} catch {
-						return rules.messages?.type || "Please enter a valid URL"
+						return rules.messages?.type ||
+							"Please enter a valid URL"
 					}
 					break
 
-						case "date": {
-							const date = new Date(String(transformedValue))
-							if (isNaN(date.getTime())) {
-								return rules.messages?.type || "Please enter a valid date"
-							}
-							transformedValue = date.toISOString().split("T")[0]
-							break
-						}
+				case "date": {
+					const date = new Date(String(transformedValue))
+					if (isNaN(date.getTime())) {
+						return rules.messages?.type ||
+							"Please enter a valid date"
+					}
+					transformedValue = date.toISOString().split("T")[0]
+					break
+				}
 
 				case "file":
 					if (!(transformedValue instanceof File)) {
-						return rules.messages?.type || "Please select a valid file"
+						return rules.messages?.type ||
+							"Please select a valid file"
 					}
 					break
 			}
@@ -225,7 +231,9 @@ const validateField =
 					return (
 						minConfig.message ||
 						rules.messages?.min ||
-						`Date must be after ${minDate.toISOString().split("T")[0]}`
+						`Date must be after ${
+							minDate.toISOString().split("T")[0]
+						}`
 					)
 				}
 			}
@@ -239,7 +247,9 @@ const validateField =
 					return (
 						maxConfig.message ||
 						rules.messages?.max ||
-						`Date must be before ${maxDate.toISOString().split("T")[0]}`
+						`Date must be before ${
+							maxDate.toISOString().split("T")[0]
+						}`
 					)
 				}
 			}

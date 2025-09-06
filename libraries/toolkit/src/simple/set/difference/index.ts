@@ -58,7 +58,8 @@ const difference = <T>(
 
 	// Use native Set.difference if available (ES2025)
 	if (
-		"difference" in Set.prototype && typeof minuend.difference === "function"
+		"difference" in Set.prototype &&
+		typeof minuend.difference === "function"
 	) {
 		return minuend.difference(subtrahend)
 	}

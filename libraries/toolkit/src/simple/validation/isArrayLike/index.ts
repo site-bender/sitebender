@@ -48,7 +48,7 @@
  */
 const isArrayLike = (value: unknown): value is ArrayLike<unknown> => {
 	// Check for null/undefined first
-		if (value === null || value === undefined) {
+	if (value === null || value === undefined) {
 		return false
 	}
 
@@ -61,7 +61,7 @@ const isArrayLike = (value: unknown): value is ArrayLike<unknown> => {
 	}
 
 	// Get the length property
-		const len = (value as ArrayLike<unknown>).length
+	const len = (value as ArrayLike<unknown>).length
 
 	// Validate length is a non-negative safe integer
 	return typeof len === "number" &&

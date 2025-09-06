@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { SourceElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: SourceElementAttributes) {
-
 	const {
 		id,
 		height,
@@ -44,7 +43,10 @@ export default function filterAttributes(attributes: SourceElementAttributes) {
 
 	// Add source-specific attributes
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(media)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("media")(media))
@@ -56,7 +58,10 @@ export default function filterAttributes(attributes: SourceElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
 	if (isDefined(srcSet)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcset")(srcSet))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("srcset")(srcSet),
+		)
 	}
 	if (isDefined(type)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
@@ -74,5 +79,4 @@ export default function filterAttributes(attributes: SourceElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

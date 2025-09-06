@@ -52,14 +52,19 @@ const chars = (
 	}
 
 	// Use Intl.Segmenter if available for proper grapheme cluster handling
-		if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
+	if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
 		try {
-				const segmenter = new (Intl as unknown as { Segmenter: typeof Intl.Segmenter }).Segmenter(undefined, {
-				granularity: "grapheme",
-			})
+			const segmenter =
+				new (Intl as unknown as { Segmenter: typeof Intl.Segmenter })
+					.Segmenter(
+					undefined,
+					{
+						granularity: "grapheme",
+					},
+				)
 			return Array.from(
-					segmenter.segment(str) as Iterable<{ segment: string }>,
-					(segment) => segment.segment,
+				segmenter.segment(str) as Iterable<{ segment: string }>,
+				(segment) => segment.segment,
 			)
 		} catch {
 			// Fall back to spread operator if Segmenter fails

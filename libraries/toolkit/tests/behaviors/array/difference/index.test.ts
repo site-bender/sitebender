@@ -100,7 +100,9 @@ Deno.test("difference", async (t) => {
 		})
 
 		await t.step("does not match similar objects", () => {
-			const result = difference([{ id: 2 }])([{ id: 1 }, { id: 2 }, { id: 3 }])
+			const result = difference([{ id: 2 }])([{ id: 1 }, { id: 2 }, {
+				id: 3,
+			}])
 			assertEquals(result, [{ id: 1 }, { id: 2 }, { id: 3 }])
 		})
 	})
@@ -117,7 +119,14 @@ Deno.test("difference", async (t) => {
 		})
 
 		await t.step("works with mixed types", () => {
-			const result = difference([2, "b", true])([1, 2, "a", "b", true, false])
+			const result = difference([2, "b", true])([
+				1,
+				2,
+				"a",
+				"b",
+				true,
+				false,
+			])
 			assertEquals(result, [1, "a", false])
 		})
 

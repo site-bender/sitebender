@@ -48,42 +48,45 @@ Deno.test("round", async (t) => {
 			},
 		)
 
-		await t.step("should round halfway values using Math.round rules", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: -1000, max: 1000 }),
-					(n) => {
-						// JavaScript's Math.round uses "round half up" (toward positive infinity)
-						// Positive: 0.5 -> 1, 1.5 -> 2, 2.5 -> 3
-						// Negative: -0.5 -> 0, -1.5 -> -1, -2.5 -> -2
+		await t.step(
+			"should round halfway values using Math.round rules",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: -1000, max: 1000 }),
+						(n) => {
+							// JavaScript's Math.round uses "round half up" (toward positive infinity)
+							// Positive: 0.5 -> 1, 1.5 -> 2, 2.5 -> 3
+							// Negative: -0.5 -> 0, -1.5 -> -1, -2.5 -> -2
 
-						const positiveHalf = n + 0.5
-						const positiveResult = round(positiveHalf)
-						// For n + 0.5, always round up (toward positive infinity)
-						const expectedPositive = n + 1
+							const positiveHalf = n + 0.5
+							const positiveResult = round(positiveHalf)
+							// For n + 0.5, always round up (toward positive infinity)
+							const expectedPositive = n + 1
 
-						const negativeHalf = n - 0.5
-						const negativeResult = round(negativeHalf)
-						// For n - 0.5, Math.round rounds up (toward positive infinity)
-						// This means we get the ceiling of n - 0.5
-						let expectedNegative
-						if (negativeHalf >= 0) {
-							// If still positive, round to nearest (which is n for n - 0.5 where n >= 1)
-							expectedNegative = n
-						} else {
-							// For negative values, Math.round rounds up (toward 0)
-							// -1.5 -> -1, -2.5 -> -2, etc.
-							expectedNegative = n
-						}
+							const negativeHalf = n - 0.5
+							const negativeResult = round(negativeHalf)
+							// For n - 0.5, Math.round rounds up (toward positive infinity)
+							// This means we get the ceiling of n - 0.5
+							let expectedNegative
+							if (negativeHalf >= 0) {
+								// If still positive, round to nearest (which is n for n - 0.5 where n >= 1)
+								expectedNegative = n
+							} else {
+								// For negative values, Math.round rounds up (toward 0)
+								// -1.5 -> -1, -2.5 -> -2, etc.
+								expectedNegative = n
+							}
 
-						// Use regular equality (not Object.is) to handle -0 === 0
-						return positiveResult === expectedPositive &&
-							negativeResult === expectedNegative
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+							// Use regular equality (not Object.is) to handle -0 === 0
+							return positiveResult === expectedPositive &&
+								negativeResult === expectedNegative
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step("should be idempotent", () => {
 			fc.assert(
@@ -469,7 +472,8 @@ Deno.test("round", async (t) => {
 
 		await t.step("grid snapping", () => {
 			const gridSize = 10
-			const snapToGrid = (value: number) => round(value / gridSize) * gridSize
+			const snapToGrid = (value: number) =>
+				round(value / gridSize) * gridSize
 			assertEquals(snapToGrid(23), 20)
 			assertEquals(snapToGrid(27), 30)
 		})

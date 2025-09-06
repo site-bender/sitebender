@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { HeaderElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: HeaderElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -68,10 +67,11 @@ export default function filterAttributes(attributes: HeaderElementAttributes) {
 	if (isDefined(role)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(HEADER_NOT_IN_SECTIONING_ROLES))("role")(role),
+			filterAttribute(isMemberOf(HEADER_NOT_IN_SECTIONING_ROLES))("role")(
+				role,
+			),
 		)
 	}
 
 	return filteredAttrs
-
 }

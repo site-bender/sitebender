@@ -33,7 +33,6 @@ export type DivElementAttributes = DivisionAttributes & DivAriaAttributes & {
  * Allows global attributes and validates div-specific attributes
  */
 
-
 /**
  * Creates a Div element configuration object
  *

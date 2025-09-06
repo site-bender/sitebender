@@ -12,17 +12,18 @@ Analyze TS/TSX source files for size and function length outliers with a focus o
 
 Usage:
 
-	analyze-files [--root <path>] [--folders a,b] [--exclude x,y] [--max-fn-lines N] [--concurrency N] [--no-barrels] [--json]
+    analyze-files [--root <path>] [--folders a,b] [--exclude x,y] [--max-fn-lines N] [--concurrency N] [--no-barrels] [--json]
 
 Flags:
+
 - --root: root folder to scan (defaults to current working folder)
 - --folders: comma-separated folders under root to scan (defaults to: libraries, scripts, docs, playground)
-	- Alias: --dirs (kept for compatibility)
+  - Alias: --dirs (kept for compatibility)
 - --exclude: comma-separated folder names to exclude anywhere in the tree (defaults include node_modules, dist, build, coverage, fixtures, tests, constants, types)
 - --max-fn-lines: threshold for flagging long functions (default 60)
 - --concurrency: number of files analyzed in parallel (default 8, max 64)
 - --json: emit machine-readable output
-Behavior:
+  Behavior:
 - Only .ts and .tsx files are scanned by default (we exclude .js/.jsx to avoid noise).
 - Only default-exported functions/components are counted; named-only utilities in a file are ignored.
 - Barrel files are excluded by default (index.ts/tsx and files with many export aggregations). Pass --no-barrels to include them.
@@ -30,33 +31,34 @@ Behavior:
 JSON schema (shape):
 
 {
-	"root": string,
-	"scannedFiles": number,
-	"threshold": number,
-	"fileStats": {
-		"longestFile": { "path": string, "lines": number },
-		"mean": number,
-		"median": number,
-		"stdDev": number
-	},
-	"functionStats": {
-		"total": number,
-		"mean": number,
-		"median": number,
-		"stdDev": number
-	},
-	"longFunctions": [
-		{
-			"name": string,
-			"startLine": number,
-			"endLine": number,
-			"loc": number,
-			"file": string
-		}
-	]
+"root": string,
+"scannedFiles": number,
+"threshold": number,
+"fileStats": {
+"longestFile": { "path": string, "lines": number },
+"mean": number,
+"median": number,
+"stdDev": number
+},
+"functionStats": {
+"total": number,
+"mean": number,
+"median": number,
+"stdDev": number
+},
+"longFunctions": [
+{
+"name": string,
+"startLine": number,
+"endLine": number,
+"loc": number,
+"file": string
+}
+]
 }
 
 Notes:
+
 - The default exclusions include constants and types to match our folder conventions.
 - Only .ts and .tsx files are scanned by default (changeable in code if needed).
 
@@ -162,8 +164,8 @@ Scripts use relative imports to remain location-agnostic and to avoid build tool
 ## Next steps
 
 - Add CLI smoke tests that execute `import.meta.main` paths to close branch coverage gaps for:
-	- `enforceImports/aliasGuards/index.ts`
-	- `reportIgnored/index.ts`
+  - `enforceImports/aliasGuards/index.ts`
+  - `reportIgnored/index.ts`
 - Push coverage toward 100% by exercising edge cases in reporters and walkers.
 - Continue auditing `scripts/` to ensure every public function follows the one-function-per-folder convention.
 - Keep deno task definitions in sync with moved/renamed scripts.

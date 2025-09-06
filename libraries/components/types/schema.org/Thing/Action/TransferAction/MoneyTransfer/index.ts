@@ -12,7 +12,10 @@ export type MoneyTransferType = "MoneyTransfer"
 
 export interface MoneyTransferProps {
 	"@type"?: MoneyTransferType
-	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
+	amount?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
 	beneficiaryBank?:
 		| BankOrCreditUnion
 		| Text

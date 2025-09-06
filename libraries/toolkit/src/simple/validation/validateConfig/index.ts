@@ -59,7 +59,10 @@ type FieldSchema = {
 	max?: number
 	minLength?: number
 	maxLength?: number
-	validator?: (value: unknown, data?: Record<string, unknown>) => string | null
+	validator?: (
+		value: unknown,
+		data?: Record<string, unknown>,
+	) => string | null
 	transform?: (value: unknown) => unknown
 	coerce?: boolean
 	schema?: Record<string, FieldSchema>
@@ -122,7 +125,8 @@ const validateConfig = <T extends Record<string, unknown>>(
 					value = Number(value as number | string | boolean)
 					break
 				case "boolean":
-					value = (value as unknown) === "true" || value === true || value === 1
+					value = (value as unknown) === "true" || value === true ||
+						value === 1
 					break
 				case "string":
 					value = String(value as string | number | boolean)
@@ -184,17 +188,23 @@ const validateConfig = <T extends Record<string, unknown>>(
 		if (fieldSchema.type === "array") {
 			const arr = value as unknown[]
 			if (fieldSchema.minLength && arr.length < fieldSchema.minLength) {
-				errors[key] = `Array must have at least ${fieldSchema.minLength} items`
+				errors[key] =
+					`Array must have at least ${fieldSchema.minLength} items`
 				continue
 			}
 			if (fieldSchema.maxLength && arr.length > fieldSchema.maxLength) {
-				errors[key] = `Array must have at most ${fieldSchema.maxLength} items`
+				errors[key] =
+					`Array must have at most ${fieldSchema.maxLength} items`
 				continue
 			}
 			if (fieldSchema.items) {
 				const itemErrors: Record<number, string> = {}
 				for (let i = 0; i < arr.length; i++) {
-					const itemResult = validateField(arr[i], fieldSchema.items, result as Record<string, unknown>)
+					const itemResult = validateField(
+						arr[i],
+						fieldSchema.items,
+						result as Record<string, unknown>,
+					)
 					if (itemResult !== null) {
 						itemErrors[i] = itemResult
 					}
@@ -218,7 +228,10 @@ const validateConfig = <T extends Record<string, unknown>>(
 
 		// Custom validator
 		if (fieldSchema.validator) {
-			const validationError = fieldSchema.validator(value, result as Record<string, unknown>)
+			const validationError = fieldSchema.validator(
+				value,
+				result as Record<string, unknown>,
+			)
 			if (validationError) {
 				errors[key] = validationError
 				continue
@@ -240,28 +253,28 @@ const validateConfig = <T extends Record<string, unknown>>(
 	return { valid: true, data: result as T }
 }
 
-	function validateType(value: unknown, type: string): boolean {
+function validateType(value: unknown, type: string): boolean {
 	switch (type) {
 		case "string":
-				return typeof value === "string"
+			return typeof value === "string"
 		case "number":
-				return typeof value === "number" && !isNaN(value)
+			return typeof value === "number" && !isNaN(value)
 		case "boolean":
-				return typeof value === "boolean"
+			return typeof value === "boolean"
 		case "object":
-				return value !== null && typeof value === "object" &&
+			return value !== null && typeof value === "object" &&
 				!Array.isArray(value)
 		case "array":
-				return Array.isArray(value)
+			return Array.isArray(value)
 		default:
 			return false
 	}
 }
 
 function validateField(
-		value: unknown,
+	value: unknown,
 	schema: FieldSchema,
-		parentData: Record<string, unknown>,
+	parentData: Record<string, unknown>,
 ): string | null {
 	if (!validateType(value, schema.type)) {
 		return `Expected ${schema.type}`

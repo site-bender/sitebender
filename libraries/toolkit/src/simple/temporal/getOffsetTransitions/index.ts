@@ -137,7 +137,7 @@ const getOffsetTransitions = (timeZone: string) =>
 	}
 
 	try {
-	const _transitions: Array<{
+		const _transitions: Array<{
 			date: Temporal.PlainDate
 			offsetBefore: string
 			offsetAfter: string
@@ -176,9 +176,11 @@ const getOffsetTransitions = (timeZone: string) =>
 							date: current,
 							offsetBefore: prevOffset,
 							offsetAfter: currentOffset,
-							type: (prevOffset < currentOffset ? "forward" : "backward") as
-								| "forward"
-								| "backward",
+							type: (prevOffset < currentOffset
+								? "forward"
+								: "backward") as
+									| "forward"
+									| "backward",
 						}]
 						: acc
 

@@ -22,7 +22,15 @@ describe("unflatten", () => {
 		})
 
 		it("handles multiple nesting levels", () => {
-			const result = unflatten([0, 1, 2, 3, 2, 1, 0])([1, 2, 3, 4, 5, 6, 7])
+			const result = unflatten([0, 1, 2, 3, 2, 1, 0])([
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+			])
 			expect(result).toEqual([1, [2, [3, [4], 5], 6], 7])
 		})
 
@@ -35,17 +43,20 @@ describe("unflatten", () => {
 		it("handles menu hierarchy", () => {
 			const items = ["File", "New", "Open", "Edit", "Cut", "Copy"]
 			const result = unflatten([0, 1, 1, 0, 1, 1])(items)
-			expect(result).toEqual(["File", ["New", "Open"], "Edit", ["Cut", "Copy"]])
+			expect(result).toEqual(["File", ["New", "Open"], "Edit", [
+				"Cut",
+				"Copy",
+			]])
 		})
 
 		it("handles empty arrays", () => {
-			expect(unflatten([])([])). toEqual([])
-			expect(unflatten([1, 2, 3])([])). toEqual([])
-			expect(unflatten([])(["a", "b", "c"])). toEqual([])
+			expect(unflatten([])([])).toEqual([])
+			expect(unflatten([1, 2, 3])([])).toEqual([])
+			expect(unflatten([])(["a", "b", "c"])).toEqual([])
 		})
 
 		it("handles single element", () => {
-			expect(unflatten([0])([42])). toEqual([42])
+			expect(unflatten([0])([42])).toEqual([42])
 			// With depth 1, it creates nested array
 			const depth1 = unflatten([1])([42])
 			expect(depth1.length).toBe(1)
@@ -70,7 +81,7 @@ describe("unflatten", () => {
 		})
 
 		it("handles jagged depth patterns", () => {
-			// Mixed depth levels  
+			// Mixed depth levels
 			const result = unflatten([0, 2, 0, 1, 0])([1, 2, 3, 4, 5])
 			expect(Array.isArray(result)).toBe(true)
 			expect(result.length).toBe(5) // 5 top-level elements
@@ -98,7 +109,7 @@ describe("unflatten", () => {
 
 		it("handles mixed types", () => {
 			const result = unflatten([0, 1, 1, 0, 1])(
-				[1, "two", true, null, { id: 5 }]
+				[1, "two", true, null, { id: 5 }],
 			)
 			expect(result).toEqual([1, ["two", true], null, [{ id: 5 }]])
 		})
@@ -195,7 +206,7 @@ describe("unflatten", () => {
 						const result = unflatten(depths)(values)
 						// All depth 0 means flat array
 						return result.length === minLen &&
-							result.every(item => !Array.isArray(item))
+							result.every((item) => !Array.isArray(item))
 					},
 				),
 			)
@@ -210,23 +221,29 @@ describe("unflatten", () => {
 						const depths = Array.from({ length: n }, (_, i) => i)
 						const values = Array.from({ length: n }, (_, i) => i)
 						const result = unflatten(depths)(values)
-						
+
 						// Should create nested structure where each element
 						// is deeper than the previous
-						const checkNesting = (arr: any[], expectedDepth: number): boolean => {
+						const checkNesting = (
+							arr: any[],
+							expectedDepth: number,
+						): boolean => {
 							if (expectedDepth >= n) return true
-							if (!Array.isArray(arr) || arr.length === 0) return false
-							
-							if (expectedDepth === 0) {
-								return arr[0] === 0 && 
-									(arr.length === 1 || checkNesting(arr[1], 1))
+							if (!Array.isArray(arr) || arr.length === 0) {
+								return false
 							}
-							
-							return Array.isArray(arr[0]) 
+
+							if (expectedDepth === 0) {
+								return arr[0] === 0 &&
+									(arr.length === 1 ||
+										checkNesting(arr[1], 1))
+							}
+
+							return Array.isArray(arr[0])
 								? checkNesting(arr[0], expectedDepth)
 								: false
 						}
-						
+
 						return Array.isArray(result)
 					},
 				),
@@ -236,12 +253,15 @@ describe("unflatten", () => {
 		it("preserves all values up to minimum length", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.nat({ max: 3 }), { minLength: 1, maxLength: 20 }),
+					fc.array(fc.nat({ max: 3 }), {
+						minLength: 1,
+						maxLength: 20,
+					}),
 					fc.array(fc.string(), { minLength: 1, maxLength: 20 }),
 					(depths, values) => {
 						const result = unflatten(depths)(values)
 						const minLen = Math.min(depths.length, values.length)
-						
+
 						// Flatten the result to count values
 						const flattenResult = (arr: any[]): any[] => {
 							return arr.reduce((acc, val) => {
@@ -251,7 +271,7 @@ describe("unflatten", () => {
 								return acc.concat(val)
 							}, [])
 						}
-						
+
 						const flattened = flattenResult(result)
 						// Should have exactly minLen values
 						return flattened.length === minLen

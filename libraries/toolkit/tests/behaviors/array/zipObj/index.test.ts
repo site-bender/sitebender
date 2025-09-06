@@ -28,11 +28,21 @@ describe("zipObj", () => {
 		})
 
 		it("should create configuration object from arrays", () => {
-			const settingNames = ["theme", "fontSize", "autoSave", "notifications"]
+			const settingNames = [
+				"theme",
+				"fontSize",
+				"autoSave",
+				"notifications",
+			]
 			const settingValues = ["dark", 14, true, false] as const
 			assertEquals(
 				zipObj(settingValues)(settingNames),
-				{ theme: "dark", fontSize: 14, autoSave: true, notifications: false },
+				{
+					theme: "dark",
+					fontSize: 14,
+					autoSave: true,
+					notifications: false,
+				},
 			)
 		})
 
@@ -141,7 +151,10 @@ describe("zipObj", () => {
 
 		it("should handle non-array inputs", () => {
 			assertEquals(zipObj([1, 2])("not an array" as any), {})
-			assertEquals(zipObj("not an array" as any)(["a", "b"]), { a: undefined, b: undefined })
+			assertEquals(zipObj("not an array" as any)(["a", "b"]), {
+				a: undefined,
+				b: undefined,
+			})
 			assertEquals(zipObj([1, 2])(123 as any), {})
 			assertEquals(zipObj([1, 2])({} as any), {})
 		})
@@ -161,7 +174,13 @@ describe("zipObj", () => {
 
 		it("should handle special numeric values", () => {
 			assertEquals(
-				zipObj([Infinity, -Infinity, NaN, 0, -0])(["inf", "negInf", "nan", "zero", "negZero"]),
+				zipObj([Infinity, -Infinity, NaN, 0, -0])([
+					"inf",
+					"negInf",
+					"nan",
+					"zero",
+					"negZero",
+				]),
 				{
 					inf: Infinity,
 					negInf: -Infinity,
@@ -253,7 +272,9 @@ describe("zipObj", () => {
 					(keys, values) => {
 						const result = zipObj(values)(keys)
 						for (let i = 0; i < keys.length; i++) {
-							const expected = i < values.length ? values[i] : undefined
+							const expected = i < values.length
+								? values[i]
+								: undefined
 							if (result[keys[i]] !== expected) {
 								return false
 							}
@@ -286,7 +307,9 @@ describe("zipObj", () => {
 					fc.array(fc.string(), { minLength: 1, maxLength: 10 }),
 					(keys) => {
 						const result = zipObj([])(keys)
-						return Object.values(result).every((v) => v === undefined)
+						return Object.values(result).every((v) =>
+							v === undefined
+						)
 					},
 				),
 			)
@@ -295,12 +318,15 @@ describe("zipObj", () => {
 		it("should be reversible with Object.entries for unique keys", () => {
 			fc.assert(
 				fc.property(
-					fc.uniqueArray(fc.string(), { minLength: 1, maxLength: 10 }),
+					fc.uniqueArray(fc.string(), {
+						minLength: 1,
+						maxLength: 10,
+					}),
 					fc.array(fc.integer()),
 					(keys, values) => {
 						const obj = zipObj(values)(keys)
 						const entries = Object.entries(obj)
-						
+
 						// Reconstruct keys and values from object
 						const reconstructedKeys = entries.map(([k]) => k)
 						const reconstructedValues = entries.map(([, v]) => v)
@@ -314,10 +340,15 @@ describe("zipObj", () => {
 						}
 
 						// Check values match up to keys length
-						const expectedLength = Math.min(keys.length, values.length)
+						const expectedLength = Math.min(
+							keys.length,
+							values.length,
+						)
 						for (let i = 0; i < expectedLength; i++) {
 							const keyIndex = reconstructedKeys.indexOf(keys[i])
-							if (reconstructedValues[keyIndex] !== values[i]) return false
+							if (reconstructedValues[keyIndex] !== values[i]) {
+								return false
+							}
 						}
 
 						return true
@@ -350,17 +381,30 @@ describe("zipObj", () => {
 		})
 
 		it("should match configuration object example", () => {
-			const settingNames = ["theme", "fontSize", "autoSave", "notifications"]
+			const settingNames = [
+				"theme",
+				"fontSize",
+				"autoSave",
+				"notifications",
+			]
 			const settingValues = ["dark", 14, true, false] as const
 			assertEquals(
 				zipObj(settingValues)(settingNames),
-				{ theme: "dark", fontSize: 14, autoSave: true, notifications: false },
+				{
+					theme: "dark",
+					fontSize: 14,
+					autoSave: true,
+					notifications: false,
+				},
 			)
 		})
 
 		it("should match null/undefined handling examples", () => {
 			assertEquals(zipObj([1, 2, 3])(null), {})
-			assertEquals(zipObj(null)(["a", "b"]), { a: undefined, b: undefined })
+			assertEquals(zipObj(null)(["a", "b"]), {
+				a: undefined,
+				b: undefined,
+			})
 		})
 	})
 })

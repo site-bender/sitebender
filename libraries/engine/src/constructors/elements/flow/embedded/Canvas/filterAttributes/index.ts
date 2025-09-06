@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { CanvasElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: CanvasElementAttributes) {
-
 	const {
 		id,
 		height,
@@ -43,7 +42,10 @@ export default function filterAttributes(attributes: CanvasElementAttributes) {
 
 	// Add canvas-specific attributes
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -79,5 +81,4 @@ export default function filterAttributes(attributes: CanvasElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

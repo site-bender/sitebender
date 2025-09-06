@@ -111,12 +111,12 @@ describe("slice", () => {
 			const obj2 = { value: 2 }
 			const input = [obj1, obj2]
 			const result = slice(0)(undefined)(input)
-			
+
 			// New array but same object references
 			assert(result !== input)
 			assertEquals(result[0], obj1)
 			assertEquals(result[1], obj2)
-			
+
 			// Modifying object affects both arrays
 			obj1.value = 99
 			assertEquals(input[0].value, 99)
@@ -161,8 +161,8 @@ describe("slice", () => {
 					(arr, start, end) => {
 						const result = slice(start)(end)(arr)
 						return result.length <= arr.length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -175,9 +175,9 @@ describe("slice", () => {
 					(arr, start, end) => {
 						if (start >= arr.length) return true // Will be empty
 						const result = slice(start)(end)(arr)
-						return result.every(item => arr.includes(item))
-					}
-				)
+						return result.every((item) => arr.includes(item))
+					},
+				),
 			)
 		})
 
@@ -190,7 +190,7 @@ describe("slice", () => {
 					(arr, start, end) => {
 						const result = slice(start)(end)(arr)
 						if (result.length <= 1) return true
-						
+
 						// Check that elements maintain their relative order
 						for (let i = 0; i < result.length - 1; i++) {
 							const idx1 = arr.indexOf(result[i])
@@ -198,8 +198,8 @@ describe("slice", () => {
 							if (idx2 < idx1) return false
 						}
 						return true
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -208,13 +208,17 @@ describe("slice", () => {
 				fc.property(
 					fc.array(fc.anything()),
 					fc.integer({ min: -100, max: 100 }),
-					fc.oneof(fc.integer({ min: -100, max: 100 }), fc.constant(undefined)),
+					fc.oneof(
+						fc.integer({ min: -100, max: 100 }),
+						fc.constant(undefined),
+					),
 					(arr, start, end) => {
 						const result1 = slice(start)(end)(arr)
 						const result2 = arr.slice(start, end)
-						return JSON.stringify(result1) === JSON.stringify(result2)
-					}
-				)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
+					},
+				),
 			)
 		})
 
@@ -226,8 +230,8 @@ describe("slice", () => {
 					(arr, idx) => {
 						const result = slice(idx)(idx)(arr)
 						return Array.isArray(result) && result.length === 0
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -242,9 +246,10 @@ describe("slice", () => {
 						const partial2 = partial1(end)
 						const result1 = partial2(arr)
 						const result2 = slice(start)(end)(arr)
-						return JSON.stringify(result1) === JSON.stringify(result2)
-					}
-				)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
+					},
+				),
 			)
 		})
 
@@ -255,8 +260,8 @@ describe("slice", () => {
 					(arr) => {
 						const result = slice(0)(undefined)(arr)
 						return result !== arr // Different array instance
-					}
-				)
+					},
+				),
 			)
 		})
 	})

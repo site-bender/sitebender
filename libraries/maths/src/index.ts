@@ -1,6 +1,6 @@
 /**
  * @module @sitebender/maths
- * 
+ *
  * Pure TypeScript formula parser for mathematical expressions.
  * Compiles formula strings to @sitebender/engine configuration objects.
  */

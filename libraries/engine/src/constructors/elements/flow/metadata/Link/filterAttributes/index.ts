@@ -19,7 +19,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { LinkElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: LinkElementAttributes) {
-
 	const {
 		id,
 		as,
@@ -64,7 +63,9 @@ export default function filterAttributes(attributes: LinkElementAttributes) {
 	if (isDefined(crossorigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossorigin,
+			),
 		)
 	}
 	if (isDefined(href)) {
@@ -109,5 +110,4 @@ export default function filterAttributes(attributes: LinkElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

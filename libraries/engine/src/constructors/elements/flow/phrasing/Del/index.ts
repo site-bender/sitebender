@@ -34,7 +34,6 @@ export type DelElementAttributes = DeletedTextAttributes & AriaAttributes & {
  * Allows global attributes and validates del-specific attributes
  */
 
-
 /**
  * Creates a Del element configuration object
  *

@@ -84,9 +84,9 @@ export default function DateComponent({
 
 		// Determine format options
 		const options = formatOptions || {
-				dateStyle: format === "iso"
-					? undefined
-					: (format as Exclude<typeof format, "iso" | "relative">),
+			dateStyle: format === "iso"
+				? undefined
+				: (format as Exclude<typeof format, "iso" | "relative">),
 			...(format === "iso" && {
 				year: "numeric",
 				month: "2-digit",
@@ -99,9 +99,9 @@ export default function DateComponent({
 		display = formatDate(date, locale, options)
 		// Fallback if formatting fails
 		if (!display) {
-			display = `${parsed.year}-${String(parsed.month).padStart(2, "0")}-${
-				String(parsed.day).padStart(2, "0")
-			}`
+			display = `${parsed.year}-${
+				String(parsed.month).padStart(2, "0")
+			}-${String(parsed.day).padStart(2, "0")}`
 		}
 	}
 

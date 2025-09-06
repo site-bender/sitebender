@@ -187,9 +187,9 @@ describe("transpose", () => {
 				[4, 5, 6],
 			]
 			const copy = JSON.parse(JSON.stringify(original))
-			
+
 			transpose(original)
-			
+
 			expect(original).toEqual(copy)
 		})
 
@@ -229,13 +229,18 @@ describe("transpose", () => {
 					fc.integer({ min: 1, max: 10 }),
 					(size) => {
 						// Generate square matrix
-						const matrix = Array.from({ length: size }, (_, i) =>
-							Array.from({ length: size }, (_, j) => i * size + j)
+						const matrix = Array.from(
+							{ length: size },
+							(_, i) =>
+								Array.from(
+									{ length: size },
+									(_, j) => i * size + j,
+								),
 						)
-						
+
 						const transposed = transpose(matrix)
 						const doubleTransposed = transpose(transposed)
-						
+
 						return doubleTransposed.length === matrix.length &&
 							doubleTransposed.every((row, i) =>
 								row.every((val, j) => val === matrix[i][j])
@@ -251,14 +256,19 @@ describe("transpose", () => {
 					fc.integer({ min: 1, max: 10 }),
 					fc.integer({ min: 1, max: 10 }),
 					(rows, cols) => {
-						const matrix = Array.from({ length: rows }, () =>
-							Array.from({ length: cols }, () => Math.random())
+						const matrix = Array.from(
+							{ length: rows },
+							() =>
+								Array.from(
+									{ length: cols },
+									() => Math.random(),
+								),
 						)
-						
+
 						const result = transpose(matrix)
-						
+
 						return result.length === cols &&
-							result.every(row => row.length === rows)
+							result.every((row) => row.length === rows)
 					},
 				),
 			)
@@ -270,12 +280,17 @@ describe("transpose", () => {
 					fc.integer({ min: 1, max: 10 }),
 					fc.integer({ min: 1, max: 10 }),
 					(rows, cols) => {
-						const matrix = Array.from({ length: rows }, (_, i) =>
-							Array.from({ length: cols }, (_, j) => `${i},${j}`)
+						const matrix = Array.from(
+							{ length: rows },
+							(_, i) =>
+								Array.from(
+									{ length: cols },
+									(_, j) => `${i},${j}`,
+								),
 						)
-						
+
 						const result = transpose(matrix)
-						
+
 						for (let i = 0; i < rows; i++) {
 							for (let j = 0; j < cols; j++) {
 								if (result[j][i] !== matrix[i][j]) {
@@ -298,17 +313,19 @@ describe("transpose", () => {
 					),
 					(matrix) => {
 						const result = transpose(matrix)
-						
+
 						// Find max length in original
-						const maxLen = Math.max(...matrix.map(row => row.length))
-						
+						const maxLen = Math.max(
+							...matrix.map((row) => row.length),
+						)
+
 						// Result should have maxLen rows
 						if (maxLen === 0) {
 							return result.length === 0
 						}
-						
+
 						return result.length === maxLen &&
-							result.every(row => row.length === matrix.length)
+							result.every((row) => row.length === matrix.length)
 					},
 				),
 			)
@@ -331,13 +348,15 @@ describe("transpose", () => {
 					),
 					(matrix) => {
 						const result = transpose(matrix)
-						
+
 						// Check that all non-undefined values maintain their type
 						for (let i = 0; i < result.length; i++) {
 							for (let j = 0; j < result[i].length; j++) {
-								if (result[i][j] !== undefined && 
-									matrix[j] && 
-									i < matrix[j].length) {
+								if (
+									result[i][j] !== undefined &&
+									matrix[j] &&
+									i < matrix[j].length
+								) {
 									const original = matrix[j][i]
 									const transposed = result[i][j]
 									if (original !== transposed) {

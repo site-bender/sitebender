@@ -9,7 +9,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputRangeAttributes) {
-
 	const {
 		autocomplete,
 		autofocus,
@@ -27,7 +26,9 @@ export default function filterAttributes(attributes: InputRangeAttributes) {
 
 	return {
 		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+			autocomplete,
+		),
 		...filterAttribute(isBoolean)("autofocus")(autofocus),
 		...filterAttribute(isBoolean)("disabled")(disabled),
 		...filterAttribute(isString)("form")(form),
@@ -38,5 +39,4 @@ export default function filterAttributes(attributes: InputRangeAttributes) {
 		...filterAttribute(isNumber)("step")(step),
 		...filterAttribute(isString)("value")(value),
 	}
-
 }

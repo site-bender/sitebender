@@ -445,7 +445,9 @@ function createPrefetchManager(
 	}
 
 	const processQueue = (): void => {
-		if (state.queue.length > 0 && state.active.size < budget.maxConcurrent) {
+		if (
+			state.queue.length > 0 && state.active.size < budget.maxConcurrent
+		) {
 			const [next, ...rest] = state.queue
 			state = { ...state, queue: rest }
 			if (next) prefetch(next)
@@ -501,7 +503,9 @@ function createPrefetchMonitor() {
 
 	const recordUsage = (href: string): PrefetchMetrics => {
 		const newUsed = metrics.used + 1
-		const hitRate = metrics.successful > 0 ? newUsed / metrics.successful : 0
+		const hitRate = metrics.successful > 0
+			? newUsed / metrics.successful
+			: 0
 
 		metrics = {
 			...metrics,

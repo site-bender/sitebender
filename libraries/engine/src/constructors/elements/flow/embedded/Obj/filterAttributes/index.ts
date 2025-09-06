@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ObjElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ObjElementAttributes) {
-
 	const {
 		id,
 		data,
@@ -50,7 +49,10 @@ export default function filterAttributes(attributes: ObjElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("data")(data))
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(name)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
@@ -59,7 +61,10 @@ export default function filterAttributes(attributes: ObjElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("type")(type))
 	}
 	if (isDefined(useMap)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("usemap")(useMap))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("usemap")(useMap),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -95,5 +100,4 @@ export default function filterAttributes(attributes: ObjElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

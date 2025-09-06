@@ -4,7 +4,9 @@ export default async function watchForChanges(
 	const watcher = Deno.watchFs(["assets", "pages", "sites", "tests"])
 	const script = buildScript || "scripts/build/index.ts"
 
-	console.log("👀 Watching assets/, pages/, sites/, and tests/ for changes...")
+	console.log(
+		"👀 Watching assets/, pages/, sites/, and tests/ for changes...",
+	)
 
 	for await (const event of watcher) {
 		if (

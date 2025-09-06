@@ -62,16 +62,18 @@ export const isValue = (val: unknown): val is Value => {
 	if (isNullish(val)) return true
 
 	const type = typeof val
-	if (type === "string" || type === "number" || type === "boolean") return true
+	if (type === "string" || type === "number" || type === "boolean") {
+		return true
+	}
 
 	if (Array.isArray(val)) {
 		return val.every(isValue)
 	}
 
 	if (val instanceof Map) {
-		return Array.from(val.entries()).every((([k, v]) =>
-			typeof k === "string" && isValue(v)
-		))
+		return Array.from(val.entries()).every(
+			([k, v]) => typeof k === "string" && isValue(v),
+		)
 	}
 
 	if (val instanceof Set) {
@@ -90,9 +92,9 @@ export const isValue = (val: unknown): val is Value => {
 
 	if (type === "object" && isNotNull(val)) {
 		// Plain object with string keys only
-		return Object.entries(val as Record<string, unknown>).every((([k, v]) =>
-			typeof k === "string" && isValue(v)
-		))
+		return Object.entries(val as Record<string, unknown>).every(
+			([k, v]) => typeof k === "string" && isValue(v),
+		)
 	}
 
 	return false

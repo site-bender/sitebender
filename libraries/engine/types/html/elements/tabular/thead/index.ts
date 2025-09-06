@@ -8,7 +8,10 @@ import type { TableRowElement } from "../tr/index.ts"
 
 export interface TableHeaderElement {
 	attributes?: Override<
-		Omit<Partial<HTMLTableSectionElement>, "align" | "ch" | "chOff" | "vAlign">,
+		Omit<
+			Partial<HTMLTableSectionElement>,
+			"align" | "ch" | "chOff" | "vAlign"
+		>,
 		GlobalAttributeOverrides & {
 			role?: AriaRole
 		}

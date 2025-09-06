@@ -177,7 +177,8 @@ describe("range", () => {
 					(start, length) => {
 						const end = start + length
 						const result = range(start)(end)
-						return result.length > 0 && result[result.length - 1] === end - 1
+						return result.length > 0 &&
+							result[result.length - 1] === end - 1
 					},
 				),
 			)

@@ -76,7 +76,8 @@ const waterfall =
 		if (isEmpty(tasks)) {
 			return initial as unknown as T extends ReadonlyArray<
 				(...args: unknown[]) => Promise<infer R>
-			> ? R : O
+			> ? R
+				: O
 		}
 
 		// Execute tasks in sequence using reduce

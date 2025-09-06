@@ -96,7 +96,9 @@ export interface OfferProps {
 		| Text
 		| ReturnType<typeof LoanOrCreditComponent>
 		| ReturnType<typeof PaymentMethodComponent>
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	addOn?: Offer | ReturnType<typeof OfferComponent>
 	advanceBookingRequirement?:
 		| QuantitativeValue
@@ -113,7 +115,9 @@ export interface OfferProps {
 		| ReturnType<typeof GeoShapeComponent>
 		| ReturnType<typeof PlaceComponent>
 	asin?: Text | URL
-	availability?: ItemAvailability | ReturnType<typeof ItemAvailabilityComponent>
+	availability?:
+		| ItemAvailability
+		| ReturnType<typeof ItemAvailabilityComponent>
 	availabilityEnds?: Date | DateTime | Time
 	availabilityStarts?: Date | DateTime | Time
 	availableAtOrFrom?: Place | ReturnType<typeof PlaceComponent>

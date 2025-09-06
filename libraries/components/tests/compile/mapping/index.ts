@@ -136,7 +136,9 @@ Deno.test("compileToEngine compiles comparator markers inside action args", () =
 			children: Publish({
 				topic: "debug",
 				payload: NotEmpty({
-					children: FromElement({ id: "val" }) as unknown as JSX.Element,
+					children: FromElement({
+						id: "val",
+					}) as unknown as JSX.Element,
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -164,7 +166,10 @@ Deno.test("compileToEngine wraps primitives as Constant injectors with correct d
 	]
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
-	const [keyNode, valueNode] = evt.handler.args as [InjectorNode, InjectorNode]
+	const [keyNode, valueNode] = evt.handler.args as [
+		InjectorNode,
+		InjectorNode,
+	]
 	assertEquals(keyNode.kind, "injector")
 	assertEquals(keyNode.injector, "From.Constant")
 	assertEquals(keyNode.args.value, "foo")

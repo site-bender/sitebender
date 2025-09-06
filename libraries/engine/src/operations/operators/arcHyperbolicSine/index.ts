@@ -8,19 +8,20 @@ import type {
 
 import { isLeft } from "../../../../types/index.ts"
 
-const arcHyperbolicSine =
-	({ operand, ..._op }: HydratedArcHyperbolicSine): OperationFunction<number> =>
-	async (
-		arg: unknown,
-		localValues?: LocalValues,
-	): Promise<Either<Array<EngineError>, number>> => {
-		const resolvedOperand = await operand(arg, localValues)
+const arcHyperbolicSine = (
+	{ operand, ..._op }: HydratedArcHyperbolicSine,
+): OperationFunction<number> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<EngineError>, number>> => {
+	const resolvedOperand = await operand(arg, localValues)
 
-		if (isLeft(resolvedOperand)) {
-			return resolvedOperand
-		}
-
-		return { right: Math.asinh(resolvedOperand.right) }
+	if (isLeft(resolvedOperand)) {
+		return resolvedOperand
 	}
+
+	return { right: Math.asinh(resolvedOperand.right) }
+}
 
 export default arcHyperbolicSine

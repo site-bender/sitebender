@@ -67,7 +67,7 @@ const countBy = <T, K extends string | number | symbol>(
 			return Object.assign(
 				Object.create(null),
 				acc,
-				{ [key]: (acc[key] || 0) + 1 }
+				{ [key]: (acc[key] || 0) + 1 },
 			) as Record<K, number>
 		}
 		return acc

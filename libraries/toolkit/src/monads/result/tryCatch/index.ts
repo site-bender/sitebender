@@ -28,7 +28,10 @@ import right from "../../either/right/index.ts"
  * // err("Parse error: SyntaxError...")
  * ```
  */
-const tryCatch = <T, E>(fn: () => T, onError: (error: unknown) => E): Result<T, E> => {
+const tryCatch = <T, E>(
+	fn: () => T,
+	onError: (error: unknown) => E,
+): Result<T, E> => {
 	try {
 		return right(fn()) as unknown as Result<T, E>
 	} catch (err) {

@@ -53,7 +53,10 @@ export interface SpecialAnnouncementProps {
 		| ReturnType<typeof DatasetComponent>
 		| ReturnType<typeof ObservationComponent>
 		| ReturnType<typeof WebContentComponent>
-	gettingTestedInfo?: URL | WebContent | ReturnType<typeof WebContentComponent>
+	gettingTestedInfo?:
+		| URL
+		| WebContent
+		| ReturnType<typeof WebContentComponent>
 	governmentBenefitsInfo?:
 		| GovernmentService
 		| ReturnType<typeof GovernmentServiceComponent>
@@ -69,7 +72,10 @@ export interface SpecialAnnouncementProps {
 		| URL
 		| WebContent
 		| ReturnType<typeof WebContentComponent>
-	schoolClosuresInfo?: URL | WebContent | ReturnType<typeof WebContentComponent>
+	schoolClosuresInfo?:
+		| URL
+		| WebContent
+		| ReturnType<typeof WebContentComponent>
 	travelBans?: URL | WebContent | ReturnType<typeof WebContentComponent>
 	webFeed?: DataFeed | URL | ReturnType<typeof DataFeedComponent>
 }

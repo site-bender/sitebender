@@ -57,7 +57,11 @@ Deno.test("findIndices", async (t) => {
 		)(["a", "b", "c"])
 
 		assertEquals(indices, [0, 1, 2])
-		assertEquals(arrays, [["a", "b", "c"], ["a", "b", "c"], ["a", "b", "c"]])
+		assertEquals(arrays, [["a", "b", "c"], ["a", "b", "c"], [
+			"a",
+			"b",
+			"c",
+		]])
 	})
 
 	await t.step("finds all truthy value indices", () => {
@@ -91,15 +95,22 @@ Deno.test("findIndices", async (t) => {
 		assertEquals(findIndices(isNaN)([1, NaN, 2, NaN, 3]), [1, 3])
 
 		const isInfinity = (x: number) => x === Infinity
-		assertEquals(findIndices(isInfinity)([1, Infinity, -Infinity, Infinity]), [
-			1,
-			3,
-		])
+		assertEquals(
+			findIndices(isInfinity)([1, Infinity, -Infinity, Infinity]),
+			[
+				1,
+				3,
+			],
+		)
 	})
 
 	await t.step("finds indices based on position", () => {
 		const isEvenIndex = (_: unknown, index: number) => index % 2 === 0
-		assertEquals(findIndices(isEvenIndex)(["a", "b", "c", "d", "e"]), [0, 2, 4])
+		assertEquals(findIndices(isEvenIndex)(["a", "b", "c", "d", "e"]), [
+			0,
+			2,
+			4,
+		])
 	})
 
 	await t.step("finds indices relative to array length", () => {
@@ -161,7 +172,9 @@ Deno.test("findIndices", async (t) => {
 						const indices = findIndices(predicate)(arr)
 
 						// All indices are valid
-						const allValid = indices.every((i) => i >= 0 && i < arr.length)
+						const allValid = indices.every((i) =>
+							i >= 0 && i < arr.length
+						)
 
 						// Indices are in ascending order
 						const isAscending = indices.every((val, i, arr) =>
@@ -191,7 +204,8 @@ Deno.test("findIndices", async (t) => {
 							.map((val, idx) => predicate(val) ? idx : -1)
 							.filter((idx) => idx !== -1)
 
-						return JSON.stringify(indices) === JSON.stringify(expectedIndices)
+						return JSON.stringify(indices) ===
+							JSON.stringify(expectedIndices)
 					},
 				),
 			)
@@ -238,7 +252,8 @@ Deno.test("findIndices", async (t) => {
 					(arr) => {
 						const indices = findIndices(() => true)(arr)
 						const expected = arr.map((_, i) => i)
-						return JSON.stringify(indices) === JSON.stringify(expected)
+						return JSON.stringify(indices) ===
+							JSON.stringify(expected)
 					},
 				),
 			)

@@ -1,1 +1,4 @@
-export type { default, PhysicianType } from "../../../MedicalOrganization/Physician/index.ts"
+export type {
+	default,
+	PhysicianType,
+} from "../../../MedicalOrganization/Physician/index.ts"

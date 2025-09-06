@@ -14,7 +14,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { MetaElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: MetaElementAttributes) {
-
 	const {
 		id,
 		charSet: charset,
@@ -47,10 +46,16 @@ export default function filterAttributes(attributes: MetaElementAttributes) {
 
 	// Add meta-specific attributes
 	if (isDefined(charset)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("charSet")(charset))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("charSet")(charset),
+		)
 	}
 	if (isDefined(content)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("content")(content))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("content")(content),
+		)
 	}
 	if (isDefined(httpEquiv)) {
 		Object.assign(
@@ -74,5 +79,4 @@ export default function filterAttributes(attributes: MetaElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

@@ -110,7 +110,7 @@ Deno.test("rotateRight: preserves array immutability", () => {
 
 Deno.test("rotateRight: is properly curried", () => {
 	const rotateByTwo = rotateRight(2)
-	
+
 	assertEquals(rotateByTwo([1, 2, 3]), [2, 3, 1])
 	assertEquals(rotateByTwo(["a", "b", "c"]), ["b", "c", "a"])
 })
@@ -151,7 +151,7 @@ Deno.test("rotateRight: type inference", () => {
 	const numArray = [1, 2, 3]
 	const numResult = rotateRight(1)(numArray)
 	assertType<IsExact<typeof numResult, number[]>>(true)
-	
+
 	const strArray = ["a", "b", "c"]
 	const strResult = rotateRight(2)(strArray)
 	assertType<IsExact<typeof strResult, string[]>>(true)
@@ -181,7 +181,8 @@ Deno.test("rotateRight: property - contains same elements", () => {
 				// Sort to compare contents regardless of order
 				const sortedOriginal = [...array].sort((a, b) => a - b)
 				const sortedResult = [...result].sort((a, b) => a - b)
-				return JSON.stringify(sortedOriginal) === JSON.stringify(sortedResult)
+				return JSON.stringify(sortedOriginal) ===
+					JSON.stringify(sortedResult)
 			},
 		),
 	)
@@ -229,4 +230,3 @@ Deno.test("rotateRight: property - composition of rotations", () => {
 		),
 	)
 })
-

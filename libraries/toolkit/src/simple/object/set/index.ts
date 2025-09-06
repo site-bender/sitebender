@@ -77,16 +77,20 @@ const set =
 
 			// Handle arrays
 			if (Array.isArray(initializedCurrent)) {
-				const index = typeof key === "number" ? key : parseInt(String(key), 10)
+				const index = typeof key === "number"
+					? key
+					: parseInt(String(key), 10)
 				if (isNaN(index)) {
 					// Key is not numeric for array, convert to object
-					const obj: Record<string, Value> = initializedCurrent.reduce(
-						(acc, val, i) => {
-							(acc as Record<string, Value>)[String(i)] = val as Value
-							return acc
-						},
-						{} as Record<string, Value>,
-					)
+					const obj: Record<string, Value> = initializedCurrent
+						.reduce(
+							(acc, val, i) => {
+								;(acc as Record<string, Value>)[String(i)] =
+									val as Value
+								return acc
+							},
+							{} as Record<string, Value>,
+						)
 					return {
 						...obj,
 						[key]: isLastKey ? value : setRecursive(obj[key], rest),
@@ -99,11 +103,15 @@ const set =
 				)
 					.fill(undefined)
 					.map((_, i) =>
-						i < initializedCurrent.length ? initializedCurrent[i] : undefined
+						i < initializedCurrent.length
+							? initializedCurrent[i]
+							: undefined
 					)
 
 				return extendedArray.map((item, i) =>
-					i === index ? (isLastKey ? value : setRecursive(item, rest)) : item
+					i === index
+						? (isLastKey ? value : setRecursive(item, rest))
+						: item
 				)
 			}
 
@@ -112,17 +120,17 @@ const set =
 				const strKey = String(key)
 				return {
 					...initializedCurrent,
-					[strKey]: isLastKey
-						? value
-						: setRecursive(
-							(initializedCurrent as Record<string, Value>)[strKey],
-							rest,
-						),
+					[strKey]: isLastKey ? value : setRecursive(
+						(initializedCurrent as Record<string, Value>)[strKey],
+						rest,
+					),
 				}
 			}
 
 			// Current is a primitive, need to replace with object/array
-			const nextContainer = rest.length > 0 && shouldBeArray(rest[0]) ? [] : {}
+			const nextContainer = rest.length > 0 && shouldBeArray(rest[0])
+				? []
+				: {}
 			return {
 				[key]: isLastKey ? value : setRecursive(nextContainer, rest),
 			}

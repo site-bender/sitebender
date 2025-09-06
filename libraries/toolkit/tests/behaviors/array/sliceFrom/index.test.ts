@@ -60,7 +60,11 @@ describe("sliceFrom", () => {
 		})
 
 		it("should work with string arrays", () => {
-			assertEquals(sliceFrom(1)(3)(["a", "b", "c", "d", "e"]), ["b", "c", "d"])
+			assertEquals(sliceFrom(1)(3)(["a", "b", "c", "d", "e"]), [
+				"b",
+				"c",
+				"d",
+			])
 		})
 
 		it("should work with object arrays", () => {
@@ -120,12 +124,12 @@ describe("sliceFrom", () => {
 			const obj3 = { value: 3 }
 			const input = [obj1, obj2, obj3]
 			const result = sliceFrom(1)(2)(input)
-			
+
 			// New array but same object references
 			assert(result !== input)
 			assertEquals(result[0], obj2)
 			assertEquals(result[1], obj3)
-			
+
 			// Modifying object affects both arrays
 			obj2.value = 99
 			assertEquals(input[1].value, 99)
@@ -181,8 +185,8 @@ describe("sliceFrom", () => {
 					(arr, start, length) => {
 						const result = sliceFrom(start)(length)(arr)
 						return result.length <= length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -195,8 +199,8 @@ describe("sliceFrom", () => {
 					(arr, start, length) => {
 						const result = sliceFrom(start)(length)(arr)
 						return result.length <= arr.length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -208,9 +212,9 @@ describe("sliceFrom", () => {
 					fc.nat({ max: 20 }),
 					(arr, start, length) => {
 						const result = sliceFrom(start)(length)(arr)
-						return result.every(item => arr.includes(item))
-					}
-				)
+						return result.every((item) => arr.includes(item))
+					},
+				),
 			)
 		})
 
@@ -223,7 +227,7 @@ describe("sliceFrom", () => {
 					(arr, start, length) => {
 						const result = sliceFrom(start)(length)(arr)
 						if (result.length <= 1) return true
-						
+
 						// Check that elements maintain their relative order
 						for (let i = 0; i < result.length - 1; i++) {
 							const idx1 = arr.indexOf(result[i])
@@ -231,8 +235,8 @@ describe("sliceFrom", () => {
 							if (idx2 <= idx1) return false
 						}
 						return true
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -245,9 +249,10 @@ describe("sliceFrom", () => {
 					(arr, start, length) => {
 						const result1 = sliceFrom(start)(length)(arr)
 						const result2 = arr.slice(start, start + length)
-						return JSON.stringify(result1) === JSON.stringify(result2)
-					}
-				)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
+					},
+				),
 			)
 		})
 
@@ -260,8 +265,8 @@ describe("sliceFrom", () => {
 					(arr, start, negLength) => {
 						const result = sliceFrom(start)(negLength)(arr)
 						return Array.isArray(result) && result.length === 0
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -276,9 +281,10 @@ describe("sliceFrom", () => {
 						const partial2 = partial1(length)
 						const result1 = partial2(arr)
 						const result2 = sliceFrom(start)(length)(arr)
-						return JSON.stringify(result1) === JSON.stringify(result2)
-					}
-				)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
+					},
+				),
 			)
 		})
 
@@ -290,8 +296,8 @@ describe("sliceFrom", () => {
 					(arr, length) => {
 						const result = sliceFrom(0)(length)(arr)
 						return result !== arr // Different array instance
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -306,12 +312,12 @@ describe("sliceFrom", () => {
 						const beyondLength = sliceFrom(0)(arr.length + 100)(arr)
 						// Start beyond array gives empty
 						const beyondStart = sliceFrom(arr.length + 10)(10)(arr)
-						
+
 						return zeroLength.length === 0 &&
-						       beyondLength.length === arr.length &&
-						       beyondStart.length === 0
-					}
-				)
+							beyondLength.length === arr.length &&
+							beyondStart.length === 0
+					},
+				),
 			)
 		})
 	})

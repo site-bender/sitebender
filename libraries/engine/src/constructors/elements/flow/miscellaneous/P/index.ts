@@ -34,7 +34,6 @@ export type PElementAttributes = ParagraphAttributes & AriaAttributes & {
  * Allows global attributes and validates paragraph-specific attributes
  */
 
-
 /**
  * Creates a P element configuration object
  *

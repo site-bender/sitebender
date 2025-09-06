@@ -7,7 +7,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: OptionAttributes) {
-
 	const { disabled, label, selected, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
@@ -20,5 +19,4 @@ export default function filterAttributes(attributes: OptionAttributes) {
 	}
 
 	return out
-
 }

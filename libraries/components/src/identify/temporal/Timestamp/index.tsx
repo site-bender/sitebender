@@ -147,8 +147,14 @@ export default function Timestamp({
 
 		const options = formatOptions || {
 			...(format !== "iso" && {
-				dateStyle: (format as Exclude<typeof format, "iso" | "relative" | "epoch" | "epochMicro">),
-				timeStyle: (format as Exclude<typeof format, "iso" | "relative" | "epoch" | "epochMicro">),
+				dateStyle: (format as Exclude<
+					typeof format,
+					"iso" | "relative" | "epoch" | "epochMicro"
+				>),
+				timeStyle: (format as Exclude<
+					typeof format,
+					"iso" | "relative" | "epoch" | "epochMicro"
+				>),
 			}),
 			...(format === "iso" && {
 				year: "numeric",
@@ -174,7 +180,11 @@ export default function Timestamp({
 
 		// Add timezone abbreviation if not already included and requested
 		if (showZone && format !== "iso" && !formatOptions?.timeZoneName) {
-			const tzAbbr = getTimezoneAbbreviation(displayTimezone, date, locale)
+			const tzAbbr = getTimezoneAbbreviation(
+				displayTimezone,
+				date,
+				locale,
+			)
 			display += ` ${tzAbbr}`
 		}
 	}
@@ -193,7 +203,11 @@ export default function Timestamp({
 				{children({
 					display,
 					datetime,
-					timezone: getTimezoneAbbreviation(displayTimezone, date, locale),
+					timezone: getTimezoneAbbreviation(
+						displayTimezone,
+						date,
+						locale,
+					),
 				})}
 			</time>
 		)

@@ -19,14 +19,20 @@ export function compileJSX(code: string): CompileResult {
 	try {
 		// Extremely small JSX parser: find first <tag ...> ... </tag>
 		// Good enough for our demo and unit test expectations.
-		const jsxMatch = code.match(/<([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>([\s\S]*?)<\/\1>/)
+		const jsxMatch = code.match(
+			/<([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>([\s\S]*?)<\/\1>/,
+		)
 		if (!jsxMatch) {
 			return { success: true, compiledCode: code, ast: null, errors: [] }
 		}
 
 		const [, tag, rawAttrs, inner] = jsxMatch
 		const props: Record<string, string> = {}
-		for (const attr of rawAttrs.match(/\b([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*"([^"]*)"/g) ?? []) {
+		for (
+			const attr of rawAttrs.match(
+				/\b([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*"([^"]*)"/g,
+			) ?? []
+		) {
 			const m = attr.match(/^(\w[\w:-]*)\s*=\s*"([^"]*)"$/)
 			if (m) props[m[1]] = m[2]
 		}
@@ -40,7 +46,12 @@ export function compileJSX(code: string): CompileResult {
 
 		return { success: true, compiledCode: code, ast, errors: [] }
 	} catch (e) {
-		return { success: false, compiledCode: code, ast: null, errors: [String(e)] }
+		return {
+			success: false,
+			compiledCode: code,
+			ast: null,
+			errors: [String(e)],
+		}
 	}
 }
 

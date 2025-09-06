@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { PElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: PElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -125,7 +124,9 @@ export default function filterAttributes(attributes: PElementAttributes) {
 	if (isDefined(ariaRoledescription)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("aria-roledescription")(ariaRoledescription),
+			filterAttribute(isString)("aria-roledescription")(
+				ariaRoledescription,
+			),
 		)
 	}
 	if (isDefined(role)) {
@@ -136,5 +137,4 @@ export default function filterAttributes(attributes: PElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

@@ -1,0 +1,16 @@
+{
+  "scriptId": "407",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/maxSafeInteger.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 283, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "maxSafeInteger",
+      "ranges": [{ "startOffset": 180, "endOffset": 282, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

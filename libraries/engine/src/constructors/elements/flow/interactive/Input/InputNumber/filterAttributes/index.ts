@@ -10,8 +10,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { InputNumberElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: InputNumberElementAttributes) {
-
+export default function filterAttributes(
+	attributes: InputNumberElementAttributes,
+) {
 	const {
 		id,
 		autocomplete,
@@ -62,7 +63,9 @@ export default function filterAttributes(attributes: InputNumberElementAttribute
 	if (isDefined(autocomplete)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+				autocomplete,
+			),
 		)
 	}
 	if (isDefined(form)) {
@@ -105,9 +108,15 @@ export default function filterAttributes(attributes: InputNumberElementAttribute
 	}
 	if (isDefined(value)) {
 		if (typeof value === "number") {
-			Object.assign(filteredAttrs, filterAttribute(isNumber)("value")(value))
+			Object.assign(
+				filteredAttrs,
+				filterAttribute(isNumber)("value")(value),
+			)
 		} else {
-			Object.assign(filteredAttrs, filterAttribute(isString)("value")(value))
+			Object.assign(
+				filteredAttrs,
+				filterAttribute(isString)("value")(value),
+			)
 		}
 	}
 
@@ -180,5 +189,4 @@ export default function filterAttributes(attributes: InputNumberElementAttribute
 	}
 
 	return filteredAttrs
-
 }

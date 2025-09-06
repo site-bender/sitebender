@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import replaceAll from "../../../../src/simple/array/replaceAll/index.ts"
@@ -7,7 +10,14 @@ import replaceAll from "../../../../src/simple/array/replaceAll/index.ts"
 Deno.test("replaceAll: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {
 		const replacer = replaceAll(2)((n: number) => n * 10)
-		assertType<IsExact<typeof replacer, (array: ReadonlyArray<number> | null | undefined) => Array<number>>>(true)
+		assertType<
+			IsExact<
+				typeof replacer,
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
+			>
+		>(true)
 
 		const result = replacer([1, 2, 3])
 		assertType<IsExact<typeof result, Array<number>>>(true)
@@ -16,13 +26,27 @@ Deno.test("replaceAll: type checking", async (t) => {
 	await t.step("should work with different types", () => {
 		// String replacement
 		const stringReplacer = replaceAll("old")(() => "new")
-		assertType<IsExact<typeof stringReplacer, (array: ReadonlyArray<string> | null | undefined) => Array<string>>>(true)
+		assertType<
+			IsExact<
+				typeof stringReplacer,
+				(
+					array: ReadonlyArray<string> | null | undefined,
+				) => Array<string>
+			>
+		>(true)
 
 		// Object replacement
 		const obj1 = { id: 1 }
 		const obj2 = { id: 2 }
 		const objReplacer = replaceAll(obj1)(() => obj2)
-		assertType<IsExact<typeof objReplacer, (array: ReadonlyArray<{ id: number }> | null | undefined) => Array<{ id: number }>>>(true)
+		assertType<
+			IsExact<
+				typeof objReplacer,
+				(
+					array: ReadonlyArray<{ id: number }> | null | undefined,
+				) => Array<{ id: number }>
+			>
+		>(true)
 	})
 })
 
@@ -36,7 +60,7 @@ Deno.test("replaceAll: basic functionality", async (t) => {
 		const replacer = replaceAll("old")(() => "new")
 		assertEquals(
 			replacer(["old", "test", "old", "data"]),
-			["new", "test", "new", "data"]
+			["new", "test", "new", "data"],
 		)
 	})
 
@@ -49,7 +73,7 @@ Deno.test("replaceAll: basic functionality", async (t) => {
 		const replacer = replaceAll(undefined)(() => "default")
 		assertEquals(
 			replacer([undefined, "a", undefined, "b"]),
-			["default", "a", "default", "b"]
+			["default", "a", "default", "b"],
 		)
 	})
 
@@ -123,11 +147,11 @@ Deno.test("replaceAll: object references", async (t) => {
 		const obj2 = { id: 2 }
 		const obj3 = { id: 1 } // Different instance with same content
 		const replacement = { id: 99 }
-		
+
 		const replacer = replaceAll(obj1)(() => replacement)
 		assertEquals(
 			replacer([obj1, obj2, obj3, obj1]),
-			[replacement, obj2, obj3, replacement]
+			[replacement, obj2, obj3, replacement],
 		)
 	})
 
@@ -136,11 +160,11 @@ Deno.test("replaceAll: object references", async (t) => {
 		const arr2 = [3, 4]
 		const arr3 = [1, 2] // Different instance
 		const replacement = [99, 99]
-		
+
 		const replacer = replaceAll(arr1)(() => replacement)
 		assertEquals(
 			replacer([arr1, arr2, arr3, arr1]),
-			[replacement, arr2, arr3, replacement]
+			[replacement, arr2, arr3, replacement],
 		)
 	})
 })
@@ -148,10 +172,24 @@ Deno.test("replaceAll: object references", async (t) => {
 Deno.test("replaceAll: currying", async (t) => {
 	await t.step("should be curried", () => {
 		const withTarget = replaceAll(5)
-		assertType<IsExact<typeof withTarget, <T>(replacer: (item: T) => T) => (array: ReadonlyArray<T> | null | undefined) => Array<T>>>(true)
+		assertType<
+			IsExact<
+				typeof withTarget,
+				<T>(
+					replacer: (item: T) => T,
+				) => (array: ReadonlyArray<T> | null | undefined) => Array<T>
+			>
+		>(true)
 
 		const withReplacer = withTarget((n) => n * 2)
-		assertType<IsExact<typeof withReplacer, (array: ReadonlyArray<number> | null | undefined) => Array<number>>>(true)
+		assertType<
+			IsExact<
+				typeof withReplacer,
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
+			>
+		>(true)
 
 		const result = withReplacer([5, 10, 5])
 		assertEquals(result, [10, 10, 10])
@@ -173,7 +211,7 @@ Deno.test("replaceAll: immutability", async (t) => {
 		const original = [1, 2, 3, 2, 4]
 		const replacer = replaceAll(2)(() => 99)
 		const result = replacer(original)
-		
+
 		assertEquals(original, [1, 2, 3, 2, 4])
 		assertEquals(result, [1, 99, 3, 99, 4])
 	})
@@ -182,7 +220,7 @@ Deno.test("replaceAll: immutability", async (t) => {
 		const original = [1, 2, 3]
 		const replacer = replaceAll(99)(() => 0)
 		const result = replacer(original)
-		
+
 		assertEquals(result, [1, 2, 3])
 		assertEquals(result === original, false)
 	})
@@ -198,15 +236,16 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 				(arr, target, replacement) => {
 					const replacer = replaceAll(target)(() => replacement)
 					const result = replacer(arr)
-					
+
 					// All target values should be replaced
-					const hasTarget = result.some(x => x === target)
-					const expectedHasTarget = replacement === target && arr.some(x => x === target)
+					const hasTarget = result.some((x) => x === target)
+					const expectedHasTarget = replacement === target &&
+						arr.some((x) => x === target)
 					assertEquals(hasTarget, expectedHasTarget)
-					
+
 					// Result should have same length
 					assertEquals(result.length, arr.length)
-					
+
 					// Non-target values should be preserved
 					arr.forEach((val, idx) => {
 						if (val !== target) {
@@ -215,11 +254,11 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 							assertEquals(result[idx], replacement)
 						}
 					})
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -230,16 +269,16 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 					fc.constant(null),
 					fc.constant(undefined),
 					fc.integer(),
-					fc.string()
+					fc.string(),
 				)),
 				(arr) => {
 					const target = arr[0]
 					const replacer = replaceAll(target)(() => "REPLACED")
 					const result = replacer(arr)
-					
+
 					// Length preserved
 					assertEquals(result.length, arr.length)
-					
+
 					// Order preserved
 					arr.forEach((val, idx) => {
 						if (val === target) {
@@ -248,11 +287,11 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 							assertEquals(result[idx], val)
 						}
 					})
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -265,12 +304,12 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 					const replacer = replaceAll(value)(() => value)
 					const result1 = replacer(arr)
 					const result2 = replacer(result1)
-					
+
 					assertEquals(result1, result2)
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -285,9 +324,9 @@ Deno.test("replaceAll: property-based tests", async (t) => {
 					const result = replacer(input)
 					assertEquals(result, [])
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 })
@@ -299,7 +338,7 @@ Deno.test("replaceAll: replacer function behavior", async (t) => {
 			callCount++
 			return 99
 		})
-		
+
 		replacer([1, 2, 3, 2, 4])
 		assertEquals(callCount, 2)
 	})
@@ -310,13 +349,13 @@ Deno.test("replaceAll: replacer function behavior", async (t) => {
 			{ name: "Bob", status: "inactive" },
 			{ name: "Charlie", status: "inactive" },
 		]
-		
+
 		const target = users[1] // Bob
 		const replacer = replaceAll(target)((user) => ({
 			...user,
 			status: "active",
 		}))
-		
+
 		const result = replacer(users)
 		assertEquals(result[0].status, "active")
 		assertEquals(result[1].status, "active") // Bob updated
@@ -327,7 +366,7 @@ Deno.test("replaceAll: replacer function behavior", async (t) => {
 		const replacer = replaceAll(2)(() => {
 			throw new Error("test error")
 		})
-		
+
 		try {
 			replacer([1, 2, 3])
 			throw new Error("Should have thrown")

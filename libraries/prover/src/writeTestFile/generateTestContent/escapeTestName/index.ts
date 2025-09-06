@@ -4,5 +4,5 @@
  * @returns Escaped test name safe for strings
  */
 export default function escapeTestName(name: string): string {
-	return name.replace(/"/g, '\\"').replace(/\n/g, '\\n')
+	return name.replace(/"/g, '\\"').replace(/\n/g, "\\n")
 }

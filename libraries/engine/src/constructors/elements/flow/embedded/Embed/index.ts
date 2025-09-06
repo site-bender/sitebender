@@ -31,7 +31,6 @@ export type EmbedElementAttributes = EmbedAttributes & ImageAriaAttributes & {
  * Allows global attributes and validates embed-specific attributes
  */
 
-
 /**
  * Creates an Embed element configuration object
  *

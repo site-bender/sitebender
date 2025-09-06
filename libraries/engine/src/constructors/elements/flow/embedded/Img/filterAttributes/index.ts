@@ -1,5 +1,11 @@
 import { getImgAllowedRoles } from "@sitebender/engine/constructors/elements/constants/aria-roles.ts"
-import { CROSS_ORIGINS, DECODING_HINTS, FETCH_PRIORITIES, LOADINGS, REFERRER_POLICIES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	DECODING_HINTS,
+	FETCH_PRIORITIES,
+	LOADINGS,
+	REFERRER_POLICIES,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -12,7 +18,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ImgElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ImgElementAttributes) {
-
 	const {
 		id,
 		alt,
@@ -62,7 +67,9 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(decode)) {
@@ -80,7 +87,10 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 		)
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(isMap)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("isMap")(isMap))
@@ -106,10 +116,16 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
 	if (isDefined(srcSet)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcSet")(srcSet))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("srcSet")(srcSet),
+		)
 	}
 	if (isDefined(useMap)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("useMap")(useMap))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("useMap")(useMap),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -149,5 +165,4 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

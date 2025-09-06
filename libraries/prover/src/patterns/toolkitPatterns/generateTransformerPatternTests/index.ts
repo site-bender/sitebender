@@ -10,14 +10,17 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of transformer-specific test cases
  */
 export default function generateTransformerPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const name = signature.name.toLowerCase()
 	const mapTests = name.includes("map") ? getMapTests() : []
 	const filterTests = name.includes("filter") ? getFilterTests() : []
 	const reduceTests = name.includes("reduce") ? getReduceTests() : []
-	const transformTests = (name.includes("transform") || name.includes("convert")) ? getTransformTests(signature) : []
-	
+	const transformTests =
+		(name.includes("transform") || name.includes("convert"))
+			? getTransformTests(signature)
+			: []
+
 	return [...mapTests, ...filterTests, ...reduceTests, ...transformTests]
 }
 
@@ -50,9 +53,8 @@ function getMapTests(): Array<TestCase> {
 					return JSON.stringify(result) === JSON.stringify(arr)
 				}`,
 			}],
-		}
+		},
 	]
-	
 }
 
 function getFilterTests(): Array<TestCase> {
@@ -89,16 +91,16 @@ function getFilterTests(): Array<TestCase> {
 					})
 				}`,
 			}],
-		}
+		},
 	]
-	
 }
 
 function getReduceTests(): Array<TestCase> {
 	return [
 		{
 			name: "handles empty array with initial value",
-			description: "Reduce with initial value on empty array returns initial",
+			description:
+				"Reduce with initial value on empty array returns initial",
 			input: [(acc: number, x: number) => acc + x, 0, []],
 			expectedOutput: 0,
 		},
@@ -109,16 +111,16 @@ function getReduceTests(): Array<TestCase> {
 			expectedOutput: 10,
 			properties: [{
 				name: "accumulation",
-				generator: "fc.func(fc.integer()), fc.integer(), fc.array(fc.integer())",
+				generator:
+					"fc.func(fc.integer()), fc.integer(), fc.array(fc.integer())",
 				property: `(fn, init, arr) => {
 					const result = reduce(fn)(init)(arr)
 					const manual = arr.reduce(fn, init)
 					return result === manual
 				}`,
 			}],
-		}
+		},
 	]
-	
 }
 
 function getTransformTests(signature: FunctionSignature): Array<TestCase> {
@@ -136,6 +138,6 @@ function getTransformTests(signature: FunctionSignature): Array<TestCase> {
 					return typeof result === '${signature.returnType.raw}'
 				}`,
 			}],
-		}
+		},
 	]
 }

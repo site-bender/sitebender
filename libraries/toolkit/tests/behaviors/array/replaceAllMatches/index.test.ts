@@ -1,13 +1,23 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import replaceAllMatches from "../../../../src/simple/array/replaceAllMatches/index.ts"
 
 Deno.test("replaceAllMatches: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {
-		const replacer = replaceAllMatches(/test/)((s: string) => s.toUpperCase())
-		assertType<IsExact<typeof replacer, <T>(array: ReadonlyArray<T> | null | undefined) => Array<T>>>(true)
+		const replacer = replaceAllMatches(/test/)((s: string) =>
+			s.toUpperCase()
+		)
+		assertType<
+			IsExact<
+				typeof replacer,
+				<T>(array: ReadonlyArray<T> | null | undefined) => Array<T>
+			>
+		>(true)
 
 		const result = replacer(["test", "hello"])
 		assertType<IsExact<typeof result, Array<string>>>(true)
@@ -27,7 +37,7 @@ Deno.test("replaceAllMatches: basic functionality", async (t) => {
 		const replacer = replaceAllMatches(/^h/)((s) => s.toUpperCase())
 		assertEquals(
 			replacer(["hello", "hi", "world", "hey"]),
-			["HELLO", "HI", "world", "HEY"]
+			["HELLO", "HI", "world", "HEY"],
 		)
 	})
 
@@ -35,7 +45,7 @@ Deno.test("replaceAllMatches: basic functionality", async (t) => {
 		const replacer = replaceAllMatches(/test/)((s) => "replaced")
 		assertEquals(
 			replacer(["test1", "other", "contest", "test"]),
-			["replaced", "other", "replaced", "replaced"]
+			["replaced", "other", "replaced", "replaced"],
 		)
 	})
 
@@ -43,7 +53,7 @@ Deno.test("replaceAllMatches: basic functionality", async (t) => {
 		const replacer = replaceAllMatches(/error:/i)((s) => s.toLowerCase())
 		assertEquals(
 			replacer(["ERROR: failed", "info", "Error: bad", "error: ok"]),
-			["error: failed", "info", "error: bad", "error: ok"]
+			["error: failed", "info", "error: bad", "error: ok"],
 		)
 	})
 
@@ -68,7 +78,11 @@ Deno.test("replaceAllMatches: basic functionality", async (t) => {
 			captured.push(s)
 			return `[${s}]`
 		})
-		assertEquals(replacer(["test123", "456end", "no-match"]), ["[test123]", "[456end]", "no-match"])
+		assertEquals(replacer(["test123", "456end", "no-match"]), [
+			"[test123]",
+			"[456end]",
+			"no-match",
+		])
 		assertEquals(captured, ["test123", "456end"])
 	})
 })
@@ -79,21 +93,25 @@ Deno.test("replaceAllMatches: regex patterns", async (t) => {
 		const replacer = replaceAllMatches(/^[^@]+@[^@]+$/)((s) => `<${s}>`)
 		assertEquals(
 			replacer(["user@example.com", "invalid", "test@domain.org"]),
-			["<user@example.com>", "invalid", "<test@domain.org>"]
+			["<user@example.com>", "invalid", "<test@domain.org>"],
 		)
 	})
 
 	await t.step("should handle anchored patterns", () => {
-		const startReplacer = replaceAllMatches(/^prefix/)((s) => s.replace("prefix", "PREFIX"))
+		const startReplacer = replaceAllMatches(/^prefix/)((s) =>
+			s.replace("prefix", "PREFIX")
+		)
 		assertEquals(
 			startReplacer(["prefix-test", "test-prefix", "prefix"]),
-			["PREFIX-test", "test-prefix", "PREFIX"]
+			["PREFIX-test", "test-prefix", "PREFIX"],
 		)
 
-		const endReplacer = replaceAllMatches(/suffix$/)((s) => s.replace("suffix", "SUFFIX"))
+		const endReplacer = replaceAllMatches(/suffix$/)((s) =>
+			s.replace("suffix", "SUFFIX")
+		)
 		assertEquals(
 			endReplacer(["test-suffix", "suffix-test", "suffix"]),
-			["test-SUFFIX", "suffix-test", "SUFFIX"]
+			["test-SUFFIX", "suffix-test", "SUFFIX"],
 		)
 	})
 
@@ -101,15 +119,17 @@ Deno.test("replaceAllMatches: regex patterns", async (t) => {
 		const replacer = replaceAllMatches(/^[A-Z]/)((s) => `Capital: ${s}`)
 		assertEquals(
 			replacer(["Hello", "world", "Test", "123"]),
-			["Capital: Hello", "world", "Capital: Test", "123"]
+			["Capital: Hello", "world", "Capital: Test", "123"],
 		)
 	})
 
 	await t.step("should handle quantifiers", () => {
-		const replacer = replaceAllMatches(/^\d{3,}$/)((s) => `Long number: ${s}`)
+		const replacer = replaceAllMatches(/^\d{3,}$/)((s) =>
+			`Long number: ${s}`
+		)
 		assertEquals(
 			replacer(["12", "123", "1234", "ab123"]),
-			["12", "Long number: 123", "Long number: 1234", "ab123"]
+			["12", "Long number: 123", "Long number: 1234", "ab123"],
 		)
 	})
 })
@@ -117,25 +137,36 @@ Deno.test("replaceAllMatches: regex patterns", async (t) => {
 Deno.test("replaceAllMatches: mixed types", async (t) => {
 	await t.step("should pass through non-string values unchanged", () => {
 		const replacer = replaceAllMatches(/test/)((s) => s.toUpperCase())
-		const mixed = ["test", 123, null, undefined, true, { obj: true }, ["array"]]
+		const mixed = ["test", 123, null, undefined, true, { obj: true }, [
+			"array",
+		]]
 		assertEquals(
 			replacer(mixed),
-			["TEST", 123, null, undefined, true, { obj: true }, ["array"]]
+			["TEST", 123, null, undefined, true, { obj: true }, ["array"]],
 		)
 	})
 
 	await t.step("should handle arrays with only non-strings", () => {
 		const replacer = replaceAllMatches(/test/)((s) => s.toUpperCase())
-		assertEquals(replacer([1, 2, 3, null, undefined]), [1, 2, 3, null, undefined])
+		assertEquals(replacer([1, 2, 3, null, undefined]), [
+			1,
+			2,
+			3,
+			null,
+			undefined,
+		])
 	})
 
-	await t.step("should handle number strings differently from numbers", () => {
-		const replacer = replaceAllMatches(/^\d+$/)((s) => `num-${s}`)
-		assertEquals(
-			replacer(["123", 123, "456", 456]),
-			["num-123", 123, "num-456", 456]
-		)
-	})
+	await t.step(
+		"should handle number strings differently from numbers",
+		() => {
+			const replacer = replaceAllMatches(/^\d+$/)((s) => `num-${s}`)
+			assertEquals(
+				replacer(["123", 123, "456", 456]),
+				["num-123", 123, "num-456", 456],
+			)
+		},
+	)
 })
 
 Deno.test("replaceAllMatches: edge cases", async (t) => {
@@ -151,7 +182,11 @@ Deno.test("replaceAllMatches: edge cases", async (t) => {
 
 	await t.step("should handle empty strings", () => {
 		const replacer = replaceAllMatches(/^$/)((s) => "empty")
-		assertEquals(replacer(["", "not empty", ""]), ["empty", "not empty", "empty"])
+		assertEquals(replacer(["", "not empty", ""]), [
+			"empty",
+			"not empty",
+			"empty",
+		])
 	})
 
 	await t.step("should handle regex with global flag", () => {
@@ -159,15 +194,17 @@ Deno.test("replaceAllMatches: edge cases", async (t) => {
 		const replacer = replaceAllMatches(/test/g)((s) => "replaced")
 		assertEquals(
 			replacer(["test test", "no match", "test"]),
-			["replaced", "no match", "replaced"]
+			["replaced", "no match", "replaced"],
 		)
 	})
 
 	await t.step("should handle special regex characters in strings", () => {
-		const replacer = replaceAllMatches(/\$\d+/)((s) => s.replace("$", "USD "))
+		const replacer = replaceAllMatches(/\$\d+/)((s) =>
+			s.replace("$", "USD ")
+		)
 		assertEquals(
 			replacer(["Price: $100", "$50", "Free"]),
-			["Price: USD 100", "USD 50", "Free"]
+			["Price: USD 100", "USD 50", "Free"],
 		)
 	})
 })
@@ -175,10 +212,22 @@ Deno.test("replaceAllMatches: edge cases", async (t) => {
 Deno.test("replaceAllMatches: currying", async (t) => {
 	await t.step("should be curried", () => {
 		const withPattern = replaceAllMatches(/^ERROR/)
-		assertType<IsExact<typeof withPattern, (replacer: (item: string) => string) => <T>(array: ReadonlyArray<T> | null | undefined) => Array<T>>>(true)
+		assertType<
+			IsExact<
+				typeof withPattern,
+				(
+					replacer: (item: string) => string,
+				) => <T>(array: ReadonlyArray<T> | null | undefined) => Array<T>
+			>
+		>(true)
 
 		const withReplacer = withPattern((s) => `[${s}]`)
-		assertType<IsExact<typeof withReplacer, <T>(array: ReadonlyArray<T> | null | undefined) => Array<T>>>(true)
+		assertType<
+			IsExact<
+				typeof withReplacer,
+				<T>(array: ReadonlyArray<T> | null | undefined) => Array<T>
+			>
+		>(true)
 
 		const result = withReplacer(["ERROR: test", "info", "ERROR: fail"])
 		assertEquals(result, ["[ERROR: test]", "info", "[ERROR: fail]"])
@@ -191,7 +240,11 @@ Deno.test("replaceAllMatches: currying", async (t) => {
 		const lowerErrors = cleanErrors((s) => s.toLowerCase())
 
 		const logs = ["ERROR: Failed", "info", "Error: Bad"]
-		assertEquals(wrapErrors(logs), ["[ERROR: Failed]", "info", "[Error: Bad]"])
+		assertEquals(wrapErrors(logs), [
+			"[ERROR: Failed]",
+			"info",
+			"[Error: Bad]",
+		])
 		assertEquals(lowerErrors(logs), ["error: failed", "info", "error: bad"])
 	})
 })
@@ -201,7 +254,7 @@ Deno.test("replaceAllMatches: immutability", async (t) => {
 		const original = ["test1", "other", "test2"]
 		const replacer = replaceAllMatches(/test/)((s) => "replaced")
 		const result = replacer(original)
-		
+
 		assertEquals(original, ["test1", "other", "test2"])
 		assertEquals(result, ["replaced", "other", "replaced"])
 	})
@@ -210,7 +263,7 @@ Deno.test("replaceAllMatches: immutability", async (t) => {
 		const original = ["abc", "def"]
 		const replacer = replaceAllMatches(/xyz/)((s) => "replaced")
 		const result = replacer(original)
-		
+
 		assertEquals(result, ["abc", "def"])
 		assertEquals(result === original, false)
 	})
@@ -224,16 +277,18 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 					fc.string(),
 					fc.integer(),
 					fc.constant(null),
-					fc.constant(undefined)
+					fc.constant(undefined),
 				)),
 				(arr) => {
 					// Simple pattern that matches strings starting with 'a'
-					const replacer = replaceAllMatches(/^a/)((s) => `A${s.slice(1)}`)
+					const replacer = replaceAllMatches(/^a/)((s) =>
+						`A${s.slice(1)}`
+					)
 					const result = replacer(arr)
-					
+
 					// Length preserved
 					assertEquals(result.length, arr.length)
-					
+
 					// Check each element
 					arr.forEach((val, idx) => {
 						if (typeof val === "string" && val.startsWith("a")) {
@@ -242,11 +297,11 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 							assertEquals(result[idx], val)
 						}
 					})
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
@@ -256,15 +311,15 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 				fc.array(fc.oneof(
 					fc.string(),
 					fc.integer(),
-					fc.boolean()
+					fc.boolean(),
 				)),
 				(arr) => {
 					const replacer = replaceAllMatches(/.*/)((s) => "REPLACED")
 					const result = replacer(arr)
-					
+
 					// Length preserved
 					assertEquals(result.length, arr.length)
-					
+
 					// All strings replaced, others unchanged
 					arr.forEach((val, idx) => {
 						if (typeof val === "string") {
@@ -273,46 +328,53 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 							assertEquals(result[idx], val)
 						}
 					})
-					
+
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 
-	await t.step("should be idempotent when pattern doesn't match replacement", () => {
-		fc.assert(
-			fc.property(
-				fc.array(fc.string()),
-				(arr) => {
-					// Pattern that won't match the replacement
-					const replacer = replaceAllMatches(/^test/)((s) => `replaced-${s}`)
-					const result1 = replacer(arr)
-					const result2 = replacer(result1)
-					
-					// Second application shouldn't change anything
-					// (since "replaced-test..." doesn't start with "test")
-					assertEquals(result1, result2)
-					return true
-				}
-			),
-			{ verbose: false }
-		)
-	})
+	await t.step(
+		"should be idempotent when pattern doesn't match replacement",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.array(fc.string()),
+					(arr) => {
+						// Pattern that won't match the replacement
+						const replacer = replaceAllMatches(/^test/)((s) =>
+							`replaced-${s}`
+						)
+						const result1 = replacer(arr)
+						const result2 = replacer(result1)
+
+						// Second application shouldn't change anything
+						// (since "replaced-test..." doesn't start with "test")
+						assertEquals(result1, result2)
+						return true
+					},
+				),
+				{ verbose: false },
+			)
+		},
+	)
 
 	await t.step("should handle null and undefined correctly", () => {
 		fc.assert(
 			fc.property(
 				fc.oneof(fc.constant(null), fc.constant(undefined)),
 				(input) => {
-					const replacer = replaceAllMatches(/test/)((s) => s.toUpperCase())
+					const replacer = replaceAllMatches(/test/)((s) =>
+						s.toUpperCase()
+					)
 					const result = replacer(input)
 					assertEquals(result, [])
 					return true
-				}
+				},
 			),
-			{ verbose: false }
+			{ verbose: false },
 		)
 	})
 })
@@ -324,7 +386,7 @@ Deno.test("replaceAllMatches: replacer function behavior", async (t) => {
 			callCount++
 			return s.toUpperCase()
 		})
-		
+
 		replacer(["test", "other", 123, "contest", null])
 		assertEquals(callCount, 2) // "test" and "contest"
 	})
@@ -335,18 +397,24 @@ Deno.test("replaceAllMatches: replacer function behavior", async (t) => {
 			"INFO: Server started",
 			"ERROR: File not found",
 			123,
-			null
+			null,
 		]
-		
+
 		const replacer = replaceAllMatches(/^ERROR: (.+)$/)((s) => {
 			const message = s.replace("ERROR: ", "")
 			return `[CRITICAL] ${message} - Please investigate`
 		})
-		
+
 		const result = replacer(logs)
-		assertEquals(result[0], "[CRITICAL] Database connection failed - Please investigate")
+		assertEquals(
+			result[0],
+			"[CRITICAL] Database connection failed - Please investigate",
+		)
 		assertEquals(result[1], "INFO: Server started")
-		assertEquals(result[2], "[CRITICAL] File not found - Please investigate")
+		assertEquals(
+			result[2],
+			"[CRITICAL] File not found - Please investigate",
+		)
 		assertEquals(result[3], 123)
 		assertEquals(result[4], null)
 	})
@@ -355,7 +423,7 @@ Deno.test("replaceAllMatches: replacer function behavior", async (t) => {
 		const replacer = replaceAllMatches(/test/)((s) => {
 			throw new Error("test error")
 		})
-		
+
 		try {
 			replacer(["test", "other"])
 			throw new Error("Should have thrown")
@@ -364,38 +432,49 @@ Deno.test("replaceAllMatches: replacer function behavior", async (t) => {
 		}
 	})
 
-	await t.step("should preserve original string when replacer returns same", () => {
-		const replacer = replaceAllMatches(/test/)((s) => s)
-		const input = ["test", "other", "contest"]
-		const result = replacer(input)
-		
-		assertEquals(result, input)
-		assertEquals(result === input, false) // New array created
-	})
+	await t.step(
+		"should preserve original string when replacer returns same",
+		() => {
+			const replacer = replaceAllMatches(/test/)((s) => s)
+			const input = ["test", "other", "contest"]
+			const result = replacer(input)
+
+			assertEquals(result, input)
+			assertEquals(result === input, false) // New array created
+		},
+	)
 })
 
 Deno.test("replaceAllMatches: practical use cases", async (t) => {
 	await t.step("should clean log messages", () => {
-		const cleanTimestamps = replaceAllMatches(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} /)((s) => 
-			s.replace(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} /, "")
-		)
+		const cleanTimestamps = replaceAllMatches(
+			/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} /,
+		)((s) => s.replace(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} /, ""))
 		const logs = [
 			"2024-01-01 12:00:00 Server started",
 			"No timestamp here",
-			"2024-01-01 12:00:01 Request received"
+			"2024-01-01 12:00:01 Request received",
 		]
 		assertEquals(
 			cleanTimestamps(logs),
-			["Server started", "No timestamp here", "Request received"]
+			["Server started", "No timestamp here", "Request received"],
 		)
 	})
 
 	await t.step("should format file paths", () => {
 		const formatPaths = replaceAllMatches(/^\//)((s) => `file://${s}`)
-		const paths = ["/home/user/file.txt", "relative/path.txt", "/etc/config"]
+		const paths = [
+			"/home/user/file.txt",
+			"relative/path.txt",
+			"/etc/config",
+		]
 		assertEquals(
 			formatPaths(paths),
-			["file:///home/user/file.txt", "relative/path.txt", "file:///etc/config"]
+			[
+				"file:///home/user/file.txt",
+				"relative/path.txt",
+				"file:///etc/config",
+			],
 		)
 	})
 
@@ -404,10 +483,15 @@ Deno.test("replaceAllMatches: practical use cases", async (t) => {
 			const [user, domain] = s.split("@")
 			return `${user[0]}***@${domain}`
 		})
-		const data = ["user@example.com", "not an email", "admin@company.org", 12345]
+		const data = [
+			"user@example.com",
+			"not an email",
+			"admin@company.org",
+			12345,
+		]
 		assertEquals(
 			maskEmails(data),
-			["u***@example.com", "not an email", "a***@company.org", 12345]
+			["u***@example.com", "not an email", "a***@company.org", 12345],
 		)
 	})
 })

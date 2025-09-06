@@ -1,4 +1,7 @@
-import type { InSetComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	InSetComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * InSet - Set membership comparator component
@@ -27,10 +30,12 @@ export default function InSet({ children = [] }: Props): InSetComparator {
 		if (child && typeof child === "object") {
 			const typeName = (child as { type?: { name?: string } }).type?.name
 			if (typeName === "Value") {
-				value = (child as { props?: { children?: unknown } }).props?.children
+				value = (child as { props?: { children?: unknown } }).props
+					?.children
 			}
 			if (typeName === "Set") {
-				set = (child as { props?: { children?: unknown } }).props?.children
+				set = (child as { props?: { children?: unknown } }).props
+					?.children
 			}
 		}
 	})

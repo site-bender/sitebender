@@ -42,7 +42,6 @@ export type ProgressElementAttributes =
  * Allows global attributes and validates progress-specific attributes
  */
 
-
 /**
  * Creates a Progress element configuration object
  *

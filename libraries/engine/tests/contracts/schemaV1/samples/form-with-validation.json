@@ -1,0 +1,49 @@
+{
+	"v": "0.1.0",
+	"id": "11111111-2222-3333-4444-555555555555",
+	"kind": "element",
+	"tag": "form",
+	"attrs": {
+		"method": "POST",
+		"action": "/submit"
+	},
+	"children": [
+		{
+			"v": "0.1.0",
+			"id": "22222222-3333-4444-5555-666666666666",
+			"kind": "element",
+			"tag": "input",
+			"attrs": {
+				"type": "email",
+				"name": "email",
+				"id": "email",
+				"required": true
+			},
+			"children": []
+		},
+		{
+			"v": "0.1.0",
+			"id": "33333333-4444-5555-6666-777777777777",
+			"kind": "validator",
+			"rule": {
+				"v": "0.1.0",
+				"id": "44444444-5555-6666-7777-888888888888",
+				"kind": "comparator",
+				"cmp": "Is.EmailAddress",
+				"args": [
+					{
+						"v": "0.1.0",
+						"id": "55555555-6666-7777-8888-999999999999",
+						"kind": "injector",
+						"injector": "From.Element",
+						"datatype": "String",
+						"args": {
+							"selector": "#email"
+						}
+					}
+				]
+			},
+			"scope": "22222222-3333-4444-5555-666666666666"
+		}
+	]
+}

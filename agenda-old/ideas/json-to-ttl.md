@@ -8,12 +8,12 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
   - Example JSON-LD context:
     ```json
     {
-      "@context": {
-        "name": "http://schema.org/name",
-        "age": "http://schema.org/age"
-      },
-      "name": "Bart Simpson",
-      "age": 11
+    	"@context": {
+    		"name": "http://schema.org/name",
+    		"age": "http://schema.org/age"
+    	},
+    	"name": "Bart Simpson",
+    	"age": 11
     }
     ```
 - **Direct Conversion Tools**: For JSON without pre-defined context, utilities can mechanically convert JSON keys to RDF predicates (using a base URI you provide). This generates Turtle with blank nodes for nested structures and is best treated as an import utility rather than the primary path.
@@ -47,11 +47,11 @@ There are several ways to convert between JSON and Turtle (TTL), which is a form
 ### 📋 5. **Example Workflow**
 
 - **JSON to Turtle**:
-  1.  Add a `@context` to JSON to create JSON-LD.
-  2.  Use a Node-based script to expand/compact with `jsonld.js` and serialize to Turtle with `n3`.
+  1. Add a `@context` to JSON to create JSON-LD.
+  2. Use a Node-based script to expand/compact with `jsonld.js` and serialize to Turtle with `n3`.
 - **Turtle to JSON**:
-  1.  Parse Turtle with `n3`, serialize to JSON-LD, and frame/compact with `jsonld.js`.
-  2.  Optionally remove or simplify the `@context` if plain JSON is needed.
+  1. Parse Turtle with `n3`, serialize to JSON-LD, and frame/compact with `jsonld.js`.
+  2. Optionally remove or simplify the `@context` if plain JSON is needed.
 
 ### 💡 6. **When to Use Which**
 

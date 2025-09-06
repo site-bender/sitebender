@@ -1,0 +1,21 @@
+{
+  "scriptId": "510",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/mappers/IndexToPrintableIndex.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 324, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "indexToPrintableIndexMapper",
+      "ranges": [{ "startOffset": 7, "endOffset": 147, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexToPrintableIndexUnmapper",
+      "ranges": [{ "startOffset": 155, "endOffset": 323, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

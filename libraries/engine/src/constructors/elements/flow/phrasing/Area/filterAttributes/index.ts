@@ -1,4 +1,9 @@
-import { REFERRER_POLICIES, RELS_FOR_AREA, SHAPES, TARGETS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	REFERRER_POLICIES,
+	RELS_FOR_AREA,
+	SHAPES,
+	TARGETS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -10,7 +15,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { AreaElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: AreaElementAttributes) {
-
 	const {
 		id,
 		alt,
@@ -51,7 +55,10 @@ export default function filterAttributes(attributes: AreaElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("alt")(alt))
 	}
 	if (isDefined(coords)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("coords")(coords))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("coords")(coords),
+		)
 	}
 	if (isDefined(download)) {
 		Object.assign(
@@ -107,5 +114,4 @@ export default function filterAttributes(attributes: AreaElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

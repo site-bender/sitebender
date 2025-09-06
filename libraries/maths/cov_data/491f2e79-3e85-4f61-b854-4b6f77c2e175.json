@@ -1,0 +1,16 @@
+{
+  "scriptId": "423",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/unicodeJson.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 191, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unicodeJson",
+      "ranges": [{ "startOffset": 65, "endOffset": 190, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

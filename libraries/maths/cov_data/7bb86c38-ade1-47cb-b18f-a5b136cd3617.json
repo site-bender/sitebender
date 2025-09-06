@@ -1,0 +1,46 @@
+{
+  "scriptId": "405",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/domain.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2806, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "toSubdomainLabelMapper",
+      "ranges": [{ "startOffset": 628, "endOffset": 721, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toSubdomainLabelUnmapper",
+      "ranges": [{ "startOffset": 722, "endOffset": 1033, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "subdomainLabel",
+      "ranges": [{ "startOffset": 1034, "endOffset": 1439, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsMapper",
+      "ranges": [{ "startOffset": 1440, "endOffset": 1534, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsUnmapper",
+      "ranges": [{ "startOffset": 1535, "endOffset": 1814, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "labelsAdapter",
+      "ranges": [{ "startOffset": 1815, "endOffset": 2263, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "domain",
+      "ranges": [{ "startOffset": 2271, "endOffset": 2805, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,4 +1,7 @@
-import type { ActionNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
+import type {
+	ActionNode,
+	IrDocument,
+} from "@sitebender/engine-types/ir/index.ts"
 
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
@@ -42,8 +45,12 @@ Deno.test("golden: nested If can appear as a branch executable in Act.If", () =>
 						children: IsEqualTo({
 							type: "String",
 							children: [
-								Constant({ value: "x" }) as unknown as JSX.Element,
-								Constant({ value: "x" }) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
 							],
 						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,

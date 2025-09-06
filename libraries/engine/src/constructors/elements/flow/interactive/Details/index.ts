@@ -34,8 +34,6 @@ export type DetailsElementAttributes = DetailsAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Details element configuration object
  *

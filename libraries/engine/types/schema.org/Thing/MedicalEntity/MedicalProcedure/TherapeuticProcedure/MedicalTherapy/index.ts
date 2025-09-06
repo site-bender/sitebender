@@ -27,7 +27,9 @@ export interface MedicalTherapyProps {
 		| MedicalContraindication
 		| Text
 		| ReturnType<typeof MedicalContraindicationComponent>
-	duplicateTherapy?: MedicalTherapy | ReturnType<typeof MedicalTherapyComponent>
+	duplicateTherapy?:
+		| MedicalTherapy
+		| ReturnType<typeof MedicalTherapyComponent>
 	seriousAdverseOutcome?:
 		| MedicalEntity
 		| ReturnType<typeof MedicalEntityComponent>

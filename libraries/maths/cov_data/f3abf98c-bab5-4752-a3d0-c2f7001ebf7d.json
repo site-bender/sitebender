@@ -1,0 +1,26 @@
+{
+  "scriptId": "477",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/stringMatching.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 7469, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "raiseUnsupportedASTNode",
+      "ranges": [{ "startOffset": 1003, "endOffset": 1127, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toMatchingArbitrary",
+      "ranges": [{ "startOffset": 1128, "endOffset": 6882, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringMatching",
+      "ranges": [{ "startOffset": 6890, "endOffset": 7468, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

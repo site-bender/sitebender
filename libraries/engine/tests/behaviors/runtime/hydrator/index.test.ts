@@ -78,10 +78,14 @@ describe("hydrate - binds event and dispatches action", () => {
 		// Register defaults and add On.Click binder (not part of defaults)
 		const ctx = createComposeContext({ env: "client" })
 		registerDefaultExecutors(ctx)
-	// Simple On.Click binder (events registry uses default-only export)
-	events.register(
+		// Simple On.Click binder (events registry uses default-only export)
+		events.register(
 			"On.Click",
-			(el: HTMLElement, _node: EventBindingNode, dispatch: () => void) => {
+			(
+				el: HTMLElement,
+				_node: EventBindingNode,
+				dispatch: () => void,
+			) => {
 				el.addEventListener("click", dispatch as EventListener)
 			},
 		)

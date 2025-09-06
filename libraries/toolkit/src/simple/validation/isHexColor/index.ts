@@ -108,7 +108,8 @@ const isHexColor = (
 				return length === 3 || length === 6
 			default:
 				// Allow all valid lengths
-				return length === 3 || length === 4 || length === 6 || length === 8
+				return length === 3 || length === 4 || length === 6 ||
+					length === 8
 		}
 	}
 }

@@ -30,17 +30,30 @@ describe("rangeStep", () => {
 
 		it("should handle large steps", () => {
 			assertEquals(rangeStep(100)(0)(300), [0, 100, 200])
-			assertEquals(rangeStep(1000)(5000)(11000), [5000, 6000, 7000, 8000, 9000, 10000])
-			assertEquals(rangeStep(1000)(5000)(10000), [5000, 6000, 7000, 8000, 9000]) // stops before 10000
+			assertEquals(rangeStep(1000)(5000)(11000), [
+				5000,
+				6000,
+				7000,
+				8000,
+				9000,
+				10000,
+			])
+			assertEquals(rangeStep(1000)(5000)(10000), [
+				5000,
+				6000,
+				7000,
+				8000,
+				9000,
+			]) // stops before 10000
 			assertEquals(rangeStep(-100)(300)(100), [300, 200])
 		})
 
 		it("should stop before exceeding end", () => {
-			assertEquals(rangeStep(3)(0)(10), [0, 3, 6, 9])  
+			assertEquals(rangeStep(3)(0)(10), [0, 3, 6, 9])
 			assertEquals(rangeStep(3)(0)(9), [0, 3, 6]) // stops before 9
-			assertEquals(rangeStep(4)(1)(10), [1, 5, 9])  
+			assertEquals(rangeStep(4)(1)(10), [1, 5, 9])
 			assertEquals(rangeStep(4)(1)(9), [1, 5]) // stops before 9
-			assertEquals(rangeStep(-3)(10)(0), [10, 7, 4, 1])  // 1 > 0 so included
+			assertEquals(rangeStep(-3)(10)(0), [10, 7, 4, 1]) // 1 > 0 so included
 			assertEquals(rangeStep(-3)(10)(1), [10, 7, 4]) // stops before going below 1
 		})
 	})
@@ -208,7 +221,8 @@ describe("rangeStep", () => {
 						const result = rangeStep(step)(start)(end)
 						if (result.length <= 1) return true
 						return result.every((val, i) =>
-							i === 0 || Math.abs(val - result[i - 1] - step) < 0.0001
+							i === 0 ||
+							Math.abs(val - result[i - 1] - step) < 0.0001
 						)
 					},
 				),

@@ -38,7 +38,9 @@ const isPlainDate =
 			return {
 				left: [
 					Error(op.tag)("IsPlainDate")(
-						`${JSON.stringify(operand.right)} is not a plain date: ${e}.`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a plain date: ${e}.`,
 					),
 				],
 			}

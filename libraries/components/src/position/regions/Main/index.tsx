@@ -1,5 +1,3 @@
-import createElement from "../../../helpers/createElement/index.ts"
-
 export type Props = JSX.HTMLAttributes<HTMLElement> & {
 	classes?: string[]
 	route: string

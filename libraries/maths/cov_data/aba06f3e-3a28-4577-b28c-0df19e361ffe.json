@@ -1,0 +1,16 @@
+{
+  "scriptId": "378",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Ternary/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 297, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Ternary",
+      "ranges": [{ "startOffset": 90, "endOffset": 271, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

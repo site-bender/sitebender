@@ -1,0 +1,16 @@
+{
+  "scriptId": "430",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/base64String.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1706, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "base64String",
+      "ranges": [{ "startOffset": 466, "endOffset": 1680, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

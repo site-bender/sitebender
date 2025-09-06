@@ -23,7 +23,9 @@ Deno.test("golden: Validation attaches to prior element in minimal compiler", ()
 		Validation({
 			when: "input",
 			children: NotEmpty({
-				children: FromElement({ id: "email" }) as unknown as JSX.Element,
+				children: FromElement({
+					id: "email",
+				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
 	]

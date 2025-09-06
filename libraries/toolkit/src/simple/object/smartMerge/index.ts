@@ -124,27 +124,31 @@ const smartMerge =
 					...new Set([...Object.keys(lObj), ...Object.keys(rObj)]),
 				]
 
-				return allKeys.reduce<Record<string, unknown>>((result, key) => {
-					const leftValue = lObj[key]
-					const rightValue = rObj[key]
+				return allKeys.reduce<Record<string, unknown>>(
+					(result, key) => {
+						const leftValue = lObj[key]
+						const rightValue = rObj[key]
 
-					const value = !(key in right)
-						? leftValue
-						: !(key in left)
-						? rightValue
-						: (typeof leftValue === "object" &&
-								typeof rightValue === "object" &&
-								isNotNull(leftValue) &&
-								isNotNull(rightValue) &&
-								!Array.isArray(leftValue) &&
-								!Array.isArray(rightValue))
-						? mergeTwo(leftValue, rightValue, currentDepth + 1)
-						: (Array.isArray(leftValue) && Array.isArray(rightValue))
-						? mergeTwo(leftValue, rightValue, currentDepth)
-						: resolver(key, leftValue, rightValue)
+						const value = !(key in right)
+							? leftValue
+							: !(key in left)
+							? rightValue
+							: (typeof leftValue === "object" &&
+									typeof rightValue === "object" &&
+									isNotNull(leftValue) &&
+									isNotNull(rightValue) &&
+									!Array.isArray(leftValue) &&
+									!Array.isArray(rightValue))
+							? mergeTwo(leftValue, rightValue, currentDepth + 1)
+							: (Array.isArray(leftValue) &&
+									Array.isArray(rightValue))
+							? mergeTwo(leftValue, rightValue, currentDepth)
+							: resolver(key, leftValue, rightValue)
 
-					return { ...result, [key]: value }
-				}, {} as Record<string, unknown>)
+						return { ...result, [key]: value }
+					},
+					{} as Record<string, unknown>,
+				)
 			}
 
 			// For primitives and type mismatches, right wins
@@ -153,7 +157,8 @@ const smartMerge =
 
 		// Merge all sources from left to right
 		return sources.reduce<Record<string, unknown>>(
-			(acc, source) => mergeTwo(acc, source, 0) as Record<string, unknown>,
+			(acc, source) =>
+				mergeTwo(acc, source, 0) as Record<string, unknown>,
 			{},
 		)
 	}

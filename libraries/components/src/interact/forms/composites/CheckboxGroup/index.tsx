@@ -2,22 +2,23 @@ import type { InputOption } from "../../../../../types/components/forms/index.ts
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import Checkbox from "../../elements/Checkbox/index.tsx"
 import Help from "../../elements/Help/index.tsx"
 import FieldSet from "../../FieldSet/index.tsx"
 import Legend from "../Legend/index.tsx"
 
-export type Props = Omit<JSX.FieldSetHTMLAttributes<HTMLFieldSetElement>, "id"> & {
-	classes?: Array<string>
-	id?: string
-	help?: string | HelpProps
-	label: string | LabelProps
-	name: string
-	options: Array<InputOption>
-	required?: boolean
-}
+export type Props =
+	& Omit<JSX.FieldSetHTMLAttributes<HTMLFieldSetElement>, "id">
+	& {
+		classes?: Array<string>
+		id?: string
+		help?: string | HelpProps
+		label: string | LabelProps
+		name: string
+		options: Array<InputOption>
+		required?: boolean
+	}
 
 export default function CheckboxGroup({
 	classes = [],
@@ -29,7 +30,9 @@ export default function CheckboxGroup({
 	required,
 	...props
 }: Props) {
-	const id: string = typeof suppliedId === "string" ? suppliedId : generateShortId()
+	const id: string = typeof suppliedId === "string"
+		? suppliedId
+		: generateShortId()
 	const helpId = `${id}-help`
 	const legendId = `${id}-legend`
 
@@ -56,7 +59,9 @@ export default function CheckboxGroup({
 			{options.map(
 				({ checked, id: cId, label: cLabel, value }: InputOption) => {
 					const checkboxId = `${cId || id}-${value}`
-					const describedBy = [legendId, help ? helpId : null].filter(Boolean)
+					const describedBy = [legendId, help ? helpId : null].filter(
+						Boolean,
+					)
 						.join(" ")
 					return (
 						<Checkbox

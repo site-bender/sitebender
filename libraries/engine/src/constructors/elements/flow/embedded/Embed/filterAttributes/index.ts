@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { EmbedElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: EmbedElementAttributes) {
-
 	const {
 		id,
 		height,
@@ -45,7 +44,10 @@ export default function filterAttributes(attributes: EmbedElementAttributes) {
 
 	// Add embed-specific attributes
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(src)) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
@@ -87,5 +89,4 @@ export default function filterAttributes(attributes: EmbedElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

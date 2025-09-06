@@ -92,7 +92,12 @@ describe("zipAll", () => {
 		})
 
 		it("should handle mixed types", () => {
-			const mixed1: Array<string | number | boolean> = [1, "two", true, false]
+			const mixed1: Array<string | number | boolean> = [
+				1,
+				"two",
+				true,
+				false,
+			]
 			const mixed2: Array<null | object> = [null, {}]
 			assertEquals(
 				zipAll(mixed2)(mixed1),
@@ -240,7 +245,8 @@ describe("zipAll", () => {
 					fc.array(fc.string()),
 					(arr1, arr2) => {
 						const result = zipAll(arr2)(arr1)
-						return result.length === Math.max(arr1.length, arr2.length)
+						return result.length ===
+							Math.max(arr1.length, arr2.length)
 					},
 				),
 			)
@@ -319,7 +325,10 @@ describe("zipAll", () => {
 						// First should have all elements from arr paired with undefined
 						if (withEmpty1.length !== arr.length) return false
 						for (let i = 0; i < arr.length; i++) {
-							if (withEmpty1[i][0] !== arr[i] || withEmpty1[i][1] !== undefined) {
+							if (
+								withEmpty1[i][0] !== arr[i] ||
+								withEmpty1[i][1] !== undefined
+							) {
 								return false
 							}
 						}
@@ -327,7 +336,10 @@ describe("zipAll", () => {
 						// Second should have all elements from arr in second position
 						if (withEmpty2.length !== arr.length) return false
 						for (let i = 0; i < arr.length; i++) {
-							if (withEmpty2[i][0] !== undefined || withEmpty2[i][1] !== arr[i]) {
+							if (
+								withEmpty2[i][0] !== undefined ||
+								withEmpty2[i][1] !== arr[i]
+							) {
 								return false
 							}
 						}

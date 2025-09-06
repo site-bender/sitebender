@@ -77,7 +77,10 @@ const hasPath = (
 
 		// Check if the key exists as an own property
 		if (
-			!Object.prototype.hasOwnProperty.call(current, key as string | symbol)
+			!Object.prototype.hasOwnProperty.call(
+				current,
+				key as string | symbol,
+			)
 		) {
 			return false
 		}

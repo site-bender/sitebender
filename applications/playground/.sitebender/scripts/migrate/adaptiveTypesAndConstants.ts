@@ -4,7 +4,7 @@
  */
 
 throw new Error(
-	'Removed script: playground/.sitebender/scripts/migrate/engineTypesAndConstants.ts — do not use.',
-);
+	"Removed script: playground/.sitebender/scripts/migrate/engineTypesAndConstants.ts — do not use.",
+)
 
-export {};
+export {}

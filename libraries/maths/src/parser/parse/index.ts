@@ -1,19 +1,14 @@
-import type {
-	ASTNode,
-	ParseError,
-	Result,
-	Token,
-} from "../../types/index.ts"
+import type { ASTNode, ParseError, Result, Token } from "../../types/index.ts"
 
 import parseExpression from "../parseExpression/index.ts"
 import createParserContext from "./createParserContext/index.ts"
 
 /**
  * Parses an array of tokens into an Abstract Syntax Tree (AST).
- * 
+ *
  * @param tokens - Array of tokens from the tokenizer
  * @returns Result containing either the AST or a parse error
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Parse simple addition
@@ -26,7 +21,7 @@ import createParserContext from "./createParserContext/index.ts"
  * const result = parse(tokens)
  * // Returns: { ok: true, value: { type: "BinaryOp", operator: "+", left: {...}, right: {...} } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Parse with parentheses
@@ -34,7 +29,7 @@ import createParserContext from "./createParserContext/index.ts"
  * const result = parse(tokens.value)
  * // Returns nested AST with multiplication at root
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: Parse with precedence
@@ -42,7 +37,7 @@ import createParserContext from "./createParserContext/index.ts"
  * const result = parse(tokens.value)
  * // Returns AST with addition at root, multiplication as right child
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: Error handling for invalid syntax
@@ -50,7 +45,7 @@ import createParserContext from "./createParserContext/index.ts"
  * const result = parse(tokens.value)
  * // Returns: { ok: false, error: { message: "Unexpected token '+' at position 0" } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Parse complex nested expression
@@ -64,7 +59,7 @@ export default function parse(
 ): Result<ASTNode, ParseError> {
 	const ctx = createParserContext(tokens)
 	const result = parseExpression(ctx)(0)
-	
+
 	if (!result.ok) return result
 
 	// Ensure we've consumed all tokens except EOF
@@ -72,9 +67,8 @@ export default function parse(
 		return {
 			ok: false,
 			error: {
-				message: `Unexpected token '${ctx.current().value}' at position ${
-					ctx.current().position
-				}`,
+				message:
+					`Unexpected token '${ctx.current().value}' at position ${ctx.current().position}`,
 				position: ctx.current().position,
 			},
 		}

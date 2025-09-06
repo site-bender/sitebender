@@ -11,6 +11,67 @@ It works in conjunction with the engine module, which enhances these components 
 - **Semantic HTML first**: Components enhance native HTML elements
 - **Accessibility by default**: WCAG 2.3 AAA compliance target
 
+## Quickstart: Forms and ContactForm
+
+Build accessible, no‑JS‑first forms quickly with the `Form`, `Field`, `Button`, and `ContactForm` components.
+
+### TL;DR
+
+```tsx
+import { Button, ContactForm, Field, Form } from "@sitebender/components"
+
+// 1) One‑liner for a demo‑ready contact form (name, email, message + submit)
+export const SimpleContact = () => (
+	<ContactForm action="/contact" method="post" />
+)
+
+// 2) Compose your own form with fields
+export const CustomForm = () => (
+	<Form
+		action="/api/feedback"
+		method="post"
+		includeContactFormMicrodata
+		label="Send us a message"
+	>
+		<Field name="name" label="Your name" required />
+		<Field
+			name="email"
+			label="Email"
+			type="email"
+			required
+			pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+		/>
+		<Field name="message" label="Message" multiline rows={6} required />
+		<Button type="submit">Send</Button>
+	</Form>
+)
+```
+
+### Why this matters
+
+- Works without JavaScript (normal HTML form POST/GET)
+- A11y baked in: labels, `aria-*` states, and error message wiring
+- Optional Schema.org microdata (`includeContactFormMicrodata`) for SEO/discovery
+- Progressive enhancement hook available when you want extra UX
+
+### Progressive enhancement (optional)
+
+If you want client‑side niceties (lightweight required checks, enhanced states), call the enhancer at runtime. Baseline HTML still works when JS is off.
+
+```ts
+import { enhanceForm } from "@sitebender/components/interact/forms/Form/enhance"
+
+// Example: enhance a specific form element by id
+const formEl = document.getElementById("contact-form") as HTMLFormElement | null
+if (formEl) enhanceForm(formEl)
+```
+
+Notes:
+
+- To opt‑out of native browser validation (and rely on server or custom logic), pass `clientValidation={false}` to `Form`.
+- `ContactForm` is just a convenience composition of `Form` + three `Field`s + a submit `Button`.
+- Error UI can be shown by passing `error` to a `Field` (e.g., after a server POST response).
+
 ## Component Categories
 
 ### `afford/`
@@ -591,7 +652,9 @@ Yields:
 				He don't look down, don't look down
 			</div>
 			<div class="line" itemprop="text">He just loves the everglades</div>
-			<div class="line" itemprop="text">He don't love the changing times</div>
+			<div class="line" itemprop="text">
+				He don't love the changing times
+			</div>
 			<div class="refrain">
 				<div class="line" itemprop="text">Jonny's in America</div>
 			</div>

@@ -9,8 +9,8 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 import type { TdElementAttributes as TableDataCellAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TableDataCellAttributes) {
-
-	const { id, colSpan, headers, rowSpan, role, ...otherAttributes } = attributes
+	const { id, colSpan, headers, rowSpan, role, ...otherAttributes } =
+		attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
 	return {
@@ -21,5 +21,4 @@ export default function filterAttributes(attributes: TableDataCellAttributes) {
 		...filterAttribute(isInteger)("rowSpan")(rowSpan),
 		...filterAttribute(isMemberOf(TD_ROLES))("role")(role),
 	}
-
 }

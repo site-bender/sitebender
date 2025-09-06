@@ -11,7 +11,9 @@ const makeDisplayToggle =
 	async (arg: unknown, localValues?: LocalValues) => {
 		if (id) {
 			const test = await testCondition(arg, localValues)
-			test ? replaceElementFromDisplayCache(id) : moveElementToDisplayCache(id)
+			test
+				? replaceElementFromDisplayCache(id)
+				: moveElementToDisplayCache(id)
 		}
 	}
 

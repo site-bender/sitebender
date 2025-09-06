@@ -200,4 +200,5 @@ export type IsPair<T> = T extends Pair<unknown, unknown> ? true : false
 /**
  * Checks if a value is a Triple tuple at the type level
  */
-export type IsTriple<T> = T extends Triple<unknown, unknown, unknown> ? true : false
+export type IsTriple<T> = T extends Triple<unknown, unknown, unknown> ? true
+	: false

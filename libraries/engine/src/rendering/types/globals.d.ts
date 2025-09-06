@@ -6,7 +6,9 @@ declare global {
 		__sbDisplayCache?: Record<string, HTMLElement>
 		__sbDisplayCallbacks?: Record<
 			string,
-			Array<(arg?: unknown, localValues?: unknown) => Promise<void> | void>
+			Array<
+				(arg?: unknown, localValues?: unknown) => Promise<void> | void
+			>
 		>
 		__sbCalculators?: Set<string>
 		__sbCalculations?: Record<string, Set<string>>

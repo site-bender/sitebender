@@ -46,6 +46,7 @@
  * gte(Infinity)(Infinity) // true
  * ```
  */
-const gte = <T>(threshold: T) => <U extends T>(value: U): boolean => value >= threshold
+const gte = <T>(threshold: T) => <U extends T>(value: U): boolean =>
+	value >= threshold
 
 export default gte

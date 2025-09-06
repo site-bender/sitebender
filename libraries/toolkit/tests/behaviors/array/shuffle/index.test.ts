@@ -33,7 +33,7 @@ describe("shuffle", () => {
 			const result = shuffle(input)
 			assertEquals(new Set(result), new Set(input))
 			// All elements present
-			input.forEach(item => assert(result.includes(item)))
+			input.forEach((item) => assert(result.includes(item)))
 		})
 
 		it("should work with string arrays", () => {
@@ -49,7 +49,7 @@ describe("shuffle", () => {
 			const obj3 = { id: 3 }
 			const input = [obj1, obj2, obj3]
 			const result = shuffle(input)
-			
+
 			assertEquals(result.length, 3)
 			assert(result.includes(obj1))
 			assert(result.includes(obj2))
@@ -61,8 +61,8 @@ describe("shuffle", () => {
 			const result = shuffle(input)
 			assertEquals(result.length, input.length)
 			// Count occurrences
-			const countOccurrences = (arr: number[], val: number) => 
-				arr.filter(x => x === val).length
+			const countOccurrences = (arr: number[], val: number) =>
+				arr.filter((x) => x === val).length
 			assertEquals(countOccurrences(result, 1), 1)
 			assertEquals(countOccurrences(result, 2), 2)
 			assertEquals(countOccurrences(result, 3), 3)
@@ -73,10 +73,10 @@ describe("shuffle", () => {
 			const result = shuffle(input)
 			assertEquals(result.length, 5)
 			// Count NaN occurrences
-			const nanCount = result.filter(x => Number.isNaN(x)).length
+			const nanCount = result.filter((x) => Number.isNaN(x)).length
 			assertEquals(nanCount, 2)
 			// Count number occurrences
-			const numCount = result.filter(x => !Number.isNaN(x)).length
+			const numCount = result.filter((x) => !Number.isNaN(x)).length
 			assertEquals(numCount, 3)
 		})
 
@@ -100,12 +100,12 @@ describe("shuffle", () => {
 		it("should be impure (produce different results)", () => {
 			const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 			const results = new Set()
-			
+
 			// Run multiple times
 			for (let i = 0; i < 100; i++) {
 				results.add(JSON.stringify(shuffle(input)))
 			}
-			
+
 			// Should produce multiple different orderings
 			assert(results.size > 1)
 		})
@@ -113,7 +113,7 @@ describe("shuffle", () => {
 		it("should handle two-element array", () => {
 			const input = [1, 2]
 			const counts = { "[1,2]": 0, "[2,1]": 0 }
-			
+
 			// Run many times to check both orderings occur
 			for (let i = 0; i < 100; i++) {
 				const result = JSON.stringify(shuffle(input))
@@ -121,7 +121,7 @@ describe("shuffle", () => {
 					counts[result as keyof typeof counts]++
 				}
 			}
-			
+
 			// Both orderings should occur at least once
 			assert(counts["[1,2]"] > 0)
 			assert(counts["[2,1]"] > 0)
@@ -136,7 +136,11 @@ describe("shuffle", () => {
 			assert(result.includes(true))
 			assert(result.includes(null))
 			assert(result.some((item: any) => item?.x === 1))
-			assert(result.some((item: any) => Array.isArray(item) && item.length === 2))
+			assert(
+				result.some((item: any) =>
+					Array.isArray(item) && item.length === 2
+				),
+			)
 		})
 
 		it("should handle array with symbols", () => {
@@ -144,7 +148,7 @@ describe("shuffle", () => {
 			const sym2 = Symbol("b")
 			const input = [sym1, sym2, "test"]
 			const result = shuffle(input)
-			
+
 			assertEquals(result.length, 3)
 			assert(result.includes(sym1))
 			assert(result.includes(sym2))
@@ -154,7 +158,7 @@ describe("shuffle", () => {
 		it("should handle large arrays", () => {
 			const input = Array.from({ length: 1000 }, (_, i) => i)
 			const result = shuffle(input)
-			
+
 			assertEquals(result.length, 1000)
 			assertEquals(new Set(result).size, 1000)
 			// Check it's actually shuffled (not in original order)
@@ -171,8 +175,8 @@ describe("shuffle", () => {
 					(arr) => {
 						const result = shuffle(arr)
 						return result.length === arr.length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -184,9 +188,10 @@ describe("shuffle", () => {
 						const result = shuffle(arr)
 						const inputSorted = [...arr].sort((a, b) => a - b)
 						const resultSorted = [...result].sort((a, b) => a - b)
-						return JSON.stringify(inputSorted) === JSON.stringify(resultSorted)
-					}
-				)
+						return JSON.stringify(inputSorted) ===
+							JSON.stringify(resultSorted)
+					},
+				),
 			)
 		})
 
@@ -197,12 +202,16 @@ describe("shuffle", () => {
 					(arr) => {
 						const result = shuffle(arr)
 						// Every element in result should be in original
-						const allInOriginal = result.every(item => arr.includes(item))
+						const allInOriginal = result.every((item) =>
+							arr.includes(item)
+						)
 						// Every element in original should be in result
-						const allInResult = arr.every(item => result.includes(item))
+						const allInResult = arr.every((item) =>
+							result.includes(item)
+						)
 						return allInOriginal && allInResult
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -214,29 +223,40 @@ describe("shuffle", () => {
 						const result = shuffle(arr)
 						const countMap = new Map<number, number>()
 						const resultCountMap = new Map<number, number>()
-						
-						arr.forEach(n => countMap.set(n, (countMap.get(n) || 0) + 1))
-						result.forEach(n => resultCountMap.set(n, (resultCountMap.get(n) || 0) + 1))
-						
+
+						arr.forEach((n) =>
+							countMap.set(n, (countMap.get(n) || 0) + 1)
+						)
+						result.forEach((n) =>
+							resultCountMap.set(
+								n,
+								(resultCountMap.get(n) || 0) + 1,
+							)
+						)
+
 						// Check all counts match
 						for (const [key, count] of countMap) {
 							if (resultCountMap.get(key) !== count) return false
 						}
 						return true
-					}
-				)
+					},
+				),
 			)
 		})
 
 		it("should handle edge cases consistently", () => {
 			fc.assert(
 				fc.property(
-					fc.oneof(fc.constant(null), fc.constant(undefined), fc.constant([])),
+					fc.oneof(
+						fc.constant(null),
+						fc.constant(undefined),
+						fc.constant([]),
+					),
 					(input) => {
 						const result = shuffle(input as any)
 						return Array.isArray(result) && result.length === 0
-					}
-				)
+					},
+				),
 			)
 		})
 	})
@@ -246,25 +266,25 @@ describe("shuffle", () => {
 			const input = [1, 2, 3]
 			const permutations = new Map<string, number>()
 			const iterations = 6000
-			
+
 			for (let i = 0; i < iterations; i++) {
 				const result = JSON.stringify(shuffle(input))
 				permutations.set(result, (permutations.get(result) || 0) + 1)
 			}
-			
+
 			// There are 3! = 6 possible permutations
 			// Each should occur roughly 1/6 of the time
 			const expectedCount = iterations / 6
 			const tolerance = expectedCount * 0.2 // 20% tolerance
-			
+
 			// Should have all 6 permutations
 			assertEquals(permutations.size, 6)
-			
+
 			// Each should occur roughly equally
 			for (const count of permutations.values()) {
 				assert(
 					Math.abs(count - expectedCount) < tolerance,
-					`Permutation count ${count} is outside tolerance of ${expectedCount} ± ${tolerance}`
+					`Permutation count ${count} is outside tolerance of ${expectedCount} ± ${tolerance}`,
 				)
 			}
 		})
@@ -273,7 +293,7 @@ describe("shuffle", () => {
 			const input = [1, 2, 3, 4]
 			const positionCounts = new Map<string, number>()
 			const iterations = 4000
-			
+
 			for (let i = 0; i < iterations; i++) {
 				const result = shuffle(input)
 				result.forEach((value, index) => {
@@ -281,17 +301,17 @@ describe("shuffle", () => {
 					positionCounts.set(key, (positionCounts.get(key) || 0) + 1)
 				})
 			}
-			
+
 			// Each element should appear at each position roughly 1/4 of the time
 			const expectedCount = iterations / 4
 			const tolerance = expectedCount * 0.15 // 15% tolerance
-			
-			input.forEach(value => {
+
+			input.forEach((value) => {
 				for (let pos = 0; pos < input.length; pos++) {
 					const count = positionCounts.get(`${value}-at-${pos}`) || 0
 					assert(
 						Math.abs(count - expectedCount) < tolerance,
-						`Element ${value} at position ${pos}: ${count} times, expected ~${expectedCount}`
+						`Element ${value} at position ${pos}: ${count} times, expected ~${expectedCount}`,
 					)
 				}
 			})
@@ -302,12 +322,12 @@ describe("shuffle", () => {
 		it("should use Math.random for shuffling", () => {
 			const originalRandom = Math.random
 			let callCount = 0
-			
+
 			Math.random = () => {
 				callCount++
 				return 0.5
 			}
-			
+
 			try {
 				const input = [1, 2, 3, 4, 5]
 				shuffle(input)
@@ -321,7 +341,7 @@ describe("shuffle", () => {
 		it("should handle Math.random returning 0", () => {
 			const originalRandom = Math.random
 			Math.random = () => 0
-			
+
 			try {
 				const input = [1, 2, 3, 4, 5]
 				const result = shuffle(input)
@@ -335,7 +355,7 @@ describe("shuffle", () => {
 		it("should handle Math.random returning 0.999999", () => {
 			const originalRandom = Math.random
 			Math.random = () => 0.999999
-			
+
 			try {
 				const input = [1, 2, 3, 4, 5]
 				const result = shuffle(input)
@@ -349,13 +369,13 @@ describe("shuffle", () => {
 		it("should produce deterministic results with fixed random", () => {
 			const originalRandom = Math.random
 			let seed = 0.42
-			
+
 			// Simple deterministic "random" generator
 			Math.random = () => {
 				seed = (seed * 9 + 0.1) % 1
 				return seed
 			}
-			
+
 			try {
 				const input = [1, 2, 3, 4, 5]
 				seed = 0.42 // Reset seed

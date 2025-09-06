@@ -62,14 +62,14 @@ type RangeOptions = {
 
 type RangeResult = {
 	valid: boolean
-		value: unknown
+	value: unknown
 	min?: number | Date | string
 	max?: number | Date | string
 	error?: string
 }
 
 const validateRange =
-		(options: RangeOptions) => (value: unknown): boolean | RangeResult => {
+	(options: RangeOptions) => (value: unknown): boolean | RangeResult => {
 		const {
 			min,
 			max,
@@ -137,24 +137,29 @@ const validateRange =
 				value = value.length
 				break
 
-					case "date":
-						if (!(value instanceof Date) && (typeof value !== "string" || !Date.parse(value))) {
+			case "date":
+				if (
+					!(value instanceof Date) &&
+					(typeof value !== "string" || !Date.parse(value))
+				) {
 					return createResult(
 						false,
 						messages.type || "Value must be a valid date",
 					)
 				}
-						value = value instanceof Date ? value : new Date(String(value))
+				value = value instanceof Date ? value : new Date(String(value))
 				break
 
 			case "time":
 				// Convert time strings to comparable format
 				if (
-					typeof value !== "string" || !/^\d{2}:\d{2}(:\d{2})?$/.test(value)
+					typeof value !== "string" ||
+					!/^\d{2}:\d{2}(:\d{2})?$/.test(value)
 				) {
 					return createResult(
 						false,
-						messages.type || "Value must be a valid time (HH:MM or HH:MM:SS)",
+						messages.type ||
+							"Value must be a valid time (HH:MM or HH:MM:SS)",
 					)
 				}
 				break
@@ -172,12 +177,14 @@ const validateRange =
 		}
 
 		// Check minimum bound
-				if (minValue !== undefined) {
-					const comparison = type === "date" ? (value as Date).getTime() : (value as number)
+		if (minValue !== undefined) {
+			const comparison = type === "date"
+				? (value as Date).getTime()
+				: (value as number)
 
-					const minComparison = type === "date"
-						? (minValue as Date).getTime()
-						: (minValue as number)
+			const minComparison = type === "date"
+				? (minValue as Date).getTime()
+				: (minValue as number)
 
 			if (exclusive) {
 				if (comparison <= minComparison) {
@@ -199,12 +206,14 @@ const validateRange =
 		}
 
 		// Check maximum bound
-				if (maxValue !== undefined) {
-					const comparison = type === "date" ? (value as Date).getTime() : (value as number)
+		if (maxValue !== undefined) {
+			const comparison = type === "date"
+				? (value as Date).getTime()
+				: (value as number)
 
-					const maxComparison = type === "date"
-						? (maxValue as Date).getTime()
-						: (maxValue as number)
+			const maxComparison = type === "date"
+				? (maxValue as Date).getTime()
+				: (maxValue as number)
 
 			if (exclusive) {
 				if (comparison >= maxComparison) {
@@ -226,9 +235,9 @@ const validateRange =
 		}
 
 		// Check step if provided (only for numbers)
-			if (step !== undefined && type === "number") {
+		if (step !== undefined && type === "number") {
 			const epsilon = 0.0000001 // For floating point comparison
-				const remainder = Math.abs((value as number) % step)
+			const remainder = Math.abs((value as number) % step)
 			if (remainder > epsilon && remainder < step - epsilon) {
 				return createResult(
 					false,

@@ -39,7 +39,9 @@ export interface RecipeProps {
 		| QuantitativeValue
 		| Text
 		| ReturnType<typeof QuantitativeValueComponent>
-	suitableForDiet?: RestrictedDiet | ReturnType<typeof RestrictedDietComponent>
+	suitableForDiet?:
+		| RestrictedDiet
+		| ReturnType<typeof RestrictedDietComponent>
 }
 
 type Recipe = Thing & CreativeWorkProps & HowToProps & RecipeProps

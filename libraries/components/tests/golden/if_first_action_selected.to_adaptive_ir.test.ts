@@ -1,4 +1,7 @@
-import type { ActionNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
+import type {
+	ActionNode,
+	IrDocument,
+} from "@sitebender/engine-types/ir/index.ts"
 
 import {
 	assert,
@@ -26,22 +29,34 @@ Deno.test("golden: Act.If selects the first action in each branch", () => {
 						children: IsEqualTo({
 							type: "String",
 							children: [
-								Constant({ value: "x" }) as unknown as JSX.Element,
-								Constant({ value: "x" }) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
 							],
 						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 					// Multiple actions provided; compiler should pick the first in each branch
 					IfTrue({
 						children: [
-							Publish({ topic: "first-then" }) as unknown as JSX.Element,
-							Publish({ topic: "second-then" }) as unknown as JSX.Element,
+							Publish({
+								topic: "first-then",
+							}) as unknown as JSX.Element,
+							Publish({
+								topic: "second-then",
+							}) as unknown as JSX.Element,
 						],
 					}) as unknown as JSX.Element,
 					IfFalse({
 						children: [
-							Publish({ topic: "first-else" }) as unknown as JSX.Element,
-							Publish({ topic: "second-else" }) as unknown as JSX.Element,
+							Publish({
+								topic: "first-else",
+							}) as unknown as JSX.Element,
+							Publish({
+								topic: "second-else",
+							}) as unknown as JSX.Element,
 						],
 					}) as unknown as JSX.Element,
 				],

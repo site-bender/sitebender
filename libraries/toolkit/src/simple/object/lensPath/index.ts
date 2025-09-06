@@ -60,7 +60,7 @@ const lensPath = (
 ): Lens<Value, Value> => {
 	return lens<Value, Value>(
 		// Getter: traverse path to get value
-	(obj) => path(pathArray as Array<string | number>)(obj),
+		(obj) => path(pathArray as Array<string | number>)(obj),
 	)(
 		// Setter: immutably set value at path
 		(value) => (obj) => {
@@ -70,9 +70,9 @@ const lensPath = (
 			}
 
 			// Use assocPath for immutable nested updates
-	    return assocPath(pathArray as Array<string | number>)(value)(
+			return assocPath(pathArray as Array<string | number>)(value)(
 				obj && typeof obj === "object"
-		    ? obj as Record<string, Value>
+					? obj as Record<string, Value>
 					: {},
 			)
 		},

@@ -1,4 +1,7 @@
-import { REFERRER_POLICIES, SANDBOXES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	REFERRER_POLICIES,
+	SANDBOXES,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -13,7 +16,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { IFrameElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: IFrameElementAttributes) {
-
 	const {
 		id,
 		allow,
@@ -56,7 +58,10 @@ export default function filterAttributes(attributes: IFrameElementAttributes) {
 	if (isDefined(allow)) {
 		// Adapt boolean guard to a type predicate
 		const isValidAllow = (v: string): v is string => isValidIframeAllow(v)
-		Object.assign(filteredAttrs, filterAttribute(isValidAllow)("allow")(allow))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isValidAllow)("allow")(allow),
+		)
 	}
 	if (isDefined(allowFullScreen)) {
 		Object.assign(
@@ -65,7 +70,10 @@ export default function filterAttributes(attributes: IFrameElementAttributes) {
 		)
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	// Note: loading attribute not currently modeled in InlineFrameAttributes
 	if (isDefined(name)) {
@@ -90,7 +98,10 @@ export default function filterAttributes(attributes: IFrameElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
 	if (isDefined(srcDoc)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcdoc")(srcDoc))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("srcdoc")(srcDoc),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))
@@ -126,5 +137,4 @@ export default function filterAttributes(attributes: IFrameElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

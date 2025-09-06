@@ -78,7 +78,9 @@ export interface ServiceProps {
 		| ReturnType<typeof GeoShapeComponent>
 		| ReturnType<typeof PlaceComponent>
 	audience?: Audience | ReturnType<typeof AudienceComponent>
-	availableChannel?: ServiceChannel | ReturnType<typeof ServiceChannelComponent>
+	availableChannel?:
+		| ServiceChannel
+		| ReturnType<typeof ServiceChannelComponent>
 	award?: Text
 	brand?:
 		| Brand

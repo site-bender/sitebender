@@ -34,7 +34,11 @@ Deno.test("hypotenuse - 3D space", () => {
 
 Deno.test("hypotenuse - higher dimensions", () => {
 	// 4D space
-	assertAlmostEquals(hypotenuse([1, 2, 2, 2]), Math.sqrt(1 + 4 + 4 + 4), 1e-10)
+	assertAlmostEquals(
+		hypotenuse([1, 2, 2, 2]),
+		Math.sqrt(1 + 4 + 4 + 4),
+		1e-10,
+	)
 
 	// 5D space - all ones gives √5
 	assertAlmostEquals(hypotenuse([1, 1, 1, 1, 1]), Math.sqrt(5), 1e-10)
@@ -224,7 +228,10 @@ Deno.test("hypotenuse - special values", () => {
 Deno.test("hypotenuse - always non-negative", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 10 }),
+			fc.array(fc.float({ noNaN: true }), {
+				minLength: 1,
+				maxLength: 10,
+			}),
 			(values) => {
 				const result = hypotenuse(values)
 				return !Number.isNaN(result) && result >= 0
@@ -245,7 +252,11 @@ Deno.test("hypotenuse - scaling property", () => {
 				}),
 				{ minLength: 1, maxLength: 5 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.1),
+				max: Math.fround(10),
+			}),
 			(values, scale) => {
 				const original = hypotenuse(values)
 				const scaled = hypotenuse(values.map((v) => v * scale))

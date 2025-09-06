@@ -37,7 +37,10 @@ const removeAt = <T>(index: number) =>
 	const normalizedIndex = index < 0 ? len + index : index
 
 	return normalizedIndex >= 0 && normalizedIndex < len
-		? [...array.slice(0, normalizedIndex), ...array.slice(normalizedIndex + 1)]
+		? [
+			...array.slice(0, normalizedIndex),
+			...array.slice(normalizedIndex + 1),
+		]
 		: array as Array<T>
 }
 

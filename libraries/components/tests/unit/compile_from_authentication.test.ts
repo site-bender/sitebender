@@ -1,4 +1,7 @@
-import type { InjectorNode, IrDocument } from "@sitebender/engine-types/ir/index.ts"
+import type {
+	InjectorNode,
+	IrDocument,
+} from "@sitebender/engine-types/ir/index.ts"
 
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
@@ -31,7 +34,9 @@ Deno.test("From.Authenticator lowers to IR injector with path", () => {
 						datatype: "String",
 						value: "#x",
 					},
-					FromAuthentication({ path: "claims.sub" }) as unknown as JSX.Element,
+					FromAuthentication({
+						path: "claims.sub",
+					}) as unknown as JSX.Element,
 				],
 			} as unknown as JSX.Element,
 		}) as unknown as JSX.Element,
@@ -40,7 +45,8 @@ Deno.test("From.Authenticator lowers to IR injector with path", () => {
 		.children[
 			0
 		] as unknown as import("@sitebender/engine-types/ir/index.ts").EventBindingNode
-	const handler = evt.handler as import("@sitebender/engine-types/ir/index.ts").ActionNode
+	const handler = evt
+		.handler as import("@sitebender/engine-types/ir/index.ts").ActionNode
 	const inj = handler.args[1] as InjectorNode
 	assertEquals(inj.kind, "injector")
 	assertEquals(inj.injector, "From.Authenticator")

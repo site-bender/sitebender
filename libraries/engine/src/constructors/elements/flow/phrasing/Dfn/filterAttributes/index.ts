@@ -7,7 +7,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { DfnElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: DfnElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -67,5 +66,4 @@ export default function filterAttributes(attributes: DfnElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

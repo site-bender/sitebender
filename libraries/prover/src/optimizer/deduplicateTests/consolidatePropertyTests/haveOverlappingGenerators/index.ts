@@ -10,25 +10,28 @@ import type { TestCase } from "../../../../types/index.ts"
  * @param b Second test case
  * @returns True if generators overlap
  */
-export default function haveOverlappingGenerators(a: TestCase, b: TestCase): boolean {
+export default function haveOverlappingGenerators(
+	a: TestCase,
+	b: TestCase,
+): boolean {
 	if (!a.properties || !b.properties) return false
-	
+
 	// Check if any generators are the same
-	for (const aProp of a.properties) {
-		for (const bProp of b.properties) {
+	return a.properties.some(aProp =>
+		b.properties.some(bProp => {
 			// Same generator type
 			if (aProp.generator === bProp.generator) {
 				return true
 			}
-			
+
 			// Similar generator types (e.g., fc.array(fc.integer()) and fc.array(fc.nat()))
 			if (areGeneratorsSimilar(aProp.generator, bProp.generator)) {
 				return true
 			}
-		}
-	}
-	
-	return false
+
+			return false
+		})
+	)
 }
 
 /**
@@ -39,22 +42,27 @@ function areGeneratorsSimilar(a: string, b: string): boolean {
 	if (a.includes("fc.array") && b.includes("fc.array")) {
 		return true
 	}
-	
+
 	// Both are numeric generators
 	const numericGenerators = ["fc.integer", "fc.nat", "fc.float", "fc.double"]
-	const aIsNumeric = numericGenerators.some(gen => a.includes(gen))
-	const bIsNumeric = numericGenerators.some(gen => b.includes(gen))
+	const aIsNumeric = numericGenerators.some((gen) => a.includes(gen))
+	const bIsNumeric = numericGenerators.some((gen) => b.includes(gen))
 	if (aIsNumeric && bIsNumeric) {
 		return true
 	}
-	
+
 	// Both are string generators
-	const stringGenerators = ["fc.string", "fc.ascii", "fc.unicode", "fc.hexaString"]
-	const aIsString = stringGenerators.some(gen => a.includes(gen))
-	const bIsString = stringGenerators.some(gen => b.includes(gen))
+	const stringGenerators = [
+		"fc.string",
+		"fc.ascii",
+		"fc.unicode",
+		"fc.hexaString",
+	]
+	const aIsString = stringGenerators.some((gen) => a.includes(gen))
+	const bIsString = stringGenerators.some((gen) => b.includes(gen))
 	if (aIsString && bIsString) {
 		return true
 	}
-	
+
 	return false
 }

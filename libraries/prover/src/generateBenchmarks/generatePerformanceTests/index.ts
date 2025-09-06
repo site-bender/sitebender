@@ -14,15 +14,15 @@ import type { BenchmarkInputSet } from "../createBenchmarkInputs/index.ts"
  */
 export default function generatePerformanceTests(
 	_signature: FunctionSignature,
-	inputSets: Array<BenchmarkInputSet>
+	inputSets: Array<BenchmarkInputSet>,
 ): Array<BenchmarkTest> {
-	return inputSets.flatMap(inputSet => 
-		inputSet.inputs.map(input => ({
+	return inputSets.flatMap((inputSet) =>
+		inputSet.inputs.map((input) => ({
 			name: `perf-${inputSet.name}`,
 			description: `Performance test: ${inputSet.description}`,
 			input,
 			iterations: calculateIterations(inputSet.name),
-			warmupRuns: 10
+			warmupRuns: 10,
 		}))
 	)
 }
@@ -34,10 +34,10 @@ export default function generatePerformanceTests(
  */
 function calculateIterations(inputName: string): number {
 	// Scale iterations inversely with input size
-	if (inputName.includes('10000')) return 10
-	if (inputName.includes('1000')) return 100
-	if (inputName.includes('100')) return 1000
-	if (inputName.includes('recursion-depth-20')) return 100
-	if (inputName.includes('recursion-depth-15')) return 500
+	if (inputName.includes("10000")) return 10
+	if (inputName.includes("1000")) return 100
+	if (inputName.includes("100")) return 1000
+	if (inputName.includes("recursion-depth-20")) return 100
+	if (inputName.includes("recursion-depth-15")) return 500
 	return 10000 // Default for small inputs
 }

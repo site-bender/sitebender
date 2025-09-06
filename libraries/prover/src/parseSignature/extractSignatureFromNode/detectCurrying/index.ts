@@ -7,21 +7,21 @@ import isFunction from "./isFunction/index.ts"
  * @returns True if the function returns another function
  */
 export default function detectCurrying(
-	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction
+	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 ): boolean {
 	if (!node.body) {
 		return false
 	}
-	
+
 	if (ts.isBlock(node.body)) {
 		const returnStatement = node.body.statements.find(ts.isReturnStatement)
-		
+
 		if (returnStatement?.expression) {
 			return isFunction(returnStatement.expression)
 		}
 	} else {
 		return isFunction(node.body)
 	}
-	
+
 	return false
 }

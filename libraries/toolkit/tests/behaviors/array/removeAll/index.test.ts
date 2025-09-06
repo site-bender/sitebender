@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import removeAll from "../../../../src/simple/array/removeAll/index.ts"
@@ -140,11 +143,11 @@ Deno.test("removeAll: type safety", async (t) => {
 Deno.test("removeAll: currying", async (t) => {
 	await t.step("should be fully curried", () => {
 		const removeTwo = removeAll(2)
-		
+
 		const result1 = removeTwo([1, 2, 3, 2, 4])
 		const result2 = removeTwo([2, 2, 2])
 		const result3 = removeTwo([5, 10, 15])
-		
+
 		assertEquals(result1, [1, 3, 4])
 		assertEquals(result2, [])
 		assertEquals(result3, [5, 10, 15])
@@ -154,10 +157,13 @@ Deno.test("removeAll: currying", async (t) => {
 		const removeNulls = removeAll(null)
 		const removeZeros = removeAll(0)
 		const removeFalse = removeAll(false)
-		
+
 		assertEquals(removeNulls([1, null, 2, null, null, 3]), [1, 2, 3])
 		assertEquals(removeZeros([1, 0, 2, 0, 3, 0, 0]), [1, 2, 3])
-		assertEquals(removeFalse([true, false, false, true, false]), [true, true])
+		assertEquals(removeFalse([true, false, false, true, false]), [
+			true,
+			true,
+		])
 	})
 })
 
@@ -184,7 +190,7 @@ Deno.test("removeAll: property-based tests", async (t) => {
 				(arr, item) => {
 					const result = removeAll(item)(arr)
 					const expectedOrder = arr.filter((x) => x !== item)
-					
+
 					return result.length === expectedOrder.length &&
 						result.every((v, i) => v === expectedOrder[i])
 				},
@@ -199,8 +205,9 @@ Deno.test("removeAll: property-based tests", async (t) => {
 				(item) => {
 					const nullResult = removeAll(item)(null)
 					const undefinedResult = removeAll(item)(undefined)
-					
-					return nullResult.length === 0 && undefinedResult.length === 0
+
+					return nullResult.length === 0 &&
+						undefinedResult.length === 0
 				},
 			),
 		)
@@ -214,7 +221,7 @@ Deno.test("removeAll: property-based tests", async (t) => {
 				(arr, item) => {
 					const countBefore = arr.filter((x) => x === item).length
 					const result = removeAll(item)(arr)
-					
+
 					return result.length === arr.length - countBefore
 				},
 			),
@@ -246,7 +253,7 @@ Deno.test("removeAll: property-based tests", async (t) => {
 				(arr, item) => {
 					const removeAllResult = removeAll(item)(arr)
 					const filterResult = arr.filter((x) => x !== item)
-					
+
 					return removeAllResult.length === filterResult.length &&
 						removeAllResult.every((v, i) => v === filterResult[i])
 				},

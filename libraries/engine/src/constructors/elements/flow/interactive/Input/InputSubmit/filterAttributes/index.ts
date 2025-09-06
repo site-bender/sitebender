@@ -1,6 +1,10 @@
 import type { InputSubmitAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import { FORM_METHODS, FORM_TARGETS, POPOVER_TARGET_ACTIONS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	FORM_METHODS,
+	FORM_TARGETS,
+	POPOVER_TARGET_ACTIONS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
 import isMemberOf from "@sitebender/engine/guards/isMemberOf/index.ts"
@@ -8,7 +12,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputSubmitAttributes) {
-
 	const {
 		autofocus,
 		disabled,
@@ -43,5 +46,4 @@ export default function filterAttributes(attributes: InputSubmitAttributes) {
 		)(popoverTargetAction),
 		...filterAttribute(isString)("value")(value),
 	}
-
 }

@@ -10,11 +10,11 @@ export default function formatValue(value: unknown): string {
 	if (typeof value === "number") return String(value)
 	if (typeof value === "boolean") return String(value)
 	if (Array.isArray(value)) {
-		return `[${value.map(v => formatValue(v)).join(", ")}]`
+		return `[${value.map((v) => formatValue(v)).join(", ")}]`
 	}
 	if (typeof value === "object") {
 		const entries = Object.entries(value).map(
-			([k, v]) => `${k}: ${formatValue(v)}`
+			([k, v]) => `${k}: ${formatValue(v)}`,
 		)
 		return `{ ${entries.join(", ")} }`
 	}

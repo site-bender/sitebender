@@ -45,7 +45,8 @@ Deno.test("median", async (t) => {
 						(numbers) => {
 							const sorted = [...numbers].sort((a, b) => a - b)
 							const middleIndex = sorted.length / 2
-							const expected = (sorted[middleIndex - 1] + sorted[middleIndex]) /
+							const expected = (sorted[middleIndex - 1] +
+								sorted[middleIndex]) /
 								2
 
 							assertEquals(median(numbers), expected)
@@ -64,7 +65,9 @@ Deno.test("median", async (t) => {
 						maxLength: 50,
 					}),
 					(numbers) => {
-						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
+						const shuffled = [...numbers].sort(() =>
+							Math.random() - 0.5
+						)
 						const result1 = median(numbers)
 						const result2 = median(shuffled)
 
@@ -79,7 +82,10 @@ Deno.test("median", async (t) => {
 		await t.step("should be bounded by min and max", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 100 }),
+					fc.array(fc.float({ noNaN: true }), {
+						minLength: 1,
+						maxLength: 100,
+					}),
 					(numbers) => {
 						const result = median(numbers)
 						const min = Math.min(...numbers)
@@ -199,12 +205,18 @@ Deno.test("median", async (t) => {
 			assertEquals(Number.isNaN(median({} as any)), true)
 		})
 
-		await t.step("should return NaN for arrays with non-numeric values", () => {
-			assertEquals(Number.isNaN(median([1, "2", 3] as any)), true)
-			assertEquals(Number.isNaN(median([1, null, 3] as any)), true)
-			assertEquals(Number.isNaN(median([1, undefined, 3] as any)), true)
-			assertEquals(Number.isNaN(median([1, {}, 3] as any)), true)
-		})
+		await t.step(
+			"should return NaN for arrays with non-numeric values",
+			() => {
+				assertEquals(Number.isNaN(median([1, "2", 3] as any)), true)
+				assertEquals(Number.isNaN(median([1, null, 3] as any)), true)
+				assertEquals(
+					Number.isNaN(median([1, undefined, 3] as any)),
+					true,
+				)
+				assertEquals(Number.isNaN(median([1, {}, 3] as any)), true)
+			},
+		)
 
 		await t.step("should return NaN for arrays containing NaN", () => {
 			assertEquals(Number.isNaN(median([1, 2, NaN, 3, 4])), true)
@@ -343,7 +355,10 @@ Deno.test("median", async (t) => {
 		})
 
 		await t.step("percentile calculation helper", () => {
-			function getPercentile(data: Array<number>, percentile: number): number {
+			function getPercentile(
+				data: Array<number>,
+				percentile: number,
+			): number {
 				if (percentile === 50) return median(data)
 				// ... other percentile logic
 				return NaN
@@ -376,19 +391,22 @@ Deno.test("median", async (t) => {
 			assertEquals(original, copy)
 		})
 
-		await t.step("should not affect the order of the original array", () => {
-			const original = [9, 1, 7, 3, 5]
-			const copy = [...original]
-			const result = median(original)
-			assertEquals(result, 5)
-			assertEquals(original, copy)
-			// Original array should still be in the same order
-			assertEquals(original[0], 9)
-			assertEquals(original[1], 1)
-			assertEquals(original[2], 7)
-			assertEquals(original[3], 3)
-			assertEquals(original[4], 5)
-		})
+		await t.step(
+			"should not affect the order of the original array",
+			() => {
+				const original = [9, 1, 7, 3, 5]
+				const copy = [...original]
+				const result = median(original)
+				assertEquals(result, 5)
+				assertEquals(original, copy)
+				// Original array should still be in the same order
+				assertEquals(original[0], 9)
+				assertEquals(original[1], 1)
+				assertEquals(original[2], 7)
+				assertEquals(original[3], 3)
+				assertEquals(original[4], 5)
+			},
+		)
 	})
 
 	await t.step("performance characteristics", async (t) => {

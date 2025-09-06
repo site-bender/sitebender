@@ -20,10 +20,11 @@ if (import.meta.main) {
 	await runCli({
 		name: "alias-guards",
 		version: "1.0.0",
-		usage: "alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/engine libraries/components --json",
+		usage:
+			"alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/engine libraries/components --json",
 		booleans: ["json", "quiet"],
 		aliases: { q: "quiet", j: "json" },
-	onRun: async ({ flags, positional, stderr, stdout }: CliRunArgs) => {
+		onRun: async ({ flags, positional, stderr, stdout }: CliRunArgs) => {
 			const roots = positional.length ? positional : DEFAULT_ALIAS_SCOPES
 			const violations = await runAliasGuards(roots)
 			if (flags.json) {
@@ -34,7 +35,9 @@ if (import.meta.main) {
 				if (!flags.quiet) {
 					stderr("Alias policy violations:\n")
 					for (const v of violations) {
-						stderr(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`)
+						stderr(
+							`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`,
+						)
 					}
 					stderr(`\nTotal: ${violations.length} violation(s).`)
 				}

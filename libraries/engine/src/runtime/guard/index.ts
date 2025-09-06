@@ -2,7 +2,10 @@ import type { ComparatorNode, InjectorNode } from "../../../types/ir/index.ts"
 import type { ComposeContext } from "../../context/composeContext/index.ts"
 
 import registerDefaultExecutors from "../../operations/defaults/registerDefaults/index.ts"
+import createDeterministicIdGenerator from "../../utilities/nodeId/index.ts"
 import evaluate from "../evaluate/index.ts"
+
+const generateId = createDeterministicIdGenerator("runtime-guard")
 
 export type GuardDecision =
 	| { allow: true }
@@ -30,7 +33,7 @@ async function guardAuthorized(
 	const policyArgNode: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		injector: "From.Constant",
 		datatype: "String",
 		args: { value: policy.args ?? {} },
@@ -39,7 +42,7 @@ async function guardAuthorized(
 	const cmpNode: ComparatorNode = {
 		v: "0.1.0",
 		kind: "comparator",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		cmp: policy.tag,
 		args: [policyArgNode],
 	}

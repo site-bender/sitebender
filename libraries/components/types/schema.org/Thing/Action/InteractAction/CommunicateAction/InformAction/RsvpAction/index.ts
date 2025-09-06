@@ -16,7 +16,9 @@ export interface RsvpActionProps {
 	"@type"?: RsvpActionType
 	additionalNumberOfGuests?: Number
 	comment?: Comment | ReturnType<typeof CommentComponent>
-	rsvpResponse?: RsvpResponseType | ReturnType<typeof RsvpResponseTypeComponent>
+	rsvpResponse?:
+		| RsvpResponseType
+		| ReturnType<typeof RsvpResponseTypeComponent>
 }
 
 type RsvpAction =

@@ -121,7 +121,7 @@ describe("sliding", () => {
 				expect(result).toEqual([
 					[1, "a", true],
 					["a", true, null],
-					[true, null, { x: 1 }]
+					[true, null, { x: 1 }],
 				])
 			})
 
@@ -137,13 +137,20 @@ describe("sliding", () => {
 			it("should support partial application of size", () => {
 				const window3 = sliding(3)
 				expect(window3(1)([1, 2, 3, 4])).toEqual([[1, 2, 3], [2, 3, 4]])
-				expect(window3(2)([1, 2, 3, 4, 5])).toEqual([[1, 2, 3], [3, 4, 5]])
+				expect(window3(2)([1, 2, 3, 4, 5])).toEqual([[1, 2, 3], [
+					3,
+					4,
+					5,
+				]])
 			})
 
 			it("should support partial application of size and step", () => {
 				const window2step1 = sliding(2)(1)
 				expect(window2step1([1, 2, 3])).toEqual([[1, 2], [2, 3]])
-				expect(window2step1(["a", "b", "c"])).toEqual([["a", "b"], ["b", "c"]])
+				expect(window2step1(["a", "b", "c"])).toEqual([["a", "b"], [
+					"b",
+					"c",
+				]])
 			})
 
 			it("should use default step of 1 with explicit undefined", () => {
@@ -178,7 +185,7 @@ describe("sliding", () => {
 		describe("practical use cases", () => {
 			it("should calculate moving averages", () => {
 				const windows = sliding(3)(1)([1, 2, 3, 4, 5])
-				const movingAverages = windows.map(w => 
+				const movingAverages = windows.map((w) =>
 					w.reduce((sum, n) => sum + n, 0) / w.length
 				)
 				expect(movingAverages).toEqual([2, 3, 4])
@@ -187,10 +194,16 @@ describe("sliding", () => {
 			it("should detect patterns in sequences", () => {
 				const sequence = [1, 2, 1, 2, 1, 2]
 				const windows = sliding(2)(1)(sequence)
-				const patterns = windows.map(([a, b]) => 
+				const patterns = windows.map(([a, b]) =>
 					a === 1 && b === 2 ? "pattern" : "no pattern"
 				)
-				expect(patterns).toEqual(["pattern", "no pattern", "pattern", "no pattern", "pattern"])
+				expect(patterns).toEqual([
+					"pattern",
+					"no pattern",
+					"pattern",
+					"no pattern",
+					"pattern",
+				])
 			})
 
 			it("should work for n-gram analysis", () => {
@@ -199,7 +212,7 @@ describe("sliding", () => {
 				expect(bigrams).toEqual([
 					["the", "quick"],
 					["quick", "brown"],
-					["brown", "fox"]
+					["brown", "fox"],
 				])
 			})
 		})
@@ -227,7 +240,7 @@ describe("sliding", () => {
 					fc.integer({ min: 1, max: 5 }),
 					(array, size, step) => {
 						const result = sliding(size)(step)(array)
-						return result.every(window => window.length === size)
+						return result.every((window) => window.length === size)
 					},
 				),
 			)
@@ -243,7 +256,7 @@ describe("sliding", () => {
 						const result = sliding(size)(step)(array)
 						return result.every((window, i) => {
 							const startIdx = i * step
-							return window.every((elem, j) => 
+							return window.every((elem, j) =>
 								elem === array[startIdx + j]
 							)
 						})
@@ -263,7 +276,8 @@ describe("sliding", () => {
 						if (array.length < size) {
 							return result.length === 0
 						}
-						const expectedCount = Math.floor((array.length - size) / step) + 1
+						const expectedCount =
+							Math.floor((array.length - size) / step) + 1
 						return result.length === expectedCount
 					},
 				),
@@ -278,7 +292,8 @@ describe("sliding", () => {
 					(size, step) => {
 						const nullResult = sliding(size)(step)(null)
 						const undefinedResult = sliding(size)(step)(undefined)
-						return nullResult.length === 0 && undefinedResult.length === 0
+						return nullResult.length === 0 &&
+							undefinedResult.length === 0
 					},
 				),
 			)
@@ -292,7 +307,7 @@ describe("sliding", () => {
 						fc.constant(0),
 						fc.constant(-1),
 						fc.constant(NaN),
-						fc.constant(1.5)
+						fc.constant(1.5),
 					),
 					fc.integer({ min: 1, max: 5 }),
 					(array, invalidSize, step) => {
@@ -314,7 +329,10 @@ describe("sliding", () => {
 						for (let i = 0; i < result.length - 1; i++) {
 							const shared = result[i].slice(1)
 							const nextShared = result[i + 1].slice(0, -1)
-							if (JSON.stringify(shared) !== JSON.stringify(nextShared)) {
+							if (
+								JSON.stringify(shared) !==
+									JSON.stringify(nextShared)
+							) {
 								return false
 							}
 						}

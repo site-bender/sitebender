@@ -1,4 +1,8 @@
-import { getVizAdapter, setVizAdapter, vizNoopAdapter } from "@sitebender/components/index.ts"
+import {
+	getVizAdapter,
+	setVizAdapter,
+	vizNoopAdapter,
+} from "@sitebender/components/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 
 Deno.test("registry viz adapter is preferred over noop in docs hydrate", async () => {
@@ -27,7 +31,9 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 	const customAdapter = {
 		hydrate(root?: Document | HTMLElement) {
 			const scope = (root ?? document) as Document
-			const nodes = scope.querySelectorAll("[data-viz]") as unknown as Array<
+			const nodes = scope.querySelectorAll(
+				"[data-viz]",
+			) as unknown as Array<
 				{ dataset: Record<string, string> }
 			>
 			for (const n of nodes) n.dataset.vizHydrated = "custom"
@@ -36,9 +42,9 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 	setVizAdapter(customAdapter as any)
 
 	// Dynamically import hydrate entry so it sees our fake document and adapter
-		// Trigger hydration via registry by invoking the adapter manually
-		const adapter = getVizAdapter() ?? vizNoopAdapter
-		adapter.hydrate()
+	// Trigger hydration via registry by invoking the adapter manually
+	const adapter = getVizAdapter() ?? vizNoopAdapter
+	adapter.hydrate()
 
 	// The custom registry adapter should have run, not the noop fallback
 	for (const el of els) {

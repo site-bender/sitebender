@@ -1,4 +1,11 @@
-import { BUTTON_ROLES, BUTTON_TYPES, FORM_ENCTYPES, FORM_METHODS, FORM_TARGETS, POPOVER_TARGET_ACTIONS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	BUTTON_ROLES,
+	BUTTON_TYPES,
+	FORM_ENCTYPES,
+	FORM_METHODS,
+	FORM_TARGETS,
+	POPOVER_TARGET_ACTIONS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -10,7 +17,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ButtonElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ButtonElementAttributes) {
-
 	const {
 		id,
 		autofocus,
@@ -89,7 +95,9 @@ export default function filterAttributes(attributes: ButtonElementAttributes) {
 	if (isDefined(formEncType)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_ENCTYPES))("formEncType")(formEncType),
+			filterAttribute(isMemberOf(FORM_ENCTYPES))("formEncType")(
+				formEncType,
+			),
 		)
 	}
 	if (isDefined(formMethod)) {
@@ -236,5 +244,4 @@ export default function filterAttributes(attributes: ButtonElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

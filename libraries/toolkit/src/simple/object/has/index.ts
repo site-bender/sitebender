@@ -86,7 +86,10 @@ const has =
 				if (!Object.prototype.hasOwnProperty.call(current, strKey)) {
 					return false
 				}
-				return checkPath((current as Record<string, Value>)[strKey], rest)
+				return checkPath(
+					(current as Record<string, Value>)[strKey],
+					rest,
+				)
 			}
 		}
 

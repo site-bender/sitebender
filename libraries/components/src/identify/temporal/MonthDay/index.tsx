@@ -40,7 +40,9 @@ export type Props =
 		format?: "numeric" | "short" | "medium" | "long" | "full"
 		children?:
 			| string
-			| ((formatted: { display: string; datetime: string }) => JSX.Element)
+			| ((
+				formatted: { display: string; datetime: string },
+			) => JSX.Element)
 	}
 
 export default function MonthDay({

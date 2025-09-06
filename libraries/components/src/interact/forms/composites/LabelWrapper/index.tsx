@@ -1,7 +1,6 @@
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import Help from "../../elements/Help/index.tsx"
 import Label from "../../elements/Label/index.tsx"
@@ -35,20 +34,31 @@ export default function LabelWrapper({
 		["input", "textarea", "select"].includes(child.type)
 
 	const injectedChild = isFormControl
-		? createElement(child.type, {
-			...child.props,
-			"aria-labelledby": label ? labelId : undefined,
-			"aria-describedby": help ? helpId : undefined,
-			id: child.props.id || `${id}-control`,
-		})
+		? (
+			// @ts-ignore - child.type is a valid intrinsic or component
+			<child.type
+				{...child.props}
+				aria-labelledby={label ? labelId : undefined}
+				aria-describedby={((): string | undefined => {
+					const existing = (child.props || {})["aria-describedby"] as
+						| string
+						| undefined
+					if (!help) return existing
+					if (!existing) return helpId
+					const tokens = new Set(
+						(existing + " " + helpId).trim().split(/\s+/),
+					)
+					return Array.from(tokens).join(" ")
+				})()}
+				id={child.props.id || `${id}-control`}
+			/>
+		)
 		: child
 
 	return (
 		<label class={clss} id={wrapperId} {...props}>
-			<Label id={labelId} {...labelAttrs} useDiv />
-
-			{help ? <Help id={helpId} {...helpAttrs} /> : null}
-
+			<Label id={labelId} {...(labelAttrs || {})} useDiv />
+			{help ? <Help id={helpId} {...(helpAttrs || {})} /> : null}
 			{injectedChild}
 		</label>
 	)

@@ -188,8 +188,18 @@ Deno.test("subtract - inverse relationship with add", () => {
 
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e6, max: 1e6 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e6, max: 1e6 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e6,
+				max: 1e6,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e6,
+				max: 1e6,
+			}),
 			(a, b) => {
 				// (a - b) + b = a
 				const difference = subtract(a)(b)

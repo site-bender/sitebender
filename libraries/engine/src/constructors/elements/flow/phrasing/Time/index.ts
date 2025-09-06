@@ -34,8 +34,6 @@ export type TimeElementAttributes = TimeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Time element configuration object
  *

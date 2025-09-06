@@ -17,8 +17,14 @@ function generateMicrodata(data: Record<string, unknown>): JSX.Element {
 		const children = Object.entries(obj)
 			.filter(([key]) => key !== "@type")
 			.map(([key, value]) => {
-				if (value && typeof value === "object" && !Array.isArray(value)) {
-					return generateElement(value as Record<string, unknown>, false, key)
+				if (
+					value && typeof value === "object" && !Array.isArray(value)
+				) {
+					return generateElement(
+						value as Record<string, unknown>,
+						false,
+						key,
+					)
 				}
 				return <meta itemprop={key} content={String(value)} key={key} />
 			})

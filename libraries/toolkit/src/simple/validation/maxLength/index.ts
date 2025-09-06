@@ -56,9 +56,9 @@ const maxLength = (
 	}
 
 	// Check if value has a numeric length property
-		if (typeof (value as ArrayLike<unknown>).length === "number") {
-			return (value as ArrayLike<unknown>).length <= max
-		}
+	if (typeof (value as ArrayLike<unknown>).length === "number") {
+		return (value as ArrayLike<unknown>).length <= max
+	}
 
 	return false
 }

@@ -1,0 +1,61 @@
+{
+  "scriptId": "595",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/model/ReplayPath.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3008, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parse",
+      "ranges": [{ "startOffset": 37, "endOffset": 318, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringify",
+      "ranges": [{ "startOffset": 330, "endOffset": 613, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "intToB64",
+      "ranges": [{ "startOffset": 625, "endOffset": 914, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "b64ToInt",
+      "ranges": [{ "startOffset": 926, "endOffset": 1180, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "countOccurences",
+      "ranges": [{ "startOffset": 1192, "endOffset": 1570, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "parseOccurences",
+      "ranges": [{ "startOffset": 1582, "endOffset": 1919, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringifyChanges",
+      "ranges": [{ "startOffset": 1931, "endOffset": 2329, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "parseChanges",
+      "ranges": [{ "startOffset": 2341, "endOffset": 2754, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "stringifyCounts",
+      "ranges": [{ "startOffset": 2766, "endOffset": 2882, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "parseCounts",
+      "ranges": [{ "startOffset": 2894, "endOffset": 3005, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -59,7 +59,9 @@ const pluck = <T, K extends keyof T>(
 
 	return array.map((item) => {
 		if (isNotNullish(item) && typeof item === "object") {
-			return (item as Record<string | number | symbol, unknown>)[key as unknown as string] as T[K] | undefined
+			return (item as Record<string | number | symbol, unknown>)[
+				key as unknown as string
+			] as T[K] | undefined
 		}
 		return undefined
 	})

@@ -100,21 +100,22 @@ const isPostalCode = (
 		switch (country) {
 			case "US":
 				// US ZIP codes: 5 digits or 5+4 digits
-				return /^\d{5}(-\d{4})?$/.test(trimmed) || /^\d{9}$/.test(trimmed)
+				return /^\d{5}(-\d{4})?$/.test(trimmed) ||
+					/^\d{9}$/.test(trimmed)
 
-					case "CA": {
-						// Canadian postal codes: A1A 1A1 format
-						const caPattern = /^[ABCEGHJ-NPRSTVXY]\d[A-Z]\s?\d[A-Z]\d$/i
-						return caPattern.test(trimmed) ||
-							caPattern.test(trimmed.replace("-", ""))
-					}
+			case "CA": {
+				// Canadian postal codes: A1A 1A1 format
+				const caPattern = /^[ABCEGHJ-NPRSTVXY]\d[A-Z]\s?\d[A-Z]\d$/i
+				return caPattern.test(trimmed) ||
+					caPattern.test(trimmed.replace("-", ""))
+			}
 
-					case "GB": {
-						// UK postcodes: complex format
-						// Outward code + Inward code
-						const ukPattern = /^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?(\d[A-Z]{2})$/i
-						return ukPattern.test(trimmed)
-					}
+			case "GB": {
+				// UK postcodes: complex format
+				// Outward code + Inward code
+				const ukPattern = /^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?(\d[A-Z]{2})$/i
+				return ukPattern.test(trimmed)
+			}
 
 			case "DE":
 				// German postal codes: 5 digits
@@ -188,15 +189,15 @@ const isPostalCode = (
 				// Chinese postal codes: 6 digits
 				return /^\d{6}$/.test(trimmed)
 
-					default: {
-						// Generic validation: alphanumeric with optional spaces/hyphens
-						// 3-10 characters after removing spaces and hyphens
-						const cleaned = trimmed.replace(/[\s-]/g, "")
-						if (cleaned.length < 3 || cleaned.length > 10) {
-							return false
-						}
-						return /^[A-Z0-9]+$/i.test(cleaned)
-					}
+			default: {
+				// Generic validation: alphanumeric with optional spaces/hyphens
+				// 3-10 characters after removing spaces and hyphens
+				const cleaned = trimmed.replace(/[\s-]/g, "")
+				if (cleaned.length < 3 || cleaned.length > 10) {
+					return false
+				}
+				return /^[A-Z0-9]+$/i.test(cleaned)
+			}
 		}
 	}
 }

@@ -1,0 +1,11 @@
+# Generated documentation
+generated-docs/
+sample-docs/
+
+# Coverage reports
+coverage/
+coverage.lcov
+
+# Temporary files
+*.tmp
+temp-*

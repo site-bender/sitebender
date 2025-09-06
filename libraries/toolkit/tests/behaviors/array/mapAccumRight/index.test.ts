@@ -18,7 +18,11 @@ Deno.test("mapAccumRight: builds path from end", () => {
 		return [newPath, newPath]
 	}
 	const result = mapAccumRight(buildPath)("")(["usr", "local", "bin"])
-	assertEquals(result, ["usr/local/bin", ["usr/local/bin", "local/bin", "bin"]])
+	assertEquals(result, ["usr/local/bin", [
+		"usr/local/bin",
+		"local/bin",
+		"bin",
+	]])
 })
 
 Deno.test("mapAccumRight: counts elements after each position", () => {
@@ -247,7 +251,9 @@ Deno.test("mapAccumRight: property test - consistent with manual right-to-left i
 					acc * 2 + x,
 					acc + x,
 				]
-				const [resultAcc, resultMapped] = mapAccumRight(fn)(initial)(arr)
+				const [resultAcc, resultMapped] = mapAccumRight(fn)(initial)(
+					arr,
+				)
 
 				// Manual right-to-left iteration
 				let manualAcc = initial
@@ -303,7 +309,8 @@ Deno.test("mapAccumRight: property test - handles nullish values properly", () =
 			fc.integer(),
 			fc.func(fc.tuple(fc.integer(), fc.integer())),
 			(nullish, initial, fnGen) => {
-				const fn = (_acc: number, _x: unknown): [number, number] => fnGen()
+				const fn = (_acc: number, _x: unknown): [number, number] =>
+					fnGen()
 				const result = mapAccumRight(fn)(initial)(nullish as any)
 				assertEquals(result, [initial, []])
 			},

@@ -1,0 +1,36 @@
+{
+  "scriptId": "504",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/property/UnbiasedProperty.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 656, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "UnbiasedProperty",
+      "ranges": [{ "startOffset": 36, "endOffset": 348, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isAsync",
+      "ranges": [{ "startOffset": 353, "endOffset": 410, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 415, "endOffset": 501, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 506, "endOffset": 571, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 576, "endOffset": 653, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

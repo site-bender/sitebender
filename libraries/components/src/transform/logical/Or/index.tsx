@@ -1,4 +1,7 @@
-import type { ComparatorConfig, LogicalConfig } from "@sitebender/engine-types/index.ts"
+import type {
+	ComparatorConfig,
+	LogicalConfig,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Or JSX Component

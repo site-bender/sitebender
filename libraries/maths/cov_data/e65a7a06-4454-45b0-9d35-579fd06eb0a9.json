@@ -1,0 +1,24 @@
+{
+  "scriptId": "386",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parseExpression/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2069, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parseExpression",
+      "ranges": [{ "startOffset": 1662, "endOffset": 2068, "count": 17 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 1703, "endOffset": 2065, "count": 17 },
+        { "startOffset": 1969, "endOffset": 2064, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

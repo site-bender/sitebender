@@ -104,7 +104,8 @@ const validateForm =
 					value === "" ||
 					(typeof value === "string" && value.trim() === "")
 				) {
-					errors[fieldName] = rules.message || "This field is required"
+					errors[fieldName] = rules.message ||
+						"This field is required"
 					continue
 				}
 			}
@@ -170,13 +171,19 @@ const validateForm =
 
 			// String length validation
 			if (typeof value === "string") {
-				if (isNotUndefined(rules.minLength) && value.length < rules.minLength) {
+				if (
+					isNotUndefined(rules.minLength) &&
+					value.length < rules.minLength
+				) {
 					errors[fieldName] = rules.message ||
 						`Minimum length is ${rules.minLength}`
 					continue
 				}
 
-				if (isNotUndefined(rules.maxLength) && value.length > rules.maxLength) {
+				if (
+					isNotUndefined(rules.maxLength) &&
+					value.length > rules.maxLength
+				) {
 					errors[fieldName] = rules.message ||
 						`Maximum length is ${rules.maxLength}`
 					continue
@@ -188,12 +195,14 @@ const validateForm =
 				const numValue = Number(value)
 
 				if (isNotUndefined(rules.min) && numValue < Number(rules.min)) {
-					errors[fieldName] = rules.message || `Minimum value is ${rules.min}`
+					errors[fieldName] = rules.message ||
+						`Minimum value is ${rules.min}`
 					continue
 				}
 
 				if (isNotUndefined(rules.max) && numValue > Number(rules.max)) {
-					errors[fieldName] = rules.message || `Maximum value is ${rules.max}`
+					errors[fieldName] = rules.message ||
+						`Maximum value is ${rules.max}`
 					continue
 				}
 			}
@@ -213,7 +222,8 @@ const validateForm =
 
 			// Equals validation
 			if (isNotUndefined(rules.equals) && value !== rules.equals) {
-				errors[fieldName] = rules.message || `Must equal ${rules.equals}`
+				errors[fieldName] = rules.message ||
+					`Must equal ${rules.equals}`
 				continue
 			}
 
@@ -235,7 +245,8 @@ const validateForm =
 							| Date,
 					)
 					if (dateValue <= afterDate) {
-						errors[fieldName] = rules.message || `Must be after ${rules.after}`
+						errors[fieldName] = rules.message ||
+							`Must be after ${rules.after}`
 						continue
 					}
 				}

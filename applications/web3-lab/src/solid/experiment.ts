@@ -3,7 +3,7 @@
  */
 
 console.log("🗃️ Solid Pod Experiment")
-console.log("=" .repeat(50))
+console.log("=".repeat(50))
 
 /**
  * Solid Pod simulator for demonstration
@@ -13,11 +13,11 @@ class SolidPodSimulator {
 	private podUrl: string
 	private webId: string
 	private data: Map<string, any> = new Map()
-	
+
 	constructor(username: string) {
 		this.podUrl = `https://${username}.solidcommunity.net/`
 		this.webId = `${this.podUrl}profile/card#me`
-		
+
 		// Simulate some initial data
 		this.data.set("profile", {
 			"@context": "https://schema.org",
@@ -26,7 +26,7 @@ class SolidPodSimulator {
 			name: username,
 			email: `${username}@example.org`,
 		})
-		
+
 		this.data.set("public/articles", [
 			{
 				"@type": "Article",
@@ -35,42 +35,44 @@ class SolidPodSimulator {
 			},
 		])
 	}
-	
+
 	async read(path: string): Promise<any> {
 		console.log(`📖 Reading from ${path}`)
 		return this.data.get(path) || null
 	}
-	
+
 	async write(path: string, data: any): Promise<boolean> {
 		console.log(`✍️ Writing to ${path}`)
 		this.data.set(path, data)
 		return true
 	}
-	
+
 	async query(sparql: string): Promise<any[]> {
 		console.log(`🔍 Executing SPARQL query`)
 		// Simplified - real Solid uses LDP and SPARQL
 		const results: any[] = []
-		
+
 		if (sparql.includes("Person")) {
 			results.push(this.data.get("profile"))
 		}
-		
+
 		if (sparql.includes("Article")) {
 			const articles = this.data.get("public/articles") || []
 			results.push(...articles)
 		}
-		
+
 		return results
 	}
-	
+
 	getPermissions(path: string): string[] {
 		// Solid uses Web Access Control (WAC)
 		return ["read", "write", "append", "control"]
 	}
-	
+
 	grantAccess(path: string, webId: string, permissions: string[]) {
-		console.log(`🔐 Granting ${permissions.join(", ")} to ${webId} for ${path}`)
+		console.log(
+			`🔐 Granting ${permissions.join(", ")} to ${webId} for ${path}`,
+		)
 		// In real Solid, this creates .acl files
 	}
 }
@@ -102,7 +104,7 @@ class DataPortabilityDemo {
 			apps: ["app1.example", "app2.example"],
 		}
 	}
-	
+
 	static migrateToNewPod(profile: PortableProfile, newPodUrl: string) {
 		console.log(`\n📦 Migrating data to ${newPodUrl}`)
 		console.log("   ✅ Profile data")
@@ -119,21 +121,21 @@ class DataPortabilityDemo {
 class SolidApp {
 	private name: string
 	private permissions: string[]
-	
+
 	constructor(name: string, permissions: string[]) {
 		this.name = name
 		this.permissions = permissions
 	}
-	
+
 	async requestAccess(pod: SolidPodSimulator): Promise<boolean> {
 		console.log(`\n🔐 ${this.name} requesting access:`)
-		this.permissions.forEach(p => console.log(`   - ${p}`))
-		
+		this.permissions.forEach((p) => console.log(`   - ${p}`))
+
 		// User would approve/deny in real scenario
 		console.log("   ✅ User approved access")
 		return true
 	}
-	
+
 	async readUserData(pod: SolidPodSimulator, path: string) {
 		console.log(`📱 ${this.name} reading ${path}`)
 		return await pod.read(path)
@@ -144,17 +146,17 @@ class SolidApp {
 async function main() {
 	console.log("\n🌟 Creating Solid Pod for Alice...")
 	const alicePod = new SolidPodSimulator("alice")
-	
+
 	console.log(`   Pod URL: ${alicePod["podUrl"]}`)
 	console.log(`   WebID: ${alicePod["webId"]}`)
-	
+
 	// Read profile
 	console.log("\n👤 Reading Profile:")
 	const profile = await alicePod.read("profile")
 	console.log(`   Name: ${profile.name}`)
 	console.log(`   Email: ${profile.email}`)
 	console.log(`   Type: ${profile["@type"]}`)
-	
+
 	// Write new article
 	console.log("\n📝 Writing new article to Pod...")
 	const newArticle = {
@@ -165,17 +167,17 @@ async function main() {
 		datePublished: new Date().toISOString(),
 		articleBody: "Solid Pods give users control over their data...",
 	}
-	
+
 	await alicePod.write("public/articles/article2", newArticle)
 	console.log("   ✅ Article saved to Pod")
-	
+
 	// Query with SPARQL
 	console.log("\n🔍 Querying Pod with SPARQL...")
 	const results = await alicePod.query(
-		"SELECT ?article WHERE { ?article a schema:Article }"
+		"SELECT ?article WHERE { ?article a schema:Article }",
 	)
 	console.log(`   Found ${results.length} articles`)
-	
+
 	// Show app access control
 	console.log("\n🔐 Access Control Demo:")
 	const socialApp = new SolidApp("Social Network App", [
@@ -183,27 +185,27 @@ async function main() {
 		"read public/posts",
 		"write public/posts",
 	])
-	
+
 	await socialApp.requestAccess(alicePod)
-	
+
 	const analyticsApp = new SolidApp("Analytics App", [
 		"read public/*",
 	])
-	
+
 	await analyticsApp.requestAccess(alicePod)
-	
+
 	// Demonstrate data portability
 	console.log("\n🚀 Data Portability Demo:")
 	const exportedProfile = DataPortabilityDemo.exportProfile(alicePod)
 	console.log(`   Exported data for ${exportedProfile.webId}`)
 	console.log(`   Friends: ${exportedProfile.friends.length}`)
 	console.log(`   Apps with access: ${exportedProfile.apps.length}`)
-	
+
 	DataPortabilityDemo.migrateToNewPod(
 		exportedProfile,
-		"https://alice.inrupt.net/"
+		"https://alice.inrupt.net/",
 	)
-	
+
 	// Show Sitebender integration
 	console.log("\n🔧 Sitebender Integration:")
 	console.log("```tsx")
@@ -218,7 +220,7 @@ async function main() {
 	console.log(`  )}`)
 	console.log(`</SolidData>`)
 	console.log("```")
-	
+
 	// Key benefits
 	console.log("\n✨ Key Benefits of Solid:")
 	console.log("   ✅ User owns their data")
@@ -227,15 +229,15 @@ async function main() {
 	console.log("   ✅ Data portability")
 	console.log("   ✅ RDF native (works with SPARQL)")
 	console.log("   ✅ Decentralized architecture")
-	
+
 	// Real world usage
 	console.log("\n🌍 To use real Solid Pods:")
 	console.log("   1. Sign up at https://solidcommunity.net")
 	console.log("   2. Install: npm install @inrupt/solid-client")
 	console.log("   3. Authenticate with solid-client-authn")
 	console.log("   4. Read/write RDF data to your Pod")
-	
-	console.log("\n" + "=" .repeat(50))
+
+	console.log("\n" + "=".repeat(50))
 	console.log("🎉 Solid Pod Experiment Complete!")
 }
 

@@ -8,7 +8,8 @@ import {
 
 // Match only real import/export-from statements at the start of a line (ignoring leading whitespace).
 // This avoids false positives for strings that merely CONTAIN such text inside tests or other code.
-const importPattern = /^(?:\s*)(?:import|export)\s+[^;]*?\bfrom\s+["']([^"']+)["']/
+const importPattern =
+	/^(?:\s*)(?:import|export)\s+[^;]*?\bfrom\s+["']([^"']+)["']/
 
 function isInside(file: string, pkgDir: string): boolean {
 	return file.includes(`/${pkgDir}/`)
@@ -54,7 +55,8 @@ export default async function findViolations(
 									file,
 									line: idx + 1,
 									spec,
-									hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+									hint:
+										"Use @sitebender/engine/… instead of libraries/engine/src/…",
 								})
 							}
 							if (spec.includes(ENGINE_TYPES)) {
@@ -75,7 +77,8 @@ export default async function findViolations(
 									file,
 									line: idx + 1,
 									spec,
-									hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
+									hint:
+										"Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 								})
 							}
 						}

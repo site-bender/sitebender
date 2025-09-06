@@ -160,22 +160,23 @@ const isPhone = (
 				}
 				return /^(\+55|0055)?\d{10,11}$/.test(cleaned)
 
-					default: {
-						// Generic international format
-						// Must be 7-15 digits (ITU-T E.164)
-						const digitsOnly = cleaned.replace(/\D/g, "")
-						if (digitsOnly.length < 7 || digitsOnly.length > 15) {
-							return false
-						}
+			default: {
+				// Generic international format
+				// Must be 7-15 digits (ITU-T E.164)
+				const digitsOnly = cleaned.replace(/\D/g, "")
+				if (digitsOnly.length < 7 || digitsOnly.length > 15) {
+					return false
+				}
 
-						// If has international prefix, validate it
-						if (hasInternationalPrefix) {
-							return /^\+\d{7,15}$/.test(cleaned) || /^00\d{7,15}$/.test(cleaned)
-						}
+				// If has international prefix, validate it
+				if (hasInternationalPrefix) {
+					return /^\+\d{7,15}$/.test(cleaned) ||
+						/^00\d{7,15}$/.test(cleaned)
+				}
 
-						// Otherwise just check digit count
-						return /^\d{7,15}$/.test(digitsOnly)
-					}
+				// Otherwise just check digit count
+				return /^\d{7,15}$/.test(digitsOnly)
+			}
 		}
 	}
 }

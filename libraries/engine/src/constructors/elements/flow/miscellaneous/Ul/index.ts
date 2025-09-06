@@ -36,7 +36,6 @@ export type UlElementAttributes =
  * Allows global attributes and validates list-specific attributes
  */
 
-
 /**
  * Creates a Ul element configuration object
  *

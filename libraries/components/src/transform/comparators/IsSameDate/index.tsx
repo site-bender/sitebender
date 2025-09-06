@@ -1,4 +1,7 @@
-import type { IsSameDateComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsSameDateComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsSameDate JSX Component

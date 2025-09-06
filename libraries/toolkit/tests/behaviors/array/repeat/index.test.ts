@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import repeat from "../../../../src/simple/array/repeat/index.ts"
@@ -148,35 +151,38 @@ Deno.test("repeat: type safety", async (t) => {
 Deno.test("repeat: currying", async (t) => {
 	await t.step("should be fully curried", () => {
 		const triple = repeat(3)
-		
+
 		const result1 = triple("a")
 		const result2 = triple(10)
 		const result3 = triple(null)
-		
+
 		assertEquals(result1, ["a", "a", "a"])
 		assertEquals(result2, [10, 10, 10])
 		assertEquals(result3, [null, null, null])
 	})
 
-	await t.step("should allow partial application for different counts", () => {
-		const single = repeat(1)
-		const double = repeat(2)
-		const quintuple = repeat(5)
-		
-		assertEquals(single("x"), ["x"])
-		assertEquals(double("x"), ["x", "x"])
-		assertEquals(quintuple("x"), ["x", "x", "x", "x", "x"])
-	})
+	await t.step(
+		"should allow partial application for different counts",
+		() => {
+			const single = repeat(1)
+			const double = repeat(2)
+			const quintuple = repeat(5)
+
+			assertEquals(single("x"), ["x"])
+			assertEquals(double("x"), ["x", "x"])
+			assertEquals(quintuple("x"), ["x", "x", "x", "x", "x"])
+		},
+	)
 
 	await t.step("should create reusable array generators", () => {
 		const makePair = repeat(2)
-		
+
 		const pairs = [
 			makePair("first"),
 			makePair("second"),
 			makePair("third"),
 		]
-		
+
 		assertEquals(pairs, [
 			["first", "first"],
 			["second", "second"],
@@ -264,7 +270,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 					for (let i = 0; i < count; i++) {
 						manual.push(item)
 					}
-					
+
 					return result.length === manual.length &&
 						result.every((v, i) => v === manual[i])
 				},

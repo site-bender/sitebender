@@ -1,1 +1,4 @@
-export type { default, AutoPartsStoreType } from "../../AutomotiveBusiness/AutoPartsStore/index.ts"
+export type {
+	AutoPartsStoreType,
+	default,
+} from "../../AutomotiveBusiness/AutoPartsStore/index.ts"
