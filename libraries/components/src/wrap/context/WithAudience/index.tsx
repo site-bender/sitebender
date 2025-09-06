@@ -55,7 +55,12 @@ export type Props = {
 	// Language proficiency level
 	language?: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "native"
 	// Relationship to speaker/author
-	relationship?: "stranger" | "acquaintance" | "colleague" | "friend" | "family"
+	relationship?:
+		| "stranger"
+		| "acquaintance"
+		| "colleague"
+		| "friend"
+		| "family"
 	// Professional field
 	profession?: string
 	// Size of audience

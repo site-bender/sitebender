@@ -40,9 +40,9 @@ Replace JSDoc with automatic documentation generation that extracts everything f
 ```typescript
 // Adds two numbers with automatic type coercion
 export default function add(augend: number) {
-  return function (addend: number): number {
-    return augend + addend;
-  };
+	return function (addend: number): number {
+		return augend + addend
+	}
 }
 ```
 
@@ -77,40 +77,40 @@ export default function add(augend: number) {
 
 ```typescript
 interface DocGenerator {
-  // Extract from TypeScript AST
-  extractSignature(file: string): FunctionSignature;
+	// Extract from TypeScript AST
+	extractSignature(file: string): FunctionSignature
 
-  // Detect mathematical properties
-  detectProperties(ast: ASTNode): Properties;
+	// Detect mathematical properties
+	detectProperties(ast: ASTNode): Properties
 
-  // Extract from existing tests
-  findExamples(functionName: string): Examples;
+	// Extract from existing tests
+	findExamples(functionName: string): Examples
 
-  // Generate full documentation
-  generateDocs(info: FunctionInfo): Documentation;
+	// Generate full documentation
+	generateDocs(info: FunctionInfo): Documentation
 }
 
 type Properties = {
-  isPure: boolean;
-  isCurried: boolean;
-  isIdempotent: boolean;
-  isCommutative: boolean;
-  isAssociative: boolean;
-  isDistributive: boolean;
-  complexity: ComplexityClass;
-  nullHandling: NullStrategy;
-};
+	isPure: boolean
+	isCurried: boolean
+	isIdempotent: boolean
+	isCommutative: boolean
+	isAssociative: boolean
+	isDistributive: boolean
+	complexity: ComplexityClass
+	nullHandling: NullStrategy
+}
 
 type Documentation = {
-  name: string;
-  description: string;
-  signature: string;
-  properties: Properties;
-  examples: Array<Example>;
-  mathematicalLaws: Array<Law>;
-  complexity: string;
-  relatedFunctions: Array<string>;
-};
+	name: string
+	description: string
+	signature: string
+	properties: Properties
+	examples: Array<Example>
+	mathematicalLaws: Array<Law>
+	complexity: string
+	relatedFunctions: Array<string>
+}
 ```
 
 ## Property Detection Strategies
@@ -119,13 +119,13 @@ type Documentation = {
 
 ```typescript
 function isPure(ast: ASTNode): boolean {
-  return (
-    !hasSideEffects(ast) &&
-    !hasIO(ast) &&
-    !hasMutations(ast) &&
-    !hasRandomness(ast) &&
-    !hasDateAccess(ast)
-  );
+	return (
+		!hasSideEffects(ast) &&
+		!hasIO(ast) &&
+		!hasMutations(ast) &&
+		!hasRandomness(ast) &&
+		!hasDateAccess(ast)
+	)
 }
 ```
 
@@ -133,8 +133,8 @@ function isPure(ast: ASTNode): boolean {
 
 ```typescript
 function isIdempotent(fn: Function): boolean {
-  // Property test: f(f(x)) === f(x) for various x
-  return propertyTest((x) => deepEqual(fn(fn(x)), fn(x)));
+	// Property test: f(f(x)) === f(x) for various x
+	return propertyTest((x) => deepEqual(fn(fn(x)), fn(x)))
 }
 ```
 
@@ -142,8 +142,8 @@ function isIdempotent(fn: Function): boolean {
 
 ```typescript
 function isCommutative(fn: Function): boolean {
-  // Property test: f(a, b) === f(b, a)
-  return propertyTest((a, b) => deepEqual(fn(a, b), fn(b, a)));
+	// Property test: f(a, b) === f(b, a)
+	return propertyTest((a, b) => deepEqual(fn(a, b), fn(b, a)))
 }
 ```
 
@@ -151,15 +151,15 @@ function isCommutative(fn: Function): boolean {
 
 ```typescript
 function analyzeComplexity(ast: ASTNode): ComplexityClass {
-  // Analyze loops, recursion, data structure operations
-  const loops = countLoops(ast);
-  const recursion = detectRecursion(ast);
-  const nestedLoops = countNestedLoops(ast);
+	// Analyze loops, recursion, data structure operations
+	const loops = countLoops(ast)
+	const recursion = detectRecursion(ast)
+	const nestedLoops = countNestedLoops(ast)
 
-  if (nestedLoops > 0) return `O(n^${nestedLoops + 1})`;
-  if (loops > 0) return "O(n)";
-  if (recursion) return analyzeRecursiveComplexity(ast);
-  return "O(1)";
+	if (nestedLoops > 0) return `O(n^${nestedLoops + 1})`
+	if (loops > 0) return "O(n)"
+	if (recursion) return analyzeRecursiveComplexity(ast)
+	return "O(1)"
 }
 ```
 
@@ -168,18 +168,18 @@ function analyzeComplexity(ast: ASTNode): ComplexityClass {
 The documenter becomes part of the prover ecosystem:
 
 ```typescript
-import { generateDocs } from "@sitebender/prover/documenter";
+import { generateDocs } from "@sitebender/prover/documenter"
 
 // Generate docs for all toolkit functions
 const docs = await generateDocs("libraries/toolkit/src", {
-  includeExamples: true,
-  includeBenchmarks: true,
-  includeProperties: true,
-  outputFormat: "markdown" | "html" | "json",
-});
+	includeExamples: true,
+	includeBenchmarks: true,
+	includeProperties: true,
+	outputFormat: "markdown" | "html" | "json",
+})
 
 // Write to files
-await writeDocs(docs, "docs/api/toolkit");
+await writeDocs(docs, "docs/api/toolkit")
 ```
 
 ## Benefits Over JSDoc
@@ -200,17 +200,17 @@ await writeDocs(docs, "docs/api/toolkit");
 ```typescript
 // Documentation that updates in real-time
 interface LiveDocs {
-  // Shows actual current behavior
-  currentBehavior(): string;
+	// Shows actual current behavior
+	currentBehavior(): string
 
-  // Includes live playground for each function
-  playground(): InteractiveExample;
+	// Includes live playground for each function
+	playground(): InteractiveExample
 
-  // Properties verified on every build
-  verifiedProperties(): ProofResults;
+	// Properties verified on every build
+	verifiedProperties(): ProofResults
 
-  // Performance from actual benchmarks
-  performanceMetrics(): BenchmarkResults;
+	// Performance from actual benchmarks
+	performanceMetrics(): BenchmarkResults
 }
 ```
 

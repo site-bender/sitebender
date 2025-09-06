@@ -30,7 +30,8 @@ describe("subtract", () => {
 				fc.property(fc.integer(), fc.integer(), (a, b) => {
 					const partial = subtract(a)
 					const result = partial(b)
-					return typeof partial === "function" && typeof result !== "undefined"
+					return typeof partial === "function" &&
+						typeof result !== "undefined"
 				}),
 			)
 		})

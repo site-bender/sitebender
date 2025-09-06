@@ -2,8 +2,6 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import type {
 	ASTNode,
-	ParseError,
-	Result,
 	Token,
 } from "../../../src/types/index.ts"
 
@@ -62,7 +60,11 @@ Deno.test("getOperatorFromToken - returns null for non-operator tokens", () => {
 	}
 	assertEquals(getOperatorFromToken(identifierToken), null)
 
-	const leftParenToken: Token = { type: "LEFT_PAREN", value: "(", position: 0 }
+	const leftParenToken: Token = {
+		type: "LEFT_PAREN",
+		value: "(",
+		position: 0,
+	}
 	assertEquals(getOperatorFromToken(leftParenToken), null)
 
 	const rightParenToken: Token = {
@@ -94,7 +96,8 @@ Deno.test("compile - handles unsupported operator in BinaryOp", () => {
 	// This is also unreachable in practice but we test it for completeness
 	const invalidOp: ASTNode = {
 		type: "BinaryOp",
-		operator: "%" as any, // Force an invalid operator
+		// @ts-expect-error - Testing invalid operator
+		operator: "%", // Force an invalid operator
 		left: { type: "Number", value: 5 },
 		right: { type: "Number", value: 3 },
 	}
@@ -119,11 +122,12 @@ Deno.test("compile - handles non-numeric datatype fallback in UnaryOp", () => {
 		x: {
 			tag: "Constant" as const,
 			type: "injector" as const,
-			datatype: "Text" as any, // Non-numeric datatype
+			datatype: "Text" as const, // Non-numeric datatype
 			value: "hello",
 		},
 	}
 
+	// @ts-expect-error - Testing non-numeric datatype in variables
 	const result = compile(ast, variables)
 
 	assertEquals(result.ok, true)
@@ -140,6 +144,9 @@ Deno.test("parseFormula - returns tokenization errors", () => {
 
 	assertEquals(result.ok, false)
 	if (!result.ok) {
-		assertEquals(result.error.message.includes("Unexpected character"), true)
+		assertEquals(
+			result.error.message.includes("Unexpected character"),
+			true,
+		)
 	}
 })

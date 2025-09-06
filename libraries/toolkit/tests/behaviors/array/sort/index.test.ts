@@ -12,17 +12,28 @@ Deno.test("sort: JSDoc examples", async (t) => {
 	await t.step(
 		"sorts [1, 2, 3] to [3, 2, 1] with descending comparator",
 		() => {
-			assertEquals(sort((a: number, b: number) => b - a)([1, 2, 3]), [3, 2, 1])
+			assertEquals(sort((a: number, b: number) => b - a)([1, 2, 3]), [
+				3,
+				2,
+				1,
+			])
 		},
 	)
 
-	await t.step('sorts ["c", "a", "b"] to ["a", "b", "c"] with default', () => {
-		assertEquals(sort()(["c", "a", "b"]), ["a", "b", "c"])
-	})
+	await t.step(
+		'sorts ["c", "a", "b"] to ["a", "b", "c"] with default',
+		() => {
+			assertEquals(sort()(["c", "a", "b"]), ["a", "b", "c"])
+		},
+	)
 
 	await t.step("sorts strings by length", () => {
 		assertEquals(
-			sort((a: string, b: string) => a.length - b.length)(["aaa", "a", "aa"]),
+			sort((a: string, b: string) => a.length - b.length)([
+				"aaa",
+				"a",
+				"aa",
+			]),
 			["a", "aa", "aaa"],
 		)
 	})
@@ -281,7 +292,9 @@ Deno.test("sort: complex sorting", async (t) => {
 		]
 
 		type Item = { id: number; value: string }
-		const sorted = sort((a: Item, b: Item) => a.value.localeCompare(b.value))(
+		const sorted = sort((a: Item, b: Item) =>
+			a.value.localeCompare(b.value)
+		)(
 			data,
 		)
 

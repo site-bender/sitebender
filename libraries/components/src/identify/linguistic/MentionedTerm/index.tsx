@@ -64,9 +64,9 @@ export default function MentionedTerm({
 	const content = (
 		<Element
 			aria-label={ariaLabel}
-			class={`mentioned-term${defining ? " mentioned-term-defining" : ""}${
-				firstUse ? " mentioned-term-first-use" : ""
-			}`}
+			class={`mentioned-term${
+				defining ? " mentioned-term-defining" : ""
+			}${firstUse ? " mentioned-term-first-use" : ""}`}
 			data-defining={defining}
 			data-definition={definition}
 			data-first-use={firstUse}

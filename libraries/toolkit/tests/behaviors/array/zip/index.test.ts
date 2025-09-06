@@ -48,7 +48,11 @@ describe("zip", () => {
 
 		it("should handle mixed types", () => {
 			const mixed1: Array<string | number | boolean> = [1, "two", true]
-			const mixed2: Array<null | undefined | object> = [null, undefined, {}]
+			const mixed2: Array<null | undefined | object> = [
+				null,
+				undefined,
+				{},
+			]
 			assertEquals(
 				zip(mixed2)(mixed1),
 				[
@@ -183,7 +187,10 @@ describe("zip", () => {
 
 		it("should be curried", () => {
 			const zipWithLetters = zip(["a", "b", "c"])
-			assertEquals(zipWithLetters([1, 2, 3]), [[1, "a"], [2, "b"], [3, "c"]])
+			assertEquals(zipWithLetters([1, 2, 3]), [[1, "a"], [2, "b"], [
+				3,
+				"c",
+			]])
 			assertEquals(zipWithLetters([4, 5]), [[4, "a"], [5, "b"]])
 		})
 
@@ -205,7 +212,8 @@ describe("zip", () => {
 					fc.array(fc.string()),
 					(arr1, arr2) => {
 						const result = zip(arr2)(arr1)
-						return result.length === Math.min(arr1.length, arr2.length)
+						return result.length ===
+							Math.min(arr1.length, arr2.length)
 					},
 				),
 			)
@@ -219,7 +227,10 @@ describe("zip", () => {
 					(arr1, arr2) => {
 						const result = zip(arr2)(arr1)
 						for (let i = 0; i < result.length; i++) {
-							if (result[i][0] !== arr1[i] || result[i][1] !== arr2[i]) {
+							if (
+								result[i][0] !== arr1[i] ||
+								result[i][1] !== arr2[i]
+							) {
 								return false
 							}
 						}
@@ -277,7 +288,8 @@ describe("zip", () => {
 					(arr) => {
 						const withEmpty1 = zip([])(arr)
 						const withEmpty2 = zip(arr)([])
-						return withEmpty1.length === 0 && withEmpty2.length === 0
+						return withEmpty1.length === 0 &&
+							withEmpty2.length === 0
 					},
 				),
 			)

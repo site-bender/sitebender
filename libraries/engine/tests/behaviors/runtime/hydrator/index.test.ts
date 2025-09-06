@@ -81,7 +81,11 @@ describe("hydrate - binds event and dispatches action", () => {
 		// Simple On.Click binder (events registry uses default-only export)
 		events.register(
 			"On.Click",
-			(el: HTMLElement, _node: EventBindingNode, dispatch: () => void) => {
+			(
+				el: HTMLElement,
+				_node: EventBindingNode,
+				dispatch: () => void,
+			) => {
 				el.addEventListener("click", dispatch as EventListener)
 			},
 		)

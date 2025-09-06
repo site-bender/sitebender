@@ -42,7 +42,10 @@ export default function filterAttributes(attributes: CanvasElementAttributes) {
 
 	// Add canvas-specific attributes
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))

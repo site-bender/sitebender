@@ -69,7 +69,8 @@ const xform = <T extends Record<string | symbol, unknown>>(
 	const transformRecursive = (current: unknown): unknown => {
 		// Handle primitives
 		if (
-			isNull(current) || isUndefined(current) || typeof current !== "object"
+			isNull(current) || isUndefined(current) ||
+			typeof current !== "object"
 		) {
 			return current
 		}
@@ -80,7 +81,9 @@ const xform = <T extends Record<string | symbol, unknown>>(
 		}
 
 		// Transform the current object first
-		const transformed = transformer(current as Record<string | symbol, unknown>)
+		const transformed = transformer(
+			current as Record<string | symbol, unknown>,
+		)
 
 		// Recursively transform nested values
 		return Object.entries(transformed).reduce(

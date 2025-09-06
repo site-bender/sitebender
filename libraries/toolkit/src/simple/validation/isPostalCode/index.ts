@@ -100,7 +100,8 @@ const isPostalCode = (
 		switch (country) {
 			case "US":
 				// US ZIP codes: 5 digits or 5+4 digits
-				return /^\d{5}(-\d{4})?$/.test(trimmed) || /^\d{9}$/.test(trimmed)
+				return /^\d{5}(-\d{4})?$/.test(trimmed) ||
+					/^\d{9}$/.test(trimmed)
 
 			case "CA": {
 				// Canadian postal codes: A1A 1A1 format

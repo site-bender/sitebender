@@ -60,7 +60,9 @@ export default function extractImports(sourceCode: string): {
 		restStartLine = lastImportPosition.line + 1
 
 		// Skip empty lines after imports
-		while (restStartLine < lines.length && lines[restStartLine].trim() === "") {
+		while (
+			restStartLine < lines.length && lines[restStartLine].trim() === ""
+		) {
 			restStartLine++
 		}
 	}

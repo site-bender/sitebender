@@ -156,7 +156,11 @@ Deno.test("radiansToDegrees - inverse relationship with degreesToRadians", () =>
 
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-720), max: Math.fround(720) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-720),
+				max: Math.fround(720),
+			}),
 			(degrees) => {
 				const radians = degreesToRadians(degrees)
 				const backToDegrees = radiansToDegrees(radians)
@@ -189,8 +193,16 @@ Deno.test("radiansToDegrees - preserves sign", () => {
 Deno.test("radiansToDegrees - linearity", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(a, b) => {
 				const sum = radiansToDegrees(a + b)
 				const separate = radiansToDegrees(a) + radiansToDegrees(b)

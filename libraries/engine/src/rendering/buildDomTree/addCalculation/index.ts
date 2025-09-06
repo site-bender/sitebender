@@ -20,7 +20,10 @@ const addCalculation =
 			const a = isDefined(arg)
 				? arg
 				: FROM_VALUE.includes(this.tagName)
-				? (this as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)
+				? (this as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement)
 					.value
 				: this.innerHTML
 			const value = await calculate(a, localValues)

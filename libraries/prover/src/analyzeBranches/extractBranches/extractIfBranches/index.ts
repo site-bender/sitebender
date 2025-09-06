@@ -13,32 +13,32 @@ import computeBranchId from "../../computeBranchId/index.ts"
  */
 export default function extractIfBranches(ast: SourceNode): Array<BranchPath> {
 	if (!ast.children) return []
-	
+
 	return ast.children.flatMap((node: SourceNode, index: number) => {
-		if (node.type !== 'IfStatement') return []
-		
+		if (node.type !== "IfStatement") return []
+
 		const branches: Array<BranchPath> = []
-		
+
 		// If branch
 		branches.push({
-			id: computeBranchId('if', index, 0),
-			condition: node.test?.value || '',
+			id: computeBranchId("if", index, 0),
+			condition: node.test?.value || "",
 			line: node.start,
 			column: 0,
-			type: 'if' as BranchType,
-			requiredInputs: []
+			type: "if" as BranchType,
+			requiredInputs: [],
 		})
-		
+
 		// Else branch (implicit)
 		branches.push({
-			id: computeBranchId('else', index, 0),
-			condition: `!(${node.test?.value || ''})`,
+			id: computeBranchId("else", index, 0),
+			condition: `!(${node.test?.value || ""})`,
 			line: node.start,
 			column: 0,
-			type: 'else' as BranchType,
-			requiredInputs: []
+			type: "else" as BranchType,
+			requiredInputs: [],
 		})
-		
+
 		return branches
 	})
 }

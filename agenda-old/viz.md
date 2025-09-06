@@ -3,6 +3,7 @@
 This note outlines a small, composable approach for charts/visuals, logging/telemetry, and debug tooling using component names (no Act/Do namespaces). Authoring stays declarative in JSX; runtime remains pluggable and SSR‑safe.
 
 ## Goals
+
 - Purely declarative authoring components that compile to Engine IR.
 - SSR‑first with minimal client hydration; no hard coupling to a specific chart or logging SDK.
 - Data is produced by existing injectors/operators/comparators; visuals just consume the right(value).
@@ -28,9 +29,13 @@ This note outlines a small, composable approach for charts/visuals, logging/tele
 
 ```tsx
 <Viz.Line
-  data={Aggregate({ by: "date", op: "sum", of: From.Element({ selector: "#sales" }) })}
-  x="date"
-  y="value"
+	data={Aggregate({
+		by: "date",
+		op: "sum",
+		of: From.Element({ selector: "#sales" }),
+	})}
+	x="date"
+	y="value"
 />
 ```
 
@@ -38,11 +43,13 @@ This note outlines a small, composable approach for charts/visuals, logging/tele
 
 ```tsx
 <When.Authenticated fallback={<p>Please sign in</p>}>
-  <Viz.Bar
-    data={GroupBy({ key: "category" })(From.Element({ selector: "#items" }))}
-    x="category"
-    y="count"
-  />
+	<Viz.Bar
+		data={GroupBy({ key: "category" })(
+			From.Element({ selector: "#items" }),
+		)}
+		x="category"
+		y="count"
+	/>
 </When.Authenticated>
 ```
 
@@ -50,8 +57,12 @@ This note outlines a small, composable approach for charts/visuals, logging/tele
 
 ```tsx
 <When.Clicked target="add-to-cart">
-  <Log level="info" message="Added to cart" data={{ sku: From.Element({ selector: "#sku" }) }} />
-  {/* Optionally, a state update component could live here, e.g., <Set key="cart" value={...} /> */}
+	<Log
+		level="info"
+		message="Added to cart"
+		data={{ sku: From.Element({ selector: "#sku" }) }}
+	/>
+	{/* Optionally, a state update component could live here, e.g., <Set key="cart" value={...} /> */}
 </When.Clicked>
 ```
 
@@ -81,18 +92,21 @@ This note outlines a small, composable approach for charts/visuals, logging/tele
   - Already established pattern. For visualization/logging, they just wrap components; the compiler emits Conditional/authorized IR.
 
 ## Data shaping for charts
+
 - Treat chart data as a result of regular pipelines:
   - From.Element / From.Constant / From.Http (future)
   - GroupBy, Aggregate, Map/Filter/Reduce operators
 - Viz components receive the final operand; no chart performs aggregation itself.
 
 ## Adapters
+
 - Charts: a chart renderer adapter is chosen at hydrate time; server‑side render‑to‑image optional for emails/PDF.
 - Logs: console/JSON default; pluggable sinks (file, HTTP, third‑party).
 - Tracing: OpenTelemetry on server; minimal browser tracer optional.
 - Analytics: Segment/PostHog/GA via an adapter; server‑first where possible.
 
 ## Safety & performance
+
 - No secrets in client code; credentials handled server‑side.
 - Dev‑only Debug components are inert in production.
 - Batch/throttle client logs; flush on navigation.
@@ -106,13 +120,13 @@ This document is design/authoring guidance. Implementation should follow the sma
 
 The system is fully operational with HTTPS via a local reverse proxy. Current state:
 
-  - ✅ Prometheus scrapes metrics and compacts every 1m (dev speed) for fast Thanos shipping.
-  - ✅ Thanos Sidecar is healthy and watching Prometheus TSDB.
-  - ✅ Thanos Store Gateway is healthy and serves blocks from MinIO.
-  - ✅ Thanos Querier provides a single API/UI that Grafana uses.
-  - ✅ Grafana is provisioned to the Querier and loads dashboards from /dashboards.
-  - ✅ MinIO is running; bucket "thanos" exists for Thanos blocks.
-  - ✅ Caddy terminates TLS for *.localhost and enforces basic auth for core UIs.
+- ✅ Prometheus scrapes metrics and compacts every 1m (dev speed) for fast Thanos shipping.
+- ✅ Thanos Sidecar is healthy and watching Prometheus TSDB.
+- ✅ Thanos Store Gateway is healthy and serves blocks from MinIO.
+- ✅ Thanos Querier provides a single API/UI that Grafana uses.
+- ✅ Grafana is provisioned to the Querier and loads dashboards from /dashboards.
+- ✅ MinIO is running; bucket "thanos" exists for Thanos blocks.
+- ✅ Caddy terminates TLS for *.localhost and enforces basic auth for core UIs.
 
 IMPORTANT: MinIO is for local development only. Production will use Storacha (https://storacha.network/) or another distributed store.
 
@@ -123,26 +137,28 @@ IMPORTANT: MinIO is for local development only. Production will use Storacha (ht
 ```yaml
 # infra/local/configs/prometheus/prometheus.yml
 global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-  # CORRECT PLACEMENT FOR external_labels: inside the 'global' section
-  external_labels:
-    cluster: local-docker
-    replica: A
+    scrape_interval: 15s
+    evaluation_interval: 15s
+    # CORRECT PLACEMENT FOR external_labels: inside the 'global' section
+    external_labels:
+        cluster: local-docker
+        replica: A
 
 scrape_configs:
-  - job_name: "prometheus"
-    static_configs:
-      - targets: ["localhost:9090"]
-  - job_name: "node-exporter"
-    static_configs:
-      - targets: ["node-exporter:9100"]
-  # Scrape Apache Jena Fuseki metrics
-  - job_name: "fuseki"
-    metrics_path: /metrics # Fuseki often exposes metrics on this standard path
-    static_configs:
-      - targets: ["fuseki:3030"] # Uses Docker's internal DNS to find the container
-    scrape_interval: 15s
+    - job_name: "prometheus"
+      static_configs:
+          - targets: ["localhost:9090"]
+    - job_name: "node-exporter"
+      static_configs:
+          - targets: ["node-exporter:9100"]
+    # Scrape Apache Jena Fuseki metrics
+    - job_name: "fuseki"
+      metrics_path: /metrics # Fuseki often exposes metrics on this standard path
+      static_configs:
+          - targets: [
+                "fuseki:3030",
+            ] # Uses Docker's internal DNS to find the container
+      scrape_interval: 15s
 ```
 
 ### Thanos
@@ -151,16 +167,16 @@ scrape_configs:
 # infra/local/configs/thanos/thanos-config.yaml
 type: S3
 config:
-  bucket: "thanos" # The bucket name we created (or will be created automatically)
-  endpoint: "minio:9000"
-  access_key: "minioadmin"
-  secret_key: "minioadmin"
-  insecure: true # Uses HTTP instead of HTTPS, which is fine for local development
-  signature_version2: false
+    bucket: "thanos" # The bucket name we created (or will be created automatically)
+    endpoint: "minio:9000"
+    access_key: "minioadmin"
+    secret_key: "minioadmin"
+    insecure: true # Uses HTTP instead of HTTPS, which is fine for local development
+    signature_version2: false
 
 Notes:
-- Both Sidecar and Store Gateway read this file from `/config/thanos/thanos-config.yaml`.
-- Querier does not need object storage config.
+    - Both Sidecar and Store Gateway read this file from `/config/thanos/thanos-config.yaml`.
+    - Querier does not need object storage config.
 ```
 
 ### Docker (excerpt – current)
@@ -352,10 +368,10 @@ services:
       - minio
     networks:
       - monitoring
-
 ```
 
 Ports and aliases (dev):
+
 - Prometheus: http://localhost:44090 → https://prometheus.localhost
 - Thanos Querier: http://localhost:45002 → https://thanos.localhost
 - Grafana: http://localhost:43001 → https://grafana.localhost
@@ -364,9 +380,11 @@ Ports and aliases (dev):
 - Node Exporter: http://localhost:49100 (no proxy)
 
 Config convention:
+
 - All configs mount under `/config/*` from `./infra/local/configs/*` on the host to avoid image-specific `/etc` paths.
 
 Prometheus dev compaction:
+
 - For fast local testing, block durations are set to 1m via compose. Revert to 2h for normal operation.
 
 ### Grafana provisioning (enabled)
@@ -376,11 +394,11 @@ Datasource (Thanos default): `infra/local/configs/grafana/provisioning/datasourc
 ```yaml
 apiVersion: 1
 datasources:
-  - name: Thanos
-    type: prometheus
-    url: http://thanos-querier:10902
-    access: proxy
-    isDefault: true
+    - name: Thanos
+      type: prometheus
+      url: http://thanos-querier:10902
+      access: proxy
+      isDefault: true
 ```
 
 Dashboards provider: `infra/local/configs/grafana/provisioning/dashboards/dashboards.yml`
@@ -388,11 +406,11 @@ Dashboards provider: `infra/local/configs/grafana/provisioning/dashboards/dashbo
 ```yaml
 apiVersion: 1
 providers:
-  - name: local-json
-    type: file
-    options:
-      path: /dashboards
-      foldersFromFilesStructure: true
+    - name: local-json
+      type: file
+      options:
+          path: /dashboards
+          foldersFromFilesStructure: true
 ```
 
 Place dashboards JSON in `infra/local/configs/grafana/dashboards/`.
@@ -442,6 +460,7 @@ minio.localhost  {
 ```
 
 Login at the proxy prompt:
+
 - Username: `admin`
 - Password: `admin`
 

@@ -14,7 +14,10 @@ export type MonetaryGrantType = "MonetaryGrant"
 
 export interface MonetaryGrantProps {
 	"@type"?: MonetaryGrantType
-	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
+	amount?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
 	funder?:
 		| Organization
 		| Person

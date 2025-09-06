@@ -170,5 +170,8 @@ Deno.test("includes - handles null and undefined parameters", () => {
 	const includesUndefined = includes(undefined as unknown as number)
 
 	assertEquals(includesNull([1, 2, null as unknown as number]), true)
-	assertEquals(includesUndefined([1, 2, undefined as unknown as number]), true)
+	assertEquals(
+		includesUndefined([1, 2, undefined as unknown as number]),
+		true,
+	)
 })

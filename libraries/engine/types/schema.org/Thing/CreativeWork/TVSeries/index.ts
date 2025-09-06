@@ -52,7 +52,9 @@ export interface TVSeriesProps {
 		| CreativeWorkSeason
 		| URL
 		| ReturnType<typeof CreativeWorkSeasonComponent>
-	seasons?: CreativeWorkSeason | ReturnType<typeof CreativeWorkSeasonComponent>
+	seasons?:
+		| CreativeWorkSeason
+		| ReturnType<typeof CreativeWorkSeasonComponent>
 	titleEIDR?: Text | URL
 	trailer?: VideoObject | ReturnType<typeof VideoObjectComponent>
 }

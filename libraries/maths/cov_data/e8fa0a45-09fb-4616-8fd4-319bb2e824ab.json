@@ -1,0 +1,103 @@
+{
+  "scriptId": "498",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/runner/configuration/QualifiedParameters.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5950, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters",
+      "ranges": [
+        { "startOffset": 237, "endOffset": 1956, "count": 6 },
+        { "startOffset": 276, "endOffset": 281, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1348, "endOffset": 1394, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "toParameters",
+      "ranges": [{ "startOffset": 1961, "endOffset": 3031, "count": 6 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "orUndefined",
+      "ranges": [
+        { "startOffset": 2006, "endOffset": 2053, "count": 30 },
+        { "startOffset": 2033, "endOffset": 2040, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "read",
+      "ranges": [{ "startOffset": 3043, "endOffset": 3103, "count": 6 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.createQualifiedRandomGenerator",
+      "ranges": [{ "startOffset": 3159, "endOffset": 3369, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "QualifiedParameters.readSeed",
+      "ranges": [
+        { "startOffset": 3402, "endOffset": 3656, "count": 6 },
+        { "startOffset": 3499, "endOffset": 3655, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.readRandomType",
+      "ranges": [
+        { "startOffset": 3695, "endOffset": 4937, "count": 6 },
+        { "startOffset": 3771, "endOffset": 4499, "count": 0 },
+        { "startOffset": 4501, "endOffset": 4670, "count": 0 },
+        { "startOffset": 4672, "endOffset": 4936, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.readNumRuns",
+      "ranges": [
+        { "startOffset": 4973, "endOffset": 5146, "count": 6 },
+        { "startOffset": 5047, "endOffset": 5064, "count": 0 },
+        { "startOffset": 5101, "endOffset": 5119, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.readVerbose",
+      "ranges": [
+        { "startOffset": 5182, "endOffset": 5597, "count": 6 },
+        { "startOffset": 5253, "endOffset": 5596, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.readBoolean",
+      "ranges": [{ "startOffset": 5633, "endOffset": 5660, "count": 36 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.readOrDefault",
+      "ranges": [
+        { "startOffset": 5698, "endOffset": 5802, "count": 54 },
+        { "startOffset": 5777, "endOffset": 5784, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "QualifiedParameters.safeTimeout",
+      "ranges": [
+        { "startOffset": 5838, "endOffset": 5948, "count": 18 },
+        { "startOffset": 5903, "endOffset": 5947, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

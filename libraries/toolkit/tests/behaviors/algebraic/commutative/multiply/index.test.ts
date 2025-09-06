@@ -27,7 +27,8 @@ Deno.test("multiply - commutative property", () => {
 				}
 
 				// Commutative: a * b = b * a
-				return Object.is(result1, result2) || approximately(result1, result2)
+				return Object.is(result1, result2) ||
+					approximately(result1, result2)
 			},
 		),
 		{ numRuns: 1000 },

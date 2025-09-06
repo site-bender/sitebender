@@ -250,7 +250,10 @@ Deno.test("minimumBy: handles negative numbers", () => {
 Deno.test("minimumBy: handles floating point numbers", () => {
 	const numCompare = (a: number, b: number) => a - b
 	assertEquals(minimumBy(numCompare)([1.5, 2.7, 1.9, 1.2]), 1.2)
-	assertEquals(minimumBy(numCompare)([Math.PI, Math.E, Math.SQRT2]), Math.SQRT2)
+	assertEquals(
+		minimumBy(numCompare)([Math.PI, Math.E, Math.SQRT2]),
+		Math.SQRT2,
+	)
 })
 
 Deno.test("minimumBy: handles Infinity", () => {

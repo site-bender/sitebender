@@ -55,7 +55,9 @@ export default function filterAttributes(attributes: ScriptElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(defer)) {

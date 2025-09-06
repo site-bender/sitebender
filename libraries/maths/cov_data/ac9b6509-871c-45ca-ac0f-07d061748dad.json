@@ -1,0 +1,16 @@
+{
+  "scriptId": "373",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/comparators/equality/IsUnequalTo/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 303, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "IsUnequalTo",
+      "ranges": [{ "startOffset": 104, "endOffset": 273, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

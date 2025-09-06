@@ -45,8 +45,12 @@ Deno.test("golden: nested If can appear as a branch executable in Act.If", () =>
 						children: IsEqualTo({
 							type: "String",
 							children: [
-								Constant({ value: "x" }) as unknown as JSX.Element,
-								Constant({ value: "x" }) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
+								Constant({
+									value: "x",
+								}) as unknown as JSX.Element,
 							],
 						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,

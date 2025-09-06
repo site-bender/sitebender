@@ -1,0 +1,21 @@
+{
+  "scriptId": "427",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/uniqueArray.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2424, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "buildUniqueArraySetBuilder",
+      "ranges": [{ "startOffset": 488, "endOffset": 1674, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uniqueArray",
+      "ranges": [{ "startOffset": 1682, "endOffset": 2423, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

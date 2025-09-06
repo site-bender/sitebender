@@ -1,13 +1,14 @@
 /**
  * @module @sitebender/scribe
- * 
+ *
  * Automatic documentation generator for TypeScript code.
  * Extracts comprehensive documentation from type signatures and code analysis,
  * requiring only single-line descriptions from developers.
  */
 
-// Main function export
+// Main function exports
 export { default as generateDocs } from "./generateDocs/index.ts"
+export { default as generateDocsWithCompiler } from "./generateDocsWithCompiler/index.ts"
 
 // Type exports
 export type {
@@ -31,15 +32,21 @@ export type {
 
 // Parser exports
 export { parseFile, parseFunction } from "./parser/index.ts"
+export { default as parseWithCompiler } from "./parser/parseWithCompiler/index.ts"
+export { default as parseFileWithCompiler } from "./parser/parseFileWithCompiler/index.ts"
+export { default as parseFunctionFromAST } from "./parser/parseFunctionFromAST/index.ts"
 
 // Extractor exports
-export { extractSignature, extractDescription } from "./extractors/index.ts"
+export { extractDescription, extractSignature } from "./extractors/index.ts"
 
 // Detector exports
-export { detectProperties, detectPurity, detectCurrying, detectComplexity } from "./detectors/index.ts"
+export { detectProperties, detectPurity, detectCurrying, detectComplexity, isIdempotent, isCommutative, isAssociative, isDistributive } from "./detectors/index.ts"
+export { default as detectPurityFromAST } from "./detectors/detectPurityFromAST/index.ts"
+export { default as detectCurryingFromAST } from "./detectors/detectCurryingFromAST/index.ts"
+export { default as detectComplexityFromAST } from "./detectors/detectComplexityFromAST/index.ts"
 
 // Generator exports
-export { generateMarkdown, formatProperties } from "./generators/index.ts"
+export { formatProperties, generateMarkdown } from "./generators/index.ts"
 
 // Constants exports
 export {

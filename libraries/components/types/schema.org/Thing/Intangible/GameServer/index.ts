@@ -13,7 +13,9 @@ export interface GameServerProps {
 	"@type"?: GameServerType
 	game?: VideoGame | ReturnType<typeof VideoGameComponent>
 	playersOnline?: Integer
-	serverStatus?: GameServerStatus | ReturnType<typeof GameServerStatusComponent>
+	serverStatus?:
+		| GameServerStatus
+		| ReturnType<typeof GameServerStatusComponent>
 }
 
 type GameServer = Thing & IntangibleProps & GameServerProps

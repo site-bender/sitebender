@@ -18,7 +18,9 @@ export default function Equals(
 	{ left, right, children }: Props,
 ): ComparatorMarker {
 	// Allow either props or two children [left, right]
-	const kids = Array.isArray(children) ? children : (children ? [children] : [])
+	const kids = Array.isArray(children)
+		? children
+		: (children ? [children] : [])
 	const l = left ?? kids[0]
 	const r = right ?? kids[1]
 	return {

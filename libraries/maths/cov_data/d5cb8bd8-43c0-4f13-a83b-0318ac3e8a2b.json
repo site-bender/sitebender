@@ -1,0 +1,16 @@
+{
+  "scriptId": "391",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parseBinaryExpression/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4825, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parseBinaryExpression",
+      "ranges": [{ "startOffset": 1785, "endOffset": 4824, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

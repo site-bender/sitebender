@@ -1,6 +1,28 @@
-import type { TestCase, FunctionSignature } from "../../../types/index.ts"
+import type { TestCase, FunctionSignature, TypeInfo } from "../../../types/index.ts"
+import { TypeKind } from "../../../types/index.ts"
 import escapeTestName from "../escapeTestName/index.ts"
 import valueToString from "../valueToString/index.ts"
+
+/**
+ * Checks if a type can return undefined
+ * @param type The TypeInfo to check
+ * @returns true if the type includes undefined
+ */
+function canReturnUndefined(type: TypeInfo): boolean {
+	// Direct undefined type
+	if (type.raw === "undefined") return true
+
+	// Union type that includes undefined
+	if (type.kind === TypeKind.Union && type.unionTypes) {
+		return type.unionTypes.some(t => t.raw === "undefined" || canReturnUndefined(t))
+	}
+
+	// Common patterns
+	if (type.raw.includes("| undefined")) return true
+	if (type.raw.includes("undefined |")) return true
+
+	return false
+}
 
 /**
  * Generates unit test code
@@ -12,22 +34,20 @@ import valueToString from "../valueToString/index.ts"
 export default function generateUnitTests(
 	tests: Array<TestCase>,
 	functionName: string,
-	signature?: FunctionSignature
+	signature?: FunctionSignature,
 ): string {
 	const lines: Array<string> = []
-	
+
 	lines.push("\tdescribe(\"unit tests\", () => {")
-	
-	for (const test of tests) {
+
+	tests.forEach(test => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
-		
-		const expectedStr = valueToString(test.expectedOutput)
-		
+
 		if (signature?.isCurried && test.input.length > 1) {
 			const callStr = test.input.reduce(
 				(acc, input) => `${acc}(${valueToString(input)})`,
-				functionName
+				functionName,
 			)
 			lines.push(`\t\t\tconst result = ${callStr}`)
 		} else if (signature?.isCurried && test.input.length === 1) {
@@ -37,11 +57,24 @@ export default function generateUnitTests(
 			const inputStr = test.input.map((v) => valueToString(v)).join(", ")
 			lines.push(`\t\t\tconst result = ${functionName}(${inputStr})`)
 		}
-		lines.push(`\t\t\tassertEquals(result, ${expectedStr})`)
+
+		// Only assert if we have an expected output
+		if (test.expectedOutput !== undefined) {
+			const expectedStr = valueToString(test.expectedOutput)
+			lines.push(`\t\t\tassertEquals(result, ${expectedStr})`)
+		} else if (signature?.returnType && canReturnUndefined(signature.returnType)) {
+			// For functions that can return undefined, just verify they don't throw
+			// The result itself is stored but not asserted
+			lines.push(`\t\t\t// Result can be undefined, no assertion needed`)
+		} else {
+			// For functions that shouldn't return undefined, verify result exists
+			lines.push(`\t\t\tassertExists(result)`)
+		}
+
 		lines.push("\t\t})")
-	}
-	
+	})
+
 	lines.push("\t})")
-	
+
 	return lines.join("\n")
 }

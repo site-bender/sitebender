@@ -22,7 +22,9 @@ export default function filterAttributes(attributes: InputColorAttributes) {
 
 	return {
 		...globals,
-		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+		...filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+			autocomplete,
+		),
 		...filterAttribute(isBoolean)("autofocus")(autofocus),
 		...filterAttribute(isBoolean)("disabled")(disabled),
 		...filterAttribute(isString)("form")(form),

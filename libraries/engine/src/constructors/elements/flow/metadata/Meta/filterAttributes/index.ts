@@ -46,10 +46,16 @@ export default function filterAttributes(attributes: MetaElementAttributes) {
 
 	// Add meta-specific attributes
 	if (isDefined(charset)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("charSet")(charset))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("charSet")(charset),
+		)
 	}
 	if (isDefined(content)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("content")(content))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("content")(content),
+		)
 	}
 	if (isDefined(httpEquiv)) {
 		Object.assign(

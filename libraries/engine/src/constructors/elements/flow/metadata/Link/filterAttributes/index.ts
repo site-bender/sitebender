@@ -63,7 +63,9 @@ export default function filterAttributes(attributes: LinkElementAttributes) {
 	if (isDefined(crossorigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossorigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossorigin,
+			),
 		)
 	}
 	if (isDefined(href)) {

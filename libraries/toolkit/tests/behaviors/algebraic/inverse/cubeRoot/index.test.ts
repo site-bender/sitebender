@@ -194,11 +194,14 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 					const rootB = cubeRoot(b)
 
 					if (a < b) {
-						return rootA <= rootB || approximately(rootA, rootB, 1e-10)
+						return rootA <= rootB ||
+							approximately(rootA, rootB, 1e-10)
 					} else if (a > b) {
-						return rootA >= rootB || approximately(rootA, rootB, 1e-10)
+						return rootA >= rootB ||
+							approximately(rootA, rootB, 1e-10)
 					} else {
-						return Object.is(rootA, rootB) || approximately(rootA, rootB, 1e-10)
+						return Object.is(rootA, rootB) ||
+							approximately(rootA, rootB, 1e-10)
 					}
 				},
 			),

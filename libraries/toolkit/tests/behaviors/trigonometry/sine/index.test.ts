@@ -150,7 +150,11 @@ Deno.test("sine - bounded between -1 and 1", () => {
 Deno.test("sine - odd function property: sin(-x) = -sin(x)", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const sinPositive = sine(angle)
 				const sinNegative = sine(-angle)
@@ -165,7 +169,11 @@ Deno.test("sine - odd function property: sin(-x) = -sin(x)", () => {
 Deno.test("sine - Pythagorean identity: sin²(x) + cos²(x) = 1", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const sin = sine(angle)
 				const cos = Math.cos(angle) // Using Math.cos for testing
@@ -180,7 +188,11 @@ Deno.test("sine - Pythagorean identity: sin²(x) + cos²(x) = 1", () => {
 Deno.test("sine - periodicity property: sin(x + 2π) = sin(x)", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const original = sine(angle)
 				const shifted = sine(angle + 2 * PI)

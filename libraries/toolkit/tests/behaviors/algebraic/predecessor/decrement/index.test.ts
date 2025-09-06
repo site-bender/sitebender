@@ -123,7 +123,8 @@ Deno.test("decrement", async (t) => {
 
 						if (isFinite(n)) {
 							// Accept that -0 becomes 0 through arithmetic
-							const isZero = (x: number) => x === 0 || Object.is(x, -0)
+							const isZero = (x: number) =>
+								x === 0 || Object.is(x, -0)
 							if (isZero(n)) {
 								return isZero(result1) && isZero(result2)
 							}
@@ -136,7 +137,8 @@ Deno.test("decrement", async (t) => {
 							return result1 === Infinity && result2 === Infinity
 						}
 						if (n === -Infinity) {
-							return result1 === -Infinity && result2 === -Infinity
+							return result1 === -Infinity &&
+								result2 === -Infinity
 						}
 
 						return true
@@ -441,7 +443,10 @@ Deno.test("decrement", async (t) => {
 		})
 
 		await t.step("building sequences", () => {
-			function decrementSequence(start: number, count: number): Array<number> {
+			function decrementSequence(
+				start: number,
+				count: number,
+			): Array<number> {
 				const result: Array<number> = []
 				let current = start
 				for (let i = 0; i < count; i++) {

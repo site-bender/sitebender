@@ -124,7 +124,7 @@ describe("Christmas Demo: Reactive Form", () => {
 
 		// Simulate reactive email validation using signals
 		const email = signal("")
-		    const _isValid = computed(() => {
+		const _isValid = computed(() => {
 			const emailValue = email.value
 			return emailValue.includes("@") && emailValue.length > 5
 		})
@@ -209,8 +209,10 @@ describe("Christmas Demo: Reactive Form", () => {
 		hydrate(irDoc, ctx)
 
 		// Test that the form works reactively
-		const emailInput = (dom.document as Document).getElementById("email") as HTMLInputElement
-		    const _validationMessage = (dom.document as Document).getElementById(
+		const emailInput = (dom.document as Document).getElementById(
+			"email",
+		) as HTMLInputElement
+		const _validationMessage = (dom.document as Document).getElementById(
 			"validation-message",
 		) as HTMLElement | null
 

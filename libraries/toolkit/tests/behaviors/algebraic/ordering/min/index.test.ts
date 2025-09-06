@@ -214,7 +214,11 @@ Deno.test("min: practical applications", async (t) => {
 	})
 
 	await t.step("finding valleys", () => {
-		const isValley = (prev: number, current: number, next: number): boolean =>
+		const isValley = (
+			prev: number,
+			current: number,
+			next: number,
+		): boolean =>
 			min(prev)(current) === current && min(current)(next) === current
 		assertEquals(isValley(5, 2, 3), true)
 		assertEquals(isValley(2, 5, 3), false)
@@ -222,7 +226,10 @@ Deno.test("min: practical applications", async (t) => {
 
 	await t.step("worst case analysis", () => {
 		const worstCase = (scenarios: Array<number>): number =>
-			scenarios.reduce((worst, scenario) => min(worst)(scenario), Infinity)
+			scenarios.reduce(
+				(worst, scenario) => min(worst)(scenario),
+				Infinity,
+			)
 		assertEquals(worstCase([10, 5, 8, 3, 12]), 3)
 	})
 })

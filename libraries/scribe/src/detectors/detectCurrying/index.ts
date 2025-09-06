@@ -1,42 +1,50 @@
 /**
  * Detects if a function is curried and how many levels
  */
-export default function detectCurrying(source: string): { isCurried: boolean; levels: number } {
+export default function detectCurrying(
+	source: string,
+): { isCurried: boolean; levels: number } {
 	// Remove comments from source
 	const cleanSource = removeComments(source)
-	
-	// Count nested return functions
-	let levels = 0
-	
-	// Pattern for returning a function
-	const returnFunctionPattern = /return\s+function|\=>\s*function|\=>\s*\([^)]*\)\s*\=>/g
-	
-	// Count arrow functions that return arrow functions
-	const arrowPattern = /\=>\s*(?:\([^)]*\)|\w+)\s*\=>/g
-	const arrowMatches = cleanSource.match(arrowPattern)
-	if (arrowMatches) {
-		levels = arrowMatches.length
-	}
-	
-	// Count explicit return function patterns
-	const returnMatches = cleanSource.match(returnFunctionPattern)
-	if (returnMatches && returnMatches.length > levels) {
-		levels = returnMatches.length
-	}
-	
-	// Check for curried signature in return type
-	const returnTypePattern = /:\s*(?:\([^)]*\)\s*\=>\s*)+/
-	if (returnTypePattern.test(cleanSource)) {
-		// Count arrow functions in return type
-		const typeArrows = cleanSource.match(/\=>/g)
-		if (typeArrows && typeArrows.length > levels) {
-			levels = typeArrows.length - 1 // Subtract 1 for the main function
+
+	// Count chained arrow functions like (a) => (b) => (c) => result
+	const chainedArrowPattern = /(?:\([^)]*\)|\w+)\s*=>/g
+	const arrowMatches = cleanSource.match(chainedArrowPattern)
+
+	if (arrowMatches && arrowMatches.length > 1) {
+		// For chained arrows, the number of levels is the number of arrow functions
+		return {
+			isCurried: true,
+			levels: arrowMatches.length
 		}
 	}
-	
+
+	// Count nested return functions (traditional currying)
+	const returnFunctionPattern = /return\s+function/g
+	const returnMatches = cleanSource.match(returnFunctionPattern)
+
+	if (returnMatches) {
+		// For nested returns, add 1 for the outer function
+		return {
+			isCurried: true,
+			levels: returnMatches.length + 1
+		}
+	}
+
+	// Check for mixed patterns (arrow returning function or vice versa)
+	const mixedPattern = /=>\s*function|return\s*\([^)]*\)\s*=>/g
+	const mixedMatches = cleanSource.match(mixedPattern)
+
+	if (mixedMatches) {
+		return {
+			isCurried: true,
+			levels: 2 // At minimum 2 levels for mixed patterns
+		}
+	}
+
 	return {
-		isCurried: levels > 0,
-		levels: levels + 1, // Add 1 for the main function itself
+		isCurried: false,
+		levels: 1 // A non-curried function still has 1 level (itself)
 	}
 }
 
@@ -46,9 +54,9 @@ export default function detectCurrying(source: string): { isCurried: boolean; le
 function removeComments(source: string): string {
 	// Remove single-line comments
 	let cleaned = source.replace(/\/\/.*$/gm, "")
-	
+
 	// Remove multi-line comments
 	cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, "")
-	
+
 	return cleaned
 }

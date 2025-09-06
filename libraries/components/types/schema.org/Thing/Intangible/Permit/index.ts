@@ -23,7 +23,9 @@ export interface PermitProps {
 	permitAudience?: Audience | ReturnType<typeof AudienceComponent>
 	validFor?: Duration | ReturnType<typeof DurationComponent>
 	validFrom?: Date | DateTime
-	validIn?: AdministrativeArea | ReturnType<typeof AdministrativeAreaComponent>
+	validIn?:
+		| AdministrativeArea
+		| ReturnType<typeof AdministrativeAreaComponent>
 	validUntil?: Date
 }
 

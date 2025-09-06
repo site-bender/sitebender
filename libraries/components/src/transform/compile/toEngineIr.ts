@@ -206,7 +206,9 @@ function inferAnchorFromActionArgs(action?: ActionMarker): string | undefined {
 	for (const arg of action.args ?? []) {
 		if (isFromElementCtor(arg)) {
 			const src = arg.source || ""
-			if (typeof src === "string" && src.startsWith("#") && src.length > 1) {
+			if (
+				typeof src === "string" && src.startsWith("#") && src.length > 1
+			) {
 				return src.slice(1)
 			}
 		}
@@ -216,7 +218,8 @@ function inferAnchorFromActionArgs(action?: ActionMarker): string | undefined {
 				if (isFromElementCtor(a)) {
 					const src = a.source || ""
 					if (
-						typeof src === "string" && src.startsWith("#") && src.length > 1
+						typeof src === "string" && src.startsWith("#") &&
+						src.length > 1
 					) return src.slice(1)
 				}
 			}
@@ -229,7 +232,8 @@ function inferAnchorFromActionArgs(action?: ActionMarker): string | undefined {
 				if (isFromElementCtor(a)) {
 					const src = a.source || ""
 					if (
-						typeof src === "string" && src.startsWith("#") && src.length > 1
+						typeof src === "string" && src.startsWith("#") &&
+						src.length > 1
 					) return src.slice(1)
 				}
 			}
@@ -273,7 +277,9 @@ function compileOperand(x: unknown): Node {
 		}
 		if (cmpTag === "Is.And" || cmpTag === "Is.Or") {
 			if (argCount < 1) {
-				warnings.push(`${cmpTag} expects at least 1 argument, got ${argCount}`)
+				warnings.push(
+					`${cmpTag} expects at least 1 argument, got ${argCount}`,
+				)
 			}
 		}
 		if (cmpTag === "Is.NotEmpty") {
@@ -309,7 +315,11 @@ function compileOperand(x: unknown): Node {
 		const marker: ActionMarker = {
 			__kind: "action",
 			action: "Act.If",
-			args: [cond ?? undefined, thenFirst ?? undefined, elseFirst ?? undefined]
+			args: [
+				cond ?? undefined,
+				thenFirst ?? undefined,
+				elseFirst ?? undefined,
+			]
 				.filter((v) => typeof v !== "undefined"),
 		}
 		return compileAction(marker)
@@ -336,20 +346,23 @@ function compileOperand(x: unknown): Node {
 		}
 		const thenFirst = Array.isArray(x.ifTrue)
 			? x.ifTrue.find((n) =>
-				isActionMarker(n) || isConditionalMarker(n) || isAuthorizedMarker(n)
+				isActionMarker(n) || isConditionalMarker(n) ||
+				isAuthorizedMarker(n)
 			)
 			: undefined
 		const elseFirst = Array.isArray(x.ifFalse)
 			? x.ifFalse.find((n) =>
-				isActionMarker(n) || isConditionalMarker(n) || isAuthorizedMarker(n)
+				isActionMarker(n) || isConditionalMarker(n) ||
+				isAuthorizedMarker(n)
 			)
 			: undefined
 		const marker: ActionMarker = {
 			__kind: "action",
 			action: "Act.If",
-			args: [policyNode, thenFirst ?? undefined, elseFirst ?? undefined].filter(
-				(v) => typeof v !== "undefined",
-			),
+			args: [policyNode, thenFirst ?? undefined, elseFirst ?? undefined]
+				.filter(
+					(v) => typeof v !== "undefined",
+				),
 		}
 		return compileAction(marker)
 	}
@@ -392,7 +405,9 @@ function compileOperand(x: unknown): Node {
 		const datatype = normalizeDatatype(x.datatype) ?? "Float"
 		const addends = Array.isArray(x.addends) ? x.addends : []
 		const warnings: string[] = []
-		if (addends.length < 2) warnings.push("Op.Add expects at least 2 addends")
+		if (addends.length < 2) {
+			warnings.push("Op.Add expects at least 2 addends")
+		}
 		return {
 			v: "0.1.0",
 			kind: "operator",
@@ -429,9 +444,12 @@ function compileOperand(x: unknown): Node {
 	) {
 		const datatype =
 			normalizeDatatype((x as { datatype?: unknown }).datatype) ?? "Float"
-		const children =
-			(x as { minuend?: unknown; subtrahend?: unknown; children?: unknown[] })
-				.children as unknown[] | undefined
+		const children = (x as {
+			minuend?: unknown
+			subtrahend?: unknown
+			children?: unknown[]
+		})
+			.children as unknown[] | undefined
 		const ops = Array.isArray(children) ? children : []
 		const warnings: string[] = []
 		if (ops.length !== 2) {
@@ -508,7 +526,11 @@ function compileOperand(x: unknown): Node {
 
 	// Logical constructors (And/Or) from engine wrappers -> comparator nodes
 	if (isLogicalCtor(x)) {
-		const tag = x.tag === "And" ? "Is.And" : x.tag === "Or" ? "Is.Or" : x.tag
+		const tag = x.tag === "And"
+			? "Is.And"
+			: x.tag === "Or"
+			? "Is.Or"
+			: x.tag
 		const ops = Array.isArray(x.operands) ? x.operands : []
 		const warnings: string[] = []
 		if ((tag === "Is.And" || tag === "Is.Or") && ops.length < 1) {
@@ -564,14 +586,21 @@ function compileOperand(x: unknown): Node {
 				(x as { test?: unknown }).test,
 			].filter((v) => v !== null && v !== undefined).length
 			if (rawCount !== 2) {
-				warnings.push(`InSet expects 2 arguments (value, set), got ${rawCount}`)
+				warnings.push(
+					`InSet expects 2 arguments (value, set), got ${rawCount}`,
+				)
 			}
 		}
-		if ((cmp === "Is.EqualTo" || cmp === "Is.UnequalTo") && args.length !== 2) {
+		if (
+			(cmp === "Is.EqualTo" || cmp === "Is.UnequalTo") &&
+			args.length !== 2
+		) {
 			warnings.push(`${cmp} expects 2 arguments, got ${args.length}`)
 		}
 		if ((cmp === "Is.And" || cmp === "Is.Or") && args.length < 1) {
-			warnings.push(`${cmp} expects at least 1 argument, got ${args.length}`)
+			warnings.push(
+				`${cmp} expects at least 1 argument, got ${args.length}`,
+			)
 		}
 		// Two-argument comparator families (amount/length/etc.) — require exactly 2 args
 		const twoArgTags = new Set([
@@ -606,7 +635,9 @@ function compileOperand(x: unknown): Node {
 		])
 		if (twoArgTags.has(x.tag) && args.length !== 2) {
 			const tagForMsg = cmp || x.tag
-			warnings.push(`${tagForMsg} expects 2 arguments, got ${args.length}`)
+			warnings.push(
+				`${tagForMsg} expects 2 arguments, got ${args.length}`,
+			)
 		}
 		if (
 			(cmp === "Matches" || cmp === "Is.Matches") &&
@@ -670,7 +701,9 @@ export default function compileToEngine(
 			if (typeof n === "string" || typeof n === "number") continue
 
 			if (isOnMarker(n)) {
-				const evt = n.event.startsWith("On.") ? n.event : `On.${n.event}`
+				const evt = n.event.startsWith("On.")
+					? n.event
+					: `On.${n.event}`
 				const kids = Array.isArray((n as { handler?: unknown }).handler)
 					? ((n as { handler?: unknown[] }).handler ?? [])
 					: ((n as { handler?: unknown }).handler !== undefined
@@ -688,9 +721,13 @@ export default function compileToEngine(
 				const handler = firstAction
 					? compileAction(firstAction)
 					: (firstConditional
-						? compileOperand(firstConditional) as unknown as ActionNode
+						? compileOperand(
+							firstConditional,
+						) as unknown as ActionNode
 						: (firstAuthorized
-							? compileOperand(firstAuthorized) as unknown as ActionNode
+							? compileOperand(
+								firstAuthorized,
+							) as unknown as ActionNode
 							: undefined))
 				const inferred = inferAnchorFromActionArgs(firstAction)
 				const anchor = n.target || lastAnchor || inferred

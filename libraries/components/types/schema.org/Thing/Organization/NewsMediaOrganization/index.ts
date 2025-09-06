@@ -25,7 +25,10 @@ export interface NewsMediaOrganizationProps {
 		| CreativeWork
 		| URL
 		| ReturnType<typeof CreativeWorkComponent>
-	diversityStaffingReport?: Article | URL | ReturnType<typeof ArticleComponent>
+	diversityStaffingReport?:
+		| Article
+		| URL
+		| ReturnType<typeof ArticleComponent>
 	ethicsPolicy?: CreativeWork | URL | ReturnType<typeof CreativeWorkComponent>
 	masthead?: CreativeWork | URL | ReturnType<typeof CreativeWorkComponent>
 	missionCoveragePrioritiesPolicy?:

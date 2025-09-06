@@ -55,7 +55,10 @@ export default function filterAttributes(attributes: FormElementAttributes) {
 
 	// Add form-specific attributes
 	if (isDefined(action)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("action")(action))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("action")(action),
+		)
 	}
 	if (isDefined(method)) {
 		Object.assign(
@@ -81,7 +84,9 @@ export default function filterAttributes(attributes: FormElementAttributes) {
 	if (isDefined(autocomplete)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+				autocomplete,
+			),
 		)
 	}
 	if (isDefined(noValidate)) {

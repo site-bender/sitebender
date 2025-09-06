@@ -42,7 +42,9 @@ export type Props =
 		format?: "numeric" | "short" | "medium" | "long" | "full"
 		children?:
 			| string
-			| ((formatted: { display: string; datetime: string }) => JSX.Element)
+			| ((
+				formatted: { display: string; datetime: string },
+			) => JSX.Element)
 	}
 
 export default function YearMonth({
@@ -101,7 +103,9 @@ export default function YearMonth({
 			year: "numeric" as const,
 			month: (format === "medium"
 				? "short"
-				: (format === "long" || format === "full" ? "long" : "short")) as
+				: (format === "long" || format === "full"
+					? "long"
+					: "short")) as
 					| "short"
 					| "long",
 			calendar,

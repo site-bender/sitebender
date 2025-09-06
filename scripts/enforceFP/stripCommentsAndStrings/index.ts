@@ -11,7 +11,10 @@ export default function stripCommentsAndStrings(input: string): string {
 	s = s.replace(/`[\s\S]*?`/g, "``")
 
 	// Remove single and double quoted strings
-	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(/"(?:\\.|[^"\\])*"/g, '""')
+	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(
+		/"(?:\\.|[^"\\])*"/g,
+		'""',
+	)
 
 	return s
 }

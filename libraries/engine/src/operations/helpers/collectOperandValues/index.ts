@@ -25,7 +25,9 @@ const collectOperandValues = (
 				(operation as unknown as { operands?: Array<Operand> }).operands
 			if (Array.isArray(ops)) {
 				const operandValues = ops.map((operand: unknown) => {
-					const op = operand as Partial<{ selector: string; value: unknown }>
+					const op = operand as Partial<
+						{ selector: string; value: unknown }
+					>
 					if (typeof op.selector === "string") {
 						// path from toolkit expects a Value base; cast narrowly here
 						return path(op.selector)(data as unknown as never)

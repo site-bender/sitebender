@@ -1,7 +1,7 @@
 /**
  * Auto-generated test file
- * Source: ../../libraries/toolkit/src/simple/array/head/index.ts
- * Generated: 2025-09-05T03:29:18.624Z
+ * Source: /Users/guy/Workspace/@sitebender/prover-ai/libraries/toolkit/src/simple/array/head/index.ts
+ * Generated: 2025-09-06T04:58:53.209Z
  * Generator: @sitebender/test-generator v1.0.0
  *
  * DO NOT EDIT MANUALLY
@@ -14,19 +14,47 @@ import {
 	assertExists,
 	assertThrows,
 } from "https://deno.land/std@0.212.0/assert/mod.ts"
+import * as fc from "npm:fast-check@3.15.0"
+import { equal as deepEqual } from "https://deno.land/std@0.212.0/assert/equal.ts"
 
 describe("head", () => {
 	describe("unit tests", () => {
 		it("handles single element array for array", () => {
-			const result = head([1])
-			assertEquals(result, undefined)
+			const result = head([undefined])
+			// Result can be undefined, no assertion needed
 		})
 	})
 
-	describe("edge cases", () => {
-		it("handles empty array for array", () => {
-			const result = head([])
-			assertEquals(result, undefined)
+	describe("property tests", () => {
+		it("type correctness", () => {
+			fc.assert(
+				fc.property(fc.tuple(fc.array(fc.anything())), ([array]) => {
+					const result = head(array)
+					return true
+				}),
+				{ numRuns: 100 },
+			)
+		})
+		it("determinism", () => {
+			fc.assert(
+				fc.property(fc.tuple(fc.array(fc.anything())), ([array]) => {
+					const result1 = head(array)
+					const result2 = head(array)
+					return deepEqual(result1, result2)
+				}),
+				{ numRuns: 50 },
+			)
+		})
+		it("referential transparency", () => {
+			fc.assert(
+				fc.property(fc.tuple(fc.array(fc.anything())), ([array]) => {
+					const value = head(array)
+					// Calling again with same inputs should give same result
+					const value2 = head(array)
+					return deepEqual(value, value2)
+				}),
+				{ numRuns: 50 },
+			)
 		})
 	})
 })

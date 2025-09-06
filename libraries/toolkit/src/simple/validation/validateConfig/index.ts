@@ -59,7 +59,10 @@ type FieldSchema = {
 	max?: number
 	minLength?: number
 	maxLength?: number
-	validator?: (value: unknown, data?: Record<string, unknown>) => string | null
+	validator?: (
+		value: unknown,
+		data?: Record<string, unknown>,
+	) => string | null
 	transform?: (value: unknown) => unknown
 	coerce?: boolean
 	schema?: Record<string, FieldSchema>
@@ -122,7 +125,8 @@ const validateConfig = <T extends Record<string, unknown>>(
 					value = Number(value as number | string | boolean)
 					break
 				case "boolean":
-					value = (value as unknown) === "true" || value === true || value === 1
+					value = (value as unknown) === "true" || value === true ||
+						value === 1
 					break
 				case "string":
 					value = String(value as string | number | boolean)
@@ -184,11 +188,13 @@ const validateConfig = <T extends Record<string, unknown>>(
 		if (fieldSchema.type === "array") {
 			const arr = value as unknown[]
 			if (fieldSchema.minLength && arr.length < fieldSchema.minLength) {
-				errors[key] = `Array must have at least ${fieldSchema.minLength} items`
+				errors[key] =
+					`Array must have at least ${fieldSchema.minLength} items`
 				continue
 			}
 			if (fieldSchema.maxLength && arr.length > fieldSchema.maxLength) {
-				errors[key] = `Array must have at most ${fieldSchema.maxLength} items`
+				errors[key] =
+					`Array must have at most ${fieldSchema.maxLength} items`
 				continue
 			}
 			if (fieldSchema.items) {

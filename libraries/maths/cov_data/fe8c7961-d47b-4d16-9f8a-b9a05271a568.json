@@ -1,0 +1,26 @@
+{
+  "scriptId": "411",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/ipV4Extended.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1016, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "dotJoinerMapper",
+      "ranges": [{ "startOffset": 235, "endOffset": 301, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "dotJoinerUnmapper",
+      "ranges": [{ "startOffset": 302, "endOffset": 457, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "ipV4Extended",
+      "ranges": [{ "startOffset": 465, "endOffset": 1015, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

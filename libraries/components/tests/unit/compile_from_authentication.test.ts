@@ -34,7 +34,9 @@ Deno.test("From.Authenticator lowers to IR injector with path", () => {
 						datatype: "String",
 						value: "#x",
 					},
-					FromAuthentication({ path: "claims.sub" }) as unknown as JSX.Element,
+					FromAuthentication({
+						path: "claims.sub",
+					}) as unknown as JSX.Element,
 				],
 			} as unknown as JSX.Element,
 		}) as unknown as JSX.Element,

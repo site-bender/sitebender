@@ -44,7 +44,9 @@ Deno.test("update - JSDoc example: object transformation", () => {
 		{ id: 3, name: "Charlie", active: true },
 	]
 	type User = { id: number; name: string; active: boolean }
-	const result = update<User>(1)((u: User) => ({ ...u, active: false }))(users)
+	const result = update<User>(1)((u: User) => ({ ...u, active: false }))(
+		users,
+	)
 	assertEquals(result, [
 		{ id: 1, name: "Alice", active: true },
 		{ id: 2, name: "Bob", active: false },
@@ -98,13 +100,31 @@ Deno.test("update - boundary negative indices", () => {
 	const arr = [1, 2, 3, 4, 5]
 
 	// -1 = last element
-	assertEquals(update<number>(-1)((x: number) => x * 10)(arr), [1, 2, 3, 4, 50])
+	assertEquals(update<number>(-1)((x: number) => x * 10)(arr), [
+		1,
+		2,
+		3,
+		4,
+		50,
+	])
 
 	// -5 = first element
-	assertEquals(update<number>(-5)((x: number) => x * 10)(arr), [10, 2, 3, 4, 5])
+	assertEquals(update<number>(-5)((x: number) => x * 10)(arr), [
+		10,
+		2,
+		3,
+		4,
+		5,
+	])
 
 	// -6 = out of bounds
-	assertEquals(update<number>(-6)((x: number) => x * 10)(arr), [1, 2, 3, 4, 5])
+	assertEquals(update<number>(-6)((x: number) => x * 10)(arr), [
+		1,
+		2,
+		3,
+		4,
+		5,
+	])
 })
 
 Deno.test("update - with undefined value", () => {
@@ -145,7 +165,9 @@ Deno.test("update - array with mixed types", () => {
 
 Deno.test("update - nested array transformation", () => {
 	const matrix = [[1, 2], [3, 4], [5, 6]]
-	const result = update<number[]>(1)((row: number[]) => row.map((x) => x * 10))(
+	const result = update<number[]>(1)((row: number[]) =>
+		row.map((x) => x * 10)
+	)(
 		matrix,
 	)
 	assertEquals(result, [[1, 2], [30, 40], [5, 6]])
@@ -189,7 +211,9 @@ Deno.test("update - property: result length equals input length when array exist
 			fc.array(fc.integer()),
 			fc.integer(),
 			(array, index) => {
-				const result = update<number>(index)((n: number) => n * 2)(array)
+				const result = update<number>(index)((n: number) => n * 2)(
+					array,
+				)
 				return result.length === array.length
 			},
 		),
@@ -202,8 +226,12 @@ Deno.test("update - property: returns empty array for null/undefined", () => {
 		fc.property(
 			fc.integer(),
 			(index) => {
-				const resultNull = update<unknown>(index)((x: unknown) => x)(null)
-				const resultUndefined = update<unknown>(index)((x: unknown) => x)(
+				const resultNull = update<unknown>(index)((x: unknown) => x)(
+					null,
+				)
+				const resultUndefined = update<unknown>(index)((x: unknown) =>
+					x
+				)(
 					undefined,
 				)
 
@@ -246,8 +274,12 @@ Deno.test("update - property: negative index equivalence", () => {
 				const negIndex = -(Math.floor(Math.random() * array.length) + 1)
 				const posIndex = array.length + negIndex
 
-				const resultNeg = update<number>(negIndex)((n: number) => n * 2)(array)
-				const resultPos = update<number>(posIndex)((n: number) => n * 2)(array)
+				const resultNeg = update<number>(negIndex)((n: number) =>
+					n * 2
+				)(array)
+				const resultPos = update<number>(posIndex)((n: number) =>
+					n * 2
+				)(array)
 
 				return resultNeg.length === resultPos.length &&
 					resultNeg.every((v, i) => v === resultPos[i])
@@ -266,7 +298,9 @@ Deno.test("update - property: out of bounds returns copy of array", () => {
 				fc.integer({ min: 100 }),
 			),
 			(array, invalidIndex) => {
-				const result = update<number>(invalidIndex)((n: number) => n * 2)(array)
+				const result = update<number>(invalidIndex)((n: number) =>
+					n * 2
+				)(array)
 
 				// Should be a copy, not the same reference
 				return result !== array &&

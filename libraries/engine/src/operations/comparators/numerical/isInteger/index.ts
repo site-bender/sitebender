@@ -25,7 +25,9 @@ async (
 	}
 
 	return isInt(operand.right as Value) ? { right: true } : {
-		left: [Error(op.tag)("IsInteger")(`${operand.right} is not an integer.`)],
+		left: [
+			Error(op.tag)("IsInteger")(`${operand.right} is not an integer.`),
+		],
 	}
 }
 

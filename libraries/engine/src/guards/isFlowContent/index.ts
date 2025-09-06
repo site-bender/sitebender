@@ -34,7 +34,9 @@ export default function isFlowContent(options: FlowContentOptions = {}) {
 		if (
 			(typeof tag === "string" && ELEMENTS.flow.includes(tag)) ||
 			(typeof tag === "string" &&
-				ELEMENTS.flow.includes(tag.charAt(0).toUpperCase() + tag.slice(1)))
+				ELEMENTS.flow.includes(
+					tag.charAt(0).toUpperCase() + tag.slice(1),
+				))
 		) {
 			return true
 		}

@@ -13,48 +13,48 @@ import suggestCoverageIgnores from "./suggestCoverageIgnores/index.ts"
  */
 export default async function validateCoverage(
 	functionPath: string,
-	testFilePath: string
+	testFilePath: string,
 ): Promise<CoverageResult> {
 	// Run tests with coverage collection
 	const coverageData = await runCoverage(testFilePath)
-	
+
 	// Parse the coverage report
 	const report = parseLcovReport(coverageData)
-	
+
 	// Find uncovered lines
 	const uncoveredLines = findUncoveredLines(report, functionPath)
-	
+
 	// Find uncovered branches
 	const uncoveredBranches = findUncoveredBranches(report, functionPath)
-	
+
 	// Calculate coverage percentages
 	const percentages = calculatePercentages(report, functionPath)
-	
+
 	// Generate suggestions for uncoverable code
 	const suggestions = suggestCoverageIgnores(uncoveredLines, functionPath)
-	
+
 	// Create human-readable report
 	const readableReport = generateCoverageReport({
 		...percentages,
 		uncoveredLines,
 		uncoveredBranches,
-		suggestions
+		suggestions,
 	})
-	
+
 	console.log(readableReport)
-	
+
 	return {
 		percentage: percentages.overall,
 		lines: {
 			covered: percentages.linesCovered,
 			total: percentages.linesTotal,
-			uncovered: uncoveredLines
+			uncovered: uncoveredLines,
 		},
 		branches: {
 			covered: percentages.branchesCovered,
 			total: percentages.branchesTotal,
-			uncovered: uncoveredBranches
+			uncovered: uncoveredBranches,
 		},
-		suggestions
+		suggestions,
 	}
 }

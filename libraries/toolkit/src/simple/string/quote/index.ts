@@ -52,10 +52,10 @@ const quote = (
 	}
 
 	// Default to double quotes if quoteChar is invalid
-	const quotes =
-		isNullish(quoteChar) || typeof quoteChar !== "string" || quoteChar === ""
-			? '"'
-			: quoteChar
+	const quotes = isNullish(quoteChar) || typeof quoteChar !== "string" ||
+			quoteChar === ""
+		? '"'
+		: quoteChar
 
 	// For multi-character quotes, determine if they're paired
 	// e.g., "[]" -> "[" and "]", "{}" -> "{" and "}"

@@ -121,7 +121,9 @@ export default function filterAttributes(attributes: DivElementAttributes) {
 	if (isDefined(ariaActivedescendant)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("aria-activedescendant")(ariaActivedescendant),
+			filterAttribute(isString)("aria-activedescendant")(
+				ariaActivedescendant,
+			),
 		)
 	}
 	if (isDefined(ariaOwns)) {
@@ -145,7 +147,9 @@ export default function filterAttributes(attributes: DivElementAttributes) {
 	if (isDefined(ariaRoledescription)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("aria-roledescription")(ariaRoledescription),
+			filterAttribute(isString)("aria-roledescription")(
+				ariaRoledescription,
+			),
 		)
 	}
 	if (isDefined(role)) {

@@ -15,7 +15,9 @@ export interface SingleFamilyResidenceProps {
 		| Number
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>
-	occupancy?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	occupancy?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type SingleFamilyResidence =

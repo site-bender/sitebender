@@ -19,7 +19,10 @@ Deno.test("intersectionWith: handles case-insensitive string comparison", () => 
 		["b", "c"],
 	)
 	assertEquals(
-		intersectionWith(caseInsensitive)(["HELLO", "WORLD"])(["hello", "goodbye"]),
+		intersectionWith(caseInsensitive)(["HELLO", "WORLD"])([
+			"hello",
+			"goodbye",
+		]),
 		["hello"],
 	)
 })

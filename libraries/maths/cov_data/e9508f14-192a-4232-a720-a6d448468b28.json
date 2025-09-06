@@ -1,0 +1,21 @@
+{
+  "scriptId": "372",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Negate/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 244, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Negate",
+      "ranges": [{ "startOffset": 89, "endOffset": 219, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 112, "endOffset": 219, "count": 5 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

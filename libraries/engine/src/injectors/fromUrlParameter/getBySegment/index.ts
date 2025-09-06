@@ -18,7 +18,9 @@ const getBySegment = (op: any) => {
 		}
 	}
 
-	const value = (globalThis.location?.pathname ?? "").split("/").at(index.right)
+	const value = (globalThis.location?.pathname ?? "").split("/").at(
+		index.right,
+	)
 
 	if (isUndefined(value)) {
 		return {

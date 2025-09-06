@@ -1,0 +1,56 @@
+{
+  "scriptId": "599",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/ReadRegex.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 8087, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "charSizeAt",
+      "ranges": [{ "startOffset": 0, "endOffset": 175, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isHexaDigit",
+      "ranges": [{ "startOffset": 176, "endOffset": 311, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isDigit",
+      "ranges": [{ "startOffset": 312, "endOffset": 377, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "squaredBracketBlockContentEndFrom",
+      "ranges": [{ "startOffset": 378, "endOffset": 713, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "parenthesisBlockContentEndFrom",
+      "ranges": [{ "startOffset": 714, "endOffset": 1352, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "curlyBracketBlockContentEndFrom",
+      "ranges": [{ "startOffset": 1353, "endOffset": 1922, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1955, "endOffset": 2128, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "blockEndFrom",
+      "ranges": [{ "startOffset": 2180, "endOffset": 7929, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "readFrom",
+      "ranges": [{ "startOffset": 7937, "endOffset": 8086, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -34,8 +34,14 @@ Deno.test("exponential: basic values", async (t) => {
 	await t.step("small negative values", () => {
 		assertEquals(approximately(exponential(-0.1), 0.9048374180359595), true)
 		assertEquals(approximately(exponential(-0.5), 0.6065306597126334), true)
-		assertEquals(approximately(exponential(-0.25), 0.7788007830714049), true)
-		assertEquals(approximately(exponential(-0.01), 0.9900498337491681), true)
+		assertEquals(
+			approximately(exponential(-0.25), 0.7788007830714049),
+			true,
+		)
+		assertEquals(
+			approximately(exponential(-0.01), 0.9900498337491681),
+			true,
+		)
 	})
 
 	await t.step("larger values", () => {
@@ -48,7 +54,10 @@ Deno.test("exponential: basic values", async (t) => {
 		assertEquals(approximately(exponential(-3), 0.049787068367863944), true)
 		assertEquals(approximately(exponential(-4), 0.01831563888873418), true)
 		assertEquals(approximately(exponential(-5), 0.006737946999085467), true)
-		assertEquals(approximately(exponential(-10), 0.00004539992976248485), true)
+		assertEquals(
+			approximately(exponential(-10), 0.00004539992976248485),
+			true,
+		)
 	})
 })
 
@@ -77,7 +86,10 @@ Deno.test("exponential: special values", async (t) => {
 	})
 
 	await t.step("very large negative values", () => {
-		assertEquals(approximately(exponential(-100), 3.720075976020836e-44), true)
+		assertEquals(
+			approximately(exponential(-100), 3.720075976020836e-44),
+			true,
+		)
 		assertEquals(exponential(-500), 7.124576406741286e-218)
 		assertEquals(exponential(-700), 9.85967654375977e-305)
 		assertEquals(exponential(-750), 0) // Underflow
@@ -150,7 +162,10 @@ Deno.test("exponential: mathematical properties", async (t) => {
 					}
 
 					// Use relative tolerance
-					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
+					const tolerance = Math.max(
+						1e-10,
+						Math.abs(leftSide) * 1e-10,
+					)
 					return Math.abs(leftSide - rightSide) < tolerance
 				},
 			),
@@ -173,7 +188,10 @@ Deno.test("exponential: mathematical properties", async (t) => {
 					}
 
 					// Use relative tolerance
-					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
+					const tolerance = Math.max(
+						1e-10,
+						Math.abs(leftSide) * 1e-10,
+					)
 					return Math.abs(leftSide - rightSide) < tolerance
 				},
 			),
@@ -196,7 +214,10 @@ Deno.test("exponential: mathematical properties", async (t) => {
 					}
 
 					// Use relative tolerance
-					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
+					const tolerance = Math.max(
+						1e-10,
+						Math.abs(leftSide) * 1e-10,
+					)
 					return Math.abs(leftSide - rightSide) < tolerance
 				},
 			),
@@ -373,7 +394,10 @@ Deno.test("exponential: practical applications", async (t) => {
 		const exponentialCDF = (lambda: number, x: number) =>
 			1 - exponential(-lambda * x)
 
-		assertEquals(approximately(exponentialCDF(1, 1), 1 - exponential(-1)), true)
+		assertEquals(
+			approximately(exponentialCDF(1, 1), 1 - exponential(-1)),
+			true,
+		)
 		assertEquals(
 			approximately(exponentialCDF(2, 0.5), 1 - exponential(-1)),
 			true,
@@ -425,7 +449,10 @@ Deno.test("exponential: relationships with other functions", async (t) => {
 		assertEquals(exponential(0), 1)
 
 		// And that e^x approaches specific values
-		assertEquals(approximately(exponential(Math.PI), 23.140692632779263), true)
+		assertEquals(
+			approximately(exponential(Math.PI), 23.140692632779263),
+			true,
+		)
 		assertEquals(
 			approximately(exponential(-Math.PI), 0.04321391826377226),
 			true,

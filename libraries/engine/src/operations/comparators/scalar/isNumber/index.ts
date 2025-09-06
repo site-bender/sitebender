@@ -24,9 +24,11 @@ async (
 		return operand
 	}
 
-	return isNum(operand.right as Value)
-		? { right: true }
-		: { left: [Error(op.tag)("IsNumber")(`${operand.right} is not a number.`)] }
+	return isNum(operand.right as Value) ? { right: true } : {
+		left: [
+			Error(op.tag)("IsNumber")(`${operand.right} is not a number.`),
+		],
+	}
 }
 
 export default isNumber

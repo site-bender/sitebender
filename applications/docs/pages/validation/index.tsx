@@ -10,7 +10,10 @@ export default function ValidationDemo() {
 	return (
 		<body>
 			<h1>Validation Demo</h1>
-			<p>Type in the field; leaving it empty will show a required message.</p>
+			<p>
+				Type in the field; leaving it empty will show a required
+				message.
+			</p>
 			<form id="val-form" data-ir-id="val-form">
 				<label for="name">Name</label>
 				<input
@@ -37,7 +40,10 @@ export default function ValidationDemo() {
 							</NotEmpty>
 						}
 					>
-						<SetValue selector="#name-error" value={<Constant value="" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="" />}
+						/>
 						<SetValue
 							selector="#name-error"
 							value={<Constant value="Required" />}
@@ -54,7 +60,10 @@ export default function ValidationDemo() {
 							</NotEmpty>
 						}
 					>
-						<SetValue selector="#name-error" value={<Constant value="" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="" />}
+						/>
 						<SetValue
 							selector="#name-error"
 							value={<Constant value="Required" />}
@@ -71,7 +80,10 @@ export default function ValidationDemo() {
 							</NotEmpty>
 						}
 					>
-						<SetValue selector="#name-error" value={<Constant value="" />} />
+						<SetValue
+							selector="#name-error"
+							value={<Constant value="" />}
+						/>
 						<SetValue
 							selector="#name-error"
 							value={<Constant value="Required" />}

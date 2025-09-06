@@ -1,0 +1,16 @@
+{
+  "scriptId": "562",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/builders/RestrictedIntegerArbitraryBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 483, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "restrictedIntegerArbitraryBuilder",
+      "ranges": [{ "startOffset": 134, "endOffset": 482, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

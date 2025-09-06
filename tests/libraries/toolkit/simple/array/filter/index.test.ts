@@ -41,24 +41,32 @@ describe("filter", () => {
 		})
 		it("subset property", () => {
 			fc.assert(
-				fc.property(fc.func(fc.boolean()), fc.array(fc.anything()), (input) => {
-					const result = filter(pred)(arr)
-					return result.every((item) => arr.includes(item)) &&
-						result.length <= arr.length
-				}),
+				fc.property(
+					fc.func(fc.boolean()),
+					fc.array(fc.anything()),
+					(input) => {
+						const result = filter(pred)(arr)
+						return result.every((item) => arr.includes(item)) &&
+							result.length <= arr.length
+					},
+				),
 			)
 		})
 		it("order preservation", () => {
 			fc.assert(
-				fc.property(fc.func(fc.boolean()), fc.array(fc.integer()), (input) => {
-					const result = filter(pred)(arr)
-					for (let i = 0; i < result.length - 1; i++) {
-						const idx1 = arr.indexOf(result[i])
-						const idx2 = arr.indexOf(result[i + 1])
-						if (idx1 >= idx2) return false
-					}
-					return true
-				}),
+				fc.property(
+					fc.func(fc.boolean()),
+					fc.array(fc.integer()),
+					(input) => {
+						const result = filter(pred)(arr)
+						for (let i = 0; i < result.length - 1; i++) {
+							const idx1 = arr.indexOf(result[i])
+							const idx2 = arr.indexOf(result[i + 1])
+							if (idx1 >= idx2) return false
+						}
+						return true
+					},
+				),
 			)
 		})
 	})

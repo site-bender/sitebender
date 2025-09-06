@@ -1,0 +1,36 @@
+{
+  "scriptId": "507",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/MaxLengthFromMinLength.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3333, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "maxLengthFromMinLength",
+      "ranges": [{ "startOffset": 459, "endOffset": 980, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "relativeSizeToSize",
+      "ranges": [{ "startOffset": 988, "endOffset": 1659, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "maxGeneratedLengthFromSizeForArbitrary",
+      "ranges": [{ "startOffset": 1667, "endOffset": 2225, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "depthBiasFromSizeForArbitrary",
+      "ranges": [{ "startOffset": 2233, "endOffset": 3099, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "resolveSize",
+      "ranges": [{ "startOffset": 3107, "endOffset": 3332, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

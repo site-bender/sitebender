@@ -46,9 +46,9 @@ const max =
 
 		return {
 			right: Math.max(
-				...(resolvedOperands as Array<{ right: number | string }>).map((o) =>
-					Number(o.right)
-				),
+				...(resolvedOperands as Array<{ right: number | string }>).map((
+					o,
+				) => Number(o.right)),
 			),
 		}
 	}

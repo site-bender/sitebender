@@ -15,7 +15,9 @@ export type NerveType = "Nerve"
 
 export interface NerveProps {
 	"@type"?: NerveType
-	branch?: AnatomicalStructure | ReturnType<typeof AnatomicalStructureComponent>
+	branch?:
+		| AnatomicalStructure
+		| ReturnType<typeof AnatomicalStructureComponent>
 	nerveMotor?: Muscle | ReturnType<typeof MuscleComponent>
 	sensoryUnit?:
 		| AnatomicalStructure

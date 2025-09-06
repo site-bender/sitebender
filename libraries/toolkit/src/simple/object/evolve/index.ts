@@ -124,11 +124,13 @@ const evolve = <T extends Record<string | symbol, Value>>(
 			// Determine the value for this key
 			const newValue = (() => {
 				if (
-					typeof transformation === "function" && isNotUndefined(targetValue)
+					typeof transformation === "function" &&
+					isNotUndefined(targetValue)
 				) {
 					return (transformation as Transformation)(targetValue)
 				} else if (
-					isNotNullish(transformation) && typeof transformation === "object"
+					isNotNullish(transformation) &&
+					typeof transformation === "object"
 				) {
 					return evolveRecursive(transformation, targetValue || {})
 				} else if (isNotUndefined(targetValue)) {

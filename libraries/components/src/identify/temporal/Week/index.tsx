@@ -118,7 +118,11 @@ export default function Week({
 		} else {
 			// Parse as date
 			const parsed = parseTemporalString(value)
-			referenceDate = new Date(parsed.year!, parsed.month! - 1, parsed.day!)
+			referenceDate = new Date(
+				parsed.year!,
+				parsed.month! - 1,
+				parsed.day!,
+			)
 			year = parsed.year!
 			weekNumber = getWeekNumber(referenceDate, weekSystem)
 		}

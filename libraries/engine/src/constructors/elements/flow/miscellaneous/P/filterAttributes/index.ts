@@ -124,7 +124,9 @@ export default function filterAttributes(attributes: PElementAttributes) {
 	if (isDefined(ariaRoledescription)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isString)("aria-roledescription")(ariaRoledescription),
+			filterAttribute(isString)("aria-roledescription")(
+				ariaRoledescription,
+			),
 		)
 	}
 	if (isDefined(role)) {

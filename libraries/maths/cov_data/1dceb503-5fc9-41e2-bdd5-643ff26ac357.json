@@ -1,0 +1,21 @@
+{
+  "scriptId": "474",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/DepthContext.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 582, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getDepthContextFor",
+      "ranges": [{ "startOffset": 44, "endOffset": 477, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createDepthIdentifier",
+      "ranges": [{ "startOffset": 485, "endOffset": 581, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -14,11 +14,19 @@ function toAttrs(props: Record<string, unknown> = {}) {
 
 function renderToString(node: unknown): string {
 	if (node === null || node === undefined) return ""
-	if (typeof node === "string" || typeof node === "number") return String(node)
+	if (typeof node === "string" || typeof node === "number") {
+		return String(node)
+	}
 	if (Array.isArray(node)) return node.map(renderToString).join("")
 
-	if (typeof node === "object" && node !== null && "type" in node && "props" in node && typeof (node as { type: unknown }).type === "string") {
-		const { type, props } = node as { type: string; props: Record<string, unknown> }
+	if (
+		typeof node === "object" && node !== null && "type" in node &&
+		"props" in node && typeof (node as { type: unknown }).type === "string"
+	) {
+		const { type, props } = node as {
+			type: string
+			props: Record<string, unknown>
+		}
 		const attrs = toAttrs(props)
 		const children = props?.children
 		const childStr = Array.isArray(children)
@@ -34,7 +42,10 @@ function renderToString(node: unknown): string {
 }
 
 Deno.test("ContactForm renders semantic and microdata attributes", () => {
-	const cf = createElement(ContactForm, { action: "/contact" }) as { type: string; props: Record<string, unknown> }
+	const cf = createElement(ContactForm, { action: "/contact" }) as {
+		type: string
+		props: Record<string, unknown>
+	}
 	const html = renderToString(cf)
 
 	assertStringIncludes(html, "<form")

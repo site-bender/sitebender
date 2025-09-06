@@ -18,36 +18,28 @@ import detectPatternType from "./detectPatternType/index.ts"
  * @returns Array of pattern-based test cases
  */
 export default function generateToolkitPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const patterns = detectPatternType(signature)
-	const tests: Array<TestCase> = []
-	
-	for (const pattern of patterns) {
+
+	return patterns.flatMap(pattern => {
 		switch (pattern) {
 			case "pipe":
-				tests.push(...generatePipePatternTests(signature))
-				break
+				return generatePipePatternTests(signature)
 			case "compose":
-				tests.push(...generateComposePatternTests(signature))
-				break
+				return generateComposePatternTests(signature)
 			case "curried":
-				tests.push(...generateCurriedPatternTests(signature))
-				break
+				return generateCurriedPatternTests(signature)
 			case "predicate":
-				tests.push(...generatePredicatePatternTests(signature))
-				break
+				return generatePredicatePatternTests(signature)
 			case "transformer":
-				tests.push(...generateTransformerPatternTests(signature))
-				break
+				return generateTransformerPatternTests(signature)
 			case "combinator":
-				tests.push(...generateCombinatorPatternTests(signature))
-				break
+				return generateCombinatorPatternTests(signature)
 			case "monad":
-				tests.push(...generateMonadPatternTests(signature))
-				break
+				return generateMonadPatternTests(signature)
+			default:
+				return []
 		}
-	}
-	
-	return tests
+	})
 }

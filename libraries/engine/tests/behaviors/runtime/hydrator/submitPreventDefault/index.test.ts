@@ -86,7 +86,9 @@ describe("hydrate - On.Submit preventDefault behavior", () => {
 
 		// Track whether default was prevented
 		let defaultPrevented = false
-		const formEl = document.getElementById("f") as unknown as HTMLFormElement
+		const formEl = document.getElementById(
+			"f",
+		) as unknown as HTMLFormElement
 		formEl.addEventListener("submit", (e) => {
 			if (e.defaultPrevented) defaultPrevented = true
 		})

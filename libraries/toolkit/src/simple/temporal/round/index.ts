@@ -131,7 +131,10 @@ const round = (
 		// Use Temporal's built-in round method
 		// The round method supports: 'day', 'hour', 'minute', 'second',
 		// 'millisecond', 'microsecond', 'nanosecond'
-		return datetime.round({ smallestUnit: unit, roundingMode: "halfExpand" })
+		return datetime.round({
+			smallestUnit: unit,
+			roundingMode: "halfExpand",
+		})
 	} catch {
 		return null
 	}
