@@ -222,7 +222,9 @@ libraries/toolkit/src/simple/array/map.ts
                               This is heresy
 ```
 
-Exception: Test files use `index.test.ts` because Deno demands it.
+Exceptions: 
+- Test files use `index.test.ts` because Deno demands it
+- `mod.ts` files are Deno convention for module exports
 
 ### Law 3: The Dependency Hierarchy Is Sacred
 
