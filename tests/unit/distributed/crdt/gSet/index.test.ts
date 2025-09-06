@@ -3,7 +3,7 @@ import {
 	assertEquals,
 } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
-import createGSet from "../../../../../libraries/distributed/src/crdt/g-set/index.ts"
+import createGSet from "../../../../../libraries/distributed/src/crdt/gSet/index.ts"
 
 describe("G-Set (Grow-Only Set) CRDT", () => {
 	it("should create an empty set", () => {

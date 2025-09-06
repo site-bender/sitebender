@@ -96,6 +96,7 @@
 		"dev": "deno task --cwd applications/docs dev",
 		"build": "deno task --cwd applications/docs build",
 		"build:full": "deno task --cwd applications/docs build:full",
+		"demo:distributed": "deno task --cwd libraries/distributed demo",
 
 		// === Playground shortcuts (workspace-level) ===
 		"playground:dev": "deno task --cwd applications/playground dev",

@@ -3,7 +3,7 @@ import {
 	assertEquals,
 } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
-import createORSet from "../../../../../libraries/distributed/src/crdt/or-set/index.ts"
+import createORSet from "../../../../../libraries/distributed/src/crdt/orSet/index.ts"
 
 describe("OR-Set CRDT", () => {
 	it("should create an empty set", () => {

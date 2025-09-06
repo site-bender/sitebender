@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
-import createLWWRegister from "../../../../../libraries/distributed/src/crdt/lww-register/index.ts"
+import createLWWRegister from "../../../../../libraries/distributed/src/crdt/lwwRegister/index.ts"
 
 describe("LWW-Register CRDT", () => {
 	it("should create a register with initial value", () => {

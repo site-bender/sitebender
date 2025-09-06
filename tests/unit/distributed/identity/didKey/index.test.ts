@@ -3,7 +3,7 @@ import {
 	assertEquals,
 } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
-import createDIDKey from "../../../../../libraries/distributed/src/identity/did-key/index.ts"
+import createDIDKey from "../../../../../libraries/distributed/src/identity/didKey/index.ts"
 
 describe("DID:Key Identity", () => {
 	it("should create a DID:Key", () => {
