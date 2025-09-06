@@ -5,6 +5,9 @@ import type { InjectorNode } from "../../../types/ir/index.ts"
 import createComposeContext from "../../../src/context/composeContext/index.ts"
 import registerDefaultExecutors from "../../../src/operations/defaults/registerDefaults/index.ts"
 import evaluate from "../../../src/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "../../../src/utilities/nodeId/index.ts"
+
+const nodeId = createDeterministicIdGenerator("auth-injector-test")
 
 Deno.test("From.Authenticator reads from ctx.localValues by path", async () => {
 	const ctx = createComposeContext({
@@ -19,7 +22,7 @@ Deno.test("From.Authenticator reads from ctx.localValues by path", async () => {
 	const nodeUser: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: nodeId(),
 		injector: "From.Authenticator",
 		datatype: "String",
 		args: { path: "user.id" },
@@ -28,7 +31,7 @@ Deno.test("From.Authenticator reads from ctx.localValues by path", async () => {
 	const nodeSub: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: nodeId(),
 		injector: "From.Authenticator",
 		datatype: "String",
 		args: { path: "claims.sub" },
@@ -37,7 +40,7 @@ Deno.test("From.Authenticator reads from ctx.localValues by path", async () => {
 	const nodeMissing: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: nodeId(),
 		injector: "From.Authenticator",
 		datatype: "String",
 		args: { path: "nope.x" },

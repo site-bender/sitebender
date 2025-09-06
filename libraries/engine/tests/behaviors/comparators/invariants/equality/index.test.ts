@@ -6,6 +6,7 @@ import type {
 import createComposeContext from "@sitebender/engine/context/composeContext.ts"
 import registerDefaultExecutors from "@sitebender/engine/operations/defaults/registerDefaults.ts"
 import evaluateNode from "@sitebender/engine/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "@sitebender/engine/utilities/nodeId/index.ts"
 import { assert } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import * as fc from "npm:fast-check@3"
@@ -14,7 +15,7 @@ import * as fc from "npm:fast-check@3"
 const ctx = createComposeContext({ env: "server" })
 registerDefaultExecutors(ctx)
 
-const nodeId = () => crypto.randomUUID()
+const nodeId = createDeterministicIdGenerator("equality-test")
 const injector = (value: unknown): InjectorNode => ({
 	v: "0.1.0",
 	kind: "injector",

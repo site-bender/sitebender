@@ -8,6 +8,11 @@ import type {
 import createComposeContext from "../../../../src/context/composeContext.ts"
 import registerDefaultExecutors from "../../../../src/operations/defaults/registerDefaults.ts"
 import evaluateNode from "../../../../src/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "../../../../src/utilities/nodeId/index.ts"
+
+const generateId = createDeterministicIdGenerator(
+	"evaluate-policy-fallback-test",
+)
 
 Deno.test("evaluate falls back to policy when comparator not registered", async () => {
 	const ctx = createComposeContext({ env: "server" })
@@ -16,7 +21,7 @@ Deno.test("evaluate falls back to policy when comparator not registered", async 
 	const cfg: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		injector: "From.Constant",
 		datatype: "String",
 		args: { value: { role: "admin" } },
@@ -24,7 +29,7 @@ Deno.test("evaluate falls back to policy when comparator not registered", async 
 	const node: ComparatorNode = {
 		v: "0.1.0",
 		kind: "comparator",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		cmp: "HasRole",
 		args: [cfg],
 	}
@@ -44,7 +49,7 @@ Deno.test("policy fallback returns true when localValues satisfy policy", async 
 	const cfg: InjectorNode = {
 		v: "0.1.0",
 		kind: "injector",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		injector: "From.Constant",
 		datatype: "String",
 		args: { value: { role: "admin" } },
@@ -52,7 +57,7 @@ Deno.test("policy fallback returns true when localValues satisfy policy", async 
 	const node: ComparatorNode = {
 		v: "0.1.0",
 		kind: "comparator",
-		id: crypto.randomUUID(),
+		id: generateId(),
 		cmp: "HasRole",
 		args: [cfg],
 	}

@@ -5,8 +5,9 @@ import type { ComparatorNode, InjectorNode } from "../../../types/ir/index.ts"
 import createComposeContext from "../../../src/context/composeContext.ts"
 import registerDefaultExecutors from "../../../src/operations/defaults/registerDefaults.ts"
 import evaluateNode from "../../../src/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "../../../src/utilities/nodeId/index.ts"
 
-const nodeId = () => crypto.randomUUID()
+const nodeId = createDeterministicIdGenerator("temporal-test")
 const constInjector = (value: unknown): InjectorNode => ({
 	v: "0.1.0",
 	kind: "injector",
