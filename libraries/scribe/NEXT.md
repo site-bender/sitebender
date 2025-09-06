@@ -315,7 +315,8 @@ When you read this to continue Phase 2:
 - [x] ~~Check current test status with `deno task test`~~ ✅ All 42 tests passing
 - [x] ~~Review the 4 failing tests and understand why they fail~~ ✅ Fixed
 - [x] ~~Start with "Prerequisites" section - fix failing tests first~~ ✅ Complete
-- [ ] **START HERE:** Continue with Week 2 - Upgrade Parser
+- [x] ~~Continue with Week 2 - Upgrade Parser~~ ✅ Complete (2025-09-06)
+- [ ] **START HERE:** Continue with Week 3 - Mathematical Properties
 - [ ] Follow the "Implementation Order for Phase 2"
 - [ ] Maintain functional programming principles throughout
 - [ ] Ensure 100% test coverage at each step
@@ -346,5 +347,29 @@ When you read this to continue Phase 2:
 
 **Next Step:**
 Start Week 3 - Implement Mathematical Properties detection
+
+**How to Test Current Implementation:**
+```bash
+# Run the new compiler-based demo
+deno run --allow-read --allow-write --allow-env demo.ts
+
+# Or run the comparison demo
+deno run --allow-read --allow-write --allow-env demo-compiler.ts
+
+# Run tests
+deno task test
+
+# Run linter
+deno task lint
+
+# Run type checker
+deno task type-check
+```
+
+**Key Files for Next Session:**
+- Start with implementing: `src/detectors/detectMathProperties/`
+- Follow patterns from: `src/detectors/detectPurityFromAST/`
+- Update: `src/generateDocsWithCompiler/` to use new detectors
+- Test with: `demo.ts` (already updated to use compiler)
 
 Remember: The goal is automatic documentation that's better than hand-written docs. Every function should document itself with only a single-line description from the developer.
