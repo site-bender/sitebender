@@ -1,1 +1,0 @@
-// Global type declarations for the Sitebender ecosystem

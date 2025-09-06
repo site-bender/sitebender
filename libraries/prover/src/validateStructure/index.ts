@@ -23,21 +23,24 @@ export default async function validateStructure(
 	}
 
 	console.log("🔍 Validating test generator structure...")
-	console.log("=".repeat(60))
+	console.log("=" .repeat(60))
 
-	for await (
-		const entry of walk(basePath, {
-			includeDirs: false,
-			match: [/\.ts$/],
-			skip: [/\.test\.ts$/],
-		})
-	) {
+	const entries = []
+	for await (const entry of walk(basePath, {
+		includeDirs: false,
+		match: [/\.ts$/],
+		skip: [/\.test\.ts$/]
+	})) {
+		entries.push(entry)
+	}
+
+	await Promise.all(entries.map(async entry => {
 		result.stats.totalFiles++
 
 		await validateNoClasses(entry.path, result)
 		await validateOneFunctionPerFile(entry.path, result)
 		await validateFolderStructure(entry.path, result)
-	}
+	}))
 
 	result.valid = result.violations.length === 0
 	return result
@@ -149,9 +152,9 @@ if (import.meta.main) {
 
 	if (result.violations.length > 0) {
 		console.log(`\n❌ VIOLATIONS FOUND (${result.violations.length}):`)
-		for (const violation of result.violations) {
+		result.violations.forEach(violation => {
 			console.log(`   • ${violation}`)
-		}
+		})
 		console.log(`\n🔥 HERESY DETECTED! Fix these violations!`)
 		Deno.exit(1)
 	} else {

@@ -1,4 +1,4 @@
-import type { CoverageData } from "../parseLcovReport/index.ts"
+import type CoverageData from "../parseLcovReport/types/index.ts"
 
 /**
  * Finds uncovered branches for a specific function file

@@ -73,17 +73,19 @@ export default function generateCurriedPatternTests(
 					const step1 = ${functionName}(a)
 					const step2 = step1(b)
 					const result = step2(c)
-					return typeof step1 === 'function' && 
-					       typeof step2 === 'function' && 
+					return typeof step1 === 'function' &&
+					       typeof step2 === 'function' &&
 					       result !== undefined
 				}`,
 			}],
 		})
-	} // For binary curry (general case)
-	else if (
-		signature.parameters.length === 1 &&
-		signature.returnType?.raw.includes("=>")
-	) {
+	}
+	// For binary curry (general case)
+	// Skip compose and pipe since they take arrays of functions, not simple values
+	else if (signature.parameters.length === 1 &&
+	         signature.returnType?.raw.includes("=>") &&
+	         !functionName.toLowerCase().includes("compose") &&
+	         !functionName.toLowerCase().includes("pipe")) {
 		tests.push({
 			name: "binary curry",
 			description: "Two-parameter curry works correctly",
@@ -95,7 +97,7 @@ export default function generateCurriedPatternTests(
 				property: `(a, b) => {
 					const partial = ${functionName}(a)
 					const result = partial(b)
-					return typeof partial === 'function' && 
+					return typeof partial === 'function' &&
 					       result !== undefined
 				}`,
 			}],

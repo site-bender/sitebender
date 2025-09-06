@@ -1,4 +1,4 @@
-export interface ReportData {
+type ReportData = {
 	overall: number
 	linesCovered: number
 	linesTotal: number
@@ -10,3 +10,5 @@ export interface ReportData {
 	uncoveredBranches: Array<string>
 	suggestions: Array<string>
 }
+
+export default ReportData

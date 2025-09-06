@@ -18,9 +18,9 @@ export default function suggestCoverageIgnores(
 		const source = Deno.readTextFileSync(functionPath)
 		const lines = source.split("\n")
 
-		for (const lineNum of uncoveredLines) {
+		uncoveredLines.forEach(lineNum => {
 			const line = lines[lineNum - 1]
-			if (!line) continue
+			if (!line) return
 
 			const trimmed = line.trim()
 
@@ -58,7 +58,7 @@ export default function suggestCoverageIgnores(
 					}..."`,
 				)
 			}
-		}
+		})
 	} catch (error) {
 		suggestions.push(`Could not analyze source file: ${error}`)
 	}

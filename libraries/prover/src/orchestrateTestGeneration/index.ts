@@ -236,9 +236,9 @@ async function generateBatchTests(
 	})
 
 	const results = await Promise.all(promises)
-	for (const { key, tests } of results) {
+	results.forEach(({ key, tests }) => {
 		testFiles.set(key, tests)
-	}
+	})
 
 	return testFiles
 }
@@ -255,9 +255,9 @@ function analyzeAndPrioritize(
 	console.log("=".repeat(80))
 
 	console.log("\nCurrent priority functions:")
-	for (const [key, sig] of Object.entries(signatures)) {
+	Object.entries(signatures).forEach(([key, sig]) => {
 		console.log(`  - ${key}: ${sig.name}`)
-	}
+	})
 }
 
 /**
@@ -269,18 +269,19 @@ function generateReport(testFiles: Map<string, string>): void {
 	console.log("TEST GENERATION REPORT")
 	console.log("=".repeat(80))
 
-	const stats = { totalTests: 0, totalLines: 0 }
-
-	for (const [key, content] of testFiles) {
+	const stats = Array.from(testFiles.entries()).reduce((acc, [key, content]) => {
 		const testCount = (content.match(/Deno\.test\(/g) ?? []).length
 		const lineCount = content.split("\n").length
-		stats.totalTests += testCount
-		stats.totalLines += lineCount
-
+		
 		console.log(`\n${key}:`)
 		console.log(`  Tests generated: ${testCount}`)
 		console.log(`  Lines of code: ${lineCount}`)
-	}
+		
+		return {
+			totalTests: acc.totalTests + testCount,
+			totalLines: acc.totalLines + lineCount
+		}
+	}, { totalTests: 0, totalLines: 0 })
 
 	console.log("\n" + "-".repeat(80))
 	console.log("SUMMARY:")

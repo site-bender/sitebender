@@ -5,15 +5,15 @@
  * Command-line interface for the @sitebender/prover test generation library
  *
  * Usage:
- *   deno run --allow-all libraries/prover/src/cli.ts [options]
+ *   deno run --allow-all libraries/prover/src/cli/index.ts [options]
  *
  * Or with task:
  *   deno task prover:generate
  */
 
-import { orchestrateTestGeneration } from "./orchestrateTestGeneration/index.ts"
-import type { FunctionSignature } from "./types/index.ts"
-import { TypeKind } from "./types/index.ts"
+import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
+import type { FunctionSignature } from "../types/index.ts"
+import { TypeKind } from "../types/index.ts"
 
 // Example toolkit signatures for testing
 const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
@@ -132,7 +132,7 @@ const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
 	},
 }
 
-async function main(): Promise<void> {
+export default async function runCli(): Promise<void> {
 	console.log("🚀 @sitebender/prover - Test Generator CLI")
 	console.log("=".repeat(80))
 	console.log("\nGenerating tests for @sitebender/toolkit functions...")
@@ -153,5 +153,5 @@ async function main(): Promise<void> {
 }
 
 if (import.meta.main) {
-	main()
+	runCli()
 }

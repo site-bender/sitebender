@@ -1,9 +1,6 @@
-import type {
-	BranchPath,
-	GeneratorConfig,
-	TestCase,
-	TestSuite,
-} from "../types/index.ts"
+import type { TestSuite, GeneratorConfig, TestCase, BranchPath } from "../types/index.ts"
+import type Logger from "../types/Logger/index.ts"
+import createConsoleLogger from "../logger/createConsoleLogger/index.ts"
 import parseSignature from "../parseSignature/index.ts"
 import generatePropertyTests from "../generatePropertyTests/index.ts"
 import writeTestFile from "../writeTestFile/index.ts"
@@ -24,15 +21,17 @@ export default async function generateTests(
 	functionPath: string,
 	config?: Partial<GeneratorConfig>,
 ): Promise<TestSuite> {
+	const logger: Logger = config?.logger ?? createConsoleLogger()
 	const finalConfig: GeneratorConfig = {
 		maxPropertyRuns: config?.maxPropertyRuns ?? 100,
 		includeEdgeCases: config?.includeEdgeCases ?? true,
 		includePropertyTests: config?.includePropertyTests ?? true,
 		includeBenchmarks: config?.includeBenchmarks ?? false,
 		targetCoverage: config?.targetCoverage ?? 100,
+		logger,
 	}
 
-	console.log(`🔍 Analyzing function: ${functionPath}`)
+	logger.log(`🔍 Analyzing function: ${functionPath}`)
 
 	const signature = parseSignature(functionPath)
 
@@ -42,31 +41,31 @@ export default async function generateTests(
 		)
 	}
 
-	console.log(`📝 Function: ${signature.name}`)
-	console.log(`   Parameters: ${signature.parameters.length}`)
-	console.log(`   Return type: ${signature.returnType.raw}`)
-	console.log(`   Is curried: ${signature.isCurried}`)
+	logger.log(`📝 Function: ${signature.name}`)
+	logger.log(`   Parameters: ${signature.parameters.length}`)
+	logger.log(`   Return type: ${signature.returnType.raw}`)
+	logger.log(`   Is curried: ${signature.isCurried}`)
 
 	// Read source code for branch analysis
-	let sourceCode = ""
-	try {
-		sourceCode = await Deno.readTextFile(functionPath)
-	} catch (error) {
-		console.warn(`⚠️  Could not read source file: ${error}`)
-	}
+	const sourceCode = await (async () => {
+		try {
+			return await Deno.readTextFile(functionPath)
+		} catch (error) {
+			logger.warn(`⚠️  Could not read source file: ${error}`)
+			return ""
+		}
+	})()
 
 	// Analyze branches in the source code
 	const branches: Array<BranchPath> = sourceCode
 		? analyzeBranches(signature, sourceCode)
 		: []
-	console.log(`🌳 Found ${branches.length} branches`)
+	logger.log(`🌳 Found ${branches.length} branches`)
 
 	// Generate benchmarks if requested
 	if (finalConfig.includeBenchmarks && sourceCode) {
 		const benchmarkSuite = generateBenchmarks(signature, sourceCode)
-		console.log(
-			`⚡ Generated ${benchmarkSuite.benchmarks.length} benchmark tests`,
-		)
+		logger.log(`⚡ Generated ${benchmarkSuite.benchmarks.length} benchmark tests`)
 		// Note: Benchmarks are generated but not included in test cases
 		// They would be written to a separate benchmark file
 	}
@@ -80,15 +79,13 @@ export default async function generateTests(
 			? edgeCases.map((test) => transformTestCase(test, signature))
 			: edgeCases
 		allTests.push(...transformedEdgeCases)
-		console.log(
-			`🔧 Generated ${transformedEdgeCases.length} edge case tests`,
-		)
+		logger.log(`🔧 Generated ${transformedEdgeCases.length} edge case tests`)
 	}
 
 	if (finalConfig.includePropertyTests) {
 		const propertyTests = generatePropertyTests(signature)
 		allTests.push(...propertyTests)
-		console.log(`🔬 Generated ${propertyTests.length} property-based tests`)
+		logger.log(`🔬 Generated ${propertyTests.length} property-based tests`)
 	}
 
 	const branchTests = needsCurriedHandling(signature)
@@ -97,24 +94,22 @@ export default async function generateTests(
 		)
 		: generateBranchTests(branches, signature)
 	allTests.push(...branchTests)
-	console.log(`🎯 Generated ${branchTests.length} branch coverage tests`)
+	logger.log(`🎯 Generated ${branchTests.length} branch coverage tests`)
 
 	const patternTests = generateToolkitPatternTests(signature)
 	allTests.push(...patternTests)
-	console.log(`🔮 Generated ${patternTests.length} pattern-based tests`)
+	logger.log(`🔮 Generated ${patternTests.length} pattern-based tests`)
 
 	const optimizedTests = deduplicateTests(allTests)
-	console.log(
-		`🎨 Optimized from ${allTests.length} to ${optimizedTests.length} tests`,
-	)
+	logger.log(`🎨 Optimized from ${allTests.length} to ${optimizedTests.length} tests`)
 
 	const testFilePath = writeTestFile(
 		functionPath,
 		signature.name,
 		optimizedTests,
-		signature,
-	).then((path) => {
-		console.log(`✍️  Wrote test file: ${path}`)
+		signature
+	).then(path => {
+		logger.log(`✍️  Wrote test file: ${path}`)
 		return path
 	})
 
@@ -128,50 +123,35 @@ export default async function generateTests(
 		)
 	)
 
-	return Promise.all([testFilePath, coverage]).then(
-		([_path, coverageResult]) => {
-			console.log(`📊 Coverage: ${coverageResult.percentage.toFixed(1)}%`)
-			console.log(
-				`   Lines: ${coverageResult.lines.covered}/${coverageResult.lines.total}`,
-			)
-			console.log(
-				`   Branches: ${coverageResult.branches.covered}/${coverageResult.branches.total}`,
-			)
+	return Promise.all([testFilePath, coverage]).then(([_path, coverageResult]) => {
+		logger.log(`📊 Coverage: ${coverageResult.percentage.toFixed(1)}%`)
+		logger.log(`   Lines: ${coverageResult.lines.covered}/${coverageResult.lines.total}`)
+		logger.log(`   Branches: ${coverageResult.branches.covered}/${coverageResult.branches.total}`)
 
-			if (coverageResult.percentage < finalConfig.targetCoverage) {
-				console.log(
-					`⚠️  Coverage below target (${finalConfig.targetCoverage}%)`,
-				)
+		if (coverageResult.percentage < finalConfig.targetCoverage) {
+			logger.warn(`⚠️  Coverage below target (${finalConfig.targetCoverage}%)`)
 
-				if (coverageResult.lines.uncovered.length > 0) {
-					console.log(
-						`   Uncovered lines: ${
-							coverageResult.lines.uncovered.join(", ")
-						}`,
-					)
-				}
-				if (
-					coverageResult.suggestions &&
-					coverageResult.suggestions.length > 0
-				) {
-					console.log(`   Suggestions:`)
-					coverageResult.suggestions.forEach((suggestion) => {
-						console.log(`     • ${suggestion}`)
-					})
-				}
-			} else {
-				console.log(`✅ Target coverage achieved!`)
+			if (coverageResult.lines.uncovered.length > 0) {
+				logger.log(`   Uncovered lines: ${coverageResult.lines.uncovered.join(", ")}`)
 			}
-
-			const testSuite: TestSuite = {
-				functionPath,
-				functionName: signature.name,
-				testCases: optimizedTests,
-				imports: generateImports(signature, optimizedTests),
-				coverage: coverageResult,
+			if (coverageResult.suggestions && coverageResult.suggestions.length > 0) {
+				logger.log(`   Suggestions:`)
+				coverageResult.suggestions.forEach(suggestion => {
+					logger.log(`     • ${suggestion}`)
+				})
 			}
+		} else {
+			logger.log(`✅ Target coverage achieved!`)
+		}
 
-			return testSuite
-		},
-	)
+		const testSuite: TestSuite = {
+			functionPath,
+			functionName: signature.name,
+			testCases: optimizedTests,
+			imports: generateImports(signature, optimizedTests),
+			coverage: coverageResult,
+		}
+
+		return testSuite
+	})
 }

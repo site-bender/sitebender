@@ -1,4 +1,4 @@
-import type { CoverageData } from "../parseLcovReport/index.ts"
+import type CoverageData from "../parseLcovReport/types/index.ts"
 
 /**
  * Parses the JSON coverage report from Deno

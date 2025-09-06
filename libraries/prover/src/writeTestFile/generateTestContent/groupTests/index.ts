@@ -19,7 +19,7 @@ export default function groupTests(tests: Array<TestCase>): {
 		error: [] as Array<TestCase>,
 	}
 
-	for (const test of tests) {
+	tests.forEach(test => {
 		if (test.properties && test.properties.length > 0) {
 			groups.property.push(test)
 		} else if (test.expectedError) {
@@ -29,7 +29,7 @@ export default function groupTests(tests: Array<TestCase>): {
 		} else {
 			groups.unit.push(test)
 		}
-	}
+	})
 
 	return groups
 }
