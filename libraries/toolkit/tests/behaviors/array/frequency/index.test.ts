@@ -178,7 +178,10 @@ describe("frequency", () => {
 					fc.array(fc.anything()),
 					(arr) => {
 						const freq = frequency(arr)
-						const sum = Array.from(freq.values()).reduce((a, b) => a + b, 0)
+						const sum = Array.from(freq.values()).reduce(
+							(a, b) => a + b,
+							0,
+						)
 						assertEquals(sum, arr.length)
 					},
 				),

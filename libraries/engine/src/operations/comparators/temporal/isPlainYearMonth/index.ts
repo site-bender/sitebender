@@ -30,7 +30,9 @@ const isPlainYearMonth =
 			return YM.test(s) ? { right: true } : {
 				left: [
 					Error(op.tag)("IsPlainYearMonth")(
-						`${JSON.stringify(operand.right)} is not a plain year-month.`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a plain year-month.`,
 					),
 				],
 			}
@@ -38,7 +40,9 @@ const isPlainYearMonth =
 			return {
 				left: [
 					Error(op.tag)("IsPlainYearMonth")(
-						`${JSON.stringify(operand.right)} is not a plain year-month: ${e}.`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a plain year-month: ${e}.`,
 					),
 				],
 			}

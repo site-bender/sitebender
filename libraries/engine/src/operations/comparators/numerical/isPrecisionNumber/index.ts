@@ -17,12 +17,17 @@ const isPrecisionNumber =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<EngineError>, boolean>> => {
-		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operandFn = await composeComparators(
+			op.operand as unknown as never,
+		)
 		const operand = await operandFn(arg, localValues)
 		const precision =
 			(op as unknown as { precision?: number; decimalPlaces?: number })
 				.precision ??
-				(op as unknown as { precision?: number; decimalPlaces?: number })
+				(op as unknown as {
+					precision?: number
+					decimalPlaces?: number
+				})
 					.decimalPlaces
 		const pattern = new RegExp(
 			`^([-+]?)(?:0|[1-9][0-9]*)([.][0-9]{0,${precision}})?$`,
@@ -35,7 +40,10 @@ const isPrecisionNumber =
 		const oright = (operand as { right: unknown }).right
 		const ok = isNumber(oright as never) && pattern.test(String(oright))
 		return ok
-			? ({ right: true } as unknown as Either<Array<EngineError>, boolean>)
+			? ({ right: true } as unknown as Either<
+				Array<EngineError>,
+				boolean
+			>)
 			: {
 				left: [
 					Error(op.tag)("IsPrecisionNumber")(

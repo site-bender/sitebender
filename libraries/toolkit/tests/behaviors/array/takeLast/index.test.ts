@@ -111,7 +111,9 @@ Deno.test("takeLast - property: result length is min(n, array.length)", () => {
 			fc.integer({ min: -10, max: 100 }),
 			(arr, count) => {
 				const result = takeLast(count)(arr)
-				const expectedLength = count <= 0 ? 0 : Math.min(count, arr.length)
+				const expectedLength = count <= 0
+					? 0
+					: Math.min(count, arr.length)
 				assertEquals(result.length, expectedLength)
 				return true
 			},

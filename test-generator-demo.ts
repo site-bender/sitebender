@@ -10,22 +10,22 @@ const addSignature: FunctionSignature = {
 	name: "add",
 	path: "libraries/toolkit/src/simple/math/add/index.ts",
 	parameters: [
-		{ 
-			name: "augend", 
+		{
+			name: "augend",
 			type: { raw: "number", kind: TypeKind.Primitive },
-			optional: false 
+			optional: false,
 		},
-		{ 
-			name: "addend", 
+		{
+			name: "addend",
 			type: { raw: "number", kind: TypeKind.Primitive },
-			optional: false 
-		}
+			optional: false,
+		},
 	],
 	returnType: { raw: "number", kind: TypeKind.Primitive },
 	generics: [],
 	isCurried: true,
 	isAsync: false,
-	isGenerator: false
+	isGenerator: false,
 }
 
 // Read the source code
@@ -38,9 +38,13 @@ try {
 	const branches = analyzeBranches(addSignature, sourceCode)
 	console.log(`Found ${branches.length} branches:`)
 	branches.forEach((branch, i) => {
-		console.log(`  ${i + 1}. ${branch.id}: ${branch.condition} (line ${branch.line})`)
+		console.log(
+			`  ${
+				i + 1
+			}. ${branch.id}: ${branch.condition} (line ${branch.line})`,
+		)
 		if (branch.requiredInputs.length > 0) {
-			branch.requiredInputs.forEach(input => {
+			branch.requiredInputs.forEach((input) => {
 				console.log(`     - ${input.description}: ${input.value}`)
 			})
 		}
@@ -56,7 +60,11 @@ try {
 	console.log(`Generated ${benchmarks.benchmarks.length} benchmarks:`)
 	benchmarks.benchmarks.forEach((bench, i) => {
 		console.log(`  ${i + 1}. ${bench.name}: ${bench.description}`)
-		console.log(`     Iterations: ${bench.iterations}, Input: ${JSON.stringify(bench.input)}`)
+		console.log(
+			`     Iterations: ${bench.iterations}, Input: ${
+				JSON.stringify(bench.input)
+			}`,
+		)
 	})
 } catch (error) {
 	console.error("Benchmark generation failed:", error)

@@ -1,4 +1,8 @@
-import type { CoverageResult, CoverageGateResult, CoverageIssue } from "../types/index.ts"
+import type {
+	CoverageGateResult,
+	CoverageIssue,
+	CoverageResult,
+} from "../types/index.ts"
 import isEngineSourceFile from "../isEngineSourceFile/index.ts"
 
 /**
@@ -25,52 +29,55 @@ import isEngineSourceFile from "../isEngineSourceFile/index.ts"
  * }
  * ```
  */
-export default function validateCoverage(results: CoverageResult[]): CoverageGateResult {
-  const issues: CoverageIssue[] = []
+export default function validateCoverage(
+	results: CoverageResult[],
+): CoverageGateResult {
+	const issues: CoverageIssue[] = []
 
-  for (const result of results) {
-    if (!isEngineSourceFile(result.file)) {
-      continue // Only enforce 100% on engine source files
-    }
+	for (const result of results) {
+		if (!isEngineSourceFile(result.file)) {
+			continue // Only enforce 100% on engine source files
+		}
 
-    if (result.linePercent < 100) {
-      issues.push({
-        file: result.file,
-        issue: 'Line coverage below 100%',
-        current: result.linePercent,
-        required: 100
-      })
-    }
+		if (result.linePercent < 100) {
+			issues.push({
+				file: result.file,
+				issue: "Line coverage below 100%",
+				current: result.linePercent,
+				required: 100,
+			})
+		}
 
-    if (result.branchPercent < 100) {
-      issues.push({
-        file: result.file,
-        issue: 'Branch coverage below 100%',
-        current: result.branchPercent,
-        required: 100
-      })
-    }
-  }
+		if (result.branchPercent < 100) {
+			issues.push({
+				file: result.file,
+				issue: "Branch coverage below 100%",
+				current: result.branchPercent,
+				required: 100,
+			})
+		}
+	}
 
-  if (issues.length === 0) {
-    return {
-      passed: true,
-      message: '✅ All engine source files have 100% coverage',
-      details: []
-    }
-  }
+	if (issues.length === 0) {
+		return {
+			passed: true,
+			message: "✅ All engine source files have 100% coverage",
+			details: [],
+		}
+	}
 
-  const message = `❌ Coverage gate failed: ${issues.length} issue(s) found\n\n` +
-    'According to TESTING.md and CLAUDE.md, all public engine functions must have 100% coverage.\n' +
-    'Either add tests to achieve 100% coverage, or add `// deno-coverage-ignore` with a documented reason.\n\n' +
-    'Issues found:\n' +
-    issues.map(issue =>
-      `  • ${issue.file}: ${issue.issue} (${issue.current}% < ${issue.required}%)`
-    ).join('\n')
+	const message =
+		`❌ Coverage gate failed: ${issues.length} issue(s) found\n\n` +
+		"According to TESTING.md and CLAUDE.md, all public engine functions must have 100% coverage.\n" +
+		"Either add tests to achieve 100% coverage, or add `// deno-coverage-ignore` with a documented reason.\n\n" +
+		"Issues found:\n" +
+		issues.map((issue) =>
+			`  • ${issue.file}: ${issue.issue} (${issue.current}% < ${issue.required}%)`
+		).join("\n")
 
-  return {
-    passed: false,
-    message,
-    details: issues
-  }
+	return {
+		passed: false,
+		message,
+		details: issues,
+	}
 }

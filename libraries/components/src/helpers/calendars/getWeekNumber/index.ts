@@ -17,7 +17,8 @@ export default function getWeekNumber(
 			// US week: Sunday start, week 1 contains Jan 1
 			const startOfYear = new Date(date.getFullYear(), 0, 1)
 			const dayOfYear = Math.floor(
-				(date.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000),
+				(date.getTime() - startOfYear.getTime()) /
+					(24 * 60 * 60 * 1000),
 			) + 1
 			const dayOfWeek = startOfYear.getDay()
 			return Math.ceil((dayOfYear + dayOfWeek) / 7)

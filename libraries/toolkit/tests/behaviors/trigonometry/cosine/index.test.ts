@@ -153,7 +153,11 @@ Deno.test("cosine - bounded between -1 and 1", () => {
 Deno.test("cosine - even function property: cos(-x) = cos(x)", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const cosPositive = cosine(angle)
 				const cosNegative = cosine(-angle)
@@ -168,7 +172,11 @@ Deno.test("cosine - even function property: cos(-x) = cos(x)", () => {
 Deno.test("cosine - Pythagorean identity: sin²(x) + cos²(x) = 1", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const cos = cosine(angle)
 				const sin = Math.sin(angle) // Using Math.sin for testing
@@ -183,7 +191,11 @@ Deno.test("cosine - Pythagorean identity: sin²(x) + cos²(x) = 1", () => {
 Deno.test("cosine - periodicity property: cos(x + 2π) = cos(x)", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const original = cosine(angle)
 				const shifted = cosine(angle + 2 * PI)
@@ -197,7 +209,11 @@ Deno.test("cosine - periodicity property: cos(x + 2π) = cos(x)", () => {
 Deno.test("cosine - phase shift property: cos(x) = sin(x + π/2)", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(angle) => {
 				const cos = cosine(angle)
 				const shiftedSin = Math.sin(angle + HALF_PI)

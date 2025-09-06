@@ -357,7 +357,9 @@ Deno.test("splitEvery: specific test cases from examples", async (t) => {
 	})
 
 	await t.step("should split [a,b,c,d] by 3", () => {
-		assertEquals(splitEvery(3)(["a", "b", "c", "d"]), [["a", "b", "c"], ["d"]])
+		assertEquals(splitEvery(3)(["a", "b", "c", "d"]), [["a", "b", "c"], [
+			"d",
+		]])
 	})
 
 	await t.step("should split [1,2,3] by 1", () => {

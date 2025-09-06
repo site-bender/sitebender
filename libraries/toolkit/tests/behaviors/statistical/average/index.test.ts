@@ -19,7 +19,10 @@ Deno.test("average", async (t) => {
 						const expectedAvg = expectedSum / numbers.length
 
 						// Use a minimum epsilon to handle zero average case
-						const epsilon = Math.max(Math.abs(expectedAvg) * 1e-10, 1e-10)
+						const epsilon = Math.max(
+							Math.abs(expectedAvg) * 1e-10,
+							1e-10,
+						)
 						return approximately(result, expectedAvg, epsilon)
 					},
 				),
@@ -27,33 +30,39 @@ Deno.test("average", async (t) => {
 			)
 		})
 
-		await t.step("should satisfy mean inequality (min <= mean <= max)", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
-					(numbers) => {
-						const result = average(numbers)
-						const min = Math.min(...numbers)
-						const max = Math.max(...numbers)
+		await t.step(
+			"should satisfy mean inequality (min <= mean <= max)",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
+						(numbers) => {
+							const result = average(numbers)
+							const min = Math.min(...numbers)
+							const max = Math.max(...numbers)
 
-						return result >= min && result <= max
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+							return result >= min && result <= max
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
-		await t.step("should return the value for single element arrays", () => {
-			fc.assert(
-				fc.property(
-					fc.float({ noNaN: true }),
-					(value) => {
-						return average([value]) === value
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+		await t.step(
+			"should return the value for single element arrays",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.float({ noNaN: true }),
+						(value) => {
+							return average([value]) === value
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step(
 			"should return same value for arrays of identical elements",
@@ -79,10 +88,13 @@ Deno.test("average", async (t) => {
 			() => {
 				fc.assert(
 					fc.property(
-						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
-							minLength: 1,
-							maxLength: 50,
-						}),
+						fc.array(
+							fc.float({ noNaN: true, min: -1000, max: 1000 }),
+							{
+								minLength: 1,
+								maxLength: 50,
+							},
+						),
 						fc.float({ noNaN: true, min: -10, max: 10 }),
 						fc.float({ noNaN: true, min: -10, max: 10 }),
 						(numbers, a, b) => {
@@ -108,11 +120,16 @@ Deno.test("average", async (t) => {
 			() => {
 				fc.assert(
 					fc.property(
-						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 }), {
-							minLength: 1,
-							maxLength: 50,
-						}),
-						fc.array(fc.float({ noNaN: true, min: -1000, max: 1000 })),
+						fc.array(
+							fc.float({ noNaN: true, min: -1000, max: 1000 }),
+							{
+								minLength: 1,
+								maxLength: 50,
+							},
+						),
+						fc.array(
+							fc.float({ noNaN: true, min: -1000, max: 1000 }),
+						),
 						(arr1, arr2) => {
 							// Make arrays same length
 							const len = arr1.length
@@ -166,7 +183,10 @@ Deno.test("average", async (t) => {
 
 		await t.step("should handle decimal numbers", () => {
 			assertEquals(average([1.5, 2.5, 3.5]), 2.5)
-			assertEquals(approximately(average([0.1, 0.2, 0.3]), 0.2, 1e-10), true)
+			assertEquals(
+				approximately(average([0.1, 0.2, 0.3]), 0.2, 1e-10),
+				true,
+			)
 			assertEquals(average([1.1, 2.2, 3.3, 4.4]), 2.75)
 		})
 
@@ -192,12 +212,18 @@ Deno.test("average", async (t) => {
 			assertEquals(Number.isNaN(average({} as any)), true)
 		})
 
-		await t.step("should return NaN for arrays with non-numeric values", () => {
-			assertEquals(Number.isNaN(average([1, "2", 3] as any)), true)
-			assertEquals(Number.isNaN(average([1, null, 3] as any)), true)
-			assertEquals(Number.isNaN(average([1, undefined, 3] as any)), true)
-			assertEquals(Number.isNaN(average([1, {}, 3] as any)), true)
-		})
+		await t.step(
+			"should return NaN for arrays with non-numeric values",
+			() => {
+				assertEquals(Number.isNaN(average([1, "2", 3] as any)), true)
+				assertEquals(Number.isNaN(average([1, null, 3] as any)), true)
+				assertEquals(
+					Number.isNaN(average([1, undefined, 3] as any)),
+					true,
+				)
+				assertEquals(Number.isNaN(average([1, {}, 3] as any)), true)
+			},
+		)
 
 		await t.step("should return NaN for arrays containing NaN", () => {
 			assertEquals(Number.isNaN(average([1, 2, NaN, 3, 4])), true)
@@ -214,7 +240,10 @@ Deno.test("average", async (t) => {
 
 		await t.step("decimal numbers", () => {
 			assertEquals(average([1.5, 2.5, 3.5]), 2.5)
-			assertEquals(approximately(average([0.1, 0.2, 0.3]), 0.2, 1e-10), true)
+			assertEquals(
+				approximately(average([0.1, 0.2, 0.3]), 0.2, 1e-10),
+				true,
+			)
 		})
 
 		await t.step("negative numbers", () => {
@@ -322,7 +351,8 @@ Deno.test("average", async (t) => {
 			const detectOutliers = (data: Array<number>): Array<number> => {
 				const avg = average(data)
 				const deviation = Math.sqrt(
-					data.reduce((sum, x) => sum + Math.pow(x - avg, 2), 0) / data.length,
+					data.reduce((sum, x) => sum + Math.pow(x - avg, 2), 0) /
+						data.length,
 				)
 				const threshold = 2 * deviation // 2 standard deviations
 				return data.filter((x) => Math.abs(x - avg) > threshold)

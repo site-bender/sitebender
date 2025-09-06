@@ -13,7 +13,9 @@ Deno.test("replaceFirst: type checking", async (t) => {
 		assertType<
 			IsExact<
 				typeof replacer,
-				(array: ReadonlyArray<number> | null | undefined) => Array<number>
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
 			>
 		>(true)
 
@@ -27,7 +29,9 @@ Deno.test("replaceFirst: type checking", async (t) => {
 		assertType<
 			IsExact<
 				typeof stringReplacer,
-				(array: ReadonlyArray<string> | null | undefined) => Array<string>
+				(
+					array: ReadonlyArray<string> | null | undefined,
+				) => Array<string>
 			>
 		>(true)
 
@@ -178,17 +182,20 @@ Deno.test("replaceFirst: object references", async (t) => {
 		)
 	})
 
-	await t.step("should not match different instances with same content", () => {
-		const obj1 = { id: 1 }
-		const obj2 = { id: 1 } // Same content, different instance
-		const replacement = { id: 99 }
+	await t.step(
+		"should not match different instances with same content",
+		() => {
+			const obj1 = { id: 1 }
+			const obj2 = { id: 1 } // Same content, different instance
+			const replacement = { id: 99 }
 
-		const replacer = replaceFirst(obj2)(() => replacement)
-		assertEquals(
-			replacer([obj1, obj2, obj1]),
-			[obj1, replacement, obj1],
-		)
-	})
+			const replacer = replaceFirst(obj2)(() => replacement)
+			assertEquals(
+				replacer([obj1, obj2, obj1]),
+				[obj1, replacement, obj1],
+			)
+		},
+	)
 })
 
 Deno.test("replaceFirst: currying", async (t) => {
@@ -207,7 +214,9 @@ Deno.test("replaceFirst: currying", async (t) => {
 		assertType<
 			IsExact<
 				typeof withReplacer,
-				(array: ReadonlyArray<number> | null | undefined) => Array<number>
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
 			>
 		>(true)
 
@@ -276,22 +285,26 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 					const originalCount = arr.filter((x) => x === target).length
 
 					// Count occurrences of target in result
-					const resultCount = result.filter((x) => x === target).length
+					const resultCount = result.filter((x) =>
+						x === target
+					).length
 
 					// If target was in original, result should have one less
 					if (originalCount > 0) {
 						assertEquals(resultCount, originalCount - 1)
 
 						// Count replacements
-						const replacementCount = result.filter((x) =>
-							x === replacement
-						).length
+						const replacementCount =
+							result.filter((x) => x === replacement).length
 						const originalReplacementCount = arr.filter((x) =>
 							x === replacement
 						).length
 
 						if (replacement !== target) {
-							assertEquals(replacementCount, originalReplacementCount + 1)
+							assertEquals(
+								replacementCount,
+								originalReplacementCount + 1,
+							)
 						}
 					} else {
 						// Content unchanged if target not found

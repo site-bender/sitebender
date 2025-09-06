@@ -7,6 +7,7 @@ A revolutionary test generation library that automatically proves code correctne
 ## What Is Prover?
 
 Prover is an automated test generation system that:
+
 - **Analyzes** function signatures and source code
 - **Generates** comprehensive test suites automatically
 - **Proves** correctness through mathematical properties
@@ -26,26 +27,31 @@ Instead of writing tests manually (which takes hundreds of hours and is error-pr
 ## Features
 
 ### 🔍 Branch Analysis
+
 - AST parsing to find all conditional paths
 - Automatic input generation for each branch
 - Coverage validation and reporting
 
 ### 🔬 Property-Based Testing
+
 - Mathematical law verification (functor, monoid, etc.)
 - Invariant testing
 - Algebraic property validation
 
 ### ⚡ Performance Benchmarking
+
 - Automatic benchmark generation
 - Complexity analysis
 - Performance regression detection
 
 ### 🎯 Pattern Recognition
+
 - Toolkit-specific patterns (pipe, predicates, etc.)
 - Component patterns (for future JSX testing)
 - Domain-specific test generation
 
 ### 📊 Coverage Enforcement
+
 - 100% coverage requirement
 - Automatic coverage ignore suggestions
 - Detailed uncovered line reporting
@@ -79,8 +85,8 @@ const testSuite = await generateTests(
 	{
 		includePropertyTests: true,
 		includeBenchmarks: true,
-		targetCoverage: 100
-	}
+		targetCoverage: 100,
+	},
 )
 ```
 
@@ -91,9 +97,9 @@ import { orchestrateTestGeneration } from "@sitebender/prover"
 
 // Generate tests for multiple functions
 const signatures = {
-	"array/map": { /* signature */ },
-	"array/filter": { /* signature */ },
-	"math/add": { /* signature */ }
+	"array/map": {/* signature */},
+	"array/filter": {/* signature */},
+	"math/add": {/* signature */},
 }
 
 const testFiles = await orchestrateTestGeneration(signatures)
@@ -102,16 +108,20 @@ const testFiles = await orchestrateTestGeneration(signatures)
 ## Test Types Generated
 
 ### 1. Unit Tests
+
 Basic functionality tests for simple inputs:
+
 ```typescript
 it("handles single element array", () => {
-	const result = map(x => x)([1])
+	const result = map((x) => x)([1])
 	assertEquals(result, [1])
 })
 ```
 
 ### 2. Property Tests
+
 Mathematical property verification:
+
 ```typescript
 it("functor composition law", () => {
 	fc.assert(fc.property(
@@ -122,26 +132,30 @@ it("functor composition law", () => {
 			const composed = map(compose(f, g))(arr)
 			const sequential = pipe([map(g), map(f)])(arr)
 			return deepEqual(composed, sequential)
-		}
+		},
 	))
 })
 ```
 
 ### 3. Edge Cases
+
 Boundary condition testing:
+
 ```typescript
 it("handles null input", () => {
-	const result = map(x => x)(null)
+	const result = map((x) => x)(null)
 	assertEquals(result, [])
 })
 ```
 
 ### 4. Branch Coverage
+
 Tests for all code paths:
+
 ```typescript
 it("covers branch: isNullish check", () => {
-	const result = map(x => x)(undefined)
-	assertEquals(result, [])  // Covers the null check branch
+	const result = map((x) => x)(undefined)
+	assertEquals(result, []) // Covers the null check branch
 })
 ```
 
@@ -149,11 +163,11 @@ it("covers branch: isNullish check", () => {
 
 ```typescript
 type GeneratorConfig = {
-	maxPropertyRuns: number        // Default: 100
-	includeEdgeCases: boolean      // Default: true
-	includePropertyTests: boolean  // Default: true
-	includeBenchmarks: boolean     // Default: false
-	targetCoverage: number         // Default: 100
+	maxPropertyRuns: number // Default: 100
+	includeEdgeCases: boolean // Default: true
+	includePropertyTests: boolean // Default: true
+	includeBenchmarks: boolean // Default: false
+	targetCoverage: number // Default: 100
 }
 ```
 
@@ -173,12 +187,14 @@ if (Deno.build.os === "windows") {
 ## Future Extensions
 
 ### Component Testing (Coming Soon)
+
 - JSX component property testing
 - HTML validity verification
 - Accessibility validation
 - Schema.org metadata testing
 
 ### Engine Testing (Planned)
+
 - Reactive calculation verification
 - SSR/hydration testing
 - Configuration validation
@@ -186,6 +202,7 @@ if (Deno.build.os === "windows") {
 ## Development
 
 ### Running Tests
+
 ```bash
 # Test the prover itself
 deno task test:prover
@@ -195,6 +212,7 @@ deno run --allow-all libraries/prover/src/main/index.ts
 ```
 
 ### Architecture Principles
+
 - Pure functional programming
 - One function per file
 - No classes or mutations
@@ -204,12 +222,14 @@ deno run --allow-all libraries/prover/src/main/index.ts
 ## Why Prover?
 
 ### The Problem
+
 - Writing tests manually takes 480+ hours for 900+ functions
 - Manual tests miss edge cases
 - Coverage gaps hide bugs
 - Test maintenance is expensive
 
 ### The Solution
+
 - Build a generator in 2 weeks
 - Generate all tests automatically
 - Prove correctness mathematically
@@ -229,6 +249,6 @@ Part of the @sitebender monorepo. See root LICENSE.
 
 ---
 
-*"In 30 years of coding, I've learned that untested code is broken code. Now we test everything, automatically."*
+_"In 30 years of coding, I've learned that untested code is broken code. Now we test everything, automatically."_
 
-*— The Architect*
+_— The Architect_

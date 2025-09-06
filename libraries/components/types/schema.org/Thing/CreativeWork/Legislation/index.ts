@@ -61,7 +61,9 @@ export interface LegislationProps {
 		| Person
 		| ReturnType<typeof OrganizationComponent>
 		| ReturnType<typeof PersonComponent>
-	legislationTransposes?: Legislation | ReturnType<typeof LegislationComponent>
+	legislationTransposes?:
+		| Legislation
+		| ReturnType<typeof LegislationComponent>
 	legislationType?:
 		| CategoryCode
 		| Text

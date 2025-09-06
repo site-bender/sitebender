@@ -2,7 +2,9 @@ import concat from "@sitebender/toolkit/simple/array/concat/index.ts"
 import unique from "@sitebender/toolkit/simple/array/unique/index.ts"
 
 const runCalculations = () => {
-	const calculations = Object.entries(document.__sbCalculations || {}) as Array<
+	const calculations = Object.entries(
+		document.__sbCalculations || {},
+	) as Array<
 		[
 			string,
 			Set<string>,
@@ -31,7 +33,10 @@ const runCalculations = () => {
 
 		if (elem?.__sbCalculate) {
 			await elem.__sbCalculate(
-				(elem as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)
+				(elem as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement)
 					.value,
 			)
 		}

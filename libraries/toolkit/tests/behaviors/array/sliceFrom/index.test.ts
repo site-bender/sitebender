@@ -60,7 +60,11 @@ describe("sliceFrom", () => {
 		})
 
 		it("should work with string arrays", () => {
-			assertEquals(sliceFrom(1)(3)(["a", "b", "c", "d", "e"]), ["b", "c", "d"])
+			assertEquals(sliceFrom(1)(3)(["a", "b", "c", "d", "e"]), [
+				"b",
+				"c",
+				"d",
+			])
 		})
 
 		it("should work with object arrays", () => {
@@ -245,7 +249,8 @@ describe("sliceFrom", () => {
 					(arr, start, length) => {
 						const result1 = sliceFrom(start)(length)(arr)
 						const result2 = arr.slice(start, start + length)
-						return JSON.stringify(result1) === JSON.stringify(result2)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
 					},
 				),
 			)
@@ -276,7 +281,8 @@ describe("sliceFrom", () => {
 						const partial2 = partial1(length)
 						const result1 = partial2(arr)
 						const result2 = sliceFrom(start)(length)(arr)
-						return JSON.stringify(result1) === JSON.stringify(result2)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
 					},
 				),
 			)

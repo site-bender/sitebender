@@ -160,7 +160,10 @@ Deno.test("removeAll: currying", async (t) => {
 
 		assertEquals(removeNulls([1, null, 2, null, null, 3]), [1, 2, 3])
 		assertEquals(removeZeros([1, 0, 2, 0, 3, 0, 0]), [1, 2, 3])
-		assertEquals(removeFalse([true, false, false, true, false]), [true, true])
+		assertEquals(removeFalse([true, false, false, true, false]), [
+			true,
+			true,
+		])
 	})
 })
 
@@ -203,7 +206,8 @@ Deno.test("removeAll: property-based tests", async (t) => {
 					const nullResult = removeAll(item)(null)
 					const undefinedResult = removeAll(item)(undefined)
 
-					return nullResult.length === 0 && undefinedResult.length === 0
+					return nullResult.length === 0 &&
+						undefinedResult.length === 0
 				},
 			),
 		)

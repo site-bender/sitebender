@@ -11,13 +11,16 @@ const collectLinkElements = (
 			}
 
 			if (key === "children") {
-				const childLinks = (value as Array<ElementConfig> | undefined)?.reduce(
-					(out: Array<Value>, item: ElementConfig) =>
-						out.concat(
-							collectLinkElements(item as unknown as Record<string, unknown>),
-						),
-					[],
-				)
+				const childLinks = (value as Array<ElementConfig> | undefined)
+					?.reduce(
+						(out: Array<Value>, item: ElementConfig) =>
+							out.concat(
+								collectLinkElements(
+									item as unknown as Record<string, unknown>,
+								),
+							),
+						[],
+					)
 
 				if (childLinks) {
 					links.push(...childLinks)

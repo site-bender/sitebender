@@ -45,7 +45,9 @@ Deno.test("findMostCommon", async (t) => {
 
 	await t.step("handles special numeric values", () => {
 		assertEquals(findMostCommon([0, -0, 0, 1]), [0])
-		assertEquals(findMostCommon([Infinity, -Infinity, Infinity]), [Infinity])
+		assertEquals(findMostCommon([Infinity, -Infinity, Infinity]), [
+			Infinity,
+		])
 	})
 
 	await t.step("handles null and undefined as values", () => {
@@ -164,7 +166,9 @@ Deno.test("findMostCommon", async (t) => {
 						const maxFreq = Math.max(...freq.values())
 
 						// All result elements should have max frequency
-						return result.every((item) => freq.get(item) === maxFreq)
+						return result.every((item) =>
+							freq.get(item) === maxFreq
+						)
 					},
 				),
 			)
@@ -223,8 +227,10 @@ Deno.test("findMostCommon", async (t) => {
 						})
 
 						for (let i = 0; i < result.length - 1; i++) {
-							const index1 = firstIndices.get(result[i]) ?? Infinity
-							const index2 = firstIndices.get(result[i + 1]) ?? Infinity
+							const index1 = firstIndices.get(result[i]) ??
+								Infinity
+							const index2 = firstIndices.get(result[i + 1]) ??
+								Infinity
 							if (index1 >= index2) return false
 						}
 						return true

@@ -79,7 +79,9 @@ export default async function installHooks() {
 	await ensureDir(hooksDir)
 	await Deno.writeFile(preCommit, encoder.encode(preCommitContent))
 	await Deno.chmod(preCommit, 0o755)
-	console.log("[hooks] Installed pre-commit hook in .githooks to run FP checks")
+	console.log(
+		"[hooks] Installed pre-commit hook in .githooks to run FP checks",
+	)
 }
 
 if (import.meta.main) {

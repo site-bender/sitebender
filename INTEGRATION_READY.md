@@ -18,6 +18,7 @@ git pull origin ai/toolkit
 The PropertyTestGenerator at `scripts/test-generator/src/generators/property.ts` now includes:
 
 #### Core Enhancements
+
 1. **Algebraic Law Detection** - 9 categories vs 3 originally planned
    - Functor, Monoid, Semigroup, Applicative, Monad laws
    - Automatic detection based on function signatures
@@ -43,7 +44,7 @@ The enhanced PropertyTestGenerator maintains the expected interface:
 
 ```typescript
 class PropertyTestGenerator {
-  generate(signature: FunctionSignature): Array<TestCase>
+	generate(signature: FunctionSignature): Array<TestCase>
 }
 ```
 
@@ -67,6 +68,7 @@ const edgeCases = generateEdgeCaseTests(signature)
 ### 5. Test Generation Metrics
 
 With the enhanced generator:
+
 - **Average tests per function:** 21.5 (vs ~10 with basic implementation)
 - **Law coverage:** 9 algebraic law categories
 - **Edge case coverage:** 15-30 cases per function
@@ -81,8 +83,9 @@ const propertyTests = this.propertyGenerator.generate(signature)
 ```
 
 This will now return a much richer set of tests including:
+
 - Algebraic law tests
-- Invariant tests  
+- Invariant tests
 - Metamorphic tests
 - Comprehensive edge cases
 - Type-specific property tests
@@ -90,6 +93,7 @@ This will now return a much richer set of tests including:
 ### 7. Ready for Integration
 
 Everything is backward compatible and ready to use. The enhanced generator will:
+
 1. Generate more comprehensive tests
 2. Detect more patterns and laws
 3. Cover more edge cases
@@ -98,6 +102,7 @@ Everything is backward compatible and ready to use. The enhanced generator will:
 ## Questions/Answers
 
 **Q1: What enhancements did you add beyond the original spec?**
+
 - 9 algebraic law categories (vs 3 planned)
 - Metamorphic relation testing
 - Toolkit-specific pattern generation
@@ -105,10 +110,12 @@ Everything is backward compatible and ready to use. The enhanced generator will:
 - Smart edge case generation based on function names
 
 **Q2: Do you need to modify any of the shared types?**
+
 - No, the enhanced generator works with existing types
 - Added some internal types but they don't affect the interface
 
 **Q3: Are there any special dependencies your enhanced version needs?**
+
 - No new dependencies required
 - Uses standard fast-check (already included)
 - All enhancements are pure TypeScript

@@ -73,31 +73,39 @@ export default async function analyzeFiles(
 				// Detect explicit re-exports only; a barrel file re-exports from other modules
 				const reExportStarMatches =
 					txt.match(/\bexport\s+\*\s+from\s+['"][^'"]+['"]/g) || []
-				const namedReExportMatches =
-					txt.match(/\bexport\s+\{([^}]*)\}\s+from\s+['"][^'"]+['"]/gs) || []
+				const namedReExportMatches = txt.match(
+					/\bexport\s+\{([^}]*)\}\s+from\s+['"][^'"]+['"]/gs,
+				) || []
 				const reExportStatements = reExportStarMatches.length +
 					namedReExportMatches.length
 				if (reExportStatements === 0) return true
 				// Count specifiers per named block by comma, ignoring whitespace and empty items
-				const namedSpecifiers = namedReExportMatches.reduce((acc, m) => {
-					const inside = m.replace(/^.*?\{([\s\S]*?)\}.*$/, "$1")
-					const count = inside
-						.split(",")
-						.map((s) => s.trim())
-						.filter((s) => s.length > 0)
-						.length
-					return acc + count
-				}, 0)
-				const totalReexported = reExportStarMatches.length + namedSpecifiers
+				const namedSpecifiers = namedReExportMatches.reduce(
+					(acc, m) => {
+						const inside = m.replace(/^.*?\{([\s\S]*?)\}.*$/, "$1")
+						const count = inside
+							.split(",")
+							.map((s) => s.trim())
+							.filter((s) => s.length > 0)
+							.length
+						return acc + count
+					},
+					0,
+				)
+				const totalReexported = reExportStarMatches.length +
+					namedSpecifiers
 				const isIndex = /\/index\.ts$/.test(p)
 				const hasOwnDefault = /\bexport\s+default\b/.test(txt)
 				// Alias: a single small re-export file (e.g., export { default } from './x') that is not index.ts
-				const isAlias = reExportStatements === 1 && totalReexported <= 1 &&
+				const isAlias = reExportStatements === 1 &&
+					totalReexported <= 1 &&
 					!isIndex
 				// Barrel: re-export hub. Thresholds loosened for index.ts
 				const isBarrel = !hasOwnDefault && !isAlias && (
-					(isIndex && (reExportStatements >= 2 || totalReexported >= 10)) ||
-					(!isIndex && (reExportStatements >= 3 || totalReexported >= 10))
+					(isIndex &&
+						(reExportStatements >= 2 || totalReexported >= 10)) ||
+					(!isIndex &&
+						(reExportStatements >= 3 || totalReexported >= 10))
 				)
 				if (isBarrel) {
 					barrels.push({
@@ -124,11 +132,12 @@ export default async function analyzeFiles(
 			if (idx >= filteredFiles.length) break
 			const f = filteredFiles[idx]
 			promises.push(
-				analyzeFile({ absPath: f, root, onlyDefault: defaultOnly }).then(
-					(res) => {
-						perFile[idx] = res
-					},
-				),
+				analyzeFile({ absPath: f, root, onlyDefault: defaultOnly })
+					.then(
+						(res) => {
+							perFile[idx] = res
+						},
+					),
 			)
 		}
 		await Promise.all(promises)
@@ -167,7 +176,9 @@ export default async function analyzeFiles(
 			const dup = f.nonDefaultExported.filter((n) =>
 				f.defaultNames!.includes(n)
 			)
-			if (dup.length) duplicates.push({ file: f.pathRel, names: dup.sort() })
+			if (dup.length) {
+				duplicates.push({ file: f.pathRel, names: dup.sort() })
+			}
 		}
 	}
 	nonDefault.sort((a, b) => a.file.localeCompare(b.file))
@@ -192,7 +203,13 @@ export default async function analyzeFiles(
 	for (const f of perFile) {
 		const key = folderOf(f.pathRel)
 		const agg = folderMap.get(key) ??
-			{ files: 0, lines: 0, functions: 0, longFunctions: 0, nonDefaultCount: 0 }
+			{
+				files: 0,
+				lines: 0,
+				functions: 0,
+				longFunctions: 0,
+				nonDefaultCount: 0,
+			}
 		agg.files += 1
 		agg.lines += f.lines
 		agg.functions += f.functions.length
@@ -270,12 +287,15 @@ if (import.meta.main) {
 				: undefined
 			const foldersOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof foldersOpt === "string"
-				? String(foldersOpt).split(",").map((s) => s.trim()).filter(Boolean)
-				: undefined
-			const excludeDirNames = typeof options["exclude"] === "string"
-				? String(options["exclude"]).split(",").map((s) => s.trim()).filter(
+				? String(foldersOpt).split(",").map((s) => s.trim()).filter(
 					Boolean,
 				)
+				: undefined
+			const excludeDirNames = typeof options["exclude"] === "string"
+				? String(options["exclude"]).split(",").map((s) => s.trim())
+					.filter(
+						Boolean,
+					)
 				: undefined
 			const maxFunctionLines = typeof options["max-fn-lines"] === "string"
 				? Number(options["max-fn-lines"])
@@ -308,9 +328,9 @@ if (import.meta.main) {
 			)
 			stdout(bold(`\nFiles:`))
 			stdout(
-				`  longest: ${yellow(String(r.fileStats.longestFile.lines))} lines (${
-					white(r.fileStats.longestFile.path)
-				})`,
+				`  longest: ${
+					yellow(String(r.fileStats.longestFile.lines))
+				} lines (${white(r.fileStats.longestFile.path)})`,
 			)
 			stdout(
 				`  mean: ${cyan(r.fileStats.mean.toFixed(2))}  median: ${
@@ -321,23 +341,25 @@ if (import.meta.main) {
 			stdout(
 				`  total: ${magenta(String(r.functionStats.total))}  mean: ${
 					magenta(r.functionStats.mean.toFixed(2))
-				}  median: ${magenta(r.functionStats.median.toFixed(2))}  stdev: ${
-					magenta(r.functionStats.stdDev.toFixed(2))
-				}`,
+				}  median: ${
+					magenta(r.functionStats.median.toFixed(2))
+				}  stdev: ${magenta(r.functionStats.stdDev.toFixed(2))}`,
 			)
 			if (r.longFunctions.length) {
 				stdout(
 					bold(
-						`\nLong functions (${yellow(`>${r.threshold}`)} lines): ${
-							red(String(r.longFunctions.length))
-						}`,
+						`\nLong functions (${
+							yellow(`>${r.threshold}`)
+						} lines): ${red(String(r.longFunctions.length))}`,
 					),
 				)
 				for (const fn of r.longFunctions.slice(0, 20)) {
 					stdout(
 						`  - ${bold(fn.name)} ${yellow(String(fn.loc))}L @ ${
 							white(fn.file)
-						}:${gray(String(fn.startLine))}-${gray(String(fn.endLine))}`,
+						}:${gray(String(fn.startLine))}-${
+							gray(String(fn.endLine))
+						}`,
 					)
 				}
 				if (r.longFunctions.length > 20) {
@@ -347,9 +369,19 @@ if (import.meta.main) {
 				stdout(green(`\nNo functions exceeded ${r.threshold} lines.`))
 			}
 			if (r.barrels && r.barrels.length) {
-				stdout(bold(`\nExcluded barrels: ${yellow(String(r.barrels.length))}`))
+				stdout(
+					bold(
+						`\nExcluded barrels: ${
+							yellow(String(r.barrels.length))
+						}`,
+					),
+				)
 				for (const b of r.barrels.slice(0, 20)) {
-					stdout(`  - ${white(b.file)} (exports: ${cyan(String(b.exports))})`)
+					stdout(
+						`  - ${white(b.file)} (exports: ${
+							cyan(String(b.exports))
+						})`,
+					)
 				}
 				if (r.barrels.length > 20) {
 					stdout(gray(`  ...and ${r.barrels.length - 20} more`))
@@ -392,7 +424,9 @@ if (import.meta.main) {
 				if (r.duplicates.length > 20) {
 					stdout(
 						gray(
-							`  ...and ${r.duplicates.length - 20} more files with duplicates`,
+							`  ...and ${
+								r.duplicates.length - 20
+							} more files with duplicates`,
 						),
 					)
 				}
@@ -402,21 +436,27 @@ if (import.meta.main) {
 				stdout(bold(`\nTop folders by long functions:`))
 				for (const a of top) {
 					stdout(
-						`  - ${white(a.folder)}: files=${cyan(String(a.files))} functions=${
-							cyan(String(a.functions))
-						} long=${red(String(a.longFunctions))} non-default=${
-							yellow(String(a.nonDefaultCount))
-						}`,
+						`  - ${white(a.folder)}: files=${
+							cyan(String(a.files))
+						} functions=${cyan(String(a.functions))} long=${
+							red(String(a.longFunctions))
+						} non-default=${yellow(String(a.nonDefaultCount))}`,
 					)
 				}
 			}
 			if (r.compare) {
 				stdout(bold(`\nCompare to ${white(r.compare.baseline)}:`))
-				const sign = (n: number) => (n >= 0 ? green("+" + n) : red(String(n)))
+				const sign = (
+					n: number,
+				) => (n >= 0 ? green("+" + n) : red(String(n)))
 				stdout(`  files: ${sign(r.compare.scannedFilesDelta)}`)
 				stdout(`  fns: ${sign(r.compare.functionsDelta)}`)
 				stdout(`  long: ${sign(r.compare.longFunctionsDelta)}`)
-				stdout(`  non-default files: ${sign(r.compare.nonDefaultFilesDelta)}`)
+				stdout(
+					`  non-default files: ${
+						sign(r.compare.nonDefaultFilesDelta)
+					}`,
+				)
 			}
 			return 0
 		},

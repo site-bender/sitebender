@@ -37,7 +37,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		"From.Authenticator",
 		(node: InjectorNode, ctx?: ComposeContext) => {
 			// Safely read from ctx.localValues with optional dot-path
-			const path = String((node.args as { path?: unknown }).path ?? "user")
+			const path = String(
+				(node.args as { path?: unknown }).path ?? "user",
+			)
 			const root = ctx?.localValues as Record<string, unknown> | undefined
 			if (!root) return undefined
 			const parts = path.split(".").filter(Boolean)
@@ -80,13 +82,17 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		return params.get(key)
 	})
 	injectors.register("From.LocalStorage", (node: InjectorNode) => {
-		if (typeof globalThis === "undefined" || !("localStorage" in globalThis)) {
+		if (
+			typeof globalThis === "undefined" || !("localStorage" in globalThis)
+		) {
 			return undefined
 		}
 		const key = String((node.args as { key?: unknown }).key ?? "")
 		try {
 			// deno-lint-ignore no-explicit-any
-			return (globalThis as any).localStorage.getItem(key) as string | null
+			return (globalThis as any).localStorage.getItem(key) as
+				| string
+				| null
 		} catch {
 			return undefined
 		}
@@ -152,7 +158,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		"Is.NotEmpty",
 		async (node: ComparatorNode, evalArg) => {
 			const v =
-				await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""))
+				await (node.args[0]
+					? evalArg(node.args[0])
+					: Promise.resolve(""))
 			return toString(v).length > 0
 		},
 	)
@@ -160,32 +168,46 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		"Is.EmailAddress",
 		async (node: ComparatorNode, evalArg) => {
 			const v =
-				await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""))
+				await (node.args[0]
+					? evalArg(node.args[0])
+					: Promise.resolve(""))
 			const s = toString(v)
 			// Simple, permissive email check; no unicode punycode complexity for MVP
 			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)
 		},
 	)
-	comparators.register("Is.EqualTo", async (node: ComparatorNode, evalArg) => {
-		const [a, b] = await Promise.all([
-			node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-			node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
-		])
-		return a === b
-	})
+	comparators.register(
+		"Is.EqualTo",
+		async (node: ComparatorNode, evalArg) => {
+			const [a, b] = await Promise.all([
+				node.args[0]
+					? evalArg(node.args[0])
+					: Promise.resolve(undefined),
+				node.args[1]
+					? evalArg(node.args[1])
+					: Promise.resolve(undefined),
+			])
+			return a === b
+		},
+	)
 	comparators.register(
 		"Is.UnequalTo",
 		async (node: ComparatorNode, evalArg) => {
 			const [a, b] = await Promise.all([
-				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+				node.args[0]
+					? evalArg(node.args[0])
+					: Promise.resolve(undefined),
+				node.args[1]
+					? evalArg(node.args[1])
+					: Promise.resolve(undefined),
 			])
 			return a !== b
 		},
 	)
 	comparators.register("Is.Not", async (node: ComparatorNode, evalArg) => {
-		const v =
-			await (node.args[0] ? evalArg(node.args[0]) : Promise.resolve(false))
+		const v = await (node.args[0]
+			? evalArg(node.args[0])
+			: Promise.resolve(false))
 		return !v
 	})
 
@@ -197,7 +219,10 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			node.args[2] ? evalArg(node.args[2]) : Promise.resolve(undefined),
 		])
 		try {
-			const re = new RegExp(String(pattern), flags ? String(flags) : undefined)
+			const re = new RegExp(
+				String(pattern),
+				flags ? String(flags) : undefined,
+			)
 			return re.test(String(operand))
 		} catch (_e) {
 			// Invalid regex → treat as non-match
@@ -210,7 +235,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			const [operand, pattern, flags] = await Promise.all([
 				node.args[0] ? evalArg(node.args[0]) : Promise.resolve(""),
 				node.args[1] ? evalArg(node.args[1]) : Promise.resolve(""),
-				node.args[2] ? evalArg(node.args[2]) : Promise.resolve(undefined),
+				node.args[2]
+					? evalArg(node.args[2])
+					: Promise.resolve(undefined),
 			])
 			try {
 				const re = new RegExp(
@@ -238,7 +265,10 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		}
 		PlainDateTime: {
 			from(s: string): Temporal.PlainDateTime
-			compare(a: Temporal.PlainDateTime, b: Temporal.PlainDateTime): number
+			compare(
+				a: Temporal.PlainDateTime,
+				b: Temporal.PlainDateTime,
+			): number
 		}
 	}
 	const getTemporal = (): TemporalLike | undefined => {
@@ -264,7 +294,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		}
 		const parseDate = (v: unknown): Temporal.PlainDate | undefined => {
 			try {
-				if (v && typeof v === "object" && "calendarId" in (v as object)) {
+				if (
+					v && typeof v === "object" && "calendarId" in (v as object)
+				) {
 					return v as Temporal.PlainDate
 				}
 				const s = toString(v).trim()
@@ -290,7 +322,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 				return undefined
 			}
 		}
-		const parseDateTime = (v: unknown): Temporal.PlainDateTime | undefined => {
+		const parseDateTime = (
+			v: unknown,
+		): Temporal.PlainDateTime | undefined => {
 			try {
 				if (
 					v && typeof v === "object" && "day" in (v as object) &&
@@ -311,8 +345,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsAfterDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -324,8 +362,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsBeforeDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -337,8 +379,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsSameDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -350,8 +396,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotAfterDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -363,8 +413,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotBeforeDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -376,8 +430,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotSameDate",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDate(a)
 				const db = parseDate(b)
@@ -391,8 +449,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsAfterTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -404,8 +466,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsBeforeTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -417,8 +483,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsSameTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -430,8 +500,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotAfterTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -443,8 +517,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotBeforeTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -456,8 +534,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotSameTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const ta = parseTime(a)
 				const tb = parseTime(b)
@@ -471,8 +553,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsAfterDateTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDateTime(a)
 				const db = parseDateTime(b)
@@ -484,8 +570,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsBeforeDateTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDateTime(a)
 				const db = parseDateTime(b)
@@ -497,8 +587,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsSameDateTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDateTime(a)
 				const db = parseDateTime(b)
@@ -510,8 +604,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotAfterDateTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDateTime(a)
 				const db = parseDateTime(b)
@@ -523,8 +621,12 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			"IsNotBeforeDateTime",
 			async (node: ComparatorNode, evalArg) => {
 				const [a, b] = await Promise.all([
-					node.args[0] ? evalArg(node.args[0]) : Promise.resolve(undefined),
-					node.args[1] ? evalArg(node.args[1]) : Promise.resolve(undefined),
+					node.args[0]
+						? evalArg(node.args[0])
+						: Promise.resolve(undefined),
+					node.args[1]
+						? evalArg(node.args[1])
+						: Promise.resolve(undefined),
 				])
 				const da = parseDateTime(a)
 				const db = parseDateTime(b)
@@ -578,20 +680,30 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 		const form = document.querySelector(sel) as HTMLFormElement | null
 		form?.requestSubmit?.()
 	})
-	actions.register("Act.SetQueryString", async (node: ActionNode, evalArg) => {
-		if (
-			typeof globalThis === "undefined" || !("location" in globalThis) ||
-			!("history" in globalThis)
-		) return
-		const key = toString(node.args[0] ? await evalArg(node.args[0]) : "")
-		const val = toString(node.args[1] ? await evalArg(node.args[1]) : "")
-		// deno-lint-ignore no-explicit-any
-		const href = (globalThis as any).location?.href as string | undefined
-		if (!href) return
-		const url = new URL(href)
-		url.searchParams.set(key, val) // deno-lint-ignore no-explicit-any
-		;(globalThis as any).history.replaceState({}, "", url.toString())
-	})
+	actions.register(
+		"Act.SetQueryString",
+		async (node: ActionNode, evalArg) => {
+			if (
+				typeof globalThis === "undefined" ||
+				!("location" in globalThis) ||
+				!("history" in globalThis)
+			) return
+			const key = toString(
+				node.args[0] ? await evalArg(node.args[0]) : "",
+			)
+			const val = toString(
+				node.args[1] ? await evalArg(node.args[1]) : "",
+			)
+			// deno-lint-ignore no-explicit-any
+			const href = (globalThis as any).location?.href as
+				| string
+				| undefined
+			if (!href) return
+			const url = new URL(href)
+			url.searchParams.set(key, val) // deno-lint-ignore no-explicit-any
+			;(globalThis as any).history.replaceState({}, "", url.toString())
+		},
+	)
 	actions.register("Act.Publish", async (node: ActionNode, evalArg, ctx) => {
 		const topic = toString(node.args[0] ? await evalArg(node.args[0]) : "")
 		const payload = node.args[1] ? await evalArg(node.args[1]) : undefined
@@ -604,7 +716,9 @@ export default function registerDefaultExecutors(_ctx?: ComposeContext) {
 			{ kind?: string; action?: string }
 		>
 		const cond = Boolean(
-			condNode ? await evalArg(condNode as unknown as ComparatorNode) : false,
+			condNode
+				? await evalArg(condNode as unknown as ComparatorNode)
+				: false,
 		)
 		const run = async (n: unknown) => {
 			const a = n as { kind?: string; action?: string }

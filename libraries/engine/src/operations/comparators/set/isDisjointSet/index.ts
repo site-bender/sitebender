@@ -28,27 +28,33 @@ const IsDisjointSet =
 		try {
 			const leftArr = Array.isArray(operand.right)
 				? operand.right as unknown[]
-				: (typeof operand.right === "string" ? Array.from(operand.right) : [])
+				: (typeof operand.right === "string"
+					? Array.from(operand.right)
+					: [])
 			const rightArr = Array.isArray(test.right)
 				? test.right as unknown[]
 				: (typeof test.right === "string" ? Array.from(test.right) : [])
 			const left = new Set(leftArr)
 			const right = new Set(rightArr)
 
-			const disjoint = Array.from(left.values()).every((v) => !right.has(v))
+			const disjoint = Array.from(left.values()).every((v) =>
+				!right.has(v)
+			)
 
 			return disjoint ? { right: true } : {
 				left: [
 					Error(op.tag)("IsDisjointSet")(
-						`${JSON.stringify(operand.right)} is not disjoint from ${
-							JSON.stringify(test.right)
-						}`,
+						`${
+							JSON.stringify(operand.right)
+						} is not disjoint from ${JSON.stringify(test.right)}`,
 					),
 				],
 			}
 		} catch (e) {
 			return {
-				left: [Error(op.tag)("IsDisjointSet")(`Error creating sets: ${e}`)],
+				left: [
+					Error(op.tag)("IsDisjointSet")(`Error creating sets: ${e}`),
+				],
 			}
 		}
 	}

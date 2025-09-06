@@ -28,7 +28,20 @@ describe("divisors", () => {
 		it("should find divisors of highly composite numbers", () => {
 			assertEquals(divisors(24), [1, 2, 3, 4, 6, 8, 12, 24])
 			assertEquals(divisors(36), [1, 2, 3, 4, 6, 9, 12, 18, 36])
-			assertEquals(divisors(60), [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60])
+			assertEquals(divisors(60), [
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				10,
+				12,
+				15,
+				20,
+				30,
+				60,
+			])
 		})
 
 		it("should handle invalid inputs", () => {
@@ -138,7 +151,23 @@ describe("divisors", () => {
 		})
 
 		it("should have exactly 2 divisors for prime numbers", () => {
-			const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+			const primes = [
+				2,
+				3,
+				5,
+				7,
+				11,
+				13,
+				17,
+				19,
+				23,
+				29,
+				31,
+				37,
+				41,
+				43,
+				47,
+			]
 			for (const p of primes) {
 				const divs = divisors(p)
 				assertEquals(divs.length, 2)

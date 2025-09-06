@@ -24,7 +24,9 @@ export interface PublicationEventProps {
 		| Person
 		| ReturnType<typeof OrganizationComponent>
 		| ReturnType<typeof PersonComponent>
-	publishedOn?: BroadcastService | ReturnType<typeof BroadcastServiceComponent>
+	publishedOn?:
+		| BroadcastService
+		| ReturnType<typeof BroadcastServiceComponent>
 }
 
 type PublicationEvent = Thing & EventProps & PublicationEventProps

@@ -16,10 +16,13 @@ describe("omit", () => {
 			assertEquals(omit([-1])([1, 2, 3, 4, 5]), [1, 2, 3, 4])
 			assertEquals(omit([-2])([1, 2, 3, 4, 5]), [1, 2, 3, 5])
 			assertEquals(omit([-1, -2])([1, 2, 3, 4, 5]), [1, 2, 3])
-			assertEquals(omit([0, -1])(["header", "data1", "data2", "footer"]), [
-				"data1",
-				"data2",
-			])
+			assertEquals(
+				omit([0, -1])(["header", "data1", "data2", "footer"]),
+				[
+					"data1",
+					"data2",
+				],
+			)
 		})
 
 		it("should handle mixed positive and negative indices", () => {
@@ -132,7 +135,9 @@ describe("omit", () => {
 		it("should never include elements at specified valid indices", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer({ min: 0, max: 100 }), { minLength: 1 }),
+					fc.array(fc.integer({ min: 0, max: 100 }), {
+						minLength: 1,
+					}),
 					fc.array(fc.nat(10)),
 					(array, indices) => {
 						const validIndices = indices.filter((i) =>
@@ -149,7 +154,8 @@ describe("omit", () => {
 
 						// Alternative check: result length should be array length minus unique valid indices
 						const uniqueValidIndices = [...new Set(validIndices)]
-						return result.length === array.length - uniqueValidIndices.length
+						return result.length ===
+							array.length - uniqueValidIndices.length
 					},
 				),
 			)
@@ -171,7 +177,8 @@ describe("omit", () => {
 							!normalizedIndices.includes(idx)
 						)
 
-						return JSON.stringify(result) === JSON.stringify(expected)
+						return JSON.stringify(result) ===
+							JSON.stringify(expected)
 					},
 				),
 			)
@@ -186,11 +193,14 @@ describe("omit", () => {
 						const result = omit(negativeIndices)(array)
 
 						// Convert negative to positive indices
-						const positiveIndices = negativeIndices.map((i) => array.length + i)
+						const positiveIndices = negativeIndices.map((i) =>
+							array.length + i
+						)
 							.filter((i) => i >= 0 && i < array.length)
 
 						const expected = omit(positiveIndices)(array)
-						return JSON.stringify(result) === JSON.stringify(expected)
+						return JSON.stringify(result) ===
+							JSON.stringify(expected)
 					},
 				),
 			)

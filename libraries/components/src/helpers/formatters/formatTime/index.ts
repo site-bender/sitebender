@@ -31,7 +31,10 @@ export default function formatTime(
 				: {}),
 		}
 
-		const formatter = new Intl.DateTimeFormat(locale || "en-US", formatOptions)
+		const formatter = new Intl.DateTimeFormat(
+			locale || "en-US",
+			formatOptions,
+		)
 		return formatter.format(date)
 	} catch (_error) {
 		// Fallback formatting

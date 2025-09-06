@@ -56,7 +56,8 @@ Deno.test({
 						{
 							children: [
 								{
-									content: "Hi, y'all. Here is the text of the paragraph.",
+									content:
+										"Hi, y'all. Here is the text of the paragraph.",
 									tag: "TextNode",
 								},
 							],
@@ -110,7 +111,8 @@ Deno.test({
 								{
 									children: [
 										{
-											content: "This is the subtext. Shhh.",
+											content:
+												"This is the subtext. Shhh.",
 											tag: "TextNode",
 										},
 									],

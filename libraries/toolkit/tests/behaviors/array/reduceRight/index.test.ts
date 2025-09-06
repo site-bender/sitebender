@@ -25,7 +25,8 @@ Deno.test("reduceRight: basic functionality", async (t) => {
 	})
 
 	await t.step("should pass correct arguments to reducer", () => {
-		const calls: Array<[unknown, unknown, number, ReadonlyArray<unknown>]> = []
+		const calls: Array<[unknown, unknown, number, ReadonlyArray<unknown>]> =
+			[]
 		const spy = (
 			acc: unknown,
 			elem: unknown,
@@ -73,7 +74,11 @@ Deno.test("reduceRight: right-associative operations", async (t) => {
 			value,
 			next,
 		})
-		const result = reduceRight(buildList)(null as Node | null)(["a", "b", "c"])
+		const result = reduceRight(buildList)(null as Node | null)([
+			"a",
+			"b",
+			"c",
+		])
 
 		assertEquals(result, {
 			value: "a",
@@ -154,7 +159,8 @@ Deno.test("reduceRight: edge cases", async (t) => {
 	})
 
 	await t.step("should handle arrays with undefined values", () => {
-		const concat = (acc: string, x: string | undefined) => acc + (x ?? "null")
+		const concat = (acc: string, x: string | undefined) =>
+			acc + (x ?? "null")
 		const result = reduceRight(concat)("")([undefined, "b", undefined])
 		assertEquals(result, "nullbnull")
 	})
@@ -237,8 +243,8 @@ Deno.test("reduceRight: practical examples", async (t) => {
 		const square = (x: number) => x * x
 
 		const compose =
-			(f: (x: number) => number, g: (x: number) => number) => (x: number) =>
-				f(g(x))
+			(f: (x: number) => number, g: (x: number) => number) =>
+			(x: number) => f(g(x))
 
 		const composed = reduceRight(compose)((x: number) => x)([
 			double,
@@ -376,7 +382,11 @@ Deno.test("reduceRight: specific test cases from examples", async (t) => {
 			value,
 			next,
 		})
-		const result = reduceRight(buildList)(null as Node | null)(["a", "b", "c"])
+		const result = reduceRight(buildList)(null as Node | null)([
+			"a",
+			"b",
+			"c",
+		])
 
 		assertStrictEquals(result?.value, "a")
 		assertStrictEquals(result?.next?.value, "b")

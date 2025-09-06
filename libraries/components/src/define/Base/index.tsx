@@ -38,17 +38,19 @@ export default function Base({
 				: Array.isArray(processedProps)
 				? generateMicrodata(processedProps[0] || {})
 				: generateMicrodata(processedProps)}
-			{disableJsonLd || !_type ? null : (
-				<script type="application/ld+json">
-					{JSON.stringify(
-						Array.isArray(processedProps)
-							? createJsonLd(_type, processedProps[0] || {})
-							: createJsonLd(_type, processedProps),
-						null,
-						2,
-					)}
-				</script>
-			)}
+			{disableJsonLd || !_type
+				? null
+				: (
+					<script type="application/ld+json">
+						{JSON.stringify(
+							Array.isArray(processedProps)
+								? createJsonLd(_type, processedProps[0] || {})
+								: createJsonLd(_type, processedProps),
+							null,
+							2,
+						)}
+					</script>
+				)}
 		</Element>
 	)
 }

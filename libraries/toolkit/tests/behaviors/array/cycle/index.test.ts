@@ -168,8 +168,13 @@ Deno.test("cycle", async (t) => {
 						const gen = cycle(arr)
 						for (let i = 0; i < iterations; i++) {
 							const result = gen.next()
-							if (not(result.done) && result.value !== undefined) {
-								assertEquals(arr.includes(result.value as number), true)
+							if (
+								not(result.done) && result.value !== undefined
+							) {
+								assertEquals(
+									arr.includes(result.value as number),
+									true,
+								)
 							}
 						}
 					},

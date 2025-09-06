@@ -18,7 +18,9 @@ const IsSuperset =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<EngineError[], boolean>> => {
-		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operandFn = await composeComparators(
+			op.operand as unknown as never,
+		)
 		const testFn = await composeComparators(op.test as unknown as never)
 		const operand = await operandFn(arg, localValues)
 		const test = await testFn(arg, localValues)
@@ -30,20 +32,24 @@ const IsSuperset =
 			const left = new Set(operand.right as unknown as Iterable<unknown>)
 			const right = new Set(test.right as unknown as Iterable<unknown>)
 
-			const superset = Array.from(right.values()).every((v) => left.has(v))
+			const superset = Array.from(right.values()).every((v) =>
+				left.has(v)
+			)
 
 			return superset ? { right: true } : {
 				left: [
 					Error(op.tag)("IsSuperset")(
-						`${JSON.stringify(operand.right)} is not a superset of ${
-							JSON.stringify(test.right)
-						}`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a superset of ${JSON.stringify(test.right)}`,
 					),
 				],
 			}
 		} catch (e) {
 			return {
-				left: [Error(op.tag)("IsSuperset")(`Error creating sets: ${e}`)],
+				left: [
+					Error(op.tag)("IsSuperset")(`Error creating sets: ${e}`),
+				],
 			}
 		}
 	}

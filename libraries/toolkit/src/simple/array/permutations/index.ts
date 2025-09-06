@@ -74,7 +74,9 @@ const permutations = <T>(
 			const remainingPerms = buildPermutations(remaining)
 
 			// Add current element to front of each permutation
-			const currentPerms = remainingPerms.map((perm) => [element, ...perm])
+			const currentPerms = remainingPerms.map((
+				perm,
+			) => [element, ...perm])
 
 			return [...acc, ...currentPerms]
 		}, [])

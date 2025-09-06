@@ -139,7 +139,8 @@ Deno.test("approximately property: symmetric", () => {
 			fc.float({ min: Math.fround(1e-15), max: 1 }),
 			(a, b, epsilon) => {
 				// If a ≈ b then b ≈ a
-				return approximately(a, b, epsilon) === approximately(b, a, epsilon)
+				return approximately(a, b, epsilon) ===
+					approximately(b, a, epsilon)
 			},
 		),
 		{ numRuns: 1000 },

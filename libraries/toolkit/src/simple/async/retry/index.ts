@@ -100,7 +100,9 @@ const retry = (options: RetryOptions = {}) =>
 
 	// Validate options
 	if (attempts <= 0 || !Number.isFinite(attempts)) {
-		throw new Error(`Invalid attempts: ${attempts}. Must be a positive number.`)
+		throw new Error(
+			`Invalid attempts: ${attempts}. Must be a positive number.`,
+		)
 	}
 	if (delay < 0 || !Number.isFinite(delay)) {
 		throw new Error(
@@ -155,7 +157,9 @@ const retry = (options: RetryOptions = {}) =>
 
 			// Wait before next attempt (if delay > 0)
 			if (currentDelay > 0) {
-				await new Promise((resolve) => setTimeout(resolve, currentDelay))
+				await new Promise((resolve) =>
+					setTimeout(resolve, currentDelay)
+				)
 			}
 
 			// Recursive call for next attempt

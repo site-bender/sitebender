@@ -23,7 +23,10 @@ Deno.test("drop: JSDoc examples", async (t) => {
 
 	await t.step("useful for skipping headers", () => {
 		const skipHeader = drop(1)
-		assertEquals(skipHeader(["header", "data1", "data2"]), ["data1", "data2"])
+		assertEquals(skipHeader(["header", "data1", "data2"]), [
+			"data1",
+			"data2",
+		])
 	})
 })
 
@@ -125,7 +128,11 @@ Deno.test("drop: edge cases", async (t) => {
 	})
 
 	await t.step("handles arrays with undefined", () => {
-		assertEquals(drop(2)([1, undefined, 3, undefined, 5]), [3, undefined, 5])
+		assertEquals(drop(2)([1, undefined, 3, undefined, 5]), [
+			3,
+			undefined,
+			5,
+		])
 	})
 
 	await t.step("handles arrays with null", () => {

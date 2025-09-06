@@ -35,7 +35,9 @@ export const filterTextAttributes = (
 	Object.assign(filteredAttrs, pickGlobalAttributes(attrs))
 	Object.assign(
 		filteredAttrs,
-		filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+		filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+			autocomplete,
+		),
 	)
 	Object.assign(filteredAttrs, filterAttribute(isString)("dirname")(dirname))
 	Object.assign(filteredAttrs, filterAttribute(isString)("form")(form))
@@ -54,8 +56,14 @@ export const filterTextAttributes = (
 		filteredAttrs,
 		filterAttribute(isString)("placeholder")(placeholder),
 	)
-	Object.assign(filteredAttrs, filterAttribute(isBoolean)("readonly")(readonly))
-	Object.assign(filteredAttrs, filterAttribute(isBoolean)("required")(required))
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isBoolean)("readonly")(readonly),
+	)
+	Object.assign(
+		filteredAttrs,
+		filterAttribute(isBoolean)("required")(required),
+	)
 	Object.assign(filteredAttrs, filterAttribute(isInteger)("size")(size))
 	Object.assign(filteredAttrs, filterAttribute(isString)("value")(value))
 	return filteredAttrs as Record<string, Value>

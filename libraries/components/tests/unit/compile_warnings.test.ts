@@ -42,7 +42,9 @@ Deno.test("compiler emits warning for Add with fewer than 2 addends", () => {
 			children: SetValue({
 				selector: "#out",
 				value: Add({
-					children: [FromElement({ id: "a" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "a" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -50,8 +52,8 @@ Deno.test("compiler emits warning for Add with fewer than 2 addends", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -76,8 +78,8 @@ Deno.test("compiler emits warning for Is.EqualTo with missing argument", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -91,7 +93,9 @@ Deno.test("compiler emits warning for Matches invalid arity", () => {
 				topic: "debug",
 				// Only 1 child instead of (operand, pattern[, flags])
 				payload: Matches({
-					children: [FromElement({ id: "val" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "val" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -99,8 +103,8 @@ Deno.test("compiler emits warning for Matches invalid arity", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -113,7 +117,9 @@ Deno.test("compiler emits warning for Subtract arity not equal to 2", () => {
 			children: Publish({
 				topic: "debug",
 				payload: Subtract({
-					children: [FromElement({ id: "a" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "a" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -121,8 +127,8 @@ Deno.test("compiler emits warning for Subtract arity not equal to 2", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -135,7 +141,9 @@ Deno.test("compiler emits warning for Divide arity not equal to 2", () => {
 			children: Publish({
 				topic: "debug",
 				payload: Divide({
-					children: [FromElement({ id: "a" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "a" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -143,8 +151,8 @@ Deno.test("compiler emits warning for Divide arity not equal to 2", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })

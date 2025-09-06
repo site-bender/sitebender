@@ -15,9 +15,24 @@ import approximately from "../../../../helpers/assertions/approximately/index.ts
 Deno.test("multiply - associative property", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1000, max: 1000 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1000, max: 1000 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1000, max: 1000 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1000,
+				max: 1000,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1000,
+				max: 1000,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1000,
+				max: 1000,
+			}),
 			(a, b, c) => {
 				const left = multiply(multiply(a)(b))(c) // (a * b) * c
 				const right = multiply(a)(multiply(b)(c)) // a * (b * c)
@@ -28,7 +43,8 @@ Deno.test("multiply - associative property", () => {
 				}
 
 				// Associative: (a * b) * c = a * (b * c)
-				return Object.is(left, right) || approximately(left, right, 1e-9)
+				return Object.is(left, right) ||
+					approximately(left, right, 1e-9)
 			},
 		),
 		{ numRuns: 1000 },

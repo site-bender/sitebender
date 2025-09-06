@@ -62,8 +62,13 @@ const replaceAll =
 
 				return parts.reduce((result, part, index) => {
 					if (index === 0) return part
-					const matchIndex = result.length + (searchValue.length * (index - 1))
-					const replacement = replaceValue(searchValue, matchIndex, str)
+					const matchIndex = result.length +
+						(searchValue.length * (index - 1))
+					const replacement = replaceValue(
+						searchValue,
+						matchIndex,
+						str,
+					)
 					return result + replacement + part
 				})
 			}

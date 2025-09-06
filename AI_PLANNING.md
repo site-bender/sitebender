@@ -7,13 +7,16 @@ The test generator has been promoted to `@sitebender/prover`, a first-class libr
 ## The Prover Library
 
 ### Promotion to First-Class Library
+
 The test generator has evolved into `@sitebender/prover`:
+
 - **Location**: `libraries/prover/` (alongside toolkit, components, engine, maths, distributed)
 - **Import**: `import { generateTests } from "@sitebender/prover"`
 - **Purpose**: Prove code correctness through mathematical properties
 - **Philosophy**: "We don't test. We prove."
 
 ### Core Capabilities
+
 - **Branch Analysis**: AST parsing to find all execution paths
 - **Property Testing**: Mathematical law verification
 - **Coverage Enforcement**: 100% or documented exceptions
@@ -23,14 +26,18 @@ The test generator has evolved into `@sitebender/prover`:
 ## Provable Libraries
 
 ### 1. @sitebender/toolkit ✅
+
 **Status**: Already proven to 100% coverage
+
 - 900+ pure functions
 - Mathematical properties (functor, monoid, etc.)
 - Edge cases automatically detected
 - Branch coverage complete
 
 ### 2. @sitebender/components
+
 **Provable Because**:
+
 - JSX → IR → JSON → HTML pipeline is pure
 - No state, hooks, or side effects
 - Clear algebraic properties
@@ -38,108 +45,120 @@ The test generator has evolved into `@sitebender/prover`:
 - Deterministic rendering (same props → same HTML)
 
 ### 3. @sitebender/engine
+
 **Provable Because**:
+
 - Pure reactive calculations
 - Deterministic SSR/hydration
 - Configuration-driven behavior
 - No side effects in core logic
 
 ### 4. @sitebender/maths
+
 **Provable Because**:
+
 - Pure expression parsing
 - Mathematical correctness verifiable
 - Deterministic tokenization and AST generation
 - Algebraic properties of operators
 
 **Proof Properties for Maths**:
+
 ```typescript
 // Parser determinism
 property("same formula → same AST", (formula) => {
-  const ast1 = parse(formula)
-  const ast2 = parse(formula)
-  return deepEqual(ast1, ast2)
+	const ast1 = parse(formula)
+	const ast2 = parse(formula)
+	return deepEqual(ast1, ast2)
 })
 
 // Operator precedence
 property("precedence preserved", () => {
-  parse("a + b * c") === parse("a + (b * c)")
-  parse("a * b + c") === parse("(a * b) + c")
+	parse("a + b * c") === parse("a + (b * c)")
+	parse("a * b + c") === parse("(a * b) + c")
 })
 
 // Round-trip preservation
 property("formula → AST → formula", (formula) => {
-  const ast = parse(formula)
-  const rebuilt = toString(ast)
-  const reparsed = parse(rebuilt)
-  return deepEqual(ast, reparsed)
+	const ast = parse(formula)
+	const rebuilt = toString(ast)
+	const reparsed = parse(rebuilt)
+	return deepEqual(ast, reparsed)
 })
 
 // Mathematical laws
 property("associativity of addition", (a, b, c) => {
-  evaluate("(a + b) + c", {a, b, c}) === 
-  evaluate("a + (b + c)", {a, b, c})
+	evaluate("(a + b) + c", { a, b, c }) ===
+		evaluate("a + (b + c)", { a, b, c })
 })
 ```
 
 ### 5. @sitebender/distributed (Future)
+
 **Provable Because**:
+
 - CRDT properties are mathematical
 - Convergence is provable
 - Commutativity and idempotence testable
 
 **Proof Properties for Distributed**:
+
 ```typescript
 // CRDT convergence
 property("all replicas converge", (ops) => {
-  const replica1 = applyOps(ops)
-  const replica2 = applyOps(shuffle(ops))
-  return deepEqual(replica1, replica2)
+	const replica1 = applyOps(ops)
+	const replica2 = applyOps(shuffle(ops))
+	return deepEqual(replica1, replica2)
 })
 
 // Idempotence
 property("duplicate ops ignored", (op, state) => {
-  const once = apply(op, state)
-  const twice = apply(op, apply(op, state))
-  return deepEqual(once, twice)
+	const once = apply(op, state)
+	const twice = apply(op, apply(op, state))
+	return deepEqual(once, twice)
 })
 
 // Commutativity
 property("order independence", (op1, op2, state) => {
-  const path1 = apply(op2, apply(op1, state))
-  const path2 = apply(op1, apply(op2, state))
-  return deepEqual(path1, path2)
+	const path1 = apply(op2, apply(op1, state))
+	const path2 = apply(op1, apply(op2, state))
+	return deepEqual(path1, path2)
 })
 ```
 
 ### 6. @sitebender/prover (Self-Proving) 🔮
+
 **The Ultimate Proof**: Prover can prove itself!
+
 - Pure functions throughout (except I/O)
 - Deterministic test generation
 - Mathematical properties verifiable
 - Recursive confidence: testing the tester
 
 **Self-Proof Properties**:
+
 ```typescript
 // Idempotence
 property("deduplication idempotent", (tests) => {
-  deduplicate(deduplicate(tests)) === deduplicate(tests)
+	deduplicate(deduplicate(tests)) === deduplicate(tests)
 })
 
 // Bounded outputs
 property("coverage percentage bounded", (covered, total) => {
-  const pct = calculatePercentage(covered, total)
-  return pct >= 0 && pct <= 100
+	const pct = calculatePercentage(covered, total)
+	return pct >= 0 && pct <= 100
 })
 
 // Determinism
 property("same signature → same tests", (sig) => {
-  generateTests(sig) === generateTests(sig)
+	generateTests(sig) === generateTests(sig)
 })
 ```
 
 ## Architecture Overview
 
 ### The Prover Pipeline
+
 ```
 Source Code → Signature Extraction → Property Generation
      ↓              ↓                      ↓
@@ -151,6 +170,7 @@ Coverage → Validation → 100% Proof of Correctness
 ### Library-Specific Proof Strategies
 
 #### Components Pipeline
+
 ```
 JSX Component → TypeScript Compiler → IR (Intermediate Representation)
      ↓                                            ↓
@@ -160,6 +180,7 @@ Validation ← Prover → Property Tests → Coverage 100%
 ```
 
 #### Maths Pipeline
+
 ```
 Formula String → Tokenizer → Parser → AST
      ↓              ↓           ↓       ↓
@@ -169,6 +190,7 @@ Proof: Precedence, Associativity, Determinism
 ```
 
 #### Distributed Pipeline (Future)
+
 ```
 Operations → CRDT Application → State Convergence
      ↓              ↓                   ↓
@@ -180,6 +202,7 @@ Proof: Commutativity, Idempotence, Convergence
 ### Phase 1: Component Analysis
 
 #### Component Signature Extraction
+
 ```typescript
 type ComponentSignature = {
 	name: string
@@ -196,6 +219,7 @@ type ComponentSignature = {
 ```
 
 #### Automated Signature Parser
+
 - Extract prop types from TSX files
 - Identify HTML element mappings
 - Detect Schema.org metadata requirements
@@ -205,6 +229,7 @@ type ComponentSignature = {
 ### Phase 2: Property-Based Test Generation
 
 #### 1. HTML Validity Properties
+
 ```typescript
 // Every component must produce valid HTML5
 property("produces valid HTML5", (props) => {
@@ -227,6 +252,7 @@ property("required attributes", (props) => {
 ```
 
 #### 2. Accessibility Properties
+
 ```typescript
 // WCAG 2.3 AAA compliance
 property("WCAG AAA compliant", (props) => {
@@ -249,6 +275,7 @@ property("keyboard navigable", (props) => {
 ```
 
 #### 3. Standards Compliance Properties
+
 ```typescript
 // Element nesting rules
 property("valid element nesting", (props, children) => {
@@ -259,7 +286,7 @@ property("valid element nesting", (props, children) => {
 // Attribute constraints
 property("valid attributes only", (props) => {
 	const attributes = extractAttributes(render(Component, props))
-	return attributes.every(attr => 
+	return attributes.every((attr) =>
 		isValidAttribute(attr, Component.htmlElement)
 	)
 })
@@ -275,6 +302,7 @@ property("void elements have no children", (props, children) => {
 ```
 
 #### 4. Schema.org Validation
+
 ```typescript
 // Structured data validation
 property("valid Schema.org metadata", (props) => {
@@ -286,6 +314,7 @@ property("valid Schema.org metadata", (props) => {
 ### Phase 3: Algebraic Law Testing
 
 #### Component Composition Laws
+
 ```typescript
 // Associativity of nesting
 property("nesting associativity", (A, B, C) => {
@@ -310,6 +339,7 @@ property("functor composition", (f, g, component) => {
 ### Phase 4: Coverage Strategy
 
 #### Branch Coverage for Components
+
 ```typescript
 // Conditional rendering paths
 - Test with/without optional props
@@ -319,6 +349,7 @@ property("functor composition", (f, g, component) => {
 ```
 
 #### Prop Combination Testing
+
 ```typescript
 // Generate all meaningful prop combinations
 function generatePropCombinations(signature: ComponentSignature) {
@@ -326,7 +357,7 @@ function generatePropCombinations(signature: ComponentSignature) {
 		requiredProps(signature),
 		optionalProps(signature),
 		childVariations(signature),
-		ariaVariations(signature)
+		ariaVariations(signature),
 	)
 }
 ```
@@ -334,6 +365,7 @@ function generatePropCombinations(signature: ComponentSignature) {
 ### Phase 5: Engine-Specific Testing
 
 #### JSON Configuration Testing
+
 ```typescript
 // Test the IR/JSON directly without rendering
 property("valid JSON configuration", (component, props) => {
@@ -350,6 +382,7 @@ property("JSX → JSON → HTML preserves semantics", (component, props) => {
 ```
 
 #### RDF Triple Testing
+
 ```typescript
 // Test RDF generation and retrieval
 property("RDF round-trip preservation", async (component, props) => {
@@ -365,6 +398,7 @@ property("RDF round-trip preservation", async (component, props) => {
 ## Implementation Roadmap
 
 ### ✅ Completed: Prover Library Creation
+
 - [x] Promoted test generator to `@sitebender/prover`
 - [x] Created library structure with 102+ files
 - [x] Established import aliases and workspace integration
@@ -372,6 +406,7 @@ property("RDF round-trip preservation", async (component, props) => {
 - [x] Achieved 100% coverage for toolkit functions
 
 ### Stage 1: Components Proof System (Week 1)
+
 - [ ] Create component signature parser
 - [ ] Build prop type generator
 - [ ] Implement HTML5 validator integration
@@ -379,6 +414,7 @@ property("RDF round-trip preservation", async (component, props) => {
 - [ ] Test progressive enhancement layers
 
 ### Stage 2: Maths Proof System (Week 2)
+
 - [ ] Parse function signatures from parser/tokenizer
 - [ ] Generate precedence proofs
 - [ ] Test formula round-trips
@@ -386,6 +422,7 @@ property("RDF round-trip preservation", async (component, props) => {
 - [ ] Prove deterministic parsing
 
 ### Stage 3: Engine Proof System (Week 3)
+
 - [ ] Test reactive calculation chains
 - [ ] Prove SSR/hydration equivalence
 - [ ] Verify configuration determinism
@@ -393,6 +430,7 @@ property("RDF round-trip preservation", async (component, props) => {
 - [ ] Validate form handling logic
 
 ### Stage 4: Distributed Proof System (Week 4)
+
 - [ ] Design CRDT property tests
 - [ ] Prove convergence properties
 - [ ] Test idempotence and commutativity
@@ -400,6 +438,7 @@ property("RDF round-trip preservation", async (component, props) => {
 - [ ] Test offline/online sync
 
 ### Stage 5: Self-Proving Enhancement
+
 - [ ] Expand self-proving to more prover functions
 - [ ] Generate meta-proofs (proofs about proofs)
 - [ ] Achieve 100% self-coverage
@@ -408,17 +447,20 @@ property("RDF round-trip preservation", async (component, props) => {
 ## Unique Testing Opportunities
 
 ### 1. Contract-Based Testing
+
 Since components have clear contracts:
+
 ```typescript
 interface ButtonContract {
-	mustHave: ['type', 'role']
-	cannotHave: ['href']  // that would be a link!
-	ariaRequired: ['label' | 'labelledby']
+	mustHave: ["type", "role"]
+	cannotHave: ["href"] // that would be a link!
+	ariaRequired: ["label" | "labelledby"]
 	allowedChildren: TextNode | InlineElements
 }
 ```
 
 ### 2. Differential Testing
+
 ```typescript
 // Server vs Client rendering must match
 property("rendering parity", async (component, props) => {
@@ -429,6 +471,7 @@ property("rendering parity", async (component, props) => {
 ```
 
 ### 3. Progressive Enhancement Testing
+
 ```typescript
 // Test each layer independently
 describe("Progressive Enhancement", () => {
@@ -436,12 +479,12 @@ describe("Progressive Enhancement", () => {
 		const html = renderSemanticOnly(component)
 		return isValidHTML(html) && isAccessible(html)
 	})
-	
+
 	test("Layer 2: CSS enhances but doesn't break", () => {
 		const withCSS = renderWithStyles(component)
 		return maintainsFunctionality(withCSS)
 	})
-	
+
 	test("Layer 3: JS adds optional behavior", () => {
 		const enhanced = renderFullyEnhanced(component)
 		return worksWithoutJS(enhanced)
@@ -450,6 +493,7 @@ describe("Progressive Enhancement", () => {
 ```
 
 ### 4. Accessibility Test Automation
+
 ```typescript
 // Generate from JSON config
 function generateA11yTests(config: JSONConfig) {
@@ -458,7 +502,7 @@ function generateA11yTests(config: JSONConfig) {
 		keyboardTests: testKeyboardNav(config),
 		screenReaderTests: testAnnouncements(config),
 		contrastTests: testColorContrast(config),
-		focusTests: testFocusManagement(config)
+		focusTests: testFocusManagement(config),
 	}
 }
 ```
@@ -466,6 +510,7 @@ function generateA11yTests(config: JSONConfig) {
 ## Success Metrics
 
 ### Target: 100% Automated Coverage
+
 - All components have generated tests
 - All prop combinations tested
 - All HTML validity verified
@@ -473,6 +518,7 @@ function generateA11yTests(config: JSONConfig) {
 - All algebraic laws proven
 
 ### Quality Gates
+
 - ✅ HTML5 validation passes
 - ✅ WCAG AAA compliance
 - ✅ Schema.org validation
@@ -515,9 +561,11 @@ function generateA11yTests(config: JSONConfig) {
 ## The Self-Proving Capability
 
 ### The Recursion Theorem
+
 **"If a test generator is pure and deterministic, it can generate tests for itself that prove its own correctness."**
 
 ### Running Self-Proof
+
 ```bash
 # Generate proofs for prover itself
 deno task prover:self
@@ -530,6 +578,7 @@ deno task test:prover:cov
 ```
 
 ### Meta-Properties Being Proven
+
 1. **Idempotence**: Operations that can be applied multiple times
 2. **Determinism**: Same input always produces same output
 3. **Bounded Outputs**: Results within mathematical constraints
@@ -537,6 +586,7 @@ deno task test:prover:cov
 5. **Injectivity**: Unique inputs produce unique outputs
 
 ### The Bootstrap Process
+
 1. **Stage 0**: Manual smoke tests for core functions
 2. **Stage 1**: Use Stage 0 to generate tests for more functions
 3. **Stage 2**: Full self-generation using Stage 1
@@ -547,6 +597,7 @@ deno task test:prover:cov
 The promotion of the test generator to `@sitebender/prover` represents a paradigm shift from testing to **proving**. With its ability to prove correctness across all libraries—including itself—we achieve:
 
 ### Mathematical Guarantees
+
 - **Toolkit**: 900+ functions proven correct
 - **Components**: HTML/accessibility compliance proven
 - **Engine**: Reactive determinism proven
@@ -565,6 +616,7 @@ The promotion of the test generator to `@sitebender/prover` represents a paradig
 ### Expected Outcome
 
 **100% proven correctness** for all @sitebender libraries:
+
 - Zero manual test writing
 - Mathematical confidence in correctness
 - Automatic accessibility validation
@@ -574,8 +626,8 @@ The promotion of the test generator to `@sitebender/prover` represents a paradig
 
 ---
 
-*"We don't test. We prove."*
+_"We don't test. We prove."_
 
-*"Who proves the prover? The prover proves itself."*
+_"Who proves the prover? The prover proves itself."_
 
-*— The Path to Mathematical Certainty*
+_— The Path to Mathematical Certainty_

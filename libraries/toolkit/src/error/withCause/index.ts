@@ -38,7 +38,9 @@ const withCause =
 	): EngineError<TOp, TArgs> => ({
 		...error,
 		cause,
-		stack: cause instanceof Error ? cause.stack : (cause as EngineError).stack,
+		stack: cause instanceof Error
+			? cause.stack
+			: (cause as EngineError).stack,
 	})
 
 export default withCause

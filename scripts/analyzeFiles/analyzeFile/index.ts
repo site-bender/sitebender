@@ -66,7 +66,9 @@ export default async function analyzeFile(
 			if (name && name !== "<anonymous>") nonDefaultExported.add(name)
 		}
 		// Track default name if present on default function decl: export default function Name() {}
-		if (isDefault && name && name !== "<default>" && name !== "<anonymous>") {
+		if (
+			isDefault && name && name !== "<default>" && name !== "<anonymous>"
+		) {
 			defaultNames.add(name)
 		}
 	}
@@ -106,7 +108,9 @@ export default async function analyzeFile(
 			const parts = entry.split(/\s+as\s+/i).map((s) => s.trim()).filter(
 				Boolean,
 			)
-			if (parts.length === 2 && /^(default)$/i.test(parts[1]) && parts[0]) {
+			if (
+				parts.length === 2 && /^(default)$/i.test(parts[1]) && parts[0]
+			) {
 				defaultNames.add(parts[0])
 			}
 		}
@@ -139,7 +143,9 @@ export default async function analyzeFile(
 			)
 			const exportedName = parts[parts.length - 1]
 			// Only flag if this corresponds to a function we detected in this file
-			if (functionNames.has(exportedName)) nonDefaultExported.add(exportedName)
+			if (functionNames.has(exportedName)) {
+				nonDefaultExported.add(exportedName)
+			}
 		}
 	}
 

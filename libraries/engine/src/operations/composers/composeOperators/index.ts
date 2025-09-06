@@ -22,7 +22,9 @@ const composeOperators = async (
 			Promise.resolve({
 				left: [
 					Error("Unknown")("Operation")(
-						`Operation undefined or malformed: ${JSON.stringify(operation)}.`,
+						`Operation undefined or malformed: ${
+							JSON.stringify(operation)
+						}.`,
 					) as EngineError,
 				],
 			})
@@ -33,7 +35,9 @@ const composeOperators = async (
 	const resolvedOperandPromises = operandKeys.map(async (key: string) => {
 		const value = (operation as unknown as Record<string, unknown>)[key]
 		const resolvedValue = Array.isArray(value)
-			? await Promise.all(value.map((op: Operand) => composeOperators(op)))
+			? await Promise.all(
+				value.map((op: Operand) => composeOperators(op)),
+			)
 			: await composeOperators(value as Operand)
 		return [key, resolvedValue]
 	})
@@ -64,7 +68,10 @@ const composeOperators = async (
 		return () =>
 			Promise.resolve({
 				left: [
-					Error((unreachable as unknown as { tag?: string }).tag || "Unknown")(
+					Error(
+						(unreachable as unknown as { tag?: string }).tag ||
+							"Unknown",
+					)(
 						"Operation",
 					)(
 						`Unknown type: ${

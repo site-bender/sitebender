@@ -10,7 +10,9 @@ const appendChildren =
 	(options: Options) => {
 		children.forEach((child: ElementChild) => {
 			if (child.tag === "TextNode") {
-				appendTextNode(elem)(child as { tag: "TextNode"; content: string })
+				appendTextNode(elem)(
+					child as { tag: "TextNode"; content: string },
+				)
 
 				return
 			}

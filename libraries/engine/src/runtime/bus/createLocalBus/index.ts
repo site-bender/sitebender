@@ -56,12 +56,18 @@ export default function createLocalBus(
 				>
 				handler(ce.detail)
 				if (options?.once) {
-					dispatcher.removeEventListener(eventName, listener as EventListener)
+					dispatcher.removeEventListener(
+						eventName,
+						listener as EventListener,
+					)
 				}
 			}
 			dispatcher.addEventListener(eventName, listener as EventListener)
 			return () =>
-				dispatcher.removeEventListener(eventName, listener as EventListener)
+				dispatcher.removeEventListener(
+					eventName,
+					listener as EventListener,
+				)
 		},
 	}
 }

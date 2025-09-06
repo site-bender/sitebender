@@ -10,7 +10,9 @@ Deno.test("reduce - sum numbers", () => {
 })
 
 Deno.test("reduce - build new array (map)", () => {
-	const result = reduce((acc: Array<number>, n: number) => [...acc, n * 2])([])(
+	const result = reduce((acc: Array<number>, n: number) => [...acc, n * 2])(
+		[],
+	)(
 		[1, 2, 3],
 	)
 	assertEquals(result, [2, 4, 6])
@@ -52,7 +54,9 @@ Deno.test("reduce - find maximum", () => {
 })
 
 Deno.test("reduce - find minimum", () => {
-	const result = reduce((acc: number, n: number) => Math.min(acc, n))(Infinity)(
+	const result = reduce((acc: number, n: number) => Math.min(acc, n))(
+		Infinity,
+	)(
 		[3, 1, 4, 1, 5],
 	)
 	assertEquals(result, 1)
@@ -218,7 +222,9 @@ Deno.test("reduce - associativity for addition", () => {
 		fc.property(
 			fc.array(fc.integer({ min: -1000, max: 1000 })),
 			(array) => {
-				const sumLeft = reduce((acc: number, n: number) => acc + n)(0)(array)
+				const sumLeft = reduce((acc: number, n: number) => acc + n)(0)(
+					array,
+				)
 				const sumRight = array.reduceRight((acc, n) => acc + n, 0)
 				assertEquals(sumLeft, sumRight)
 			},
@@ -232,12 +238,16 @@ Deno.test("reduce - identity element", () => {
 			fc.array(fc.integer()),
 			(array) => {
 				// For addition, 0 is identity
-				const sum = reduce((acc: number, n: number) => acc + n)(0)(array)
+				const sum = reduce((acc: number, n: number) => acc + n)(0)(
+					array,
+				)
 				const expected = array.reduce((acc, n) => acc + n, 0)
 				assertEquals(sum, expected)
 
 				// For multiplication, 1 is identity
-				const product = reduce((acc: number, n: number) => acc * n)(1)(array)
+				const product = reduce((acc: number, n: number) => acc * n)(1)(
+					array,
+				)
 				const expectedProduct = array.reduce((acc, n) => acc * n, 1)
 				assertEquals(product, expectedProduct)
 			},
@@ -250,7 +260,10 @@ Deno.test("reduce - builds same array when used as identity", () => {
 		fc.property(
 			fc.array(fc.anything()),
 			(array) => {
-				const rebuilt = reduce((acc: Array<any>, item: any) => [...acc, item])(
+				const rebuilt = reduce((
+					acc: Array<any>,
+					item: any,
+				) => [...acc, item])(
 					[],
 				)(array)
 				assertEquals(rebuilt, array)
@@ -264,7 +277,9 @@ Deno.test("reduce - length counting", () => {
 		fc.property(
 			fc.array(fc.anything()),
 			(array) => {
-				const length = reduce((acc: number, _: any) => acc + 1)(0)(array)
+				const length = reduce((acc: number, _: any) => acc + 1)(0)(
+					array,
+				)
 				assertEquals(length, array.filter(() => true).length) // Filter to handle sparse arrays
 			},
 		),

@@ -231,7 +231,11 @@ describe("transpose", () => {
 						// Generate square matrix
 						const matrix = Array.from(
 							{ length: size },
-							(_, i) => Array.from({ length: size }, (_, j) => i * size + j),
+							(_, i) =>
+								Array.from(
+									{ length: size },
+									(_, j) => i * size + j,
+								),
 						)
 
 						const transposed = transpose(matrix)
@@ -254,7 +258,11 @@ describe("transpose", () => {
 					(rows, cols) => {
 						const matrix = Array.from(
 							{ length: rows },
-							() => Array.from({ length: cols }, () => Math.random()),
+							() =>
+								Array.from(
+									{ length: cols },
+									() => Math.random(),
+								),
 						)
 
 						const result = transpose(matrix)
@@ -274,7 +282,11 @@ describe("transpose", () => {
 					(rows, cols) => {
 						const matrix = Array.from(
 							{ length: rows },
-							(_, i) => Array.from({ length: cols }, (_, j) => `${i},${j}`),
+							(_, i) =>
+								Array.from(
+									{ length: cols },
+									(_, j) => `${i},${j}`,
+								),
 						)
 
 						const result = transpose(matrix)
@@ -303,7 +315,9 @@ describe("transpose", () => {
 						const result = transpose(matrix)
 
 						// Find max length in original
-						const maxLen = Math.max(...matrix.map((row) => row.length))
+						const maxLen = Math.max(
+							...matrix.map((row) => row.length),
+						)
 
 						// Result should have maxLen rows
 						if (maxLen === 0) {

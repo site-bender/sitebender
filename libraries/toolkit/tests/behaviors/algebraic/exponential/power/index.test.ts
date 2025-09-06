@@ -18,7 +18,8 @@ Deno.test("power - algebraic properties", async (t) => {
 				}),
 				(base) => {
 					const result = power(1)(base)
-					return Object.is(result, base) || approximately(result, base, 1e-10)
+					return Object.is(result, base) ||
+						approximately(result, base, 1e-10)
 				},
 			),
 			{ numRuns: 1000 },
@@ -28,7 +29,9 @@ Deno.test("power - algebraic properties", async (t) => {
 	await t.step("property: x^0 = 1 for all x ≠ 0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter((x) => x !== 0),
+				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter((x) =>
+					x !== 0
+				),
 				(base) => {
 					const result = power(0)(base)
 					return result === 1
@@ -41,9 +44,21 @@ Deno.test("power - algebraic properties", async (t) => {
 	await t.step("property: x^(a+b) = x^a * x^b", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(100) }),
-				fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
-				fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-10),
+					max: Math.fround(10),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-10),
+					max: Math.fround(10),
+				}),
 				(base, expA, expB) => {
 					const left = power(expA + expB)(base)
 					const right = power(expA)(base) * power(expB)(base)
@@ -66,9 +81,21 @@ Deno.test("power - algebraic properties", async (t) => {
 	await t.step("property: (x^a)^b = x^(a*b)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(100) }),
-				fc.float({ noNaN: true, min: Math.fround(-5), max: Math.fround(5) }),
-				fc.float({ noNaN: true, min: Math.fround(-5), max: Math.fround(5) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-5),
+					max: Math.fround(5),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-5),
+					max: Math.fround(5),
+				}),
 				(base, expA, expB) => {
 					const left = power(expB)(power(expA)(base))
 					const right = power(expA * expB)(base)
@@ -94,7 +121,11 @@ Deno.test("power - algebraic properties", async (t) => {
 					min: Math.fround(0.1),
 					max: Math.fround(1000),
 				}),
-				fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-10),
+					max: Math.fround(10),
+				}),
 				(base, exp) => {
 					const positive = power(exp)(base)
 					const negative = power(-exp)(base)
@@ -228,11 +259,17 @@ Deno.test("power - JSDoc examples", async (t) => {
 		const compound = (principal: number, rate: number, time: number) =>
 			principal * power(time)(1 + rate)
 		// Compound interest with floating point precision
-		assertEquals(approximately(compound(1000, 0.05, 3), 1157.625, 1e-10), true)
+		assertEquals(
+			approximately(compound(1000, 0.05, 3), 1157.625, 1e-10),
+			true,
+		)
 
 		// Circle area from radius
 		const circleArea = (radius: number) => Math.PI * power(2)(radius)
-		assertEquals(approximately(circleArea(5), 78.53981633974483, 1e-10), true)
+		assertEquals(
+			approximately(circleArea(5), 78.53981633974483, 1e-10),
+			true,
+		)
 
 		// Pythagorean theorem
 		const hypotenuse = (a: number, b: number) =>

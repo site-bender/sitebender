@@ -86,7 +86,9 @@ export default function WithNuance({
 		layered && "layered meaning",
 	].filter(Boolean)
 
-	const ariaLabel = nuanceParts.length > 0 ? nuanceParts.join(", ") : undefined
+	const ariaLabel = nuanceParts.length > 0
+		? nuanceParts.join(", ")
+		: undefined
 
 	return (
 		<Element

@@ -68,7 +68,9 @@ Deno.test("maximumBy: supports partial application", () => {
 	const getOldest = maximumBy(
 		(a: { age: number }, b: { age: number }) => a.age - b.age,
 	)
-	assertEquals(getOldest([{ age: 30 }, { age: 40 }, { age: 35 }]), { age: 40 })
+	assertEquals(getOldest([{ age: 30 }, { age: 40 }, { age: 35 }]), {
+		age: 40,
+	})
 	assertEquals(getOldest([{ age: 10 }, { age: 5 }]), { age: 10 })
 })
 
