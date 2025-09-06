@@ -76,7 +76,13 @@ export default function parseBinaryExpression(
 				token.type !== "MINUS" &&
 				token.type !== "MULTIPLY" &&
 				token.type !== "DIVIDE" &&
-				token.type !== "POWER"
+				token.type !== "POWER" &&
+				token.type !== "LESS_THAN" &&
+				token.type !== "GREATER_THAN" &&
+				token.type !== "EQUAL" &&
+				token.type !== "NOT_EQUAL" &&
+				token.type !== "LESS_EQUAL" &&
+				token.type !== "GREATER_EQUAL"
 			) {
 				break
 			}
@@ -131,13 +137,23 @@ export default function parseBinaryExpression(
 			// deno-coverage-ignore
 			if (!rightResult.ok) return rightResult
 
-			// Create binary node
-			left = {
-				type: "BinaryOp",
-				operator,
-				left,
-				right: rightResult.value,
-			} as BinaryOpNode
+			// Create appropriate node type based on operator
+			if (operator === "<" || operator === ">" || operator === "==" || 
+			    operator === "!=" || operator === "<=" || operator === ">=") {
+				left = {
+					type: "Comparison",
+					operator,
+					left,
+					right: rightResult.value,
+				}
+			} else {
+				left = {
+					type: "BinaryOp",
+					operator: operator as "+" | "-" | "*" | "/" | "^",
+					left,
+					right: rightResult.value,
+				}
+			}
 		}
 
 		return { ok: true, value: left }

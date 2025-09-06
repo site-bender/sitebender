@@ -1,0 +1,26 @@
+{
+  "scriptId": "401",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/float.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2313, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "safeFloatToIndex",
+      "ranges": [{ "startOffset": 349, "endOffset": 756, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unmapperFloatToIndex",
+      "ranges": [{ "startOffset": 757, "endOffset": 909, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "float",
+      "ranges": [{ "startOffset": 917, "endOffset": 2312, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "409",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/nat.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 511, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "nat",
+      "ranges": [{ "startOffset": 115, "endOffset": 494, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

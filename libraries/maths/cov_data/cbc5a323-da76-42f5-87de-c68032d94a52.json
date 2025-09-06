@@ -1,0 +1,16 @@
+{
+  "scriptId": "385",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/falsy.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 329, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "falsy",
+      "ranges": [{ "startOffset": 103, "endOffset": 328, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

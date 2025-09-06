@@ -1,0 +1,29 @@
+{
+  "scriptId": "375",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/property/Property.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 782, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "property",
+      "ranges": [
+        { "startOffset": 349, "endOffset": 760, "count": 6 },
+        { "startOffset": 403, "endOffset": 479, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 650, "endOffset": 693, "count": 11 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 742, "endOffset": 756, "count": 600 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

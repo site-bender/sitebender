@@ -1,0 +1,21 @@
+{
+  "scriptId": "581",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/ShrinkBigInt.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1149, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "halveBigInt",
+      "ranges": [{ "startOffset": 174, "endOffset": 227, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrinkBigInt",
+      "ranges": [{ "startOffset": 235, "endOffset": 1148, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

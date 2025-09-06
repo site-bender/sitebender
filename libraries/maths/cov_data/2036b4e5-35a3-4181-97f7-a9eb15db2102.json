@@ -1,0 +1,11 @@
+{
+  "scriptId": "381",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/comparators/amount/IsLessThan/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 154, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

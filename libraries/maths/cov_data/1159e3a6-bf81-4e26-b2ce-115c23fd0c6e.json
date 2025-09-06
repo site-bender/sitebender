@@ -1,0 +1,40 @@
+{
+  "scriptId": "362",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/compiler/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 10692, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "compile",
+      "ranges": [
+        { "startOffset": 3307, "endOffset": 10691, "count": 70 },
+        { "startOffset": 3366, "endOffset": 3661, "count": 3 },
+        { "startOffset": 3666, "endOffset": 4039, "count": 39 },
+        { "startOffset": 3799, "endOffset": 3957, "count": 1 },
+        { "startOffset": 3957, "endOffset": 4039, "count": 38 },
+        { "startOffset": 4044, "endOffset": 4844, "count": 6 },
+        { "startOffset": 4225, "endOffset": 4246, "count": 0 },
+        { "startOffset": 4320, "endOffset": 4748, "count": 5 },
+        { "startOffset": 4580, "endOffset": 4590, "count": 0 },
+        { "startOffset": 4748, "endOffset": 4844, "count": 1 },
+        { "startOffset": 4849, "endOffset": 7240, "count": 22 },
+        { "startOffset": 5024, "endOffset": 5042, "count": 0 },
+        { "startOffset": 5131, "endOffset": 5150, "count": 1 },
+        { "startOffset": 5150, "endOffset": 5334, "count": 21 },
+        { "startOffset": 5334, "endOffset": 5738, "count": 9 },
+        { "startOffset": 5749, "endOffset": 6056, "count": 2 },
+        { "startOffset": 6067, "endOffset": 6424, "count": 4 },
+        { "startOffset": 6435, "endOffset": 6740, "count": 4 },
+        { "startOffset": 6751, "endOffset": 7055, "count": 2 },
+        { "startOffset": 7066, "endOffset": 7222, "count": 0 },
+        { "startOffset": 7245, "endOffset": 9436, "count": 0 },
+        { "startOffset": 9441, "endOffset": 10449, "count": 0 },
+        { "startOffset": 10454, "endOffset": 10685, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

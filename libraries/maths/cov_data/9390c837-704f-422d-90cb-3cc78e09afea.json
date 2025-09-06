@@ -1,0 +1,31 @@
+{
+  "scriptId": "539",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/SameValueSet.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1016, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "SameValueSet",
+      "ranges": [{ "startOffset": 132, "endOffset": 309, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "tryAdd",
+      "ranges": [{ "startOffset": 314, "endOffset": 913, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "size",
+      "ranges": [{ "startOffset": 918, "endOffset": 965, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getData",
+      "ranges": [{ "startOffset": 970, "endOffset": 1013, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

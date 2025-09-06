@@ -1,0 +1,21 @@
+{
+  "scriptId": "543",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/SlicesForStringBuilder.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1227, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "computeCandidateString",
+      "ranges": [{ "startOffset": 473, "endOffset": 848, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createSlicesForString",
+      "ranges": [{ "startOffset": 856, "endOffset": 1226, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scriptId": "394",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parsePrimaryExpression/expect/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2088, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "expect",
+      "ranges": [{ "startOffset": 1653, "endOffset": 2087, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

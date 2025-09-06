@@ -1,0 +1,31 @@
+{
+  "scriptId": "505",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/GeneratorArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1680, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "GeneratorArbitrary",
+      "ranges": [{ "startOffset": 418, "endOffset": 548, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 553, "endOffset": 672, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 677, "endOffset": 737, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 742, "endOffset": 1677, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "scriptId": "492",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parse/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2153, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parse",
+      "ranges": [
+        { "startOffset": 1699, "endOffset": 2152, "count": 1200 },
+        { "startOffset": 1827, "endOffset": 1841, "count": 0 },
+        { "startOffset": 1927, "endOffset": 2133, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

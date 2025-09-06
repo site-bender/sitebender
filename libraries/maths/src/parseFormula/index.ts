@@ -1,4 +1,5 @@
 import type {
+	ComparatorConfig,
 	InjectorConfig,
 	OperatorConfig,
 } from "../../../engine/types/index.ts"
@@ -32,7 +33,7 @@ import tokenize from "../tokenizer/index.ts"
 export default function parseFormula(
 	formula: string,
 	variables: VariableMap = {},
-): Result<OperatorConfig | InjectorConfig, ParseError> {
+): Result<OperatorConfig | InjectorConfig | ComparatorConfig, ParseError> {
 	// Step 1: Tokenize the formula
 	const tokenResult = tokenize(formula)
 	if (!tokenResult.ok) {

@@ -1,0 +1,71 @@
+{
+  "scriptId": "535",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/FrequencyArbitrary.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 7122, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 701, "endOffset": 2134, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "FrequencyArbitrary",
+      "ranges": [{ "startOffset": 2139, "endOffset": 2588, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 2593, "endOffset": 3128, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContext",
+      "ranges": [{ "startOffset": 3133, "endOffset": 3235, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 3240, "endOffset": 4663, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "defaultShrinkForFirst",
+      "ranges": [{ "startOffset": 4668, "endOffset": 5163, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "canShrinkWithoutContextIndex",
+      "ranges": [{ "startOffset": 5168, "endOffset": 5754, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mapIntoValue",
+      "ranges": [{ "startOffset": 5759, "endOffset": 6070, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "safeGenerateForIndex",
+      "ranges": [{ "startOffset": 6075, "endOffset": 6520, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mustGenerateFirst",
+      "ranges": [{ "startOffset": 6525, "endOffset": 6616, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "mustFallbackToFirstInShrink",
+      "ranges": [{ "startOffset": 6621, "endOffset": 6753, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "computeNegDepthBenefit",
+      "ranges": [{ "startOffset": 6758, "endOffset": 7119, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

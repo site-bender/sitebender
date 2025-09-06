@@ -1,0 +1,16 @@
+{
+  "scriptId": "365",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Add/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 240, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Add",
+      "ranges": [{ "startOffset": 86, "endOffset": 218, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

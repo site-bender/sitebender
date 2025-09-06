@@ -1,0 +1,26 @@
+{
+  "scriptId": "455",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/symbols.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 422, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "hasCloneMethod",
+      "ranges": [
+        { "startOffset": 68, "endOffset": 303, "count": 2800 },
+        { "startOffset": 175, "endOffset": 208, "count": 2200 },
+        { "startOffset": 210, "endOffset": 244, "count": 600 },
+        { "startOffset": 245, "endOffset": 299, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "cloneIfNeeded",
+      "ranges": [{ "startOffset": 311, "endOffset": 421, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

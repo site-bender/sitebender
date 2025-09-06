@@ -1,0 +1,16 @@
+{
+  "scriptId": "523",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/InvalidSubdomainLabelFiIter.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 318, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "filterInvalidSubdomainLabel",
+      "ranges": [{ "startOffset": 7, "endOffset": 317, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

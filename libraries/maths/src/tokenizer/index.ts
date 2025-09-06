@@ -110,49 +110,99 @@ export default function tokenize(
 			continue
 		}
 
-		// Check for single-character operators and parentheses
-		const char = input[position]
+		// Check for multi-character operators first
+		const twoCharOp = input.slice(position, position + 2)
 		let tokenType: TokenType | null = null
+		let tokenValue: string = ""
+		let tokenLength = 1
 
-		switch (char) {
-			case "+":
-				tokenType = "PLUS"
+		switch (twoCharOp) {
+			case "==":
+				tokenType = "EQUAL"
+				tokenValue = "=="
+				tokenLength = 2
 				break
-			case "-":
-				tokenType = "MINUS"
+			case "!=":
+				tokenType = "NOT_EQUAL"
+				tokenValue = "!="
+				tokenLength = 2
 				break
-			case "*":
-				tokenType = "MULTIPLY"
+			case "<=":
+				tokenType = "LESS_EQUAL"
+				tokenValue = "<="
+				tokenLength = 2
 				break
-			case "/":
-				tokenType = "DIVIDE"
-				break
-			case "^":
-				tokenType = "POWER"
-				break
-			case "(":
-				tokenType = "LEFT_PAREN"
-				break
-			case ")":
-				tokenType = "RIGHT_PAREN"
+			case ">=":
+				tokenType = "GREATER_EQUAL"
+				tokenValue = ">="
+				tokenLength = 2
 				break
 			default:
-				return {
-					ok: false,
-					error: {
-						message: `Unexpected character '${char}' at position ${position}`,
-						position,
-						found: char,
-					},
+				// Check for single-character operators and parentheses
+				const char = input[position]
+				switch (char) {
+					case "+":
+						tokenType = "PLUS"
+						tokenValue = char
+						break
+					case "-":
+						tokenType = "MINUS"
+						tokenValue = char
+						break
+					case "*":
+						tokenType = "MULTIPLY"
+						tokenValue = char
+						break
+					case "/":
+						tokenType = "DIVIDE"
+						tokenValue = char
+						break
+					case "^":
+						tokenType = "POWER"
+						tokenValue = char
+						break
+					case "(":
+						tokenType = "LEFT_PAREN"
+						tokenValue = char
+						break
+					case ")":
+						tokenType = "RIGHT_PAREN"
+						tokenValue = char
+						break
+					case "?":
+						tokenType = "QUESTION"
+						tokenValue = char
+						break
+					case ":":
+						tokenType = "COLON"
+						tokenValue = char
+						break
+					case "<":
+						tokenType = "LESS_THAN"
+						tokenValue = char
+						break
+					case ">":
+						tokenType = "GREATER_THAN"
+						tokenValue = char
+						break
+					default:
+						return {
+							ok: false,
+							error: {
+								message: `Unexpected character '${char}' at position ${position}`,
+								position,
+								found: char,
+							},
+						}
 				}
 		}
 
 		tokens.push({
 			type: tokenType,
-			value: char,
+			value: tokenValue,
 			position,
 		})
-		position++
+		position += tokenLength
 	}
 
 	// Add EOF token
