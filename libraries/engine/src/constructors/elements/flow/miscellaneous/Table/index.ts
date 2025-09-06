@@ -33,7 +33,6 @@ export type TableElementAttributes = TableAttributes & TableAriaAttributes & {
  * Allows global attributes and validates table-specific attributes
  */
 
-
 /**
  * Creates a Table element configuration object
  *

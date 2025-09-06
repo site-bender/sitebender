@@ -34,7 +34,11 @@
 			"~*": ["./*"]
 		},
 		"target": "esnext",
-		"types": ["./lib/types/globals.d.ts"]
+		"types": [
+			"./lib/types/globals.d.ts",
+			"./libraries/components/types/globals.d.ts"
+		]
 	},
-	"include": ["src/**/*", "scripts/**/*", "lib/**/*", "utilities/**/*"]
+	"include": ["src/**/*", "lib/**/*", "utilities/**/*", "libraries/**/*"],
+	"exclude": ["scripts/**"]
 }

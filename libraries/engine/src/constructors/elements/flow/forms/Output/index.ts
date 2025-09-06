@@ -42,7 +42,6 @@ export type OutputElementAttributes =
  * Allows global attributes and validates output-specific attributes
  */
 
-
 /**
  * Creates an Output element configuration object
  *

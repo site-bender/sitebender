@@ -6,7 +6,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputButtonAttributes) {
-
 	const { autofocus, disabled, form, name, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
@@ -18,5 +17,4 @@ export default function filterAttributes(attributes: InputButtonAttributes) {
 		...filterAttribute(isString)("name")(name),
 		...filterAttribute(isString)("value")(value),
 	}
-
 }

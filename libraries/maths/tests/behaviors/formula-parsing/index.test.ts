@@ -511,7 +511,10 @@ Deno.test("parseFormula - handles missing closing parenthesis", () => {
 
 	assertEquals(result.ok, false)
 	if (!result.ok) {
-		assertEquals(result.error.message.includes("Missing closing parenthesis"), true)
+		assertEquals(
+			result.error.message.includes("Missing closing parenthesis"),
+			true,
+		)
 	}
 })
 

@@ -31,8 +31,6 @@ export type MapElementAttributes = ImageMapAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Map element configuration object
  *

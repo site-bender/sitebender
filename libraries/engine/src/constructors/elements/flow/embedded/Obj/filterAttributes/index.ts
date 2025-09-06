@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ObjElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ObjElementAttributes) {
-
 	const {
 		id,
 		data,
@@ -95,5 +94,4 @@ export default function filterAttributes(attributes: ObjElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

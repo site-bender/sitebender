@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { TrackElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TrackElementAttributes) {
-
 	const {
 		id,
 		default: defaultTrack,
@@ -50,13 +49,15 @@ export default function filterAttributes(attributes: TrackElementAttributes) {
 	if (isDefined(kind)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf([
-				"subtitles",
-				"captions",
-				"descriptions",
-				"chapters",
-				"metadata",
-			] as const))("kind")(kind),
+			filterAttribute(isMemberOf(
+				[
+					"subtitles",
+					"captions",
+					"descriptions",
+					"chapters",
+					"metadata",
+				] as const,
+			))("kind")(kind),
 		)
 	}
 	if (isDefined(label)) {
@@ -78,5 +79,4 @@ export default function filterAttributes(attributes: TrackElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

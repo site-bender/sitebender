@@ -49,11 +49,11 @@ describe("subsequences", () => {
 		it("maintains element order in subsequences", () => {
 			const result = subsequences(["a", "b", "c"])
 			// All non-empty subsequences should maintain original order
-			const nonEmpty = result.filter(sub => sub.length > 0)
-			
+			const nonEmpty = result.filter((sub) => sub.length > 0)
+
 			for (const sub of nonEmpty) {
 				// Check that elements appear in the same order as original
-				const indices = sub.map(el => ["a", "b", "c"].indexOf(el))
+				const indices = sub.map((el) => ["a", "b", "c"].indexOf(el))
 				for (let i = 1; i < indices.length; i++) {
 					expect(indices[i]).toBeGreaterThan(indices[i - 1])
 				}
@@ -62,10 +62,10 @@ describe("subsequences", () => {
 
 		it("generates correct number of subsequences", () => {
 			// 2^n subsequences for n elements
-			expect(subsequences([]).length).toBe(1)         // 2^0 = 1
-			expect(subsequences([1]).length).toBe(2)        // 2^1 = 2
-			expect(subsequences([1, 2]).length).toBe(4)     // 2^2 = 4
-			expect(subsequences([1, 2, 3]).length).toBe(8)  // 2^3 = 8
+			expect(subsequences([]).length).toBe(1) // 2^0 = 1
+			expect(subsequences([1]).length).toBe(2) // 2^1 = 2
+			expect(subsequences([1, 2]).length).toBe(4) // 2^2 = 4
+			expect(subsequences([1, 2, 3]).length).toBe(8) // 2^3 = 8
 			expect(subsequences([1, 2, 3, 4]).length).toBe(16) // 2^4 = 16
 		})
 
@@ -76,7 +76,7 @@ describe("subsequences", () => {
 				[1, 2, 3],
 				["a", "b"],
 			]
-			
+
 			for (const arr of arrays) {
 				const result = subsequences(arr)
 				expect(result[0]).toEqual([])
@@ -90,7 +90,7 @@ describe("subsequences", () => {
 				[1, 2, 3],
 				["a", "b", "c"],
 			]
-			
+
 			for (const arr of arrays) {
 				const result = subsequences(arr)
 				expect(result[result.length - 1]).toEqual(arr)
@@ -102,11 +102,11 @@ describe("subsequences", () => {
 			expect(result).toEqual([
 				[],
 				[1],
-				[1],      // Second 1
-				[1, 1],   // Both 1s
+				[1], // Second 1
+				[1, 1], // Both 1s
 				[2],
-				[1, 2],   // First 1 with 2
-				[1, 2],   // Second 1 with 2
+				[1, 2], // First 1 with 2
+				[1, 2], // Second 1 with 2
 				[1, 1, 2], // All elements
 			])
 		})
@@ -116,13 +116,13 @@ describe("subsequences", () => {
 			const result = subsequences(mixed)
 			expect(result.length).toBe(16) // 2^4
 			// Check empty array exists
-			expect(result.some(sub => sub.length === 0)).toBe(true)
+			expect(result.some((sub) => sub.length === 0)).toBe(true)
 			// Check full array exists
-			expect(result.some(sub => 
-				sub.length === 4 && 
-				sub[0] === 1 && 
-				sub[1] === "two" && 
-				sub[2] === true && 
+			expect(result.some((sub) =>
+				sub.length === 4 &&
+				sub[0] === 1 &&
+				sub[1] === "two" &&
+				sub[2] === true &&
 				sub[3] === null
 			)).toBe(true)
 		})
@@ -145,14 +145,14 @@ describe("subsequences", () => {
 			const obj1 = { id: 1 }
 			const obj2 = { id: 2 }
 			const result = subsequences([obj1, obj2])
-			
+
 			expect(result).toEqual([
 				[],
 				[obj1],
 				[obj2],
 				[obj1, obj2],
 			])
-			
+
 			// Check same references
 			expect(result[1][0]).toBe(obj1)
 			expect(result[2][0]).toBe(obj2)
@@ -163,16 +163,16 @@ describe("subsequences", () => {
 		it("does not mutate original array", () => {
 			const original = [1, 2, 3]
 			const copy = [...original]
-			
+
 			subsequences(original)
-			
+
 			expect(original).toEqual(copy)
 		})
 
 		it("can be used for combinations", () => {
 			const result = subsequences([1, 2, 3, 4])
 			// Get all 2-element combinations
-			const pairs = result.filter(sub => sub.length === 2)
+			const pairs = result.filter((sub) => sub.length === 2)
 			expect(pairs).toEqual([
 				[1, 2],
 				[1, 3],
@@ -186,25 +186,24 @@ describe("subsequences", () => {
 		it("can be used for feature flag combinations", () => {
 			const features = ["dark-mode", "notifications", "analytics"]
 			const result = subsequences(features)
-			
+
 			// All possible feature combinations
 			expect(result.length).toBe(8)
 			// Check empty array exists (no features)
-			expect(result.some(sub => sub.length === 0)).toBe(true)
+			expect(result.some((sub) => sub.length === 0)).toBe(true)
 			// Check full array exists (all features)
-			expect(result.some(sub => 
-				sub.length === 3 && 
-				sub[0] === "dark-mode" && 
-				sub[1] === "notifications" && 
+			expect(result.some((sub) =>
+				sub.length === 3 &&
+				sub[0] === "dark-mode" &&
+				sub[1] === "notifications" &&
 				sub[2] === "analytics"
 			)).toBe(true)
 			// Check specific combinations
-			expect(result.some(sub => 
-				sub.length === 1 && sub[0] === "dark-mode"
-			)).toBe(true)
-			expect(result.some(sub => 
-				sub.length === 2 && 
-				sub[0] === "dark-mode" && 
+			expect(result.some((sub) => sub.length === 1 && sub[0] === "dark-mode"))
+				.toBe(true)
+			expect(result.some((sub) =>
+				sub.length === 2 &&
+				sub[0] === "dark-mode" &&
 				sub[1] === "notifications"
 			)).toBe(true)
 		})
@@ -229,16 +228,16 @@ describe("subsequences", () => {
 					fc.array(fc.integer()),
 					(array) => {
 						const result = subsequences(array)
-						
+
 						// Check empty array is present
-						const hasEmpty = result.some(sub => sub.length === 0)
-						
+						const hasEmpty = result.some((sub) => sub.length === 0)
+
 						// Check full array is present
-						const hasFull = result.some(sub => 
+						const hasFull = result.some((sub) =>
 							sub.length === array.length &&
 							sub.every((val, idx) => val === array[idx])
 						)
-						
+
 						return hasEmpty && (array.length === 0 || hasFull)
 					},
 				),
@@ -251,8 +250,8 @@ describe("subsequences", () => {
 					fc.array(fc.integer({ min: 0, max: 100 }), { maxLength: 8 }),
 					(array) => {
 						const result = subsequences(array)
-						
-						return result.every(sub => {
+
+						return result.every((sub) => {
 							// For each subsequence, check that elements appear in same order
 							for (let i = 0; i < sub.length; i++) {
 								const origIndex = array.indexOf(sub[i])
@@ -276,11 +275,11 @@ describe("subsequences", () => {
 					fc.uniqueArray(fc.integer(), { maxLength: 8 }),
 					(array) => {
 						const result = subsequences(array)
-						
+
 						// Convert subsequences to strings for comparison
-						const stringified = result.map(sub => JSON.stringify(sub))
+						const stringified = result.map((sub) => JSON.stringify(sub))
 						const unique = new Set(stringified)
-						
+
 						// For unique input values, subsequences should also be unique
 						return unique.size === result.length
 					},
@@ -291,18 +290,22 @@ describe("subsequences", () => {
 		it("each unique element appears in exactly 2^(n-1) subsequences", () => {
 			fc.assert(
 				fc.property(
-					fc.uniqueArray(fc.integer({ min: 1, max: 100 }), { minLength: 1, maxLength: 8 }),
+					fc.uniqueArray(fc.integer({ min: 1, max: 100 }), {
+						minLength: 1,
+						maxLength: 8,
+					}),
 					(array) => {
 						if (array.length === 0) return true
-						
+
 						const result = subsequences(array)
 						const firstElement = array[0]
-						
+
 						// Count how many subsequences contain the first element
 						// Since we're using unique arrays, we can use includes
-						const count = result.filter(sub => sub.includes(firstElement)).length
+						const count =
+							result.filter((sub) => sub.includes(firstElement)).length
 						const expected = Math.pow(2, array.length - 1)
-						
+
 						return count === expected
 					},
 				),

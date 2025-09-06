@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import splitEvery from "../../../../src/simple/array/splitEvery/index.ts"
@@ -140,21 +143,24 @@ Deno.test("splitEvery: currying", async (t) => {
 		assertEquals(splitByTwo([4, 5, 6, 7]), [[4, 5], [6, 7]])
 	})
 
-	await t.step("should allow partial application with different chunk sizes", () => {
-		const arr = [1, 2, 3, 4, 5, 6]
-		const splitBy2 = splitEvery(2)
-		const splitBy3 = splitEvery(3)
-		
-		assertEquals(splitBy2(arr), [[1, 2], [3, 4], [5, 6]])
-		assertEquals(splitBy3(arr), [[1, 2, 3], [4, 5, 6]])
-	})
+	await t.step(
+		"should allow partial application with different chunk sizes",
+		() => {
+			const arr = [1, 2, 3, 4, 5, 6]
+			const splitBy2 = splitEvery(2)
+			const splitBy3 = splitEvery(3)
+
+			assertEquals(splitBy2(arr), [[1, 2], [3, 4], [5, 6]])
+			assertEquals(splitBy3(arr), [[1, 2, 3], [4, 5, 6]])
+		},
+	)
 })
 
 Deno.test("splitEvery: immutability", async (t) => {
 	await t.step("should not modify the original array", () => {
 		const original = [1, 2, 3, 4, 5]
 		const copy = [...original]
-		
+
 		splitEvery(2)(original)
 		assertEquals(original, copy)
 	})
@@ -162,7 +168,7 @@ Deno.test("splitEvery: immutability", async (t) => {
 	await t.step("should not share references with original array", () => {
 		const original = [{ val: 1 }, { val: 2 }, { val: 3 }]
 		const result = splitEvery(2)(original)
-		
+
 		// Modifying result shouldn't affect original
 		result[0][0] = { val: 99 }
 		assertEquals(original[0], { val: 1 })
@@ -171,7 +177,7 @@ Deno.test("splitEvery: immutability", async (t) => {
 	await t.step("chunks should be independent", () => {
 		const result = splitEvery(2)([1, 2, 3, 4])
 		result[0].push(99)
-		
+
 		// Other chunks shouldn't be affected
 		assertEquals(result[1], [3, 4])
 	})
@@ -182,7 +188,7 @@ Deno.test("splitEvery: practical examples", async (t) => {
 		const items = Array.from({ length: 10 }, (_, i) => i + 1)
 		const pageSize = 3
 		const pages = splitEvery(pageSize)(items)
-		
+
 		assertEquals(pages, [
 			[1, 2, 3],
 			[4, 5, 6],
@@ -195,7 +201,7 @@ Deno.test("splitEvery: practical examples", async (t) => {
 		const tasks = ["task1", "task2", "task3", "task4", "task5"]
 		const batchSize = 2
 		const batches = splitEvery(batchSize)(tasks)
-		
+
 		assertEquals(batches, [
 			["task1", "task2"],
 			["task3", "task4"],
@@ -207,7 +213,7 @@ Deno.test("splitEvery: practical examples", async (t) => {
 		const items = ["A", "B", "C", "D", "E", "F", "G"]
 		const columns = 3
 		const rows = splitEvery(columns)(items)
-		
+
 		assertEquals(rows, [
 			["A", "B", "C"],
 			["D", "E", "F"],
@@ -219,7 +225,7 @@ Deno.test("splitEvery: practical examples", async (t) => {
 		const words = "The quick brown fox jumps over the lazy dog".split(" ")
 		const wordsPerLine = 4
 		const lines = splitEvery(wordsPerLine)(words)
-		
+
 		assertEquals(lines, [
 			["The", "quick", "brown", "fox"],
 			["jumps", "over", "the", "lazy"],
@@ -238,8 +244,8 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 					const chunks = splitEvery(chunkSize)(arr)
 					const flattened = chunks.flat()
 					return JSON.stringify(flattened) === JSON.stringify(arr)
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -258,8 +264,8 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 					// Last chunk should have at most chunkSize elements
 					const lastChunk = chunks[chunks.length - 1]
 					return lastChunk.length > 0 && lastChunk.length <= chunkSize
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -272,8 +278,8 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 					const chunks = splitEvery(chunkSize)(arr)
 					const expectedChunks = Math.ceil(arr.length / chunkSize)
 					return chunks.length === expectedChunks
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -285,8 +291,8 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 				(arr, chunkSize) => {
 					const result = splitEvery(chunkSize)(arr)
 					return result.length === 0
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -298,8 +304,8 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 					const chunked = splitEvery(1)(arr)
 					const flattened = chunked.flat()
 					return JSON.stringify(flattened) === JSON.stringify(arr)
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -313,10 +319,11 @@ Deno.test("splitEvery: property-based tests", async (t) => {
 						return result.length === 0
 					} else {
 						const result = splitEvery(Number.MAX_SAFE_INTEGER)(arr)
-						return result.length === 1 && JSON.stringify(result[0]) === JSON.stringify(arr)
+						return result.length === 1 &&
+							JSON.stringify(result[0]) === JSON.stringify(arr)
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 })
@@ -336,7 +343,7 @@ Deno.test("splitEvery: recursive implementation behavior", async (t) => {
 		const arr = [1, 2, 3, 4, 5, 6, 7]
 		const result = splitEvery(3)(arr)
 		assertEquals(result, [[1, 2, 3], [4, 5, 6], [7]])
-		
+
 		// Verify each chunk is independent
 		assertEquals(result[0], [1, 2, 3])
 		assertEquals(result[1], [4, 5, 6])

@@ -34,7 +34,6 @@ export type HeaderElementAttributes = HeaderAttributes & AriaAttributes & {
  * Allows global attributes and validates header-specific attributes
  */
 
-
 /**
  * Creates a Header element configuration object
  *

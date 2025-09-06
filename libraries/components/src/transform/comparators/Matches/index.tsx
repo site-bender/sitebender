@@ -1,4 +1,7 @@
-import type { MatchesComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	MatchesComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Matches - String pattern matching component for engine validation

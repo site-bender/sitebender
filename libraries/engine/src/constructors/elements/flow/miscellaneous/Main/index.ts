@@ -33,7 +33,6 @@ export type MainElementAttributes = MainAttributes & MainAriaAttributes & {
  * Allows global attributes and validates main-specific attributes
  */
 
-
 /**
  * Creates a Main element configuration object
  *

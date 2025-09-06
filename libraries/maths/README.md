@@ -340,3 +340,4 @@ Based on a thorough analysis of the library:
 6. **Add Performance Benchmarks** - Create benchmarks for parsing complex formulas to ensure performance doesn't degrade
 
 7. **Enhance Error Messages** - Add more detailed position tracking and context in error messages for better debugging
+

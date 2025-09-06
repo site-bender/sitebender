@@ -9,8 +9,9 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 
 import type { ThElementAttributes as TableHeaderCellAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: TableHeaderCellAttributes) {
-
+export default function filterAttributes(
+	attributes: TableHeaderCellAttributes,
+) {
 	const {
 		id,
 		abbr,
@@ -33,5 +34,4 @@ export default function filterAttributes(attributes: TableHeaderCellAttributes) 
 		...filterAttribute(isMemberOf(SCOPES))("scope")(scope),
 		...filterAttribute(isMemberOf(TH_ROLES))("role")(role),
 	}
-
 }

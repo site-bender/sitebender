@@ -33,8 +33,6 @@ export type TemplateElementAttributes = TemplateAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Template element configuration object
  *

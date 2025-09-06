@@ -47,7 +47,7 @@ Deno.test("sample: works with object arrays", () => {
 	const obj3 = { id: 3, name: "Charlie" }
 	const array = [obj1, obj2, obj3]
 	const result = sample(array)
-	
+
 	assertExists(result)
 	assertEquals(array.includes(result), true)
 	// Verify it returns the actual object reference
@@ -76,19 +76,19 @@ Deno.test("sample: distribution test for uniformity", () => {
 	const array = [1, 2, 3]
 	const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0 }
 	const iterations = 30000
-	
+
 	for (let i = 0; i < iterations; i++) {
 		const result = sample(array)
 		if (result !== undefined) {
 			counts[result]++
 		}
 	}
-	
+
 	// Each element should appear roughly 1/3 of the time
 	// Allow for statistical variance (within 5% of expected)
 	const expectedCount = iterations / 3
 	const tolerance = expectedCount * 0.05
-	
+
 	for (const count of Object.values(counts)) {
 		assertEquals(
 			Math.abs(count - expectedCount) < tolerance,
@@ -123,11 +123,11 @@ Deno.test("sample: type inference", () => {
 	const numArray = [1, 2, 3]
 	const numResult = sample(numArray)
 	assertType<IsExact<typeof numResult, number | undefined>>(true)
-	
+
 	const strArray = ["a", "b", "c"]
 	const strResult = sample(strArray)
 	assertType<IsExact<typeof strResult, string | undefined>>(true)
-	
+
 	const mixedArray = [1, "two", true] as const
 	const mixedResult = sample(mixedArray)
 	assertType<IsExact<typeof mixedResult, 1 | "two" | true | undefined>>(true)
@@ -189,16 +189,16 @@ Deno.test("sample: property - empty arrays always return undefined", () => {
 Deno.test("sample: coverage - Math.random edge cases", () => {
 	// Save original Math.random
 	const originalRandom = Math.random
-	
+
 	try {
 		// Test when Math.random returns 0 (selects first element)
 		Math.random = () => 0
 		assertEquals(sample([10, 20, 30]), 10)
-		
+
 		// Test when Math.random returns 0.999... (selects last element)
 		Math.random = () => 0.9999999
 		assertEquals(sample([10, 20, 30]), 30)
-		
+
 		// Test when Math.random returns exactly 0.5 (middle element)
 		Math.random = () => 0.5
 		assertEquals(sample([10, 20, 30, 40]), 30)

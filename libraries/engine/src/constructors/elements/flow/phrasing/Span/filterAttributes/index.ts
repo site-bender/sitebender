@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { SpanElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: SpanElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -66,5 +65,4 @@ export default function filterAttributes(attributes: SpanElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

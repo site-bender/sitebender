@@ -1,4 +1,7 @@
-import type { AverageOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	AverageOperator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Average JSX Component

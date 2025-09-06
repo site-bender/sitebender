@@ -1,4 +1,3 @@
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 
 export type Props = Omit<JSX.LabelHTMLAttributes<HTMLLabelElement>, "id"> & {
@@ -24,7 +23,7 @@ export default function Radio({
 	const clss = [...classes, "radio"].join(" ")
 
 	return (
-		<label class={clss} id={id} {...props}>
+		<label class={clss} {...props}>
 			<span class="label-text">{label}</span>
 			<input
 				checked={checked}

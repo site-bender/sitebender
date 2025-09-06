@@ -29,8 +29,6 @@ export type InputSubmitElementAttributes = InputSubmitAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputSubmit element configuration object
  *
@@ -45,8 +43,10 @@ export type InputSubmitElementAttributes = InputSubmitAttributes & {
  * })
  * ```
  */
-const InputSubmit = Input("submit")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputSubmit = Input("submit")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputSubmit

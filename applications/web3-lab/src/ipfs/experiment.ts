@@ -3,7 +3,7 @@
  */
 
 console.log("🌐 IPFS RDF Storage Experiment")
-console.log("=" .repeat(50))
+console.log("=".repeat(50))
 
 // For this experiment, we'll use the IPFS HTTP API
 // Make sure IPFS daemon is running: ipfs daemon
@@ -39,27 +39,26 @@ async function addToIPFS(content: string): Promise<string | null> {
 		const formData = new FormData()
 		const blob = new Blob([content], { type: "text/turtle" })
 		formData.append("file", blob, "data.ttl")
-		
+
 		// Try local IPFS node first
 		const response = await fetch(`${IPFS_API}/api/v0/add`, {
 			method: "POST",
 			body: formData,
 		}).catch(() => null)
-		
+
 		if (response && response.ok) {
 			const result = await response.json()
 			return result.Hash
 		}
-		
+
 		console.log("⚠️ Local IPFS node not available")
 		console.log("💡 To use local IPFS:")
 		console.log("   1. Install IPFS: https://ipfs.tech/install/")
 		console.log("   2. Initialize: ipfs init")
 		console.log("   3. Start daemon: ipfs daemon")
-		
+
 		// For demo, we'll simulate with a hash
 		return "QmSimulated" + Math.random().toString(36).substring(7)
-		
 	} catch (error) {
 		console.error("Error adding to IPFS:", error)
 		return null
@@ -74,17 +73,17 @@ async function getFromIPFS(cid: string): Promise<string | null> {
 		// Try local node first
 		let response = await fetch(`${IPFS_API}/api/v0/cat?arg=${cid}`)
 			.catch(() => null)
-		
+
 		// Fallback to public gateway
 		if (!response || !response.ok) {
 			console.log("📡 Using public gateway...")
 			response = await fetch(`${IPFS_GATEWAY}${cid}`)
 		}
-		
+
 		if (response && response.ok) {
 			return await response.text()
 		}
-		
+
 		return null
 	} catch (error) {
 		console.error("Error retrieving from IPFS:", error)
@@ -99,14 +98,14 @@ async function pinContent(cid: string): Promise<boolean> {
 	try {
 		const response = await fetch(
 			`${IPFS_API}/api/v0/pin/add?arg=${cid}`,
-			{ method: "POST" }
+			{ method: "POST" },
 		)
-		
+
 		if (response.ok) {
 			console.log("📌 Content pinned successfully")
 			return true
 		}
-		
+
 		return false
 	} catch (error) {
 		console.log("📌 Pinning not available (requires local node)")
@@ -140,33 +139,33 @@ async function main() {
 	console.log("\n1️⃣ Adding RDF to IPFS...")
 	console.log("Content preview:")
 	console.log(sampleRDF.substring(0, 200) + "...")
-	
+
 	const cid = await addToIPFS(sampleRDF)
-	
+
 	if (cid) {
 		console.log(`\n✅ Content added to IPFS!`)
 		console.log(`   CID: ${cid}`)
 		console.log(`   Gateway URL: ${IPFS_GATEWAY}${cid}`)
-		
+
 		const metadata = createDatasetMetadata(cid, sampleRDF)
 		console.log("\n📊 Dataset Metadata:")
 		console.log(`   Size: ${metadata.size} bytes`)
 		console.log(`   Format: ${metadata.format}`)
 		console.log(`   Timestamp: ${metadata.timestamp.toISOString()}`)
-		
+
 		// Try to retrieve it back
 		console.log("\n2️⃣ Retrieving from IPFS...")
 		const retrieved = await getFromIPFS(cid)
-		
+
 		if (retrieved) {
 			console.log("✅ Content retrieved successfully!")
 			console.log(`   Matches original: ${retrieved === sampleRDF}`)
 		}
-		
+
 		// Try to pin it
 		console.log("\n3️⃣ Pinning content...")
 		await pinContent(cid)
-		
+
 		// Show how to use in Sitebender component
 		console.log("\n4️⃣ Integration with Sitebender:")
 		console.log("```tsx")
@@ -176,7 +175,7 @@ async function main() {
 		console.log(`  format="turtle"`)
 		console.log(`/>`)
 		console.log("```")
-		
+
 		// Show immutability
 		console.log("\n5️⃣ Content Addressing Benefits:")
 		console.log("   ✅ Immutable - content cannot be changed")
@@ -184,8 +183,8 @@ async function main() {
 		console.log("   ✅ Distributed - no single point of failure")
 		console.log("   ✅ Cacheable - same content, same address")
 	}
-	
-	console.log("\n" + "=" .repeat(50))
+
+	console.log("\n" + "=".repeat(50))
 	console.log("🎉 IPFS Experiment Complete!")
 	console.log("\nNext steps:")
 	console.log("- Try with larger RDF datasets")

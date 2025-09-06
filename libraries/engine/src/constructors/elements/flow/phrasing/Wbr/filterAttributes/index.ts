@@ -7,7 +7,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { WbrElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: WbrElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -42,5 +41,4 @@ export default function filterAttributes(attributes: WbrElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

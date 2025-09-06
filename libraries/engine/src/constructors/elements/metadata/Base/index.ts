@@ -36,7 +36,6 @@ export type BaseElementAttributes = BaseAttributes & NoAriaAttributes & {
  * Allows global attributes and validates href and target attributes
  */
 
-
 /**
  * Creates a Base element configuration object
  *

@@ -38,7 +38,7 @@ describe("sampleSize", () => {
 			const result = sampleSize(5)(input)
 			assertEquals(result.length, 5)
 			// All elements should be from original array
-			result.forEach(item => assert(input.includes(item)))
+			result.forEach((item) => assert(input.includes(item)))
 			// No duplicates
 			assertEquals(new Set(result).size, result.length)
 		})
@@ -49,14 +49,14 @@ describe("sampleSize", () => {
 			assertEquals(result.length, input.length)
 			// Should contain all original elements
 			assertEquals(new Set(result).size, input.length)
-			input.forEach(item => assert(result.includes(item)))
+			input.forEach((item) => assert(result.includes(item)))
 		})
 
 		it("should work with string arrays", () => {
 			const input = ["a", "b", "c", "d", "e"]
 			const result = sampleSize(3)(input)
 			assertEquals(result.length, 3)
-			result.forEach(item => assert(input.includes(item)))
+			result.forEach((item) => assert(input.includes(item)))
 			assertEquals(new Set(result).size, 3)
 		})
 
@@ -67,7 +67,7 @@ describe("sampleSize", () => {
 			const input = [obj1, obj2, obj3]
 			const result = sampleSize(2)(input)
 			assertEquals(result.length, 2)
-			result.forEach(item => assert(input.includes(item)))
+			result.forEach((item) => assert(input.includes(item)))
 			assertEquals(new Set(result).size, 2)
 		})
 
@@ -76,7 +76,7 @@ describe("sampleSize", () => {
 			const result = sampleSize(5)(input)
 			assertEquals(result.length, 5)
 			// Each sampled element should be from a specific position
-			result.forEach(item => assert(input.includes(item)))
+			result.forEach((item) => assert(input.includes(item)))
 		})
 
 		it("should handle NaN in arrays", () => {
@@ -96,7 +96,7 @@ describe("sampleSize", () => {
 		it("should be impure (different results on multiple calls)", () => {
 			const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 			const sampler = sampleSize(5)
-			
+
 			// Run multiple times and check for different results
 			const results = new Set()
 			for (let i = 0; i < 100; i++) {
@@ -138,8 +138,8 @@ describe("sampleSize", () => {
 					(arr, n) => {
 						const result = sampleSize(n)(arr)
 						return result.length <= n
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -151,8 +151,8 @@ describe("sampleSize", () => {
 					(arr, n) => {
 						const result = sampleSize(n)(arr)
 						return result.length <= arr.length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -165,8 +165,8 @@ describe("sampleSize", () => {
 						if (n === 0) return true // Skip n=0 case
 						const result = sampleSize(n)(arr)
 						return result.length === Math.min(n, arr.length)
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -177,9 +177,9 @@ describe("sampleSize", () => {
 					fc.nat({ max: 100 }),
 					(arr, n) => {
 						const result = sampleSize(n)(arr)
-						return result.every(item => arr.includes(item))
-					}
-				)
+						return result.every((item) => arr.includes(item))
+					},
+				),
 			)
 		})
 
@@ -194,8 +194,8 @@ describe("sampleSize", () => {
 						const result = sampleSize(n)(uniqueArr)
 						// Result should have no duplicates
 						return new Set(result).size === result.length
-					}
-				)
+					},
+				),
 			)
 		})
 
@@ -210,8 +210,8 @@ describe("sampleSize", () => {
 						const result2 = sampleSize(n)(arr)
 						// Both should return arrays of the same length
 						return result1.length === result2.length
-					}
-				)
+					},
+				),
 			)
 		})
 	})
@@ -225,7 +225,7 @@ describe("sampleSize", () => {
 
 			for (let i = 0; i < iterations; i++) {
 				const result = sampleSize(sampleCount)(input)
-				result.forEach(item => {
+				result.forEach((item) => {
 					counts.set(item, (counts.get(item) || 0) + 1)
 				})
 			}
@@ -234,11 +234,11 @@ describe("sampleSize", () => {
 			const expectedCount = (sampleCount / input.length) * iterations
 			const tolerance = expectedCount * 0.1 // 10% tolerance
 
-			input.forEach(item => {
+			input.forEach((item) => {
 				const count = counts.get(item) || 0
 				assert(
 					Math.abs(count - expectedCount) < tolerance,
-					`Element ${item} appeared ${count} times, expected ~${expectedCount}`
+					`Element ${item} appeared ${count} times, expected ~${expectedCount}`,
 				)
 			})
 		})
@@ -249,7 +249,7 @@ describe("sampleSize", () => {
 			const originalRandom = Math.random
 			let callCount = 0
 			const mockValues = [0.1, 0.5, 0.9]
-			
+
 			Math.random = () => {
 				const value = mockValues[callCount % mockValues.length]
 				callCount++
@@ -261,7 +261,7 @@ describe("sampleSize", () => {
 				const result = sampleSize(3)(input)
 				assertEquals(result.length, 3)
 				// Elements should be selected based on mock random values
-				result.forEach(item => assert(input.includes(item)))
+				result.forEach((item) => assert(input.includes(item)))
 			} finally {
 				Math.random = originalRandom
 			}
@@ -275,7 +275,7 @@ describe("sampleSize", () => {
 				const input = [1, 2, 3, 4, 5]
 				const result = sampleSize(3)(input)
 				assertEquals(result.length, 3)
-				result.forEach(item => assert(input.includes(item)))
+				result.forEach((item) => assert(input.includes(item)))
 			} finally {
 				Math.random = originalRandom
 			}
@@ -289,7 +289,7 @@ describe("sampleSize", () => {
 				const input = [1, 2, 3, 4, 5]
 				const result = sampleSize(3)(input)
 				assertEquals(result.length, 3)
-				result.forEach(item => assert(input.includes(item)))
+				result.forEach((item) => assert(input.includes(item)))
 			} finally {
 				Math.random = originalRandom
 			}

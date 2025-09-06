@@ -31,8 +31,6 @@ export type InputFileElementAttributes = InputFileAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputFile element configuration object
  *
@@ -49,8 +47,10 @@ export type InputFileElementAttributes = InputFileAttributes & {
  * })
  * ```
  */
-const InputFile = Input("file")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputFile = Input("file")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputFile

@@ -7,7 +7,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { DataElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: DataElementAttributes) {
-
 	const {
 		id,
 		value,
@@ -73,5 +72,4 @@ export default function filterAttributes(attributes: DataElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

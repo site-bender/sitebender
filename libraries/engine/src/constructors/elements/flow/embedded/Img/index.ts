@@ -31,7 +31,6 @@ export type ImgElementAttributes = ImageAttributes & ImageAriaAttributes & {
  * Allows global attributes and validates img-specific attributes
  */
 
-
 /**
  * Creates an Img element configuration object
  *
@@ -50,7 +49,9 @@ export type ImgElementAttributes = ImageAttributes & ImageAriaAttributes & {
  * ```
  */
 const Img = (attributes: Partial<ImgElementAttributes> = {}): ElementConfig => {
-	const { id, ...attribs } = filterAttributes(attributes as ImgElementAttributes)
+	const { id, ...attribs } = filterAttributes(
+		attributes as ImgElementAttributes,
+	)
 	const {
 		calculation,
 		dataset,

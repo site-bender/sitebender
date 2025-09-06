@@ -32,7 +32,6 @@ export type SourceElementAttributes = SourceAttributes & NoAriaAttributes & {
  * Allows global attributes and validates source-specific attributes
  */
 
-
 /**
  * Creates a Source element configuration object
  *

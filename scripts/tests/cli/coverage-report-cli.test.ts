@@ -27,7 +27,7 @@ Deno.test("coverage reporter CLI: produces report or 'No markers' and no stderr"
 	])
 	expect(
 		res.stdout.includes("No deno-coverage-ignore markers found.") ||
-		res.stdout.includes("=== "),
+			res.stdout.includes("=== "),
 	).toBe(true)
 	expect(res.stderr.trim().length).toBe(0)
 })
@@ -87,4 +87,3 @@ Deno.test("coverage reporter CLI: --help and --version", async () => {
 	expect(version.stdout.trim()).toBe("1.0.0")
 	expect(version.stderr.trim().length).toBe(0)
 })
-
