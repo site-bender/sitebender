@@ -8,20 +8,20 @@ import type { CoverageData } from "../parseLcovReport/index.ts"
  */
 export default function findUncoveredLines(
 	coverageData: CoverageData,
-	functionPath: string
+	functionPath: string,
 ): Array<number> {
-	const fileData = coverageData.files.find((file: CoverageData['files'][0]) => 
-		file.path.includes(functionPath) || 
+	const fileData = coverageData.files.find((file: CoverageData["files"][0]) =>
+		file.path.includes(functionPath) ||
 		functionPath.includes(file.path)
 	)
-	
+
 	if (!fileData) {
 		console.warn(`No coverage data found for ${functionPath}`)
 		return []
 	}
-	
+
 	return fileData.lines.details
-		.filter(lineDetail => lineDetail.hit === 0)
-		.map(lineDetail => lineDetail.line)
+		.filter((lineDetail) => lineDetail.hit === 0)
+		.map((lineDetail) => lineDetail.line)
 		.sort((a, b) => a - b)
 }

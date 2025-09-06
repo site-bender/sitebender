@@ -42,7 +42,8 @@ const generateBase58Uuid = (): string => {
 	}
 
 	// Base58 alphabet (Bitcoin alphabet - excludes 0, O, I, l)
-	const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	const alphabet =
+		"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 	// Convert bytes to big integer
 	let value = 0n

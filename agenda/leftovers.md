@@ -3,7 +3,7 @@
 This file lists items present in `agenda-old/` that haven’t been explicitly folded into the new `agenda/` docs yet. Each line references the source file and the topic to port.
 
 - agenda-old/charter.md — Project charter language; ensure a distilled charter appears in `agenda/README.md` and per-library overviews where relevant.
-- agenda-old/naming.md — Naming conventions and rationale; weave into Components and Engine docs (constructor naming, Is.*/Op.* patterns) and Toolkit guidance.
+- agenda-old/naming.md — Naming conventions and rationale; weave into Components and Engine docs (constructor naming, Is._/Op._ patterns) and Toolkit guidance.
 - agenda-old/plan_of_attack.md — Phased roadmap; most is reflected in Engine/Components planned, but verify temporal/comparator matrices and capability gates are fully captured.
 - agenda-old/testing.md — Testing strategy (unit, golden, E2E, a11y); cross-check that each agenda leaf’s planned section references relevant tests.
 - agenda-old/viz.md — Visualization adapters and container nodes; add explicit entries in Engine planned (viz nodes) and Components planned (Viz.* wrappers).

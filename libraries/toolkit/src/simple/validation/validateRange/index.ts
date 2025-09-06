@@ -153,11 +153,13 @@ const validateRange =
 			case "time":
 				// Convert time strings to comparable format
 				if (
-					typeof value !== "string" || !/^\d{2}:\d{2}(:\d{2})?$/.test(value)
+					typeof value !== "string" ||
+					!/^\d{2}:\d{2}(:\d{2})?$/.test(value)
 				) {
 					return createResult(
 						false,
-						messages.type || "Value must be a valid time (HH:MM or HH:MM:SS)",
+						messages.type ||
+							"Value must be a valid time (HH:MM or HH:MM:SS)",
 					)
 				}
 				break

@@ -45,7 +45,9 @@ export interface FinancialIncentiveProps {
 		| ReturnType<typeof AdministrativeAreaComponent>
 		| ReturnType<typeof GeoShapeComponent>
 		| ReturnType<typeof PlaceComponent>
-	eligibleWithSupplier?: Organization | ReturnType<typeof OrganizationComponent>
+	eligibleWithSupplier?:
+		| Organization
+		| ReturnType<typeof OrganizationComponent>
 	incentiveAmount?:
 		| LoanOrCredit
 		| QuantitativeValue

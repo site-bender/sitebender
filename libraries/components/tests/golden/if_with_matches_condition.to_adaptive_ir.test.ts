@@ -35,12 +35,18 @@ Deno.test("golden: If with Matches condition compiles comparator with pattern an
 			event: "Change",
 			children: If({
 				children: [
-					Condition({ children: condition }) as unknown as JSX.Element,
+					Condition({
+						children: condition,
+					}) as unknown as JSX.Element,
 					IfTrue({
-						children: Publish({ topic: "ok" }) as unknown as JSX.Element,
+						children: Publish({
+							topic: "ok",
+						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 					IfFalse({
-						children: Publish({ topic: "nope" }) as unknown as JSX.Element,
+						children: Publish({
+							topic: "nope",
+						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 				],
 			}) as unknown as JSX.Element,

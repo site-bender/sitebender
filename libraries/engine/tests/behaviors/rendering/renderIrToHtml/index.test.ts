@@ -15,10 +15,10 @@ describe("IR to HTML renderer behavior", () => {
 				tag: "div",
 				attrs: {
 					"data-user": "<script>alert('XSS')</script>",
-					"title": "Tom & Jerry's \"Adventure\"",
-					"onclick": "javascript:void(0)"
+					"title": 'Tom & Jerry\'s "Adventure"',
+					"onclick": "javascript:void(0)",
 				},
-				children: []
+				children: [],
 			}
 
 			const html = renderIrToHtml(maliciousNode)
@@ -39,21 +39,21 @@ describe("IR to HTML renderer behavior", () => {
 				v: "0.1.0",
 				id: "text-1",
 				kind: "text",
-				content: "<script>document.cookie</script>"
+				content: "<script>document.cookie</script>",
 			}
 
 			const ampersandTextNode: Node = {
 				v: "0.1.0",
 				id: "text-2",
 				kind: "text",
-				content: "Tom & Jerry"
+				content: "Tom & Jerry",
 			}
 
 			const quoteTextNode: Node = {
 				v: "0.1.0",
 				id: "text-3",
 				kind: "text",
-				content: "She said \"Hello\""
+				content: 'She said "Hello"',
 			}
 
 			const maliciousNode: Node = {
@@ -62,7 +62,7 @@ describe("IR to HTML renderer behavior", () => {
 				kind: "element",
 				tag: "p",
 				attrs: {},
-				children: [maliciousTextNode, ampersandTextNode, quoteTextNode]
+				children: [maliciousTextNode, ampersandTextNode, quoteTextNode],
 			}
 
 			const html = renderIrToHtml(maliciousNode)
@@ -87,9 +87,9 @@ describe("IR to HTML renderer behavior", () => {
 				attrs: {
 					type: "email",
 					name: "email",
-					required: true
+					required: true,
 				},
-				children: []
+				children: [],
 			}
 
 			const formNode: Node = {
@@ -99,9 +99,9 @@ describe("IR to HTML renderer behavior", () => {
 				tag: "form",
 				attrs: {
 					method: "POST",
-					action: "/submit"
+					action: "/submit",
 				},
-				children: [inputNode]
+				children: [inputNode],
 			}
 
 			const html = renderIrToHtml(formNode)
@@ -110,7 +110,7 @@ describe("IR to HTML renderer behavior", () => {
 			assertStringIncludes(html, '<form method="POST" action="/submit">')
 			assertStringIncludes(html, 'type="email"')
 			assertStringIncludes(html, 'required="true"')
-			assertStringIncludes(html, '<input')
+			assertStringIncludes(html, "<input")
 		})
 
 		it("properly handles self-closing elements", () => {
@@ -120,13 +120,13 @@ describe("IR to HTML renderer behavior", () => {
 				kind: "element",
 				tag: "br",
 				attrs: {},
-				children: []
+				children: [],
 			}
 
 			const html = renderIrToHtml(brNode)
 
 			// BEHAVIOR: Self-closing elements should use proper syntax
-			assertEquals(html, '<br />')
+			assertEquals(html, "<br />")
 		})
 	})
 
@@ -136,7 +136,7 @@ describe("IR to HTML renderer behavior", () => {
 				v: "0.1.0",
 				id: "text-id",
 				kind: "text",
-				content: "Hello World"
+				content: "Hello World",
 			}
 
 			const pNode: Node = {
@@ -145,7 +145,7 @@ describe("IR to HTML renderer behavior", () => {
 				kind: "element",
 				tag: "p",
 				attrs: {},
-				children: [textNode]
+				children: [textNode],
 			}
 
 			const nestedNode: Node = {
@@ -154,15 +154,15 @@ describe("IR to HTML renderer behavior", () => {
 				kind: "element",
 				tag: "div",
 				attrs: { class: "container" },
-				children: [pNode]
+				children: [pNode],
 			}
 
 			const html = renderIrToHtml(nestedNode)
 
 			// BEHAVIOR: Should maintain proper nesting structure
 			assertStringIncludes(html, '<div class="container">')
-			assertStringIncludes(html, '<p>Hello World</p>')
-			assertStringIncludes(html, '</div>')
+			assertStringIncludes(html, "<p>Hello World</p>")
+			assertStringIncludes(html, "</div>")
 		})
 
 		it("handles empty attributes and children gracefully", () => {
@@ -172,20 +172,22 @@ describe("IR to HTML renderer behavior", () => {
 				kind: "element",
 				tag: "div",
 				attrs: {},
-				children: []
+				children: [],
 			}
 
 			const html = renderIrToHtml(emptyNode)
 
 			// BEHAVIOR: Should render clean empty elements
-			assertEquals(html, '<div></div>')
+			assertEquals(html, "<div></div>")
 		})
 	})
 
 	describe("property-based validation", () => {
 		it("always produces valid HTML structure", () => {
 			fc.assert(fc.property(
-				fc.string({ minLength: 1, maxLength: 20 }).filter(s => /^[a-zA-Z][a-zA-Z0-9]*$/.test(s)),
+				fc.string({ minLength: 1, maxLength: 20 }).filter((s) =>
+					/^[a-zA-Z][a-zA-Z0-9]*$/.test(s)
+				),
 				fc.dictionary(fc.string(), fc.string()),
 				(tag: string, attrs: Record<string, string>) => {
 					const node: Node = {
@@ -194,7 +196,7 @@ describe("IR to HTML renderer behavior", () => {
 						kind: "element",
 						tag,
 						attrs,
-						children: []
+						children: [],
 					}
 
 					const html = renderIrToHtml(node)
@@ -203,8 +205,9 @@ describe("IR to HTML renderer behavior", () => {
 					const expectedStart = `<${tag.toLowerCase()}`
 					const expectedEnd = `</${tag.toLowerCase()}>`
 
-					return html.startsWith(expectedStart) && html.endsWith(expectedEnd)
-				}
+					return html.startsWith(expectedStart) &&
+						html.endsWith(expectedEnd)
+				},
 			))
 		})
 
@@ -216,7 +219,7 @@ describe("IR to HTML renderer behavior", () => {
 						v: "0.1.0",
 						id: "text-test-id",
 						kind: "text",
-						content: dangerousContent
+						content: dangerousContent,
 					}
 
 					const containerNode: Node = {
@@ -225,7 +228,7 @@ describe("IR to HTML renderer behavior", () => {
 						kind: "element",
 						tag: "div",
 						attrs: {},
-						children: [textNode]
+						children: [textNode],
 					}
 
 					const html = renderIrToHtml(containerNode)
@@ -238,7 +241,7 @@ describe("IR to HTML renderer behavior", () => {
 						return !content.includes("<") && !content.includes(">")
 					}
 					return true
-				}
+				},
 			))
 		})
 	})

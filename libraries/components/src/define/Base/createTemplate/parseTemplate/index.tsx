@@ -30,7 +30,10 @@ export default function parseTemplate(
 			const formatter = formatters[fnName]
 
 			if (!formatter) {
-				return [`{{${content}}}`, ...parseTemplate(remaining, data, formatters)]
+				return [
+					`{{${content}}}`,
+					...parseTemplate(remaining, data, formatters),
+				]
 			}
 
 			// Split arguments respecting quoted strings

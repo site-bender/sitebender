@@ -131,7 +131,9 @@ export interface VehicleProps {
 	weightTotal?:
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>
-	wheelbase?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	wheelbase?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type Vehicle = Thing & ProductProps & VehicleProps

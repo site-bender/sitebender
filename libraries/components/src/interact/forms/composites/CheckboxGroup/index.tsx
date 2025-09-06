@@ -59,7 +59,9 @@ export default function CheckboxGroup({
 			{options.map(
 				({ checked, id: cId, label: cLabel, value }: InputOption) => {
 					const checkboxId = `${cId || id}-${value}`
-					const describedBy = [legendId, help ? helpId : null].filter(Boolean)
+					const describedBy = [legendId, help ? helpId : null].filter(
+						Boolean,
+					)
 						.join(" ")
 					return (
 						<Checkbox

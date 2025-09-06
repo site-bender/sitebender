@@ -55,7 +55,11 @@ Deno.test("exponential: JSDoc examples", async (t) => {
 	await t.step("compound interest continuous", () => {
 		const continuousGrowth = (rate: number, time: number) =>
 			exponential(rate * time)
-		assertAlmostEquals(continuousGrowth(0.05, 10), 1.6487212707001282, 1e-10)
+		assertAlmostEquals(
+			continuousGrowth(0.05, 10),
+			1.6487212707001282,
+			1e-10,
+		)
 	})
 
 	await t.step("exponential decay", () => {
@@ -73,7 +77,11 @@ Deno.test("exponential: JSDoc examples", async (t) => {
 	await t.step("population growth", () => {
 		const population = (initial: number, rate: number, time: number) =>
 			initial * exponential(rate * time)
-		assertAlmostEquals(population(1000, 0.02, 25), 1648.7212707001282, 1e-10)
+		assertAlmostEquals(
+			population(1000, 0.02, 25),
+			1648.7212707001282,
+			1e-10,
+		)
 	})
 })
 
@@ -97,7 +105,11 @@ Deno.test("exponential: property-based testing", async (t) => {
 						return x > 700
 					}
 					const log = Math.log(exp)
-					return approximately(log, x, Math.max(1e-10, Math.abs(x) * 1e-14))
+					return approximately(
+						log,
+						x,
+						Math.max(1e-10, Math.abs(x) * 1e-14),
+					)
 				},
 			),
 			{ numRuns: 1000 },
@@ -124,7 +136,9 @@ Deno.test("exponential: property-based testing", async (t) => {
 					const expSum = exponential(a + b)
 					const expProduct = exponential(a) * exponential(b)
 
-					if (!Number.isFinite(expSum) || !Number.isFinite(expProduct)) {
+					if (
+						!Number.isFinite(expSum) || !Number.isFinite(expProduct)
+					) {
 						return true // Skip overflow cases
 					}
 
@@ -156,7 +170,10 @@ Deno.test("exponential: property-based testing", async (t) => {
 					const expDiff = exponential(a - b)
 					const expQuotient = exponential(a) / exponential(b)
 
-					if (!Number.isFinite(expDiff) || !Number.isFinite(expQuotient)) {
+					if (
+						!Number.isFinite(expDiff) ||
+						!Number.isFinite(expQuotient)
+					) {
 						return true // Skip overflow/underflow cases
 					}
 

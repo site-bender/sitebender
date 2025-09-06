@@ -180,7 +180,11 @@ export default function Timestamp({
 
 		// Add timezone abbreviation if not already included and requested
 		if (showZone && format !== "iso" && !formatOptions?.timeZoneName) {
-			const tzAbbr = getTimezoneAbbreviation(displayTimezone, date, locale)
+			const tzAbbr = getTimezoneAbbreviation(
+				displayTimezone,
+				date,
+				locale,
+			)
 			display += ` ${tzAbbr}`
 		}
 	}
@@ -199,7 +203,11 @@ export default function Timestamp({
 				{children({
 					display,
 					datetime,
-					timezone: getTimezoneAbbreviation(displayTimezone, date, locale),
+					timezone: getTimezoneAbbreviation(
+						displayTimezone,
+						date,
+						locale,
+					),
 				})}
 			</time>
 		)

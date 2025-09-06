@@ -94,7 +94,9 @@ export default function pickGlobalAttributes(
 
 	for (const [rawKey, value] of Object.entries(attributes)) {
 		const guard =
-			(globalAttributes as Record<string, (v: Value) => boolean>)[rawKey] ??
+			(globalAttributes as Record<string, (v: Value) => boolean>)[
+				rawKey
+			] ??
 				(globalAttributes as Record<string, (v: Value) => boolean>)[
 					rawKey.toLowerCase()
 				]
@@ -103,7 +105,8 @@ export default function pickGlobalAttributes(
 
 		if (guard && guard(value as Value)) {
 			if (
-				canonical === "style" && typeof value === "object" && value !== null
+				canonical === "style" && typeof value === "object" &&
+				value !== null
 			) {
 				;(result as Record<string, unknown>)["style"] = Object.entries(
 					value as Record<string, unknown>,

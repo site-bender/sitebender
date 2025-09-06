@@ -1,4 +1,4 @@
-import type { TestCase, FunctionSignature } from "../../types/index.ts"
+import type { FunctionSignature, TestCase } from "../../types/index.ts"
 import needsCurriedHandling from "../needsCurriedHandling/index.ts"
 import generateCurriedInputs from "../generateCurriedInputs/index.ts"
 import getExpectedOutputForInvalid from "../getExpectedOutputForInvalid/index.ts"
@@ -11,19 +11,23 @@ import getExpectedOutputForInvalid from "../getExpectedOutputForInvalid/index.ts
  */
 export default function transformTestCase(
 	testCase: TestCase,
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): TestCase {
 	if (!needsCurriedHandling(signature)) {
 		return testCase
 	}
-	
+
 	// Ensure we have enough inputs for all curry levels
-	const transformedInputs = generateCurriedInputs([...testCase.input], signature)
-	
+	const transformedInputs = generateCurriedInputs(
+		[...testCase.input],
+		signature,
+	)
+
 	return {
 		...testCase,
 		input: transformedInputs,
 		// Update expected output if needed
-		expectedOutput: testCase.expectedOutput ?? getExpectedOutputForInvalid(signature)
+		expectedOutput: testCase.expectedOutput ??
+			getExpectedOutputForInvalid(signature),
 	}
 }

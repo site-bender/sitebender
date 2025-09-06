@@ -18,11 +18,11 @@ import detectPatternType from "./detectPatternType/index.ts"
  * @returns Array of pattern-based test cases
  */
 export default function generateToolkitPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const patterns = detectPatternType(signature)
 	const tests: Array<TestCase> = []
-	
+
 	for (const pattern of patterns) {
 		switch (pattern) {
 			case "pipe":
@@ -48,6 +48,6 @@ export default function generateToolkitPatternTests(
 				break
 		}
 	}
-	
+
 	return tests
 }

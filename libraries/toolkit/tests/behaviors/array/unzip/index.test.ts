@@ -241,7 +241,9 @@ Deno.test("unzip: type inference", () => {
 		[false, { id: 2 }],
 	]
 	const result2 = unzip(booleanObjectPairs)
-	assertType<Has<typeof result2, [Array<boolean>, Array<{ id: number }>]>>(true)
+	assertType<Has<typeof result2, [Array<boolean>, Array<{ id: number }>]>>(
+		true,
+	)
 
 	// Mixed types
 	type User = { name: string }
@@ -282,8 +284,16 @@ Deno.test("unzip: property-based tests", () => {
 			(pairs) => {
 				const [first, second] = unzip(pairs)
 				pairs.forEach((pair, i) => {
-					assertEquals(first[i], pair[0], `first[${i}] should match pair[0]`)
-					assertEquals(second[i], pair[1], `second[${i}] should match pair[1]`)
+					assertEquals(
+						first[i],
+						pair[0],
+						`first[${i}] should match pair[0]`,
+					)
+					assertEquals(
+						second[i],
+						pair[1],
+						`second[${i}] should match pair[1]`,
+					)
 				})
 			},
 		),
@@ -326,7 +336,11 @@ Deno.test("unzip: property-based tests", () => {
 				// Unzip should recover original arrays
 				const [recovered1, recovered2] = unzip(pairs)
 				assertEquals(recovered1, trimmed1, "should recover first array")
-				assertEquals(recovered2, trimmed2, "should recover second array")
+				assertEquals(
+					recovered2,
+					trimmed2,
+					"should recover second array",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -341,12 +355,20 @@ Deno.test("unzip: property-based tests", () => {
 
 				// All first elements should be from position 0
 				first.forEach((elem, i) => {
-					assertEquals(elem, pairs[i][0], "first elements should match")
+					assertEquals(
+						elem,
+						pairs[i][0],
+						"first elements should match",
+					)
 				})
 
 				// All second elements should be from position 1
 				second.forEach((elem, i) => {
-					assertEquals(elem, pairs[i][1], "second elements should match")
+					assertEquals(
+						elem,
+						pairs[i][1],
+						"second elements should match",
+					)
 				})
 			},
 		),
@@ -389,7 +411,11 @@ Deno.test("unzip: real-world scenarios", () => {
 	const [timestamps, types] = unzip(events)
 
 	assertEquals(timestamps.length, 3, "should extract timestamps")
-	assertEquals(types, ["login", "view", "logout"], "should extract event types")
+	assertEquals(
+		types,
+		["login", "view", "logout"],
+		"should extract event types",
+	)
 
 	// Test scores and student IDs
 	const testResults: Array<[string, number]> = [

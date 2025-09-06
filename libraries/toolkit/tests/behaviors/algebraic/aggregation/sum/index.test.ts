@@ -27,7 +27,10 @@ Deno.test("sum", async (t) => {
 						}
 
 						// Check for special cases
-						if (numbers.includes(Infinity) && numbers.includes(-Infinity)) {
+						if (
+							numbers.includes(Infinity) &&
+							numbers.includes(-Infinity)
+						) {
 							return Number.isNaN(result)
 						}
 						if (numbers.includes(Infinity)) {
@@ -41,16 +44,23 @@ Deno.test("sum", async (t) => {
 						if (expected === 0) {
 							return Math.abs(result) < 1e-10
 						}
-						return approximately(result, expected, Math.abs(expected) * 1e-10)
+						return approximately(
+							result,
+							expected,
+							Math.abs(expected) * 1e-10,
+						)
 					},
 				),
 				{ numRuns: 1000 },
 			)
 		})
 
-		await t.step("should return additive identity (0) for empty array", () => {
-			assertEquals(sum([]), 0)
-		})
+		await t.step(
+			"should return additive identity (0) for empty array",
+			() => {
+				assertEquals(sum([]), 0)
+			},
+		)
 
 		await t.step("should return the value for single element array", () => {
 			fc.assert(
@@ -75,7 +85,9 @@ Deno.test("sum", async (t) => {
 					}),
 					(numbers) => {
 						const original = sum(numbers)
-						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
+						const shuffled = [...numbers].sort(() =>
+							Math.random() - 0.5
+						)
 						const reordered = sum(shuffled)
 
 						// Account for floating point accumulation differences
@@ -148,33 +160,45 @@ Deno.test("sum", async (t) => {
 			)
 		})
 
-		await t.step("should be distributive with scalar multiplication", () => {
-			fc.assert(
-				fc.property(
-					fc.array(fc.float({ noNaN: true, min: -100, max: 100 }), {
-						minLength: 1,
-						maxLength: 20,
-					}),
-					fc.float({ noNaN: true, min: -10, max: 10 }),
-					(numbers, scalar) => {
-						// scalar * sum(numbers) === sum(numbers.map(n => scalar * n))
-						const leftSide = scalar * sum(numbers)
-						const rightSide = sum(numbers.map((n) => scalar * n))
+		await t.step(
+			"should be distributive with scalar multiplication",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.array(
+							fc.float({ noNaN: true, min: -100, max: 100 }),
+							{
+								minLength: 1,
+								maxLength: 20,
+							},
+						),
+						fc.float({ noNaN: true, min: -10, max: 10 }),
+						(numbers, scalar) => {
+							// scalar * sum(numbers) === sum(numbers.map(n => scalar * n))
+							const leftSide = scalar * sum(numbers)
+							const rightSide = sum(
+								numbers.map((n) => scalar * n),
+							)
 
-						if (Number.isNaN(leftSide) || Number.isNaN(rightSide)) {
-							return Number.isNaN(leftSide) && Number.isNaN(rightSide)
-						}
+							if (
+								Number.isNaN(leftSide) ||
+								Number.isNaN(rightSide)
+							) {
+								return Number.isNaN(leftSide) &&
+									Number.isNaN(rightSide)
+							}
 
-						return approximately(
-							leftSide,
-							rightSide,
-							Math.abs(leftSide) * 1e-10 + 1e-10,
-						)
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+							return approximately(
+								leftSide,
+								rightSide,
+								Math.abs(leftSide) * 1e-10 + 1e-10,
+							)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 	})
 
 	await t.step("special values", async (t) => {
@@ -210,7 +234,10 @@ Deno.test("sum", async (t) => {
 
 		await t.step("should handle large numbers", () => {
 			assertEquals(sum([1000000, 2000000, 3000000]), 6000000)
-			assertEquals(sum([Number.MAX_SAFE_INTEGER, 0]), Number.MAX_SAFE_INTEGER)
+			assertEquals(
+				sum([Number.MAX_SAFE_INTEGER, 0]),
+				Number.MAX_SAFE_INTEGER,
+			)
 			assertEquals(sum([1e10, 2e10, 3e10]), 6e10)
 		})
 
@@ -243,13 +270,16 @@ Deno.test("sum", async (t) => {
 			assertEquals(Number.isNaN(sum(true as any)), true)
 		})
 
-		await t.step("should return NaN for arrays with non-numeric values", () => {
-			assertEquals(Number.isNaN(sum([1, "2", 3] as any)), true)
-			assertEquals(Number.isNaN(sum([1, null, 3] as any)), true)
-			assertEquals(Number.isNaN(sum([1, undefined, 3] as any)), true)
-			assertEquals(Number.isNaN(sum([1, {}, 3] as any)), true)
-			assertEquals(Number.isNaN(sum([1, [], 3] as any)), true)
-		})
+		await t.step(
+			"should return NaN for arrays with non-numeric values",
+			() => {
+				assertEquals(Number.isNaN(sum([1, "2", 3] as any)), true)
+				assertEquals(Number.isNaN(sum([1, null, 3] as any)), true)
+				assertEquals(Number.isNaN(sum([1, undefined, 3] as any)), true)
+				assertEquals(Number.isNaN(sum([1, {}, 3] as any)), true)
+				assertEquals(Number.isNaN(sum([1, [], 3] as any)), true)
+			},
+		)
 
 		await t.step("should return NaN for arrays containing NaN", () => {
 			assertEquals(Number.isNaN(sum([1, 2, NaN, 3, 4])), true)
@@ -298,7 +328,10 @@ Deno.test("sum", async (t) => {
 
 		await t.step("large numbers", () => {
 			assertEquals(sum([1000000, 2000000, 3000000]), 6000000)
-			assertEquals(sum([Number.MAX_SAFE_INTEGER, 0]), Number.MAX_SAFE_INTEGER)
+			assertEquals(
+				sum([Number.MAX_SAFE_INTEGER, 0]),
+				Number.MAX_SAFE_INTEGER,
+			)
 		})
 
 		await t.step("small numbers", () => {
@@ -399,7 +432,10 @@ Deno.test("sum", async (t) => {
 		})
 
 		await t.step("weighted sum helper", () => {
-			const weightedSum = (values: Array<number>, weights: Array<number>) => {
+			const weightedSum = (
+				values: Array<number>,
+				weights: Array<number>,
+			) => {
 				const products = values.map((v, i) => v * (weights[i] || 0))
 				return sum(products)
 			}

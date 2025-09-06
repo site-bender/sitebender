@@ -24,7 +24,9 @@ export interface SuiteProps {
 		| Number
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>
-	occupancy?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	occupancy?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type Suite = Thing & PlaceProps & AccommodationProps & SuiteProps

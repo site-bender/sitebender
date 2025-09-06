@@ -3,6 +3,7 @@
 ## The Problem
 
 Multiple AIs working on the same codebase create conflicts:
+
 - File collisions when editing the same files
 - Duplicate work on the same problems
 - Inconsistent approaches and standards
@@ -30,6 +31,7 @@ git checkout -b ai/documentation     # AI 5: Documentation generation
 ### 2. Task Division Rules
 
 #### By Library (RECOMMENDED APPROACH)
+
 ```
 AI 1: libraries/toolkit/ (test generator + core testing)
 AI 2: libraries/engine/ (reactive engine testing)
@@ -39,6 +41,7 @@ AI 5: Documentation & integration
 ```
 
 #### By Feature (Best for New Development)
+
 ```
 AI 1: Test generator core infrastructure
 AI 2: Property-based test generation
@@ -48,6 +51,7 @@ AI 5: Coverage validator and reporting
 ```
 
 #### By Layer (Best for Full-Stack)
+
 ```
 AI 1: Frontend components
 AI 2: Backend APIs
@@ -62,19 +66,24 @@ Each AI should create a status file in their workspace:
 
 ```markdown
 # AI Status: ai/toolkit-math
+
 ## Current Task
+
 Testing all functions in libraries/toolkit/src/simple/math/
 
 ## Progress
+
 - ✅ add/index.test.ts
 - ✅ subtract/index.test.ts
 - 🔄 multiply/index.test.ts (in progress)
 - ⏳ divide/index.test.ts (next)
 
 ## Blockers
+
 None
 
 ## Notes for Other AIs
+
 - Found issue with multiply function handling Infinity
 - Created shared test helper in tests/helpers/math.ts
 ```
@@ -112,6 +121,7 @@ git rebase main
 Given 5 AIs working in parallel on different libraries:
 
 #### AI 1: Toolkit Test Generator (Claude - CRITICAL PATH)
+
 ```
 Branch: ai/toolkit
 Location: Main repo or worktree at ../toolkit-ai
@@ -124,6 +134,7 @@ Primary Focus: libraries/toolkit/ and scripts/test-generator/
 ```
 
 #### AI 2: Engine Testing (Claude or GPT-4)
+
 ```
 Branch: ai/engine  
 Location: Worktree at ../engine-ai
@@ -136,6 +147,7 @@ Primary Focus: libraries/engine/
 ```
 
 #### AI 3: Components Testing (GPT-4)
+
 ```
 Branch: ai/components
 Location: Worktree at ../components-ai
@@ -148,6 +160,7 @@ Primary Focus: libraries/components/
 ```
 
 #### AI 4: Additional Toolkit Testing (GPT-4)
+
 ```
 Branch: ai/toolkit-extra
 Location: Worktree at ../toolkit-extra-ai
@@ -160,6 +173,7 @@ Primary Focus: libraries/toolkit/src/simple/
 ```
 
 #### AI 5: Documentation & Coordination (GPT-3.5 or Human)
+
 ```
 Branch: ai/documentation
 Location: Main repo

@@ -22,10 +22,10 @@
  * ```
  */
 export default function isEngineSourceFile(filePath: string): boolean {
-  // Only check files that start with 'engine/src/'
-  // Exclude toolkit files and any test files
-  return filePath.startsWith('engine/src/') &&
-         !filePath.includes('test') &&
-         !filePath.includes('spec') &&
-         !filePath.startsWith('toolkit/')
+	// Only check files that start with 'engine/src/'
+	// Exclude toolkit files and any test files
+	return filePath.startsWith("engine/src/") &&
+		!filePath.includes("test") &&
+		!filePath.includes("spec") &&
+		!filePath.startsWith("toolkit/")
 }

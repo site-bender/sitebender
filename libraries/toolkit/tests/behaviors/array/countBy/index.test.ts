@@ -112,11 +112,14 @@ Deno.test("countBy", async (t) => {
 		assertEquals(result, { 5: 4 })
 	})
 
-	await t.step("should handle function that returns string from number", () => {
-		const digitCount = (n: number) => n.toString().length.toString()
-		const result = countBy(digitCount)([1, 10, 100, 5, 50, 500])
-		assertEquals(result, { "1": 2, "2": 2, "3": 2 })
-	})
+	await t.step(
+		"should handle function that returns string from number",
+		() => {
+			const digitCount = (n: number) => n.toString().length.toString()
+			const result = countBy(digitCount)([1, 10, 100, 5, 50, 500])
+			assertEquals(result, { "1": 2, "2": 2, "3": 2 })
+		},
+	)
 
 	await t.step("should handle complex objects", () => {
 		const items = [
@@ -199,7 +202,10 @@ Deno.test("countBy", async (t) => {
 					(arr) => {
 						const result = countBy((x: number) => x)(arr)
 						const uniqueValues = [...new Set(arr)]
-						assertEquals(Object.keys(result).length, uniqueValues.length)
+						assertEquals(
+							Object.keys(result).length,
+							uniqueValues.length,
+						)
 					},
 				),
 			)

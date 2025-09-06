@@ -113,7 +113,12 @@ Deno.test("findLast - handles falsy values correctly", () => {
 	const result1 = findLast((n: number | null) => n === 0)([1, 0, 2, 0, 3])
 	assertEquals(result1, 0)
 
-	const result2 = findLast((n: number | null) => n === null)([1, null, 2, null])
+	const result2 = findLast((n: number | null) => n === null)([
+		1,
+		null,
+		2,
+		null,
+	])
 	assertEquals(result2, null)
 
 	const result3 = findLast((s: string) => s === "")([" ", "", "test", ""])
@@ -140,7 +145,9 @@ Deno.test("findLast - property: always returns last occurrence", () => {
 			fc.integer(),
 			(arr, target) => {
 				const arrWithTarget = [target, ...arr, target] // Ensure at least two occurrences
-				const result = findLast((n: number) => n === target)(arrWithTarget)
+				const result = findLast((n: number) => n === target)(
+					arrWithTarget,
+				)
 
 				if (result !== undefined) {
 					// Find the last index of the result
@@ -238,7 +245,13 @@ Deno.test("findLast - handles sparse arrays correctly", () => {
 })
 
 Deno.test("findLast - handles NaN values", () => {
-	const result1 = findLast((n: number) => Number.isNaN(n))([1, NaN, 2, NaN, 3])
+	const result1 = findLast((n: number) => Number.isNaN(n))([
+		1,
+		NaN,
+		2,
+		NaN,
+		3,
+	])
 	assertEquals(Number.isNaN(result1), true)
 
 	const result2 = findLast((n: number) => Number.isNaN(n))([1, 2, 3, 4])
@@ -259,7 +272,9 @@ Deno.test("findLast - handles complex predicates", () => {
 		{ value: 50, active: false, timestamp: 5 },
 	]
 
-	const result = findLast((item: Item) => item.active && item.value > 15)(items)
+	const result = findLast((item: Item) => item.active && item.value > 15)(
+		items,
+	)
 	assertEquals(result?.value, 40) // Last active item with value > 15
 })
 

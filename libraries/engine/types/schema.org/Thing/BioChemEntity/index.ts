@@ -34,8 +34,12 @@ export interface BioChemEntityProps {
 		| URL
 		| ReturnType<typeof MedicalConditionComponent>
 		| ReturnType<typeof PropertyValueComponent>
-	bioChemInteraction?: BioChemEntity | ReturnType<typeof BioChemEntityComponent>
-	bioChemSimilarity?: BioChemEntity | ReturnType<typeof BioChemEntityComponent>
+	bioChemInteraction?:
+		| BioChemEntity
+		| ReturnType<typeof BioChemEntityComponent>
+	bioChemSimilarity?:
+		| BioChemEntity
+		| ReturnType<typeof BioChemEntityComponent>
 	biologicalRole?: DefinedTerm | ReturnType<typeof DefinedTermComponent>
 	funding?: Grant | ReturnType<typeof GrantComponent>
 	hasBioChemEntityPart?:

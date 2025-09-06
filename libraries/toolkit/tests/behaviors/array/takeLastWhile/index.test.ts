@@ -204,7 +204,12 @@ Deno.test("takeLastWhile: special values", () => {
 
 	// Infinity handling
 	assertEquals(
-		takeLastWhile((x: number) => x === Infinity)([1, 2, Infinity, Infinity]),
+		takeLastWhile((x: number) => x === Infinity)([
+			1,
+			2,
+			Infinity,
+			Infinity,
+		]),
 		[Infinity, Infinity],
 		"should take trailing Infinity values",
 	)
@@ -298,7 +303,11 @@ Deno.test("takeLastWhile: property-based tests", () => {
 					const isSuffix = arr.slice(-result.length).every((v, i) =>
 						v === result[i]
 					)
-					assertEquals(isSuffix, true, "result should be a suffix of input")
+					assertEquals(
+						isSuffix,
+						true,
+						"result should be a suffix of input",
+					)
 				}
 			},
 		),
@@ -313,7 +322,11 @@ Deno.test("takeLastWhile: property-based tests", () => {
 				const predicate = (x: number) => x > 0
 				const result = takeLastWhile(predicate)(arr)
 				const allSatisfy = result.every(predicate)
-				assertEquals(allSatisfy, true, "all elements should satisfy predicate")
+				assertEquals(
+					allSatisfy,
+					true,
+					"all elements should satisfy predicate",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -378,7 +391,11 @@ Deno.test("takeLastWhile: property-based tests", () => {
 				if (result.length > 0) {
 					const startIndex = arr.length - result.length
 					const expected = arr.slice(startIndex)
-					assertEquals(result, expected, "should preserve order from original")
+					assertEquals(
+						result,
+						expected,
+						"should preserve order from original",
+					)
 				}
 			},
 		),
@@ -442,7 +459,14 @@ Deno.test("takeLastWhile: real-world scenarios", () => {
 	)
 
 	// File path components - get trailing segments without dots
-	const pathParts = ["home", "user", "documents", "project", "src", "index.ts"]
+	const pathParts = [
+		"home",
+		"user",
+		"documents",
+		"project",
+		"src",
+		"index.ts",
+	]
 	assertEquals(
 		takeLastWhile((part: string) => part.includes("."))(pathParts),
 		["index.ts"],

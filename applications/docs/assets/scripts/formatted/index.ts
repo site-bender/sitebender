@@ -19,13 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
 					.then((response) => response.json())
 					.then((POSTAL_CODES) => {
 						if (POSTAL_CODES[countryCode]) {
-							field.pattern = POSTAL_CODES[countryCode].pattern.replace(
-								/\\/g,
-								"\\\\",
+							field.pattern = POSTAL_CODES[countryCode].pattern
+								.replace(
+									/\\/g,
+									"\\\\",
+								)
+							const helpId = field.getAttribute(
+								"aria-describedby",
 							)
-							const helpId = field.getAttribute("aria-describedby")
 							if (helpId) {
-								const helpElement = document.getElementById(helpId)
+								const helpElement = document.getElementById(
+									helpId,
+								)
 
 								if (helpElement) {
 									helpElement.textContent =

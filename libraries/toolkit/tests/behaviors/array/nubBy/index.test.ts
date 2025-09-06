@@ -31,7 +31,11 @@ Deno.test("nubBy: deduplicates objects by property", () => {
 
 Deno.test("nubBy: handles numeric tolerance comparison", () => {
 	const approxEqual = (a: number, b: number) => Math.abs(a - b) < 0.1
-	assertEquals(nubBy(approxEqual)([1.0, 1.05, 1.5, 1.48, 2.0]), [1.0, 1.5, 2.0])
+	assertEquals(nubBy(approxEqual)([1.0, 1.05, 1.5, 1.48, 2.0]), [
+		1.0,
+		1.5,
+		2.0,
+	])
 	assertEquals(nubBy(approxEqual)([0.1, 0.15, 0.2, 0.25]), [0.1, 0.2])
 })
 
@@ -102,7 +106,10 @@ Deno.test("nubBy: allows reusing equality function", () => {
 		"apple",
 		"banana",
 	])
-	assertEquals(dedupeByFirstChar(["cat", "car", "dog", "door"]), ["cat", "dog"])
+	assertEquals(dedupeByFirstChar(["cat", "car", "dog", "door"]), [
+		"cat",
+		"dog",
+	])
 })
 
 Deno.test("nubBy: handles complex object comparison", () => {

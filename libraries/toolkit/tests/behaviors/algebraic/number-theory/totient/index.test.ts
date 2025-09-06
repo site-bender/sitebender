@@ -125,7 +125,10 @@ describe("totient", () => {
 					fc.integer({ min: 1, max: 100 }),
 					(n) => {
 						const divs = divisors(n)
-						const sum = divs.map((d) => totient(d)).reduce((a, b) => a + b, 0)
+						const sum = divs.map((d) => totient(d)).reduce(
+							(a, b) => a + b,
+							0,
+						)
 						return sum === n
 					},
 				),

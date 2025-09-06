@@ -15,8 +15,8 @@ export default function Tutorial() {
 		<body>
 			<h1>Engine Tutorial (JSX)</h1>
 			<p>
-				These behaviors are authored with JSX components and hydrated on the
-				client.
+				These behaviors are authored with JSX components and hydrated on
+				the client.
 			</p>
 
 			<label for="name">Your name</label>
@@ -26,7 +26,11 @@ export default function Tutorial() {
 			</p>
 
 			<form id="profile" data-ir-id="profile" action="/ignored-by-engine">
-				<input name="favorite" id="favorite" placeholder="Favorite thing" />
+				<input
+					name="favorite"
+					id="favorite"
+					placeholder="Favorite thing"
+				/>
 				<button type="submit">Save</button>
 			</form>
 

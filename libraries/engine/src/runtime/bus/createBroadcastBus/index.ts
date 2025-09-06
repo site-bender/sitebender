@@ -15,7 +15,8 @@ export default function createBroadcastBus(
 
 	if (
 		typeof globalThis === "undefined" ||
-		typeof (globalThis as { BroadcastChannel?: unknown }).BroadcastChannel ===
+		typeof (globalThis as { BroadcastChannel?: unknown })
+				.BroadcastChannel ===
 			"undefined"
 	) {
 		return local
@@ -38,7 +39,9 @@ export default function createBroadcastBus(
 			}
 			bc.postMessage(envelope)
 			if (typeof document !== "undefined") {
-				const event = new CustomEvent(`bus:${topic}`, { detail: envelope })
+				const event = new CustomEvent(`bus:${topic}`, {
+					detail: envelope,
+				})
 				document.dispatchEvent(event)
 			}
 		},
@@ -69,7 +72,11 @@ export default function createBroadcastBus(
 				},
 			) => handler(e)
 			const unsubLocal = typeof document !== "undefined"
-				? createLocalBus(document, source).subscribe<T>(topic, adapter, options)
+				? createLocalBus(document, source).subscribe<T>(
+					topic,
+					adapter,
+					options,
+				)
 				: () => {}
 			const onMessage = (
 				e: MessageEvent<

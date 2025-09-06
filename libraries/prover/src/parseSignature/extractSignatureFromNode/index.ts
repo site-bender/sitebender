@@ -16,7 +16,7 @@ import detectCurrying from "./detectCurrying/index.ts"
 export default function extractSignatureFromNode(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 	filePath: string,
-	checker: ts.TypeChecker
+	checker: ts.TypeChecker,
 ): FunctionSignature {
 	const name = extractFunctionName(node, filePath)
 	const parameters = extractParameters(node, checker)
@@ -24,10 +24,10 @@ export default function extractSignatureFromNode(
 	const generics = extractGenerics(node)
 	const isCurried = detectCurrying(node)
 	const isAsync = node.modifiers?.some(
-		(mod) => mod.kind === ts.SyntaxKind.AsyncKeyword
+		(mod) => mod.kind === ts.SyntaxKind.AsyncKeyword,
 	) ?? false
 	const isGenerator = !!node.asteriskToken
-	
+
 	return {
 		name,
 		path: filePath,

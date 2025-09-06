@@ -40,7 +40,8 @@ const sampleSize = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {
 	if (
-		isNullish(array) || !Array.isArray(array) || array.length === 0 || n <= 0
+		isNullish(array) || !Array.isArray(array) || array.length === 0 ||
+		n <= 0
 	) {
 		return []
 	}
@@ -60,7 +61,10 @@ const sampleSize = <T>(
 		const randomIndex = Math.floor(Math.random() * remaining.length)
 		selected.push(remaining[randomIndex])
 		return selectRandom(
-			[...remaining.slice(0, randomIndex), ...remaining.slice(randomIndex + 1)],
+			[
+				...remaining.slice(0, randomIndex),
+				...remaining.slice(randomIndex + 1),
+			],
 			count - 1,
 		)
 	}

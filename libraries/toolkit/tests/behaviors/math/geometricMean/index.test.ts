@@ -231,10 +231,18 @@ Deno.test("geometricMean - multiplicative property", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(10),
+				}),
 				{ minLength: 1, maxLength: 20 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.1),
+				max: Math.fround(10),
+			}),
 			(values, scale) => {
 				const originalGM = geometricMean(values)
 				const scaledValues = values.map((v) => v * scale)
@@ -252,7 +260,11 @@ Deno.test("geometricMean - product property", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(10),
+				}),
 				{ minLength: 2, maxLength: 10 },
 			),
 			(values) => {

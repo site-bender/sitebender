@@ -22,7 +22,7 @@ import runCoverageGate from "./runCoverageGate/index.ts"
 
 // Run the coverage gate if this script is executed directly
 if (import.meta.main) {
-  await runCoverageGate()
+	await runCoverageGate()
 }
 
 // Export for potential use as a module

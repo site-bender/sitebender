@@ -7,24 +7,28 @@ This changes EVERYTHING. Instead of 480 hours of manual test writing, we build a
 #### Week 1: Core Generator Infrastructure
 
 **Day 1-2: Type Signature Parser**
+
 - [ ] Parse TypeScript function signatures
 - [ ] Extract parameter types and return types
 - [ ] Identify generic type parameters
 - [ ] Detect optional parameters and defaults
 
 **Day 3-4: Property Test Generator**
+
 - [ ] Generate inputs based on types (number, string, array, etc.)
 - [ ] Create property assertions from signatures
 - [ ] Implement fast-check generators for all types
 - [ ] Add shrinking for minimal failing cases
 
 **Day 5-6: Algebraic Law Detector**
+
 - [ ] Identify function patterns (map-like, fold-like, monoid, etc.)
 - [ ] Map patterns to applicable laws
 - [ ] Generate law-based test suites
 - [ ] Create reusable law testers
 
 **Day 7: Integration & Validation**
+
 - [ ] Integrate components
 - [ ] Test on sample functions
 - [ ] Validate generated tests compile and run
@@ -33,30 +37,35 @@ This changes EVERYTHING. Instead of 480 hours of manual test writing, we build a
 #### Week 2: Coverage Guarantee System
 
 **Day 8-9: AST Parser for Branch Analysis**
+
 - [ ] Parse function implementations
 - [ ] Identify all conditional branches
 - [ ] Map code paths through function
 - [ ] Calculate inputs needed for each path
 
 **Day 10-11: Branch Coverage Generator**
+
 - [ ] Generate specific inputs for each branch
 - [ ] Handle null checks and type guards
 - [ ] Cover error paths and edge cases
 - [ ] Ensure every line is reached
 
 **Day 12: Coverage Validator**
+
 - [ ] Run tests with Deno coverage
 - [ ] Identify uncovered lines
 - [ ] Attempt additional test generation
 - [ ] Report truly unreachable code
 
 **Day 13: Automatic Ignore Injector**
+
 - [ ] Add `deno-coverage-ignore` to unreachable lines
 - [ ] Include specific reasons for each ignore
 - [ ] Generate coverage report
 - [ ] Validate 100% reported coverage
 
 **Day 14: Full Toolkit Run**
+
 - [ ] Run generator on all 874 functions
 - [ ] Fix any generator bugs found
 - [ ] Achieve 100% coverage
@@ -67,6 +76,7 @@ This changes EVERYTHING. Instead of 480 hours of manual test writing, we build a
 While the test generator runs, fix these easy issues:
 
 #### Immediate Fixes
+
 - [ ] Add Future type alias for Task
 - [ ] Consolidate type locations
 - [ ] Add missing Writer monad functions
@@ -74,6 +84,7 @@ While the test generator runs, fix these easy issues:
 - [ ] Add dependency injection to time functions
 
 #### Monadic Unification Prep
+
 - [ ] Document overlaps between Either/Result/Maybe
 - [ ] Design unified Result type
 - [ ] Plan migration strategy
@@ -84,12 +95,14 @@ While the test generator runs, fix these easy issues:
 Build the toolkit compiler for optimization and code generation.
 
 #### Week 3-4: Compiler Core
+
 - [ ] AST parser for toolkit functions
 - [ ] Dependency graph builder
 - [ ] Type inference engine
 - [ ] Code generation framework
 
 #### Week 5-6: Optimizations
+
 - [ ] Function composition fusion
 - [ ] Automatic memoization injection
 - [ ] Dead code elimination
@@ -97,6 +110,7 @@ Build the toolkit compiler for optimization and code generation.
 - [ ] Lazy evaluation transforms
 
 #### Generated Artifacts
+
 - [ ] Chainable layer (auto-generated from simple)
 - [ ] Derived functions (474 from 400 core)
 - [ ] Type definitions
@@ -106,6 +120,7 @@ Build the toolkit compiler for optimization and code generation.
 ### Phase 3: Mathematical Unification [2 weeks]
 
 #### Week 7: Monadic Consolidation
+
 - [ ] Implement unified Result<T, E> type
 - [ ] Migrate Either to Result
 - [ ] Make Maybe = Result<T, null>
@@ -113,6 +128,7 @@ Build the toolkit compiler for optimization and code generation.
 - [ ] Maintain backward compatibility
 
 #### Week 8: Function Reduction
+
 - [ ] Identify 400 core functions
 - [ ] Mark 474 as derivable
 - [ ] Implement derivation rules
@@ -122,12 +138,14 @@ Build the toolkit compiler for optimization and code generation.
 ### Phase 4: Living Documentation [2 weeks]
 
 #### Week 9: Documentation Engine
+
 - [ ] Extract examples from tests
 - [ ] Generate API docs from JSDoc
 - [ ] Build interactive playground
 - [ ] Create visual pipeline builder
 
 #### Week 10: Performance Dashboard
+
 - [ ] Benchmark all functions
 - [ ] Track bundle size impact
 - [ ] Memory usage profiling
@@ -137,27 +155,32 @@ Build the toolkit compiler for optimization and code generation.
 ### Success Metrics
 
 **Phase 0 Success:**
+
 - ✅ Test generator built and working
 - ✅ 100% test coverage achieved
 - ✅ All algebraic laws verified
 - ✅ Zero manual tests written
 
 **Phase 1 Success:**
+
 - ✅ All quick fixes completed
 - ✅ Type consolidation done
 - ✅ DI pattern consistent
 
 **Phase 2 Success:**
+
 - ✅ Compiler operational
 - ✅ Chainable layer generated
 - ✅ Optimizations measurable
 
 **Phase 3 Success:**
+
 - ✅ Monads unified
 - ✅ Functions reduced to core set
 - ✅ All derived functions working
 
 **Phase 4 Success:**
+
 - ✅ Living documentation online
 - ✅ Performance dashboard live
 - ✅ Examples auto-generated
@@ -175,6 +198,7 @@ Build the toolkit compiler for optimization and code generation.
 ### The Revolutionary Outcome
 
 By Week 11, we'll have:
+
 1. **100% tested toolkit** (via automation)
 2. **Optimizing compiler** (for performance)
 3. **Unified type system** (one mental model)

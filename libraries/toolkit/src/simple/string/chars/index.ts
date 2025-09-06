@@ -55,7 +55,8 @@ const chars = (
 	if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
 		try {
 			const segmenter =
-				new (Intl as unknown as { Segmenter: typeof Intl.Segmenter }).Segmenter(
+				new (Intl as unknown as { Segmenter: typeof Intl.Segmenter })
+					.Segmenter(
 					undefined,
 					{
 						granularity: "grapheme",

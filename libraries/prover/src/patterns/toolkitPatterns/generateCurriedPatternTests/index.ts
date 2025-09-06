@@ -10,13 +10,16 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of curry-specific test cases
  */
 export default function generateCurriedPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const tests: Array<TestCase> = []
 	const functionName = signature.name
-	
+
 	// For map-like functions (mapper function first, then array)
-	if (functionName === "map" || functionName === "filter" || functionName === "reduce") {
+	if (
+		functionName === "map" || functionName === "filter" ||
+		functionName === "reduce"
+	) {
 		// Simple identity law test for map
 		if (functionName === "map") {
 			tests.push({
@@ -34,7 +37,7 @@ export default function generateCurriedPatternTests(
 				}],
 			})
 		}
-		
+
 		// Partial application test
 		tests.push({
 			name: "partial application",
@@ -52,11 +55,12 @@ export default function generateCurriedPatternTests(
 				}`,
 			}],
 		})
-	}
-	// For triple curry (check more specific condition first)
-	else if (signature.parameters.length === 1 && 
-	         signature.returnType?.raw.includes("=>") &&
-	         signature.returnType?.raw.split("=>").length > 2) {
+	} // For triple curry (check more specific condition first)
+	else if (
+		signature.parameters.length === 1 &&
+		signature.returnType?.raw.includes("=>") &&
+		signature.returnType?.raw.split("=>").length > 2
+	) {
 		tests.push({
 			name: "triple curry",
 			description: "Three-parameter curry works correctly",
@@ -75,10 +79,11 @@ export default function generateCurriedPatternTests(
 				}`,
 			}],
 		})
-	}
-	// For binary curry (general case)
-	else if (signature.parameters.length === 1 && 
-	         signature.returnType?.raw.includes("=>")) {
+	} // For binary curry (general case)
+	else if (
+		signature.parameters.length === 1 &&
+		signature.returnType?.raw.includes("=>")
+	) {
 		tests.push({
 			name: "binary curry",
 			description: "Two-parameter curry works correctly",
@@ -96,6 +101,6 @@ export default function generateCurriedPatternTests(
 			}],
 		})
 	}
-	
+
 	return tests
 }

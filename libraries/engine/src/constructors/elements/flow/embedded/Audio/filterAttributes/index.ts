@@ -65,7 +65,9 @@ export default function filterAttributes(attributes: AudioElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(loop)) {

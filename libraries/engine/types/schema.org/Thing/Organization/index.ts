@@ -167,7 +167,10 @@ export interface OrganizationProps {
 		| CreativeWork
 		| URL
 		| ReturnType<typeof CreativeWorkComponent>
-	diversityStaffingReport?: Article | URL | ReturnType<typeof ArticleComponent>
+	diversityStaffingReport?:
+		| Article
+		| URL
+		| ReturnType<typeof ArticleComponent>
 	duns?: Text
 	email?: Text
 	employee?: Person | ReturnType<typeof PersonComponent>
@@ -213,7 +216,11 @@ export interface OrganizationProps {
 		| ReturnType<typeof InteractionCounterComponent>
 	isicV4?: Text
 	iso6523Code?: Text
-	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	keywords?:
+		| DefinedTerm
+		| Text
+		| URL
+		| ReturnType<typeof DefinedTermComponent>
 	knowsAbout?: Text | Thing | URL | ReturnType<typeof ThingComponent>
 	knowsLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	legalAddress?: PostalAddress | ReturnType<typeof PostalAddressComponent>

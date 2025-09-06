@@ -25,7 +25,11 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 	await t.step("property: (sqrt(x))² = x for non-negative x", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0),
+					max: Math.fround(1e6),
+				}),
 				(x) => {
 					const root = squareRoot(x)
 					if (Number.isNaN(root)) return true // Skip NaN
@@ -52,7 +56,11 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 							return Object.is(left, right)
 						}
 
-						return approximately(left, right, 1e-10 * Math.max(1, left))
+						return approximately(
+							left,
+							right,
+							1e-10 * Math.max(1, left),
+						)
 					},
 				),
 				{ numRuns: 1000 },
@@ -63,7 +71,11 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 	await t.step("property: sqrt(a/b) = sqrt(a) / sqrt(b) for a≥0, b>0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0),
+					max: Math.fround(1e6),
+				}),
 				fc.float({
 					noNaN: true,
 					min: Math.fround(0.001),
@@ -97,8 +109,16 @@ Deno.test("squareRoot - algebraic properties", async (t) => {
 	await t.step("property: monotonic increasing for x ≥ 0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
-				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0),
+					max: Math.fround(1e6),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0),
+					max: Math.fround(1e6),
+				}),
 				(a, b) => {
 					if (a <= b) {
 						return squareRoot(a) <= squareRoot(b)
@@ -214,7 +234,10 @@ Deno.test("squareRoot - JSDoc examples", async (t) => {
 		// Circle calculations
 		const radiusFromArea = (area: number) => squareRoot(area / Math.PI)
 		assertStrictEquals(radiusFromArea(Math.PI * 25), 5)
-		assertEquals(approximately(radiusFromArea(Math.PI * 100), 10, 1e-10), true)
+		assertEquals(
+			approximately(radiusFromArea(Math.PI * 100), 10, 1e-10),
+			true,
+		)
 
 		// Geometric mean of two numbers
 		const geometricMean = (a: number, b: number) => squareRoot(a * b)
@@ -251,7 +274,11 @@ Deno.test("squareRoot - special properties", async (t) => {
 		// sqrt(x) should equal x^0.5
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: Math.fround(0), max: Math.fround(1e6) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0),
+					max: Math.fround(1e6),
+				}),
 				(x) => {
 					const viaSqrt = squareRoot(x)
 					const viaPower = Math.pow(x, 0.5)

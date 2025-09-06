@@ -52,7 +52,8 @@ const omit = <T extends Record<string, Value>, K extends keyof T>(
 
 	return Object.entries(obj).reduce(
 		(acc, [key, value]) =>
-			!keys.includes(key as K) && Object.prototype.hasOwnProperty.call(obj, key)
+			!keys.includes(key as K) &&
+				Object.prototype.hasOwnProperty.call(obj, key)
 				? { ...acc, [key]: value }
 				: acc,
 		{} as Omit<T, K>,

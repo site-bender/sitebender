@@ -33,7 +33,11 @@ export default function Menu({ options, route, ...props }: Props) {
 								)
 								: href === route
 								? (
-									<span aria-current="page" class="this-page" {...idAttr}>
+									<span
+										aria-current="page"
+										class="this-page"
+										{...idAttr}
+									>
 										{label}
 									</span>
 								)

@@ -67,7 +67,8 @@ import isNullish from "../../validation/isNullish/index.ts"
  */
 const toZonedDateTime = (
 	timeZone: string,
-	disambiguation: "compatible" | "earlier" | "later" | "reject" = "compatible",
+	disambiguation: "compatible" | "earlier" | "later" | "reject" =
+		"compatible",
 ) =>
 (
 	temporal:
@@ -128,7 +129,9 @@ const toZonedDateTime = (
 					const datetime = date.toPlainDateTime(
 						Temporal.PlainTime.from("00:00:00"),
 					)
-					return datetime.toZonedDateTime(timeZone, { disambiguation })
+					return datetime.toZonedDateTime(timeZone, {
+						disambiguation,
+					})
 				} catch {
 					// Try to parse as ZonedDateTime and change timezone
 					try {

@@ -12,16 +12,24 @@ export default function InOrUp(props: Props) {
 			<header>
 				<h1 class="sr-only">Authentication</h1>
 			</header>
-			<Form action="/api/auth/sign-in-or-up" class="in-or-up-form" {...props}>
+			<Form
+				action="/api/auth/sign-in-or-up"
+				class="in-or-up-form"
+				{...props}
+			>
 				<FieldSet>
 					<legend>Sign in or up</legend>
 					<p>
-						If you are already a member, enter your email address and use the
-						<em>Sign In or Up</em> button to <strong>sign in</strong>.
+						If you are already a member, enter your email address
+						and use the
+						<em>Sign In or Up</em> button to{" "}
+						<strong>sign in</strong>.
 					</p>
 					<p>
-						Not yet a member? Enter the email address you will use for this
-						account, then use the <em>Sign In or Up</em> button to
+						Not yet a member? Enter the email address you will use
+						for this account, then use the <em>Sign In or Up</em>
+						{" "}
+						button to
 						<strong>sign up</strong>.
 					</p>
 					<EmailAddressField

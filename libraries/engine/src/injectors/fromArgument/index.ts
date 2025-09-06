@@ -25,7 +25,9 @@ const fromArgument = (
 
 	if (arg === null || arg === undefined) {
 		return Promise.resolve({
-			left: [Error("FromArgument")("FromArgument")("Argument is missing.")],
+			left: [
+				Error("FromArgument")("FromArgument")("Argument is missing."),
+			],
 		})
 	}
 
@@ -36,7 +38,9 @@ const fromArgument = (
 			isUndefined(numeric) || Number.isNaN(numeric)
 				? {
 					left: [
-						Error("FromArgument")("FromArgument")("Value is not a number."),
+						Error("FromArgument")("FromArgument")(
+							"Value is not a number.",
+						),
 					],
 				}
 				: { right: numeric },

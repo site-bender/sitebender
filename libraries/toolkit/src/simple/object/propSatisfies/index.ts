@@ -50,7 +50,10 @@ const propSatisfies = <V>(
 
 	// Check if property exists
 	if (
-		!Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)
+		!Object.prototype.hasOwnProperty.call(
+			obj as object,
+			key as string | symbol,
+		)
 	) {
 		return false
 	}

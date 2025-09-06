@@ -61,8 +61,14 @@ describe("Formula parsing properties", () => {
 								assertEquals(firstAddend2.tag, "Add")
 
 								// Second addend should be c
-								assertEquals(result1.value.addends[1], variables.c)
-								assertEquals(result2.value.addends[1], variables.c)
+								assertEquals(
+									result1.value.addends[1],
+									variables.c,
+								)
+								assertEquals(
+									result2.value.addends[1],
+									variables.c,
+								)
 							}
 						}
 					},
@@ -113,14 +119,22 @@ describe("Formula parsing properties", () => {
 								result2.value.tag === "Multiply"
 							) {
 								// First multiplier should be (x * y)
-								const firstMultiplier1 = result1.value.multipliers[0]
-								const firstMultiplier2 = result2.value.multipliers[0]
+								const firstMultiplier1 =
+									result1.value.multipliers[0]
+								const firstMultiplier2 =
+									result2.value.multipliers[0]
 								assertEquals(firstMultiplier1.tag, "Multiply")
 								assertEquals(firstMultiplier2.tag, "Multiply")
 
 								// Second multiplier should be z
-								assertEquals(result1.value.multipliers[1], variables.z)
-								assertEquals(result2.value.multipliers[1], variables.z)
+								assertEquals(
+									result1.value.multipliers[1],
+									variables.z,
+								)
+								assertEquals(
+									result2.value.multipliers[1],
+									variables.z,
+								)
 							}
 						}
 					},
@@ -155,7 +169,10 @@ describe("Formula parsing properties", () => {
 						assertEquals(result.value.tag, "Add")
 						if (result.value.tag === "Add") {
 							assertEquals(result.value.addends[0], variables.a)
-							assertEquals(result.value.addends[1], variables.zero)
+							assertEquals(
+								result.value.addends[1],
+								variables.zero,
+							)
 						}
 					}
 				}),
@@ -186,8 +203,14 @@ describe("Formula parsing properties", () => {
 					if (result.ok) {
 						assertEquals(result.value.tag, "Multiply")
 						if (result.value.tag === "Multiply") {
-							assertEquals(result.value.multipliers[0], variables.a)
-							assertEquals(result.value.multipliers[1], variables.one)
+							assertEquals(
+								result.value.multipliers[0],
+								variables.a,
+							)
+							assertEquals(
+								result.value.multipliers[1],
+								variables.one,
+							)
 						}
 					}
 				}),
@@ -304,7 +327,10 @@ describe("Formula parsing properties", () => {
 						assertEquals(result2.value.addends[0], elementVar.a)
 					}
 					if (result3.ok && result3.value.tag === "Add") {
-						assertEquals(result3.value.addends[0], localStorageVar.a)
+						assertEquals(
+							result3.value.addends[0],
+							localStorageVar.a,
+						)
 					}
 				}),
 			)

@@ -1,7 +1,8 @@
 const replaceElementFromDisplayCache = (id: string) => {
 	if (document) {
 		const slot = document.querySelector(`slot[name=${id}]`)
-		const element = document.__sbDisplayCache && document.__sbDisplayCache[id]
+		const element = document.__sbDisplayCache &&
+			document.__sbDisplayCache[id]
 
 		if (slot && element) {
 			slot.after(element)

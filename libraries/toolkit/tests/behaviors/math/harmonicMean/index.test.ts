@@ -216,7 +216,10 @@ Deno.test("harmonicMean - HM <= GM <= AM inequality", () => {
 				const hm = harmonicMean(values)
 				const am = values.reduce((a, b) => a + b, 0) / values.length
 				// Calculate geometric mean
-				const sumOfLogs = values.reduce((sum, v) => sum + Math.log(v), 0)
+				const sumOfLogs = values.reduce(
+					(sum, v) => sum + Math.log(v),
+					0,
+				)
 				const gm = Math.exp(sumOfLogs / values.length)
 
 				// Harmonic mean should be less than or equal to geometric mean
@@ -232,7 +235,11 @@ Deno.test("harmonicMean - reciprocal property", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(10),
+				}),
 				{ minLength: 1, maxLength: 20 },
 			),
 			(values) => {
@@ -253,10 +260,18 @@ Deno.test("harmonicMean - scaling property", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(10),
+				}),
 				{ minLength: 1, maxLength: 20 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.1),
+				max: Math.fround(10),
+			}),
 			(values, scale) => {
 				const originalHM = harmonicMean(values)
 				const scaledValues = values.map((v) => v * scale)

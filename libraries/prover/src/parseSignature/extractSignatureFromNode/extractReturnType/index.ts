@@ -12,17 +12,17 @@ import typeToTypeInfo from "../extractParameters/extractTypeInfo/typeToTypeInfo/
  */
 export default function extractReturnType(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
-	checker: ts.TypeChecker
+	checker: ts.TypeChecker,
 ): TypeInfo {
 	if (node.type) {
 		return extractTypeInfo(node.type, checker)
 	}
-	
+
 	const signature = checker.getSignatureFromDeclaration(node)
 	if (signature) {
 		const returnType = checker.getReturnTypeOfSignature(signature)
 		return typeToTypeInfo(returnType, checker)
 	}
-	
+
 	return { raw: "unknown", kind: TypeKind.Unknown }
 }

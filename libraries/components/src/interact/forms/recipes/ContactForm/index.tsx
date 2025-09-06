@@ -28,18 +28,29 @@ export default function ContactForm({
 	const messageId = `contact-message-${generateShortId()}`
 
 	return (
-		<Form method={method} action={action} includeContactFormMicrodata {...rest}>
+		<Form
+			method={method}
+			action={action}
+			includeContactFormMicrodata
+			{...rest}
+		>
 			<TextField
 				id={nameId}
 				name="name"
 				label="Your Name"
 				required
 				inputAttributes={{
-					"aria-describedby": errors.name ? `${nameId}-error` : undefined,
+					"aria-describedby": errors.name
+						? `${nameId}-error`
+						: undefined,
 				}}
 			/>
 			{errors.name
-				? <ErrorMessage id={`${nameId}-error`}>{errors.name}</ErrorMessage>
+				? (
+					<ErrorMessage id={`${nameId}-error`}>
+						{errors.name}
+					</ErrorMessage>
+				)
 				: null}
 
 			<EmailAddressField
@@ -49,11 +60,17 @@ export default function ContactForm({
 				required
 				inputAttributes={{
 					pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
-					"aria-describedby": errors.email ? `${emailId}-error` : undefined,
+					"aria-describedby": errors.email
+						? `${emailId}-error`
+						: undefined,
 				}}
 			/>
 			{errors.email
-				? <ErrorMessage id={`${emailId}-error`}>{errors.email}</ErrorMessage>
+				? (
+					<ErrorMessage id={`${emailId}-error`}>
+						{errors.email}
+					</ErrorMessage>
+				)
 				: null}
 
 			<TextField
@@ -63,7 +80,9 @@ export default function ContactForm({
 				isMultiline
 				required
 				textareaAttributes={{
-					"aria-describedby": errors.message ? `${messageId}-error` : undefined,
+					"aria-describedby": errors.message
+						? `${messageId}-error`
+						: undefined,
 				}}
 			/>
 			{errors.message

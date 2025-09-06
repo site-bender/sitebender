@@ -26,7 +26,8 @@ export default function Protagonist({
 }: Props): JSX.Element {
 	const ariaLabel = [
 		multiProtagonist ? "co-protagonist" : "protagonist",
-		journeyStage && `at ${(journeyStage as string).replace("-", " ")} stage`,
+		journeyStage &&
+		`at ${(journeyStage as string).replace("-", " ")} stage`,
 		arcType !== "growth" && `${arcType} arc`,
 	].filter(Boolean).join(", ")
 

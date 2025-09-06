@@ -175,10 +175,12 @@ const sortByAbsoluteTime = (timeZone: string = "UTC") =>
 			return 1
 		}
 		if (
-			a instanceof Temporal.ZonedDateTime && b instanceof Temporal.PlainDateTime
+			a instanceof Temporal.ZonedDateTime &&
+			b instanceof Temporal.PlainDateTime
 		) return -1
 		if (
-			a instanceof Temporal.PlainDateTime && b instanceof Temporal.ZonedDateTime
+			a instanceof Temporal.PlainDateTime &&
+			b instanceof Temporal.ZonedDateTime
 		) return 1
 
 		return 0

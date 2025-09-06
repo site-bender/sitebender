@@ -68,8 +68,10 @@ const mergeDeep = <T extends Record<string | symbol, Value>>(
 
 			// If both values are objects (but not arrays), merge them recursively
 			if (
-				srcValue && typeof srcValue === "object" && !Array.isArray(srcValue) &&
-				dstValue && typeof dstValue === "object" && !Array.isArray(dstValue)
+				srcValue && typeof srcValue === "object" &&
+				!Array.isArray(srcValue) &&
+				dstValue && typeof dstValue === "object" &&
+				!Array.isArray(dstValue)
 			) {
 				return {
 					...acc,

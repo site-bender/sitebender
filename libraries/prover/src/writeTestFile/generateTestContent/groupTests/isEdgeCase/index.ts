@@ -17,11 +17,11 @@ export default function isEdgeCase(test: TestCase): boolean {
 		"boundary",
 		"edge",
 	]
-	
+
 	const name = test.name.toLowerCase()
 	const description = test.description.toLowerCase()
-	
+
 	return edgeCaseKeywords.some(
-		(keyword) => name.includes(keyword) || description.includes(keyword)
+		(keyword) => name.includes(keyword) || description.includes(keyword),
 	)
 }

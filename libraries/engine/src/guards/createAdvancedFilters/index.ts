@@ -247,7 +247,8 @@ const ADVANCED_FILTERS = {
 			children?: readonly unknown[]
 		}
 		const tag = element.tag
-		return tag === "Source" || tag === "Track" || isPhrasingContent()(element)
+		return tag === "Source" || tag === "Track" ||
+			isPhrasingContent()(element)
 	},
 } as const
 

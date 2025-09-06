@@ -89,7 +89,12 @@ Deno.test("floor: integer property - floor always returns an integer", () => {
 Deno.test("floor: minimal distance property - 0 <= x - floor(x) <= 1", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e10, max: 1e10 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e10,
+				max: 1e10,
+			}),
 			(n) => {
 				const result = floor(n)
 				const distance = n - result
@@ -135,7 +140,8 @@ Deno.test("floor: relationship with ceiling - floor(x) + 1 >= ceiling(x) for any
 				const ceilResult = Math.ceil(n)
 
 				assertEquals(
-					floorResult === ceilResult || floorResult + 1 === ceilResult,
+					floorResult === ceilResult ||
+						floorResult + 1 === ceilResult,
 					true,
 					`floor(${n}) = ${floorResult} and ceil(${n}) = ${ceilResult} should differ by at most 1`,
 				)
@@ -150,7 +156,11 @@ Deno.test("floor: relationship with ceiling - floor(x) + 1 >= ceiling(x) for any
 // ===========================
 
 Deno.test("floor: special values", () => {
-	assertEquals(floor(Infinity), Infinity, "floor(Infinity) should be Infinity")
+	assertEquals(
+		floor(Infinity),
+		Infinity,
+		"floor(Infinity) should be Infinity",
+	)
 	assertEquals(
 		floor(-Infinity),
 		-Infinity,
@@ -275,7 +285,11 @@ Deno.test("floor: JSDoc examples - truncating to decimal places", () => {
 		9.999,
 		"Truncate 9.9999 to 3 decimals",
 	)
-	assertEquals(truncateDecimals(1.005, 2), 1.00, "Truncate 1.005 to 2 decimals")
+	assertEquals(
+		truncateDecimals(1.005, 2),
+		1.00,
+		"Truncate 1.005 to 2 decimals",
+	)
 })
 
 Deno.test("floor: JSDoc examples - random integer generation", () => {

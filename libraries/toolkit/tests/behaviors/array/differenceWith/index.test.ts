@@ -173,7 +173,8 @@ Deno.test("differenceWith", async (t) => {
 
 	await t.step("type safety", async (t) => {
 		await t.step("different types for minuend and subtrahend", () => {
-			const compareLengths = (str: string, num: number) => str.length === num
+			const compareLengths = (str: string, num: number) =>
+				str.length === num
 			const result = differenceWith(compareLengths)([2, 3])([
 				"a",
 				"bb",
@@ -185,12 +186,18 @@ Deno.test("differenceWith", async (t) => {
 
 		await t.step("complex object comparisons", () => {
 			type Person = { name: string; age: number }
-			type Filter = { minAge?: number; maxAge?: number; namePattern?: RegExp }
+			type Filter = {
+				minAge?: number
+				maxAge?: number
+				namePattern?: RegExp
+			}
 
 			const matchesFilter = (person: Person, filter: Filter) => {
 				if (filter.minAge && person.age < filter.minAge) return false
 				if (filter.maxAge && person.age > filter.maxAge) return false
-				if (filter.namePattern && !filter.namePattern.test(person.name)) {
+				if (
+					filter.namePattern && !filter.namePattern.test(person.name)
+				) {
 					return false
 				}
 				return true
@@ -240,30 +247,33 @@ Deno.test("differenceWith", async (t) => {
 			assertEquals(result2, ["simple", "test"])
 		})
 
-		await t.step("can be reused with same comparator and subtrahend", () => {
-			const byValue = (a: { val: number }, b: { val: number }) =>
-				a.val === b.val
-			const removeEvens = differenceWith(byValue)([
-				{ val: 2 },
-				{ val: 4 },
-				{ val: 6 },
-			])
+		await t.step(
+			"can be reused with same comparator and subtrahend",
+			() => {
+				const byValue = (a: { val: number }, b: { val: number }) =>
+					a.val === b.val
+				const removeEvens = differenceWith(byValue)([
+					{ val: 2 },
+					{ val: 4 },
+					{ val: 6 },
+				])
 
-			const result1 = removeEvens([
-				{ val: 1 },
-				{ val: 2 },
-				{ val: 3 },
-				{ val: 4 },
-			])
-			assertEquals(result1, [{ val: 1 }, { val: 3 }])
+				const result1 = removeEvens([
+					{ val: 1 },
+					{ val: 2 },
+					{ val: 3 },
+					{ val: 4 },
+				])
+				assertEquals(result1, [{ val: 1 }, { val: 3 }])
 
-			const result2 = removeEvens([
-				{ val: 5 },
-				{ val: 6 },
-				{ val: 7 },
-			])
-			assertEquals(result2, [{ val: 5 }, { val: 7 }])
-		})
+				const result2 = removeEvens([
+					{ val: 5 },
+					{ val: 6 },
+					{ val: 7 },
+				])
+				assertEquals(result2, [{ val: 5 }, { val: 7 }])
+			},
+		)
 	})
 
 	await t.step("property-based tests", async (t) => {

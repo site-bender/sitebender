@@ -75,7 +75,9 @@ export interface VideoGameSeriesProps {
 		| CreativeWorkSeason
 		| URL
 		| ReturnType<typeof CreativeWorkSeasonComponent>
-	seasons?: CreativeWorkSeason | ReturnType<typeof CreativeWorkSeasonComponent>
+	seasons?:
+		| CreativeWorkSeason
+		| ReturnType<typeof CreativeWorkSeasonComponent>
 	trailer?: VideoObject | ReturnType<typeof VideoObjectComponent>
 }
 

@@ -1,7 +1,20 @@
-import { assertEquals, assertStringIncludes } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { generateMarkdown, formatProperties } from "../../../src/generators/index.ts"
-import { extractSignature, extractDescription } from "../../../src/extractors/index.ts"
-import type { FunctionMetadata, FunctionSignature, Properties } from "../../../src/types/index.ts"
+import {
+	assertEquals,
+	assertStringIncludes,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	formatProperties,
+	generateMarkdown,
+} from "../../../src/generators/index.ts"
+import {
+	extractDescription,
+	extractSignature,
+} from "../../../src/extractors/index.ts"
+import type {
+	FunctionMetadata,
+	FunctionSignature,
+	Properties,
+} from "../../../src/types/index.ts"
 
 Deno.test("formatProperties - formats pure function badge", () => {
 	const properties: Properties = {
@@ -15,7 +28,7 @@ Deno.test("formatProperties - formats pure function badge", () => {
 		nullHandling: "unknown",
 		deterministic: true,
 	}
-	
+
 	const result = formatProperties(properties)
 	assertStringIncludes(result, "Pure")
 })
@@ -33,7 +46,7 @@ Deno.test("formatProperties - formats curried function badge", () => {
 		nullHandling: "unknown",
 		deterministic: false,
 	}
-	
+
 	const result = formatProperties(properties)
 	assertStringIncludes(result, "Curried (2 levels)")
 })
@@ -51,7 +64,7 @@ Deno.test("formatProperties - formats multiple badges", () => {
 		nullHandling: "unknown",
 		deterministic: true,
 	}
-	
+
 	const result = formatProperties(properties)
 	assertStringIncludes(result, "Pure")
 	assertStringIncludes(result, "Curried")
@@ -71,7 +84,7 @@ Deno.test("formatProperties - handles no detected properties", () => {
 		nullHandling: "unknown",
 		deterministic: false,
 	}
-	
+
 	const result = formatProperties(properties)
 	assertEquals(result, "None detected")
 })
@@ -89,7 +102,7 @@ Deno.test("extractSignature - formats standard function signature", () => {
 		isExported: true,
 		isDefault: false,
 	}
-	
+
 	const result = extractSignature(signature)
 	assertEquals(result, "add(x: number, y: number): number")
 })
@@ -106,7 +119,7 @@ Deno.test("extractSignature - formats curried function signature", () => {
 		isExported: true,
 		isDefault: true,
 	}
-	
+
 	const result = extractSignature(signature)
 	assertEquals(result, "add(x: number) => (y: number) => number")
 })
@@ -121,7 +134,7 @@ Deno.test("extractSignature - formats async function signature", () => {
 		isExported: false,
 		isDefault: false,
 	}
-	
+
 	const result = extractSignature(signature)
 	assertEquals(result, "async fetchData(): Promise<string>")
 })
@@ -141,7 +154,7 @@ Deno.test("extractSignature - formats generic function signature", () => {
 		isExported: true,
 		isDefault: false,
 	}
-	
+
 	const result = extractSignature(signature)
 	assertEquals(result, "identity<T extends string>(value: T): T")
 })
@@ -152,7 +165,7 @@ Deno.test("extractDescription - extracts single-line comment", () => {
 export default function add(x: number, y: number): number {
 	return x + y
 }`
-	
+
 	const result = extractDescription(source, 2)
 	assertEquals(result, "Adds two numbers together")
 })
@@ -162,7 +175,7 @@ Deno.test("extractDescription - returns undefined when no comment", () => {
 export default function add(x: number, y: number): number {
 	return x + y
 }`
-	
+
 	const result = extractDescription(source, 1)
 	assertEquals(result, undefined)
 })
@@ -202,9 +215,9 @@ Deno.test("generateMarkdown - generates complete documentation", () => {
 		],
 		relatedFunctions: ["subtract", "multiply", "divide"],
 	}
-	
+
 	const result = generateMarkdown(metadata)
-	
+
 	assertStringIncludes(result, "## add")
 	assertStringIncludes(result, "Adds two numbers")
 	assertStringIncludes(result, "Pure | Curried")
@@ -241,9 +254,9 @@ Deno.test("generateMarkdown - handles minimal metadata", () => {
 		laws: [],
 		relatedFunctions: [],
 	}
-	
+
 	const result = generateMarkdown(metadata)
-	
+
 	assertStringIncludes(result, "## noop")
 	assertStringIncludes(result, "No description provided")
 	assertStringIncludes(result, "noop(): void")

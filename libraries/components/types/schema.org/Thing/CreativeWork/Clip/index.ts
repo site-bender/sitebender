@@ -39,7 +39,10 @@ export interface ClipProps {
 	clipNumber?: Integer | Text
 	director?: Person | ReturnType<typeof PersonComponent>
 	directors?: Person | ReturnType<typeof PersonComponent>
-	endOffset?: HyperTocEntry | Number | ReturnType<typeof HyperTocEntryComponent>
+	endOffset?:
+		| HyperTocEntry
+		| Number
+		| ReturnType<typeof HyperTocEntryComponent>
 	musicBy?:
 		| MusicGroup
 		| Person

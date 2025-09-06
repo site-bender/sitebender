@@ -62,14 +62,18 @@ Deno.test("unfold: powers of 2", () => {
 Deno.test("unfold: string processing", () => {
 	// Parse string character by character
 	assertEquals(
-		unfold((s: string) => s.length > 0 ? [s[0], s.slice(1)] : null)("hello"),
+		unfold((s: string) => s.length > 0 ? [s[0], s.slice(1)] : null)(
+			"hello",
+		),
 		["h", "e", "l", "l", "o"],
 		"should parse string into characters",
 	)
 
 	// Parse in pairs
 	assertEquals(
-		unfold((s: string) => s.length >= 2 ? [s.slice(0, 2), s.slice(2)] : null)(
+		unfold((s: string) =>
+			s.length >= 2 ? [s.slice(0, 2), s.slice(2)] : null
+		)(
 			"abcdef",
 		),
 		["ab", "cd", "ef"],
@@ -219,7 +223,10 @@ Deno.test("unfold: factorial generation", () => {
 	assertEquals(
 		unfold((state: FactState) =>
 			state.n <= 5
-				? [state.fact, { n: state.n + 1, fact: state.fact * (state.n + 1) }]
+				? [state.fact, {
+					n: state.n + 1,
+					fact: state.fact * (state.n + 1),
+				}]
 				: null
 		)({ n: 0, fact: 1 }),
 		[1, 1, 2, 6, 24, 120],
@@ -279,7 +286,10 @@ Deno.test("unfold: type inference", () => {
 	type State = { value: string; count: number }
 	const mixed = unfold((state: State) =>
 		state.count < 3
-			? [state.value, { value: state.value + "!", count: state.count + 1 }]
+			? [state.value, {
+				value: state.value + "!",
+				count: state.count + 1,
+			}]
 			: null
 	)({ value: "hi", count: 0 })
 	assertType<Has<typeof mixed, Array<string>>>(true)
@@ -291,8 +301,14 @@ Deno.test("unfold: property-based tests", () => {
 		fc.property(
 			fc.integer({ min: 0, max: 100 }),
 			(n) => {
-				const result = unfold((i: number) => i < n ? [i, i + 1] : null)(0)
-				assertEquals(result.length, n, "length should equal iteration count")
+				const result = unfold((i: number) => i < n ? [i, i + 1] : null)(
+					0,
+				)
+				assertEquals(
+					result.length,
+					n,
+					"length should equal iteration count",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -303,9 +319,18 @@ Deno.test("unfold: property-based tests", () => {
 		fc.property(
 			fc.integer({ min: 1, max: 50 }),
 			(n) => {
-				const result = unfold((i: number) => i <= n ? [i * 2, i + 1] : null)(1)
-				const expected = Array.from({ length: n }, (_, i) => (i + 1) * 2)
-				assertEquals(result, expected, "values should match expected sequence")
+				const result = unfold((i: number) =>
+					i <= n ? [i * 2, i + 1] : null
+				)(1)
+				const expected = Array.from(
+					{ length: n },
+					(_, i) => (i + 1) * 2,
+				)
+				assertEquals(
+					result,
+					expected,
+					"values should match expected sequence",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -314,7 +339,9 @@ Deno.test("unfold: property-based tests", () => {
 	// Property: Empty result for null seed
 	fc.assert(
 		fc.property(
-			fc.func(fc.option(fc.tuple(fc.integer(), fc.integer()), { nil: null })),
+			fc.func(
+				fc.option(fc.tuple(fc.integer(), fc.integer()), { nil: null }),
+			),
 			(fn) => {
 				const result = unfold(fn)(null)
 				assertEquals(result, [], "null seed should produce empty array")
@@ -329,18 +356,28 @@ Deno.test("unfold: property-based tests", () => {
 			fc.integer({ min: 0, max: 20 }),
 			fc.integer({ min: 0, max: 100 }),
 			(limit, seed) => {
-				const result = unfold((n: number) => n < limit ? [n, n + 1] : null)(
+				const result = unfold((n: number) =>
+					n < limit ? [n, n + 1] : null
+				)(
 					seed,
 				)
 				if (seed >= limit) {
-					assertEquals(result, [], "should be empty when seed >= limit")
+					assertEquals(
+						result,
+						[],
+						"should be empty when seed >= limit",
+					)
 				} else {
 					assertEquals(
 						result.length,
 						limit - seed,
 						"length should be limit - seed",
 					)
-					assertEquals(result[0], seed, "first element should be seed")
+					assertEquals(
+						result[0],
+						seed,
+						"first element should be seed",
+					)
 					assertEquals(
 						result[result.length - 1],
 						limit - 1,
@@ -407,7 +444,9 @@ Deno.test("unfold: real-world scenarios", () => {
 
 	// Exponential backoff delays
 	assertEquals(
-		unfold((delay: number) => delay <= 8000 ? [delay, delay * 2] : null)(1000),
+		unfold((delay: number) => delay <= 8000 ? [delay, delay * 2] : null)(
+			1000,
+		),
 		[1000, 2000, 4000, 8000],
 		"should generate exponential backoff delays",
 	)

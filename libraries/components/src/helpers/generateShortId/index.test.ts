@@ -72,7 +72,10 @@ describe("generateShortId", () => {
 	describe("uniqueness properties", () => {
 		it("should generate unique IDs in a reasonable sample", () => {
 			const sampleSize = 1000
-			const ids = Array.from({ length: sampleSize }, () => generateShortId())
+			const ids = Array.from(
+				{ length: sampleSize },
+				() => generateShortId(),
+			)
 			const uniqueIds = new Set(ids)
 
 			expect(uniqueIds.size).toBe(sampleSize) // All should be unique
@@ -80,7 +83,10 @@ describe("generateShortId", () => {
 
 		it("should have high entropy", () => {
 			const sampleSize = 100
-			const ids = Array.from({ length: sampleSize }, () => generateShortId())
+			const ids = Array.from(
+				{ length: sampleSize },
+				() => generateShortId(),
+			)
 
 			// Check that we're using a good variety of characters
 			const allChars = ids.join("").split("")
@@ -120,7 +126,10 @@ describe("generateShortId", () => {
 
 		it("should have cryptographic randomness", () => {
 			const sampleSize = 1000
-			const ids = Array.from({ length: sampleSize }, () => generateShortId())
+			const ids = Array.from(
+				{ length: sampleSize },
+				() => generateShortId(),
+			)
 
 			// Statistical test: character distribution should be reasonably uniform
 			const charCounts = new Map<string, number>()
@@ -174,7 +183,10 @@ describe("generateShortId", () => {
 				fc.property(
 					fc.integer({ min: 1, max: 100 }),
 					(count) => {
-						const ids = Array.from({ length: count }, () => generateShortId())
+						const ids = Array.from(
+							{ length: count },
+							() => generateShortId(),
+						)
 
 						ids.forEach((id) => {
 							expect(typeof id).toBe("string")
@@ -185,7 +197,9 @@ describe("generateShortId", () => {
 							const withoutUnderscore = id.slice(1)
 							const validChars =
 								/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/
-							expect(validChars.test(withoutUnderscore)).toBe(true)
+							expect(validChars.test(withoutUnderscore)).toBe(
+								true,
+							)
 						})
 					},
 				),
@@ -248,7 +262,10 @@ describe("generateShortId", () => {
 		it("should have extremely low collision probability", () => {
 			// Test with a larger sample to verify collision resistance
 			const largeSample = 10000
-			const ids = Array.from({ length: largeSample }, () => generateShortId())
+			const ids = Array.from(
+				{ length: largeSample },
+				() => generateShortId(),
+			)
 			const uniqueIds = new Set(ids)
 
 			// With crypto.randomUUID(), collisions should be virtually impossible

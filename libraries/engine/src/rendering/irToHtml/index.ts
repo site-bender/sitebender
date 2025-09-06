@@ -36,7 +36,7 @@ async function renderNode(node: Node, ctx: ComposeContext): Promise<string> {
 			// For injectors/operators/comparators/conditionals/actions: evaluate and stringify
 			try {
 				const val = await evaluate(node, ctx)
-				        if (val === null || val === undefined) return ""
+				if (val === null || val === undefined) return ""
 				return escapeHtml(val)
 			} catch {
 				return ""

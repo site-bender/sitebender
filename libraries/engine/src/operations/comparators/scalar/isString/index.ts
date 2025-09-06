@@ -24,9 +24,11 @@ async (
 		return operand
 	}
 
-	return isStr(operand.right as Value)
-		? { right: true }
-		: { left: [Error(op.tag)("IsString")(`${operand.right} is not a string.`)] }
+	return isStr(operand.right as Value) ? { right: true } : {
+		left: [
+			Error(op.tag)("IsString")(`${operand.right} is not a string.`),
+		],
+	}
 }
 
 export default isString

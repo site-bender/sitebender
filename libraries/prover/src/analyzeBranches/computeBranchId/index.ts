@@ -12,7 +12,7 @@
 export default function computeBranchId(
 	type: string,
 	nodeIndex: number,
-	branchIndex: number
+	branchIndex: number,
 ): string {
 	return `${type}_${nodeIndex}_${branchIndex}`
 }

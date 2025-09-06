@@ -16,7 +16,10 @@ declare const Deno: {
 }
 
 Deno.test("intrinsic element with single text child", () => {
-	const vnode = jsx("div", { id: "a", children: "Hello" }) as { type: string; props: Record<string, unknown> }
+	const vnode = jsx("div", { id: "a", children: "Hello" }) as {
+		type: string
+		props: Record<string, unknown>
+	}
 	assert(vnode)
 	assertEquals(vnode.type, "div")
 	assertEquals(vnode.props.id, "a")
@@ -29,7 +32,10 @@ Deno.test("intrinsic element with multiple children", () => {
 	}) as { type: string; props: Record<string, unknown> }
 	assertEquals(vnode.type, "ul")
 	assert(Array.isArray(vnode.props.children))
-	const kids = vnode.props.children as { type: string; props: Record<string, unknown> }[]
+	const kids = vnode.props.children as {
+		type: string
+		props: Record<string, unknown>
+	}[]
 	assertEquals(kids.length, 2)
 	assertEquals(kids[0].type, "li")
 	assertEquals(kids[0].props.children, "A")
@@ -39,7 +45,10 @@ Deno.test("function component returns intrinsic vnode", () => {
 	function Mini(props: { label: string }) {
 		return jsx("span", { children: props.label })
 	}
-	const out = jsx(Mini, { label: "X" }) as { type: string; props: Record<string, unknown> }
+	const out = jsx(Mini, { label: "X" }) as {
+		type: string
+		props: Record<string, unknown>
+	}
 	assertEquals(out.type, "span")
 	assertEquals(out.props.children, "X")
 })

@@ -7,16 +7,16 @@ import type { Generic } from "../../../types/index.ts"
  * @returns Array of generic type information
  */
 export default function extractGenerics(
-	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction
+	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 ): Array<Generic> {
 	if (!node.typeParameters) {
 		return []
 	}
-	
+
 	return node.typeParameters.map((param) => {
 		const name = param.name.text
 		const constraint = param.constraint?.getText()
-		
+
 		return {
 			name,
 			constraint,

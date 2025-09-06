@@ -44,7 +44,9 @@ export interface MediaObjectProps {
 		| ReturnType<typeof DurationComponent>
 		| ReturnType<typeof QuantitativeValueComponent>
 	embedUrl?: URL
-	encodesCreativeWork?: CreativeWork | ReturnType<typeof CreativeWorkComponent>
+	encodesCreativeWork?:
+		| CreativeWork
+		| ReturnType<typeof CreativeWorkComponent>
 	encodingFormat?: Text | URL
 	endTime?: DateTime | Time
 	height?:

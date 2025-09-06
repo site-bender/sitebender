@@ -1,11 +1,13 @@
 # Naming & Vocabulary (Draft)
 
 Purpose
+
 - Lock names before v1 to avoid churn; prefer natural language over dev-isms.
 - Provide a single source of truth for namespaces, component names, and aliases.
 - Track decisions with checkboxes; use this doc to gate new surface area.
 
 Principles
+
 - Natural language first: readable by non-coders.
 - One meaning per word: avoid overloading terms.
 - Consistent namespace grammar: Injectors (From), Comparators (Is), Events (When), Actions (bare verbs), Operators (plain verbs) [no to Op in docs], Data (Vault/Collection/Field/Item) [no to Data].
@@ -13,9 +15,10 @@ Principles
 - Stability: once marked "Approved", treat as frozen.
 
 Status keys
-- [ ] Proposed  - needs discussion
-- [~] Ready     - agreed in principle, pending implementation
-- [x] Approved  - canonical, frozen for v1
+
+- [ ] Proposed - needs discussion
+- [~] Ready - agreed in principle, pending implementation
+- [x] Approved - canonical, frozen for v1
 
 ## Namespaces (canonical)
 
@@ -69,7 +72,6 @@ Status keys
     - [x] Publish
   - [ ] SaveItem, DeleteItem (adapter-backed)
     - [ ] SPARQLUpdate (guarded capability)
-  
 
 - Operators (pure transforms)
   - Namespace: `Op.*` (pending rename consideration)
@@ -100,6 +102,7 @@ Status keys
     - [~] Approve
 
 ## Aliasing & Migration Policy
+
 - Allowed aliases: `On.*` for events (ergonomic alternative to `When.*`), and other aliases that provide genuinely different authoring ergonomics.
 - Not allowed: back-compat-only aliases for names we’ve decided to change; we’ll make breaking changes during development with no deprecation scaffolding.
 - Comparators: `Is.*` is canonical. If an alias exists (e.g., `When.*` wrappers), it’s for authoring ergonomics only, not to preserve old names. We may remove such aliases at any time before v1.
@@ -126,6 +129,7 @@ Status keys
   - [~] Manual `Form.*` sugar names approved [see above]
 
 ## Mapping cheat-sheet (for authors)
+
 - When.Clicked ≡ On.Click
 - When.Submitted ≡ On.Submit
 - When.GainedFocus ≡ On.Focus (alias: When.Focused)
@@ -138,16 +142,20 @@ Status keys
 <!-- No optional action namespace aliases (e.g., Run.*) — if optional, no one will use it. -->
 
 ## Open questions
+
 - Should Control slots (Condition/IfTrue/IfFalse) be renamed to When/Then/Else for readability? Potential collision with Events namespace. [NO]
 - Should Operators move away from `Op.*` to plain verbs to better match natural language? [YES]
 - Do we want `Action` verbs to be more descriptive (e.g., `Act.Show`, `Act.Hide`, `Act.NavigateTo`)? [Maybe … let's talk]
 
 ## Next steps
-1) Approve namespaces (checkboxes above), then cut an implementation issue list:
+
+1. Approve namespaces (checkboxes above), then cut an implementation issue list:
    - Rename comparator wrappers to `Is.*`; keep `When.*` aliases with strict-mode warnings.
-  - Add `When.*` event wrappers (use GainedFocus/LostFocus); keep `On.*` aliases.
-  - Add `From.Store` marker (no-op wrapper initially).
-  - Add `From.SPARQL` injector and (guarded) `SPARQLUpdate` action.
-  - Wire `<Form collection="…">` to Vault IR; define optional manual `Form.*` sugars.
-2) Update apps/docs examples to prefer `Is.*` and `When.*`.
-3) Add lint rules to ban unapproved names and to surface deprecations.
+
+- Add `When.*` event wrappers (use GainedFocus/LostFocus); keep `On.*` aliases.
+- Add `From.Store` marker (no-op wrapper initially).
+- Add `From.SPARQL` injector and (guarded) `SPARQLUpdate` action.
+- Wire `<Form collection="…">` to Vault IR; define optional manual `Form.*` sugars.
+
+2. Update apps/docs examples to prefer `Is.*` and `When.*`.
+3. Add lint rules to ban unapproved names and to surface deprecations.

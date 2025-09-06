@@ -15,7 +15,9 @@ type FormatterFn = (
 const format: FormatterFn = (operation) => {
 	switch (operation.tag) {
 		case "AsMonetaryAmount":
-			return asMonetaryAmount(operation as { operand: unknown }) as unknown as (
+			return asMonetaryAmount(
+				operation as { operand: unknown },
+			) as unknown as (
 				value: Value,
 			) => unknown
 		default:

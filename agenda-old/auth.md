@@ -45,7 +45,6 @@ This document proposes a minimal, composable design for authentication and autho
     | { allow: true }
     | { redirect: string }
     | { status: 401 | 403 }
-  >
 
 - Error modes
   - Missing/invalid credentials → anonymous principal → policies evaluate to false.
@@ -66,8 +65,8 @@ Note: These wrappers are proposed authoring components that compile to the Engin
 ### Authenticated guard for a section
 
 ```tsx
-<When.Authenticated fallback={<Redirect to="/login" />}> 
-  <Section.SecureDashboard />
+<When.Authenticated fallback={<Redirect to="/login" />}>
+	<Section.SecureDashboard />
 </When.Authenticated>
 ```
 
@@ -76,8 +75,11 @@ Note: These wrappers are proposed authoring components that compile to the Engin
 ### Role/scopes-based authorization
 
 ```tsx
-<When.Authorized policy={When.HasAnyRole(["Admin", "Manager"]) } fallback={<Notice.Forbidden />}> 
-  <Admin.Tools />
+<When.Authorized
+	policy={When.HasAnyRole(["Admin", "Manager"])}
+	fallback={<Notice.Forbidden />}
+>
+	<Admin.Tools />
 </When.Authorized>
 ```
 
@@ -85,13 +87,13 @@ Note: These wrappers are proposed authoring components that compile to the Engin
 
 ```tsx
 <When.Authorized
-  policy={When.And(
-    When.HasRole("Manager"),
-    When.InOrg({ userPath: "user.orgId", resourcePath: "org.id" })
-  )}
-  fallback={<Notice.Forbidden />}
+	policy={When.And(
+		When.HasRole("Manager"),
+		When.InOrg({ userPath: "user.orgId", resourcePath: "org.id" }),
+	)}
+	fallback={<Notice.Forbidden />}
 >
-  <Org.Settings />
+	<Org.Settings />
 </When.Authorized>
 ```
 
@@ -99,10 +101,10 @@ Note: These wrappers are proposed authoring components that compile to the Engin
 
 ```tsx
 <When.Authorized
-  policy={When.IsOwner({ by: "user.id", of: "project.ownerId" })}
-  fallback={<Notice.Forbidden />}
+	policy={When.IsOwner({ by: "user.id", of: "project.ownerId" })}
+	fallback={<Notice.Forbidden />}
 >
-  <Project.Edit />
+	<Project.Edit />
 </When.Authorized>
 ```
 
@@ -149,8 +151,13 @@ The runtime provides a tiny helper to evaluate an auth policy and return an SSR-
 import { createComposeContext } from "@engineSrc/context/composeContext/index.ts"
 import { guardRoute } from "@engineSrc/runtime/guard/index.ts"
 
-const ctx = createComposeContext({ env: "server", localValues: { user: { id: 1 } } })
-const decision = await guardRoute(ctx, "IsAuthenticated", undefined, { redirect: "/login" })
+const ctx = createComposeContext({
+	env: "server",
+	localValues: { user: { id: 1 } },
+})
+const decision = await guardRoute(ctx, "IsAuthenticated", undefined, {
+	redirect: "/login",
+})
 // -> { allow: true } or { redirect: "/login" } or { status: 401|403 }
 ```
 
@@ -166,19 +173,19 @@ const decision = await guardRoute(ctx, "IsAuthenticated", undefined, { redirect:
 
 ## Incremental Implementation Plan
 
-1) Types (@engineTypes)
+1. Types (@engineTypes)
    - IdentityClaims, TokenMeta, Policy (tag: "Authorize").
-2) Injector
+2. Injector
    - On.FromRequestAuth(adapter) → `LocalValues.user`.
-3) Policy Ops
+3. Policy Ops
    - On.IsAuthenticated, On.HasRole, On.HasAnyRole, On.HasAllScopes, On.InOrg, On.IsOwner.
-4) Authoring Wrappers
+4. Authoring Wrappers
    - When.RequireAuth, When.Authorize, and basic When.HasRole/HasAnyRole wrappers for composition.
-5) Guard + Effects
+5. Guard + Effects
    - SSR guard helper and simple Redirect/Status effects.
-6) Adapters
+6. Adapters
    - JWT-cookie adapter (baseline), stubs for session and OAuth.
-7) Tests + Demo
+7. Tests + Demo
    - Unit tests for policy evaluation, adapter validation, and guard; small protected-example route.
 
 ## Edge Cases

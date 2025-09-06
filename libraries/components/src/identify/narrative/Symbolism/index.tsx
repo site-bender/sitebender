@@ -60,7 +60,9 @@ export default function Symbolism({
 			{...props}
 			{...dataAttributes}
 			class={`symbolism ${props.class || ""}`}
-			aria-label={represents ? `Symbol representing ${represents}` : undefined}
+			aria-label={represents
+				? `Symbol representing ${represents}`
+				: undefined}
 		>
 			{children}
 		</Element>

@@ -30,7 +30,9 @@ export type QualitativeValueType =
 
 export interface QualitativeValueProps {
 	"@type"?: QualitativeValueType
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	equal?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>
 	greater?: QualitativeValue | ReturnType<typeof QualitativeValueComponent>
 	greaterOrEqual?:

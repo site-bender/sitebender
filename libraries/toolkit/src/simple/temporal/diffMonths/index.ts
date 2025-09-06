@@ -95,7 +95,8 @@ const diffMonths = (
 		if (to instanceof Temporal.PlainDateTime) {
 			toDate = to.toPlainDate()
 		} else if (
-			to instanceof Temporal.PlainDate || to instanceof Temporal.PlainYearMonth
+			to instanceof Temporal.PlainDate ||
+			to instanceof Temporal.PlainYearMonth
 		) {
 			toDate = to
 		} else {

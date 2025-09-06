@@ -40,9 +40,9 @@ describe("sortBy", () => {
 				{ price: 20, quantity: 2 }, // total: 40
 				{ price: 5, quantity: 12 }, // total: 60
 			]
-			const byTotal = sortBy((item: { price: number; quantity: number }) =>
-				item.price * item.quantity
-			)
+			const byTotal = sortBy((
+				item: { price: number; quantity: number },
+			) => item.price * item.quantity)
 			assertEquals(byTotal(items), [
 				{ price: 20, quantity: 2 },
 				{ price: 10, quantity: 5 },
@@ -253,7 +253,9 @@ describe("sortBy", () => {
 						}),
 					),
 					(arr) => {
-						const sorted = sortBy((x: { value: number }) => x.value)(arr)
+						const sorted = sortBy((x: { value: number }) =>
+							x.value
+						)(arr)
 						// Check that items with equal values maintain relative order
 						for (let i = 0; i < sorted.length - 1; i++) {
 							for (let j = i + 1; j < sorted.length; j++) {
@@ -281,7 +283,8 @@ describe("sortBy", () => {
 						const sorter = sortBy((x: number) => x)
 						const sorted1 = sorter(arr)
 						const sorted2 = sorter(sorted1)
-						return JSON.stringify(sorted1) === JSON.stringify(sorted2)
+						return JSON.stringify(sorted1) ===
+							JSON.stringify(sorted2)
 					},
 				),
 			)

@@ -114,8 +114,19 @@ function renderElement(node: Node): string {
 
 	// Handle self-closing elements
 	const voidElements = new Set([
-		"area", "base", "br", "col", "embed", "hr", "img", "input",
-		"link", "meta", "source", "track", "wbr"
+		"area",
+		"base",
+		"br",
+		"col",
+		"embed",
+		"hr",
+		"img",
+		"input",
+		"link",
+		"meta",
+		"source",
+		"track",
+		"wbr",
 	])
 
 	if (voidElements.has(tag)) {
@@ -138,8 +149,10 @@ function renderAttributes(attrs: Record<string, unknown>): string {
 			const stringValue = String(value)
 
 			// Security: Filter dangerous attribute values
-			if (key.toLowerCase().startsWith("on") ||
-			    stringValue.toLowerCase().includes("javascript:")) {
+			if (
+				key.toLowerCase().startsWith("on") ||
+				stringValue.toLowerCase().includes("javascript:")
+			) {
 				return null // Remove dangerous event handlers and javascript: URLs
 			}
 
@@ -147,7 +160,7 @@ function renderAttributes(attrs: Record<string, unknown>): string {
 			const escapedValue = escape(stringValue)
 			return `${key}="${escapedValue}"`
 		})
-		.filter(attr => attr !== null) // Remove filtered attributes
+		.filter((attr) => attr !== null) // Remove filtered attributes
 
 	return attributePairs.length > 0 ? ` ${attributePairs.join(" ")}` : ""
 }
@@ -174,7 +187,7 @@ function renderText(node: Node): string {
  * @returns HTML string for all children
  */
 function renderChildren(children: Array<Node>): string {
-	return children.map(child => {
+	return children.map((child) => {
 		// Recursively render all child nodes
 		return renderIrToHtml(child)
 	}).join("")

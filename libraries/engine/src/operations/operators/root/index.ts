@@ -34,7 +34,10 @@ const root =
 
 		return {
 			right: Math.sign(resolvedRadicand.right) *
-				Math.pow(Math.abs(resolvedRadicand.right), 1 / resolvedIndex.right),
+				Math.pow(
+					Math.abs(resolvedRadicand.right),
+					1 / resolvedIndex.right,
+				),
 		}
 	}
 
