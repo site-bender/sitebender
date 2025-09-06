@@ -1,0 +1,31 @@
+{
+  "scriptId": "538",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/StrictlyEqualSet.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 847, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "StrictlyEqualSet",
+      "ranges": [{ "startOffset": 142, "endOffset": 278, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "tryAdd",
+      "ranges": [{ "startOffset": 283, "endOffset": 744, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "size",
+      "ranges": [{ "startOffset": 749, "endOffset": 796, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getData",
+      "ranges": [{ "startOffset": 801, "endOffset": 844, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

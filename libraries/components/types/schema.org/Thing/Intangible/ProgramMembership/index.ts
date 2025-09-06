@@ -15,7 +15,9 @@ export type ProgramMembershipType = "ProgramMembership"
 
 export interface ProgramMembershipProps {
 	"@type"?: ProgramMembershipType
-	hostingOrganization?: Organization | ReturnType<typeof OrganizationComponent>
+	hostingOrganization?:
+		| Organization
+		| ReturnType<typeof OrganizationComponent>
 	member?:
 		| Organization
 		| Person

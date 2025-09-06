@@ -26,6 +26,7 @@ docker-compose.yml
 ## 2. Environment Configuration
 
 Create `.env.local`:
+
 ```bash
 # Local development
 DATABASE_URL=http://localhost:3030
@@ -42,49 +43,49 @@ MINIO_URL=http://localhost:9000
 Create `src/server/proxy.ts`:
 
 ```typescript
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
 // Service mappings for local development
 const SERVICE_PROXIES = {
-  '/api/database': 'http://localhost:3030',
-  '/api/metrics': 'http://localhost:9090',
-  '/api/storage': 'http://localhost:9000',
-  '/api/visualization': 'http://localhost:3000'
-};
+	"/api/database": "http://localhost:3030",
+	"/api/metrics": "http://localhost:9090",
+	"/api/storage": "http://localhost:9000",
+	"/api/visualization": "http://localhost:3000",
+}
 
 export async function handleApiRequest(req: Request): Promise<Response> {
-  const url = new URL(req.url);
-  
-  // Find matching service
-  for (const [prefix, target] of Object.entries(SERVICE_PROXIES)) {
-    if (url.pathname.startsWith(prefix)) {
-      return proxyRequest(req, target);
-    }
-  }
-  
-  return new Response('Not found', { status: 404 });
+	const url = new URL(req.url)
+
+	// Find matching service
+	for (const [prefix, target] of Object.entries(SERVICE_PROXIES)) {
+		if (url.pathname.startsWith(prefix)) {
+			return proxyRequest(req, target)
+		}
+	}
+
+	return new Response("Not found", { status: 404 })
 }
 
 async function proxyRequest(req: Request, target: string): Promise<Response> {
-  const targetUrl = new URL(req.url);
-  targetUrl.host = new URL(target).host;
-  targetUrl.protocol = new URL(target).protocol;
-  
-  const headers = new Headers(req.headers);
-  headers.set('host', new URL(target).host);
-  
-  try {
-    const response = await fetch(targetUrl.toString(), {
-      method: req.method,
-      headers,
-      body: req.body,
-    });
-    
-    return response;
-  } catch (error) {
-    console.error('Proxy error:', error);
-    return new Response('Service unavailable', { status: 503 });
-  }
+	const targetUrl = new URL(req.url)
+	targetUrl.host = new URL(target).host
+	targetUrl.protocol = new URL(target).protocol
+
+	const headers = new Headers(req.headers)
+	headers.set("host", new URL(target).host)
+
+	try {
+		const response = await fetch(targetUrl.toString(), {
+			method: req.method,
+			headers,
+			body: req.body,
+		})
+
+		return response
+	} catch (error) {
+		console.error("Proxy error:", error)
+		return new Response("Service unavailable", { status: 503 })
+	}
 }
 ```
 
@@ -93,53 +94,53 @@ async function proxyRequest(req: Request, target: string): Promise<Response> {
 Create `src/server/main.ts`:
 
 ```typescript
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { handleApiRequest } from "./proxy.ts";
-import { renderToString } from "../lib/ssr.ts"; // Your SSR function
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { handleApiRequest } from "./proxy.ts"
+import { renderToString } from "../lib/ssr.ts" // Your SSR function
 
 async function handler(req: Request): Promise<Response> {
-  const url = new URL(req.url);
-  
-  // API routes (simulate edge functions)
-  if (url.pathname.startsWith('/api/')) {
-    return handleApiRequest(req);
-  }
-  
-  // Serve static assets
-  if (url.pathname.startsWith('/public/')) {
-    try {
-      const file = await Deno.readFile(`.${url.pathname}`);
-      return new Response(file, {
-        headers: { 'Content-Type': getContentType(url.pathname) },
-      });
-    } catch {
-      return new Response('Not found', { status: 404 });
-    }
-  }
-  
-  // Server-side rendering
-  if (url.pathname === '/') {
-    const html = await renderToString(); // Your JSX rendering
-    return new Response(html, {
-      headers: { 'Content-Type': 'text/html' },
-    });
-  }
-  
-  return new Response('Not found', { status: 404 });
+	const url = new URL(req.url)
+
+	// API routes (simulate edge functions)
+	if (url.pathname.startsWith("/api/")) {
+		return handleApiRequest(req)
+	}
+
+	// Serve static assets
+	if (url.pathname.startsWith("/public/")) {
+		try {
+			const file = await Deno.readFile(`.${url.pathname}`)
+			return new Response(file, {
+				headers: { "Content-Type": getContentType(url.pathname) },
+			})
+		} catch {
+			return new Response("Not found", { status: 404 })
+		}
+	}
+
+	// Server-side rendering
+	if (url.pathname === "/") {
+		const html = await renderToString() // Your JSX rendering
+		return new Response(html, {
+			headers: { "Content-Type": "text/html" },
+		})
+	}
+
+	return new Response("Not found", { status: 404 })
 }
 
 function getContentType(path: string): string {
-  if (path.endsWith('.css')) return 'text/css';
-  if (path.endsWith('.js')) return 'application/javascript';
-  if (path.endsWith('.png')) return 'image/png';
-  if (path.endsWith('.jpg') || path.endsWith('.jpeg')) return 'image/jpeg';
-  return 'text/plain';
+	if (path.endsWith(".css")) return "text/css"
+	if (path.endsWith(".js")) return "application/javascript"
+	if (path.endsWith(".png")) return "image/png"
+	if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg"
+	return "text/plain"
 }
 
 // Start server with environment-specific port
-const port = parseInt(Deno.env.get('PORT') || '8000');
-serve(handler, { port });
-console.log(`Server running on http://localhost:${port}`);
+const port = parseInt(Deno.env.get("PORT") || "8000")
+serve(handler, { port })
+console.log(`Server running on http://localhost:${port}`)
 ```
 
 ## 5. Environment-Aware API Client
@@ -148,34 +149,38 @@ Create `src/lib/api.ts`:
 
 ```typescript
 // Environment-aware API client
-const IS_LOCAL = !Deno.env.get('DENO_DEPLOYMENT_ID');
+const IS_LOCAL = !Deno.env.get("DENO_DEPLOYMENT_ID")
 
 export class ApiClient {
-  private baseUrl: string;
-  
-  constructor() {
-    this.baseUrl = IS_LOCAL ? 'http://localhost:8000' : '/';
-  }
-  
-  async queryDatabase(sparql: string): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/api/database/query`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/sparql-query' },
-      body: sparql,
-    });
-    
-    return response.json();
-  }
-  
-  async getMetrics(query: string): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/api/metrics/query?query=${encodeURIComponent(query)}`);
-    return response.json();
-  }
-  
-  // Add other API methods as needed
+	private baseUrl: string
+
+	constructor() {
+		this.baseUrl = IS_LOCAL ? "http://localhost:8000" : "/"
+	}
+
+	async queryDatabase(sparql: string): Promise<any> {
+		const response = await fetch(`${this.baseUrl}/api/database/query`, {
+			method: "POST",
+			headers: { "Content-Type": "application/sparql-query" },
+			body: sparql,
+		})
+
+		return response.json()
+	}
+
+	async getMetrics(query: string): Promise<any> {
+		const response = await fetch(
+			`${this.baseUrl}/api/metrics/query?query=${
+				encodeURIComponent(query)
+			}`,
+		)
+		return response.json()
+	}
+
+	// Add other API methods as needed
 }
 
-export const api = new ApiClient();
+export const api = new ApiClient()
 ```
 
 ## 6. Docker Compose for Local Services
@@ -183,52 +188,52 @@ export const api = new ApiClient();
 Create `docker-compose.yml`:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
-  fuseki:
-    image: stain/jena-fuseki:latest
-    ports:
-      - "3030:3030"
-    volumes:
-      - ./data/fuseki:/fuseki
-    environment:
-      - ADMIN_PASSWORD=admin
-    command: --mem /ds
+    fuseki:
+        image: stain/jena-fuseki:latest
+        ports:
+            - "3030:3030"
+        volumes:
+            - ./data/fuseki:/fuseki
+        environment:
+            - ADMIN_PASSWORD=admin
+        command: --mem /ds
 
-  prometheus:
-    image: prom/prometheus:latest
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
+    prometheus:
+        image: prom/prometheus:latest
+        ports:
+            - "9090:9090"
+        volumes:
+            - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus_data:/prometheus
 
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    volumes:
-      - grafana_data:/var/lib/grafana
+    grafana:
+        image: grafana/grafana:latest
+        ports:
+            - "3000:3000"
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+        volumes:
+            - grafana_data:/var/lib/grafana
 
-  minio:
-    image: minio/minio:latest
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin
-    volumes:
-      - minio_data:/data
-    command: server /data --console-address ":9001"
+    minio:
+        image: minio/minio:latest
+        ports:
+            - "9000:9000"
+            - "9001:9001"
+        environment:
+            - MINIO_ROOT_USER=minioadmin
+            - MINIO_ROOT_PASSWORD=minioadmin
+        volumes:
+            - minio_data:/data
+        command: server /data --console-address ":9001"
 
 volumes:
-  prometheus_data:
-  grafana_data:
-  minio_data:
+    prometheus_data:
+    grafana_data:
+    minio_data:
 ```
 
 ## 7. Development Scripts
@@ -237,17 +242,17 @@ Update `deno.json`:
 
 ```json
 {
-  "tasks": {
-    "dev": "deno run --watch --allow-net --allow-env --allow-read src/server/main.ts",
-    "build": "deno compile --allow-net --allow-env --allow-read src/server/main.ts",
-    "start": "deno run --allow-net --allow-env --allow-read src/server/main.ts",
-    "services:up": "docker-compose up -d",
-    "services:down": "docker-compose down"
-  },
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "./src/lib" // Your custom JSX runtime
-  }
+	"tasks": {
+		"dev": "deno run --watch --allow-net --allow-env --allow-read src/server/main.ts",
+		"build": "deno compile --allow-net --allow-env --allow-read src/server/main.ts",
+		"start": "deno run --allow-net --allow-env --allow-read src/server/main.ts",
+		"services:up": "docker-compose up -d",
+		"services:down": "docker-compose down"
+	},
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "./src/lib" // Your custom JSX runtime
+	}
 }
 ```
 
@@ -256,21 +261,21 @@ Update `deno.json`:
 In your JSX components:
 
 ```typescript
-import { api } from "../lib/api.ts";
+import { api } from "../lib/api.ts"
 
 async function DataComponent() {
-  const data = await api.queryDatabase(`
+	const data = await api.queryDatabase(`
     SELECT ?s ?p ?o WHERE {
       ?s ?p ?o
     } LIMIT 10
-  `);
-  
-  return (
-    <div>
-      <h1>Data from Fuseki</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  );
+  `)
+
+	return (
+		<div>
+			<h1>Data from Fuseki</h1>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
+		</div>
+	)
 }
 ```
 
@@ -291,11 +296,13 @@ async function DataComponent() {
 ## 10. Production Deployment
 
 For Deno Deploy, your `main.ts` will work as-is since:
+
 - API routes will be handled by actual edge functions
 - The proxy will be disabled automatically (no local services)
 - Environment variables will be set in Deno Deploy dashboard
 
 This setup gives you:
+
 - ✅ Local development that mimics production
 - ✅ No client-side dependencies
 - ✅ Seamless connection to local services
@@ -305,7 +312,6 @@ This setup gives you:
 
 The API proxy automatically routes requests to your local services during development, while in production, these will be handled by actual edge functions on Deno Deploy.
 
-
 **The above was in response to this prompt:**
 
 I'm building a web application using Deno with TypeScript and JSX, but no react or other front-end libraries. Instead, I use the TS compiler and my own custom createElement and Fragment functions to generate vanilla HTML. I use TypeScript, but it compiles to JS. I use vanilla CSS. I have my own reactive Deno libraries from which I want to load functions and JSX components to use on my site.
@@ -314,5 +320,4 @@ The site will be using Apache Jena Fuseki as its database (it is a data-centric 
 
 When the site is live, it will be deployed to Deno Deploy and will use their edge functions as its API, nothing on the front end will connect to anything but the primary Deno server and the edge-function API. So it is the edge functions that will handle authentication, authorization, database access, visualization, etc.
 
-How can I set this up in my Deno application, preferably without using any client-side dependencies, so that I can mimic the Deno Deploy Edge API while connecting to the services *on my local machine*?
-
+How can I set this up in my Deno application, preferably without using any client-side dependencies, so that I can mimic the Deno Deploy Edge API while connecting to the services _on my local machine_?

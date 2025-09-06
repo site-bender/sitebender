@@ -157,7 +157,9 @@ Deno.test("startsWith: type safety", async (t) => {
 
 	await t.step("should work with mixed types", () => {
 		const mixed = [1, "two", true, null] as const
-		const result = startsWith([1, "two"])(mixed as unknown as Array<unknown>)
+		const result = startsWith([1, "two"])(
+			mixed as unknown as Array<unknown>,
+		)
 		assertType<IsExact<typeof result, boolean>>(true)
 		assertEquals(result, true)
 	})
@@ -189,17 +191,20 @@ Deno.test("startsWith: currying", async (t) => {
 		assertEquals(startsWithApi(["web", "users"]), false)
 	})
 
-	await t.step("should allow partial application for pattern matching", () => {
-		const isGitCommand = startsWith(["git"])
-		const isGitCommit = startsWith(["git", "commit"])
-		const isGitPush = startsWith(["git", "push"])
+	await t.step(
+		"should allow partial application for pattern matching",
+		() => {
+			const isGitCommand = startsWith(["git"])
+			const isGitCommit = startsWith(["git", "commit"])
+			const isGitPush = startsWith(["git", "push"])
 
-		const command = ["git", "commit", "-m", "message"]
+			const command = ["git", "commit", "-m", "message"]
 
-		assertEquals(isGitCommand(command), true)
-		assertEquals(isGitCommit(command), true)
-		assertEquals(isGitPush(command), false)
-	})
+			assertEquals(isGitCommand(command), true)
+			assertEquals(isGitCommit(command), true)
+			assertEquals(isGitPush(command), false)
+		},
+	)
 })
 
 Deno.test("startsWith: immutability", async (t) => {
@@ -256,8 +261,14 @@ Deno.test("startsWith: practical examples", async (t) => {
 		const httpPost = startsWith(["POST", "HTTP/1.1"])
 
 		assertEquals(httpGet(["GET", "HTTP/1.1", "Host:", "example.com"]), true)
-		assertEquals(httpPost(["POST", "HTTP/1.1", "Content-Type:", "json"]), true)
-		assertEquals(httpGet(["POST", "HTTP/1.1", "Host:", "example.com"]), false)
+		assertEquals(
+			httpPost(["POST", "HTTP/1.1", "Content-Type:", "json"]),
+			true,
+		)
+		assertEquals(
+			httpGet(["POST", "HTTP/1.1", "Host:", "example.com"]),
+			false,
+		)
 	})
 })
 

@@ -1,23 +1,46 @@
 {
-  "annotations": {"list": []},
-  "editable": true,
-  "graphTooltip": 0,
-  "id": null,
-  "links": [],
-  "panels": [
-    {"type":"stat","title":"Querier Stores","targets":[{"expr":"sum(thanos_store_nodes_grpc_connections)"}],"gridPos":{"x":0,"y":0,"w":6,"h":4}},
-    {"type":"stat","title":"Querier Queries/s","targets":[{"expr":"sum(rate(thanos_query_concurrent_selects_total[5m]))"}],"gridPos":{"x":6,"y":0,"w":6,"h":4}},
-    {"type":"graph","title":"Blocks Loaded (Store Gateway)","targets":[{"expr":"sum(rate(thanos_bucket_store_blocks_loaded_total[5m]))"}],"gridPos":{"x":0,"y":4,"w":12,"h":8}}
-  ],
-  "refresh": "30s",
-  "schemaVersion": 38,
-  "style": "dark",
-  "tags": ["observability"],
-  "templating": {"list": []},
-  "time": {"from": "now-1h", "to": "now"},
-  "timepicker": {},
-  "timezone": "",
-  "title": "Thanos Overview",
-  "uid": "thanos-overview",
-  "version": 1
+	"annotations": { "list": [] },
+	"editable": true,
+	"graphTooltip": 0,
+	"id": null,
+	"links": [],
+	"panels": [
+		{
+			"type": "stat",
+			"title": "Querier Stores",
+			"targets": [{ "expr": "sum(thanos_store_nodes_grpc_connections)" }],
+			"gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 }
+		},
+		{
+			"type": "stat",
+			"title": "Querier Queries/s",
+			"targets": [
+				{
+					"expr": "sum(rate(thanos_query_concurrent_selects_total[5m]))"
+				}
+			],
+			"gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 }
+		},
+		{
+			"type": "graph",
+			"title": "Blocks Loaded (Store Gateway)",
+			"targets": [
+				{
+					"expr": "sum(rate(thanos_bucket_store_blocks_loaded_total[5m]))"
+				}
+			],
+			"gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 }
+		}
+	],
+	"refresh": "30s",
+	"schemaVersion": 38,
+	"style": "dark",
+	"tags": ["observability"],
+	"templating": { "list": [] },
+	"time": { "from": "now-1h", "to": "now" },
+	"timepicker": {},
+	"timezone": "",
+	"title": "Thanos Overview",
+	"uid": "thanos-overview",
+	"version": 1
 }

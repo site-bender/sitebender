@@ -67,7 +67,10 @@ export default function filterAttributes(
 		Object.assign(filteredAttrs, filterAttribute(isNumber)("min")(min))
 	}
 	if (isDefined(optimum)) {
-		Object.assign(filteredAttrs, filterAttribute(isNumber)("optimum")(optimum))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isNumber)("optimum")(optimum),
+		)
 	}
 	if (isDefined(value)) {
 		Object.assign(filteredAttrs, filterAttribute(isNumber)("value")(value))

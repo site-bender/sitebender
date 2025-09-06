@@ -52,7 +52,9 @@ const zipAll = <T, U>(
 	const maxLength = Math.max(normalizedArray1.length, normalizedArray2.length)
 
 	// Recursively build pairs with undefined filling
-	const buildPairs = (index: number): Array<[T | undefined, U | undefined]> => {
+	const buildPairs = (
+		index: number,
+	): Array<[T | undefined, U | undefined]> => {
 		if (index >= maxLength) {
 			return []
 		}

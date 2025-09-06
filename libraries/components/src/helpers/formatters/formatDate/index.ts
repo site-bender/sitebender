@@ -16,7 +16,10 @@ export default function formatDate(
 	}
 
 	try {
-		const formatter = new Intl.DateTimeFormat(locale || "en-US", options || {})
+		const formatter = new Intl.DateTimeFormat(
+			locale || "en-US",
+			options || {},
+		)
 		return formatter.format(date)
 	} catch (_error) {
 		// Fallback to ISO string if Intl fails

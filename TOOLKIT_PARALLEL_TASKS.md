@@ -1,11 +1,13 @@
 # Parallel Toolkit Tasks (No Test Generator Required)
 
 ## The Strategy
+
 While ONE AI builds the test generator (2 weeks), FOUR other AIs can work on these tasks immediately.
 
 ## Task Assignments
 
 ### 🤖 AI 1: Test Generator (Claude - Critical Path)
+
 **Branch:** `ai/test-generator`
 **Duration:** 2 weeks
 **Dependencies:** None
@@ -22,6 +24,7 @@ While ONE AI builds the test generator (2 weeks), FOUR other AIs can work on the
 ```
 
 ### 🤖 AI 2: Quick Fixes & Type System (GPT-4 or Claude)
+
 **Branch:** `ai/toolkit-fixes`
 **Duration:** 3-4 days
 **Dependencies:** None
@@ -55,6 +58,7 @@ const getCurrentTime = (config = { now: Date.now }) => () => config.now()
 ```
 
 ### 🤖 AI 3: Manual Testing - High Priority Functions (GPT-4)
+
 **Branch:** `ai/toolkit-manual-tests`
 **Duration:** 1 week
 **Dependencies:** None
@@ -88,11 +92,12 @@ const getCurrentTime = (config = { now: Date.now }) => () => config.now()
 ```
 
 ### 🤖 AI 4: JSDoc & Examples (GPT-3.5 or GPT-4)
+
 **Branch:** `ai/toolkit-docs`
 **Duration:** 1 week
 **Dependencies:** None
 
-```typescript
+````typescript
 // Task: Add examples to every function
 // Template for each function:
 
@@ -119,9 +124,10 @@ const getCurrentTime = (config = { now: Date.now }) => () => config.now()
 2. Complex functions needing clarification
 3. Monadic types (show real use cases)
 4. Edge case documentation
-```
+````
 
 ### 🤖 AI 5: Performance Benchmarking (GPT-4)
+
 **Branch:** `ai/toolkit-benchmarks`
 **Duration:** 1 week
 **Dependencies:** None
@@ -132,20 +138,20 @@ const getCurrentTime = (config = { now: Date.now }) => () => config.now()
 
 // math.bench.ts
 Deno.bench("add", () => {
-  add(1)(2)
+	add(1)(2)
 })
 
 Deno.bench("native +", () => {
-  1 + 2
+	1 + 2
 })
 
 // array.bench.ts
 Deno.bench("toolkit map", () => {
-  map((x: number) => x * 2)([1, 2, 3, 4, 5])
+	map((x: number) => x * 2)([1, 2, 3, 4, 5])
 })
 
 Deno.bench("native map", () => {
-  [1, 2, 3, 4, 5].map(x => x * 2)
+	;[1, 2, 3, 4, 5].map((x) => x * 2)
 })
 
 // Generate performance report
@@ -155,21 +161,27 @@ Deno.bench("native map", () => {
 ## Coordination Points
 
 ### Daily Sync Points
+
 1. **Morning:** Check for merge conflicts
 2. **Midday:** Share discoveries/blockers
 3. **Evening:** Push changes, update status
 
 ### Shared Discoveries Document
+
 Create `TOOLKIT_DISCOVERIES.md`:
+
 ```markdown
 ## Bugs Found
+
 - [ ] multiply doesn't handle Infinity correctly
 - [ ] isEmail regex misses edge cases
 
 ## Performance Issues
+
 - [ ] cartesianProduct is O(n³) - needs optimization
 
 ## Missing Functions
+
 - [ ] No transpose for matrices
 - [ ] Missing chunk function for arrays
 ```
@@ -177,6 +189,7 @@ Create `TOOLKIT_DISCOVERIES.md`:
 ## Success Metrics
 
 By end of Week 1:
+
 - Test generator 50% complete (AI 1)
 - All quick fixes done (AI 2)
 - 200+ manual tests written (AI 3)
@@ -184,6 +197,7 @@ By end of Week 1:
 - Benchmark suite operational (AI 5)
 
 By end of Week 2:
+
 - Test generator complete and running
 - 400+ manual tests written
 - All functions documented
@@ -193,6 +207,7 @@ By end of Week 2:
 ## The Beautiful Outcome
 
 When the test generator is ready in 2 weeks:
+
 1. We'll already have 400+ manual tests
 2. All quick fixes will be done
 3. Documentation will be complete
@@ -200,6 +215,7 @@ When the test generator is ready in 2 weeks:
 5. Generator can focus on the remaining ~400 functions
 
 This parallel approach means we'll have:
+
 - **50% coverage from manual tests**
 - **100% coverage from generator**
 - **Full documentation**

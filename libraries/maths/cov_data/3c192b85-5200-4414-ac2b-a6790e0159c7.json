@@ -1,0 +1,25 @@
+{
+  "scriptId": "392",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parseUnaryExpression/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2220, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parseUnaryExpression",
+      "ranges": [
+        { "startOffset": 1671, "endOffset": 2219, "count": 62 },
+        { "startOffset": 1796, "endOffset": 1821, "count": 59 },
+        { "startOffset": 1823, "endOffset": 2179, "count": 8 },
+        { "startOffset": 1965, "endOffset": 1986, "count": 2 },
+        { "startOffset": 1986, "endOffset": 2067, "count": 6 },
+        { "startOffset": 2067, "endOffset": 2072, "count": 1 },
+        { "startOffset": 2073, "endOffset": 2078, "count": 5 },
+        { "startOffset": 2179, "endOffset": 2218, "count": 54 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

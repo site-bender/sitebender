@@ -23,14 +23,18 @@ async (
 	}
 
 	try {
-		new Map(operand.right as unknown as Iterable<readonly [unknown, unknown]>)
+		new Map(
+			operand.right as unknown as Iterable<readonly [unknown, unknown]>,
+		)
 
 		return { right: true }
 	} catch (e) {
 		return {
 			left: [
 				Error(op.tag)("IsMap")(
-					`Error creating map from ${JSON.stringify(operand.right)}: ${e}.`,
+					`Error creating map from ${
+						JSON.stringify(operand.right)
+					}: ${e}.`,
 				),
 			],
 		}

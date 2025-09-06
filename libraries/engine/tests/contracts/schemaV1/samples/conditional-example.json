@@ -1,0 +1,57 @@
+{
+	"v": "0.1.0",
+	"id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+	"kind": "conditional",
+	"condition": {
+		"v": "0.1.0",
+		"id": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+		"kind": "comparator",
+		"cmp": "Is.GreaterThan",
+		"args": [
+			{
+				"v": "0.1.0",
+				"id": "cccccccc-dddd-eeee-ffff-000000000000",
+				"kind": "injector",
+				"injector": "From.Constant",
+				"datatype": "Integer",
+				"args": {
+					"value": 5
+				}
+			},
+			{
+				"v": "0.1.0",
+				"id": "dddddddd-eeee-ffff-0000-111111111111",
+				"kind": "injector",
+				"injector": "From.Constant",
+				"datatype": "Integer",
+				"args": {
+					"value": 3
+				}
+			}
+		]
+	},
+	"ifTrue": [
+		{
+			"v": "0.1.0",
+			"id": "eeeeeeee-ffff-0000-1111-222222222222",
+			"kind": "element",
+			"tag": "p",
+			"attrs": {
+				"class": "success"
+			},
+			"children": []
+		}
+	],
+	"ifFalse": [
+		{
+			"v": "0.1.0",
+			"id": "ffffffff-0000-1111-2222-333333333333",
+			"kind": "element",
+			"tag": "p",
+			"attrs": {
+				"class": "error"
+			},
+			"children": []
+		}
+	]
+}

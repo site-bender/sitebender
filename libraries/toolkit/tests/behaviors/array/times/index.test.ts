@@ -144,12 +144,16 @@ describe("times", () => {
 		})
 
 		it("can generate null and undefined", () => {
-			const result = times(4)((i: number) => i % 2 === 0 ? null : undefined)
+			const result = times(4)((i: number) =>
+				i % 2 === 0 ? null : undefined
+			)
 			expect(result).toEqual([null, undefined, null, undefined])
 		})
 
 		it("can generate nested arrays", () => {
-			const result = times(3)((i: number) => times(3)((j: number) => i * 3 + j))
+			const result = times(3)((i: number) =>
+				times(3)((j: number) => i * 3 + j)
+			)
 			expect(result).toEqual([
 				[0, 1, 2],
 				[3, 4, 5],

@@ -8,19 +8,20 @@ import type {
 
 import { isLeft } from "../../../../types/index.ts"
 
-const hyperbolicCosine =
-	({ operand, ..._op }: HydratedHyperbolicCosine): OperationFunction<number> =>
-	async (
-		arg: unknown,
-		localValues?: LocalValues,
-	): Promise<Either<Array<EngineError>, number>> => {
-		const resolvedOperand = await operand(arg, localValues)
+const hyperbolicCosine = (
+	{ operand, ..._op }: HydratedHyperbolicCosine,
+): OperationFunction<number> =>
+async (
+	arg: unknown,
+	localValues?: LocalValues,
+): Promise<Either<Array<EngineError>, number>> => {
+	const resolvedOperand = await operand(arg, localValues)
 
-		if (isLeft(resolvedOperand)) {
-			return resolvedOperand
-		}
-
-		return { right: Math.cosh(resolvedOperand.right) }
+	if (isLeft(resolvedOperand)) {
+		return resolvedOperand
 	}
+
+	return { right: Math.cosh(resolvedOperand.right) }
+}
 
 export default hyperbolicCosine

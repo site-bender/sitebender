@@ -95,9 +95,10 @@ Deno.test("engine types deep import suggests @engineTypes", async () => {
 			'import t from "libraries/engine/types/someType.ts"\nexport const t2 = t',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest4"])
-		expect(v.some((x) => x.hint.includes("@sitebender/engine-types/"))).toBe(
-			true,
-		)
+		expect(v.some((x) => x.hint.includes("@sitebender/engine-types/")))
+			.toBe(
+				true,
+			)
 	} finally {
 		await Deno.remove("scripts/.aliastest4", { recursive: true })
 	}
@@ -113,7 +114,9 @@ Deno.test("toolkit deep import suggests @toolkit", async () => {
 			'import k from "libraries/toolkit/src/helpers/index.ts"\nexport const k2 = k',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest5"])
-		expect(v.some((x) => x.hint.includes("@sitebender/toolkit/"))).toBe(true)
+		expect(v.some((x) => x.hint.includes("@sitebender/toolkit/"))).toBe(
+			true,
+		)
 	} finally {
 		await Deno.remove("scripts/.aliastest5", { recursive: true })
 	}
@@ -134,7 +137,9 @@ Deno.test("export-from syntax is also scanned for deep paths", async () => {
 			'export { something } from "libraries/toolkit/src/foo/bar.ts"',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest6"])
-		expect(v.some((x) => x.hint.includes("@sitebender/toolkit/"))).toBe(true)
+		expect(v.some((x) => x.hint.includes("@sitebender/toolkit/"))).toBe(
+			true,
+		)
 	} finally {
 		await Deno.remove("scripts/.aliastest6", { recursive: true })
 	}

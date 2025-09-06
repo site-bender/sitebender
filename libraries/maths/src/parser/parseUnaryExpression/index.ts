@@ -2,11 +2,12 @@ import type {
 	ASTNode,
 	ParseError,
 	Result,
-	UnaryOpNode,
 } from "../../types/index.ts"
-import type { ParserContext } from "../parseExpression/index.ts"
+import type { ParserContext } from "../types/index.ts"
 
 import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
+import getUnaryOperator from "./getUnaryOperator/index.ts"
+import parseUnaryOperator from "./parseUnaryOperator/index.ts"
 
 /**
  * Parses unary expressions (prefix operators like +, -).
@@ -59,19 +60,10 @@ export default function parseUnaryExpression(
 	ctx: ParserContext,
 ): Result<ASTNode, ParseError> {
 	const token = ctx.current()
+	const operator = getUnaryOperator(token)
 
-	// Handle unary plus/minus
-	if (token.type === "PLUS" || token.type === "MINUS") {
-		ctx.advance()
-		const operandResult = parseUnaryExpression(ctx) // Recursive for multiple unary ops
-		if (!operandResult.ok) return operandResult
-
-		const node: UnaryOpNode = {
-			type: "UnaryOp",
-			operator: token.type === "PLUS" ? "+" : "-",
-			operand: operandResult.value,
-		}
-		return { ok: true, value: node }
+	if (operator) {
+		return parseUnaryOperator(ctx, operator, parseUnaryExpression)
 	}
 
 	return parsePrimaryExpression(ctx)

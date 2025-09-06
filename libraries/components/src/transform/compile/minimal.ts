@@ -82,7 +82,9 @@ export default function compile(
 
 		if (isValidation(node)) {
 			// Attach behavior to previous element if available, else synthesize an empty container
-			const target = [...out].reverse().find((n) => n.kind === "element") as
+			const target = [...out].reverse().find((n) =>
+				n.kind === "element"
+			) as
 				| IRNode
 				| undefined
 			const behavior: BehaviorNode = {
@@ -117,7 +119,9 @@ export default function compile(
 				ifTrue: compile(condNode.ifTrue as MaybeVNode[]),
 				ifFalse: compile(condNode.ifFalse as MaybeVNode[]),
 			}
-			const target = [...out].reverse().find((n) => n.kind === "element") as
+			const target = [...out].reverse().find((n) =>
+				n.kind === "element"
+			) as
 				| IRNode
 				| undefined
 			if (target && target.kind === "element") {
@@ -145,7 +149,9 @@ export default function compile(
 				event: onNode.event,
 				handler: onNode.handler,
 			}
-			const target = [...out].reverse().find((n) => n.kind === "element") as
+			const target = [...out].reverse().find((n) =>
+				n.kind === "element"
+			) as
 				| IRNode
 				| undefined
 			if (target && target.kind === "element") {

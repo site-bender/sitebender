@@ -50,7 +50,10 @@ const propOr = <D extends Value>(
 
 	// Check if property exists (including undefined values)
 	if (
-		Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)
+		Object.prototype.hasOwnProperty.call(
+			obj as object,
+			key as string | symbol,
+		)
 	) {
 		return (obj as Record<string | symbol, unknown>)[key] as V
 	}

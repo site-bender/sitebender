@@ -1,0 +1,41 @@
+{
+  "scriptId": "519",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/helpers/DoubleHelpers.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3211, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "bitCastDoubleToUInt64",
+      "ranges": [{ "startOffset": 427, "endOffset": 509, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "decomposeDouble",
+      "ranges": [{ "startOffset": 517, "endOffset": 991, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "positiveNumberToInt64",
+      "ranges": [{ "startOffset": 992, "endOffset": 1072, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexInDoubleFromDecomp",
+      "ranges": [{ "startOffset": 1073, "endOffset": 1519, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "doubleToIndex",
+      "ranges": [{ "startOffset": 1527, "endOffset": 2347, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "indexToDouble",
+      "ranges": [{ "startOffset": 2355, "endOffset": 3210, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

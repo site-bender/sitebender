@@ -1,0 +1,16 @@
+{
+  "scriptId": "482",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Power/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 275, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Power",
+      "ranges": [{ "startOffset": 88, "endOffset": 251, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

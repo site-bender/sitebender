@@ -652,7 +652,9 @@ Yields:
 				He don't look down, don't look down
 			</div>
 			<div class="line" itemprop="text">He just loves the everglades</div>
-			<div class="line" itemprop="text">He don't love the changing times</div>
+			<div class="line" itemprop="text">
+				He don't love the changing times
+			</div>
 			<div class="refrain">
 				<div class="line" itemprop="text">Jonny's in America</div>
 			</div>

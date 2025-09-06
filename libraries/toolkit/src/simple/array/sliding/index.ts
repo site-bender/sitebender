@@ -50,7 +50,8 @@ const sliding = <T>(
 	}
 
 	if (
-		size <= 0 || step <= 0 || !Number.isInteger(size) || !Number.isInteger(step)
+		size <= 0 || step <= 0 || !Number.isInteger(size) ||
+		!Number.isInteger(step)
 	) {
 		return []
 	}

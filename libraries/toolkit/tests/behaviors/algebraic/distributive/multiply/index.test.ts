@@ -13,9 +13,24 @@ import approximately from "../../../../helpers/assertions/approximately/index.ts
 Deno.test("multiply - distributive over addition", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
 			(a, b, c) => {
 				// Left side: a * (b + c)
 				const sum = add(b)(c)
@@ -44,9 +59,24 @@ Deno.test("multiply - distributive over addition", () => {
 Deno.test("multiply - right distributive over addition", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -100, max: 100 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -100,
+				max: 100,
+			}),
 			(a, b, c) => {
 				// Left side: (a + b) * c
 				const sum = add(a)(b)

@@ -109,13 +109,18 @@ function toISO8601(duration: DurationValue): string {
 		if (duration.minutes) result += `${duration.minutes}M`
 
 		if (
-			duration.seconds || duration.milliseconds || duration.microseconds ||
+			duration.seconds || duration.milliseconds ||
+			duration.microseconds ||
 			duration.nanoseconds
 		) {
 			let seconds = duration.seconds || 0
 			if (duration.milliseconds) seconds += duration.milliseconds / 1000
-			if (duration.microseconds) seconds += duration.microseconds / 1000000
-			if (duration.nanoseconds) seconds += duration.nanoseconds / 1000000000
+			if (duration.microseconds) {
+				seconds += duration.microseconds / 1000000
+			}
+			if (duration.nanoseconds) {
+				seconds += duration.nanoseconds / 1000000000
+			}
 			result += `${seconds}S`
 		}
 	}
@@ -145,9 +150,13 @@ function roundDuration(
 	// Round based on unit
 	switch (roundTo) {
 		case "year":
-			return { years: Math.round(totalMs / (365.25 * 24 * 60 * 60 * 1000)) }
+			return {
+				years: Math.round(totalMs / (365.25 * 24 * 60 * 60 * 1000)),
+			}
 		case "month":
-			return { months: Math.round(totalMs / (30.44 * 24 * 60 * 60 * 1000)) }
+			return {
+				months: Math.round(totalMs / (30.44 * 24 * 60 * 60 * 1000)),
+			}
 		case "week":
 			return { weeks: Math.round(totalMs / (7 * 24 * 60 * 60 * 1000)) }
 		case "day":

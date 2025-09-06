@@ -7,8 +7,14 @@ import pairwise from "../../../../src/simple/array/pairwise/index.ts"
 describe("pairwise", () => {
 	describe("basic functionality", () => {
 		it("should create pairs of adjacent elements", () => {
-			assertEquals(pairwise([1, 2, 3, 4, 5]), [[1, 2], [2, 3], [3, 4], [4, 5]])
-			assertEquals(pairwise(["a", "b", "c", "d"]), [["a", "b"], ["b", "c"], [
+			assertEquals(pairwise([1, 2, 3, 4, 5]), [[1, 2], [2, 3], [3, 4], [
+				4,
+				5,
+			]])
+			assertEquals(pairwise(["a", "b", "c", "d"]), [["a", "b"], [
+				"b",
+				"c",
+			], [
 				"c",
 				"d",
 			]])
@@ -147,7 +153,8 @@ describe("pairwise", () => {
 					(array) => {
 						const pairs = pairwise(array)
 						return pairs.every(([first, second], index) =>
-							first === array[index] && second === array[index + 1]
+							first === array[index] &&
+							second === array[index + 1]
 						)
 					},
 				),
@@ -181,7 +188,8 @@ describe("pairwise", () => {
 
 						return JSON.stringify(firstElements) ===
 								JSON.stringify(expectedFirst) &&
-							JSON.stringify(secondElements) === JSON.stringify(expectedSecond)
+							JSON.stringify(secondElements) ===
+								JSON.stringify(expectedSecond)
 					},
 				),
 			)

@@ -22,7 +22,8 @@ const addConditionals = (element: Element) => (component: ComponentLike) => {
 			const callbacks = (document.__sbDisplayCallbacks ??= {})
 
 			selectors.forEach((selector) => {
-				const { id } = (element as ParentNode).querySelector(selector) ||
+				const { id } =
+					(element as ParentNode).querySelector(selector) ||
 					document.querySelector(selector) ||
 					({} as { id?: string })
 

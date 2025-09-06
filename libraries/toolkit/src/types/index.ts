@@ -62,7 +62,9 @@ export const isValue = (val: unknown): val is Value => {
 	if (isNullish(val)) return true
 
 	const type = typeof val
-	if (type === "string" || type === "number" || type === "boolean") return true
+	if (type === "string" || type === "number" || type === "boolean") {
+		return true
+	}
 
 	if (Array.isArray(val)) {
 		return val.every(isValue)

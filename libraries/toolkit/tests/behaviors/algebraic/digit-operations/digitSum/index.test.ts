@@ -96,7 +96,8 @@ Deno.test("digitSum: mathematical properties", () => {
 				// But the relationship with mod 9 is preserved
 				const leftMod9 = (sumA + sumB) % 9
 				const rightMod9 = sumAB % 9
-				return leftMod9 === rightMod9 || (leftMod9 === 0 && rightMod9 === 0)
+				return leftMod9 === rightMod9 ||
+					(leftMod9 === 0 && rightMod9 === 0)
 			},
 		),
 		{ numRuns: 1000 },
@@ -383,7 +384,11 @@ Deno.test("digitSum: performance characteristics", () => {
 		const end = performance.now()
 
 		// Should complete in less than 1ms
-		assertEquals(end - start < 1, true, `digitSum(${n}) took ${end - start}ms`)
+		assertEquals(
+			end - start < 1,
+			true,
+			`digitSum(${n}) took ${end - start}ms`,
+		)
 		assertEquals(typeof result, "number")
 	}
 })

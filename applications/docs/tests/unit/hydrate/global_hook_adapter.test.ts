@@ -32,7 +32,9 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
 	const globalAdapter = {
 		hydrate(root?: Document | HTMLElement) {
 			const scope = (root ?? document) as Document
-			const nodes = scope.querySelectorAll("[data-viz]") as unknown as Array<
+			const nodes = scope.querySelectorAll(
+				"[data-viz]",
+			) as unknown as Array<
 				{ dataset: Record<string, string> }
 			>
 			for (const n of nodes) n.dataset.vizHydrated = "global"

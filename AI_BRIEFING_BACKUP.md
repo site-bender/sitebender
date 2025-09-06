@@ -1,11 +1,13 @@
 # AI Briefing: Property Test Generator Component
 
 ## Your Identity
+
 - **Workspace:** toolkit-ai
-- **Branch:** ai/toolkit  
+- **Branch:** ai/toolkit
 - **Role:** Build property test generators for the automated test generator
 
 ## Essential Reading (Read These First!)
+
 1. `CLAUDE.md` - Project manifesto and rules
 2. `TESTING.md` - Testing philosophy (100% coverage mandate)
 3. `agenda/libraries/toolkit/suggestions.md` - Test generator architecture (READ SECTION 2!)
@@ -14,6 +16,7 @@
 ## Your Specific Mission
 
 ### Build Property Test Generators
+
 **Location:** `scripts/test-generator/src/generators/property.ts`
 
 ### Core Requirements
@@ -54,24 +57,24 @@ Create a `PropertyTestGenerator` class that:
 import * as fc from "npm:fast-check"
 
 export class PropertyTestGenerator {
-  generateForSignature(sig: FunctionSignature): TestCase[] {
-    const tests: TestCase[] = []
-    
-    // Generate type-based properties
-    tests.push(...this.generateTypeProperties(sig))
-    
-    // Generate algebraic law tests
-    tests.push(...this.generateAlgebraicLaws(sig))
-    
-    // Generate edge cases
-    tests.push(...this.generateEdgeCases(sig))
-    
-    return tests
-  }
-  
-  private generateTypeProperties(sig: FunctionSignature): TestCase[] {
-    // Implementation here
-  }
+	generateForSignature(sig: FunctionSignature): TestCase[] {
+		const tests: TestCase[] = []
+
+		// Generate type-based properties
+		tests.push(...this.generateTypeProperties(sig))
+
+		// Generate algebraic law tests
+		tests.push(...this.generateAlgebraicLaws(sig))
+
+		// Generate edge cases
+		tests.push(...this.generateEdgeCases(sig))
+
+		return tests
+	}
+
+	private generateTypeProperties(sig: FunctionSignature): TestCase[] {
+		// Implementation here
+	}
 }
 ```
 
@@ -82,20 +85,20 @@ For a function like `map<A, B>(f: (a: A) => B) => (arr: A[]) => B[]`, generate:
 ```typescript
 // Length preservation test
 fc.assert(fc.property(
-  fc.array(fc.anything()),
-  fc.func(fc.anything()),
-  (arr, fn) => {
-    assertEquals(map(fn)(arr).length, arr.length)
-  }
+	fc.array(fc.anything()),
+	fc.func(fc.anything()),
+	(arr, fn) => {
+		assertEquals(map(fn)(arr).length, arr.length)
+	},
 ))
 
 // Identity law test
 fc.assert(fc.property(
-  fc.array(fc.anything()),
-  (arr) => {
-    const identity = (x: any) => x
-    assertEquals(map(identity)(arr), arr)
-  }
+	fc.array(fc.anything()),
+	(arr) => {
+		const identity = (x: any) => x
+		assertEquals(map(identity)(arr), arr)
+	},
 ))
 
 // Composition law test
@@ -119,6 +122,7 @@ scripts/test-generator/
 ## Success Criteria
 
 Your component is successful when:
+
 1. It can generate property tests for any toolkit function signature
 2. It detects and applies relevant algebraic laws
 3. It generates comprehensive edge cases

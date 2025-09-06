@@ -16,7 +16,9 @@ const isAscending =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<EngineError>, boolean>> => {
-		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operandFn = await composeComparators(
+			op.operand as unknown as never,
+		)
 		const operand = await operandFn(arg, localValues)
 
 		if (isLeft(operand)) {
@@ -26,10 +28,14 @@ const isAscending =
 		const list = JSON.parse(String(operand.right)) as Array<unknown>
 		const sorted = [...list].sort()
 
-		return JSON.stringify(list) === JSON.stringify(sorted) ? { right: true } : {
-			left: [
-				Error(op.tag)("IsAscending")(`JSON.stringify(list) is not ascending.`),
-			],
-		}
+		return JSON.stringify(list) === JSON.stringify(sorted)
+			? { right: true }
+			: {
+				left: [
+					Error(op.tag)("IsAscending")(
+						`JSON.stringify(list) is not ascending.`,
+					),
+				],
+			}
 	}
 export default isAscending

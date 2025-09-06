@@ -23,7 +23,9 @@ export type BroadcastServiceType =
 export interface BroadcastServiceProps {
 	"@type"?: BroadcastServiceType
 	area?: Place | ReturnType<typeof PlaceComponent>
-	broadcastAffiliateOf?: Organization | ReturnType<typeof OrganizationComponent>
+	broadcastAffiliateOf?:
+		| Organization
+		| ReturnType<typeof OrganizationComponent>
 	broadcastDisplayName?: Text
 	broadcaster?: Organization | ReturnType<typeof OrganizationComponent>
 	broadcastFrequency?:

@@ -49,7 +49,7 @@ import type { Token } from "../../../types/index.ts"
  */
 export default function getOperatorFromToken(
 	token: Token,
-): "+" | "-" | "*" | "/" | "^" | null {
+): "+" | "-" | "*" | "/" | "^" | "<" | ">" | "==" | "!=" | "<=" | ">=" | null {
 	switch (token.type) {
 		case "PLUS":
 			return "+"
@@ -61,6 +61,18 @@ export default function getOperatorFromToken(
 			return "/"
 		case "POWER":
 			return "^"
+		case "LESS_THAN":
+			return "<"
+		case "GREATER_THAN":
+			return ">"
+		case "EQUAL":
+			return "=="
+		case "NOT_EQUAL":
+			return "!="
+		case "LESS_EQUAL":
+			return "<="
+		case "GREATER_EQUAL":
+			return ">="
 		default:
 			return null
 	}

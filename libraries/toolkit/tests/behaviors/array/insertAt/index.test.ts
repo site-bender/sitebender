@@ -119,7 +119,9 @@ Deno.test("insertAt - property: result length is input length + 1 for valid inde
 			fc.array(fc.integer()),
 			fc.integer(),
 			(array, value) => {
-				const validIndex = Math.floor(Math.random() * (array.length + 1))
+				const validIndex = Math.floor(
+					Math.random() * (array.length + 1),
+				)
 				const result = insertAt(validIndex)(value)(array)
 				return result.length === array.length + 1
 			},

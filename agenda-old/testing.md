@@ -3,21 +3,27 @@
 ## Core Principles
 
 ### 1. Test Behaviors, Not Implementation
+
 We test **what** the code does, not **how** it does it. We don't care about internal state, private methods, or implementation details. We care about observable behaviors that users experience.
 
 ### 2. No Mocking
+
 We **never** mock our own functions or components. Since we don't use external libraries (zero dependencies), there's nothing external to mock either. At the application edges, we use:
+
 - **MSW (Mock Service Worker)** for external API calls
 - **Dependency Injection** for DOM, storage, and other browser APIs
 
 ### 3. Integration Over Unit Tests
+
 We prefer testing functions working together as they will be used. Unit tests are acceptable only when a behavior cannot be tested through integration. Our test priority:
+
 1. **E2E tests** (playwright-mcp) - First line of defense for app and components
 2. **Integration tests** - Functions working together
 3. **Property-based tests** - Edge cases and invariants
 4. **Unit tests** - Only when necessary
 
 ### 4. Accessibility is Non-Negotiable
+
 Every component must pass accessibility tests using axe-core. We target WCAG 2.3 AAA compliance. Accessibility tests live alongside other behavioral tests.
 
 ## Test Organization
@@ -49,6 +55,7 @@ apps/docs/tests/
 ```
 
 **Key Points:**
+
 - Test files are always named `index.ts`
 - Folders are named for the behavior being tested
 - Related behaviors can be grouped (e.g., `arithmetic` for add/subtract/multiply)
@@ -62,9 +69,9 @@ For functions that need DOM or other browser APIs:
 // Source function with injectable dependency
 // src/dom/querySelector/index.ts
 export default function querySelector(
-  config = { dom: globalThis.document }
+	config = { dom: globalThis.document },
 ) {
-  return (selector: string) => config.dom.querySelector(selector)
+	return (selector: string) => config.dom.querySelector(selector)
 }
 
 // Test with injected test DOM
@@ -72,17 +79,18 @@ export default function querySelector(
 import createTestDom from "../../helpers/createTestDom/index.ts"
 
 test("querySelector finds elements", () => {
-  const { document } = createTestDom(`<div class="target">Found</div>`)
-  const query = querySelector({ dom: document })
-  
-  const element = query(".target")
-  assertEquals(element?.textContent, "Found")
+	const { document } = createTestDom(`<div class="target">Found</div>`)
+	const query = querySelector({ dom: document })
+
+	const element = query(".target")
+	assertEquals(element?.textContent, "Found")
 })
 ```
 
 ### When to Use Dependency Injection
 
 Use DI for functions that interact with:
+
 - DOM operations
 - localStorage/sessionStorage
 - Network requests (though prefer MSW)
@@ -101,19 +109,19 @@ Use DI for functions that interact with:
 import * as fc from "fast-check"
 
 describe("Addition behavior", () => {
-  // Regular test
-  it("adds positive numbers", () => {
-    assertEquals(add([2, 3]), 5)
-  })
-  
-  // Property test in same file
-  it("is commutative", () => {
-    fc.assert(
-      fc.property(fc.float(), fc.float(), (a, b) => {
-        assertEquals(add([a, b]), add([b, a]))
-      })
-    )
-  })
+	// Regular test
+	it("adds positive numbers", () => {
+		assertEquals(add([2, 3]), 5)
+	})
+
+	// Property test in same file
+	it("is commutative", () => {
+		fc.assert(
+			fc.property(fc.float(), fc.float(), (a, b) => {
+				assertEquals(add([a, b]), add([b, a]))
+			}),
+		)
+	})
 })
 ```
 
@@ -121,23 +129,23 @@ describe("Addition behavior", () => {
 
 ```typescript
 // apps/docs/tests/routes/documentation/index.ts
-import { test, expect } from "playwright-mcp"
+import { expect, test } from "playwright-mcp"
 
 test.describe("Documentation behavior", () => {
-  test("user can navigate between libraries", async ({ page }) => {
-    await page.goto("/")
-    
-    // Real user behavior
-    await page.click('text="Engine"')
-  await expect(page).toHaveURL("/libraries/engine")
-    
-    // Verify content loaded
-    await expect(page.locator("h1")).toContainText("Engine")
-    
-    // Test accessibility inline
-    await injectAxe(page)
-    await checkA11y(page)
-  })
+	test("user can navigate between libraries", async ({ page }) => {
+		await page.goto("/")
+
+		// Real user behavior
+		await page.click('text="Engine"')
+		await expect(page).toHaveURL("/libraries/engine")
+
+		// Verify content loaded
+		await expect(page.locator("h1")).toContainText("Engine")
+
+		// Test accessibility inline
+		await injectAxe(page)
+		await checkA11y(page)
+	})
 })
 ```
 
@@ -146,34 +154,34 @@ test.describe("Documentation behavior", () => {
 ```typescript
 // libraries/components/tests/enrich/Article/index.ts
 describe("Article component behavior", () => {
-  // Rendering behavior
-  it("generates semantic HTML", () => {
-    const article = Article({ 
-      headline: "Test Article",
-      content: "Content" 
-    })
-    
-    const html = article.toHTML()
-    assertStringIncludes(html, '<article')
-    assertStringIncludes(html, 'itemtype="https://schema.org/Article"')
-  })
-  
-  // Accessibility behavior (using axe)
-  it("is accessible", async () => {
-    const html = Article({ headline: "Test" }).toHTML()
-    const results = await axe.run(html)
-    assertEquals(results.violations.length, 0)
-  })
-  
-  // Property-based test
-  it("always includes required schema.org properties", () => {
-    fc.assert(
-      fc.property(fc.string(), fc.string(), (headline, content) => {
-        const html = Article({ headline, content }).toHTML()
-        assertStringIncludes(html, 'itemprop="headline"')
-      })
-    )
-  })
+	// Rendering behavior
+	it("generates semantic HTML", () => {
+		const article = Article({
+			headline: "Test Article",
+			content: "Content",
+		})
+
+		const html = article.toHTML()
+		assertStringIncludes(html, "<article")
+		assertStringIncludes(html, 'itemtype="https://schema.org/Article"')
+	})
+
+	// Accessibility behavior (using axe)
+	it("is accessible", async () => {
+		const html = Article({ headline: "Test" }).toHTML()
+		const results = await axe.run(html)
+		assertEquals(results.violations.length, 0)
+	})
+
+	// Property-based test
+	it("always includes required schema.org properties", () => {
+		fc.assert(
+			fc.property(fc.string(), fc.string(), (headline, content) => {
+				const html = Article({ headline, content }).toHTML()
+				assertStringIncludes(html, 'itemprop="headline"')
+			}),
+		)
+	})
 })
 ```
 
@@ -210,9 +218,9 @@ import { setupServer } from "msw/node"
 import { rest } from "msw"
 
 export const server = setupServer(
-  rest.get("/api/users", (req, res, ctx) => {
-    return res(ctx.json([{ id: 1, name: "Test User" }]))
-  })
+	rest.get("/api/users", (req, res, ctx) => {
+		return res(ctx.json([{ id: 1, name: "Test User" }]))
+	}),
 )
 
 // In tests
@@ -241,16 +249,19 @@ deno task test:cov
 ## Standards & Requirements
 
 ### Coverage Goals
+
 - **Behavioral Coverage**: 100% of expected behaviors tested
 - **Code Coverage**: >80% minimum, >90% for user-facing code
 - **E2E Coverage**: All critical user paths
 
 ### Performance Requirements
+
 - Test suite runs in <30 seconds
 - Individual tests <100ms (except E2E)
 - E2E tests <5s per test
 
 ### Accessibility Requirements
+
 - All components pass axe-core tests
 - WCAG 2.3 AAA compliance
 - Keyboard navigation tested
@@ -267,16 +278,18 @@ deno task test:cov
 ## Anti-Patterns to Avoid
 
 ❌ **Don't test implementation details**
+
 ```typescript
 // BAD - Testing internal state
 it("sets internal flag to true", () => {
-  const obj = new Thing()
-  obj.doSomething()
-  assertEquals(obj._internalFlag, true) // Don't do this
+	const obj = new Thing()
+	obj.doSomething()
+	assertEquals(obj._internalFlag, true) // Don't do this
 })
 ```
 
 ❌ **Don't mock our own code**
+
 ```typescript
 // BAD - Mocking our own function
 const mockAdd = mock(add)
@@ -284,6 +297,7 @@ mockAdd.returns(5)
 ```
 
 ❌ **Don't separate by test type**
+
 ```typescript
 // BAD - Separate folders for test types
 tests/
@@ -294,22 +308,25 @@ tests/
 ```
 
 ✅ **Do test behaviors**
+
 ```typescript
 // GOOD - Testing observable behavior
 it("calculates total price including tax", () => {
-  const total = calculateTotal({ price: 100, taxRate: 0.1 })
-  assertEquals(total, 110)
+	const total = calculateTotal({ price: 100, taxRate: 0.1 })
+	assertEquals(total, 110)
 })
 ```
 
 ✅ **Do use dependency injection**
+
 ```typescript
 // GOOD - Injectable dependencies
-const fetchData = (config = { fetch: globalThis.fetch }) =>
-  (url: string) => config.fetch(url)
+const fetchData = (config = { fetch: globalThis.fetch }) => (url: string) =>
+	config.fetch(url)
 ```
 
 ✅ **Do organize by behavior**
+
 ```typescript
 // GOOD - Behavior-focused structure
 tests/
@@ -322,6 +339,7 @@ tests/
 ## Questions?
 
 This approach ensures:
+
 1. Tests are maintainable (behavior-focused)
 2. Tests are reliable (no mocks)
 3. Tests are comprehensive (E2E first)

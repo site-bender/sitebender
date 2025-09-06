@@ -18,7 +18,11 @@ const el = (
 Deno.test("golden: Viz.Line emits SSR-safe container via minimal compiler", () => {
 	const tree = [
 		el("section", { id: "charts" }),
-		VizLine({ id: "sales", x: "date", y: "value" }) as unknown as JSX.Element,
+		VizLine({
+			id: "sales",
+			x: "date",
+			y: "value",
+		}) as unknown as JSX.Element,
 	]
 
 	const ir = compile(tree)

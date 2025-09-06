@@ -1,4 +1,5 @@
 import type {
+	ComparatorConfig,
 	InjectorConfig,
 	OperatorConfig,
 } from "../../../engine/types/index.ts"
@@ -14,6 +15,14 @@ export type TokenType =
 	| "POWER"
 	| "LEFT_PAREN"
 	| "RIGHT_PAREN"
+	| "QUESTION"
+	| "COLON"
+	| "LESS_THAN"
+	| "GREATER_THAN"
+	| "EQUAL"
+	| "NOT_EQUAL"
+	| "LESS_EQUAL"
+	| "GREATER_EQUAL"
 	| "EOF"
 
 export type Token = {
@@ -28,12 +37,28 @@ export type ASTNodeType =
 	| "UnaryOp"
 	| "Number"
 	| "Variable"
+	| "Conditional"
+	| "Comparison"
 
 export type BinaryOpNode = {
 	type: "BinaryOp"
 	operator: "+" | "-" | "*" | "/" | "^"
 	left: ASTNode
 	right: ASTNode
+}
+
+export type ComparisonNode = {
+	type: "Comparison"
+	operator: "<" | ">" | "==" | "!=" | "<=" | ">="
+	left: ASTNode
+	right: ASTNode
+}
+
+export type ConditionalNode = {
+	type: "Conditional"
+	condition: ASTNode
+	ifTrue: ASTNode
+	ifFalse: ASTNode
 }
 
 export type UnaryOpNode = {
@@ -52,7 +77,7 @@ export type VariableNode = {
 	name: string
 }
 
-export type ASTNode = BinaryOpNode | UnaryOpNode | NumberNode | VariableNode
+export type ASTNode = BinaryOpNode | UnaryOpNode | NumberNode | VariableNode | ConditionalNode | ComparisonNode
 
 // Variable mapping for formula compilation
 export type VariableMap = {
@@ -72,6 +97,6 @@ export type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
 
 // Main function signature
 export type ParseFormulaResult = Result<
-	OperatorConfig | InjectorConfig,
+	OperatorConfig | InjectorConfig | ComparatorConfig,
 	ParseError
 >

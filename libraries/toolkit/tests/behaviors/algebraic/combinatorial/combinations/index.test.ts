@@ -337,7 +337,8 @@ Deno.test("combinations: comparison with factorial formula", async (t) => {
 						return result
 					}
 
-					const expected = factorial(n) / (factorial(r) * factorial(n - r))
+					const expected = factorial(n) /
+						(factorial(r) * factorial(n - r))
 
 					// Use relative comparison for floating point
 					return Math.abs(result - expected) < 1e-10

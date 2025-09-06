@@ -33,7 +33,9 @@ export interface EducationalOccupationalCredentialProps {
 		| ReturnType<typeof DefinedTermComponent>
 	recognizedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	validFor?: Duration | ReturnType<typeof DurationComponent>
-	validIn?: AdministrativeArea | ReturnType<typeof AdministrativeAreaComponent>
+	validIn?:
+		| AdministrativeArea
+		| ReturnType<typeof AdministrativeAreaComponent>
 }
 
 type EducationalOccupationalCredential =

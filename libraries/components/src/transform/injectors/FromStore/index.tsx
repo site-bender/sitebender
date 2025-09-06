@@ -28,5 +28,11 @@ export default function FromStore(
 ): InjectorShape {
 	const dt = (datatype as DataType | undefined) ??
 		(type === "Number" ? "Float" : (type as unknown as DataType))
-	return { type: "injector", tag: "FromStore", datatype: dt, key, defaultValue }
+	return {
+		type: "injector",
+		tag: "FromStore",
+		datatype: dt,
+		key,
+		defaultValue,
+	}
 }

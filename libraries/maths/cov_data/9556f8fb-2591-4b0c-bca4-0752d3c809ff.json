@@ -1,0 +1,16 @@
+{
+  "scriptId": "378",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/compiler/inferNumericType/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2315, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "inferNumericType",
+      "ranges": [{ "startOffset": 1722, "endOffset": 2314, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

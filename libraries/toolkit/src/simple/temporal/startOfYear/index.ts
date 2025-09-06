@@ -90,7 +90,9 @@ const startOfYear = (
 				month: 1,
 				day: 1,
 			})
-			return firstOfYear.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
+			return firstOfYear.toPlainDateTime(
+				Temporal.PlainTime.from("00:00:00"),
+			)
 		}
 
 		// For PlainDateTime and ZonedDateTime, set to January 1st at midnight

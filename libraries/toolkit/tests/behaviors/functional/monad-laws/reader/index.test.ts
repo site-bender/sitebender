@@ -15,8 +15,8 @@ Deno.test("Reader monad - left identity law", () => {
 	fc.assert(
 		fc.property(fc.integer(), fc.integer(), (value, env) => {
 			const m = of<number, number>(value)
-			const left = chain<number, number, number>((x: number) => (r: number) =>
-				f(x)(r)
+			const left = chain<number, number, number>(
+				(x: number) => (r: number) => f(x)(r),
 			)(m)
 			const right = (r: number) => f(value)(r)
 			return left(env) === right(env)

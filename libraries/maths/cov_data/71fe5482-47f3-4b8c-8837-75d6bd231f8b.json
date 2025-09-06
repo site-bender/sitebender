@@ -1,0 +1,16 @@
+{
+  "scriptId": "366",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Divide/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 284, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Divide",
+      "ranges": [{ "startOffset": 89, "endOffset": 259, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

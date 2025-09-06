@@ -1,0 +1,21 @@
+{
+  "scriptId": "418",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/object.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 602, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "objectInternal",
+      "ranges": [{ "startOffset": 229, "endOffset": 479, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "object",
+      "ranges": [{ "startOffset": 480, "endOffset": 582, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

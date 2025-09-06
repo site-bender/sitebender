@@ -7,13 +7,18 @@ import scan from "../../../../src/simple/array/scan/index.ts"
 describe("scan", () => {
 	describe("behavioral tests", () => {
 		it("should return [initial] for null input", () => {
-			assertEquals(scan((acc: number, n: number) => acc + n)(0)(null), [0])
+			assertEquals(scan((acc: number, n: number) => acc + n)(0)(null), [
+				0,
+			])
 		})
 
 		it("should return [initial] for undefined input", () => {
-			assertEquals(scan((acc: number, n: number) => acc + n)(10)(undefined), [
-				10,
-			])
+			assertEquals(
+				scan((acc: number, n: number) => acc + n)(10)(undefined),
+				[
+					10,
+				],
+			)
 		})
 
 		it("should return [initial] for empty array", () => {
@@ -21,12 +26,21 @@ describe("scan", () => {
 		})
 
 		it("should compute running sum", () => {
-			const result = scan((acc: number, n: number) => acc + n)(0)([1, 2, 3, 4])
+			const result = scan((acc: number, n: number) => acc + n)(0)([
+				1,
+				2,
+				3,
+				4,
+			])
 			assertEquals(result, [0, 1, 3, 6, 10])
 		})
 
 		it("should compute running product", () => {
-			const result = scan((acc: number, n: number) => acc * n)(1)([2, 3, 4])
+			const result = scan((acc: number, n: number) => acc * n)(1)([
+				2,
+				3,
+				4,
+			])
 			assertEquals(result, [1, 2, 6, 24])
 		})
 
@@ -56,7 +70,10 @@ describe("scan", () => {
 		})
 
 		it("should compute Fibonacci sequence", () => {
-			const result = scan(([a, b]: [number, number]) => [b, a + b])([0, 1])(
+			const result = scan(([a, b]: [number, number]) => [b, a + b])([
+				0,
+				1,
+			])(
 				Array(8).fill(0),
 			)
 			assertEquals(result, [
@@ -127,7 +144,9 @@ describe("scan", () => {
 
 		it("should work with different initial types", () => {
 			// String initial
-			const strResult = scan((acc: string, n: number) => acc + n)("sum: ")([
+			const strResult = scan((acc: string, n: number) => acc + n)(
+				"sum: ",
+			)([
 				1,
 				2,
 				3,
@@ -135,7 +154,9 @@ describe("scan", () => {
 			assertEquals(strResult, ["sum: ", "sum: 1", "sum: 12", "sum: 123"])
 
 			// Boolean initial
-			const boolResult = scan((acc: boolean, n: number) => acc || n > 3)(false)(
+			const boolResult = scan((acc: boolean, n: number) => acc || n > 3)(
+				false,
+			)(
 				[1, 2, 4, 2],
 			)
 			assertEquals(boolResult, [false, false, false, true, true])
@@ -144,11 +165,17 @@ describe("scan", () => {
 			const objResult = scan((acc: { sum: number }, n: number) => ({
 				sum: acc.sum + n,
 			}))({ sum: 0 })([1, 2, 3])
-			assertEquals(objResult, [{ sum: 0 }, { sum: 1 }, { sum: 3 }, { sum: 6 }])
+			assertEquals(objResult, [{ sum: 0 }, { sum: 1 }, { sum: 3 }, {
+				sum: 6,
+			}])
 		})
 
 		it("should handle NaN in calculations", () => {
-			const result = scan((acc: number, n: number) => acc + n)(0)([1, NaN, 2])
+			const result = scan((acc: number, n: number) => acc + n)(0)([
+				1,
+				NaN,
+				2,
+			])
 			assertEquals(result[0], 0)
 			assertEquals(result[1], 1)
 			assertEquals(Number.isNaN(result[2]), true)
@@ -165,7 +192,9 @@ describe("scan", () => {
 		})
 
 		it("should handle arrays with mixed types", () => {
-			const result = scan((acc: string, item: any) => acc + String(item))("")([
+			const result = scan((acc: string, item: any) => acc + String(item))(
+				"",
+			)([
 				1,
 				"a",
 				true,
@@ -232,7 +261,9 @@ describe("scan", () => {
 					fc.array(fc.anything()),
 					fc.anything(),
 					(arr, initial) => {
-						const result = scan((acc: any, item: any) => item)(initial)(arr)
+						const result = scan((acc: any, item: any) => item)(
+							initial,
+						)(arr)
 						return result[0] === initial
 					},
 				),
@@ -245,7 +276,9 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					fc.integer(),
 					(arr, initial) => {
-						const result = scan((acc: number, n: number) => acc + n)(initial)(
+						const result = scan((acc: number, n: number) =>
+							acc + n
+						)(initial)(
 							arr,
 						)
 						return result.length === arr.length + 1
@@ -260,11 +293,17 @@ describe("scan", () => {
 					fc.array(fc.integer(), { minLength: 1 }),
 					fc.integer(),
 					(arr, initial) => {
-						const scanResult = scan((acc: number, n: number) => acc + n)(
+						const scanResult = scan((acc: number, n: number) =>
+							acc + n
+						)(
 							initial,
 						)(arr)
-						const reduceResult = arr.reduce((acc, n) => acc + n, initial)
-						return scanResult[scanResult.length - 1] === reduceResult
+						const reduceResult = arr.reduce(
+							(acc, n) => acc + n,
+							initial,
+						)
+						return scanResult[scanResult.length - 1] ===
+							reduceResult
 					},
 				),
 			)
@@ -281,7 +320,8 @@ describe("scan", () => {
 						const partial2 = partial1(initial)
 						const result1 = partial2(arr)
 						const result2 = scan(fn)(initial)(arr)
-						return JSON.stringify(result1) === JSON.stringify(result2)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
 					},
 				),
 			)
@@ -293,7 +333,9 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					(arr) => {
 						// String accumulator should stay string
-						const result = scan((acc: string, n: number) => acc + n)("start")(
+						const result = scan((acc: string, n: number) =>
+							acc + n
+						)("start")(
 							arr,
 						)
 						return result.every((item) => typeof item === "string")
@@ -307,7 +349,9 @@ describe("scan", () => {
 				fc.property(
 					fc.anything(),
 					(initial) => {
-						const result = scan((acc: any, item: any) => item)(initial)([])
+						const result = scan((acc: any, item: any) => item)(
+							initial,
+						)([])
 						return result.length === 1 && result[0] === initial
 					},
 				),
@@ -321,13 +365,17 @@ describe("scan", () => {
 					(arr) => {
 						const processedIndices: number[] = []
 						scan((acc: number, item: number, index?: number) => {
-							if (index !== undefined) processedIndices.push(index)
+							if (index !== undefined) {
+								processedIndices.push(index)
+							}
 							return acc
 						})(0)(arr)
 
 						// Indices should be in ascending order
 						for (let i = 1; i < processedIndices.length; i++) {
-							if (processedIndices[i] <= processedIndices[i - 1]) {
+							if (
+								processedIndices[i] <= processedIndices[i - 1]
+							) {
 								return false
 							}
 						}

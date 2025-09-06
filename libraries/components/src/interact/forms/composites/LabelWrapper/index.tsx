@@ -45,7 +45,9 @@ export default function LabelWrapper({
 						| undefined
 					if (!help) return existing
 					if (!existing) return helpId
-					const tokens = new Set((existing + " " + helpId).trim().split(/\s+/))
+					const tokens = new Set(
+						(existing + " " + helpId).trim().split(/\s+/),
+					)
 					return Array.from(tokens).join(" ")
 				})()}
 				id={child.props.id || `${id}-control`}

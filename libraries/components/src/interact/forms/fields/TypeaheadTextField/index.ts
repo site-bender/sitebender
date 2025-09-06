@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (!selectElement) return // Exit if no select element is found
 
 	// Extract options from the select element
-	const allTags = Array.from((selectElement as HTMLSelectElement).options).map(
-		(option) => option.value,
-	)
+	const allTags = Array.from((selectElement as HTMLSelectElement).options)
+		.map(
+			(option) => option.value,
+		)
 
 	// Create the tag input container
 	const tagInputContainer = document.createElement("div")
@@ -87,7 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (!aStartsWith && bStartsWith) return 1
 				return a.localeCompare(b)
 			})
-			.filter((tag: string) => tag.toLowerCase().includes(lowerCaseFilter))
+			.filter((tag: string) =>
+				tag.toLowerCase().includes(lowerCaseFilter)
+			)
 	}
 
 	// Function to render autocomplete list
@@ -167,7 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (e.key === "Enter") {
 			if (focusedOptionIndex >= 0) {
 				// If an item is highlighted, select it
-				const options = autocompleteList.querySelectorAll(".autocomplete-item")
+				const options = autocompleteList.querySelectorAll(
+					".autocomplete-item",
+				)
 				const selectedTag = options[focusedOptionIndex].textContent
 				if (selectedTag) {
 					selectedTags.push(selectedTag)

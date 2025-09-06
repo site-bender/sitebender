@@ -69,23 +69,26 @@ Deno.test("modulo - mathematical properties", async (t) => {
 		},
 	)
 
-	await t.step("property: a mod n + b mod n = (a + b) mod n (modulo n)", () => {
-		fc.assert(
-			fc.property(
-				fc.integer({ min: 1, max: 100 }),
-				fc.integer({ min: -1000, max: 1000 }),
-				fc.integer({ min: -1000, max: 1000 }),
-				(divisor, a, b) => {
-					const sumMod = modulo(divisor)(
-						modulo(divisor)(a) + modulo(divisor)(b),
-					)
-					const modSum = modulo(divisor)(a + b)
-					return sumMod === modSum
-				},
-			),
-			{ numRuns: 1000 },
-		)
-	})
+	await t.step(
+		"property: a mod n + b mod n = (a + b) mod n (modulo n)",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.integer({ min: 1, max: 100 }),
+					fc.integer({ min: -1000, max: 1000 }),
+					fc.integer({ min: -1000, max: 1000 }),
+					(divisor, a, b) => {
+						const sumMod = modulo(divisor)(
+							modulo(divisor)(a) + modulo(divisor)(b),
+						)
+						const modSum = modulo(divisor)(a + b)
+						return sumMod === modSum
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 })
 
 Deno.test("modulo - JSDoc examples", async (t) => {
@@ -193,7 +196,8 @@ Deno.test("modulo - JSDoc examples", async (t) => {
 		assertStrictEquals(isOdd(5), true)
 
 		// Cyclic indexing
-		const cyclicIndex = (index: number, length: number) => modulo(length)(index)
+		const cyclicIndex = (index: number, length: number) =>
+			modulo(length)(index)
 		assertStrictEquals(cyclicIndex(5, 3), 2)
 		assertStrictEquals(cyclicIndex(-1, 5), 4)
 	})

@@ -1,0 +1,21 @@
+{
+  "scriptId": "545",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/_internals/mappers/CharsToString.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 323, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "charsToStringMapper",
+      "ranges": [{ "startOffset": 72, "endOffset": 139, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "charsToStringUnmapper",
+      "ranges": [{ "startOffset": 147, "endOffset": 322, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

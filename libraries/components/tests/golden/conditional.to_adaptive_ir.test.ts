@@ -40,16 +40,24 @@ Deno.test("golden: Conditional compiles to Act.If with condition + then/else act
 						children: IsEqualTo({
 							type: "String",
 							children: [
-								Constant({ value: "foo" }) as unknown as JSX.Element,
-								Constant({ value: "foo" }) as unknown as JSX.Element,
+								Constant({
+									value: "foo",
+								}) as unknown as JSX.Element,
+								Constant({
+									value: "foo",
+								}) as unknown as JSX.Element,
 							],
 						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 					IfTrue({
-						children: Publish({ topic: "then" }) as unknown as JSX.Element,
+						children: Publish({
+							topic: "then",
+						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 					IfFalse({
-						children: Publish({ topic: "else" }) as unknown as JSX.Element,
+						children: Publish({
+							topic: "else",
+						}) as unknown as JSX.Element,
 					}) as unknown as JSX.Element,
 				],
 			}) as unknown as JSX.Element,

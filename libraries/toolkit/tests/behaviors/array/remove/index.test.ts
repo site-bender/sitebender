@@ -158,7 +158,11 @@ Deno.test("remove: currying", async (t) => {
 
 		assertEquals(removeNull([1, null, 2, null]), [1, 2, null])
 		assertEquals(removeZero([1, 0, 2, 0]), [1, 2, 0])
-		assertEquals(removeFalse([true, false, true, false]), [true, true, false])
+		assertEquals(removeFalse([true, false, true, false]), [
+			true,
+			true,
+			false,
+		])
 	})
 })
 
@@ -219,7 +223,8 @@ Deno.test("remove: property-based tests", async (t) => {
 					const nullResult = remove(item)(null)
 					const undefinedResult = remove(item)(undefined)
 
-					return nullResult.length === 0 && undefinedResult.length === 0
+					return nullResult.length === 0 &&
+						undefinedResult.length === 0
 				},
 			),
 		)
@@ -238,7 +243,9 @@ Deno.test("remove: property-based tests", async (t) => {
 					for (const [value, count] of counts) {
 						if (count > 1) {
 							const result = remove(value)(arr)
-							const resultCount = result.filter((v) => v === value).length
+							const resultCount = result.filter((v) =>
+								v === value
+							).length
 							// Should have exactly one less occurrence
 							if (resultCount !== count - 1) return false
 						}

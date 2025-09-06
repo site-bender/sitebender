@@ -115,7 +115,10 @@ describe("constructors - smoke", () => {
 	})
 
 	it("FromQueryString constructs with key and defaultValue", () => {
-		const inj: FromQueryStringInjector = FromQueryString("String")("page", "1")
+		const inj: FromQueryStringInjector = FromQueryString("String")(
+			"page",
+			"1",
+		)
 		assertEquals(inj.tag, "FromQueryString")
 		assertEquals(inj.type, "injector")
 		assertEquals(inj.datatype, "String")

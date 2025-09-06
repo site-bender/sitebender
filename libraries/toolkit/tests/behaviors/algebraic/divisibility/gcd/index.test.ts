@@ -48,20 +48,23 @@ Deno.test("gcd", async (t) => {
 			},
 		)
 
-		await t.step("should satisfy identity property: gcd(a, 0) = |a|", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: -1000, max: 1000 }),
-					(a) => {
-						if (a === 0) return true // Skip gcd(0, 0)
+		await t.step(
+			"should satisfy identity property: gcd(a, 0) = |a|",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: -1000, max: 1000 }),
+						(a) => {
+							if (a === 0) return true // Skip gcd(0, 0)
 
-						const result = gcd(a)(0)
-						return result === Math.abs(a)
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+							const result = gcd(a)(0)
+							return result === Math.abs(a)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step(
 			"should divide both numbers: a % gcd(a, b) = 0 and b % gcd(a, b) = 0",
@@ -205,7 +208,10 @@ Deno.test("gcd", async (t) => {
 		await t.step("should return NaN for undefined", () => {
 			assertEquals(Number.isNaN(gcd(undefined as any)(8)), true)
 			assertEquals(Number.isNaN(gcd(12)(undefined as any)), true)
-			assertEquals(Number.isNaN(gcd(undefined as any)(undefined as any)), true)
+			assertEquals(
+				Number.isNaN(gcd(undefined as any)(undefined as any)),
+				true,
+			)
 		})
 
 		await t.step("should return NaN for non-numeric values", () => {
