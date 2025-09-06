@@ -34,7 +34,6 @@ export type DataElementAttributes = DataAttributes & AriaAttributes & {
  * Allows global attributes and validates data-specific attributes
  */
 
-
 /**
  * Creates a Data element configuration object
  *

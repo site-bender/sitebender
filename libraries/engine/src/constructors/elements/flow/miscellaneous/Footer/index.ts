@@ -33,7 +33,6 @@ export type FooterElementAttributes = FooterAttributes & AriaAttributes & {
  * Allows global attributes and validates footer-specific attributes
  */
 
-
 /**
  * Creates a Footer element configuration object
  *

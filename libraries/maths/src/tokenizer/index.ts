@@ -5,10 +5,10 @@ import { TOKEN_PATTERNS } from "../constants/index.ts"
 /**
  * Tokenizes a mathematical expression into a sequence of tokens.
  * Performs lexical analysis to convert string input into structured tokens.
- * 
+ *
  * @param input - Mathematical expression string to tokenize
  * @returns Result containing array of tokens or parse error
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Tokenize simple addition
@@ -20,7 +20,7 @@ import { TOKEN_PATTERNS } from "../constants/index.ts"
  * //   { type: "EOF", value: "", position: 5 }
  * // ]}
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Tokenize numbers and operators
@@ -32,21 +32,21 @@ import { TOKEN_PATTERNS } from "../constants/index.ts"
  * //   { type: "EOF", value: "", position: 8 }
  * // ]}
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: Handle parentheses
  * const result = tokenize("(x + y)")
  * // Returns tokens including LEFT_PAREN and RIGHT_PAREN
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: Error on invalid characters
  * const result = tokenize("a & b")
  * // Returns: { ok: false, error: { message: "Unexpected character '&' at position 2", position: 2 } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Complex expression with all token types
@@ -54,13 +54,17 @@ import { TOKEN_PATTERNS } from "../constants/index.ts"
  * // Returns complete token sequence preserving position information
  * ```
  */
-export default function tokenize(input: string): Result<Array<Token>, ParseError> {
+export default function tokenize(
+	input: string,
+): Result<Array<Token>, ParseError> {
 	const tokens: Array<Token> = []
 	let position = 0
 
 	while (position < input.length) {
 		// Skip whitespace
-		const whitespaceMatch = TOKEN_PATTERNS.WHITESPACE.exec(input.slice(position))
+		const whitespaceMatch = TOKEN_PATTERNS.WHITESPACE.exec(
+			input.slice(position),
+		)
 		if (whitespaceMatch) {
 			position += whitespaceMatch[0].length
 			continue
@@ -93,7 +97,9 @@ export default function tokenize(input: string): Result<Array<Token>, ParseError
 		}
 
 		// Check for identifiers (variables)
-		const identifierMatch = TOKEN_PATTERNS.IDENTIFIER.exec(input.slice(position))
+		const identifierMatch = TOKEN_PATTERNS.IDENTIFIER.exec(
+			input.slice(position),
+		)
 		if (identifierMatch) {
 			tokens.push({
 				type: "IDENTIFIER",

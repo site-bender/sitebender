@@ -7,8 +7,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { FieldsetElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: FieldsetElementAttributes) {
-
+export default function filterAttributes(
+	attributes: FieldsetElementAttributes,
+) {
 	const {
 		id,
 		disabled,
@@ -92,5 +93,4 @@ export default function filterAttributes(attributes: FieldsetElementAttributes) 
 	}
 
 	return filteredAttrs
-
 }

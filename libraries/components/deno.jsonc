@@ -29,11 +29,14 @@
 
 		// JSX support for this library
 		"createElement": "./src/helpers/createElement/index.ts",
-		"Fragment": "./src/helpers/Fragment/index.ts"
+		"Fragment": "./src/helpers/Fragment/index.ts",
+		"#components-jsx/jsx-runtime": "./src/jsx-runtime.ts"
 	},
 
 	// Ensure global JSX types are visible to TS during build/test
 	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "#components-jsx",
 		"types": [
 			"./types/globals.d.ts",
 			"./types/JSX/jsx-runtime.d.ts"

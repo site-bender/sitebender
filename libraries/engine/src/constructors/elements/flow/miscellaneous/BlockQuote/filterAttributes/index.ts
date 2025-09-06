@@ -6,7 +6,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: BlockQuotationAttributes) {
-
 	const { id, cite, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -15,5 +14,4 @@ export default function filterAttributes(attributes: BlockQuotationAttributes) {
 		...globals,
 		...filterAttribute(isString)("cite")(cite),
 	}
-
 }

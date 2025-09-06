@@ -11,10 +11,10 @@ import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
 /**
  * Parses unary expressions (prefix operators like +, -).
  * Handles recursive unary operations like --x or +-x.
- * 
+ *
  * @param ctx - Parser context with tokens and position
  * @returns Result containing parsed AST node or error
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Parse negative number
@@ -22,7 +22,7 @@ import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
  * const result = parseUnaryExpression(ctx)
  * // Returns: { ok: true, value: { type: "UnaryOp", operator: "-", operand: { type: "Number", value: 5 } } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Parse positive variable (no-op)
@@ -30,7 +30,7 @@ import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
  * const result = parseUnaryExpression(ctx)
  * // Returns: { ok: true, value: { type: "UnaryOp", operator: "+", operand: { type: "Variable", name: "x" } } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: Parse double negative
@@ -38,7 +38,7 @@ import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
  * const result = parseUnaryExpression(ctx)
  * // Returns nested unary: UnaryOp("-", UnaryOp("-", Variable("x")))
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: No unary operator - pass through to primary
@@ -46,7 +46,7 @@ import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
  * const result = parseUnaryExpression(ctx)
  * // Returns: { ok: true, value: { type: "Number", value: 42 } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Unary on parenthesized expression

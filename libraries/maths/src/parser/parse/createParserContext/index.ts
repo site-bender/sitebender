@@ -4,10 +4,10 @@ import type { ParserContext } from "../../parseExpression/index.ts"
 /**
  * Creates a parser context with token navigation functions.
  * Encapsulates the state and navigation logic for the parser.
- * 
+ *
  * @param tokens - Array of tokens to parse
  * @returns Parser context with current, advance functions
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Create context for simple expression
@@ -22,7 +22,7 @@ import type { ParserContext } from "../../parseExpression/index.ts"
  * ctx.advance() // Returns: { type: "IDENTIFIER", value: "a", position: 0 }
  * ctx.current() // Returns: { type: "PLUS", value: "+", position: 2 }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Advance through all tokens
@@ -34,7 +34,7 @@ import type { ParserContext } from "../../parseExpression/index.ts"
  * }
  * // collected: ["x", "+", "y"]
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: EOF handling - stays at EOF
@@ -48,7 +48,7 @@ import type { ParserContext } from "../../parseExpression/index.ts"
  * ctx.advance() // Returns EOF (stays at EOF)
  * ctx.current() // Returns EOF
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: Empty token array handling
@@ -56,7 +56,7 @@ import type { ParserContext } from "../../parseExpression/index.ts"
  * ctx.current() // Returns undefined or throws depending on implementation
  * // Note: In practice, tokenizer always adds EOF token
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Use in parsing pipeline
@@ -72,7 +72,7 @@ export default function createParserContext(
 	let position = 0
 
 	const current = (): Token => tokens[position] || tokens[tokens.length - 1]
-	
+
 	const advance = (): Token => {
 		const token = current()
 		if (token.type !== "EOF") {

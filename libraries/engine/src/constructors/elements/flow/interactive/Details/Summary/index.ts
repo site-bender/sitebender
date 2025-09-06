@@ -30,8 +30,6 @@ export type SummaryElementAttributes = SummaryAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Summary element configuration object
  *

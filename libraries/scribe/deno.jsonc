@@ -1,0 +1,14 @@
+{
+	"name": "@sitebender/scribe",
+	"version": "0.1.0",
+	"exports": "./src/index.ts",
+	"tasks": {
+		"test": "deno test --unstable-temporal tests/",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+		"test:watch": "deno test --unstable-temporal --watch tests/",
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/ tests/",
+		"type-check": "deno check src/**/*.ts",
+		"dev": "deno run --allow-read --allow-write src/index.ts"
+	}
+}

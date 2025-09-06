@@ -32,7 +32,6 @@ export type AreaElementAttributes = AreaAttributes & NoAriaAttributes & {
  * Allows global attributes and validates area-specific attributes
  */
 
-
 /**
  * Creates an Area element configuration object
  *

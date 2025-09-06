@@ -7,7 +7,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { LegendElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: LegendElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes (only aria-hidden supported for Legend)
@@ -42,5 +41,4 @@ export default function filterAttributes(attributes: LegendElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

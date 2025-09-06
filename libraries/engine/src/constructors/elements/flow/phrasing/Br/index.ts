@@ -31,7 +31,6 @@ export type BrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * Allows global attributes only
  */
 
-
 /**
  * Creates a Br element configuration object
  *
@@ -43,7 +42,9 @@ export type BrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * const br = Br({ id: "line-break" })
  * ```
  */
-export default function Br(attributes: BrElementAttributes = {}): ElementConfig {
+export default function Br(
+	attributes: BrElementAttributes = {},
+): ElementConfig {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {
 		calculation,

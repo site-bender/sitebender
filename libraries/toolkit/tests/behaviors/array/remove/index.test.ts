@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import remove from "../../../../src/simple/array/remove/index.ts"
@@ -138,11 +141,11 @@ Deno.test("remove: type safety", async (t) => {
 Deno.test("remove: currying", async (t) => {
 	await t.step("should be fully curried", () => {
 		const removeTwo = remove(2)
-		
+
 		const result1 = removeTwo([1, 2, 3])
 		const result2 = removeTwo([2, 4, 6])
 		const result3 = removeTwo([5, 10, 15])
-		
+
 		assertEquals(result1, [1, 3])
 		assertEquals(result2, [4, 6])
 		assertEquals(result3, [5, 10, 15])
@@ -152,7 +155,7 @@ Deno.test("remove: currying", async (t) => {
 		const removeNull = remove(null)
 		const removeZero = remove(0)
 		const removeFalse = remove(false)
-		
+
 		assertEquals(removeNull([1, null, 2, null]), [1, 2, null])
 		assertEquals(removeZero([1, 0, 2, 0]), [1, 2, 0])
 		assertEquals(removeFalse([true, false, true, false]), [true, true, false])
@@ -168,7 +171,7 @@ Deno.test("remove: property-based tests", async (t) => {
 				(arr, item) => {
 					const result = remove(item)(arr)
 					const originalHasItem = arr.includes(item)
-					
+
 					if (originalHasItem) {
 						return result.length === arr.length - 1
 					} else {
@@ -187,7 +190,7 @@ Deno.test("remove: property-based tests", async (t) => {
 				(arr, item) => {
 					const result = remove(item)(arr)
 					const firstIndex = arr.indexOf(item)
-					
+
 					if (firstIndex === -1) {
 						// Item not in array, should return copy
 						return result.length === arr.length &&
@@ -215,7 +218,7 @@ Deno.test("remove: property-based tests", async (t) => {
 				(item) => {
 					const nullResult = remove(item)(null)
 					const undefinedResult = remove(item)(undefined)
-					
+
 					return nullResult.length === 0 && undefinedResult.length === 0
 				},
 			),
@@ -230,7 +233,7 @@ Deno.test("remove: property-based tests", async (t) => {
 					// Count occurrences of each value
 					const counts = new Map<number, number>()
 					arr.forEach((v) => counts.set(v, (counts.get(v) || 0) + 1))
-					
+
 					// For each unique value that appears multiple times
 					for (const [value, count] of counts) {
 						if (count > 1) {

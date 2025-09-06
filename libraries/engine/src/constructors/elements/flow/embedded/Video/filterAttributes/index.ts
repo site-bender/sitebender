@@ -1,4 +1,7 @@
-import { CROSS_ORIGINS, PRELOADS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	PRELOADS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -11,7 +14,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { VideoElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: VideoElementAttributes) {
-
 	const {
 		id,
 		autoplay,
@@ -132,5 +134,4 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

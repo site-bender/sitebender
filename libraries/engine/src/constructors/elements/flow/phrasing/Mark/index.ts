@@ -34,7 +34,6 @@ export type MarkElementAttributes = MarkTextAttributes & AriaAttributes & {
  * Allows global attributes and validates mark-specific attributes
  */
 
-
 /**
  * Creates a Mark element configuration object
  *

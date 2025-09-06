@@ -70,7 +70,7 @@ const liftN = <R>(n: number, fn: (...args: ReadonlyArray<unknown>) => R) => {
 			(acc, arr) => {
 				const current = Array.from(arr) as unknown[]
 				return acc.flatMap((combo) =>
-					current.map((item) => [...combo, item] as unknown[]),
+					current.map((item) => [...combo, item] as unknown[])
 				)
 			},
 			[[]] as unknown[][],

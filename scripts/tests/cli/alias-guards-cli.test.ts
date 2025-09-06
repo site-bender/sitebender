@@ -68,8 +68,8 @@ Deno.test("aliasGuards CLI: exits non-zero and prints hints on violations", asyn
 		// should include a suggestion hint
 		expect(
 			res.stderr.includes("@sitebender/engine/") ||
-			res.stderr.includes("@sitebender/engine-types/") ||
-			res.stderr.includes("@sitebender/toolkit/"),
+				res.stderr.includes("@sitebender/engine-types/") ||
+				res.stderr.includes("@sitebender/toolkit/"),
 		).toBe(true)
 	} finally {
 		await Deno.remove(root, { recursive: true })

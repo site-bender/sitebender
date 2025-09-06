@@ -41,7 +41,6 @@ export type IFrameElementAttributes =
  * Allows global attributes and validates iframe-specific attributes
  */
 
-
 /**
  * Creates an IFrame element configuration object
  *

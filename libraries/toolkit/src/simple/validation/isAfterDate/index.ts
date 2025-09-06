@@ -68,10 +68,10 @@ const isAfterDate = (
 		return false
 	}
 
-		const a = toIsoDateString(compareDate)
-		const b = toIsoDateString(refDate)
-		if (!a || !b) return false
-		return a > b
+	const a = toIsoDateString(compareDate)
+	const b = toIsoDateString(refDate)
+	if (!a || !b) return false
+	return a > b
 }
 
 export default isAfterDate

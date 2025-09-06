@@ -1,4 +1,4 @@
-import createElement from "../../../helpers/createElement/index.ts"
+// ...existing code...
 import generateShortId from "../../../helpers/generateShortId/index.ts"
 
 export type Props = JSX.FieldSetHTMLAttributes<HTMLFieldSetElement> & {

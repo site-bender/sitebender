@@ -2,7 +2,10 @@ import type { Value as _Value } from "@sitebender/engine-types/index.ts"
 import type { NoAriaAttributes as _NoAriaAttributes } from "@sitebender/engine/constructors/elements/types/aria/index.ts"
 import type { ScriptAttributes as _ScriptAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import { CROSS_ORIGINS, REFERRER_POLICIES } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	CROSS_ORIGINS,
+	REFERRER_POLICIES,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -14,7 +17,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { ScriptElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: ScriptElementAttributes) {
-
 	const {
 		id,
 		async,
@@ -83,5 +85,4 @@ export default function filterAttributes(attributes: ScriptElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

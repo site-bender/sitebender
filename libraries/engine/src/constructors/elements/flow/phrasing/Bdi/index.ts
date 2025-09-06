@@ -37,7 +37,6 @@ export type BdiElementAttributes =
  * Allows global attributes and validates bdi-specific attributes
  */
 
-
 /**
  * Creates a Bdi element configuration object
  *

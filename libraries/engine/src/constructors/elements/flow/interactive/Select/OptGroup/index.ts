@@ -32,8 +32,6 @@ export type OptGroupElementAttributes = OptionGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an OptGroup element configuration object
  *

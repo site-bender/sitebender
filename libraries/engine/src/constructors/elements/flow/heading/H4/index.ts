@@ -34,7 +34,6 @@ export type H4ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * Allows global attributes and validates heading-specific attributes
  */
 
-
 /**
  * Creates an H4 element configuration object
  *
