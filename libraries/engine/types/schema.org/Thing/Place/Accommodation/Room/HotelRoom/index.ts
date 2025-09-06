@@ -21,7 +21,9 @@ export interface HotelRoomProps {
 		| Text
 		| ReturnType<typeof BedDetailsComponent>
 		| ReturnType<typeof BedTypeComponent>
-	occupancy?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	occupancy?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 }
 
 type HotelRoom =

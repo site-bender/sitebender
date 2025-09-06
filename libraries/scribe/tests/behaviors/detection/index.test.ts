@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { 
-	detectPurity, 
-	detectCurrying, 
+import {
 	detectComplexity,
-	detectProperties 
+	detectCurrying,
+	detectProperties,
+	detectPurity,
 } from "../../../src/detectors/index.ts"
 
 Deno.test("detectPurity - identifies pure functions", () => {
@@ -11,7 +11,7 @@ Deno.test("detectPurity - identifies pure functions", () => {
 function add(x: number, y: number): number {
 	return x + y
 }`
-	
+
 	assertEquals(detectPurity(pureFunction), true)
 })
 
@@ -21,7 +21,7 @@ function log(x: number): number {
 	console.log(x)
 	return x
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
@@ -30,7 +30,7 @@ Deno.test("detectPurity - detects mutations as impure", () => {
 function mutate(arr: number[]): void {
 	arr.push(5)
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
@@ -39,7 +39,7 @@ Deno.test("detectPurity - detects Math.random as impure", () => {
 function random(): number {
 	return Math.random()
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
@@ -48,7 +48,7 @@ Deno.test("detectPurity - detects Date usage as impure", () => {
 function timestamp(): number {
 	return Date.now()
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
@@ -58,7 +58,7 @@ async function fetchData(): Promise<string> {
 	const result = await fetch('/api')
 	return result.text()
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
@@ -68,13 +68,13 @@ function validate(x: number): number {
 	if (x < 0) throw new Error("Invalid")
 	return x
 }`
-	
+
 	assertEquals(detectPurity(impureFunction), false)
 })
 
 Deno.test("detectPurity - handles arrow functions correctly", () => {
 	const pureArrow = `const add = (x: number) => (y: number) => x + y`
-	
+
 	assertEquals(detectPurity(pureArrow), true)
 })
 
@@ -85,7 +85,7 @@ export default function add(x: number) {
 		return x + y
 	}
 }`
-	
+
 	const result = detectCurrying(curriedFunction)
 	assertEquals(result.isCurried, true)
 	assertEquals(result.levels, 2)
@@ -96,7 +96,7 @@ Deno.test("detectCurrying - identifies non-curried functions", () => {
 function add(x: number, y: number): number {
 	return x + y
 }`
-	
+
 	const result = detectCurrying(normalFunction)
 	assertEquals(result.isCurried, false)
 	assertEquals(result.levels, 1)
@@ -104,7 +104,7 @@ function add(x: number, y: number): number {
 
 Deno.test("detectCurrying - identifies arrow function currying", () => {
 	const curriedArrow = `const add = (x: number) => (y: number) => x + y`
-	
+
 	const result = detectCurrying(curriedArrow)
 	assertEquals(result.isCurried, true)
 	assertEquals(result.levels, 2)
@@ -113,7 +113,7 @@ Deno.test("detectCurrying - identifies arrow function currying", () => {
 Deno.test("detectCurrying - identifies multi-level currying", () => {
 	const multiCurried = `
 const curry3 = (a: number) => (b: number) => (c: number) => a + b + c`
-	
+
 	const result = detectCurrying(multiCurried)
 	assertEquals(result.isCurried, true)
 	assertEquals(result.levels, 3)
@@ -124,7 +124,7 @@ Deno.test("detectComplexity - identifies O(1) complexity", () => {
 function getFirst(arr: number[]): number {
 	return arr[0]
 }`
-	
+
 	assertEquals(detectComplexity(constantTime), "O(1)")
 })
 
@@ -137,7 +137,7 @@ function sum(arr: number[]): number {
 	}
 	return total
 }`
-	
+
 	assertEquals(detectComplexity(linearTime), "O(n)")
 })
 
@@ -146,7 +146,7 @@ Deno.test("detectComplexity - identifies O(n) with array methods", () => {
 function double(arr: number[]): number[] {
 	return arr.map(x => x * 2)
 }`
-	
+
 	assertEquals(detectComplexity(mapFunction), "O(n)")
 })
 
@@ -162,7 +162,7 @@ function bubbleSort(arr: number[]): number[] {
 	}
 	return arr
 }`
-	
+
 	assertEquals(detectComplexity(quadraticTime), "O(n²)")
 })
 
@@ -171,7 +171,7 @@ Deno.test("detectComplexity - identifies O(n log n) for sorting", () => {
 function sortArray(arr: number[]): number[] {
 	return arr.sort((a, b) => a - b)
 }`
-	
+
 	assertEquals(detectComplexity(sortFunction), "O(n log n)")
 })
 
@@ -189,7 +189,7 @@ function binarySearch(arr: number[], target: number): number {
 	}
 	return -1
 }`
-	
+
 	assertEquals(detectComplexity(binarySearch), "O(log n)")
 })
 
@@ -199,7 +199,7 @@ function factorial(n: number): number {
 	if (n <= 1) return 1
 	return n * factorial(n - 1)
 }`
-	
+
 	assertEquals(detectComplexity(factorial), "O(n)")
 })
 
@@ -211,9 +211,9 @@ export default function add(x: number) {
 		return x + y
 	}
 }`
-	
+
 	const properties = detectProperties(curriedPureFunction)
-	
+
 	assertEquals(properties.isPure, true)
 	assertEquals(properties.isCurried, true)
 	assertEquals(properties.curryLevels, 2)

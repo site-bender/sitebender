@@ -67,7 +67,9 @@ export default function filterAttributes(attributes: FooterElementAttributes) {
 	if (isDefined(role)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(FOOTER_NOT_IN_SECTIONING_ROLES))("role")(role),
+			filterAttribute(isMemberOf(FOOTER_NOT_IN_SECTIONING_ROLES))("role")(
+				role,
+			),
 		)
 	}
 

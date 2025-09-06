@@ -37,7 +37,9 @@ describe("isDefined", () => {
 		})
 
 		it("should narrow null | undefined types", () => {
-			const value: number | null | undefined = Math.random() > 0.5 ? 42 : null
+			const value: number | null | undefined = Math.random() > 0.5
+				? 42
+				: null
 
 			if (isDefined(value)) {
 				// TypeScript should know value is number here

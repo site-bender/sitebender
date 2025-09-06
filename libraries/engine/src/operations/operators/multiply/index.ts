@@ -30,7 +30,9 @@ const multiply =
 		if (errors.length) {
 			return {
 				left: [
-					Error("Multiply")("Multiply")("Could not resolve all multipliers."),
+					Error("Multiply")("Multiply")(
+						"Could not resolve all multipliers.",
+					),
 					...errors.flatMap((e) => e.left),
 				],
 			}

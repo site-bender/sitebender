@@ -129,20 +129,22 @@
  * @property Immutable - Does not modify input set
  * @property Type-safe - Preserves element types
  */
-const partitionBy =
-	<T>(predicate: (value: T) => boolean) => (set: Set<T>): [Set<T>, Set<T>] => {
-		const matching = new Set<T>()
-		const nonMatching = new Set<T>()
+const partitionBy = <T>(predicate: (value: T) => boolean) =>
+(
+	set: Set<T>,
+): [Set<T>, Set<T>] => {
+	const matching = new Set<T>()
+	const nonMatching = new Set<T>()
 
-		for (const value of set) {
-			if (predicate(value)) {
-				matching.add(value)
-			} else {
-				nonMatching.add(value)
-			}
+	for (const value of set) {
+		if (predicate(value)) {
+			matching.add(value)
+		} else {
+			nonMatching.add(value)
 		}
-
-		return [matching, nonMatching]
 	}
+
+	return [matching, nonMatching]
+}
 
 export default partitionBy

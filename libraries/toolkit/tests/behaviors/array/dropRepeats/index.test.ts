@@ -73,11 +73,14 @@ Deno.test("dropRepeats", async (t) => {
 			assertEquals(Number.isNaN(result[2]), true)
 		})
 
-		await t.step("handles +0 and -0 as different (Object.is behavior)", () => {
-			// Object.is treats +0 and -0 as different (SameValue, not SameValueZero)
-			const result = dropRepeats([0, -0, +0, 1, -0])
-			assertEquals(result, [0, -0, +0, 1, -0])
-		})
+		await t.step(
+			"handles +0 and -0 as different (Object.is behavior)",
+			() => {
+				// Object.is treats +0 and -0 as different (SameValue, not SameValueZero)
+				const result = dropRepeats([0, -0, +0, 1, -0])
+				assertEquals(result, [0, -0, +0, 1, -0])
+			},
+		)
 
 		await t.step("handles null and undefined", () => {
 			const result = dropRepeats([null, null, undefined, undefined, null])
@@ -122,7 +125,14 @@ Deno.test("dropRepeats", async (t) => {
 
 	await t.step("practical use cases", async (t) => {
 		await t.step("state changes", () => {
-			const states = ["loading", "loading", "ready", "ready", "error", "ready"]
+			const states = [
+				"loading",
+				"loading",
+				"ready",
+				"ready",
+				"error",
+				"ready",
+			]
 			const result = dropRepeats(states)
 			assertEquals(result, ["loading", "ready", "error", "ready"])
 		})
@@ -134,7 +144,16 @@ Deno.test("dropRepeats", async (t) => {
 		})
 
 		await t.step("boolean toggles", () => {
-			const toggles = [true, true, false, false, false, true, false, false]
+			const toggles = [
+				true,
+				true,
+				false,
+				false,
+				false,
+				true,
+				false,
+				false,
+			]
 			const result = dropRepeats(toggles)
 			assertEquals(result, [true, false, true, false])
 		})

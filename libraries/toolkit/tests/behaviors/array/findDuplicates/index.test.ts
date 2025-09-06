@@ -47,7 +47,9 @@ Deno.test("findDuplicates", async (t) => {
 
 	await t.step("handles special numeric values", () => {
 		assertEquals(findDuplicates([0, -0, 0]), [0])
-		assertEquals(findDuplicates([Infinity, -Infinity, Infinity]), [Infinity])
+		assertEquals(findDuplicates([Infinity, -Infinity, Infinity]), [
+			Infinity,
+		])
 	})
 
 	await t.step("handles objects by reference", () => {
@@ -88,7 +90,9 @@ Deno.test("findDuplicates", async (t) => {
 			undefined,
 		])
 		assertEquals(findDuplicates([1, null, 2, null, 3]), [null])
-		assertEquals(findDuplicates([undefined, "test", undefined]), [undefined])
+		assertEquals(findDuplicates([undefined, "test", undefined]), [
+			undefined,
+		])
 	})
 
 	await t.step("handles symbols", () => {
@@ -160,25 +164,30 @@ Deno.test("findDuplicates", async (t) => {
 		"property: result preserves order of first occurrence",
 		() => {
 			fc.assert(
-				fc.property(fc.array(fc.integer({ min: 0, max: 20 })), (arr) => {
-					const result = findDuplicates(arr)
-					if (result.length <= 1) return true
+				fc.property(
+					fc.array(fc.integer({ min: 0, max: 20 })),
+					(arr) => {
+						const result = findDuplicates(arr)
+						if (result.length <= 1) return true
 
-					// Check that the order in result matches first occurrence order
-					const firstIndices = new Map<number, number>()
-					arr.forEach((item, index) => {
-						if (!firstIndices.has(item)) {
-							firstIndices.set(item, index)
+						// Check that the order in result matches first occurrence order
+						const firstIndices = new Map<number, number>()
+						arr.forEach((item, index) => {
+							if (!firstIndices.has(item)) {
+								firstIndices.set(item, index)
+							}
+						})
+
+						for (let i = 0; i < result.length - 1; i++) {
+							const index1 = firstIndices.get(result[i]) ??
+								Infinity
+							const index2 = firstIndices.get(result[i + 1]) ??
+								Infinity
+							if (index1 >= index2) return false
 						}
-					})
-
-					for (let i = 0; i < result.length - 1; i++) {
-						const index1 = firstIndices.get(result[i]) ?? Infinity
-						const index2 = firstIndices.get(result[i + 1]) ?? Infinity
-						if (index1 >= index2) return false
-					}
-					return true
-				}),
+						return true
+					},
+				),
 			)
 		},
 	)
@@ -201,7 +210,10 @@ Deno.test("findDuplicates", async (t) => {
 		() => {
 			fc.assert(
 				fc.property(
-					fc.uniqueArray(fc.anything(), { minLength: 0, maxLength: 100 }),
+					fc.uniqueArray(fc.anything(), {
+						minLength: 0,
+						maxLength: 100,
+					}),
 					(arr) => {
 						const result = findDuplicates(arr)
 						// Since we used uniqueArray, all elements are unique

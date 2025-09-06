@@ -85,7 +85,10 @@ Deno.test("absoluteValue: multiplicative property", async (t) => {
 					const absProduct = absoluteValue(x) * absoluteValue(y)
 
 					// Handle infinity cases
-					if (!Number.isFinite(productAbs) || !Number.isFinite(absProduct)) {
+					if (
+						!Number.isFinite(productAbs) ||
+						!Number.isFinite(absProduct)
+					) {
 						return Object.is(productAbs, absProduct)
 					}
 
@@ -95,7 +98,10 @@ Deno.test("absoluteValue: multiplicative property", async (t) => {
 					}
 
 					// Use relative epsilon for non-zero numbers
-					const magnitude = Math.max(Math.abs(productAbs), Math.abs(absProduct))
+					const magnitude = Math.max(
+						Math.abs(productAbs),
+						Math.abs(absProduct),
+					)
 					const epsilon = Math.max(magnitude * 1e-10, 1e-14)
 
 					return approximately(productAbs, absProduct, epsilon)

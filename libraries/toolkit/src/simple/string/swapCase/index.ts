@@ -55,7 +55,9 @@ const swapCase = (
 	}
 
 	return str.replace(/[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]/g, (char) => {
-		return char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+		return char === char.toUpperCase()
+			? char.toLowerCase()
+			: char.toUpperCase()
 	})
 }
 

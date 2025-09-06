@@ -290,7 +290,9 @@ export function enhancePrefetch(element: HTMLAnchorElement): void {
 // Client-side enhancement script
 // scripts/enhance.ts
 if (typeof window !== "undefined") {
-	document.querySelectorAll("a[data-enhance-prefetch]").forEach(enhancePrefetch)
+	document.querySelectorAll("a[data-enhance-prefetch]").forEach(
+		enhancePrefetch,
+	)
 	document.querySelectorAll("a[data-enhance-smooth-scroll]").forEach(
 		enhanceSmoothScroll,
 	)

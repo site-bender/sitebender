@@ -13,7 +13,8 @@ export default function makeGuidance(
 		)
 	}
 	if (
-		missingNames.includes("Docker") || missingNames.includes("Docker Compose")
+		missingNames.includes("Docker") ||
+		missingNames.includes("Docker Compose")
 	) {
 		guidanceLines.push(
 			deps.isMacOS()

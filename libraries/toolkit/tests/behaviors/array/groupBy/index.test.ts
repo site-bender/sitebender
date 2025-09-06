@@ -11,7 +11,9 @@ describe("groupBy", () => {
 			{ name: "Bob", age: 25 },
 			{ name: "Charlie", age: 30 },
 		]
-		const result = groupBy((p: { name: string; age: number }) => p.age)(people)
+		const result = groupBy((p: { name: string; age: number }) => p.age)(
+			people,
+		)
 		assertEquals(result["25"], [{ name: "Bob", age: 25 }])
 		assertEquals(result["30"], [
 			{ name: "Alice", age: 30 },
@@ -109,7 +111,9 @@ describe("groupBy", () => {
 			{ id: 4, type: "b" },
 			{ id: 5, type: "a" },
 		]
-		const result = groupBy((x: { id: number; type: string }) => x.type)(data)
+		const result = groupBy((x: { id: number; type: string }) => x.type)(
+			data,
+		)
 		assertEquals(result.a, [
 			{ id: 1, type: "a" },
 			{ id: 3, type: "a" },
@@ -145,7 +149,9 @@ describe("groupBy", () => {
 	})
 
 	it("is curried", () => {
-		const groupByType = groupBy((x: { type: string; value: number }) => x.type)
+		const groupByType = groupBy((x: { type: string; value: number }) =>
+			x.type
+		)
 		assert(typeof groupByType === "function")
 
 		const data1 = [{ type: "A", value: 1 }]
@@ -182,7 +188,9 @@ describe("groupBy", () => {
 	})
 
 	it("groups by boolean values", () => {
-		const result = groupBy((n: number) => n > 0 ? "positive" : "non-positive")([
+		const result = groupBy((n: number) =>
+			n > 0 ? "positive" : "non-positive"
+		)([
 			1,
 			-1,
 			2,
@@ -296,13 +304,19 @@ describe("groupBy", () => {
 		it("preserves relative order within groups", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.tuple(fc.integer(), fc.integer({ min: 0, max: 5 }))),
+					fc.array(
+						fc.tuple(fc.integer(), fc.integer({ min: 0, max: 5 })),
+					),
 					(pairs) => {
-						const result = groupBy((p: [number, number]) => p[1])(pairs)
+						const result = groupBy((p: [number, number]) => p[1])(
+							pairs,
+						)
 
 						Object.values(result).forEach((group) => {
 							// Check that indices in original array are increasing
-							const indices = group.map((item) => pairs.indexOf(item))
+							const indices = group.map((item) =>
+								pairs.indexOf(item)
+							)
 							for (let i = 1; i < indices.length; i++) {
 								assert(indices[i] > indices[i - 1])
 							}

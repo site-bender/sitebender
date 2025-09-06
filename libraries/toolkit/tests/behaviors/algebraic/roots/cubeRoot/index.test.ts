@@ -155,28 +155,34 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 		)
 	})
 
-	await t.step("multiplicative property: cbrt(a*b) ≈ cbrt(a) * cbrt(b)", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ min: -1000, max: 1000, noNaN: true }),
-				fc.float({ min: -1000, max: 1000, noNaN: true }),
-				(a, b) => {
-					const leftSide = cubeRoot(a * b)
-					const rightSide = cubeRoot(a) * cubeRoot(b)
+	await t.step(
+		"multiplicative property: cbrt(a*b) ≈ cbrt(a) * cbrt(b)",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({ min: -1000, max: 1000, noNaN: true }),
+					fc.float({ min: -1000, max: 1000, noNaN: true }),
+					(a, b) => {
+						const leftSide = cubeRoot(a * b)
+						const rightSide = cubeRoot(a) * cubeRoot(b)
 
-					// Handle special cases
-					if (!isFinite(leftSide) || !isFinite(rightSide)) {
-						return Object.is(leftSide, rightSide)
-					}
+						// Handle special cases
+						if (!isFinite(leftSide) || !isFinite(rightSide)) {
+							return Object.is(leftSide, rightSide)
+						}
 
-					// Use relative tolerance
-					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
-					return Math.abs(leftSide - rightSide) < tolerance
-				},
-			),
-			{ numRuns: 1000 },
-		)
-	})
+						// Use relative tolerance
+						const tolerance = Math.max(
+							1e-10,
+							Math.abs(leftSide) * 1e-10,
+						)
+						return Math.abs(leftSide - rightSide) < tolerance
+					},
+				),
+				{ numRuns: 1000 },
+			)
+		},
+	)
 
 	await t.step("division property: cbrt(a/b) ≈ cbrt(a) / cbrt(b)", () => {
 		fc.assert(
@@ -195,7 +201,10 @@ Deno.test("cubeRoot: mathematical properties", async (t) => {
 					}
 
 					// Use relative tolerance
-					const tolerance = Math.max(1e-10, Math.abs(leftSide) * 1e-10)
+					const tolerance = Math.max(
+						1e-10,
+						Math.abs(leftSide) * 1e-10,
+					)
 					return Math.abs(leftSide - rightSide) < tolerance
 				},
 			),
@@ -262,7 +271,10 @@ Deno.test("cubeRoot: practical applications", async (t) => {
 		}
 
 		// Sphere with volume 4188.79... has radius ≈ 10
-		assertEquals(approximately(sphereRadiusFromVolume(4188.79), 10, 0.01), true)
+		assertEquals(
+			approximately(sphereRadiusFromVolume(4188.79), 10, 0.01),
+			true,
+		)
 
 		// Unit sphere (r=1) has volume 4π/3
 		const unitVolume = (4 * Math.PI) / 3
@@ -292,7 +304,10 @@ Deno.test("cubeRoot: practical applications", async (t) => {
 		assertEquals(approximately(compoundGrowthRate(1000, 1728), 0.2), true)
 
 		// 5% growth rate: 1000 -> 1157.625 over 3 periods
-		assertEquals(approximately(compoundGrowthRate(1000, 1157.625), 0.05), true)
+		assertEquals(
+			approximately(compoundGrowthRate(1000, 1157.625), 0.05),
+			true,
+		)
 	})
 
 	await t.step("data normalization", () => {

@@ -10,10 +10,10 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of pipe-specific test cases
  */
 export default function generatePipePatternTests(
-	_signature: FunctionSignature
+	_signature: FunctionSignature,
 ): Array<TestCase> {
 	const tests: Array<TestCase> = []
-	
+
 	// Test identity: pipe with single function
 	tests.push({
 		name: "pipe with single function acts as identity",
@@ -29,19 +29,20 @@ export default function generatePipePatternTests(
 			`,
 		}],
 	})
-	
+
 	// Test composition order: left-to-right
 	tests.push({
 		name: "pipe composes left-to-right",
 		description: "Functions are applied in order from first to last",
 		input: [
 			[(x: number) => x + 1, (x: number) => x * 2],
-			5
+			5,
 		],
 		expectedOutput: 12, // (5 + 1) * 2
 		properties: [{
 			name: "left-to-right composition",
-			generator: "fc.array(fc.func(fc.anything()), { minLength: 2 }), fc.anything()",
+			generator:
+				"fc.array(fc.func(fc.anything()), { minLength: 2 }), fc.anything()",
 			property: `
 				const [f, g, ...rest] = functions
 				const manual = rest.reduce((acc, fn) => fn(acc), g(f(input)))
@@ -50,7 +51,7 @@ export default function generatePipePatternTests(
 			`,
 		}],
 	})
-	
+
 	// Test empty pipe
 	tests.push({
 		name: "empty pipe returns identity",
@@ -58,7 +59,7 @@ export default function generatePipePatternTests(
 		input: [[], 42],
 		expectedOutput: 42,
 	})
-	
+
 	// Test with different types
 	tests.push({
 		name: "pipe preserves type transformations",
@@ -67,12 +68,12 @@ export default function generatePipePatternTests(
 			[
 				(x: number) => x.toString(),
 				(s: string) => s.length,
-				(n: number) => n > 0
+				(n: number) => n > 0,
 			],
-			123
+			123,
 		],
 		expectedOutput: true, // "123".length = 3, 3 > 0 = true
 	})
-	
+
 	return tests
 }

@@ -42,18 +42,23 @@ Deno.test("lcm", async (t) => {
 			},
 		)
 
-		await t.step("should satisfy identity property: lcm(a, 1) = |a|", () => {
-			fc.assert(
-				fc.property(
-					fc.integer({ min: -1000, max: 1000 }).filter((n) => n !== 0),
-					(a) => {
-						const result = lcm(a)(1)
-						return result === Math.abs(a)
-					},
-				),
-				{ numRuns: 1000 },
-			)
-		})
+		await t.step(
+			"should satisfy identity property: lcm(a, 1) = |a|",
+			() => {
+				fc.assert(
+					fc.property(
+						fc.integer({ min: -1000, max: 1000 }).filter((n) =>
+							n !== 0
+						),
+						(a) => {
+							const result = lcm(a)(1)
+							return result === Math.abs(a)
+						},
+					),
+					{ numRuns: 1000 },
+				)
+			},
+		)
 
 		await t.step(
 			"should be divisible by both numbers: lcm(a, b) % a = 0 and lcm(a, b) % b = 0",
@@ -214,7 +219,10 @@ Deno.test("lcm", async (t) => {
 		await t.step("should return NaN for undefined", () => {
 			assertEquals(Number.isNaN(lcm(undefined as any)(8)), true)
 			assertEquals(Number.isNaN(lcm(12)(undefined as any)), true)
-			assertEquals(Number.isNaN(lcm(undefined as any)(undefined as any)), true)
+			assertEquals(
+				Number.isNaN(lcm(undefined as any)(undefined as any)),
+				true,
+			)
 		})
 
 		await t.step("should return NaN for non-numeric values", () => {

@@ -218,7 +218,9 @@ type GA4State = {
 function createGA4Provider(): AnalyticsProvider {
 	let state: GA4State = { initialized: false }
 
-	const initialize = async (config: Record<string, unknown>): Promise<void> => {
+	const initialize = async (
+		config: Record<string, unknown>,
+	): Promise<void> => {
 		if (state.initialized) return
 
 		const ga4Config = config as GA4Config
@@ -256,12 +258,18 @@ function createGA4Provider(): AnalyticsProvider {
 		}
 	}
 
-	const identify = (userId: string, traits?: Record<string, unknown>): void => {
+	const identify = (
+		userId: string,
+		traits?: Record<string, unknown>,
+	): void => {
 		if (!state.initialized) return
 		window.gtag("set", { user_id: userId, ...traits })
 	}
 
-	const page = (name?: string, properties?: Record<string, unknown>): void => {
+	const page = (
+		name?: string,
+		properties?: Record<string, unknown>,
+	): void => {
 		if (!state.initialized) return
 		window.gtag("event", "page_view", {
 			page_title: name,
@@ -299,14 +307,17 @@ type PlausibleState = {
 function createPlausibleProvider(): AnalyticsProvider {
 	let state: PlausibleState = { initialized: false }
 
-	const initialize = async (config: Record<string, unknown>): Promise<void> => {
+	const initialize = async (
+		config: Record<string, unknown>,
+	): Promise<void> => {
 		if (state.initialized) return
 
 		const plausibleConfig = config as PlausibleConfig
 		const script = document.createElement("script")
 		script.defer = true
 		script.dataset.domain = plausibleConfig.domain
-		script.src = plausibleConfig.apiHost || "https://plausible.io/js/script.js"
+		script.src = plausibleConfig.apiHost ||
+			"https://plausible.io/js/script.js"
 		document.head.appendChild(script)
 
 		state = { ...state, initialized: true }
@@ -319,7 +330,9 @@ function createPlausibleProvider(): AnalyticsProvider {
 		window.plausible("Link", {
 			props: {
 				url: event.href,
-				text: "text" in event ? event.text?.substring(0, 100) : undefined,
+				text: "text" in event
+					? event.text?.substring(0, 100)
+					: undefined,
 				category: "category" in event ? event.category : undefined,
 			},
 		})
@@ -535,7 +548,10 @@ function createAnalyticsEnhancer(config: AnalyticsConfig) {
 			try {
 				provider.track(event)
 			} catch (error) {
-				console.warn(`Analytics provider ${provider.name} failed:`, error)
+				console.warn(
+					`Analytics provider ${provider.name} failed:`,
+					error,
+				)
 			}
 		})
 	}
@@ -562,7 +578,9 @@ function createAnalyticsEnhancer(config: AnalyticsConfig) {
 
 	const enhanceLink = (element: HTMLAnchorElement): () => void => {
 		// Parse tracking configuration
-		const [category, action, label] = (element.dataset.track || "").split(":")
+		const [category, action, label] = (element.dataset.track || "").split(
+			":",
+		)
 		const value = parseInt(element.dataset.trackValue || "0")
 
 		const handleClick = (e: MouseEvent) => {

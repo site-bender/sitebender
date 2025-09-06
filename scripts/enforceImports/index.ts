@@ -44,7 +44,8 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @sitebender/engine/… instead of libraries/engine/src/…",
+						hint:
+							"Use @sitebender/engine/… instead of libraries/engine/src/…",
 					})
 				}
 				if (spec.includes(ENGINE_TYPES)) {

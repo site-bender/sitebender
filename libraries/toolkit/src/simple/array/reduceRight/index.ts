@@ -41,7 +41,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * ```
  */
 const reduceRight = <T, U>(
-	fn: (accumulator: U, element: T, index: number, array: ReadonlyArray<T>) => U,
+	fn: (
+		accumulator: U,
+		element: T,
+		index: number,
+		array: ReadonlyArray<T>,
+	) => U,
 ) =>
 (
 	initial: U,

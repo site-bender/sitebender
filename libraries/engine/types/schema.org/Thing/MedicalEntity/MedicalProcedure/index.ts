@@ -29,7 +29,10 @@ export interface MedicalProcedureProps {
 	bodyLocation?: Text
 	followup?: Text
 	howPerformed?: Text
-	preparation?: MedicalEntity | Text | ReturnType<typeof MedicalEntityComponent>
+	preparation?:
+		| MedicalEntity
+		| Text
+		| ReturnType<typeof MedicalEntityComponent>
 	procedureType?:
 		| MedicalProcedureTypeEnum
 		| ReturnType<typeof MedicalProcedureTypeComponent>

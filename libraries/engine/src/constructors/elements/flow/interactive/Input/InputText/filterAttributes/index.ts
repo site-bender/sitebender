@@ -71,7 +71,9 @@ export default function filterAttributes(
 	if (isDefined(autocomplete)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(autocomplete),
+			filterAttribute(isMemberOf(AUTOCOMPLETES))("autocomplete")(
+				autocomplete,
+			),
 		)
 	}
 	if (isDefined(autofocus)) {
@@ -81,7 +83,10 @@ export default function filterAttributes(
 		)
 	}
 	if (isDefined(dirname)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("dirname")(dirname))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("dirname")(dirname),
+		)
 	}
 	if (isDefined(disabled)) {
 		Object.assign(
@@ -111,7 +116,10 @@ export default function filterAttributes(
 		Object.assign(filteredAttrs, filterAttribute(isString)("name")(name))
 	}
 	if (isDefined(pattern)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("pattern")(pattern))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("pattern")(pattern),
+		)
 	}
 	if (isDefined(placeholder)) {
 		Object.assign(

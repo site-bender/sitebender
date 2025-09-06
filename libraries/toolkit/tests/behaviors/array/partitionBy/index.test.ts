@@ -33,7 +33,15 @@ describe("partitionBy", () => {
 		it("should group consecutive strings by property", () => {
 			const isLong = (s: string) => s.length > 3
 			assertEquals(
-				partitionBy(isLong)(["a", "bb", "ccc", "dddd", "eeeee", "f", "g"]),
+				partitionBy(isLong)([
+					"a",
+					"bb",
+					"ccc",
+					"dddd",
+					"eeeee",
+					"f",
+					"g",
+				]),
 				[["a", "bb", "ccc"], ["dddd", "eeeee"], ["f", "g"]],
 			)
 		})
@@ -46,7 +54,9 @@ describe("partitionBy", () => {
 				{ id: 4, completed: false },
 			]
 			assertEquals(
-				partitionBy((t: { id: number; completed: boolean }) => t.completed)(
+				partitionBy((t: { id: number; completed: boolean }) =>
+					t.completed
+				)(
 					tasks,
 				),
 				[
@@ -91,10 +101,22 @@ describe("partitionBy", () => {
 
 		it("should handle all elements in same group", () => {
 			const alwaysTrue = () => true
-			assertEquals(partitionBy(alwaysTrue)([1, 2, 3, 4, 5]), [[1, 2, 3, 4, 5]])
+			assertEquals(partitionBy(alwaysTrue)([1, 2, 3, 4, 5]), [[
+				1,
+				2,
+				3,
+				4,
+				5,
+			]])
 
 			const alwaysFalse = () => false
-			assertEquals(partitionBy(alwaysFalse)([1, 2, 3, 4, 5]), [[1, 2, 3, 4, 5]])
+			assertEquals(partitionBy(alwaysFalse)([1, 2, 3, 4, 5]), [[
+				1,
+				2,
+				3,
+				4,
+				5,
+			]])
 		})
 
 		it("should handle falsy predicate results", () => {
@@ -125,14 +147,23 @@ describe("partitionBy", () => {
 	describe("currying", () => {
 		it("should support partial application", () => {
 			const partitionByEven = partitionBy((n: number) => n % 2 === 0)
-			assertEquals(partitionByEven([1, 3, 2, 4, 5]), [[1, 3], [2, 4], [5]])
-			assertEquals(partitionByEven([2, 4, 1, 3, 6]), [[2, 4], [1, 3], [6]])
+			assertEquals(partitionByEven([1, 3, 2, 4, 5]), [[1, 3], [2, 4], [
+				5,
+			]])
+			assertEquals(partitionByEven([2, 4, 1, 3, 6]), [[2, 4], [1, 3], [
+				6,
+			]])
 
 			const partitionBySign = partitionBy((n: number) => Math.sign(n))
-			assertEquals(partitionBySign([-1, -2, 0, 1, 2, -3]), [[-1, -2], [0], [
-				1,
-				2,
-			], [-3]])
+			assertEquals(partitionBySign([-1, -2, 0, 1, 2, -3]), [
+				[-1, -2],
+				[0],
+				[
+					1,
+					2,
+				],
+				[-3],
+			])
 		})
 	})
 
@@ -145,7 +176,9 @@ describe("partitionBy", () => {
 			assertEquals(groups, [[1, 1], [2, 2], [3, 3]])
 
 			const strings = ["a", "a", "b", "c", "c"]
-			const stringGroups: Array<Array<string>> = partitionBy((s: string) => s)(
+			const stringGroups: Array<Array<string>> = partitionBy((
+				s: string,
+			) => s)(
 				strings,
 			)
 			assertEquals(stringGroups, [["a", "a"], ["b"], ["c", "c"]])
@@ -190,7 +223,9 @@ describe("partitionBy", () => {
 				{ time: 4, state: "running" },
 				{ time: 5, state: "idle" },
 			]
-			const stateGroups = partitionBy((d: { state: string }) => d.state)(data)
+			const stateGroups = partitionBy((d: { state: string }) => d.state)(
+				data,
+			)
 			assertEquals(stateGroups.length, 3)
 			assertEquals(stateGroups[0][0].state, "idle")
 			assertEquals(stateGroups[1][0].state, "running")
@@ -225,7 +260,8 @@ describe("partitionBy", () => {
 					(array, predicate) => {
 						const groups = partitionBy(predicate)(array)
 						const flattened = groups.flat()
-						return JSON.stringify(flattened) === JSON.stringify(array)
+						return JSON.stringify(flattened) ===
+							JSON.stringify(array)
 					},
 				),
 			)
@@ -243,7 +279,9 @@ describe("partitionBy", () => {
 						for (const group of groups) {
 							if (group.length > 0) {
 								const firstResult = isEven(group[0])
-								const allSame = group.every((el) => isEven(el) === firstResult)
+								const allSame = group.every((el) =>
+									isEven(el) === firstResult
+								)
 								if (!allSame) return false
 							}
 						}
@@ -286,7 +324,8 @@ describe("partitionBy", () => {
 					fc.func(fc.integer()),
 					(array, predicate) => {
 						const groups = partitionBy(predicate)(array)
-						return groups.length > 0 && groups.length <= array.length
+						return groups.length > 0 &&
+							groups.length <= array.length
 					},
 				),
 			)
@@ -304,7 +343,9 @@ describe("partitionBy", () => {
 						for (const group of groups) {
 							if (group.length > 1) {
 								const first = group[0]
-								const allSame = group.every((el) => el === first)
+								const allSame = group.every((el) =>
+									el === first
+								)
 								if (!allSame) return false
 							}
 						}

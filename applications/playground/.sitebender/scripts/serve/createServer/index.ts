@@ -1,64 +1,64 @@
-import { extname, join } from 'jsr:@std/path';
+import { extname, join } from "jsr:@std/path"
 
-import getContentType from './getContentType/index.ts';
+import getContentType from "./getContentType/index.ts"
 
 type ServerOptions = {
-	port?: number;
-};
+	port?: number
+}
 
 export default function createServer(
 	logger: Logger = console,
 	options: ServerOptions = {},
 ): { port: number; stop: () => void } {
-	const { port = 3000 } = options;
+	const { port = 3000 } = options
 
-	logger.log(`🚀 Server starting on port ${port}...`);
-	logger.log(`📍 http://localhost:${port}`);
+	logger.log(`🚀 Server starting on port ${port}...`)
+	logger.log(`📍 http://localhost:${port}`)
 
-	const abortController = new AbortController();
+	const abortController = new AbortController()
 
 	const handler = async (req: Request): Promise<Response> => {
-		const url = new URL(req.url);
+		const url = new URL(req.url)
 
-		let filePath = url.pathname;
+		let filePath = url.pathname
 
-		if (filePath === '/') {
-			filePath = '/index.html';
-		} else if (filePath.endsWith('/') || !extname(filePath)) {
-			const cleanPath = filePath.replace(/\/$/, '');
-			filePath = `${cleanPath}/index.html`;
+		if (filePath === "/") {
+			filePath = "/index.html"
+		} else if (filePath.endsWith("/") || !extname(filePath)) {
+			const cleanPath = filePath.replace(/\/$/, "")
+			filePath = `${cleanPath}/index.html`
 		}
 
-		const fullPath = join(Deno.cwd(), 'dist', filePath);
+		const fullPath = join(Deno.cwd(), "dist", filePath)
 
 		try {
-			const stat = await Deno.stat(fullPath);
+			const stat = await Deno.stat(fullPath)
 			if (stat.isFile) {
-				const file = await Deno.readFile(fullPath);
+				const file = await Deno.readFile(fullPath)
 
-				const contentType = getContentType(extname(filePath));
+				const contentType = getContentType(extname(filePath))
 				return new Response(file, {
-					headers: { 'Content-Type': contentType },
-				});
+					headers: { "Content-Type": contentType },
+				})
 			}
 		} catch (error) {
 			if (!(error instanceof Deno.errors.NotFound)) {
-				logger.error('Error serving file:', error);
+				logger.error("Error serving file:", error)
 			}
 		}
 
-		return new Response('Not Found', { status: 404 });
-	};
+		return new Response("Not Found", { status: 404 })
+	}
 
 	Deno.serve(
 		{ port, signal: abortController.signal },
 		handler,
-	);
+	)
 
 	return {
 		port,
 		stop: () => {
-			abortController.abort();
+			abortController.abort()
 		},
-	};
+	}
 }

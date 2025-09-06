@@ -80,7 +80,8 @@ Deno.test("IO functor - identity and composition", () => {
 			const idRes = map<number, number>(id)(m)
 			const compLeft = map<number, number>((x: number) => f(g(x)))(m)
 			const compRight = map<number, number>(f)(map<number, number>(g)(m))
-			return runIO(idRes) === runIO(m) && runIO(compLeft) === runIO(compRight)
+			return runIO(idRes) === runIO(m) &&
+				runIO(compLeft) === runIO(compRight)
 		}),
 		{ numRuns: 500 },
 	)

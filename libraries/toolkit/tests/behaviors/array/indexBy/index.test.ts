@@ -169,7 +169,9 @@ Deno.test("indexBy", async (t) => {
 			{ key: -Infinity, value: "negative infinity" },
 			{ key: NaN, value: "not a number" },
 		]
-		const result = indexBy((item: { key: number; value: string }) => item.key)(
+		const result = indexBy((item: { key: number; value: string }) =>
+			item.key
+		)(
 			items,
 		)
 
@@ -266,7 +268,9 @@ Deno.test("indexBy", async (t) => {
 						{ minLength: 1, maxLength: 20 },
 					),
 					(arr) => {
-						const result = indexBy((item: { id: number }) => item.id)(arr)
+						const result = indexBy((item: { id: number }) =>
+							item.id
+						)(arr)
 						Object.entries(result).forEach(([key, value]) => {
 							assertEquals(Number(key), value.id)
 						})

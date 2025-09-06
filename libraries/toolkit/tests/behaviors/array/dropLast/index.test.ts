@@ -23,7 +23,10 @@ Deno.test("dropLast: JSDoc examples", async (t) => {
 
 	await t.step("useful for removing trailing items", () => {
 		const removeFooter = dropLast(1)
-		assertEquals(removeFooter(["data1", "data2", "footer"]), ["data1", "data2"])
+		assertEquals(removeFooter(["data1", "data2", "footer"]), [
+			"data1",
+			"data2",
+		])
 	})
 })
 
@@ -213,7 +216,10 @@ Deno.test("dropLast: currying", async (t) => {
 		const dropLast3 = dropLast(3)
 		assertEquals(dropLast3([1, 2, 3, 4, 5]), [1, 2])
 		assertEquals(dropLast3(["a", "b", "c", "d", "e"]), ["a", "b"])
-		assertEquals(dropLast3([true, false, null, undefined, 0]), [true, false])
+		assertEquals(dropLast3([true, false, null, undefined, 0]), [
+			true,
+			false,
+		])
 	})
 
 	await t.step("different dropLast functions are independent", () => {

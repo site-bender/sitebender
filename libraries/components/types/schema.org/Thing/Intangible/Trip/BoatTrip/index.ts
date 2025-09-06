@@ -9,7 +9,9 @@ export type BoatTripType = "BoatTrip"
 
 export interface BoatTripProps {
 	"@type"?: BoatTripType
-	arrivalBoatTerminal?: BoatTerminal | ReturnType<typeof BoatTerminalComponent>
+	arrivalBoatTerminal?:
+		| BoatTerminal
+		| ReturnType<typeof BoatTerminalComponent>
 	departureBoatTerminal?:
 		| BoatTerminal
 		| ReturnType<typeof BoatTerminalComponent>

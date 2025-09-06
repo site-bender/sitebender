@@ -169,7 +169,11 @@ Deno.test("filter - works with different types", () => {
 	// Booleans
 	const truthy = filter(Boolean)
 	assertEquals(truthy([true, false, true, false]), [true, true])
-	assertEquals(truthy([0, 1, "", "hello", null, undefined, 5]), [1, "hello", 5])
+	assertEquals(truthy([0, 1, "", "hello", null, undefined, 5]), [
+		1,
+		"hello",
+		5,
+	])
 })
 
 Deno.test("filter - practical examples", () => {

@@ -3,6 +3,7 @@
 Use this file as your prompt to resume exactly where we left off.
 
 ## What’s done
+
 - Inline authoring via Program is live on docs pages.
   - Tutorial: `apps/docs/src/routes/tutorial/index.tsx` uses `<Program>`, `<On>`, `<If>`, `<SetValue>`, `<SetQueryString>`, `<FromElement>`, `<Add>`, `<Constant>`.
   - Validation: `apps/docs/src/routes/validation/index.tsx` converted to `<Program>` with NotEmpty-driven input/blur/submit behaviors updating `#name-error`.
@@ -19,14 +20,16 @@ Use this file as your prompt to resume exactly where we left off.
   - See `deno.jsonc` task `type-check` (scoped); we’ll restore later after fixing toolkit and component typings.
 
 ## What to do next
-1) Documentation: Add a short “Authoring behaviors with Program” section in docs (pattern, props, examples).
-2) Compiler mapping: Add more primitives as needed (Multiply, Equals/NotEquals, And/Or, numeric/boolean coercions) and wrappers to match.
-3) A11y polish on Validation:
+
+1. Documentation: Add a short “Authoring behaviors with Program” section in docs (pattern, props, examples).
+2. Compiler mapping: Add more primitives as needed (Multiply, Equals/NotEquals, And/Or, numeric/boolean coercions) and wrappers to match.
+3. A11y polish on Validation:
    - Add `required` and `aria-describedby="name-error"` to the input; add an a11y E2E.
-4) Dev/prod attributes: Add a post-hydration or build-time step to strip `data-ir-id` in production.
-5) CI hygiene: Fix components/toolkit type issues, then restore the root `type-check` to full scope.
+4. Dev/prod attributes: Add a post-hydration or build-time step to strip `data-ir-id` in production.
+5. CI hygiene: Fix components/toolkit type issues, then restore the root `type-check` to full scope.
 
 ## How to verify
+
 ```sh
 # Build docs
 deno task --cwd apps/docs build
@@ -39,6 +42,7 @@ deno task type-check
 ```
 
 ## Files of interest
+
 - Authoring (docs):
   - `apps/docs/src/routes/tutorial/index.tsx`
   - `apps/docs/src/routes/validation/index.tsx`
@@ -59,20 +63,24 @@ deno task type-check
 ---
 
 ## Paste this to resume next session
+
 Continue phase-2 exactly where we stopped. Context recap:
+
 - Program-based inline authoring works on Tutorial and Validation.
 - Compiler supports If → Act.If, constant/element/add injectors, and anchor inference.
 - Hydration via shared client script; both tutorial and validation E2E pass.
 - Root type-check is temporarily narrowed to apps/docs/engine/components.
 
 Do the following:
-1) Write a docs section about authoring with Program (brief, with example from Tutorial + Validation).
-2) Extend compile mapping with Multiply, Equals/NotEquals, And/Or, and light numeric/boolean coercions; add marker wrappers accordingly.
-3) Validation a11y: add required + aria-describedby and a small a11y E2E.
-4) Plan and implement a safe step to strip data-ir-id in prod builds.
-5) Address components/toolkit type errors, then restore the root type-check task to full scope.
+
+1. Write a docs section about authoring with Program (brief, with example from Tutorial + Validation).
+2. Extend compile mapping with Multiply, Equals/NotEquals, And/Or, and light numeric/boolean coercions; add marker wrappers accordingly.
+3. Validation a11y: add required + aria-describedby and a small a11y E2E.
+4. Plan and implement a safe step to strip data-ir-id in prod builds.
+5. Address components/toolkit type errors, then restore the root type-check task to full scope.
 
 Verify with:
+
 - Build docs
 - Run all docs E2E
 - Scoped type-check (for now), then full type-check after the fixes.

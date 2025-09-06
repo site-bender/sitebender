@@ -23,5 +23,10 @@ export default function FromElement(
 ) {
 	const actualType = datatype || type
 	const source = id ? `#${id}` : selector || ""
-	return { type: "injector", tag: "FromElement", datatype: actualType, source }
+	return {
+		type: "injector",
+		tag: "FromElement",
+		datatype: actualType,
+		source,
+	}
 }

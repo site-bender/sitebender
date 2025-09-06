@@ -59,7 +59,9 @@ Deno.test("chunk - JSDoc examples", async (t) => {
 		assertEquals(pairwise(["a", "b", "c"]), [["a", "b"], ["c"]])
 
 		const batchBy3 = chunk(3)
-		assertEquals(batchBy3([1, 2, 3, 4, 5, 6, 7]), [[1, 2, 3], [4, 5, 6], [7]])
+		assertEquals(batchBy3([1, 2, 3, 4, 5, 6, 7]), [[1, 2, 3], [4, 5, 6], [
+			7,
+		]])
 	})
 
 	await t.step("edge cases", () => {

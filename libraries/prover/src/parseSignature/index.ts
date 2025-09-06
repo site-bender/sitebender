@@ -8,41 +8,43 @@ import extractSignatureFromNode from "./extractSignatureFromNode/index.ts"
  * @param filePath Path to the TypeScript file
  * @returns Function signature or null if no function found
  */
-export default function parseSignature(filePath: string): FunctionSignature | null {
+export default function parseSignature(
+	filePath: string,
+): FunctionSignature | null {
 	const configPath = ts.findConfigFile(
 		filePath,
 		ts.sys.fileExists,
-		"tsconfig.json"
+		"tsconfig.json",
 	)
-	
+
 	const config = configPath
 		? ts.readConfigFile(configPath, ts.sys.readFile)
 		: { config: {} }
-		
+
 	const compilerOptions = ts.parseJsonConfigFileContent(
 		config.config,
 		ts.sys,
-		"./"
+		"./",
 	).options
-	
+
 	const program = ts.createProgram([filePath], {
 		...compilerOptions,
 		target: ts.ScriptTarget.Latest,
 		module: ts.ModuleKind.ESNext,
 	})
-	
+
 	const checker = program.getTypeChecker()
 	const sourceFile = program.getSourceFile(filePath)
-	
+
 	if (!sourceFile) {
 		throw new Error(`Could not parse file: ${filePath}`)
 	}
-	
+
 	const functionNode = extractFunctionFromSource(sourceFile, checker)
-	
+
 	if (!functionNode) {
 		return null
 	}
-	
+
 	return extractSignatureFromNode(functionNode, filePath, checker)
 }

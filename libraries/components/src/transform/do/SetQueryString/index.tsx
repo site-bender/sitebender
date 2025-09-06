@@ -16,5 +16,9 @@ export type ActionMarker = {
 export default function SetQueryString(
 	{ key, value }: SetQueryStringProps,
 ): ActionMarker {
-	return { __kind: "action", action: "Act.SetQueryString", args: [key, value] }
+	return {
+		__kind: "action",
+		action: "Act.SetQueryString",
+		args: [key, value],
+	}
 }

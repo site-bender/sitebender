@@ -115,7 +115,11 @@ describe("pluck", () => {
 				{ [sym]: "value2" },
 				{ other: "value3" },
 			]
-			assertEquals(pluck(sym as any)(data), ["value1", "value2", undefined])
+			assertEquals(pluck(sym as any)(data), [
+				"value1",
+				"value2",
+				undefined,
+			])
 		})
 
 		it("should handle numeric keys", () => {
@@ -246,7 +250,10 @@ describe("pluck", () => {
 				fc.property(
 					fc.array(fc.integer()),
 					(values) => {
-						const objects = values.map((v) => ({ value: v, other: v * 2 }))
+						const objects = values.map((v) => ({
+							value: v,
+							other: v * 2,
+						}))
 						const extracted = pluck("value")(objects)
 						return extracted.every((v, i) => v === values[i])
 					},

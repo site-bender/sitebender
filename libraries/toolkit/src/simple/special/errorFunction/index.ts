@@ -59,7 +59,8 @@ const errorFunction = (
 	const t5 = t4 * t
 
 	const y = 1.0 -
-		(((((a5 * t5 + a4 * t4) + a3 * t3) + a2 * t2) + a1 * t) * Math.exp(-x * x))
+		(((((a5 * t5 + a4 * t4) + a3 * t3) + a2 * t2) + a1 * t) *
+			Math.exp(-x * x))
 
 	return sign * y
 }

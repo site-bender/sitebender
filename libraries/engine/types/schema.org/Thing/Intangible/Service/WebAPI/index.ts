@@ -10,7 +10,10 @@ export type WebAPIType = "WebAPI"
 
 export interface WebAPIProps {
 	"@type"?: WebAPIType
-	documentation?: CreativeWork | URL | ReturnType<typeof CreativeWorkComponent>
+	documentation?:
+		| CreativeWork
+		| URL
+		| ReturnType<typeof CreativeWorkComponent>
 }
 
 type WebAPI = Thing & IntangibleProps & ServiceProps & WebAPIProps

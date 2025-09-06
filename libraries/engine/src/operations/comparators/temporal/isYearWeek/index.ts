@@ -55,9 +55,11 @@ async (
 	const numWeeks = longYears.includes(year) ? 53 : 52
 
 	const ok = MATCHERS.weekYear.test(s) && parseInt(week, 10) <= numWeeks
-	return ok
-		? { right: true }
-		: { left: [Error(op.tag)("IsYearWeek")(`${s} is not a valid week-year.`)] }
+	return ok ? { right: true } : {
+		left: [
+			Error(op.tag)("IsYearWeek")(`${s} is not a valid week-year.`),
+		],
+	}
 }
 
 export default isYearWeek

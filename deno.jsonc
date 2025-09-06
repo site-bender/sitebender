@@ -14,7 +14,7 @@
 		"./tools/scaffold",
 		"./tools/cli",
 		"./tools/web3-tools",
-		"./plugins/vscode",
+		"./plugins/vscode"
 	],
 
 	"tasks": {
@@ -116,7 +116,7 @@
 		"infra:ps": "docker compose ps",
 		"infra:config": "docker compose config",
 		"infra:grafana:reset": "rm -rf ./infra/local/configs/grafana/provisioning/dashboards/* && deno task infra:restart",
-		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true",
+		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true"
 	},
 
 	// Shared compiler options for all workspace members
@@ -131,7 +131,7 @@
 			"./libraries/components/types/globals.d.ts",
 			"./libraries/components/types/JSX/jsx-runtime.d.ts",
 			"./libraries/engine/src/rendering/types/globals.d.ts",
-			"./libraries/toolkit/src/types/shims/temporal-compat.d.ts",
+			"./libraries/toolkit/src/types/shims/temporal-compat.d.ts"
 		],
 		"strict": true,
 		"checkJs": false,
@@ -142,8 +142,8 @@
 			"esnext",
 			"deno.ns",
 			"deno.window",
-			"deno.unstable",
-		],
+			"deno.unstable"
+		]
 	},
 
 	"imports": {
@@ -174,7 +174,7 @@
 		"@sitebender/prover": "./libraries/prover/src/",
 		"@sitebender/prover/": "./libraries/prover/src/",
 		"@sitebender/engine-types": "./libraries/engine/types/",
-		"@sitebender/engine-types/": "./libraries/engine/types/",
+		"@sitebender/engine-types/": "./libraries/engine/types/"
 		// Deprecated legacy aliases have been removed after migration
 	},
 
@@ -192,15 +192,15 @@
 			"applications/docs/",
 			"applications/playground/",
 			"libraries/",
-			"scripts/",
+			"scripts/"
 		],
 		"exclude": [
 			"**/dist/",
 			"**/temp/",
 			"**/static/",
 			"**/node_modules/",
-			"**/coverage/",
-		],
+			"**/coverage/"
+		]
 	},
 
 	// Shared linting configuration
@@ -209,14 +209,14 @@
 			"applications/docs/src/",
 			"applications/playground/src/",
 			"libraries/*/src/",
-			"scripts/",
+			"scripts/"
 		],
 		"exclude": [
 			"**/dist/",
 			"**/temp/",
 			"**/static/",
 			"**/node_modules/",
-			"**/coverage/",
+			"**/coverage/"
 		],
 		"rules": {
 			"tags": ["recommended"],
@@ -228,10 +228,10 @@
 				"no-const-assign",
 				"no-sparse-arrays",
 				"no-throw-literal",
-				"prefer-const",
+				"prefer-const"
 			],
-			"exclude": [],
-		},
+			"exclude": []
+		}
 	},
 
 	// Node modules support for npm packages
@@ -247,9 +247,14 @@
 			"libraries/*/tests/",
 			"applications/docs/tests/",
 			"applications/playground/tests/",
-			"tools/*/tests/",
+			"tools/*/tests/"
 		],
-		"exclude": ["**/node_modules/", "**/dist/", "**/coverage/", "**/fixtures/"],
+		"exclude": [
+			"**/node_modules/",
+			"**/dist/",
+			"**/coverage/",
+			"**/fixtures/"
+		]
 	},
 
 	// Guardrails: contributors note
@@ -262,11 +267,11 @@
 				"@sitebender/engine",
 				"@sitebender/components",
 				"@sitebender/toolkit",
-				"@sitebender/maths",
-			],
+				"@sitebender/maths"
+			]
 		},
-		"notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often.",
+		"notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often."
 	},
 
-	"unstable": ["temporal"],
+	"unstable": ["temporal"]
 }

@@ -70,11 +70,16 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossorigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(loop)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("loop")(loop))
@@ -89,7 +94,10 @@ export default function filterAttributes(attributes: VideoElementAttributes) {
 		)
 	}
 	if (isDefined(poster)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("poster")(poster))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("poster")(poster),
+		)
 	}
 	if (isDefined(preload)) {
 		Object.assign(

@@ -67,7 +67,9 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 	if (isDefined(crossOrigin)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(crossOrigin),
+			filterAttribute(isMemberOf(CROSS_ORIGINS))("crossOrigin")(
+				crossOrigin,
+			),
 		)
 	}
 	if (isDefined(decode)) {
@@ -85,7 +87,10 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 		)
 	}
 	if (isDefined(height)) {
-		Object.assign(filteredAttrs, filterAttribute(isInteger)("height")(height))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isInteger)("height")(height),
+		)
 	}
 	if (isDefined(isMap)) {
 		Object.assign(filteredAttrs, filterAttribute(isBoolean)("isMap")(isMap))
@@ -111,10 +116,16 @@ export default function filterAttributes(attributes: ImgElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
 	if (isDefined(srcSet)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srcSet")(srcSet))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("srcSet")(srcSet),
+		)
 	}
 	if (isDefined(useMap)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("useMap")(useMap))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("useMap")(useMap),
+		)
 	}
 	if (isDefined(width)) {
 		Object.assign(filteredAttrs, filterAttribute(isInteger)("width")(width))

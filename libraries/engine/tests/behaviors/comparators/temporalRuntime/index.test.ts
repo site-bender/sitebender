@@ -34,7 +34,10 @@ Deno.test("Temporal Date comparators runtime", async () => {
 		true,
 	)
 	assertEquals(
-		await evaluateNode(cmp("IsBeforeDate", "2024-05-01", "2024-05-02"), ctx),
+		await evaluateNode(
+			cmp("IsBeforeDate", "2024-05-01", "2024-05-02"),
+			ctx,
+		),
 		true,
 	)
 	assertEquals(
@@ -42,15 +45,24 @@ Deno.test("Temporal Date comparators runtime", async () => {
 		true,
 	)
 	assertEquals(
-		await evaluateNode(cmp("IsNotAfterDate", "2024-05-01", "2024-05-01"), ctx),
+		await evaluateNode(
+			cmp("IsNotAfterDate", "2024-05-01", "2024-05-01"),
+			ctx,
+		),
 		true,
 	)
 	assertEquals(
-		await evaluateNode(cmp("IsNotBeforeDate", "2024-05-01", "2024-05-01"), ctx),
+		await evaluateNode(
+			cmp("IsNotBeforeDate", "2024-05-01", "2024-05-01"),
+			ctx,
+		),
 		true,
 	)
 	assertEquals(
-		await evaluateNode(cmp("IsNotSameDate", "2024-05-01", "2024-05-02"), ctx),
+		await evaluateNode(
+			cmp("IsNotSameDate", "2024-05-01", "2024-05-02"),
+			ctx,
+		),
 		true,
 	)
 })

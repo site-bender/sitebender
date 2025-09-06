@@ -12,71 +12,81 @@ import type { SourceNode } from "./types/index.ts"
 export default function parseSourceCode(sourceCode: string): SourceNode {
 	// Simple AST parser for common patterns
 	// In production, would use TypeScript Compiler API or similar
-	
-	const lines = sourceCode.split('\n')
+
+	const lines = sourceCode.split("\n")
 	const nodes: Array<SourceNode> = []
-	
+
 	// Parse each line for branch patterns
 	lines.forEach((line, index) => {
 		const trimmed = line.trim()
-		
-		if (trimmed.startsWith('if')) {
+
+		if (trimmed.startsWith("if")) {
 			nodes.push({
-				type: 'IfStatement',
+				type: "IfStatement",
 				start: index,
 				end: index,
-				test: { type: 'Expression', start: index, end: index, value: extractCondition(trimmed) }
+				test: {
+					type: "Expression",
+					start: index,
+					end: index,
+					value: extractCondition(trimmed),
+				},
 			})
-		} else if (trimmed.includes('?') && trimmed.includes(':')) {
+		} else if (trimmed.includes("?") && trimmed.includes(":")) {
 			nodes.push({
-				type: 'ConditionalExpression',
+				type: "ConditionalExpression",
 				start: index,
 				end: index,
-				test: { type: 'Expression', start: index, end: index, value: extractTernaryCondition(trimmed) }
+				test: {
+					type: "Expression",
+					start: index,
+					end: index,
+					value: extractTernaryCondition(trimmed),
+				},
 			})
-		} else if (trimmed.startsWith('switch')) {
+		} else if (trimmed.startsWith("switch")) {
 			nodes.push({
-				type: 'SwitchStatement',
+				type: "SwitchStatement",
 				start: index,
 				end: index,
-				value: extractSwitchExpression(trimmed)
+				value: extractSwitchExpression(trimmed),
 			})
-		} else if (trimmed.startsWith('try')) {
+		} else if (trimmed.startsWith("try")) {
 			nodes.push({
-				type: 'TryStatement',
-				start: index,
-				end: index
-			})
-		} else if (trimmed.includes('&&') || trimmed.includes('||')) {
-			nodes.push({
-				type: 'LogicalExpression',
+				type: "TryStatement",
 				start: index,
 				end: index,
-				operator: trimmed.includes('&&') ? '&&' : '||',
-				value: trimmed
+			})
+		} else if (trimmed.includes("&&") || trimmed.includes("||")) {
+			nodes.push({
+				type: "LogicalExpression",
+				start: index,
+				end: index,
+				operator: trimmed.includes("&&") ? "&&" : "||",
+				value: trimmed,
 			})
 		}
 	})
-	
+
 	return {
-		type: 'Program',
+		type: "Program",
 		start: 0,
 		end: lines.length - 1,
-		children: nodes
+		children: nodes,
 	}
 }
 
 function extractCondition(line: string): string {
 	const match = line.match(/if\s*\((.*?)\)/)
-	return match ? match[1] : ''
+	return match ? match[1] : ""
 }
 
 function extractTernaryCondition(line: string): string {
 	const match = line.match(/(.*?)\s*\?/)
-	return match ? match[1].trim() : ''
+	return match ? match[1].trim() : ""
 }
 
 function extractSwitchExpression(line: string): string {
 	const match = line.match(/switch\s*\((.*?)\)/)
-	return match ? match[1] : ''
+	return match ? match[1] : ""
 }

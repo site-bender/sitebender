@@ -8,7 +8,7 @@ import detectPurity from "./detectPurity/index.ts"
 import detectCurrying from "./detectCurrying/index.ts"
 import detectComplexity from "./detectComplexity/index.ts"
 
-export { detectPurity, detectCurrying, detectComplexity }
+export { detectComplexity, detectCurrying, detectPurity }
 
 /**
  * Detects all properties from source code
@@ -17,7 +17,7 @@ export function detectProperties(source: string): Properties {
 	const isPure = detectPurity(source)
 	const currying = detectCurrying(source)
 	const complexity = detectComplexity(source)
-	
+
 	return {
 		isPure,
 		isCurried: currying.isCurried,

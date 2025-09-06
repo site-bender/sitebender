@@ -234,7 +234,11 @@ Deno.test("clamp: null safety - null/undefined max", () => {
 
 Deno.test("clamp: null safety - null/undefined value", () => {
 	const result1 = clamp(0)(10)(null)
-	assertEquals(Number.isNaN(result1), true, "Should return NaN for null value")
+	assertEquals(
+		Number.isNaN(result1),
+		true,
+		"Should return NaN for null value",
+	)
 
 	const result2 = clamp(0)(10)(undefined)
 	assertEquals(
@@ -247,11 +251,19 @@ Deno.test("clamp: null safety - null/undefined value", () => {
 Deno.test("clamp: null safety - non-numeric inputs", () => {
 	// @ts-expect-error - Testing invalid input
 	const result1 = clamp("0")(10)(5)
-	assertEquals(Number.isNaN(result1), true, "Should return NaN for string min")
+	assertEquals(
+		Number.isNaN(result1),
+		true,
+		"Should return NaN for string min",
+	)
 
 	// @ts-expect-error - Testing invalid input
 	const result2 = clamp(0)("10")(5)
-	assertEquals(Number.isNaN(result2), true, "Should return NaN for string max")
+	assertEquals(
+		Number.isNaN(result2),
+		true,
+		"Should return NaN for string max",
+	)
 
 	// @ts-expect-error - Testing invalid input
 	const result3 = clamp(0)(10)("5")
@@ -269,11 +281,19 @@ Deno.test("clamp: null safety - NaN input", () => {
 	// NaN passes the typeof check, so the function continues
 	// When NaN is used as min, comparisons fail and value is returned
 	const result2 = clamp(NaN)(10)(5)
-	assertEquals(result2, 5, "NaN min causes comparisons to fail, returns value")
+	assertEquals(
+		result2,
+		5,
+		"NaN min causes comparisons to fail, returns value",
+	)
 
 	// When NaN is used as max, similar behavior
 	const result3 = clamp(0)(NaN)(5)
-	assertEquals(result3, 5, "NaN max causes comparisons to fail, returns value")
+	assertEquals(
+		result3,
+		5,
+		"NaN max causes comparisons to fail, returns value",
+	)
 })
 
 // ===========================
@@ -338,9 +358,17 @@ Deno.test("clamp: JSDoc examples - invalid inputs", () => {
 		true,
 		"undefined max returns NaN",
 	)
-	assertEquals(Number.isNaN(clamp(0)(10)(null)), true, "null value returns NaN")
+	assertEquals(
+		Number.isNaN(clamp(0)(10)(null)),
+		true,
+		"null value returns NaN",
+	)
 	// @ts-expect-error - Testing invalid input
-	assertEquals(Number.isNaN(clamp("0")(10)(5)), true, "string min returns NaN")
+	assertEquals(
+		Number.isNaN(clamp("0")(10)(5)),
+		true,
+		"string min returns NaN",
+	)
 })
 
 Deno.test("clamp: JSDoc examples - partial application for specific ranges", () => {

@@ -199,7 +199,11 @@ describe("subsequences", () => {
 				sub[2] === "analytics"
 			)).toBe(true)
 			// Check specific combinations
-			expect(result.some((sub) => sub.length === 1 && sub[0] === "dark-mode"))
+			expect(
+				result.some((sub) =>
+					sub.length === 1 && sub[0] === "dark-mode"
+				),
+			)
 				.toBe(true)
 			expect(result.some((sub) =>
 				sub.length === 2 &&
@@ -247,7 +251,9 @@ describe("subsequences", () => {
 		it("all subsequences maintain original order", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.integer({ min: 0, max: 100 }), { maxLength: 8 }),
+					fc.array(fc.integer({ min: 0, max: 100 }), {
+						maxLength: 8,
+					}),
 					(array) => {
 						const result = subsequences(array)
 
@@ -256,7 +262,10 @@ describe("subsequences", () => {
 							for (let i = 0; i < sub.length; i++) {
 								const origIndex = array.indexOf(sub[i])
 								for (let j = i + 1; j < sub.length; j++) {
-									const nextOrigIndex = array.indexOf(sub[j], origIndex + 1)
+									const nextOrigIndex = array.indexOf(
+										sub[j],
+										origIndex + 1,
+									)
 									if (nextOrigIndex <= origIndex) {
 										return false
 									}
@@ -277,7 +286,9 @@ describe("subsequences", () => {
 						const result = subsequences(array)
 
 						// Convert subsequences to strings for comparison
-						const stringified = result.map((sub) => JSON.stringify(sub))
+						const stringified = result.map((sub) =>
+							JSON.stringify(sub)
+						)
 						const unique = new Set(stringified)
 
 						// For unique input values, subsequences should also be unique
@@ -303,7 +314,8 @@ describe("subsequences", () => {
 						// Count how many subsequences contain the first element
 						// Since we're using unique arrays, we can use includes
 						const count =
-							result.filter((sub) => sub.includes(firstElement)).length
+							result.filter((sub) => sub.includes(firstElement))
+								.length
 						const expected = Math.pow(2, array.length - 1)
 
 						return count === expected

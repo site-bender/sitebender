@@ -18,11 +18,19 @@ function toAttrs(props: Record<string, unknown> = {}) {
 
 function renderToString(node: unknown): string {
 	if (node === null || node === undefined) return ""
-	if (typeof node === "string" || typeof node === "number") return String(node)
+	if (typeof node === "string" || typeof node === "number") {
+		return String(node)
+	}
 	if (Array.isArray(node)) return node.map(renderToString).join("")
 
-	if (typeof node === "object" && node !== null && "type" in node && "props" in node && typeof (node as { type: unknown }).type === "string") {
-		const { type, props } = node as { type: string; props: Record<string, unknown> }
+	if (
+		typeof node === "object" && node !== null && "type" in node &&
+		"props" in node && typeof (node as { type: unknown }).type === "string"
+	) {
+		const { type, props } = node as {
+			type: string
+			props: Record<string, unknown>
+		}
 		const attrs = toAttrs(props)
 		const children = props?.children
 		const childStr = Array.isArray(children)
@@ -56,7 +64,11 @@ Deno.test("Form works without JavaScript and supports POST/GET", () => {
 Deno.test("Form includes Schema.org ContactForm microdata when enabled", () => {
 	const form = createElement(
 		Form,
-		{ includeContactFormMicrodata: true, method: "POST", action: "/contact" },
+		{
+			includeContactFormMicrodata: true,
+			method: "POST",
+			action: "/contact",
+		},
 	) as { type: string; props: Record<string, unknown> }
 	const html = renderToString(form)
 	assertStringIncludes(html, "itemscope")

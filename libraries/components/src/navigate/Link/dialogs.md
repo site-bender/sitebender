@@ -217,7 +217,9 @@ function createCustomConfirmation(
 		const confirmBtn = dialog.querySelector(
 			"[data-confirm]",
 		) as HTMLButtonElement
-		const cancelBtn = dialog.querySelector("[data-cancel]") as HTMLButtonElement
+		const cancelBtn = dialog.querySelector(
+			"[data-cancel]",
+		) as HTMLButtonElement
 
 		confirmBtn?.addEventListener("click", handleConfirm)
 		cancelBtn?.addEventListener("click", handleCancel)
@@ -486,7 +488,9 @@ function showUndoNotification(
   `
 
 	// Handle undo
-	const undoBtn = notification.querySelector("[data-undo]") as HTMLButtonElement
+	const undoBtn = notification.querySelector(
+		"[data-undo]",
+	) as HTMLButtonElement
 	undoBtn?.addEventListener("click", () => {
 		revertFn()
 		notification.remove()
@@ -877,26 +881,27 @@ function initConfirmations(): () => void {
 	})
 
 	// Auto-detect dangerous actions
-	document.querySelectorAll('a[href*="/delete/"], a[href*="/remove/"]').forEach(
-		(link) => {
-			const element = link as HTMLAnchorElement
+	document.querySelectorAll('a[href*="/delete/"], a[href*="/remove/"]')
+		.forEach(
+			(link) => {
+				const element = link as HTMLAnchorElement
 
-			// Skip if already has confirmation
-			if (element.dataset.confirm) return
+				// Skip if already has confirmation
+				if (element.dataset.confirm) return
 
-			// Add smart confirmation
-			element.dataset.confirm = JSON.stringify({
-				title: "Confirm Deletion",
-				message: "This action cannot be undone. Are you sure?",
-				type: "danger",
-				confirmText: "Delete",
-				cancelText: "Keep",
-			})
+				// Add smart confirmation
+				element.dataset.confirm = JSON.stringify({
+					title: "Confirm Deletion",
+					message: "This action cannot be undone. Are you sure?",
+					type: "danger",
+					confirmText: "Delete",
+					cancelText: "Keep",
+				})
 
-			const cleanup = createConfirmEnhancer(element)
-			cleanupFunctions.push(cleanup)
-		},
-	)
+				const cleanup = createConfirmEnhancer(element)
+				cleanupFunctions.push(cleanup)
+			},
+		)
 
 	// Return combined cleanup function
 	return () => cleanupFunctions.forEach((fn) => fn())

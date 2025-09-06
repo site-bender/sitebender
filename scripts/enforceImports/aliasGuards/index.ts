@@ -35,7 +35,9 @@ if (import.meta.main) {
 				if (!flags.quiet) {
 					stderr("Alias policy violations:\n")
 					for (const v of violations) {
-						stderr(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`)
+						stderr(
+							`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`,
+						)
 					}
 					stderr(`\nTotal: ${violations.length} violation(s).`)
 				}

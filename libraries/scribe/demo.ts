@@ -11,9 +11,18 @@ console.log("=".repeat(60))
 
 // Example files to document (resolved relative to script location)
 const examples = [
-	{ path: `${scriptDir}examples/add.ts`, description: "Pure, curried function" },
-	{ path: `${scriptDir}examples/factorial.ts`, description: "Recursive function" },
-	{ path: `${scriptDir}examples/impure.ts`, description: "Impure async function" },
+	{
+		path: `${scriptDir}examples/add.ts`,
+		description: "Pure, curried function",
+	},
+	{
+		path: `${scriptDir}examples/factorial.ts`,
+		description: "Recursive function",
+	},
+	{
+		path: `${scriptDir}examples/impure.ts`,
+		description: "Impure async function",
+	},
 ]
 
 for (const example of examples) {
@@ -21,22 +30,26 @@ for (const example of examples) {
 	console.log(`Documenting: ${example.path}`)
 	console.log(`Type: ${example.description}`)
 	console.log("=".repeat(60))
-	
+
 	const result = await generateDocs(example.path, {
 		format: "markdown",
 		includeExamples: true,
 		includeProperties: true,
 	})
-	
+
 	if (result.ok) {
 		console.log("\n✅ Documentation generated successfully!\n")
 		console.log(result.value.content)
-		
+
 		// Also show detected properties
 		console.log("\n📊 Detected Properties:")
 		const props = result.value.metadata.properties
 		console.log(`   - Pure: ${props.isPure}`)
-		console.log(`   - Curried: ${props.isCurried}${props.curryLevels ? ` (${props.curryLevels} levels)` : ""}`)
+		console.log(
+			`   - Curried: ${props.isCurried}${
+				props.curryLevels ? ` (${props.curryLevels} levels)` : ""
+			}`,
+		)
 		console.log(`   - Complexity: ${props.complexity}`)
 		console.log(`   - Deterministic: ${props.deterministic}`)
 	} else {

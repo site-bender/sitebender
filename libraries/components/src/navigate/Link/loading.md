@@ -699,7 +699,8 @@ function trackNavigationTiming(timing: NavigationTiming): void {
 	// Log to performance API
 	performance.mark(`navigation-end-${timing.url}`)
 	if (
-		performance.getEntriesByName(`navigation-start-${timing.url}`).length > 0
+		performance.getEntriesByName(`navigation-start-${timing.url}`).length >
+			0
 	) {
 		performance.measure(
 			`navigation-${timing.url}`,
@@ -901,10 +902,12 @@ function createLoadingMetrics() {
 		metrics = {
 			...metrics,
 			total: metrics.total + 1,
-			completed: timing.success ? metrics.completed + 1 : metrics.completed,
+			completed: timing.success
+				? metrics.completed + 1
+				: metrics.completed,
 			timedOut: !timing.success ? metrics.timedOut + 1 : metrics.timedOut,
-			averageDuration:
-				(metrics.averageDuration * (metrics.total - 1) + timing.duration) /
+			averageDuration: (metrics.averageDuration * (metrics.total - 1) +
+				timing.duration) /
 				metrics.total,
 		}
 	}

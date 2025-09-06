@@ -1,6 +1,7 @@
 # PLAN OF ATTACK: Declarative JSX DSL → Engine IR → SSR/SSG/CSR Hydration
 
 Date: 2025-08-24
+
 ## Current state (2025-08-29)
 
 - Components compiler (toEngineIr) is producing EventBinding/action/comparator/injector IR for control nodes (<On>, <If>, <Validation>) and transform wrappers.
@@ -9,72 +10,89 @@ Date: 2025-08-24
 - Compiler diagnostics cover arity/shape for logical, equality, matching, set membership, and temporal families; warnings are surfaced in node meta.
 - Goldens added for JSX → IR covering: Conditional/If (slots and sugar), nested If branches, Matches in conditions, On anchor inference/target override, multiple On bindings, and multi-action handler selection; plus a minimal Validation golden using the scaffold.
 - Test status (strict): Components 54/54, Engine 22/22 (green at time of writing).
-Note: Beyond the MVP, additional comparators are already implemented and tested (equality, set membership, matching with safe regex, and temporal Date/Time/DateTime families).
+  Note: Beyond the MVP, additional comparators are already implemented and tested (equality, set membership, matching with safe regex, and temporal Date/Time/DateTime families).
 
 ## Status snapshot (2025-08-29)
-  - Control components implemented and in-use:
-    - Validation, Conditional/If (+ slots: Condition/IfTrue/IfFalse), and On markers
-  - Compiler:
-    - `libraries/components/src/transform/compile/toEngineIr.ts` produces IR with EventBinding and Action nodes; thin wrappers call engine constructors directly
-    - Minimal compiler scaffold remains for Validation-only flows (`compile/minimal.ts`)
-  - Engine runtime:
-    - Default executor registration includes Matches/DoesNotMatch, InSet, and full temporal Date/Time/DateTime families (Same and Not* variants)
-  - Diagnostics:
-    - Arity/shape guards for logical/equality/matching/set/temporal families
-  - Tests:
-    - Goldens for JSX → IR (Conditional/If, On, Validation); runtime tests for matching, set membership, and temporal comparators
-  - IR v1 JSON Schema (including ScriptNode and behavior nodes)
-  - Renderer and hydrator scaffolds for MVP kinds; root IR embedding and hydrate walk
-  - Demo: SSR/SSG page that hydrates On/Validation/Conditional; add one hydration smoke test
-  - Docs/examples: update examples to reflect current wrappers (<If> slots and sugar, On anchor inference, Matches in conditions, temporal Same)
+
+- Control components implemented and in-use:
+  - Validation, Conditional/If (+ slots: Condition/IfTrue/IfFalse), and On markers
+- Compiler:
+  - `libraries/components/src/transform/compile/toEngineIr.ts` produces IR with EventBinding and Action nodes; thin wrappers call engine constructors directly
+  - Minimal compiler scaffold remains for Validation-only flows (`compile/minimal.ts`)
+- Engine runtime:
+  - Default executor registration includes Matches/DoesNotMatch, InSet, and full temporal Date/Time/DateTime families (Same and Not* variants)
+- Diagnostics:
+  - Arity/shape guards for logical/equality/matching/set/temporal families
+- Tests:
+  - Goldens for JSX → IR (Conditional/If, On, Validation); runtime tests for matching, set membership, and temporal comparators
+- IR v1 JSON Schema (including ScriptNode and behavior nodes)
+- Renderer and hydrator scaffolds for MVP kinds; root IR embedding and hydrate walk
+- Demo: SSR/SSG page that hydrates On/Validation/Conditional; add one hydration smoke test
+- Docs/examples: update examples to reflect current wrappers (<If> slots and sugar, On anchor inference, Matches in conditions, temporal Same)
 
 ## Next steps
-1) IR schema v1
-  - Author JSON Schema (with version + schemaId) and validate in dev
-  - Include ElementNode, Injector/Operator/Comparator, Conditional, Validator, EventBinding, ScriptNode
-2) MVP renderer + hydrator
-  - Render ElementNode → HTML with microdata; emit JSON-LD scripts
-  - Hydrate validators, events, and conditional display; lazy by default
-3) Demo
-  - Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
+
+1. IR schema v1
+
+- Author JSON Schema (with version + schemaId) and validate in dev
+- Include ElementNode, Injector/Operator/Comparator, Conditional, Validator, EventBinding, ScriptNode
+
+2. MVP renderer + hydrator
+
+- Render ElementNode → HTML with microdata; emit JSON-LD scripts
+- Hydrate validators, events, and conditional display; lazy by default
+
+3. Demo
+
+- Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
+
 ## Example and notes
+
 Original idea (simplified and with a fixed closing tag):
 
 ```tsx
 <Form class="form">
-  <EmailField name="email" label="Email" help="We’ll never share your email." required>
-    <Validation>
-      <When.And>
-        <When.IsNotEmpty />
-        <When.IsEmailAddress />
-        <When.IsNoShorterThan>
-          <From.Constant datatype="Integer">6</From.Constant>
-        </When.IsNoShorterThan>
-        <When.IsNoLongerThan>
-          <From.Element datatype="Integer" source="input#max-length" />
-        </When.IsNoLongerThan>
-      </When.And>
-    </Validation>
-  </EmailField>
+	<EmailField
+		name="email"
+		label="Email"
+		help="We’ll never share your email."
+		required
+	>
+		<Validation>
+			<When.And>
+				<When.IsNotEmpty />
+				<When.IsEmailAddress />
+				<When.IsNoShorterThan>
+					<From.Constant datatype="Integer">6</From.Constant>
+				</When.IsNoShorterThan>
+				<When.IsNoLongerThan>
+					<From.Element
+						datatype="Integer"
+						source="input#max-length"
+					/>
+				</When.IsNoLongerThan>
+			</When.And>
+		</Validation>
+	</EmailField>
 
-  <Conditional>
-    <Condition>
-      <When.IsBeforeAlphabetically>
-        <Operand>
-          <From.Constant datatype="String">Bob</From.Constant>
-        </Operand>
-        <Test>
-          <From.QueryString datatype="String" key="name" />
-        </Test>
-      </When.IsBeforeAlphabetically>
-    </Condition>
-    <IfTrue>
-      <Para>You get to go first!</Para>
-    </IfTrue>
-    <IfFalse>
-      <Para>Sorry, but Bob goes first.</Para>
-    </IfFalse>
-  </Conditional>
+	<Conditional>
+		<Condition>
+			<When.IsBeforeAlphabetically>
+				<Operand>
+					<From.Constant datatype="String">Bob</From.Constant>
+				</Operand>
+				<Test>
+					<From.QueryString datatype="String" key="name" />
+				</Test>
+			</When.IsBeforeAlphabetically>
+		</Condition>
+		<IfTrue>
+			<Para>You get to go first!</Para>
+		</IfTrue>
+		<IfFalse>
+			<Para>Sorry, but Bob goes first.</Para>
+		</IfFalse>
+	</Conditional>
 </Form>
 ```
 
@@ -82,35 +100,60 @@ Updated minimal example using current wrappers and control patterns:
 
 ```tsx
 <div>
-  <input id="email" />
-  {Validation({ when: "input", children: NotEmpty({ children: FromElement({ id: "email" }) as unknown as JSX.Element }) as unknown as JSX.Element })}
+	<input id="email" />
+	{Validation({
+		when: "input",
+		children: NotEmpty({
+			children: FromElement({ id: "email" }) as unknown as JSX.Element,
+		}) as unknown as JSX.Element,
+	})}
 
-  {On({
-    event: "Change",
-    children: If({
-      children: [
-        Condition({ children: Matches({ children: [
-          FromElement({ id: "email" }) as unknown as JSX.Element,
-          Constant({ value: "@" }) as unknown as JSX.Element,
-        ] }) as unknown as JSX.Element }) as unknown as JSX.Element,
-        IfTrue({ children: Publish({ topic: "looks-like-email" }) as unknown as JSX.Element }) as unknown as JSX.Element,
-        IfFalse({ children: Publish({ topic: "not-email" }) as unknown as JSX.Element }) as unknown as JSX.Element,
-      ],
-    }) as unknown as JSX.Element,
-  })}
+	{On({
+		event: "Change",
+		children: If({
+			children: [
+				Condition({
+					children: Matches({
+						children: [
+							FromElement({
+								id: "email",
+							}) as unknown as JSX.Element,
+							Constant({ value: "@" }) as unknown as JSX.Element,
+						],
+					}) as unknown as JSX.Element,
+				}) as unknown as JSX.Element,
+				IfTrue({
+					children: Publish({
+						topic: "looks-like-email",
+					}) as unknown as JSX.Element,
+				}) as unknown as JSX.Element,
+				IfFalse({
+					children: Publish({
+						topic: "not-email",
+					}) as unknown as JSX.Element,
+				}) as unknown as JSX.Element,
+			],
+		}) as unknown as JSX.Element,
+	})}
 
-  {On({
-    event: "Change",
-    target: "email", // explicit target overrides inference
-    children: SetValue({ selector: "#status", value: Constant({ value: "changed" }) as unknown as JSX.Element }) as unknown as JSX.Element,
-  })}
+	{On({
+		event: "Change",
+		target: "email", // explicit target overrides inference
+		children: SetValue({
+			selector: "#status",
+			value: Constant({ value: "changed" }) as unknown as JSX.Element,
+		}) as unknown as JSX.Element,
+	})}
 
-  {On({
-    event: "Change",
-    children: Publish({ topic: "chained-binding" }) as unknown as JSX.Element,
-  })}
+	{On({
+		event: "Change",
+		children: Publish({
+			topic: "chained-binding",
+		}) as unknown as JSX.Element,
+	})}
 </div>
 ```
+
 ## Detailed plan (reference)
 
 Date: 2025-08-24
@@ -135,26 +178,31 @@ Date: 2025-08-24
   - Events (`On`): `Input`, `Change`, `Blur`, `Submit`
 
 ## Goal
+
 Build a JSX-first, purely declarative authoring experience that compiles to a stable, versioned IR/AST (no functions in JSON), which can be serialized, rendered (SSR/SSG), and hydrated on the client to compose operators/comparators/injectors for validation, conditional display, calculations, and events—without authors needing to write JavaScript.
 
 Libraries in play:
+
 - engine: typed IR, composition (operators/comparators/injectors), evaluator/renderer, hydrator
 - components: JSX DSL that emits the IR (no VDOM)
 - toolkit: environment adapters, utilities, schema/validation, dev tooling
 
 Repository conventions (for tree shaking and clarity)
+
 - One function/component per folder, default export, file named `index.ts`/`index.tsx`.
 - No barrel files/re-exports, except explicit alias shims when necessary.
 - All imports are direct to files; dynamic imports are allowed when helpful.
 - Keep modules side-effect-free so bundlers can tree-shake aggressively.
 
 ## Big picture
+
 - Treat JSX as a declarative surface that lowers into a compact, versioned IR.
 - Keep a single async evaluator/renderer that runs identically in server and client, behind an environment interface for IO (DOM, storage, URL, time, fetch, etc.).
 - Events and validation are declared as nodes in the IR; handlers/actions resolve to composed graphs at hydrate time.
 - Store only data and kinds in JSON (never functions); compose functions during hydration.
 
 ## Charter alignment: Vault → IR → SHACL/OWL → Fuseki
+
 - Scope: integrate CHARTER’s data model (Vault/Collection/Item/Field) without refactoring current MVP.
 - IR additions (no breaking changes):
   - Add Vault family nodes to IR: `VaultNode`, `CollectionNode`, `FieldNode` with datatypes, constraints, and optional default/enum/source.
@@ -178,13 +226,15 @@ Repository conventions (for tree shaking and clarity)
   - Snapshot SHACL/OWL generators with small fixtures; smoke test SPARQL adapter against a local Fuseki (skippable in CI).
 
 Milestones (thin slices)
-1) IR schema v1.1: add Vault/Collection/Field kinds (no runtime usage yet); doc JSON Schema updates.
-2) Generator pass: Vault → SHACL (Turtle) + minimal OWL; write to `apps/docs/dist/data/` and expose as optional `ScriptNode` JSON-LD.
-3) SPARQL adapter + `From.SPARQL` injector (read-only) with env-driven endpoints.
-4) Schema-driven `<Form for="…">` that renders fields from Vault IR; enum/options can come from constants or `From.SPARQL`.
-5) E2E demo: define a tiny Vault (Customer/Product), generate SHACL, run Fuseki locally, populate options via SPARQL, and render the form; add one hydration smoke test.
+
+1. IR schema v1.1: add Vault/Collection/Field kinds (no runtime usage yet); doc JSON Schema updates.
+2. Generator pass: Vault → SHACL (Turtle) + minimal OWL; write to `apps/docs/dist/data/` and expose as optional `ScriptNode` JSON-LD.
+3. SPARQL adapter + `From.SPARQL` injector (read-only) with env-driven endpoints.
+4. Schema-driven `<Form for="…">` that renders fields from Vault IR; enum/options can come from constants or `From.SPARQL`.
+5. E2E demo: define a tiny Vault (Customer/Product), generate SHACL, run Fuseki locally, populate options via SPARQL, and render the form; add one hydration smoke test.
 
 ## Requirements checklist
+
 - Declarative JSX composing primarily via components-as-children instead of props
 - Nodes can be elements or evaluation graphs; leaves of eval graphs are injectors
 - Async, error-accumulating evaluation across the whole tree
@@ -208,7 +258,9 @@ All items above are addressed in the sections below and in the MVP.
 - Tests: add goldens (JSX → IR → HTML snapshot) and smoke tests (registry resolution, SSR render returns string, hydrate attaches handlers)
 
 ## IR/AST shape (discriminated unions)
+
 Common fields
+
 - v: schema version (number or semver string)
 - id: stable node id
 - kind: discriminant
@@ -216,6 +268,7 @@ Common fields
 - datatype?: for typed nodes
 
 Node kinds (minimum viable set)
+
 - ElementNode
   - { kind: "element", tag: string, attrs: Record&lt;string, string|boolean|number>, children: Node[] }
 - InjectorNode&lt;T>
@@ -234,11 +287,13 @@ Node kinds (minimum viable set)
   - { kind: "on", event: DOMEventName, handler: ActionNode }
 
 Notes
+
 - Leaves of operator/comparator graphs are always injectors.
 - DataType is a closed set: "String" | "Integer" | "Float" | "Boolean" | "PlainDate" | "ZonedDateTime" | ...
 - Keep JSON schema strict and versioned.
 
 ## JSX → IR strategy
+
 - Compilation pass: JSX → component tree → IR. We deprecate the old `helpers/createElement` runtime factory in favor of a proper compile/walk that:
   - Lowers semantic components to ElementNode (attrs, ARIA, data-*, microdata attrs when applicable).
   - Lowers transform/* nodes to engine config graphs by calling engine constructors directly (thin wrappers only; no re-implementation).
@@ -252,10 +307,12 @@ Notes
 - Prefer children-first composition; rely on props only for ergonomic sugar.
 
 Transform folder scope (important)
+
 - Transform files are thin JSX wrappers that call into engine constructors and return engine config objects. They must not re-implement engine logic or composition.
 - One wrapper per constructor, default export, no barrels, side-effect-free for maximal tree shaking.
 
 ## Typing, async, and error model
+
 - Canonical error type is toolkit Result/ResultAsync. Public composition APIs return ResultAsync<T, ErrorBag>.
 - Async helpers: fromPromise, tryCatchAsync, mapAsync, chainAsync, all/sequence; all honor AbortSignal for cancellation.
 - Each operator/comparator/injector advertises input/output types; enforce at compile time and validate at runtime.
@@ -266,6 +323,7 @@ Transform folder scope (important)
 - ComposeContext for evaluation: { env, signal, now, cache, logger }.
 
 ## Rendering and hydration
+
 - SSR/SSG: render ElementNode to HTML, embed IR near the root via one script tag: `&lt;script type="application/engine+json" id="ir-root">{...}&lt;/script>` and mark elements with `data-ir-id`.
 - Hydration on client:
   - Parse IR, walk tree once
@@ -275,20 +333,23 @@ Transform folder scope (important)
   - Resolve behavior anchors (nearest id/name or auto-ID) and record in IR for stable hydration
 
 define/* behavior and metadata
+
 - `_template` controls only visible HTML output. Microdata and JSON-LD are emitted independently (unless disabled) by define components.
 - Microdata: represented as attributes on ElementNode and emitted on SSR by default; if driven by injectors, can be updated reactively on the client by re-applying attrs during hydration.
 - JSON-LD: represented as a ScriptNode in IR and emitted as a `<script type="application/ld+json">` during SSR by default; optionally re-emitted on the client if underlying data is reactive.
 
 ## SSR/SSG/CSR parity and environment
+
 - Single evaluator/renderer usable in any runtime.
 - Environment adapters:
   - serverEnv: URL/query, no DOM; DOM injectors produce a typed error or defer
   - clientEnv: DOM, storage, URL, etc.
 - DOM-dependent injectors are explicit so SSR cannot rely on them implicitly.
- - SSR by default for semantic HTML, microdata, and JSON-LD; CSR hydration is optional and used for reactive validation, events, conditional display, and reactive metadata when injectors change.
-  - ComposeContext carries env to keep evaluators pure and portable across server/client.
+- SSR by default for semantic HTML, microdata, and JSON-LD; CSR hydration is optional and used for reactive validation, events, conditional display, and reactive metadata when injectors change.
+- ComposeContext carries env to keep evaluators pure and portable across server/client.
 
 ## Toolkit integration decisions
+
 - Use toolkit Result as the single error monad across engine/components; convert to/from Either/Maybe internally as needed.
 - Chainable layer (consumed by engine/components) uses Result (Ok may hold a Maybe when appropriate).
 - Async: adopt AsyncResult (Promise<Result<...>>), expose composition helpers and cancellation in compose context.
@@ -297,20 +358,23 @@ define/* behavior and metadata
 - Import aliases: allowed in apps/docs/ for ergonomics (e.g., @sitebender/toolkit/array/map); libraries keep relative imports per CLAUDE.md.
 
 ## Performance considerations
+
 - Partial evaluation at build for pure subtrees and constants.
 - Memoize injectors by (node.id, key) and operator/comparator results by (node.id, input hashes).
 - Lazy hydration for event handlers and validators.
 - Tree-shake injectors/operators/comparators by kind via explicit registries.
- - Offer eager and lazy evaluation modes; prefer lazy for large collections/streams and document trade-offs.
+- Offer eager and lazy evaluation modes; prefer lazy for large collections/streams and document trade-offs.
 
 ## Security considerations
+
 - Strict whitelist of node kinds and args; reject unknown kinds.
 - Validate IR with JSON Schema (dev always; optional light check in prod).
 - No eval or dynamic code generation; no functions in JSON.
 - Sanitize selectors and external inputs; cap resource usage (timeouts, depth limits).
- - Capability-based effects: any side-effectful action (fetch, storage, navigation) crosses an explicit env boundary; server env denies client-only effects.
+- Capability-based effects: any side-effectful action (fetch, storage, navigation) crosses an explicit env boundary; server env denies client-only effects.
 
 ## Developer experience and tooling
+
 - Source maps from JSX to IR nodes for precise error overlays.
 - ESLint rules:
   - Enforce that leaves of operator/comparator trees are injectors
@@ -320,49 +384,60 @@ define/* behavior and metadata
 - Smoke tests: registry resolution by tag, SSR render returns string, hydrate wiring runs without errors.
 
 ## Example and notes (legacy DSL; see updated example above)
+
 Original idea (simplified and with a fixed closing tag):
 
 ```tsx
 <Form class="form">
-  <EmailField name="email" label="Email" help="We’ll never share your email." required>
-    <Validation>
-      <When.And>
-        <When.IsNotEmpty />
-        <When.IsEmailAddress />
-        <When.IsNoShorterThan>
-          <From.Constant datatype="Integer">6</From.Constant>
-        </When.IsNoShorterThan>
-        <When.IsNoLongerThan>
-          <From.Element datatype="Integer" source="input#max-length" />
-        </When.IsNoLongerThan>
-      </When.And>
-    </Validation>
-  </EmailField>
+	<EmailField
+		name="email"
+		label="Email"
+		help="We’ll never share your email."
+		required
+	>
+		<Validation>
+			<When.And>
+				<When.IsNotEmpty />
+				<When.IsEmailAddress />
+				<When.IsNoShorterThan>
+					<From.Constant datatype="Integer">6</From.Constant>
+				</When.IsNoShorterThan>
+				<When.IsNoLongerThan>
+					<From.Element
+						datatype="Integer"
+						source="input#max-length"
+					/>
+				</When.IsNoLongerThan>
+			</When.And>
+		</Validation>
+	</EmailField>
 
-  <Conditional>
-    <Condition>
-      <When.IsBeforeAlphabetically>
-        <Operand>
-          <From.Constant datatype="String">Bob</From.Constant>
-        </Operand>
-        <Test>
-          <From.QueryString datatype="String" key="name" />
-        </Test>
-      </When.IsBeforeAlphabetically>
-    </Condition>
-    <IfTrue>
-      <Para>You get to go first!</Para>
-    </IfTrue>
-    <IfFalse>
-      <Para>Sorry, but Bob goes first.</Para>
-    </IfFalse>
-  </Conditional>
+	<Conditional>
+		<Condition>
+			<When.IsBeforeAlphabetically>
+				<Operand>
+					<From.Constant datatype="String">Bob</From.Constant>
+				</Operand>
+				<Test>
+					<From.QueryString datatype="String" key="name" />
+				</Test>
+			</When.IsBeforeAlphabetically>
+		</Condition>
+		<IfTrue>
+			<Para>You get to go first!</Para>
+		</IfTrue>
+		<IfFalse>
+			<Para>Sorry, but Bob goes first.</Para>
+		</IfFalse>
+	</Conditional>
 </Form>
 ```
 
 ## Minimal MVP slice
+
 Scope: one email form with Validation and one Conditional block.
 Deliverables
+
 - IR schema v1 + JSON Schema
 - Compile pass that emits IR (components package)
 - Renderer: ElementNode → HTML string (engine)
@@ -379,30 +454,36 @@ Deliverables
 - Tests: 5–8 goldens + smoke tests + async error accumulation tests
 
 ## Versioning and migrations
+
 - Include v on every node and schemaId at the document root.
 - Ship a tiny migrator and test each migration with fixtures.
 
 ## Risks and mitigations
+
 - IR sprawl → Keep core small; require RFC for new kinds
 - Type drift → Central registry for kinds with compile-time typing
 - SSR/DOM gaps → Explicit DOM injectors and server fallbacks
 - Performance → Partial evaluation, memoization, lazy hydration
 
 ## Control components (attach behavior declaratively)
+
 - Validation: wraps a comparator graph (children from transform/*) and binds as a ValidatorNode to the nearest field/element; supports when={'input'|'blur'|'submit'} and message strategy.
 - Conditional: wraps a comparator graph plus IfTrue/IfFalse regions, compiling to ConditionalNode.
 - On: declaratively binds events; compiles to EventBindingNode with an ActionNode graph handler.
 
 ## IR/AST additions
+
 - ScriptNode (JSON-LD): { kind: "script", scriptType: "application/ld+json", content: object }
 - Extend ElementNode to carry microdata attributes.
 - ValidatorNode to include target anchor (id/name) and timing.
 - EventBindingNode to include event name and an action graph.
 
 ## Algorithm composition via JSX (optional)
+
 Goal: allow authors to declaratively compose algorithms in JSX, compiled to a safe, whitelisted IR (no eval), executable SSR/SSG/CSR.
 
 IR nodes
+
 - PipeNode: left-to-right composition over a value.
 - ParallelNode: run branches concurrently; policy: all | any | first; optional concurrency limit.
 - TryNode: try/catch/finally semantics mapping to Result.
@@ -413,21 +494,24 @@ IR nodes
 - ActionNode: explicit side effects via capability whitelist.
 
 Authoring components (components/transform/algorithms)
+
 - <Algo.Pipe>, <Algo.Parallel limit={n} policy="all|any|first">, <Algo.Try>, <Algo.Map>, <Algo.Reduce>, <Algo.Filter>, <Algo.Branch>, <Algo.Switch>, <Algo.While maxIterations={n} timeoutMs={...}>, <Algo.Let>, <Algo.Assign>, <Algo.Return>.
 
 Security
+
 - Whitelist-only registries for operators/comparators/injectors/actions; no dynamic string lookups.
 - JSON Schema validation for Algorithm IR; enforce depth/size/iteration/time budgets at runtime.
 - Capability-scoped env for side effects; deterministic by default; seeded randomness via toolkit.
 
 ## Status snapshot (2025-08-24)
+
 - Done
   - Control components scaffolded (no DOM rendering):
-   - Validation at `libraries/components/src/transform/control/Validation/index.tsx`
-   - Conditional at `libraries/components/src/transform/control/Conditional/index.tsx`
-   - Slots: Condition, IfTrue, IfFalse under `libraries/components/src/transform/control/slots/*`
+  - Validation at `libraries/components/src/transform/control/Validation/index.tsx`
+  - Conditional at `libraries/components/src/transform/control/Conditional/index.tsx`
+  - Slots: Condition, IfTrue, IfFalse under `libraries/components/src/transform/control/slots/*`
   - Minimal compile-to-IR walker scaffold:
-   - `libraries/components/src/transform/compile/minimal.ts` (collects elements/text; attaches validation/conditional behaviors)
+  - `libraries/components/src/transform/compile/minimal.ts` (collects elements/text; attaches validation/conditional behaviors)
   - Type-safety: removed any from Conditional; added guards. No toolkit changes.
 
 - In progress / open
@@ -440,31 +524,47 @@ Security
   - Align transform wrappers to import engine constructors directly (tree-shakeable) where gaps exist
 
 ## Next steps
-1) Compiler (near-term)
-  - Attach behaviors to concrete anchors: prefer nearest previous element with stable id/name; fall back to explicit prop when provided
-  - Expand element handling to cover semantic components that wrap HTML tags
-  - Emit placeholder ScriptNode when define/* yields JSON-LD
-  - Location: `libraries/components/src/transform/compile/*`
-2) Controls
-  - Implement `On` control marker: `libraries/components/src/transform/control/On/index.tsx`
-  - Define minimal ActionNode shapes for MVP (Submit, SetValue, Navigate)
-3) IR schema v1
-  - Author JSON Schema (with version + schemaId) and validate in dev
-  - Include ElementNode, Injector/Operator/Comparator, Conditional, Validator, EventBinding, ScriptNode
-4) MVP renderer + hydrator
-  - Render ElementNode → HTML with microdata; emit JSON-LD scripts
-  - Hydrate validators, events, conditional display; lazy by default
-5) Tests
-  - Add 5–8 golden tests for JSX → IR, plus 1–2 async error accumulation cases
-6) Hygiene
-  - Ensure transform wrappers import engine constructors directly; remove any remaining barrels; fix import paths if needed
-7) Demo
-  - Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
+
+1. Compiler (near-term)
+
+- Attach behaviors to concrete anchors: prefer nearest previous element with stable id/name; fall back to explicit prop when provided
+- Expand element handling to cover semantic components that wrap HTML tags
+- Emit placeholder ScriptNode when define/* yields JSON-LD
+- Location: `libraries/components/src/transform/compile/*`
+
+2. Controls
+
+- Implement `On` control marker: `libraries/components/src/transform/control/On/index.tsx`
+- Define minimal ActionNode shapes for MVP (Submit, SetValue, Navigate)
+
+3. IR schema v1
+
+- Author JSON Schema (with version + schemaId) and validate in dev
+- Include ElementNode, Injector/Operator/Comparator, Conditional, Validator, EventBinding, ScriptNode
+
+4. MVP renderer + hydrator
+
+- Render ElementNode → HTML with microdata; emit JSON-LD scripts
+- Hydrate validators, events, conditional display; lazy by default
+
+5. Tests
+
+- Add 5–8 golden tests for JSX → IR, plus 1–2 async error accumulation cases
+
+6. Hygiene
+
+- Ensure transform wrappers import engine constructors directly; remove any remaining barrels; fix import paths if needed
+
+7. Demo
+
+- Wire a tiny SSR/SSG demo page using the email form and a Conditional block; include client hydration script
 
 ## Final take
+
 The architecture is sound. Prioritize a small, stable IR and one async evaluator behind an environment boundary. Make events and validation declarative, avoid functions in JSON, and version everything. Once the MVP works end-to-end, adding new operators/comparators/injectors becomes mechanical.
 
 ## Future Plans (post-MVP)
+
 - Offline-first docs app: local storage via IndexedDB; background sync when online.
 - CRDT-based collaboration (OSS-first, e.g., Y.js/Automerge) for courses/playgrounds with presence and conflict-free merges.
 - AI/LLM integration via MCP for task-focused assistance with strict privacy guardrails.
@@ -473,6 +573,7 @@ The architecture is sound. Prioritize a small, stable IR and one async evaluator
 - Strong CSP and privacy posture by default across app; telemetry opt-in only.
 
 ### Event bus / pub-sub (decoupled communication)
+
 - Goals: decouple components via typed events; support local page, cross-tab, and cross-device communication.
 - Event envelope: `{ v: 1, id, topic: string, ts, source, payload, meta? }` (no functions; JSON-only).
 - Local transport: DOM CustomEvent on `document` (namespaced topics, e.g., `sb:FORM_SUBMISSION`).
@@ -483,6 +584,7 @@ The architecture is sound. Prioritize a small, stable IR and one async evaluator
 - Integration: expose `env.bus` via ComposeContext so operators/actions can publish/subscribe without globals.
 
 Runtime placement note
+
 - To avoid cross-team conflicts, the minimal bus and store live under engine runtime:
   - Bus: `libraries/engine/src/runtime/bus.ts`
   - Store: `libraries/engine/src/runtime/store.ts`

@@ -59,7 +59,10 @@ const slidingWithStep =
 		// Use recursion instead of for loop
 		const buildWindows = (index: number): Array<Array<T>> => {
 			if (index > array.length - size) return []
-			return [array.slice(index, index + size), ...buildWindows(index + step)]
+			return [
+				array.slice(index, index + size),
+				...buildWindows(index + step),
+			]
 		}
 
 		return buildWindows(0)

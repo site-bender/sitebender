@@ -22,7 +22,9 @@ Deno.test("State monad - left/right identity and associativity", () => {
 			const l1 = left(env)
 			const r1 = right(env)
 
-			const rightId = chain<number, number, number>(of<number, number>)(m)(env)
+			const rightId = chain<number, number, number>(of<number, number>)(
+				m,
+			)(env)
 			const assocLeft = chain<number, number, number>(g)(
 				chain<number, number, number>(f)(m),
 			)(env)

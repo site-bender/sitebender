@@ -6,7 +6,8 @@ export const formsBarrelsSmoke = {
 	hasField: typeof forms.Field === "function",
 	hasFieldSet: typeof forms.FieldSet === "function",
 	hasNamespaces: typeof forms.elements === "object" &&
-		typeof forms.fields === "object" && typeof forms.composites === "object" &&
+		typeof forms.fields === "object" &&
+		typeof forms.composites === "object" &&
 		typeof forms.recipes === "object",
 	spotCheck: typeof forms.elements.Input === "function" &&
 		typeof forms.fields.EmailAddressField === "function",

@@ -161,7 +161,11 @@ Deno.test("degreesToRadians - inverse relationship with radiansToDegrees", () =>
 
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-10),
+				max: Math.fround(10),
+			}),
 			(radians) => {
 				const degrees = radiansToDegrees(radians)
 				const backToRadians = degreesToRadians(degrees)
@@ -194,8 +198,16 @@ Deno.test("degreesToRadians - preserves sign", () => {
 Deno.test("degreesToRadians - linearity", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			(a, b) => {
 				const sum = degreesToRadians(a + b)
 				const separate = degreesToRadians(a) + degreesToRadians(b)
@@ -209,7 +221,11 @@ Deno.test("degreesToRadians - linearity", () => {
 Deno.test("degreesToRadians - 360 degree cycle", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, min: Math.fround(-180), max: Math.fround(180) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-180),
+				max: Math.fround(180),
+			}),
 			fc.integer({ min: -5, max: 5 }),
 			(degrees, cycles) => {
 				const original = degreesToRadians(degrees)

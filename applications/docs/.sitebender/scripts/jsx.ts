@@ -89,7 +89,8 @@ function createIRFromJSX(node: UnknownJSXNode): IRNode {
 	if (node.type === "JSXElement") {
 		const opening = (node as JSXElementNode).openingElement
 		const tag = opening.name
-		const tagIsIdentifier = (tag as { type?: string }).type === "JSXIdentifier"
+		const tagIsIdentifier =
+			(tag as { type?: string }).type === "JSXIdentifier"
 		const tagName = tagIsIdentifier
 			? (tag as JSXIdentifierNode).name
 			: ((tag as { name?: { name?: string } }).name?.name ?? "Unknown")
@@ -175,7 +176,10 @@ async function renderIRToHTML(
 						? `${k}="${
 							String(
 								evalExpressionAst(
-									(v as { type: string; expr: SerializedExpr }).expr,
+									(v as {
+										type: string
+										expr: SerializedExpr
+									}).expr,
 									context,
 								),
 							)
@@ -188,7 +192,9 @@ async function renderIRToHTML(
 			return (
 				openTag +
 				(await Promise.all(
-					node.children.map((c) => renderIRToHTML(c, context, componentModule)),
+					node.children.map((c) =>
+						renderIRToHTML(c, context, componentModule)
+					),
 				)).join("") +
 				closeTag
 			)
@@ -196,7 +202,9 @@ async function renderIRToHTML(
 		case "fragment": {
 			return (
 				await Promise.all(
-					node.children.map((c) => renderIRToHTML(c, context, componentModule)),
+					node.children.map((c) =>
+						renderIRToHTML(c, context, componentModule)
+					),
 				)
 			).join("")
 		}
@@ -209,7 +217,10 @@ async function renderIRToHTML(
 				const ve = v as unknown
 				const maybeExpr = ve as { type?: string; expr?: SerializedExpr }
 				evaluatedProps[k] = maybeExpr?.type === "expression"
-					? evalExpressionAst(maybeExpr.expr as SerializedExpr, context)
+					? evalExpressionAst(
+						maybeExpr.expr as SerializedExpr,
+						context,
+					)
 					: ve
 			}
 			// Call the component to get IR

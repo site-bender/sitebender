@@ -163,6 +163,7 @@ Exactly. You wouldn't. So we don't.
 The toolkit is pure functions all the way down (except `random/` and I/O monads).
 
 **Test Focus:**
+
 - Property-based testing with fast-check
 - Algebraic law verification
 - Function composition
@@ -170,6 +171,7 @@ The toolkit is pure functions all the way down (except `random/` and I/O monads)
 - Currying and partial application
 
 **Example Structure:**
+
 ```
 tests/
 ├── behaviors/
@@ -188,6 +190,7 @@ tests/
 Components must work without JavaScript. Period.
 
 **Test Focus:**
+
 - Semantic HTML structure
 - Progressive enhancement layers
 - Accessibility (WCAG AAA)
@@ -196,6 +199,7 @@ Components must work without JavaScript. Period.
 - CSS collection
 
 **Example Tests:**
+
 - Form submits to server without JS
 - Skip links work with keyboard
 - Structured data validates
@@ -206,6 +210,7 @@ Components must work without JavaScript. Period.
 The engine evaluates configurations to produce HTML and behaviors.
 
 **Test Focus:**
+
 - SSR → Hydration flow
 - Reactive calculations
 - Conditional rendering
@@ -213,6 +218,7 @@ The engine evaluates configurations to produce HTML and behaviors.
 - DOM manipulation (with DI)
 
 **Key Patterns:**
+
 - Test configurations, not constructors
 - Verify both SSR placeholders and hydrated values
 - Test calculation chains and dependencies
@@ -220,6 +226,7 @@ The engine evaluates configurations to produce HTML and behaviors.
 ### @sitebender/distributed — Hybrid Data (Future)
 
 **Test Focus:**
+
 - CRDT convergence
 - Offline/online sync
 - Conflict resolution
@@ -228,6 +235,7 @@ The engine evaluates configurations to produce HTML and behaviors.
 ### @sitebender/maths — Expression Parsing (Future)
 
 **Test Focus:**
+
 - Parse tree generation
 - Operator precedence
 - Variable substitution
@@ -236,6 +244,7 @@ The engine evaluates configurations to produce HTML and behaviors.
 ### Applications — Real-World Usage
 
 **Test Focus:**
+
 - User journeys
 - Progressive enhancement
 - Performance budgets
@@ -250,7 +259,7 @@ The engine evaluates configurations to produce HTML and behaviors.
    ```typescript
    // ❌ HERESY
    test("should set internal flag to true")
-   
+
    // ✅ RIGHTEOUS
    test("should calculate tax-inclusive price")
    ```
@@ -259,7 +268,7 @@ The engine evaluates configurations to produce HTML and behaviors.
    ```typescript
    // ❌ BLASPHEMY
    const mockMap = mock(map)
-   
+
    // ✅ DIVINE
    const result = map(double)([1, 2, 3])
    ```
@@ -267,18 +276,18 @@ The engine evaluates configurations to produce HTML and behaviors.
 3. **Colocating Behavioral Tests**
    ```typescript
    // ❌ CHAOS
-   src/map/index.ts
-   src/map/index.test.ts  // Tests map+filter+reduce?!
-   
+   src / map / index.ts
+   src / map / index.test.ts // Tests map+filter+reduce?!
+
    // ✅ ORDER
-   tests/behaviors/composition/map-filter-reduce/index.test.ts
+   tests / behaviors / composition / map - filter - reduce / index.test.ts
    ```
 
 4. **Skipping Accessibility**
    ```typescript
    // ❌ DISCRIMINATION
    // TODO: Add a11y tests later
-   
+
    // ✅ INCLUSION
    await checkA11y(page, null, { runOnly: ["wcag2aaa"] })
    ```
@@ -287,12 +296,16 @@ The engine evaluates configurations to produce HTML and behaviors.
    ```typescript
    // ❌ ANECDOTAL
    test("adds 2 + 2", () => assertEquals(add(2, 2), 4))
-   
+
    // ✅ MATHEMATICAL
    test("addition is commutative", () => {
-     fc.assert(fc.property(fc.integer(), fc.integer(), 
-       (a, b) => add(a, b) === add(b, a)
-     ))
+   	fc.assert(
+   		fc.property(
+   			fc.integer(),
+   			fc.integer(),
+   			(a, b) => add(a, b) === add(b, a),
+   		),
+   	)
    })
    ```
 
@@ -300,10 +313,10 @@ The engine evaluates configurations to produce HTML and behaviors.
    ```typescript
    // ❌ PRIVILEGED
    test("dropdown menu works") // Only tests with JS
-   
+
    // ✅ UNIVERSAL
    testInAllModes("navigation works", async (page, mode) => {
-     // Tests no-JS, no-CSS, and full
+   	// Tests no-JS, no-CSS, and full
    })
    ```
 
@@ -311,7 +324,7 @@ The engine evaluates configurations to produce HTML and behaviors.
    ```typescript
    // ❌ MEANINGLESS
    // Coverage: 100% 🎉 (but the app doesn't work)
-   
+
    // ✅ MEANINGFUL
    // Every user journey works correctly
    ```
@@ -327,22 +340,22 @@ import * as fc from "npm:fast-check@3"
 import add from "../../../../../src/simple/math/add/index.ts"
 
 Deno.test("add - partial application maintains referential transparency", () => {
-  fc.assert(
-    fc.property(fc.integer(), fc.integer(), (a, b) => {
-      const addA = add(a)
-      const result1 = addA(b)
-      const result2 = addA(b)
-      return result1 === result2  // Same input, same output
-    })
-  )
+	fc.assert(
+		fc.property(fc.integer(), fc.integer(), (a, b) => {
+			const addA = add(a)
+			const result1 = addA(b)
+			const result2 = addA(b)
+			return result1 === result2 // Same input, same output
+		}),
+	)
 })
 
 Deno.test("add - curried chains compose correctly", () => {
-  const add5 = add(5)
-  const add10 = add(10)
-  const pipeline = pipe([add5, add10])
-  
-  assertEquals(pipeline(0), 15)
+	const add5 = add(5)
+	const add10 = add(10)
+	const pipeline = pipe([add5, add10])
+
+	assertEquals(pipeline(0), 15)
 })
 ```
 
@@ -354,19 +367,19 @@ Deno.test("add - curried chains compose correctly", () => {
 import { testInAllModes } from "../../../helpers/progressive/index.ts"
 
 testInAllModes("contact form works", async (page, mode) => {
-  await page.goto("/contact")
-  
-  await page.fill('[name="email"]', "test@example.com")
-  await page.fill('[name="message"]', "Test message")
-  await page.click('[type="submit"]')
-  
-  if (mode === "no-js") {
-    // Should do full page navigation
-    await expect(page).toHaveURL("/contact/success")
-  } else {
-    // Should show inline success
-    await expect(page.locator(".success")).toBeVisible()
-  }
+	await page.goto("/contact")
+
+	await page.fill('[name="email"]', "test@example.com")
+	await page.fill('[name="message"]', "Test message")
+	await page.click('[type="submit"]')
+
+	if (mode === "no-js") {
+		// Should do full page navigation
+		await expect(page).toHaveURL("/contact/success")
+	} else {
+		// Should show inline success
+		await expect(page.locator(".success")).toBeVisible()
+	}
 })
 ```
 
@@ -376,22 +389,22 @@ testInAllModes("contact form works", async (page, mode) => {
 // libraries/components/tests/behaviors/accessibility/skip-link/index.test.ts
 
 test("skip link enables keyboard navigation to main content", async ({ page }) => {
-  await page.goto("/")
-  
-  // First tab should focus skip link
-  await page.keyboard.press("Tab")
-  const skipLink = page.locator('a[href="#main"]')
-  await expect(skipLink).toBeFocused()
-  
-  // Activate skip link
-  await page.keyboard.press("Enter")
-  
-  // Main content should be focused
-  await expect(page.locator("#main")).toBeFocused()
-  
-  // Verify with screen reader
-  await injectAxe(page)
-  await checkA11y(page)
+	await page.goto("/")
+
+	// First tab should focus skip link
+	await page.keyboard.press("Tab")
+	const skipLink = page.locator('a[href="#main"]')
+	await expect(skipLink).toBeFocused()
+
+	// Activate skip link
+	await page.keyboard.press("Enter")
+
+	// Main content should be focused
+	await expect(page.locator("#main")).toBeFocused()
+
+	// Verify with screen reader
+	await injectAxe(page)
+	await checkA11y(page)
 })
 ```
 
@@ -427,7 +440,7 @@ Every test suite has helpers. Document them or face the consequences.
 // tests/helpers/README.md
 // Document EVERY helper function:
 // - What it does
-// - Why it exists  
+// - Why it exists
 // - How to use it
 // - What behaviors it's testing
 ```
@@ -481,20 +494,20 @@ export default function map<A, B>(f: (a: A) => B) {
 
 ```typescript
 interface TestGenerator {
-  // Parse TypeScript to understand function
-  parser: TypeSignatureParser
-  
-  // Generate tests from properties
-  propertyGenerator: PropertyTestGenerator
-  
-  // Detect and apply algebraic laws
-  lawDetector: AlgebraicLawDetector
-  
-  // Find all code paths
-  branchAnalyzer: BranchAnalyzer
-  
-  // Ensure 100% coverage
-  coverageValidator: CoverageValidator
+	// Parse TypeScript to understand function
+	parser: TypeSignatureParser
+
+	// Generate tests from properties
+	propertyGenerator: PropertyTestGenerator
+
+	// Detect and apply algebraic laws
+	lawDetector: AlgebraicLawDetector
+
+	// Find all code paths
+	branchAnalyzer: BranchAnalyzer
+
+	// Ensure 100% coverage
+	coverageValidator: CoverageValidator
 }
 ```
 
@@ -513,6 +526,7 @@ Not 99.9%. Not 99%. Not "good enough." **ONE HUNDRED PERCENT.**
 #### The Red/Green Truth
 
 Coverage is binary. It's either:
+
 - ✅ **GREEN**: 100% — We've covered ALL the bases
 - ❌ **RED**: <100% — We're dead
 
@@ -529,6 +543,7 @@ You can't. You literally cannot know from a coverage report which lines are "saf
 #### The Cognitive Load Argument
 
 With 100% coverage:
+
 - **Simple**: Green = Good, Red = Bad
 - **No debates**: No arguing about what percentage is "enough"
 - **No guesswork**: No wondering if untested code is important
@@ -536,6 +551,7 @@ With 100% coverage:
 - **Emotional boost**: 100% feels amazing (because it is)
 
 With anything less:
+
 - Endless debates about acceptable percentages
 - Constant anxiety about untested code
 - Decision paralysis about what to test
@@ -545,6 +561,7 @@ With anything less:
 ### The Sacred Escape Hatch: Coverage Ignore
 
 Sometimes, rarely, there are lines that genuinely don't need testing:
+
 - System functions we can't control
 - Unreachable code (that TypeScript requires)
 - Platform-specific fallbacks
@@ -558,9 +575,9 @@ process.exit(1)
 // For multiple lines:
 // deno-coverage-ignore-start REASON: Platform-specific code tested manually on each platform
 if (Deno.build.os === "windows") {
-  path = path.replace(/\//g, "\\")
+	path = path.replace(/\//g, "\\")
 } else {
-  path = path.replace(/\\/g, "/")
+	path = path.replace(/\\/g, "/")
 }
 // deno-coverage-ignore-stop
 ```
@@ -577,7 +594,7 @@ if (Deno.build.os === "windows") {
    // ❌ BAD: "Not needed"
    // ❌ BAD: "Tested elsewhere"
    // ❌ BAD: "Obviously works"
-   
+
    // ✅ GOOD: "System function - process termination"
    // ✅ GOOD: "Unreachable - TypeScript exhaustive check"
    // ✅ GOOD: "Platform API - tested manually on Windows/Mac/Linux"
@@ -593,11 +610,13 @@ if (Deno.build.os === "windows") {
 ### The Audit Report
 
 Run the coverage audit:
+
 ```bash
 deno run --allow-read scripts/reportIgnored/index.ts
 ```
 
 Output:
+
 ```
 Coverage Ignore Audit Report
 ============================
@@ -635,24 +654,29 @@ Reason: "Fallback for ancient browsers - tested manually in BrowserStack"
 ### Common Coverage Excuses (All Invalid)
 
 **"This code is trivial"**
+
 - Trivial code has trivial bugs
 - Test it
 
 **"It's just a getter/setter"**
+
 - Getters can have typos
 - Setters can have side effects
 - Test them
 
 **"It's generated code"**
+
 - Generated code can be generated wrong
 - Test it
 
 **"It's too hard to test"**
+
 - Refactor it to be testable
 - Use dependency injection
 - Make it pure
 
 **"We don't have time"**
+
 - You don't have time NOT to test
 - Bugs take more time than tests
 - Pay now or pay later with interest
@@ -664,6 +688,7 @@ Reason: "Fallback for ancient browsers - tested manually in BrowserStack"
 This is not negotiable. This is not flexible. This is not "a nice goal to have."
 
 If your coverage report shows anything other than 100%, you have two options:
+
 1. Write the missing tests
 2. Add explicit ignores with valid reasons
 
@@ -716,7 +741,7 @@ A: Because accessibility is a right, not a feature. We build for humans, all hum
 
 ---
 
-*"Test like the user depends on it. Because they do."*
+_"Test like the user depends on it. Because they do."_
 
-*Last updated by an AI who finally gets it.*
-*Previous updates by AIs who clearly didn't.*
+_Last updated by an AI who finally gets it._
+_Previous updates by AIs who clearly didn't._

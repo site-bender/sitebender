@@ -28,7 +28,9 @@ Deno.test("divide - dividing by -1 negates", () => {
 Deno.test("divide - zero divided by any non-zero is zero", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) => n !== 0),
+			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) =>
+				n !== 0
+			),
 			(divisor) => {
 				const result = divide(0)(divisor)
 				// Check for both positive and negative zero
@@ -42,7 +44,9 @@ Deno.test("divide - zero divided by any non-zero is zero", () => {
 Deno.test("divide - self division equals 1", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) => n !== 0),
+			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) =>
+				n !== 0
+			),
 			(a) => {
 				const result = divide(a)(a)
 				return approximately(result, 1)
@@ -55,7 +59,9 @@ Deno.test("divide - self division equals 1", () => {
 Deno.test("divide - reciprocal property", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) => n !== 0),
+			fc.float({ noNaN: true, noDefaultInfinity: true }).filter((n) =>
+				n !== 0
+			),
 			(a) => {
 				// 1 / a = reciprocal
 				// a * reciprocal = 1

@@ -21,7 +21,9 @@ const addFormatter = (element: HTMLElement) => (fmt: unknown) => {
 			innerHTML: string
 			tagName: string
 		}
-		const arg = FROM_VALUE.includes(self.tagName) ? self.value : self.innerHTML
+		const arg = FROM_VALUE.includes(self.tagName)
+			? self.value
+			: self.innerHTML
 		const formatted = await format(arg, localValues)
 
 		return formatted

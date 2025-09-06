@@ -75,13 +75,15 @@ const diffHours = (
 	try {
 		// Handle different Temporal types
 		if (
-			from instanceof Temporal.PlainTime && to instanceof Temporal.PlainTime
+			from instanceof Temporal.PlainTime &&
+			to instanceof Temporal.PlainTime
 		) {
 			// For PlainTime, calculate assuming same day
 			// This will give negative values if 'to' appears earlier (assuming next day)
 			const fromNs = from.hour * 3600e9 + from.minute * 60e9 +
 				from.second * 1e9 +
-				from.millisecond * 1e6 + from.microsecond * 1e3 + from.nanosecond
+				from.millisecond * 1e6 + from.microsecond * 1e3 +
+				from.nanosecond
 			const toNs = to.hour * 3600e9 + to.minute * 60e9 + to.second * 1e9 +
 				to.millisecond * 1e6 + to.microsecond * 1e3 + to.nanosecond
 			const diffNs = toNs - fromNs
@@ -93,8 +95,10 @@ const diffHours = (
 			to instanceof Temporal.PlainDateTime
 		) {
 			const duration = to.since(from, { largestUnit: "hours" })
-			return duration.hours + duration.minutes / 60 + duration.seconds / 3600 +
-				duration.milliseconds / 3600000 + duration.microseconds / 3600000000 +
+			return duration.hours + duration.minutes / 60 +
+				duration.seconds / 3600 +
+				duration.milliseconds / 3600000 +
+				duration.microseconds / 3600000000 +
 				duration.nanoseconds / 3600000000000
 		}
 
@@ -103,8 +107,10 @@ const diffHours = (
 			to instanceof Temporal.ZonedDateTime
 		) {
 			const duration = to.since(from, { largestUnit: "hours" })
-			return duration.hours + duration.minutes / 60 + duration.seconds / 3600 +
-				duration.milliseconds / 3600000 + duration.microseconds / 3600000000 +
+			return duration.hours + duration.minutes / 60 +
+				duration.seconds / 3600 +
+				duration.milliseconds / 3600000 +
+				duration.microseconds / 3600000000 +
 				duration.nanoseconds / 3600000000000
 		}
 

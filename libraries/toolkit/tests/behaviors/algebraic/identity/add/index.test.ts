@@ -14,7 +14,8 @@ Deno.test("add - identity element is zero: a + 0 = a", () => {
 			const rightIdentity = add(a)(0)
 			const leftIdentity = add(0)(a)
 
-			return approximately(rightIdentity, a) && approximately(leftIdentity, a)
+			return approximately(rightIdentity, a) &&
+				approximately(leftIdentity, a)
 		}),
 		{ numRuns: 1000 },
 	)
@@ -75,7 +76,10 @@ Deno.test("add - identity property in reduce operations", () => {
 			fc.array(finiteNumber(), { minLength: 0, maxLength: 20 }),
 			(numbers) => {
 				// Using 0 as initial value should give same result as sum
-				const sumWithIdentity = numbers.reduce((acc, n) => add(acc)(n), 0)
+				const sumWithIdentity = numbers.reduce(
+					(acc, n) => add(acc)(n),
+					0,
+				)
 				const expectedSum = numbers.reduce((acc, n) => acc + n, 0)
 
 				const epsilon = Math.abs(expectedSum) * 1e-10

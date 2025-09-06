@@ -30,7 +30,9 @@ export interface MenuItemProps {
 		| Offer
 		| ReturnType<typeof DemandComponent>
 		| ReturnType<typeof OfferComponent>
-	suitableForDiet?: RestrictedDiet | ReturnType<typeof RestrictedDietComponent>
+	suitableForDiet?:
+		| RestrictedDiet
+		| ReturnType<typeof RestrictedDietComponent>
 }
 
 type MenuItem = Thing & IntangibleProps & MenuItemProps
