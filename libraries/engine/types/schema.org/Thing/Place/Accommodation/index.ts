@@ -48,7 +48,9 @@ export interface AccommodationProps {
 		| ReturnType<typeof BedDetailsComponent>
 		| ReturnType<typeof BedTypeComponent>
 	floorLevel?: Text
-	floorSize?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	floorSize?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 	leaseLength?:
 		| Duration
 		| QuantitativeValue
@@ -65,7 +67,9 @@ export interface AccommodationProps {
 		| Number
 		| QuantitativeValue
 		| ReturnType<typeof QuantitativeValueComponent>
-	occupancy?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
+	occupancy?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
 	permittedUsage?: Text
 	petsAllowed?: Boolean | Text
 	tourBookingPage?: URL

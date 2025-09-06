@@ -50,7 +50,9 @@ const matrixTrace = (
 	const n = matrix.length
 
 	// Check if matrix is square
-	const isSquare = matrix.every((row) => Array.isArray(row) && row.length === n)
+	const isSquare = matrix.every((row) =>
+		Array.isArray(row) && row.length === n
+	)
 
 	if (!isSquare) {
 		return NaN

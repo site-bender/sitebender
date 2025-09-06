@@ -108,7 +108,15 @@ Deno.test("groupWith", async (t) => {
 
 	await t.step("handles special values", () => {
 		const equal = (a: number, b: number) => Object.is(a, b)
-		const result = groupWith(equal)([NaN, NaN, 0, -0, 0, Infinity, Infinity])
+		const result = groupWith(equal)([
+			NaN,
+			NaN,
+			0,
+			-0,
+			0,
+			Infinity,
+			Infinity,
+		])
 		assertEquals(result, [[NaN, NaN], [0], [-0], [0], [Infinity, Infinity]])
 	})
 
@@ -215,7 +223,8 @@ Deno.test("groupWith", async (t) => {
 
 						// Check that between groups, the boundary elements don't satisfy predicate
 						for (let i = 1; i < result.length; i++) {
-							const lastOfPrev = result[i - 1][result[i - 1].length - 1]
+							const lastOfPrev =
+								result[i - 1][result[i - 1].length - 1]
 							const firstOfCurr = result[i][0]
 							assertFalse(equal(lastOfPrev, firstOfCurr))
 						}

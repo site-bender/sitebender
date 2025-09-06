@@ -37,7 +37,9 @@ export interface AnatomicalStructureProps {
 		| AnatomicalStructure
 		| ReturnType<typeof AnatomicalStructureComponent>
 	diagram?: ImageObject | ReturnType<typeof ImageObjectComponent>
-	partOfSystem?: AnatomicalSystem | ReturnType<typeof AnatomicalSystemComponent>
+	partOfSystem?:
+		| AnatomicalSystem
+		| ReturnType<typeof AnatomicalSystemComponent>
 	relatedCondition?:
 		| MedicalCondition
 		| ReturnType<typeof MedicalConditionComponent>

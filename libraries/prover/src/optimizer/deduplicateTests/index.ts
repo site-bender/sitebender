@@ -14,14 +14,16 @@ import optimizeBranchTests from "./optimizeBranchTests/index.ts"
  * @param tests Array of test cases to deduplicate
  * @returns Optimized array with duplicates removed and similar tests merged
  */
-export default function deduplicateTests(tests: Array<TestCase>): Array<TestCase> {
+export default function deduplicateTests(
+	tests: Array<TestCase>,
+): Array<TestCase> {
 	return optimizeBranchTests(
 		removeRedundantEdgeCases(
 			consolidatePropertyTests(
 				mergeSimilarTests(
-					removeDuplicates(tests)
-				)
-			)
-		)
+					removeDuplicates(tests),
+				),
+			),
+		),
 	)
 }

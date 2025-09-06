@@ -66,19 +66,22 @@ Deno.test("round: nearest integer property", async (t) => {
 
 	await t.step("minimizes distance to original value", () => {
 		fc.assert(
-			fc.property(fc.float({ noNaN: true, min: -1e10, max: 1e10 }), (n) => {
-				const result = round(n)
-				const floor = Math.floor(n)
-				const ceil = Math.ceil(n)
+			fc.property(
+				fc.float({ noNaN: true, min: -1e10, max: 1e10 }),
+				(n) => {
+					const result = round(n)
+					const floor = Math.floor(n)
+					const ceil = Math.ceil(n)
 
-				const distToResult = Math.abs(n - result)
-				const distToFloor = Math.abs(n - floor)
-				const distToCeil = Math.abs(n - ceil)
+					const distToResult = Math.abs(n - result)
+					const distToFloor = Math.abs(n - floor)
+					const distToCeil = Math.abs(n - ceil)
 
-				// Result should minimize distance (with tie going away from zero)
-				return distToResult <= distToFloor + 1e-10 &&
-					distToResult <= distToCeil + 1e-10
-			}),
+					// Result should minimize distance (with tie going away from zero)
+					return distToResult <= distToFloor + 1e-10 &&
+						distToResult <= distToCeil + 1e-10
+				},
+			),
 			{ numRuns: 1000 },
 		)
 	})

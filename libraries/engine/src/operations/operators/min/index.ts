@@ -46,9 +46,9 @@ const min =
 
 		return {
 			right: Math.min(
-				...(resolvedOperands as Array<{ right: number | string }>).map((o) =>
-					Number(o.right)
-				),
+				...(resolvedOperands as Array<{ right: number | string }>).map((
+					o,
+				) => Number(o.right)),
 			),
 		}
 	}

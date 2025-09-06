@@ -103,9 +103,12 @@ const toPlainTime = (
 			const nanosecondsIn24Hours = 24 * 60 * 60 * 1_000_000_000
 			const wrappedNanoseconds = totalNanoseconds % nanosecondsIn24Hours
 
-			const hours = Math.floor(wrappedNanoseconds / (60 * 60 * 1_000_000_000))
+			const hours = Math.floor(
+				wrappedNanoseconds / (60 * 60 * 1_000_000_000),
+			)
 			const minutes = Math.floor(
-				(wrappedNanoseconds % (60 * 60 * 1_000_000_000)) / (60 * 1_000_000_000),
+				(wrappedNanoseconds % (60 * 60 * 1_000_000_000)) /
+					(60 * 1_000_000_000),
 			)
 			const seconds = Math.floor(
 				(wrappedNanoseconds % (60 * 1_000_000_000)) / 1_000_000_000,

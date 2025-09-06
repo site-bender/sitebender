@@ -8,9 +8,18 @@ Deno.test("logarithm: basic functionality", async (t) => {
 	await t.step("natural logarithm (base e)", () => {
 		assertEquals(logarithm(Math.E)(Math.E), 1)
 		assertEquals(logarithm(Math.E)(1), 0)
-		assertEquals(approximately(logarithm(Math.E)(2.718281828), 1, 1e-8), true)
-		assertEquals(approximately(logarithm(Math.E)(7.389056099), 2, 1e-8), true)
-		assertEquals(approximately(logarithm(Math.E)(0.367879441), -1, 1e-8), true)
+		assertEquals(
+			approximately(logarithm(Math.E)(2.718281828), 1, 1e-8),
+			true,
+		)
+		assertEquals(
+			approximately(logarithm(Math.E)(7.389056099), 2, 1e-8),
+			true,
+		)
+		assertEquals(
+			approximately(logarithm(Math.E)(0.367879441), -1, 1e-8),
+			true,
+		)
 	})
 
 	await t.step("common logarithm (base 10)", () => {
@@ -22,7 +31,10 @@ Deno.test("logarithm: basic functionality", async (t) => {
 		assertEquals(logarithm(10)(1), 0)
 		assertEquals(logarithm(10)(10), 1)
 		assertEquals(logarithm(10)(10000), 4)
-		assertEquals(Math.abs(logarithm(10)(50) - 1.6989700043360189) < 1e-10, true)
+		assertEquals(
+			Math.abs(logarithm(10)(50) - 1.6989700043360189) < 1e-10,
+			true,
+		)
 	})
 
 	await t.step("binary logarithm (base 2)", () => {
@@ -152,9 +164,21 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("product rule: log(a*b) = log(a) + log(b)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				(base, a, b) => {
 					const leftSide = logarithm(base)(a * b)
 					const rightSide = logarithm(base)(a) + logarithm(base)(b)
@@ -175,9 +199,21 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("quotient rule: log(a/b) = log(a) - log(b)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				(base, a, b) => {
 					const leftSide = logarithm(base)(a / b)
 					const rightSide = logarithm(base)(a) - logarithm(base)(b)
@@ -198,8 +234,16 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("power rule: log(a^n) = n * log(a)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(20), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(10), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(20),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(10),
+					noNaN: true,
+				}),
 				fc.integer({ min: -5, max: 5 }),
 				(base, a, n) => {
 					const leftSide = logarithm(base)(Math.pow(a, n))
@@ -218,35 +262,57 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 		)
 	})
 
-	await t.step("change of base formula: log_b(x) = log_c(x) / log_c(b)", () => {
-		fc.assert(
-			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(20), noNaN: true }),
-				fc.float({ min: Math.fround(2), max: Math.fround(20), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-				(b, c, x) => {
-					fc.pre(Math.abs(b - 1) > 0.1 && Math.abs(c - 1) > 0.1)
+	await t.step(
+		"change of base formula: log_b(x) = log_c(x) / log_c(b)",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.float({
+						min: Math.fround(2),
+						max: Math.fround(20),
+						noNaN: true,
+					}),
+					fc.float({
+						min: Math.fround(2),
+						max: Math.fround(20),
+						noNaN: true,
+					}),
+					fc.float({
+						min: Math.fround(0.1),
+						max: Math.fround(100),
+						noNaN: true,
+					}),
+					(b, c, x) => {
+						fc.pre(Math.abs(b - 1) > 0.1 && Math.abs(c - 1) > 0.1)
 
-					const direct = logarithm(b)(x)
-					const changeBase = logarithm(c)(x) / logarithm(c)(b)
+						const direct = logarithm(b)(x)
+						const changeBase = logarithm(c)(x) / logarithm(c)(b)
 
-					if (!isFinite(direct) || !isFinite(changeBase)) {
-						return true // Just accept infinity cases
-					}
+						if (!isFinite(direct) || !isFinite(changeBase)) {
+							return true // Just accept infinity cases
+						}
 
-					// VERY relaxed tolerance for JavaScript
-					const tolerance = Math.max(1e-6, Math.abs(direct) * 1e-6)
-					return Math.abs(direct - changeBase) <= tolerance
-				},
-			),
-			{ numRuns: 100 },
-		)
-	})
+						// VERY relaxed tolerance for JavaScript
+						const tolerance = Math.max(
+							1e-6,
+							Math.abs(direct) * 1e-6,
+						)
+						return Math.abs(direct - changeBase) <= tolerance
+					},
+				),
+				{ numRuns: 100 },
+			)
+		},
+	)
 
 	await t.step("inverse with exponential: log_b(b^x) = x", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				fc.float({ min: -10, max: 10, noNaN: true }),
 				(base, x) => {
 					const result = logarithm(base)(Math.pow(base, x))
@@ -263,8 +329,16 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("reciprocal base: log_b(x) = -log_(1/b)(x)", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(20), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(20),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				(base, x) => {
 					const leftSide = logarithm(base)(x)
 					const rightSide = -logarithm(1 / base)(x)
@@ -285,9 +359,21 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("monotonic for base > 1", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(2), max: Math.fround(10), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(2),
+					max: Math.fround(10),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				(base, a, b) => {
 					const logA = logarithm(base)(a)
 					const logB = logarithm(base)(b)
@@ -313,9 +399,21 @@ Deno.test("logarithm: mathematical properties", async (t) => {
 	await t.step("decreasing for 0 < base < 1", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(0.1), max: Math.fround(0.9), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.1), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(0.9),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				(base, a, b) => {
 					const logA = logarithm(base)(a)
 					const logB = logarithm(base)(b)
@@ -401,7 +499,10 @@ Deno.test("logarithm: practical applications", async (t) => {
 
 		// Fractional magnitudes - just check they're close enough
 		assertEquals(Math.abs(magnitude(50) - 1.6989700043360189) < 1e-10, true)
-		assertEquals(Math.abs(magnitude(500) - 2.6989700043360187) < 1e-10, true)
+		assertEquals(
+			Math.abs(magnitude(500) - 2.6989700043360187) < 1e-10,
+			true,
+		)
 	})
 
 	await t.step("compound interest periods", () => {

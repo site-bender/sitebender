@@ -24,8 +24,12 @@ export interface FloorPlanProps {
 	amenityFeature?:
 		| LocationFeatureSpecification
 		| ReturnType<typeof LocationFeatureSpecificationComponent>
-	floorSize?: QuantitativeValue | ReturnType<typeof QuantitativeValueComponent>
-	isPlanForApartment?: Accommodation | ReturnType<typeof AccommodationComponent>
+	floorSize?:
+		| QuantitativeValue
+		| ReturnType<typeof QuantitativeValueComponent>
+	isPlanForApartment?:
+		| Accommodation
+		| ReturnType<typeof AccommodationComponent>
 	layoutImage?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
 	numberOfAccommodationUnits?:
 		| QuantitativeValue

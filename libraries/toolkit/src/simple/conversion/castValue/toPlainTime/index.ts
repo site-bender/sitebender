@@ -99,7 +99,8 @@ const toPlainTime = (
 	if (
 		typeof value === "object" &&
 		("hour" in value || "minute" in value || "second" in value ||
-			"millisecond" in value || "microsecond" in value || "nanosecond" in value)
+			"millisecond" in value || "microsecond" in value ||
+			"nanosecond" in value)
 	) {
 		try {
 			// Use strict construction; invalid times throw and return null

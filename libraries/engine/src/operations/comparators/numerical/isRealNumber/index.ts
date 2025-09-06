@@ -18,7 +18,9 @@ const isRealNumber =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<EngineError>, boolean>> => {
-		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operandFn = await composeComparators(
+			op.operand as unknown as never,
+		)
 		const operand = await operandFn(arg, localValues)
 
 		if (isLeft(operand)) {
@@ -27,7 +29,9 @@ const isRealNumber =
 
 		return isNumber(operand.right as Value) ? { right: true } : {
 			left: [
-				Error(op.tag)("IsRealNumber")(`${operand.right} is not a real number.`),
+				Error(op.tag)("IsRealNumber")(
+					`${operand.right} is not a real number.`,
+				),
 			],
 		}
 	}

@@ -350,12 +350,13 @@ describe("quadratic", () => {
 		})
 
 		it("should compose with other functions", () => {
-			const solveForC = (a: number) => (b: number) => (targetRoot: number) => {
-				// If we want targetRoot to be a solution, find c
-				// a*x² + b*x + c = 0, so c = -a*x² - b*x
-				const c = -a * targetRoot * targetRoot - b * targetRoot
-				return quadratic(a)(b)(c)
-			}
+			const solveForC =
+				(a: number) => (b: number) => (targetRoot: number) => {
+					// If we want targetRoot to be a solution, find c
+					// a*x² + b*x + c = 0, so c = -a*x² - b*x
+					const c = -a * targetRoot * targetRoot - b * targetRoot
+					return quadratic(a)(b)(c)
+				}
 
 			const [x1, x2] = solveForC(1)(-5)(2) // Want 2 to be a root
 			// One root should be 2

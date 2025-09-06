@@ -130,12 +130,15 @@ const toPlainDate = (
 		// Best-effort: if result looks like a Temporal.PlainDate, return it
 		if (
 			result &&
-			typeof (result as { toString: () => string }).toString === "function"
+			typeof (result as { toString: () => string }).toString ===
+				"function"
 		) {
 			try {
 				// Reconstruct via ISO to ensure a proper PlainDate instance
 				const iso = (result as { toString: () => string }).toString()
-				if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return Temporal.PlainDate.from(iso)
+				if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+					return Temporal.PlainDate.from(iso)
+				}
 			} catch (_err) {
 				// Swallow and fall through to null below
 			}

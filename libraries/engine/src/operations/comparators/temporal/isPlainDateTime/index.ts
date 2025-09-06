@@ -30,7 +30,9 @@ const isPlainDateTime =
 			return YMDTHMS.test(s) ? { right: true } : {
 				left: [
 					Error(op.tag)("IsPlainDateTime")(
-						`${JSON.stringify(operand.right)} is not a plain date-time.`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a plain date-time.`,
 					),
 				],
 			}
@@ -38,7 +40,9 @@ const isPlainDateTime =
 			return {
 				left: [
 					Error(op.tag)("IsPlainDateTime")(
-						`${JSON.stringify(operand.right)} is not a plain date-time: ${e}.`,
+						`${
+							JSON.stringify(operand.right)
+						} is not a plain date-time: ${e}.`,
 					),
 				],
 			}

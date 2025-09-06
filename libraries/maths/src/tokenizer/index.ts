@@ -79,9 +79,10 @@ export default function tokenize(
 				return {
 					ok: false,
 					error: {
-						message: `Invalid number format at position ${position}: ${
-							numberMatch[0] + afterNumber.slice(0, 4)
-						}`,
+						message:
+							`Invalid number format at position ${position}: ${
+								numberMatch[0] + afterNumber.slice(0, 4)
+							}`,
 						position,
 					},
 				}
@@ -140,7 +141,8 @@ export default function tokenize(
 				return {
 					ok: false,
 					error: {
-						message: `Unexpected character '${char}' at position ${position}`,
+						message:
+							`Unexpected character '${char}' at position ${position}`,
 						position,
 						found: char,
 					},

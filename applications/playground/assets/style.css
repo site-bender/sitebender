@@ -18,7 +18,7 @@
 }
 
 body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	background-color: var(--bg-primary);
 	color: var(--text-primary);
 	line-height: 1.6;
@@ -82,7 +82,7 @@ body {
 	padding: 1rem;
 	background-color: var(--bg-primary);
 	color: var(--text-secondary);
-	font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+	font-family: "Consolas", "Monaco", "Courier New", monospace;
 	font-size: 0.85rem;
 	line-height: 1.4;
 	overflow: auto;
@@ -110,7 +110,7 @@ body {
 
 .errors li {
 	color: var(--text-secondary);
-	font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+	font-family: "Consolas", "Monaco", "Courier New", monospace;
 	font-size: 0.85rem;
 	padding: 0.25rem 0;
 	border-left: 3px solid var(--error);

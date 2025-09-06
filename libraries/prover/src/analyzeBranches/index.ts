@@ -19,6 +19,6 @@ export default function analyzeBranches(
 	const ast = parseSourceCode(sourceCode)
 	const branches = extractBranches(ast)
 	const branchesWithInputs = generateBranchInputs(branches, signature)
-	
+
 	return branchesWithInputs
 }

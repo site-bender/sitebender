@@ -168,7 +168,11 @@ function smoothScrollTo(
 
 		// Calculate positions
 		const startPosition = getScrollPosition(scrollContainer)
-		const targetPosition = getTargetPosition(target, offset, scrollContainer)
+		const targetPosition = getTargetPosition(
+			target,
+			offset,
+			scrollContainer,
+		)
 		const distance = targetPosition - startPosition
 
 		// Instant scroll
@@ -495,7 +499,8 @@ function createScrollProgress(
 	onProgress: (progress: ScrollProgress) => void,
 ): () => void {
 	const calculateProgress = (): ScrollProgress => {
-		const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+		const scrollTop = window.pageYOffset ||
+			document.documentElement.scrollTop
 		const scrollHeight = document.documentElement.scrollHeight
 		const clientHeight = document.documentElement.clientHeight
 		const maxScroll = scrollHeight - clientHeight

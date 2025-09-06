@@ -9,6 +9,7 @@ The toolkit is evolving from a hand-crafted library to a **self-building system*
 **Zero dependencies. Maximum power. Mathematical truth. Automated verification.**
 
 The toolkit provides 874 pure functional building blocks, but more importantly, it provides:
+
 - **Automatic test generation** from type signatures and algebraic laws
 - **100% guaranteed coverage** through systematic branch analysis
 - **Mathematical proof** via property-based testing
@@ -40,16 +41,19 @@ The toolkit provides 874 pure functional building blocks, but more importantly, 
 ### The Three-Phase Master Plan
 
 #### Phase 1: Build the Machine (2 weeks) [IMMEDIATE]
+
 1. **Test Generator** - Automatically generates all test cases
 2. **Algebraic Law Suite** - Reusable law verification
 3. **Coverage Validator** - Ensures 100% coverage with explicit ignores
 
 #### Phase 2: Unify & Optimize (4 weeks)
+
 1. **Monadic Unification** - One Result type to rule them all
 2. **Toolkit Compiler** - Optimization and code generation
 3. **Function Reduction** - 874 → 400 core + 474 derived
 
 #### Phase 3: Deploy & Scale (4 weeks)
+
 1. **Run Test Generator** - Achieve 100% coverage automatically
 2. **Generate Chainable Layer** - Via compiler, not manual coding
 3. **Living Documentation** - Self-documenting from tests
@@ -60,6 +64,7 @@ The toolkit provides 874 pure functional building blocks, but more importantly, 
 **Revolutionary Approach**: 80 hours building tools + 0 hours manual testing
 
 The test generator doesn't just save time - it guarantees:
+
 - **Systematic coverage** - No human can miss branches
 - **Algebraic correctness** - Laws are verified, not hoped for
 - **Edge case discovery** - Automatic, not accidental
@@ -68,8 +73,9 @@ The test generator doesn't just save time - it guarantees:
 ### The 874 Functions (Organized by Mathematical Domain)
 
 #### Pure Mathematics (180 functions)
+
 - `math/` (53) — Arithmetic, number theory, combinatorics
-- `statistics/` (12) — Statistical measures and analysis  
+- `statistics/` (12) — Statistical measures and analysis
 - `trigonometry/` (19) — Trigonometric functions
 - `geometry/` (10) — Vector operations
 - `matrix/` (8) — Linear algebra
@@ -80,6 +86,7 @@ The test generator doesn't just save time - it guarantees:
 - `activation/` (7) — Neural network activations
 
 #### Data Structures (335 functions)
+
 - `array/` (123) — Comprehensive array manipulation
 - `object/` (56) — Object transformation and lensing
 - `map/` (40) — Map operations
@@ -88,6 +95,7 @@ The test generator doesn't just save time - it guarantees:
 - `tuple/` (13) — Tuple operations
 
 #### Functional Programming (99 functions)
+
 - `combinator/` (49) — Function composition
 - `logic/` (13) — Boolean logic
 - `lens/` (5) — Functional lenses
@@ -95,10 +103,12 @@ The test generator doesn't just save time - it guarantees:
 - `async/` (10) — Promise utilities
 
 #### Time & Validation (185 functions)
+
 - `temporal/` (79) — Temporal API operations
 - `validation/` (106) — Comprehensive validators
 
 #### Monadic Types (70+ functions)
+
 - `either/` (18) — Error handling
 - `maybe/` (17) — Nullable values
 - `result/` (18) — Semantic Either
@@ -109,6 +119,7 @@ The test generator doesn't just save time - it guarantees:
 - `writer/` (1) — Logging monad
 
 #### Infrastructure (27 functions)
+
 - `random/` (8) — Random generation (explicitly impure)
 - `error/` (11) — Error creation
 - `debug/` (1) — Development utilities
@@ -120,6 +131,7 @@ The test generator doesn't just save time - it guarantees:
 ### Integration Points
 
 The toolkit serves as the foundation for:
+
 - **@sitebender/engine** — Uses toolkit for calculations
 - **@sitebender/components** — Uses toolkit for transformations
 - **@sitebender/maths** — Will compile expressions to toolkit calls
@@ -130,17 +142,17 @@ The toolkit serves as the foundation for:
 
 ```typescript
 interface TestGenerator {
-  // Parse function signature and implementation
-  analyze(fn: Function): Analysis
-  
-  // Generate comprehensive test suite
-  generateTests(analysis: Analysis): TestSuite
-  
-  // Verify 100% coverage
-  verifyCoverage(tests: TestSuite): CoverageReport
-  
-  // Add explicit ignores where needed
-  addIgnores(uncovered: Line[], reasons: string[]): void
+	// Parse function signature and implementation
+	analyze(fn: Function): Analysis
+
+	// Generate comprehensive test suite
+	generateTests(analysis: Analysis): TestSuite
+
+	// Verify 100% coverage
+	verifyCoverage(tests: TestSuite): CoverageReport
+
+	// Add explicit ignores where needed
+	addIgnores(uncovered: Line[], reasons: string[]): void
 }
 ```
 
@@ -155,6 +167,7 @@ interface TestGenerator {
 ### The Revelation
 
 We're not building a utility library. We're building:
+
 1. A mathematical foundation (the functions)
 2. A proof system (the test generator)
 3. A compiler (optimization and code generation)

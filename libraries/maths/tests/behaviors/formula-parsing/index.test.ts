@@ -279,7 +279,10 @@ Deno.test("parseFormula - reports undefined variables", () => {
 
 	assertEquals(result.ok, false)
 	if (!result.ok) {
-		assertEquals(result.error.message.includes("Undefined variable: b"), true)
+		assertEquals(
+			result.error.message.includes("Undefined variable: b"),
+			true,
+		)
 	}
 })
 
@@ -365,8 +368,18 @@ Deno.test("parseFormula - parses unary plus (identity)", () => {
 
 Deno.test("parseFormula - parses power operation", () => {
 	const variables: VariableMap = {
-		base: { tag: "Constant", type: "injector", datatype: "Number", value: 2 },
-		exp: { tag: "Constant", type: "injector", datatype: "Number", value: 3 },
+		base: {
+			tag: "Constant",
+			type: "injector",
+			datatype: "Number",
+			value: 2,
+		},
+		exp: {
+			tag: "Constant",
+			type: "injector",
+			datatype: "Number",
+			value: 3,
+		},
 	}
 
 	const result = parseFormula("base ^ exp", variables)
@@ -491,7 +504,12 @@ Deno.test("parseFormula - handles numeric literals without variables", () => {
 
 Deno.test("parseFormula - negation preserves numeric type", () => {
 	const variables: VariableMap = {
-		x: { tag: "Constant", type: "injector", datatype: "Float", value: 3.14 },
+		x: {
+			tag: "Constant",
+			type: "injector",
+			datatype: "Float",
+			value: 3.14,
+		},
 	}
 
 	const result = parseFormula("-x", variables)

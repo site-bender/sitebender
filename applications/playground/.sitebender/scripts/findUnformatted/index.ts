@@ -2,29 +2,29 @@
 // Lists files that fail `deno fmt --check`, honoring the repo's include/exclude.
 // Usage: deno run --allow-read --allow-run scripts/findUnformatted/index.ts
 
-const ROOTS = ['docs', 'playground', 'libraries', 'scripts'];
+const ROOTS = ["docs", "playground", "libraries", "scripts"]
 const EXCLUDES = [
-	'/dist/',
-	'/temp/',
-	'/static/',
-	'/node_modules/',
-	'/coverage/',
-];
-const EXT_RE = /\.(ts|tsx|js|jsx|json|jsonc|md)$/;
+	"/dist/",
+	"/temp/",
+	"/static/",
+	"/node_modules/",
+	"/coverage/",
+]
+const EXT_RE = /\.(ts|tsx|js|jsx|json|jsonc|md)$/
 
 function isExcluded(path: string): boolean {
-	return EXCLUDES.some((p) => path.includes(p));
+	return EXCLUDES.some((p) => path.includes(p))
 }
 
 async function* iterFiles(root: string): AsyncGenerator<string, void, unknown> {
 	try {
 		for await (const entry of Deno.readDir(root)) {
-			const full = `${root}/${entry.name}`;
-			if (isExcluded(full)) continue;
+			const full = `${root}/${entry.name}`
+			if (isExcluded(full)) continue
 			if (entry.isDirectory) {
-				yield* iterFiles(full);
+				yield* iterFiles(full)
 			} else if (entry.isFile && EXT_RE.test(full)) {
-				yield full;
+				yield full
 			}
 		}
 	} catch {
@@ -33,32 +33,32 @@ async function* iterFiles(root: string): AsyncGenerator<string, void, unknown> {
 }
 
 async function checkFile(fp: string): Promise<boolean> {
-	const proc = new Deno.Command('deno', {
-		args: ['fmt', '--check', fp],
-		stdout: 'null',
-		stderr: 'null',
-	});
-	const { success } = await proc.output();
-	return success;
+	const proc = new Deno.Command("deno", {
+		args: ["fmt", "--check", fp],
+		stdout: "null",
+		stderr: "null",
+	})
+	const { success } = await proc.output()
+	return success
 }
 
 async function main() {
-	const failures: string[] = [];
+	const failures: string[] = []
 	for (const r of ROOTS) {
 		for await (const fp of iterFiles(r)) {
-			const ok = await checkFile(fp);
-			if (!ok) failures.push(fp);
+			const ok = await checkFile(fp)
+			if (!ok) failures.push(fp)
 		}
 	}
 	if (failures.length) {
-		console.log('Unformatted files (failing deno fmt --check):\n');
-		failures.sort().forEach((f) => console.log(f));
-		Deno.exit(1);
+		console.log("Unformatted files (failing deno fmt --check):\n")
+		failures.sort().forEach((f) => console.log(f))
+		Deno.exit(1)
 	} else {
-		console.log('All files are formatted.');
+		console.log("All files are formatted.")
 	}
 }
 
 if (import.meta.main) {
-	await main();
+	await main()
 }

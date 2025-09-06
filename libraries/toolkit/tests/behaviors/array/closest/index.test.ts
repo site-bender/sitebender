@@ -178,7 +178,9 @@ Deno.test("closest property - result has minimum distance", () => {
 			fc.array(fc.float({ noNaN: true }), { minLength: 1 }),
 			(target, arr) => {
 				const validNumbers = arr.filter((n) => Number.isFinite(n))
-				if (validNumbers.length === 0) return closest(target)(arr) === null
+				if (validNumbers.length === 0) {
+					return closest(target)(arr) === null
+				}
 
 				const result = closest(target)(arr)
 				const resultDistance = Math.abs(result! - target)

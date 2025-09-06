@@ -87,8 +87,8 @@ console.log(`Stored at: ipfs://${cid}`)
 import { querySolidPod } from "./src/solid/query.ts"
 
 const results = await querySolidPod({
-  webId: "https://alice.solidcommunity.net/profile/card#me",
-  sparql: "SELECT ?name WHERE { ?s schema:name ?name }"
+	webId: "https://alice.solidcommunity.net/profile/card#me",
+	sparql: "SELECT ?name WHERE { ?s schema:name ?name }",
 })
 ```
 
@@ -98,12 +98,12 @@ const results = await querySolidPod({
 import { federatedQuery } from "./src/rdf/federated.ts"
 
 const results = await federatedQuery({
-  endpoints: [
-    "http://localhost:3030/sparql",
-    "ipfs://QmDataset",
-    "solid://alice.pod/sparql"
-  ],
-  query: "SELECT * WHERE { ?s ?p ?o } LIMIT 10"
+	endpoints: [
+		"http://localhost:3030/sparql",
+		"ipfs://QmDataset",
+		"solid://alice.pod/sparql",
+	],
+	query: "SELECT * WHERE { ?s ?p ?o } LIMIT 10",
 })
 ```
 
@@ -127,6 +127,7 @@ const results = await federatedQuery({
 ## Integration Path
 
 Successful patterns from this lab will be:
+
 1. Refined and tested here
 2. Extracted to `libraries/distributed`
 3. Integrated into Sitebender components
@@ -135,12 +136,14 @@ Successful patterns from this lab will be:
 ## Safety Notes
 
 ⚠️ **Never commit**:
+
 - Private keys or seed phrases
 - Personal Solid Pod credentials
 - Real cryptocurrency wallets
 - API keys or tokens
 
 ⚠️ **Always use**:
+
 - Testnets for blockchain experiments
 - Dummy data for IPFS uploads
 - Test accounts for Solid Pods
@@ -163,6 +166,7 @@ Successful patterns from this lab will be:
 ## Contributing
 
 This is an experimental space. Feel free to:
+
 - Try wild ideas
 - Break things
 - Document failures as much as successes

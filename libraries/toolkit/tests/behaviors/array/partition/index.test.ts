@@ -42,9 +42,13 @@ describe("partition", () => {
 				{ name: "Bob", active: false },
 				{ name: "Charlie", active: true },
 			]
-			const isActive = (user: { name: string; active: boolean }) => user.active
+			const isActive = (user: { name: string; active: boolean }) =>
+				user.active
 			assertEquals(partition(isActive)(users), [
-				[{ name: "Alice", active: true }, { name: "Charlie", active: true }],
+				[{ name: "Alice", active: true }, {
+					name: "Charlie",
+					active: true,
+				}],
 				[{ name: "Bob", active: false }],
 			])
 		})
@@ -94,12 +98,20 @@ describe("partition", () => {
 
 		it("should handle all elements passing", () => {
 			const alwaysTrue = () => true
-			assertEquals(partition(alwaysTrue)([1, 2, 3, 4]), [[1, 2, 3, 4], []])
+			assertEquals(partition(alwaysTrue)([1, 2, 3, 4]), [
+				[1, 2, 3, 4],
+				[],
+			])
 		})
 
 		it("should handle all elements failing", () => {
 			const alwaysFalse = () => false
-			assertEquals(partition(alwaysFalse)([1, 2, 3, 4]), [[], [1, 2, 3, 4]])
+			assertEquals(partition(alwaysFalse)([1, 2, 3, 4]), [[], [
+				1,
+				2,
+				3,
+				4,
+			]])
 		})
 
 		it("should handle single element arrays", () => {
@@ -111,7 +123,16 @@ describe("partition", () => {
 		it("should handle falsy values correctly", () => {
 			const isTruthy = (x: unknown) => !!x
 			assertEquals(
-				partition(isTruthy)([0, 1, false, true, "", "hello", null, undefined]),
+				partition(isTruthy)([
+					0,
+					1,
+					false,
+					true,
+					"",
+					"hello",
+					null,
+					undefined,
+				]),
 				[[1, true, "hello"], [0, false, "", null, undefined]],
 			)
 		})
@@ -125,7 +146,10 @@ describe("partition", () => {
 
 			const partitionByPositive = partition((x: number) => x > 0)
 			assertEquals(partitionByPositive([-1, 0, 1]), [[1], [-1, 0]])
-			assertEquals(partitionByPositive([-5, -3, 2, 4]), [[2, 4], [-5, -3]])
+			assertEquals(partitionByPositive([-5, -3, 2, 4]), [[2, 4], [
+				-5,
+				-3,
+			]])
 		})
 
 		it("should work with different predicates", () => {
@@ -172,7 +196,9 @@ describe("partition", () => {
 				{ id: 3, name: "Charlie", role: "admin" },
 			]
 
-			const [admins, regularUsers] = partition((u: User) => u.role === "admin")(
+			const [admins, regularUsers] = partition((u: User) =>
+				u.role === "admin"
+			)(
 				users,
 			)
 			assertEquals(admins.length, 2)
@@ -206,7 +232,9 @@ describe("partition", () => {
 
 		it("should split data for parallel processing", () => {
 			const tasks = Array.from({ length: 10 }, (_, i) => i)
-			const [batch1, batch2] = partition((_, index) => index % 2 === 0)(tasks)
+			const [batch1, batch2] = partition((_, index) => index % 2 === 0)(
+				tasks,
+			)
 			assertEquals(batch1, [0, 2, 4, 6, 8])
 			assertEquals(batch2, [1, 3, 5, 7, 9])
 		})
@@ -237,8 +265,11 @@ describe("partition", () => {
 
 						// Check each element appears exactly once
 						for (const element of array) {
-							const count = combined.filter((x) => x === element).length
-							const expectedCount = array.filter((x) => x === element).length
+							const count = combined.filter((x) =>
+								x === element
+							).length
+							const expectedCount =
+								array.filter((x) => x === element).length
 							if (count !== expectedCount) return false
 						}
 						return true
@@ -260,7 +291,9 @@ describe("partition", () => {
 							.map((el, i) => predicate(el, i, array) ? i : -1)
 							.filter((i) => i !== -1)
 						for (let i = 0; i < passIndices.length - 1; i++) {
-							if (passIndices[i] >= passIndices[i + 1]) return false
+							if (passIndices[i] >= passIndices[i + 1]) {
+								return false
+							}
 						}
 
 						// Check order preservation in fail array
@@ -268,7 +301,9 @@ describe("partition", () => {
 							.map((el, i) => !predicate(el, i, array) ? i : -1)
 							.filter((i) => i !== -1)
 						for (let i = 0; i < failIndices.length - 1; i++) {
-							if (failIndices[i] >= failIndices[i + 1]) return false
+							if (failIndices[i] >= failIndices[i + 1]) {
+								return false
+							}
 						}
 
 						return true

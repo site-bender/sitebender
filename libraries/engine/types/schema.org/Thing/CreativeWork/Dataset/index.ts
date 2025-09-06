@@ -26,7 +26,9 @@ export interface DatasetProps {
 	datasetTimeInterval?: DateTime
 	distribution?: DataDownload | ReturnType<typeof DataDownloadComponent>
 	includedDataCatalog?: DataCatalog | ReturnType<typeof DataCatalogComponent>
-	includedInDataCatalog?: DataCatalog | ReturnType<typeof DataCatalogComponent>
+	includedInDataCatalog?:
+		| DataCatalog
+		| ReturnType<typeof DataCatalogComponent>
 	issn?: Text
 	measurementMethod?:
 		| DefinedTerm

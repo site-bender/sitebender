@@ -208,11 +208,15 @@ describe("slice", () => {
 				fc.property(
 					fc.array(fc.anything()),
 					fc.integer({ min: -100, max: 100 }),
-					fc.oneof(fc.integer({ min: -100, max: 100 }), fc.constant(undefined)),
+					fc.oneof(
+						fc.integer({ min: -100, max: 100 }),
+						fc.constant(undefined),
+					),
 					(arr, start, end) => {
 						const result1 = slice(start)(end)(arr)
 						const result2 = arr.slice(start, end)
-						return JSON.stringify(result1) === JSON.stringify(result2)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
 					},
 				),
 			)
@@ -242,7 +246,8 @@ describe("slice", () => {
 						const partial2 = partial1(end)
 						const result1 = partial2(arr)
 						const result2 = slice(start)(end)(arr)
-						return JSON.stringify(result1) === JSON.stringify(result2)
+						return JSON.stringify(result1) ===
+							JSON.stringify(result2)
 					},
 				),
 			)

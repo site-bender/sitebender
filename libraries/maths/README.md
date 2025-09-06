@@ -11,28 +11,28 @@ deno add @sitebender/maths
 ## Usage
 
 ```typescript
-import { parseFormula } from "@sitebender/maths";
+import { parseFormula } from "@sitebender/maths"
 
 // Define variables with injector configurations
 const variables = {
-  a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
-  b: {
-    tag: "FromElement",
-    type: "injector",
-    datatype: "Integer",
-    source: "#divisor",
-  },
-  c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
-  d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
-};
+	a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
+	b: {
+		tag: "FromElement",
+		type: "injector",
+		datatype: "Integer",
+		source: "#divisor",
+	},
+	c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
+	d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
+}
 
 // Parse formula into engine configuration
-const result = parseFormula("(a / b) + (c / d)", variables);
+const result = parseFormula("(a / b) + (c / d)", variables)
 
 if (result.ok) {
-  console.log(result.value); // Engine configuration object
+	console.log(result.value) // Engine configuration object
 } else {
-  console.error(result.error); // Parse error details
+	console.error(result.error) // Parse error details
 }
 ```
 
@@ -79,7 +79,7 @@ From highest to lowest:
 The parser uses a Result type for error handling:
 
 ```typescript
-type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
+type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
 ```
 
 Common errors:
@@ -139,21 +139,21 @@ Formula ←→ Engine Config ←→ JSX Components
 You can reverse-engineer a mathematical formula from an engine configuration:
 
 ```typescript
-import { decompile } from "@sitebender/maths";
+import { decompile } from "@sitebender/maths"
 
 // Given an engine configuration
 const config = {
-  tag: "Add",
-  type: "operator",
-  datatype: "Integer",
-  addends: [
-    { tag: "Constant", type: "injector", datatype: "Integer", value: 6 },
-    { tag: "Constant", type: "injector", datatype: "Integer", value: 9 },
-  ],
-};
+	tag: "Add",
+	type: "operator",
+	datatype: "Integer",
+	addends: [
+		{ tag: "Constant", type: "injector", datatype: "Integer", value: 6 },
+		{ tag: "Constant", type: "injector", datatype: "Integer", value: 9 },
+	],
+}
 
 // Convert back to formula
-const formula = decompile(config);
+const formula = decompile(config)
 // Could return: "6 + 9" (if eager evaluation and constants)
 // Or: "x + y" (if lazy evaluation or other injector types)
 ```
@@ -175,7 +175,7 @@ When decompiling, variables are assigned names based on their source:
 ```tsx
 // JSX with explicit name
 <From.Constant name="price" type="Number">
-  99.99
+	99.99
 </From.Constant>
 // Decompiles to: "price"
 ```
@@ -248,15 +248,15 @@ When multiple injectors would produce the same variable name, the system handles
 ```tsx
 // User builds visually:
 <Multiply type="Number">
-  <Add type="Number">
-    <From.Element source="#base-salary" />
-    <From.Element source="#bonus" />
-  </Add>
-  <From.Constant name="tax_multiplier">1.1</From.Constant>
-</Multiply>;
+	<Add type="Number">
+		<From.Element source="#base-salary" />
+		<From.Element source="#bonus" />
+	</Add>
+	<From.Constant name="tax_multiplier">1.1</From.Constant>
+</Multiply>
 
 // System shows formula:
-("(base_salary + bonus) * tax_multiplier");
+"(base_salary + bonus) * tax_multiplier"
 ```
 
 #### Example 2: Formula to Visual
@@ -287,16 +287,16 @@ const variables = {
 
 ```typescript
 // Original formula
-const original = "(a + b) * c";
+const original = "(a + b) * c"
 
 // Parse to config
-const config = parseFormula(original, variables);
+const config = parseFormula(original, variables)
 
 // Decompile back to formula
-const rebuilt = decompile(config.value);
+const rebuilt = decompile(config.value)
 
 // Parse again - should be equivalent
-const reparsed = parseFormula(rebuilt, variables);
+const reparsed = parseFormula(rebuilt, variables)
 
 // Assert: config === reparsed (structurally)
 ```
@@ -340,4 +340,3 @@ Based on a thorough analysis of the library:
 6. **Add Performance Benchmarks** - Create benchmarks for parsing complex formulas to ensure performance doesn't degrade
 
 7. **Enhance Error Messages** - Add more detailed position tracking and context in error messages for better debugging
-

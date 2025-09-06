@@ -1,32 +1,37 @@
 For a Deno/TypeScript/JSX application without React, here are the best documentation generation options:
 
 ## 1. **TypeDoc** (Recommended)
+
 TypeDoc is the most comprehensive solution for TypeScript projects.
 
 ### Installation:
+
 ```bash
 deno install --allow-read --allow-write --allow-net -n typedoc https://deno.land/x/typedoc@0.23.0/mod.ts
 ```
 
 ### Basic Usage:
+
 ```bash
 typedoc --out ./docs ./src
 ```
 
 ### Configuration (typedoc.json):
+
 ```json
 {
-  "entryPoints": ["src/mod.ts"],
-  "out": "docs",
-  "exclude": ["**/test/**", "**/*.test.ts"],
-  "includeVersion": true,
-  "excludePrivate": true,
-  "excludeProtected": true
+	"entryPoints": ["src/mod.ts"],
+	"out": "docs",
+	"exclude": ["**/test/**", "**/*.test.ts"],
+	"includeVersion": true,
+	"excludePrivate": true,
+	"excludeProtected": true
 }
 ```
 
 ### Advanced JSDoc Example:
-```typescript
+
+````typescript
 /**
  * A utility function for formatting dates
  * @param date - The date to format (Date object or ISO string)
@@ -40,12 +45,16 @@ typedoc --out ./docs ./src
  * @throws {TypeError} If date parameter is invalid
  * @since v1.2.0
  */
-export function formatDate(date: Date | string, format: 'short' | 'long' | 'iso' = 'short'): string {
-  // implementation
+export function formatDate(
+	date: Date | string,
+	format: "short" | "long" | "iso" = "short",
+): string {
+	// implementation
 }
-```
+````
 
 ## 2. **Deno Doc + Custom Generator**
+
 For more control, use Deno's built-in documentation tool:
 
 ```bash
@@ -57,64 +66,69 @@ deno doc src/mod.ts > API.md
 ```
 
 ### Custom Script Example:
+
 ```typescript
 // scripts/generate-docs.ts
-import { doc } from "https://deno.land/x/deno_doc/mod.ts";
+import { doc } from "https://deno.land/x/deno_doc/mod.ts"
 
 async function generateMarkdownDocs() {
-  const entries = await doc("src/mod.ts");
-  
-  let markdown = "# API Documentation\n\n";
-  
-  for (const entry of entries) {
-    if (entry.kind === "function" || entry.kind === "class") {
-      markdown += `## ${entry.name}\n\n`;
-      markdown += `${entry.jsDoc?.doc || "No description provided."}\n\n`;
-      
-      if (entry.jsDoc?.tags) {
-        for (const tag of entry.jsDoc.tags) {
-          markdown += `**${tag.kind}**: ${tag.doc}\n\n`;
-        }
-      }
-    }
-  }
-  
-  await Deno.writeTextFile("API.md", markdown);
+	const entries = await doc("src/mod.ts")
+
+	let markdown = "# API Documentation\n\n"
+
+	for (const entry of entries) {
+		if (entry.kind === "function" || entry.kind === "class") {
+			markdown += `## ${entry.name}\n\n`
+			markdown += `${entry.jsDoc?.doc || "No description provided."}\n\n`
+
+			if (entry.jsDoc?.tags) {
+				for (const tag of entry.jsDoc.tags) {
+					markdown += `**${tag.kind}**: ${tag.doc}\n\n`
+				}
+			}
+		}
+	}
+
+	await Deno.writeTextFile("API.md", markdown)
 }
 
-generateMarkdownDocs();
+generateMarkdownDocs()
 ```
 
 ## 3. **JSDoc with Deno Compatibility**
+
 Traditional JSDoc with Deno-specific setup:
 
 ### Installation:
+
 ```bash
 deno install --allow-read --allow-write -n jsdoc https://cdn.jsdelivr.net/npm/jsdoc/jsdoc.js
 ```
 
 ### Configuration (jsdoc.json):
+
 ```json
 {
-  "plugins": [],
-  "recurseDepth": 10,
-  "source": {
-    "include": ["src"],
-    "includePattern": "\\.(jsx|js|ts|tsx)$",
-    "excludePattern": "(node_modules/|apps/docs/)"
-  },
-  "opts": {
-    "template": "node_modules/minami",
-    "destination": "./apps/docs/docs/",
-    "recurse": true
-  }
+	"plugins": [],
+	"recurseDepth": 10,
+	"source": {
+		"include": ["src"],
+		"includePattern": "\\.(jsx|js|ts|tsx)$",
+		"excludePattern": "(node_modules/|apps/docs/)"
+	},
+	"opts": {
+		"template": "node_modules/minami",
+		"destination": "./apps/docs/docs/",
+		"recurse": true
+	}
 }
 ```
 
 ## 4. **Custom Template with TypeDoc**
+
 For JSX/TSX-specific documentation:
 
-```typescript
+````typescript
 // Custom template example for JSX components
 /**
  * A custom button component
@@ -126,27 +140,28 @@ For JSX/TSX-specific documentation:
  * </Button>
  * ```
  */
-export function Button({ 
-  variant = 'default', 
-  children 
-}: { 
-  variant: 'primary' | 'secondary' | 'default';
-  children: string;
+export function Button({
+	variant = "default",
+	children,
+}: {
+	variant: "primary" | "secondary" | "default"
+	children: string
 }) {
-  return <button class={`btn btn-${variant}`}>{children}</button>;
+	return <button class={`btn btn-${variant}`}>{children}</button>
 }
-```
+````
 
 ## 5. **Build Script Integration**
+
 Add documentation generation to your deno.json:
 
 ```json
 {
-  "tasks": {
-    "docs": "typedoc --out docs src/mod.ts",
-    "docs:json": "deno doc --json src/mod.ts > apps/docs/api.json",
-    "docs:serve": "deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts apps/docs/"
-  }
+	"tasks": {
+		"docs": "typedoc --out docs src/mod.ts",
+		"docs:json": "deno doc --json src/mod.ts > apps/docs/api.json",
+		"docs:serve": "deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts apps/docs/"
+	}
 }
 ```
 
@@ -166,6 +181,7 @@ TypeDoc handles this perfectly! You can specify multiple entry points and files 
 ## 1. Multiple Entry Points (Recommended)
 
 ### Command Line:
+
 ```bash
 # Specify multiple files/folders
 typedoc --out ./jsdocs src/ utils/ components/ main.ts
@@ -175,16 +191,17 @@ typedoc --out ./jsdocs src/utils/**/*.ts src/components/**/*.tsx lib/*.ts
 ```
 
 ### typedoc.json configuration:
+
 ```json
 {
-  "entryPoints": [
-    "src/utils/",
-    "src/components/",
-    "lib/helpers.ts",
-    "main.ts"
-  ],
-  "out": "jsdocs",
-  "includeVersion": true
+	"entryPoints": [
+		"src/utils/",
+		"src/components/",
+		"lib/helpers.ts",
+		"main.ts"
+	],
+	"out": "jsdocs",
+	"includeVersion": true
 }
 ```
 
@@ -193,21 +210,23 @@ typedoc --out ./jsdocs src/utils/**/*.ts src/components/**/*.tsx lib/*.ts
 For more complex projects, use different strategies:
 
 ### Package Strategy:
+
 ```json
 {
-  "entryPoints": ["src/utils", "src/components", "lib"],
-  "out": "jsdocs",
-  "entryPointStrategy": "packages"
+	"entryPoints": ["src/utils", "src/components", "lib"],
+	"out": "jsdocs",
+	"entryPointStrategy": "packages"
 }
 ```
 
 ### Expand Strategy (for scattered files):
+
 ```json
 {
-  "entryPoints": ["**/*.ts", "**/*.tsx"],
-  "out": "jsdocs",
-  "entryPointStrategy": "expand",
-  "exclude": ["node_modules/**", "dist/**", "**/*.test.ts"]
+	"entryPoints": ["**/*.ts", "**/*.tsx"],
+	"out": "jsdocs",
+	"entryPointStrategy": "expand",
+	"exclude": ["node_modules/**", "dist/**", "**/*.test.ts"]
 }
 ```
 
@@ -217,14 +236,14 @@ TypeDoc supports glob patterns:
 
 ```json
 {
-  "entryPoints": [
-    "src/**/*.ts",
-    "components/**/*.tsx",
-    "lib/**/*.ts",
-    "!**/*.test.ts",    // exclude test files
-    "!**/__mocks__/**"  // exclude mock directories
-  ],
-  "out": "jsdocs"
+	"entryPoints": [
+		"src/**/*.ts",
+		"components/**/*.tsx",
+		"lib/**/*.ts",
+		"!**/*.test.ts", // exclude test files
+		"!**/__mocks__/**" // exclude mock directories
+	],
+	"out": "jsdocs"
 }
 ```
 
@@ -233,24 +252,27 @@ TypeDoc supports glob patterns:
 If you need different settings for different areas:
 
 **typedoc.utils.json:**
+
 ```json
 {
-  "entryPoints": ["src/utils", "lib/helpers"],
-  "out": "jsdocs/utils",
-  "name": "Utility Functions"
+	"entryPoints": ["src/utils", "lib/helpers"],
+	"out": "jsdocs/utils",
+	"name": "Utility Functions"
 }
 ```
 
 **typedoc.components.json:**
+
 ```json
 {
-  "entryPoints": ["src/components", "ui/**/*.tsx"],
-  "out": "jsdocs/components",
-  "name": "UI Components"
+	"entryPoints": ["src/components", "ui/**/*.tsx"],
+	"out": "jsdocs/components",
+	"name": "UI Components"
 }
 ```
 
 Run them separately:
+
 ```bash
 typedoc --options typedoc.utils.json
 typedoc --options typedoc.components.json
@@ -259,6 +281,7 @@ typedoc --options typedoc.components.json
 ## 5. Real-world Example Structure
 
 Suppose you have this project structure:
+
 ```
 project/
 ├── src/
@@ -276,20 +299,21 @@ project/
 ```
 
 ### Configuration for this structure:
+
 ```json
 {
-  "entryPoints": [
-    "src/utils/math.ts",
-    "src/api/client.ts",
-    "components/**/*.tsx",
-    "lib/helpers.ts",
-    "main.ts",
-    "config.ts"
-  ],
-  "out": "jsdocs",
-  "exclude": ["**/*.test.ts", "**/__tests__/**"],
-  "excludePrivate": true,
-  "includeVersion": true
+	"entryPoints": [
+		"src/utils/math.ts",
+		"src/api/client.ts",
+		"components/**/*.tsx",
+		"lib/helpers.ts",
+		"main.ts",
+		"config.ts"
+	],
+	"out": "jsdocs",
+	"exclude": ["**/*.test.ts", "**/__tests__/**"],
+	"excludePrivate": true,
+	"includeVersion": true
 }
 ```
 
@@ -299,30 +323,31 @@ For maximum control, create a build script:
 
 ```typescript
 // scripts/generate-docs.ts
-import { Application } from "https://deno.land/x/typedoc@0.23.0/mod.ts";
+import { Application } from "https://deno.land/x/typedoc@0.23.0/mod.ts"
 
-const app = new Application();
+const app = new Application()
 
 app.bootstrap({
-  entryPoints: [
-    "src/utils/**/*.ts",
-    "components/**/*.tsx",
-    "lib/*.ts",
-    "main.ts"
-  ],
-  out: "jsdocs",
-  exclude: ["**/*.test.ts"]
-});
+	entryPoints: [
+		"src/utils/**/*.ts",
+		"components/**/*.tsx",
+		"lib/*.ts",
+		"main.ts",
+	],
+	out: "jsdocs",
+	exclude: ["**/*.test.ts"],
+})
 
-const project = app.convert();
+const project = app.convert()
 
 if (project) {
-  await app.generateDocs(project, "jsdocs");
-  console.log("Documentation generated in jsdocs/");
+	await app.generateDocs(project, "jsdocs")
+	console.log("Documentation generated in jsdocs/")
 }
 ```
 
 Run with:
+
 ```bash
 deno run --allow-read --allow-write scripts/generate-docs.ts
 ```
@@ -333,13 +358,13 @@ If different folders need different documentation settings:
 
 ```json
 {
-  "entryPoints": [
-    { "path": "src/utils", "name": "Utilities" },
-    { "path": "components", "name": "UI Components" },
-    { "path": "lib", "name": "Library Functions" }
-  ],
-  "out": "jsdocs",
-  "entryPointStrategy": "packages"
+	"entryPoints": [
+		{ "path": "src/utils", "name": "Utilities" },
+		{ "path": "components", "name": "UI Components" },
+		{ "path": "lib", "name": "Library Functions" }
+	],
+	"out": "jsdocs",
+	"entryPointStrategy": "packages"
 }
 ```
 

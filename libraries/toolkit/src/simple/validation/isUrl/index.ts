@@ -87,9 +87,12 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 			}
 
 			// Check allowed domains
-			if (options.allowedDomains && !arrayIsEmpty(options.allowedDomains)) {
+			if (
+				options.allowedDomains && !arrayIsEmpty(options.allowedDomains)
+			) {
 				const isAllowed = options.allowedDomains.some((domain) =>
-					url.hostname === domain || url.hostname.endsWith(`.${domain}`)
+					url.hostname === domain ||
+					url.hostname.endsWith(`.${domain}`)
 				)
 				if (!isAllowed) {
 					return false

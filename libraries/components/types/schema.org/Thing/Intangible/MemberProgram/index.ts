@@ -11,7 +11,9 @@ export type MemberProgramType = "MemberProgram"
 export interface MemberProgramProps {
 	"@type"?: MemberProgramType
 	hasTiers?: MemberProgramTier | ReturnType<typeof MemberProgramTierComponent>
-	hostingOrganization?: Organization | ReturnType<typeof OrganizationComponent>
+	hostingOrganization?:
+		| Organization
+		| ReturnType<typeof OrganizationComponent>
 }
 
 type MemberProgram = Thing & IntangibleProps & MemberProgramProps

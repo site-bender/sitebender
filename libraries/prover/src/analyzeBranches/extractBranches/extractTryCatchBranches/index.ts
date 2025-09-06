@@ -11,29 +11,31 @@ import computeBranchId from "../../computeBranchId/index.ts"
  * const branches = extractTryCatchBranches(ast)
  * // Returns: [{ id: "try_0", type: BranchType.TryCatch, ... }]
  */
-export default function extractTryCatchBranches(ast: SourceNode): Array<BranchPath> {
+export default function extractTryCatchBranches(
+	ast: SourceNode,
+): Array<BranchPath> {
 	if (!ast.children) return []
-	
+
 	return ast.children.flatMap((node: SourceNode, index: number) => {
-		if (node.type !== 'TryStatement') return []
-		
+		if (node.type !== "TryStatement") return []
+
 		return [
 			{
-				id: computeBranchId('try', index, 0),
-				condition: 'no error',
+				id: computeBranchId("try", index, 0),
+				condition: "no error",
 				line: node.start,
 				column: 0,
-				type: 'trycatch' as BranchType,
-				requiredInputs: []
+				type: "trycatch" as BranchType,
+				requiredInputs: [],
 			},
 			{
-				id: computeBranchId('catch', index, 0),
-				condition: 'error thrown',
+				id: computeBranchId("catch", index, 0),
+				condition: "error thrown",
 				line: node.start,
 				column: 0,
-				type: 'trycatch' as BranchType,
-				requiredInputs: []
-			}
+				type: "trycatch" as BranchType,
+				requiredInputs: [],
+			},
 		]
 	})
 }

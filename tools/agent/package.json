@@ -1,40 +1,40 @@
 {
-  "name": "sitebender-agent",
-  "displayName": "Sitebender Agent",
-  "publisher": "sitebender",
-  "description": "Create, configure, run, and monitor Sitebender apps from VS Code.",
-  "version": "0.0.1",
-  "license": "MIT",
-  "engines": {
-    "vscode": "^1.93.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "main": "./extension/index.js",
-  "type": "module",
-  "contributes": {
-    "commands": [
-      {
-        "command": "sitebenderAgent.prereqs.check",
-        "title": "Sitebender: Check Prerequisites"
-      },
-      {
-        "command": "sitebenderAgent.initProject",
-        "title": "Sitebender: Initialize Project"
-      },
-      {
-        "command": "sitebenderAgent.compose.up",
-        "title": "Sitebender: Docker Compose Up"
-      },
-      {
-        "command": "sitebenderAgent.compose.down",
-        "title": "Sitebender: Docker Compose Down"
-      },
-      {
-        "command": "sitebenderAgent.compose.logs",
-        "title": "Sitebender: Docker Compose Logs"
-      }
-    ]
-  }
+	"name": "sitebender-agent",
+	"displayName": "Sitebender Agent",
+	"publisher": "sitebender",
+	"description": "Create, configure, run, and monitor Sitebender apps from VS Code.",
+	"version": "0.0.1",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.93.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"main": "./extension/index.js",
+	"type": "module",
+	"contributes": {
+		"commands": [
+			{
+				"command": "sitebenderAgent.prereqs.check",
+				"title": "Sitebender: Check Prerequisites"
+			},
+			{
+				"command": "sitebenderAgent.initProject",
+				"title": "Sitebender: Initialize Project"
+			},
+			{
+				"command": "sitebenderAgent.compose.up",
+				"title": "Sitebender: Docker Compose Up"
+			},
+			{
+				"command": "sitebenderAgent.compose.down",
+				"title": "Sitebender: Docker Compose Down"
+			},
+			{
+				"command": "sitebenderAgent.compose.logs",
+				"title": "Sitebender: Docker Compose Logs"
+			}
+		]
+	}
 }

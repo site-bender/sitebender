@@ -16,7 +16,8 @@ function nowIsoLocal(): string {
 
 function toIsoDateTimeString(pdt: unknown): string | null {
 	if (
-		pdt && typeof (pdt as { toString: () => string }).toString === "function"
+		pdt &&
+		typeof (pdt as { toString: () => string }).toString === "function"
 	) {
 		const iso = (pdt as { toString: () => string }).toString()
 		// Accept both with and without fractional seconds

@@ -91,27 +91,31 @@
 ### Phase 2 Features to Implement
 
 #### 1. Real TypeScript AST Parsing
+
 Replace regex-based parsing with actual TypeScript compiler API:
 
 ```typescript
 // New file: src/parser/parseWithCompiler/index.ts
 import * as ts from "typescript"
 
-export default function parseWithCompiler(source: string): Result<ts.SourceFile, ParseError> {
-  // Use ts.createSourceFile for real AST
-  // Extract actual type information
-  // Handle all TypeScript constructs
+export default function parseWithCompiler(
+	source: string,
+): Result<ts.SourceFile, ParseError> {
+	// Use ts.createSourceFile for real AST
+	// Extract actual type information
+	// Handle all TypeScript constructs
 }
 ```
 
 #### 2. Mathematical Property Detection
+
 Implement remaining property detectors:
 
 ```typescript
 // src/detectors/detectMathProperties/isIdempotent/index.ts
 // Detect f(f(x)) = f(x)
 
-// src/detectors/detectMathProperties/isCommutative/index.ts  
+// src/detectors/detectMathProperties/isCommutative/index.ts
 // Detect f(a, b) = f(b, a)
 
 // src/detectors/detectMathProperties/isAssociative/index.ts
@@ -122,65 +126,76 @@ Implement remaining property detectors:
 ```
 
 #### 3. Example Extraction from Tests
+
 Create analyzer to find examples in test files:
 
 ```typescript
 // src/analyzers/findExamples/index.ts
-export default function findExamples(functionName: string, testPath: string): Result<Array<Example>, ParseError> {
-  // Search for test files containing functionName
-  // Extract assertion patterns
-  // Format as examples with inputs/outputs
+export default function findExamples(
+	functionName: string,
+	testPath: string,
+): Result<Array<Example>, ParseError> {
+	// Search for test files containing functionName
+	// Extract assertion patterns
+	// Format as examples with inputs/outputs
 }
 ```
 
 #### 4. Related Function Discovery
+
 Implement function relationship detection:
 
 ```typescript
 // src/analyzers/findRelatedFunctions/index.ts
-export default function findRelatedFunctions(functionName: string, sourcePath: string): Array<string> {
-  // Find functions in same module
-  // Find functions with similar names
-  // Find functions with similar signatures
-  // Find functions often used together
+export default function findRelatedFunctions(
+	functionName: string,
+	sourcePath: string,
+): Array<string> {
+	// Find functions in same module
+	// Find functions with similar names
+	// Find functions with similar signatures
+	// Find functions often used together
 }
 ```
 
 #### 5. HTML Generation
+
 Add HTML output format:
 
 ```typescript
 // src/generators/generateHTML/index.ts
 export default function generateHTML(metadata: FunctionMetadata): string {
-  // Generate semantic HTML
-  // Include syntax highlighting
-  // Add interactive examples
-  // Include property badges
+	// Generate semantic HTML
+	// Include syntax highlighting
+	// Add interactive examples
+	// Include property badges
 }
 ```
 
 #### 6. JSON Generation
+
 Improve JSON output:
 
 ```typescript
 // src/generators/generateJSON/index.ts
 export default function generateJSON(metadata: FunctionMetadata): string {
-  // Structured JSON for tooling
-  // Include all metadata
-  // Follow JSON Schema standard
+	// Structured JSON for tooling
+	// Include all metadata
+	// Follow JSON Schema standard
 }
 ```
 
 #### 7. Null Handling Detection
+
 Analyze how functions handle null/undefined:
 
 ```typescript
 // src/detectors/detectNullHandling/index.ts
 export default function detectNullHandling(source: string): NullStrategy {
-  // Check for null checks
-  // Detect optional chaining
-  // Find default parameters
-  // Identify throw on null
+	// Check for null checks
+	// Detect optional chaining
+	// Find default parameters
+	// Identify throw on null
 }
 ```
 
@@ -194,7 +209,7 @@ export default function detectNullHandling(source: string): NullStrategy {
    ```typescript
    // tests/behaviors/properties/index.test.ts
    import * as fc from "npm:fast-check"
-   
+
    // Test that detection is consistent
    // Test that generation is deterministic
    // Test round-trip: parse → generate → parse
@@ -315,6 +330,7 @@ deno task type-check
 ### Phase 3 Preview (Future)
 
 After Phase 2 is complete, Phase 3 will add:
+
 - Live documentation with hot reload
 - Documentation coverage metrics
 - Automatic changelog generation

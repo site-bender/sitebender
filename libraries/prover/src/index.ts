@@ -1,8 +1,8 @@
 /**
  * @sitebender/prover - Automated Test Generation & Code Proving
- * 
+ *
  * "We don't write tests. We generate proofs."
- * 
+ *
  * This library automatically generates comprehensive test suites
  * that prove code correctness through property-based testing,
  * branch analysis, and 100% coverage enforcement.
@@ -30,23 +30,20 @@ export { default as deduplicateTests } from "./optimizer/deduplicateTests/index.
 
 // Type exports
 export type {
-	FunctionSignature,
-	Parameter,
-	TypeInfo,
-	Generic,
 	BranchPath,
-	TestInput,
-	TestCase,
-	PropertyTest,
-	TestSuite,
-	CoverageResult,
 	CoverageMetric,
-	IgnoredLine,
+	CoverageResult,
+	FunctionSignature,
 	GeneratorConfig,
-	TestFileMetadata
+	Generic,
+	IgnoredLine,
+	Parameter,
+	PropertyTest,
+	TestCase,
+	TestFileMetadata,
+	TestInput,
+	TestSuite,
+	TypeInfo,
 } from "./types/index.ts"
 
-export {
-	TypeKind,
-	BranchType
-} from "./types/index.ts"
+export { BranchType, TypeKind } from "./types/index.ts"

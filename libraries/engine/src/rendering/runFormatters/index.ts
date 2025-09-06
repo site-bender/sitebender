@@ -29,7 +29,10 @@ const runFormatters = () => {
 
 		if (elem?.__sbFormat) {
 			await elem.__sbFormat(
-				(elem as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)
+				(elem as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement)
 					.value,
 			)
 		}

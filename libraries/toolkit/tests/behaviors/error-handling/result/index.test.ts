@@ -27,7 +27,8 @@ Deno.test("Result bimap applies left/right functions", () => {
 		fc.property(fc.string(), (e) => {
 			const r = err<string, number>(e)
 			const res = bimap<string, string, number, number>(up, double)(r)
-			return JSON.stringify(res) === JSON.stringify(err<string, number>(up(e)))
+			return JSON.stringify(res) ===
+				JSON.stringify(err<string, number>(up(e)))
 		}),
 		{ numRuns: 200 },
 	)
@@ -88,7 +89,8 @@ Deno.test("Result tryCatch captures thrown error and maps to Err", () => {
 	fc.assert(
 		fc.property(fc.integer(), (n) => {
 			const r = tryCatch(() => good(n), toMsg)
-			return JSON.stringify(r) === JSON.stringify(ok<number, string>(good(n)))
+			return JSON.stringify(r) ===
+				JSON.stringify(ok<number, string>(good(n)))
 		}),
 		{ numRuns: 100 },
 	)
@@ -107,7 +109,8 @@ Deno.test("Result map only transforms Ok; mapErr only transforms Err", () => {
 		fc.property(fc.integer(), (n) => {
 			const r = ok<number, string>(n)
 			const res = map<number, number>(inc)(r)
-			return JSON.stringify(res) === JSON.stringify(ok<number, string>(n + 1))
+			return JSON.stringify(res) ===
+				JSON.stringify(ok<number, string>(n + 1))
 		}),
 		{ numRuns: 200 },
 	)
@@ -116,7 +119,8 @@ Deno.test("Result map only transforms Ok; mapErr only transforms Err", () => {
 		fc.property(fc.string(), (e) => {
 			const r = err<string, number>(e)
 			const res = map<number, number>(inc)(r)
-			return JSON.stringify(res) === JSON.stringify(err<string, number>(e))
+			return JSON.stringify(res) ===
+				JSON.stringify(err<string, number>(e))
 		}),
 		{ numRuns: 200 },
 	)
@@ -125,7 +129,8 @@ Deno.test("Result map only transforms Ok; mapErr only transforms Err", () => {
 		fc.property(fc.string(), (e) => {
 			const r = err<string, number>(e)
 			const res = mapErr<string, string>(up)(r)
-			return JSON.stringify(res) === JSON.stringify(err<string, number>(up(e)))
+			return JSON.stringify(res) ===
+				JSON.stringify(err<string, number>(up(e)))
 		}),
 		{ numRuns: 200 },
 	)

@@ -62,7 +62,9 @@ export type PlaceType =
 
 export interface PlaceProps {
 	"@type"?: PlaceType
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	address?: PostalAddress | Text | ReturnType<typeof PostalAddressComponent>
 	aggregateRating?:
 		| AggregateRating
@@ -139,7 +141,11 @@ export interface PlaceProps {
 	hasMap?: Map | URL | ReturnType<typeof MapComponent>
 	isAccessibleForFree?: Boolean
 	isicV4?: Text
-	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	keywords?:
+		| DefinedTerm
+		| Text
+		| URL
+		| ReturnType<typeof DefinedTermComponent>
 	latitude?: Number | Text
 	logo?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
 	longitude?: Number | Text

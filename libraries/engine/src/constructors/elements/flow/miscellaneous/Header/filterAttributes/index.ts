@@ -67,7 +67,9 @@ export default function filterAttributes(attributes: HeaderElementAttributes) {
 	if (isDefined(role)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(HEADER_NOT_IN_SECTIONING_ROLES))("role")(role),
+			filterAttribute(isMemberOf(HEADER_NOT_IN_SECTIONING_ROLES))("role")(
+				role,
+			),
 		)
 	}
 

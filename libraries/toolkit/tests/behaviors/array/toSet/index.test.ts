@@ -73,7 +73,11 @@ Deno.test("toSet: array reference equality", () => {
 	const arr2 = [1, 2]
 	const arraySet = toSet([arr1, arr1, arr2, [1, 2]])
 
-	assertEquals(arraySet.size, 3, "should have 3 arrays (different references)")
+	assertEquals(
+		arraySet.size,
+		3,
+		"should have 3 arrays (different references)",
+	)
 	assertEquals(arraySet.has(arr1), true, "should contain first array")
 	assertEquals(arraySet.has(arr2), true, "should contain second array")
 })
@@ -228,7 +232,11 @@ Deno.test("toSet: property-based tests", () => {
 			(arr) => {
 				const set = toSet(arr)
 				const allPresent = arr.every((item) => set.has(item))
-				assertEquals(allPresent, true, "All array elements should be in Set")
+				assertEquals(
+					allPresent,
+					true,
+					"All array elements should be in Set",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -258,7 +266,11 @@ Deno.test("toSet: property-based tests", () => {
 			fc.constant([]),
 			(arr) => {
 				const set = toSet(arr)
-				assertEquals(set.size, 0, "Empty array should produce empty Set")
+				assertEquals(
+					set.size,
+					0,
+					"Empty array should produce empty Set",
+				)
 			},
 		),
 		{ numRuns: 1 },
@@ -275,7 +287,11 @@ Deno.test("toSet: property-based tests", () => {
 					1,
 					"Single element array should produce Set of size 1",
 				)
-				assertEquals(set.has(element), true, "Set should contain the element")
+				assertEquals(
+					set.has(element),
+					true,
+					"Set should contain the element",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -289,8 +305,16 @@ Deno.test("toSet: property-based tests", () => {
 			(element, count) => {
 				const arr = Array(count).fill(element)
 				const set = toSet(arr)
-				assertEquals(set.size, 1, "All duplicates should produce Set of size 1")
-				assertEquals(set.has(element), true, "Set should contain the element")
+				assertEquals(
+					set.size,
+					1,
+					"All duplicates should produce Set of size 1",
+				)
+				assertEquals(
+					set.has(element),
+					true,
+					"Set should contain the element",
+				)
 			},
 		),
 		{ numRuns: 100 },
@@ -303,12 +327,20 @@ Deno.test("toSet: immutability", () => {
 
 	// Modifying the Set doesn't affect the array
 	set.add(4)
-	assertEquals(original, [1, 2, 3, 2, 1], "Original array should be unchanged")
+	assertEquals(
+		original,
+		[1, 2, 3, 2, 1],
+		"Original array should be unchanged",
+	)
 
 	// Modifying the array doesn't affect the Set
 	original.push(5)
 	assertEquals(set.has(5), false, "Set should not have new array element")
-	assertEquals(set.size, 4, "Set size should be unchanged (we added 4 earlier)")
+	assertEquals(
+		set.size,
+		4,
+		"Set size should be unchanged (we added 4 earlier)",
+	)
 })
 
 Deno.test("toSet: practical use cases", () => {
@@ -319,7 +351,11 @@ Deno.test("toSet: practical use cases", () => {
 
 	// Check for uniqueness
 	const hasUniqueValues = (arr: Array<any>) => toSet(arr).size === arr.length
-	assertEquals(hasUniqueValues([1, 2, 3]), true, "should detect unique values")
+	assertEquals(
+		hasUniqueValues([1, 2, 3]),
+		true,
+		"should detect unique values",
+	)
 	assertEquals(hasUniqueValues([1, 1, 2]), false, "should detect duplicates")
 
 	// Count unique elements

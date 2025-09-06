@@ -56,7 +56,9 @@ export interface MedicalConditionProps {
 	primaryPrevention?:
 		| MedicalTherapy
 		| ReturnType<typeof MedicalTherapyComponent>
-	riskFactor?: MedicalRiskFactor | ReturnType<typeof MedicalRiskFactorComponent>
+	riskFactor?:
+		| MedicalRiskFactor
+		| ReturnType<typeof MedicalRiskFactorComponent>
 	secondaryPrevention?:
 		| MedicalTherapy
 		| ReturnType<typeof MedicalTherapyComponent>

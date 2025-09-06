@@ -30,11 +30,15 @@ async (
 		const pattern = new RegExp(String(patternValue.right), flags)
 		return pattern.test(String(operand.right)) ? { right: true } : {
 			left: [
-				Error(op.tag)("Matches")(`${operand.right} does not match ${pattern}.`),
+				Error(op.tag)("Matches")(
+					`${operand.right} does not match ${pattern}.`,
+				),
 			],
 		}
 	} catch (e) {
-		return { left: [Error(op.tag)("Matches")(`Bad regular expression: ${e}.`)] }
+		return {
+			left: [Error(op.tag)("Matches")(`Bad regular expression: ${e}.`)],
+		}
 	}
 }
 

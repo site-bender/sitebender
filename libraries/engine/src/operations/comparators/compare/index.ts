@@ -73,7 +73,9 @@ const compare =
 			left: [
 				Error("Comparison")((op as { tag?: string }).tag ?? "Unknown")(
 					`${String(or)} ${
-						getErrorMessage(op as unknown as { tag: string } as never)
+						getErrorMessage(
+							op as unknown as { tag: string } as never,
+						)
 					} ${String(tr)}.`,
 				),
 			],

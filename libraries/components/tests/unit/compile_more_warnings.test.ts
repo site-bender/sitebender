@@ -59,7 +59,9 @@ Deno.test("compiler emits warning for Multiply with fewer than 2 multipliers", (
 			children: Publish({
 				topic: "debug",
 				payload: Multiply({
-					children: [FromElement({ id: "a" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "a" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -67,8 +69,8 @@ Deno.test("compiler emits warning for Multiply with fewer than 2 multipliers", (
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -81,7 +83,9 @@ Deno.test("compiler emits warning for IsAfterDateTime with missing argument", ()
 			children: Publish({
 				topic: "debug",
 				payload: IsAfterDateTime({
-					children: [FromElement({ id: "dt" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "dt" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -89,8 +93,8 @@ Deno.test("compiler emits warning for IsAfterDateTime with missing argument", ()
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -103,7 +107,9 @@ Deno.test("compiler emits warning for IsBeforeDateTime with missing argument", (
 			children: Publish({
 				topic: "debug",
 				payload: IsBeforeDateTime({
-					children: [FromElement({ id: "dt" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "dt" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -111,8 +117,8 @@ Deno.test("compiler emits warning for IsBeforeDateTime with missing argument", (
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -125,7 +131,9 @@ Deno.test("compiler emits warning for IsSameDateTime with missing argument", () 
 			children: Publish({
 				topic: "debug",
 				payload: IsSameDateTime({
-					children: [FromElement({ id: "dt" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "dt" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -133,8 +141,8 @@ Deno.test("compiler emits warning for IsSameDateTime with missing argument", () 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -147,7 +155,9 @@ Deno.test("compiler emits warning for IsNotAfterDateTime with missing argument",
 			children: Publish({
 				topic: "debug",
 				payload: IsNotAfterDateTime({
-					children: [FromElement({ id: "dt" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "dt" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -155,8 +165,8 @@ Deno.test("compiler emits warning for IsNotAfterDateTime with missing argument",
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -169,7 +179,9 @@ Deno.test("compiler emits warning for IsNotBeforeDateTime with missing argument"
 			children: Publish({
 				topic: "debug",
 				payload: IsNotBeforeDateTime({
-					children: [FromElement({ id: "dt" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "dt" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -177,8 +189,8 @@ Deno.test("compiler emits warning for IsNotBeforeDateTime with missing argument"
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -191,7 +203,9 @@ Deno.test("compiler emits warning for IsAfterTime with missing argument", () => 
 			children: Publish({
 				topic: "debug",
 				payload: IsAfterTime({
-					children: [FromElement({ id: "t" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "t" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -199,8 +213,8 @@ Deno.test("compiler emits warning for IsAfterTime with missing argument", () => 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -213,7 +227,9 @@ Deno.test("compiler emits warning for IsBeforeTime with missing argument", () =>
 			children: Publish({
 				topic: "debug",
 				payload: IsBeforeTime({
-					children: [FromElement({ id: "t" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "t" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -221,8 +237,8 @@ Deno.test("compiler emits warning for IsBeforeTime with missing argument", () =>
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -235,7 +251,9 @@ Deno.test("compiler emits warning for IsSameTime with missing argument", () => {
 			children: Publish({
 				topic: "debug",
 				payload: IsSameTime({
-					children: [FromElement({ id: "t" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "t" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -243,8 +261,8 @@ Deno.test("compiler emits warning for IsSameTime with missing argument", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -257,7 +275,9 @@ Deno.test("compiler emits warning for IsNotAfterTime with missing argument", () 
 			children: Publish({
 				topic: "debug",
 				payload: IsNotAfterTime({
-					children: [FromElement({ id: "t" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "t" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -265,8 +285,8 @@ Deno.test("compiler emits warning for IsNotAfterTime with missing argument", () 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -279,7 +299,9 @@ Deno.test("compiler emits warning for IsNotBeforeTime with missing argument", ()
 			children: Publish({
 				topic: "debug",
 				payload: IsNotBeforeTime({
-					children: [FromElement({ id: "t" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "t" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -287,8 +309,8 @@ Deno.test("compiler emits warning for IsNotBeforeTime with missing argument", ()
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -301,7 +323,9 @@ Deno.test("compiler emits warning for IsAfterDate with missing argument", () => 
 			children: Publish({
 				topic: "debug",
 				payload: IsAfterDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -309,8 +333,8 @@ Deno.test("compiler emits warning for IsAfterDate with missing argument", () => 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -323,7 +347,9 @@ Deno.test("compiler emits warning for IsBeforeDate with missing argument", () =>
 			children: Publish({
 				topic: "debug",
 				payload: IsBeforeDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -331,8 +357,8 @@ Deno.test("compiler emits warning for IsBeforeDate with missing argument", () =>
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -345,7 +371,9 @@ Deno.test("compiler emits warning for IsSameDate with missing argument", () => {
 			children: Publish({
 				topic: "debug",
 				payload: IsSameDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -353,8 +381,8 @@ Deno.test("compiler emits warning for IsSameDate with missing argument", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -367,7 +395,9 @@ Deno.test("compiler emits warning for IsNotAfterDate with missing argument", () 
 			children: Publish({
 				topic: "debug",
 				payload: IsNotAfterDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -375,8 +405,8 @@ Deno.test("compiler emits warning for IsNotAfterDate with missing argument", () 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -389,7 +419,9 @@ Deno.test("compiler emits warning for IsNotBeforeDate with missing argument", ()
 			children: Publish({
 				topic: "debug",
 				payload: IsNotBeforeDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -397,8 +429,8 @@ Deno.test("compiler emits warning for IsNotBeforeDate with missing argument", ()
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -411,7 +443,9 @@ Deno.test("compiler emits warning for IsNotSameDate with missing argument", () =
 			children: Publish({
 				topic: "debug",
 				payload: IsNotSameDate({
-					children: [FromElement({ id: "d" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "d" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -419,8 +453,8 @@ Deno.test("compiler emits warning for IsNotSameDate with missing argument", () =
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -435,7 +469,9 @@ Deno.test("compiler emits warning for Is.MoreThan with missing argument", () => 
 				// Intentionally only one child instead of (value, threshold)
 				payload: IsMoreThan({
 					type: "Number",
-					children: [FromElement({ id: "price" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "price" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -443,8 +479,8 @@ Deno.test("compiler emits warning for Is.MoreThan with missing argument", () => 
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -464,8 +500,8 @@ Deno.test("compiler emits warning for NotEmpty with wrong arity (0)", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -479,7 +515,9 @@ Deno.test("compiler emits warning for DoesNotMatch invalid arity", () => {
 				topic: "debug",
 				// Only operand provided
 				payload: DoesNotMatch({
-					children: [FromElement({ id: "val" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "val" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -487,8 +525,8 @@ Deno.test("compiler emits warning for DoesNotMatch invalid arity", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -506,8 +544,8 @@ Deno.test("compiler emits warning for Min with fewer than 1 operand", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -526,8 +564,8 @@ Deno.test("compiler emits warning for Max with fewer than 1 operand", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const op = (evt.handler as ActionNode).args[1] as OperatorNode
-	const warnings =
-		((op.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((op.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -546,8 +584,8 @@ Deno.test("compiler emits warning for And with zero operands", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -566,8 +604,8 @@ Deno.test("compiler emits warning for Or with zero operands", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })
@@ -581,7 +619,9 @@ Deno.test("compiler emits warning for InSet with missing argument", () => {
 				topic: "debug",
 				// Provide only the value, omit the set
 				payload: InSet({
-					children: [FromElement({ id: "a" }) as unknown as JSX.Element],
+					children: [
+						FromElement({ id: "a" }) as unknown as JSX.Element,
+					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
 		}),
@@ -589,8 +629,8 @@ Deno.test("compiler emits warning for InSet with missing argument", () => {
 	const doc = compileToEngine(tree) as IrDocument
 	const evt = doc.children[0] as EventBindingNode
 	const cmp = (evt.handler as ActionNode).args[1] as ComparatorNode
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length > 0, true)
 })

@@ -304,7 +304,8 @@ Deno.test("slidingWithStep: property-based tests", () => {
 						"should be empty when array too small",
 					)
 				} else {
-					const expectedCount = Math.floor((arr.length - size) / step) + 1
+					const expectedCount =
+						Math.floor((arr.length - size) / step) + 1
 					assertEquals(
 						windows.length,
 						expectedCount,
@@ -365,7 +366,8 @@ Deno.test("slidingWithStep: property-based tests", () => {
 			fc.array(fc.integer(), { minLength: 1, maxLength: 50 }),
 			fc.integer({ min: 1, max: 10 }),
 			(arr, size) => {
-				const step = size + fc.sample(fc.integer({ min: 0, max: 5 }), 1)[0]
+				const step = size +
+					fc.sample(fc.integer({ min: 0, max: 5 }), 1)[0]
 				const windows = slidingWithStep(size, step)(arr)
 
 				// Check no element appears in multiple windows

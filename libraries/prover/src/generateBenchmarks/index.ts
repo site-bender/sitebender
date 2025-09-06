@@ -16,15 +16,15 @@ import generatePerformanceTests from "./generatePerformanceTests/index.ts"
  */
 export default function generateBenchmarks(
 	signature: FunctionSignature,
-	sourceCode: string
+	sourceCode: string,
 ): BenchmarkSuite {
 	const patterns = detectBenchmarkPatterns(signature, sourceCode)
 	const inputs = createBenchmarkInputs(signature, patterns)
 	const benchmarks = generatePerformanceTests(signature, inputs)
-	
+
 	return {
 		functionName: signature.name,
 		functionPath: signature.path,
-		benchmarks
+		benchmarks,
 	}
 }

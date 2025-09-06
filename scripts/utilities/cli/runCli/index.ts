@@ -32,7 +32,12 @@ export default async function runCli(cfg: CliConfig): Promise<never> {
 	const { flags, options, positional } = parseArgs(Deno.args, {
 		booleans: ["help", "version", "dry-run", ...(cfg.booleans ?? [])],
 		strings: cfg.strings,
-		aliases: { h: "help", v: "version", n: "dry-run", ...(cfg.aliases ?? {}) },
+		aliases: {
+			h: "help",
+			v: "version",
+			n: "dry-run",
+			...(cfg.aliases ?? {}),
+		},
 	})
 
 	// --help

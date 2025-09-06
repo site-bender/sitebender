@@ -151,8 +151,12 @@ Deno.test("replaceLastMatch: property - replaces at most one element", () => {
 			fc.string({ minLength: 1 }),
 			(array, pattern) => {
 				try {
-					const result = replaceLastMatch(pattern)(() => "REPLACED")(array)
-					const replacedCount = result.filter((x) => x === "REPLACED").length
+					const result = replaceLastMatch(pattern)(() => "REPLACED")(
+						array,
+					)
+					const replacedCount = result.filter((x) =>
+						x === "REPLACED"
+					).length
 					return replacedCount <= 1
 				} catch {
 					// Invalid regex pattern, skip
@@ -183,7 +187,9 @@ Deno.test("replaceLastMatch: property - elements before last match unchanged", (
 				if (array.length === 0) return true
 
 				const result = replaceLastMatch(/./)(() => "X")(array)
-				const lastMatchIndex = array.map((s, i) => s.length > 0 ? i : -1)
+				const lastMatchIndex = array.map((s, i) =>
+					s.length > 0 ? i : -1
+				)
 					.filter((i) => i >= 0)
 					.pop()
 
@@ -218,7 +224,8 @@ Deno.test("replaceLastMatch: property - replacer called with correct value", () 
 				if (hasMatch) {
 					// Should be called exactly once with the last matching value
 					if (callCount !== 1) return false
-					const lastMatch = array.filter((n) => /\d/.test(String(n))).pop()
+					const lastMatch = array.filter((n) => /\d/.test(String(n)))
+						.pop()
 					return capturedValue === lastMatch
 				} else {
 					// Should not be called if no match

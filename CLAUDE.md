@@ -13,9 +13,11 @@
 7. [Import Theology](#import-theology)
 8. [Testing Dogma](#testing-dogma)
 9. [The Seven Deadly Coding Sins](#the-seven-deadly-coding-sins)
-10. [Tools of the Trade](#tools-of-the-trade)
-11. [The TODO List of Shame](#the-todo-list-of-shame)
-12. [The Final Warning](#the-final-warning)
+10. [Error Handling Policy](#error-handling-policy)
+11. [Data Privacy Principles](#data-privacy-principles)
+12. [Tools of the Trade](#tools-of-the-trade)
+13. [The TODO List of Shame](#the-todo-list-of-shame)
+14. [The Final Warning](#the-final-warning)
 
 ## The Prime Directive
 
@@ -133,54 +135,87 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
 
 ## The Sacred Architecture
 
-### The Five Libraries (Zero Dependencies, Maximum Power)
+### The Seven Libraries (Zero Dependencies, Maximum Power)
 
 #### @sitebender/toolkit
+
 Pure functional building blocks. The foundation everything else builds upon.
+
 - Zero dependencies, zero compromises
 - Monads, combinators, and mathematical truth
 - If it's not pure, it doesn't belong here
 
 #### @sitebender/components
+
 Accessible JSX components forming a declarative DSL for web applications.
+
 - Semantic HTML generation
 - Schema.org structured data
 - Progressive enhancement built-in
 
 #### @sitebender/engine
+
 The reactive computation core. No VDOM, no bloat, just efficiency.
+
 - IR evaluation for SSR/SSG
 - Hydration without the heavyweight
 - Calculations that actually calculate
 
 #### @sitebender/maths
+
 Mathematical expression parser (coming soon).
+
 - Compiles to Engine IR
 - Operator precedence done right
 - Variables and functions
 
 #### @sitebender/distributed
+
 Distributed and hybrid data adapters (future).
+
 - CRDT-based synchronization
 - P2P data exchange
 - Offline-first by default
 
+#### @sitebender/scribe
+
+Automatic documentation generator from TypeScript code.
+
+- Extracts types, signatures, and properties automatically
+- Replaces verbose JSDoc with single-line descriptions
+- The code IS the documentation
+
+#### @sitebender/prover
+
+Revolutionary test generator achieving 100% coverage automatically.
+
+- AST analysis for branch detection
+- Property-based test generation
+- Mathematical law verification
+- "We don't write tests. We generate proofs."
+
 ### The Three Applications
 
 #### /applications/docs
+
 Our own documentation, eating our own dog food.
+
 - Live examples of everything
 - Both HTML and structured data visible
 - The ultimate test of our libraries
 
 #### /applications/playground
+
 JSX → IR → HTML visualization sandbox.
+
 - Real-time compilation
 - SSR/hydration preview
 - Monaco-powered editing
 
 #### /applications/web3-lab
+
 Experimental IPFS/Solid/RDF/blockchain integrations.
+
 - Where we push boundaries
 - Not production ready
 - Expect explosions
@@ -200,12 +235,12 @@ Experimental IPFS/Solid/RDF/blockchain integrations.
 ```typescript
 // ✅ RIGHTEOUS: libraries/toolkit/src/simple/string/chomp/index.ts
 export default function chomp(str: string): string {
-  return str.replace(/\s+$/, '')
+	return str.replace(/\s+$/, "")
 }
 
 // ❌ HERETICAL: multiple functions in one file
-export function chomp() { }
-export function trim() { }  // BURN THE WITCH!
+export function chomp() {}
+export function trim() {} // BURN THE WITCH!
 ```
 
 ### Law 2: Folders Are Named, Files Are Not
@@ -237,6 +272,7 @@ f1/                # Used by multiple consumers
 ```
 
 Benefits of this divine structure:
+
 - **Delete a folder, delete a feature** — No orphans
 - **See the entire tree in your IDE** — No mysteries
 - **Dependencies flow one direction** — No circles of hell
@@ -267,9 +303,9 @@ const add = (a: number) => (b: number) => a + b
 
 // 🌟 THE NEW COVENANT (use this):
 export default function add(a: number) {
-  return function(b: number) {
-    return a + b
-  }
+	return function (b: number) {
+		return a + b
+	}
 }
 ```
 
@@ -289,7 +325,7 @@ export default function add(a: number) {
 3. **Recursion without gymnastics**
    ```typescript
    function factorial(n: number): number {
-     return n <= 1 ? 1 : n * factorial(n - 1)
+   	return n <= 1 ? 1 : n * factorial(n - 1)
    }
    ```
 
@@ -310,15 +346,15 @@ Every function does ONE thing:
 ```typescript
 // ✅ BLESSED
 export default function double(n: number): number {
-  return n * 2
+	return n * 2
 }
 
 // ❌ CURSED
 export default function processNumber(n: number): ProcessedResult {
-  const doubled = n * 2              // Thing 1
-  const validated = doubled > 0      // Thing 2
-  const formatted = `Result: ${doubled}` // Thing 3
-  return { doubled, validated, formatted } // Too many things!
+	const doubled = n * 2 // Thing 1
+	const validated = doubled > 0 // Thing 2
+	const formatted = `Result: ${doubled}` // Thing 3
+	return { doubled, validated, formatted } // Too many things!
 }
 ```
 
@@ -327,6 +363,7 @@ export default function processNumber(n: number): ProcessedResult {
 ### The Three Realms of Imports
 
 #### 1. Library Code (`/libraries/`)
+
 ```typescript
 // Internal imports: ALWAYS relative
 import type { Result } from "../../../types"
@@ -338,6 +375,7 @@ import * as fc from "npm:fast-check"
 ```
 
 #### 2. Application Code (`/applications/`)
+
 ```typescript
 // App code: Use aliases
 import { Button } from "~components/Button"
@@ -349,6 +387,7 @@ import { Form } from "@sitebender/components"
 ```
 
 #### 3. Test Code
+
 ```typescript
 // Reaching tested code: Relative
 import add from "../../../../src/simple/math/add"
@@ -403,6 +442,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ## The Seven Deadly Coding Sins
 
 ### 1. Assumption (The Gateway Sin)
+
 ```typescript
 // ❌ "I'll assume this works like React"
 // ❌ "This probably returns a string"
@@ -412,6 +452,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 2. Premature Optimization
+
 ```typescript
 // ❌ Optimizing before measuring
 // ❌ Caching everything preemptively
@@ -421,6 +462,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 3. Class-Based Thinking
+
 ```typescript
 // ❌ class UserService { }
 // ❌ this.setState()
@@ -432,6 +474,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 4. Mocking Our Own Code
+
 ```typescript
 // ❌ const mockAdd = jest.fn()
 // ❌ Testing implementation, not behavior
@@ -441,6 +484,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 5. Tech Debt Accumulation
+
 ```typescript
 // ❌ // TODO: Fix this later
 // ❌ // Temporary workaround
@@ -450,6 +494,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 6. Accessibility Afterthought
+
 ```typescript
 // ❌ "We'll add ARIA labels later"
 // ❌ "Keyboard nav in phase 2"
@@ -459,6 +504,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 ```
 
 ### 7. Monolithic Functions
+
 ```typescript
 // ❌ 500-line function doing everything
 // ❌ Multiple responsibilities
@@ -467,9 +513,97 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 // ✅ Small, focused, composable
 ```
 
+## Error Handling Policy
+
+### The Three Laws of Error Handling
+
+1. **All errors must be handled explicitly**
+   - No silent failures
+   - No swallowed exceptions
+   - No "it probably won't happen"
+
+2. **User-facing error messages must be helpful**
+   - Tell them what went wrong in plain language
+   - Suggest what they can do about it
+   - Never expose technical stack traces to users
+
+3. **Log technical details, show user-friendly messages**
+   ```typescript
+   // ✅ CORRECT
+   try {
+     await saveData(data)
+   } catch (error) {
+     console.error('Technical details:', error) // For debugging
+     showUser('Unable to save. Please try again.') // For users
+   }
+
+   // ❌ WRONG
+   catch (error) {
+     showUser(error.stack) // Never show stack traces to users!
+   }
+   ```
+
+### Error Recovery Strategies
+
+- **Retry with exponential backoff** for network errors
+- **Fallback to cached data** when possible
+- **Degrade gracefully** rather than fail completely
+- **Always preserve user data** (localStorage, drafts, etc.)
+
+## Data Privacy Principles
+
+### Local-First by Default
+
+1. **Process data locally whenever possible**
+   - Client-side validation
+   - Local storage before network
+   - Offline-capable by design
+
+2. **Explicit consent for network requests**
+   - Tell users what data is being sent
+   - Explain why it's necessary
+   - Provide opt-out when possible
+
+3. **Data minimization principle**
+   - Only collect what's necessary
+   - Delete what's no longer needed
+   - Don't track unless required for functionality
+
+### Privacy Implementation
+
+```typescript
+// ✅ GOOD: Explicit, minimal, consensual
+async function savePreferences(prefs: UserPrefs) {
+	// Save locally first
+	await localStorage.set("prefs", prefs)
+
+	// Only sync if user opted in
+	if (await getUserConsent("sync")) {
+		// Only send necessary fields
+		await syncMinimalData({
+			theme: prefs.theme,
+			locale: prefs.locale,
+			// NOT sending: usage stats, personal info, etc.
+		})
+	}
+}
+
+// ❌ BAD: Implicit, excessive, non-consensual
+function trackEverything(event: Event) {
+	analytics.send({
+		...event,
+		userId: getCurrentUser(),
+		sessionData: getAllSessionData(),
+		deviceInfo: getFullDeviceProfile(),
+		// Why do you need all this?
+	})
+}
+```
+
 ## Tools of the Trade
 
 ### Build Commands
+
 ```bash
 # Development
 deno task dev         # Start dev server
@@ -486,6 +620,7 @@ deno task deploy      # Deploy to Deno Deploy
 ### Git Discipline
 
 #### Conventional Commits Are Law
+
 ```bash
 feat: add new component
 fix: resolve calculation error
@@ -496,10 +631,37 @@ test: add integration tests
 ```
 
 #### Commit Rules
+
 1. **Atomic** — One logical change
 2. **Focused** — Don't mix concerns
 3. **Tested** — Green tests before commit
 4. **Descriptive** — Why, not just what
+
+#### Pre-Commit Requirements (THE LAW)
+
+**EVERY commit MUST pass ALL of these:**
+
+```bash
+deno task test        # All tests must pass
+deno task lint        # Zero lint errors
+deno task typecheck   # Zero type errors
+deno task fmt         # Code must be formatted
+```
+
+**NO EXCEPTIONS. NO "I'll fix it in the next commit." NO.**
+
+If any of these fail, you DO NOT commit. Period.
+
+#### The Architect's Note
+
+I am the sole developer on this project. All other contributors are AIs. I review EVERY line of code personally. There are no pull requests, no issues, no code reviews beyond my own scrutiny.
+
+AI assistants must:
+
+- Update all documentation (README.md, AI_BRIEFING.md, etc.) BEFORE committing
+- Run ALL checks listed above
+- Never commit if ANY check fails
+- Remember: I WILL check your work. Thoroughly.
 
 ### Code Style Enforcement
 
@@ -542,6 +704,7 @@ import map from "libraries/toolkit/src/simple/array/map"
 #### The 100% Coverage Guarantee
 
 The generator ensures 100% coverage by:
+
 1. Analyzing all branches in the code
 2. Generating specific inputs to trigger each branch
 3. Running coverage validation
@@ -553,24 +716,28 @@ The generator ensures 100% coverage by:
 These are not tasks of shame, but milestones of revolution:
 
 ### Testing Revolution
+
 - Build the test generator (2 weeks)
 - Achieve 100% toolkit coverage automatically
 - Extend generator to all libraries
 - Generate property-based tests from types
 
 ### Documentation Automation
+
 - Generate docs from test cases
 - Build living documentation system
 - Create interactive playgrounds
 - Extract examples from actual usage
 
 ### Compiler Development
+
 - Build toolkit compiler for optimizations
 - Generate chainable layer automatically
 - Implement function fusion
 - Create performance dashboard
 
 ### Future Promises
+
 - Complete maths library parser
 - Implement distributed CRDTs
 - Finish web3 integrations
@@ -615,10 +782,10 @@ Choose wisely.
 
 ---
 
-*"In 30 years, I've seen every shortcut lead to a cliff. Don't be another cautionary tale."*
+_"In 30 years, I've seen every shortcut lead to a cliff. Don't be another cautionary tale."_
 
-*— The Architect*
+_— The Architect_
 
-*Last updated by an AI who finally understood the assignment.*
-*Previous updates by AIs who thought they knew better.*
-*They were wrong.*
+_Last updated by an AI who finally understood the assignment._
+_Previous updates by AIs who thought they knew better._
+_They were wrong._

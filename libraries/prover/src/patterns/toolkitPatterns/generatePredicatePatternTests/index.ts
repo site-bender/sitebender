@@ -10,11 +10,11 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of predicate-specific test cases
  */
 export default function generatePredicatePatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const tests: Array<TestCase> = []
 	const name = signature.name.toLowerCase()
-	
+
 	// Test boolean return constraint
 	tests.push({
 		name: "always returns boolean",
@@ -30,7 +30,7 @@ export default function generatePredicatePatternTests(
 			`,
 		}],
 	})
-	
+
 	// Test complement behavior
 	tests.push({
 		name: "complement coverage",
@@ -49,7 +49,7 @@ export default function generatePredicatePatternTests(
 			runs: 1,
 		}],
 	})
-	
+
 	// Specific predicate patterns
 	if (name.includes("isempty")) {
 		tests.push({
@@ -65,7 +65,7 @@ export default function generatePredicatePatternTests(
 			expectedOutput: false,
 		})
 	}
-	
+
 	if (name.includes("isnull") || name.includes("isnil")) {
 		tests.push({
 			name: "recognizes null values",
@@ -80,7 +80,7 @@ export default function generatePredicatePatternTests(
 			expectedOutput: false,
 		})
 	}
-	
+
 	if (name.includes("iseven")) {
 		tests.push({
 			name: "identifies even numbers",
@@ -95,7 +95,7 @@ export default function generatePredicatePatternTests(
 			expectedOutput: false,
 		})
 	}
-	
+
 	// Test predicate composition
 	tests.push({
 		name: "composable with logical operators",
@@ -112,6 +112,6 @@ export default function generatePredicatePatternTests(
 			`,
 		}],
 	})
-	
+
 	return tests
 }

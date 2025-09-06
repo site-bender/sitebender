@@ -272,8 +272,14 @@ Deno.test("unionWith - property: idempotent", () => {
 Deno.test("unionWith - property: comparator consistency", () => {
 	fc.assert(
 		fc.property(
-			fc.array(fc.integer({ min: 0, max: 10 }), { minLength: 1, maxLength: 5 }),
-			fc.array(fc.integer({ min: 0, max: 10 }), { minLength: 1, maxLength: 5 }),
+			fc.array(fc.integer({ min: 0, max: 10 }), {
+				minLength: 1,
+				maxLength: 5,
+			}),
+			fc.array(fc.integer({ min: 0, max: 10 }), {
+				minLength: 1,
+				maxLength: 5,
+			}),
 			(arr1, arr2) => {
 				// Mod 3 comparator
 				const eqMod3 = (a: number, b: number) => (a % 3) === (b % 3)

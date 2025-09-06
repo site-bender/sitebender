@@ -202,7 +202,8 @@ Deno.test("standardDeviation - sample >= population for non-uniform data", () =>
 				const sampStd = standardDeviation(true)(values)
 				// Sample std should be greater than or equal to population std
 				// They're equal only when all values are identical
-				return sampStd >= popStd || approximately(sampStd, popStd, 1e-10)
+				return sampStd >= popStd ||
+					approximately(sampStd, popStd, 1e-10)
 			},
 		),
 		{ numRuns: 1000 },
@@ -247,7 +248,11 @@ Deno.test("standardDeviation - scaling property", () => {
 				}),
 				{ minLength: 1, maxLength: 50 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.1),
+				max: Math.fround(10),
+			}),
 			fc.boolean(),
 			(values, scale, isSample) => {
 				// Skip sample standard deviation for single values
@@ -277,7 +282,11 @@ Deno.test("standardDeviation - translation invariance", () => {
 				}),
 				{ minLength: 1, maxLength: 50 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			fc.boolean(),
 			(values, shift, isSample) => {
 				// Skip sample standard deviation for single values
@@ -330,7 +339,11 @@ Deno.test("standardDeviation - consistency with known formulas", () => {
 		2.8284271247461903,
 		1e-10,
 	)
-	assertAlmostEquals(standardDeviation(true)(values), 3.1622776601683795, 1e-10)
+	assertAlmostEquals(
+		standardDeviation(true)(values),
+		3.1622776601683795,
+		1e-10,
+	)
 })
 
 Deno.test("standardDeviation - range relationship", () => {

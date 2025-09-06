@@ -30,9 +30,9 @@ const Filtered =
 
 		const datasetOut = typeof dataset === "object" && dataset !== null
 			? (Object.fromEntries(
-				Object.entries(dataset as Record<string, unknown>).filter(([, v]) =>
-					isValue(v)
-				),
+				Object.entries(dataset as Record<string, unknown>).filter((
+					[, v],
+				) => isValue(v)),
 			) as Record<string, Value>)
 			: undefined
 

@@ -14,57 +14,57 @@ import type { BenchmarkInputSet } from "../index.ts"
  */
 export default function generateScaledInputs(
 	_signature: FunctionSignature,
-	patterns: Array<BenchmarkPattern>
+	patterns: Array<BenchmarkPattern>,
 ): Array<BenchmarkInputSet> {
 	const inputSets: Array<BenchmarkInputSet> = []
 	const scales = [10, 100, 1000, 10000]
-	
+
 	// Generate scaled inputs for patterns that benefit from scaling
-	patterns.forEach(pattern => {
+	patterns.forEach((pattern) => {
 		switch (pattern) {
-			case 'array-operation':
-			case 'iterative':
-				scales.forEach(size => {
+			case "array-operation":
+			case "iterative":
+				scales.forEach((size) => {
 					inputSets.push({
 						name: `scale-${size}`,
 						description: `Array with ${size} elements`,
-						inputs: [[Array.from({ length: size }, (_, i) => i)]]
+						inputs: [[Array.from({ length: size }, (_, i) => i)]],
 					})
 				})
 				break
-				
-			case 'string-manipulation':
-				scales.forEach(size => {
+
+			case "string-manipulation":
+				scales.forEach((size) => {
 					inputSets.push({
 						name: `string-scale-${size}`,
 						description: `String with ${size} characters`,
-						inputs: [['a'.repeat(size)]]
+						inputs: [["a".repeat(size)]],
 					})
 				})
 				break
-				
-			case 'recursive':
+
+			case "recursive":
 				// Limit recursion depth to prevent stack overflow
-				[5, 10, 15, 20].forEach(depth => {
+				;[5, 10, 15, 20].forEach((depth) => {
 					inputSets.push({
 						name: `recursion-depth-${depth}`,
 						description: `Recursion depth of ${depth}`,
-						inputs: [[depth]]
+						inputs: [[depth]],
 					})
 				})
 				break
-				
-			case 'numeric-computation':
-				scales.forEach(size => {
+
+			case "numeric-computation":
+				scales.forEach((size) => {
 					inputSets.push({
 						name: `numeric-scale-${size}`,
 						description: `Number value ${size}`,
-						inputs: [[size]]
+						inputs: [[size]],
 					})
 				})
 				break
 		}
 	})
-	
+
 	return inputSets
 }

@@ -28,8 +28,16 @@ describe("logarithmBase10", () => {
 		})
 
 		it("should handle scientific notation inputs", () => {
-			assertAlmostEquals(logarithmBase10(6.022e23), 23.77974075117674, 1e-10)
-			assertAlmostEquals(logarithmBase10(1.6e-19), -18.79588001734408, 1e-10)
+			assertAlmostEquals(
+				logarithmBase10(6.022e23),
+				23.77974075117674,
+				1e-10,
+			)
+			assertAlmostEquals(
+				logarithmBase10(1.6e-19),
+				-18.79588001734408,
+				1e-10,
+			)
 		})
 
 		it("should return NaN for invalid inputs", () => {
@@ -122,10 +130,13 @@ describe("logarithmBase10", () => {
 					(a, b) => {
 						const product = a * b
 						// Avoid overflow/underflow
-						if (!Number.isFinite(product) || product <= 0) return true
+						if (!Number.isFinite(product) || product <= 0) {
+							return true
+						}
 
 						const logProduct = logarithmBase10(product)
-						const sumOfLogs = logarithmBase10(a) + logarithmBase10(b)
+						const sumOfLogs = logarithmBase10(a) +
+							logarithmBase10(b)
 
 						return approximately(
 							logProduct,
@@ -154,10 +165,13 @@ describe("logarithmBase10", () => {
 					(a, b) => {
 						const quotient = a / b
 						// Avoid overflow/underflow
-						if (!Number.isFinite(quotient) || quotient <= 0) return true
+						if (!Number.isFinite(quotient) || quotient <= 0) {
+							return true
+						}
 
 						const logQuotient = logarithmBase10(quotient)
-						const diffOfLogs = logarithmBase10(a) - logarithmBase10(b)
+						const diffOfLogs = logarithmBase10(a) -
+							logarithmBase10(b)
 
 						return approximately(
 							logQuotient,
@@ -232,7 +246,11 @@ describe("logarithmBase10", () => {
 
 		it("should handle extremely small positive numbers approaching 0", () => {
 			// 5e-324 is the smallest positive number in JavaScript
-			assertAlmostEquals(logarithmBase10(5e-324), -323.3062153431158, 1e-10)
+			assertAlmostEquals(
+				logarithmBase10(5e-324),
+				-323.3062153431158,
+				1e-10,
+			)
 			// Only actual 0 returns NaN (not -Infinity)
 			assertEquals(Number.isNaN(logarithmBase10(0)), true)
 		})
@@ -248,7 +266,10 @@ describe("logarithmBase10", () => {
 		it("should return NaN for negative numbers", () => {
 			fc.assert(
 				fc.property(
-					fc.float({ max: Math.fround(-Number.MIN_VALUE), noNaN: true }),
+					fc.float({
+						max: Math.fround(-Number.MIN_VALUE),
+						noNaN: true,
+					}),
 					(x) => {
 						return Number.isNaN(logarithmBase10(x))
 					},
@@ -288,10 +309,26 @@ describe("logarithmBase10", () => {
 		})
 
 		it("should maintain precision for numbers close to 1", () => {
-			assertAlmostEquals(logarithmBase10(1.0001), 0.00004342727686266485, 1e-9)
-			assertAlmostEquals(logarithmBase10(0.9999), -0.00004343117585519684, 1e-9)
-			assertAlmostEquals(logarithmBase10(1.01), 0.004321373782642576, 1e-9)
-			assertAlmostEquals(logarithmBase10(0.99), -0.004364805402450088, 1e-9)
+			assertAlmostEquals(
+				logarithmBase10(1.0001),
+				0.00004342727686266485,
+				1e-9,
+			)
+			assertAlmostEquals(
+				logarithmBase10(0.9999),
+				-0.00004343117585519684,
+				1e-9,
+			)
+			assertAlmostEquals(
+				logarithmBase10(1.01),
+				0.004321373782642576,
+				1e-9,
+			)
+			assertAlmostEquals(
+				logarithmBase10(0.99),
+				-0.004364805402450088,
+				1e-9,
+			)
 		})
 	})
 })

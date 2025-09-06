@@ -10,10 +10,10 @@ import { TypeKind } from "../../../../../types/index.ts"
  */
 export default function typeToTypeInfo(
 	type: ts.Type,
-	checker: ts.TypeChecker
+	checker: ts.TypeChecker,
 ): TypeInfo {
 	const raw = checker.typeToString(type)
-	
+
 	if (type.flags & ts.TypeFlags.String) {
 		return { raw, kind: TypeKind.Primitive }
 	}
@@ -32,7 +32,7 @@ export default function typeToTypeInfo(
 	if (type.flags & ts.TypeFlags.Undefined) {
 		return { raw, kind: TypeKind.Primitive }
 	}
-	
+
 	const symbol = type.getSymbol()
 	if (symbol?.name === "Array") {
 		const typeArgs = (type as ts.TypeReference).typeArguments
@@ -44,22 +44,26 @@ export default function typeToTypeInfo(
 			}
 		}
 	}
-	
+
 	if (type.isUnion()) {
 		return {
 			raw,
 			kind: TypeKind.Union,
-			unionTypes: (type as ts.UnionType).types.map((t) => typeToTypeInfo(t, checker)),
+			unionTypes: (type as ts.UnionType).types.map((t) =>
+				typeToTypeInfo(t, checker)
+			),
 		}
 	}
-	
+
 	if (type.isIntersection()) {
 		return {
 			raw,
 			kind: TypeKind.Intersection,
-			unionTypes: (type as ts.IntersectionType).types.map((t) => typeToTypeInfo(t, checker)),
+			unionTypes: (type as ts.IntersectionType).types.map((t) =>
+				typeToTypeInfo(t, checker)
+			),
 		}
 	}
-	
+
 	return { raw, kind: TypeKind.Unknown }
 }

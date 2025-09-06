@@ -37,7 +37,9 @@ export type MerchantReturnPolicyType = "MerchantReturnPolicy"
 
 export interface MerchantReturnPolicyProps {
 	"@type"?: MerchantReturnPolicyType
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	applicableCountry?: Country | Text | ReturnType<typeof CountryComponent>
 	customerRemorseReturnFees?:
 		| ReturnFeesEnumeration

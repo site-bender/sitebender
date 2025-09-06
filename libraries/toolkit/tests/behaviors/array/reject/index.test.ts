@@ -121,7 +121,8 @@ Deno.test("reject: edge cases", async (t) => {
 
 Deno.test("reject: type safety", async (t) => {
 	await t.step("should maintain correct types", () => {
-		const isString = (x: string | number): x is string => typeof x === "string"
+		const isString = (x: string | number): x is string =>
+			typeof x === "string"
 		const mixed: (string | number)[] = [1, "two", 3, "four"]
 		const result = reject(isString)(mixed)
 

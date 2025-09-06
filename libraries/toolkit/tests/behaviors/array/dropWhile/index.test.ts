@@ -36,11 +36,24 @@ Deno.test("dropWhile", async (t) => {
 		assertEquals(dropWhile(alwaysTrue)(["a", "b", "c"]), [])
 	})
 
-	await t.step("should keep all elements if predicate is always false", () => {
-		const alwaysFalse = () => false
-		assertEquals(dropWhile(alwaysFalse)([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5])
-		assertEquals(dropWhile(alwaysFalse)(["a", "b", "c"]), ["a", "b", "c"])
-	})
+	await t.step(
+		"should keep all elements if predicate is always false",
+		() => {
+			const alwaysFalse = () => false
+			assertEquals(dropWhile(alwaysFalse)([1, 2, 3, 4, 5]), [
+				1,
+				2,
+				3,
+				4,
+				5,
+			])
+			assertEquals(dropWhile(alwaysFalse)(["a", "b", "c"]), [
+				"a",
+				"b",
+				"c",
+			])
+		},
+	)
 
 	await t.step("should work with predicate using index", () => {
 		const indexLessThan3 = (_x: number, i: number) => i < 3
@@ -55,7 +68,11 @@ Deno.test("dropWhile", async (t) => {
 			arr: ReadonlyArray<number>,
 		) => i < arr.length / 2
 		assertEquals(dropWhile(lessThanHalfLength)([1, 2, 3, 4]), [3, 4])
-		assertEquals(dropWhile(lessThanHalfLength)([1, 2, 3, 4, 5, 6]), [4, 5, 6])
+		assertEquals(dropWhile(lessThanHalfLength)([1, 2, 3, 4, 5, 6]), [
+			4,
+			5,
+			6,
+		])
 	})
 
 	await t.step("should work with strings", () => {
@@ -105,7 +122,8 @@ Deno.test("dropWhile", async (t) => {
 			valid: boolean
 			timestamp: number
 		}
-		const isInvalid = (entry: Entry) => !entry.valid || entry.timestamp < 1000
+		const isInvalid = (entry: Entry) =>
+			!entry.valid || entry.timestamp < 1000
 		const entries: Entry[] = [
 			{ valid: false, timestamp: 500 },
 			{ valid: true, timestamp: 800 },
@@ -195,7 +213,9 @@ Deno.test("dropWhile", async (t) => {
 					// Result should be a suffix of original
 					if (result.length === 0) return true
 					const startIndex = arr.length - result.length
-					return arr.slice(startIndex).every((v, i) => v === result[i])
+					return arr.slice(startIndex).every((v, i) =>
+						v === result[i]
+					)
 				},
 			),
 		)

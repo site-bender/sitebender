@@ -27,14 +27,18 @@ export default async function renderHtml(
 			const attrs = Object.entries(el.attrs || {})
 				.map(([k, v]) => ` ${k}="${escapeAttr(v)}"`)
 				.join("")
-			const childPromises = (el.children || []).map(c => renderNode(c as Node))
+			const childPromises = (el.children || []).map((c) =>
+				renderNode(c as Node)
+			)
 			const childrenHtmlParts = await Promise.all(childPromises)
-			return `<${el.tag}${attrs}>${childrenHtmlParts.join("")}</${el.tag}>`
+			return `<${el.tag}${attrs}>${
+				childrenHtmlParts.join("")
+			}</${el.tag}>`
 		}
 		// Non-element nodes: evaluate to a value and stringify
 		try {
 			const val = await evaluate(n, context)
-			      if (val === null || val === undefined) return ""
+			if (val === null || val === undefined) return ""
 			if (typeof val === "object") return "" // avoid serializing objects here
 			return String(val)
 		} catch {
