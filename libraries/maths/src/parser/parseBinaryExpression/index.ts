@@ -1,14 +1,13 @@
 import type {
 	ASTNode,
-	BinaryOpNode,
 	ParseError,
 	Result,
 } from "../../types/index.ts"
-import type { ParserContext } from "../parseExpression/index.ts"
+import type { ParserContext } from "../types/index.ts"
 
-import { OPERATOR_INFO } from "../../constants/index.ts"
-import getOperatorFromToken from "../parseBinaryExpression/getOperatorFromToken/index.ts"
 import parseUnaryExpression from "../parseUnaryExpression/index.ts"
+import parseBinaryLoop from "./parseBinaryLoop/index.ts"
+import trampoline from "./trampoline/index.ts"
 
 /**
  * Parses binary expressions using precedence climbing algorithm.
@@ -64,98 +63,9 @@ export default function parseBinaryExpression(
 		// Parse left side (could be unary expression)
 		const leftResult = parseUnaryExpression(ctx)
 		if (!leftResult.ok) return leftResult
-		let left = leftResult.value
 
-		// Parse binary operators with precedence climbing
-		while (true) {
-			const token = ctx.current()
-
-			// Check if this is a binary operator
-			if (
-				token.type !== "PLUS" &&
-				token.type !== "MINUS" &&
-				token.type !== "MULTIPLY" &&
-				token.type !== "DIVIDE" &&
-				token.type !== "POWER" &&
-				token.type !== "LESS_THAN" &&
-				token.type !== "GREATER_THAN" &&
-				token.type !== "EQUAL" &&
-				token.type !== "NOT_EQUAL" &&
-				token.type !== "LESS_EQUAL" &&
-				token.type !== "GREATER_EQUAL"
-			) {
-				break
-			}
-
-			// Get operator info
-			const operator = getOperatorFromToken(token)
-			// deno-coverage-ignore
-			if (!operator) break
-
-			const info = OPERATOR_INFO[operator]
-			if (info.precedence < minPrecedence) break
-
-			// Consume operator
-			ctx.advance()
-
-			// Check for ambiguous operator sequences
-			// Reject: "+ +" (ambiguous), "- -" (ambiguous), "* +" (unclear), "/ +" (unclear)
-			// Allow: "+ -" (clear unary minus), "* -" (clear unary minus), etc.
-			const nextToken = ctx.current()
-			if (nextToken.type === "PLUS") {
-				// Unary plus after any operator is ambiguous
-				return {
-					ok: false,
-					error: {
-						message: `Unexpected operator '${nextToken.value}' after '${token.value}'. Use parentheses for unary plus: '${token.value} (${nextToken.value}...)'`,
-						position: nextToken.position,
-						expected: "operand",
-						found: nextToken.value,
-					},
-				}
-			}
-			if (nextToken.type === "MINUS" && token.type === "MINUS") {
-				// Double minus is ambiguous (could be typo or intended)
-				return {
-					ok: false,
-					error: {
-						message: `Unexpected operator '-' after '-'. Use parentheses for unary minus: '- (-...)'`,
-						position: nextToken.position,
-						expected: "operand",
-						found: "-",
-					},
-				}
-			}
-
-			// Calculate next minimum precedence for right side
-			const nextMinPrecedence = info.associativity === "LEFT"
-				? info.precedence + 1
-				: info.precedence
-
-			// Parse right side recursively
-			const rightResult = parseBinaryExpression(ctx)(nextMinPrecedence)
-			// deno-coverage-ignore
-			if (!rightResult.ok) return rightResult
-
-			// Create appropriate node type based on operator
-			if (operator === "<" || operator === ">" || operator === "==" || 
-			    operator === "!=" || operator === "<=" || operator === ">=") {
-				left = {
-					type: "Comparison",
-					operator,
-					left,
-					right: rightResult.value,
-				}
-			} else {
-				left = {
-					type: "BinaryOp",
-					operator: operator as "+" | "-" | "*" | "/" | "^",
-					left,
-					right: rightResult.value,
-				}
-			}
-		}
-
-		return { ok: true, value: left }
+		// Parse binary operators with precedence climbing using trampoline
+		const trampolineComputation = parseBinaryLoop(ctx, leftResult.value, minPrecedence, parseBinaryExpression)
+		return trampoline(trampolineComputation)
 	}
 }
