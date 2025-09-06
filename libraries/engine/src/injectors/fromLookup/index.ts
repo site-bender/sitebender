@@ -5,10 +5,15 @@ import Error from "../../constructors/Error/index.ts"
 import castValue from "../../utilities/castValue/index.ts"
 
 const fromLookup =
-	(op: Record<string, unknown>) => (_arg: unknown, localValues?: Record<string, unknown>) => {
+	(op: Record<string, unknown>) =>
+	(_arg: unknown, localValues?: Record<string, unknown>) => {
 		const { datatype } = op
 
-		const result = castValue(datatype)(getValue(op as unknown as import("../../constructors/elements/types/index.ts").ElementConfig)(localValues))
+		const result = castValue(datatype)(
+			getValue(
+				op as unknown as import("../../constructors/elements/types/index.ts").ElementConfig,
+			)(localValues),
+		)
 
 		const maybeLeft = (result as { left?: unknown }).left
 		if (isDefined(maybeLeft)) {

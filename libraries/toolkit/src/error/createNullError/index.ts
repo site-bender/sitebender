@@ -48,7 +48,8 @@ const createNullError =
 		return {
 			...baseError,
 			failedIndex: argIndex,
-			suggestion: `Check that ${argName} is defined before calling ${operation}`,
+			suggestion:
+				`Check that ${argName} is defined before calling ${operation}`,
 		}
 	}
 

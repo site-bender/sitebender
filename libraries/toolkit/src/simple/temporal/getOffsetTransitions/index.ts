@@ -137,7 +137,7 @@ const getOffsetTransitions = (timeZone: string) =>
 	}
 
 	try {
-	const _transitions: Array<{
+		const _transitions: Array<{
 			date: Temporal.PlainDate
 			offsetBefore: string
 			offsetAfter: string

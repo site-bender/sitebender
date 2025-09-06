@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { TrElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: TrElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -73,5 +72,4 @@ export default function filterAttributes(attributes: TrElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

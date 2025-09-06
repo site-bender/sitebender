@@ -1,5 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import { assertType, IsExact } from "https://deno.land/std@0.218.0/testing/types.ts"
+import {
+	assertType,
+	IsExact,
+} from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
 import symmetricDifference from "../../../../src/simple/array/symmetricDifference/index.ts"
@@ -103,7 +106,7 @@ Deno.test("symmetricDifference: special values", async (t) => {
 	await t.step("should handle Infinity", () => {
 		const result = symmetricDifference([Infinity, 1])([Infinity, 2])
 		assertEquals(result.sort(), [1, 2])
-		
+
 		const result2 = symmetricDifference([Infinity, -Infinity])([Infinity])
 		assertEquals(result2, [-Infinity])
 	})
@@ -115,13 +118,13 @@ Deno.test("symmetricDifference: object references", async (t) => {
 		const obj2 = { id: 2 }
 		const obj3 = { id: 3 }
 		const obj1Copy = { id: 1 }
-		
+
 		const result = symmetricDifference([obj1, obj2])([obj2, obj3])
 		assertEquals(result.length, 2)
 		assertEquals(result.includes(obj1), true)
 		assertEquals(result.includes(obj3), true)
 		assertEquals(result.includes(obj2), false)
-		
+
 		// Different reference, so both included
 		const result2 = symmetricDifference([obj1])([obj1Copy])
 		assertEquals(result2.length, 2)
@@ -131,7 +134,7 @@ Deno.test("symmetricDifference: object references", async (t) => {
 		const arr1 = [1, 2]
 		const arr2 = [3, 4]
 		const arr3 = [5, 6]
-		
+
 		const result = symmetricDifference([arr1, arr2])([arr2, arr3])
 		assertEquals(result.length, 2)
 		assertEquals(result.includes(arr1), true)
@@ -159,7 +162,7 @@ Deno.test("symmetricDifference: type safety", async (t) => {
 			{ id: 2, name: "Bob" },
 			{ id: 3, name: "Charlie" },
 		]
-		
+
 		const result = symmetricDifference(users1)(users2)
 		assertType<IsExact<typeof result, User[]>>(true)
 		// Will include all 4 due to reference inequality
@@ -170,7 +173,7 @@ Deno.test("symmetricDifference: type safety", async (t) => {
 Deno.test("symmetricDifference: currying", async (t) => {
 	await t.step("should be properly curried", () => {
 		const diffWithBase = symmetricDifference([1, 2, 3])
-		
+
 		assertEquals(diffWithBase([2, 3, 4]).sort(), [1, 4])
 		assertEquals(diffWithBase([]).sort(), [1, 2, 3])
 		assertEquals(diffWithBase([1, 2, 3]), [])
@@ -179,7 +182,7 @@ Deno.test("symmetricDifference: currying", async (t) => {
 	await t.step("should allow partial application for comparisons", () => {
 		const basePermissions = ["read", "write"]
 		const diffFromBase = symmetricDifference(basePermissions)
-		
+
 		assertEquals(diffFromBase(["read", "write", "delete"]).sort(), ["delete"])
 		assertEquals(diffFromBase(["read"]).sort(), ["write"])
 		assertEquals(diffFromBase(["execute"]).sort(), ["execute", "read", "write"])
@@ -192,9 +195,9 @@ Deno.test("symmetricDifference: immutability", async (t) => {
 		const array2 = [3, 4, 5]
 		const copy1 = [...array1]
 		const copy2 = [...array2]
-		
+
 		symmetricDifference(array1)(array2)
-		
+
 		assertEquals(array1, copy1)
 		assertEquals(array2, copy2)
 	})
@@ -203,7 +206,7 @@ Deno.test("symmetricDifference: immutability", async (t) => {
 		const array1 = [1, 2]
 		const array2 = [3, 4]
 		const result = symmetricDifference(array1)(array2)
-		
+
 		// Result is a new array
 		assertEquals(result !== array1, true)
 		assertEquals(result !== array2, true)
@@ -215,7 +218,7 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const oldItems = ["item1", "item2", "item3"]
 		const newItems = ["item2", "item3", "item4"]
 		const changed = symmetricDifference(oldItems)(newItems)
-		
+
 		assertEquals(changed.sort(), ["item1", "item4"])
 	})
 
@@ -223,7 +226,7 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const userAPerms = ["read", "write", "delete"]
 		const userBPerms = ["read", "execute", "admin"]
 		const uniquePerms = symmetricDifference(userAPerms)(userBPerms)
-		
+
 		assertEquals(uniquePerms.sort(), ["admin", "delete", "execute", "write"])
 	})
 
@@ -231,7 +234,7 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const prodFlags = ["feature-a", "feature-b", "feature-c"]
 		const devFlags = ["feature-b", "feature-c", "feature-d", "feature-e"]
 		const diff = symmetricDifference(prodFlags)(devFlags)
-		
+
 		assertEquals(diff.sort(), ["feature-a", "feature-d", "feature-e"])
 	})
 
@@ -239,7 +242,7 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const articleTags = ["javascript", "react", "frontend"]
 		const userInterests = ["react", "backend", "python"]
 		const unique = symmetricDifference(articleTags)(userInterests)
-		
+
 		assertEquals(unique.sort(), ["backend", "frontend", "javascript", "python"])
 	})
 })
@@ -254,8 +257,8 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 					const result1 = symmetricDifference(arr1)(arr2).sort()
 					const result2 = symmetricDifference(arr2)(arr1).sort()
 					return JSON.stringify(result1) === JSON.stringify(result2)
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -266,8 +269,8 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 				(arr) => {
 					const result = symmetricDifference(arr)(arr)
 					return result.length === 0
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -281,8 +284,8 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 					const set1 = new Set(arr1)
 					const set2 = new Set(arr2)
 					return result.length === set1.size + set2.size
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -295,14 +298,18 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 					const undefinedFirst = symmetricDifference(undefined)(arr)
 					const nullSecond = symmetricDifference(arr)(null)
 					const undefinedSecond = symmetricDifference(arr)(undefined)
-					
+
 					const uniqueArr = [...new Set(arr)]
-					return JSON.stringify(nullFirst.sort()) === JSON.stringify(uniqueArr.sort()) &&
-						   JSON.stringify(undefinedFirst.sort()) === JSON.stringify(uniqueArr.sort()) &&
-						   JSON.stringify(nullSecond.sort()) === JSON.stringify(uniqueArr.sort()) &&
-						   JSON.stringify(undefinedSecond.sort()) === JSON.stringify(uniqueArr.sort())
-				}
-			)
+					return JSON.stringify(nullFirst.sort()) ===
+							JSON.stringify(uniqueArr.sort()) &&
+						JSON.stringify(undefinedFirst.sort()) ===
+							JSON.stringify(uniqueArr.sort()) &&
+						JSON.stringify(nullSecond.sort()) ===
+							JSON.stringify(uniqueArr.sort()) &&
+						JSON.stringify(undefinedSecond.sort()) ===
+							JSON.stringify(uniqueArr.sort())
+				},
+			),
 		)
 	})
 
@@ -315,8 +322,8 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 					const result = symmetricDifference(arr1)(arr2)
 					const uniqueResult = [...new Set(result)]
 					return result.length === uniqueResult.length
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -329,14 +336,14 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 					const result = symmetricDifference(arr1)(arr2)
 					const set1 = new Set(arr1)
 					const set2 = new Set(arr2)
-					
+
 					// Every element in result should be in exactly one of the original sets
-					return result.every(item => 
+					return result.every((item) =>
 						(set1.has(item) && !set2.has(item)) ||
 						(!set1.has(item) && set2.has(item))
 					)
-				}
-			)
+				},
+			),
 		)
 	})
 })
@@ -354,7 +361,10 @@ Deno.test("symmetricDifference: specific test cases from examples", async (t) =>
 	await t.step("should find changed items", () => {
 		const oldItems = ["item1", "item2", "item3"]
 		const newItems = ["item2", "item3", "item4"]
-		assertEquals(symmetricDifference(oldItems)(newItems).sort(), ["item1", "item4"])
+		assertEquals(symmetricDifference(oldItems)(newItems).sort(), [
+			"item1",
+			"item4",
+		])
 	})
 
 	await t.step("should remove duplicates", () => {

@@ -1,1 +1,4 @@
-export type { default, HospitalType } from "../../../MedicalOrganization/Hospital/index.ts"
+export type {
+	default,
+	HospitalType,
+} from "../../../MedicalOrganization/Hospital/index.ts"

@@ -34,7 +34,6 @@ export type H3ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * Allows global attributes and validates heading-specific attributes
  */
 
-
 /**
  * Creates an H3 element configuration object
  *

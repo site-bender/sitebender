@@ -6,7 +6,6 @@ import filterAttributes from "./filterAttributes/index.ts"
  * Allows global attributes and validates role attribute against HEADING_ROLES
  */
 
-
 /**
  * Creates an Hn element configuration object for dynamic heading levels
  *

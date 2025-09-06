@@ -1,0 +1,10 @@
+{
+  "v": "0.1.0",
+  "id": "87654321-4321-8765-2109-876543210987",
+  "kind": "injector",
+  "injector": "From.Constant",
+  "datatype": "String",
+  "args": {
+    "value": "Hello World"
+  }
+}

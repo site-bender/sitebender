@@ -31,8 +31,6 @@ export type ColGroupElementAttributes = TableColumnGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Child filter that validates column content (col, script, template)
  */

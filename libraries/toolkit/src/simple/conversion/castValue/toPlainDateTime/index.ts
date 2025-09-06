@@ -5,9 +5,14 @@ import type {
 
 import isNullish from "../../../validation/isNullish/index.ts"
 
-function hasMethod<T extends string>(obj: unknown, name: T): obj is Record<string, unknown> & {
-	[K in T]: (...args: Array<unknown>) => unknown
-} {
+function hasMethod<T extends string>(
+	obj: unknown,
+	name: T,
+): obj is
+	& Record<string, unknown>
+	& {
+		[K in T]: (...args: Array<unknown>) => unknown
+	} {
 	return typeof obj === "object" && obj !== null && name in obj &&
 		typeof (obj as Record<string, unknown>)[name] === "function"
 }
@@ -114,8 +119,13 @@ const toPlainDateTime = (
 
 	// Handle PlainDate (becomes midnight of that date)
 	if (hasMethod(value, "toPlainDateTime")) {
-		const result = (value as { toPlainDateTime: (...args: Array<unknown>) => unknown }).toPlainDateTime()
-		if (result && typeof (result as { toString: () => string }).toString === "function") {
+		const result =
+			(value as { toPlainDateTime: (...args: Array<unknown>) => unknown })
+				.toPlainDateTime()
+		if (
+			result &&
+			typeof (result as { toString: () => string }).toString === "function"
+		) {
 			try {
 				const iso = (result as { toString: () => string }).toString()
 				return Temporal.PlainDateTime.from(iso)
@@ -127,11 +137,20 @@ const toPlainDateTime = (
 	}
 
 	// Handle PlainTime (becomes that time on 1970-01-01)
-	if (value && typeof value === "object" && "hour" in value && "minute" in value) {
+	if (
+		value && typeof value === "object" && "hour" in value && "minute" in value
+	) {
 		// Treat as PlainTime-like
 		try {
 			// Build PlainDateTime from epoch date + provided time fields we know
-			const t = value as { hour?: number; minute?: number; second?: number; millisecond?: number; microsecond?: number; nanosecond?: number }
+			const t = value as {
+				hour?: number
+				minute?: number
+				second?: number
+				millisecond?: number
+				microsecond?: number
+				nanosecond?: number
+			}
 			return Temporal.PlainDateTime.from({
 				year: 1970,
 				month: 1,
@@ -150,10 +169,16 @@ const toPlainDateTime = (
 
 	// Handle ZonedDateTime
 	if (hasMethod(value, "toPlainDateTime")) {
-		const result = (value as { toPlainDateTime: () => unknown }).toPlainDateTime()
-		if (result && typeof (result as { toString: () => string }).toString === "function") {
+		const result = (value as { toPlainDateTime: () => unknown })
+			.toPlainDateTime()
+		if (
+			result &&
+			typeof (result as { toString: () => string }).toString === "function"
+		) {
 			try {
-				return Temporal.PlainDateTime.from((result as { toString: () => string }).toString())
+				return Temporal.PlainDateTime.from(
+					(result as { toString: () => string }).toString(),
+				)
 			} catch (_err) {
 				return null
 			}

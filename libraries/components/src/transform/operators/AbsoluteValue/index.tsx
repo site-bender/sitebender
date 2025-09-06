@@ -1,4 +1,7 @@
-import type { AbsoluteValueOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	AbsoluteValueOperator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * AbsoluteValue JSX Component

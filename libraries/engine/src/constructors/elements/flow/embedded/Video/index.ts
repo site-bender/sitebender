@@ -34,7 +34,6 @@ export type VideoElementAttributes = VideoAttributes & ImageAriaAttributes & {
  * Allows global attributes and validates video-specific attributes
  */
 
-
 /**
  * Creates a Video element configuration object
  *

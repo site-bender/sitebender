@@ -30,8 +30,6 @@ export type TdElementAttributes = TableDataCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Td element configuration object
  *

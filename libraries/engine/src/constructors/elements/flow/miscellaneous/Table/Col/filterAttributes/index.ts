@@ -6,7 +6,6 @@ import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: TableColumnAttributes) {
-
 	const { id, span, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -15,5 +14,4 @@ export default function filterAttributes(attributes: TableColumnAttributes) {
 		...globals,
 		...filterAttribute(isInteger)("span")(span),
 	}
-
 }

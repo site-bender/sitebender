@@ -33,7 +33,6 @@ export type InputTextElementAttributes =
  * Allows global attributes and validates text input-specific attributes
  */
 
-
 /**
  * Creates an InputText element configuration object
  *
@@ -48,9 +47,10 @@ export type InputTextElementAttributes =
  * })
  * ```
  */
-const InputText = Input("text")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputText = Input("text")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputText
-

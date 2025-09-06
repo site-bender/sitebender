@@ -14,7 +14,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { MetaElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: MetaElementAttributes) {
-
 	const {
 		id,
 		charSet: charset,
@@ -74,5 +73,4 @@ export default function filterAttributes(attributes: MetaElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

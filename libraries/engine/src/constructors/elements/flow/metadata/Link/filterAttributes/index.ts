@@ -19,7 +19,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { LinkElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: LinkElementAttributes) {
-
 	const {
 		id,
 		as,
@@ -109,5 +108,4 @@ export default function filterAttributes(attributes: LinkElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

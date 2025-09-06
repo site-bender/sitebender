@@ -110,7 +110,7 @@ Deno.test("rotateLeft: preserves array immutability", () => {
 
 Deno.test("rotateLeft: is properly curried", () => {
 	const rotateByTwo = rotateLeft(2)
-	
+
 	assertEquals(rotateByTwo([1, 2, 3]), [3, 1, 2])
 	assertEquals(rotateByTwo(["a", "b", "c"]), ["c", "a", "b"])
 })
@@ -151,7 +151,7 @@ Deno.test("rotateLeft: type inference", () => {
 	const numArray = [1, 2, 3]
 	const numResult = rotateLeft(1)(numArray)
 	assertType<IsExact<typeof numResult, number[]>>(true)
-	
+
 	const strArray = ["a", "b", "c"]
 	const strResult = rotateLeft(2)(strArray)
 	assertType<IsExact<typeof strResult, string[]>>(true)

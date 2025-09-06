@@ -37,7 +37,6 @@ export type LegendElementAttributes =
  * Allows global attributes and validates legend-specific attributes
  */
 
-
 /**
  * Creates a Legend element configuration object
  *

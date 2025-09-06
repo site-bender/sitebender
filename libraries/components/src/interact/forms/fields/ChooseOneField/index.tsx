@@ -4,7 +4,6 @@ import type { Option } from "../../../../../types/components/forms/index.ts"
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import LabelWrapper from "../../composites/LabelWrapper/index.tsx"
 import RadioGroup from "../../composites/RadioGroup/index.tsx"

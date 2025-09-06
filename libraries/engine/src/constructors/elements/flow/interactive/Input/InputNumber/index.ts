@@ -32,7 +32,6 @@ export type InputNumberElementAttributes =
  * Filters attributes for InputNumber element
  */
 
-
 /**
  * Creates an InputNumber element configuration object
  *
@@ -49,10 +48,10 @@ export type InputNumberElementAttributes =
  * })
  * ```
  */
-const InputNumber = Input("number")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputNumber = Input("number")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputNumber
-
-

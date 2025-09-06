@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { OutputElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: OutputElementAttributes) {
-
 	const {
 		id,
 		for: forAttr,
@@ -103,5 +102,4 @@ export default function filterAttributes(attributes: OutputElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

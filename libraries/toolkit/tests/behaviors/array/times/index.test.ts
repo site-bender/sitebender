@@ -59,7 +59,7 @@ describe("times", () => {
 		it("truncates fractional counts", () => {
 			const result = times(3.7)((i: number) => i)
 			expect(result).toEqual([0, 1, 2])
-			
+
 			const result2 = times(2.1)((i: number) => i * 2)
 			expect(result2).toEqual([0, 2])
 		})
@@ -108,7 +108,7 @@ describe("times", () => {
 			const result = times(5)(() => Math.random())
 			expect(result.length).toBe(5)
 			// All should be numbers between 0 and 1
-			result.forEach(n => {
+			result.forEach((n) => {
 				expect(typeof n).toBe("number")
 				expect(n).toBeGreaterThanOrEqual(0)
 				expect(n).toBeLessThan(1)
@@ -171,7 +171,7 @@ describe("times", () => {
 				if (i === 2) throw new Error("test error")
 				return i
 			}
-			
+
 			expect(() => times(5)(fn)).toThrow("test error")
 			expect(callCount).toBe(3) // Called for 0, 1, 2 (throws)
 		})
@@ -259,7 +259,7 @@ describe("times", () => {
 					(n) => {
 						const fn = (i: number) => ({ index: i, value: i * 2 })
 						const result = times(n)(fn)
-						return result.every((item, idx) => 
+						return result.every((item, idx) =>
 							item.index === idx && item.value === idx * 2
 						)
 					},
@@ -275,8 +275,8 @@ describe("times", () => {
 						const timesN = times(n)
 						const result1 = timesN((i: number) => i)
 						const result2 = timesN((i: number) => i * 2)
-						
-						return result1.length === n && 
+
+						return result1.length === n &&
 							result2.length === n &&
 							result1.every((val, idx) => val === idx) &&
 							result2.every((val, idx) => val === idx * 2)

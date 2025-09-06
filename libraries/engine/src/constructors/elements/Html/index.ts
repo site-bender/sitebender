@@ -33,7 +33,6 @@ export type HtmlElementAttributes = HtmlAttributes & NoAriaAttributes & {
  * Allows global attributes and validates html-specific attributes
  */
 
-
 /**
  * Creates an Html element configuration object
  *

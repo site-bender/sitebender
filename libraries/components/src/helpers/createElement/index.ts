@@ -17,8 +17,7 @@ export default function createElement(
 						key !== "children" && isJSXElement(value)
 							? [key, convertJSXToData(value)]
 							: [key, value]
-						)
-					),
+					)),
 				)
 				: {}
 

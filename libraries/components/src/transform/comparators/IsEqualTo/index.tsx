@@ -1,4 +1,7 @@
-import type { IsEqualToComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsEqualToComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsEqualTo JSX Component

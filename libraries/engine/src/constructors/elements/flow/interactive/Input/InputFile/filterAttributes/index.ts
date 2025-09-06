@@ -6,7 +6,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputFileAttributes) {
-
 	const {
 		accept,
 		autofocus,
@@ -29,5 +28,4 @@ export default function filterAttributes(attributes: InputFileAttributes) {
 		...filterAttribute(isString)("name")(name),
 		...filterAttribute(isBoolean)("required")(required),
 	}
-
 }

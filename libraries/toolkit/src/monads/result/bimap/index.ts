@@ -29,7 +29,8 @@ import right from "../../either/right/index.ts"
 const bimap = <E, F, A, B>(
 	onErr: (error: E) => F,
 	onOk: (value: A) => B,
-) => (result: Result<A, E>): Result<B, F> => {
+) =>
+(result: Result<A, E>): Result<B, F> => {
 	const e = result as unknown as { _tag: string; left?: E; right?: A }
 	if (isLeft(e as never)) {
 		return left(onErr(e.left as E)) as unknown as Result<B, F>

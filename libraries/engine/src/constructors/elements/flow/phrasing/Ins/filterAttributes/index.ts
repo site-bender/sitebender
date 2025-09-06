@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { InsElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: InsElementAttributes) {
-
 	const {
 		id,
 		cite,
@@ -112,5 +111,4 @@ export default function filterAttributes(attributes: InsElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

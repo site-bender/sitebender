@@ -15,8 +15,10 @@ import events from "../../../../../src/operations/registries/events.ts"
 import injectors from "../../../../../src/operations/registries/injectors.ts"
 import operators from "../../../../../src/operations/registries/operators.ts"
 import evaluate from "../../../../../src/runtime/evaluate/index.ts"
+import createDeterministicIdGenerator from "../../../../../src/utilities/nodeId/index.ts"
 
-const nodeId = () => crypto.randomUUID()
+const generateId = createDeterministicIdGenerator("registries-smoke-test")
+const nodeId = () => generateId()
 const constant = (value: unknown): InjectorNode => ({
 	v: "0.1.0",
 	kind: "injector",

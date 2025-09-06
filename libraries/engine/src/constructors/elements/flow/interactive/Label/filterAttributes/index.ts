@@ -6,7 +6,6 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 import type { LabelElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: LabelElementAttributes) {
-
 	const { id, for: forAttr, form, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -16,5 +15,4 @@ export default function filterAttributes(attributes: LabelElementAttributes) {
 		...filterAttribute(isString)("for")(forAttr),
 		...filterAttribute(isString)("form")(form),
 	}
-
 }

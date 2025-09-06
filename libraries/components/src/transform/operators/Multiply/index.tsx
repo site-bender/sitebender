@@ -1,4 +1,7 @@
-import type { MultiplyOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	MultiplyOperator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Multiply JSX Component

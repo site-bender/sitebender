@@ -6,7 +6,6 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 import type { MapElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: MapElementAttributes) {
-
 	const { id, name, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -15,5 +14,4 @@ export default function filterAttributes(attributes: MapElementAttributes) {
 		...globals,
 		...filterAttribute(isString)("name")(name),
 	}
-
 }

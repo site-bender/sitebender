@@ -105,14 +105,16 @@ Deno.test("replaceLastMatch: preserves array immutability", () => {
 Deno.test("replaceLastMatch: is properly curried", () => {
 	const replaceDigits = replaceLastMatch(/\d+/)
 	const toStars = replaceDigits(() => "***")
-	
+
 	assertEquals(toStars(["a1", "b2", "c3"]), ["a1", "b2", "***"])
 	assertEquals(toStars(["x", "y", "z"]), ["x", "y", "z"])
 })
 
 Deno.test("replaceLastMatch: handles null and undefined in array", () => {
 	const array = ["a", null, "b", undefined, "c"]
-	const result = replaceLastMatch(/null|undefined/)(() => "REPLACED")(array as any[])
+	const result = replaceLastMatch(/null|undefined/)(() => "REPLACED")(
+		array as any[],
+	)
 	// undefined converts to "undefined" string and matches
 	assertEquals(result, ["a", null, "b", "REPLACED", "c"])
 })
@@ -135,7 +137,7 @@ Deno.test("replaceLastMatch: type inference", () => {
 	const strArray = ["a", "b", "c"]
 	const strResult = replaceLastMatch(/b/)((s) => s.toUpperCase())(strArray)
 	assertType<IsExact<typeof strResult, string[]>>(true)
-	
+
 	const numArray = [1, 2, 3]
 	const numResult = replaceLastMatch(/2/)((n) => n * 10)(numArray)
 	assertType<IsExact<typeof numResult, number[]>>(true)
@@ -150,7 +152,7 @@ Deno.test("replaceLastMatch: property - replaces at most one element", () => {
 			(array, pattern) => {
 				try {
 					const result = replaceLastMatch(pattern)(() => "REPLACED")(array)
-					const replacedCount = result.filter(x => x === "REPLACED").length
+					const replacedCount = result.filter((x) => x === "REPLACED").length
 					return replacedCount <= 1
 				} catch {
 					// Invalid regex pattern, skip
@@ -179,14 +181,14 @@ Deno.test("replaceLastMatch: property - elements before last match unchanged", (
 			fc.array(fc.string({ minLength: 1, maxLength: 5 })),
 			(array) => {
 				if (array.length === 0) return true
-				
+
 				const result = replaceLastMatch(/./)(() => "X")(array)
 				const lastMatchIndex = array.map((s, i) => s.length > 0 ? i : -1)
-					.filter(i => i >= 0)
+					.filter((i) => i >= 0)
 					.pop()
-				
+
 				if (lastMatchIndex === undefined) return true
-				
+
 				// Check elements before last match are unchanged
 				for (let i = 0; i < lastMatchIndex; i++) {
 					if (result[i] !== array[i]) return false
@@ -204,19 +206,19 @@ Deno.test("replaceLastMatch: property - replacer called with correct value", () 
 			(array) => {
 				let capturedValue: any = undefined
 				let callCount = 0
-				
+
 				replaceLastMatch(/\d/)((val) => {
 					capturedValue = val
 					callCount++
 					return val
 				})(array)
-				
-				const hasMatch = array.some(n => /\d/.test(String(n)))
-				
+
+				const hasMatch = array.some((n) => /\d/.test(String(n)))
+
 				if (hasMatch) {
 					// Should be called exactly once with the last matching value
 					if (callCount !== 1) return false
-					const lastMatch = array.filter(n => /\d/.test(String(n))).pop()
+					const lastMatch = array.filter((n) => /\d/.test(String(n))).pop()
 					return capturedValue === lastMatch
 				} else {
 					// Should not be called if no match

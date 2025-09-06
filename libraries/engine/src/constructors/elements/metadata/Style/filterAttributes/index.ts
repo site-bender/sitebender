@@ -8,7 +8,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { StyleElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: StyleElementAttributes) {
-
 	const {
 		id,
 		media,
@@ -53,5 +52,4 @@ export default function filterAttributes(attributes: StyleElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

@@ -1,7 +1,8 @@
+import { dirname, fromFileUrl, join } from "jsr:@std/path"
+
 import createServer from "./createServer/index.ts"
 import getFreePort from "./getFreePort/index.ts"
 import watchForChanges from "./watchForChanges/index.ts"
-import { dirname, fromFileUrl, join } from "jsr:@std/path"
 
 export default async function startDevServer(): Promise<void> {
 	const logger: Logger = {

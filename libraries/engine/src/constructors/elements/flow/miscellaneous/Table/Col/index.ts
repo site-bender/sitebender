@@ -32,8 +32,6 @@ export type ColElementAttributes = TableColumnAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Col element configuration object
  *

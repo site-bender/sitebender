@@ -7,7 +7,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { BrElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: BrElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -42,5 +41,4 @@ export default function filterAttributes(attributes: BrElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }
