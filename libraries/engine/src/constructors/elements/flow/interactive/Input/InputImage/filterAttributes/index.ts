@@ -1,6 +1,10 @@
 import type { InputImageAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
-import { FORM_METHODS, FORM_TARGETS, POPOVER_TARGET_ACTIONS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	FORM_METHODS,
+	FORM_TARGETS,
+	POPOVER_TARGET_ACTIONS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
 import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
@@ -9,7 +13,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputImageAttributes) {
-
 	const {
 		alt,
 		autofocus,
@@ -50,5 +53,4 @@ export default function filterAttributes(attributes: InputImageAttributes) {
 		...filterAttribute(isString)("src")(src),
 		...filterAttribute(isInteger)("width")(width),
 	}
-
 }

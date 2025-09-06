@@ -31,7 +31,6 @@ export type WbrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * Allows global attributes only
  */
 
-
 /**
  * Creates a Wbr element configuration object
  *
@@ -43,7 +42,9 @@ export type WbrElementAttributes = GlobalAttributes & NoAriaAttributes & {
  * const wbr = Wbr({ id: "word-break" })
  * ```
  */
-export default function Wbr(attributes: WbrElementAttributes = {}): ElementConfig {
+export default function Wbr(
+	attributes: WbrElementAttributes = {},
+): ElementConfig {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {
 		calculation,

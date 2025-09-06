@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { EmbedElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: EmbedElementAttributes) {
-
 	const {
 		id,
 		height,
@@ -87,5 +86,4 @@ export default function filterAttributes(attributes: EmbedElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

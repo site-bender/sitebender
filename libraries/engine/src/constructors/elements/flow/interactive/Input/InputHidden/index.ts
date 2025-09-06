@@ -31,8 +31,6 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputHidden element configuration object
  *
@@ -46,8 +44,10 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
  * })
  * ```
  */
-const InputHidden = Input("hidden")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputHidden = Input("hidden")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputHidden

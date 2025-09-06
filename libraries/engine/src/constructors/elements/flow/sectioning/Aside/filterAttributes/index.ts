@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { AsideElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: AsideElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes (using general AriaAttributes since there's no specific AsideAriaAttributes)
@@ -101,5 +100,4 @@ export default function filterAttributes(attributes: AsideElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

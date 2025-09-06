@@ -29,9 +29,11 @@ import isLeft from "../../either/isLeft/index.ts"
 // fold(onErr)(onOk)(result) without forcing A to become unknown.
 const fold = <E, B>(
 	onErr: (error: E) => B,
-) => <A>(
+) =>
+<A>(
 	onOk: (value: A) => B,
-) => (
+) =>
+(
 	result: Result<A, E>,
 ): B => {
 	const e = result as unknown as { _tag: string; left?: E; right?: A }

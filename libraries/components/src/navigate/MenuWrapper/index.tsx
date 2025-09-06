@@ -1,6 +1,5 @@
 import type { MenuItem } from "../../../types/components/navigation/index.ts"
 
-import createElement from "../../helpers/createElement/index.ts"
 import Menu from "../Menu/index.tsx"
 
 export type Props = JSX.HTMLAttributes<HTMLElement> & {

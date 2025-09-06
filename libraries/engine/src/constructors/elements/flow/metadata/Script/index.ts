@@ -37,7 +37,6 @@ export type ScriptElementAttributes = ScriptAttributes & NoAriaAttributes & {
  * Allows global attributes and validates script-specific attributes
  */
 
-
 /**
  * Creates a Script element configuration object
  *

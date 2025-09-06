@@ -34,7 +34,6 @@ export type BodyElementAttributes = BodyAttributes & NoAriaAttributes & {
  * Allows global attributes only (no element-specific attributes)
  */
 
-
 /**
  * Creates a Body element configuration object
  *

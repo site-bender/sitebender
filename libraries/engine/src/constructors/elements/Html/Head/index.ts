@@ -34,7 +34,6 @@ export type HeadElementAttributes = HeadAttributes & NoAriaAttributes & {
  * Allows global attributes only (no element-specific attributes)
  */
 
-
 /**
  * Creates a Head element configuration object
  *

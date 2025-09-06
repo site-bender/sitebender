@@ -10,8 +10,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { InputNumberElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: InputNumberElementAttributes) {
-
+export default function filterAttributes(
+	attributes: InputNumberElementAttributes,
+) {
 	const {
 		id,
 		autocomplete,
@@ -180,5 +181,4 @@ export default function filterAttributes(attributes: InputNumberElementAttribute
 	}
 
 	return filteredAttrs
-
 }

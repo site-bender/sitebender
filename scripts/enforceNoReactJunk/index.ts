@@ -36,6 +36,25 @@ const RULES: Array<
 		message: "Use of htmlFor is forbidden.",
 		suggestion: "Use 'for' instead.",
 	},
+	// New rules to enforce JSX-only usage
+	{
+		name: "helpers-createElement-import",
+		re: /from\s+".*\/helpers\/createElement\/index\.ts"/,
+		message: "Do not import helpers/createElement directly; write JSX only.",
+		suggestion: "Remove the import and write JSX components.",
+	},
+	{
+		name: "helpers-Fragment-import",
+		re: /from\s+".*\/helpers\/Fragment\/index\.ts"/,
+		message: "Do not import helpers/Fragment directly; write JSX only.",
+		suggestion: "Remove the import and write JSX components.",
+	},
+	{
+		name: "createElement-call",
+		re: /(^|[^.])\bcreateElement\s*\(/,
+		message: "Direct createElement calls are forbidden in components/recipes.",
+		suggestion: "Use JSX instead.",
+	},
 ]
 
 async function* expandGlobs(patterns: string[]): AsyncGenerator<string> {

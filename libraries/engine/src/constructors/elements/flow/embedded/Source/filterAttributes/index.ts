@@ -9,7 +9,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { SourceElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: SourceElementAttributes) {
-
 	const {
 		id,
 		height,
@@ -74,5 +73,4 @@ export default function filterAttributes(attributes: SourceElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

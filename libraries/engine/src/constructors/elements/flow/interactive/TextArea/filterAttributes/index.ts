@@ -2,7 +2,10 @@ import type { Value } from "@sitebender/engine-types/index.ts"
 import type { TextAreaAttributes } from "@sitebender/engine/constructors/elements/types/attributes/index.ts"
 
 import { TEXTAREA_ROLES } from "@sitebender/engine/constructors/elements/constants/aria-roles.ts"
-import { AUTOCOMPLETES, WRAPS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	AUTOCOMPLETES,
+	WRAPS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
 import isInteger from "@sitebender/engine/guards/isInteger/index.ts"
@@ -11,7 +14,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: TextAreaAttributes) {
-
 	const {
 		autocomplete,
 		cols,
@@ -50,5 +52,4 @@ export default function filterAttributes(attributes: TextAreaAttributes) {
 		...filterAttribute(isInteger)("rows")(rows),
 		...filterAttribute(isMemberOf(WRAPS))("wrap")(wrap),
 	}
-
 }

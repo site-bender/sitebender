@@ -34,7 +34,6 @@ export type FormElementAttributes = FormAttributes & FormAriaAttributes & {
  * Allows global attributes and validates form-specific attributes
  */
 
-
 /**
  * Creates a Form element configuration object
  *

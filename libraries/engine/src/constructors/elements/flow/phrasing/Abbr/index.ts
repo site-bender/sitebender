@@ -34,7 +34,6 @@ export type AbbrElementAttributes = AbbreviationAttributes & AriaAttributes & {
  * Allows global attributes and validates abbr-specific attributes
  */
 
-
 /**
  * Creates an Abbr element configuration object
  *

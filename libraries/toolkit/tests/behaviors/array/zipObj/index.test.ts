@@ -141,7 +141,10 @@ describe("zipObj", () => {
 
 		it("should handle non-array inputs", () => {
 			assertEquals(zipObj([1, 2])("not an array" as any), {})
-			assertEquals(zipObj("not an array" as any)(["a", "b"]), { a: undefined, b: undefined })
+			assertEquals(zipObj("not an array" as any)(["a", "b"]), {
+				a: undefined,
+				b: undefined,
+			})
 			assertEquals(zipObj([1, 2])(123 as any), {})
 			assertEquals(zipObj([1, 2])({} as any), {})
 		})
@@ -161,7 +164,13 @@ describe("zipObj", () => {
 
 		it("should handle special numeric values", () => {
 			assertEquals(
-				zipObj([Infinity, -Infinity, NaN, 0, -0])(["inf", "negInf", "nan", "zero", "negZero"]),
+				zipObj([Infinity, -Infinity, NaN, 0, -0])([
+					"inf",
+					"negInf",
+					"nan",
+					"zero",
+					"negZero",
+				]),
 				{
 					inf: Infinity,
 					negInf: -Infinity,
@@ -300,7 +309,7 @@ describe("zipObj", () => {
 					(keys, values) => {
 						const obj = zipObj(values)(keys)
 						const entries = Object.entries(obj)
-						
+
 						// Reconstruct keys and values from object
 						const reconstructedKeys = entries.map(([k]) => k)
 						const reconstructedValues = entries.map(([, v]) => v)

@@ -34,7 +34,6 @@ export type H6ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
  * Allows global attributes and validates heading-specific attributes
  */
 
-
 /**
  * Creates an H6 element configuration object
  *

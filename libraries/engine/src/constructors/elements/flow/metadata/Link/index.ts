@@ -36,7 +36,6 @@ export type LinkElementAttributes = LinkAttributes & NoAriaAttributes & {
  * Allows global attributes and validates link-specific attributes
  */
 
-
 /**
  * Creates a Link element configuration object
  *

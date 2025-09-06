@@ -1,8 +1,4 @@
-import type {
-	ASTNode,
-	ParseError,
-	Result,
-} from "../../types/index.ts"
+import type { ASTNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../parseExpression/index.ts"
 
 import parseExpression from "../parseExpression/index.ts"
@@ -11,10 +7,10 @@ import expect from "../parsePrimaryExpression/expect/index.ts"
 /**
  * Parses primary expressions: numbers, variables, and parenthesized expressions.
  * The terminal parsing function for leaf nodes and grouped expressions.
- * 
+ *
  * @param ctx - Parser context with tokens and position
  * @returns Result containing parsed AST node or error
- * 
+ *
  * @example
  * ```typescript
  * // Example 1: Parse number literal
@@ -22,7 +18,7 @@ import expect from "../parsePrimaryExpression/expect/index.ts"
  * const result = parsePrimaryExpression(ctx)
  * // Returns: { ok: true, value: { type: "Number", value: 42 } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 2: Parse variable identifier
@@ -30,7 +26,7 @@ import expect from "../parsePrimaryExpression/expect/index.ts"
  * const result = parsePrimaryExpression(ctx)
  * // Returns: { ok: true, value: { type: "Variable", name: "myVar" } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 3: Parse parenthesized expression
@@ -38,7 +34,7 @@ import expect from "../parsePrimaryExpression/expect/index.ts"
  * const result = parsePrimaryExpression(ctx)
  * // Returns the inner expression: BinaryOp("+", Variable("a"), Variable("b"))
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 4: Error on unexpected token
@@ -46,7 +42,7 @@ import expect from "../parsePrimaryExpression/expect/index.ts"
  * const result = parsePrimaryExpression(ctx)
  * // Returns: { ok: false, error: { message: "Unexpected token ')' at position 0" } }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Example 5: Parse nested parentheses
@@ -97,7 +93,8 @@ export default function parsePrimaryExpression(
 			return {
 				ok: false,
 				error: {
-					message: `Missing closing parenthesis for opening at position ${openParen.position}`,
+					message:
+						`Missing closing parenthesis for opening at position ${openParen.position}`,
 					position: ctx.current().position,
 					expected: ")",
 					found: ctx.current().value,
@@ -112,7 +109,8 @@ export default function parsePrimaryExpression(
 	return {
 		ok: false,
 		error: {
-			message: `Unexpected token '${token.value}' at position ${token.position}`,
+			message:
+				`Unexpected token '${token.value}' at position ${token.position}`,
 			position: token.position,
 			found: token.value,
 		},

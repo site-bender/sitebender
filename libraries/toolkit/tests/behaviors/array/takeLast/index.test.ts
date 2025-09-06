@@ -5,7 +5,7 @@ import takeLast from "../../../../src/simple/array/takeLast/index.ts"
 
 Deno.test("takeLast - takes last n elements from array", () => {
 	const takeLast3 = takeLast(3)
-	
+
 	assertEquals(takeLast3([1, 2, 3, 4, 5]), [3, 4, 5])
 	assertEquals(takeLast3(["a", "b", "c", "d"]), ["b", "c", "d"])
 	assertEquals(takeLast3([1]), [1])
@@ -13,7 +13,7 @@ Deno.test("takeLast - takes last n elements from array", () => {
 
 Deno.test("takeLast - handles different counts", () => {
 	const array = [1, 2, 3, 4, 5]
-	
+
 	assertEquals(takeLast(0)(array), [])
 	assertEquals(takeLast(1)(array), [5])
 	assertEquals(takeLast(2)(array), [4, 5])
@@ -23,7 +23,7 @@ Deno.test("takeLast - handles different counts", () => {
 
 Deno.test("takeLast - handles negative counts", () => {
 	const array = [1, 2, 3, 4, 5]
-	
+
 	assertEquals(takeLast(-1)(array), [])
 	assertEquals(takeLast(-10)(array), [])
 	assertEquals(takeLast(-100)(array), [])
@@ -37,10 +37,10 @@ Deno.test("takeLast - handles empty array", () => {
 
 Deno.test("takeLast - handles null and undefined", () => {
 	const takeLast5 = takeLast(5)
-	
+
 	assertEquals(takeLast5(null), [])
 	assertEquals(takeLast5(undefined), [])
-	
+
 	// Even with 0 count
 	assertEquals(takeLast(0)(null), [])
 	assertEquals(takeLast(0)(undefined), [])
@@ -53,20 +53,20 @@ Deno.test("takeLast - preserves types", () => {
 		{ id: 2, name: "b" },
 		{ id: 3, name: "c" },
 		{ id: 4, name: "d" },
-		{ id: 5, name: "e" }
+		{ id: 5, name: "e" },
 	]
-	
+
 	const last2 = takeLast(2)(items)
 	assertEquals(last2, [
 		{ id: 4, name: "d" },
-		{ id: 5, name: "e" }
+		{ id: 5, name: "e" },
 	])
 })
 
 Deno.test("takeLast - returns new array instance", () => {
 	const original = [1, 2, 3]
 	const result = takeLast(3)(original)
-	
+
 	assertEquals(result, original)
 	// Verify it's a new array instance
 	assertEquals(result === original, false)
@@ -74,17 +74,17 @@ Deno.test("takeLast - returns new array instance", () => {
 
 Deno.test("takeLast - handles special number values", () => {
 	const array = [1, 2, 3, 4, 5]
-	
-	assertEquals(takeLast(NaN)(array), [])  // NaN is explicitly handled
+
+	assertEquals(takeLast(NaN)(array), []) // NaN is explicitly handled
 	assertEquals(takeLast(Infinity)(array), [1, 2, 3, 4, 5])
 	assertEquals(takeLast(-Infinity)(array), [])
-	assertEquals(takeLast(0.5)(array), [1, 2, 3, 4, 5])  // slice rounds -0.5 to -0, returns all
-	assertEquals(takeLast(2.9)(array), [4, 5])  // slice rounds -2.9 to -2
+	assertEquals(takeLast(0.5)(array), [1, 2, 3, 4, 5]) // slice rounds -0.5 to -0, returns all
+	assertEquals(takeLast(2.9)(array), [4, 5]) // slice rounds -2.9 to -2
 })
 
 Deno.test("takeLast - works with string arrays", () => {
 	const strings = ["foo", "bar", "baz", "qux"]
-	
+
 	assertEquals(takeLast(2)(strings), ["baz", "qux"])
 	assertEquals(takeLast(1)(strings), ["qux"])
 	assertEquals(takeLast(4)(strings), ["foo", "bar", "baz", "qux"])
@@ -95,7 +95,7 @@ Deno.test("takeLast - handles objects and references", () => {
 	const obj2 = { value: 2 }
 	const obj3 = { value: 3 }
 	const array = [obj1, obj2, obj3]
-	
+
 	const result = takeLast(2)(array)
 	assertEquals(result, [obj2, obj3])
 	// Verify objects are same references
@@ -114,9 +114,9 @@ Deno.test("takeLast - property: result length is min(n, array.length)", () => {
 				const expectedLength = count <= 0 ? 0 : Math.min(count, arr.length)
 				assertEquals(result.length, expectedLength)
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -128,15 +128,15 @@ Deno.test("takeLast - property: elements are from end of array", () => {
 			(arr, count) => {
 				const result = takeLast(count)(arr)
 				const expectedStart = Math.max(0, arr.length - count)
-				
+
 				for (let i = 0; i < result.length; i++) {
 					assertEquals(result[i], arr[expectedStart + i])
 				}
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -148,9 +148,9 @@ Deno.test("takeLast - property: takeLast(0) always returns empty", () => {
 				const result = takeLast(0)(arr)
 				assertEquals(result, [])
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -161,11 +161,11 @@ Deno.test("takeLast - property: takeLast(arr.length) returns whole array", () =>
 			(arr) => {
 				const result = takeLast(arr.length)(arr)
 				assertEquals(result, arr)
-				assertEquals(result === arr, false)  // New instance
+				assertEquals(result === arr, false) // New instance
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -177,15 +177,15 @@ Deno.test("takeLast - property: maintains order", () => {
 			(arr, count) => {
 				const sorted = [...arr].sort((a, b) => a - b)
 				const result = takeLast(count)(sorted)
-				
+
 				// Verify result is still sorted
 				for (let i = 1; i < result.length; i++) {
 					assertEquals(result[i] >= result[i - 1], true)
 				}
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })

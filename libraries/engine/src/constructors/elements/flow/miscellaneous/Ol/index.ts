@@ -38,7 +38,6 @@ export type OlElementAttributes = OrderedListAttributes & ListAriaAttributes & {
  * Allows global attributes and validates ol-specific attributes
  */
 
-
 /**
  * Creates an Ol element configuration object
  *

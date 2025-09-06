@@ -1,4 +1,7 @@
-import type { IsUnequalToComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsUnequalToComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsUnequalTo JSX Component

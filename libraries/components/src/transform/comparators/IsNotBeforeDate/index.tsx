@@ -1,4 +1,7 @@
-import type { IsNotBeforeDateComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsNotBeforeDateComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsNotBeforeDate JSX Component

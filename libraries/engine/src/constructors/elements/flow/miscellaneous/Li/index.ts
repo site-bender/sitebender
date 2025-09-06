@@ -36,7 +36,6 @@ export type LiElementAttributes =
  * Allows global attributes and validates li-specific attributes
  */
 
-
 /**
  * Creates a Li element configuration object
  *
