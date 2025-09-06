@@ -2,7 +2,8 @@ import type {
 	Documentation, 
 	GenerateOptions, 
 	ParseError, 
-	Result 
+	Result,
+	ASTNode
 } from "../types/index.ts"
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import { parseFile, parseFunction } from "../parser/index.ts"
@@ -62,9 +63,9 @@ export default async function generateDocs(
 			signature: signature.value,
 			description,
 			properties,
-			examples: [], // TODO: Extract from tests in Phase 2
-			laws: [], // TODO: Detect in Phase 2
-			relatedFunctions: [], // TODO: Find in Phase 2
+			examples: [], // TODO(@scribe): Extract from tests in Phase 2
+			laws: [], // TODO(@scribe): Detect in Phase 2
+			relatedFunctions: [], // TODO(@scribe): Find in Phase 2
 		}
 		
 		// Generate documentation based on format
@@ -74,7 +75,7 @@ export default async function generateDocs(
 				output = generateMarkdown(metadata)
 				break
 			case "html":
-				// TODO: Implement HTML generation in Phase 2
+				// TODO(@scribe): Implement HTML generation in Phase 2
 				output = generateMarkdown(metadata) // Fallback to markdown for now
 				break
 			case "json":
@@ -125,7 +126,7 @@ async function readFile(filePath: string): Promise<Result<string, ParseError>> {
 /**
  * Finds the first function in an AST
  */
-function findFirstFunction(ast: any): any {
+function findFirstFunction(ast: ASTNode): ASTNode | null {
 	// Look for function statements
 	if (ast.statements && Array.isArray(ast.statements)) {
 		for (const statement of ast.statements) {

@@ -126,7 +126,8 @@ function extractParameters(source: string): Array<{ name: string; type: string; 
  */
 function extractReturnType(source: string): string {
 	// Look for explicit return type annotation
-	const returnMatch = source.match(/\)\s*:\s*([^{=]+)/)
+	// Match everything after ): until we hit { or the end of the declaration
+	const returnMatch = source.match(/\)\s*:\s*([^{]+?)(?:\s*{|$)/)
 	if (returnMatch) {
 		return returnMatch[1].trim()
 	}

@@ -34,6 +34,11 @@ export default function detectComplexity(source: string): ComplexityClass {
 	// Check for sorting
 	const hasSorting = /\.sort\s*\(/.test(cleanSource)
 	
+	// Check for binary search pattern first (before general loop analysis)
+	if (detectBinarySearch(cleanSource)) {
+		return "O(log n)"
+	}
+	
 	// Determine complexity
 	if (nestedLoops >= 3) {
 		return "O(n³)"
@@ -62,11 +67,6 @@ export default function detectComplexity(source: string): ComplexityClass {
 	
 	if (totalLoops > 0 || iterativeMethods > 0) {
 		return "O(n)"
-	}
-	
-	// Check for binary search pattern
-	if (detectBinarySearch(cleanSource)) {
-		return "O(log n)"
 	}
 	
 	// No loops or recursion detected
