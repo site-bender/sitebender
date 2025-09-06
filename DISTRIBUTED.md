@@ -24,6 +24,7 @@ You're about to work on the distributed library. The last assistant (me) made a 
 ## Current State of the Distributed Library
 
 ### ✅ What's Actually Fixed
+
 - Folder names: camelCase (e.g., `deltaBased` not `delta-based`)
 - Types moved to `types/` folders (but check they're all `type` not `interface`)
 - Simple `let` variables replaced with functional patterns
@@ -32,22 +33,28 @@ You're about to work on the distributed library. The last assistant (me) made a 
 ### 🔥 What's Still a Dumpster Fire
 
 #### 1. Sync Protocols Are OOP Garbage
+
 **Location:** `libraries/distributed/src/sync/*/index.ts`
+
 ```typescript
 // THIS IS WRONG - Mutable state everywhere
-let currentCRDT = crdt
-let lastSyncVersion = 0
+let currentCRDT = crdt;
+let lastSyncVersion = 0;
 ```
-**Fix needed:** Complete rewrite using immutable state pattern. Consider using a state monad or passing state through pure functions.
+
+**Fix needed:** Complete rewrite using immutable state pattern. Consider using a state monad or passing state through pure functions. There should be a state monad in the `libraries/toolkit/src/monads` folder. Complain to The Architect if there isn't.
 
 #### 2. Functions Are Novels, Not Haikus
+
 **Example:** Every sync protocol is 100+ lines of complexity
 **Fix:** Each function should do ONE thing. If you need "and" to describe it, it's too complex.
 
 #### 3. The Demo Is a Monolith
+
 **Location:** `libraries/distributed/demo.ts`
 **Problem:** 400+ lines, 12 functions in ONE file
-**Fix:** 
+**Fix:**
+
 ```
 demo/
 ├── index.ts (imports and runs demos)
@@ -61,23 +68,26 @@ demo/
 ```
 
 #### 4. Tests Import Wrong Paths
+
 After renaming folders, some test imports are broken. Run tests and fix them.
 
 ## The Rules You MUST Follow
 
 ### Law 1: One Function Per File
+
 ```typescript
 // ✅ RIGHT: libraries/distributed/src/crdt/counter/getValue/index.ts
 export default function getValue(counts: Map<string, number>): number {
-  return Array.from(counts.values()).reduce((sum, count) => sum + count, 0)
+  return Array.from(counts.values()).reduce((sum, count) => sum + count, 0);
 }
 
 // ❌ WRONG: Multiple functions in one file
-export function getValue() { }
-export function increment() { } // NO! SEPARATE FILES!
+export function getValue() {}
+export function increment() {} // NO! SEPARATE FILES!
 ```
 
 ### Law 2: Folders Are Named, Files Are Not
+
 ```
 ✅ RIGHT: src/sync/deltaBased/index.ts
 ❌ WRONG: src/sync/delta-based.ts
@@ -85,16 +95,18 @@ export function increment() { } // NO! SEPARATE FILES!
 ```
 
 ### Law 3: No Classes, No Mutable State
+
 ```typescript
 // ❌ WRONG
-let state = initialState
-state = updateState(state) // MUTATION!
+let state = initialState;
+state = updateState(state); // MUTATION!
 
 // ✅ RIGHT
-const newState = updateState(initialState)
+const newState = updateState(initialState);
 ```
 
 ### Law 4: Types in types/, Constants in constants/
+
 ```
 component/
 ├── types/
@@ -107,25 +119,30 @@ component/
 ## Your Mission (Should You Choose Not to Screw It Up)
 
 ### Phase 1: Verify Current "Fixes"
+
 1. Run `deno task lint` - it WILL fail
 2. Run `deno task test` - it probably fails too
 3. Run `deno task typecheck` - fix any issues
 4. Document EVERY issue you find
 
 ### Phase 2: Fix Sync Protocols
+
 The sync protocols are the worst offenders. They need COMPLETE rewrites:
+
 1. No mutable state
 2. Break into small functions
 3. Each function in its own file
 4. State passed immutably through function returns
 
 ### Phase 3: Decompose the Demo
+
 1. Create `demo/` folder structure
 2. One demo function per file
 3. Each with clear, single responsibility
 4. Import all in `demo/index.ts`
 
 ### Phase 4: Run ALL Checks
+
 ```bash
 deno task fmt        # Format everything
 deno task lint       # MUST pass with 0 errors
@@ -175,8 +192,8 @@ The Architect has 30 years of experience. You have 0. Act accordingly.
 
 ---
 
-*"I spent half a day writing it wrong, then half a day fixing it. Don't be me."*
-*- The Previous Assistant, filled with regret*
+_"I spent half a day writing it wrong, then half a day fixing it. Don't be me."_
+_- The Previous Assistant, filled with regret_
 
 ## Quick Start for New Session
 
