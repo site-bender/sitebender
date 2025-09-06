@@ -1,12 +1,12 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env
+#!/usr/bin/env -S deno run --allow-read --allow-write
 
-import { generateDocsWithCompiler } from "./src/index.ts"
+import generateDocsWithCompiler from "./src/generateDocsWithCompiler/index.ts"
 
 // Get the directory where this script is located
 const scriptDir = new URL(".", import.meta.url).pathname
 
 console.log("=".repeat(60))
-console.log("@sitebender/scribe Library Demo (TypeScript Compiler API)")
+console.log("@sitebender/scribe Library Demo - TypeScript Compiler API")
 console.log("=".repeat(60))
 
 // Example files to document (resolved relative to script location)
@@ -56,7 +56,7 @@ for (const example of examples) {
 
 // Demonstrate inline documentation generation with TypeScript compiler
 console.log("\n" + "=".repeat(60))
-console.log("Inline Code Analysis (TypeScript Compiler API)")
+console.log("Inline Code Analysis with TypeScript Compiler")
 console.log("=".repeat(60))
 
 // Create a temporary file for inline analysis
@@ -78,7 +78,7 @@ export default function binarySearch<T>(arr: Array<T>, target: T): number {
 const tempFile = await Deno.makeTempFile({ suffix: ".ts" })
 await Deno.writeTextFile(tempFile, inlineCode)
 
-// Generate documentation using TypeScript compiler
+// Generate documentation
 const result = await generateDocsWithCompiler(tempFile, { format: "markdown" })
 
 if (result.ok) {
@@ -98,7 +98,7 @@ if (result.ok) {
 await Deno.remove(tempFile)
 
 console.log("\n" + "=".repeat(60))
-console.log("Demo complete!")
+console.log("Phase 2 Demo Complete!")
 console.log("=".repeat(60))
 console.log("\n🎯 Phase 2 Features Demonstrated:")
 console.log("   ✅ Real TypeScript AST parsing")

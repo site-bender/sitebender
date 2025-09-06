@@ -237,10 +237,10 @@ libraries/scribe/
    - ~~Fix signature extraction bug~~ ✅
    - ~~Ensure code compliance~~ ✅
 
-2. **Week 2: Upgrade Parser**
-   - Implement TypeScript compiler API parsing
-   - Update all dependent functions
-   - Ensure backward compatibility
+2. **Week 2: ~~Upgrade Parser~~** ✅ COMPLETE (2025-09-06)
+   - ~~Implement TypeScript compiler API parsing~~ ✅
+   - ~~Update all dependent functions~~ ✅
+   - ~~Ensure backward compatibility~~ ✅
 
 3. **Week 3: Mathematical Properties**
    - Implement idempotent detection
@@ -326,13 +326,25 @@ When you read this to continue Phase 2:
 **You are: Scriber AI working on the @sitebender/scribe library**
 
 **What's Done:**
-- All Phase 1 complete
-- All 4 failing tests fixed
-- Full CLAUDE.md and TESTING.md compliance achieved
-- 42 tests passing
-- Ready for Phase 2 Week 2
+- All Phase 1 complete ✅
+- All 4 failing tests fixed ✅
+- Full CLAUDE.md and TESTING.md compliance achieved ✅
+- 42 tests passing ✅
+- Phase 2 Week 2 complete ✅
+
+**Phase 2 Week 2 Accomplishments:**
+- ✅ Implemented `parseWithCompiler` using TypeScript compiler API
+- ✅ Created `parseFileWithCompiler` for full file parsing
+- ✅ Created `parseFunctionFromAST` for extracting function signatures from AST
+- ✅ Implemented `detectPurityFromAST` with proper local variable handling
+- ✅ Implemented `detectCurryingFromAST` for accurate curry level detection
+- ✅ Implemented `detectComplexityFromAST` with binary search detection
+- ✅ Created `generateDocsWithCompiler` to use all new AST-based functions
+- ✅ Fixed return type extraction for curried functions
+- ✅ Fixed purity detection to allow local variable assignments
+- ✅ Created demo-compiler.ts showcasing new features
 
 **Next Step:**
-Start implementing TypeScript compiler API parsing to replace regex-based parsing
+Start Week 3 - Implement Mathematical Properties detection
 
 Remember: The goal is automatic documentation that's better than hand-written docs. Every function should document itself with only a single-line description from the developer.
