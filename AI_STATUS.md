@@ -1,41 +1,40 @@
-# AI Status: toolkit-ai
-
-## Current Task
-✅ COMPLETED: Property Test Generator Component for automated test generation
+# AI Development Status: distributed
 
 ## Branch
-ai/toolkit
+`ai/distributed`
 
-## Progress
-- [x] Built PropertyTestGenerator class
-- [x] Implemented type-to-generator mappings
-- [x] Created algebraic law detection
-- [x] Developed edge case generators
-- [x] Tested with sample functions
-- [x] Created integration exports
+## Worktree Location
+`/Users/guy/Workspace/@sitebender/distributed-ai`
 
-## Components Delivered
-1. **PropertyTestGenerator** - Main orchestrator class
-2. **Type Mappings** - TypeScript to fast-check arbitrary conversion
-3. **Algebraic Laws** - Detects and generates law-based tests
-4. **Edge Cases** - Comprehensive edge case generation
-5. **Integration API** - Clean exports for main orchestrator
+## Current Task
+Working on @sitebender/distributed library
 
-## Test Generation Capabilities
-- Generates ~21.5 tests per function on average
-- Covers property tests, algebraic laws, edge cases
-- Supports curried and regular functions
-- Handles generics and complex types
+## Progress Checklist
+- [ ] Initial setup complete
+- [ ] Test coverage analysis
+- [ ] Test generation/implementation
+- [ ] Documentation updates
+- [ ] 100% coverage achieved
+- [ ] All tests passing
+- [ ] Ready for integration
 
-## Next Steps (Awaiting Coordination)
-The property test generator is ready for integration with:
-- TypeSignatureParser (being built by another AI)
-- BranchAnalyzer (for AST analysis)
-- CoverageValidator (for 100% coverage guarantee)
-- TestFileWriter (for output generation)
+## Commands
+```bash
+# Navigate to this worktree
+cd /Users/guy/Workspace/@sitebender/distributed-ai
+
+# Run tests
+deno task test
+
+# Check coverage
+deno task coverage
+
+# Switch back to main repo
+cd /Users/guy/Workspace/@sitebender/sitebender
+```
 
 ## Notes
-- Component located in `scripts/test-generator/`
-- Example usage in `scripts/test-generator/example.ts`
-- Ready for integration with main test generator orchestrator
-- Achieves Phase 0 Week 1 Day 3-4 goals from planned.md
+- Follow CLAUDE.md and TESTING.md strictly
+- Achieve 100% test coverage
+- Use conventional commits
+- Update this file with progress
