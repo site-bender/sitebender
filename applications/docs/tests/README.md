@@ -153,7 +153,9 @@ test.describe("Form submission behaviors", () => {
 
 		// Should redirect to success page
 		await expect(page).toHaveURL("/examples/contact-form/success")
-		await expect(page.locator(".success-message")).toContainText("Thank you")
+		await expect(page.locator(".success-message")).toContainText(
+			"Thank you",
+		)
 	})
 
 	test("forms enhance with client-side validation", async ({ page }) => {
@@ -188,7 +190,9 @@ test.describe("Form submission behaviors", () => {
 					if (!email.includes("@")) {
 						// Should show validation error
 						await page.click('button[type="submit"]')
-						const hasError = await page.locator('input[name="email"]:invalid')
+						const hasError = await page.locator(
+							'input[name="email"]:invalid',
+						)
 							.isVisible()
 						expect(hasError).toBe(true)
 					}
@@ -482,7 +486,8 @@ test.describe("Usability without CSS", () => {
 		// Disable all CSS
 		await page.addInitScript(() => {
 			const style = document.createElement("style")
-			style.innerHTML = "*, *::before, *::after { all: unset !important; }"
+			style.innerHTML =
+				"*, *::before, *::after { all: unset !important; }"
 			document.head.appendChild(style)
 		})
 	})

@@ -57,7 +57,9 @@ export type ActionType =
 export interface ActionProps {
 	"@type"?: ActionType
 	actionProcess?: HowTo | ReturnType<typeof HowToComponent>
-	actionStatus?: ActionStatusType | ReturnType<typeof ActionStatusTypeComponent>
+	actionStatus?:
+		| ActionStatusType
+		| ReturnType<typeof ActionStatusTypeComponent>
 	agent?:
 		| Organization
 		| Person

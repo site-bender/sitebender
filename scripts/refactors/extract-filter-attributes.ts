@@ -23,7 +23,9 @@ async function* walkTsFiles(dir: string): AsyncGenerator<string> {
 		const p = join(dir, entry.name)
 		if (entry.isDirectory) {
 			// skip build outputs
-			if (entry.name === "node_modules" || entry.name.startsWith(".")) continue
+			if (entry.name === "node_modules" || entry.name.startsWith(".")) {
+				continue
+			}
 			yield* walkTsFiles(p)
 		} else if (entry.isFile && entry.name.endsWith(".ts")) {
 			yield p

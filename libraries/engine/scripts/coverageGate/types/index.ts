@@ -23,12 +23,12 @@
  * ```
  */
 export type CoverageResult = {
-  /** File path relative to project root */
-  readonly file: string
-  /** Branch coverage percentage (0-100) */
-  readonly branchPercent: number
-  /** Line coverage percentage (0-100) */
-  readonly linePercent: number
+	/** File path relative to project root */
+	readonly file: string
+	/** Branch coverage percentage (0-100) */
+	readonly branchPercent: number
+	/** Line coverage percentage (0-100) */
+	readonly linePercent: number
 }
 
 /**
@@ -48,14 +48,14 @@ export type CoverageResult = {
  * ```
  */
 export type CoverageIssue = {
-  /** File path with the issue */
-  readonly file: string
-  /** Description of the coverage issue */
-  readonly issue: string
-  /** Current coverage percentage */
-  readonly current: number
-  /** Required coverage percentage */
-  readonly required: number
+	/** File path with the issue */
+	readonly file: string
+	/** Description of the coverage issue */
+	readonly issue: string
+	/** Current coverage percentage */
+	readonly current: number
+	/** Required coverage percentage */
+	readonly required: number
 }
 
 /**
@@ -81,10 +81,10 @@ export type CoverageIssue = {
  * ```
  */
 export type CoverageGateResult = {
-  /** Whether all coverage requirements are met */
-  readonly passed: boolean
-  /** Human-readable status message */
-  readonly message: string
-  /** Detailed list of coverage issues found */
-  readonly details: readonly CoverageIssue[]
+	/** Whether all coverage requirements are met */
+	readonly passed: boolean
+	/** Human-readable status message */
+	readonly message: string
+	/** Detailed list of coverage issues found */
+	readonly details: readonly CoverageIssue[]
 }

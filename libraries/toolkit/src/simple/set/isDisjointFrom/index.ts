@@ -59,7 +59,9 @@ const isDisjointFrom = <T>(
 	}
 
 	// Fallback: Optimize by checking smaller set against larger
-	const [smaller, larger] = set1.size <= set2.size ? [set1, set2] : [set2, set1]
+	const [smaller, larger] = set1.size <= set2.size
+		? [set1, set2]
+		: [set2, set1]
 
 	// Check if any element in smaller set exists in larger set
 	return !Array.from(smaller).some((element) => larger.has(element))

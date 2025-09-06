@@ -83,7 +83,9 @@ export type ProductType =
 
 export interface ProductProps {
 	"@type"?: ProductType
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	aggregateRating?:
 		| AggregateRating
 		| ReturnType<typeof AggregateRatingComponent>
@@ -165,7 +167,11 @@ export interface ProductProps {
 	itemCondition?:
 		| OfferItemCondition
 		| ReturnType<typeof OfferItemConditionComponent>
-	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	keywords?:
+		| DefinedTerm
+		| Text
+		| URL
+		| ReturnType<typeof DefinedTermComponent>
 	logo?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
 	manufacturer?: Organization | ReturnType<typeof OrganizationComponent>
 	material?: Product | Text | URL | ReturnType<typeof ProductComponent>

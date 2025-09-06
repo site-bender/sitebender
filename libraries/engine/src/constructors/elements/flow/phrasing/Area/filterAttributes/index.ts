@@ -55,7 +55,10 @@ export default function filterAttributes(attributes: AreaElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("alt")(alt))
 	}
 	if (isDefined(coords)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("coords")(coords))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("coords")(coords),
+		)
 	}
 	if (isDefined(download)) {
 		Object.assign(

@@ -22,7 +22,9 @@ export type QuantitativeValueType = "QuantitativeValue" | ObservationType
 
 export interface QuantitativeValueProps {
 	"@type"?: QuantitativeValueType
-	additionalProperty?: PropertyValue | ReturnType<typeof PropertyValueComponent>
+	additionalProperty?:
+		| PropertyValue
+		| ReturnType<typeof PropertyValueComponent>
 	maxValue?: Number
 	minValue?: Number
 	unitCode?: Text | URL

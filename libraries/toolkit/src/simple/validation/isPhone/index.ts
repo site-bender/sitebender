@@ -170,7 +170,8 @@ const isPhone = (
 
 				// If has international prefix, validate it
 				if (hasInternationalPrefix) {
-					return /^\+\d{7,15}$/.test(cleaned) || /^00\d{7,15}$/.test(cleaned)
+					return /^\+\d{7,15}$/.test(cleaned) ||
+						/^00\d{7,15}$/.test(cleaned)
 				}
 
 				// Otherwise just check digit count

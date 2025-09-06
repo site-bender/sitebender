@@ -58,12 +58,17 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 
 		const emailInput = page.locator("#email")
 		await expect(emailInput).toHaveAttribute("aria-label", "Email address")
-		await expect(emailInput).toHaveAttribute("aria-describedby", "email-help email-error")
+		await expect(emailInput).toHaveAttribute(
+			"aria-describedby",
+			"email-help email-error",
+		)
 		await expect(emailInput).toHaveAttribute("autocomplete", "email")
 
 		// BEHAVIOR: Help text provides clear guidance
 		const helpText = page.locator("#email-help")
-		await expect(helpText).toHaveText("Enter your email address to receive updates about our latest news")
+		await expect(helpText).toHaveText(
+			"Enter your email address to receive updates about our latest news",
+		)
 
 		// BEHAVIOR: Error region has proper ARIA roles
 		const errorMessage = page.locator("#email-error")
@@ -109,7 +114,9 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 
 		// Wait for error message to appear
 		await expect(errorMessage).toBeVisible()
-		await expect(errorMessage).toHaveText("Please enter a valid email address")
+		await expect(errorMessage).toHaveText(
+			"Please enter a valid email address",
+		)
 
 		// BEHAVIOR: Success announcement should work
 		await emailInput.fill("valid@example.com")
@@ -118,7 +125,9 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 
 		const successMessage = page.locator("#success-message")
 		await expect(successMessage).toBeVisible()
-		await expect(successMessage).toHaveText("Thank you! You have been successfully subscribed to our newsletter.")
+		await expect(successMessage).toHaveText(
+			"Thank you! You have been successfully subscribed to our newsletter.",
+		)
 	})
 
 	test("form validation provides clear feedback", async ({ page }) => {
@@ -137,7 +146,9 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 		await emailInput.fill("not-an-email")
 		await emailInput.blur()
 		await expect(errorMessage).toBeVisible()
-		await expect(errorMessage).toHaveText("Please enter a valid email address")
+		await expect(errorMessage).toHaveText(
+			"Please enter a valid email address",
+		)
 
 		// BEHAVIOR: Valid input clears error
 		await emailInput.fill("valid@example.com")
@@ -153,7 +164,9 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 		await emailInput.focus()
 
 		// Check that focus styles are applied (outline should be visible)
-		const focusedElement = await page.evaluate(() => document.activeElement?.id)
+		const focusedElement = await page.evaluate(() =>
+			document.activeElement?.id
+		)
 		expect(focusedElement).toBe("email")
 
 		// BEHAVIOR: Form submission should not lose focus context inappropriately
@@ -180,7 +193,9 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 		await expect(errorMessage).toBeVisible()
 
 		// Check that error state is indicated by text content, not just color
-		await expect(errorMessage).toHaveText("Please enter a valid email address")
+		await expect(errorMessage).toHaveText(
+			"Please enter a valid email address",
+		)
 
 		// BEHAVIOR: Interactive elements should have adequate touch targets
 		const submitButton = page.locator('button[type="submit"]')

@@ -281,7 +281,8 @@ Deno.test("removeAt - property: removed element not in result", () => {
 				const result = removeAt(index)(uniqueArray)
 
 				// The removed element should not be at its original position
-				return result[index] !== elementToRemove || index >= result.length
+				return result[index] !== elementToRemove ||
+					index >= result.length
 			},
 		),
 		{ numRuns: 1000 },

@@ -21,12 +21,12 @@ export default function extractBranches(ast: SourceNode): Array<BranchPath> {
 	const switchBranches = extractSwitchBranches(ast)
 	const tryCatchBranches = extractTryCatchBranches(ast)
 	const logicalBranches = extractLogicalBranches(ast)
-	
+
 	return [
 		...ifBranches,
 		...ternaryBranches,
 		...switchBranches,
 		...tryCatchBranches,
-		...logicalBranches
+		...logicalBranches,
 	]
 }

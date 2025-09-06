@@ -3,7 +3,7 @@
  */
 
 // Result type for error handling
-export type Result<T, E> = 
+export type Result<T, E> =
 	| { ok: true; value: T }
 	| { ok: false; error: E }
 
@@ -65,7 +65,7 @@ export type Properties = {
 }
 
 // Complexity classes
-export type ComplexityClass = 
+export type ComplexityClass =
 	| "O(1)"
 	| "O(log n)"
 	| "O(n)"
@@ -77,7 +77,7 @@ export type ComplexityClass =
 	| "Unknown"
 
 // Null handling strategies
-export type NullStrategy = 
+export type NullStrategy =
 	| "throws"
 	| "returns-null"
 	| "returns-default"

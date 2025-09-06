@@ -60,7 +60,11 @@ Deno.test("getOperatorFromToken - returns null for non-operator tokens", () => {
 	}
 	assertEquals(getOperatorFromToken(identifierToken), null)
 
-	const leftParenToken: Token = { type: "LEFT_PAREN", value: "(", position: 0 }
+	const leftParenToken: Token = {
+		type: "LEFT_PAREN",
+		value: "(",
+		position: 0,
+	}
 	assertEquals(getOperatorFromToken(leftParenToken), null)
 
 	const rightParenToken: Token = {
@@ -140,6 +144,9 @@ Deno.test("parseFormula - returns tokenization errors", () => {
 
 	assertEquals(result.ok, false)
 	if (!result.ok) {
-		assertEquals(result.error.message.includes("Unexpected character"), true)
+		assertEquals(
+			result.error.message.includes("Unexpected character"),
+			true,
+		)
 	}
 })

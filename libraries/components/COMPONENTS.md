@@ -142,7 +142,12 @@ const WelcomePage = () => (
 			author="CoolApp Inc."
 			socialImage="/social-preview.png"
 		/>
-		<Resource kind="font" from="google" name="Open Sans" weights={[400, 600]} />
+		<Resource
+			kind="font"
+			from="google"
+			name="Open Sans"
+			weights={[400, 600]}
+		/>
 		<Resource kind="icon-set" from="heroicons" />
 
 		<Content>
@@ -150,8 +155,8 @@ const WelcomePage = () => (
 			<HeroBlock>
 				<Heading level={1}>Do Cool Things</Heading>
 				<Text size="lead">
-					CoolApp makes it incredibly easy to do the coolest things you've ever
-					imagined.
+					CoolApp makes it incredibly easy to do the coolest things
+					you've ever imagined.
 				</Text>
 				<Button priority="primary" size="large">Start Now</Button>
 			</HeroBlock>

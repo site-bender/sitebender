@@ -100,7 +100,8 @@ Deno.test("randomBoolean - property: respects probability bounds", () => {
 			(probability) => {
 				// Skip if not a valid probability
 				if (
-					!Number.isFinite(probability) || probability < 0 || probability > 1
+					!Number.isFinite(probability) || probability < 0 ||
+					probability > 1
 				) {
 					return true // Skip invalid inputs
 				}

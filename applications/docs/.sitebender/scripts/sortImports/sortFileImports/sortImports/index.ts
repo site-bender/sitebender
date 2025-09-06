@@ -57,7 +57,11 @@ export default function sortImports(imports: ImportInfo[]): string {
 			currentGroup.category !== imp.category ||
 			currentGroup.type !== imp.type
 		) {
-			currentGroup = { category: imp.category, type: imp.type, imports: [] }
+			currentGroup = {
+				category: imp.category,
+				type: imp.type,
+				imports: [],
+			}
 			groups.push(currentGroup)
 		}
 		currentGroup.imports.push(imp)

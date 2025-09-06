@@ -57,13 +57,16 @@ const intersection = <T>(
 
 	// Use native Set.intersection if available (ES2025)
 	if (
-		"intersection" in Set.prototype && typeof set1.intersection === "function"
+		"intersection" in Set.prototype &&
+		typeof set1.intersection === "function"
 	) {
 		return set1.intersection(set2)
 	}
 
 	// Fallback: Iterate over smaller set for efficiency
-	const [smaller, larger] = set1.size <= set2.size ? [set1, set2] : [set2, set1]
+	const [smaller, larger] = set1.size <= set2.size
+		? [set1, set2]
+		: [set2, set1]
 	return new Set(Array.from(smaller).filter((element) => larger.has(element)))
 }
 

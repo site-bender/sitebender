@@ -23,25 +23,33 @@ export default async function evaluate(
 	switch (node.kind) {
 		case "injector": {
 			const exec = injectors.get(node.injector)
-			if (!exec) throw new Error(`Injector not registered: ${node.injector}`)
+			if (!exec) {
+				throw new Error(`Injector not registered: ${node.injector}`)
+			}
 			return await exec(node as InjectorNode, ctx)
 		}
 		case "operator": {
 			const exec = operators.get(node.op)
 			if (!exec) throw new Error(`Operator not registered: ${node.op}`)
 			const opNode = node as OperatorNode
-			const evalArg = (n: OperatorNode["args"][number]) => evaluate(n, ctx)
+			const evalArg = (n: OperatorNode["args"][number]) =>
+				evaluate(n, ctx)
 			return await exec(opNode, evalArg, ctx)
 		}
 		case "comparator": {
 			const exec = comparators.get(node.cmp)
 			const cmpNode = node as ComparatorNode
-			const evalArg = (n: ComparatorNode["args"][number]) => evaluate(n, ctx)
+			const evalArg = (n: ComparatorNode["args"][number]) =>
+				evaluate(n, ctx)
 			if (exec) return await exec(cmpNode, evalArg, ctx)
 			// Fallback: treat comparator tag as a policy; pass first arg (if any) as policy config
 			const policy = policies.get(node.cmp)
-			if (!policy) throw new Error(`Comparator not registered: ${node.cmp}`)
-			const cfg = cmpNode.args[0] ? await evalArg(cmpNode.args[0]) : undefined
+			if (!policy) {
+				throw new Error(`Comparator not registered: ${node.cmp}`)
+			}
+			const cfg = cmpNode.args[0]
+				? await evalArg(cmpNode.args[0])
+				: undefined
 			const op = policy(cfg)
 			// Policy executors return OperationFunction<boolean>
 			const fn = op as unknown as (
@@ -72,7 +80,9 @@ export default async function evaluate(
 			if (branch.length === 0) return undefined
 
 			// Sequential evaluation required for conditional branches
-			const evaluateSequentially = async (nodes: Node[]): Promise<unknown> => {
+			const evaluateSequentially = async (
+				nodes: Node[],
+			): Promise<unknown> => {
 				let result: unknown = undefined
 				for (const node of nodes) {
 					// deno-lint-ignore no-await-in-loop
@@ -86,7 +96,9 @@ export default async function evaluate(
 		case "action": {
 			const actionNode = node as ActionNode
 			const exec = actions.get(actionNode.action)
-			if (!exec) throw new Error(`Action not registered: ${actionNode.action}`)
+			if (!exec) {
+				throw new Error(`Action not registered: ${actionNode.action}`)
+			}
 			const evalArg = (n: ActionNode["args"][number]) => evaluate(n, ctx)
 			return await exec(actionNode, evalArg, ctx)
 		}
@@ -100,7 +112,9 @@ export default async function evaluate(
 			// For element nodes, we typically want to render them to HTML
 			// For evaluation purposes, we can return the element structure
 			// This will be used during rendering phases
-			const childPromises = elementNode.children.map(child => evaluate(child, ctx))
+			const childPromises = elementNode.children.map((child) =>
+				evaluate(child, ctx)
+			)
 			const evaluatedChildren = await Promise.all(childPromises)
 			return {
 				tag: elementNode.tag,

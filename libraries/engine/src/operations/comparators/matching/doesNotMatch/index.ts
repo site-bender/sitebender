@@ -17,7 +17,9 @@ const doesNotMatch =
 		arg: unknown,
 		localValues?: LocalValues,
 	): Promise<Either<Array<EngineError>, boolean>> => {
-		const operandFn = await composeComparators(op.operand as unknown as never)
+		const operandFn = await composeComparators(
+			op.operand as unknown as never,
+		)
 		const { pattern, flags } = op as MatchesComparator
 		const patternFn = await composeComparators(pattern as unknown as never)
 		const operand = await operandFn(arg, localValues)
@@ -42,7 +44,11 @@ const doesNotMatch =
 				: { right: true }
 		} catch (e) {
 			return {
-				left: [Error(op.tag)("DoesNotMatch")(`Bad regular expression: ${e}.`)],
+				left: [
+					Error(op.tag)("DoesNotMatch")(
+						`Bad regular expression: ${e}.`,
+					),
+				],
 			}
 		}
 	}

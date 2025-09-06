@@ -290,18 +290,28 @@ describe("Act.If behavior", () => {
 				const ctx = createComposeContext({ env: "client" })
 				registerDefaultExecutors(ctx)
 				const seen: string[] = []
-				const unsubThen = ctx.bus.subscribe<string>("then:prop", (e) => {
-					seen.push(`then:${e.payload}`)
-				}, { once: true })
-				const unsubElse = ctx.bus.subscribe<string>("else:prop", (e) => {
-					seen.push(`else:${e.payload}`)
-				}, { once: true })
+				const unsubThen = ctx.bus.subscribe<string>(
+					"then:prop",
+					(e) => {
+						seen.push(`then:${e.payload}`)
+					},
+					{ once: true },
+				)
+				const unsubElse = ctx.bus.subscribe<string>(
+					"else:prop",
+					(e) => {
+						seen.push(`else:${e.payload}`)
+					},
+					{ once: true },
+				)
 
 				const scriptDoc = document.getElementById("ir-root")!
 				// deno-lint-ignore no-explicit-any
 				hydrate(JSON.parse(scriptDoc.textContent || "") as any, ctx)
 
-				document.getElementById("pf")!.dispatchEvent(new Event("submit"))
+				document.getElementById("pf")!.dispatchEvent(
+					new Event("submit"),
+				)
 				await new Promise((r) => setTimeout(r, 0))
 
 				// Expect exactly one branch fired, and it matches the condition
@@ -309,14 +319,18 @@ describe("Act.If behavior", () => {
 					// then branch
 					if (!(seen.length === 1 && seen[0] === `then:${topic}`)) {
 						throw new Error(
-							`Expected then:${topic}, got ${JSON.stringify(seen)}`,
+							`Expected then:${topic}, got ${
+								JSON.stringify(seen)
+							}`,
 						)
 					}
 				} else {
 					// else branch
 					if (!(seen.length === 1 && seen[0] === `else:${topic}`)) {
 						throw new Error(
-							`Expected else:${topic}, got ${JSON.stringify(seen)}`,
+							`Expected else:${topic}, got ${
+								JSON.stringify(seen)
+							}`,
 						)
 					}
 				}

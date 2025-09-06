@@ -129,7 +129,9 @@ if (result8.ok) {
 // The actual engine implementation currently supports FromElement and Constant injectors.
 /*
 console.log("\n9. Different injector types showcase:")
-console.log("Formula: url_param + local_storage + session_storage + element_value")
+console.log(
+	"Formula: url_param + local_storage + session_storage + element_value",
+)
 const variables9 = {
 	"url_param": { tag: "FromURL" as const, type: "injector" as const, datatype: "Number" as const, param: "score" },
 	"local_storage": { tag: "FromLocalStorage" as const, type: "injector" as const, datatype: "Number" as const, key: "user_score" },
@@ -141,7 +143,7 @@ if (result9.ok) {
 	console.log("✅ Parsed successfully!")
 	console.log("This demonstrates support for various data sources:")
 	console.log("- URL parameters")
-	console.log("- Local storage")  
+	console.log("- Local storage")
 	console.log("- Session storage")
 	console.log("- DOM elements")
 	console.log("\nOutput:", JSON.stringify(result9.value, null, 2))

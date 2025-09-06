@@ -25,9 +25,15 @@ describe("primeFactorization", () => {
 		})
 
 		it("should factorize larger numbers", () => {
-			assertEquals(primeFactorization(60), new Map([[2, 2], [3, 1], [5, 1]]))
+			assertEquals(
+				primeFactorization(60),
+				new Map([[2, 2], [3, 1], [5, 1]]),
+			)
 			assertEquals(primeFactorization(100), new Map([[2, 2], [5, 2]]))
-			assertEquals(primeFactorization(360), new Map([[2, 3], [3, 2], [5, 1]]))
+			assertEquals(
+				primeFactorization(360),
+				new Map([[2, 3], [3, 2], [5, 1]]),
+			)
 		})
 
 		it("should handle edge cases", () => {
@@ -195,7 +201,10 @@ describe("primeFactorization", () => {
 							combined.set(prime, power)
 						}
 						for (const [prime, power] of factorsB) {
-							combined.set(prime, (combined.get(prime) || 0) + power)
+							combined.set(
+								prime,
+								(combined.get(prime) || 0) + power,
+							)
 						}
 
 						// Should match factorization of a * b
@@ -293,8 +302,14 @@ describe("primeFactorization", () => {
 		})
 
 		it("should handle highly composite numbers", () => {
-			assertEquals(primeFactorization(120), new Map([[2, 3], [3, 1], [5, 1]]))
-			assertEquals(primeFactorization(720), new Map([[2, 4], [3, 2], [5, 1]]))
+			assertEquals(
+				primeFactorization(120),
+				new Map([[2, 3], [3, 1], [5, 1]]),
+			)
+			assertEquals(
+				primeFactorization(720),
+				new Map([[2, 4], [3, 2], [5, 1]]),
+			)
 			assertEquals(
 				primeFactorization(5040),
 				new Map([[2, 4], [3, 2], [5, 1], [7, 1]]),
@@ -426,7 +441,10 @@ describe("primeFactorization", () => {
 				let result = 1
 
 				// Collect all primes
-				const allPrimes = new Set([...factorsA.keys(), ...factorsB.keys()])
+				const allPrimes = new Set([
+					...factorsA.keys(),
+					...factorsB.keys(),
+				])
 
 				for (const prime of allPrimes) {
 					const powerA = factorsA.get(prime) || 0

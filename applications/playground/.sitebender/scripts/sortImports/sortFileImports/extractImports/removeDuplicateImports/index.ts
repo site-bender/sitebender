@@ -1,19 +1,19 @@
-import type { ImportInfo } from '../../../index.ts';
+import type { ImportInfo } from "../../../index.ts"
 
 export default function removeDuplicateImports(
 	imports: ImportInfo[],
 ): ImportInfo[] {
-	const seen = new Set<string>();
+	const seen = new Set<string>()
 
 	return imports.filter((importInfo: any) => {
 		// Create a unique key based on type, source, and text content
-		const key = `${importInfo.type}:${importInfo.source}:${importInfo.text}`;
+		const key = `${importInfo.type}:${importInfo.source}:${importInfo.text}`
 
 		if (seen.has(key)) {
-			return false;
+			return false
 		}
 
-		seen.add(key);
-		return true;
-	});
+		seen.add(key)
+		return true
+	})
 }

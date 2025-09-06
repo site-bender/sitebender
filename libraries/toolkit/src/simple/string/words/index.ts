@@ -70,7 +70,8 @@ const words = (str: string | null | undefined): Array<string> => {
 			if (/\d/.test(char)) {
 				// If we have a current word and this is a number, split
 				if (
-					acc.current && /[a-zA-Z]/.test(acc.current[acc.current.length - 1])
+					acc.current &&
+					/[a-zA-Z]/.test(acc.current[acc.current.length - 1])
 				) {
 					return { words: [...acc.words, acc.current], current: char }
 				}
@@ -80,7 +81,10 @@ const words = (str: string | null | undefined): Array<string> => {
 			// Handle letters
 			if (/[a-zA-Z]/.test(char)) {
 				// Transition from number to letter
-				if (acc.current && /\d/.test(acc.current[acc.current.length - 1])) {
+				if (
+					acc.current &&
+					/\d/.test(acc.current[acc.current.length - 1])
+				) {
 					return { words: [...acc.words, acc.current], current: char }
 				}
 
@@ -93,7 +97,10 @@ const words = (str: string | null | undefined): Array<string> => {
 				if (/[A-Z]/.test(prevChar) && /[A-Z]/.test(char)) {
 					// If next is lowercase, this is end of acronym
 					if (/[a-z]/.test(nextChar)) {
-						return { words: [...acc.words, acc.current], current: char }
+						return {
+							words: [...acc.words, acc.current],
+							current: char,
+						}
 					}
 					return { ...acc, current: acc.current + char }
 				}

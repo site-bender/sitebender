@@ -71,7 +71,10 @@ function stripCommentsAndStrings(input: string): string {
 	// Remove template strings (greedy but fine for scanning)
 	s = s.replace(/`[\s\S]*?`/g, "``")
 	// Remove single and double quoted strings
-	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(/"(?:\\.|[^"\\])*"/g, '""')
+	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(
+		/"(?:\\.|[^"\\])*"/g,
+		'""',
+	)
 	return s
 }
 
@@ -87,7 +90,13 @@ async function main() {
 		"libraries/toolkit/src/state/store.ts",
 	])
 	const violations: Array<
-		{ file: string; line: number; col: number; rule: string; snippet: string }
+		{
+			file: string
+			line: number
+			col: number
+			rule: string
+			snippet: string
+		}
 	> = []
 
 	for await (const file of iterFiles(globs)) {
@@ -141,7 +150,9 @@ async function main() {
 	if (violations.length) {
 		console.error("Strict FP violations found:\n")
 		for (const v of violations) {
-			console.error(`${v.file}:${v.line}:${v.col}  [${v.rule}]  ${v.snippet}`)
+			console.error(
+				`${v.file}:${v.line}:${v.col}  [${v.rule}]  ${v.snippet}`,
+			)
 		}
 		console.error(`\nTotal: ${violations.length}`)
 		Deno.exit(1)

@@ -67,7 +67,10 @@ const partitionBy = <T>(predicate: (value: T) => unknown) =>
 			} else {
 				return [
 					...acc.slice(0, -1),
-					{ key: lastGroup.key, items: [...lastGroup.items, current] },
+					{
+						key: lastGroup.key,
+						items: [...lastGroup.items, current],
+					},
 				]
 			}
 		},

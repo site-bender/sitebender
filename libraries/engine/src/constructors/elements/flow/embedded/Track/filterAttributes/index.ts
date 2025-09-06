@@ -67,7 +67,10 @@ export default function filterAttributes(attributes: TrackElementAttributes) {
 		Object.assign(filteredAttrs, filterAttribute(isString)("src")(src))
 	}
 	if (isDefined(srcLang)) {
-		Object.assign(filteredAttrs, filterAttribute(isString)("srclang")(srcLang))
+		Object.assign(
+			filteredAttrs,
+			filterAttribute(isString)("srclang")(srcLang),
+		)
 	}
 
 	// Add ARIA attributes (limited for Track elements)

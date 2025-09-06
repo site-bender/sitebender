@@ -80,7 +80,9 @@ Deno.test("collectLinkElements basic functionality", async (t) => {
 	await t.step(
 		"should handle component with no dependencies or children",
 		() => {
-			const doc = setupDocument(`<div id="container" class="container"></div>`)
+			const doc = setupDocument(
+				`<div id="container" class="container"></div>`,
+			)
 			const element = doc.getElementById("container")!
 			const component = createComponentFromElement(element)
 			component.tag = "div"
@@ -208,7 +210,13 @@ Deno.test("collectLinkElements combined scenarios", async (t) => {
 Deno.test("collectLinkElements edge cases", async (t) => {
 	await t.step("should handle different dependency value types", () => {
 		const component = {
-			dependencies: ["string-dep", 123, { url: "object-dep" }, null, undefined],
+			dependencies: [
+				"string-dep",
+				123,
+				{ url: "object-dep" },
+				null,
+				undefined,
+			],
 		}
 		const result = collectLinkElements(component)
 		assertEquals(result, [
@@ -353,7 +361,9 @@ Deno.test("collectLinkElements property-based tests", () => {
 		fc.property(
 			fc.array(fc.array(fc.string({ minLength: 1, maxLength: 20 }))),
 			(childDeps) => {
-				const children = childDeps.map((deps) => ({ dependencies: deps }))
+				const children = childDeps.map((deps) => ({
+					dependencies: deps,
+				}))
 				const component = { children }
 				const result = collectLinkElements(component)
 				const expected = childDeps.flat()
@@ -368,7 +378,9 @@ Deno.test("collectLinkElements property-based tests", () => {
 			fc.array(fc.string({ minLength: 1, maxLength: 10 })),
 			fc.array(fc.array(fc.string({ minLength: 1, maxLength: 10 }))),
 			(rootDeps, childDeps) => {
-				const children = childDeps.map((deps) => ({ dependencies: deps }))
+				const children = childDeps.map((deps) => ({
+					dependencies: deps,
+				}))
 				const component = { dependencies: rootDeps, children }
 				const result = collectLinkElements(component)
 				const expected = [...rootDeps, ...childDeps.flat()]

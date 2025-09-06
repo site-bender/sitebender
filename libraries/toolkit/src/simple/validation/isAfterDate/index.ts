@@ -4,7 +4,9 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
 
 function toIsoDateString(pd: unknown): string | null {
 	// Best-effort use of toString for Temporal.PlainDate
-	if (pd && typeof (pd as { toString: () => string }).toString === "function") {
+	if (
+		pd && typeof (pd as { toString: () => string }).toString === "function"
+	) {
 		const iso = (pd as { toString: () => string }).toString()
 		return /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso : null
 	}

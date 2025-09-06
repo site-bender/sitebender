@@ -1,6 +1,6 @@
 /**
  * @module @sitebender/scribe
- * 
+ *
  * Automatic documentation generator for TypeScript code.
  * Extracts comprehensive documentation from type signatures and code analysis,
  * requiring only single-line descriptions from developers.
@@ -33,13 +33,18 @@ export type {
 export { parseFile, parseFunction } from "./parser/index.ts"
 
 // Extractor exports
-export { extractSignature, extractDescription } from "./extractors/index.ts"
+export { extractDescription, extractSignature } from "./extractors/index.ts"
 
 // Detector exports
-export { detectProperties, detectPurity, detectCurrying, detectComplexity } from "./detectors/index.ts"
+export {
+	detectComplexity,
+	detectCurrying,
+	detectProperties,
+	detectPurity,
+} from "./detectors/index.ts"
 
 // Generator exports
-export { generateMarkdown, formatProperties } from "./generators/index.ts"
+export { formatProperties, generateMarkdown } from "./generators/index.ts"
 
 // Constants exports
 export {

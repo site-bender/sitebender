@@ -183,9 +183,15 @@ Deno.test("symmetricDifference: currying", async (t) => {
 		const basePermissions = ["read", "write"]
 		const diffFromBase = symmetricDifference(basePermissions)
 
-		assertEquals(diffFromBase(["read", "write", "delete"]).sort(), ["delete"])
+		assertEquals(diffFromBase(["read", "write", "delete"]).sort(), [
+			"delete",
+		])
 		assertEquals(diffFromBase(["read"]).sort(), ["write"])
-		assertEquals(diffFromBase(["execute"]).sort(), ["execute", "read", "write"])
+		assertEquals(diffFromBase(["execute"]).sort(), [
+			"execute",
+			"read",
+			"write",
+		])
 	})
 })
 
@@ -227,7 +233,12 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const userBPerms = ["read", "execute", "admin"]
 		const uniquePerms = symmetricDifference(userAPerms)(userBPerms)
 
-		assertEquals(uniquePerms.sort(), ["admin", "delete", "execute", "write"])
+		assertEquals(uniquePerms.sort(), [
+			"admin",
+			"delete",
+			"execute",
+			"write",
+		])
 	})
 
 	await t.step("should find differences in feature flags", () => {
@@ -243,7 +254,12 @@ Deno.test("symmetricDifference: practical examples", async (t) => {
 		const userInterests = ["react", "backend", "python"]
 		const unique = symmetricDifference(articleTags)(userInterests)
 
-		assertEquals(unique.sort(), ["backend", "frontend", "javascript", "python"])
+		assertEquals(unique.sort(), [
+			"backend",
+			"frontend",
+			"javascript",
+			"python",
+		])
 	})
 })
 
@@ -350,7 +366,12 @@ Deno.test("symmetricDifference: property-based tests", async (t) => {
 
 Deno.test("symmetricDifference: specific test cases from examples", async (t) => {
 	await t.step("should handle basic usage", () => {
-		assertEquals(symmetricDifference([1, 2, 3])([3, 4, 5]).sort(), [1, 2, 4, 5])
+		assertEquals(symmetricDifference([1, 2, 3])([3, 4, 5]).sort(), [
+			1,
+			2,
+			4,
+			5,
+		])
 		assertEquals(symmetricDifference([1, 2])([3, 4]).sort(), [1, 2, 3, 4])
 	})
 

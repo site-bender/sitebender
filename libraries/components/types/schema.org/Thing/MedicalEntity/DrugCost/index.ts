@@ -16,7 +16,9 @@ export interface DrugCostProps {
 	applicableLocation?:
 		| AdministrativeArea
 		| ReturnType<typeof AdministrativeAreaComponent>
-	costCategory?: DrugCostCategory | ReturnType<typeof DrugCostCategoryComponent>
+	costCategory?:
+		| DrugCostCategory
+		| ReturnType<typeof DrugCostCategoryComponent>
 	costCurrency?: Text
 	costOrigin?: Text
 	costPerUnit?:

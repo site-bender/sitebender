@@ -205,7 +205,10 @@ Deno.test("max: special edge cases", async (t) => {
 	})
 
 	await t.step("large numbers", () => {
-		assertEquals(max(Number.MAX_VALUE)(Number.MAX_VALUE - 1), Number.MAX_VALUE)
+		assertEquals(
+			max(Number.MAX_VALUE)(Number.MAX_VALUE - 1),
+			Number.MAX_VALUE,
+		)
 		assertEquals(
 			max(Number.MAX_SAFE_INTEGER)(Number.MAX_SAFE_INTEGER - 1),
 			Number.MAX_SAFE_INTEGER,

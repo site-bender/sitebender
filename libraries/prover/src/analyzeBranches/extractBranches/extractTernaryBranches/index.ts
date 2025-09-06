@@ -11,29 +11,31 @@ import computeBranchId from "../../computeBranchId/index.ts"
  * const branches = extractTernaryBranches(ast)
  * // Returns: [{ id: "ternary_0_true", type: BranchType.Ternary, ... }]
  */
-export default function extractTernaryBranches(ast: SourceNode): Array<BranchPath> {
+export default function extractTernaryBranches(
+	ast: SourceNode,
+): Array<BranchPath> {
 	if (!ast.children) return []
-	
+
 	return ast.children.flatMap((node: SourceNode, index: number) => {
-		if (node.type !== 'ConditionalExpression') return []
-		
+		if (node.type !== "ConditionalExpression") return []
+
 		return [
 			{
-				id: computeBranchId('ternary', index, 0),
-				condition: node.test?.value || '',
+				id: computeBranchId("ternary", index, 0),
+				condition: node.test?.value || "",
 				line: node.start,
 				column: 0,
-				type: 'ternary' as BranchType,
-				requiredInputs: []
+				type: "ternary" as BranchType,
+				requiredInputs: [],
 			},
 			{
-				id: computeBranchId('ternary', index, 1),
-				condition: `!(${node.test?.value || ''})`,
+				id: computeBranchId("ternary", index, 1),
+				condition: `!(${node.test?.value || ""})`,
 				line: node.start,
 				column: 0,
-				type: 'ternary' as BranchType,
-				requiredInputs: []
-			}
+				type: "ternary" as BranchType,
+				requiredInputs: [],
+			},
 		]
 	})
 }

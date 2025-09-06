@@ -37,14 +37,21 @@ describe("concatTo", () => {
 		})
 
 		it("should handle mixed type arrays", () => {
-			const result = concatTo<string | number | boolean | null>([3, "d", null])(
+			const result = concatTo<string | number | boolean | null>([
+				3,
+				"d",
+				null,
+			])(
 				["a", 2, true],
 			)
 			assertEquals(result, ["a", 2, true, 3, "d", null])
 		})
 
 		it("should handle arrays with undefined", () => {
-			const result = concatTo<string | number | undefined>([undefined, 2])([
+			const result = concatTo<string | number | undefined>([
+				undefined,
+				2,
+			])([
 				"a",
 				undefined,
 			])
@@ -100,7 +107,11 @@ describe("concatTo", () => {
 
 		it("should create reusable suffix functions", () => {
 			const addEllipsis = concatTo(["..."])
-			assertEquals(addEllipsis(["Hello", "World"]), ["Hello", "World", "..."])
+			assertEquals(addEllipsis(["Hello", "World"]), [
+				"Hello",
+				"World",
+				"...",
+			])
 			assertEquals(addEllipsis(["a"]), ["a", "..."])
 		})
 
@@ -110,7 +121,14 @@ describe("concatTo", () => {
 			const addBooleans = concatTo([true, false])
 
 			assertEquals(addNumbers([1, 2, 3]), [1, 2, 3, 4, 5, 6])
-			assertEquals(addStrings(["a", "b", "c"]), ["a", "b", "c", "d", "e", "f"])
+			assertEquals(addStrings(["a", "b", "c"]), [
+				"a",
+				"b",
+				"c",
+				"d",
+				"e",
+				"f",
+			])
 			assertEquals(addBooleans([false, true]), [false, true, true, false])
 		})
 	})
@@ -144,7 +162,10 @@ describe("concatTo", () => {
 					fc.array(fc.anything()),
 					(toAppend, baseArray) => {
 						const result = concatTo(toAppend)(baseArray)
-						assertEquals(result.length, baseArray.length + toAppend.length)
+						assertEquals(
+							result.length,
+							baseArray.length + toAppend.length,
+						)
 					},
 				),
 			)
@@ -165,7 +186,10 @@ describe("concatTo", () => {
 
 						// Check toAppend elements come after
 						for (let i = 0; i < toAppend.length; i++) {
-							assertEquals(result[baseArray.length + i], toAppend[i])
+							assertEquals(
+								result[baseArray.length + i],
+								toAppend[i],
+							)
 						}
 					},
 				),
@@ -221,7 +245,14 @@ describe("concatTo", () => {
 			const addExtensions = concatTo([".js", ".ts", ".tsx"])
 			const baseFiles = ["index", "App", "utils"]
 			const result = addExtensions(baseFiles)
-			assertEquals(result, ["index", "App", "utils", ".js", ".ts", ".tsx"])
+			assertEquals(result, [
+				"index",
+				"App",
+				"utils",
+				".js",
+				".ts",
+				".tsx",
+			])
 		})
 
 		it("should add footer items to lists", () => {
@@ -253,7 +284,8 @@ describe("concatTo", () => {
 			const appendSuffix = concatTo([4, 5])
 			const processArray = (arr: Array<number>) => arr.map((x) => x * 2)
 
-			const pipeline = (arr: Array<number>) => processArray(appendSuffix(arr))
+			const pipeline = (arr: Array<number>) =>
+				processArray(appendSuffix(arr))
 			assertEquals(pipeline([1, 2, 3]), [2, 4, 6, 8, 10])
 		})
 	})

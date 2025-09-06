@@ -62,7 +62,9 @@ function fromArray(
 
 function fromArray(size: 1 | 2 | 3) {
 	return <T>(array: ReadonlyArray<T> | null | undefined) => {
-		if (isNullish(array) || !Array.isArray(array) || array.length !== size) {
+		if (
+			isNullish(array) || !Array.isArray(array) || array.length !== size
+		) {
 			return null
 		}
 

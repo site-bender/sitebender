@@ -28,7 +28,10 @@ export type LoanOrCreditType =
 
 export interface LoanOrCreditProps {
 	"@type"?: LoanOrCreditType
-	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
+	amount?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
 	currency?: Text
 	gracePeriod?: Duration | ReturnType<typeof DurationComponent>
 	loanRepaymentForm?:

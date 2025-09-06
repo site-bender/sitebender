@@ -56,5 +56,5 @@ import tokenizeRecursive from "./tokenizeRecursive/index.ts"
 export default function tokenize(
 	input: string,
 ): Result<Array<Token>, ParseError> {
-	return tokenizeRecursive(input, 0, [])
+	return tokenizeRecursive(input, 0, [])kens }
 }

@@ -36,7 +36,12 @@ Deno.test("[irToHtml] renders simple form suitable for progressive enhancement",
 				kind: "element",
 				id: nodeId(),
 				tag: "input",
-				attrs: { type: "email", id: "email", name: "email", required: true },
+				attrs: {
+					type: "email",
+					id: "email",
+					name: "email",
+					required: true,
+				},
 				children: [],
 			} as ElementNode,
 			{

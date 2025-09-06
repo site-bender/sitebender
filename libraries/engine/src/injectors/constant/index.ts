@@ -36,7 +36,11 @@ const constant = (operation: HydratedConstant): OperationFunction =>
 
 		return Promise.resolve(
 			isUndefined(num) || Number.isNaN(num)
-				? { left: [Error("Constant")("Constant")("Value is not a number.")] }
+				? {
+					left: [
+						Error("Constant")("Constant")("Value is not a number."),
+					],
+				}
 				: { right: num },
 		)
 	}

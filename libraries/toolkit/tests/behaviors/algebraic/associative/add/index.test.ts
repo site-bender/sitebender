@@ -7,32 +7,40 @@ import finiteNumber from "../../../../helpers/generators/numeric/index.ts"
 
 Deno.test("add - associative property: (a + b) + c = a + (b + c)", () => {
 	fc.assert(
-		fc.property(finiteNumber(), finiteNumber(), finiteNumber(), (a, b, c) => {
-			const leftAssociative = add(add(a)(b))(c)
-			const rightAssociative = add(a)(add(b)(c))
+		fc.property(
+			finiteNumber(),
+			finiteNumber(),
+			finiteNumber(),
+			(a, b, c) => {
+				const leftAssociative = add(add(a)(b))(c)
+				const rightAssociative = add(a)(add(b)(c))
 
-			// Handle NaN cases
-			if (Number.isNaN(leftAssociative) && Number.isNaN(rightAssociative)) {
-				return true
-			}
+				// Handle NaN cases
+				if (
+					Number.isNaN(leftAssociative) &&
+					Number.isNaN(rightAssociative)
+				) {
+					return true
+				}
 
-			// Use relative epsilon based on the magnitude of the numbers involved
-			// When numbers nearly cancel out, we need to be more forgiving
-			const maxInput = Math.max(Math.abs(a), Math.abs(b), Math.abs(c))
-			const maxOutput = Math.max(
-				Math.abs(leftAssociative),
-				Math.abs(rightAssociative),
-			)
+				// Use relative epsilon based on the magnitude of the numbers involved
+				// When numbers nearly cancel out, we need to be more forgiving
+				const maxInput = Math.max(Math.abs(a), Math.abs(b), Math.abs(c))
+				const maxOutput = Math.max(
+					Math.abs(leftAssociative),
+					Math.abs(rightAssociative),
+				)
 
-			// Use the larger of input-based or output-based epsilon
-			const epsilon = Math.max(
-				maxInput * 1e-9, // Relative to input magnitude
-				maxOutput * 1e-9, // Relative to output magnitude
-				1e-9, // Absolute minimum
-			)
+				// Use the larger of input-based or output-based epsilon
+				const epsilon = Math.max(
+					maxInput * 1e-9, // Relative to input magnitude
+					maxOutput * 1e-9, // Relative to output magnitude
+					1e-9, // Absolute minimum
+				)
 
-			return approximately(leftAssociative, rightAssociative, epsilon)
-		}),
+				return approximately(leftAssociative, rightAssociative, epsilon)
+			},
+		),
 		{ numRuns: 1000 },
 	)
 })
@@ -124,8 +132,16 @@ Deno.test("add - multiple associative groupings", () => {
 				)
 				const epsilon = max * 1e-9
 
-				return approximately(grouping1, grouping2, Math.max(epsilon, 1e-9)) &&
-					approximately(grouping2, grouping3, Math.max(epsilon, 1e-9)) &&
+				return approximately(
+					grouping1,
+					grouping2,
+					Math.max(epsilon, 1e-9),
+				) &&
+					approximately(
+						grouping2,
+						grouping3,
+						Math.max(epsilon, 1e-9),
+					) &&
 					approximately(grouping3, grouping4, Math.max(epsilon, 1e-9))
 			},
 		),

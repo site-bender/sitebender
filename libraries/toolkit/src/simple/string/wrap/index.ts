@@ -91,7 +91,8 @@ const wrap = (
 				}
 				currentLine = remaining
 			} else if (
-				currentLine.length + (currentLine ? 1 : 0) + word.length <= width
+				currentLine.length + (currentLine ? 1 : 0) + word.length <=
+					width
 			) {
 				// Add word to current line
 				currentLine = currentLine ? currentLine + " " + word : word

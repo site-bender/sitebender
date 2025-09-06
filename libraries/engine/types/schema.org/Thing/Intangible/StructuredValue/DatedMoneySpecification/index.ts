@@ -15,7 +15,10 @@ export type DatedMoneySpecificationType = "DatedMoneySpecification"
 
 export interface DatedMoneySpecificationProps {
 	"@type"?: DatedMoneySpecificationType
-	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
+	amount?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
 	currency?: Text
 	endDate?: Date | DateTime
 	startDate?: Date | DateTime

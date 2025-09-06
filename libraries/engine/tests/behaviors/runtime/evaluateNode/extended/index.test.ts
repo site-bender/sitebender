@@ -42,7 +42,10 @@ const cmpEq = (
 
 describe("evaluateNode - extended IR support", () => {
 	it("evaluates conditional nodes - true branch", async () => {
-		const trueCondition: ComparatorNode = cmpEq(injector("a"), injector("a"))
+		const trueCondition: ComparatorNode = cmpEq(
+			injector("a"),
+			injector("a"),
+		)
 		const conditional: ConditionalNode = {
 			v: "0.1.0",
 			kind: "conditional",
@@ -57,7 +60,10 @@ describe("evaluateNode - extended IR support", () => {
 	})
 
 	it("evaluates conditional nodes - false branch", async () => {
-		const falseCondition: ComparatorNode = cmpEq(injector("a"), injector("b"))
+		const falseCondition: ComparatorNode = cmpEq(
+			injector("a"),
+			injector("b"),
+		)
 		const conditional: ConditionalNode = {
 			v: "0.1.0",
 			kind: "conditional",

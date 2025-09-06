@@ -149,7 +149,11 @@ Deno.test("Maybe - Nothing short-circuits", () => {
 	// Chain should not execute f when starting with Nothing
 	const result = chain<number, number>(f)(nothingMaybe)
 
-	assertEquals(sideEffectCount, 0, "Function should not be called for Nothing")
+	assertEquals(
+		sideEffectCount,
+		0,
+		"Function should not be called for Nothing",
+	)
 	assertEquals(result._tag, "Nothing")
 })
 
@@ -179,7 +183,8 @@ Deno.test("Maybe - chain maintains type safety", () => {
 Deno.test("Maybe - multiple chains preserve order", () => {
 	const addOne = (n: number): Maybe<number> => just(n + 1)
 	const multiplyTwo = (n: number): Maybe<number> => just(n * 2)
-	const checkBounds = (n: number): Maybe<number> => n > 50 ? nothing() : just(n)
+	const checkBounds = (n: number): Maybe<number> =>
+		n > 50 ? nothing() : just(n)
 
 	fc.assert(
 		fc.property(
@@ -233,7 +238,8 @@ Deno.test("Maybe - Nothing propagation in chains", () => {
 Deno.test("Maybe - law interactions", () => {
 	// Test that monad laws work together
 	const value = 42
-	const f = (n: number): Maybe<number> => n % 2 === 0 ? just(n / 2) : nothing()
+	const f = (n: number): Maybe<number> =>
+		n % 2 === 0 ? just(n / 2) : nothing()
 	const g = (n: number): Maybe<number> => just(n + 10)
 
 	// Combining left identity with associativity

@@ -29,7 +29,10 @@ export type Props =
 		"id"
 	>
 	& {
-		extension?: Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "placeholder">
+		extension?: Omit<
+			JSX.InputHTMLAttributes<HTMLInputElement>,
+			"placeholder"
+		>
 		help?: string | HelpProps
 		id?: string
 		input?: InputProps

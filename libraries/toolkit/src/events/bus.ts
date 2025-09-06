@@ -53,7 +53,10 @@ export function createLocalBus(
 			}
 			// Create a CustomEvent if supported; otherwise a plain Event
 			const CE = (globalThis as unknown as {
-				CustomEvent?: new (type: string, init?: { detail?: unknown }) => Event
+				CustomEvent?: new (
+					type: string,
+					init?: { detail?: unknown },
+				) => Event
 			}).CustomEvent
 			const event = CE
 				? new CE(`bus:${topic}`, { detail: envelope })
@@ -67,7 +70,8 @@ export function createLocalBus(
 		) {
 			const eventName = `bus:${topic}`
 			const listener = (e: Event) => {
-				const detail = (e as unknown as { detail?: BusEnvelope<T> }).detail
+				const detail =
+					(e as unknown as { detail?: BusEnvelope<T> }).detail
 				if (detail) handler(detail)
 				if (options?.once) {
 					dispatcher.removeEventListener(eventName, listener)

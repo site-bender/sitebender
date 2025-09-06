@@ -82,7 +82,8 @@ const parse = (
 
 		// Try PlainDateTime (has both date and time)
 		if (
-			cleaned.includes("T") || /\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/.test(cleaned)
+			cleaned.includes("T") ||
+			/\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/.test(cleaned)
 		) {
 			return Temporal.PlainDateTime.from(cleaned)
 		}

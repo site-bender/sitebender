@@ -13,7 +13,9 @@ Deno.test("replaceAll: type checking", async (t) => {
 		assertType<
 			IsExact<
 				typeof replacer,
-				(array: ReadonlyArray<number> | null | undefined) => Array<number>
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
 			>
 		>(true)
 
@@ -27,7 +29,9 @@ Deno.test("replaceAll: type checking", async (t) => {
 		assertType<
 			IsExact<
 				typeof stringReplacer,
-				(array: ReadonlyArray<string> | null | undefined) => Array<string>
+				(
+					array: ReadonlyArray<string> | null | undefined,
+				) => Array<string>
 			>
 		>(true)
 
@@ -181,7 +185,9 @@ Deno.test("replaceAll: currying", async (t) => {
 		assertType<
 			IsExact<
 				typeof withReplacer,
-				(array: ReadonlyArray<number> | null | undefined) => Array<number>
+				(
+					array: ReadonlyArray<number> | null | undefined,
+				) => Array<number>
 			>
 		>(true)
 

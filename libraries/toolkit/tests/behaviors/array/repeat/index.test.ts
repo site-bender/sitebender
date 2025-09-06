@@ -161,15 +161,18 @@ Deno.test("repeat: currying", async (t) => {
 		assertEquals(result3, [null, null, null])
 	})
 
-	await t.step("should allow partial application for different counts", () => {
-		const single = repeat(1)
-		const double = repeat(2)
-		const quintuple = repeat(5)
+	await t.step(
+		"should allow partial application for different counts",
+		() => {
+			const single = repeat(1)
+			const double = repeat(2)
+			const quintuple = repeat(5)
 
-		assertEquals(single("x"), ["x"])
-		assertEquals(double("x"), ["x", "x"])
-		assertEquals(quintuple("x"), ["x", "x", "x", "x", "x"])
-	})
+			assertEquals(single("x"), ["x"])
+			assertEquals(double("x"), ["x", "x"])
+			assertEquals(quintuple("x"), ["x", "x", "x", "x", "x"])
+		},
+	)
 
 	await t.step("should create reusable array generators", () => {
 		const makePair = repeat(2)

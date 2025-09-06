@@ -21,10 +21,10 @@ export type BenchmarkInputSet = {
  */
 export default function createBenchmarkInputs(
 	signature: FunctionSignature,
-	patterns: Array<BenchmarkPattern>
+	patterns: Array<BenchmarkPattern>,
 ): Array<BenchmarkInputSet> {
 	const realistic = generateRealisticInputs(signature, patterns)
 	const scaled = generateScaledInputs(signature, patterns)
-	
+
 	return [...realistic, ...scaled]
 }

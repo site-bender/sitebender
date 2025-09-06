@@ -38,7 +38,13 @@ describe("rangeStep", () => {
 				9000,
 				10000,
 			])
-			assertEquals(rangeStep(1000)(5000)(10000), [5000, 6000, 7000, 8000, 9000]) // stops before 10000
+			assertEquals(rangeStep(1000)(5000)(10000), [
+				5000,
+				6000,
+				7000,
+				8000,
+				9000,
+			]) // stops before 10000
 			assertEquals(rangeStep(-100)(300)(100), [300, 200])
 		})
 
@@ -215,7 +221,8 @@ describe("rangeStep", () => {
 						const result = rangeStep(step)(start)(end)
 						if (result.length <= 1) return true
 						return result.every((val, i) =>
-							i === 0 || Math.abs(val - result[i - 1] - step) < 0.0001
+							i === 0 ||
+							Math.abs(val - result[i - 1] - step) < 0.0001
 						)
 					},
 				),

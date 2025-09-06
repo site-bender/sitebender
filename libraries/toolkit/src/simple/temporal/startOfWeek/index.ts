@@ -84,7 +84,9 @@ const startOfWeek = (weekStartDay: number = 1) =>
 	}
 
 	// Validate weekStartDay is in valid range (1-7)
-	if (weekStartDay < 1 || weekStartDay > 7 || !Number.isInteger(weekStartDay)) {
+	if (
+		weekStartDay < 1 || weekStartDay > 7 || !Number.isInteger(weekStartDay)
+	) {
 		return null
 	}
 
@@ -100,7 +102,9 @@ const startOfWeek = (weekStartDay: number = 1) =>
 
 		if (date instanceof Temporal.PlainDate) {
 			startDate = date.subtract({ days: daysToSubtract })
-			return startDate.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
+			return startDate.toPlainDateTime(
+				Temporal.PlainTime.from("00:00:00"),
+			)
 		} else {
 			// For PlainDateTime and ZonedDateTime
 			const result = date.subtract({ days: daysToSubtract })

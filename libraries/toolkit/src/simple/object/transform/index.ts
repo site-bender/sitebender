@@ -54,7 +54,9 @@ const transform =
 			const transformer = spec[key]
 			return {
 				...result,
-				[key]: transformer(safeObj as unknown as Record<string, unknown>),
+				[key]: transformer(
+					safeObj as unknown as Record<string, unknown>,
+				),
 			}
 		}, {} as { [K in keyof S]: ReturnType<S[K]> })
 	}

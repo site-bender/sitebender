@@ -95,7 +95,9 @@ export default function filterAttributes(attributes: ButtonElementAttributes) {
 	if (isDefined(formEncType)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(FORM_ENCTYPES))("formEncType")(formEncType),
+			filterAttribute(isMemberOf(FORM_ENCTYPES))("formEncType")(
+				formEncType,
+			),
 		)
 	}
 	if (isDefined(formMethod)) {

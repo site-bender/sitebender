@@ -101,7 +101,9 @@ const startOfMonth = (
 		// Handle PlainDate by converting to PlainDateTime
 		if (date instanceof Temporal.PlainDate) {
 			const firstOfMonth = date.with({ day: 1 })
-			return firstOfMonth.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
+			return firstOfMonth.toPlainDateTime(
+				Temporal.PlainTime.from("00:00:00"),
+			)
 		}
 
 		// For PlainDateTime and ZonedDateTime, set to first day at midnight

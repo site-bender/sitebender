@@ -97,7 +97,8 @@ const toTitle = (s: string): string => {
 
 			// Always capitalize first and last words
 			if (index === 0 || index === words.length - 1) {
-				return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+				return word.charAt(0).toUpperCase() +
+					word.slice(1).toLowerCase()
 			}
 
 			// Check if word is in exceptions list

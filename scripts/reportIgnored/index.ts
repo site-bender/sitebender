@@ -55,7 +55,9 @@ async function* walkFolder(dir: string): AsyncGenerator<string> {
 		if (entry.isDirectory) {
 			// Skip common junk/outputs
 			if (
-				/^(dist|coverage|node_modules|temp|tests|fixtures)\/?$/.test(entry.name)
+				/^(dist|coverage|node_modules|temp|tests|fixtures)\/?$/.test(
+					entry.name,
+				)
 			) continue
 			yield* walkFolder(p)
 		} else if (entry.isFile) {
@@ -154,7 +156,9 @@ export default async function reportCoverageIgnores(
 				label,
 				recs
 					.slice()
-					.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line)
+					.sort((a, b) =>
+						a.file.localeCompare(b.file) || a.line - b.line
+					)
 					.map((r) => ({ ...r, file: relative(rootFsPath, r.file) })),
 			]),
 		)
@@ -201,7 +205,9 @@ if (import.meta.main) {
 		onRun: async ({ flags, options }: CliRunArgs) => {
 			const dirsOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof dirsOpt === "string"
-				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(Boolean)
+				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(
+					Boolean,
+				)
 				: Array.isArray(dirsOpt)
 				? (dirsOpt as string[])
 				: undefined

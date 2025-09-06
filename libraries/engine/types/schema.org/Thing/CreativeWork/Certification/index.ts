@@ -40,7 +40,9 @@ export interface CertificationProps {
 	issuedBy?: Organization | ReturnType<typeof OrganizationComponent>
 	logo?: ImageObject | URL | ReturnType<typeof ImageObjectComponent>
 	validFrom?: Date | DateTime
-	validIn?: AdministrativeArea | ReturnType<typeof AdministrativeAreaComponent>
+	validIn?:
+		| AdministrativeArea
+		| ReturnType<typeof AdministrativeAreaComponent>
 }
 
 type Certification = Thing & CreativeWorkProps & CertificationProps

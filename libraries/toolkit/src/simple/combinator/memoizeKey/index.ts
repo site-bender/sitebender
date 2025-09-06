@@ -136,7 +136,9 @@ const memoizeKey =
 			// Handle Set
 			if (value instanceof Set) {
 				visited.add(value)
-				const items = Array.from(value).map((v) => processValue(v, depth + 1))
+				const items = Array.from(value).map((v) =>
+					processValue(v, depth + 1)
+				)
 				visited.delete(value)
 				const str = `Set([${items.join(",")}])`
 				return includeType ? `set:${str}` : str
@@ -147,7 +149,9 @@ const memoizeKey =
 				visited.add(value)
 				const entries = Array.from(value.entries()).map(
 					([k, v]) =>
-						`[${processValue(k, depth + 1)},${processValue(v, depth + 1)}]`,
+						`[${processValue(k, depth + 1)},${
+							processValue(v, depth + 1)
+						}]`,
 				)
 				visited.delete(value)
 				const str = `Map([${entries.join(",")}])`

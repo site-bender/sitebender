@@ -120,7 +120,9 @@ const toPlainDateTime = (
 				// Try to parse as PlainDate and add midnight
 				try {
 					const date = Temporal.PlainDate.from(temporal)
-					return date.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))
+					return date.toPlainDateTime(
+						Temporal.PlainTime.from("00:00:00"),
+					)
 				} catch {
 					// Try to parse as ZonedDateTime and extract local
 					try {

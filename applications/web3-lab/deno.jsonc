@@ -2,7 +2,7 @@
 	"name": "@sitebender/web3-lab",
 	"version": "0.0.1",
 	"exports": "./src/main.ts",
-	
+
 	"tasks": {
 		"dev": "deno run --allow-net --allow-read --allow-write --watch src/main.ts",
 		"ipfs": "deno run --allow-net --allow-read --allow-write src/ipfs/experiment.ts",
@@ -13,14 +13,14 @@
 		"fmt": "deno fmt",
 		"lint": "deno lint"
 	},
-	
+
 	"imports": {
 		// Import from existing Sitebender libraries
 		"@sitebender/components": "../../libraries/components/mod.ts",
 		"@sitebender/toolkit": "../../libraries/toolkit/mod.ts",
 		"@sitebender/engine": "../../libraries/engine/mod.ts",
 		"@sitebender/distributed": "../../libraries/distributed/mod.ts",
-		
+
 		// Web3-specific dependencies - using Helia instead of deprecated IPFS
 		"@helia/http": "npm:@helia/http@^1.0.0",
 		"@helia/unixfs": "npm:@helia/unixfs@^1.4.0",
@@ -31,13 +31,13 @@
 		"ethers": "npm:ethers@^6.9.0",
 		"n3": "npm:n3@^1.17.0"
 	},
-	
+
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"jsxImportSource": "@sitebender/components",
 		"lib": ["deno.window", "dom", "dom.iterable", "dom.asynciterable"]
 	},
-	
+
 	"lint": {
 		"include": ["src/", "tests/"],
 		"exclude": ["src/testdata/"],
@@ -47,7 +47,7 @@
 			"exclude": ["no-unused-vars", "require-await"]
 		}
 	},
-	
+
 	"fmt": {
 		"include": ["src/", "tests/"],
 		"exclude": ["src/testdata/"],
@@ -58,7 +58,7 @@
 		"singleQuote": false,
 		"proseWrap": "preserve"
 	},
-	
+
 	"test": {
 		"include": ["tests/"],
 		"exclude": ["src/testdata/"]

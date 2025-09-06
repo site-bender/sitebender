@@ -189,7 +189,8 @@ Deno.test("variance - sample variance >= population variance", () => {
 				const sampVar = variance(true)(values)
 				// Sample variance should be greater than or equal to population variance
 				// They're equal only when all values are identical
-				return sampVar >= popVar || (approximately(sampVar, popVar, 1e-10))
+				return sampVar >= popVar ||
+					(approximately(sampVar, popVar, 1e-10))
 			},
 		),
 		{ numRuns: 1000 },
@@ -234,7 +235,11 @@ Deno.test("variance - scaling property", () => {
 				}),
 				{ minLength: 1, maxLength: 50 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(10) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(0.1),
+				max: Math.fround(10),
+			}),
 			fc.boolean(),
 			(values, scale, isSample) => {
 				// Skip sample variance for single values
@@ -264,7 +269,11 @@ Deno.test("variance - translation invariance", () => {
 				}),
 				{ minLength: 1, maxLength: 50 },
 			),
-			fc.float({ noNaN: true, min: Math.fround(-100), max: Math.fround(100) }),
+			fc.float({
+				noNaN: true,
+				min: Math.fround(-100),
+				max: Math.fround(100),
+			}),
 			fc.boolean(),
 			(values, shift, isSample) => {
 				// Skip sample variance for single values

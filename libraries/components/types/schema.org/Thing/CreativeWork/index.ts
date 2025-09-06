@@ -320,7 +320,10 @@ export interface CreativeWorkProps {
 		| Text
 		| URL
 		| ReturnType<typeof DefinedTermComponent>
-	educationalUse?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
+	educationalUse?:
+		| DefinedTerm
+		| Text
+		| ReturnType<typeof DefinedTermComponent>
 	encoding?: MediaObject | ReturnType<typeof MediaObjectComponent>
 	encodingFormat?: Text | URL
 	encodings?: MediaObject | ReturnType<typeof MediaObjectComponent>
@@ -357,7 +360,11 @@ export interface CreativeWorkProps {
 		| ReturnType<typeof ProductComponent>
 	isFamilyFriendly?: Boolean
 	isPartOf?: CreativeWork | URL | ReturnType<typeof CreativeWorkComponent>
-	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	keywords?:
+		| DefinedTerm
+		| Text
+		| URL
+		| ReturnType<typeof DefinedTermComponent>
 	learningResourceType?:
 		| DefinedTerm
 		| Text
@@ -393,7 +400,9 @@ export interface CreativeWorkProps {
 		| Person
 		| ReturnType<typeof OrganizationComponent>
 		| ReturnType<typeof PersonComponent>
-	publication?: PublicationEvent | ReturnType<typeof PublicationEventComponent>
+	publication?:
+		| PublicationEvent
+		| ReturnType<typeof PublicationEventComponent>
 	publisher?:
 		| Organization
 		| Person

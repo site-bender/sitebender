@@ -9,30 +9,35 @@
 
 #### ✅ What Actually Works Well
 
-**Core Mathematics** 
+**Core Mathematics**
+
 - `math/` — 53 functions implemented, most with JSDoc
 - All arithmetic, combinatorics, number theory functional
 - Quadratic solver, GCD/LCM, factorial, Fibonacci working
 
 **Array Operations**
+
 - `array/` — 123 functions implemented with JSDoc
 - All standard operations (map, filter, reduce, etc.)
 - Advanced operations (cartesian product, permutations, sliding)
 - Most have good JSDoc documentation
 
 **String Manipulation**
+
 - `string/` — 77 functions implemented
 - 12 case converters (camel, kebab, pascal, etc.)
 - Text processing (slugify, sanitize, template)
 - Levenshtein distance, similarity algorithms
 
 **Validation Suite**
+
 - `validation/` — 106 predicates implemented
 - Type guards for primitives and Temporal types
 - Format validators (email, URL, UUID, credit card)
 - Composite validators (allPass, anyPass)
 
 **Monadic Types (BETTER THAN REPORTED)**
+
 - `either/` — 18 functions with EXCELLENT JSDoc
 - `maybe/` — 17 functions with good JSDoc
 - `result/` — 18 functions (semantic Either wrapper)
@@ -45,18 +50,21 @@
 #### ⚠️ The Real Problems
 
 **Test Coverage**
+
 - Only 135 of 874 functions have ANY tests
 - No systematic testing approach
 - No property-based testing infrastructure
 - No algebraic law verification
 
 **Monadic Confusion**
+
 - Either/Result/Maybe overlap significantly
 - No Future alias for Task (easy fix)
 - Missing monad transformers
 - Inconsistent type locations (`/types/fp/` vs `/monads/types/fp/`)
 
 **Missing Infrastructure**
+
 - No test generator (YET)
 - No compiler for optimizations
 - No automatic documentation generation
@@ -65,6 +73,7 @@
 ### Code Quality Reality Check
 
 **The Good:**
+
 - ✅ One function per file religiously followed
 - ✅ Curried, data-last API consistent
 - ✅ Most functions have JSDoc (contrary to initial assessment)
@@ -72,6 +81,7 @@
 - ✅ Zero dependencies maintained
 
 **The Bad:**
+
 - ❌ 15.5% test coverage is unacceptable
 - ❌ No property-based testing
 - ❌ No algebraic law verification
@@ -79,6 +89,7 @@
 - ❌ No automated documentation
 
 **The Ugly:**
+
 - Type definitions scattered across multiple locations
 - Some JSDoc lacks examples
 - No consistent error handling strategy
@@ -87,10 +98,12 @@
 ### Dependency Injection Status
 
 Pattern partially implemented:
+
 ```typescript
 // Some functions have it:
-const querySelector = (config = { dom: globalThis.document }) =>
-  (selector: string) => config.dom.querySelector(selector)
+const querySelector =
+	(config = { dom: globalThis.document }) => (selector: string) =>
+		config.dom.querySelector(selector)
 
 // Many don't (but should):
 const getCurrentTime = () => Date.now() // Should be injectable
@@ -99,6 +112,7 @@ const getCurrentTime = () => Date.now() // Should be injectable
 ### The Test Generator Gap
 
 **What We Need:**
+
 ```typescript
 // Input: Any toolkit function
 import map from "libraries/toolkit/src/simple/array/map"
@@ -112,6 +126,7 @@ import map from "libraries/toolkit/src/simple/array/map"
 ```
 
 **What We Have:**
+
 - Manual tests for 15.5% of functions
 - No systematic approach
 - No automation

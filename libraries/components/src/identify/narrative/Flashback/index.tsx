@@ -46,7 +46,9 @@ export default function Flashback({
 			? (
 				<Event
 					name={`Flashback to ${timeShift}`}
-					description={typeof children === "string" ? children : undefined}
+					description={typeof children === "string"
+						? children
+						: undefined}
 					disableJsonLd={define === "microdata"}
 					disableMicrodata={define === "linkedData"}
 				>

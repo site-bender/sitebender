@@ -78,8 +78,16 @@ Deno.test("logarithm: inverse relationship with power", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(1.1), max: Math.fround(100) }),
-				fc.float({ noNaN: true, min: Math.fround(-10), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(1.1),
+					max: Math.fround(100),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-10),
+					max: Math.fround(10),
+				}),
 			),
 			([base, exponent]) => {
 				// base^log_base(x) = x where x = base^exponent
@@ -105,7 +113,11 @@ Deno.test("logarithm: product equals sum property", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
 				fc.float({
 					noNaN: true,
 					min: Math.fround(0.1),
@@ -138,7 +150,11 @@ Deno.test("logarithm: quotient equals difference property", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
 				fc.float({
 					noNaN: true,
 					min: Math.fround(0.1),
@@ -155,7 +171,9 @@ Deno.test("logarithm: quotient equals difference property", () => {
 				const logQuotient = logarithm(base)(a / b)
 				const diffLogs = logarithm(base)(a) - logarithm(base)(b)
 
-				if (!Number.isFinite(logQuotient) || !Number.isFinite(diffLogs)) {
+				if (
+					!Number.isFinite(logQuotient) || !Number.isFinite(diffLogs)
+				) {
 					return true // Skip overflow cases
 				}
 
@@ -171,9 +189,21 @@ Deno.test("logarithm: power equals product property", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
-				fc.float({ noNaN: true, min: Math.fround(0.1), max: Math.fround(100) }),
-				fc.float({ noNaN: true, min: Math.fround(-5), max: Math.fround(5) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(0.1),
+					max: Math.fround(100),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(-5),
+					max: Math.fround(5),
+				}),
 			),
 			([base, value, power]) => {
 				// log_b(x^p) = p * log_b(x)
@@ -185,7 +215,9 @@ Deno.test("logarithm: power equals product property", () => {
 				const logPower = logarithm(base)(powered)
 				const productLog = power * logarithm(base)(value)
 
-				if (!Number.isFinite(logPower) || !Number.isFinite(productLog)) {
+				if (
+					!Number.isFinite(logPower) || !Number.isFinite(productLog)
+				) {
 					return true // Skip overflow cases
 				}
 
@@ -201,8 +233,16 @@ Deno.test("logarithm: change of base formula", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
 				fc.float({
 					noNaN: true,
 					min: Math.fround(0.1),
@@ -212,7 +252,8 @@ Deno.test("logarithm: change of base formula", () => {
 			([base1, base2, value]) => {
 				// log_b1(x) = log_b2(x) / log_b2(b1)
 				const logBase1 = logarithm(base1)(value)
-				const logBase2 = logarithm(base2)(value) / logarithm(base2)(base1)
+				const logBase2 = logarithm(base2)(value) /
+					logarithm(base2)(base1)
 
 				if (!Number.isFinite(logBase1) || !Number.isFinite(logBase2)) {
 					return true // Skip overflow cases
@@ -230,7 +271,11 @@ Deno.test("logarithm: monotonic for positive values", () => {
 	fc.assert(
 		fc.property(
 			fc.tuple(
-				fc.float({ noNaN: true, min: Math.fround(2), max: Math.fround(10) }),
+				fc.float({
+					noNaN: true,
+					min: Math.fround(2),
+					max: Math.fround(10),
+				}),
 				fc.float({
 					noNaN: true,
 					min: Math.fround(0.01),

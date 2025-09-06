@@ -7,10 +7,14 @@ import chunk from "../../../../src/simple/array/chunk/index.ts"
 describe("chunk", () => {
 	it("splits array into chunks of specified size", () => {
 		assertEquals(chunk(2)([1, 2, 3, 4, 5]), [[1, 2], [3, 4], [5]])
-		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]), [[1, 2, 3], [4, 5, 6], [
-			7,
-			8,
-		]])
+		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]), [
+			[1, 2, 3],
+			[4, 5, 6],
+			[
+				7,
+				8,
+			],
+		])
 	})
 
 	it("returns single chunk when size is larger than array", () => {
@@ -55,11 +59,16 @@ describe("chunk", () => {
 
 	it("handles arrays with non-divisible length", () => {
 		assertEquals(chunk(2)([1, 2, 3, 4, 5]), [[1, 2], [3, 4], [5]])
-		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7]), [[1, 2, 3], [4, 5, 6], [7]])
+		assertEquals(chunk(3)([1, 2, 3, 4, 5, 6, 7]), [[1, 2, 3], [4, 5, 6], [
+			7,
+		]])
 	})
 
 	it("works with string arrays", () => {
-		assertEquals(chunk(2)(["a", "b", "c", "d", "e"]), [["a", "b"], ["c", "d"], [
+		assertEquals(chunk(2)(["a", "b", "c", "d", "e"]), [["a", "b"], [
+			"c",
+			"d",
+		], [
 			"e",
 		]])
 	})

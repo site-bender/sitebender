@@ -26,9 +26,11 @@ export default function Matches({
 		if (typeof child === "object" && child !== null) {
 			const typeName = (child as { type?: { name?: string } }).type?.name
 			if (typeName === "Value") {
-				value = (child as { props?: { children?: unknown } }).props?.children
+				value = (child as { props?: { children?: unknown } }).props
+					?.children
 			} else if (typeName === "Pattern") {
-				pattern = (child as { props?: { children?: unknown } }).props?.children
+				pattern = (child as { props?: { children?: unknown } }).props
+					?.children
 			}
 		}
 	})
@@ -40,7 +42,9 @@ export default function Matches({
 	}
 
 	const flagsCandidate = childArray.length >= 3 ? childArray[2] : undefined
-	const flags = typeof flagsCandidate === "string" ? flagsCandidate : undefined
+	const flags = typeof flagsCandidate === "string"
+		? flagsCandidate
+		: undefined
 
 	return MatchesConstructor(value as Operand)(pattern as Operand)(flags)
 }
