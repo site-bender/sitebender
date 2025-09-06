@@ -21,9 +21,9 @@ if (result1.ok) {
 console.log("\n2. Variables with different injector types:")
 console.log("Formula: (price * quantity) * (1 + tax_rate)")
 const variables2 = {
-	price: { tag: "FromElement", type: "injector", datatype: "Float", source: "#price-input" },
-	quantity: { tag: "FromElement", type: "injector", datatype: "Integer", source: "#qty-input" },
-	tax_rate: { tag: "Constant", type: "injector", datatype: "Float", value: 0.08 },
+	price: { tag: "FromElement" as const, type: "injector" as const, datatype: "Float" as const, source: "#price-input" },
+	quantity: { tag: "FromElement" as const, type: "injector" as const, datatype: "Integer" as const, source: "#qty-input" },
+	"tax_rate": { tag: "Constant" as const, type: "injector" as const, datatype: "Float" as const, value: 0.08 },
 }
 const result2 = parseFormula("(price * quantity) * (1 + tax_rate)", variables2)
 if (result2.ok) {
@@ -37,11 +37,11 @@ if (result2.ok) {
 console.log("\n3. Complex formula with mixed operations:")
 console.log("Formula: (a / b) + (c / d) - e^2")
 const variables3 = {
-	a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
-	b: { tag: "FromElement", type: "injector", datatype: "Integer", source: "#divisor" },
-	c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
-	d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
-	e: { tag: "Constant", type: "injector", datatype: "Integer", value: 3 },
+	a: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 99 },
+	b: { tag: "FromElement" as const, type: "injector" as const, datatype: "Integer" as const, source: "#divisor" },
+	c: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 44 },
+	d: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 2 },
+	e: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 3 },
 }
 const result3 = parseFormula("(a / b) + (c / d) - e^2", variables3)
 if (result3.ok) {
@@ -55,8 +55,8 @@ if (result3.ok) {
 console.log("\n4. Unary operations:")
 console.log("Formula: -x + y")
 const variables4 = {
-	x: { tag: "Constant", type: "injector", datatype: "Number", value: 10 },
-	y: { tag: "Constant", type: "injector", datatype: "Number", value: 20 },
+	x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+	y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 20 },
 }
 const result4 = parseFormula("-x + y", variables4)
 if (result4.ok) {
@@ -70,7 +70,7 @@ if (result4.ok) {
 console.log("\n5. Error handling - undefined variable:")
 console.log("Formula: a + b (where b is not defined)")
 const variables5 = {
-	a: { tag: "Constant", type: "injector", datatype: "Number", value: 5 },
+	a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
 }
 const result5 = parseFormula("a + b", variables5)
 if (result5.ok) {
@@ -95,8 +95,8 @@ if (result6.ok) {
 console.log("\n7. Type inference:")
 console.log("Formula: int1 + int2 (both Integer types)")
 const variables7 = {
-	int1: { tag: "Constant", type: "injector", datatype: "Integer", value: 10 },
-	int2: { tag: "Constant", type: "injector", datatype: "Integer", value: 20 },
+	int1: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 10 },
+	int2: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 20 },
 }
 const result7 = parseFormula("int1 + int2", variables7)
 if (result7.ok) {
@@ -111,8 +111,8 @@ if (result7.ok) {
 console.log("\n8. Mixed types default to Number:")
 console.log("Formula: intVal + floatVal")
 const variables8 = {
-	intVal: { tag: "Constant", type: "injector", datatype: "Integer", value: 10 },
-	floatVal: { tag: "Constant", type: "injector", datatype: "Float", value: 3.14 },
+	intVal: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 10 },
+	floatVal: { tag: "Constant" as const, type: "injector" as const, datatype: "Float" as const, value: 3.14 },
 }
 const result8 = parseFormula("intVal + floatVal", variables8)
 if (result8.ok) {
@@ -124,13 +124,17 @@ if (result8.ok) {
 }
 
 // Example 9: Different injector types
+// Note: These injector types (FromURL, FromLocalStorage, FromSessionStorage) are placeholders
+// demonstrating the parser's capability to handle different injector configurations.
+// The actual engine implementation currently supports FromElement and Constant injectors.
+/*
 console.log("\n9. Different injector types showcase:")
 console.log("Formula: url_param + local_storage + session_storage + element_value")
 const variables9 = {
-	url_param: { tag: "FromURL", type: "injector", datatype: "Number", param: "score" },
-	local_storage: { tag: "FromLocalStorage", type: "injector", datatype: "Number", key: "user_score" },
-	session_storage: { tag: "FromSessionStorage", type: "injector", datatype: "Number", key: "temp_score" },
-	element_value: { tag: "FromElement", type: "injector", datatype: "Number", source: "#score-input" },
+	"url_param": { tag: "FromURL" as const, type: "injector" as const, datatype: "Number" as const, param: "score" },
+	"local_storage": { tag: "FromLocalStorage" as const, type: "injector" as const, datatype: "Number" as const, key: "user_score" },
+	"session_storage": { tag: "FromSessionStorage" as const, type: "injector" as const, datatype: "Number" as const, key: "temp_score" },
+	"element_value": { tag: "FromElement" as const, type: "injector" as const, datatype: "Number" as const, source: "#score-input" },
 }
 const result9 = parseFormula("url_param + local_storage + session_storage + element_value", variables9)
 if (result9.ok) {
@@ -144,6 +148,7 @@ if (result9.ok) {
 } else {
 	console.log("❌ Error:", result9.error.message)
 }
+*/
 
 console.log("\n" + "=".repeat(60))
 console.log("Demo complete!")
