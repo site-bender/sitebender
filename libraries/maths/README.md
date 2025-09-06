@@ -15,24 +15,24 @@ import { parseFormula } from "@sitebender/maths";
 
 // Define variables with injector configurations
 const variables = {
-	a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
-	b: {
-		tag: "FromElement",
-		type: "injector",
-		datatype: "Integer",
-		source: "#divisor",
-	},
-	c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
-	d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
-}
+  a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
+  b: {
+    tag: "FromElement",
+    type: "injector",
+    datatype: "Integer",
+    source: "#divisor",
+  },
+  c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
+  d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
+};
 
 // Parse formula into engine configuration
 const result = parseFormula("(a / b) + (c / d)", variables);
 
 if (result.ok) {
-	console.log(result.value) // Engine configuration object
+  console.log(result.value); // Engine configuration object
 } else {
-	console.error(result.error) // Parse error details
+  console.error(result.error); // Parse error details
 }
 ```
 
@@ -340,3 +340,4 @@ Based on a thorough analysis of the library:
 6. **Add Performance Benchmarks** - Create benchmarks for parsing complex formulas to ensure performance doesn't degrade
 
 7. **Enhance Error Messages** - Add more detailed position tracking and context in error messages for better debugging
+
