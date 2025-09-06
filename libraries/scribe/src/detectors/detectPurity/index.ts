@@ -18,9 +18,14 @@ export default function detectPurity(source: string): boolean {
 	for (const indicator of MUTATION_INDICATORS) {
 		// Be careful with arrow functions (=>)
 		if (indicator === "=") {
-			// Look for assignment that's not part of arrow function
-			const assignmentPattern = /[^=<>!]\s*=\s*[^=>]/
-			if (assignmentPattern.test(source)) {
+			// Look for assignment that's not part of arrow function or const/let/var declaration
+			// Skip const/let/var declarations and arrow functions
+			const cleanedSource = source
+				.replace(/(?:const|let|var)\s+\w+\s*=\s*(?:\([^)]*\)|[^=])*=>/g, "") // Remove arrow function declarations
+				.replace(/=>/g, "") // Remove remaining arrow functions
+			
+			// Now check for remaining assignments (mutations)
+			if (/[^=<>!]\s*=\s*[^=]/.test(cleanedSource)) {
 				return false
 			}
 		} else {
