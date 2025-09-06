@@ -11,7 +11,7 @@
  *   deno task prover:generate
  */
 
-import { orchestrateTestGeneration } from "./orchestrateTestGeneration/index.ts"
+import orchestrateTestGeneration from "./orchestrateTestGeneration/index.ts"
 import type { FunctionSignature } from "./types/index.ts"
 import { TypeKind } from "./types/index.ts"
 

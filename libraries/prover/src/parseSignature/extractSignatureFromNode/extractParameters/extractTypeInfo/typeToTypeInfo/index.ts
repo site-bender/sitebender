@@ -61,5 +61,29 @@ export default function typeToTypeInfo(
 		}
 	}
 	
+	// Handle generic types like Result<T, E>, Option<T>, etc.
+	if (symbol && symbol.name && raw.includes("<")) {
+		const typeArgs = (type as ts.TypeReference).typeArguments
+		if (typeArgs && typeArgs.length > 0) {
+			return {
+				raw,
+				kind: TypeKind.Generic,
+				typeName: symbol.name,
+				typeArguments: typeArgs.map(t => typeToTypeInfo(t, checker))
+			}
+		}
+		return { raw, kind: TypeKind.Generic, typeName: symbol.name }
+	}
+	
+	// Handle interfaces and type aliases
+	if (symbol && (symbol.flags & ts.SymbolFlags.Interface || symbol.flags & ts.SymbolFlags.TypeAlias)) {
+		return { raw, kind: TypeKind.Interface, typeName: symbol.name }
+	}
+	
+	// Handle objects
+	if (type.flags & ts.TypeFlags.Object) {
+		return { raw, kind: TypeKind.Object }
+	}
+	
 	return { raw, kind: TypeKind.Unknown }
 }

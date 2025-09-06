@@ -1,225 +1,122 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
-import inferEmptyArrayOutput from "./inferEmptyArrayOutput/index.ts"
+import generateTestInput from "../generateTestInputs/index.ts"
+import generateEdgeCaseInputs from "../generateEdgeCaseInputs/index.ts"
 
 /**
- * Generates edge case test scenarios
- * @param signature Function signature information
- * @returns Array of edge case test cases
+ * Generates edge case test scenarios based on actual type information
+ * 
+ * @param signature Function signature with proper type information
+ * @returns Array of type-appropriate edge case test cases
  */
 export default function generateEdgeCases(signature: FunctionSignature): Array<TestCase> {
 	const edgeCases: Array<TestCase> = []
 	
-	// For curried functions, we need special handling
-	const isCurried = signature.returnType?.raw.includes("=>")
+	// Generate edge cases for each parameter
+	signature.parameters.forEach((param, index) => {
+		const edgeInputs = generateEdgeCaseInputs(param.type)
+		
+		edgeInputs.forEach(edgeInput => {
+			// Build the full input array
+			const input: Array<unknown> = []
+			
+			for (let i = 0; i < signature.parameters.length; i++) {
+				if (i === index) {
+					// Use the edge case for this parameter
+					input.push(edgeInput)
+				} else {
+					// Use normal values for other parameters
+					input.push(generateTestInput(signature.parameters[i].type))
+				}
+			}
+			
+			// Generate descriptive name
+			const inputDesc = describeInput(edgeInput, param.type.raw)
+			
+			edgeCases.push({
+				name: `handles ${inputDesc} for ${param.name}`,
+				description: `Test with ${inputDesc} value for parameter ${param.name}`,
+				input,
+				// Don't assume expected output - let the test discover it
+				// This avoids the problem of guessing wrong outputs
+			})
+		})
+		
+		// Handle optional parameters
+		if (param.optional) {
+			const input: Array<unknown> = []
+			
+			for (let i = 0; i < signature.parameters.length; i++) {
+				if (i === index) {
+					// Skip optional parameter
+					break
+				} else {
+					input.push(generateTestInput(signature.parameters[i].type))
+				}
+			}
+			
+			edgeCases.push({
+				name: `handles missing optional ${param.name}`,
+				description: `Test with optional parameter ${param.name} omitted`,
+				input,
+			})
+		}
+	})
 	
-	// For curried math functions (add, subtract, etc.)
-	if (isCurried && (signature.name === "add" || signature.name === "subtract" || signature.name === "multiply" || signature.name === "divide")) {
-		// Test with valid numbers
+	// Add test for no parameters (if applicable)
+	if (signature.parameters.length === 0) {
 		edgeCases.push({
-			name: `handles valid numbers`,
-			description: `Test ${signature.name} with valid numbers`,
-			input: [5, 3],
-			expectedOutput: signature.name === "add" ? 8 : 
-			               signature.name === "subtract" ? 2 :
-			               signature.name === "multiply" ? 15 :
-			               signature.name === "divide" ? 1.67 : undefined,
+			name: "handles no parameters",
+			description: "Test function with no parameters",
+			input: [],
 		})
-		
-		// Test with first parameter null/undefined
-		edgeCases.push({
-			name: `handles first parameter null`,
-			description: `Test ${signature.name} with null first parameter`,
-			input: [null, 3],
-			expectedOutput: NaN,
-		})
-		
-		// Test with second parameter null/undefined  
-		edgeCases.push({
-			name: `handles second parameter null`,
-			description: `Test ${signature.name} with null second parameter`,
-			input: [5, null],
-			expectedOutput: NaN,
-		})
-		
-		// Test with first parameter undefined
-		edgeCases.push({
-			name: `handles first parameter undefined`,
-			description: `Test ${signature.name} with undefined first parameter`,
-			input: [undefined, 3],
-			expectedOutput: NaN,
-		})
-		
-		// Test with second parameter undefined
-		edgeCases.push({
-			name: `handles second parameter undefined`,
-			description: `Test ${signature.name} with undefined second parameter`,
-			input: [5, undefined],
-			expectedOutput: NaN,
-		})
-		
-		return edgeCases
 	}
 	
-	// For curried functions like map, generate proper edge cases
-	else if (isCurried && (signature.name === "map" || signature.name === "filter")) {
-		// Test with identity function and empty array
-		edgeCases.push({
-			name: `handles empty array`,
-			description: `Test ${signature.name} with empty array`,
-			input: [(x: unknown) => x, []],
-			expectedOutput: [],
-		})
-		
-		// Test with identity function and single element array
-		edgeCases.push({
-			name: `handles single element array`,
-			description: `Test ${signature.name} with single element array`,
-			input: [(x: unknown) => x, [1]],
-			expectedOutput: [1],
-		})
-		
-		// Test with null array
-		edgeCases.push({
-			name: `handles null array`,
-			description: `Test ${signature.name} with null array`,
-			input: [(x: unknown) => x, null],
-			expectedOutput: [],
-		})
-		
-		// Test with undefined array
-		edgeCases.push({
-			name: `handles undefined array`,
-			description: `Test ${signature.name} with undefined array`,
-			input: [(x: unknown) => x, undefined],
-			expectedOutput: [],
-		})
-		
-		return edgeCases
-	}
-	
-	// Special handling for object utility functions
-	if (signature.name === "keys" || signature.name === "values" || signature.name === "entries") {
-		// Test with regular object
-		edgeCases.push({
-			name: `handles regular object`,
-			description: `Test ${signature.name} with regular object`,
-			input: [{ a: 1, b: 2 }],
-			expectedOutput: signature.name === "keys" ? ["a", "b"] :
-			               signature.name === "values" ? [1, 2] :
-			               [["a", 1], ["b", 2]],
-		})
-		
-		// Test with empty object
-		edgeCases.push({
-			name: `handles empty object`,
-			description: `Test ${signature.name} with empty object`,
-			input: [{}],
-			expectedOutput: [],
-		})
-		
-		// Test with string (special case for keys)
-		if (signature.name === "keys") {
-			edgeCases.push({
-				name: `handles string input`,
-				description: `Test ${signature.name} with string input`,
-				input: ["abc"],
-				expectedOutput: ["0", "1", "2"],
-			})
-		}
-		
-		// Test with number (non-object primitive)
-		edgeCases.push({
-			name: `handles number input`,
-			description: `Test ${signature.name} with number input`,
-			input: [42],
-			expectedOutput: [],
-		})
-		
-		return edgeCases
-	}
-	
-	for (const param of signature.parameters) {
-		const paramName = param.name
-		const paramType = param.type.raw
-		
-		if (paramType.includes("Array") || paramType.includes("[]")) {
-			edgeCases.push({
-				name: `handles empty array for ${paramName}`,
-				description: `Test with empty array input for ${paramName}`,
-				input: [[]],
-				expectedOutput: inferEmptyArrayOutput(signature),
-			})
-			
-			edgeCases.push({
-				name: `handles single element array for ${paramName}`,
-				description: `Test with single element array for ${paramName}`,
-				input: [[1]],
-			})
-		}
-		
-		if (paramType === "number") {
-			edgeCases.push({
-				name: `handles zero for ${paramName}`,
-				description: `Test with zero value for ${paramName}`,
-				input: [0],
-			})
-			
-			edgeCases.push({
-				name: `handles negative number for ${paramName}`,
-				description: `Test with negative value for ${paramName}`,
-				input: [-1],
-			})
-			
-			edgeCases.push({
-				name: `handles large number for ${paramName}`,
-				description: `Test with large value for ${paramName}`,
-				input: [Number.MAX_SAFE_INTEGER],
-			})
-		}
-		
-		if (paramType === "string") {
-			edgeCases.push({
-				name: `handles empty string for ${paramName}`,
-				description: `Test with empty string for ${paramName}`,
-				input: [""],
-			})
-			
-			edgeCases.push({
-				name: `handles unicode string for ${paramName}`,
-				description: `Test with unicode characters for ${paramName}`,
-				input: ["🚀 Unicode 文字"],
-				expectedOutput: signature.returnType.raw === "string" ? "🚀 Unicode 文字" : undefined,
-			})
-		}
-		
-		if (param.optional || paramType.includes("undefined")) {
-			const expectedOutput = (signature.name === "keys" || signature.name === "values" || signature.name === "entries") ? [] :
-				signature.returnType.raw === "string" ? "" :
-				signature.returnType.raw.includes("number") ? NaN :
-				undefined
-			
-			edgeCases.push({
-				name: `handles undefined for ${paramName}`,
-				description: `Test with undefined value for ${paramName}`,
-				input: [undefined],
-				expectedOutput,
-			})
-		}
-		
-		if (paramType.includes("null")) {
-			const expectedOutput = (signature.name === "keys" || signature.name === "values" || signature.name === "entries") ? [] :
-				signature.returnType.raw === "string" ? "" :
-				signature.returnType.raw.includes("number") ? NaN :
-				undefined
-			
-			edgeCases.push({
-				name: `handles null for ${paramName}`,
-				description: `Test with null value for ${paramName}`,
-				input: [null],
-				expectedOutput,
-			})
-		}
+	// For functions returning Result type, test both success and failure cases
+	if (signature.returnType.raw.includes("Result<")) {
+		// This is handled by the edge cases for parameters
+		// The function will naturally return success or error based on inputs
 	}
 	
 	return edgeCases
+}
+
+/**
+ * Generates a human-readable description of an input value
+ */
+function describeInput(value: unknown, _typeHint: string): string {
+	if (value === null) return "null"
+	if (value === undefined) return "undefined"
+	if (value === "") return "empty string"
+	if (value === 0) return "zero"
+	if (Object.is(value, -0)) return "negative zero"
+	if (Number.isNaN(value)) return "NaN"
+	if (value === Infinity) return "Infinity"
+	if (value === -Infinity) return "negative Infinity"
+	if (Array.isArray(value)) {
+		if (value.length === 0) return "empty array"
+		if (value.length === 1) return "single element array"
+		if (value.length > 100) return "large array"
+		return "array"
+	}
+	if (typeof value === "string") {
+		if (value.includes("🎯")) return "unicode string"
+		if (value.length > 100) return "long string"
+		if (value === " ") return "whitespace"
+		return "string"
+	}
+	if (typeof value === "object" && value !== null) {
+		const obj = value as Record<string, unknown>
+		if ("ok" in obj) {
+			return obj.ok ? "successful Result" : "error Result"
+		}
+		if (Object.keys(obj).length === 0) return "empty object"
+		return "object"
+	}
+	if (typeof value === "number") {
+		if (value > Number.MAX_SAFE_INTEGER) return "MAX_SAFE_INTEGER"
+		if (value < Number.MIN_SAFE_INTEGER) return "MIN_SAFE_INTEGER"
+		return "number"
+	}
+	
+	return String(typeof value)
 }
