@@ -92,6 +92,35 @@ export default function parseBinaryExpression(
 			// Consume operator
 			ctx.advance()
 
+			// Check for ambiguous operator sequences
+			// Reject: "+ +" (ambiguous), "- -" (ambiguous), "* +" (unclear), "/ +" (unclear)
+			// Allow: "+ -" (clear unary minus), "* -" (clear unary minus), etc.
+			const nextToken = ctx.current()
+			if (nextToken.type === "PLUS") {
+				// Unary plus after any operator is ambiguous
+				return {
+					ok: false,
+					error: {
+						message: `Unexpected operator '${nextToken.value}' after '${token.value}'. Use parentheses for unary plus: '${token.value} (${nextToken.value}...)'`,
+						position: nextToken.position,
+						expected: "operand",
+						found: nextToken.value,
+					},
+				}
+			}
+			if (nextToken.type === "MINUS" && token.type === "MINUS") {
+				// Double minus is ambiguous (could be typo or intended)
+				return {
+					ok: false,
+					error: {
+						message: `Unexpected operator '-' after '-'. Use parentheses for unary minus: '- (-...)'`,
+						position: nextToken.position,
+						expected: "operand",
+						found: "-",
+					},
+				}
+			}
+
 			// Calculate next minimum precedence for right side
 			const nextMinPrecedence = info.associativity === "LEFT"
 				? info.precedence + 1
