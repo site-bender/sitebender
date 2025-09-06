@@ -9,11 +9,12 @@
 		"./libraries/engine",
 		"./libraries/maths",
 		"./libraries/prover",
+		"./libraries/scribe",
 		"./libraries/toolkit",
 		"./tools/scaffold",
 		"./tools/cli",
 		"./tools/web3-tools",
-		"./plugins/vscode"
+		"./plugins/vscode",
 	],
 
 	"tasks": {
@@ -58,7 +59,7 @@
 		"test:scripts": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
 		"test:scripts:strict": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts'",
 		"test:scripts:cov": "deno test --unstable-temporal --allow-read --allow-write --allow-run 'scripts/tests/**/*.test.ts' --coverage=scripts/coverage && deno coverage scripts/coverage --lcov > scripts/coverage.lcov",
-		
+
 		// === Prover (Test Generator) ===
 		"prover:generate": "deno run --allow-all libraries/prover/src/cli.ts",
 		"prover:toolkit": "deno run --allow-all libraries/prover/src/orchestrateTestGeneration/index.ts",
@@ -115,9 +116,8 @@
 		"infra:ps": "docker compose ps",
 		"infra:config": "docker compose config",
 		"infra:grafana:reset": "rm -rf ./infra/local/configs/grafana/provisioning/dashboards/* && deno task infra:restart",
-		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true"
+		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true",
 	},
-
 
 	// Shared compiler options for all workspace members
 	"compilerOptions": {
@@ -131,7 +131,7 @@
 			"./libraries/components/types/globals.d.ts",
 			"./libraries/components/types/JSX/jsx-runtime.d.ts",
 			"./libraries/engine/src/rendering/types/globals.d.ts",
-			"./libraries/toolkit/src/types/shims/temporal-compat.d.ts"
+			"./libraries/toolkit/src/types/shims/temporal-compat.d.ts",
 		],
 		"strict": true,
 		"checkJs": false,
@@ -142,8 +142,8 @@
 			"esnext",
 			"deno.ns",
 			"deno.window",
-			"deno.unstable"
-		]
+			"deno.unstable",
+		],
 	},
 
 	"imports": {
@@ -174,7 +174,7 @@
 		"@sitebender/prover": "./libraries/prover/src/",
 		"@sitebender/prover/": "./libraries/prover/src/",
 		"@sitebender/engine-types": "./libraries/engine/types/",
-		"@sitebender/engine-types/": "./libraries/engine/types/"
+		"@sitebender/engine-types/": "./libraries/engine/types/",
 		// Deprecated legacy aliases have been removed after migration
 	},
 
@@ -187,14 +187,37 @@
 		"semiColons": false,
 		"singleQuote": false,
 		"proseWrap": "preserve",
-		"include": ["plugins/vscode/", "applications/docs/", "applications/playground/", "libraries/", "scripts/"],
-		"exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"]
+		"include": [
+			"plugins/vscode/",
+			"applications/docs/",
+			"applications/playground/",
+			"libraries/",
+			"scripts/",
+		],
+		"exclude": [
+			"**/dist/",
+			"**/temp/",
+			"**/static/",
+			"**/node_modules/",
+			"**/coverage/",
+		],
 	},
 
 	// Shared linting configuration
 	"lint": {
-		"include": ["applications/docs/src/", "applications/playground/src/", "libraries/*/src/", "scripts/"],
-		"exclude": ["**/dist/", "**/temp/", "**/static/", "**/node_modules/", "**/coverage/"],
+		"include": [
+			"applications/docs/src/",
+			"applications/playground/src/",
+			"libraries/*/src/",
+			"scripts/",
+		],
+		"exclude": [
+			"**/dist/",
+			"**/temp/",
+			"**/static/",
+			"**/node_modules/",
+			"**/coverage/",
+		],
 		"rules": {
 			"tags": ["recommended"],
 			"include": [
@@ -205,10 +228,10 @@
 				"no-const-assign",
 				"no-sparse-arrays",
 				"no-throw-literal",
-				"prefer-const"
+				"prefer-const",
 			],
-			"exclude": []
-		}
+			"exclude": [],
+		},
 	},
 
 	// Node modules support for npm packages
@@ -219,8 +242,14 @@
 
 	// Test configuration (workspace-wide defaults)
 	"test": {
-		"include": ["*/tests/", "libraries/*/tests/", "applications/docs/tests/", "applications/playground/tests/", "tools/*/tests/"],
-		"exclude": ["**/node_modules/", "**/dist/", "**/coverage/", "**/fixtures/"]
+		"include": [
+			"*/tests/",
+			"libraries/*/tests/",
+			"applications/docs/tests/",
+			"applications/playground/tests/",
+			"tools/*/tests/",
+		],
+		"exclude": ["**/node_modules/", "**/dist/", "**/coverage/", "**/fixtures/"],
 	},
 
 	// Guardrails: contributors note
@@ -229,12 +258,15 @@
 			"noNetNewErrorsPerStep": true,
 			"smallBatches": true,
 			"verifyAfterEvery3Edits": true,
-			"preferAliases": ["@sitebender/engine", "@sitebender/components", "@sitebender/toolkit", "@sitebender/maths"]
+			"preferAliases": [
+				"@sitebender/engine",
+				"@sitebender/components",
+				"@sitebender/toolkit",
+				"@sitebender/maths",
+			],
 		},
-		"notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often."
+		"notes": "Use aliases above during cleanup; replace deep relative imports. Keep changes surgical and re-check often.",
 	},
 
-	"unstable": [
-		"temporal"
-	]
+	"unstable": ["temporal"],
 }
