@@ -34,7 +34,6 @@ export type CiteElementAttributes = CitationAttributes & AriaAttributes & {
  * Allows global attributes and validates cite-specific attributes
  */
 
-
 /**
  * Creates a Cite element configuration object
  *

@@ -62,7 +62,7 @@ const minBy = <T>(
 	b: T,
 ): T => {
 	if (typeof fn !== "function") {
-	return (NaN as unknown) as T
+		return (NaN as unknown) as T
 	}
 
 	const aValue = fn(a)

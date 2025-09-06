@@ -1,5 +1,25 @@
+export type Props = Record<string, unknown> & {
+	classes?: Array<string>
+	id?: string
+}
+
 /**
- * HelpMessage component
+ * HelpMessage
  *
- * Provides help in a visible section. Can link to help documentation with rel="help"
+ * Visible inline help for form fields.
+ * - By default, role="note"; assistive tech reads as advisory content
+ * - Intended to be referenced by inputs via aria-describedby
  */
+export default function HelpMessage({
+	children,
+	classes = [],
+	id,
+	...props
+}: Props) {
+	const clss = ["help", ...classes].join(" ")
+	return (
+		<span class={clss} id={id} role="note" {...props}>
+			{children}
+		</span>
+	)
+}

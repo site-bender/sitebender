@@ -1,4 +1,7 @@
-import type { ComparatorNode, InjectorNode } from "@sitebender/engine-types/ir/index.ts"
+import type {
+	ComparatorNode,
+	InjectorNode,
+} from "@sitebender/engine-types/ir/index.ts"
 
 import createComposeContext from "@sitebender/engine/context/composeContext.ts"
 import registerDefaultExecutors from "@sitebender/engine/operations/defaults/registerDefaults.ts"

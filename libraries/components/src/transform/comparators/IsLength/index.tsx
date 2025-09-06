@@ -1,4 +1,7 @@
-import type { IsLengthComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsLengthComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsLength JSX Component

@@ -34,8 +34,6 @@ export type QElementAttributes = QuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Q element configuration object
  *

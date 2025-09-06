@@ -1,5 +1,3 @@
-import createElement from "../../../../helpers/createElement/index.ts"
-
 export type Props = JSX.LabelHTMLAttributes<HTMLLabelElement> & {
 	classes?: Array<string>
 	text?: string

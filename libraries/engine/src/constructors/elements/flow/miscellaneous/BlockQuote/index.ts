@@ -32,8 +32,6 @@ export type BlockQuoteElementAttributes = BlockQuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a BlockQuote element configuration object
  *

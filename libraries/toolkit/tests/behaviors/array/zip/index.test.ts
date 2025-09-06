@@ -246,8 +246,10 @@ describe("zip", () => {
 						}
 
 						const minLen = Math.min(arr1.length, arr2.length)
-						return JSON.stringify(unzipped1) === JSON.stringify(arr1.slice(0, minLen)) &&
-							JSON.stringify(unzipped2) === JSON.stringify(arr2.slice(0, minLen))
+						return JSON.stringify(unzipped1) ===
+								JSON.stringify(arr1.slice(0, minLen)) &&
+							JSON.stringify(unzipped2) ===
+								JSON.stringify(arr2.slice(0, minLen))
 					},
 				),
 			)
@@ -294,7 +296,10 @@ describe("zip", () => {
 
 						// Check that swapping produces the reverse pairs
 						for (let i = 0; i < result1.length; i++) {
-							if (result1[i][0] !== result2[i][1] || result1[i][1] !== result2[i][0]) {
+							if (
+								result1[i][0] !== result2[i][1] ||
+								result1[i][1] !== result2[i][0]
+							) {
 								return false
 							}
 						}

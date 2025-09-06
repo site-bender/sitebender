@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { NavElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: NavElementAttributes) {
-
 	const {
 		id,
 		// ARIA attributes
@@ -80,5 +79,4 @@ export default function filterAttributes(attributes: NavElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

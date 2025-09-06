@@ -1,1 +1,4 @@
-export type { default, HowToStepType } from "../../../CreativeWork/HowToStep/index.ts"
+export type {
+	default,
+	HowToStepType,
+} from "../../../CreativeWork/HowToStep/index.ts"

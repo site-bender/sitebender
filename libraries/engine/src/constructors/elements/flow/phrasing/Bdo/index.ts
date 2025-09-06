@@ -37,7 +37,6 @@ export type BdoElementAttributes =
  * Allows global attributes and validates bdo-specific attributes
  */
 
-
 /**
  * Creates a Bdo element configuration object
  *

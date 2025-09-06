@@ -34,8 +34,6 @@ export type SlotElementAttributes = SlotAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Slot element configuration object
  *

@@ -1,0 +1,137 @@
+export type FunctionSignature = {
+	name: string
+	path: string
+	parameters: Array<Parameter>
+	returnType: TypeInfo
+	generics?: Array<Generic>
+	isCurried: boolean
+	isAsync: boolean
+	isGenerator: boolean
+}
+
+export type Parameter = {
+	name: string
+	type: TypeInfo
+	optional: boolean
+	defaultValue?: string
+}
+
+export type TypeInfo = {
+	raw: string
+	kind: TypeKind
+	elementType?: TypeInfo
+	properties?: Record<string, TypeInfo>
+	unionTypes?: Array<TypeInfo>
+	literalValue?: unknown
+}
+
+export enum TypeKind {
+	Primitive = "primitive",
+	Array = "array",
+	Object = "object",
+	Function = "function",
+	Union = "union",
+	Intersection = "intersection",
+	Generic = "generic",
+	Literal = "literal",
+	Unknown = "unknown",
+}
+
+export type Generic = {
+	name: string
+	constraint?: string
+}
+
+export type BranchPath = {
+	id: string
+	condition: string
+	line: number
+	column: number
+	type: BranchType
+	requiredInputs: Array<TestInput>
+}
+
+export enum BranchType {
+	If = "if",
+	Else = "else",
+	ElseIf = "elseif",
+	Ternary = "ternary",
+	Switch = "switch",
+	NullCheck = "nullcheck",
+	TryCatch = "trycatch",
+	LogicalAnd = "logicaland",
+	LogicalOr = "logicalor",
+}
+
+export type TestInput = {
+	description: string
+	value: unknown
+}
+
+export type TestCase = {
+	name: string
+	description: string
+	input: Array<unknown>
+	expectedOutput?: unknown
+	expectedError?: string
+	properties?: Array<PropertyTest>
+	branchCoverage?: Array<string>
+}
+
+export type PropertyTest = {
+	name: string
+	property: string
+	generator: string
+	runs?: number
+}
+
+export type TestSuite = {
+	functionPath: string
+	functionName: string
+	testCases: Array<TestCase>
+	imports: Array<string>
+	coverage: CoverageResult
+}
+
+export type CoverageResult = {
+	percentage: number
+	lines: {
+		covered: number
+		total: number
+		uncovered: Array<number>
+	}
+	branches: {
+		covered: number
+		total: number
+		uncovered: Array<string>
+	}
+	suggestions?: Array<string>
+	ignoredLines?: Array<IgnoredLine>
+}
+
+export type CoverageMetric = {
+	total: number
+	covered: number
+	percentage: number
+}
+
+export type IgnoredLine = {
+	line: number
+	reason: string
+}
+
+export type GeneratorConfig = {
+	maxPropertyRuns: number
+	includeEdgeCases: boolean
+	includePropertyTests: boolean
+	includeBenchmarks: boolean
+	targetCoverage: number
+}
+
+export type TestFileMetadata = {
+	sourceFile: string
+	testFile: string
+	generatedAt: string
+	generator: string
+	version: string
+}

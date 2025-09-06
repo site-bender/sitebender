@@ -319,7 +319,9 @@ describe("zipAll", () => {
 						// First should have all elements from arr paired with undefined
 						if (withEmpty1.length !== arr.length) return false
 						for (let i = 0; i < arr.length; i++) {
-							if (withEmpty1[i][0] !== arr[i] || withEmpty1[i][1] !== undefined) {
+							if (
+								withEmpty1[i][0] !== arr[i] || withEmpty1[i][1] !== undefined
+							) {
 								return false
 							}
 						}
@@ -327,7 +329,9 @@ describe("zipAll", () => {
 						// Second should have all elements from arr in second position
 						if (withEmpty2.length !== arr.length) return false
 						for (let i = 0; i < arr.length; i++) {
-							if (withEmpty2[i][0] !== undefined || withEmpty2[i][1] !== arr[i]) {
+							if (
+								withEmpty2[i][0] !== undefined || withEmpty2[i][1] !== arr[i]
+							) {
 								return false
 							}
 						}

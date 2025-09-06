@@ -107,7 +107,7 @@ Deno.test("replaceLast: preserves array immutability", () => {
 Deno.test("replaceLast: is properly curried", () => {
 	const replaceTwo = replaceLast(2)
 	const doubleTwo = replaceTwo((n) => n * 2)
-	
+
 	assertEquals(doubleTwo([1, 2, 3]), [1, 4, 3])
 	assertEquals(doubleTwo([2, 2, 2]), [2, 2, 4])
 	assertEquals(doubleTwo([5, 6, 7]), [5, 6, 7])
@@ -130,7 +130,7 @@ Deno.test("replaceLast: type inference", () => {
 	const numArray = [1, 2, 3]
 	const numResult = replaceLast(2)((n) => n * 2)(numArray)
 	assertType<IsExact<typeof numResult, number[]>>(true)
-	
+
 	const strArray = ["a", "b", "c"]
 	const strResult = replaceLast("b")((s) => s.toUpperCase())(strArray)
 	assertType<IsExact<typeof strResult, string[]>>(true)
@@ -144,9 +144,9 @@ Deno.test("replaceLast: property - replaces at most one element", () => {
 			fc.integer(),
 			(array, target) => {
 				const result = replaceLast(target)(() => -999)(array)
-				const originalCount = array.filter(x => x === target).length
-				const replacedCount = result.filter(x => x === -999).length
-				
+				const originalCount = array.filter((x) => x === target).length
+				const replacedCount = result.filter((x) => x === -999).length
+
 				if (originalCount === 0) {
 					// No target found, nothing replaced
 					return replacedCount === 0
@@ -180,19 +180,19 @@ Deno.test("replaceLast: property - elements before last occurrence unchanged", (
 			(array, target) => {
 				const lastIndex = array.lastIndexOf(target)
 				if (lastIndex === -1) return true // No target found
-				
+
 				const result = replaceLast(target)(() => -999)(array)
-				
+
 				// All elements before the last occurrence should be unchanged
 				for (let i = 0; i < lastIndex; i++) {
 					if (result[i] !== array[i]) return false
 				}
-				
+
 				// All elements after the last occurrence should be unchanged
 				for (let i = lastIndex + 1; i < array.length; i++) {
 					if (result[i] !== array[i]) return false
 				}
-				
+
 				return true
 			},
 		),
@@ -206,13 +206,13 @@ Deno.test("replaceLast: property - replacer is called with correct value", () =>
 			(array) => {
 				if (array.length === 0) return true
 				const target = array[Math.floor(Math.random() * array.length)]
-				
+
 				let receivedValue: number | undefined
 				replaceLast(target)((n) => {
 					receivedValue = n
 					return n
 				})(array)
-				
+
 				// If target exists, replacer should receive it
 				if (array.includes(target)) {
 					return receivedValue === target

@@ -33,8 +33,6 @@ export type OptionElementAttributes = OptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an Option element configuration object
  *

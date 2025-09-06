@@ -26,7 +26,7 @@
 		"include": ["tests/"],
 		"exclude": ["src/"]
 	},
-	
+
 	"compilerOptions": {
 		"lib": ["deno.window", "esnext"],
 		"types": []

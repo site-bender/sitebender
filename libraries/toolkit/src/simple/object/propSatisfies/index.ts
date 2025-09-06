@@ -49,13 +49,15 @@ const propSatisfies = <V>(
 	}
 
 	// Check if property exists
-	if (!Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)) {
+	if (
+		!Object.prototype.hasOwnProperty.call(obj as object, key as string | symbol)
+	) {
 		return false
 	}
 
 	// Test the property value with the predicate
 	try {
-	return predicate((obj as Record<string | symbol, unknown>)[key] as V)
+		return predicate((obj as Record<string | symbol, unknown>)[key] as V)
 	} catch {
 		// If predicate throws, return false
 		return false

@@ -1,4 +1,7 @@
-import type { IsLongerThanComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsLongerThanComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsLongerThan JSX Component

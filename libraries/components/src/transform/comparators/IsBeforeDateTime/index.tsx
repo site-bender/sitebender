@@ -1,4 +1,7 @@
-import type { IsBeforeDateTimeComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsBeforeDateTimeComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsBeforeDateTime JSX Component

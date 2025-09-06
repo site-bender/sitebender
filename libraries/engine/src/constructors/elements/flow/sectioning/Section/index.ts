@@ -37,7 +37,6 @@ export type SectionElementAttributes =
  * Allows global attributes and validates section-specific attributes
  */
 
-
 /**
  * Creates a Section element configuration object
  *

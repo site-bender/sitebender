@@ -83,9 +83,9 @@ const isFutureDate = (
 		return false
 	}
 
-		const iso = toIsoDateString(date)
-		if (!iso) return false
-		return iso > todayIsoLocal()
+	const iso = toIsoDateString(date)
+	if (!iso) return false
+	return iso > todayIsoLocal()
 }
 
 export default isFutureDate

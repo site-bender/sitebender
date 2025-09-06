@@ -1,18 +1,25 @@
+export type Props = Record<string, unknown> & {
+	classes?: Array<string>
+	id?: string
+}
+
 /**
- * ErrorMessage component
+ * ErrorMessage
  *
- * Renders error messages with proper ARIA attributes for form
- * validation and error states. Automatically includes role="alert"
- * and associates with form fields via aria-describedby.
- *
- * Example usage:
- *
- * <input
- *   type="email"
- *   aria-invalid="true"
- *   aria-describedby="email-error"
- * />
- * <ErrorMessage id="email-error">
- *   Please enter a valid email address
- * </ErrorMessage>
+ * Accessible inline error message for form fields.
+ * - Always renders role="alert" for assistive tech announcement
+ * - Intended to be referenced by inputs via aria-describedby
  */
+export default function ErrorMessage({
+	children,
+	classes = [],
+	id,
+	...props
+}: Props) {
+	const clss = ["error", ...classes].join(" ")
+	return (
+		<span class={clss} id={id} role="alert" {...props}>
+			{children}
+		</span>
+	)
+}

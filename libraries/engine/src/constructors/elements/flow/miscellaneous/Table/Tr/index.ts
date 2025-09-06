@@ -33,7 +33,6 @@ export type TrElementAttributes = TableRowAttributes & AriaAttributes & {
  * Allows global attributes and validates tr-specific attributes
  */
 
-
 /**
  * Creates a Tr element configuration object
  *

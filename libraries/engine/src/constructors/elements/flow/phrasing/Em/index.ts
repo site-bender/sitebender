@@ -34,7 +34,6 @@ export type EmElementAttributes = EmphasisAttributes & AriaAttributes & {
  * Allows global attributes and validates em-specific attributes
  */
 
-
 /**
  * Creates an Em element configuration object
  *

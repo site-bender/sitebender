@@ -1,4 +1,7 @@
-import type { CeilingOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	CeilingOperator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * Ceiling JSX Component

@@ -10,7 +10,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { BaseElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: BaseElementAttributes) {
-
 	const {
 		id,
 		href,
@@ -58,5 +57,4 @@ export default function filterAttributes(attributes: BaseElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }
