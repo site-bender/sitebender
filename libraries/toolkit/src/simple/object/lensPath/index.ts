@@ -71,7 +71,9 @@ const lensPath = (
 
 			// Use assocPath for immutable nested updates
 			return assocPath(pathArray as Array<string | number>)(value)(
-				obj && typeof obj === "object" ? obj as Record<string, Value> : {},
+				obj && typeof obj === "object"
+					? obj as Record<string, Value>
+					: {},
 			)
 		},
 	)

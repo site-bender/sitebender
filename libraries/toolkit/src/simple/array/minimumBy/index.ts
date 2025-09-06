@@ -67,7 +67,9 @@ const minimumBy = <T>(
 			return currentMin
 		}
 		const current = arr[index]
-		const newMin = comparator(current, currentMin) < 0 ? current : currentMin
+		const newMin = comparator(current, currentMin) < 0
+			? current
+			: currentMin
 		return findMinimum(arr, newMin, index + 1)
 	}
 

@@ -40,7 +40,16 @@ Deno.test("compact - handles array with only null", () => {
 })
 
 Deno.test("compact - handles mixed types", () => {
-	const input = [1, "hello", true, null, undefined, { a: 1 }, [1, 2], undefined]
+	const input = [
+		1,
+		"hello",
+		true,
+		null,
+		undefined,
+		{ a: 1 },
+		[1, 2],
+		undefined,
+	]
 	const expected = [1, "hello", true, null, { a: 1 }, [1, 2]]
 	assertEquals(compact(input), expected)
 })
@@ -159,7 +168,9 @@ Deno.test("compact property - preserves element order", () => {
 			(arr) => {
 				const result = compact(arr)
 				const nonUndefinedOriginal = arr.filter((x) => x !== undefined)
-				return result.every((val, idx) => val === nonUndefinedOriginal[idx])
+				return result.every((val, idx) =>
+					val === nonUndefinedOriginal[idx]
+				)
 			},
 		),
 	)
@@ -214,7 +225,10 @@ Deno.test("compact - doesn't modify original array", () => {
 
 // Special number values
 Deno.test("compact - handles Infinity", () => {
-	assertEquals(compact([Infinity, undefined, -Infinity]), [Infinity, -Infinity])
+	assertEquals(compact([Infinity, undefined, -Infinity]), [
+		Infinity,
+		-Infinity,
+	])
 })
 
 Deno.test("compact - handles negative zero", () => {

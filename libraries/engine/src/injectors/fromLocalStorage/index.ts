@@ -31,7 +31,9 @@ const fromLocalStorage =
 
 		return isDefined(casted.right) ? casted : {
 			left: [
-				Error("FromLocalStorage")("FromLocalStorage")(String(casted.left)),
+				Error("FromLocalStorage")("FromLocalStorage")(
+					String(casted.left),
+				),
 			],
 		}
 	}

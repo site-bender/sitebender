@@ -37,7 +37,9 @@ Deno.test("compileToEngine compiles IsAfterTime comparator without warnings (hap
 				payload: IsAfterTime({
 					children: [
 						FromElement({ id: "t" }) as unknown as JSX.Element,
-						Constant({ value: "14:30:00" }) as unknown as JSX.Element,
+						Constant({
+							value: "14:30:00",
+						}) as unknown as JSX.Element,
 					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
@@ -48,8 +50,8 @@ Deno.test("compileToEngine compiles IsAfterTime comparator without warnings (hap
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
 	assertEquals(cmp.cmp, "IsAfterTime")
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length, 0)
 })
@@ -64,7 +66,9 @@ Deno.test("compileToEngine compiles IsNotAfterDate comparator without warnings (
 				payload: IsNotAfterDate({
 					children: [
 						FromElement({ id: "d" }) as unknown as JSX.Element,
-						Constant({ value: "2024-01-01" }) as unknown as JSX.Element,
+						Constant({
+							value: "2024-01-01",
+						}) as unknown as JSX.Element,
 					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
@@ -75,8 +79,8 @@ Deno.test("compileToEngine compiles IsNotAfterDate comparator without warnings (
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
 	assertEquals(cmp.cmp, "IsNotAfterDate")
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length, 0)
 })
@@ -91,7 +95,9 @@ Deno.test("compileToEngine compiles IsSameTime comparator without warnings (happ
 				payload: IsSameTime({
 					children: [
 						FromElement({ id: "t" }) as unknown as JSX.Element,
-						Constant({ value: "14:30:00" }) as unknown as JSX.Element,
+						Constant({
+							value: "14:30:00",
+						}) as unknown as JSX.Element,
 					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
@@ -102,8 +108,8 @@ Deno.test("compileToEngine compiles IsSameTime comparator without warnings (happ
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
 	assertEquals(cmp.cmp, "IsSameTime")
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length, 0)
 })
@@ -118,7 +124,9 @@ Deno.test("compileToEngine compiles IsSameDateTime comparator without warnings (
 				payload: IsSameDateTime({
 					children: [
 						FromElement({ id: "dt" }) as unknown as JSX.Element,
-						Constant({ value: "2024-05-01T12:00" }) as unknown as JSX.Element,
+						Constant({
+							value: "2024-05-01T12:00",
+						}) as unknown as JSX.Element,
 					],
 				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
@@ -129,8 +137,8 @@ Deno.test("compileToEngine compiles IsSameDateTime comparator without warnings (
 	const handler = evt.handler as { args: unknown[] }
 	const cmp = handler.args[1] as ComparatorNode
 	assertEquals(cmp.cmp, "IsSameDateTime")
-	const warnings =
-		((cmp.meta?.debug as { warnings?: unknown })?.warnings ?? []) as unknown[]
+	const warnings = ((cmp.meta?.debug as { warnings?: unknown })?.warnings ??
+		[]) as unknown[]
 	assert(Array.isArray(warnings))
 	assertEquals(warnings.length, 0)
 })

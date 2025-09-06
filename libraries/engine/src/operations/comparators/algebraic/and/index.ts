@@ -18,7 +18,8 @@ const and =
 		localValues?: LocalValues,
 	): Promise<Either<Array<EngineError>, boolean>> => {
 		const operands =
-			(op as { operands?: Array<ComparatorConfig | LogicalConfig> }).operands ??
+			(op as { operands?: Array<ComparatorConfig | LogicalConfig> })
+				.operands ??
 				[]
 		const fns = await Promise.all(
 			operands.map((child) => composeComparators(child)),

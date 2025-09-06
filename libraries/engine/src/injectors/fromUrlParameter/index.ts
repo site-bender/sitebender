@@ -19,7 +19,8 @@ const fromUrlParameter = (op: any = {}) =>
 
 	const opts =
 		(op && typeof op === "object"
-			? (op as { options?: { pattern?: string; segment?: number } }).options
+			? (op as { options?: { pattern?: string; segment?: number } })
+				.options
 			: undefined) ?? {}
 	const { pattern, segment } = opts as { pattern?: string; segment?: number }
 
@@ -33,7 +34,9 @@ const fromUrlParameter = (op: any = {}) =>
 
 	return Promise.resolve({
 		left: [
-			Error("FromUrlParameter")("FromUrlParameter")("Invalid parameters."),
+			Error("FromUrlParameter")("FromUrlParameter")(
+				"Invalid parameters.",
+			),
 		],
 	})
 }

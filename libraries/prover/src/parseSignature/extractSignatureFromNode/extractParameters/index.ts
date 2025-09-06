@@ -10,14 +10,14 @@ import extractTypeInfo from "./extractTypeInfo/index.ts"
  */
 export default function extractParameters(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
-	checker: ts.TypeChecker
+	checker: ts.TypeChecker,
 ): Array<Parameter> {
 	return node.parameters.map((param) => {
 		const name = param.name.getText()
 		const type = extractTypeInfo(param.type, checker)
 		const optional = !!param.questionToken
 		const defaultValue = param.initializer?.getText()
-		
+
 		return {
 			name,
 			type,

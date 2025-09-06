@@ -89,7 +89,12 @@ Deno.test("ceiling: integer property - ceiling always returns an integer", () =>
 Deno.test("ceiling: minimal distance property - ceiling(x) - x <= 1", () => {
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e10, max: 1e10 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e10,
+				max: 1e10,
+			}),
 			(n) => {
 				const result = ceiling(n)
 				const distance = result - n
@@ -172,7 +177,11 @@ Deno.test("ceiling: boundary values", () => {
 // ===========================
 
 Deno.test("ceiling: null safety", () => {
-	assertEquals(Number.isNaN(ceiling(null)), true, "ceiling(null) should be NaN")
+	assertEquals(
+		Number.isNaN(ceiling(null)),
+		true,
+		"ceiling(null) should be NaN",
+	)
 	assertEquals(
 		Number.isNaN(ceiling(undefined)),
 		true,
@@ -218,7 +227,11 @@ Deno.test("ceiling: JSDoc examples - negative decimals round toward zero", () =>
 	assertEquals(ceiling(-4.1), -4, "ceiling(-4.1)")
 	assertEquals(ceiling(-4.5), -4, "ceiling(-4.5)")
 	assertEquals(ceiling(-4.9), -4, "ceiling(-4.9)")
-	assertEquals(Object.is(ceiling(-0.1), -0), true, "ceiling(-0.1) should be -0")
+	assertEquals(
+		Object.is(ceiling(-0.1), -0),
+		true,
+		"ceiling(-0.1) should be -0",
+	)
 	assertEquals(
 		Object.is(ceiling(-0.9999), -0),
 		true,
@@ -318,11 +331,18 @@ Deno.test("ceiling: JSDoc examples - batch processing", () => {
 	function calculateBatches(items: number, batchSize: number): number {
 		return ceiling(items / batchSize)
 	}
-	assertEquals(calculateBatches(250, 100), 3, "250 items need 3 batches of 100")
+	assertEquals(
+		calculateBatches(250, 100),
+		3,
+		"250 items need 3 batches of 100",
+	)
 })
 
 Deno.test("ceiling: JSDoc examples - resource allocation", () => {
-	function serversNeeded(requests: number, requestsPerServer: number): number {
+	function serversNeeded(
+		requests: number,
+		requestsPerServer: number,
+	): number {
 		return ceiling(requests / requestsPerServer)
 	}
 	assertEquals(serversNeeded(1500, 500), 3, "1500 requests need 3 servers")
@@ -368,7 +388,11 @@ Deno.test("ceiling: JSDoc examples - memory alignment", () => {
 	function alignToWord(bytes: number, wordSize: number = 4): number {
 		return ceiling(bytes / wordSize) * wordSize
 	}
-	assertEquals(alignToWord(13), 16, "13 bytes aligned to 4-byte boundary is 16")
+	assertEquals(
+		alignToWord(13),
+		16,
+		"13 bytes aligned to 4-byte boundary is 16",
+	)
 })
 
 Deno.test("ceiling: JSDoc examples - safe calculation", () => {

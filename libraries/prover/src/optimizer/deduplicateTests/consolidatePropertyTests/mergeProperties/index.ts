@@ -12,7 +12,7 @@ import type { PropertyTest } from "../../../../types/index.ts"
 export default function mergeProperties(properties: Array<PropertyTest>): Array<PropertyTest> {
 	const seen = properties.reduce((acc, prop) => {
 		const key = `${prop.name}:${prop.generator}`
-		
+
 		// If we've seen this property, keep the one with more runs
 		if (acc.has(key)) {
 			const existing = acc.get(key)!
@@ -22,9 +22,9 @@ export default function mergeProperties(properties: Array<PropertyTest>): Array<
 		} else {
 			acc.set(key, prop)
 		}
-		
+
 		return acc
 	}, new Map<string, PropertyTest>())
-	
+
 	return Array.from(seen.values())
 }

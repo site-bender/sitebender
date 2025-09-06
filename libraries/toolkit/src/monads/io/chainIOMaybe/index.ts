@@ -50,7 +50,8 @@ import nothing from "../../maybe/nothing/index.ts"
  * @curried
  */
 const chainIOMaybe =
-	<A, B>(f: (a: A) => IOMaybe<B>) => (ioMaybe: IOMaybe<A>): IOMaybe<B> =>
+	<A, B>(f: (a: A) => IOMaybe<B>) =>
+	(ioMaybe: IOMaybe<A>): IOMaybe<B> =>
 	() => {
 		const maybeValue = ioMaybe()
 		return isJust(maybeValue) ? f(maybeValue.value)() : nothing()

@@ -17,18 +17,18 @@ export default function mergeSimilarTests(tests: Array<TestCase>): Array<TestCas
 		if (acc.some(item => item.merged && item.test === current)) {
 			return acc
 		}
-		
+
 		// Find all similar tests starting from current index
 		const similarTests = tests
 			.slice(i + 1)
 			.filter(test => !acc.some(item => item.merged && item.test === test))
 			.filter(test => areSimilar(current, test))
-		
+
 		// If we found similar tests, merge them
 		if (similarTests.length > 0) {
 			const allSimilar = [current, ...similarTests]
 			const merged = mergeTestCases(allSimilar)
-			
+
 			// Mark all similar tests as merged
 			similarTests.forEach(test => {
 				const index = acc.findIndex(item => item.test === test)
@@ -36,10 +36,10 @@ export default function mergeSimilarTests(tests: Array<TestCase>): Array<TestCas
 					acc.push({ test, merged: true })
 				}
 			})
-			
+
 			return [...acc, { test: merged, merged: false }]
 		}
-		
+
 		// No similar tests found, keep original
 		return [...acc, { test: current, merged: false }]
 	}, [])

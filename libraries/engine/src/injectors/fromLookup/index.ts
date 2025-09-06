@@ -17,7 +17,9 @@ const fromLookup =
 
 		const maybeLeft = (result as { left?: unknown }).left
 		if (isDefined(maybeLeft)) {
-			return { left: [Error("FromLookup")("FromLookup")(String(maybeLeft))] }
+			return {
+				left: [Error("FromLookup")("FromLookup")(String(maybeLeft))],
+			}
 		}
 
 		return result

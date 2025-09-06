@@ -175,7 +175,13 @@ Deno.test("nub: JSDoc examples", async (t) => {
 	})
 
 	await t.step("unique values from form inputs", () => {
-		const formValues = ["option1", "option2", "option1", "option3", "option2"]
+		const formValues = [
+			"option1",
+			"option2",
+			"option1",
+			"option3",
+			"option2",
+		]
 		assertEquals(nub(formValues), ["option1", "option2", "option3"])
 	})
 })

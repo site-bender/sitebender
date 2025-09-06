@@ -137,7 +137,9 @@ describe("shuffle", () => {
 			assert(result.includes(null))
 			assert(result.some((item: any) => item?.x === 1))
 			assert(
-				result.some((item: any) => Array.isArray(item) && item.length === 2),
+				result.some((item: any) =>
+					Array.isArray(item) && item.length === 2
+				),
 			)
 		})
 
@@ -186,7 +188,8 @@ describe("shuffle", () => {
 						const result = shuffle(arr)
 						const inputSorted = [...arr].sort((a, b) => a - b)
 						const resultSorted = [...result].sort((a, b) => a - b)
-						return JSON.stringify(inputSorted) === JSON.stringify(resultSorted)
+						return JSON.stringify(inputSorted) ===
+							JSON.stringify(resultSorted)
 					},
 				),
 			)
@@ -199,9 +202,13 @@ describe("shuffle", () => {
 					(arr) => {
 						const result = shuffle(arr)
 						// Every element in result should be in original
-						const allInOriginal = result.every((item) => arr.includes(item))
+						const allInOriginal = result.every((item) =>
+							arr.includes(item)
+						)
 						// Every element in original should be in result
-						const allInResult = arr.every((item) => result.includes(item))
+						const allInResult = arr.every((item) =>
+							result.includes(item)
+						)
 						return allInOriginal && allInResult
 					},
 				),
@@ -217,9 +224,14 @@ describe("shuffle", () => {
 						const countMap = new Map<number, number>()
 						const resultCountMap = new Map<number, number>()
 
-						arr.forEach((n) => countMap.set(n, (countMap.get(n) || 0) + 1))
+						arr.forEach((n) =>
+							countMap.set(n, (countMap.get(n) || 0) + 1)
+						)
 						result.forEach((n) =>
-							resultCountMap.set(n, (resultCountMap.get(n) || 0) + 1)
+							resultCountMap.set(
+								n,
+								(resultCountMap.get(n) || 0) + 1,
+							)
 						)
 
 						// Check all counts match
@@ -235,7 +247,11 @@ describe("shuffle", () => {
 		it("should handle edge cases consistently", () => {
 			fc.assert(
 				fc.property(
-					fc.oneof(fc.constant(null), fc.constant(undefined), fc.constant([])),
+					fc.oneof(
+						fc.constant(null),
+						fc.constant(undefined),
+						fc.constant([]),
+					),
 					(input) => {
 						const result = shuffle(input as any)
 						return Array.isArray(result) && result.length === 0

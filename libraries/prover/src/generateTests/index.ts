@@ -4,7 +4,10 @@ import createConsoleLogger from "../logger/createConsoleLogger/index.ts"
 import parseSignature from "../parseSignature/index.ts"
 import generatePropertyTests from "../generatePropertyTests/index.ts"
 import writeTestFile from "../writeTestFile/index.ts"
-import { needsCurriedHandling, transformTestCase } from "../handleCurriedFunctions/index.ts"
+import {
+	needsCurriedHandling,
+	transformTestCase,
+} from "../handleCurriedFunctions/index.ts"
 import generateEdgeCases from "./generateEdgeCases/index.ts"
 import generateBranchTests from "./generateBranchTests/index.ts"
 import _validateAndImproveCoverage from "./validateAndImproveCoverage/index.ts"
@@ -16,7 +19,7 @@ import generateBenchmarks from "../generateBenchmarks/index.ts"
 
 export default async function generateTests(
 	functionPath: string,
-	config?: Partial<GeneratorConfig>
+	config?: Partial<GeneratorConfig>,
 ): Promise<TestSuite> {
 	const logger: Logger = config?.logger ?? createConsoleLogger()
 	const finalConfig: GeneratorConfig = {
@@ -27,20 +30,22 @@ export default async function generateTests(
 		targetCoverage: config?.targetCoverage ?? 100,
 		logger,
 	}
-	
+
 	logger.log(`🔍 Analyzing function: ${functionPath}`)
-	
+
 	const signature = parseSignature(functionPath)
-	
+
 	if (!signature) {
-		throw new Error(`Could not parse function signature from ${functionPath}`)
+		throw new Error(
+			`Could not parse function signature from ${functionPath}`,
+		)
 	}
-	
+
 	logger.log(`📝 Function: ${signature.name}`)
 	logger.log(`   Parameters: ${signature.parameters.length}`)
 	logger.log(`   Return type: ${signature.returnType.raw}`)
 	logger.log(`   Is curried: ${signature.isCurried}`)
-	
+
 	// Read source code for branch analysis
 	const sourceCode = await (async () => {
 		try {
@@ -50,13 +55,13 @@ export default async function generateTests(
 			return ""
 		}
 	})()
-	
+
 	// Analyze branches in the source code
-	const branches: Array<BranchPath> = sourceCode 
+	const branches: Array<BranchPath> = sourceCode
 		? analyzeBranches(signature, sourceCode)
 		: []
 	logger.log(`🌳 Found ${branches.length} branches`)
-	
+
 	// Generate benchmarks if requested
 	if (finalConfig.includeBenchmarks && sourceCode) {
 		const benchmarkSuite = generateBenchmarks(signature, sourceCode)
@@ -64,38 +69,40 @@ export default async function generateTests(
 		// Note: Benchmarks are generated but not included in test cases
 		// They would be written to a separate benchmark file
 	}
-	
+
 	const allTests: Array<TestCase> = []
-	
+
 	if (finalConfig.includeEdgeCases) {
 		const edgeCases = generateEdgeCases(signature)
 		// Transform edge cases for curried functions
 		const transformedEdgeCases = needsCurriedHandling(signature)
-			? edgeCases.map(test => transformTestCase(test, signature))
+			? edgeCases.map((test) => transformTestCase(test, signature))
 			: edgeCases
 		allTests.push(...transformedEdgeCases)
 		logger.log(`🔧 Generated ${transformedEdgeCases.length} edge case tests`)
 	}
-	
+
 	if (finalConfig.includePropertyTests) {
 		const propertyTests = generatePropertyTests(signature)
 		allTests.push(...propertyTests)
 		logger.log(`🔬 Generated ${propertyTests.length} property-based tests`)
 	}
-	
-	const branchTests = needsCurriedHandling(signature) 
-		? generateBranchTests(branches, signature).map(test => transformTestCase(test, signature))
+
+	const branchTests = needsCurriedHandling(signature)
+		? generateBranchTests(branches, signature).map((test) =>
+			transformTestCase(test, signature)
+		)
 		: generateBranchTests(branches, signature)
 	allTests.push(...branchTests)
 	logger.log(`🎯 Generated ${branchTests.length} branch coverage tests`)
-	
+
 	const patternTests = generateToolkitPatternTests(signature)
 	allTests.push(...patternTests)
 	logger.log(`🔮 Generated ${patternTests.length} pattern-based tests`)
-	
+
 	const optimizedTests = deduplicateTests(allTests)
 	logger.log(`🎨 Optimized from ${allTests.length} to ${optimizedTests.length} tests`)
-	
+
 	const testFilePath = writeTestFile(
 		functionPath,
 		signature.name,
@@ -105,25 +112,25 @@ export default async function generateTests(
 		logger.log(`✍️  Wrote test file: ${path}`)
 		return path
 	})
-	
-	const coverage = testFilePath.then(path =>
+
+	const coverage = testFilePath.then((path) =>
 		_validateAndImproveCoverage(
 			functionPath,
 			path,
 			allTests,
 			signature.name,
-			finalConfig
+			finalConfig,
 		)
 	)
-	
+
 	return Promise.all([testFilePath, coverage]).then(([_path, coverageResult]) => {
 		logger.log(`📊 Coverage: ${coverageResult.percentage.toFixed(1)}%`)
 		logger.log(`   Lines: ${coverageResult.lines.covered}/${coverageResult.lines.total}`)
 		logger.log(`   Branches: ${coverageResult.branches.covered}/${coverageResult.branches.total}`)
-		
+
 		if (coverageResult.percentage < finalConfig.targetCoverage) {
 			logger.warn(`⚠️  Coverage below target (${finalConfig.targetCoverage}%)`)
-			
+
 			if (coverageResult.lines.uncovered.length > 0) {
 				logger.log(`   Uncovered lines: ${coverageResult.lines.uncovered.join(", ")}`)
 			}
@@ -136,7 +143,7 @@ export default async function generateTests(
 		} else {
 			logger.log(`✅ Target coverage achieved!`)
 		}
-		
+
 		const testSuite: TestSuite = {
 			functionPath,
 			functionName: signature.name,
@@ -144,7 +151,7 @@ export default async function generateTests(
 			imports: generateImports(signature, optimizedTests),
 			coverage: coverageResult,
 		}
-		
+
 		return testSuite
 	})
 }

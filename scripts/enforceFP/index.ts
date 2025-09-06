@@ -21,7 +21,9 @@ type Violation = {
 
 export default async function enforceFP(globsArg: string[] = Deno.args) {
 	const pedantic = globsArg.includes("--pedantic")
-	const globs = pedantic ? globsArg.filter((a) => a !== "--pedantic") : globsArg
+	const globs = pedantic
+		? globsArg.filter((a) => a !== "--pedantic")
+		: globsArg
 	const patterns = globs.length ? globs : DEFAULT_FP_GLOBS
 
 	const violations: Violation[] = []
@@ -77,7 +79,9 @@ export default async function enforceFP(globsArg: string[] = Deno.args) {
 	if (violations.length) {
 		console.error("Strict FP violations found:\n")
 		for (const v of violations) {
-			console.error(`${v.file}:${v.line}:${v.col}  [${v.rule}]  ${v.snippet}`)
+			console.error(
+				`${v.file}:${v.line}:${v.col}  [${v.rule}]  ${v.snippet}`,
+			)
 		}
 		console.error(`\nTotal: ${violations.length}`)
 		Deno.exit(1)

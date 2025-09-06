@@ -178,7 +178,8 @@ Deno.test("combinations property - each combination has size k", () => {
 			(arr, k) => {
 				const result = combinations(k)(arr)
 				if (k < 0 || !Number.isInteger(k) || k > arr.length) {
-					return result.length === 0 || (k === 0 && result.length === 1)
+					return result.length === 0 ||
+						(k === 0 && result.length === 1)
 				}
 				return result.every((combo) => combo.length === k)
 			},

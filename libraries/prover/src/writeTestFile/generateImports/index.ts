@@ -11,11 +11,11 @@ export default function generateImports(
 	tests: Array<TestCase>
 ): string {
 	const imports: Array<string> = []
-	
+
 	// Import the function being tested
 	const relativePath = generateRelativePath(signature.path)
 	imports.push(`import ${signature.name} from "${relativePath}"`)
-	
+
 	// Check if we need type imports from signature
 	if (signature.imports) {
 		// Group imports by path
@@ -30,10 +30,10 @@ export default function generateImports(
 			})
 			return acc
 		}, new Map<string, Array<{ name: string; isType: boolean; isDefault: boolean }>>())
-		
+
 		// Type-only imports
 		const typeImports = signature.imports.filter(i => i.isType)
-		
+
 		// Add custom type imports from required imports
 		const requiredImports = signature.requiredImports || []
 		requiredImports.forEach(imp => {
@@ -43,41 +43,41 @@ export default function generateImports(
 				isDefault: imp.isDefault
 			}])
 		})
-		
+
 		// Generate import statements
 		Array.from(importsByPath.entries()).forEach(([path, items]) => {
 			const defaultImport = items.find(i => i.isDefault)
 			const namedImports = items.filter(i => !i.isDefault)
-			
+
 			const isTypeImport = typeImports.some(i => i.path === path)
 			const importPrefix = isTypeImport ? "import type " : "import "
-			
+
 			const importParts: Array<string> = []
-			
+
 			if (defaultImport) {
 				importParts.push(defaultImport.name)
 			}
-			
+
 			if (namedImports.length > 0) {
 				const namedPart = `{ ${namedImports.map(i => i.name).join(", ")} }`
 				importParts.push(namedPart)
 			}
-			
+
 			const importStatement = `${importPrefix}${importParts.join(", ")} from "${path}"`
 			imports.push(importStatement)
 		})
 	}
-	
+
 	imports.push(`import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"`)
 	imports.push(`import { assertEquals, assertThrows, assertExists } from "https://deno.land/std@0.212.0/assert/mod.ts"`)
-	
+
 	const hasPropertyTests = tests.some((test) => test.properties && test.properties.length > 0)
 	if (hasPropertyTests) {
 		imports.push(`import * as fc from "npm:fast-check@3.15.0"`)
 		// Add deepEqual for property tests
 		imports.push(`import { equal as deepEqual } from "https://deno.land/std@0.212.0/assert/equal.ts"`)
 	}
-	
+
 	return imports.join("\n")
 }
 
@@ -95,7 +95,7 @@ function convertImportPathForTest(importPath: string, _sourcePath: string): stri
 		}
 		return importPath
 	}
-	
+
 	// Absolute imports remain the same
 	return importPath
 }
@@ -108,16 +108,16 @@ function generateRelativePath(sourcePath: string): string {
 	// Assuming test is in tests/libraries/... and source is in libraries/...
 	const pathParts = sourcePath.split("/")
 	const librariesIndex = pathParts.indexOf("libraries")
-	
+
 	if (librariesIndex === -1) {
 		// Fallback: use the full path
 		return sourcePath
 	}
-	
+
 	// Build relative path from test to source
 	const relativeSegments = pathParts.slice(librariesIndex)
 	const upLevels = relativeSegments.length + 1 // Go up from test dir
 	const upPath = Array(upLevels).fill("..").join("/")
-	
+
 	return `${upPath}/${sourcePath}`
 }

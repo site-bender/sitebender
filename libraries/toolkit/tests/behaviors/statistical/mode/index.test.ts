@@ -72,7 +72,12 @@ Deno.test("mode", async (t) => {
 						}),
 						(dominant, others) => {
 							// Create array with clear dominant value
-							const arr = [...others, dominant, dominant, dominant]
+							const arr = [
+								...others,
+								dominant,
+								dominant,
+								dominant,
+							]
 							const result = mode(arr)
 
 							assertEquals(result.includes(dominant), true)
@@ -291,11 +296,14 @@ Deno.test("mode", async (t) => {
 			assertEquals(mode("not an array" as any), [])
 		})
 
-		await t.step("should handle arrays with non-numeric values", async (t) => {
-			assertEquals(mode([1, "2", 3] as any), [])
-			assertEquals(mode([1, null, 3] as any), [])
-			assertEquals(mode([1, undefined, 3] as any), [])
-		})
+		await t.step(
+			"should handle arrays with non-numeric values",
+			async (t) => {
+				assertEquals(mode([1, "2", 3] as any), [])
+				assertEquals(mode([1, null, 3] as any), [])
+				assertEquals(mode([1, undefined, 3] as any), [])
+			},
+		)
 
 		await t.step("should work for test scores", async (t) => {
 			const testScores = [85, 90, 85, 92, 85, 88, 90]
@@ -367,10 +375,13 @@ Deno.test("mode", async (t) => {
 			assertEquals(mode(histogram), [10])
 		})
 
-		await t.step("should work for customer purchase quantities", async (t) => {
-			const quantities = [1, 2, 1, 3, 1, 2, 1, 4, 1]
-			assertEquals(mode(quantities), [1])
-		})
+		await t.step(
+			"should work for customer purchase quantities",
+			async (t) => {
+				const quantities = [1, 2, 1, 3, 1, 2, 1, 4, 1]
+				assertEquals(mode(quantities), [1])
+			},
+		)
 
 		await t.step("should work for error codes", async (t) => {
 			const errorCodes = [404, 500, 404, 403, 404, 500]

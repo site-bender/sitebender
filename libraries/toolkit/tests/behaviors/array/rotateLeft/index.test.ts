@@ -181,7 +181,8 @@ Deno.test("rotateLeft: property - contains same elements", () => {
 				// Sort to compare contents regardless of order
 				const sortedOriginal = [...array].sort((a, b) => a - b)
 				const sortedResult = [...result].sort((a, b) => a - b)
-				return JSON.stringify(sortedOriginal) === JSON.stringify(sortedResult)
+				return JSON.stringify(sortedOriginal) ===
+					JSON.stringify(sortedResult)
 			},
 		),
 	)

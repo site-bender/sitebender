@@ -55,7 +55,9 @@ const fromTemplate =
 		// Each template function is curried, so we apply args one by one
 		// Using type assertion here is unavoidable due to dynamic curried function application
 		let messageFn:
-			| ((arg: string | number) => string | ((arg: string | number) => string))
+			| ((
+				arg: string | number,
+			) => string | ((arg: string | number) => string))
 			| string = templateFn as ((
 				arg: string | number,
 			) => string | ((arg: string | number) => string))

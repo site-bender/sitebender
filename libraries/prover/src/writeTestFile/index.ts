@@ -1,4 +1,4 @@
-import type { TestCase, FunctionSignature } from "../types/index.ts"
+import type { FunctionSignature, TestCase } from "../types/index.ts"
 import getTestFilePath from "./getTestFilePath/index.ts"
 import generateImports from "./generateImports/index.ts"
 import generateTestContent from "./generateTestContent/index.ts"
@@ -18,12 +18,12 @@ export default async function writeTestFile(
 	functionPath: string,
 	functionName: string,
 	tests: Array<TestCase>,
-	signature?: FunctionSignature
+	signature?: FunctionSignature,
 ): Promise<string> {
 	const testFilePath = getTestFilePath(functionPath)
 	const imports = generateImports(functionPath, functionName, tests, signature)
 	const testContent = generateTestContent(functionName, tests, signature)
-	
+
 	const metadata = {
 		sourceFile: functionPath,
 		testFile: testFilePath,
@@ -31,18 +31,18 @@ export default async function writeTestFile(
 		generator: "@sitebender/test-generator",
 		version: "1.0.0",
 	}
-	
+
 	const fileContent = [
 		generateFileHeader(metadata),
 		imports,
 		"",
 		testContent,
 	].join("\n")
-	
+
 	const formattedContent = await formatCode(fileContent)
-	
+
 	await ensureDirectoryExists(testFilePath)
 	await Deno.writeTextFile(testFilePath, formattedContent)
-	
+
 	return testFilePath
 }

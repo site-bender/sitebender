@@ -10,7 +10,10 @@ Deno.test("findIndex - JSDoc example 1: find index of first number greater than 
 })
 
 Deno.test("findIndex - JSDoc example 2: find index of string starting with 'h'", () => {
-	const result = findIndex((s: string) => s.startsWith("h"))(["apple", "hello"])
+	const result = findIndex((s: string) => s.startsWith("h"))([
+		"apple",
+		"hello",
+	])
 	assertEquals(result, 1)
 })
 
@@ -56,7 +59,12 @@ Deno.test("findIndex - finds first match index when multiple exist", () => {
 })
 
 Deno.test("findIndex - predicate with index parameter", () => {
-	const result = findIndex((n: number, i: number) => n === i * 2)([0, 2, 4, 6])
+	const result = findIndex((n: number, i: number) => n === i * 2)([
+		0,
+		2,
+		4,
+		6,
+	])
 	assertEquals(result, 0) // Element 0 at index 0 equals 0 * 2
 })
 
@@ -128,7 +136,8 @@ Deno.test("findIndex - property: result is valid array index if not undefined", 
 				const result = findIndex(predicate)(arr)
 
 				if (result !== undefined) {
-					return result >= 0 && result < arr.length && Number.isInteger(result)
+					return result >= 0 && result < arr.length &&
+						Number.isInteger(result)
 				}
 				return true
 			},

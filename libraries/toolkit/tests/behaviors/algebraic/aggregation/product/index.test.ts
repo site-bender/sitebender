@@ -41,13 +41,16 @@ Deno.test("product", async (t) => {
 										n === -Infinity
 									).length % 2 === 1
 							if (hasNegative || hasNegInfinity) {
-								return result === -Infinity || Number.isNaN(result)
+								return result === -Infinity ||
+									Number.isNaN(result)
 							}
 							return result === Infinity || Number.isNaN(result)
 						}
 						if (numbers.includes(-Infinity)) {
 							if (numbers.includes(0)) return result === 0
-							const negativeCount = numbers.filter((n) => n < 0).length
+							const negativeCount = numbers.filter((n) =>
+								n < 0
+							).length
 							return negativeCount % 2 === 1
 								? result === -Infinity
 								: result === Infinity
@@ -90,12 +93,18 @@ Deno.test("product", async (t) => {
 		await t.step("should handle zero (annihilator property)", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true }), { minLength: 1, maxLength: 20 }),
+					fc.array(fc.float({ noNaN: true }), {
+						minLength: 1,
+						maxLength: 20,
+					}),
 					(numbers) => {
 						const withZero = [...numbers, 0]
 						const result = product(withZero)
 						// Special case: Infinity * 0 = NaN in JavaScript
-						if (numbers.includes(Infinity) || numbers.includes(-Infinity)) {
+						if (
+							numbers.includes(Infinity) ||
+							numbers.includes(-Infinity)
+						) {
 							return Number.isNaN(result)
 						}
 						return result === 0
@@ -116,11 +125,15 @@ Deno.test("product", async (t) => {
 					}),
 					(numbers) => {
 						const original = product(numbers)
-						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
+						const shuffled = [...numbers].sort(() =>
+							Math.random() - 0.5
+						)
 						const reordered = product(shuffled)
 
 						// Handle special cases
-						if (Number.isNaN(original)) return Number.isNaN(reordered)
+						if (Number.isNaN(original)) {
+							return Number.isNaN(reordered)
+						}
 						if (!isFinite(original)) return original === reordered
 						if (original === 0) return reordered === 0
 
@@ -158,7 +171,9 @@ Deno.test("product", async (t) => {
 						const directProduct = product(numbers)
 
 						// Handle special cases
-						if (Number.isNaN(directProduct)) return Number.isNaN(groupedProduct)
+						if (Number.isNaN(directProduct)) {
+							return Number.isNaN(groupedProduct)
+						}
 						if (!isFinite(directProduct)) {
 							return directProduct === groupedProduct
 						}
@@ -208,24 +223,35 @@ Deno.test("product", async (t) => {
 		await t.step("should distribute with exponentiation", () => {
 			fc.assert(
 				fc.property(
-					fc.array(fc.float({ noNaN: true, min: Math.fround(0.1), max: 10 }), {
-						minLength: 1,
-						maxLength: 5,
-					}),
+					fc.array(
+						fc.float({
+							noNaN: true,
+							min: Math.fround(0.1),
+							max: 10,
+						}),
+						{
+							minLength: 1,
+							maxLength: 5,
+						},
+					),
 					fc.integer({ min: -3, max: 3 }),
 					(numbers, exponent) => {
 						// product(numbers)^exponent === product(numbers.map(n => n^exponent))
 						const leftSide = Math.pow(product(numbers), exponent)
-						const rightSide = product(numbers.map((n) => Math.pow(n, exponent)))
+						const rightSide = product(
+							numbers.map((n) => Math.pow(n, exponent)),
+						)
 
 						if (Number.isNaN(leftSide) || Number.isNaN(rightSide)) {
-							return Number.isNaN(leftSide) && Number.isNaN(rightSide)
+							return Number.isNaN(leftSide) &&
+								Number.isNaN(rightSide)
 						}
 
 						if (!isFinite(leftSide) || !isFinite(rightSide)) {
 							// Both should be infinity with the same sign, or both should be 0
 							if (leftSide === 0 || rightSide === 0) {
-								return Math.abs(leftSide) === Math.abs(rightSide)
+								return Math.abs(leftSide) ===
+									Math.abs(rightSide)
 							}
 							return leftSide === rightSide
 						}
@@ -259,7 +285,10 @@ Deno.test("product", async (t) => {
 
 		await t.step("should handle decimal numbers", () => {
 			assertEquals(product([0.5, 2, 4]), 4)
-			assertEquals(approximately(product([0.1, 0.2, 0.3]), 0.006, 1e-10), true)
+			assertEquals(
+				approximately(product([0.1, 0.2, 0.3]), 0.006, 1e-10),
+				true,
+			)
 			assertEquals(product([1.5, 2.5, 3.5]), 13.125)
 		})
 
@@ -314,13 +343,19 @@ Deno.test("product", async (t) => {
 			assertEquals(Number.isNaN(product(true as any)), true)
 		})
 
-		await t.step("should return NaN for arrays with non-numeric values", () => {
-			assertEquals(Number.isNaN(product([1, "2", 3] as any)), true)
-			assertEquals(Number.isNaN(product([1, null, 3] as any)), true)
-			assertEquals(Number.isNaN(product([1, undefined, 3] as any)), true)
-			assertEquals(Number.isNaN(product([1, {}, 3] as any)), true)
-			assertEquals(Number.isNaN(product([1, [], 3] as any)), true)
-		})
+		await t.step(
+			"should return NaN for arrays with non-numeric values",
+			() => {
+				assertEquals(Number.isNaN(product([1, "2", 3] as any)), true)
+				assertEquals(Number.isNaN(product([1, null, 3] as any)), true)
+				assertEquals(
+					Number.isNaN(product([1, undefined, 3] as any)),
+					true,
+				)
+				assertEquals(Number.isNaN(product([1, {}, 3] as any)), true)
+				assertEquals(Number.isNaN(product([1, [], 3] as any)), true)
+			},
+		)
 
 		await t.step("should return NaN for arrays containing NaN", () => {
 			assertEquals(Number.isNaN(product([1, 2, NaN, 3, 4])), true)
@@ -359,7 +394,10 @@ Deno.test("product", async (t) => {
 
 		await t.step("decimal numbers", () => {
 			assertEquals(product([0.5, 2, 4]), 4)
-			assertEquals(approximately(product([0.1, 0.2, 0.3]), 0.006, 1e-10), true)
+			assertEquals(
+				approximately(product([0.1, 0.2, 0.3]), 0.006, 1e-10),
+				true,
+			)
 			assertEquals(product([1.5, 2.5, 3.5]), 13.125)
 		})
 
@@ -481,7 +519,10 @@ Deno.test("product", async (t) => {
 		await t.step("aspect ratio chain", () => {
 			const aspectRatios = [16 / 9, 3 / 4, 4 / 3]
 			const finalAspect = product(aspectRatios)
-			assertEquals(approximately(finalAspect, 1.7777777777777777, 1e-10), true)
+			assertEquals(
+				approximately(finalAspect, 1.7777777777777777, 1e-10),
+				true,
+			)
 		})
 
 		await t.step("quality degradation", () => {
@@ -523,7 +564,10 @@ Deno.test("product", async (t) => {
 			const array = Array.from({ length: 100 }, () => 1.01)
 			const result = product(array)
 			// (1.01)^100 ≈ 2.7048
-			assertEquals(approximately(result, Math.pow(1.01, 100), 1e-10), true)
+			assertEquals(
+				approximately(result, Math.pow(1.01, 100), 1e-10),
+				true,
+			)
 		})
 
 		await t.step("should be consistent for repeated calls", () => {

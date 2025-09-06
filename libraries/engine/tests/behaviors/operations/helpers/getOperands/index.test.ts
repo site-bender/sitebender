@@ -80,7 +80,10 @@ Deno.test("getOperands multiple operations", async (t) => {
 		const operand4 = createMockInjector(4)
 
 		const operation1 = createMockOperatorWithOperands([operand1, operand2])
-		const operation2 = createMockComparatorWithOperands([operand3, operand4])
+		const operation2 = createMockComparatorWithOperands([
+			operand3,
+			operand4,
+		])
 
 		const result = getOperands([operation1, operation2])
 		assertEquals(result, [operand1, operand2, operand3, operand4])
@@ -92,7 +95,10 @@ Deno.test("getOperands multiple operations", async (t) => {
 			const operand1 = createMockInjector(1)
 			const operand2 = createMockInjector(2)
 
-			const operation1 = createMockOperatorWithOperands([operand1, operand2])
+			const operation1 = createMockOperatorWithOperands([
+				operand1,
+				operand2,
+			])
 			const operation2 = createMockOperatorWithoutOperands()
 			const operation3 = createMockComparatorWithoutOperands()
 			const operation4 = createMockComparatorWithOperands([
@@ -116,7 +122,10 @@ Deno.test("getOperands multiple operations", async (t) => {
 		const operand4 = createMockInjector("fourth")
 
 		const operation1 = createMockOperatorWithOperands([operand1, operand2])
-		const operation2 = createMockComparatorWithOperands([operand3, operand4])
+		const operation2 = createMockComparatorWithOperands([
+			operand3,
+			operand4,
+		])
 
 		const result = getOperands([operation1, operation2])
 		assertEquals(result, [operand1, operand2, operand3, operand4])
@@ -141,7 +150,10 @@ Deno.test("getOperands edge cases", async (t) => {
 	})
 
 	await t.step("should handle many operands in single operation", () => {
-		const operands = Array.from({ length: 10 }, (_, i) => createMockInjector(i))
+		const operands = Array.from(
+			{ length: 10 },
+			(_, i) => createMockInjector(i),
+		)
 		const operation = createMockOperatorWithOperands(operands)
 
 		const result = getOperands([operation])
@@ -164,7 +176,9 @@ Deno.test("getOperands edge cases", async (t) => {
 		}
 
 		const result1 = getOperands([operationWithNull as unknown as never])
-		const result2 = getOperands([operationWithUndefined as unknown as never])
+		const result2 = getOperands([
+			operationWithUndefined as unknown as never,
+		])
 
 		assertEquals(result1, [])
 		assertEquals(result2, [])
@@ -222,7 +236,10 @@ Deno.test("getOperands realistic scenarios", async (t) => {
 		const constD = createMockInjector(2)
 
 		const addOperation = createMockOperatorWithOperands([constA, constB])
-		const subtractOperation = createMockOperatorWithOperands([constC, constD])
+		const subtractOperation = createMockOperatorWithOperands([
+			constC,
+			constD,
+		])
 		const multiplyOperation = createMockOperatorWithOperands([
 			addOperation,
 			subtractOperation,
@@ -315,7 +332,8 @@ Deno.test("getOperands property-based tests", () => {
 			(withOperandsCount, withoutOperandsCount) => {
 				const operationsWithOperands = Array.from(
 					{ length: withOperandsCount },
-					() => createMockOperatorWithOperands([createMockInjector(1)]),
+					() =>
+						createMockOperatorWithOperands([createMockInjector(1)]),
 				)
 				const operationsWithoutOperands = Array.from({
 					length: withoutOperandsCount,
@@ -346,7 +364,9 @@ Deno.test("getOperands performance characteristics", async (t) => {
 		const end = performance.now()
 
 		assertEquals(result.length, 2000) // 1000 operations * 2 operands each
-		console.log(`Processing 1000 operations took ${end - start} milliseconds`)
+		console.log(
+			`Processing 1000 operations took ${end - start} milliseconds`,
+		)
 	})
 
 	await t.step(

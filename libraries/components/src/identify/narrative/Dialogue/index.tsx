@@ -29,7 +29,9 @@ export default function Dialogue({
 	const baseElement = (
 		<Element
 			aria-label={ariaLabel}
-			class={`dialogue ${internal ? "internal-dialogue" : "spoken-dialogue"}`}
+			class={`dialogue ${
+				internal ? "internal-dialogue" : "spoken-dialogue"
+			}`}
 			data-internal={internal}
 			data-speaker={speaker}
 			data-speaker-id={speakerId}
@@ -77,7 +79,9 @@ export default function Dialogue({
 	return (
 		<Element
 			aria-label={ariaLabel}
-			class={`dialogue ${internal ? "internal-dialogue" : "spoken-dialogue"}`}
+			class={`dialogue ${
+				internal ? "internal-dialogue" : "spoken-dialogue"
+			}`}
 			data-internal={internal}
 			data-speaker={speaker}
 			data-speaker-id={speakerId}

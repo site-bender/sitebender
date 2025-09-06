@@ -1,4 +1,8 @@
-import type { FunctionSignature, TestCase, BranchPath } from "../../types/index.ts"
+import type {
+	BranchPath,
+	FunctionSignature,
+	TestCase,
+} from "../../types/index.ts"
 
 /**
  * Generates test cases for code branches
@@ -8,18 +12,18 @@ import type { FunctionSignature, TestCase, BranchPath } from "../../types/index.
  */
 export default function generateBranchTests(
 	branches: Array<BranchPath>,
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
-	return branches.flatMap(branch => 
+	return branches.flatMap(branch =>
 		branch.requiredInputs.map(input => {
 			const expectedOutput: unknown = (signature.returnType.raw.includes("number") &&
-				(branch.condition.includes("isNullish") || 
+				(branch.condition.includes("isNullish") ||
 				 branch.condition.includes("typeof") ||
 				 input.value === null ||
 				 input.value === undefined ||
 				 typeof input.value === "string" ||
 				 typeof input.value === "boolean")) ? NaN : undefined
-			
+
 			return {
 				name: `covers branch: ${branch.condition}`,
 				description: input.description,

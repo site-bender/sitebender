@@ -15,12 +15,20 @@ Deno.test("reduceWhile: basic functionality", async (t) => {
 		assertEquals(result, 100) // 10 + 20 + 30 + 40 = 100, which still passes predicate (100 < 100 is false)
 	})
 
-	await t.step("should collect elements until specific element", async (t) => {
-		const notStop = (_: string[], x: string) => x !== "STOP"
-		const collect = (acc: string[], x: string) => [...acc, x]
-		const result = reduceWhile(notStop)(collect)([])(["a", "b", "STOP", "c"])
-		assertEquals(result, ["a", "b"])
-	})
+	await t.step(
+		"should collect elements until specific element",
+		async (t) => {
+			const notStop = (_: string[], x: string) => x !== "STOP"
+			const collect = (acc: string[], x: string) => [...acc, x]
+			const result = reduceWhile(notStop)(collect)([])([
+				"a",
+				"b",
+				"STOP",
+				"c",
+			])
+			assertEquals(result, ["a", "b"])
+		},
+	)
 
 	await t.step("should multiply until zero", async (t) => {
 		const noZero = (_: number, x: number) => x !== 0
@@ -35,7 +43,10 @@ Deno.test("reduceWhile: basic functionality", async (t) => {
 			sum: acc.sum + x,
 			last: x,
 		})
-		const result = reduceWhile(isAscending)(track)({ sum: 0, last: -Infinity })(
+		const result = reduceWhile(isAscending)(track)({
+			sum: 0,
+			last: -Infinity,
+		})(
 			[1, 3, 5, 4],
 		)
 		assertEquals(result, { sum: 9, last: 5 }) // 1 + 3 + 5 = 9, stops at 4
@@ -153,7 +164,10 @@ Deno.test("reduceWhile: edge cases", async (t) => {
 				x: number,
 			) => {
 				if (x % 2 === 1) {
-					return { items: [...acc.items, x.toString()], count: acc.count + 1 }
+					return {
+						items: [...acc.items, x.toString()],
+						count: acc.count + 1,
+					}
 				}
 				return acc
 			}
@@ -219,7 +233,10 @@ Deno.test("reduceWhile: type safety", async (t) => {
 			items: [...acc.items, x.name],
 			total: acc.total + x.price,
 		})
-		const result = reduceWhile(underBudget)(addItem)({ items: [], total: 0 })([
+		const result = reduceWhile(underBudget)(addItem)({
+			items: [],
+			total: 0,
+		})([
 			{ name: "A", price: 30 },
 			{ name: "B", price: 50 },
 			{ name: "C", price: 40 },
@@ -287,9 +304,13 @@ Deno.test("reduceWhile: property-based tests", async (t) => {
 				(initial) => {
 					const alwaysTrue = () => true
 					const neverCalled = () => {
-						throw new Error("Reducer should not be called for empty array")
+						throw new Error(
+							"Reducer should not be called for empty array",
+						)
 					}
-					const result = reduceWhile(alwaysTrue)(neverCalled)(initial)([])
+					const result = reduceWhile(alwaysTrue)(neverCalled)(
+						initial,
+					)([])
 					return result === initial
 				},
 			),
@@ -307,7 +328,9 @@ Deno.test("reduceWhile: property-based tests", async (t) => {
 						const alwaysTrue = () => true
 						const add = (acc: number, x: number) => acc + x
 
-						const reduceWhileResult = reduceWhile(alwaysTrue)(add)(initial)(arr)
+						const reduceWhileResult = reduceWhile(alwaysTrue)(add)(
+							initial,
+						)(arr)
 						const regularReduceResult = arr.reduce(add, initial)
 
 						return reduceWhileResult === regularReduceResult
@@ -347,8 +370,12 @@ Deno.test("reduceWhile: property-based tests", async (t) => {
 					const alwaysTrue = () => true
 					const add = (acc: number, x: number) => acc + x
 
-					const nullResult = reduceWhile(alwaysTrue)(add)(initial)(null)
-					const undefinedResult = reduceWhile(alwaysTrue)(add)(initial)(
+					const nullResult = reduceWhile(alwaysTrue)(add)(initial)(
+						null,
+					)
+					const undefinedResult = reduceWhile(alwaysTrue)(add)(
+						initial,
+					)(
 						undefined,
 					)
 

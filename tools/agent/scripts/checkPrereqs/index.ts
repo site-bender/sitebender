@@ -14,10 +14,16 @@ export async function checkPrerequisites(): Promise<number> {
 
 	const results = [
 		{ name: "Deno", ...parseDenoVersion(deno.stdout + deno.stderr) },
-		{ name: "Docker", ...parseDockerVersion(docker.stdout + docker.stderr) },
+		{
+			name: "Docker",
+			...parseDockerVersion(docker.stdout + docker.stderr),
+		},
 		{
 			name: "Docker Compose",
-			...parseComposeVersion(compose.stdout + compose.stderr, compose.code),
+			...parseComposeVersion(
+				compose.stdout + compose.stderr,
+				compose.code,
+			),
 		},
 	]
 

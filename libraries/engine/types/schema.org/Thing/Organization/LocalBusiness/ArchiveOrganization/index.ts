@@ -10,7 +10,9 @@ export type ArchiveOrganizationType = "ArchiveOrganization"
 
 export interface ArchiveOrganizationProps {
 	"@type"?: ArchiveOrganizationType
-	archiveHeld?: ArchiveComponent | ReturnType<typeof ArchiveComponentComponent>
+	archiveHeld?:
+		| ArchiveComponent
+		| ReturnType<typeof ArchiveComponentComponent>
 }
 
 type ArchiveOrganization =

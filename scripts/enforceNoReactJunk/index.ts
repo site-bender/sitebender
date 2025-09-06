@@ -40,7 +40,8 @@ const RULES: Array<
 	{
 		name: "helpers-createElement-import",
 		re: /from\s+".*\/helpers\/createElement\/index\.ts"/,
-		message: "Do not import helpers/createElement directly; write JSX only.",
+		message:
+			"Do not import helpers/createElement directly; write JSX only.",
 		suggestion: "Remove the import and write JSX components.",
 	},
 	{
@@ -52,7 +53,8 @@ const RULES: Array<
 	{
 		name: "createElement-call",
 		re: /(^|[^.])\bcreateElement\s*\(/,
-		message: "Direct createElement calls are forbidden in components/recipes.",
+		message:
+			"Direct createElement calls are forbidden in components/recipes.",
 		suggestion: "Use JSX instead.",
 	},
 ]

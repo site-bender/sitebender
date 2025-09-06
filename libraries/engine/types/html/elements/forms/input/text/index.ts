@@ -52,7 +52,10 @@ export interface TextInputElement {
 		& (
 			| {
 				list?: never
-				role?: Extract<AriaRole, "combobox" | "searchbox" | "spinbutton">
+				role?: Extract<
+					AriaRole,
+					"combobox" | "searchbox" | "spinbutton"
+				>
 			}
 			| {
 				list?: string

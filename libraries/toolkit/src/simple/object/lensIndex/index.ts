@@ -78,7 +78,10 @@ const lensIndex = <T>(
 			// Extend array if necessary (fills with undefined)
 			const gap = actualIndex - result.length + 1
 			if (gap > 0) {
-				const extension = Array.from({ length: gap }, () => undefined as T)
+				const extension = Array.from(
+					{ length: gap },
+					() => undefined as T,
+				)
 				extension[extension.length - 1] = value
 				return [...result, ...extension]
 			}

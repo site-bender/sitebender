@@ -1,10 +1,16 @@
-# @sitebender
+# @sitebender/distributed
 
 [![CI](https://github.com/site-bender/sitebender/actions/workflows/ci.yml/badge.svg?branch=phase-2)](https://github.com/site-bender/sitebender/actions/workflows/ci.yml)
 
 ![Header](./github-sitebender-banner.png)
 
-Notes:
+A functional, offline-first distributed computing library for the Sitebender ecosystem. Implements CRDTs, decentralized identity (DIDs), IPFS integration, and peer-to-peer synchronization with progressive enhancement principles.
+
+## Philosophy
+
+Web 3.0 isn't about blockchains and tokens. It's about **user sovereignty**, **data ownership**, and **resilient systems** that work offline-first and sync globally. Every feature works without Web3 technology, then gets better with it.
+
+## Core Values
 
 - Accessibility
 - Inclusivity
@@ -20,38 +26,66 @@ Notes:
 - Data protection
 - Offline access
 
-## Development quick start
+## Features
 
-Documentation site:
+### ✅ Implemented
 
-- Build once and serve:
-	- deno task --cwd docs start
-- Watch + dev server:
-	- deno task --cwd docs dev
+- **CRDTs**: LWW-Register, OR-Set, G-Set, Counter, RGA
+- **Storage**: IndexedDB adapter with versioning
+- **Identity**: DID:Key with Ed25519 signatures
+- **IPFS**: Gateway adapter with automatic fallbacks
+- **Sync**: State-based, operation-based, and delta-based protocols
 
-End-to-end (Playwright):
+## Quick Start
 
-- Install browsers once:
-	- npx playwright install --with-deps
-- Run tests:
-	- deno task --cwd docs test:e2e
+```bash
+# Clone and install
+git clone https://github.com/site-bender/distributed-ai.git
+cd distributed-ai
 
-Hydration bundle summary:
+# Run tests
+deno task test
 
-- Client entry: `docs/src/hydrate/engine.ts`
-- Bundle step: `scripts/build/bundleHydrate/index.ts` (Deno emit)
-- Output: `docs/dist/scripts/hydrate/engine.js`
-- Referenced by: `docs/src/routes/tutorial/index.tsx`
+# Type check
+deno task typecheck
+```
+
+## Usage Examples
+
+### CRDTs
+
+```typescript
+import { createLWWRegister, createORSet } from "@sitebender/distributed"
+
+// Last-write-wins register
+const register = createLWWRegister("initial", "node1")
+const updated = register.set("new value")
+
+// OR-Set for collections
+const set = createORSet([], "node1")
+	.add("item1")
+	.add("item2")
+```
+
+### Decentralized Identity
+
+```typescript
+import { createDIDKey } from "@sitebender/distributed"
+
+const didKey = await createDIDKey()
+const signature = await didKey.sign(data)
+const isValid = await didKey.verify(signature, data)
+```
 
 ## Contributing
 
 - Local fast loop:
-	- Lint: `deno task lint`
-	- Tests (non-strict): `deno task test:engine`, `deno task test:components`, `deno task test:toolkit`
+  - Lint: `deno task lint`
+  - Tests (non-strict): `deno task test:engine`, `deno task test:components`, `deno task test:toolkit`
 - Pre-push / CI parity (strict):
-	- Type-check: `deno task type-check`
-	- Alias guard: `deno task lint:aliases`
-	- Tests (strict): `deno task test:engine:strict`, `deno task test:components:strict`, `deno task test:toolkit:strict`
+  - Type-check: `deno task type-check`
+  - Alias guard: `deno task lint:aliases`
+  - Tests (strict): `deno task test:engine:strict`, `deno task test:components:strict`, `deno task test:toolkit:strict`
 
 CI runs strict tasks and will block on lint, type-check, alias guard, and strict tests. Use fast tasks for quick local iteration, then verify with strict before PRs.
 
@@ -65,12 +99,12 @@ CI runs strict tasks and will block on lint, type-check, alias guard, and strict
 ## Authoring canon: Events and Actions
 
 - Events: prefer `When.*` (aliases map to `On.*`).
-	- `When.Clicked` ≡ `On.Click`
-	- `When.Submitted` ≡ `On.Submit`
-	- `When.ValueUpdated` ≡ `On.Input`
-	- `When.ChangeComplete` ≡ `On.Change`
-	- `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
-	- `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
+  - `When.Clicked` ≡ `On.Click`
+  - `When.Submitted` ≡ `On.Submit`
+  - `When.ValueUpdated` ≡ `On.Input`
+  - `When.ChangeComplete` ≡ `On.Change`
+  - `When.GainedFocus` ≡ `On.Focus` (alias: `When.Focused`)
+  - `When.LostFocus` ≡ `On.Blur` (alias: `When.Blurred`)
 - Actions: author as bare verbs (no `Do.*` in docs/examples).
 
 ## Auth: policies and From.Authenticator
@@ -81,13 +115,11 @@ CI runs strict tasks and will block on lint, type-check, alias guard, and strict
 Example (authoring):
 
 ```tsx
-import Authorized from "./libraries/components/src/transform/control/When/Authorized/index.tsx";
-import On from "./libraries/components/src/transform/control/On/index.tsx";
-import SetValue from "./libraries/components/src/transform/actions/SetValue/index.tsx";
-import FromAuthenticator from "./libraries/components/src/constructors/injectors/From/Authenticator/index.tsx";
-
-// Render admin-only message on click
-[
+import Authorized from "./libraries/components/src/transform/control/When/Authorized/index.tsx"
+import On from "./libraries/components/src/transform/control/On/index.tsx"
+import SetValue from "./libraries/components/src/transform/actions/SetValue/index.tsx"
+import FromAuthenticator from "./libraries/components/src/constructors/injectors/From/Authenticator/index.tsx" // Render admin-only message on click
+;[
 	<div id="msg" />,
 	On({
 		event: "Click",
@@ -96,9 +128,13 @@ import FromAuthenticator from "./libraries/components/src/constructors/injectors
 			policyArgs: { role: "admin" },
 			children: SetValue({
 				selector: "#msg",
-				value: FromAuthenticator({ path: "user.email" }) as unknown as JSX.Element,
+				value: FromAuthenticator({
+					path: "user.email",
+				}) as unknown as JSX.Element,
 			}) as unknown as JSX.Element,
-			fallback: SetValue({ selector: "#msg", value: { value: "Forbidden" } } as any) as any,
+			fallback: SetValue(
+				{ selector: "#msg", value: { value: "Forbidden" } } as any,
+			) as any,
 		}) as unknown as JSX.Element,
 	}) as unknown as JSX.Element,
 ]
@@ -108,13 +144,15 @@ import FromAuthenticator from "./libraries/components/src/constructors/injectors
 - At runtime, `From.Authenticator` reads from `ComposeContext.localValues` by the provided dot-path. For example, with:
 
 ```ts
-createComposeContext({ env: "server", localValues: { user: { email: "a@b.com", roles: ["admin"] } } })
+createComposeContext({
+	env: "server",
+	localValues: { user: { email: "a@b.com", roles: ["admin"] } },
+})
 ```
 
 the example above sets `#msg` to the user’s email when the policy passes, or to "Forbidden" otherwise.
 
 ```
-
 ## Thinking index
 
 - [auth.md](notes/auth.md)
@@ -132,3 +170,4 @@ the example above sets `#msg` to the user’s email when the policy passes, or t
 - [testing.md](notes/testing.md)
 - [todo.md](notes/todo.md)
 - [viz.md](notes/viz.md)
+```

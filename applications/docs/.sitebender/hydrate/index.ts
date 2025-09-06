@@ -30,7 +30,9 @@ export default function hydrateEngineFromScriptTag() {
 		queueMicrotask(() => {
 			try {
 				document.querySelectorAll("[data-ir-id]")
-					.forEach((n) => (n as HTMLElement).removeAttribute("data-ir-id"))
+					.forEach((n) =>
+						(n as HTMLElement).removeAttribute("data-ir-id")
+					)
 			} catch { /* ignore */ }
 		})
 	}
@@ -50,7 +52,9 @@ if (typeof window !== "undefined") {
 				// Optional global hook: allow external scripts to provide an adapter
 				const g = globalThis as unknown as GlobalWithViz
 				const globalAdapter = g.sitebenderVizAdapter
-				if (globalAdapter && typeof globalAdapter.hydrate === "function") {
+				if (
+					globalAdapter && typeof globalAdapter.hydrate === "function"
+				) {
 					setVizAdapter(globalAdapter)
 				}
 				const adapter = getVizAdapter()

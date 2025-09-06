@@ -124,7 +124,8 @@ const toPlainDateTime = (
 				.toPlainDateTime()
 		if (
 			result &&
-			typeof (result as { toString: () => string }).toString === "function"
+			typeof (result as { toString: () => string }).toString ===
+				"function"
 		) {
 			try {
 				const iso = (result as { toString: () => string }).toString()
@@ -138,7 +139,8 @@ const toPlainDateTime = (
 
 	// Handle PlainTime (becomes that time on 1970-01-01)
 	if (
-		value && typeof value === "object" && "hour" in value && "minute" in value
+		value && typeof value === "object" && "hour" in value &&
+		"minute" in value
 	) {
 		// Treat as PlainTime-like
 		try {
@@ -173,7 +175,8 @@ const toPlainDateTime = (
 			.toPlainDateTime()
 		if (
 			result &&
-			typeof (result as { toString: () => string }).toString === "function"
+			typeof (result as { toString: () => string }).toString ===
+				"function"
 		) {
 			try {
 				return Temporal.PlainDateTime.from(

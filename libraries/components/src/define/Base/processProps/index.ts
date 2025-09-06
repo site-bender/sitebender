@@ -22,7 +22,10 @@ export default function processProps(
 			.reduce<Record<string, unknown>>((acc, [key, value]) => ({
 				...acc,
 				[key === "_type" ? "@type" : key]: processProps(
-					value as Record<string, unknown> | Record<string, unknown>[],
+					value as Record<string, unknown> | Record<
+						string,
+						unknown
+					>[],
 				),
 			}), {})
 

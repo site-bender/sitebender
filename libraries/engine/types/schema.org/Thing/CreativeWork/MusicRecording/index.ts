@@ -34,7 +34,9 @@ export interface MusicRecordingProps {
 	inAlbum?: MusicAlbum | ReturnType<typeof MusicAlbumComponent>
 	inPlaylist?: MusicPlaylist | ReturnType<typeof MusicPlaylistComponent>
 	isrcCode?: Text
-	recordingOf?: MusicComposition | ReturnType<typeof MusicCompositionComponent>
+	recordingOf?:
+		| MusicComposition
+		| ReturnType<typeof MusicCompositionComponent>
 }
 
 type MusicRecording = Thing & CreativeWorkProps & MusicRecordingProps

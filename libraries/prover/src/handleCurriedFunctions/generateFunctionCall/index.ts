@@ -11,17 +11,17 @@ import formatValue from "../formatValue/index.ts"
 export default function generateFunctionCall(
 	functionName: string,
 	inputs: Array<unknown>,
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): string {
 	if (signature.isCurried) {
 		return inputs.reduce<string>(
 			(acc, input) => `${acc}(${formatValue(input)})`,
-			functionName
+			functionName,
 		)
 	}
-	
+
 	if (inputs.length === 1) {
 		return `${functionName}(${formatValue(inputs[0])})`
 	}
-	return `${functionName}(${inputs.map(i => formatValue(i)).join(", ")})`
+	return `${functionName}(${inputs.map((i) => formatValue(i)).join(", ")})`
 }

@@ -115,7 +115,11 @@ Deno.test("lastIndexOfMatch: handles complex patterns", () => {
 	// Phone pattern
 	const phonePattern = /^\d{3}-\d{3}-\d{4}$/
 	assertEquals(
-		lastIndexOfMatch(phonePattern)(["123-456-7890", "invalid", "987-654-3210"]),
+		lastIndexOfMatch(phonePattern)([
+			"123-456-7890",
+			"invalid",
+			"987-654-3210",
+		]),
 		2,
 	)
 })
@@ -174,7 +178,8 @@ Deno.test("lastIndexOfMatch: property-based testing", () => {
 				try {
 					const result = lastIndexOfMatch(pattern)(arr)
 					return result === undefined ||
-						(typeof result === "number" && result >= 0 && result < arr.length)
+						(typeof result === "number" && result >= 0 &&
+							result < arr.length)
 				} catch (e) {
 					// Invalid regex pattern - that's ok
 					return e instanceof SyntaxError

@@ -11,16 +11,16 @@ import valueToString from "../valueToString/index.ts"
 function canReturnUndefined(type: TypeInfo): boolean {
 	// Direct undefined type
 	if (type.raw === "undefined") return true
-	
+
 	// Union type that includes undefined
 	if (type.kind === TypeKind.Union && type.unionTypes) {
 		return type.unionTypes.some(t => t.raw === "undefined" || canReturnUndefined(t))
 	}
-	
+
 	// Common patterns
 	if (type.raw.includes("| undefined")) return true
 	if (type.raw.includes("undefined |")) return true
-	
+
 	return false
 }
 
@@ -34,20 +34,20 @@ function canReturnUndefined(type: TypeInfo): boolean {
 export default function generateUnitTests(
 	tests: Array<TestCase>,
 	functionName: string,
-	signature?: FunctionSignature
+	signature?: FunctionSignature,
 ): string {
 	const lines: Array<string> = []
-	
+
 	lines.push("\tdescribe(\"unit tests\", () => {")
-	
+
 	tests.forEach(test => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
-		
+
 		if (signature?.isCurried && test.input.length > 1) {
 			const callStr = test.input.reduce(
 				(acc, input) => `${acc}(${valueToString(input)})`,
-				functionName
+				functionName,
 			)
 			lines.push(`\t\t\tconst result = ${callStr}`)
 		} else if (signature?.isCurried && test.input.length === 1) {
@@ -57,7 +57,7 @@ export default function generateUnitTests(
 			const inputStr = test.input.map((v) => valueToString(v)).join(", ")
 			lines.push(`\t\t\tconst result = ${functionName}(${inputStr})`)
 		}
-		
+
 		// Only assert if we have an expected output
 		if (test.expectedOutput !== undefined) {
 			const expectedStr = valueToString(test.expectedOutput)
@@ -70,11 +70,11 @@ export default function generateUnitTests(
 			// For functions that shouldn't return undefined, verify result exists
 			lines.push(`\t\t\tassertExists(result)`)
 		}
-		
+
 		lines.push("\t\t})")
 	})
-	
+
 	lines.push("\t})")
-	
+
 	return lines.join("\n")
 }

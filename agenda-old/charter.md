@@ -1,6 +1,7 @@
 # SiteBender MVP Charter
 
 ## Vision
+
 Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. The system compiles this into a unified IR that deterministically drives UI, validation, and semantic data artifacts. The complexity (state, accessibility, persistence, and RDF/SHACL) stays behind the curtain.
 
 ## MVP Scope (thin, end-to-end)
@@ -54,35 +55,42 @@ Enable non-coders to build real web apps by composing a tiny, semantic JSX DSL. 
 
 ## Milestones and Deliverables
 
-1) Contracts & IR hardening (Week 1)
+1. Contracts & IR hardening (Week 1)
+
 - Add/Multiply/Is.Equal contracts; extend Matches as needed
 - Deterministic node IDs and stable print for snapshot tests
 - Unit tests for node kinds, op args, comparator args
 
-2) Minimal DSL wrappers (Week 1–2)
-- Page, Heading, Text, Divider, Form.*, Vault/Collection/Item/Field, Calculation, When/Then/Else, From.*
+2. Minimal DSL wrappers (Week 1–2)
+
+- Page, Heading, Text, Divider, Form._, Vault/Collection/Item/Field, Calculation, When/Then/Else, From._
   - Note: I am leaning toward using If/Is.True/Is.False instead and then using the When namespace for event handling, e.g., When.Clicked, When.HoveredOver, When.Submitted, When.Focused, When.FocusLost, When.InputChanged.
   - This could make If work like a switch: Is.Isbn10, Is.Isbn13, Is.PlainDate, etc.
 - Ensure wrappers return plain markers; no runtime logic in JSX layer
 
-3) Compiler E2E (Week 2)
+3. Compiler E2E (Week 2)
+
 - Lower markers → IR; validate arity/types; attach source ranges
 - Generate friendly diagnostics with locations and hints
 
-4) Runtime graph + evaluator (Week 2–3)
+4. Runtime graph + evaluator (Week 2–3)
+
 - In-memory state with subscriptions
 - Evaluators for Add/Multiply; comparator Is.Equal; When/Then/Else selection
 - Field bindings and validation wiring
 
-5) Playground (Week 3)
+5. Playground (Week 3)
+
 - Editable JSX → show IR JSON → render live preview
 - Explanation tab with transform steps (stub data allowed)
 
-6) Docs & samples (Week 3)
+6. Docs & samples (Week 3)
+
 - One-page tutorial built with the same components
 - T-Shirt example demonstrating Calculations + Form
 
-7) Integration & hygiene (ongoing)
+7. Integration & hygiene (ongoing)
+
 - Strict tests wired per package (engine, components, playground, toolkit)
 - Type-check and alias guard green; CI task aggregation
 

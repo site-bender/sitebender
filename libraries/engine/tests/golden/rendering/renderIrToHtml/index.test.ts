@@ -17,16 +17,16 @@ describe("Golden snapshot tests", () => {
 				id: "email",
 				required: true,
 				"aria-label": "Email address",
-				"aria-describedby": "email-help"
+				"aria-describedby": "email-help",
 			},
-			children: []
+			children: [],
 		}
 
 		const helpText: Node = {
 			v: "0.1.0",
 			id: "help-text",
 			kind: "text",
-			content: "Enter your email address to receive updates"
+			content: "Enter your email address to receive updates",
 		}
 
 		const helpElement: Node = {
@@ -36,9 +36,9 @@ describe("Golden snapshot tests", () => {
 			tag: "div",
 			attrs: {
 				id: "email-help",
-				class: "help-text"
+				class: "help-text",
 			},
-			children: [helpText]
+			children: [helpText],
 		}
 
 		const submitButton: Node = {
@@ -48,14 +48,14 @@ describe("Golden snapshot tests", () => {
 			tag: "button",
 			attrs: {
 				type: "submit",
-				class: "btn-primary"
+				class: "btn-primary",
 			},
 			children: [{
 				v: "0.1.0",
 				id: "btn-text",
 				kind: "text",
-				content: "Subscribe"
-			}]
+				content: "Subscribe",
+			}],
 		}
 
 		const emailForm: Node = {
@@ -66,19 +66,20 @@ describe("Golden snapshot tests", () => {
 			attrs: {
 				method: "POST",
 				action: "/subscribe",
-				"aria-labelledby": "form-title"
+				"aria-labelledby": "form-title",
 			},
-			children: [emailInput, helpElement, submitButton]
+			children: [emailInput, helpElement, submitButton],
 		}
 
 		const actualHtml = renderIrToHtml(emailForm)
 
 		// Golden snapshot: exact expected HTML structure
-		const expectedHtml = '<form method="POST" action="/subscribe" aria-labelledby="form-title">' +
+		const expectedHtml =
+			'<form method="POST" action="/subscribe" aria-labelledby="form-title">' +
 			'<input type="email" name="email" id="email" required="true" aria-label="Email address" aria-describedby="email-help" />' +
 			'<div id="email-help" class="help-text">Enter your email address to receive updates</div>' +
 			'<button type="submit" class="btn-primary">Subscribe</button>' +
-			'</form>'
+			"</form>"
 
 		assertEquals(actualHtml, expectedHtml)
 	})
@@ -88,7 +89,7 @@ describe("Golden snapshot tests", () => {
 			v: "0.1.0",
 			id: "error-msg",
 			kind: "text",
-			content: "Please correct the errors below"
+			content: "Please correct the errors below",
 		}
 
 		const errorMessage: Node = {
@@ -99,16 +100,16 @@ describe("Golden snapshot tests", () => {
 			attrs: {
 				class: "error-message",
 				role: "alert",
-				"aria-live": "polite"
+				"aria-live": "polite",
 			},
-			children: [errorText]
+			children: [errorText],
 		}
 
 		const successText: Node = {
 			v: "0.1.0",
 			id: "success-msg",
 			kind: "text",
-			content: "Form submitted successfully!"
+			content: "Form submitted successfully!",
 		}
 
 		const successMessage: Node = {
@@ -119,19 +120,21 @@ describe("Golden snapshot tests", () => {
 			attrs: {
 				class: "success-message",
 				role: "status",
-				"aria-live": "polite"
+				"aria-live": "polite",
 			},
-			children: [successText]
+			children: [successText],
 		}
 
 		// Test error state conditional
 		const errorHtml = renderIrToHtml(errorMessage)
-		const expectedErrorHtml = '<div class="error-message" role="alert" aria-live="polite">Please correct the errors below</div>'
+		const expectedErrorHtml =
+			'<div class="error-message" role="alert" aria-live="polite">Please correct the errors below</div>'
 		assertEquals(errorHtml, expectedErrorHtml)
 
 		// Test success state conditional
 		const successHtml = renderIrToHtml(successMessage)
-		const expectedSuccessHtml = '<div class="success-message" role="status" aria-live="polite">Form submitted successfully!</div>'
+		const expectedSuccessHtml =
+			'<div class="success-message" role="status" aria-live="polite">Form submitted successfully!</div>'
 		assertEquals(successHtml, expectedSuccessHtml)
 	})
 
@@ -140,7 +143,7 @@ describe("Golden snapshot tests", () => {
 			v: "0.1.0",
 			id: "loading-text",
 			kind: "text",
-			content: "Loading..."
+			content: "Loading...",
 		}
 
 		const loadingSpinner: Node = {
@@ -150,16 +153,16 @@ describe("Golden snapshot tests", () => {
 			tag: "div",
 			attrs: {
 				class: "spinner",
-				"aria-hidden": "true"
+				"aria-hidden": "true",
 			},
-			children: []
+			children: [],
 		}
 
 		const contentText: Node = {
 			v: "0.1.0",
 			id: "content-text",
 			kind: "text",
-			content: "Welcome to our site!"
+			content: "Welcome to our site!",
 		}
 
 		const loadingState: Node = {
@@ -169,9 +172,9 @@ describe("Golden snapshot tests", () => {
 			tag: "div",
 			attrs: {
 				class: "loading-container",
-				"aria-live": "polite"
+				"aria-live": "polite",
 			},
-			children: [loadingSpinner, loadingText]
+			children: [loadingSpinner, loadingText],
 		}
 
 		const contentState: Node = {
@@ -181,22 +184,24 @@ describe("Golden snapshot tests", () => {
 			tag: "main",
 			attrs: {
 				class: "main-content",
-				role: "main"
+				role: "main",
 			},
-			children: [contentText]
+			children: [contentText],
 		}
 
 		// Test loading conditional
 		const loadingHtml = renderIrToHtml(loadingState)
-		const expectedLoadingHtml = '<div class="loading-container" aria-live="polite">' +
+		const expectedLoadingHtml =
+			'<div class="loading-container" aria-live="polite">' +
 			'<div class="spinner" aria-hidden="true"></div>' +
-			'Loading...' +
-			'</div>'
+			"Loading..." +
+			"</div>"
 		assertEquals(loadingHtml, expectedLoadingHtml)
 
 		// Test content conditional
 		const contentHtml = renderIrToHtml(contentState)
-		const expectedContentHtml = '<main class="main-content" role="main">Welcome to our site!</main>'
+		const expectedContentHtml =
+			'<main class="main-content" role="main">Welcome to our site!</main>'
 		assertEquals(contentHtml, expectedContentHtml)
 	})
 })

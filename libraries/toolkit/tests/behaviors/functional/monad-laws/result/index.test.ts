@@ -59,7 +59,9 @@ Deno.test("Result monad - associativity law", () => {
 
 	fc.assert(
 		fc.property(
-			fc.integer({ min: -50, max: 150 }).map((v) => ok<number, string>(v)),
+			fc.integer({ min: -50, max: 150 }).map((v) =>
+				ok<number, string>(v)
+			),
 			(m) => {
 				const left = chain<number, number, string>(g)(
 					chain<number, number, string>(f)(m),
@@ -88,7 +90,9 @@ Deno.test("Result functor - identity and composition laws", () => {
 			(m) => {
 				const idRes = map<number, number>(id)(m)
 				const compLeft = map<number, number>((x: number) => f(g(x)))(m)
-				const compRight = map<number, number>(f)(map<number, number>(g)(m))
+				const compRight = map<number, number>(f)(
+					map<number, number>(g)(m),
+				)
 				return (
 					JSON.stringify(idRes) === JSON.stringify(m) &&
 					JSON.stringify(compLeft) === JSON.stringify(compRight)

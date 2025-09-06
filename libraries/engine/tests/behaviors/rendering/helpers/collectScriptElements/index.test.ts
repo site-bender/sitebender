@@ -28,7 +28,9 @@ const createComponentFromElement = (
 	// Extract scripts from data-scripts attribute
 	const scriptsAttr = element.getAttribute("data-scripts")
 	if (scriptsAttr) {
-		component.scripts = scriptsAttr.split(",").map((script) => script.trim())
+		component.scripts = scriptsAttr.split(",").map((script) =>
+			script.trim()
+		)
 	}
 
 	// Extract children from child elements
@@ -125,8 +127,10 @@ Deno.test("collectScriptElements children traversal", async (t) => {
 		assertEquals(result, ["level1.js", "level2.js", "level3.js"])
 	})
 
-	await t.step("should handle mixed children with and without scripts", () => {
-		const doc = setupDocument(`
+	await t.step(
+		"should handle mixed children with and without scripts",
+		() => {
+			const doc = setupDocument(`
 			<div id="parent">
 				<div></div>
 				<div data-scripts="script1.js"></div>
@@ -134,12 +138,13 @@ Deno.test("collectScriptElements children traversal", async (t) => {
 				<div data-scripts="script2.js,script3.js"></div>
 			</div>
 		`)
-		const element = doc.getElementById("parent")!
-		const component = createComponentFromElement(element)
+			const element = doc.getElementById("parent")!
+			const component = createComponentFromElement(element)
 
-		const result = collectScriptElements(component)
-		assertEquals(result, ["script1.js", "script2.js", "script3.js"])
-	})
+			const result = collectScriptElements(component)
+			assertEquals(result, ["script1.js", "script2.js", "script3.js"])
+		},
+	)
 
 	await t.step("should handle empty children array", () => {
 		const doc = setupDocument(`<div id="empty"></div>`)
@@ -405,7 +410,9 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 20 }).map((s) => s + ".js"),
+				fc.string({ minLength: 1, maxLength: 20 }).map((s) =>
+					s + ".js"
+				),
 			),
 			(scripts) => {
 				const component = { scripts }
@@ -419,7 +426,9 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.array(
-				fc.string({ minLength: 1, maxLength: 20 }).map((s) => s + ".js"),
+				fc.string({ minLength: 1, maxLength: 20 }).map((s) =>
+					s + ".js"
+				),
 			)),
 			(childScripts) => {
 				const children = childScripts.map((scripts) => ({ scripts }))
@@ -435,11 +444,15 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
+				fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
+					s + ".js"
+				),
 			),
 			fc.array(
 				fc.array(
-					fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
+					fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
+						s + ".js"
+					),
 				),
 			),
 			(rootScripts, childScripts) => {
@@ -457,7 +470,9 @@ Deno.test("collectScriptElements property-based tests", () => {
 		fc.property(
 			fc.integer({ min: 1, max: 5 }),
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
+				fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
+					s + ".js"
+				),
 			),
 			(depth, scripts) => {
 				// Create nested structure of specified depth

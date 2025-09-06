@@ -10,12 +10,12 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of monad-specific test cases
  */
 export default function generateMonadPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const tests: Array<TestCase> = []
 	const returnType = signature.returnType.raw
 	const name = signature.name.toLowerCase()
-	
+
 	// Maybe monad tests
 	if (returnType.includes("Maybe") || name.includes("maybe")) {
 		tests.push({
@@ -33,7 +33,7 @@ export default function generateMonadPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "right identity law",
 			description: "m >>= return ≡ m",
@@ -49,14 +49,14 @@ export default function generateMonadPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "handles null/undefined",
 			description: "Wraps null/undefined as Nothing",
 			input: [null],
 			expectedOutput: { tag: "Nothing" },
 		})
-		
+
 		tests.push({
 			name: "handles values",
 			description: "Wraps values as Just",
@@ -64,7 +64,7 @@ export default function generateMonadPatternTests(
 			expectedOutput: { tag: "Just", value: 42 },
 		})
 	}
-	
+
 	// Either monad tests
 	if (returnType.includes("Either") || name.includes("either")) {
 		tests.push({
@@ -73,14 +73,14 @@ export default function generateMonadPatternTests(
 			input: [new Error("fail")],
 			expectedOutput: { tag: "Left", value: "fail" },
 		})
-		
+
 		tests.push({
 			name: "creates Right for success",
 			description: "Success values become Right",
 			input: [42],
 			expectedOutput: { tag: "Right", value: 42 },
 		})
-		
+
 		tests.push({
 			name: "associativity law",
 			description: "(m >>= f) >>= g ≡ m >>= (λx → f x >>= g)",
@@ -88,7 +88,8 @@ export default function generateMonadPatternTests(
 			expectedOutput: undefined,
 			properties: [{
 				name: "monad associativity",
-				generator: "fc.anything(), fc.func(fc.anything()), fc.func(fc.anything())",
+				generator:
+					"fc.anything(), fc.func(fc.anything()), fc.func(fc.anything())",
 				property: `
 					const m = Either.of(value)
 					const left = m.chain(f).chain(g)
@@ -97,7 +98,7 @@ export default function generateMonadPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "map over Right",
 			description: "Mapping transforms Right values",
@@ -113,7 +114,7 @@ export default function generateMonadPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "map over Left unchanged",
 			description: "Mapping doesn't affect Left values",
@@ -130,7 +131,7 @@ export default function generateMonadPatternTests(
 			}],
 		})
 	}
-	
+
 	// Result monad tests
 	if (returnType.includes("Result") || name.includes("result")) {
 		tests.push({
@@ -139,14 +140,14 @@ export default function generateMonadPatternTests(
 			input: [42],
 			expectedOutput: { tag: "Ok", value: 42 },
 		})
-		
+
 		tests.push({
 			name: "Err wraps failure",
 			description: "Failed computations return Err",
 			input: [new Error("failed")],
 			expectedOutput: { tag: "Err", error: "failed" },
 		})
-		
+
 		tests.push({
 			name: "chain propagates errors",
 			description: "Chaining on Err skips computation",
@@ -163,9 +164,12 @@ export default function generateMonadPatternTests(
 			}],
 		})
 	}
-	
+
 	// Chain/bind/flatMap tests
-	if (name.includes("chain") || name.includes("bind") || name.includes("flatmap")) {
+	if (
+		name.includes("chain") || name.includes("bind") ||
+		name.includes("flatmap")
+	) {
 		tests.push({
 			name: "flattens nested monads",
 			description: "Chain removes one layer of monad wrapping",
@@ -173,7 +177,8 @@ export default function generateMonadPatternTests(
 			expectedOutput: [1, 2, 2, 4, 3, 6],
 			properties: [{
 				name: "flatten operation",
-				generator: "fc.func(fc.array(fc.anything())), fc.array(fc.anything())",
+				generator:
+					"fc.func(fc.array(fc.anything())), fc.array(fc.anything())",
 				property: `
 					const result = chain(f)(arr)
 					const manual = arr.flatMap(f)
@@ -182,6 +187,6 @@ export default function generateMonadPatternTests(
 			}],
 		})
 	}
-	
+
 	return tests
 }

@@ -73,7 +73,9 @@ export interface MedicalEntityProps {
 		| ReturnType<typeof DrugLegalStatusComponent>
 		| ReturnType<typeof MedicalEnumerationComponent>
 	medicineSystem?: MedicineSystem | ReturnType<typeof MedicineSystemComponent>
-	recognizingAuthority?: Organization | ReturnType<typeof OrganizationComponent>
+	recognizingAuthority?:
+		| Organization
+		| ReturnType<typeof OrganizationComponent>
 	relevantSpecialty?:
 		| MedicalSpecialty
 		| ReturnType<typeof MedicalSpecialtyComponent>

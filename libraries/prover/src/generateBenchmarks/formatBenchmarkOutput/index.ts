@@ -12,24 +12,24 @@ import type { BenchmarkResult } from "../types/index.ts"
  */
 export default function formatBenchmarkOutput(
 	results: Array<BenchmarkResult>,
-	functionName: string
+	functionName: string,
 ): string {
 	const header = `Benchmark Results for ${functionName}`
-	const separator = '='.repeat(header.length)
-	
-	const formattedResults = results.map(result => {
+	const separator = "=".repeat(header.length)
+
+	const formattedResults = results.map((result) => {
 		const avgTime = result.averageTime.toFixed(4)
 		const minTime = result.minTime.toFixed(4)
 		const maxTime = result.maxTime.toFixed(4)
-		
+
 		return `
 Test: ${result.test}
   Iterations: ${result.iterations}
   Average: ${avgTime}ms
   Min: ${minTime}ms
   Max: ${maxTime}ms`
-	}).join('\n')
-	
+	}).join("\n")
+
 	return `${header}
 ${separator}
 ${formattedResults}

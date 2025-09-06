@@ -18,7 +18,10 @@ export type InvestmentOrDepositType =
 
 export interface InvestmentOrDepositProps {
 	"@type"?: InvestmentOrDepositType
-	amount?: MonetaryAmount | Number | ReturnType<typeof MonetaryAmountComponent>
+	amount?:
+		| MonetaryAmount
+		| Number
+		| ReturnType<typeof MonetaryAmountComponent>
 }
 
 type InvestmentOrDeposit =

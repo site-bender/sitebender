@@ -10,161 +10,161 @@ const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
 		name: "map",
 		path: "libraries/toolkit/src/simple/array/map/index.ts",
 		parameters: [
-			{ 
-				name: "fn", 
+			{
+				name: "fn",
 				type: {
 					raw: "(value: T, index: number) => U",
-					kind: TypeKind.Function
-				}, 
-				optional: false 
+					kind: TypeKind.Function,
+				},
+				optional: false,
 			},
-			{ 
-				name: "array", 
+			{
+				name: "array",
 				type: {
 					raw: "Array<T>",
 					kind: TypeKind.Array,
 					elementType: {
 						raw: "T",
-						kind: TypeKind.Generic
-					}
-				}, 
-				optional: false 
-			}
+						kind: TypeKind.Generic,
+					},
+				},
+				optional: false,
+			},
 		],
 		returnType: {
 			raw: "Array<U>",
 			kind: TypeKind.Array,
 			elementType: {
 				raw: "U",
-				kind: TypeKind.Generic
-			}
+				kind: TypeKind.Generic,
+			},
 		},
 		generics: [
 			{ name: "T" },
-			{ name: "U" }
+			{ name: "U" },
 		],
 		isCurried: true,
 		isAsync: false,
-		isGenerator: false
+		isGenerator: false,
 	},
-	
+
 	"array/filter": {
 		name: "filter",
 		path: "libraries/toolkit/src/simple/array/filter/index.ts",
 		parameters: [
-			{ 
-				name: "predicate", 
+			{
+				name: "predicate",
 				type: {
 					raw: "(value: T, index: number) => boolean",
-					kind: TypeKind.Function
-				}, 
-				optional: false 
+					kind: TypeKind.Function,
+				},
+				optional: false,
 			},
-			{ 
-				name: "array", 
+			{
+				name: "array",
 				type: {
 					raw: "Array<T>",
 					kind: TypeKind.Array,
 					elementType: {
 						raw: "T",
-						kind: TypeKind.Generic
-					}
-				}, 
-				optional: false 
-			}
+						kind: TypeKind.Generic,
+					},
+				},
+				optional: false,
+			},
 		],
 		returnType: {
 			raw: "Array<T>",
 			kind: TypeKind.Array,
 			elementType: {
 				raw: "T",
-				kind: TypeKind.Generic
-			}
+				kind: TypeKind.Generic,
+			},
 		},
 		generics: [
-			{ name: "T" }
+			{ name: "T" },
 		],
 		isCurried: true,
 		isAsync: false,
-		isGenerator: false
+		isGenerator: false,
 	},
-	
+
 	"math/add": {
 		name: "add",
 		path: "libraries/toolkit/src/simple/math/add/index.ts",
 		parameters: [
-			{ 
-				name: "a", 
+			{
+				name: "a",
 				type: {
 					raw: "number",
-					kind: TypeKind.Primitive
-				}, 
-				optional: false 
+					kind: TypeKind.Primitive,
+				},
+				optional: false,
 			},
-			{ 
-				name: "b", 
+			{
+				name: "b",
 				type: {
 					raw: "number",
-					kind: TypeKind.Primitive
-				}, 
-				optional: false 
-			}
+					kind: TypeKind.Primitive,
+				},
+				optional: false,
+			},
 		],
 		returnType: {
 			raw: "number",
-			kind: TypeKind.Primitive
+			kind: TypeKind.Primitive,
 		},
 		generics: [],
 		isCurried: true,
 		isAsync: false,
-		isGenerator: false
+		isGenerator: false,
 	},
-	
+
 	"string/trim": {
 		name: "trim",
 		path: "libraries/toolkit/src/simple/string/trim/index.ts",
 		parameters: [
-			{ 
-				name: "str", 
+			{
+				name: "str",
 				type: {
 					raw: "string",
-					kind: TypeKind.Primitive
-				}, 
-				optional: false 
-			}
+					kind: TypeKind.Primitive,
+				},
+				optional: false,
+			},
 		],
 		returnType: {
 			raw: "string",
-			kind: TypeKind.Primitive
+			kind: TypeKind.Primitive,
 		},
 		generics: [],
 		isCurried: false,
 		isAsync: false,
-		isGenerator: false
+		isGenerator: false,
 	},
-	
+
 	"validation/isEmail": {
 		name: "isEmail",
 		path: "libraries/toolkit/src/simple/validation/isEmail/index.ts",
 		parameters: [
-			{ 
-				name: "value", 
+			{
+				name: "value",
 				type: {
 					raw: "unknown",
-					kind: TypeKind.Unknown
-				}, 
-				optional: false 
-			}
+					kind: TypeKind.Unknown,
+				},
+				optional: false,
+			},
 		],
 		returnType: {
 			raw: "boolean",
-			kind: TypeKind.Primitive
+			kind: TypeKind.Primitive,
 		},
 		generics: [],
 		isCurried: false,
 		isAsync: false,
-		isGenerator: false
-	}
+		isGenerator: false,
+	},
 }
 
 /**
@@ -172,9 +172,11 @@ const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
  * @param signatures Map of function path to signature
  * @returns Promise resolving to map of test file paths to content
  */
-export default async function orchestrateTestGeneration(signatures: Record<string, FunctionSignature>): Promise<Map<string, string>> {
+export default async function orchestrateTestGeneration(
+	signatures: Record<string, FunctionSignature>,
+): Promise<Map<string, string>> {
 	console.log("🚀 @sitebender/toolkit Test Generator")
-	console.log("=" .repeat(80))
+	console.log("=".repeat(80))
 
 	analyzeAndPrioritize(signatures)
 
@@ -182,7 +184,8 @@ export default async function orchestrateTestGeneration(signatures: Record<strin
 	console.log("GENERATING TESTS FOR FUNCTIONS")
 	console.log("=".repeat(80))
 
-	const priorityFunctions: Array<[string, FunctionSignature]> = Object.entries(signatures)
+	const priorityFunctions: Array<[string, FunctionSignature]> = Object
+		.entries(signatures)
 	const testFiles = await generateBatchTests(priorityFunctions)
 
 	generateReport(testFiles)
@@ -195,7 +198,9 @@ export default async function orchestrateTestGeneration(signatures: Record<strin
  * @param signature Function signature to generate tests for
  * @returns Generated test file content as string
  */
-async function generateTestsForFunction(signature: FunctionSignature): Promise<string> {
+async function generateTestsForFunction(
+	signature: FunctionSignature,
+): Promise<string> {
 	console.log(`\n${"=".repeat(80)}`)
 	console.log(`Generating tests for: ${signature.name}`)
 	console.log("=".repeat(80))
@@ -207,7 +212,7 @@ async function generateTestsForFunction(signature: FunctionSignature): Promise<s
 		testSuite.functionPath,
 		testSuite.functionName,
 		testSuite.testCases,
-		signature
+		signature,
 	)
 	console.log(`✓ Generated test file at: ${testContent}`)
 
@@ -220,7 +225,9 @@ async function generateTestsForFunction(signature: FunctionSignature): Promise<s
  * @param signatures Array of function key and signature pairs
  * @returns Map of test file paths to content
  */
-async function generateBatchTests(signatures: Array<[string, FunctionSignature]>): Promise<Map<string, string>> {
+async function generateBatchTests(
+	signatures: Array<[string, FunctionSignature]>,
+): Promise<Map<string, string>> {
 	const testFiles = new Map<string, string>()
 
 	const promises = signatures.map(async ([key, signature]) => {
@@ -240,7 +247,9 @@ async function generateBatchTests(signatures: Array<[string, FunctionSignature]>
  * Analyzes and displays priority functions for testing
  * @param signatures Map of function signatures
  */
-function analyzeAndPrioritize(signatures: Record<string, FunctionSignature>): void {
+function analyzeAndPrioritize(
+	signatures: Record<string, FunctionSignature>,
+): void {
 	console.log("\n" + "=".repeat(80))
 	console.log("ANALYZING @sitebender/toolkit")
 	console.log("=".repeat(80))
@@ -279,8 +288,16 @@ function generateReport(testFiles: Map<string, string>): void {
 	console.log(`  Functions processed: ${testFiles.size}`)
 	console.log(`  Total tests generated: ${stats.totalTests}`)
 	console.log(`  Total lines generated: ${stats.totalLines}`)
-	console.log(`  Average tests per function: ${(stats.totalTests / testFiles.size).toFixed(1)}`)
-	console.log(`  Average lines per function: ${(stats.totalLines / testFiles.size).toFixed(0)}`)
+	console.log(
+		`  Average tests per function: ${
+			(stats.totalTests / testFiles.size).toFixed(1)
+		}`,
+	)
+	console.log(
+		`  Average lines per function: ${
+			(stats.totalLines / testFiles.size).toFixed(0)
+		}`,
+	)
 }
 
 /**
@@ -288,19 +305,24 @@ function generateReport(testFiles: Map<string, string>): void {
  * @param testFiles Map of test files to write
  * @returns Promise resolving to the test files map
  */
-async function writeTestFiles(testFiles: Map<string, string>): Promise<Map<string, string>> {
+async function writeTestFiles(
+	testFiles: Map<string, string>,
+): Promise<Map<string, string>> {
 	const entries = Array.from(testFiles.entries())
-	const promises = entries.map(async function writeIndividualFile([key, content]) {
-		const testPath = `tests/libraries/toolkit/generated/${key}/index.test.ts`
-		console.log(`Writing test to: ${testPath}`)
-		
-		// Ensure directory exists
-		const dir = testPath.substring(0, testPath.lastIndexOf('/'))
-		await Deno.mkdir(dir, { recursive: true })
-		
-		// Write the content directly
-		await Deno.writeTextFile(testPath, content)
-	})
+	const promises = entries.map(
+		async function writeIndividualFile([key, content]) {
+			const testPath =
+				`tests/libraries/toolkit/generated/${key}/index.test.ts`
+			console.log(`Writing test to: ${testPath}`)
+
+			// Ensure directory exists
+			const dir = testPath.substring(0, testPath.lastIndexOf("/"))
+			await Deno.mkdir(dir, { recursive: true })
+
+			// Write the content directly
+			await Deno.writeTextFile(testPath, content)
+		},
+	)
 
 	await Promise.all(promises)
 	return testFiles
@@ -312,7 +334,9 @@ async function writeTestFiles(testFiles: Map<string, string>): Promise<Map<strin
 async function main(): Promise<void> {
 	await orchestrateTestGeneration(TOOLKIT_SIGNATURES)
 	console.log("\n✅ Test generation complete!")
-	console.log("🎯 Goal: 100% coverage for 900 functions with ZERO manual test writing")
+	console.log(
+		"🎯 Goal: 100% coverage for 900 functions with ZERO manual test writing",
+	)
 }
 
 if (import.meta.main) {

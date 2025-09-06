@@ -32,7 +32,10 @@ export interface LearningResourceProps {
 		| Text
 		| URL
 		| ReturnType<typeof DefinedTermComponent>
-	educationalUse?: DefinedTerm | Text | ReturnType<typeof DefinedTermComponent>
+	educationalUse?:
+		| DefinedTerm
+		| Text
+		| ReturnType<typeof DefinedTermComponent>
 	learningResourceType?:
 		| DefinedTerm
 		| Text

@@ -14,7 +14,9 @@ const toCamel = (str: string | null | undefined): string => {
 	const [first, ...rest] = parts
 	return [
 		first.toLowerCase(),
-		...rest.map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()),
+		...rest.map((w) =>
+			w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+		),
 	].join("")
 }
 

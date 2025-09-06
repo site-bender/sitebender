@@ -99,9 +99,9 @@ export default function DateComponent({
 		display = formatDate(date, locale, options)
 		// Fallback if formatting fails
 		if (!display) {
-			display = `${parsed.year}-${String(parsed.month).padStart(2, "0")}-${
-				String(parsed.day).padStart(2, "0")
-			}`
+			display = `${parsed.year}-${
+				String(parsed.month).padStart(2, "0")
+			}-${String(parsed.day).padStart(2, "0")}`
 		}
 	}
 

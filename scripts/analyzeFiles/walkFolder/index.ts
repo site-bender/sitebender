@@ -13,7 +13,10 @@ export default async function* walkFolder(opts: {
 			if (entry.isDirectory) {
 				if (opts.excludedDirNames.has(entry.name)) continue
 				for await (
-					const sub of walkFolder({ ...opts, dir: join(opts.dir, entry.name) })
+					const sub of walkFolder({
+						...opts,
+						dir: join(opts.dir, entry.name),
+					})
 				) {
 					yield sub
 				}

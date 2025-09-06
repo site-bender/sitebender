@@ -10,19 +10,18 @@ For curried functions that need DI, the config object is the **first** parameter
 
 ```typescript
 // Pattern for DOM operations
-const querySelector = (config = { dom: globalThis.document }) =>
-  (selector: string) =>
-    config.dom.querySelector(selector)
+const querySelector =
+	(config = { dom: globalThis.document }) => (selector: string) =>
+		config.dom.querySelector(selector)
 
-// Pattern for storage operations  
-const getFromLocalStorage = (config = { storage: globalThis.localStorage }) =>
-  (key: string) =>
-    config.storage.getItem(key)
+// Pattern for storage operations
+const getFromLocalStorage =
+	(config = { storage: globalThis.localStorage }) => (key: string) =>
+		config.storage.getItem(key)
 
 // Pattern for time operations
-const getCurrentTime = (config = { now: () => Date.now() }) =>
-  () =>
-    config.now()
+const getCurrentTime = (config = { now: () => Date.now() }) => () =>
+	config.now()
 ```
 
 ## Common Injection Scenarios
@@ -32,24 +31,24 @@ const getCurrentTime = (config = { now: () => Date.now() }) =>
 ```typescript
 // src/dom/createElement/index.ts
 export default function createElement(
-  config = { document: globalThis.document }
+	config = { document: globalThis.document },
 ) {
-  return (tag: string) => (attributes = {}) => (children = []) => {
-    const element = config.document.createElement(tag)
-    // ... set attributes and children
-    return element
-  }
+	return (tag: string) => (attributes = {}) => (children = []) => {
+		const element = config.document.createElement(tag)
+		// ... set attributes and children
+		return element
+	}
 }
 
 // tests/dom/createElement/index.ts
 import createTestDom from "../../helpers/createTestDom/index.ts"
 
 test("creates element with attributes", () => {
-  const { document } = createTestDom()
-  const create = createElement({ document })
-  
-  const div = create("div")({ class: "test" })([])
-  assertEquals(div.className, "test")
+	const { document } = createTestDom()
+	const create = createElement({ document })
+
+	const div = create("div")({ class: "test" })([])
+	assertEquals(div.className, "test")
 })
 ```
 
@@ -58,40 +57,40 @@ test("creates element with attributes", () => {
 ```typescript
 // src/storage/localStorage/index.ts
 export default function localStorage(
-  config = { 
-    storage: globalThis.localStorage,
-    json: JSON 
-  }
+	config = {
+		storage: globalThis.localStorage,
+		json: JSON,
+	},
 ) {
-  return {
-    get: (key: string) => {
-      const value = config.storage.getItem(key)
-      return value ? config.json.parse(value) : null
-    },
-    set: (key: string) => (value: any) => {
-      config.storage.setItem(key, config.json.stringify(value))
-      return value
-    },
-    remove: (key: string) => {
-      config.storage.removeItem(key)
-    }
-  }
+	return {
+		get: (key: string) => {
+			const value = config.storage.getItem(key)
+			return value ? config.json.parse(value) : null
+		},
+		set: (key: string) => (value: any) => {
+			config.storage.setItem(key, config.json.stringify(value))
+			return value
+		},
+		remove: (key: string) => {
+			config.storage.removeItem(key)
+		},
+	}
 }
 
 // tests/storage/localStorage/index.ts
 test("stores and retrieves values", () => {
-  const mockStorage = new Map<string, string>()
-  const storage = localStorage({
-    storage: {
-      getItem: (k) => mockStorage.get(k) ?? null,
-      setItem: (k, v) => mockStorage.set(k, v),
-      removeItem: (k) => mockStorage.delete(k)
-    },
-    json: JSON
-  })
-  
-  storage.set("user")({ name: "Test" })
-  assertEquals(storage.get("user"), { name: "Test" })
+	const mockStorage = new Map<string, string>()
+	const storage = localStorage({
+		storage: {
+			getItem: (k) => mockStorage.get(k) ?? null,
+			setItem: (k, v) => mockStorage.set(k, v),
+			removeItem: (k) => mockStorage.delete(k),
+		},
+		json: JSON,
+	})
+
+	storage.set("user")({ name: "Test" })
+	assertEquals(storage.get("user"), { name: "Test" })
 })
 ```
 
@@ -102,27 +101,28 @@ While we prefer MSW at the application edges, here's the DI pattern:
 ```typescript
 // src/api/fetchJson/index.ts
 export default function fetchJson(
-  config = { fetch: globalThis.fetch }
+	config = { fetch: globalThis.fetch },
 ) {
-  return async (url: string) => {
-    const response = await config.fetch(url)
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`)
-    }
-    return response.json()
-  }
+	return async (url: string) => {
+		const response = await config.fetch(url)
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}`)
+		}
+		return response.json()
+	}
 }
 
 // tests/api/fetchJson/index.ts
 test("fetches and parses JSON", async () => {
-  const mockFetch = (url: string) => Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({ data: "test" })
-  })
-  
-  const fetch = fetchJson({ fetch: mockFetch })
-  const result = await fetch("/api/test")
-  assertEquals(result, { data: "test" })
+	const mockFetch = (url: string) =>
+		Promise.resolve({
+			ok: true,
+			json: () => Promise.resolve({ data: "test" }),
+		})
+
+	const fetch = fetchJson({ fetch: mockFetch })
+	const result = await fetch("/api/test")
+	assertEquals(result, { data: "test" })
 })
 ```
 
@@ -131,28 +131,28 @@ test("fetches and parses JSON", async () => {
 ```typescript
 // src/time/relativeTime/index.ts
 export default function relativeTime(
-  config = { 
-    now: () => Date.now(),
-    locale: "en-US" 
-  }
+	config = {
+		now: () => Date.now(),
+		locale: "en-US",
+	},
 ) {
-  return (timestamp: number) => {
-    const diff = config.now() - timestamp
-    const seconds = Math.floor(diff / 1000)
-    
-    if (seconds < 60) return "just now"
-    if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`
-    // ... etc
-  }
+	return (timestamp: number) => {
+		const diff = config.now() - timestamp
+		const seconds = Math.floor(diff / 1000)
+
+		if (seconds < 60) return "just now"
+		if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`
+		// ... etc
+	}
 }
 
 // tests/time/relativeTime/index.ts
 test("formats relative time correctly", () => {
-  const fixedNow = new Date("2024-01-01T12:00:00").getTime()
-  const relative = relativeTime({ now: () => fixedNow })
-  
-  const fiveMinutesAgo = fixedNow - (5 * 60 * 1000)
-  assertEquals(relative(fiveMinutesAgo), "5 minutes ago")
+	const fixedNow = new Date("2024-01-01T12:00:00").getTime()
+	const relative = relativeTime({ now: () => fixedNow })
+
+	const fiveMinutesAgo = fixedNow - (5 * 60 * 1000)
+	assertEquals(relative(fiveMinutesAgo), "5 minutes ago")
 })
 ```
 
@@ -161,28 +161,28 @@ test("formats relative time correctly", () => {
 ```typescript
 // src/random/randomId/index.ts
 export default function randomId(
-  config = { 
-    random: () => Math.random(),
-    prefix: "id-" 
-  }
+	config = {
+		random: () => Math.random(),
+		prefix: "id-",
+	},
 ) {
-  return () => {
-    const random = config.random()
-      .toString(36)
-      .substring(2, 10)
-    return `${config.prefix}${random}`
-  }
+	return () => {
+		const random = config.random()
+			.toString(36)
+			.substring(2, 10)
+		return `${config.prefix}${random}`
+	}
 }
 
 // tests/random/randomId/index.ts
 test("generates predictable IDs with seeded random", () => {
-  let seed = 0.5
-  const id = randomId({ 
-    random: () => seed,
-    prefix: "test-" 
-  })
-  
-  assertEquals(id(), "test-i")
+	let seed = 0.5
+	const id = randomId({
+		random: () => seed,
+		prefix: "test-",
+	})
+
+	assertEquals(id(), "test-i")
 })
 ```
 
@@ -212,21 +212,23 @@ const toUpperCase = (str: string) => str.toUpperCase()
 // tests/helpers/createTestDom/index.ts
 import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts"
 
-export default function createTestDom(html = "<!DOCTYPE html><html><body></body></html>") {
-  const doc = new DOMParser().parseFromString(html, "text/html")
-  return {
-    document: doc,
-    window: {
-      document: doc,
-      localStorage: new Map(),
-      sessionStorage: new Map(),
-      location: {
-        href: "http://localhost:3000/",
-        pathname: "/",
-        search: ""
-      }
-    }
-  }
+export default function createTestDom(
+	html = "<!DOCTYPE html><html><body></body></html>",
+) {
+	const doc = new DOMParser().parseFromString(html, "text/html")
+	return {
+		document: doc,
+		window: {
+			document: doc,
+			localStorage: new Map(),
+			sessionStorage: new Map(),
+			location: {
+				href: "http://localhost:3000/",
+				pathname: "/",
+				search: "",
+			},
+		},
+	}
 }
 ```
 
@@ -235,16 +237,18 @@ export default function createTestDom(html = "<!DOCTYPE html><html><body></body>
 ```typescript
 // tests/helpers/createTestStorage/index.ts
 export default function createTestStorage(initial = {}) {
-  const store = new Map(Object.entries(initial))
-  
-  return {
-    getItem: (key: string) => store.get(key) ?? null,
-    setItem: (key: string, value: string) => store.set(key, value),
-    removeItem: (key: string) => store.delete(key),
-    clear: () => store.clear(),
-    get length() { return store.size },
-    key: (index: number) => Array.from(store.keys())[index] ?? null
-  }
+	const store = new Map(Object.entries(initial))
+
+	return {
+		getItem: (key: string) => store.get(key) ?? null,
+		setItem: (key: string, value: string) => store.set(key, value),
+		removeItem: (key: string) => store.delete(key),
+		clear: () => store.clear(),
+		get length() {
+			return store.size
+		},
+		key: (index: number) => Array.from(store.keys())[index] ?? null,
+	}
 }
 ```
 
@@ -255,19 +259,19 @@ For simple cases (prefer MSW for complex scenarios):
 ```typescript
 // tests/helpers/createTestFetch/index.ts
 export default function createTestFetch(responses = new Map()) {
-  return (url: string, options?: RequestInit) => {
-    const response = responses.get(url)
-    if (!response) {
-      return Promise.reject(new Error(`No mock for ${url}`))
-    }
-    
-    return Promise.resolve({
-      ok: response.status >= 200 && response.status < 300,
-      status: response.status || 200,
-      json: () => Promise.resolve(response.data),
-      text: () => Promise.resolve(JSON.stringify(response.data))
-    })
-  }
+	return (url: string, options?: RequestInit) => {
+		const response = responses.get(url)
+		if (!response) {
+			return Promise.reject(new Error(`No mock for ${url}`))
+		}
+
+		return Promise.resolve({
+			ok: response.status >= 200 && response.status < 300,
+			status: response.status || 200,
+			json: () => Promise.resolve(response.data),
+			text: () => Promise.resolve(JSON.stringify(response.data)),
+		})
+	}
 }
 ```
 
@@ -310,12 +314,12 @@ Always provide TypeScript types:
 
 ```typescript
 type QueryConfig = {
-  dom: Document | DocumentFragment
+	dom: Document | DocumentFragment
 }
 
-const querySelector = (config: QueryConfig = { dom: globalThis.document }) =>
-  (selector: string) =>
-    config.dom.querySelector(selector)
+const querySelector =
+	(config: QueryConfig = { dom: globalThis.document }) =>
+	(selector: string) => config.dom.querySelector(selector)
 ```
 
 ### 4. Document Injectable Dependencies
@@ -328,9 +332,9 @@ Make it clear what can be injected:
  * @param config.document - DOM document (defaults to globalThis.document)
  */
 export default function createElement(
-  config = { document: globalThis.document }
+	config = { document: globalThis.document },
 ) {
-  // ...
+	// ...
 }
 ```
 
@@ -339,36 +343,39 @@ export default function createElement(
 Converting existing functions to support DI:
 
 ### Before (No DI)
+
 ```typescript
 export default function saveToLocalStorage(key: string, value: any) {
-  localStorage.setItem(key, JSON.stringify(value))
+	localStorage.setItem(key, JSON.stringify(value))
 }
 ```
 
 ### After (With DI)
+
 ```typescript
 export default function saveToLocalStorage(
-  config = { storage: globalThis.localStorage }
+	config = { storage: globalThis.localStorage },
 ) {
-  return (key: string) => (value: any) => {
-    config.storage.setItem(key, JSON.stringify(value))
-    return value
-  }
+	return (key: string) => (value: any) => {
+		config.storage.setItem(key, JSON.stringify(value))
+		return value
+	}
 }
 ```
 
 ### Testing the Converted Function
+
 ```typescript
 test("saves to storage", () => {
-  const mockStorage = new Map()
-  const save = saveToLocalStorage({
-    storage: {
-      setItem: (k, v) => mockStorage.set(k, v)
-    }
-  })
-  
-  save("user")({ name: "Test" })
-  assertEquals(mockStorage.get("user"), '{"name":"Test"}')
+	const mockStorage = new Map()
+	const save = saveToLocalStorage({
+		storage: {
+			setItem: (k, v) => mockStorage.set(k, v),
+		},
+	})
+
+	save("user")({ name: "Test" })
+	assertEquals(mockStorage.get("user"), '{"name":"Test"}')
 })
 ```
 

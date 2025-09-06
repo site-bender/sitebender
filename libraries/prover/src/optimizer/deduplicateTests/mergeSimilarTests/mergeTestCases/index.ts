@@ -12,30 +12,30 @@ import type { TestCase } from "../../../../types/index.ts"
 export default function mergeTestCases(tests: Array<TestCase>): TestCase {
 	// Use the most descriptive name
 	const name = tests
-		.map(t => t.name)
-		.reduce((longest, current) => 
+		.map((t) => t.name)
+		.reduce((longest, current) =>
 			current.length > longest.length ? current : longest
 		)
-	
+
 	// Combine descriptions
-	const descriptions = [...new Set(tests.map(t => t.description))]
+	const descriptions = [...new Set(tests.map((t) => t.description))]
 	const description = descriptions.join("; ")
-	
+
 	// Merge branch coverage
 	const branchCoverage = tests
-		.flatMap(t => t.branchCoverage || [])
+		.flatMap((t) => t.branchCoverage || [])
 		.filter((v, i, arr) => arr.indexOf(v) === i)
-	
+
 	// Combine properties
 	const properties = tests
-		.flatMap(t => t.properties || [])
-		.filter((prop, index, arr) => 
-			arr.findIndex(p => p.name === prop.name) === index
+		.flatMap((t) => t.properties || [])
+		.filter((prop, index, arr) =>
+			arr.findIndex((p) => p.name === prop.name) === index
 		)
-	
+
 	// Use the first test's input/output as representative
 	const base = tests[0]
-	
+
 	return {
 		name,
 		description,

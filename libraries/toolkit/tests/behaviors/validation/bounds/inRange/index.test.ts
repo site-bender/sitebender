@@ -383,8 +383,18 @@ Deno.test("inRange: property-based testing", () => {
 	// Property: values outside range return false
 	fc.assert(
 		fc.property(
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e6, max: 1e6 }),
-			fc.float({ noNaN: true, noDefaultInfinity: true, min: -1e6, max: 1e6 }),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e6,
+				max: 1e6,
+			}),
+			fc.float({
+				noNaN: true,
+				noDefaultInfinity: true,
+				min: -1e6,
+				max: 1e6,
+			}),
 			fc.float({ min: Math.fround(0.1), max: Math.fround(100) }),
 			(a, b, offset) => {
 				if (a === b) return true // Skip empty ranges

@@ -45,13 +45,17 @@ const getValue =
 			return local
 		}
 
-		if (typeof globalThis !== "undefined" && globalThis.document && selector) {
+		if (
+			typeof globalThis !== "undefined" && globalThis.document && selector
+		) {
 			const element = globalThis.document.querySelector(selector)
 
 			if (isUndefined(element) || element === null) {
 				return {
 					left: [
-						Error(op.tag)(op.tag)(`Element at \`${selector}\` not found.`),
+						Error(op.tag)(op.tag)(
+							`Element at \`${selector}\` not found.`,
+						),
 					],
 				}
 			}
@@ -59,7 +63,8 @@ const getValue =
 			switch (element.tagName.toLocaleLowerCase()) {
 				case "input": {
 					const inputElement = element as HTMLInputElement
-					const inputType = inputElement.type || element.getAttribute("type")
+					const inputType = inputElement.type ||
+						element.getAttribute("type")
 					return inputType === "checkbox"
 						? { right: getFromCheckbox(element) }
 						: { right: getFromInput(element) }
@@ -81,7 +86,9 @@ const getValue =
 				default: {
 					const htmlElement = element as HTMLElement
 					const hasDataValue = element.getAttribute("data-value") ||
-						(htmlElement.dataset ? htmlElement.dataset.value : undefined)
+						(htmlElement.dataset
+							? htmlElement.dataset.value
+							: undefined)
 					return hasDataValue
 						? { right: getFromDataset(element) }
 						: { right: getFromInnerHtml(element) }

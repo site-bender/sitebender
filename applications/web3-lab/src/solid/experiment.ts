@@ -70,7 +70,9 @@ class SolidPodSimulator {
 	}
 
 	grantAccess(path: string, webId: string, permissions: string[]) {
-		console.log(`🔐 Granting ${permissions.join(", ")} to ${webId} for ${path}`)
+		console.log(
+			`🔐 Granting ${permissions.join(", ")} to ${webId} for ${path}`,
+		)
 		// In real Solid, this creates .acl files
 	}
 }

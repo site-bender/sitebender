@@ -152,7 +152,11 @@ export interface EventProps {
 	funding?: Grant | ReturnType<typeof GrantComponent>
 	inLanguage?: Language | Text | ReturnType<typeof LanguageComponent>
 	isAccessibleForFree?: Boolean
-	keywords?: DefinedTerm | Text | URL | ReturnType<typeof DefinedTermComponent>
+	keywords?:
+		| DefinedTerm
+		| Text
+		| URL
+		| ReturnType<typeof DefinedTermComponent>
 	location?:
 		| Place
 		| PostalAddress

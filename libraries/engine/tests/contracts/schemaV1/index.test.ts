@@ -5,9 +5,15 @@ import fc from "npm:fast-check"
 // Import the schema and sample IR documents
 import schema from "../../../types/ir/schema/v1.json" with { type: "json" }
 import simpleElement from "./samples/simple-element.json" with { type: "json" }
-import simpleInjector from "./samples/simple-injector.json" with { type: "json" }
-import formWithValidation from "./samples/form-with-validation.json" with { type: "json" }
-import conditionalExample from "./samples/conditional-example.json" with { type: "json" }
+import simpleInjector from "./samples/simple-injector.json" with {
+	type: "json",
+}
+import formWithValidation from "./samples/form-with-validation.json" with {
+	type: "json",
+}
+import conditionalExample from "./samples/conditional-example.json" with {
+	type: "json",
+}
 
 // Import renderer to test actual behavior
 import render from "../../../src/rendering/index.ts"
@@ -22,10 +28,14 @@ describe("IR v1 behavior validation", () => {
 			const renderConfig = {
 				tag: element.kind === "element" ? element.tag : "div",
 				attributes: element.kind === "element" ? element.attrs : {},
-				children: element.kind === "element" ? element.children?.map(child => ({
-					tag: "TextNode",
-					content: typeof child === "string" ? child : String(child)
-				})) : []
+				children: element.kind === "element"
+					? element.children?.map((child) => ({
+						tag: "TextNode",
+						content: typeof child === "string"
+							? child
+							: String(child),
+					}))
+					: [],
 			}
 
 			const html = render(renderConfig)
@@ -33,7 +43,10 @@ describe("IR v1 behavior validation", () => {
 			// BEHAVIOR: Should produce valid HTML that works without JS
 			assert(html.startsWith("<"))
 			assert(html.endsWith(">"))
-			assertStringIncludes(html, element.kind === "element" ? element.tag.toLowerCase() : "div")
+			assertStringIncludes(
+				html,
+				element.kind === "element" ? element.tag.toLowerCase() : "div",
+			)
 		})
 
 		it("forms work without JavaScript using native browser validation", () => {
@@ -44,25 +57,30 @@ describe("IR v1 behavior validation", () => {
 					tag: "form",
 					attributes: {
 						// Use the form's existing attributes
-						...form.attrs
+						...form.attrs,
 					},
-					children: form.children?.map(child => {
-						if (typeof child === "object" && child.kind === "element" && child.tag === "input") {
+					children: form.children?.map((child) => {
+						if (
+							typeof child === "object" &&
+							child.kind === "element" && child.tag === "input"
+						) {
 							return {
 								tag: "input",
 								attributes: {
 									type: child.attrs?.type || "text",
 									name: child.attrs?.name,
 									required: child.attrs?.required || false,
-									...child.attrs
-								}
+									...child.attrs,
+								},
 							}
 						}
 						return {
 							tag: "TextNode",
-							content: typeof child === "string" ? child : String(child)
+							content: typeof child === "string"
+								? child
+								: String(child),
 						}
-					}) || []
+					}) || [],
 				}
 
 				const html = render(renderConfig)
@@ -86,8 +104,11 @@ describe("IR v1 behavior validation", () => {
 				const renderConfig = {
 					tag: form.tag,
 					attributes: form.attrs || {},
-					children: form.children?.map(child => {
-						if (typeof child === "object" && child.kind === "element" && child.tag === "input") {
+					children: form.children?.map((child) => {
+						if (
+							typeof child === "object" &&
+							child.kind === "element" && child.tag === "input"
+						) {
 							return {
 								tag: "input",
 								attributes: {
@@ -95,23 +116,26 @@ describe("IR v1 behavior validation", () => {
 									name: child.attrs?.name,
 									id: child.attrs?.id || child.attrs?.name,
 									required: child.attrs?.required || false,
-									"aria-describedby": child.attrs?.["aria-describedby"],
-									...child.attrs
-								}
+									"aria-describedby": child.attrs
+										?.["aria-describedby"],
+									...child.attrs,
+								},
 							}
 						}
 						return {
 							tag: "TextNode",
-							content: typeof child === "string" ? child : String(child)
+							content: typeof child === "string"
+								? child
+								: String(child),
 						}
-					}) || []
+					}) || [],
 				}
 
 				const html = render(renderConfig)
 
 				// BEHAVIOR: Accessible forms need proper labeling
 				// At minimum, inputs should have name/id for labeling
-				if (html.includes('<input')) {
+				if (html.includes("<input")) {
 					assertStringIncludes(html, 'name="')
 					// Should have id for label association
 					assertStringIncludes(html, 'id="')
@@ -124,7 +148,10 @@ describe("IR v1 behavior validation", () => {
 
 			// BEHAVIOR: Even with conditionals, HTML structure should be semantic
 			// This tests that conditionals don't break accessibility
-			assert(conditional.kind === "conditional" || conditional.kind === "element")
+			assert(
+				conditional.kind === "conditional" ||
+					conditional.kind === "element",
+			)
 
 			// The structure should indicate what will be visible/hidden
 			// without breaking screen reader navigation
@@ -134,14 +161,23 @@ describe("IR v1 behavior validation", () => {
 
 	describe("schema structural integrity", () => {
 		it("all sample documents validate against schema structure", () => {
-			const samples = [simpleElement, simpleInjector, formWithValidation, conditionalExample]
+			const samples = [
+				simpleElement,
+				simpleInjector,
+				formWithValidation,
+				conditionalExample,
+			]
 
-			samples.forEach(sample => {
+			samples.forEach((sample) => {
 				const node = sample as Node
 				// Basic structural validation for schema compliance
 				assertEquals(node.v, "0.1.0")
 				assert(typeof node.kind === "string")
-				assert(node.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/))
+				assert(
+					node.id.match(
+						/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/,
+					),
+				)
 			})
 		})
 
@@ -158,14 +194,20 @@ describe("IR v1 behavior validation", () => {
 				fc.uuid(),
 				(uuid: string) => {
 					// BEHAVIOR: All UUIDs should be consistently formatted
-					const uuidRegex = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/
+					const uuidRegex =
+						/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/
 					return uuidRegex.test(uuid)
-				}
+				},
 			))
 		})
 
 		it("version field is consistent across all nodes", () => {
-			const samples = [simpleElement, simpleInjector, formWithValidation, conditionalExample]
+			const samples = [
+				simpleElement,
+				simpleInjector,
+				formWithValidation,
+				conditionalExample,
+			]
 
 			fc.assert(fc.property(
 				fc.constantFrom(...samples),
@@ -173,7 +215,7 @@ describe("IR v1 behavior validation", () => {
 					const node = sample as Node
 					// BEHAVIOR: Version consistency is critical for IR compatibility
 					return node.v === "0.1.0"
-				}
+				},
 			))
 		})
 	})

@@ -43,7 +43,9 @@ export default function filterAttributes(attributes: SectionElementAttributes) {
 	if (isDefined(role)) {
 		Object.assign(
 			filteredAttrs,
-			filterAttribute(isMemberOf(SECTION_WITHOUT_NAME_ROLES))("role")(role),
+			filterAttribute(isMemberOf(SECTION_WITHOUT_NAME_ROLES))("role")(
+				role,
+			),
 		)
 	}
 	if (isDefined(ariaLabel)) {

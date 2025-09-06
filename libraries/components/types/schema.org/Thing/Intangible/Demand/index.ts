@@ -77,7 +77,9 @@ export interface DemandProps {
 		| ReturnType<typeof GeoShapeComponent>
 		| ReturnType<typeof PlaceComponent>
 	asin?: Text | URL
-	availability?: ItemAvailability | ReturnType<typeof ItemAvailabilityComponent>
+	availability?:
+		| ItemAvailability
+		| ReturnType<typeof ItemAvailabilityComponent>
 	availabilityEnds?: Date | DateTime | Time
 	availabilityStarts?: Date | DateTime | Time
 	availableAtOrFrom?: Place | ReturnType<typeof PlaceComponent>

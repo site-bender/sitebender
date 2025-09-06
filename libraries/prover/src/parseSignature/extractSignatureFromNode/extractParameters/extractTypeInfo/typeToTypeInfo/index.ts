@@ -10,10 +10,10 @@ import { TypeKind } from "../../../../../types/index.ts"
  */
 export default function typeToTypeInfo(
 	type: ts.Type,
-	checker: ts.TypeChecker
+	checker: ts.TypeChecker,
 ): TypeInfo {
 	const raw = checker.typeToString(type)
-	
+
 	if (type.flags & ts.TypeFlags.String) {
 		return { raw, kind: TypeKind.Primitive }
 	}
@@ -32,7 +32,7 @@ export default function typeToTypeInfo(
 	if (type.flags & ts.TypeFlags.Undefined) {
 		return { raw, kind: TypeKind.Primitive }
 	}
-	
+
 	const symbol = type.getSymbol()
 	if (symbol?.name === "Array" || symbol?.name === "ReadonlyArray") {
 		const typeArgs = (type as ts.TypeReference).typeArguments
@@ -49,23 +49,27 @@ export default function typeToTypeInfo(
 			kind: TypeKind.Array,
 		}
 	}
-	
+
 	if (type.isUnion()) {
 		return {
 			raw,
 			kind: TypeKind.Union,
-			unionTypes: (type as ts.UnionType).types.map((t) => typeToTypeInfo(t, checker)),
+			unionTypes: (type as ts.UnionType).types.map((t) =>
+				typeToTypeInfo(t, checker)
+			),
 		}
 	}
-	
+
 	if (type.isIntersection()) {
 		return {
 			raw,
 			kind: TypeKind.Intersection,
-			unionTypes: (type as ts.IntersectionType).types.map((t) => typeToTypeInfo(t, checker)),
+			unionTypes: (type as ts.IntersectionType).types.map((t) =>
+				typeToTypeInfo(t, checker)
+			),
 		}
 	}
-	
+
 	// Handle generic types like Result<T, E>, Option<T>, etc.
 	if (symbol && symbol.name && raw.includes("<")) {
 		// Special case for ReadonlyArray - treat as array
@@ -83,7 +87,7 @@ export default function typeToTypeInfo(
 				kind: TypeKind.Array,
 			}
 		}
-		
+
 		const typeArgs = (type as ts.TypeReference).typeArguments
 		if (typeArgs && typeArgs.length > 0) {
 			return {
@@ -95,12 +99,12 @@ export default function typeToTypeInfo(
 		}
 		return { raw, kind: TypeKind.Generic, typeName: symbol.name }
 	}
-	
+
 	// Handle interfaces and type aliases
 	if (symbol && (symbol.flags & ts.SymbolFlags.Interface || symbol.flags & ts.SymbolFlags.TypeAlias)) {
 		return { raw, kind: TypeKind.Interface, typeName: symbol.name }
 	}
-	
+
 	// Handle objects
 	if (type.flags & ts.TypeFlags.Object) {
 		// Check if it's a function type by looking at the string representation
@@ -109,11 +113,11 @@ export default function typeToTypeInfo(
 		}
 		return { raw, kind: TypeKind.Object }
 	}
-	
+
 	// Final check for function-like types
 	if (raw.includes("=>") || raw.includes("function")) {
 		return { raw, kind: TypeKind.Function }
 	}
-	
+
 	return { raw, kind: TypeKind.Unknown }
 }

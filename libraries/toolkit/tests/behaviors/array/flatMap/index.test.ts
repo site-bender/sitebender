@@ -76,7 +76,9 @@ describe("flatMap", () => {
 	})
 
 	it("handles null and undefined in arrays", () => {
-		const handleNull = (x: number | null | undefined): Array<number | string> =>
+		const handleNull = (
+			x: number | null | undefined,
+		): Array<number | string> =>
 			x === null ? ["null"] : x === undefined ? ["undefined"] : [x]
 		const result = flatMap(handleNull)([1, null, undefined, 2])
 		assertEquals(result, [1, "null", "undefined", 2])
@@ -171,7 +173,10 @@ describe("flatMap", () => {
 					(arr) => {
 						const repeat = (n: number) => Array(n).fill(n)
 						const result = flatMap(repeat)(arr)
-						const expectedLength = arr.reduce((sum, n) => sum + n, 0)
+						const expectedLength = arr.reduce(
+							(sum, n) => sum + n,
+							0,
+						)
 						assertEquals(result.length, expectedLength)
 					},
 				),
@@ -184,13 +189,20 @@ describe("flatMap", () => {
 				fc.property(
 					fc.array(fc.integer()),
 					(arr) => {
-						const tagAndDouble = (n: number, i: number) => [`${i}-a`, `${i}-b`]
+						const tagAndDouble = (
+							n: number,
+							i: number,
+						) => [`${i}-a`, `${i}-b`]
 						const result = flatMap(tagAndDouble)(arr)
 
 						// Check that items from earlier indices come before items from later indices
 						for (let i = 0; i < result.length - 2; i += 2) {
-							const currentIndex = parseInt(result[i].split("-")[0])
-							const nextIndex = parseInt(result[i + 2].split("-")[0])
+							const currentIndex = parseInt(
+								result[i].split("-")[0],
+							)
+							const nextIndex = parseInt(
+								result[i + 2].split("-")[0],
+							)
 							assert(currentIndex <= nextIndex)
 						}
 					},

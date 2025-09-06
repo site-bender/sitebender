@@ -10,16 +10,17 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
  * @returns Array of combinator-specific test cases
  */
 export default function generateCombinatorPatternTests(
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
 	const tests: Array<TestCase> = []
 	const name = signature.name.toLowerCase()
-	
+
 	// Curry combinator tests
 	if (name.includes("curry")) {
 		tests.push({
 			name: "converts multi-arg to curried",
-			description: "Transforms function to accept arguments one at a time",
+			description:
+				"Transforms function to accept arguments one at a time",
 			input: [(a: number, b: number) => a + b],
 			expectedOutput: undefined, // Returns a function
 			properties: [{
@@ -33,7 +34,7 @@ export default function generateCombinatorPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "handles variable arity",
 			description: "Works with different numbers of arguments",
@@ -41,7 +42,8 @@ export default function generateCombinatorPatternTests(
 			expectedOutput: undefined,
 			properties: [{
 				name: "variable arity",
-				generator: "fc.func(fc.integer()), fc.array(fc.integer(), { minLength: 1, maxLength: 5 })",
+				generator:
+					"fc.func(fc.integer()), fc.array(fc.integer(), { minLength: 1, maxLength: 5 })",
 				property: `
 					const curried = curry(fn)
 					const args = [...arguments]
@@ -52,7 +54,7 @@ export default function generateCombinatorPatternTests(
 			}],
 		})
 	}
-	
+
 	// Flip combinator tests
 	if (name.includes("flip")) {
 		tests.push({
@@ -69,7 +71,7 @@ export default function generateCombinatorPatternTests(
 				`,
 			}],
 		})
-		
+
 		tests.push({
 			name: "double flip is identity",
 			description: "Flipping twice returns original",
@@ -85,7 +87,7 @@ export default function generateCombinatorPatternTests(
 			}],
 		})
 	}
-	
+
 	// Partial application tests
 	if (name.includes("partial")) {
 		tests.push({
@@ -95,7 +97,8 @@ export default function generateCombinatorPatternTests(
 			expectedOutput: undefined, // Returns a function
 			properties: [{
 				name: "partial application",
-				generator: "fc.func(fc.integer()), fc.array(fc.integer(), { minLength: 1 }), fc.integer()",
+				generator:
+					"fc.func(fc.integer()), fc.array(fc.integer(), { minLength: 1 }), fc.integer()",
 				property: `
 					const partial = partialApply(fn, ...fixed)
 					const result = partial(remaining)
@@ -105,7 +108,7 @@ export default function generateCombinatorPatternTests(
 			}],
 		})
 	}
-	
+
 	// Identity combinator
 	if (name === "identity" || name === "id") {
 		tests.push({
@@ -122,7 +125,7 @@ export default function generateCombinatorPatternTests(
 			}],
 		})
 	}
-	
+
 	// Constant combinator
 	if (name === "constant" || name === "const" || name === "always") {
 		tests.push({
@@ -141,6 +144,6 @@ export default function generateCombinatorPatternTests(
 			}],
 		})
 	}
-	
+
 	return tests
 }

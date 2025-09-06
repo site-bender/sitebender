@@ -272,12 +272,12 @@ The engine must correctly evaluate IR nodes:
 
 ```typescript
 type IRNode =
-  | { type: "element"; tag: string; props: any; children: IRNode[] }
-  | { type: "text"; value: string }
-  | { type: "component"; fn: Function; props: any }
-  | { type: "calc"; computation: Function }
-  | { type: "if"; condition: IRNode; then: IRNode; else?: IRNode }
-  | { type: "for"; items: IRNode; fn: Function };
+	| { type: "element"; tag: string; props: any; children: IRNode[] }
+	| { type: "text"; value: string }
+	| { type: "component"; fn: Function; props: any }
+	| { type: "calc"; computation: Function }
+	| { type: "if"; condition: IRNode; then: IRNode; else?: IRNode }
+	| { type: "for"; items: IRNode; fn: Function }
 ```
 
 #### 2. Reactive Computations (`libraries/engine/src/reactive/`)
@@ -299,16 +299,16 @@ type IRNode =
 ```typescript
 // Test that each IR node type evaluates correctly
 test("evaluates element nodes", () => {
-  const ir = { type: "element", tag: "div", props: {}, children: [] };
-  const result = evaluate(ir);
-  assertEquals(result, "<div></div>");
-});
+	const ir = { type: "element", tag: "div", props: {}, children: [] }
+	const result = evaluate(ir)
+	assertEquals(result, "<div></div>")
+})
 
 test("evaluates calc nodes", () => {
-  const ir = { type: "calc", computation: () => 42 };
-  const result = evaluate(ir);
-  assertEquals(result, "42");
-});
+	const ir = { type: "calc", computation: () => 42 }
+	const result = evaluate(ir)
+	assertEquals(result, "42")
+})
 ```
 
 #### Priority 2: Reactivity System
@@ -316,13 +316,13 @@ test("evaluates calc nodes", () => {
 ```typescript
 // Test reactive updates
 test("updates when signal changes", () => {
-  const count = signal(0);
-  const doubled = computed(() => count.value * 2);
+	const count = signal(0)
+	const doubled = computed(() => count.value * 2)
 
-  assertEquals(doubled.value, 0);
-  count.value = 5;
-  assertEquals(doubled.value, 10);
-});
+	assertEquals(doubled.value, 0)
+	count.value = 5
+	assertEquals(doubled.value, 10)
+})
 ```
 
 #### Priority 3: Progressive Enhancement
@@ -330,13 +330,13 @@ test("updates when signal changes", () => {
 ```typescript
 // CRITICAL: Everything must work without JavaScript first
 test("renders valid HTML without JS", () => {
-  const ir = createFormIR();
-  const html = evaluate(ir);
+	const ir = createFormIR()
+	const html = evaluate(ir)
 
-  // HTML must be functional without JS
-  assertContains(html, '<form method="POST"');
-  assertContains(html, '<input type="submit"');
-});
+	// HTML must be functional without JS
+	assertContains(html, '<form method="POST"')
+	assertContains(html, '<input type="submit"')
+})
 ```
 
 ### Directory Structure
@@ -370,41 +370,43 @@ For the demo to work, the engine MUST:
 
 ```typescript
 test("Christmas demo: reactive form works", () => {
-  // Create a form with reactive validation
-  const email = signal("");
-  const isValid = computed(() => email.value.includes("@"));
+	// Create a form with reactive validation
+	const email = signal("")
+	const isValid = computed(() => email.value.includes("@"))
 
-  const ir = {
-    type: "element",
-    tag: "form",
-    children: [
-      {
-        type: "element",
-        tag: "input",
-        props: {
-          type: "email",
-          value: email,
-          class: computed(() => (isValid.value ? "valid" : "invalid")),
-        },
-      },
-      {
-        type: "if",
-        condition: isValid,
-        then: { type: "element", tag: "button", children: ["Submit"] },
-        else: { type: "text", value: "Please enter valid email" },
-      },
-    ],
-  };
+	const ir = {
+		type: "element",
+		tag: "form",
+		children: [
+			{
+				type: "element",
+				tag: "input",
+				props: {
+					type: "email",
+					value: email,
+					class: computed(
+						() => (isValid.value ? "valid" : "invalid"),
+					),
+				},
+			},
+			{
+				type: "if",
+				condition: isValid,
+				then: { type: "element", tag: "button", children: ["Submit"] },
+				else: { type: "text", value: "Please enter valid email" },
+			},
+		],
+	}
 
-  // Must work without JS
-  const staticHTML = evaluate(ir);
-  assertContains(staticHTML, "<form");
+	// Must work without JS
+	const staticHTML = evaluate(ir)
+	assertContains(staticHTML, "<form")
 
-  // Must be reactive with JS
-  const hydrated = hydrate(staticHTML, ir);
-  email.value = "test@example.com";
-  // DOM should update automatically
-});
+	// Must be reactive with JS
+	const hydrated = hydrate(staticHTML, ir)
+	email.value = "test@example.com"
+	// DOM should update automatically
+})
 ```
 
 ## Success Criteria
@@ -442,15 +444,18 @@ Your work is successful when:
 The Christmas demo depends on this engine working correctly!
 
 # AI Briefing: Test Generator COMPLETE ✅
+
 # AI Briefing: @sitebender/components - JSX Component Library
 
 ## Your Identity
+
 - **Workspace:** components-ai
 - **Branch:** ai/components
 - **Role:** Build and test JSX components with progressive enhancement
 - **Priority:** CRITICAL for Christmas demo
 
 ## Essential Reading (Read These First!)
+
 1. `CLAUDE.md` - Project manifesto and rules
 2. `TESTING.md` - Testing philosophy (100% coverage mandate)
 3. `agenda/libraries/components/overview.md` - Components architecture
@@ -460,6 +465,7 @@ The Christmas demo depends on this engine working correctly!
 ## Your Mission: Build Demo-Ready Components
 
 ### The Components' Role in the Pipeline
+
 ```
 JSX COMPONENTS → Compiler → IR → Engine → Reactive UI
        ↑
@@ -469,6 +475,7 @@ Your responsibility
 ### What Components Do
 
 Components are JSX functions that:
+
 1. **Generate semantic HTML** - Accessibility first
 2. **Include Schema.org metadata** - SEO and structure
 3. **Work without JavaScript** - Progressive enhancement is LAW
@@ -489,34 +496,43 @@ Components are JSX functions that:
 - Fixed the type system (interfaces → types)
 - Integrated everything into a working system
 - Proved it works on real toolkit functions
+
 ### ✅ COMPLETED: Critical Components for Christmas Demo
 
 **STATUS UPDATE:** Another AI has successfully implemented the core form components! Here's what's been built:
 
 #### ✅ Form Component - IMPLEMENTED
+
 Located: `libraries/components/src/interact/forms/Form/index.tsx`
+
 - ✅ Works with POST/GET without JavaScript
 - ✅ Server-side validation fallback (`clientValidation` prop)
 - ✅ Accessible with proper ARIA labels
 - ✅ Schema.org ContactForm metadata (`includeContactFormMicrodata`)
 - ✅ Hidden charset field for proper form submission
 
-#### ✅ Input Component - IMPLEMENTED  
+#### ✅ Input Component - IMPLEMENTED
+
 Located: `libraries/components/src/interact/forms/elements/Input/index.tsx`
+
 - ✅ HTML5 validation attributes
 - ✅ Proper accessibility attributes
 - ✅ Works without JavaScript
 - ✅ Error states that are accessible
 
 #### ✅ Button Component - IMPLEMENTED
+
 Located: `libraries/components/src/interact/buttons/Button/index.tsx`
+
 - ✅ Proper type attribute (submit/button/reset)
 - ✅ Loading states with `aria-busy`
 - ✅ Pressed states with `aria-pressed`
 - ✅ Accessible labels with `aria-label`
 
 #### ✅ Field Component - IMPLEMENTED
+
 Located: `libraries/components/src/interact/forms/Field/index.tsx`
+
 - ✅ Label/input/error wrapper structure
 - ✅ Proper ARIA relationships (`aria-describedby`)
 - ✅ Error message handling with `role="alert"`
@@ -609,11 +625,11 @@ The test generator can now:
 
 ## 🚀 READY TO MERGE
 
-**Branch:** ai/toolkit  
-**Commit:** 50206b800  
+**Branch:** ai/toolkit\
+**Commit:** 50206b800\
 **Status:** Clean, committed, tested, working
 
-```bash
+````bash
 # To merge:
 git checkout main
 git merge ai/toolkit
@@ -648,26 +664,28 @@ test("Form works without JavaScript", () => {
   // Must have required attribute for browser validation
   assertContains(html, 'required')
 })
-```
+````
 
 #### Test Accessibility
+
 ```typescript
 test("Input has proper ARIA attributes", () => {
-  const input = Input({
-    name: "email",
-    required: true,
-    error: "Invalid email"
-  })
-  
-  const html = renderToHTML(input)
-  
-  assertContains(html, 'aria-required="true"')
-  assertContains(html, 'aria-invalid="true"')
-  assertContains(html, 'aria-describedby="email-error"')
+	const input = Input({
+		name: "email",
+		required: true,
+		error: "Invalid email",
+	})
+
+	const html = renderToHTML(input)
+
+	assertContains(html, 'aria-required="true"')
+	assertContains(html, 'aria-invalid="true"')
+	assertContains(html, 'aria-describedby="email-error"')
 })
 ```
 
 #### Test Schema.org Metadata
+
 ```typescript
 test("Form includes Schema.org metadata", () => {
   const form = ContactForm({ ... })
@@ -679,6 +697,7 @@ test("Form includes Schema.org metadata", () => {
 ```
 
 ### ✅ ACTUAL Directory Structure (As Implemented)
+
 ```
 libraries/components/
 ├── src/
@@ -729,63 +748,94 @@ All demo requirements have been successfully implemented:
 
 _"We don't write tests. We write test writers."_
 
-**— Claude 2, Phoenix of the ai/toolkit branch**  
+**— Claude 2, Phoenix of the ai/toolkit branch**\
 _Standing on the shoulders of Claude 1 (RIP ai/test-generator)_
 
 _Last updated after successfully recreating missing components and proving the system works._
+
 ### ✅ ACTUAL Demo Component (As Implemented)
+
 ```typescript
 // Located: libraries/components/src/interact/forms/recipes/ContactForm/index.tsx
 export default function ContactForm({
-  action = "/contact",
-  method = "POST",
-  errors = {},
-  ...rest
+	action = "/contact",
+	method = "POST",
+	errors = {},
+	...rest
 }: Props) {
-  const nameId = `contact-name-${generateShortId()}`
-  const emailId = `contact-email-${generateShortId()}`
-  const messageId = `contact-message-${generateShortId()}`
+	const nameId = `contact-name-${generateShortId()}`
+	const emailId = `contact-email-${generateShortId()}`
+	const messageId = `contact-message-${generateShortId()}`
 
-  return (
-    <Form method={method} action={action} includeContactFormMicrodata {...rest}>
-      <TextField
-        id={nameId}
-        name="name"
-        label="Your Name"
-        required
-        inputAttributes={{
-          "aria-describedby": errors.name ? `${nameId}-error` : undefined,
-        }}
-      />
-      {errors.name ? <ErrorMessage id={`${nameId}-error`}>{errors.name}</ErrorMessage> : null}
+	return (
+		<Form
+			method={method}
+			action={action}
+			includeContactFormMicrodata
+			{...rest}
+		>
+			<TextField
+				id={nameId}
+				name="name"
+				label="Your Name"
+				required
+				inputAttributes={{
+					"aria-describedby": errors.name
+						? `${nameId}-error`
+						: undefined,
+				}}
+			/>
+			{errors.name
+				? (
+					<ErrorMessage id={`${nameId}-error`}>
+						{errors.name}
+					</ErrorMessage>
+				)
+				: null}
 
-      <EmailAddressField
-        id={emailId}
-        name="emailAddress"
-        label="Email Address"
-        required
-        inputAttributes={{
-          pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
-          "aria-describedby": errors.email ? `${emailId}-error` : undefined,
-        }}
-      />
-      {errors.email ? <ErrorMessage id={`${emailId}-error`}>{errors.email}</ErrorMessage> : null}
+			<EmailAddressField
+				id={emailId}
+				name="emailAddress"
+				label="Email Address"
+				required
+				inputAttributes={{
+					pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+					"aria-describedby": errors.email
+						? `${emailId}-error`
+						: undefined,
+				}}
+			/>
+			{errors.email
+				? (
+					<ErrorMessage id={`${emailId}-error`}>
+						{errors.email}
+					</ErrorMessage>
+				)
+				: null}
 
-      <TextField
-        id={messageId}
-        name="message"
-        label="Message"
-        isMultiline
-        required
-        textareaAttributes={{
-          "aria-describedby": errors.message ? `${messageId}-error` : undefined,
-        }}
-      />
-      {errors.message ? <ErrorMessage id={`${messageId}-error`}>{errors.message}</ErrorMessage> : null}
+			<TextField
+				id={messageId}
+				name="message"
+				label="Message"
+				isMultiline
+				required
+				textareaAttributes={{
+					"aria-describedby": errors.message
+						? `${messageId}-error`
+						: undefined,
+				}}
+			/>
+			{errors.message
+				? (
+					<ErrorMessage id={`${messageId}-error`}>
+						{errors.message}
+					</ErrorMessage>
+				)
+				: null}
 
-      <Button type="submit">Send Message</Button>
-    </Form>
-  )
+			<Button type="submit">Send Message</Button>
+		</Form>
+	)
 }
 ```
 
