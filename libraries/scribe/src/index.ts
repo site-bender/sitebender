@@ -40,7 +40,7 @@ export { default as parseFunctionFromAST } from "./parser/parseFunctionFromAST/i
 export { extractSignature, extractDescription } from "./extractors/index.ts"
 
 // Detector exports
-export { detectProperties, detectPurity, detectCurrying, detectComplexity } from "./detectors/index.ts"
+export { detectProperties, detectPurity, detectCurrying, detectComplexity, isIdempotent, isCommutative, isAssociative, isDistributive } from "./detectors/index.ts"
 export { default as detectPurityFromAST } from "./detectors/detectPurityFromAST/index.ts"
 export { default as detectCurryingFromAST } from "./detectors/detectCurryingFromAST/index.ts"
 export { default as detectComplexityFromAST } from "./detectors/detectComplexityFromAST/index.ts"

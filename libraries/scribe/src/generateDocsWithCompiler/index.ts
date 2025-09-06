@@ -9,6 +9,7 @@ import parseFileWithCompiler from "../parser/parseFileWithCompiler/index.ts"
 import detectPurityFromAST from "../detectors/detectPurityFromAST/index.ts"
 import detectCurryingFromAST from "../detectors/detectCurryingFromAST/index.ts"
 import detectComplexityFromAST from "../detectors/detectComplexityFromAST/index.ts"
+import { isIdempotent, isCommutative, isAssociative, isDistributive } from "../detectors/index.ts"
 import { extractDescription } from "../extractors/index.ts"
 import { generateMarkdown } from "../generators/index.ts"
 
@@ -63,15 +64,18 @@ export default async function generateDocsWithCompiler(
 		const curryInfo = detectCurryingFromAST(node)
 		const complexity = detectComplexityFromAST(node, sourceFile)
 		
+		// Get source text for mathematical property detection
+		const functionSource = content.value.substring(node.pos, node.end)
+		
 		// Build properties object
 		const properties = {
 			isPure,
 			isCurried: curryInfo.isCurried,
 			curryLevels: curryInfo.isCurried ? curryInfo.levels : undefined,
-			isIdempotent: false, // TODO(@scribe): Implement in Phase 2
-			isCommutative: false, // TODO(@scribe): Implement in Phase 2
-			isAssociative: false, // TODO(@scribe): Implement in Phase 2
-			isDistributive: false, // TODO(@scribe): Implement in Phase 2
+			isIdempotent: isIdempotent(functionSource),
+			isCommutative: isCommutative(functionSource),
+			isAssociative: isAssociative(functionSource),
+			isDistributive: isDistributive(functionSource),
 			complexity,
 			nullHandling: "unknown" as const, // TODO(@scribe): Implement in Phase 2
 			deterministic: isPure // For now, pure functions are considered deterministic

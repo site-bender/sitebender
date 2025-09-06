@@ -2,6 +2,7 @@ import type { Properties } from "../../types/index.ts"
 import detectPurity from "../detectPurity/index.ts"
 import detectCurrying from "../detectCurrying/index.ts"
 import detectComplexity from "../detectComplexity/index.ts"
+import { isIdempotent, isCommutative, isAssociative, isDistributive } from "../detectMathProperties/index.ts"
 
 /**
  * Detects all properties from source code
@@ -15,10 +16,10 @@ export default function detectProperties(source: string): Properties {
 		isPure,
 		isCurried: currying.isCurried,
 		curryLevels: currying.isCurried ? currying.levels : undefined,
-		isIdempotent: false, // TODO(@scribe): Implement in Phase 2
-		isCommutative: false, // TODO(@scribe): Implement in Phase 2
-		isAssociative: false, // TODO(@scribe): Implement in Phase 2
-		isDistributive: false, // TODO(@scribe): Implement in Phase 2
+		isIdempotent: isIdempotent(source),
+		isCommutative: isCommutative(source),
+		isAssociative: isAssociative(source),
+		isDistributive: isDistributive(source),
 		complexity,
 		nullHandling: "unknown", // TODO(@scribe): Implement in Phase 2
 		deterministic: isPure, // Pure functions are deterministic
