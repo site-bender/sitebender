@@ -1,0 +1,26 @@
+{
+  "scriptId": "400",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/double.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2450, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "safeDoubleToIndex",
+      "ranges": [{ "startOffset": 503, "endOffset": 717, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unmapperDoubleToIndex",
+      "ranges": [{ "startOffset": 718, "endOffset": 872, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "double",
+      "ranges": [{ "startOffset": 880, "endOffset": 2449, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scriptId": "391",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parseBinaryExpression/getOperatorFromToken/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1810, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getOperatorFromToken",
+      "ranges": [
+        { "startOffset": 1280, "endOffset": 1809, "count": 23 },
+        { "startOffset": 1345, "endOffset": 1375, "count": 11 },
+        { "startOffset": 1380, "endOffset": 1411, "count": 2 },
+        { "startOffset": 1416, "endOffset": 1450, "count": 4 },
+        { "startOffset": 1455, "endOffset": 1487, "count": 4 },
+        { "startOffset": 1492, "endOffset": 1523, "count": 2 },
+        { "startOffset": 1528, "endOffset": 1563, "count": 0 },
+        { "startOffset": 1568, "endOffset": 1606, "count": 0 },
+        { "startOffset": 1611, "endOffset": 1643, "count": 0 },
+        { "startOffset": 1648, "endOffset": 1684, "count": 0 },
+        { "startOffset": 1689, "endOffset": 1726, "count": 0 },
+        { "startOffset": 1731, "endOffset": 1771, "count": 0 },
+        { "startOffset": 1776, "endOffset": 1803, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

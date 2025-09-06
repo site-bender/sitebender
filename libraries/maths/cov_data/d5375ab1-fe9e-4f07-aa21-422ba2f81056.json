@@ -1,0 +1,16 @@
+{
+  "scriptId": "442",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/uuidV.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 696, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "uuidV",
+      "ranges": [{ "startOffset": 258, "endOffset": 695, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

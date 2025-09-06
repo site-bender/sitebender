@@ -1,0 +1,31 @@
+{
+  "scriptId": "556",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/model/commands/ScheduledCommand.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1451, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "ScheduledCommand",
+      "ranges": [{ "startOffset": 36, "endOffset": 107, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "check",
+      "ranges": [{ "startOffset": 112, "endOffset": 755, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 760, "endOffset": 1311, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "scheduleCommands",
+      "ranges": [{ "startOffset": 1346, "endOffset": 1449, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

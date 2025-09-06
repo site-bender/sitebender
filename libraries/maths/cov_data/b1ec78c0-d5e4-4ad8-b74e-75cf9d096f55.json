@@ -1,0 +1,43 @@
+{
+  "scriptId": "368",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/tokenizer/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5565, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "tokenize",
+      "ranges": [
+        { "startOffset": 1716, "endOffset": 5564, "count": 1200 },
+        { "startOffset": 1816, "endOffset": 5428, "count": 8600 },
+        { "startOffset": 1949, "endOffset": 2017, "count": 3200 },
+        { "startOffset": 2017, "endOffset": 2139, "count": 5400 },
+        { "startOffset": 2139, "endOffset": 2730, "count": 0 },
+        { "startOffset": 2730, "endOffset": 2880, "count": 5400 },
+        { "startOffset": 2880, "endOffset": 3058, "count": 2800 },
+        { "startOffset": 3058, "endOffset": 3272, "count": 2600 },
+        { "startOffset": 3272, "endOffset": 3378, "count": 0 },
+        { "startOffset": 3385, "endOffset": 3495, "count": 0 },
+        { "startOffset": 3502, "endOffset": 3613, "count": 0 },
+        { "startOffset": 3620, "endOffset": 3734, "count": 0 },
+        { "startOffset": 3741, "endOffset": 5300, "count": 2600 },
+        { "startOffset": 3884, "endOffset": 3975, "count": 1100 },
+        { "startOffset": 3986, "endOffset": 4078, "count": 0 },
+        { "startOffset": 4089, "endOffset": 4184, "count": 500 },
+        { "startOffset": 4195, "endOffset": 4288, "count": 0 },
+        { "startOffset": 4299, "endOffset": 4391, "count": 0 },
+        { "startOffset": 4402, "endOffset": 4499, "count": 500 },
+        { "startOffset": 4510, "endOffset": 4608, "count": 500 },
+        { "startOffset": 4619, "endOffset": 4714, "count": 0 },
+        { "startOffset": 4725, "endOffset": 4817, "count": 0 },
+        { "startOffset": 4828, "endOffset": 4924, "count": 0 },
+        { "startOffset": 4935, "endOffset": 5034, "count": 0 },
+        { "startOffset": 5045, "endOffset": 5290, "count": 0 },
+        { "startOffset": 5306, "endOffset": 5428, "count": 2600 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

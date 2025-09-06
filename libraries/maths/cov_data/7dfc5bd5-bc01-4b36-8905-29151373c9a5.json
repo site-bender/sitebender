@@ -1,0 +1,41 @@
+{
+  "scriptId": "572",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/check/property/SkipAfterProperty.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2182, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "interruptAfter",
+      "ranges": [{ "startOffset": 78, "endOffset": 503, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "SkipAfterProperty",
+      "ranges": [{ "startOffset": 541, "endOffset": 1166, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "isAsync",
+      "ranges": [{ "startOffset": 1171, "endOffset": 1228, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generate",
+      "ranges": [{ "startOffset": 1233, "endOffset": 1314, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "shrink",
+      "ranges": [{ "startOffset": 1319, "endOffset": 1384, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "run",
+      "ranges": [{ "startOffset": 1389, "endOffset": 2179, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

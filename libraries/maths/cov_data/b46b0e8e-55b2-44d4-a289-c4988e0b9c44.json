@@ -1,0 +1,16 @@
+{
+  "scriptId": "367",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/engine/src/constructors/operators/Multiply/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 263, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Multiply",
+      "ranges": [{ "startOffset": 91, "endOffset": 236, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

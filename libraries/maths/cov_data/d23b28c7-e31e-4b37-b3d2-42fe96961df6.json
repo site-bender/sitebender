@@ -1,0 +1,16 @@
+{
+  "scriptId": "476",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/bigUint64Array.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 397, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "bigUint64Array",
+      "ranges": [{ "startOffset": 220, "endOffset": 396, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

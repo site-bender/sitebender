@@ -1,0 +1,24 @@
+{
+  "scriptId": "621",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/libraries/maths/src/parser/parsePrimaryExpression/index.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3009, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "parsePrimaryExpression",
+      "ranges": [
+        { "startOffset": 1692, "endOffset": 3008, "count": 3300 },
+        { "startOffset": 1813, "endOffset": 1959, "count": 0 },
+        { "startOffset": 2031, "endOffset": 2166, "count": 2800 },
+        { "startOffset": 2166, "endOffset": 2788, "count": 500 },
+        { "startOffset": 2376, "endOffset": 2394, "count": 0 },
+        { "startOffset": 2482, "endOffset": 2761, "count": 0 },
+        { "startOffset": 2788, "endOffset": 3007, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

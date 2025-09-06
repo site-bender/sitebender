@@ -1,0 +1,16 @@
+{
+  "scriptId": "413",
+  "url": "file:///Users/guy/Workspace/@sitebender/maths-ai/node_modules/.deno/fast-check@3.17.1/node_modules/fast-check/lib/esm/arbitrary/letrec.js",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 818, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "letrec",
+      "ranges": [{ "startOffset": 168, "endOffset": 817, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}
