@@ -15,11 +15,20 @@ export default function extractTypeInfo(
 	if (ts.isTypeReferenceNode(typeNode)) {
 		const typeName = typeNode.typeName.getText()
 		
-		if (typeName === "Array" && typeNode.typeArguments?.[0]) {
+		// Handle both Array and ReadonlyArray
+		if ((typeName === "Array" || typeName === "ReadonlyArray") && typeNode.typeArguments?.[0]) {
 			return {
 				raw,
 				kind: TypeKind.Array,
 				elementType: extractTypeInfo(typeNode.typeArguments[0], checker),
+			}
+		}
+		
+		// Handle array without type arguments
+		if (typeName === "Array" || typeName === "ReadonlyArray") {
+			return {
+				raw,
+				kind: TypeKind.Array,
 			}
 		}
 		
@@ -100,6 +109,11 @@ export default function extractTypeInfo(
 		keywordKind === ts.SyntaxKind.UndefinedKeyword
 	) {
 		return { raw, kind: TypeKind.Primitive }
+	}
+	
+	// Check if the raw type string looks like a function
+	if (raw.includes("=>") || raw.includes("function")) {
+		return { raw, kind: TypeKind.Function }
 	}
 	
 	return { raw, kind: TypeKind.Unknown }

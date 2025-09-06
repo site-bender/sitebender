@@ -233,6 +233,10 @@ function typeToFastCheckGenerator(type: TypeInfo): string {
 		
 		case TypeKind.Array:
 			if (type.elementType) {
+				// Special case for arrays of functions
+				if (type.elementType.kind === TypeKind.Function) {
+					return "fc.array(fc.func(fc.anything()))"
+				}
 				return `fc.array(${typeToFastCheckGenerator(type.elementType)})`
 			}
 			return "fc.array(fc.anything())"

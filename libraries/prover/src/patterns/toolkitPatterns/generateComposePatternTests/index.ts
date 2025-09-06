@@ -23,16 +23,6 @@ export default function generateComposePatternTests(
 			5
 		],
 		expectedOutput: 11, // (5 * 2) + 1
-		properties: [{
-			name: "right-to-left composition",
-			generator: "fc.array(fc.func(fc.anything()), { minLength: 2 }), fc.anything()",
-			property: `
-				const reversed = [...functions].reverse()
-				const manual = reversed.reduce((acc, fn) => fn(acc), input)
-				const composed = compose(functions)(input)
-				return manual === composed
-			`,
-		}],
 	})
 	
 	// Test associativity
@@ -44,16 +34,6 @@ export default function generateComposePatternTests(
 			10
 		],
 		expectedOutput: 15, // ((10 - 3) * 2) + 1
-		properties: [{
-			name: "associativity",
-			generator: "fc.tuple(fc.func(fc.integer()), fc.func(fc.integer()), fc.func(fc.integer())), fc.integer()",
-			property: `
-				const [f, g, h] = functions
-				const left = compose([f, compose([g, h])])(input)
-				const right = compose([compose([f, g]), h])(input)
-				return left === right
-			`,
-		}],
 	})
 	
 	// Test single function

@@ -22,8 +22,6 @@ export default function generateUnitTests(
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
 		
-		const expectedStr = valueToString(test.expectedOutput)
-		
 		if (signature?.isCurried && test.input.length > 1) {
 			const callStr = test.input.reduce(
 				(acc, input) => `${acc}(${valueToString(input)})`,
@@ -37,7 +35,16 @@ export default function generateUnitTests(
 			const inputStr = test.input.map((v) => valueToString(v)).join(", ")
 			lines.push(`\t\t\tconst result = ${functionName}(${inputStr})`)
 		}
-		lines.push(`\t\t\tassertEquals(result, ${expectedStr})`)
+		
+		// Only assert if we have an expected output
+		if (test.expectedOutput !== undefined) {
+			const expectedStr = valueToString(test.expectedOutput)
+			lines.push(`\t\t\tassertEquals(result, ${expectedStr})`)
+		} else {
+			// Just check that the function doesn't throw
+			lines.push(`\t\t\tassertExists(result)`)
+		}
+		
 		lines.push("\t\t})")
 	}
 	
