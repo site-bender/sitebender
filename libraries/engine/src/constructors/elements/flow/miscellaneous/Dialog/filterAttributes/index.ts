@@ -6,7 +6,6 @@ import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes
 import type { DialogElementAttributes as DialogAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: DialogAttributes) {
-
 	const { id, open, ...otherAttributes } = attributes
 	const globals = pickGlobalAttributes(otherAttributes)
 
@@ -15,5 +14,4 @@ export default function filterAttributes(attributes: DialogAttributes) {
 		...globals,
 		...filterAttribute(isBoolean)("open")(open),
 	}
-
 }

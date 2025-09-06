@@ -5,9 +5,7 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: InputHiddenAttributes) {
-
-	const { form, name, value, ...attrs } =
-		attributes
+	const { form, name, value, ...attrs } = attributes
 	const globals = pickGlobalAttributes(attrs)
 
 	return {
@@ -16,5 +14,4 @@ export default function filterAttributes(attributes: InputHiddenAttributes) {
 		...filterAttribute(isString)("name")(name),
 		...filterAttribute(isString)("value")(value),
 	}
-
 }

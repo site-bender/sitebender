@@ -11,7 +11,6 @@ import isString from "@sitebender/engine/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
 
 export default function filterAttributes(attributes: SelectAttributes) {
-
 	const {
 		autocomplete,
 		disabled,
@@ -43,5 +42,4 @@ export default function filterAttributes(attributes: SelectAttributes) {
 	} as Record<string, Value>
 
 	return out
-
 }

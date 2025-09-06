@@ -1,7 +1,5 @@
 import type { Option } from "../../../../../types/components/forms/index.ts"
 
-import createElement from "../../../../helpers/createElement/index.ts"
-
 export type Props = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
 	classes?: Array<string>
 	naLabel?: string

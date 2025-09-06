@@ -11,9 +11,11 @@
 
 	"tasks": {
 		// Run tests - all behavioral tests together
-		"name": "@sitebender/engine",
-		"description": "Declarative behavior engine for engine UIs with progressive enhancement.",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
+		"test": "deno test --unstable-temporal tests/ --allow-read --allow-write",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ --allow-read --allow-write && deno coverage coverage && deno coverage coverage --lcov > coverage.lcov",
+
+		// Coverage gate - enforces 100% coverage mandate (Priority #6)
+		"coverage-gate": "deno run --allow-read --allow-run --allow-write scripts/coverageGate/index.ts",
 
 		// Code quality (inherits config from root workspace)
 		"lint": "deno lint src/",

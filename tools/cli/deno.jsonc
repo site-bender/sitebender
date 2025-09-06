@@ -1,9 +1,9 @@
 {
-  // Minimal workspace member config to satisfy Deno workspaces
-  "name": "@sitebender/cli",
-  "exports": {},
-  "tasks": {},
-  "compilerOptions": {
-    "strict": true
-  }
+	// Minimal workspace member config to satisfy Deno workspaces
+	"name": "@sitebender/cli",
+	"exports": {},
+	"tasks": {},
+	"compilerOptions": {
+		"strict": true
+	}
 }

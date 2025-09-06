@@ -1,4 +1,3 @@
-import createElement from "../../../../helpers/createElement/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 
 export type Props = JSX.LabelHTMLAttributes<HTMLLabelElement> & {
@@ -24,7 +23,7 @@ export default function Checkbox({
 	const clss = [...classes, "checkbox"].join(" ")
 
 	return (
-		<label class={clss} id={id} {...props}>
+		<label class={clss} {...props}>
 			<div class="label-text">{label}</div>
 			<input
 				checked={checked}

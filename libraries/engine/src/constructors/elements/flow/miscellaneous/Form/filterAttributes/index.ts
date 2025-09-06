@@ -1,4 +1,9 @@
-import { AUTOCOMPLETES, FORM_ENCTYPES, FORM_METHODS, FORM_TARGETS } from "@sitebender/engine/constructors/elements/constants/index.ts"
+import {
+	AUTOCOMPLETES,
+	FORM_ENCTYPES,
+	FORM_METHODS,
+	FORM_TARGETS,
+} from "@sitebender/engine/constructors/elements/constants/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import filterAttribute from "@sitebender/engine/guards/filterAttribute/index.ts"
 import isBoolean from "@sitebender/engine/guards/isBoolean/index.ts"
@@ -10,7 +15,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { FormElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: FormElementAttributes) {
-
 	const {
 		id,
 		action,
@@ -126,5 +130,4 @@ export default function filterAttributes(attributes: FormElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

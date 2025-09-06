@@ -38,7 +38,6 @@ export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
  * Allows global attributes and validates style-specific attributes
  */
 
-
 /**
  * Creates a Style element configuration object
  *

@@ -43,7 +43,6 @@ export type TrackElementAttributes = TrackAttributes & NoAriaAttributes & {
  * Allows global attributes and validates track-specific attributes
  */
 
-
 /**
  * Creates a Track element configuration object
  *
@@ -64,7 +63,9 @@ export type TrackElementAttributes = TrackAttributes & NoAriaAttributes & {
 const Track = (
 	attributes: Partial<TrackElementAttributes> = {},
 ): ElementConfig => {
-	const { id, ...attribs } = filterAttributes(attributes as TrackElementAttributes)
+	const { id, ...attribs } = filterAttributes(
+		attributes as TrackElementAttributes,
+	)
 	const {
 		calculation,
 		dataset,

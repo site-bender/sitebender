@@ -33,7 +33,6 @@ export type SpanElementAttributes = GenericContainerAttributes & {
  * Allows global attributes and validates span-specific attributes
  */
 
-
 /**
  * Creates a Span element configuration object
  *

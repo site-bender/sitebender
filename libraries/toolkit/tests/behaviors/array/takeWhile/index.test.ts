@@ -19,9 +19,11 @@ Deno.test("takeWhile - takes even numbers from beginning", () => {
 })
 
 Deno.test("takeWhile - uses index parameter", () => {
-	const takeAscending = takeWhile((x: number, i: number, arr: ReadonlyArray<number>) =>
-		i === 0 || x > arr[i - 1]
-	)
+	const takeAscending = takeWhile((
+		x: number,
+		i: number,
+		arr: ReadonlyArray<number>,
+	) => i === 0 || x > arr[i - 1])
 	assertEquals(takeAscending([1, 2, 3, 2, 4, 5]), [1, 2, 3])
 	assertEquals(takeAscending([5, 4, 3, 2, 1]), [5])
 	assertEquals(takeAscending([1, 1, 2, 2, 3]), [1])
@@ -32,28 +34,28 @@ Deno.test("takeWhile - takes objects while property is true", () => {
 		{ id: 1, active: true },
 		{ id: 2, active: true },
 		{ id: 3, active: false },
-		{ id: 4, active: true }
+		{ id: 4, active: true },
 	]
 	const takeActive = takeWhile((item: { active: boolean }) => item.active)
 	const result = takeActive(items)
 	assertEquals(result, [{ id: 1, active: true }, { id: 2, active: true }])
-	
+
 	// Verify immutability
 	assertEquals(items.length, 4)
 })
 
 Deno.test("takeWhile - handles edge cases", () => {
 	const lessThan5 = takeWhile((x: number) => x < 5)
-	
+
 	// Empty array
 	assertEquals(lessThan5([]), [])
-	
+
 	// No elements satisfy predicate
 	assertEquals(lessThan5([10, 20, 30]), [])
-	
+
 	// All elements satisfy predicate
 	assertEquals(lessThan5([1, 2, 3]), [1, 2, 3])
-	
+
 	// Single element
 	assertEquals(lessThan5([4]), [4])
 	assertEquals(lessThan5([5]), [])
@@ -61,7 +63,7 @@ Deno.test("takeWhile - handles edge cases", () => {
 
 Deno.test("takeWhile - handles null and undefined", () => {
 	const lessThan5 = takeWhile((x: number) => x < 5)
-	
+
 	assertEquals(lessThan5(null), [])
 	assertEquals(lessThan5(undefined), [])
 })
@@ -69,12 +71,14 @@ Deno.test("takeWhile - handles null and undefined", () => {
 Deno.test("takeWhile - passes array reference to predicate", () => {
 	const originalArray = [1, 2, 3]
 	let capturedArray: ReadonlyArray<number> | undefined
-	
-	const takeFn = takeWhile((x: number, i: number, arr: ReadonlyArray<number>) => {
-		capturedArray = arr
-		return x < 3
-	})
-	
+
+	const takeFn = takeWhile(
+		(x: number, i: number, arr: ReadonlyArray<number>) => {
+			capturedArray = arr
+			return x < 3
+		},
+	)
+
 	takeFn(originalArray)
 	assertEquals(capturedArray, originalArray)
 })
@@ -84,7 +88,7 @@ Deno.test("takeWhile - handles complex predicates", () => {
 	const takeShort = takeWhile((s: string) => s.length === 3)
 	assertEquals(takeShort(["foo", "bar", "hello", "baz"]), ["foo", "bar"])
 	assertEquals(takeShort(["hello", "foo", "bar"]), [])
-	
+
 	// Take numbers while positive
 	const takePositive = takeWhile((n: number) => n > 0)
 	assertEquals(takePositive([1, 2, 3, -1, 5]), [1, 2, 3])
@@ -97,15 +101,15 @@ Deno.test("takeWhile - preserves type safety", () => {
 	const items: Array<Item> = [
 		{ value: 1, label: "a" },
 		{ value: 2, label: "b" },
-		{ value: 3, label: "c" }
+		{ value: 3, label: "c" },
 	]
-	
+
 	const takeLowValue = takeWhile((item: Item) => item.value < 3)
 	const result = takeLowValue(items)
-	
+
 	assertEquals(result, [
 		{ value: 1, label: "a" },
-		{ value: 2, label: "b" }
+		{ value: 2, label: "b" },
 	])
 })
 
@@ -113,7 +117,7 @@ Deno.test("takeWhile - returns new array instance", () => {
 	const original = [1, 2, 3]
 	const takeAll = takeWhile((x: number) => x < 10)
 	const result = takeAll(original)
-	
+
 	assertEquals(result, original)
 	// Verify it's a new array instance, not the same reference
 	assertEquals(result === original, false)
@@ -128,16 +132,16 @@ Deno.test("takeWhile - property: result is prefix of input", () => {
 			(arr, predicateFn) => {
 				const predicate = (x: number) => predicateFn(x)
 				const result = takeWhile(predicate)(arr)
-				
+
 				// Result should be a prefix of input
 				for (let i = 0; i < result.length; i++) {
 					assertEquals(result[i], arr[i])
 				}
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -149,16 +153,16 @@ Deno.test("takeWhile - property: all taken elements satisfy predicate", () => {
 			(arr, threshold) => {
 				const predicate = (x: number) => x < threshold
 				const result = takeWhile(predicate)(arr)
-				
+
 				// All elements in result should satisfy predicate
 				for (const element of result) {
 					assertEquals(predicate(element), true)
 				}
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -170,16 +174,16 @@ Deno.test("takeWhile - property: first rejected element should fail predicate", 
 			(arr, threshold) => {
 				const predicate = (x: number) => x < threshold
 				const result = takeWhile(predicate)(arr)
-				
+
 				// If result is shorter than input, the next element should fail predicate
 				if (result.length < arr.length) {
 					assertEquals(predicate(arr[result.length]), false)
 				}
-				
+
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -191,9 +195,9 @@ Deno.test("takeWhile - property: takeWhile with always-true returns whole array"
 				const result = takeWhile(() => true)(arr)
 				assertEquals(result, arr)
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })
 
@@ -205,8 +209,8 @@ Deno.test("takeWhile - property: takeWhile with always-false returns empty", () 
 				const result = takeWhile(() => false)(arr)
 				assertEquals(result, [])
 				return true
-			}
+			},
 		),
-		{ numRuns: 100 }
+		{ numRuns: 100 },
 	)
 })

@@ -34,8 +34,6 @@ export type LabelElementAttributes = LabelAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates a Label element configuration object
  *

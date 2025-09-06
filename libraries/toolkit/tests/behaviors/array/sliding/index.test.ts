@@ -121,7 +121,7 @@ describe("sliding", () => {
 				expect(result).toEqual([
 					[1, "a", true],
 					["a", true, null],
-					[true, null, { x: 1 }]
+					[true, null, { x: 1 }],
 				])
 			})
 
@@ -178,7 +178,7 @@ describe("sliding", () => {
 		describe("practical use cases", () => {
 			it("should calculate moving averages", () => {
 				const windows = sliding(3)(1)([1, 2, 3, 4, 5])
-				const movingAverages = windows.map(w => 
+				const movingAverages = windows.map((w) =>
 					w.reduce((sum, n) => sum + n, 0) / w.length
 				)
 				expect(movingAverages).toEqual([2, 3, 4])
@@ -187,10 +187,16 @@ describe("sliding", () => {
 			it("should detect patterns in sequences", () => {
 				const sequence = [1, 2, 1, 2, 1, 2]
 				const windows = sliding(2)(1)(sequence)
-				const patterns = windows.map(([a, b]) => 
+				const patterns = windows.map(([a, b]) =>
 					a === 1 && b === 2 ? "pattern" : "no pattern"
 				)
-				expect(patterns).toEqual(["pattern", "no pattern", "pattern", "no pattern", "pattern"])
+				expect(patterns).toEqual([
+					"pattern",
+					"no pattern",
+					"pattern",
+					"no pattern",
+					"pattern",
+				])
 			})
 
 			it("should work for n-gram analysis", () => {
@@ -199,7 +205,7 @@ describe("sliding", () => {
 				expect(bigrams).toEqual([
 					["the", "quick"],
 					["quick", "brown"],
-					["brown", "fox"]
+					["brown", "fox"],
 				])
 			})
 		})
@@ -227,7 +233,7 @@ describe("sliding", () => {
 					fc.integer({ min: 1, max: 5 }),
 					(array, size, step) => {
 						const result = sliding(size)(step)(array)
-						return result.every(window => window.length === size)
+						return result.every((window) => window.length === size)
 					},
 				),
 			)
@@ -243,9 +249,7 @@ describe("sliding", () => {
 						const result = sliding(size)(step)(array)
 						return result.every((window, i) => {
 							const startIdx = i * step
-							return window.every((elem, j) => 
-								elem === array[startIdx + j]
-							)
+							return window.every((elem, j) => elem === array[startIdx + j])
 						})
 					},
 				),
@@ -292,7 +296,7 @@ describe("sliding", () => {
 						fc.constant(0),
 						fc.constant(-1),
 						fc.constant(NaN),
-						fc.constant(1.5)
+						fc.constant(1.5),
 					),
 					fc.integer({ min: 1, max: 5 }),
 					(array, invalidSize, step) => {

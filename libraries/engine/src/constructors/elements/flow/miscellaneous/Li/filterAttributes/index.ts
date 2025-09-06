@@ -12,7 +12,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { LiElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: LiElementAttributes) {
-
 	const {
 		id,
 		value,
@@ -102,5 +101,4 @@ export default function filterAttributes(attributes: LiElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

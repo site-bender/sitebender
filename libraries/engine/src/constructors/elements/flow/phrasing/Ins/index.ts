@@ -34,7 +34,6 @@ export type InsElementAttributes = InsertedTextAttributes & AriaAttributes & {
  * Allows global attributes and validates ins-specific attributes
  */
 
-
 /**
  * Creates an Ins element configuration object
  *

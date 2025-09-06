@@ -8,8 +8,9 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 
 import type { MeterElementAttributes } from "../index.ts"
 
-export default function filterAttributes(attributes: Partial<MeterElementAttributes>,) {
-
+export default function filterAttributes(
+	attributes: Partial<MeterElementAttributes>,
+) {
 	const {
 		id,
 		form,
@@ -123,5 +124,4 @@ export default function filterAttributes(attributes: Partial<MeterElementAttribu
 	}
 
 	return filteredAttrs
-
 }

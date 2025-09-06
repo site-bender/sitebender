@@ -68,7 +68,7 @@ export default function inferNumericType(
 	// Check if all operands have the same numeric datatype
 	const types = operands.map((op) => op.datatype)
 	const numericTypes = types.filter((t): t is NumericDatatype =>
-		["Number", "Float", "Integer", "Precision"].includes(t),
+		["Number", "Float", "Integer", "Precision"].includes(t)
 	)
 
 	// If all are the same numeric type, use it

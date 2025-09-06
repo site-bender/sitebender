@@ -1,11 +1,16 @@
 import type {
+	ActionNode,
 	ComparatorNode,
+	ConditionalNode,
+	ElementNode,
 	InjectorNode,
 	Node,
 	OperatorNode,
+	ValidatorNode,
 } from "../../../types/ir/index.ts"
 import type { ComposeContext } from "../../context/composeContext/index.ts"
 
+import actions from "../../operations/registries/actions.ts"
 import comparators from "../../operations/registries/comparators.ts"
 import injectors from "../../operations/registries/injectors.ts"
 import operators from "../../operations/registries/operators.ts"
@@ -59,6 +64,53 @@ export default async function evaluate(
 			}
 			return Boolean(res)
 		}
+		case "conditional": {
+			const condNode = node as ConditionalNode
+			const conditionResult = await evaluate(condNode.condition, ctx)
+			const branch = conditionResult ? condNode.ifTrue : condNode.ifFalse
+			// Evaluate all nodes in the selected branch sequentially and return the last result
+			if (branch.length === 0) return undefined
+
+			// Sequential evaluation required for conditional branches
+			const evaluateSequentially = async (nodes: Node[]): Promise<unknown> => {
+				let result: unknown = undefined
+				for (const node of nodes) {
+					// deno-lint-ignore no-await-in-loop
+					result = await evaluate(node, ctx)
+				}
+				return result
+			}
+
+			return evaluateSequentially(branch)
+		}
+		case "action": {
+			const actionNode = node as ActionNode
+			const exec = actions.get(actionNode.action)
+			if (!exec) throw new Error(`Action not registered: ${actionNode.action}`)
+			const evalArg = (n: ActionNode["args"][number]) => evaluate(n, ctx)
+			return await exec(actionNode, evalArg, ctx)
+		}
+		case "validator": {
+			const validatorNode = node as ValidatorNode
+			// For now, just evaluate the rule and return the boolean result
+			return await evaluate(validatorNode.rule, ctx)
+		}
+		case "element": {
+			const elementNode = node as ElementNode
+			// For element nodes, we typically want to render them to HTML
+			// For evaluation purposes, we can return the element structure
+			// This will be used during rendering phases
+			const childPromises = elementNode.children.map(child => evaluate(child, ctx))
+			const evaluatedChildren = await Promise.all(childPromises)
+			return {
+				tag: elementNode.tag,
+				attrs: elementNode.attrs,
+				children: evaluatedChildren,
+			}
+		}
+		case "on":
+			// Event binding nodes are handled during hydration, not evaluation
+			return undefined
 		default:
 			return undefined
 	}

@@ -34,7 +34,6 @@ export type DfnElementAttributes = DefinitionAttributes & AriaAttributes & {
  * Allows global attributes and validates dfn-specific attributes
  */
 
-
 /**
  * Creates a Dfn element configuration object
  *

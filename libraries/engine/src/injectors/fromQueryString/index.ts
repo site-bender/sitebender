@@ -7,7 +7,9 @@ import castValue from "../../utilities/castValue/index.ts"
 
 const fromQueryString =
 	(op: unknown = {}) => (_: unknown, localValues?: Record<string, unknown>) => {
-		const local = getFromLocal(op as import("@sitebender/engine/pending/dom/getValue/getFromLocal/index.ts").SelectorOp)(localValues)
+		const local = getFromLocal(
+			op as import("@sitebender/engine/pending/dom/getValue/getFromLocal/index.ts").SelectorOp,
+		)(localValues)
 
 		if (isDefined(local)) {
 			return local

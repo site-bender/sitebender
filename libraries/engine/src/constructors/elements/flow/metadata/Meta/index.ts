@@ -36,7 +36,6 @@ export type MetaElementAttributes = MetaAttributes & NoAriaAttributes & {
  * Allows global attributes and validates meta-specific attributes
  */
 
-
 /**
  * Creates a Meta element configuration object
  *

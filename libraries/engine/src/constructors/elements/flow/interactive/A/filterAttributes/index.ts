@@ -15,7 +15,6 @@ import isDefined from "@sitebender/engine/utilities/isDefined/index.ts"
 import type { AnchorElementAttributes } from "../index.ts"
 
 export default function filterAttributes(attributes: AnchorElementAttributes) {
-
 	const {
 		id,
 		download,
@@ -179,5 +178,4 @@ export default function filterAttributes(attributes: AnchorElementAttributes) {
 	}
 
 	return filteredAttrs
-
 }

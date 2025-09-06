@@ -29,8 +29,6 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-
-
 /**
  * Creates an InputRange element configuration object
  *
@@ -47,10 +45,10 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
  * })
  * ```
  */
-const InputRange = Input("range")(filterAttributes as unknown as (
-	a: Record<string, Value>,
-) => Record<string, Value>)
+const InputRange = Input("range")(
+	filterAttributes as unknown as (
+		a: Record<string, Value>,
+	) => Record<string, Value>,
+)
 
 export default InputRange
-
-

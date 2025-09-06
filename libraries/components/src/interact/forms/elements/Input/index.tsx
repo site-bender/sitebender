@@ -1,5 +1,3 @@
-import createElement from "../../../../helpers/createElement/index.ts"
-
 export type Props = JSX.InputHTMLAttributes<HTMLInputElement> & {
 	classes?: Array<string>
 }

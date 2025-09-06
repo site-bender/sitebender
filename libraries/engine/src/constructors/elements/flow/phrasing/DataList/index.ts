@@ -34,7 +34,6 @@ export type DataListElementAttributes = DataListAttributes & AriaAttributes & {
  * Allows global attributes and validates datalist-specific attributes
  */
 
-
 /**
  * Creates a DataList element configuration object
  *

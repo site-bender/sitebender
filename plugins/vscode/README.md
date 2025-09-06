@@ -36,10 +36,10 @@ More commands will appear here as they are added. The glue uses `runDenoScript(c
 - Node glue (JS) stays tiny and untyped; keep logic in Deno scripts where we have tests.
 - Deno scripts are unit/integration tested using DI for side-effects (filesystem/process) where practical.
 - When adding a new script:
-  1) Create `agent/scripts/<functionName>/index.ts` with a default export and `import.meta.main` guard.
-  2) Add any helpers as subfolders.
-  3) Add types to `agent/types/index.ts` if shared.
-  4) Wire a VS Code command under `agent/commands/` that calls `runDenoScript` with the new folder name.
+  1. Create `agent/scripts/<functionName>/index.ts` with a default export and `import.meta.main` guard.
+  2. Add any helpers as subfolders.
+  3. Add types to `agent/types/index.ts` if shared.
+  4. Wire a VS Code command under `agent/commands/` that calls `runDenoScript` with the new folder name.
 
 ## Files of interest
 

@@ -1,4 +1,7 @@
-import type { IsLessThanComparator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	IsLessThanComparator,
+	Operand,
+} from "@sitebender/engine-types/index.ts"
 
 /**
  * IsLessThan - Less than comparison for engine conditionals

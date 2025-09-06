@@ -52,7 +52,8 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @sitebender/engine-types/… instead of libraries/engine/types/…",
+						hint:
+							"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
 					})
 				}
 			}
@@ -64,7 +65,8 @@ function checkFileForAliasViolations(
 						file,
 						line: idx + 1,
 						spec,
-						hint: "Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
+						hint:
+							"Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
 					})
 				}
 			}
