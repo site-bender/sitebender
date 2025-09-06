@@ -40,15 +40,15 @@ export default function findRequiredImports(
 function extractTypeNames(typeStr: string, types: Set<string>) {
 	// Match custom type names (capitalized identifiers)
 	const typeNamePattern = /\b([A-Z][a-zA-Z0-9]*)/g
-	let match
+	const matches = Array.from(typeStr.matchAll(typeNamePattern))
 	
-	while ((match = typeNamePattern.exec(typeStr)) !== null) {
+	matches.forEach(match => {
 		const typeName = match[1]
 		// Skip built-in types
 		if (!isBuiltInType(typeName)) {
 			types.add(typeName)
 		}
-	}
+	})
 }
 
 /**

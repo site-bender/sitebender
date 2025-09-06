@@ -1,6 +1,28 @@
-import type { TestCase, FunctionSignature } from "../../../types/index.ts"
+import type { TestCase, FunctionSignature, TypeInfo } from "../../../types/index.ts"
+import { TypeKind } from "../../../types/index.ts"
 import escapeTestName from "../escapeTestName/index.ts"
 import valueToString from "../valueToString/index.ts"
+
+/**
+ * Checks if a type can return undefined
+ * @param type The TypeInfo to check
+ * @returns true if the type includes undefined
+ */
+function canReturnUndefined(type: TypeInfo): boolean {
+	// Direct undefined type
+	if (type.raw === "undefined") return true
+	
+	// Union type that includes undefined
+	if (type.kind === TypeKind.Union && type.unionTypes) {
+		return type.unionTypes.some(t => t.raw === "undefined" || canReturnUndefined(t))
+	}
+	
+	// Common patterns
+	if (type.raw.includes("| undefined")) return true
+	if (type.raw.includes("undefined |")) return true
+	
+	return false
+}
 
 /**
  * Generates unit test code
@@ -18,7 +40,7 @@ export default function generateUnitTests(
 	
 	lines.push("\tdescribe(\"unit tests\", () => {")
 	
-	for (const test of tests) {
+	tests.forEach(test => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
 		
@@ -40,13 +62,17 @@ export default function generateUnitTests(
 		if (test.expectedOutput !== undefined) {
 			const expectedStr = valueToString(test.expectedOutput)
 			lines.push(`\t\t\tassertEquals(result, ${expectedStr})`)
+		} else if (signature?.returnType && canReturnUndefined(signature.returnType)) {
+			// For functions that can return undefined, just verify they don't throw
+			// The result itself is stored but not asserted
+			lines.push(`\t\t\t// Result can be undefined, no assertion needed`)
 		} else {
-			// Just check that the function doesn't throw
+			// For functions that shouldn't return undefined, verify result exists
 			lines.push(`\t\t\tassertExists(result)`)
 		}
 		
 		lines.push("\t\t})")
-	}
+	})
 	
 	lines.push("\t})")
 	

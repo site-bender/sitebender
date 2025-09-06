@@ -1,6 +1,4 @@
-import type { CoverageData } from "./types/index.ts"
-
-export type { CoverageData }
+import type CoverageData from "./types/index.ts"
 
 /**
  * Parses LCOV coverage report from Deno

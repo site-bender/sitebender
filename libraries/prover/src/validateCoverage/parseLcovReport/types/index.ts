@@ -1,4 +1,4 @@
-export type CoverageData = {
+type CoverageData = {
 	files: Array<{
 		path: string
 		lines: {
@@ -20,3 +20,5 @@ export type CoverageData = {
 		}
 	}>
 }
+
+export default CoverageData

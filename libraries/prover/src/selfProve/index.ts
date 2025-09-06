@@ -8,9 +8,9 @@
  * It's not just meta-programming—it's meta-meta-programming.
  */
 
-import { orchestrateTestGeneration } from "./orchestrateTestGeneration/index.ts"
-import type { FunctionSignature } from "./types/index.ts"
-import { TypeKind } from "./types/index.ts"
+import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
+import type { FunctionSignature } from "../types/index.ts"
+import { TypeKind } from "../types/index.ts"
 
 // Prover's own signatures for self-testing
 const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
@@ -64,34 +64,6 @@ const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
 		isGenerator: false
 	},
 
-	// Branch ID computation
-	"analyzeBranches/computeBranchId": {
-		name: "computeBranchId",
-		path: "libraries/prover/src/analyzeBranches/computeBranchId/index.ts",
-		parameters: [
-			{
-				name: "branchType",
-				type: { raw: "BranchType", kind: TypeKind.Union },
-				optional: false
-			},
-			{
-				name: "index",
-				type: { raw: "number", kind: TypeKind.Primitive },
-				optional: false
-			},
-			{
-				name: "parentIndex",
-				type: { raw: "number", kind: TypeKind.Primitive },
-				optional: false
-			}
-		],
-		returnType: { raw: "string", kind: TypeKind.Primitive },
-		generics: [],
-		isCurried: false,
-		isAsync: false,
-		isGenerator: false
-	},
-
 	// Test name escaping
 	"writeTestFile/generateTestContent/escapeTestName": {
 		name: "escapeTestName",
@@ -106,22 +78,6 @@ const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
 		isCurried: false,
 		isAsync: false,
 		isGenerator: false
-	},
-
-	// Pattern detection
-	"patterns/toolkitPatterns/detectPatternType": {
-		name: "detectPatternType",
-		path: "libraries/prover/src/patterns/toolkitPatterns/detectPatternType/index.ts",
-		parameters: [{
-			name: "signature",
-			type: { raw: "FunctionSignature", kind: TypeKind.Object },
-			optional: false
-		}],
-		returnType: { raw: "PatternType | null", kind: TypeKind.Union },
-		generics: [],
-		isCurried: false,
-		isAsync: false,
-		isGenerator: false
 	}
 }
 
@@ -130,7 +86,7 @@ const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
  * If a test generator is pure and deterministic,
  * it can generate tests for itself that prove its own correctness.
  */
-async function proveProver(): Promise<void> {
+export default async function proveProver(): Promise<void> {
 	console.log("🔮 THE PROVER RECURSION")
 	console.log("=" .repeat(80))
 	console.log("\n'I think, therefore I test myself' — Descartes, probably\n")
@@ -169,13 +125,11 @@ async function proveProver(): Promise<void> {
 		
 		console.log("🎭 'Who tests the testers?' — We do. Automatically.")
 		
-		// Calculate meta-statistics
-		let totalTests = 0
-		let totalLines = 0
-		for (const [_key, content] of testFiles) {
-			totalTests += (content.match(/Deno\.test\(/g) || []).length
-			totalLines += content.split('\n').length
-		}
+		// Calculate meta-statistics using functional approach
+		const totalTests = Array.from(testFiles.values())
+			.reduce((sum, content) => sum + (content.match(/Deno\.test\(/g) || []).length, 0)
+		const totalLines = Array.from(testFiles.values())
+			.reduce((sum, content) => sum + content.split('\n').length, 0)
 		
 		console.log("\n" + "=".repeat(80))
 		console.log("META-STATISTICS")
@@ -201,65 +155,7 @@ async function proveProver(): Promise<void> {
 	}
 }
 
-// The beautiful properties we're testing
-function describeProperties(): void {
-	console.log("\n" + "=".repeat(80))
-	console.log("PROPERTIES BEING TESTED")
-	console.log("=".repeat(80))
-	
-	const properties = [
-		{
-			name: "Idempotence",
-			example: "deduplicate(deduplicate(x)) = deduplicate(x)",
-			why: "Ensures stability"
-		},
-		{
-			name: "Bounded Output",
-			example: "0 ≤ calculatePercentage(x, y) ≤ 100",
-			why: "Mathematical soundness"
-		},
-		{
-			name: "Determinism",
-			example: "generateTests(sig) always produces same tests",
-			why: "Reproducibility"
-		},
-		{
-			name: "Preservation",
-			example: "extractBranches preserves AST structure",
-			why: "Correctness"
-		},
-		{
-			name: "Injectivity",
-			example: "Different branches get unique IDs",
-			why: "Uniqueness guarantee"
-		}
-	]
-	
-	properties.forEach(({ name, example, why }) => {
-		console.log(`\n${name}:`)
-		console.log(`  Example: ${example}`)
-		console.log(`  Why: ${why}`)
-	})
-}
-
-async function main(): Promise<void> {
-	console.clear()
-	console.log("🌟 @sitebender/prover - Self-Proving Mode")
-	console.log("=" .repeat(80))
-	
-	describeProperties()
-	await proveProver()
-	
-	console.log("=" .repeat(80))
-	console.log("THE CIRCLE IS COMPLETE")
-	console.log("=" .repeat(80))
-	console.log("\nWe've built a test generator so powerful,")
-	console.log("it can test itself to 100% coverage.")
-	console.log("\nThis is the future of testing:")
-	console.log("Not writing tests, but proving correctness.\n")
-	console.log("— The Architect")
-}
-
+// Run if called directly
 if (import.meta.main) {
-	main()
+	proveProver()
 }

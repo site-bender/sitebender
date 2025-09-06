@@ -1,4 +1,4 @@
-import type { ReportData } from "./types/index.ts"
+import type ReportData from "./types/index.ts"
 
 /**
  * Generates a human-readable coverage report
@@ -25,17 +25,17 @@ export default function generateCoverageReport(data: ReportData): string {
 		lines.push(`   Covered: ${data.branchesCovered}/${data.branchesTotal}`)
 		if (data.uncoveredBranches.length > 0) {
 			lines.push(`   Uncovered branches:`)
-			for (const branch of data.uncoveredBranches) {
+			data.uncoveredBranches.forEach(branch => {
 				lines.push(`     - ${branch}`)
-			}
+			})
 		}
 	}
 	
 	if (data.suggestions.length > 0) {
 		lines.push(`\n💡 Suggestions:`)
-		for (const suggestion of data.suggestions) {
+		data.suggestions.forEach(suggestion => {
 			lines.push(`   • ${suggestion}`)
-		}
+		})
 	}
 	
 	lines.push("\n" + "=" .repeat(50))

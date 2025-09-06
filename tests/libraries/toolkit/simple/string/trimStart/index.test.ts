@@ -1,7 +1,7 @@
 /**
  * Auto-generated test file
  * Source: /Users/guy/Workspace/@sitebender/prover-ai/libraries/toolkit/src/simple/string/trimStart/index.ts
- * Generated: 2025-09-06T04:28:09.020Z
+ * Generated: 2025-09-06T04:58:50.278Z
  * Generator: @sitebender/test-generator v1.0.0
  *
  * DO NOT EDIT MANUALLY

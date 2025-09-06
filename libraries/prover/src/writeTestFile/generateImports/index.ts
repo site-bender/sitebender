@@ -1,70 +1,71 @@
-import type { TestCase, FunctionSignature } from "../../types/index.ts"
-import getRelativeImportPath from "./getRelativeImportPath/index.ts"
+import type { FunctionSignature, TestCase } from "../../types/index.ts"
 
 /**
- * Generates import statements for test files
- * @param functionPath Path to the function file
- * @param functionName Name of the function
- * @param tests Array of test cases
- * @param signature Optional function signature with import information
- * @returns Generated import statements as string
+ * Generates import statements for a test file
+ * @param signature Function signature with type information
+ * @param tests Array of test cases that may require imports
+ * @returns Combined import statements as a string
  */
 export default function generateImports(
-	functionPath: string,
-	functionName: string,
-	tests: Array<TestCase>,
-	signature?: FunctionSignature
+	signature: FunctionSignature,
+	tests: Array<TestCase>
 ): string {
 	const imports: Array<string> = []
 	
-	const relativePath = getRelativeImportPath(functionPath)
-	imports.push(`import ${functionName} from "${relativePath}"`)
+	// Import the function being tested
+	const relativePath = generateRelativePath(signature.path)
+	imports.push(`import ${signature.name} from "${relativePath}"`)
 	
-	// Add custom type imports if provided
-	if (signature?.imports) {
-		const typeImports = signature.imports.filter(imp => imp.isType)
-		const valueImports = signature.imports.filter(imp => !imp.isType)
-		
+	// Check if we need type imports from signature
+	if (signature.imports) {
 		// Group imports by path
-		const importsByPath = new Map<string, Array<{ name: string; isDefault: boolean }>>()
-		
-		for (const imp of [...typeImports, ...valueImports]) {
-			// Convert relative import paths for test file location
-			const testRelativePath = convertImportPathForTest(imp.path, functionPath)
-			
-			if (!importsByPath.has(testRelativePath)) {
-				importsByPath.set(testRelativePath, [])
+		const importsByPath = signature.imports.reduce((acc, imp) => {
+			if (!acc.has(imp.path)) {
+				acc.set(imp.path, [])
 			}
-			importsByPath.get(testRelativePath)!.push({
+			acc.get(imp.path)?.push({
 				name: imp.name,
+				isType: imp.isType,
 				isDefault: imp.isDefault
 			})
-		}
+			return acc
+		}, new Map<string, Array<{ name: string; isType: boolean; isDefault: boolean }>>())
+		
+		// Type-only imports
+		const typeImports = signature.imports.filter(i => i.isType)
+		
+		// Add custom type imports from required imports
+		const requiredImports = signature.requiredImports || []
+		requiredImports.forEach(imp => {
+			importsByPath.set(imp.path, [{
+				name: imp.name,
+				isType: true,
+				isDefault: imp.isDefault
+			}])
+		})
 		
 		// Generate import statements
-		for (const [path, items] of importsByPath) {
+		Array.from(importsByPath.entries()).forEach(([path, items]) => {
 			const defaultImport = items.find(i => i.isDefault)
 			const namedImports = items.filter(i => !i.isDefault)
 			
-			let importStatement = "import "
-			if (typeImports.some(i => i.path === path)) {
-				importStatement += "type "
-			}
+			const isTypeImport = typeImports.some(i => i.path === path)
+			const importPrefix = isTypeImport ? "import type " : "import "
+			
+			const importParts: Array<string> = []
 			
 			if (defaultImport) {
-				importStatement += defaultImport.name
-				if (namedImports.length > 0) {
-					importStatement += ", "
-				}
+				importParts.push(defaultImport.name)
 			}
 			
 			if (namedImports.length > 0) {
-				importStatement += `{ ${namedImports.map(i => i.name).join(", ")} }`
+				const namedPart = `{ ${namedImports.map(i => i.name).join(", ")} }`
+				importParts.push(namedPart)
 			}
 			
-			importStatement += ` from "${path}"`
+			const importStatement = `${importPrefix}${importParts.join(", ")} from "${path}"`
 			imports.push(importStatement)
-		}
+		})
 	}
 	
 	imports.push(`import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"`)
@@ -97,4 +98,26 @@ function convertImportPathForTest(importPath: string, _sourcePath: string): stri
 	
 	// Absolute imports remain the same
 	return importPath
+}
+
+/**
+ * Generates relative path from test file to source file
+ */
+function generateRelativePath(sourcePath: string): string {
+	// Convert absolute path to relative from test location
+	// Assuming test is in tests/libraries/... and source is in libraries/...
+	const pathParts = sourcePath.split("/")
+	const librariesIndex = pathParts.indexOf("libraries")
+	
+	if (librariesIndex === -1) {
+		// Fallback: use the full path
+		return sourcePath
+	}
+	
+	// Build relative path from test to source
+	const relativeSegments = pathParts.slice(librariesIndex)
+	const upLevels = relativeSegments.length + 1 // Go up from test dir
+	const upPath = Array(upLevels).fill("..").join("/")
+	
+	return `${upPath}/${sourcePath}`
 }

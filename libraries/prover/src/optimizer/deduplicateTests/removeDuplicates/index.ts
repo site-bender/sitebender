@@ -12,16 +12,14 @@ import computeTestHash from "./computeTestHash/index.ts"
  */
 export default function removeDuplicates(tests: Array<TestCase>): Array<TestCase> {
 	const seen = new Set<string>()
-	const unique: Array<TestCase> = []
 	
-	for (const test of tests) {
+	return tests.filter(test => {
 		const hash = computeTestHash(test)
 		
 		if (!seen.has(hash)) {
 			seen.add(hash)
-			unique.push(test)
+			return true
 		}
-	}
-	
-	return unique
+		return false
+	})
 }

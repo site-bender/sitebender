@@ -1,6 +1,6 @@
-import type { CoverageData } from "../parseLcovReport/index.ts"
+import type CoverageData from "../parseLcovReport/types/index.ts"
 
-export interface CoveragePercentages {
+type CoveragePercentages = {
 	overall: number
 	linesCovered: number
 	linesTotal: number

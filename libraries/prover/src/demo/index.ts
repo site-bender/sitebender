@@ -11,7 +11,7 @@
  * 4. Showing coverage results
  */
 
-import generateTests from "./src/generateTests/index.ts"
+import generateTests from "../generateTests/index.ts"
 
 // Terminal colors for pretty output
 const RED = "\x1b[31m"
@@ -23,7 +23,7 @@ const CYAN = "\x1b[36m"
 const RESET = "\x1b[0m"
 const BOLD = "\x1b[1m"
 
-async function runDemo() {
+export default async function runDemo() {
 	console.log(`${BOLD}${CYAN}========================================${RESET}`)
 	console.log(`${BOLD}${CYAN}   🧪 PROVER DEMONSTRATION 🧪${RESET}`)
 	console.log(`${BOLD}${CYAN}========================================${RESET}\n`)
@@ -38,7 +38,7 @@ async function runDemo() {
 	// Test subjects: simple to complex functions
 	// Get absolute paths
 	const baseDir = new URL(".", import.meta.url).pathname
-	const projectRoot = baseDir.replace("/libraries/prover/", "")
+	const projectRoot = baseDir.replace("/libraries/prover/src/demo/", "")
 	
 	const testTargets = [
 		{
@@ -55,7 +55,7 @@ async function runDemo() {
 		}
 	]
 	
-	for (const target of testTargets) {
+	testTargets.forEach(target => {
 		console.log(`${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`)
 		console.log(`${BOLD}${MAGENTA}Testing: ${target.description}${RESET}`)
 		console.log(`${BLUE}Path: ${target.path}${RESET}\n`)
@@ -78,7 +78,7 @@ async function runDemo() {
 			// Show some generated test cases
 			console.log(`\n${CYAN}Sample test cases:${RESET}`)
 			const sampleTests = suite.testCases.slice(0, 3)
-			for (const test of sampleTests) {
+			sampleTests.forEach(test => {
 				console.log(`  • ${test.description}`)
 				if (test.input) {
 					console.log(`    Input: ${JSON.stringify(test.input)}`)
@@ -86,27 +86,14 @@ async function runDemo() {
 				if (test.expected !== undefined) {
 					console.log(`    Expected: ${JSON.stringify(test.expected)}`)
 				}
-			}
+			})
 			
-			// Read and show a snippet of the generated test file
-			const testFilePath = target.path.replace("/index.ts", "/index.test.ts")
-			try {
-				const testContent = await Deno.readTextFile(testFilePath)
-				const lines = testContent.split("\n")
-				
-				console.log(`\n${CYAN}Generated test file preview (first 30 lines):${RESET}`)
-				console.log(`${BLUE}${"─".repeat(40)}${RESET}`)
-				console.log(lines.slice(0, 30).join("\n"))
-				console.log(`${BLUE}${"─".repeat(40)}${RESET}`)
-				console.log(`... (${lines.length} total lines)`)
-			} catch {
-				console.log(`${YELLOW}(Test file will be written when tests are generated)${RESET}`)
-			}
+			console.log(`${YELLOW}(Test file will be written when tests are generated)${RESET}`)
 			
 			// Try to run the generated tests
 			console.log(`\n${CYAN}Attempting to run generated tests...${RESET}`)
 			const testCommand = new Deno.Command("deno", {
-				args: ["test", "--allow-all", testFilePath],
+				args: ["test", "--allow-all", target.path.replace("/index.ts", "/index.test.ts")],
 				stdout: "piped",
 				stderr: "piped"
 			})
@@ -144,7 +131,7 @@ async function runDemo() {
 		}
 		
 		console.log()
-	}
+	})
 	
 	console.log(`${BOLD}${CYAN}========================================${RESET}`)
 	console.log(`${BOLD}${GREEN}   🎉 DEMO COMPLETE 🎉${RESET}`)
@@ -166,7 +153,7 @@ async function runDemo() {
 	console.log(`  ${BLUE}const suite = await generateTests("path/to/function.ts")${RESET}`)
 }
 
-// Run the demo
+// Run the demo if called directly
 if (import.meta.main) {
 	runDemo().catch(error => {
 		console.error(`${RED}Fatal error: ${error}${RESET}`)

@@ -127,12 +127,15 @@ export type IgnoredLine = {
 	reason: string
 }
 
+import type Logger from "./Logger/index.ts"
+
 export type GeneratorConfig = {
 	maxPropertyRuns: number
 	includeEdgeCases: boolean
 	includePropertyTests: boolean
 	includeBenchmarks: boolean
 	targetCoverage: number
+	logger?: Logger
 }
 
 export type TestFileMetadata = {

@@ -10,10 +10,8 @@ export default function generateBranchTests(
 	branches: Array<BranchPath>,
 	signature: FunctionSignature
 ): Array<TestCase> {
-	const branchTests: Array<TestCase> = []
-	
-	for (const branch of branches) {
-		for (const input of branch.requiredInputs) {
+	return branches.flatMap(branch => 
+		branch.requiredInputs.map(input => {
 			const expectedOutput: unknown = (signature.returnType.raw.includes("number") &&
 				(branch.condition.includes("isNullish") || 
 				 branch.condition.includes("typeof") ||
@@ -22,17 +20,13 @@ export default function generateBranchTests(
 				 typeof input.value === "string" ||
 				 typeof input.value === "boolean")) ? NaN : undefined
 			
-			const testCase: TestCase = {
+			return {
 				name: `covers branch: ${branch.condition}`,
 				description: input.description,
 				input: [input.value],
 				expectedOutput,
 				branchCoverage: [branch.id],
 			}
-			
-			branchTests.push(testCase)
-		}
-	}
-	
-	return branchTests
+		})
+	)
 }

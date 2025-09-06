@@ -9,75 +9,56 @@ import generateEdgeCaseInputs from "../generateEdgeCaseInputs/index.ts"
  * @returns Array of type-appropriate edge case test cases
  */
 export default function generateEdgeCases(signature: FunctionSignature): Array<TestCase> {
-	const edgeCases: Array<TestCase> = []
-	
 	// Generate edge cases for each parameter
-	signature.parameters.forEach((param, index) => {
+	const parameterEdgeCases = signature.parameters.flatMap((param, index) => {
 		const edgeInputs = generateEdgeCaseInputs(param.type)
 		
-		edgeInputs.forEach(edgeInput => {
-			// Build the full input array
-			const input: Array<unknown> = []
-			
-			for (let i = 0; i < signature.parameters.length; i++) {
-				if (i === index) {
-					// Use the edge case for this parameter
-					input.push(edgeInput)
-				} else {
-					// Use normal values for other parameters
-					input.push(generateTestInput(signature.parameters[i].type))
-				}
-			}
+		const edgeTestCases = edgeInputs.map(edgeInput => {
+			// Build the full input array functionally
+			const input = signature.parameters.map((p, i) => 
+				i === index 
+					? edgeInput 
+					: generateTestInput(p.type)
+			)
 			
 			// Generate descriptive name
 			const inputDesc = describeInput(edgeInput, param.type.raw)
 			
-			edgeCases.push({
+			return {
 				name: `handles ${inputDesc} for ${param.name}`,
 				description: `Test with ${inputDesc} value for parameter ${param.name}`,
 				input,
 				// Don't assume expected output - let the test discover it
 				// This avoids the problem of guessing wrong outputs
-			})
+			}
 		})
 		
 		// Handle optional parameters
-		if (param.optional) {
-			const input: Array<unknown> = []
-			
-			for (let i = 0; i < signature.parameters.length; i++) {
-				if (i === index) {
-					// Skip optional parameter
-					break
-				} else {
-					input.push(generateTestInput(signature.parameters[i].type))
-				}
-			}
-			
-			edgeCases.push({
+		const optionalCases = param.optional 
+			? [{
 				name: `handles missing optional ${param.name}`,
 				description: `Test with optional parameter ${param.name} omitted`,
-				input,
-			})
-		}
+				input: signature.parameters.slice(0, index).map(p => generateTestInput(p.type)),
+			}]
+			: []
+		
+		return [...edgeTestCases, ...optionalCases]
 	})
 	
 	// Add test for no parameters (if applicable)
-	if (signature.parameters.length === 0) {
-		edgeCases.push({
+	const noParamCase = signature.parameters.length === 0
+		? [{
 			name: "handles no parameters",
 			description: "Test function with no parameters",
 			input: [],
-		})
-	}
+		}]
+		: []
 	
 	// For functions returning Result type, test both success and failure cases
-	if (signature.returnType.raw.includes("Result<")) {
-		// This is handled by the edge cases for parameters
-		// The function will naturally return success or error based on inputs
-	}
+	// This is handled by the edge cases for parameters
+	// The function will naturally return success or error based on inputs
 	
-	return edgeCases
+	return [...parameterEdgeCases, ...noParamCase]
 }
 
 /**

@@ -11,58 +11,61 @@ export default function generatePropertyTests(
 	_functionName: string,
 	tests: Array<TestCase>
 ): string {
-	const lines: Array<string> = []
-	
-	lines.push("\tdescribe(\"property tests\", () => {")
-	
-	for (const test of tests) {
-		if (!test.properties) continue
+	const propertyTestLines = tests.flatMap(test => {
+		if (!test.properties) return []
 		
-		for (const property of test.properties) {
+		return test.properties.flatMap(property => {
 			const testName = escapeTestName(property.name)
-			lines.push(`\t\tit("${testName}", () => {`)
+			const testHeader = `\t\tit("${testName}", () => {`
 			
 			// Check if property already contains fc.assert
-			if (property.property.includes("fc.assert")) {
-				// Property is already wrapped, just indent it
-				const indentedProperty = property.property
+			const testBody = property.property.includes("fc.assert")
+				? property.property
 					.split("\n")
 					.map(line => "\t\t\t" + line)
-					.join("\n")
-				lines.push(indentedProperty)
-			} else {
-				// Wrap in fc.assert
-				lines.push("\t\t\tfc.assert(")
-				
-				// Check if property starts with a function definition like "(a, b) => {"
-				if (property.property.trim().startsWith("(")) {
-					// Property already has its own function signature
-					lines.push(`\t\t\t\tfc.property(${property.generator}, ${property.property.trim()})`)
-				} else {
-					// Use generic input parameter
-					lines.push(`\t\t\t\tfc.property(${property.generator}, (input) => {`)
-					
-					// Properly indent the property code
-					const propertyLines = property.property.split("\n")
-					for (const line of propertyLines) {
-						lines.push(`\t\t\t\t\t${line}`)
-					}
-					
-					lines.push("\t\t\t\t})")
-				}
-				
-				if (property.runs) {
-					lines.push(`\t\t\t\t, { numRuns: ${property.runs} }`)
-				}
-				
-				lines.push("\t\t\t)")
-			}
+				: generateFcAssert(property)
 			
-			lines.push("\t\t})")
-		}
+			const testFooter = "\t\t})"
+			
+			return [testHeader, ...testBody, testFooter]
+		})
+	})
+	
+	return [
+		"\tdescribe(\"property tests\", () => {",
+		...propertyTestLines,
+		"\t})"
+	].join("\n")
+}
+
+/**
+ * Generate fc.assert wrapper for a property test
+ */
+function generateFcAssert(property: { generator: string, property: string, runs?: number }): Array<string> {
+	const assertLines: Array<string> = ["\t\t\tfc.assert("]
+	
+	// Check if property starts with a function definition like "(a, b) => {"
+	if (property.property.trim().startsWith("(")) {
+		// Property already has its own function signature
+		assertLines.push(`\t\t\t\tfc.property(${property.generator}, ${property.property.trim()})`)
+	} else {
+		// Use generic input parameter
+		assertLines.push(`\t\t\t\tfc.property(${property.generator}, (input) => {`)
+		
+		// Properly indent the property code
+		const indentedPropertyLines = property.property
+			.split("\n")
+			.map(line => `\t\t\t\t\t${line}`)
+		
+		assertLines.push(...indentedPropertyLines)
+		assertLines.push("\t\t\t\t})")
 	}
 	
-	lines.push("\t})")
+	if (property.runs) {
+		assertLines.push(`\t\t\t\t, { numRuns: ${property.runs} }`)
+	}
 	
-	return lines.join("\n")
+	assertLines.push("\t\t\t)")
+	
+	return assertLines
 }

@@ -18,7 +18,7 @@ export default function generateEdgeCaseTests(
 	
 	lines.push("\tdescribe(\"edge cases\", () => {")
 	
-	for (const test of tests) {
+	tests.forEach(test => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
 		
@@ -46,7 +46,7 @@ export default function generateEdgeCaseTests(
 		}
 		
 		lines.push("\t\t})")
-	}
+	})
 	
 	lines.push("\t})")
 	
