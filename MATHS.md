@@ -139,11 +139,25 @@ I, the Maths AI, do solemnly swear:
 - To ask when uncertain rather than assume
 
 ## STATUS FOR NEXT AI SESSION
-**Last Session**: January 2025 - Emergency refactoring to eliminate ALL imperative code. Implemented trampoline pattern for tail recursion. Decomposed all parser functions.
+**Last Session**: January 2025 - Fixed critical FP violations and restructured demo properly.
 
-**Current Task**: Run tests and fix any failures from the refactoring.
+**What Was Fixed**:
+- ✅ Trampoline: Simplified to minimal loop (documented exception for stack safety)
+- ✅ Demo: FIRST correctly structured demo in entire codebase! One function per file
+- ✅ Fixed tokenizer syntax error ("kens }" typo)
+- ✅ Added RULES.md for strict FP compliance
 
-**Next Priority**: After tests pass, implement mathematical functions (`sin`, `cos`, etc.)
+**Current Blockers**:
+- Tests won't run due to engine library import path issues
+- Need to remove JSDoc comments per RULES.md
+- Need to verify all functions use named syntax
+- Need to check for toolkit usage vs JS methods
+
+**Next Priority**: 
+1. Fix import issues blocking tests
+2. Remove all JSDoc comments (use single-line per RULES.md)
+3. Verify 100% test coverage
+4. Then implement new features (math functions, operators, constants)
 
 **Warning**: The human is running SEVEN AIs and has trust issues after we violated the rules. DO NOT give them more reasons to distrust us. Follow EVERY rule, EVERY time.
 
