@@ -29,6 +29,8 @@ You're about to work on the distributed library. The last assistant (me) made a 
 - Types moved to `types/` folders (but check they're all `type` not `interface`)
 - Simple `let` variables replaced with functional patterns
 - IPFS gateway constants/types properly organized
+- **Phase 1 Complete**: Fixed lint errors in demo.ts (async sleep, unused imports)
+- **RULES.md Updated**: Now specific to distributed library, not parser
 
 ### 🔥 What's Still a Dumpster Fire
 
@@ -38,8 +40,8 @@ You're about to work on the distributed library. The last assistant (me) made a 
 
 ```typescript
 // THIS IS WRONG - Mutable state everywhere
-let currentCRDT = crdt;
-let lastSyncVersion = 0;
+let currentCRDT = crdt
+let lastSyncVersion = 0
 ```
 
 **Fix needed:** Complete rewrite using immutable state pattern. Consider using a state monad or passing state through pure functions. There should be a state monad in the `libraries/toolkit/src/monads` folder. Complain to The Architect if there isn't.
@@ -78,7 +80,7 @@ After renaming folders, some test imports are broken. Run tests and fix them.
 ```typescript
 // ✅ RIGHT: libraries/distributed/src/crdt/counter/getValue/index.ts
 export default function getValue(counts: Map<string, number>): number {
-  return Array.from(counts.values()).reduce((sum, count) => sum + count, 0);
+	return Array.from(counts.values()).reduce((sum, count) => sum + count, 0)
 }
 
 // ❌ WRONG: Multiple functions in one file
@@ -98,11 +100,11 @@ export function increment() {} // NO! SEPARATE FILES!
 
 ```typescript
 // ❌ WRONG
-let state = initialState;
-state = updateState(state); // MUTATION!
+let state = initialState
+state = updateState(state) // MUTATION!
 
 // ✅ RIGHT
-const newState = updateState(initialState);
+const newState = updateState(initialState)
 ```
 
 ### Law 4: Types in types/, Constants in constants/
@@ -118,30 +120,59 @@ component/
 
 ## Your Mission (Should You Choose Not to Screw It Up)
 
-### Phase 1: Verify Current "Fixes"
+### ✅ Phase 1: Quick Wins - COMPLETE
 
-1. Run `deno task lint` - it WILL fail
-2. Run `deno task test` - it probably fails too
-3. Run `deno task typecheck` - fix any issues
-4. Document EVERY issue you find
+1. ~~Fixed async sleep function in demo.ts~~
+2. ~~Removed unused imports~~
+3. ~~Updated RULES.md for distributed library~~
+4. ~~Committed and pushed changes~~
 
-### Phase 2: Fix Sync Protocols
+### Phase 2: Decompose the Demo - NEXT
+
+1. Create `demo/` folder structure
+2. Move each demo function to its own file:
+   - `demo/demoLwwRegister/index.ts`
+   - `demo/demoOrSet/index.ts`
+   - `demo/demoCounter/index.ts`
+   - `demo/demoRga/index.ts`
+   - `demo/demoDidKey/index.ts`
+   - `demo/demoIpfs/index.ts`
+   - `demo/demoStorage/index.ts`
+   - `demo/demoSync/index.ts`
+3. Extract utilities to their own folders:
+   - `demo/utilities/colors/index.ts`
+   - `demo/utilities/section/index.ts`
+   - `demo/utilities/success/index.ts`
+   - `demo/utilities/info/index.ts`
+   - `demo/utilities/sleep/index.ts`
+4. Import all in `demo/index.ts`
+
+### Phase 3: Fix Sync Protocols
 
 The sync protocols are the worst offenders. They need COMPLETE rewrites:
 
-1. No mutable state
-2. Break into small functions
-3. Each function in its own file
-4. State passed immutably through function returns
+1. **deltaBased/index.ts**: Has mutable `currentCRDT` and `lastSyncVersion`
+2. **stateBased/index.ts**: Likely has similar issues
+3. **operationBased/index.ts**: Needs checking
+4. Break each into small, pure functions:
+   - `computeDelta/index.ts`
+   - `applyDelta/index.ts`
+   - `validateState/index.ts`
+   - etc.
+5. Use immutable state patterns (state monad or function composition)
 
-### Phase 3: Decompose the Demo
+### Phase 4: Decompose CRDTs
 
-1. Create `demo/` folder structure
-2. One demo function per file
-3. Each with clear, single responsibility
-4. Import all in `demo/index.ts`
+Each CRDT needs to be broken into separate functions:
 
-### Phase 4: Run ALL Checks
+1. **counter/index.ts** → 
+   - `counter/increment/index.ts`
+   - `counter/decrement/index.ts`
+   - `counter/getValue/index.ts`
+   - `counter/merge/index.ts`
+2. Similar for other CRDTs (lwwRegister, orSet, gSet, rga)
+
+### Phase 5: Run ALL Checks
 
 ```bash
 deno task fmt        # Format everything
