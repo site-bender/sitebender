@@ -8,10 +8,10 @@
 		"coverage": "deno coverage coverage/",
 		"fmt": "deno fmt",
 		"lint": "deno lint",
-		"typecheck": "deno check libraries/distributed/src/**/*.ts"
+		"typecheck": "deno check libraries/mesh/src/**/*.ts"
 	},
 	"imports": {
-		"@sitebender/distributed": "./libraries/distributed/src/index.ts"
+		"@sitebender/mesh": "./libraries/mesh/src/index.ts"
 	},
 	"fmt": {
 		"useTabs": true,
