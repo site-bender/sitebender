@@ -222,7 +222,9 @@ Place types at the lowest common ancestor:
 
 ### The Three-Tier Comment System
 
-We use a categorized comment system that enables both documentation generation (via Scribe) and codebase analytics:
+We use a categorized comment system that enables both documentation generation (via Scribe) and codebase analytics.
+
+**Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
 Place **above** the function/component. Short description of what it does.
@@ -259,6 +261,29 @@ export default function add(a: number) {
 
 //?? add(5)(3) // Returns: 8
 //?? pipe([add(10), add(5)])(0) // Returns: 15
+```
+
+#### Complete Example with All Comment Types
+
+```typescript
+//++ Parses and validates configuration files
+export default function parseConfig(filePath: string) {
+	// Regular comment: Check if file exists first
+	if (!fileExists(filePath)) {
+		return err({ type: "FileNotFound", filePath })
+	}
+	
+	//-- Using synchronous file read for config files - they're small and loaded once at startup
+	const content = readFileSync(filePath)
+	
+	// Parse the JSON content
+	const parsed = parseJson(content)
+	
+	return parsed
+}
+
+//?? parseConfig("./config.json") // Returns: Result<Config, ParseError>
+//?? parseConfig("./settings.json") // Returns config or error
 ```
 
 ### Why This System?

@@ -287,7 +287,9 @@ function levenshteinDistance(a: string, b: string): number {
 
 ### The Three-Tier Comment System
 
-We use a categorized comment system that enables both documentation generation (via Scribe) and codebase analytics:
+We use a categorized comment system that enables both documentation generation (via Scribe) and codebase analytics.
+
+**Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
 Place **above** the function/component. Short description of what it does.

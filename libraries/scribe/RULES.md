@@ -221,7 +221,9 @@ Place types at the lowest common ancestor:
 
 ### The Three-Tier Comment System
 
-We use a categorized comment system that Scribe processes for documentation generation:
+We use a categorized comment system that Scribe processes for documentation generation.
+
+**Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
 Place **above** the function/component. Short description of what it does.
