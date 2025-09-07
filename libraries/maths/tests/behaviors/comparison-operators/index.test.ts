@@ -16,7 +16,7 @@ Deno.test("tokenize - tokenizes comparison operators", () => {
 		assertEquals(gtResult.value[1].type, "GREATER_THAN")
 		assertEquals(gtResult.value[1].value, ">")
 	}
-	
+
 	// Test two-character comparisons
 	const eqResult = tokenize("a == b")
 	assertEquals(eqResult.ok, true)
@@ -24,21 +24,21 @@ Deno.test("tokenize - tokenizes comparison operators", () => {
 		assertEquals(eqResult.value[1].type, "EQUAL")
 		assertEquals(eqResult.value[1].value, "==")
 	}
-	
+
 	const neqResult = tokenize("a != b")
 	assertEquals(neqResult.ok, true)
 	if (neqResult.ok) {
 		assertEquals(neqResult.value[1].type, "NOT_EQUAL")
 		assertEquals(neqResult.value[1].value, "!=")
 	}
-	
+
 	const leResult = tokenize("a <= b")
 	assertEquals(leResult.ok, true)
 	if (leResult.ok) {
 		assertEquals(leResult.value[1].type, "LESS_EQUAL")
 		assertEquals(leResult.value[1].value, "<=")
 	}
-	
+
 	const geResult = tokenize("a >= b")
 	assertEquals(geResult.ok, true)
 	if (geResult.ok) {
@@ -52,12 +52,12 @@ Deno.test("tokenize - tokenizes question and colon for ternary", () => {
 	assertEquals(result.ok, true)
 	if (result.ok) {
 		// Find ? token
-		const questionToken = result.value.find(t => t.type === "QUESTION")
+		const questionToken = result.value.find((t) => t.type === "QUESTION")
 		assertEquals(questionToken?.type, "QUESTION")
 		assertEquals(questionToken?.value, "?")
-		
+
 		// Find : token
-		const colonToken = result.value.find(t => t.type === "COLON")
+		const colonToken = result.value.find((t) => t.type === "COLON")
 		assertEquals(colonToken?.type, "COLON")
 		assertEquals(colonToken?.value, ":")
 	}
@@ -65,8 +65,18 @@ Deno.test("tokenize - tokenizes question and colon for ternary", () => {
 
 Deno.test("parseFormula - parses less than comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	const result = parseFormula("a < b", variables)
 	assertEquals(result.ok, true)
@@ -78,8 +88,18 @@ Deno.test("parseFormula - parses less than comparison", () => {
 
 Deno.test("parseFormula - parses greater than comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
 	}
 	const result = parseFormula("a > b", variables)
 	assertEquals(result.ok, true)
@@ -91,8 +111,18 @@ Deno.test("parseFormula - parses greater than comparison", () => {
 
 Deno.test("parseFormula - parses equality comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
 	}
 	const result = parseFormula("a == b", variables)
 	assertEquals(result.ok, true)
@@ -104,8 +134,18 @@ Deno.test("parseFormula - parses equality comparison", () => {
 
 Deno.test("parseFormula - parses inequality comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	const result = parseFormula("a != b", variables)
 	assertEquals(result.ok, true)
@@ -117,8 +157,18 @@ Deno.test("parseFormula - parses inequality comparison", () => {
 
 Deno.test("parseFormula - parses less than or equal comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
 	}
 	const result = parseFormula("a <= b", variables)
 	assertEquals(result.ok, true)
@@ -130,8 +180,18 @@ Deno.test("parseFormula - parses less than or equal comparison", () => {
 
 Deno.test("parseFormula - parses greater than or equal comparison", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	const result = parseFormula("a >= b", variables)
 	assertEquals(result.ok, true)
@@ -143,9 +203,24 @@ Deno.test("parseFormula - parses greater than or equal comparison", () => {
 
 Deno.test("parseFormula - comparisons work with complex expressions", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 3 },
-		c: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 3,
+		},
+		c: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	const result = parseFormula("(a + b) < c", variables)
 	assertEquals(result.ok, true)
@@ -160,9 +235,24 @@ Deno.test("parseFormula - comparisons work with complex expressions", () => {
 
 Deno.test("parseFormula - comparison precedence is lower than arithmetic", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 2 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 3 },
-		c: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 2,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 3,
+		},
+		c: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	// Should parse as (a + b) < c, not a + (b < c)
 	const result = parseFormula("a + b < c", variables)

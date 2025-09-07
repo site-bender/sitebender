@@ -9,9 +9,12 @@ import parseOneCharOperator from "./parseOneCharOperator/index.ts"
  * @returns Operator info or error
  */
 export default function parseOperator(
-	input: string, 
-	position: number
-): Result<{ tokenType: TokenType; tokenValue: string; tokenLength: number }, ParseError> {
+	input: string,
+	position: number,
+): Result<
+	{ tokenType: TokenType; tokenValue: string; tokenLength: number },
+	ParseError
+> {
 	// Try two-character operators first
 	const twoCharResult = parseTwoCharOperator(input, position)
 	if (twoCharResult) {

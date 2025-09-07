@@ -19,7 +19,7 @@ export default function groupTests(tests: Array<TestCase>): {
 		error: [] as Array<TestCase>,
 	}
 
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		if (test.properties && test.properties.length > 0) {
 			groups.property.push(test)
 		} else if (test.expectedError) {

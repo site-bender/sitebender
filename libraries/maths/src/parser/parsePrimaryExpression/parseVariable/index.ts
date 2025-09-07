@@ -4,7 +4,7 @@ import type { ParserContext } from "../../types/index.ts"
 //+ Parses an identifier token into a Variable AST node
 export default function parseVariable(
 	token: Token,
-	ctx: ParserContext
+	ctx: ParserContext,
 ): Result<ASTNode, never> {
 	ctx.advance()
 	return {

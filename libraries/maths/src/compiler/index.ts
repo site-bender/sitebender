@@ -162,31 +162,49 @@ export default function compile(
 			switch (ast.operator) {
 				case "+": {
 					// Addition can handle multiple types
-					const datatype = inferNumericType([left as any, right as any])
+					const datatype = inferNumericType([
+						left as any,
+						right as any,
+					])
 					const config = Add(datatype)([left as any, right as any])
 					return { ok: true, value: config }
 				}
 
 				case "-": {
-					const datatype = inferNumericType([left as any, right as any])
+					const datatype = inferNumericType([
+						left as any,
+						right as any,
+					])
 					const config = Subtract(datatype)(left as any)(right as any)
 					return { ok: true, value: config }
 				}
 
 				case "*": {
-					const datatype = inferNumericType([left as any, right as any])
-					const config = Multiply(datatype)([left as any, right as any])
+					const datatype = inferNumericType([
+						left as any,
+						right as any,
+					])
+					const config = Multiply(datatype)([
+						left as any,
+						right as any,
+					])
 					return { ok: true, value: config }
 				}
 
 				case "/": {
-					const datatype = inferNumericType([left as any, right as any])
+					const datatype = inferNumericType([
+						left as any,
+						right as any,
+					])
 					const config = Divide(datatype)(left as any)(right as any)
 					return { ok: true, value: config }
 				}
 
 				case "^": {
-					const datatype = inferNumericType([left as any, right as any])
+					const datatype = inferNumericType([
+						left as any,
+						right as any,
+					])
 					const config = Power(datatype)(left as any)(right as any)
 					return { ok: true, value: config }
 				}
@@ -220,27 +238,39 @@ export default function compile(
 			// ComparatorConfig. We cast to any to work around this type limitation.
 			switch (ast.operator) {
 				case "<": {
-					const config = IsLessThan(datatype)(left as any)(right as any)
+					const config = IsLessThan(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				case ">": {
-					const config = IsMoreThan(datatype)(left as any)(right as any)
+					const config = IsMoreThan(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				case "==": {
-					const config = IsEqualTo(datatype)(left as any)(right as any)
+					const config = IsEqualTo(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				case "!=": {
-					const config = IsUnequalTo(datatype)(left as any)(right as any)
+					const config = IsUnequalTo(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				case "<=": {
-					const config = IsNoMoreThan(datatype)(left as any)(right as any)
+					const config = IsNoMoreThan(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				case ">=": {
-					const config = IsNoLessThan(datatype)(left as any)(right as any)
+					const config = IsNoLessThan(datatype)(left as any)(
+						right as any,
+					)
 					return { ok: true, value: config as any }
 				}
 				// deno-coverage-ignore - Type exhaustiveness check, all operators handled
@@ -248,7 +278,9 @@ export default function compile(
 					return {
 						ok: false,
 						error: {
-							message: `Unsupported comparison operator: ${(ast as any).operator}`,
+							message: `Unsupported comparison operator: ${
+								(ast as any).operator
+							}`,
 						},
 					}
 			}
@@ -271,7 +303,10 @@ export default function compile(
 			if (!ifFalseResult.ok) return ifFalseResult
 
 			// Infer the datatype from the two branches
-			const datatype = inferNumericType([ifTrueResult.value as any, ifFalseResult.value as any])
+			const datatype = inferNumericType([
+				ifTrueResult.value as any,
+				ifFalseResult.value as any,
+			])
 
 			// Create ternary operator
 			// Note: The engine's Ternary expects Operand for condition, but comparators
@@ -279,7 +314,7 @@ export default function compile(
 			const config = Ternary(datatype)(
 				conditionResult.value as any,
 				ifTrueResult.value as any,
-				ifFalseResult.value as any
+				ifFalseResult.value as any,
 			)
 			return { ok: true, value: config }
 		}

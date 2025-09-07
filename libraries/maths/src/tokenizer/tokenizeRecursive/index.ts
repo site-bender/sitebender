@@ -12,14 +12,14 @@ import parseOperator from "../parseOperator/index.ts"
  * @returns Result with complete token array or error
  */
 export default function tokenizeRecursive(
-	input: string, 
-	position: number, 
-	tokens: Array<Token>
+	input: string,
+	position: number,
+	tokens: Array<Token>,
 ): Result<Array<Token>, ParseError> {
 	if (position >= input.length) {
-		return { 
-			ok: true, 
-			value: [...tokens, { type: "EOF", value: "", position }]
+		return {
+			ok: true,
+			value: [...tokens, { type: "EOF", value: "", position }],
 		}
 	}
 
@@ -27,9 +27,9 @@ export default function tokenizeRecursive(
 	const whitespaceLength = parseWhitespace(input, position)
 	if (whitespaceLength > 0) {
 		return tokenizeRecursive(
-			input, 
-			position + whitespaceLength, 
-			tokens
+			input,
+			position + whitespaceLength,
+			tokens,
 		)
 	}
 
@@ -38,9 +38,9 @@ export default function tokenizeRecursive(
 	if (numberResult.ok) {
 		const { token, length } = numberResult.value
 		return tokenizeRecursive(
-			input, 
-			position + length, 
-			[...tokens, token]
+			input,
+			position + length,
+			[...tokens, token],
 		)
 	}
 
@@ -49,9 +49,9 @@ export default function tokenizeRecursive(
 	if (identifierResult) {
 		const { token, length } = identifierResult
 		return tokenizeRecursive(
-			input, 
-			position + length, 
-			[...tokens, token]
+			input,
+			position + length,
+			[...tokens, token],
 		)
 	}
 
@@ -67,10 +67,10 @@ export default function tokenizeRecursive(
 		value: tokenValue,
 		position,
 	}
-	
+
 	return tokenizeRecursive(
-		input, 
-		position + tokenLength, 
-		[...tokens, operatorToken]
+		input,
+		position + tokenLength,
+		[...tokens, operatorToken],
 	)
 }

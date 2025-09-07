@@ -20,14 +20,26 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 
 			// Check for side effect indicators
 			for (const indicator of SIDE_EFFECT_INDICATORS) {
-				if (expression === indicator || fullAccess.includes(indicator)) {
+				if (
+					expression === indicator || fullAccess.includes(indicator)
+				) {
 					isPure = false
 					return
 				}
 			}
 
 			// Check for array mutations - but allow array access (arr[i])
-			const mutatingMethods = ["push", "pop", "shift", "unshift", "splice", "sort", "reverse", "fill", "copyWithin"]
+			const mutatingMethods = [
+				"push",
+				"pop",
+				"shift",
+				"unshift",
+				"splice",
+				"sort",
+				"reverse",
+				"fill",
+				"copyWithin",
+			]
 			if (mutatingMethods.includes(property)) {
 				// This is a mutating array method
 				isPure = false
@@ -38,20 +50,35 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 		// Check for global object access
 		if (ts.isIdentifier(currentNode)) {
 			const name = currentNode.getText()
-			if (["console", "document", "window", "localStorage", "sessionStorage", "process", "crypto"].includes(name)) {
+			if (
+				[
+					"console",
+					"document",
+					"window",
+					"localStorage",
+					"sessionStorage",
+					"process",
+					"crypto",
+				].includes(name)
+			) {
 				isPure = false
 				return
 			}
 		}
 
 		// Check for assignments (mutations) - but not in declarations or to local variables
-		if (ts.isBinaryExpression(currentNode) && currentNode.operatorToken.kind === ts.SyntaxKind.EqualsToken) {
+		if (
+			ts.isBinaryExpression(currentNode) &&
+			currentNode.operatorToken.kind === ts.SyntaxKind.EqualsToken
+		) {
 			// Check if this is inside a variable declaration (which is okay)
 			let parent = currentNode.parent
 			let isDeclaration = false
-			
+
 			while (parent && !isDeclaration) {
-				if (ts.isVariableDeclaration(parent) || ts.isParameter(parent)) {
+				if (
+					ts.isVariableDeclaration(parent) || ts.isParameter(parent)
+				) {
 					isDeclaration = true
 				}
 				parent = parent.parent
@@ -60,21 +87,21 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 
 			// Check what we're assigning to
 			const left = currentNode.left
-			
+
 			// Check if we're assigning to an array element (mutation)
 			if (ts.isElementAccessExpression(left)) {
 				// This is array[index] = value, which is a mutation
 				isPure = false
 				return
 			}
-			
+
 			// Check if we're assigning to a property (object.prop = value)
 			if (ts.isPropertyAccessExpression(left)) {
 				// This is object mutation
 				isPure = false
 				return
 			}
-			
+
 			// If it's just an identifier (local variable), that's okay as long as
 			// it's not a parameter or external variable
 			if (ts.isIdentifier(left)) {
@@ -94,20 +121,28 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 		// Check for compound assignments (+=, -=, etc.)
 		if (ts.isBinaryExpression(currentNode)) {
 			const operator = currentNode.operatorToken.kind
-			if (operator === ts.SyntaxKind.PlusEqualsToken ||
+			if (
+				operator === ts.SyntaxKind.PlusEqualsToken ||
 				operator === ts.SyntaxKind.MinusEqualsToken ||
 				operator === ts.SyntaxKind.AsteriskEqualsToken ||
 				operator === ts.SyntaxKind.SlashEqualsToken ||
-				operator === ts.SyntaxKind.PercentEqualsToken) {
+				operator === ts.SyntaxKind.PercentEqualsToken
+			) {
 				isPure = false
 				return
 			}
 		}
 
 		// Check for increment/decrement
-		if (ts.isPrefixUnaryExpression(currentNode) || ts.isPostfixUnaryExpression(currentNode)) {
+		if (
+			ts.isPrefixUnaryExpression(currentNode) ||
+			ts.isPostfixUnaryExpression(currentNode)
+		) {
 			const operator = currentNode.operator
-			if (operator === ts.SyntaxKind.PlusPlusToken || operator === ts.SyntaxKind.MinusMinusToken) {
+			if (
+				operator === ts.SyntaxKind.PlusPlusToken ||
+				operator === ts.SyntaxKind.MinusMinusToken
+			) {
 				isPure = false
 				return
 			}
@@ -132,7 +167,10 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 		}
 
 		// Check for new Date() or Date.now()
-		if (ts.isNewExpression(currentNode) && currentNode.expression.getText() === "Date") {
+		if (
+			ts.isNewExpression(currentNode) &&
+			currentNode.expression.getText() === "Date"
+		) {
 			isPure = false
 			return
 		}
@@ -146,12 +184,18 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 		}
 
 		// Check for fetch, XMLHttpRequest
-		if (ts.isNewExpression(currentNode) && currentNode.expression.getText() === "XMLHttpRequest") {
+		if (
+			ts.isNewExpression(currentNode) &&
+			currentNode.expression.getText() === "XMLHttpRequest"
+		) {
 			isPure = false
 			return
 		}
 
-		if (ts.isCallExpression(currentNode) && currentNode.expression.getText() === "fetch") {
+		if (
+			ts.isCallExpression(currentNode) &&
+			currentNode.expression.getText() === "fetch"
+		) {
 			isPure = false
 			return
 		}

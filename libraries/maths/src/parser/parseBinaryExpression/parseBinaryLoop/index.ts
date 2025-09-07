@@ -19,7 +19,9 @@ export default function parseBinaryLoop(
 	ctx: ParserContext,
 	currentLeft: ASTNode,
 	minPrecedence: number,
-	parseBinaryExpression: (ctx: ParserContext) => (minPrecedence: number) => Result<ASTNode, ParseError>
+	parseBinaryExpression: (
+		ctx: ParserContext,
+	) => (minPrecedence: number) => Result<ASTNode, ParseError>,
 ): TrampolineResult<Result<ASTNode, ParseError>> {
 	const token = ctx.current()
 
@@ -68,6 +70,7 @@ export default function parseBinaryLoop(
 	// Continue parsing more operators (tail recursive via trampoline)
 	return {
 		done: false,
-		next: () => parseBinaryLoop(ctx, newLeft, minPrecedence, parseBinaryExpression)
+		next: () =>
+			parseBinaryLoop(ctx, newLeft, minPrecedence, parseBinaryExpression),
 	}
 }

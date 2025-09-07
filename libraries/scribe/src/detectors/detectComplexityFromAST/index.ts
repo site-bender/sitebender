@@ -7,7 +7,10 @@ import type { ComplexityClass } from "../../types/index.ts"
  * @param sourceFile - The source file containing the node
  * @returns The complexity class in Big-O notation
  */
-export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.SourceFile): ComplexityClass {
+export default function detectComplexityFromAST(
+	node: ts.Node,
+	sourceFile: ts.SourceFile,
+): ComplexityClass {
 	let maxLoopDepth = 0
 	let currentLoopDepth = 0
 	let hasRecursion = false
@@ -18,17 +21,22 @@ export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.So
 	// Extract function name for recursion detection
 	if (ts.isFunctionDeclaration(node) && node.name) {
 		functionName = node.name.getText(sourceFile)
-	} else if (ts.isVariableDeclaration(node.parent) && ts.isIdentifier(node.parent.name)) {
+	} else if (
+		ts.isVariableDeclaration(node.parent) &&
+		ts.isIdentifier(node.parent.name)
+	) {
 		functionName = node.parent.name.getText(sourceFile)
 	}
 
 	function visit(currentNode: ts.Node): void {
 		// Track loop nesting depth
-		if (ts.isForStatement(currentNode) ||
+		if (
+			ts.isForStatement(currentNode) ||
 			ts.isForInStatement(currentNode) ||
 			ts.isForOfStatement(currentNode) ||
 			ts.isWhileStatement(currentNode) ||
-			ts.isDoStatement(currentNode)) {
+			ts.isDoStatement(currentNode)
+		) {
 			currentLoopDepth++
 			maxLoopDepth = Math.max(maxLoopDepth, currentLoopDepth)
 			ts.forEachChild(currentNode, visit)
@@ -37,9 +45,23 @@ export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.So
 		}
 
 		// Check for array iteration methods (count as loops)
-		if (ts.isCallExpression(currentNode) && ts.isPropertyAccessExpression(currentNode.expression)) {
+		if (
+			ts.isCallExpression(currentNode) &&
+			ts.isPropertyAccessExpression(currentNode.expression)
+		) {
 			const methodName = currentNode.expression.name.getText(sourceFile)
-			if (["map", "filter", "reduce", "forEach", "some", "every", "find", "findIndex"].includes(methodName)) {
+			if (
+				[
+					"map",
+					"filter",
+					"reduce",
+					"forEach",
+					"some",
+					"every",
+					"find",
+					"findIndex",
+				].includes(methodName)
+			) {
 				currentLoopDepth++
 				maxLoopDepth = Math.max(maxLoopDepth, currentLoopDepth)
 				ts.forEachChild(currentNode, visit)
@@ -55,8 +77,10 @@ export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.So
 
 		// Check for recursion
 		if (functionName && ts.isCallExpression(currentNode)) {
-			if (ts.isIdentifier(currentNode.expression) && 
-				currentNode.expression.getText(sourceFile) === functionName) {
+			if (
+				ts.isIdentifier(currentNode.expression) &&
+				currentNode.expression.getText(sourceFile) === functionName
+			) {
 				hasRecursion = true
 			}
 		}
@@ -65,20 +89,25 @@ export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.So
 		if (ts.isBinaryExpression(currentNode)) {
 			const operator = currentNode.operatorToken.kind
 			const right = currentNode.right.getText(sourceFile)
-			
+
 			// Division by 2 or bit shift (typical in O(log n) algorithms)
-			if ((operator === ts.SyntaxKind.SlashToken && right === "2") ||
+			if (
+				(operator === ts.SyntaxKind.SlashToken && right === "2") ||
 				operator === ts.SyntaxKind.GreaterThanGreaterThanToken ||
-				operator === ts.SyntaxKind.GreaterThanGreaterThanGreaterThanToken) {
+				operator ===
+					ts.SyntaxKind.GreaterThanGreaterThanGreaterThanToken
+			) {
 				hasBinaryOperation = true
 			}
 		}
 
 		// Check for common binary search patterns
 		const nodeText = currentNode.getText(sourceFile)
-		if (nodeText.includes("mid") || nodeText.includes("middle") || 
+		if (
+			nodeText.includes("mid") || nodeText.includes("middle") ||
 			(nodeText.includes("low") && nodeText.includes("high")) ||
-			(nodeText.includes("left") && nodeText.includes("right"))) {
+			(nodeText.includes("left") && nodeText.includes("right"))
+		) {
 			// Additional check for binary search pattern
 			if (hasBinaryOperation || nodeText.includes("/ 2")) {
 				hasBinaryOperation = true
@@ -93,11 +122,14 @@ export default function detectComplexityFromAST(node: ts.Node, sourceFile: ts.So
 	visit(node)
 
 	// Determine complexity based on findings
-	
+
 	// Binary search pattern detected
-	if (hasBinaryOperation && (hasRecursion || maxLoopDepth === 1) && 
-		(node.getText(sourceFile).includes("mid") || 
-		 node.getText(sourceFile).includes("low") && node.getText(sourceFile).includes("high"))) {
+	if (
+		hasBinaryOperation && (hasRecursion || maxLoopDepth === 1) &&
+		(node.getText(sourceFile).includes("mid") ||
+			node.getText(sourceFile).includes("low") &&
+				node.getText(sourceFile).includes("high"))
+	) {
 		return "O(log n)"
 	}
 

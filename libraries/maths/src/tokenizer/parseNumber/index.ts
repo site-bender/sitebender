@@ -8,8 +8,8 @@ import { TOKEN_PATTERNS } from "../../constants/index.ts"
  * @returns Result with token and length, or error
  */
 export default function parseNumber(
-	input: string, 
-	position: number
+	input: string,
+	position: number,
 ): Result<{ token: Token; length: number }, ParseError> {
 	const numberMatch = TOKEN_PATTERNS.NUMBER.exec(input.slice(position))
 	if (!numberMatch) {
@@ -44,6 +44,6 @@ export default function parseNumber(
 
 	return {
 		ok: true,
-		value: { token, length: numberMatch[0].length }
+		value: { token, length: numberMatch[0].length },
 	}
 }

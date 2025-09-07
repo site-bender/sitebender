@@ -27,7 +27,7 @@ export default function computeTestHash(test: TestCase): string {
 
 	// Include property tests if present
 	if (test.properties) {
-		test.properties.forEach(prop => {
+		test.properties.forEach((prop) => {
 			parts.push(`prop:${prop.name}:${prop.generator}`)
 		})
 	}

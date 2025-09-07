@@ -79,8 +79,8 @@ const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
 		generics: [],
 		isCurried: false,
 		isAsync: false,
-		isGenerator: false
-	}
+		isGenerator: false,
+	},
 }
 
 /**
@@ -131,9 +131,13 @@ export default async function proveProver(): Promise<void> {
 
 		// Calculate meta-statistics using functional approach
 		const totalTests = Array.from(testFiles.values())
-			.reduce((sum, content) => sum + (content.match(/Deno\.test\(/g) || []).length, 0)
+			.reduce(
+				(sum, content) =>
+					sum + (content.match(/Deno\.test\(/g) || []).length,
+				0,
+			)
 		const totalLines = Array.from(testFiles.values())
-			.reduce((sum, content) => sum + content.split('\n').length, 0)
+			.reduce((sum, content) => sum + content.split("\n").length, 0)
 
 		console.log("\n" + "=".repeat(80))
 		console.log("META-STATISTICS")

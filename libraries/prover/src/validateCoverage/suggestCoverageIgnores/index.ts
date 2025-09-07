@@ -18,7 +18,7 @@ export default function suggestCoverageIgnores(
 		const source = Deno.readTextFileSync(functionPath)
 		const lines = source.split("\n")
 
-		uncoveredLines.forEach(lineNum => {
+		uncoveredLines.forEach((lineNum) => {
 			const line = lines[lineNum - 1]
 			if (!line) return
 

@@ -3,9 +3,24 @@ import { parseFormula } from "../../../src/index.ts"
 
 Deno.test("parseFormula - parses simple conditional expression 'a > 5 ? x : y'", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
 	}
 	const result = parseFormula("a > 5 ? x : y", variables)
 	assertEquals(result.ok, true)
@@ -17,10 +32,30 @@ Deno.test("parseFormula - parses simple conditional expression 'a > 5 ? x : y'",
 
 Deno.test("parseFormula - parses conditional with complex condition '(a + b) > 10 ? x : y'", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 8 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 8,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
 	}
 	const result = parseFormula("(a + b) > 10 ? x : y", variables)
 	assertEquals(result.ok, true)
@@ -31,11 +66,36 @@ Deno.test("parseFormula - parses conditional with complex condition '(a + b) > 1
 
 Deno.test("parseFormula - parses nested conditional expressions 'a > 0 ? x : b > 0 ? y : z'", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 1 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: -1 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
-		z: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 300 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 1,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: -1,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
+		z: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 300,
+		},
 	}
 	const result = parseFormula("a > 0 ? x : b > 0 ? y : z", variables)
 	assertEquals(result.ok, true)
@@ -51,9 +111,24 @@ Deno.test("parseFormula - parses nested conditional expressions 'a > 0 ? x : b >
 
 Deno.test("parseFormula - parses conditional with expressions in branches 'a > 5 ? x * 2 : y / 2'", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
 	}
 	const result = parseFormula("a > 5 ? x * 2 : y / 2", variables)
 	assertEquals(result.ok, true)
@@ -69,12 +144,32 @@ Deno.test("parseFormula - parses conditional with expressions in branches 'a > 5
 
 Deno.test("parseFormula - handles all comparison operators in conditions", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 1 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 0 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 1,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 0,
+		},
 	}
-	
+
 	// Test ==
 	const eqResult = parseFormula("a == b ? x : y", variables)
 	assertEquals(eqResult.ok, true)
@@ -84,7 +179,7 @@ Deno.test("parseFormula - handles all comparison operators in conditions", () =>
 			assertEquals(eqResult.value.condition.tag, "IsEqualTo")
 		}
 	}
-	
+
 	// Test !=
 	const neqResult = parseFormula("a != b ? x : y", variables)
 	assertEquals(neqResult.ok, true)
@@ -94,28 +189,28 @@ Deno.test("parseFormula - handles all comparison operators in conditions", () =>
 			assertEquals(neqResult.value.condition.tag, "IsUnequalTo")
 		}
 	}
-	
+
 	// Test <
 	const ltResult = parseFormula("a < b ? x : y", variables)
 	assertEquals(ltResult.ok, true)
 	if (ltResult.ok && "condition" in ltResult.value) {
 		assertEquals(ltResult.value.condition.tag, "IsLessThan")
 	}
-	
+
 	// Test <=
 	const leResult = parseFormula("a <= b ? x : y", variables)
 	assertEquals(leResult.ok, true)
 	if (leResult.ok && "condition" in leResult.value) {
 		assertEquals(leResult.value.condition.tag, "IsNoMoreThan")
 	}
-	
+
 	// Test >
 	const gtResult = parseFormula("a > b ? x : y", variables)
 	assertEquals(gtResult.ok, true)
 	if (gtResult.ok && "condition" in gtResult.value) {
 		assertEquals(gtResult.value.condition.tag, "IsMoreThan")
 	}
-	
+
 	// Test >=
 	const geResult = parseFormula("a >= b ? x : y", variables)
 	assertEquals(geResult.ok, true)
@@ -126,8 +221,18 @@ Deno.test("parseFormula - handles all comparison operators in conditions", () =>
 
 Deno.test("parseFormula - error when missing colon in conditional", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
 	}
 	const result = parseFormula("a > 5 ? x", variables)
 	assertEquals(result.ok, false)
@@ -138,7 +243,12 @@ Deno.test("parseFormula - error when missing colon in conditional", () => {
 
 Deno.test("parseFormula - error when missing expression after question mark", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
 	}
 	const result = parseFormula("a > 5 ?", variables)
 	assertEquals(result.ok, false)
@@ -149,11 +259,36 @@ Deno.test("parseFormula - error when missing expression after question mark", ()
 
 Deno.test("parseFormula - parses conditional with parentheses in condition", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		c: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 3 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		c: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 3,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
 	}
 	const result = parseFormula("(a + c) > b ? x : y", variables)
 	assertEquals(result.ok, true)
@@ -164,11 +299,36 @@ Deno.test("parseFormula - parses conditional with parentheses in condition", () 
 
 Deno.test("parseFormula - complex nested expression with arithmetic", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 5 },
-		b: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		c: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 15 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 200 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 5,
+		},
+		b: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		c: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 15,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 200,
+		},
 	}
 	// This should exercise the minPrecedence > 0 path
 	const result = parseFormula("a + b > c ? x + 1 : y - 1", variables)
@@ -180,9 +340,24 @@ Deno.test("parseFormula - complex nested expression with arithmetic", () => {
 
 Deno.test("parseFormula - conditional with different datatypes uses appropriate type", () => {
 	const variables = {
-		a: { tag: "Constant" as const, type: "injector" as const, datatype: "Number" as const, value: 10 },
-		x: { tag: "Constant" as const, type: "injector" as const, datatype: "Integer" as const, value: 100 },
-		y: { tag: "Constant" as const, type: "injector" as const, datatype: "Float" as const, value: 200.5 },
+		a: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Number" as const,
+			value: 10,
+		},
+		x: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Integer" as const,
+			value: 100,
+		},
+		y: {
+			tag: "Constant" as const,
+			type: "injector" as const,
+			datatype: "Float" as const,
+			value: 200.5,
+		},
 	}
 	const result = parseFormula("a > 5 ? x : y", variables)
 	assertEquals(result.ok, true)

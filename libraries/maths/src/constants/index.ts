@@ -1,7 +1,7 @@
 // Operator precedence levels (higher number = higher precedence)
 export const PRECEDENCE = {
-	TERNARY: 5,      // Lowest precedence for conditional operator
-	COMPARISON: 8,   // Comparison operators
+	TERNARY: 5, // Lowest precedence for conditional operator
+	COMPARISON: 8, // Comparison operators
 	ADDITION: 10,
 	SUBTRACTION: 10,
 	MULTIPLICATION: 20,
@@ -30,12 +30,30 @@ export const OPERATOR_INFO = {
 	},
 	"/": { precedence: PRECEDENCE.DIVISION, associativity: ASSOCIATIVITY.LEFT },
 	"^": { precedence: PRECEDENCE.POWER, associativity: ASSOCIATIVITY.RIGHT },
-	"<": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
-	">": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
-	"==": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
-	"!=": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
-	"<=": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
-	">=": { precedence: PRECEDENCE.COMPARISON, associativity: ASSOCIATIVITY.LEFT },
+	"<": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
+	">": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
+	"==": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
+	"!=": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
+	"<=": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
+	">=": {
+		precedence: PRECEDENCE.COMPARISON,
+		associativity: ASSOCIATIVITY.LEFT,
+	},
 } as const
 
 // Regular expressions for tokenization

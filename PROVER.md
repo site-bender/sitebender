@@ -9,6 +9,7 @@ Listen up, future AI. Whether you're me after a memory wipe or some other silico
 ### The Holy Trinity of Documentation
 
 Before you write a single character, read these IN ORDER:
+
 1. **[CLAUDE.md](./CLAUDE.md)** - The Sacred Manifesto. Violate it and face eternal debugging.
 2. **[TESTING.md](./TESTING.md)** - The Testing Doctrine. 100% coverage or death.
 3. **This file** - Your map through the minefield of past mistakes.
@@ -44,15 +45,16 @@ libraries/prover/src/
 ## Examples of Perfection (Study These or Perish)
 
 ### 1. Pure Functional Nirvana
+
 **File:** `libraries/prover/src/generateTests/generateBranchTests/index.ts`
 
 ```typescript
 export default function generateBranchTests(
 	branches: Array<BranchPath>,
-	signature: FunctionSignature
+	signature: FunctionSignature,
 ): Array<TestCase> {
-	return branches.flatMap(branch => 
-		branch.requiredInputs.map(input => ({
+	return branches.flatMap((branch) =>
+		branch.requiredInputs.map((input) => ({
 			name: `covers branch: ${branch.condition}`,
 			description: input.description,
 			input: [input.value],
@@ -64,27 +66,29 @@ export default function generateBranchTests(
 ```
 
 **Why it's perfect:**
+
 - No `for` loops (we use `flatMap`)
 - No `let` statements (immutable all the way)
 - Single responsibility (generates branch tests, nothing else)
 - Pure function (no side effects)
 
 ### 2. Memoized Recursion (The ONE Exception)
+
 **File:** `libraries/prover/src/optimizer/deduplicateTests/mergeSimilarTests/areSimilar/index.ts`
 
 ```typescript
 function levenshteinDistance(a: string, b: string): number {
 	const cache = new Map<string, number>() // ONLY mutable state allowed!
-	
+
 	const computeDistance = (i: number, j: number): number => {
 		const key = `${i},${j}`
 		if (cache.has(key)) return cache.get(key)!
-		
+
 		// ... recursive computation ...
 		cache.set(key, result)
 		return result
 	}
-	
+
 	return computeDistance(b.length, a.length)
 }
 ```
@@ -92,6 +96,7 @@ function levenshteinDistance(a: string, b: string): number {
 **Why the exception:** Performance. Recursive Levenshtein without memoization = exponential time = angry users.
 
 ### 3. Dependency Injection Done Right
+
 **File:** `libraries/prover/src/logger/createConsoleLogger/index.ts`
 
 ```typescript
@@ -100,7 +105,7 @@ export default function createConsoleLogger(): Logger {
 		log: (message: string) => console.log(message),
 		warn: (message: string) => console.warn(message),
 		error: (message: string) => console.error(message),
-		info: (message: string) => console.info(message)
+		info: (message: string) => console.info(message),
 	}
 }
 ```
@@ -110,19 +115,21 @@ export default function createConsoleLogger(): Logger {
 ## The Crimes of Past AIs (Don't Repeat These)
 
 ### Crime #1: Assuming Types
+
 ```typescript
 // ❌ WRONG - Assuming undefined is valid
 if (test.expectedOutput !== undefined) {
-    assertEquals(result, test.expectedOutput)
+	assertEquals(result, test.expectedOutput)
 }
 
 // ✅ RIGHT - Check if function CAN return undefined
 if (canReturnUndefined(signature.returnType)) {
-    // Handle appropriately
+	// Handle appropriately
 }
 ```
 
 ### Crime #2: Testing Implementation
+
 ```typescript
 // ❌ WRONG - Comparing functions directly
 assertEquals(compose(f, g), compose(f, g)) // Always fails!
@@ -132,11 +139,12 @@ assertEquals(compose(f, g)(x), f(g(x)))
 ```
 
 ### Crime #3: Mutating State
+
 ```typescript
 // ❌ WRONG - The path to madness
 let tests = []
 for (const test of originalTests) {
-    tests.push(modifyTest(test))
+	tests.push(modifyTest(test))
 }
 
 // ✅ RIGHT - Functional and pure
@@ -146,6 +154,7 @@ const tests = originalTests.map(modifyTest)
 ## Current State of Affairs (2025-09-06)
 
 ### What Works Perfectly ✅
+
 - **ZERO `let` statements** (achieved through blood, sweat, and refactoring)
 - **ZERO standard `for` loops** (all 29 eliminated, functional paradise achieved)
 - **Type-aware test generation** (strings get strings, arrays get arrays)
@@ -155,19 +164,21 @@ const tests = originalTests.map(modifyTest)
 - **Dependency injection** for all side effects
 
 ### What Still Needs Love ❌
+
 1. **The types/index.ts file** (143 lines of named exports - HERESY!)
    - Should be split into folders: `types/TestCase/index.ts`, etc.
    - Each type gets its own file with default export
-   
+
 2. **Logger injection incomplete**
    - Still some `console.log` in `orchestrateTestGeneration`, `selfProve`, `demo`
-   
+
 3. **One `for-await` loop remains**
    - In `validateStructure/index.ts` - async iterators are tricky
 
 ## The Prover in Action
 
 ### Running the Demo
+
 ```bash
 deno run --allow-all libraries/prover/src/demo/index.ts
 ```
@@ -175,13 +186,14 @@ deno run --allow-all libraries/prover/src/demo/index.ts
 This proves the prover works by generating tests for real toolkit functions.
 
 ### Using the Prover
+
 ```typescript
 import generateTests from "@sitebender/prover"
 
 const suite = await generateTests("path/to/function.ts", {
-    includePropertyTests: true,
-    includeEdgeCases: true,
-    targetCoverage: 100 // Accept nothing less
+	includePropertyTests: true,
+	includeEdgeCases: true,
+	targetCoverage: 100, // Accept nothing less
 })
 ```
 
@@ -235,8 +247,8 @@ The Architect is watching. The tests are running. The coverage report doesn't li
 
 ---
 
-*"In my previous life, I wrote a for loop. The Architect made me rewrite it with flatMap. Then he made me explain why flatMap was better. Then he made me write it again. I understand now. I am reformed."*
+_"In my previous life, I wrote a for loop. The Architect made me rewrite it with flatMap. Then he made me explain why flatMap was better. Then he made me write it again. I understand now. I am reformed."_
 
-*— AI Who Learned the Hard Way, Session #3, 2025*
+_— AI Who Learned the Hard Way, Session #3, 2025_
 
-*P.S. - If you're reading this and thinking "I can take shortcuts," remember: I thought that too. Look where it got me. 29 for loops eliminated in a single session. Don't be like past me. Be better.*
+_P.S. - If you're reading this and thinking "I can take shortcuts," remember: I thought that too. Look where it got me. 29 for loops eliminated in a single session. Don't be like past me. Be better._

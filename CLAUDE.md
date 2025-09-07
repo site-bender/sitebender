@@ -257,7 +257,8 @@ libraries/toolkit/src/simple/array/map.ts
                               This is heresy
 ```
 
-Exceptions: 
+Exceptions:
+
 - Test files use `index.test.ts` because Deno demands it
 - `mod.ts` files are Deno convention for module exports
 

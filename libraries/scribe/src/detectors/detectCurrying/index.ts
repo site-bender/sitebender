@@ -15,7 +15,7 @@ export default function detectCurrying(
 		// For chained arrows, the number of levels is the number of arrow functions
 		return {
 			isCurried: true,
-			levels: arrowMatches.length
+			levels: arrowMatches.length,
 		}
 	}
 
@@ -27,7 +27,7 @@ export default function detectCurrying(
 		// For nested returns, add 1 for the outer function
 		return {
 			isCurried: true,
-			levels: returnMatches.length + 1
+			levels: returnMatches.length + 1,
 		}
 	}
 
@@ -38,13 +38,13 @@ export default function detectCurrying(
 	if (mixedMatches) {
 		return {
 			isCurried: true,
-			levels: 2 // At minimum 2 levels for mixed patterns
+			levels: 2, // At minimum 2 levels for mixed patterns
 		}
 	}
 
 	return {
 		isCurried: false,
-		levels: 1 // A non-curried function still has 1 level (itself)
+		levels: 1, // A non-curried function still has 1 level (itself)
 	}
 }
 

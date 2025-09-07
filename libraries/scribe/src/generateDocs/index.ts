@@ -1,9 +1,9 @@
 import type {
+	ASTNode,
 	Documentation,
 	GenerateOptions,
 	ParseError,
 	Result,
-	ASTNode
 } from "../types/index.ts"
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import { parseFile, parseFunction } from "../parser/index.ts"

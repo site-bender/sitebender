@@ -77,7 +77,13 @@ export type VariableNode = {
 	name: string
 }
 
-export type ASTNode = BinaryOpNode | UnaryOpNode | NumberNode | VariableNode | ConditionalNode | ComparisonNode
+export type ASTNode =
+	| BinaryOpNode
+	| UnaryOpNode
+	| NumberNode
+	| VariableNode
+	| ConditionalNode
+	| ComparisonNode
 
 // Variable mapping for formula compilation
 export type VariableMap = {

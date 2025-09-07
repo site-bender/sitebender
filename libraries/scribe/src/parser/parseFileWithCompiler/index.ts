@@ -1,5 +1,9 @@
 import * as ts from "npm:typescript@5.7.2"
-import type { ParseError, Result, FunctionSignature } from "../../types/index.ts"
+import type {
+	FunctionSignature,
+	ParseError,
+	Result,
+} from "../../types/index.ts"
 import parseWithCompiler from "../parseWithCompiler/index.ts"
 import parseFunctionFromAST from "../parseFunctionFromAST/index.ts"
 
@@ -19,18 +23,18 @@ export type ParsedFile = {
  */
 export default function parseFileWithCompiler(
 	content: string,
-	fileName: string = "source.ts"
+	fileName: string = "source.ts",
 ): Result<ParsedFile, ParseError> {
 	// Parse the source code into AST
 	const parseResult = parseWithCompiler(content)
-	
+
 	if (!parseResult.ok) {
 		return {
 			ok: false,
 			error: {
 				...parseResult.error,
-				file: fileName
-			}
+				file: fileName,
+			},
 		}
 	}
 
@@ -40,16 +44,17 @@ export default function parseFileWithCompiler(
 	// Walk the AST to find all function-like nodes
 	function visit(node: ts.Node): void {
 		// Check if it's a function-like node
-		if (ts.isFunctionDeclaration(node) ||
+		if (
+			ts.isFunctionDeclaration(node) ||
 			ts.isFunctionExpression(node) ||
 			ts.isArrowFunction(node) ||
-			ts.isMethodDeclaration(node)) {
-			
+			ts.isMethodDeclaration(node)
+		) {
 			const signatureResult = parseFunctionFromAST(node, sourceFile)
 			if (signatureResult.ok) {
 				functions.push({
 					node,
-					signature: signatureResult.value
+					signature: signatureResult.value,
 				})
 			}
 		}
@@ -65,7 +70,7 @@ export default function parseFileWithCompiler(
 		ok: true,
 		value: {
 			sourceFile,
-			functions
-		}
+			functions,
+		},
 	}
 }

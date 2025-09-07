@@ -16,7 +16,10 @@ export default function extractTypeInfo(
 		const typeName = typeNode.typeName.getText()
 
 		// Handle both Array and ReadonlyArray
-		if ((typeName === "Array" || typeName === "ReadonlyArray") && typeNode.typeArguments?.[0]) {
+		if (
+			(typeName === "Array" || typeName === "ReadonlyArray") &&
+			typeNode.typeArguments?.[0]
+		) {
 			return {
 				raw,
 				kind: TypeKind.Array,
@@ -35,7 +38,10 @@ export default function extractTypeInfo(
 			}
 		}
 
-		if (["string", "number", "boolean", "null", "undefined", "void"].includes(typeName)) {
+		if (
+			["string", "number", "boolean", "null", "undefined", "void"]
+				.includes(typeName)
+		) {
 			return { raw, kind: TypeKind.Primitive }
 		}
 

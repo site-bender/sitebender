@@ -12,14 +12,14 @@ import createUnaryNode from "../createUnaryNode/index.ts"
 export default function parseUnaryOperator(
 	ctx: ParserContext,
 	operator: "+" | "-",
-	parseUnaryExpression: (ctx: ParserContext) => Result<ASTNode, ParseError>
+	parseUnaryExpression: (ctx: ParserContext) => Result<ASTNode, ParseError>,
 ): Result<ASTNode, ParseError> {
 	ctx.advance()
 	const operandResult = parseUnaryExpression(ctx) // Recursive for multiple unary ops
 	if (!operandResult.ok) return operandResult
-	
-	return { 
-		ok: true, 
-		value: createUnaryNode(operator, operandResult.value)
+
+	return {
+		ok: true,
+		value: createUnaryNode(operator, operandResult.value),
 	}
 }

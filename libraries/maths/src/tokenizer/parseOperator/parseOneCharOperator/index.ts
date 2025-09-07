@@ -6,7 +6,7 @@ import type { TokenType } from "../../../types/index.ts"
  * @returns Operator info or null if no match
  */
 export default function parseOneCharOperator(
-	char: string
+	char: string,
 ): { tokenType: TokenType; tokenValue: string; tokenLength: number } | null {
 	switch (char) {
 		case "+":
@@ -22,7 +22,11 @@ export default function parseOneCharOperator(
 		case "(":
 			return { tokenType: "LEFT_PAREN", tokenValue: char, tokenLength: 1 }
 		case ")":
-			return { tokenType: "RIGHT_PAREN", tokenValue: char, tokenLength: 1 }
+			return {
+				tokenType: "RIGHT_PAREN",
+				tokenValue: char,
+				tokenLength: 1,
+			}
 		case "?":
 			return { tokenType: "QUESTION", tokenValue: char, tokenLength: 1 }
 		case ":":
@@ -30,7 +34,11 @@ export default function parseOneCharOperator(
 		case "<":
 			return { tokenType: "LESS_THAN", tokenValue: char, tokenLength: 1 }
 		case ">":
-			return { tokenType: "GREATER_THAN", tokenValue: char, tokenLength: 1 }
+			return {
+				tokenType: "GREATER_THAN",
+				tokenValue: char,
+				tokenLength: 1,
+			}
 		default:
 			return null
 	}

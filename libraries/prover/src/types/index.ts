@@ -7,7 +7,9 @@ export type FunctionSignature = {
 	isCurried: boolean
 	isAsync: boolean
 	isGenerator: boolean
-	imports?: Array<{ name: string; path: string; isType: boolean; isDefault: boolean }>
+	imports?: Array<
+		{ name: string; path: string; isType: boolean; isDefault: boolean }
+	>
 }
 
 export type Parameter = {
@@ -24,10 +26,10 @@ export type TypeInfo = {
 	properties?: Record<string, TypeInfo>
 	unionTypes?: Array<TypeInfo>
 	literalValue?: unknown
-	typeName?: string  // For custom types like Result, Option, etc.
-	typeArguments?: Array<TypeInfo>  // For generic type arguments
-	elements?: Array<TypeInfo>  // For tuple types
-	types?: Array<TypeInfo>  // Alternative for union types
+	typeName?: string // For custom types like Result, Option, etc.
+	typeArguments?: Array<TypeInfo> // For generic type arguments
+	elements?: Array<TypeInfo> // For tuple types
+	types?: Array<TypeInfo> // Alternative for union types
 }
 
 export enum TypeKind {
@@ -40,8 +42,8 @@ export enum TypeKind {
 	Generic = "generic",
 	Literal = "literal",
 	Unknown = "unknown",
-	Interface = "interface",  // For custom interfaces
-	Tuple = "tuple",  // For tuple types
+	Interface = "interface", // For custom interfaces
+	Tuple = "tuple", // For tuple types
 }
 
 export type Generic = {

@@ -1,8 +1,4 @@
-import type {
-	ASTNode,
-	ParseError,
-	Result,
-} from "../../types/index.ts"
+import type { ASTNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parseUnaryExpression from "../parseUnaryExpression/index.ts"
@@ -65,7 +61,12 @@ export default function parseBinaryExpression(
 		if (!leftResult.ok) return leftResult
 
 		// Parse binary operators with precedence climbing using trampoline
-		const trampolineComputation = parseBinaryLoop(ctx, leftResult.value, minPrecedence, parseBinaryExpression)
+		const trampolineComputation = parseBinaryLoop(
+			ctx,
+			leftResult.value,
+			minPrecedence,
+			parseBinaryExpression,
+		)
 		return trampoline(trampolineComputation)
 	}
 }

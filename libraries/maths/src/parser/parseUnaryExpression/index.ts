@@ -1,8 +1,4 @@
-import type {
-	ASTNode,
-	ParseError,
-	Result,
-} from "../../types/index.ts"
+import type { ASTNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"

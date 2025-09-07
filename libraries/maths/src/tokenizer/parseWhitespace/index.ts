@@ -6,7 +6,10 @@ import { TOKEN_PATTERNS } from "../../constants/index.ts"
  * @param position - Current position
  * @returns Number of characters to skip, or 0 if no whitespace
  */
-export default function parseWhitespace(input: string, position: number): number {
+export default function parseWhitespace(
+	input: string,
+	position: number,
+): number {
 	const whitespaceMatch = TOKEN_PATTERNS.WHITESPACE.exec(
 		input.slice(position),
 	)

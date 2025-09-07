@@ -79,13 +79,14 @@ export default function generateCurriedPatternTests(
 				}`,
 			}],
 		})
-	}
-	// For binary curry (general case)
+	} // For binary curry (general case)
 	// Skip compose and pipe since they take arrays of functions, not simple values
-	else if (signature.parameters.length === 1 &&
-	         signature.returnType?.raw.includes("=>") &&
-	         !functionName.toLowerCase().includes("compose") &&
-	         !functionName.toLowerCase().includes("pipe")) {
+	else if (
+		signature.parameters.length === 1 &&
+		signature.returnType?.raw.includes("=>") &&
+		!functionName.toLowerCase().includes("compose") &&
+		!functionName.toLowerCase().includes("pipe")
+	) {
 		tests.push({
 			name: "binary curry",
 			description: "Two-parameter curry works correctly",

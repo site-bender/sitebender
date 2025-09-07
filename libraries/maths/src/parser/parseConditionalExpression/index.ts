@@ -81,7 +81,8 @@ export default function parseConditionalExpression(
 		return {
 			ok: false,
 			error: {
-				message: `Expected ':' in conditional expression, found '${colonToken.value}'`,
+				message:
+					`Expected ':' in conditional expression, found '${colonToken.value}'`,
 				position: colonToken.position,
 				expected: ":",
 				found: colonToken.value,

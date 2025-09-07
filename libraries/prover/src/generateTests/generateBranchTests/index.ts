@@ -14,15 +14,18 @@ export default function generateBranchTests(
 	branches: Array<BranchPath>,
 	signature: FunctionSignature,
 ): Array<TestCase> {
-	return branches.flatMap(branch =>
-		branch.requiredInputs.map(input => {
-			const expectedOutput: unknown = (signature.returnType.raw.includes("number") &&
-				(branch.condition.includes("isNullish") ||
-				 branch.condition.includes("typeof") ||
-				 input.value === null ||
-				 input.value === undefined ||
-				 typeof input.value === "string" ||
-				 typeof input.value === "boolean")) ? NaN : undefined
+	return branches.flatMap((branch) =>
+		branch.requiredInputs.map((input) => {
+			const expectedOutput: unknown =
+				(signature.returnType.raw.includes("number") &&
+						(branch.condition.includes("isNullish") ||
+							branch.condition.includes("typeof") ||
+							input.value === null ||
+							input.value === undefined ||
+							typeof input.value === "string" ||
+							typeof input.value === "boolean"))
+					? NaN
+					: undefined
 
 			return {
 				name: `covers branch: ${branch.condition}`,

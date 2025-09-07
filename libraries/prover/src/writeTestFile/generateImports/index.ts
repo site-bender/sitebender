@@ -8,7 +8,7 @@ import type { FunctionSignature, TestCase } from "../../types/index.ts"
  */
 export default function generateImports(
 	signature: FunctionSignature,
-	tests: Array<TestCase>
+	tests: Array<TestCase>,
 ): string {
 	const imports: Array<string> = []
 
@@ -19,37 +19,43 @@ export default function generateImports(
 	// Check if we need type imports from signature
 	if (signature.imports) {
 		// Group imports by path
-		const importsByPath = signature.imports.reduce((acc, imp) => {
-			if (!acc.has(imp.path)) {
-				acc.set(imp.path, [])
-			}
-			acc.get(imp.path)?.push({
-				name: imp.name,
-				isType: imp.isType,
-				isDefault: imp.isDefault
-			})
-			return acc
-		}, new Map<string, Array<{ name: string; isType: boolean; isDefault: boolean }>>())
+		const importsByPath = signature.imports.reduce(
+			(acc, imp) => {
+				if (!acc.has(imp.path)) {
+					acc.set(imp.path, [])
+				}
+				acc.get(imp.path)?.push({
+					name: imp.name,
+					isType: imp.isType,
+					isDefault: imp.isDefault,
+				})
+				return acc
+			},
+			new Map<
+				string,
+				Array<{ name: string; isType: boolean; isDefault: boolean }>
+			>(),
+		)
 
 		// Type-only imports
-		const typeImports = signature.imports.filter(i => i.isType)
+		const typeImports = signature.imports.filter((i) => i.isType)
 
 		// Add custom type imports from required imports
 		const requiredImports = signature.requiredImports || []
-		requiredImports.forEach(imp => {
+		requiredImports.forEach((imp) => {
 			importsByPath.set(imp.path, [{
 				name: imp.name,
 				isType: true,
-				isDefault: imp.isDefault
+				isDefault: imp.isDefault,
 			}])
 		})
 
 		// Generate import statements
 		Array.from(importsByPath.entries()).forEach(([path, items]) => {
-			const defaultImport = items.find(i => i.isDefault)
-			const namedImports = items.filter(i => !i.isDefault)
+			const defaultImport = items.find((i) => i.isDefault)
+			const namedImports = items.filter((i) => !i.isDefault)
 
-			const isTypeImport = typeImports.some(i => i.path === path)
+			const isTypeImport = typeImports.some((i) => i.path === path)
 			const importPrefix = isTypeImport ? "import type " : "import "
 
 			const importParts: Array<string> = []
@@ -59,23 +65,35 @@ export default function generateImports(
 			}
 
 			if (namedImports.length > 0) {
-				const namedPart = `{ ${namedImports.map(i => i.name).join(", ")} }`
+				const namedPart = `{ ${
+					namedImports.map((i) => i.name).join(", ")
+				} }`
 				importParts.push(namedPart)
 			}
 
-			const importStatement = `${importPrefix}${importParts.join(", ")} from "${path}"`
+			const importStatement = `${importPrefix}${
+				importParts.join(", ")
+			} from "${path}"`
 			imports.push(importStatement)
 		})
 	}
 
-	imports.push(`import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"`)
-	imports.push(`import { assertEquals, assertThrows, assertExists } from "https://deno.land/std@0.212.0/assert/mod.ts"`)
+	imports.push(
+		`import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"`,
+	)
+	imports.push(
+		`import { assertEquals, assertThrows, assertExists } from "https://deno.land/std@0.212.0/assert/mod.ts"`,
+	)
 
-	const hasPropertyTests = tests.some((test) => test.properties && test.properties.length > 0)
+	const hasPropertyTests = tests.some((test) =>
+		test.properties && test.properties.length > 0
+	)
 	if (hasPropertyTests) {
 		imports.push(`import * as fc from "npm:fast-check@3.15.0"`)
 		// Add deepEqual for property tests
-		imports.push(`import { equal as deepEqual } from "https://deno.land/std@0.212.0/assert/equal.ts"`)
+		imports.push(
+			`import { equal as deepEqual } from "https://deno.land/std@0.212.0/assert/equal.ts"`,
+		)
 	}
 
 	return imports.join("\n")
@@ -84,7 +102,10 @@ export default function generateImports(
 /**
  * Converts an import path from source file to test file location
  */
-function convertImportPathForTest(importPath: string, _sourcePath: string): string {
+function convertImportPathForTest(
+	importPath: string,
+	_sourcePath: string,
+): string {
 	// If it's a relative import, we need to adjust it for the test file location
 	if (importPath.startsWith("../") || importPath.startsWith("./")) {
 		// This is a simplified version - might need more sophisticated path resolution

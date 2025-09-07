@@ -16,9 +16,9 @@ export default function generateEdgeCaseTests(
 ): string {
 	const lines: Array<string> = []
 
-	lines.push("\tdescribe(\"edge cases\", () => {")
+	lines.push('\tdescribe("edge cases", () => {')
 
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
 

@@ -8,7 +8,7 @@ import type { ASTNode, UnaryOpNode } from "../../../types/index.ts"
  */
 export default function createUnaryNode(
 	operator: "+" | "-",
-	operand: ASTNode
+	operand: ASTNode,
 ): UnaryOpNode {
 	return {
 		type: "UnaryOp",

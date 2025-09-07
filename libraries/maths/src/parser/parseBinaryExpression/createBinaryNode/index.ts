@@ -1,4 +1,8 @@
-import type { ASTNode, BinaryOpNode, ComparisonNode } from "../../../types/index.ts"
+import type {
+	ASTNode,
+	BinaryOpNode,
+	ComparisonNode,
+} from "../../../types/index.ts"
 
 /**
  * Creates appropriate binary AST node based on operator type
@@ -10,10 +14,12 @@ import type { ASTNode, BinaryOpNode, ComparisonNode } from "../../../types/index
 export default function createBinaryNode(
 	operator: string,
 	left: ASTNode,
-	right: ASTNode
+	right: ASTNode,
 ): BinaryOpNode | ComparisonNode {
-	if (operator === "<" || operator === ">" || operator === "==" || 
-	    operator === "!=" || operator === "<=" || operator === ">=") {
+	if (
+		operator === "<" || operator === ">" || operator === "==" ||
+		operator === "!=" || operator === "<=" || operator === ">="
+	) {
 		return {
 			type: "Comparison",
 			operator,
@@ -21,7 +27,7 @@ export default function createBinaryNode(
 			right,
 		}
 	}
-	
+
 	return {
 		type: "BinaryOp",
 		operator: operator as "+" | "-" | "*" | "/" | "^",

@@ -42,15 +42,19 @@ export default function generatePropertyTests(
 		tests.push(generateReferentialTransparencyProperty(signature))
 	}
 
-	return tests.filter(t => t !== null) as Array<TestCase>
+	return tests.filter((t) => t !== null) as Array<TestCase>
 }
 
 /**
  * Generates a property test for type correctness
  */
-function generateTypeCorrectnessProperty(signature: FunctionSignature): TestCase {
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+function generateTypeCorrectnessProperty(
+	signature: FunctionSignature,
+): TestCase {
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 
 	return {
 		name: "returns correct type",
@@ -61,12 +65,14 @@ function generateTypeCorrectnessProperty(signature: FunctionSignature): TestCase
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const result = ${signature.name}(${paramNames.join(", ")})
 				return ${generateTypeCheck(signature.returnType, "result")}
 			}`,
-			runs: 100
-		}]
+			runs: 100,
+		}],
 	}
 }
 
@@ -88,13 +94,15 @@ function generateDeterminismProperty(signature: FunctionSignature): TestCase {
 					// Functions can't be compared with deepEqual
 					return true
 				}`,
-				runs: 1
-			}]
+				runs: 1,
+			}],
 		}
 	}
 
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 
 	return {
 		name: "is deterministic",
@@ -105,22 +113,28 @@ function generateDeterminismProperty(signature: FunctionSignature): TestCase {
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const result1 = ${signature.name}(${paramNames.join(", ")})
 				const result2 = ${signature.name}(${paramNames.join(", ")})
 				return deepEqual(result1, result2)
 			}`,
-			runs: 50
-		}]
+			runs: 50,
+		}],
 	}
 }
 
 /**
  * Generates a property test for Result structure
  */
-function generateResultStructureProperty(signature: FunctionSignature): TestCase {
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+function generateResultStructureProperty(
+	signature: FunctionSignature,
+): TestCase {
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 
 	return {
 		name: "returns valid Result",
@@ -131,7 +145,9 @@ function generateResultStructureProperty(signature: FunctionSignature): TestCase
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const result = ${signature.name}(${paramNames.join(", ")})
 				if (typeof result !== "object" || result === null) return false
 				if (!("ok" in result)) return false
@@ -142,8 +158,8 @@ function generateResultStructureProperty(signature: FunctionSignature): TestCase
 				}
 				return false
 			}`,
-			runs: 100
-		}]
+			runs: 100,
+		}],
 	}
 }
 
@@ -152,11 +168,15 @@ function generateResultStructureProperty(signature: FunctionSignature): TestCase
  */
 function generateArrayProperty(signature: FunctionSignature): TestCase | null {
 	// Only for functions that take arrays and return arrays
-	const arrayParams = signature.parameters.filter(p => p.type.kind === TypeKind.Array)
+	const arrayParams = signature.parameters.filter((p) =>
+		p.type.kind === TypeKind.Array
+	)
 	if (arrayParams.length === 0) return null
 
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 	const arrayParamName = arrayParams[0].name
 
 	return {
@@ -168,7 +188,9 @@ function generateArrayProperty(signature: FunctionSignature): TestCase | null {
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const result = ${signature.name}(${paramNames.join(", ")})
 				if (!Array.isArray(result)) return false
 				// Empty array should return empty array (usually)
@@ -177,8 +199,8 @@ function generateArrayProperty(signature: FunctionSignature): TestCase | null {
 				}
 				return true
 			}`,
-			runs: 100
-		}]
+			runs: 100,
+		}],
 	}
 }
 
@@ -186,11 +208,15 @@ function generateArrayProperty(signature: FunctionSignature): TestCase | null {
  * Generates a property test for string functions
  */
 function generateStringProperty(signature: FunctionSignature): TestCase | null {
-	const stringParams = signature.parameters.filter(p => p.type.raw === "string")
+	const stringParams = signature.parameters.filter((p) =>
+		p.type.raw === "string"
+	)
 	if (stringParams.length === 0) return null
 
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 
 	return {
 		name: "handles strings correctly",
@@ -201,19 +227,23 @@ function generateStringProperty(signature: FunctionSignature): TestCase | null {
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const result = ${signature.name}(${paramNames.join(", ")})
 				return typeof result === "string"
 			}`,
-			runs: 100
-		}]
+			runs: 100,
+		}],
 	}
 }
 
 /**
  * Generates a property test for referential transparency
  */
-function generateReferentialTransparencyProperty(signature: FunctionSignature): TestCase {
+function generateReferentialTransparencyProperty(
+	signature: FunctionSignature,
+): TestCase {
 	// Skip referential transparency test for functions that return functions
 	if (signature.returnType.kind === TypeKind.Function) {
 		return {
@@ -228,13 +258,15 @@ function generateReferentialTransparencyProperty(signature: FunctionSignature): 
 					// Functions can't be compared with deepEqual
 					return true
 				}`,
-				runs: 1
-			}]
+				runs: 1,
+			}],
 		}
 	}
 
-	const generators = signature.parameters.map(p => typeToFastCheckGenerator(p.type))
-	const paramNames = signature.parameters.map(p => p.name)
+	const generators = signature.parameters.map((p) =>
+		typeToFastCheckGenerator(p.type)
+	)
+	const paramNames = signature.parameters.map((p) => p.name)
 
 	return {
 		name: "is referentially transparent",
@@ -245,14 +277,16 @@ function generateReferentialTransparencyProperty(signature: FunctionSignature): 
 			generator: generators.length > 0
 				? `fc.tuple(${generators.join(", ")})`
 				: "fc.constant([])",
-			property: `(${paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"}) => {
+			property: `(${
+				paramNames.length > 0 ? `[${paramNames.join(", ")}]` : "_"
+			}) => {
 				const value = ${signature.name}(${paramNames.join(", ")})
 				// Calling again with same inputs should give same result
 				const value2 = ${signature.name}(${paramNames.join(", ")})
 				return deepEqual(value, value2)
 			}`,
-			runs: 50
-		}]
+			runs: 50,
+		}],
 	}
 }
 
@@ -263,12 +297,18 @@ function typeToFastCheckGenerator(type: TypeInfo): string {
 	switch (type.kind) {
 		case TypeKind.Primitive:
 			switch (type.raw) {
-				case "string": return "fc.string()"
-				case "number": return "fc.double({ noNaN: true })"
-				case "boolean": return "fc.boolean()"
-				case "undefined": return "fc.constant(undefined)"
-				case "null": return "fc.constant(null)"
-				default: return "fc.anything()"
+				case "string":
+					return "fc.string()"
+				case "number":
+					return "fc.double({ noNaN: true })"
+				case "boolean":
+					return "fc.boolean()"
+				case "undefined":
+					return "fc.constant(undefined)"
+				case "null":
+					return "fc.constant(null)"
+				default:
+					return "fc.anything()"
 			}
 
 		case TypeKind.Array:
@@ -289,7 +329,9 @@ function typeToFastCheckGenerator(type: TypeInfo): string {
 
 		case TypeKind.Union:
 			if (type.unionTypes && type.unionTypes.length > 0) {
-				const generators = type.unionTypes.map(t => typeToFastCheckGenerator(t))
+				const generators = type.unionTypes.map((t) =>
+					typeToFastCheckGenerator(t)
+				)
 				return `fc.oneof(${generators.join(", ")})`
 			}
 			return "fc.anything()"
@@ -326,13 +368,20 @@ function generateTypeCheck(type: TypeInfo, varName: string): string {
 	switch (type.kind) {
 		case TypeKind.Primitive:
 			switch (type.raw) {
-				case "string": return `typeof ${varName} === "string"`
-				case "number": return `typeof ${varName} === "number"`
-				case "boolean": return `typeof ${varName} === "boolean"`
-				case "undefined": return `${varName} === undefined`
-				case "null": return `${varName} === null`
-				case "void": return `${varName} === undefined`
-				default: return "true"
+				case "string":
+					return `typeof ${varName} === "string"`
+				case "number":
+					return `typeof ${varName} === "number"`
+				case "boolean":
+					return `typeof ${varName} === "boolean"`
+				case "undefined":
+					return `${varName} === undefined`
+				case "null":
+					return `${varName} === null`
+				case "void":
+					return `${varName} === undefined`
+				default:
+					return "true"
 			}
 
 		case TypeKind.Array:
@@ -362,9 +411,9 @@ function generateTypeCheck(type: TypeInfo, varName: string): string {
  */
 function hasRandomness(signature: FunctionSignature): boolean {
 	return signature.name.toLowerCase().includes("random") ||
-	       signature.name.toLowerCase().includes("shuffle") ||
-	       signature.name.toLowerCase().includes("uuid") ||
-	       signature.name.toLowerCase().includes("guid")
+		signature.name.toLowerCase().includes("shuffle") ||
+		signature.name.toLowerCase().includes("uuid") ||
+		signature.name.toLowerCase().includes("guid")
 }
 
 /**

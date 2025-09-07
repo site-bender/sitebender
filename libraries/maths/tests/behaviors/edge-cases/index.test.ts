@@ -1,9 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import type {
-	ASTNode,
-	Token,
-} from "../../../src/types/index.ts"
+import type { ASTNode, Token } from "../../../src/types/index.ts"
 
 import compile from "../../../src/compiler/index.ts"
 import parseFormula from "../../../src/parseFormula/index.ts"

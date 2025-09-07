@@ -44,7 +44,7 @@ export default function createCounter(
 		getValue(): number {
 			return Array.from(counts.values()).reduce(
 				(sum, count) => sum + count,
-				0
+				0,
 			)
 		},
 

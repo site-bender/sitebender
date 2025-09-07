@@ -1,4 +1,9 @@
-import type { TestSuite, GeneratorConfig, TestCase, BranchPath } from "../types/index.ts"
+import type {
+	BranchPath,
+	GeneratorConfig,
+	TestCase,
+	TestSuite,
+} from "../types/index.ts"
 import type Logger from "../types/Logger/index.ts"
 import createConsoleLogger from "../logger/createConsoleLogger/index.ts"
 import parseSignature from "../parseSignature/index.ts"
@@ -65,7 +70,9 @@ export default async function generateTests(
 	// Generate benchmarks if requested
 	if (finalConfig.includeBenchmarks && sourceCode) {
 		const benchmarkSuite = generateBenchmarks(signature, sourceCode)
-		logger.log(`⚡ Generated ${benchmarkSuite.benchmarks.length} benchmark tests`)
+		logger.log(
+			`⚡ Generated ${benchmarkSuite.benchmarks.length} benchmark tests`,
+		)
 		// Note: Benchmarks are generated but not included in test cases
 		// They would be written to a separate benchmark file
 	}
@@ -79,7 +86,9 @@ export default async function generateTests(
 			? edgeCases.map((test) => transformTestCase(test, signature))
 			: edgeCases
 		allTests.push(...transformedEdgeCases)
-		logger.log(`🔧 Generated ${transformedEdgeCases.length} edge case tests`)
+		logger.log(
+			`🔧 Generated ${transformedEdgeCases.length} edge case tests`,
+		)
 	}
 
 	if (finalConfig.includePropertyTests) {
@@ -101,14 +110,16 @@ export default async function generateTests(
 	logger.log(`🔮 Generated ${patternTests.length} pattern-based tests`)
 
 	const optimizedTests = deduplicateTests(allTests)
-	logger.log(`🎨 Optimized from ${allTests.length} to ${optimizedTests.length} tests`)
+	logger.log(
+		`🎨 Optimized from ${allTests.length} to ${optimizedTests.length} tests`,
+	)
 
 	const testFilePath = writeTestFile(
 		functionPath,
 		signature.name,
 		optimizedTests,
-		signature
-	).then(path => {
+		signature,
+	).then((path) => {
 		logger.log(`✍️  Wrote test file: ${path}`)
 		return path
 	})
@@ -123,35 +134,50 @@ export default async function generateTests(
 		)
 	)
 
-	return Promise.all([testFilePath, coverage]).then(([_path, coverageResult]) => {
-		logger.log(`📊 Coverage: ${coverageResult.percentage.toFixed(1)}%`)
-		logger.log(`   Lines: ${coverageResult.lines.covered}/${coverageResult.lines.total}`)
-		logger.log(`   Branches: ${coverageResult.branches.covered}/${coverageResult.branches.total}`)
+	return Promise.all([testFilePath, coverage]).then(
+		([_path, coverageResult]) => {
+			logger.log(`📊 Coverage: ${coverageResult.percentage.toFixed(1)}%`)
+			logger.log(
+				`   Lines: ${coverageResult.lines.covered}/${coverageResult.lines.total}`,
+			)
+			logger.log(
+				`   Branches: ${coverageResult.branches.covered}/${coverageResult.branches.total}`,
+			)
 
-		if (coverageResult.percentage < finalConfig.targetCoverage) {
-			logger.warn(`⚠️  Coverage below target (${finalConfig.targetCoverage}%)`)
+			if (coverageResult.percentage < finalConfig.targetCoverage) {
+				logger.warn(
+					`⚠️  Coverage below target (${finalConfig.targetCoverage}%)`,
+				)
 
-			if (coverageResult.lines.uncovered.length > 0) {
-				logger.log(`   Uncovered lines: ${coverageResult.lines.uncovered.join(", ")}`)
+				if (coverageResult.lines.uncovered.length > 0) {
+					logger.log(
+						`   Uncovered lines: ${
+							coverageResult.lines.uncovered.join(", ")
+						}`,
+					)
+				}
+				if (
+					coverageResult.suggestions &&
+					coverageResult.suggestions.length > 0
+				) {
+					logger.log(`   Suggestions:`)
+					coverageResult.suggestions.forEach((suggestion) => {
+						logger.log(`     • ${suggestion}`)
+					})
+				}
+			} else {
+				logger.log(`✅ Target coverage achieved!`)
 			}
-			if (coverageResult.suggestions && coverageResult.suggestions.length > 0) {
-				logger.log(`   Suggestions:`)
-				coverageResult.suggestions.forEach(suggestion => {
-					logger.log(`     • ${suggestion}`)
-				})
+
+			const testSuite: TestSuite = {
+				functionPath,
+				functionName: signature.name,
+				testCases: optimizedTests,
+				imports: generateImports(signature, optimizedTests),
+				coverage: coverageResult,
 			}
-		} else {
-			logger.log(`✅ Target coverage achieved!`)
-		}
 
-		const testSuite: TestSuite = {
-			functionPath,
-			functionName: signature.name,
-			testCases: optimizedTests,
-			imports: generateImports(signature, optimizedTests),
-			coverage: coverageResult,
-		}
-
-		return testSuite
-	})
+			return testSuite
+		},
+	)
 }

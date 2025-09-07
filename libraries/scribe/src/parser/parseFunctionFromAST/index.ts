@@ -1,5 +1,11 @@
 import * as ts from "npm:typescript@5.7.2"
-import type { FunctionSignature, Generic, Parameter, ParseError, Result } from "../../types/index.ts"
+import type {
+	FunctionSignature,
+	Generic,
+	Parameter,
+	ParseError,
+	Result,
+} from "../../types/index.ts"
 
 /**
  * Extracts function information from a TypeScript AST node
@@ -9,25 +15,35 @@ import type { FunctionSignature, Generic, Parameter, ParseError, Result } from "
  */
 export default function parseFunctionFromAST(
 	node: ts.Node,
-	sourceFile: ts.SourceFile
+	sourceFile: ts.SourceFile,
 ): Result<FunctionSignature, ParseError> {
 	try {
 		// Check if it's a function-like node
-		if (!ts.isFunctionDeclaration(node) && 
+		if (
+			!ts.isFunctionDeclaration(node) &&
 			!ts.isFunctionExpression(node) &&
 			!ts.isArrowFunction(node) &&
-			!ts.isMethodDeclaration(node)) {
+			!ts.isMethodDeclaration(node)
+		) {
 			return {
 				ok: false,
 				error: {
-					message: `Expected function-like node, got ${ts.SyntaxKind[node.kind]}`,
-					line: sourceFile.getLineAndCharacterOfPosition(node.pos).line + 1,
-					column: sourceFile.getLineAndCharacterOfPosition(node.pos).character + 1
-				}
+					message: `Expected function-like node, got ${
+						ts.SyntaxKind[node.kind]
+					}`,
+					line: sourceFile.getLineAndCharacterOfPosition(node.pos)
+						.line + 1,
+					column: sourceFile.getLineAndCharacterOfPosition(node.pos)
+						.character + 1,
+				},
 			}
 		}
 
-		const functionNode = node as ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction | ts.MethodDeclaration
+		const functionNode = node as
+			| ts.FunctionDeclaration
+			| ts.FunctionExpression
+			| ts.ArrowFunction
+			| ts.MethodDeclaration
 
 		// Extract name
 		const name = extractFunctionName(functionNode)
@@ -42,12 +58,25 @@ export default function parseFunctionFromAST(
 		const generics = extractGenerics(functionNode)
 
 		// Check modifiers
-		const isAsync = Boolean(functionNode.modifiers?.some(m => m.kind === ts.SyntaxKind.AsyncKeyword))
-		const isGenerator = ts.isFunctionDeclaration(functionNode) || ts.isFunctionExpression(functionNode)
+		const isAsync = Boolean(
+			functionNode.modifiers?.some((m) =>
+				m.kind === ts.SyntaxKind.AsyncKeyword
+			),
+		)
+		const isGenerator = ts.isFunctionDeclaration(functionNode) ||
+				ts.isFunctionExpression(functionNode)
 			? Boolean(functionNode.asteriskToken)
 			: false
-		const isExported = Boolean(functionNode.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword))
-		const isDefault = Boolean(functionNode.modifiers?.some(m => m.kind === ts.SyntaxKind.DefaultKeyword))
+		const isExported = Boolean(
+			functionNode.modifiers?.some((m) =>
+				m.kind === ts.SyntaxKind.ExportKeyword
+			),
+		)
+		const isDefault = Boolean(
+			functionNode.modifiers?.some((m) =>
+				m.kind === ts.SyntaxKind.DefaultKeyword
+			),
+		)
 
 		return {
 			ok: true,
@@ -59,17 +88,21 @@ export default function parseFunctionFromAST(
 				isAsync,
 				isGenerator,
 				isExported,
-				isDefault
-			}
+				isDefault,
+			},
 		}
 	} catch (error) {
 		return {
 			ok: false,
 			error: {
-				message: error instanceof Error ? error.message : "Failed to parse function from AST",
-				line: sourceFile.getLineAndCharacterOfPosition(node.pos).line + 1,
-				column: sourceFile.getLineAndCharacterOfPosition(node.pos).character + 1
-			}
+				message: error instanceof Error
+					? error.message
+					: "Failed to parse function from AST",
+				line: sourceFile.getLineAndCharacterOfPosition(node.pos).line +
+					1,
+				column: sourceFile.getLineAndCharacterOfPosition(node.pos)
+					.character + 1,
+			},
 		}
 	}
 }
@@ -77,15 +110,27 @@ export default function parseFunctionFromAST(
 /**
  * Extracts function name from AST node
  */
-function extractFunctionName(node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction | ts.MethodDeclaration): string {
+function extractFunctionName(
+	node:
+		| ts.FunctionDeclaration
+		| ts.FunctionExpression
+		| ts.ArrowFunction
+		| ts.MethodDeclaration,
+): string {
 	// For function declarations and expressions
-	if ((ts.isFunctionDeclaration(node) || ts.isFunctionExpression(node) || ts.isMethodDeclaration(node)) && node.name) {
+	if (
+		(ts.isFunctionDeclaration(node) || ts.isFunctionExpression(node) ||
+			ts.isMethodDeclaration(node)) && node.name
+	) {
 		return node.name.getText()
 	}
 
 	// For arrow functions, check if it's assigned to a variable
 	const parent = node.parent
-	if (ts.isVariableDeclaration(parent) && parent.name && ts.isIdentifier(parent.name)) {
+	if (
+		ts.isVariableDeclaration(parent) && parent.name &&
+		ts.isIdentifier(parent.name)
+	) {
 		return parent.name.getText()
 	}
 
@@ -100,12 +145,18 @@ function extractFunctionName(node: ts.FunctionDeclaration | ts.FunctionExpressio
 /**
  * Extracts parameters from function AST node
  */
-function extractParameters(node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction | ts.MethodDeclaration): Array<Parameter> {
+function extractParameters(
+	node:
+		| ts.FunctionDeclaration
+		| ts.FunctionExpression
+		| ts.ArrowFunction
+		| ts.MethodDeclaration,
+): Array<Parameter> {
 	const parameters: Array<Parameter> = []
 
 	for (const param of node.parameters) {
-		const name = param.name && ts.isIdentifier(param.name) 
-			? param.name.getText() 
+		const name = param.name && ts.isIdentifier(param.name)
+			? param.name.getText()
 			: "unknown"
 
 		// Extract type
@@ -127,7 +178,7 @@ function extractParameters(node: ts.FunctionDeclaration | ts.FunctionExpression 
 			name,
 			type,
 			optional,
-			defaultValue
+			defaultValue,
 		})
 	}
 
@@ -139,16 +190,22 @@ function extractParameters(node: ts.FunctionDeclaration | ts.FunctionExpression 
  */
 function findReturnTypeInBlock(block: ts.Block): string {
 	let returnType = "void"
-	
+
 	for (const statement of block.statements) {
 		if (ts.isReturnStatement(statement) && statement.expression) {
 			// Check if returning a function
-			if (ts.isFunctionExpression(statement.expression) || 
-				ts.isArrowFunction(statement.expression)) {
+			if (
+				ts.isFunctionExpression(statement.expression) ||
+				ts.isArrowFunction(statement.expression)
+			) {
 				// For curried functions, extract the signature of the returned function
 				const returnedFunc = statement.expression
 				if (returnedFunc.type) {
-					returnType = `(${returnedFunc.parameters.map(p => p.getText()).join(", ")}) => ${returnedFunc.type.getText()}`
+					returnType = `(${
+						returnedFunc.parameters.map((p) => p.getText()).join(
+							", ",
+						)
+					}) => ${returnedFunc.type.getText()}`
 				} else if (returnedFunc.body) {
 					// Try to infer from the body
 					if (ts.isBlock(returnedFunc.body)) {
@@ -171,14 +228,20 @@ function findReturnTypeInBlock(block: ts.Block): string {
 			break
 		}
 	}
-	
+
 	return returnType
 }
 
 /**
  * Extracts return type from function AST node
  */
-function extractReturnType(node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction | ts.MethodDeclaration): string {
+function extractReturnType(
+	node:
+		| ts.FunctionDeclaration
+		| ts.FunctionExpression
+		| ts.ArrowFunction
+		| ts.MethodDeclaration,
+): string {
 	if (node.type) {
 		return node.type.getText()
 	}
@@ -193,10 +256,14 @@ function extractReturnType(node: ts.FunctionDeclaration | ts.FunctionExpression 
 	// For arrow functions with implicit returns
 	if (ts.isArrowFunction(node) && node.body && !ts.isBlock(node.body)) {
 		// Check if the body is another function
-		if (ts.isArrowFunction(node.body) || ts.isFunctionExpression(node.body)) {
+		if (
+			ts.isArrowFunction(node.body) || ts.isFunctionExpression(node.body)
+		) {
 			const returnedFunc = node.body
 			if (returnedFunc.type) {
-				return `(${returnedFunc.parameters.map(p => p.getText()).join(", ")}) => ${returnedFunc.type.getText()}`
+				return `(${
+					returnedFunc.parameters.map((p) => p.getText()).join(", ")
+				}) => ${returnedFunc.type.getText()}`
 			}
 			return "(y: number) => number" // TODO(@scribe): Better type inference
 		}
@@ -209,7 +276,13 @@ function extractReturnType(node: ts.FunctionDeclaration | ts.FunctionExpression 
 /**
  * Extracts generic parameters from function AST node
  */
-function extractGenerics(node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction | ts.MethodDeclaration): Array<Generic> {
+function extractGenerics(
+	node:
+		| ts.FunctionDeclaration
+		| ts.FunctionExpression
+		| ts.ArrowFunction
+		| ts.MethodDeclaration,
+): Array<Generic> {
 	const generics: Array<Generic> = []
 
 	if (!node.typeParameters) {
@@ -218,7 +291,7 @@ function extractGenerics(node: ts.FunctionDeclaration | ts.FunctionExpression | 
 
 	for (const typeParam of node.typeParameters) {
 		const generic: Generic = {
-			name: typeParam.name.getText()
+			name: typeParam.name.getText(),
 		}
 
 		// Extract constraint

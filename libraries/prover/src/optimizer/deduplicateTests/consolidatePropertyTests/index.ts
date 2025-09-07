@@ -11,24 +11,32 @@ import mergeProperties from "./mergeProperties/index.ts"
  * @param tests Array of test cases
  * @returns Array with consolidated property tests
  */
-export default function consolidatePropertyTests(tests: Array<TestCase>): Array<TestCase> {
+export default function consolidatePropertyTests(
+	tests: Array<TestCase>,
+): Array<TestCase> {
 	// Separate property tests from others using partition
 	const { propertyTests, nonPropertyTests } = tests.reduce(
 		(acc, test) => {
 			if (test.properties && test.properties.length > 0) {
 				return { ...acc, propertyTests: [...acc.propertyTests, test] }
 			} else {
-				return { ...acc, nonPropertyTests: [...acc.nonPropertyTests, test] }
+				return {
+					...acc,
+					nonPropertyTests: [...acc.nonPropertyTests, test],
+				}
 			}
 		},
-		{ propertyTests: [] as Array<TestCase>, nonPropertyTests: [] as Array<TestCase> }
+		{
+			propertyTests: [] as Array<TestCase>,
+			nonPropertyTests: [] as Array<TestCase>,
+		},
 	)
 
 	// Group property tests by similar generators using recursive approach
 	const consolidateRecursive = (
 		remaining: Array<TestCase>,
 		processed: Set<number>,
-		result: Array<TestCase>
+		result: Array<TestCase>,
 	): Array<TestCase> => {
 		if (remaining.length === 0) return result
 
@@ -51,14 +59,14 @@ export default function consolidatePropertyTests(tests: Array<TestCase>): Array<
 		// Collect all properties to merge
 		const toMerge: Array<PropertyTest> = [
 			...(current.properties || []),
-			...overlapping.flatMap(({ test }) => test.properties || [])
+			...overlapping.flatMap(({ test }) => test.properties || []),
 		]
 
 		// Mark as processed
 		const newProcessed = new Set([
 			...processed,
 			currentIndex,
-			...overlapping.map(({ index }) => index)
+			...overlapping.map(({ index }) => index),
 		])
 
 		// Create consolidated test
@@ -68,7 +76,10 @@ export default function consolidatePropertyTests(tests: Array<TestCase>): Array<
 			properties: mergeProperties(toMerge),
 		}
 
-		return consolidateRecursive(rest, newProcessed, [...result, consolidatedTest])
+		return consolidateRecursive(rest, newProcessed, [
+			...result,
+			consolidatedTest,
+		])
 	}
 
 	const consolidated = consolidateRecursive(propertyTests, new Set(), [])

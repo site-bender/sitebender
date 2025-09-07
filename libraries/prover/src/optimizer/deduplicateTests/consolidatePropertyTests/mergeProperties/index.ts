@@ -9,7 +9,9 @@ import type { PropertyTest } from "../../../../types/index.ts"
  * @param properties Array of property tests to merge
  * @returns Consolidated array of unique properties
  */
-export default function mergeProperties(properties: Array<PropertyTest>): Array<PropertyTest> {
+export default function mergeProperties(
+	properties: Array<PropertyTest>,
+): Array<PropertyTest> {
 	const seen = properties.reduce((acc, prop) => {
 		const key = `${prop.name}:${prop.generator}`
 

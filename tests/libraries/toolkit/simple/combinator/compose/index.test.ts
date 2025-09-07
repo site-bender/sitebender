@@ -28,7 +28,9 @@ describe("compose", () => {
 			assertEquals(result, 11)
 		})
 		it("compose is associative", () => {
-			const result = compose([(x) => x + 1, (x) => x * 2, (x) => x - 3])(10)
+			const result = compose([(x) => x + 1, (x) => x * 2, (x) => x - 3])(
+				10,
+			)
 			assertEquals(result, 15)
 		})
 		it("compose with single function", () => {
@@ -40,10 +42,13 @@ describe("compose", () => {
 	describe("property tests", () => {
 		it("type correctness", () => {
 			fc.assert(
-				fc.property(fc.tuple(fc.array(fc.func(fc.anything()))), ([fns]) => {
-					const result = compose(fns)
-					return typeof result === "function"
-				}),
+				fc.property(
+					fc.tuple(fc.array(fc.func(fc.anything()))),
+					([fns]) => {
+						const result = compose(fns)
+						return typeof result === "function"
+					},
+				),
 				{ numRuns: 100 },
 			)
 		})

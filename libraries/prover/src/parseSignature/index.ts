@@ -55,6 +55,6 @@ export default function parseSignature(
 	// Add imports to signature
 	return {
 		...signature,
-		imports
+		imports,
 	}
 }
