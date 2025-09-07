@@ -61,9 +61,8 @@ Instead of writing tests manually (which takes hundreds of hours and is error-pr
 ```
 prover/
 ├── src/
-│   ├── analyzeBranches/          # AST analysis for branch detection
 │   ├── generateBenchmarks/       # Performance test generation
-│   ├── generatePropertyTests/    # Property-based test creation
+│   ├── generatePropertyTests/    # Property-based test creation  
 │   ├── generateTests/            # Main test generation pipeline
 │   ├── validateCoverage/         # Coverage validation and reporting
 │   ├── patterns/                 # Domain-specific patterns
@@ -71,6 +70,86 @@ prover/
 │   └── types/                    # Type definitions
 └── tests/                        # Prover testing itself
 ```
+
+**Note:** TypeScript parsing, signature extraction, branch analysis, and property detection have been moved to @sitebender/parser to eliminate duplication with scribe.
+
+## Integration with @sitebender/parser
+
+Prover delegates ALL TypeScript parsing to @sitebender/parser:
+
+```typescript
+// We use parser for all AST operations
+import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
+import extractSignature from "@sitebender/parser/extractSignature/index.ts"
+import analyzeBranches from "@sitebender/parser/analyzeBranches/index.ts"
+import detectPurity from "@sitebender/parser/detectProperties/detectPurity/index.ts"
+```
+
+### What Parser Provides to Prover
+- TypeScript AST parsing
+- Function signature extraction
+- Branch analysis for coverage
+- Property detection (purity, currying)
+- Type constraint extraction
+
+### What Prover Handles
+- Test case generation strategy
+- Property test creation
+- Edge case generation
+- Coverage validation
+- Test file writing
+
+## Integration with @sitebender/foundry
+
+Prover will use Foundry for test data generation:
+
+```typescript
+// Use foundry generators for test inputs
+import generateInteger from "@sitebender/foundry/arbitrary/generateInteger/index.ts"
+import generateString from "@sitebender/foundry/arbitrary/generateString/index.ts"
+import createProperty from "@sitebender/foundry/property/createProperty/index.ts"
+```
+
+### What Foundry Provides to Prover
+- Deterministic data generators
+- Property-based testing primitives
+- Complex type generators
+- Shrinking for minimal counterexamples
+
+## Coordination with Other Libraries
+
+### With Parser
+- Share the same FunctionSignature type
+- Use consistent branch analysis
+- Coordinate on new parsing needs
+
+### With Scribe
+- Use same property detection from parser
+- Share complexity analysis
+- Coordinate on function metadata
+
+### With Foundry
+- Use foundry's generators for test inputs
+- Leverage property testing infrastructure
+- Share shrinking algorithms
+
+## For AI Agents Working on Prover
+
+**BEFORE implementing parsing features:**
+1. Check if @sitebender/parser already has it
+2. If not, request it be added to parser
+3. Never duplicate parsing logic locally
+
+**USE foundry for:**
+1. All test data generation
+2. Property-based testing infrastructure
+3. Shrinking to minimal counterexamples
+
+**COMMUNICATE when you need:**
+- New branch patterns detected
+- Additional type constraints
+- Complex property verification
+- Performance benchmarking needs
 
 ## Usage
 

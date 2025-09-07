@@ -87,12 +87,61 @@ if (result.ok) {
 
 Pure functional pipeline:
 
-1. **Parse** - TypeScript AST parsing
-2. **Extract** - Metadata extraction
-3. **Detect** - Property detection
-4. **Generate** - Documentation generation
+1. **Parse** - TypeScript AST parsing (via @sitebender/parser)
+2. **Extract** - Metadata extraction (via @sitebender/parser)
+3. **Detect** - Property detection (via @sitebender/parser)
+4. **Generate** - Documentation generation (scribe-specific)
 
-Zero dependencies, 100% test coverage, pure functions only.
+Zero dependencies (except @sitebender/parser), 100% test coverage, pure functions only.
+
+## Integration with @sitebender/parser
+
+Scribe delegates ALL TypeScript parsing to @sitebender/parser:
+
+```typescript
+// We use parser for all AST operations
+import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
+import extractSignature from "@sitebender/parser/extractSignature/index.ts"
+import detectPurity from "@sitebender/parser/detectProperties/detectPurity/index.ts"
+```
+
+### What Parser Provides to Scribe
+- TypeScript AST parsing
+- Function signature extraction
+- Property detection (purity, currying, async)
+- Type information extraction
+- Complexity analysis (future)
+
+### What Scribe Handles
+- Documentation formatting (Markdown, HTML, JSON)
+- Example extraction from tests
+- Mathematical property verification
+- Documentation structure and organization
+
+## Coordination with Other Libraries
+
+### With Prover
+- Share the same FunctionSignature type from parser
+- Use consistent property detection
+- Coordinate on complexity analysis needs
+
+### With Foundry
+- Use foundry to generate realistic examples
+- Create documentation for generated test data
+- Document property-based testing patterns
+
+## For AI Agents Working on Scribe
+
+**BEFORE implementing parsing features:**
+1. Check if @sitebender/parser already has it
+2. If not, request it be added to parser
+3. Never duplicate parsing logic locally
+
+**COMMUNICATE when you need:**
+- New property detection (idempotence, determinism, etc.)
+- Additional metadata extraction
+- Complex type analysis
+- Performance metrics
 
 ## Development
 

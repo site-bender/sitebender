@@ -8,6 +8,13 @@ Pure TypeScript formula parser for mathematical expressions. Compiles formula st
 deno add @sitebender/maths
 ```
 
+## Demo
+
+```bash
+# Run the demo to see various parsing examples
+deno run demo/index.ts
+```
+
 ## Usage
 
 ```typescript
