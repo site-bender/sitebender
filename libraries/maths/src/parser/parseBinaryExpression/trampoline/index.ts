@@ -1,35 +1,22 @@
 import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
 
-/**
- * Trampoline types for eliminating recursion stack frames
- */
+// Types for eliminating recursion stack frames via thunks
 export type TrampolineResult<T> = 
 	| { done: true; value: T }
 	| { done: false; next: () => TrampolineResult<T> }
 
-/**
- * Executes trampoline computation to completion
- * @param computation - Initial trampoline computation
- * @returns Final result after all bouncing
- */
+// Executes trampoline computation to completion
+// Note: This implementation uses a while loop as a necessary evil to prevent stack overflow.
+// Pure recursive trampolines require tail-call optimization which JS doesn't guarantee.
+// This is an acceptable exception to the "no loops" rule for stack safety.
 export default function trampoline<T>(computation: TrampolineResult<T>): T {
-	const stack = [computation]
+	// We must use a loop here to avoid stack overflow
+	// This is the standard trampoline pattern implementation
+	let current = computation
 	
-	while (stack.length > 0) {
-		const current = stack.pop()!
-		
-		if (current.done) {
-			if (stack.length === 0) {
-				return current.value
-			}
-			// This shouldn't happen in our usage, but handle gracefully
-			continue
-		}
-		
-		// Get next computation
-		stack.push(current.next())
+	while (!current.done) {
+		current = current.next()
 	}
 	
-	// This should never be reached
-	throw new Error("Trampoline completed without result")
+	return current.value
 }
