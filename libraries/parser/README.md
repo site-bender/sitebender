@@ -13,7 +13,8 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 3. **Type Information Analysis** - Parameters, returns, generics
 4. **Property Detection** - Purity, currying, async, generator
 5. **Branch Analysis** - For coverage testing
-6. **Code Complexity Analysis** - Big-O detection (future)
+6. **Comment Extraction** - Raw comments with node association
+7. **Code Complexity Analysis** - Big-O detection (future)
 
 ## Integration with Other Libraries
 
@@ -49,6 +50,8 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 - Function signatures for documentation
 - Type information for API docs
 - Purity/currying/async properties
+- Raw comments with node associations
+- Comment extraction (leading/trailing)
 - Complexity analysis for docs
 - Generic constraints for examples
 
@@ -155,8 +158,39 @@ import type {
 	Parameter,
 	ParseError,
 	TypeInfo,
+	RawComment,
 } from "@sitebender/parser/types/index.ts"
 ```
+
+### Comment Extraction Contract
+
+Parser provides **structural** comment extraction. Scribe handles **semantic** interpretation.
+
+```typescript
+// What Parser provides
+type RawComment = {
+  kind: 'line' | 'block'        // Comment type
+  text: string                  // Trimmed content
+  fullText: string              // Original with markers
+  start: number                 // Absolute position
+  end: number                   
+  line: number                  // 1-based
+  column: number                // 1-based
+  nodeId?: string               // Associated function name
+}
+
+// Parser functions
+extractComments(sourceFile: ts.SourceFile): Array<RawComment>
+associateComments(
+  comments: Array<RawComment>, 
+  functions: Array<FunctionNode>
+): Array<RawComment>
+```
+
+**Division of Labor:**
+- Parser: Extracts raw comments, associates with nodes
+- Scribe: Interprets markers (`//++`, `//??`, `//--`), generates diagnostics
+- Parser stays purely structural, no documentation decisions
 
 ## Implementation Status
 

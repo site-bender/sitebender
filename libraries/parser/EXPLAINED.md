@@ -480,3 +480,98 @@ This separation of concerns means:
 - Scribe might include unspecified comments for context
 - Prover focuses on examples for test generation
 - Other tools can use what they need
+
+## Coordination with Scribe Library
+
+### Division of Responsibilities (Final Decision)
+
+The Parser will be **purely structural** - it extracts and associates but doesn't interpret:
+
+| Concern | Parser | Scribe |
+|---------|--------|--------|
+| Raw comment extraction from AST | ✅ | ❌ |
+| Node association (which function owns which comment) | ✅ | ❌ |
+| Marker classification (//++, //??, //--) | ❌ | ✅ |
+| Policy enforcement (min length, etc.) | ❌ | ✅ |
+| Diagnostics about comment quality | ❌ | ✅ |
+
+### Parser's Contract to Scribe
+
+```typescript
+// What Parser provides
+type RawComment = {
+  kind: 'line' | 'block'        // Single-line vs multi-line
+  text: string                  // Trimmed interior text
+  fullText: string              // Original slice from source
+  start: number                 // Absolute position in file
+  end: number                   // Absolute position in file
+  line: number                  // 1-based line number
+  column: number                // 1-based column number
+  nodeId?: string               // Associated function name (if determinable)
+}
+
+// Parser functions Scribe will call
+extractComments(sourceFile: ts.SourceFile): Array<RawComment>
+associateComments(
+  comments: Array<RawComment>, 
+  functions: Array<FunctionNode>
+): Array<RawComment>  // Adds nodeId where possible
+```
+
+### Answers to Scribe's Questions
+
+1. **Q: Should marker classification live in Parser or Scribe?**
+   A: **In Scribe**. Parser stays purely structural. It provides raw comments with positions and associations. Scribe interprets markers.
+
+2. **Q: Should ambiguous comments be flagged as diagnostics?**
+   A: **Yes, by Scribe**. Parser will mark comments it can't confidently associate (no nodeId). Scribe generates the diagnostic.
+
+3. **Q: Will Parser surface any diagnostics?**
+   A: **No comment diagnostics**. Parser only reports structural issues (parse errors, type errors). Comment quality/policy diagnostics belong to Scribe.
+
+### What Parser Guarantees
+
+1. **No duplicate comments** - Each comment appears once, even if multiple nodes could claim it
+2. **Best-effort association** - Uses proximity and scope rules to assign nodeId
+3. **Preserved formatting** - Both trimmed text and fullText provided
+4. **Stable positions** - Line/column numbers match source file exactly
+
+### Migration Path
+
+1. Parser implements `extractComments` returning `RawComment[]`
+2. Scribe creates adapter: `parseMarkers(comments: RawComment[]): ParsedMarkerResult`
+3. Both systems run in parallel for validation
+4. Scribe removes line-scanning code once parity confirmed
+5. Add `[functionName]` support in Scribe's marker parser
+
+### Example Flow
+
+```typescript
+// Parser extracts raw comments
+const sourceFile = parseSourceFile("file.ts")()
+const comments = extractComments(sourceFile.data)
+const functions = extractFunctions(sourceFile.data)
+const associated = associateComments(comments, functions)
+
+// Scribe interprets markers
+const markers = parseMarkers(associated)  // Scribe's domain
+// markers.description, markers.examples, markers.techDebt
+// markers.diagnostics for any issues
+
+// Final result includes both
+return {
+  data: { functions, comments: markers },
+  metadata: {
+    functionCount: functions.length,
+    commentCount: comments.length,
+    diagnostics: markers.diagnostics  // From Scribe
+  }
+}
+```
+
+### Key Principle
+
+Parser = **What is there** (structural truth)
+Scribe = **What it means** (semantic interpretation)
+
+This keeps the Parser reusable for any tool that needs TypeScript understanding, while Scribe owns all documentation-specific logic.
