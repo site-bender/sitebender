@@ -5,6 +5,7 @@
 ### Prover's TypeScript Parsing
 
 **Location:** `libraries/prover/src/parseSignature/`
+
 - Uses TypeScript compiler directly (`npm:typescript@5.7.2`)
 - Creates full TypeScript program with config
 - Extracts function signatures with type checker
@@ -12,6 +13,7 @@
 - Extracts imports from source files
 
 **Location:** `libraries/prover/src/analyzeBranches/`
+
 - Has a VERY basic branch parser (just regex matching)
 - Detects: if, ternary, switch, try, logical operators
 - Generates test inputs for each branch
@@ -20,12 +22,14 @@
 ### Scribe's TypeScript Parsing
 
 **Location:** `libraries/scribe/src/parser/parseWithCompiler/`
+
 - Also uses TypeScript compiler (`npm:typescript@5.7.2`)
 - Creates source files with `ts.createSourceFile`
 - Returns Result monad (good pattern to keep)
 - Has TODO for proper syntax error checking
 
 **Location:** `libraries/scribe/src/extractors/`
+
 - Formats signatures for documentation
 - Doesn't actually parse - just formats existing signatures
 
@@ -34,6 +38,7 @@
 ### FunctionSignature Differences
 
 **Prover's FunctionSignature:**
+
 ```typescript
 {
   name: string
@@ -49,6 +54,7 @@
 ```
 
 **Scribe's FunctionSignature:**
+
 ```typescript
 {
   name: string
@@ -66,6 +72,7 @@
 ### Parameter Type Differences
 
 Both have similar Parameter types:
+
 - name: string
 - type: string/TypeInfo
 - optional: boolean
@@ -76,6 +83,7 @@ Both have similar Parameter types:
 ### TypeInfo (Prover only)
 
 Complex recursive type for deep type analysis:
+
 - Handles arrays, unions, intersections, tuples
 - Tracks literal values
 - Nested type arguments
@@ -115,42 +123,43 @@ Complex recursive type for deep type analysis:
 
 ```typescript
 export type FunctionSignature = {
-  // Core fields (everyone needs)
-  name: string
-  parameters: Array<Parameter>
-  returnType: TypeInfo  // Rich type for prover, can stringify for scribe
-  generics?: Array<Generic>
-  
-  // Detection fields
-  isAsync: boolean
-  isGenerator: boolean
-  isCurried: boolean
-  isPure?: boolean  // From detection
-  
-  // Context fields
-  filePath?: string  // Optional, prover needs it
-  isExported?: boolean  // Optional, scribe needs it
-  isDefault?: boolean  // Optional, scribe needs it
-  
-  // Dependencies
-  imports?: Array<Import>  // Optional, prover needs it
+	// Core fields (everyone needs)
+	name: string
+	parameters: Array<Parameter>
+	returnType: TypeInfo // Rich type for prover, can stringify for scribe
+	generics?: Array<Generic>
+
+	// Detection fields
+	isAsync: boolean
+	isGenerator: boolean
+	isCurried: boolean
+	isPure?: boolean // From detection
+
+	// Context fields
+	filePath?: string // Optional, prover needs it
+	isExported?: boolean // Optional, scribe needs it
+	isDefault?: boolean // Optional, scribe needs it
+
+	// Dependencies
+	imports?: Array<Import> // Optional, prover needs it
 }
 
 export type Parameter = {
-  name: string
-  type: TypeInfo  // Rich type info
-  optional: boolean
-  defaultValue?: string
+	name: string
+	type: TypeInfo // Rich type info
+	optional: boolean
+	defaultValue?: string
 }
 
 export type TypeInfo = {
-  raw: string  // String representation for scribe
-  kind: TypeKind
-  // ... rest of prover's TypeInfo fields
+	raw: string // String representation for scribe
+	kind: TypeKind
+	// ... rest of prover's TypeInfo fields
 }
 ```
 
 This way:
+
 - Prover gets the rich TypeInfo it needs
 - Scribe can use TypeInfo.raw for simple strings
 - Both share the same structure
@@ -158,11 +167,13 @@ This way:
 ## Migration Strategy
 
 ### For Prover
+
 1. Move `parseSignature/` logic → parser's `parseSourceFile` + `extractSignature`
 2. Move `analyzeBranches/parseSourceCode` → parser's proper AST traversal
 3. Keep prover-specific test generation logic
 
 ### For Scribe
+
 1. Replace `parser/parseWithCompiler` → parser's `parseSourceFile`
 2. Use parser's `extractSignature` for getting signatures
 3. Use `TypeInfo.raw` field for string representations
@@ -171,18 +182,21 @@ This way:
 ## Duplication Found
 
 ### TypeScript Compiler Usage
+
 - Both import `npm:typescript@5.7.2`
 - Both create source files
 - Both parse TypeScript code
 - **95% duplication confirmed**
 
 ### Signature Extraction
+
 - Both extract function signatures
 - Both detect async/generator
 - Different levels of detail
 - **80% duplication**
 
 ### Property Detection
+
 - Scattered throughout both libraries
 - No consistent detection logic
 - **Should be unified in parser**

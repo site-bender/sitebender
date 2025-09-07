@@ -165,7 +165,7 @@ The sync protocols are the worst offenders. They need COMPLETE rewrites:
 
 Each CRDT needs to be broken into separate functions:
 
-1. **counter/index.ts** → 
+1. **counter/index.ts** →
    - `counter/increment/index.ts`
    - `counter/decrement/index.ts`
    - `counter/getValue/index.ts`

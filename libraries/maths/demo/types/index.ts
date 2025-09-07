@@ -1,4 +1,4 @@
-import type { Result, ParseError } from "../../src/types/index.ts"
+import type { ParseError, Result } from "../../src/types/index.ts"
 
 // Demo result type for structured output
 export type DemoResult = {

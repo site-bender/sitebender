@@ -126,3 +126,5 @@ thanos_*_data/
 # Database data
 postgres_*_data/
 fuseki_data/
+
+**/cov_data/

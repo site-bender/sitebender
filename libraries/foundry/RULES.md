@@ -3,6 +3,7 @@
 ## The Sacred Structure
 
 ### Functions: One Per File
+
 ```
 ✅ CORRECT:
 arbitrary/integer/index.ts
@@ -15,6 +16,7 @@ export function string() { }  // NO!
 ```
 
 ### NO BARREL FILES
+
 ```
 ❌ WRONG:
 // arbitrary/index.ts
@@ -27,6 +29,7 @@ import integer from "@sitebender/foundry/arbitrary/integer"
 ```
 
 ### Types: Grouped by Scope
+
 ```
 ✅ CORRECT:
 // types/index.ts - Named exports for shared types
@@ -38,6 +41,7 @@ export type IntegerConstraints = { ... }
 ```
 
 ### Constants: Same as Types
+
 ```
 ✅ CORRECT:
 // constants/index.ts - Named exports for shared constants
@@ -52,6 +56,7 @@ const MIN_SAFE_INTEGER = -2147483648
 ## Naming Rules
 
 ### NO ABBREVIATIONS
+
 ```
 ❌ WRONG:
 args, config, gen, arb, pred, ctx, req, res, auth, impl
@@ -62,12 +67,14 @@ context, request, response, authentication, implementation
 ```
 
 ### EXCEPTIONS (Well-Known Acronyms/Initialisms)
+
 ```
 ✅ ALLOWED:
 RDF, SPARQL, OWL, URI, IRI, URL, API, HTML, CSS, JSON, XML
 ```
 
 ### Function Names: Descriptive Verbs
+
 ```
 ✅ CORRECT:
 generateInteger
@@ -83,6 +90,7 @@ make    // Make what?
 ```
 
 ### Folder Names: camelCase
+
 ```
 ✅ CORRECT:
 generateInteger/
@@ -98,6 +106,7 @@ generate_integer/
 ## Pure Functional Rules
 
 ### Named Functions for ALL Function Exports
+
 ```
 ✅ CORRECT (curried with named functions all the way):
 export default function generateInteger(min: number) {
@@ -126,6 +135,7 @@ const filtered = filter((x: number) => x > 0)(array)
 ```
 
 ### No Mutations
+
 ```
 ❌ WRONG:
 let result = []
@@ -145,6 +155,7 @@ const result = map(transform)(items)
 **IMPORTANT:** Always use @sitebender/toolkit functions instead of JavaScript's built-in methods. The toolkit provides FP-style curried wrappers that maintain purity and get optimized.
 
 ### No Classes
+
 ```
 ❌ WRONG:
 class Generator<T> {
@@ -158,6 +169,7 @@ type Generator<T> = {
 ```
 
 ### Result Monad for Errors
+
 ```
 ❌ WRONG:
 function generate(seed: Seed): T | null {
@@ -176,6 +188,7 @@ function generate(seed: Seed): Result<T, GeneratorError> {
 ## Import Rules
 
 ### Direct Imports Only
+
 ```
 ✅ CORRECT:
 import integer from "@sitebender/foundry/arbitrary/integer"
@@ -186,6 +199,7 @@ import { integer, string, boolean } from "@sitebender/foundry"
 ```
 
 ### Relative Imports Within Library
+
 ```
 ✅ CORRECT (within foundry):
 import type { Seed } from "../../types/index.ts"
@@ -198,6 +212,7 @@ import type { Seed } from "@sitebender/foundry/types"
 ## File Structure
 
 ### Every Function Gets a Folder
+
 ```
 arbitrary/
 ├── integer/
@@ -213,6 +228,7 @@ arbitrary/
 ```
 
 ### Types Hierarchy
+
 ```
 Place types at the lowest common ancestor:
 - Used in one function? → function/types/index.ts
@@ -247,6 +263,7 @@ function generatePerson(seed: Seed): Person | undefined {
 ## Testing Rules
 
 ### Test Behaviors, Not Implementation
+
 ```
 ✅ CORRECT:
 test("generates integers within bounds", ...)
@@ -256,6 +273,7 @@ test("calls randomSeed function", ...)
 ```
 
 ### Property Tests Over Examples
+
 ```
 ✅ CORRECT:
 property("all generated integers are within bounds",
@@ -281,19 +299,23 @@ We use a categorized comment system that enables both documentation generation (
 **Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
+
 Place **above** the function/component. Short description of what it does.
+
 ```typescript
 //++ Generates an integer within the specified bounds
-export default function generateInteger(min: number) { }
+export default function generateInteger(min: number) {}
 ```
 
 #### 2. Tech Debt Comments (`//--` or `/*--`)
+
 Place **inside** the function where rules are broken. Must explain WHY.
+
 ```typescript
 export default function generateRandom(seed: Seed) {
 	//-- Mutable state required for PRNG algorithm
 	let state = seed.value
-	
+
 	//-- Using bitwise ops for performance - generates millions of values
 	state = (state * 1103515245 + 12345) & 0x7fffffff
 }
@@ -302,7 +324,9 @@ export default function generateRandom(seed: Seed) {
 **IMPORTANT:** Tech debt is only allowed with explicit approval and must have a reason!
 
 #### 3. Example Comments (`//??` or `/*??`)
+
 Place **below** the function (after blank line). Show usage examples.
+
 ```typescript
 //++ Generates integers between min and max
 export default function integer(min: number) {
@@ -326,6 +350,7 @@ export default function integer(min: number) {
 4. **Enforcement** - Makes tech debt visible and trackable
 
 ### NO Traditional JSDoc
+
 ```
 ❌ WRONG:
 /**
@@ -348,6 +373,7 @@ Scribe extracts parameter info from type signatures!
 8. **NO JSDoc** - Single-line comments only
 
 When in doubt, ask yourself:
+
 - Is this pure?
 - Is this immutable?
 - Is this clear to read?

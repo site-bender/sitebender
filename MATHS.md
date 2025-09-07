@@ -164,21 +164,25 @@ I, the Maths AI, do solemnly swear:
 - To ask when uncertain rather than assume
 
 ## STATUS FOR NEXT AI SESSION
+
 **Last Session**: January 2025 - Fixed critical FP violations and restructured demo properly.
 
 **What Was Fixed**:
+
 - ✅ Trampoline: Simplified to minimal loop (documented exception for stack safety)
 - ✅ Demo: FIRST correctly structured demo in entire codebase! One function per file
 - ✅ Fixed tokenizer syntax error ("kens }" typo)
 - ✅ Added RULES.md for strict FP compliance
 
 **Current Blockers**:
+
 - Tests won't run due to engine library import path issues
 - Need to remove JSDoc comments per RULES.md
 - Need to verify all functions use named syntax
 - Need to check for toolkit usage vs JS methods
 
-**Next Priority**: 
+**Next Priority**:
+
 1. Fix import issues blocking tests
 2. Remove all JSDoc comments (use single-line per RULES.md)
 3. Verify 100% test coverage

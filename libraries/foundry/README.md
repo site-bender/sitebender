@@ -11,6 +11,7 @@ Foundry is a pure functional library that serves three complementary purposes:
 3. **Semantic Web Data Generation** - Generate RDF triples, ontologies, and knowledge graphs for triple stores like Apache Jena Fuseki
 
 Built with the same uncompromising functional principles as the rest of @sitebender:
+
 - ZERO dependencies
 - ZERO classes or OOP
 - ZERO mutations (except seeded random)
@@ -79,8 +80,8 @@ An Arbitrary is a pure function that generates values from a seed:
 
 ```typescript
 type Arbitrary<T> = {
-  readonly generate: (seed: Seed) => Result<T, GeneratorError>
-  readonly shrink: (value: T) => ReadonlyArray<T>
+	readonly generate: (seed: Seed) => Result<T, GeneratorError>
+	readonly shrink: (value: T) => ReadonlyArray<T>
 }
 ```
 
@@ -90,9 +91,11 @@ A Property is a mathematical law that should hold for all inputs:
 
 ```typescript
 type Property<Arguments extends ReadonlyArray<unknown>> = {
-  readonly name: string
-  readonly arbitraries: { readonly [K in keyof Arguments]: Arbitrary<Arguments[K]> }
-  readonly predicate: (arguments: Arguments) => Result<boolean, PropertyError>
+	readonly name: string
+	readonly arbitraries: {
+		readonly [K in keyof Arguments]: Arbitrary<Arguments[K]>
+	}
+	readonly predicate: (arguments: Arguments) => Result<boolean, PropertyError>
 }
 ```
 
@@ -135,16 +138,20 @@ import { TypeInfo, TypeKind } from "@sitebender/parser/types/index.ts"
 
 // Generate data that matches TypeScript types
 function createGeneratorFromType(typeInfo: TypeInfo) {
-  switch (typeInfo.kind) {
-    case TypeKind.Primitive: return generatePrimitive(typeInfo)
-    case TypeKind.Array: return generateArray(typeInfo.elementType)
-    case TypeKind.Object: return generateRecord(typeInfo.members)
-    // etc.
-  }
+	switch (typeInfo.kind) {
+		case TypeKind.Primitive:
+			return generatePrimitive(typeInfo)
+		case TypeKind.Array:
+			return generateArray(typeInfo.elementType)
+		case TypeKind.Object:
+			return generateRecord(typeInfo.members)
+			// etc.
+	}
 }
 ```
 
 ### What Parser Provides to Foundry
+
 - Type extraction from interfaces/types
 - Constraint analysis for bounded types
 - Union/intersection type decomposition
@@ -164,12 +171,13 @@ import generateInteger from "@sitebender/foundry/arbitrary/generateInteger/index
 import generateString from "@sitebender/foundry/arbitrary/generateString/index.ts"
 
 const signature = extractSignature(sourceCode)
-const testData = signature.parameters.map(param => 
-  generateFromType(param.type)
+const testData = signature.parameters.map((param) =>
+	generateFromType(param.type)
 )
 ```
 
 ### What Foundry Provides to Prover
+
 - Deterministic test data generation
 - Property-based testing infrastructure
 - Edge case generators
@@ -192,6 +200,7 @@ const examples = generateExamplesForFunction(signature)
 ```
 
 ### What Foundry Provides to Scribe
+
 - Realistic fake data for examples
 - Property test examples
 - Edge case demonstrations
@@ -202,17 +211,20 @@ const examples = generateExamplesForFunction(signature)
 ### Communication Protocol
 
 **WHEN working on Foundry:**
+
 - Check parser for type extraction capabilities
 - Coordinate with prover on generator needs
 - Align with scribe on example generation
 
 **TELL other teams when:**
+
 - Adding new generator types
 - Changing generator interfaces
 - Adding domain-specific generators (RDF, etc.)
 - Improving shrinking algorithms
 
 **USE parser for:**
+
 - All TypeScript type analysis
 - Constraint extraction
 - Union/intersection decomposition
@@ -221,16 +233,19 @@ const examples = generateExamplesForFunction(signature)
 ## For AI Agents Working on Foundry
 
 **COORDINATE on:**
+
 1. Generator naming conventions with prover
 2. Example data formats with scribe
 3. Type extraction needs with parser
 
 **NEVER:**
+
 1. Parse TypeScript directly (use parser)
 2. Duplicate type analysis (use parser)
 3. Create incompatible generator interfaces
 
 **ALWAYS:**
+
 1. Use descriptive function names (no namespacing)
 2. Follow pure functional principles
 3. Return Result monads for errors
@@ -239,6 +254,7 @@ const examples = generateExamplesForFunction(signature)
 ## Implementation Plan
 
 ### Phase 1: Core (Week 1)
+
 - [ ] Seed-based PRNG
 - [ ] Basic arbitraries (integer, string, boolean)
 - [ ] Combinators (map, filter, chain)
@@ -246,6 +262,7 @@ const examples = generateExamplesForFunction(signature)
 - [ ] Basic shrinking
 
 ### Phase 2: Arbitraries (Week 2)
+
 - [ ] Complex types (array, record, union)
 - [ ] Recursive arbitraries
 - [ ] Weighted unions
@@ -253,6 +270,7 @@ const examples = generateExamplesForFunction(signature)
 - [ ] Size control
 
 ### Phase 3: Properties (Week 3)
+
 - [ ] Mathematical laws (functor, monad, monoid)
 - [ ] Custom property builders
 - [ ] Async property support
@@ -260,6 +278,7 @@ const examples = generateExamplesForFunction(signature)
 - [ ] Coverage tracking
 
 ### Phase 4: Fake Data (Week 4)
+
 - [ ] Person generators (names, emails)
 - [ ] Address generators
 - [ ] Company generators
@@ -267,6 +286,7 @@ const examples = generateExamplesForFunction(signature)
 - [ ] Commerce generators
 
 ### Phase 5: Semantic Web Data (Week 5)
+
 - [ ] URI/IRI generators
 - [ ] RDF triple generation
 - [ ] Ontology generation (OWL)
@@ -276,6 +296,7 @@ const examples = generateExamplesForFunction(signature)
 - [ ] SPARQL query property testing
 
 ### Phase 6: Integration (Week 6)
+
 - [ ] Prover integration
 - [ ] Scribe integration
 - [ ] Apache Jena Fuseki integration examples
@@ -294,16 +315,16 @@ import checkProperty from "@sitebender/foundry/property/checkProperty/index.ts"
 
 // Define a property: addition is commutative
 const commutative = createProperty(
-  "addition is commutative",
-  [generateInteger(), generateInteger()],
-  ([a, b]) => add(a, b) === add(b, a)
+	"addition is commutative",
+	[generateInteger(), generateInteger()],
+	([a, b]) => add(a, b) === add(b, a),
 )
 
 // Check the property
 const result = checkProperty(commutative, { runs: 1000 })
 result.fold(
-  failure => console.error(`Failed with: ${failure.counterexample}`),
-  success => console.log(`Passed ${success.runs} tests`)
+	(failure) => console.error(`Failed with: ${failure.counterexample}`),
+	(success) => console.log(`Passed ${success.runs} tests`),
 )
 ```
 
@@ -317,12 +338,12 @@ import createSeed from "@sitebender/foundry/random/createSeed/index.ts"
 // Generate consistent test data
 const testSeed = createSeed(12345)
 const testPerson = generatePerson(testSeed)
-  .map(p => ({
-    ...p,
-    company: generateCompany(testSeed).getOrElse("ACME Corp")
-  }))
+	.map((p) => ({
+		...p,
+		company: generateCompany(testSeed).getOrElse("ACME Corp"),
+	}))
 
-// Result: { 
+// Result: {
 //   firstName: "Alice",
 //   lastName: "Smith",
 //   email: "alice.smith@example.com",
@@ -338,15 +359,15 @@ import { arrayArbitrary } from "@sitebender/foundry"
 
 // Verify that Array is a lawful Functor
 const arrayFunctorLaws = functorLaws(
-  arrayArbitrary(integer()),
-  map,  // Your map implementation
+	arrayArbitrary(integer()),
+	map, // Your map implementation
 )
 
-arrayFunctorLaws.forEach(law => {
-  check(law, { runs: 1000 }).fold(
-    failure => console.error(`${law.name} violated!`),
-    success => console.log(`${law.name} verified`)
-  )
+arrayFunctorLaws.forEach((law) => {
+	check(law, { runs: 1000 }).fold(
+		(failure) => console.error(`${law.name} violated!`),
+		(success) => console.log(`${law.name} verified`),
+	)
 })
 ```
 
@@ -361,54 +382,54 @@ import generateFoafPerson from "@sitebender/foundry/fake/semantic/domains/foaf/g
 
 // Generate an ontology
 const myOntology = generateOntology().generate(createSeed(42))
-  .map(onto => ({
-    ...onto,
-    namespace: "http://example.org/my-onto#"
-  }))
+	.map((onto) => ({
+		...onto,
+		namespace: "http://example.org/my-onto#",
+	}))
 
 // Generate RDF triples
 const triples = generateTriple(myOntology)
-  .array({ min: 100, max: 500 })
-  .generate(createSeed(123))
+	.array({ min: 100, max: 500 })
+	.generate(createSeed(123))
 
 // Convert to Turtle format
 const turtleData = triples.map(convertToTurtle)
 
 // Generate a knowledge graph with realistic structure
 const graph = knowledgeGraph({
-  nodes: 1000,
-  hubCount: 10,  // High-connectivity nodes
-  averageDegree: 6,
-  ontology: myOntology
+	nodes: 1000,
+	hubCount: 10, // High-connectivity nodes
+	averageDegree: 6,
+	ontology: myOntology,
 }).generate(seed(456))
 
 // Generate FOAF social network
 const socialNetwork = foafPerson()
-  .array({ min: 50, max: 100 })
-  .map(people => connectPeople(people))  // Add knows relationships
-  .generate(seed(789))
+	.array({ min: 50, max: 100 })
+	.map((people) => connectPeople(people)) // Add knows relationships
+	.generate(seed(789))
 
 // Upload to Apache Jena Fuseki
 const uploadToFuseki = async (data: string) => {
-  const response = await fetch("http://localhost:3030/dataset/data", {
-    method: "POST",
-    headers: { "Content-Type": "text/turtle" },
-    body: data
-  })
-  return response.ok
+	const response = await fetch("http://localhost:3030/dataset/data", {
+		method: "POST",
+		headers: { "Content-Type": "text/turtle" },
+		body: data,
+	})
+	return response.ok
 }
 
 // Test SPARQL queries with properties
 const sparqlProperty = property(
-  "UNION is commutative",
-  [knowledgeGraph(100), sparqlPattern(), sparqlPattern()],
-  ([graph, pattern1, pattern2]) => {
-    const query1 = `SELECT * WHERE { ${pattern1} UNION ${pattern2} }`
-    const query2 = `SELECT * WHERE { ${pattern2} UNION ${pattern1} }`
-    const result1 = executeSparql(query1, graph)
-    const result2 = executeSparql(query2, graph)
-    return setsEqual(result1, result2)
-  }
+	"UNION is commutative",
+	[knowledgeGraph(100), sparqlPattern(), sparqlPattern()],
+	([graph, pattern1, pattern2]) => {
+		const query1 = `SELECT * WHERE { ${pattern1} UNION ${pattern2} }`
+		const query2 = `SELECT * WHERE { ${pattern2} UNION ${pattern1} }`
+		const result1 = executeSparql(query1, graph)
+		const result2 = executeSparql(query2, graph)
+		return setsEqual(result1, result2)
+	},
 )
 ```
 
@@ -426,17 +447,20 @@ const sparqlProperty = property(
 Following @sitebender's sacred structure:
 
 ### Functions
+
 - **One function per file** - Each function in its own `index.ts`
 - **Named functions only** - `export default function functionName(...)`
 - **Helper functions in subfolders** - Dependencies nest below consumers
 - **camelCase folder names** - `generateInteger`, not `generate-integer`
 
 ### Types & Constants
+
 - **Types grouped in `types/index.ts`** - Named exports at lowest common ancestor
 - **Constants grouped in `constants/index.ts`** - Named exports where shared
 - **Local constants stay local** - If only one function uses it, keep it there
 
 ### Example Structure
+
 ```
 arbitrary/
 ├── integer/
@@ -468,4 +492,4 @@ MIT
 
 ---
 
-*"In the foundry of code, we forge unbreakable software through mathematical truth."*
+_"In the foundry of code, we forge unbreakable software through mathematical truth."_

@@ -3,6 +3,7 @@
 ## The Sacred Structure
 
 ### Functions: One Per File
+
 ```
 ✅ CORRECT:
 generateTests/index.ts
@@ -15,6 +16,7 @@ export function generateEdgeCases() { }  // NO!
 ```
 
 ### NO BARREL FILES
+
 ```
 ❌ WRONG:
 // index.ts
@@ -27,6 +29,7 @@ import generateTests from "@sitebender/prover/generateTests"
 ```
 
 ### Types: Grouped by Scope
+
 ```
 ✅ CORRECT:
 // types/index.ts - Named exports for shared types
@@ -38,6 +41,7 @@ export type GenerationOptions = { ... }
 ```
 
 ### Constants: Same as Types
+
 ```
 ✅ CORRECT:
 // constants/index.ts - Named exports for shared constants
@@ -52,6 +56,7 @@ const MIN_EDGE_CASES = 5
 ## Naming Rules
 
 ### NO ABBREVIATIONS
+
 ```
 ❌ WRONG:
 sig, gen, fn, impl, spec, config, deps, ctx, auth
@@ -62,12 +67,14 @@ specification, configuration, dependencies, context, authentication
 ```
 
 ### EXCEPTIONS (Well-Known Terms)
+
 ```
 ✅ ALLOWED:
 AST, IR, API, JSON, XML, HTTP, URL, URI
 ```
 
 ### Function Names: Descriptive Verbs
+
 ```
 ✅ CORRECT:
 generateTests
@@ -83,6 +90,7 @@ validate // Validate what?
 ```
 
 ### Folder Names: camelCase
+
 ```
 ✅ CORRECT:
 generateTests/
@@ -98,6 +106,7 @@ generate_tests/
 ## Pure Functional Rules
 
 ### Named Functions for ALL Function Exports
+
 ```
 ✅ CORRECT (curried with named functions all the way):
 export default function generateTests(signature: FunctionSignature) {
@@ -124,6 +133,7 @@ const filtered = filter((b: Branch) => b.isCovered)(branches)
 ```
 
 ### No Mutations
+
 ```
 ❌ WRONG:
 let tests = []
@@ -143,6 +153,7 @@ const tests = map(generateBranchTest)(branches)
 **IMPORTANT:** Always use @sitebender/toolkit functions instead of JavaScript's built-in methods. The toolkit provides FP-style curried wrappers that maintain purity and get optimized.
 
 ### No Classes
+
 ```
 ❌ WRONG:
 class TestGenerator {
@@ -156,6 +167,7 @@ type TestGenerator = {
 ```
 
 ### Result Monad for Errors
+
 ```
 ❌ WRONG:
 function parseSignature(code: string): FunctionSignature | null {
@@ -174,6 +186,7 @@ function parseSignature(code: string): Result<FunctionSignature, ParseError> {
 ## Import Rules
 
 ### Direct Imports Only
+
 ```
 ✅ CORRECT:
 import generateTests from "@sitebender/prover/generateTests"
@@ -184,6 +197,7 @@ import { generateTests, parseSignature } from "@sitebender/prover"
 ```
 
 ### Relative Imports Within Library
+
 ```
 ✅ CORRECT (within prover):
 import type { TestCase } from "../../types/index.ts"
@@ -196,6 +210,7 @@ import type { TestCase } from "@sitebender/prover/types"
 ## File Structure
 
 ### Every Function Gets a Folder
+
 ```
 generateTests/
 ├── index.ts                    # The function
@@ -210,6 +225,7 @@ generateTests/
 ```
 
 ### Types Hierarchy
+
 ```
 Place types at the lowest common ancestor:
 - Used in one function? → function/types/index.ts
@@ -220,6 +236,7 @@ Place types at the lowest common ancestor:
 ## Special Prover Rules
 
 ### Type-Aware Generation
+
 ```
 ✅ CORRECT:
 // Generate appropriate test data based on TypeScript types
@@ -235,6 +252,7 @@ return [undefined, null, 0, "", false]  // Not all types accept these!
 ```
 
 ### Coverage Is Sacred
+
 ```
 ✅ CORRECT:
 // 100% coverage or explicit ignore with REASON
@@ -251,6 +269,7 @@ if (someRareCondition) {
 ```
 
 ### Test Behaviors, Not Implementation
+
 ```
 ✅ CORRECT:
 // Test that the function returns the expected type
@@ -292,19 +311,23 @@ We use a categorized comment system that enables both documentation generation (
 **Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
+
 Place **above** the function/component. Short description of what it does.
+
 ```typescript
 //++ Generates test cases for a function signature
-export default function generateTests(signature: FunctionSignature) { }
+export default function generateTests(signature: FunctionSignature) {}
 ```
 
 #### 2. Tech Debt Comments (`//--` or `/*--`)
+
 Place **inside** the function where rules are broken. Must explain WHY.
+
 ```typescript
 export default function analyzeBranches(code: string) {
 	//-- Using regex instead of AST for now - parser library not ready
 	const branches = code.match(/if\s*\(/g)
-	
+
 	//-- Mutable cache for memoization - performance critical with 10K+ branches
 	const cache = new Map()
 }
@@ -313,7 +336,9 @@ export default function analyzeBranches(code: string) {
 **IMPORTANT:** Tech debt is only allowed with explicit approval and must have a reason!
 
 #### 3. Example Comments (`//??` or `/*??`)
+
 Place **below** the function (after blank line). Show usage examples.
+
 ```typescript
 //++ Generates property-based tests for a function
 export default function generatePropertyTests(signature: FunctionSignature) {
@@ -335,6 +360,7 @@ export default function generatePropertyTests(signature: FunctionSignature) {
 4. **Enforcement** - Makes tech debt visible and trackable
 
 ### NO Traditional JSDoc
+
 ```
 ❌ WRONG:
 /**
@@ -358,6 +384,7 @@ Scribe extracts parameter info from type signatures!
 9. **100% COVERAGE** - Or explicit ignores with reasons
 
 When in doubt, ask yourself:
+
 - Is this pure?
 - Is this immutable?
 - Is this type-safe?

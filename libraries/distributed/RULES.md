@@ -258,13 +258,13 @@ Place **inside** the function where rules are broken. Must explain WHY.
 
 ```typescript
 export default function processData(data: unknown) {
-  //-- Using any type here because third-party API returns inconsistent types
-  const result = data as any;
+	//-- Using any type here because third-party API returns inconsistent types
+	const result = data as any
 
-  //-- Using for loop for performance - processing 1M+ items
-  for (let i = 0; i < items.length; i++) {
-    // Performance critical path
-  }
+	//-- Using for loop for performance - processing 1M+ items
+	for (let i = 0; i < items.length; i++) {
+		// Performance critical path
+	}
 }
 ```
 
@@ -277,9 +277,9 @@ Place **below** the function (after blank line). Show usage examples.
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number) {
-  return function (b: number) {
-    return a + b;
-  };
+	return function (b: number) {
+		return a + b
+	}
 }
 
 //?? add(5)(3) // Returns: 8

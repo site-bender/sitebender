@@ -3,6 +3,7 @@
 ## The Sacred Structure
 
 ### Functions: One Per File
+
 ```
 ✅ CORRECT:
 generateDocumentation/index.ts
@@ -15,6 +16,7 @@ export function formatMarkdown() { }  // NO!
 ```
 
 ### NO BARREL FILES
+
 ```
 ❌ WRONG:
 // index.ts
@@ -27,6 +29,7 @@ import generateDocumentation from "@sitebender/scribe/generateDocumentation/inde
 ```
 
 ### Types: Grouped by Scope
+
 ```
 ✅ CORRECT:
 // types/index.ts - Named exports for shared types
@@ -38,6 +41,7 @@ export type GenerationConfig = { ... }
 ```
 
 ### Constants: Same as Types
+
 ```
 ✅ CORRECT:
 // constants/index.ts - Named exports for shared constants
@@ -52,6 +56,7 @@ const HEADING_LEVEL = 2
 ## Naming Rules
 
 ### NO ABBREVIATIONS
+
 ```
 ❌ WRONG:
 doc, gen, fmt, param, config, desc, prop, fn, sig, ex
@@ -62,12 +67,14 @@ description, property, function, signature, example
 ```
 
 ### EXCEPTIONS (Well-Known Terms)
+
 ```
 ✅ ALLOWED:
 API, JSON, HTML, MD (Markdown), URL, URI, AST
 ```
 
 ### Function Names: Descriptive Verbs
+
 ```
 ✅ CORRECT:
 generateDocumentation
@@ -83,6 +90,7 @@ detect // Detect what?
 ```
 
 ### Folder Names: camelCase
+
 ```
 ✅ CORRECT:
 generateDocumentation/
@@ -98,6 +106,7 @@ generate_documentation/
 ## Pure Functional Rules
 
 ### Named Functions for ALL Function Exports
+
 ```
 ✅ CORRECT (curried with named functions all the way):
 export default function generateDocumentation(options: FormatOptions) {
@@ -124,6 +133,7 @@ const publicDocs = filter((doc: Documentation) => doc.isPublic)(docs)
 ```
 
 ### No Mutations
+
 ```
 ❌ WRONG:
 let sections = []
@@ -143,6 +153,7 @@ const sections = map(formatProperty)(properties)
 **IMPORTANT:** Always use @sitebender/toolkit functions instead of JavaScript's built-in methods. The toolkit provides FP-style curried wrappers that maintain purity and get optimized.
 
 ### No Classes
+
 ```
 ❌ WRONG:
 class DocumentGenerator {
@@ -156,6 +167,7 @@ type DocumentGenerator = {
 ```
 
 ### Result Monad for Errors
+
 ```
 ❌ WRONG:
 function generateDocumentation(signature: FunctionSignature): Documentation | null {
@@ -174,6 +186,7 @@ function generateDocumentation(signature: FunctionSignature): Result<Documentati
 ## Import Rules
 
 ### Direct Imports Only
+
 ```
 ✅ CORRECT:
 import generateDocumentation from "@sitebender/scribe/generateDocumentation/index.ts"
@@ -184,6 +197,7 @@ import { generateDocumentation, formatMarkdown } from "@sitebender/scribe"
 ```
 
 ### Relative Imports Within Library
+
 ```
 ✅ CORRECT (within scribe):
 import type { Documentation } from "../../types/index.ts"
@@ -196,6 +210,7 @@ import type { Documentation } from "@sitebender/scribe/types/index.ts"
 ## File Structure
 
 ### Every Function Gets a Folder
+
 ```
 generateDocumentation/
 ├── index.ts                    # The function
@@ -210,6 +225,7 @@ generateDocumentation/
 ```
 
 ### Types Hierarchy
+
 ```
 Place types at the lowest common ancestor:
 - Used in one function? → function/types/index.ts
@@ -226,19 +242,23 @@ We use a categorized comment system that Scribe processes for documentation gene
 **Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
+
 Place **above** the function/component. Short description of what it does.
+
 ```typescript
 //++ Generates documentation for a TypeScript function
-export default function generateDocumentation(signature: FunctionSignature) { }
+export default function generateDocumentation(signature: FunctionSignature) {}
 ```
 
 #### 2. Tech Debt Comments (`//--` or `/*--`)
+
 Place **inside** the function where rules are broken. Must explain WHY.
+
 ```typescript
 export default function parseComplexType(type: unknown) {
 	//-- Using any cast - TypeScript compiler API returns untyped nodes
 	const node = type as any
-	
+
 	//-- Recursive descent can stack overflow on deeply nested generics
 	if (depth > 100) return "..."
 }
@@ -247,7 +267,9 @@ export default function parseComplexType(type: unknown) {
 **IMPORTANT:** Tech debt is only allowed with explicit approval and must have a reason!
 
 #### 3. Example Comments (`//??` or `/*??`)
+
 Place **below** the function (after blank line). Show usage examples.
+
 ```typescript
 //++ Extracts function signature from AST node
 export default function extractSignature(node: AstNode) {
@@ -261,8 +283,9 @@ export default function extractSignature(node: AstNode) {
 ### Why This System?
 
 **WE ARE SCRIBE!** We process these comments to:
+
 1. Extract descriptions from `//++` comments
-2. Document tech debt from `//--` comments  
+2. Document tech debt from `//--` comments
 3. Include examples from `//??` comments
 4. Generate analytics dashboards showing:
    - Tech debt hotspots
@@ -270,6 +293,7 @@ export default function extractSignature(node: AstNode) {
    - Example completeness
 
 ### NO Traditional JSDoc
+
 ```
 ❌ WRONG:
 /**
@@ -283,6 +307,7 @@ We extract parameter info from type signatures!
 ## Scribe-Specific Rules
 
 ### Use Parser for ALL TypeScript Analysis
+
 ```
 ✅ CORRECT:
 import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
@@ -294,6 +319,7 @@ import * as ts from "npm:typescript"  // NO! Use parser!
 ```
 
 ### Use Foundry for Examples
+
 ```
 ✅ CORRECT:
 import generatePerson from "@sitebender/foundry/fake/generatePerson/index.ts"
@@ -308,6 +334,7 @@ const example = { name: "John Doe", age: 30 }  // Use foundry!
 ```
 
 ### Documentation Formats
+
 ```
 ✅ CORRECT:
 // Support multiple output formats
@@ -320,6 +347,7 @@ formatJSON/index.ts
 ```
 
 ### Extract From Tests
+
 ```
 ✅ CORRECT:
 // Find and parse test files for examples
@@ -334,6 +362,7 @@ import extractTestCases from "./extractTestCases/index.ts"
 ## Testing
 
 ### Test Documentation Quality
+
 ```
 ✅ CORRECT:
 test("includes all function parameters", ...)
@@ -345,6 +374,7 @@ test("calls formatter with right args", ...)  // Implementation detail
 ```
 
 ### Test Integration
+
 ```
 ✅ CORRECT:
 test("uses parser for signature extraction", ...)
@@ -365,6 +395,7 @@ test("uses foundry for example generation", ...)
 10. **USE FOUNDRY** - For realistic examples
 
 When in doubt, ask yourself:
+
 - Is this pure?
 - Is this immutable?
 - Should parser handle this?

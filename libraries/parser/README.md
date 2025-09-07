@@ -37,13 +37,15 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 ### What Each Library Gets from Parser
 
 #### Prover Gets:
+
 - Function signatures for test generation
-- Branch information for coverage analysis  
+- Branch information for coverage analysis
 - Type constraints for edge case generation
 - Purity/currying detection for property tests
 - Parameter types for appropriate test data
 
 #### Scribe Gets:
+
 - Function signatures for documentation
 - Type information for API docs
 - Purity/currying/async properties
@@ -51,6 +53,7 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 - Generic constraints for examples
 
 #### Foundry Gets:
+
 - Type information for generator creation
 - Constraint analysis for data bounds
 - Interface/type definitions for record generation
@@ -61,12 +64,14 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 ### When Working on Parser
 
 **BEFORE making changes:**
+
 1. Check if the change affects the shared `FunctionSignature` type
 2. Consider impact on prover's test generation
 3. Consider impact on scribe's documentation
 4. Consider impact on foundry's data generation
 
 **COMMUNICATE these needs:**
+
 - "I need to add a `complexity` field to FunctionSignature for scribe"
 - "I'm extracting branch analysis from prover into parser"
 - "I need to add literal type detection for foundry generators"
@@ -74,40 +79,46 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 ### When Working on Prover
 
 **TELL parser team:**
+
 - What parsing functionality you need extracted
 - What property detection you're duplicating
 - What branch analysis patterns you need
 - What type constraints affect test generation
 
 **USE parser for:**
+
 - All TypeScript parsing (no local TypeScript compiler usage)
 - Function signature extraction
 - Property detection (purity, currying)
 - Branch analysis
 
-### When Working on Scribe  
+### When Working on Scribe
 
 **TELL parser team:**
+
 - What documentation metadata you need
 - What code analysis you're implementing
 - What property detection you need
 - What complexity analysis patterns you find
 
 **USE parser for:**
+
 - All TypeScript parsing (no local TypeScript compiler usage)
-- Function signature extraction  
+- Function signature extraction
 - Property detection
 - AST traversal utilities
 
 ### When Working on Foundry
 
 **TELL parser team:**
+
 - What type information you need for generators
 - What constraints affect data generation
 - What literal types you need to handle
 - What complex types need analysis
 
 **USE parser for:**
+
 - Type extraction from interfaces/types
 - Constraint analysis for bounded types
 - Union/intersection type decomposition
@@ -138,30 +149,33 @@ import analyzeBranches from "@sitebender/parser/analyzeBranches/index.ts"
 ### Shared Types
 
 ```typescript
-import type { 
-  FunctionSignature,
-  TypeInfo,
-  Parameter,
-  BranchInfo,
-  ParseError
+import type {
+	BranchInfo,
+	FunctionSignature,
+	Parameter,
+	ParseError,
+	TypeInfo,
 } from "@sitebender/parser/types/index.ts"
 ```
 
 ## Implementation Status
 
 ### Phase 1: Extraction (Immediate)
+
 - [ ] Extract TypeScript parsing from scribe
 - [ ] Extract TypeScript parsing from prover
 - [ ] Unify FunctionSignature type
 - [ ] Standardize property detection
 
 ### Phase 2: Enhancement (Next)
+
 - [ ] Add complexity analysis
 - [ ] Add literal type detection
 - [ ] Add constraint extraction
 - [ ] Add union/intersection decomposition
 
 ### Phase 3: Optimization (Future)
+
 - [ ] Cache parsed ASTs
 - [ ] Incremental parsing
 - [ ] Performance profiling
@@ -170,6 +184,7 @@ import type {
 ## Migration Guide
 
 ### For Prover
+
 ```typescript
 // OLD (in prover)
 import { parseSignature } from "./parseSignature/index.ts"
@@ -179,6 +194,7 @@ import extractSignature from "@sitebender/parser/extractSignature/index.ts"
 ```
 
 ### For Scribe
+
 ```typescript
 // OLD (in scribe)
 import { parseWithCompiler } from "./parser/parseWithCompiler/index.ts"
@@ -199,11 +215,11 @@ import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
 
 ### Bad Communication
 
-**AI working on Scribe:** *Silently reimplements type extraction locally*
+**AI working on Scribe:** _Silently reimplements type extraction locally_
 
-**AI working on Prover:** *Adds new fields to FunctionSignature without telling anyone*
+**AI working on Prover:** _Adds new fields to FunctionSignature without telling anyone_
 
-**AI working on Foundry:** *Uses TypeScript compiler directly instead of parser*
+**AI working on Foundry:** _Uses TypeScript compiler directly instead of parser_
 
 ## Design Principles
 
@@ -217,6 +233,7 @@ import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
 ## The Bottom Line
 
 Parser exists to:
+
 1. **Eliminate duplication** between scribe and prover
 2. **Provide consistency** across all libraries
 3. **Enable coordination** between AI agents
@@ -226,4 +243,4 @@ When in doubt, ask: "Does another library need this?" If yes, it belongs in pars
 
 ---
 
-*"Parse once, use everywhere."*
+_"Parse once, use everywhere."_

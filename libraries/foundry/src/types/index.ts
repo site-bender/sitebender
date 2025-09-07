@@ -15,7 +15,9 @@ export type Arbitrary<T> = {
 // A property is a law that should hold for all generated inputs
 export type Property<Arguments extends ReadonlyArray<unknown>> = {
 	readonly name: string
-	readonly arbitraries: { readonly [K in keyof Arguments]: Arbitrary<Arguments[K]> }
+	readonly arbitraries: {
+		readonly [K in keyof Arguments]: Arbitrary<Arguments[K]>
+	}
 	readonly predicate: (arguments: Arguments) => boolean
 }
 

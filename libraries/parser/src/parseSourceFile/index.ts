@@ -1,18 +1,20 @@
 //++ Parses a TypeScript source file into an AST representation
 import * as typescript from "npm:typescript@5.7.2"
-import type { Result, ParseError } from "../types/index.ts"
+import type { ParseError, Result } from "../types/index.ts"
 import type { ParseOptions } from "./types/index.ts"
 import mapTarget from "./mapTarget/index.ts"
 import mapModule from "./mapModule/index.ts"
 
 export default function parseSourceFile(filePath: string) {
-	return function (options?: ParseOptions): Result<typescript.SourceFile, ParseError> {
+	return function (
+		options?: ParseOptions,
+	): Result<typescript.SourceFile, ParseError> {
 		try {
 			// Find tsconfig if it exists
 			const configPath = typescript.findConfigFile(
 				filePath,
 				typescript.sys.fileExists,
-				"tsconfig.json"
+				"tsconfig.json",
 			)
 
 			// Read config or use defaults
@@ -24,7 +26,7 @@ export default function parseSourceFile(filePath: string) {
 			const compilerOptions = typescript.parseJsonConfigFileContent(
 				config.config,
 				typescript.sys,
-				"./"
+				"./",
 			).options
 
 			// Merge with provided options
@@ -39,7 +41,7 @@ export default function parseSourceFile(filePath: string) {
 
 			// Create program with single file
 			const program = typescript.createProgram([filePath], finalOptions)
-			
+
 			// Get the source file
 			const sourceFile = program.getSourceFile(filePath)
 
@@ -49,24 +51,29 @@ export default function parseSourceFile(filePath: string) {
 					error: {
 						type: "FileNotFound",
 						message: `Could not read file: ${filePath}`,
-						file: filePath
-					}
+						file: filePath,
+					},
 				}
 			}
 
 			// Check for syntax errors if not skipping
 			if (!options?.skipTypeChecking) {
-				const diagnostics = typescript.getPreEmitDiagnostics(program, sourceFile)
-				
+				const diagnostics = typescript.getPreEmitDiagnostics(
+					program,
+					sourceFile,
+				)
+
 				if (diagnostics.length > 0) {
 					const firstError = diagnostics[0]
 					const message = typescript.flattenDiagnosticMessageText(
 						firstError.messageText,
-						"\n"
+						"\n",
 					)
-					
+
 					const position = firstError.file && firstError.start
-						? firstError.file.getLineAndCharacterOfPosition(firstError.start)
+						? firstError.file.getLineAndCharacterOfPosition(
+							firstError.start,
+						)
 						: undefined
 
 					return {
@@ -76,26 +83,28 @@ export default function parseSourceFile(filePath: string) {
 							message,
 							file: filePath,
 							line: position ? position.line + 1 : undefined,
-							column: position ? position.character + 1 : undefined
-						}
+							column: position
+								? position.character + 1
+								: undefined,
+						},
 					}
 				}
 			}
 
 			return {
 				ok: true,
-				value: sourceFile
+				value: sourceFile,
 			}
 		} catch (error) {
 			return {
 				ok: false,
 				error: {
 					type: "ParseError",
-					message: error instanceof Error 
-						? error.message 
+					message: error instanceof Error
+						? error.message
 						: "Unknown error parsing file",
-					file: filePath
-				}
+					file: filePath,
+				},
 			}
 		}
 	}

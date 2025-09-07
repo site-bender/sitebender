@@ -3,6 +3,7 @@
 ## The Sacred Structure
 
 ### Functions: One Per File
+
 ```
 ✅ CORRECT:
 parseSourceFile/index.ts
@@ -15,6 +16,7 @@ export function parseFunction() { }  // NO!
 ```
 
 ### NO BARREL FILES
+
 ```
 ❌ WRONG:
 // index.ts
@@ -27,6 +29,7 @@ import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
 ```
 
 ### Types: Grouped by Scope
+
 ```
 ✅ CORRECT:
 // types/index.ts - Named exports for shared types
@@ -38,6 +41,7 @@ export type ParseOptions = { ... }
 ```
 
 ### Constants: Same as Types
+
 ```
 ✅ CORRECT:
 // constants/index.ts - Named exports for shared constants
@@ -52,6 +56,7 @@ const SCRIPT_KIND = ts.ScriptKind.TS
 ## Naming Rules
 
 ### NO ABBREVIATIONS
+
 ```
 ❌ WRONG:
 sig, param, gen, fn, impl, spec, config, deps, ctx, auth, prop, decl
@@ -63,12 +68,14 @@ authentication, property, declaration
 ```
 
 ### EXCEPTIONS (Well-Known Terms)
+
 ```
 ✅ ALLOWED:
 AST, IR, API, JSON, XML, HTTP, URL, URI, TS (TypeScript)
 ```
 
 ### Function Names: Descriptive Verbs
+
 ```
 ✅ CORRECT:
 parseSourceFile
@@ -84,6 +91,7 @@ analyze // Analyze what?
 ```
 
 ### Folder Names: camelCase
+
 ```
 ✅ CORRECT:
 parseSourceFile/
@@ -99,6 +107,7 @@ parse_source_file/
 ## Pure Functional Rules
 
 ### Named Functions for ALL Function Exports
+
 ```
 ✅ CORRECT (curried with named functions all the way):
 export default function parseSourceFile(options: ParseOptions) {
@@ -125,6 +134,7 @@ const publicFunctions = filter((sig: FunctionSignature) => sig.isExported)(signa
 ```
 
 ### No Mutations
+
 ```
 ❌ WRONG:
 let nodes = []
@@ -144,6 +154,7 @@ const nodes = map(processNode)(ast.children)
 **IMPORTANT:** Always use @sitebender/toolkit functions instead of JavaScript's built-in methods. The toolkit provides FP-style curried wrappers that maintain purity and get optimized.
 
 ### No Classes
+
 ```
 ❌ WRONG:
 class Parser {
@@ -157,6 +168,7 @@ type Parser = {
 ```
 
 ### Result Monad for Errors
+
 ```
 ❌ WRONG:
 function parseSourceFile(source: string): AST | null {
@@ -175,6 +187,7 @@ function parseSourceFile(source: string): Result<AST, ParseError> {
 ## Import Rules
 
 ### Direct Imports Only
+
 ```
 ✅ CORRECT:
 import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
@@ -185,6 +198,7 @@ import { parseSourceFile, extractSignature } from "@sitebender/parser"
 ```
 
 ### Relative Imports Within Library
+
 ```
 ✅ CORRECT (within parser):
 import type { FunctionSignature } from "../../types/index.ts"
@@ -197,6 +211,7 @@ import type { FunctionSignature } from "@sitebender/parser/types/index.ts"
 ## File Structure
 
 ### Every Function Gets a Folder
+
 ```
 parseSourceFile/
 ├── index.ts                    # The function
@@ -211,6 +226,7 @@ parseSourceFile/
 ```
 
 ### Types Hierarchy
+
 ```
 Place types at the lowest common ancestor:
 - Used in one function? → function/types/index.ts
@@ -227,19 +243,23 @@ We use a categorized comment system that enables both documentation generation (
 **Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
+
 Place **above** the function/component. Short description of what it does.
+
 ```typescript
 //++ Parses a TypeScript source file into an AST
-export default function parseSourceFile(source: string) { }
+export default function parseSourceFile(source: string) {}
 ```
 
 #### 2. Tech Debt Comments (`//--` or `/*--`)
+
 Place **inside** the function where rules are broken. Must explain WHY.
+
 ```typescript
 export default function processData(data: unknown) {
 	//-- Using any type here because third-party API returns inconsistent types
 	const result = data as any
-	
+
 	//-- Using for loop for performance - processing 1M+ items
 	for (let i = 0; i < items.length; i++) {
 		// Performance critical path
@@ -250,7 +270,9 @@ export default function processData(data: unknown) {
 **IMPORTANT:** Tech debt is only allowed with explicit approval and must have a reason!
 
 #### 3. Example Comments (`//??` or `/*??`)
+
 Place **below** the function (after blank line). Show usage examples.
+
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number) {
@@ -272,13 +294,13 @@ export default function parseConfig(filePath: string) {
 	if (!fileExists(filePath)) {
 		return err({ type: "FileNotFound", filePath })
 	}
-	
+
 	//-- Using synchronous file read for config files - they're small and loaded once at startup
 	const content = readFileSync(filePath)
-	
+
 	// Parse the JSON content
 	const parsed = parseJson(content)
-	
+
 	return parsed
 }
 
@@ -297,6 +319,7 @@ export default function parseConfig(filePath: string) {
 4. **Enforcement** - Makes tech debt visible and trackable
 
 ### NO Traditional JSDoc
+
 ```
 ❌ WRONG:
 /**
@@ -310,6 +333,7 @@ Scribe extracts parameter info from type signatures!
 ## Parser-Specific Rules
 
 ### Shared Types Are Sacred
+
 ```
 ✅ CORRECT:
 // FunctionSignature is used by prover, scribe, and foundry
@@ -326,6 +350,7 @@ export type FunctionSignature = {
 ```
 
 ### TypeScript Compiler Usage
+
 ```
 ✅ CORRECT:
 // Only parser uses TypeScript compiler directly
@@ -337,6 +362,7 @@ import * as ts from "npm:typescript"  // Use parser instead!
 ```
 
 ### Coordinate All Changes
+
 ```
 BEFORE adding/changing:
 1. Check if prover needs it
@@ -351,6 +377,7 @@ EXAMPLE:
 ## Testing
 
 ### Test Parsing Accuracy
+
 ```
 ✅ CORRECT:
 test("extracts all function parameters", ...)
@@ -362,6 +389,7 @@ test("calls TypeScript API correctly", ...)  // Implementation detail
 ```
 
 ### Test All Libraries Can Use It
+
 ```
 ✅ CORRECT:
 test("signature works for prover test generation", ...)
@@ -382,6 +410,7 @@ test("type info works for foundry generators", ...)
 9. **COORDINATE CHANGES** - Parser serves multiple libraries
 
 When in doubt, ask yourself:
+
 - Is this pure?
 - Is this immutable?
 - Will this break prover/scribe/foundry?

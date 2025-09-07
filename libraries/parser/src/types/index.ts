@@ -49,7 +49,7 @@ export enum TypeKind {
 	Void = "void",
 	Never = "never",
 	Null = "null",
-	Undefined = "undefined"
+	Undefined = "undefined",
 }
 
 // Generic type parameter
@@ -84,7 +84,7 @@ export enum BranchType {
 	Try = "try",
 	LogicalAnd = "&&",
 	LogicalOr = "||",
-	NullishCoalescing = "??"
+	NullishCoalescing = "??",
 }
 
 export type BranchPath = {

@@ -6,12 +6,12 @@ export default function createDemo(
 	title: string,
 	formula: string,
 	variables: Record<string, unknown>,
-	description?: string
+	description?: string,
 ): DemoResult {
 	return {
 		title,
 		formula,
 		result: parseFormula(formula, variables),
-		description
+		description,
 	}
 }
