@@ -1,0 +1,15 @@
+{
+	"name": "@sitebender/parser",
+	"version": "0.1.0",
+	"exports": {
+		"./parseSourceFile": "./src/parseSourceFile/index.ts",
+		"./extractSignature": "./src/extractSignature/index.ts",
+		"./extractTypes": "./src/extractTypes/index.ts",
+		"./detectProperties": "./src/detectProperties/index.ts",
+		"./analyzeBranches": "./src/analyzeBranches/index.ts",
+		"./detectPurity": "./src/detectProperties/detectPurity/index.ts",
+		"./detectCurrying": "./src/detectProperties/detectCurrying/index.ts",
+		"./types": "./src/types/index.ts",
+		"./constants": "./src/constants/index.ts"
+	}
+}
