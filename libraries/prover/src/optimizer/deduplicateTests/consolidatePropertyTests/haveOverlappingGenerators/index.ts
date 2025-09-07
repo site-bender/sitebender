@@ -17,8 +17,8 @@ export default function haveOverlappingGenerators(
 	if (!a.properties || !b.properties) return false
 
 	// Check if any generators are the same
-	return a.properties.some(aProp =>
-		b.properties.some(bProp => {
+	return a.properties.some((aProp) =>
+		b.properties.some((bProp) => {
 			// Same generator type
 			if (aProp.generator === bProp.generator) {
 				return true

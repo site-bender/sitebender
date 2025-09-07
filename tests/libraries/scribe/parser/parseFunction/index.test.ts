@@ -3,17 +3,20 @@
  * Source: /Users/guy/Workspace/@sitebender/scribe-ai/libraries/scribe/src/parser/parseFunction/index.ts
  * Generated: 2025-09-06T02:28:59.387Z
  * Generator: @sitebender/test-generator v1.0.0
- * 
+ *
  * DO NOT EDIT MANUALLY
  * Regenerate using: deno run --allow-all scripts/test-generator/src/index.ts
  */
 import parseFunction from "../../../../../libraries/scribe/src/parser/parseFunction/index.ts"
 import { describe, it } from "https://deno.land/std@0.212.0/testing/bdd.ts"
-import { assertEquals, assertThrows, assertExists } from "https://deno.land/std@0.212.0/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+	assertThrows,
+} from "https://deno.land/std@0.212.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.15.0"
 
 describe("parseFunction", () => {
-
 	describe("unit tests", () => {
 		it("handles unicode string for source", () => {
 			const result = parseFunction("🚀 Unicode 文字")
@@ -24,14 +27,14 @@ describe("parseFunction", () => {
 			assertEquals(result, { tag: "Ok", value: 42 })
 		})
 		it("Err wraps failure", () => {
-			const result = parseFunction({  })
+			const result = parseFunction({})
 			assertEquals(result, { tag: "Err", error: "failed" })
 		})
-		it("covers branch: node.kind !== \"FunctionDeclaration\" && node.kind !== \"ArrowFunction\"", () => {
+		it('covers branch: node.kind !== "FunctionDeclaration" && node.kind !== "ArrowFunction"', () => {
 			const result = parseFunction(true)
 			assertEquals(result, undefined)
 		})
-		it("covers branch: !(node.kind !== \"FunctionDeclaration\" && node.kind !== \"ArrowFunction\")", () => {
+		it('covers branch: !(node.kind !== "FunctionDeclaration" && node.kind !== "ArrowFunction")', () => {
 			const result = parseFunction(false)
 			assertEquals(result, undefined)
 		})
@@ -53,12 +56,10 @@ describe("parseFunction", () => {
 		it("error propagation", () => {
 			fc.assert(
 				fc.property(fc.anything(), fc.func(fc.anything()), (input) => {
-					
-										const err = Result.Err(error)
-										const chained = err.chain(f)
-										return err.equals(chained)
-									
-				})
+					const err = Result.Err(error)
+					const chained = err.chain(f)
+					return err.equals(chained)
+				}),
 			)
 		})
 	})
@@ -69,5 +70,4 @@ describe("parseFunction", () => {
 			assertEquals(result, undefined)
 		})
 	})
-
 })

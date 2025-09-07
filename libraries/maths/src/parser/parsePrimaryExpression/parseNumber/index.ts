@@ -4,7 +4,7 @@ import type { ParserContext } from "../../types/index.ts"
 //+ Parses a number token into a Number AST node
 export default function parseNumber(
 	token: Token,
-	ctx: ParserContext
+	ctx: ParserContext,
 ): Result<ASTNode, never> {
 	ctx.advance()
 	return {

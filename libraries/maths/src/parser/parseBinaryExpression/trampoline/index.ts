@@ -1,7 +1,7 @@
 import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
 
 // Types for eliminating recursion stack frames via thunks
-export type TrampolineResult<T> = 
+export type TrampolineResult<T> =
 	| { done: true; value: T }
 	| { done: false; next: () => TrampolineResult<T> }
 
@@ -13,10 +13,10 @@ export default function trampoline<T>(computation: TrampolineResult<T>): T {
 	// We must use a loop here to avoid stack overflow
 	// This is the standard trampoline pattern implementation
 	let current = computation
-	
+
 	while (!current.done) {
 		current = current.next()
 	}
-	
+
 	return current.value
 }

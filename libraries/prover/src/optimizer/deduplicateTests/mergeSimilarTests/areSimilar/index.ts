@@ -28,7 +28,7 @@ export default function areSimilar(a: TestCase, b: TestCase): boolean {
 
 		// Check if they cover the same branches
 		if (aBranches.size === bBranches.size) {
-			const allBranchesMatch = Array.from(aBranches).every(branch =>
+			const allBranchesMatch = Array.from(aBranches).every((branch) =>
 				bBranches.has(branch)
 			)
 			if (allBranchesMatch) return true
@@ -64,9 +64,9 @@ function levenshteinDistance(a: string, b: string): number {
 		// Compute distance
 		const cost = b[i - 1] === a[j - 1] ? 0 : 1
 		const result = Math.min(
-			computeDistance(i - 1, j - 1) + cost,  // substitution
-			computeDistance(i, j - 1) + 1,         // insertion
-			computeDistance(i - 1, j) + 1          // deletion
+			computeDistance(i - 1, j - 1) + cost, // substitution
+			computeDistance(i, j - 1) + 1, // insertion
+			computeDistance(i - 1, j) + 1, // deletion
 		)
 
 		// Store in cache

@@ -16,9 +16,9 @@ export default function generateErrorTests(
 ): string {
 	const lines: Array<string> = []
 
-	lines.push("\tdescribe(\"error cases\", () => {")
+	lines.push('\tdescribe("error cases", () => {')
 
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		const testName = escapeTestName(test.name)
 		lines.push(`\t\tit("${testName}", () => {`)
 

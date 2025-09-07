@@ -6,7 +6,7 @@ import parseBinaryExpression from "../../parseBinaryExpression/index.ts"
 //+ Selects appropriate parser based on minimum precedence
 export default function selectParser(
 	ctx: ParserContext,
-	minPrecedence: number
+	minPrecedence: number,
 ): Result<ASTNode, ParseError> {
 	// For the top-level expression (minPrecedence = 0), parse conditional expressions
 	// Otherwise, we're in a sub-expression and should not parse conditionals

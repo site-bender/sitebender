@@ -5,16 +5,19 @@ import * as ts from "npm:typescript@5.7.2"
  * @param node - The function AST node to analyze
  * @returns Object with isCurried flag and number of levels
  */
-export default function detectCurryingFromAST(node: ts.Node): { isCurried: boolean; levels: number } {
+export default function detectCurryingFromAST(
+	node: ts.Node,
+): { isCurried: boolean; levels: number } {
 	let levels = 0
 
 	function countNestedFunctions(currentNode: ts.Node): number {
 		// Base case: if it's a function that returns another function
-		if (ts.isFunctionDeclaration(currentNode) ||
+		if (
+			ts.isFunctionDeclaration(currentNode) ||
 			ts.isFunctionExpression(currentNode) ||
 			ts.isArrowFunction(currentNode) ||
-			ts.isMethodDeclaration(currentNode)) {
-			
+			ts.isMethodDeclaration(currentNode)
+		) {
 			levels++
 
 			// Check the body/return value
@@ -22,17 +25,21 @@ export default function detectCurryingFromAST(node: ts.Node): { isCurried: boole
 				// Arrow function with expression body
 				if (!ts.isBlock(currentNode.body)) {
 					// Direct return expression
-					if (ts.isArrowFunction(currentNode.body) ||
-						ts.isFunctionExpression(currentNode.body)) {
+					if (
+						ts.isArrowFunction(currentNode.body) ||
+						ts.isFunctionExpression(currentNode.body)
+					) {
 						return countNestedFunctions(currentNode.body)
 					}
 				} else {
 					// Arrow function with block body - check for return statements
 					return checkBlockForReturnedFunctions(currentNode.body)
 				}
-			} else if ((ts.isFunctionDeclaration(currentNode) ||
-						ts.isFunctionExpression(currentNode) ||
-						ts.isMethodDeclaration(currentNode)) && currentNode.body) {
+			} else if (
+				(ts.isFunctionDeclaration(currentNode) ||
+					ts.isFunctionExpression(currentNode) ||
+					ts.isMethodDeclaration(currentNode)) && currentNode.body
+			) {
 				// Regular function with body - check for return statements
 				return checkBlockForReturnedFunctions(currentNode.body)
 			}
@@ -49,8 +56,10 @@ export default function detectCurryingFromAST(node: ts.Node): { isCurried: boole
 
 			if (ts.isReturnStatement(node) && node.expression) {
 				// Check if returning a function
-				if (ts.isFunctionExpression(node.expression) ||
-					ts.isArrowFunction(node.expression)) {
+				if (
+					ts.isFunctionExpression(node.expression) ||
+					ts.isArrowFunction(node.expression)
+				) {
 					foundReturn = true
 					countNestedFunctions(node.expression)
 				} else if (ts.isCallExpression(node.expression)) {
@@ -73,6 +82,6 @@ export default function detectCurryingFromAST(node: ts.Node): { isCurried: boole
 
 	return {
 		isCurried: totalLevels > 1,
-		levels: totalLevels > 0 ? totalLevels : 1
+		levels: totalLevels > 0 ? totalLevels : 1,
 	}
 }

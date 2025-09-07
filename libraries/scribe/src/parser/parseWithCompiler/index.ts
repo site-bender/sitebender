@@ -1,5 +1,5 @@
 import * as ts from "npm:typescript@5.7.2"
-import type { Result, ParseError } from "../../types/index.ts"
+import type { ParseError, Result } from "../../types/index.ts"
 
 /**
  * Parses TypeScript source code using the TypeScript compiler API to create a real AST
@@ -13,24 +13,27 @@ import type { Result, ParseError } from "../../types/index.ts"
  * }
  * ```
  */
-export default function parseWithCompiler(source: string): Result<ts.SourceFile, ParseError> {
+export default function parseWithCompiler(
+	source: string,
+): Result<ts.SourceFile, ParseError> {
 	try {
 		const sourceFile = ts.createSourceFile(
 			"temp.ts",
 			source,
 			ts.ScriptTarget.Latest,
 			true, // setParentNodes
-			ts.ScriptKind.TS
+			ts.ScriptKind.TS,
 		)
 
 		if (!sourceFile) {
 			return {
 				ok: false,
 				error: {
-					message: "Failed to create source file from TypeScript source",
+					message:
+						"Failed to create source file from TypeScript source",
 					line: 0,
-					column: 0
-				}
+					column: 0,
+				},
 			}
 		}
 
@@ -40,16 +43,18 @@ export default function parseWithCompiler(source: string): Result<ts.SourceFile,
 
 		return {
 			ok: true,
-			value: sourceFile
+			value: sourceFile,
 		}
 	} catch (error) {
 		return {
 			ok: false,
 			error: {
-				message: error instanceof Error ? error.message : "Unknown parsing error",
+				message: error instanceof Error
+					? error.message
+					: "Unknown parsing error",
 				line: 0,
-				column: 0
-			}
+				column: 0,
+			},
 		}
 	}
 }

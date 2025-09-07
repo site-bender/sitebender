@@ -94,14 +94,18 @@ export default function typeToTypeInfo(
 				raw,
 				kind: TypeKind.Generic,
 				typeName: symbol.name,
-				typeArguments: typeArgs.map(t => typeToTypeInfo(t, checker))
+				typeArguments: typeArgs.map((t) => typeToTypeInfo(t, checker)),
 			}
 		}
 		return { raw, kind: TypeKind.Generic, typeName: symbol.name }
 	}
 
 	// Handle interfaces and type aliases
-	if (symbol && (symbol.flags & ts.SymbolFlags.Interface || symbol.flags & ts.SymbolFlags.TypeAlias)) {
+	if (
+		symbol &&
+		(symbol.flags & ts.SymbolFlags.Interface ||
+			symbol.flags & ts.SymbolFlags.TypeAlias)
+	) {
 		return { raw, kind: TypeKind.Interface, typeName: symbol.name }
 	}
 

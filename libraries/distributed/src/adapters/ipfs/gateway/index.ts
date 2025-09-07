@@ -1,6 +1,6 @@
 import type { IPFSGateway } from "../../../types/index.ts"
-import type { GatewayResult, CacheEntry } from "./types/index.ts"
-import { DEFAULT_GATEWAYS, CACHE_TTL } from "./constants/index.ts"
+import type { CacheEntry, GatewayResult } from "./types/index.ts"
+import { CACHE_TTL, DEFAULT_GATEWAYS } from "./constants/index.ts"
 
 async function fetchWithTimeout(
 	url: string,
@@ -119,7 +119,7 @@ export default function createIPFSGateway(
 			// In production, use proper IPFS hashing
 			const hash = Array.from(content).reduce(
 				(h, byte) => (((h << 5) - h) + byte) & 0xFFFFFFFF,
-				0
+				0,
 			)
 
 			const cid = `Qm${Math.abs(hash).toString(36).padStart(46, "0")}`

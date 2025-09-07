@@ -21,7 +21,12 @@ export default async function writeTestFile(
 	signature?: FunctionSignature,
 ): Promise<string> {
 	const testFilePath = getTestFilePath(functionPath)
-	const imports = generateImports(functionPath, functionName, tests, signature)
+	const imports = generateImports(
+		functionPath,
+		functionName,
+		tests,
+		signature,
+	)
 	const testContent = generateTestContent(functionName, tests, signature)
 
 	const metadata = {

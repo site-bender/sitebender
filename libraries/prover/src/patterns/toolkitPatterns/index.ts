@@ -22,7 +22,7 @@ export default function generateToolkitPatternTests(
 ): Array<TestCase> {
 	const patterns = detectPatternType(signature)
 
-	return patterns.flatMap(pattern => {
+	return patterns.flatMap((pattern) => {
 		switch (pattern) {
 			case "pipe":
 				return generatePipePatternTests(signature)

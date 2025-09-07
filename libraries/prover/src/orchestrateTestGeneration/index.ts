@@ -269,19 +269,22 @@ function generateReport(testFiles: Map<string, string>): void {
 	console.log("TEST GENERATION REPORT")
 	console.log("=".repeat(80))
 
-	const stats = Array.from(testFiles.entries()).reduce((acc, [key, content]) => {
-		const testCount = (content.match(/Deno\.test\(/g) ?? []).length
-		const lineCount = content.split("\n").length
-		
-		console.log(`\n${key}:`)
-		console.log(`  Tests generated: ${testCount}`)
-		console.log(`  Lines of code: ${lineCount}`)
-		
-		return {
-			totalTests: acc.totalTests + testCount,
-			totalLines: acc.totalLines + lineCount
-		}
-	}, { totalTests: 0, totalLines: 0 })
+	const stats = Array.from(testFiles.entries()).reduce(
+		(acc, [key, content]) => {
+			const testCount = (content.match(/Deno\.test\(/g) ?? []).length
+			const lineCount = content.split("\n").length
+
+			console.log(`\n${key}:`)
+			console.log(`  Tests generated: ${testCount}`)
+			console.log(`  Lines of code: ${lineCount}`)
+
+			return {
+				totalTests: acc.totalTests + testCount,
+				totalLines: acc.totalLines + lineCount,
+			}
+		},
+		{ totalTests: 0, totalLines: 0 },
+	)
 
 	console.log("\n" + "-".repeat(80))
 	console.log("SUMMARY:")

@@ -2,7 +2,12 @@ import type { Properties } from "../../types/index.ts"
 import detectPurity from "../detectPurity/index.ts"
 import detectCurrying from "../detectCurrying/index.ts"
 import detectComplexity from "../detectComplexity/index.ts"
-import { isIdempotent, isCommutative, isAssociative, isDistributive } from "../detectMathProperties/index.ts"
+import {
+	isAssociative,
+	isCommutative,
+	isDistributive,
+	isIdempotent,
+} from "../detectMathProperties/index.ts"
 
 /**
  * Detects all properties from source code
@@ -11,7 +16,7 @@ export default function detectProperties(source: string): Properties {
 	const isPure = detectPurity(source)
 	const currying = detectCurrying(source)
 	const complexity = detectComplexity(source)
-	
+
 	return {
 		isPure,
 		isCurried: currying.isCurried,

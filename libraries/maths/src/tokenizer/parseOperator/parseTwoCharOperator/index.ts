@@ -7,11 +7,11 @@ import type { TokenType } from "../../../types/index.ts"
  * @returns Operator info or null if no match
  */
 export default function parseTwoCharOperator(
-	input: string, 
-	position: number
+	input: string,
+	position: number,
 ): { tokenType: TokenType; tokenValue: string; tokenLength: number } | null {
 	const twoCharOp = input.slice(position, position + 2)
-	
+
 	switch (twoCharOp) {
 		case "==":
 			return { tokenType: "EQUAL", tokenValue: "==", tokenLength: 2 }
@@ -20,7 +20,11 @@ export default function parseTwoCharOperator(
 		case "<=":
 			return { tokenType: "LESS_EQUAL", tokenValue: "<=", tokenLength: 2 }
 		case ">=":
-			return { tokenType: "GREATER_EQUAL", tokenValue: ">=", tokenLength: 2 }
+			return {
+				tokenType: "GREATER_EQUAL",
+				tokenValue: ">=",
+				tokenLength: 2,
+			}
 		default:
 			return null
 	}

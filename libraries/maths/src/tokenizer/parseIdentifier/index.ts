@@ -8,8 +8,8 @@ import { TOKEN_PATTERNS } from "../../constants/index.ts"
  * @returns Token and length, or null if no identifier
  */
 export default function parseIdentifier(
-	input: string, 
-	position: number
+	input: string,
+	position: number,
 ): { token: Token; length: number } | null {
 	const identifierMatch = TOKEN_PATTERNS.IDENTIFIER.exec(
 		input.slice(position),

@@ -29,8 +29,8 @@ function encodeBase58(bytes: Uint8Array): string {
 	}
 
 	// Handle leading zeros
-	const leadingZeros = bytes.findIndex(byte => byte !== 0)
-	const zeroPrefix = leadingZeros === -1 
+	const leadingZeros = bytes.findIndex((byte) => byte !== 0)
+	const zeroPrefix = leadingZeros === -1
 		? "1".repeat(bytes.length)
 		: "1".repeat(leadingZeros)
 
@@ -70,12 +70,13 @@ function generateKeyPair(): KeyPair {
 function sign(privateKey: Uint8Array, data: Uint8Array): Uint8Array {
 	// Placeholder signature implementation
 	// In production, use proper Ed25519 signing
-	
+
 	// Simple hash-based mock signature
 	return new Uint8Array(
-		Array.from({ length: 64 }, (_, i) => 
-			(data[i % data.length] ^ privateKey[i % 32]) % 256
-		)
+		Array.from(
+			{ length: 64 },
+			(_, i) => (data[i % data.length] ^ privateKey[i % 32]) % 256,
+		),
 	)
 }
 

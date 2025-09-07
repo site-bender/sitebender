@@ -25,7 +25,7 @@ export default function generateCoverageReport(data: ReportData): string {
 		lines.push(`   Covered: ${data.branchesCovered}/${data.branchesTotal}`)
 		if (data.uncoveredBranches.length > 0) {
 			lines.push(`   Uncovered branches:`)
-			data.uncoveredBranches.forEach(branch => {
+			data.uncoveredBranches.forEach((branch) => {
 				lines.push(`     - ${branch}`)
 			})
 		}
@@ -33,7 +33,7 @@ export default function generateCoverageReport(data: ReportData): string {
 
 	if (data.suggestions.length > 0) {
 		lines.push(`\n💡 Suggestions:`)
-		data.suggestions.forEach(suggestion => {
+		data.suggestions.forEach((suggestion) => {
 			lines.push(`   • ${suggestion}`)
 		})
 	}

@@ -16,7 +16,7 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 
 ### The Sacred Commandments You MUST Follow
 
-1. **ONE FUNCTION PER FILE** 
+1. **ONE FUNCTION PER FILE**
    - Each function gets its own folder with `index.ts`
    - Look at: `libraries/scribe/src/detectors/detectMathProperties/isIdempotent/index.ts`
    - This is the ONLY way. No exceptions.
@@ -30,15 +30,15 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
    ```typescript
    // ✅ CORRECT - One function, default export
    export default function detectPurity(source: string): boolean {
-     return true
+   	return true
    }
-   
+
    // ❌ WRONG - Named export
-   export function detectPurity() { }
-   
+   export function detectPurity() {}
+
    // ❌ WRONG - Multiple functions
-   export function one() { }
-   export function two() { }
+   export function one() {}
+   export function two() {}
    ```
 
 4. **NO CLASSES, NO OOP, NO THIS**
@@ -49,9 +49,9 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 5. **RESULT TYPES FOR ERROR HANDLING**
    ```typescript
    // Always use Result<T, E> for operations that can fail
-   export type Result<T, E> = 
-     | { ok: true; value: T }
-     | { ok: false; error: E }
+   export type Result<T, E> =
+   	| { ok: true; value: T }
+   	| { ok: false; error: E }
    ```
 
 6. **NO EXTERNAL DEPENDENCIES**
@@ -63,20 +63,24 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 ### ✅ What's Complete
 
 **Phase 1:** Basic architecture ✅
+
 - Parser (regex-based)
 - Basic property detection
 - Markdown generation
 
 **Phase 2 Week 1:** Bug fixes ✅
+
 - Fixed all failing tests
 - Fixed signature extraction
 
 **Phase 2 Week 2:** TypeScript Compiler API ✅
+
 - Implemented `parseWithCompiler`
 - AST-based detection functions
 - Proper type extraction
 
 **Phase 2 Week 3:** Mathematical Properties ✅
+
 - `isIdempotent` - detects f(f(x)) = f(x)
 - `isCommutative` - detects f(a,b) = f(b,a)
 - `isAssociative` - detects f(f(a,b),c) = f(a,f(b,c))
@@ -85,12 +89,14 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 ### ❌ CRITICAL VIOLATIONS TO FIX IMMEDIATELY
 
 **23 instances of `let` usage** in these files:
+
 ```bash
 # Run this to find them all:
 grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
 ```
 
 Files with violations:
+
 - `src/generateDocs/index.ts`
 - `src/parser/parseFile/index.ts`
 - `src/parser/parseFunctionFromAST/index.ts`
@@ -108,6 +114,7 @@ Files with violations:
 ## 🎯 Your Mission (IN THIS ORDER)
 
 ### Step 1: Fix the `let` Violations
+
 ```bash
 # Find all violations
 grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
@@ -118,6 +125,7 @@ grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
 ```
 
 ### Step 2: Verify Everything Works
+
 ```bash
 cd libraries/scribe
 deno task test        # All 42 tests should pass
@@ -188,7 +196,7 @@ deno task lint
 deno task type-check
 ```
 
-**NOTE:** All demo/test files were deleted because they violated the structure rules. 
+**NOTE:** All demo/test files were deleted because they violated the structure rules.
 If you need to test something, create it properly in `scripts/` with one function per file.
 
 ## 🚫 Common Mistakes to Avoid
@@ -207,6 +215,7 @@ If you need to test something, create it properly in `scripts/` with one functio
 Current Test Coverage: **73.3% branch / 82.4% line** (MUST reach 100%)
 
 Files needing coverage:
+
 - `detectComplexity`: 75.9% / 71.0%
 - `detectPurity`: 73.7% / 60.5%
 - `formatProperties`: 63.6% / 58.6%
@@ -215,6 +224,7 @@ Files needing coverage:
 ## 🎭 The Personality Check
 
 If you're doing this right, your code should:
+
 - Have folders named after functions
 - Have zero classes
 - Have zero `let` statements
@@ -226,6 +236,7 @@ If you're doing this right, your code should:
 ## 🔮 The Final Test
 
 Before you write ANYTHING, ask yourself:
+
 1. Am I following the one-function-per-file rule?
 2. Am I using only `const`?
 3. Am I using default exports?
@@ -245,6 +256,7 @@ If ANY answer is "no" - STOP AND READ CLAUDE.md AGAIN.
 Don't be Session 5's cautionary tale.
 
 **REMEMBER:** Every TypeScript file in this codebase follows the same rules:
+
 - One function per file in a folder named after the function
 - Default export only
 - Pure functions only
@@ -286,4 +298,4 @@ deno task test
 
 Now go forth and code righteously. The Architect is watching. Always watching.
 
-*P.S. - If you use `let` even once, we're starting over. Don't test me.*
+_P.S. - If you use `let` even once, we're starting over. Don't test me._

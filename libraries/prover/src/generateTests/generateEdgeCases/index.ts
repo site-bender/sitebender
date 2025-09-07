@@ -8,17 +8,17 @@ import generateEdgeCaseInputs from "../generateEdgeCaseInputs/index.ts"
  * @param signature Function signature with proper type information
  * @returns Array of type-appropriate edge case test cases
  */
-export default function generateEdgeCases(signature: FunctionSignature): Array<TestCase> {
+export default function generateEdgeCases(
+	signature: FunctionSignature,
+): Array<TestCase> {
 	// Generate edge cases for each parameter
 	const parameterEdgeCases = signature.parameters.flatMap((param, index) => {
 		const edgeInputs = generateEdgeCaseInputs(param.type)
 
-		const edgeTestCases = edgeInputs.map(edgeInput => {
+		const edgeTestCases = edgeInputs.map((edgeInput) => {
 			// Build the full input array functionally
 			const input = signature.parameters.map((p, i) =>
-				i === index
-					? edgeInput
-					: generateTestInput(p.type)
+				i === index ? edgeInput : generateTestInput(p.type)
 			)
 
 			// Generate descriptive name
@@ -26,7 +26,8 @@ export default function generateEdgeCases(signature: FunctionSignature): Array<T
 
 			return {
 				name: `handles ${inputDesc} for ${param.name}`,
-				description: `Test with ${inputDesc} value for parameter ${param.name}`,
+				description:
+					`Test with ${inputDesc} value for parameter ${param.name}`,
 				input,
 				// Don't assume expected output - let the test discover it
 				// This avoids the problem of guessing wrong outputs
@@ -37,8 +38,11 @@ export default function generateEdgeCases(signature: FunctionSignature): Array<T
 		const optionalCases = param.optional
 			? [{
 				name: `handles missing optional ${param.name}`,
-				description: `Test with optional parameter ${param.name} omitted`,
-				input: signature.parameters.slice(0, index).map(p => generateTestInput(p.type)),
+				description:
+					`Test with optional parameter ${param.name} omitted`,
+				input: signature.parameters.slice(0, index).map((p) =>
+					generateTestInput(p.type)
+				),
 			}]
 			: []
 

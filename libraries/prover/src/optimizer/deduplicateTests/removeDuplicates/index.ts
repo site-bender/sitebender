@@ -15,7 +15,7 @@ export default function removeDuplicates(
 ): Array<TestCase> {
 	const seen = new Set<string>()
 
-	return tests.filter(test => {
+	return tests.filter((test) => {
 		const hash = computeTestHash(test)
 
 		if (!seen.has(hash)) {

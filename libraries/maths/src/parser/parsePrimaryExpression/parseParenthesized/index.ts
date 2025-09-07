@@ -1,4 +1,9 @@
-import type { ASTNode, ParseError, Result, Token } from "../../../types/index.ts"
+import type {
+	ASTNode,
+	ParseError,
+	Result,
+	Token,
+} from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 import expect from "../expect/index.ts"
 
@@ -6,7 +11,9 @@ import expect from "../expect/index.ts"
 export default function parseParenthesized(
 	openParen: Token,
 	ctx: ParserContext,
-	parseExpression: (ctx: ParserContext) => (minPrecedence: number) => Result<ASTNode, ParseError>
+	parseExpression: (
+		ctx: ParserContext,
+	) => (minPrecedence: number) => Result<ASTNode, ParseError>,
 ): Result<ASTNode, ParseError> {
 	ctx.advance()
 	const exprResult = parseExpression(ctx)(0)
@@ -18,7 +25,8 @@ export default function parseParenthesized(
 		return {
 			ok: false,
 			error: {
-				message: `Missing closing parenthesis for opening at position ${openParen.position}`,
+				message:
+					`Missing closing parenthesis for opening at position ${openParen.position}`,
 				position: ctx.current().position,
 				expected: ")",
 				found: ctx.current().value,

@@ -21,9 +21,12 @@ export default function detectPurity(source: string): boolean {
 			// Look for assignment that's not part of arrow function or const/let/var declaration
 			// Skip const/let/var declarations and arrow functions
 			const cleanedSource = source
-				.replace(/(?:const|let|var)\s+\w+\s*=\s*(?:\([^)]*\)|[^=])*=>/g, "") // Remove arrow function declarations
+				.replace(
+					/(?:const|let|var)\s+\w+\s*=\s*(?:\([^)]*\)|[^=])*=>/g,
+					"",
+				) // Remove arrow function declarations
 				.replace(/=>/g, "") // Remove remaining arrow functions
-			
+
 			// Now check for remaining assignments (mutations)
 			if (/[^=<>!]\s*=\s*[^=]/.test(cleanedSource)) {
 				return false
