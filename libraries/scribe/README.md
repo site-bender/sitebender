@@ -21,23 +21,23 @@ Replace verbose JSDoc comments with automatic extraction. The code IS the docume
 
 ### The Benefits vs JSDoc
 
-| JSDoc (Old Way) | Scribe ++ (New Way) |
-|-----------------|---------------------|
-| 50+ lines per function | 3-5 lines per function |
-| Repeats type information | Extracts from TypeScript |
-| Claims properties | Proves properties via Prover |
-| Examples might not work | Examples are validated |
-| Gets out of sync | Can't lie - extracted from code |
-| 40,000+ lines of boilerplate | 3,000 lines max |
+| JSDoc (Old Way)              | Scribe ++ (New Way)             |
+| ---------------------------- | ------------------------------- |
+| 50+ lines per function       | 3-5 lines per function          |
+| Repeats type information     | Extracts from TypeScript        |
+| Claims properties            | Proves properties via Prover    |
+| Examples might not work      | Examples are validated          |
+| Gets out of sync             | Can't lie - extracted from code |
+| 40,000+ lines of boilerplate | 3,000 lines max                 |
 
 ### What You Write
 
 ```typescript
 //++ Adds two numbers together
 export default function add(x: number) {
-	return function (y: number) {
-		return x + y
-	}
+  return function (y: number) {
+    return x + y;
+  };
 }
 
 //++ add(2)(3) // 5
@@ -48,17 +48,20 @@ export default function add(x: number) {
 **The Complete Comment Syntax:**
 
 **Documentation Comments (`//++`):**
+
 - `//++` above the function: One-line intent description
 - `//++` below the function: Working examples
 - `/*++ ... */` for multi-line if needed (but keep it minimal!)
 
 **Tech Debt Comments (`//--`):**
+
 - `//--` inside functions: Justified violations, hacks, workarounds
 - Documents WHY something is suboptimal
 - Creates an auditable trail of technical compromises
 - Can be extracted for tech debt reports
 
 **Example:**
+
 ```typescript
 //++ Composes functions from right to left
 // deno-lint-ignore no-explicit-any
@@ -66,8 +69,8 @@ export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
   // deno-lint-ignore no-explicit-any
   return function (x: T): any {
     //-- TypeScript can't type heterogeneous function chains, any is authorized
-    return fns.reduceRight((acc, fn) => fn(acc), x)
-  }
+    return fns.reduceRight((acc, fn) => fn(acc), x);
+  };
 }
 
 //++ compose([double, increment])(5) // 11
@@ -75,6 +78,7 @@ export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
 ```
 
 **Validation & Reporting:**
+
 - Scribe/Prover validates that `//++` examples actually work
 - `//--` comments can be extracted for weekly tech debt reports
 - If an example doesn't work, you get an error with suggestions
@@ -98,8 +102,8 @@ add(x: number) => (y: number) => number
 **Examples:**
 
 ```typescript
-add(2)(3) // 5
-pipe([add(5), add(10)])(0) // 15
+add(2)(3); // 5
+pipe([add(5), add(10)])(0); // 15
 ```
 
 **Mathematical Properties:**
@@ -120,17 +124,17 @@ deno add @sitebender/scribe
 ## Usage
 
 ```typescript
-import { generateDocs } from "@sitebender/scribe"
+import { generateDocs } from "@sitebender/scribe";
 
 // Generate documentation for a file
 const result = await generateDocs("./src/add/index.ts", {
-	format: "markdown", // or "html", "json"
-	includeExamples: true,
-	includeProperties: true,
-})
+  format: "markdown", // or "html", "json"
+  includeExamples: true,
+  includeProperties: true,
+});
 
 if (result.ok) {
-	console.log(result.value) // Generated documentation
+  console.log(result.value); // Generated documentation
 }
 ```
 
