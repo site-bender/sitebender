@@ -107,7 +107,7 @@ async function pinContent(cid: string): Promise<boolean> {
 		}
 
 		return false
-	} catch (error) {
+	} catch {
 		console.log("📌 Pinning not available (requires local node)")
 		return false
 	}

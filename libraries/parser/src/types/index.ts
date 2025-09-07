@@ -1,5 +1,3 @@
-import type { Result } from "@sitebender/toolkit/types/fp/result/index.ts"
-
 // Core function signature shared by all libraries
 export type FunctionSignature = {
 	readonly name: string

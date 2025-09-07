@@ -172,7 +172,7 @@ Deno.test("cubeRoot: property-based testing", async (t) => {
 				fc.float({ noNaN: true, noDefaultInfinity: true }),
 				(n) => {
 					const result = cubeRoot(n)
-					if (n === 0 || n === -0) {
+					if (n === 0 || Object.is(n, -0)) {
 						return Object.is(result, n)
 					}
 					return Math.sign(result) === Math.sign(n)

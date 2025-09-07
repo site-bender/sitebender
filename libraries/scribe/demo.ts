@@ -1,6 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
-import { generateDocs } from "./src/index.ts"
+// Direct import (barrel removed) — default export from generateDocs module
+import generateDocs from "./src/generateDocs/index.ts"
 
 // Get the directory where this script is located
 const scriptDir = new URL(".", import.meta.url).pathname
@@ -25,37 +26,39 @@ const examples = [
 	},
 ]
 
-for (const example of examples) {
-	console.log(`\n${"=".repeat(60)}`)
-	console.log(`Documenting: ${example.path}`)
-	console.log(`Type: ${example.description}`)
-	console.log("=".repeat(60))
+await Promise.all(
+	examples.map(async (example) => {
+		console.log(`\n${"=".repeat(60)}`)
+		console.log(`Documenting: ${example.path}`)
+		console.log(`Type: ${example.description}`)
+		console.log("=".repeat(60))
 
-	const result = await generateDocs(example.path, {
-		format: "markdown",
-		includeExamples: true,
-		includeProperties: true,
-	})
+		const result = await generateDocs(example.path, {
+			format: "markdown",
+			includeExamples: true,
+			includeProperties: true,
+		})
 
-	if (result.ok) {
-		console.log("\n✅ Documentation generated successfully!\n")
-		console.log(result.value.content)
+		if (result.ok) {
+			console.log("\n✅ Documentation generated successfully!\n")
+			console.log(result.value.content)
 
-		// Also show detected properties
-		console.log("\n📊 Detected Properties:")
-		const props = result.value.metadata.properties
-		console.log(`   - Pure: ${props.isPure}`)
-		console.log(
-			`   - Curried: ${props.isCurried}${
-				props.curryLevels ? ` (${props.curryLevels} levels)` : ""
-			}`,
-		)
-		console.log(`   - Complexity: ${props.complexity}`)
-		console.log(`   - Deterministic: ${props.deterministic}`)
-	} else {
-		console.log("\n❌ Error:", result.error.message)
-	}
-}
+			// Also show detected properties
+			console.log("\n📊 Detected Properties:")
+			const props = result.value.metadata.properties
+			console.log(`   - Pure: ${props.isPure}`)
+			console.log(
+				`   - Curried: ${props.isCurried}${
+					props.curryLevels ? ` (${props.curryLevels} levels)` : ""
+				}`,
+			)
+			console.log(`   - Complexity: ${props.complexity}`)
+			console.log(`   - Deterministic: ${props.deterministic}`)
+		} else {
+			console.log("\n❌ Error:", result.error.message)
+		}
+	}),
+)
 
 // Demonstrate inline documentation generation
 console.log("\n" + "=".repeat(60))
@@ -67,7 +70,7 @@ const inlineCode = `// Performs binary search on a sorted array
 export default function binarySearch<T>(arr: Array<T>, target: T): number {
 	let low = 0
 	let high = arr.length - 1
-	
+
 	while (low <= high) {
 		const mid = Math.floor((low + high) / 2)
 		if (arr[mid] === target) return mid

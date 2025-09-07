@@ -8,12 +8,11 @@ import type {
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import { parseFile, parseFunction } from "../parser/index.ts"
 import { extractDescription } from "../extractors/index.ts"
-import { detectProperties } from "../detectors/index.ts"
+// Direct import (no barrel) respecting one-function-per-file discipline
+import detectProperties from "../detectors/detectProperties/index.ts"
 import { generateMarkdown } from "../generators/index.ts"
 
-/**
- * Generates documentation for a TypeScript file
- */
+//++ Generate documentation for the first exported function in a TypeScript file.
 export default async function generateDocs(
 	filePath: string,
 	options: GenerateOptions = {},
@@ -131,17 +130,12 @@ async function readFile(filePath: string): Promise<Result<string, ParseError>> {
  * Finds the first function in an AST
  */
 function findFirstFunction(ast: ASTNode): ASTNode | null {
-	// Look for function statements
-	if (ast.statements && Array.isArray(ast.statements)) {
-		for (const statement of ast.statements) {
-			if (
-				statement.kind === "FunctionDeclaration" ||
-				statement.kind === "ArrowFunction"
-			) {
-				return statement
-			}
+		if (ast.statements && Array.isArray(ast.statements)) {
+			const found = (ast.statements as Array<ASTNode>).find((s) =>
+				s.kind === "FunctionDeclaration" || s.kind === "ArrowFunction"
+			)
+			if (found) return found
 		}
-	}
 
 	// If no statements, check if the AST itself is a function
 	if (ast.kind === "FunctionDeclaration" || ast.kind === "ArrowFunction") {
