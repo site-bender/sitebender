@@ -3,6 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
+
 import areSimilar from "./areSimilar/index.ts"
 import mergeTestCases from "./mergeTestCases/index.ts"
 

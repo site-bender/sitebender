@@ -1,5 +1,6 @@
 //++ Processes an arrow function node into FunctionNode
 import * as typescript from "npm:typescript@5.7.2"
+
 import type { FunctionNode } from "../index.ts"
 
 export default function processArrowFunction(

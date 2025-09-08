@@ -472,8 +472,7 @@ Deno.test("round", async (t) => {
 
 		await t.step("grid snapping", () => {
 			const gridSize = 10
-			const snapToGrid = (value: number) =>
-				round(value / gridSize) * gridSize
+			const snapToGrid = (value: number) => round(value / gridSize) * gridSize
 			assertEquals(snapToGrid(23), 20)
 			assertEquals(snapToGrid(27), 30)
 		})

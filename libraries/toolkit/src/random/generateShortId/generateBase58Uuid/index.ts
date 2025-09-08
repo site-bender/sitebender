@@ -1,7 +1,7 @@
 import pipe from "../../../simple/combinator/pipe/index.ts"
-import stripHyphens from "./stripHyphens/index.ts"
-import hexToBytes from "./hexToBytes/index.ts"
 import encodeToBase58 from "./encodeToBase58/index.ts"
+import hexToBytes from "./hexToBytes/index.ts"
+import stripHyphens from "./stripHyphens/index.ts"
 
 //++ Generates a Base58-encoded UUID v4
 export default function generateBase58Uuid(): string {

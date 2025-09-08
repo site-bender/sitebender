@@ -1,6 +1,6 @@
 import join from "../../../../simple/array/join/index.ts"
-import bytesToBigInt from "../bytesToBigInt/index.ts"
 import bigIntToBase58 from "../bigIntToBase58/index.ts"
+import bytesToBigInt from "../bytesToBigInt/index.ts"
 import prependLeadingOnes from "../prependLeadingOnes/index.ts"
 
 //++ Encodes a byte array to a Base58 string with proper leading ones

@@ -1,6 +1,5 @@
 export default function encodeBase58(hex: string): string {
-	const ALPHABET =
-		"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	const ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 	const BASE = 58n
 
 	if (hex === "") return ""

@@ -1,4 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+
 import { parseFormula } from "../../../src/index.ts"
 import tokenize from "../../../src/tokenizer/index.ts"
 

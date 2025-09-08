@@ -332,8 +332,7 @@ Deno.test("getOperands property-based tests", () => {
 			(withOperandsCount, withoutOperandsCount) => {
 				const operationsWithOperands = Array.from(
 					{ length: withOperandsCount },
-					() =>
-						createMockOperatorWithOperands([createMockInjector(1)]),
+					() => createMockOperatorWithOperands([createMockInjector(1)]),
 				)
 				const operationsWithoutOperands = Array.from({
 					length: withoutOperandsCount,

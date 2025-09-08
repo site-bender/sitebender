@@ -168,9 +168,7 @@ Deno.test("compact property - preserves element order", () => {
 			(arr) => {
 				const result = compact(arr)
 				const nonUndefinedOriginal = arr.filter((x) => x !== undefined)
-				return result.every((val, idx) =>
-					val === nonUndefinedOriginal[idx]
-				)
+				return result.every((val, idx) => val === nonUndefinedOriginal[idx])
 			},
 		),
 	)

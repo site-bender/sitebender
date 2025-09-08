@@ -32,24 +32,20 @@ export default async function evaluate(
 			const exec = operators.get(node.op)
 			if (!exec) throw new Error(`Operator not registered: ${node.op}`)
 			const opNode = node as OperatorNode
-			const evalArg = (n: OperatorNode["args"][number]) =>
-				evaluate(n, ctx)
+			const evalArg = (n: OperatorNode["args"][number]) => evaluate(n, ctx)
 			return await exec(opNode, evalArg, ctx)
 		}
 		case "comparator": {
 			const exec = comparators.get(node.cmp)
 			const cmpNode = node as ComparatorNode
-			const evalArg = (n: ComparatorNode["args"][number]) =>
-				evaluate(n, ctx)
+			const evalArg = (n: ComparatorNode["args"][number]) => evaluate(n, ctx)
 			if (exec) return await exec(cmpNode, evalArg, ctx)
 			// Fallback: treat comparator tag as a policy; pass first arg (if any) as policy config
 			const policy = policies.get(node.cmp)
 			if (!policy) {
 				throw new Error(`Comparator not registered: ${node.cmp}`)
 			}
-			const cfg = cmpNode.args[0]
-				? await evalArg(cmpNode.args[0])
-				: undefined
+			const cfg = cmpNode.args[0] ? await evalArg(cmpNode.args[0]) : undefined
 			const op = policy(cfg)
 			// Policy executors return OperationFunction<boolean>
 			const fn = op as unknown as (

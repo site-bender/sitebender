@@ -31,11 +31,7 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 		readyState: "complete",
 		getElementById: (_: string) => ({ textContent: "{}" }),
 		querySelectorAll: (sel: string) =>
-			sel === "[data-ir-id]"
-				? irNodes
-				: sel === "[data-viz]"
-				? vizNodes
-				: [],
+			sel === "[data-ir-id]" ? irNodes : sel === "[data-viz]" ? vizNodes : [],
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
 	;(g as any).document = fakeDocument

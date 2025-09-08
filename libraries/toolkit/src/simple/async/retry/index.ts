@@ -157,9 +157,7 @@ const retry = (options: RetryOptions = {}) =>
 
 			// Wait before next attempt (if delay > 0)
 			if (currentDelay > 0) {
-				await new Promise((resolve) =>
-					setTimeout(resolve, currentDelay)
-				)
+				await new Promise((resolve) => setTimeout(resolve, currentDelay))
 			}
 
 			// Recursive call for next attempt

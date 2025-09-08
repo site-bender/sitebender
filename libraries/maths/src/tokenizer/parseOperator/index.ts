@@ -1,6 +1,7 @@
 import type { ParseError, Result, TokenType } from "../../types/index.ts"
-import parseTwoCharOperator from "./parseTwoCharOperator/index.ts"
+
 import parseOneCharOperator from "./parseOneCharOperator/index.ts"
+import parseTwoCharOperator from "./parseTwoCharOperator/index.ts"
 
 /**
  * Parses operators at the current position

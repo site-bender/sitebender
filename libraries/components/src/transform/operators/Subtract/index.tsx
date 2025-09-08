@@ -37,9 +37,7 @@ export default function Subtract({
 	children = [],
 }: Props): SubtractOperator {
 	const actualType = datatype || type
-	const [minuend, subtrahend] = Array.isArray(children)
-		? children
-		: [children]
+	const [minuend, subtrahend] = Array.isArray(children) ? children : [children]
 
 	// The parser will extract From/Amount or Minuend/Subtrahend from children
 	return SubtractConstructor(actualType)(minuend as unknown as Operand)(

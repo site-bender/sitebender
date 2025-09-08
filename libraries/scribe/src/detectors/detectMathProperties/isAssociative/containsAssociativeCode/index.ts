@@ -9,7 +9,7 @@ export default function containsAssociativeCode(source: string): boolean {
 	if (contains("Math.abs")(source)) {
 		return false
 	}
-	
+
 	return some(function matchesPattern(pattern: RegExp) {
 		return test(pattern)(source)
 	})(Array.from(ASSOCIATIVE_CODE_PATTERNS))

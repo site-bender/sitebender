@@ -568,8 +568,7 @@ export const SANDBOX = {
 	allowSameOrigin: "allow-same-origin",
 	allowScripts: "allow-scripts",
 	allowTopNavigation: "allow-top-navigation",
-	allowTopNavigationByUserActivation:
-		"allow-top-navigation-by-user-activation",
+	allowTopNavigationByUserActivation: "allow-top-navigation-by-user-activation",
 	allowTopNavigationToCustomProtocols:
 		"allow-top-navigation-to-custom-protocols",
 }

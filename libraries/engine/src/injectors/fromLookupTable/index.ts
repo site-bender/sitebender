@@ -45,8 +45,7 @@ async (
 	const out = (rows as Array<Record<string | number, unknown>>).reduce(
 		(acc, row) => {
 			const val = row[col]
-			const cond =
-				row[0 as unknown as keyof typeof row] as unknown as number
+			const cond = row[0 as unknown as keyof typeof row] as unknown as number
 			return (test.right as number) >= (cond ?? 0) ? val : acc
 		},
 		(rows[0] as Record<string | number, unknown>)[col],

@@ -11,6 +11,12 @@ import type {
 	VariableMap,
 } from "../types/index.ts"
 
+import IsLessThan from "../../../engine/src/constructors/comparators/amount/IsLessThan/index.ts"
+import IsMoreThan from "../../../engine/src/constructors/comparators/amount/IsMoreThan/index.ts"
+import IsNoLessThan from "../../../engine/src/constructors/comparators/amount/IsNoLessThan/index.ts"
+import IsNoMoreThan from "../../../engine/src/constructors/comparators/amount/IsNoMoreThan/index.ts"
+import IsEqualTo from "../../../engine/src/constructors/comparators/equality/IsEqualTo/index.ts"
+import IsUnequalTo from "../../../engine/src/constructors/comparators/equality/IsUnequalTo/index.ts"
 import Add from "../../../engine/src/constructors/operators/Add/index.ts"
 import Divide from "../../../engine/src/constructors/operators/Divide/index.ts"
 import Multiply from "../../../engine/src/constructors/operators/Multiply/index.ts"
@@ -18,12 +24,6 @@ import Negate from "../../../engine/src/constructors/operators/Negate/index.ts"
 import Power from "../../../engine/src/constructors/operators/Power/index.ts"
 import Subtract from "../../../engine/src/constructors/operators/Subtract/index.ts"
 import Ternary from "../../../engine/src/constructors/operators/Ternary/index.ts"
-import IsEqualTo from "../../../engine/src/constructors/comparators/equality/IsEqualTo/index.ts"
-import IsUnequalTo from "../../../engine/src/constructors/comparators/equality/IsUnequalTo/index.ts"
-import IsLessThan from "../../../engine/src/constructors/comparators/amount/IsLessThan/index.ts"
-import IsMoreThan from "../../../engine/src/constructors/comparators/amount/IsMoreThan/index.ts"
-import IsNoLessThan from "../../../engine/src/constructors/comparators/amount/IsNoLessThan/index.ts"
-import IsNoMoreThan from "../../../engine/src/constructors/comparators/amount/IsNoMoreThan/index.ts"
 import inferNumericType from "./inferNumericType/index.ts"
 
 /**

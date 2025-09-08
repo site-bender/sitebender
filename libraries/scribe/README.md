@@ -35,9 +35,9 @@ Replace verbose JSDoc comments with automatic extraction. The code IS the docume
 ```typescript
 //++ Adds two numbers together
 export default function add(x: number) {
-  return function (y: number) {
-    return x + y;
-  };
+	return function (y: number) {
+		return x + y
+	}
 }
 
 //++ add(2)(3) // 5
@@ -50,16 +50,19 @@ export default function add(x: number) {
 Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 
 **1. Regular Comments (`//`):**
+
 - Standard comments that don't fit other categories
 - Not extracted for documentation
 - Used for implementation notes
 
 **2. Documentation Comments (`//++`):**
+
 - `//++` above the function: One-line intent description
 - `//++` below the function: Working examples (deprecated - use `//??` instead)
 - `/*++ ... */` for multi-line if needed (but keep it minimal!)
 
 **3. Help Comments (`//??`):**
+
 - `//??` below functions: Help information (examples, setup, gotchas, etc.)
 - Format: `//?? [CATEGORY] content` or just `//?? content` for examples
 - Categories (case-insensitive, singular):
@@ -72,6 +75,7 @@ Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 - Each category marker starts a new item
 
 **4. Tech Debt Comments (`//--`):**
+
 - `//--` inside functions: Justified violations, hacks, workarounds
 - Format: `//-- [CATEGORY] reason` or just `//-- reason`
 - Categories (case-insensitive):
@@ -84,6 +88,7 @@ Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 - Creates an auditable trail of technical compromises
 
 **5. Critical Issue Comments (`//!!`):** 🆕
+
 - `//!!` inside functions: Critical issues that block production
 - Format: `//!! [CATEGORY] Description - Action required`
 - Categories: SECURITY, PERFORMANCE, CORRECTNESS, INCOMPLETE, BREAKING
@@ -95,12 +100,12 @@ Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 //++ Composes functions from right to left
 // deno-lint-ignore no-explicit-any
 export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
-  // deno-lint-ignore no-explicit-any
-  return function (x: T): any {
-    //!! [CORRECTNESS] Type safety lost - needs proper generic constraints
-    //-- [LIMITATION] TypeScript can't type heterogeneous function chains, any is authorized
-    return fns.reduceRight((acc, fn) => fn(acc), x);
-  };
+	// deno-lint-ignore no-explicit-any
+	return function (x: T): any {
+		//!! [CORRECTNESS] Type safety lost - needs proper generic constraints
+		//-- [LIMITATION] TypeScript can't type heterogeneous function chains, any is authorized
+		return fns.reduceRight((acc, fn) => fn(acc), x)
+	}
 }
 
 //?? compose([double, increment])(5) // 11
@@ -117,6 +122,7 @@ export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
 - If an example doesn't work, you get an error with suggestions
 
 **Report Dashboard:**
+
 - 🔴 Critical issues (`//!!`) - Blocks releases
 - 🟡 Tech debt (`//--`) - Plan to address
 - 🟢 Documented (`//++`) - Good
@@ -140,8 +146,8 @@ add(x: number) => (y: number) => number
 **Examples:**
 
 ```typescript
-add(2)(3); // 5
-pipe([add(5), add(10)])(0); // 15
+add(2)(3) // 5
+pipe([add(5), add(10)])(0) // 15
 ```
 
 **Mathematical Properties:**
@@ -162,17 +168,17 @@ deno add @sitebender/scribe
 ## Usage
 
 ```typescript
-import { generateDocs } from "@sitebender/scribe";
+import { generateDocs } from "@sitebender/scribe"
 
 // Generate documentation for a file
 const result = await generateDocs("./src/add/index.ts", {
-  format: "markdown", // or "html", "json"
-  includeExamples: true,
-  includeProperties: true,
-});
+	format: "markdown", // or "html", "json"
+	includeExamples: true,
+	includeProperties: true,
+})
 
 if (result.ok) {
-  console.log(result.value); // Generated documentation
+	console.log(result.value) // Generated documentation
 }
 ```
 

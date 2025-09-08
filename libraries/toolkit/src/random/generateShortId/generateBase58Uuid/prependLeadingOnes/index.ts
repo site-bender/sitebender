@@ -1,5 +1,5 @@
-import takeWhile from "../../../../simple/array/takeWhile/index.ts"
 import map from "../../../../simple/array/map/index.ts"
+import takeWhile from "../../../../simple/array/takeWhile/index.ts"
 import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Prepends '1' characters for leading zero bytes in Base58 encoding
@@ -8,11 +8,11 @@ export default function prependLeadingOnes(bytes: Uint8Array) {
 		const leadingZeros = takeWhile(function isZero(byte: number) {
 			return byte === 0
 		})(Array.from(bytes))
-		
+
 		const leadingOnes = map(function toOne() {
 			return BASE58_ALPHABET[0]
 		})(leadingZeros)
-		
+
 		return [...leadingOnes, ...chars]
 	}
 }

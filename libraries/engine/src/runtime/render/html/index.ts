@@ -31,9 +31,7 @@ export default async function renderHtml(
 				renderNode(c as Node)
 			)
 			const childrenHtmlParts = await Promise.all(childPromises)
-			return `<${el.tag}${attrs}>${
-				childrenHtmlParts.join("")
-			}</${el.tag}>`
+			return `<${el.tag}${attrs}>${childrenHtmlParts.join("")}</${el.tag}>`
 		}
 		// Non-element nodes: evaluate to a value and stringify
 		try {

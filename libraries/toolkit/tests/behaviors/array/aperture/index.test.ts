@@ -91,9 +91,7 @@ Deno.test("aperture - time series analysis", () => {
 
 Deno.test("aperture - overlapping date ranges", () => {
 	const dates = ["2024-01", "2024-02", "2024-03", "2024-04"]
-	const ranges = aperture(2)(dates).map(([start, end]) =>
-		`${start} to ${end}`
-	)
+	const ranges = aperture(2)(dates).map(([start, end]) => `${start} to ${end}`)
 	assertEquals(ranges, [
 		"2024-01 to 2024-02",
 		"2024-02 to 2024-03",

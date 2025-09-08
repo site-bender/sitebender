@@ -1,4 +1,5 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import { SIDE_EFFECT_INDICATORS } from "../../constants/index.ts"
 
 /**
@@ -37,7 +38,7 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 			// Check for side effect indicators
 			const hasSideEffect = SIDE_EFFECT_INDICATORS.some(
 				(indicator) =>
-					expression === indicator || fullAccess.includes(indicator)
+					expression === indicator || fullAccess.includes(indicator),
 			)
 			if (hasSideEffect) return true
 
