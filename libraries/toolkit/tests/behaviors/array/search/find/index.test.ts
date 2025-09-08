@@ -195,7 +195,7 @@ Deno.test("find - maintains referential transparency", () => {
 
 Deno.test("find - predicate receives only item parameter", () => {
 	const arr = [10, 20, 30]
-	let capturedParams: Array<number> = []
+	const capturedParams: Array<number> = []
 
 	const predicate = (item: number) => {
 		capturedParams.push(item)

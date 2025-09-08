@@ -3,8 +3,6 @@ import { describe, it } from "@std/testing/bdd"
 
 import Person from "~components/semantics/Person/index.tsx"
 
-import createElement from "~utilities/createElement/index.ts"
-
 function render(node: unknown): string {
 	// Extremely small renderer for our createElement shape used in docs
 	if (Array.isArray(node)) return node.map(render).join("")

@@ -153,7 +153,7 @@ export default async function runDemo() {
 						)
 					}
 				}
-			} catch (e) {
+			} catch {
 				console.log(`${YELLOW}Test file not yet created${RESET}`)
 			}
 		} catch (error) {

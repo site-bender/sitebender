@@ -368,7 +368,7 @@ Deno.test("decrement", async (t) => {
 		})
 
 		await t.step("page navigation", () => {
-			let currentPage = 10
+			const currentPage = 10
 			const previousPage = decrement(currentPage)
 			assertEquals(previousPage, 9)
 		})

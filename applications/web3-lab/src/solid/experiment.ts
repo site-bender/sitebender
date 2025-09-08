@@ -64,7 +64,7 @@ class SolidPodSimulator {
 		return results
 	}
 
-	getPermissions(path: string): string[] {
+	getPermissions(): string[] {
 		// Solid uses Web Access Control (WAC)
 		return ["read", "write", "append", "control"]
 	}
@@ -105,7 +105,7 @@ class DataPortabilityDemo {
 		}
 	}
 
-	static migrateToNewPod(profile: PortableProfile, newPodUrl: string) {
+	static migrateToNewPod(newPodUrl: string) {
 		console.log(`\n📦 Migrating data to ${newPodUrl}`)
 		console.log("   ✅ Profile data")
 		console.log("   ✅ Social connections")
@@ -127,7 +127,7 @@ class SolidApp {
 		this.permissions = permissions
 	}
 
-	async requestAccess(pod: SolidPodSimulator): Promise<boolean> {
+	async requestAccess(): Promise<boolean> {
 		console.log(`\n🔐 ${this.name} requesting access:`)
 		this.permissions.forEach((p) => console.log(`   - ${p}`))
 
@@ -186,13 +186,13 @@ async function main() {
 		"write public/posts",
 	])
 
-	await socialApp.requestAccess(alicePod)
+	await socialApp.requestAccess()
 
 	const analyticsApp = new SolidApp("Analytics App", [
 		"read public/*",
 	])
 
-	await analyticsApp.requestAccess(alicePod)
+	await analyticsApp.requestAccess()
 
 	// Demonstrate data portability
 	console.log("\n🚀 Data Portability Demo:")
@@ -202,7 +202,6 @@ async function main() {
 	console.log(`   Apps with access: ${exportedProfile.apps.length}`)
 
 	DataPortabilityDemo.migrateToNewPod(
-		exportedProfile,
 		"https://alice.inrupt.net/",
 	)
 
