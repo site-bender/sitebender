@@ -1,13 +1,9 @@
 import randomInteger from "../randomInteger/index.ts"
 
-/**
- * Alias for randomInteger - generates random integers in a range
- *
- * Common abbreviation for developers familiar with other programming
- * languages where randomInt is the standard naming convention.
- *
- * @see {@link randomInteger} for full documentation
- */
+//++ Alias for randomInteger - generates random integers in a range
 const randomInt = randomInteger
 
 export default randomInt
+
+//?? [EXAMPLE] randomInt(1)(6) // Random die roll: 1-6
+//?? [EXAMPLE] randomInt(0)(9) // Single digit: 0-9

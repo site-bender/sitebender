@@ -157,8 +157,8 @@ import type {
 	FunctionSignature,
 	Parameter,
 	ParseError,
-	TypeInfo,
 	RawComment,
+	TypeInfo,
 } from "@sitebender/parser/types/index.ts"
 ```
 
@@ -188,6 +188,7 @@ associateComments(
 ```
 
 **Division of Labor:**
+
 - Parser: Extracts raw comments, associates with nodes
 - Scribe: Interprets markers (`//++`, `//??`, `//--`), generates diagnostics
 - Parser stays purely structural, no documentation decisions

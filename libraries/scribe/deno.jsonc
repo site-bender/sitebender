@@ -1,8 +1,8 @@
 {
 	"name": "@sitebender/scribe",
 	"version": "0.1.0",
-	// Barrel export removed to enforce one-function-per-file & no-aggregate rule.
-	// Intentionally no single top-level export. Consumers should import the specific tool they need.
+	"exports": "./mod.ts",
+	// Note: mod.ts provides exports but documentation encourages direct imports
 	"tasks": {
 		"test": "deno test --unstable-temporal tests/",
 		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",

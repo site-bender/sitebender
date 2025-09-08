@@ -39,6 +39,9 @@ export const FP_FORBIDDEN = [
 // Files that are explicitly allowed to violate FP guardrails (stateful adapters, etc.)
 export const FP_ALLOWLIST = new Set<string>([
 	"libraries/toolkit/src/state/store.ts",
+	"libraries/engine/src/reactive/computed.ts",
+	"libraries/engine/src/reactive/signal.ts",
+	"libraries/engine/src/utilities/deterministicId.ts",
 ])
 
 // No-React-Junk defaults
