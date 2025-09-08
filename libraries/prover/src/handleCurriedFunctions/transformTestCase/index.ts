@@ -1,7 +1,8 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
-import needsCurriedHandling from "../needsCurriedHandling/index.ts"
+
 import generateCurriedInputs from "../generateCurriedInputs/index.ts"
 import getExpectedOutputForInvalid from "../getExpectedOutputForInvalid/index.ts"
+import needsCurriedHandling from "../needsCurriedHandling/index.ts"
 
 /**
  * Transforms a test case for curried function testing

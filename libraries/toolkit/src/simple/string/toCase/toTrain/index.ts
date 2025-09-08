@@ -44,9 +44,7 @@ const toTrain = (s: string): string => {
 		.replace(/([a-z])([A-Z])/g, "$1-$2") // camelCase/PascalCase
 		.replace(/[_\s]+/g, "-") // underscores and spaces
 		.split("-")
-		.map((word) =>
-			word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-		)
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
 		.join("-")
 }
 

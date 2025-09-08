@@ -2,8 +2,9 @@ import { assert, assertEquals, assertStringIncludes } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import fc from "npm:fast-check"
 
-import renderIrToHtml from "../../../../src/rendering/renderIrToHtml/index.ts"
 import type { Node } from "../../../../types/ir/index.ts"
+
+import renderIrToHtml from "../../../../src/rendering/renderIrToHtml/index.ts"
 
 describe("IR to HTML renderer behavior", () => {
 	describe("security compliance", () => {

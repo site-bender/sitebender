@@ -30,9 +30,7 @@ const isPlainMonthDay =
 			return MD.test(s) ? { right: true } : {
 				left: [
 					Error(op.tag)("IsPlainMonthDay")(
-						`${
-							JSON.stringify(operand.right)
-						} is not a plain month-day.`,
+						`${JSON.stringify(operand.right)} is not a plain month-day.`,
 					),
 				],
 			}
@@ -40,9 +38,7 @@ const isPlainMonthDay =
 			return {
 				left: [
 					Error(op.tag)("IsPlainMonthDay")(
-						`${
-							JSON.stringify(operand.right)
-						} is not a plain month-day: ${e}`,
+						`${JSON.stringify(operand.right)} is not a plain month-day: ${e}`,
 					),
 				],
 			}

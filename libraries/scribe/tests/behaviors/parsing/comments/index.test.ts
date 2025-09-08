@@ -1,4 +1,8 @@
-import { assertEquals, assert } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assert,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
+
 import parseCommentMarkers from "../../../../src/comments/parseCommentMarkers/index.ts"
 
 Deno.test("parseCommentMarkers - extracts contiguous //++ lines as description", () => {

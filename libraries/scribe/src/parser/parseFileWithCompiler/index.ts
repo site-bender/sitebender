@@ -1,11 +1,13 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type {
 	FunctionSignature,
 	ParseError,
 	Result,
 } from "../../types/index.ts"
-import parseWithCompiler from "../parseWithCompiler/index.ts"
+
 import parseFunctionFromAST from "../parseFunctionFromAST/index.ts"
+import parseWithCompiler from "../parseWithCompiler/index.ts"
 
 export type ParsedFile = {
 	sourceFile: ts.SourceFile

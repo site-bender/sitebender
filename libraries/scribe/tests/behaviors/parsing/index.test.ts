@@ -1,4 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+
 import { parseFile, parseFunction } from "../../../src/parser/index.ts"
 
 Deno.test("parseFile - parses valid TypeScript source", () => {

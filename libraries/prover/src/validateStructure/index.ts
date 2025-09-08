@@ -1,6 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read
 
 import { walk } from "https://deno.land/std@0.212.0/fs/walk.ts"
+
 import type { ValidationResult } from "./types/index.ts"
 
 /**

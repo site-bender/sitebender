@@ -8,7 +8,10 @@ import * as ts from "npm:typescript@5.7.2"
 export default function detectCurryingFromAST(
 	node: ts.Node,
 ): { isCurried: boolean; levels: number } {
-	function countNestedFunctions(currentNode: ts.Node, currentLevel: number): number {
+	function countNestedFunctions(
+		currentNode: ts.Node,
+		currentLevel: number,
+	): number {
 		// Base case: if it's a function that returns another function
 		if (
 			ts.isFunctionDeclaration(currentNode) ||
@@ -48,10 +51,13 @@ export default function detectCurryingFromAST(
 		return currentLevel
 	}
 
-	function checkBlockForReturnedFunctions(block: ts.Block, currentLevel: number): number {
+	function checkBlockForReturnedFunctions(
+		block: ts.Block,
+		currentLevel: number,
+	): number {
 		// Find first return statement that returns a function
 		const returnStatements: Array<ts.ReturnStatement> = []
-		
+
 		function collectReturns(node: ts.Node): void {
 			if (ts.isReturnStatement(node) && node.expression) {
 				returnStatements.push(node)
@@ -66,14 +72,14 @@ export default function detectCurryingFromAST(
 				ts.forEachChild(node, collectReturns)
 			}
 		}
-		
+
 		collectReturns(block)
 
 		// Check if any return statement returns a function
 		const functionReturns = returnStatements.filter((stmt) =>
 			stmt.expression &&
 			(ts.isFunctionExpression(stmt.expression) ||
-			ts.isArrowFunction(stmt.expression))
+				ts.isArrowFunction(stmt.expression))
 		)
 
 		if (functionReturns.length > 0 && functionReturns[0].expression) {

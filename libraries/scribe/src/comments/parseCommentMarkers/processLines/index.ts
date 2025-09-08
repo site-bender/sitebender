@@ -1,12 +1,15 @@
-import type { Acc } from '../types/index.ts'
-import processDescriptionBlock from './processDescriptionBlock/index.ts'
-import processLineDescriptionGroup from './processLineDescriptionGroup/index.ts'
-import processExtraDescriptionLine from './processExtraDescriptionLine/index.ts'
-import processExampleLine from './processExampleLine/index.ts'
-import processTechDebtLine from './processTechDebtLine/index.ts'
-import processExampleBlock from './processExampleBlock/index.ts'
+import type { Acc } from "../types/index.ts"
 
-type Handler = (lines: Array<string>) => (acc: Acc) => (ln: number) => (text: string) => Acc | undefined
+import processDescriptionBlock from "./processDescriptionBlock/index.ts"
+import processExampleBlock from "./processExampleBlock/index.ts"
+import processExampleLine from "./processExampleLine/index.ts"
+import processExtraDescriptionLine from "./processExtraDescriptionLine/index.ts"
+import processLineDescriptionGroup from "./processLineDescriptionGroup/index.ts"
+import processTechDebtLine from "./processTechDebtLine/index.ts"
+
+type Handler = (
+	lines: Array<string>,
+) => (acc: Acc) => (ln: number) => (text: string) => Acc | undefined
 
 const handlers: Array<Handler> = [
 	processDescriptionBlock,

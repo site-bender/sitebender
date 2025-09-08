@@ -1,7 +1,7 @@
 //++ Types for marker parsing adapter
 
 export type RawComment = {
-	kind: 'line' | 'block'
+	kind: "line" | "block"
 	text: string
 	fullText: string
 	start: number
@@ -11,8 +11,14 @@ export type RawComment = {
 	nodeId?: string
 }
 
-export type DiagnosticCategory = 'structure' | 'association' | 'quality' | 'consistency' | 'hygiene' | 'semantic'
-export type DiagnosticSeverity = 'info' | 'warn' | 'error'
+export type DiagnosticCategory =
+	| "structure"
+	| "association"
+	| "quality"
+	| "consistency"
+	| "hygiene"
+	| "semantic"
+export type DiagnosticSeverity = "info" | "warn" | "error"
 
 export type Diagnostic = {
 	code: string

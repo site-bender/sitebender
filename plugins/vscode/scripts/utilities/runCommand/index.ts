@@ -15,10 +15,9 @@ export default async function runCommand(
 
 		return { code, stdout: decode(stdout), stderr: decode(stderr) }
 	} catch (error) {
-		const message =
-			(error && typeof error === "object" && "message" in error)
-				? String((error as { message: unknown }).message)
-				: String(error)
+		const message = (error && typeof error === "object" && "message" in error)
+			? String((error as { message: unknown }).message)
+			: String(error)
 
 		return { code: 127, stdout: "", stderr: message }
 	}

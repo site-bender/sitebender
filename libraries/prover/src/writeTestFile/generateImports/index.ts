@@ -65,9 +65,7 @@ export default function generateImports(
 			}
 
 			if (namedImports.length > 0) {
-				const namedPart = `{ ${
-					namedImports.map((i) => i.name).join(", ")
-				} }`
+				const namedPart = `{ ${namedImports.map((i) => i.name).join(", ")} }`
 				importParts.push(namedPart)
 			}
 

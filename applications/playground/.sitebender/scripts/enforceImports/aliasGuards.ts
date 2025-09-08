@@ -22,132 +22,126 @@ const globWalk = async function* (
 	root: string,
 ): AsyncGenerator<string, void, unknown> {
 	for await (const entry of Deno.readDir(root)) {
-		const full = `${root}/${entry.name}`
+		const full = `${root}/${entry.name}`;
 		if (entry.isDirectory) {
-			yield* globWalk(full)
+			yield* globWalk(full);
 		} else if (entry.isFile && /\.(ts|tsx)$/.test(entry.name)) {
-			yield full
+			yield full;
 		}
 	}
-}
+};
 
 type Violation = {
-	file: string
-	line: number
-	spec: string
-	hint: string
-}
+	file: string;
+	line: number;
+	spec: string;
+	hint: string;
+};
 
-const isInside = (file: string, pkgDir: string) => file.includes(`/${pkgDir}/`)
+const isInside = (file: string, pkgDir: string) => file.includes(`/${pkgDir}/`);
 
-const ENGINE_SRC = "libraries/engine/src/"
-const ENGINE_TYPES = "libraries/engine/types/"
-const TOOLKIT_SRC = "libraries/toolkit/src/"
+const ENGINE_SRC = 'libraries/engine/src/';
+const ENGINE_TYPES = 'libraries/engine/types/';
+const TOOLKIT_SRC = 'libraries/toolkit/src/';
 
 const DEFAULT_SCOPES = [
-	"libraries/components/src",
-	"docs/src",
-	"scripts",
-]
+	'libraries/components/src',
+	'docs/src',
+	'scripts',
+];
 
-const roots = Deno.args.length ? Deno.args : DEFAULT_SCOPES
+const roots = Deno.args.length ? Deno.args : DEFAULT_SCOPES;
 
-const violations: Violation[] = []
+const violations: Violation[] = [];
 
 for (const root of roots) {
 	try {
 		for await (const file of globWalk(root)) {
-			const text = await Deno.readTextFile(file)
-			const lines = text.split(/\r?\n/)
+			const text = await Deno.readTextFile(file);
+			const lines = text.split(/\r?\n/);
 			lines.forEach((line, idx) => {
 				// crude import matcher (import ... from "..."), also handles export ... from
-				const importRe =
-					/(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g
-				let m: RegExpExecArray | null
+				const importRe = /(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g;
+				let m: RegExpExecArray | null;
 				while ((m = importRe.exec(line))) {
-					const spec = m[2]
+					const spec = m[2];
 					// Skip alias imports (desired)
 					if (
-						spec.startsWith("@sitebender/engine/") ||
-						spec.startsWith("@sitebender/engine-types/") ||
-						spec.startsWith("@sitebender/engine/") ||
-						spec.startsWith("@sitebender/engine-types/") ||
-						spec.startsWith("@sitebender/toolkit/")
+						spec.startsWith('@sitebender/engine/') ||
+						spec.startsWith('@sitebender/engine-types/') ||
+						spec.startsWith('@sitebender/engine/') ||
+						spec.startsWith('@sitebender/engine-types/') ||
+						spec.startsWith('@sitebender/toolkit/')
 					) {
-						continue
+						continue;
 					}
 
 					// If this file is NOT inside engine/ or engine/, disallow deep paths
 					if (
-						!isInside(file, "libraries/engine") &&
-						!isInside(file, "libraries/engine")
+						!isInside(file, 'libraries/engine') &&
+						!isInside(file, 'libraries/engine')
 					) {
 						if (spec.includes(ENGINE_SRC)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @sitebender/engine/… instead of libraries/engine/src/…",
-							})
+								hint: 'Use @sitebender/engine/… instead of libraries/engine/src/…',
+							});
 						}
 						if (spec.includes(ENGINE_TYPES)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
-							})
+								hint: 'Use @sitebender/engine-types/… instead of libraries/engine/types/…',
+							});
 						}
 						if (spec.includes(ENGINE_SRC)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @sitebender/engine/… instead of libraries/engine/src/…",
-							})
+								hint: 'Use @sitebender/engine/… instead of libraries/engine/src/…',
+							});
 						}
 						if (spec.includes(ENGINE_TYPES)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @sitebender/engine-types/… instead of libraries/engine/types/…",
-							})
+								hint: 'Use @sitebender/engine-types/… instead of libraries/engine/types/…',
+							});
 						}
 					}
 
 					// If this file is NOT inside toolkit/, disallow deep toolkit paths
-					if (!isInside(file, "libraries/toolkit")) {
+					if (!isInside(file, 'libraries/toolkit')) {
 						if (spec.includes(TOOLKIT_SRC)) {
 							violations.push({
 								file,
 								line: idx + 1,
 								spec,
-								hint:
-									"Use @sitebender/toolkit/… instead of libraries/toolkit/src/…",
-							})
+								hint: 'Use @sitebender/toolkit/… instead of libraries/toolkit/src/…',
+							});
 						}
 					}
 				}
-			})
+			});
 		}
 	} catch (err) {
 		// Non-fatal: missing scope directory
-		if (!(err instanceof Deno.errors.NotFound)) throw err
+		if (!(err instanceof Deno.errors.NotFound)) throw err;
 	}
 }
 
 if (violations.length) {
-	console.error("Alias policy violations:\n")
+	console.error('Alias policy violations:\n');
 	for (const v of violations) {
-		console.error(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`)
+		console.error(`${v.file}:${v.line} -> '${v.spec}'  (${v.hint})`);
 	}
-	console.error(`\nTotal: ${violations.length} violation(s).`)
-	Deno.exit(1)
+	console.error(`\nTotal: ${violations.length} violation(s).`);
+	Deno.exit(1);
 }
 
-console.log("Alias policy: OK (no violations found).")
+console.log('Alias policy: OK (no violations found).');

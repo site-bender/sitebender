@@ -1,8 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import detectPurity from "../../../src/detectors/detectPurity/index.ts"
-import detectCurrying from "../../../src/detectors/detectCurrying/index.ts"
+
 import detectComplexity from "../../../src/detectors/detectComplexity/index.ts"
+import detectCurrying from "../../../src/detectors/detectCurrying/index.ts"
 import detectProperties from "../../../src/detectors/detectProperties/index.ts"
+import detectPurity from "../../../src/detectors/detectPurity/index.ts"
 
 Deno.test("detectPurity - identifies pure functions", () => {
 	const pureFunction = `

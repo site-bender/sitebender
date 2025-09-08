@@ -29,9 +29,7 @@ const hasRole = (op?: HasRoleOp): OperationFunction<boolean> =>
 	_arg: unknown,
 	localValues?: LocalValues,
 ): Promise<Either<Array<EngineError>, boolean>> => {
-	const expected = op?.role
-		? toStringArray(op.role)
-		: toStringArray(op?.roles)
+	const expected = op?.role ? toStringArray(op.role) : toStringArray(op?.roles)
 	// No expectation provided -> treat as not authorized
 	if (expected.length === 0) {
 		return Promise.resolve({

@@ -172,9 +172,7 @@ Deno.test("findIndices", async (t) => {
 						const indices = findIndices(predicate)(arr)
 
 						// All indices are valid
-						const allValid = indices.every((i) =>
-							i >= 0 && i < arr.length
-						)
+						const allValid = indices.every((i) => i >= 0 && i < arr.length)
 
 						// Indices are in ascending order
 						const isAscending = indices.every((val, i, arr) =>

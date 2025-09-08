@@ -15,8 +15,8 @@ export default function Tutorial() {
 		<body>
 			<h1>Engine Tutorial (JSX)</h1>
 			<p>
-				These behaviors are authored with JSX components and hydrated on
-				the client.
+				These behaviors are authored with JSX components and hydrated on the
+				client.
 			</p>
 
 			<label for="name">Your name</label>
