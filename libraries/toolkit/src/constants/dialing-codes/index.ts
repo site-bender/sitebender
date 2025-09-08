@@ -1,3 +1,4 @@
+//++ ISO 3166 country codes with international dialing prefixes
 export const COUNTRY_AND_DIALING_CODES = [
 	{
 		name: "Afghanistan",

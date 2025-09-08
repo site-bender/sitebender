@@ -1,3 +1,4 @@
+//++ Standard accessibility skip links for keyboard navigation
 export const SKIP_LINKS = [
 	{
 		href: "#primary-navigation",
