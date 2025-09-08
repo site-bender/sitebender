@@ -1,7 +1,8 @@
 import type { FunctionMetadata } from "../../types/index.ts"
+
 import { TEMPLATES } from "../../constants/index.ts"
-import formatProperties from "../formatProperties/index.ts"
 import { extractSignature } from "../../extractors/index.ts"
+import formatProperties from "../formatProperties/index.ts"
 
 /**
  * Generates markdown documentation from function metadata
@@ -51,7 +52,7 @@ export default function generateMarkdown(metadata: FunctionMetadata): string {
 	)
 
 	const relatedSection = (metadata.relatedFunctions &&
-		metadata.relatedFunctions.length > 0)
+			metadata.relatedFunctions.length > 0)
 		? template.related.replace(
 			"{related}",
 			metadata.relatedFunctions.join(", "),

@@ -9,9 +9,7 @@ import replaceAllMatches from "../../../../src/simple/array/replaceAllMatches/in
 
 Deno.test("replaceAllMatches: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {
-		const replacer = replaceAllMatches(/test/)((s: string) =>
-			s.toUpperCase()
-		)
+		const replacer = replaceAllMatches(/test/)((s: string) => s.toUpperCase())
 		assertType<
 			IsExact<
 				typeof replacer,
@@ -124,9 +122,7 @@ Deno.test("replaceAllMatches: regex patterns", async (t) => {
 	})
 
 	await t.step("should handle quantifiers", () => {
-		const replacer = replaceAllMatches(/^\d{3,}$/)((s) =>
-			`Long number: ${s}`
-		)
+		const replacer = replaceAllMatches(/^\d{3,}$/)((s) => `Long number: ${s}`)
 		assertEquals(
 			replacer(["12", "123", "1234", "ab123"]),
 			["12", "Long number: 123", "Long number: 1234", "ab123"],
@@ -199,9 +195,7 @@ Deno.test("replaceAllMatches: edge cases", async (t) => {
 	})
 
 	await t.step("should handle special regex characters in strings", () => {
-		const replacer = replaceAllMatches(/\$\d+/)((s) =>
-			s.replace("$", "USD ")
-		)
+		const replacer = replaceAllMatches(/\$\d+/)((s) => s.replace("$", "USD "))
 		assertEquals(
 			replacer(["Price: $100", "$50", "Free"]),
 			["Price: USD 100", "USD 50", "Free"],
@@ -281,9 +275,7 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 				)),
 				(arr) => {
 					// Simple pattern that matches strings starting with 'a'
-					const replacer = replaceAllMatches(/^a/)((s) =>
-						`A${s.slice(1)}`
-					)
+					const replacer = replaceAllMatches(/^a/)((s) => `A${s.slice(1)}`)
 					const result = replacer(arr)
 
 					// Length preserved
@@ -344,9 +336,7 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 					fc.array(fc.string()),
 					(arr) => {
 						// Pattern that won't match the replacement
-						const replacer = replaceAllMatches(/^test/)((s) =>
-							`replaced-${s}`
-						)
+						const replacer = replaceAllMatches(/^test/)((s) => `replaced-${s}`)
 						const result1 = replacer(arr)
 						const result2 = replacer(result1)
 
@@ -366,9 +356,7 @@ Deno.test("replaceAllMatches: property-based tests", async (t) => {
 			fc.property(
 				fc.oneof(fc.constant(null), fc.constant(undefined)),
 				(input) => {
-					const replacer = replaceAllMatches(/test/)((s) =>
-						s.toUpperCase()
-					)
+					const replacer = replaceAllMatches(/test/)((s) => s.toUpperCase())
 					const result = replacer(input)
 					assertEquals(result, [])
 					return true

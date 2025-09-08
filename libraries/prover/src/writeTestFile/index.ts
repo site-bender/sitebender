@@ -1,10 +1,11 @@
 import type { FunctionSignature, TestCase } from "../types/index.ts"
-import getTestFilePath from "./getTestFilePath/index.ts"
+
+import ensureDirectoryExists from "./ensureDirectoryExists/index.ts"
+import formatCode from "./formatCode/index.ts"
+import generateFileHeader from "./generateFileHeader/index.ts"
 import generateImports from "./generateImports/index.ts"
 import generateTestContent from "./generateTestContent/index.ts"
-import generateFileHeader from "./generateFileHeader/index.ts"
-import formatCode from "./formatCode/index.ts"
-import ensureDirectoryExists from "./ensureDirectoryExists/index.ts"
+import getTestFilePath from "./getTestFilePath/index.ts"
 
 /**
  * Writes test cases to a test file

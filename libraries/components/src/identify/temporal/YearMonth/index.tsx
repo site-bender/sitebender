@@ -103,9 +103,7 @@ export default function YearMonth({
 			year: "numeric" as const,
 			month: (format === "medium"
 				? "short"
-				: (format === "long" || format === "full"
-					? "long"
-					: "short")) as
+				: (format === "long" || format === "full" ? "long" : "short")) as
 					| "short"
 					| "long",
 			calendar,

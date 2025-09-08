@@ -32,9 +32,7 @@ async (
 		return {
 			left: [
 				Error(op.tag)("IsMap")(
-					`Error creating map from ${
-						JSON.stringify(operand.right)
-					}: ${e}.`,
+					`Error creating map from ${JSON.stringify(operand.right)}: ${e}.`,
 				),
 			],
 		}

@@ -133,10 +133,7 @@ nav.dropdown li {
 		right: 1rem;
 		top: 2.8rem;
 		visibility: hidden;
-		transition:
-			max-height 0.7s ease,
-			opacity 0.2s ease,
-			visibility 0.2s ease;
+		transition: max-height 0.7s ease, opacity 0.2s ease, visibility 0.2s ease;
 	}
 
 	nav.dropdown:has(:checked) menu {

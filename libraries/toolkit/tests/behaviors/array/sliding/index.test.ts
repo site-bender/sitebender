@@ -256,9 +256,7 @@ describe("sliding", () => {
 						const result = sliding(size)(step)(array)
 						return result.every((window, i) => {
 							const startIdx = i * step
-							return window.every((elem, j) =>
-								elem === array[startIdx + j]
-							)
+							return window.every((elem, j) => elem === array[startIdx + j])
 						})
 					},
 				),
@@ -276,8 +274,7 @@ describe("sliding", () => {
 						if (array.length < size) {
 							return result.length === 0
 						}
-						const expectedCount =
-							Math.floor((array.length - size) / step) + 1
+						const expectedCount = Math.floor((array.length - size) / step) + 1
 						return result.length === expectedCount
 					},
 				),

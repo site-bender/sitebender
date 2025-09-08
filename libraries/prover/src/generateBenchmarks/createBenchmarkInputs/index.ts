@@ -1,5 +1,6 @@
 import type { FunctionSignature } from "../../types/index.ts"
 import type { BenchmarkPattern } from "../detectBenchmarkPatterns/index.ts"
+
 import generateRealisticInputs from "./generateRealisticInputs/index.ts"
 import generateScaledInputs from "./generateScaledInputs/index.ts"
 

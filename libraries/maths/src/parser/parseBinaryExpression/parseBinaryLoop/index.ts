@@ -1,11 +1,12 @@
 import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 import type { TrampolineResult } from "../trampoline/index.ts"
+
 import { OPERATOR_INFO } from "../../../constants/index.ts"
-import getOperatorFromToken from "../getOperatorFromToken/index.ts"
-import isValidBinaryOperator from "../isValidBinaryOperator/index.ts"
 import checkOperatorAmbiguity from "../checkOperatorAmbiguity/index.ts"
 import createBinaryNode from "../createBinaryNode/index.ts"
+import getOperatorFromToken from "../getOperatorFromToken/index.ts"
+import isValidBinaryOperator from "../isValidBinaryOperator/index.ts"
 
 /**
  * Parses binary operators using trampoline for true tail recursion

@@ -149,9 +149,7 @@ describe("groupBy", () => {
 	})
 
 	it("is curried", () => {
-		const groupByType = groupBy((x: { type: string; value: number }) =>
-			x.type
-		)
+		const groupByType = groupBy((x: { type: string; value: number }) => x.type)
 		assert(typeof groupByType === "function")
 
 		const data1 = [{ type: "A", value: 1 }]
@@ -188,9 +186,7 @@ describe("groupBy", () => {
 	})
 
 	it("groups by boolean values", () => {
-		const result = groupBy((n: number) =>
-			n > 0 ? "positive" : "non-positive"
-		)([
+		const result = groupBy((n: number) => n > 0 ? "positive" : "non-positive")([
 			1,
 			-1,
 			2,
@@ -314,9 +310,7 @@ describe("groupBy", () => {
 
 						Object.values(result).forEach((group) => {
 							// Check that indices in original array are increasing
-							const indices = group.map((item) =>
-								pairs.indexOf(item)
-							)
+							const indices = group.map((item) => pairs.indexOf(item))
 							for (let i = 1; i < indices.length; i++) {
 								assert(indices[i] > indices[i - 1])
 							}

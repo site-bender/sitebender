@@ -53,9 +53,7 @@ const reject = <T>(
 		return []
 	}
 
-	return array.filter((value, index, arr) =>
-		not(predicate(value, index, arr))
-	)
+	return array.filter((value, index, arr) => not(predicate(value, index, arr)))
 }
 
 export default reject

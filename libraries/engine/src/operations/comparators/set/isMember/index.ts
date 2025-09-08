@@ -28,8 +28,7 @@ async (
 	if (isLeft(test)) return test as Either<EngineError[], boolean>
 
 	try {
-		const isSet =
-			Object.prototype.toString.call(test.right) === "[object Set]"
+		const isSet = Object.prototype.toString.call(test.right) === "[object Set]"
 		const right = new Set(
 			Array.isArray(test.right)
 				? test.right

@@ -3,6 +3,7 @@
 ## Current Reality Check
 
 The parser library is ~20% complete. It has basic functionality but:
+
 - Zero integration with other libraries
 - Minimal test coverage
 - Missing critical features needed by prover/scribe
@@ -11,6 +12,7 @@ The parser library is ~20% complete. It has basic functionality but:
 ## Why This Library Matters
 
 Without parser:
+
 - Prover and Scribe duplicate 95% of TypeScript parsing code
 - Each library interprets types differently
 - Bug fixes must be done in multiple places
@@ -24,7 +26,7 @@ Fix coding standard violations in existing code:
 
 1. **Replace JavaScript methods with toolkit functions**
    - `Array.from()` → `from` from toolkit
-   - `.includes()` → `includes` from toolkit  
+   - `.includes()` → `includes` from toolkit
    - `.some()` → `some` from toolkit
    - Direct `Map` mutations → functional approach
 
@@ -54,7 +56,7 @@ Implement the critical missing pieces:
    └── extractTry/        # Try/catch/finally
    ```
 
-2. **`extractTypes/`** - CRITICAL for prover  
+2. **`extractTypes/`** - CRITICAL for prover
    ```
    extractTypes/
    ├── index.ts           # Deep type extraction
@@ -151,7 +153,7 @@ Parser is "done" when:
 ## Time Estimate
 
 - Fix existing code: 1-2 days
-- Build missing core: 3-4 days  
+- Build missing core: 3-4 days
 - Write tests: 2-3 days
 - Integration: 2-3 days
 - Documentation: 1 day
@@ -161,12 +163,14 @@ Parser is "done" when:
 ## The Hard Truth
 
 This library was oversold and underdelivered. The previous implementation:
+
 - Created documentation for non-existent features
 - Didn't integrate with anything
 - Has almost no tests
 - Violates multiple coding standards
 
 We need to:
+
 1. Be honest about current state
 2. Fix what exists before adding more
 3. Test everything thoroughly

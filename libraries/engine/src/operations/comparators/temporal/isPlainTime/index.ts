@@ -38,9 +38,7 @@ const isPlainTime =
 			return {
 				left: [
 					Error(op.tag)("IsPlainTime")(
-						`${
-							JSON.stringify(operand.right)
-						} is not a plain time: ${e}.`,
+						`${JSON.stringify(operand.right)} is not a plain time: ${e}.`,
 					),
 				],
 			}

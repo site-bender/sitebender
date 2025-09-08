@@ -330,9 +330,7 @@ function createPlausibleProvider(): AnalyticsProvider {
 		window.plausible("Link", {
 			props: {
 				url: event.href,
-				text: "text" in event
-					? event.text?.substring(0, 100)
-					: undefined,
+				text: "text" in event ? event.text?.substring(0, 100) : undefined,
 				category: "category" in event ? event.category : undefined,
 			},
 		})

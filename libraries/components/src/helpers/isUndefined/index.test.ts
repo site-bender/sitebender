@@ -201,8 +201,7 @@ describe("isUndefined", () => {
 
 		it("should be mutually exclusive with isDefined for undefined values", () => {
 			// Note: This assumes isDefined exists and checks for both null and undefined
-			const isDefined = (val: unknown) =>
-				val !== undefined && val !== null
+			const isDefined = (val: unknown) => val !== undefined && val !== null
 
 			fc.assert(
 				fc.property(

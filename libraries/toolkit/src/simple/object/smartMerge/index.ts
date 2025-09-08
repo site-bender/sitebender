@@ -157,8 +157,7 @@ const smartMerge =
 
 		// Merge all sources from left to right
 		return sources.reduce<Record<string, unknown>>(
-			(acc, source) =>
-				mergeTwo(acc, source, 0) as Record<string, unknown>,
+			(acc, source) => mergeTwo(acc, source, 0) as Record<string, unknown>,
 			{},
 		)
 	}

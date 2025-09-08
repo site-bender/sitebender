@@ -1,8 +1,9 @@
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import renderIrToHtml from "../../../../src/rendering/renderIrToHtml/index.ts"
 import type { Node } from "../../../../types/ir/index.ts"
+
+import renderIrToHtml from "../../../../src/rendering/renderIrToHtml/index.ts"
 
 describe("Golden snapshot tests", () => {
 	it("renders email form with exact expected HTML structure", () => {
