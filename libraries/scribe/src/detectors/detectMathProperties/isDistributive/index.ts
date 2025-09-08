@@ -102,22 +102,8 @@ export default function isDistributive(source: string): boolean {
 			/\|/, // Bitwise OR
 		]
 
-		let hasApplyOp = false
-		let hasCombineOp = false
-
-		for (const pattern of applyPatterns) {
-			if (pattern.test(source)) {
-				hasApplyOp = true
-				break
-			}
-		}
-
-		for (const pattern of combinePatterns) {
-			if (pattern.test(source)) {
-				hasCombineOp = true
-				break
-			}
-		}
+		const hasApplyOp = applyPatterns.some((pattern) => pattern.test(source))
+		const hasCombineOp = combinePatterns.some((pattern) => pattern.test(source))
 
 		if (hasApplyOp && hasCombineOp) {
 			return true
