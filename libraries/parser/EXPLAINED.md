@@ -6,7 +6,7 @@ The parser library is the single source of truth for understanding TypeScript co
 
 ## Core Parser Functions
 
-### 1. File Parsing (Already Implemented)
+### 1. File Parsing ✅ IMPLEMENTED
 
 ```
 parseSourceFile/
@@ -15,7 +15,7 @@ parseSourceFile/
 └── mapModule/         # Helper: converts string to TypeScript enum
 ```
 
-### 2. Function Extraction (To Be Implemented)
+### 2. Function Extraction ✅ IMPLEMENTED
 
 ```
 extractFunctions/
@@ -27,26 +27,25 @@ extractFunctions/
 
 Returns an array of function AST nodes because files might have multiple functions (even though @sitebender prefers one per file, other projects won't).
 
-### 3. Signature Extraction (To Be Implemented)
+### 3. Signature Extraction ✅ PARTIALLY IMPLEMENTED
 
 ```
 extractSignature/
-├── index.ts           # Takes a function node, returns signature
-├── extractName/       # Gets the function's name
-├── extractParameters/ # Gets all parameters
+├── index.ts           # Takes a function node, returns signature ✅
+├── extractParameters/ # Gets all parameters ✅
 │   ├── index.ts      
-│   └── extractType/   # Figures out each param's type
-├── extractReturnType/ # Gets what the function returns
-├── extractGenerics/   # Gets generic type parameters (T, U, etc.)
-└── detectProperties/  # Detects special properties
-    ├── index.ts
-    ├── isCurried/     # Is it a curried function?
-    ├── isAsync/       # Does it use async/await?
-    ├── isPure/        # Does it have side effects?
-    └── isGenerator/   # Is it a generator function?
+│   └── extractType/   # Figures out each param's type ✅
+├── extractReturnType/ # Gets what the function returns ✅
+├── extractGenerics/   # Gets generic type parameters ✅
+└── detectProperties/  # Detects special properties ✅
+    └── index.ts       # All detection in one file (NOT separate as documented)
+                       # - isCurried ✅
+                       # - isAsync ✅
+                       # - isGenerator ✅
+                       # - isPure ⚠️ (weak implementation)
 ```
 
-### 4. Branch Analysis (To Be Implemented)
+### 4. Branch Analysis ❌ NOT IMPLEMENTED
 
 ```
 analyzeBranches/
@@ -59,7 +58,7 @@ analyzeBranches/
 └── computeId/         # Creates unique ID for each branch
 ```
 
-### 5. Import Detection (To Be Implemented)
+### 5. Import Detection ❌ NOT IMPLEMENTED
 
 ```
 extractImports/
@@ -69,7 +68,7 @@ extractImports/
 └── resolveCustom/     # Identifies custom types (Result, Option, etc.)
 ```
 
-### 6. Type Analysis (To Be Implemented)
+### 6. Type Analysis ❌ NOT IMPLEMENTED
 
 ```
 analyzeType/
@@ -82,14 +81,27 @@ analyzeType/
 └── analyzeLiteral/    # Handles literal types like "foo" or 42
 ```
 
-## How They Work Together
+## How They Work Together (CURRENT STATE)
 
-1. **parseSourceFile** reads the TypeScript file and creates an AST
-2. **extractFunctions** finds function nodes in that AST
-3. **extractSignature** takes each function node and extracts its signature
-4. **analyzeBranches** looks inside the function for decision points
-5. **extractImports** finds what the function depends on
-6. **analyzeType** understands complex types
+1. **parseSourceFile** ✅ reads the TypeScript file and creates an AST
+2. **extractFunctions** ✅ finds function nodes in that AST
+3. **extractSignature** ✅ takes each function node and extracts its signature
+4. **extractComments** ✅ extracts raw comments from source
+5. **analyzeBranches** ❌ DOESN'T EXIST - would look inside functions for decision points
+6. **extractImports** ❌ DOESN'T EXIST - would find what the function depends on
+7. **analyzeType** ❌ DOESN'T EXIST - would understand complex types
+
+### 7. Comment Extraction ✅ IMPLEMENTED
+
+```
+extractComments/
+├── index.ts              # Main comment extractor
+├── extractLeading/       # Get comments before node
+├── extractTrailing/      # Get comments after node
+└── associateWithNodes/   # Link comments to their function nodes
+```
+
+**Note:** Parser does NOT interpret comment markers (`//++`, `//--`, `//??`). It only extracts raw comments. Scribe handles interpretation.
 
 ## Why This Architecture Wins
 

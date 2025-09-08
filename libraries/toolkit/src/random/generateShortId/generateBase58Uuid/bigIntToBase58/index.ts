@@ -1,7 +1,6 @@
 import unfold from "../../../../simple/array/unfold/index.ts"
 import reverse from "../../../../simple/array/reverse/index.ts"
-
-const BASE58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Converts a BigInt to Base58 encoded string array
 export default function bigIntToBase58(value: bigint): Array<string> {
@@ -16,9 +15,7 @@ export default function bigIntToBase58(value: bigint): Array<string> {
 	return reverse(generateDigits(value))
 }
 
-//?? [EXAMPLE] bigIntToBase58(0n) // []
 //?? [EXAMPLE] bigIntToBase58(58n) // ["2", "1"]
 //?? [EXAMPLE] bigIntToBase58(3364n) // ["2", "1", "1"]
-/*??
- * [GOTCHA] Returns empty array for 0n
- */
+//?? [EXAMPLE] bigIntToBase58(0n) // []
+//?? [GOTCHA] Returns empty array for 0n

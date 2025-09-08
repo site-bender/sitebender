@@ -1,7 +1,6 @@
 import takeWhile from "../../../../simple/array/takeWhile/index.ts"
 import map from "../../../../simple/array/map/index.ts"
-
-const BASE58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Prepends '1' characters for leading zero bytes in Base58 encoding
 export default function prependLeadingOnes(bytes: Uint8Array) {
@@ -20,6 +19,4 @@ export default function prependLeadingOnes(bytes: Uint8Array) {
 
 //?? [EXAMPLE] prependLeadingOnes(new Uint8Array([0, 0, 255]))(["F", "F"]) // ["1", "1", "F", "F"]
 //?? [EXAMPLE] prependLeadingOnes(new Uint8Array([255]))(["F", "F"]) // ["F", "F"]
-/*??
- * [GOTCHA] Base58 convention requires '1' for each leading zero byte
- */
+//?? [GOTCHA] Base58 convention requires '1' for each leading zero byte
