@@ -8,7 +8,7 @@ export default function parseCommentMarkers(source: string): ParsedComments {
     idx: 0,
     descriptionParts: [],
     haveDescription: false,
-    examples: [],
+    help: [],
     techDebt: [],
     raw: [],
     diagnostics: [],
@@ -18,7 +18,7 @@ export default function parseCommentMarkers(source: string): ParsedComments {
     : undefined
   return {
     description,
-    examples: [...final.examples],
+    help: [...final.help],
     techDebt: [...final.techDebt],
     raw: [...final.raw],
     diagnostics: [...final.diagnostics],
