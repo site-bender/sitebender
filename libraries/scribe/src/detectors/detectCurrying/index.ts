@@ -52,11 +52,9 @@ export default function detectCurrying(
  * Removes comments from source code
  */
 function removeComments(source: string): string {
-	// Remove single-line comments
-	let cleaned = source.replace(/\/\/.*$/gm, "")
-
-	// Remove multi-line comments
-	cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, "")
-
-	return cleaned
+	// Remove single-line comments, then multi-line comments
+	const withoutSingleLine = source.replace(/\/\/.*$/gm, "")
+	const withoutMultiLine = withoutSingleLine.replace(/\/\*[\s\S]*?\*\//g, "")
+	
+	return withoutMultiLine
 }

@@ -68,21 +68,19 @@ export default async function generateDocs(
 		}
 
 		// Generate documentation based on format
-		let output: string
-		switch (opts.format) {
-			case "markdown":
-				output = generateMarkdown(metadata)
-				break
-			case "html":
-				// TODO(@scribe): Implement HTML generation in Phase 2
-				output = generateMarkdown(metadata) // Fallback to markdown for now
-				break
-			case "json":
-				output = JSON.stringify(metadata, null, 2)
-				break
-			default:
-				output = generateMarkdown(metadata)
-		}
+		const output: string = (() => {
+			switch (opts.format) {
+				case "markdown":
+					return generateMarkdown(metadata)
+				case "html":
+					// TODO(@scribe): Implement HTML generation in Phase 2
+					return generateMarkdown(metadata) // Fallback to markdown for now
+				case "json":
+					return JSON.stringify(metadata, null, 2)
+				default:
+					return generateMarkdown(metadata)
+			}
+		})()
 
 		return {
 			ok: true,

@@ -160,19 +160,15 @@ function extractParameters(
 			: "unknown"
 
 		// Extract type
-		let type = "any"
-		if (param.type) {
-			type = param.type.getText()
-		}
+		const type = param.type ? param.type.getText() : "any"
 
 		// Check if optional
 		const optional = Boolean(param.questionToken)
 
 		// Extract default value
-		let defaultValue: string | undefined
-		if (param.initializer) {
-			defaultValue = param.initializer.getText()
-		}
+		const defaultValue = param.initializer
+			? param.initializer.getText()
+			: undefined
 
 		parameters.push({
 			name,
@@ -189,47 +185,47 @@ function extractParameters(
  * Finds return type in a block statement
  */
 function findReturnTypeInBlock(block: ts.Block): string {
-	let returnType = "void"
+	// Find first return statement with expression
+	const returnStatement = block.statements.find(
+		(stmt): stmt is ts.ReturnStatement => 
+			ts.isReturnStatement(stmt) && stmt.expression !== undefined
+	)
 
-	for (const statement of block.statements) {
-		if (ts.isReturnStatement(statement) && statement.expression) {
-			// Check if returning a function
-			if (
-				ts.isFunctionExpression(statement.expression) ||
-				ts.isArrowFunction(statement.expression)
-			) {
-				// For curried functions, extract the signature of the returned function
-				const returnedFunc = statement.expression
-				if (returnedFunc.type) {
-					returnType = `(${
-						returnedFunc.parameters.map((p) => p.getText()).join(
-							", ",
-						)
-					}) => ${returnedFunc.type.getText()}`
-				} else if (returnedFunc.body) {
-					// Try to infer from the body
-					if (ts.isBlock(returnedFunc.body)) {
-						// Look for nested return
-						for (const stmt of returnedFunc.body.statements) {
-							if (ts.isReturnStatement(stmt) && stmt.expression) {
-								returnType = "(y: number) => number" // TODO(@scribe): Better type inference
-								break
-							}
-						}
-					} else {
-						// Expression body
-						returnType = "(y: number) => number" // TODO(@scribe): Better type inference
-					}
-				}
-			} else {
-				// Regular return value
-				returnType = "inferred"
-			}
-			break
-		}
+	if (!returnStatement || !returnStatement.expression) {
+		return "void"
 	}
 
-	return returnType
+	// Check if returning a function
+	if (
+		ts.isFunctionExpression(returnStatement.expression) ||
+		ts.isArrowFunction(returnStatement.expression)
+	) {
+		// For curried functions, extract the signature of the returned function
+		const returnedFunc = returnStatement.expression
+		if (returnedFunc.type) {
+			return `(${
+				returnedFunc.parameters.map((p) => p.getText()).join(", ")
+			}) => ${returnedFunc.type.getText()}`
+		} else if (returnedFunc.body) {
+			// Try to infer from the body
+			if (ts.isBlock(returnedFunc.body)) {
+				// Look for nested return
+				const hasReturn = returnedFunc.body.statements.some(
+					(stmt) => ts.isReturnStatement(stmt) && stmt.expression
+				)
+				return hasReturn 
+					? "(y: number) => number" // TODO(@scribe): Better type inference
+					: "void"
+			} else {
+				// Expression body
+				return "(y: number) => number" // TODO(@scribe): Better type inference
+			}
+		}
+		return "Function"
+	} else {
+		// Regular return value
+		return "inferred"
+	}
 }
 
 /**

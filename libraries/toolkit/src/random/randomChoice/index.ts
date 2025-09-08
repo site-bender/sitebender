@@ -1,56 +1,14 @@
 import isEmpty from "../../simple/array/isEmpty/index.ts"
 import isNullish from "../../simple/validation/isNullish/index.ts"
 
-/**
- * Selects a random element from an Array or Set
- *
- * Returns a randomly selected element from the provided collection using
- * Math.random(). Each element has an equal probability of being selected.
- * Maintains the input type: Arrays return elements, Sets return elements.
- * Returns undefined for empty collections or invalid inputs.
- *
- * ⚠️ IMPURE: This function is non-deterministic and returns different
- * values each time it's called.
- *
- * @param collection - Array or Set to select from
- * @returns Random element from collection, or undefined if empty/invalid
- * @example
- * ```typescript
- * // Random from array
- * randomChoice(['red', 'green', 'blue'])  // 'green'
- * randomChoice([1, 2, 3, 4, 5])          // 3
- *
- * // Random from Set
- * const colors = new Set(['red', 'green', 'blue'])
- * randomChoice(colors)  // 'blue'
- *
- * // Random selection
- * const users = ['Alice', 'Bob', 'Charlie', 'Diana']
- * const winner = randomChoice(users)  // 'Charlie'
- *
- * // Random test data
- * const testCases = [
- *   { input: 1, expected: 2 },
- *   { input: 5, expected: 10 }
- * ]
- * const testCase = randomChoice(testCases)
- *
- * // Edge cases
- * randomChoice([])         // undefined
- * randomChoice(new Set())  // undefined
- * randomChoice(null)       // undefined
- * ```
- * @impure
- * @safe
- */
-const randomChoice = <T>(
+//++ Selects a random element from an Array or Set
+export default function randomChoice<T>(
 	collection: Array<T> | Set<T> | null | undefined,
-): T | undefined => {
+): T | undefined {
 	if (isNullish(collection)) {
 		return undefined
 	}
 
-	// Handle Arrays
 	if (Array.isArray(collection)) {
 		if (isEmpty(collection)) {
 			return undefined
@@ -59,7 +17,6 @@ const randomChoice = <T>(
 		return collection[index]
 	}
 
-	// Handle Sets
 	if (collection instanceof Set) {
 		if (collection.size === 0) {
 			return undefined
@@ -69,8 +26,22 @@ const randomChoice = <T>(
 		return items[index]
 	}
 
-	// Invalid input type
 	return undefined
 }
 
-export default randomChoice
+//?? [EXAMPLE] randomChoice(['red', 'green', 'blue']) // 'green'
+//?? [EXAMPLE] randomChoice([1, 2, 3, 4, 5]) // 3
+//?? [EXAMPLE] randomChoice(new Set(['red', 'green', 'blue'])) // 'blue'
+/*??
+ * [EXAMPLE]
+ * const users = ['Alice', 'Bob', 'Charlie', 'Diana']
+ * const winner = randomChoice(users) // 'Charlie'
+ *
+ * const testCases = [
+ *   { input: 1, expected: 2 },
+ *   { input: 5, expected: 10 }
+ * ]
+ * const testCase = randomChoice(testCases)
+ *
+ * [GOTCHA] Returns undefined for empty collections or invalid inputs
+ */
