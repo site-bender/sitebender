@@ -1,10 +1,10 @@
-# @sitebender/distributed
+# @sitebender/mesh
 
 [![CI](https://github.com/site-bender/sitebender/actions/workflows/ci.yml/badge.svg?branch=phase-2)](https://github.com/site-bender/sitebender/actions/workflows/ci.yml)
 
 ![Header](./github-sitebender-banner.png)
 
-A functional, offline-first distributed computing library for the Sitebender ecosystem. Implements CRDTs, decentralized identity (DIDs), IPFS integration, and peer-to-peer synchronization with progressive enhancement principles.
+A functional, offline-first mesh networking library for the Sitebender ecosystem. Implements CRDTs, decentralized identity (DIDs), IPFS integration, and peer-to-peer synchronization with progressive enhancement principles.
 
 ## Philosophy
 
@@ -40,8 +40,8 @@ Web 3.0 isn't about blockchains and tokens. It's about **user sovereignty**, **d
 
 ```bash
 # Clone and install
-git clone https://github.com/site-bender/distributed-ai.git
-cd distributed-ai
+git clone https://github.com/site-bender/mesh.git
+cd mesh
 
 # Run tests
 deno task test
@@ -55,7 +55,7 @@ deno task typecheck
 ### CRDTs
 
 ```typescript
-import { createLWWRegister, createORSet } from "@sitebender/distributed"
+import { createLWWRegister, createORSet } from "@sitebender/mesh"
 
 // Last-write-wins register
 const register = createLWWRegister("initial", "node1")
@@ -70,7 +70,7 @@ const set = createORSet([], "node1")
 ### Decentralized Identity
 
 ```typescript
-import { createDIDKey } from "@sitebender/distributed"
+import { createDIDKey } from "@sitebender/mesh"
 
 const didKey = await createDIDKey()
 const signature = await didKey.sign(data)

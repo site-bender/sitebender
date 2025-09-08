@@ -97,46 +97,34 @@ function countOccurrences(source: string, pattern: RegExp): number {
  * Detects nested loops
  */
 function detectNestedLoops(source: string): number {
-	// Simple heuristic: count loop keywords and check for nesting
-	let maxNesting = 0
-	let currentNesting = 0
-
 	const tokens = source.split(/\s+/)
-
-	for (const token of tokens) {
-		if (/^(for|while|forEach|map|filter|reduce)/.test(token)) {
-			currentNesting++
-			maxNesting = Math.max(maxNesting, currentNesting)
-		}
-		// Reset on function boundaries (simplified)
-		if (token.includes("function") || token.includes("=>")) {
-			currentNesting = Math.max(0, currentNesting - 1)
-		}
-	}
-
-	return maxNesting > 1 ? maxNesting - 1 : 0
+	// Fold over tokens to compute nesting metrics
+	const { max } = tokens.reduce<{ current: number; max: number }>(
+		(acc, token) => {
+			const isLoopLike = /^(for|while|forEach|map|filter|reduce)/.test(token)
+			const enters = isLoopLike ? acc.current + 1 : acc.current
+			const peak = enters > acc.max ? enters : acc.max
+			const exits = (token.includes("function") || token.includes("=>"))
+				? Math.max(0, enters - 1)
+				: enters
+			return { current: exits, max: peak }
+		},
+		{ current: 0, max: 0 },
+	)
+	return max > 1 ? max - 1 : 0
 }
 
 /**
  * Detects if loops are independent (not nested)
  */
 function areLoopsIndependent(source: string): boolean {
-	// Simplified check: if loops are at the same brace level, they're independent
-	// This is a heuristic and may not be 100% accurate
-	const lines = source.split("\n")
-	const loopLines = []
-
-	for (let i = 0; i < lines.length; i++) {
-		if (/\b(for|while|do)\b/.test(lines[i])) {
-			loopLines.push(i)
-		}
-	}
-
-	// If loops are far apart, they're likely independent
+	const loopLines = source
+		.split("\n")
+		.map((line, idx) => (/\b(for|while|do)\b/.test(line) ? idx : -1))
+		.filter((idx) => idx >= 0)
 	if (loopLines.length === 2) {
 		return Math.abs(loopLines[0] - loopLines[1]) > 10
 	}
-
 	return true
 }
 

@@ -7,62 +7,34 @@ import {
  * Detects if a function is pure (no side effects)
  */
 export default function detectPurity(source: string): boolean {
-	// Check for side effect indicators
-	for (const indicator of SIDE_EFFECT_INDICATORS) {
-		if (source.includes(indicator)) {
-			return false
-		}
-	}
+	return !([
+		() => hasSideEffectIndicator(source),
+		() => hasMutationIndicator(source),
+		() => /\bthrow\b/.test(source),
+		() => /\btry\b/.test(source),
+		() => /\bawait\b/.test(source),
+		() => /new\s+Date\s*\(|Date\.now\s*\(/.test(source),
+		() => /Math\.random\s*\(/.test(source),
+	].some((check) => check()))
+}
 
-	// Check for mutation indicators
-	for (const indicator of MUTATION_INDICATORS) {
-		// Be careful with arrow functions (=>)
-		if (indicator === "=") {
-			// Look for assignment that's not part of arrow function or const/let/var declaration
-			// Skip const/let/var declarations and arrow functions
-			const cleanedSource = source
-				.replace(
-					/(?:const|let|var)\s+\w+\s*=\s*(?:\([^)]*\)|[^=])*=>/g,
-					"",
-				) // Remove arrow function declarations
-				.replace(/=>/g, "") // Remove remaining arrow functions
+const hasSideEffectIndicator = (source: string): boolean =>
+	SIDE_EFFECT_INDICATORS.some((indicator) => source.includes(indicator))
 
-			// Now check for remaining assignments (mutations)
-			if (/[^=<>!]\s*=\s*[^=]/.test(cleanedSource)) {
-				return false
-			}
-		} else {
-			if (source.includes(indicator)) {
-				return false
-			}
-		}
-	}
+const hasMutationIndicator = (source: string): boolean =>
+	MUTATION_INDICATORS.some((indicator) =>
+		indicator === "=" ? hasTrueAssignment(source) : source.includes(indicator)
+	)
 
-	// Check for throw statements (side effect)
-	if (/\bthrow\b/.test(source)) {
-		return false
-	}
-
-	// Check for try/catch (usually indicates I/O or side effects)
-	if (/\btry\b/.test(source)) {
-		return false
-	}
-
-	// Check for await (async operations are impure)
-	if (/\bawait\b/.test(source)) {
-		return false
-	}
-
-	// Check for new Date() or Date.now()
-	if (/new\s+Date\s*\(|Date\.now\s*\(/.test(source)) {
-		return false
-	}
-
-	// Check for Math.random()
-	if (/Math\.random\s*\(/.test(source)) {
-		return false
-	}
-
-	// If none of the impurity indicators are found, consider it pure
-	return true
+// Detect assignment not part of declarations or arrow function expressions
+const hasTrueAssignment = (source: string): boolean => {
+	const cleaned = source
+		// Remove declarations with arrow functions
+		.replace(
+			/(?:const|let|var)\s+\w+\s*=\s*(?:\([^)]*\)|[^=])*=>/g,
+			"",
+		)
+		// Remove remaining arrow tokens to avoid => confusion
+		.replace(/=>/g, "")
+	return /[^=<>!]\s*=\s*[^=]/.test(cleaned)
 }
