@@ -18,6 +18,19 @@ NC='\033[0m' # No Color
 MAIN_REPO=$(git rev-parse --show-toplevel)
 BASE_DIR=$(dirname "$MAIN_REPO")
 
+# All available libraries
+ALL_LIBRARIES=(
+    "components"
+    "engine"
+    "foundry"
+    "maths"
+    "mesh"
+    "parser"
+    "prover"
+    "scribe"
+    "toolkit"
+)
+
 # Function to extract library name from branch
 get_library_from_branch() {
     local branch=$1
@@ -87,11 +100,20 @@ Working on @sitebender/${library} library
 # Navigate to this worktree
 cd $worktree_path
 
-# Run tests
-deno task test
+# Run tests for this library
+deno task test:${library}
 
 # Check coverage
-deno task coverage
+deno task coverage:${library}
+
+# Format code
+deno task fmt
+
+# Lint code
+deno task lint
+
+# Type check
+deno task typecheck
 
 # Switch back to main repo
 cd $MAIN_REPO
@@ -137,36 +159,39 @@ if [ $# -gt 0 ]; then
         create_worktree "$branch"
     done
 else
-    # Default libraries
-    LIBRARIES=("toolkit" "engine" "components")
-    
     echo -e "${CYAN}No branches specified. Available options:${NC}"
-    echo "1. Set up all default libraries (toolkit, engine, components)"
+    echo "1. Set up all libraries (${#ALL_LIBRARIES[@]} total)"
     echo "2. Choose specific libraries"
     echo "3. Enter custom branch names"
-    read -p "Enter choice (1-3): " choice
+    echo "4. Show existing worktrees and exit"
+    read -p "Enter choice (1-4): " choice
     
     case $choice in
         1)
-            echo -e "${GREEN}Setting up all default libraries...${NC}"
-            for lib in "${LIBRARIES[@]}"; do
+            echo -e "${GREEN}Setting up all libraries...${NC}"
+            for lib in "${ALL_LIBRARIES[@]}"; do
                 echo ""
                 create_worktree "ai/$lib"
             done
             ;;
         2)
             echo -e "${GREEN}Choose libraries to set up:${NC}"
-            for lib in "${LIBRARIES[@]}"; do
-                read -p "Set up worktree for $lib? (y/n): " yn
-                case $yn in
-                    [Yy]* )
-                        echo ""
-                        create_worktree "ai/$lib"
-                        ;;
-                    * )
-                        echo "Skipping $lib"
-                        ;;
-                esac
+            for lib in "${ALL_LIBRARIES[@]}"; do
+                # Check if worktree already exists
+                if git worktree list | grep -q "${lib}-ai"; then
+                    echo -e "${BLUE}$lib already has a worktree${NC}"
+                else
+                    read -p "Set up worktree for $lib? (y/n): " yn
+                    case $yn in
+                        [Yy]* )
+                            echo ""
+                            create_worktree "ai/$lib"
+                            ;;
+                        * )
+                            echo "Skipping $lib"
+                            ;;
+                    esac
+                fi
             done
             ;;
         3)
@@ -187,6 +212,9 @@ else
                 create_worktree "$branch"
             done
             ;;
+        4)
+            # Just show existing worktrees
+            ;;
         *)
             echo -e "${RED}Invalid choice${NC}"
             exit 1
@@ -200,8 +228,8 @@ echo ""
 echo -e "${BLUE}Current worktree configuration:${NC}"
 git worktree list
 echo ""
-echo -e "${BLUE}Available branches:${NC}"
-git branch | grep -E "(^\*|ai/)" 
+echo -e "${BLUE}Available ai/* branches:${NC}"
+git branch | grep "ai/" || echo "  No ai/* branches found"
 echo ""
 echo -e "${CYAN}📝 Quick reference:${NC}"
 echo "  Main repo (for merging/pulling): $MAIN_REPO"
@@ -209,7 +237,7 @@ echo "  Current branch: $(git branch --show-current)"
 echo ""
 echo "  To navigate to a worktree:"
 for worktree in $(git worktree list --porcelain | grep "^worktree" | cut -d' ' -f2); do
-    if [[ $worktree != $MAIN_REPO ]]; then
+    if [[ $worktree != $MAIN_REPO ]] && [[ $worktree == *-ai ]]; then
         echo "    cd $worktree"
     fi
 done
@@ -218,4 +246,6 @@ echo -e "${CYAN}💡 Tips:${NC}"
 echo "  • Main repository stays on 'main' for easy pulling/merging"
 echo "  • Each worktree has its own AI_STATUS.md for tracking progress"
 echo "  • Use 'git worktree list' to see all worktrees"
-echo "  • Run './setup_worktrees.sh ai/custom' to add more worktrees"
+echo "  • Run 'deno task integrate' to merge all branches into main"
+echo "  • Run this script with library names to add specific worktrees"
+echo "    Example: $0 foundry parser"

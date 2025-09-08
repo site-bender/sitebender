@@ -111,6 +111,10 @@
 		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install/index.ts",
 		"lint:no-react-junk": "deno run --allow-read --allow-run scripts/enforceNoReactJunk/index.ts",
 
+		// === Worktree Management ===
+		"worktrees:setup": "bash scripts/setupWorktrees/index.sh",
+		"integrate": "bash scripts/integrateLibraries/index.sh",
+
 		// === Local Infra (Docker Compose) ===
 		"infra:up": "docker compose up -d",
 		"infra:down": "docker compose down -v",
