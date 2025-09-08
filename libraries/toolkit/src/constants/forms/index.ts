@@ -3,9 +3,7 @@ import type {
 	PhoneType,
 } from "../../../../components/types/components/forms/index.ts"
 
-/**
- * Human-readable labels for communication channels
- */
+//++ Human-readable labels for communication channels
 export const CHANNEL_LABELS: Record<CommunicationChannel, string> = {
 	voice: "Voice calls",
 	voicemail: "Voice mail",
@@ -19,11 +17,10 @@ export const CHANNEL_LABELS: Record<CommunicationChannel, string> = {
 	telegram: "Telegram",
 }
 
+//++ Threshold for switching from radio buttons to select dropdown
 export const CHOOSE_ONE_FIELD_TOGGLE = 8
 
-/**
- * Human-readable labels for phone types
- */
+//++ Human-readable labels for phone types
 export const TYPE_LABELS: Record<PhoneType, string> = {
 	mobile: "Mobile phone",
 	landline: "Landline",
