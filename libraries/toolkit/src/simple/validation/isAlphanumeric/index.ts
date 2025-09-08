@@ -1,54 +1,5 @@
 import isEmpty from "../isEmpty/index.ts"
 
-/**
- * Validates if a string contains only alphanumeric characters
- *
- * Checks whether a string consists entirely of alphabetic characters (a-z, A-Z)
- * and numeric digits (0-9). By default, validates basic Latin letters and digits only.
- * Can optionally allow spaces, hyphens, underscores, and Unicode characters for
- * international text support. Returns false for empty strings or non-string values.
- *
- * Validation modes:
- * - Default: Only a-z, A-Z, and 0-9 characters
- * - With spaces: Alphanumeric characters and spaces
- * - With punctuation: Includes hyphens and underscores
- * - Unicode: Supports international alphabetic characters and digits
- * - Empty strings always return false
- * - Non-string values always return false
- *
- * @param options - Optional configuration for validation behavior
- * @returns A predicate function (value: unknown) => boolean that validates alphanumeric strings
- * @example
- * ```typescript
- * // Basic usage
- * const validator = isAlphanumeric()
- * validator("Hello123")  // true
- * validator("abc456")    // true
- * validator("Hello World")  // false (space)
- * validator("")  // false (empty)
- *
- * // With options
- * const withSpaces = isAlphanumeric({ allowSpaces: true })
- * withSpaces("Hello World 123")  // true
- *
- * const withHyphens = isAlphanumeric({ allowHyphens: true })
- * withHyphens("UUID-1234-ABCD")  // true
- *
- * // Unicode support
- * const unicode = isAlphanumeric({ unicode: true })
- * unicode("José123")  // true
- * unicode("北京2024")  // true
- *
- * // Non-string inputs
- * validator(123)  // false
- * validator(null)  // false
- * ```
- *
- * @pure
- * @curried
- * @predicate
- * @safe
- */
 type AlphanumericOptions = {
 	allowSpaces?: boolean
 	allowHyphens?: boolean
@@ -56,10 +7,11 @@ type AlphanumericOptions = {
 	unicode?: boolean
 }
 
-const isAlphanumeric = (
+//++ Validates if a string contains only alphanumeric characters
+export default function isAlphanumeric(
 	options: AlphanumericOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+) {
+	return function checkIsAlphanumeric(value: unknown): boolean {
 		if (typeof value !== "string" || isEmpty(value)) {
 			return false
 		}
@@ -91,4 +43,36 @@ const isAlphanumeric = (
 	}
 }
 
-export default isAlphanumeric
+//?? [EXAMPLE] isAlphanumeric()("Hello123") // true
+//?? [EXAMPLE] isAlphanumeric()("abc456") // true
+//?? [EXAMPLE] isAlphanumeric()("Hello World") // false (contains space)
+//?? [EXAMPLE] isAlphanumeric()("Hello-123") // false (contains hyphen)
+//?? [EXAMPLE] isAlphanumeric()("") // false (empty)
+//?? [EXAMPLE] isAlphanumeric()(123) // false (not string)
+/*??
+ * [EXAMPLE]
+ * const validator = isAlphanumeric()
+ * validator("Hello123")    // true
+ * validator("abc456")      // true
+ * validator("Hello World") // false (space)
+ * validator("test_123")    // false (underscore)
+ *
+ * const withSpaces = isAlphanumeric({ allowSpaces: true })
+ * withSpaces("Hello World 123")  // true
+ * withSpaces("Product ID 456")   // true
+ *
+ * const withHyphens = isAlphanumeric({ 
+ *   allowHyphens: true,
+ *   allowUnderscores: true
+ * })
+ * withHyphens("UUID-1234-ABCD")  // true
+ * withHyphens("user_name_123")   // true
+ *
+ * const unicode = isAlphanumeric({ unicode: true })
+ * unicode("José123")  // true
+ * unicode("北京2024")  // true (Chinese + numbers)
+ * unicode("Москва99") // true (Cyrillic + numbers)
+ *
+ * [GOTCHA] Empty strings always return false
+ * [GOTCHA] Non-string values always return false
+ */

@@ -1,55 +1,5 @@
 import isEmpty from "../isEmpty/index.ts"
 
-/**
- * Validates if a string contains only alphabetic characters
- *
- * Checks whether a string consists entirely of alphabetic characters (a-z, A-Z).
- * By default, validates basic Latin letters only. Can optionally allow spaces,
- * hyphens, apostrophes, and Unicode letters for international text support.
- * Returns false for empty strings or non-string values.
- *
- * Validation modes:
- * - Default: Only a-z and A-Z characters
- * - With spaces: Alphabetic characters and spaces
- * - With punctuation: Includes hyphens and apostrophes for names
- * - Unicode: Supports international alphabetic characters
- * - Empty strings always return false
- * - Non-string values always return false
- *
- * @pure
- * @curried
- * @predicate
- * @param options - Optional configuration for validation behavior (AlphaOptions)
- * @returns A predicate function (value: unknown) => boolean that validates alphabetic strings
- * @example
- * ```typescript
- * // Basic validation
- * const isBasicAlpha = isAlpha()
- * isBasicAlpha("HelloWorld")      // true
- * isBasicAlpha("Hello World")     // false (contains space)
- * isBasicAlpha("Hello123")        // false (contains numbers)
- *
- * // Name validation with options
- * const isValidName = isAlpha({
- *   allowSpaces: true,
- *   allowHyphens: true,
- *   allowApostrophes: true
- * })
- * isValidName("Mary Jane")        // true
- * isValidName("Jean-Paul")        // true
- * isValidName("O'Brien")          // true
- *
- * // Unicode support
- * const isUnicodeAlpha = isAlpha({ unicode: true })
- * isUnicodeAlpha("José")          // true
- * isUnicodeAlpha("北京")          // true (Chinese)
- * isUnicodeAlpha("Москва")        // true (Cyrillic)
- *
- * // Non-string inputs
- * isAlpha()(null)                 // false
- * isAlpha()("")                   // false (empty)
- * ```
- */
 type AlphaOptions = {
 	allowSpaces?: boolean
 	allowHyphens?: boolean
@@ -57,8 +7,9 @@ type AlphaOptions = {
 	unicode?: boolean
 }
 
-const isAlpha = (options: AlphaOptions = {}): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+//++ Validates if a string contains only alphabetic characters
+export default function isAlpha(options: AlphaOptions = {}) {
+	return function checkIsAlpha(value: unknown): boolean {
 		if (typeof value !== "string" || isEmpty(value)) {
 			return false
 		}
@@ -90,4 +41,33 @@ const isAlpha = (options: AlphaOptions = {}): (value: unknown) => boolean => {
 	}
 }
 
-export default isAlpha
+//?? [EXAMPLE] isAlpha()("HelloWorld") // true
+//?? [EXAMPLE] isAlpha()("Hello World") // false (contains space)
+//?? [EXAMPLE] isAlpha()("Hello123") // false (contains numbers)
+//?? [EXAMPLE] isAlpha()("") // false (empty)
+//?? [EXAMPLE] isAlpha()(null) // false
+/*??
+ * [EXAMPLE]
+ * const isBasicAlpha = isAlpha()
+ * isBasicAlpha("HelloWorld")  // true
+ * isBasicAlpha("Hello World") // false (contains space)
+ * isBasicAlpha("Hello123")    // false (contains numbers)
+ *
+ * const isValidName = isAlpha({
+ *   allowSpaces: true,
+ *   allowHyphens: true,
+ *   allowApostrophes: true
+ * })
+ * isValidName("Mary Jane")  // true
+ * isValidName("Jean-Paul")  // true  
+ * isValidName("O'Brien")    // true
+ * isValidName("John123")    // false (contains numbers)
+ *
+ * const isUnicodeAlpha = isAlpha({ unicode: true })
+ * isUnicodeAlpha("José")    // true
+ * isUnicodeAlpha("北京")     // true (Chinese)
+ * isUnicodeAlpha("Москва")  // true (Cyrillic)
+ *
+ * [GOTCHA] Empty strings always return false
+ * [GOTCHA] Non-string values always return false
+ */
