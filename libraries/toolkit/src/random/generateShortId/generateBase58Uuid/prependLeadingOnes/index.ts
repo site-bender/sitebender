@@ -1,7 +1,6 @@
 import takeWhile from "../../../../simple/array/takeWhile/index.ts"
 import map from "../../../../simple/array/map/index.ts"
-
-const BASE58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Prepends '1' characters for leading zero bytes in Base58 encoding
 export default function prependLeadingOnes(bytes: Uint8Array) {
