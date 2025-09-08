@@ -177,8 +177,7 @@ export default function generateMonadPatternTests(
 			expectedOutput: [1, 2, 2, 4, 3, 6],
 			properties: [{
 				name: "flatten operation",
-				generator:
-					"fc.func(fc.array(fc.anything())), fc.array(fc.anything())",
+				generator: "fc.func(fc.array(fc.anything())), fc.array(fc.anything())",
 				property: `
 					const result = chain(f)(arr)
 					const manual = arr.flatMap(f)

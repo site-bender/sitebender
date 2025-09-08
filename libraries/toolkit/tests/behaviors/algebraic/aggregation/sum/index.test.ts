@@ -85,9 +85,7 @@ Deno.test("sum", async (t) => {
 					}),
 					(numbers) => {
 						const original = sum(numbers)
-						const shuffled = [...numbers].sort(() =>
-							Math.random() - 0.5
-						)
+						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const reordered = sum(shuffled)
 
 						// Account for floating point accumulation differences

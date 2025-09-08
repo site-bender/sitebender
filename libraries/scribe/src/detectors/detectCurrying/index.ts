@@ -55,6 +55,6 @@ function removeComments(source: string): string {
 	// Remove single-line comments, then multi-line comments
 	const withoutSingleLine = source.replace(/\/\/.*$/gm, "")
 	const withoutMultiLine = withoutSingleLine.replace(/\/\*[\s\S]*?\*\//g, "")
-	
+
 	return withoutMultiLine
 }

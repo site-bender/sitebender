@@ -93,13 +93,12 @@ export default function pickGlobalAttributes(
 	const result: Partial<GlobalAttributes> = {}
 
 	for (const [rawKey, value] of Object.entries(attributes)) {
-		const guard =
+		const guard = (globalAttributes as Record<string, (v: Value) => boolean>)[
+			rawKey
+		] ??
 			(globalAttributes as Record<string, (v: Value) => boolean>)[
-				rawKey
-			] ??
-				(globalAttributes as Record<string, (v: Value) => boolean>)[
-					rawKey.toLowerCase()
-				]
+				rawKey.toLowerCase()
+			]
 		const canonical = toCanonicalKey(rawKey) ??
 			(rawKey as keyof GlobalAttributes)
 

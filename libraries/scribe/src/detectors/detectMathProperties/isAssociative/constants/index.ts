@@ -1,13 +1,13 @@
 //++ Constants for detecting associative mathematical properties
 
 export const ASSOCIATIVE_OPERATIONS = [
-	/\+/,    // Addition
-	/\*/,    // Multiplication
-	/&&/,    // Logical AND
-	/\|\|/,  // Logical OR
-	/&/,     // Bitwise AND
-	/\|/,    // Bitwise OR
-	/\^/,    // Bitwise XOR
+	/\+/, // Addition
+	/\*/, // Multiplication
+	/&&/, // Logical AND
+	/\|\|/, // Logical OR
+	/&/, // Bitwise AND
+	/\|/, // Bitwise OR
+	/\^/, // Bitwise XOR
 ] as const
 
 export const ASSOCIATIVE_FUNCTION_NAMES = [

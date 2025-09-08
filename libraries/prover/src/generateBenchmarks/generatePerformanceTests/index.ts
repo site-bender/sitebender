@@ -1,6 +1,6 @@
 import type { FunctionSignature } from "../../types/index.ts"
-import type { BenchmarkTest } from "../types/index.ts"
 import type { BenchmarkInputSet } from "../createBenchmarkInputs/index.ts"
+import type { BenchmarkTest } from "../types/index.ts"
 
 /**
  * Generates performance test cases from input sets

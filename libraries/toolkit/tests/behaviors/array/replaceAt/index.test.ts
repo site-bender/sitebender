@@ -245,9 +245,7 @@ Deno.test("replaceAt - property: out of bounds returns identical array", () => {
 				fc.integer({ min: 100 }),
 			),
 			(array, invalidIndex) => {
-				const result = replaceAt<number>(invalidIndex)((n: number) =>
-					n * 2
-				)(
+				const result = replaceAt<number>(invalidIndex)((n: number) => n * 2)(
 					array,
 				)
 				return result === array // Should be same reference

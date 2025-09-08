@@ -4,18 +4,19 @@ import type {
 	ParseError,
 	Result,
 } from "../types/index.ts"
+
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
-import parseFileWithCompiler from "../parser/parseFileWithCompiler/index.ts"
-import detectPurityFromAST from "../detectors/detectPurityFromAST/index.ts"
-import detectCurryingFromAST from "../detectors/detectCurryingFromAST/index.ts"
 import detectComplexityFromAST from "../detectors/detectComplexityFromAST/index.ts"
+import detectCurryingFromAST from "../detectors/detectCurryingFromAST/index.ts"
 // Direct heuristic math property detectors (no barrel)
 import isAssociative from "../detectors/detectMathProperties/isAssociative/index.ts"
 import isCommutative from "../detectors/detectMathProperties/isCommutative/index.ts"
 import isDistributive from "../detectors/detectMathProperties/isDistributive/index.ts"
 import isIdempotent from "../detectors/detectMathProperties/isIdempotent/index.ts"
+import detectPurityFromAST from "../detectors/detectPurityFromAST/index.ts"
 import { extractDescription } from "../extractors/index.ts"
 import { generateMarkdown } from "../generators/index.ts"
+import parseFileWithCompiler from "../parser/parseFileWithCompiler/index.ts"
 
 //++ Generate documentation using the TypeScript compiler API (richer AST metadata).
 export default async function generateDocsWithCompiler(

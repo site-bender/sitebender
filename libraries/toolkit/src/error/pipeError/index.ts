@@ -5,7 +5,9 @@ import createError from "../createError/index.ts"
 
 //++ Composes error transformations in a pipeline to build rich error objects
 export default function pipeError<TOp extends string>(operation: TOp) {
-	return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+	return function withArguments<TArgs extends ReadonlyArray<Value>>(
+		args: TArgs,
+	) {
 		return function withMessage(message: string) {
 			return function withTransforms<T extends EngineError<TOp, TArgs>>(
 				...transforms: Array<(error: T) => T>

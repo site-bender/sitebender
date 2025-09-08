@@ -1,4 +1,5 @@
 import type { TypeInfo } from "../../types/index.ts"
+
 import { TypeKind } from "../../types/index.ts"
 import generateTestInput from "../generateTestInputs/index.ts"
 
@@ -41,9 +42,7 @@ export default function generateEdgeCaseInputs(type: TypeInfo): Array<unknown> {
 
 	if (type.kind === TypeKind.Array) {
 		cases.push([]) // empty array
-		const element = type.elementType
-			? generateTestInput(type.elementType)
-			: 1
+		const element = type.elementType ? generateTestInput(type.elementType) : 1
 		cases.push([element]) // single element
 		cases.push(Array(1000).fill(element)) // large array
 	}

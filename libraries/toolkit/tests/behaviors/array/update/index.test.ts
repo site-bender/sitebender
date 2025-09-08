@@ -165,9 +165,7 @@ Deno.test("update - array with mixed types", () => {
 
 Deno.test("update - nested array transformation", () => {
 	const matrix = [[1, 2], [3, 4], [5, 6]]
-	const result = update<number[]>(1)((row: number[]) =>
-		row.map((x) => x * 10)
-	)(
+	const result = update<number[]>(1)((row: number[]) => row.map((x) => x * 10))(
 		matrix,
 	)
 	assertEquals(result, [[1, 2], [30, 40], [5, 6]])
@@ -229,9 +227,7 @@ Deno.test("update - property: returns empty array for null/undefined", () => {
 				const resultNull = update<unknown>(index)((x: unknown) => x)(
 					null,
 				)
-				const resultUndefined = update<unknown>(index)((x: unknown) =>
-					x
-				)(
+				const resultUndefined = update<unknown>(index)((x: unknown) => x)(
 					undefined,
 				)
 
@@ -274,12 +270,8 @@ Deno.test("update - property: negative index equivalence", () => {
 				const negIndex = -(Math.floor(Math.random() * array.length) + 1)
 				const posIndex = array.length + negIndex
 
-				const resultNeg = update<number>(negIndex)((n: number) =>
-					n * 2
-				)(array)
-				const resultPos = update<number>(posIndex)((n: number) =>
-					n * 2
-				)(array)
+				const resultNeg = update<number>(negIndex)((n: number) => n * 2)(array)
+				const resultPos = update<number>(posIndex)((n: number) => n * 2)(array)
 
 				return resultNeg.length === resultPos.length &&
 					resultNeg.every((v, i) => v === resultPos[i])
@@ -298,9 +290,7 @@ Deno.test("update - property: out of bounds returns copy of array", () => {
 				fc.integer({ min: 100 }),
 			),
 			(array, invalidIndex) => {
-				const result = update<number>(invalidIndex)((n: number) =>
-					n * 2
-				)(array)
+				const result = update<number>(invalidIndex)((n: number) => n * 2)(array)
 
 				// Should be a copy, not the same reference
 				return result !== array &&

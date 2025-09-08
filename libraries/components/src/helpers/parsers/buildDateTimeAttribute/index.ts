@@ -25,8 +25,7 @@ export default function buildDateTimeAttribute(
 			if (parsed.second !== undefined) {
 				result += `:${String(parsed.second).padStart(2, "0")}`
 				if (parsed.microsecond || parsed.nanosecond) {
-					const fractional =
-						String(parsed.millisecond || 0).padStart(3, "0") +
+					const fractional = String(parsed.millisecond || 0).padStart(3, "0") +
 						String(parsed.microsecond || 0).padStart(3, "0") +
 						String(parsed.nanosecond || 0).padStart(3, "0")
 					result += `.${fractional.replace(/0+$/, "")}`
@@ -47,8 +46,7 @@ export default function buildDateTimeAttribute(
 			if (parsed.second !== undefined) {
 				result += `:${String(parsed.second).padStart(2, "0")}`
 				if (parsed.microsecond || parsed.nanosecond) {
-					const fractional =
-						String(parsed.millisecond || 0).padStart(3, "0") +
+					const fractional = String(parsed.millisecond || 0).padStart(3, "0") +
 						String(parsed.microsecond || 0).padStart(3, "0") +
 						String(parsed.nanosecond || 0).padStart(3, "0")
 					result += `.${fractional.replace(/0+$/, "")}`

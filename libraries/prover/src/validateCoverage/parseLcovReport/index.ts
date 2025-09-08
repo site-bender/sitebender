@@ -17,9 +17,7 @@ export default function parseLcovReport(lcovData: string): CoverageData {
 		current: CoverageData["files"][0] | null
 	} => {
 		if (line.startsWith("SF:")) {
-			const newFiles = acc.current
-				? [...acc.files, acc.current]
-				: acc.files
+			const newFiles = acc.current ? [...acc.files, acc.current] : acc.files
 			return {
 				files: newFiles,
 				current: {
@@ -88,8 +86,6 @@ export default function parseLcovReport(lcovData: string): CoverageData {
 	const result = lines.reduce(processLine, { files: [], current: null })
 
 	return {
-		files: result.current
-			? [...result.files, result.current]
-			: result.files,
+		files: result.current ? [...result.files, result.current] : result.files,
 	}
 }

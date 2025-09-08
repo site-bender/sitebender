@@ -36,16 +36,13 @@ export default function findMinimalBranchSet(
 		// Find test that covers the most uncovered branches
 		const testWithCoverage = remainingTests.map((test) => {
 			const newBranches = test.branchCoverage
-				? test.branchCoverage.filter((branch) =>
-					!coveredSoFar.has(branch)
-				)
+				? test.branchCoverage.filter((branch) => !coveredSoFar.has(branch))
 				: []
 			return { test, newCoverageCount: newBranches.length, newBranches }
 		})
 
 		const best = testWithCoverage.reduce(
-			(acc, curr) =>
-				curr.newCoverageCount > acc.newCoverageCount ? curr : acc,
+			(acc, curr) => curr.newCoverageCount > acc.newCoverageCount ? curr : acc,
 			{
 				test: null as TestCase | null,
 				newCoverageCount: 0,

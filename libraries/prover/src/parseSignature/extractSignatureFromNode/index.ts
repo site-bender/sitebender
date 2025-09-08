@@ -1,10 +1,12 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type { FunctionSignature } from "../../types/index.ts"
+
+import detectCurrying from "./detectCurrying/index.ts"
 import extractFunctionName from "./extractFunctionName/index.ts"
+import extractGenerics from "./extractGenerics/index.ts"
 import extractParameters from "./extractParameters/index.ts"
 import extractReturnType from "./extractReturnType/index.ts"
-import extractGenerics from "./extractGenerics/index.ts"
-import detectCurrying from "./detectCurrying/index.ts"
 
 /**
  * Extracts function signature information from a TypeScript AST node

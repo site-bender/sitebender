@@ -66,9 +66,7 @@ const differenceWith = <T, U>(
 
 	return minuend.filter((element) =>
 		not(
-			subtrahend.some((excludeElement) =>
-				comparator(element, excludeElement)
-			),
+			subtrahend.some((excludeElement) => comparator(element, excludeElement)),
 		)
 	)
 }

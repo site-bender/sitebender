@@ -243,9 +243,7 @@ Deno.test("remove: property-based tests", async (t) => {
 					for (const [value, count] of counts) {
 						if (count > 1) {
 							const result = remove(value)(arr)
-							const resultCount = result.filter((v) =>
-								v === value
-							).length
+							const resultCount = result.filter((v) => v === value).length
 							// Should have exactly one less occurrence
 							if (resultCount !== count - 1) return false
 						}

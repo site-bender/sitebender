@@ -29,9 +29,7 @@ Deno.test("power - algebraic properties", async (t) => {
 	await t.step("property: x^0 = 1 for all x ≠ 0", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter((x) =>
-					x !== 0
-				),
+				fc.float({ noNaN: true, min: -1e6, max: 1e6 }).filter((x) => x !== 0),
 				(base) => {
 					const result = power(0)(base)
 					return result === 1

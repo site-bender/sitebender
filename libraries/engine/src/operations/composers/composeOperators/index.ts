@@ -22,9 +22,7 @@ const composeOperators = async (
 			Promise.resolve({
 				left: [
 					Error("Unknown")("Operation")(
-						`Operation undefined or malformed: ${
-							JSON.stringify(operation)
-						}.`,
+						`Operation undefined or malformed: ${JSON.stringify(operation)}.`,
 					) as EngineError,
 				],
 			})

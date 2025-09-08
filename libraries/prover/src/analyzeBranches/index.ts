@@ -1,7 +1,8 @@
 import type { BranchPath, FunctionSignature } from "../types/index.ts"
-import parseSourceCode from "./parseSourceCode/index.ts"
+
 import extractBranches from "./extractBranches/index.ts"
 import generateBranchInputs from "./generateBranchInputs/index.ts"
+import parseSourceCode from "./parseSourceCode/index.ts"
 
 /**
  * Analyzes function source code to extract branch paths for coverage testing

@@ -1,7 +1,8 @@
 import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
-import parseConditionalExpression from "../../parseConditionalExpression/index.ts"
+
 import parseBinaryExpression from "../../parseBinaryExpression/index.ts"
+import parseConditionalExpression from "../../parseConditionalExpression/index.ts"
 
 //+ Selects appropriate parser based on minimum precedence
 export default function selectParser(

@@ -30,9 +30,7 @@ export default function hydrateEngineFromScriptTag() {
 		queueMicrotask(() => {
 			try {
 				document.querySelectorAll("[data-ir-id]")
-					.forEach((n) =>
-						(n as HTMLElement).removeAttribute("data-ir-id")
-					)
+					.forEach((n) => (n as HTMLElement).removeAttribute("data-ir-id"))
 			} catch { /* ignore */ }
 		})
 	}

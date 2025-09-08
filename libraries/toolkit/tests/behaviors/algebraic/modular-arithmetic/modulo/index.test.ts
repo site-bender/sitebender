@@ -196,8 +196,7 @@ Deno.test("modulo - JSDoc examples", async (t) => {
 		assertStrictEquals(isOdd(5), true)
 
 		// Cyclic indexing
-		const cyclicIndex = (index: number, length: number) =>
-			modulo(length)(index)
+		const cyclicIndex = (index: number, length: number) => modulo(length)(index)
 		assertStrictEquals(cyclicIndex(5, 3), 2)
 		assertStrictEquals(cyclicIndex(-1, 5), 4)
 	})
