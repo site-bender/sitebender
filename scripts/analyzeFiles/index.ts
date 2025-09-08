@@ -328,9 +328,9 @@ if (import.meta.main) {
 			)
 			stdout(bold(`\nFiles:`))
 			stdout(
-				`  longest: ${
-					yellow(String(r.fileStats.longestFile.lines))
-				} lines (${white(r.fileStats.longestFile.path)})`,
+				`  longest: ${yellow(String(r.fileStats.longestFile.lines))} lines (${
+					white(r.fileStats.longestFile.path)
+				})`,
 			)
 			stdout(
 				`  mean: ${cyan(r.fileStats.mean.toFixed(2))}  median: ${
@@ -341,25 +341,23 @@ if (import.meta.main) {
 			stdout(
 				`  total: ${magenta(String(r.functionStats.total))}  mean: ${
 					magenta(r.functionStats.mean.toFixed(2))
-				}  median: ${
-					magenta(r.functionStats.median.toFixed(2))
-				}  stdev: ${magenta(r.functionStats.stdDev.toFixed(2))}`,
+				}  median: ${magenta(r.functionStats.median.toFixed(2))}  stdev: ${
+					magenta(r.functionStats.stdDev.toFixed(2))
+				}`,
 			)
 			if (r.longFunctions.length) {
 				stdout(
 					bold(
-						`\nLong functions (${
-							yellow(`>${r.threshold}`)
-						} lines): ${red(String(r.longFunctions.length))}`,
+						`\nLong functions (${yellow(`>${r.threshold}`)} lines): ${
+							red(String(r.longFunctions.length))
+						}`,
 					),
 				)
 				for (const fn of r.longFunctions.slice(0, 20)) {
 					stdout(
 						`  - ${bold(fn.name)} ${yellow(String(fn.loc))}L @ ${
 							white(fn.file)
-						}:${gray(String(fn.startLine))}-${
-							gray(String(fn.endLine))
-						}`,
+						}:${gray(String(fn.startLine))}-${gray(String(fn.endLine))}`,
 					)
 				}
 				if (r.longFunctions.length > 20) {
@@ -371,16 +369,12 @@ if (import.meta.main) {
 			if (r.barrels && r.barrels.length) {
 				stdout(
 					bold(
-						`\nExcluded barrels: ${
-							yellow(String(r.barrels.length))
-						}`,
+						`\nExcluded barrels: ${yellow(String(r.barrels.length))}`,
 					),
 				)
 				for (const b of r.barrels.slice(0, 20)) {
 					stdout(
-						`  - ${white(b.file)} (exports: ${
-							cyan(String(b.exports))
-						})`,
+						`  - ${white(b.file)} (exports: ${cyan(String(b.exports))})`,
 					)
 				}
 				if (r.barrels.length > 20) {
@@ -424,9 +418,7 @@ if (import.meta.main) {
 				if (r.duplicates.length > 20) {
 					stdout(
 						gray(
-							`  ...and ${
-								r.duplicates.length - 20
-							} more files with duplicates`,
+							`  ...and ${r.duplicates.length - 20} more files with duplicates`,
 						),
 					)
 				}
@@ -436,11 +428,11 @@ if (import.meta.main) {
 				stdout(bold(`\nTop folders by long functions:`))
 				for (const a of top) {
 					stdout(
-						`  - ${white(a.folder)}: files=${
-							cyan(String(a.files))
-						} functions=${cyan(String(a.functions))} long=${
-							red(String(a.longFunctions))
-						} non-default=${yellow(String(a.nonDefaultCount))}`,
+						`  - ${white(a.folder)}: files=${cyan(String(a.files))} functions=${
+							cyan(String(a.functions))
+						} long=${red(String(a.longFunctions))} non-default=${
+							yellow(String(a.nonDefaultCount))
+						}`,
 					)
 				}
 			}
@@ -453,9 +445,7 @@ if (import.meta.main) {
 				stdout(`  fns: ${sign(r.compare.functionsDelta)}`)
 				stdout(`  long: ${sign(r.compare.longFunctionsDelta)}`)
 				stdout(
-					`  non-default files: ${
-						sign(r.compare.nonDefaultFilesDelta)
-					}`,
+					`  non-default files: ${sign(r.compare.nonDefaultFilesDelta)}`,
 				)
 			}
 			return 0

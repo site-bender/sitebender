@@ -99,8 +99,7 @@ function getReduceTests(): Array<TestCase> {
 	return [
 		{
 			name: "handles empty array with initial value",
-			description:
-				"Reduce with initial value on empty array returns initial",
+			description: "Reduce with initial value on empty array returns initial",
 			input: [(acc: number, x: number) => acc + x, 0, []],
 			expectedOutput: 0,
 		},

@@ -1,8 +1,9 @@
 import type { ParseError, Result, Token } from "../../types/index.ts"
-import parseWhitespace from "../parseWhitespace/index.ts"
-import parseNumber from "../parseNumber/index.ts"
+
 import parseIdentifier from "../parseIdentifier/index.ts"
+import parseNumber from "../parseNumber/index.ts"
 import parseOperator from "../parseOperator/index.ts"
+import parseWhitespace from "../parseWhitespace/index.ts"
 
 /**
  * Recursively tokenizes input string

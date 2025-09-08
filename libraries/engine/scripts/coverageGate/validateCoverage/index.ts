@@ -3,6 +3,7 @@ import type {
 	CoverageIssue,
 	CoverageResult,
 } from "../types/index.ts"
+
 import isEngineSourceFile from "../isEngineSourceFile/index.ts"
 
 /**

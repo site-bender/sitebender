@@ -9,7 +9,5 @@ export default function resolveAnchor(node: Node): HTMLElement | null {
 		return byData as HTMLElement
 	}
 	const byId = document.getElementById(id)
-	return byId && (byId as Element).nodeType === 1
-		? (byId as HTMLElement)
-		: null
+	return byId && (byId as Element).nodeType === 1 ? (byId as HTMLElement) : null
 }

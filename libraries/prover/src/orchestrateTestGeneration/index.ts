@@ -1,8 +1,9 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
 import type { FunctionSignature } from "../types/index.ts"
-import { TypeKind } from "../types/index.ts"
+
 import generateTests from "../generateTests/index.ts"
+import { TypeKind } from "../types/index.ts"
 import writeTestFile from "../writeTestFile/index.ts"
 
 const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
@@ -314,8 +315,7 @@ async function writeTestFiles(
 	const entries = Array.from(testFiles.entries())
 	const promises = entries.map(
 		async function writeIndividualFile([key, content]) {
-			const testPath =
-				`tests/libraries/toolkit/generated/${key}/index.test.ts`
+			const testPath = `tests/libraries/toolkit/generated/${key}/index.test.ts`
 			console.log(`Writing test to: ${testPath}`)
 
 			// Ensure directory exists

@@ -70,8 +70,7 @@ export function createLocalBus(
 		) {
 			const eventName = `bus:${topic}`
 			const listener = (e: Event) => {
-				const detail =
-					(e as unknown as { detail?: BusEnvelope<T> }).detail
+				const detail = (e as unknown as { detail?: BusEnvelope<T> }).detail
 				if (detail) handler(detail)
 				if (options?.once) {
 					dispatcher.removeEventListener(eventName, listener)

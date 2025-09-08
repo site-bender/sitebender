@@ -1,3 +1,5 @@
+import type { FunctionSignature } from "../types/index.ts"
+
 #!/usr/bin/env -S deno run --allow-all
 /**
  * Self-Proving Prover
@@ -9,7 +11,6 @@
  */
 
 import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
-import type { FunctionSignature } from "../types/index.ts"
 import { TypeKind } from "../types/index.ts"
 
 // Prover's own signatures for self-testing

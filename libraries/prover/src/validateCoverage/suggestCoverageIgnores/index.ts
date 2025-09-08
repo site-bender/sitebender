@@ -53,9 +53,7 @@ export default function suggestCoverageIgnores(
 				)
 			} else {
 				suggestions.push(
-					`Line ${lineNum}: Review needed - "${
-						trimmed.substring(0, 50)
-					}..."`,
+					`Line ${lineNum}: Review needed - "${trimmed.substring(0, 50)}..."`,
 				)
 			}
 		})

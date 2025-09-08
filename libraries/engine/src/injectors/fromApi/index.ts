@@ -29,9 +29,7 @@ async (
 		return { right: json }
 	} catch (e: unknown) {
 		const maybe = e as { message?: unknown }
-		const msg = typeof maybe.message === "string"
-			? maybe.message
-			: String(e)
+		const msg = typeof maybe.message === "string" ? maybe.message : String(e)
 		return { left: [Error("FromApi")("FromApi")(msg)] }
 	}
 }

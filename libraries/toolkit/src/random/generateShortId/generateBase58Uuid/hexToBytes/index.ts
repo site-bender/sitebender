@@ -6,7 +6,7 @@ import parsePair from "./parsePair/index.ts"
 export default function hexToBytes(hexString: string): Uint8Array {
 	const pairs = extractPairs(hexString)
 	const bytes = map(parsePair)(pairs)
-	
+
 	return new Uint8Array(bytes)
 }
 

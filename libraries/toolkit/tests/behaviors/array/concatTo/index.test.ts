@@ -284,8 +284,7 @@ describe("concatTo", () => {
 			const appendSuffix = concatTo([4, 5])
 			const processArray = (arr: Array<number>) => arr.map((x) => x * 2)
 
-			const pipeline = (arr: Array<number>) =>
-				processArray(appendSuffix(arr))
+			const pipeline = (arr: Array<number>) => processArray(appendSuffix(arr))
 			assertEquals(pipeline([1, 2, 3]), [2, 4, 6, 8, 10])
 		})
 	})

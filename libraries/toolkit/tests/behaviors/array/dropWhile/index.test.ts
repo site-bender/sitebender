@@ -122,8 +122,7 @@ Deno.test("dropWhile", async (t) => {
 			valid: boolean
 			timestamp: number
 		}
-		const isInvalid = (entry: Entry) =>
-			!entry.valid || entry.timestamp < 1000
+		const isInvalid = (entry: Entry) => !entry.valid || entry.timestamp < 1000
 		const entries: Entry[] = [
 			{ valid: false, timestamp: 500 },
 			{ valid: true, timestamp: 800 },
@@ -213,9 +212,7 @@ Deno.test("dropWhile", async (t) => {
 					// Result should be a suffix of original
 					if (result.length === 0) return true
 					const startIndex = arr.length - result.length
-					return arr.slice(startIndex).every((v, i) =>
-						v === result[i]
-					)
+					return arr.slice(startIndex).every((v, i) => v === result[i])
 				},
 			),
 		)

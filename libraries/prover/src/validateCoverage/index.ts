@@ -1,10 +1,11 @@
 import type { CoverageResult } from "../types/index.ts"
-import runCoverage from "./runCoverage/index.ts"
-import parseLcovReport from "./parseLcovReport/index.ts"
-import findUncoveredLines from "./findUncoveredLines/index.ts"
-import findUncoveredBranches from "./findUncoveredBranches/index.ts"
+
 import calculatePercentages from "./calculatePercentages/index.ts"
+import findUncoveredBranches from "./findUncoveredBranches/index.ts"
+import findUncoveredLines from "./findUncoveredLines/index.ts"
 import generateCoverageReport from "./generateCoverageReport/index.ts"
+import parseLcovReport from "./parseLcovReport/index.ts"
+import runCoverage from "./runCoverage/index.ts"
 import suggestCoverageIgnores from "./suggestCoverageIgnores/index.ts"
 
 /**

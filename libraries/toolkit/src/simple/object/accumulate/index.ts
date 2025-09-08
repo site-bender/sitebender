@@ -94,10 +94,9 @@ const accumulate = <T extends Record<string, unknown>>(
 				(acc as Record<string, unknown>)[key as string] as T[typeof key]
 
 			// Get new value from source
-			const newValue =
-				(source as Record<string, unknown>)[key as string] as T[
-					typeof key
-				]
+			const newValue = (source as Record<string, unknown>)[key as string] as T[
+				typeof key
+			]
 
 			// Skip if source doesn't have this key
 			if (!(key in source)) {

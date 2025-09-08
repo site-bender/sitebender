@@ -902,9 +902,7 @@ function createLoadingMetrics() {
 		metrics = {
 			...metrics,
 			total: metrics.total + 1,
-			completed: timing.success
-				? metrics.completed + 1
-				: metrics.completed,
+			completed: timing.success ? metrics.completed + 1 : metrics.completed,
 			timedOut: !timing.success ? metrics.timedOut + 1 : metrics.timedOut,
 			averageDuration: (metrics.averageDuration * (metrics.total - 1) +
 				timing.duration) /

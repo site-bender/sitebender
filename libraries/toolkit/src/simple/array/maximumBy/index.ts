@@ -67,9 +67,7 @@ const maximumBy = <T>(
 			return currentMax
 		}
 		const current = arr[index]
-		const newMax = comparator(current, currentMax) > 0
-			? current
-			: currentMax
+		const newMax = comparator(current, currentMax) > 0 ? current : currentMax
 		return findMaximum(arr, newMax, index + 1)
 	}
 

@@ -3,6 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
+
 import findMinimalBranchSet from "./findMinimalBranchSet/index.ts"
 
 /**
