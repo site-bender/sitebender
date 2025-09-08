@@ -2,12 +2,7 @@ import type { Token } from "../../types/index.ts"
 
 import { TOKEN_PATTERNS } from "../../constants/index.ts"
 
-/**
- * Parses an identifier token at the current position
- * @param input - The input string
- * @param position - Current position
- * @returns Token and length, or null if no identifier
- */
+//++ Parses an identifier token (variable name) at the current position
 export default function parseIdentifier(
 	input: string,
 	position: number,
@@ -27,3 +22,10 @@ export default function parseIdentifier(
 
 	return { token, length: identifierMatch[0].length }
 }
+
+//?? [EXAMPLE] parseIdentifier("abc + 5", 0) // { token: { type: "IDENTIFIER", value: "abc", position: 0 }, length: 3 }
+//?? [EXAMPLE] parseIdentifier("x_1", 0) // { token: { type: "IDENTIFIER", value: "x_1", position: 0 }, length: 3 }
+//?? [EXAMPLE] parseIdentifier("123abc", 0) // null (must start with letter)
+//?? [GOTCHA] Identifiers must start with a letter (a-z, A-Z) - numbers can't be first character
+//?? [GOTCHA] Only alphanumeric and underscore allowed - no hyphens or special characters
+//?? [PRO] Case-insensitive pattern matching supports both camelCase and snake_case
