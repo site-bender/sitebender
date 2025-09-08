@@ -23,17 +23,12 @@ export default function isAlphanumeric(
 			unicode = false,
 		} = options
 
-		let pattern = unicode ? "\\p{L}\\p{N}" : "a-zA-Z0-9"
-
-		if (allowSpaces) {
-			pattern += "\\s"
-		}
-		if (allowHyphens) {
-			pattern += "\\-"
-		}
-		if (allowUnderscores) {
-			pattern += "_"
-		}
+		const basePattern = unicode ? "\\p{L}\\p{N}" : "a-zA-Z0-9"
+		const spacePattern = allowSpaces ? "\\s" : ""
+		const hyphenPattern = allowHyphens ? "\\-" : ""
+		const underscorePattern = allowUnderscores ? "_" : ""
+		
+		const pattern = basePattern + spacePattern + hyphenPattern + underscorePattern
 
 		const regex = unicode
 			? new RegExp(`^[${pattern}]+$`, "u")

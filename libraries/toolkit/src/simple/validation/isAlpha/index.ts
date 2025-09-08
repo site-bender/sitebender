@@ -21,17 +21,12 @@ export default function isAlpha(options: AlphaOptions = {}) {
 			unicode = false,
 		} = options
 
-		let pattern = unicode ? "\\p{L}" : "a-zA-Z"
-
-		if (allowSpaces) {
-			pattern += "\\s"
-		}
-		if (allowHyphens) {
-			pattern += "\\-"
-		}
-		if (allowApostrophes) {
-			pattern += "'"
-		}
+		const basePattern = unicode ? "\\p{L}" : "a-zA-Z"
+		const spacePattern = allowSpaces ? "\\s" : ""
+		const hyphenPattern = allowHyphens ? "\\-" : ""
+		const apostrophePattern = allowApostrophes ? "'" : ""
+		
+		const pattern = basePattern + spacePattern + hyphenPattern + apostrophePattern
 
 		const regex = unicode
 			? new RegExp(`^[${pattern}]+$`, "u")
