@@ -91,9 +91,14 @@ export type BranchPath = {
 	readonly isCovered: boolean
 }
 
+// Result monad for error handling
+export type Result<T, E> =
+	| { readonly ok: true; readonly value: T }
+	| { readonly ok: false; readonly error: E }
+
 // Parse errors
 export type ParseError = {
-	readonly type: "ParseError"
+	readonly type: "ParseError" | "FileNotFound" | "SyntaxError"
 	readonly message: string
 	readonly file?: string
 	readonly line?: number
@@ -111,4 +116,16 @@ export type AstNode = {
 export type Position = {
 	readonly line: number
 	readonly column: number
+}
+
+// Raw comment information for Scribe
+export type RawComment = {
+	readonly kind: "line" | "block"
+	readonly text: string // Trimmed content
+	readonly fullText: string // Original with markers
+	readonly start: number
+	readonly end: number
+	readonly line: number // 1-based
+	readonly column: number // 1-based
+	readonly nodeId?: string // Associated function name
 }

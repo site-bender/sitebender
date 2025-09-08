@@ -83,9 +83,7 @@ export default function parseSourceFile(filePath: string) {
 							message,
 							file: filePath,
 							line: position ? position.line + 1 : undefined,
-							column: position
-								? position.character + 1
-								: undefined,
+							column: position ? position.character + 1 : undefined,
 						},
 					}
 				}
