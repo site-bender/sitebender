@@ -1,5 +1,6 @@
-import escape from "../../../../toolkit/src/simple/string/escape/index.ts"
 import type { Node } from "../../../types/ir/index.ts"
+
+import escape from "../../../../toolkit/src/simple/string/escape/index.ts"
 
 // TODO(@guy): Add support for other IR node types (injector, comparator, etc.)
 

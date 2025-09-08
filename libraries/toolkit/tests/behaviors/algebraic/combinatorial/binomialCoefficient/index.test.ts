@@ -222,9 +222,7 @@ Deno.test("binomialCoefficient: JSDoc examples", async (t) => {
 	})
 
 	await t.step("binomial expansion coefficients", () => {
-		const coefficients = [0, 1, 2, 3, 4].map((k) =>
-			binomialCoefficient(4)(k)
-		)
+		const coefficients = [0, 1, 2, 3, 4].map((k) => binomialCoefficient(4)(k))
 		assertEquals(coefficients, [1, 4, 6, 4, 1])
 	})
 

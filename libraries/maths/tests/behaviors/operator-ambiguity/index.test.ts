@@ -1,4 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+
 import { parseFormula } from "../../../src/index.ts"
 
 Deno.test("parseFormula - rejects ambiguous double operators like '5 + + 3'", () => {

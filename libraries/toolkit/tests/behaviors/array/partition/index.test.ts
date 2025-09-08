@@ -42,8 +42,7 @@ describe("partition", () => {
 				{ name: "Bob", active: false },
 				{ name: "Charlie", active: true },
 			]
-			const isActive = (user: { name: string; active: boolean }) =>
-				user.active
+			const isActive = (user: { name: string; active: boolean }) => user.active
 			assertEquals(partition(isActive)(users), [
 				[{ name: "Alice", active: true }, {
 					name: "Charlie",
@@ -196,9 +195,7 @@ describe("partition", () => {
 				{ id: 3, name: "Charlie", role: "admin" },
 			]
 
-			const [admins, regularUsers] = partition((u: User) =>
-				u.role === "admin"
-			)(
+			const [admins, regularUsers] = partition((u: User) => u.role === "admin")(
 				users,
 			)
 			assertEquals(admins.length, 2)
@@ -265,11 +262,8 @@ describe("partition", () => {
 
 						// Check each element appears exactly once
 						for (const element of array) {
-							const count = combined.filter((x) =>
-								x === element
-							).length
-							const expectedCount =
-								array.filter((x) => x === element).length
+							const count = combined.filter((x) => x === element).length
+							const expectedCount = array.filter((x) => x === element).length
 							if (count !== expectedCount) return false
 						}
 						return true

@@ -24,9 +24,7 @@ const composeComparators = async (
 					Error((operation as ComparatorConfig).tag || "Unknown")(
 						"Comparison",
 					)(
-						`Comparison undefined or malformed: ${
-							JSON.stringify(operation)
-						}.`,
+						`Comparison undefined or malformed: ${JSON.stringify(operation)}.`,
 					) as EngineError,
 				],
 			})
@@ -38,9 +36,7 @@ const composeComparators = async (
 		const value = (operation as unknown as Record<string, unknown>)[key]
 		const resolvedValue = Array.isArray(value)
 			? await Promise.all(
-				(value as ComparatorOperand[]).map((op) =>
-					composeComparators(op)
-				),
+				(value as ComparatorOperand[]).map((op) => composeComparators(op)),
 			)
 			: await composeComparators(value as ComparatorOperand)
 		return [key, resolvedValue]
@@ -58,9 +54,7 @@ const composeComparators = async (
 			const { default: comparatorExecutor } = await import(
 				`../../comparators/${
 					(operation as unknown as { comparison: string }).comparison
-				}/$${
-					toCamel((operation as unknown as { tag: string }).tag)
-				}/index.js`
+				}/$${toCamel((operation as unknown as { tag: string }).tag)}/index.js`
 			)
 			return comparatorExecutor(hydratedOperation)
 		}
@@ -94,9 +88,7 @@ const composeComparators = async (
 					Error((operation as ComparatorConfig).tag || "Unknown")(
 						"Comparison",
 					)(
-						`Comparison "${
-							(operation as ComparatorConfig).tag
-						}" with type "${
+						`Comparison "${(operation as ComparatorConfig).tag}" with type "${
 							(operation as ComparatorConfig).type
 						}" could not be loaded. ${String(e)}`,
 					) as EngineError,

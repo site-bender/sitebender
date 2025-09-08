@@ -1,11 +1,11 @@
 /* Minimal, readable baseline styles for docs */
 :root {
 	--font-sans:
-		ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-		Arial, "Apple Color Emoji", "Segoe UI Emoji";
+		ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+		"Apple Color Emoji", "Segoe UI Emoji";
 	--font-mono:
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-		"Liberation Mono", "Courier New", monospace;
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
 	--fg: #0f172a;
 	/* slate-900 */
 	--muted: #334155;

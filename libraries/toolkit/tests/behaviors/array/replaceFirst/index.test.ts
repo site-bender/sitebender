@@ -285,17 +285,16 @@ Deno.test("replaceFirst: property-based tests", async (t) => {
 					const originalCount = arr.filter((x) => x === target).length
 
 					// Count occurrences of target in result
-					const resultCount = result.filter((x) =>
-						x === target
-					).length
+					const resultCount = result.filter((x) => x === target).length
 
 					// If target was in original, result should have one less
 					if (originalCount > 0) {
 						assertEquals(resultCount, originalCount - 1)
 
 						// Count replacements
-						const replacementCount =
-							result.filter((x) => x === replacement).length
+						const replacementCount = result.filter((x) =>
+							x === replacement
+						).length
 						const originalReplacementCount = arr.filter((x) =>
 							x === replacement
 						).length

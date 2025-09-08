@@ -155,8 +155,8 @@ const WelcomePage = () => (
 			<HeroBlock>
 				<Heading level={1}>Do Cool Things</Heading>
 				<Text size="lead">
-					CoolApp makes it incredibly easy to do the coolest things
-					you've ever imagined.
+					CoolApp makes it incredibly easy to do the coolest things you've ever
+					imagined.
 				</Text>
 				<Button priority="primary" size="large">Start Now</Button>
 			</HeroBlock>

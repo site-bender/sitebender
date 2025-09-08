@@ -71,9 +71,7 @@ Deno.test("unfold: string processing", () => {
 
 	// Parse in pairs
 	assertEquals(
-		unfold((s: string) =>
-			s.length >= 2 ? [s.slice(0, 2), s.slice(2)] : null
-		)(
+		unfold((s: string) => s.length >= 2 ? [s.slice(0, 2), s.slice(2)] : null)(
 			"abcdef",
 		),
 		["ab", "cd", "ef"],
@@ -319,9 +317,7 @@ Deno.test("unfold: property-based tests", () => {
 		fc.property(
 			fc.integer({ min: 1, max: 50 }),
 			(n) => {
-				const result = unfold((i: number) =>
-					i <= n ? [i * 2, i + 1] : null
-				)(1)
+				const result = unfold((i: number) => i <= n ? [i * 2, i + 1] : null)(1)
 				const expected = Array.from(
 					{ length: n },
 					(_, i) => (i + 1) * 2,
@@ -356,9 +352,7 @@ Deno.test("unfold: property-based tests", () => {
 			fc.integer({ min: 0, max: 20 }),
 			fc.integer({ min: 0, max: 100 }),
 			(limit, seed) => {
-				const result = unfold((n: number) =>
-					n < limit ? [n, n + 1] : null
-				)(
+				const result = unfold((n: number) => n < limit ? [n, n + 1] : null)(
 					seed,
 				)
 				if (seed >= limit) {

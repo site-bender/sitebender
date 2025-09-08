@@ -8,7 +8,7 @@ export const ASSOCIATIVE_OPERATOR_KINDS = [
 	41, // AsteriskToken
 	55, // AmpersandAmpersandToken
 	56, // BarBarToken
-] as const
+]
 
 export const ASSOCIATIVE_METHOD_NAMES = [
 	"concat",
@@ -24,10 +24,37 @@ export const ASSOCIATIVE_METHOD_NAMES = [
 	"xor",
 	"gcd",
 	"lcm",
-] as const
+]
 
 export const ASSOCIATIVE_MATH_METHODS = [
 	"Math.min",
 	"Math.max",
 	"Math.hypot",
-] as const
+]
+
+export const ASSOCIATIVE_FUNCTION_NAMES = [
+	"add",
+	"sum",
+	"plus",
+	"concat",
+	"merge",
+	"combine",
+	"multiply",
+	"product",
+	"times",
+	"join",
+	"union",
+	"intersect",
+	"min",
+	"max",
+	"and",
+	"or",
+	"xor",
+]
+
+export const FUNCTION_DECLARATION_PATTERNS = [
+	"function ",
+	"const ",
+	"= ",
+	"export default function ",
+]

@@ -95,8 +95,7 @@
 						autocomplete="email"
 					>
 					<div id="email-help" class="help-text">
-						Enter your email address to receive updates about our
-						latest news
+						Enter your email address to receive updates about our latest news
 					</div>
 					<div
 						id="email-error"
@@ -121,8 +120,7 @@
 				aria-live="polite"
 				style="display: none"
 			>
-				Thank you! You have been successfully subscribed to our
-				newsletter.
+				Thank you! You have been successfully subscribed to our newsletter.
 			</div>
 		</main>
 
@@ -149,8 +147,7 @@
 								emailInput.value &&
 								!emailInput.validity.valid
 							) {
-								emailError.style.display =
-									"block"
+								emailError.style.display = "block"
 								emailError.textContent =
 									"Please enter a valid email address"
 							} else if (
@@ -159,13 +156,10 @@
 									"required",
 								)
 							) {
-								emailError.style.display =
-									"block"
-								emailError.textContent =
-									"Email address is required"
+								emailError.style.display = "block"
+								emailError.textContent = "Email address is required"
 							} else {
-								emailError.style.display =
-									"none"
+								emailError.style.display = "none"
 							}
 						},
 					)
@@ -178,8 +172,7 @@
 								emailInput.validity.valid &&
 								emailInput.value !== ""
 							) {
-								emailError.style.display =
-									"none"
+								emailError.style.display = "none"
 							}
 						},
 					)
@@ -195,12 +188,10 @@
 								emailInput.value
 							) {
 								// Simulate successful submission
-								successMessage.style.display =
-									"block"
+								successMessage.style.display = "block"
 								form.style.display = "none"
 							} else {
-								emailError.style.display =
-									"block"
+								emailError.style.display = "block"
 								emailError.textContent =
 									"Please enter a valid email address"
 							}

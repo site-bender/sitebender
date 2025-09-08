@@ -31,24 +31,18 @@ const isZonedDateTime =
 				/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z(?:\[[^\]]+\])?$/
 			const RFC3339_OFFSET =
 				/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?[+-]\d{2}:\d{2}(?:\[[^\]]+\])?$/
-			return (RFC3339Z.test(s) || RFC3339_OFFSET.test(s))
-				? { right: true }
-				: {
-					left: [
-						Error(op.tag)("IsZonedDateTime")(
-							`${
-								JSON.stringify(operand.right)
-							} is not a zoned date-time.`,
-						),
-					],
-				}
+			return (RFC3339Z.test(s) || RFC3339_OFFSET.test(s)) ? { right: true } : {
+				left: [
+					Error(op.tag)("IsZonedDateTime")(
+						`${JSON.stringify(operand.right)} is not a zoned date-time.`,
+					),
+				],
+			}
 		} catch (e) {
 			return {
 				left: [
 					Error(op.tag)("IsZonedDateTime")(
-						`${
-							JSON.stringify(operand.right)
-						} is not a zoned date-time: ${e}`,
+						`${JSON.stringify(operand.right)} is not a zoned date-time: ${e}`,
 					),
 				],
 			}

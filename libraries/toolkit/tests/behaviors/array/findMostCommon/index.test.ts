@@ -166,9 +166,7 @@ Deno.test("findMostCommon", async (t) => {
 						const maxFreq = Math.max(...freq.values())
 
 						// All result elements should have max frequency
-						return result.every((item) =>
-							freq.get(item) === maxFreq
-						)
+						return result.every((item) => freq.get(item) === maxFreq)
 					},
 				),
 			)

@@ -9,20 +9,20 @@ export type SyntaxKind = {
 	PercentToken: number
 	AmpersandAmpersandToken: number
 	BarBarToken: number
-	
+
 	// Comparison
 	EqualsEqualsToken: number
 	EqualsEqualsEqualsToken: number
-	
+
 	// Assignment
 	EqualsToken: number
-	
+
 	// Literals
 	NumericLiteral: number
 	StringLiteral: number
 	TrueKeyword: number
 	FalseKeyword: number
-	
+
 	// Other
 	Identifier: number
 	CallExpression: number

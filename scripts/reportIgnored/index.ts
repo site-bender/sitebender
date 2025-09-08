@@ -156,9 +156,7 @@ export default async function reportCoverageIgnores(
 				label,
 				recs
 					.slice()
-					.sort((a, b) =>
-						a.file.localeCompare(b.file) || a.line - b.line
-					)
+					.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line)
 					.map((r) => ({ ...r, file: relative(rootFsPath, r.file) })),
 			]),
 		)

@@ -1,7 +1,8 @@
 import type { FunctionSignature } from "../../types/index.ts"
-import needsCurriedHandling from "../needsCurriedHandling/index.ts"
+
 import countCurryLevels from "../countCurryLevels/index.ts"
 import getDefaultValueForLevel from "../getDefaultValueForLevel/index.ts"
+import needsCurriedHandling from "../needsCurriedHandling/index.ts"
 
 /**
  * Generates inputs for curried function testing

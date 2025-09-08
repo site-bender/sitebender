@@ -503,9 +503,7 @@ function createPrefetchMonitor() {
 
 	const recordUsage = (href: string): PrefetchMetrics => {
 		const newUsed = metrics.used + 1
-		const hitRate = metrics.successful > 0
-			? newUsed / metrics.successful
-			: 0
+		const hitRate = metrics.successful > 0 ? newUsed / metrics.successful : 0
 
 		metrics = {
 			...metrics,

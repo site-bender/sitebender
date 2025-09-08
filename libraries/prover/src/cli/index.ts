@@ -1,3 +1,5 @@
+import type { FunctionSignature } from "../types/index.ts"
+
 #!/usr/bin/env -S deno run --allow-all
 /**
  * Prover CLI
@@ -12,7 +14,6 @@
  */
 
 import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
-import type { FunctionSignature } from "../types/index.ts"
 import { TypeKind } from "../types/index.ts"
 
 // Example toolkit signatures for testing

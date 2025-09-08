@@ -1,4 +1,5 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type { Generic } from "../../../types/index.ts"
 
 /**

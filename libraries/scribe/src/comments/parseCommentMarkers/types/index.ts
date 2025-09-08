@@ -1,13 +1,20 @@
 //++ Types for legacy line-based comment marker parser
 
 //++ Help comment categories (uppercase in source, lowercase in types)
-export type HelpCategory = 'EXAMPLE' | 'SETUP' | 'ADVANCED' | 'GOTCHA' | 'MIGRATION' | 'PRO' | 'CON'
+export type HelpCategory =
+	| "EXAMPLE"
+	| "SETUP"
+	| "ADVANCED"
+	| "GOTCHA"
+	| "MIGRATION"
+	| "PRO"
+	| "CON"
 
-export type ParsedHelp = { 
+export type ParsedHelp = {
 	category?: HelpCategory
 	content: string
-	code?: string      // For EXAMPLE category
-	expected?: string  // For EXAMPLE category
+	code?: string // For EXAMPLE category
+	expected?: string // For EXAMPLE category
 	line: number
 	raw: string
 }

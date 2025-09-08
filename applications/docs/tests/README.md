@@ -486,8 +486,7 @@ test.describe("Usability without CSS", () => {
 		// Disable all CSS
 		await page.addInitScript(() => {
 			const style = document.createElement("style")
-			style.innerHTML =
-				"*, *::before, *::after { all: unset !important; }"
+			style.innerHTML = "*, *::before, *::after { all: unset !important; }"
 			document.head.appendChild(style)
 		})
 	})

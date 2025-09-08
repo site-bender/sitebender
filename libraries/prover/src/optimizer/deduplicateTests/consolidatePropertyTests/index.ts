@@ -3,6 +3,7 @@
  */
 
 import type { PropertyTest, TestCase } from "../../../types/index.ts"
+
 import haveOverlappingGenerators from "./haveOverlappingGenerators/index.ts"
 import mergeProperties from "./mergeProperties/index.ts"
 
