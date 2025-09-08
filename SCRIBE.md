@@ -111,6 +111,96 @@ Files with violations:
 
 **FIX THESE BEFORE DOING ANYTHING ELSE!**
 
+## 📝 Scribe Comment Marker System
+
+Scribe uses a **five-tier comment taxonomy** to extract semantic documentation from code:
+
+### Comment Marker Hierarchy (by severity/priority)
+
+1. **`//` - Unspecified Comments**
+   - Standard comments that don't fit other categories
+   - Not extracted for documentation
+   - Used for implementation notes
+
+2. **`//++` or `/*++ ... */` - Description Comments**
+   - **Purpose**: One-line intent/description of what the function does
+   - **Placement**: Above the function declaration
+   - **Rules**: Only the first `//++` block is used; subsequent ones generate diagnostics
+   - **Priority**: Neutral/positive documentation
+
+3. **`//??` or `/*?? ... */` - Help Comments**
+   - **Purpose**: Help information including examples, setup, gotchas, etc.
+   - **Placement**: Below the function (or anywhere with future `[fnName]` tags)
+   - **Format**: `//?? [CATEGORY] content` or just `//?? content` for examples
+   - **Categories** (case-insensitive, singular):
+     - `[EXAMPLE]` - One usage example (default if no category)
+     - `[SETUP]` - One configuration/initialization step
+     - `[ADVANCED]` - One complex pattern or edge case
+     - `[GOTCHA]` - One common mistake or surprising behavior
+     - `[MIGRATION]` - One migration instruction
+   - **Note**: Each category marker starts a new item in multi-line blocks
+   - **Priority**: Neutral/informative help
+
+4. **`//--` or `/*-- ... */` - Tech Debt Comments**
+   - **Purpose**: Document justified violations, workarounds, acceptable compromises
+   - **Placement**: Inside functions where the compromise exists
+   - **Format**: `//-- [CATEGORY] reason` or just `//-- reason`
+   - **Categories** (case-insensitive):
+     - `[WORKAROUND]` - Temporary fix for a problem
+     - `[LIMITATION]` - Known limitation of current approach
+     - `[OPTIMIZATION]` - Performance trade-off made
+     - `[REFACTOR]` - Code that needs restructuring
+     - `[COMPATIBILITY]` - Compromise for backward compatibility
+   - **Requirement**: Must include a reason (empty reasons generate diagnostics)
+   - **Priority**: Negative but acceptable technical debt
+
+5. **`//!!` or `/*!! ... */` - Critical Issue Comments** 🆕
+   - **Purpose**: Critical issues requiring immediate attention that block production
+   - **Placement**: Inside functions where the critical issue exists
+   - **Format**: `//!! [CATEGORY] Description - Action required`
+   - **Categories**: SECURITY, PERFORMANCE, CORRECTNESS, INCOMPLETE, BREAKING
+   - **Priority**: Critical/urgent issues that MUST be fixed
+
+### Example Usage
+
+```typescript
+//++ Processes user data and returns formatted result
+export default function processUserData(data: UserData): Result<ProcessedData, Error> {
+  //!! [SECURITY] User input not sanitized - SQL injection risk
+  const query = buildQuery(data.input)
+  
+  //-- [LIMITATION] Using any because TypeScript can't infer this complex type chain
+  const processed = data.items.map((item: any) => {
+    //!! [PERFORMANCE] O(n³) algorithm - replace with hash map approach
+    return findMatches(item, data.allItems)
+  })
+  
+  return { ok: true, value: processed }
+}
+
+//?? processUserData({ input: "test", items: [] }) // { ok: true, value: [] }
+//?? [GOTCHA] processUserData(null) // { ok: false, error: "Invalid data" }
+//?? [SETUP] Must call initializeDB() before using this function
+//?? [ADVANCED] Can batch process: processUserData.batch(dataArray)
+```
+
+### Documentation Generation
+
+The markers generate different output based on severity:
+
+- **`//++`** → Main documentation text
+- **`//??`** → Formatted code examples
+- **`//--`** → Tech debt section (yellow warning)
+- **`//!!`** → ⚠️ CRITICAL section (red alert)
+
+### Report Dashboard
+
+Documentation reports show issue counts:
+
+- 🔴 Critical count (`//!!`) - Blocks releases
+- 🟡 Tech debt count (`//--`) - Plan to address
+- 🟢 Documented count (`//++`) - Good
+
 ## 🎯 Your Mission (IN THIS ORDER)
 
 ### Step 1: Fix the `let` Violations
@@ -137,26 +227,35 @@ deno task type-check  # No errors
 
 After fixing violations, implement these features:
 
-1. **Example Extraction** (`src/analyzers/findExamples/index.ts`)
+1. **Critical Issue Marker Support** (`//!!`)
+   - Add to `parseCommentMarkers` similar to `//--`
+   - Extract to `criticalIssues` array
+   - Require non-empty description
+   - Extract optional category (SECURITY, PERFORMANCE, etc.)
+   - Add diagnostics for empty descriptions
+
+2. **Example Extraction** (`src/analyzers/findExamples/index.ts`)
    - Search test files for function usage
    - Extract input/output pairs
    - Format as documentation examples
 
-2. **Related Function Discovery** (`src/analyzers/findRelatedFunctions/index.ts`)
+3. **Related Function Discovery** (`src/analyzers/findRelatedFunctions/index.ts`)
    - Find functions in same module
    - Find functions with similar signatures
    - Find commonly used together
 
-3. **HTML Generation** (`src/generators/generateHTML/index.ts`)
+4. **HTML Generation** (`src/generators/generateHTML/index.ts`)
    - Semantic HTML output
    - Syntax highlighting
    - Property badges
+   - Critical issues with alert styling
 
-4. **JSON Generation** (`src/generators/generateJSON/index.ts`)
+5. **JSON Generation** (`src/generators/generateJSON/index.ts`)
    - Structured JSON for tooling
    - Follow JSON Schema standard
+   - Include criticalIssues field
 
-5. **Null Handling Detection** (`src/detectors/detectNullHandling/index.ts`)
+6. **Null Handling Detection** (`src/detectors/detectNullHandling/index.ts`)
    - Detect null checking patterns
    - Identify optional chaining
    - Find default parameters
