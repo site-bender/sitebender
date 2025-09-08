@@ -1,42 +1,26 @@
 import type { EngineError } from "../../types/error/index.ts"
 import type { Datatype, Value } from "../../types/index.ts"
 
-/**
- * Adds type information to an error
- *
- * Enriches an error object with expected and actual type information.
- * Useful for type mismatch errors. Returns a new immutable error object.
- *
- * @curried (expected) => (actual) => (error) => error
- * @param expected - The expected Datatype
- * @param actual - The actual type received
- * @param error - The error to enrich
- * @returns New error with type information
- * @example
- * ```typescript
- * // Add type mismatch information
- * const expectNumber = withTypes("Number")("String")
- * const typedError = expectNumber(error)
- *
- * // For null/undefined
- * const expectInteger = withTypes("Integer")("null")
- * const nullError = expectInteger(error)
- *
- * // Pipeline usage
+//++ Adds expected and actual type information to an error for type mismatches
+export default function withTypes<TDataType extends Datatype>(expected: TDataType) {
+	return function withActualType(actual: TDataType | "null" | "undefined" | "unknown") {
+		return function enrichError<TOp extends string, TArgs extends ReadonlyArray<Value>>(
+			error: EngineError<TOp, TArgs>,
+		): EngineError<TOp, TArgs> {
+			return {
+				...error,
+				types: { expected, actual: (actual as unknown as Datatype) },
+			}
+		}
+	}
+}
+
+//?? [EXAMPLE] const expectNumber = withTypes("Number")("String")
+//?? [EXAMPLE] const expectInteger = withTypes("Integer")("null")
+/*??
+ * [EXAMPLE] Pipeline usage:
  * const errorWithTypes = pipe(
  *   createError("parse")([value])("Cannot parse value")(),
  *   withTypes("Float")("String")
  * )
- * ```
  */
-const withTypes =
-	<TDataType extends Datatype>(expected: TDataType) =>
-	(actual: TDataType | "null" | "undefined" | "unknown") =>
-	<TOp extends string, TArgs extends ReadonlyArray<Value>>(
-		error: EngineError<TOp, TArgs>,
-	): EngineError<TOp, TArgs> => ({
-		...error,
-		types: { expected, actual: (actual as unknown as Datatype) },
-	})
-
-export default withTypes

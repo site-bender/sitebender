@@ -4,6 +4,5 @@ export default function parsePair(pair: string): number {
 }
 
 //?? [EXAMPLE] parsePair("ff") // 255
-//?? [EXAMPLE] parsePair("00") // 0
-//?? [EXAMPLE] parsePair("7f") // 127
 //?? [EXAMPLE] parsePair("a5") // 165
+//?? [GOTCHA] Invalid hex characters return NaN
