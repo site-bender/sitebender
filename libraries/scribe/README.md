@@ -62,13 +62,14 @@ Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 **3. Help Comments (`//??`):**
 - `//??` below functions: Help information (examples, setup, gotchas, etc.)
 - Format: `//?? [CATEGORY] content` or just `//?? content` for examples
-- Categories (case-insensitive):
-  - `[EXAMPLES]` - Basic usage (default)
-  - `[SETUP]` - Configuration required
-  - `[ADVANCED]` - Complex patterns
-  - `[GOTCHAS]` - Common mistakes
-  - `[MIGRATION]` - Version migration
+- Categories (case-insensitive, singular):
+  - `[EXAMPLE]` - One usage example (default)
+  - `[SETUP]` - One configuration step
+  - `[ADVANCED]` - One complex pattern
+  - `[GOTCHA]` - One common mistake
+  - `[MIGRATION]` - One migration step
 - `/*?? ... */` for multi-line help blocks
+- Each category marker starts a new item
 
 **4. Tech Debt Comments (`//--`):**
 - `//--` inside functions: Justified violations, hacks, workarounds
@@ -104,7 +105,7 @@ export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
 
 //?? compose([double, increment])(5) // 11
 //?? [ADVANCED] compose([toString, double])(5) // "10"
-//?? [GOTCHAS] Functions compose right-to-left, not left-to-right
+//?? [GOTCHA] Functions compose right-to-left, not left-to-right
 //?? [MIGRATION] Replace pipe() calls with compose() but reverse the array
 ```
 

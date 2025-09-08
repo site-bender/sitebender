@@ -99,7 +99,7 @@ Documentation output should transform:
 | `//++` | Above function | 1-line intent | Neutral/positive | First contiguous block above declaration (stop on blank/non-comment) |
 | `/*++ ... */` | Above | Multi-line intent (rare) | Neutral/positive | Strip decoration, collapse whitespace |
 | `//??` | Below function | Help information | Neutral/informative | Format: `//?? [CATEGORY] content` |
-| | | Categories: `[EXAMPLES]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHAS]`, `[MIGRATION]` | | (case-insensitive) |
+| | | Categories (singular): `[EXAMPLE]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHA]`, `[MIGRATION]` | | (case-insensitive) |
 | `/*?? ... */` | Below | Multi-line help | Neutral/informative | Each line parsed with category |
 | `//--` | Inside function | Tech debt justification | Negative but acceptable | Format: `//-- [CATEGORY] reason` |
 | | | Categories: `[WORKAROUND]`, `[LIMITATION]`, `[OPTIMIZATION]`, `[REFACTOR]`, `[COMPATIBILITY]` | | (case-insensitive) |
@@ -107,9 +107,10 @@ Documentation output should transform:
 | `/*!! ... */` | Inside | Multi-line critical | Critical/urgent - blocks release | Extract category and full description |
 
 Validation rules:
-- Help examples (`[EXAMPLES]`) must evaluate without throwing (sandboxed) if deterministic.
+- Help examples (`[EXAMPLE]`) must evaluate without throwing (sandboxed) if deterministic.
 - Duplicate examples (same code) are de-duplicated.
-- Help categories are case-insensitive and optional (defaults to `[EXAMPLES]`).
+- Help categories are case-insensitive and optional (defaults to `[EXAMPLE]`).
+- Each category marker starts a new item in multi-line blocks.
 - Tech debt requires >= 10 chars explanation.
 - Critical issues require description (empty = diagnostic error).
 - Missing `//++` → doc flagged `MISSING_INTENT`.

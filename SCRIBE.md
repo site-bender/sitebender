@@ -132,12 +132,13 @@ Scribe uses a **five-tier comment taxonomy** to extract semantic documentation f
    - **Purpose**: Help information including examples, setup, gotchas, etc.
    - **Placement**: Below the function (or anywhere with future `[fnName]` tags)
    - **Format**: `//?? [CATEGORY] content` or just `//?? content` for examples
-   - **Categories** (case-insensitive):
-     - `[EXAMPLES]` - Basic usage examples (default if no category)
-     - `[SETUP]` - Configuration or initialization required
-     - `[ADVANCED]` - Complex patterns or edge cases
-     - `[GOTCHAS]` - Common mistakes or surprising behavior
-     - `[MIGRATION]` - How to migrate from previous versions
+   - **Categories** (case-insensitive, singular):
+     - `[EXAMPLE]` - One usage example (default if no category)
+     - `[SETUP]` - One configuration/initialization step
+     - `[ADVANCED]` - One complex pattern or edge case
+     - `[GOTCHA]` - One common mistake or surprising behavior
+     - `[MIGRATION]` - One migration instruction
+   - **Note**: Each category marker starts a new item in multi-line blocks
    - **Priority**: Neutral/informative help
 
 4. **`//--` or `/*-- ... */` - Tech Debt Comments**
@@ -178,7 +179,7 @@ export default function processUserData(data: UserData): Result<ProcessedData, E
 }
 
 //?? processUserData({ input: "test", items: [] }) // { ok: true, value: [] }
-//?? [GOTCHAS] processUserData(null) // { ok: false, error: "Invalid data" }
+//?? [GOTCHA] processUserData(null) // { ok: false, error: "Invalid data" }
 //?? [SETUP] Must call initializeDB() before using this function
 //?? [ADVANCED] Can batch process: processUserData.batch(dataArray)
 ```

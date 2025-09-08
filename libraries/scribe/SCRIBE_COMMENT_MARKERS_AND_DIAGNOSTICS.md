@@ -12,8 +12,9 @@ Implements a **line-oriented scan** over the raw source string (now a pure recur
 - Regular comments: `//` (not extracted, for implementation notes only)
 - First description marker: `//++` or block `/*++ ... */` (subsequent contiguous `//++` are flagged as stray)
 - Help markers: `//??` (single) and `/*?? ... */` (multi-line)
-  - Optional categories: `[EXAMPLES]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHAS]`, `[MIGRATION]`
+  - Optional categories (singular): `[EXAMPLE]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHA]`, `[MIGRATION]`
   - Format: `//?? [CATEGORY] content` or `//?? content` for examples
+  - Each category marker starts a new item in multi-line blocks
 - Tech debt markers: `//--` (empty reason diagnostic)
 - Critical issue markers: `//!!` or `/*!! ... */` (empty description diagnostic) 🆕
 - Diagnostics for: extra `//++`, unterminated blocks, empty reasons/descriptions
@@ -23,10 +24,10 @@ Returns:
 type ParsedComments = {
   description?: string
   help: Array<{ 
-    category?: 'examples' | 'setup' | 'advanced' | 'gotchas' | 'migration'
+    category?: 'example' | 'setup' | 'advanced' | 'gotcha' | 'migration'
     content: string
-    code?: string      // For EXAMPLES category
-    expected?: string  // For EXAMPLES category
+    code?: string      // For EXAMPLE category
+    expected?: string  // For EXAMPLE category
     line: number
     raw: string
   }>
@@ -109,13 +110,13 @@ const rawCategory = extractedText // "[GOTCHAS]", "[Gotchas]", "[gotchas]"
 const normalized = rawCategory.toLocaleLowerCase()
 
 // Validate against union type
-type HelpCategory = 'examples' | 'setup' | 'advanced' | 'gotchas' | 'migration'
+type HelpCategory = 'example' | 'setup' | 'advanced' | 'gotcha' | 'migration'
 type TechDebtCategory = 'workaround' | 'limitation' | 'optimization' | 'refactor' | 'compatibility'
 type CriticalCategory = 'security' | 'performance' | 'correctness' | 'incomplete' | 'breaking'
 
 function normalizeHelpCategory(raw: string): HelpCategory | undefined {
   const normalized = raw.toLocaleLowerCase()
-  const valid: HelpCategory[] = ['examples', 'setup', 'advanced', 'gotchas', 'migration']
+  const valid: HelpCategory[] = ['example', 'setup', 'advanced', 'gotcha', 'migration']
   return valid.includes(normalized as HelpCategory) ? normalized as HelpCategory : undefined
 }
 ```
