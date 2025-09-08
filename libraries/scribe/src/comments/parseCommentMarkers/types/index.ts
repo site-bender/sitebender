@@ -1,5 +1,10 @@
 //++ Types for legacy line-based comment marker parser
-export type ParsedExample = { code: string; expected?: string; line: number; raw: string }
+export type ParsedExample = {
+	code: string
+	expected?: string
+	line: number
+	raw: string
+}
 export type ParsedTechDebt = { line: number; reason: string; raw: string }
 export type ParsedComments = {
 	description?: string

@@ -164,9 +164,7 @@ test.describe("Email form accessibility and progressive enhancement", () => {
 		await emailInput.focus()
 
 		// Check that focus styles are applied (outline should be visible)
-		const focusedElement = await page.evaluate(() =>
-			document.activeElement?.id
-		)
+		const focusedElement = await page.evaluate(() => document.activeElement?.id)
 		expect(focusedElement).toBe("email")
 
 		// BEHAVIOR: Form submission should not lose focus context inappropriately

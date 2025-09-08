@@ -1,4 +1,5 @@
 import type { ParseError, Result, Token } from "../types/index.ts"
+
 import tokenizeRecursive from "./tokenizeRecursive/index.ts"
 
 /**

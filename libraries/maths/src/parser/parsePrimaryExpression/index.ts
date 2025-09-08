@@ -2,10 +2,10 @@ import type { ASTNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parseExpression from "../parseExpression/index.ts"
-import parseNumber from "./parseNumber/index.ts"
-import parseVariable from "./parseVariable/index.ts"
-import parseParenthesized from "./parseParenthesized/index.ts"
 import createErrorResult from "./createErrorResult/index.ts"
+import parseNumber from "./parseNumber/index.ts"
+import parseParenthesized from "./parseParenthesized/index.ts"
+import parseVariable from "./parseVariable/index.ts"
 
 //+ Parses primary expressions: numbers, variables, and parenthesized expressions
 export default function parsePrimaryExpression(

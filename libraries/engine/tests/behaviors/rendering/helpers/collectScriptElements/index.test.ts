@@ -28,9 +28,7 @@ const createComponentFromElement = (
 	// Extract scripts from data-scripts attribute
 	const scriptsAttr = element.getAttribute("data-scripts")
 	if (scriptsAttr) {
-		component.scripts = scriptsAttr.split(",").map((script) =>
-			script.trim()
-		)
+		component.scripts = scriptsAttr.split(",").map((script) => script.trim())
 	}
 
 	// Extract children from child elements
@@ -410,9 +408,7 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 20 }).map((s) =>
-					s + ".js"
-				),
+				fc.string({ minLength: 1, maxLength: 20 }).map((s) => s + ".js"),
 			),
 			(scripts) => {
 				const component = { scripts }
@@ -426,9 +422,7 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.array(
-				fc.string({ minLength: 1, maxLength: 20 }).map((s) =>
-					s + ".js"
-				),
+				fc.string({ minLength: 1, maxLength: 20 }).map((s) => s + ".js"),
 			)),
 			(childScripts) => {
 				const children = childScripts.map((scripts) => ({ scripts }))
@@ -444,15 +438,11 @@ Deno.test("collectScriptElements property-based tests", () => {
 	fc.assert(
 		fc.property(
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
-					s + ".js"
-				),
+				fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
 			),
 			fc.array(
 				fc.array(
-					fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
-						s + ".js"
-					),
+					fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
 				),
 			),
 			(rootScripts, childScripts) => {
@@ -470,9 +460,7 @@ Deno.test("collectScriptElements property-based tests", () => {
 		fc.property(
 			fc.integer({ min: 1, max: 5 }),
 			fc.array(
-				fc.string({ minLength: 1, maxLength: 10 }).map((s) =>
-					s + ".js"
-				),
+				fc.string({ minLength: 1, maxLength: 10 }).map((s) => s + ".js"),
 			),
 			(depth, scripts) => {
 				// Create nested structure of specified depth

@@ -48,9 +48,7 @@ Deno.test("product", async (t) => {
 						}
 						if (numbers.includes(-Infinity)) {
 							if (numbers.includes(0)) return result === 0
-							const negativeCount = numbers.filter((n) =>
-								n < 0
-							).length
+							const negativeCount = numbers.filter((n) => n < 0).length
 							return negativeCount % 2 === 1
 								? result === -Infinity
 								: result === Infinity
@@ -125,9 +123,7 @@ Deno.test("product", async (t) => {
 					}),
 					(numbers) => {
 						const original = product(numbers)
-						const shuffled = [...numbers].sort(() =>
-							Math.random() - 0.5
-						)
+						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const reordered = product(shuffled)
 
 						// Handle special cases

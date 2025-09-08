@@ -28,9 +28,7 @@ const IsOverlappingSet =
 		try {
 			const leftArr = Array.isArray(operand.right)
 				? operand.right as unknown[]
-				: (typeof operand.right === "string"
-					? Array.from(operand.right)
-					: [])
+				: (typeof operand.right === "string" ? Array.from(operand.right) : [])
 			const rightArr = Array.isArray(test.right)
 				? test.right as unknown[]
 				: (typeof test.right === "string" ? Array.from(test.right) : [])
@@ -42,9 +40,9 @@ const IsOverlappingSet =
 			return overlaps ? { right: true } : {
 				left: [
 					Error(op.tag)("IsOverlappingSet")(
-						`${
-							JSON.stringify(operand.right)
-						} does not overlap with ${JSON.stringify(test.right)}`,
+						`${JSON.stringify(operand.right)} does not overlap with ${
+							JSON.stringify(test.right)
+						}`,
 					),
 				],
 			}

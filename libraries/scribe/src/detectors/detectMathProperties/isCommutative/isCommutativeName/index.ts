@@ -3,13 +3,15 @@ import contains from "../../../../../../../libraries/toolkit/src/simple/string/c
 import { COMMUTATIVE_FUNCTION_NAMES } from "../constants/index.ts"
 
 //++ Checks if a function name indicates commutative behavior
-export default function isCommutativeName(functionName: string | null): boolean {
+export default function isCommutativeName(
+	functionName: string | null,
+): boolean {
 	if (!functionName) {
 		return false
 	}
-	
+
 	const lowerName = functionName.toLowerCase()
-	
+
 	return some(function containsName(commutativeName: string) {
 		return contains(commutativeName)(lowerName)
 	})(Array.from(COMMUTATIVE_FUNCTION_NAMES))

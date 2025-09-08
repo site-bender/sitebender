@@ -231,9 +231,7 @@ const validateField =
 					return (
 						minConfig.message ||
 						rules.messages?.min ||
-						`Date must be after ${
-							minDate.toISOString().split("T")[0]
-						}`
+						`Date must be after ${minDate.toISOString().split("T")[0]}`
 					)
 				}
 			}
@@ -247,9 +245,7 @@ const validateField =
 					return (
 						maxConfig.message ||
 						rules.messages?.max ||
-						`Date must be before ${
-							maxDate.toISOString().split("T")[0]
-						}`
+						`Date must be before ${maxDate.toISOString().split("T")[0]}`
 					)
 				}
 			}

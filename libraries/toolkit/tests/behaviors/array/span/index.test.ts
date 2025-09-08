@@ -206,9 +206,7 @@ describe("span", () => {
 					(array) => {
 						const predicate = (x: number) => x < 50
 						const [first] = span(predicate)(array)
-						return first.every((val, idx) =>
-							predicate(val, idx, array)
-						)
+						return first.every((val, idx) => predicate(val, idx, array))
 					},
 				),
 			)
@@ -249,12 +247,8 @@ describe("span", () => {
 
 						return result1[0].length === result2[0].length &&
 							result1[1].length === result2[1].length &&
-							result1[0].every((val, idx) =>
-								val === result2[0][idx]
-							) &&
-							result1[1].every((val, idx) =>
-								val === result2[1][idx]
-							)
+							result1[0].every((val, idx) => val === result2[0][idx]) &&
+							result1[1].every((val, idx) => val === result2[1][idx])
 					},
 				),
 			)

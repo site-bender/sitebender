@@ -1,7 +1,8 @@
 import type { FunctionSignature } from "../types/index.ts"
 import type { BenchmarkSuite } from "./types/index.ts"
-import detectBenchmarkPatterns from "./detectBenchmarkPatterns/index.ts"
+
 import createBenchmarkInputs from "./createBenchmarkInputs/index.ts"
+import detectBenchmarkPatterns from "./detectBenchmarkPatterns/index.ts"
 import generatePerformanceTests from "./generatePerformanceTests/index.ts"
 
 /**

@@ -86,9 +86,7 @@ const getValue =
 				default: {
 					const htmlElement = element as HTMLElement
 					const hasDataValue = element.getAttribute("data-value") ||
-						(htmlElement.dataset
-							? htmlElement.dataset.value
-							: undefined)
+						(htmlElement.dataset ? htmlElement.dataset.value : undefined)
 					return hasDataValue
 						? { right: getFromDataset(element) }
 						: { right: getFromInnerHtml(element) }

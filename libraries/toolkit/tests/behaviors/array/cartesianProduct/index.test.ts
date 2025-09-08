@@ -290,9 +290,7 @@ Deno.test("cartesianProduct property - contains all expected pairs", () => {
 				// Check that every combination exists
 				for (const a of arr1) {
 					for (const b of arr2) {
-						const exists = result.some((pair) =>
-							pair[0] === a && pair[1] === b
-						)
+						const exists = result.some((pair) => pair[0] === a && pair[1] === b)
 						if (!exists) return false
 					}
 				}

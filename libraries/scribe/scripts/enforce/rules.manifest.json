@@ -1,15 +1,20 @@
 {
-  "version": "2025-09-08-initial",
-  "rules": {
-    "oneFunctionPerFile": true,
-    "foldersNamedFilesNot": true,
-    "typesInTypesFolder": true,
-    "constantsInConstantsFolder": true,
-    "arrayGenericNotation": true,
+	"version": "2025-09-08-initial",
+	"rules": {
+		"oneFunctionPerFile": true,
+		"foldersNamedFilesNot": true,
+		"typesInTypesFolder": true,
+		"constantsInConstantsFolder": true,
+		"arrayGenericNotation": true,
 		"noMutableArrayMethods": true,
 		"requireScribeMarker": true
-  },
-  "forbiddenMutableMethods": ["push", "pop", "shift", "unshift", "splice"],
-  "sourceGlobs": ["libraries/scribe/src/**/*.ts", "!**/types/**", "!**/constants/**", "!**/*.test.ts"],
-  "testFilePattern": "**/index.test.ts"
+	},
+	"forbiddenMutableMethods": ["push", "pop", "shift", "unshift", "splice"],
+	"sourceGlobs": [
+		"libraries/scribe/src/**/*.ts",
+		"!**/types/**",
+		"!**/constants/**",
+		"!**/*.test.ts"
+	],
+	"testFilePattern": "**/index.test.ts"
 }

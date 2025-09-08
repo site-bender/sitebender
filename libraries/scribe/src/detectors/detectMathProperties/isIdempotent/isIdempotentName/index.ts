@@ -7,9 +7,9 @@ export default function isIdempotentName(functionName: string | null): boolean {
 	if (!functionName) {
 		return false
 	}
-	
+
 	const lowerName = functionName.toLowerCase()
-	
+
 	return some(function containsName(idempotentName: string) {
 		return contains(idempotentName)(lowerName)
 	})(Array.from(IDEMPOTENT_FUNCTION_NAMES))

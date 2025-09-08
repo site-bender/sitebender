@@ -276,9 +276,7 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					fc.integer(),
 					(arr, initial) => {
-						const result = scan((acc: number, n: number) =>
-							acc + n
-						)(initial)(
+						const result = scan((acc: number, n: number) => acc + n)(initial)(
 							arr,
 						)
 						return result.length === arr.length + 1
@@ -293,9 +291,7 @@ describe("scan", () => {
 					fc.array(fc.integer(), { minLength: 1 }),
 					fc.integer(),
 					(arr, initial) => {
-						const scanResult = scan((acc: number, n: number) =>
-							acc + n
-						)(
+						const scanResult = scan((acc: number, n: number) => acc + n)(
 							initial,
 						)(arr)
 						const reduceResult = arr.reduce(
@@ -333,9 +329,7 @@ describe("scan", () => {
 					fc.array(fc.integer()),
 					(arr) => {
 						// String accumulator should stay string
-						const result = scan((acc: string, n: number) =>
-							acc + n
-						)("start")(
+						const result = scan((acc: string, n: number) => acc + n)("start")(
 							arr,
 						)
 						return result.every((item) => typeof item === "string")

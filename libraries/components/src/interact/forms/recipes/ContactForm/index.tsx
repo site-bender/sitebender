@@ -40,9 +40,7 @@ export default function ContactForm({
 				label="Your Name"
 				required
 				inputAttributes={{
-					"aria-describedby": errors.name
-						? `${nameId}-error`
-						: undefined,
+					"aria-describedby": errors.name ? `${nameId}-error` : undefined,
 				}}
 			/>
 			{errors.name
@@ -60,9 +58,7 @@ export default function ContactForm({
 				required
 				inputAttributes={{
 					pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
-					"aria-describedby": errors.email
-						? `${emailId}-error`
-						: undefined,
+					"aria-describedby": errors.email ? `${emailId}-error` : undefined,
 				}}
 			/>
 			{errors.email
@@ -80,9 +76,7 @@ export default function ContactForm({
 				isMultiline
 				required
 				textareaAttributes={{
-					"aria-describedby": errors.message
-						? `${messageId}-error`
-						: undefined,
+					"aria-describedby": errors.message ? `${messageId}-error` : undefined,
 				}}
 			/>
 			{errors.message

@@ -188,13 +188,11 @@ const validateConfig = <T extends Record<string, unknown>>(
 		if (fieldSchema.type === "array") {
 			const arr = value as unknown[]
 			if (fieldSchema.minLength && arr.length < fieldSchema.minLength) {
-				errors[key] =
-					`Array must have at least ${fieldSchema.minLength} items`
+				errors[key] = `Array must have at least ${fieldSchema.minLength} items`
 				continue
 			}
 			if (fieldSchema.maxLength && arr.length > fieldSchema.maxLength) {
-				errors[key] =
-					`Array must have at most ${fieldSchema.maxLength} items`
+				errors[key] = `Array must have at most ${fieldSchema.maxLength} items`
 				continue
 			}
 			if (fieldSchema.items) {
