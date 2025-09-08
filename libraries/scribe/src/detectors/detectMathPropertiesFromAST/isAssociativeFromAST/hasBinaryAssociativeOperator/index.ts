@@ -1,6 +1,6 @@
 import type { AstNode } from "../../types/index.ts"
 
-import some from "../../../../../../../toolkit/src/simple/array/some/index.ts"
+import some from "../../../../../../toolkit/src/simple/array/some/index.ts"
 import { ASSOCIATIVE_OPERATOR_KINDS } from "../constants/index.ts"
 import findInChildren from "./findInChildren/index.ts"
 
