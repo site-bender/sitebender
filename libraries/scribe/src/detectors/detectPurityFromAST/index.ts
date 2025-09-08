@@ -7,11 +7,27 @@ import { SIDE_EFFECT_INDICATORS } from "../../constants/index.ts"
  * @returns true if the function is pure, false otherwise
  */
 export default function detectPurityFromAST(node: ts.Node): boolean {
-	let isPure = true
+	/**
+	 * Checks if a parent chain contains a declaration
+	 */
+	function isInsideDeclaration(node: ts.Node): boolean {
+		const checkParent = (current: ts.Node | undefined): boolean => {
+			if (!current) return false
+			if (ts.isVariableDeclaration(current) || ts.isParameter(current)) {
+				return true
+			}
+			if (ts.isFunctionLike(current)) {
+				return false // Stop at function boundaries
+			}
+			return checkParent(current.parent)
+		}
+		return checkParent(node.parent)
+	}
 
-	function visit(currentNode: ts.Node): void {
-		if (!isPure) return // Early exit if already impure
-
+	/**
+	 * Checks if a node represents an impure operation
+	 */
+	function checkNodeImpurity(currentNode: ts.Node): boolean {
 		// Check for console, document, window, localStorage, etc.
 		if (ts.isPropertyAccessExpression(currentNode)) {
 			const expression = currentNode.expression.getText()
@@ -19,16 +35,13 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 			const fullAccess = `${expression}.${property}`
 
 			// Check for side effect indicators
-			for (const indicator of SIDE_EFFECT_INDICATORS) {
-				if (
+			const hasSideEffect = SIDE_EFFECT_INDICATORS.some(
+				(indicator) =>
 					expression === indicator || fullAccess.includes(indicator)
-				) {
-					isPure = false
-					return
-				}
-			}
+			)
+			if (hasSideEffect) return true
 
-			// Check for array mutations - but allow array access (arr[i])
+			// Check for array mutations
 			const mutatingMethods = [
 				"push",
 				"pop",
@@ -41,95 +54,66 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 				"copyWithin",
 			]
 			if (mutatingMethods.includes(property)) {
-				// This is a mutating array method
-				isPure = false
-				return
+				return true
 			}
 		}
 
 		// Check for global object access
 		if (ts.isIdentifier(currentNode)) {
 			const name = currentNode.getText()
-			if (
-				[
-					"console",
-					"document",
-					"window",
-					"localStorage",
-					"sessionStorage",
-					"process",
-					"crypto",
-				].includes(name)
-			) {
-				isPure = false
-				return
+			const globalObjects = [
+				"console",
+				"document",
+				"window",
+				"localStorage",
+				"sessionStorage",
+				"process",
+				"crypto",
+			]
+			if (globalObjects.includes(name)) {
+				return true
 			}
 		}
 
-		// Check for assignments (mutations) - but not in declarations or to local variables
+		// Check for assignments (mutations)
 		if (
 			ts.isBinaryExpression(currentNode) &&
 			currentNode.operatorToken.kind === ts.SyntaxKind.EqualsToken
 		) {
-			// Check if this is inside a variable declaration (which is okay)
-			let parent = currentNode.parent
-			let isDeclaration = false
-
-			while (parent && !isDeclaration) {
-				if (
-					ts.isVariableDeclaration(parent) || ts.isParameter(parent)
-				) {
-					isDeclaration = true
-				}
-				parent = parent.parent
-				if (!parent || ts.isFunctionLike(parent)) break
-			}
-
-			// Check what we're assigning to
+			const isDeclaration = isInsideDeclaration(currentNode)
 			const left = currentNode.left
 
 			// Check if we're assigning to an array element (mutation)
 			if (ts.isElementAccessExpression(left)) {
-				// This is array[index] = value, which is a mutation
-				isPure = false
-				return
+				return true
 			}
 
 			// Check if we're assigning to a property (object.prop = value)
 			if (ts.isPropertyAccessExpression(left)) {
-				// This is object mutation
-				isPure = false
-				return
+				return true
 			}
 
-			// If it's just an identifier (local variable), that's okay as long as
-			// it's not a parameter or external variable
+			// If it's just an identifier (local variable), allow it if in declaration
 			if (ts.isIdentifier(left)) {
-				// Assignment to local variables is okay in pure functions
-				// We would need more sophisticated analysis to check if it's truly local
-				// For now, allow assignments to simple identifiers
-				return
+				return false // Allow local variable assignments
 			}
 
-			if (!isDeclaration) {
-				// Other types of assignments might be impure
-				isPure = false
-				return
-			}
+			// Other assignments outside declarations are impure
+			return !isDeclaration
 		}
 
 		// Check for compound assignments (+=, -=, etc.)
 		if (ts.isBinaryExpression(currentNode)) {
 			const operator = currentNode.operatorToken.kind
-			if (
-				operator === ts.SyntaxKind.PlusEqualsToken ||
-				operator === ts.SyntaxKind.MinusEqualsToken ||
-				operator === ts.SyntaxKind.AsteriskEqualsToken ||
-				operator === ts.SyntaxKind.SlashEqualsToken ||
-				operator === ts.SyntaxKind.PercentEqualsToken
-			) {
-				isPure = false
-				return
+			const compoundOperators = [
+				ts.SyntaxKind.PlusEqualsToken,
+				ts.SyntaxKind.MinusEqualsToken,
+				ts.SyntaxKind.AsteriskEqualsToken,
+				ts.SyntaxKind.SlashEqualsToken,
+				ts.SyntaxKind.PercentEqualsToken,
+			]
+			if (compoundOperators.includes(operator)) {
+				return true
 			}
 		}
 
@@ -143,27 +127,23 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 				operator === ts.SyntaxKind.PlusPlusToken ||
 				operator === ts.SyntaxKind.MinusMinusToken
 			) {
-				isPure = false
-				return
+				return true
 			}
 		}
 
 		// Check for throw statements
 		if (ts.isThrowStatement(currentNode)) {
-			isPure = false
-			return
+			return true
 		}
 
 		// Check for try/catch
 		if (ts.isTryStatement(currentNode)) {
-			isPure = false
-			return
+			return true
 		}
 
 		// Check for await
 		if (ts.isAwaitExpression(currentNode)) {
-			isPure = false
-			return
+			return true
 		}
 
 		// Check for new Date() or Date.now()
@@ -171,41 +151,48 @@ export default function detectPurityFromAST(node: ts.Node): boolean {
 			ts.isNewExpression(currentNode) &&
 			currentNode.expression.getText() === "Date"
 		) {
-			isPure = false
-			return
+			return true
 		}
 
 		if (ts.isCallExpression(currentNode)) {
 			const expression = currentNode.expression.getText()
 			if (expression === "Date.now" || expression === "Math.random") {
-				isPure = false
-				return
+				return true
+			}
+			if (expression === "fetch") {
+				return true
 			}
 		}
 
-		// Check for fetch, XMLHttpRequest
+		// Check for XMLHttpRequest
 		if (
 			ts.isNewExpression(currentNode) &&
 			currentNode.expression.getText() === "XMLHttpRequest"
 		) {
-			isPure = false
-			return
+			return true
 		}
 
-		if (
-			ts.isCallExpression(currentNode) &&
-			currentNode.expression.getText() === "fetch"
-		) {
-			isPure = false
-			return
-		}
-
-		// Continue traversing
-		ts.forEachChild(currentNode, visit)
+		return false
 	}
 
-	// Start traversal
-	visit(node)
+	/**
+	 * Recursively checks all nodes for impurity
+	 */
+	function checkTreeImpurity(currentNode: ts.Node): boolean {
+		// Check current node
+		if (checkNodeImpurity(currentNode)) {
+			return true
+		}
 
-	return isPure
+		// Check children
+		const children: Array<ts.Node> = []
+		ts.forEachChild(currentNode, (child) => {
+			children.push(child)
+		})
+
+		return children.some((child) => checkTreeImpurity(child))
+	}
+
+	// Return true if pure (no impurity found)
+	return !checkTreeImpurity(node)
 }
