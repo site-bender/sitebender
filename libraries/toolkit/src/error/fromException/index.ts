@@ -31,8 +31,7 @@ export default function fromException<TOp extends string>(operation: TOp) {
  * } catch (err) {
  *   return left(fromException("map")([fn, array])(err))
  * }
- */
-/*??
+ *
  * [EXAMPLE] With additional context:
  * try {
  *   JSON.parse(text)

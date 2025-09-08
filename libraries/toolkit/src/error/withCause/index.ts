@@ -26,8 +26,7 @@ export default function withCause(cause: Error | EngineError) {
  *     withCause(err as Error)
  *   )
  * }
- */
-/*??
+ *
  * [EXAMPLE] Chain errors:
  * const originalError = new Error("Network timeout")
  * const contextualError = pipe(

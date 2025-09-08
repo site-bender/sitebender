@@ -55,15 +55,13 @@ export default function fromTemplate<TTemplate extends keyof typeof templates>(
  *   "parse", "Integer", "String"
  * )
  * // Message: "parse expected Integer but received String"
- */
-/*??
+ *
  * [EXAMPLE] Null input error:
  * const nullError = fromTemplate("NULL_INPUT")("map")([fn, null])(
  *   "map", "array"
  * )
  * // Message: "map received null/undefined for required parameter 'array'"
- */
-/*??
+ *
  * [EXAMPLE] Out of range error:
  * const rangeError = fromTemplate("OUT_OF_RANGE")("slice")([arr, 10])(
  *   "slice", "index", 0, 5, 10

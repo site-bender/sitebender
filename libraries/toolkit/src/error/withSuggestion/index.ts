@@ -20,8 +20,7 @@ export default function withSuggestion(suggestion: string) {
  *   createError("divide")([10, 0])("Division by zero")(),
  *   withSuggestion("Ensure divisor is not zero before dividing")
  * )
- */
-/*??
+ *
  * [EXAMPLE] Conditional suggestion:
  * const addSuggestion = error.code === "NULL_INPUT"
  *   ? withSuggestion("Initialize the value before use")

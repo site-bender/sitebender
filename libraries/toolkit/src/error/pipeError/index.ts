@@ -31,16 +31,14 @@ export default function pipeError<TOp extends string>(operation: TOp) {
  *   withSuggestion("Ensure array is initialized"),
  *   withCause(originalError)
  * )
- */
-/*??
+ *
  * [EXAMPLE] Partial application for error factories:
  * const createMapError = pipeError("map")
  * const mapNullError = createMapError([fn, null])("Array is null")(
  *   withFailedArg(1)("array"),
  *   withSuggestion("Initialize array before mapping")
  * )
- */
-/*??
+ *
  * [EXAMPLE] Conditional transforms:
  * const transforms = [
  *   withFailedArg(0)("predicate"),
