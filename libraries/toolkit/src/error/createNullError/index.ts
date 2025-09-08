@@ -5,9 +5,9 @@ import createError from "../createError/index.ts"
 
 //++ Creates a null/undefined input error with full context
 export default function createNullError<TOp extends string>(operation: TOp) {
-	return function <TArgs extends ReadonlyArray<Value>>(args: TArgs) {
-		return function (argIndex: number) {
-			return function (argName: string): EngineError<TOp, TArgs> {
+	return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+		return function atArgumentIndex(argIndex: number) {
+			return function forArgumentNamed(argName: string): EngineError<TOp, TArgs> {
 				const baseError = createError(operation)(args)(
 					`${operation}: Unexpected null/undefined for ${argName}`,
 				)("NULL_VALUE") as EngineError<TOp, TArgs>

@@ -1,39 +1,75 @@
+import replaceAll from "../../../simple/string/replaceAll/index.ts"
+import reduce from "../../../simple/array/reduce/index.ts"
+import unfold from "../../../simple/array/unfold/index.ts"
+import takeWhile from "../../../simple/array/takeWhile/index.ts"
+import pipe from "../../../simple/combinator/pipe/index.ts"
+import reverse from "../../../simple/array/reverse/index.ts"
+import join from "../../../simple/array/join/index.ts"
+import map from "../../../simple/array/map/index.ts"
+
 //++ Generates a Base58-encoded UUID v4
 export default function generateBase58Uuid(): string {
-	const uuid = crypto.randomUUID()
-	const hex = uuid.replace(/-/g, "")
-
-	const bytes = new Uint8Array(hex.length / 2)
-	for (let i = 0; i < hex.length; i += 2) {
-		bytes[i / 2] = parseInt(hex.substr(i, 2), 16)
-	}
-
-	const alphabet =
+	const BASE58_ALPHABET =
 		"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
-	let value = 0n
-	for (const byte of bytes) {
-		value = value * 256n + BigInt(byte)
+	function stripHyphens(uuid: string): string {
+		return replaceAll("-")("")(uuid)
 	}
 
-	let result = ""
-	const base = BigInt(alphabet.length)
+	function hexToBytes(hexString: string): Uint8Array {
+		function extractPairs(hex: string): Array<string> {
+			return unfold((remaining: string) => 
+				remaining.length >= 2
+					? [remaining.slice(0, 2), remaining.slice(2)]
+					: null
+			)(hex)
+		}
 
-	while (value > 0n) {
-		const remainder = Number(value % base)
-		result = alphabet[remainder] + result
-		value = value / base
+		function parsePair(pair: string): number {
+			return parseInt(pair, 16)
+		}
+
+		const pairs = extractPairs(hexString)
+		const bytes = map(parsePair)(pairs)
+		return new Uint8Array(bytes)
 	}
 
-	for (const byte of bytes) {
-		if (byte === 0) {
-			result = alphabet[0] + result
-		} else {
-			break
+	function bytesToBigInt(bytes: Uint8Array): bigint {
+		return reduce((accumulated: bigint, byte: number): bigint => 
+			accumulated * 256n + BigInt(byte)
+		)(0n)(Array.from(bytes))
+	}
+
+	function bigIntToBase58(value: bigint): Array<string> {
+		function generateDigits(current: bigint): Array<string> {
+			return unfold((remaining: bigint) =>
+				remaining > 0n
+					? [BASE58_ALPHABET[Number(remaining % 58n)], remaining / 58n]
+					: null
+			)(current)
+		}
+
+		return reverse(generateDigits(value))
+	}
+
+	function prependLeadingOnes(bytes: Uint8Array): (chars: Array<string>) => Array<string> {
+		return function withLeadingOnes(chars: Array<string>): Array<string> {
+			const leadingZeros = takeWhile((byte: number) => byte === 0)(Array.from(bytes))
+			const leadingOnes = map(() => BASE58_ALPHABET[0])(leadingZeros)
+			return [...leadingOnes, ...chars]
 		}
 	}
 
-	return result
+	return pipe([
+		stripHyphens,
+		hexToBytes,
+		function encodeToBase58(bytes: Uint8Array): string {
+			const bigIntValue = bytesToBigInt(bytes)
+			const base58Chars = bigIntToBase58(bigIntValue)
+			const withLeading = prependLeadingOnes(bytes)(base58Chars)
+			return join("")(withLeading)
+		}
+	])(crypto.randomUUID())
 }
 
 //?? [EXAMPLE] generateBase58Uuid() // "4Kh8gTjX9pQ2mN7yR3Wz"
