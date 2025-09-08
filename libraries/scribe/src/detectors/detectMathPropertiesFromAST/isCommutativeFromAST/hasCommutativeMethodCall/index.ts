@@ -1,0 +1,34 @@
+import type { AstNode } from "../../types/index.ts"
+
+import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
+import some from "../../../../../../toolkit/src/simple/array/some/index.ts"
+import {
+	COMMUTATIVE_MATH_METHODS,
+	COMMUTATIVE_METHOD_NAMES,
+} from "../constants/index.ts"
+
+//++ Checks if AST node contains method calls known to be commutative
+export default function hasCommutativeMethodCall(node: AstNode): boolean {
+	if (!node.getText) {
+		return false
+	}
+
+	const nodeText = node.getText()
+
+	// Check for Math methods like Math.min, Math.max
+	const hasMathMethod = some(function checkMathMethod(method: string) {
+		return contains(method)(nodeText)
+	})(COMMUTATIVE_MATH_METHODS)
+
+	// Check for general method names
+	const hasMethodName = some(function checkMethodName(method: string) {
+		return contains(`.${method}(`)(nodeText) || contains(`${method}(`)(nodeText)
+	})(COMMUTATIVE_METHOD_NAMES)
+
+	return hasMathMethod || hasMethodName
+}
+
+//?? [EXAMPLE] hasCommutativeMethodCall(mathMinCallNode) // true
+//?? [EXAMPLE] hasCommutativeMethodCall(subtractCallNode) // false
+//?? [PRO] Catches common commutative method patterns
+//?? [CON] Uses text search which can have false positives in strings/comments

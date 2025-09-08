@@ -9,31 +9,37 @@ A friendly guide to understanding and using Scribe's comment syntax. Think of th
 The description tells what a function does. It's the main documentation.
 
 **Single line:**
+
 ```typescript
 //++ Converts a string to uppercase
 export default function toUpperCase(str: string): string {
-  return str.toUpperCase()
+	return str.toUpperCase()
 }
 ```
 
 **Multi-line block:**
+
 ```typescript
 /*++
  * Parses a CSV file and returns an array of objects.
  * Each row becomes an object with column headers as keys.
  * Empty lines are skipped, and values are trimmed.
  */
-export default function parseCsv(content: string): Array<Record<string, string>> {
-  // implementation
+export default function parseCsv(
+	content: string,
+): Array<Record<string, string>> {
+	// implementation
 }
 ```
 
 **Important Rules:**
+
 - Only the FIRST `//++` is used as the description
 - Additional `//++` lines are flagged as errors
 - Must appear before the function export
 
 **Bad example (multiple descriptions):**
+
 ```typescript
 //++ This is the description
 //++ This will be flagged as an error!  ❌
@@ -45,6 +51,7 @@ export default function doSomething() {}
 Help markers provide examples, gotchas, pros/cons, and other helpful info. They use categories in square brackets.
 
 #### Categories Available:
+
 - `[EXAMPLE]` - Code examples showing usage (default if no category)
 - `[GOTCHA]` - Unexpected behavior or common mistakes
 - `[PRO]` - Benefits or strengths of the function
@@ -54,10 +61,11 @@ Help markers provide examples, gotchas, pros/cons, and other helpful info. They 
 - `[MIGRATION]` - How to migrate from old versions
 
 **Single line examples:**
+
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number, b: number): number {
-  return a + b
+	return a + b
 }
 
 //?? [EXAMPLE] add(2, 3) // 5
@@ -68,17 +76,18 @@ export default function add(a: number, b: number): number {
 ```
 
 **Multi-line block (each category starts a new item):**
+
 ```typescript
 //++ Fetches data from an API with retry logic
 export default async function fetchWithRetry(url: string): Promise<Response> {
-  // implementation
+	// implementation
 }
 
 /*??
  * [EXAMPLE]
  * const response = await fetchWithRetry('https://api.example.com/data')
  * const data = await response.json()
- * 
+ *
  * [EXAMPLE]
  * // With error handling
  * try {
@@ -86,17 +95,17 @@ export default async function fetchWithRetry(url: string): Promise<Response> {
  * } catch (error) {
  *   console.error('Failed after all retries')
  * }
- * 
+ *
  * [GOTCHA]
  * The function retries 3 times by default with exponential backoff.
  * This means a failed request could take up to 7 seconds to fail completely.
- * 
+ *
  * [PRO]
  * Automatically handles transient network errors without manual intervention.
- * 
+ *
  * [CON]
  * Cannot customize retry count or backoff strategy without modifying the function.
- * 
+ *
  * [SETUP]
  * Requires a valid fetch implementation (native in browser/Deno, polyfill in Node).
 */
@@ -107,14 +116,16 @@ export default async function fetchWithRetry(url: string): Promise<Response> {
 Documents known issues, workarounds, or areas needing improvement. Must include a reason.
 
 **Single line:**
+
 ```typescript
 //-- Using string manipulation instead of proper AST parsing (temporary until Parser is ready)
 function extractFunctionName(source: string): string {
-  return source.match(/function\s+(\w+)/)?.[1] || ''
+	return source.match(/function\s+(\w+)/)?.[1] || ""
 }
 ```
 
 **Multi-line block:**
+
 ```typescript
 /*--
  * This entire module needs refactoring:
@@ -124,11 +135,12 @@ function extractFunctionName(source: string): string {
  * - Will be replaced when Parser provides proper AST nodes
 */
 export default function detectComplexity(source: string): number {
-  // hacky implementation
+	// hacky implementation
 }
 ```
 
 **Categories (optional):**
+
 - `[WORKAROUND]` - Temporary fix for a problem
 - `[LIMITATION]` - Known limitation of current approach
 - `[OPTIMIZATION]` - Performance improvement needed
@@ -146,14 +158,16 @@ export default function detectComplexity(source: string): number {
 Marks critical problems that MUST be fixed. These block releases!
 
 **Single line:**
+
 ```typescript
 //!! Security vulnerability: SQL injection possible with user input
 function queryDatabase(userInput: string) {
-  return db.query(`SELECT * FROM users WHERE name = '${userInput}'`)
+	return db.query(`SELECT * FROM users WHERE name = '${userInput}'`)
 }
 ```
 
 **Multi-line block:**
+
 ```typescript
 /*!!
  * CRITICAL MEMORY LEAK DETECTED
@@ -162,11 +176,12 @@ function queryDatabase(userInput: string) {
  * FIX REQUIRED: Break circular reference by using WeakMap instead.
  */
 export default function createCache() {
-  // problematic implementation
+	// problematic implementation
 }
 ```
 
 **Categories (optional):**
+
 - `[SECURITY]` - Security vulnerabilities
 - `[PERFORMANCE]` - Severe performance issues
 - `[CORRECTNESS]` - Produces wrong results
@@ -186,7 +201,7 @@ export default function createCache() {
 ```typescript
 //++ Removes whitespace from the end of a string
 export default function chomp(str: string): string {
-  return str.replace(/\s+$/, '')
+	return str.replace(/\s+$/, "")
 }
 
 //?? [EXAMPLE] chomp('hello  ') // 'hello'
@@ -205,42 +220,42 @@ export default function chomp(str: string): string {
  * This is crucial for optimization and parallelization.
  */
 export default function isAssociativeFromAST(node: AstNode): boolean {
-  return (
-    hasBinaryAssociativeOperator(node) ||
-    hasAssociativeMethodCall(node) ||
-    hasAssociativeFunctionName(node)
-  )
+	return (
+		hasBinaryAssociativeOperator(node) ||
+		hasAssociativeMethodCall(node) ||
+		hasAssociativeFunctionName(node)
+	)
 }
 
 /*??
  * [EXAMPLE]
  * const addNode = parseFunction('function add(a, b) { return a + b }')
  * isAssociativeFromAST(addNode) // true
- * 
+ *
  * [EXAMPLE]
  * const subtractNode = parseFunction('function subtract(a, b) { return a - b }')
  * isAssociativeFromAST(subtractNode) // false
- * 
+ *
  * [GOTCHA]
- * Only detects structurally obvious patterns. 
+ * Only detects structurally obvious patterns.
  * Cannot detect semantic associativity in complex logic.
- * 
+ *
  * [PRO]
  * Uses proper AST analysis instead of fragile string matching.
- * 
+ *
  * [PRO]
  * Can detect associativity in minified or obfuscated code.
- * 
+ *
  * [CON]
  * Cannot detect associativity of higher-order functions.
- * 
+ *
  * [CON]
  * Relies on hardcoded SyntaxKind numbers from TypeScript.
- * 
+ *
  * [SETUP]
  * Requires AST nodes from the Parser library.
  * Will not work with raw source strings.
- * 
+ *
  * [ADVANCED]
  * Can be extended to detect custom associative patterns by adding
  * new operator kinds to ASSOCIATIVE_OPERATOR_KINDS constant.
@@ -257,7 +272,7 @@ export default function isAssociativeFromAST(node: AstNode): boolean {
 ```typescript
 //++ Validates an email address using modern standards
 export default function validateEmail(email: string): boolean {
-  // implementation
+	// implementation
 }
 
 /*??
@@ -266,17 +281,17 @@ export default function validateEmail(email: string): boolean {
  * - Now follows RFC 5322 standard (previously RFC 822)
  * - Accepts Unicode characters in local part
  * - Maximum length increased from 254 to 320 characters
- * 
+ *
  * To migrate from v1:
  * 1. Update any length validation (254 -> 320)
  * 2. Remove any Unicode blocking logic
  * 3. Update test cases for new valid formats
- * 
+ *
  * [EXAMPLE]
  * // Old (v1) - would reject
  * validateEmail('user+tag@example.com') // now returns true
- * 
- * // Old (v1) - would accept  
+ *
+ * // Old (v1) - would accept
  * validateEmail('user@localhost') // now returns false (requires TLD)
  */
 ```
@@ -284,6 +299,7 @@ export default function validateEmail(email: string): boolean {
 ## Best Practices
 
 ### DO:
+
 - ✅ Put description (`//++`) IMMEDIATELY ABOVE the function declaration (on the line before)
 - ✅ Put help comments (`//??`) AFTER the function body
 - ✅ Include examples for every function
@@ -293,6 +309,7 @@ export default function validateEmail(email: string): boolean {
 - ✅ Use categories to organize multi-line help blocks
 
 ### DON'T:
+
 - ❌ Use multiple `//++` (only first is used)
 - ❌ Leave tech debt markers empty (`//--` with no reason)
 - ❌ Mix categories in a single line (`//?? [EXAMPLE] [GOTCHA]`)
@@ -301,22 +318,22 @@ export default function validateEmail(email: string): boolean {
 
 ## Quick Reference
 
-| Marker | Purpose | Required? | Can be multiple? |
-|--------|---------|-----------|------------------|
-| `//++` | Main description | Recommended | No (only first used) |
-| `//??` | Help/examples | Recommended | Yes |
-| `//--` | Tech debt | When applicable | Yes |
-| `//!!` | Critical issues | When critical | Yes |
+| Marker | Purpose          | Required?       | Can be multiple?     |
+| ------ | ---------------- | --------------- | -------------------- |
+| `//++` | Main description | Recommended     | No (only first used) |
+| `//??` | Help/examples    | Recommended     | Yes                  |
+| `//--` | Tech debt        | When applicable | Yes                  |
+| `//!!` | Critical issues  | When critical   | Yes                  |
 
-| Category | Used with | Purpose |
-|----------|-----------|---------|
-| `[EXAMPLE]` | `//??` | Show usage examples |
-| `[GOTCHA]` | `//??` | Warn about unexpected behavior |
-| `[PRO]` | `//??` | Highlight benefits |
-| `[CON]` | `//??` | Document limitations |
-| `[SETUP]` | `//??` | Explain requirements |
-| `[ADVANCED]` | `//??` | Show complex usage |
-| `[MIGRATION]` | `//??` | Help with version changes |
+| Category      | Used with | Purpose                        |
+| ------------- | --------- | ------------------------------ |
+| `[EXAMPLE]`   | `//??`    | Show usage examples            |
+| `[GOTCHA]`    | `//??`    | Warn about unexpected behavior |
+| `[PRO]`       | `//??`    | Highlight benefits             |
+| `[CON]`       | `//??`    | Document limitations           |
+| `[SETUP]`     | `//??`    | Explain requirements           |
+| `[ADVANCED]`  | `//??`    | Show complex usage             |
+| `[MIGRATION]` | `//??`    | Help with version changes      |
 
 ## For Parser Implementation
 

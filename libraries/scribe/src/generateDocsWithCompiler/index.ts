@@ -6,14 +6,11 @@ import type {
 } from "../types/index.ts"
 
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
-import detectComplexityFromAST from "../detectors/detectComplexityFromAST/index.ts"
-import detectCurryingFromAST from "../detectors/detectCurryingFromAST/index.ts"
 // Direct heuristic math property detectors (no barrel)
 import isAssociative from "../detectors/detectMathProperties/isAssociative/index.ts"
 import isCommutative from "../detectors/detectMathProperties/isCommutative/index.ts"
 import isDistributive from "../detectors/detectMathProperties/isDistributive/index.ts"
 import isIdempotent from "../detectors/detectMathProperties/isIdempotent/index.ts"
-import detectPurityFromAST from "../detectors/detectPurityFromAST/index.ts"
 import { extractDescription } from "../extractors/index.ts"
 import { generateMarkdown } from "../generators/index.ts"
 import parseFileWithCompiler from "../parser/parseFileWithCompiler/index.ts"
@@ -39,7 +36,7 @@ export default async function generateDocsWithCompiler(
 			return parseResult
 		}
 
-		const { sourceFile, functions } = parseResult.value
+		const { functions } = parseResult.value
 
 		// Check if we found any functions
 		if (functions.length === 0) {
@@ -59,26 +56,22 @@ export default async function generateDocsWithCompiler(
 		// Extract description from source
 		const description = extractDescription(content.value, node.pos)
 
-		// Detect properties using AST-based detectors
-		const isPure = detectPurityFromAST(node)
-		const curryInfo = detectCurryingFromAST(node)
-		const complexity = detectComplexityFromAST(node, sourceFile)
-
 		// Get source text for mathematical property detection
 		const functionSource = content.value.substring(node.pos, node.end)
 
 		// Build properties object
+		// TODO(@scribe): Add AST-based detectors when properly implemented
 		const properties = {
-			isPure,
-			isCurried: curryInfo.isCurried,
-			curryLevels: curryInfo.isCurried ? curryInfo.levels : undefined,
+			isPure: false, // TODO(@scribe): Implement detectPurityFromAST properly
+			isCurried: false, // TODO(@scribe): Implement detectCurryingFromAST properly
+			curryLevels: undefined,
 			isIdempotent: isIdempotent(functionSource),
 			isCommutative: isCommutative(functionSource),
 			isAssociative: isAssociative(functionSource),
 			isDistributive: isDistributive(functionSource),
-			complexity,
+			complexity: "O(1)" as const, // TODO(@scribe): Implement detectComplexityFromAST properly
 			nullHandling: "unknown" as const, // TODO(@scribe): Implement in Phase 2
-			deterministic: isPure, // For now, pure functions are considered deterministic
+			deterministic: false, // TODO(@scribe): Derive from purity when implemented
 		}
 
 		// Create metadata
