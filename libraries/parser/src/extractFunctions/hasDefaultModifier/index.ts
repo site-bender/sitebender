@@ -1,21 +1,21 @@
 //++ Checks if a function declaration has a default modifier
+import some from "@sitebender/toolkit/simple/array/some/index.ts"
 import * as typescript from "npm:typescript@5.7.2"
+
+import isDefaultKeyword from "./isDefaultKeyword/index.ts"
 
 export default function hasDefaultModifier(
 	node: typescript.FunctionDeclaration,
 ): boolean {
-	if (!node.modifiers) return false
-
-	let index = 0
-	const length = node.modifiers.length
-
-	while (index < length) {
-		const modifier = node.modifiers[index]
-		if (modifier.kind === typescript.SyntaxKind.DefaultKeyword) {
-			return true
-		}
-		index = index + 1
+	if (!node.modifiers) {
+		return false
 	}
 
-	return false
+	const modifiersArray = Array.from(node.modifiers)
+
+	return some(isDefaultKeyword)(modifiersArray)
 }
+
+//?? [EXAMPLE] hasDefaultModifier(defaultExportFunction) // true
+//?? [EXAMPLE] hasDefaultModifier(namedExportFunction) // false
+//?? [GOTCHA] Only works with FunctionDeclaration nodes

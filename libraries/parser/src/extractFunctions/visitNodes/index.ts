@@ -3,50 +3,17 @@ import * as typescript from "npm:typescript@5.7.2"
 
 import type { FunctionNode } from "../index.ts"
 
-import processArrowFunction from "../processArrowFunction/index.ts"
-import processFunctionDeclaration from "../processFunctionDeclaration/index.ts"
-import processFunctionExpression from "../processFunctionExpression/index.ts"
-import processMethodDeclaration from "../processMethodDeclaration/index.ts"
+import visit from "./visit/index.ts"
 
 export default function visitNodes(
 	sourceFile: typescript.SourceFile,
 ): ReadonlyArray<FunctionNode> {
 	const accumulator: Array<FunctionNode> = []
 
-	function visit(node: typescript.Node): void {
-		// Process different function types
-		if (typescript.isFunctionDeclaration(node)) {
-			const functionNode = processFunctionDeclaration(node)
-			if (functionNode) {
-				accumulator.push(functionNode)
-			}
-		}
-
-		if (typescript.isFunctionExpression(node)) {
-			const functionNode = processFunctionExpression(node)
-			if (functionNode) {
-				accumulator.push(functionNode)
-			}
-		}
-
-		if (typescript.isArrowFunction(node)) {
-			const functionNode = processArrowFunction(node)
-			if (functionNode) {
-				accumulator.push(functionNode)
-			}
-		}
-
-		if (typescript.isMethodDeclaration(node)) {
-			const functionNode = processMethodDeclaration(node)
-			if (functionNode) {
-				accumulator.push(functionNode)
-			}
-		}
-
-		// Continue traversal
-		typescript.forEachChild(node, visit)
-	}
-
-	typescript.forEachChild(sourceFile, visit)
+	typescript.forEachChild(sourceFile, visit(accumulator))
 	return accumulator
 }
+
+//?? [EXAMPLE] const functions = visitNodes(sourceFile) // Returns all function nodes
+//?? [EXAMPLE] visitNodes(sourceFile).length // Count of functions in file
+//?? [PRO] Returns immutable ReadonlyArray for safety
