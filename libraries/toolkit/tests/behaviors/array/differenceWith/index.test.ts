@@ -173,8 +173,7 @@ Deno.test("differenceWith", async (t) => {
 
 	await t.step("type safety", async (t) => {
 		await t.step("different types for minuend and subtrahend", () => {
-			const compareLengths = (str: string, num: number) =>
-				str.length === num
+			const compareLengths = (str: string, num: number) => str.length === num
 			const result = differenceWith(compareLengths)([2, 3])([
 				"a",
 				"bb",

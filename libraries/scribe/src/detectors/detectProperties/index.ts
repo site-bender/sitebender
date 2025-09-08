@@ -1,13 +1,14 @@
 import type { Properties } from "../../types/index.ts"
-import detectPurity from "../detectPurity/index.ts"
-import detectCurrying from "../detectCurrying/index.ts"
+
 import detectComplexity from "../detectComplexity/index.ts"
+import detectCurrying from "../detectCurrying/index.ts"
 import {
 	isAssociative,
 	isCommutative,
 	isDistributive,
 	isIdempotent,
 } from "../detectMathProperties/index.ts"
+import detectPurity from "../detectPurity/index.ts"
 
 /**
  * Detects all properties from source code

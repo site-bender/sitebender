@@ -1,4 +1,5 @@
 import type { FunctionSignature } from "../../types/index.ts"
+
 import formatValue from "../formatValue/index.ts"
 
 /**

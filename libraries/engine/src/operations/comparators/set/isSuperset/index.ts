@@ -32,16 +32,14 @@ const IsSuperset =
 			const left = new Set(operand.right as unknown as Iterable<unknown>)
 			const right = new Set(test.right as unknown as Iterable<unknown>)
 
-			const superset = Array.from(right.values()).every((v) =>
-				left.has(v)
-			)
+			const superset = Array.from(right.values()).every((v) => left.has(v))
 
 			return superset ? { right: true } : {
 				left: [
 					Error(op.tag)("IsSuperset")(
-						`${
-							JSON.stringify(operand.right)
-						} is not a superset of ${JSON.stringify(test.right)}`,
+						`${JSON.stringify(operand.right)} is not a superset of ${
+							JSON.stringify(test.right)
+						}`,
 					),
 				],
 			}

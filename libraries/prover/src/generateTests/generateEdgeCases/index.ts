@@ -1,6 +1,7 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
-import generateTestInput from "../generateTestInputs/index.ts"
+
 import generateEdgeCaseInputs from "../generateEdgeCaseInputs/index.ts"
+import generateTestInput from "../generateTestInputs/index.ts"
 
 /**
  * Generates edge case test scenarios based on actual type information
@@ -26,8 +27,7 @@ export default function generateEdgeCases(
 
 			return {
 				name: `handles ${inputDesc} for ${param.name}`,
-				description:
-					`Test with ${inputDesc} value for parameter ${param.name}`,
+				description: `Test with ${inputDesc} value for parameter ${param.name}`,
 				input,
 				// Don't assume expected output - let the test discover it
 				// This avoids the problem of guessing wrong outputs
@@ -38,8 +38,7 @@ export default function generateEdgeCases(
 		const optionalCases = param.optional
 			? [{
 				name: `handles missing optional ${param.name}`,
-				description:
-					`Test with optional parameter ${param.name} omitted`,
+				description: `Test with optional parameter ${param.name} omitted`,
 				input: signature.parameters.slice(0, index).map((p) =>
 					generateTestInput(p.type)
 				),

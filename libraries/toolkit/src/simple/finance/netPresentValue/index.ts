@@ -65,9 +65,7 @@ const netPresentValue = (
 
 	// Validate all cash flows are numbers
 	if (
-		!cashFlows.every((flow) =>
-			isNotNullish(flow) && typeof flow === "number"
-		)
+		!cashFlows.every((flow) => isNotNullish(flow) && typeof flow === "number")
 	) {
 		return NaN
 	}

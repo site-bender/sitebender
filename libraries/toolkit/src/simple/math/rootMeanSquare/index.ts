@@ -56,8 +56,7 @@ const rootMeanSquare = (
 
 	// Check for non-numeric values
 	const hasInvalidValue = values.some(
-		(value) =>
-			isNullish(value) || typeof value !== "number" || isNaN(value),
+		(value) => isNullish(value) || typeof value !== "number" || isNaN(value),
 	)
 
 	if (hasInvalidValue) {

@@ -26,11 +26,10 @@ const WriterM = <W>(M: Monoid<W>) => {
 		return [b, M.concat(w1, w2)]
 	}
 
-	const tell =
-		(w: W) => (wa: Writer<W, unknown>): Writer<W, unknown> => () => {
-			const [a, w1] = wa()
-			return [a, M.concat(w1, w)]
-		}
+	const tell = (w: W) => (wa: Writer<W, unknown>): Writer<W, unknown> => () => {
+		const [a, w1] = wa()
+		return [a, M.concat(w1, w)]
+	}
 
 	const run = <A>(wa: Writer<W, A>): [A, W] => wa()
 

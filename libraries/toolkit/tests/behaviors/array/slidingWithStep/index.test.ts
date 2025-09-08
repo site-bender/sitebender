@@ -304,8 +304,7 @@ Deno.test("slidingWithStep: property-based tests", () => {
 						"should be empty when array too small",
 					)
 				} else {
-					const expectedCount =
-						Math.floor((arr.length - size) / step) + 1
+					const expectedCount = Math.floor((arr.length - size) / step) + 1
 					assertEquals(
 						windows.length,
 						expectedCount,

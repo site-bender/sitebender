@@ -1,9 +1,10 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
-import groupTests from "./groupTests/index.ts"
-import generateUnitTests from "./generateUnitTests/index.ts"
-import generatePropertyTests from "./generatePropertyTests/index.ts"
+
 import generateEdgeCaseTests from "./generateEdgeCaseTests/index.ts"
 import generateErrorTests from "./generateErrorTests/index.ts"
+import generatePropertyTests from "./generatePropertyTests/index.ts"
+import generateUnitTests from "./generateUnitTests/index.ts"
+import groupTests from "./groupTests/index.ts"
 
 /**
  * Generates complete test file content

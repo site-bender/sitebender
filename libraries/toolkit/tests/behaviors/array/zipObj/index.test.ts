@@ -272,9 +272,7 @@ describe("zipObj", () => {
 					(keys, values) => {
 						const result = zipObj(values)(keys)
 						for (let i = 0; i < keys.length; i++) {
-							const expected = i < values.length
-								? values[i]
-								: undefined
+							const expected = i < values.length ? values[i] : undefined
 							if (result[keys[i]] !== expected) {
 								return false
 							}
@@ -307,9 +305,7 @@ describe("zipObj", () => {
 					fc.array(fc.string(), { minLength: 1, maxLength: 10 }),
 					(keys) => {
 						const result = zipObj([])(keys)
-						return Object.values(result).every((v) =>
-							v === undefined
-						)
+						return Object.values(result).every((v) => v === undefined)
 					},
 				),
 			)

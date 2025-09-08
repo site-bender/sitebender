@@ -9,7 +9,9 @@ export default function fromTemplate<TTemplate extends keyof typeof templates>(
 	template: TTemplate,
 ) {
 	return function withOperation<TOp extends string>(operation: TOp) {
-		return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+		return function withArguments<TArgs extends ReadonlyArray<Value>>(
+			args: TArgs,
+		) {
 			return function withTemplateArgs(
 				...templateArgs: ReadonlyArray<string | number>
 			): EngineError<TOp, TArgs> {

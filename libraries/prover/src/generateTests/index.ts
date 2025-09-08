@@ -5,22 +5,23 @@ import type {
 	TestSuite,
 } from "../types/index.ts"
 import type Logger from "../types/Logger/index.ts"
-import createConsoleLogger from "../logger/createConsoleLogger/index.ts"
-import parseSignature from "../parseSignature/index.ts"
+
+import analyzeBranches from "../analyzeBranches/index.ts"
+import generateBenchmarks from "../generateBenchmarks/index.ts"
 import generatePropertyTests from "../generatePropertyTests/index.ts"
-import writeTestFile from "../writeTestFile/index.ts"
 import {
 	needsCurriedHandling,
 	transformTestCase,
 } from "../handleCurriedFunctions/index.ts"
-import generateEdgeCases from "./generateEdgeCases/index.ts"
-import generateBranchTests from "./generateBranchTests/index.ts"
-import _validateAndImproveCoverage from "./validateAndImproveCoverage/index.ts"
-import generateImports from "./generateImports/index.ts"
+import createConsoleLogger from "../logger/createConsoleLogger/index.ts"
 import deduplicateTests from "../optimizer/deduplicateTests/index.ts"
+import parseSignature from "../parseSignature/index.ts"
 import generateToolkitPatternTests from "../patterns/toolkitPatterns/index.ts"
-import analyzeBranches from "../analyzeBranches/index.ts"
-import generateBenchmarks from "../generateBenchmarks/index.ts"
+import writeTestFile from "../writeTestFile/index.ts"
+import generateBranchTests from "./generateBranchTests/index.ts"
+import generateEdgeCases from "./generateEdgeCases/index.ts"
+import generateImports from "./generateImports/index.ts"
+import _validateAndImproveCoverage from "./validateAndImproveCoverage/index.ts"
 
 export default async function generateTests(
 	functionPath: string,
@@ -151,9 +152,7 @@ export default async function generateTests(
 
 				if (coverageResult.lines.uncovered.length > 0) {
 					logger.log(
-						`   Uncovered lines: ${
-							coverageResult.lines.uncovered.join(", ")
-						}`,
+						`   Uncovered lines: ${coverageResult.lines.uncovered.join(", ")}`,
 					)
 				}
 				if (

@@ -1,5 +1,5 @@
-import unfold from "../../../../simple/array/unfold/index.ts"
 import reverse from "../../../../simple/array/reverse/index.ts"
+import unfold from "../../../../simple/array/unfold/index.ts"
 import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Converts a BigInt to Base58 encoded string array

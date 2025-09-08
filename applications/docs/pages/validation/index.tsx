@@ -11,8 +11,7 @@ export default function ValidationDemo() {
 		<body>
 			<h1>Validation Demo</h1>
 			<p>
-				Type in the field; leaving it empty will show a required
-				message.
+				Type in the field; leaving it empty will show a required message.
 			</p>
 			<form id="val-form" data-ir-id="val-form">
 				<label for="name">Name</label>

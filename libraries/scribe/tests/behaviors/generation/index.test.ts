@@ -2,19 +2,21 @@ import {
 	assertEquals,
 	assertStringIncludes,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import {
-	formatProperties,
-	generateMarkdown,
-} from "../../../src/generators/index.ts"
-import {
-	extractDescription,
-	extractSignature,
-} from "../../../src/extractors/index.ts"
+
 import type {
 	FunctionMetadata,
 	FunctionSignature,
 	Properties,
 } from "../../../src/types/index.ts"
+
+import {
+	extractDescription,
+	extractSignature,
+} from "../../../src/extractors/index.ts"
+import {
+	formatProperties,
+	generateMarkdown,
+} from "../../../src/generators/index.ts"
 
 Deno.test("formatProperties - formats pure function badge", () => {
 	const properties: Properties = {

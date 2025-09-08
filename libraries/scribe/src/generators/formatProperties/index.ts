@@ -1,4 +1,5 @@
 import type { Properties } from "../../types/index.ts"
+
 import { PROPERTY_BADGES } from "../../constants/index.ts"
 
 /**

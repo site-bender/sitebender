@@ -3,7 +3,10 @@ import type { Value } from "../../types/index.ts"
 
 //++ Adds the original cause of an error, preserving the stack trace for debugging
 export default function withCause(cause: Error | EngineError) {
-	return function enrichError<TOp extends string, TArgs extends ReadonlyArray<Value>>(
+	return function enrichError<
+		TOp extends string,
+		TArgs extends ReadonlyArray<Value>,
+	>(
 		error: EngineError<TOp, TArgs>,
 	): EngineError<TOp, TArgs> {
 		return {

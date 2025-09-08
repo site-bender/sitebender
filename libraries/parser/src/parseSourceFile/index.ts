@@ -1,9 +1,11 @@
 //++ Parses a TypeScript source file into an AST representation
 import * as typescript from "npm:typescript@5.7.2"
+
 import type { ParseError, Result } from "../types/index.ts"
 import type { ParseOptions } from "./types/index.ts"
-import mapTarget from "./mapTarget/index.ts"
+
 import mapModule from "./mapModule/index.ts"
+import mapTarget from "./mapTarget/index.ts"
 
 export default function parseSourceFile(filePath: string) {
 	return function (

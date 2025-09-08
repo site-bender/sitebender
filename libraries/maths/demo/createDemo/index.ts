@@ -1,5 +1,6 @@
-import { parseFormula } from "../../src/index.ts"
 import type { DemoResult } from "../types/index.ts"
+
+import { parseFormula } from "../../src/index.ts"
 
 // Creates a demo result by parsing the formula with given variables
 export default function createDemo(

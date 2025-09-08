@@ -6,7 +6,9 @@ import withCause from "../withCause/index.ts"
 
 //++ Converts a caught exception into an EngineError, preserving the original error as the cause
 export default function fromException<TOp extends string>(operation: TOp) {
-	return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+	return function withArguments<TArgs extends ReadonlyArray<Value>>(
+		args: TArgs,
+	) {
 		return function withException(exception: unknown): EngineError<TOp, TArgs> {
 			const err = exception instanceof Error
 				? exception

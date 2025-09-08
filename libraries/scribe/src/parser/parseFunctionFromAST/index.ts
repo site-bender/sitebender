@@ -1,4 +1,5 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type {
 	FunctionSignature,
 	Generic,
@@ -187,8 +188,8 @@ function extractParameters(
 function findReturnTypeInBlock(block: ts.Block): string {
 	// Find first return statement with expression
 	const returnStatement = block.statements.find(
-		(stmt): stmt is ts.ReturnStatement => 
-			ts.isReturnStatement(stmt) && stmt.expression !== undefined
+		(stmt): stmt is ts.ReturnStatement =>
+			ts.isReturnStatement(stmt) && stmt.expression !== undefined,
 	)
 
 	if (!returnStatement || !returnStatement.expression) {
@@ -211,9 +212,9 @@ function findReturnTypeInBlock(block: ts.Block): string {
 			if (ts.isBlock(returnedFunc.body)) {
 				// Look for nested return
 				const hasReturn = returnedFunc.body.statements.some(
-					(stmt) => ts.isReturnStatement(stmt) && stmt.expression
+					(stmt) => ts.isReturnStatement(stmt) && stmt.expression,
 				)
-				return hasReturn 
+				return hasReturn
 					? "(y: number) => number" // TODO(@scribe): Better type inference
 					: "void"
 			} else {

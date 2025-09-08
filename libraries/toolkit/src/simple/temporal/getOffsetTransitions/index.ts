@@ -176,11 +176,9 @@ const getOffsetTransitions = (timeZone: string) =>
 							date: current,
 							offsetBefore: prevOffset,
 							offsetAfter: currentOffset,
-							type: (prevOffset < currentOffset
-								? "forward"
-								: "backward") as
-									| "forward"
-									| "backward",
+							type: (prevOffset < currentOffset ? "forward" : "backward") as
+								| "forward"
+								| "backward",
 						}]
 						: acc
 

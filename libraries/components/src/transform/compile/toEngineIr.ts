@@ -526,11 +526,7 @@ function compileOperand(x: unknown): Node {
 
 	// Logical constructors (And/Or) from engine wrappers -> comparator nodes
 	if (isLogicalCtor(x)) {
-		const tag = x.tag === "And"
-			? "Is.And"
-			: x.tag === "Or"
-			? "Is.Or"
-			: x.tag
+		const tag = x.tag === "And" ? "Is.And" : x.tag === "Or" ? "Is.Or" : x.tag
 		const ops = Array.isArray(x.operands) ? x.operands : []
 		const warnings: string[] = []
 		if ((tag === "Is.And" || tag === "Is.Or") && ops.length < 1) {
@@ -701,9 +697,7 @@ export default function compileToEngine(
 			if (typeof n === "string" || typeof n === "number") continue
 
 			if (isOnMarker(n)) {
-				const evt = n.event.startsWith("On.")
-					? n.event
-					: `On.${n.event}`
+				const evt = n.event.startsWith("On.") ? n.event : `On.${n.event}`
 				const kids = Array.isArray((n as { handler?: unknown }).handler)
 					? ((n as { handler?: unknown[] }).handler ?? [])
 					: ((n as { handler?: unknown }).handler !== undefined

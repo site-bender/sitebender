@@ -42,9 +42,7 @@ const toPascal = (s: string): string => {
 	if (words.length === 0) return s
 
 	return words
-		.map((word) =>
-			word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-		)
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
 		.join("")
 }
 

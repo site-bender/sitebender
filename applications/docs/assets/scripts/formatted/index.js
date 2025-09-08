@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						if (helpId) {
 							const helpElement = document.getElementById(helpId)
 							if (helpElement) {
-								helpElement.textContent =
-									POSTAL_CODES[countryCode].description
+								helpElement.textContent = POSTAL_CODES[countryCode].description
 							}
 						}
 					}

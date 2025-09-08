@@ -292,9 +292,7 @@ Deno.test("sort: complex sorting", async (t) => {
 		]
 
 		type Item = { id: number; value: string }
-		const sorted = sort((a: Item, b: Item) =>
-			a.value.localeCompare(b.value)
-		)(
+		const sorted = sort((a: Item, b: Item) => a.value.localeCompare(b.value))(
 			data,
 		)
 

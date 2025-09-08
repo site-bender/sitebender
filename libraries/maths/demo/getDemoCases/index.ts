@@ -1,4 +1,5 @@
 import type { DemoResult } from "../types/index.ts"
+
 import createDemo from "../createDemo/index.ts"
 
 // Returns all demo cases for testing the parser

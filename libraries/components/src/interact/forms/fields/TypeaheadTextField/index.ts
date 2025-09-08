@@ -88,9 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (!aStartsWith && bStartsWith) return 1
 				return a.localeCompare(b)
 			})
-			.filter((tag: string) =>
-				tag.toLowerCase().includes(lowerCaseFilter)
-			)
+			.filter((tag: string) => tag.toLowerCase().includes(lowerCaseFilter))
 	}
 
 	// Function to render autocomplete list

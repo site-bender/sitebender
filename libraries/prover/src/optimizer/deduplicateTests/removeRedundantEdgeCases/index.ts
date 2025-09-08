@@ -3,6 +3,7 @@
  */
 
 import type { TestCase } from "../../../types/index.ts"
+
 import isEdgeCaseCoveredByProperty from "./isEdgeCaseCoveredByProperty/index.ts"
 
 /**

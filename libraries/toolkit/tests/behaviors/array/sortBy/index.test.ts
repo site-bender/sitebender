@@ -253,9 +253,7 @@ describe("sortBy", () => {
 						}),
 					),
 					(arr) => {
-						const sorted = sortBy((x: { value: number }) =>
-							x.value
-						)(arr)
+						const sorted = sortBy((x: { value: number }) => x.value)(arr)
 						// Check that items with equal values maintain relative order
 						for (let i = 0; i < sorted.length - 1; i++) {
 							for (let j = i + 1; j < sorted.length; j++) {
